@@ -1,0 +1,218 @@
+[
+	{
+		"y": "January",
+		"x":  8,
+		"group": "Previous",
+		"stack": "A", 
+		"tooltip": "A",
+		"color": "#4b6377",
+		"highlight": false
+	},
+	{
+		"y": "January",
+		"x":  10,
+		"group": "Previous",
+		"stack": "B", 
+		"tooltip": "B",
+		"color": "#539772",
+		"highlight": false
+	},
+	{
+		"y": "January",
+		"x":  12,
+		"group": "Previous",
+		"stack": "C", 
+		"tooltip": "C",
+		"color": "pink",
+		"highlight": false
+	},
+	{
+		"y": "January",
+		"x":  12,
+		"group": "Previous",
+		"stack": "D", 
+		"tooltip": "D",
+		"color": "lightBlue",
+		"highlight": false
+	},
+	{
+		"y": "Feb",
+		"x":  10,
+		"group": "Previous",
+		"stack": "A", 
+		"tooltip": "A",
+		"color": "#4b6377",
+		"highlight": false
+	},
+	{
+		"y": "Feb",
+		"x":  12,
+		"group": "Previous",
+		"stack": "B", 
+		"tooltip": "B",
+		"color": "#539772",
+		"highlight": false
+	},
+	{
+		"y": "Feb",
+		"x":  20,
+		"group": "Previous",
+		"stack": "C", 
+		"tooltip": "C",
+		"color": "pink",
+		"highlight": false
+	},
+	{
+		"y": "Feb",
+		"x":  10,
+		"group": "Previous",
+		"stack": "D", 
+		"tooltip": "D",
+		"color": "lightBlue",
+		"highlight": false
+	},
+	{
+		"y": "March",
+		"x":  8,
+		"group": "Previous",
+		"stack": "A", 
+		"tooltip": "A",
+		"color": "#4b6377",
+		"highlight": false
+	},
+	{
+		"y": "March",
+		"x":  10,
+		"group": "Previous",
+		"stack": "B", 
+		"tooltip": "B",
+		"color": "#539772",
+		"highlight": false
+	},
+	{
+		"y": "March",
+		"x":  12,
+		"group": "Previous",
+		"stack": "C", 
+		"tooltip": "C",
+		"color": "pink",
+		"highlight": false
+	},
+	{
+		"y": "March",
+		"x":  14,
+		"group": "Previous",
+		"stack": "D", 
+		"tooltip": "D",
+		"color": "lightBlue",
+		"highlight": false
+	},
+	{
+		"y": "April",
+		"x":  8,
+		"group": "Previous",
+		"stack": "A", 
+		"tooltip": "A",
+		"color": "#4b6377",
+		"highlight": false
+	},
+	{
+		"y": "April",
+		"x":  10,
+		"group": "Previous",
+		"stack": "B", 
+		"tooltip": "B",
+		"color": "#539772",
+		"highlight": false
+	},
+	{
+		"y": "April",
+		"x":  12,
+		"group": "Previous",
+		"stack": "C", 
+		"tooltip": "C",
+		"color": "pink",
+		"highlight": false
+	},
+	{
+		"y": "April",
+		"x":  14,
+		"group": "Previous",
+		"stack": "D", 
+		"tooltip": "D",
+		"color": "lightBlue",
+		"highlight": false
+	},
+	{
+		"y": "May",
+		"x":  8,
+		"group": "Previous",
+		"stack": "A", 
+		"tooltip": "A",
+		"color": "#4b6377",
+		"highlight": false
+	},
+	{
+		"y": "May",
+		"x":  10,
+		"group": "Previous",
+		"stack": "B", 
+		"tooltip": "B",
+		"color": "#539772",
+		"highlight": false
+	},
+	{
+		"y": "May",
+		"x":  12,
+		"group": "Previous",
+		"stack": "C", 
+		"tooltip": "C",
+		"color": "pink",
+		"highlight": false
+	},
+	{
+		"y": "May",
+		"x":  14,
+		"group": "Previous",
+		"stack": "D", 
+		"tooltip": "D",
+		"color": "lightBlue",
+		"highlight": false
+	},
+	{
+		"y": "June",
+		"x":  10,
+		"group": "Previous",
+		"stack": "A", 
+		"tooltip": "A",
+		"color": "#4b6377",
+		"highlight": false
+	},
+	{
+		"y": "June",
+		"x":  16,
+		"group": "Previous",
+		"stack": "B", 
+		"tooltip": "B",
+		"color": "#539772",
+		"highlight": false
+	},
+	{
+		"y": "June",
+		"x":  20,
+		"group": "Previous",
+		"stack": "C", 
+		"tooltip": "C",
+		"color": "pink",
+		"highlight": false
+	},
+	{
+		"y": "June",
+		"x":  14,
+		"group": "Previous",
+		"stack": "D", 
+		"tooltip": "D",
+		"color": "lightBlue",
+		"highlight": false
+	}
+]

@@ -1,0 +1,104 @@
+<html>
+<head>
+	<title> Grouped Column chart </title>
+	<script src="../lib/d3.min.js"></script>
+	<script src="../lib/jquery-1.11.1.min.js"></script> 
+	<script src="../lib/underscore-min.js"></script>
+	<script src="../lib/jquery.bpopup.min.js"></script>
+	<script src="../lib/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="../src/css/PykCharts.css">
+	<link rel="stylesheet" type="text/css" href="../lib/bootstrap/css/bootstrap.min.css">
+</head>
+<body>
+	<div id="multiLine" style="width=700px">
+	</div>
+	<script src="../src/js/pyk.js"></script>	
+	<script src="../src/js/multi-series2D/multi-series2D.js"></script>
+	<script src="../src/js/multi-series2D/groupColumn.js"></script>
+
+	<script type="text/javascript">
+
+		$(document).ready(function(e) {
+		
+			var k = new PykCharts.multi_series_2D.groupedColumn({
+				selector: "#multiLine",
+				data: "../data/groupColumn.json",
+				mode : "default",
+				chart : {
+					width: 700,
+					height: 450,
+					margin: {top: 25, right: 25, bottom: 25, left: 25},
+					grid: {
+		                yEnabled: "yes",
+		                color:""
+			        }
+				},
+				optional : {
+					title: { 
+                        text: "Malnutrition in India",                            
+                    },
+                    subtitle: {
+                        text: "Malnutrition in India Malnutrition in India Malnutrition in India Malnutrition in India"
+                    },
+                    realTimeCharts: {
+                        refreshFrequency: 0 // seconds
+                    },
+					color: {
+						enable: "no",
+						color: "green"
+					},
+					saturation: {
+						enable: "yes",
+						color: "steelblue"
+					},
+					axis : {
+						onHoverHighlightenable: "yes",
+						labelColor: "black",
+						tickSize: 5,
+						ticksPadding: 6,
+						x: {
+							enable: "yes",
+							orient : "bottom",
+							no_of_ticks: 5,
+							axisColor: "#1D1D1D",
+							tickFormat: "",
+							label : "Price",
+							labelPosition: "end", // end,middle,start
+							tickValues: []
+						},
+						y: {
+							enable: "yes",
+							orient: "left",
+							no_of_ticks: 10,
+							axisColor: "#1D1D1D",
+							tickFormat: "", 
+							label : "rating",
+							labelPosition: "end" // end,middle,start
+						}
+					},
+            		legends: {
+						enable : "yes",
+						position: "top", //top 
+						display : "horizontal" //horizontal or vertical
+					},
+					creditMySite:{
+                        mySiteName: "Acme NewsCorp",
+                        mySiteUrl: "https://google.com"
+                    },
+					dataSource:{
+						enable: "yes",
+						data_src_text: "World Bank",
+						data_src_url: "http://www.pykih.com/"
+					},
+					border: {
+						enable: "yes",
+						width: "2px",
+						color: "white"
+					},
+				}
+			}); 
+			k.execute();
+		});	
+	</script>
+</body>
+</html>

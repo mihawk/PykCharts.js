@@ -1,0 +1,19 @@
+[
+  {
+    "name": "rb",
+    "weight": 100,
+    "highlight": true
+  },
+  {
+    "name": "rp",
+    "weight": 200
+  },
+  {
+    "name": "al",
+    "weight": 100
+  },
+  {
+    "name": "b",
+    "weight": 20
+  }
+]

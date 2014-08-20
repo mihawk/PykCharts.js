@@ -1,0 +1,146 @@
+<html>
+    <head>
+        <title> Tree </title>
+        <link rel="stylesheet" type="text/css" href="../lib/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="../src/css/PykCharts.css">
+
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12" style="border: 1px solid gray;">
+                    <div id="collapsibleTree"></div>
+                </div>
+                <div class="col-sm-12" style="border: 1px solid gray;">
+                    <div id="openTree"></div>
+                </div>
+            </div>
+        </div>
+
+        <script src="../lib/d3.min.js"></script>
+        <script src="../lib/jquery-1.11.1.min.js"></script>
+        <script src="../lib/underscore-min.js"></script>
+        <script src="../lib/jquery.bpopup.min.js"></script>
+        <script src="../lib/bootstrap.min.js"></script>
+        <script src="../src/js/pyk.js"></script>
+        <script src="../src/js/tree/tree.js"></script>
+        <script src="../src/js/tree/collapsibleTree.js"></script>
+        <script src="../src/js/tree/openTree.js"></script>
+        <script>
+
+        $(document).ready(function (e) {
+
+            var k = new PykCharts.tree.collapsibleTree({
+                selector: "#collapsibleTree",
+                data:"../data/tree.json",
+                chart: {
+                    height: 400,
+                    width: 430
+                },
+                optional:{
+                    title: {
+                        text: "Malnutrition in India",
+                    },
+                    subtitle: {
+                        text: "Malnutrition in India Malnutrition in India Malnutrition in India Malnutrition in India"
+                    },
+                    units : {
+                        prefix: "Rs. ", // NA in this JSON data, but just for the moment applying it
+                        suffix: "/-" // NA in this JSON data, but just for the moment applying it
+                    },
+                    dataSource:{
+                        text: "World Bank",
+                        url: "http://www.pykih.com/"
+                    },
+                    clubData: {
+                        enable:"no",
+                        text: "Others", //default: Others
+                        maximumNodes: 5, //default: 5
+                        alwaysIncludeDataPoints: ["NDA"],
+                        tooltipText:"",
+                        color:"green"
+                    },
+                    realTimeCharts: {
+                        "refreshFrequency": 0,
+                        "enableLastUpdatedAt": "yes"
+                    },
+                    transition: {
+                        duration: 0
+                    },
+                    label:{ //partially done for oneD, pending for twoD
+                      size: "13",
+                      color: "white",
+                      weight: "thin",
+                      family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
+                    },
+                    loading: {
+                      animationGifUrl: "../img/preloader.gif"
+                    },
+
+                }
+            });
+            k.execute();
+
+          });
+
+        $(document).ready(function (e) {
+            // var diff = [];
+            // var abc = setInterval(function () {
+            // var a = new Date().getTime();
+
+            var k = new PykCharts.tree.openTree({
+                selector: "#openTree",
+                data:"../data/tree.json",
+                chart: {
+                    height: 400,
+                    width: 430
+                },
+                optional:{
+                    title: {
+                        text: "Malnutrition in India",
+                    },
+                    subtitle: {
+                        text: "Malnutrition in India Malnutrition in India Malnutrition in India Malnutrition in India"
+                    },
+                    units : {
+                        prefix: "Rs. ", // NA in this JSON data, but just for the moment applying it
+                        suffix: "/-" // NA in this JSON data, but just for the moment applying it
+                    },
+                    dataSource:{
+                        text: "World Bank",
+                        url: "http://www.pykih.com/"
+                    },
+                    clubData: {
+                        enable:"no",
+                        text: "Others", //default: Others
+                        maximumNodes: 5, //default: 5
+                        alwaysIncludeDataPoints: ["NDA"],
+                        tooltipText:"",
+                        color:"green"
+                    },
+                    realTimeCharts: {
+                        "refreshFrequency": 0,
+                        "enableLastUpdatedAt": "yes"
+                    },
+                    transition: {
+                        duration: 0
+                    },
+                    label:{ //partially done for oneD, pending for twoD
+                      size: "13",
+                      color: "white",
+                      weight: "thin",
+                      family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
+                    },
+                    loading: {
+                      animationGifUrl: "../img/preloader.gif"
+                    },
+
+                }
+            });
+            k.execute();
+
+        });
+
+        </script>
+    </body>
+</html>

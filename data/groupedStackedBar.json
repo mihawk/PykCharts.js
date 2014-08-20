@@ -1,0 +1,186 @@
+[
+    { 
+        "name" : "Pykih",
+        "color" : "#FF7260",
+        "data" : [ 
+            {
+                "name" : "Wheat",
+                "data" : [
+                    {
+                        "name" : "Jan",
+                        "weight" : 123,
+                        "tooltip": 123
+                    },
+                    {
+                        "name" : "Feb",
+                        "weight" : 140,
+                        "tooltip": 140
+                    },
+                    {
+                        "name" : "Mar",
+                        "weight" : 170,
+                        "tooltip": 170
+                    }
+                ]
+            },
+            {
+                "name" : "Rice",
+                "data" : [
+                    {
+                        "name" : "Jan",
+                        "weight" : 80,
+                        "tooltip": 80
+                    },
+                    {
+                        "name" : "Feb",
+                        "weight" : 120,
+                        "tooltip": 120
+                    },
+                    {
+                        "name" : "Mar",
+                        "weight" : 145,
+                        "tooltip": 145
+                    }
+                ]
+            }
+        ]     
+    },
+    {
+        "name" : "Tata",
+        "color" : "#53A0BC",
+        "data" : [ 
+            {
+                "name" : "Wheat",
+                "data" : [
+                    {
+                        "name" : "Jan",
+                        "weight" : 100,
+                        "tooltip": 100
+                    },
+                    {
+                        "name" : "Feb",
+                        "weight" : 100,
+                        "tooltip": 100
+                    },
+                    {
+                        "name" : "Mar",
+                        "weight" : 140,
+                        "tooltip": 140
+                    }
+                ]
+            },
+            {
+                "name" : "Rice",
+                "data" : [
+                    {
+                        "name" : "Jan",
+                        "weight" : 150,
+                        "tooltip": 150
+                    },
+                    {
+                        "name" : "Feb",
+                        "weight" : 110,
+                        "tooltip": 110
+                    },
+                    {
+                        "name" : "Mar",
+                        "weight" : 120,
+                        "tooltip": 120
+                    }
+                ]
+            }
+        ]     
+    },
+    {
+        "name" : "Reliance",
+        "color" : "#129793",
+        "data" : [ 
+            {
+                "name" : "Bread",
+                "data" : [
+                    {
+                        "name" : "Jan",
+                        "weight" : 140,
+                        "tooltip": 140
+                    },
+                    {
+                        "name" : "Feb",
+                        "weight" : 130,
+                        "tooltip": 130
+                    },
+                    {
+                        "name" : "Mar",
+                        "weight" : 70,
+                        "tooltip": 70
+                    }
+                ]
+            },
+            {
+                "name" : "Biscuit",
+                "data" : [
+                    {
+                        "name" : "Jan",
+                        "weight" : 50,
+                        "tooltip": 50
+                    },
+                    {
+                        "name" : "Feb",
+                        "weight" : 30,
+                        "tooltip": 30
+                    },
+                    {
+                        "name" : "Mar",
+                        "weight" : 100,
+                        "tooltip": 100
+                    }
+                ]
+            }
+        ] 
+    },
+    {
+        "name" : "Honda",
+        "color" : "#505050",
+        "data" : [ 
+            {
+                "name" : "Milk",
+                "data" : [
+                    {
+                        "name" : "Jan",
+                        "weight" : 60,
+                        "tooltip": 60
+                    },
+                    {
+                        "name" : "Feb",
+                        "weight" : 40,
+                        "tooltip": 40
+                    },
+                    {
+                        "name" : "Mar",
+                        "weight" : 80,
+                        "tooltip": 80
+                    }
+                ]
+            },
+            {
+                "name" : "Cheese",
+                "data" : [
+                    {
+                        "name" : "Jan",
+                        "weight" : 123,
+                        "tooltip": 123
+                    },
+                    {
+                        "name" : "Feb",
+                        "weight" : 100,
+                        "tooltip": 100
+                    },
+                    {
+                        "name" : "Mar",
+                        "weight" : 150,
+                        "tooltip": 150
+                    }
+                ]
+            }
+        ]
+    }
+]

@@ -1,0 +1,52 @@
+[			
+	{
+		"name":"India",
+		"color": "#e65f2d",
+		"x":"Bank",
+		"y":30,
+		"tooltip":30
+	},
+	{
+		"name":"India",
+		"color": "#e65f2d",
+		"x":"IT",
+		"y":60,
+		"tooltip":60
+	},	
+	{
+		"name":"India",
+		"color": "#e65f2d",
+		"x":"Cables",
+		"y":30,
+		"tooltip":30
+	},
+	{
+		"name":"India",
+		"color": "#e65f2d",
+		"x":"Crude Oil",
+		"y":40,
+		"tooltip":40
+	},
+	{
+
+		"name":"India",
+		"color": "#e65f2d",
+		"x":"Diamond",
+		"y":50,
+		"tooltip":50
+	},
+	{
+		"name":"India",
+		"color": "#e65f2d",
+		"x":"Healthcare",
+		"y":40,
+		"tooltip":40
+	},
+	{
+		"name":"India",
+		"color": "#e65f2d",
+		"x":"Automobile",
+		"y":70,
+		"tooltip":70
+	}
+]

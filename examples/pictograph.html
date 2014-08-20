@@ -1,0 +1,59 @@
+<html>
+	<head>
+         <title> Pictograph </title>
+		<script src="../lib/d3.min.js"> </script>
+		<script src="../lib/jquery-1.11.1.min.js"></script> 
+		<script src="../lib/underscore-min.js"></script>
+		<script src="../lib/jquery.bpopup.min.js"></script>
+        <script src="../lib/bootstrap.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="../src/css/PykCharts.css">
+        <link rel="stylesheet" type="text/css" href="../lib/bootstrap/css/bootstrap.min.css">
+	</head>
+
+	<body>
+		<div id="pictograph" style="position:relative;">
+        </div>
+		<script src="../src/js/pyk.js"></script>
+		<script src="../src/js/oneD/oneD.js"></script>
+        <script src="../src/js/oneD/pictograph.js"></script>
+		<script>
+
+		$(document).ready(function (e) {
+
+			var k = new PykCharts.oneD.pictograph({
+				selector: "#pictograph",
+				data:"../data/pictograph.json",
+                mode:"default",
+				optional:{
+        			chart: {
+            			height: 600,
+            			width: 1000
+        			},
+        			title: {
+                        enable: "yes",
+                        text: "Malnutrition in India",
+                        subtitle: {
+                            text: "Malnutrition in India Malnutrition in India Malnutrition in India Malnutrition in India"
+                        }
+                    },
+                    dataSource:{
+                        enable: "yes",
+                        data_src_text: "World Bank",
+                        data_src_url: "http://www.pykih.com/"
+                    },
+                    transition: {
+                        enable: "yes",
+                        duration: 1000
+                    },
+                    show_active:"yes", //removes the grey heart i.e just shows the actual number of heart
+                    enable_label:"yes", //shows both the text when yes 
+                    label_text:"yes", //shows only the actual number when yes
+                    image_per_line: 5
+			 	}
+			 });
+			k.execute();
+		});				
+
+		</script>
+	</body>
+</html>

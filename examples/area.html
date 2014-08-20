@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Area Chart</title>
+		<script type="text/javascript" src="../lib/d3.min.js"></script>
+		<script src="../lib/underscore-min.js"></script>
+		<script type="text/javascript" src="../lib/jquery-1.11.1.min.js"></script>
+		<script type="text/javascript"  src="../lib/jquery.bpopup.min.js"></script>
+				
+		<!-- <link rel="stylesheet" type="text/css" href="../lib/bootstrap/css/bootstrap.min.css"> -->
+		<link rel="stylesheet" type="text/css" href="../src/css/PykCharts.css">
+	</head>
+	<body>
+		<div id="area" style="position:relative;"></div>
+		<script type="text/javascript" src="../src/js/pyk.js"></script>
+		<script type="text/javascript" src="../src/js/twoD/twoD.js"></script>
+		<script type="text/javascript" src="../src/js/multiD/areaChart.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function (e) {
+				var k = new PykCharts.twoD.area({
+					selector: "#area",
+				    data: "../data/lineChart.json",
+					mode : "default",
+					yAxisDataFormat : "number",
+					xAxisDataFormat : "string",
+					chart: {
+			            height: 400,
+			            width: 700,
+                        margin: {top: 5, right: 25, bottom: 25, left: 35}, // top >=10
+                        grid: {
+			                xEnabled: "yes",
+			                yEnabled: "yes",
+							color: ""
+			            },
+				    },
+					optional:{
+						transition : {
+							duration : 1000		//milliseconds
+						},
+						title: { 
+							text: "Malnutrition in India",							
+						},
+						subtitle: {
+							text: "Malnutrition in India Malnutrition in India Malnutrition in India Malnutrition in India"
+						},
+						realTimeCharts: {
+							refreshFrequency: 0 // seconds
+						},
+						enableTooltip: "yes",
+						axis : {
+    						onHoverHighlightenable: "yes",
+    						x: {
+    							enable: "yes",
+    							orient : "bottom",
+    							axisColor: "#1D1D1D",
+    							labelColor: "black",
+    							no_of_ticks: 10,
+    							tickSize: 5,
+    							ticksPadding: 6,
+    							tickFormat: "",
+    							tickValues: []
+    						},
+    						y: {
+    							enable: "yes",
+    							orient: "left",
+    							axisColor: "#1D1D1D",
+    							labelColor: "black",
+    							tickSize: 5,
+    							ticksPadding: 6,
+    							no_of_ticks: 10,
+    							tickFormat: ""
+    						}
+    					},
+    					dataSource:{
+	                        text: "World Bank",
+	                        url: "http://www.pykih.com/"
+	                    },
+	                    border: {
+							enable: "yes",
+							width: "1px",
+							color: "white"
+						},
+						creditMySite:{
+	                        mySiteName: "Acme NewsCorp",
+	                        mySiteUrl: "https://google.com"
+	                    },					
+						curvy_lines : "yes",
+			            enableCrossHair: "yes",
+			            zoom: {
+			                enable: "yes"
+			        	}
+				    }
+				});
+				k.execute();
+			});
+
+		</script>
+	</body>
+</html>

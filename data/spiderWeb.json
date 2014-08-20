@@ -1,0 +1,85 @@
+    [
+    
+        {
+            "x": "Yellow",
+            "y": 5,
+            "weight":15,
+            "group":"A",
+            "color": "#ffbb78",
+            "tooltip": "Jan-Yellow Tooltip"
+        },
+        {
+            "x": "Orange",
+            "y": 10,
+            "weight":20,
+            "group":"A",
+            "color": "#ff7f0e",
+            "tooltip": "Jan-Orange Tooltip"
+        },
+        {
+            "x": "Red",
+            "y": 12,
+            "weight":10,
+            "group":"A",
+            "color": "#d62728",        
+            "tooltip": "Jan-Red Tooltip"
+        },
+        {
+            "x": "Blue",
+            "y": 17,
+            "weight":30,
+            "group":"A",
+            "color": "#aec7e8",
+            "tooltip": "Jan-Blue Tooltip"
+        },
+        {
+            "x": "Dark Blue",
+            "y": 30,
+            "weight":25,
+            "group":"A",
+            "color": "#1f77b4",
+            "tooltip": "Jan-Dark Blue Tooltip"
+        },
+
+        {
+            "x": "Yellow",
+            "y": 40,
+            "weight":25,
+            "group":"B",
+            "color": "#ffbb78",
+            "tooltip": "Jan-Yellow"
+        },
+        {
+            "x": "Orange",
+            "y": 20,
+            "weight":10,
+            "group":"B",
+            "color": "#ff7f0e",
+            "tooltip": "Jan-Orange"
+        },
+        {
+            "x": "Red",
+            "y": 30,
+            "weight":30,
+            "group":"B",
+            "color": "#d62728",        
+            "tooltip": "Jan-Red"
+        },
+        {
+            "x": "Blue",
+            "y": 5,
+            "weight":12,
+            "group":"B",
+            "color": "#aec7e8",
+            "tooltip": "Jan-Blue"
+        },
+        {
+            "x": "Dark Blue",
+            "y": 15,
+            "weight":7,
+            "group":"B",
+            "color": "#1f77b4",
+            "tooltip": "Jan-Dark Blue "
+        }
+    
+]

@@ -1,0 +1,103 @@
+<html>
+<head>
+	<title>Scatter Plot</title>
+	<script src="../lib/d3.min.js"></script>
+	<script src="../lib/jquery-1.11.1.min.js"></script> 
+	<script src="../lib/underscore-min.js"></script>
+	<script src="../lib/jquery.bpopup.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="../src/css/PykCharts.css">
+</head>
+<body>
+	<div id="scatterplot" style="position:relative;width:1000px;"></div>
+	<script src="../src/js/pyk.js"></script>
+	<script src="../src/js/twoD/twoD.js"></script>
+	<script src="../src/js/weighted/weighted.js"></script>
+	<script src="../src/js/multiD/scatterplot.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(e) {		
+			var k = new PykCharts.weighted.scatterplot({
+				selector: "#scatterplot",
+				data: "../data/scatterplot.json",
+				mode : "default", //  default or infographics
+				yAxisDataFormat : "number",
+				xAxisDataFormat : "number",
+				chart : {
+					width: 800,
+					height: 450,					
+					margin: {top: 25, right: 25, bottom: 25, left: 55},
+					grid: {
+		                xEnabled: "yes",
+		                yEnabled: "yes",
+		                color:""
+			       },
+				},
+				scatterplot : {
+					radius: 9
+				},
+				optional : {
+					title: { 
+                        text: "Malnutrition in India"                            
+                    },
+                    subtitle: {
+                        text: "Malnutrition in India Malnutrition in India Malnutrition in India Malnutrition in India"
+                    },
+                    realTimeCharts: {
+                        refreshFrequency: 0 // seconds
+                    },
+					multiple_containers: {
+						enable : "no"
+					},	
+					size : {
+						enable : "no"
+					},
+					axis : {
+						x: {
+							enable: "yes",
+							orient : "bottom",
+							axisColor: "#1D1D1D",
+							no_of_ticks: 2,
+							tickFormat: "",
+							tickSize: 5,
+							ticksPadding: 6,
+							labelColor: "red",
+							tickValues: []
+						},
+						y: {
+							enable: "yes",
+							orient: "left",
+							axisColor: "#1D1D1D",
+							no_of_ticks: 5,
+							tickSize: 5,
+							ticksPadding: 6,
+							tickFormat: "", 
+							labelColor: "black"						
+						}
+					},
+		            legends: {
+		            	enable: "no",
+						display: "horizontal" // top or bottom
+					},
+					zoom: {
+		                enable: "yes"
+		        	},
+		        	creditMySite:{
+                        mySiteName: "Acme NewsCorp",
+                        mySiteUrl: "https://google.com"
+                    },
+					dataSource:{
+						text: "World Bank",
+						url: "http://www.pykih.com/"
+					},
+					border: {
+						enable: "yes",
+						width: "5px",
+						color: "red"
+					},
+					enableCrossHair: "yes"
+				}
+			}); 
+			k.execute();
+		});	
+	</script>
+</body>
+</html>

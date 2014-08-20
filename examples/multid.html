@@ -1,0 +1,808 @@
+<html>
+    <head>
+        <title> multiD Charts </title>
+        <link rel="stylesheet" type="text/css" href="../lib/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="../src/css/PykCharts.css">
+
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6" style="border: 1px solid gray;">
+                    <div id="bar"></div>
+                </div>
+                <div class="col-sm-6" style="border: 1px solid gray;">
+                    <div id="column"></div>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-sm-6" style="border: 1px solid gray;">
+                    <div id="line"></div>
+                </div>
+                <div class="col-sm-6" style="border: 1px solid gray;">
+                    <div id="area"></div>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-sm-6" style="border: 1px solid gray;">
+                    <div id="pulse"></div>
+                </div>
+                <div class="col-sm-6" style="border: 1px solid gray;">
+                    <div id="scatterPlot"></div>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-sm-6" style="border: 1px solid gray;">
+                    <div id="multiLine"></div>
+                </div>
+                <div class="col-sm-6" style="border: 1px solid gray;">
+                    <div id="multiArea"></div>
+                </div>
+            </div>
+            <hr>
+             <div class="row">
+                <div class="col-sm-6" style="border: 1px solid gray;">
+                    <div id="spiderWeb"></div>
+                </div>
+                <div class="col-sm-6" style="border: 1px solid gray;">
+                    <div id="ultimate"></div>
+                </div>
+            </div>
+        </div>
+
+        <script src="../lib/d3.min.js"></script>
+        <script src="../lib/jquery-1.11.1.min.js"></script>
+        <script src="../lib/underscore-min.js"></script>
+        <script src="../lib/jquery.bpopup.min.js"></script>
+        <script src="../lib/bootstrap.min.js"></script>
+        <script src="../lib/custom-hive.js"></script>
+        <script src="../src/js/pyk.js"></script>
+        <script src="../src/js/multiD/twoD.js"></script>
+        <script src="../src/js/multiD/weighted.js"></script>
+        <script src="../src/js/multiD/multi-series2D.js"></script>
+        <script src="../src/js/multiD/ultimate.js"></script>
+        <script src="../src/js/multiD/barChart.js"></script>
+        <script src="../src/js/multiD/columnChart.js"></script>
+        <script src="../src/js/multiD/areaChart.js"></script>
+        <script src="../src/js/multiD/lineChart.js"></script>
+        <script src="../src/js/multiD/spiderWeb.js"></script>
+        <script src="../src/js/multiD/scatterplot.js"></script>
+        <script>
+
+        $(document).ready(function (e) {
+            var k = new PykCharts.twoD.bar({
+                selector: "#bar",
+                data: "../data/barChart.json",
+                mode : "default",  // default or infographic
+                yAxisDataFormat : "string",
+                xAxisDataFormat : "number",
+                chart: {
+                    height: 400,
+                    width: 430,
+                    padding: {top: 0, right: 0, bottom: 0, left: 0},
+                    margin: {top: 20, right: 20, bottom: 20, left: 82},
+                    grid: {
+                        xEnabled: "yes",
+                        color: ""
+                    }
+                },
+                optional:{
+                    transition : {
+                        duration : 0        //milliseconds
+                    },
+                    title: { 
+                        text: "Malnutrition in India",
+                        
+                    },
+                    subtitle: {
+                        text: "Malnutrition in India Malnutrition in India Malnutrition in India Malnutrition in India"
+                    },
+                    realTimeCharts: {
+                        refreshFrequency: 0 // seconds
+                    },
+                    axis : {
+                        onHoverHighlightenable: "yes",
+                        x: {
+                            enable: "yes",
+                            orient : "top",
+                            axisColor: "#1D1D1D",
+                            labelColor: "black",
+                            no_of_ticks: 10,
+                            tickSize: 5,
+                            ticksPadding: 6,
+                            tickFormat: "",
+                            tickValues: []
+                        },
+                        y: {
+                            enable: "yes",
+                            orient: "left",
+                            axisColor: "#1D1D1D",
+                            labelColor: "black",
+                            tickSize: 5,
+                            ticksPadding: 6,
+                            no_of_ticks: 10,
+                            tickFormat: ""
+                        }
+                    },                          
+                    dataSource:{
+                        text: "World Bank",
+                        url: "http://www.pykih.com/"
+                    },
+                    border: {
+                        enable: "yes",
+                        width: "1px",
+                        color: "white"
+                    },
+                    creditMySite:{
+                        mySiteName: "Acme NewsCorp",
+                        mySiteUrl: "https://google.com"
+                    }
+                }
+            });
+            k.execute();
+
+            var k = new PykCharts.twoD.column({
+                    selector: "#column",
+                    data: "../data/columnChart.json",
+                    mode : "default",  // default or infographic
+                    yAxisDataFormat : "number",
+                    xAxisDataFormat : "string",
+                    chart: {
+                        height: 400,
+                        width: 430,
+                        padding: {top: 0, right: 0, bottom: 0, left: 0},
+                        margin: {top: 20, right: 20, bottom: 20, left: 30},
+                        grid: {
+                            yEnabled: "yes",
+                            color: ""
+                        }
+                    },
+                    optional:{
+                        transition : {
+                            duration : 1000     //milliseconds
+                        },
+                        title: { 
+                            text: "Malnutrition in India",
+                            
+                        },
+                        subtitle: {
+                            text: "Malnutrition in India Malnutrition in India Malnutrition in India Malnutrition in India"
+                        },
+                        realTimeCharts: {
+                            refreshFrequency: 0 // seconds
+                        },
+                        axis : {
+                            onHoverHighlightenable: "yes",
+                            x: {
+                                enable: "yes",
+                                orient : "bottom",
+                                axisColor: "#1D1D1D",
+                                labelColor: "black",
+                                no_of_ticks: 10,
+                                tickSize: 5,
+                                ticksPadding: 6,
+                                tickFormat: "",
+                                tickValues: []
+                            },
+                            y: {
+                                enable: "yes",
+                                orient: "left",
+                                axisColor: "#1D1D1D",
+                                labelColor: "black",
+                                tickSize: 5,
+                                ticksPadding: 6,
+                                no_of_ticks: 10,
+                                tickFormat: ""
+                            }
+                        },                          
+                        dataSource:{
+                            text: "World Bank",
+                            url: "http://www.pykih.com/"
+                        },
+                        border: {
+                            enable: "yes",
+                            width: "1px",
+                            color: "white"
+                        },
+                        creditMySite:{
+                            mySiteName: "Acme NewsCorp",
+                            mySiteUrl: "https://google.com"
+                        }
+                    }
+                });
+                k.execute();
+
+                var k = new PykCharts.twoD.line({
+                    selector: "#line",
+                    data: "../data/lineChart.json",
+                    mode : "default",
+                    yAxisDataFormat : "number",
+                    xAxisDataFormat : "string",
+                    chart: {
+                        height: 400,
+                        width: 430,
+                        margin: {top: 5, right: 25, bottom: 25, left: 35}, // top >=10
+                        padding: {top: 25, right: 25, bottom: 25, left: 25},
+                        grid: {
+                            xEnabled: "yes",
+                            yEnabled: "yes",
+                            color: ""
+                        },
+                    },
+                    optional:{
+                        transition : {
+                            duration : 0 //milliseconds
+                        },
+                        title: { 
+                            text: "Malnutrition in India"
+                        },
+                        subtitle: {
+                            text: "Malnutrition in India Malnutrition in India Malnutrition in India Malnutrition in India"
+                        },
+                        realTimeCharts: {
+                            refreshFrequency: 0 // seconds
+                        },
+                        axis : {
+                            onHoverHighlightenable: "no",
+                            x: {
+                                enable: "yes",
+                                orient : "bottom",
+                                axisColor: "#1D1D1D",
+                                labelColor: "#1D1D1D",
+                                no_of_ticks: 10,
+                                tickSize: 5,
+                                ticksPadding: 6,
+                                tickFormat: "",
+                                tickValues: []
+                            },
+                            y: {
+                                enable: "yes",
+                                orient: "left",
+                                axisColor: "#1D1D1D",
+                                labelColor: "#1D1D1D",
+                                tickSize: 5,
+                                ticksPadding: 6,
+                                no_of_ticks: 10,
+                                tickFormat: ""
+                            }
+                        },
+                        dataSource:{
+                            text: "World Bank",
+                            url: "http://www.pykih.com/"
+                        },
+                        creditMySite:{
+                            mySiteName: "Acme NewsCorp",
+                            mySiteUrl: "https://google.com"
+                        },                  
+                        curvy_lines : "yes",
+                        enableCrossHair: "yes",
+                        zoom: {
+                            enable: "yes"
+                        }
+                    }
+                });
+                k.execute();
+
+                var k = new PykCharts.twoD.area({
+                    selector: "#area",
+                    data: "../data/lineChart.json",
+                    mode : "default",
+                    yAxisDataFormat : "number",
+                    xAxisDataFormat : "string",
+                    chart: {
+                        height: 400,
+                        width: 430,
+                        margin: {top: 5, right: 25, bottom: 25, left: 35}, // top >=10
+                        grid: {
+                            xEnabled: "yes",
+                            yEnabled: "yes",
+                            color: ""
+                        }
+                    },
+                    optional:{
+                        transition : {
+                            duration : 0 //milliseconds
+                        },
+                        title: { 
+                            text: "Malnutrition in India"
+                        },
+                        subtitle: {
+                            text: "Malnutrition in India Malnutrition in India Malnutrition in India Malnutrition in India"
+                        },
+                        realTimeCharts: {
+                            refreshFrequency: 0 // seconds
+                        },
+                        axis : {
+                            onHoverHighlightenable: "yes",
+                            x: {
+                                enable: "yes",
+                                orient : "bottom",
+                                axisColor: "#1D1D1D",
+                                labelColor: "black",
+                                no_of_ticks: 10,
+                                tickSize: 5,
+                                ticksPadding: 6,
+                                tickFormat: "",
+                                tickValues: []
+                            },
+                            y: {
+                                enable: "yes",
+                                orient: "left",
+                                axisColor: "#1D1D1D",
+                                labelColor: "black",
+                                tickSize: 5,
+                                ticksPadding: 6,
+                                no_of_ticks: 10,
+                                tickFormat: ""
+                            }
+                        },
+                        dataSource:{
+                            text: "World Bank",
+                            url: "http://www.pykih.com/"
+                        },
+                        creditMySite:{
+                            mySiteName: "Acme NewsCorp",
+                            mySiteUrl: "https://google.com"
+                        },                  
+                        curvy_lines : "yes",
+                        enableCrossHair: "yes",
+                        zoom: {
+                            enable: "yes"
+                        }
+                    }
+                });
+                k.execute();
+
+                var k = new PykCharts.weighted.spiderWeb({
+                selector: "#spiderWeb",
+                data: "../data/spiderWeb.json",
+                mode : "default", //  default or infographics
+                chart : {
+                    width: 400,
+                    height: 430,
+                    margin: {top: 25, right: 25, bottom: 25, left: 55}
+                },
+                spiderweb : {
+                    radius : 5,
+                    outer_radius :200,
+                },
+                optional : {
+                    title: { 
+                        text: "Malnutrition in India",                            
+                    },
+                    subtitle: {
+                        text: "Malnutrition in India Malnutrition in India Malnutrition in India Malnutrition in India"
+                    },
+                    realTimeCharts: {
+                        refreshFrequency: 0 // seconds
+                    },
+                    size : {
+                       enable : "yes",
+                    },
+                    enableTicks: "yes",
+                    border: {
+                        enable: "yes",
+                        width: "1.5px",
+                        color: "#000"
+                    },
+                    creditMySite:{
+                        mySiteName: "Acme NewsCorp",
+                        mySiteUrl: "https://google.com"
+                    },
+                    dataSource:{
+                        text: "World Bank",
+                        url: "http://www.pykih.com/"
+                    }, 
+                    legends: {
+                        enable: "yes", //will be enabled only when size is "no"
+                        display: "horizontal" //horizontal or vertical
+                    },
+                    axisTitle: "yes"
+                }
+            }); 
+            k.execute();
+
+            var k = new PykCharts.weighted.scatterplot({
+                selector: "#scatterPlot",
+                data: "../data/scatterplot.json",
+                mode : "default", //  default or infographics
+                yAxisDataFormat : "number",
+                xAxisDataFormat : "number",
+                chart : {
+                    width: 400,
+                    height: 430,
+                    
+                    margin: {top: 25, right: 25, bottom: 25, left: 55},
+                    grid: {
+                        xEnabled: "yes",
+                        yEnabled: "yes",
+                        color:""
+                    },
+                    scatterplot : {
+                        radius: 9,
+                    }
+                },
+                optional : {
+                    title: { 
+                        text: "Malnutrition in India",
+                            
+                    },
+                    subtitle: {
+                        text: "Malnutrition in India Malnutrition in India Malnutrition in India Malnutrition in India"
+                    },
+                    realTimeCharts: {
+                        refreshFrequency: 0 // seconds
+                    },
+                    multiple_containers: {
+                        enable : "no",
+                    },                  
+                    size : {
+                        enable : "yes"
+                    },
+                    axis : {
+                        labelColor: "black",
+                        tickSize: 5,
+                        ticksPadding: 6,
+                        x: {
+                            enable: "yes",
+                            orient : "bottom",
+                            axisColor: "#1D1D1D",
+                            no_of_ticks: 10,
+                            tickFormat: "",
+                            label : "Price",
+                            labelPosition: "end", // end,middle,start
+                            tickValues: []
+                        },
+                        y: {
+                            enable: "yes",
+                            orient: "left",
+                            axisColor: "#1D1D1D",
+                            no_of_ticks: 3,
+                            tickFormat: "", 
+                            label : "rating",
+                            labelPosition: "end" // end,middle,start
+                        }
+                    },
+                    legends: {
+                        enable: "yes", //legends will be enabled when size is no
+                        display: "horizontal" //horizontal or vertical
+                    },
+                    zoom: {
+                        enable: "yes"
+                    },
+                    creditMySite:{
+                        mySiteName: "Acme NewsCorp",
+                        mySiteUrl: "https://google.com"
+                    },
+                    dataSource:{
+                        text: "World Bank",
+                        url: "http://www.pykih.com/"
+                    },
+                    border: {
+                        enable: "no",
+                        width: "1px",
+                        color: "blue"
+                    },
+                    crossHair: {
+                        enable: "yes"
+                    }
+                }
+            }); 
+            k.execute();
+
+            var k = new PykCharts.twoD.line({
+                selector: "#multiLine",
+                data: "../data/multiLineChart.json",
+                mode : "default",
+                yAxisDataFormat : "number",
+                xAxisDataFormat : "string",
+                chart: {
+                    height: 400,
+                    width: 430,
+                    margin: {top: 5, right: 25, bottom: 25, left: 35}, // top >=10
+                    padding: {top: 25, right: 25, bottom: 25, left: 25},
+                    grid: {
+                        xEnabled: "no",
+                        yEnabled: "yes",
+                        color: ""
+                    },
+                },
+                optional:{
+                    transition : {
+                        duration : 0 //milliseconds
+                    },
+                    title: { 
+                        text: "Malnutrition in India",                          
+                    },
+                    subtitle: {
+                        text: "Malnutrition in India Malnutrition in India Malnutrition in India Malnutrition in India"
+                    },
+                    realTimeCharts: {
+                        refreshFrequency: 0 // seconds
+                    },
+                    axis : {
+                        onHoverHighlightenable: "yes",
+                        x: {
+                            enable: "yes",
+                            orient : "bottom",
+                            axisColor: "#1D1D1D",
+                            labelColor: "#1D1D1D",
+                            no_of_ticks: 10,
+                            tickSize: 5,
+                            ticksPadding: 6,
+                            tickFormat: "",
+                            tickValues: []
+                        },
+                        y: {
+                            enable: "yes",
+                            orient: "left",
+                            axisColor: "#1D1D1D",
+                            labelColor: "#1D1D1D",
+                            tickSize: 5,
+                            ticksPadding: 6,
+                            no_of_ticks: 10,
+                            tickFormat: ""
+                        }
+                    },
+                    dataSource:{
+                        text: "World Bank",
+                        url: "http://www.pykih.com/"
+                    },
+                    creditMySite:{
+                        mySiteName: "Acme NewsCorp",
+                        mySiteUrl: "https://google.com"
+                    },                  
+                    curvy_lines : "yes",
+                    enableCrossHair: "yes",
+                    zoom: {
+                        enable: "yes"
+                    }
+                }
+            });
+            k.execute();
+
+            var k = new PykCharts.twoD.area({
+                    selector: "#multiArea",
+                    data: "../data/multiLineChart.json",
+                    mode : "default",
+                    yAxisDataFormat : "number",
+                    xAxisDataFormat : "string",
+                    chart: {
+                        height: 400,
+                        width: 430,
+                        margin: {top: 5, right: 25, bottom: 25, left: 35}, // top >=10
+                        grid: {
+                            xEnabled: "yes",
+                            yEnabled: "yes",
+                            color: ""
+                        },
+                    },
+                    optional:{
+                        transition : {
+                            duration : 1000     //milliseconds
+                        },
+                        title: { 
+                            text: "Malnutrition in India",                          
+                        },
+                        subtitle: {
+                            text: "Malnutrition in India Malnutrition in India Malnutrition in India Malnutrition in India"
+                        },
+                        realTimeCharts: {
+                            refreshFrequency: 0 // seconds
+                        },
+                        axis : {
+                            x: {
+                                enable: "yes",
+                                orient : "bottom",
+                                axisColor: "#1D1D1D",
+                                labelColor: "black",
+                                no_of_ticks: 10,
+                                tickSize: 5,
+                                ticksPadding: 6,
+                                tickFormat: "",
+                                tickValues: []
+                            },
+                            y: {
+                                enable: "yes",
+                                orient: "left",
+                                axisColor: "#1D1D1D",
+                                labelColor: "black",
+                                tickSize: 5,
+                                ticksPadding: 6,
+                                no_of_ticks: 10,
+                                tickFormat: ""
+                            }
+                        },
+                        dataSource:{
+                            text: "World Bank",
+                            url: "http://www.pykih.com/"
+                        },
+                        border: {
+                            enable: "yes",
+                            width: "1px",
+                            color: "white"
+                        },
+                        creditMySite:{
+                            mySiteName: "Acme NewsCorp",
+                            mySiteUrl: "https://google.com"
+                        },                  
+                        curvy_lines : "yes",
+                        enableCrossHair: "yes",
+                        zoom: {
+                            enable: "yes"
+                        }
+                    }
+                });
+                k.execute();
+
+                var k = new PykCharts.weighted.scatterplot({
+                    selector: "#pulse",
+                    data: "../data/pulse.json",
+                    mode : "default", //  default or infographics
+                    yAxisDataFormat : "string",
+                    xAxisDataFormat : "number",
+                    chart : {
+                            width: 400,
+                            height: 430,
+                            
+                            margin: {top: 25, right: 25, bottom: 25, left: 55},
+                            grid: {
+                                xEnabled: "yes",
+                                yEnabled: "yes",
+                                color:""
+                           },
+                    scatterplot : {
+                        radius: 9,
+                    }
+                    },
+                    optional : {
+                        title: { 
+                            text: "Malnutrition in India",
+                                
+                        },
+                        subtitle: {
+                            text: "Malnutrition in India Malnutrition in India Malnutrition in India Malnutrition in India"
+                        },
+                        realTimeCharts: {
+                            refreshFrequency: 0 // seconds
+                        },
+                        multiple_containers: {
+                            enable : "no",
+                        },                  
+                        size : {
+                            enable : "yes"
+                        },
+                        axis : {
+                            labelColor: "black",
+                            tickSize: 5,
+                            ticksPadding: 6,
+                            x: {
+                                enable: "yes",
+                                orient : "bottom",
+                                axisColor: "#1D1D1D",
+                                no_of_ticks: 10,
+                                tickFormat: "",
+                                label : "Price",
+                                labelPosition: "end", // end,middle,start
+                                tickValues: []
+                            },
+                            y: {
+                                enable: "yes",
+                                orient: "left",
+                                axisColor: "#1D1D1D",
+                                no_of_ticks: 3,
+                                tickFormat: "", 
+                                label : "rating",
+                                labelPosition: "end" // end,middle,start
+                            }
+                        },
+                        legends: {
+                            enable: "yes",
+                            display: "horizontal" //horizontal or vertical
+                        },
+                        zoom: {
+                            enable: "yes" //not there for pulse
+                        },
+                        creditMySite:{
+                            mySiteName: "Acme NewsCorp",
+                            mySiteUrl: "https://google.com"
+                        },
+                        dataSource:{
+                            text: "World Bank",
+                            url: "http://www.pykih.com/"
+                        },
+                        border: {
+                            enable: "no",
+                            width: "1px",
+                            color: "blue"
+                        },
+                        crossHair: {
+                            enable: "yes"
+                        }
+                    }
+                }); 
+            k.execute();
+
+            var k = new PykCharts.multi_series_2D.ultimate({
+                data: "../data/ultimate.json",
+                selector: "#ultimate",
+                chart : {
+                    width: 400,
+                    height: 430,
+                    margin: {top: 25, right: 25, bottom: 25, left: 25},
+                    grid: {
+                        yEnabled: "yes",
+                        color:""
+                    }
+                },
+                optional : {
+                    title: { 
+                        text: "Malnutrition in India",                            
+                    },
+                    subtitle: {
+                        text: "Malnutrition in India Malnutrition in India Malnutrition in India Malnutrition in India"
+                    },
+                    realTimeCharts: {
+                        refreshFrequency: 0 // seconds
+                    },
+                    axis : {
+                        onHoverHighlightenable: "yes",
+                        labelColor: "black",
+                        tickSize: 5,
+                        ticksPadding: 6,
+                        x: {
+                            enable: "yes",
+                            orient : "bottom",
+                            axisColor: "#1D1D1D",
+                            no_of_ticks: 10,
+                            tickFormat: "",
+                            label : "Price",
+                            labelPosition: "end", // end,middle,start
+                            tickValues: []
+                        },
+                        y: {
+                            enable: "yes",
+                            orient: "left",
+                            axisColor: "#1D1D1D",
+                            no_of_ticks: 10,
+                            tickFormat: "", 
+                            label : "rating",
+                            labelPosition: "end" // end,middle,start
+                        }
+                    },
+                    colors:{
+                        backgroundColor: "white",
+                        chartColor: "steelblue",
+                        highlightColor: "#013F73",
+                    },
+                    legends: {
+                        enable : "yes",
+                        display : "horizontal" //horizontal or vertical
+                    },
+                    creditMySite:{
+                        mySiteName: "Acme NewsCorp",
+                        mySiteUrl: "https://google.com"
+                    },
+                    dataSource:{
+                        text: "World Bank",
+                        url: "http://www.pykih.com/"
+                    },
+                    borderBetweenChartElements:{ //done for oneD
+                        width: "1px", // if width is 0 means it is disabled.
+                        color: "white",
+                        style: "solid" // could be dotted too
+                    },
+                    transition : {
+                        duration : 1000    //milliseconds
+                    }
+                }
+
+            });
+            k.execute();
+        });
+        </script>
+    </body>
+</html>

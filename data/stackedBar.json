@@ -1,0 +1,74 @@
+[
+	{
+		"x" : "Jan",
+		"y" : 123,
+		"stack" : "Series1",
+		"tooltip" : "Series1",
+		"color" : "#FF7260",
+		"highlight" : false
+	},
+	{
+		"x" : "Feb",
+		"y" : 100,
+		"stack" : "Series1",
+		"tooltip" : "Series1",
+		"color" : "#FF7260",
+		"highlight" : false
+	},
+	{
+		"x" : "Mar",
+		"y" : 190,
+		"stack" : "Series1",
+		"tooltip" : "Series1",
+		"color" : "#FF7260",
+		"highlight" : false
+	},
+	{
+		"x" : "Jan",
+		"y" : 100,
+		"stack" : "Series2",
+		"tooltip" : "Series2",
+		"color" : "#53A0BC",
+		"highlight" : false
+	},
+	{
+		"x" : "Feb",
+		"y" : 50,
+		"stack" : "Series2",
+		"tooltip" : "Series2",
+		"color" : "#53A0BC",
+		"highlight" : false 
+	},
+	{
+		"x" : "Mar",
+		"y" : 150,
+		"stack" : "Series2",
+		"tooltip" : "Series2",
+		"color" : "#53A0BC",
+		"highlight" : false
+	},
+	{
+		"x" : "Jan",
+		"y" : 123,
+		"stack" : "Series3",
+		"tooltip" : "Series3",
+		"color" : "#129793",
+		"highlight" : false
+	},
+	{
+		"x" : "Feb",
+		"y" : 170,
+		"stack" : "Series3",
+		"tooltip" : "Series3",
+		"color" : "#129793",
+		"highlight" : false
+	},
+	{
+		"x" : "Mar",
+		"y" : 170,
+		"stack" : "Series3",
+		"tooltip" : "Series3",
+		"color" : "#129793",
+		"highlight" : false
+	}
+]

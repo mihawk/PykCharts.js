@@ -1,0 +1,101 @@
+<html>
+<head>
+	<script src="../lib/d3.min.js"></script>
+	<script src="../lib/jquery-1.11.1.min.js"></script> 
+	<script src="../lib/underscore-min.js"></script>
+	<script src="../lib/jquery.bpopup.min.js"></script>
+	<script src="../lib/canvas2image.js"></script>
+	<script type="../lib/base64.js"></script>
+	<link rel="stylesheet" type="text/css" href="../src/css/PykCharts.css">
+</head>
+<body>
+	<div id="ultimate-container3">
+	</div>
+	<script src="../src/js/pyk.js"></script>
+	<script src="../src/js/twoD/twoD.js"></script>
+	<script src="../src/js/multi-series2D/multi-series2D.js"></script>
+	<script src="../src/js/multiD/ultimateBar.js"></script>
+	<script type="text/javascript">
+
+		$(document).ready(function(e) {
+		
+			var k = new PykCharts.multi_series_2D.ultimate({
+		        data: "../data/ultimateGroupBar.json",
+		        selector: "#ultimate-container3",
+		   		chart : {
+					width: 700,
+					height: 450,
+					margin: {top: 25, right: 25, bottom: 25, left: 75},
+					grid: {
+		                yEnabled: "yes",
+		                color:""
+			        }
+				},
+				optional : {
+					title: { 
+                        text: "Malnutrition in India",                            
+                    },
+                    subtitle: {
+                        text: "Malnutrition in India Malnutrition in India Malnutrition in India Malnutrition in India"
+                    },
+                    realTimeCharts: {
+                        refreshFrequency: 0 // seconds
+                    },
+					axis : {
+						onHoverHighlightenable: "yes",
+						labelColor: "black",
+						tickSize: 5,
+						ticksPadding: 6,
+						x: {
+							enable: "yes",
+							orient : "top",
+							axisColor: "#1D1D1D",
+							no_of_ticks: 10,
+							tickFormat: "",
+							label : "Price",
+							labelPosition: "end", // end,middle,start
+							tickValues: []
+						},
+						y: {
+							enable: "yes",
+							orient: "left",
+							axisColor: "#1D1D1D",
+							no_of_ticks: 10,
+							tickFormat: "", 
+							label : "rating",
+							labelPosition: "end" // end,middle,start
+						}
+					},
+					colors:{
+			            backgroundColor: "white",
+			            chartColor: "steelblue",
+			            highlightColor: "#013F73",
+			        },
+            		legends: {
+						enable : "yes",
+						display : "horizontal" //horizontal or vertical
+					},
+					creditMySite:{
+                        mySiteName: "Acme NewsCorp",
+                        mySiteUrl: "https://google.com"
+                    },
+					dataSource:{
+						text: "World Bank",
+						url: "http://www.pykih.com/"
+					},
+					borderBetweenChartElements:{ //done for oneD
+						width: "1px", // if width is 0 means it is disabled.
+						color: "white",
+						style: "solid" // could be dotted too
+                    },
+					transition : {
+                        duration : 1000    //milliseconds
+                    }
+				}
+
+		    });
+			k.execute();
+		});	
+	</script>
+</body>
+</html>

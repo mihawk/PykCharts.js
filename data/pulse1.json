@@ -1,0 +1,278 @@
+[
+    {
+        "collection": [
+            {
+                "year": 2001,
+                "weight": 4834,
+                "tooltip": "msjfjs"
+            },
+            {
+                "year": 2002,
+                "weight": 10402,
+                "tooltip": "msjfjs"
+            },
+            {
+                "year": 2003,
+                "weight": 5964,
+                "tooltip": "msjfjs"
+            },
+            {
+                "year": 2004,
+                "weight": 1040,
+                "tooltip": "msjfjs"
+            },
+            {
+                "year": 2005,
+                "weight": 1099,
+                "tooltip": "msjfjs"
+            },
+            {
+                "year": 2006,
+                "weight": 345,
+                "tooltip": "msjfjs"
+            },
+            {
+                "year": 2007,
+                "weight": 10402,
+                "tooltip": "msjfjs"
+            },
+            {
+                "year": 2008,
+                "weight": 10402,
+                "tooltip": "msjfjs"
+            },
+            {
+                "year": 2009,
+                "weight": 10402,
+                "tooltip": "msjfjs"
+            },
+            {
+                "year": 2010,
+                "weight": 10402,
+                "tooltip": "msjfjs"
+            },
+            {
+                "year": 2011,
+                "weight": 10402,
+                "tooltip": "msjfjs"
+            },
+            {
+                "year": 2012,
+                "weight": 10402,
+                "tooltip": "msjfjs"
+            }
+        ],
+        "total": 146055,
+        "name": "Rice",
+        "category": "Cereals",
+        "opacity": 10,
+        "color": "#1f77b4"
+    },
+    {
+        "collection": [
+            {
+                "year": 2001,
+                "weight": 4834,
+                "tooltip": "msjfjs"
+            },
+            {
+                "year": 2002,
+                "weight": 10402,
+                "tooltip": "msjfjs"
+            },
+            {
+                "year": 2003,
+                "weight": 5964,
+                "tooltip": "msjfjs"
+            },
+            {
+                "year": 2004,
+                "weight": 1040,
+                "tooltip": "msjfjs"
+            },
+            {
+                "year": 2005,
+                "weight": 1099,
+                "tooltip": "msjfjs"
+            },
+            {
+                "year": 2006,
+                "weight": 345,
+                "tooltip": "msjfjs"
+            },
+            {
+                "year": 2007,
+                "weight": 10402,
+                "tooltip": "msjfjs"
+            },
+            {
+                "year": 2008,
+                "weight": 10402,
+                "tooltip": "msjfjs"
+            },
+            {
+                "year": 2009,
+                "weight": 10402,
+                "tooltip": "msjfjs"
+            },
+            {
+                "year": 2010,
+                "weight": 10402,
+                "tooltip": "msjfjs"
+            },
+            {
+                "year": 2011,
+                "weight": 10402,
+                "tooltip": "msjfjs"
+            },
+            {
+                "year": 2012,
+                "weight": 10402,
+                "tooltip": "msjfjs"
+            }
+        ],
+        "total": 293693,
+        "name": "Wheat",
+        "category": "Cereals",
+        "opacity": 9,
+        "color": "#1f77b4"
+    },
+    {
+        "collection": [
+            {
+                "year": 2001,
+                "weight": 4834,
+                "tooltip": "msjfjs"
+            },
+            {
+                "year": 2002,
+                "weight": 10402,
+                "tooltip": "msjfjs"
+            },
+            {
+                "year": 2003,
+                "weight": 5964,
+                "tooltip": "msjfjs"
+            },
+            {
+                "year": 2004,
+                "weight": 1040,
+                "tooltip": "msjfjs"
+            },
+            {
+                "year": 2005,
+                "weight": 1099,
+                "tooltip": "msjfjs"
+            },
+            {
+                "year": 2006,
+                "weight": 345,
+                "tooltip": "msjfjs"
+            },
+            {
+                "year": 2007,
+                "weight": 10402,
+                "tooltip": "msjfjs"
+            },
+            {
+                "year": 2008,
+                "weight": 10402,
+                "tooltip": "msjfjs"
+            },
+            {
+                "year": 2009,
+                "weight": 10402,
+                "tooltip": "msjfjs"
+            },
+            {
+                "year": 2010,
+                "weight": 10402,
+                "tooltip": "msjfjs"
+            },
+            {
+                "year": 2011,
+                "weight": 10402,
+                "tooltip": "msjfjs"
+            },
+            {
+                "year": 2012,
+                "weight": 10402,
+                "tooltip": "msjfjs"
+            }
+        ],
+        "total": 18412,
+        "name": "Jowar",
+        "category": "Cereals",
+        "opacity": 8,
+        "color": "#1f77b4"
+    },
+    {
+        "collection": [
+            {
+                "year": 2001,
+                "weight": 4834,
+                "tooltip": "msjfjs"
+            },
+            {
+                "year": 2002,
+                "weight": 10402,
+                "tooltip": "msjfjs"
+            },
+            {
+                "year": 2003,
+                "weight": 5964,
+                "tooltip": "msjfjs"
+            },
+            {
+                "year": 2004,
+                "weight": 1040,
+                "tooltip": "msjfjs"
+            },
+            {
+                "year": 2005,
+                "weight": 1099,
+                "tooltip": "msjfjs"
+            },
+            {
+                "year": 2006,
+                "weight": 345,
+                "tooltip": "msjfjs"
+            },
+            {
+                "year": 2007,
+                "weight": 10402,
+                "tooltip": "msjfjs"
+            },
+            {
+                "year": 2008,
+                "weight": 10402,
+                "tooltip": "msjfjs"
+            },
+            {
+                "year": 2009,
+                "weight": 10402,
+                "tooltip": "msjfjs"
+            },
+            {
+                "year": 2010,
+                "weight": 10402,
+                "tooltip": "msjfjs"
+            },
+            {
+                "year": 2011,
+                "weight": 10402,
+                "tooltip": "msjfjs"
+            },
+            {
+                "year": 2012,
+                "weight": 10402,
+                "tooltip": "msjfjs"
+            }
+        ],
+        "total": 141552,
+        "name": "Bajri",
+        "category": "Cereals",
+        "opacity": 7,
+        "color": "#1f77b4"
+    }
+]

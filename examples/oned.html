@@ -1,0 +1,164 @@
+<html>
+	<head>
+        <title> OneD Charts </title>
+        <link rel="stylesheet" type="text/css" href="../src/css/PykCharts.css">
+
+	</head>
+	<body>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6" style="border: 1px solid gray;">
+                    <div id="bubble"></div>
+                </div>
+                <div class="col-sm-6" style="border: 1px solid gray;">
+                    <div id="funnel"></div>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-sm-6" style="border: 1px solid gray;">
+                    <div id="pieContainer"></div>
+                </div>
+
+                <div class="col-sm-6" style="border: 1px solid gray;">
+                    <div id="pictograph"></div>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-sm-6" style="border: 1px solid gray;">
+                    <div id="pyramid"></div>
+                </div>
+                <div class="col-sm-6" style="border: 1px solid gray;">
+                    <div id="treemap"></div>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-sm-6" style="border: 1px solid gray;">
+                    <div id="donutContainer"></div>
+                </div>
+                <div class="col-sm-6" style="border: 1px solid gray;">
+                    <div id="electionPieContainer"></div>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-sm-6" style="border: 1px solid gray;">
+                    <div id="electionDonutContainer"></div>
+                </div>
+                <div class="col-sm-6" style="border: 1px solid gray;">
+                    <div id="pie2Container"></div>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-sm-6" style="border: 1px solid gray;">
+                    <div id="percentageColumn"></div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                </div>
+                <div class="col-sm-6">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                </div>
+                <div class="col-sm-6">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                </div>
+                <div class="col-sm-6">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                </div>
+                <div class="col-sm-6">
+                </div>
+            </div>
+        </div>
+
+        <script src="../lib/d3.min.js"></script>
+        <script src="../lib/jquery-1.11.1.min.js"></script>
+        <script src="../lib/underscore-min.js"></script>
+        <script src="../dist/pykcharts.0.0.7.min.js"></script>
+        <script>
+
+        $(document).ready(function (e) {
+
+            var k = new PykCharts.oneD.bubble({
+                selector: "#bubble",
+                data:"../data/pie.json"
+            });
+            k.execute();
+
+			var k = new PykCharts.oneD.funnel({
+				selector: "#funnel",
+				data:"../data/pie.json"
+			 });
+			k.execute();
+
+            var k = new PykCharts.oneD.pictograph({
+                selector: "#pictograph",
+                data:"../data/pictograph.json"
+             });
+            k.execute();
+
+            var k = new PykCharts.oneD.pyramid ({
+                selector: "#pyramid",
+                data:"../data/pie.json"
+             });
+            k.execute();
+
+            var k = new PykCharts.oneD.treemap({
+                selector: "#treemap",
+                data: "../data/pie.json"
+            });
+            k.execute();
+
+            var k = new PykCharts.oneD.donut({
+                selector: "#donutContainer",
+                data: "../data/pie.json"
+            });
+            k.execute();
+
+            var k = new PykCharts.oneD.election_pie({
+                selector: "#electionPieContainer",
+                data: "../data/pie.json",
+            });
+            k.execute();
+
+            var k = new PykCharts.oneD.election_donut({
+                selector: "#electionDonutContainer",
+                data: "../data/pie.json"
+            });
+            k.execute();
+
+            var k = new PykCharts.oneD.pie({
+                selector: "#pieContainer",
+                data: "../data/pie.json"
+            });
+            k.execute();
+
+            var k = new PykCharts.oneD.percentageColumn({
+                selector: "#percentageColumn",
+                data:"../data/pie.json"
+            });
+            k.execute();
+
+            var k = new PykCharts.oneD.pie({
+                selector: "#pie2Container",
+                data: "../data/pie2.json"
+            });
+            k.execute();
+		});
+
+		</script>
+	</body>
+</html>

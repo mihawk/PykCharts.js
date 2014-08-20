@@ -1,0 +1,413 @@
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="../lib/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="../src/css/PykCharts.css">
+    </head>
+    <body>
+        <div class="container cstm-container">
+        <div id = "from" class="form-group col-sm-6" style = "float: left;">
+            <form class="PykCharts-map">
+                <table class="cstm-table" style="font-size:14px;">
+                    <tr>
+                        <td>Select Map :</td>
+                        <td>
+                            <select class="cstm-form-control form-control" id = "one">
+                            <option value = "afganistan">Afganistan</option>
+                            <option value = "africa">Africa</option>
+                            <option value = "albania">Albania</option>
+                            <option value = "antartica">Antartica</option>
+                            <option value = "asia">Asia</option>
+                            <option value = "australia">Australia</option>
+                            <option value = "austria">Austria</option>
+                            <option value = "bhutan">Bhutan</option>
+                            <option value = "brazil">Brazil</option>
+                            <option value = "canada">Canada</option>
+                            <option value = "china">China</option>
+                            <option value = "europe">Europe</option>
+                            <option value = "finland">Finland</option>
+                            <option value = "france">France</option>
+                            <option value = "germany">Germany</option>
+                            <option value = "greece">Greece</option>
+                            <option value = "india" selected = "selected">India</option>
+                            <option value = "india-district">India Districtwise</option>
+                            <option value = "ireland">Ireland</option>
+                            <option value = "italy">Italy</option>
+                            <option value = "japan">Japan</option>
+                            <option value = "malaysia">Malaysia</option>
+                            <option value = "mexico">Mexico</option>
+                            <option value = "nepal">Nepal</option>
+                            <option value = "netherland">Netherland</option>
+                            <option value = "newyork">New York</option>
+                            <option value = "newzeland">Newzeland</option>
+                            <option value = "north-america">North America</option>
+                            <option value = "pakistan">Pakistan</option>
+                            <option value = "pourtgal">Potugal</option>
+                            <option value = "southafrica">South Africa</option>
+                            <option value = "south-america">South America</option>
+                            <option value = "southkorea">South Korea</option>
+                            <option value = "spain">Spain</option>
+                            <option value = "srilanka">Srilanka</option>
+                            <option value = "sweeden">Sweeden</option>
+                            <option value = "switzerland">Switzerland</option>
+                            <option value = "uae">U.A.E</option>
+                            <option value = "uk-country">United Kingdom</option>
+                            <option value = "uk-district">United Kingdom Districtwise</option>
+                            <option value = "usa">U.S.A</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Color type :</td>
+                        <td class="cstm-form-control">
+                            <input type="radio" name="colortype" value="saturation" checked="checked" onclick="colFunction()"> Saturation &nbsp &nbsp
+                            <input type="radio" name="colortype" value="colors" onclick="colFunction()"> Colors
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Number of colors :</td>
+                        <td><input class="cstm-form-control form-control" type="number" id = "seven" min = "3" max = "9" value = "9"></td>
+                    </tr>
+                    <tr>
+                        <td>Color palette :</td>
+                        <td><select class="cstm-form-control form-control" id = "eight" onclick = "palFunction()">
+                            <option value = "Multi_Green_Green">Multi Green Green</option>
+                            <option value = "Multi_Violet_Blue">Multi Violet Blue</option>
+                            <option value = "Multi_Blue_Green">Multi Blue Green</option>
+                            <option value = "Multi_Red_Orange">Multi Red Orange</option>
+                            <option value = "Multi_Blue_Blue">Multi Blue Blue</option>
+                            <option value = "Multi_Green_Blue">Multi Green Blue</option>
+                            <option value = "Multi_Pink_Pink">Multi Pink Pink</option>
+                            <option value = "Multi_Violet_Pink">Multi Violet Pink</option>
+                            <option value = "Multi_Green_Yellow">Multi Green Yellow</option>
+                            <option value = "Multi_NavyBlue_Blue">Multi NavyBlue Blue</option>
+                            <option value = "Multi_Orange_Orange">Multi Orange Orange</option>
+                            <option value = "Multi_Pink_Orange">Multi Pink Orange</option>
+                            <option value = "Blue">Blue</option>
+                            <option value = "Green">Green</option>
+                            <option value = "Black">Black</option>
+                            <option value = "Orange">Orange</option>
+                            <option value = "Purple">Purple</option>
+                            <option value = "Red">Red</option>
+                            <option value = "" id = "default" >Default</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Enable Tooltip :</td>
+                        <td class="cstm-form-control">
+                            <input type="radio" name="tooltip" value="yes" onclick = "tooltipFunction()" checked="checked" id = "enablettip" > Yes &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                            <input type="radio" name="tooltip" value="no" onclick = "tooltipFunction()"> No
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Tooltip mode :</td>
+                        <td class="cstm-form-control">
+                            <input type="radio" name="tooltip_mode" value="fixed" onclick = "tooltipmodeFunction()" > Fixed &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                            <input type="radio" name="tooltip_mode" value="moving" onclick = "tooltipmodeFunction()" checked="checked" id = "ttipPos"> Moving
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Tooltip top :</td>
+                        <td><input class="cstm-form-control form-control" type="number" id = "a7" value = "0" min = "0"></td>
+                    </tr>
+                    <tr>
+                        <td>Tooltip left :</td>
+                        <td><input class="cstm-form-control form-control" type="number" id = "a8" value = "0" min = "0"></td>
+                    </tr>
+                    <tr>
+                        <td>Enable legend :</td>
+                        <td class="cstm-form-control">
+                            <input type="radio" name="legend" value="yes" checked="checked"> Yes</div> &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                            <input type="radio" name="legend" value="no"> No</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Enable label :</td>
+                        <td class="cstm-form-control">
+                            <input type="radio" name="label" value="yes"> Yes &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                            <input type="radio" name="label" value="no" checked="checked"> No
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Map border color :</td>
+                        <td><input class="cstm-form-control form-control" type="color" id = "a2"></td>
+                    </tr>
+                    <tr>
+                        <td>Map border thickness :</td>
+                        <td><input class="cstm-form-control form-control" type="number" step="0.01" id = "a3" min = "0" max = "1" value = "0"></td>
+                    </tr>
+                    <tr>
+                        <td>On hover :</td>
+                        <td><select class="cstm-form-control form-control" id = "a5">
+                                <option value = "none">None</option>
+                                <option value = "shadow" selected="selected">Shadow</option>
+                                <option value = "highlight_border">Highlight Border</option>
+                                <option value = "color_saturation">Color Saturation</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Default color :</td>
+                        <td><input class="cstm-form-control form-control" type="color" id = "a6" value="#4682B4" disabled = true></td>
+                    </tr>
+                    <tr>
+                        <td>Default zoom level :</td>
+                        <td><input class="cstm-form-control form-control" type="number" id = "a9" min = "0" max = "100" value = "80"></td>
+                    </tr>
+
+                    <tr>
+                        <td>Enable Highlighted Area :</td>
+                        <td class="cstm-form-control cstm-form-control">
+                            <input type="radio" name="highlight" value="yes" id="high1"> Yes &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                            <input type="radio" name="highlight" value="no" id="high2" checked="checked"> No
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Enable Source :</td>
+                        <td class="cstm-form-control cstm-form-control">
+                            <input type="radio" name="source" value="yes" onclick = "sourceFunction()" checked="checked"> Yes &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                            <input type="radio" name="source" value="no" onclick = "sourceFunction()"> No
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Data Source :</td>
+                        <td><input class="cstm-form-control form-control" type="text" id = "d1" value="Pykih"></td>
+                    </tr>
+
+                    <tr>
+                        <td>Data Source Link :</td>
+                        <td><input class="cstm-form-control form-control" type="text" id = "d2" value="http://pykih.com"></td>
+                    </tr>
+
+                    <tr>
+                        <td>Enable Credits :</td>
+                        <td class="cstm-form-control cstm-form-control">
+                            <input type="radio" name="credits" value="yes" onclick = "creditsFunction()" checked="checked"> Yes &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                            <input type="radio" name="credits" value="no" onclick = "creditsFunction()"> No
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Credits :</td>
+                        <td><input class="cstm-form-control form-control" type="text" id = "d3" value="Pykih"></td>
+                    </tr>
+
+                    <tr>
+                        <td>Credits Link :</td>
+                        <td><input class="cstm-form-control form-control" type="text" id = "d4" value="http://pykih.com"></td>
+                    </tr>
+                    <tr>
+                        <td><input class="btn cstm-btn btn-primary form-control" type="button" value="Submit" id ="sub"></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+            <div id = "map-container" class="col-sm-6">
+
+            </div>
+            <textarea rows="4" cols="50" id="live-data"></textarea>
+
+        <script src="../lib/d3.min.js"></script>
+        <script src="../lib/jquery-1.11.1.min.js"></script>
+        <script src="../lib/underscore-min.js"></script>
+        <script src="../lib/jquery.bpopup.min.js"></script>
+        <script src="../lib/bootstrap.min.js"></script>
+        <script src = "../lib/topojson.js"></script>
+        <script src="../src/js/pyk.js"></script>
+        <script src = "../src/js/maps/maps.js"></script>
+        <script src = "../src/js/maps/oneLayer.js"></script>
+        <script>
+            function colFunction () {
+                if ($("input[name='colortype']:checked").val() === "colors") {
+                    $("#seven").prop('disabled', true);
+                    $("#a6").prop('disabled', true);
+                    $("#eight").prop('disabled', true);
+                    $("#high1").prop('disabled', true);
+                    $("#high2").prop('disabled', true);
+                } else {
+                    $("#seven").prop('disabled', false);
+                    $("#a6").prop('disabled', false);
+                    $("#eight").prop('disabled', false);
+                    $("#high1").prop('disabled', false);
+                    $("#high2").prop('disabled', false);
+                }
+            }
+
+            function defFunction () {
+                $("#a6").prop('disabled', false);
+            }
+
+            function sourceFunction () {
+                if ($("input[name='source']:checked").val() === "yes") {
+                    $("#d1").prop('disabled', false);
+                    $("#d2").prop('disabled', false);
+                } else {
+                    $("#d1").prop('disabled', true);
+                    $("#d2").prop('disabled', true);
+                }
+            }
+
+            function creditsFunction () {
+                if ($("input[name='credits']:checked").val() === "yes") {
+                    $("#d3").prop('disabled', false);
+                    $("#d4").prop('disabled', false);
+                } else {
+                    $("#d3").prop('disabled', true);
+                    $("#d4").prop('disabled', true);
+                }
+            }
+
+            function tooltipFunction () {
+                if ($("input[name='tooltip']:checked").val() === "yes") {
+                    $("input[name='tooltip_mode']").prop('disabled', false);
+                    if ($("input[name='tooltip_mode']:checked").val() === "fixed") {
+                        $("#a7").prop('disabled', false);
+                        $("#a8").prop('disabled', false);
+                    } else {
+                        $("#a8").prop('disabled', true);
+                        $("#a7").prop('disabled', true);
+                    }
+                } else {
+                    $("input[name='tooltip_mode']").prop('disabled', true);
+                    $("#a8").prop('disabled', true);
+                    $("#a7").prop('disabled', true);
+                }
+            }
+
+            function tooltipmodeFunction () {
+                if ($("input[name='tooltip_mode']:checked").val() === "fixed") {
+                    $("#a7").prop('disabled', false);
+                    $("#a8").prop('disabled', false);
+                } else {
+                    $("#a8").prop('disabled', true);
+                    $("#a7").prop('disabled', true);
+                }
+            }
+
+            function palFunction () {
+                if ($("#eight").val() === "") {
+                    $("#a6").prop('disabled', false);
+                } else {
+                    $("#a6").prop('disabled', true);
+                }
+            }
+
+            $("#ttipPos").trigger("click");
+
+
+            $(document).ready(function() {
+
+                var data_final;
+
+                function checked (name) {
+                  var elements = document.getElementsByName(name);
+                  for (var i=0, len=elements.length; i<len; ++i)
+                      if (elements[i].checked) return elements[i].value;
+                }
+
+                $("#one").click(function(){
+
+                    d3.json("../data/maps/" + $("#one").val() + "_data.json", function (data) {
+                        var hold_key  = "";
+                        var hold_property = "";
+
+                        for (var key in data[0]) {
+                           hold_key = hold_key + key + ","  ;
+                        }
+
+                        hold_key =  hold_key.substring(0, hold_key.length - 1);
+                        hold_key = hold_key + "\n";
+                        for (var i = 0; i < data.length; i++) {
+
+                          for (var key in data[i]) {
+
+                            hold_property = hold_property + data[i][key] + ","  ;
+
+                          }
+                        hold_property =  hold_property.substring(0, hold_property.length - 1);
+                        hold_property = hold_property + "\n";
+
+
+                        }
+
+                        $("#live-data").val(hold_key + hold_property);
+
+                        var bat = $('#live-data').val();
+                        batSplit = bat.split("\n");
+                        var ball = [];
+                        var live_json = [];
+                        for (var i = 0; i < batSplit.length -1 ; i++) {
+                            ball[i] = batSplit[i].split(",");
+                        };
+                        for (var i = 1; i < batSplit.length -1 ; i++) {
+                            var tep = {}
+                            for (var j = 0; j < ball[i].length; j++) {
+                                tep[ball[0][j]] = ball[i][j];
+                            };
+                            live_json.push(tep);
+                        };
+                        window.data_final = live_json;
+                        $("#sub").trigger("click");
+                    });
+                });
+
+                $("#one").trigger("click");
+
+                $("#sub").click(function(){
+                    $("#map-container").html("");
+                    $("#legend-container").html("");
+                    $("#map-container").attr("style", "float: left; position: static");
+                    $("#legend-container").attr("style", "background-color: white");
+                    k = new PykCharts.maps.oneLayer({
+                        selector: "#map-container",
+                        mapCode: $("#one").val() + "-topo",
+                        data: window.data_final,
+                        map: {
+                            width: 555,
+                            height: 500
+                        },
+                        optional: {
+                            colors: {
+                                defaultColor: $("#a6").val(),
+                                type: checked("colortype"),
+                                total: $("#seven").val(),
+                                palette: $("#eight").val()
+                            },
+                            tooltip: {
+                                enable: checked("tooltip"),
+                                mode: checked("tooltip_mode"),
+                                positionTop: $("#a7").val(),
+                                positionLeft: $("#a8").val()
+                            },
+                            border: {
+                                color: $("#a2").val(),
+                                thickness: $("#a3").val()
+                            },
+                            enableClick: "no",
+                            onhover: $("#a5").val(),
+                            defaultZoomLevel: $("#a9").val(),
+                            highlightArea: checked("highlight"),
+                            loading: {
+                                animationGifUrl: "http://www.sportdiver.com/sites/all/modules/platform/inline_login/loading.gif"
+                            },
+                            creditMySite:{
+                                text: "World Bank",
+                                url: "http://www.pykih.com/"
+                            },
+                            dataSource:{
+                                text: "World Bank",
+                                url: "http://www.pykih.com/"
+                            }
+                        }
+
+                    });
+                    k.execute();
+                });
+
+            });
+
+        </script>
+    </body>
+</html>

@@ -1,0 +1,1934 @@
+[
+    {
+        "level1": "MAYOR'S OFFICE",
+        "level2": "MAYOR'S OFFICE",
+        "level3": "OPERATIONS",
+        "level4": "SALARIES AND WAGES",
+        "weight": "1010000"
+    },
+    {
+        "level1": "MAYOR'S OFFICE",
+        "level2": "MAYOR'S OFFICE",
+        "level3": "OPERATIONS",
+        "level4": "OTHER EXPENSES",
+        "weight": "19560"
+    },
+    {
+        "level1": "OFFICE OF THE CITY CLERK",
+        "level2": "OFFICE OF THE CITY CLERK",
+        "level3": "OPERATIONS",
+        "level4": "SALARIES AND WAGES",
+        "weight": "822392"
+    },
+    {
+        "level1": "OFFICE OF THE CITY CLERK",
+        "level2": "OFFICE OF THE CITY CLERK",
+        "level3": "OPERATIONS",
+        "level4": "OTHER EXPENSES",
+        "weight": "96600"
+    },
+    {
+        "level1": "OFFICE OF THE CITY CLERK",
+        "level2": "OFFICE OF THE CITY CLERK",
+        "level3": "OPERATIONS",
+        "level4": "ELECTION",
+        "weight": "100000"
+    },
+    {
+        "level1": "OFFICE OF THE CITY CLERK",
+        "level2": "OFFICE OF THE CITY CLERK",
+        "level3": "OPERATIONS",
+        "level4": "ELECTION",
+        "weight": "750000"
+    },
+    {
+        "level1": "MUNICIPAL COUNCIL",
+        "level2": "MUNICIPAL COUNCIL",
+        "level3": "OPERATIONS",
+        "level4": "SALARIES AND WAGES",
+        "weight": "584200"
+    },
+    {
+        "level1": "MUNICIPAL COUNCIL",
+        "level2": "MUNICIPAL COUNCIL",
+        "level3": "OPERATIONS",
+        "level4": "OTHER EXPENSES",
+        "weight": "89000"
+    },
+    {
+        "level1": "CITY CLERK & MUNICIPAL COUNCIL",
+        "level2": "ANNUAL AUDIT – Other Expenses",
+        "level3": "OPERATIONS",
+        "level4": "OTHER EXPENSES",
+        "weight": "350000"
+    },
+    {
+        "level1": "level1 OF BUSINESS ADMINISTRATION",
+        "level2": "ADMINISTRATOR'S OFFICE",
+        "level3": "OPERATIONS",
+        "level4": "SALARIES AND WAGES",
+        "weight": "1558105"
+    },
+    {
+        "level1": "level1 OF BUSINESS ADMINISTRATION",
+        "level2": "ADMINISTRATOR'S OFFICE",
+        "level3": "OPERATIONS",
+        "level4": "OTHER EXPENSES",
+        "weight": "87000"
+    },
+    {
+        "level1": "level1 OF BUSINESS ADMINISTRATION",
+        "level2": "MANAGEMENT & BUDGET",
+        "level3": "OPERATIONS",
+        "level4": "SALARIES AND WAGES",
+        "weight": "508619"
+    },
+    {
+        "level1": "level1 OF BUSINESS ADMINISTRATION",
+        "level2": "MANAGEMENT & BUDGET",
+        "level3": "OPERATIONS",
+        "level4": "OTHER EXPENSES",
+        "weight": "315700"
+    },
+    {
+        "level1": "level1 OF BUSINESS ADMINISTRATION",
+        "level2": "PURCHASING & CENTRAL SERVICES",
+        "level3": "OPERATIONS",
+        "level4": "SALARIES AND WAGES",
+        "weight": "656000"
+    },
+    {
+        "level1": "level1 OF BUSINESS ADMINISTRATION",
+        "level2": "PURCHASING & CENTRAL SERVICES",
+        "level3": "OPERATIONS",
+        "level4": "OTHER EXPENSES",
+        "weight": "46750"
+    },
+    {
+        "level1": "level1 OF BUSINESS ADMINISTRATION",
+        "level2": "REAL ESTATE",
+        "level3": "OPERATIONS",
+        "level4": "SALARIES AND WAGES",
+        "weight": "167011"
+    },
+    {
+        "level1": "level1 OF BUSINESS ADMINISTRATION",
+        "level2": "REAL ESTATE",
+        "level3": "OPERATIONS",
+        "level4": "OTHER EXPENSES",
+        "weight": "10600"
+    },
+    {
+        "level1": "level1 OF BUSINESS ADMINISTRATION",
+        "level2": "RISK MANAGEMENT",
+        "level3": "OPERATIONS",
+        "level4": "SALARIES AND WAGES",
+        "weight": "241270"
+    },
+    {
+        "level1": "level1 OF BUSINESS ADMINISTRATION",
+        "level2": "RISK MANAGEMENT",
+        "level3": "OPERATIONS",
+        "level4": "OTHER EXPENSES",
+        "weight": "4525"
+    },
+    {
+        "level1": "level1 OF BUSINESS ADMINISTRATION",
+        "level2": "INFORMATION TECHNOLOGY",
+        "level3": "OPERATIONS",
+        "level4": "SALARIES AND WAGES",
+        "weight": "950600"
+    },
+    {
+        "level1": "level1 OF BUSINESS ADMINISTRATION",
+        "level2": "INFORMATION TECHNOLOGY",
+        "level3": "OPERATIONS",
+        "level4": "OTHER EXPENSES",
+        "weight": "1080000"
+    },
+    {
+        "level1": "level1 OF BUSINESS ADMINISTRATION",
+        "level2": "MUNICIPAL COURT",
+        "level3": "OPERATIONS",
+        "level4": "SALARIES AND WAGES",
+        "weight": "3586202"
+    },
+    {
+        "level1": "level1 OF BUSINESS ADMINISTRATION",
+        "level2": "MUNICIPAL COURT",
+        "level3": "OPERATIONS",
+        "level4": "OTHER EXPENSES",
+        "weight": "204850"
+    },
+    {
+        "level1": "level1 OF BUSINESS ADMINISTRATION",
+        "level2": "PUBLIC DEFENDER",
+        "level3": "OPERATIONS",
+        "level4": "SALARIES AND WAGES",
+        "weight": "86000"
+    },
+    {
+        "level1": "level1 OF BUSINESS ADMINISTRATION",
+        "level2": "PUBLIC DEFENDER",
+        "level3": "OPERATIONS",
+        "level4": "OTHER EXPENSES",
+        "weight": "257400"
+    },
+    {
+        "level1": "level1 OF BUSINESS ADMINISTRATION",
+        "level2": "COLLECTIONS",
+        "level3": "OPERATIONS",
+        "level4": "SALARIES AND WAGES",
+        "weight": "847000"
+    },
+    {
+        "level1": "level1 OF BUSINESS ADMINISTRATION",
+        "level2": "COLLECTIONS",
+        "level3": "OPERATIONS",
+        "level4": "OTHER EXPENSES",
+        "weight": "211850"
+    },
+    {
+        "level1": "level1 OF BUSINESS ADMINISTRATION",
+        "level2": "ACCOUNTS & CONTROL",
+        "level3": "OPERATIONS",
+        "level4": "SALARIES AND WAGES",
+        "weight": "486212"
+    },
+    {
+        "level1": "level1 OF BUSINESS ADMINISTRATION",
+        "level2": "ACCOUNTS & CONTROL",
+        "level3": "OPERATIONS",
+        "level4": "OTHER EXPENSES",
+        "weight": "5100"
+    },
+    {
+        "level1": "level1 OF BUSINESS ADMINISTRATION",
+        "level2": "TREASURY & DEBT MANAGEMENT",
+        "level3": "OPERATIONS",
+        "level4": "SALARIES AND WAGES",
+        "weight": "285417"
+    },
+    {
+        "level1": "level1 OF BUSINESS ADMINISTRATION",
+        "level2": "TREASURY & DEBT MANAGEMENT",
+        "level3": "OPERATIONS",
+        "level4": "OTHER EXPENSES",
+        "weight": "5650"
+    },
+    {
+        "level1": "level1 OF BUSINESS ADMINISTRATION",
+        "level2": "PAYROLL",
+        "level3": "OPERATIONS",
+        "level4": "SALARIES AND WAGES",
+        "weight": "411432"
+    },
+    {
+        "level1": "level1 OF BUSINESS ADMINISTRATION",
+        "level2": "PAYROLL",
+        "level3": "OPERATIONS",
+        "level4": "OTHER EXPENSES",
+        "weight": "9400"
+    },
+    {
+        "level1": "level1 OF BUSINESS ADMINISTRATION",
+        "level2": "PENSION",
+        "level3": "OPERATIONS",
+        "level4": "SALARIES AND WAGES",
+        "weight": "176540"
+    },
+    {
+        "level1": "level1 OF BUSINESS ADMINISTRATION",
+        "level2": "PENSION",
+        "level3": "OPERATIONS",
+        "level4": "OTHER EXPENSES",
+        "weight": "9750"
+    },
+    {
+        "level1": "level1 OF BUSINESS ADMINISTRATION",
+        "level2": "Break Adjustment",
+        "level3": "OPERATIONS",
+        "level4": "MISC OPERATIONS",
+        "weight": "2053648"
+    },
+    {
+        "level1": "OFFICE OF THE TAX ASSEROR",
+        "level2": "TAX ASSESOR",
+        "level3": "OPERATIONS",
+        "level4": "SALARIES AND WAGES",
+        "weight": "887881"
+    },
+    {
+        "level1": "OFFICE OF THE TAX ASSEROR",
+        "level2": "TAX ASSESOR",
+        "level3": "OPERATIONS",
+        "level4": "OTHER EXPENSES",
+        "weight": "247000"
+    },
+    {
+        "level1": "LAW",
+        "level2": "LAW level1",
+        "level3": "OPERATIONS",
+        "level4": "SALARIES AND WAGES",
+        "weight": "2809921"
+    },
+    {
+        "level1": "LAW",
+        "level2": "LAW level1",
+        "level3": "OPERATIONS",
+        "level4": "OTHER EXPENSES",
+        "weight": "363300"
+    },
+    {
+        "level1": "PUBLIC WORKS",
+        "level2": "DIRECTOR'S OFFICE",
+        "level3": "OPERATIONS",
+        "level4": "SALARIES AND WAGES",
+        "weight": "570000"
+    },
+    {
+        "level1": "PUBLIC WORKS",
+        "level2": "DIRECTOR'S OFFICE",
+        "level3": "OPERATIONS",
+        "level4": "OTHER EXPENSES",
+        "weight": "65600"
+    },
+    {
+        "level1": "PUBLIC WORKS",
+        "level2": "ARCHITECTURE",
+        "level3": "OPERATIONS",
+        "level4": "SALARIES AND WAGES",
+        "weight": "399711"
+    },
+    {
+        "level1": "PUBLIC WORKS",
+        "level2": "ARCHITECTURE",
+        "level3": "OPERATIONS",
+        "level4": "OTHER EXPENSES",
+        "weight": "27200"
+    },
+    {
+        "level1": "PUBLIC WORKS",
+        "level2": "PARK MAINTENANCE",
+        "level3": "OPERATIONS",
+        "level4": "SALARIES AND WAGES",
+        "weight": "2050203"
+    },
+    {
+        "level1": "PUBLIC WORKS",
+        "level2": "PARK MAINTENANCE",
+        "level3": "OPERATIONS",
+        "level4": "OTHER EXPENSES",
+        "weight": "849400"
+    },
+    {
+        "level1": "PUBLIC WORKS",
+        "level2": "ENGINEERING",
+        "level3": "OPERATIONS",
+        "level4": "SALARIES AND WAGES",
+        "weight": "1695790"
+    },
+    {
+        "level1": "PUBLIC WORKS",
+        "level2": "ENGINEERING",
+        "level3": "OPERATIONS",
+        "level4": "OTHER EXPENSES",
+        "weight": "1664700"
+    },
+    {
+        "level1": "PUBLIC WORKS",
+        "level2": "BUILDING & STREET MAINTENANCE",
+        "level3": "OPERATIONS",
+        "level4": "SALARIES AND WAGES",
+        "weight": "2075332"
+    },
+    {
+        "level1": "PUBLIC WORKS",
+        "level2": "BUILDING & STREET MAINTENANCE",
+        "level3": "OPERATIONS",
+        "level4": "OTHER EXPENSES",
+        "weight": "1504600"
+    },
+    {
+        "level1": "PUBLIC WORKS",
+        "level2": "AUTOMOTIVE SERVICES",
+        "level3": "OPERATIONS",
+        "level4": "SALARIES AND WAGES",
+        "weight": "834457"
+    },
+    {
+        "level1": "PUBLIC WORKS",
+        "level2": "AUTOMOTIVE SERVICES",
+        "level3": "OPERATIONS",
+        "level4": "OTHER EXPENSES",
+        "weight": "2966120"
+    },
+    {
+        "level1": "RECREATION",
+        "level2": "DIRECTOR'S OFFICE",
+        "level3": "OPERATIONS",
+        "level4": "SALARIES AND WAGES",
+        "weight": "2590000"
+    },
+    {
+        "level1": "RECREATION",
+        "level2": "DIRECTOR'S OFFICE",
+        "level3": "OPERATIONS",
+        "level4": "OTHER EXPENSES",
+        "weight": "445800"
+    },
+    {
+        "level1": "HEALTH & HUMAN SERVICES",
+        "level2": "DIRECTOR'S OFFICE",
+        "level3": "OPERATIONS",
+        "level4": "SALARIES AND WAGES",
+        "weight": "653068"
+    },
+    {
+        "level1": "HEALTH & HUMAN SERVICES",
+        "level2": "DIRECTOR'S OFFICE",
+        "level3": "OPERATIONS",
+        "level4": "OTHER EXPENSES",
+        "weight": "4450"
+    },
+    {
+        "level1": "HEALTH & HUMAN SERVICES",
+        "level2": "HEALTH",
+        "level3": "OPERATIONS",
+        "level4": "SALARIES AND WAGES",
+        "weight": "1938372"
+    },
+    {
+        "level1": "HEALTH & HUMAN SERVICES",
+        "level2": "HEALTH",
+        "level3": "OPERATIONS",
+        "level4": "OTHER EXPENSES",
+        "weight": "621600"
+    },
+    {
+        "level1": "HEALTH & HUMAN SERVICES",
+        "level2": "CULTURAL AFFAIRS",
+        "level3": "OPERATIONS",
+        "level4": "SALARIES AND WAGES",
+        "weight": "519952"
+    },
+    {
+        "level1": "HEALTH & HUMAN SERVICES",
+        "level2": "CULTURAL AFFAIRS",
+        "level3": "OPERATIONS",
+        "level4": "OTHER EXPENSES",
+        "weight": "171500"
+    },
+    {
+        "level1": "HEALTH & HUMAN SERVICES",
+        "level2": "CLINICAL SERVICES",
+        "level3": "OPERATIONS",
+        "level4": "SALARIES AND WAGES",
+        "weight": "290540"
+    },
+    {
+        "level1": "HEALTH & HUMAN SERVICES",
+        "level2": "CLINICAL SERVICES",
+        "level3": "OPERATIONS",
+        "level4": "OTHER EXPENSES",
+        "weight": "62770"
+    },
+    {
+        "level1": "HEALTH & HUMAN SERVICES",
+        "level2": "AIDS EDUCATION level3",
+        "level3": "OPERATIONS",
+        "level4": "OTHER EXPENSES",
+        "weight": "20000"
+    },
+    {
+        "level1": "HEALTH & HUMAN SERVICES",
+        "level2": "SENIOR CITIZEN AFFAIRS",
+        "level3": "OPERATIONS",
+        "level4": "SALARIES AND WAGES",
+        "weight": "388039"
+    },
+    {
+        "level1": "HEALTH & HUMAN SERVICES",
+        "level2": "SENIOR CITIZEN AFFAIRS",
+        "level3": "OPERATIONS",
+        "level4": "OTHER EXPENSES",
+        "weight": "113900"
+    },
+    {
+        "level1": "FIRE & EMERGENCY SVCS.",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "MISC OPERATIONS",
+        "weight": "350000"
+    },
+    {
+        "level1": "FIRE & EMERGENCY SVCS.",
+        "level2": "UNIFORM FIRE SAFETY ACT (PL83,c.383)",
+        "level3": "OPERATIONS",
+        "level4": "SALARIES AND WAGES",
+        "weight": "250000"
+    },
+    {
+        "level1": "FIRE & EMERGENCY SVCS.",
+        "level2": "UNIFORM FIRE SAFETY ACT (PL83,c.383)",
+        "level3": "OPERATIONS",
+        "level4": "OTHER EXPENSES",
+        "weight": "0"
+    },
+    {
+        "level1": "FIRE & EMERGENCY SVCS.",
+        "level2": "FIRE",
+        "level3": "OPERATIONS",
+        "level4": "SALARIES AND WAGES",
+        "weight": "63119902"
+    },
+    {
+        "level1": "FIRE & EMERGENCY SVCS.",
+        "level2": "FIRE",
+        "level3": "OPERATIONS",
+        "level4": "OTHER EXPENSES",
+        "weight": "1505300"
+    },
+    {
+        "level1": "POLICE",
+        "level2": "POLICE",
+        "level3": "OPERATIONS",
+        "level4": "SALARIES AND WAGES",
+        "weight": "97900000"
+    },
+    {
+        "level1": "POLICE",
+        "level2": "POLICE",
+        "level3": "OPERATIONS",
+        "level4": "OTHER EXPENSES",
+        "weight": "2788737"
+    },
+    {
+        "level1": "HOUSING, ECON. DEV. & COMMERCE",
+        "level2": "DIRECTOR'S OFFICE",
+        "level3": "OPERATIONS",
+        "level4": "SALARIES AND WAGES",
+        "weight": "523593"
+    },
+    {
+        "level1": "HOUSING, ECON. DEV. & COMMERCE",
+        "level2": "DIRECTOR'S OFFICE",
+        "level3": "OPERATIONS",
+        "level4": "OTHER EXPENSES",
+        "weight": "31800"
+    },
+    {
+        "level1": "HOUSING, ECON. DEV. & COMMERCE",
+        "level2": "Uniform Construction Code Appropriations Offset by Dedicated Revenues (N.J.A.C 5:23-4.17)",
+        "level3": "OPERATIONS",
+        "level4": "MISC OPERATIONS",
+        "weight": ""
+    },
+    {
+        "level1": "HOUSING, ECON. DEV. & COMMERCE",
+        "level2": "CONSTRUCTION CODE OFFICIAL",
+        "level3": "OPERATIONS",
+        "level4": "SALARIES AND WAGES",
+        "weight": "1915860"
+    },
+    {
+        "level1": "HOUSING, ECON. DEV. & COMMERCE",
+        "level2": "CONSTRUCTION CODE OFFICIAL",
+        "level3": "OPERATIONS",
+        "level4": "OTHER EXPENSES",
+        "weight": "117500"
+    },
+    {
+        "level1": "HOUSING, ECON. DEV. & COMMERCE",
+        "level2": "TENANT/LANDLORD RELATIONS",
+        "level3": "OPERATIONS",
+        "level4": "SALARIES AND WAGES",
+        "weight": "234000"
+    },
+    {
+        "level1": "HOUSING, ECON. DEV. & COMMERCE",
+        "level2": "TENANT/LANDLORD RELATIONS",
+        "level3": "OPERATIONS",
+        "level4": "OTHER EXPENSES",
+        "weight": "20200"
+    },
+    {
+        "level1": "HOUSING, ECON. DEV. & COMMERCE",
+        "level2": "COMMUNITY DEVELOPMENT",
+        "level3": "OPERATIONS",
+        "level4": "SALARIES AND WAGES",
+        "weight": "4250"
+    },
+    {
+        "level1": "HOUSING, ECON. DEV. & COMMERCE",
+        "level2": "COMMERCE",
+        "level3": "OPERATIONS",
+        "level4": "OTHER EXPENSES",
+        "weight": "616244"
+    },
+    {
+        "level1": "HOUSING, ECON. DEV. & COMMERCE",
+        "level2": "COMMERCE",
+        "level3": "OPERATIONS",
+        "level4": "SALARIES AND WAGES",
+        "weight": "25800"
+    },
+    {
+        "level1": "HOUSING, ECON. DEV. & COMMERCE",
+        "level2": "ECONOMIC DEVELOPMENT",
+        "level3": "OPERATIONS",
+        "level4": "OTHER EXPENSES",
+        "weight": "206628"
+    },
+    {
+        "level1": "HOUSING, ECON. DEV. & COMMERCE",
+        "level2": "ECONOMIC DEVELOPMENT",
+        "level3": "OPERATIONS",
+        "level4": "SALARIES AND WAGES",
+        "weight": "6500"
+    },
+    {
+        "level1": "HOUSING, ECON. DEV. & COMMERCE",
+        "level2": "CITY PLANNING",
+        "level3": "OPERATIONS",
+        "level4": "OTHER EXPENSES",
+        "weight": "855733"
+    },
+    {
+        "level1": "HOUSING, ECON. DEV. & COMMERCE",
+        "level2": "CITY PLANNING",
+        "level3": "OPERATIONS",
+        "level4": "SALARIES AND WAGES",
+        "weight": "9000"
+    },
+    {
+        "level1": "HOUSING, ECON. DEV. & COMMERCE",
+        "level2": "HOUSING CODE ENFORCEMENT",
+        "level3": "OPERATIONS",
+        "level4": "OTHER EXPENSES",
+        "weight": "631218"
+    },
+    {
+        "level1": "HOUSING, ECON. DEV. & COMMERCE",
+        "level2": "HOUSING CODE ENFORCEMENT",
+        "level3": "OPERATIONS",
+        "level4": "OTHER EXPENSES",
+        "weight": "43000"
+    },
+    {
+        "level1": "HOUSING, ECON. DEV. & COMMERCE",
+        "level2": "PLANNING BOARD",
+        "level3": "OPERATIONS",
+        "level4": "OTHER EXPENSES",
+        "weight": "82800"
+    },
+    {
+        "level1": "HOUSING, ECON. DEV. & COMMERCE",
+        "level2": "BOARD OF ADJUSTMENT",
+        "level3": "OPERATIONS",
+        "level4": "OTHER EXPENSES",
+        "weight": "68500"
+    },
+    {
+        "level1": "HOUSING, ECON. DEV. & COMMERCE",
+        "level2": "HISTORIC DISTRICT COMMISSION",
+        "level3": "OPERATIONS",
+        "level4": "OTHER EXPENSES",
+        "weight": "100"
+    },
+    {
+        "level1": "HOUSING, ECON. DEV. & COMMERCE",
+        "level2": "ZONING OFFICER",
+        "level3": "OPERATIONS",
+        "level4": "SALARIES AND WAGES",
+        "weight": "236794"
+    },
+    {
+        "level1": "HOUSING, ECON. DEV. & COMMERCE",
+        "level2": "ZONING OFFICER",
+        "level3": "OPERATIONS",
+        "level4": "OTHER EXPENSES",
+        "weight": "12400"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "EMPLOYEE INSURANCE",
+        "weight": "6200000"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "EMPLOYEE INSURANCE",
+        "weight": "70943758"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "MISC OPERATIONS",
+        "weight": "1200000"
+    },
+    {
+        "level1": "JC INCINERATOR AUTHORITY",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "JC INCINERATOR AUTHORITY",
+        "weight": "33993916"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "MARKETING",
+        "weight": "20000"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "MARKETING",
+        "weight": "20000"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "MISC OPERATIONS",
+        "weight": "20000"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "AMBULANCE",
+        "weight": "3925775"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "MISC OPERATIONS",
+        "weight": "20000"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "ENERGY",
+        "weight": "3400000"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "ENERGY",
+        "weight": "3400000"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "MISC OPERATIONS",
+        "weight": "2520000"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "ENERGY",
+        "weight": "1600000"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "MISC OPERATIONS",
+        "weight": "1545000"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "MISC OPERATIONS",
+        "weight": "1377000"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "MISC OPERATIONS",
+        "weight": "1750000"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "MISC OPERATIONS",
+        "weight": "0"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "MISC OPERATIONS",
+        "weight": "90"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "CONTINGENT",
+        "level4": "CONTINGENT",
+        "weight": "50000"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "EMERGENCY AUTHORIZATIONS",
+        "level4": "EMERGENCY AUTHORIZATIONS",
+        "weight": ""
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "EMERGENCY AUTHORIZATIONS",
+        "level4": "EMERGENCY AUTHORIZATIONS",
+        "weight": ""
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "EMERGENCY AUTHORIZATIONS",
+        "level4": "EMERGENCY AUTHORIZATIONS",
+        "weight": ""
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "EMERGENCY AUTHORIZATIONS",
+        "level4": "EMERGENCY AUTHORIZATIONS",
+        "weight": ""
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "EMERGENCY AUTHORIZATIONS",
+        "level4": "EMERGENCY AUTHORIZATIONS",
+        "weight": ""
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "EMERGENCY AUTHORIZATIONS",
+        "level4": "EMERGENCY AUTHORIZATIONS",
+        "weight": "7619611"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "PRIOR YEARS BILLS",
+        "level4": "PRIOR YEARS BILLS",
+        "weight": "290"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "PRIOR YEARS BILLS",
+        "level4": "PRIOR YEARS BILLS",
+        "weight": "462"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "PRIOR YEARS BILLS",
+        "level4": "PRIOR YEARS BILLS",
+        "weight": "231"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "PRIOR YEARS BILLS",
+        "level4": "PRIOR YEARS BILLS",
+        "weight": "221"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "PRIOR YEARS BILLS",
+        "level4": "PRIOR YEARS BILLS",
+        "weight": "99"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "PRIOR YEARS BILLS",
+        "level4": "PRIOR YEARS BILLS",
+        "weight": ""
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "STATUTORY EXPENDITURES",
+        "level4": "STATUTORY EXPENDITURES",
+        "weight": "3850000"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "STATUTORY EXPENDITURES",
+        "level4": "STATUTORY EXPENDITURES",
+        "weight": "167303"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "STATUTORY EXPENDITURES",
+        "level4": "STATUTORY EXPENDITURES",
+        "weight": "34982452"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "STATUTORY EXPENDITURES",
+        "level4": "STATUTORY EXPENDITURES",
+        "weight": "8413998"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "STATUTORY EXPENDITURES",
+        "level4": "STATUTORY EXPENDITURES",
+        "weight": "225000"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "STATUTORY EXPENDITURES",
+        "level4": "STATUTORY EXPENDITURES",
+        "weight": "72000"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "STATUTORY EXPENDITURES",
+        "level4": "STATUTORY EXPENDITURES",
+        "weight": "720"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "STATUTORY EXPENDITURES",
+        "level4": "STATUTORY EXPENDITURES",
+        "weight": "650000"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "STATUTORY EXPENDITURES",
+        "level4": "STATUTORY EXPENDITURES",
+        "weight": "2483300"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "STATUTORY EXPENDITURES",
+        "level4": "STATUTORY EXPENDITURES",
+        "weight": "10000"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "STATUTORY EXPENDITURES",
+        "level4": "STATUTORY EXPENDITURES",
+        "weight": ""
+    },
+    {
+        "level1": "JC PARKING AUTHORITY",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "OTHER OPERATIONS",
+        "weight": "1078683"
+    },
+    {
+        "level1": "FREE PUBLIC LIBRARY",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "OTHER OPERATIONS",
+        "weight": "7900000"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "OTHER OPERATIONS",
+        "weight": "0"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "OTHER OPERATIONS",
+        "weight": "0"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "OTHER OPERATIONS",
+        "weight": "0"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "UNIFORM CONSTRUCTION CODE INCREASED FREE REVENUES (NJAC 5:23-4.17)",
+        "weight": "0"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "INTERLOCAL MUNICIPAL SERVICE AGREEMENTS",
+        "weight": "0"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "ADDITIONAL APPROPRIATIONS OFFSET BY REVENUES (N.J.S. 40A:4-45.3H)",
+        "weight": "0"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": "10000"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": "607778"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": ""
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": "195000"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": "350000"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": ""
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": ""
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": "291511"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": "25000"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": ""
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": "482625"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": ""
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": "612620"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": "41250"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": "234200"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": ""
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": "625000"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": ""
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": "660159"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": "615287"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": "1390654"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": "281693"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": "300000"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": "42300"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": ""
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": ""
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": "295000"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": ""
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": "50000"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": "75000"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": "259000"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": ""
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": ""
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": ""
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": "792000"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": "10000"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": ""
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": ""
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": ""
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": ""
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": ""
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": ""
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": "1750"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": ""
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": ""
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": ""
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": ""
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": ""
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": "349581"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": "7351489"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": ""
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": "40000"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": "203864"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": ""
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": "535841"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": ""
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": "10000"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": ""
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": ""
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": "65000"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": "1077190"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": "500000"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": "220000"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": "200000"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": "100000"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": ""
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": ""
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": ""
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": ""
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": ""
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": "9715"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": ""
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": ""
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": "40000"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": ""
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": ""
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": ""
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": ""
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": ""
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": ""
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": ""
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": ""
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": ""
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": "50000"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "OPERATIONS",
+        "level4": "PUBLIC & PRIVATE level3S OFFSET BY REVENUES (NJS 40A:4-43.3h)",
+        "weight": "0"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "CAPITAL IMPROVEMENTS",
+        "level4": "DOWN PAYMENTS on IMPROVEMENTS",
+        "weight": "400000"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "CAPITAL IMPROVEMENTS",
+        "level4": "DOWN PAYMENTS on IMPROVEMENTS",
+        "weight": "200000"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "CAPITAL IMPROVEMENTS",
+        "level4": "Public & Private level3s Offered by Revenues",
+        "weight": ""
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "MUNICIPAL DEBT SERVICE",
+        "level4": "MUNICIPAL DEBT SERVICE",
+        "weight": "6191000"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "MUNICIPAL DEBT SERVICE",
+        "level4": "MUNICIPAL DEBT SERVICE",
+        "weight": "17645000"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "MUNICIPAL DEBT SERVICE",
+        "level4": "MUNICIPAL DEBT SERVICE",
+        "weight": "947013"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "MUNICIPAL DEBT SERVICE",
+        "level4": "MUNICIPAL DEBT SERVICE",
+        "weight": "1369515"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "MUNICIPAL DEBT SERVICE",
+        "level4": "MUNICIPAL DEBT SERVICE",
+        "weight": "4983592"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "MUNICIPAL DEBT SERVICE",
+        "level4": "MUNICIPAL DEBT SERVICE",
+        "weight": "11210957"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "MUNICIPAL DEBT SERVICE",
+        "level4": "MUNICIPAL DEBT SERVICE",
+        "weight": "884515"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "MUNICIPAL DEBT SERVICE",
+        "level4": "MUNICIPAL DEBT SERVICE",
+        "weight": "3110"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "MUNICIPAL DEBT SERVICE",
+        "level4": "MUNICIPAL DEBT SERVICE",
+        "weight": "4659195"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "MUNICIPAL DEBT SERVICE",
+        "level4": "MUNICIPAL DEBT SERVICE",
+        "weight": "38243"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "MUNICIPAL DEBT SERVICE",
+        "level4": "MUNICIPAL DEBT SERVICE",
+        "weight": ""
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "MUNICIPAL DEBT SERVICE",
+        "level4": "MUNICIPAL DEBT SERVICE",
+        "weight": "9021"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "MUNICIPAL DEBT SERVICE",
+        "level4": "MUNICIPAL DEBT SERVICE",
+        "weight": "14669"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "MUNICIPAL DEBT SERVICE",
+        "level4": "MUNICIPAL DEBT SERVICE",
+        "weight": "17661"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "MUNICIPAL DEBT SERVICE",
+        "level4": "MUNICIPAL DEBT SERVICE",
+        "weight": "9017"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "MUNICIPAL DEBT SERVICE",
+        "level4": "MUNICIPAL DEBT SERVICE",
+        "weight": "26428"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "MUNICIPAL DEBT SERVICE",
+        "level4": "MUNICIPAL DEBT SERVICE",
+        "weight": "401600"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "MUNICIPAL DEBT SERVICE",
+        "level4": "MUNICIPAL DEBT SERVICE",
+        "weight": "8084"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "MUNICIPAL DEBT SERVICE",
+        "level4": "MUNICIPAL DEBT SERVICE",
+        "weight": "480000"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "MUNICIPAL DEBT SERVICE",
+        "level4": "MUNICIPAL DEBT SERVICE",
+        "weight": "4391723"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "MUNICIPAL DEBT SERVICE",
+        "level4": "MUNICIPAL DEBT SERVICE",
+        "weight": "780000"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "MUNICIPAL DEBT SERVICE",
+        "level4": "MUNICIPAL DEBT SERVICE",
+        "weight": "315000"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "MUNICIPAL DEBT SERVICE",
+        "level4": "MUNICIPAL DEBT SERVICE",
+        "weight": "3555000"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "MUNICIPAL DEBT SERVICE",
+        "level4": "MUNICIPAL DEBT SERVICE",
+        "weight": ""
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "MUNICIPAL DEBT SERVICE",
+        "level4": "MUNICIPAL DEBT SERVICE",
+        "weight": "1243227"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "MUNICIPAL DEBT SERVICE",
+        "level4": "MUNICIPAL DEBT SERVICE",
+        "weight": "141769"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "EMERGENCY AUTHORIZATIONS",
+        "level3": "DEFERRED CHARGES – MUNICIPAL",
+        "level4": "DEFERRED CHARGES – MUNICIPAL",
+        "weight": "4390000"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "DEFERRED CHARGES – MUNICIPAL",
+        "level4": "DEFERRED CHARGES – MUNICIPAL",
+        "weight": "400000"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "DEFERRED CHARGES – MUNICIPAL",
+        "level4": "DEFERRED CHARGES – MUNICIPAL",
+        "weight": "1193000"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "DEFERRED CHARGES – MUNICIPAL",
+        "level4": "DEFERRED CHARGES – MUNICIPAL",
+        "weight": "1385000"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "DEFERRED CHARGES – MUNICIPAL",
+        "level4": "DEFERRED CHARGES – MUNICIPAL",
+        "weight": ""
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "DEFERRED CHARGES – MUNICIPAL",
+        "level4": "DEFERRED CHARGES – MUNICIPAL",
+        "weight": ""
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "JUDGEMENTS",
+        "level4": "JUDGEMENTS",
+        "weight": "0"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "TRANSFERRED",
+        "level4": "TRANSFERRED",
+        "weight": ""
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "CASH DEFICIT – PRECEEDING YEAR",
+        "level4": "CASH DEFICIT -PRECEEDING YEAR",
+        "weight": ""
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "LOCAL DISTRICT SCHOOL PURPOSES",
+        "level4": "TYPE 1 DISTRICT SCHOOL DEBT",
+        "weight": ""
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "LOCAL DISTRICT SCHOOL PURPOSES",
+        "level4": "TYPE 1 DISTRICT SCHOOL DEBT",
+        "weight": ""
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "LOCAL DISTRICT SCHOOL PURPOSES",
+        "level4": "TYPE 1 DISTRICT SCHOOL DEBT",
+        "weight": ""
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "LOCAL DISTRICT SCHOOL PURPOSES",
+        "level4": "TYPE 1 DISTRICT SCHOOL DEBT",
+        "weight": "9225000"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "LOCAL DISTRICT SCHOOL PURPOSES",
+        "level4": "TYPE 1 DISTRICT SCHOOL DEBT",
+        "weight": "2965025"
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "LOCAL DISTRICT SCHOOL PURPOSES",
+        "level4": "TYPE 1 DISTRICT SCHOOL DEBT",
+        "weight": ""
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "LOCAL DISTRICT SCHOOL PURPOSES",
+        "level4": "TYPE 1 DISTRICT SCHOOL DEBT",
+        "weight": ""
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "LOCAL DISTRICT SCHOOL PURPOSES",
+        "level4": "Deferred Charges & Statutory Expenditures Local School",
+        "weight": ""
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "LOCAL DISTRICT SCHOOL PURPOSES",
+        "level4": "Deferred Charges & Statutory Expenditures Local School",
+        "weight": ""
+    },
+    {
+        "level1": "NON-DEPARTAMENTAL",
+        "level2": "NON-level2AL",
+        "level3": "RESERVE FOR UNCOLLECTED TAXES",
+        "level4": "RESERVE FOR UNCOLLECTED TAXES",
+        "weight": "1528223"
+    }
+]

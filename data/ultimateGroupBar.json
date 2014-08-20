@@ -1,0 +1,128 @@
+[
+	{
+		"y": "January",
+		"x":  8,
+		"group": "Previous",
+		"stack": "stack", 
+		"tooltip": "stack",
+		"color": "#4b6377",
+		"highlight": false
+	},
+	{
+		"y": "January",
+		"x":  12,
+		"group": "Current",
+		"stack": "stack", 
+		"tooltip": "stack",
+		"color": "#4b6377",
+		"highlight": false
+	},
+	{
+		"y": "January",
+		"x":  16,
+		"group": "Next",
+		"stack": "stack", 
+		"tooltip": "stack",
+		"color": "#4b6377",
+		"highlight": false
+	},
+	{
+		"y": "January",
+		"x":  20,
+		"group": "Predicted",
+		"stack": "stack", 
+		"tooltip": "stack",
+		"color": "#4b6377",
+		"highlight": false
+	},
+	{
+		"y": "Feb",
+		"x":  20,
+		"group": "Previous",
+		"stack": "stack", 
+		"tooltip": "stack",
+		"color": "#4b6377",
+		"highlight": false
+	},
+	{
+		"y": "Feb",
+		"x":  22,
+		"group": "Predicted",
+		"stack": "stack", 
+		"tooltip": "stack",
+		"color": "#4b6377",
+		"highlight": false
+	},
+	{
+		"y": "Feb",
+		"x":  24,
+		"group": "Current",
+		"stack": "stack", 
+		"tooltip": "stack",
+		"color": "#4b6377",
+		"highlight": false
+	},
+	{
+		"y": "Feb",
+		"x":  28,
+		"group": "Next",
+		"stack": "stack", 
+		"tooltip": "stack",
+		"color": "#4b6377",
+		"highlight": false
+	},
+	{
+		"y": "March",
+		"x":  8,
+		"group": "Previous",
+		"stack": "stack", 
+		"tooltip": "stack",
+		"color": "#4b6377",
+		"highlight": false
+	},
+	{
+		"y": "March",
+		"x":  12,
+		"group": "Current",
+		"stack": "stack", 
+		"tooltip": "stack",
+		"color": "#4b6377",
+		"highlight": false
+	},
+	{
+		"y": "March",
+		"x":  16,
+		"group": "Next",
+		"stack": "stack", 
+		"tooltip": "stack",
+		"color": "#4b6377",
+		"highlight": false
+	},
+	{
+		"y": "April",
+		"x":  8,
+		"group": "Previous",
+		"stack": "stack", 
+		"tooltip": "stack",
+		"color": "#4b6377",
+		"highlight": false
+	},
+	{
+		"y": "April",
+		"x":  12,
+		"group": "Current",
+		"stack": "stack", 
+		"tooltip": "stack",
+		"color": "#4b6377",
+		"highlight": false
+	},
+	{
+		"y": "April",
+		"x":  16,
+		"group": "Next",
+		"stack": "stack", 
+		"tooltip": "stack",
+		"color": "#4b6377",
+		"highlight": false
+	}
+]

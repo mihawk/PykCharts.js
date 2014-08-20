@@ -1,0 +1,114 @@
+[
+	{
+		"x": "January",
+		"y":  8,
+		"group": "Previous",
+		"tooltip": "Missed",
+		"color": "#4b6377",
+		"highlight": false
+	},
+	{
+		"x": "January",
+		"y":  12,
+		"group": "Current",
+		"tooltip": "Missed",
+		"color": "#4b6377",
+		"highlight": false
+	},
+	{
+		"x": "January",
+		"y":  16,
+		"group": "Next",
+		"tooltip": "Missed",
+		"color": "#4b6377",
+		"highlight": false
+	},
+	{
+		"x": "January",
+		"y":  20,
+		"group": "Predicted",
+		"tooltip": "Missed",
+		"color": "#4b6377",
+		"highlight": false
+	},
+	{
+		"x": "Feb",
+		"y":  20,
+		"group": "Previous",
+		"tooltip": "Missed",
+		"color": "#4b6377",
+		"highlight": false
+	},
+	{
+		"x": "Feb",
+		"y":  22,
+		"group": "Predicted",
+		"tooltip": "Missed",
+		"color": "#4b6377",
+		"highlight": false
+	},
+	{
+		"x": "Feb",
+		"y":  24,
+		"group": "Current",
+		"tooltip": "Missed",
+		"color": "#4b6377",
+		"highlight": false
+	},
+	{
+		"x": "Feb",
+		"y":  28,
+		"group": "Next",
+		"tooltip": "Missed",
+		"color": "#4b6377",
+		"highlight": false
+	},
+	{
+		"x": "March",
+		"y":  8,
+		"group": "Previous",
+		"tooltip": "Missed",
+		"color": "#4b6377",
+		"highlight": false
+	},
+	{
+		"x": "March",
+		"y":  12,
+		"group": "Current",
+		"tooltip": "Missed",
+		"color": "#4b6377",
+		"highlight": false
+	},
+	{
+		"x": "March",
+		"y":  16,
+		"group": "Next",
+		"tooltip": "Missed",
+		"color": "#4b6377",
+		"highlight": false
+	},
+	{
+		"x": "April",
+		"y":  8,
+		"group": "Previous",
+		"tooltip": "Missed",
+		"color": "#4b6377",
+		"highlight": false
+	},
+	{
+		"x": "April",
+		"y":  12,
+		"group": "Current",
+		"tooltip": "Missed",
+		"color": "#4b6377",
+		"highlight": false
+	},
+	{
+		"x": "April",
+		"y":  16,
+		"group": "Next",
+		"tooltip": "Missed",
+		"color": "#4b6377",
+		"highlight": false
+	}
+]

@@ -1,0 +1,78 @@
+<html>
+	<head>
+        <title> Pyramid Chart </title>
+		<script src="../lib/d3.min.js"> </script>
+		<script src="../lib/d3.min.js"></script>
+		<script src="../lib/jquery-1.11.1.min.js"></script> 
+		<script src="../lib/underscore-min.js"></script>
+		<script src="../lib/fisheye.js"></script>
+		<script src="../lib/jquery.bpopup.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="../src/css/PykCharts.css">
+        <link rel="stylesheet" type="text/css" href="../lib/bootstrap/css/bootstrap.min.css">
+	</head>
+
+	<body>
+		<div id="pyramid" style="width:700px">
+        </div>
+		<script src="../src/js/pyk.js"></script>
+		<script src="../src/js/oneD/oneD.js"></script>
+        <script src="../src/js/oneD/pyramid.js"></script>
+		<script>
+
+		$(document).ready(function (e) {
+
+			var k = new PykCharts.oneD.pyramid ({
+				selector: "#pyramid",
+				data:"../data/pie.json",
+                mode:"default",
+				optional:{
+        			chart: {
+            			height: 500,
+            			width: 500
+        			},
+        			title: {
+                        enable: "yes",
+                        text: "Malnutrition in India",
+                        subtitle: {
+                            text: "Malnutrition in India Malnutrition in India Malnutrition in India Malnutrition in India"
+                        }
+                    },
+                    units : {
+                        prefix: "",
+                        suffix: ""
+                    },
+                    dataSource:{
+                        enable: "yes",
+                        data_src_text: "World Bank",
+                        data_src_url: "http://www.pykih.com/"
+                    },
+                    clubData: {
+                        enable:"no",
+                        text: "Others", //default: Others
+                        maximumNodes: 4, //default: 5
+                        alwaysIncludeDataPoints: [],
+                        color:"green",
+                        tooltipText:"others"
+                    },
+                    liveData: {
+                        enable: "no",
+                        refreshFrequency: 7
+                    },
+                    transition: {
+                        enable: "yes",
+                        duration: 1000
+                    },
+                    ticks:{ 
+                        strokeWidth: "1px",
+                        size: 13,
+                        color: "#1D1D1D",
+                        family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
+                    }
+			 	}		 	
+			 });
+			k.execute();
+		});				
+
+		</script>
+	</body>
+</html>
