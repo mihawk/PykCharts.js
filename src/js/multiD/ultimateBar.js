@@ -79,6 +79,7 @@ PykCharts.multi_series_2D.ultimateBar = function(options){
                 .axisContainer();
 
             that.k.xAxis(that.svg,that.xgroup,that.xScale)
+                 .xGrid(that.svg,that.group,that.xScale);
 //               .yAxis(that.svg,that.ygroup,that.y0);
               
         } else if(that.mode === "infographic") {
@@ -195,7 +196,8 @@ PykCharts.multi_series_2D.ultimateBar = function(options){
                                 tooltip : d.tooltip,
                                 color: d.color,
                                 group: d.group,
-                                name:d.name
+                                name:d.name,
+                                highlight:d.highlight
                             };
                         })
                     };
