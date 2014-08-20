@@ -13,7 +13,7 @@
 	<body>
 		<div id="area" style="position:relative;"></div>
 		<script type="text/javascript" src="../src/js/pyk.js"></script>
-		<script type="text/javascript" src="../src/js/twoD/twoD.js"></script>
+		<script type="text/javascript" src="../src/js/multiD/twoD.js"></script>
 		<script type="text/javascript" src="../src/js/multiD/areaChart.js"></script>
 		<script type="text/javascript">
 			$(document).ready(function (e) {
@@ -75,10 +75,10 @@
 	                        text: "World Bank",
 	                        url: "http://www.pykih.com/"
 	                    },
-	                    border: {
-							enable: "yes",
+	                    borderBetweenChartElements: {
 							width: "1px",
-							color: "white"
+							color: "#1D1D1D",
+							style: "dotted"
 						},
 						creditMySite:{
 	                        mySiteName: "Acme NewsCorp",

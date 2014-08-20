@@ -48,15 +48,15 @@ PykCharts.Configuration = function (options)
                 scale = d3.scale.ordinal()
                     .domain(data)
                     .rangeRoundBands(range, x);
-
                 return scale;
+
             } else if(type === "linear") {
                 scale = d3.scale.linear()
                     .domain(data)
                     .range(range);
                 return scale;
-            } else if(type === "time") {
 
+            } else if(type === "time") {
                 scale = d3.time.scale()
                     .domain(data)
                     .range(range);
@@ -742,7 +742,7 @@ configuration.Theme = function(){
         "borderBetweenChartElements":{
             "width": 1,
             "color": "white",
-            "style": "solid"
+            "style": "solid" // or "dotted / dashed"
         },
         "legends":{ //partially done for oneD, pending for twoD
             "size": "13",
