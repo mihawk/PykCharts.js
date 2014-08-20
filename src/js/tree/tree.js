@@ -29,6 +29,9 @@ PykCharts.tree.configuration = function (options){
                 .entries(data);
             return data;
     	}
+    }
+    return treeConfig;
+};
 
 
 PykCharts.tree.processInputs = function (chartObject, options) {
