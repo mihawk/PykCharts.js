@@ -45,13 +45,13 @@ PykCharts.twoD.area = function (options){
 	    		.axisContainer();
 
 			that.k.crossHair(that.svg,that.type)
-					.credits()
-					.dataSource();
+					.credits();
 
 			that.k.xAxis(that.svg,that.gxaxis,that.xScale)
 					.yAxis(that.svg,that.gyaxis,that.yScale)
 					.yGrid(that.svg,that.group,that.yScale)
-					.xGrid(that.svg,that.group,that.xScale);
+					.xGrid(that.svg,that.group,that.xScale)
+					.dataSource();
 		}
 		else if(that.mode === "infographics") {
 			  that.k.liveData(that)

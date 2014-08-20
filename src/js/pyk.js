@@ -18,7 +18,7 @@ Array.__proto__.groupBy = function (data) {
 PykCharts.boolean = function(d) {
     var false_values = ['0','f',"false",'n','no',''];
     var false_keywords = [undefined,null,NaN];
-    if(false_keywords.indexOf(d) > -1) {
+    if(_.contains(false_keywords, d)) {
         return false;
     }
     value = d.toLocaleString();
@@ -147,7 +147,7 @@ PykCharts.Configuration = function (options)
 	        return this;
 	    },
 	    dataSource : function () {
-	        if(PykCharts.boolean(options.dataSource) && PykCharts.boolean(options.dataSource.text) || PykCharts.boolean(options.dataSource.url)) {
+	        if(PykCharts.boolean(options.dataSource) && (PykCharts.boolean(options.dataSource.text) || PykCharts.boolean(options.dataSource.url))) {
 	            var enable = true;
 	            var data_src = options.dataSource;
 	            if(data_src.text === "") {
@@ -243,9 +243,6 @@ PykCharts.Configuration = function (options)
                         .style("z-index","10")
                         .style("visibility", "hidden");
                 }
-            }
-            else {
-
             }
             return this;
         },
@@ -457,9 +454,10 @@ configuration.mouseEvent = function (options) {
             }
         },
         crossHairPosition: function(data,xScale,dataLineGroup,lineMargin){
-            if((PykCharts.boolean(options.enableCrossHair) || PykCharts.boolean(options.onHoverHighlightenable) || PykCharts.boolean(options.enableTooltip)) && options.mode === "default") {
-                var offsetLeft = $(options.selector + " #"+dataLineGroup.attr("id")).offset().left;
-                var offsetRight = $(options.selector + " #"+dataLineGroup.attr("id")).offset().right;
+            if(PykCharts.boolean(options.enableCrossHair) && options.mode === "default") {
+                var offsetLeft = $(options.selector + " " + "#"+dataLineGroup.attr("id")).offset().left;
+                var offsetRight = $(options.selector + " " + "#"+dataLineGroup.attr("id")).offset().right;
+                // var color = options.optional.color.color;
                 var left = options.margin.left;
                 var right = options.margin.right;
                 var top = options.margin.top;
@@ -500,13 +498,13 @@ configuration.mouseEvent = function (options) {
     			if((cx >= (lineMargin + left + 1)) && (cx <= (pathWidth + lineMargin + left + 2)) && (cy >= top) && (cy <= (h - bottom))) {
                 	this.tooltipPosition(tooltipText,cx,top,-30,-3);
                     this.toolTextShow(tooltipText);
-                    (PykCharts.boolean(options.enableCrossHair)) ? this.crossHairShow(cx,top,cx,(h - bottom),cx,cy) : null;
-                    this.axisHighlightShow(activeTick,options.selector+" .x.axis");
+                    this.crossHairShow(cx,top,cx,(h - bottom),cx,cy);
+                    this.axisHighlightShow(activeTick,options.selector+" "+".x.axis");
                 }
                 else{
                   	this.tooltipHide();
-                  	(PykCharts.boolean(options.enableCrossHair)) ? this.crossHairHide() : null;
-                  	this.axisHighlightHide(options.selector+" .x.axis");
+                  	this.crossHairHide();
+                  	this.axisHighlightHide(options.selector+" "+".x.axis");
                   	// crossHairH.style("display","none");
                 }
 
@@ -536,17 +534,17 @@ configuration.mouseEvent = function (options) {
         },
         axisHighlightShow : function (activeTick,axisHighlight,a) {
             var j_curr,j_prev,abc,selection;
-            if(PykCharts.boolean(options.axis.onHoverHighlightenable) && options.mode === "default"){
-                if(axisHighlight === options.selector + " .y.axis"){
+            if(PykCharts.boolean(options.axis.onHoverHighlightenable)&& options.mode === "default"){
+                if(axisHighlight === options.selector + " " + ".y.axis"){
                     selection = axisHighlight+" .tick text";
                     abc = options.axis.y.labelColor;
-                } else if(axisHighlight === options.selector + " .x.axis") {
+                } else if(axisHighlight === options.selector + " " + ".x.axis") {
                     selection = axisHighlight+" .tick text";
                     abc = options.axis.x.labelColor;
-                } else if(axisHighlight === options.selector + " .axis-text" && a === "column") {
+                } else if(axisHighlight === options.selector + " " + ".axis-text" && a === "column") {
                     selection = axisHighlight;
                     abc = options.axis.x.labelColor;
-                } else if(axisHighlight === options.selector + " .axis-text" && a === "bar") {
+                } else if(axisHighlight === options.selector + " " + ".axis-text" && a === "bar") {
                     selection = axisHighlight;
                     abc = options.axis.y.labelColor;
                 }
@@ -570,19 +568,20 @@ configuration.mouseEvent = function (options) {
             }
             return this;
         },
+
         axisHighlightHide : function (axisHighlight,a) {
             var abc,selection;
             if(PykCharts.boolean(options.axis.onHoverHighlightenable) && options.mode === "default"){
-                if(axisHighlight === options.selector + " .y.axis"){
+                if(axisHighlight === options.selector + " " + ".y.axis"){
                     selection = axisHighlight+" .tick text";
                     abc = options.axis.y.labelColor;
-                } else if(axisHighlight === options.selector + " .x.axis") {
+                } else if(axisHighlight === options.selector + " " + ".x.axis") {
                     selection = axisHighlight+" .tick text";
                     abc = options.axis.x.labelColor;
-                } else if(axisHighlight === options.selector + " .axis-text" && a === "column") {
+                } else if(axisHighlight === options.selector + " " + ".axis-text" && a === "column") {
                     selection = axisHighlight;
                     abc = options.axis.x.labelColor;
-                } else if(axisHighlight === options.selector + " .axis-text" && a === "bar") {
+                } else if(axisHighlight === options.selector + " " + ".axis-text" && a === "bar") {
                     selection = axisHighlight;
                     abc = options.axis.y.labelColor;
                 }
@@ -648,6 +647,7 @@ configuration.makeYAxis = function(options,yScale) {
                     .orient(options.axis.y.orient)
                     .ticks(options.axis.y.no_of_ticks)
                     .tickSize(options.axis.y.tickSize)
+                    .outerTickSize(0)
                     .tickPadding(options.axis.y.ticksPadding)
                     .tickFormat(function (d,i) {
                         return d + options.axis.y.tickFormat;
@@ -664,7 +664,8 @@ configuration.makeXGrid = function(options,xScale) {
                     .orient("bottom")
                     .ticks(options.axis.x.no_of_ticks)
                     .tickFormat("")
-                    .tickSize(options.height - options.margin.top - options.margin.bottom);
+                    .tickSize(options.height - options.margin.top - options.margin.bottom)
+                    .outerTickSize(0);
     return xgrid;
 };
 
@@ -675,7 +676,8 @@ configuration.makeYGrid = function(options,yScale) {
                     .orient("left")
                     .ticks(options.axis.x.no_of_ticks)
                     .tickSize(-(options.width - options.margin.left - options.margin.right))
-                    .tickFormat("");
+                    .tickFormat("")
+                    .outerTickSize(0);
     return ygrid;
 };
 
@@ -742,7 +744,7 @@ configuration.Theme = function(){
             "color": "white",
             "style": "solid" // or "dotted / dashed"
         },
-        "legendsText":{ //partially done for oneD, pending for twoD
+        "legends":{ //partially done for oneD, pending for twoD
             "size": "13",
             "color": "white",
             "weight": "thin",

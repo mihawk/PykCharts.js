@@ -64,12 +64,12 @@ PykCharts.twoD.fillChart = function (options, theme) {
 };
 
 PykCharts.twoD.processInputs = function (chartObject, options) {
-    console.log("ISHAAAAAAAAAAAAAA");
     var theme = new PykCharts.Configuration.Theme({}),
         stylesheet = theme.stylesheet,
         //, functionality = theme.functionality,
         twoDimensionalCharts = theme.twoDimensionalCharts,
         optional = options.optional;
+
     chartObject.yAxisDataFormat = options.yAxisDataFormat ? options.yAxisDataFormat : twoDimensionalCharts.yAxisDataFormat
     chartObject.xAxisDataFormat = options.xAxisDataFormat ? options.xAxisDataFormat : twoDimensionalCharts.xAxisDataFormat;
     chartObject.selector = options.selector ? options.selector : "body";
