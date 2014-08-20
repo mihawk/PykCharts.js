@@ -80,6 +80,7 @@ PykCharts.twoD.line = function (options){
 				that.w = that.width/that.new_data_length;
 				that.reducedWidth = that.w - that.margin.left - that.margin.right;
 				that.reducedHeight = that.height - that.margin.top - that.margin.bottom;
+				
 				for(i=0;i<that.new_data_length;i++) {
 					that.k.liveData(that)
 								.makeMainDiv(options.selector,i)

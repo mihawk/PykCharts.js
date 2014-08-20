@@ -173,7 +173,7 @@ PykCharts.Configuration = function (options)
             return this;
         },
 	    tooltip : function (d,selection,i) {
-	    	if(PykCharts.boolean(options.enableTooltip)) {
+	    	if(PykCharts.boolean(options.enableTooltip) && options.mode === "default") {
 	        	if(selection !== undefined){
 	        		d3.select(options.selector + " " +"#tooltip-svg"+i).append("div")
                         .attr("id", "tooltip-container")
@@ -250,7 +250,7 @@ PykCharts.Configuration = function (options)
             return this;
         },
         crossHair : function (svg) {
-            if(PykCharts.boolean(options.enableCrossHair)) {
+            if(PykCharts.boolean(options.enableCrossHair) && options.mode === "default") {
                 $(options.selector + " " + "#cross-hair-v").remove();
                 $(options.selector + " " + "#focus-circle").remove();
                 PykCharts.Configuration.cross_hair_v = svg.append("g")
@@ -457,10 +457,9 @@ configuration.mouseEvent = function (options) {
             }
         },
         crossHairPosition: function(data,xScale,dataLineGroup,lineMargin){
-            if(PykCharts.boolean(options.enableCrossHair) && options.mode === "default") {
-                var offsetLeft = $(options.selector + " " + "#"+dataLineGroup.attr("id")).offset().left;
-                var offsetRight = $(options.selector + " " + "#"+dataLineGroup.attr("id")).offset().right;
-                // var color = options.optional.color.color;
+            if((PykCharts.boolean(options.enableCrossHair) || PykCharts.boolean(options.onHoverHighlightenable) || PykCharts.boolean(options.enableTooltip)) && options.mode === "default") {
+                var offsetLeft = $(options.selector + " #"+dataLineGroup.attr("id")).offset().left;
+                var offsetRight = $(options.selector + " #"+dataLineGroup.attr("id")).offset().right;
                 var left = options.margin.left;
                 var right = options.margin.right;
                 var top = options.margin.top;
@@ -501,13 +500,13 @@ configuration.mouseEvent = function (options) {
     			if((cx >= (lineMargin + left + 1)) && (cx <= (pathWidth + lineMargin + left + 2)) && (cy >= top) && (cy <= (h - bottom))) {
                 	this.tooltipPosition(tooltipText,cx,top,-30,-3);
                     this.toolTextShow(tooltipText);
-                    this.crossHairShow(cx,top,cx,(h - bottom),cx,cy);
-                    this.axisHighlightShow(activeTick,options.selector+" "+".x.axis");
+                    (PykCharts.boolean(options.enableCrossHair)) ? this.crossHairShow(cx,top,cx,(h - bottom),cx,cy) : null;
+                    this.axisHighlightShow(activeTick,options.selector+" .x.axis");
                 }
                 else{
                   	this.tooltipHide();
-                  	this.crossHairHide();
-                  	this.axisHighlightHide(options.selector+" "+".x.axis");
+                  	(PykCharts.boolean(options.enableCrossHair)) ? this.crossHairHide() : null;
+                  	this.axisHighlightHide(options.selector+" .x.axis");
                   	// crossHairH.style("display","none");
                 }
 
@@ -537,17 +536,17 @@ configuration.mouseEvent = function (options) {
         },
         axisHighlightShow : function (activeTick,axisHighlight,a) {
             var j_curr,j_prev,abc,selection;
-            if(PykCharts.boolean(options.axis.onHoverHighlightenable)&& options.mode === "default"){
-                if(axisHighlight === options.selector + " " + ".y.axis"){
+            if(PykCharts.boolean(options.axis.onHoverHighlightenable) && options.mode === "default"){
+                if(axisHighlight === options.selector + " .y.axis"){
                     selection = axisHighlight+" .tick text";
                     abc = options.axis.y.labelColor;
-                } else if(axisHighlight === options.selector + " " + ".x.axis") {
+                } else if(axisHighlight === options.selector + " .x.axis") {
                     selection = axisHighlight+" .tick text";
                     abc = options.axis.x.labelColor;
-                } else if(axisHighlight === options.selector + " " + ".axis-text" && a === "column") {
+                } else if(axisHighlight === options.selector + " .axis-text" && a === "column") {
                     selection = axisHighlight;
                     abc = options.axis.x.labelColor;
-                } else if(axisHighlight === options.selector + " " + ".axis-text" && a === "bar") {
+                } else if(axisHighlight === options.selector + " .axis-text" && a === "bar") {
                     selection = axisHighlight;
                     abc = options.axis.y.labelColor;
                 }
@@ -571,20 +570,19 @@ configuration.mouseEvent = function (options) {
             }
             return this;
         },
-
         axisHighlightHide : function (axisHighlight,a) {
             var abc,selection;
             if(PykCharts.boolean(options.axis.onHoverHighlightenable) && options.mode === "default"){
-                if(axisHighlight === options.selector + " " + ".y.axis"){
+                if(axisHighlight === options.selector + " .y.axis"){
                     selection = axisHighlight+" .tick text";
                     abc = options.axis.y.labelColor;
-                } else if(axisHighlight === options.selector + " " + ".x.axis") {
+                } else if(axisHighlight === options.selector + " .x.axis") {
                     selection = axisHighlight+" .tick text";
                     abc = options.axis.x.labelColor;
-                } else if(axisHighlight === options.selector + " " + ".axis-text" && a === "column") {
+                } else if(axisHighlight === options.selector + " .axis-text" && a === "column") {
                     selection = axisHighlight;
                     abc = options.axis.x.labelColor;
-                } else if(axisHighlight === options.selector + " " + ".axis-text" && a === "bar") {
+                } else if(axisHighlight === options.selector + " .axis-text" && a === "bar") {
                     selection = axisHighlight;
                     abc = options.axis.y.labelColor;
                 }
