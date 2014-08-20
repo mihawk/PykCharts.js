@@ -248,9 +248,9 @@ PykCharts.Configuration = function (options)
         },
         crossHair : function (svg) {
             if(PykCharts.boolean(options.enableCrossHair) && options.mode === "default") {
-                $(options.selector + " " + "#cross-hair-v").remove();
+                /*$(options.selector + " " + "#cross-hair-v").remove();
                 $(options.selector + " " + "#focus-circle").remove();
-                PykCharts.Configuration.cross_hair_v = svg.append("g")
+                */PykCharts.Configuration.cross_hair_v = svg.append("g")
                     .attr("class","line-cursor")
                     .style("display","none");
                 PykCharts.Configuration.cross_hair_v.append("line")
@@ -513,7 +513,8 @@ configuration.mouseEvent = function (options) {
         crossHairShow : function (x1,y1,x2,y2,cx,cy) {
             if(PykCharts.boolean(options.enableCrossHair) && options.mode === "default") {
                 if(x1 !== undefined){
-                    that.cross_hair_v.style("display","block")
+                    // console.log();
+                    that.cross_hair_v.style("display","block");
                     that.cross_hair_v.select(options.selector + " " +"#cross-hair-v")
                         .attr("x1",x1)
                         .attr("y1",y1)
@@ -711,13 +712,13 @@ configuration.Theme = function(){
         "mode": "default",
         "selector": "body",
         "title":{
-            "size": 15,
+            "size": "15px",
             "color": "#1D1D1D",
             "weight": 800,
             "family": "'Helvetica Neue',Helvetica,Arial,sans-serif"
         },
         "subtitle":{
-            "size": 12,
+            "size": "12px",
             "color": "gray",
             "weight": 200,
             "family": "'Helvetica Neue',Helvetica,Arial,sans-serif"

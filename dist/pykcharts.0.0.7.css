@@ -1,7 +1,11 @@
+body {
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
 .PykCharts-multi-series2D .line-cursor line {
   fill: none;
   stroke-width: 1px;
-  stroke: red;
+  stroke: #cccccc;
   shape-rendering: crispEdges;
 }
 
@@ -34,12 +38,20 @@
 }
 
 .PykCharts-multi-series2D .stacked-area {
+  opacity: .7;
   fill: steelblue;
   shape-rendering: auto;
 }
 
-.PykCharts-line-chart body {
-  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+.PykCharts-multi-series2D path.stacked-area:hover {
+  opacity: 1;
+}
+
+.PykCharts-multi-series2D .area-border {
+  fill: none;
+  stroke-width: 1px;
+  stroke: #1D1D1D;
+  shape-rendering: auto;
 }
 
 .PykCharts-line-chart .line {
@@ -117,7 +129,7 @@
   font: 12px "Helvetica Neue",Helvetica,Arial,sans-serif;
   font-style: normal;
   font-weight: normal;
-  /*fill: #1D1D1D;*/
+  fill: #1D1D1D;
   stroke: none;
   z-index: 10;
 }
@@ -126,7 +138,7 @@
   font: 12px "Helvetica Neue",Helvetica,Arial,sans-serif;
   font-style: normal;
   font-weight: normal;
-  fill: red;
+  fill: #1D1D1D;
   stroke: none;
   z-index: 10;
 }
@@ -138,7 +150,7 @@
 
 .PykCharts-twoD .axis-line {
   fill: none;
-  shape-rendering: crispEdges; 
+  shape-rendering: crispEdges;
 }
 
 .PykCharts-twoD .grid-line {
@@ -287,4 +299,7 @@ padding-right:20px;
   stroke-width: 1.5px;
 }
 
-.
+.PykCharts-sunburst path {
+  stroke: #fff;
+  fill-rule: evenodd;
+}
