@@ -20,7 +20,7 @@
 		$(document).ready(function(e) {
 		
 			var k = new PykCharts.multi_series_2D.ultimate({
-		        data: "../data/ultimateGroupBar.json",
+		        data: "../data/ultimatebar.json",
 		        selector: "#ultimate-container3",
 		   		chart : {
 					width: 700,
@@ -42,30 +42,29 @@
                         refreshFrequency: 0 // seconds
                     },
 					axis : {
-						onHoverHighlightenable: "yes",
-						labelColor: "black",
-						tickSize: 5,
-						ticksPadding: 6,
-						x: {
-							enable: "yes",
-							orient : "top",
-							axisColor: "#1D1D1D",
-							no_of_ticks: 10,
-							tickFormat: "",
-							label : "Price",
-							labelPosition: "end", // end,middle,start
-							tickValues: []
-						},
-						y: {
-							enable: "yes",
-							orient: "left",
-							axisColor: "#1D1D1D",
-							no_of_ticks: 10,
-							tickFormat: "", 
-							label : "rating",
-							labelPosition: "end" // end,middle,start
-						}
-					},
+	                    onHoverHighlightenable: "yes",
+	                    x: {
+	                        enable: "yes",
+	                        orient : "top",
+	                        axisColor: "#1D1D1D",
+	                        labelColor: "#1D1D1D",
+	                        no_of_ticks: 10,
+	                        tickSize: 5,
+	                        ticksPadding: 6,
+	                        tickFormat: "",
+	                        tickValues: []
+	                    },
+	                    y: {
+	                        enable: "yes",
+	                        orient: "left",
+	                        axisColor: "#1D1D1D",
+	                        labelColor: "#1D1D1D",
+	                        tickSize: 5,
+	                        ticksPadding: 6,
+	                        no_of_ticks: 10,
+	                        tickFormat: ""
+	                    }
+	                },
 					colors:{
 			            backgroundColor: "white",
 			            chartColor: "steelblue",
