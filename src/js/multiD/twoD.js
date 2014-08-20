@@ -64,11 +64,12 @@ PykCharts.twoD.fillChart = function (options, theme) {
 };
 
 PykCharts.twoD.processInputs = function (chartObject, options) {
-    var theme = new PykCharts.Configuration.Theme({})
-    , stylesheet = theme.stylesheet
-    //, functionality = theme.functionality
-    , twoDimensionalCharts = theme.twoDimensionalCharts
-    , optional = options.optional;
+    var theme = new PykCharts.Configuration.Theme({}),
+        stylesheet = theme.stylesheet,
+        //, functionality = theme.functionality,
+        twoDimensionalCharts = theme.twoDimensionalCharts,
+        optional = options.optional;
+
     chartObject.yAxisDataFormat = options.yAxisDataFormat ? options.yAxisDataFormat : twoDimensionalCharts.yAxisDataFormat
     chartObject.xAxisDataFormat = options.xAxisDataFormat ? options.xAxisDataFormat : twoDimensionalCharts.xAxisDataFormat;
     chartObject.selector = options.selector ? options.selector : "body";
@@ -126,6 +127,8 @@ PykCharts.twoD.processInputs = function (chartObject, options) {
         chartObject.legends = optional.legends;
         chartObject.legends.enable = optional.legends.enable && optional.legends.enable ? optional.legends.enable : twoDimensionalCharts.legends.enable;
         chartObject.legends.display = optional.legends.display ? optional.legends.display : twoDimensionalCharts.legends.display;
+    } else {
+        chartObject.legends =  twoDimensionalCharts.legends;
     }
     chartObject.saturationColor = optional && optional.colors && optional.colors.saturationColor ? optional.colors.saturationColor : stylesheet.colors.saturationColor;
     chartObject.realTimeCharts = optional && optional.realTimeCharts ? optional.realTimeCharts : "no";
@@ -138,11 +141,19 @@ PykCharts.twoD.processInputs = function (chartObject, options) {
     chartObject.fullscreen = optional && optional.buttons && optional.buttons.enableFullScreen ? optional.buttons.enableFullScreen : stylesheet.buttons.enableFullScreen;
     chartObject.loading = optional && optional.loading && optional.loading.animationGifUrl ? optional.loading.animationGifUrl: stylesheet.loading.animationGifUrl;
     chartObject.enableTooltip = optional && optional.enableTooltip ? optional.enableTooltip : stylesheet.enableTooltip;
-    if (optional && optional.borderBetweenChartElements && optional.borderBetweenChartElements.width!=0 && optional.borderBetweenChartElements.width!="0px") {
+    if (optional && optional.borderBetweenChartElements /*&& optional.borderBetweenChartElements.width!=0 && optional.borderBetweenChartElements.width!="0px"*/) {
         chartObject.borderBetweenChartElements = optional.borderBetweenChartElements;
         chartObject.borderBetweenChartElements.width = optional.borderBetweenChartElements.width ? optional.borderBetweenChartElements.width : stylesheet.borderBetweenChartElements.width;
         chartObject.borderBetweenChartElements.color = optional.borderBetweenChartElements.color ? optional.borderBetweenChartElements.color : stylesheet.borderBetweenChartElements.color;
         chartObject.borderBetweenChartElements.style = optional.borderBetweenChartElements.style ? optional.borderBetweenChartElements.style : stylesheet.borderBetweenChartElements.style;
+        switch(chartObject.borderBetweenChartElements.style) {
+            case "dotted" : chartObject.borderBetweenChartElements.style = "1,3";
+                            break;
+            case "dashed" : chartObject.borderBetweenChartElements.style = "5,5";
+                           break;
+            default : chartObject.borderBetweenChartElements.style = "0";
+                      break;
+        }
     } else {
         chartObject.borderBetweenChartElements = "no";
     }
@@ -167,7 +178,15 @@ PykCharts.twoD.processInputs = function (chartObject, options) {
     } else {
         chartObject.label = stylesheet.label;
     }
-
+    if (optional && optional.legendsText) {
+        chartObject.legendsText = optional.legendsText;
+        chartObject.legendsText.size = optional.legendsText.size ? optional.legendsText.size : stylesheet.legendsText.size;
+        chartObject.legendsText.color = optional.legendsText.color ? optional.legendsText.color : stylesheet.legendsText.color;
+        chartObject.legendsText.weight = optional.legendsText.weight ? optional.legendsText.weight : stylesheet.legendsText.weight;
+        chartObject.legendsText.family = optional.legendsText.family ? optional.legendsText.family : stylesheet.legendsText.family;
+    } else {
+        chartObject.legendsText = stylesheet.legendsText;
+    }
     chartObject.units = optional && optional.units ? optional.units : false;
     chartObject.size = optional && optional.size ? optional.size : twoDimensionalCharts.size;
     chartObject.size.enable = optional && optional.size && optional.size.enable ? optional.size.enable : twoDimensionalCharts.size.enable;

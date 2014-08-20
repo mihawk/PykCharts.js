@@ -6,7 +6,7 @@
 		"stack": "Missed", 
 		"tooltip": "Missed",
 		"color": "#4b6377",
-		"highlight": false
+		"highlight": true
 	},
 	{
 		"x": "Feb",
@@ -65,6 +65,15 @@
 	{
 		"x": "September",
 		"y":  22,
+		"group": "Previous",
+		"stack": "Missed", 
+		"tooltip": "Missed",
+		"color": "#4b6377",
+		"highlight": false
+	},
+	{
+		"x": "October",
+		"y":  24,
 		"group": "Previous",
 		"stack": "Missed", 
 		"tooltip": "Missed",

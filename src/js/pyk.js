@@ -18,7 +18,7 @@ Array.__proto__.groupBy = function (data) {
 PykCharts.boolean = function(d) {
     var false_values = ['0','f',"false",'n','no',''];
     var false_keywords = [undefined,null,NaN];
-    if(false_keywords.indexOf(d) > -1) {
+    if(_.contains(false_keywords, d)) {
         return false;
     }
     value = d.toLocaleString();
@@ -48,15 +48,15 @@ PykCharts.Configuration = function (options)
                 scale = d3.scale.ordinal()
                     .domain(data)
                     .rangeRoundBands(range, x);
-
                 return scale;
+
             } else if(type === "linear") {
                 scale = d3.scale.linear()
                     .domain(data)
                     .range(range);
                 return scale;
-            } else if(type === "time") {
 
+            } else if(type === "time") {
                 scale = d3.time.scale()
                     .domain(data)
                     .range(range);
@@ -147,7 +147,7 @@ PykCharts.Configuration = function (options)
 	        return this;
 	    },
 	    dataSource : function () {
-	        if(PykCharts.boolean(options.dataSource) && PykCharts.boolean(options.dataSource.text) || PykCharts.boolean(options.dataSource.url)) {
+	        if(PykCharts.boolean(options.dataSource) && (PykCharts.boolean(options.dataSource.text) || PykCharts.boolean(options.dataSource.url))) {
 	            var enable = true;
 	            var data_src = options.dataSource;
 	            if(data_src.text === "") {
@@ -173,7 +173,7 @@ PykCharts.Configuration = function (options)
             return this;
         },
 	    tooltip : function (d,selection,i) {
-	    	if(PykCharts.boolean(options.enableTooltip)) {
+	    	if(PykCharts.boolean(options.enableTooltip) && options.mode === "default") {
 	        	if(selection !== undefined){
 	        		d3.select(options.selector + " " +"#tooltip-svg"+i).append("div")
                         .attr("id", "tooltip-container")
@@ -244,13 +244,10 @@ PykCharts.Configuration = function (options)
                         .style("visibility", "hidden");
                 }
             }
-            else {
-
-            }
             return this;
         },
         crossHair : function (svg) {
-            if(PykCharts.boolean(options.enableCrossHair)) {
+            if(PykCharts.boolean(options.enableCrossHair) && options.mode === "default") {
                 $(options.selector + " " + "#cross-hair-v").remove();
                 $(options.selector + " " + "#focus-circle").remove();
                 PykCharts.Configuration.cross_hair_v = svg.append("g")
@@ -650,6 +647,7 @@ configuration.makeYAxis = function(options,yScale) {
                     .orient(options.axis.y.orient)
                     .ticks(options.axis.y.no_of_ticks)
                     .tickSize(options.axis.y.tickSize)
+                    .outerTickSize(0)
                     .tickPadding(options.axis.y.ticksPadding)
                     .tickFormat(function (d,i) {
                         return d + options.axis.y.tickFormat;
@@ -666,7 +664,8 @@ configuration.makeXGrid = function(options,xScale) {
                     .orient("bottom")
                     .ticks(options.axis.x.no_of_ticks)
                     .tickFormat("")
-                    .tickSize(options.height - options.margin.top - options.margin.bottom);
+                    .tickSize(options.height - options.margin.top - options.margin.bottom)
+                    .outerTickSize(0);
     return xgrid;
 };
 
@@ -677,7 +676,8 @@ configuration.makeYGrid = function(options,yScale) {
                     .orient("left")
                     .ticks(options.axis.x.no_of_ticks)
                     .tickSize(-(options.width - options.margin.left - options.margin.right))
-                    .tickFormat("");
+                    .tickFormat("")
+                    .outerTickSize(0);
     return ygrid;
 };
 
@@ -711,13 +711,13 @@ configuration.Theme = function(){
         "mode": "default",
         "selector": "body",
         "title":{
-            "size": 15,
+            "size": "15px",
             "color": "#1D1D1D",
             "weight": 800,
             "family": "'Helvetica Neue',Helvetica,Arial,sans-serif"
         },
         "subtitle":{
-            "size": 12,
+            "size": "12px",
             "color": "gray",
             "weight": 200,
             "family": "'Helvetica Neue',Helvetica,Arial,sans-serif"
@@ -742,7 +742,7 @@ configuration.Theme = function(){
         "borderBetweenChartElements":{
             "width": 1,
             "color": "white",
-            "style": "solid"
+            "style": "solid" // or "dotted / dashed"
         },
         "legends":{ //partially done for oneD, pending for twoD
             "size": "13",
@@ -865,6 +865,13 @@ configuration.Theme = function(){
         "scatterplot" : {
             "radius" : 9
         }
+    };
+
+    that.treeCharts = {
+        "zoom" : {
+            "enable" : "no"
+        },
+
     };
 
     that.mapsTheme = {

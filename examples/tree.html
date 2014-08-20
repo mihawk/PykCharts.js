@@ -37,9 +37,11 @@
             var k = new PykCharts.tree.collapsibleTree({
                 selector: "#collapsibleTree",
                 data:"../data/tree.json",
+                mode: "default",
                 chart: {
                     height: 400,
-                    width: 430
+                    width: 430,
+                    margin:{"top": 40, "right": 40, "bottom": 40, "left": 40}
                 },
                 optional:{
                     title: {
@@ -48,29 +50,18 @@
                     subtitle: {
                         text: "Malnutrition in India Malnutrition in India Malnutrition in India Malnutrition in India"
                     },
-                    units : {
-                        prefix: "Rs. ", // NA in this JSON data, but just for the moment applying it
-                        suffix: "/-" // NA in this JSON data, but just for the moment applying it
-                    },
                     dataSource:{
                         text: "World Bank",
                         url: "http://www.pykih.com/"
                     },
-                    clubData: {
-                        enable:"no",
-                        text: "Others", //default: Others
-                        maximumNodes: 5, //default: 5
-                        alwaysIncludeDataPoints: ["NDA"],
-                        tooltipText:"",
-                        color:"green"
-                    },
                     realTimeCharts: {
-                        "refreshFrequency": 0,
-                        "enableLastUpdatedAt": "yes"
+                        refreshFrequency: 0,
+                        enableLastUpdatedAt: "yes"
                     },
                     transition: {
                         duration: 0
                     },
+                    enableTooltip: "yes",
                     label:{ //partially done for oneD, pending for twoD
                       size: "13",
                       color: "white",
@@ -80,24 +71,30 @@
                     loading: {
                       animationGifUrl: "../img/preloader.gif"
                     },
-
+                    zoom : {
+                        enable : "no"
+                    },
+                    borderBetweenChartElements:{ //done for oneD
+                        width: "1px", // if width is 0 means it is disabled.
+                        color: "white",
+                        style: "solid" // could be dotted too
+                    },
+                    colors:{
+                        backgroundColor: "white",
+                        chartColor: "steelblue"
+                    }
                 }
             });
             k.execute();
 
-          });
-
-        $(document).ready(function (e) {
-            // var diff = [];
-            // var abc = setInterval(function () {
-            // var a = new Date().getTime();
-
             var k = new PykCharts.tree.openTree({
                 selector: "#openTree",
                 data:"../data/tree.json",
+                mode: "default",
                 chart: {
                     height: 400,
-                    width: 430
+                    width: 430,
+                    margin:{"top": 40, "right": 40, "bottom": 40, "left": 40}
                 },
                 optional:{
                     title: {
@@ -106,21 +103,9 @@
                     subtitle: {
                         text: "Malnutrition in India Malnutrition in India Malnutrition in India Malnutrition in India"
                     },
-                    units : {
-                        prefix: "Rs. ", // NA in this JSON data, but just for the moment applying it
-                        suffix: "/-" // NA in this JSON data, but just for the moment applying it
-                    },
                     dataSource:{
                         text: "World Bank",
                         url: "http://www.pykih.com/"
-                    },
-                    clubData: {
-                        enable:"no",
-                        text: "Others", //default: Others
-                        maximumNodes: 5, //default: 5
-                        alwaysIncludeDataPoints: ["NDA"],
-                        tooltipText:"",
-                        color:"green"
                     },
                     realTimeCharts: {
                         "refreshFrequency": 0,
@@ -129,6 +114,7 @@
                     transition: {
                         duration: 0
                     },
+                    enableTooltip: "yes",
                     label:{ //partially done for oneD, pending for twoD
                       size: "13",
                       color: "white",
@@ -138,7 +124,18 @@
                     loading: {
                       animationGifUrl: "../img/preloader.gif"
                     },
-
+                    zoom : {
+                        enable : "no"
+                    },
+                    borderBetweenChartElements:{ //done for oneD
+                        width: "1px", // if width is 0 means it is disabled.
+                        color: "white",
+                        style: "solid" // could be dotted too
+                    },
+                    colors:{
+                        backgroundColor: "white",
+                        chartColor: "steelblue"
+                    }
                 }
             });
             k.execute();

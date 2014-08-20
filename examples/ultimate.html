@@ -13,14 +13,14 @@
 	</div>
 	<script src="../src/js/pyk.js"></script>
 	<script src="../src/js/multiD/twoD.js"></script>
-	<script src="../src/js/multi-series2D/multi-series2D.js"></script>
+	<script src="../src/js/multiD/multi-series2D.js"></script>
 	<script src="../src/js/multiD/ultimate.js"></script>
 	<script type="text/javascript">
 
 		$(document).ready(function(e) {
 		
 			var k = new PykCharts.multi_series_2D.ultimate({
-		        data: "../data/ultimateGroupColumn.json",
+		        data: "../data/ultimate.json",
 		        selector: "#ultimate-container3",
 		   		chart : {
 					width: 700,
@@ -39,7 +39,7 @@
                         text: "Malnutrition in India Malnutrition in India Malnutrition in India Malnutrition in India"
                     },
                     realTimeCharts: {
-                        refreshFrequency: 0 // seconds
+                        refreshFrequency: 1 // seconds
                     },
 					axis : {
 						onHoverHighlightenable: "yes",
@@ -71,7 +71,7 @@
 			            highlightColor: "#013F73",
 			        },
             		legends: {
-						enable : "no",
+						enable : "yes",
 						display : "horizontal" //horizontal or vertical
 					},
 					creditMySite:{
@@ -88,10 +88,9 @@
 						style: "solid" // could be dotted too
                     },
 					transition : {
-                        duration : 1000    //milliseconds
+                        duration : 0    //milliseconds
                     }
 				}
-
 		    });
 			k.execute();
 		});	

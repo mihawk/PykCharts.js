@@ -350,10 +350,10 @@ PykCharts.weighted.scatterplot = function (options) {
                         .enter()
                         .append('text')
                         .attr("class","legends_text")
-                        .attr("fill","#1D1D1D")
+                        .attr("fill",that.legendsText.color)
                         .attr("pointer-events","none")
-                        .style("font-family", "'Helvetica Neue',Helvetica,Arial,sans-serif")
-                        .attr("font-size",12);
+                        .style("font-family", that.legendsText.family)
+                        .attr("font-size",that.legendsText.size);
 
                     that.legends_text.attr("class","legends_text")
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    .attr("fill","black")
@@ -535,16 +535,16 @@ PykCharts.weighted.scatterplot = function (options) {
                         .attr("class","line-cursor");
 
                     that.svgContainer.on("mousemove",function () {
-                        var i, x = (d3.event.clientX-10), y = (d3.event.clientY-110);
+                        var i, x = (d3.event.layerX), y = (d3.event.layerY);
                         d3.select("#svgcontainer").style('cursor', 'none');
 
                         if(x >= that.margin.left && x <=(that.width-that.margin.right)) {        
-                            d3.select('#vertical-cursor')
+                            d3.select(options.selector+" "+'#vertical-cursor')
                                 .attr("x1",x)
                                 .attr("x2",x);
                         }
                         if(y >= that.margin.top && y <=(that.height-that.margin.bottom)) {
-                            d3.selectAll('#horizontal-cursor')
+                            d3.selectAll(options.selector+" "+'#horizontal-cursor')
                                 .attr("y1",y)
                                 .attr("y2",y);
                         }

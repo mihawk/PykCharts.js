@@ -4,13 +4,13 @@ PykCharts.twoD.area = function (options){
 
 	this.execute = function (){
 		that = new PykCharts.twoD.processInputs(that, options, "area");
-
+		                        
 		if(that.mode === "default") {
 			that.k.loading();
 		}
-		var twoDimensionalCharts = theme.twoDimensionalCharts
-        , stylesheet = theme.stylesheet
-        , optional = options.optional;
+		var twoDimensionalCharts = theme.twoDimensionalCharts,
+				stylesheet = theme.stylesheet,
+				optional = options.optional;
     that.enableCrossHair = optional && optional.enableCrossHair ? optional.enableCrossHair : twoDimensionalCharts.enableCrossHair;
 		that.curvy_lines = optional && optional.curvy_lines ? optional.curvy_lines : twoDimensionalCharts.curvy_lines;
 		that.grid = options.chart && options.chart.grid ? options.chart.grid : stylesheet.chart.grid;
@@ -35,7 +35,8 @@ PykCharts.twoD.area = function (options){
 			that.k.title()
 					.subtitle()
 					.liveData(that)
-					.makeMainDiv(options.selector,1);
+					.makeMainDiv(options.selector,1)
+					.tooltip(true,options.selector,1);
 
 			that.optional_feature()
 	    		.chartType()
@@ -45,12 +46,12 @@ PykCharts.twoD.area = function (options){
 
 			that.k.crossHair(that.svg,that.type)
 					.credits();
-					// .dataSource();
 
 			that.k.xAxis(that.svg,that.gxaxis,that.xScale)
 					.yAxis(that.svg,that.gyaxis,that.yScale)
 					.yGrid(that.svg,that.group,that.yScale)
-					.xGrid(that.svg,that.group,that.xScale);
+					.xGrid(that.svg,that.group,that.xScale)
+					.dataSource();
 		}
 		else if(that.mode === "infographics") {
 			  that.k.liveData(that)
@@ -97,12 +98,7 @@ PykCharts.twoD.area = function (options){
 				return this;
 			},
 			createSvg: function (i){
-				if(that.type === "stackedAreaChart") {
-			  	$(that.selector).attr("class","PykCharts-twoD PykCharts-multi-series2D PykCharts-line-chart");
-				}
-				else if(that.type === "areaChart") {
-					$(that.selector).attr("class","PykCharts-twoD PykCharts-line-chart");
-				}
+				$(that.selector).attr("class","PykCharts-twoD PykCharts-multi-series2D PykCharts-line-chart");
 				$(options.selector).css("background-color",that.bg);
 
 				that.svg = d3.select(options.selector+" "+"#tooltip-svg"+i).append("svg:svg")
@@ -264,7 +260,7 @@ PykCharts.twoD.area = function (options){
 
 				that.zoom_event = d3.behavior.zoom()
 				    .y(that.yScale)
-				    .scaleExtent([1,8])
+				    .scaleExtent([1,2])
 				    .on("zoom", that.zoomed);
 				if(PykCharts.boolean(that.zoom.enable)) {
 					that.svg.call(that.zoom_event);
@@ -343,10 +339,11 @@ PykCharts.twoD.area = function (options){
 						that.dataLineGroupBorder[i] = that.chartBody.append("path");
 						that.dataLineGroupBorder[i]
 							.datum(that.stacked_new_data[i].data)
-							.attr("class", "line")
+							.attr("class", "area-border")
 							.attr("id", "border-stacked-area"+i)
-							.style("stroke", "#1d1d1d")
-							.style("stroke-width", "1px")
+							.style("stroke", that.borderBetweenChartElements.color)
+							.style("stroke-width", that.borderBetweenChartElements.width)
+							.style("stroke-dasharray", that.borderBetweenChartElements.style)
 							.attr("transform", "translate("+ that.lineMargin +",0)")
 							.attr("d", that.chart_path_border);
 
@@ -400,7 +397,7 @@ PykCharts.twoD.area = function (options){
 	        	.attr("class", that.chartPathClass)
 		        .attr("d", that.chart_path);
 		    that.svg.select("#border-stacked-area"+i)
-				.attr("class","line")
+				.attr("class","area-border")
 				.attr("d", that.chart_path_border);
 	    }
 

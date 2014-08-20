@@ -1,7 +1,7 @@
     [
     
         {
-            "x": "Yellow",
+            "x": "A",
             "y": 5,
             "weight":15,
             "group":"A",
@@ -9,7 +9,7 @@
             "tooltip": "Jan-Yellow Tooltip"
         },
         {
-            "x": "Orange",
+            "x": "B",
             "y": 10,
             "weight":20,
             "group":"A",
@@ -17,7 +17,7 @@
             "tooltip": "Jan-Orange Tooltip"
         },
         {
-            "x": "Red",
+            "x": "C",
             "y": 12,
             "weight":10,
             "group":"A",
@@ -25,7 +25,7 @@
             "tooltip": "Jan-Red Tooltip"
         },
         {
-            "x": "Blue",
+            "x": "D",
             "y": 17,
             "weight":30,
             "group":"A",
@@ -33,7 +33,7 @@
             "tooltip": "Jan-Blue Tooltip"
         },
         {
-            "x": "Dark Blue",
+            "x": "E",
             "y": 30,
             "weight":25,
             "group":"A",
@@ -42,7 +42,7 @@
         },
 
         {
-            "x": "Yellow",
+            "x": "A",
             "y": 40,
             "weight":25,
             "group":"B",
@@ -50,7 +50,7 @@
             "tooltip": "Jan-Yellow"
         },
         {
-            "x": "Orange",
+            "x": "B",
             "y": 20,
             "weight":10,
             "group":"B",
@@ -58,7 +58,7 @@
             "tooltip": "Jan-Orange"
         },
         {
-            "x": "Red",
+            "x": "C",
             "y": 30,
             "weight":30,
             "group":"B",
@@ -66,7 +66,7 @@
             "tooltip": "Jan-Red"
         },
         {
-            "x": "Blue",
+            "x": "D",
             "y": 5,
             "weight":12,
             "group":"B",
@@ -74,7 +74,7 @@
             "tooltip": "Jan-Blue"
         },
         {
-            "x": "Dark Blue",
+            "x": "E",
             "y": 15,
             "weight":7,
             "group":"B",
