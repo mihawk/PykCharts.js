@@ -1,4 +1,4 @@
-PykCharts.multi_series_2D.ultimate = function(options){
+PykCharts.multi_series_2D.ultimateBar = function(options){
     var that = this;
 
     var theme = new PykCharts.Configuration.Theme({});
@@ -15,7 +15,7 @@ PykCharts.multi_series_2D.ultimate = function(options){
            that.k.loading();
         }
         d3.json(options.data, function(e, data){
-            
+            // console.log("data");
             that.data = data;
             $(that.selector+" #chart-loader").remove();
             that.render();
@@ -68,7 +68,7 @@ PykCharts.multi_series_2D.ultimate = function(options){
                 .svgContainer();
 
             that.k.credits()
-                .dataSource()
+                // .dataSource()
                 .liveData(that)
                 .tooltip();
 
