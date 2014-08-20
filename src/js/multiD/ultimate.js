@@ -288,10 +288,10 @@ PykCharts.multi_series_2D.ultimate = function(options){
                 rect.transition()
                     .duration(that.transitions.duration())
                     .attr("x", function(d){
-                        return that.xScale(d.x);
+                        return that.xScale(d.x)-that.xScale.rangeBand()/4;
                     })
                     .attr("width", function(d){
-                        return that.xScale.rangeBand();
+                        return that.xScale.rangeBand()+(that.xScale.rangeBand()/(2*that.max_length));
                     })
                     .attr("height", function(d){
                         return that.yScale(d.y);
@@ -507,14 +507,14 @@ PykCharts.multi_series_2D.ultimate = function(options){
         return p;
     }
     this.emptygroups = function (data) {
-        var max_length = d3.max(data,function (d){
+        that.max_length = d3.max(data,function (d){
             var value = _.values(d);
             return value[0].length;
         });
 
         var new_data = _.map(data,function (d,i){
             var value = _.values(d);
-            while(value[0].length < max_length) {
+            while(value[0].length < that.max_length) {
                 var key = _.keys(d);
                 var stack = { "name": "stack", "tooltip": "null", "color": "white", "val": 0, highlight: false };
                 var group = {"group3":[stack]};

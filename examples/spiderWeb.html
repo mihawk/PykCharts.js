@@ -13,8 +13,8 @@
     <body>
         <div id="spiderWeb" style="width:700px;"></div>
         <script src="../src/js/pyk.js"></script>
-        <script src="../src/js/twoD/twoD.js"></script>
-        <script src="../src/js/weighted/weighted.js"></script>
+        <script src="../src/js/multiD/twoD.js"></script>
+        <script src="../src/js/multiD/weighted.js"></script>
         <script src="../src/js/multiD/spiderWeb.js"></script>
         <script type="text/javascript">       
             $(document).ready(function (e){
@@ -61,6 +61,12 @@
                     legends: {
                         enable: "yes",
                         display: "horizontal" //horizontal or vertical
+                    },
+                    legendsText: {
+                        size: 13,
+                        color: "black",
+                        weight: "thin",
+                        family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
                     },
                     axisTitle: "yes"
                 }
