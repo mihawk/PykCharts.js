@@ -867,6 +867,13 @@ configuration.Theme = function(){
         }
     };
 
+    that.treeCharts = {
+        "zoom" : {
+            "enable" : "no"
+        },
+
+    };
+
     that.mapsTheme = {
         "mapCode": "india-topo"
     };
