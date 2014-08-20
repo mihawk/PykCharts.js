@@ -332,7 +332,7 @@ PykCharts.multi_series_2D.ultimate = function(options){
             return this;
             },
             legends: function () {
-                if(PykCharts.boolean(that.legends)) {
+                if(PykCharts.boolean(that.legends.enable)) {
                     var params = that.getParameters();
                     var j = 0,k = 0;
                     j = params.length;
@@ -535,8 +535,6 @@ PykCharts.multi_series_2D.ultimate = function(options){
         return p;
     };
     this.emptygroups = function (data) {
-//console.log(max_length,"max_length","insideeeeeeeeeeeeeeeeeee");
-
         var max_length = d3.max(data,function (d){
             var value = _.values(d);
             return value[0].length;
@@ -555,7 +553,6 @@ PykCharts.multi_series_2D.ultimate = function(options){
                 value = _.values(d);
             }
         });
-        // console.log(data,"new_data");
         return data;
     };
 
