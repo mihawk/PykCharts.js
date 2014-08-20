@@ -25,6 +25,7 @@ PykCharts.multi_series_2D.ultimate = function(options){
             d3.json(options.data, function (e, data) {
                 that.data = data;      
                 that.data = that.dataTransformation(); 
+                that.data = that.emptygroups(that.data);                          
 
                 var fD = that.flattenData();
                 that.the_bars = fD[0];
@@ -231,6 +232,11 @@ PykCharts.multi_series_2D.ultimate = function(options){
                 //     .domain(that.barName.map(function(d) { return d; }))
                 //     .rangeRoundBands([0, that.x0.rangeBand()]) ;
 
+                if(that.max_length === 1) {
+                    x_factor = that.xScale.rangeBand()/4;
+                    width_factor = (that.xScale.rangeBand()/(2*that.max_length));
+                };
+
                 var xAxis_label = that.group.selectAll("text.axis-text")
                     .data(group_label_data);
 
@@ -294,10 +300,10 @@ PykCharts.multi_series_2D.ultimate = function(options){
                 rect.transition()
                     .duration(that.transitions.duration())
                     .attr("x", function(d){
-                        return that.xScale(d.x)-that.xScale.rangeBand()/4;
+                        return that.xScale(d.x)-x_factor;
                     })
                     .attr("width", function(d){
-                        return that.xScale.rangeBand()+(that.xScale.rangeBand()/(2*that.max_length));
+                        return that.xScale.rangeBand()+width_factor;
                     })
                     .attr("height", function(d){
                         return that.yScale(d.y);
