@@ -118,6 +118,14 @@ PykCharts.weighted.scatterplot = function (options) {
                 .zoom();
 
         } else if (that.mode === "infographics") {
+            that.radius_range = [7,18];
+            that.new_data = that.data;
+
+            that.sizes = new PykCharts.weighted.bubbleSizeCalculation(that,that.data,that.radius_range);
+            that.k.tooltip();
+            that.optionalFeatures()
+                    .svgContainer();
+            that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
             that.optionalFeatures().createScatterPlot()
                 .crossHair();
 
@@ -276,7 +284,7 @@ PykCharts.weighted.scatterplot = function (options) {
                         that.left_margin = 0;
                     }
 
-                    if(PykCharts.boolean(that.zoom.enable) && !(that.yAxisDataFormat==="string" || that.xAxisDataFormat==="string")) {
+                    if(PykCharts.boolean(that.zoom.enable) && !(that.yAxisDataFormat==="string" || that.xAxisDataFormat==="string") && (that.mode === "default")) {
                         that.svgContainer
                             .call(d3.behavior.zoom()
                             .x(that.x)
@@ -530,13 +538,16 @@ PykCharts.weighted.scatterplot = function (options) {
                         .attr("y1", that.margin.top)
                         .attr("x2", that.margin.left)
                         .attr("y2", that.height-that.margin.bottom)
-                        .attr("id","vertical-cursor")
+                        .attr("id", "vertical-cursor")
                         .attr("pointer-events","none")
                         .attr("class","line-cursor");
 
                     that.svgContainer.on("mousemove",function () {
-                        var i, x = (d3.event.layerX), y = (d3.event.layerY);
-                        d3.select("#svgcontainer").style('cursor', 'none');
+                        var i,
+                            x = (d3.event.layerX) - ($(that.selector+" #svgcontainer").offset().left - $(that.selector).parent().offset().left),
+                            y = (d3.event.layerY) - ($(that.selector+" #svgcontainer").offset().top - $(that.selector).parent().offset().top);
+
+                        d3.select(that.selector + " #svgcontainer").style('cursor', 'none');
 
                         if(x >= that.margin.left && x <=(that.width-that.margin.right)) {        
                             d3.select(options.selector+" "+'#vertical-cursor')
