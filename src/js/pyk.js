@@ -648,6 +648,7 @@ configuration.makeYAxis = function(options,yScale) {
                     .orient(options.axis.y.orient)
                     .ticks(options.axis.y.no_of_ticks)
                     .tickSize(options.axis.y.tickSize)
+                    .outerTickSize(0)
                     .tickPadding(options.axis.y.ticksPadding)
                     .tickFormat(function (d,i) {
                         return d + options.axis.y.tickFormat;
@@ -664,7 +665,8 @@ configuration.makeXGrid = function(options,xScale) {
                     .orient("bottom")
                     .ticks(options.axis.x.no_of_ticks)
                     .tickFormat("")
-                    .tickSize(options.height - options.margin.top - options.margin.bottom);
+                    .tickSize(options.height - options.margin.top - options.margin.bottom)
+                    .outerTickSize(0);
     return xgrid;
 };
 
@@ -675,7 +677,8 @@ configuration.makeYGrid = function(options,yScale) {
                     .orient("left")
                     .ticks(options.axis.x.no_of_ticks)
                     .tickSize(-(options.width - options.margin.left - options.margin.right))
-                    .tickFormat("");
+                    .tickFormat("")
+                    .outerTickSize(0);
     return ygrid;
 };
 
