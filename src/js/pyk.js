@@ -711,13 +711,13 @@ configuration.Theme = function(){
         "mode": "default",
         "selector": "body",
         "title":{
-            "size": 15,
+            "size": "15px",
             "color": "#1D1D1D",
             "weight": 800,
             "family": "'Helvetica Neue',Helvetica,Arial,sans-serif"
         },
         "subtitle":{
-            "size": 12,
+            "size": "12px",
             "color": "gray",
             "weight": 200,
             "family": "'Helvetica Neue',Helvetica,Arial,sans-serif"
@@ -744,7 +744,7 @@ configuration.Theme = function(){
             "color": "white",
             "style": "solid" // or "dotted / dashed"
         },
-        "legendsText":{ //partially done for oneD, pending for twoD
+        "legends":{ //partially done for oneD, pending for twoD
             "size": "13",
             "color": "white",
             "weight": "thin",
@@ -868,9 +868,10 @@ configuration.Theme = function(){
     };
 
     that.treeCharts = {
-        zoom : {
+        "zoom" : {
             "enable" : "no"
         },
+
     };
 
     that.mapsTheme = {
