@@ -23,8 +23,10 @@ PykCharts.multi_series_2D.ultimate = function(options){
 
     this.refresh = function () {
             d3.json(options.data, function (e, data) {
+                console.log("live data");
                 that.data = data;      
-                that.data = that.dataTransformation(); 
+                that.data = that.dataTransformation();
+                that.data = that.emptygroups(that.data);  
 
                 var fD = that.flattenData();
                 that.the_bars = fD[0];
@@ -100,14 +102,13 @@ PykCharts.multi_series_2D.ultimate = function(options){
         var that = this;
         var optional = {
             svgContainer: function () {
-
-                $(options.selector).css("background-color",that.bg);
-                $(that.selector).attr("class","PykCharts-twoD");
+               $(that.selector).attr("class","PykCharts-twoD");
                 that.svg = d3.select(that.selector).append("svg:svg")
                     .attr("width",that.width )
                     .attr("height",that.height)
                     .attr("id","svgcontainer")
-                    .attr("class","svgcontainer");
+                    .attr("class","svgcontainer")
+                    .style("background-color",that.bg);
 
                 that.group = that.svg.append("g")
                     .attr("id","svggroup")
@@ -273,7 +274,7 @@ PykCharts.multi_series_2D.ultimate = function(options){
 
                 rect.attr("height", 0).attr("y", h)
                     .attr("fill", function(d){
-                        console.log(d.highlight);
+                        // console.log(d.highlight);
                         return that.fillColor(d);
                     })
                     .attr("stroke",that.border.color())

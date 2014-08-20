@@ -20,14 +20,14 @@
 		$(document).ready(function(e) {
 		
 			var k = new PykCharts.multi_series_2D.ultimate({
-		        data: "../data/ultimateColumn.json",
+		        data: "../data/ultimate.json",
 		        selector: "#ultimate-container3",
 		   		chart : {
 					width: 700,
 					height: 450,
 					margin: {top: 25, right: 25, bottom: 25, left: 25},
 					grid: {
-		                yEnabled: "no",
+		                yEnabled: "yes",
 		                color:""
 			        }
 				},
@@ -71,7 +71,7 @@
 			            highlightColor: "#013F73",
 			        },
             		legends: {
-						enable : "no",
+						enable : "yes",
 						display : "horizontal" //horizontal or vertical
 					},
 					creditMySite:{
@@ -88,7 +88,7 @@
 						style: "solid" // could be dotted too
                     },
 					transition : {
-                        duration : 1000    //milliseconds
+                        duration : 0    //milliseconds
                     }
 				}
 		    });
