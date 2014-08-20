@@ -24,7 +24,7 @@
 		"stack": "C", 
 		"tooltip": "C",
 		"color": "pink",
-		"highlight": false
+		"highlight": true
 	},
 	{
 		"y": "January",
