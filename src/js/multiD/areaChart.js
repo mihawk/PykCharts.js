@@ -45,8 +45,8 @@ PykCharts.twoD.area = function (options){
 	    		.axisContainer();
 
 			that.k.crossHair(that.svg,that.type)
-					.credits();
-					// .dataSource();
+					.credits()
+					.dataSource();
 
 			that.k.xAxis(that.svg,that.gxaxis,that.xScale)
 					.yAxis(that.svg,that.gyaxis,that.yScale)
