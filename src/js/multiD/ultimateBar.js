@@ -53,7 +53,7 @@ PykCharts.multi_series_2D.ultimateBar = function(options){
         // console.log(that.the_bars);
         that.border = new PykCharts.Configuration.border(that);
         that.transitions = new PykCharts.Configuration.transition(that);
-        that.mouseEvent1 = needw PykCharts.twoD.mouseEvent(that);
+        that.mouseEvent1 = new PykCharts.twoD.mouseEvent(that);
         that.fillColor = new PykCharts.multi_series_2D.fillChart(that,options);
         that.border = new PykCharts.Configuration.border(that);
 
