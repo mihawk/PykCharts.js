@@ -350,10 +350,10 @@ PykCharts.weighted.scatterplot = function (options) {
                         .enter()
                         .append('text')
                         .attr("class","legends_text")
-                        .attr("fill","#1D1D1D")
+                        .attr("fill",that.legendsText.color)
                         .attr("pointer-events","none")
-                        .style("font-family", "'Helvetica Neue',Helvetica,Arial,sans-serif")
-                        .attr("font-size",12);
+                        .style("font-family", that.legendsText.family)
+                        .attr("font-size",that.legendsText.size);
 
                     that.legends_text.attr("class","legends_text")
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    .attr("fill","black")
