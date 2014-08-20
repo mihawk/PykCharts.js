@@ -125,6 +125,7 @@ PykCharts.multi_series_2D.ultimate = function(options){
             },
             legendsContainer: function () {
                 // console.log(that.legends,"that.legends");
+                console.log(that);
                 if(PykCharts.boolean(that.legends.enable)) {
                     that.legend_svg = d3.select(that.selector).append("svg:svg")
                         .attr("width",that.width)
@@ -201,14 +202,14 @@ PykCharts.multi_series_2D.ultimate = function(options){
                     .rangeBands([0,w],0.1);
 
                 y_domain = [0,d3.max(yValues)]  
-                console.log(d3.max(yValues));              
+                // console.log(d3.max(yValues));              
                 y_domain = that.k._domainBandwidth(y_domain,1);
-                console.log(y_domain,"y_domain");
+                // console.log(y_domain,"y_domain");
                 that.yScale = d3.scale.linear().domain(y_domain).range([0, h]);
-                console.log(y_domain[1],"y_domain");
-                console.log(that.yScale.domain());
+                // console.log(y_domain[1],"y_domain");
+                // console.log(that.yScale.domain());
                 that.yScaleInvert = d3.scale.linear().domain([y_domain[1],y_domain[0]]).range([0, h]); // For the yAxis
-                console.log(that.yScaleInvert.domain());
+                // console.log(that.yScaleInvert.domain());
                 var zScale = d3.scale.category10();
 
                 var group_label_data = [];
@@ -221,7 +222,7 @@ PykCharts.multi_series_2D.ultimate = function(options){
                     group_label_data.push({x: x, name: i});
                 }
 
-                console.log(that.xScale.rangeBand()*17,"rangeBand");
+                // console.log(that.xScale.rangeBand()*17,"rangeBand");
 
                 // that.x0 = d3.scale.ordinal()
                 //     .domain(group_label_data.map(function (d,i) { return d.name; }))
