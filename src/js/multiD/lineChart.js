@@ -187,7 +187,7 @@ PykCharts.twoD.line = function (options){
 				$(options.selector).css("background-color",that.bg);
 
 				that.svg = d3.select(options.selector+" "+"#tooltip-svg"+i).append("svg:svg")
-					.attr("id","line-svg" + i)
+					.attr("id","svg" + i)
 					.attr("width",that.w)
 					.attr("height",that.height);
 
@@ -417,6 +417,7 @@ PykCharts.twoD.line = function (options){
 												.classed({'multi-line-selected':true,'multi-line':false})
 												.style("stroke",that.highlightColor);
 										
+										// console.log(this.id,"************");
 										that.updateSelectedLine(this.id);
 								});
 							}
@@ -514,42 +515,44 @@ PykCharts.twoD.line = function (options){
 		svgid = lineid.substring(start,end);
 
 		if(!PykCharts.boolean(that.multiple_containers)) {
+
 			that.pt_circle.attr("id","pt-line"+svgid);
-			that.start_pt_circle = $("#"+that.pt_circle.attr("id")).clone().appendTo("#svg1");
+			console.log(that.pt_circle);
+			that.start_pt_circle = $(options.selector+" #"+that.pt_circle.attr("id")).clone().appendTo("#svg1");
 			that.start_pt_circle
 					.attr("id","start-pt-line"+svgid);
-			that.end_pt_circle = $("#"+that.start_pt_circle.attr("id")).clone().appendTo("#svg1");
+			that.end_pt_circle = $(options.selector+" #"+that.start_pt_circle.attr("id")).clone().appendTo("#svg1");
 	  	that.end_pt_circle
 	  			.attr("id","end-pt-line"+svgid);
 		} else {
 			that.pt_circle.attr("id","pt-line"+svgid);
-			that.start_pt_circle = $("#"+that.pt_circle.attr("id")).clone().appendTo("#"+svgid);
+			that.start_pt_circle = $(options.selector+" #"+that.pt_circle.attr("id")).clone().appendTo("#"+svgid);
 			that.start_pt_circle
 					.attr("id","start-pt-line"+svgid);
-			that.end_pt_circle = $("#"+that.start_pt_circle.attr("id")).clone().appendTo("#"+svgid);
+			that.end_pt_circle = $(options.selector+" #"+that.start_pt_circle.attr("id")).clone().appendTo("#"+svgid);
 	  	that.end_pt_circle
 	  			.attr("id","end-pt-line"+svgid);
 		}
 		
-  	d3.selectAll(options.selector + " " +"circle").style("visibility","hidden");
+  	d3.selectAll(options.selector + " circle").style("visibility","hidden");
 		var start_x = (that.xScale(that.selected_line_data[0].x) + that.lineMargin + that.margin.left),
 				start_y = (that.yScale(that.selected_line_data[0].y) + that.margin.top),
 				end_x = (that.xScale(that.selected_line_data[(that.selected_line_data_len - 1)].x) + that.lineMargin + that.margin.left),
 				end_y = (that.yScale(that.selected_line_data[(that.selected_line_data_len - 1)].y) + that.margin.top),
 				start,end;
+				// console.log(start_x,start_y);
 		
-		d3.select(options.selector + " " +"#start-pt-line"+svgid+" circle")
+		d3.select(options.selector + " #start-pt-line"+svgid+" circle")
 			.style("visibility","visible");
-		d3.select(options.selector + " " +"#end-pt-line"+svgid+" circle")
+		d3.select(options.selector + " #end-pt-line"+svgid+" circle")
 			.style("visibility","visible");
 
 		that.start_pt_circle.show();
-		that.start_pt_circle
-				.select("circle")
+		that.start_pt_circle.select(options.selector+" circle")
 				.attr("class","bullets")
 				.attr("transform", "translate(" + start_x + "," + start_y + ")");
 		that.end_pt_circle.show();
-		that.end_pt_circle.select(options.selector+" "+ "circle")
+		that.end_pt_circle.select(options.selector+" circle")
 				.attr("class","bullets")
 				.attr("transform", "translate(" + end_x + "," + end_y + ")");
 	};
