@@ -68,7 +68,7 @@ PykCharts.multi_series_2D.ultimateBar = function(options){
                 .svgContainer();
 
             that.k.credits()
-                // .dataSource()
+                .dataSource()
                 .liveData(that)
                 .tooltip();
 

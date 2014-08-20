@@ -85,7 +85,6 @@ PykCharts.Configuration = function (options)
             return label;
         },
 		title : function () {
-            console.log(options.title.text);
             if(PykCharts.boolean(options.title.text)) {
 	        	that.titleDiv = d3.select(options.selector)
 	                .append("div")
