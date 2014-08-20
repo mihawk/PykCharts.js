@@ -98,12 +98,7 @@ PykCharts.twoD.area = function (options){
 				return this;
 			},
 			createSvg: function (i){
-				if(that.type === "stackedAreaChart") {
-			  	$(that.selector).attr("class","PykCharts-twoD PykCharts-multi-series2D PykCharts-line-chart");
-				}
-				else if(that.type === "areaChart") {
-					$(that.selector).attr("class","PykCharts-twoD PykCharts-line-chart");
-				}
+				$(that.selector).attr("class","PykCharts-twoD PykCharts-multi-series2D PykCharts-line-chart");
 				$(options.selector).css("background-color",that.bg);
 
 				that.svg = d3.select(options.selector+" "+"#tooltip-svg"+i).append("svg:svg")
@@ -344,7 +339,7 @@ PykCharts.twoD.area = function (options){
 						that.dataLineGroupBorder[i] = that.chartBody.append("path");
 						that.dataLineGroupBorder[i]
 							.datum(that.stacked_new_data[i].data)
-							.attr("class", "line")
+							.attr("class", "area-border")
 							.attr("id", "border-stacked-area"+i)
 							.style("stroke", that.borderBetweenChartElements.color)
 							.style("stroke-width", that.borderBetweenChartElements.width)
