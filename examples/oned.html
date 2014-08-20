@@ -84,13 +84,9 @@
             </div>
         </div>
 
-        <script src="../lib/d3.min.js"></script>
-        <script src="../lib/jquery-1.11.1.min.js"></script>
-        <script src="../lib/underscore-min.js"></script>
-        <script src="../dist/pykcharts.0.0.7.min.js"></script>
         <script>
 
-        $(document).ready(function (e) {
+		window.PykChartsInit = function (e) {
 
             var k = new PykCharts.oneD.bubble({
                 selector: "#bubble",
@@ -157,8 +153,9 @@
                 data: "../data/pie2.json"
             });
             k.execute();
-		});
+		}
 
 		</script>
+		<script src="../dist/pykcharts.0.0.7.min.js"></script>
 	</body>
 </html>

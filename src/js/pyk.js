@@ -18,7 +18,7 @@ Array.__proto__.groupBy = function (data) {
 PykCharts.boolean = function(d) {
     var false_values = ['0','f',"false",'n','no',''];
     var false_keywords = [undefined,null,NaN];
-    if(_.contains(false_keywords, d)) {
+    if(false_keywords.indexOf(d) > -1) {
         return false;
     }
     value = d.toLocaleString();

@@ -136,11 +136,25 @@
   shape-rendering: crispEdges;
 }
 
+.PykCharts-twoD .axis-line {
+  fill: none;
+  shape-rendering: crispEdges; 
+}
+
 .PykCharts-twoD .grid-line {
   fill: none;
   stroke: #ddd;
   opacity: .4;
   shape-rendering: crispEdges;
+}
+
+.PykCharts-twoD .axis-text {
+  font: 12px "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  /*fill: #1D1D1D;*/
+  stroke: none;
+  z-index: 10;
 }
 
 .PykCharts-spider-web .link {
@@ -196,6 +210,7 @@
 }
 
 .PykCharts-credits{
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   display: inline-block;
   height: 30px;
   font-size: 11px;
@@ -271,3 +286,5 @@ padding-right:20px;
   stroke: #ccc;
   stroke-width: 1.5px;
 }
+
+.
