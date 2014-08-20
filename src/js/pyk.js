@@ -867,7 +867,7 @@ configuration.Theme = function(){
         }
     };
 
-    that.twoDimensionalCharts = {
+    that.treeCharts = {
         zoom : {
             "enable" : "no"
         },
