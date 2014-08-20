@@ -397,7 +397,7 @@ PykCharts.twoD.area = function (options){
 	        	.attr("class", that.chartPathClass)
 		        .attr("d", that.chart_path);
 		    that.svg.select("#border-stacked-area"+i)
-				.attr("class","line")
+				.attr("class","area-border")
 				.attr("d", that.chart_path_border);
 	    }
 
