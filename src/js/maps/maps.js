@@ -31,12 +31,12 @@ PykCharts.maps.processInputs = function (chartObject, options) {
     chartObject.width = options.chart && _.isNumber(parseInt(options.chart.width,10)) ? options.chart.width : stylesheet.chart.width;
     chartObject.height = options.chart && _.isNumber(parseInt(options.chart.height,10)) ? options.chart.height : stylesheet.chart.height;
     chartObject.mapCode = options.mapCode ? options.mapCode : mapsTheme.mapCode;
-    chartObject.defaultColor = optional.colors && optional.colors.defaultColor ? optional.colors.defaultColor : stylesheet.colors.defaultColor;
-    chartObject.colorType = optional.colors && optional.colors.type ? optional.colors.type : stylesheet.colors.type;
-    chartObject.totalColors = optional.colors && _.isNumber(parseInt(optional.colors.total,10)) ? parseInt(optional.colors.total,10) : stylesheet.colors.total;
-    chartObject.colorPalette = optional.colors && optional.colors.palette ? optional.colors.palette : stylesheet.colors.palette;
-    chartObject.bg = optional.colors && optional.colors.backgroundColor ? optional.colors.backgroundColor : stylesheet.colors.backgroundColor;
-    if (optional.tooltip)  {
+    chartObject.defaultColor = optional && optional.colors && optional.colors.defaultColor ? optional.colors.defaultColor : stylesheet.colors.defaultColor;
+    chartObject.colorType = optional && optional.colors && optional.colors.type ? optional.colors.type : stylesheet.colors.type;
+    chartObject.totalColors = optional && optional.colors && _.isNumber(parseInt(optional.colors.total,10)) ? parseInt(optional.colors.total,10) : stylesheet.colors.total;
+    chartObject.colorPalette = optional && optional.colors && optional.colors.palette ? optional.colors.palette : stylesheet.colors.palette;
+    chartObject.bg = optional && optional.colors && optional.colors.backgroundColor ? optional.colors.backgroundColor : stylesheet.colors.backgroundColor;
+    if (optional && optional.tooltip)  {
         chartObject.tooltip = optional.tooltip;
         chartObject.tooltip.enable = optional.tooltip.enable ? optional.tooltip.enable : stylesheet.tooltip.enable;
         chartObject.enableTooltip = chartObject.tooltip.enable;
@@ -48,7 +48,7 @@ PykCharts.maps.processInputs = function (chartObject, options) {
     } else {
         chartObject.tooltip = stylesheet.tooltip;
     }
-    if (optional.label) {
+    if (optional && optional.label) {
         chartObject.label = optional.label;
         chartObject.label.size = optional.label.size ? optional.label.size : stylesheet.label.size;
         chartObject.label.color = optional.label.color ? optional.label.color : stylesheet.label.color;
@@ -57,7 +57,7 @@ PykCharts.maps.processInputs = function (chartObject, options) {
     } else {
         chartObject.label = stylesheet.label;
     }
-    if(optional.legends) {
+    if(optional && optional.legends) {
         chartObject.legends = optional.legends;
         chartObject.legends.strokeWidth = optional.legends.strokeWidth ? optional.legends.strokeWidth : stylesheet.legends.strokeWidth;
         chartObject.legends.size = optional.legends.size ? optional.legends.size : stylesheet.legends.size;
@@ -66,19 +66,19 @@ PykCharts.maps.processInputs = function (chartObject, options) {
     } else {
         chartObject.legends = stylesheet.legends;
     }
-    if(optional.border) {
+    if(optional && optional.border) {
         chartObject.border = optional.border;
         chartObject.border.color = optional.border.color ? optional.border.color : stylesheet.border.color;
         chartObject.border.thickness = optional.border.thickness ? optional.border.thickness : stylesheet.border.thickness;
     } else {
         chartObject.legends = stylesheet.legends;
     }
-    chartObject.enableClick = optional.enableClick ? optional.enableClick : stylesheet.enableClick;
-    chartObject.onhover = optional.onhover ? optional.onhover : stylesheet.onhover;
-    chartObject.defaultZoomLevel = optional.defaultZoomLevel ? optional.defaultZoomLevel : 80;
-    chartObject.loading = optional.loading && optional.loading.animationGifUrl ? optional.loading.animationGifUrl: stylesheet.loading.animationGifUrl;
-    chartObject.highlightArea = optional.highlightArea ? optional.highlightArea : stylesheet.highlightArea;
-    if (optional.title) {
+    chartObject.enableClick = optional && optional.enableClick ? optional.enableClick : stylesheet.enableClick;
+    chartObject.onhover = optional && optional.onhover ? optional.onhover : stylesheet.onhover;
+    chartObject.defaultZoomLevel = optional && optional.defaultZoomLevel ? optional.defaultZoomLevel : 80;
+    chartObject.loading = optional && optional.loading && optional.loading.animationGifUrl ? optional.loading.animationGifUrl: stylesheet.loading.animationGifUrl;
+    chartObject.highlightArea = optional && optional.highlightArea ? optional.highlightArea : stylesheet.highlightArea;
+    if (optional && optional.title) {
         chartObject.title = optional.title;
         chartObject.title.size = optional.title.size ? optional.title.size : stylesheet.title.size;
         chartObject.title.color = optional.title.color ? optional.title.color : stylesheet.title.color;
@@ -87,7 +87,7 @@ PykCharts.maps.processInputs = function (chartObject, options) {
     } else {
         chartObject.title = stylesheet.title;
     }
-    if (optional.subtitle) {
+    if (optional && optional.subtitle) {
         chartObject.subtitle = optional.subtitle;
         chartObject.subtitle.size = optional.subtitle.size ? optional.subtitle.size : stylesheet.subtitle.size;
         chartObject.subtitle.color = optional.subtitle.color ? optional.subtitle.color : stylesheet.subtitle.color;
@@ -96,10 +96,10 @@ PykCharts.maps.processInputs = function (chartObject, options) {
     } else {
         chartObject.subtitle = stylesheet.subtitle;
     }
-    chartObject.realTimeCharts = optional.realTimeCharts ? optional.realTimeCharts : functionality.realTimeCharts;
-    chartObject.transition = optional.transition ? optional.transition : functionality.transition;
-    chartObject.creditMySite = optional.creditMySite ? optional.creditMySite : stylesheet.creditMySite;
-    chartObject.dataSource = optional.dataSource ? optional.dataSource : "no";
+    chartObject.realTimeCharts = optional && optional.realTimeCharts ? optional.realTimeCharts : functionality.realTimeCharts;
+    chartObject.transition = optional && optional.transition ? optional.transition : functionality.transition;
+    chartObject.creditMySite = optional && optional.creditMySite ? optional.creditMySite : stylesheet.creditMySite;
+    chartObject.dataSource = optional && optional.dataSource ? optional.dataSource : "no";
 
     chartObject.k = new PykCharts.Configuration(chartObject);
     return chartObject;
