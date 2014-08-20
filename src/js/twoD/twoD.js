@@ -126,7 +126,10 @@ PykCharts.twoD.processInputs = function (chartObject, options) {
         chartObject.legends = optional.legends;
         chartObject.legends.enable = optional.legends.enable && optional.legends.enable ? optional.legends.enable : twoDimensionalCharts.legends.enable;
         chartObject.legends.display = optional.legends.display ? optional.legends.display : twoDimensionalCharts.legends.display;
+    } else {
+        chartObject.legends = twoDimensionalCharts.legends;
     }
+
     chartObject.saturationColor = optional && optional.colors && optional.colors.saturationColor ? optional.colors.saturationColor : stylesheet.colors.saturationColor;
     chartObject.realTimeCharts = optional && optional.realTimeCharts ? optional.realTimeCharts : "no";
     chartObject.transition = optional && optional.transition ? optional.transition : "no";

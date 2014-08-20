@@ -272,6 +272,7 @@ PykCharts.multi_series_2D.ultimate = function(options){
 
                 rect.attr("height", 0).attr("y", h)
                     .attr("fill", function(d){
+                        console.log(d.highlight);
                         return that.fillColor(d);
                     })
                     .attr("stroke",that.border.color())
@@ -456,7 +457,8 @@ PykCharts.multi_series_2D.ultimate = function(options){
                         "color": icing.color,
                         "tooltip": icing.tooltip,
                         "group": that.keys[id],
-                        "name": bar.group
+                        "name": bar.group,
+                        "highlight": icing.highlight
                     });
                 }
             }
