@@ -232,6 +232,7 @@ PykCharts.multi_series_2D.ultimate = function(options){
                 //     .domain(that.barName.map(function(d) { return d; }))
                 //     .rangeRoundBands([0, that.x0.rangeBand()]) ;
 
+                var x_factor = 0, width_factor = 0;
                 if(that.max_length === 1) {
                     x_factor = that.xScale.rangeBand()/4;
                     width_factor = (that.xScale.rangeBand()/(2*that.max_length));
