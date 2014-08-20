@@ -64,11 +64,12 @@ PykCharts.twoD.fillChart = function (options, theme) {
 };
 
 PykCharts.twoD.processInputs = function (chartObject, options) {
-    var theme = new PykCharts.Configuration.Theme({})
-    , stylesheet = theme.stylesheet
-    , functionality = theme.functionality
-    , twoDimensionalCharts = theme.twoDimensionalCharts
-    , optional = options.optional;
+    var theme = new PykCharts.Configuration.Theme({}),
+        stylesheet = theme.stylesheet,
+        //, functionality = theme.functionality,
+        twoDimensionalCharts = theme.twoDimensionalCharts,
+        optional = options.optional;
+
     chartObject.yAxisDataFormat = options.yAxisDataFormat ? options.yAxisDataFormat : twoDimensionalCharts.yAxisDataFormat
     chartObject.xAxisDataFormat = options.xAxisDataFormat ? options.xAxisDataFormat : twoDimensionalCharts.xAxisDataFormat;
     chartObject.selector = options.selector ? options.selector : "body";
@@ -145,6 +146,14 @@ PykCharts.twoD.processInputs = function (chartObject, options) {
         chartObject.borderBetweenChartElements.width = optional.borderBetweenChartElements.width ? optional.borderBetweenChartElements.width : stylesheet.borderBetweenChartElements.width;
         chartObject.borderBetweenChartElements.color = optional.borderBetweenChartElements.color ? optional.borderBetweenChartElements.color : stylesheet.borderBetweenChartElements.color;
         chartObject.borderBetweenChartElements.style = optional.borderBetweenChartElements.style ? optional.borderBetweenChartElements.style : stylesheet.borderBetweenChartElements.style;
+        switch(chartObject.borderBetweenChartElements.style) {
+            case "dotted" : chartObject.borderBetweenChartElements.style = "1,3";
+                            break;
+            case "dashed" : chartObject.borderBetweenChartElements.style = "5,5";
+                           break;
+            default : chartObject.borderBetweenChartElements.style = "0";
+                      break;
+        }
     } else {
         chartObject.borderBetweenChartElements = "no";
     }
@@ -178,7 +187,6 @@ PykCharts.twoD.processInputs = function (chartObject, options) {
     } else {
         chartObject.legendsText = stylesheet.legendsText;
     }
-
     chartObject.units = optional && optional.units ? optional.units : false;
     chartObject.size = optional && optional.size ? optional.size : twoDimensionalCharts.size;
     chartObject.size.enable = optional && optional.size && optional.size.enable ? optional.size.enable : twoDimensionalCharts.size.enable;

@@ -540,8 +540,6 @@ PykCharts.multi_series_2D.ultimateBar = function(options){
             return value[0].length;
         });
 
-        // console.log(max_length,"max_length");
-
         var new_data = _.map(data,function (d,i){
             var value = _.values(d);
             while(value[0].length < max_length) {
