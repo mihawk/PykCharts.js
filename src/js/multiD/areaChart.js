@@ -8,9 +8,9 @@ PykCharts.twoD.area = function (options){
 		if(that.mode === "default") {
 			that.k.loading();
 		}
-		var twoDimensionalCharts = theme.twoDimensionalCharts
-        , stylesheet = theme.stylesheet
-        , optional = options.optional;
+		var twoDimensionalCharts = theme.twoDimensionalCharts,
+			stylesheet = theme.stylesheet,
+			optional = options.optional;
     that.enableCrossHair = optional && optional.enableCrossHair ? optional.enableCrossHair : twoDimensionalCharts.enableCrossHair;
 		that.curvy_lines = optional && optional.curvy_lines ? optional.curvy_lines : twoDimensionalCharts.curvy_lines;
 		that.grid = options.chart && options.chart.grid ? options.chart.grid : stylesheet.chart.grid;
@@ -46,12 +46,12 @@ PykCharts.twoD.area = function (options){
 
 			that.k.crossHair(that.svg,that.type)
 					.credits();
-					// .dataSource();
 
 			that.k.xAxis(that.svg,that.gxaxis,that.xScale)
 					.yAxis(that.svg,that.gyaxis,that.yScale)
 					.yGrid(that.svg,that.group,that.yScale)
-					.xGrid(that.svg,that.group,that.xScale);
+					.xGrid(that.svg,that.group,that.xScale)
+					.dataSource();
 		}
 		else if(that.mode === "infographics") {
 			  that.k.liveData(that)

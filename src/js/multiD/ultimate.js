@@ -216,8 +216,6 @@ PykCharts.multi_series_2D.ultimate = function(options){
                     group_label_data.push({x: x, name: i});
                 }
 
-                console.log(that.xScale.rangeBand()*17,"rangeBand");
-
                 // that.x0 = d3.scale.ordinal()
                 //     .domain(group_label_data.map(function (d,i) { return d.name; }))
                 //     .rangeRoundBands([0, w], 0.1);
@@ -246,6 +244,13 @@ PykCharts.multi_series_2D.ultimate = function(options){
                         });
 
                 xAxis_label.exit().remove();
+                
+                var x_factor = 0, width_factor = 0;
+                
+                if(that.max_length === 1) {
+                    x_factor = that.xScale.rangeBand()/4;
+                    width_factor = (that.xScale.rangeBand()/(2*that.max_length));
+                };
 
                 var bars = that.group.selectAll(".bars")
                     .data(layers);
@@ -254,7 +259,6 @@ PykCharts.multi_series_2D.ultimate = function(options){
                 bars.enter()
                         .append("g")
                         .attr("class", "bars");
-//                        .attr("transform","translate("+that.columnMargin+",0)");
 
                 var rect = bars.selectAll("rect")
                     .data(function(d,i){
@@ -288,10 +292,10 @@ PykCharts.multi_series_2D.ultimate = function(options){
                 rect.transition()
                     .duration(that.transitions.duration())
                     .attr("x", function(d){
-                        return that.xScale(d.x);
+                        return that.xScale(d.x)-x_factor;
                     })
                     .attr("width", function(d){
-                        return that.xScale.rangeBand();
+                        return that.xScale.rangeBand()+width_factor;
                     })
                     .attr("height", function(d){
                         return that.yScale(d.y);
@@ -507,14 +511,14 @@ PykCharts.multi_series_2D.ultimate = function(options){
         return p;
     }
     this.emptygroups = function (data) {
-        var max_length = d3.max(data,function (d){
+        that.max_length = d3.max(data,function (d){
             var value = _.values(d);
             return value[0].length;
         });
 
         var new_data = _.map(data,function (d,i){
             var value = _.values(d);
-            while(value[0].length < max_length) {
+            while(value[0].length < that.max_length) {
                 var key = _.keys(d);
                 var stack = { "name": "stack", "tooltip": "null", "color": "white", "val": 0, highlight: false };
                 var group = {"group3":[stack]};
