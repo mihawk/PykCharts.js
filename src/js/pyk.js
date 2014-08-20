@@ -147,7 +147,7 @@ PykCharts.Configuration = function (options)
 	        return this;
 	    },
 	    dataSource : function () {
-	        if(PykCharts.boolean(options.dataSource) && PykCharts.boolean(options.dataSource.text) || PykCharts.boolean(options.dataSource.url)) {
+	        if(PykCharts.boolean(options.dataSource) && (PykCharts.boolean(options.dataSource.text) || PykCharts.boolean(options.dataSource.url))) {
 	            var enable = true;
 	            var data_src = options.dataSource;
 	            if(data_src.text === "") {
