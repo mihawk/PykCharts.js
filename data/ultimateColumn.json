@@ -6,7 +6,7 @@
 		"stack": "Missed", 
 		"tooltip": "Missed",
 		"color": "#4b6377",
-		"highlight": false
+		"highlight": true
 	},
 	{
 		"x": "Feb",
