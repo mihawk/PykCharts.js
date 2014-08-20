@@ -48,15 +48,15 @@ PykCharts.Configuration = function (options)
                 scale = d3.scale.ordinal()
                     .domain(data)
                     .rangeRoundBands(range, x);
-
                 return scale;
+
             } else if(type === "linear") {
                 scale = d3.scale.linear()
                     .domain(data)
                     .range(range);
                 return scale;
-            } else if(type === "time") {
 
+            } else if(type === "time") {
                 scale = d3.time.scale()
                     .domain(data)
                     .range(range);
@@ -147,7 +147,7 @@ PykCharts.Configuration = function (options)
 	        return this;
 	    },
 	    dataSource : function () {
-	        if(PykCharts.boolean(options.dataSource) && PykCharts.boolean(options.dataSource.text) || PykCharts.boolean(options.dataSource.url)) {
+	        if(PykCharts.boolean(options.dataSource) && (PykCharts.boolean(options.dataSource.text) || PykCharts.boolean(options.dataSource.url))) {
 	            var enable = true;
 	            var data_src = options.dataSource;
 	            if(data_src.text === "") {
@@ -664,7 +664,8 @@ configuration.makeXGrid = function(options,xScale) {
                     .orient("bottom")
                     .ticks(options.axis.x.no_of_ticks)
                     .tickFormat("")
-                    .tickSize(options.height - options.margin.top - options.margin.bottom);
+                    .tickSize(options.height - options.margin.top - options.margin.bottom)
+                    .outerTickSize(0);
     return xgrid;
 };
 
@@ -675,7 +676,8 @@ configuration.makeYGrid = function(options,yScale) {
                     .orient("left")
                     .ticks(options.axis.x.no_of_ticks)
                     .tickSize(-(options.width - options.margin.left - options.margin.right))
-                    .tickFormat("");
+                    .tickFormat("")
+                    .outerTickSize(0);
     return ygrid;
 };
 
@@ -740,7 +742,7 @@ configuration.Theme = function(){
         "borderBetweenChartElements":{
             "width": 1,
             "color": "white",
-            "style": "solid"
+            "style": "solid" // or "dotted / dashed"
         },
         "legends":{ //partially done for oneD, pending for twoD
             "size": "13",
@@ -863,6 +865,13 @@ configuration.Theme = function(){
         "scatterplot" : {
             "radius" : 9
         }
+    };
+
+    that.treeCharts = {
+        "zoom" : {
+            "enable" : "no"
+        },
+
     };
 
     that.mapsTheme = {

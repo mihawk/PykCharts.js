@@ -15,7 +15,6 @@ PykCharts.multi_series_2D.ultimateBar = function(options){
            that.k.loading();
         }
         d3.json(options.data, function(e, data){
-            
             that.data = data;
             $(that.selector+" #chart-loader").remove();
             that.render();
@@ -80,6 +79,7 @@ PykCharts.multi_series_2D.ultimateBar = function(options){
                 .axisContainer();
 
             that.k.xAxis(that.svg,that.xgroup,that.xScale)
+                 .xGrid(that.svg,that.group,that.xScale);
 //               .yAxis(that.svg,that.ygroup,that.y0);
               
         } else if(that.mode === "infographic") {
@@ -100,14 +100,13 @@ PykCharts.multi_series_2D.ultimateBar = function(options){
         var that = this;
         var optional = {
             svgContainer: function () {
-
-                $(options.selector).css("background-color",that.bg);
                 $(that.selector).attr("class","PykCharts-twoD");
                 that.svg = d3.select(that.selector).append("svg:svg")
                     .attr("width",that.width )
                     .attr("height",that.height)
                     .attr("id","svgcontainer")
-                    .attr("class","svgcontainer");
+                    .attr("class","svgcontainer")
+                    .style("background-color",that.bg);
 
                 that.group = that.svg.append("g")
                     .attr("id","svggroup")
@@ -142,7 +141,7 @@ PykCharts.multi_series_2D.ultimateBar = function(options){
             axisContainer : function () {
                 if(PykCharts.boolean(that.axis.y.enable)) {
 
-                    var axis_line = that.group.selectAll(options.selector + " " + ".axis-line")
+                    var axis_line = that.group.selectAll(".axis-line")
                         .data(["line"]);
 
                     axis_line.enter()
@@ -197,7 +196,8 @@ PykCharts.multi_series_2D.ultimateBar = function(options){
                                 tooltip : d.tooltip,
                                 color: d.color,
                                 group: d.group,
-                                name:d.name
+                                name:d.name,
+                                highlight:d.highlight
                             };
                         })
                     };
@@ -214,10 +214,10 @@ PykCharts.multi_series_2D.ultimateBar = function(options){
                     .domain(the_bars.map(function(e, i){
                         return e.id || i; // Keep the ID for bars and numbers for integers
                     }))
-                    .rangeBands([0,h],0.1);
+                    .rangeBands([0,h]);
 
-                x_domain = [0,d3.max(xValues)];
-                that.xScale = d3.scale.linear().domain(that.k._domainBandwidth(x_domain,1)).range([0, w]);
+                  
+                that.xScale = d3.scale.linear().domain([0,d3.max(xValues)]).range([0, w]).nice();
                 // that.yScaleInvert = d3.scale.linear().domain([d3.max(yValues), 0]).range([0, h]).nice(); // For the yAxis
                 var zScale = d3.scale.category10();
 
@@ -237,16 +237,7 @@ PykCharts.multi_series_2D.ultimateBar = function(options){
 
                 that.y1 = d3.scale.ordinal()
                     .domain(that.barName.map(function(d) { return d; }))
-                    .rangeRoundBands([0, that.y0.rangeBand()]);
-
-
-                var y_factor = 0, width_factor = 0;
-                // console.log(that.max_length,"testingggggggggggggg");
-                if(that.max_length === 1) {
-                    // console.log(that.yScale.rangeBand(),"rangeBand");
-                    y_factor = that.yScale.rangeBand()/4;
-                    width_factor = (that.yScale.rangeBand()/(2*that.max_length));
-                };
+                    .rangeRoundBands([0, that.y0.rangeBand()]) ;
 
                 var yAxis_label = that.group.selectAll("text.axis-text")
                     .data(group_label_data);
@@ -327,10 +318,10 @@ PykCharts.multi_series_2D.ultimateBar = function(options){
                         return that.xScale(d.x);
                     })
                     .attr("height", function(d){
-                        return that.yScale.rangeBand()+width_factor;
+                        return that.yScale.rangeBand();
                     })
                     .attr("y", function(d){
-                        return that.yScale(d.y)-y_factor;
+                        return that.yScale(d.y);
                         
                     });
 
@@ -340,7 +331,7 @@ PykCharts.multi_series_2D.ultimateBar = function(options){
             return this;
             },
             legends: function () {
-                if(PykCharts.boolean(that.legends.enable)) {
+                if(PykCharts.boolean(that.legends)) {
                     var params = that.getParameters();
                     var j = 0,k = 0;
                     j = params.length;
@@ -485,6 +476,7 @@ PykCharts.multi_series_2D.ultimateBar = function(options){
                         "y": icing.val,
                         "color": icing.color,
                         "tooltip": icing.tooltip,
+                        "highlight": icing.highlight,
                         "group": that.keys[id],
                         "name": bar.group
                     });
@@ -543,16 +535,16 @@ PykCharts.multi_series_2D.ultimateBar = function(options){
         return p;
     };
     this.emptygroups = function (data) {
-        that.max_length = d3.max(data,function (d){
+//console.log(max_length,"max_length","insideeeeeeeeeeeeeeeeeee");
+
+        var max_length = d3.max(data,function (d){
             var value = _.values(d);
             return value[0].length;
         });
 
-        // console.log(that.max_length,"max_length");
-
         var new_data = _.map(data,function (d,i){
             var value = _.values(d);
-            while(value[0].length < that.max_length) {
+            while(value[0].length < max_length) {
                 var key = _.keys(d);
                 var stack = { "name": "stack", "tooltip": "null", "color": "white", "val": 0, highlight: false };
                 var group = {"group3":[stack]};
@@ -561,6 +553,7 @@ PykCharts.multi_series_2D.ultimateBar = function(options){
                 value = _.values(d);
             }
         });
+        // console.log(data,"new_data");
         return data;
     };
 

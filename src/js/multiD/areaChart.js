@@ -4,13 +4,13 @@ PykCharts.twoD.area = function (options){
 
 	this.execute = function (){
 		that = new PykCharts.twoD.processInputs(that, options, "area");
-
+		                        
 		if(that.mode === "default") {
 			that.k.loading();
 		}
 		var twoDimensionalCharts = theme.twoDimensionalCharts,
-			stylesheet = theme.stylesheet,
-			optional = options.optional;
+				stylesheet = theme.stylesheet,
+				optional = options.optional;
     that.enableCrossHair = optional && optional.enableCrossHair ? optional.enableCrossHair : twoDimensionalCharts.enableCrossHair;
 		that.curvy_lines = optional && optional.curvy_lines ? optional.curvy_lines : twoDimensionalCharts.curvy_lines;
 		that.grid = options.chart && options.chart.grid ? options.chart.grid : stylesheet.chart.grid;
@@ -265,7 +265,7 @@ PykCharts.twoD.area = function (options){
 
 				that.zoom_event = d3.behavior.zoom()
 				    .y(that.yScale)
-				    .scaleExtent([1,8])
+				    .scaleExtent([1,2])
 				    .on("zoom", that.zoomed);
 				if(PykCharts.boolean(that.zoom.enable)) {
 					that.svg.call(that.zoom_event);
@@ -346,8 +346,9 @@ PykCharts.twoD.area = function (options){
 							.datum(that.stacked_new_data[i].data)
 							.attr("class", "line")
 							.attr("id", "border-stacked-area"+i)
-							.style("stroke", "#1d1d1d")
-							.style("stroke-width", "1px")
+							.style("stroke", that.borderBetweenChartElements.color)
+							.style("stroke-width", that.borderBetweenChartElements.width)
+							.style("stroke-dasharray", that.borderBetweenChartElements.style)
 							.attr("transform", "translate("+ that.lineMargin +",0)")
 							.attr("d", that.chart_path_border);
 

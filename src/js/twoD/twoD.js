@@ -126,12 +126,15 @@ PykCharts.twoD.processInputs = function (chartObject, options) {
         chartObject.legends = optional.legends;
         chartObject.legends.enable = optional.legends.enable && optional.legends.enable ? optional.legends.enable : twoDimensionalCharts.legends.enable;
         chartObject.legends.display = optional.legends.display ? optional.legends.display : twoDimensionalCharts.legends.display;
+    } else {
+        chartObject.legends = twoDimensionalCharts.legends;
     }
+
     chartObject.saturationColor = optional && optional.colors && optional.colors.saturationColor ? optional.colors.saturationColor : stylesheet.colors.saturationColor;
     chartObject.realTimeCharts = optional && optional.realTimeCharts ? optional.realTimeCharts : "no";
     chartObject.transition = optional && optional.transition ? optional.transition : "no";
     chartObject.creditMySite = optional && optional.creditMySite ? optional.creditMySite : stylesheet.creditMySite;
-    chartObject.dataSource = optional && optional.dataSource ? optional.dataSource : stylesheet.dataSource;
+    chartObject.dataSource = optional && optional.dataSource ? optional.dataSource : "no";
     chartObject.bg = optional && optional.colors && optional.colors.backgroundColor ? optional.colors.backgroundColor : stylesheet.colors.backgroundColor;
     chartObject.chartColor = optional && optional.colors && optional.colors.chartColor ? optional.colors.chartColor : stylesheet.colors.chartColor;
     chartObject.highlightColor = optional && optional.colors && optional.colors.highlightColor ? optional.colors.highlightColor : stylesheet.colors.highlightColor;

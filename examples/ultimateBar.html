@@ -12,13 +12,12 @@
 	<div id="ultimate-container3">
 	</div>
 	<script src="../src/js/pyk.js"></script>
-	<script src="../src/js/twoD/twoD.js"></script>
-	<script src="../src/js/multi-series2D/multi-series2D.js"></script>
+	<script src="../src/js/multiD/twoD.js"></script>
+	<script src="../src/js/multiD/multi-series2D.js"></script>
 	<script src="../src/js/multiD/ultimateBar.js"></script>
 	<script type="text/javascript">
 
 		$(document).ready(function(e) {
-		
 			var k = new PykCharts.multi_series_2D.ultimateBar({
 		        data: "../data/ultimatebar.json",
 		        selector: "#ultimate-container3",
@@ -27,7 +26,7 @@
 					height: 450,
 					margin: {top: 25, right: 25, bottom: 25, left: 75},
 					grid: {
-		                yEnabled: "yes",
+		                xEnabled: "yes",
 		                color:""
 			        }
 				},
