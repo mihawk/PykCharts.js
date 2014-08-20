@@ -77,7 +77,7 @@ PykCharts.multi_series_2D.ultimateBar = function(options){
                 .createColumnChart()
                 .legends()
                 .axisContainer()
-                .ticks();
+//                .ticks();
 
             that.k.xAxis(that.svg,that.xgroup,that.xScale)
                  .xGrid(that.svg,that.group,that.xScale);
@@ -328,7 +328,6 @@ PykCharts.multi_series_2D.ultimateBar = function(options){
             return this;
             },
             ticks: function () {
-                console.log("ticks");
                 var ticks = that.bars.selectAll("g")
                             .data(that.layers);
                 
@@ -344,14 +343,15 @@ PykCharts.multi_series_2D.ultimateBar = function(options){
 
                 ticksText.attr("class","ticksText")
                     .attr("x", function(d){
-                        return that.xScale(d.x0)+that.xScale(d.x)-18;
+                        return that.xScale(d.x0)+that.xScale(d.x)-16;
                     })
                     .attr("y",function(d){
                         return that.yScale(d.y)+15;
                     })
                     .text(function(d) {
-                        console.log(d.x);
-                        return d.x;
+                        if(d.x) { 
+                            return d.x;
+                        }
                     })
                     .attr("font-size",10)
                     .attr("fill","white");
