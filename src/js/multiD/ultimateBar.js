@@ -1,4 +1,4 @@
-PykCharts.multi_series_2D.ultimate = function(options){
+PykCharts.multi_series_2D.ultimateBar = function(options){
     var that = this;
 
     var theme = new PykCharts.Configuration.Theme({});
@@ -124,7 +124,7 @@ PykCharts.multi_series_2D.ultimate = function(options){
                 return this;
             },
             legendsContainer: function () {
-                if(PykCharts.boolean(that.legends)) {
+                if(PykCharts.boolean(that.legends.enable)) {
                     that.legend_svg = d3.select(that.selector).append("svg:svg")
                         .attr("width",that.width)
                         .attr("height",50)

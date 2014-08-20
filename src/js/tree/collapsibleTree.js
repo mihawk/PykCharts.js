@@ -1,62 +1,85 @@
 PykCharts.tree.collapsibleTree = function (options) {
     var that = this;
-
     this.execute = function () {
-
-        var margin = {top: 20, right: 120, bottom: 20, left: 120},
-            width = 960 - margin.right - margin.left,
-            height = 800 - margin.top - margin.bottom;
-
-        var i = 0,
-            duration = 750,
-            root;
-
-        var tree = d3.layout.tree()
-            .size([height, width])
-            .children(function (d) {
-                return d.values;
-            });
-
-        var diagonal = d3.svg.diagonal()
-            .projection(function(d) { return [d.y, d.x]; });
-
-        var svg = d3.select(options.selector)
-            .attr("class", "Pykcharts-tree")
-            .append("svg")
-            .attr("width", width + margin.right + margin.left)
-            .attr("height", height + margin.top + margin.bottom)
-            .append("g")
-            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-        d3.json(options.data, function (error, data) {
-            var tree_data = d3.nest()
-                .key(function(d) {
-                    return d.level1;
-                })
-                .key(function(d) {
-                    return d.level2;
-                })
-                .key(function(d) {
-                    return d.level3;
-                })
-                .rollup(function(d) {
-                    var leaves = [];
-                    _.each(d, function (d1) {
-                        leaves.push({
-                            key: d1.level4,
-                            weight: d1.weight
-                        });
-                    })
-                    return leaves;
-                })
-                .entries(data)
-
-            tree_data = {
+        if(that.mode === "default") {
+           that.k.loading();
+        }
+        d3.json(options.data, function(e, data){
+            
+            that.data = data;
+            that.tree_data = that.k.dataTransfer();
+            that.tree_data = {
                 key: "root",
-                values: tree_data
-            };
+                values: that.tree_data
+            };            
+            $(that.selector+" #chart-loader").remove();
+            that.render();
 
-            root = tree_data;
+        });
+    },
+    this.render = function () {
+        that.border = new PykCharts.Configuration.border(that);
+        that.transitions = new PykCharts.Configuration.transition(that);
+        that.mouseEvent1 = new PykCharts.twoD.mouseEvent(that);
+        that.fillColor = new PykCharts.multi_series_2D.fillChart(that,options);
+        
+        if(that.mode === "default") {
+
+            that.k.title()
+                .subtitle();
+
+            that.optionalFeatures()
+                .svgContainer();
+
+            that.k.credits()
+                .dataSource()
+                .liveData(that)
+                .tooltip();
+
+            that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
+            
+            that.optionalFeatures()
+                .createChart();
+              
+        } else if(that.mode === "infographic") {
+
+            that.optionalFeatures().svgContainer()
+                .createChart();
+
+            that.k.tooltip();
+            that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
+        }
+    },
+    this.optionalFeatures = function () {
+        svgContainer : function () {
+            that.svg = d3.select(options.selector)
+                .attr("class", "Pykcharts-tree")
+                .append("svg")
+                .attr("width", that.width)
+                .attr("height", that.height);
+
+            that.group = that.svg.append("g")
+                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+        },
+        createChart : function () {
+            that.w = that.width - that.margin.right - that.margin.left,
+            that.h = that.height - that.margin.top - that.margin.bottom;
+            var i = 0,
+            duration = 750,
+            root,
+            tree,
+            diagonal;
+
+            tree = d3.layout.tree()
+                .size([that.height, that.width])
+                .children(function (d) {
+                    return d.values;
+                });
+
+            diagonal = d3.svg.diagonal()
+                .projection(function(d) { return [d.y, d.x]; });
+
+            root = that.tree_data;
             root.x0 = height / 2;
             root.y0 = 0;
 
@@ -70,12 +93,22 @@ PykCharts.tree.collapsibleTree = function (options) {
 
             root.values.forEach(collapse);
             update(root);
-        });
+            function click(d) {
+            if (d.values) {
+                d._values = d.values;
+                d.values = null;
+            } else {
+                d.values = d._values;
+                d._values = null;
+            }
+            update(d);
+        }
+        },
 
-        d3.select(self.frameElement).style("height", "800px");
+        chartLabel : function () {
 
-        function update(source) {
-
+        },
+        update : function () {
             var nodes = tree.nodes(root).reverse(),
                 links = tree.links(nodes);
 
@@ -87,16 +120,18 @@ PykCharts.tree.collapsibleTree = function (options) {
             var nodeEnter = node.enter().append("g")
                 .attr("class", "node")
                 .attr("transform", function(d) { return "translate(" + source.y0 + "," + source.x0 + ")"; })
-                .on("click", click);
+                
 
             nodeEnter.append("circle")
                 .attr("r", 1e-6)
-                .style("fill", function(d) { return d._values ? "lightsteelblue" : "#fff"; });
+                .style("fill", function(d) { return d._values ? "lightsteelblue" : "#fff"; })
+                .on("click", click);
 
             nodeEnter.append("text")
                 .attr("x", function(d) { return d.values || d._values ? -10 : 10; })
                 .attr("dy", ".35em")
                 .attr("text-anchor", function(d) { return d.values || d._values ? "end" : "start"; })
+                .attr("pointer-events","none")
                 .text(function(d) { return d.key; })
                 .style("fill-opacity", 1e-6);
 
@@ -150,16 +185,26 @@ PykCharts.tree.collapsibleTree = function (options) {
                 d.y0 = d.y;
             });
         }
+    }
+    this.execute = function () {
+        
 
-        function click(d) {
-            if (d.values) {
-                d._values = d.values;
-                d.values = null;
-            } else {
-                d.values = d._values;
-                d._values = null;
-            }
-            update(d);
+        
+        
+
+        d3.json(options.data, function (error, data) {
+            var tree_data = 
+
+            
+        });
+
+        d3.select(self.frameElement).style("height", "800px");
+
+        function update(source) {
+
+            
         }
+
+        
     }
 }
