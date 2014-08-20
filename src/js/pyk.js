@@ -867,6 +867,12 @@ configuration.Theme = function(){
         }
     };
 
+    that.twoDimensionalCharts = {
+        zoom : {
+            "enable" : "no"
+        },
+    };
+
     that.mapsTheme = {
         "mapCode": "india-topo"
     };

@@ -33,9 +33,11 @@
             var k = new PykCharts.tree.collapsibleTree({
                 selector: "#collapsibleTree",
                 data:"../data/tree.json",
+                mode: "default",
                 chart: {
                     height: 400,
-                    width: 430
+                    width: 430,
+                    margin:{"top": 40, "right": 40, "bottom": 40, "left": 40}
                 },
                 optional:{
                     title: {
@@ -49,12 +51,13 @@
                         url: "http://www.pykih.com/"
                     },
                     realTimeCharts: {
-                        "refreshFrequency": 0,
-                        "enableLastUpdatedAt": "yes"
+                        refreshFrequency: 0,
+                        enableLastUpdatedAt: "yes"
                     },
                     transition: {
                         duration: 0
                     },
+                    enableTooltip: "yes",
                     label:{ //partially done for oneD, pending for twoD
                       size: "13",
                       color: "white",
@@ -63,6 +66,9 @@
                     },
                     loading: {
                       animationGifUrl: "../img/preloader.gif"
+                    },
+                    zoom : {
+                        enable : "no"
                     },
                     borderBetweenChartElements:{ //done for oneD
                         width: "1px", // if width is 0 means it is disabled.
@@ -80,9 +86,11 @@
             var k = new PykCharts.tree.openTree({
                 selector: "#openTree",
                 data:"../data/tree.json",
+                mode: "default",
                 chart: {
                     height: 400,
-                    width: 430
+                    width: 430,
+                    margin:{"top": 40, "right": 40, "bottom": 40, "left": 40}
                 },
                 optional:{
                     title: {
@@ -102,6 +110,7 @@
                     transition: {
                         duration: 0
                     },
+                    enableTooltip: "yes",
                     label:{ //partially done for oneD, pending for twoD
                       size: "13",
                       color: "white",
@@ -110,6 +119,9 @@
                     },
                     loading: {
                       animationGifUrl: "../img/preloader.gif"
+                    },
+                    zoom : {
+                        enable : "no"
                     },
                     borderBetweenChartElements:{ //done for oneD
                         width: "1px", // if width is 0 means it is disabled.
@@ -120,7 +132,6 @@
                         backgroundColor: "white",
                         chartColor: "steelblue"
                     }
-
                 }
             });
             k.execute();
