@@ -35,7 +35,8 @@ PykCharts.twoD.area = function (options){
 			that.k.title()
 					.subtitle()
 					.liveData(that)
-					.makeMainDiv(options.selector,1);
+					.makeMainDiv(options.selector,1)
+					.tooltip(true,options.selector,1);
 
 			that.optional_feature()
 	    		.chartType()
