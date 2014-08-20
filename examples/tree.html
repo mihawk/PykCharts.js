@@ -14,6 +14,9 @@
                 <div class="col-sm-12" style="border: 1px solid gray;">
                     <div id="openTree"></div>
                 </div>
+                <div class="col-sm-12" style="border: 1px solid gray;">
+                    <div id="sunburst"></div>
+                </div>
             </div>
         </div>
 
@@ -26,6 +29,7 @@
         <script src="../src/js/tree/tree.js"></script>
         <script src="../src/js/tree/collapsibleTree.js"></script>
         <script src="../src/js/tree/openTree.js"></script>
+        <script src="../src/js/tree/sunburst.js"></script>
         <script>
 
         $(document).ready(function (e) {
@@ -139,6 +143,55 @@
             });
             k.execute();
 
+            var k = new PykCharts.tree.sunburst({
+                selector: "#sunburst",
+                data:"../data/tree.json",
+                chart: {
+                    height: 400,
+                    width: 430
+                },
+                optional:{
+                    title: {
+                        text: "Malnutrition in India",
+                    },
+                    subtitle: {
+                        text: "Malnutrition in India Malnutrition in India Malnutrition in India Malnutrition in India"
+                    },
+                    units : {
+                        prefix: "Rs. ", // NA in this JSON data, but just for the moment applying it
+                        suffix: "/-" // NA in this JSON data, but just for the moment applying it
+                    },
+                    dataSource:{
+                        text: "World Bank",
+                        url: "http://www.pykih.com/"
+                    },
+                    clubData: {
+                        enable:"no",
+                        text: "Others", //default: Others
+                        maximumNodes: 5, //default: 5
+                        alwaysIncludeDataPoints: ["NDA"],
+                        tooltipText:"",
+                        color:"green"
+                    },
+                    realTimeCharts: {
+                        "refreshFrequency": 0,
+                        "enableLastUpdatedAt": "yes"
+                    },
+                    transition: {
+                        duration: 0
+                    },
+                    label:{ //partially done for oneD, pending for twoD
+                      size: "13",
+                      color: "white",
+                      weight: "thin",
+                      family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
+                    },
+                    loading: {
+                      animationGifUrl: "../img/preloader.gif"
+                    }
+                }
+            });
+            k.execute();
         });
 
         </script>
