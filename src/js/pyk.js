@@ -85,6 +85,7 @@ PykCharts.Configuration = function (options)
             return label;
         },
 		title : function () {
+            console.log(options.title.text);
             if(PykCharts.boolean(options.title.text)) {
 	        	that.titleDiv = d3.select(options.selector)
 	                .append("div")
@@ -147,7 +148,7 @@ PykCharts.Configuration = function (options)
 	        return this;
 	    },
 	    dataSource : function () {
-	        if(PykCharts.boolean(options.dataSource) && PykCharts.boolean(options.dataSource.text) || PykCharts.boolean(options.dataSource.url)) {
+	        if(PykCharts.boolean(options.dataSource) && (PykCharts.boolean(options.dataSource.text) || PykCharts.boolean(options.dataSource.url))) {
 	            var enable = true;
 	            var data_src = options.dataSource;
 	            if(data_src.text === "") {
