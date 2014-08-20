@@ -150,7 +150,7 @@ body {
 
 .PykCharts-twoD .axis-line {
   fill: none;
-  shape-rendering: crispEdges; 
+  shape-rendering: crispEdges;
 }
 
 .PykCharts-twoD .grid-line {
@@ -299,4 +299,7 @@ padding-right:20px;
   stroke-width: 1.5px;
 }
 
-.
+.PykCharts-sunburst path {
+  stroke: #fff;
+  fill-rule: evenodd;
+}
