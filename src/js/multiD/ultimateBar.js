@@ -328,13 +328,11 @@ PykCharts.multi_series_2D.ultimateBar = function(options){
             return this;
             },
             ticks: function () {
-                console.log("ticks");
                 var ticks = that.bars.selectAll("g")
                             .data(that.layers);
                 
                 var ticksText = that.bars.selectAll(".ticksText")
                             .data(function(d) {
-                                    console.log(d.values);
                                     return d.values;
                             });
 
@@ -350,7 +348,6 @@ PykCharts.multi_series_2D.ultimateBar = function(options){
                         return that.yScale(d.y)+15;
                     })
                     .text(function(d) {
-                        console.log(d.x);
                         return d.x;
                     })
                     .attr("font-size",10)
