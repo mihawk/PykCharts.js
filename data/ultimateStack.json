@@ -15,7 +15,7 @@
 		"stack": "B", 
 		"tooltip": "B",
 		"color": "#539772",
-		"highlight": false
+		"highlight": true
 	},
 	{
 		"x": "January",
