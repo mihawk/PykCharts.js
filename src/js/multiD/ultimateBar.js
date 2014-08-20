@@ -1,4 +1,4 @@
-PykCharts.multi_series_2D.ultimate = function(options){
+PykCharts.multi_series_2D.ultimateBar = function(options){
     var that = this;
 
     var theme = new PykCharts.Configuration.Theme({});
@@ -15,7 +15,7 @@ PykCharts.multi_series_2D.ultimate = function(options){
            that.k.loading();
         }
         d3.json(options.data, function(e, data){
-            
+            // console.log("data");
             that.data = data;
             $(that.selector+" #chart-loader").remove();
             that.render();
@@ -68,7 +68,7 @@ PykCharts.multi_series_2D.ultimate = function(options){
                 .svgContainer();
 
             that.k.credits()
-                .dataSource()
+                // .dataSource()
                 .liveData(that)
                 .tooltip();
 
@@ -210,6 +210,10 @@ PykCharts.multi_series_2D.ultimate = function(options){
                         xValues.push(d.x + d.x0); // Adding up y0 and y to get total height
                     }
                 });
+<<<<<<< HEAD
+                // console.log(xValues);
+=======
+>>>>>>> 40264ccc736306b266e96ae94772559eca5b401e
                 that.yScale = d3.scale.ordinal()
                     .domain(the_bars.map(function(e, i){
                         return e.id || i; // Keep the ID for bars and numbers for integers
@@ -548,7 +552,11 @@ PykCharts.multi_series_2D.ultimate = function(options){
             return value[0].length;
         });
 
+<<<<<<< HEAD
+        // console.log(max_length,"max_length");
+=======
         // console.log(that.max_length,"max_length");
+>>>>>>> 40264ccc736306b266e96ae94772559eca5b401e
 
         var new_data = _.map(data,function (d,i){
             var value = _.values(d);
