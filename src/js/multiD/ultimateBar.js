@@ -82,7 +82,7 @@ PykCharts.multi_series_2D.ultimateBar = function(options){
                  .xGrid(that.svg,that.group,that.xScale);
 //               .yAxis(that.svg,that.ygroup,that.y0);
               
-        } else if(that.mode === "infographic") {
+        } else if(that.mode === "infographics") {
 
             that.optionalFeatures().svgContainer()
                 .createColumnChart()

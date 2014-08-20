@@ -23,7 +23,6 @@ PykCharts.multi_series_2D.ultimate = function(options){
 
     this.refresh = function () {
             d3.json(options.data, function (e, data) {
-                console.log("live data");
                 that.data = data;      
                 that.data = that.dataTransformation(); 
                 that.data = that.emptygroups(that.data);                          
@@ -48,7 +47,6 @@ PykCharts.multi_series_2D.ultimate = function(options){
     //----------------------------------------------------------------------------------------
     this.render = function(){
         var that = this;
-        // console.log(that.data,"that.data")
         that.data = that.dataTransformation();
         that.data = that.emptygroups(that.data);                          
         var fD = that.flattenData();
@@ -86,7 +84,7 @@ PykCharts.multi_series_2D.ultimate = function(options){
                 // .xAxis(that.svg,that.xgroup,that.xScale)
                 .yGrid(that.svg,that.group,that.yScaleInvert);
               
-        } else if(that.mode === "infographic") {
+        } else if(that.mode === "infographics") {
 
             that.optionalFeatures().svgContainer()
                 .createColumnChart()

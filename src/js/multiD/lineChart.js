@@ -517,7 +517,6 @@ PykCharts.twoD.line = function (options){
 		if(!PykCharts.boolean(that.multiple_containers)) {
 
 			that.pt_circle.attr("id","pt-line"+svgid);
-			console.log(that.pt_circle);
 			that.start_pt_circle = $(options.selector+" #"+that.pt_circle.attr("id")).clone().appendTo("#svg1");
 			that.start_pt_circle
 					.attr("id","start-pt-line"+svgid);
