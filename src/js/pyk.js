@@ -744,7 +744,7 @@ configuration.Theme = function(){
             "color": "white",
             "style": "solid" // or "dotted / dashed"
         },
-        "legendsText":{ //partially done for oneD, pending for twoD
+        "legends":{ //partially done for oneD, pending for twoD
             "size": "13",
             "color": "white",
             "weight": "thin",
@@ -867,10 +867,11 @@ configuration.Theme = function(){
         }
     };
 
-    that.twoDimensionalCharts = {
-        zoom : {
+    that.treeCharts = {
+        "zoom" : {
             "enable" : "no"
         },
+
     };
 
     that.mapsTheme = {
