@@ -870,7 +870,7 @@ configuration.Theme = function(){
         "zoom" : {
             "enable" : "no"
         },
-
+        "nodeRadius" : 4.5
     };
 
     that.mapsTheme = {
