@@ -32,7 +32,18 @@ PykCharts.tree.configuration = function (options){
                 values: data
             };
             return data;
-    	}
+    	},
+        zoom : function (svg,group) {
+            zoomListener = d3.behavior.zoom().scaleExtent([0.1, 3]).on("zoom", function () {
+                group.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+            });
+            if(PykCharts.boolean(options.zoom.enable))
+            {
+                svg.call(zoomListener);
+                svg.style("overflow","hidden");
+            }
+            return zoomListener;
+        }
     }
     return treeConfig;
 };
@@ -101,6 +112,7 @@ PykCharts.tree.processInputs = function (chartObject, options) {
     }
     chartObject.zoom = optional && optional.zoom ? optional.zoom : treeCharts.zoom;
     chartObject.zoom.enable = optional && optional.zoom && optional.zoom.enable ? optional.zoom.enable : treeCharts.zoom.enable;
+    chartObject.nodeRadius = optional && optional.nodeRadius && _.isNumber(optional.nodeRadius) ? optional.nodeRadius : treeCharts.nodeRadius;
 
     chartObject.k = new PykCharts.Configuration(chartObject);
 
