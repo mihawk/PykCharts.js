@@ -163,20 +163,11 @@
                         text: "World Bank",
                         url: "http://www.pykih.com/"
                     },
-                    clubData: {
-                        enable:"no",
-                        text: "Others", //default: Others
-                        maximumNodes: 5, //default: 5
-                        alwaysIncludeDataPoints: ["NDA"],
-                        tooltipText:"",
-                        color:"green"
-                    },
                     realTimeCharts: {
-                        "refreshFrequency": 0,
-                        "enableLastUpdatedAt": "yes"
+                        "refreshFrequency": 0
                     },
                     transition: {
-                        duration: 0
+                        duration: 1000
                     },
                     label:{ //partially done for oneD, pending for twoD
                       size: "13",
@@ -184,12 +175,21 @@
                       weight: "thin",
                       family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
                     },
+                    colors:{
+                        backgroundColor: "white",
+                        chartColor: "steelblue"
+                    },
+                    borderBetweenChartElements : {
+                        width: "1px", // if width is 0 means it is disabled.
+                        color: "white",
+                        style: "solid" // could be dotted too
                     loading: {
                       animationGifUrl: "../img/preloader.gif"
+
                     }
                 }
             });
-    //        k.execute();
+           k.execute();
         });
 
         </script>
