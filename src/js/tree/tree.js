@@ -5,7 +5,7 @@ var theme = new PykCharts.Configuration.Theme({});
 PykCharts.tree.configuration = function (options){
     var that = this;
     var treeConfig = {
-    	dataTransfer : function () {
+    	dataTransfer : function (d) {
     		var data = d3.nest()
                 .key(function(d) {
                     return d.level1;
@@ -26,7 +26,11 @@ PykCharts.tree.configuration = function (options){
                     })
                     return leaves;
                 })
-                .entries(data);
+                .entries(d);
+            data = {
+                key: "root",
+                values: data
+            };
             return data;
     	}
     }

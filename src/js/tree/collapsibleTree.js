@@ -9,13 +9,7 @@ PykCharts.tree.collapsibleTree = function (options) {
         d3.json(options.data, function(e, data){
             
             that.data = data;
-            console.log(that.k1.dataTransfer);
-            // that.tree_data = that.k1.dataTransfer();
-            console.log(that.tree_data);
-            // that.tree_data = {
-            //     key: "root",
-            //     values: that.tree_data
-            // };            
+            that.tree_data = that.k1.dataTransfer(that.data);
             $(that.selector+" #chart-loader").remove();
             that.render();
 
