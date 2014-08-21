@@ -46,9 +46,9 @@ PykCharts.tree.openTree = function (options) {
             that.k.credits()
                 .dataSource()
                 .liveData(that)
-                // .tooltip();
+                .tooltip();
 
-            // that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
+            that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
             
             that.optionalFeatures()
                 .createOpenTree()
@@ -81,6 +81,8 @@ PykCharts.tree.openTree = function (options) {
             createOpenTree : function () {
                 var width = that.width,
                     height = that.height;
+                
+                //console.log(that.tree_data,"tree_data");
 
                 var cluster = d3.layout.cluster()
                     .size([height, width - 160])
@@ -99,8 +101,10 @@ PykCharts.tree.openTree = function (options) {
 
                     link.enter()
                         .append("path")
-                        
-                    link.attr("class", "link")
+                    
+                    link.transition()
+                        .duration(that.transitions.duration())  
+                        .attr("class", "link")
                         .attr("d", diagonal);
 
                     link.exit().remove();
@@ -108,30 +112,59 @@ PykCharts.tree.openTree = function (options) {
                 that.node = that.group.selectAll(".node")
                     .data(that.nodes);
 
-                that.node.enter()
-                        .append("g")
+                that.nodeEnter =that.node.enter()
+                        .append("g");
 
-                that.node.attr("class", "node")
+                that.nodeEnter.attr("class", "node")
+                        .transition()
+                        .duration(that.transitions.duration())
                         .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; })
 
-                that.node.append("circle")
-                    .attr("r", 4.5)
+                that.nodeEnter.append("circle");
+                
+
+                that.nodeUpdate = that.node
+                        .attr("transform","translate(0,0)")                        
+
+                that.nodeUpdate.select("g.node circle")
+                    .attr("r", that.nodeRadius)
                     .style("fill",that.chartColor)
                     .style("stroke",that.border.color())
-                    .style("stroke-width",that.border.width());
-                
+                    .style("stroke-width",that.border.width())
+                    .on('mouseover',function (d) {
+                        that.mouseEvent.tooltipPosition(d);
+                        that.mouseEvent.toolTextShow(d.key);
+                    })
+                    .on('mouseout',function (d) {
+                        that.mouseEvent.tooltipHide(d);
+                    })
+                    .on('mousemove', function (d) {
+                        that.mouseEvent.tooltipPosition(d);
+                    });
+
+                that.nodeUpdate.transition()
+                        .duration(that.transitions.duration())
+                        .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; })
+                        
+ 
                 that.node.exit().remove();
-                var color = d3.scale.category20c();
-                console.log(color(),"color");
-                console.log(color(),"color");
 
                 d3.select(self.frameElement).style("height", height + "px");
             return this;
             },
             label : function() {
-               if(that.label.size) {
-                
-            
+               if(that.label.size) {                   
+                    that.nodeEnter.append("text");
+
+                    that.nodeUpdate.select("g.node text")
+                        .attr("dx", function(d) { return d.values ? -8 : 8; })
+                        .attr("dy", 3)
+                        .text(function(d) { return d.key; })
+                        .style("text-anchor", function(d) { return d.values ? "end" : "start"; })
+                        .style("font-weight", that.label.weight)
+                        .style("font-size", that.label.size)
+                        .attr("fill", that.label.color)
+                        .style("font-family", that.label.family);
                }
                 return this;    
             }

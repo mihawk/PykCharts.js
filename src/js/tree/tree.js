@@ -21,7 +21,8 @@ PykCharts.tree.configuration = function (options){
                     _.each(d, function (d1) {
                         leaves.push({
                             key: d1.level4,
-                            weight: d1.weight
+                            weight: d1.weight,
+                            tooltip: d1.tooltip
                         });
                     })
                     return leaves;

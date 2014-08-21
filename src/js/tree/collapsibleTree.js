@@ -10,6 +10,7 @@ PykCharts.tree.collapsibleTree = function (options) {
             
             that.data = data;
             that.tree_data = that.k1.dataTransfer(that.data);
+            console.log(that.tree_data);
             $(that.selector+" #chart-loader").remove();
             that.render();
 
@@ -22,7 +23,7 @@ PykCharts.tree.collapsibleTree = function (options) {
             that.tree_data = that.k1.dataTransfer(that.data);
             that.optionalFeatures()
                     .createChart()
-                    .zoom();
+           that.zoomListener = that.k1.zoom(that.svg,that.group);
         });
     };
     this.render = function () {
@@ -42,9 +43,9 @@ PykCharts.tree.collapsibleTree = function (options) {
             that.k.credits()
                 .dataSource()
                 .liveData(that)
-                // .tooltip();
+                .tooltip();
 
-            // that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
+            that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
             
             that.optionalFeatures()
                 .createChart()
@@ -105,7 +106,7 @@ PykCharts.tree.collapsibleTree = function (options) {
             },
 
             chartLabel : function () {
-                if(PykCharts.boolean(that.label)) {
+                if(PykCharts.boolean(that.label.size)) {
                     that.nodeEnter.append("text")
                         .attr("x", function(d) { return d.values || d._values ? -10 : 10; })
                         .attr("dy", ".35em")
@@ -139,24 +140,31 @@ PykCharts.tree.collapsibleTree = function (options) {
                     
 
                 that.nodeEnter.append("circle")
-                    .attr("r", 4.5)
-                    .style("fill", function(d) { return d._values ? "lightsteelblue" : "#fff"; })
+                    .attr("r", that.nodeRadius)
+                    .style("fill", function(d) { return d._values ? that.chartColor : "#fff"; })
                     .style("stroke",that.border.color())
                     .style("stroke-width",that.border.width())
+                    .on("mouseover", function (d) {
+                        that.mouseEvent.tooltipPosition(d);
+                        that.mouseEvent.toolTextShow(d.key);
+                    })
+                    .on("mousemove", function (d) {
+                        that.mouseEvent.tooltipPosition(d);
+                    })
+                    .on("mouseout", function (d) {
+                        that.mouseEvent.tooltipHide(d);
+                        
+                    })
                     .on("click", that.click);
-
-                
 
                 that.nodeUpdate = node.transition()
                     .duration(that.transitions.duration())
                     .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; });
 
                 that.nodeUpdate.select("circle")
-                    .attr("r", 4.5)
-                    .style("fill", function(d) { return d._values ? "lightsteelblue" : "#fff"; })
+                    .attr("r", that.nodeRadius)
+                    .style("fill", function(d) { return d._values ? that.chartColor : "#fff"; })
                     // .on("click", that.click);
-
-                console.log(that.transitions.duration());
 
                 that.nodeExit = node.exit().transition()
                     .duration(that.transitions.duration())
@@ -164,9 +172,7 @@ PykCharts.tree.collapsibleTree = function (options) {
                     .remove();
 
                 that.nodeExit.select("circle")
-                    .attr("r", 4.5);
-
-                
+                    .attr("r", that.nodeRadius);
 
                 var link = that.group.selectAll("path.link")
                     .data(links, function(d) { return d.target.id; });
