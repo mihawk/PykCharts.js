@@ -77,7 +77,7 @@ PykCharts.multi_series_2D.ultimateBar = function(options){
                 .createColumnChart()
                 .legends()
                 .axisContainer()
-//                .ticks();
+               .ticks();
 
             that.k.xAxis(that.svg,that.xgroup,that.xScale)
                  .xGrid(that.svg,that.group,that.xScale);
