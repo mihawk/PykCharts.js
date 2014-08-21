@@ -20,7 +20,7 @@
 		$(document).ready(function(e) {
 	
 			var k = new PykCharts.multi_series_2D.ultimateBar({
-		        data: "../data/ultimatebar.json",
+		        data: "../data/ultimateGroupBar.json",
 		        selector: "#ultimate-container3",
 		   		chart : {
 					width: 700,
@@ -39,7 +39,7 @@
                         text: "Malnutrition in India Malnutrition in India Malnutrition in India Malnutrition in India"
                     },
                     realTimeCharts: {
-                        refreshFrequency: 0 // seconds
+                        refreshFrequency: 2 // seconds
                     },
 					axis : {
 	                    onHoverHighlightenable: "yes",
@@ -89,7 +89,13 @@
                     },
 					transition : {
                         duration : 1000    //milliseconds
-                    }
+                    },
+                    label:{ //ticks 
+			            size: "10",
+			            color: "white",
+			            weight: "thin",
+			            family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
+        			}
 				}
 
 		    });
