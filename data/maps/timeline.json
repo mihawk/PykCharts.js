@@ -1,0 +1,225 @@
+[
+  {
+    "iso2": "IN_AP",
+    "x": 2014,
+    "tooltip": "United Progressive Alliance",
+    "color": "green"
+  },
+  {
+    "iso2": "IN_AR",
+    "x": 2,
+    "tooltip": "National Democratic Alliance",
+    "color": "orange"
+  },
+  {
+    "iso2": "IN_AS",
+    "x": 9,
+    "tooltip": "United Progressive Alliance",
+    "color": "green"
+  },
+  {
+    "iso2": "IN_BR",
+    "x": 29,
+    "tooltip": "United Progressive Alliance",
+    "color": "green"
+  },
+  {
+    "iso2": "IN_CG",
+    "x": 10,
+    "tooltip": "National Democratic Alliance",
+    "color": "orange"
+  },
+  {
+    "iso2": "IN_GA",
+    "x": 1,
+    "tooltip": "National Democratic Alliance",
+    "color": "orange"
+  },
+  {
+    "iso2": "IN_GJ",
+    "x": 14,
+    "tooltip": "National Democratic Alliance",
+    "color": "orange"
+  },
+  {
+    "iso2": "IN_HR",
+    "x": 9,
+    "tooltip": "United Progressive Alliance",
+    "color": "green"
+  },
+  {
+    "iso2": "IN_HP",
+    "x": 3,
+    "tooltip": "United Progressive Alliance",
+    "color": "green"
+  },
+  {
+    "iso2": "IN_JK",
+    "x": 4,
+    "tooltip": "None",
+    "color": "gray"
+  },
+  {
+    "iso2": "IN_JH",
+    "x": 12,
+    "tooltip": "United Progressive Alliance",
+    "color": "green"
+
+  },
+  {
+    "iso2": "IN_KA",
+    "x": 18,
+    "tooltip": "National Democratic Alliance",
+    "color": "orange"
+  },
+  {
+    "iso2": "IN_KL",
+    "x": 15,
+    "tooltip": "Left Front",
+    "color": "red"
+  },
+  {
+    "iso2": "IN_MP",
+    "x": 25,
+    "tooltip": "National Democratic Alliance",
+    "color": "orange"
+  },
+  {
+    "iso2": "IN_MH",
+    "x": 25,
+    "tooltip": "National Democratic Alliance",
+    "color": "orange"
+  },
+  {
+    "iso2": "IN_MN",
+    "x": 1,
+    "tooltip": "None",
+    "color": "gray"
+  },
+  {
+    "iso2": "IN_ML",
+    "x": 1,
+    "tooltip": "National Democratic Alliance",
+    "color": "orange"
+  },
+  {
+    "iso2": "IN_MZ",
+    "x": 1,
+    "tooltip": "None",
+    "color": "gray"
+  },
+  {
+    "iso2": "IN_NL",
+    "x": 1,
+    "tooltip": "None",
+    "color": "gray"
+  },
+  {
+    "iso2": "IN_OR",
+    "x": 18,
+    "tooltip": "National Democratic Alliance",
+    "color": "orange"
+  },
+  {
+    "iso2": "IN_PB",
+    "x": 11,
+    "tooltip": "National Democratic Alliance",
+    "color": "orange"
+  },
+  {
+    "iso2": "IN_RJ",
+    "x": 21,
+    "tooltip": "National Democratic Alliance",
+    "color": "orange"
+  },
+  {
+    "iso2": "IN_SK",
+    "x": 1,
+    "tooltip": "None",
+    "color": "gray"
+  },
+  {
+    "iso2": "IN_TN",
+    "x": 35,
+    "tooltip": "United Progressive Alliance",
+    "color": "green"
+  },
+  {
+    "iso2": "IN_TR",
+    "x": 2,
+    "tooltip": "Left Front",
+    "color": "red"
+  },
+  {
+    "iso2": "IN_UT",
+    "x": 54,
+    "tooltip": "None",
+    "color": "gray"
+  },
+  {
+    "iso2": "IN_UP",
+    "x": 3,
+    "tooltip": "National Democratic Alliance",
+    "color": "orange"
+  },
+  {
+    "iso2": "IN_WB",
+    "x": 34,
+    "tooltip": "Left Front",
+    "color": "red"
+  },
+  {
+    "iso2": "IN_AN",
+    "x": 37,
+    "tooltip": "None",
+    "color": "gray"
+  },
+  {
+    "iso2": "IN_CH",
+    "x": 47,
+    "tooltip": "None",
+    "color": "gray"
+  },
+  {
+    "iso2": "IN_DD",
+    "x": 71,
+    "tooltip": "None",
+    "color": "gray"
+  },
+  {
+    "iso2": "IN_DL",
+    "x": 39,
+    "tooltip": "None",
+    "color": "gray"
+  },
+  {
+    "iso2": "IN_",
+    "x": 10,
+    "tooltip": "None",
+    "color": "gray"
+  },
+  {
+    "iso2": "IN_PY",
+    "x": 27,
+    "tooltip": "None",
+    "color": "gray"
+  },
+  {
+    "iso2": "IN_LD",
+    "x": 52,
+    "tooltip": "None",
+    "color": "gray"
+  },
+  {
+    "iso2": "IN_CT",
+    "x": 12,
+    "tooltip": "None",
+    "color": "gray"
+  },
+  {
+    "iso2": "IN_DN",
+    "x": 78,
+    "tooltip": "None",
+    "color": "gray"
+  }
+]
