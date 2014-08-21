@@ -565,7 +565,9 @@ PykCharts.multiD.scatterplot = function (options) {
                         }
                     });
                 }
+                return this;
             }
+
         };
         return optional;
     };

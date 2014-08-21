@@ -19,6 +19,7 @@ PykCharts.tree.sunburst = function (options) {
 
     this.refresh = function () {
         d3.json(options.data, function (e,data) {
+            console.log("live data");
             that.data = data;
             that.tree_data = that.k1.dataTransfer(that.data);
 
@@ -39,7 +40,11 @@ PykCharts.tree.sunburst = function (options) {
                 .svgContainer();
 
             that.k.credits()
-                .dataSource();
+                .dataSource()
+                .liveData(that)
+                .tooltip();
+
+            that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
 
             that.optionalFeature()
                 .createChart();
@@ -48,14 +53,19 @@ PykCharts.tree.sunburst = function (options) {
             that.optionalFeature()
                 .svgContainer()
                 .createChart();
+
+            that.k.tooltip();
+
+            that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
         }
     };
 
-    this.zoom = function (d) {
-        console.log("zoom");
-        that.path.transition()
-            .duration(1000)
+    this.click = function (d) {
+        if(PykCharts.boolean(that.zoom.enable)) {
+             that.path.transition()
+            .duration(that.transitions.duration())
             .attrTween("d", that.arcTween(d));
+        }
     };
 
     this.arcTween = function (d) {
@@ -63,8 +73,8 @@ PykCharts.tree.sunburst = function (options) {
             , yd = d3.interpolate(that.y.domain(), [d.y, 1])
             , yr = d3.interpolate(that.y.range(), [d.y ? 20 : 0, that.radius]);
 
-            return function(d, i) {
-                return i ? function (t) { return that.arc(d); }: function (t) { x.domain(xd(t)); y.domain(yd(t)).range(yr(t)); return that.arc(d); };
+            return function (d, i) {
+                return i ? function (t) { return that.arc(d); }: function (t) { that.x.domain(xd(t)); that.y.domain(yd(t)).range(yr(t)); return that.arc(d); };
             };
     };
 
@@ -110,26 +120,29 @@ PykCharts.tree.sunburst = function (options) {
 
                 that.path = that.group.selectAll("path")
                     .data(partition.nodes(that.tree_data))
-                    .enter().append("path")
+                    .enter()
+                    .append("path")
                     .attr("d", that.arc)
-                    .style("fill", function (d) { return color((d.children ? d : d.parent).name); })
-                    .on("click", click);
-
-                function click (d) {
-                    that.path.transition()
-                        .duration(that.transitions.duration())
-                        .attrTween("d", arcTween(d));
-                }
-                d3.select(self.frameElement).style("height", that.height + "px");
-                function arcTween (d) {
-                    var xd = d3.interpolate(that.x.domain(), [d.x, d.x + d.dx])
-                    , yd = d3.interpolate(that.y.domain(), [d.y, 1])
-                    , yr = d3.interpolate(that.y.range(), [d.y ? 20 : 0,that.radius]);
-
-                    return function (d, i) {
-                        return i ? function (t) { return that.arc(d); } : function(t) { that.x.domain(xd(t)); that.y.domain(yd(t)).range(yr(t)); return that.arc(d); };
-                    };
-                }
+                    .style("stroke",that.border.color())
+                    .style("stroke-width",that.border.width())
+                    .style("fill", function (d) { 
+                        if (options.optional && options.optional.colors && options.optional.colors.chartColor) {
+                            return that.chartColor;                       
+                        } else {
+                            return color(d.children);
+                        }
+                    })
+                    .on("click", that.click)
+                    .on("mouseover", function (d) {
+                        that.mouseEvent.tooltipPosition(d);
+                        that.mouseEvent.toolTextShow(d.key);
+                    })
+                    .on("mouseout",function (d) {
+                        that.mouseEvent.tooltipHide(d);
+                    })
+                    .on("mousemove", function (d) {
+                        that.mouseEvent.tooltipPosition(d);
+                    })
             },
         }
         return optional;

@@ -50,6 +50,7 @@
                     subtitle: {
                         text: "Malnutrition in India Malnutrition in India Malnutrition in India Malnutrition in India"
                     },
+                    nodeRadius : 4.5, 
                     dataSource:{
                         text: "World Bank",
                         url: "http://www.pykih.com/"
@@ -59,44 +60,45 @@
                         enableLastUpdatedAt: "yes"
                     },
                     transition: {
-                        duration: 0
+                        duration: 1000
                     },
                     enableTooltip: "yes",
                     label:{ //partially done for oneD, pending for twoD
-                      size: "10",
+                      size: "13",
                       color: "#1D1D1D",
-                      weight: "bold",
+                      weight: "thin",
                       family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
                     },
                     loading: {
                       animationGifUrl: "../img/preloader.gif"
                     },
                     zoom : {
-                        enable : "no"
+                        enable : "yes"
                     },
                     borderBetweenChartElements:{ //done for oneD
-                        width: "1px", // if width is 0 means it is disabled.
-                        color: "white",
+                        width: "1.5px", // if width is 0 means it is disabled.
+                        color: "steelblue",
                         style: "solid" // could be dotted too
                     },
                     colors:{
                         backgroundColor: "white",
-                        chartColor: "steelblue"
+                        chartColor: "lightsteelblue"
                     }
                 }
             });
-            k.execute();
+           k.execute();
 
             var k = new PykCharts.tree.openTree({
                 selector: "#openTree",
                 data:"../data/tree.json",
                 mode: "default",
                 chart: {
-                    height: 400,
-                    width: 430,
+                    height: 2200,
+                    width: 1000,
                     margin:{"top": 40, "right": 40, "bottom": 40, "left": 40}
                 },
                 optional:{
+
                     title: {
                         text: "Malnutrition in India",
                     },
@@ -108,7 +110,7 @@
                         url: "http://www.pykih.com/"
                     },
                     realTimeCharts: {
-                        "refreshFrequency": 0,
+                        "refreshFrequency": 2,
                         "enableLastUpdatedAt": "yes"
                     },
                     transition: {
@@ -116,8 +118,8 @@
                     },
                     enableTooltip: "yes",
                     label:{ //partially done for oneD, pending for twoD
-                      size: "13",
-                      color: "white",
+                      size: "10",
+                      color: "black",
                       weight: "thin",
                       family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
                     },
@@ -125,28 +127,27 @@
                       animationGifUrl: "../img/preloader.gif"
                     },
                     zoom : {
-                        enable : "no"
+                        enable : "yes"
                     },
                     borderBetweenChartElements:{ //done for oneD
                         width: "1px", // if width is 0 means it is disabled.
-                        color: "white",
+                        color: "steelblue",
                         style: "solid" // could be dotted too
                     },
                     colors:{
                         backgroundColor: "white",
-                        chartColor: "steelblue"
+                        chartColor: "white"
                     }
                 }
             });
-            k.execute();
+            // k.execute();
 
             var k = new PykCharts.tree.sunburst({
                 selector: "#sunburst",
                 data:"../data/tree.json",
                 chart: {
-                    height: 400,
-                    width: 430,
-                    margin:{"top": 40, "right": 40, "bottom": 40, "left": 40}
+                    height: 500,
+                    width: 500
                 },
                 optional:{
                     title: {
@@ -164,29 +165,35 @@
                         url: "http://www.pykih.com/"
                     },
                     realTimeCharts: {
-                        "refreshFrequency": 0,
-                        "enableLastUpdatedAt": "yes"
-                    },
-                    loading: {
-                        animationGifUrl: "../img/preloader.gif"
+                        "refreshFrequency": 0
                     },
                     transition: {
-                        duration: 0
+                        duration: 10000
                     },
-                    enableTooltip: "yes",         
-                    label:{ 
-                        size: "13",
-                        color: "white",
-                        weight: "thin",
-                        family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
+                    label:{ //partially done for oneD, pending for twoD
+                      size: "13",
+                      color: "white",
+                      weight: "thin",
+                      family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
                     },
                     colors:{
                         backgroundColor: "white",
-                        chartColor: "steelblue"
+                        // chartColor: "steelblue"
+                    },
+                    zoom : {
+                        enable : "yes"
+                    },
+                    borderBetweenChartElements : {
+                        width: "1px", // if width is 0 means it is disabled.
+                        color: "white",
+                        style: "solid" // could be dotted too
+                    },
+                    loading: {
+                      animationGifUrl: "../img/preloader.gif"
                     }
                 }
             });
-            k.execute();
+           k.execute();
         });
 
         </script>
