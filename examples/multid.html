@@ -84,9 +84,10 @@
         <script src="../lib/bootstrap.min.js"></script>
         <script src="../lib/custom-hive.js"></script>
         <script src="../src/js/pyk.js"></script>
-        <script src="../src/js/multiD/twoD.js"></script>
+        <!--<script src="../src/js/multiD/twoD.js"></script>
         <script src="../src/js/multiD/weighted.js"></script>
-        <script src="../src/js/multiD/multi-series2D.js"></script>
+        <script src="../src/js/multiD/multi-series2D.js"></script>-->
+        <script src="../src/js/multiD/multiD.js"></script>
         <script src="../src/js/multiD/ultimate.js"></script>
         <script src="../src/js/multiD/areaChart.js"></script>
         <script src="../src/js/multiD/lineChart.js"></script>
@@ -97,7 +98,7 @@
         <script>
 
         $(document).ready(function (e) {
-                var k = new PykCharts.twoD.line({
+                var k = new PykCharts.multiD.line({
                     selector: "#line",
                     data: "../data/lineChart.json",
                     mode : "default",
@@ -109,7 +110,7 @@
                         margin: {top: 5, right: 25, bottom: 25, left: 35}, // top >=10
                         padding: {top: 25, right: 25, bottom: 25, left: 25},
                         grid: {
-                            xEnabled: "yes",
+                            xEnabled: "no",
                             yEnabled: "yes",
                             color: ""
                         },
@@ -168,7 +169,7 @@
                 });
                 k.execute();
 
-                var k = new PykCharts.twoD.area({
+                var k = new PykCharts.multiD.area({
                     selector: "#area",
                     data: "../data/lineChart.json",
                     mode : "default",
@@ -179,7 +180,7 @@
                         width: 430,
                         margin: {top: 5, right: 25, bottom: 25, left: 35}, // top >=10
                         grid: {
-                            xEnabled: "yes",
+                            xEnabled: "no",
                             yEnabled: "yes",
                             color: ""
                         }
@@ -238,7 +239,7 @@
                 });
                 k.execute();
 
-                var k = new PykCharts.weighted.spiderWeb({
+                var k = new PykCharts.multiD.spiderWeb({
                 selector: "#spiderWeb",
                 data: "../data/spiderWeb.json",
                 mode : "default", //  default or infographics
@@ -253,7 +254,7 @@
                 },
                 optional : {
                     title: { 
-                        text: "Malnutrition in India",                            
+                        text: "Malnutrition in India"
                     },
                     subtitle: {
                         text: "Malnutrition in India Malnutrition in India Malnutrition in India Malnutrition in India"
@@ -262,7 +263,7 @@
                         refreshFrequency: 0 // seconds
                     },
                     size : {
-                       enable : "yes",
+                       enable : "yes"
                     },
                     enableTicks: "yes",
                     border: {
@@ -293,7 +294,7 @@
             }); 
             k.execute();
 
-            var k = new PykCharts.weighted.scatterplot({
+            var k = new PykCharts.multiD.scatterplot({
                 selector: "#scatterPlot",
                 data: "../data/scatterplot.json",
                 mode : "default", //  default or infographics
@@ -301,22 +302,20 @@
                 xAxisDataFormat : "number",
                 chart : {
                     width: 400,
-                    height: 430,
-                    
+                    height: 430,                    
                     margin: {top: 25, right: 25, bottom: 25, left: 55},
                     grid: {
                         xEnabled: "yes",
                         yEnabled: "yes",
                         color:""
-                    },
-                    scatterplot : {
-                        radius: 9,
                     }
+                },
+                scatterplot : {
+                    radius: 9
                 },
                 optional : {
                     title: { 
-                        text: "Malnutrition in India",
-                            
+                        text: "Malnutrition in India"                            
                     },
                     subtitle: {
                         text: "Malnutrition in India Malnutrition in India Malnutrition in India Malnutrition in India"
@@ -331,32 +330,31 @@
                         enable : "yes"
                     },
                     axis : {
-                        labelColor: "black",
-                        tickSize: 5,
-                        ticksPadding: 6,
                         x: {
                             enable: "yes",
                             orient : "bottom",
                             axisColor: "#1D1D1D",
-                            no_of_ticks: 10,
+                            no_of_ticks: 2,
                             tickFormat: "",
-                            label : "Price",
-                            labelPosition: "end", // end,middle,start
+                            tickSize: 5,
+                            ticksPadding: 6,
+                            labelColor: "black",
                             tickValues: []
                         },
                         y: {
                             enable: "yes",
                             orient: "left",
                             axisColor: "#1D1D1D",
-                            no_of_ticks: 3,
+                            no_of_ticks: 5,
+                            tickSize: 5,
+                            ticksPadding: 6,
                             tickFormat: "", 
-                            label : "rating",
-                            labelPosition: "end" // end,middle,start
+                            labelColor: "black"                     
                         }
                     },
                     legends: {
-                        enable: "yes", //legends will be enabled when size is no
-                        display: "horizontal" //horizontal or vertical
+                        enable: "yes",
+                        display: "horizontal"
                     },
                     legendsText: {
                         size: 13,
@@ -380,14 +378,12 @@
                         width: "1px",
                         color: "blue"
                     },
-                    crossHair: {
-                        enable: "yes"
-                    }
+                    enableCrossHair: "yes"
                 }
             }); 
             k.execute();
 
-            var k = new PykCharts.twoD.line({
+            var k = new PykCharts.multiD.line({
                 selector: "#multiLine",
                 data: "../data/multiLineChart.json",
                 mode : "default",
@@ -409,7 +405,7 @@
                         duration : 0 //milliseconds
                     },
                     title: { 
-                        text: "Malnutrition in India",                          
+                        text: "Malnutrition in India"
                     },
                     subtitle: {
                         text: "Malnutrition in India Malnutrition in India Malnutrition in India Malnutrition in India"
@@ -418,7 +414,6 @@
                         refreshFrequency: 0 // seconds
                     },
                     axis : {
-                        onHoverHighlightenable: "yes",
                         x: {
                             enable: "yes",
                             orient : "bottom",
@@ -458,7 +453,7 @@
             });
             k.execute();
 
-            var k = new PykCharts.twoD.area({
+            var k = new PykCharts.multiD.area({
                     selector: "#multiArea",
                     data: "../data/multiLineChart.json",
                     mode : "default",
@@ -479,7 +474,7 @@
                             duration : 1000     //milliseconds
                         },
                         title: { 
-                            text: "Malnutrition in India",                          
+                            text: "Malnutrition in India"
                         },
                         subtitle: {
                             text: "Malnutrition in India Malnutrition in India Malnutrition in India Malnutrition in India"
@@ -527,65 +522,56 @@
                 });
                 k.execute();
 
-                var k = new PykCharts.weighted.scatterplot({
+                var k = new PykCharts.multiD.scatterplot({
                     selector: "#pulse",
-                    data: "../data/pulse.json",
+                    data: "../data/pulse2.json",
                     mode : "default", //  default or infographics
                     yAxisDataFormat : "string",
                     xAxisDataFormat : "number",
                     chart : {
                             width: 400,
-                            height: 430,
-                            
+                            height: 430,                            
                             margin: {top: 25, right: 25, bottom: 25, left: 55},
                             grid: {
                                 xEnabled: "yes",
                                 yEnabled: "yes",
                                 color:""
                            },
-                    scatterplot : {
-                        radius: 9,
-                    }
                     },
                     optional : {
                         title: { 
-                            text: "Malnutrition in India",
-                                
+                            text: "Malnutrition in India"                                
                         },
                         subtitle: {
                             text: "Malnutrition in India Malnutrition in India Malnutrition in India Malnutrition in India"
                         },
                         realTimeCharts: {
                             refreshFrequency: 0 // seconds
-                        },
-                        multiple_containers: {
-                            enable : "no",
-                        },                  
+                        },   
                         size : {
                             enable : "yes"
                         },
                         axis : {
-                            labelColor: "black",
-                            tickSize: 5,
-                            ticksPadding: 6,
                             x: {
                                 enable: "yes",
                                 orient : "bottom",
                                 axisColor: "#1D1D1D",
-                                no_of_ticks: 10,
+                                no_of_ticks: 2,
                                 tickFormat: "",
-                                label : "Price",
-                                labelPosition: "end", // end,middle,start
+                                tickSize: 5,
+                                ticksPadding: 6,
+                                labelColor: "red",
                                 tickValues: []
                             },
                             y: {
                                 enable: "yes",
                                 orient: "left",
                                 axisColor: "#1D1D1D",
-                                no_of_ticks: 3,
+                                no_of_ticks: 5,
+                                tickSize: 5,
+                                ticksPadding: 6,
                                 tickFormat: "", 
-                                label : "rating",
-                                labelPosition: "end" // end,middle,start
+                                labelColor: "black"                     
                             }
                         },
                         legends: {
@@ -597,9 +583,6 @@
                             color: "black",
                             weight: "thin",
                             family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
-                        },
-                        zoom: {
-                            enable: "yes" //not there for pulse
                         },
                         creditMySite:{
                             mySiteName: "Acme NewsCorp",
@@ -614,14 +597,12 @@
                             width: "1px",
                             color: "blue"
                         },
-                        crossHair: {
-                            enable: "yes"
-                        }
+                        enableCrossHair: "yes"
                     }
                 }); 
             k.execute();
 
-            var k = new PykCharts.multi_series_2D.ultimate({
+            var k = new PykCharts.multiD.ultimate({
                 data: "../data/ultimateColumn.json",
                 mode: "default",
                 selector: "#column",
@@ -636,7 +617,7 @@
                 },
                 optional : {
                     title: { 
-                        text: "Malnutrition in India",                            
+                        text: "Malnutrition in India"
                     },
                     subtitle: {
                         text: "Malnutrition in India Malnutrition in India Malnutrition in India Malnutrition in India"
@@ -671,7 +652,7 @@
                     colors:{
                         backgroundColor: "white",
                         chartColor: "steelblue",
-                        highlightColor: "#013F73",
+                        highlightColor: "#013F73"
                     },
                     legends: {
                         enable : "no",
@@ -685,20 +666,20 @@
                         text: "World Bank",
                         url: "http://www.pykih.com/"
                     },
-                    borderBetweenChartElements:{ //done for oneD
-                        width: "1px", // if width is 0 means it is disabled.
+                    borderBetweenChartElements:{
+                        width: "1px",
                         color: "white",
-                        style: "solid" // could be dotted too
+                        style: "solid"
                     },
                     transition : {
-                        duration : 0    //milliseconds
+                        duration : 0 //milliseconds
                     }
                 }
 
             });
             k.execute();
 
-            var k = new PykCharts.multi_series_2D.ultimate({
+            var k = new PykCharts.multiD.ultimate({
                 data: "../data/ultimateGroupColumn.json",
                 mode: "default",
                 selector: "#groupColumn",
@@ -713,7 +694,7 @@
                 },
                 optional : {
                     title: { 
-                        text: "Malnutrition in India",                            
+                        text: "Malnutrition in India"
                     },
                     subtitle: {
                         text: "Malnutrition in India Malnutrition in India Malnutrition in India Malnutrition in India"
@@ -748,11 +729,11 @@
                     colors:{
                         backgroundColor: "white",
                         chartColor: "steelblue",
-                        highlightColor: "#013F73",
+                        highlightColor: "#013F73"
                     },
                     legends: {
                         enable : "no",
-                        display : "horizontal" //horizontal or vertical
+                        display : "horizontal"
                     },
                     creditMySite:{
                         mySiteName: "Acme NewsCorp",
@@ -762,20 +743,20 @@
                         text: "World Bank",
                         url: "http://www.pykih.com/"
                     },
-                    borderBetweenChartElements:{ //done for oneD
-                        width: "1px", // if width is 0 means it is disabled.
+                    borderBetweenChartElements: {
+                        width: "1px",
                         color: "white",
-                        style: "solid" // could be dotted too
+                        style: "solid"
                     },
                     transition : {
-                        duration : 0    //milliseconds
+                        duration : 0 //milliseconds
                     }
                 }
 
             });
             k.execute();
 
-            var k = new PykCharts.multi_series_2D.ultimate({
+            var k = new PykCharts.multiD.ultimate({
                 data: "../data/ultimateStack.json",
                 mode: "default",
                 selector: "#stackColumn",
@@ -790,7 +771,7 @@
                 },
                 optional : {
                     title: { 
-                        text: "Malnutrition in India",                            
+                        text: "Malnutrition in India"
                     },
                     subtitle: {
                         text: "Malnutrition in India Malnutrition in India Malnutrition in India Malnutrition in India"
@@ -825,34 +806,34 @@
                     colors:{
                         backgroundColor: "white",
                         chartColor: "steelblue",
-                        highlightColor: "#013F73",
+                        highlightColor: "#013F73"
                     },
                     legends: {
                         enable : "no",
-                        display : "horizontal" //horizontal or vertical
+                        display : "horizontal"
                     },
-                    creditMySite:{
+                    creditMySite: {
                         mySiteName: "Acme NewsCorp",
                         mySiteUrl: "https://google.com"
                     },
-                    dataSource:{
+                    dataSource: {
                         text: "World Bank",
                         url: "http://www.pykih.com/"
                     },
-                    borderBetweenChartElements:{ //done for oneD
-                        width: "1px", // if width is 0 means it is disabled.
+                    borderBetweenChartElements: {
+                        width: "1px",
                         color: "white",
-                        style: "solid" // could be dotted too
+                        style: "solid"
                     },
                     transition : {
-                        duration : 0    //milliseconds
+                        duration : 0 //milliseconds
                     }
                 }
 
             });
             k.execute();
 
-            var k = new PykCharts.multi_series_2D.ultimate({
+            var k = new PykCharts.multiD.ultimate({
                 data: "../data/ultimate.json",
                 mode: "default",
                 selector: "#groupStackColumn",
@@ -899,37 +880,36 @@
                             tickFormat: ""
                         }
                     },
-                    colors:{
+                    colors: {
                         backgroundColor: "white",
                         chartColor: "steelblue",
-                        highlightColor: "#013F73",
+                        highlightColor: "#013F73" 
                     },
                     legends: {
                         enable : "no",
-                        display : "horizontal" //horizontal or vertical
+                        display : "horizontal"
                     },
-                    creditMySite:{
+                    creditMySite: {
                         mySiteName: "Acme NewsCorp",
                         mySiteUrl: "https://google.com"
                     },
-                    dataSource:{
+                    dataSource: {
                         text: "World Bank",
                         url: "http://www.pykih.com/"
                     },
-                    borderBetweenChartElements:{ //done for oneD
-                        width: "1px", // if width is 0 means it is disabled.
+                    borderBetweenChartElements: {
+                        width: "1px",
                         color: "white",
-                        style: "solid" // could be dotted too
+                        style: "solid"
                     },
                     transition : {
-                        duration : 0    //milliseconds
+                        duration : 0 //milliseconds
                     }
                 }
-
             });
             k.execute();
 
-            var k = new PykCharts.multi_series_2D.ultimateBar({
+            var k = new PykCharts.multiD.ultimateBar({
                 data: "../data/ultimatebar.json",
                 mode: "default",
                 selector: "#bar",
@@ -944,7 +924,7 @@
                 },
                 optional : {
                     title: { 
-                        text: "Malnutrition in India",                            
+                        text: "Malnutrition in India"
                     },
                     subtitle: {
                         text: "Malnutrition in India Malnutrition in India Malnutrition in India Malnutrition in India"
@@ -954,31 +934,32 @@
                     },
                     axis : {
                         onHoverHighlightenable: "yes",
-                        labelColor: "black",
-                        tickSize: 5,
-                        ticksPadding: 6,
                         x: {
                             enable: "yes",
                             orient : "top",
                             axisColor: "#1D1D1D",
+                            labelColor: "#1D1D1D",
                             no_of_ticks: 10,
+                            tickSize: 5,
+                            ticksPadding: 6,
                             tickFormat: "",
-                            labelPosition: "end", // end,middle,start
                             tickValues: []
                         },
                         y: {
                             enable: "yes",
                             orient: "left",
                             axisColor: "#1D1D1D",
+                            labelColor: "#1D1D1D",
+                            tickSize: 5,
+                            ticksPadding: 6,
                             no_of_ticks: 10,
-                            tickFormat: "", 
-                            labelPosition: "end" // end,middle,start
+                            tickFormat: ""
                         }
                     },
                     colors:{
                         backgroundColor: "white",
                         chartColor: "steelblue",
-                        highlightColor: "#013F73",
+                        highlightColor: "#013F73"
                     },
                     legends: {
                         enable : "no",
@@ -1010,7 +991,7 @@
             });
             k.execute();
 
-            var k = new PykCharts.multi_series_2D.ultimateBar({
+            var k = new PykCharts.multiD.ultimateBar({
                 data: "../data/ultimateGroupBar.json",
                 mode: "default",
                 selector: "#groupBar",
@@ -1025,7 +1006,7 @@
                 },
                 optional : {
                     title: { 
-                        text: "Malnutrition in India",                            
+                        text: "Malnutrition in India"
                     },
                     subtitle: {
                         text: "Malnutrition in India Malnutrition in India Malnutrition in India Malnutrition in India"
@@ -1035,33 +1016,32 @@
                     },
                     axis : {
                         onHoverHighlightenable: "yes",
-                        labelColor: "black",
-                        tickSize: 5,
-                        ticksPadding: 6,
                         x: {
                             enable: "yes",
                             orient : "top",
                             axisColor: "#1D1D1D",
+                            labelColor: "#1D1D1D",
                             no_of_ticks: 10,
+                            tickSize: 5,
+                            ticksPadding: 6,
                             tickFormat: "",
-                            label : "Price",
-                            labelPosition: "end", // end,middle,start
                             tickValues: []
                         },
                         y: {
                             enable: "yes",
                             orient: "left",
                             axisColor: "#1D1D1D",
+                            labelColor: "#1D1D1D",
+                            tickSize: 5,
+                            ticksPadding: 6,
                             no_of_ticks: 10,
-                            tickFormat: "", 
-                            label : "rating",
-                            labelPosition: "end" // end,middle,start
+                            tickFormat: ""
                         }
                     },
                     colors:{
                         backgroundColor: "white",
                         chartColor: "steelblue",
-                        highlightColor: "#013F73",
+                        highlightColor: "#013F73"
                     },
                     legends: {
                         enable : "no",
@@ -1093,7 +1073,7 @@
             });
             k.execute();
 
-            var k = new PykCharts.multi_series_2D.ultimateBar({
+            var k = new PykCharts.multiD.ultimateBar({
                 data: "../data/ultimateStackedBar.json",
                 mode: "default",
                 selector: "#stackBar",
@@ -1108,7 +1088,7 @@
                 },
                 optional : {
                     title: { 
-                        text: "Malnutrition in India",                            
+                        text: "Malnutrition in India"
                     },
                     subtitle: {
                         text: "Malnutrition in India Malnutrition in India Malnutrition in India Malnutrition in India"
@@ -1118,33 +1098,32 @@
                     },
                     axis : {
                         onHoverHighlightenable: "yes",
-                        labelColor: "black",
-                        tickSize: 5,
-                        ticksPadding: 6,
                         x: {
                             enable: "yes",
                             orient : "top",
                             axisColor: "#1D1D1D",
+                            labelColor: "#1D1D1D",
                             no_of_ticks: 10,
+                            tickSize: 5,
+                            ticksPadding: 6,
                             tickFormat: "",
-                            label : "Price",
-                            labelPosition: "end", // end,middle,start
                             tickValues: []
                         },
                         y: {
                             enable: "yes",
                             orient: "left",
                             axisColor: "#1D1D1D",
+                            labelColor: "#1D1D1D",
+                            tickSize: 5,
+                            ticksPadding: 6,
                             no_of_ticks: 10,
-                            tickFormat: "", 
-                            label : "rating",
-                            labelPosition: "end" // end,middle,start
+                            tickFormat: ""
                         }
                     },
                     colors:{
                         backgroundColor: "white",
                         chartColor: "steelblue",
-                        highlightColor: "#013F73",
+                        highlightColor: "#013F73"
                     },
                     legends: {
                         enable : "no",
@@ -1176,7 +1155,7 @@
             });
             k.execute();
 
-            var k = new PykCharts.multi_series_2D.ultimateBar({
+            var k = new PykCharts.multiD.ultimateBar({
                 data: "../data/ultimateGroupStackBar.json",
                 mode: "default",
                 selector: "#groupStackBar",
@@ -1191,7 +1170,7 @@
                 },
                 optional : {
                     title: { 
-                        text: "Malnutrition in India",                            
+                        text: "Malnutrition in India"
                     },
                     subtitle: {
                         text: "Malnutrition in India Malnutrition in India Malnutrition in India Malnutrition in India"
@@ -1201,33 +1180,32 @@
                     },
                     axis : {
                         onHoverHighlightenable: "yes",
-                        labelColor: "black",
-                        tickSize: 5,
-                        ticksPadding: 6,
                         x: {
                             enable: "yes",
                             orient : "top",
                             axisColor: "#1D1D1D",
+                            labelColor: "#1D1D1D",
                             no_of_ticks: 10,
+                            tickSize: 5,
+                            ticksPadding: 6,
                             tickFormat: "",
-                            label : "Price",
-                            labelPosition: "end", // end,middle,start
                             tickValues: []
                         },
                         y: {
                             enable: "yes",
                             orient: "left",
                             axisColor: "#1D1D1D",
+                            labelColor: "#1D1D1D",
+                            tickSize: 5,
+                            ticksPadding: 6,
                             no_of_ticks: 10,
-                            tickFormat: "", 
-                            label : "rating",
-                            labelPosition: "end" // end,middle,start
+                            tickFormat: ""
                         }
                     },
                     colors:{
                         backgroundColor: "white",
                         chartColor: "steelblue",
-                        highlightColor: "#013F73",
+                        highlightColor: "#013F73"
                     },
                     legends: {
                         enable : "no",

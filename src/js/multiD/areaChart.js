@@ -386,17 +386,17 @@ PykCharts.multiD.area = function (options){
 	};
 
 	this.zoomed = function() {
-		that.k.isOrdinal(that.svg,".x.axis",that.xScale);
+			that.k.isOrdinal(that.svg,".x.axis",that.xScale);
 	    that.k.isOrdinal(that.svg,".x.grid",that.xScale);
 	    that.k.isOrdinal(that.svg,".y.axis",that.yScale);
 	    that.k.isOrdinal(that.svg,".y.grid",that.yScale);
 
 	    for (i = 0;i < that.new_data_length;i++) {
 	    	type = that.chartPathClass + i;
-	  	 	that.svg.select("#"+type)
+	  	 	that.svg.select(that.selector+" #"+type)
 	        	.attr("class", that.chartPathClass)
 		        .attr("d", that.chart_path);
-		    that.svg.select("#border-stacked-area"+i)
+		    that.svg.select(that.selector+" #border-stacked-area"+i)
 						.attr("class","area-border")
 						.attr("d", that.chart_path_border);
 	    }

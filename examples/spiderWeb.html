@@ -8,17 +8,16 @@
         <script src="../lib/jquery.bpopup.min.js"></script>
         <script src="../lib/custom-hive.js"></script>
         <link rel="stylesheet" type="text/css" href="../src/css/PykCharts.css">
-        <!-- <link rel="stylesheet" type="text/css" href="../lib/bootstrap/css/bootstrap.min.css"> -->
     </head>
     <body>
         <div id="spiderWeb" style="width:700px;"></div>
         <script src="../src/js/pyk.js"></script>
-        <script src="../src/js/multiD/twoD.js"></script>
-        <script src="../src/js/multiD/weighted.js"></script>
+        <script src="../src/js/multiD/multiD.js"></script>
+        <!--<script src="../src/js/multiD/weighted.js"></script>-->
         <script src="../src/js/multiD/spiderWeb.js"></script>
         <script type="text/javascript">       
             $(document).ready(function (e){
-            var k = new PykCharts.weighted.spiderWeb({
+            var k = new PykCharts.multiD.spiderWeb({
                 selector: "#spiderWeb",
                 data: "../data/spiderWeb.json",
                 mode : "default", //  default or infographics
@@ -42,7 +41,7 @@
                         refreshFrequency: 0 // seconds
                     },
                     size : {
-                       enable : "no"
+                       enable : "yes"
                     },
                     enableTicks: "yes",
                     border: {

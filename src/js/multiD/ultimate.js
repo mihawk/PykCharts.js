@@ -1,9 +1,9 @@
-PykCharts.multi_series_2D.ultimate = function(options){
+PykCharts.multiD.ultimate = function(options){
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
     
     this.execute = function () {
-        that = new PykCharts.twoD.processInputs(that, options, "column");
+        that = new PykCharts.multiD.processInputs(that, options, "column");
 
         that.grid = options.chart && options.chart.grid ? options.chart.grid : theme.stylesheet.chart.grid;
         that.grid.yEnabled = options.chart && options.chart.grid && options.chart.grid.yEnabled ? options.chart.grid.yEnabled : theme.stylesheet.chart.grid.yEnabled;
@@ -53,8 +53,8 @@ PykCharts.multi_series_2D.ultimate = function(options){
 
         that.border = new PykCharts.Configuration.border(that);
         that.transitions = new PykCharts.Configuration.transition(that);
-        that.mouseEvent1 = new PykCharts.twoD.mouseEvent(that);
-        that.fillColor = new PykCharts.multi_series_2D.fillChart(that,options);
+        that.mouseEvent1 = new PykCharts.multiD.mouseEvent(that);
+        that.fillColor = new PykCharts.Configuration.fillChart(that,null,options);
 
         if(that.mode === "default") {
             that.k.title()
@@ -271,7 +271,7 @@ PykCharts.multi_series_2D.ultimate = function(options){
                 rect.attr("height", 0).attr("y", h)
                     .attr("fill", function(d){
                         // console.log(d.highlight);
-                        return that.fillColor(d);
+                        return that.fillColor.colorPieMS(d);
                     })
                     .attr("stroke",that.border.color())
                     .attr("stroke-width",that.border.width())

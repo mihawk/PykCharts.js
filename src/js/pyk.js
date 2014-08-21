@@ -30,8 +30,7 @@ PykCharts.boolean = function(d) {
     }
 };
 
-PykCharts.Configuration = function (options)
-{
+PykCharts.Configuration = function (options){
 	var that = this;
 
 	var configuration = {
@@ -222,7 +221,7 @@ PykCharts.Configuration = function (options)
                             .style("min-width","30px")
                             .style("z-index","10")
                             .style("visibility", "hidden");
-                    };
+                    }
                 } else {
 	        		PykCharts.Configuration.tooltipp = d3.select("body")
 		                .append("div")
@@ -595,7 +594,8 @@ configuration.mouseEvent = function (options) {
     return action;
 };
 
-configuration.fillChart = function (options) {
+configuration.fillChart = function (options,theme,config) {
+    var that = this;
     var fillchart = {
         color : function (d) { return d.color; },
         saturation : function (d) { return "steelblue"; },
@@ -603,6 +603,34 @@ configuration.fillChart = function (options) {
             if(d.highlight === true) {
                 return options.highlightColor;
             } else{
+                return options.chartColor;
+            }
+        },
+        colorChart : function (d) {
+            if(d.highlight === true) {
+                return theme.stylesheet.colors.highlightColor;
+            } else{
+                return theme.stylesheet.colors.chartColor;
+            }
+        },
+        colorPieW : function (d) {
+            if(!(PykCharts.boolean(options.size.enable))) {
+                return options.saturationColor;
+            } else if(PykCharts.boolean(options.size.enable)) {
+                if(d.color) {
+                    return d.color;
+                }
+                return options.chartColor;
+            }
+        },
+        colorPieMS : function (d) {
+            if(PykCharts.boolean(d.highlight)) {
+                return options.highlightColor;
+            } else if(config.optional && config.optional.colors && config.optional.colors.chartColor) {
+                return options.chartColor;
+            } else if(config.optional && config.optional.colors && d.color){
+                return d.color;
+            } else {
                 return options.chartColor;
             }
         }

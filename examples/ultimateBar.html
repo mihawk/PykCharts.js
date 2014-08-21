@@ -4,22 +4,18 @@
 	<script src="../lib/jquery-1.11.1.min.js"></script> 
 	<script src="../lib/underscore-min.js"></script>
 	<script src="../lib/jquery.bpopup.min.js"></script>
-	<script src="../lib/canvas2image.js"></script>
-	<script type="../lib/base64.js"></script>
 	<link rel="stylesheet" type="text/css" href="../src/css/PykCharts.css">
 </head>
 <body>
-	<div id="ultimate-container3">
-	</div>
+	<div id="ultimate-container3"></div>
 	<script src="../src/js/pyk.js"></script>
-	<script src="../src/js/multiD/twoD.js"></script>
-	<script src="../src/js/multiD/multi-series2D.js"></script>
+	<script src="../src/js/multiD/multiD.js"></script>
+	<!--<script src="../src/js/multiD/multi-series2D.js"></script>-->
 	<script src="../src/js/multiD/ultimateBar.js"></script>
 	<script type="text/javascript">
-
 		$(document).ready(function(e) {
-			var k = new PykCharts.multi_series_2D.ultimateBar({
-		        data: "../data/ultimateGroupBar.json",
+			var k = new PykCharts.multiD.ultimateBar({
+		        data: "../data/ultimateGroupStackBar.json",
 		        mode: "default",
 		        selector: "#ultimate-container3",
 		   		chart : {
@@ -33,13 +29,13 @@
 				},
 				optional : {
 					title: { 
-                        text: "Malnutrition in India",                            
+                        text: "Malnutrition in India"                      
                     },
                     subtitle: {
                         text: "Malnutrition in India Malnutrition in India Malnutrition in India Malnutrition in India"
                     },
                     realTimeCharts: {
-                        refreshFrequency: 2 // seconds
+                        refreshFrequency: 0 // seconds
                     },
 					axis : {
 	                    onHoverHighlightenable: "yes",
@@ -68,7 +64,7 @@
 					colors:{
 			            backgroundColor: "white",
 			            chartColor: "steelblue",
-			            highlightColor: "#013F73",
+			            highlightColor: "#013F73"
 			        },
             		legends: {
 						enable : "yes",
@@ -82,7 +78,7 @@
 						text: "World Bank",
 						url: "http://www.pykih.com/"
 					},
-					borderBetweenChartElements:{ //done for oneD
+					borderBetweenChartElements:{
 						width: "1px", // if width is 0 means it is disabled.
 						color: "white",
 						style: "solid" // could be dotted too
@@ -90,7 +86,7 @@
 					transition : {
                         duration : 1000    //milliseconds
                     },
-                    label:{ //ticks 
+                    label:{
 			            size: "10",
 			            color: "white",
 			            weight: "thin",
