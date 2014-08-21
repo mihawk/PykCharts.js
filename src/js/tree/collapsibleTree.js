@@ -163,8 +163,6 @@ PykCharts.tree.collapsibleTree = function (options) {
                 that.nodeExit.select("circle")
                     .attr("r", 4.5);
 
-                
-
                 var link = that.group.selectAll("path.link")
                     .data(links, function(d) { return d.target.id; });
 
