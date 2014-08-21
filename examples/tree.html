@@ -47,6 +47,7 @@
                     title: {
                         text: "Malnutrition in India",
                     },
+                    nodeRadius : 4.5,
                     subtitle: {
                         text: "Malnutrition in India Malnutrition in India Malnutrition in India Malnutrition in India"
                     },
@@ -59,24 +60,24 @@
                         enableLastUpdatedAt: "yes"
                     },
                     transition: {
-                        duration: 0
+                        duration: 500
                     },
                     enableTooltip: "yes",
                     label:{ //partially done for oneD, pending for twoD
                       size: "10",
                       color: "#1D1D1D",
-                      weight: "bold",
+                      weight: "thin",
                       family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
                     },
                     loading: {
                       animationGifUrl: "../img/preloader.gif"
                     },
                     zoom : {
-                        enable : "no"
+                        enable : "yes"
                     },
                     borderBetweenChartElements:{ //done for oneD
-                        width: "1px", // if width is 0 means it is disabled.
-                        color: "white",
+                        width: "1.5px", // if width is 0 means it is disabled.
+                        color: "steelblue",
                         style: "solid" // could be dotted too
                     },
                     colors:{
