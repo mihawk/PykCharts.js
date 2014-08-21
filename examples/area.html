@@ -13,11 +13,11 @@
 	<body>
 		<div id="area" style="position:relative;"></div>
 		<script type="text/javascript" src="../src/js/pyk.js"></script>
-		<script type="text/javascript" src="../src/js/multiD/twoD.js"></script>
+		<script type="text/javascript" src="../src/js/multiD/multiD.js"></script>
 		<script type="text/javascript" src="../src/js/multiD/areaChart.js"></script>
 		<script type="text/javascript">
 			$(document).ready(function (e) {
-				var k = new PykCharts.twoD.area({
+				var k = new PykCharts.multiD.area({
 					selector: "#area",
 				    data: "../data/lineChart.json",
 					mode : "default",
@@ -28,7 +28,7 @@
 			            width: 700,
                         margin: {top: 5, right: 25, bottom: 25, left: 35}, // top >=10
                         grid: {
-			                xEnabled: "yes",
+			                xEnabled: "no",
 			                yEnabled: "yes",
 							color: ""
 			            },
@@ -37,8 +37,8 @@
 						transition : {
 							duration : 1000		//milliseconds
 						},
-						title: { 
-							text: "Malnutrition in India",							
+						title: {
+							text: "Malnutrition in India"
 						},
 						subtitle: {
 							text: "Malnutrition in India Malnutrition in India Malnutrition in India Malnutrition in India"
