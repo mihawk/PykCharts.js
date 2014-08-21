@@ -101,6 +101,7 @@ PykCharts.tree.processInputs = function (chartObject, options) {
     }
     chartObject.zoom = optional && optional.zoom ? optional.zoom : treeCharts.zoom;
     chartObject.zoom.enable = optional && optional.zoom && optional.zoom.enable ? optional.zoom.enable : treeCharts.zoom.enable;
+    chartObject.nodeRadius = optional && optional.nodeRadius && _.isNumber(optional.nodeRadius) ? optional.nodeRadius : treeCharts.nodeRadius;
 
     chartObject.k = new PykCharts.Configuration(chartObject);
 

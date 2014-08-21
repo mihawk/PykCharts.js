@@ -47,7 +47,7 @@ PykCharts.tree.collapsibleTree = function (options) {
             that.k.tooltip();
             that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
         }
-    },
+    };
     this.optionalFeatures = function () {
         var optional = {
             svgContainer : function () {

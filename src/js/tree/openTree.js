@@ -1,81 +1,139 @@
 PykCharts.tree.openTree = function (options) {
     var that = this;
-
     this.execute = function () {
+        that = new PykCharts.tree.processInputs(that, options, "collapsibleTree");
+        that.k1 = new PykCharts.tree.configuration(that);
+        if(that.mode === "default") {
+           that.k.loading();
+        }
+        d3.json(options.data, function(e, data){
+            
+            that.data = data;
+            that.tree_data = that.k1.dataTransfer(that.data);
+            $(that.selector+" #chart-loader").remove();
+            that.render();
 
-        var width = 960,
-            height = 2200;
-
-        var cluster = d3.layout.cluster()
-            .size([height, width - 160])
-            .children(function (d) {
-                return d.values;
-            });
-
-        var diagonal = d3.svg.diagonal()
-            .projection(function(d) { return [d.y, d.x]; });
-
-        var svg = d3.select(options.selector)
-            .attr("class", "Pykcharts-tree")
-            .append("svg")
-            .attr("width", width)
-            .attr("height", height)
-            .append("g")
-            .attr("transform", "translate(40,0)");
-
-        d3.json(options.data, function(error, data) {
-            var tree_data = d3.nest()
-                .key(function(d) {
-                    return d.level1;
-                })
-                .key(function(d) {
-                    return d.level2;
-                })
-                .key(function(d) {
-                    return d.level3;
-                })
-                .rollup(function(d) {
-                    var leaves = [];
-                    _.each(d, function (d1) {
-                        leaves.push({
-                            key: d1.level4,
-                            weight: d1.weight
-                        });
-                    })
-                    return leaves;
-                })
-                .entries(data)
-
-            tree_data = {
-                key: "root",
-                values: tree_data
-            };
-
-            var nodes = cluster.nodes(tree_data),
-                links = cluster.links(nodes);
-
-            var link = svg.selectAll(".link")
-                .data(links)
-                .enter().append("path")
-                .attr("class", "link")
-                .attr("d", diagonal);
-
-            var node = svg.selectAll(".node")
-                .data(nodes)
-                .enter().append("g")
-                .attr("class", "node")
-                .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; })
-
-            node.append("circle")
-                .attr("r", 4.5);
-
-            node.append("text")
-                .attr("dx", function(d) { return d.values ? -8 : 8; })
-                .attr("dy", 3)
-                .style("text-anchor", function(d) { return d.values ? "end" : "start"; })
-                .text(function(d) { return d.key; });
         });
+    },
+    this.render = function () {
+        that.border = new PykCharts.Configuration.border(that);
+        that.transitions = new PykCharts.Configuration.transition(that);
+        // that.mouseEvent1 = new PykCharts.twoD.mouseEvent(that);
+        // that.fillColor = new PykCharts.multi_series_2D.fillChart(that,options);
+        
+        if(that.mode === "default") {
 
-        d3.select(self.frameElement).style("height", height + "px");
-    }
-}
+            that.k.title()
+                .subtitle();
+
+            that.optionalFeatures()
+                .svgContainer();
+
+            that.k.credits()
+                .dataSource()
+                // .liveData(that)
+                // .tooltip();
+
+            // that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
+            
+            that.optionalFeatures()
+                .createOpenTree()
+                .label();
+              
+        } else if(that.mode === "infographic") {
+
+            that.optionalFeatures().svgContainer()
+                .createOpenTree();
+
+            that.k.tooltip();
+            that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
+        }
+    };
+
+    this.optionalFeatures = function () {
+        var optional = {
+            svgContainer : function () {
+                that.svg = d3.select(options.selector)
+                    .attr("class", "Pykcharts-tree")
+                    .append("svg")
+                    .attr("width", that.width)
+                    .attr("height", that.height);
+
+                that.group = that.svg.append("g")
+                    .attr("transform", "translate(" + that.margin.left + ",0)");
+            },
+            createOpenTree : function () {
+                var width = that.width,
+                    height = that.height;
+
+                var cluster = d3.layout.cluster()
+                    .size([height, width - 160])
+                    .children(function (d) {
+                        return d.values;
+                    });
+
+                var diagonal = d3.svg.diagonal()
+                    .projection(function(d) { return [d.y, d.x]; });
+
+                that.nodes = cluster.nodes(that.tree_data),
+                    links = cluster.links(that.nodes);
+
+                var link = that.group.selectAll(".link")
+                    .data(links);
+
+                    link.enter()
+                        .append("path")
+                        
+                    link.attr("class", "link")
+                        .attr("d", diagonal);
+
+                    link.exit().remove();
+
+                that.node = that.group.selectAll(".node")
+                    .data(that.nodes);
+
+                that.node.enter()
+                        .append("g")
+
+                that.node.attr("class", "node")
+                        .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; })
+
+                that.node.append("circle")
+                    .attr("r", 4.5)
+                    .style("fill",that.chartColor)
+                    .style("stroke",that.border.color())
+                    .style("stroke-width",that.border.width());
+                
+                that.node.exit().remove();
+
+                d3.select(self.frameElement).style("height", height + "px");
+            return this;
+            },
+            label : function() {
+               if(that.label.size) {
+                    // var label = that.node.selectAll(".treeLabel")
+                    //     .data(that.nodes);
+
+                    // label.enter()
+                    //     .append("text");
+
+                    that.node.append("text")
+                        .attr("class","treeLabel")
+                        .attr("dx", function(d) { return d.values ? -8 : 8; })
+                        .attr("dy", 3)
+                        .style("text-anchor", function(d) { return d.values ? "end" : "start"; })
+                        .text(function(d) { return d.key; })
+                        .style("font-weight", that.label.weight)
+                        .style("font-size", that.label.size)
+                        .attr("fill", that.label.color)
+                        .style("font-family", that.label.family);
+
+//                    label.exit().remove();
+
+               }
+                return this;    
+            }
+        }
+        return optional;
+    };
+};

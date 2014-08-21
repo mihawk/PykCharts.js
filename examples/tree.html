@@ -85,15 +85,15 @@
                     }
                 }
             });
-            k.execute();
+//            k.execute();
 
             var k = new PykCharts.tree.openTree({
                 selector: "#openTree",
                 data:"../data/tree.json",
                 mode: "default",
                 chart: {
-                    height: 400,
-                    width: 430,
+                    height: 2200,
+                    width: 1000,
                     margin:{"top": 40, "right": 40, "bottom": 40, "left": 40}
                 },
                 optional:{
@@ -116,8 +116,8 @@
                     },
                     enableTooltip: "yes",
                     label:{ //partially done for oneD, pending for twoD
-                      size: "13",
-                      color: "white",
+                      size: "10",
+                      color: "black",
                       weight: "thin",
                       family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
                     },
@@ -128,13 +128,13 @@
                         enable : "no"
                     },
                     borderBetweenChartElements:{ //done for oneD
-                        width: "1px", // if width is 0 means it is disabled.
-                        color: "white",
+                        width: "2px", // if width is 0 means it is disabled.
+                        color: "steelblue",
                         style: "solid" // could be dotted too
                     },
                     colors:{
                         backgroundColor: "white",
-                        chartColor: "steelblue"
+                        chartColor: "white"
                     }
                 }
             });
@@ -188,7 +188,7 @@
                     }
                 }
             });
-            k.execute();
+    //        k.execute();
         });
 
         </script>
