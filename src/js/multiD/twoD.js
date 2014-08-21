@@ -169,7 +169,6 @@ PykCharts.twoD.processInputs = function (chartObject, options) {
     chartObject.zoom = optional && optional.zoom ? optional.zoom : twoDimensionalCharts.zoom;
     chartObject.zoom.enable = optional && optional.zoom && optional.zoom.enable ? optional.zoom.enable : twoDimensionalCharts.zoom.enable;
 
-    console.log(optional.label,"optional");
     if (optional && optional.label) {
         chartObject.label = optional.label;
         chartObject.label.size = optional.label.size ? optional.label.size : stylesheet.label.size;
@@ -193,6 +192,6 @@ PykCharts.twoD.processInputs = function (chartObject, options) {
     chartObject.size = optional && optional.size ? optional.size : twoDimensionalCharts.size;
     chartObject.size.enable = optional && optional.size && optional.size.enable ? optional.size.enable : twoDimensionalCharts.size.enable;
     chartObject.k = new PykCharts.Configuration(chartObject);
-    console.log(chartObject.label,"label");
+    
     return chartObject;
 };
