@@ -109,7 +109,7 @@
                         url: "http://www.pykih.com/"
                     },
                     realTimeCharts: {
-                        "refreshFrequency": 5,
+                        "refreshFrequency": 2,
                         "enableLastUpdatedAt": "yes"
                     },
                     transition: {
@@ -167,7 +167,7 @@
                         "refreshFrequency": 0
                     },
                     transition: {
-                        duration: 1000
+                        duration: 10000
                     },
                     label:{ //partially done for oneD, pending for twoD
                       size: "13",
@@ -183,9 +183,9 @@
                         width: "1px", // if width is 0 means it is disabled.
                         color: "white",
                         style: "solid" // could be dotted too
+                    },
                     loading: {
                       animationGifUrl: "../img/preloader.gif"
-
                     }
                 }
             });

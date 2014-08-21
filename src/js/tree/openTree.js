@@ -46,9 +46,9 @@ PykCharts.tree.openTree = function (options) {
             that.k.credits()
                 .dataSource()
                 .liveData(that)
-                // .tooltip();
+                .tooltip();
 
-            // that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
+            that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
             
             that.optionalFeatures()
                 .createOpenTree()
@@ -81,6 +81,8 @@ PykCharts.tree.openTree = function (options) {
             createOpenTree : function () {
                 var width = that.width,
                     height = that.height;
+                
+                //console.log(that.tree_data,"tree_data");
 
                 var cluster = d3.layout.cluster()
                     .size([height, width - 160])
@@ -100,8 +102,9 @@ PykCharts.tree.openTree = function (options) {
                     link.enter()
                         .append("path")
                     
-
-                    link.attr("class", "link")
+                    link.transition()
+                        .duration(that.transitions.duration())  
+                        .attr("class", "link")
                         .attr("d", diagonal);
 
                     link.exit().remove();
@@ -113,18 +116,35 @@ PykCharts.tree.openTree = function (options) {
                         .append("g");
 
                 that.nodeEnter.attr("class", "node")
+                        .transition()
+                        .duration(that.transitions.duration())
                         .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; })
 
                 that.nodeEnter.append("circle");
-                        
+                
+
                 that.nodeUpdate = that.node
-                        .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; })
+                        .attr("transform","translate(0,0)")                        
 
                 that.nodeUpdate.select("g.node circle")
                     .attr("r", that.nodeRadius)
                     .style("fill",that.chartColor)
                     .style("stroke",that.border.color())
-                    .style("stroke-width",that.border.width());
+                    .style("stroke-width",that.border.width())
+                    .on('mouseover',function (d) {
+                        that.mouseEvent.tooltipPosition(d);
+                        that.mouseEvent.toolTextShow(d.key);
+                    })
+                    .on('mouseout',function (d) {
+                        that.mouseEvent.tooltipHide(d);
+                    })
+                    .on('mousemove', function (d) {
+                        that.mouseEvent.tooltipPosition(d);
+                    });
+
+                that.nodeUpdate.transition()
+                        .duration(that.transitions.duration())
+                        .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; })
                         
  
                 that.node.exit().remove();
