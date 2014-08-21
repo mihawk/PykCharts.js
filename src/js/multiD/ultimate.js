@@ -3,7 +3,6 @@ PykCharts.multi_series_2D.ultimate = function(options){
     var theme = new PykCharts.Configuration.Theme({});
     
     this.execute = function () {
-
         that = new PykCharts.twoD.processInputs(that, options, "column");
 
         that.grid = options.chart && options.chart.grid ? options.chart.grid : theme.stylesheet.chart.grid;
@@ -17,29 +16,27 @@ PykCharts.multi_series_2D.ultimate = function(options){
             that.data = data;
             $(that.selector+" #chart-loader").remove();
             that.render();
-
         });
     };
 
     this.refresh = function () {
-            d3.json(options.data, function (e, data) {
-                that.data = data;      
-                that.data = that.dataTransformation(); 
-                that.data = that.emptygroups(that.data);                          
+        d3.json(options.data, function (e, data) {
+            that.data = data;      
+            that.data = that.dataTransformation(); 
+            that.data = that.emptygroups(that.data);                          
 
-                var fD = that.flattenData();
-                that.the_bars = fD[0];
-                that.the_keys = fD[1];
-                that.the_layers = that.layers(that.the_bars);
+            var fD = that.flattenData();
+            that.the_bars = fD[0];
+            that.the_keys = fD[1];
+            that.the_layers = that.layers(that.the_bars);
 
-                that.optionalFeatures()
-                        .createColumnChart()
-                        .legends();
-                        
-                that.k.yAxis(that.svg,that.ygroup,that.yScaleInvert)
-                    .yGrid(that.svg,that.group,that.yScaleInvert);
-
-            });
+            that.optionalFeatures()
+                    .createColumnChart()
+                    .legends();
+                    
+            that.k.yAxis(that.svg,that.ygroup,that.yScaleInvert)
+                .yGrid(that.svg,that.group,that.yScaleInvert);
+        });
     };
 
     //----------------------------------------------------------------------------------------
@@ -60,7 +57,6 @@ PykCharts.multi_series_2D.ultimate = function(options){
         that.fillColor = new PykCharts.multi_series_2D.fillChart(that,options);
 
         if(that.mode === "default") {
-
             that.k.title()
                 .subtitle();
 
@@ -85,7 +81,6 @@ PykCharts.multi_series_2D.ultimate = function(options){
                 .yGrid(that.svg,that.group,that.yScaleInvert);
               
         } else if(that.mode === "infographics") {
-
             that.optionalFeatures().svgContainer()
                 .createColumnChart()
                 .axisContainer();
@@ -119,7 +114,6 @@ PykCharts.multi_series_2D.ultimate = function(options){
                         .style("stroke",that.grid.color)
                         .attr("class","y grid-line");
                 }
-
                 return this;
             },
             legendsContainer: function () {
@@ -137,12 +131,10 @@ PykCharts.multi_series_2D.ultimate = function(options){
                         .attr("class","legends")
                         .attr("transform","translate(0,10)");
                 }
-
                 return this;
             },
             axisContainer : function () {
                 if(PykCharts.boolean(that.axis.x.enable)) {
-
                     var axis_line = that.group.selectAll(".axis-line")
                         .data(["line"]);
 
@@ -211,12 +203,12 @@ PykCharts.multi_series_2D.ultimate = function(options){
                 // console.log(that.yScaleInvert.domain());
                 var zScale = d3.scale.category10();
 
-                var group_label_data = [];
+                var group_label_data = [], g, x, totalWidth, i;
 
-                for(var i in groups){
-                    var g = groups[i];
-                    var x = that.xScale(g[0]);
-                    var totalWidth = that.xScale.rangeBand() * g.length;
+                for(i in groups){
+                    g = groups[i];
+                    x = that.xScale(g[0]);
+                    totalWidth = that.xScale.rangeBand() * g.length;
                     x = x + (totalWidth/2);
                     group_label_data.push({x: x, name: i});
                 }
@@ -274,7 +266,7 @@ PykCharts.multi_series_2D.ultimate = function(options){
 
                 rect.enter()
                     .append("svg:rect")
-                    .attr("class","rect")
+                    .attr("class","rect");
 
                 rect.attr("height", 0).attr("y", h)
                     .attr("fill", function(d){
@@ -315,7 +307,7 @@ PykCharts.multi_series_2D.ultimate = function(options){
                 bars.exit()
                     .remove();
 
-            return this;
+                return this;
             },
             legends: function () {
                 if(PykCharts.boolean(that.legends.enable)) {
@@ -323,21 +315,21 @@ PykCharts.multi_series_2D.ultimate = function(options){
                     var j = 0,k = 0;
                     j = params.length;
                     k = params.length;                
+                    
                     if(that.legends.display === "vertical" ) {
-
-                        that.legend_svg.attr("height", (params.length * 30)+20)
-                            text_parameter1 = "x";
-                            text_parameter2 = "y";
-                            rect_parameter1 = "width";
-                            rect_parameter2 = "height";
-                            rect_parameter3 = "x";
-                            rect_parameter4 = "y";
-                            rect_parameter1value = 13;
-                            rect_parameter2value = 13;
-                            text_parameter1value = function (d,i) { return that.width - that.width/4 + 16; };
-                            rect_parameter3value = function (d,i) { return that.width - that.width/4; };
-                            var rect_parameter4value = function (d,i) { return i * 24 + 12;};
-                            var text_parameter2value = function (d,i) { return i * 24 + 23;};
+                        that.legend_svg.attr("height", (params.length * 30)+20);
+                        text_parameter1 = "x";
+                        text_parameter2 = "y";
+                        rect_parameter1 = "width";
+                        rect_parameter2 = "height";
+                        rect_parameter3 = "x";
+                        rect_parameter4 = "y";
+                        rect_parameter1value = 13;
+                        rect_parameter2value = 13;
+                        text_parameter1value = function (d,i) { return that.width - that.width/4 + 16; };
+                        rect_parameter3value = function (d,i) { return that.width - that.width/4; };
+                        var rect_parameter4value = function (d,i) { return i * 24 + 12;};
+                        var text_parameter2value = function (d,i) { return i * 24 + 23;};
                     }
                     else if(that.legends.display === "horizontal") {
                         text_parameter1 = "x";
@@ -389,8 +381,7 @@ PykCharts.multi_series_2D.ultimate = function(options){
                     .text(function (d) { return d.name; });
                     
                     that.legends_text.exit()
-                                    .remove();
-                
+                                    .remove();                
                 }     
                 return this;    
             } 
@@ -498,8 +489,7 @@ PykCharts.multi_series_2D.ultimate = function(options){
         var p = [];
         for(var i in  that.the_layers){
             if(!that.the_layers[i].name) continue;
-            var name = that.the_layers[i].name
-            , color;
+            var name = that.the_layers[i].name, color;
             if(options.optional && options.optional.colors) {
                 if(options.optional.colors.chartColor) {
                     color = that.chartColor;
@@ -545,9 +535,9 @@ PykCharts.multi_series_2D.ultimate = function(options){
         that.barName = [];
         var data_length = that.data.length;                                                                                                             
         for(var i=0; i < data_length; i++) {
-            var group = {}
-            , bar = {}
-            , stack;
+            var group = {},
+                bar = {},
+                stack;
 
             if(!that.data[i].group) {
                 that.data[i].group = "group" + i;
@@ -556,7 +546,6 @@ PykCharts.multi_series_2D.ultimate = function(options){
             if(!that.data[i].stack) {
                 that.data[i].stack = "stack";
             }
-
 
             that.barName[i] = that.data[i].group;
             group[that.data[i].x] = [];      
@@ -572,9 +561,10 @@ PykCharts.multi_series_2D.ultimate = function(options){
                 var j=0;
                 for(j=0;j < data_tranform_lenght; j++) {
                     if ((_.has(data_tranform[j], that.data[i].x))) {
-                        var barr = data_tranform[j][that.data[i].x];
-                        var barLength = barr.length;
-                        var k = 0;
+                        var barr = data_tranform[j][that.data[i].x],
+                            barLength = barr.length,
+                            k = 0;
+
                         for(k =0; k<barLength;k++) {
                             if(_.has(data_tranform[j][that.data[i].x][k],that.data[i].group)) {
                                 break;

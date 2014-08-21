@@ -176,6 +176,7 @@ PykCharts.twoD.processInputs = function (chartObject, options) {
         chartObject.label.weight = optional.label.weight ? optional.label.weight : stylesheet.label.weight;
         chartObject.label.family = optional.label.family ? optional.label.family : stylesheet.label.family;
     } else {
+        //console.log("inside..........");
         chartObject.label = stylesheet.label;
     }
     if (optional && optional.legendsText) {
@@ -191,5 +192,6 @@ PykCharts.twoD.processInputs = function (chartObject, options) {
     chartObject.size = optional && optional.size ? optional.size : twoDimensionalCharts.size;
     chartObject.size.enable = optional && optional.size && optional.size.enable ? optional.size.enable : twoDimensionalCharts.size.enable;
     chartObject.k = new PykCharts.Configuration(chartObject);
+    
     return chartObject;
 };

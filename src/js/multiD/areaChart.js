@@ -101,7 +101,7 @@ PykCharts.twoD.area = function (options){
 				$(that.selector).attr("class","PykCharts-twoD PykCharts-multi-series2D PykCharts-line-chart");
 				$(options.selector).css("background-color",that.bg);
 
-				that.svg = d3.select(options.selector+" "+"#tooltip-svg"+i).append("svg:svg")
+				that.svg = d3.select(options.selector+" "+"#tooltip-svg-container-"+i).append("svg:svg")
 					.attr("id","svg")
 					.attr("width",that.width)
 					.attr("height",that.height);
