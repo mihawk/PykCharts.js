@@ -84,7 +84,7 @@ PykCharts.multi_series_2D.ultimateBar = function(options){
                  .xGrid(that.svg,that.group,that.xScale);
 //               .yAxis(that.svg,that.ygroup,that.y0);
               
-        } else if(that.mode === "infographic") {
+        } else if(that.mode === "infographics") {
 
             that.optionalFeatures().svgContainer()
                 .createColumnChart()
@@ -125,7 +125,7 @@ PykCharts.multi_series_2D.ultimateBar = function(options){
                 return this;
             },
             legendsContainer: function () {
-                if(PykCharts.boolean(that.legends)) {
+                if(PykCharts.boolean(that.legends.enable)) {
                     that.legend_svg = d3.select(that.selector).append("svg:svg")
                         .attr("width",that.width)
                         .attr("height",50)
@@ -341,7 +341,6 @@ PykCharts.multi_series_2D.ultimateBar = function(options){
                                         console.log(d.values);
                                         return d.values;
                                 });
-
                     ticksText.enter()
                         .append("text")
                         .attr("class","ticksText");
@@ -385,7 +384,7 @@ PykCharts.multi_series_2D.ultimateBar = function(options){
                 return this;
             },
             legends: function () {
-                if(PykCharts.boolean(that.legends)) {
+                if(PykCharts.boolean(that.legends.enable)) {
                     var params = that.getParameters();
                     var j = 0,k = 0;
                     j = params.length;

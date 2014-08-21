@@ -457,7 +457,6 @@ configuration.mouseEvent = function (options) {
             if(PykCharts.boolean(options.enableCrossHair) && options.mode === "default") {
                 var offsetLeft = $(options.selector + " " + "#"+dataLineGroup.attr("id")).offset().left;
                 var offsetRight = $(options.selector + " " + "#"+dataLineGroup.attr("id")).offset().right;
-                // var color = options.optional.color.color;
                 var left = options.margin.left;
                 var right = options.margin.right;
                 var top = options.margin.top;
@@ -513,9 +512,8 @@ configuration.mouseEvent = function (options) {
         crossHairShow : function (x1,y1,x2,y2,cx,cy) {
             if(PykCharts.boolean(options.enableCrossHair) && options.mode === "default") {
                 if(x1 !== undefined){
-                    // console.log();
                     that.cross_hair_v.style("display","block");
-                    that.cross_hair_v.select(options.selector + " " +"#cross-hair-v")
+                    that.cross_hair_v.select(options.selector + " #cross-hair-v")
                         .attr("x1",x1)
                         .attr("y1",y1)
                         .attr("x2",x2)
