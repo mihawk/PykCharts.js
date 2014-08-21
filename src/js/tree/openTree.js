@@ -99,7 +99,8 @@ PykCharts.tree.openTree = function (options) {
 
                     link.enter()
                         .append("path")
-                        
+                    
+
                     link.attr("class", "link")
                         .attr("d", diagonal);
 
@@ -108,47 +109,42 @@ PykCharts.tree.openTree = function (options) {
                 that.node = that.group.selectAll(".node")
                     .data(that.nodes);
 
-                that.node.enter()
-                        .append("g")
+                that.nodeEnter =that.node.enter()
+                        .append("g");
 
-                that.node.attr("class", "node")
+                that.nodeEnter.attr("class", "node")
                         .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; })
 
-                that.node.append("circle")
-                    .attr("r", 4.5)
+                that.nodeEnter.append("circle");
+                        
+                that.nodeUpdate = that.node
+                        .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; })
+
+                that.nodeUpdate.select("g.node circle")
+                    .attr("r", that.nodeRadius)
                     .style("fill",that.chartColor)
                     .style("stroke",that.border.color())
                     .style("stroke-width",that.border.width());
-                
+                        
+ 
                 that.node.exit().remove();
-                var color = d3.scale.category20c();
-                console.log(color(),"color");
-                console.log(color(),"color");
 
                 d3.select(self.frameElement).style("height", height + "px");
             return this;
             },
             label : function() {
-               if(that.label.size) {
-                    var label = that.group.selectAll(".treeLabel")
-                        .data(that.nodes);
+               if(that.label.size) {                   
+                    that.nodeEnter.append("text");
 
-                    label.enter()
-                        .append("text");
-
-                    that.node
-                        .attr("class","treeLabel")
+                    that.nodeUpdate.select("g.node text")
                         .attr("dx", function(d) { return d.values ? -8 : 8; })
                         .attr("dy", 3)
-                        .style("text-anchor", function(d) { return d.values ? "end" : "start"; })
                         .text(function(d) { return d.key; })
+                        .style("text-anchor", function(d) { return d.values ? "end" : "start"; })
                         .style("font-weight", that.label.weight)
                         .style("font-size", that.label.size)
                         .attr("fill", that.label.color)
                         .style("font-family", that.label.family);
-
-                   label.exit().remove();
-
                }
                 return this;    
             }

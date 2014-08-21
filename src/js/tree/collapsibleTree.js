@@ -145,8 +145,6 @@ PykCharts.tree.collapsibleTree = function (options) {
                     .style("stroke-width",that.border.width())
                     .on("click", that.click);
 
-                
-
                 that.nodeUpdate = node.transition()
                     .duration(that.transitions.duration())
                     .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; });
@@ -165,8 +163,6 @@ PykCharts.tree.collapsibleTree = function (options) {
 
                 that.nodeExit.select("circle")
                     .attr("r", 4.5);
-
-                
 
                 var link = that.group.selectAll("path.link")
                     .data(links, function(d) { return d.target.id; });
