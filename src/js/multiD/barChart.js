@@ -72,33 +72,33 @@ PykCharts.twoD.bar = function (options) {
         }
     };
 
-    this.fullScreen = function () {
-        var modalDiv = d3.select(that.chartContainer).append("div")
-            .attr("id","abc")
-            .attr("visibility","hidden")
-            .attr("class","clone")
-            .append("a")
-            .attr("class","b-close")
-            .style("cursor","pointer")
-            .style("position","absolute")
-            .style("right","10px")
-            .style("top","5px")
-            .style("font-size","20px")
-            .html("Close");
+    // this.fullScreen = function () {
+    //     var modalDiv = d3.select(that.chartContainer).append("div")
+    //         .attr("id","abc")
+    //         .attr("visibility","hidden")
+    //         .attr("class","clone")
+    //         .append("a")
+    //         .attr("class","b-close")
+    //         .style("cursor","pointer")
+    //         .style("position","absolute")
+    //         .style("right","10px")
+    //         .style("top","5px")
+    //         .style("font-size","20px")
+    //         .html("Close");
 
-        var scaleFactor = 1.2;
-        var w = that.width;
-        var h = that.height;
-        if(h>500 || w>900){
-            scaleFactor = 1;
-        }
-        $(".svgcontainer").clone().appendTo("#abc");
-        d3.select(".clone #svgcontainer").attr("width",screen.width-200).attr("height",screen.height-200).style("display","block");
-        d3.select(".clone svg #svggroup")
-            .attr("transform","scale("+scaleFactor+")translate("+that.margin.left + "," + that.margin.top+")");
-        $(".clone").css({"background-color":"#fff","border-radius":"15px","color":"#000","display":"none","padding":"20px","min-width":screen.availWidth-100,"min-height":screen.availHeight-150,"visibility":"visible","align":"center"});
-        $("#abc").bPopup({position: [30, 10],transition: 'fadeIn',onClose: function(){ $('.clone').remove(); }});
-    };
+    //     var scaleFactor = 1.2;
+    //     var w = that.width;
+    //     var h = that.height;
+    //     if(h>500 || w>900){
+    //         scaleFactor = 1;
+    //     }
+    //     $(".svgcontainer").clone().appendTo("#abc");
+    //     d3.select(".clone #svgcontainer").attr("width",screen.width-200).attr("height",screen.height-200).style("display","block");
+    //     d3.select(".clone svg #svggroup")
+    //         .attr("transform","scale("+scaleFactor+")translate("+that.margin.left + "," + that.margin.top+")");
+    //     $(".clone").css({"background-color":"#fff","border-radius":"15px","color":"#000","display":"none","padding":"20px","min-width":screen.availWidth-100,"min-height":screen.availHeight-150,"visibility":"visible","align":"center"});
+    //     $("#abc").bPopup({position: [30, 10],transition: 'fadeIn',onClose: function(){ $('.clone').remove(); }});
+    // };
 
     this.optionalFeatures = function () {
         var status;
