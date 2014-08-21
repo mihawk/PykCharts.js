@@ -146,7 +146,8 @@
                 data:"../data/tree.json",
                 chart: {
                     height: 400,
-                    width: 430
+                    width: 430,
+                    margin:{"top": 40, "right": 40, "bottom": 40, "left": 40}
                 },
                 optional:{
                     title: {
@@ -163,29 +164,26 @@
                         text: "World Bank",
                         url: "http://www.pykih.com/"
                     },
-                    clubData: {
-                        enable:"no",
-                        text: "Others", //default: Others
-                        maximumNodes: 5, //default: 5
-                        alwaysIncludeDataPoints: ["NDA"],
-                        tooltipText:"",
-                        color:"green"
-                    },
                     realTimeCharts: {
                         "refreshFrequency": 0,
                         "enableLastUpdatedAt": "yes"
                     },
+                    loading: {
+                        animationGifUrl: "../img/preloader.gif"
+                    },
                     transition: {
                         duration: 0
                     },
-                    label:{ //partially done for oneD, pending for twoD
-                      size: "13",
-                      color: "white",
-                      weight: "thin",
-                      family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
+                    enableTooltip: "yes",         
+                    label:{ 
+                        size: "13",
+                        color: "white",
+                        weight: "thin",
+                        family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
                     },
-                    loading: {
-                      animationGifUrl: "../img/preloader.gif"
+                    colors:{
+                        backgroundColor: "white",
+                        chartColor: "steelblue"
                     }
                 }
             });
