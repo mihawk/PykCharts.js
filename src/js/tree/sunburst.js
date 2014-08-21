@@ -41,7 +41,10 @@ PykCharts.tree.sunburst = function (options) {
 
             that.k.credits()
                 .dataSource()
-                .liveData(that);
+                .liveData(that)
+                .tooltip();
+
+            that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
 
             that.optionalFeature()
                 .createChart();
@@ -50,14 +53,19 @@ PykCharts.tree.sunburst = function (options) {
             that.optionalFeature()
                 .svgContainer()
                 .createChart();
+
+            that.k.tooltip();
+
+            that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
         }
     };
 
     this.click = function (d) {
-        console.log("zoom");
-        that.path.transition()
+        if(PykCharts.boolean(that.zoom.enable)) {
+             that.path.transition()
             .duration(that.transitions.duration())
             .attrTween("d", that.arcTween(d));
+        }
     };
 
     this.arcTween = function (d) {
@@ -65,7 +73,7 @@ PykCharts.tree.sunburst = function (options) {
             , yd = d3.interpolate(that.y.domain(), [d.y, 1])
             , yr = d3.interpolate(that.y.range(), [d.y ? 20 : 0, that.radius]);
 
-            return function(d, i) {
+            return function (d, i) {
                 return i ? function (t) { return that.arc(d); }: function (t) { that.x.domain(xd(t)); that.y.domain(yd(t)).range(yr(t)); return that.arc(d); };
             };
     };
@@ -110,8 +118,6 @@ PykCharts.tree.sunburst = function (options) {
                         .innerRadius(function(d) { return Math.max(0, that.y(d.y)); })
                         .outerRadius(function(d) { return Math.max(0, that.y(d.y + d.dy)); });
 
-                console.log(that);
-                console.log(options);
                 that.path = that.group.selectAll("path")
                     .data(partition.nodes(that.tree_data))
                     .enter()
@@ -123,10 +129,20 @@ PykCharts.tree.sunburst = function (options) {
                         if (options.optional && options.optional.colors && options.optional.colors.chartColor) {
                             return that.chartColor;                       
                         } else {
-                            return color(d.children ? d.children: d.parent);
+                            return color(d.children);
                         }
                     })
-                    .on("click", that.click);
+                    .on("click", that.click)
+                    .on("mouseover", function (d) {
+                        that.mouseEvent.tooltipPosition(d);
+                        that.mouseEvent.toolTextShow(d.key);
+                    })
+                    .on("mouseout",function (d) {
+                        that.mouseEvent.tooltipHide(d);
+                    })
+                    .on("mousemove", function (d) {
+                        that.mouseEvent.tooltipPosition(d);
+                    })
             },
         }
         return optional;

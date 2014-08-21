@@ -59,7 +59,7 @@
                         enableLastUpdatedAt: "yes"
                     },
                     transition: {
-                        duration: 0
+                        duration: 1000
                     },
                     enableTooltip: "yes",
                     label:{ //partially done for oneD, pending for twoD
@@ -139,14 +139,14 @@
                     }
                 }
             });
-            k.execute();
+            // k.execute();
 
             var k = new PykCharts.tree.sunburst({
                 selector: "#sunburst",
                 data:"../data/tree.json",
                 chart: {
-                    height: 400,
-                    width: 430
+                    height: 500,
+                    width: 500
                 },
                 optional:{
                     title: {
@@ -177,12 +177,16 @@
                     },
                     colors:{
                         backgroundColor: "white",
-                        chartColor: "steelblue"
+                        // chartColor: "steelblue"
+                    },
+                    zoom : {
+                        enable : "yes"
                     },
                     borderBetweenChartElements : {
                         width: "1px", // if width is 0 means it is disabled.
                         color: "white",
                         style: "solid" // could be dotted too
+                    },
                     loading: {
                       animationGifUrl: "../img/preloader.gif"
 

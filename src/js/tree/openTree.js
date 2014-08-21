@@ -130,25 +130,8 @@ PykCharts.tree.openTree = function (options) {
             },
             label : function() {
                if(that.label.size) {
-                    var label = that.group.selectAll(".treeLabel")
-                        .data(that.nodes);
-
-                    label.enter()
-                        .append("text");
-
-                    that.node
-                        .attr("class","treeLabel")
-                        .attr("dx", function(d) { return d.values ? -8 : 8; })
-                        .attr("dy", 3)
-                        .style("text-anchor", function(d) { return d.values ? "end" : "start"; })
-                        .text(function(d) { return d.key; })
-                        .style("font-weight", that.label.weight)
-                        .style("font-size", that.label.size)
-                        .attr("fill", that.label.color)
-                        .style("font-family", that.label.family);
-
-                   label.exit().remove();
-
+                
+            
                }
                 return this;    
             }
