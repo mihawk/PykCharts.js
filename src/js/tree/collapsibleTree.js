@@ -14,7 +14,17 @@ PykCharts.tree.collapsibleTree = function (options) {
             that.render();
 
         });
-    },
+    };
+    this.refresh = function () {
+        d3.json(options.data, function (e, data) {
+            console.log("liveData");
+            that.data = data;  
+            that.tree_data = that.k1.dataTransfer(that.data);
+            that.optionalFeatures()
+                    .createChart()
+                    .zoom();
+        });
+    };
     this.render = function () {
         that.border = new PykCharts.Configuration.border(that);
         that.transitions = new PykCharts.Configuration.transition(that);
@@ -31,13 +41,14 @@ PykCharts.tree.collapsibleTree = function (options) {
 
             that.k.credits()
                 .dataSource()
-                // .liveData(that)
+                .liveData(that)
                 // .tooltip();
 
             // that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
             
             that.optionalFeatures()
-                .createChart();
+                .createChart()
+            that.zoomListener = that.k1.zoom(that.svg,that.group);
               
         } else if(that.mode === "infographic") {
 
@@ -55,7 +66,8 @@ PykCharts.tree.collapsibleTree = function (options) {
                     .attr("class", "Pykcharts-tree")
                     .append("svg")
                     .attr("width", that.width)
-                    .attr("height", that.height);
+                    .attr("height", that.height)
+                    .style("overflow","visible");
 
                 that.group = that.svg.append("g")
                     .attr("transform", "translate(" + that.margin.left + "," + that.margin.top + ")");
@@ -63,23 +75,20 @@ PykCharts.tree.collapsibleTree = function (options) {
             createChart : function () {
                 that.w = that.width - that.margin.right - that.margin.left,
                 that.h = that.height - that.margin.top - that.margin.bottom;
-                var i = 0,
-                root,
-                tree,
-                diagonal;
+                that.i = 0;
 
-                tree = d3.layout.tree()
-                    .size([that.height, that.width])
+                that.tree = d3.layout.tree()
+                    .size([that.h, that.w])
                     .children(function (d) {
                         return d.values;
                     });
 
-                diagonal = d3.svg.diagonal()
+                that.diagonal = d3.svg.diagonal()
                     .projection(function(d) { return [d.y, d.x]; });
 
-                root = that.tree_data;
-                root.x0 = that.h / 2;
-                root.y0 = 0;
+                that.root = that.tree_data;
+                that.root.x0 = that.h / 2;
+                that.root.y0 = 0;
 
                 function collapse(d) {
                     if (d.values) {
@@ -89,92 +98,95 @@ PykCharts.tree.collapsibleTree = function (options) {
                     }
                 }
 
-                root.values.forEach(collapse);
-                this.update(root);
-                function click(d) {
-                    if (d.values) {
-                        d._values = d.values;
-                        d.values = null;
-                    } else {
-                        d.values = d._values;
-                        d._values = null;
-                    }
-                }
-                d3.select(self.frameElement).style("height", that.h);
-                this.update(d);
+                that.root.values.forEach(collapse);
+                this.update(that.root).chartLabel();
+                // d3.select(self.frameElement).style("height", that.h).style("width",that.w);
+                return this;
             },
 
             chartLabel : function () {
-
+                if(PykCharts.boolean(that.label)) {
+                    that.nodeEnter.append("text")
+                        .attr("x", function(d) { return d.values || d._values ? -10 : 10; })
+                        .attr("dy", ".35em")
+                        .attr("text-anchor", function(d) { return d.values || d._values ? "end" : "start"; })
+                        .attr("pointer-events","none")
+                        .text(function(d) { return d.key; })
+                        .style("fill-opacity", 1e-6)
+                        .style("font-weight", that.label.weight)
+                        .style("font-size", that.label.size)
+                        .style("fill", that.label.color)
+                        .style("font-family", that.label.family);
+                    that.nodeUpdate.select("text")
+                        .style("fill-opacity", 1);
+                    that.nodeExit.select("text")
+                        .style("fill-opacity", 1e-6);
+                }
+                return this;
             },
             update : function (source) {
-                var nodes = tree.nodes(root).reverse(),
-                    links = tree.links(nodes);
+                var nodes = that.tree.nodes(that.root).reverse(),
+                    links = that.tree.links(nodes);
 
                 nodes.forEach(function(d) { d.y = d.depth * 180; });
 
-                var node = svg.selectAll("g.node")
-                    .data(nodes, function(d) { return d.id || (d.id = ++i); });
+                var node = that.group.selectAll("g.node")
+                    .data(nodes, function(d) { return d.id || (d.id = ++that.i); });
 
-                var nodeEnter = node.enter().append("g")
+                that.nodeEnter = node.enter().append("g")
                     .attr("class", "node")
                     .attr("transform", function(d) { return "translate(" + source.y0 + "," + source.x0 + ")"; })
                     
 
-                nodeEnter.append("circle")
-                    .attr("r", 1e-6)
+                that.nodeEnter.append("circle")
+                    .attr("r", 4.5)
                     .style("fill", function(d) { return d._values ? "lightsteelblue" : "#fff"; })
-                    .on("click", click);
+                    .style("stroke",that.border.color())
+                    .style("stroke-width",that.border.width())
+                    .on("click", that.click);
 
-                nodeEnter.append("text")
-                    .attr("x", function(d) { return d.values || d._values ? -10 : 10; })
-                    .attr("dy", ".35em")
-                    .attr("text-anchor", function(d) { return d.values || d._values ? "end" : "start"; })
-                    .attr("pointer-events","none")
-                    .text(function(d) { return d.key; })
-                    .style("fill-opacity", 1e-6);
+                
 
-                var nodeUpdate = node.transition()
-                    .duration(duration)
+                that.nodeUpdate = node.transition()
+                    .duration(that.transitions.duration())
                     .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; });
 
-                nodeUpdate.select("circle")
+                that.nodeUpdate.select("circle")
                     .attr("r", 4.5)
-                    .style("fill", function(d) { return d._values ? "lightsteelblue" : "#fff"; });
+                    .style("fill", function(d) { return d._values ? "lightsteelblue" : "#fff"; })
+                    // .on("click", that.click);
 
-                nodeUpdate.select("text")
-                    .style("fill-opacity", 1);
+                console.log(that.transitions.duration());
 
-                var nodeExit = node.exit().transition()
+                that.nodeExit = node.exit().transition()
                     .duration(that.transitions.duration())
                     .attr("transform", function(d) { return "translate(" + source.y + "," + source.x + ")"; })
                     .remove();
 
-                nodeExit.select("circle")
-                    .attr("r", 1e-6);
+                that.nodeExit.select("circle")
+                    .attr("r", 4.5);
 
-                nodeExit.select("text")
-                    .style("fill-opacity", 1e-6);
+                
 
-                var link = svg.selectAll("path.link")
+                var link = that.group.selectAll("path.link")
                     .data(links, function(d) { return d.target.id; });
 
                 link.enter().insert("path", "g")
                     .attr("class", "link")
                     .attr("d", function(d) {
                         var o = {x: source.x0, y: source.y0};
-                        return diagonal({source: o, target: o});
+                        return that.diagonal({source: o, target: o});
                     });
 
                 link.transition()
-                    .duration(duration)
-                    .attr("d", diagonal);
+                    .duration(that.transitions.duration())
+                    .attr("d", that.diagonal);
 
                 link.exit().transition()
                     .duration(that.transitions.duration())
                     .attr("d", function(d) {
                         var o = {x: source.x, y: source.y};
-                        return diagonal({source: o, target: o});
+                        return that.diagonal({source: o, target: o});
                     })
                     .remove();
 
@@ -183,11 +195,36 @@ PykCharts.tree.collapsibleTree = function (options) {
                     d.x0 = d.x;
                     d.y0 = d.y;
                 });
+                return this;
+            },
+            centerNode : function (source) {
+                var scale = that.zoomListener.scale();
+                x = -source.y0;
+                y = -source.x0;
+                x = x * scale + that.w / 2;
+                y = y * scale + that.h / 2;
+                d3.select('g').transition()
+                    .duration(that.transitions.duration)
+                    .attr("transform", "translate(" + x + "," + y + ")scale(" + scale + ")");
+                that.zoomListener.scale(scale);
+                that.zoomListener.translate([x, y]);
             }
         }
         return optional;
 
     }
+    that.click = function (d) {
+        if (d.values) {
+            d._values = d.values;
+            d.values = null;
+        } else {
+            d.values = d._values;
+            d._values = null;
+        }
+        that.optionalFeatures().update(d)
+            .chartLabel()
+            .centerNode(d);
+    };
     // this.execute = function () {
         
 

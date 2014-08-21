@@ -168,14 +168,14 @@ PykCharts.Configuration = function (options)
 	    },
         makeMainDiv : function (selection,i) {
             d3.select(selection).append("div")
-                .attr("id","tooltip-svg"+i)
+                .attr("id","tooltip-svg-container-"+i)
                 .style("float","left");
             return this;
         },
 	    tooltip : function (d,selection,i) {
 	    	if(PykCharts.boolean(options.enableTooltip) && options.mode === "default") {
 	        	if(selection !== undefined){
-	        		d3.select(options.selector + " " +"#tooltip-svg"+i).append("div")
+	        		d3.select(options.selector + " " +"#tooltip-svg-container-"+i).append("div")
                         .attr("id", "tooltip-container")
 						.style("position", "relative")
 						.style("height", "35px")
