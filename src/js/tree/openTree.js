@@ -15,6 +15,20 @@ PykCharts.tree.openTree = function (options) {
 
         });
     },
+
+    this.refresh = function () {
+        d3.json(options.data, function (e, data) {
+            console.log("liveData");
+            that.data = data;  
+            that.tree_data = that.k1.dataTransfer(that.data);
+            that.optionalFeatures()
+                    .createOpenTree()
+                    .label();
+
+            that.zoomListener = that.k1.zoom(that.svg,that.group);        
+        });
+    };
+
     this.render = function () {
         that.border = new PykCharts.Configuration.border(that);
         that.transitions = new PykCharts.Configuration.transition(that);
@@ -31,7 +45,7 @@ PykCharts.tree.openTree = function (options) {
 
             that.k.credits()
                 .dataSource()
-                // .liveData(that)
+                .liveData(that)
                 // .tooltip();
 
             // that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
@@ -39,6 +53,8 @@ PykCharts.tree.openTree = function (options) {
             that.optionalFeatures()
                 .createOpenTree()
                 .label();
+
+            that.zoomListener = that.k1.zoom(that.svg,that.group);
               
         } else if(that.mode === "infographic") {
 
@@ -105,19 +121,22 @@ PykCharts.tree.openTree = function (options) {
                     .style("stroke-width",that.border.width());
                 
                 that.node.exit().remove();
+                var color = d3.scale.category20c();
+                console.log(color(),"color");
+                console.log(color(),"color");
 
                 d3.select(self.frameElement).style("height", height + "px");
             return this;
             },
             label : function() {
                if(that.label.size) {
-                    // var label = that.node.selectAll(".treeLabel")
-                    //     .data(that.nodes);
+                    var label = that.group.selectAll(".treeLabel")
+                        .data(that.nodes);
 
-                    // label.enter()
-                    //     .append("text");
+                    label.enter()
+                        .append("text");
 
-                    that.node.append("text")
+                    that.node
                         .attr("class","treeLabel")
                         .attr("dx", function(d) { return d.values ? -8 : 8; })
                         .attr("dy", 3)
@@ -128,7 +147,7 @@ PykCharts.tree.openTree = function (options) {
                         .attr("fill", that.label.color)
                         .style("font-family", that.label.family);
 
-//                    label.exit().remove();
+                   label.exit().remove();
 
                }
                 return this;    

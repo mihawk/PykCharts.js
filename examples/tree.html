@@ -39,15 +39,14 @@
                 data:"../data/tree.json",
                 mode: "default",
                 chart: {
-                    height: 700,
-                    width: 700,
+                    height: 400,
+                    width: 430,
                     margin:{"top": 40, "right": 40, "bottom": 40, "left": 40}
                 },
                 optional:{
                     title: {
                         text: "Malnutrition in India",
                     },
-                    nodeRadius : 4.5,
                     subtitle: {
                         text: "Malnutrition in India Malnutrition in India Malnutrition in India Malnutrition in India"
                     },
@@ -60,12 +59,12 @@
                         enableLastUpdatedAt: "yes"
                     },
                     transition: {
-                        duration: 500
+                        duration: 0
                     },
                     enableTooltip: "yes",
                     label:{ //partially done for oneD, pending for twoD
-                      size: "10",
-                      color: "#1D1D1D",
+                      size: "13",
+                      color: "white",
                       weight: "thin",
                       family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
                     },
@@ -73,11 +72,11 @@
                       animationGifUrl: "../img/preloader.gif"
                     },
                     zoom : {
-                        enable : "yes"
+                        enable : "no"
                     },
                     borderBetweenChartElements:{ //done for oneD
-                        width: "1.5px", // if width is 0 means it is disabled.
-                        color: "steelblue",
+                        width: "1px", // if width is 0 means it is disabled.
+                        color: "white",
                         style: "solid" // could be dotted too
                     },
                     colors:{
@@ -98,6 +97,7 @@
                     margin:{"top": 40, "right": 40, "bottom": 40, "left": 40}
                 },
                 optional:{
+
                     title: {
                         text: "Malnutrition in India",
                     },
@@ -109,7 +109,7 @@
                         url: "http://www.pykih.com/"
                     },
                     realTimeCharts: {
-                        "refreshFrequency": 0,
+                        "refreshFrequency": 2,
                         "enableLastUpdatedAt": "yes"
                     },
                     transition: {
@@ -126,10 +126,10 @@
                       animationGifUrl: "../img/preloader.gif"
                     },
                     zoom : {
-                        enable : "no"
+                        enable : "yes"
                     },
                     borderBetweenChartElements:{ //done for oneD
-                        width: "2px", // if width is 0 means it is disabled.
+                        width: "1px", // if width is 0 means it is disabled.
                         color: "steelblue",
                         style: "solid" // could be dotted too
                     },
@@ -146,8 +146,7 @@
                 data:"../data/tree.json",
                 chart: {
                     height: 400,
-                    width: 430,
-                    margin:{"top": 40, "right": 40, "bottom": 40, "left": 40}
+                    width: 430
                 },
                 optional:{
                     title: {
@@ -164,26 +163,29 @@
                         text: "World Bank",
                         url: "http://www.pykih.com/"
                     },
+                    clubData: {
+                        enable:"no",
+                        text: "Others", //default: Others
+                        maximumNodes: 5, //default: 5
+                        alwaysIncludeDataPoints: ["NDA"],
+                        tooltipText:"",
+                        color:"green"
+                    },
                     realTimeCharts: {
                         "refreshFrequency": 0,
                         "enableLastUpdatedAt": "yes"
                     },
-                    loading: {
-                        animationGifUrl: "../img/preloader.gif"
-                    },
                     transition: {
                         duration: 0
                     },
-                    enableTooltip: "yes",         
-                    label:{ 
-                        size: "13",
-                        color: "white",
-                        weight: "thin",
-                        family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
+                    label:{ //partially done for oneD, pending for twoD
+                      size: "13",
+                      color: "white",
+                      weight: "thin",
+                      family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
                     },
-                    colors:{
-                        backgroundColor: "white",
-                        chartColor: "steelblue"
+                    loading: {
+                      animationGifUrl: "../img/preloader.gif"
                     }
                 }
             });
