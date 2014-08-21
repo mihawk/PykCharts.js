@@ -164,14 +164,13 @@
                         url: "http://www.pykih.com/"
                     },
                     realTimeCharts: {
-                        "refreshFrequency": 0,
-                        "enableLastUpdatedAt": "yes"
+                        "refreshFrequency": 0
                     },
                     loading: {
                         animationGifUrl: "../img/preloader.gif"
                     },
                     transition: {
-                        duration: 0
+                        duration: 1000
                     },
                     enableTooltip: "yes",         
                     label:{ 
@@ -180,9 +179,14 @@
                         weight: "thin",
                         family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
                     },
-                    colors:{
-                        backgroundColor: "white",
-                        chartColor: "steelblue"
+                    // colors:{
+                    //     backgroundColor: "white",
+                    //     chartColor: "steelblue"
+                    // },
+                    borderBetweenChartElements : {
+                        width: "1px", // if width is 0 means it is disabled.
+                        color: "white",
+                        style: "solid" // could be dotted too
                     }
                 }
             });
