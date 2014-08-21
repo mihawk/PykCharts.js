@@ -30,11 +30,12 @@ PykCharts.multi_series_2D.ultimateBar = function(options){
                 var fD = that.flattenData();
                 that.the_bars = fD[0];
                 that.the_keys = fD[1];
-                that.the_layers = that.layers(that.the_bars);
+                that.the_layers = that.buildLayers(that.the_bars);
 
                 that.optionalFeatures()
                         .createColumnChart()
-                        .legends();
+                        .legends()
+                        //.ticks();
             });
     };
 
@@ -49,7 +50,7 @@ PykCharts.multi_series_2D.ultimateBar = function(options){
         var fD = that.flattenData();
         that.the_bars = fD[0];
         that.the_keys = fD[1];
-        that.the_layers = that.layers(that.the_bars);
+        that.the_layers = that.buildLayers(that.the_bars);
         // console.log(that.the_bars);
         that.border = new PykCharts.Configuration.border(that);
         that.transitions = new PykCharts.Configuration.transition(that);
@@ -77,7 +78,7 @@ PykCharts.multi_series_2D.ultimateBar = function(options){
                 .createColumnChart()
                 .legends()
                 .axisContainer()
-//                .ticks();
+                .ticks();
 
             that.k.xAxis(that.svg,that.xgroup,that.xScale)
                  .xGrid(that.svg,that.group,that.xScale);
@@ -240,10 +241,11 @@ PykCharts.multi_series_2D.ultimateBar = function(options){
                     .domain(that.barName.map(function(d) { return d; }))
                     .rangeRoundBands([0, that.y0.rangeBand()]) ;
 
-                var y_factor = 0, height_factor = 0;
+                that.y_factor = 0;
+                that.height_factor = 0;
                 if(that.max_length === 1) {
-                    y_factor = that.yScale.rangeBand()/4;
-                    height_factor = (that.yScale.rangeBand()/(2*that.max_length));
+                    that.y_factor = that.yScale.rangeBand()/4;
+                    that.height_factor = (that.yScale.rangeBand()/(2*that.max_length));
                 };
 
                 var yAxis_label = that.group.selectAll("text.axis-text")
@@ -315,10 +317,10 @@ PykCharts.multi_series_2D.ultimateBar = function(options){
                         return that.xScale(d.x);
                     })
                     .attr("height", function(d){
-                        return that.yScale.rangeBand()+height_factor;
+                        return that.yScale.rangeBand()+that.height_factor;
                     })
                     .attr("y", function(d){
-                        return that.yScale(d.y)-y_factor;
+                        return that.yScale(d.y)-that.y_factor;
                         
                     });
 
@@ -328,32 +330,56 @@ PykCharts.multi_series_2D.ultimateBar = function(options){
             return this;
             },
             ticks: function () {
-                var ticks = that.bars.selectAll("g")
-                            .data(that.layers);
-                
-                var ticksText = that.bars.selectAll(".ticksText")
-                            .data(function(d) {
-                                    return d.values;
-                            });
+                if(that.label.size) {
+                    that.txt_width;
+                    that.txt_height;
+                    var ticks = that.bars.selectAll("g")
+                                .data(that.layers);
+                    
+                    var ticksText = that.bars.selectAll(".ticksText")
+                                .data(function(d) {
+                                        console.log(d.values);
+                                        return d.values;
+                                });
+                    ticksText.enter()
+                        .append("text")
+                        .attr("class","ticksText");
 
-                ticksText.enter()
-                    .append("text")
-                    .attr("class","ticksText");
-
-                ticksText.attr("class","ticksText")
-                    .attr("x", function(d){
-                        return that.xScale(d.x0)+that.xScale(d.x)-16;
-                    })
-                    .attr("y",function(d){
-                        return that.yScale(d.y)+15;
-                    })
-                    .text(function(d) {
-                        if(d.x) { 
-                            return d.x;
+                    ticksText.attr("class","ticksText")
+                        .text(function(d) {
+                            if(d.x) { 
+                                console.log(d.x);
+                                return d.x;
+                            }
+                        })
+                        .style("font-weight", that.label.weight)
+                        .style("font-size", that.label.size)
+                        .attr("fill", that.label.color)
+                        .style("font-family", that.label.family)
+                        .text(function(d) {
+                            if(d.x) {
+                                that.txt_width = this.getBBox().width;
+                                that.txt_height = this.getBBox().height;
+                            if(d.x && (that.txt_width< that.xScale(d.x)) && (that.txt_height < (that.yScale.rangeBand()+that.height_factor ))) {                                   
+                                return d.x;
+                            }
                         }
-                    })
-                    .attr("font-size",10)
-                    .attr("fill","white");
+                        })
+                        .attr("x", function(d){
+                            var bar_width  = that.xScale(d.x);
+                            return that.xScale(d.x0) + that.xScale(d.x) - that.txt_width - 5;    
+                        })
+                        .attr("y",function(d){
+                            return that.yScale(d.y)-that.y_factor+(that.yScale.rangeBand()/2);
+                        })
+                        .attr("dy",5)
+                        .style("font-size",function(d) {
+                            console.log(that.label.size);
+                            return that.label.size;
+                        });
+
+                    ticksText.exit().remove();
+                }
 
                 return this;
             },
@@ -466,7 +492,7 @@ PykCharts.multi_series_2D.ultimateBar = function(options){
     // The structure of the layer is made so that is plays well with d3.stack.layout()
     // Docs - https://github.com/mbostock/d3/wiki/Stack-Layout#wiki-values
 
-    this.layers = function(the_bars){
+    this.buildLayers = function(the_bars){
         var layers = [];
 
         function findLayer(l){
