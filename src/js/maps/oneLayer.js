@@ -129,7 +129,7 @@ PykCharts.maps.oneLayer = function (options) {
             .attr("fill", that.renderColor)
             .attr("opacity", that.renderOpacity)
             .attr("stroke", that.boder_color)
-            .attr("stroke-width", that.boder_thickness)
+            .attr("stroke-width", that.boder_thickness + "px")
             .on("mouseover", function (d) {
                 console.log((_.where(that.data, {iso2: d.properties.iso_a2})[0]).tooltip)
                 if (PykCharts.boolean(that.tooltip)) {
