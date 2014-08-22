@@ -101,30 +101,23 @@ PykCharts.tree.openTree = function (options) {
                 var link = that.group.selectAll(".link")
                     .data(links);
 
-                    link.enter()
-                        .append("path")
-                    
-                 
-                    .attr("class", "link")
-                    .attr("d", function(d) {
-                        var o = {x: that.root.x0, y: that.root.y0};
-                        return diagonal({source: o, target: o});
-                    });
-
-                // console.log()
+                link.enter()
+                    .append("path")
                 
-                    link.transition()
-                        .duration(that.transitions.duration())
-                        .attr("d", diagonal);
+             
+                .attr("class", "link")
+                .attr("d", function(d) {
+                    console.log("abc");
+                    var o = {x: that.root.x0, y: that.root.y0};
+                    return diagonal({source: o, target: o});
+                });
+            
+                link.transition()
+                    .duration(that.transitions.duration())
+                    .attr("d", diagonal);
 
-                    // link.transition()
-                    //     .duration(that.transitions.duration())  
-                    //     .attr("class", "link")
-                    //     .attr("d", diagonal);
+                link.exit().remove();
 
-                    link.exit().remove();
-
-                console.log()
                 that.node = that.group.selectAll(".node")
                     .data(that.nodes);
 
@@ -132,21 +125,17 @@ PykCharts.tree.openTree = function (options) {
                         .append("g");
 
                 that.nodeEnter.attr("class", "node")
-                        // .transition()
-                        // .duration(that.transitions.duration())
-                        // .attr("transform", function(d) { return "translate(" + that.root.y0 + "," + that.root.x0 + ")"; })
+
+                that.nodeEnter.transition()
+                        .duration(that.transitions.duration())
+                        .attr("transform", function(d) { return "translate(" + that.root.y0 + "," + that.root.x0 + ")"; })
 
                 that.nodeEnter.append("circle");
                 
-                console.log(that.root.y0,that.root.x0);
                 that.nodeUpdate = that.node
-                        .attr("transform", function(d) { return "translate(" + that.root.y0 + "," + that.root.x0 + ")"; })
+                       .attr("transform", function(d) { return "translate(" + that.root.y0 + "," + that.root.x0 + ")"; })
 
                 that.nodeUpdate.select("g.node circle")
-                    .attr("r", that.nodeRadius)
-                    .style("fill",that.chartColor)
-                    .style("stroke",that.border.color())
-                    .style("stroke-width",that.border.width())
                     .on('mouseover',function (d) {
                         that.mouseEvent.tooltipPosition(d);
                         that.mouseEvent.toolTextShow(d.key);
@@ -156,12 +145,16 @@ PykCharts.tree.openTree = function (options) {
                     })
                     .on('mousemove', function (d) {
                         that.mouseEvent.tooltipPosition(d);
-                    });
+                    })
+                    .attr("r", that.nodeRadius)
+                    .style("fill",that.chartColor)
+                    .style("stroke",that.border.color())
+                    .style("stroke-width",that.border.width());
+
 
                 that.nodeUpdate.transition()
                         .duration(that.transitions.duration())
-                        .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; })
-                        
+                        .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; })                        
  
                 that.node.exit().remove();
 
@@ -169,10 +162,13 @@ PykCharts.tree.openTree = function (options) {
             return this;
             },
             label : function() {
-               if(that.label.size) {                   
-                    that.nodeEnter.append("text");
+               if(that.label.size) {     
+
+                    that.nodeEnter.append("text")
 
                     that.nodeUpdate.select("g.node text")
+                        .transition()
+                        .delay(that.transitions.duration())
                         .attr("dx", function(d) { return d.values ? -8 : 8; })
                         .attr("dy", 3)
                         .text(function(d) { return d.key; })
@@ -181,6 +177,7 @@ PykCharts.tree.openTree = function (options) {
                         .style("font-size", that.label.size)
                         .attr("fill", that.label.color)
                         .style("font-family", that.label.family);
+                        
                }
                 return this;    
             }
