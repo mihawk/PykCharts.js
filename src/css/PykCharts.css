@@ -1,3 +1,4 @@
+body {
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
@@ -11,14 +12,13 @@
 .PykCharts-multi-series2D path.multi-line {
   fill: none;
   stroke-width: 1px;
-  stroke: #ccc;
+  stroke: #58ADE6;
   cursor: pointer;
 }
 
 .PykCharts-multi-series2D path.multi-line-selected {
   fill: none;
   stroke-width: 3px;
-  stroke: steelblue;
   cursor: pointer;
 }
 

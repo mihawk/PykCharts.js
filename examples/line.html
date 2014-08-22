@@ -49,6 +49,9 @@
 							refreshFrequency: 0 // seconds
 						},
 						enableTooltip: "yes",
+						colors: {
+							highlightColor: "#4b6377"
+						},
 						axis : {
     						onHoverHighlightenable: "yes",
     						x: {
@@ -73,6 +76,9 @@
     							tickFormat: ""
     						}
     					},
+    					legends: {
+				            enable: "yes"
+        				},
     					dataSource:{
 	                        text: "World Bank",
 	                        url: "http://www.pykih.com/"
@@ -82,10 +88,7 @@
 	                        mySiteUrl: "https://google.com"
 	                    },					
 						curvy_lines : "yes",
-			            enableCrossHair: "yes",
-			            zoom: {
-			                enable: "yes"
-			        	}
+			            enableCrossHair: "yes"
 				    }
 				});
 				k.execute();

@@ -258,24 +258,6 @@ PykCharts.multiD.bubbleSizeCalculation = function (options,data,rad_range) {
     return size;
 };
 
-// PykCharts.multiD.pulseBubbleSize = function (options,data) {
-//     var len = data.length,z;
-//     var size = function (d,i) {
-//         if(d && PykCharts.boolean(options.size.enable)/* && options.optional.color.enable==="yes"*/) {
-//                 z = d3.scale.linear()
-//                         .domain([0, d3.max(data[i].collection, function (d) {
-//                             return d[1];
-//                         })])
-//                         .range([2,12]);           
-//                 return z(d);
-//         } else { 
-//             return options.optional.chart.radius;
-//         }
-//     };
-//     return size;
-// };
-
-
 PykCharts.multiD.processInputs = function (chartObject, options) {
     var theme = new PykCharts.Configuration.Theme({}),
         stylesheet = theme.stylesheet,
