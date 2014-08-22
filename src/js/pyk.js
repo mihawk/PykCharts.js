@@ -820,6 +820,7 @@ configuration.Theme = function(){
             "text": "Others", //text must be resused as tooltipText
             "maximumNodes": 5
         },
+        // "enableLabel": "yes",
         "pictograph": {
             "showActive": "yes", //removes the grey heart i.e just shows the actual number of heart
             "enableLabel": "yes", //shows both the text when yes

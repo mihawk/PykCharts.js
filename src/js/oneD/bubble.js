@@ -32,7 +32,8 @@ PykCharts.oneD.bubble = function (options) {
             that.k.subtitle();
 
             var bubble = that.optionalFeatures().svgContainer()
-                .createBubble();
+                .createBubble()
+                .label();
 
             that.k.credits()
                 .dataSource()
@@ -43,7 +44,8 @@ PykCharts.oneD.bubble = function (options) {
        }
        else if (that.mode ==="infographics") {
             that.optionalFeatures().svgContainer()
-                .createBubble();
+                .createBubble()
+                .label();
 
             that.k.tooltip();
             that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
@@ -78,13 +80,10 @@ PykCharts.oneD.bubble = function (options) {
                 })
                 var l = that.b.children.length;
                 that.max = that.b.children[l-1].weight;
-                var node = that.bubble.nodes(that.b);
+                that.node = that.bubble.nodes(that.b);
 
                 that.bub_node = that.group.selectAll(".node")
-                    .data(node);
-
-                that.bub_text = that.group.selectAll("text")
-                    .data(node);
+                    .data(that.node);
 
                 that.bub_node.enter()
                     .append("g")
@@ -121,39 +120,45 @@ PykCharts.oneD.bubble = function (options) {
                     .transition()
                     .duration(that.transitions.duration())
                     .attr("r",function (d) {return d.r; });
+            
+                return this;
+            },
+            label : function () {
 
-                that.bub_text.enter()
+                    that.bub_text = that.group.selectAll("text")
+                        .data(that.node);
+
+                    that.bub_text.enter()
                     .append("text")
                     .style("pointer-events","none");
 
-                that.bub_text.attr("text-anchor","middle")
-                    .attr("transform",function (d) {return "translate(" + d.x + "," + (d.y + 5) +")";})
-                    .text("")
-                    .transition()
-                    .delay(that.transitions.duration());
+                    that.bub_text.attr("text-anchor","middle")
+                        .attr("transform",function (d) {return "translate(" + d.x + "," + (d.y + 5) +")";})
+                        .text("")
+                        .transition()
+                        .delay(that.transitions.duration());
 
-                that.bub_text
-                    .text(function (d) { return d.children ? " " :  d.name; })
-                    .attr("pointer-events","none")
-                    .text(function (d) {
-                        if(this.getBBox().width< 2*d.r && this.getBBox().height<2*d.r) {
-                            return d.children ? " " :  d.name;
-                        }
-                        else {
-                             return "";
+                    that.bub_text
+                        .text(function (d) { return d.children ? " " :  d.name; })
+                        .attr("pointer-events","none")
+                        .text(function (d) {
+                            if(this.getBBox().width< 2*d.r && this.getBBox().height<2*d.r) {
+                                return d.children ? " " :  d.name;
                             }
-                    })
-                    .style("font-weight", that.label.weight)
-                    .style("font-size",function (d,i) {
-                        if (d.r > 24) {
-                            return that.label.size;
-                        } else {
-                            return "10px";
-                        }
-                    })
-                    .attr("fill", that.label.color)
-                    .style("font-family", that.label.family);
-
+                            else {
+                                 return "";
+                                }
+                        })
+                        .style("font-weight", that.label.weight)
+                        .style("font-size",function (d,i) {
+                            if (d.r > 24) {
+                                return that.label.size;
+                            } else {
+                                return "10px";
+                            }
+                        })
+                        .attr("fill", that.label.color)
+                        .style("font-family", that.label.family);
                 return this;
             },
             clubData : function () {
