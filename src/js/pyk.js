@@ -902,7 +902,21 @@ configuration.Theme = function(){
     };
 
     that.mapsTheme = {
-        "mapCode": "india-topo"
+        "mapCode": "india-topo",
+        "axis" : {
+            "onHoverHighlightenable": "no",
+            "x": {
+                "enable": "yes",
+                "orient" : "bottom",
+                "axisColor": "#1D1D1D",
+                "labelColor": "#1D1D1D",
+                "no_of_ticks": 10,
+                "tickSize": 5,
+                "tickFormat": "",
+                "ticksPadding": 6,
+                "tickValues": []
+            }
+        }
     };
     return that;
 }
