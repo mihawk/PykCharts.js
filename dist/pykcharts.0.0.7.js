@@ -2235,7 +2235,9 @@ PykCharts.oneD.pie = function (options) {
            that.k.loading();
         }
         d3.json(options.data, function (e, data) {
+            console.log(data);
             that.data = Array.groupBy(data);
+            console.log(that.data);
             $(options.selector+" #chart-loader").remove();
             var pieFunctions = new PykCharts.oneD.pieFunctions(options,that,"pie");
             pieFunctions.render();
@@ -2387,6 +2389,8 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                 d3.select(options.selector +" "+"#pieGroup").node().innerHTML="";
                 that.chartData = that.optionalFeatures().clubData();
 
+                console.log(that.chartData);
+
                 if(type.toLowerCase() == "pie" || type.toLowerCase() == "donut") {
                     that.chartData.sort(function (a,b) { return a.weight - b.weight;});
                     var temp = that.chartData.pop();
@@ -2521,6 +2525,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                     var others_Slice = {"name":that.clubData.text,"color":that.clubData.color,"tooltip":that.clubData.tooltipText,"highlight":false};
                     var index;
                     var i;
+                    console.log(that.data);
                     that.getIndexByName = function(name) {
                         for(i=0;i<that.data.length;i++)
                         {
@@ -2586,6 +2591,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                 else {
                     that.displayData = that.data;
                 }
+                console.log(that.displayData);
                 return that.displayData;
             },
             ticks : function () {
@@ -3378,7 +3384,7 @@ PykCharts.oneD.treemap = function (options){
                 return this;
             },
             label_drawn: function () {
-                if(that.enableText) {
+                // if(that.enableText) {
                     that.treemap_text = that.group.selectAll(".name")
                         .data(that.node);
                     that.treemap_text1 = that.group.selectAll(".weight")
@@ -3443,11 +3449,11 @@ PykCharts.oneD.treemap = function (options){
                         .remove();
                     that.treemap_text1.exit()
                         .remove();
-                }
+                // }
                 return this;
             },
             clubData : function () {
-                if(PykCharts.boolean()){
+                if(PykCharts.boolean(that.clubData.enable)){
                     var clubdata_content = [],weight = 0,k=0;
                     if(that.data.length <= that.clubData.maximumNodes) {
                         that.new_data1 = { "children" : that.data };
