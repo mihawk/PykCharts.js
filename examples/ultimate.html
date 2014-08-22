@@ -1,25 +1,21 @@
 <html>
 <head>
+	<title>Ultimate Column</title>
 	<script src="../lib/d3.min.js"></script>
 	<script src="../lib/jquery-1.11.1.min.js"></script> 
 	<script src="../lib/underscore-min.js"></script>
 	<script src="../lib/jquery.bpopup.min.js"></script>
-	<script src="../lib/canvas2image.js"></script>
-	<script type="../lib/base64.js"></script>
 	<link rel="stylesheet" type="text/css" href="../src/css/PykCharts.css">
 </head>
 <body>
-	<div id="ultimate-container3">
-	</div>
+	<div id="ultimate-container3"></div>
 	<script src="../src/js/pyk.js"></script>
-	<script src="../src/js/multiD/twoD.js"></script>
-	<script src="../src/js/multiD/multi-series2D.js"></script>
+	<script src="../src/js/multiD/multiD.js"></script>
+	<!--<script src="../src/js/multiD/multi-series2D.js"></script>-->
 	<script src="../src/js/multiD/ultimate.js"></script>
 	<script type="text/javascript">
-
-		$(document).ready(function(e) {
-		
-			var k = new PykCharts.multi_series_2D.ultimate({
+		$(document).ready(function(e) {		
+			var k = new PykCharts.multiD.ultimate({
 		        data: "../data/ultimate.json",
 		        mode: "default",
 		        selector: "#ultimate-container3",
@@ -34,13 +30,13 @@
 				},
 				optional : {
 					title: { 
-                        text: "Malnutrition in India",                            
+                        text: "Malnutrition in India"
                     },
                     subtitle: {
                         text: "Malnutrition in India Malnutrition in India Malnutrition in India Malnutrition in India"
                     },
                     realTimeCharts: {
-                        refreshFrequency: 1 // seconds
+                        refreshFrequency: 0 // seconds
                     },
 					axis : {
 						onHoverHighlightenable: "yes",

@@ -23,6 +23,7 @@ PykCharts.weighted.configuration = function (options){
 };
 
 PykCharts.weighted.bubbleSizeCalculation = function (options,data) {
+    rad_range = rad_range || [7,18];
     var size = function (d) {
         if(d && PykCharts.boolean(options.size.enable)) {
             var z = d3.scale.linear()

@@ -39,8 +39,8 @@
                 data:"../data/tree.json",
                 mode: "default",
                 chart: {
-                    height: 400,
-                    width: 430,
+                    height: 700,
+                    width: 700,
                     margin:{"top": 40, "right": 40, "bottom": 40, "left": 40}
                 },
                 optional:{
@@ -50,6 +50,7 @@
                     subtitle: {
                         text: "Malnutrition in India Malnutrition in India Malnutrition in India Malnutrition in India"
                     },
+                    nodeRadius : 4.5, 
                     dataSource:{
                         text: "World Bank",
                         url: "http://www.pykih.com/"
@@ -64,7 +65,7 @@
                     enableTooltip: "yes",
                     label:{ //partially done for oneD, pending for twoD
                       size: "13",
-                      color: "white",
+                      color: "#1D1D1D",
                       weight: "thin",
                       family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
                     },
@@ -72,11 +73,11 @@
                       animationGifUrl: "../img/preloader.gif"
                     },
                     zoom : {
-                        enable : "no"
+                        enable : "yes"
                     },
                     borderBetweenChartElements:{ //done for oneD
-                        width: "1px", // if width is 0 means it is disabled.
-                        color: "white",
+                        width: "1.5px", // if width is 0 means it is disabled.
+                        color: "steelblue",
                         style: "solid" // could be dotted too
                     },
                     colors:{
@@ -85,7 +86,7 @@
                     }
                 }
             });
-//            k.execute();
+           k.execute();
 
             var k = new PykCharts.tree.openTree({
                 selector: "#openTree",
@@ -139,14 +140,14 @@
                     }
                 }
             });
-            k.execute();
+            // k.execute();
 
             var k = new PykCharts.tree.sunburst({
                 selector: "#sunburst",
                 data:"../data/tree.json",
                 chart: {
-                    height: 400,
-                    width: 430
+                    height: 500,
+                    width: 500
                 },
                 optional:{
                     title: {
@@ -177,7 +178,10 @@
                     },
                     colors:{
                         backgroundColor: "white",
-                        chartColor: "steelblue"
+                        // chartColor: "steelblue"
+                    },
+                    zoom : {
+                        enable : "yes"
                     },
                     borderBetweenChartElements : {
                         width: "1px", // if width is 0 means it is disabled.

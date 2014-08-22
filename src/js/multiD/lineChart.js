@@ -1,22 +1,22 @@
-PykCharts.twoD.line = function (options){
+PykCharts.multiD.line = function (options){
 	var that = this;
 	var theme = new PykCharts.Configuration.Theme({});
 
 	this.execute = function (){
-		that = new PykCharts.twoD.processInputs(that, options, "line");
+		that = new PykCharts.multiD.processInputs(that, options, "line");
 		
 		if(that.mode === "default") {
 			that.k.loading();
 		}
-		var twoDimensionalCharts = theme.twoDimensionalCharts,
+		var multiDimensionalCharts = theme.multiDimensionalCharts,
 				stylesheet = theme.stylesheet,
 				optional = options.optional;
-		that.enableCrossHair = optional && optional.enableCrossHair ? optional.enableCrossHair : twoDimensionalCharts.enableCrossHair;
-		that.curvy_lines = optional && optional.curvy_lines ? optional.curvy_lines : twoDimensionalCharts.curvy_lines;
+		that.enableCrossHair = optional && optional.enableCrossHair ? optional.enableCrossHair : multiDimensionalCharts.enableCrossHair;
+		that.curvy_lines = optional && optional.curvy_lines ? optional.curvy_lines : multiDimensionalCharts.curvy_lines;
 		that.grid = options.chart && options.chart.grid ? options.chart.grid : stylesheet.chart.grid;
     that.grid.yEnabled = options.chart && options.chart.grid && options.chart.grid.yEnabled ? options.chart.grid.yEnabled : stylesheet.chart.grid.yEnabled;
     that.grid.xEnabled = options.chart && options.chart.grid && options.chart.grid.xEnabled ? options.chart.grid.xEnabled : stylesheet.chart.grid.xEnabled;
-    that.multiple_containers = optional && optional.multiple_containers && optional.multiple_containers.enable ? optional.multiple_containers.enable : twoDimensionalCharts.multiple_containers.enable;
+    that.multiple_containers = optional && optional.multiple_containers && optional.multiple_containers.enable ? optional.multiple_containers.enable : multiDimensionalCharts.multiple_containers.enable;
     that.interpolate = PykCharts.boolean(that.curvy_lines) ? "cardinal" : "linear";
     
 		d3.json(options.data, function (e, data) {
@@ -497,7 +497,7 @@ PykCharts.twoD.line = function (options){
 			
 			for (i = 0;i < that.new_data_length;i++) {
 				type = that.type + "-svg-" + i;    	
-				that.svg.select("#"+type)
+				that.svg.select(that.selector+" #"+type)
 					.attr("class", that.chartPathClass)
 					.attr("d", that.chart_path);    	
 			}
@@ -521,17 +521,17 @@ PykCharts.twoD.line = function (options){
 			that.start_pt_circle = $("#"+that.pt_circle.attr("id")).clone().appendTo(that.selector+" #svg-1");
 			that.start_pt_circle
 					.attr("id","start-pt-line"+svgid);
-			that.end_pt_circle = $(that.selector+" #"+that.start_pt_circle.attr("id")).clone().appendTo(that.selector+" #svg-1");
+			that.end_pt_circle = $("#"+that.start_pt_circle.attr("id")).clone().appendTo(that.selector+" #svg-1");
 	  	that.end_pt_circle
 	  			.attr("id","end-pt-line"+svgid);
 
 		} else {
 			that.pt_circle.attr("id","pt-line"+svgid);
 
-			that.start_pt_circle = $(that.selector+" #"+that.pt_circle.attr("id")).clone().appendTo(that.selector+" #"+svgid);
+			that.start_pt_circle = $("#"+that.pt_circle.attr("id")).clone().appendTo(that.selector+" #"+svgid);
 			that.start_pt_circle
-					.attr("id","start-pt-line"+svgid);
-			that.end_pt_circle = $(that.selector+" #"+that.start_pt_circle.attr("id")).clone().appendTo(that.selector+" #"+svgid);
+					.attr("id","start-pt-line" + svgid);
+			that.end_pt_circle = $("#"+that.start_pt_circle.attr("id")).clone().appendTo(that.selector+" #"+svgid);
 	  	that.end_pt_circle
 	  			.attr("id","end-pt-line"+svgid);
 		}
@@ -542,17 +542,17 @@ PykCharts.twoD.line = function (options){
 				end_x = (that.xScale(that.selected_line_data[(that.selected_line_data_len - 1)].x) + that.lineMargin + that.margin.left),
 				end_y = (that.yScale(that.selected_line_data[(that.selected_line_data_len - 1)].y) + that.margin.top);
 		
-		d3.select(that.selector + " #start-pt-line"+svgid+" circle")
+		d3.select(that.selector + " #start-pt-line" + svgid + " circle")
 			.style("visibility","visible");
-		d3.select(that.selector + " #end-pt-line"+svgid+" circle")
+		d3.select(that.selector + " #end-pt-line" + svgid + " circle")
 			.style("visibility","visible");
 
 		that.start_pt_circle.show();
-		that.start_pt_circle.select(that.selector+" circle")
+		that.start_pt_circle.select(that.selector + " circle")
 				.attr("class","bullets")
 				.attr("transform", "translate(" + start_x + "," + start_y + ")");
 		that.end_pt_circle.show();
-		that.end_pt_circle.select(that.selector+" circle")
+		that.end_pt_circle.select(that.selector + " circle")
 				.attr("class","bullets")
 				.attr("transform", "translate(" + end_x + "," + end_y + ")");
 	};

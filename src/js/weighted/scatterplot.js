@@ -28,20 +28,20 @@ PykCharts.weighted.scatterplot = function (options) {
     };
 
     this.refresh = function () {
-            d3.json(options.data, function (e, data) {
-                that.data = data;
+        d3.json(options.data, function (e, data) {
+            that.data = data;
 
-                that.optionalFeatures()
-                        .createScatterPlot()
-                        .legends()
-                        .ticks();
-            });
-        };
+            that.optionalFeatures()
+                    .createScatterPlot()
+                    .legends()
+                    .ticks();
+        });
+    };
 
     this.render = function () {
         var that = this;
 
-        that.fillChart = new PykCharts.weighted.fillChart(that);
+        that.fillChart = new PykCharts.Configuration.fillChart(that);
 
         that.border = new PykCharts.Configuration.border(that);
 

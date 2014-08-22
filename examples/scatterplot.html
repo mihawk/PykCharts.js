@@ -10,14 +10,14 @@
 <body>
 	<div id="scatterplot" style="position:relative;width:1000px;"></div>
 	<script src="../src/js/pyk.js"></script>
-	<script src="../src/js/multiD/twoD.js"></script>
-	<script src="../src/js/multiD/weighted.js"></script>
+	<script src="../src/js/multiD/multiD.js"></script>
+	<!--<script src="../src/js/multiD/weighted.js"></script>-->
 	<script src="../src/js/multiD/scatterplot.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function(e) {		
-			var k = new PykCharts.weighted.scatterplot({
+			var k = new PykCharts.multiD.scatterplot({
 				selector: "#scatterplot",
-				data: "../data/scatterplot.json",
+				data: "../data/pulse2.json",
 				mode : "default", //  default or infographics
 				yAxisDataFormat : "number",
 				xAxisDataFormat : "number",
@@ -31,9 +31,9 @@
 		                color:""
 			       },
 				},
-				scatterplot : {
-					radius: 9
-				},
+                scatterplot : {
+                    radius: 9
+                },
 				optional : {
 					title: { 
                         text: "Malnutrition in India"                            
@@ -45,7 +45,7 @@
                         refreshFrequency: 0 // seconds
                     },
 					multiple_containers: {
-						enable : "no"
+						enable : "yes"
 					},	
 					size : {
 						enable : "no"
@@ -99,7 +99,7 @@
 						width: "5px",
 						color: "red"
 					},
-					enableCrossHair: "yes"
+					enableCrossHair: "no"
 				}
 			}); 
 			k.execute();

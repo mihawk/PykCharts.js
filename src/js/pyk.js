@@ -30,8 +30,7 @@ PykCharts.boolean = function(d) {
     }
 };
 
-PykCharts.Configuration = function (options)
-{
+PykCharts.Configuration = function (options){
 	var that = this;
 
 	var configuration = {
@@ -222,7 +221,7 @@ PykCharts.Configuration = function (options)
                             .style("min-width","30px")
                             .style("z-index","10")
                             .style("visibility", "hidden");
-                    };
+                    }
                 } else {
 	        		PykCharts.Configuration.tooltipp = d3.select("body")
 		                .append("div")
@@ -454,7 +453,7 @@ configuration.mouseEvent = function (options) {
             }
         },
         crossHairPosition: function(data,xScale,dataLineGroup,lineMargin){
-            if(PykCharts.boolean(options.enableCrossHair) && options.mode === "default") {
+            if((PykCharts.boolean(options.enableCrossHair) || PykCharts.boolean(options.enableTooltip) || PykCharts.boolean(options.onHoverHighlightenable))  && options.mode === "default") {
                 var offsetLeft = $(options.selector + " " + "#"+dataLineGroup.attr("id")).offset().left;
                 var offsetRight = $(options.selector + " " + "#"+dataLineGroup.attr("id")).offset().right;
                 var left = options.margin.left;
@@ -497,12 +496,12 @@ configuration.mouseEvent = function (options) {
     			if((cx >= (lineMargin + left + 1)) && (cx <= (pathWidth + lineMargin + left + 2)) && (cy >= top) && (cy <= (h - bottom))) {
                 	this.tooltipPosition(tooltipText,cx,top,-30,-3);
                     this.toolTextShow(tooltipText);
-                    this.crossHairShow(cx,top,cx,(h - bottom),cx,cy);
+                    (options.enableCrossHair) ? this.crossHairShow(cx,top,cx,(h - bottom),cx,cy) : null;
                     this.axisHighlightShow(activeTick,options.selector+" "+".x.axis");
                 }
                 else{
                   	this.tooltipHide();
-                  	this.crossHairHide();
+                  	(options.enableCrossHair) ? this.crossHairHide() : null;
                   	this.axisHighlightHide(options.selector+" "+".x.axis");
                   	// crossHairH.style("display","none");
                 }
@@ -550,7 +549,6 @@ configuration.mouseEvent = function (options) {
                 if(j_prev !== undefined) {
                     d3.select(d3.selectAll(selection)[0][j_prev])
                         .style("fill",abc)
-                        .style("font-size","12px")
                         .style("font-weight","normal");
                 }
 
@@ -559,6 +557,7 @@ configuration.mouseEvent = function (options) {
 
                 d3.selectAll(selection)
                     .style("fill","#bbb")
+                    .style("font-size","12px")
                     .style("font-weight","normal");
                 d3.select(d3.selectAll(selection)[0][j_curr])
                     .style("fill",abc)
@@ -595,7 +594,8 @@ configuration.mouseEvent = function (options) {
     return action;
 };
 
-configuration.fillChart = function (options) {
+configuration.fillChart = function (options,theme,config) {
+    var that = this;
     var fillchart = {
         color : function (d) { return d.color; },
         saturation : function (d) { return "steelblue"; },
@@ -603,6 +603,34 @@ configuration.fillChart = function (options) {
             if(d.highlight === true) {
                 return options.highlightColor;
             } else{
+                return options.chartColor;
+            }
+        },
+        colorChart : function (d) {
+            if(d.highlight === true) {
+                return theme.stylesheet.colors.highlightColor;
+            } else{
+                return theme.stylesheet.colors.chartColor;
+            }
+        },
+        colorPieW : function (d) {
+            if(!(PykCharts.boolean(options.size.enable))) {
+                return options.saturationColor;
+            } else if(PykCharts.boolean(options.size.enable)) {
+                if(d.color) {
+                    return d.color;
+                }
+                return options.chartColor;
+            }
+        },
+        colorPieMS : function (d) {
+            if(PykCharts.boolean(d.highlight)) {
+                return options.highlightColor;
+            } else if(config.optional && config.optional.colors && config.optional.colors.chartColor) {
+                return options.chartColor;
+            } else if(config.optional && config.optional.colors && d.color){
+                return d.color;
+            } else {
                 return options.chartColor;
             }
         }
@@ -699,8 +727,8 @@ configuration.Theme = function(){
     that.stylesheet = {
         "chart": {
             "height": 400,
-            "width": 430,
-            "margin":{"top": 40, "right": 40, "bottom": 40, "left": 40},
+            "width": 600,
+            "margin":{"top": 0, "right": 0, "bottom": 0, "left": 0},
             "grid" : {
                 "xEnabled":"yes",
                 "yEnabled":"yes",
@@ -733,7 +761,7 @@ configuration.Theme = function(){
             "mySiteUrl": "http://www.pykih.com"
         },
         "colors":{
-            "backgroundColor": "white",
+            "backgroundColor": "transparent",
             "chartColor": "steelblue",
             "highlightColor": "#013F73",
             "saturationColor" : "green"
@@ -813,7 +841,7 @@ configuration.Theme = function(){
         }
     };
 
-    that.twoDimensionalCharts = {
+    that.multiDimensionalCharts = {
         "axis" : {
             "onHoverHighlightenable": "no",
             "x": {
@@ -874,7 +902,21 @@ configuration.Theme = function(){
     };
 
     that.mapsTheme = {
-        "mapCode": "india-topo"
+        "mapCode": "india-topo",
+        "axis" : {
+            "onHoverHighlightenable": "no",
+            "x": {
+                "enable": "yes",
+                "orient" : "bottom",
+                "axisColor": "#1D1D1D",
+                "labelColor": "#1D1D1D",
+                "no_of_ticks": 10,
+                "tickSize": 5,
+                "tickFormat": "",
+                "ticksPadding": 6,
+                "tickValues": []
+            }
+        }
     };
     return that;
 }

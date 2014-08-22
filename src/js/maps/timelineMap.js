@@ -6,6 +6,11 @@ PykCharts.maps.oneLayer = function (options) {
         //$(that.selector).css("height",that.height);
         that.data = options.data;
 
+        that.margin = {top:30, right:30, bottom:30, left:30};
+
+        that.reducedWidth = that.width - that.margin.left - that.margin.right;
+        that.reducedHeight = that.height - that.margin.top - that.margin.bottom;
+
         that.k
             .totalColors(that.totalColors)
             .colorType(that.colorType)
@@ -16,16 +21,18 @@ PykCharts.maps.oneLayer = function (options) {
             that.map_data = data;
 
             d3.json("../data/maps/colorPalette.json", function (data) {
-                that.colorPalette_data = data;
-                $(that.selector).html("");
-                that.render();
-                that.simulateLiveData(that.data);
+                d3.json("../data/maps/timeline.json", function (timeline_data) {
+                    that.colorPalette_data = data;
+                    that.timeline_data = timeline_data;
+                    $(that.selector).html("");
+                    that.render();
+                    that.simulateLiveData(that.data);
+                });
             });
         });
 
-        that.max_size = d3.max(that.data, function (sample) { return parseInt(sample.size, 10); });
-        that.min_size = d3.min(that.data, function (sample) { return parseInt(sample.size, 10); });
-        that.difference = that.max_size - that.min_size;
+        that.extent_size = d3.extent(that.data, function (d) { return parseInt(d.size, 10); });
+        that.difference = that.extent_size[1] - that.extent_size[0];
     };
 
     this.optionalFeatures = function () {
@@ -48,6 +55,15 @@ PykCharts.maps.oneLayer = function (options) {
                     that.onhover = "color_saturation";
                 };
                 return this;
+            },
+            axisContainer : function (ae) {
+                if(PykCharts.boolean(ae)){
+                    that.gxaxis = that.group.append("g")
+                            .attr("id","xaxis")
+                            .attr("class", "x axis")
+                            .attr("transform", "translate(0," + that.reducedHeight + ")");
+                }
+                return this;
             }
         }
         return config;
@@ -56,10 +72,12 @@ PykCharts.maps.oneLayer = function (options) {
     this.render = function () {
         var that = this;
 
-        var that = this,
-            scale = 150,
-            offset = [that.width / 2, that.height / 2],
-            i;
+        var that = this
+        , scale = 150
+        , offset = [that.width / 2, that.height / 2]
+        , i
+        , x_extent
+        , x_range;
 
         that.current_palette = _.where(that.colorPalette_data, {name:that.colorPalette, number:that.totalColors})[0];
 
@@ -163,15 +181,23 @@ PykCharts.maps.oneLayer = function (options) {
                 that.bodUncolor(d);
             });
 
-        this.optionalFeatures()
+        that.optionalFeatures()
             .enableLabel(that.label)
-            .enableClick(that.enable_click);
+            .enableClick(that.enable_click)
+            .axisContainer(true);
+
+        x_extent = d3.extent(that.timeline_data, function(d) { return parseInt(k.x,10); });
+        x_range = [0 ,that.reducedWidth];
+        that.xScale = that.k.scaleIdentification("time",x_extent,x_range);
+
+        that.k.xAxis(that.svg,that.gxaxis,that.xScale);
 
         that.k.dataSource(that.dataSource)
             .credits(that.creditMySite);
     };
 
     this.renderColor = function (d, i) {
+        console.log(d);
         var col_shade,
             obj;
             obj = _.where(that.data, {iso2: d.properties.iso_a2});
@@ -190,7 +216,7 @@ PykCharts.maps.oneLayer = function (options) {
                     if (that.colorPalette !== "") {
                         col_shade = _.where(that.data, {iso2: d.properties.iso_a2})[0].size;
                         for (i = 0; i < that.current_palette.colors.length; i++) {
-                            if (col_shade >= that.min_size + i * (that.difference / that.current_palette.colors.length) && col_shade <= that.min_size + (i + 1) * (that.difference / that.current_palette.colors.length)) {
+                            if (col_shade >= that.extent_size[0] + i * (that.difference / that.current_palette.colors.length) && col_shade <= that.extent_size[0] + (i + 1) * (that.difference / that.current_palette.colors.length)) {
                                 return that.current_palette.colors[i];
                             }
                         }
@@ -208,7 +234,7 @@ PykCharts.maps.oneLayer = function (options) {
 
         if (that.colorPalette === "" && that.colorType === "saturation") {
             that.oneninth = +(d3.format(".2f")(that.difference / 10));
-            that.opacity = (that.min_size + (_.where(that.data, {iso2: d.properties.iso_a2})[0]).size + that.oneninth) / that.difference;
+            that.opacity = (that.extent_size[0] + (_.where(that.data, {iso2: d.properties.iso_a2})[0]).size + that.oneninth) / that.difference;
             return that.opacity;
         }
         return 1;
@@ -226,7 +252,7 @@ PykCharts.maps.oneLayer = function (options) {
                 .attr("height", 50);
             if (that.colorPalette === "") {
                 for (k = 1; k <= 9; k++) {
-                    onetenth = d3.format(".1f")(that.max_size / 9);
+                    onetenth = d3.format(".1f")(that.extent_size[1] / 9);
                     that.leg = d3.round(onetenth * k);
                     that.legs.append("rect")
                         .attr("x", k * (that.width / 11))
@@ -245,7 +271,7 @@ PykCharts.maps.oneLayer = function (options) {
                 }
             } else {
                 for (k = 1; k <= that.current_palette.number; k++) {
-                    that.leg = d3.round(that.min_size + k * (that.difference / that.current_palette.number));
+                    that.leg = d3.round(that.extent_size[0] + k * (that.difference / that.current_palette.number));
                     that.legs.append("rect")
                         .attr("x", k * that.width / (that.current_palette.number + 2))
                         .attr("y", 20)
@@ -289,7 +315,7 @@ PykCharts.maps.oneLayer = function (options) {
                     .attr("opacity", function () {
                         if (that.colorPalette === "" && that.colorType === "saturation") {
                             that.oneninth_dim = +(d3.format(".2f")(that.difference / 10));
-                            that.opacity_dim = (that.min_size + (_.where(that.data, {iso2: d.properties.iso_a2})[0]).size + that.oneninth_dim) / that.difference;
+                            that.opacity_dim = (that.extent_size[0] + (_.where(that.data, {iso2: d.properties.iso_a2})[0]).size + that.oneninth_dim) / that.difference;
                             return that.opacity_dim/2;
                         }
                         return 0.5;
@@ -299,7 +325,7 @@ PykCharts.maps.oneLayer = function (options) {
                     .attr("opacity", function () {
                         if (that.colorPalette === "" && that.colorType === "saturation") {
                             that.oneninth_dim = +(d3.format(".2f")(that.difference / 10));
-                            that.opacity_dim = (that.min_size + (_.where(that.data, {iso2: d.properties.iso_a2})[0]).size + that.oneninth_dim) / that.difference;
+                            that.opacity_dim = (that.extent_size[0] + (_.where(that.data, {iso2: d.properties.iso_a2})[0]).size + that.oneninth_dim) / that.difference;
                             return that.opacity_dim/2;
                         }
                         return 0.5;
@@ -318,7 +344,7 @@ PykCharts.maps.oneLayer = function (options) {
             .attr("opacity", function () {
                 if (that.colorPalette === "" && that.colorType === "saturation") {
                     that.oneninth_high = +(d3.format(".2f")(that.difference / 10));
-                    that.opacity_high = (that.min_size + (_.where(that.data, {iso2: d.properties.iso_a2})[0]).size + that.oneninth_high) / that.difference;
+                    that.opacity_high = (that.extent_size[0] + (_.where(that.data, {iso2: d.properties.iso_a2})[0]).size + that.oneninth_high) / that.difference;
                     return that.opacity_high;
                 }
                 return 1;
