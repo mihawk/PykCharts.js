@@ -32,7 +32,7 @@ PykCharts.multiD.ultimateBar = function(options){
             that.optionalFeatures()
                     .createColumnChart()
                     .legends();
-                    //.ticks();
+            that.k.xAxis(that.svg,that.xgroup,that.xScale);
         });
     };
 
@@ -78,9 +78,6 @@ PykCharts.multiD.ultimateBar = function(options){
                .ticks();
 
             that.k.xAxis(that.svg,that.xgroup,that.xScale)
-                 .xGrid(that.svg,that.group,that.xScale);
-//               .yAxis(that.svg,that.ygroup,that.y0);
-              
         } else if(that.mode === "infographics") {
             that.optionalFeatures().svgContainer()
                 .createColumnChart()
@@ -89,8 +86,6 @@ PykCharts.multiD.ultimateBar = function(options){
             that.k.tooltip();
             that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
             that.k.xAxis(that.svg,that.xgroup,that.xScale);
-           //    .yAxis(that.svg,that.ygroup,that.y0)
-            
         }
     };
 
@@ -110,13 +105,7 @@ PykCharts.multiD.ultimateBar = function(options){
                     .attr("id","svggroup")
                     .attr("class","svggroup")
                     .attr("transform","translate(" + that.margin.left + "," + that.margin.top +")");
-               
-                if(PykCharts.boolean(that.grid.yEnabled)) {
-                    that.group.append("g")
-                        .attr("id","ygrid")
-                        .style("stroke",that.grid.color)
-                        .attr("class","y grid-line");
-                }
+            
                 return this;
             },
             legendsContainer: function () {

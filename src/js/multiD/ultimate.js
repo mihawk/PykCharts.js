@@ -117,8 +117,6 @@ PykCharts.multiD.ultimate = function(options){
                 return this;
             },
             legendsContainer: function () {
-                // console.log(that.legends,"that.legends");
-                // console.log(that);
                 if(PykCharts.boolean(that.legends.enable)) {
                     that.legend_svg = d3.select(that.selector).append("svg:svg")
                         .attr("width",that.width)
