@@ -6,7 +6,7 @@ PykCharts.maps.oneLayer = function (options) {
         //$(that.selector).css("height",that.height);
         that.data = options.data;
 
-        that.margin = {top:30, right:30, bottom:30, left:30};
+        that.margin = {top:10, right:30, bottom:30, left:30};
 
         that.reducedWidth = that.width - that.margin.left - that.margin.right;
         that.reducedHeight = that.height - that.margin.top - that.margin.bottom;
@@ -184,9 +184,11 @@ PykCharts.maps.oneLayer = function (options) {
             .style("padding-bottom", "30px")
             .append('div')
             .attr("id", "slider")
-            // .attr("style", "margin-left:"+that.margin.left+"px;width:"+that.width+"px")
+            .style("width",that.reducedWidth)
+            .style("margin-left", that.margin.left)
+            .style("margin-top", that.margin.top)
             .call(d3.slider()
-                    .axis(true)
+                    .axis(d3.svg.axis().orient("bottom"))
                     .min(x_extent[0])
                     .max(x_extent[1])
                     .step(1)
