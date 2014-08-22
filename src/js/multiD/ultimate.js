@@ -117,8 +117,6 @@ PykCharts.multiD.ultimate = function(options){
                 return this;
             },
             legendsContainer: function () {
-                // console.log(that.legends,"that.legends");
-                // console.log(that);
                 if(PykCharts.boolean(that.legends.enable)) {
                     that.legend_svg = d3.select(that.selector).append("svg:svg")
                         .attr("width",that.width)
@@ -147,13 +145,15 @@ PykCharts.multiD.ultimate = function(options){
                             .attr("x2",that.width-that.margin.left-that.margin.right)
                             .attr("y2",that.height-that.margin.top-that.margin.bottom)
                             .attr("stroke",that.axis.x.axisColor);
-
+                    if(that.axis.x.position === "top") {
+                        axis_line.attr("y1",0)
+                            .attr("y2",0);
+                    }
                     axis_line.exit().remove();
 
                     that.xgroup = that.group.append("g")
                         .attr("id","xaxis")
                         .attr("class", "x axis")
-                        .attr("transform","translate(0,"+(that.height-that.margin.top-that.margin.bottom)+")")
                         .style("stroke","none"); 
                 }
                 
@@ -249,6 +249,11 @@ PykCharts.multiD.ultimate = function(options){
                         });
 
                 xAxis_label.exit().remove();
+                if(that.axis.x.position==="top") {
+                    xAxis_label.attr("y", function () {
+                        return -15;
+                    });
+                }
 
                 var bars = that.group.selectAll(".bars")
                     .data(layers);
@@ -533,7 +538,10 @@ PykCharts.multiD.ultimate = function(options){
 
         var data_tranform = [];
         that.barName = [];
-        var data_length = that.data.length;                                                                                                             
+        var data_length = that.data.length;   
+        that.data.sort(function (a,b) {
+            return b.y - a.y;
+        }); 
         for(var i=0; i < data_length; i++) {
             var group = {},
                 bar = {},

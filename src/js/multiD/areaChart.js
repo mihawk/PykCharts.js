@@ -141,8 +141,7 @@ PykCharts.multiD.area = function (options){
         if(PykCharts.boolean(that.axis.x.enable)){
 					that.gxaxis = that.group.append("g")
 						.attr("id","xaxis")
-						.attr("class", "x axis")
-						.attr("transform", "translate(0," + that.reducedHeight + ")");
+						.attr("class", "x axis");
 				}
 				if(PykCharts.boolean(that.axis.y.enable)){
 					that.gyaxis = that.group.append("g")
