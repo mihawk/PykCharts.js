@@ -6,20 +6,35 @@
     </head>
     <body>
         <div id="line"></div>
+        <hr/>
         <div id="area"></div>
+        <hr/>
         <div id="multiLine"></div>
+        <hr/>
         <div id="multiArea"></div>
+        <hr/>
         <div id="pulse"></div>
+        <hr/>
         <div id="scatterPlot"></div>
+        <hr/>
         <div id="spiderWeb"></div>
+        <hr/>
         <div id="column"></div>
+        <hr/>
         <div id="groupColumn"></div>
+        <hr/>
         <div id="stackColumn"></div>
+        <hr/>
         <div id="groupStackColumn"></div>
+        <hr/>
         <div id="bar"></div>
+        <hr/>
         <div id="groupBar"></div>
+        <hr/>
         <div id="stackBar"></div>
+        <hr/>
         <div id="groupStackBar"></div>
+        <hr/>
         <script src="../lib/d3.min.js"></script>
         <script src="../lib/jquery-1.11.1.min.js"></script>
         <script src="../lib/underscore-min.js"></script>
@@ -54,6 +69,16 @@
                         },
                     },
                     optional:{
+                        title: { 
+                            text: "Malnutrition in India",                            
+                        },
+                        subtitle: {
+                            text: "Malnutrition in India Malnutrition in India Malnutrition in India Malnutrition in India"
+                        },
+                        dataSource:{
+                            text: "World Bank",
+                            url: "http://www.pykih.com/"
+                        },
                         transition : {
                             duration : 0 //milliseconds
                         },
@@ -110,6 +135,12 @@
                         }
                     },
                     optional:{
+                        title: { 
+                        text: "Malnutrition in India",                            
+                    },
+                    subtitle: {
+                        text: "Malnutrition in India Malnutrition in India Malnutrition in India Malnutrition in India"
+                    },
                         transition : {
                             duration : 0 //milliseconds
                         },
@@ -214,7 +245,7 @@
                         refreshFrequency: 0 // seconds
                     },
                     multiple_containers: {
-                        enable : "no",
+                        enable : "yes",
                     },                  
                     size : {
                         enable : "yes"
@@ -378,7 +409,7 @@
 
                 var k = new PykCharts.multiD.scatterplot({
                     selector: "#pulse",
-                    data: "../data/pulse2.json",
+                    data: "../data/pulse.json",
                     mode : "default", //  default or infographics
                     yAxisDataFormat : "string",
                     xAxisDataFormat : "number",
@@ -519,6 +550,12 @@
                     }
                 },
                 optional : {
+                    title: { 
+                            text: "Malnutrition in India",                            
+                        },
+                        subtitle: {
+                            text: "Malnutrition in India Malnutrition in India Malnutrition in India Malnutrition in India"
+                        },
                     realTimeCharts: {
                         refreshFrequency: 0 // seconds
                     },
