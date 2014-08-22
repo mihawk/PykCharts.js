@@ -538,7 +538,10 @@ PykCharts.multiD.ultimate = function(options){
 
         var data_tranform = [];
         that.barName = [];
-        var data_length = that.data.length;                                                                                                             
+        var data_length = that.data.length;   
+        that.data.sort(function (a,b) {
+            return b.y - a.y;
+        }); 
         for(var i=0; i < data_length; i++) {
             var group = {},
                 bar = {},

@@ -43,8 +43,10 @@ PykCharts.multiD.ultimateBar = function(options){
         var that = this;
 
         that.data = that.dataTransformation();
+        // console.log(that.data);
         that.data = that.emptygroups(that.data);
         var fD = that.flattenData();
+        // console.log(fD);
         that.the_bars = fD[0];
         that.the_keys = fD[1];
         that.the_layers = that.buildLayers(that.the_bars);
@@ -234,7 +236,7 @@ PykCharts.multiD.ultimateBar = function(options){
                     that.y_factor = that.yScale.rangeBand()/4;
                     that.height_factor = (that.yScale.rangeBand()/(2*that.max_length));
                 };
-
+                console.log()
                 var yAxis_label = that.group.selectAll("text.axis-text")
                     .data(group_label_data);
 
@@ -603,7 +605,10 @@ PykCharts.multiD.ultimateBar = function(options){
 
         var data_tranform = [];
         that.barName = [];
-        var data_length = that.data.length;                                                                                                             
+        var data_length = that.data.length; 
+        that.data.sort(function (a,b) {
+            return b.x - a.x;
+        });                                                                                                            
         for(var i=0; i < data_length; i++) {
             var group = {},
                 bar = {},
@@ -621,11 +626,11 @@ PykCharts.multiD.ultimateBar = function(options){
             group[that.data[i].y] = [];      
             bar[that.data[i].group] = [];
             stack = { "name": that.data[i].stack, "tooltip": that.data[i].tooltip, "color": that.data[i].color, "val": that.data[i].x, highlight: that.data[i].highlight };
-
             if(i === 0) {
                 data_tranform.push(group);
                 data_tranform[i][that.data[i].y].push(bar);
                 data_tranform[i][that.data[i].y][i][that.data[i].group].push(stack);
+                console.log("hey");
             } else {
                 var data_tranform_lenght = data_tranform.length;
                 var j=0;
@@ -648,6 +653,7 @@ PykCharts.multiD.ultimateBar = function(options){
                         break;
                     }
                 }
+                // console.log("heyyyyyy");
                 if(j === data_tranform_lenght) {    
                     data_tranform.push(group);
                     data_tranform[j][that.data[i].y].push(bar);
