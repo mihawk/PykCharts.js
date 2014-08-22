@@ -342,7 +342,9 @@ PykCharts.Configuration = function (options){
 
             if(PykCharts.boolean(options.axis.x.enable)){
                 d3.selectAll(options.selector + " " + ".x.axis").attr("fill",function () { return options.axis.x.labelColor;});
-
+                if(options.axis.x.position === "bottom") {
+                    gsvg.attr("transform", "translate(0," + (options.height - options.margin.top - options.margin.bottom) + ")");
+                }
                 var xaxis = PykCharts.Configuration.makeXAxis(options,xScale);
 
                 if(options.axis.x.tickValues.length != 0) {
@@ -360,7 +362,9 @@ PykCharts.Configuration = function (options){
                 height = options.height;
 
             if(PykCharts.boolean(options.axis.y.enable)){
-
+                if(options.axis.y.position === "right") {
+                    gsvg.attr("transform", "translate(" + (options.width - options.margin.left - options.margin.right) + ",0)");
+                }
                 d3.selectAll(options.selector + " " + ".y.axis").attr("fill",function () { return options.axis.y.labelColor; });
                 var yaxis = PykCharts.Configuration.makeYAxis(options,yScale);
 
@@ -853,6 +857,7 @@ configuration.Theme = function(){
             "onHoverHighlightenable": "no",
             "x": {
                 "enable": "yes",
+                "position":"top",
                 "orient" : "bottom",
                 "axisColor": "#1D1D1D",
                 "labelColor": "#1D1D1D",
@@ -864,6 +869,7 @@ configuration.Theme = function(){
             },
             "y": {
                 "enable": "yes",
+                "position":"left",
                 "orient": "left",
                 "axisColor": "#1D1D1D",
                 "labelColor": "#1D1D1D",

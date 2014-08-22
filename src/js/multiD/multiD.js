@@ -372,7 +372,7 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     }
     if(optional && optional.ticks) {
         chartObject.ticks = optional.ticks;
-        chartObject.ticks.strokeWidth = optional.ticks.strokeWidth ? optional.ticks.strokeWidth : stylesheet.ticks.strokeWidth;
+        chartObject.ticks.strokeWidth = "strokeWidth" in optional.ticks ? optional.ticks.strokeWidth : stylesheet.ticks.strokeWidth;
         chartObject.ticks.weight = optional.ticks.weight ? optional.ticks.weight : stylesheet.ticks.weight;
         chartObject.ticks.size = "size" in optional.ticks ? optional.ticks.size : stylesheet.ticks.size;
         chartObject.ticks.color = optional.ticks.color ? optional.ticks.color : stylesheet.ticks.color;
@@ -385,7 +385,7 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
 
     if (optional && optional.label) {
         chartObject.label = optional.label;
-        chartObject.label.size = optional.label.size ? optional.label.size : stylesheet.label.size;
+        chartObject.label.size = "size" in optional.label ? optional.label.size : stylesheet.label.size;
         chartObject.label.color = optional.label.color ? optional.label.color : stylesheet.label.color;
         chartObject.label.weight = optional.label.weight ? optional.label.weight : stylesheet.label.weight;
         chartObject.label.family = optional.label.family ? optional.label.family : stylesheet.label.family;
