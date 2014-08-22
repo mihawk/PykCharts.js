@@ -101,22 +101,22 @@ PykCharts.tree.openTree = function (options) {
                 var link = that.group.selectAll(".link")
                     .data(links);
 
-                link.enter()
-                    .append("path")
+                    link.enter()
+                        .append("path")
+                    
+                 
+                    .attr("class", "link")
+                    .attr("d", function(d) {
+                        console.log("abc");
+                        var o = {x: that.root.x0, y: that.root.y0};
+                        return diagonal({source: o, target: o});
+                    });
                 
-             
-                .attr("class", "link")
-                .attr("d", function(d) {
-                    console.log("abc");
-                    var o = {x: that.root.x0, y: that.root.y0};
-                    return diagonal({source: o, target: o});
-                });
-            
-                link.transition()
-                    .duration(that.transitions.duration())
-                    .attr("d", diagonal);
+                    link.transition()
+                        .duration(that.transitions.duration())
+                        .attr("d", diagonal);
 
-                link.exit().remove();
+                    link.exit().remove();
 
                 that.node = that.group.selectAll(".node")
                     .data(that.nodes);

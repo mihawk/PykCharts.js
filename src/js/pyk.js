@@ -786,6 +786,7 @@ configuration.Theme = function(){
         "ticks":{
             "strokeWidth": 1,
             "size": 13,
+            "weight": "thin",
             "color": "#1D1D1D",
             "family": "'Helvetica Neue',Helvetica,Arial,sans-serif"
         }
