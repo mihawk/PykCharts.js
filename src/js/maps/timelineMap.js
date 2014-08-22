@@ -55,15 +55,6 @@ PykCharts.maps.oneLayer = function (options) {
                     that.onhover = "color_saturation";
                 };
                 return this;
-            },
-            axisContainer : function (ae) {
-                if(PykCharts.boolean(ae)){
-                    that.gxaxis = that.svg.append("g")
-                            .attr("id","xaxis")
-                            .attr("class", "x axis")
-                            .attr("transform", "translate(0," + that.reducedHeight + ")");
-                }
-                return this;
             }
         }
         return config;
@@ -134,9 +125,12 @@ PykCharts.maps.oneLayer = function (options) {
             offset = [that.width - (bounds[0][0] + bounds[1][0]) / 2, that.height - (bounds[0][1] + bounds[1][1]) / 2];
 
         projection = d3.geo.mercator().center(center)
-                        .scale((that.defaultZoomLevel / 100) * scale).translate(offset);
+            .scale((that.defaultZoomLevel / 100) * scale).translate(offset);
+
         that.path = that.path.projection(projection);
+
         var ttp = d3.select("#pyk-tooltip");
+
         var areas = that.group.append("path")
             .attr("d", that.path)
             .attr("class", "area")
@@ -182,16 +176,13 @@ PykCharts.maps.oneLayer = function (options) {
 
         that.optionalFeatures()
             .enableLabel(that.label)
-            .enableClick(that.enable_click)
-            .axisContainer(true);
+            .enableClick(that.enable_click);
 
         x_extent = d3.extent(that.timeline_data, function(d) { return parseInt(d.x,10); });
-        x_range = [0 ,that.reducedWidth];
-        that.xScale = that.k.scaleIdentification("linear",x_extent,x_range);
 
-        that.k.xAxis(that.svg,that.gxaxis,that.xScale);
-
-        d3.select(that.selector).append('div')
+        d3.select(that.selector)
+            .style("padding-bottom", "30px")
+            .append('div')
             .attr("id", "slider")
             // .attr("style", "margin-left:"+that.margin.left+"px;width:"+that.width+"px")
             .call(d3.slider()
