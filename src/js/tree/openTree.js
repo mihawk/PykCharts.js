@@ -104,10 +104,23 @@ PykCharts.tree.openTree = function (options) {
                     link.enter()
                         .append("path")
                     
+                 
+                    .attr("class", "link")
+                    .attr("d", function(d) {
+                        var o = {x: that.root.x0, y: that.root.y0};
+                        return diagonal({source: o, target: o});
+                    });
+
+                // console.log()
+                
                     link.transition()
-                        .duration(that.transitions.duration())  
-                        .attr("class", "link")
+                        .duration(that.transitions.duration())
                         .attr("d", diagonal);
+
+                    // link.transition()
+                    //     .duration(that.transitions.duration())  
+                    //     .attr("class", "link")
+                    //     .attr("d", diagonal);
 
                     link.exit().remove();
 
