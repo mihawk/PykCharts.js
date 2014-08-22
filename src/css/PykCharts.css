@@ -2,6 +2,17 @@ body {
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
+.PykCharts-multi-series2D .legend-heading {
+  text-align: left;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.PykCharts-multi-series2D .legend-content {
+  text-align: left;
+  font-size: 12px;
+}
+
 .PykCharts-multi-series2D .line-cursor line {
   fill: none;
   stroke-width: 1px;
@@ -11,14 +22,15 @@ body {
 
 .PykCharts-multi-series2D path.multi-line {
   fill: none;
-  stroke-width: 1px;
-  stroke: #58ADE6;
+  stroke-width: 1.5px;
+  stroke: #ccc;
   cursor: pointer;
 }
 
 .PykCharts-multi-series2D path.multi-line-selected {
   fill: none;
   stroke-width: 3px;
+  stroke: steelblue;
   cursor: pointer;
 }
 
@@ -154,8 +166,9 @@ body {
 
 .PykCharts-twoD .grid-line {
   fill: none;
-  stroke: #ddd;
-  opacity: .4;
+  stroke: #ccc;
+  stroke-dasharray: 1,1;
+  opacity: .7;
   shape-rendering: crispEdges;
 }
 
@@ -222,12 +235,19 @@ body {
 
 .PykCharts-credits{
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  display: inline-block;
+  height: 30px;
   font-size: 11px;
   color: grey;
   line-height: 1.2;
+  position: relative;
   min-height: 1px;
   padding-right: 15px;
   padding-left: 15px;
+}
+
+.PykCharts-data-src {
+  text-align: right;
 }
 .PykCharts {
 font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;

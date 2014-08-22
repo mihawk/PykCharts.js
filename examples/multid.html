@@ -277,16 +277,15 @@
             k.execute();
 
             var k = new PykCharts.multiD.line({
-                selector: "#multiLine",
+                selector: "#line",
                 data: "../data/multiLineChart.json",
                 mode : "default",
                 yAxisDataFormat : "number",
                 xAxisDataFormat : "string",
                 chart: {
                     height: 400,
-                    width: 430,
-                    margin: {top: 5, right: 25, bottom: 25, left: 35}, // top >=10
-                    padding: {top: 25, right: 25, bottom: 25, left: 25},
+                    width: 700,
+                    margin: {top: 5, right: 25, bottom: 16, left: 35},
                     grid: {
                         xEnabled: "no",
                         yEnabled: "yes",
@@ -297,17 +296,31 @@
                     transition : {
                         duration : 0 //milliseconds
                     },
+                    title: { 
+                        text: "Malnutrition in India"
+                    },
+                    multiple_containers: {
+                        enable : "no"
+                    },  
+                    subtitle: {
+                        text: "Malnutrition in India Malnutrition in India Malnutrition in India Malnutrition in India"
+                    },
                     realTimeCharts: {
                         refreshFrequency: 0 // seconds
                     },
+                    enableTooltip: "no",
+                    colors: {
+                        highlightColor: "steelblue"
+                    },
                     axis : {
+                        onHoverHighlightenable: "yes",
                         x: {
                             enable: "yes",
                             orient : "bottom",
-                            axisColor: "#1D1D1D",
+                            axisColor: "#fff",
                             labelColor: "#1D1D1D",
                             no_of_ticks: 10,
-                            tickSize: 5,
+                            tickSize: 1,
                             ticksPadding: 6,
                             tickFormat: "",
                             tickValues: []
@@ -315,19 +328,27 @@
                         y: {
                             enable: "yes",
                             orient: "left",
-                            axisColor: "#1D1D1D",
+                            axisColor: "#fff",
                             labelColor: "#1D1D1D",
                             tickSize: 5,
                             ticksPadding: 6,
                             no_of_ticks: 10,
                             tickFormat: ""
                         }
-                    },          
-                    curvy_lines : "yes",
-                    enableCrossHair: "yes",
-                    zoom: {
+                    },
+                    legends: {
                         enable: "yes"
-                    }
+                    },
+                    dataSource:{
+                        text: "World Bank",
+                        url: "http://www.pykih.com/"
+                    },
+                    creditMySite:{
+                        mySiteName: "Acme NewsCorp",
+                        mySiteUrl: "https://google.com"
+                    },                  
+                    curvy_lines : "yes",
+                    enableCrossHair: "yes"
                 }
             });
             k.execute();
@@ -979,5 +1000,3 @@
         </script>
     </body>
 </html>
-
-[{name, }]

@@ -235,7 +235,9 @@ PykCharts.multiD.line = function (options){
 				return this;
 			},
 			createLineChart : function (evt) {
-				// that.pt_circle = PykCharts.Configuration.focus_circle;
+				that.pt_circle = PykCharts.Configuration.focus_circle;
+				that.pt_circle.select("circle").attr("r",4);
+
 				var x_domain,x_data = [],y_data,y_range,x_range,y_domain;
 				
 				if(that.yAxisDataFormat === "number") {
@@ -327,7 +329,7 @@ PykCharts.multiD.line = function (options){
 											.classed({'multi-line-selected':true,'multi-line':false})
 											.style("stroke",that.highlightColor);
 
-									// that.updateSelectedLine(this.id);
+									// that.updateSelectedLine(that.selected.id);
 								});
 						 	}
 							else if(that.type === "lineChart") {
@@ -358,7 +360,7 @@ PykCharts.multiD.line = function (options){
 										.classed({'multi-line-selected':true,'multi-line':false})
 										.style("stroke",that.highlightColor);
 
-								// that.updateSelectedLine(this.id);
+								// that.updateSelectedLine(that.selected.id);
 							});
 					 	}
 						else if(that.type === "lineChart") {
@@ -381,7 +383,7 @@ PykCharts.multiD.line = function (options){
 					else if (that.type === "multiline" && that.selected_line_data !== undefined) {
 						that.selected_line_data = that.selected_line.__data__;
 						that.selected_line_data_len = that.selected_line_data.length;
-						// that.updateSelectedLine(this.id);
+						// that.updateSelectedLine(that.selected.id);
 					}
 				}
 				else { // Static Viz
@@ -397,12 +399,14 @@ PykCharts.multiD.line = function (options){
 								    .attr("d", that.chart_path);
 
 							// Legend ---- Pending!
-							// that.dataTextGroup[i] = that.svg.append("text")
-							// 		.attr("id",that.type+"-"+that.new_data[i].name)
-							// 		.attr("x", 20)
-							// 		.attr("y", 20)
-							// 		.style("display","none")
-							// 		.text(that.new_data[i].name);
+							that.dataTextGroup[i] = that.svg.append("text")
+									.attr("id",type)
+									.attr("x", 20)
+									.attr("y", 20)
+									.attr("class","legend-heading")
+									.style("visibility","hidden")
+									.style("fill",that.highlightColor)
+									.html(that.new_data[i].name);
 
 						  	if(that.type === "multiline") {
 						  		that.dataLineGroup[i].on("click",function (d) {
@@ -414,12 +418,15 @@ PykCharts.multiD.line = function (options){
 									d3.select(that.deselected)
 											.classed({'multi-line-selected':false,'multi-line':true})
 											.style("stroke","");
+									(that.deselected !== undefined)? d3.select("text#"+that.deselected.id).style("visibility","hidden") : null;
 									that.selected = this;
 									d3.select(that.selected)
 											.classed({'multi-line-selected':true,'multi-line':false})
 											.style("stroke",that.highlightColor);
+									d3.select(that.selector+" text#"+that.selected.id).style("visibility","visible");
+									
 
-									// that.updateSelectedLine(this.id);
+									that.updateSelectedLine(that.selected.id);
 								});
 							}
 							else if(that.type === "lineChart") {
@@ -460,7 +467,7 @@ PykCharts.multiD.line = function (options){
 										.classed({'multi-line-selected':true,'multi-line':false})
 										.style("stroke",that.highlightColor);
 								
-								// that.updateSelectedLine(this.id);
+								// that.updateSelectedLine(that.selected.id);
 							});
 						}
 						else if(that.type === "lineChart") {
@@ -529,52 +536,59 @@ PykCharts.multiD.line = function (options){
 	// 	}
 	// };
 
-	// this.updateSelectedLine = function (lineid) {
-	// 	start = that.type.length;
-	// 	end = lineid.length;
-	// 	svgid = lineid.substring(start,end);
+	this.updateSelectedLine = function (lineid) {
+		start = that.type.length;
+		end = lineid.length;
+		svgid = lineid.substring(start,end);
+		// console.log(svgid);
 
-	// 	if(!PykCharts.boolean(that.multiple_containers)) {
-	// 		that.pt_circle.attr("id","pt-line"+svgid);
+		if(!PykCharts.boolean(that.multiple_containers)) {
+			that.pt_circle.attr("id","pt-line"+svgid);
 
-	// 		that.start_pt_circle = $("#"+that.pt_circle.attr("id")).clone().appendTo(that.selector+" #svg-1");
-	// 		that.start_pt_circle
-	// 				.attr("id","start-pt-line"+svgid);
-	// 		that.end_pt_circle = $("#"+that.start_pt_circle.attr("id")).clone().appendTo(that.selector+" #svg-1");
-	//   		that.end_pt_circle
-	//   				.attr("id","end-pt-line"+svgid);
+			that.start_pt_circle = $("#"+that.pt_circle.attr("id")).clone().appendTo(that.selector+" #svg-1");
+			that.start_pt_circle
+					.attr("id","start-pt-line"+svgid);
+			that.end_pt_circle = $("#"+that.start_pt_circle.attr("id")).clone().appendTo(that.selector+" #svg-1");
+	  		that.end_pt_circle
+	  				.attr("id","end-pt-line"+svgid);
 
-	// 	} else {
-	// 		that.pt_circle.attr("id","pt-line"+svgid);
+		} else {
+			that.pt_circle.attr("id","pt-line"+svgid);
 
-	// 		that.start_pt_circle = $("#"+that.pt_circle.attr("id")).clone().appendTo(that.selector+" #"+svgid);
-	// 		that.start_pt_circle
-	// 				.attr("id","start-pt-line" + svgid);
-	// 		that.end_pt_circle = $("#"+that.start_pt_circle.attr("id")).clone().appendTo(that.selector+" #"+svgid);
-	// 	  	that.end_pt_circle
-	// 	  			.attr("id","end-pt-line"+svgid);
-	// 	}
+			that.start_pt_circle = $("#"+that.pt_circle.attr("id")).clone().appendTo(that.selector+" #"+svgid);
+			that.start_pt_circle
+					.attr("id","start-pt-line" + svgid);
+			that.end_pt_circle = $("#"+that.start_pt_circle.attr("id")).clone().appendTo(that.selector+" #"+svgid);
+		  	that.end_pt_circle
+		  			.attr("id","end-pt-line"+svgid);
+		}
 		
- //  		d3.selectAll(that.selector + " circle").style("visibility","hidden");
-	// 	var start_x = (that.xScale(that.selected_line_data[0].x) + that.lineMargin + that.margin.left),
-	// 		start_y = (that.yScale(that.selected_line_data[0].y) + that.margin.top),
-	// 		end_x = (that.xScale(that.selected_line_data[(that.selected_line_data_len - 1)].x) + that.lineMargin + that.margin.left),
-	// 		end_y = (that.yScale(that.selected_line_data[(that.selected_line_data_len - 1)].y) + that.margin.top);
-		
-	// 	d3.select(that.selector + " #start-pt-line" + svgid + " circle")
-	// 		.style("visibility","visible");
-	// 	d3.select(that.selector + " #end-pt-line" + svgid + " circle")
-	// 		.style("visibility","visible");
+  		d3.selectAll("circle").style("visibility","hidden");
+		var height_text = parseFloat(d3.select(that.selector+" text#"+lineid).style("height")) / 2,
+			width_text = parseFloat(d3.select(that.selector+" text#"+lineid).style("width")) / 2 ,
+			start_x_circle = (that.xScale(that.selected_line_data[0].x) + that.lineMargin + that.margin.left),
+			start_y_circle = (that.yScale(that.selected_line_data[0].y) + that.margin.top),
+			end_x_circle = (that.xScale(that.selected_line_data[(that.selected_line_data_len - 1)].x) + that.lineMargin + that.margin.left),
+			end_y_circle = (that.yScale(that.selected_line_data[(that.selected_line_data_len - 1)].y) + that.margin.top);
+			text_x = (end_x_circle - that.margin.left + width_text + 2),
+			text_y = (end_y_circle - that.margin.top - height_text - 2),
+			
+		d3.select(that.selector+" text#"+lineid).attr("transform","translate("+text_x+","+text_y+")");
 
-	// 	that.start_pt_circle.show();
-	// 	that.start_pt_circle.select(that.selector + " circle")
-	// 			.attr("class","bullets")
-	// 			.attr("transform", "translate(" + start_x + "," + start_y + ")");
-	// 	that.end_pt_circle.show();
-	// 	that.end_pt_circle.select(that.selector + " circle")
-	// 			.attr("class","bullets")
-	// 			.attr("transform", "translate(" + end_x + "," + end_y + ")");
-	// };
+		d3.select(that.selector + " #start-pt-line" + svgid + " circle")
+			.style("visibility","visible");
+		d3.select(that.selector + " #end-pt-line" + svgid + " circle")
+			.style("visibility","visible");
+
+		that.start_pt_circle.show();
+		that.start_pt_circle.select(that.selector + " circle")
+				.attr("class","bullets")
+				.attr("transform", "translate(" + start_x_circle + "," + start_y_circle + ")");
+		that.end_pt_circle.show();
+		that.end_pt_circle.select(that.selector + " circle")
+				.attr("class","bullets")
+				.attr("transform", "translate(" + end_x_circle + "," + end_y_circle + ")");
+	};
 
 	// this.fullScreen = function () {
  //    var modalDiv = d3.select(that.selector).append("div")
