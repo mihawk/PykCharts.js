@@ -83,14 +83,13 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
     chartObject.enableTooltip = optional && optional.enableTooltip ? optional.enableTooltip : stylesheet.enableTooltip;
     if (optional && optional.borderBetweenChartElements) {
         chartObject.borderBetweenChartElements = optional.borderBetweenChartElements;
-        chartObject.borderBetweenChartElements.width = optional.borderBetweenChartElements.width ? optional.borderBetweenChartElements.width : stylesheet.borderBetweenChartElements.width;
+        chartObject.borderBetweenChartElements.width = "width" in optional.borderBetweenChartElements ? optional.borderBetweenChartElements.width : stylesheet.borderBetweenChartElements.width;
         chartObject.borderBetweenChartElements.color = optional.borderBetweenChartElements.color ? optional.borderBetweenChartElements.color : stylesheet.borderBetweenChartElements.color;
         chartObject.borderBetweenChartElements.style = optional.borderBetweenChartElements.style ? optional.borderBetweenChartElements.style : stylesheet.borderBetweenChartElements.style;
     } else {
         chartObject.borderBetweenChartElements = stylesheet.borderBetweenChartElements;
     }
     if (optional && optional.label) {
-        console.log(optional.label.size,"label");
         chartObject.label = optional.label;
         chartObject.label.size = optional.label.size ? optional.label.size : stylesheet.label.size;
         chartObject.label.color = optional.label.color ? optional.label.color : stylesheet.label.color;

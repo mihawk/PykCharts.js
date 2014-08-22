@@ -64,7 +64,14 @@
 
             var k = new PykCharts.oneD.donut({
                 selector: "#donutContainer",
-                data: "../data/pie.json"
+                data: "../data/pie.json",
+                optional : {
+                  "borderBetweenChartElements":{
+                    "width": 0,
+                    "color": "white",
+                    "style": "solid" // or "dotted / dashed"
+                  },
+                }
             });
             k.execute();
 
