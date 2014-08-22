@@ -82,7 +82,9 @@ PykCharts.tree.openTree = function (options) {
                 var width = that.width,
                     height = that.height;
                 
-                //console.log(that.tree_data,"tree_data");
+                that.root = that.tree_data;
+                that.root.x0 = that.height / 2;
+                that.root.y0 = 0;
 
                 var cluster = d3.layout.cluster()
                     .size([height, width - 160])
@@ -109,6 +111,7 @@ PykCharts.tree.openTree = function (options) {
 
                     link.exit().remove();
 
+                console.log()
                 that.node = that.group.selectAll(".node")
                     .data(that.nodes);
 
@@ -116,15 +119,15 @@ PykCharts.tree.openTree = function (options) {
                         .append("g");
 
                 that.nodeEnter.attr("class", "node")
-                        .transition()
-                        .duration(that.transitions.duration())
-                        .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; })
+                        // .transition()
+                        // .duration(that.transitions.duration())
+                        // .attr("transform", function(d) { return "translate(" + that.root.y0 + "," + that.root.x0 + ")"; })
 
                 that.nodeEnter.append("circle");
                 
-
+                console.log(that.root.y0,that.root.x0);
                 that.nodeUpdate = that.node
-                        .attr("transform","translate(0,0)")                        
+                        .attr("transform", function(d) { return "translate(" + that.root.y0 + "," + that.root.x0 + ")"; })
 
                 that.nodeUpdate.select("g.node circle")
                     .attr("r", that.nodeRadius)

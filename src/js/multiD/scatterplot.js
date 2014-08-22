@@ -67,7 +67,6 @@ PykCharts.multiD.scatterplot = function (options) {
                     }
                     // that.k.positionContainers(that.legends,that);
 
-                        
                     that.k.makeMainDiv(that.selector,i);
                     that.optionalFeatures()
                         .legendsContainer(i)
@@ -241,9 +240,7 @@ PykCharts.multiD.scatterplot = function (options) {
                     var x_domain,x_data = [],y_data = [],y_range,x_range,y_domain;
 
                     if(that.yAxisDataFormat === "number") {
-                        max = d3.max(that.data, function(d) { return d.y;  });
-                        min = d3.min(that.data, function(d) { return d.y; });
-                        y_domain = [min,max];
+                        y_domain = d3.extent(that.data, function(d) { return d.y });
                         y_data = that.k._domainBandwidth(y_domain,2);
                         y_range = [that.height - that.margin.top - that.margin.bottom, 0];
                         that.y = that.k.scaleIdentification("linear",y_data,y_range);
@@ -256,17 +253,13 @@ PykCharts.multiD.scatterplot = function (options) {
                         that.top_margin = (that.y.rangeBand() / 2);
 
                     } else if (that.yAxisDataFormat === "time") {
-                        y_data = d3.extent(that.data, function (d) {
-                            return new Date(d.x);
-                        });
+                        y_data = d3.extent(that.data, function (d) { return new Date(d.x); });
                         y_range = [that.height - that.margin.top - that.margin.bottom, 0];
                         that.y = that.k.scaleIdentification("time",y_data,y_range);
                         that.top_margin = 0;
                     }
                     if(that.xAxisDataFormat === "number") {
-                        max = d3.max(that.data, function(d) { return d.x;  });
-                        min = d3.min(that.data, function(d) { return d.x; });
-                        x_domain = [min,max];
+                        x_domain = d3.extent(that.data, function(d) { return d.x; });
                         x_data = that.k._domainBandwidth(x_domain,2);
                         x_range = [0 ,that.width - that.margin.left - that.margin.right];
                         that.x = that.k.scaleIdentification("linear",x_data,x_range);

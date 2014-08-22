@@ -1005,10 +1005,9 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
     chartObject.fullscreen = optional && optional.buttons && optional.buttons.enableFullScreen ? optional.buttons.enableFullScreen : stylesheet.buttons.enableFullScreen;
     chartObject.loading = optional && optional.loading && optional.loading.animationGifUrl ? optional.loading.animationGifUrl: stylesheet.loading.animationGifUrl;
     chartObject.enableTooltip = optional && optional.enableTooltip ? optional.enableTooltip : stylesheet.enableTooltip;
-    // chartObject.enableLabel = optional && optional.enableLabel ? optional.enableLabel : oneDimensionalCharts.enableLabel;
-    if (optional && optional.borderBetweenChartElements && optional.borderBetweenChartElements.width!="0px") {
+    if (optional && optional.borderBetweenChartElements) {
         chartObject.borderBetweenChartElements = optional.borderBetweenChartElements;
-        chartObject.borderBetweenChartElements.width = optional.borderBetweenChartElements.width ? optional.borderBetweenChartElements.width : stylesheet.borderBetweenChartElements.width;
+        chartObject.borderBetweenChartElements.width = "width" in optional.borderBetweenChartElements ? optional.borderBetweenChartElements.width : stylesheet.borderBetweenChartElements.width;
         chartObject.borderBetweenChartElements.color = optional.borderBetweenChartElements.color ? optional.borderBetweenChartElements.color : stylesheet.borderBetweenChartElements.color;
         chartObject.borderBetweenChartElements.style = optional.borderBetweenChartElements.style ? optional.borderBetweenChartElements.style : stylesheet.borderBetweenChartElements.style;
     } else {
@@ -2432,8 +2431,6 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                 d3.select(options.selector +" "+"#pieGroup").node().innerHTML="";
                 that.chartData = that.optionalFeatures().clubData();
 
-                console.log(that.chartData);
-
                 if(type.toLowerCase() == "pie" || type.toLowerCase() == "donut") {
                     that.chartData.sort(function (a,b) { return a.weight - b.weight;});
                     var temp = that.chartData.pop();
@@ -3603,8 +3600,8 @@ PykCharts.maps.processInputs = function (chartObject, options) {
         , optional = options.optional;
 
     chartObject.selector = options.selector ? options.selector : stylesheet.selector;
-    chartObject.width = options.chart && _.isNumber(parseInt(options.chart.width,10)) ? options.chart.width : stylesheet.chart.width;
-    chartObject.height = options.chart && _.isNumber(parseInt(options.chart.height,10)) ? options.chart.height : stylesheet.chart.height;
+    chartObject.width = options.map && _.isNumber(parseInt(options.map.width,10)) ? options.map.width : stylesheet.map.width;
+    chartObject.height = options.map && _.isNumber(parseInt(options.map.height,10)) ? options.map.height : stylesheet.map.height;
     chartObject.mapCode = options.mapCode ? options.mapCode : mapsTheme.mapCode;
     chartObject.defaultColor = optional && optional.colors && optional.colors.defaultColor ? optional.colors.defaultColor : stylesheet.colors.defaultColor;
     chartObject.colorType = optional && optional.colors && optional.colors.type ? optional.colors.type : stylesheet.colors.type;
@@ -3834,7 +3831,7 @@ PykCharts.maps.oneLayer = function (options) {
             .attr("fill", that.renderColor)
             .attr("opacity", that.renderOpacity)
             .attr("stroke", that.boder_color)
-            .attr("stroke-width", that.boder_thickness)
+            .attr("stroke-width", that.boder_thickness + "px")
             .on("mouseover", function (d) {
                 console.log((_.where(that.data, {iso2: d.properties.iso_a2})[0]).tooltip)
                 if (PykCharts.boolean(that.tooltip)) {

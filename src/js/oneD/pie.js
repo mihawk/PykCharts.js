@@ -169,8 +169,6 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                 d3.select(options.selector +" "+"#pieGroup").node().innerHTML="";
                 that.chartData = that.optionalFeatures().clubData();
 
-                console.log(that.chartData);
-
                 if(type.toLowerCase() == "pie" || type.toLowerCase() == "donut") {
                     that.chartData.sort(function (a,b) { return a.weight - b.weight;});
                     var temp = that.chartData.pop();
