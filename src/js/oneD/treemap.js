@@ -4,7 +4,7 @@ PykCharts.oneD.treemap = function (options){
     this.execute = function (){
         that = new PykCharts.oneD.processInputs(that, options);
         optional = options.optional;
-        that.enableText = optional && PykCharts.boolean(optional.enableText) ? optional.enableText : false;
+        // that.enableText = optional && PykCharts.boolean(optional.enableText) ? optional.enableText : false;
         that.selector = options.selector;
 
         if(that.mode === "default") {
@@ -25,7 +25,7 @@ PykCharts.oneD.treemap = function (options){
             that.optionalFeatures()
                 .clubData()
                 .createChart()
-                .label_drawn()
+                .label();
         });
     };
 
@@ -52,7 +52,7 @@ PykCharts.oneD.treemap = function (options){
         }
         that.optionalFeatures().svgContainer()
             .createChart()
-            .label_drawn();
+            .label();
         if(that.mode === "default") {
             that.k.liveData(that)
                 .credits()
@@ -135,8 +135,8 @@ PykCharts.oneD.treemap = function (options){
                     .remove();
                 return this;
             },
-            label_drawn: function () {
-                // if(that.enableText) {
+            label: function () {
+                if(PykCharts.boolean(that.enableLabel)) {
                     that.treemap_text = that.group.selectAll(".name")
                         .data(that.node);
                     that.treemap_text1 = that.group.selectAll(".weight")
@@ -201,7 +201,7 @@ PykCharts.oneD.treemap = function (options){
                         .remove();
                     that.treemap_text1.exit()
                         .remove();
-                // }
+                }
                 return this;
             },
             clubData : function () {

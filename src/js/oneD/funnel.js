@@ -37,6 +37,7 @@ PykCharts.oneD.funnel = function (options) {
             that.optionalFeatures()
                     .clubData()
                     .createFunnel()
+                    .label()
                     .ticks()
         });
     };
@@ -63,7 +64,8 @@ PykCharts.oneD.funnel = function (options) {
                             .clubData();
         }
         that.optionalFeatures().svgContainer()
-            .createFunnel();
+            .createFunnel()
+            .label();
         if(that.mode === "default") {
             that.optionalFeatures().ticks();
             that.k.liveData(that)
@@ -259,44 +261,50 @@ PykCharts.oneD.funnel = function (options) {
 
                that.path.exit()
                    .remove();
-               var pyr_text = that.group.selectAll("text")
-                    .data(that.coordinates)
-
-                pyr_text.enter()
-                    .append("text")
-
-
-                pyr_text.attr("y",function (d,i) {
-                        if(d.values.length===4){
-                            return (((d.values[0].y-d.values[1].y)/2)+d.values[1].y) + 5;
-                        } else {
-                            return (((d.values[0].y-d.values[2].y)/2)+d.values[2].y) + 5;
-                        }
-                    })
-                    .attr("x", function (d,i) { return that.width/2;})
-                pyr_text.text(function (d,i) {
-                        return that.k.appendUnits(that.newData1[i].weight);
-                     })
-                    .attr("text-anchor","middle")
-                    .attr("pointer-events","none")
-                    .style("font-weight", that.label.weight)
-                    .style("font-size", that.label.size)
-                    .attr("fill", that.label.color)
-                    .style("font-family", that.label.family)
-                    .text(function (d,i) {
-                        if(this.getBBox().width<(d.values[3].x - d.values[1].x) && this.getBBox().height < (d.values[2].y - d.values[0].y)) {
-
-                            return that.k.appendUnits(that.newData1[i].weight);
-                        }
-                        else {
-                            return "";
-                        }
-                    });
-                pyr_text.exit()
-                     .remove();
+               
                 return this;
             },
+            label : function () {
+                if (PykCharts.boolean(that.enableLabel)) {
 
+                    var pyr_text = that.group.selectAll("text")
+                    .data(that.coordinates)
+
+                    pyr_text.enter()
+                        .append("text")
+
+
+                    pyr_text.attr("y",function (d,i) {
+                            if(d.values.length===4){
+                                return (((d.values[0].y-d.values[1].y)/2)+d.values[1].y) + 5;
+                            } else {
+                                return (((d.values[0].y-d.values[2].y)/2)+d.values[2].y) + 5;
+                            }
+                        })
+                        .attr("x", function (d,i) { return that.width/2;})
+                    pyr_text.text(function (d,i) {
+                            return that.k.appendUnits(that.newData1[i].weight);
+                         })
+                        .attr("text-anchor","middle")
+                        .attr("pointer-events","none")
+                        .style("font-weight", that.label.weight)
+                        .style("font-size", that.label.size)
+                        .attr("fill", that.label.color)
+                        .style("font-family", that.label.family)
+                        .text(function (d,i) {
+                            if(this.getBBox().width<(d.values[3].x - d.values[1].x) && this.getBBox().height < (d.values[2].y - d.values[0].y)) {
+
+                                return that.k.appendUnits(that.newData1[i].weight);
+                            }
+                            else {
+                                return "";
+                            }
+                        });
+                    pyr_text.exit()
+                         .remove();
+                }
+                return this;
+            },
             ticks : function () {
                     var line = that.group.selectAll("funnel-ticks")
                         .data(that.coordinates);

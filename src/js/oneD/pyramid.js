@@ -21,7 +21,8 @@ PykCharts.oneD.pyramid = function (options) {
             that.data = data;
             that.optionalFeatures()
                     .createChart()
-                    .ticks()
+                    .label()
+                    .ticks();
         });
     };
 
@@ -36,6 +37,7 @@ PykCharts.oneD.pyramid = function (options) {
             that.k.subtitle();
             var pyramid = that.optionalFeatures().svgContainer()
                 .createChart()
+                .label()
                 .ticks();
 
             that.k.credits()
@@ -48,7 +50,8 @@ PykCharts.oneD.pyramid = function (options) {
 
         } else if (that.mode === "infographics") {
             that.optionalFeatures().svgContainer()
-                .createChart();
+                .createChart()
+                .label();
 
             that.k.tooltip();
             that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
@@ -169,8 +172,7 @@ PykCharts.oneD.pyramid = function (options) {
 
                 var a = [{x:0,y:that.height},{x:that.width,y:that.height},{x:0,y:that.height},{x:that.width,y:that.height},{x:0,y:that.height},{x:that.width,y:that.height}]
                 var k =that.chartData.length;
-                var m = that.chartData.length;
-                var p = that.chartData.length;
+        
                 var path =that.group.selectAll('.pyr-path')
                     .data(that.coordinates)
                 path.enter()
@@ -207,55 +209,62 @@ PykCharts.oneD.pyramid = function (options) {
                     .attr('d',function (d){ return that.line(d.values); });
 
                 path.exit().remove();
-                var j = that.chartData.length;
-                var pyr_text = that.group.selectAll("text")
-                    .data(that.coordinates)
-
-                pyr_text.enter()
-                    .append("text")
-
-                pyr_text.attr("y",function (d,i) {
-                        if(d.values.length === 4) {
-                            return (((d.values[0].y-d.values[1].y)/2)+d.values[1].y) +2;
-                        } else {
-                            return (d.values[0].y + that.coordinates[that.coordinates.length-1].values[1].y)/2 + 10;
-                        }
-                    })
-                    .attr("x", function (d,i) { return that.width/2;})
-                    .text("")
-                    .transition()
-                    .delay(that.transitions.duration())
-                pyr_text.text(function (d,i) {
-                        if(i===0) {
-                            return that.k.appendUnits(that.chartData[i].weight);
-                        }
-                        else {
-                            j--;
-                            return that.k.appendUnits(that.chartData[j].weight);
-                        }
-                     })
-                    .text(function (d,i) {
-                        if(this.getBBox().width < (d.values[2].x - d.values[1].x) || this.getBBox().height < (d.values[1].y - d.values[0].y)) {
-                            if(i===0) {
-                                return that.k.appendUnits(that.chartData[i].weight);
-                            }else {
-                                p--;
-                                return that.k.appendUnits(that.chartData[p].weight);
-                            }
-                        }
-                        else {
-                            return "";
-                        }
-                    })
-                    .attr("text-anchor","middle")
-                    .attr("pointer-events","none")
-                    .style("font-weight", that.label.weight)
-                    .style("font-size", that.label.size)
-                    .attr("fill", that.label.color)
-                    .style("font-family", that.label.family);
-                pyr_text.exit().remove();
+              
 		        return this;
         	},
+            label: function () {
+                if (PykCharts.boolean(that.enableLabel)) {
+                    var j = that.chartData.length;
+                    var p = that.chartData.length;
+                    var pyr_text = that.group.selectAll("text")
+                        .data(that.coordinates)
+
+                    pyr_text.enter()
+                        .append("text")
+
+                    pyr_text.attr("y",function (d,i) {
+                            if(d.values.length === 4) {
+                                return (((d.values[0].y-d.values[1].y)/2)+d.values[1].y) +2;
+                            } else {
+                                return (d.values[0].y + that.coordinates[that.coordinates.length-1].values[1].y)/2 + 10;
+                            }
+                        })
+                        .attr("x", function (d,i) { return that.width/2;})
+                        .text("")
+                        .transition()
+                        .delay(that.transitions.duration())
+                    pyr_text.text(function (d,i) {
+                            if(i===0) {
+                                return that.k.appendUnits(that.chartData[i].weight);
+                            }
+                            else {
+                                j--;
+                                return that.k.appendUnits(that.chartData[j].weight);
+                            }
+                         })
+                        .text(function (d,i) {
+                            if(this.getBBox().width < (d.values[2].x - d.values[1].x) || this.getBBox().height < (d.values[1].y - d.values[0].y)) {
+                                if(i===0) {
+                                    return that.k.appendUnits(that.chartData[i].weight);
+                                }else {
+                                    p--;
+                                    return that.k.appendUnits(that.chartData[p].weight);
+                                }
+                            }
+                            else {
+                                return "";
+                            }
+                        })
+                        .attr("text-anchor","middle")
+                        .attr("pointer-events","none")
+                        .style("font-weight", that.label.weight)
+                        .style("font-size", that.label.size)
+                        .attr("fill", that.label.color)
+                        .style("font-family", that.label.family);
+                    pyr_text.exit().remove();
+                }
+                return this;
+            },
             ticks : function () {
                 // if(PykCharts.boolean(that.enableTicks)) {
 
