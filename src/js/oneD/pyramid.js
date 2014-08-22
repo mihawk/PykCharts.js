@@ -10,7 +10,7 @@ PykCharts.oneD.pyramid = function (options) {
         }
 
         d3.json(options.data, function (e,data) {
-			that.data = Array.groupBy(data);
+			that.data = data.groupBy();
             $(options.selector+" #chart-loader").remove();
 			that.render();
 		})
@@ -172,7 +172,7 @@ PykCharts.oneD.pyramid = function (options) {
 
                 var a = [{x:0,y:that.height},{x:that.width,y:that.height},{x:0,y:that.height},{x:that.width,y:that.height},{x:0,y:that.height},{x:that.width,y:that.height}]
                 var k =that.chartData.length;
-        
+
                 var path =that.group.selectAll('.pyr-path')
                     .data(that.coordinates)
                 path.enter()
@@ -209,7 +209,7 @@ PykCharts.oneD.pyramid = function (options) {
                     .attr('d',function (d){ return that.line(d.values); });
 
                 path.exit().remove();
-              
+
 		        return this;
         	},
             label: function () {

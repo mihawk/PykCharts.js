@@ -58,7 +58,7 @@ PykCharts.maps.oneLayer = function (options) {
             },
             axisContainer : function (ae) {
                 if(PykCharts.boolean(ae)){
-                    that.gxaxis = that.group.append("g")
+                    that.gxaxis = that.svg.append("g")
                             .attr("id","xaxis")
                             .attr("class", "x axis")
                             .attr("transform", "translate(0," + that.reducedHeight + ")");
@@ -84,14 +84,14 @@ PykCharts.maps.oneLayer = function (options) {
         that.optionalFeatures()
             .enableLegend(that.legends)
 
-        that.canvas = d3.select(that.selector)
+        that.svg = d3.select(that.selector)
             .append("svg")
             .attr("width", that.width)
             .attr("height", that.height)
             .attr("style", "border:1px solid lightgrey")
             .style("border-radius", "5px");
 
-        var map_cont = that.canvas.append("g")
+        var map_cont = that.svg.append("g")
             .attr("id", "map_group");
 
         var defs = map_cont.append('defs');
@@ -149,7 +149,6 @@ PykCharts.maps.oneLayer = function (options) {
             .attr("stroke", that.boder_color)
             .attr("stroke-width", that.boder_thickness)
             .on("mouseover", function (d) {
-                console.log((_.where(that.data, {iso2: d.properties.iso_a2})[0]).tooltip)
                 if (PykCharts.boolean(that.tooltip)) {
                     ttp.style("visibility", "visible");
                     ttp.html((_.where(that.data, {iso2: d.properties.iso_a2})[0]).tooltip);
@@ -186,22 +185,48 @@ PykCharts.maps.oneLayer = function (options) {
             .enableClick(that.enable_click)
             .axisContainer(true);
 
-        x_extent = d3.extent(that.timeline_data, function(d) { return parseInt(k.x,10); });
+        x_extent = d3.extent(that.timeline_data, function(d) { return parseInt(d.x,10); });
         x_range = [0 ,that.reducedWidth];
-        that.xScale = that.k.scaleIdentification("time",x_extent,x_range);
+        that.xScale = that.k.scaleIdentification("linear",x_extent,x_range);
 
         that.k.xAxis(that.svg,that.gxaxis,that.xScale);
+
+        d3.select(that.selector).append('div')
+            .attr("id", "slider")
+            // .attr("style", "margin-left:"+that.margin.left+"px;width:"+that.width+"px")
+            .call(d3.slider()
+                    .axis(true)
+                    .min(x_extent[0])
+                    .max(x_extent[1])
+                    .step(1)
+                    //.value(_.last(range))
+                    // .on("slide", function(evt, value){
+                    //     _.each(that.data, function (d) {
+                    //         if (new Date(value).getTime()===new Date(d.date).getTime()) {
+                    //             that.filteredData = d;
+                    //         }
+                    //     });
+                    //     //that.filteredData = _.where(that.data, {date: new Date(value).toString().trim()})[0];
+                    //     focus.attr("transform", "translate(" + x(new Date(value)) + ",0)");
+                    //     focus.style("display", null);
+                    //     if (that.filteredData) {
+                    //         that.renderBubbleChart();
+                    //         that.renderStatistics();
+                    //     }
+                    // })
+            );
 
         that.k.dataSource(that.dataSource)
             .credits(that.creditMySite);
     };
 
     this.renderColor = function (d, i) {
-        console.log(d);
+        if (!PykCharts.boolean(d)) {
+            return false;
+        }
         var col_shade,
-            obj;
             obj = _.where(that.data, {iso2: d.properties.iso_a2});
-        if (_.where(that.data, {iso2: d.properties.iso_a2}).length > 0) {
+        if (obj.length > 0) {
             if (that.colorType === "colors") {
                 if (obj.length > 0 && obj[0].color !== "") {
                     return obj[0].color;
@@ -214,7 +239,7 @@ PykCharts.maps.oneLayer = function (options) {
                     return obj[0].highlight_color;
                 } else {
                     if (that.colorPalette !== "") {
-                        col_shade = _.where(that.data, {iso2: d.properties.iso_a2})[0].size;
+                        col_shade = obj[0].size;
                         for (i = 0; i < that.current_palette.colors.length; i++) {
                             if (col_shade >= that.extent_size[0] + i * (that.difference / that.current_palette.colors.length) && col_shade <= that.extent_size[0] + (i + 1) * (that.difference / that.current_palette.colors.length)) {
                                 return that.current_palette.colors[i];
@@ -287,6 +312,7 @@ PykCharts.maps.oneLayer = function (options) {
                         .text("< " + that.leg);
                 }
             }
+            $("#legend-container").after("</br>");
         } else {
             $("#legend-container").remove();
         }
@@ -304,6 +330,7 @@ PykCharts.maps.oneLayer = function (options) {
 
     this.bodColor = function (d) {
 
+        var obj = _.where(that.data, {iso2: d.properties.iso_a2});
         if(that.onhover !== "none") {
             if (that.onhover === "highlight_border") {
                 d3.select("path[state_name='" + d.properties.NAME_1 + "']")
@@ -315,7 +342,7 @@ PykCharts.maps.oneLayer = function (options) {
                     .attr("opacity", function () {
                         if (that.colorPalette === "" && that.colorType === "saturation") {
                             that.oneninth_dim = +(d3.format(".2f")(that.difference / 10));
-                            that.opacity_dim = (that.extent_size[0] + (_.where(that.data, {iso2: d.properties.iso_a2})[0]).size + that.oneninth_dim) / that.difference;
+                            that.opacity_dim = (that.extent_size[0] + (obj[0]).size + that.oneninth_dim) / that.difference;
                             return that.opacity_dim/2;
                         }
                         return 0.5;
@@ -325,7 +352,7 @@ PykCharts.maps.oneLayer = function (options) {
                     .attr("opacity", function () {
                         if (that.colorPalette === "" && that.colorType === "saturation") {
                             that.oneninth_dim = +(d3.format(".2f")(that.difference / 10));
-                            that.opacity_dim = (that.extent_size[0] + (_.where(that.data, {iso2: d.properties.iso_a2})[0]).size + that.oneninth_dim) / that.difference;
+                            that.opacity_dim = (that.extent_size[0] + (obj[0]).size + that.oneninth_dim) / that.difference;
                             return that.opacity_dim/2;
                         }
                         return 0.5;
