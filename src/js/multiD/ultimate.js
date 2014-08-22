@@ -592,11 +592,3 @@ PykCharts.multiD.ultimate = function(options){
     };
     return this;
 };
-
-
-// .attr("x", function(d){
-//                         return that.xScale(d.x)-that.xScale.rangeBand()/4;
-//                     })
-//                     .attr("width", function(d){
-//                         return that.xScale.rangeBand()+that.xScale.rangeBand()/2;
-//                     })

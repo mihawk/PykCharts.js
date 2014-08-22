@@ -323,7 +323,7 @@ PykCharts.multiD.ultimateBar = function(options){
                 return this;
             },
             ticks: function () {
-                if(that.label.size) {
+                if(that.ticks.size) {
                     that.txt_width;
                     that.txt_height;
                     var ticks = that.bars.selectAll("g")
@@ -345,10 +345,11 @@ PykCharts.multiD.ultimateBar = function(options){
                                 return d.x;
                             }
                         })
-                        .style("font-weight", that.label.weight)
-                        .style("font-size", that.label.size)
-                        .attr("fill", that.label.color)
-                        .style("font-family", that.label.family)
+                        .style("font-weight", that.ticks.weight)
+                        .style("font-size", that.ticks.size)
+                        .attr("fill", that.ticks.color)
+                        .style("font-weight", that.ticks.weight)
+                        .style("font-family", that.ticks.family)
                         .text(function(d) {
                             if(d.x) {
                                 that.txt_width = this.getBBox().width;
@@ -368,7 +369,7 @@ PykCharts.multiD.ultimateBar = function(options){
                         .attr("dy",5)
                         .style("font-size",function(d) {
                             // console.log(that.label.size);
-                            return that.label.size;
+                            return that.ticks.size;
                         });
 
                     ticksText.exit().remove();
