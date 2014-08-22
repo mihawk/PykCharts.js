@@ -1,22 +1,22 @@
-PykCharts.weighted.scatterplot = function (options) {
+PykCharts.multiD.scatterplot = function (options) {
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
     
     this.execute = function() {
-        that = new PykCharts.twoD.processInputs(that, options, "scatterplot");
+        that = new PykCharts.multiD.processInputs(that, options, "scatterplot");
         if(that.mode === "default") {
             that.k.loading();
         }
-        var twoDimensionalCharts = theme.twoDimensionalCharts,
+        var multiDimensionalCharts = theme.multiDimensionalCharts,
             stylesheet = theme.stylesheet,
             optional = options.optional;
-        that.enableCrossHair = optional && optional.enableCrossHair ? optional.enableCrossHair : twoDimensionalCharts.enableCrossHair;
-        that.weighted = new PykCharts.weighted.configuration(that);
+        that.enableCrossHair = optional && optional.enableCrossHair ? optional.enableCrossHair : multiDimensionalCharts.enableCrossHair;
+        that.multiD = new PykCharts.multiD.configuration(that);
         that.grid = options.chart && options.chart.grid ? options.chart.grid : stylesheet.chart.grid;
         that.grid.yEnabled = options.chart && options.chart.grid && options.chart.grid.yEnabled ? options.chart.grid.yEnabled : stylesheet.chart.grid.yEnabled;
         that.grid.xEnabled = options.chart && options.chart.grid && options.chart.grid.xEnabled ? options.chart.grid.xEnabled : stylesheet.chart.grid.xEnabled;
-        that.multiple_containers = optional && optional.multiple_containers && optional.multiple_containers.enable ? optional.multiple_containers.enable : twoDimensionalCharts.multiple_containers.enable;
-        that.bubbleRadius = options.scatterplot && _.isNumber(options.scatterplot.radius) ? options.scatterplot.radius : twoDimensionalCharts.scatterplot.radius;
+        that.multiple_containers = optional && optional.multiple_containers && optional.multiple_containers.enable ? optional.multiple_containers.enable : multiDimensionalCharts.multiple_containers.enable;
+        that.bubbleRadius = options.scatterplot && _.isNumber(options.scatterplot.radius) ? options.scatterplot.radius : multiDimensionalCharts.scatterplot.radius;
         that.zoomedOut = true;
         
         d3.json(options.data, function (e, data) {
@@ -39,7 +39,7 @@ PykCharts.weighted.scatterplot = function (options) {
 
     this.render = function () {
         var that = this;
-        that.fillChart = new PykCharts.weighted.fillChart(that);      
+        that.fillChart = new PykCharts.Configuration.fillChart(that);      
         
         that.border = new PykCharts.Configuration.border(that);
     
@@ -51,6 +51,7 @@ PykCharts.weighted.scatterplot = function (options) {
                 return d.group;
             }));
             that.no_of_groups = 1;
+            
             if(PykCharts.boolean(that.multiple_containers)) {
                 that.radius_range = [3,7];
                 that.no_of_groups = that.data_group.length;
@@ -66,20 +67,22 @@ PykCharts.weighted.scatterplot = function (options) {
                     }
                     // that.k.positionContainers(that.legends,that);
 
+                        
+                    that.k.makeMainDiv(that.selector,i);
+                    that.optionalFeatures()
+                        .legendsContainer(i)
+                        .svgContainer(i);
+
                     that.k.liveData(that)
                         .tooltip();
 
                     that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
-                    that.sizes = new PykCharts.weighted.bubbleSizeCalculation(that,that.data,that.radius_range); 
-
-                    that.optionalFeatures()
-                        .legendsContainer()
-                        .svgContainer();
+                    that.sizes = new PykCharts.multiD.bubbleSizeCalculation(that,that.data,that.radius_range); 
 
                     that.optionalFeatures().createScatterPlot()
+                        .legends()
                         .ticks()
-                        .crossHair()
-                        .legends();
+                        .crossHair();
 
                     that.k.xAxis(that.svgContainer,that.xGroup,that.x)
                         .yAxis(that.svgContainer,that.yGroup,that.y)
@@ -89,17 +92,18 @@ PykCharts.weighted.scatterplot = function (options) {
             } else {
                 that.radius_range = [7,18];
                 that.new_data = that.data;
+                that.k.makeMainDiv(that.selector,1);
                 that.optionalFeatures()
-                    .legendsContainer()
-                    .svgContainer();
+                    .legendsContainer(1)
+                    .svgContainer(1);
 
                 that.k.liveData(that)
                     .tooltip();
 
                 that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
                 // that.k.positionContainers(that.legends,that);
-                that.sizes = new PykCharts.weighted.bubbleSizeCalculation(that,that.data,that.radius_range); 
-              
+                that.sizes = new PykCharts.multiD.bubbleSizeCalculation(that,that.data,that.radius_range); 
+                
                 that.optionalFeatures().createScatterPlot()
                     .legends()
                     .zoom()
@@ -121,10 +125,11 @@ PykCharts.weighted.scatterplot = function (options) {
             that.radius_range = [7,18];
             that.new_data = that.data;
 
-            that.sizes = new PykCharts.weighted.bubbleSizeCalculation(that,that.data,that.radius_range);
-            that.k.tooltip();
+            that.sizes = new PykCharts.multiD.bubbleSizeCalculation(that,that.data,that.radius_range);
+            that.k.tooltip()
+                .makeMainDiv(that.selector,1);
             that.optionalFeatures()
-                    .svgContainer();
+                    .svgContainer(1);
             that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
             that.optionalFeatures().createScatterPlot()
                 .crossHair();
@@ -137,9 +142,10 @@ PykCharts.weighted.scatterplot = function (options) {
     this.optionalFeatures = function () {
         var that = this;
         var optional = {
-            svgContainer :function () {
+            svgContainer :function (i) {
+                $(options.selector + " #tooltip-svg-container-" + i).css("width",that.width);
                 $(options.selector).attr("class","PykCharts-weighted")
-                that.svgContainer = d3.select(options.selector)
+                that.svgContainer = d3.select(options.selector + " #tooltip-svg-container-" + i)
                     .append('svg')
                     .attr("width",that.width)
                     .attr("height",that.height)
@@ -187,9 +193,9 @@ PykCharts.weighted.scatterplot = function (options) {
 
                 return this;
             },
-            legendsContainer : function () {
-                if (PykCharts.boolean(that.legends) && !(PykCharts.boolean(that.size.enable))) {
-                    that.legendsContainer = d3.select(that.selector)
+            legendsContainer : function (i) {
+                if (PykCharts.boolean(that.legends.enable) && !(PykCharts.boolean(that.size.enable))) {
+                    that.legendsContainer = d3.select(that.selector + " #tooltip-svg-container-" + i)
                         .append('svg')
                         .attr('width',that.width)
                         .attr('height',50)
@@ -298,24 +304,22 @@ PykCharts.weighted.scatterplot = function (options) {
             },
             legends : function () {
                 if (PykCharts.boolean(that.legends.enable) && !(PykCharts.boolean(that.size.enable))) {
-                    console.log("legends");
-                     var unique = _.uniq(that.sorted_weight);
+                    var unique = _.uniq(that.sorted_weight);
 
-                       if(options.optional.legends.display === "vertical" ) {
-
-                        that.legendsContainer.attr("height", (unique.length * 30)+20)
-                            text_parameter1 = "x";
-                            text_parameter2 = "y";
-                            rect_parameter1 = "width";
-                            rect_parameter2 = "height";
-                            rect_parameter3 = "x";
-                            rect_parameter4 = "y";
-                            rect_parameter1value = 13;
-                            rect_parameter2value = 13;
-                            text_parameter1value = function (d,i) { return that.width - that.width/4 + 16; };
-                            rect_parameter3value = function (d,i) { return that.width - that.width/4; };
-                            var rect_parameter4value = function (d,i) { return i * 24 + 12;};
-                            var text_parameter2value = function (d,i) { return i * 24 + 23;};
+                    if(options.optional.legends.display === "vertical" ) {
+                        that.legendsContainer.attr("height", (unique.length * 30)+20);
+                        text_parameter1 = "x";
+                        text_parameter2 = "y";
+                        rect_parameter1 = "width";
+                        rect_parameter2 = "height";
+                        rect_parameter3 = "x";
+                        rect_parameter4 = "y";
+                        rect_parameter1value = 13;
+                        rect_parameter2value = 13;
+                        text_parameter1value = function (d,i) { return that.width - that.width/4 + 16; };
+                        rect_parameter3value = function (d,i) { return that.width - that.width/4; };
+                        var rect_parameter4value = function (d,i) { return i * 24 + 12;};
+                        var text_parameter2value = function (d,i) { return i * 24 + 23;};
 
                     } else if(options.optional.legends.display === "horizontal") {
                         text_parameter1 = "x";
@@ -343,10 +347,10 @@ PykCharts.weighted.scatterplot = function (options) {
                         .attr(rect_parameter3, rect_parameter3value)
                         .attr(rect_parameter4, rect_parameter4value)
                         .attr("fill", function (d) {
-                            return that.fillChart(d);
+                            return that.fillChart.colorPieW(d);
                         })
                         .attr("opacity", function (d) {
-                            return that.weighted.opacity(d,that.sorted_weight,that.data);
+                            return that.multiD.opacity(d,that.sorted_weight,that.data);
                         });
 
                     legend.exit().remove();
@@ -364,10 +368,10 @@ PykCharts.weighted.scatterplot = function (options) {
                         .attr("font-size",that.legendsText.size);
 
                     that.legends_text.attr("class","legends_text")
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   .attr("fill","black")
-                    .attr(text_parameter1, text_parameter1value)
-                    .attr(text_parameter2, text_parameter2value)
-                    .text(function (d) { return d });
+                        .attr("fill","black")
+                        .attr(text_parameter1, text_parameter1value)
+                        .attr(text_parameter2, text_parameter2value)
+                        .text(function (d) { return d });
 
                     that.legends_text.exit()
                                     .remove();
@@ -384,7 +388,7 @@ PykCharts.weighted.scatterplot = function (options) {
             //         textXPosition = function (d,i) { return (++i*(90*that.width /unique.length)/100-5); };
             //         textYPosition = function (d,i) { return (++i*(90*that.height /unique.length)/100-5); };
             //         roundOff = function (d,i) { return Math.round(d); };
-            //         opacity = function (d){ return that.weighted.opacity(d,that.weight,that.data); };
+            //         opacity = function (d){ return that.multiD.opacity(d,that.weight,that.data); };
             //         var start, height, width, xtext, ytext;
 
             //         var renderLengends = function (start,height,width,xtext,ytext,position,textPosition) {
@@ -399,7 +403,7 @@ PykCharts.weighted.scatterplot = function (options) {
             //                 x.attr(start, position)
             //                     .attr("height", height)
             //                     .attr("width", width)
-            //                     .attr("fill",function(d) { return that.fillChart(d); })
+            //                     .attr("fill",function(d) { return that.fillChart.colorPieW(d); })
             //                     .attr("opacity",opacity);
 
             //                 x.exit().remove();
@@ -501,10 +505,10 @@ PykCharts.weighted.scatterplot = function (options) {
 
                 that.circlePlot
                     .attr("r", function (d) { return that.sizes(d.weight); })
-                    .attr("cx", function (d) { return that.x(d.x)+that.left_margin; })
-                    .attr("cy", function (d) { return that.y(d.y)+that.top_margin; })
-                    .style("fill", function (d) { return that.fillChart(d); })
-                    .style("fill-opacity", function (d) { return that.weighted.opacity(d.weight,that.weight,that.data); })
+                    .attr("cx", function (d) { return (that.x(d.x)+that.left_margin); })
+                    .attr("cy", function (d) { return (that.y(d.y)+that.top_margin); })
+                    .style("fill", function (d) { return that.fillChart.colorPieW(d); })
+                    .style("fill-opacity", function (d) { return that.multiD.opacity(d.weight,that.weight,that.data); })
                     .attr("stroke", that.border.color())
                     .attr("stroke-width",that.border.width())
                     .attr("stroke-opacity",1)
@@ -561,7 +565,9 @@ PykCharts.weighted.scatterplot = function (options) {
                         }
                     });
                 }
+                return this;
             }
+
         };
         return optional;
     };

@@ -5,6 +5,8 @@
     </head>
     <body>
         <div class="container cstm-container">
+            <div id = "map-container" class="col-sm-12"></div>
+                
         <div id = "from" class="form-group col-sm-6" style = "float: left;">
             <form class="PykCharts-map">
                 <table class="cstm-table" style="font-size:14px;">
@@ -204,9 +206,9 @@
                 </table>
             </form>
         </div>
-            <div id = "map-container" class="col-sm-6">
+            
 
-            </div>
+
             <textarea rows="4" cols="50" id="live-data"></textarea>
 
         <script src="../lib/d3.min.js"></script>
@@ -217,7 +219,7 @@
         <script src = "../lib/topojson.js"></script>
         <script src="../src/js/pyk.js"></script>
         <script src = "../src/js/maps/maps.js"></script>
-        <script src = "../src/js/maps/oneLayer.js"></script>
+        <script src = "../src/js/maps/timelineMap.js"></script>
         <script>
             function colFunction () {
                 if ($("input[name='colortype']:checked").val() === "colors") {
@@ -365,8 +367,8 @@
                         mapCode: $("#one").val() + "-topo",
                         data: window.data_final,
                         map: {
-                            width: 555,
-                            height: 500
+                            width: 900,
+                            height: 3000
                         },
                         optional: {
                             colors: {

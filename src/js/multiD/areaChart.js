@@ -1,9 +1,9 @@
-PykCharts.twoD.area = function (options){
+PykCharts.multiD.area = function (options){
 	var that = this;
 	var theme = new PykCharts.Configuration.Theme({});
 
 	this.execute = function (){
-		that = new PykCharts.twoD.processInputs(that, options, "area");
+		that = new PykCharts.multiD.processInputs(that, options, "area");
 		                        
 		if(that.mode === "default") {
 			that.k.loading();
@@ -386,42 +386,42 @@ PykCharts.twoD.area = function (options){
 	};
 
 	this.zoomed = function() {
-		that.k.isOrdinal(that.svg,".x.axis",that.xScale);
+			that.k.isOrdinal(that.svg,".x.axis",that.xScale);
 	    that.k.isOrdinal(that.svg,".x.grid",that.xScale);
 	    that.k.isOrdinal(that.svg,".y.axis",that.yScale);
 	    that.k.isOrdinal(that.svg,".y.grid",that.yScale);
 
 	    for (i = 0;i < that.new_data_length;i++) {
 	    	type = that.chartPathClass + i;
-	  	 	that.svg.select("#"+type)
+	  	 	that.svg.select(that.selector+" #"+type)
 	        	.attr("class", that.chartPathClass)
 		        .attr("d", that.chart_path);
-		    that.svg.select("#border-stacked-area"+i)
-				.attr("class","area-border")
-				.attr("d", that.chart_path_border);
+		    that.svg.select(that.selector+" #border-stacked-area"+i)
+						.attr("class","area-border")
+						.attr("d", that.chart_path_border);
 	    }
 
     // d3.select(that.selected).classed({'multi-line-selected':true,'multi-line':false});
     // (that.curr_line_data !== undefined) ? that.updateSelectedLine() : null;
 	};
 
-	this.updateSelectedLine = function () {
-		var start_x = (that.xScale(that.curr_line_data[0].x) + that.lineMargin + that.margin.left),
-			start_y = (that.yScale(that.curr_line_data[0].y) + that.margin.top),
-			end_x = (that.xScale(that.curr_line_data[(that.curr_line_data_len - 1)].x) + that.lineMargin + that.margin.left),
-			end_y = (that.yScale(that.curr_line_data[(that.curr_line_data_len - 1)].y) + that.margin.top);
+	// this.updateSelectedLine = function () {
+	// 	var start_x = (that.xScale(that.curr_line_data[0].x) + that.lineMargin + that.margin.left),
+	// 			start_y = (that.yScale(that.curr_line_data[0].y) + that.margin.top),
+	// 			end_x = (that.xScale(that.curr_line_data[(that.curr_line_data_len - 1)].x) + that.lineMargin + that.margin.left),
+	// 			end_y = (that.yScale(that.curr_line_data[(that.curr_line_data_len - 1)].y) + that.margin.top);
 
-	    that.start_pt_circle.show();
-			that.start_pt_circle.select("circle")
-				.attr("class","bullets")
-				.attr("fill",that.color)
-				.attr("transform", "translate(" + start_x + "," + start_y + ")");
-			that.end_pt_circle.show();
-			that.end_pt_circle.select("circle")
-				.attr("class","bullets")
-				.attr("fill",that.color)
-				.attr("transform", "translate(" + end_x + "," + end_y + ")");
-	};
+	//     that.start_pt_circle.show();
+	// 		that.start_pt_circle.select("circle")
+	// 			.attr("class","bullets")
+	// 			.attr("fill",that.color)
+	// 			.attr("transform", "translate(" + start_x + "," + start_y + ")");
+	// 		that.end_pt_circle.show();
+	// 		that.end_pt_circle.select("circle")
+	// 			.attr("class","bullets")
+	// 			.attr("fill",that.color)
+	// 			.attr("transform", "translate(" + end_x + "," + end_y + ")");
+	// };
 
 	// this.fullScreen = function () {
  //    var modalDiv = d3.select(that.selector).append("div")

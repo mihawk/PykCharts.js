@@ -7,19 +7,18 @@
 		<script type="text/javascript" src="../lib/jquery-1.11.1.min.js"></script>
 		<script type="text/javascript"  src="../lib/jquery.bpopup.min.js"></script>
 
-		<!-- <link rel="stylesheet" type="text/css" href="../lib/bootstrap/css/bootstrap.min.css"> -->
 		<link rel="stylesheet" type="text/css" href="../src/css/PykCharts.css">
 	</head>
 	<body>
 		<div id="line" style="position:relative; width:900px;"></div>
 		<script type="text/javascript" src="../src/js/pyk.js"></script>
-		<script type="text/javascript" src="../src/js/twoD/twoD.js"></script>
+		<script type="text/javascript" src="../src/js/multiD/multiD.js"></script>
 		<script type="text/javascript" src="../src/js/multiD/lineChart.js"></script>
 		<script type="text/javascript">
 			$(document).ready(function (e) {
-				var k = new PykCharts.twoD.line({
+				var k = new PykCharts.multiD.line({
 					selector: "#line",
-				    data: "../data/multiLineChart.json",
+				    data: "../data/lineChart.json",
 					mode : "default",
 					yAxisDataFormat : "number",
 					xAxisDataFormat : "string",

@@ -1,4 +1,4 @@
-PykCharts.weighted.spiderWeb = function (options) {
+PykCharts.multiD.spiderWeb = function (options) {
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
 
@@ -6,13 +6,13 @@ PykCharts.weighted.spiderWeb = function (options) {
         if(that.mode === "default") {
             that.k.loading();
         }
-        that = new PykCharts.twoD.processInputs(that, options, "spiderweb");
-        that.weighted = new PykCharts.weighted.configuration(that);
-        that.axisTitle = options.optional && options.optional.axisTitle ? options.optional.axisTitle : theme.twoDimensionalCharts.spiderweb.axisTitle;
-        that.bubbleRadius = options.spiderweb && _.isNumber(options.spiderweb.radius) ? options.spiderweb.radius : theme.twoDimensionalCharts.spiderweb.radius;
-        that.outerRadius = options.spiderweb && _.isNumber(options.spiderweb.outer_radius) ? options.spiderweb.outer_radius : theme.twoDimensionalCharts.spiderweb.radius; 
+        that = new PykCharts.multiD.processInputs(that, options, "spiderweb");
+        that.multiD = new PykCharts.multiD.configuration(that);
+        that.axisTitle = options.optional && options.optional.axisTitle ? options.optional.axisTitle : theme.multiDimensionalCharts.spiderweb.axisTitle;
+        that.bubbleRadius = options.spiderweb && _.isNumber(options.spiderweb.radius) ? options.spiderweb.radius : theme.multiDimensionalCharts.spiderweb.radius;
+        that.outerRadius = options.spiderweb && _.isNumber(options.spiderweb.outer_radius) ? options.spiderweb.outer_radius : theme.multiDimensionalCharts.spiderweb.radius; 
         that.innerRadius = 0;
-        that.enableTicks = options.optional && options.optional.enableTicks ? options.optional.enableTicks : theme.twoDimensionalCharts.spiderweb.enableTicks;        
+        that.enableTicks = options.optional && options.optional.enableTicks ? options.optional.enableTicks : theme.multiDimensionalCharts.spiderweb.enableTicks;        
 
         d3.json(options.data, function (e, data) {
             that.data = data;
@@ -34,8 +34,9 @@ PykCharts.weighted.spiderWeb = function (options) {
     };
 
     this.render = function () {
-        that.fillChart = new PykCharts.weighted.fillChart(that);
-        that.sizes = new PykCharts.weighted.bubbleSizeCalculation(that,that.data);
+        that.radius_range = [7,18];
+        that.fillChart = new PykCharts.Configuration.fillChart(that);
+        that.sizes = new PykCharts.multiD.bubbleSizeCalculation(that,that.data,that.radius_range);
         that.border = new PykCharts.Configuration.border(that);
 
         if(that.mode === "default") {
@@ -237,10 +238,10 @@ PykCharts.weighted.spiderWeb = function (options) {
                         .attr("cx", function (d) { return that.radius(d.y); })
                         .attr("r", function (d,i) { return that.sizes(that.new_data[m].data[i].weight); })
                         .style("fill", function (d,i) {
-                            return that.fillChart(that.new_data[m].data[i]);
+                            return that.fillChart.colorPieW(that.new_data[m].data[i]);
                         })
                         .style("opacity", function (d,i) { 
-                            return that.weighted.opacity(that.new_data[m].data[i].weight,that.weight,that.data);
+                            return that.multiD.opacity(that.new_data[m].data[i].weight,that.weight,that.data);
                         })
                         .attr("stroke",that.border.color())
                         .attr("stroke-width",that.border.width())
@@ -320,10 +321,10 @@ PykCharts.weighted.spiderWeb = function (options) {
                         .attr(rect_parameter3, rect_parameter3value)
                         .attr(rect_parameter4, rect_parameter4value)
                         .attr("fill", function (d) {
-                            return that.fillChart(d);
+                            return that.fillChart.colorPieW(d);
                         })
                         .attr("opacity", function (d) {
-                            return that.weighted.opacity(d,that.sorted_weight,that.data);
+                            return that.multiD.opacity(d,that.sorted_weight,that.data);
                         });
 
                     legend.exit().remove();
@@ -360,7 +361,7 @@ PykCharts.weighted.spiderWeb = function (options) {
             //         textXPosition = function (d,i) { return (++i*(90*that.width /unique.length)/100-5); };
             //         textYPosition = function (d,i) { return (++i*(90*that.height /unique.length)/100-5); };
             //         roundOff = function (d,i) { return Math.round(d); };
-            //         opacity = function (d){return that.weighted.opacity(d,that.sorted_weight,that.data); };
+            //         opacity = function (d){return that.multiD.opacity(d,that.sorted_weight,that.data); };
             //         var start, height, width, xtext, ytext;
                    
             //         var renderLengends = function (start,height,width,xtext,ytext,position,textPosition) {
@@ -375,7 +376,7 @@ PykCharts.weighted.spiderWeb = function (options) {
             //                 x.attr(start, position)
             //                     .attr("height", height)
             //                     .attr("width", width)
-            //                     .attr("fill",function(d) { return that.fillChart(d); })
+            //                     .attr("fill",function(d) { return that.fillChart.colorPieW(d); })
             //                     .attr("opacity",opacity);
 
             //                 x.exit().remove();

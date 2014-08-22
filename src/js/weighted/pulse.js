@@ -1,10 +1,10 @@
-PykCharts.weighted.pulse = function (options) {
+PykCharts.multiD.pulse = function (options) {
 	var that = this;
     var theme = new PykCharts.Configuration.Theme({});
 	this.execute = function () {
 
 		that.k = new PykCharts.Configuration(options);
-        that.weighted = new PykCharts.weighted.configuration(options);
+        that.multiD = new PykCharts.multiD.configuration(options);
         //that.loading = options.optional.loading;
         that.mode = options.mode;
         that.selector = options.selector;
@@ -35,8 +35,8 @@ PykCharts.weighted.pulse = function (options) {
 	};
 
 	this.render = function () {
-		that.fillChart = new PykCharts.weighted.fillChart(options);
-        that.size = new PykCharts.weighted.pulseBubbleSize(options,that.data);
+		that.fillChart = new PykCharts.Configuration.fillChart(options);
+        that.size = new PykCharts.multiD.pulseBubbleSize(options,that.data);
         that.border = new PykCharts.Configuration.border(options);
         that.k1 = new PykCharts.multi_series_2D.configuration(options);
 

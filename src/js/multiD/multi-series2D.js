@@ -69,7 +69,7 @@ PykCharts.multi_series_2D.configuration = function (options){
                     .style("font-family", "'Helvetica Neue',Helvetica,Arial,sans-serif");
 
                 that.legends_text.attr("class","legends_text")
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   .attr("fill","black")
+                    .attr("fill","black")
                     .attr(text_parameter1, text_parameter1value)
                     .attr(text_parameter2, text_parameter2value)
                     .text(function (d) { return d; });
@@ -199,7 +199,7 @@ PykCharts.multi_series_2D.configuration = function (options){
                 if(new_data.length < options.optional.clubData.maximumNodes){
                     new_data.push(others);
                 }
-            }else {
+            } else {
                 new_data =data;
             }
             return new_data;
@@ -223,17 +223,3 @@ PykCharts.multi_series_2D.fillChart = function (options,config) {
     };
     return colorPie;
 };
-
-// PykCharts.multi_series_2D.fillChart = function (options) {
-//     var that = this;
-//     var colorPie = function (d) {
-//         if(options.optional.saturation.enable == "yes") {
-//             return options.optional.saturation.color;
-//         } else if(options.optional.color.enable == "yes" && d.color) {
-//             return d.color;
-//         } else {
-//             return options.optional.color.color;
-//         }
-//     };
-//     return colorPie;
-// };

@@ -1,9 +1,9 @@
-PykCharts.multi_series_2D.ultimateBar = function(options){
+PykCharts.multiD.ultimateBar = function(options){
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
     
     this.execute = function () {
-        that = new PykCharts.twoD.processInputs(that, options, "column");
+        that = new PykCharts.multiD.processInputs(that, options, "column");
 
         that.grid = options.chart && options.chart.grid ? options.chart.grid : theme.stylesheet.chart.grid;
         that.grid.yEnabled = options.chart && options.chart.grid && options.chart.grid.yEnabled ? options.chart.grid.yEnabled : theme.stylesheet.chart.grid.yEnabled;
@@ -31,7 +31,7 @@ PykCharts.multi_series_2D.ultimateBar = function(options){
 
             that.optionalFeatures()
                     .createColumnChart()
-                    .legends()
+                    .legends();
                     //.ticks();
         });
     };
@@ -51,8 +51,8 @@ PykCharts.multi_series_2D.ultimateBar = function(options){
         // console.log(that.the_bars);
         that.border = new PykCharts.Configuration.border(that);
         that.transitions = new PykCharts.Configuration.transition(that);
-        that.mouseEvent1 = new PykCharts.twoD.mouseEvent(that);
-        that.fillColor = new PykCharts.multi_series_2D.fillChart(that,options);
+        that.mouseEvent1 = new PykCharts.multiD.mouseEvent(that);
+        that.fillColor = new PykCharts.Configuration.fillChart(that,null,options);
         that.border = new PykCharts.Configuration.border(that);
 
         if(that.mode === "default") {
@@ -281,7 +281,7 @@ PykCharts.multi_series_2D.ultimateBar = function(options){
 
                 rect.attr("width", 0).attr("x", 0)
                     .attr("fill", function(d){
-                        return that.fillColor(d);
+                        return that.fillColor.colorPieMS(d);
                     })
                     .attr("fill-opacity", function (d,i) {
                             return 1;
