@@ -374,7 +374,7 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
         chartObject.ticks = optional.ticks;
         chartObject.ticks.strokeWidth = optional.ticks.strokeWidth ? optional.ticks.strokeWidth : stylesheet.ticks.strokeWidth;
         chartObject.ticks.weight = optional.ticks.weight ? optional.ticks.weight : stylesheet.ticks.weight;
-        chartObject.ticks.size = optional.ticks.size ? optional.ticks.size : stylesheet.ticks.size;
+        chartObject.ticks.size = "size" in optional.ticks ? optional.ticks.size : stylesheet.ticks.size;
         chartObject.ticks.color = optional.ticks.color ? optional.ticks.color : stylesheet.ticks.color;
         chartObject.ticks.family = optional.ticks.family ? optional.ticks.family : stylesheet.ticks.family;
     } else {
