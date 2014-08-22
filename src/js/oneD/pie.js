@@ -12,9 +12,7 @@ PykCharts.oneD.pie = function (options) {
            that.k.loading();
         }
         d3.json(options.data, function (e, data) {
-            console.log(data);
             that.data = Array.groupBy(data);
-            console.log(that.data);
             $(options.selector+" #chart-loader").remove();
             var pieFunctions = new PykCharts.oneD.pieFunctions(options,that,"pie");
             pieFunctions.render();
@@ -249,8 +247,6 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                 return this;
             },
             label : function () {
-                // if (PykCharts.boolean(that.enableLabel)) {
-
                     var cv_text = that.group.selectAll("text")
                                        .data(that.pie(that.chartData));
 
@@ -294,10 +290,8 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                         .attr("fill", that.label.color)
                         .style("font-family", that.label.family);
 
-                        console.log(that.label.size);
-
                     cv_text.exit().remove();
-                // }
+                
                 return this;
             },
             clubData: function () {
@@ -309,7 +303,6 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                     var others_Slice = {"name":that.clubData.text,"color":that.clubData.color,"tooltip":that.clubData.tooltipText,"highlight":false};
                     var index;
                     var i;
-                    console.log(that.data);
                     that.getIndexByName = function(name) {
                         for(i=0;i<that.data.length;i++)
                         {
@@ -375,7 +368,6 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                 else {
                     that.displayData = that.data;
                 }
-                console.log(that.displayData);
                 return that.displayData;
             },
             ticks : function () {

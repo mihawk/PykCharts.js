@@ -156,8 +156,6 @@ PykCharts.oneD.percentageColumn = function (options) {
                 return this;
             },
             label : function () {
-                if (PykCharts.boolean(that.enableLabel)) {
-
                     that.per_text = that.group.selectAll(".text")
                         .data(that.newData1);
                     var sum = 0;
@@ -195,7 +193,6 @@ PykCharts.oneD.percentageColumn = function (options) {
                         });
                     that.per_text.exit()
                         .remove();
-                }
                 return this;
             },
             ticks : function () {

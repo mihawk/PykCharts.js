@@ -213,7 +213,6 @@ PykCharts.oneD.pyramid = function (options) {
 		        return this;
         	},
             label: function () {
-                if (PykCharts.boolean(that.enableLabel)) {
                     var j = that.chartData.length;
                     var p = that.chartData.length;
                     var pyr_text = that.group.selectAll("text")
@@ -262,7 +261,6 @@ PykCharts.oneD.pyramid = function (options) {
                         .attr("fill", that.label.color)
                         .style("font-family", that.label.family);
                     pyr_text.exit().remove();
-                }
                 return this;
             },
             ticks : function () {

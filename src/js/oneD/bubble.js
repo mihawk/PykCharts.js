@@ -124,7 +124,6 @@ PykCharts.oneD.bubble = function (options) {
                 return this;
             },
             label : function () {
-                if (PykCharts.boolean(that.enableLabel)) {
 
                     that.bub_text = that.group.selectAll("text")
                         .data(that.node);
@@ -160,7 +159,6 @@ PykCharts.oneD.bubble = function (options) {
                         })
                         .attr("fill", that.label.color)
                         .style("font-family", that.label.family);
-                }
                 return this;
             },
             clubData : function () {

@@ -265,7 +265,6 @@ PykCharts.oneD.funnel = function (options) {
                 return this;
             },
             label : function () {
-                if (PykCharts.boolean(that.enableLabel)) {
 
                     var pyr_text = that.group.selectAll("text")
                     .data(that.coordinates)
@@ -302,7 +301,6 @@ PykCharts.oneD.funnel = function (options) {
                         });
                     pyr_text.exit()
                          .remove();
-                }
                 return this;
             },
             ticks : function () {
