@@ -136,7 +136,7 @@ PykCharts.oneD.treemap = function (options){
                 return this;
             },
             label_drawn: function () {
-                if(that.enableText) {
+                // if(that.enableText) {
                     that.treemap_text = that.group.selectAll(".name")
                         .data(that.node);
                     that.treemap_text1 = that.group.selectAll(".weight")
@@ -201,11 +201,11 @@ PykCharts.oneD.treemap = function (options){
                         .remove();
                     that.treemap_text1.exit()
                         .remove();
-                }
+                // }
                 return this;
             },
             clubData : function () {
-                if(PykCharts.boolean()){
+                if(PykCharts.boolean(that.clubData.enable)){
                     var clubdata_content = [],weight = 0,k=0;
                     if(that.data.length <= that.clubData.maximumNodes) {
                         that.new_data1 = { "children" : that.data };
