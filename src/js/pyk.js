@@ -727,8 +727,8 @@ configuration.Theme = function(){
     that.stylesheet = {
         "chart": {
             "height": 400,
-            "width": 430,
-            "margin":{"top": 40, "right": 40, "bottom": 40, "left": 40},
+            "width": 600,
+            "margin":{"top": 0, "right": 0, "bottom": 0, "left": 0},
             "grid" : {
                 "xEnabled":"yes",
                 "yEnabled":"yes",
@@ -761,7 +761,7 @@ configuration.Theme = function(){
             "mySiteUrl": "http://www.pykih.com"
         },
         "colors":{
-            "backgroundColor": "white",
+            "backgroundColor": "transparent",
             "chartColor": "steelblue",
             "highlightColor": "#013F73",
             "saturationColor" : "green"
