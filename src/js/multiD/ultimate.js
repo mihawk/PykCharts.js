@@ -147,13 +147,15 @@ PykCharts.multiD.ultimate = function(options){
                             .attr("x2",that.width-that.margin.left-that.margin.right)
                             .attr("y2",that.height-that.margin.top-that.margin.bottom)
                             .attr("stroke",that.axis.x.axisColor);
-
+                    if(that.axis.x.position === "top") {
+                        axis_line.attr("y1",0)
+                            .attr("y2",0);
+                    }
                     axis_line.exit().remove();
 
                     that.xgroup = that.group.append("g")
                         .attr("id","xaxis")
                         .attr("class", "x axis")
-                        .attr("transform","translate(0,"+(that.height-that.margin.top-that.margin.bottom)+")")
                         .style("stroke","none"); 
                 }
                 
@@ -249,6 +251,11 @@ PykCharts.multiD.ultimate = function(options){
                         });
 
                 xAxis_label.exit().remove();
+                if(that.axis.x.position==="top") {
+                    xAxis_label.attr("y", function () {
+                        return -15;
+                    });
+                }
 
                 var bars = that.group.selectAll(".bars")
                     .data(layers);

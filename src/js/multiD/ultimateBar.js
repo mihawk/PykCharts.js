@@ -155,8 +155,12 @@ PykCharts.multiD.ultimateBar = function(options){
 
                     that.xgroup = that.group.append("g")
                         .attr("id","xaxis")
-                        .attr("class", "y axis");
-                        // .attr("transform","translate(0,"+(that.height-that.margin.top-that.margin.bottom)+")")
+                        .attr("class", "x axis");
+                    if(that.axis.y.position === "right") {
+                        axis_line.attr("x1",(that.width-that.margin.left-that.margin.right))
+                            .attr("x2",(that.width-that.margin.left-that.margin.right));
+                        // that.xgroup.attr("transform","translate(0,"+(that.width-that.margin.left-that.margin.right)+")");
+                    }
                         // .style("stroke","none"); 
                 }
                 
@@ -260,6 +264,12 @@ PykCharts.multiD.ultimateBar = function(options){
                         .text(function(d){
                             return d.name;
                         });
+                if(that.axis.y.position === "right") {
+                    yAxis_label.attr("x", function () {
+                        return (that.width-that.margin.left-that.margin.right);
+                    })
+                    .attr("text-anchor","start");
+                }
 
                 yAxis_label.exit().remove();
 

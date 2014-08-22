@@ -161,15 +161,16 @@ PykCharts.multiD.scatterplot = function (options) {
                 that.group1 = that.svgContainer.append("g")
                     .attr("transform","translate("+(that.margin.left)+","+(that.margin.top)+")")
                     .attr("id","main2");
-
-                that.xGroup = that.group.append("g")
-                    .attr("class", "x axis")
-                    .style("stroke","black")
-                    .attr("transform", "translate(0," + (that.height-that.margin.top-that.margin.bottom) + ")");
-
-                that.yGroup = that.group.append("g")
-                    .attr("class", "y axis")
-                    .style("stroke","blue");
+                if(PykCharts.boolean(that.axis.x.enable)) {
+                    that.xGroup = that.group.append("g")
+                        .attr("class", "x axis")
+                        .style("stroke","black");
+                    }
+                if(PykCharts.boolean(that.axis.y.enable)){
+                    that.yGroup = that.group.append("g")
+                        .attr("class", "y axis")
+                        .style("stroke","blue");
+                }
 
                 if(PykCharts.boolean(that.grid.xEnabled)) {
                     that.group.append("g")
