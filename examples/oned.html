@@ -58,7 +58,16 @@
 
             var k = new PykCharts.oneD.treemap({
                 selector: "#treemap",
-                data: "../data/pie.json"
+                data: "../data/pie.json",
+                optional : {      
+                        "label":{ //partially done for oneD, pending for twoD
+            "size": "0",
+            "color": "white",
+            "weight": "thin",
+            "family": "'Helvetica Neue',Helvetica,Arial,sans-serif"
+        }
+      }
+
             });
             k.execute();
 

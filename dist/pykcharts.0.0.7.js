@@ -1019,7 +1019,6 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
         chartObject.label.weight = optional.label.weight ? optional.label.weight : stylesheet.label.weight;
         chartObject.label.family = optional.label.family ? optional.label.family : stylesheet.label.family;
     } else {
-           //     console.log(optional.label.size,"label");
         chartObject.label = stylesheet.label;
     }
     if(optional && optional.ticks) {
