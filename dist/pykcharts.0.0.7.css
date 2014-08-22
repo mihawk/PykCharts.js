@@ -222,19 +222,12 @@
 
 .PykCharts-credits{
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  display: inline-block;
-  height: 30px;
   font-size: 11px;
   color: grey;
   line-height: 1.2;
-  position: relative;
   min-height: 1px;
   padding-right: 15px;
   padding-left: 15px;
-}
-
-.PykCharts-data-src {
-  text-align: right;
 }
 .PykCharts {
 font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;

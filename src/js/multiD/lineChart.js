@@ -102,6 +102,7 @@ PykCharts.multiD.line = function (options){
 							.yGrid(that.svg,that.group,that.yScale)
 							.xGrid(that.svg,that.group,that.xScale);
 				}
+				that.k.emptyDiv(); 
 			} else {
 				that.w = that.width;
 				that.reducedWidth = that.w - that.margin.left - that.margin.right;

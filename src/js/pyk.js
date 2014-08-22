@@ -41,6 +41,11 @@ PykCharts.Configuration = function (options){
 	        }
 	        return this;
 	    },
+        emptyDiv : function () {
+            d3.select(options.selector).append("div")
+                .style("clear","both");
+
+        },
         scaleIdentification : function (type,data,range,x) {
             var scale;
             if(type === "ordinal") {
@@ -131,17 +136,15 @@ PykCharts.Configuration = function (options){
 	            if(credit.mySiteUrl === "") {
 	                enable = false;
 	            }
-	            d3.select(options.selector).append("div")
-		        	.attr("id","footer")
-		        	.style("width",options.width+"px");
-
-	            d3.select(options.selector+" #footer").append("div")
-	                .attr("id","credits")
-                    .style("width",((options.width/2)-30)+"px")
-                    .style("background", options.bg)
-                    .style("float","left")
+                d3.select(options.selector).append("table")
+	                .style("background", options.bg)
+                    .attr("width",options.width+"px")
+                    .append("tr")
                     .attr("class","PykCharts-credits")
+                    .append("td")
+                    .style("text-align","left")
 	                .html("<span style='pointer-events:none;'>Credits: </span><a href='" + credit.mySiteUrl + "' target='_blank' onclick='return " + enable +"'>"+ credit.mySiteName +"</a>");
+
 	        }
 	        return this;
 	    },
@@ -155,20 +158,22 @@ PykCharts.Configuration = function (options){
 	            if(data_src.url === "") {
 	                enable = false;
 	            }
-	            d3.select(options.selector+" #footer").append("div")
-	                .attr("id","data-source")
-                    .style("width",((options.width/2)-30)+"px")
-                    .attr("class","PykCharts-credits PykCharts-data-src")
-                    .style("background", options.bg)
-                    .style("float","right")
-	                .html("<span style='pointer-events:none;'>Source: </span><a href='" + data_src.url + "' target='_blank' onclick='return " + enable +"'>"+ data_src.text +"</a>");
+	            d3.select(options.selector+" table tr")
+	                .style("background", options.bg)
+                    .append("td")
+                    .style("text-align","right")
+                    .html("<span style='pointer-events:none;'>Source: </span><a href='" + data_src.url + "' target='_blank' onclick='return " + enable +"'>"+ data_src.text +"</a></tr>");
 	        }
 	        return this;
 	    },
         makeMainDiv : function (selection,i) {
-            d3.select(selection).append("div")
+            var d = d3.select(selection).append("div")
                 .attr("id","tooltip-svg-container-"+i)
-                .style("float","left");
+                .style("width","auto")
+            if(PykCharts.boolean(options.multiple_containers)){
+                d.style("float","left")
+                // .style("height","auto");
+            }
             return this;
         },
 	    tooltip : function (d,selection,i) {
