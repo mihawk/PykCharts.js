@@ -81,7 +81,7 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
     chartObject.fullscreen = optional && optional.buttons && optional.buttons.enableFullScreen ? optional.buttons.enableFullScreen : stylesheet.buttons.enableFullScreen;
     chartObject.loading = optional && optional.loading && optional.loading.animationGifUrl ? optional.loading.animationGifUrl: stylesheet.loading.animationGifUrl;
     chartObject.enableTooltip = optional && optional.enableTooltip ? optional.enableTooltip : stylesheet.enableTooltip;
-    if (optional && optional.borderBetweenChartElements && optional.borderBetweenChartElements.width!="0px") {
+    if (optional && optional.borderBetweenChartElements) {
         chartObject.borderBetweenChartElements = optional.borderBetweenChartElements;
         chartObject.borderBetweenChartElements.width = optional.borderBetweenChartElements.width ? optional.borderBetweenChartElements.width : stylesheet.borderBetweenChartElements.width;
         chartObject.borderBetweenChartElements.color = optional.borderBetweenChartElements.color ? optional.borderBetweenChartElements.color : stylesheet.borderBetweenChartElements.color;
@@ -90,12 +90,14 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
         chartObject.borderBetweenChartElements = stylesheet.borderBetweenChartElements;
     }
     if (optional && optional.label) {
+        console.log(optional.label.size,"label");
         chartObject.label = optional.label;
         chartObject.label.size = optional.label.size ? optional.label.size : stylesheet.label.size;
         chartObject.label.color = optional.label.color ? optional.label.color : stylesheet.label.color;
         chartObject.label.weight = optional.label.weight ? optional.label.weight : stylesheet.label.weight;
         chartObject.label.family = optional.label.family ? optional.label.family : stylesheet.label.family;
     } else {
+           //     console.log(optional.label.size,"label");
         chartObject.label = stylesheet.label;
     }
     if(optional && optional.ticks) {

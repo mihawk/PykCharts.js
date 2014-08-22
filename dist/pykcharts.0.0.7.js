@@ -902,7 +902,21 @@ configuration.Theme = function(){
     };
 
     that.mapsTheme = {
-        "mapCode": "india-topo"
+        "mapCode": "india-topo",
+        "axis" : {
+            "onHoverHighlightenable": "no",
+            "x": {
+                "enable": "yes",
+                "orient" : "bottom",
+                "axisColor": "#1D1D1D",
+                "labelColor": "#1D1D1D",
+                "no_of_ticks": 10,
+                "tickSize": 5,
+                "tickFormat": "",
+                "ticksPadding": 6,
+                "tickValues": []
+            }
+        }
     };
     return that;
 }
@@ -990,7 +1004,7 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
     chartObject.fullscreen = optional && optional.buttons && optional.buttons.enableFullScreen ? optional.buttons.enableFullScreen : stylesheet.buttons.enableFullScreen;
     chartObject.loading = optional && optional.loading && optional.loading.animationGifUrl ? optional.loading.animationGifUrl: stylesheet.loading.animationGifUrl;
     chartObject.enableTooltip = optional && optional.enableTooltip ? optional.enableTooltip : stylesheet.enableTooltip;
-    if (optional && optional.borderBetweenChartElements && optional.borderBetweenChartElements.width!="0px") {
+    if (optional && optional.borderBetweenChartElements) {
         chartObject.borderBetweenChartElements = optional.borderBetweenChartElements;
         chartObject.borderBetweenChartElements.width = optional.borderBetweenChartElements.width ? optional.borderBetweenChartElements.width : stylesheet.borderBetweenChartElements.width;
         chartObject.borderBetweenChartElements.color = optional.borderBetweenChartElements.color ? optional.borderBetweenChartElements.color : stylesheet.borderBetweenChartElements.color;
@@ -999,12 +1013,14 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
         chartObject.borderBetweenChartElements = stylesheet.borderBetweenChartElements;
     }
     if (optional && optional.label) {
+        console.log(optional.label.size,"label");
         chartObject.label = optional.label;
         chartObject.label.size = optional.label.size ? optional.label.size : stylesheet.label.size;
         chartObject.label.color = optional.label.color ? optional.label.color : stylesheet.label.color;
         chartObject.label.weight = optional.label.weight ? optional.label.weight : stylesheet.label.weight;
         chartObject.label.family = optional.label.family ? optional.label.family : stylesheet.label.family;
     } else {
+           //     console.log(optional.label.size,"label");
         chartObject.label = stylesheet.label;
     }
     if(optional && optional.ticks) {
@@ -2235,7 +2251,9 @@ PykCharts.oneD.pie = function (options) {
            that.k.loading();
         }
         d3.json(options.data, function (e, data) {
+            console.log(data);
             that.data = Array.groupBy(data);
+            console.log(that.data);
             $(options.selector+" #chart-loader").remove();
             var pieFunctions = new PykCharts.oneD.pieFunctions(options,that,"pie");
             pieFunctions.render();
@@ -2521,6 +2539,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                     var others_Slice = {"name":that.clubData.text,"color":that.clubData.color,"tooltip":that.clubData.tooltipText,"highlight":false};
                     var index;
                     var i;
+                    console.log(that.data);
                     that.getIndexByName = function(name) {
                         for(i=0;i<that.data.length;i++)
                         {
@@ -2586,6 +2605,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                 else {
                     that.displayData = that.data;
                 }
+                console.log(that.displayData);
                 return that.displayData;
             },
             ticks : function () {
@@ -3378,7 +3398,7 @@ PykCharts.oneD.treemap = function (options){
                 return this;
             },
             label_drawn: function () {
-                if(that.enableText) {
+                // if(that.enableText) {
                     that.treemap_text = that.group.selectAll(".name")
                         .data(that.node);
                     that.treemap_text1 = that.group.selectAll(".weight")
@@ -3443,11 +3463,11 @@ PykCharts.oneD.treemap = function (options){
                         .remove();
                     that.treemap_text1.exit()
                         .remove();
-                }
+                // }
                 return this;
             },
             clubData : function () {
-                if(PykCharts.boolean()){
+                if(PykCharts.boolean(that.clubData.enable)){
                     var clubdata_content = [],weight = 0,k=0;
                     if(that.data.length <= that.clubData.maximumNodes) {
                         that.new_data1 = { "children" : that.data };
@@ -3535,7 +3555,6 @@ PykCharts.maps.processInputs = function (chartObject, options) {
     var theme = new PykCharts.Configuration.Theme({})
         , stylesheet = theme.stylesheet
         , functionality = theme.functionality
-        , oneDimensionalCharts = theme.oneDimensionalCharts
         , mapsTheme = theme.mapsTheme
         , optional = options.optional;
 
@@ -3559,6 +3578,29 @@ PykCharts.maps.processInputs = function (chartObject, options) {
         chartObject.tooltipLeftCorrection = d3.select(chartObject.selector).style("left");
     } else {
         chartObject.tooltip = stylesheet.tooltip;
+    }
+    if (optional && optional.axis) {
+        chartObject.axis = optional.axis;
+        chartObject.axis.onHoverHighlightenable = optional.axis.onHoverHighlightenable ? optional.axis.onHoverHighlightenable : mapsTheme.axis.onHoverHighlightenable;
+        chartObject.axis.x = optional.axis.x;
+        chartObject.axis.x.orient = PykCharts.boolean(optional.axis.x.enable) && optional.axis.x.orient ? optional.axis.x.orient : mapsTheme.axis.x.orient;
+        chartObject.axis.x.axisColor = PykCharts.boolean(optional.axis.x.enable) && optional.axis.x.axisColor ? optional.axis.x.axisColor : mapsTheme.axis.x.axisColor;
+        chartObject.axis.x.labelColor = PykCharts.boolean(optional.axis.x.enable) && optional.axis.x.labelColor ? optional.axis.x.labelColor : mapsTheme.axis.x.labelColor;
+        chartObject.axis.x.no_of_ticks = PykCharts.boolean(optional.axis.x.enable) && optional.axis.x.no_of_ticks ? optional.axis.x.no_of_ticks : mapsTheme.axis.x.no_of_ticks;
+        chartObject.axis.x.ticksPadding = PykCharts.boolean(optional.axis.x.enable) && optional.axis.x.ticksPadding ? optional.axis.x.ticksPadding : mapsTheme.axis.x.ticksPadding;
+        chartObject.axis.x.tickSize = PykCharts.boolean(optional.axis.x.enable) && optional.axis.x.tickSize ? optional.axis.x.tickSize : mapsTheme.axis.x.tickSize;
+        chartObject.axis.x.tickFormat = PykCharts.boolean(optional.axis.x.enable) && optional.axis.x.tickFormat ? optional.axis.x.tickFormat : mapsTheme.axis.x.tickFormat;
+        chartObject.axis.x.tickValues = PykCharts.boolean(optional.axis.x.enable) && optional.axis.x.tickValues ? optional.axis.x.tickValues : mapsTheme.axis.x.tickValues;
+        chartObject.axis.y = optional.axis.y;
+        chartObject.axis.y.orient = PykCharts.boolean(optional.axis.y.enable) && optional.axis.y.orient ? optional.axis.y.orient : mapsTheme.axis.y.orient;
+        chartObject.axis.y.axisColor = PykCharts.boolean(optional.axis.y.enable) && optional.axis.y.axisColor ? optional.axis.y.axisColor : mapsTheme.axis.y.axisColor;
+        chartObject.axis.y.labelColor = PykCharts.boolean(optional.axis.y.enable) && optional.axis.y.labelColor ? optional.axis.y.labelColor : mapsTheme.axis.y.labelColor;
+        chartObject.axis.y.no_of_ticks = PykCharts.boolean(optional.axis.y.enable) && optional.axis.y.no_of_ticks ? optional.axis.y.no_of_ticks : mapsTheme.axis.y.no_of_ticks;
+        chartObject.axis.y.ticksPadding = PykCharts.boolean(optional.axis.y.enable) && optional.axis.y.ticksPadding ? optional.axis.y.ticksPadding : mapsTheme.axis.y.ticksPadding;
+        chartObject.axis.y.tickSize = PykCharts.boolean(optional.axis.y.enable) && optional.axis.y.tickSize ? optional.axis.y.tickSize : mapsTheme.axis.y.tickSize;
+        chartObject.axis.y.tickFormat = PykCharts.boolean(optional.axis.y.enable) && optional.axis.y.tickFormat ? optional.axis.y.tickFormat : mapsTheme.axis.y.tickFormat;
+    } else {
+        chartObject.axis = mapsTheme.axis;
     }
     if (optional && optional.label) {
         chartObject.label = optional.label;
@@ -3981,6 +4023,7 @@ PykCharts.maps.oneLayer = function (options) {
 /*function customFunction (d) {
 console.log(d);
 }*/
+
 (function () {
     var count = 0;
 
