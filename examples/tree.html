@@ -60,7 +60,7 @@
                         enableLastUpdatedAt: "yes"
                     },
                     transition: {
-                        duration: 1000
+                        duration: 10000
                     },
                     enableTooltip: "yes",
                     label:{ //partially done for oneD, pending for twoD
@@ -86,7 +86,7 @@
                     }
                 }
             });
-           k.execute();
+          k.execute();
 
             var k = new PykCharts.tree.openTree({
                 selector: "#openTree",
@@ -110,11 +110,11 @@
                         url: "http://www.pykih.com/"
                     },
                     realTimeCharts: {
-                        "refreshFrequency": 2,
+                        "refreshFrequency": 11,
                         "enableLastUpdatedAt": "yes"
                     },
                     transition: {
-                        duration: 1000
+                        duration: 10000
                     },
                     enableTooltip: "yes",
                     label:{ //partially done for oneD, pending for twoD
@@ -140,7 +140,7 @@
                     }
                 }
             });
-            // k.execute();
+            k.execute();
 
             var k = new PykCharts.tree.sunburst({
                 selector: "#sunburst",
@@ -168,7 +168,7 @@
                         "refreshFrequency": 0
                     },
                     transition: {
-                        duration: 10000
+                        duration: 1000
                     },
                     label:{ //partially done for oneD, pending for twoD
                       size: "13",
@@ -190,10 +190,11 @@
                     },
                     loading: {
                       animationGifUrl: "../img/preloader.gif"
+
                     }
                 }
             });
-           k.execute();
+         //  k.execute();
         });
 
         </script>

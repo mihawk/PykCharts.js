@@ -29,6 +29,7 @@ PykCharts.oneD.percentageColumn = function (options) {
             that.optionalFeatures()
                     .clubData()
                     .createChart()
+                    .label()
                     .ticks()
         });
     };
@@ -56,7 +57,8 @@ PykCharts.oneD.percentageColumn = function (options) {
                             .clubData();
         }
         that.optionalFeatures().svgContainer()
-            .createChart();
+            .createChart()
+            .label();
         if(that.mode === "default") {
             that.optionalFeatures().ticks()
             that.k.liveData(that)
@@ -135,43 +137,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                     });
                 that.perColumn.exit()
                     .remove();
-                that.per_text = that.group.selectAll(".text")
-                    .data(that.newData1);
-                var sum = 0;
-                that.per_text.enter()
-                    .append("text")
-                    .attr("class","per-text");
-
-                that.per_text.attr("class","per-text")
-                    .attr("x", (that.width/3 + that.width/8 ))
-                    .attr("y",function (d,i) {
-                            sum = sum + d.percentValue;
-                            if (i===0) {
-                                return (0 + (sum * that.height / 100))/2+5;
-                            } else {
-                                return (((sum - d.percentValue) * that.height/100)+(sum * that.height / 100))/2+5;
-                            }
-                        });
-                sum = 0;
-                that.per_text.text("")
-                    .transition()
-                    .delay(that.transitions.duration())
-                that.per_text.text(function (d) { return that.k.appendUnits(d.weight); })
-                    .attr("text-anchor","middle")
-                    .attr("pointer-events","none")
-                    .style("font-weight", that.label.weight)
-                    .style("font-size", that.label.size)
-                    .attr("fill", that.label.color)
-                    .style("font-family", that.label.family)
-                    .text(function (d) {
-                        if(this.getBBox().width < (that.width/4 ) && this.getBBox().height < (d.percentValue * that.height / 100)) {
-                            return that.k.appendUnits(d.weight);
-                        }else {
-                            return "";
-                        }
-                    });
-                that.per_text.exit()
-                    .remove();
+               
                 return this;
             },
             svgContainer :function () {
@@ -187,6 +153,46 @@ PykCharts.oneD.percentageColumn = function (options) {
                     that.group = that.svg.append("g")
                         .attr("id","funnel");
 
+                return this;
+            },
+            label : function () {
+                    that.per_text = that.group.selectAll(".text")
+                        .data(that.newData1);
+                    var sum = 0;
+                    that.per_text.enter()
+                        .append("text")
+                        .attr("class","per-text");
+
+                    that.per_text.attr("class","per-text")
+                        .attr("x", (that.width/3 + that.width/8 ))
+                        .attr("y",function (d,i) {
+                                sum = sum + d.percentValue;
+                                if (i===0) {
+                                    return (0 + (sum * that.height / 100))/2+5;
+                                } else {
+                                    return (((sum - d.percentValue) * that.height/100)+(sum * that.height / 100))/2+5;
+                                }
+                            });
+                    sum = 0;
+                    that.per_text.text("")
+                        .transition()
+                        .delay(that.transitions.duration())
+                    that.per_text.text(function (d) { return that.k.appendUnits(d.weight); })
+                        .attr("text-anchor","middle")
+                        .attr("pointer-events","none")
+                        .style("font-weight", that.label.weight)
+                        .style("font-size", that.label.size)
+                        .attr("fill", that.label.color)
+                        .style("font-family", that.label.family)
+                        .text(function (d) {
+                            if(this.getBBox().width < (that.width/4 ) && this.getBBox().height < (d.percentValue * that.height / 100)) {
+                                return that.k.appendUnits(d.weight);
+                            }else {
+                                return "";
+                            }
+                        });
+                    that.per_text.exit()
+                        .remove();
                 return this;
             },
             ticks : function () {
