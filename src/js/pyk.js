@@ -915,7 +915,7 @@ configuration.Theme = function(){
             "onHoverHighlightenable": "no",
             "x": {
                 "enable": "yes",
-                "orient" : "bottom",
+                "orient" : "top",
                 "axisColor": "#1D1D1D",
                 "labelColor": "#1D1D1D",
                 "no_of_ticks": 10,
