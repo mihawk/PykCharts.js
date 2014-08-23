@@ -50,6 +50,11 @@ PykCharts.Configuration = function (options){
 	        }
 	        return this;
 	    },
+        emptyDiv : function () {
+            d3.select(options.selector).append("div")
+                .style("clear","both");
+
+        },
         scaleIdentification : function (type,data,range,x) {
             var scale;
             if(type === "ordinal") {
@@ -131,57 +136,58 @@ PykCharts.Configuration = function (options){
 	    credits : function () {
 	        if(PykCharts.boolean(options.creditMySite.mySiteName) || PykCharts.boolean(options.creditMySite.mySiteUrl)) {
                 var credit = options.creditMySite;
-	            var enable = true;
+                var enable = true;
 
-	            if(credit.mySiteName === "") {
-	                credit.mySiteName = credit.mySiteUrl;
-	            }
-	            if(credit.mySiteUrl === "") {
-	                enable = false;
-	            }
-	            d3.select(options.selector).append("div")
-		        	.attr("id","footer")
-		        	.style("width",options.width+"px");
-
-	            d3.select(options.selector+" #footer").append("div")
-	                .attr("id","credits")
-                    .style("width",((options.width/2)-30)+"px")
+                if(credit.mySiteName === "") {
+                    credit.mySiteName = credit.mySiteUrl;
+                }
+                if(credit.mySiteUrl === "") {
+                    enable = false;
+                }
+                d3.select(options.selector).append("table")
                     .style("background", options.bg)
-                    .style("float","left")
+                    .attr("width",options.width+"px")
+                    .append("tr")
                     .attr("class","PykCharts-credits")
-	                .html("<span style='pointer-events:none;'>Credits: </span><a href='" + credit.mySiteUrl + "' target='_blank' onclick='return " + enable +"'>"+ credit.mySiteName +"</a>");
-	        }
+                    .append("td")
+                    .style("text-align","left")
+                    .html("<span style='pointer-events:none;'>Credits: </span><a href='" + credit.mySiteUrl + "' target='_blank' onclick='return " + enable +"'>"+ credit.mySiteName +"</a>");
+
+            }
 	        return this;
 	    },
 	    dataSource : function () {
 	        if(PykCharts.boolean(options.dataSource) && (PykCharts.boolean(options.dataSource.text) || PykCharts.boolean(options.dataSource.url))) {
-	            var enable = true;
-	            var data_src = options.dataSource;
-	            if(data_src.text === "") {
+                var enable = true;
+                var data_src = options.dataSource;
+                if(data_src.text === "") {
                     data_src.text = data_src.url;
-	            }
-	            if(data_src.url === "") {
-	                enable = false;
-	            }
-	            d3.select(options.selector+" #footer").append("div")
-	                .attr("id","data-source")
-                    .style("width",((options.width/2)-30)+"px")
-                    .attr("class","PykCharts-credits PykCharts-data-src")
+                }
+                if(data_src.url === "") {
+                    enable = false;
+                }
+                d3.select(options.selector+" table tr")
                     .style("background", options.bg)
-                    .style("float","right")
-	                .html("<span style='pointer-events:none;'>Source: </span><a href='" + data_src.url + "' target='_blank' onclick='return " + enable +"'>"+ data_src.text +"</a>");
-	        }
+                    .append("td")
+                    .style("text-align","right")
+                    .html("<span style='pointer-events:none;'>Source: </span><a href='" + data_src.url + "' target='_blank' onclick='return " + enable +"'>"+ data_src.text +"</a></tr>");
+            }
 	        return this;
 	    },
         makeMainDiv : function (selection,i) {
-            d3.select(selection).append("div")
+            var d = d3.select(selection).append("div")
                 .attr("id","tooltip-svg-container-"+i)
-                .style("float","left");
+                .style("width","auto")
+            if(PykCharts.boolean(options.multiple_containers)){
+                d.style("float","left")
+                // .style("height","auto");
+            }
             return this;
         },
 	    tooltip : function (d,selection,i) {
 	    	if(PykCharts.boolean(options.enableTooltip) && options.mode === "default") {
 	        	if(selection !== undefined){
+                    console.log("dhajgH");
 	        		d3.select(options.selector + " " +"#tooltip-svg-container-"+i).append("div")
                         .attr("id", "tooltip-container")
 						.style("position", "relative")
@@ -192,6 +198,7 @@ PykCharts.Configuration = function (options){
 			        	.attr("id", "pyk-tooltip")
 			        	.attr("class","pyk-line-tooltip");
 	        	} else if (PykCharts.boolean(options.tooltip)) {
+                    console.log("tooltip");
                     if (options.tooltip.mode === "fixed") {
                         PykCharts.Configuration.tooltipp = d3.select("body")
                             .append("div")
@@ -345,7 +352,9 @@ PykCharts.Configuration = function (options){
 
             if(PykCharts.boolean(options.axis.x.enable)){
                 d3.selectAll(options.selector + " " + ".x.axis").attr("fill",function () { return options.axis.x.labelColor;});
-
+                if(options.axis.x.position === "bottom") {
+                    gsvg.attr("transform", "translate(0," + (options.height - options.margin.top - options.margin.bottom) + ")");
+                }
                 var xaxis = PykCharts.Configuration.makeXAxis(options,xScale);
 
                 if(options.axis.x.tickValues.length != 0) {
@@ -363,7 +372,9 @@ PykCharts.Configuration = function (options){
                 height = options.height;
 
             if(PykCharts.boolean(options.axis.y.enable)){
-
+                if(options.axis.y.position === "right") {
+                    gsvg.attr("transform", "translate(" + (options.width - options.margin.left - options.margin.right) + ",0)");
+                }
                 d3.selectAll(options.selector + " " + ".y.axis").attr("fill",function () { return options.axis.y.labelColor; });
                 var yaxis = PykCharts.Configuration.makeYAxis(options,yScale);
 
@@ -634,13 +645,15 @@ configuration.fillChart = function (options,theme,config) {
         colorPieMS : function (d) {
             if(PykCharts.boolean(d.highlight)) {
                 return options.highlightColor;
+            } else if(PykCharts.boolean(options.saturationEnable)) {
+                return options.saturationColor;
             } else if(config.optional && config.optional.colors && config.optional.colors.chartColor) {
                 return options.chartColor;
             } else if(config.optional && config.optional.colors && d.color){
                 return d.color;
             } else {
                 return options.chartColor;
-            }
+            } return options.chartColor;
         }
     }
     return fillchart;
@@ -771,7 +784,7 @@ configuration.Theme = function(){
             "backgroundColor": "transparent",
             "chartColor": "steelblue",
             "highlightColor": "#013F73",
-            "saturationColor" : "green"
+            "saturationColor" : "steelblue"
         },
         "borderBetweenChartElements":{
             "width": 1,
@@ -854,6 +867,7 @@ configuration.Theme = function(){
             "onHoverHighlightenable": "no",
             "x": {
                 "enable": "yes",
+                "position":"bottom",
                 "orient" : "bottom",
                 "axisColor": "#1D1D1D",
                 "labelColor": "#1D1D1D",
@@ -865,6 +879,7 @@ configuration.Theme = function(){
             },
             "y": {
                 "enable": "yes",
+                "position":"left",
                 "orient": "left",
                 "axisColor": "#1D1D1D",
                 "labelColor": "#1D1D1D",
@@ -899,6 +914,9 @@ configuration.Theme = function(){
         },
         "scatterplot" : {
             "radius" : 9
+        },
+        "line": {
+            "color_from_data": "no"
         }
     };
 
@@ -910,7 +928,30 @@ configuration.Theme = function(){
     };
 
     that.mapsTheme = {
-        "mapCode": "india-topo",
+        // "mapCode": "india-topo",
+        "colors" : {
+            "defaultColor" : "#4682B4",
+            "total" :3,
+            "type" : "saturation",
+            "palette" : "Blue"
+        },
+        "border" :{
+            "color": "white",
+            "thickness" : 1
+        },
+        "tooltip" : {
+            "enable": "yes",
+            "mode":"moving",
+            "positionTop":0,
+            "positionLeft":0
+        },
+        "legends": {
+            "enable":"yes"
+        },
+        "label": {
+            "enable": "no"
+        },
+        "enableClick": "yes",
         "axis" : {
             "onHoverHighlightenable": "no",
             "x": {

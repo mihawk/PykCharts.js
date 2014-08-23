@@ -176,6 +176,10 @@
                         size : {
                            enable : "yes"
                         },
+                        dataSource:{
+                            text: "World Bank",
+                            url: "http://www.pykih.com/"
+                        },
                         enableTicks: "yes",
                         border: {
                             enable: "yes",
@@ -275,7 +279,7 @@
                 k.execute();
                 
                 var k = new PykCharts.multiD.line({
-                    selector: "#multiline",
+                    selector: "#multiLine",
                     data: "../data/multiLineChart.json",
                     mode : "default",
                     yAxisDataFormat : "number",
@@ -289,6 +293,9 @@
                             yEnabled: "yes",
                             color: ""
                         },
+                    },
+                    line: {
+                        color_from_data: "no"
                     },
                     optional:{
                         transition : {
@@ -314,8 +321,7 @@
                             onHoverHighlightenable: "yes",
                             x: {
                                 enable: "yes",
-
-                                position:"bottom", //top or bottom
+                                position: "bottom", //top or bottom
                                 orient : "bottom",
                                 axisColor: "#fff",
                                 labelColor: "#1D1D1D",
@@ -327,7 +333,7 @@
                             },
                             y: {
                                 enable: "yes",
-                                position:"left", //top or bottom
+                                position:"left", //left or right
                                 orient: "left",
                                 axisColor: "#fff",
                                 labelColor: "#1D1D1D",
@@ -338,7 +344,14 @@
                             }
                         },
                         legends: {
-                            enable: "yes"
+                            enable: "yes",
+                            display: "horizontal"
+                        },
+                        legendsText: {
+                            size: "20",
+                            color: "steelblue",
+                            weight: "thin", // or "thick"
+                            family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
                         },
                         dataSource:{
                             text: "World Bank",
