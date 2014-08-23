@@ -6,13 +6,22 @@ Array.prototype.groupBy = function () {
     , group = _.groupBy(this, function (d) {
         return d.name;
     });
-    console.log(group)
     for(i in group) {
-        gd.push({
-            name: i,
-            weight: d3.sum(group[i], function (d) { return d.weight; })
-        })
+        var highlight = _.where(group[i], {highlight: true}).length;
+        if (highlight>0) {
+            gd.push({
+                name: i,
+                weight: d3.sum(group[i], function (d) { return d.weight; }),
+                highlight: true
+            })
+        } else {
+            gd.push({
+                name: i,
+                weight: d3.sum(group[i], function (d) { return d.weight; })
+            })
+        }
     };
+    console.log(gd);
     return gd;
 };
 
