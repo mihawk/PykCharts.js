@@ -14,6 +14,7 @@ PykCharts.multiD.ultimateBar = function(options){
         }
         d3.json(options.data, function(e, data){
             that.data = data;
+            //console.log(data);
             $(that.selector+" #chart-loader").remove();
             that.render();
         });
@@ -43,8 +44,9 @@ PykCharts.multiD.ultimateBar = function(options){
         var that = this;
 
         that.data = that.dataTransformation();
-        // console.log(that.data);
+        //console.log(that.data);
         that.data = that.emptygroups(that.data);
+        //console.log(that.data);
         var fD = that.flattenData();
         // console.log(fD);
         that.the_bars = fD[0];
@@ -163,8 +165,9 @@ PykCharts.multiD.ultimateBar = function(options){
                 return this;
             },
             createColumnChart: function() {
-                var w = that.width - that.margin.left - that.margin.right;
-                var h = that.height - that.margin.top - that.margin.bottom;
+                var w = that.width - that.margin.left - that.margin.right,
+                    j = 0,
+                    h = that.height - that.margin.top - that.margin.bottom;
 
                 var the_bars = that.the_bars;
                 var keys = that.the_keys;
@@ -236,7 +239,6 @@ PykCharts.multiD.ultimateBar = function(options){
                     that.y_factor = that.yScale.rangeBand()/4;
                     that.height_factor = (that.yScale.rangeBand()/(2*that.max_length));
                 };
-                console.log()
                 var yAxis_label = that.group.selectAll("text.axis-text")
                     .data(group_label_data);
 
@@ -285,7 +287,16 @@ PykCharts.multiD.ultimateBar = function(options){
                         return that.fillColor.colorPieMS(d);
                     })
                     .attr("fill-opacity", function (d,i) {
-                            return 1;
+                        //console.log(d.x);
+                        if(j<that.max_length){
+                            //console.log(d.x, "d.x" , j, "j");
+                            j++;
+                            return j/that.max_length;
+                        } else {
+                            j = 0;
+                            j++;
+                            return j/that.max_length;
+                        }
                     })
                     .attr("stroke",that.border.color())
                     .attr("stroke-width",that.border.width())
@@ -548,6 +559,9 @@ PykCharts.multiD.ultimateBar = function(options){
             for(var cat_name in d){
                 for(var j in d[cat_name]){
                     var id = "i" + i + "j" + j;
+                    if(typeof d[cat_name][j] !== "object"){
+                        continue;
+                    }
                     var key = Object.keys(d[cat_name][j])[0];
                     that.keys[id] = key;
                     d[cat_name][j].id = id;
@@ -593,6 +607,7 @@ PykCharts.multiD.ultimateBar = function(options){
         });
 
         var new_data = _.map(data,function (d,i){
+            //console.log(that.data);
             var value = _.values(d);
             while(value[0].length < that.max_length) {
                 var key = _.keys(d);
@@ -636,7 +651,7 @@ PykCharts.multiD.ultimateBar = function(options){
                 data_tranform.push(group);
                 data_tranform[i][that.data[i].y].push(bar);
                 data_tranform[i][that.data[i].y][i][that.data[i].group].push(stack);
-                console.log("hey");
+                //console.log("hey");
             } else {
                 var data_tranform_lenght = data_tranform.length;
                 var j=0;
