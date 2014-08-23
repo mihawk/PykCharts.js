@@ -7,7 +7,7 @@ PykCharts.maps.oneLayer = function (options) {
         that.data = options.data;
         console.log(that.tooltip);
         that.k
-            .totalColors(that.totalColors)
+            .totalColors(that.colors.total)
             .colorType(that.colors.type)
             .loading(that.loading)
             .tooltip(that.tooltip)
@@ -61,7 +61,7 @@ PykCharts.maps.oneLayer = function (options) {
             offset = [that.width / 2, that.height / 2],
             i;
 
-        that.current_palette = _.where(that.colorPalette_data, {name:that.colors.palette, number:that.totalColors})[0];
+        that.current_palette = _.where(that.colorPalette_data, {name:that.colors.palette, number:that.colors.total})[0];
 
         that.optionalFeatures()
             .enableLegend(that.legends)

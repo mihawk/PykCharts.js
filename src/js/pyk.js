@@ -924,6 +924,7 @@ configuration.Theme = function(){
         // "mapCode": "india-topo",
         "colors" : {
             "defaultColor" : "#4682B4",
+            "total" :3,
             "type" : "saturation",
             "palette" : "Blue"
         },
@@ -931,7 +932,6 @@ configuration.Theme = function(){
             "color": "white",
             "thickness" : 1
         },
-        "numberOfColors": 3,
         "tooltip" : {
             "enable": "yes",
             "mode":"fixed",
