@@ -92,7 +92,7 @@ PykCharts.Configuration = function (options){
 	                    .style("text-align","left")
 	                    .html("<span style='pointer-events:none;font-size:" +
                         options.title.size+
-                        ";align:center;color:" +
+                        ";color:" +
                         options.title.color+
                         ";font-weight:" +
                         options.title.weight+
