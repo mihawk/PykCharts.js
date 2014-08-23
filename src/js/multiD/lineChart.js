@@ -341,10 +341,6 @@ PykCharts.multiD.line = function (options){
 								// 	}
 								// });
 						 	}
-							else if(that.type === "lineChart") {
-								that.svg.select(that.selector + " #"+type)
-						      			.style("stroke", function(d) { return d[0].color ? d[0].color : that.chartColor; }); // Hard-coded d[0].color ---- Pending!
-							}
 						}
 					} else {
 						type = that.type + that.svg.attr("id");
@@ -376,10 +372,6 @@ PykCharts.multiD.line = function (options){
 							// 	}
 							// });
 					 	}
-						else if(that.type === "lineChart") {
-							that.svg.select(that.selector + " #"+type)
-					      	.style("stroke", function(d) { return d[0].color ? d[0].color : that.chartColor; }); // Hard-coded d[0].color ---- Pending!
-						}
 					}
 
 					if(that.type === "lineChart") {
@@ -420,10 +412,9 @@ PykCharts.multiD.line = function (options){
 									.html(that.new_data[i].name);
 
 						  	if(that.type === "multiline") {
-						  		console.log(PykCharts.boolean(that.color_from_data));
 						  		if(PykCharts.boolean(that.color_from_data) === true) {
 									that.dataLineGroup[i]
-						      			.style("stroke", function() { console.log(that.new_data[i].color);return that.new_data[i].color; });
+						      			.style("stroke", function() { return that.new_data[i].color; });
 								}
 						  		that.dataLineGroup[i].on("click",function (d) {
 						  			that.selected_line = d3.event.target;
@@ -446,12 +437,6 @@ PykCharts.multiD.line = function (options){
 										that.updateSelectedLine(that.selected.id);
 									}
 								});
-							}
-							else if(that.type === "lineChart") {
-								if(PykCharts.boolean(that.color_from_data) === true) {
-									that.dataLineGroup[i]
-						      			.style("stroke", function(d) { console.log(d[0].color);return (that.chartColor === "") ? d[0].color : that.chartColor; }); // Hard-coded d[0].color ---- Pending!
-								}
 							}
 						}
 					} else {
@@ -493,10 +478,6 @@ PykCharts.multiD.line = function (options){
 									that.updateSelectedLine(that.selected.id);
 								}
 							});
-						}
-						else if(that.type === "lineChart") {
-							that.dataLineGroup
-					      			.style("stroke", function(d) { return (that.chartColor === "") ? d[0].color : that.chartColor; }); // Hard-coded d[0].color ---- Pending!
 						}
 					}
 					if(that.type === "lineChart") {

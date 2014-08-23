@@ -29,7 +29,9 @@ PykCharts.multiD.ultimate = function(options){
             that.the_bars = fD[0];
             that.the_keys = fD[1];
             that.the_layers = that.layers(that.the_bars);
-
+            if(that.max_length === 1) {
+                that.legends.enable = "no";
+            }
             that.optionalFeatures()
                     .createColumnChart()
                     .legends();
@@ -55,7 +57,9 @@ PykCharts.multiD.ultimate = function(options){
         that.transitions = new PykCharts.Configuration.transition(that);
         that.mouseEvent1 = new PykCharts.multiD.mouseEvent(that);
         that.fillColor = new PykCharts.Configuration.fillChart(that,null,options);
-
+        if(that.max_length === 1) {
+            that.legends.enable = "no";
+        }
         if(that.mode === "default") {
             that.k.title()
                 .subtitle();
@@ -204,6 +208,11 @@ PykCharts.multiD.ultimate = function(options){
                 var zScale = d3.scale.category10();
 
                 var group_label_data = [], g, x, totalWidth, i;
+                var x_factor = 0, width_factor = 0;
+                if(that.max_length === 1) {
+                    x_factor = that.xScale.rangeBand()/4;
+                    width_factor = (that.xScale.rangeBand()/(2*that.max_length));
+                };
 
                 for(i in groups){
                     g = groups[i];
@@ -223,38 +232,7 @@ PykCharts.multiD.ultimate = function(options){
                 //     .domain(that.barName.map(function(d) { return d; }))
                 //     .rangeRoundBands([0, that.x0.rangeBand()]) ;
 
-                var x_factor = 0, width_factor = 0;
-                if(that.max_length === 1) {
-                    x_factor = that.xScale.rangeBand()/4;
-                    width_factor = (that.xScale.rangeBand()/(2*that.max_length));
-                };
-
-                var xAxis_label = that.group.selectAll("text.axis-text")
-                    .data(group_label_data);
-
-                xAxis_label.enter()
-                        .append("text")
-
-                xAxis_label.attr("class", "axis-text")
-                        .attr("x", function(d){
-                            return d.x;
-                        })
-                        .attr("y", function(d){
-                            return h+15;
-                        })
-                        .attr("text-anchor", "middle")
-                        .attr("fill",that.axis.x.labelColor)
-                        .text(function(d){
-                            return d.name;
-                        });
-
-                xAxis_label.exit().remove();
-                if(that.axis.x.position==="top") {
-                    xAxis_label.attr("y", function () {
-                        return -15;
-                    });
-                }
-
+                
                 var bars = that.group.selectAll(".bars")
                     .data(layers);
 
@@ -323,7 +301,44 @@ PykCharts.multiD.ultimate = function(options){
 
                 bars.exit()
                     .remove();
+                
+                var xAxis_label = that.group.selectAll("text.axis-text")
+                    .data(group_label_data);
 
+                xAxis_label.enter()
+                        .append("text")
+
+                xAxis_label.attr("class", "axis-text")
+                        .attr("x", function(d){
+                            return d.x;
+                        })
+                        .attr("text-anchor", "middle")
+                        .attr("fill",that.axis.x.labelColor)
+                        .text(function(d){
+                            return d.name;
+                        });
+
+                xAxis_label.exit().remove();
+                if(that.axis.x.position==="top") {
+                    if(that.axis.x.orient === "top") {
+                        xAxis_label.attr("y", function () {
+                            return -15;
+                        });
+                    } else if(that.axis.x.orient === "bottom") {
+                        xAxis_label.attr("y", function () {
+                            return 15;
+                        });
+                    }
+                }
+                if(that.axis.x.orient === "top") {
+                    xAxis_label.attr("y", function () {
+                        return h-15;
+                    });
+                } else if(that.axis.x.orient === "bottom") {
+                    xAxis_label.attr("y", function () {
+                        return h+15;
+                    });
+                }
                 return this;
             },
             legends: function () {
