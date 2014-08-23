@@ -5,20 +5,27 @@
     </head>
     <body>
         <div id="line"></div>
+        <hr/>
         <div id="area"></div>
+        <hr/>
         <div id="multiLine"></div>
+        <hr/>
         <div id="multiArea"></div>
+        <hr/>
         <div id="pulse"></div>
+        <hr/>
         <div id="scatterPlot"></div>
+        <hr/>
         <div id="spiderWeb"></div>
+        <hr/>
         <div id="column"></div>
+        <hr/>
         <div id="groupColumn"></div>
-        <div id="stackColumn"></div>
-        <div id="groupStackColumn"></div>
+        <hr/>
         <div id="bar"></div>
+        <hr/>
         <div id="groupBar"></div>
-        <div id="stackBar"></div>
-        <div id="groupStackBar"></div>
+        <hr/>
         <script src="../lib/d3.min.js"></script>
         <script src="../lib/jquery-1.11.1.min.js"></script>
         <script src="../lib/underscore-min.js"></script>
@@ -34,7 +41,7 @@
       
         <script>
 
-        $(document).ready(function (e) {
+            $(document).ready(function (e) {
                 var k = new PykCharts.multiD.line({
                     selector: "#line",
                     data: "../data/lineChart.json",
@@ -63,6 +70,7 @@
                             onHoverHighlightenable: "yes",
                             x: {
                                 enable: "yes",
+                                position:"bottom", //top or bottom
                                 orient : "bottom",
                                 axisColor: "#1D1D1D",
                                 labelColor: "#1D1D1D",
@@ -74,6 +82,7 @@
                             },
                             y: {
                                 enable: "yes",
+                                position:"left", //left or right
                                 orient: "left",
                                 axisColor: "#1D1D1D",
                                 labelColor: "#1D1D1D",
@@ -84,10 +93,7 @@
                             }
                         },            
                         curvy_lines : "yes",
-                        enableCrossHair: "yes",
-                        zoom: {
-                            enable: "yes"
-                        }
+                        enableCrossHair: "yes"
                     }
                 });
                 k.execute();
@@ -119,6 +125,7 @@
                             onHoverHighlightenable: "yes",
                             x: {
                                 enable: "yes",
+                                position:"bottom", //top or bottom
                                 orient : "bottom",
                                 axisColor: "#1D1D1D",
                                 labelColor: "black",
@@ -130,6 +137,7 @@
                             },
                             y: {
                                 enable: "yes",
+                                position:"left", //left or right
                                 orient: "left",
                                 axisColor: "#1D1D1D",
                                 labelColor: "black",
@@ -149,178 +157,201 @@
                 k.execute();
 
                 var k = new PykCharts.multiD.spiderWeb({
-                selector: "#spiderWeb",
-                data: "../data/spiderWeb.json",
-                mode : "default", //  default or infographics
-                chart : {
-                    width: 400,
-                    height: 430,
-                    margin: {top: 25, right: 25, bottom: 25, left: 55}
-                },
-                spiderweb : {
-                    radius : 5,
-                    outer_radius :200,
-                },
-                optional : {
-                    realTimeCharts: {
-                        refreshFrequency: 0 // seconds
+                    selector: "#spiderWeb",
+                    data: "../data/spiderWeb.json",
+                    mode : "default", //  default or infographics
+                    chart : {
+                        width: 400,
+                        height: 430,
+                        margin: {top: 25, right: 25, bottom: 25, left: 55}
                     },
-                    size : {
-                       enable : "yes"
+                    spiderweb : {
+                        radius : 5,
+                        outer_radius :200,
                     },
-                    enableTicks: "yes",
-                    border: {
-                        enable: "yes",
-                        width: "1.5px",
-                        color: "#000"
-                    },
-                    legends: {
-                        enable: "yes", //will be enabled only when size is "no"
-                        display: "horizontal" //horizontal or vertical
-                    },
-                    legendsText: {
-                        size: 13,
-                        color: "black",
-                        weight: "thin",
-                        family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
-                    },
-                    axisTitle: "yes"
-                }
-            }); 
-            k.execute();
-
-            var k = new PykCharts.multiD.scatterplot({
-                selector: "#scatterPlot",
-                data: "../data/scatterplot.json",
-                mode : "default", //  default or infographics
-                yAxisDataFormat : "number",
-                xAxisDataFormat : "number",
-                chart : {
-                    width: 400,
-                    height: 430,                    
-                    margin: {top: 25, right: 25, bottom: 25, left: 55},
-                    grid: {
-                        xEnabled: "yes",
-                        yEnabled: "yes",
-                        color:""
-                    }
-                },
-                scatterplot : {
-                    radius: 9
-                },
-                optional : {
-                    realTimeCharts: {
-                        refreshFrequency: 0 // seconds
-                    },
-                    multiple_containers: {
-                        enable : "no",
-                    },                  
-                    size : {
-                        enable : "yes"
-                    },
-                    axis : {
-                        x: {
-                            enable: "yes",
-                            orient : "bottom",
-                            axisColor: "#1D1D1D",
-                            no_of_ticks: 2,
-                            tickFormat: "",
-                            tickSize: 5,
-                            ticksPadding: 6,
-                            labelColor: "black",
-                            tickValues: []
+                    optional : {
+                        realTimeCharts: {
+                            refreshFrequency: 0 // seconds
                         },
-                        y: {
+                        size : {
+                           enable : "yes"
+                        },
+                        enableTicks: "yes",
+                        border: {
                             enable: "yes",
-                            orient: "left",
-                            axisColor: "#1D1D1D",
-                            no_of_ticks: 5,
-                            tickSize: 5,
-                            ticksPadding: 6,
-                            tickFormat: "", 
-                            labelColor: "black"                     
+                            width: "1.5px",
+                            color: "#000"
+                        },
+                        legends: {
+                            enable: "yes", //will be enabled only when size is "no"
+                            display: "horizontal" //horizontal or vertical
+                        },
+                        legendsText: {
+                            size: 13,
+                            color: "black",
+                            weight: "thin",
+                            family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
+                        },
+                        axisTitle: "yes"
+                    }
+                }); 
+                k.execute();
+
+                var k = new PykCharts.multiD.scatterplot({
+                    selector: "#scatterPlot",
+                    data: "../data/scatterplot.json",
+                    mode : "default", //  default or infographics
+                    yAxisDataFormat : "number",
+                    xAxisDataFormat : "number",
+                    chart : {
+                        width: 400,
+                        height: 430,                    
+                        margin: {top: 25, right: 25, bottom: 25, left: 55},
+                        grid: {
+                            xEnabled: "yes",
+                            yEnabled: "yes",
+                            color:""
                         }
                     },
-                    legends: {
-                        enable: "yes",
-                        display: "horizontal"
+                    scatterplot : {
+                        radius: 9
                     },
-                    legendsText: {
-                        size: 13,
-                        color: "black",
-                        weight: "thin",
-                        family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
-                    },
-                    zoom: {
-                        enable: "yes"
-                    },
-                    border: {
-                        enable: "no",
-                        width: "1px",
-                        color: "blue"
-                    },
-                    enableCrossHair: "yes"
-                }
-            }); 
-            k.execute();
-
-            var k = new PykCharts.multiD.line({
-                selector: "#multiLine",
-                data: "../data/multiLineChart.json",
-                mode : "default",
-                yAxisDataFormat : "number",
-                xAxisDataFormat : "string",
-                chart: {
-                    height: 400,
-                    width: 430,
-                    margin: {top: 5, right: 25, bottom: 25, left: 35}, // top >=10
-                    padding: {top: 25, right: 25, bottom: 25, left: 25},
-                    grid: {
-                        xEnabled: "no",
-                        yEnabled: "yes",
-                        color: ""
-                    },
-                },
-                optional:{
-                    transition : {
-                        duration : 0 //milliseconds
-                    },
-                    realTimeCharts: {
-                        refreshFrequency: 0 // seconds
-                    },
-                    axis : {
-                        x: {
-                            enable: "yes",
-                            orient : "bottom",
-                            axisColor: "#1D1D1D",
-                            labelColor: "#1D1D1D",
-                            no_of_ticks: 10,
-                            tickSize: 5,
-                            ticksPadding: 6,
-                            tickFormat: "",
-                            tickValues: []
+                    optional : {
+                        realTimeCharts: {
+                            refreshFrequency: 0 // seconds
                         },
-                        y: {
+                        multiple_containers: {
+                            enable : "no",
+                        },                  
+                        size : {
+                            enable : "yes"
+                        },
+                        axis : {
+                            x: {
+                                enable: "yes",
+                                position:"bottom", //top or bottom
+                                orient : "bottom",
+                                axisColor: "#1D1D1D",
+                                no_of_ticks: 2,
+                                tickFormat: "",
+                                tickSize: 5,
+                                ticksPadding: 6,
+                                labelColor: "black",
+                                tickValues: []
+                            },
+                            y: {
+                                enable: "yes",
+                                position:"left", //left or right
+                                orient: "left",
+                                axisColor: "#1D1D1D",
+                                no_of_ticks: 5,
+                                tickSize: 5,
+                                ticksPadding: 6,
+                                tickFormat: "", 
+                                labelColor: "black"                     
+                            }
+                        },
+                        legends: {
                             enable: "yes",
-                            orient: "left",
-                            axisColor: "#1D1D1D",
-                            labelColor: "#1D1D1D",
-                            tickSize: 5,
-                            ticksPadding: 6,
-                            no_of_ticks: 10,
-                            tickFormat: ""
-                        }
-                    },          
-                    curvy_lines : "yes",
-                    enableCrossHair: "yes",
-                    zoom: {
-                        enable: "yes"
+                            display: "horizontal"
+                        },
+                        legendsText: {
+                            size: 13,
+                            color: "black",
+                            weight: "thin",
+                            family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
+                        },
+                        zoom: {
+                            enable: "yes"
+                        },
+                        border: {
+                            enable: "no",
+                            width: "1px",
+                            color: "blue"
+                        },
+                        enableCrossHair: "yes"
                     }
-                }
-            });
-            k.execute();
+                }); 
+                k.execute();
+                
+                var k = new PykCharts.multiD.line({
+                    selector: "#line",
+                    data: "../data/multiLineChart.json",
+                    mode : "default",
+                    yAxisDataFormat : "number",
+                    xAxisDataFormat : "string",
+                    chart: {
+                        height: 400,
+                        width: 700,
+                        margin: {top: 5, right: 25, bottom: 16, left: 35},
+                        grid: {
+                            xEnabled: "no",
+                            yEnabled: "yes",
+                            color: ""
+                        },
+                    },
+                    optional:{
+                        transition : {
+                            duration : 0 //milliseconds
+                        },
+                        title: { 
+                            text: "Malnutrition in India"
+                        },
+                        multiple_containers: {
+                            enable : "no"
+                        },  
+                        subtitle: {
+                            text: "Malnutrition in India Malnutrition in India Malnutrition in India Malnutrition in India"
+                        },
+                        realTimeCharts: {
+                            refreshFrequency: 0 // seconds
+                        },
+                        enableTooltip: "no",
+                        colors: {
+                            highlightColor: "steelblue"
+                        },
+                        axis : {
+                            onHoverHighlightenable: "yes",
+                            x: {
+                                enable: "yes",
+                                orient : "bottom",
+                                axisColor: "#fff",
+                                labelColor: "#1D1D1D",
+                                no_of_ticks: 10,
+                                tickSize: 1,
+                                ticksPadding: 6,
+                                tickFormat: "",
+                                tickValues: []
+                            },
+                            y: {
+                                enable: "yes",
+                                orient: "left",
+                                axisColor: "#fff",
+                                labelColor: "#1D1D1D",
+                                tickSize: 5,
+                                ticksPadding: 6,
+                                no_of_ticks: 10,
+                                tickFormat: ""
+                            }
+                        },
+                        legends: {
+                            enable: "yes"
+                        },
+                        dataSource:{
+                            text: "World Bank",
+                            url: "http://www.pykih.com/"
+                        },
+                        creditMySite:{
+                            mySiteName: "Acme NewsCorp",
+                            mySiteUrl: "https://google.com"
+                        },                  
+                        curvy_lines : "yes",
+                        enableCrossHair: "yes"
+                    }
+                });
+                k.execute();
 
-            var k = new PykCharts.multiD.area({
+                var k = new PykCharts.multiD.area({
                     selector: "#multiArea",
                     data: "../data/multiLineChart.json",
                     mode : "default",
@@ -346,6 +377,7 @@
                         axis : {
                             x: {
                                 enable: "yes",
+                                position:"bottom", //top or bottom
                                 orient : "bottom",
                                 axisColor: "#1D1D1D",
                                 labelColor: "black",
@@ -357,6 +389,7 @@
                             },
                             y: {
                                 enable: "yes",
+                                position:"left", //left or right
                                 orient: "left",
                                 axisColor: "#1D1D1D",
                                 labelColor: "black",
@@ -377,7 +410,7 @@
 
                 var k = new PykCharts.multiD.scatterplot({
                     selector: "#pulse",
-                    data: "../data/pulse2.json",
+                    data: "../data/pulse.json",
                     mode : "default", //  default or infographics
                     yAxisDataFormat : "string",
                     xAxisDataFormat : "number",
@@ -401,6 +434,7 @@
                         axis : {
                             x: {
                                 enable: "yes",
+                                position:"bottom", //top or bottom
                                 orient : "bottom",
                                 axisColor: "#1D1D1D",
                                 no_of_ticks: 2,
@@ -412,6 +446,7 @@
                             },
                             y: {
                                 enable: "yes",
+                                position:"left", //left or right
                                 orient: "left",
                                 axisColor: "#1D1D1D",
                                 no_of_ticks: 5,
@@ -439,531 +474,273 @@
                         enableCrossHair: "yes"
                     }
                 }); 
-            k.execute();
+                k.execute();
 
-            var k = new PykCharts.multiD.ultimate({
-                data: "../data/ultimateColumn.json",
-                mode: "default",
-                selector: "#column",
-                chart : {
-                    width: 400,
-                    height: 430,
-                    margin: {top: 25, right: 25, bottom: 25, left: 25},
-                    grid: {
-                        yEnabled: "yes",
-                        color:""
-                    }
-                },
-                optional : {
-                    realTimeCharts: {
-                        refreshFrequency: 0 // seconds
-                    },
-                    axis : {
-                        onHoverHighlightenable: "yes",
-                        x: {
-                            enable: "yes",
-                            orient : "bottom",
-                            axisColor: "#1D1D1D",
-                            labelColor: "#1D1D1D",
-                            no_of_ticks: 10,
-                            tickSize: 5,
-                            ticksPadding: 6,
-                            tickFormat: "",
-                            tickValues: []
-                        },
-                        y: {
-                            enable: "yes",
-                            orient: "left",
-                            axisColor: "#1D1D1D",
-                            labelColor: "#1D1D1D",
-                            tickSize: 5,
-                            ticksPadding: 6,
-                            no_of_ticks: 10,
-                            tickFormat: ""
+                var k = new PykCharts.multiD.ultimate({
+                    data: "../data/ultimateColumn.json",
+                    mode: "default",
+                    selector: "#column",
+                    chart : {
+                        width: 400,
+                        height: 430,
+                        margin: {top: 25, right: 25, bottom: 25, left: 25},
+                        grid: {
+                            yEnabled: "yes",
+                            color:""
                         }
                     },
-                    colors:{
-                        backgroundColor: "white",
-                        chartColor: "steelblue",
-                        highlightColor: "#013F73"
-                    },
-                    legends: {
-                        enable : "no",
-                        display : "horizontal" //horizontal or vertical
-                    },
-                    borderBetweenChartElements:{
-                        width: "1px",
-                        color: "white",
-                        style: "solid"
-                    },
-                    transition : {
-                        duration : 0 //milliseconds
-                    }
-                }
-
-            });
-            k.execute();
-
-            var k = new PykCharts.multiD.ultimate({
-                data: "../data/ultimateGroupColumn.json",
-                mode: "default",
-                selector: "#groupColumn",
-                chart : {
-                    width: 400,
-                    height: 430,
-                    margin: {top: 25, right: 25, bottom: 25, left: 25},
-                    grid: {
-                        yEnabled: "yes",
-                        color:""
-                    }
-                },
-                optional : {
-                    realTimeCharts: {
-                        refreshFrequency: 0 // seconds
-                    },
-                    axis : {
-                        onHoverHighlightenable: "yes",
-                        x: {
-                            enable: "yes",
-                            orient : "bottom",
-                            axisColor: "#1D1D1D",
-                            labelColor: "#1D1D1D",
-                            no_of_ticks: 10,
-                            tickSize: 5,
-                            ticksPadding: 6,
-                            tickFormat: "",
-                            tickValues: []
+                    optional : {
+                        realTimeCharts: {
+                            refreshFrequency: 0 // seconds
                         },
-                        y: {
-                            enable: "yes",
-                            orient: "left",
-                            axisColor: "#1D1D1D",
-                            labelColor: "#1D1D1D",
-                            tickSize: 5,
-                            ticksPadding: 6,
-                            no_of_ticks: 10,
-                            tickFormat: ""
+                        axis : {
+                            onHoverHighlightenable: "yes",
+                            x: {
+                                enable: "yes",
+                                position:"bottom", //top or bottom
+                                orient : "bottom",
+                                axisColor: "#1D1D1D",
+                                labelColor: "#1D1D1D"
+                            },
+                            y: {
+                                enable: "yes",
+                                position:"left", //left or right
+                                orient: "left",
+                                axisColor: "#1D1D1D",
+                                labelColor: "#1D1D1D",
+                                tickSize: 5,
+                                ticksPadding: 6,
+                                no_of_ticks: 10,
+                                tickFormat: ""
+                            }
+                        },
+                        colors:{
+                            backgroundColor: "white",
+                            chartColor: "steelblue",
+                            highlightColor: "#013F73"
+                        },
+                        legends: {
+                            enable : "no",
+                            display : "horizontal" //horizontal or vertical
+                        },
+                        borderBetweenChartElements:{
+                            width: "1px",
+                            color: "white",
+                            style: "solid"
+                        },
+                        transition : {
+                            duration : 0 //milliseconds
+                        }
+                    }
+                });
+                k.execute();
+
+                var k = new PykCharts.multiD.ultimate({
+                    data: "../data/ultimateGroupColumn.json",
+                    mode: "default",
+                    selector: "#groupColumn",
+                    chart : {
+                        width: 400,
+                        height: 430,
+                        margin: {top: 25, right: 25, bottom: 25, left: 25},
+                        grid: {
+                            yEnabled: "yes",
+                            color:""
                         }
                     },
-                    colors:{
-                        backgroundColor: "white",
-                        chartColor: "steelblue",
-                        highlightColor: "#013F73"
-                    },
-                    legends: {
-                        enable : "no",
-                        display : "horizontal"
-                    },
-                    borderBetweenChartElements: {
-                        width: "1px",
-                        color: "white",
-                        style: "solid"
-                    },
-                    transition : {
-                        duration : 0 //milliseconds
-                    }
-                }
-
-            });
-            k.execute();
-
-            var k = new PykCharts.multiD.ultimate({
-                data: "../data/ultimateStack.json",
-                mode: "default",
-                selector: "#stackColumn",
-                chart : {
-                    width: 400,
-                    height: 430,
-                    margin: {top: 25, right: 25, bottom: 25, left: 25},
-                    grid: {
-                        yEnabled: "yes",
-                        color:""
-                    }
-                },
-                optional : {
-                    realTimeCharts: {
-                        refreshFrequency: 0 // seconds
-                    },
-                    axis : {
-                        onHoverHighlightenable: "yes",
-                        x: {
-                            enable: "yes",
-                            orient : "bottom",
-                            axisColor: "#1D1D1D",
-                            labelColor: "#1D1D1D",
-                            no_of_ticks: 10,
-                            tickSize: 5,
-                            ticksPadding: 6,
-                            tickFormat: "",
-                            tickValues: []
+                    optional : {
+                        realTimeCharts: {
+                            refreshFrequency: 0 // seconds
                         },
-                        y: {
-                            enable: "yes",
-                            orient: "left",
-                            axisColor: "#1D1D1D",
-                            labelColor: "#1D1D1D",
-                            tickSize: 5,
-                            ticksPadding: 6,
-                            no_of_ticks: 10,
-                            tickFormat: ""
+                        axis : {
+                            onHoverHighlightenable: "yes",
+                            x: {
+                                enable: "yes",
+                                position:"bottom", //top or bottom
+                                orient : "bottom",
+                                axisColor: "#1D1D1D",
+                                labelColor: "#1D1D1D"
+                            },
+                            y: {
+                                enable: "yes",
+                                position:"left", //left or right
+                                orient: "left",
+                                axisColor: "#1D1D1D",
+                                labelColor: "#1D1D1D",
+                                tickSize: 5,
+                                ticksPadding: 6,
+                                no_of_ticks: 10,
+                                tickFormat: ""
+                            }
+                        },
+                        colors:{
+                            backgroundColor: "white",
+                            chartColor: "steelblue",
+                            highlightColor: "#013F73"
+                        },
+                        legends: {
+                            enable : "no",
+                            display : "horizontal"
+                        },
+                        borderBetweenChartElements: {
+                            width: "1px",
+                            color: "white",
+                            style: "solid"
+                        },
+                        transition : {
+                            duration : 0 //milliseconds
+                        }
+                    }
+                });
+                k.execute();
+
+                var k = new PykCharts.multiD.ultimateBar({
+                    data: "../data/ultimatebar.json",
+                    mode: "default",
+                    selector: "#bar",
+                    chart : {
+                        width: 400,
+                        height: 430,
+                        margin: {top: 25, right: 25, bottom: 25, left: 75},
+                        grid: {
+                            yEnabled: "yes",
+                            color:""
                         }
                     },
-                    colors:{
-                        backgroundColor: "white",
-                        chartColor: "steelblue",
-                        highlightColor: "#013F73"
-                    },
-                    legends: {
-                        enable : "no",
-                        display : "horizontal"
-                    },
-                    borderBetweenChartElements: {
-                        width: "1px",
-                        color: "white",
-                        style: "solid"
-                    },
-                    transition : {
-                        duration : 0 //milliseconds
-                    }
-                }
-
-            });
-            k.execute();
-
-            var k = new PykCharts.multiD.ultimate({
-                data: "../data/ultimate.json",
-                mode: "default",
-                selector: "#groupStackColumn",
-                chart : {
-                    width: 400,
-                    height: 430,
-                    margin: {top: 25, right: 25, bottom: 25, left: 25},
-                    grid: {
-                        yEnabled: "yes",
-                        color:""
-                    }
-                },
-                optional : {
-                    realTimeCharts: {
-                        refreshFrequency: 0 // seconds
-                    },
-                    axis : {
-                        onHoverHighlightenable: "yes",
-                        x: {
-                            enable: "yes",
-                            orient : "bottom",
-                            axisColor: "#1D1D1D",
-                            labelColor: "#1D1D1D",
-                            no_of_ticks: 10,
-                            tickSize: 5,
-                            ticksPadding: 6,
-                            tickFormat: "",
-                            tickValues: []
+                    optional : {
+                        realTimeCharts: {
+                            refreshFrequency: 0 // seconds
                         },
-                        y: {
-                            enable: "yes",
-                            orient: "left",
-                            axisColor: "#1D1D1D",
-                            labelColor: "#1D1D1D",
-                            tickSize: 5,
-                            ticksPadding: 6,
-                            no_of_ticks: 10,
-                            tickFormat: ""
+                        axis : {
+                            onHoverHighlightenable: "yes",
+                            x: {
+                                enable: "yes",
+                                position:"top", //top or bottom
+                                orient : "top",
+                                axisColor: "#1D1D1D",
+                                labelColor: "#1D1D1D",
+                                no_of_ticks: 10,
+                                tickSize: 5,
+                                ticksPadding: 6,
+                                tickFormat: "",
+                                tickValues: []
+                            },
+                            y: {
+                                enable: "yes",
+                                position:"left", //left or right
+                                orient: "left",
+                                axisColor: "#1D1D1D",
+                                labelColor: "#1D1D1D"
+                            }
+                        },
+                        colors:{
+                            backgroundColor: "white",
+                            chartColor: "steelblue",
+                            highlightColor: "#013F73"
+                        },
+                        legends: {
+                            enable : "no",
+                            display : "horizontal" //horizontal or vertical
+                        },
+                        borderBetweenChartElements:{ //done for oneD
+                            width: "1px", // if width is 0 means it is disabled.
+                            color: "white",
+                            style: "solid" // could be dotted too
+                        },
+                        transition : {
+                            duration : 1000    //milliseconds
+                        },
+                        label:{ //partially done for oneD, pending for twoD
+                            size: "10",
+                            color: "white",
+                            weight: "thin",
+                            family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
+                        },
+                        ticks:{
+                            strokeWidth: 1,
+                            size: 10,
+                            weight: "thin",
+                            color: "#1D1D1D",
+                            family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
+                        }
+
+                    }
+                });
+                k.execute();
+
+                var k = new PykCharts.multiD.ultimateBar({
+                    data: "../data/ultimateGroupBar.json",
+                    mode: "default",
+                    selector: "#groupBar",
+                    chart : {
+                        width: 400,
+                        height: 430,
+                        margin: {top: 25, right: 25, bottom: 25, left: 75},
+                        grid: {
+                            yEnabled: "yes",
+                            color:""
                         }
                     },
-                    colors: {
-                        backgroundColor: "white",
-                        chartColor: "steelblue",
-                        highlightColor: "#013F73" 
-                    },
-                    legends: {
-                        enable : "no",
-                        display : "horizontal"
-                    },
-                    borderBetweenChartElements: {
-                        width: "1px",
-                        color: "white",
-                        style: "solid"
-                    },
-                    transition : {
-                        duration : 0 //milliseconds
-                    }
-                }
-            });
-            k.execute();
-
-            var k = new PykCharts.multiD.ultimateBar({
-                data: "../data/ultimatebar.json",
-                mode: "default",
-                selector: "#bar",
-                chart : {
-                    width: 400,
-                    height: 430,
-                    margin: {top: 25, right: 25, bottom: 25, left: 75},
-                    grid: {
-                        yEnabled: "yes",
-                        color:""
-                    }
-                },
-                optional : {
-                    realTimeCharts: {
-                        refreshFrequency: 0 // seconds
-                    },
-                    axis : {
-                        onHoverHighlightenable: "yes",
-                        x: {
-                            enable: "yes",
-                            orient : "top",
-                            axisColor: "#1D1D1D",
-                            labelColor: "#1D1D1D",
-                            no_of_ticks: 10,
-                            tickSize: 5,
-                            ticksPadding: 6,
-                            tickFormat: "",
-                            tickValues: []
+                    optional : {
+                        realTimeCharts: {
+                            refreshFrequency: 0 // seconds
                         },
-                        y: {
-                            enable: "yes",
-                            orient: "left",
-                            axisColor: "#1D1D1D",
-                            labelColor: "#1D1D1D",
-                            tickSize: 5,
-                            ticksPadding: 6,
-                            no_of_ticks: 10,
-                            tickFormat: ""
-                        }
-                    },
-                    colors:{
-                        backgroundColor: "white",
-                        chartColor: "steelblue",
-                        highlightColor: "#013F73"
-                    },
-                    legends: {
-                        enable : "no",
-                        display : "horizontal" //horizontal or vertical
-                    },
-                    borderBetweenChartElements:{ //done for oneD
-                        width: "1px", // if width is 0 means it is disabled.
-                        color: "white",
-                        style: "solid" // could be dotted too
-                    },
-                    transition : {
-                        duration : 1000    //milliseconds
-                    },
-                    label:{ //partially done for oneD, pending for twoD
-                        size: "10",
-                        color: "white",
-                        weight: "thin",
-                        family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
-                    }
-                }
-            });
-            k.execute();
-
-            var k = new PykCharts.multiD.ultimateBar({
-                data: "../data/ultimateGroupBar.json",
-                mode: "default",
-                selector: "#groupBar",
-                chart : {
-                    width: 400,
-                    height: 430,
-                    margin: {top: 25, right: 25, bottom: 25, left: 75},
-                    grid: {
-                        yEnabled: "yes",
-                        color:""
-                    }
-                },
-                optional : {
-                    realTimeCharts: {
-                        refreshFrequency: 0 // seconds
-                    },
-                    axis : {
-                        onHoverHighlightenable: "yes",
-                        x: {
-                            enable: "yes",
-                            orient : "top",
-                            axisColor: "#1D1D1D",
-                            labelColor: "#1D1D1D",
-                            no_of_ticks: 10,
-                            tickSize: 5,
-                            ticksPadding: 6,
-                            tickFormat: "",
-                            tickValues: []
+                        axis : {
+                            onHoverHighlightenable: "yes",
+                            x: {
+                                enable: "yes",
+                                position:"top", //top or bottom
+                                orient : "top",
+                                axisColor: "#1D1D1D",
+                                labelColor: "#1D1D1D",
+                                no_of_ticks: 10,
+                                tickSize: 5,
+                                ticksPadding: 6,
+                                tickFormat: "",
+                                tickValues: []
+                            },
+                            y: { 
+                                enable: "yes",
+                                position:"left", //left or right
+                                orient: "left",
+                                axisColor: "#1D1D1D",
+                                labelColor: "#1D1D1D"
+                            }
                         },
-                        y: {
-                            enable: "yes",
-                            orient: "left",
-                            axisColor: "#1D1D1D",
-                            labelColor: "#1D1D1D",
-                            tickSize: 5,
-                            ticksPadding: 6,
-                            no_of_ticks: 10,
-                            tickFormat: ""
-                        }
-                    },
-                    colors:{
-                        backgroundColor: "white",
-                        chartColor: "steelblue",
-                        highlightColor: "#013F73"
-                    },
-                    legends: {
-                        enable : "no",
-                        display : "horizontal" //horizontal or vertical
-                    },
-                    borderBetweenChartElements:{ //done for oneD
-                        width: "1px", // if width is 0 means it is disabled.
-                        color: "white",
-                        style: "solid" // could be dotted too
-                    },
-                    transition : {
-                        duration : 1000    //milliseconds
-                    },
-                    label:{ //partially done for oneD, pending for twoD
-                        size: "10",
-                        color: "white",
-                        weight: "thin",
-                        family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
-                    }
-                }
-            });
-            k.execute();
-
-            var k = new PykCharts.multiD.ultimateBar({
-                data: "../data/ultimateStackedBar.json",
-                mode: "default",
-                selector: "#stackBar",
-                chart : {
-                    width: 400,
-                    height: 430,
-                    margin: {top: 25, right: 25, bottom: 25, left: 75},
-                    grid: {
-                        yEnabled: "yes",
-                        color:""
-                    }
-                },
-                optional : {
-                    realTimeCharts: {
-                        refreshFrequency: 0 // seconds
-                    },
-                    axis : {
-                        onHoverHighlightenable: "yes",
-                        x: {
-                            enable: "yes",
-                            orient : "top",
-                            axisColor: "#1D1D1D",
-                            labelColor: "#1D1D1D",
-                            no_of_ticks: 10,
-                            tickSize: 5,
-                            ticksPadding: 6,
-                            tickFormat: "",
-                            tickValues: []
+                        colors:{
+                            backgroundColor: "white",
+                            chartColor: "steelblue",
+                            highlightColor: "#013F73"
                         },
-                        y: {
-                            enable: "yes",
-                            orient: "left",
-                            axisColor: "#1D1D1D",
-                            labelColor: "#1D1D1D",
-                            tickSize: 5,
-                            ticksPadding: 6,
-                            no_of_ticks: 10,
-                            tickFormat: ""
-                        }
-                    },
-                    colors:{
-                        backgroundColor: "white",
-                        chartColor: "steelblue",
-                        highlightColor: "#013F73"
-                    },
-                    legends: {
-                        enable : "no",
-                        display : "horizontal" //horizontal or vertical
-                    },
-                    borderBetweenChartElements:{ //done for oneD
-                        width: "1px", // if width is 0 means it is disabled.
-                        color: "white",
-                        style: "solid" // could be dotted too
-                    },
-                    transition : {
-                        duration : 1000    //milliseconds
-                    },
-                    label:{ //partially done for oneD, pending for twoD
-                        size: "10",
-                        color: "white",
-                        weight: "thin",
-                        family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
-                    }
-                }
-            });
-            k.execute();
-
-            var k = new PykCharts.multiD.ultimateBar({
-                data: "../data/ultimateGroupStackBar.json",
-                mode: "default",
-                selector: "#groupStackBar",
-                chart : {
-                    width: 400,
-                    height: 430,
-                    margin: {top: 25, right: 25, bottom: 25, left: 75},
-                    grid: {
-                        yEnabled: "yes",
-                        color:""
-                    }
-                },
-                optional : {
-                    realTimeCharts: {
-                        refreshFrequency: 0 // seconds
-                    },
-                    axis : {
-                        onHoverHighlightenable: "yes",
-                        x: {
-                            enable: "yes",
-                            orient : "top",
-                            axisColor: "#1D1D1D",
-                            labelColor: "#1D1D1D",
-                            no_of_ticks: 10,
-                            tickSize: 5,
-                            ticksPadding: 6,
-                            tickFormat: "",
-                            tickValues: []
+                        legends: {
+                            enable : "no",
+                            display : "horizontal" //horizontal or vertical
                         },
-                        y: {
-                            enable: "yes",
-                            orient: "left",
-                            axisColor: "#1D1D1D",
-                            labelColor: "#1D1D1D",
-                            tickSize: 5,
-                            ticksPadding: 6,
-                            no_of_ticks: 10,
-                            tickFormat: ""
+                        borderBetweenChartElements:{ //done for oneD
+                            width: "1px", // if width is 0 means it is disabled.
+                            color: "white",
+                            style: "solid" // could be dotted too
+                        },
+                        transition : {
+                            duration : 1000    //milliseconds
+                        },
+                        label:{ //partially done for oneD, pending for twoD
+                            size: "10",
+                            color: "white",
+                            weight: "thin",
+                            family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
+                        },
+                        ticks:{
+                            strokeWidth: 1,
+                            size: 10,
+                            weight: "thin",
+                            color: "#1D1D1D",
+                            family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
                         }
-                    },
-                    colors:{
-                        backgroundColor: "white",
-                        chartColor: "steelblue",
-                        highlightColor: "#013F73"
-                    },
-                    legends: {
-                        enable : "no",
-                        display : "horizontal" //horizontal or vertical
-                    },
-                    borderBetweenChartElements:{ //done for oneD
-                        width: "1px", // if width is 0 means it is disabled.
-                        color: "white",
-                        style: "solid" // could be dotted too
-                    },
-                    transition : {
-                        duration : 1000    //milliseconds
-                    },
-                    label:{ //partially done for oneD, pending for twoD
-                        size: "10",
-                        color: "white",
-                        weight: "thin",
-                        family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
                     }
-                }
+                });
+                k.execute();
             });
-            k.execute();
-        });
         </script>
     </body>
 </html>

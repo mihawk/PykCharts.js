@@ -55,7 +55,7 @@ PykCharts.multiD.scatterplot = function (options) {
             if(PykCharts.boolean(that.multiple_containers)) {
                 that.radius_range = [3,7];
                 that.no_of_groups = that.data_group.length;
-                that.width = that.width/that.no_of_groups;
+                that.w = that.width/that.no_of_groups;
                 that.margin.left = 25;
                 that.margin.right = 15;
                 for(i=0;i<that.no_of_groups;i++){
@@ -86,9 +86,11 @@ PykCharts.multiD.scatterplot = function (options) {
                     that.k.xAxis(that.svgContainer,that.xGroup,that.x)
                         .yAxis(that.svgContainer,that.yGroup,that.y)
                         .yGrid(that.svgContainer,that.group,that.y)
-                        .xGrid(that.svgContainer,that.group,that.x);                    
+                        .xGrid(that.svgContainer,that.group,that.x);
                 }
+                that.k.emptyDiv(); 
             } else {
+                that.w = that.width;
                 that.radius_range = [7,18];
                 that.new_data = that.data;
                 that.k.makeMainDiv(that.selector,1);
@@ -123,7 +125,7 @@ PykCharts.multiD.scatterplot = function (options) {
         } else if (that.mode === "infographics") {
             that.radius_range = [7,18];
             that.new_data = that.data;
-
+            that.w = that.width
             that.sizes = new PykCharts.multiD.bubbleSizeCalculation(that,that.data,that.radius_range);
             that.k.tooltip()
                 .makeMainDiv(that.selector,1);
@@ -142,13 +144,13 @@ PykCharts.multiD.scatterplot = function (options) {
         var that = this;
         var optional = {
             svgContainer :function (i) {
-                $(options.selector + " #tooltip-svg-container-" + i).css("width",that.width);
+                $(options.selector + " #tooltip-svg-container-" + i).css("width",that.w);
                 $(options.selector).attr("class","PykCharts-weighted")
                 that.svgContainer = d3.select(options.selector + " #tooltip-svg-container-" + i)
                     .append('svg')
-                    .attr("width",that.width)
+                    .attr("width",that.w)
                     .attr("height",that.height)
-                    .attr("id","svgcontainer")
+                    .attr("id","svgcontainer" + i)
                     .attr("class","svgcontainer")
                     .style("background-color",that.bg);
 
@@ -159,15 +161,16 @@ PykCharts.multiD.scatterplot = function (options) {
                 that.group1 = that.svgContainer.append("g")
                     .attr("transform","translate("+(that.margin.left)+","+(that.margin.top)+")")
                     .attr("id","main2");
-
-                that.xGroup = that.group.append("g")
-                    .attr("class", "x axis")
-                    .style("stroke","black")
-                    .attr("transform", "translate(0," + (that.height-that.margin.top-that.margin.bottom) + ")");
-
-                that.yGroup = that.group.append("g")
-                    .attr("class", "y axis")
-                    .style("stroke","blue");
+                if(PykCharts.boolean(that.axis.x.enable)) {
+                    that.xGroup = that.group.append("g")
+                        .attr("class", "x axis")
+                        .style("stroke","black");
+                    }
+                if(PykCharts.boolean(that.axis.y.enable)){
+                    that.yGroup = that.group.append("g")
+                        .attr("class", "y axis")
+                        .style("stroke","blue");
+                }
 
                 if(PykCharts.boolean(that.grid.xEnabled)) {
                     that.group.append("g")
@@ -184,7 +187,7 @@ PykCharts.multiD.scatterplot = function (options) {
                 that.clip = that.group.append("svg:clipPath")
                             .attr("id", "clip")
                             .append("svg:rect")
-                            .attr("width",(that.width-that.margin.left-that.margin.right))
+                            .attr("width",(that.w-that.margin.left-that.margin.right))
                             .attr("height", that.height-that.margin.top-that.margin.bottom);
 
                 that.chartBody = that.group.append("g")
@@ -196,7 +199,7 @@ PykCharts.multiD.scatterplot = function (options) {
                 if (PykCharts.boolean(that.legends.enable) && !(PykCharts.boolean(that.size.enable))) {
                     that.legendsContainer = d3.select(that.selector + " #tooltip-svg-container-" + i)
                         .append('svg')
-                        .attr('width',that.width)
+                        .attr('width',that.w)
                         .attr('height',50)
                         .attr('class','legends')
                         .attr('id','legendscontainer');
@@ -225,7 +228,7 @@ PykCharts.multiD.scatterplot = function (options) {
                 that.group.append("text")
                     .attr("fill", "black")
                     .attr("text-anchor", "end")
-                    .attr("x", that.width - 70)
+                    .attr("x", that.w - 70)
                     .attr("y", that.height + 40)
                     .text(that.axis.x.label);
 
@@ -261,13 +264,13 @@ PykCharts.multiD.scatterplot = function (options) {
                     if(that.xAxisDataFormat === "number") {
                         x_domain = d3.extent(that.data, function(d) { return d.x; });
                         x_data = that.k._domainBandwidth(x_domain,2);
-                        x_range = [0 ,that.width - that.margin.left - that.margin.right];
+                        x_range = [0 ,that.w - that.margin.left - that.margin.right];
                         that.x = that.k.scaleIdentification("linear",x_data,x_range);
                         that.left_margin = 0;
 
                     } else if(that.xAxisDataFormat === "string") {
                         that.data.forEach(function(d) { x_data.push(d.x); });
-                        x_range = [0 ,that.width - that.margin.left - that.margin.right];
+                        x_range = [0 ,that.w - that.margin.left - that.margin.right];
                         that.x = that.k.scaleIdentification("ordinal",x_data,x_range,0);
                         that.left_margin = (that.x.rangeBand()/2);
 
@@ -275,7 +278,7 @@ PykCharts.multiD.scatterplot = function (options) {
                         max = d3.max(that.data, function(d) { return d3.max(d.data, function(k) { return new Date(k.x); }); });
                         min = d3.min(that.data, function(d) { return d3.min(d.data, function(k) { return new Date(k.x); }); });
                         x_data = [min,max];
-                        x_range = [0 ,that.width - that.margin.left - that.margin.right];
+                        x_range = [0 ,that.w - that.margin.left - that.margin.right];
                         that.x = that.k.scaleIdentification("time",x_data,x_range);
                         that.new_data[0].data.forEach(function (d) {
                             d.x = new Date(d.x);
@@ -309,8 +312,8 @@ PykCharts.multiD.scatterplot = function (options) {
                         rect_parameter4 = "y";
                         rect_parameter1value = 13;
                         rect_parameter2value = 13;
-                        text_parameter1value = function (d,i) { return that.width - that.width/4 + 16; };
-                        rect_parameter3value = function (d,i) { return that.width - that.width/4; };
+                        text_parameter1value = function (d,i) { return that.w - that.w/4 + 16; };
+                        rect_parameter3value = function (d,i) { return that.w - that.w/4; };
                         var rect_parameter4value = function (d,i) { return i * 24 + 12;};
                         var text_parameter2value = function (d,i) { return i * 24 + 23;};
 
@@ -321,11 +324,11 @@ PykCharts.multiD.scatterplot = function (options) {
                         rect_parameter2 = "height";
                         rect_parameter3 = "x";
                         rect_parameter4 = "y";
-                        var text_parameter1value = function (d,i) { return that.width - (i*100 + 75); };
+                        var text_parameter1value = function (d,i) { return that.w - (i*100 + 75); };
                         text_parameter2value = 30;
                         rect_parameter1value = 13;
                         rect_parameter2value = 13;
-                        var rect_parameter3value = function (d,i) { return that.width - (i*100 + 100); };
+                        var rect_parameter3value = function (d,i) { return that.w - (i*100 + 100); };
                         rect_parameter4value = 18;
                     }
 
@@ -466,14 +469,15 @@ PykCharts.multiD.scatterplot = function (options) {
             },
             zoom : function () {
                 if(PykCharts.boolean(that.zoom) && !(that.yAxisDataFormat==="string" || that.xAxisDataFormat==="string")) {
+                    $(that.selector).css("position","relative");
                     that.zoomOutButton = d3.select(options.selector)
                         .append("input")
                             .attr("type","button")
                             .attr("value","Zoom Out")
                             .attr("id","zoomOut")
                             .style("position","absolute")
-                            // .style("left",800)
-                            .style("left", that.margin.left + 300)
+                            .style("left",that.width)
+                            // .style("left", that.margin.left + 300)
                             .style("top", that.margin.top + 50)
                             // .style("top",that.h-270)
                             .style("height","20")
@@ -524,7 +528,7 @@ PykCharts.multiD.scatterplot = function (options) {
                     var horizontalLine = that.svgContainer.append("line")
                         .attr("x1", that.margin.left)
                         .attr("y1", that.margin.top)
-                        .attr("x2", that.width-that.margin.right)
+                        .attr("x2", that.w-that.margin.right)
                         .attr("y2", that.margin.top)
                         .attr("id","horizontal-cursor")
                         .attr("pointer-events","none")
@@ -540,14 +544,16 @@ PykCharts.multiD.scatterplot = function (options) {
                         .attr("class","line-cursor");
 
                     that.svgContainer.on("mousemove",function () {
+                        id = this.id
                         var i,
-                            x = (d3.event.layerX) - ($(that.selector+" #svgcontainer").offset().left - $(that.selector).parent().offset().left),
-                            y = (d3.event.layerY) - ($(that.selector+" #svgcontainer").offset().top - $(that.selector).parent().offset().top);
+                            x = (d3.event.pageX) - ($(that.selector+ " #" + id).offset().left),
+                            y = (d3.event.pageY) - ($(that.selector+ " #" + id).offset().top);
 
-                        d3.select(that.selector + " #svgcontainer").style('cursor', 'none');
+                        d3.select(that.selector + " #" + id).style('cursor', 'none');
 
-                        if(x >= that.margin.left && x <=(that.width-that.margin.right)) {        
-                            d3.select(options.selector+" "+'#vertical-cursor')
+                        if(x >= that.margin.left && x <=(that.w-that.margin.right)) { 
+
+                            d3.select(options.selector+" #"+ id +' #vertical-cursor')
                                 .attr("x1",x)
                                 .attr("x2",x);
                         }

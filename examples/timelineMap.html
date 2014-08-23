@@ -1,13 +1,12 @@
 <html>
     <head>
         <link rel="stylesheet" type="text/css" href="../lib/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="../lib/d3.slider.css">
         <link rel="stylesheet" type="text/css" href="../src/css/PykCharts.css">
     </head>
     <body>
         <div class="container cstm-container">
-            <div id = "map-container" class="col-sm-12"></div>
-                
-        <div id = "from" class="form-group col-sm-6" style = "float: left;">
+        <div id = "from" class="form-group col-sm-6">
             <form class="PykCharts-map">
                 <table class="cstm-table" style="font-size:14px;">
                     <tr>
@@ -206,10 +205,10 @@
                 </table>
             </form>
         </div>
-            
+        <div id = "map-container" class="col-sm-6">
 
-
-            <textarea rows="4" cols="50" id="live-data"></textarea>
+        </div>
+        <textarea rows="4" cols="50" id="live-data"></textarea>
 
         <script src="../lib/d3.min.js"></script>
         <script src="../lib/jquery-1.11.1.min.js"></script>
@@ -217,6 +216,7 @@
         <script src="../lib/jquery.bpopup.min.js"></script>
         <script src="../lib/bootstrap.min.js"></script>
         <script src = "../lib/topojson.js"></script>
+        <script src = "../lib/d3.slider.js"></script>
         <script src="../src/js/pyk.js"></script>
         <script src = "../src/js/maps/maps.js"></script>
         <script src = "../src/js/maps/timelineMap.js"></script>
@@ -367,8 +367,8 @@
                         mapCode: $("#one").val() + "-topo",
                         data: window.data_final,
                         map: {
-                            width: 900,
-                            height: 3000
+                            width: 555,
+                            height: 500
                         },
                         optional: {
                             colors: {

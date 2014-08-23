@@ -258,24 +258,6 @@ PykCharts.multiD.bubbleSizeCalculation = function (options,data,rad_range) {
     return size;
 };
 
-// PykCharts.multiD.pulseBubbleSize = function (options,data) {
-//     var len = data.length,z;
-//     var size = function (d,i) {
-//         if(d && PykCharts.boolean(options.size.enable)/* && options.optional.color.enable==="yes"*/) {
-//                 z = d3.scale.linear()
-//                         .domain([0, d3.max(data[i].collection, function (d) {
-//                             return d[1];
-//                         })])
-//                         .range([2,12]);           
-//                 return z(d);
-//         } else { 
-//             return options.optional.chart.radius;
-//         }
-//     };
-//     return size;
-// };
-
-
 PykCharts.multiD.processInputs = function (chartObject, options) {
     var theme = new PykCharts.Configuration.Theme({}),
         stylesheet = theme.stylesheet,
@@ -372,8 +354,9 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     }
     if(optional && optional.ticks) {
         chartObject.ticks = optional.ticks;
-        chartObject.ticks.strokeWidth = optional.ticks.strokeWidth ? optional.ticks.strokeWidth : stylesheet.ticks.strokeWidth;
-        chartObject.ticks.size = optional.ticks.size ? optional.ticks.size : stylesheet.ticks.size;
+        chartObject.ticks.strokeWidth = "strokeWidth" in optional.ticks ? optional.ticks.strokeWidth : stylesheet.ticks.strokeWidth;
+        chartObject.ticks.weight = optional.ticks.weight ? optional.ticks.weight : stylesheet.ticks.weight;
+        chartObject.ticks.size = "size" in optional.ticks ? optional.ticks.size : stylesheet.ticks.size;
         chartObject.ticks.color = optional.ticks.color ? optional.ticks.color : stylesheet.ticks.color;
         chartObject.ticks.family = optional.ticks.family ? optional.ticks.family : stylesheet.ticks.family;
     } else {
@@ -384,7 +367,7 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
 
     if (optional && optional.label) {
         chartObject.label = optional.label;
-        chartObject.label.size = optional.label.size ? optional.label.size : stylesheet.label.size;
+        chartObject.label.size = "size" in optional.label ? optional.label.size : stylesheet.label.size;
         chartObject.label.color = optional.label.color ? optional.label.color : stylesheet.label.color;
         chartObject.label.weight = optional.label.weight ? optional.label.weight : stylesheet.label.weight;
         chartObject.label.family = optional.label.family ? optional.label.family : stylesheet.label.family;

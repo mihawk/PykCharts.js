@@ -1,9 +1,9 @@
 var PykCharts = {};
 
-Array.__proto__.groupBy = function (data) {
+Array.prototype.groupBy = function () {
     var gd = []
     , i
-    , group = _.groupBy(data, function (d) {
+    , group = _.groupBy(this, function (d) {
         return d.name;
     });
     for(i in group) {
@@ -14,6 +14,46 @@ Array.__proto__.groupBy = function (data) {
     };
     return gd;
 };
+
+Date.prototype.myDate = function () {
+    if(this.getMonth() == 0) {
+      this.myMonth = "Jan"
+    };
+    if(this.getMonth() == 1) {
+      this.myMonth = "Feb"
+    };
+    if(this.getMonth() == 2) {
+      this.myMonth = "Mar"
+    };
+    if(this.getMonth() == 3) {
+      this.myMonth = "Apr"
+    };
+    if(this.getMonth() == 4) {
+      this.myMonth = "May"
+    };
+    if(this.getMonth() == 5) {
+      this.myMonth = "Jun"
+    };
+    if(this.getMonth() == 6) {
+      this.myMonth = "Jul"
+    };
+    if(this.getMonth() == 7) {
+      this.myMonth = "Aug"
+    };
+    if(this.getMonth() == 8) {
+      this.myMonth = "Sep"
+    };
+    if(this.getMonth() == 9) {
+      this.myMonth = "Oct"
+    };
+    if(this.getMonth() == 10) {
+      this.myMonth = "Nov"
+    };
+    if(this.getMonth() == 11) {
+      this.myMonth = "Dec"
+    };
+}
+
 
 PykCharts.boolean = function(d) {
     var false_values = ['0','f',"false",'n','no',''];
@@ -41,6 +81,11 @@ PykCharts.Configuration = function (options){
 	        }
 	        return this;
 	    },
+        emptyDiv : function () {
+            d3.select(options.selector).append("div")
+                .style("clear","both");
+
+        },
         scaleIdentification : function (type,data,range,x) {
             var scale;
             if(type === "ordinal") {
@@ -131,17 +176,15 @@ PykCharts.Configuration = function (options){
 	            if(credit.mySiteUrl === "") {
 	                enable = false;
 	            }
-	            d3.select(options.selector).append("div")
-		        	.attr("id","footer")
-		        	.style("width",options.width+"px");
-
-	            d3.select(options.selector+" #footer").append("div")
-	                .attr("id","credits")
-                    .style("width",((options.width/2)-30)+"px")
-                    .style("background", options.bg)
-                    .style("float","left")
+                d3.select(options.selector).append("table")
+	                .style("background", options.bg)
+                    .attr("width",options.width+"px")
+                    .append("tr")
                     .attr("class","PykCharts-credits")
+                    .append("td")
+                    .style("text-align","left")
 	                .html("<span style='pointer-events:none;'>Credits: </span><a href='" + credit.mySiteUrl + "' target='_blank' onclick='return " + enable +"'>"+ credit.mySiteName +"</a>");
+
 	        }
 	        return this;
 	    },
@@ -155,20 +198,22 @@ PykCharts.Configuration = function (options){
 	            if(data_src.url === "") {
 	                enable = false;
 	            }
-	            d3.select(options.selector+" #footer").append("div")
-	                .attr("id","data-source")
-                    .style("width",((options.width/2)-30)+"px")
-                    .attr("class","PykCharts-credits PykCharts-data-src")
-                    .style("background", options.bg)
-                    .style("float","right")
-	                .html("<span style='pointer-events:none;'>Source: </span><a href='" + data_src.url + "' target='_blank' onclick='return " + enable +"'>"+ data_src.text +"</a>");
+	            d3.select(options.selector+" table tr")
+	                .style("background", options.bg)
+                    .append("td")
+                    .style("text-align","right")
+                    .html("<span style='pointer-events:none;'>Source: </span><a href='" + data_src.url + "' target='_blank' onclick='return " + enable +"'>"+ data_src.text +"</a></tr>");
 	        }
 	        return this;
 	    },
         makeMainDiv : function (selection,i) {
-            d3.select(selection).append("div")
+            var d = d3.select(selection).append("div")
                 .attr("id","tooltip-svg-container-"+i)
-                .style("float","left");
+                .style("width","auto")
+            if(PykCharts.boolean(options.multiple_containers)){
+                d.style("float","left")
+                // .style("height","auto");
+            }
             return this;
         },
 	    tooltip : function (d,selection,i) {
@@ -642,10 +687,10 @@ configuration.border = function (options) {
 	var that = this;
 	var border = {
 	    width: function () {
-	    		return options.borderBetweenChartElements.width;
+    		return options.borderBetweenChartElements.width;
 	    },
 		color: function () {
-				return options.borderBetweenChartElements.color;
+			return options.borderBetweenChartElements.color;
 		}
 	};
 	return border;
@@ -653,33 +698,32 @@ configuration.border = function (options) {
 
 configuration.makeXAxis = function(options,xScale) {
     var that = this;
-
     var xaxis = d3.svg.axis()
-                    .scale(xScale)
-                    .ticks(options.axis.x.no_of_ticks)
-                    .tickSize(options.axis.x.tickSize)
-                    .outerTickSize(0)
-                    .tickFormat(function (d,i) {
-                        return d + options.axis.x.tickFormat;
-                    })
-                    .tickPadding(options.axis.x.ticksPadding)
-                    .orient(options.axis.x.orient);
+        .scale(xScale)
+        .ticks(options.axis.x.no_of_ticks)
+        .tickSize(options.axis.x.tickSize)
+        .outerTickSize(0)
+        .tickFormat(function (d,i) {
+            return d + options.axis.x.tickFormat;
+        })
+        .tickPadding(options.axis.x.ticksPadding)
+        .orient(options.axis.x.orient);
     return xaxis;
 };
 
 configuration.makeYAxis = function(options,yScale) {
     var that = this;
     var yaxis = d3.svg.axis()
-                    .scale(yScale)
-                    .orient(options.axis.y.orient)
-                    .ticks(options.axis.y.no_of_ticks)
-                    .tickSize(options.axis.y.tickSize)
-                    .outerTickSize(0)
-                    .tickPadding(options.axis.y.ticksPadding)
-                    .tickFormat(function (d,i) {
-                        return d + options.axis.y.tickFormat;
-                    });
-                    // .tickFormat(d3.format(",.0f"));
+        .scale(yScale)
+        .orient(options.axis.y.orient)
+        .ticks(options.axis.y.no_of_ticks)
+        .tickSize(options.axis.y.tickSize)
+        .outerTickSize(0)
+        .tickPadding(options.axis.y.ticksPadding)
+        .tickFormat(function (d,i) {
+            return d + options.axis.y.tickFormat;
+        });
+        // .tickFormat(d3.format(",.0f"));
     return yaxis;
 };
 
@@ -687,24 +731,24 @@ configuration.makeXGrid = function(options,xScale) {
     var that = this;
 
     var xgrid = d3.svg.axis()
-                    .scale(xScale)
-                    .orient("bottom")
-                    .ticks(options.axis.x.no_of_ticks)
-                    .tickFormat("")
-                    .tickSize(options.height - options.margin.top - options.margin.bottom)
-                    .outerTickSize(0);
+        .scale(xScale)
+        .orient("bottom")
+        .ticks(options.axis.x.no_of_ticks)
+        .tickFormat("")
+        .tickSize(options.height - options.margin.top - options.margin.bottom)
+        .outerTickSize(0);
     return xgrid;
 };
 
 configuration.makeYGrid = function(options,yScale) {
     var that = this;
     var ygrid = d3.svg.axis()
-                    .scale(yScale)
-                    .orient("left")
-                    .ticks(options.axis.x.no_of_ticks)
-                    .tickSize(-(options.width - options.margin.left - options.margin.right))
-                    .tickFormat("")
-                    .outerTickSize(0);
+        .scale(yScale)
+        .orient("left")
+        .ticks(options.axis.x.no_of_ticks)
+        .tickSize(-(options.width - options.margin.left - options.margin.right))
+        .tickFormat("")
+        .outerTickSize(0);
     return ygrid;
 };
 
@@ -786,6 +830,7 @@ configuration.Theme = function(){
         "ticks":{
             "strokeWidth": 1,
             "size": 13,
+            "weight": "thin",
             "color": "#1D1D1D",
             "family": "'Helvetica Neue',Helvetica,Arial,sans-serif"
         }
@@ -1049,7 +1094,7 @@ PykCharts.oneD.bubble = function (options) {
            that.k.loading();
         }
         d3.json(options.data, function (e,data) {
-            that.data = Array.groupBy(data);
+            that.data = data.groupBy();
             $(options.selector+" #chart-loader").remove();
             that.render();
         });
@@ -1161,7 +1206,7 @@ PykCharts.oneD.bubble = function (options) {
                     .transition()
                     .duration(that.transitions.duration())
                     .attr("r",function (d) {return d.r; });
-            
+
                 return this;
             },
             label : function () {
@@ -1301,7 +1346,7 @@ PykCharts.oneD.funnel = function (options) {
         }
 
         d3.json(options.data, function (e,data) {
-            that.data = Array.groupBy(data);
+            that.data = data.groupBy();
             $(options.selector+" #chart-loader").remove();
             that.render();
         });
@@ -1542,7 +1587,7 @@ PykCharts.oneD.funnel = function (options) {
 
                that.path.exit()
                    .remove();
-               
+
                 return this;
             },
             label : function () {
@@ -1744,6 +1789,7 @@ PykCharts.oneD.funnel = function (options) {
         return optional;
     };
 };
+
 PykCharts.oneD.percentageColumn = function (options) {
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
@@ -1761,7 +1807,7 @@ PykCharts.oneD.percentageColumn = function (options) {
            that.k.loading();
         }
         d3.json(options.data, function (e, data) {
-            that.data = Array.groupBy(data);
+            that.data = data.groupBy();
             $(options.selector+" #chart-loader").remove();
             that.render();
         });
@@ -1883,7 +1929,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                     });
                 that.perColumn.exit()
                     .remove();
-               
+
                 return this;
             },
             svgContainer :function () {
@@ -2088,6 +2134,7 @@ PykCharts.oneD.percentageColumn = function (options) {
         return optional;
     };
 };
+
 PykCharts.oneD.pictograph = function (options) {
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
@@ -2253,6 +2300,7 @@ PykCharts.oneD.pictograph = function (options) {
         return optional;
     }
 };
+
 PykCharts.oneD.pie = function (options) {
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
@@ -2267,7 +2315,7 @@ PykCharts.oneD.pie = function (options) {
            that.k.loading();
         }
         d3.json(options.data, function (e, data) {
-            that.data = Array.groupBy(data);
+            that.data = data.groupBy();
             $(options.selector+" #chart-loader").remove();
             var pieFunctions = new PykCharts.oneD.pieFunctions(options,that,"pie");
             pieFunctions.render();
@@ -2498,7 +2546,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                         }
                     });
 
-                cv_path.exit().remove();                
+                cv_path.exit().remove();
                 return this;
             },
             label : function () {
@@ -2546,7 +2594,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                         .style("font-family", that.label.family);
 
                     cv_text.exit().remove();
-                
+
                 return this;
             },
             clubData: function () {
@@ -2809,7 +2857,7 @@ PykCharts.oneD.pyramid = function (options) {
         }
 
         d3.json(options.data, function (e,data) {
-			that.data = Array.groupBy(data);
+			that.data = data.groupBy();
             $(options.selector+" #chart-loader").remove();
 			that.render();
 		})
@@ -2971,7 +3019,7 @@ PykCharts.oneD.pyramid = function (options) {
 
                 var a = [{x:0,y:that.height},{x:that.width,y:that.height},{x:0,y:that.height},{x:that.width,y:that.height},{x:0,y:that.height},{x:that.width,y:that.height}]
                 var k =that.chartData.length;
-        
+
                 var path =that.group.selectAll('.pyr-path')
                     .data(that.coordinates)
                 path.enter()
@@ -3008,7 +3056,7 @@ PykCharts.oneD.pyramid = function (options) {
                     .attr('d',function (d){ return that.line(d.values); });
 
                 path.exit().remove();
-              
+
 		        return this;
         	},
             label: function () {
@@ -3284,6 +3332,7 @@ PykCharts.oneD.pyramid = function (options) {
     	return optional;
     };
 };
+
 PykCharts.oneD.treemap = function (options){
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
@@ -3554,6 +3603,7 @@ PykCharts.oneD.treemap = function (options){
         return optional;
     };
 };
+
 PykCharts.maps = {};
 
 PykCharts.maps.mouseEvent = function (options) {
