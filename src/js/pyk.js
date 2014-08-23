@@ -949,7 +949,7 @@ configuration.Theme = function(){
             "enable":"yes"
         },
         "label": {
-            "enable": "yes"
+            "enable": "no"
         },
         "enableClick": "yes",
         "axis" : {
