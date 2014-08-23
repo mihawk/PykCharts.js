@@ -33,7 +33,7 @@ PykCharts.oneD.donut = function (options) {
 
         d3.json(options.data, function (e, data) {
             that.data = data;
-            $(".loader").remove();
+            $(options.selector+" #chart-loader").remove();
             var pieFunctions = new PykCharts.oneD.pieFunctions(options,that,"donut");
             pieFunctions.render();
         });
@@ -52,7 +52,7 @@ PykCharts.oneD.election_pie = function (options) {
         that.innerRadiusPercent = 0;
         d3.json(options.data, function (e, data) {
             that.data = data;
-            $(".loader").remove();
+            $(options.selector+" #chart-loader").remove();
             var pieFunctions = new PykCharts.oneD.pieFunctions(options,that,"election pie");
             pieFunctions.render();
 
@@ -72,7 +72,7 @@ PykCharts.oneD.election_donut = function (options) {
 
         d3.json(options.data, function (e, data) {
             that.data = data;
-            $(".loader").remove();
+            $(options.selector+" #chart-loader").remove();
             var pieFunctions = new PykCharts.oneD.pieFunctions(options,that,"election donut");
             pieFunctions.render();
         });
