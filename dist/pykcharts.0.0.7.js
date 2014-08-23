@@ -342,7 +342,9 @@ PykCharts.Configuration = function (options){
 
             if(PykCharts.boolean(options.axis.x.enable)){
                 d3.selectAll(options.selector + " " + ".x.axis").attr("fill",function () { return options.axis.x.labelColor;});
-
+                if(options.axis.x.position === "bottom") {
+                    gsvg.attr("transform", "translate(0," + (options.height - options.margin.top - options.margin.bottom) + ")");
+                }
                 var xaxis = PykCharts.Configuration.makeXAxis(options,xScale);
 
                 if(options.axis.x.tickValues.length != 0) {
@@ -360,7 +362,9 @@ PykCharts.Configuration = function (options){
                 height = options.height;
 
             if(PykCharts.boolean(options.axis.y.enable)){
-
+                if(options.axis.y.position === "right") {
+                    gsvg.attr("transform", "translate(" + (options.width - options.margin.left - options.margin.right) + ",0)");
+                }
                 d3.selectAll(options.selector + " " + ".y.axis").attr("fill",function () { return options.axis.y.labelColor; });
                 var yaxis = PykCharts.Configuration.makeYAxis(options,yScale);
 
@@ -791,6 +795,7 @@ configuration.Theme = function(){
         "ticks":{
             "strokeWidth": 1,
             "size": 13,
+            "weight": "thin",
             "color": "#1D1D1D",
             "family": "'Helvetica Neue',Helvetica,Arial,sans-serif"
         }
@@ -852,6 +857,7 @@ configuration.Theme = function(){
             "onHoverHighlightenable": "no",
             "x": {
                 "enable": "yes",
+                "position":"top",
                 "orient" : "bottom",
                 "axisColor": "#1D1D1D",
                 "labelColor": "#1D1D1D",
@@ -863,6 +869,7 @@ configuration.Theme = function(){
             },
             "y": {
                 "enable": "yes",
+                "position":"left",
                 "orient": "left",
                 "axisColor": "#1D1D1D",
                 "labelColor": "#1D1D1D",
@@ -926,7 +933,6 @@ configuration.Theme = function(){
     };
     return that;
 }
-
 PykCharts.oneD = {};
 
 PykCharts.oneD.fillChart = function (options) {
@@ -973,6 +979,7 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
     chartObject.width = options.chart && _.isNumber(options.chart.width) ? options.chart.width : stylesheet.chart.width;
     chartObject.height = options.chart && _.isNumber(options.chart.height) ? options.chart.height : stylesheet.chart.height;
     chartObject.mode = options.mode ? options.mode : stylesheet.mode;
+    
     if (optional && optional.title) {
         chartObject.title = optional.title;
         chartObject.title.size = optional.title.size ? optional.title.size : stylesheet.title.size;
@@ -1020,7 +1027,7 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
     }
     if (optional && optional.label) {
         chartObject.label = optional.label;
-        chartObject.label.size = optional.label.size ? optional.label.size : stylesheet.label.size;
+        chartObject.label.size = "size" in optional.label ? optional.label.size : stylesheet.label.size;
         chartObject.label.color = optional.label.color ? optional.label.color : stylesheet.label.color;
         chartObject.label.weight = optional.label.weight ? optional.label.weight : stylesheet.label.weight;
         chartObject.label.family = optional.label.family ? optional.label.family : stylesheet.label.family;
@@ -1029,8 +1036,8 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
     }
     if(optional && optional.ticks) {
         chartObject.ticks = optional.ticks;
-        chartObject.ticks.strokeWidth = optional.ticks.strokeWidth ? optional.ticks.strokeWidth : stylesheet.ticks.strokeWidth;
-        chartObject.ticks.size = optional.ticks.size ? optional.ticks.size : stylesheet.ticks.size;
+        chartObject.ticks.strokeWidth = "strokeWidth" in optional.ticks ? optional.ticks.strokeWidth : stylesheet.ticks.strokeWidth;
+        chartObject.ticks.size = "size" in optional.ticks ? optional.ticks.size : stylesheet.ticks.size;
         chartObject.ticks.color = optional.ticks.color ? optional.ticks.color : stylesheet.ticks.color;
         chartObject.ticks.family = optional.ticks.family ? optional.ticks.family : stylesheet.ticks.family;
     } else {
