@@ -13,7 +13,6 @@ PykCharts.oneD.treemap = function (options){
 
         d3.json(options.data, function (e,data) {
             that.data = Array.groupBy(data);
-            // that.data = data;
             $(options.selector+" #chart-loader").remove();
             that.render();
         });
