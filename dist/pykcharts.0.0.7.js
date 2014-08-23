@@ -89,7 +89,7 @@ PykCharts.Configuration = function (options){
 	                .append("div")
 	                    .attr("id","title")
 	                    .style("width", options.width + "px")
-	                    .style("text-align","center")
+	                    .style("text-align","left")
 	                    .html("<span style='pointer-events:none;font-size:" +
                         options.title.size+
                         ";align:center;color:" +
@@ -110,7 +110,7 @@ PykCharts.Configuration = function (options){
                     .append("div")
                         .attr("id","sub-title")
                         .style("width", options.width + "px")
-                        .style("text-align","center")
+                        .style("text-align","left")
                         .html("</span><br><span style='pointer-events:none;font-size:" +
                         options.subtitle.size+";align:center;color:" +
                         options.subtitle.color + ";font-weight:" +
@@ -745,7 +745,7 @@ configuration.Theme = function(){
         },
         "subtitle":{
             "size": "12px",
-            "color": "gray",
+            "color": "black",
             "weight": 200,
             "family": "'Helvetica Neue',Helvetica,Arial,sans-serif"
         },
@@ -2288,7 +2288,7 @@ PykCharts.oneD.donut = function (options) {
 
         d3.json(options.data, function (e, data) {
             that.data = data;
-            $(".loader").remove();
+            $(options.selector+" #chart-loader").remove();
             var pieFunctions = new PykCharts.oneD.pieFunctions(options,that,"donut");
             pieFunctions.render();
         });
@@ -2307,7 +2307,7 @@ PykCharts.oneD.election_pie = function (options) {
         that.innerRadiusPercent = 0;
         d3.json(options.data, function (e, data) {
             that.data = data;
-            $(".loader").remove();
+            $(options.selector+" #chart-loader").remove();
             var pieFunctions = new PykCharts.oneD.pieFunctions(options,that,"election pie");
             pieFunctions.render();
 
@@ -2327,7 +2327,7 @@ PykCharts.oneD.election_donut = function (options) {
 
         d3.json(options.data, function (e, data) {
             that.data = data;
-            $(".loader").remove();
+            $(options.selector+" #chart-loader").remove();
             var pieFunctions = new PykCharts.oneD.pieFunctions(options,that,"election donut");
             pieFunctions.render();
         });
@@ -3299,6 +3299,7 @@ PykCharts.oneD.treemap = function (options){
 
         d3.json(options.data, function (e,data) {
             that.data = Array.groupBy(data);
+            // that.data = data;
             $(options.selector+" #chart-loader").remove();
             that.render();
         });
@@ -3490,6 +3491,7 @@ PykCharts.oneD.treemap = function (options){
             },
             clubData : function () {
                 if(PykCharts.boolean(that.clubData.enable)){
+                    console.log("club data");
                     var clubdata_content = [],weight = 0,k=0;
                     if(that.data.length <= that.clubData.maximumNodes) {
                         that.new_data1 = { "children" : that.data };

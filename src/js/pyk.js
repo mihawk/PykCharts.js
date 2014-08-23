@@ -89,7 +89,7 @@ PykCharts.Configuration = function (options){
 	                .append("div")
 	                    .attr("id","title")
 	                    .style("width", options.width + "px")
-	                    .style("text-align","center")
+	                    .style("text-align","left")
 	                    .html("<span style='pointer-events:none;font-size:" +
                         options.title.size+
                         ";align:center;color:" +
@@ -110,7 +110,7 @@ PykCharts.Configuration = function (options){
                     .append("div")
                         .attr("id","sub-title")
                         .style("width", options.width + "px")
-                        .style("text-align","center")
+                        .style("text-align","left")
                         .html("</span><br><span style='pointer-events:none;font-size:" +
                         options.subtitle.size+";align:center;color:" +
                         options.subtitle.color + ";font-weight:" +
@@ -745,7 +745,7 @@ configuration.Theme = function(){
         },
         "subtitle":{
             "size": "12px",
-            "color": "gray",
+            "color": "black",
             "weight": 200,
             "family": "'Helvetica Neue',Helvetica,Arial,sans-serif"
         },
