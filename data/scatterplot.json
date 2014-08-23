@@ -4,7 +4,7 @@
         "x": 80,
         "y": 2,
         "weight": 500,
-        "color": "#8ec3db",
+        "color": "#DE5851",
         "tooltip": "cadbury",
         "group": "cadbury"
     },
@@ -13,7 +13,7 @@
         "x": 42,
         "y": 5,
         "weight": 530,
-        "color": " #539772",
+        "color": "#44A770",
         "tooltip": "Nestle",
         "group": "Nestle"
     },
@@ -22,7 +22,7 @@
         "x": 55,
         "y": 4,
         "weight": 580,
-        "color": " #d03c89",
+        "color": " #FFF44F",
         "tooltip": "Nestle",
         "group": "Nestle"
     },
@@ -40,7 +40,7 @@
         "x": 65,
         "y": 2.5,
         "weight": 570,
-        "color": "#493452",
+        "color": "steelblue",
         "tooltip": "Hershey",
         "group": "Hershey"
     },
@@ -49,7 +49,7 @@
         "x": 65,
         "y": 3.5,
         "weight": 200,
-        "color": " #d03c89",
+        "color": " #FFF44F",
         "tooltip": "Hershey",
         "group": "Hershey"
     }, 
@@ -58,7 +58,7 @@
         "x": 61,
         "y": 4,
         "weight": 560,
-        "color": "#493452",
+        "color": "steelblue",
         "tooltip": "Hershey",
         "group": "Hershey"
     }, 
@@ -66,10 +66,8 @@
         "name": "Dolfin",
         "x": 60,
         "y": 4,
-        "weight": 250,
-        
+        "weight": 250,     
         "color": "#493452",
-        
         "tooltip": "Lindt",
         "group": "Lindt"
     }, 
@@ -78,7 +76,7 @@
         "x": 70,
         "y": 2,
         "weight": 500,
-        "color": "#8ec3db",
+        "color": "#DE5851",
         "tooltip": "cadbury",
         "group": "cadbury"
     },
@@ -87,7 +85,7 @@
         "x": 100,
         "y": 3,
         "weight": 400,
-        "color": "#8ec3db",
+        "color": "#DE5851",
         "tooltip": "cadbury",
         "group": "cadbury"
     },
@@ -96,7 +94,7 @@
         "x": 50,
         "y": 2.5,
         "weight": 480,
-        "color": " #539772",
+        "color": " #44A770",
         "tooltip": "Nestle",
         "group": "Nestle"
     },
@@ -105,7 +103,7 @@
         "x": 51,
         "y": 2.5,
         "weight": 350,
-        "color": " #d03c89",
+        "color": " #FFF44F",
         "tooltip": "Nestle",
         "group": "Nestle"
     },
@@ -123,7 +121,7 @@
         "x": 45,
         "y": 2.5,
         "weight": 470,
-        "color": "#493452",
+        "color": "steelblue",
         "tooltip": "Hershey",
         "group": "Hershey"
     },
@@ -132,7 +130,7 @@
         "x": 85,
         "y": 3.5,
         "weight": 360,
-        "color": " #d03c89",
+        "color": "#FFF44F",
         "tooltip": "Hershey",
         "group": "Hershey"
     }, 
@@ -141,7 +139,7 @@
         "x": 40,
         "y": 5,
         "weight": 270,
-        "color": "#493452",
+        "color": "steelblue",
         "tooltip": "Hershey",
         "group": "Hershey"
     }, 
@@ -159,7 +157,7 @@
         "x": 30,
         "y": 5,
         "weight": 400,
-        "color": "#8ec3db",
+        "color": "#DE5851",
         "tooltip": "cadbury",
         "group": "cadbury"
     }
