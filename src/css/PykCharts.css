@@ -34,7 +34,7 @@ body {
   cursor: pointer;
 }
 
-.PykCharts-multi-series2D path.multi-line:hover {
+.PykCharts-multi-series2D path.multi-line-hover {
   fill: none;
   stroke-width: 2px;
   stroke: orange;
