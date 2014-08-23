@@ -32,7 +32,7 @@ PykCharts.maps.processInputs = function (chartObject, options) {
     chartObject.mapCode = options.mapCode ? options.mapCode : mapsTheme.mapCode;
     // chartObject.defaultColor = optional && optional.colors && optional.colors.defaultColor ? optional.colors.defaultColor : mapsTheme.colors.defaultColor;
     // chartObject.colorType = optional && optional.colors && optional.colors.type ? optional.colors.type : stylesheet.colors.type;
-    chartObject.totalColors = optional && optional.colors && _.isNumber(parseInt(optional.colors.total,10)) ? parseInt(optional.colors.total,10) : stylesheet.colors.total;
+    // chartObject.totalColors = optional && optional.colors && _.isNumber(parseInt(optional.colors.total,10)) ? parseInt(optional.colors.total,10) : stylesheet.colors.total;
     // chartObject.colorPalette = optional && optional.colors && optional.colors.palette ? optional.colors.palette : mapsTheme.colors.palette;
     chartObject.bg = optional && optional.colors && optional.colors.backgroundColor ? optional.colors.backgroundColor : stylesheet.colors.backgroundColor;
     if (optional && optional.tooltip)  {
@@ -50,6 +50,7 @@ PykCharts.maps.processInputs = function (chartObject, options) {
     if (optional && optional.colors) {
         chartObject.colors = optional.colors;
         chartObject.colors.defaultColor = optional.colors.defaultColor ? optional.colors.defaultColor : mapsTheme.colors.defaultColor;
+        chartObject.colors.total = optional.colors.total && _.isNumber(parseInt(optional.colors.total,10))? parseInt(optional.colors.total,10) : mapsTheme.colors.total;
         chartObject.colors.type = optional.colors.type ? optional.colors.type : mapsTheme.colors.type;
         chartObject.colors.palette = optional.colors.palette ? optional.colors.palette : mapsTheme.colors.palette;
     } else {
