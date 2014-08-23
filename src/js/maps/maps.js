@@ -98,7 +98,6 @@ PykCharts.maps.processInputs = function (chartObject, options) {
     }
     if(optional && optional.border) {
         chartObject.border = optional.border;
-        console.log(chartObject.border);
         chartObject.border.color = optional.border.color ? optional.border.color : mapsTheme.border.color;
         chartObject.border.thickness = optional.border.thickness ? optional.border.thickness : mapsTheme.border.thickness;
     } else {

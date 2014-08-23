@@ -5,10 +5,10 @@ PykCharts.maps.oneLayer = function (options) {
         that = PykCharts.maps.processInputs(that, options);
         //$(that.selector).css("height",that.height);
         that.data = options.data;
-
+        console.log(that.tooltip);
         that.k
             .totalColors(that.totalColors)
-            .colorType(that.colorType)
+            .colorType(that.colors.type)
             .loading(that.loading)
             .tooltip(that.tooltip)
 
@@ -119,7 +119,6 @@ PykCharts.maps.oneLayer = function (options) {
                         .scale((that.defaultZoomLevel / 100) * scale).translate(offset);
         that.path = that.path.projection(projection);
         var ttp = d3.select("#pyk-tooltip");
-        console.log(that);
         var areas = that.group.append("path")
             .attr("d", that.path)
             .attr("class", "area")
@@ -177,13 +176,13 @@ PykCharts.maps.oneLayer = function (options) {
             obj;
             obj = _.where(that.data, {iso2: d.properties.iso_a2});
         if (_.where(that.data, {iso2: d.properties.iso_a2}).length > 0) {
-            if (that.colorType === "colors") {
+            if (that.colors.type === "colors") {
                 if (obj.length > 0 && obj[0].color !== "") {
                     return obj[0].color;
                 }
                 return that.colors.defaultColor;
             }
-            if (that.colorType === "saturation") {
+            if (that.colors.type === "saturation") {
 
                 if ((that.highlightArea === "yes") && obj[0].highlight == "true") {
                     return obj[0].highlight_color;
@@ -219,7 +218,7 @@ PykCharts.maps.oneLayer = function (options) {
         var that = this,
             k,
             onetenth;
-        if (that.colorType === "saturation") {
+        if (that.colors.type === "saturation") {
             that.legs = d3.select(that.selector)
                 .append("svg")
                 .attr("id", "legend-container")
