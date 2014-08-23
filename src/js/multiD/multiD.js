@@ -380,11 +380,11 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
         chartObject.legendsText.size = optional.legendsText.size ? optional.legendsText.size : stylesheet.legendsText.size;
         chartObject.legendsText.color = optional.legendsText.color ? optional.legendsText.color : stylesheet.legendsText.color;
         chartObject.legendsText.weight = optional.legendsText.weight ? optional.legendsText.weight : stylesheet.legendsText.weight;
+        chartObject.legendsText.weight = (chartObject.legendsText.weight === "thick") ? "bold" : "normal";
         chartObject.legendsText.family = optional.legendsText.family ? optional.legendsText.family : stylesheet.legendsText.family;
     } else {
         chartObject.legendsText = stylesheet.legendsText;
     }
-    console.log(chartObject.legendsText);
     chartObject.units = optional && optional.units ? optional.units : false;
     chartObject.size = optional && optional.size ? optional.size : multiDimensionalCharts.size;
     chartObject.size.enable = optional && optional.size && optional.size.enable ? optional.size.enable : multiDimensionalCharts.size.enable;
