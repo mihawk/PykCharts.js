@@ -187,6 +187,7 @@ PykCharts.Configuration = function (options){
 	    tooltip : function (d,selection,i) {
 	    	if(PykCharts.boolean(options.enableTooltip) && options.mode === "default") {
 	        	if(selection !== undefined){
+                    console.log("dhajgH");
 	        		d3.select(options.selector + " " +"#tooltip-svg-container-"+i).append("div")
                         .attr("id", "tooltip-container")
 						.style("position", "relative")
@@ -197,6 +198,7 @@ PykCharts.Configuration = function (options){
 			        	.attr("id", "pyk-tooltip")
 			        	.attr("class","pyk-line-tooltip");
 	        	} else if (PykCharts.boolean(options.tooltip)) {
+                    console.log("tooltip");
                     if (options.tooltip.mode === "fixed") {
                         PykCharts.Configuration.tooltipp = d3.select("body")
                             .append("div")
@@ -939,10 +941,17 @@ configuration.Theme = function(){
         },
         "tooltip" : {
             "enable": "yes",
-            "mode":"fixed",
+            "mode":"moving",
             "positionTop":0,
             "positionLeft":0
         },
+        "legends": {
+            "enable":"yes"
+        },
+        "label": {
+            "enable": "yes"
+        },
+        "enableClick": "yes",
         "axis" : {
             "onHoverHighlightenable": "no",
             "x": {
