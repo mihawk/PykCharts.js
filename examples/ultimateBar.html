@@ -36,10 +36,14 @@
                     realTimeCharts: {
                         refreshFrequency: 0 // seconds
                     },
+                    saturation : {
+                    	enable : "yes"
+                    },
 					axis : {
 	                    onHoverHighlightenable: "yes",
 	                    x: {
 	                        enable: "yes",
+	                        position:"top", //top or bottom
 	                        orient : "top",
 	                        axisColor: "#1D1D1D",
 	                        labelColor: "#1D1D1D",
@@ -51,6 +55,7 @@
 	                    },
 	                    y: {
 	                        enable: "yes",
+	                        position:"left", //left or right
 	                        orient: "left",
 	                        axisColor: "#1D1D1D",
 	                        labelColor: "#1D1D1D",
