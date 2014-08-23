@@ -762,7 +762,7 @@ configuration.Theme = function(){
             "backgroundColor": "transparent",
             "chartColor": "steelblue",
             "highlightColor": "#013F73",
-            "saturationColor" : "green"
+            "saturationColor" : "green",
         },
         "borderBetweenChartElements":{
             "width": 1,
@@ -901,7 +901,23 @@ configuration.Theme = function(){
     };
 
     that.mapsTheme = {
-        "mapCode": "india-topo",
+        // "mapCode": "india-topo",
+        "colors" : {
+            "defaultColor" : "#4682B4",
+            "type" : "saturation",
+            "palette" : "Blue"
+        },
+        "border" :{
+            "color": "white",
+            "thickness" : 1
+        },
+        "numberOfColors": 3,
+        "tooltip" : {
+            "enable": "yes",
+            "mode":"fixed",
+            "positionTop":0,
+            "positionLeft":0
+        },
         "axis" : {
             "onHoverHighlightenable": "no",
             "x": {
