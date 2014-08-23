@@ -275,7 +275,7 @@
                 k.execute();
                 
                 var k = new PykCharts.multiD.line({
-                    selector: "#line",
+                    selector: "#multiline",
                     data: "../data/multiLineChart.json",
                     mode : "default",
                     yAxisDataFormat : "number",
@@ -314,6 +314,8 @@
                             onHoverHighlightenable: "yes",
                             x: {
                                 enable: "yes",
+
+                                position:"bottom", //top or bottom
                                 orient : "bottom",
                                 axisColor: "#fff",
                                 labelColor: "#1D1D1D",
@@ -325,6 +327,7 @@
                             },
                             y: {
                                 enable: "yes",
+                                position:"left", //top or bottom
                                 orient: "left",
                                 axisColor: "#fff",
                                 labelColor: "#1D1D1D",
