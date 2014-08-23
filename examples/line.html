@@ -31,6 +31,9 @@
 							color: ""
 			            },
 				    },
+			        line: {
+			            color_from_data: "yes"
+			        },
 					optional:{
 						transition : {
 							duration : 0 //milliseconds
@@ -45,17 +48,16 @@
 							text: "Malnutrition in India Malnutrition in India Malnutrition in India Malnutrition in India"
 						},
 						realTimeCharts: {
-							refreshFrequency: 1 // seconds
+							refreshFrequency: 0 // seconds
 						},
 						enableTooltip: "no",
 						colors: {
-							highlightColor: "steelblue"
+							highlightColor: "green"
 						},
 						axis : {
     						onHoverHighlightenable: "yes",
     						x: {
     							enable: "yes",
-    							position: "bottom", //top or bottom
     							orient : "bottom",
     							axisColor: "#fff",
     							labelColor: "#1D1D1D",
@@ -67,7 +69,6 @@
     						},
     						y: {
     							enable: "yes",
-    							position:"left", //left or right
     							orient: "left",
     							axisColor: "#fff",
     							labelColor: "#1D1D1D",
