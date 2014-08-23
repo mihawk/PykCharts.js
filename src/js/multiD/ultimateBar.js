@@ -288,14 +288,16 @@ PykCharts.multiD.ultimateBar = function(options){
                     })
                     .attr("fill-opacity", function (d,i) {
                         //console.log(d.x);
-                        if(j<that.max_length){
-                            //console.log(d.x, "d.x" , j, "j");
-                            j++;
-                            return j/that.max_length;
-                        } else {
-                            j = 0;
-                            j++;
-                            return j/that.max_length;
+                        if(PykCharts.boolean(that.saturationEnable)){
+                            if(j<that.max_length){
+                                //console.log(d.x, "d.x" , j, "j");
+                                j++;
+                                return j/that.max_length;
+                            } else {
+                                j = 0;
+                                j++;
+                                return j/that.max_length;
+                            }
                         }
                     })
                     .attr("stroke",that.border.color())
@@ -396,11 +398,18 @@ PykCharts.multiD.ultimateBar = function(options){
             },
             legends: function () {
                 if(PykCharts.boolean(that.legends.enable)) {
-                    var params = that.getParameters();
+                    var params = that.getParameters(),color;
+                    // console.log(params);
+                    color = params[0].color; 
+                    params = params.map(function (d) {
+                        return d.name;
+                    });
+
+                    params = jQuery.unique(params);
                     var j = 0,k = 0;
                     j = params.length;
-                    k = params.length;
-
+                    k = params.length;                
+                    
                     if(that.legends.display === "vertical" ) {
                         that.legend_svg.attr("height", (params.length * 30)+20);
                         text_parameter1 = "x";
@@ -442,7 +451,12 @@ PykCharts.multiD.ultimateBar = function(options){
                         .attr(rect_parameter3, rect_parameter3value)
                         .attr(rect_parameter4, rect_parameter4value)
                         .attr("fill", function (d) {
-                            return d.color;
+                            return that.fillColor.colorPieMS(color);
+                        })
+                        .attr("fill-opacity", function (d,i) {
+                            if(PykCharts.boolean(that.saturationEnable)){
+                                return (i+1)/that.max_length;
+                            }
                         });
 
                     legend.exit().remove();
@@ -463,7 +477,7 @@ PykCharts.multiD.ultimateBar = function(options){
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    .attr("fill","black")
                     .attr(text_parameter1, text_parameter1value)
                     .attr(text_parameter2, text_parameter2value)
-                    .text(function (d) { return d.name; });
+                    .text(function (d) { return d; });
                     
                     that.legends_text.exit()
                                     .remove();                
@@ -580,22 +594,26 @@ PykCharts.multiD.ultimateBar = function(options){
         for(var i in  that.the_layers){
             if(!that.the_layers[i].name) continue;
             var name = that.the_layers[i].name, color;
-            if(options.optional && options.optional.colors) {
-                if(options.optional.colors.chartColor) {
+            for(var j in that.the_layers[i].values) {
+                if(!PykCharts.boolean(that.the_layers[i].values[j].y)) continue;
+                var name = that.the_layers[i].values[j].group, color;
+                if(options.optional && options.optional.colors) {
+                    if(options.optional.colors.chartColor) {
+                        color = that.chartColor;
+                    }
+                    else if(that.the_layers[i].values[0].color) {
+                        color = that.the_layers[i].values[0].color;   
+                    }
+                }
+                else {
                     color = that.chartColor;
                 }
-                else if(that.the_layers[i].values[0].color) {
-                    color = that.the_layers[i].values[0].color;   
-                }
-            }
-            else {
-                color = that.chartColor;
-            }
 
-            p.push({
-                "name": name,
-                "color": color
-            });
+                p.push({
+                    "name": name,
+                    "color": color
+                });
+            }
         }
         return p;
     };
