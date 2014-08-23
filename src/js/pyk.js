@@ -449,17 +449,19 @@ configuration.mouseEvent = function (options) {
         tooltipPosition : function (d,xPos,yPos,xDiff,yDiff) {
             if(PykCharts.boolean(options.enableTooltip) && options.mode === "default") {
             	if(xPos !== undefined){
-                    return that.tooltip
+                    var width_tooltip = parseFloat($(options.selector+" #"+that.tooltip.attr("id")).css("width"));
+                    that.tooltip
             			.style("visibility", "visible")
-                        .style("top", (yPos + yDiff)+"px")
-                        .style("left", (xPos + xDiff)+"px");
+                        .style("top", (yPos + yDiff))
+                        .style("left", (xPos + options.margin.left + xDiff - width_tooltip));
                 }
                 else{
-                    return that.tooltip
+                    that.tooltip
                         .style("visibility", "visible")
                         .style("top", (d3.event.pageY - 20) + "px")
                         .style("left", (d3.event.pageX + 30) + "px");
                 }
+                return that.tooltip;
             }
         },
         toolTextShow : function (d) {
@@ -515,7 +517,7 @@ configuration.mouseEvent = function (options) {
                 pathWidth = dataLineGroup.node().getBBox().width;
 
     			if((cx >= (lineMargin + left + 2)) && (cx <= (pathWidth + lineMargin + left + 3)) && (cy >= top) && (cy <= (h - bottom))) {
-                	this.tooltipPosition(tooltipText,0,cy,-9,20);
+                	this.tooltipPosition(tooltipText,0,cy,-14,20);
                     this.toolTextShow(tooltipText);
                     (options.enableCrossHair) ? this.crossHairShow(cx,top,cx,(h - bottom),cx,cy,lineMargin) : null;
                     this.axisHighlightShow(activeTick,options.selector+" .x.axis");
