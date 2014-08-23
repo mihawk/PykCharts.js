@@ -899,6 +899,9 @@ configuration.Theme = function(){
         },
         "scatterplot" : {
             "radius" : 9
+        },
+        "line": {
+            "color_from_data": "no"
         }
     };
 
