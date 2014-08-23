@@ -314,8 +314,6 @@
                             onHoverHighlightenable: "yes",
                             x: {
                                 enable: "yes",
-
-                                position:"bottom", //top or bottom
                                 orient : "bottom",
                                 axisColor: "#fff",
                                 labelColor: "#1D1D1D",
@@ -327,7 +325,6 @@
                             },
                             y: {
                                 enable: "yes",
-                                position:"left", //top or bottom
                                 orient: "left",
                                 axisColor: "#fff",
                                 labelColor: "#1D1D1D",
@@ -338,7 +335,14 @@
                             }
                         },
                         legends: {
-                            enable: "yes"
+                            enable: "yes",
+                            display: "horizontal"
+                        },
+                        legendsText: {
+                            size: "20",
+                            color: "steelblue",
+                            weight: "thin", // or "thick"
+                            family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
                         },
                         dataSource:{
                             text: "World Bank",
