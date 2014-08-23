@@ -12,7 +12,7 @@ PykCharts.oneD.treemap = function (options){
         }
 
         d3.json(options.data, function (e,data) {
-            that.data = Array.groupBy(data);
+            that.data = data.groupBy();
             $(options.selector+" #chart-loader").remove();
             that.render();
         });
@@ -204,6 +204,7 @@ PykCharts.oneD.treemap = function (options){
             },
             clubData : function () {
                 if(PykCharts.boolean(that.clubData.enable)){
+                    console.log("club data");
                     var clubdata_content = [],weight = 0,k=0;
                     if(that.data.length <= that.clubData.maximumNodes) {
                         that.new_data1 = { "children" : that.data };

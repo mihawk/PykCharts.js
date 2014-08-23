@@ -8,7 +8,7 @@ PykCharts.oneD.bubble = function (options) {
            that.k.loading();
         }
         d3.json(options.data, function (e,data) {
-            that.data = Array.groupBy(data);
+            that.data = data.groupBy();
             $(options.selector+" #chart-loader").remove();
             that.render();
         });
@@ -120,7 +120,7 @@ PykCharts.oneD.bubble = function (options) {
                     .transition()
                     .duration(that.transitions.duration())
                     .attr("r",function (d) {return d.r; });
-            
+
                 return this;
             },
             label : function () {

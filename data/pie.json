@@ -2,38 +2,48 @@
 	{
 		"name": "National Democratic Alliance",
 		"weight": 4800,
-        "highlight": true
+		"highlight":false
 	},
 	{
 		"name": "United Progressive Alliance",
-		"weight": 5000
+		"weight": 5000,
+		"highlight":true
 	},
 	{
 		"name": "National Democratic Alliance",
-		"weight": 2500
+		"weight": 2500,
+		"highlight":false
+		
 	},
 	{
 		"name": "Aam Aadmi Party",
-		"weight": 800
+		"weight": 800,
+		"highlight":false		
 	},
 	{
 		"name": "Indian National Congress",
-		"weight": 8000
+		"weight": 8000,
+		"highlight":false		
 	},
 	{
 		"name": "Bahujan Samaj Party",
-		"weight": 300
+		"weight": 300,
+		"highlight":false		
 	},
 	{
 		"name": "Nationalist Congress Party",
-		"weight": 150
+		"weight": 150,
+		"highlight":false
 	},
 	{
 		"name":"LMN",
-		"weight":350
+		"weight":350,
+		"highlight":false
 	},
 	{
 		"name":"PQR",
-		"weight":590
+		"weight":590,
+		"highlight":false
+		
 	}
 ]
