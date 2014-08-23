@@ -30,6 +30,7 @@ PykCharts.maps.processInputs = function (chartObject, options) {
     chartObject.width = options.map && _.isNumber(parseInt(options.map.width,10)) ? options.map.width : stylesheet.map.width;
     chartObject.height = options.map && _.isNumber(parseInt(options.map.height,10)) ? options.map.height : stylesheet.map.height;
     chartObject.mapCode = options.mapCode ? options.mapCode : mapsTheme.mapCode;
+    chartObject.enableClick = options.enableClick ? options.enableClick : mapsTheme.enableClick;
     // chartObject.defaultColor = optional && optional.colors && optional.colors.defaultColor ? optional.colors.defaultColor : mapsTheme.colors.defaultColor;
     // chartObject.colorType = optional && optional.colors && optional.colors.type ? optional.colors.type : stylesheet.colors.type;
     // chartObject.totalColors = optional && optional.colors && _.isNumber(parseInt(optional.colors.total,10)) ? parseInt(optional.colors.total,10) : stylesheet.colors.total;
@@ -79,24 +80,36 @@ PykCharts.maps.processInputs = function (chartObject, options) {
     } else {
         chartObject.axis = mapsTheme.axis;
     }
-    if (optional && optional.label) {
+    if(optional && optional.label) {
         chartObject.label = optional.label;
-        chartObject.label.size = optional.label.size ? optional.label.size : stylesheet.label.size;
-        chartObject.label.color = optional.label.color ? optional.label.color : stylesheet.label.color;
-        chartObject.label.weight = optional.label.weight ? optional.label.weight : stylesheet.label.weight;
-        chartObject.label.family = optional.label.family ? optional.label.family : stylesheet.label.family;
+        chartObject.label.enable = optional.label.enable && optional.label.enable ? optional.label.enable : mapsTheme.label.enable;
     } else {
-        chartObject.label = stylesheet.label;
+        chartObject.label =  mapsTheme.label;
     }
+    // if (optional && optional.label) {
+    //     chartObject.label = optional.label;
+    //     chartObject.label.size = optional.label.size ? optional.label.size : stylesheet.label.size;
+    //     chartObject.label.color = optional.label.color ? optional.label.color : stylesheet.label.color;
+    //     chartObject.label.weight = optional.label.weight ? optional.label.weight : stylesheet.label.weight;
+    //     chartObject.label.family = optional.label.family ? optional.label.family : stylesheet.label.family;
+    // } else {
+    //     chartObject.label = stylesheet.label;
+    // }
     if(optional && optional.legends) {
         chartObject.legends = optional.legends;
-        chartObject.legends.strokeWidth = optional.legends.strokeWidth ? optional.legends.strokeWidth : stylesheet.legends.strokeWidth;
-        chartObject.legends.size = optional.legends.size ? optional.legends.size : stylesheet.legends.size;
-        chartObject.legends.color = optional.legends.color ? optional.legends.color : stylesheet.legends.color;
-        chartObject.legends.family = optional.legends.family ? optional.legends.family : stylesheet.legends.family;
+        chartObject.legends.enable = optional.legends.enable && optional.legends.enable ? optional.legends.enable : mapsTheme.legends.enable;
     } else {
-        chartObject.legends = stylesheet.legends;
+        chartObject.legends =  mapsTheme.legends;
     }
+    // if(optional && optional.legends) {
+    //     chartObject.legends = optional.legends;
+    //     chartObject.legends.strokeWidth = optional.legends.strokeWidth ? optional.legends.strokeWidth : stylesheet.legends.strokeWidth;
+    //     chartObject.legends.size = optional.legends.size ? optional.legends.size : stylesheet.legends.size;
+    //     chartObject.legends.color = optional.legends.color ? optional.legends.color : stylesheet.legends.color;
+    //     chartObject.legends.family = optional.legends.family ? optional.legends.family : stylesheet.legends.family;
+    // } else {
+    //     chartObject.legends = stylesheet.legends;
+    // }
     if(optional && optional.border) {
         chartObject.border = optional.border;
         chartObject.border.color = optional.border.color ? optional.border.color : mapsTheme.border.color;
@@ -122,7 +135,6 @@ PykCharts.maps.processInputs = function (chartObject, options) {
         chartObject.subtitle = optional.subtitle;
         chartObject.subtitle.size = optional.subtitle.size ? optional.subtitle.size : stylesheet.subtitle.size;
         chartObject.subtitle.color = optional.subtitle.color ? optional.subtitle.color : stylesheet.subtitle.color;
-        chartObject.subtitle.weight = optional.subtitle.weight ? optional.subtitle.weight : stylesheet.subtitle.weight;
         chartObject.subtitle.family = optional.subtitle.family ? optional.subtitle.family : stylesheet.subtitle.family;
     } else {
         chartObject.subtitle = stylesheet.subtitle;

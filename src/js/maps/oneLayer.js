@@ -32,6 +32,7 @@ PykCharts.maps.oneLayer = function (options) {
         var config = {
             enableLegend: function (el) {
                 if (PykCharts.boolean(el)) {
+                    console.log("hagcxag");
                     that.renderLegend();
                 };
                 return this;
@@ -44,7 +45,7 @@ PykCharts.maps.oneLayer = function (options) {
             },
             enableClick: function (ec) {
                 if (PykCharts.boolean(ec)) {
-                    areas.on("click", that.clicked);
+                    that.areas.on("click", that.clicked);
                     that.onhover = "color_saturation";
                 };
                 return this;
@@ -62,9 +63,8 @@ PykCharts.maps.oneLayer = function (options) {
             i;
 
         that.current_palette = _.where(that.colorPalette_data, {name:that.colors.palette, number:that.colors.total})[0];
-
         that.optionalFeatures()
-            .enableLegend(that.legends)
+            .enableLegend(that.legends.enable)
 
         that.canvas = d3.select(that.selector)
             .append("svg")
@@ -119,7 +119,7 @@ PykCharts.maps.oneLayer = function (options) {
                         .scale((that.defaultZoomLevel / 100) * scale).translate(offset);
         that.path = that.path.projection(projection);
         var ttp = d3.select("#pyk-tooltip");
-        var areas = that.group.append("path")
+        that.areas = that.group.append("path")
             .attr("d", that.path)
             .attr("class", "area")
             .attr("state_name", function (d) {
@@ -131,8 +131,9 @@ PykCharts.maps.oneLayer = function (options) {
             .attr("stroke", that.border.color)
             .attr("stroke-width", that.border.thickness + "px")
             .on("mouseover", function (d) {
-                console.log((_.where(that.data, {iso2: d.properties.iso_a2})[0]).tooltip)
+                // console.log((_.where(that.data, {iso2: d.properties.iso_a2})[0]).tooltip)
                 if (PykCharts.boolean(that.tooltip)) {
+                    console.log("vghacg");
                     ttp.style("visibility", "visible");
                     ttp.html((_.where(that.data, {iso2: d.properties.iso_a2})[0]).tooltip);
                 }
@@ -162,10 +163,10 @@ PykCharts.maps.oneLayer = function (options) {
                 }
                 that.bodUncolor(d);
             });
-
+        console.log(that.enableClick);
         this.optionalFeatures()
-            .enableLabel(that.label)
-            .enableClick(that.enable_click);
+            .enableLabel(that.label.enable)
+            .enableClick(that.enableClick);
 
         that.k.dataSource(that.dataSource)
             .credits(that.creditMySite);
