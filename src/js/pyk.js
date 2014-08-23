@@ -21,7 +21,6 @@ Array.prototype.groupBy = function () {
             })
         }
     };
-    console.log(gd);
     return gd;
 };
 
