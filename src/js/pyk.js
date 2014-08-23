@@ -778,7 +778,7 @@ configuration.Theme = function(){
             "color": "white",
             "style": "solid" // or "dotted / dashed"
         },
-        "legends":{ //partially done for oneD, pending for twoD
+        "legendsText":{ //partially done for oneD, pending for twoD
             "size": "13",
             "color": "white",
             "weight": "thin",
