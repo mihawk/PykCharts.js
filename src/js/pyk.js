@@ -6,12 +6,20 @@ Array.prototype.groupBy = function () {
     , group = _.groupBy(this, function (d) {
         return d.name;
     });
-    console.log(group)
     for(i in group) {
-        gd.push({
-            name: i,
-            weight: d3.sum(group[i], function (d) { return d.weight; })
-        })
+        var highlight = _.where(group[i], {highlight: true}).length;
+        if (highlight>0) {
+            gd.push({
+                name: i,
+                weight: d3.sum(group[i], function (d) { return d.weight; }),
+                highlight: true
+            })
+        } else {
+            gd.push({
+                name: i,
+                weight: d3.sum(group[i], function (d) { return d.weight; })
+            })
+        }
     };
     return gd;
 };
@@ -770,7 +778,7 @@ configuration.Theme = function(){
             "color": "white",
             "style": "solid" // or "dotted / dashed"
         },
-        "legends":{ //partially done for oneD, pending for twoD
+        "legendsText":{ //partially done for oneD, pending for twoD
             "size": "13",
             "color": "white",
             "weight": "thin",
