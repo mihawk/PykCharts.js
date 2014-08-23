@@ -188,13 +188,13 @@ PykCharts.Configuration = function (options){
 	    	if(PykCharts.boolean(options.enableTooltip) && options.mode === "default") {
 	        	if(selection !== undefined){
                     // console.log("dhajgH");
-	        		d3.select(options.selector + " " +"#tooltip-svg-container-"+i).append("div")
+	        		d3.select(options.selector + " #tooltip-svg-container-"+i).append("div")
                         .attr("id", "tooltip-container")
 						.style("position", "relative")
 						.style("height", "35px")
 						.style("margin-top", "10px");
 
-					PykCharts.Configuration.tooltipp = d3.select(options.selector + " " +"#tooltip-container").append("div")
+					PykCharts.Configuration.tooltipp = d3.select(options.selector + " #tooltip-container").append("div")
 			        	.attr("id", "pyk-tooltip")
 			        	.attr("class","pyk-line-tooltip");
 	        	} else if (PykCharts.boolean(options.tooltip)) {
@@ -263,17 +263,18 @@ PykCharts.Configuration = function (options){
         crossHair : function (svg) {
             if(PykCharts.boolean(options.enableCrossHair) && options.mode === "default") {
                 /*$(options.selector + " " + "#cross-hair-v").remove();
-                $(options.selector + " " + "#focus-circle").remove();
-                */PykCharts.Configuration.cross_hair_v = svg.append("g")
+                $(options.selector + " " + "#focus-circle").remove();*/
+                PykCharts.Configuration.cross_hair_v = svg.append("g")
                     .attr("class","line-cursor")
                     .style("display","none");
                 PykCharts.Configuration.cross_hair_v.append("line")
                     .attr("id","cross-hair-v");
-                //    that.crossHairH = that.svg.append("g")
-                //          .attr("class","line-cursor")
-                //          .style("display","none");
-                // that.crossHairH.append("line")
-                //          .attr("id","crossHairH");
+                
+                PykCharts.Configuration.cross_hair_h = svg.append("g")
+                    .attr("class","line-cursor")
+                    .style("display","none");
+                PykCharts.Configuration.cross_hair_h.append("line")
+                    .attr("id","cross-hair-h");
 
                 PykCharts.Configuration.focus_circle = svg.append("g")
                     .attr("class", function () { return (options.type === "areaChart") ? "focus-area" : "focus"; })
@@ -304,7 +305,7 @@ PykCharts.Configuration = function (options){
         loading: function () {
             if(PykCharts.boolean(options.loading)) {
                 $(options.selector).html("<div id='chart-loader'><img src="+options.loading+"></div>");
-                $(options.selector + " " + '#chart-loader').css({"visibility":"visible","padding-left":(options.width)/2 +"px","padding-top":(options.height)/2 + "px"});
+                $(options.selector + " #chart-loader").css({"visibility":"visible","padding-left":(options.width)/2 +"px","padding-top":(options.height)/2 + "px"});
             }
             return this;
         },
@@ -327,7 +328,7 @@ PykCharts.Configuration = function (options){
                 height = options.height;
             if(PykCharts.boolean(options.grid.yEnabled)) {
                 var ygrid = PykCharts.Configuration.makeYGrid(options,yScale);
-                gsvg.selectAll(options.selector + " " + "g.y.grid-line")
+                gsvg.selectAll(options.selector + " g.y.grid-line")
                     .style("stroke",function () { return options.grid.color; })
                     .call(ygrid);
             }
@@ -339,7 +340,7 @@ PykCharts.Configuration = function (options){
 
             if(PykCharts.boolean(options.grid.xEnabled)) {
                 var xgrid = PykCharts.Configuration.makeXGrid(options,xScale);
-                gsvg.selectAll(options.selector + " " + "g.x.grid-line")
+                gsvg.selectAll(options.selector + " g.x.grid-line")
                     .style("stroke",function () { return options.grid.color; })
                     .call(xgrid);
             }
@@ -351,7 +352,7 @@ PykCharts.Configuration = function (options){
                 height = options.height;
 
             if(PykCharts.boolean(options.axis.x.enable)){
-                d3.selectAll(options.selector + " " + ".x.axis").attr("fill",function () { return options.axis.x.labelColor;});
+                d3.selectAll(options.selector + " .x.axis").attr("fill",function () { return options.axis.x.labelColor;});
                 if(options.axis.x.position === "bottom") {
                     gsvg.attr("transform", "translate(0," + (options.height - options.margin.top - options.margin.bottom) + ")");
                 }
@@ -363,7 +364,7 @@ PykCharts.Configuration = function (options){
 
                 gsvg.style("stroke",function () { return options.axis.x.axisColor; })
                     .call(xaxis);
-                gsvg.selectAll(options.selector + " " + "g.x.axis text").attr("pointer-events","none");
+                gsvg.selectAll(options.selector + " g.x.axis text").attr("pointer-events","none");
             }
             return this;
         },
@@ -375,12 +376,12 @@ PykCharts.Configuration = function (options){
                 if(options.axis.y.position === "right") {
                     gsvg.attr("transform", "translate(" + (options.width - options.margin.left - options.margin.right) + ",0)");
                 }
-                d3.selectAll(options.selector + " " + ".y.axis").attr("fill",function () { return options.axis.y.labelColor; });
+                d3.selectAll(options.selector + " .y.axis").attr("fill",function () { return options.axis.y.labelColor; });
                 var yaxis = PykCharts.Configuration.makeYAxis(options,yScale);
 
                 gsvg.style("stroke",function () { return options.axis.y.axisColor; })
                     .call(yaxis);
-                gsvg.selectAll(options.selector + " " + "g.y.axis text").attr("pointer-events","none");
+                gsvg.selectAll(options.selector + " g.y.axis text").attr("pointer-events","none");
             }
             return this;
         },
@@ -441,6 +442,7 @@ configuration.mouseEvent = function (options) {
     var that = this;
     that.tooltip = configuration.tooltipp;
     that.cross_hair_v = configuration.cross_hair_v;
+    that.cross_hair_h = configuration.cross_hair_h;
     that.focus_circle = configuration.focus_circle;
     var status;
     var action = {
@@ -473,8 +475,8 @@ configuration.mouseEvent = function (options) {
         },
         crossHairPosition: function(data,xScale,dataLineGroup,lineMargin){
             if((PykCharts.boolean(options.enableCrossHair) || PykCharts.boolean(options.enableTooltip) || PykCharts.boolean(options.onHoverHighlightenable))  && options.mode === "default") {
-                var offsetLeft = $(options.selector + " " + "#"+dataLineGroup.attr("id")).offset().left;
-                var offsetRight = $(options.selector + " " + "#"+dataLineGroup.attr("id")).offset().right;
+                var offsetLeft = $(options.selector + " #"+dataLineGroup.attr("id")).offset().left;
+                var offsetRight = $(options.selector + " #"+dataLineGroup.attr("id")).offset().right;
                 var left = options.margin.left;
                 var right = options.margin.right;
                 var top = options.margin.top;
@@ -490,20 +492,20 @@ configuration.mouseEvent = function (options) {
                 var j,tooltpText="",activeTick="",cx = 0,cy = 0,pathWidth = 0;
 
                 while (true) {
-                  target = Math.floor((beginning + end) / 2);
-                  pos = pathEl.getPointAtLength(target);
-                  if ((target === end || target === beginning) && pos.x !== x) {
-                    break;
-                  }
-                  if (pos.x > x) {
-                      end = target;
-                  }
-                  else if (pos.x < x) {
-                      beginning = target;
-                  }
-                  else{
-                      break;
-                  }
+                    target = Math.floor((beginning + end) / 2);
+                    pos = pathEl.getPointAtLength(target);
+                    if ((target === end || target === beginning) && pos.x !== x) {
+                        break;
+                    }
+                    if (pos.x > x) {
+                          end = target;
+                    }
+                    else if (pos.x < x) {
+                          beginning = target;
+                    }
+                    else{
+                          break;
+                    }
                 }
                 for(j = 0; x > (xScale.range()[j] + xRange - lineMargin); j++) {}
                 tooltipText = data[j].tooltip;
@@ -512,22 +514,21 @@ configuration.mouseEvent = function (options) {
                 cy = pos.y + top;
                 pathWidth = dataLineGroup.node().getBBox().width;
 
-    			if((cx >= (lineMargin + left + 1)) && (cx <= (pathWidth + lineMargin + left + 2)) && (cy >= top) && (cy <= (h - bottom))) {
-                	this.tooltipPosition(tooltipText,cx,top,-30,-3);
+    			if((cx >= (lineMargin + left + 2)) && (cx <= (pathWidth + lineMargin + left + 3)) && (cy >= top) && (cy <= (h - bottom))) {
+                	this.tooltipPosition(tooltipText,0,cy,-9,20);
                     this.toolTextShow(tooltipText);
-                    (options.enableCrossHair) ? this.crossHairShow(cx,top,cx,(h - bottom),cx,cy) : null;
-                    this.axisHighlightShow(activeTick,options.selector+" "+".x.axis");
+                    (options.enableCrossHair) ? this.crossHairShow(cx,top,cx,(h - bottom),cx,cy,lineMargin) : null;
+                    this.axisHighlightShow(activeTick,options.selector+" .x.axis");
                 }
                 else{
                   	this.tooltipHide();
                   	(options.enableCrossHair) ? this.crossHairHide() : null;
-                  	this.axisHighlightHide(options.selector+" "+".x.axis");
-                  	// crossHairH.style("display","none");
+                  	this.axisHighlightHide(options.selector+" .x.axis");
                 }
 
             }
         },
-        crossHairShow : function (x1,y1,x2,y2,cx,cy) {
+        crossHairShow : function (x1,y1,x2,y2,cx,cy,lineMargin) {
             if(PykCharts.boolean(options.enableCrossHair) && options.mode === "default") {
                 if(x1 !== undefined){
                     that.cross_hair_v.style("display","block");
@@ -536,6 +537,12 @@ configuration.mouseEvent = function (options) {
                         .attr("y1",y1)
                         .attr("x2",x2)
                         .attr("y2",y2);
+                    that.cross_hair_h.style("display","block");
+                    that.cross_hair_h.select(options.selector + " #cross-hair-h")
+                        .attr("x1",options.margin.left)
+                        .attr("y1",cy)
+                        .attr("x2",(options.width - options.margin.right))
+                        .attr("y2",cy);
                     that.focus_circle.style("display","block")
                         .attr("transform", "translate(" + cx + "," + cy + ")");
                 }
@@ -545,6 +552,7 @@ configuration.mouseEvent = function (options) {
         crossHairHide : function () {
             if(PykCharts.boolean(options.enableCrossHair) && options.mode === "default") {
                 that.cross_hair_v.style("display","none");
+                that.cross_hair_h.style("display","none");
                 that.focus_circle.style("display","none");
             }
             return this;
@@ -552,16 +560,16 @@ configuration.mouseEvent = function (options) {
         axisHighlightShow : function (activeTick,axisHighlight,a) {
             var j_curr,j_prev,abc,selection;
             if(PykCharts.boolean(options.axis.onHoverHighlightenable)&& options.mode === "default"){
-                if(axisHighlight === options.selector + " " + ".y.axis"){
+                if(axisHighlight === options.selector + " .y.axis"){
                     selection = axisHighlight+" .tick text";
                     abc = options.axis.y.labelColor;
-                } else if(axisHighlight === options.selector + " " + ".x.axis") {
+                } else if(axisHighlight === options.selector + " .x.axis") {
                     selection = axisHighlight+" .tick text";
                     abc = options.axis.x.labelColor;
-                } else if(axisHighlight === options.selector + " " + ".axis-text" && a === "column") {
+                } else if(axisHighlight === options.selector + " .axis-text" && a === "column") {
                     selection = axisHighlight;
                     abc = options.axis.x.labelColor;
-                } else if(axisHighlight === options.selector + " " + ".axis-text" && a === "bar") {
+                } else if(axisHighlight === options.selector + " .axis-text" && a === "bar") {
                     selection = axisHighlight;
                     abc = options.axis.y.labelColor;
                 }
@@ -589,16 +597,16 @@ configuration.mouseEvent = function (options) {
         axisHighlightHide : function (axisHighlight,a) {
             var abc,selection;
             if(PykCharts.boolean(options.axis.onHoverHighlightenable) && options.mode === "default"){
-                if(axisHighlight === options.selector + " " + ".y.axis"){
+                if(axisHighlight === options.selector + " .y.axis"){
                     selection = axisHighlight+" .tick text";
                     abc = options.axis.y.labelColor;
-                } else if(axisHighlight === options.selector + " " + ".x.axis") {
+                } else if(axisHighlight === options.selector + " .x.axis") {
                     selection = axisHighlight+" .tick text";
                     abc = options.axis.x.labelColor;
-                } else if(axisHighlight === options.selector + " " + ".axis-text" && a === "column") {
+                } else if(axisHighlight === options.selector + " .axis-text" && a === "column") {
                     selection = axisHighlight;
                     abc = options.axis.x.labelColor;
-                } else if(axisHighlight === options.selector + " " + ".axis-text" && a === "bar") {
+                } else if(axisHighlight === options.selector + " .axis-text" && a === "bar") {
                     selection = axisHighlight;
                     abc = options.axis.y.labelColor;
                 }
