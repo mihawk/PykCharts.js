@@ -18,7 +18,7 @@ PykCharts.multiD.line = function (options){
 	    that.grid.xEnabled = options.chart && options.chart.grid && options.chart.grid.xEnabled ? options.chart.grid.xEnabled : stylesheet.chart.grid.xEnabled;
 	    that.multiple_containers = optional && optional.multiple_containers && optional.multiple_containers.enable ? optional.multiple_containers.enable : multiDimensionalCharts.multiple_containers.enable;
 	    that.interpolate = PykCharts.boolean(that.curvy_lines) ? "cardinal" : "linear";
-		
+
 		d3.json(options.data, function (e, data) {
 			that.data = data;
 			that.data_length = data.length;
@@ -234,8 +234,8 @@ PykCharts.multiD.line = function (options){
 				return this;
 			},
 			createLineChart : function (evt) {
-				that.pt_circle = PykCharts.Configuration.focus_circle;
-				that.pt_circle.select("circle").attr("r",4);
+				// that.pt_circle = PykCharts.Configuration.focus_circle;
+				// that.pt_circle.select("circle").attr("r",4);
 
 				var x_domain,x_data = [],y_data,y_range,x_range,y_domain;
 				
@@ -278,7 +278,7 @@ PykCharts.multiD.line = function (options){
 		        } else if (that.xAxisDataFormat === "time") {
 		        	max = d3.max(that.new_data, function(d) { return d3.max(d.data, function(k) { return new Date(k.x); }); });
 					min = d3.min(that.new_data, function(d) { return d3.min(d.data, function(k) { return new Date(k.x); }); });
-		         	x_data = [min,max];          
+		         	x_data = [min,max];
 		          	x_range = [0 ,that.reducedWidth];
 		          	that.xScale = that.k.scaleIdentification("time",x_data,x_range);
 		          	that.new_data[0].data.forEach(function (d) {
@@ -328,7 +328,7 @@ PykCharts.multiD.line = function (options){
 											.classed({'multi-line-selected':true,'multi-line':false})
 											.style("stroke",that.highlightColor);
 
-									// that.updateSelectedLine(that.selected.id);
+									// PykCharts.boolean(that.legends.enable) ? that.updateSelectedLine(that.selected.id) : null;
 								});
 						 	}
 							else if(that.type === "lineChart") {
@@ -359,7 +359,7 @@ PykCharts.multiD.line = function (options){
 										.classed({'multi-line-selected':true,'multi-line':false})
 										.style("stroke",that.highlightColor);
 
-								// that.updateSelectedLine(that.selected.id);
+								// PykCharts.boolean(that.legends.enable) ? that.updateSelectedLine(that.selected.id) : null;
 							});
 					 	}
 						else if(that.type === "lineChart") {
@@ -382,7 +382,7 @@ PykCharts.multiD.line = function (options){
 					else if (that.type === "multiline" && that.selected_line_data !== undefined) {
 						that.selected_line_data = that.selected_line.__data__;
 						that.selected_line_data_len = that.selected_line_data.length;
-						// that.updateSelectedLine(that.selected.id);
+						// PykCharts.boolean(that.legends.enable) ? that.updateSelectedLine(that.selected.id) : null;
 					}
 				}
 				else { // Static Viz
@@ -417,15 +417,17 @@ PykCharts.multiD.line = function (options){
 									d3.select(that.deselected)
 											.classed({'multi-line-selected':false,'multi-line':true})
 											.style("stroke","");
-									(that.deselected !== undefined)? d3.select("text#"+that.deselected.id).style("visibility","hidden") : null;
+									
 									that.selected = this;
 									d3.select(that.selected)
 											.classed({'multi-line-selected':true,'multi-line':false})
 											.style("stroke",that.highlightColor);
-									d3.select(that.selector+" text#"+that.selected.id).style("visibility","visible");
-									
 
-									that.updateSelectedLine(that.selected.id);
+									if(PykCharts.boolean(that.legends.enable)) {
+										(that.deselected !== undefined)? d3.select("text#"+that.deselected.id).style("visibility","hidden") : null;
+										d3.select(that.selector+" text#"+that.selected.id).style("visibility","visible");										
+										that.updateSelectedLine(that.selected.id);
+									}
 								});
 							}
 							else if(that.type === "lineChart") {
@@ -456,7 +458,7 @@ PykCharts.multiD.line = function (options){
 						  		that.selected_line = d3.event.target;
 								that.selected_line_data = that.selected_line.__data__;
 								that.selected_line_data_len = that.selected_line_data.length;
-						
+								
 								that.deselected = that.selected;
 								d3.select(that.deselected)
 										.classed({'multi-line-selected':false,'multi-line':true})
@@ -466,7 +468,7 @@ PykCharts.multiD.line = function (options){
 										.classed({'multi-line-selected':true,'multi-line':false})
 										.style("stroke",that.highlightColor);
 								
-								// that.updateSelectedLine(that.selected.id);
+								// PykCharts.boolean(that.legends.enable) ? that.updateSelectedLine(that.selected.id) : null;
 							});
 						}
 						else if(that.type === "lineChart") {
@@ -531,62 +533,72 @@ PykCharts.multiD.line = function (options){
 	// 				.classed({'multi-line-selected':true,'multi-line':false})
 	// 				.style("stroke",that.highlightColor);
 
-	// 		(that.selected_line_data !== undefined) ? that.updateSelectedLine(this.id) : null;
+	// 		(that.selected_line_data !== undefined && PykCharts.boolean(that.legends.enable)) ? that.updateSelectedLine(this.id) : null;
 	// 	}
 	// };
 
 	this.updateSelectedLine = function (lineid) {
-		start = that.type.length;
-		end = lineid.length;
-		svgid = lineid.substring(start,end);
+		// start = that.type.length;
+		// end = lineid.length;
+		// svgid = lineid.substring(start,end);
 		// console.log(svgid);
 
-		if(!PykCharts.boolean(that.multiple_containers)) {
-			that.pt_circle.attr("id","pt-line"+svgid);
+		// if(!PykCharts.boolean(that.multiple_containers)) {
+		// 	that.pt_circle.attr("id","pt-line"+svgid);
 
-			that.start_pt_circle = $("#"+that.pt_circle.attr("id")).clone().appendTo(that.selector+" #svg-1");
-			that.start_pt_circle
-					.attr("id","start-pt-line"+svgid);
-			that.end_pt_circle = $("#"+that.start_pt_circle.attr("id")).clone().appendTo(that.selector+" #svg-1");
-	  		that.end_pt_circle
-	  				.attr("id","end-pt-line"+svgid);
+		// 	that.start_pt_circle = $("#"+that.pt_circle.attr("id")).clone().appendTo(that.selector+" #svg-1");
+		// 	that.start_pt_circle
+		// 			.attr("id","start-pt-line"+svgid);
+		// 	that.end_pt_circle = $("#"+that.start_pt_circle.attr("id")).clone().appendTo(that.selector+" #svg-1");
+	 //  		that.end_pt_circle
+	 //  				.attr("id","end-pt-line"+svgid);
 
-		} else {
-			that.pt_circle.attr("id","pt-line"+svgid);
+		// } else {
+		// 	that.pt_circle.attr("id","pt-line"+svgid);
 
-			that.start_pt_circle = $("#"+that.pt_circle.attr("id")).clone().appendTo(that.selector+" #"+svgid);
-			that.start_pt_circle
-					.attr("id","start-pt-line" + svgid);
-			that.end_pt_circle = $("#"+that.start_pt_circle.attr("id")).clone().appendTo(that.selector+" #"+svgid);
-		  	that.end_pt_circle
-		  			.attr("id","end-pt-line"+svgid);
-		}
+		// 	that.start_pt_circle = $("#"+that.pt_circle.attr("id")).clone().appendTo(that.selector+" #"+svgid);
+		// 	that.start_pt_circle
+		// 			.attr("id","start-pt-line" + svgid);
+		// 	that.end_pt_circle = $("#"+that.start_pt_circle.attr("id")).clone().appendTo(that.selector+" #"+svgid);
+		//   	that.end_pt_circle
+		//   			.attr("id","end-pt-line"+svgid);
+		// }
 		
-  		d3.selectAll("circle").style("visibility","hidden");
+  // 		d3.selectAll("circle").style("visibility","hidden");
 		var height_text = parseFloat(d3.select(that.selector+" text#"+lineid).style("height")) / 2,
 			width_text = parseFloat(d3.select(that.selector+" text#"+lineid).style("width")) / 2 ,
 			start_x_circle = (that.xScale(that.selected_line_data[0].x) + that.lineMargin + that.margin.left),
 			start_y_circle = (that.yScale(that.selected_line_data[0].y) + that.margin.top),
 			end_x_circle = (that.xScale(that.selected_line_data[(that.selected_line_data_len - 1)].x) + that.lineMargin + that.margin.left),
 			end_y_circle = (that.yScale(that.selected_line_data[(that.selected_line_data_len - 1)].y) + that.margin.top);
+
+		if(that.legends.display === "vertical") {
+			text_x = (end_x_circle - that.margin.left + 25),
+			text_y = (end_y_circle - that.margin.top + 20),
+			text_rotate = -90;
+		}
+		else if(that.legends.display === "horizontal") {
 			text_x = (end_x_circle - that.margin.left + width_text + 2),
 			text_y = (end_y_circle - that.margin.top - height_text - 2),
-			
-		d3.select(that.selector+" text#"+lineid).attr("transform","translate("+text_x+","+text_y+")");
+			text_rotate = 0;
+		}
+		
+		d3.select(that.selector+" text#"+lineid)
+				.attr("transform","translate("+text_x+","+text_y+") rotate("+text_rotate+")");
+		
+		// d3.select(that.selector + " #start-pt-line" + svgid + " circle")
+		// 	.style("visibility","visible");
+		// d3.select(that.selector + " #end-pt-line" + svgid + " circle")
+		// 	.style("visibility","visible");
 
-		d3.select(that.selector + " #start-pt-line" + svgid + " circle")
-			.style("visibility","visible");
-		d3.select(that.selector + " #end-pt-line" + svgid + " circle")
-			.style("visibility","visible");
-
-		that.start_pt_circle.show();
-		that.start_pt_circle.select(that.selector + " circle")
-				.attr("class","bullets")
-				.attr("transform", "translate(" + start_x_circle + "," + start_y_circle + ")");
-		that.end_pt_circle.show();
-		that.end_pt_circle.select(that.selector + " circle")
-				.attr("class","bullets")
-				.attr("transform", "translate(" + end_x_circle + "," + end_y_circle + ")");
+		// that.start_pt_circle.show();
+		// that.start_pt_circle.select(that.selector + " circle")
+		// 		.attr("class","bullets")
+		// 		.attr("transform", "translate(" + start_x_circle + "," + start_y_circle + ")");
+		// that.end_pt_circle.show();
+		// that.end_pt_circle.select(that.selector + " circle")
+		// 		.attr("class","bullets")
+		// 		.attr("transform", "translate(" + end_x_circle + "," + end_y_circle + ")");
 	};
 
 	// this.fullScreen = function () {
