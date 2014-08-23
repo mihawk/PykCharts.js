@@ -278,18 +278,18 @@ PykCharts.multiD.ultimate = function(options){
                         // console.log(d.highlight);
                         return that.fillColor.colorPieMS(d);
                     })
-                    .attr("fill-opacity", function (d,i) {
-                        if(PykCharts.boolean(that.saturationEnable))     {
-                            if(j<that.max_length){
-                                j++;
-                                return j/that.max_length;
-                            } else {
-                                j = 0;
-                                j++;
-                                return j/that.max_length;
-                            }
-                        }
-                    })
+                    // .attr("fill-opacity", function (d,i) {
+                    //     if(PykCharts.boolean(that.saturationEnable))     {
+                    //         if(j<that.max_length){
+                    //             j++;
+                    //             return j/that.max_length;
+                    //         } else {
+                    //             j = 0;
+                    //             j++;
+                    //             return j/that.max_length;
+                    //         }
+                    //     }
+                    // })
                     .attr("stroke",that.border.color())
                     .attr("stroke-width",that.border.width())
                     .attr("stroke-opacity",1)
@@ -383,11 +383,11 @@ PykCharts.multiD.ultimate = function(options){
                         .attr("fill", function (d) {
                             return that.fillColor.colorPieMS(color);
                         })
-                        .attr("fill-opacity", function (d,i) {
-                            if(PykCharts.boolean(that.saturationEnable)){
-                                return (i+1)/that.max_length;
-                            }
-                        });
+                        // .attr("fill-opacity", function (d,i) {
+                        //     if(PykCharts.boolean(that.saturationEnable)){
+                        //         return (i+1)/that.max_length;
+                        //     }
+                        // });
 
                     legend.exit().remove();
 

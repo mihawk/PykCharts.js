@@ -382,6 +382,7 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
         chartObject.legendsText.size = optional.legendsText.size ? optional.legendsText.size : stylesheet.legendsText.size;
         chartObject.legendsText.color = optional.legendsText.color ? optional.legendsText.color : stylesheet.legendsText.color;
         chartObject.legendsText.weight = optional.legendsText.weight ? optional.legendsText.weight : stylesheet.legendsText.weight;
+        chartObject.legendsText.weight = (chartObject.legendsText.weight === "thick") ? "bold" : "normal";
         chartObject.legendsText.family = optional.legendsText.family ? optional.legendsText.family : stylesheet.legendsText.family;
     } else {
         chartObject.legendsText = stylesheet.legendsText;

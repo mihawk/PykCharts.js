@@ -1,326 +1,326 @@
 [
 	{
-		"name": "Rice",
+    	"name": "Rice",
         "x" : 2001,
         "y" : "Rice",
         "weight" : 4834,
-        "color": "#1f77b4",
-        "tooltip" : "Cereals",
-        "group": "Cereals"
+        "color": "#DE5851",
+        "tooltip" : "A",
+        "group": "A"
 	},
 	{
 		"name": "Rice",
         "x" : 2002,
         "y" : "Rice",
         "weight" : 10402,
-        "color": "#1f77b4",
-        "tooltip" : "Cereals",
-        "group": "Cereals"
+        "color": "#DE5851",
+        "tooltip" : "A",
+        "group": "A"
 	},
 	{
-		"name": "Rice",
+	   "name": "Rice",
         "x" : 2003,
         "y" : "Rice",
         "weight" : 5964,
-        "color": "#1f77b4",
-        "tooltip" : "Cereals",
-        "group": "Cereals"
+        "color": "#DE5851",
+        "tooltip" : "A",
+        "group": "A"
 	},
 	{
 		"name": "Rice",
         "x" : 2004,
         "y" : "Rice",
         "weight" : 13385,
-        "color": "#1f77b4",
-        "tooltip" : "Cereals",
-        "group": "Cereals"
+        "color": "#DE5851",
+        "tooltip" : "A",
+        "group": "A"
 	},
 	{
 		"name": "Rice",
         "x" : 2005,
         "y" : "Rice",
         "weight" : 11966,
-        "color": "#1f77b4",
-        "tooltip" : "Cereals",
-        "group": "Cereals"
+        "color": "#DE5851",
+        "tooltip" : "A",
+        "group": "A"
 	},
 	{
 		"name": "Rice",
         "x" : 2006,
         "y" : "Rice",
         "weight" : 12836,
-        "color": "#1f77b4",
-        "tooltip" : "Cereals",
-        "group": "Cereals"
+        "color": "#DE5851",
+        "tooltip" : "A",
+        "group": "A"
 	},
 	{
 		"name": "Rice",
         "x" : 2007,
         "y" : "Rice",
         "weight" : 11412,
-        "color": "#1f77b4",
-        "tooltip" : "Cereals",
-        "group": "Cereals"
+        "color": "#DE5851",
+        "tooltip" : "A",
+        "group": "A"
 	},
 	{
 		"name": "Rice",
         "x" : 2008,
         "y" : "Rice",
         "weight" : 14742,
-        "color": "#1f77b4",
-        "tooltip" : "Cereals",
-        "group": "Cereals"
+        "color": "#DE5851",
+        "tooltip" : "A",
+        "group": "A"
 	},
 	{
 		"name": "Rice",
         "x" : 2009,
         "y" : "Rice",
         "weight" : 13029,
-        "color": "#1f77b4",
-        "tooltip" : "Cereals",
-        "group": "Cereals"
+        "color": "#DE5851",
+        "tooltip" : "A",
+        "group": "A"
 	},
 	{
 		"name": "Rice",
         "x" : 2010,
         "y" : "Rice",
         "weight" : 12930,
-        "color": "#1f77b4",
-        "tooltip" : "Cereals",
-        "group": "Cereals"
+        "color": "#DE5851",
+        "tooltip" : "A",
+        "group": "A"
 	},
 	{
 		"name": "Rice",
         "x" : 2011,
         "y" : "Rice",
         "weight" : 16658,
-        "color": "#1f77b4",
-        "tooltip" : "Cereals",
-        "group": "Cereals"
+        "color": "#DE5851",
+        "tooltip" : "A",
+        "group": "A"
 	},
 	{
 		"name": "Rice",
         "x" : 2012,
         "y" : "Rice",
         "weight" : 17897,
-        "color": "#1f77b4",
-        "tooltip" : "Cereals",
-        "group": "Cereals"
+        "color": "#DE5851",
+        "tooltip" : "A",
+        "group": "A"
 	},
 	{
 		"name": "Wheat",
         "x" : 2001,
         "y" : "Wheat",
-        "weight" : 6490,
-        "color": "#1f77b4",
-        "tooltip" : "Cereals",
-        "group": "Cereals"
+        "weight" : 4834,
+        "color": "#44A770",
+        "tooltip" : "B",
+        "group": "B"
 	},
 	{
 		"name": "Wheat",
         "x" : 2002,
         "y" : "Wheat",
-        "weight" : 11447,
-        "color": "#1f77b4",
-        "tooltip" : "Cereals",
-        "group": "Cereals"
+        "weight" : 10402,
+        "color": "#44A770",
+        "tooltip" : "B",
+        "group": "B"
 	},
 	{
 		"name": "Wheat",
         "x" : 2003,
         "y" : "Wheat",
-        "weight" : 8566,
-        "color": "#1f77b4",
-        "tooltip" : "Cereals",
-        "group": "Cereals"
+        "weight" : 5964,
+        "color": "#44A770",
+        "tooltip" : "B",
+        "group": "B"
 	},
 	{
 		"name": "Wheat",
         "x" : 2004,
         "y" : "Wheat",
-        "weight" : 19357,
-        "color": "#1f77b4",
-        "tooltip" : "Cereals",
-        "group": "Cereals"
+        "weight" : 13385,
+        "color": "#44A770",
+        "tooltip" : "B",
+        "group": "B"
 	},
 	{
 		"name": "Wheat",
         "x" : 2005,
         "y" : "Wheat",
-        "weight" : 18055,
-        "color": "#1f77b4",
-        "tooltip" : "Cereals",
-        "group": "Cereals"
+        "weight" : 11966,
+        "color": "#44A770",
+        "tooltip" : "B",
+        "group": "B"
 	},
 	{
 		"name": "Wheat",
         "x" : 2006,
         "y" : "Wheat",
-        "weight" : 23192,
-        "color": "#1f77b4",
-        "tooltip" : "Cereals",
-        "group": "Cereals"
+        "weight" : 12836,
+        "color": "#44A770",
+        "tooltip" : "B",
+        "group": "B"
 	},
 	{
 		"name": "Wheat",
         "x" : 2007,
         "y" : "Wheat",
-        "weight" : 27915,
-        "color": "#1f77b4",
-        "tooltip" : "Cereals",
-        "group": "Cereals"
+        "weight" : 11412,
+        "color": "#44A770",
+        "tooltip" : "B",
+        "group": "B"
 	},
 	{
 		"name": "Wheat",
         "x" : 2008,
         "y" : "Wheat",
-        "weight" : 38377,
-        "color": "#1f77b4",
-        "tooltip" : "Cereals",
-        "group": "Cereals"
+        "weight" : 14742,
+        "color": "#44A770",
+        "tooltip" : "B",
+        "group": "B"
 	},
 	{
 		"name": "Wheat",
         "x" : 2009,
         "y" : "Wheat",
-        "weight" : 25926,
-        "color": "#1f77b4",
-        "tooltip" : "Cereals",
-        "group": "Cereals"
+        "weight" : 13029,
+        "color": "#44A770",
+        "tooltip" : "B",
+        "group": "B"
 	},
 	{
 		"name": "Wheat",
         "x" : 2010,
         "y" : "Wheat",
-        "weight" : 23513,
-        "color": "#1f77b4",
-        "tooltip" : "Cereals",
-        "group": "Cereals"
+        "weight" : 12930,
+        "color": "#44A770",
+        "tooltip" : "B",
+        "group": "B"
 	},
 	{
 		"name": "Wheat",
         "x" : 2011,
         "y" : "Wheat",
-        "weight" : 50134,
-        "color": "#1f77b4",
-        "tooltip" : "Cereals",
-        "group": "Cereals"
+        "weight" : 16658,
+        "color": "#44A770",
+        "tooltip" : "B",
+        "group": "B"
 	},
 	{
 		"name": "Wheat",
         "x" : 2012,
         "y" : "Wheat",
-        "weight" : 40721,
-        "color": "#1f77b4",
-        "tooltip" : "Cereals",
-        "group": "Cereals"
+        "weight" : 17897,
+        "color": "#44A770",
+        "tooltip" : "B",
+        "group": "B"
 	},
 	{
 		"name": "Jowar",
         "x" : 2001,
         "y" : "Jowar",
-        "weight" : 980,
-        "color": "#1f77b4",
-        "tooltip" : "Cereals",
-        "group": "Cereals"
+        "weight" : 17800,
+        "color": "steelblue",
+        "tooltip" : "C",
+        "group": "C"
 	},
 	{
 		"name": "Jowar",
         "x" : 2002,
         "y" : "Jowar",
-        "weight" : 1693,
-        "color": "#1f77b4",
-        "tooltip" : "Cereals",
-        "group": "Cereals"
+        "weight" : 16930,
+        "color": "steelblue",
+        "tooltip" : "C",
+        "group": "C"
 	},
 	{
 		"name": "Jowar",
         "x" : 2003,
         "y" : "Jowar",
-        "weight" : 1217,
-        "color": "#1f77b4",
-        "tooltip" : "Cereals",
-        "group": "Cereals"
+        "weight" : 12170,
+        "color": "steelblue",
+        "tooltip" : "C",
+        "group": "C"
 	},
 	{
 		"name": "Jowar",
         "x" : 2004,
         "y" : "Jowar",
-        "weight" : 1968,
-        "color": "#1f77b4",
-        "tooltip" : "Cereals",
-        "group": "Cereals"
+        "weight" : 19680,
+        "color": "steelblue",
+        "tooltip" : "C",
+        "group": "C"
 	},
 	{
 		"name": "Jowar",
         "x" : 2005,
         "y" : "Jowar",
-        "weight" : 1344,
-        "color": "#1f77b4",
-        "tooltip" : "Cereals",
-        "group": "Cereals"
+        "weight" : 13440,
+        "color": "steelblue",
+        "tooltip" : "C",
+        "group": "C"
 	},
 	{
 		"name": "Jowar",
         "x" : 2006,
         "y" : "Jowar",
-        "weight" : 1570,
-        "color": "#1f77b4",
-        "tooltip" : "Cereals",
-        "group": "Cereals"
+        "weight" : 15700,
+        "color": "steelblue",
+        "tooltip" : "C",
+        "group": "C"
 	},
 	{
 		"name": "Jowar",
         "x" : 2007,
         "y" : "Jowar",
-        "weight" : 1493,
-        "color": "#1f77b4",
-        "tooltip" : "Cereals",
-        "group": "Cereals"
+        "weight" : 14930,
+        "color": "steelblue",
+        "tooltip" : "C",
+        "group": "C"
 	},
 	{
 		"name": "Jowar",
         "x" : 2008,
         "y" : "Jowar",
-        "weight" : 1564,
-        "color": "#1f77b4",
-        "tooltip" : "Cereals",
-        "group": "Cereals"
+        "weight" : 15640,
+        "color": "steelblue",
+        "tooltip" : "C",
+        "group": "C"
 	},
 	{
 		"name": "Jowar",
         "x" : 2009,
         "y" : "Jowar",
-        "weight" : 2082,
-        "color": "#1f77b4",
-        "tooltip" : "Cereals",
-        "group": "Cereals"
+        "weight" : 20820,
+        "color": "steelblue",
+        "tooltip" : "C",
+        "group": "C"
 	},
 	{
 		"name": "Jowar",
         "x" : 2010,
         "y" : "Jowar",
-        "weight" : 1713,
-        "color": "#1f77b4",
-        "tooltip" : "Cereals",
-        "group": "Cereals"
+        "weight" : 17130,
+        "color": "steelblue",
+        "tooltip" : "C",
+        "group": "C"
 	},
 	{
 		"name": "Jowar",
         "x" : 2011,
         "y" : "Jowar",
-        "weight" : 1390,
-        "color": "#1f77b4",
-        "tooltip" : "Cereals",
-        "group": "Cereals"
+        "weight" : 13900,
+        "color": "steelblue",
+        "tooltip" : "C",
+        "group": "C"
 	},
 	{
 		"name": "Jowar",
         "x" : 2012,
         "y" : "Jowar",
-        "weight" : 1398,
-        "color": "#1f77b4",
-        "tooltip" : "Cereals",
-        "group": "Cereals"
+        "weight" : 4834,
+        "color": "steelblue",
+        "tooltip" : "C",
+        "group": "C"
 	}
 ]

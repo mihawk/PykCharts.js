@@ -1,14 +1,14 @@
 PykCharts.maps.oneLayer = function (options) {
     var that = this;
-
+    var theme = new PykCharts.Configuration.Theme({});
     this.execute = function () {
         that = PykCharts.maps.processInputs(that, options);
         //$(that.selector).css("height",that.height);
         that.data = options.data;
-
+        console.log(that.tooltip);
         that.k
             .totalColors(that.totalColors)
-            .colorType(that.colorType)
+            .colorType(that.colors.type)
             .loading(that.loading)
             .tooltip(that.tooltip)
 
@@ -61,7 +61,7 @@ PykCharts.maps.oneLayer = function (options) {
             offset = [that.width / 2, that.height / 2],
             i;
 
-        that.current_palette = _.where(that.colorPalette_data, {name:that.colorPalette, number:that.totalColors})[0];
+        that.current_palette = _.where(that.colorPalette_data, {name:that.colors.palette, number:that.totalColors})[0];
 
         that.optionalFeatures()
             .enableLegend(that.legends)
@@ -128,8 +128,8 @@ PykCharts.maps.oneLayer = function (options) {
             //.attr("prev-fill",that.renderPreColor)
             .attr("fill", that.renderColor)
             .attr("opacity", that.renderOpacity)
-            .attr("stroke", that.boder_color)
-            .attr("stroke-width", that.boder_thickness + "px")
+            .attr("stroke", that.border.color)
+            .attr("stroke-width", that.border.thickness + "px")
             .on("mouseover", function (d) {
                 console.log((_.where(that.data, {iso2: d.properties.iso_a2})[0]).tooltip)
                 if (PykCharts.boolean(that.tooltip)) {
@@ -176,18 +176,18 @@ PykCharts.maps.oneLayer = function (options) {
             obj;
             obj = _.where(that.data, {iso2: d.properties.iso_a2});
         if (_.where(that.data, {iso2: d.properties.iso_a2}).length > 0) {
-            if (that.colorType === "colors") {
+            if (that.colors.type === "colors") {
                 if (obj.length > 0 && obj[0].color !== "") {
                     return obj[0].color;
                 }
-                return that.defaultColor;
+                return that.colors.defaultColor;
             }
-            if (that.colorType === "saturation") {
+            if (that.colors.type === "saturation") {
 
                 if ((that.highlightArea === "yes") && obj[0].highlight == "true") {
                     return obj[0].highlight_color;
                 } else {
-                    if (that.colorPalette !== "") {
+                    if (that.colors.palette !== "") {
                         col_shade = _.where(that.data, {iso2: d.properties.iso_a2})[0].size;
                         for (i = 0; i < that.current_palette.colors.length; i++) {
                             if (col_shade >= that.min_size + i * (that.difference / that.current_palette.colors.length) && col_shade <= that.min_size + (i + 1) * (that.difference / that.current_palette.colors.length)) {
@@ -196,17 +196,17 @@ PykCharts.maps.oneLayer = function (options) {
                         }
 
                     }
-                    return that.defaultColor;
+                    return that.colors.defaultColor;
                 }
             }
-            return that.defaultColor;
+            return that.colors.defaultColor;
         }
-        return that.defaultColor;
+        return that.colors.defaultColor;
     };
 
     this.renderOpacity = function (d) {
 
-        if (that.colorPalette === "" && that.colorType === "saturation") {
+        if (that.colors.palette === "" && that.colors.type === "saturation") {
             that.oneninth = +(d3.format(".2f")(that.difference / 10));
             that.opacity = (that.min_size + (_.where(that.data, {iso2: d.properties.iso_a2})[0]).size + that.oneninth) / that.difference;
             return that.opacity;
@@ -218,13 +218,13 @@ PykCharts.maps.oneLayer = function (options) {
         var that = this,
             k,
             onetenth;
-        if (that.colorType === "saturation") {
+        if (that.colors.type === "saturation") {
             that.legs = d3.select(that.selector)
                 .append("svg")
                 .attr("id", "legend-container")
                 .attr("width", that.width)
                 .attr("height", 50);
-            if (that.colorPalette === "") {
+            if (that.colors.palette === "") {
                 for (k = 1; k <= 9; k++) {
                     onetenth = d3.format(".1f")(that.max_size / 9);
                     that.leg = d3.round(onetenth * k);
@@ -287,7 +287,7 @@ PykCharts.maps.oneLayer = function (options) {
                 d3.select("path[state_name='" + d.properties.NAME_1 + "']")
                     .attr('filter', 'url(#dropshadow)')
                     .attr("opacity", function () {
-                        if (that.colorPalette === "" && that.colorType === "saturation") {
+                        if (that.colors.palette === "" && that.colors.type === "saturation") {
                             that.oneninth_dim = +(d3.format(".2f")(that.difference / 10));
                             that.opacity_dim = (that.min_size + (_.where(that.data, {iso2: d.properties.iso_a2})[0]).size + that.oneninth_dim) / that.difference;
                             return that.opacity_dim/2;
@@ -297,7 +297,7 @@ PykCharts.maps.oneLayer = function (options) {
             } else if (that.onhover === "color_saturation") {
                 d3.select("path[state_name='" + d.properties.NAME_1 + "']")
                     .attr("opacity", function () {
-                        if (that.colorPalette === "" && that.colorType === "saturation") {
+                        if (that.colors.palette=== "" && that.colors.type === "saturation") {
                             that.oneninth_dim = +(d3.format(".2f")(that.difference / 10));
                             that.opacity_dim = (that.min_size + (_.where(that.data, {iso2: d.properties.iso_a2})[0]).size + that.oneninth_dim) / that.difference;
                             return that.opacity_dim/2;
@@ -316,7 +316,7 @@ PykCharts.maps.oneLayer = function (options) {
             .attr("stroke-width", that.border.thickness)
             .attr('filter', null)
             .attr("opacity", function () {
-                if (that.colorPalette === "" && that.colorType === "saturation") {
+                if (that.colors.palette === "" && that.colors.type === "saturation") {
                     that.oneninth_high = +(d3.format(".2f")(that.difference / 10));
                     that.opacity_high = (that.min_size + (_.where(that.data, {iso2: d.properties.iso_a2})[0]).size + that.oneninth_high) / that.difference;
                     return that.opacity_high;
