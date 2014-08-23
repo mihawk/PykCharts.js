@@ -1,11 +1,12 @@
 var PykCharts = {};
 
-Array.__proto__.groupBy = function (data) {
+Array.prototype.groupBy = function () {
     var gd = []
     , i
-    , group = _.groupBy(data, function (d) {
+    , group = _.groupBy(this, function (d) {
         return d.name;
     });
+    console.log(group)
     for(i in group) {
         gd.push({
             name: i,
