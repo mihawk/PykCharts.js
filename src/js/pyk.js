@@ -865,6 +865,7 @@ configuration.Theme = function(){
             "onHoverHighlightenable": "no",
             "x": {
                 "enable": "yes",
+                "position":"bottom",
                 "orient" : "bottom",
                 "axisColor": "#1D1D1D",
                 "labelColor": "#1D1D1D",
@@ -876,6 +877,7 @@ configuration.Theme = function(){
             },
             "y": {
                 "enable": "yes",
+                "position":"left",
                 "orient": "left",
                 "axisColor": "#1D1D1D",
                 "labelColor": "#1D1D1D",
