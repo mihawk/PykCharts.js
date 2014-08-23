@@ -1,9 +1,9 @@
 var PykCharts = {};
 
-Array.__proto__.groupBy = function (data) {
+Array.prototype.groupBy = function () {
     var gd = []
     , i
-    , group = _.groupBy(data, function (d) {
+    , group = _.groupBy(this, function (d) {
         return d.name;
     });
     for(i in group) {
@@ -14,6 +14,46 @@ Array.__proto__.groupBy = function (data) {
     };
     return gd;
 };
+
+Date.prototype.myDate = function () {
+    if(this.getMonth() == 0) {
+      this.myMonth = "Jan"
+    };
+    if(this.getMonth() == 1) {
+      this.myMonth = "Feb"
+    };
+    if(this.getMonth() == 2) {
+      this.myMonth = "Mar"
+    };
+    if(this.getMonth() == 3) {
+      this.myMonth = "Apr"
+    };
+    if(this.getMonth() == 4) {
+      this.myMonth = "May"
+    };
+    if(this.getMonth() == 5) {
+      this.myMonth = "Jun"
+    };
+    if(this.getMonth() == 6) {
+      this.myMonth = "Jul"
+    };
+    if(this.getMonth() == 7) {
+      this.myMonth = "Aug"
+    };
+    if(this.getMonth() == 8) {
+      this.myMonth = "Sep"
+    };
+    if(this.getMonth() == 9) {
+      this.myMonth = "Oct"
+    };
+    if(this.getMonth() == 10) {
+      this.myMonth = "Nov"
+    };
+    if(this.getMonth() == 11) {
+      this.myMonth = "Dec"
+    };
+}
+
 
 PykCharts.boolean = function(d) {
     var false_values = ['0','f',"false",'n','no',''];
@@ -370,22 +410,24 @@ PykCharts.Configuration = function (options){
 
                 gsvg.style("stroke",function () { return options.axis.y.axisColor; })
                     .call(yaxis);
-                gsvg.selectAll(options.selector + " " + "g.y.axis text").attr("pointer-events","none");
+                gsvg.selectAll(options.selector + " g.y.axis text").attr("pointer-events","none");
             }
             return this;
         },
         isOrdinal: function(svg,container,scale) {
+            // var l = container.length,
+            //     axis_container = container.substr(-7,7);
             if(container === ".x.axis") {
-                svg.select(container).call(PykCharts.Configuration.makeXAxis(options,scale));
+                svg.select(options.selector+" "+container).call(PykCharts.Configuration.makeXAxis(options,scale));
             }
             else if (container === ".x.grid") {
-                svg.select(container).call(PykCharts.Configuration.makeXGrid(options,scale));
+                svg.select(options.selector+" "+container).call(PykCharts.Configuration.makeXGrid(options,scale));
             }
             else if (container === ".y.axis") {
-                svg.select(container).call(PykCharts.Configuration.makeYAxis(options,scale));
+                svg.select(options.selector+" "+container).call(PykCharts.Configuration.makeYAxis(options,scale));
             }
             else if (container === ".y.grid") {
-                svg.select(container).call(PykCharts.Configuration.makeYGrid(options,scale));
+                svg.select(options.selector+" "+container).call(PykCharts.Configuration.makeYGrid(options,scale));
             }
             return this;
         },
@@ -463,8 +505,8 @@ configuration.mouseEvent = function (options) {
         },
         crossHairPosition: function(data,xScale,dataLineGroup,lineMargin){
             if((PykCharts.boolean(options.enableCrossHair) || PykCharts.boolean(options.enableTooltip) || PykCharts.boolean(options.onHoverHighlightenable))  && options.mode === "default") {
-                var offsetLeft = $(options.selector + " " + "#"+dataLineGroup.attr("id")).offset().left;
-                var offsetRight = $(options.selector + " " + "#"+dataLineGroup.attr("id")).offset().right;
+                var offsetLeft = $(options.selector + " #"+dataLineGroup.attr("id")).offset().left;
+                var offsetRight = $(options.selector + " #"+dataLineGroup.attr("id")).offset().right;
                 var left = options.margin.left;
                 var right = options.margin.right;
                 var top = options.margin.top;
@@ -511,7 +553,7 @@ configuration.mouseEvent = function (options) {
                 else{
                   	this.tooltipHide();
                   	(options.enableCrossHair) ? this.crossHairHide() : null;
-                  	this.axisHighlightHide(options.selector+" "+".x.axis");
+                  	this.axisHighlightHide(options.selector+" .x.axis");
                   	// crossHairH.style("display","none");
                 }
 
@@ -542,16 +584,16 @@ configuration.mouseEvent = function (options) {
         axisHighlightShow : function (activeTick,axisHighlight,a) {
             var j_curr,j_prev,abc,selection;
             if(PykCharts.boolean(options.axis.onHoverHighlightenable)&& options.mode === "default"){
-                if(axisHighlight === options.selector + " " + ".y.axis"){
+                if(axisHighlight === options.selector + " .y.axis"){
                     selection = axisHighlight+" .tick text";
                     abc = options.axis.y.labelColor;
-                } else if(axisHighlight === options.selector + " " + ".x.axis") {
+                } else if(axisHighlight === options.selector + " .x.axis") {
                     selection = axisHighlight+" .tick text";
                     abc = options.axis.x.labelColor;
-                } else if(axisHighlight === options.selector + " " + ".axis-text" && a === "column") {
+                } else if(axisHighlight === options.selector + " .axis-text" && a === "column") {
                     selection = axisHighlight;
                     abc = options.axis.x.labelColor;
-                } else if(axisHighlight === options.selector + " " + ".axis-text" && a === "bar") {
+                } else if(axisHighlight === options.selector + " .axis-text" && a === "bar") {
                     selection = axisHighlight;
                     abc = options.axis.y.labelColor;
                 }
@@ -579,16 +621,16 @@ configuration.mouseEvent = function (options) {
         axisHighlightHide : function (axisHighlight,a) {
             var abc,selection;
             if(PykCharts.boolean(options.axis.onHoverHighlightenable) && options.mode === "default"){
-                if(axisHighlight === options.selector + " " + ".y.axis"){
+                if(axisHighlight === options.selector + " .y.axis"){
                     selection = axisHighlight+" .tick text";
                     abc = options.axis.y.labelColor;
-                } else if(axisHighlight === options.selector + " " + ".x.axis") {
+                } else if(axisHighlight === options.selector + " .x.axis") {
                     selection = axisHighlight+" .tick text";
                     abc = options.axis.x.labelColor;
-                } else if(axisHighlight === options.selector + " " + ".axis-text" && a === "column") {
+                } else if(axisHighlight === options.selector + " .axis-text" && a === "column") {
                     selection = axisHighlight;
                     abc = options.axis.x.labelColor;
-                } else if(axisHighlight === options.selector + " " + ".axis-text" && a === "bar") {
+                } else if(axisHighlight === options.selector + " .axis-text" && a === "bar") {
                     selection = axisHighlight;
                     abc = options.axis.y.labelColor;
                 }
@@ -651,10 +693,10 @@ configuration.border = function (options) {
 	var that = this;
 	var border = {
 	    width: function () {
-	    		return options.borderBetweenChartElements.width;
+    		return options.borderBetweenChartElements.width;
 	    },
 		color: function () {
-				return options.borderBetweenChartElements.color;
+			return options.borderBetweenChartElements.color;
 		}
 	};
 	return border;
@@ -662,33 +704,32 @@ configuration.border = function (options) {
 
 configuration.makeXAxis = function(options,xScale) {
     var that = this;
-
     var xaxis = d3.svg.axis()
-                    .scale(xScale)
-                    .ticks(options.axis.x.no_of_ticks)
-                    .tickSize(options.axis.x.tickSize)
-                    .outerTickSize(0)
-                    .tickFormat(function (d,i) {
-                        return d + options.axis.x.tickFormat;
-                    })
-                    .tickPadding(options.axis.x.ticksPadding)
-                    .orient(options.axis.x.orient);
+        .scale(xScale)
+        .ticks(options.axis.x.no_of_ticks)
+        .tickSize(options.axis.x.tickSize)
+        .outerTickSize(0)
+        .tickFormat(function (d,i) {
+            return d + options.axis.x.tickFormat;
+        })
+        .tickPadding(options.axis.x.ticksPadding)
+        .orient(options.axis.x.orient);
     return xaxis;
 };
 
 configuration.makeYAxis = function(options,yScale) {
     var that = this;
     var yaxis = d3.svg.axis()
-                    .scale(yScale)
-                    .orient(options.axis.y.orient)
-                    .ticks(options.axis.y.no_of_ticks)
-                    .tickSize(options.axis.y.tickSize)
-                    .outerTickSize(0)
-                    .tickPadding(options.axis.y.ticksPadding)
-                    .tickFormat(function (d,i) {
-                        return d + options.axis.y.tickFormat;
-                    });
-                    // .tickFormat(d3.format(",.0f"));
+        .scale(yScale)
+        .orient(options.axis.y.orient)
+        .ticks(options.axis.y.no_of_ticks)
+        .tickSize(options.axis.y.tickSize)
+        .outerTickSize(0)
+        .tickPadding(options.axis.y.ticksPadding)
+        .tickFormat(function (d,i) {
+            return d + options.axis.y.tickFormat;
+        });
+        // .tickFormat(d3.format(",.0f"));
     return yaxis;
 };
 
@@ -696,24 +737,24 @@ configuration.makeXGrid = function(options,xScale) {
     var that = this;
 
     var xgrid = d3.svg.axis()
-                    .scale(xScale)
-                    .orient("bottom")
-                    .ticks(options.axis.x.no_of_ticks)
-                    .tickFormat("")
-                    .tickSize(options.height - options.margin.top - options.margin.bottom)
-                    .outerTickSize(0);
+        .scale(xScale)
+        .orient("bottom")
+        .ticks(options.axis.x.no_of_ticks)
+        .tickFormat("")
+        .tickSize(options.height - options.margin.top - options.margin.bottom)
+        .outerTickSize(0);
     return xgrid;
 };
 
 configuration.makeYGrid = function(options,yScale) {
     var that = this;
     var ygrid = d3.svg.axis()
-                    .scale(yScale)
-                    .orient("left")
-                    .ticks(options.axis.x.no_of_ticks)
-                    .tickSize(-(options.width - options.margin.left - options.margin.right))
-                    .tickFormat("")
-                    .outerTickSize(0);
+        .scale(yScale)
+        .orient("left")
+        .ticks(options.axis.x.no_of_ticks)
+        .tickSize(-(options.width - options.margin.left - options.margin.right))
+        .tickFormat("")
+        .outerTickSize(0);
     return ygrid;
 };
 
@@ -736,8 +777,8 @@ configuration.Theme = function(){
     that.stylesheet = {
         "chart": {
             "height": 400,
-            "width": 600,
-            "margin":{"top": 0, "right": 0, "bottom": 0, "left": 0},
+            "width": 430,
+            "margin":{"top": 40, "right": 40, "bottom": 40, "left": 40},
             "grid" : {
                 "xEnabled":"yes",
                 "yEnabled":"yes",
@@ -770,7 +811,7 @@ configuration.Theme = function(){
             "mySiteUrl": "http://www.pykih.com"
         },
         "colors":{
-            "backgroundColor": "transparent",
+            "backgroundColor": "white",
             "chartColor": "steelblue",
             "highlightColor": "#013F73",
             "saturationColor" : "green"
@@ -915,21 +956,7 @@ configuration.Theme = function(){
     };
 
     that.mapsTheme = {
-        "mapCode": "india-topo",
-        "axis" : {
-            "onHoverHighlightenable": "no",
-            "x": {
-                "enable": "yes",
-                "orient" : "bottom",
-                "axisColor": "#1D1D1D",
-                "labelColor": "#1D1D1D",
-                "no_of_ticks": 10,
-                "tickSize": 5,
-                "tickFormat": "",
-                "ticksPadding": 6,
-                "tickValues": []
-            }
-        }
+        "mapCode": "india-topo"
     };
     return that;
 }

@@ -20,7 +20,7 @@ PykCharts.oneD.funnel = function (options) {
         }
 
         d3.json(options.data, function (e,data) {
-            that.data = Array.groupBy(data);
+            that.data = data.groupBy();
             $(options.selector+" #chart-loader").remove();
             that.render();
         });
@@ -261,7 +261,7 @@ PykCharts.oneD.funnel = function (options) {
 
                that.path.exit()
                    .remove();
-               
+
                 return this;
             },
             label : function () {

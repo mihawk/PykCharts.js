@@ -15,7 +15,7 @@ PykCharts.oneD.percentageColumn = function (options) {
            that.k.loading();
         }
         d3.json(options.data, function (e, data) {
-            that.data = Array.groupBy(data);
+            that.data = data.groupBy();
             $(options.selector+" #chart-loader").remove();
             that.render();
         });
@@ -137,7 +137,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                     });
                 that.perColumn.exit()
                     .remove();
-               
+
                 return this;
             },
             svgContainer :function () {

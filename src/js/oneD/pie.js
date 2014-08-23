@@ -12,7 +12,7 @@ PykCharts.oneD.pie = function (options) {
            that.k.loading();
         }
         d3.json(options.data, function (e, data) {
-            that.data = Array.groupBy(data);
+            that.data = data.groupBy();
             $(options.selector+" #chart-loader").remove();
             var pieFunctions = new PykCharts.oneD.pieFunctions(options,that,"pie");
             pieFunctions.render();
@@ -243,7 +243,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                         }
                     });
 
-                cv_path.exit().remove();                
+                cv_path.exit().remove();
                 return this;
             },
             label : function () {
@@ -291,7 +291,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                         .style("font-family", that.label.family);
 
                     cv_text.exit().remove();
-                
+
                 return this;
             },
             clubData: function () {

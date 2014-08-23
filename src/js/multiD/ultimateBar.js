@@ -362,12 +362,18 @@ PykCharts.multiD.ultimateBar = function(options){
                         })
                         .attr("x", function(d){
                             var bar_width  = that.xScale(d.x);
-                            return that.xScale(d.x0) + that.xScale(d.x) - that.txt_width - 5;    
+                            return that.xScale(d.x0) + that.xScale(d.x)+ 5;    
                         })
                         .attr("y",function(d){
                             return that.yScale(d.y)-that.y_factor+(that.yScale.rangeBand()/2);
                         })
-                        .attr("dy",5)
+                        .attr("dy",function(d){
+                            if(that.max_length ===1) {
+                                return that.yScale.rangeBand()/2;
+                            } else {
+                                return that.yScale.rangeBand()/4;
+                            }
+                        })
                         .style("font-size",function(d) {
                             // console.log(that.label.size);
                             return that.ticks.size;

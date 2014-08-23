@@ -271,7 +271,45 @@ padding-right:20px;
     border-spacing: 20px 10px;
 }
 
-.node {
+.PykCharts-map .axis text {
+  font: 12px "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  fill: #1D1D1D;
+  stroke: none;
+  z-index: 10;
+}
+
+.PykCharts-map .text-active {
+  font: 12px "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  fill: #1D1D1D;
+  stroke: none;
+  z-index: 10;
+}
+
+.PykCharts-map .axis path,.PykCharts-twoD .axis line {
+  fill: none;
+  shape-rendering: crispEdges;
+}
+
+.PykCharts-map .axis-line {
+  fill: none;
+  shape-rendering: crispEdges;
+}
+
+.PykCharts-map .axis-text {
+  font: 12px "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  /*fill: #1D1D1D;*/
+  stroke: none;
+  z-index: 10;
+}
+
+
+.PykCharts-tree .node {
   cursor: pointer;
 }
 

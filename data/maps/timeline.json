@@ -7,218 +7,218 @@
   },
   {
     "iso2": "IN_AR",
-    "x": 2,
+    "x": 2013,
     "tooltip": "National Democratic Alliance",
     "color": "orange"
   },
   {
     "iso2": "IN_AS",
-    "x": 9,
+    "x": 2012,
     "tooltip": "United Progressive Alliance",
     "color": "green"
   },
   {
     "iso2": "IN_BR",
-    "x": 29,
+    "x": 2011,
     "tooltip": "United Progressive Alliance",
     "color": "green"
   },
   {
     "iso2": "IN_CG",
-    "x": 10,
+    "x": 2010,
     "tooltip": "National Democratic Alliance",
     "color": "orange"
   },
   {
     "iso2": "IN_GA",
-    "x": 1,
+    "x": 2009,
     "tooltip": "National Democratic Alliance",
     "color": "orange"
   },
   {
     "iso2": "IN_GJ",
-    "x": 14,
+    "x": 2008,
     "tooltip": "National Democratic Alliance",
     "color": "orange"
   },
   {
     "iso2": "IN_HR",
-    "x": 9,
+    "x": 2007,
     "tooltip": "United Progressive Alliance",
     "color": "green"
   },
   {
     "iso2": "IN_HP",
-    "x": 3,
+    "x": 2006,
     "tooltip": "United Progressive Alliance",
     "color": "green"
   },
   {
     "iso2": "IN_JK",
-    "x": 4,
+    "x": 2005,
     "tooltip": "None",
     "color": "gray"
   },
   {
     "iso2": "IN_JH",
-    "x": 12,
+    "x": 2004,
     "tooltip": "United Progressive Alliance",
     "color": "green"
 
   },
   {
     "iso2": "IN_KA",
-    "x": 18,
+    "x": 2003,
     "tooltip": "National Democratic Alliance",
     "color": "orange"
   },
   {
     "iso2": "IN_KL",
-    "x": 15,
+    "x": 2002,
     "tooltip": "Left Front",
     "color": "red"
   },
   {
     "iso2": "IN_MP",
-    "x": 25,
+    "x": 2001,
     "tooltip": "National Democratic Alliance",
     "color": "orange"
   },
   {
     "iso2": "IN_MH",
-    "x": 25,
+    "x": 2000,
     "tooltip": "National Democratic Alliance",
     "color": "orange"
   },
   {
     "iso2": "IN_MN",
-    "x": 1,
+    "x": 2014,
     "tooltip": "None",
     "color": "gray"
   },
   {
     "iso2": "IN_ML",
-    "x": 1,
+    "x": 2013,
     "tooltip": "National Democratic Alliance",
     "color": "orange"
   },
   {
     "iso2": "IN_MZ",
-    "x": 1,
+    "x": 2012,
     "tooltip": "None",
     "color": "gray"
   },
   {
     "iso2": "IN_NL",
-    "x": 1,
+    "x": 2011,
     "tooltip": "None",
     "color": "gray"
   },
   {
     "iso2": "IN_OR",
-    "x": 18,
+    "x": 2010,
     "tooltip": "National Democratic Alliance",
     "color": "orange"
   },
   {
     "iso2": "IN_PB",
-    "x": 11,
+    "x": 2009,
     "tooltip": "National Democratic Alliance",
     "color": "orange"
   },
   {
     "iso2": "IN_RJ",
-    "x": 21,
+    "x": 2008,
     "tooltip": "National Democratic Alliance",
     "color": "orange"
   },
   {
     "iso2": "IN_SK",
-    "x": 1,
+    "x": 2007,
     "tooltip": "None",
     "color": "gray"
   },
   {
     "iso2": "IN_TN",
-    "x": 35,
+    "x": 2006,
     "tooltip": "United Progressive Alliance",
     "color": "green"
   },
   {
     "iso2": "IN_TR",
-    "x": 2,
+    "x": 2005,
     "tooltip": "Left Front",
     "color": "red"
   },
   {
     "iso2": "IN_UT",
-    "x": 54,
+    "x": 2004,
     "tooltip": "None",
     "color": "gray"
   },
   {
     "iso2": "IN_UP",
-    "x": 3,
+    "x": 2003,
     "tooltip": "National Democratic Alliance",
     "color": "orange"
   },
   {
     "iso2": "IN_WB",
-    "x": 34,
+    "x": 2002,
     "tooltip": "Left Front",
     "color": "red"
   },
   {
     "iso2": "IN_AN",
-    "x": 37,
+    "x": 2001,
     "tooltip": "None",
     "color": "gray"
   },
   {
     "iso2": "IN_CH",
-    "x": 47,
+    "x": 2000,
     "tooltip": "None",
     "color": "gray"
   },
   {
     "iso2": "IN_DD",
-    "x": 71,
+    "x": 2014,
     "tooltip": "None",
     "color": "gray"
   },
   {
     "iso2": "IN_DL",
-    "x": 39,
+    "x": 2013,
     "tooltip": "None",
     "color": "gray"
   },
   {
     "iso2": "IN_",
-    "x": 10,
+    "x": 2012,
     "tooltip": "None",
     "color": "gray"
   },
   {
     "iso2": "IN_PY",
-    "x": 27,
+    "x": 2011,
     "tooltip": "None",
     "color": "gray"
   },
   {
     "iso2": "IN_LD",
-    "x": 52,
+    "x": 2010,
     "tooltip": "None",
     "color": "gray"
   },
   {
     "iso2": "IN_CT",
-    "x": 12,
+    "x": 2009,
     "tooltip": "None",
     "color": "gray"
   },
   {
     "iso2": "IN_DN",
-    "x": 78,
+    "x": 2008,
     "tooltip": "None",
     "color": "gray"
   }
