@@ -6,12 +6,20 @@ Array.prototype.groupBy = function () {
     , group = _.groupBy(this, function (d) {
         return d.name;
     });
-    console.log(group)
     for(i in group) {
-        gd.push({
-            name: i,
-            weight: d3.sum(group[i], function (d) { return d.weight; })
-        })
+        var highlight = _.where(group[i], {highlight: true}).length;
+        if (highlight>0) {
+            gd.push({
+                name: i,
+                weight: d3.sum(group[i], function (d) { return d.weight; }),
+                highlight: true
+            })
+        } else {
+            gd.push({
+                name: i,
+                weight: d3.sum(group[i], function (d) { return d.weight; })
+            })
+        }
     };
     return gd;
 };
@@ -967,6 +975,7 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
     chartObject.width = options.chart && _.isNumber(options.chart.width) ? options.chart.width : stylesheet.chart.width;
     chartObject.height = options.chart && _.isNumber(options.chart.height) ? options.chart.height : stylesheet.chart.height;
     chartObject.mode = options.mode ? options.mode : stylesheet.mode;
+    
     if (optional && optional.title) {
         chartObject.title = optional.title;
         chartObject.title.size = optional.title.size ? optional.title.size : stylesheet.title.size;
@@ -1014,7 +1023,7 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
     }
     if (optional && optional.label) {
         chartObject.label = optional.label;
-        chartObject.label.size = optional.label.size ? optional.label.size : stylesheet.label.size;
+        chartObject.label.size = "size" in optional.label ? optional.label.size : stylesheet.label.size;
         chartObject.label.color = optional.label.color ? optional.label.color : stylesheet.label.color;
         chartObject.label.weight = optional.label.weight ? optional.label.weight : stylesheet.label.weight;
         chartObject.label.family = optional.label.family ? optional.label.family : stylesheet.label.family;
@@ -1023,8 +1032,8 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
     }
     if(optional && optional.ticks) {
         chartObject.ticks = optional.ticks;
-        chartObject.ticks.strokeWidth = optional.ticks.strokeWidth ? optional.ticks.strokeWidth : stylesheet.ticks.strokeWidth;
-        chartObject.ticks.size = optional.ticks.size ? optional.ticks.size : stylesheet.ticks.size;
+        chartObject.ticks.strokeWidth = "strokeWidth" in optional.ticks ? optional.ticks.strokeWidth : stylesheet.ticks.strokeWidth;
+        chartObject.ticks.size = "size" in optional.ticks ? optional.ticks.size : stylesheet.ticks.size;
         chartObject.ticks.color = optional.ticks.color ? optional.ticks.color : stylesheet.ticks.color;
         chartObject.ticks.family = optional.ticks.family ? optional.ticks.family : stylesheet.ticks.family;
     } else {
@@ -3301,7 +3310,7 @@ PykCharts.oneD.treemap = function (options){
         }
 
         d3.json(options.data, function (e,data) {
-            that.data = Array.groupBy(data);
+            that.data = data.groupBy();
             $(options.selector+" #chart-loader").remove();
             that.render();
         });
