@@ -1,11 +1,12 @@
 var PykCharts = {};
 
-Array.__proto__.groupBy = function (data) {
+Array.prototype.groupBy = function () {
     var gd = []
     , i
-    , group = _.groupBy(data, function (d) {
+    , group = _.groupBy(this, function (d) {
         return d.name;
     });
+    console.log(group)
     for(i in group) {
         gd.push({
             name: i,
@@ -41,11 +42,6 @@ PykCharts.Configuration = function (options){
 	        }
 	        return this;
 	    },
-        emptyDiv : function () {
-            d3.select(options.selector).append("div")
-                .style("clear","both");
-
-        },
         scaleIdentification : function (type,data,range,x) {
             var scale;
             if(type === "ordinal") {
@@ -94,10 +90,10 @@ PykCharts.Configuration = function (options){
 	                .append("div")
 	                    .attr("id","title")
 	                    .style("width", options.width + "px")
-	                    .style("text-align","center")
+	                    .style("text-align","left")
 	                    .html("<span style='pointer-events:none;font-size:" +
                         options.title.size+
-                        ";align:center;color:" +
+                        ";color:" +
                         options.title.color+
                         ";font-weight:" +
                         options.title.weight+
@@ -115,11 +111,10 @@ PykCharts.Configuration = function (options){
                     .append("div")
                         .attr("id","sub-title")
                         .style("width", options.width + "px")
-                        .style("text-align","center")
+                        .style("text-align","left")
                         .html("</span><br><span style='pointer-events:none;font-size:" +
-                        options.subtitle.size+";align:center;color:" +
-                        options.subtitle.color + ";font-weight:" +
-                        options.subtitle.weight + ";font-family:" +
+                        options.subtitle.size+";color:" +
+                        options.subtitle.color + ";font-family:" +
                         options.subtitle.family + "'>"+
                         options.subtitle.text + "</span>");
             }
@@ -136,15 +131,17 @@ PykCharts.Configuration = function (options){
 	            if(credit.mySiteUrl === "") {
 	                enable = false;
 	            }
-                d3.select(options.selector).append("table")
-	                .style("background", options.bg)
-                    .attr("width",options.width+"px")
-                    .append("tr")
-                    .attr("class","PykCharts-credits")
-                    .append("td")
-                    .style("text-align","left")
-	                .html("<span style='pointer-events:none;'>Credits: </span><a href='" + credit.mySiteUrl + "' target='_blank' onclick='return " + enable +"'>"+ credit.mySiteName +"</a>");
+	            d3.select(options.selector).append("div")
+		        	.attr("id","footer")
+		        	.style("width",options.width+"px");
 
+	            d3.select(options.selector+" #footer").append("div")
+	                .attr("id","credits")
+                    .style("width",((options.width/2)-30)+"px")
+                    .style("background", options.bg)
+                    .style("float","left")
+                    .attr("class","PykCharts-credits")
+	                .html("<span style='pointer-events:none;'>Credits: </span><a href='" + credit.mySiteUrl + "' target='_blank' onclick='return " + enable +"'>"+ credit.mySiteName +"</a>");
 	        }
 	        return this;
 	    },
@@ -158,22 +155,20 @@ PykCharts.Configuration = function (options){
 	            if(data_src.url === "") {
 	                enable = false;
 	            }
-	            d3.select(options.selector+" table tr")
-	                .style("background", options.bg)
-                    .append("td")
-                    .style("text-align","right")
-                    .html("<span style='pointer-events:none;'>Source: </span><a href='" + data_src.url + "' target='_blank' onclick='return " + enable +"'>"+ data_src.text +"</a></tr>");
+	            d3.select(options.selector+" #footer").append("div")
+	                .attr("id","data-source")
+                    .style("width",((options.width/2)-30)+"px")
+                    .attr("class","PykCharts-credits PykCharts-data-src")
+                    .style("background", options.bg)
+                    .style("float","right")
+	                .html("<span style='pointer-events:none;'>Source: </span><a href='" + data_src.url + "' target='_blank' onclick='return " + enable +"'>"+ data_src.text +"</a>");
 	        }
 	        return this;
 	    },
         makeMainDiv : function (selection,i) {
-            var d = d3.select(selection).append("div")
+            d3.select(selection).append("div")
                 .attr("id","tooltip-svg-container-"+i)
-                .style("width","auto")
-            if(PykCharts.boolean(options.multiple_containers)){
-                d.style("float","left")
-                // .style("height","auto");
-            }
+                .style("float","left");
             return this;
         },
 	    tooltip : function (d,selection,i) {
@@ -342,9 +337,7 @@ PykCharts.Configuration = function (options){
 
             if(PykCharts.boolean(options.axis.x.enable)){
                 d3.selectAll(options.selector + " " + ".x.axis").attr("fill",function () { return options.axis.x.labelColor;});
-                if(options.axis.x.position === "bottom") {
-                    gsvg.attr("transform", "translate(0," + (options.height - options.margin.top - options.margin.bottom) + ")");
-                }
+
                 var xaxis = PykCharts.Configuration.makeXAxis(options,xScale);
 
                 if(options.axis.x.tickValues.length != 0) {
@@ -362,9 +355,7 @@ PykCharts.Configuration = function (options){
                 height = options.height;
 
             if(PykCharts.boolean(options.axis.y.enable)){
-                if(options.axis.y.position === "right") {
-                    gsvg.attr("transform", "translate(" + (options.width - options.margin.left - options.margin.right) + ",0)");
-                }
+
                 d3.selectAll(options.selector + " " + ".y.axis").attr("fill",function () { return options.axis.y.labelColor; });
                 var yaxis = PykCharts.Configuration.makeYAxis(options,yScale);
 
@@ -749,13 +740,12 @@ configuration.Theme = function(){
         "title":{
             "size": "15px",
             "color": "#1D1D1D",
-            "weight": 800,
+            "weight": "bold",
             "family": "'Helvetica Neue',Helvetica,Arial,sans-serif"
         },
         "subtitle":{
             "size": "12px",
-            "color": "gray",
-            "weight": 200,
+            "color": "black",
             "family": "'Helvetica Neue',Helvetica,Arial,sans-serif"
         },
         "loading":{
@@ -795,7 +785,6 @@ configuration.Theme = function(){
         "ticks":{
             "strokeWidth": 1,
             "size": 13,
-            "weight": "thin",
             "color": "#1D1D1D",
             "family": "'Helvetica Neue',Helvetica,Arial,sans-serif"
         }
@@ -857,7 +846,6 @@ configuration.Theme = function(){
             "onHoverHighlightenable": "no",
             "x": {
                 "enable": "yes",
-                "position":"top",
                 "orient" : "bottom",
                 "axisColor": "#1D1D1D",
                 "labelColor": "#1D1D1D",
@@ -869,7 +857,6 @@ configuration.Theme = function(){
             },
             "y": {
                 "enable": "yes",
-                "position":"left",
                 "orient": "left",
                 "axisColor": "#1D1D1D",
                 "labelColor": "#1D1D1D",
