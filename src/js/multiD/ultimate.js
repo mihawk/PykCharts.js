@@ -477,6 +477,9 @@ PykCharts.multiD.ultimate = function(options){
             for(var cat_name in d){
                 for(var j in d[cat_name]){
                     var id = "i" + i + "j" + j;
+                    if(typeof d[cat_name][j] !== "object"){
+                        continue;
+                    }
                     var key = Object.keys(d[cat_name][j])[0];
                     that.keys[id] = key;
                     d[cat_name][j].id = id;
