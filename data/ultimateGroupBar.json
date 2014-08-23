@@ -64,7 +64,7 @@
 	},
 	{
 		"y": "Feb",
-		"x":  28,
+		"x":  26,
 		"group": "Next",
 		"stack": "stack", 
 		"tooltip": "stack",

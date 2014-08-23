@@ -29,7 +29,9 @@ PykCharts.multiD.ultimateBar = function(options){
             that.the_bars = fD[0];
             that.the_keys = fD[1];
             that.the_layers = that.buildLayers(that.the_bars);
-
+            if(that.max_length === 1) {
+                that.legends.enable = "no";
+            }
             that.optionalFeatures()
                     .createColumnChart()
                     .legends();
@@ -58,7 +60,9 @@ PykCharts.multiD.ultimateBar = function(options){
         that.mouseEvent1 = new PykCharts.multiD.mouseEvent(that);
         that.fillColor = new PykCharts.Configuration.fillChart(that,null,options);
         that.border = new PykCharts.Configuration.border(that);
-
+        if(that.max_length === 1) {
+            that.legends.enable = "no";
+        }
         if(that.mode === "default") {
 
             that.k.title()
@@ -210,8 +214,10 @@ PykCharts.multiD.ultimateBar = function(options){
                         return e.id || i; // Keep the ID for bars and numbers for integers
                     }))
                     .rangeBands([0,h]);
-
-                that.xScale = d3.scale.linear().domain([0,d3.max(xValues)]).range([0, w]).nice();
+                var x_domain = [0,d3.max(xValues)];
+                console.log(x_domain);
+                that.xScale = d3.scale.linear().domain(that.k._domainBandwidth(x_domain,1)).range([0, w]);
+                console.log
                 // that.yScaleInvert = d3.scale.linear().domain([d3.max(yValues), 0]).range([0, h]).nice(); // For the yAxis
                 var zScale = d3.scale.category10();
 
@@ -239,32 +245,7 @@ PykCharts.multiD.ultimateBar = function(options){
                     that.y_factor = that.yScale.rangeBand()/4;
                     that.height_factor = (that.yScale.rangeBand()/(2*that.max_length));
                 };
-                var yAxis_label = that.group.selectAll("text.axis-text")
-                    .data(group_label_data);
-
-                yAxis_label.enter()
-                        .append("text")
-
-                yAxis_label.attr("class", "axis-text")
-                        .attr("y", function(d){
-                            return d.y;
-                        })
-                        .attr("x", function(d){
-                            return -10;
-                        })
-                        .attr("text-anchor", "end")
-                        .attr("fill",that.axis.y.labelColor)
-                        .text(function(d){
-                            return d.name;
-                        });
-                if(that.axis.y.position === "right") {
-                    yAxis_label.attr("x", function () {
-                        return (that.width-that.margin.left-that.margin.right);
-                    })
-                    .attr("text-anchor","start");
-                }
-
-                yAxis_label.exit().remove();
+                
 
                 that.bars = that.group.selectAll(".bars")
                     .data(that.layers);
@@ -333,7 +314,36 @@ PykCharts.multiD.ultimateBar = function(options){
 
                 that.bars.exit()
                     .remove();
+                var yAxis_label = that.group.selectAll("text.axis-text")
+                    .data(group_label_data);
 
+                yAxis_label.enter()
+                        .append("text")
+
+                yAxis_label.attr("class", "axis-text")
+                        .attr("y", function(d){
+                            return d.y;
+                        })
+                        .attr("x", function(d){
+                            return 0;
+                        })
+                        .attr("fill",that.axis.y.labelColor)
+                        .text(function(d){
+                            return d.name;
+                        });
+                if(that.axis.y.position === "right") {
+                    yAxis_label.attr("x", function () {
+                        return (that.width-that.margin.left-that.margin.right);
+                    })
+                }
+
+                if(that.axis.y.orient === "right") {
+                    yAxis_label.attr("text-anchor","start");
+                } else if(that.axis.y.orient === "left") {
+                    yAxis_label.attr("text-anchor","end");
+                }
+
+                yAxis_label.exit().remove();
                 return this;
             },
             ticks: function () {
