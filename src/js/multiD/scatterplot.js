@@ -29,7 +29,7 @@ PykCharts.multiD.scatterplot = function (options) {
     this.refresh = function () {
         d3.json(options.data, function (e, data) {
             that.data = data;
-
+            that.mapGroupData = that.optionalFeatures().mapGroup();
             that.optionalFeatures()
                     .createScatterPlot()
                     .legends()
@@ -39,6 +39,8 @@ PykCharts.multiD.scatterplot = function (options) {
 
     this.render = function () {
         var that = this;
+        that.mapGroupData = that.optionalFeatures().mapGroup();
+        console.log(that.data);
         that.fillChart = new PykCharts.Configuration.fillChart(that);      
         
         that.border = new PykCharts.Configuration.border(that);
@@ -65,7 +67,7 @@ PykCharts.multiD.scatterplot = function (options) {
                             that.new_data.push(that.data[j]);
                         }
                     }
-                    // that.k.positionContainers(that.legends,that);
+                    that.k.positionContainers(that.legends,that);
 
                     that.k.makeMainDiv(that.selector,i);
                     that.optionalFeatures()
@@ -110,6 +112,7 @@ PykCharts.multiD.scatterplot = function (options) {
                     .zoom()
                     .ticks()
                     .crossHair();
+
 
                 that.k.xAxis(that.svgContainer,that.xGroup,that.x)
                     .yAxis(that.svgContainer,that.yGroup,that.y)
@@ -200,7 +203,7 @@ PykCharts.multiD.scatterplot = function (options) {
                     that.legendsContainer = d3.select(that.selector + " #tooltip-svg-container-" + i)
                         .append('svg')
                         .attr('width',that.w)
-                        .attr('height',50)
+                        .attr('height',70)
                         .attr('class','legends')
                         .attr('id','legendscontainer');
 
@@ -334,7 +337,7 @@ PykCharts.multiD.scatterplot = function (options) {
                     }
 
                     var legend = that.legendsGroup.selectAll("rect")
-                            .data(unique);
+                            .data(that.mapGroupData);
 
                     legend.enter()
                             .append("rect");
@@ -349,13 +352,13 @@ PykCharts.multiD.scatterplot = function (options) {
                             return that.fillChart.colorPieW(d);
                         })
                         .attr("opacity", function (d) {
-                            return that.multiD.opacity(d,that.sorted_weight,that.data);
+                        //    return that.multiD.opacity(d,that.sorted_weight,that.data);
                         });
 
                     legend.exit().remove();
 
                     that.legends_text = that.legendsGroup.selectAll(".legends_text")
-                        .data(unique);
+                        .data(that.mapGroupData);
 
                     that.legends_text
                         .enter()
@@ -370,7 +373,7 @@ PykCharts.multiD.scatterplot = function (options) {
                         .attr("fill","black")
                         .attr(text_parameter1, text_parameter1value)
                         .attr(text_parameter2, text_parameter2value)
-                        .text(function (d) { return d });
+                        .text(function (d) { return d.group });
 
                     that.legends_text.exit()
                                     .remove();
@@ -496,6 +499,21 @@ PykCharts.multiD.scatterplot = function (options) {
                 return this;
             },
             plotCircle : function () {
+                //         console.log("abc");
+                // that.map_group = [];
+
+                // var newarr = [];
+                // var unique = {};
+                 
+                // that.data.forEach(function(item) {
+                //     if (!unique[item.group]) {
+                //         newarr.push(item);
+                //         unique[item.group] = item;
+                //     }
+                // }); 
+                // console.log("abd");
+                // console.log(newarr);
+
                 that.circlePlot = that.chartBody.selectAll(".dot")
                                      .data(that.new_data);
 
@@ -527,8 +545,56 @@ PykCharts.multiD.scatterplot = function (options) {
                 return this;
             },
             mapGroup : function () {
-                that.map_group = that.data;
-                return this;
+                var newarr = [];
+                var unique = {};
+                var k = 0;
+//                var checkGroup = true;
+                // that.data.forEach(function (item) {
+                //     if(item.group) {
+                //         checkGroup = true
+                //     } else {
+                //         checkGroup = false;
+                //     }
+                // });
+
+                that.data.forEach(function(item) {
+                    if (!unique[item.group]) {
+                        if(!item.color) {
+                            item.color = that.colorPalette[k];
+                            k++;
+                        }
+                        newarr.push(item);
+                        unique[item.group] = item;
+                    } 
+                }); 
+                
+                var arr = [];
+                var uniqueColor = {};
+                k = 0;
+                newarr.forEach(function(item) {
+                    if (!uniqueColor[item.color]) {
+                        arr.push(item);
+                        uniqueColor[item.color] = item;
+                    } else {
+                        item.color = that.colorPalette[k];
+                        k++;
+                        arr.push(item);
+                        uniqueColor[item.color] = item;
+                    }
+                }); 
+                var arr_length = arr.length,
+                data_length = that.data.length; 
+                for(var i = 0;i < arr_length; i++) {
+                    for(var j = 0;j<data_length;j++) {
+                        if(that.data[j].group === arr[i].group) {
+                            that.data[j].color = arr[i].color;
+                        }
+                    }
+                }                
+
+                //console.log(that.data);
+
+                return arr;
             },
             crossHair : function () {
                 if(PykCharts.boolean(that.enableCrossHair)) {

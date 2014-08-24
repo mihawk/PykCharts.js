@@ -4,7 +4,43 @@
         "x": 80,
         "y": 2,
         "weight": 500,
-        "color": "#DE5851",
+        "color": "steelblue",
+        "tooltip": "cadbury",
+        "group": "cadbury"
+    },
+    {
+        "name": "Dairy Milk",
+        "x": 65,
+        "y": 4.7,
+        "weight": 500,
+        "color": "steelblue",
+        "tooltip": "cadbury",
+        "group": "cadbury"
+    },
+    {
+        "name": "Bournville",
+        "x": 30,
+        "y": 5,
+        "weight": 400,
+        "color": "steelblue",
+        "tooltip": "cadbury",
+        "group": "cadbury"
+    },
+    {
+        "name": "Bournville",
+        "x": 70,
+        "y": 2,
+        "weight": 500,
+        "color": "steelblue",
+        "tooltip": "cadbury",
+        "group": "cadbury"
+    },
+    {
+        "name": "Dairy Milk",
+        "x": 100,
+        "y": 3,
+        "weight": 400,
+        "color": "steelblue",
         "tooltip": "cadbury",
         "group": "cadbury"
     },
@@ -72,24 +108,6 @@
         "group": "Lindt"
     }, 
     {
-        "name": "Bournville",
-        "x": 70,
-        "y": 2,
-        "weight": 500,
-        "color": "#DE5851",
-        "tooltip": "cadbury",
-        "group": "cadbury"
-    },
-    {
-        "name": "Dairy Milk",
-        "x": 100,
-        "y": 3,
-        "weight": 400,
-        "color": "#DE5851",
-        "tooltip": "cadbury",
-        "group": "cadbury"
-    },
-    {
         "name": "Galaxy",
         "x": 50,
         "y": 2.5,
@@ -152,15 +170,6 @@
         "tooltip": "Lindt",
         "group": "Lindt"
     }, 
-    {
-        "name": "Bournville",
-        "x": 30,
-        "y": 5,
-        "weight": 400,
-        "color": "#DE5851",
-        "tooltip": "cadbury",
-        "group": "cadbury"
-    },
     {
         "name": "Lindt",
         "x": 40,
@@ -232,14 +241,5 @@
         "color": "steelblue",
         "tooltip": "Hershey",
         "group": "Hershey"
-    },
-    {
-        "name": "Dairy Milk",
-        "x": 65,
-        "y": 4.7,
-        "weight": 500,
-        "color": "#DE5851",
-        "tooltip": "cadbury",
-        "group": "cadbury"
-    }
+    }    
 ]
