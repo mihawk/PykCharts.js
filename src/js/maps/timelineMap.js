@@ -23,7 +23,9 @@ PykCharts.maps.oneLayer = function (options) {
             d3.json("../data/maps/colorPalette.json", function (data) {
                 d3.json("../data/maps/timeline.json", function (timeline_data) {
                     that.colorPalette_data = data;
-                    that.timeline_data = timeline_data;
+                    that.timeline_data = timeline_data.sort(function (a,b) {
+                        return a.x - b.x;
+                    });
                     $(that.selector).html("");
                     that.render();
                     that.simulateLiveData(that.data);
@@ -55,6 +57,15 @@ PykCharts.maps.oneLayer = function (options) {
                     that.onhover = "color_saturation";
                 };
                 return this;
+            },
+            axisContainer : function (ae) {
+                if(PykCharts.boolean(ae)){
+                    that.gxaxis = that.svg.append("g")
+                        .attr("id","xaxis")
+                        .attr("class", "x axis")
+                        .attr("transform", "translate("+that.margin.left+"," + that.reducedHeight + ")");
+                }
+                return this;
             }
         }
         return config;
@@ -68,7 +79,10 @@ PykCharts.maps.oneLayer = function (options) {
         , offset = [that.width / 2, that.height / 2]
         , i
         , x_extent
-        , x_range;
+        , x_range
+        , unique = []
+        , duration
+        , interval = 1;
 
         that.current_palette = _.where(that.colorPalette_data, {name:that.colorPalette, number:that.totalColors})[0];
 
@@ -176,38 +190,42 @@ PykCharts.maps.oneLayer = function (options) {
 
         that.optionalFeatures()
             .enableLabel(that.label)
-            .enableClick(that.enable_click);
+            .enableClick(that.enable_click)
+            .axisContainer(true);
 
         x_extent = d3.extent(that.timeline_data, function(d) { return parseInt(d.x,10); });
+        x_range = [0 ,that.reducedWidth];
+        that.xScale = that.k.scaleIdentification("linear",x_extent,x_range);
 
-        d3.select(that.selector)
-            .style("padding-bottom", "30px")
-            .append('div')
-            .attr("id", "slider")
-            .style("width",that.reducedWidth)
-            .style("margin-left", that.margin.left)
-            .style("margin-top", that.margin.top)
-            .call(d3.slider()
-                    .axis(d3.svg.axis().orient("bottom"))
-                    .min(x_extent[0])
-                    .max(x_extent[1])
-                    .step(1)
-                    //.value(_.last(range))
-                    // .on("slide", function(evt, value){
-                    //     _.each(that.data, function (d) {
-                    //         if (new Date(value).getTime()===new Date(d.date).getTime()) {
-                    //             that.filteredData = d;
-                    //         }
-                    //     });
-                    //     //that.filteredData = _.where(that.data, {date: new Date(value).toString().trim()})[0];
-                    //     focus.attr("transform", "translate(" + x(new Date(value)) + ",0)");
-                    //     focus.style("display", null);
-                    //     if (that.filteredData) {
-                    //         that.renderBubbleChart();
-                    //         that.renderStatistics();
-                    //     }
-                    // })
-            );
+        that.k.xAxis(that.svg,that.gxaxis,that.xScale);
+
+        _.each(that.timeline_data, function (d) {
+            if (unique.indexOf(d.x) === -1) {
+                unique.push(d.x);
+            }
+        });
+
+        var marker = that.svg.append("image")
+            .attr("xlink:href","../img/marker.png")
+            .attr("x", that.margin.left + that.xScale(unique[0]) - 7)
+            .attr("y", that.reducedHeight)
+            .attr("width","14px")
+            .attr("height", "12px")
+
+        duration = unique.length * 1000;
+
+        var play = setInterval(function () {
+            marker.transition()
+                .duration(500)
+                .attr("x",  that.margin.left + that.xScale(unique[interval]) - 7);
+
+            interval++;
+
+            if (interval===unique.length) {
+                clearInterval(play);
+                // marker.attr("x",  that.margin.left + that.xScale(unique[0]) - 7);
+            };
+        }, 1000);
 
         that.k.dataSource(that.dataSource)
             .credits(that.creditMySite);

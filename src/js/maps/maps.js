@@ -27,8 +27,8 @@ PykCharts.maps.processInputs = function (chartObject, options) {
         , optional = options.optional;
 
     chartObject.selector = options.selector ? options.selector : stylesheet.selector;
-    chartObject.width = options.map && _.isNumber(parseInt(options.map.width,10)) ? options.map.width : stylesheet.map.width;
-    chartObject.height = options.map && _.isNumber(parseInt(options.map.height,10)) ? options.map.height : stylesheet.map.height;
+    chartObject.width = options.map && _.isNumber(parseInt(options.map.width,10)) ? options.map.width : mapsTheme.map.width;
+    chartObject.height = options.map && _.isNumber(parseInt(options.map.height,10)) ? options.map.height : mapsTheme.map.height;
     chartObject.mapCode = options.mapCode ? options.mapCode : mapsTheme.mapCode;
     chartObject.enableClick = options.enableClick ? options.enableClick : mapsTheme.enableClick;
     // chartObject.defaultColor = optional && optional.colors && optional.colors.defaultColor ? optional.colors.defaultColor : mapsTheme.colors.defaultColor;
@@ -117,11 +117,10 @@ PykCharts.maps.processInputs = function (chartObject, options) {
     } else {
         chartObject.border = mapsTheme.border;
     }
-    chartObject.enableClick = optional && optional.enableClick ? optional.enableClick : stylesheet.enableClick;
-    chartObject.onhover = optional && optional.onhover ? optional.onhover : stylesheet.onhover;
+    chartObject.onhover = optional && optional.onhover ? optional.onhover : mapsTheme.onhover;
     chartObject.defaultZoomLevel = optional && optional.defaultZoomLevel ? optional.defaultZoomLevel : 80;
     chartObject.loading = optional && optional.loading && optional.loading.animationGifUrl ? optional.loading.animationGifUrl: stylesheet.loading.animationGifUrl;
-    chartObject.highlightArea = optional && optional.highlightArea ? optional.highlightArea : stylesheet.highlightArea;
+    chartObject.highlightArea = optional && optional.highlightArea ? optional.highlightArea : mapsTheme.highlightArea;
     if (optional && optional.title) {
         chartObject.title = optional.title;
         chartObject.title.size = optional.title.size ? optional.title.size : stylesheet.title.size;
