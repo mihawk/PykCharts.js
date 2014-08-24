@@ -50,9 +50,8 @@
                     xAxisDataFormat : "string",
                     chart: {
                         height: 400,
-                        width: 430,
-                        margin: {top: 5, right: 25, bottom: 25, left: 35}, // top >=10
-                        padding: {top: 25, right: 25, bottom: 25, left: 25},
+                        width: 630,
+                        margin: {top: 5, right: 25, bottom: 25, left: 45},
                         grid: {
                             xEnabled: "no",
                             yEnabled: "yes",
@@ -92,7 +91,7 @@
                                 tickFormat: ""
                             }
                         },            
-                        curvy_lines : "yes",
+                        curvy_lines : "no",
                         enableCrossHair: "yes"
                     }
                 });
@@ -106,8 +105,8 @@
                     xAxisDataFormat : "string",
                     chart: {
                         height: 400,
-                        width: 430,
-                        margin: {top: 5, right: 25, bottom: 25, left: 35}, // top >=10
+                        width: 630,
+                        margin: {top: 5, right: 25, bottom: 25, left: 45}, // top >=10
                         grid: {
                             xEnabled: "no",
                             yEnabled: "yes",
@@ -315,7 +314,8 @@
                         },
                         enableTooltip: "no",
                         colors: {
-                            highlightColor: "steelblue"
+                            highlightColor: "steelblue",
+                            chartColor: "#ccc"
                         },
                         axis : {
                             onHoverHighlightenable: "yes",
@@ -568,6 +568,9 @@
                         realTimeCharts: {
                             refreshFrequency: 0 // seconds
                         },
+                        saturation : {
+                            enable : "yes"
+                        },
                         axis : {
                             onHoverHighlightenable: "yes",
                             x: {
@@ -595,7 +598,7 @@
                             highlightColor: "#013F73"
                         },
                         legends: {
-                            enable : "no",
+                            enable : "yes",
                             display : "horizontal"
                         },
                         borderBetweenChartElements: {
@@ -701,6 +704,9 @@
                         realTimeCharts: {
                             refreshFrequency: 0 // seconds
                         },
+                        saturation : {
+                            enable : "yes"
+                        },
                         axis : {
                             onHoverHighlightenable: "yes",
                             x: {
@@ -729,7 +735,7 @@
                             highlightColor: "#013F73"
                         },
                         legends: {
-                            enable : "no",
+                            enable : "yes",
                             display : "horizontal" //horizontal or vertical
                         },
                         borderBetweenChartElements:{ //done for oneD

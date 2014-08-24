@@ -85,7 +85,7 @@
                             <option value = "Multi_NavyBlue_Blue">Multi NavyBlue Blue</option>
                             <option value = "Multi_Orange_Orange">Multi Orange Orange</option>
                             <option value = "Multi_Pink_Orange">Multi Pink Orange</option>
-                            <option value = "Blue">Blue</option>
+                            <option value = "Blue" selected ="selected">Blue</option>
                             <option value = "Green">Green</option>
                             <option value = "Black">Black</option>
                             <option value = "Orange">Orange</option>
@@ -262,15 +262,19 @@
 
             function tooltipFunction () {
                 if ($("input[name='tooltip']:checked").val() === "yes") {
+                    console.log("tooltip yes");
                     $("input[name='tooltip_mode']").prop('disabled', false);
                     if ($("input[name='tooltip_mode']:checked").val() === "fixed") {
+                        console.log("fixed");
                         $("#a7").prop('disabled', false);
                         $("#a8").prop('disabled', false);
                     } else {
+                        console.log("moving");
                         $("#a8").prop('disabled', true);
                         $("#a7").prop('disabled', true);
                     }
                 } else {
+                    console.log("tooltip no");
                     $("input[name='tooltip_mode']").prop('disabled', true);
                     $("#a8").prop('disabled', true);
                     $("#a7").prop('disabled', true);

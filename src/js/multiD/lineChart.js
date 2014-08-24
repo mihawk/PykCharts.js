@@ -412,9 +412,23 @@ PykCharts.multiD.line = function (options){
 									.html(that.new_data[i].name);
 
 						  	if(that.type === "multiline") {
-						  		if(PykCharts.boolean(that.color_from_data) === true) {
+						  		if(PykCharts.boolean(that.color_from_data)) {
 									that.dataLineGroup[i]
 						      			.style("stroke", function() { return that.new_data[i].color; });
+								}
+								else if(!PykCharts.boolean(that.color_from_data)) {
+									that.dataLineGroup[i]
+										.style("stroke", that.chartColor)
+										.on("mouseover",function (d) {
+											d3.select(this)
+												.classed({'multi-line-hover':true,'multi-line':false})
+												.style("stroke", function() { return (this === that.selected) ? that.highlightColor : "orange"; });
+										})
+										.on("mouseout",function (d) {
+											d3.select(this)
+												.classed({'multi-line-hover':false,'multi-line':true})
+												.style("stroke", function() { return (this === that.selected) ? that.highlightColor : that.chartColor; });
+										});
 								}
 						  		that.dataLineGroup[i].on("click",function (d) {
 						  			that.selected_line = d3.event.target;
@@ -423,12 +437,13 @@ PykCharts.multiD.line = function (options){
 									
 									that.deselected = that.selected;
 									d3.select(that.deselected)
-											.classed({'multi-line-selected':false,'multi-line':true})
-											.style("stroke","");
+											.classed({'multi-line-selected':false,'multi-line':true,'multi-line-hover':false})
+											.style("stroke", function() { return (!PykCharts.boolean(that.color_from_data)) ? that.chartColor : that.color_before_selection; });
 									
 									that.selected = this;
+									that.color_before_selection = d3.select(that.selected).style("stroke");
 									d3.select(that.selected)
-											.classed({'multi-line-selected':true,'multi-line':false})
+											.classed({'multi-line-selected':true,'multi-line':false,'multi-line-hover':false})
 											.style("stroke",that.highlightColor);
 
 									if(PykCharts.boolean(that.legends.enable)) {
@@ -458,26 +473,46 @@ PykCharts.multiD.line = function (options){
 								.html(that.new_data[i].name);
 
 						if(that.type === "multiline") {
-						  	that.dataLineGroup.on("click",function (d) {
-						  		that.selected_line = d3.event.target;
-								that.selected_line_data = that.selected_line.__data__;
-								that.selected_line_data_len = that.selected_line_data.length;
-								
-								that.deselected = that.selected;
-								d3.select(that.deselected)
-										.classed({'multi-line-selected':false,'multi-line':true})
-										.style("stroke","");
-								that.selected = this;
-								d3.select(that.selected)
-										.classed({'multi-line-selected':true,'multi-line':false})
-										.style("stroke",that.highlightColor);
-								
-								if(PykCharts.boolean(that.legends.enable)) {
-									(that.deselected !== undefined)? d3.select("text#"+that.deselected.id).style("visibility","hidden") : null;
-									d3.select(that.selector+" text#"+that.selected.id).style("visibility","visible");
-									that.updateSelectedLine(that.selected.id);
+						  	if(PykCharts.boolean(that.color_from_data)) {
+									that.dataLineGroup[i]
+						      			.style("stroke", function() { return that.new_data[i].color; });
 								}
-							});
+								else if(!PykCharts.boolean(that.color_from_data)) {
+									that.dataLineGroup[i]
+										.style("stroke", that.chartColor)
+										.on("mouseover",function (d) {
+											d3.select(this)
+												.classed({'multi-line-hover':true,'multi-line':false})
+												.style("stroke", function() { return (this === that.selected) ? that.highlightColor : "orange"; });
+										})
+										.on("mouseout",function (d) {
+											d3.select(this)
+												.classed({'multi-line-hover':false,'multi-line':true})
+												.style("stroke", function() { return (this === that.selected) ? that.highlightColor : that.chartColor; });
+										});
+								}
+						  		that.dataLineGroup[i].on("click",function (d) {
+						  			that.selected_line = d3.event.target;
+									that.selected_line_data = that.selected_line.__data__;
+									that.selected_line_data_len = that.selected_line_data.length;
+									
+									that.deselected = that.selected;
+									d3.select(that.deselected)
+											.classed({'multi-line-selected':false,'multi-line':true,'multi-line-hover':false})
+											.style("stroke", function() { return (!PykCharts.boolean(that.color_from_data)) ? that.chartColor : that.color_before_selection; });
+									
+									that.selected = this;
+									that.color_before_selection = d3.select(that.selected).style("stroke");
+									d3.select(that.selected)
+											.classed({'multi-line-selected':true,'multi-line':false,'multi-line-hover':false})
+											.style("stroke",that.highlightColor);
+
+									if(PykCharts.boolean(that.legends.enable)) {
+										(that.deselected !== undefined)? d3.select("text#"+that.deselected.id).style("visibility","hidden") : null;
+										d3.select(that.selector+" text#"+that.selected.id).style("visibility","visible");
+										that.updateSelectedLine(that.selected.id);
+									}
+								});
 						}
 					}
 					if(that.type === "lineChart") {
@@ -485,7 +520,7 @@ PykCharts.multiD.line = function (options){
 							.on('mouseout',function (d) {
 									that.mouseEvent.tooltipHide();
 									that.mouseEvent.crossHairHide();
-									that.mouseEvent.axisHighlightHide(that.selector + " " +".x.axis");
+									that.mouseEvent.axisHighlightHide(that.selector + " .x.axis");
 							})
 							.on("mousemove", function(){
 								if(!PykCharts.boolean(that.multiple_containers)) {
