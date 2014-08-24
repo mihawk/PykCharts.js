@@ -218,9 +218,7 @@ PykCharts.multiD.ultimateBar = function(options){
                     }))
                     .rangeBands([0,h]);
                 var x_domain = [0,d3.max(xValues)];
-                console.log(x_domain);
                 that.xScale = d3.scale.linear().domain(that.k._domainBandwidth(x_domain,1)).range([0, w]);
-                console.log
                 // that.yScaleInvert = d3.scale.linear().domain([d3.max(yValues), 0]).range([0, h]).nice(); // For the yAxis
                 var zScale = d3.scale.category10();
 
