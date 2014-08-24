@@ -141,7 +141,7 @@
                     </tr>
                     <tr>
                         <td>On hover :</td>
-                        <td><select class="cstm-form-control form-control" id = "a5">
+                        <td><select class="cstm-form-control form-control" id = "a5" >
                                 <option value = "none">None</option>
                                 <option value = "shadow" selected="selected">Shadow</option>
                                 <option value = "highlight_border">Highlight Border</option>
@@ -265,11 +265,9 @@
                     console.log("tooltip yes");
                     $("input[name='tooltip_mode']").prop('disabled', false);
                     if ($("input[name='tooltip_mode']:checked").val() === "fixed") {
-                        console.log("fixed");
                         $("#a7").prop('disabled', false);
                         $("#a8").prop('disabled', false);
                     } else {
-                        console.log("moving");
                         $("#a8").prop('disabled', true);
                         $("#a7").prop('disabled', true);
                     }
@@ -365,6 +363,7 @@
                     $("#legend-container").html("");
                     $("#map-container").attr("style", "float: left; position: static");
                     $("#legend-container").attr("style", "background-color: white");
+
                     k = new PykCharts.maps.oneLayer({
                         selector: "#map-container",
                         mapCode: $("#one").val() + "-topo",
@@ -381,8 +380,8 @@
                                 palette: $("#eight").val()
                             },
                             tooltip: {
-                                enable: checked("tooltip"),
-                                mode: checked("tooltip_mode"),
+                                enable: checked('tooltip'),
+                                mode: checked('tooltip_mode'),
                                 positionTop: $("#a7").val(),
                                 positionLeft: $("#a8").val()
                             },
@@ -404,12 +403,14 @@
                                 animationGifUrl: "http://www.sportdiver.com/sites/all/modules/platform/inline_login/loading.gif"
                             },
                             creditMySite:{
-                                text: "World Bank",
-                                url: "http://www.pykih.com/"
+                                enable: checked('credits'),
+                                mySiteName: $("#d3").val(),
+                                mySiteUrl: $("#d4").val()
                             },
                             dataSource:{
-                                text: "World Bank",
-                                url: "http://www.pykih.com/"
+                                enable: checked('source'),
+                                text: $("#d1").val(),
+                                url: $("#d2").val()
                             }
                         }
 
