@@ -112,7 +112,7 @@ body {
 .PykCharts-line-chart .pyk-line-tooltip{
   display: block;
   height: auto;
-  width: 20px;
+  width: auto;
   padding: 5px 6px;
   color: #4F4F4F;
   background: #eeeeee;
