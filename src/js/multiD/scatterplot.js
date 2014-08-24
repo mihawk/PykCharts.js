@@ -548,53 +548,60 @@ PykCharts.multiD.scatterplot = function (options) {
                 var newarr = [];
                 var unique = {};
                 var k = 0;
-//              var checkGroup = true;
-                // that.data.forEach(function (item) {
-                //     if(item.group) {
-                //         checkGroup = true
-                //     } else {
-                //         checkGroup = false;
-                //     }
-                // });
-
-                that.data.forEach(function(item) {
-                    if (!unique[item.group]) {
+                var checkGroup = true;
+                var checkColor = true;
+                
+                that.data.forEach(function (item) {
+                    if(item.group) {
+                        checkGroup = true;
+                    } else {
+                        checkGroup = false;
                         if(!item.color) {
+                            checkColor = false;
+                            item.color = that.colorPalette[0];
+                        }
+                    }
+                });
+
+                if(checkGroup) {
+                    that.data.forEach(function(item) {
+                        if (!unique[item.group]) {
+                            if(!item.color) {
+                                item.color = that.colorPalette[k];
+                                k++;
+                            }
+                            newarr.push(item);
+                            unique[item.group] = item;
+                        } 
+                    }); 
+                    
+                    var arr = [];
+                    var uniqueColor = {};
+                    k = 0;
+                    newarr.forEach(function(item) {
+                        if (!uniqueColor[item.color]) {
+                            arr.push(item);
+                            uniqueColor[item.color] = item;
+                        } else {
                             item.color = that.colorPalette[k];
                             k++;
+                            arr.push(item);
+                            uniqueColor[item.color] = item;
                         }
-                        newarr.push(item);
-                        unique[item.group] = item;
-                    } 
-                }); 
-                
-                var arr = [];
-                var uniqueColor = {};
-                k = 0;
-                newarr.forEach(function(item) {
-                    if (!uniqueColor[item.color]) {
-                        arr.push(item);
-                        uniqueColor[item.color] = item;
-                    } else {
-                        item.color = that.colorPalette[k];
-                        k++;
-                        arr.push(item);
-                        uniqueColor[item.color] = item;
-                    }
-                }); 
-                var arr_length = arr.length,
-                data_length = that.data.length; 
-                for(var i = 0;i < arr_length; i++) {
-                    for(var j = 0;j<data_length;j++) {
-                        if(that.data[j].group === arr[i].group) {
-                            that.data[j].color = arr[i].color;
+                    }); 
+                    var arr_length = arr.length,
+                    data_length = that.data.length; 
+                    for(var i = 0;i < arr_length; i++) {
+                        for(var j = 0;j<data_length;j++) {
+                            if(that.data[j].group === arr[i].group) {
+                                that.data[j].color = arr[i].color;
+                            }
                         }
-                    }
+                    }                
+                    return arr;
+                } else {
+                    return that.data;
                 }                
-
-                //console.log(that.data);
-
-                return arr;
             },
             crossHair : function () {
                 if(PykCharts.boolean(that.enableCrossHair)) {
