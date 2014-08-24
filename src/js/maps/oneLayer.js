@@ -5,7 +5,6 @@ PykCharts.maps.oneLayer = function (options) {
         that = PykCharts.maps.processInputs(that, options);
         //$(that.selector).css("height",that.height);
         that.data = options.data;
-        console.log(that.tooltip);
         that.k
             .totalColors(that.colors.total)
             .colorType(that.colors.type)
@@ -32,7 +31,6 @@ PykCharts.maps.oneLayer = function (options) {
         var config = {
             enableLegend: function (el) {
                 if (PykCharts.boolean(el)) {
-                    console.log("hagcxag");
                     that.renderLegend();
                 };
                 return this;
@@ -133,7 +131,7 @@ PykCharts.maps.oneLayer = function (options) {
             .on("mouseover", function (d) {
                 // console.log((_.where(that.data, {iso2: d.properties.iso_a2})[0]).tooltip)
                 if (PykCharts.boolean(that.tooltip)) {
-                    console.log("vghacg");
+                    console.log("dharaaaa");
                     ttp.style("visibility", "visible");
                     ttp.html((_.where(that.data, {iso2: d.properties.iso_a2})[0]).tooltip);
                 }
@@ -163,7 +161,6 @@ PykCharts.maps.oneLayer = function (options) {
                 }
                 that.bodUncolor(d);
             });
-        console.log(that.enableClick);
         this.optionalFeatures()
             .enableLabel(that.label.enable)
             .enableClick(that.enableClick);
@@ -268,6 +265,7 @@ PykCharts.maps.oneLayer = function (options) {
     };
 
     this.renderLabel = function () {
+         console.log("legends")
         that.group.append("text")
             .attr("x", function (d) { return that.path.centroid(d)[0]; })
             .attr("y", function (d) { return that.path.centroid(d)[1]; })

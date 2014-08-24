@@ -66,11 +66,11 @@ PykCharts.multiD.ultimateBar = function(options){
         if(that.mode === "default") {
 
             that.k.title()
-                .subtitle();
-
+                .subtitle()
+                .makeMainDiv(that.selector,1);
             that.optionalFeatures()
-                .legendsContainer()
-                .svgContainer();
+                .legendsContainer(1)
+                .svgContainer(1);
 
             that.k.credits()
                 .dataSource()
@@ -87,7 +87,8 @@ PykCharts.multiD.ultimateBar = function(options){
 
             that.k.xAxis(that.svg,that.xgroup,that.xScale)
         } else if(that.mode === "infographics") {
-            that.optionalFeatures().svgContainer()
+            that.k.makeMainDiv(that.selector,1);
+            that.optionalFeatures().svgContainer(1)
                 .createColumnChart()
                 .axisContainer();
 
@@ -100,9 +101,10 @@ PykCharts.multiD.ultimateBar = function(options){
     this.optionalFeatures = function() {
         var that = this;
         var optional = {
-            svgContainer: function () {
+            svgContainer: function (i) {
                 $(that.selector).attr("class","PykCharts-twoD");
-                that.svg = d3.select(that.selector).append("svg:svg")
+                that.svg = d3.select(options.selector + " #tooltip-svg-container-" + i)
+                    .append("svg:svg")
                     .attr("width",that.width )
                     .attr("height",that.height)
                     .attr("id","svgcontainer")
@@ -116,9 +118,10 @@ PykCharts.multiD.ultimateBar = function(options){
             
                 return this;
             },
-            legendsContainer: function () {
+            legendsContainer: function (i) {
                 if(PykCharts.boolean(that.legends.enable)) {
-                    that.legend_svg = d3.select(that.selector).append("svg:svg")
+                    that.legend_svg = d3.select(options.selector + " #tooltip-svg-container-" + i)
+                        .append("svg:svg")
                         .attr("width",that.width)
                         .attr("height",50)
                         .attr("class","legendscontainer")
@@ -170,7 +173,7 @@ PykCharts.multiD.ultimateBar = function(options){
             },
             createColumnChart: function() {
                 var w = that.width - that.margin.left - that.margin.right,
-                    j = 0,
+                    j = that.max_length+1,
                     h = that.height - that.margin.top - that.margin.bottom;
 
                 var the_bars = that.the_bars;
@@ -215,9 +218,7 @@ PykCharts.multiD.ultimateBar = function(options){
                     }))
                     .rangeBands([0,h]);
                 var x_domain = [0,d3.max(xValues)];
-                console.log(x_domain);
                 that.xScale = d3.scale.linear().domain(that.k._domainBandwidth(x_domain,1)).range([0, w]);
-                console.log
                 // that.yScaleInvert = d3.scale.linear().domain([d3.max(yValues), 0]).range([0, h]).nice(); // For the yAxis
                 var zScale = d3.scale.category10();
 
@@ -270,13 +271,13 @@ PykCharts.multiD.ultimateBar = function(options){
                     .attr("fill-opacity", function (d,i) {
                         //console.log(d.x);
                         if(PykCharts.boolean(that.saturationEnable)){
-                            if(j<that.max_length){
+                            if(j>1){
                                 //console.log(d.x, "d.x" , j, "j");
-                                j++;
+                                j--;
                                 return j/that.max_length;
                             } else {
-                                j = 0;
-                                j++;
+                                j = that.max_length+1;
+                                j--;
                                 return j/that.max_length;
                             }
                         }
@@ -325,7 +326,7 @@ PykCharts.multiD.ultimateBar = function(options){
                             return d.y;
                         })
                         .attr("x", function(d){
-                            return 0;
+                            return -10;
                         })
                         .attr("fill",that.axis.y.labelColor)
                         .text(function(d){
@@ -333,10 +334,19 @@ PykCharts.multiD.ultimateBar = function(options){
                         });
                 if(that.axis.y.position === "right") {
                     yAxis_label.attr("x", function () {
-                        return (that.width-that.margin.left-that.margin.right);
-                    })
+                        return (that.width-that.margin.left-that.margin.right) + 10;
+                    });
                 }
-
+                if(that.axis.y.position === "left" && that.axis.y.orient === "right") {
+                    yAxis_label.attr("x", function (d) {
+                        return 10;
+                    });
+                }
+                if(that.axis.y.position === "right" && that.axis.y.orient === "left") {
+                    yAxis_label.attr("x", function (d) {
+                        return (that.width-that.margin.left-that.margin.right) - 10;
+                    });
+                }
                 if(that.axis.y.orient === "right") {
                     yAxis_label.attr("text-anchor","start");
                 } else if(that.axis.y.orient === "left") {
@@ -465,7 +475,7 @@ PykCharts.multiD.ultimateBar = function(options){
                         })
                         .attr("fill-opacity", function (d,i) {
                             if(PykCharts.boolean(that.saturationEnable)){
-                                return (i+1)/that.max_length;
+                                return (that.max_length-i)/that.max_length;
                             }
                         });
 
