@@ -196,7 +196,7 @@ PykCharts.multiD.scatterplot = function (options) {
                 return this;
             },
             legendsContainer : function (i) {
-                if (PykCharts.boolean(that.legends.enable) && !(PykCharts.boolean(that.size.enable))) {
+                if (PykCharts.boolean(that.legends.enable)) {
                     that.legendsContainer = d3.select(that.selector + " #tooltip-svg-container-" + i)
                         .append('svg')
                         .attr('width',that.w)
@@ -225,6 +225,7 @@ PykCharts.multiD.scatterplot = function (options) {
 
                 that.sorted_weight = that.weight.slice(0);
                 that.sorted_weight.sort(function(a,b) { return a-b; });
+                
                 that.group.append("text")
                     .attr("fill", "black")
                     .attr("text-anchor", "end")
@@ -299,7 +300,7 @@ PykCharts.multiD.scatterplot = function (options) {
                 return this;
             },
             legends : function () {
-                if (PykCharts.boolean(that.legends.enable) && !(PykCharts.boolean(that.size.enable))) {
+                if (PykCharts.boolean(that.legends.enable)) {
                     var unique = _.uniq(that.sorted_weight);
 
                     if(options.optional.legends.display === "vertical" ) {
@@ -343,6 +344,8 @@ PykCharts.multiD.scatterplot = function (options) {
                         .attr(rect_parameter3, rect_parameter3value)
                         .attr(rect_parameter4, rect_parameter4value)
                         .attr("fill", function (d) {
+                            console.log(d);
+                            console.log(that.fillChart.colorPieW(d));
                             return that.fillChart.colorPieW(d);
                         })
                         .attr("opacity", function (d) {
@@ -523,6 +526,10 @@ PykCharts.multiD.scatterplot = function (options) {
                 that.circlePlot.exit().remove();
                 return this;
             },
+            mapGroup : function () {
+                that.map_group = that.data;
+                return this;
+            },
             crossHair : function () {
                 if(PykCharts.boolean(that.enableCrossHair)) {
                     var horizontalLine = that.svgContainer.append("line")
@@ -571,23 +578,24 @@ PykCharts.multiD.scatterplot = function (options) {
         return optional;
     };
 
-function zoomed () {
+    function zoomed () {
 
-        that.zoomedOut = false;
+            that.zoomedOut = false;
 
-        that.k.isOrdinal(that.svgContainer,".x.axis",that.x);
-        that.k.isOrdinal(that.svgContainer,".x.grid",that.x);
+            that.k.isOrdinal(that.svgContainer,".x.axis",that.x);
+            that.k.isOrdinal(that.svgContainer,".x.grid",that.x);
 
-        that.k.isOrdinal(that.svgContainer,".y.axis",that.y);
-        that.k.isOrdinal(that.svgContainer,".y.grid",that.y);
+            that.k.isOrdinal(that.svgContainer,".y.axis",that.y);
+            that.k.isOrdinal(that.svgContainer,".y.grid",that.y);
 
-        that.optionalFeatures().plotCircle();
+            that.optionalFeatures().plotCircle();
 
-        that.circlePlot
-            .attr("r", function (d) {
-                return that.sizes(d.weight)*d3.event.scale;
-            });
-}
+            that.circlePlot
+                .attr("r", function (d) {
+                    return that.sizes(d.weight)*d3.event.scale;
+                });
+    }
+
     // this.fullScreen = function () {
     //     var modalDiv = d3.select(that.selector).append("div")
     //         .attr("id","abc")

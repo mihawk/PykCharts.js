@@ -644,6 +644,8 @@ configuration.fillChart = function (options,theme,config) {
         },
         colorPieW : function (d) {
             if(!(PykCharts.boolean(options.size.enable))) {
+                console.log("inside");
+                
                 return options.saturationColor;
             } else if(PykCharts.boolean(options.size.enable)) {
                 if(d.color) {
