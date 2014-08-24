@@ -325,6 +325,8 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     } else {
         chartObject.legends =  multiDimensionalCharts.legends;
     }
+    chartObject.saturationEnable = optional && optional.saturation && optional.saturation.enable ? optional.saturation.enable : "no";  
+    // console.log(chartObject.saturationEnable);
     chartObject.saturationColor = optional && optional.colors && optional.colors.saturationColor ? optional.colors.saturationColor : stylesheet.colors.saturationColor;
     chartObject.realTimeCharts = optional && optional.realTimeCharts ? optional.realTimeCharts : "no";
     chartObject.transition = optional && optional.transition ? optional.transition : "no";
