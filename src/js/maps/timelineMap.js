@@ -1,4 +1,4 @@
-PykCharts.maps.oneLayer = function (options) {
+PykCharts.maps.timelineMap = function (options) {
     var that = this;
 
     this.execute = function () {
@@ -63,7 +63,7 @@ PykCharts.maps.oneLayer = function (options) {
                     that.gxaxis = that.svg.append("g")
                         .attr("id","xaxis")
                         .attr("class", "x axis")
-                        .attr("transform", "translate("+that.margin.left+"," + that.reducedHeight + ")");
+                        .attr("transform", "translate("+that.margin.left*2+"," + that.reducedHeight + ")");
                 }
                 return this;
             }
@@ -151,7 +151,6 @@ PykCharts.maps.oneLayer = function (options) {
             .attr("state_name", function (d) {
                 return d.properties.NAME_1;
             })
-            //.attr("prev-fill",that.renderPreColor)
             .attr("fill", that.renderColor)
             .attr("opacity", that.renderOpacity)
             .attr("stroke", that.boder_color)
@@ -207,36 +206,52 @@ PykCharts.maps.oneLayer = function (options) {
             }
         });
 
-        // that.svg.append("rect")
-        //     .attr("width", that.width)
-        //     .attr("height", (that.margin.top + that.margin.bottom)*2)
-        //     .attr("x", 0)
-        //     .attr("y", that.reducedHeight - (that.margin.top)*2 - 4)
-        //     .style("stroke-width", "1px")
-        //     .style("stroke", "black")
-        //     .style("fill", "none");
+        var bbox = d3.select(that.selector+" .axis").node().getBBox()
+        , timeline_status;
+
+        var startTimeline = function () {
+            if (timeline_status==="playing") {
+                timeline_status = "paused";
+                play.attr("xlink:href","../img/play.gif");
+                clearInterval(that.playInterval);
+            } else {
+                timeline_status = "playing";
+                play.attr("xlink:href","../img/pause.gif");
+                that.playInterval = setInterval(function () {
+                    marker.transition()
+                        .duration(200)
+                        .attr("x",  (that.margin.left*2) + that.xScale(unique[interval]) - 7);
+
+                    unique[interval]
+
+                    interval++;
+
+                    if (interval===unique.length) {
+                        play.attr("xlink:href","../img/play.gif");
+                        clearInterval(that.playInterval);
+                        // marker.attr("x",  that.margin.left + that.xScale(unique[0]) - 7);
+                    };
+                }, 500);
+            }
+        }
+
+        var play = that.svg.append("image")
+            .attr("xlink:href","../img/play.gif")
+            .attr("x", that.margin.left / 2)
+            .attr("y", that.reducedHeight - that.margin.top - (bbox.height/2))
+            .attr("width","24px")
+            .attr("height", "21px")
+            .style("cursor", "pointer")
+            .on("click", startTimeline)
 
         var marker = that.svg.append("image")
             .attr("xlink:href","../img/marker.png")
-            .attr("x", that.margin.left + that.xScale(unique[0]) - 7)
+            .attr("x", (that.margin.left*2) + that.xScale(unique[0]) - 7)
             .attr("y", that.reducedHeight)
             .attr("width","14px")
             .attr("height", "12px")
 
         duration = unique.length * 1000;
-
-        var play = setInterval(function () {
-            marker.transition()
-                .duration(500)
-                .attr("x",  that.margin.left + that.xScale(unique[interval]) - 7);
-
-            interval++;
-
-            if (interval===unique.length) {
-                clearInterval(play);
-                // marker.attr("x",  that.margin.left + that.xScale(unique[0]) - 7);
-            };
-        }, 1000);
 
         that.k.dataSource(that.dataSource)
             .credits(that.creditMySite);
