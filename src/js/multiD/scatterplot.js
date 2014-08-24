@@ -548,7 +548,7 @@ PykCharts.multiD.scatterplot = function (options) {
                 var newarr = [];
                 var unique = {};
                 var k = 0;
-//                var checkGroup = true;
+//              var checkGroup = true;
                 // that.data.forEach(function (item) {
                 //     if(item.group) {
                 //         checkGroup = true
