@@ -160,7 +160,6 @@ PykCharts.maps.oneLayer = function (options) {
                 }
                 that.bodUncolor(d);
             });
-        console.log(that.enableClick);
         this.optionalFeatures()
             .enableLabel(that.label.enable)
             .enableClick(that.enableClick);
@@ -265,6 +264,7 @@ PykCharts.maps.oneLayer = function (options) {
     };
 
     this.renderLabel = function () {
+         console.log("legends")
         that.group.append("text")
             .attr("x", function (d) { return that.path.centroid(d)[0]; })
             .attr("y", function (d) { return that.path.centroid(d)[1]; })
