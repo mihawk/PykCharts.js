@@ -9,7 +9,7 @@ PykCharts.maps.oneLayer = function (options) {
             .totalColors(that.colors.total)
             .colorType(that.colors.type)
             .loading(that.loading)
-            .tooltip(that.tooltip)
+            .tooltip(that.tooltip.enable)
 
         d3.json("../data/maps/" + that.mapCode + ".json", function (data) {
             that.map_data = data;
@@ -130,15 +130,14 @@ PykCharts.maps.oneLayer = function (options) {
             .attr("stroke-width", that.border.thickness + "px")
             .on("mouseover", function (d) {
                 // console.log((_.where(that.data, {iso2: d.properties.iso_a2})[0]).tooltip)
-                if (PykCharts.boolean(that.tooltip)) {
-                    console.log("dharaaaa");
+                if (PykCharts.boolean(that.tooltip.enable)) {
                     ttp.style("visibility", "visible");
                     ttp.html((_.where(that.data, {iso2: d.properties.iso_a2})[0]).tooltip);
                 }
                 that.bodColor(d);
             })
             .on("mousemove", function () {
-                if (PykCharts.boolean(that.tooltip)) {
+                if (PykCharts.boolean(that.tooltip.enable)) {
                     if (that.tooltip.mode === "moving") {
                         ttp.style("top", function () {
 
@@ -156,7 +155,7 @@ PykCharts.maps.oneLayer = function (options) {
                 }
             })
             .on("mouseout", function (d) {
-                if (PykCharts.boolean(that.tooltip)) {
+                if (PykCharts.boolean(that.tooltip.enable)) {
                     ttp.style("visibility", "hidden");
                 }
                 that.bodUncolor(d);
@@ -165,8 +164,8 @@ PykCharts.maps.oneLayer = function (options) {
             .enableLabel(that.label.enable)
             .enableClick(that.enableClick);
 
-        that.k.dataSource(that.dataSource)
-            .credits(that.creditMySite);
+        that.k.dataSource()
+            .credits();
     };
 
     this.renderColor = function (d, i) {
