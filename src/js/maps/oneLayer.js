@@ -131,6 +131,7 @@ PykCharts.maps.oneLayer = function (options) {
             .on("mouseover", function (d) {
                 // console.log((_.where(that.data, {iso2: d.properties.iso_a2})[0]).tooltip)
                 if (PykCharts.boolean(that.tooltip)) {
+                    console.log("dharaaaa");
                     ttp.style("visibility", "visible");
                     ttp.html((_.where(that.data, {iso2: d.properties.iso_a2})[0]).tooltip);
                 }
