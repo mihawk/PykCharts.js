@@ -91,7 +91,7 @@
                                 tickFormat: ""
                             }
                         },            
-                        curvy_lines : "yes",
+                        curvy_lines : "no",
                         enableCrossHair: "yes"
                     }
                 });
@@ -293,92 +293,8 @@
                             color: ""
                         },
                     },
-                    optional:{
-                        transition : {
-                            duration : 0 //milliseconds
-                        },
-                        title: { 
-                            text: "Malnutrition in India"
-                        },  
-                        subtitle: {
-                            text: "Malnutrition in India Malnutrition in India Malnutrition in India Malnutrition in India"
-                        },
-                        multiple_containers: {
-                            enable : "no"
-                        },
-                        realTimeCharts: {
-                            refreshFrequency: 0 // seconds
-                        },
-                        enableTooltip: "yes",
-                        colors: {
-                            highlightColor: "green",
-                            chartColor: "#ccc"
-                        },
-                        axis : {
-                            onHoverHighlightenable: "yes",
-                            x: {
-                                enable: "yes",
-                                position: "bottom", //top or bottom
-                                orient : "bottom",
-                                axisColor: "#fff",
-                                labelColor: "#1D1D1D",
-                                no_of_ticks: 10,
-                                tickSize: 1,
-                                ticksPadding: 6,
-                                tickFormat: "",
-                                tickValues: []
-                            },
-                            y: {
-                                enable: "yes",
-                                position:"left", //left or right
-                                orient: "left",
-                                axisColor: "#1D1D1D",
-                                labelColor: "#1D1D1D",
-                                tickSize: 5,
-                                ticksPadding: 6,
-                                no_of_ticks: 10,
-                                tickFormat: ""
-                            }
-                        },
-                        legends: {
-                            enable: "yes",
-                            display: "horizontal"
-                        },
-                        legendsText: {
-                            size: "16",
-                            color: "green",
-                            weight: "thick", // or "thick"
-                            family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
-                        },
-                        dataSource:{
-                            text: "World Bank",
-                            url: "http://www.pykih.com/"
-                        },
-                        creditMySite:{
-                            mySiteName: "Acme NewsCorp",
-                            mySiteUrl: "https://google.com"
-                        },                  
-                        curvy_lines : "yes",
-                        enableCrossHair: "yes"
-                    }
-                });
-                k.execute();
-
-                var k = new PykCharts.multiD.line({
-                    selector: "#multiLine1",
-                    data: "../data/multiLineChart.json",
-                    mode : "default",
-                    yAxisDataFormat : "number",
-                    xAxisDataFormat : "string",
-                    chart: {
-                        height: 400,
-                        width: 700,
-                        margin: {top: 5, right: 25, bottom: 16, left: 35},
-                        grid: {
-                            xEnabled: "no",
-                            yEnabled: "yes",
-                            color: ""
-                        },
+                    line: {
+                        color_from_data: "no"
                     },
                     optional:{
                         transition : {
@@ -386,19 +302,19 @@
                         },
                         title: { 
                             text: "Malnutrition in India"
+                        },
+                        multiple_containers: {
+                            enable : "no"
                         },  
                         subtitle: {
                             text: "Malnutrition in India Malnutrition in India Malnutrition in India Malnutrition in India"
                         },
-                        multiple_containers: {
-                            enable : "no"
-                        },
                         realTimeCharts: {
                             refreshFrequency: 0 // seconds
                         },
-                        enableTooltip: "yes",
+                        enableTooltip: "no",
                         colors: {
-                            highlightColor: "green",
+                            highlightColor: "steelblue",
                             chartColor: "#ccc"
                         },
                         axis : {
@@ -419,7 +335,7 @@
                                 enable: "yes",
                                 position:"left", //left or right
                                 orient: "left",
-                                axisColor: "#1D1D1D",
+                                axisColor: "#fff",
                                 labelColor: "#1D1D1D",
                                 tickSize: 5,
                                 ticksPadding: 6,
@@ -432,9 +348,9 @@
                             display: "horizontal"
                         },
                         legendsText: {
-                            size: "16",
-                            color: "green",
-                            weight: "thick", // or "thick"
+                            size: "20",
+                            color: "steelblue",
+                            weight: "thin", // or "thick"
                             family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
                         },
                         dataSource:{
@@ -474,7 +390,6 @@
                         realTimeCharts: {
                             refreshFrequency: 0 // seconds
                         },
-                        enableTooltip: "yes",
                         axis : {
                             x: {
                                 enable: "yes",
@@ -743,7 +658,7 @@
                             highlightColor: "#013F73"
                         },
                         legends: {
-                            enable : "yes",
+                            enable : "no",
                             display : "horizontal" //horizontal or vertical
                         },
                         borderBetweenChartElements:{ //done for oneD
