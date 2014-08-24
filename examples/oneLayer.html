@@ -141,7 +141,7 @@
                     </tr>
                     <tr>
                         <td>On hover :</td>
-                        <td><select class="cstm-form-control form-control" id = "a5">
+                        <td><select class="cstm-form-control form-control" id = "a5" >
                                 <option value = "none">None</option>
                                 <option value = "shadow" selected="selected">Shadow</option>
                                 <option value = "highlight_border">Highlight Border</option>
@@ -405,11 +405,12 @@
                                 animationGifUrl: "http://www.sportdiver.com/sites/all/modules/platform/inline_login/loading.gif"
                             },
                             creditMySite:{
-                                enableCredits: checked('credits'),
+                                enable: checked('credits'),
                                 mySiteName: $("#d3").val(),
                                 mySiteUrl: $("#d4").val()
                             },
                             dataSource:{
+                                enable: checked('source'),
                                 text: $("#d1").val(),
                                 url: $("#d2").val()
                             }

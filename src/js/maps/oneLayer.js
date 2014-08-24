@@ -5,6 +5,7 @@ PykCharts.maps.oneLayer = function (options) {
         that = PykCharts.maps.processInputs(that, options);
         //$(that.selector).css("height",that.height);
         that.data = options.data;
+    
         that.k
             .totalColors(that.colors.total)
             .colorType(that.colors.type)
@@ -164,8 +165,12 @@ PykCharts.maps.oneLayer = function (options) {
             .enableLabel(that.label.enable)
             .enableClick(that.enableClick);
 
-        that.k.dataSource()
-            .credits();
+        if (PykCharts.boolean(that.creditMySite.enable)) {
+            that.k.credits();
+        }
+        if (PykCharts.boolean(that.dataSource.enable)) {
+             that.k.dataSource();
+        }
     };
 
     this.renderColor = function (d, i) {
@@ -275,7 +280,7 @@ PykCharts.maps.oneLayer = function (options) {
     };
 
     this.bodColor = function (d) {
-
+        console.log(that.onhover);
         if(that.onhover !== "none") {
             if (that.onhover === "highlight_border") {
                 d3.select("path[state_name='" + d.properties.NAME_1 + "']")
@@ -304,6 +309,7 @@ PykCharts.maps.oneLayer = function (options) {
                     });
             }
         } else {
+            console.log("none");
             that.bodUncolor(d);
         }
     };
