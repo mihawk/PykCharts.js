@@ -98,7 +98,7 @@ PykCharts.multiD.area = function (options){
 			},
 			createSvg: function (i){
 				$(that.selector).attr("class","PykCharts-twoD PykCharts-multi-series2D PykCharts-line-chart");
-				$(options.selector).css("background-color",that.bg);
+				$(options.selector).css({"background-color":that.bg,"position":"relative"});
 
 				that.svg = d3.select(options.selector+" "+"#tooltip-svg-container-"+i).append("svg:svg")
 					.attr("id","svg")
@@ -375,6 +375,9 @@ PykCharts.multiD.area = function (options){
 						  	.on("mousemove", function(){
 						  		that.mouseEvent.crossHairPosition(that.data,null,that.xScale,that.dataLineGroup,that.lineMargin,that.type);
 						  	});
+					}
+					else if(that.type === "stackedAreaChart") {
+						that.svg.on("mousemove", function() { console.log(d3.event.pageX,d3.event.pageY); });
 					}
 				}
 				return this;

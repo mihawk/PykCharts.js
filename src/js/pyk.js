@@ -179,7 +179,7 @@ PykCharts.Configuration = function (options){
                 .attr("id","tooltip-svg-container-"+i)
                 .style("width",options.width);
             if(PykCharts.boolean(options.multiple_containers)){
-                d.style("float","left")
+                d.style("float","left");
                 // .style("height","auto");
             }
             return this;
@@ -187,21 +187,15 @@ PykCharts.Configuration = function (options){
 	    tooltip : function (d,selection,i) {
 	    	if(PykCharts.boolean(options.enableTooltip) && options.mode === "default") {
 	        	if(selection !== undefined){
-	        		d3.select(options.selector + " #tooltip-svg-container-"+i).append("div")
-                        .attr("id", "tooltip-container")
-						.style("position", "relative")
-						.style("height", "35px")
-						.style("margin-top", "10px");
-
-					PykCharts.Configuration.tooltipp = d3.select(options.selector + " #tooltip-container").append("div")
+                    console.log(selection);
+	        		PykCharts.Configuration.tooltipp = d3.select(selection).append("div")
 			        	.attr("id", "pyk-tooltip")
 			        	.attr("class","pyk-line-tooltip");
 	        	} else {
                     PykCharts.Configuration.tooltipp = d3.select("body")
                         .append("div")
                         .attr("id", "pyk-tooltip")
-                        // .attr("class","pyk-line-tooltip");
-                     .style("height","auto")
+                        .style("height","auto")
                         .style("padding", "5px 6px")
                         .style("color","#4F4F4F")
                         .style("background","#eeeeee")
@@ -447,13 +441,13 @@ configuration.mouseEvent = function (options) {
         tooltipPosition : function (d,xPos,yPos,xDiff,yDiff) {
             if(PykCharts.boolean(options.enableTooltip) && options.mode === "default") {
             	if(xPos !== undefined){
-                    var width_tooltip = parseFloat($(options.selector+" #"+that.tooltip.attr("id")).css("width"));
+                    var width_tooltip = parseFloat($(options.selector+" #"+that.tooltip.attr("id")).css("width"));                    
                     that.tooltip
             			.style("visibility", "visible")
-                        .style("top", (yPos + yDiff))
-                        .style("left", (xPos + options.margin.left + xDiff - width_tooltip));
+                        .style("top", (yPos + yDiff) + "px")
+                        .style("left", (xPos + options.margin.left + xDiff - width_tooltip) + "px");
                 }
-                else{
+                else {
                     that.tooltip
                         .style("visibility", "visible")
                         .style("top", (d3.event.pageY - 20) + "px")
@@ -513,12 +507,12 @@ configuration.mouseEvent = function (options) {
 
                 if(type === "lineChart" || type === "areaChart") { tooltipText = data[j].tooltip; }
                 else if(type === "multiline") {
+                    that.tooltip.classed({"pyk-line-tooltip":false,"pyk-multiline-tooltip":true});
                     var len_data = new_data[0].data.length,tt_row=""; // Assumption -- number of Data points in different groups will always be equal
                     for(var i=0;i < number_of_lines;i++) {
                         for(var j=0;j < len_data;j++) {
                             if(new_data[i].data[j].x === activeTick) {
                                 tt_row += "<tr><td>"+new_data[i].name+"</td><td><b>"+new_data[i].data[j].tooltip+"</b></td></tr>";
-                                // console.log(new_data[i].data[j].x," : ",new_data[i].data[j].tooltip);
                             }
                         }
                     }
@@ -531,10 +525,10 @@ configuration.mouseEvent = function (options) {
 
     			if((cx >= (lineMargin + left)) && (cx <= (pathWidth + lineMargin + left)) && (cy >= top) && (cy <= (h - bottom))) {
                 	if(type === "lineChart" || type === "areaChart") {
-                        this.tooltipPosition(tooltipText,0,cy,-14,20);
+                        this.tooltipPosition(tooltipText,0,cy,-14,-15);
                     }
-                    else if (type === "multiline") {
-                        this.tooltipPosition(tooltipText,cx,cy,50,-10);
+                    else if (type === "multiline" || type === "stackedAreaChart") {
+                        this.tooltipPosition(tooltipText,cx,event.offsetY,-2,20);
                     }
                     this.toolTextShow(tooltipText);
                     (options.enableCrossHair) ? this.crossHairShow(cx,top,cx,(h - bottom),cx,cy,type) : null;
