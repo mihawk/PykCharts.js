@@ -125,6 +125,7 @@ PykCharts.twoD.line = function (options){
 			that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
 		}
 		else if(that.mode === "infographic") {
+			console.log("infographic");
 			that.optional_feature()
 						.chartType()
 						.createSvg();
@@ -523,19 +524,19 @@ PykCharts.twoD.line = function (options){
 
 	this.zoomed = function() {
 		that.zoom_count++;
-		
+
 		if(that.zoom_count < 2){
 			that.k.isOrdinal(that.svg,".x.axis",that.xScale);
 			that.k.isOrdinal(that.svg,".x.grid",that.xScale);
 
 			that.k.isOrdinal(that.svg,".y.axis",that.yScale);
 			that.k.isOrdinal(that.svg,".y.grid",that.yScale);
-			
+
 			for (i = 0;i < that.new_data_length;i++) {
-				type = that.type + "svg" + i;    	
+				type = that.type + "svg" + i;
 				that.svg.select("#"+type)
 					.attr("class", that.chartPathClass)
-					.attr("d", that.chart_path);    	
+					.attr("d", that.chart_path);
 			}
 			if(that.type === "multiLineChart") {
 				d3.select(that.selected)
