@@ -5,7 +5,6 @@ PykCharts.maps.oneLayer = function (options) {
         that = PykCharts.maps.processInputs(that, options);
         //$(that.selector).css("height",that.height);
         that.data = options.data;
-        console.log(that.tooltip);
         that.k
             .totalColors(that.colors.total)
             .colorType(that.colors.type)
@@ -32,7 +31,6 @@ PykCharts.maps.oneLayer = function (options) {
         var config = {
             enableLegend: function (el) {
                 if (PykCharts.boolean(el)) {
-                    console.log("hagcxag");
                     that.renderLegend();
                 };
                 return this;
@@ -133,7 +131,6 @@ PykCharts.maps.oneLayer = function (options) {
             .on("mouseover", function (d) {
                 // console.log((_.where(that.data, {iso2: d.properties.iso_a2})[0]).tooltip)
                 if (PykCharts.boolean(that.tooltip)) {
-                    console.log("vghacg");
                     ttp.style("visibility", "visible");
                     ttp.html((_.where(that.data, {iso2: d.properties.iso_a2})[0]).tooltip);
                 }
