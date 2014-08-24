@@ -189,6 +189,7 @@ PykCharts.Configuration = function (options){
 	    tooltip : function (d,selection,i) {
 	    	if(PykCharts.boolean(options.enableTooltip) && options.mode === "default") {
 	        	if(selection !== undefined){
+                    console.log(selection);
 	        		PykCharts.Configuration.tooltipp = d3.select(selection).append("div")
 			        	.attr("id", "pyk-tooltip")
 			        	.attr("class","pyk-line-tooltip");
@@ -526,11 +527,11 @@ configuration.mouseEvent = function (options) {
 
     			if((cx >= (lineMargin + left)) && (cx <= (pathWidth + lineMargin + left)) && (cy >= top) && (cy <= (h - bottom))) {
                 	if(type === "lineChart" || type === "areaChart") {
-                        this.tooltipPosition(tooltipText,0,cy,-14,-10);
+                        this.tooltipPosition(tooltipText,0,cy,-14,-15);
                     }
                     else if (type === "multiline" || type === "stackedAreaChart") {
-                        console.log(cx,d3.event.pageX,cy,d3.event.pageY);
-                        this.tooltipPosition(tooltipText,d3.event.pageX,d3.event.pageY,60,-1100);
+                        console.log(cx,d3.event.target.id,"^^^^^^^^^^^^^");
+                        this.tooltipPosition(tooltipText,cx,d3.event.pageY,0,0);
                     }
                     this.toolTextShow(tooltipText);
                     (options.enableCrossHair) ? this.crossHairShow(cx,top,cx,(h - bottom),cx,cy,type) : null;
