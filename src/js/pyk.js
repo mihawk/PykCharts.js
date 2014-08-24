@@ -177,7 +177,7 @@ PykCharts.Configuration = function (options){
         makeMainDiv : function (selection,i) {
             var d = d3.select(selection).append("div")
                 .attr("id","tooltip-svg-container-"+i)
-                .style("width","auto")
+                .style("width",options.width);
             if(PykCharts.boolean(options.multiple_containers)){
                 d.style("float","left")
                 // .style("height","auto");

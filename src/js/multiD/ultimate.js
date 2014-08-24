@@ -62,11 +62,12 @@ PykCharts.multiD.ultimate = function(options){
         }
         if(that.mode === "default") {
             that.k.title()
-                .subtitle();
+                .subtitle()
+                .makeMainDiv(that.selector,1);
 
             that.optionalFeatures()
-                .legendsContainer()
-                .svgContainer();
+                .legendsContainer(1)
+                .svgContainer(1);
 
             that.k.credits()
                 .dataSource()
@@ -85,7 +86,8 @@ PykCharts.multiD.ultimate = function(options){
                 .yGrid(that.svg,that.group,that.yScaleInvert);
               
         } else if(that.mode === "infographics") {
-            that.optionalFeatures().svgContainer()
+            that.k.makeMainDiv(that.selector,1);
+            that.optionalFeatures().svgContainer(1)
                 .createColumnChart()
                 .axisContainer();
 
@@ -98,9 +100,10 @@ PykCharts.multiD.ultimate = function(options){
     this.optionalFeatures = function() {
         var that = this;
         var optional = {
-            svgContainer: function () {
+            svgContainer: function (i) {
                $(that.selector).attr("class","PykCharts-twoD");
-                that.svg = d3.select(that.selector).append("svg:svg")
+                that.svg = d3.select(options.selector + " #tooltip-svg-container-" + i)
+                    .append("svg:svg")
                     .attr("width",that.width )
                     .attr("height",that.height)
                     .attr("id","svgcontainer")
@@ -120,9 +123,10 @@ PykCharts.multiD.ultimate = function(options){
                 }
                 return this;
             },
-            legendsContainer: function () {
+            legendsContainer: function (i) {
                 if(PykCharts.boolean(that.legends.enable)) {
-                    that.legend_svg = d3.select(that.selector).append("svg:svg")
+                    that.legend_svg = d3.select(options.selector + " #tooltip-svg-container-" + i)
+                        .append("svg:svg")
                         .attr("width",that.width)
                         .attr("height",50)
                         .attr("class","legendscontainer")
