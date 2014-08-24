@@ -45,7 +45,8 @@ PykCharts.maps.oneLayer = function (options) {
             enableClick: function (ec) {
                 if (PykCharts.boolean(ec)) {
                     that.areas.on("click", that.clicked);
-                    that.onhover = "color_saturation";
+                    // that.onhover = "color_saturation";
+                    that.onhover1 = that.onhover;
                 };
                 return this;
             }
@@ -280,13 +281,13 @@ PykCharts.maps.oneLayer = function (options) {
     };
 
     this.bodColor = function (d) {
-        console.log(that.onhover);
-        if(that.onhover !== "none") {
-            if (that.onhover === "highlight_border") {
+        // console.log(that.onhover1);
+        if(that.onhover1 !== "none") {
+            if (that.onhover1 === "highlight_border") {
                 d3.select("path[state_name='" + d.properties.NAME_1 + "']")
                     .attr("stroke", that.border.color)
                     .attr("stroke-width", that.border.thickness + 0.5);
-            } else if (that.onhover === "shadow") {
+            } else if (that.onhover1 === "shadow") {
                 d3.select("path[state_name='" + d.properties.NAME_1 + "']")
                     .attr('filter', 'url(#dropshadow)')
                     .attr("opacity", function () {
@@ -297,7 +298,7 @@ PykCharts.maps.oneLayer = function (options) {
                         }
                         return 0.5;
                     });
-            } else if (that.onhover === "color_saturation") {
+            } else if (that.onhover1 === "color_saturation") {
                 d3.select("path[state_name='" + d.properties.NAME_1 + "']")
                     .attr("opacity", function () {
                         if (that.colors.palette=== "" && that.colors.type === "saturation") {

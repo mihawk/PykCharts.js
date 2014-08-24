@@ -265,11 +265,9 @@
                     console.log("tooltip yes");
                     $("input[name='tooltip_mode']").prop('disabled', false);
                     if ($("input[name='tooltip_mode']:checked").val() === "fixed") {
-                        console.log("fixed");
                         $("#a7").prop('disabled', false);
                         $("#a8").prop('disabled', false);
                     } else {
-                        console.log("moving");
                         $("#a8").prop('disabled', true);
                         $("#a7").prop('disabled', true);
                     }
