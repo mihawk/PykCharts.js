@@ -6,9 +6,9 @@ PykCharts.maps.oneLayer = function (options) {
         //$(that.selector).css("height",that.height);
         that.data = options.data;
 
-        that.margin = {top:10, right:30, bottom:30, left:30};
+        that.margin = {top:10, right:30, bottom:10, left:30};
 
-        that.reducedWidth = that.width - that.margin.left - that.margin.right;
+        that.reducedWidth = that.width - (that.margin.left * 2) - that.margin.right;
         that.reducedHeight = that.height - that.margin.top - that.margin.bottom;
 
         that.k
@@ -190,7 +190,9 @@ PykCharts.maps.oneLayer = function (options) {
 
         that.optionalFeatures()
             .enableLabel(that.label)
-            .enableClick(that.enable_click)
+            .enableClick(that.enable_click);
+
+        that.optionalFeatures()
             .axisContainer(true);
 
         x_extent = d3.extent(that.timeline_data, function(d) { return parseInt(d.x,10); });
@@ -204,6 +206,15 @@ PykCharts.maps.oneLayer = function (options) {
                 unique.push(d.x);
             }
         });
+
+        // that.svg.append("rect")
+        //     .attr("width", that.width)
+        //     .attr("height", (that.margin.top + that.margin.bottom)*2)
+        //     .attr("x", 0)
+        //     .attr("y", that.reducedHeight - (that.margin.top)*2 - 4)
+        //     .style("stroke-width", "1px")
+        //     .style("stroke", "black")
+        //     .style("fill", "none");
 
         var marker = that.svg.append("image")
             .attr("xlink:href","../img/marker.png")
