@@ -13,7 +13,7 @@
         "x": 42,
         "y": 5,
         "weight": 530,
-        "color": "#44A770",
+        "color": " #FFF44F",
         "tooltip": "Nestle",
         "group": "Nestle"
     },
@@ -94,7 +94,7 @@
         "x": 50,
         "y": 2.5,
         "weight": 480,
-        "color": " #44A770",
+        "color": "#FFF44F",
         "tooltip": "Nestle",
         "group": "Nestle"
     },
@@ -103,7 +103,7 @@
         "x": 51,
         "y": 2.5,
         "weight": 350,
-        "color": " #FFF44F",
+        "color": "#FFF44F",
         "tooltip": "Nestle",
         "group": "Nestle"
     },
@@ -157,6 +157,87 @@
         "x": 30,
         "y": 5,
         "weight": 400,
+        "color": "#DE5851",
+        "tooltip": "cadbury",
+        "group": "cadbury"
+    },
+    {
+        "name": "Lindt",
+        "x": 40,
+        "y": 4,    
+        "weight": 590,
+        "color": "#e65f3d",
+        "tooltip": "ABC",
+        "group": "ABC"
+    },
+    {
+        "name": "Dolfin",
+        "x": 45,
+        "y": 3.5,
+        "weight": 350,
+        "color": "#493452",
+        "tooltip": "Lindt",
+        "group": "Lindt"
+    }, 
+    {
+        "name": "Hershey",
+        "x": 60,
+        "y": 5,
+        "weight": 400,
+        "color": "steelblue",
+        "tooltip": "Hershey",
+        "group": "Hershey"
+    },
+    {
+        "name": "Dairy",
+        "x": 80,
+        "y": 2.5,
+        "weight": 500,
+        "color": "#44A770",
+        "tooltip": "B",
+        "group": "B"
+    },
+    {
+        "name": "Milk",
+        "x": 50,
+        "y": 3.5,
+        "weight": 500,
+        "color": "#44A770",
+        "tooltip": "B",
+        "group": "B"
+    },
+    {
+        "name": "shots",
+        "x": 40,
+        "y": 2.5,
+        "weight": 500,
+        "color": "#44A770",
+        "tooltip": "B",
+        "group": "B"
+    },
+    {
+        "name": "shots",
+        "x": 40,
+        "y": 4.5,
+        "weight": 500,
+        "color": "#44A770",
+        "tooltip": "B",
+        "group": "B"
+    },
+    {
+        "name": "Hershey",
+        "x": 65,
+        "y": 5,
+        "weight": 440,
+        "color": "steelblue",
+        "tooltip": "Hershey",
+        "group": "Hershey"
+    },
+    {
+        "name": "Dairy Milk",
+        "x": 65,
+        "y": 4.7,
+        "weight": 500,
         "color": "#DE5851",
         "tooltip": "cadbury",
         "group": "cadbury"
