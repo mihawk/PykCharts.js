@@ -939,6 +939,10 @@ configuration.Theme = function(){
 
     that.mapsTheme = {
         // "mapCode": "india-topo",
+        "map": {
+            "width":1000,
+            "height":1000
+        },
         "colors" : {
             "defaultColor" : "#4682B4",
             "total" :3,
@@ -962,6 +966,8 @@ configuration.Theme = function(){
             "enable": "no"
         },
         "enableClick": "yes",
+        "onHover": "no",
+        "highlightArea":"no",
         "axis" : {
             "onHoverHighlightenable": "no",
             "x": {
