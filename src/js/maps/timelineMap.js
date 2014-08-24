@@ -24,7 +24,7 @@ PykCharts.maps.timelineMap = function (options) {
                 d3.json("../data/maps/timeline.json", function (timeline_data) {
                     that.colorPalette_data = data;
                     that.timeline_data = timeline_data.sort(function (a,b) {
-                        return a.x - b.x;
+                        return a.timestamp - b.timestamp;
                     });
                     $(that.selector).html("");
                     that.render();
@@ -78,12 +78,7 @@ PykCharts.maps.timelineMap = function (options) {
         var that = this
         , scale = 150
         , offset = [that.width / 2, that.height / 2]
-        , i
-        , x_extent
-        , x_range
-        , unique = []
-        , duration
-        , interval = 1;
+        , i;
 
         that.current_palette = _.where(that.colorPalette_data, {name:that.colors.palette, number:that.colors.total})[0];
         that.optionalFeatures()
@@ -147,11 +142,17 @@ PykCharts.maps.timelineMap = function (options) {
         that.areas = that.group.append("path")
             .attr("d", that.path)
             .attr("class", "area")
+            .attr("iso2", function (d) {
+                return d.properties.iso_a2;
+            })
             .attr("state_name", function (d) {
                 return d.properties.NAME_1;
             })
             //.attr("prev-fill",that.renderPreColor)
             .attr("fill", that.renderColor)
+            .attr("prev_fill", function (d) {
+                return d3.select(this).attr("fill");
+            })
             .attr("opacity", that.renderOpacity)
             .attr("stroke", that.border.color)
             .attr("stroke-width", that.border.thickness + "px")
@@ -192,70 +193,10 @@ PykCharts.maps.timelineMap = function (options) {
             .enableLabel(that.label)
             .enableClick(that.enable_click);
 
-        that.optionalFeatures()
-            .axisContainer(true);
-
-        x_extent = d3.extent(that.timeline_data, function(d) { return parseInt(d.x,10); });
-        x_range = [0 ,that.reducedWidth];
-        that.xScale = that.k.scaleIdentification("linear",x_extent,x_range);
-
-        that.k.xAxis(that.svg,that.gxaxis,that.xScale);
-
-        _.each(that.timeline_data, function (d) {
-            if (unique.indexOf(d.x) === -1) {
-                unique.push(d.x);
-            }
-        });
-
-        var bbox = d3.select(that.selector+" .axis").node().getBBox()
-        , timeline_status;
-
-        var startTimeline = function () {
-            if (timeline_status==="playing") {
-                timeline_status = "paused";
-                play.attr("xlink:href","../img/play.gif");
-                clearInterval(that.playInterval);
-            } else {
-                timeline_status = "playing";
-                play.attr("xlink:href","../img/pause.gif");
-                that.playInterval = setInterval(function () {
-                    marker.transition()
-                        .duration(200)
-                        .attr("x",  (that.margin.left*2) + that.xScale(unique[interval]) - 7);
-
-                    unique[interval]
-
-                    interval++;
-
-                    if (interval===unique.length) {
-                        play.attr("xlink:href","../img/play.gif");
-                        clearInterval(that.playInterval);
-                        // marker.attr("x",  that.margin.left + that.xScale(unique[0]) - 7);
-                    };
-                }, 500);
-            }
-        }
-        
-        var play = that.svg.append("image")
-            .attr("xlink:href","../img/play.gif")
-            .attr("x", that.margin.left / 2)
-            .attr("y", that.reducedHeight - that.margin.top - (bbox.height/2))
-            .attr("width","24px")
-            .attr("height", "21px")
-            .style("cursor", "pointer")
-            .on("click", startTimeline)
-
-        var marker = that.svg.append("image")
-            .attr("xlink:href","../img/marker.png")
-            .attr("x", (that.margin.left*2) + that.xScale(unique[0]) - 7)
-            .attr("y", that.reducedHeight)
-            .attr("width","14px")
-            .attr("height", "12px")
-
-        duration = unique.length * 1000;
-
         that.k.dataSource(that.dataSource)
             .credits(that.creditMySite);
+
+        that.renderTimeline();
     };
 
     this.renderColor = function (d, i) {
@@ -447,6 +388,103 @@ PykCharts.maps.timelineMap = function (options) {
         d3.selectAll("path")
             .attr("fill", that.renderColor)
             .attr("opacity", that.renderOpacity);
+    }
+
+    this.renderTimeline = function () {
+        var x_extent
+        , x_range
+        , unique = []
+        , duration
+        , interval = interval1 = 1;
+        
+        that.optionalFeatures()
+            .axisContainer(true);
+
+        x_extent = d3.extent(that.timeline_data, function(d) { return parseInt(d.timestamp,10); });
+        x_range = [0 ,that.reducedWidth];
+        that.xScale = that.k.scaleIdentification("linear",x_extent,x_range);
+
+        that.k.xAxis(that.svg,that.gxaxis,that.xScale);
+
+        _.each(that.timeline_data, function (d) {
+            if (unique.indexOf(d.timestamp) === -1) {
+                unique.push(d.timestamp);
+            }
+        });
+
+        var bbox = d3.select(that.selector+" .axis").node().getBBox()
+        , timeline_status;
+
+        var startTimeline = function () {
+            if (timeline_status==="playing") {
+                timeline_status = "paused";
+                play.attr("xlink:href","../img/play.gif");
+                clearInterval(that.playInterval);
+            } else {
+                timeline_status = "playing";
+                play.attr("xlink:href","../img/pause.gif");
+                that.playInterval = setInterval(function () {
+                    marker.transition()
+                        .duration(500)
+                        .attr("x",  (that.margin.left*2) + that.xScale(unique[interval]) - 7);
+
+                    var heatmap = _.where(that.timeline_data, {timestamp:unique[interval]});
+                    _.each(heatmap, function (d) {
+                        d3.select("path[iso2='"+d.iso2+"']")
+                            .transition()
+                            .duration(250)
+                            .attr("fill", d.color);
+                    });
+
+                    interval++;
+
+                    if (interval===unique.length) {
+                        play.attr("xlink:href","../img/play.gif");
+                        clearInterval(that.playInterval);
+                        // marker.attr("x",  that.margin.left + that.xScale(unique[0]) - 7);
+                    };
+                }, 1000);
+
+                setTimeout(function () {
+                    that.undoHeatmap = setInterval(function () {
+                        var undo = _.where(that.timeline_data, {timestamp:unique[interval1]});
+                        _.each(undo, function (d) {
+                            d3.select("path[iso2='"+d.iso2+"']")
+                                .transition()
+                                .duration(250)
+                                .attr("fill", function (d) {
+                                    return d3.select(this).attr("prev_fill");
+                                });
+                        });
+
+                        interval1++;
+
+                        if (interval1===unique.length) {
+                            clearInterval(that.undoHeatmap);
+                        };
+                    }, 1000);
+                },1000);
+            }
+        }
+
+        var play = that.svg.append("image")
+            .attr("xlink:href","../img/play.gif")
+            .attr("x", that.margin.left / 2)
+            .attr("y", that.reducedHeight - that.margin.top - (bbox.height/2))
+            .attr("width","24px")
+            .attr("height", "21px")
+            .style("cursor", "pointer")
+            .on("click", startTimeline)
+
+        var marker = that.svg.append("image")
+            .attr("xlink:href","../img/marker.png")
+            .attr("x", (that.margin.left*2) + that.xScale(unique[0]) - 7)
+            .attr("y", that.reducedHeight)
+            .attr("width","14px")
+            .attr("height", "12px")
+
+        duration = unique.length * 1000;
+
     }
 };
 
