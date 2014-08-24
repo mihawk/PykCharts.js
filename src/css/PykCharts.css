@@ -41,6 +41,13 @@ body {
   cursor: pointer;
 }
 
+.PykCharts-multi-series2D path.multi-line-hover {
+  fill: none;
+  stroke-width: 2px;
+  stroke: orange;
+  cursor: pointer;
+}
+
 .PykCharts-multi-series2D .bullets {
   display: block;
   fill: steelblue;
@@ -105,7 +112,7 @@ body {
 .PykCharts-line-chart .pyk-line-tooltip{
   display: block;
   height: auto;
-  width: 50px;
+  width: 20px;
   padding: 5px 6px;
   color: #4F4F4F;
   background: #eeeeee;
@@ -120,7 +127,7 @@ body {
   visibility: hidden;
 }
 
-.PykCharts-line-chart .pyk-line-tooltip:after{
+/*.PykCharts-line-chart .pyk-line-tooltip:after{
   content: "\25E2";
   color: #eeeeee;
   text-shadow: 0.5px 0.5px 0.3px #ccc;
@@ -130,7 +137,7 @@ body {
   position: absolute;
   top: 18px;
   -webkit-transform: rotate(45deg);
-}
+}*/
 
 .PykCharts-twoD #title {
   color: #1D1D1D;
