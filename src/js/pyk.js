@@ -134,7 +134,9 @@ PykCharts.Configuration = function (options){
             return this;
         },
 	    credits : function () {
+            console.log("credist");
 	        if(PykCharts.boolean(options.creditMySite.mySiteName) || PykCharts.boolean(options.creditMySite.mySiteUrl)) {
+                console.log("havdahdagd");
                 var credit = options.creditMySite;
                 var enable = true;
 
@@ -216,7 +218,7 @@ PykCharts.Configuration = function (options){
                         .style("z-index","10")
                         .style("visibility", "hidden");
                 }    
-            } else if (PykCharts.boolean(options.tooltip)) {
+            } else if (PykCharts.boolean(options.tooltip.enable)) {
                         if (options.tooltip.mode === "fixed") {
                             PykCharts.Configuration.tooltipp = d3.select("body")
                                 .append("div")

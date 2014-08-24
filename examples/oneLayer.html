@@ -365,6 +365,7 @@
                     $("#legend-container").html("");
                     $("#map-container").attr("style", "float: left; position: static");
                     $("#legend-container").attr("style", "background-color: white");
+
                     k = new PykCharts.maps.oneLayer({
                         selector: "#map-container",
                         mapCode: $("#one").val() + "-topo",
@@ -404,12 +405,13 @@
                                 animationGifUrl: "http://www.sportdiver.com/sites/all/modules/platform/inline_login/loading.gif"
                             },
                             creditMySite:{
-                                text: "World Bank",
-                                url: "http://www.pykih.com/"
+                                enableCredits: checked('credits'),
+                                mySiteName: $("#d3").val(),
+                                mySiteUrl: $("#d4").val()
                             },
                             dataSource:{
-                                text: "World Bank",
-                                url: "http://www.pykih.com/"
+                                text: $("#d1").val(),
+                                url: $("#d2").val()
                             }
                         }
 
