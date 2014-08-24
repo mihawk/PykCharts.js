@@ -131,6 +131,7 @@ PykCharts.maps.oneLayer = function (options) {
             .on("mouseover", function (d) {
                 // console.log((_.where(that.data, {iso2: d.properties.iso_a2})[0]).tooltip)
                 if (PykCharts.boolean(that.tooltip)) {
+                    console.log("dharaaaa");
                     ttp.style("visibility", "visible");
                     ttp.html((_.where(that.data, {iso2: d.properties.iso_a2})[0]).tooltip);
                 }
@@ -160,7 +161,6 @@ PykCharts.maps.oneLayer = function (options) {
                 }
                 that.bodUncolor(d);
             });
-        console.log(that.enableClick);
         this.optionalFeatures()
             .enableLabel(that.label.enable)
             .enableClick(that.enableClick);
@@ -265,6 +265,7 @@ PykCharts.maps.oneLayer = function (options) {
     };
 
     this.renderLabel = function () {
+         console.log("legends")
         that.group.append("text")
             .attr("x", function (d) { return that.path.centroid(d)[0]; })
             .attr("y", function (d) { return that.path.centroid(d)[1]; })
