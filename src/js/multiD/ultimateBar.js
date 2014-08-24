@@ -326,7 +326,7 @@ PykCharts.multiD.ultimateBar = function(options){
                             return d.y;
                         })
                         .attr("x", function(d){
-                            return 0;
+                            return -10;
                         })
                         .attr("fill",that.axis.y.labelColor)
                         .text(function(d){
@@ -334,10 +334,19 @@ PykCharts.multiD.ultimateBar = function(options){
                         });
                 if(that.axis.y.position === "right") {
                     yAxis_label.attr("x", function () {
-                        return (that.width-that.margin.left-that.margin.right);
-                    })
+                        return (that.width-that.margin.left-that.margin.right) + 10;
+                    });
                 }
-
+                if(that.axis.y.position === "left" && that.axis.y.orient === "right") {
+                    yAxis_label.attr("x", function (d) {
+                        return 10;
+                    });
+                }
+                if(that.axis.y.position === "right" && that.axis.y.orient === "left") {
+                    yAxis_label.attr("x", function (d) {
+                        return (that.width-that.margin.left-that.margin.right) - 10;
+                    });
+                }
                 if(that.axis.y.orient === "right") {
                     yAxis_label.attr("text-anchor","start");
                 } else if(that.axis.y.orient === "left") {

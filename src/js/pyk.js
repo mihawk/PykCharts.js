@@ -919,7 +919,7 @@ configuration.Theme = function(){
             "enable" : "no"
         },
         "legends" : {
-            "enable": "no",
+            "enable": "yes",
             "display" : "horizontal"
         },
         "scatterplot" : {
