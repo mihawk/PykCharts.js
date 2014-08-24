@@ -173,7 +173,7 @@ PykCharts.multiD.ultimateBar = function(options){
             },
             createColumnChart: function() {
                 var w = that.width - that.margin.left - that.margin.right,
-                    j = 0,
+                    j = that.max_length+1,
                     h = that.height - that.margin.top - that.margin.bottom;
 
                 var the_bars = that.the_bars;
@@ -271,13 +271,13 @@ PykCharts.multiD.ultimateBar = function(options){
                     .attr("fill-opacity", function (d,i) {
                         //console.log(d.x);
                         if(PykCharts.boolean(that.saturationEnable)){
-                            if(j<that.max_length){
+                            if(j>1){
                                 //console.log(d.x, "d.x" , j, "j");
-                                j++;
+                                j--;
                                 return j/that.max_length;
                             } else {
-                                j = 0;
-                                j++;
+                                j = that.max_length+1;
+                                j--;
                                 return j/that.max_length;
                             }
                         }
@@ -466,7 +466,7 @@ PykCharts.multiD.ultimateBar = function(options){
                         })
                         .attr("fill-opacity", function (d,i) {
                             if(PykCharts.boolean(that.saturationEnable)){
-                                return (i+1)/that.max_length;
+                                return (that.max_length-i)/that.max_length;
                             }
                         });
 
