@@ -946,7 +946,7 @@ configuration.Theme = function(){
         "colors" : {
             "defaultColor" : "#4682B4",
             "total" :3,
-            "type" : "saturation",
+            "type" : "satuartion",
             "palette" : "Blue"
         },
         "border" :{
