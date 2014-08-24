@@ -966,7 +966,7 @@ configuration.Theme = function(){
             "enable": "no"
         },
         "enableClick": "yes",
-        "onHover": "no",
+        "onhover": "no",
         "highlightArea":"no",
         "axis" : {
             "onHoverHighlightenable": "no",
