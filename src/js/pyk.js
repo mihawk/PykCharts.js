@@ -530,8 +530,7 @@ configuration.mouseEvent = function (options) {
                         this.tooltipPosition(tooltipText,0,cy,-14,-15);
                     }
                     else if (type === "multiline" || type === "stackedAreaChart") {
-                        console.log(cx,d3.event.target.id,"^^^^^^^^^^^^^");
-                        this.tooltipPosition(tooltipText,cx,d3.event.pageY,0,0);
+                        this.tooltipPosition(tooltipText,cx,event.offsetY,-2,20);
                     }
                     this.toolTextShow(tooltipText);
                     (options.enableCrossHair) ? this.crossHairShow(cx,top,cx,(h - bottom),cx,cy,type) : null;
@@ -665,9 +664,8 @@ configuration.fillChart = function (options,theme,config) {
             }
         },
         colorPieW : function (d) {
-            if(!(PykCharts.boolean(options.size.enable))) {                
-                return d.color;
-                //return options.saturationColor;
+            if(!(PykCharts.boolean(options.size.enable))) {
+                return options.saturationColor;
             } else if(PykCharts.boolean(options.size.enable)) {
                 if(d.color) {
                     return d.color;
