@@ -134,9 +134,7 @@ PykCharts.Configuration = function (options){
             return this;
         },
 	    credits : function () {
-            // console.log("credist");
 	        if(PykCharts.boolean(options.creditMySite.mySiteName) || PykCharts.boolean(options.creditMySite.mySiteUrl)) {
-                // console.log("havdahdagd");
                 var credit = options.creditMySite;
                 var enable = true;
 
@@ -994,7 +992,7 @@ configuration.Theme = function(){
             "enable": "no"
         },
         "enableClick": "yes",
-        "onhover": "no",
+        "onhover": "shadow",
         "highlightArea":"no",
         "axis" : {
             "onHoverHighlightenable": "no",

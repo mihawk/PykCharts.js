@@ -215,17 +215,17 @@ body {
 }
 
 .PykCharts-spider-web .link {
-  stroke: #000;
-  stroke-width: 1px;
-}
-
-.PykCharts-spider-web .axis {
   stroke: #1D1D1D;
   stroke-width: 1.5px;
 }
 
+.PykCharts-spider-web .axis {
+  stroke: #B0B0B0  ;
+  stroke-width: 0.5px;
+}
+
 .PykCharts-spider-web .grid {
-  stroke: #ddd;
+  stroke: #B0B0B0  ;
   stroke-width: 0.5px;
 }
 

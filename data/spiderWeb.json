@@ -1,85 +1,85 @@
     [
     
         {
-            "x": "A",
+            "x": "National Democratic Alliance",
             "y": 5,
             "weight":15,
             "group":"A",
             "color": "#ffbb78",
-            "tooltip": "Jan-Yellow Tooltip"
+            "tooltip": "National Democratic Alliance"
         },
         {
-            "x": "B",
+            "x": "United Progressive Alliance",
             "y": 10,
             "weight":20,
             "group":"A",
             "color": "#ff7f0e",
-            "tooltip": "Jan-Orange Tooltip"
+            "tooltip": "United Progressive Alliance"
         },
         {
-            "x": "C",
+            "x": "Aam Aadmi Party",
             "y": 12,
             "weight":10,
             "group":"A",
             "color": "#d62728",        
-            "tooltip": "Jan-Red Tooltip"
+            "tooltip": "Aam Aadmi Party"
         },
         {
-            "x": "D",
+            "x": "Bahujan Samaj Party",
             "y": 17,
             "weight":30,
             "group":"A",
             "color": "#aec7e8",
-            "tooltip": "Jan-Blue Tooltip"
+            "tooltip": "Bahujan Samaj Party"
         },
         {
-            "x": "E",
+            "x": "Congress Party",
             "y": 30,
             "weight":25,
             "group":"A",
             "color": "#1f77b4",
-            "tooltip": "Jan-Dark Blue Tooltip"
+            "tooltip": "Congress Party"
         },
 
         {
-            "x": "A",
+            "x": "National Democratic Alliance",
             "y": 40,
             "weight":25,
             "group":"B",
             "color": "#ffbb78",
-            "tooltip": "Jan-Yellow"
+            "tooltip": "National Democratic Alliance"
         },
         {
-            "x": "B",
+            "x": "United Progressive Alliance",
             "y": 20,
             "weight":10,
             "group":"B",
             "color": "#ff7f0e",
-            "tooltip": "Jan-Orange"
+            "tooltip": "United Progressive Alliance"
         },
         {
-            "x": "C",
+            "x": "Aam Aadmi Party",
             "y": 30,
             "weight":30,
             "group":"B",
             "color": "#d62728",        
-            "tooltip": "Jan-Red"
+            "tooltip": "Aam Aadmi Party"
         },
         {
-            "x": "D",
+            "x": "Bahujan Samaj Party",
             "y": 5,
             "weight":12,
             "group":"B",
             "color": "#aec7e8",
-            "tooltip": "Jan-Blue"
+            "tooltip": "Bahujan Samaj Party"
         },
         {
-            "x": "E",
+            "x": "Nationalist Congress Party",
             "y": 15,
             "weight":7,
             "group":"B",
             "color": "#1f77b4",
-            "tooltip": "Jan-Dark Blue "
+            "tooltip": "Nationalist Congress Party"
         }
     
 ]
