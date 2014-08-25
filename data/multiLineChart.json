@@ -49,13 +49,6 @@
 		"tooltip":70
 	},
 	{
-		"group":"India",
-		"color": "#e65f2d",
-		"x":"ABC",
-		"y":40,
-		"tooltip":40
-	},
-	{
 		"group":"U.S.A.",
 		"color": "#e3ad63",
 		"x":"Bank",
@@ -105,13 +98,6 @@
 		"tooltip":90
 	},
 	{
-		"group":"U.S.A.",
-		"color": "#e65f2d",
-		"x":"ABC",
-		"y":70,
-		"tooltip":70
-	},
-	{
 		"group":"China",
 		"color": "#edd6b4",
 		"x":"Bank",
@@ -159,12 +145,5 @@
 		"x":"Automobile",
 		"y":30,
 		"tooltip":30
-	},
-	{
-		"group":"China",
-		"color": "#e65f2d",
-		"x":"ABC",
-		"y":50,
-		"tooltip":50
 	}
 ]
