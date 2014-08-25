@@ -271,6 +271,10 @@ PykCharts.multiD.ultimateBar = function(options){
                     .attr("fill-opacity", function (d,i) {
                         //console.log(d.x);
                         if(PykCharts.boolean(that.saturationEnable)){
+                            if(d.highlight) {
+                                j--;
+                                return 1;
+                            }
                             if(j>1){
                                 //console.log(d.x, "d.x" , j, "j");
                                 j--;
