@@ -208,7 +208,7 @@ PykCharts.Configuration = function (options){
                         .style("min-width","30px")
                         .style("z-index","10")
                         .style("visibility", "hidden");
-                }    
+                }
             } else if (PykCharts.boolean(options.tooltip.enable)) {
                         if (options.tooltip.mode === "fixed") {
                             PykCharts.Configuration.tooltipp = d3.select("body")
@@ -260,7 +260,7 @@ PykCharts.Configuration = function (options){
                     .style("display","none");
                 PykCharts.Configuration.cross_hair_v.append("line")
                     .attr("id","cross-hair-v");
-                
+
                 PykCharts.Configuration.cross_hair_h = svg.append("g")
                     .attr("class","line-cursor")
                     .style("display","none");
@@ -444,7 +444,7 @@ configuration.mouseEvent = function (options) {
         tooltipPosition : function (d,xPos,yPos,xDiff,yDiff) {
             if(PykCharts.boolean(options.enableTooltip) && options.mode === "default") {
             	if(xPos !== undefined){
-                    var width_tooltip = parseFloat($(options.selector+" #"+that.tooltip.attr("id")).css("width"));                    
+                    var width_tooltip = parseFloat($(options.selector+" #"+that.tooltip.attr("id")).css("width"));
                     that.tooltip
             			.style("visibility", "visible")
                         .style("top", (yPos + yDiff) + "px")
@@ -558,7 +558,7 @@ configuration.mouseEvent = function (options) {
                             .attr("x1",x1)
                             .attr("y1",y1)
                             .attr("x2",x2)
-                            .attr("y2",y2);                            
+                            .attr("y2",y2);
                         that.cross_hair_h.style("display","block");
                         that.cross_hair_h.select(options.selector + " #cross-hair-h")
                             .attr("x1",options.margin.left)
