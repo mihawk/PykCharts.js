@@ -73,11 +73,9 @@
                                 orient : "bottom",
                                 axisColor: "#fff",
                                 labelColor: "#1D1D1D",
-                                no_of_ticks: "",
-                                tickSize: 5,
-                                ticksPadding: 6,
-                                tickFormat: "",
-                                tickValues: []
+                                no_of_ticks: 10,
+                                tickSize: 0,
+                                ticksPadding: 3
                             },
                             y: {
                                 enable: "yes",
@@ -85,13 +83,16 @@
                                 orient: "left",
                                 axisColor: "#1D1D1D",
                                 labelColor: "#1D1D1D",
-                                tickSize: 5,
-                                ticksPadding: 6,
-                                no_of_ticks: "",
-                                tickFormat: "",
-                                outer_tick: "yes"
+                                no_of_ticks: 10,
+                                tickSize: 3,
+                                ticksPadding: 10,
+                                outer_tick_size: 3
                             }
                         },            
+                        tooltip : {
+                            enable : "yes",
+                            mode : "moving"
+                        },
                         curvy_lines : "no",
                         enableCrossHair: "yes"
                     }
@@ -107,7 +108,7 @@
                     chart: {
                         height: 400,
                         width: 630,
-                        margin: {top: 5, right: 25, bottom: 25, left: 45}, // top >=10
+                        margin: {top: 5, right: 25, bottom: 25, left: 45},
                         grid: {
                             xEnabled: "no",
                             yEnabled: "yes",
@@ -127,13 +128,11 @@
                                 enable: "yes",
                                 position:"bottom", //top or bottom
                                 orient : "bottom",
-                                axisColor: "#1D1D1D",
-                                labelColor: "black",
-                                no_of_ticks: "",
-                                tickSize: 5,
-                                ticksPadding: 6,
-                                tickFormat: "",
-                                tickValues: []
+                                axisColor: "#fff",
+                                labelColor: "#1D1D1D",
+                                no_of_ticks: 10,
+                                tickSize: 0,
+                                ticksPadding: 3
                             },
                             y: {
                                 enable: "yes",
@@ -141,17 +140,20 @@
                                 orient: "left",
                                 axisColor: "#1D1D1D",
                                 labelColor: "#1D1D1D",
-                                tickSize: 5,
-                                ticksPadding: 6,
-                                no_of_ticks: "",
-                                tickFormat: "",
-                                outer_tick: "yes"
+                                no_of_ticks: 10,
+                                tickSize: 3,
+                                ticksPadding: 10,
+                                outer_tick_size: 3
                             }
                         },
                         curvy_lines : "yes",
                         enableCrossHair: "yes",
                         zoom: {
                             enable: "yes"
+                        },
+                        tooltip : {
+                            enable : "yes",
+                            mode : "fixed"
                         }
                     }
                 });
@@ -237,7 +239,7 @@
                                 position:"bottom", //top or bottom
                                 orient : "bottom",
                                 axisColor: "#1D1D1D",
-                                no_of_ticks: "",
+                                no_of_ticks: "10",
                                 tickFormat: "",
                                 tickSize: 5,
                                 ticksPadding: 6,
@@ -249,7 +251,7 @@
                                 position:"left", //left or right
                                 orient: "left",
                                 axisColor: "#1D1D1D",
-                                no_of_ticks: "",
+                                no_of_ticks: "10",
                                 tickSize: 5,
                                 ticksPadding: 6,
                                 tickFormat: "", 
@@ -270,9 +272,14 @@
                             enable: "yes"
                         },
                         borderBetweenChartElements: {
-                            enable: "no",
                             width: "0px",
                             color: "blue"
+                        },
+                        label:{ 
+                            size: 12,
+                            color: "black",
+                            weight: "thin",
+                            family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
                         },
                         enableCrossHair: "yes"
                     }
@@ -287,8 +294,8 @@
                     xAxisDataFormat : "string",
                     chart: {
                         height: 400,
-                        width: 700,
-                        margin: {top: 5, right: 25, bottom: 16, left: 35},
+                        width: 630,
+                        margin: {top: 5, right: 25, bottom: 25, left: 45},
                         grid: {
                             xEnabled: "no",
                             yEnabled: "yes",
@@ -324,11 +331,9 @@
                                 orient : "bottom",
                                 axisColor: "#fff",
                                 labelColor: "#1D1D1D",
-                                no_of_ticks: "",
-                                tickSize: 1,
-                                ticksPadding: 6,
-                                tickFormat: "",
-                                tickValues: []
+                                no_of_ticks: 10,
+                                tickSize: 0,
+                                ticksPadding: 3
                             },
                             y: {
                                 enable: "yes",
@@ -336,11 +341,10 @@
                                 orient: "left",
                                 axisColor: "#1D1D1D",
                                 labelColor: "#1D1D1D",
-                                tickSize: 5,
-                                ticksPadding: 6,
-                                no_of_ticks: "",
-                                tickFormat: "",
-                                outer_tick: "yes"
+                                no_of_ticks: 10,
+                                tickSize: 3,
+                                ticksPadding: 10,
+                                outer_tick_size: 3
                             }
                         },
                         legends: {
@@ -375,10 +379,10 @@
                     xAxisDataFormat : "string",
                     chart: {
                         height: 400,
-                        width: 430,
-                        margin: {top: 5, right: 25, bottom: 25, left: 35}, // top >=10
+                        width: 630,
+                        margin: {top: 5, right: 25, bottom: 25, left: 45},
                         grid: {
-                            xEnabled: "yes",
+                            xEnabled: "no",
                             yEnabled: "yes",
                             color: ""
                         },
@@ -397,11 +401,9 @@
                                 orient : "bottom",
                                 axisColor: "#fff",
                                 labelColor: "#1D1D1D",
-                                no_of_ticks: "",
-                                tickSize: 5,
-                                ticksPadding: 6,
-                                tickFormat: "",
-                                tickValues: []
+                                no_of_ticks: 10,
+                                tickSize: 3,
+                                ticksPadding: 10
                             },
                             y: {
                                 enable: "yes",
@@ -409,11 +411,10 @@
                                 orient: "left",
                                 axisColor: "#1D1D1D",
                                 labelColor: "#1D1D1D",
-                                tickSize: 5,
-                                ticksPadding: 6,
-                                no_of_ticks: "",
-                                tickFormat: "",
-                                outer_tick: "yes"
+                                no_of_ticks: 10,
+                                tickSize: 3,
+                                ticksPadding: 10,
+                                outer_tick_size: 3
                             }
                         },
                         curvy_lines : "yes",
@@ -432,8 +433,8 @@
                     yAxisDataFormat : "string",
                     xAxisDataFormat : "number",
                     chart : {
-                            width: 400,
-                            height: 430,                            
+                            width: 700,
+                            height: 450,                            
                             margin: {top: 25, right: 25, bottom: 25, left: 55},
                             grid: {
                                 xEnabled: "yes",
@@ -483,10 +484,16 @@
                             weight: "thin",
                             family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
                         },
-                        border: {
-                            enable: "no",
-                            width: "1px",
-                            color: "blue"
+                        borderBetweenChartElements:{
+                            width: "0px",
+                            color: "white",
+                            style: "solid"
+                        },
+                        label:{ 
+                            size: 12,
+                            color: "black",
+                            weight: "thin",
+                            family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
                         },
                         enableCrossHair: "yes"
                     }
