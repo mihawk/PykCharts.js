@@ -706,6 +706,7 @@ PykCharts.multiD.scatterplot = function (options) {
             },
             crossHair : function () {
                 if(PykCharts.boolean(that.enableCrossHair)) {
+
                     var horizontalLine = that.svgContainer.append("line")
                         .attr("x1", that.margin.left)
                         .attr("y1", that.margin.top)
@@ -724,8 +725,15 @@ PykCharts.multiD.scatterplot = function (options) {
                         .attr("pointer-events","none")
                         .attr("class","line-cursor");
 
+                    $(that.selector + " " +"#horizontal-cursor").hide();
+                    $(that.selector + " " +"#vertical-cursor").hide();
+
                     that.svgContainer.on("mousemove",function () {
                         id = this.id
+    
+                        $("#horizontal-cursor").show();
+                        $("#vertical-cursor").show();
+
                         var i,
                             x = (d3.event.pageX) - ($(that.selector+ " #" + id).offset().left),
                             y = (d3.event.pageY) - ($(that.selector+ " #" + id).offset().top);
@@ -744,6 +752,12 @@ PykCharts.multiD.scatterplot = function (options) {
                                 .attr("y2",y);
                         }
                     });
+
+                    that.svgContainer.on("mouseout",function () {
+                        $(that.selector + " " +"#horizontal-cursor").hide();
+                        $(that.selector + " " +"#vertical-cursor").hide();                        
+                    });
+                    
                 }
                 return this;
             }
