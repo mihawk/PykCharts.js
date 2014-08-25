@@ -506,7 +506,7 @@ configuration.mouseEvent = function (options) {
                     }
                 }
                 for(j = 0; x > (xScale.range()[j] + xRange - lineMargin); j++) {}
-                activeTick = data[j].x;                
+                activeTick = data[j].x;
 
                 if(type === "lineChart" || type === "areaChart") { tooltipText = data[j].tooltip; }
                 else if(type === "multiline") {
@@ -519,7 +519,7 @@ configuration.mouseEvent = function (options) {
                             }
                         }
                     }
-                    tooltipText = "<table class='PykCharts'><thead class='tooltip-heading'><th colspan='3' style='text-align:left;'>"+activeTick+"</th></thead><tbody>"+tt_row+"</tbody></table>";
+                    tooltipText = "<table class='pyk-tooltip-table'><thead><th colspan='3'>"+activeTick+"</th></thead><tbody>"+tt_row+"</tbody></table>";
                 }
 
                 cx = x + lineMargin + left - 1;

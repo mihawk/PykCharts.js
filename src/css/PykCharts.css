@@ -153,6 +153,24 @@ body {
   -webkit-transition-delay: 250ms;
 }
 
+.PykCharts-multi-series2D .pyk-tooltip-table {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  color:#1f1f1f;
+  border:1px solid #e7e3e7;
+  border-collapse: collapse;
+}
+
+.PykCharts-multi-series2D .pyk-tooltip-table td, th {
+  border: 1px dashed #e7e3e7;
+  padding: 5px;
+}
+
+.PykCharts-multi-series2D .pyk-tooltip-table th {
+  font-size: 13px;
+  text-align: left;
+}
+
 /*.PykCharts-line-chart .pyk-tooltip-table table{
   border-style:solid;
   border-width:1px;
@@ -307,10 +325,10 @@ body {
 .PykCharts {
 font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 font-size: 12px;
-color:#1f1f1f  ;
+color:#1f1f1f;
 }
 .PykCharts .tooltip-heading{
-font-size: 12px;
+font-size: 13px;
 text-align: left;
 border-bottom: 1px solid lightgray;
 padding: 5px;
