@@ -112,7 +112,7 @@ body {
 .PykCharts-line-chart .pyk-line-tooltip{
   display: block;
   height: auto;
-  width: 20px;
+  width: auto;
   padding: 5px 6px;
   color: #4F4F4F;
   background: #eeeeee;
@@ -125,6 +125,32 @@ body {
   border: 1px solid #CCCCCC;
   min-width: 30px;
   visibility: hidden;
+}
+
+.PykCharts-line-chart .pyk-multiline-tooltip{
+  display: block;
+  height: auto;
+  width: auto;
+  padding: 5px 6px;
+  color: #4F4F4F;
+  background: #fff;
+  text-decoration: none;
+  position: absolute;
+  border-radius: 5px;
+  text-align: center;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  border: 1px solid #CCCCCC;
+  min-width: 30px;
+  visibility: hidden;
+  box-shadow: 0 5px 10px rgba(0,0,0,.2);
+  transition: opacity 250ms linear;
+  -moz-transition: opacity 250ms linear;
+  -webkit-transition: opacity 250ms linear;
+
+  transition-delay: 250ms;
+  -moz-transition-delay: 250ms;
+  -webkit-transition-delay: 250ms;
 }
 
 /*.PykCharts-line-chart .pyk-line-tooltip:after{

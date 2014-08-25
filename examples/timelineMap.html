@@ -5,7 +5,10 @@
     </head>
     <body>
         <div class="container cstm-container">
-        <div id = "from" class="form-group col-sm-6">
+            <div id = "map-container" class="col-sm-12">
+
+            </div>
+        <div id = "from" class="form-group col-sm-6" style = "float: left;">
             <form class="PykCharts-map">
                 <table class="cstm-table" style="font-size:14px;">
                     <tr>
@@ -82,7 +85,7 @@
                             <option value = "Multi_NavyBlue_Blue">Multi NavyBlue Blue</option>
                             <option value = "Multi_Orange_Orange">Multi Orange Orange</option>
                             <option value = "Multi_Pink_Orange">Multi Pink Orange</option>
-                            <option value = "Blue">Blue</option>
+                            <option value = "Blue" selected ="selected">Blue</option>
                             <option value = "Green">Green</option>
                             <option value = "Black">Black</option>
                             <option value = "Orange">Orange</option>
@@ -204,10 +207,8 @@
                 </table>
             </form>
         </div>
-        <div id = "map-container" class="col-sm-6">
 
-        </div>
-        <textarea rows="4" cols="50" id="live-data"></textarea>
+            <textarea rows="4" cols="50" id="live-data"></textarea>
 
         <script src="../lib/d3.min.js"></script>
         <script src="../lib/jquery-1.11.1.min.js"></script>
@@ -261,15 +262,19 @@
 
             function tooltipFunction () {
                 if ($("input[name='tooltip']:checked").val() === "yes") {
+                    console.log("tooltip yes");
                     $("input[name='tooltip_mode']").prop('disabled', false);
                     if ($("input[name='tooltip_mode']:checked").val() === "fixed") {
+                        console.log("fixed");
                         $("#a7").prop('disabled', false);
                         $("#a8").prop('disabled', false);
                     } else {
+                        console.log("moving");
                         $("#a8").prop('disabled', true);
                         $("#a7").prop('disabled', true);
                     }
                 } else {
+                    console.log("tooltip no");
                     $("input[name='tooltip_mode']").prop('disabled', true);
                     $("#a8").prop('disabled', true);
                     $("#a7").prop('disabled', true);
@@ -360,7 +365,7 @@
                     $("#legend-container").html("");
                     $("#map-container").attr("style", "float: left; position: static");
                     $("#legend-container").attr("style", "background-color: white");
-                    k = new PykCharts.maps.oneLayer({
+                    k = new PykCharts.maps.timelineMap({
                         selector: "#map-container",
                         mapCode: $("#one").val() + "-topo",
                         data: window.data_final,
@@ -385,9 +390,15 @@
                                 color: $("#a2").val(),
                                 thickness: $("#a3").val()
                             },
-                            enableClick: "no",
+                            enableClick: "yes",
                             onhover: $("#a5").val(),
                             defaultZoomLevel: $("#a9").val(),
+                            label:{
+                                enable: checked('label')
+                            },
+                            legends: {
+                                enable: checked('legend')
+                            },
                             highlightArea: checked("highlight"),
                             loading: {
                                 animationGifUrl: "http://www.sportdiver.com/sites/all/modules/platform/inline_login/loading.gif"
