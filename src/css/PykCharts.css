@@ -144,7 +144,7 @@ body {
   min-width: 30px;
   visibility: hidden;
   box-shadow: 0 5px 10px rgba(0,0,0,.2);
-  padding: 10px;
+  padding: 7px;
   transition: opacity 250ms linear;
   -moz-transition: opacity 250ms linear;
   -webkit-transition: opacity 250ms linear;

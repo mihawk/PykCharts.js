@@ -40,7 +40,7 @@ PykCharts.multiD.scatterplot = function (options) {
     this.render = function () {
         var that = this;
         that.mapGroupData = that.optionalFeatures().mapGroup();
-        console.log(that.data);
+        // console.log(that.data);
         that.fillChart = new PykCharts.Configuration.fillChart(that);      
         
         that.border = new PykCharts.Configuration.border(that);
@@ -419,7 +419,7 @@ PykCharts.multiD.scatterplot = function (options) {
                                 l++;
                                 k++;    
                             }
-                            console.log(k*24+12, "k", d.group);
+                            // console.log(k*24+12, "k", d.group);
                         return k * 24 + 12;;  
                         } 
                     };

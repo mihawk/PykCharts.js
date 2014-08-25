@@ -528,7 +528,7 @@ configuration.mouseEvent = function (options) {
 
     			if((cx >= (lineMargin + left)) && (cx <= (pathWidth + lineMargin + left)) && (cy >= top) && (cy <= (h - bottom))) {
                 	if(type === "lineChart" || type === "areaChart") {
-                        console.log(options.tooltip.mode); 
+                        // console.log(options.tooltip.mode); 
                         if((options.tooltip.mode).toLowerCase() === "fixed") {
                             this.tooltipPosition(tooltipText,0,cy,-14,-15);
                         } else if((options.tooltip.mode).toLowerCase() === "moving"){
