@@ -355,7 +355,9 @@ PykCharts.multiD.scatterplot = function (options) {
                             }
                             if((that.w - (i*100 + 75)) > 0) {
                             } else if ((that.w - (l*100 + 75)) < that.w) {
-                                k++;
+                                if(l === 0) {
+                                    k++;
+                                }
                                 l++;
                             } else {
                                 l = 0;
@@ -366,8 +368,7 @@ PykCharts.multiD.scatterplot = function (options) {
                         }; 
                         rect_parameter1value = 13;
                         rect_parameter2value = 13;
-                        var rect_parameter3value = 
-                        function (d,i) {      
+                        var rect_parameter3value = function (d,i) {      
                             if( i === 0) {
                                 k = 0, l = 0;
                             }
@@ -393,13 +394,16 @@ PykCharts.multiD.scatterplot = function (options) {
                             }
                             if((that.w - (i*100 + 75)) > 0) {
                             } else if ((that.w - (l*100 + 75)) < that.w) {
-                                k++;
+                                if( l == 0) {
+                                    k++;
+                                }
                                 l++;
                             } else {
                                 l = 0;
                                 l++;
                                 k++;    
                             }
+                            console.log(k*24+12, "k", d.group);
                         return k * 24 + 12;;  
                         } 
                     };
