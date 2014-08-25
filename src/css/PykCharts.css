@@ -144,13 +144,20 @@ body {
   min-width: 30px;
   visibility: hidden;
   box-shadow: 0 5px 10px rgba(0,0,0,.2);
+  padding: 10px;
   transition: opacity 250ms linear;
   -moz-transition: opacity 250ms linear;
   -webkit-transition: opacity 250ms linear;
-
   transition-delay: 250ms;
   -moz-transition-delay: 250ms;
   -webkit-transition-delay: 250ms;
+}
+
+.PykCharts-line-chart .pyk-tooltip-table{
+  padding: 5px;
+  border: 1px solid #cccccc;
+  border-collapse: collapse;
+  border-spacing: 5px;
 }
 
 /*.PykCharts-line-chart .pyk-line-tooltip:after{
