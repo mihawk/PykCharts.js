@@ -262,7 +262,6 @@ PykCharts.multiD.ultimate = function(options){
                     })
                     .attr("fill-opacity", function (d,i) {
                         if(PykCharts.boolean(that.saturationEnable))     {
-                            console.log(d.highlight);
                             if(d.highlight) {
                                 j--;
                                 return 1;
