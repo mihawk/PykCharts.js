@@ -377,7 +377,7 @@ PykCharts.multiD.area = function (options){
 						  	});
 					}
 					else if(that.type === "stackedAreaChart") {
-						that.svg.on("mousemove", function() { console.log(d3.event.pageX,d3.event.pageY); });
+						// that.svg.on("mousemove", function() { console.log(d3.event.pageX,d3.event.pageY); });
 					}
 				}
 				return this;

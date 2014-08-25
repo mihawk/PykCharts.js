@@ -20,7 +20,7 @@ PykCharts.multiD.line = function (options){
 	    that.interpolate = PykCharts.boolean(that.curvy_lines) ? "cardinal" : "linear";
 	    that.color_from_data = options.line && options.line.color_from_data ? options.line.color_from_data : multiDimensionalCharts.line.color_from_data;
 
-		d3.json(options.data, function (e, data) {
+	    d3.json(options.data, function (e, data) {
 			that.data = data;
 			that.data_length = data.length;
 			that.dataTransform();

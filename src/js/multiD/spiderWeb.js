@@ -434,8 +434,8 @@ PykCharts.multiD.spiderWeb = function (options) {
                             return "translate(" + (-that.width/2) + "," + (-that.height/2) + ")";
                         })
                         .style("text-anchor","middle")
-                        .attr("x", function(d, i){return that.width/2*(1-0.2*Math.sin(i*2*Math.PI/that.length))+245*Math.sin(i*2*Math.PI/that.length);})
-                        .attr("y", function(d, i){return that.height/2*(1-0.60*Math.cos(i*2*Math.PI/that.length))-65*Math.cos(i*2*Math.PI/that.length);})
+                        .attr("x", function (d, i){return that.width/2*(1-0.2*Math.sin(i*2*Math.PI/that.length))+245*Math.sin(i*2*Math.PI/that.length);})
+                        .attr("y", function (d, i){return that.height/2*(1-0.60*Math.cos(i*2*Math.PI/that.length))-75*Math.cos(i*2*Math.PI/that.length);})
                         .style("font-size",that.label.size)
                         .style("font-family",that.label.family)
                     

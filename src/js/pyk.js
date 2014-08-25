@@ -134,9 +134,7 @@ PykCharts.Configuration = function (options){
             return this;
         },
 	    credits : function () {
-            console.log("credist");
 	        if(PykCharts.boolean(options.creditMySite.mySiteName) || PykCharts.boolean(options.creditMySite.mySiteUrl)) {
-                console.log("havdahdagd");
                 var credit = options.creditMySite;
                 var enable = true;
 
@@ -189,7 +187,7 @@ PykCharts.Configuration = function (options){
 	    tooltip : function (d,selection,i) {
 	    	if(PykCharts.boolean(options.enableTooltip) && options.mode === "default") {
 	        	if(selection !== undefined){
-	        		PykCharts.Configuration.tooltipp = d3.select(selection).append("div")
+                    PykCharts.Configuration.tooltipp = d3.select(selection).append("div")
 			        	.attr("id", "pyk-tooltip")
 			        	.attr("class","pyk-line-tooltip");
 	        	} else {
@@ -513,11 +511,11 @@ configuration.mouseEvent = function (options) {
                     for(var i=0;i < number_of_lines;i++) {
                         for(var j=0;j < len_data;j++) {
                             if(new_data[i].data[j].x === activeTick) {
-                                tt_row += "<tr><td>"+new_data[i].name+"</td><td><b>"+new_data[i].data[j].tooltip+"</b></td></tr>";
+                                tt_row += "<tr><td><div style='padding:2px;width:5px;height:5px;background-color:"+new_data[i].color+"'></div></td><td>"+new_data[i].name+"</td><td><b>"+new_data[i].data[j].tooltip+"</b></td></tr>";
                             }
                         }
                     }
-                    tooltipText = "<table>"+tt_row+"</table>";
+                    tooltipText = "<table><th colspan='3' style='text-align:left;'>"+activeTick+"</th>"+tt_row+"</table>";
                 }
 
                 cx = x + lineMargin + left - 1;
@@ -526,11 +524,10 @@ configuration.mouseEvent = function (options) {
 
     			if((cx >= (lineMargin + left)) && (cx <= (pathWidth + lineMargin + left)) && (cy >= top) && (cy <= (h - bottom))) {
                 	if(type === "lineChart" || type === "areaChart") {
-                        this.tooltipPosition(tooltipText,0,cy,-14,-10);
+                        this.tooltipPosition(tooltipText,0,cy,-14,-15);
                     }
                     else if (type === "multiline" || type === "stackedAreaChart") {
-                        console.log(cx,d3.event.pageX,cy,d3.event.pageY);
-                        this.tooltipPosition(tooltipText,d3.event.pageX,d3.event.pageY,60,-1100);
+                        this.tooltipPosition(tooltipText,cx,event.offsetY,80,10);
                     }
                     this.toolTextShow(tooltipText);
                     (options.enableCrossHair) ? this.crossHairShow(cx,top,cx,(h - bottom),cx,cy,type) : null;
@@ -546,14 +543,13 @@ configuration.mouseEvent = function (options) {
         crossHairShow : function (x1,y1,x2,y2,cx,cy,type) {
             if(PykCharts.boolean(options.enableCrossHair) && options.mode === "default") {
                 if(x1 !== undefined) {
-                    that.cross_hair_v.style("display","block");
-                    that.cross_hair_v.select(options.selector + " #cross-hair-v")
-                        .attr("x1",x1)
-                        .attr("y1",y1)
-                        .attr("x2",x2)
-                        .attr("y2",y2);
-
                     if(type === "lineChart" || type === "areaChart") {
+                        that.cross_hair_v.style("display","block");
+                        that.cross_hair_v.select(options.selector + " #cross-hair-v")
+                            .attr("x1",x1)
+                            .attr("y1",y1)
+                            .attr("x2",x2)
+                            .attr("y2",y2);                            
                         that.cross_hair_h.style("display","block");
                         that.cross_hair_h.select(options.selector + " #cross-hair-h")
                             .attr("x1",options.margin.left)
@@ -562,9 +558,16 @@ configuration.mouseEvent = function (options) {
                             .attr("y2",cy);
                         that.focus_circle.style("display","block")
                             .attr("transform", "translate(" + cx + "," + cy + ")");
+
                     }
                     else if(type === "multiline") {
                         // Horizontal Cursor Removed & Multiple focus circles --- Pending!!!
+                        that.cross_hair_v.style("display","block");
+                        that.cross_hair_v.select(options.selector + " #cross-hair-v")
+                            .attr("x1",(x1 - 5))
+                            .attr("y1",y1)
+                            .attr("x2",(x2 - 5))
+                            .attr("y2",y2);
                     }
                 }
             }
@@ -664,9 +667,8 @@ configuration.fillChart = function (options,theme,config) {
             }
         },
         colorPieW : function (d) {
-            if(!(PykCharts.boolean(options.size.enable))) {                
-                return d.color;
-                //return options.saturationColor;
+            if(!(PykCharts.boolean(options.size.enable))) {
+                return options.saturationColor;
             } else if(PykCharts.boolean(options.size.enable)) {
                 if(d.color) {
                     return d.color;
@@ -727,7 +729,7 @@ configuration.makeYAxis = function(options,yScale) {
                     .orient(options.axis.y.orient)
                     .ticks(options.axis.y.no_of_ticks)
                     .tickSize(options.axis.y.tickSize)
-                    .outerTickSize(0)
+                    .outerTickSize(options.axis.y.outer_tick)
                     .tickPadding(options.axis.y.ticksPadding)
                     .tickFormat(function (d,i) {
                         return d + options.axis.y.tickFormat;
@@ -907,7 +909,8 @@ configuration.Theme = function(){
                 "tickSize": 5,
                 "tickFormat": "",
                 "ticksPadding": 6,
-                "tickValues": []
+                "tickValues": [],
+                "outer_tick": "no"
             },
             "y": {
                 "enable": "yes",
@@ -918,7 +921,8 @@ configuration.Theme = function(){
                 "no_of_ticks": 10,
                 "tickSize": 5,
                 "tickFormat": "",
-                "ticksPadding": 6
+                "ticksPadding": 6,
+                "outer_tick": "no"
             }
         },
         "yAxisDataFormat" : "number",
@@ -988,7 +992,7 @@ configuration.Theme = function(){
             "enable": "no"
         },
         "enableClick": "yes",
-        "onhover": "no",
+        "onhover": "shadow",
         "highlightArea":"no",
         "axis" : {
             "onHoverHighlightenable": "no",
