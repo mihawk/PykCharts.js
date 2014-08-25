@@ -407,15 +407,19 @@ PykCharts.Configuration = function (options){
             return this;
         },
         __proto__: {
-            _domainBandwidth: function (domain_array, count) {
+            _domainBandwidth: function (domain_array, count, callback) {
+                addFactor = 0;
+                if (callback) {
+                    // addFactor = callback();
+                }
                 padding = (domain_array[1] - domain_array[0]) * 0.1;
                 if (count === 0) {
-                    domain_array[0] -= padding;
+                    domain_array[0] -= (padding + addFactor);
                 }else if(count === 1) {
-                    domain_array[1] += padding;
+                    domain_array[1] += (padding + addFactor);
                 }else if (count === 2) {
-                    domain_array[0] -= padding;
-                    domain_array[1] += padding;
+                    domain_array[0] -= (padding + addFactor);
+                    domain_array[1] += (padding + addFactor);
                 }
                 return domain_array;
             },
@@ -905,7 +909,7 @@ configuration.Theme = function(){
                 "orient" : "bottom",
                 "axisColor": "#1D1D1D",
                 "labelColor": "#1D1D1D",
-                "no_of_ticks": 10,
+                "no_of_ticks": 5,
                 "tickSize": 5,
                 "tickFormat": "",
                 "ticksPadding": 6,
@@ -918,7 +922,7 @@ configuration.Theme = function(){
                 "orient": "left",
                 "axisColor": "#1D1D1D",
                 "labelColor": "#1D1D1D",
-                "no_of_ticks": 10,
+                "no_of_ticks": 5,
                 "tickSize": 5,
                 "tickFormat": "",
                 "ticksPadding": 6,

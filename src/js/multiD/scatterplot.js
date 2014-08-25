@@ -94,7 +94,7 @@ PykCharts.multiD.scatterplot = function (options) {
                 that.k.emptyDiv(); 
             } else {
                 that.w = that.width;
-                that.radius_range = [7,18];
+                that.radius_range = [20,50];
                 that.new_data = that.data;
                 that.k.makeMainDiv(that.selector,1);
                 that.optionalFeatures()
@@ -249,7 +249,14 @@ PykCharts.multiD.scatterplot = function (options) {
 
                     if(that.yAxisDataFormat === "number") {
                         y_domain = d3.extent(that.data, function(d) { return d.y });
-                        y_data = that.k._domainBandwidth(y_domain,2);
+                        y_data = that.k._domainBandwidth(y_domain,2, function () {
+                            var scale1 = d3.scale.linear()
+                                .range([that.height - that.margin.top - that.margin.bottom, 0])
+                                .domain(y_domain);
+                            yinvert = scale1.invert(that.radius_range[1]);
+                            yinvert = y_domain[1] - yinvert;
+                            return yinvert;
+                        });
                         y_range = [that.height - that.margin.top - that.margin.bottom, 0];
                         that.y = that.k.scaleIdentification("linear",y_data,y_range);
                         that.top_margin = 0;
@@ -268,7 +275,14 @@ PykCharts.multiD.scatterplot = function (options) {
                     }
                     if(that.xAxisDataFormat === "number") {
                         x_domain = d3.extent(that.data, function(d) { return d.x; });
-                        x_data = that.k._domainBandwidth(x_domain,2);
+                        x_data = that.k._domainBandwidth(x_domain,2, function () {
+                            var scale1 = d3.scale.linear()
+                                .range([0 ,that.w - that.margin.left - that.margin.right])
+                                .domain(x_domain);
+                            xinvert = scale1.invert(that.radius_range[1]);
+                            xinvert = x_domain[1] - xinvert;
+                            return xinvert;
+                        });
                         x_range = [0 ,that.w - that.margin.left - that.margin.right];
                         that.x = that.k.scaleIdentification("linear",x_data,x_range);
                         that.left_margin = 0;
