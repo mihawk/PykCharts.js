@@ -470,7 +470,7 @@ configuration.mouseEvent = function (options) {
                 return that.tooltip.style("visibility", "hidden");
             }
         },
-        crossHairPosition: function(data,new_data,xScale,dataLineGroup,lineMargin,type){
+        crossHairPosition: function(data,new_data,xScale,dataLineGroup,lineMargin,type,tooltipMode){
             if((PykCharts.boolean(options.enableCrossHair) || PykCharts.boolean(options.enableTooltip) || PykCharts.boolean(options.onHoverHighlightenable))  && options.mode === "default") {
                 var offsetLeft = $(options.selector + " #"+dataLineGroup[0].attr("id")).offset().left;
                 var offsetRight = $(options.selector + " #"+dataLineGroup[0].attr("id")).offset().right;
@@ -519,7 +519,7 @@ configuration.mouseEvent = function (options) {
                             }
                         }
                     }
-                    tooltipText = "<table><th colspan='3' style='text-align:left;'>"+activeTick+"</th>"+tt_row+"</table>";
+                    tooltipText = "<table class='PykCharts'><thead class='tooltip-heading'><th colspan='3' style='text-align:left;'>"+activeTick+"</th></thead><tbody>"+tt_row+"</tbody></table>";
                 }
 
                 cx = x + lineMargin + left - 1;
@@ -528,7 +528,12 @@ configuration.mouseEvent = function (options) {
 
     			if((cx >= (lineMargin + left)) && (cx <= (pathWidth + lineMargin + left)) && (cy >= top) && (cy <= (h - bottom))) {
                 	if(type === "lineChart" || type === "areaChart") {
-                        this.tooltipPosition(tooltipText,0,cy,-14,-15);
+                        console.log(options.tooltip.mode); 
+                        if((options.tooltip.mode).toLowerCase() === "fixed") {
+                            this.tooltipPosition(tooltipText,0,cy,-14,-15);
+                        } else if((options.tooltip.mode).toLowerCase() === "moving"){
+                            this.tooltipPosition(tooltipText,cx,cy,5,-45);
+                        }
                     }
                     else if (type === "multiline" || type === "stackedAreaChart") {
                         this.tooltipPosition(tooltipText,cx,event.offsetY,80,10);
@@ -712,12 +717,11 @@ configuration.border = function (options) {
 
 configuration.makeXAxis = function(options,xScale) {
     var that = this;
-
     var xaxis = d3.svg.axis()
                     .scale(xScale)
                     .ticks(options.axis.x.no_of_ticks)
                     .tickSize(options.axis.x.tickSize)
-                    .outerTickSize(0)
+                    .outerTickSize(options.axis.x.outer_tick_size)
                     .tickFormat(function (d,i) {
                         return d + options.axis.x.tickFormat;
                     })
@@ -733,7 +737,7 @@ configuration.makeYAxis = function(options,yScale) {
                     .orient(options.axis.y.orient)
                     .ticks(options.axis.y.no_of_ticks)
                     .tickSize(options.axis.y.tickSize)
-                    .outerTickSize(options.axis.y.outer_tick)
+                    .outerTickSize(options.axis.y.outer_tick_size)
                     .tickPadding(options.axis.y.ticksPadding)
                     .tickFormat(function (d,i) {
                         return d + options.axis.y.tickFormat;
@@ -914,7 +918,7 @@ configuration.Theme = function(){
                 "tickFormat": "",
                 "ticksPadding": 6,
                 "tickValues": [],
-                "outer_tick": "no"
+                "outer_tick_size": 0
             },
             "y": {
                 "enable": "yes",
@@ -926,7 +930,7 @@ configuration.Theme = function(){
                 "tickSize": 5,
                 "tickFormat": "",
                 "ticksPadding": 6,
-                "outer_tick": "no"
+                "outer_tick_size": 0
             }
         },
         "yAxisDataFormat" : "number",
@@ -951,6 +955,10 @@ configuration.Theme = function(){
         "legends" : {
             "enable": "yes",
             "display" : "horizontal"
+        },
+        "tooltip" : {
+            "enable" : "yes",
+            "mode" : "fixed"
         },
         "scatterplot" : {
             "radius" : 9
@@ -1009,7 +1017,8 @@ configuration.Theme = function(){
                 "tickSize": 5,
                 "tickFormat": "",
                 "ticksPadding": 6,
-                "tickValues": []
+                "tickValues": [],
+                "outer_tick_size": 0
             }
         }
     };
