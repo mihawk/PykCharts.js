@@ -306,6 +306,8 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
         chartObject.axis.x.tickSize = PykCharts.boolean(optional.axis.x.enable) && optional.axis.x.tickSize ? optional.axis.x.tickSize : multiDimensionalCharts.axis.x.tickSize;
         chartObject.axis.x.tickFormat = PykCharts.boolean(optional.axis.x.enable) && optional.axis.x.tickFormat ? optional.axis.x.tickFormat : multiDimensionalCharts.axis.x.tickFormat;
         chartObject.axis.x.tickValues = PykCharts.boolean(optional.axis.x.enable) && optional.axis.x.tickValues ? optional.axis.x.tickValues : multiDimensionalCharts.axis.x.tickValues;
+        chartObject.axis.x.outer_tick = PykCharts.boolean(optional.axis.x.enable) && optional.axis.x.outer_tick ? optional.axis.x.outer_tick : multiDimensionalCharts.axis.x.outer_tick;
+        chartObject.axis.x.outer_tick = PykCharts.boolean(chartObject.axis.x.outer_tick) ? chartObject.axis.x.tickSize : 0;
         chartObject.axis.y = optional.axis.y;
         chartObject.axis.y.orient = PykCharts.boolean(optional.axis.y.enable) && optional.axis.y.orient ? optional.axis.y.orient : multiDimensionalCharts.axis.y.orient;
         chartObject.axis.y.axisColor = PykCharts.boolean(optional.axis.y.enable) && optional.axis.y.axisColor ? optional.axis.y.axisColor : multiDimensionalCharts.axis.y.axisColor;
@@ -314,6 +316,8 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
         chartObject.axis.y.ticksPadding = PykCharts.boolean(optional.axis.y.enable) && optional.axis.y.ticksPadding ? optional.axis.y.ticksPadding : multiDimensionalCharts.axis.y.ticksPadding;
         chartObject.axis.y.tickSize = PykCharts.boolean(optional.axis.y.enable) && optional.axis.y.tickSize ? optional.axis.y.tickSize : multiDimensionalCharts.axis.y.tickSize;
         chartObject.axis.y.tickFormat = PykCharts.boolean(optional.axis.y.enable) && optional.axis.y.tickFormat ? optional.axis.y.tickFormat : multiDimensionalCharts.axis.y.tickFormat;
+        chartObject.axis.y.outer_tick = PykCharts.boolean(optional.axis.y.enable) && optional.axis.y.outer_tick ? optional.axis.y.outer_tick : multiDimensionalCharts.axis.y.outer_tick;
+        chartObject.axis.y.outer_tick = PykCharts.boolean(chartObject.axis.y.outer_tick) ? chartObject.axis.y.tickSize : 0;
     } else {
         chartObject.axis = multiDimensionalCharts.axis;
     }
