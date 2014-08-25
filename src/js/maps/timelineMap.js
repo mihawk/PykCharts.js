@@ -396,7 +396,7 @@ PykCharts.maps.timelineMap = function (options) {
         , unique = []
         , duration
         , interval = interval1 = 1;
-        
+
         that.optionalFeatures()
             .axisContainer(true);
 
@@ -417,13 +417,14 @@ PykCharts.maps.timelineMap = function (options) {
 
         var startTimeline = function () {
             if (timeline_status==="playing") {
-                timeline_status = "paused";
                 play.attr("xlink:href","../img/play.gif");
                 clearInterval(that.playInterval);
+                timeline_status = "paused";
             } else {
                 timeline_status = "playing";
                 play.attr("xlink:href","../img/pause.gif");
                 that.playInterval = setInterval(function () {
+
                     marker.transition()
                         .duration(500)
                         .attr("x",  (that.margin.left*2) + that.xScale(unique[interval]) - 7);
@@ -439,13 +440,11 @@ PykCharts.maps.timelineMap = function (options) {
                     interval++;
 
                     if (interval===unique.length) {
-                        play.attr("xlink:href","../img/play.gif");
                         clearInterval(that.playInterval);
-                        // marker.attr("x",  that.margin.left + that.xScale(unique[0]) - 7);
                     };
                 }, 1000);
 
-                setTimeout(function () {
+                that.timelag = setTimeout(function () {
                     that.undoHeatmap = setInterval(function () {
                         var undo = _.where(that.timeline_data, {timestamp:unique[interval1]});
                         _.each(undo, function (d) {
@@ -459,8 +458,15 @@ PykCharts.maps.timelineMap = function (options) {
 
                         interval1++;
 
+                        if (interval1 === interval) {
+                            clearInterval(that.undoHeatmap);
+                            clearTimeout(that.timelag)
+                        }
+
                         if (interval1===unique.length) {
                             clearInterval(that.undoHeatmap);
+                            play.attr("xlink:href","../img/play.gif");
+                            marker.attr("x",  (that.margin.left*2) + that.xScale(unique[0]) - 7);
                         };
                     }, 1000);
                 },1000);

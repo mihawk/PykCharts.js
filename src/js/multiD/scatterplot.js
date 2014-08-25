@@ -29,7 +29,7 @@ PykCharts.multiD.scatterplot = function (options) {
     this.refresh = function () {
         d3.json(options.data, function (e, data) {
             that.data = data;
-            that.mapGroupData = that.optionalFeatures().mapGroup();
+            that.mapGroupData = that.multiD.mapGroup(that.data);
             that.optionalFeatures()
                     .createScatterPlot()
                     .legends()
@@ -39,8 +39,7 @@ PykCharts.multiD.scatterplot = function (options) {
 
     this.render = function () {
         var that = this;
-        that.mapGroupData = that.optionalFeatures().mapGroup();
-        console.log(that.data);
+        that.mapGroupData = that.multiD.mapGroup(that.data);
         that.fillChart = new PykCharts.Configuration.fillChart(that);      
         
         that.border = new PykCharts.Configuration.border(that);
@@ -419,7 +418,7 @@ PykCharts.multiD.scatterplot = function (options) {
                                 l++;
                                 k++;    
                             }
-                            console.log(k*24+12, "k", d.group);
+                            // console.log(k*24+12, "k", d.group);
                         return k * 24 + 12;;  
                         } 
                     };
@@ -645,65 +644,7 @@ PykCharts.multiD.scatterplot = function (options) {
                 }
                 return this;
             },
-            mapGroup : function () {
-                var newarr = [];
-                var unique = {};
-                var k = 0;
-                var checkGroup = true;
-                var checkColor = true;
-                
-                that.data.forEach(function (item) {
-                    if(item.group) {
-                        checkGroup = true;
-                    } else {
-                        checkGroup = false;
-                        if(!item.color) {
-                            checkColor = false;
-                            item.color = that.colorPalette[0];
-                        }
-                    }
-                });
-
-                if(checkGroup) {
-                    that.data.forEach(function(item) {
-                        if (!unique[item.group]) {
-                            if(!item.color) {
-                                item.color = that.colorPalette[k];
-                                k++;
-                            }
-                            newarr.push(item);
-                            unique[item.group] = item;
-                        } 
-                    }); 
-                    
-                    var arr = [];
-                    var uniqueColor = {};
-                    k = 0;
-                    newarr.forEach(function(item) {
-                        if (!uniqueColor[item.color]) {
-                            arr.push(item);
-                            uniqueColor[item.color] = item;
-                        } else {
-                            item.color = that.colorPalette[k];
-                            k++;
-                            arr.push(item);
-                            uniqueColor[item.color] = item;
-                        }
-                    }); 
-                    var arr_length = arr.length,
-                    data_length = that.data.length; 
-                    for(var i = 0;i < arr_length; i++) {
-                        for(var j = 0;j<data_length;j++) {
-                            if(that.data[j].group === arr[i].group) {
-                                that.data[j].color = arr[i].color;
-                            }
-                        }
-                    }                
-                    return [arr,checkGroup];
-                } else {
-                    return [that.data,checkGroup];
-                }                
-            },
+            
             crossHair : function () {
                 if(PykCharts.boolean(that.enableCrossHair)) {
 
@@ -731,8 +672,8 @@ PykCharts.multiD.scatterplot = function (options) {
                     that.svgContainer.on("mousemove",function () {
                         id = this.id
     
-                        $("#horizontal-cursor").show();
-                        $("#vertical-cursor").show();
+                        $(that.selector + " " +"#horizontal-cursor").show();
+                        $(that.selector + " " +"#vertical-cursor").show();
 
                         var i,
                             x = (d3.event.pageX) - ($(that.selector+ " #" + id).offset().left),

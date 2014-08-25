@@ -41,6 +41,13 @@ body {
   cursor: pointer;
 }
 
+.PykCharts-multi-series2D path.multi-line-hover {
+  fill: none;
+  stroke-width: 2px;
+  stroke: orange;
+  cursor: pointer;
+}
+
 .PykCharts-multi-series2D .bullets {
   display: block;
   fill: steelblue;
@@ -105,7 +112,7 @@ body {
 .PykCharts-line-chart .pyk-line-tooltip{
   display: block;
   height: auto;
-  width: 50px;
+  width: auto;
   padding: 5px 6px;
   color: #4F4F4F;
   background: #eeeeee;
@@ -120,7 +127,79 @@ body {
   visibility: hidden;
 }
 
-.PykCharts-line-chart .pyk-line-tooltip:after{
+.PykCharts-line-chart .pyk-multiline-tooltip{
+  display: block;
+  height: auto;
+  width: auto;
+  padding: 5px 6px;
+  color: #4F4F4F;
+  background: #fff;
+  text-decoration: none;
+  position: absolute;
+  border-radius: 5px;
+  text-align: center;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  border: 1px solid #CCCCCC;
+  min-width: 30px;
+  visibility: hidden;
+  box-shadow: 0 5px 10px rgba(0,0,0,.2);
+  padding: 7px;
+  transition: opacity 250ms linear;
+  -moz-transition: opacity 250ms linear;
+  -webkit-transition: opacity 250ms linear;
+  transition-delay: 250ms;
+  -moz-transition-delay: 250ms;
+  -webkit-transition-delay: 250ms;
+}
+
+.PykCharts-multi-series2D .pyk-tooltip-table {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  color:#1f1f1f;
+  border:1px solid #e7e3e7;
+  border-collapse: collapse;
+}
+
+.PykCharts-multi-series2D .pyk-tooltip-table td, th {
+  border: 1px dashed #e7e3e7;
+  padding: 5px;
+}
+
+.PykCharts-multi-series2D .pyk-tooltip-table th {
+  font-size: 13px;
+  text-align: left;
+}
+
+/*.PykCharts-line-chart .pyk-tooltip-table table{
+  border-style:solid;
+  border-width:1px;
+  border-color:black;
+}
+
+.PykCharts-line-chart .pyk-tooltip-table th, td{
+  border-style:dashed;
+  border-width:1px;
+  border-color:#e7e3e7;
+  padding-left: 3px;
+  padding-right: 3px;
+}
+
+.PykCharts-line-chart .pyk-tooltip-table th{
+  border-style:solid;
+  font-weight:bold;
+  background: #F7F3F7;
+}
+
+.PykCharts-line-chart .pyk-tooltip-table th[align="left"], td[align="left"] {
+  text-align:left;
+}
+
+.PykCharts-line-chart .pyk-tooltip-table table th[align="center"], table td[align="center"] {
+  text-align:center;
+}*/
+
+/*.PykCharts-line-chart .pyk-line-tooltip:after{
   content: "\25E2";
   color: #eeeeee;
   text-shadow: 0.5px 0.5px 0.3px #ccc;
@@ -130,7 +209,7 @@ body {
   position: absolute;
   top: 18px;
   -webkit-transform: rotate(45deg);
-}
+}*/
 
 .PykCharts-twoD #title {
   color: #1D1D1D;
@@ -182,17 +261,17 @@ body {
 }
 
 .PykCharts-spider-web .link {
-  stroke: #000;
-  stroke-width: 1px;
-}
-
-.PykCharts-spider-web .axis {
   stroke: #1D1D1D;
   stroke-width: 1.5px;
 }
 
+.PykCharts-spider-web .axis {
+  stroke: #B0B0B0  ;
+  stroke-width: 0.5px;
+}
+
 .PykCharts-spider-web .grid {
-  stroke: #ddd;
+  stroke: #B0B0B0  ;
   stroke-width: 0.5px;
 }
 
@@ -246,10 +325,10 @@ body {
 .PykCharts {
 font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 font-size: 12px;
-color:#1f1f1f  ;
+color:#1f1f1f;
 }
 .PykCharts .tooltip-heading{
-font-size: 12px;
+font-size: 13px;
 text-align: left;
 border-bottom: 1px solid lightgray;
 padding: 5px;
