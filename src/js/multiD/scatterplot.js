@@ -83,6 +83,7 @@ PykCharts.multiD.scatterplot = function (options) {
 
                     that.optionalFeatures().createScatterPlot()
                         .legends()
+                        .label()
                         .ticks()
                         .crossHair();
 
@@ -110,6 +111,7 @@ PykCharts.multiD.scatterplot = function (options) {
                 
                 that.optionalFeatures().createScatterPlot()
                     .legends()
+                    .label()
                     .zoom()
                     .ticks()
                     .crossHair();
@@ -617,6 +619,32 @@ PykCharts.multiD.scatterplot = function (options) {
                 that.circlePlot.exit().remove();
                 return this;
             },
+            label : function () {
+                if(PykCharts.boolean(that.label.size)) {
+                    that.circleLabel = that.chartBody.selectAll(".text")
+                        .data(that.new_data);
+
+                    that.circleLabel.enter()
+                        .append("text")
+                        .attr("class","text");
+
+                    that.circleLabel
+                        .attr("x", function (d) { return (that.x(d.x)+that.left_margin); })
+                        .attr("y", function (d) { return (that.y(d.y)+that.top_margin + 5); })
+                        .attr("text-anchor","middle")
+                        .attr("pointer-events","none")
+                        .style("font-weight", that.label.weight)
+                        .style("font-size", that.label.size)
+                        .attr("fill", that.label.color)
+                        .style("font-family", that.label.family)
+                        .text(function (d) {
+                            return d.weight;
+                        });
+                    that.circleLabel.exit()
+                        .remove();
+                }
+                return this;
+            },
             mapGroup : function () {
                 var newarr = [];
                 var unique = {};
@@ -734,7 +762,7 @@ PykCharts.multiD.scatterplot = function (options) {
             that.k.isOrdinal(that.svgContainer,".y.axis",that.y);
             that.k.isOrdinal(that.svgContainer,".y.grid",that.y);
 
-            that.optionalFeatures().plotCircle();
+            that.optionalFeatures().plotCircle().label();
 
             that.circlePlot
                 .attr("r", function (d) {
