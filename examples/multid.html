@@ -87,7 +87,11 @@
                                 outer_tick_size: 3
                             }
                         },            
-                        curvy_lines : "yes",
+                        tooltip : {
+                            enable : "yes",
+                            mode : "moving"
+                        },
+                        curvy_lines : "no",
                         enableCrossHair: "yes"
                     }
                 });
@@ -142,6 +146,10 @@
                         enableCrossHair: "yes",
                         zoom: {
                             enable: "yes"
+                        },
+                        tooltip : {
+                            enable : "yes",
+                            mode : "fixed"
                         }
                     }
                 });

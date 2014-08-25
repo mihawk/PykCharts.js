@@ -393,6 +393,13 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     chartObject.size.enable = optional && optional.size && optional.size.enable ? optional.size.enable : multiDimensionalCharts.size.enable;
     chartObject.colorPalette = ["#b2df8a", "#1f78b4", "#33a02c", "#fb9a99", "#e31a1c", "#fdbf6f", "#ff7f00", "#cab2d6", "#6a3d9a", "#ffff99", "#b15928", "#a6cee3"]; 
     chartObject.k = new PykCharts.Configuration(chartObject);
-    
+    if (optional && optional.tooltip) {
+        chartObject.tooltip = optional.tooltip;        
+        chartObject.enableTooltip = optional.tooltip.enable ? optional.tooltip.enable : multiDimensionalCharts.tooltip.enable;
+        chartObject.tooltip.mode = optional.tooltip.mode ? optional.tooltip.mode : multiDimensionalCharts.tooltip.mode;
+    } else {
+        chartObject.tooltip = multiDimensionalCharts.tooltip;
+        chartObject.enableTooltip = multiDimensionalCharts.tooltip.enable;     
+    }
     return chartObject;
 };
