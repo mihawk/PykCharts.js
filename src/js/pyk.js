@@ -470,7 +470,7 @@ configuration.mouseEvent = function (options) {
                 return that.tooltip.style("visibility", "hidden");
             }
         },
-        crossHairPosition: function(data,new_data,xScale,dataLineGroup,lineMargin,type){
+        crossHairPosition: function(data,new_data,xScale,dataLineGroup,lineMargin,type,tooltipMode){
             if((PykCharts.boolean(options.enableCrossHair) || PykCharts.boolean(options.enableTooltip) || PykCharts.boolean(options.onHoverHighlightenable))  && options.mode === "default") {
                 var offsetLeft = $(options.selector + " #"+dataLineGroup[0].attr("id")).offset().left;
                 var offsetRight = $(options.selector + " #"+dataLineGroup[0].attr("id")).offset().right;
@@ -528,7 +528,12 @@ configuration.mouseEvent = function (options) {
 
     			if((cx >= (lineMargin + left)) && (cx <= (pathWidth + lineMargin + left)) && (cy >= top) && (cy <= (h - bottom))) {
                 	if(type === "lineChart" || type === "areaChart") {
-                        this.tooltipPosition(tooltipText,0,cy,-14,-15);
+                        console.log(options.tooltip.mode); 
+                        if((options.tooltip.mode).toLowerCase() === "fixed") {
+                            this.tooltipPosition(tooltipText,0,cy,-14,-15);
+                        } else if((options.tooltip.mode).toLowerCase() === "moving"){
+                            this.tooltipPosition(tooltipText,cx,cy,5,-45);
+                        }
                     }
                     else if (type === "multiline" || type === "stackedAreaChart") {
                         this.tooltipPosition(tooltipText,cx,event.offsetY,80,10);
@@ -951,6 +956,10 @@ configuration.Theme = function(){
         "legends" : {
             "enable": "yes",
             "display" : "horizontal"
+        },
+        "tooltip" : {
+            "enable" : "yes",
+            "mode" : "fixed"
         },
         "scatterplot" : {
             "radius" : 9
