@@ -519,7 +519,7 @@ configuration.mouseEvent = function (options) {
                             }
                         }
                     }
-                    tooltipText = "<table class='pyk-tooltip-table'><th colspan='3' style='text-align:left;'>"+activeTick+"</th>"+tt_row+"</table>";
+                    tooltipText = "<table class='PykCharts'><thead class='tooltip-heading'><th colspan='3' style='text-align:left;'>"+activeTick+"</th></thead><tbody>"+tt_row+"</tbody></table>";
                 }
 
                 cx = x + lineMargin + left - 1;
@@ -913,7 +913,6 @@ configuration.Theme = function(){
                 "tickFormat": "",
                 "ticksPadding": 6,
                 "tickValues": [],
-                "inner_tick_size": 5,
                 "outer_tick_size": 0
             },
             "y": {
@@ -926,7 +925,6 @@ configuration.Theme = function(){
                 "tickSize": 5,
                 "tickFormat": "",
                 "ticksPadding": 6,
-                "inner_tick_size": 5,
                 "outer_tick_size": 0
             }
         },
@@ -1010,7 +1008,8 @@ configuration.Theme = function(){
                 "tickSize": 5,
                 "tickFormat": "",
                 "ticksPadding": 6,
-                "tickValues": []
+                "tickValues": [],
+                "outer_tick_size": 0
             }
         }
     };
