@@ -144,7 +144,7 @@ body {
   min-width: 30px;
   visibility: hidden;
   box-shadow: 0 5px 10px rgba(0,0,0,.2);
-  padding: 10px;
+  padding: 7px;
   transition: opacity 250ms linear;
   -moz-transition: opacity 250ms linear;
   -webkit-transition: opacity 250ms linear;
@@ -153,12 +153,33 @@ body {
   -webkit-transition-delay: 250ms;
 }
 
-.PykCharts-line-chart .pyk-tooltip-table{
-  padding: 5px;
-  border: 1px solid #cccccc;
-  border-collapse: collapse;
-  border-spacing: 5px;
+/*.PykCharts-line-chart .pyk-tooltip-table table{
+  border-style:solid;
+  border-width:1px;
+  border-color:black;
 }
+
+.PykCharts-line-chart .pyk-tooltip-table th, td{
+  border-style:dashed;
+  border-width:1px;
+  border-color:#e7e3e7;
+  padding-left: 3px;
+  padding-right: 3px;
+}
+
+.PykCharts-line-chart .pyk-tooltip-table th{
+  border-style:solid;
+  font-weight:bold;
+  background: #F7F3F7;
+}
+
+.PykCharts-line-chart .pyk-tooltip-table th[align="left"], td[align="left"] {
+  text-align:left;
+}
+
+.PykCharts-line-chart .pyk-tooltip-table table th[align="center"], table td[align="center"] {
+  text-align:center;
+}*/
 
 /*.PykCharts-line-chart .pyk-line-tooltip:after{
   content: "\25E2";

@@ -169,7 +169,7 @@ PykCharts.multiD.area = function (options){
 				}
 				else if(that.type === "stackedAreaChart") {
 					for(j = 0;j < that.data_length;j++) {
-						that.group_arr[j] = that.data[j].group;
+						that.group_arr[j] = that.data[j].name;
 						that.color_arr[j] = that.data[j].color;
 					}
 					that.uniq_group_arr = that.group_arr.slice();
@@ -185,7 +185,7 @@ PykCharts.multiD.area = function (options){
 								color: that.uniq_color_arr[k]
 						};
 						for (l = 0;l < that.data_length;l++) {
-							if (that.uniq_group_arr[k] === that.data[l].group) {
+							if (that.uniq_group_arr[k] === that.data[l].name) {
 								that.new_data[k].data.push({
 										x: that.data[l].x,
 										y: that.data[l].y,
