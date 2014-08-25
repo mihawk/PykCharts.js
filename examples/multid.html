@@ -203,8 +203,8 @@
                     yAxisDataFormat : "number",
                     xAxisDataFormat : "number",
                     chart : {
-                        width: 400,
-                        height: 430,                    
+                        width: 700,
+                        height: 450,                    
                         margin: {top: 25, right: 25, bottom: 25, left: 55},
                         grid: {
                             xEnabled: "yes",
@@ -231,7 +231,7 @@
                                 position:"bottom", //top or bottom
                                 orient : "bottom",
                                 axisColor: "#1D1D1D",
-                                no_of_ticks: 2,
+                                no_of_ticks: "10",
                                 tickFormat: "",
                                 tickSize: 5,
                                 ticksPadding: 6,
@@ -243,7 +243,7 @@
                                 position:"left", //left or right
                                 orient: "left",
                                 axisColor: "#1D1D1D",
-                                no_of_ticks: 5,
+                                no_of_ticks: "10",
                                 tickSize: 5,
                                 ticksPadding: 6,
                                 tickFormat: "", 
@@ -263,10 +263,15 @@
                         zoom: {
                             enable: "yes"
                         },
-                        border: {
-                            enable: "no",
-                            width: "1px",
+                        borderBetweenChartElements: {
+                            width: "0px",
                             color: "blue"
+                        },
+                        label:{ 
+                            size: 12,
+                            color: "black",
+                            weight: "thin",
+                            family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
                         },
                         enableCrossHair: "yes"
                     }
@@ -420,8 +425,8 @@
                     yAxisDataFormat : "string",
                     xAxisDataFormat : "number",
                     chart : {
-                            width: 400,
-                            height: 430,                            
+                            width: 700,
+                            height: 450,                            
                             margin: {top: 25, right: 25, bottom: 25, left: 55},
                             grid: {
                                 xEnabled: "yes",
@@ -442,7 +447,7 @@
                                 position:"bottom", //top or bottom
                                 orient : "bottom",
                                 axisColor: "#1D1D1D",
-                                no_of_ticks: 2,
+                                no_of_ticks: "",
                                 tickFormat: "",
                                 tickSize: 5,
                                 ticksPadding: 6,
@@ -454,7 +459,7 @@
                                 position:"left", //left or right
                                 orient: "left",
                                 axisColor: "#1D1D1D",
-                                no_of_ticks: 5,
+                                no_of_ticks: "",
                                 tickSize: 5,
                                 ticksPadding: 6,
                                 tickFormat: "", 
@@ -471,10 +476,16 @@
                             weight: "thin",
                             family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
                         },
-                        border: {
-                            enable: "no",
-                            width: "1px",
-                            color: "blue"
+                        borderBetweenChartElements:{
+                            width: "0px",
+                            color: "white",
+                            style: "solid"
+                        },
+                        label:{ 
+                            size: 12,
+                            color: "black",
+                            weight: "thin",
+                            family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
                         },
                         enableCrossHair: "yes"
                     }
@@ -515,7 +526,7 @@
                                 labelColor: "#1D1D1D",
                                 tickSize: 5,
                                 ticksPadding: 6,
-                                no_of_ticks: 10,
+                                no_of_ticks: "",
                                 tickFormat: ""
                             }
                         },
@@ -577,7 +588,7 @@
                                 labelColor: "#1D1D1D",
                                 tickSize: 5,
                                 ticksPadding: 6,
-                                no_of_ticks: 10,
+                                no_of_ticks: "",
                                 tickFormat: ""
                             }
                         },
@@ -627,7 +638,7 @@
                                 orient : "top",
                                 axisColor: "#1D1D1D",
                                 labelColor: "#1D1D1D",
-                                no_of_ticks: 10,
+                                no_of_ticks: "",
                                 tickSize: 5,
                                 ticksPadding: 6,
                                 tickFormat: "",
@@ -704,7 +715,7 @@
                                 orient : "top",
                                 axisColor: "#1D1D1D",
                                 labelColor: "#1D1D1D",
-                                no_of_ticks: 10,
+                                no_of_ticks: "",
                                 tickSize: 5,
                                 ticksPadding: 6,
                                 tickFormat: "",
