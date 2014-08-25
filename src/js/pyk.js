@@ -519,7 +519,7 @@ configuration.mouseEvent = function (options) {
                             }
                         }
                     }
-                    tooltipText = "<table><th colspan='3' style='text-align:left;'>"+activeTick+"</th>"+tt_row+"</table>";
+                    tooltipText = "<table class='pyk-tooltip-table'><th colspan='3' style='text-align:left;'>"+activeTick+"</th>"+tt_row+"</table>";
                 }
 
                 cx = x + lineMargin + left - 1;
@@ -717,12 +717,11 @@ configuration.border = function (options) {
 
 configuration.makeXAxis = function(options,xScale) {
     var that = this;
-
     var xaxis = d3.svg.axis()
                     .scale(xScale)
                     .ticks(options.axis.x.no_of_ticks)
                     .tickSize(options.axis.x.tickSize)
-                    .outerTickSize(0)
+                    .outerTickSize(options.axis.x.outer_tick_size)
                     .tickFormat(function (d,i) {
                         return d + options.axis.x.tickFormat;
                     })
@@ -738,7 +737,7 @@ configuration.makeYAxis = function(options,yScale) {
                     .orient(options.axis.y.orient)
                     .ticks(options.axis.y.no_of_ticks)
                     .tickSize(options.axis.y.tickSize)
-                    .outerTickSize(options.axis.y.outer_tick)
+                    .outerTickSize(options.axis.y.outer_tick_size)
                     .tickPadding(options.axis.y.ticksPadding)
                     .tickFormat(function (d,i) {
                         return d + options.axis.y.tickFormat;
@@ -919,7 +918,8 @@ configuration.Theme = function(){
                 "tickFormat": "",
                 "ticksPadding": 6,
                 "tickValues": [],
-                "outer_tick": "no"
+                "inner_tick_size": 5,
+                "outer_tick_size": 0
             },
             "y": {
                 "enable": "yes",
@@ -931,7 +931,8 @@ configuration.Theme = function(){
                 "tickSize": 5,
                 "tickFormat": "",
                 "ticksPadding": 6,
-                "outer_tick": "no"
+                "inner_tick_size": 5,
+                "outer_tick_size": 0
             }
         },
         "yAxisDataFormat" : "number",
