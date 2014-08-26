@@ -514,9 +514,9 @@ configuration.mouseEvent = function (options) {
                 }
                 for(j = 0; x > (leftEdges[j] + xRange - lineMargin); j++) {}
                 activeTick = data[j].x;
-                // for(j = 0; x > (topEdges[j]); j++) {}
-                // activeYTick = data[j].y;
-                // console.log(activeYTick);
+                for(j = 0; x > (topEdges[j]); j++) {}
+                activeYTick = data[j].y;
+                console.log(activeYTick);
 
                 if(type === "lineChart" || type === "areaChart") { tooltipText = data[j].tooltip; }
                 else if(type === "multiline") {
@@ -566,9 +566,9 @@ configuration.mouseEvent = function (options) {
                         //     }
                         }                        
                         this.axisHighlightShow(activeTick,options.selector+" .x.axis");
-                        // if(type === "multiline") {
-                        //    this.axisHighlightShow(activeYTick,options.selector+" .y.axis");
-                        // }
+                        if(type === "multiline") {
+                           this.axisHighlightShow(activeYTick,options.selector+" .y.axis");
+                        }
                     }                    
                 }
                 else {
@@ -646,6 +646,8 @@ configuration.mouseEvent = function (options) {
                 for(j_curr = 0;d3.selectAll(selection)[0][j_curr].innerHTML !== activeTick;j_curr++){}
                 j_prev = j_curr;
 
+                console.log(d3.selectAll(selection)[0][j_curr]);
+                
                 d3.selectAll(selection)
                     .style("fill","#bbb")
                     .style("font-size","12px")
