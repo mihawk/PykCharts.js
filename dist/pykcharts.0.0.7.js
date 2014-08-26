@@ -177,9 +177,9 @@ PykCharts.Configuration = function (options){
         makeMainDiv : function (selection,i) {
             var d = d3.select(selection).append("div")
                 .attr("id","tooltip-svg-container-"+i)
-                .style("width","auto")
+                .style("width",options.width);
             if(PykCharts.boolean(options.multiple_containers)){
-                d.style("float","left")
+                d.style("float","left");
                 // .style("height","auto");
             }
             return this;
@@ -187,60 +187,14 @@ PykCharts.Configuration = function (options){
 	    tooltip : function (d,selection,i) {
 	    	if(PykCharts.boolean(options.enableTooltip) && options.mode === "default") {
 	        	if(selection !== undefined){
-	        		d3.select(options.selector + " " +"#tooltip-svg-container-"+i).append("div")
-                        .attr("id", "tooltip-container")
-						.style("position", "relative")
-						.style("height", "35px")
-						.style("margin-top", "10px");
-
-					PykCharts.Configuration.tooltipp = d3.select(options.selector + " " +"#tooltip-container").append("div")
+                    PykCharts.Configuration.tooltipp = d3.select(selection).append("div")
 			        	.attr("id", "pyk-tooltip")
 			        	.attr("class","pyk-line-tooltip");
-	        	} else if (PykCharts.boolean(options.tooltip)) {
-                    if (options.tooltip.mode === "fixed") {
-                        PykCharts.Configuration.tooltipp = d3.select("body")
-                            .append("div")
-                            .attr("id", "pyk-tooltip")
-                            .style("height","auto")
-                            .style("padding", "5px 6px")
-                            .style("color","#4F4F4F")
-                            .style("background","#eeeeee")
-                            .style("text-decoration","none")
-                            .style("position", "absolute")
-                            .style("border-radius", "5px")
-                            .style("text-align","center")
-                            .style("font-family","Arial, Helvetica, sans-serif")
-                            .style("font-size","14px")
-                            .style("border","1px solid #CCCCCC")
-                            .style("min-width","30px")
-                            .style("z-index","10")
-                            .style("visibility", "hidden");
-                    } else {
-                        PykCharts.Configuration.tooltipp = d3.select("body")
-                            .append("div")
-                            .attr("id", "pyk-tooltip")
-                            // .attr("class","pyk-line-tooltip");
-                            .style("height","auto")
-                            .style("padding", "5px 6px")
-                            .style("color","#4F4F4F")
-                            .style("background","#eeeeee")
-                            .style("text-decoration","none")
-                            .style("position", "absolute")
-                            .style("border-radius", "5px")
-                            .style("text-align","center")
-                            .style("font-family","Arial, Helvetica, sans-serif")
-                            .style("font-size","14px")
-                            .style("border","1px solid #CCCCCC")
-                            .style("min-width","30px")
-                            .style("z-index","10")
-                            .style("visibility", "hidden");
-                    }
-                } else {
-	        		PykCharts.Configuration.tooltipp = d3.select("body")
-		                .append("div")
-		                .attr("id", "pyk-tooltip")
-		                // .attr("class","pyk-line-tooltip");
-	                	.style("height","auto")
+	        	} else {
+                    PykCharts.Configuration.tooltipp = d3.select("body")
+                        .append("div")
+                        .attr("id", "pyk-tooltip")
+                        .style("height","auto")
                         .style("padding", "5px 6px")
                         .style("color","#4F4F4F")
                         .style("background","#eeeeee")
@@ -254,24 +208,64 @@ PykCharts.Configuration = function (options){
                         .style("min-width","30px")
                         .style("z-index","10")
                         .style("visibility", "hidden");
+                }    
+            } else if (PykCharts.boolean(options.tooltip.enable)) {
+                        if (options.tooltip.mode === "fixed") {
+                            PykCharts.Configuration.tooltipp = d3.select("body")
+                                .append("div")
+                                .attr("id", "pyk-tooltip")
+                                .style("height","auto")
+                                .style("padding", "5px 6px")
+                                .style("color","#4F4F4F")
+                                .style("background","#eeeeee")
+                                .style("text-decoration","none")
+                                .style("position", "absolute")
+                                .style("border-radius", "5px")
+                                .style("text-align","center")
+                                .style("font-family","Arial, Helvetica, sans-serif")
+                                .style("font-size","14px")
+                                .style("border","1px solid #CCCCCC")
+                                .style("min-width","30px")
+                                .style("z-index","10")
+                                .style("visibility", "hidden");
+                        } else {
+                            PykCharts.Configuration.tooltipp = d3.select("body")
+                                .append("div")
+                                .attr("id", "pyk-tooltip")
+                                // .attr("class","pyk-line-tooltip");
+                                .style("height","auto")
+                                .style("padding", "5px 6px")
+                                .style("color","#4F4F4F")
+                                .style("background","#eeeeee")
+                                .style("text-decoration","none")
+                                .style("position", "absolute")
+                                .style("border-radius", "5px")
+                                .style("text-align","center")
+                                .style("font-family","Arial, Helvetica, sans-serif")
+                                .style("font-size","14px")
+                                .style("border","1px solid #CCCCCC")
+                                .style("min-width","30px")
+                                .style("z-index","10")
+                                .style("visibility", "hidden");
+                    }
                 }
-            }
             return this;
         },
         crossHair : function (svg) {
             if(PykCharts.boolean(options.enableCrossHair) && options.mode === "default") {
                 /*$(options.selector + " " + "#cross-hair-v").remove();
-                $(options.selector + " " + "#focus-circle").remove();
-                */PykCharts.Configuration.cross_hair_v = svg.append("g")
+                $(options.selector + " " + "#focus-circle").remove();*/
+                PykCharts.Configuration.cross_hair_v = svg.append("g")
                     .attr("class","line-cursor")
                     .style("display","none");
                 PykCharts.Configuration.cross_hair_v.append("line")
                     .attr("id","cross-hair-v");
-                //    that.crossHairH = that.svg.append("g")
-                //          .attr("class","line-cursor")
-                //          .style("display","none");
-                // that.crossHairH.append("line")
-                //          .attr("id","crossHairH");
+                
+                PykCharts.Configuration.cross_hair_h = svg.append("g")
+                    .attr("class","line-cursor")
+                    .style("display","none");
+                PykCharts.Configuration.cross_hair_h.append("line")
+                    .attr("id","cross-hair-h");
 
                 PykCharts.Configuration.focus_circle = svg.append("g")
                     .attr("class", function () { return (options.type === "areaChart") ? "focus-area" : "focus"; })
@@ -302,7 +296,7 @@ PykCharts.Configuration = function (options){
         loading: function () {
             if(PykCharts.boolean(options.loading)) {
                 $(options.selector).html("<div id='chart-loader'><img src="+options.loading+"></div>");
-                $(options.selector + " " + '#chart-loader').css({"visibility":"visible","padding-left":(options.width)/2 +"px","padding-top":(options.height)/2 + "px"});
+                $(options.selector + " #chart-loader").css({"visibility":"visible","padding-left":(options.width)/2 +"px","padding-top":(options.height)/2 + "px"});
             }
             return this;
         },
@@ -325,7 +319,7 @@ PykCharts.Configuration = function (options){
                 height = options.height;
             if(PykCharts.boolean(options.grid.yEnabled)) {
                 var ygrid = PykCharts.Configuration.makeYGrid(options,yScale);
-                gsvg.selectAll(options.selector + " " + "g.y.grid-line")
+                gsvg.selectAll(options.selector + " g.y.grid-line")
                     .style("stroke",function () { return options.grid.color; })
                     .call(ygrid);
             }
@@ -337,7 +331,7 @@ PykCharts.Configuration = function (options){
 
             if(PykCharts.boolean(options.grid.xEnabled)) {
                 var xgrid = PykCharts.Configuration.makeXGrid(options,xScale);
-                gsvg.selectAll(options.selector + " " + "g.x.grid-line")
+                gsvg.selectAll(options.selector + " g.x.grid-line")
                     .style("stroke",function () { return options.grid.color; })
                     .call(xgrid);
             }
@@ -349,7 +343,7 @@ PykCharts.Configuration = function (options){
                 height = options.height;
 
             if(PykCharts.boolean(options.axis.x.enable)){
-                d3.selectAll(options.selector + " " + ".x.axis").attr("fill",function () { return options.axis.x.labelColor;});
+                d3.selectAll(options.selector + " .x.axis").attr("fill",function () { return options.axis.x.labelColor;});
                 if(options.axis.x.position === "bottom") {
                     gsvg.attr("transform", "translate(0," + (options.height - options.margin.top - options.margin.bottom) + ")");
                 }
@@ -361,7 +355,7 @@ PykCharts.Configuration = function (options){
 
                 gsvg.style("stroke",function () { return options.axis.x.axisColor; })
                     .call(xaxis);
-                gsvg.selectAll(options.selector + " " + "g.x.axis text").attr("pointer-events","none");
+                gsvg.selectAll(options.selector + " g.x.axis text").attr("pointer-events","none");
             }
             return this;
         },
@@ -373,12 +367,12 @@ PykCharts.Configuration = function (options){
                 if(options.axis.y.position === "right") {
                     gsvg.attr("transform", "translate(" + (options.width - options.margin.left - options.margin.right) + ",0)");
                 }
-                d3.selectAll(options.selector + " " + ".y.axis").attr("fill",function () { return options.axis.y.labelColor; });
+                d3.selectAll(options.selector + " .y.axis").attr("fill",function () { return options.axis.y.labelColor; });
                 var yaxis = PykCharts.Configuration.makeYAxis(options,yScale);
 
                 gsvg.style("stroke",function () { return options.axis.y.axisColor; })
                     .call(yaxis);
-                gsvg.selectAll(options.selector + " " + "g.y.axis text").attr("pointer-events","none");
+                gsvg.selectAll(options.selector + " g.y.axis text").attr("pointer-events","none");
             }
             return this;
         },
@@ -413,15 +407,19 @@ PykCharts.Configuration = function (options){
             return this;
         },
         __proto__: {
-            _domainBandwidth: function (domain_array, count) {
+            _domainBandwidth: function (domain_array, count, callback) {
+                addFactor = 0;
+                if (callback) {
+                    // addFactor = callback();
+                }
                 padding = (domain_array[1] - domain_array[0]) * 0.1;
                 if (count === 0) {
-                    domain_array[0] -= padding;
+                    domain_array[0] -= (padding + addFactor);
                 }else if(count === 1) {
-                    domain_array[1] += padding;
+                    domain_array[1] += (padding + addFactor);
                 }else if (count === 2) {
-                    domain_array[0] -= padding;
-                    domain_array[1] += padding;
+                    domain_array[0] -= (padding + addFactor);
+                    domain_array[1] += (padding + addFactor);
                 }
                 return domain_array;
             },
@@ -439,23 +437,26 @@ configuration.mouseEvent = function (options) {
     var that = this;
     that.tooltip = configuration.tooltipp;
     that.cross_hair_v = configuration.cross_hair_v;
+    that.cross_hair_h = configuration.cross_hair_h;
     that.focus_circle = configuration.focus_circle;
     var status;
     var action = {
         tooltipPosition : function (d,xPos,yPos,xDiff,yDiff) {
             if(PykCharts.boolean(options.enableTooltip) && options.mode === "default") {
             	if(xPos !== undefined){
-                    return that.tooltip
+                    var width_tooltip = parseFloat($(options.selector+" #"+that.tooltip.attr("id")).css("width"));                    
+                    that.tooltip
             			.style("visibility", "visible")
-                        .style("top", (yPos + yDiff)+"px")
-                        .style("left", (xPos + xDiff)+"px");
+                        .style("top", (yPos + yDiff) + "px")
+                        .style("left", (xPos + options.margin.left + xDiff - width_tooltip) + "px");
                 }
-                else{
-                    return that.tooltip
+                else {
+                    that.tooltip
                         .style("visibility", "visible")
                         .style("top", (d3.event.pageY - 20) + "px")
                         .style("left", (d3.event.pageX + 30) + "px");
                 }
+                return that.tooltip;
             }
         },
         toolTextShow : function (d) {
@@ -469,10 +470,11 @@ configuration.mouseEvent = function (options) {
                 return that.tooltip.style("visibility", "hidden");
             }
         },
-        crossHairPosition: function(data,xScale,dataLineGroup,lineMargin){
+        crossHairPosition: function(data,new_data,xScale,dataLineGroup,lineMargin,type,tooltipMode){
             if((PykCharts.boolean(options.enableCrossHair) || PykCharts.boolean(options.enableTooltip) || PykCharts.boolean(options.onHoverHighlightenable))  && options.mode === "default") {
-                var offsetLeft = $(options.selector + " " + "#"+dataLineGroup.attr("id")).offset().left;
-                var offsetRight = $(options.selector + " " + "#"+dataLineGroup.attr("id")).offset().right;
+                var offsetLeft = $(options.selector + " #"+dataLineGroup[0].attr("id")).offset().left;
+                var offsetRight = $(options.selector + " #"+dataLineGroup[0].attr("id")).offset().right;
+                var number_of_lines = dataLineGroup.length;
                 var left = options.margin.left;
                 var right = options.margin.right;
                 var top = options.margin.top;
@@ -480,7 +482,7 @@ configuration.mouseEvent = function (options) {
                 var w = options.width;
                 var h = options.height;
                 var x = d3.event.pageX - offsetLeft;
-                var pathEl = dataLineGroup.node();
+                var pathEl = dataLineGroup[0].node();
                 var pathLength = pathEl.getTotalLength();
                 var beginning = x, end = pathLength, target;
                 var leftEdges = xScale.range();
@@ -488,78 +490,121 @@ configuration.mouseEvent = function (options) {
                 var j,tooltpText="",activeTick="",cx = 0,cy = 0,pathWidth = 0;
 
                 while (true) {
-                  target = Math.floor((beginning + end) / 2);
-                  pos = pathEl.getPointAtLength(target);
-                  if ((target === end || target === beginning) && pos.x !== x) {
-                    break;
-                  }
-                  if (pos.x > x) {
-                      end = target;
-                  }
-                  else if (pos.x < x) {
-                      beginning = target;
-                  }
-                  else{
-                      break;
-                  }
+                    target = Math.floor((beginning + end) / 2);
+                    pos = pathEl.getPointAtLength(target);
+                    if ((target === end || target === beginning) && pos.x !== x) {
+                        break;
+                    }
+                    if (pos.x > x) {
+                          end = target;
+                    }
+                    else if (pos.x < x) {
+                          beginning = target;
+                    }
+                    else{
+                          break;
+                    }
                 }
                 for(j = 0; x > (xScale.range()[j] + xRange - lineMargin); j++) {}
-                tooltipText = data[j].tooltip;
-                activeTick = data[j].x;
-                cx = x + lineMargin + left;
+                activeTick = data[j].x;                
+
+                if(type === "lineChart" || type === "areaChart") { tooltipText = data[j].tooltip; }
+                else if(type === "multiline") {
+                    that.tooltip.classed({"pyk-line-tooltip":false,"pyk-multiline-tooltip":true});
+                    var len_data = new_data[0].data.length,tt_row=""; // Assumption -- number of Data points in different groups will always be equal
+                    for(var i=0;i < number_of_lines;i++) {
+                        for(var j=0;j < len_data;j++) {
+                            if(new_data[i].data[j].x === activeTick) {
+                                tt_row += "<tr><td><div style='padding:2px;width:5px;height:5px;background-color:"+new_data[i].color+"'></div></td><td>"+new_data[i].name+"</td><td><b>"+new_data[i].data[j].tooltip+"</b></td></tr>";
+                            }
+                        }
+                    }
+                    tooltipText = "<table class='pyk-tooltip-table'><th colspan='3' style='text-align:left;'>"+activeTick+"</th>"+tt_row+"</table>";
+                }
+
+                cx = x + lineMargin + left - 1;
                 cy = pos.y + top;
-                pathWidth = dataLineGroup.node().getBBox().width;
+                pathWidth = dataLineGroup[0].node().getBBox().width;
 
-    			if((cx >= (lineMargin + left + 1)) && (cx <= (pathWidth + lineMargin + left + 2)) && (cy >= top) && (cy <= (h - bottom))) {
-                	this.tooltipPosition(tooltipText,cx,top,-30,-3);
+    			if((cx >= (lineMargin + left)) && (cx <= (pathWidth + lineMargin + left)) && (cy >= top) && (cy <= (h - bottom))) {
+                	if(type === "lineChart" || type === "areaChart") {
+                        console.log(options.tooltip.mode); 
+                        if((options.tooltip.mode).toLowerCase() === "fixed") {
+                            this.tooltipPosition(tooltipText,0,cy,-14,-15);
+                        } else if((options.tooltip.mode).toLowerCase() === "moving"){
+                            this.tooltipPosition(tooltipText,cx,cy,5,-45);
+                        }
+                    }
+                    else if (type === "multiline" || type === "stackedAreaChart") {
+                        this.tooltipPosition(tooltipText,cx,event.offsetY,80,10);
+                    }
                     this.toolTextShow(tooltipText);
-                    (options.enableCrossHair) ? this.crossHairShow(cx,top,cx,(h - bottom),cx,cy) : null;
-                    this.axisHighlightShow(activeTick,options.selector+" "+".x.axis");
+                    (options.enableCrossHair) ? this.crossHairShow(cx,top,cx,(h - bottom),cx,cy,type) : null;
+                    this.axisHighlightShow(activeTick,options.selector+" .x.axis");
                 }
-                else{
+                else {
                   	this.tooltipHide();
-                  	(options.enableCrossHair) ? this.crossHairHide() : null;
-                  	this.axisHighlightHide(options.selector+" "+".x.axis");
-                  	// crossHairH.style("display","none");
+                  	(options.enableCrossHair) ? this.crossHairHide(type) : null;
+                  	this.axisHighlightHide(options.selector+" .x.axis");
                 }
-
             }
         },
-        crossHairShow : function (x1,y1,x2,y2,cx,cy) {
+        crossHairShow : function (x1,y1,x2,y2,cx,cy,type) {
             if(PykCharts.boolean(options.enableCrossHair) && options.mode === "default") {
-                if(x1 !== undefined){
-                    that.cross_hair_v.style("display","block");
-                    that.cross_hair_v.select(options.selector + " #cross-hair-v")
-                        .attr("x1",x1)
-                        .attr("y1",y1)
-                        .attr("x2",x2)
-                        .attr("y2",y2);
-                    that.focus_circle.style("display","block")
-                        .attr("transform", "translate(" + cx + "," + cy + ")");
+                if(x1 !== undefined) {
+                    if(type === "lineChart" || type === "areaChart") {
+                        that.cross_hair_v.style("display","block");
+                        that.cross_hair_v.select(options.selector + " #cross-hair-v")
+                            .attr("x1",x1)
+                            .attr("y1",y1)
+                            .attr("x2",x2)
+                            .attr("y2",y2);                            
+                        that.cross_hair_h.style("display","block");
+                        that.cross_hair_h.select(options.selector + " #cross-hair-h")
+                            .attr("x1",options.margin.left)
+                            .attr("y1",cy)
+                            .attr("x2",(options.width - options.margin.right))
+                            .attr("y2",cy);
+                        that.focus_circle.style("display","block")
+                            .attr("transform", "translate(" + cx + "," + cy + ")");
+
+                    }
+                    else if(type === "multiline") {
+                        // Horizontal Cursor Removed & Multiple focus circles --- Pending!!!
+                        that.cross_hair_v.style("display","block");
+                        that.cross_hair_v.select(options.selector + " #cross-hair-v")
+                            .attr("x1",(x1 - 5))
+                            .attr("y1",y1)
+                            .attr("x2",(x2 - 5))
+                            .attr("y2",y2);
+                    }
                 }
             }
             return this;
         },
-        crossHairHide : function () {
+        crossHairHide : function (type) {
             if(PykCharts.boolean(options.enableCrossHair) && options.mode === "default") {
                 that.cross_hair_v.style("display","none");
-                that.focus_circle.style("display","none");
+                if(type === "lineChart" || type === "areaChart") {
+                    that.cross_hair_h.style("display","none");
+                    that.focus_circle.style("display","none");
+                }
             }
             return this;
         },
         axisHighlightShow : function (activeTick,axisHighlight,a) {
             var j_curr,j_prev,abc,selection;
             if(PykCharts.boolean(options.axis.onHoverHighlightenable)&& options.mode === "default"){
-                if(axisHighlight === options.selector + " " + ".y.axis"){
+                if(axisHighlight === options.selector + " .y.axis"){
                     selection = axisHighlight+" .tick text";
                     abc = options.axis.y.labelColor;
-                } else if(axisHighlight === options.selector + " " + ".x.axis") {
+                } else if(axisHighlight === options.selector + " .x.axis") {
                     selection = axisHighlight+" .tick text";
                     abc = options.axis.x.labelColor;
-                } else if(axisHighlight === options.selector + " " + ".axis-text" && a === "column") {
+                } else if(axisHighlight === options.selector + " .axis-text" && a === "column") {
                     selection = axisHighlight;
                     abc = options.axis.x.labelColor;
-                } else if(axisHighlight === options.selector + " " + ".axis-text" && a === "bar") {
+                } else if(axisHighlight === options.selector + " .axis-text" && a === "bar") {
                     selection = axisHighlight;
                     abc = options.axis.y.labelColor;
                 }
@@ -587,16 +632,16 @@ configuration.mouseEvent = function (options) {
         axisHighlightHide : function (axisHighlight,a) {
             var abc,selection;
             if(PykCharts.boolean(options.axis.onHoverHighlightenable) && options.mode === "default"){
-                if(axisHighlight === options.selector + " " + ".y.axis"){
+                if(axisHighlight === options.selector + " .y.axis"){
                     selection = axisHighlight+" .tick text";
                     abc = options.axis.y.labelColor;
-                } else if(axisHighlight === options.selector + " " + ".x.axis") {
+                } else if(axisHighlight === options.selector + " .x.axis") {
                     selection = axisHighlight+" .tick text";
                     abc = options.axis.x.labelColor;
-                } else if(axisHighlight === options.selector + " " + ".axis-text" && a === "column") {
+                } else if(axisHighlight === options.selector + " .axis-text" && a === "column") {
                     selection = axisHighlight;
                     abc = options.axis.x.labelColor;
-                } else if(axisHighlight === options.selector + " " + ".axis-text" && a === "bar") {
+                } else if(axisHighlight === options.selector + " .axis-text" && a === "bar") {
                     selection = axisHighlight;
                     abc = options.axis.y.labelColor;
                 }
@@ -672,12 +717,11 @@ configuration.border = function (options) {
 
 configuration.makeXAxis = function(options,xScale) {
     var that = this;
-
     var xaxis = d3.svg.axis()
                     .scale(xScale)
                     .ticks(options.axis.x.no_of_ticks)
                     .tickSize(options.axis.x.tickSize)
-                    .outerTickSize(0)
+                    .outerTickSize(options.axis.x.outer_tick_size)
                     .tickFormat(function (d,i) {
                         return d + options.axis.x.tickFormat;
                     })
@@ -693,7 +737,7 @@ configuration.makeYAxis = function(options,yScale) {
                     .orient(options.axis.y.orient)
                     .ticks(options.axis.y.no_of_ticks)
                     .tickSize(options.axis.y.tickSize)
-                    .outerTickSize(0)
+                    .outerTickSize(options.axis.y.outer_tick_size)
                     .tickPadding(options.axis.y.ticksPadding)
                     .tickFormat(function (d,i) {
                         return d + options.axis.y.tickFormat;
@@ -789,7 +833,7 @@ configuration.Theme = function(){
             "color": "white",
             "style": "solid" // or "dotted / dashed"
         },
-        "legends":{ //partially done for oneD, pending for twoD
+        "legendsText":{ //partially done for oneD, pending for twoD
             "size": "13",
             "color": "white",
             "weight": "thin",
@@ -865,24 +909,30 @@ configuration.Theme = function(){
             "onHoverHighlightenable": "no",
             "x": {
                 "enable": "yes",
+                "position":"bottom",
                 "orient" : "bottom",
                 "axisColor": "#1D1D1D",
                 "labelColor": "#1D1D1D",
-                "no_of_ticks": 10,
+                "no_of_ticks": 5,
                 "tickSize": 5,
                 "tickFormat": "",
                 "ticksPadding": 6,
-                "tickValues": []
+                "tickValues": [],
+                "inner_tick_size": 5,
+                "outer_tick_size": 0
             },
             "y": {
                 "enable": "yes",
+                "position":"left",
                 "orient": "left",
                 "axisColor": "#1D1D1D",
                 "labelColor": "#1D1D1D",
-                "no_of_ticks": 10,
+                "no_of_ticks": 5,
                 "tickSize": 5,
                 "tickFormat": "",
-                "ticksPadding": 6
+                "ticksPadding": 6,
+                "inner_tick_size": 5,
+                "outer_tick_size": 0
             }
         },
         "yAxisDataFormat" : "number",
@@ -905,11 +955,18 @@ configuration.Theme = function(){
             "enable" : "no"
         },
         "legends" : {
-            "enable": "no",
+            "enable": "yes",
             "display" : "horizontal"
+        },
+        "tooltip" : {
+            "enable" : "yes",
+            "mode" : "fixed"
         },
         "scatterplot" : {
             "radius" : 9
+        },
+        "line": {
+            "color_from_data": "yes"
         }
     };
 
@@ -921,12 +978,41 @@ configuration.Theme = function(){
     };
 
     that.mapsTheme = {
-        "mapCode": "india-topo",
+        // "mapCode": "india-topo",
+        "map": {
+            "width":1000,
+            "height":1000
+        },
+        "colors" : {
+            "defaultColor" : "#4682B4",
+            "total" :3,
+            "type" : "satuartion",
+            "palette" : "Blue"
+        },
+        "border" :{
+            "color": "white",
+            "thickness" : 1
+        },
+        "tooltip" : {
+            "enable": "yes",
+            "mode":"moving",
+            "positionTop":0,
+            "positionLeft":0
+        },
+        "legends": {
+            "enable":"yes"
+        },
+        "label": {
+            "enable": "no"
+        },
+        "enableClick": "yes",
+        "onhover": "shadow",
+        "highlightArea":"no",
         "axis" : {
             "onHoverHighlightenable": "no",
             "x": {
                 "enable": "yes",
-                "orient" : "bottom",
+                "orient" : "top",
                 "axisColor": "#1D1D1D",
                 "labelColor": "#1D1D1D",
                 "no_of_ticks": 10,
@@ -983,8 +1069,10 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
         , optional = options.optional;
 
     chartObject.selector = options.selector ? options.selector : stylesheet.selector;
-    chartObject.width = options.chart && _.isNumber(options.chart.width) ? options.chart.width : stylesheet.chart.width;
-    chartObject.height = options.chart && _.isNumber(options.chart.height) ? options.chart.height : stylesheet.chart.height;
+    chartObject.width = optional && _.isNumber(optional.chart.width) ? optional.chart.width : stylesheet.chart.width;
+    chartObject.height = optional &&_.isNumber(optional.chart.height) ? optional.chart.height : stylesheet.chart.height;
+    // chartObject.width = options.chart && _.isNumber(options.chart.width) ? options.chart.width : stylesheet.chart.width;
+    // chartObject.height = options.chart && _.isNumber(options.chart.height) ? options.chart.height : stylesheet.chart.height;
     chartObject.mode = options.mode ? options.mode : stylesheet.mode;
     
     if (optional && optional.title) {
@@ -3606,25 +3694,35 @@ PykCharts.maps.processInputs = function (chartObject, options) {
         , optional = options.optional;
 
     chartObject.selector = options.selector ? options.selector : stylesheet.selector;
-    chartObject.width = options.map && _.isNumber(parseInt(options.map.width,10)) ? options.map.width : stylesheet.map.width;
-    chartObject.height = options.map && _.isNumber(parseInt(options.map.height,10)) ? options.map.height : stylesheet.map.height;
+    chartObject.width = options.map && _.isNumber(parseInt(options.map.width,10)) ? options.map.width : mapsTheme.map.width;
+    chartObject.height = options.map && _.isNumber(parseInt(options.map.height,10)) ? options.map.height : mapsTheme.map.height;
     chartObject.mapCode = options.mapCode ? options.mapCode : mapsTheme.mapCode;
-    chartObject.defaultColor = optional && optional.colors && optional.colors.defaultColor ? optional.colors.defaultColor : stylesheet.colors.defaultColor;
-    chartObject.colorType = optional && optional.colors && optional.colors.type ? optional.colors.type : stylesheet.colors.type;
-    chartObject.totalColors = optional && optional.colors && _.isNumber(parseInt(optional.colors.total,10)) ? parseInt(optional.colors.total,10) : stylesheet.colors.total;
-    chartObject.colorPalette = optional && optional.colors && optional.colors.palette ? optional.colors.palette : stylesheet.colors.palette;
+    chartObject.enableClick = options.enableClick ? options.enableClick : mapsTheme.enableClick;
+    // chartObject.defaultColor = optional && optional.colors && optional.colors.defaultColor ? optional.colors.defaultColor : mapsTheme.colors.defaultColor;
+    // chartObject.colorType = optional && optional.colors && optional.colors.type ? optional.colors.type : stylesheet.colors.type;
+    // chartObject.totalColors = optional && optional.colors && _.isNumber(parseInt(optional.colors.total,10)) ? parseInt(optional.colors.total,10) : stylesheet.colors.total;
+    // chartObject.colorPalette = optional && optional.colors && optional.colors.palette ? optional.colors.palette : mapsTheme.colors.palette;
     chartObject.bg = optional && optional.colors && optional.colors.backgroundColor ? optional.colors.backgroundColor : stylesheet.colors.backgroundColor;
     if (optional && optional.tooltip)  {
         chartObject.tooltip = optional.tooltip;
-        chartObject.tooltip.enable = optional.tooltip.enable ? optional.tooltip.enable : stylesheet.tooltip.enable;
-        chartObject.enableTooltip = chartObject.tooltip.enable;
-        chartObject.tooltip.mode = optional.tooltip.mode ? optional.tooltip.mode : stylesheet.tooltip.mode;
-        chartObject.tooltip.positionTop = optional.tooltip.positionTop ? optional.tooltip.positionTop : stylesheet.tooltip.positionTop;
-        chartObject.tooltip.positionLeft = optional.tooltip.positionLeft ? optional.tooltip.positionLeft : stylesheet.tooltip.positionLeft;
+        chartObject.tooltip.enable = optional.tooltip.enable ? optional.tooltip.enable : mapsTheme.tooltip.enable;
+        // chartObject.enableTooltip = chartObject.tooltip.enable;
+        chartObject.tooltip.mode = optional.tooltip.mode ? optional.tooltip.mode : mapsTheme.tooltip.mode;
+        chartObject.tooltip.positionTop = optional.tooltip.positionTop ? optional.tooltip.positionTop : mapsTheme.tooltip.positionTop;
+        chartObject.tooltip.positionLeft = optional.tooltip.positionLeft ? optional.tooltip.positionLeft : mapsTheme.tooltip.positionLeft;
         chartObject.tooltipTopCorrection = d3.select(chartObject.selector).style("top");
         chartObject.tooltipLeftCorrection = d3.select(chartObject.selector).style("left");
     } else {
-        chartObject.tooltip = stylesheet.tooltip;
+        chartObject.tooltip = mapsTheme.tooltip;
+    }
+    if (optional && optional.colors) {
+        chartObject.colors = optional.colors;
+        chartObject.colors.defaultColor = optional.colors.defaultColor ? optional.colors.defaultColor : mapsTheme.colors.defaultColor;
+        chartObject.colors.total = optional.colors.total && _.isNumber(parseInt(optional.colors.total,10))? parseInt(optional.colors.total,10) : mapsTheme.colors.total;
+        chartObject.colors.type = optional.colors.type ? optional.colors.type : mapsTheme.colors.type;
+        chartObject.colors.palette = optional.colors.palette ? optional.colors.palette : mapsTheme.colors.palette;
+    } else {
+        chartObject.colors = mapsTheme.colors;
     }
     if (optional && optional.axis) {
         chartObject.axis = optional.axis;
@@ -3649,36 +3747,47 @@ PykCharts.maps.processInputs = function (chartObject, options) {
     } else {
         chartObject.axis = mapsTheme.axis;
     }
-    if (optional && optional.label) {
+    if(optional && optional.label) {
         chartObject.label = optional.label;
-        chartObject.label.size = optional.label.size ? optional.label.size : stylesheet.label.size;
-        chartObject.label.color = optional.label.color ? optional.label.color : stylesheet.label.color;
-        chartObject.label.weight = optional.label.weight ? optional.label.weight : stylesheet.label.weight;
-        chartObject.label.family = optional.label.family ? optional.label.family : stylesheet.label.family;
+        chartObject.label.enable = optional.label.enable && optional.label.enable ? optional.label.enable : mapsTheme.label.enable;
     } else {
-        chartObject.label = stylesheet.label;
+        chartObject.label =  mapsTheme.label;
     }
+    // if (optional && optional.label) {
+    //     chartObject.label = optional.label;
+    //     chartObject.label.size = optional.label.size ? optional.label.size : stylesheet.label.size;
+    //     chartObject.label.color = optional.label.color ? optional.label.color : stylesheet.label.color;
+    //     chartObject.label.weight = optional.label.weight ? optional.label.weight : stylesheet.label.weight;
+    //     chartObject.label.family = optional.label.family ? optional.label.family : stylesheet.label.family;
+    // } else {
+    //     chartObject.label = stylesheet.label;
+    // }
     if(optional && optional.legends) {
         chartObject.legends = optional.legends;
-        chartObject.legends.strokeWidth = optional.legends.strokeWidth ? optional.legends.strokeWidth : stylesheet.legends.strokeWidth;
-        chartObject.legends.size = optional.legends.size ? optional.legends.size : stylesheet.legends.size;
-        chartObject.legends.color = optional.legends.color ? optional.legends.color : stylesheet.legends.color;
-        chartObject.legends.family = optional.legends.family ? optional.legends.family : stylesheet.legends.family;
+        chartObject.legends.enable = optional.legends.enable && optional.legends.enable ? optional.legends.enable : mapsTheme.legends.enable;
     } else {
-        chartObject.legends = stylesheet.legends;
+        chartObject.legends =  mapsTheme.legends;
     }
+    // if(optional && optional.legends) {
+    //     chartObject.legends = optional.legends;
+    //     chartObject.legends.strokeWidth = optional.legends.strokeWidth ? optional.legends.strokeWidth : stylesheet.legends.strokeWidth;
+    //     chartObject.legends.size = optional.legends.size ? optional.legends.size : stylesheet.legends.size;
+    //     chartObject.legends.color = optional.legends.color ? optional.legends.color : stylesheet.legends.color;
+    //     chartObject.legends.family = optional.legends.family ? optional.legends.family : stylesheet.legends.family;
+    // } else {
+    //     chartObject.legends = stylesheet.legends;
+    // }
     if(optional && optional.border) {
         chartObject.border = optional.border;
-        chartObject.border.color = optional.border.color ? optional.border.color : stylesheet.border.color;
-        chartObject.border.thickness = optional.border.thickness ? optional.border.thickness : stylesheet.border.thickness;
+        chartObject.border.color = optional.border.color ? optional.border.color : mapsTheme.border.color;
+        chartObject.border.thickness = optional.border.thickness ? optional.border.thickness : mapsTheme.border.thickness;
     } else {
-        chartObject.legends = stylesheet.legends;
+        chartObject.border = mapsTheme.border;
     }
-    chartObject.enableClick = optional && optional.enableClick ? optional.enableClick : stylesheet.enableClick;
-    chartObject.onhover = optional && optional.onhover ? optional.onhover : stylesheet.onhover;
+    chartObject.onhover = optional && optional.onhover ? optional.onhover : mapsTheme.onhover;
     chartObject.defaultZoomLevel = optional && optional.defaultZoomLevel ? optional.defaultZoomLevel : 80;
     chartObject.loading = optional && optional.loading && optional.loading.animationGifUrl ? optional.loading.animationGifUrl: stylesheet.loading.animationGifUrl;
-    chartObject.highlightArea = optional && optional.highlightArea ? optional.highlightArea : stylesheet.highlightArea;
+    chartObject.highlightArea = optional && optional.highlightArea ? optional.highlightArea : mapsTheme.highlightArea;
     if (optional && optional.title) {
         chartObject.title = optional.title;
         chartObject.title.size = optional.title.size ? optional.title.size : stylesheet.title.size;
@@ -3692,7 +3801,6 @@ PykCharts.maps.processInputs = function (chartObject, options) {
         chartObject.subtitle = optional.subtitle;
         chartObject.subtitle.size = optional.subtitle.size ? optional.subtitle.size : stylesheet.subtitle.size;
         chartObject.subtitle.color = optional.subtitle.color ? optional.subtitle.color : stylesheet.subtitle.color;
-        chartObject.subtitle.weight = optional.subtitle.weight ? optional.subtitle.weight : stylesheet.subtitle.weight;
         chartObject.subtitle.family = optional.subtitle.family ? optional.subtitle.family : stylesheet.subtitle.family;
     } else {
         chartObject.subtitle = stylesheet.subtitle;
@@ -3708,17 +3816,17 @@ PykCharts.maps.processInputs = function (chartObject, options) {
 
 PykCharts.maps.oneLayer = function (options) {
     var that = this;
-
+    var theme = new PykCharts.Configuration.Theme({});
     this.execute = function () {
         that = PykCharts.maps.processInputs(that, options);
         //$(that.selector).css("height",that.height);
         that.data = options.data;
-
+    
         that.k
-            .totalColors(that.totalColors)
-            .colorType(that.colorType)
+            .totalColors(that.colors.total)
+            .colorType(that.colors.type)
             .loading(that.loading)
-            .tooltip(that.tooltip)
+            .tooltip(that.tooltip.enable)
 
         d3.json("../data/maps/" + that.mapCode + ".json", function (data) {
             that.map_data = data;
@@ -3752,8 +3860,9 @@ PykCharts.maps.oneLayer = function (options) {
             },
             enableClick: function (ec) {
                 if (PykCharts.boolean(ec)) {
-                    areas.on("click", that.clicked);
-                    that.onhover = "color_saturation";
+                    that.areas.on("click", that.clicked);
+                    // that.onhover = "color_saturation";
+                    that.onhover1 = that.onhover;
                 };
                 return this;
             }
@@ -3769,10 +3878,9 @@ PykCharts.maps.oneLayer = function (options) {
             offset = [that.width / 2, that.height / 2],
             i;
 
-        that.current_palette = _.where(that.colorPalette_data, {name:that.colorPalette, number:that.totalColors})[0];
-
+        that.current_palette = _.where(that.colorPalette_data, {name:that.colors.palette, number:that.colors.total})[0];
         that.optionalFeatures()
-            .enableLegend(that.legends)
+            .enableLegend(that.legends.enable)
 
         that.canvas = d3.select(that.selector)
             .append("svg")
@@ -3827,7 +3935,7 @@ PykCharts.maps.oneLayer = function (options) {
                         .scale((that.defaultZoomLevel / 100) * scale).translate(offset);
         that.path = that.path.projection(projection);
         var ttp = d3.select("#pyk-tooltip");
-        var areas = that.group.append("path")
+        that.areas = that.group.append("path")
             .attr("d", that.path)
             .attr("class", "area")
             .attr("state_name", function (d) {
@@ -3836,18 +3944,18 @@ PykCharts.maps.oneLayer = function (options) {
             //.attr("prev-fill",that.renderPreColor)
             .attr("fill", that.renderColor)
             .attr("opacity", that.renderOpacity)
-            .attr("stroke", that.boder_color)
-            .attr("stroke-width", that.boder_thickness + "px")
+            .attr("stroke", that.border.color)
+            .attr("stroke-width", that.border.thickness + "px")
             .on("mouseover", function (d) {
-                console.log((_.where(that.data, {iso2: d.properties.iso_a2})[0]).tooltip)
-                if (PykCharts.boolean(that.tooltip)) {
+                // console.log((_.where(that.data, {iso2: d.properties.iso_a2})[0]).tooltip)
+                if (PykCharts.boolean(that.tooltip.enable)) {
                     ttp.style("visibility", "visible");
                     ttp.html((_.where(that.data, {iso2: d.properties.iso_a2})[0]).tooltip);
                 }
                 that.bodColor(d);
             })
             .on("mousemove", function () {
-                if (PykCharts.boolean(that.tooltip)) {
+                if (PykCharts.boolean(that.tooltip.enable)) {
                     if (that.tooltip.mode === "moving") {
                         ttp.style("top", function () {
 
@@ -3865,18 +3973,21 @@ PykCharts.maps.oneLayer = function (options) {
                 }
             })
             .on("mouseout", function (d) {
-                if (PykCharts.boolean(that.tooltip)) {
+                if (PykCharts.boolean(that.tooltip.enable)) {
                     ttp.style("visibility", "hidden");
                 }
                 that.bodUncolor(d);
             });
-
         this.optionalFeatures()
-            .enableLabel(that.label)
-            .enableClick(that.enable_click);
+            .enableLabel(that.label.enable)
+            .enableClick(that.enableClick);
 
-        that.k.dataSource(that.dataSource)
-            .credits(that.creditMySite);
+        if (PykCharts.boolean(that.creditMySite.enable)) {
+            that.k.credits();
+        }
+        if (PykCharts.boolean(that.dataSource.enable)) {
+             that.k.dataSource();
+        }
     };
 
     this.renderColor = function (d, i) {
@@ -3884,18 +3995,18 @@ PykCharts.maps.oneLayer = function (options) {
             obj;
             obj = _.where(that.data, {iso2: d.properties.iso_a2});
         if (_.where(that.data, {iso2: d.properties.iso_a2}).length > 0) {
-            if (that.colorType === "colors") {
+            if (that.colors.type === "colors") {
                 if (obj.length > 0 && obj[0].color !== "") {
                     return obj[0].color;
                 }
-                return that.defaultColor;
+                return that.colors.defaultColor;
             }
-            if (that.colorType === "saturation") {
+            if (that.colors.type === "saturation") {
 
                 if ((that.highlightArea === "yes") && obj[0].highlight == "true") {
                     return obj[0].highlight_color;
                 } else {
-                    if (that.colorPalette !== "") {
+                    if (that.colors.palette !== "") {
                         col_shade = _.where(that.data, {iso2: d.properties.iso_a2})[0].size;
                         for (i = 0; i < that.current_palette.colors.length; i++) {
                             if (col_shade >= that.min_size + i * (that.difference / that.current_palette.colors.length) && col_shade <= that.min_size + (i + 1) * (that.difference / that.current_palette.colors.length)) {
@@ -3904,17 +4015,17 @@ PykCharts.maps.oneLayer = function (options) {
                         }
 
                     }
-                    return that.defaultColor;
+                    return that.colors.defaultColor;
                 }
             }
-            return that.defaultColor;
+            return that.colors.defaultColor;
         }
-        return that.defaultColor;
+        return that.colors.defaultColor;
     };
 
     this.renderOpacity = function (d) {
 
-        if (that.colorPalette === "" && that.colorType === "saturation") {
+        if (that.colors.palette === "" && that.colors.type === "saturation") {
             that.oneninth = +(d3.format(".2f")(that.difference / 10));
             that.opacity = (that.min_size + (_.where(that.data, {iso2: d.properties.iso_a2})[0]).size + that.oneninth) / that.difference;
             return that.opacity;
@@ -3926,13 +4037,13 @@ PykCharts.maps.oneLayer = function (options) {
         var that = this,
             k,
             onetenth;
-        if (that.colorType === "saturation") {
+        if (that.colors.type === "saturation") {
             that.legs = d3.select(that.selector)
                 .append("svg")
                 .attr("id", "legend-container")
                 .attr("width", that.width)
                 .attr("height", 50);
-            if (that.colorPalette === "") {
+            if (that.colors.palette === "") {
                 for (k = 1; k <= 9; k++) {
                     onetenth = d3.format(".1f")(that.max_size / 9);
                     that.leg = d3.round(onetenth * k);
@@ -3975,6 +4086,7 @@ PykCharts.maps.oneLayer = function (options) {
     };
 
     this.renderLabel = function () {
+         console.log("legends")
         that.group.append("text")
             .attr("x", function (d) { return that.path.centroid(d)[0]; })
             .attr("y", function (d) { return that.path.centroid(d)[1]; })
@@ -3985,27 +4097,27 @@ PykCharts.maps.oneLayer = function (options) {
     };
 
     this.bodColor = function (d) {
-
-        if(that.onhover !== "none") {
-            if (that.onhover === "highlight_border") {
+        // console.log(that.onhover1);
+        if(that.onhover1 !== "none") {
+            if (that.onhover1 === "highlight_border") {
                 d3.select("path[state_name='" + d.properties.NAME_1 + "']")
                     .attr("stroke", that.border.color)
                     .attr("stroke-width", that.border.thickness + 0.5);
-            } else if (that.onhover === "shadow") {
+            } else if (that.onhover1 === "shadow") {
                 d3.select("path[state_name='" + d.properties.NAME_1 + "']")
                     .attr('filter', 'url(#dropshadow)')
                     .attr("opacity", function () {
-                        if (that.colorPalette === "" && that.colorType === "saturation") {
+                        if (that.colors.palette === "" && that.colors.type === "saturation") {
                             that.oneninth_dim = +(d3.format(".2f")(that.difference / 10));
                             that.opacity_dim = (that.min_size + (_.where(that.data, {iso2: d.properties.iso_a2})[0]).size + that.oneninth_dim) / that.difference;
                             return that.opacity_dim/2;
                         }
                         return 0.5;
                     });
-            } else if (that.onhover === "color_saturation") {
+            } else if (that.onhover1 === "color_saturation") {
                 d3.select("path[state_name='" + d.properties.NAME_1 + "']")
                     .attr("opacity", function () {
-                        if (that.colorPalette === "" && that.colorType === "saturation") {
+                        if (that.colors.palette=== "" && that.colors.type === "saturation") {
                             that.oneninth_dim = +(d3.format(".2f")(that.difference / 10));
                             that.opacity_dim = (that.min_size + (_.where(that.data, {iso2: d.properties.iso_a2})[0]).size + that.oneninth_dim) / that.difference;
                             return that.opacity_dim/2;
@@ -4014,6 +4126,7 @@ PykCharts.maps.oneLayer = function (options) {
                     });
             }
         } else {
+            console.log("none");
             that.bodUncolor(d);
         }
     };
@@ -4024,7 +4137,7 @@ PykCharts.maps.oneLayer = function (options) {
             .attr("stroke-width", that.border.thickness)
             .attr('filter', null)
             .attr("opacity", function () {
-                if (that.colorPalette === "" && that.colorType === "saturation") {
+                if (that.colors.palette === "" && that.colors.type === "saturation") {
                     that.oneninth_high = +(d3.format(".2f")(that.difference / 10));
                     that.opacity_high = (that.min_size + (_.where(that.data, {iso2: d.properties.iso_a2})[0]).size + that.oneninth_high) / that.difference;
                     return that.opacity_high;
