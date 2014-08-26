@@ -284,7 +284,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                     var k = 0;
                     var l = 0;
                     if(options.optional.legends.display === "vertical" ) {
-                        that.legendsContainer.attr("height", (that.mapGroupData[0].length * 30)+20);
+                        that.legendSvg.attr("height", (that.mapGroupData[0].length * 30)+20);
                         text_parameter1 = "x";
                         text_parameter2 = "y";
                         rect_parameter1 = "width";
@@ -299,7 +299,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                         var text_parameter2value = function (d,i) { return i * 24 + 23;};
 
                     } else if(options.optional.legends.display === "horizontal") {
-                        // that.legendsContainer.attr("height", (k+1)*70);
+                        // that.legendSvg.attr("height", (k+1)*70);
                         text_parameter1 = "x";
                         text_parameter2 = "y";
                         rect_parameter1 = "width";
@@ -352,7 +352,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                             } else if ((that.width - (i*100 + 100)) < that.width) {
                                 k++;
                                 if(l === 0) {
-                                    that.legendSvg.attr("height", (k+1)*50);
+                                    that.legendSvg.attr("height", (l+1)*50);
                                 }
                                 l++;
                                 return that.width - ((l-1)*100 + 100); 
