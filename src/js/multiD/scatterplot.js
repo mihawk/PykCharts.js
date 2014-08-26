@@ -1,3 +1,4 @@
+
 PykCharts.multiD.scatterplot = function (options) {
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
@@ -18,14 +19,47 @@ PykCharts.multiD.scatterplot = function (options) {
         that.multiple_containers = optional && optional.multiple_containers && optional.multiple_containers.enable ? optional.multiple_containers.enable : multiDimensionalCharts.multiple_containers.enable;
         that.bubbleRadius = options.scatterplot && _.isNumber(options.scatterplot.radius) ? options.scatterplot.radius : multiDimensionalCharts.scatterplot.radius;
         that.zoomedOut = true;
-        
+        that.radius_range = [20,50];
         d3.json(options.data, function (e, data) {
             that.data = data;
             $(that.selector+" #chart-loader").remove();
-            that.render();
+            var a = new PykCharts.multiD.scatterplotFunction(options,that,"scatterplot");
+            a.render();
         });
     };
+};
 
+PykCharts.multiD.pulse = function (options) {
+    var that = this;
+    var theme = new PykCharts.Configuration.Theme({});
+    
+    this.execute = function() {
+        that = new PykCharts.multiD.processInputs(that, options, "pulse");
+        if(that.mode === "default") {
+            that.k.loading();
+        }
+        var multiDimensionalCharts = theme.multiDimensionalCharts,
+            stylesheet = theme.stylesheet,
+            optional = options.optional;
+        that.enableCrossHair = optional && optional.enableCrossHair ? optional.enableCrossHair : multiDimensionalCharts.enableCrossHair;
+        that.multiD = new PykCharts.multiD.configuration(that);
+        that.grid = options.chart && options.chart.grid ? options.chart.grid : stylesheet.chart.grid;
+        that.grid.yEnabled = options.chart && options.chart.grid && options.chart.grid.yEnabled ? options.chart.grid.yEnabled : stylesheet.chart.grid.yEnabled;
+        that.grid.xEnabled = options.chart && options.chart.grid && options.chart.grid.xEnabled ? options.chart.grid.xEnabled : stylesheet.chart.grid.xEnabled;
+        that.multiple_containers = optional && optional.multiple_containers && optional.multiple_containers.enable ? optional.multiple_containers.enable : multiDimensionalCharts.multiple_containers.enable;
+        that.bubbleRadius = options.scatterplot && _.isNumber(options.scatterplot.radius) ? options.scatterplot.radius : multiDimensionalCharts.scatterplot.radius;
+        that.zoomedOut = true;
+        that.radius_range = [2,6];
+        d3.json(options.data, function (e, data) {
+            that.data = data;
+            $(that.selector+" #chart-loader").remove();
+            var a = new PykCharts.multiD.scatterplotFunction(options,that,"pulse");
+            a.render();
+        });
+    };
+};
+PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
+    var that = chartObject;
     this.refresh = function () {
         d3.json(options.data, function (e, data) {
             that.data = data;
@@ -38,7 +72,6 @@ PykCharts.multiD.scatterplot = function (options) {
     };
 
     this.render = function () {
-        var that = this;
         that.mapGroupData = that.multiD.mapGroup(that.data);
         that.fillChart = new PykCharts.Configuration.fillChart(that);      
         
@@ -54,8 +87,8 @@ PykCharts.multiD.scatterplot = function (options) {
 
             that.no_of_groups = 1;
             
-            if(PykCharts.boolean(that.multiple_containers)) {
-                that.radius_range = [3,7];
+            if(PykCharts.boolean(that.multiple_containers) && type === "scatterplot") {
+                
                 that.no_of_groups = that.data_group.length;
                 that.w = that.width/that.no_of_groups;
                 that.margin.left = 25;
@@ -94,7 +127,6 @@ PykCharts.multiD.scatterplot = function (options) {
                 that.k.emptyDiv(); 
             } else {
                 that.w = that.width;
-                that.radius_range = [20,50];
                 that.new_data = that.data;
                 that.k.makeMainDiv(that.selector,1);
                 that.optionalFeatures()
@@ -145,8 +177,7 @@ PykCharts.multiD.scatterplot = function (options) {
         }
     };
 
-    this.optionalFeatures = function () {
-        var that = this;
+    that.optionalFeatures = function () {
         var optional = {
             svgContainer :function (i) {
                 $(options.selector + " #tooltip-svg-container-" + i).css("width",that.w);
@@ -217,7 +248,6 @@ PykCharts.multiD.scatterplot = function (options) {
                 return this;
             },
             createScatterPlot : function () {
-
                 that.weight = _.map(that.new_data, function (d) {
                     return d.weight;
                 });
@@ -571,9 +601,7 @@ PykCharts.multiD.scatterplot = function (options) {
                             .attr("id","zoomOut")
                             .style("position","absolute")
                             .style("left",that.width)
-                            // .style("left", that.margin.left + 300)
                             .style("top", that.margin.top + 50)
-                            // .style("top",that.h-270)
                             .style("height","20")
                             .on("click",function () {
                                 that.zoomedOut = true;
@@ -638,6 +666,13 @@ PykCharts.multiD.scatterplot = function (options) {
                         .style("font-family", that.label.family)
                         .text(function (d) {
                             return d.weight;
+                        })
+                        .text(function (d) {
+                            if((this.getBBox().width < (that.sizes(d.weight) * 2)) && (this.getBBox().height < (that.sizes(d.weight) * 2))) {
+                                return d.weight;
+                            } else {
+                                return "";
+                            }
                         });
                     that.circleLabel.exit()
                         .remove();
@@ -723,7 +758,7 @@ PykCharts.multiD.scatterplot = function (options) {
                 .attr("r", function (d) {
                     return that.sizes(d.weight)*d3.event.scale;
                 });
-    }
+    };
 
     // this.fullScreen = function () {
     //     var modalDiv = d3.select(that.selector).append("div")
