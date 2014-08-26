@@ -299,7 +299,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                         var text_parameter2value = function (d,i) { return i * 24 + 23;};
 
                     } else if(options.optional.legends.display === "horizontal") {
-                        // that.legendSvg.attr("height", (k+1)*70);
+                         // that.legendSvg.attr("height", (k+1)*70);
                         text_parameter1 = "x";
                         text_parameter2 = "y";
                         rect_parameter1 = "width";
