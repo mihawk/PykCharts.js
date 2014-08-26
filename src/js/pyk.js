@@ -179,8 +179,8 @@ PykCharts.Configuration = function (options){
                 .attr("id","tooltip-svg-container-"+i)
                 .style("width",options.width);
             if(PykCharts.boolean(options.multiple_containers)){
-                d.style("float","left");
-                // .style("height","auto");
+                d.style("float","left")
+                    .style("width","auto");
             }
             return this;
         },
