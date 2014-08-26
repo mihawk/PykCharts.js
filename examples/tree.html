@@ -38,12 +38,11 @@
                 selector: "#collapsibleTree",
                 data:"../data/tree.json",
                 mode: "default",
-                chart: {
-                    height: 700,
-                    width: 700,
-                    margin:{"top": 40, "right": 40, "bottom": 40, "left": 40}
-                },
                 optional:{
+                    chart: {
+                        height: 500,
+                        width: 500
+                    },
                     title: {
                         text: "Malnutrition in India",
                     },
@@ -60,7 +59,7 @@
                         enableLastUpdatedAt: "yes"
                     },
                     transition: {
-                        duration: 10000
+                        duration: 0
                     },
                     enableTooltip: "yes",
                     label:{ //partially done for oneD, pending for twoD
@@ -92,13 +91,12 @@
                 selector: "#openTree",
                 data:"../data/tree.json",
                 mode: "default",
-                chart: {
-                    height: 2200,
-                    width: 1000,
-                    margin:{"top": 40, "right": 40, "bottom": 40, "left": 40}
-                },
                 optional:{
-
+                    chart: {
+                        height: 2200,
+                        width: 1000,
+                        margin:{"top": 40, "right": 40, "bottom": 40, "left": 40}
+                    },
                     title: {
                         text: "Malnutrition in India",
                     },
@@ -114,7 +112,7 @@
                         "enableLastUpdatedAt": "yes"
                     },
                     transition: {
-                        duration: 10000
+                        duration: 0
                     },
                     enableTooltip: "yes",
                     label:{ //partially done for oneD, pending for twoD
@@ -145,11 +143,11 @@
             var k = new PykCharts.tree.sunburst({
                 selector: "#sunburst",
                 data:"../data/tree.json",
-                chart: {
-                    height: 500,
-                    width: 500
-                },
                 optional:{
+                    chart: {
+                        height: 500,
+                        width: 500
+                    },
                     title: {
                         text: "Malnutrition in India",
                     },
@@ -194,7 +192,7 @@
                     }
                 }
             });
-         //  k.execute();
+          k.execute();
         });
 
         </script>

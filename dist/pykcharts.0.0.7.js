@@ -487,8 +487,8 @@ configuration.mouseEvent = function (options) {
                 var beginning = x, end = pathLength, target;
                 var leftEdges = xScale.range();
                 var xRange = xScale.rangeBand();
-                var j,tooltpText="",activeTick="",cx = 0,cy = 0,pathWidth = 0;
-
+                var j,tooltpText="",activeTick="",cx = 0,cy = 0,pathWidth = 0,range_length = leftEdges.length;
+                
                 while (true) {
                     target = Math.floor((beginning + end) / 2);
                     pos = pathEl.getPointAtLength(target);
@@ -505,12 +505,12 @@ configuration.mouseEvent = function (options) {
                           break;
                     }
                 }
-                for(j = 0; x > (xScale.range()[j] + xRange - lineMargin); j++) {}
+                for(j = 0; x > (leftEdges[j] + xRange - lineMargin); j++) {}
                 activeTick = data[j].x;
 
                 if(type === "lineChart" || type === "areaChart") { tooltipText = data[j].tooltip; }
                 else if(type === "multiline") {
-                    that.tooltip.classed({"pyk-line-tooltip":false,"pyk-multiline-tooltip":true});
+                    that.tooltip.classed({"pyk-line-tooltip":false,"pyk-multiline-tooltip":true,"pyk-tooltip-table":true});
                     var len_data = new_data[0].data.length,tt_row=""; // Assumption -- number of Data points in different groups will always be equal
                     for(var i=0;i < number_of_lines;i++) {
                         for(var j=0;j < len_data;j++) {
@@ -519,14 +519,14 @@ configuration.mouseEvent = function (options) {
                             }
                         }
                     }
-                    tooltipText = "<table class='pyk-tooltip-table'><thead><th colspan='3'>"+activeTick+"</th></thead><tbody>"+tt_row+"</tbody></table>";
+                    tooltipText = "<table><thead><th colspan='3'>"+activeTick+"</th></thead><tbody>"+tt_row+"</tbody></table>";
                 }
 
                 cx = x + lineMargin + left - 1;
                 cy = pos.y + top;
                 pathWidth = dataLineGroup[0].node().getBBox().width;
 
-    			if((cx >= (lineMargin + left)) && (cx <= (pathWidth + lineMargin + left)) && (cy >= top) && (cy <= (h - bottom))) {
+    			if((cx >= (lineMargin + left + 2)) && (cx <= (pathWidth + lineMargin + left + 10)) && (cy >= top) && (cy <= (h - bottom))) {
                 	if(type === "lineChart" || type === "areaChart") {
                         // console.log(options.tooltip.mode); 
                         if((options.tooltip.mode).toLowerCase() === "fixed") {
@@ -534,13 +534,28 @@ configuration.mouseEvent = function (options) {
                         } else if((options.tooltip.mode).toLowerCase() === "moving"){
                             this.tooltipPosition(tooltipText,cx,cy,5,-45);
                         }
+                        this.toolTextShow(tooltipText);
+                        (options.enableCrossHair) ? this.crossHairShow(cx,top,cx,(h - bottom),cx,cy,type) : null;
+                        this.axisHighlightShow(activeTick,options.selector+" .x.axis");
                     }
                     else if (type === "multiline" || type === "stackedAreaChart") {
-                        this.tooltipPosition(tooltipText,cx,event.offsetY,80,10);
-                    }
-                    this.toolTextShow(tooltipText);
-                    (options.enableCrossHair) ? this.crossHairShow(cx,top,cx,(h - bottom),cx,cy,type) : null;
-                    this.axisHighlightShow(activeTick,options.selector+" .x.axis");
+                        for(var i=0;i < range_length;i++) {
+                            if(d3.event.clientX >= (leftEdges[i] + (left * 2)) && d3.event.clientX <= (leftEdges[(i+1)] + left)) {
+                                console.log(leftEdges[i],leftEdges[i+1],activeTick,d3.event.pageX);
+                                (options.enableCrossHair) ? this.crossHairShow(cx,top,cx,(h - bottom),cx,cy,type) : null;
+                                this.tooltipPosition(tooltipText,cx,event.offsetY,80,10);
+                                this.toolTextShow(tooltipText);                        
+                            }
+                            // else {
+                            //     (options.enableCrossHair) ? this.crossHairHide(type) : null;
+                            // }
+                        //     console.log(leftEdges[i],activeTick,d3.event.pageX);
+                        //     if(d3.event.pageX === (leftEdges[i])) {
+                        //         console.log(leftEdges[i],activeTick,d3.event.pageX);
+                        //     }
+                        }                        
+                        this.axisHighlightShow(activeTick,options.selector+" .x.axis");
+                    }                    
                 }
                 else {
                   	this.tooltipHide();
@@ -594,7 +609,7 @@ configuration.mouseEvent = function (options) {
         },
         axisHighlightShow : function (activeTick,axisHighlight,a) {
             var j_curr,j_prev,abc,selection;
-            if(PykCharts.boolean(options.axis.onHoverHighlightenable)&& options.mode === "default"){
+            if(PykCharts.boolean(options.axis.onHoverHighlightenable) && options.mode === "default"){
                 if(axisHighlight === options.selector + " .y.axis"){
                     selection = axisHighlight+" .tick text";
                     abc = options.axis.y.labelColor;
@@ -1068,8 +1083,10 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
         , optional = options.optional;
 
     chartObject.selector = options.selector ? options.selector : stylesheet.selector;
-    chartObject.width = options.chart && _.isNumber(options.chart.width) ? options.chart.width : stylesheet.chart.width;
-    chartObject.height = options.chart && _.isNumber(options.chart.height) ? options.chart.height : stylesheet.chart.height;
+    chartObject.width = optional && _.isNumber(optional.chart.width) ? optional.chart.width : stylesheet.chart.width;
+    chartObject.height = optional &&_.isNumber(optional.chart.height) ? optional.chart.height : stylesheet.chart.height;
+    // chartObject.width = options.chart && _.isNumber(options.chart.width) ? options.chart.width : stylesheet.chart.width;
+    // chartObject.height = options.chart && _.isNumber(options.chart.height) ? options.chart.height : stylesheet.chart.height;
     chartObject.mode = options.mode ? options.mode : stylesheet.mode;
     
     if (optional && optional.title) {
@@ -3691,8 +3708,8 @@ PykCharts.maps.processInputs = function (chartObject, options) {
         , optional = options.optional;
 
     chartObject.selector = options.selector ? options.selector : stylesheet.selector;
-    chartObject.width = options.map && _.isNumber(parseInt(options.map.width,10)) ? options.map.width : mapsTheme.map.width;
-    chartObject.height = options.map && _.isNumber(parseInt(options.map.height,10)) ? options.map.height : mapsTheme.map.height;
+    chartObject.width = optional.map && _.isNumber(parseInt(optional.map.width,10)) ? optional.map.width : mapsTheme.map.width;
+    chartObject.height = optional.map && _.isNumber(parseInt(optional.map.height,10)) ? optional.map.height : mapsTheme.map.height;
     chartObject.mapCode = options.mapCode ? options.mapCode : mapsTheme.mapCode;
     chartObject.enableClick = options.enableClick ? options.enableClick : mapsTheme.enableClick;
     // chartObject.defaultColor = optional && optional.colors && optional.colors.defaultColor ? optional.colors.defaultColor : mapsTheme.colors.defaultColor;

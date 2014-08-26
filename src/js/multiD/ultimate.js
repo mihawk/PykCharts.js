@@ -5,9 +5,9 @@ PykCharts.multiD.ultimate = function(options){
     this.execute = function () {
         that = new PykCharts.multiD.processInputs(that, options, "column");
 
-        that.grid = options.chart && options.chart.grid ? options.chart.grid : theme.stylesheet.chart.grid;
-        that.grid.yEnabled = options.chart && options.chart.grid && options.chart.grid.yEnabled ? options.chart.grid.yEnabled : theme.stylesheet.chart.grid.yEnabled;
-        that.grid.color = options.chart && options.chart.grid && options.chart.grid.color ? options.chart.grid.color : theme.stylesheet.chart.grid.color;
+        // that.grid = options.chart && options.chart.grid ? options.chart.grid : theme.stylesheet.chart.grid;
+        // that.grid.yEnabled = options.chart && options.chart.grid && options.chart.grid.yEnabled ? options.chart.grid.yEnabled : theme.stylesheet.chart.grid.yEnabled;
+        // that.grid.color = options.chart && options.chart.grid && options.chart.grid.color ? options.chart.grid.color : theme.stylesheet.chart.grid.color;
 
         if(that.mode === "default") {
            that.k.loading();
