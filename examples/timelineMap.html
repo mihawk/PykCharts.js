@@ -370,11 +370,11 @@
                         selector: "#map-container",
                         mapCode: $("#one").val() + "-topo",
                         data: window.data_final,
-                        map: {
-                            width: 555,
-                            height: 600
-                        },
                         optional: {
+                            map: {
+                                width: 1000,
+                                height: 800
+                            },
                             colors: {
                                 defaultColor: $("#a6").val(),
                                 type: checked("colortype"),
@@ -387,6 +387,7 @@
                                 positionTop: $("#a7").val(),
                                 positionLeft: $("#a8").val()
                             },
+                                                    
                             border: {
                                 color: $("#a2").val(),
                                 thickness: $("#a3").val()
