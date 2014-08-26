@@ -154,72 +154,66 @@ PykCharts.multiD.configuration = function (options){
             }
             return this;
         },
-        clubData : function (data) {
-            if (status) {
-                var ref_data = [], new_data = [], always = [], others_weight = [],k;
-                if(data.length <= options.optional.clubData.maximumNodes) {
-                    new_data = data;
-                    return new_data;
-                }
-                for(i = 0 ; i < data.length; i++) {
-                    ref_data[i] = {};
-                    ref_data[i].total=0;
-                    for(j = 0; j < data[i].data.length; j++) {
-                        ref_data[i].total += data[i].data[j].weight;
+        mapGroup : function (data) {
+            var newarr = [];
+            var unique = {};
+            var k = 0;
+            var checkGroup = true;
+            var checkColor = true;
+            
+            data.forEach(function (item) {
+                if(item.group) {
+                    checkGroup = true;
+                } else {
+                    checkGroup = false;
+                    if(!item.color) {
+                        checkColor = false;
+                        item.color = options.colorPalette[0];
                     }
-                    ref_data[i].name=data[i].name;
                 }
-                ref_data.sort(function (a,b) { return b.total - a.total; });
+            });
+
+            if(checkGroup) {
+                data.forEach(function(item) {
+                    if (!unique[item.group]) {
+                        if(!item.color) {
+                            item.color = options.colorPalette[k];
+                            k++;
+                        }
+                        newarr.push(item);
+                        unique[item.group] = item;
+                    } 
+                }); 
                 
-                clubdata_content = options.optional.clubData.alwaysIncludeDataPoints;
-
-                for(k=0; clubdata_content.length < options.optional.clubData.maximumNodes-1; k++) {
-                    clubdata_content.push(ref_data[k].name);
-                }
-                for(i=0;i<clubdata_content.length;i++){
-                    for(j=0;j<data.length;j++){
-                        if(clubdata_content[i].toUpperCase() === data[j].name.toUpperCase()){
-                            new_data.push(data[j]);
-                            always[i] = j;
+                var arr = [];
+                var uniqueColor = {};
+                k = 0;
+                newarr.forEach(function(item) {
+                    if (!uniqueColor[item.color]) {
+                        arr.push(item);
+                        uniqueColor[item.color] = item;
+                    } else {
+                        item.color = options.colorPalette[k];
+                        k++;
+                        arr.push(item);
+                        uniqueColor[item.color] = item;
+                    }
+                }); 
+                var arr_length = arr.length,
+                data_length = data.length; 
+                for(var i = 0;i < arr_length; i++) {
+                    for(var j = 0;j<data_length;j++) {
+                        if(data[j].group === arr[i].group) {
+                            data[j].color = arr[i].color;
                         }
                     }
-                }
-                others = {"name" : options.optional.clubData.text, "color" : options.optional.clubData.color};
-                var a;
-                for(j = 0; j<data.length; j++) {
-                    
-                    if(j === 0){
-                        a = true;
-                    }
-                    if(_.contains(always,j)) {
-                        continue;
-                    }else {
-                        others.data=[];
-                        for(l = 0; l<data[j].data.length; l++) {
-                            if(a) {
-                                others_weight[l] = 0;
-                            }
-                            others.data[l] = {};
-                            others_weight[l] += data[j].data[l].weight;
-                            others.data[l].name = data[0].data[l].name;
-                            others.data[l].weight = others_weight[l];
-                            others.data[l].tooltip = "Others";
-                        }
-                        a=false;
-                    }
-                }
-                if(new_data.length > options.optional.clubData.maximumNodes){
-                    new_data.pop();
-                }
-
-                if(new_data.length < options.optional.clubData.maximumNodes){
-                    new_data.push(others);
-                }
-            }else {
-                new_data =data;
-            }
-            return new_data;
+                }                
+                return [arr,checkGroup];
+            } else {
+                return [data,checkGroup];
+            }                
         }
+        
     };
     return multiDConfig;
 };
@@ -307,8 +301,8 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     }
     if (optional && optional.axis) {
         chartObject.axis = optional.axis;
-        chartObject.axis.onHoverHighlightenable = optional.axis.onHoverHighlightenable ? optional.axis.onHoverHighlightenable : multiDimensionalCharts.axis.onHoverHighlightenable;
         chartObject.axis.x = optional.axis.x;
+        chartObject.axis.onHoverHighlightenable = PykCharts.boolean(optional.axis.x.enable) && optional.axis.onHoverHighlightenable ? optional.axis.onHoverHighlightenable : multiDimensionalCharts.axis.onHoverHighlightenable;
         chartObject.axis.x.orient = PykCharts.boolean(optional.axis.x.enable) && optional.axis.x.orient ? optional.axis.x.orient : multiDimensionalCharts.axis.x.orient;
         chartObject.axis.x.axisColor = PykCharts.boolean(optional.axis.x.enable) && optional.axis.x.axisColor ? optional.axis.x.axisColor : multiDimensionalCharts.axis.x.axisColor;
         chartObject.axis.x.labelColor = PykCharts.boolean(optional.axis.x.enable) && optional.axis.x.labelColor ? optional.axis.x.labelColor : multiDimensionalCharts.axis.x.labelColor;

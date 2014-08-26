@@ -33,7 +33,7 @@ PykCharts.multiD.line = function (options){
 		that.group_arr = [], that.color_arr = [], that.new_data = [], that.dataLineGroup = [],
 		that.dataTextGroup = [], that.dataLineGroupBorder = [];
 		for(j = 0;j < that.data_length;j++) {
-			that.group_arr[j] = that.data[j].group;
+			that.group_arr[j] = that.data[j].name;
 			that.color_arr[j] = that.data[j].color;
 		}
 		that.uniq_group_arr = that.group_arr.slice();
@@ -61,7 +61,7 @@ PykCharts.multiD.line = function (options){
 						color: that.uniq_color_arr[k]
 				};
 				for (l = 0;l < that.data_length;l++) {
-					if (that.uniq_group_arr[k] === that.data[l].group) {
+					if (that.uniq_group_arr[k] === that.data[l].name) {
 						that.new_data[k].data.push({
 							x: that.data[l].x,
 							y: that.data[l].y,
@@ -72,6 +72,7 @@ PykCharts.multiD.line = function (options){
 			}
 		}
 		that.new_data_length = that.new_data.length;
+		// console.log(that.new_data,"^^^",that.new_data_length);
 	};
 
 	this.render = function () {

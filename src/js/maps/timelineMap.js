@@ -4,7 +4,11 @@ PykCharts.maps.timelineMap = function (options) {
     this.execute = function () {
         that = PykCharts.maps.processInputs(that, options);
         //$(that.selector).css("height",that.height);
-        that.data = options.data;
+
+        that.timeline_data = options.data;
+
+        var x_extent = d3.extent(options.data, function (d) { return d.timestamp; })
+        that.data = _.where(options.data, {timestamp: x_extent[0]});
 
         that.margin = {top:10, right:30, bottom:10, left:30};
 
@@ -21,15 +25,17 @@ PykCharts.maps.timelineMap = function (options) {
             that.map_data = data;
 
             d3.json("../data/maps/colorPalette.json", function (data) {
-                d3.json("../data/maps/timeline.json", function (timeline_data) {
-                    that.colorPalette_data = data;
-                    that.timeline_data = timeline_data.sort(function (a,b) {
-                        return a.timestamp - b.timestamp;
-                    });
-                    $(that.selector).html("");
-                    that.render();
-                    that.simulateLiveData(that.data);
+                that.colorPalette_data = data;
+
+                var x_extent = d3.extent(that.timeline_data, function (d) { return d.timestamp; })
+                that.data = _.where(that.timeline_data, {timestamp: x_extent[0]});
+
+                that.data.sort(function (a,b) {
+                    return a.timestamp - b.timestamp;
                 });
+                $(that.selector).html("");
+                that.render();
+                that.simulateLiveData(that.timeline_data);
             });
         });
 
@@ -205,7 +211,7 @@ PykCharts.maps.timelineMap = function (options) {
         }
         var col_shade,
             obj = _.where(that.data, {iso2: d.properties.iso_a2});
-        if (_.where(that.data, {iso2: d.properties.iso_a2}).length > 0) {
+        if (obj.length > 0) {
             if (that.colors.type === "colors") {
                 if (obj.length > 0 && obj[0].color !== "") {
                     return obj[0].color;
@@ -396,11 +402,11 @@ PykCharts.maps.timelineMap = function (options) {
         , unique = []
         , duration
         , interval = interval1 = 1;
-        
+
         that.optionalFeatures()
             .axisContainer(true);
 
-        x_extent = d3.extent(that.timeline_data, function(d) { return parseInt(d.timestamp,10); });
+        x_extent = d3.extent(that.timeline_data, function(d) { return d.timestamp; });
         x_range = [0 ,that.reducedWidth];
         that.xScale = that.k.scaleIdentification("linear",x_extent,x_range);
 
@@ -417,50 +423,51 @@ PykCharts.maps.timelineMap = function (options) {
 
         var startTimeline = function () {
             if (timeline_status==="playing") {
-                timeline_status = "paused";
                 play.attr("xlink:href","../img/play.gif");
                 clearInterval(that.playInterval);
+                timeline_status = "paused";
             } else {
                 timeline_status = "playing";
                 play.attr("xlink:href","../img/pause.gif");
                 that.playInterval = setInterval(function () {
+
                     marker.transition()
                         .duration(500)
                         .attr("x",  (that.margin.left*2) + that.xScale(unique[interval]) - 7);
 
-                    var heatmap = _.where(that.timeline_data, {timestamp:unique[interval]});
-                    _.each(heatmap, function (d) {
+                    that.data = _.where(that.timeline_data, {timestamp:unique[interval]});
+                    that.data.sort(function (a,b) {
+                        return a.timestamp - b.timestamp;
+                    });
+                    _.each(that.data, function (d) {
                         d3.select("path[iso2='"+d.iso2+"']")
                             .transition()
                             .duration(250)
-                            .attr("fill", d.color);
+                            .attr("fill", that.renderColor);
                     });
 
                     interval++;
 
                     if (interval===unique.length) {
-                        play.attr("xlink:href","../img/play.gif");
                         clearInterval(that.playInterval);
-                        // marker.attr("x",  that.margin.left + that.xScale(unique[0]) - 7);
                     };
                 }, 1000);
 
-                setTimeout(function () {
-                    that.undoHeatmap = setInterval(function () {
-                        var undo = _.where(that.timeline_data, {timestamp:unique[interval1]});
-                        _.each(undo, function (d) {
-                            d3.select("path[iso2='"+d.iso2+"']")
-                                .transition()
-                                .duration(250)
-                                .attr("fill", function (d) {
-                                    return d3.select(this).attr("prev_fill");
-                                });
-                        });
-
+                var timelag = setTimeout(function () {
+                    var undoHeatmap = setInterval(function () {
                         interval1++;
 
+                        if (interval1 === interval) {
+                            clearInterval(undoHeatmap);
+                            clearTimeout(timelag)
+                        }
+
                         if (interval1===unique.length) {
-                            clearInterval(that.undoHeatmap);
+                            clearInterval(undoHeatmap);
+                            play.attr("xlink:href","../img/play.gif");
+                            marker.attr("x",  (that.margin.left*2) + that.xScale(unique[0]) - 7);
+                            interval = interval1 = 1;
+                            timeline_status = "";
                         };
                     }, 1000);
                 },1000);

@@ -88,7 +88,7 @@ body {
   fill: none;
   stroke-width: 1px;
   stroke: #cccccc;
-  shape-rendering: crispEdges;
+  shape-rendering: auto;
   stroke-dasharray: 3,3;
 }
 
@@ -144,7 +144,7 @@ body {
   min-width: 30px;
   visibility: hidden;
   box-shadow: 0 5px 10px rgba(0,0,0,.2);
-  padding: 10px;
+  padding: 7px;
   transition: opacity 250ms linear;
   -moz-transition: opacity 250ms linear;
   -webkit-transition: opacity 250ms linear;
@@ -153,12 +153,51 @@ body {
   -webkit-transition-delay: 250ms;
 }
 
-.PykCharts-line-chart .pyk-tooltip-table{
-  padding: 5px;
-  border: 1px solid #cccccc;
+.PykCharts-line-chart .pyk-tooltip-table table {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  color:#1f1f1f;
+  border:1px solid #e7e3e7;
   border-collapse: collapse;
-  border-spacing: 5px;
 }
+
+.PykCharts-line-chart .pyk-tooltip-table table td, table th {
+  border: 1px dashed #e7e3e7;
+  padding: 5px;
+}
+
+.PykCharts-line-chart .pyk-tooltip-table table th {
+  font-size: 13px;
+  text-align: left;
+}
+
+/*.PykCharts-line-chart .pyk-tooltip-table table{
+  border-style:solid;
+  border-width:1px;
+  border-color:black;
+}
+
+.PykCharts-line-chart .pyk-tooltip-table th, td{
+  border-style:dashed;
+  border-width:1px;
+  border-color:#e7e3e7;
+  padding-left: 3px;
+  padding-right: 3px;
+}
+
+.PykCharts-line-chart .pyk-tooltip-table th{
+  border-style:solid;
+  font-weight:bold;
+  background: #F7F3F7;
+}
+
+.PykCharts-line-chart .pyk-tooltip-table th[align="left"], td[align="left"] {
+  text-align:left;
+}
+
+.PykCharts-line-chart .pyk-tooltip-table table th[align="center"], table td[align="center"] {
+  text-align:center;
+}*/
 
 /*.PykCharts-line-chart .pyk-line-tooltip:after{
   content: "\25E2";
@@ -178,7 +217,6 @@ body {
 
 .PykCharts-twoD .axis text {
   font: 12px "Helvetica Neue",Helvetica,Arial,sans-serif;
-  font-style: normal;
   font-weight: normal;
   fill: #1D1D1D;
   stroke: none;
@@ -249,7 +287,7 @@ body {
   fill: none;
   stroke-width: 1px;
   stroke: #636376;
-  shape-rendering: crispEdges;
+  shape-rendering: auto;
 }
 
 .PykCharts-weighted .axis text {
@@ -286,10 +324,10 @@ body {
 .PykCharts {
 font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 font-size: 12px;
-color:#1f1f1f  ;
+color:#1f1f1f;
 }
 .PykCharts .tooltip-heading{
-font-size: 12px;
+font-size: 13px;
 text-align: left;
 border-bottom: 1px solid lightgray;
 padding: 5px;

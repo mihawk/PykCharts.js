@@ -314,7 +314,7 @@
 
                 $("#one").click(function(){
 
-                    d3.json("../data/maps/" + $("#one").val() + "_data.json", function (data) {
+                    d3.json("../data/maps/" + $("#one").val() + "_data_timeline.json", function (data) {
                         var hold_key  = "";
                         var hold_property = "";
 
@@ -371,7 +371,7 @@
                         data: window.data_final,
                         map: {
                             width: 555,
-                            height: 500
+                            height: 600
                         },
                         optional: {
                             colors: {
