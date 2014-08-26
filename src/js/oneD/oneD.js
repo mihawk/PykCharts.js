@@ -41,8 +41,10 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
         , optional = options.optional;
 
     chartObject.selector = options.selector ? options.selector : stylesheet.selector;
-    chartObject.width = options.chart && _.isNumber(options.chart.width) ? options.chart.width : stylesheet.chart.width;
-    chartObject.height = options.chart && _.isNumber(options.chart.height) ? options.chart.height : stylesheet.chart.height;
+    chartObject.width = optional && _.isNumber(optional.chart.width) ? optional.chart.width : stylesheet.chart.width;
+    chartObject.height = optional &&_.isNumber(optional.chart.height) ? optional.chart.height : stylesheet.chart.height;
+    // chartObject.width = options.chart && _.isNumber(options.chart.width) ? options.chart.width : stylesheet.chart.width;
+    // chartObject.height = options.chart && _.isNumber(options.chart.height) ? options.chart.height : stylesheet.chart.height;
     chartObject.mode = options.mode ? options.mode : stylesheet.mode;
     
     if (optional && optional.title) {

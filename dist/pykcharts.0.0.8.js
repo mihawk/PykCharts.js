@@ -1083,8 +1083,10 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
         , optional = options.optional;
 
     chartObject.selector = options.selector ? options.selector : stylesheet.selector;
-    chartObject.width = options.chart && _.isNumber(options.chart.width) ? options.chart.width : stylesheet.chart.width;
-    chartObject.height = options.chart && _.isNumber(options.chart.height) ? options.chart.height : stylesheet.chart.height;
+    chartObject.width = optional && _.isNumber(optional.chart.width) ? optional.chart.width : stylesheet.chart.width;
+    chartObject.height = optional &&_.isNumber(optional.chart.height) ? optional.chart.height : stylesheet.chart.height;
+    // chartObject.width = options.chart && _.isNumber(options.chart.width) ? options.chart.width : stylesheet.chart.width;
+    // chartObject.height = options.chart && _.isNumber(options.chart.height) ? options.chart.height : stylesheet.chart.height;
     chartObject.mode = options.mode ? options.mode : stylesheet.mode;
     
     if (optional && optional.title) {
@@ -3941,13 +3943,24 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     chartObject.yAxisDataFormat = options.yAxisDataFormat ? options.yAxisDataFormat : multiDimensionalCharts.yAxisDataFormat
     chartObject.xAxisDataFormat = options.xAxisDataFormat ? options.xAxisDataFormat : multiDimensionalCharts.xAxisDataFormat;
     chartObject.selector = options.selector ? options.selector : "body";
-    chartObject.width = options.chart && _.isNumber(options.chart.width) ? options.chart.width : stylesheet.chart.width;
-    chartObject.height = options.chart && _.isNumber(options.chart.height) ? options.chart.height : stylesheet.chart.height;
-    chartObject.margin = options.chart && options.chart.margin ? options.chart.margin : stylesheet.chart.margin;
-    chartObject.margin.left = options.chart && options.chart.margin && _.isNumber(options.chart.margin.left) ? options.chart.margin.left : stylesheet.chart.margin.left;
-    chartObject.margin.right = options.chart && options.chart.margin && _.isNumber(options.chart.margin.right) ? options.chart.margin.right : stylesheet.chart.margin.right;
-    chartObject.margin.top = options.chart && options.chart.margin && _.isNumber(options.chart.margin.top) ? options.chart.margin.top : stylesheet.chart.margin.top;
-    chartObject.margin.bottom = options.chart && options.chart.margin && _.isNumber(options.chart.margin.bottom) ? options.chart.margin.bottom : stylesheet.chart.margin.bottom;
+    chartObject.width = optional.chart && _.isNumber(optional.chart.width) ? optional.chart.width : stylesheet.chart.width;
+    chartObject.height = optional.chart &&_.isNumber(optional.chart.height) ? optional.chart.height : stylesheet.chart.height;
+    chartObject.margin = optional.chart && optional.chart.margin ? optional.chart.margin : stylesheet.chart.margin;
+    chartObject.margin.left = optional.chart && optional.chart.margin && _.isNumber(optional.chart.margin.left) ? optional.chart.margin.left : stylesheet.chart.margin.left;
+    chartObject.margin.right = optional.chart && optional.chart.margin && _.isNumber(optional.chart.margin.right) ? optional.chart.margin.right : stylesheet.chart.margin.right;
+    chartObject.margin.top = optional.chart && optional.chart.margin && _.isNumber(optional.chart.margin.top) ? optional.chart.margin.top : stylesheet.chart.margin.top;
+    chartObject.margin.bottom = optional.chart && optional.chart.margin && _.isNumber(optional.chart.margin.bottom) ? optional.chart.margin.bottom : stylesheet.chart.margin.bottom;
+    chartObject.grid =  optional.chart && optional.chart.grid ? optional.chart.grid : stylesheet.chart.grid;
+    chartObject.grid.xEnabled = optional.chart && optional.chart.grid ? optional.chart.grid.xEnabled : stylesheet.chart.grid.xEnabled;
+    chartObject.grid.yEnabled = optional.chart && optional.chart.grid ? optional.chart.grid.yEnabled : stylesheet.chart.grid.yEnabled;
+    chartObject.grid.color = optional.chart && optional.chart.grid ? optional.chart.grid.color : stylesheet.chart.grid.color;
+    // chartObject.width = options.chart && _.isNumber(options.chart.width) ? options.chart.width : stylesheet.chart.width;
+    // chartObject.height = options.chart && _.isNumber(options.chart.height) ? options.chart.height : stylesheet.chart.height;
+    // chartObject.margin = options.chart && options.chart.margin ? options.chart.margin : stylesheet.chart.margin;
+    // chartObject.margin.left = options.chart && options.chart.margin && _.isNumber(options.chart.margin.left) ? options.chart.margin.left : stylesheet.chart.margin.left;
+    // chartObject.margin.right = options.chart && options.chart.margin && _.isNumber(options.chart.margin.right) ? options.chart.margin.right : stylesheet.chart.margin.right;
+    // chartObject.margin.top = options.chart && options.chart.margin && _.isNumber(options.chart.margin.top) ? options.chart.margin.top : stylesheet.chart.margin.top;
+    // chartObject.margin.bottom = options.chart && options.chart.margin && _.isNumber(options.chart.margin.bottom) ? options.chart.margin.bottom : stylesheet.chart.margin.bottom;
     chartObject.mode = options.mode ? options.mode : "default";
     if (optional && optional.title) {
         chartObject.title = optional.title;
@@ -4048,7 +4061,6 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
         chartObject.label.weight = optional.label.weight ? optional.label.weight : stylesheet.label.weight;
         chartObject.label.family = optional.label.family ? optional.label.family : stylesheet.label.family;
     } else {
-        //console.log("inside..........");
         chartObject.label = stylesheet.label;
     }
     if (optional && optional.legendsText) {
@@ -4091,9 +4103,9 @@ PykCharts.multiD.line = function (options){
 			optional = options.optional;
 		that.enableCrossHair = optional && optional.enableCrossHair ? optional.enableCrossHair : multiDimensionalCharts.enableCrossHair;
 		that.curvy_lines = optional && optional.curvy_lines ? optional.curvy_lines : multiDimensionalCharts.curvy_lines;
-		that.grid = options.chart && options.chart.grid ? options.chart.grid : stylesheet.chart.grid;
-	    that.grid.yEnabled = options.chart && options.chart.grid && options.chart.grid.yEnabled ? options.chart.grid.yEnabled : stylesheet.chart.grid.yEnabled;
-	    that.grid.xEnabled = options.chart && options.chart.grid && options.chart.grid.xEnabled ? options.chart.grid.xEnabled : stylesheet.chart.grid.xEnabled;
+		// that.grid = options.chart && options.chart.grid ? options.chart.grid : stylesheet.chart.grid;
+	    // that.grid.yEnabled = options.chart && options.chart.grid && options.chart.grid.yEnabled ? options.chart.grid.yEnabled : stylesheet.chart.grid.yEnabled;
+	    // that.grid.xEnabled = options.chart && options.chart.grid && options.chart.grid.xEnabled ? options.chart.grid.xEnabled : stylesheet.chart.grid.xEnabled;
 	    that.multiple_containers = optional && optional.multiple_containers && optional.multiple_containers.enable ? optional.multiple_containers.enable : multiDimensionalCharts.multiple_containers.enable;
 	    that.interpolate = PykCharts.boolean(that.curvy_lines) ? "cardinal" : "linear";
 	    that.color_from_data = options.line && options.line.color_from_data ? options.line.color_from_data : multiDimensionalCharts.line.color_from_data;
@@ -4792,9 +4804,9 @@ PykCharts.multiD.area = function (options){
 			optional = options.optional;
 	    that.enableCrossHair = optional && optional.enableCrossHair ? optional.enableCrossHair : twoDimensionalCharts.enableCrossHair;
 			that.curvy_lines = optional && optional.curvy_lines ? optional.curvy_lines : twoDimensionalCharts.curvy_lines;
-			that.grid = options.chart && options.chart.grid ? options.chart.grid : stylesheet.chart.grid;
-	  	that.grid.yEnabled = options.chart && options.chart.grid && options.chart.grid.yEnabled ? options.chart.grid.yEnabled : stylesheet.chart.grid.yEnabled;
-	  	that.grid.xEnabled = options.chart && options.chart.grid && options.chart.grid.xEnabled ? options.chart.grid.xEnabled : stylesheet.chart.grid.xEnabled;
+			// that.grid = options.chart && options.chart.grid ? options.chart.grid : stylesheet.chart.grid;
+	  	// that.grid.yEnabled = options.chart && options.chart.grid && options.chart.grid.yEnabled ? options.chart.grid.yEnabled : stylesheet.chart.grid.yEnabled;
+	  	// that.grid.xEnabled = options.chart && options.chart.grid && options.chart.grid.xEnabled ? options.chart.grid.xEnabled : stylesheet.chart.grid.xEnabled;
 	  	that.interpolate = PykCharts.boolean(that.curvy_lines) ? "cardinal" : "linear";
 		that.reducedWidth = that.width - that.margin.left - that.margin.right;
 		that.reducedHeight = that.height - that.margin.top - that.margin.bottom;
@@ -6625,6 +6637,7 @@ PykCharts.multiD.ultimate = function(options){
     };
     return this;
 };
+
 PykCharts.multiD.scatterplot = function (options) {
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
@@ -6639,20 +6652,53 @@ PykCharts.multiD.scatterplot = function (options) {
             optional = options.optional;
         that.enableCrossHair = optional && optional.enableCrossHair ? optional.enableCrossHair : multiDimensionalCharts.enableCrossHair;
         that.multiD = new PykCharts.multiD.configuration(that);
+        // that.grid = options.chart && options.chart.grid ? options.chart.grid : stylesheet.chart.grid;
+        // that.grid.yEnabled = options.chart && options.chart.grid && options.chart.grid.yEnabled ? options.chart.grid.yEnabled : stylesheet.chart.grid.yEnabled;
+        // that.grid.xEnabled = options.chart && options.chart.grid && options.chart.grid.xEnabled ? options.chart.grid.xEnabled : stylesheet.chart.grid.xEnabled;
+        that.multiple_containers = optional && optional.multiple_containers && optional.multiple_containers.enable ? optional.multiple_containers.enable : multiDimensionalCharts.multiple_containers.enable;
+        that.bubbleRadius = options.scatterplot && _.isNumber(options.scatterplot.radius) ? options.scatterplot.radius : multiDimensionalCharts.scatterplot.radius;
+        that.zoomedOut = true;
+        that.radius_range = [20,50];
+        d3.json(options.data, function (e, data) {
+            that.data = data;
+            $(that.selector+" #chart-loader").remove();
+            var a = new PykCharts.multiD.scatterplotFunction(options,that,"scatterplot");
+            a.render();
+        });
+    };
+};
+
+PykCharts.multiD.pulse = function (options) {
+    var that = this;
+    var theme = new PykCharts.Configuration.Theme({});
+    
+    this.execute = function() {
+        that = new PykCharts.multiD.processInputs(that, options, "pulse");
+        if(that.mode === "default") {
+            that.k.loading();
+        }
+        var multiDimensionalCharts = theme.multiDimensionalCharts,
+            stylesheet = theme.stylesheet,
+            optional = options.optional;
+        that.enableCrossHair = optional && optional.enableCrossHair ? optional.enableCrossHair : multiDimensionalCharts.enableCrossHair;
+        that.multiD = new PykCharts.multiD.configuration(that);
         that.grid = options.chart && options.chart.grid ? options.chart.grid : stylesheet.chart.grid;
         that.grid.yEnabled = options.chart && options.chart.grid && options.chart.grid.yEnabled ? options.chart.grid.yEnabled : stylesheet.chart.grid.yEnabled;
         that.grid.xEnabled = options.chart && options.chart.grid && options.chart.grid.xEnabled ? options.chart.grid.xEnabled : stylesheet.chart.grid.xEnabled;
         that.multiple_containers = optional && optional.multiple_containers && optional.multiple_containers.enable ? optional.multiple_containers.enable : multiDimensionalCharts.multiple_containers.enable;
         that.bubbleRadius = options.scatterplot && _.isNumber(options.scatterplot.radius) ? options.scatterplot.radius : multiDimensionalCharts.scatterplot.radius;
         that.zoomedOut = true;
-        
+        that.radius_range = [2,6];
         d3.json(options.data, function (e, data) {
             that.data = data;
             $(that.selector+" #chart-loader").remove();
-            that.render();
+            var a = new PykCharts.multiD.scatterplotFunction(options,that,"pulse");
+            a.render();
         });
     };
-
+};
+PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
+    var that = chartObject;
     this.refresh = function () {
         d3.json(options.data, function (e, data) {
             that.data = data;
@@ -6665,7 +6711,6 @@ PykCharts.multiD.scatterplot = function (options) {
     };
 
     this.render = function () {
-        var that = this;
         that.mapGroupData = that.multiD.mapGroup(that.data);
         that.fillChart = new PykCharts.Configuration.fillChart(that);      
         
@@ -6681,8 +6726,8 @@ PykCharts.multiD.scatterplot = function (options) {
 
             that.no_of_groups = 1;
             
-            if(PykCharts.boolean(that.multiple_containers)) {
-                that.radius_range = [3,7];
+            if(PykCharts.boolean(that.multiple_containers) && type === "scatterplot") {
+                
                 that.no_of_groups = that.data_group.length;
                 that.w = that.width/that.no_of_groups;
                 that.margin.left = 25;
@@ -6721,7 +6766,6 @@ PykCharts.multiD.scatterplot = function (options) {
                 that.k.emptyDiv(); 
             } else {
                 that.w = that.width;
-                that.radius_range = [20,50];
                 that.new_data = that.data;
                 that.k.makeMainDiv(that.selector,1);
                 that.optionalFeatures()
@@ -6772,8 +6816,7 @@ PykCharts.multiD.scatterplot = function (options) {
         }
     };
 
-    this.optionalFeatures = function () {
-        var that = this;
+    that.optionalFeatures = function () {
         var optional = {
             svgContainer :function (i) {
                 $(options.selector + " #tooltip-svg-container-" + i).css("width",that.w);
@@ -6844,7 +6887,6 @@ PykCharts.multiD.scatterplot = function (options) {
                 return this;
             },
             createScatterPlot : function () {
-
                 that.weight = _.map(that.new_data, function (d) {
                     return d.weight;
                 });
@@ -7198,9 +7240,7 @@ PykCharts.multiD.scatterplot = function (options) {
                             .attr("id","zoomOut")
                             .style("position","absolute")
                             .style("left",that.width)
-                            // .style("left", that.margin.left + 300)
                             .style("top", that.margin.top + 50)
-                            // .style("top",that.h-270)
                             .style("height","20")
                             .on("click",function () {
                                 that.zoomedOut = true;
@@ -7265,6 +7305,13 @@ PykCharts.multiD.scatterplot = function (options) {
                         .style("font-family", that.label.family)
                         .text(function (d) {
                             return d.weight;
+                        })
+                        .text(function (d) {
+                            if((this.getBBox().width < (that.sizes(d.weight) * 2)) && (this.getBBox().height < (that.sizes(d.weight) * 2))) {
+                                return d.weight;
+                            } else {
+                                return "";
+                            }
                         });
                     that.circleLabel.exit()
                         .remove();
@@ -7350,7 +7397,7 @@ PykCharts.multiD.scatterplot = function (options) {
                 .attr("r", function (d) {
                     return that.sizes(d.weight)*d3.event.scale;
                 });
-    }
+    };
 
     // this.fullScreen = function () {
     //     var modalDiv = d3.select(that.selector).append("div")
@@ -7673,7 +7720,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                     var k = 0;
                     var l = 0;
                     if(options.optional.legends.display === "vertical" ) {
-                        that.legendsContainer.attr("height", (that.mapGroupData[0].length * 30)+20);
+                        that.legendSvg.attr("height", (that.mapGroupData[0].length * 30)+20);
                         text_parameter1 = "x";
                         text_parameter2 = "y";
                         rect_parameter1 = "width";
@@ -7688,7 +7735,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                         var text_parameter2value = function (d,i) { return i * 24 + 23;};
 
                     } else if(options.optional.legends.display === "horizontal") {
-                        // that.legendsContainer.attr("height", (k+1)*70);
+                         // that.legendSvg.attr("height", (k+1)*70);
                         text_parameter1 = "x";
                         text_parameter2 = "y";
                         rect_parameter1 = "width";
@@ -7741,7 +7788,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                             } else if ((that.width - (i*100 + 100)) < that.width) {
                                 k++;
                                 if(l === 0) {
-                                    that.legendSvg.attr("height", (k+1)*50);
+                                    that.legendSvg.attr("height", (l+1)*50);
                                 }
                                 l++;
                                 return that.width - ((l-1)*100 + 100); 
@@ -8018,8 +8065,8 @@ PykCharts.maps.processInputs = function (chartObject, options) {
         , optional = options.optional;
 
     chartObject.selector = options.selector ? options.selector : stylesheet.selector;
-    chartObject.width = options.map && _.isNumber(parseInt(options.map.width,10)) ? options.map.width : mapsTheme.map.width;
-    chartObject.height = options.map && _.isNumber(parseInt(options.map.height,10)) ? options.map.height : mapsTheme.map.height;
+    chartObject.width = optional.map && _.isNumber(parseInt(optional.map.width,10)) ? optional.map.width : mapsTheme.map.width;
+    chartObject.height = optional.map && _.isNumber(parseInt(optional.map.height,10)) ? optional.map.height : mapsTheme.map.height;
     chartObject.mapCode = options.mapCode ? options.mapCode : mapsTheme.mapCode;
     chartObject.enableClick = options.enableClick ? options.enableClick : mapsTheme.enableClick;
     // chartObject.defaultColor = optional && optional.colors && optional.colors.defaultColor ? optional.colors.defaultColor : mapsTheme.colors.defaultColor;

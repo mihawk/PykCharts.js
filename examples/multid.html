@@ -48,17 +48,17 @@
                     mode : "default",
                     yAxisDataFormat : "number",
                     xAxisDataFormat : "string",
-                    chart: {
-                        height: 400,
-                        width: 630,
-                        margin: {top: 5, right: 25, bottom: 25, left: 45},
-                        grid: {
-                            xEnabled: "no",
-                            yEnabled: "yes",
-                            color: ""
-                        },
-                    },
                     optional:{
+                        chart: {
+                            height: 400,
+                            width: 630,
+                            margin: {top: 5, right: 25, bottom: 25, left: 45},
+                            grid: {
+                                xEnabled: "no",
+                                yEnabled: "yes",
+                                color: ""
+                            },
+                        },
                         transition : {
                             duration : 0 //milliseconds
                         },
@@ -103,17 +103,17 @@
                     mode : "default",
                     yAxisDataFormat : "number",
                     xAxisDataFormat : "string",
-                    chart: {
-                        height: 400,
-                        width: 630,
-                        margin: {top: 5, right: 25, bottom: 25, left: 45},
-                        grid: {
-                            xEnabled: "no",
-                            yEnabled: "yes",
-                            color: ""
-                        }
-                    },
                     optional:{
+                        chart: {
+                            height: 400,
+                            width: 630,
+                            margin: {top: 5, right: 25, bottom: 25, left: 45},
+                            grid: {
+                                xEnabled: "no",
+                                yEnabled: "yes",
+                                color: ""
+                            }
+                        },
                         transition : {
                             duration : 0 //milliseconds
                         },
@@ -159,16 +159,16 @@
                     selector: "#spiderWeb",
                     data: "../data/spiderWeb.json",
                     mode : "default", //  default or infographics
-                    chart : {
-                        width: 530,
-                        height: 450,
-                        margin: {top: 25, right: 25, bottom: 25, left: 55}
-                    },
                     spiderweb : {
                         radius : 5,
                         outer_radius :200,
                     },
                     optional : {
+                         chart : {
+                            width: 530,
+                            height: 450,
+                            margin: {top: 25, right: 25, bottom: 25, left: 55}
+                        },
                         realTimeCharts: {
                             refreshFrequency: 0 // seconds
                         },
@@ -206,20 +206,20 @@
                     mode : "default", //  default or infographics
                     yAxisDataFormat : "number",
                     xAxisDataFormat : "number",
-                    chart : {
-                        width: 700,
-                        height: 450,
-                        margin: {top: 25, right: 25, bottom: 25, left: 55},
-                        grid: {
-                            xEnabled: "yes",
-                            yEnabled: "yes",
-                            color:""
-                        }
-                    },
                     scatterplot : {
                         radius: 9
                     },
                     optional : {
+                        chart : {
+                            width: 700,
+                            height: 450,
+                            margin: {top: 25, right: 25, bottom: 25, left: 55},
+                            grid: {
+                                xEnabled: "yes",
+                                yEnabled: "yes",
+                                color:""
+                            }
+                        },
                         realTimeCharts: {
                             refreshFrequency: 0 // seconds
                         },
@@ -288,17 +288,17 @@
                     mode : "default",
                     yAxisDataFormat : "number",
                     xAxisDataFormat : "string",
-                    chart: {
-                        height: 400,
-                        width: 630,
-                        margin: {top: 5, right: 25, bottom: 25, left: 45},
-                        grid: {
-                            xEnabled: "no",
-                            yEnabled: "yes",
-                            color: ""
-                        },
-                    },
                     optional:{
+                         chart: {
+                            height: 400,
+                            width: 630,
+                            margin: {top: 5, right: 25, bottom: 25, left: 45},
+                            grid: {
+                                xEnabled: "no",
+                                yEnabled: "yes",
+                                color: ""
+                            },
+                        },
                         transition : {
                             duration : 0 //milliseconds
                         },
@@ -372,17 +372,17 @@
                     mode : "default",
                     yAxisDataFormat : "number",
                     xAxisDataFormat : "string",
-                    chart: {
-                        height: 400,
-                        width: 630,
-                        margin: {top: 5, right: 25, bottom: 25, left: 45},
-                        grid: {
-                            xEnabled: "no",
-                            yEnabled: "yes",
-                            color: ""
-                        },
-                    },
                     optional:{
+                         chart: {
+                            height: 400,
+                            width: 630,
+                            margin: {top: 5, right: 25, bottom: 25, left: 45},
+                            grid: {
+                                xEnabled: "no",
+                                yEnabled: "yes",
+                                color: ""
+                            },
+                        },
                         transition : {
                             duration : 1000     //milliseconds
                         },
@@ -419,14 +419,15 @@
                 });
                 k.execute();
 
-                var k = new PykCharts.multiD.scatterplot({
+                var k = new PykCharts.multiD.pulse({
                     selector: "#pulse",
                     data: "../data/pulse.json",
                     mode : "default", //  default or infographics
                     yAxisDataFormat : "string",
                     xAxisDataFormat : "number",
-                    chart : {
-                            width: 700,
+                    optional : {
+                        chart : {
+                            width: 500,
                             height: 450,
                             margin: {top: 25, right: 25, bottom: 25, left: 55},
                             grid: {
@@ -434,8 +435,7 @@
                                 yEnabled: "yes",
                                 color:""
                            },
-                    },
-                    optional : {
+                        },
                         realTimeCharts: {
                             refreshFrequency: 0 // seconds
                         },
@@ -483,7 +483,7 @@
                             style: "solid"
                         },
                         label:{
-                            size: 12,
+                            size: 0,
                             color: "black",
                             weight: "thin",
                             family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
@@ -497,16 +497,16 @@
                     data: "../data/ultimateColumn.json",
                     mode: "default",
                     selector: "#column",
-                    chart : {
-                        width: 400,
-                        height: 430,
-                        margin: {top: 25, right: 25, bottom: 25, left: 25},
-                        grid: {
-                            yEnabled: "yes",
-                            color:""
-                        }
-                    },
                     optional : {
+                        chart : {
+                            width: 400,
+                            height: 430,
+                            margin: {top: 25, right: 25, bottom: 25, left: 25},
+                            grid: {
+                                yEnabled: "yes",
+                                color:""
+                            }
+                        },
                         realTimeCharts: {
                             refreshFrequency: 0 // seconds
                         },
@@ -556,16 +556,16 @@
                     data: "../data/ultimateGroupColumn.json",
                     mode: "default",
                     selector: "#groupColumn",
-                    chart : {
-                        width: 400,
-                        height: 430,
-                        margin: {top: 25, right: 25, bottom: 25, left: 25},
-                        grid: {
-                            yEnabled: "yes",
-                            color:""
-                        }
-                    },
                     optional : {
+                        chart : {
+                            width: 400,
+                            height: 430,
+                            margin: {top: 25, right: 25, bottom: 25, left: 25},
+                            grid: {
+                                yEnabled: "yes",
+                                color:""
+                            }
+                        },
                         realTimeCharts: {
                             refreshFrequency: 0 // seconds
                         },
@@ -618,16 +618,16 @@
                     data: "../data/ultimatebar.json",
                     mode: "default",
                     selector: "#bar",
-                    chart : {
-                        width: 400,
-                        height: 430,
-                        margin: {top: 25, right: 25, bottom: 25, left: 75},
-                        grid: {
-                            yEnabled: "yes",
-                            color:""
-                        }
-                    },
                     optional : {
+                        chart : {
+                        width: 400,
+                            height: 430,
+                            margin: {top: 25, right: 25, bottom: 25, left: 75},
+                            grid: {
+                                yEnabled: "yes",
+                                color:""
+                            }
+                        },
                         realTimeCharts: {
                             refreshFrequency: 0 // seconds
                         },
@@ -692,16 +692,17 @@
                     data: "../data/ultimateGroupBar.json",
                     mode: "default",
                     selector: "#groupBar",
-                    chart : {
-                        width: 400,
-                        height: 430,
-                        margin: {top: 25, right: 25, bottom: 25, left: 75},
-                        grid: {
-                            yEnabled: "yes",
-                            color:""
-                        }
-                    },
+
                     optional : {
+                         chart : {
+                            width: 400,
+                            height: 430,
+                            margin: {top: 25, right: 25, bottom: 25, left: 75},
+                            grid: {
+                                yEnabled: "yes",
+                                color:""
+                            }
+                        },
                         realTimeCharts: {
                             refreshFrequency: 0 // seconds
                         },
