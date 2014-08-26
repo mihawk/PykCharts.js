@@ -470,7 +470,7 @@ configuration.mouseEvent = function (options) {
                 return that.tooltip.style("visibility", "hidden");
             }
         },
-        crossHairPosition: function(data,new_data,xScale,dataLineGroup,lineMargin,type,tooltipMode){
+        crossHairPosition: function(data,new_data,xScale,dataLineGroup,lineMargin,type,tooltipMode,yScale){
             if((PykCharts.boolean(options.enableCrossHair) || PykCharts.boolean(options.enableTooltip) || PykCharts.boolean(options.onHoverHighlightenable))  && options.mode === "default") {
                 var offsetLeft = $(options.selector + " #"+dataLineGroup[0].attr("id")).offset().left;
                 var offsetRight = $(options.selector + " #"+dataLineGroup[0].attr("id")).offset().right;
@@ -482,11 +482,18 @@ configuration.mouseEvent = function (options) {
                 var w = options.width;
                 var h = options.height;
                 var x = d3.event.pageX - offsetLeft;
+                var y = d3.event.pageY;
                 var pathEl = dataLineGroup[0].node();
                 var pathLength = pathEl.getTotalLength();
                 var beginning = x, end = pathLength, target;
                 var leftEdges = xScale.range();
                 var xRange = xScale.rangeBand();
+                var topEdges,yRange;
+                if(type === "multiline") {
+                    topEdges = yScale.range();
+                }
+                //console.log(topEdges,yRange,"crossHair");
+
                 var j,tooltpText="",activeTick="",cx = 0,cy = 0,pathWidth = 0,range_length = leftEdges.length;
                 
                 while (true) {
@@ -507,6 +514,9 @@ configuration.mouseEvent = function (options) {
                 }
                 for(j = 0; x > (leftEdges[j] + xRange - lineMargin); j++) {}
                 activeTick = data[j].x;
+                // for(j = 0; x > (topEdges[j]); j++) {}
+                // activeYTick = data[j].y;
+                // console.log(activeYTick);
 
                 if(type === "lineChart" || type === "areaChart") { tooltipText = data[j].tooltip; }
                 else if(type === "multiline") {
@@ -536,12 +546,13 @@ configuration.mouseEvent = function (options) {
                         }
                         this.toolTextShow(tooltipText);
                         (options.enableCrossHair) ? this.crossHairShow(cx,top,cx,(h - bottom),cx,cy,type) : null;
+                        //console.log(activeTick,"activeTick");
                         this.axisHighlightShow(activeTick,options.selector+" .x.axis");
                     }
                     else if (type === "multiline" || type === "stackedAreaChart") {
                         for(var i=0;i < range_length;i++) {
                             if(d3.event.clientX >= (leftEdges[i] + (left * 2)) && d3.event.clientX <= (leftEdges[(i+1)] + left)) {
-                                console.log(leftEdges[i],leftEdges[i+1],activeTick,d3.event.pageX);
+                            //    console.log(leftEdges[i],leftEdges[i+1],activeTick,d3.event.pageX);
                                 (options.enableCrossHair) ? this.crossHairShow(cx,top,cx,(h - bottom),cx,cy,type) : null;
                                 this.tooltipPosition(tooltipText,cx,event.offsetY,80,10);
                                 this.toolTextShow(tooltipText);                        
@@ -555,6 +566,9 @@ configuration.mouseEvent = function (options) {
                         //     }
                         }                        
                         this.axisHighlightShow(activeTick,options.selector+" .x.axis");
+                        // if(type === "multiline") {
+                        //    this.axisHighlightShow(activeYTick,options.selector+" .y.axis");
+                        // }
                     }                    
                 }
                 else {
