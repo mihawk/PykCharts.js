@@ -12,7 +12,7 @@ module.exports = function(grunt) {
 
         concat: {
             'js': {
-                'src': ['<%= js_src_path %>/pyk.js', '<%= js_src_path %>/oneD/oneD.js', '<%= js_src_path %>/oneD/bubble.js', '<%= js_src_path %>/oneD/funnel.js', '<%= js_src_path %>/oneD/percentageColumn.js', '<%= js_src_path %>/oneD/pictograph.js', '<%= js_src_path %>/oneD/pie.js', '<%= js_src_path %>/oneD/pyramid.js', '<%= js_src_path %>/oneD/treemap.js', '<%= js_src_path %>/maps/maps.js', '<%= js_src_path %>/maps/oneLayer.js', '<%= js_src_path %>/init.js'],
+                'src': ['<%= js_src_path %>/pyk.js', '<%= js_src_path %>/oneD/oneD.js', '<%= js_src_path %>/oneD/bubble.js', '<%= js_src_path %>/oneD/funnel.js', '<%= js_src_path %>/oneD/percentageColumn.js', '<%= js_src_path %>/oneD/pictograph.js', '<%= js_src_path %>/oneD/pie.js', '<%= js_src_path %>/oneD/pyramid.js', '<%= js_src_path %>/oneD/treemap.js', '<%= js_src_path %>/multiD/multiD.js', '<%= js_src_path %>/multiD/lineChart.js', '<%= js_src_path %>/multiD/areaChart.js', '<%= js_src_path %>/multiD/barChart.js', '<%= js_src_path %>/multiD/columnChart.js', '<%= js_src_path %>/multiD/scatterplot.js', '<%= js_src_path %>/multiD/spiderWeb.js', '<%= js_src_path %>/maps/maps.js', '<%= js_src_path %>/maps/oneLayer.js', '<%= js_src_path %>/maps/timelineMap.js', '<%= js_src_path %>/init.js'],
                 'dest': '<%= js_distro_path %>/pykcharts.<%= pkg.version %>.js'
             },
             'css': {

@@ -19,6 +19,7 @@ PykCharts.multiD.line = function (options){
 	    that.multiple_containers = optional && optional.multiple_containers && optional.multiple_containers.enable ? optional.multiple_containers.enable : multiDimensionalCharts.multiple_containers.enable;
 	    that.interpolate = PykCharts.boolean(that.curvy_lines) ? "cardinal" : "linear";
 	    that.color_from_data = options.line && options.line.color_from_data ? options.line.color_from_data : multiDimensionalCharts.line.color_from_data;
+	    //that.tooltipMode = optional && optional.tooltip 
 
 	    d3.json(options.data, function (e, data) {
 			that.data = data;
@@ -385,10 +386,12 @@ PykCharts.multiD.line = function (options){
 							})
 							.on("mousemove", function(){
 								if(!PykCharts.boolean(that.multiple_containers)) {
-									that.mouseEvent.crossHairPosition(that.data,that.xScale,that.dataLineGroup[0],that.lineMargin);
+				
+									that.mouseEvent.crossHairPosition(that.data,that.xScale,that.dataLineGroup[0],that.lineMargin,that.yScale);
 								}
 								else {
-									that.mouseEvent.crossHairPosition(that.data,that.xScale,that.dataLineGroup,that.lineMargin);
+									console.log(that.yScale);
+									that.mouseEvent.crossHairPosition(that.data,that.xScale,that.dataLineGroup,that.lineMargin,that.yScale);
 								}
 					  		});
 					}
@@ -531,10 +534,10 @@ PykCharts.multiD.line = function (options){
 							})
 							.on("mousemove", function(){
 								if(!PykCharts.boolean(that.multiple_containers)) {
-									that.mouseEvent.crossHairPosition(that.data,null,that.xScale,that.dataLineGroup,that.lineMargin,that.type);
+									that.mouseEvent.crossHairPosition(that.data,null,that.xScale,that.dataLineGroup,that.lineMargin,that.type,that.yScale);
 								}
 								else {
-									that.mouseEvent.crossHairPosition(that.data,null,that.xScale,that.dataLineGroup,that.lineMargin,that.type);
+									that.mouseEvent.crossHairPosition(that.data,null,that.xScale,that.dataLineGroup,that.lineMargin,that.type,that.yScale);
 								}
 							});
 					}
@@ -544,13 +547,14 @@ PykCharts.multiD.line = function (options){
 								that.mouseEvent.tooltipHide();
 								that.mouseEvent.crossHairHide(that.type);
 								that.mouseEvent.axisHighlightHide(that.selector + " .x.axis");
+								that.mouseEvent.axisHighlightHide(that.selector + " .y.axis");
 							})
 							.on("mousemove", function(){
 								if(!PykCharts.boolean(that.multiple_containers)) {
-									that.mouseEvent.crossHairPosition(that.data,that.new_data,that.xScale,that.dataLineGroup,that.lineMargin,that.type);
+									that.mouseEvent.crossHairPosition(that.data,that.new_data,that.xScale,that.dataLineGroup,that.lineMargin,that.type,that.tooltipMode,that.yScale);
 								}
 								else {
-									that.mouseEvent.crossHairPosition(that.data,that.new_data,that.xScale,that.dataLineGroup,that.lineMargin,that.type);
+									that.mouseEvent.crossHairPosition(that.data,that.new_data,that.xScale,that.dataLineGroup,that.lineMargin,that.type,that.tooltipMode,that.yScale);
 								}
 							});
 					}

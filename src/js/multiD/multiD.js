@@ -380,7 +380,6 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
         chartObject.label.weight = optional.label.weight ? optional.label.weight : stylesheet.label.weight;
         chartObject.label.family = optional.label.family ? optional.label.family : stylesheet.label.family;
     } else {
-        //console.log("inside..........");
         chartObject.label = stylesheet.label;
     }
     if (optional && optional.legendsText) {
