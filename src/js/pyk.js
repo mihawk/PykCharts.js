@@ -1012,6 +1012,10 @@ configuration.Theme = function(){
             "positionTop":0,
             "positionLeft":0
         },
+        "timeline": {
+            "duration": 1000,
+            "margin": {"top": 5, "right": 25, "bottom": 25, "left": 45}
+        }, 
         "legends": {
             "enable":"yes"
         },

@@ -36,6 +36,17 @@ PykCharts.maps.processInputs = function (chartObject, options) {
     // chartObject.totalColors = optional && optional.colors && _.isNumber(parseInt(optional.colors.total,10)) ? parseInt(optional.colors.total,10) : stylesheet.colors.total;
     // chartObject.colorPalette = optional && optional.colors && optional.colors.palette ? optional.colors.palette : mapsTheme.colors.palette;
     chartObject.bg = optional && optional.colors && optional.colors.backgroundColor ? optional.colors.backgroundColor : stylesheet.colors.backgroundColor;
+    if (optional && optional.timeline) {
+        chartObject.timeline = optional.timeline;
+        chartObject.timeline.duration = optional.timeline.duration ? optional.timeline.duration :mapsTheme.timeline.duration;
+        chartObject.timeline.margin = optional.timeline.margin;
+        chartObject.timeline.margin.left = optional.timeline.margin.left ? optional.timeline.margin.left : mapsTheme.timeline.margin.left;
+        chartObject.timeline.margin.right = optional.timeline.margin.right ? optional.timeline.margin.right : mapsTheme.timeline.margin.right;
+        chartObject.timeline.margin.top = optional.timeline.margin.top ? optional.timeline.margin.top : mapsTheme.timeline.margin.top;
+        chartObject.timeline.margin.bottom = optional.timeline.margin.bottom ? optional.timeline.margin.bottom : mapsTheme.timeline.margin.bottom;
+    } else {
+        chartObject.timeline = mapsTheme.timeline;
+    }
     if (optional && optional.tooltip)  {
         chartObject.tooltip = optional.tooltip;
         chartObject.tooltip.enable = optional.tooltip.enable ? optional.tooltip.enable : mapsTheme.tooltip.enable;

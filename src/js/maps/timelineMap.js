@@ -10,10 +10,10 @@ PykCharts.maps.timelineMap = function (options) {
         var x_extent = d3.extent(options.data, function (d) { return d.timestamp; })
         that.data = _.where(options.data, {timestamp: x_extent[0]});
 
-        that.margin = {top:10, right:30, bottom:10, left:30};
+        // that.margin = {top:10, right:30, bottom:10, left:30};
 
-        that.reducedWidth = that.width - (that.margin.left * 2) - that.margin.right;
-        that.reducedHeight = that.height - that.margin.top - that.margin.bottom;
+        that.reducedWidth = that.width - (that.timeline.margin.left * 2) - that.timeline.margin.right;
+        that.reducedHeight = that.height - that.timeline.margin.top - that.timeline.margin.bottom;
 
         that.k
             .totalColors(that.colors.total)
@@ -70,7 +70,7 @@ PykCharts.maps.timelineMap = function (options) {
                     that.gxaxis = that.svg.append("g")
                         .attr("id","xaxis")
                         .attr("class", "x axis")
-                        .attr("transform", "translate("+that.margin.left*2+"," + that.reducedHeight + ")");
+                        .attr("transform", "translate("+that.timeline.margin.left*2+"," + that.reducedHeight + ")");
                 }
                 return this;
             }
@@ -432,8 +432,8 @@ PykCharts.maps.timelineMap = function (options) {
                 that.playInterval = setInterval(function () {
 
                     marker.transition()
-                        .duration(500)
-                        .attr("x",  (that.margin.left*2) + that.xScale(unique[interval]) - 7);
+                        .duration(that.timeline.duration/2)
+                        .attr("x",  (that.timeline.margin.left*2) + that.xScale(unique[interval]) - 7);
 
                     that.data = _.where(that.timeline_data, {timestamp:unique[interval]});
                     that.data.sort(function (a,b) {
@@ -442,7 +442,7 @@ PykCharts.maps.timelineMap = function (options) {
                     _.each(that.data, function (d) {
                         d3.select("path[iso2='"+d.iso2+"']")
                             .transition()
-                            .duration(250)
+                            .duration(that.timeline.duration/4)
                             .attr("fill", that.renderColor);
                     });
 
@@ -451,7 +451,7 @@ PykCharts.maps.timelineMap = function (options) {
                     if (interval===unique.length) {
                         clearInterval(that.playInterval);
                     };
-                }, 1000);
+                }, that.timeline.duration);
 
                 var timelag = setTimeout(function () {
                     var undoHeatmap = setInterval(function () {
@@ -465,19 +465,19 @@ PykCharts.maps.timelineMap = function (options) {
                         if (interval1===unique.length) {
                             clearInterval(undoHeatmap);
                             play.attr("xlink:href","../img/play.gif");
-                            marker.attr("x",  (that.margin.left*2) + that.xScale(unique[0]) - 7);
+                            marker.attr("x",  (that.timeline.margin.left*2) + that.xScale(unique[0]) - 7);
                             interval = interval1 = 1;
                             timeline_status = "";
                         };
-                    }, 1000);
-                },1000);
+                    }, that.timeline.duration);
+                },that.timeline.duration);
             }
         }
 
         var play = that.svg.append("image")
             .attr("xlink:href","../img/play.gif")
-            .attr("x", that.margin.left / 2)
-            .attr("y", that.reducedHeight - that.margin.top - (bbox.height/2))
+            .attr("x", that.timeline.margin.left / 2)
+            .attr("y", that.reducedHeight - that.timeline.margin.top - (bbox.height/2))
             .attr("width","24px")
             .attr("height", "21px")
             .style("cursor", "pointer")
@@ -485,12 +485,12 @@ PykCharts.maps.timelineMap = function (options) {
 
         var marker = that.svg.append("image")
             .attr("xlink:href","../img/marker.png")
-            .attr("x", (that.margin.left*2) + that.xScale(unique[0]) - 7)
+            .attr("x", (that.timeline.margin.left*2) + that.xScale(unique[0]) - 7)
             .attr("y", that.reducedHeight)
             .attr("width","14px")
             .attr("height", "12px")
 
-        duration = unique.length * 1000;
+        // duration = unique.length * 1000;
 
     }
 };
