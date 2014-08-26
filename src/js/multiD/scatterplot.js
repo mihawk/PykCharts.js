@@ -43,13 +43,10 @@ PykCharts.multiD.pulse = function (options) {
             optional = options.optional;
         that.enableCrossHair = optional && optional.enableCrossHair ? optional.enableCrossHair : multiDimensionalCharts.enableCrossHair;
         that.multiD = new PykCharts.multiD.configuration(that);
-        that.grid = options.chart && options.chart.grid ? options.chart.grid : stylesheet.chart.grid;
-        that.grid.yEnabled = options.chart && options.chart.grid && options.chart.grid.yEnabled ? options.chart.grid.yEnabled : stylesheet.chart.grid.yEnabled;
-        that.grid.xEnabled = options.chart && options.chart.grid && options.chart.grid.xEnabled ? options.chart.grid.xEnabled : stylesheet.chart.grid.xEnabled;
         that.multiple_containers = optional && optional.multiple_containers && optional.multiple_containers.enable ? optional.multiple_containers.enable : multiDimensionalCharts.multiple_containers.enable;
         that.bubbleRadius = options.scatterplot && _.isNumber(options.scatterplot.radius) ? options.scatterplot.radius : multiDimensionalCharts.scatterplot.radius;
         that.zoomedOut = true;
-        that.radius_range = [2,6];
+        that.radius_range = [4,14];
         d3.json(options.data, function (e, data) {
             that.data = data;
             $(that.selector+" #chart-loader").remove();
