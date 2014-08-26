@@ -3,7 +3,6 @@ PykCharts.oneD.pie = function (options) {
     var theme = new PykCharts.Configuration.Theme({});
 
     this.execute = function() {
-
         that = new PykCharts.oneD.processInputs(that, options, "pie");
 
         that.radiusPercent = options.pie && _.isNumber(options.pie.radiusPercent) ? options.pie.radiusPercent : theme.oneDimensionalCharts.pie.radiusPercent;
@@ -371,6 +370,9 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                 return that.displayData;
             },
             ticks : function () {
+                if(that.tickMode === "overflow") {
+                    that.svgContainer.style("overflow","visible");
+                }
                 // if(PykCharts.boolean(that.enableTicks)) {
                     var line = that.group.selectAll("line")
                         .data(that.pie(that.chartData));

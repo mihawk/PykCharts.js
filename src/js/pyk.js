@@ -835,6 +835,7 @@ configuration.Theme = function(){
             "weight": "bold",
             "family": "'Helvetica Neue',Helvetica,Arial,sans-serif"
         },
+        "tickMode": "crop",
         "subtitle":{
             "size": "12px",
             "color": "black",
