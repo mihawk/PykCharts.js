@@ -566,9 +566,9 @@ configuration.mouseEvent = function (options) {
                         //     }
                         }                        
                         this.axisHighlightShow(activeTick,options.selector+" .x.axis");
-                        if(type === "multiline") {
-                           this.axisHighlightShow(activeYTick,options.selector+" .y.axis");
-                        }
+                        // if(type === "multiline") {
+                        //    this.axisHighlightShow(activeYTick,options.selector+" .y.axis");
+                        // }
                     }                    
                 }
                 else {
@@ -645,8 +645,6 @@ configuration.mouseEvent = function (options) {
 
                 for(j_curr = 0;d3.selectAll(selection)[0][j_curr].innerHTML !== activeTick;j_curr++){}
                 j_prev = j_curr;
-
-                console.log(d3.selectAll(selection)[0][j_curr]);
                 
                 d3.selectAll(selection)
                     .style("fill","#bbb")
