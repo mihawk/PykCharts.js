@@ -381,6 +381,7 @@ PykCharts.multiD.line = function (options){
 								that.mouseEvent.tooltipHide();
 								that.mouseEvent.crossHairHide(that.type);
 								that.mouseEvent.axisHighlightHide(that.selector + " .x.axis");
+								that.mouseEvent.axisHighlightHide(that.selector + " .y.axis");
 							})
 							.on("mousemove", function(){
 								if(!PykCharts.boolean(that.multiple_containers)) {
@@ -527,6 +528,7 @@ PykCharts.multiD.line = function (options){
 								that.mouseEvent.tooltipHide();
 								that.mouseEvent.crossHairHide(that.type);
 								that.mouseEvent.axisHighlightHide(that.selector + " .x.axis");
+								that.mouseEvent.axisHighlightHide(that.selector + " .y.axis");
 							})
 							.on("mousemove", function(){
 								if(!PykCharts.boolean(that.multiple_containers)) {

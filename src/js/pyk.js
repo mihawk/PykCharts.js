@@ -484,33 +484,11 @@ configuration.mouseEvent = function (options) {
                 var h = options.height;
                 var x = d3.event.pageX - offsetLeft;
                 var y = d3.event.pageY - offsetTop;
-                var pathEl = dataLineGroup[0].node();
-                var pathLength = pathEl.getTotalLength();
-                var beginning = x, end = pathLength, target;
                 var x_range = xScale.range();
                 var y_range = yScale.range();
-                var j,tooltpText="",active_x_tick="",cx = 0,cy = 0,pathWidth = 0,left_diff,right_diff,
-                    range_length = x_range.length,pos_line_cursor_x,pos_line_cursor_y,right_tick,left_tick;
-
-                while (true) {
-                    target = Math.floor((beginning + end) / 2);
-                    pos = pathEl.getPointAtLength(target);
-                    if ((target === end || target === beginning) && pos.x !== x) {
-                        break;
-                    }
-                    if (pos.x > x) {
-                          end = target;
-                    }
-                    else if (pos.x < x) {
-                          beginning = target;
-                    }
-                    else{
-                          break;
-                    }
-                }
-                // for(j = 0; x > (y_range[j]); j++) {}
-                // activeYTick = data[j].y;
-                // console.log(activeYTick);
+                var j,tooltpText,active_x_tick,active_y_tick = [],left_diff,right_diff,
+                    pos_line_cursor_x,pos_line_cursor_y,right_tick,left_tick,
+                    range_length = x_range.length;
 
                 for(j = 0;j < range_length;j++) {
                     if((j+1) >= range_length) {
@@ -526,12 +504,14 @@ configuration.mouseEvent = function (options) {
 
                             if(left_diff >= right_diff) {
                                 active_x_tick = data[j].x;
+                                active_y_tick.push(data[j].y);
                                 tooltipText = data[j].tooltip;
                                 pos_line_cursor_x = (xScale(active_x_tick) + lineMargin + left);
                                 pos_line_cursor_y = (yScale(data[j].y) + top );
                             }
                             else {
                                 active_x_tick = data[j+1].x;
+                                active_y_tick.push(data[j+1].y);
                                 tooltipText = data[j+1].tooltip; // Line Chart ONLY!
                                 pos_line_cursor_x = (xScale(active_x_tick) + lineMargin + left);
                                 pos_line_cursor_y = (yScale(data[j+1].y) + top);
@@ -540,17 +520,18 @@ configuration.mouseEvent = function (options) {
                             if(type === "multilineChart") {
                                 that.tooltip.classed({"pyk-line-tooltip":false,"pyk-multiline-tooltip":true,"pyk-tooltip-table":true});
                                 var len_data = new_data[0].data.length,tt_row=""; // Assumption -- number of Data points in different groups will always be equal
+                                active_y_tick = [];
                                 for(var a=0;a < number_of_lines;a++) {
                                     for(var b=0;b < len_data;b++) {
                                         if(new_data[a].data[b].x === active_x_tick) {
-                                            // console.log(new_data[a].data[b].tooltip,"****",active_x_tick);
+                                            active_y_tick.push(new_data[a].data[b].y);
                                             tt_row += "<tr><td><div style='padding:2px;width:5px;height:5px;background-color:"+new_data[a].color+"'></div></td><td>"+new_data[a].name+"</td><td><b>"+new_data[a].data[b].tooltip+"</b></td></tr>";
                                         }
                                     }
                                 }
+                                // consol
+                                pos_line_cursor_x += 5;
                                 tooltipText = "<table><thead><th colspan='3'>"+active_x_tick+"</th></thead><tbody>"+tt_row+"</tbody></table>";
-                                // console.log(tooltipText,"*************************",pos_line_cursor_x,pos_line_cursor_y,active_x_tick);
-
                                 this.tooltipPosition(tooltipText,pos_line_cursor_x,y,60,100);
                             }
                             else if(type === "lineChart" || type === "areaChart") {
@@ -560,79 +541,16 @@ configuration.mouseEvent = function (options) {
                                     this.tooltipPosition(tooltipText,pos_line_cursor_x,pos_line_cursor_y,5,-45);
                                 }
                             }
-
                             this.toolTextShow(tooltipText);
-                            (options.enableCrossHair) ? this.crossHairShow(pos_line_cursor_x,top,pos_line_cursor_x,(h - bottom),pos_line_cursor_x,pos_line_cursor_y,type) : null;
+                            (options.enableCrossHair) ? this.crossHairShow(pos_line_cursor_x,top,pos_line_cursor_x,(h - bottom),pos_line_cursor_x,pos_line_cursor_y,type,active_y_tick.length) : null;
                             this.axisHighlightShow(active_x_tick,options.selector+" .x.axis");
+                            this.axisHighlightShow(active_y_tick,options.selector+" .y.axis");
                         }
                     }
                 }
-
-                // else if(type === "multilineChart") {
-                //     that.tooltip.classed({"pyk-line-tooltip":false,"pyk-multiline-tooltip":true,"pyk-tooltip-table":true});
-                //     var len_data = new_data[0].data.length,tt_row=""; // Assumption -- number of Data points in different groups will always be equal
-                //     for(var i=0;i < number_of_lines;i++) {
-                //         for(var j=0;j < len_data;j++) {
-                //             if(new_data[i].data[j].x === active_x_tick) {
-                //                 tt_row += "<tr><td><div style='padding:2px;width:5px;height:5px;background-color:"+new_data[i].color+"'></div></td><td>"+new_data[i].name+"</td><td><b>"+new_data[i].data[j].tooltip+"</b></td></tr>";
-                //             }
-                //         }
-                //     }
-                //     tooltipText = "<table><thead><th colspan='3'>"+active_x_tick+"</th></thead><tbody>"+tt_row+"</tbody></table>";
-                // }
-
-                // cx = x + lineMargin + left - 1;
-                // cy = pos.y + top;
-                // pathWidth = dataLineGroup[0].node().getBBox().width;
-                // if((cx >= left) && (cx <= (pathWidth + lineMargin + left)) && (cy >= top) && (cy <= (h - bottom))) {
-                // 	if(type === "lineChart" || type === "areaChart") {
-                //         for(var i=0;i < range_length;i++) {
-                //             if(d3.event.pageX === x_range[i]) {
-                //                 pos_prev_data_index = (pos_data_index !== -1) ? pos_data_index : -1;
-                //                 pos_line_cursor_x = (xScale(active_x_tick) + lineMargin + left);
-                //                 pos_line_cursor_y = (yScale(data[j].y) + top);
-                //                 pos_data_index = i;
-                //             }
-                //         }
-                //         if((options.tooltip.mode).toLowerCase() === "fixed") {
-                //             this.tooltipPosition(tooltipText,0,pos_line_cursor_y,-14,-15);
-                //         } else if((options.tooltip.mode).toLowerCase() === "moving"){
-                //             this.tooltipPosition(tooltipText,pos_line_cursor_x,pos_line_cursor_y,5,-45);
-                //         }
-                //         this.toolTextShow(tooltipText);
-                //         console.log(tooltipText,d3.event.pageX,x_range[pos_data_index],"*************************",pos_line_cursor_y,pos_line_cursor_x);
-                //         (options.enableCrossHair) ? this.crossHairShow(pos_line_cursor_x,top,pos_line_cursor_x,(h - bottom),pos_line_cursor_x,pos_line_cursor_y,type) : null;
-                //         this.axisHighlightShow(active_x_tick,options.selector+" .x.axis");
-                //     }
-                //     else if (type === "multilineChart" || type === "stackedAreaChart") {
-                //         for(var i=0;i < range_length;i++) {
-                //             if(d3.event.clientX === (x_range[i]/* + (left * 2)*/)/* && d3.event.clientX <= (x_range[(i+1)] + left)*/) {
-                //                 console.log(x_range[i],x_range[i+1],active_x_tick,d3.event.pageX);
-                //                 last_x_position = cx;
-                //                 (options.enableCrossHair) ? this.crossHairShow(cx,top,cx,(h - bottom),cx,cy,type) : null;
-                //                 this.tooltipPosition(tooltipText,cx,event.offsetY,80,-100);
-                //                 this.toolTextShow(tooltipText);
-                //                 this.axisHighlightShow(active_x_tick,options.selector+" .x.axis");
-                //             }
-                //             // else {
-                //             //     (options.enableCrossHair) ? this.crossHairHide(type) : null;
-                //             // }
-                //         //     console.log(x_range[i],active_x_tick,d3.event.pageX);
-                //         //     if(d3.event.pageX === (x_range[i])) {
-                //         //         console.log(x_range[i],active_x_tick,d3.event.pageX);
-                //         //     }
-                //         }
-
-                //     }
-                // }
-                // else {
-                //   	this.tooltipHide();
-                //   	(options.enableCrossHair) ? this.crossHairHide(type) : null;
-                //   	this.axisHighlightHide(options.selector+" .x.axis");
-                // }
             }
         },
-        crossHairShow : function (x1,y1,x2,y2,cx,cy,type) {
+        crossHairShow : function (x1,y1,x2,y2,cx,cy,type,no_bullets) {
             if(PykCharts.boolean(options.enableCrossHair) && options.mode === "default") {
                 if(x1 !== undefined) {
                     if(type === "lineChart" || type === "areaChart") {
@@ -660,6 +578,9 @@ configuration.mouseEvent = function (options) {
                             .attr("y1",y1)
                             .attr("x2",(x2 - 5))
                             .attr("y2",y2);
+                        // for(var a=0;a < no_bullets;a++) {
+                            
+                        // }
                     }
                 }
             }
@@ -675,43 +596,61 @@ configuration.mouseEvent = function (options) {
             }
             return this;
         },
-        axisHighlightShow : function (active_x_tick,axisHighlight,a) {
-            var j_curr,j_prev,abc,selection;
+        axisHighlightShow : function (active_tick,axisHighlight,a) {
+            var curr_tick,prev_tick,abc,selection,axis_data_length;
             if(PykCharts.boolean(options.axis.onHoverHighlightenable) && options.mode === "default"){
                 if(axisHighlight === options.selector + " .y.axis"){
                     selection = axisHighlight+" .tick text";
                     abc = options.axis.y.labelColor;
-                } else if(axisHighlight === options.selector + " .x.axis") {
-                    selection = axisHighlight+" .tick text";
-                    abc = options.axis.x.labelColor;
-                } else if(axisHighlight === options.selector + " .axis-text" && a === "column") {
-                    selection = axisHighlight;
-                    abc = options.axis.x.labelColor;
-                } else if(axisHighlight === options.selector + " .axis-text" && a === "bar") {
-                    selection = axisHighlight;
-                    abc = options.axis.y.labelColor;
-                }
-                if(j_prev !== undefined) {
-                    d3.select(d3.selectAll(selection)[0][j_prev])
-                        .style("fill",abc)
+                    axis_data_length = d3.selectAll(selection)[0].length;
+                    
+                    d3.selectAll(selection)
+                        .style("fill","#bbb")
+                        .style("font-size","12px")
                         .style("font-weight","normal");
+                    for(var b=0;b < axis_data_length;b++) {
+                        for(var a=0;a < active_tick.length;a++) {
+                            if(d3.selectAll(selection)[0][b].innerHTML == active_tick[a]) {
+                                d3.select(d3.selectAll(selection)[0][b])
+                                    .style("fill",abc)
+                                    .style("font-size","13px")
+                                    .style("font-weight","bold");
+                            }
+                        }
+                    }
+                } 
+                else {
+                    if(axisHighlight === options.selector + " .x.axis") {
+                        selection = axisHighlight+" .tick text";
+                        abc = options.axis.x.labelColor;
+                    } else if(axisHighlight === options.selector + " .axis-text" && a === "column") {
+                        selection = axisHighlight;
+                        abc = options.axis.x.labelColor;
+                    } else if(axisHighlight === options.selector + " .axis-text" && a === "bar") {
+                        selection = axisHighlight;
+                        abc = options.axis.y.labelColor;
+                    }
+                    if(prev_tick !== undefined) {
+                        d3.select(d3.selectAll(selection)[0][prev_tick])
+                            .style("fill",abc)
+                            .style("font-weight","normal");
+                    }
+
+                    for(curr_tick = 0;d3.selectAll(selection)[0][curr_tick].innerHTML !== active_tick;curr_tick++){}
+                    prev_tick = curr_tick;
+                    
+                    d3.selectAll(selection)
+                        .style("fill","#bbb")
+                        .style("font-size","12px")
+                        .style("font-weight","normal");
+                    d3.select(d3.selectAll(selection)[0][curr_tick])
+                        .style("fill",abc)
+                        .style("font-size","13px")
+                        .style("font-weight","bold");
                 }
-
-                for(j_curr = 0;d3.selectAll(selection)[0][j_curr].innerHTML !== active_x_tick;j_curr++){}
-                j_prev = j_curr;
-
-                d3.selectAll(selection)
-                    .style("fill","#bbb")
-                    .style("font-size","12px")
-                    .style("font-weight","normal");
-                d3.select(d3.selectAll(selection)[0][j_curr])
-                    .style("fill",abc)
-                    .style("font-size","13px")
-                    .style("font-weight","bold");
             }
             return this;
         },
-
         axisHighlightHide : function (axisHighlight,a) {
             var abc,selection;
             if(PykCharts.boolean(options.axis.onHoverHighlightenable) && options.mode === "default"){
