@@ -514,9 +514,9 @@ configuration.mouseEvent = function (options) {
                 }
                 for(j = 0; x > (leftEdges[j] + xRange - lineMargin); j++) {}
                 activeTick = data[j].x;
-                for(j = 0; x > (topEdges[j]); j++) {}
-                activeYTick = data[j].y;
-                console.log(activeYTick);
+                // for(j = 0; x > (topEdges[j]); j++) {}
+                // activeYTick = data[j].y;
+                // console.log(activeYTick);
 
                 if(type === "lineChart" || type === "areaChart") { tooltipText = data[j].tooltip; }
                 else if(type === "multiline") {
