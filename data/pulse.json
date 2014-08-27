@@ -5,7 +5,7 @@
         "y" : "Rice",
         "weight" : 4834,
         "color": "#DE5851",
-        "tooltip" : "Cereals",
+        "tooltip" : "",
         "group": "Cereals"
 	},
 	{
@@ -14,7 +14,7 @@
         "y" : "Rice",
         "weight" : 10402,
         "color": "#DE5851",
-        "tooltip" : "Cereals",
+        "tooltip" : "",
         "group": "Cereals"
 	},
 	{
@@ -23,7 +23,7 @@
         "y" : "Rice",
         "weight" : 5964,
         "color": "#DE5851",
-        "tooltip" : "Cereals",
+        "tooltip" : "",
         "group": "Cereals"
 	},
 	{
@@ -32,7 +32,7 @@
         "y" : "Rice",
         "weight" : 13385,
         "color": "#DE5851",
-        "tooltip" : "Cereals",
+        "tooltip" : "",
         "group": "Cereals"
 	},
 	{
@@ -41,7 +41,7 @@
         "y" : "Rice",
         "weight" : 11966,
         "color": "#DE5851",
-        "tooltip" : "Cereals",
+        "tooltip" : "",
         "group": "Cereals"
 	},
 	{
@@ -50,7 +50,7 @@
         "y" : "Rice",
         "weight" : 12836,
         "color": "#DE5851",
-        "tooltip" : "Cereals",
+        "tooltip" : "",
         "group": "Cereals"
 	},
 	{
@@ -59,7 +59,7 @@
         "y" : "Rice",
         "weight" : 11412,
         "color": "#DE5851",
-        "tooltip" : "Cereals",
+        "tooltip" : "",
         "group": "Cereals"
 	},
 	{
@@ -68,7 +68,7 @@
         "y" : "Rice",
         "weight" : 14742,
         "color": "#DE5851",
-        "tooltip" : "Cereals",
+        "tooltip" : "",
         "group": "Cereals"
 	},
 	{
@@ -77,7 +77,7 @@
         "y" : "Rice",
         "weight" : 13029,
         "color": "#DE5851",
-        "tooltip" : "Cereals",
+        "tooltip" : "",
         "group": "Cereals"
 	},
 	{
@@ -86,7 +86,7 @@
         "y" : "Rice",
         "weight" : 12930,
         "color": "#DE5851",
-        "tooltip" : "Cereals",
+        "tooltip" : "",
         "group": "Cereals"
 	},
 	{
@@ -95,7 +95,7 @@
         "y" : "Rice",
         "weight" : 16658,
         "color": "#DE5851",
-        "tooltip" : "Cereals",
+        "tooltip" : "",
         "group": "Cereals"
 	},
 	{
@@ -104,7 +104,7 @@
         "y" : "Rice",
         "weight" : 17897,
         "color": "#DE5851",
-        "tooltip" : "Cereals",
+        "tooltip" : "",
         "group": "Cereals"
 	},
 	{
@@ -113,7 +113,7 @@
         "y" : "Wheat",
         "weight" : 4834,
         "color": "#44A770",
-        "tooltip" : "Cereals",
+        "tooltip" : "",
         "group": "Cereals"
 	},
 	{
@@ -122,7 +122,7 @@
         "y" : "Wheat",
         "weight" : 10402,
         "color": "#44A770",
-        "tooltip" : "Cereals",
+        "tooltip" : "",
         "group": "Cereals"
 	},
 	{
@@ -131,7 +131,7 @@
         "y" : "Wheat",
         "weight" : 5964,
         "color": "#44A770",
-        "tooltip" : "Cereals",
+        "tooltip" : "",
         "group": "Cereals"
 	},
 	{
@@ -140,7 +140,7 @@
         "y" : "Wheat",
         "weight" : 13385,
         "color": "#44A770",
-        "tooltip" : "Cereals",
+        "tooltip" : "",
         "group": "Cereals"
 	},
 	{
@@ -149,7 +149,7 @@
         "y" : "Wheat",
         "weight" : 11966,
         "color": "#44A770",
-        "tooltip" : "Cereals",
+        "tooltip" : "",
         "group": "Cereals"
 	},
 	{
@@ -158,7 +158,7 @@
         "y" : "Wheat",
         "weight" : 12836,
         "color": "#44A770",
-        "tooltip" : "Cereals",
+        "tooltip" : "",
         "group": "Cereals"
 	},
 	{
@@ -167,7 +167,7 @@
         "y" : "Wheat",
         "weight" : 11412,
         "color": "#44A770",
-        "tooltip" : "Cereals",
+        "tooltip" : "",
         "group": "Cereals"
 	},
 	{
@@ -176,7 +176,7 @@
         "y" : "Wheat",
         "weight" : 14742,
         "color": "#44A770",
-        "tooltip" : "Cereals",
+        "tooltip" : "",
         "group": "Cereals"
 	},
 	{
@@ -185,7 +185,7 @@
         "y" : "Wheat",
         "weight" : 13029,
         "color": "#44A770",
-        "tooltip" : "Cereals",
+        "tooltip" : "",
         "group": "Cereals"
 	},
 	{
@@ -194,7 +194,7 @@
         "y" : "Wheat",
         "weight" : 12930,
         "color": "#44A770",
-        "tooltip" : "Cereals",
+        "tooltip" : "",
         "group": "Cereals"
 	},
 	{
@@ -203,7 +203,7 @@
         "y" : "Wheat",
         "weight" : 16658,
         "color": "#44A770",
-        "tooltip" : "Cereals",
+        "tooltip" : "",
         "group": "Cereals"
 	},
 	{
@@ -212,7 +212,7 @@
         "y" : "Wheat",
         "weight" : 17897,
         "color": "#44A770",
-        "tooltip" : "Cereals",
+        "tooltip" : "",
         "group": "Cereals"
 	},
 	{
@@ -221,7 +221,7 @@
         "y" : "Jowar",
         "weight" : 17800,
         "color": "steelblue",
-        "tooltip" : "Cereals",
+        "tooltip" : "",
         "group": "Cereals"
 	},
 	{
@@ -230,7 +230,7 @@
         "y" : "Jowar",
         "weight" : 16930,
         "color": "steelblue",
-        "tooltip" : "Cereals",
+        "tooltip" : "",
         "group": "Cereals"
 	},
 	{
@@ -239,7 +239,7 @@
         "y" : "Jowar",
         "weight" : 12170,
         "color": "steelblue",
-        "tooltip" : "Cereals",
+        "tooltip" : "",
         "group": "Cereals"
 	},
 	{
@@ -248,7 +248,7 @@
         "y" : "Jowar",
         "weight" : 19680,
         "color": "steelblue",
-        "tooltip" : "Cereals",
+        "tooltip" : "",
         "group": "Cereals"
 	},
 	{
@@ -257,7 +257,7 @@
         "y" : "Jowar",
         "weight" : 13440,
         "color": "steelblue",
-        "tooltip" : "Cereals",
+        "tooltip" : "",
         "group": "Cereals"
 	},
 	{
@@ -266,7 +266,7 @@
         "y" : "Jowar",
         "weight" : 15700,
         "color": "steelblue",
-        "tooltip" : "Cereals",
+        "tooltip" : "",
         "group": "Cereals"
 	},
 	{
@@ -275,7 +275,7 @@
         "y" : "Jowar",
         "weight" : 14930,
         "color": "steelblue",
-        "tooltip" : "Cereals",
+        "tooltip" : "",
         "group": "Cereals"
 	},
 	{
@@ -284,7 +284,7 @@
         "y" : "Jowar",
         "weight" : 15640,
         "color": "steelblue",
-        "tooltip" : "Cereals",
+        "tooltip" : "",
         "group": "Cereals"
 	},
 	{
@@ -293,7 +293,7 @@
         "y" : "Jowar",
         "weight" : 20820,
         "color": "steelblue",
-        "tooltip" : "Cereals",
+        "tooltip" : "",
         "group": "Cereals"
 	},
 	{
@@ -302,7 +302,7 @@
         "y" : "Jowar",
         "weight" : 17130,
         "color": "steelblue",
-        "tooltip" : "Cereals",
+        "tooltip" : "",
         "group": "Cereals"
 	},
 	{
@@ -311,7 +311,7 @@
         "y" : "Jowar",
         "weight" : 13900,
         "color": "steelblue",
-        "tooltip" : "Cereals",
+        "tooltip" : "",
         "group": "Cereals"
 	},
 	{
@@ -320,7 +320,7 @@
         "y" : "Jowar",
         "weight" : 4834,
         "color": "steelblue",
-        "tooltip" : "Cereals",
+        "tooltip" : "",
         "group": "Cereals"
 	},
     {
@@ -329,7 +329,7 @@
         "y" : "Groundnut",
         "weight" : 6882,
         "color" : "green",
-        "tooltip" : "Oilseeds",
+        "tooltip" : "",
         "group" : "Oilseeds"
     },
     {
@@ -338,7 +338,7 @@
         "y" : "Groundnut",
         "weight" : 16466,
         "color" : "green",
-        "tooltip" : "Oilseeds",
+        "tooltip" : "",
         "group" : "Oilseeds"
     },
     {
@@ -347,7 +347,7 @@
         "y" : "Groundnut",
         "weight" : 10945,
         "color" : "green",
-        "tooltip" : "Oilseeds",
+        "tooltip" : "",
         "group" : "Oilseeds"
     },
     {
@@ -356,7 +356,7 @@
         "y" : "Groundnut",
         "weight" : 15775,
         "color" : "green",
-        "tooltip" : "Oilseeds",
+        "tooltip" : "",
         "group" : "Oilseeds"
     },
     {
@@ -365,7 +365,7 @@
         "y" : "Groundnut",
         "weight" : 1821,
         "color" : "green",
-        "tooltip" : "Oilseeds",
+        "tooltip" : "",
         "group" : "Oilseeds"
     },
     {
@@ -374,7 +374,7 @@
         "y" : "Groundnut",
         "weight" : 13581,
         "color" : "green",
-        "tooltip" : "Oilseeds",
+        "tooltip" : "",
         "group" : "Oilseeds"
     },
     {
@@ -383,7 +383,7 @@
         "y" : "Groundnut",
         "weight" : 18504,
         "color" : "green",
-        "tooltip" : "Oilseeds",
+        "tooltip" : "",
         "group" : "Oilseeds"
     },
     {
@@ -392,7 +392,7 @@
         "y" : "Groundnut",
         "weight" : 12979,
         "color" : "green",
-        "tooltip" : "Oilseeds",
+        "tooltip" : "",
         "group" : "Oilseeds"
     },
     {
@@ -401,7 +401,7 @@
         "y" : "Groundnut",
         "weight" : 16609,
         "color" : "green",
-        "tooltip" : "Oilseeds",
+        "tooltip" : "",
         "group" : "Oilseeds"
     },
     {
@@ -410,7 +410,7 @@
         "y" : "Groundnut",
         "weight" : 17569,
         "color" : "green",
-        "tooltip" : "Oilseeds",
+        "tooltip" : "",
         "group" : "Oilseeds"
     },
     {
@@ -419,7 +419,7 @@
         "y" : "Groundnut",
         "weight" : 9750,
         "color" : "green",
-        "tooltip" : "Oilseeds",
+        "tooltip" : "",
         "group" : "Oilseeds"
     },
     {
@@ -428,7 +428,7 @@
         "y" : "Groundnut",
         "weight" : 17168,
         "color" : "green",
-        "tooltip" : "Oilseeds",
+        "tooltip" : "",
         "group" : "Oilseeds"
     },
     {
@@ -437,7 +437,7 @@
         "y" : "Castor",
         "weight" : 6388,
         "color" : "green",
-        "tooltip" : "Oilseeds",
+        "tooltip" : "",
         "group" : "Oilseeds"
     },
     {
@@ -446,7 +446,7 @@
         "y" : "Castor",
         "weight" : 4651,
         "color" : "green",
-        "tooltip" : "Oilseeds",
+        "tooltip" : "",
         "group" : "Oilseeds"
     },
     {
@@ -455,7 +455,7 @@
         "y" : "Castor",
         "weight" : 2831,
         "color" : "green",
-        "tooltip" : "Oilseeds",
+        "tooltip" : "",
         "group" : "Oilseeds"
     },
     {
@@ -464,7 +464,7 @@
         "y" : "Castor",
         "weight" : 6365,
         "color" : "green",
-        "tooltip" : "Oilseeds",
+        "tooltip" : "",
         "group" : "Oilseeds"
     },
     {
@@ -473,7 +473,7 @@
         "y" : "Castor",
         "weight" : 6365,
         "color" : "green",
-        "tooltip" : "Oilseeds",
+        "tooltip" : "",
         "group" : "Oilseeds"
     },
     {
@@ -482,7 +482,7 @@
         "y" : "Castor",
         "weight" : 6650,
         "color" : "green",
-        "tooltip" : "Oilseeds",
+        "tooltip" : "",
         "group" : "Oilseeds"
     },
     {
@@ -491,7 +491,7 @@
         "y" : "Castor",
         "weight" : 5888,
         "color" : "green",
-        "tooltip" : "Oilseeds",
+        "tooltip" : "",
         "group" : "Oilseeds"
     },
     {
@@ -500,7 +500,7 @@
         "y" : "Castor",
         "weight" : 7083,
         "color" : "green",
-        "tooltip" : "Oilseeds",
+        "tooltip" : "",
         "group" : "Oilseeds"
     },
     {
@@ -509,7 +509,7 @@
         "y" : "Castor",
         "weight" : 8517,
         "color" : "green",
-        "tooltip" : "Oilseeds",
+        "tooltip" : "",
         "group" : "Oilseeds"
     },
     {
@@ -518,7 +518,7 @@
         "y" : "Castor",
         "weight" : 8314,
         "color" : "green",
-        "tooltip" : "Oilseeds",
+        "tooltip" : "",
         "group" : "Oilseeds"
     },
     {
@@ -527,7 +527,7 @@
         "y" : "Castor",
         "weight" : 9860,
         "color" : "green",
-        "tooltip" : "Oilseeds",
+        "tooltip" : "",
         "group" : "Oilseeds"
     },
     {
@@ -536,7 +536,7 @@
         "y" : "Castor",
         "weight" : 18034,
         "color" : "green",
-        "tooltip" : "Oilseeds",
+        "tooltip" : "",
         "group" : "Oilseeds"
     },
     {
@@ -545,7 +545,7 @@
         "y" : "Sesamum",
         "weight" : 9840,
         "color" : "green",
-        "tooltip" : "Oilseeds",
+        "tooltip" : "",
         "group" : "Oilseeds"
     },
     {
@@ -554,7 +554,7 @@
         "y" : "Sesamum",
         "weight" : 9266,
         "color" : "green",
-        "tooltip" : "Oilseeds",
+        "tooltip" : "",
         "group" : "Oilseeds"
     },
     {
@@ -563,7 +563,7 @@
         "y" : "Sesamum",
         "weight" : 12302,
         "color" : "green",
-        "tooltip" : "Oilseeds",
+        "tooltip" : "",
         "group" : "Oilseeds"
     },
     {
@@ -572,7 +572,7 @@
         "y" : "Sesamum",
         "weight" : 12388,
         "color" : "green",
-        "tooltip" : "Oilseeds",
+        "tooltip" : "",
         "group" : "Oilseeds"
     },
     {
@@ -581,7 +581,7 @@
         "y" : "Sesamum",
         "weight" : 9171,
         "color" : "green",
-        "tooltip" : "Oilseeds",
+        "tooltip" : "",
         "group" : "Oilseeds"
     },
     {
@@ -590,7 +590,7 @@
         "y" : "Sesamum",
         "weight" : 14205,
         "color" : "green",
-        "tooltip" : "Oilseeds",
+        "tooltip" : "",
         "group" : "Oilseeds"
     },
     {
@@ -599,7 +599,7 @@
         "y" : "Sesamum",
         "weight" : 10500,
         "color" : "green",
-        "tooltip" : "Oilseeds",
+        "tooltip" : "",
         "group" : "Oilseeds"
     },
     {
@@ -608,7 +608,7 @@
         "y" : "Sesamum",
         "weight" : 14090,
         "color" : "green",
-        "tooltip" : "Oilseeds",
+        "tooltip" : "",
         "group" : "Oilseeds"
     },
     {
@@ -617,7 +617,7 @@
         "y" : "Sesamum",
         "weight" : 11849,
         "color" : "green",
-        "tooltip" : "Oilseeds",
+        "tooltip" : "",
         "group" : "Oilseeds"
     },
     {
@@ -626,7 +626,7 @@
         "y" : "Sesamum",
         "weight" : 10804,
         "color" : "green",
-        "tooltip" : "Oilseeds",
+        "tooltip" : "",
         "group" : "Oilseeds"
     },
     {
@@ -635,7 +635,7 @@
         "y" : "Sesamum",
         "weight" : 12066,
         "color" : "green",
-        "tooltip" : "Oilseeds",
+        "tooltip" : "",
         "group" : "Oilseeds"
     },
     {
@@ -644,7 +644,7 @@
         "y" : "Sesamum",
         "weight" : 11660,
         "color" : "green",
-        "tooltip" : "Oilseeds",
+        "tooltip" : "",
         "group" : "Oilseeds"
     },
     {
@@ -653,7 +653,7 @@
         "y" : "Sugarcane",
         "weight" : 12695,
         "color" : "steelblue",
-        "tooltip" : "Other",
+        "tooltip" : "",
         "group" : "Other"
     },
     {
@@ -662,7 +662,7 @@
         "y" : "Sugarcane",
         "weight" : 12465,
         "color" : "steelblue",
-        "tooltip" : "Other",
+        "tooltip" : "",
         "group" : "Other"
     },
     {
@@ -671,7 +671,7 @@
         "y" : "Sugarcane",
         "weight" : 14071,
         "color" : "steelblue",
-        "tooltip" : "Other",
+        "tooltip" : "",
         "group" : "Other"
     },
     {
@@ -680,7 +680,7 @@
         "y" : "Sugarcane",
         "weight" : 19242,
         "color" : "steelblue",
-        "tooltip" : "Other",
+        "tooltip" : "",
         "group" : "Other"
     },
     {
@@ -689,7 +689,7 @@
         "y" : "Sugarcane",
         "weight" : 14570,
         "color" : "steelblue",
-        "tooltip" : "Other",
+        "tooltip" : "",
         "group" : "Other"
     },
     {
@@ -698,7 +698,7 @@
         "y" : "Sugarcane",
         "weight" : 17786,
         "color" : "steelblue",
-        "tooltip" : "Other",
+        "tooltip" : "",
         "group" : "Other"
     },
     {
@@ -707,7 +707,7 @@
         "y" : "Sugarcane",
         "weight" : 16554,
         "color" : "steelblue",
-        "tooltip" : "Other",
+        "tooltip" : "",
         "group" : "Other"
     },
     {
@@ -716,7 +716,7 @@
         "y" : "Sugarcane",
         "weight" : 15190,
         "color" : "steelblue",
-        "tooltip" : "Other",
+        "tooltip" : "",
         "group" : "Other"
     },
     {
@@ -725,7 +725,7 @@
         "y" : "Sugarcane",
         "weight" : 15512,
         "color" : "steelblue",
-        "tooltip" : "Other",
+        "tooltip" : "",
         "group" : "Other"
     },
     {
@@ -734,7 +734,7 @@
         "y" : "Sugarcane",
         "weight" : 13304,
         "color" : "steelblue",
-        "tooltip" : "Other",
+        "tooltip" : "",
         "group" : "Other"
     },
     {
@@ -743,7 +743,7 @@
         "y" : "Sugarcane",
         "weight" : 13763,
         "color" : "steelblue",
-        "tooltip" : "Other",
+        "tooltip" : "",
         "group" : "Other"
     },
     {
@@ -752,7 +752,7 @@
         "y" : "Sugarcane",
         "weight" : 12749,
         "color" : "steelblue",
-        "tooltip" : "Other",
+        "tooltip" : "",
         "group" : "Other"
     },
     {
@@ -761,7 +761,7 @@
         "y" : "Potato",
         "weight" : 7161,
         "color" : "steelblue",
-        "tooltip" : "Other",
+        "tooltip" : "",
         "group" : "Other"
     },
     {
@@ -770,7 +770,7 @@
         "y" : "Potato",
         "weight" : 8020,
         "color" : "steelblue",
-        "tooltip" : "Other",
+        "tooltip" : "",
         "group" : "Other"
     },
     {
@@ -779,7 +779,7 @@
         "y" : "Potato",
         "weight" : 7800,
         "color" : "steelblue",
-        "tooltip" : "Other",
+        "tooltip" : "",
         "group" : "Other"
     },
     {
@@ -788,7 +788,7 @@
         "y" : "Potato",
         "weight" : 6959,
         "color" : "steelblue",
-        "tooltip" : "Other",
+        "tooltip" : "",
         "group" : "Other"
     },
     {
@@ -797,7 +797,7 @@
         "y" : "Potato",
         "weight" : 10887,
         "color" : "steelblue",
-        "tooltip" : "Other",
+        "tooltip" : "",
         "group" : "Other"
     },
     {
@@ -806,7 +806,7 @@
         "y" : "Potato",
         "weight" : 12383,
         "color" : "steelblue",
-        "tooltip" : "Other",
+        "tooltip" : "",
         "group" : "Other"
     },
     {
@@ -815,7 +815,7 @@
         "y" : "Potato",
         "weight" : 10784,
         "color" : "steelblue",
-        "tooltip" : "Other",
+        "tooltip" : "",
         "group" : "Other"
     },
     {
@@ -824,7 +824,7 @@
         "y" : "Potato",
         "weight" : 17956,
         "color" : "steelblue",
-        "tooltip" : "Other",
+        "tooltip" : "",
         "group" : "Other"
     },
     {
@@ -833,7 +833,7 @@
         "y" : "Potato",
         "weight" : 11714,
         "color" : "steelblue",
-        "tooltip" : "Other",
+        "tooltip" : "",
         "group" : "Other"
     },
     {
@@ -842,7 +842,7 @@
         "y" : "Potato",
         "weight" : 9877,
         "color" : "steelblue",
-        "tooltip" : "Other",
+        "tooltip" : "",
         "group" : "Other"
     },
     {
@@ -851,7 +851,7 @@
         "y" : "Potato",
         "weight" : 12827,
         "color" : "steelblue",
-        "tooltip" : "Other",
+        "tooltip" : "",
         "group" : "Other"
     },
     {
@@ -860,7 +860,7 @@
         "y" : "Potato",
         "weight" : 17923,
         "color" : "steelblue",
-        "tooltip" : "Other",
+        "tooltip" : "",
         "group" : "Other"
     },
     {
@@ -869,7 +869,7 @@
         "y" : "Chillies",
         "weight" : 105,
         "color" : "steelblue",
-        "tooltip" : "Other",
+        "tooltip" : "",
         "group" : "Other"
     },
     {
@@ -878,7 +878,7 @@
         "y" : "Chillies",
         "weight" : 121,
         "color" : "steelblue",
-        "tooltip" : "Other",
+        "tooltip" : "",
         "group" : "Other"
     },
     {
@@ -887,7 +887,7 @@
         "y" : "Chillies",
         "weight" : 105,
         "color" : "steelblue",
-        "tooltip" : "Other",
+        "tooltip" : "",
         "group" : "Other"
     },
     {
@@ -896,7 +896,7 @@
         "y" : "Chillies",
         "weight" : 208,
         "color" : "steelblue",
-        "tooltip" : "Other",
+        "tooltip" : "",
         "group" : "Other"
     },
     {
@@ -905,7 +905,7 @@
         "y" : "Chillies",
         "weight" : 57,
         "color" : "steelblue",
-        "tooltip" : "Other",
+        "tooltip" : "",
         "group" : "Other"
     },
     {
@@ -914,7 +914,7 @@
         "y" : "Chillies",
         "weight" : 68,
         "color" : "steelblue",
-        "tooltip" : "Other",
+        "tooltip" : "",
         "group" : "Other"
     },
     {
@@ -923,7 +923,7 @@
         "y" : "Chillies",
         "weight" : 64,
         "color" : "steelblue",
-        "tooltip" : "Other",
+        "tooltip" : "",
         "group" : "Other"
     },
     {
@@ -932,7 +932,7 @@
         "y" : "Chillies",
         "weight" : 79,
         "color" : "steelblue",
-        "tooltip" : "Other",
+        "tooltip" : "",
         "group" : "Other"
     },
     {
@@ -941,7 +941,7 @@
         "y" : "Chillies",
         "weight" : 67,
         "color" : "steelblue",
-        "tooltip" : "Other",
+        "tooltip" : "",
         "group" : "Other"
     },
     {
@@ -950,7 +950,7 @@
         "y" : "Chillies",
         "weight" : 85,
         "color" : "steelblue",
-        "tooltip" : "Other",
+        "tooltip" : "",
         "group" : "Other"
     },
     {
@@ -959,7 +959,7 @@
         "y" : "Chillies",
         "weight" : 69,
         "color" : "steelblue",
-        "tooltip" : "Other",
+        "tooltip" : "",
         "group" : "Other"
     },
     {
@@ -968,7 +968,7 @@
         "y" : "Chillies",
         "weight" : 74,
         "color" : "steelblue",
-        "tooltip" : "Other",
+        "tooltip" : "",
         "group" : "Other"
     }
 ]
