@@ -315,10 +315,11 @@ PykCharts.multiD.area = function (options){
 							.on('mouseout',function (d) {
 			          			that.mouseEvent.tooltipHide();
 			          			that.mouseEvent.crossHairHide(type);
-								that.mouseEvent.axisHighlightHide(options.selector + " " +".x.axis");
+								that.mouseEvent.axisHighlightHide(options.selector + " .x.axis");
+								that.mouseEvent.axisHighlightHide(options.selector + " .y.axis");
 		          			})
 							.on("mousemove", function(){
-								that.mouseEvent.crossHairPosition(that.data,null,that.xScale,that.yScale,that.svg.select("#"+type),that.lineMargin,that.type);
+								that.mouseEvent.crossHairPosition(that.data,null,that.xScale,that.yScale,that.svg.select("#"+type),that.lineMargin,that.type,that.tooltip.mode);
 					  		});
 					}
 				}
@@ -370,10 +371,11 @@ PykCharts.multiD.area = function (options){
 					  		.on("mouseout",function (d) {
 									that.mouseEvent.tooltipHide();
 									that.mouseEvent.crossHairHide(that.type);
-									that.mouseEvent.axisHighlightHide(options.selector + " " +".x.axis");
+									that.mouseEvent.axisHighlightHide(options.selector + " .x.axis");
+									that.mouseEvent.axisHighlightHide(options.selector + " .y.axis");
 			          		})
 						  	.on("mousemove", function(){
-						  		that.mouseEvent.crossHairPosition(that.data,null,that.xScale,that.yScale,that.dataLineGroup,that.lineMargin,that.type);
+						  		that.mouseEvent.crossHairPosition(that.data,null,that.xScale,that.yScale,that.dataLineGroup,that.lineMargin,that.type,that.tooltip.mode);
 						  	});
 					}
 					else if(that.type === "stackedAreaChart") {

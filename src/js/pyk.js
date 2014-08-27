@@ -529,8 +529,7 @@ configuration.mouseEvent = function (options) {
                                         }
                                     }
                                 }
-                                // consol
-                                pos_line_cursor_x += 5;
+                                pos_line_cursor_x += 6;
                                 tooltipText = "<table><thead><th colspan='3'>"+active_x_tick+"</th></thead><tbody>"+tt_row+"</tbody></table>";
                                 this.tooltipPosition(tooltipText,pos_line_cursor_x,y,60,100);
                             }
