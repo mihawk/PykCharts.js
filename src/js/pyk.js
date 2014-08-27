@@ -501,7 +501,7 @@ configuration.mouseEvent = function (options) {
                         else if(x >= x_range[j] && x <= x_range[j+1]) {
                             left_tick = x_range[j], right_tick = x_range[j+1];
                             left_diff = (left_tick - x), right_diff = (x - right_tick);
-                            
+
                             if(left_diff >= right_diff) {
                                 active_x_tick = data[j].x;
                                 active_y_tick.push(data[j].y);
@@ -1021,7 +1021,7 @@ configuration.Theme = function(){
         "timeline": {
             "duration": 1000,
             "margin": {"top": 5, "right": 25, "bottom": 25, "left": 45}
-        }, 
+        },
         "legends": {
             "enable":"yes"
         },
