@@ -5,8 +5,7 @@ PykCharts.maps.oneLayer = function (options) {
         that = PykCharts.maps.processInputs(that, options);
         //$(that.selector).css("height",that.height);
         that.data = options.data;
-        console.log(that.data,"that.data");
-
+        
         that.k
             .totalColors(that.colors.total)
             .colorType(that.colors.type)
@@ -135,8 +134,6 @@ PykCharts.maps.oneLayer = function (options) {
                 // console.log((_.where(that.data, {iso2: d.properties.iso_a2})[0]).tooltip)
                 if (PykCharts.boolean(that.tooltip.enable)) {
                     ttp.style("visibility", "visible");
-                    console.log(that.data[i]);
-                    console.log(that.data[i].color);
                     ttp.html((_.where(that.data, {iso2: d.properties.iso_a2})[0]).tooltip);
                 }
                 that.bodColor(d);
@@ -184,7 +181,6 @@ PykCharts.maps.oneLayer = function (options) {
         if (_.where(that.data, {iso2: d.properties.iso_a2}).length > 0) {
             if (that.colors.type === "colors") {
                 if (obj.length > 0 && obj[0].color !== "") {
-                    console.log(obj,"color");
                     return obj[0].color;
                 }
                 return that.colors.defaultColor;
@@ -369,7 +365,3 @@ PykCharts.maps.oneLayer = function (options) {
             .attr("opacity", that.renderOpacity);
     }
 };
-
-/*function customFunction (d) {
-console.log(d);
-}*/
