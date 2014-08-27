@@ -370,7 +370,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                 return that.displayData;
             },
             ticks : function () {
-                if(that.tickMode === "overflow") {
+                if(PykCharts.boolean(that.overlapTicks)) {
                     that.svgContainer.style("overflow","visible");
                 }
                 // if(PykCharts.boolean(that.enableTicks)) {

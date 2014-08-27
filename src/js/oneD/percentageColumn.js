@@ -196,7 +196,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                 return this;
             },
             ticks : function () {
-                if(that.tickMode === "overflow") {
+                if(PykCharts.boolean(that.overlapTicks)) {
                     that.svg.style("overflow","visible");
                 }
                     var sum = 0,sum1=0;
