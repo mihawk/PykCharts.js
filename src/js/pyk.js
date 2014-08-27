@@ -495,7 +495,7 @@ configuration.mouseEvent = function (options) {
                 //console.log(topEdges,yRange,"crossHair");
 
                 var j,tooltpText="",activeTick="",cx = 0,cy = 0,pathWidth = 0,range_length = leftEdges.length;
-                
+
                 while (true) {
                     target = Math.floor((beginning + end) / 2);
                     pos = pathEl.getPointAtLength(target);
@@ -538,7 +538,7 @@ configuration.mouseEvent = function (options) {
 
     			if((cx >= (lineMargin + left + 2)) && (cx <= (pathWidth + lineMargin + left + 10)) && (cy >= top) && (cy <= (h - bottom))) {
                 	if(type === "lineChart" || type === "areaChart") {
-                        // console.log(options.tooltip.mode); 
+                        // console.log(options.tooltip.mode);
                         if((options.tooltip.mode).toLowerCase() === "fixed") {
                             this.tooltipPosition(tooltipText,0,cy,-14,-15);
                         } else if((options.tooltip.mode).toLowerCase() === "moving"){
@@ -555,7 +555,7 @@ configuration.mouseEvent = function (options) {
                             //    console.log(leftEdges[i],leftEdges[i+1],activeTick,d3.event.pageX);
                                 (options.enableCrossHair) ? this.crossHairShow(cx,top,cx,(h - bottom),cx,cy,type) : null;
                                 this.tooltipPosition(tooltipText,cx,event.offsetY,80,10);
-                                this.toolTextShow(tooltipText);                        
+                                this.toolTextShow(tooltipText);
                             }
                             // else {
                             //     (options.enableCrossHair) ? this.crossHairHide(type) : null;
@@ -564,12 +564,12 @@ configuration.mouseEvent = function (options) {
                         //     if(d3.event.pageX === (leftEdges[i])) {
                         //         console.log(leftEdges[i],activeTick,d3.event.pageX);
                         //     }
-                        }                        
+                        }
                         this.axisHighlightShow(activeTick,options.selector+" .x.axis");
                         if(type === "multiline") {
                            this.axisHighlightShow(activeYTick,options.selector+" .y.axis");
                         }
-                    }                    
+                    }
                 }
                 else {
                   	this.tooltipHide();
@@ -647,7 +647,7 @@ configuration.mouseEvent = function (options) {
                 j_prev = j_curr;
 
                 console.log(d3.selectAll(selection)[0][j_curr]);
-                
+
                 d3.selectAll(selection)
                     .style("fill","#bbb")
                     .style("font-size","12px")
@@ -1032,7 +1032,7 @@ configuration.Theme = function(){
         "timeline": {
             "duration": 1000,
             "margin": {"top": 5, "right": 25, "bottom": 25, "left": 45}
-        }, 
+        },
         "legends": {
             "enable":"yes"
         },
