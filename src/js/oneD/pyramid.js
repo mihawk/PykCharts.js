@@ -265,7 +265,9 @@ PykCharts.oneD.pyramid = function (options) {
             },
             ticks : function () {
                 // if(PykCharts.boolean(that.enableTicks)) {
-
+                if(that.tickMode === "overflow") {
+                    that.svg.style("overflow","visible");
+                }
                 var line = that.group.selectAll("pyr-ticks")
                     .data(that.coordinates);
 

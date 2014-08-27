@@ -14,7 +14,6 @@ PykCharts.maps.oneLayer = function (options) {
 
         d3.json("../data/maps/" + that.mapCode + ".json", function (data) {
             that.map_data = data;
-
             d3.json("../data/maps/colorPalette.json", function (data) {
                 that.colorPalette_data = data;
                 $(that.selector).html("");
@@ -22,6 +21,7 @@ PykCharts.maps.oneLayer = function (options) {
                 that.simulateLiveData(that.data);
             });
         });
+        
 
         that.max_size = d3.max(that.data, function (sample) { return parseInt(sample.size, 10); });
         that.min_size = d3.min(that.data, function (sample) { return parseInt(sample.size, 10); });
@@ -130,7 +130,7 @@ PykCharts.maps.oneLayer = function (options) {
             .attr("opacity", that.renderOpacity)
             .attr("stroke", that.border.color)
             .attr("stroke-width", that.border.thickness + "px")
-            .on("mouseover", function (d) {
+            .on("mouseover", function (d,i) {
                 // console.log((_.where(that.data, {iso2: d.properties.iso_a2})[0]).tooltip)
                 if (PykCharts.boolean(that.tooltip.enable)) {
                     ttp.style("visibility", "visible");
@@ -270,14 +270,16 @@ PykCharts.maps.oneLayer = function (options) {
     };
 
     this.renderLabel = function () {
-         console.log("legends")
         that.group.append("text")
-            .attr("x", function (d) { return that.path.centroid(d)[0]; })
+            .attr("x", function (d) { 
+                return that.path.centroid(d)[0]; })
             .attr("y", function (d) { return that.path.centroid(d)[1]; })
             .attr("text-anchor", "middle")
             .attr("font-size", "10")
             .attr("pointer-events", "none")
-            .text(function (d) { return d.properties.NAME_1; });
+            .text(function (d) { 
+               return d.properties.NAME_1; 
+            });
     };
 
     this.bodColor = function (d) {

@@ -179,8 +179,8 @@ PykCharts.Configuration = function (options){
                 .attr("id","tooltip-svg-container-"+i)
                 .style("width",options.width);
             if(PykCharts.boolean(options.multiple_containers)){
-                d.style("float","left");
-                // .style("height","auto");
+                d.style("float","left")
+                    .style("width","auto");
             }
             return this;
         },
@@ -488,6 +488,7 @@ configuration.mouseEvent = function (options) {
                 var pathLength = pathEl.getTotalLength();
                 var beginning = x, end = pathLength, target;
                 var x_range = xScale.range();
+                var y_range = yScale.range();
                 var j,tooltpText="",active_x_tick="",cx = 0,cy = 0,pathWidth = 0,left_diff,right_diff,
                     range_length = x_range.length,pos_line_cursor_x,pos_line_cursor_y,right_tick,left_tick;
                 
@@ -507,6 +508,9 @@ configuration.mouseEvent = function (options) {
                           break;
                     }
                 }
+                // for(j = 0; x > (y_range[j]); j++) {}
+                // activeYTick = data[j].y;
+                // console.log(activeYTick);
 
                 for(j = 0;j < range_length;j++) {
                     if((j+1) >= range_length) {
@@ -539,7 +543,7 @@ configuration.mouseEvent = function (options) {
                                 for(var a=0;a < number_of_lines;a++) {
                                     for(var b=0;b < len_data;b++) {
                                         if(new_data[a].data[b].x === active_x_tick) {
-                                            console.log(new_data[a].data[b].tooltip,"****",active_x_tick);
+                                            // console.log(new_data[a].data[b].tooltip,"****",active_x_tick);
                                             tt_row += "<tr><td><div style='padding:2px;width:5px;height:5px;background-color:"+new_data[a].color+"'></div></td><td>"+new_data[a].name+"</td><td><b>"+new_data[a].data[b].tooltip+"</b></td></tr>";
                                         }
                                     }
@@ -695,7 +699,7 @@ configuration.mouseEvent = function (options) {
 
                 for(j_curr = 0;d3.selectAll(selection)[0][j_curr].innerHTML !== active_x_tick;j_curr++){}
                 j_prev = j_curr;
-
+                
                 d3.selectAll(selection)
                     .style("fill","#bbb")
                     .style("font-size","12px")
@@ -885,6 +889,7 @@ configuration.Theme = function(){
             "weight": "bold",
             "family": "'Helvetica Neue',Helvetica,Arial,sans-serif"
         },
+        "tickMode": "crop",
         "subtitle":{
             "size": "12px",
             "color": "black",
@@ -1076,6 +1081,10 @@ configuration.Theme = function(){
             "positionTop":0,
             "positionLeft":0
         },
+        "timeline": {
+            "duration": 1000,
+            "margin": {"top": 5, "right": 25, "bottom": 25, "left": 45}
+        }, 
         "legends": {
             "enable":"yes"
         },
