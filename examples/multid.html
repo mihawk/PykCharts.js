@@ -71,10 +71,11 @@
                                 enable: "yes",
                                 position:"bottom", //top or bottom
                                 orient : "bottom",
-                                axisColor: "#fff",
+                                axisColor: "#1D1D1D",
                                 labelColor: "#1D1D1D",
-                                tickSize: 0,
-                                ticksPadding: 3
+                                tickSize: 3,
+                                ticksPadding: 3,
+                                outer_tick_size: 3
                             },
                             y: {
                                 enable: "yes",
@@ -91,7 +92,7 @@
                             enable : "yes",
                             mode : "moving"
                         },
-                        curvy_lines : "yes",
+                        curvy_lines : "no",
                         enableCrossHair: "yes"
                     }
                 });
@@ -126,10 +127,11 @@
                                 enable: "yes",
                                 position:"bottom", //top or bottom
                                 orient : "bottom",
-                                axisColor: "#fff",
+                                axisColor: "#1D1D1D",
                                 labelColor: "#1D1D1D",
-                                tickSize: 0,
-                                ticksPadding: 3
+                                tickSize: 3,
+                                ticksPadding: 3,
+                                outer_tick_size: 3
                             },
                             y: {
                                 enable: "yes",
@@ -142,7 +144,7 @@
                                 outer_tick_size: 3
                             }
                         },
-                        curvy_lines : "yes",
+                        curvy_lines : "no",
                         enableCrossHair: "yes",
                         zoom: {
                             enable: "yes"
@@ -299,24 +301,24 @@
                                 color: ""
                             },
                         },
-                        multiple_containers: {
-                            enable : "yes",
-                        },
                         transition : {
                             duration : 0 //milliseconds
                         },
-                        title: {
-                            text: "Malnutrition in India"
-                        },
                         multiple_containers: {
                             enable : "yes"
+                        },
+                        title: {
+                            text: "Malnutrition in India"
                         },
                         subtitle: {
                             text: "Malnutrition in India Malnutrition in India Malnutrition in India Malnutrition in India"
                         },
                         realTimeCharts: {
                             refreshFrequency: 0 // seconds
-                        },
+                        },/*
+                        line: {
+                            color_from_data: "no"
+                        },*/
                         enableTooltip: "yes",
                         colors: {
                             highlightColor: "steelblue",
@@ -342,7 +344,8 @@
                                 labelColor: "#1D1D1D",
                                 tickSize: 3,
                                 ticksPadding: 10,
-                                outer_tick_size: 3
+                                outer_tick_size: 3,
+                                "no_of_ticks": 10
                             }
                         },
                         legends: {
@@ -363,7 +366,7 @@
                             mySiteName: "Acme NewsCorp",
                             mySiteUrl: "https://google.com"
                         },
-                        curvy_lines : "yes",
+                        curvy_lines : "no",
                         enableCrossHair: "yes"
                     }
                 });
