@@ -633,9 +633,11 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                         tooltipText = d.tooltip ? d.tooltip : "<table class='PykCharts'><tr><th>"+d.name+"</th></tr><tr><td>X</td><td>"+d.x+"</td></tr><tr><td>Y</td><td>"+d.y+"</td></tr></table>";
                         that.mouseEvent.tooltipPosition(d);
                         that.mouseEvent.toolTextShow(tooltipText);
+                        d3.select(this).style("fill-opacity",1);
                     })
                     .on('mouseout',function (d) {
                         that.mouseEvent.tooltipHide(d);
+                        d3.selectAll(".dot").style("fill-opacity",0.5);
                     })
                     .on('mousemove', function (d) {
                         that.mouseEvent.tooltipPosition(d);
