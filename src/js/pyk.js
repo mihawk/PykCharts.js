@@ -592,7 +592,7 @@ configuration.mouseEvent = function (options) {
             }
         },
         crossHairShow : function (x1,y1,x2,y2,cx,cy,type,no_bullets) {
-            if(PykCharts.boolean(options.enableCrossHair) && options.mode === "default") {
+            if(PykCharts.boolean(options.enableCrossHair)/* && options.mode === "default"*/) {
                 if(x1 !== undefined) {
                     if(type === "lineChart" || type === "areaChart") {
                         that.cross_hair_v.style("display","block");
@@ -628,7 +628,7 @@ configuration.mouseEvent = function (options) {
             return this;
         },
         crossHairHide : function (type) {
-            if(PykCharts.boolean(options.enableCrossHair) && options.mode === "default") {
+            if(PykCharts.boolean(options.enableCrossHair)/* && options.mode === "default"*/) {
                 that.cross_hair_v.style("display","none");
                 if(type === "lineChart" || type === "areaChart") {
                     that.cross_hair_h.style("display","none");
@@ -639,7 +639,7 @@ configuration.mouseEvent = function (options) {
         },
         axisHighlightShow : function (active_tick,axisHighlight,a) {
             var curr_tick,prev_tick,abc,selection,axis_data_length;
-            if(PykCharts.boolean(options.axis.onHoverHighlightenable) && options.mode === "default"){
+            if(PykCharts.boolean(options.axis.onHoverHighlightenable)/* && options.mode === "default"*/){
                 if(axisHighlight === options.selector + " .y.axis"){
                     selection = axisHighlight+" .tick text";
                     abc = options.axis.y.labelColor;
@@ -694,7 +694,7 @@ configuration.mouseEvent = function (options) {
         },
         axisHighlightHide : function (axisHighlight,a) {
             var abc,selection;
-            if(PykCharts.boolean(options.axis.onHoverHighlightenable) && options.mode === "default"){
+            if(PykCharts.boolean(options.axis.onHoverHighlightenable)/* && options.mode === "default"*/){
                 if(axisHighlight === options.selector + " .y.axis"){
                     selection = axisHighlight+" .tick text";
                     abc = options.axis.y.labelColor;
