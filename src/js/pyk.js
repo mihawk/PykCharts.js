@@ -209,46 +209,25 @@ PykCharts.Configuration = function (options){
                         .style("z-index","10")
                         .style("visibility", "hidden");
                 }
-            } else if (PykCharts.boolean(options.tooltip.enable)) {
-                        if (options.tooltip.mode === "fixed") {
-                            PykCharts.Configuration.tooltipp = d3.select("body")
-                                .append("div")
-                                .attr("id", "pyk-tooltip")
-                                .style("height","auto")
-                                .style("padding", "5px 6px")
-                                .style("color","#4F4F4F")
-                                .style("background","#eeeeee")
-                                .style("text-decoration","none")
-                                .style("position", "absolute")
-                                .style("border-radius", "5px")
-                                .style("text-align","center")
-                                .style("font-family","Arial, Helvetica, sans-serif")
-                                .style("font-size","14px")
-                                .style("border","1px solid #CCCCCC")
-                                .style("min-width","30px")
-                                .style("z-index","10")
-                                .style("visibility", "hidden");
-                        } else {
-                            PykCharts.Configuration.tooltipp = d3.select("body")
-                                .append("div")
-                                .attr("id", "pyk-tooltip")
-                                // .attr("class","pyk-line-tooltip");
-                                .style("height","auto")
-                                .style("padding", "5px 6px")
-                                .style("color","#4F4F4F")
-                                .style("background","#eeeeee")
-                                .style("text-decoration","none")
-                                .style("position", "absolute")
-                                .style("border-radius", "5px")
-                                .style("text-align","center")
-                                .style("font-family","Arial, Helvetica, sans-serif")
-                                .style("font-size","14px")
-                                .style("border","1px solid #CCCCCC")
-                                .style("min-width","30px")
-                                .style("z-index","10")
-                                .style("visibility", "hidden");
-                    }
-                }
+            } else if (PykCharts.boolean(options.enableTooltip) && options.mode === "infographics") {
+                PykCharts.Configuration.tooltipp = d3.select("body")
+                    .append("div")
+                    .attr("id", "pyk-tooltip")
+                    .style("height","auto")
+                    .style("padding", "5px 6px")
+                    .style("color","#4F4F4F")
+                    .style("background","#eeeeee")
+                    .style("text-decoration","none")
+                    .style("position", "absolute")
+                    .style("border-radius", "5px")
+                    .style("text-align","center")
+                    .style("font-family","Arial, Helvetica, sans-serif")
+                    .style("font-size","14px")
+                    .style("border","1px solid #CCCCCC")
+                    .style("min-width","30px")
+                    .style("z-index","10")
+                    .style("visibility", "hidden");
+            }
             return this;
         },
         crossHair : function (svg) {
