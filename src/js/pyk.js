@@ -225,7 +225,7 @@ PykCharts.Configuration = function (options){
                         .style("z-index","10")
                         .style("visibility", "hidden");
                 }
-            } else if (PykCharts.boolean(options.enableTooltip) && options.mode === "infographics") {
+            } else if (PykCharts.boolean(options.enableTooltip)) {
                 PykCharts.Configuration.tooltipp = d3.select("body")
                     .append("div")
                     .attr("id", "pyk-tooltip")
