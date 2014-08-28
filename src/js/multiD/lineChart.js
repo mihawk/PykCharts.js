@@ -408,8 +408,6 @@ PykCharts.multiD.line = function (options){
 
 							that.dataTextGroup[i] = that.svg.append("text")
 									.attr("id",type)
-									// .attr("x", 20)
-									// .attr("y", 20)
 									.attr("class","legend-heading")
 									.style("visibility","hidden")
 									.html(that.new_data[i].name);

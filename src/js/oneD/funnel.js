@@ -10,10 +10,10 @@ PykCharts.oneD.funnel = function (options) {
         //1.3 Assign Global variable var that to access function and variable throughout
         that = new PykCharts.oneD.processInputs(that, options);
 
-        var funnel = options.funnel
+        var optional = options.optional
         , functionality = theme.oneDimensionalCharts.funnel;
-        that.rect_width = funnel && _.isNumber(funnel.rect_width) && funnel.rect_width ? funnel.rect_width : functionality.rect_width;
-        that.rect_height = funnel && _.isNumber(funnel.rect_height) && funnel.rect_height ? funnel.rect_height : functionality.rect_height;
+        that.rect_width = optional && optional.funnel && optional.funnel.rect_width && _.isNumber(optional.funnel.rect_width)  ? optional.funnel.rect_width : functionality.rect_width;
+        that.rect_height = optional && optional.funnel && optional.funnel.rect_height && _.isNumber(optional.funnel.rect_height) ? optional.funnel.rect_height : functionality.rect_height;
 
         if(that.mode === "default") {
            that.k.loading();
@@ -306,7 +306,7 @@ PykCharts.oneD.funnel = function (options) {
                 return this;
             },
             ticks : function () {
-                if(PykCharts.boolean(that.overlapTicks)) {
+                if(PykCharts.boolean(that.overflowTicks)) {
                     that.svg.style("overflow","visible");
                 }   
                     var line = that.group.selectAll("funnel-ticks")

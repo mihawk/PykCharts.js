@@ -827,7 +827,7 @@ configuration.Theme = function(){
             "weight": "bold",
             "family": "'Helvetica Neue',Helvetica,Arial,sans-serif"
         },
-        "overlapTicks" : "no",
+        "overflowTicks" : "no",
         "subtitle":{
             "size": "12px",
             "color": "black",
@@ -902,8 +902,8 @@ configuration.Theme = function(){
         // "enableLabel": "yes",
         "pictograph": {
             "showActive": "yes", //removes the grey heart i.e just shows the actual number of heart
-            "enableLabel": "yes", //shows both the text when yes
-            "labelText": "yes", //shows only the actual number when yes
+            "enableTotal": "yes", //shows both the text when yes
+            "enableCurrent": "yes", //shows only the actual number when yes
             "imagePerLine": 3,
             "imageWidth":79,
             "imageHeight":66,
@@ -1130,7 +1130,7 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
         chartObject.clubData = oneDimensionalCharts.clubData;
         chartObject.clubData.alwaysIncludeDataPoints = [];
     }
-    chartObject.overlapTicks = optional && optional.overlapTicks ? optional.overlapTicks : stylesheet.overlapTicks;
+    chartObject.overflowTicks = optional && optional.overflowTicks ? optional.overflowTicks : stylesheet.overflowTicks;
     chartObject.bg = optional && optional.colors && optional.colors.backgroundColor ? optional.colors.backgroundColor : stylesheet.colors.backgroundColor;
     chartObject.chartColor = optional && optional.colors && optional.colors.chartColor ? optional.colors.chartColor : stylesheet.colors.chartColor;
     chartObject.highlightColor = optional && optional.colors && optional.colors.highlightColor ? optional.colors.highlightColor : stylesheet.colors.highlightColor;
@@ -1425,10 +1425,10 @@ PykCharts.oneD.funnel = function (options) {
         //1.3 Assign Global variable var that to access function and variable throughout
         that = new PykCharts.oneD.processInputs(that, options);
 
-        var funnel = options.funnel
+        var optional = options.optional
         , functionality = theme.oneDimensionalCharts.funnel;
-        that.rect_width = funnel && _.isNumber(funnel.rect_width) && funnel.rect_width ? funnel.rect_width : functionality.rect_width;
-        that.rect_height = funnel && _.isNumber(funnel.rect_height) && funnel.rect_height ? funnel.rect_height : functionality.rect_height;
+        that.rect_width = optional && optional.funnel && optional.funnel.rect_width && _.isNumber(optional.funnel.rect_width)  ? optional.funnel.rect_width : functionality.rect_width;
+        that.rect_height = optional && optional.funnel && optional.funnel.rect_height && _.isNumber(optional.funnel.rect_height) ? optional.funnel.rect_height : functionality.rect_height;
 
         if(that.mode === "default") {
            that.k.loading();
@@ -1721,7 +1721,7 @@ PykCharts.oneD.funnel = function (options) {
                 return this;
             },
             ticks : function () {
-                if(PykCharts.boolean(that.overlapTicks)) {
+                if(PykCharts.boolean(that.overflowTicks)) {
                     that.svg.style("overflow","visible");
                 }   
                     var line = that.group.selectAll("funnel-ticks")
@@ -2084,7 +2084,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                 return this;
             },
             ticks : function () {
-                if(PykCharts.boolean(that.overlapTicks)) {
+                if(PykCharts.boolean(that.overflowTicks)) {
                     that.svg.style("overflow","visible");
                 }
                     var sum = 0,sum1=0;
@@ -2244,8 +2244,8 @@ PykCharts.oneD.pictograph = function (options) {
         var optional = options.optional
         ,functionality = theme.oneDimensionalCharts;
         that.showActive = optional && optional.pictograph && optional.pictograph.showActive ? optional.pictograph.showActive : functionality.pictograph.showActive;
-        that.enableLabel = optional && optional.pictograph && optional.pictograph.enableLabel ? optional.pictograph.enableLabel : functionality.pictograph.enableLabel;
-        that.labeltext = optional && optional.pictograph && optional.pictograph.labelText ? optional.pictograph.labelText : functionality.pictograph.labelText;
+        that.enableTotal = optional && optional.pictograph && optional.pictograph.enableTotal ? optional.pictograph.enableTotal : functionality.pictograph.enableTotal;
+        that.enableCurrent = optional && optional.pictograph && optional.pictograph.enableCurrent ? optional.pictograph.enableCurrent : functionality.pictograph.enableCurrent;
         that.imgperline = optional && optional.pictograph && optional.pictograph.imagePerLine ?  optional.pictograph.imagePerLine : functionality.pictograph.imagePerLine;
         if (optional && optional.pictograph && optional.pictograph.activeText) {
             that.activeText = optional.pictograph.activeText;
@@ -2359,7 +2359,7 @@ PykCharts.oneD.pictograph = function (options) {
                 return this ;
             },
             enableLabel: function () {
-                if (PykCharts.boolean(that.enableLabel)) {
+                if (PykCharts.boolean(that.enableTotal)) {
                     var textHeight;
                      this.labelText();
                      that.group1.append("text")
@@ -2377,7 +2377,7 @@ PykCharts.oneD.pictograph = function (options) {
                 return this;
             },
             labelText: function () {
-                if (PykCharts.boolean(that.labeltext)) {
+                if (PykCharts.boolean(that.enableCurrent)) {
                     var textHeight;
                     that.group1.append("text")
                         .attr("x", 0)
@@ -2407,7 +2407,7 @@ PykCharts.oneD.pie = function (options) {
     this.execute = function() {
         that = new PykCharts.oneD.processInputs(that, options, "pie");
 
-        that.radiusPercent = options.pie && _.isNumber(options.pie.radiusPercent) ? options.pie.radiusPercent : theme.oneDimensionalCharts.pie.radiusPercent;
+        that.radiusPercent = options.optional && options.optional.pie && _.isNumber(options.optional.pie.radiusPercent) ? options.optional.pie.radiusPercent : theme.oneDimensionalCharts.pie.radiusPercent;
         that.innerRadiusPercent = 0;
         if(that.mode === "default") {
            that.k.loading();
@@ -2431,8 +2431,8 @@ PykCharts.oneD.donut = function (options) {
 
         that = new PykCharts.oneD.processInputs(that, options, "pie");
 
-        that.radiusPercent = options.donut && _.isNumber(options.donut.radiusPercent) ? options.donut.radiusPercent : theme.oneDimensionalCharts.donut.radiusPercent;
-        that.innerRadiusPercent = options.donut && _.isNumber(options.donut.innerRadiusPercent) && options.donut.innerRadiusPercent ? options.donut.innerRadiusPercent : theme.oneDimensionalCharts.donut.innerRadiusPercent;
+        that.radiusPercent = options.optional && options.optional.donut && _.isNumber(options.optional.donut.radiusPercent) ? options.optional.donut.radiusPercent : theme.oneDimensionalCharts.donut.radiusPercent;
+        that.innerRadiusPercent = options.optional && options.optional.donut && _.isNumber(options.optional.donut.innerRadiusPercent) && options.optional.donut.innerRadiusPercent ? options.optional.donut.innerRadiusPercent : theme.oneDimensionalCharts.donut.innerRadiusPercent;
 
         d3.json(options.data, function (e, data) {
             that.data = data.groupBy();
@@ -2452,7 +2452,7 @@ PykCharts.oneD.election_pie = function (options) {
 
         that = new PykCharts.oneD.processInputs(that, options, "pie");
 
-        that.radiusPercent = options.pie && _.isNumber(options.pie.radiusPercent) ? options.pie.radiusPercent : theme.oneDimensionalCharts.pie.radiusPercent;
+        that.radiusPercent = options.optional && options.optional.pie && _.isNumber(options.optional.pie.radiusPercent) ? options.optional.pie.radiusPercent : theme.oneDimensionalCharts.pie.radiusPercent;
         that.innerRadiusPercent = 0;
         d3.json(options.data, function (e, data) {
             that.data = data.groupBy();
@@ -2472,8 +2472,8 @@ PykCharts.oneD.election_donut = function (options) {
     this.execute = function() {
         that = new PykCharts.oneD.processInputs(that, options, "pie");
 
-        that.radiusPercent = options.donut && _.isNumber(options.donut.radiusPercent) ? options.donut.radiusPercent : theme.oneDimensionalCharts.donut.radiusPercent;
-        that.innerRadiusPercent = options.donut && _.isNumber(options.donut.innerRadiusPercent) && options.donut.innerRadiusPercent ? options.donut.innerRadiusPercent : theme.oneDimensionalCharts.donut.innerRadiusPercent;
+        that.radiusPercent = options.optional && options.optional.donut && _.isNumber(options.optional.donut.radiusPercent) ? options.optional.donut.radiusPercent : theme.oneDimensionalCharts.donut.radiusPercent;
+        that.innerRadiusPercent = options.optional && options.optional.donut && _.isNumber(options.optional.donut.innerRadiusPercent) && options.optional.donut.innerRadiusPercent ? options.optional.donut.innerRadiusPercent : theme.oneDimensionalCharts.donut.innerRadiusPercent;
 
         d3.json(options.data, function (e, data) {
             that.data = data.groupBy();
@@ -2777,7 +2777,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                 return that.displayData;
             },
             ticks : function () {
-                if(PykCharts.boolean(that.overlapTicks)) {
+                if(PykCharts.boolean(that.overflowTicks)) {
                     that.svgContainer.style("overflow","visible");
                 }
                 // if(PykCharts.boolean(that.enableTicks)) {
@@ -3220,7 +3220,7 @@ PykCharts.oneD.pyramid = function (options) {
             },
             ticks : function () {
                 // if(PykCharts.boolean(that.enableTicks)) {
-                if(PykCharts.boolean(that.overlapTicks)) {
+                if(PykCharts.boolean(that.overflowTicks)) {
                     that.svg.style("overflow","visible");
                 }
                 var line = that.group.selectAll("pyr-ticks")

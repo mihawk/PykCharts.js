@@ -8,8 +8,8 @@ PykCharts.oneD.pictograph = function (options) {
         var optional = options.optional
         ,functionality = theme.oneDimensionalCharts;
         that.showActive = optional && optional.pictograph && optional.pictograph.showActive ? optional.pictograph.showActive : functionality.pictograph.showActive;
-        that.enableLabel = optional && optional.pictograph && optional.pictograph.enableLabel ? optional.pictograph.enableLabel : functionality.pictograph.enableLabel;
-        that.labeltext = optional && optional.pictograph && optional.pictograph.labelText ? optional.pictograph.labelText : functionality.pictograph.labelText;
+        that.enableTotal = optional && optional.pictograph && optional.pictograph.enableTotal ? optional.pictograph.enableTotal : functionality.pictograph.enableTotal;
+        that.enableCurrent = optional && optional.pictograph && optional.pictograph.enableCurrent ? optional.pictograph.enableCurrent : functionality.pictograph.enableCurrent;
         that.imgperline = optional && optional.pictograph && optional.pictograph.imagePerLine ?  optional.pictograph.imagePerLine : functionality.pictograph.imagePerLine;
         if (optional && optional.pictograph && optional.pictograph.activeText) {
             that.activeText = optional.pictograph.activeText;
@@ -123,7 +123,7 @@ PykCharts.oneD.pictograph = function (options) {
                 return this ;
             },
             enableLabel: function () {
-                if (PykCharts.boolean(that.enableLabel)) {
+                if (PykCharts.boolean(that.enableTotal)) {
                     var textHeight;
                      this.labelText();
                      that.group1.append("text")
@@ -141,7 +141,7 @@ PykCharts.oneD.pictograph = function (options) {
                 return this;
             },
             labelText: function () {
-                if (PykCharts.boolean(that.labeltext)) {
+                if (PykCharts.boolean(that.enableCurrent)) {
                     var textHeight;
                     that.group1.append("text")
                         .attr("x", 0)
