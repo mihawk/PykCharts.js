@@ -76,7 +76,13 @@
 
             var k = new PykCharts.oneD.election_donut({
                 selector: "#electionDonutContainer",
-                data: "../data/pie.json"
+                data: "../data/pie.json",
+                optional : {
+                  donut : {
+                    radiusPercent: 70,
+                    innerRadiusPercent: 60
+                  }
+                }
             });
             k.execute();
 

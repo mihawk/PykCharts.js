@@ -304,7 +304,7 @@ PykCharts.oneD.funnel = function (options) {
                 return this;
             },
             ticks : function () {
-                if(PykCharts.boolean(that.overlapTicks)) {
+                if(PykCharts.boolean(that.overflowTicks)) {
                     that.svg.style("overflow","visible");
                 }   
                     var line = that.group.selectAll("funnel-ticks")

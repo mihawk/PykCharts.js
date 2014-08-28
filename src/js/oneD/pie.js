@@ -5,7 +5,7 @@ PykCharts.oneD.pie = function (options) {
     this.execute = function() {
         that = new PykCharts.oneD.processInputs(that, options, "pie");
 
-        that.radiusPercent = options.pie && _.isNumber(options.pie.radiusPercent) ? options.pie.radiusPercent : theme.oneDimensionalCharts.pie.radiusPercent;
+        that.radiusPercent = options.optional && options.optional.pie && _.isNumber(options.optional.pie.radiusPercent) ? options.optional.pie.radiusPercent : theme.oneDimensionalCharts.pie.radiusPercent;
         that.innerRadiusPercent = 0;
         if(that.mode === "default") {
            that.k.loading();
@@ -27,8 +27,8 @@ PykCharts.oneD.donut = function (options) {
 
         that = new PykCharts.oneD.processInputs(that, options, "pie");
 
-        that.radiusPercent = options.donut && _.isNumber(options.donut.radiusPercent) ? options.donut.radiusPercent : theme.oneDimensionalCharts.donut.radiusPercent;
-        that.innerRadiusPercent = options.donut && _.isNumber(options.donut.innerRadiusPercent) && options.donut.innerRadiusPercent ? options.donut.innerRadiusPercent : theme.oneDimensionalCharts.donut.innerRadiusPercent;
+        that.radiusPercent = options.optional && options.optional.donut && _.isNumber(options.optional.donut.radiusPercent) ? options.optional.donut.radiusPercent : theme.oneDimensionalCharts.donut.radiusPercent;
+        that.innerRadiusPercent = options.optional && options.optional.donut && _.isNumber(options.optional.donut.innerRadiusPercent) && options.optional.donut.innerRadiusPercent ? options.optional.donut.innerRadiusPercent : theme.oneDimensionalCharts.donut.innerRadiusPercent;
 
         d3.json(options.data, function (e, data) {
             that.data = data;
@@ -47,7 +47,7 @@ PykCharts.oneD.election_pie = function (options) {
 
         that = new PykCharts.oneD.processInputs(that, options, "pie");
 
-        that.radiusPercent = options.pie && _.isNumber(options.pie.radiusPercent) ? options.pie.radiusPercent : theme.oneDimensionalCharts.pie.radiusPercent;
+        that.radiusPercent = options.optional && options.optional.pie && _.isNumber(options.optional.pie.radiusPercent) ? options.optional.pie.radiusPercent : theme.oneDimensionalCharts.pie.radiusPercent;
         that.innerRadiusPercent = 0;
         d3.json(options.data, function (e, data) {
             that.data = data;
@@ -66,8 +66,8 @@ PykCharts.oneD.election_donut = function (options) {
     this.execute = function() {
         that = new PykCharts.oneD.processInputs(that, options, "pie");
 
-        that.radiusPercent = options.donut && _.isNumber(options.donut.radiusPercent) ? options.donut.radiusPercent : theme.oneDimensionalCharts.donut.radiusPercent;
-        that.innerRadiusPercent = options.donut && _.isNumber(options.donut.innerRadiusPercent) && options.donut.innerRadiusPercent ? options.donut.innerRadiusPercent : theme.oneDimensionalCharts.donut.innerRadiusPercent;
+        that.radiusPercent = options.optional && options.optional.donut && _.isNumber(options.optional.donut.radiusPercent) ? options.optional.donut.radiusPercent : theme.oneDimensionalCharts.donut.radiusPercent;
+        that.innerRadiusPercent = options.optional && options.optional.donut && _.isNumber(options.optional.donut.innerRadiusPercent) && options.optional.donut.innerRadiusPercent ? options.optional.donut.innerRadiusPercent : theme.oneDimensionalCharts.donut.innerRadiusPercent;
 
         d3.json(options.data, function (e, data) {
             that.data = data;
@@ -370,7 +370,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                 return that.displayData;
             },
             ticks : function () {
-                if(PykCharts.boolean(that.overlapTicks)) {
+                if(PykCharts.boolean(that.overflowTicks)) {
                     that.svgContainer.style("overflow","visible");
                 }
                 // if(PykCharts.boolean(that.enableTicks)) {

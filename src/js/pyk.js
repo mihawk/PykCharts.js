@@ -827,7 +827,7 @@ configuration.Theme = function(){
             "weight": "bold",
             "family": "'Helvetica Neue',Helvetica,Arial,sans-serif"
         },
-        "overlapTicks" : "no",
+        "overflowTicks" : "yes",
         "subtitle":{
             "size": "12px",
             "color": "black",
