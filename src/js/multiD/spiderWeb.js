@@ -220,7 +220,6 @@ PykCharts.multiD.spiderWeb = function (options) {
                         .attr("stroke",function (d) {
                            return d.color;
                         })
-                        .attr("stroke-width","1px")
                         .attr("stroke-opacity",1)
                         .attr("id","link"+m)
                         .attr("d", d3.customHive.link()

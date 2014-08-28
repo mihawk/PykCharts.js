@@ -23,27 +23,27 @@ body {
 
 .PykCharts-multi-series2D path.multi-line {
   fill: none;
-  stroke-width: 2px;
+  stroke-width: 1.5px;
   stroke: #ccc;
   cursor: pointer
 }
 
 .PykCharts-multi-series2D path.multi-line-selected {
   fill: none;
-  stroke-width: 4px;
+  stroke-width: 3px;
   cursor: pointer;
 }
 
 .PykCharts-multi-series2D path.multi-line:hover {
   fill: none;
-  stroke-width: 3px;
+  stroke-width: 2px;
   stroke: orange;
   cursor: pointer;
 }
 
 .PykCharts-multi-series2D path.multi-line-hover {
   fill: none;
-  stroke-width: 3px;
+  stroke-width: 2px;
   stroke: orange;
   cursor: pointer;
   pointer-events: none;
@@ -75,7 +75,7 @@ body {
 
 .PykCharts-line-chart .line {
   fill: none;
-  stroke-width: 2px;
+  stroke-width: 3px;
   stroke: #58ADE6;
   shape-rendering: auto;
   pointer-events: none;
@@ -268,10 +268,9 @@ body {
   z-index: 10;
 }
 
-/*.PykCharts-spider-web .link {
-  stroke: #1D1D1D;
+.PykCharts-spider-web .link {
   stroke-width: 1.5px;
-}*/
+}
 
 .PykCharts-spider-web .axis {
   stroke: #B0B0B0  ;
