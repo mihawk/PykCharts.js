@@ -161,36 +161,36 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             .attr("stroke-width", that.border.thickness + "px")
             .on("mouseover", function (d) {
               
-                // if (PykCharts.boolean(that.tooltip.enable)) {
-                //     console.log("inside");
-                //     ttp.style("visibility", "visible");
-                //     ttp.html((_.where(that.data, {iso2: d.properties.iso_a2})[0]).tooltip);
-                //     console.log(ttp);
-                // }
+                if (PykCharts.boolean(that.tooltip.enable)) {
+                    // console.log("inside",d);
+                    ttp.style("visibility", "visible");
+                    ttp.html((_.where(that.data, {iso2: d.properties.iso_a2})[0]).tooltip);
+                    // console.log(ttp);
+                }
                 that.bodColor(d);
             })
             .on("mousemove", function () {
-                // if (PykCharts.boolean(that.tooltip.enable)) {
-                //     if (that.tooltip.mode === "moving") {
-                //         ttp.style("top", function () {
+                if (PykCharts.boolean(that.tooltip.enable)) {
+                    if (that.tooltip.mode === "moving") {
+                        ttp.style("top", function () {
 
-                //                 return (d3.event.clientY + 10 ) + "px";
-                //             })
-                //             .style("left", function () {
+                                return (d3.event.clientY + 10 ) + "px";
+                            })
+                            .style("left", function () {
 
-                //                 return (d3.event.clientX + 10 ) + "px";
+                                return (d3.event.clientX + 10 ) + "px";
 
-                //             });
-                //     } else if (that.tooltip.mode === "fixed") {
-                //         ttp.style("top", (that.tooltip.positionTop) + "px")
-                //             .style("left", (that.tooltip.positionLeft) + "px");
-                //     }
-                // }
+                            });
+                    } else if (that.tooltip.mode === "fixed") {
+                        ttp.style("top", (that.tooltip.positionTop) + "px")
+                            .style("left", (that.tooltip.positionLeft) + "px");
+                    }
+                }
             })
             .on("mouseout", function (d) {
-                // if (PykCharts.boolean(that.tooltip.enable)) {
-                //     ttp.style("visibility", "hidden");
-                // }
+                if (PykCharts.boolean(that.tooltip.enable)) {
+                    ttp.style("visibility", "hidden");
+                }
                 that.bodUncolor(d);
             });
 
