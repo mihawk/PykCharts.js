@@ -185,12 +185,14 @@ PykCharts.Configuration = function (options){
             return this;
         },
 	    tooltip : function (d,selection,i) {
+            console.log(PykCharts.Configuration.tooltipp);
 	    	if(PykCharts.boolean(options.enableTooltip) && options.mode === "default") {
 	        	if(selection !== undefined){
                     PykCharts.Configuration.tooltipp = d3.select(selection).append("div")
 			        	.attr("id", "pyk-tooltip")
 			        	.attr("class","pyk-line-tooltip");
 	        	} else {
+                    console.log(PykCharts.Configuration.tooltipp);
                     PykCharts.Configuration.tooltipp = d3.select("body")
                         .append("div")
                         .attr("id", "pyk-tooltip")
@@ -208,6 +210,7 @@ PykCharts.Configuration = function (options){
                         .style("min-width","30px")
                         .style("z-index","10")
                         .style("visibility", "hidden");
+                console.log(PykCharts.Configuration.tooltipp);
                 }
             } else if (PykCharts.boolean(options.enableTooltip) && options.mode === "infographics") {
                 PykCharts.Configuration.tooltipp = d3.select("body")

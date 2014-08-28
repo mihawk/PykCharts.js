@@ -43,6 +43,7 @@ PykCharts.maps.oneLayer = function (options) {
                 return this;
             },
             enableClick: function (ec) {
+                console.log(ec);
                 if (PykCharts.boolean(ec)) {
                     that.areas.on("click", that.clicked);
                     // that.onhover = "color_saturation";
