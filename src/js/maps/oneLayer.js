@@ -66,14 +66,14 @@ PykCharts.maps.oneLayer = function (options) {
         that.optionalFeatures()
             .enableLegend(that.legends.enable)
 
-        that.canvas = d3.select(that.selector)
+        that.svg = d3.select(that.selector)
             .append("svg")
             .attr("width", that.width)
             .attr("height", that.height)
             .attr("style", "border:1px solid lightgrey")
             .style("border-radius", "5px");
 
-        var map_cont = that.canvas.append("g")
+        var map_cont = that.svg.append("g")
             .attr("id", "map_group");
 
         var defs = map_cont.append('defs');
@@ -170,6 +170,7 @@ PykCharts.maps.oneLayer = function (options) {
             that.k.credits();
         }
         if (PykCharts.boolean(that.dataSource.enable)) {
+            console.log("dataSource");
              that.k.dataSource();
         }
     };

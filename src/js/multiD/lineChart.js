@@ -78,8 +78,9 @@ PykCharts.multiD.line = function (options){
 			that.k.title()
 					.subtitle();
 			if(PykCharts.boolean(that.multiple_containers)) {
-				that.w = that.width/that.new_data_length;
-				that.reducedWidth = that.w - that.margin.left - that.margin.right;
+				that.w = that.width/4;
+                that.height = that.height/2;
+                that.reducedWidth = that.w - that.margin.left - that.margin.right;
 				that.reducedHeight = that.height - that.margin.top - that.margin.bottom;
 				
 				for(i=0;i<that.new_data_length;i++) {
@@ -102,6 +103,9 @@ PykCharts.multiD.line = function (options){
 							.yAxis(that.svg,that.gyaxis,that.yScale)
 							.yGrid(that.svg,that.group,that.yScale)
 							.xGrid(that.svg,that.group,that.xScale);
+					if((i+1)%4 === 0 && i !== 0) {
+                        that.k.emptyDiv();
+                    }
 				}
 				that.k.emptyDiv(); 
 			} else {

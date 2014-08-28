@@ -86,9 +86,11 @@ PykCharts.maps.timelineMap = function (options) {
         , offset = [that.width / 2, that.height / 2]
         , i;
 
+        console.log(that.legends,"legends");
+
         that.current_palette = _.where(that.colorPalette_data, {name:that.colors.palette, number:that.colors.total})[0];
         that.optionalFeatures()
-            .enableLegend(that.legends)
+            .enableLegend(that.legends.enable);
 
         that.svg = d3.select(that.selector)
             .append("svg")
@@ -143,8 +145,8 @@ PykCharts.maps.timelineMap = function (options) {
             .scale((that.defaultZoomLevel / 100) * scale).translate(offset);
 
         that.path = that.path.projection(projection);
-
         var ttp = d3.select("#pyk-tooltip");
+
         that.areas = that.group.append("path")
             .attr("d", that.path)
             .attr("class", "area")
