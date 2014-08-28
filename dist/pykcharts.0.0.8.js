@@ -902,8 +902,8 @@ configuration.Theme = function(){
         // "enableLabel": "yes",
         "pictograph": {
             "showActive": "yes", //removes the grey heart i.e just shows the actual number of heart
-            "enableLabel": "yes", //shows both the text when yes
-            "labelText": "yes", //shows only the actual number when yes
+            "enableTotal": "yes", //shows both the text when yes
+            "enableCurrent": "yes", //shows only the actual number when yes
             "imagePerLine": 3,
             "imageWidth":79,
             "imageHeight":66,
@@ -1425,10 +1425,10 @@ PykCharts.oneD.funnel = function (options) {
         //1.3 Assign Global variable var that to access function and variable throughout
         that = new PykCharts.oneD.processInputs(that, options);
 
-        var funnel = options.funnel
+        var optional = options.optional
         , functionality = theme.oneDimensionalCharts.funnel;
-        that.rect_width = funnel && _.isNumber(funnel.rect_width) && funnel.rect_width ? funnel.rect_width : functionality.rect_width;
-        that.rect_height = funnel && _.isNumber(funnel.rect_height) && funnel.rect_height ? funnel.rect_height : functionality.rect_height;
+        that.rect_width = optional && optional.funnel && optional.funnel.rect_width && _.isNumber(optional.funnel.rect_width)  ? optional.funnel.rect_width : functionality.rect_width;
+        that.rect_height = optional && optional.funnel && optional.funnel.rect_height && _.isNumber(optional.funnel.rect_height) ? optional.funnel.rect_height : functionality.rect_height;
 
         if(that.mode === "default") {
            that.k.loading();
@@ -2244,8 +2244,8 @@ PykCharts.oneD.pictograph = function (options) {
         var optional = options.optional
         ,functionality = theme.oneDimensionalCharts;
         that.showActive = optional && optional.pictograph && optional.pictograph.showActive ? optional.pictograph.showActive : functionality.pictograph.showActive;
-        that.enableLabel = optional && optional.pictograph && optional.pictograph.enableLabel ? optional.pictograph.enableLabel : functionality.pictograph.enableLabel;
-        that.labeltext = optional && optional.pictograph && optional.pictograph.labelText ? optional.pictograph.labelText : functionality.pictograph.labelText;
+        that.enableTotal = optional && optional.pictograph && optional.pictograph.enableTotal ? optional.pictograph.enableTotal : functionality.pictograph.enableTotal;
+        that.enableCurrent = optional && optional.pictograph && optional.pictograph.enableCurrent ? optional.pictograph.enableCurrent : functionality.pictograph.enableCurrent;
         that.imgperline = optional && optional.pictograph && optional.pictograph.imagePerLine ?  optional.pictograph.imagePerLine : functionality.pictograph.imagePerLine;
         if (optional && optional.pictograph && optional.pictograph.activeText) {
             that.activeText = optional.pictograph.activeText;
@@ -2359,7 +2359,7 @@ PykCharts.oneD.pictograph = function (options) {
                 return this ;
             },
             enableLabel: function () {
-                if (PykCharts.boolean(that.enableLabel)) {
+                if (PykCharts.boolean(that.enableTotal)) {
                     var textHeight;
                      this.labelText();
                      that.group1.append("text")
@@ -2377,7 +2377,7 @@ PykCharts.oneD.pictograph = function (options) {
                 return this;
             },
             labelText: function () {
-                if (PykCharts.boolean(that.labeltext)) {
+                if (PykCharts.boolean(that.enableCurrent)) {
                     var textHeight;
                     that.group1.append("text")
                         .attr("x", 0)
