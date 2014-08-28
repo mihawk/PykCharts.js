@@ -201,25 +201,33 @@ PykCharts.multiD.spiderWeb = function (options) {
                         grids.push({source: that.yAxis[i], target: target});
                     }
 
-                    var links = [];
+                    var links = [], color;
                     for (i=0;i<that.nodes[m].length;i++) {                      
                         if (i<(that.nodes[m].length-1)) {
                             target = that.nodes[m][i+1];
+                            color = that.fillChart.colorPieW(that.new_data[m].data[i]);
                         } else {
                             target = that.nodes[m][0];
+                            color = that.fillChart.colorPieW(that.new_data[m].data[i]);
                         }
-                        links.push({source: that.nodes[m][i], target: target});
+                        links.push({source: that.nodes[m][i], target: target, color : color});
                     }
 
                     that.group.selectAll("#link"+m)
                         .data(links)
                         .enter().append("path")
                         .attr("class", "link")
+                        .attr("stroke",function (d) {
+                           return d.color;
+                        })
+                        .attr("stroke-width","1px")
+                        .attr("stroke-opacity",1)
                         .attr("id","link"+m)
                         .attr("d", d3.customHive.link()
-                            .angle(function(d) { return that.angle(d.x); })
+                            .angle(function(d) { /*console.log(d,"d");*/ return that.angle(d.x); })
                             .radius(function(d) { return that.radius(d.y); })
-                        );
+                        )
+
 
                     that.weight = _.map(that.new_data[m].data, function (d) {
                         return d.weight;
@@ -266,6 +274,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                     .attr("transform", function(d) { return "rotate(" + that.degrees(that.angle(d)) + ")"; })
                     .attr("x1", that.radius.range()[0])
                     .attr("x2", that.radius.range()[1]);
+                  //  .attr("fill","blue");
 
                 that.group.selectAll(".grid")
                     .data(grids)

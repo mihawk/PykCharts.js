@@ -268,10 +268,10 @@ body {
   z-index: 10;
 }
 
-.PykCharts-spider-web .link {
+/*.PykCharts-spider-web .link {
   stroke: #1D1D1D;
   stroke-width: 1.5px;
-}
+}*/
 
 .PykCharts-spider-web .axis {
   stroke: #B0B0B0  ;
