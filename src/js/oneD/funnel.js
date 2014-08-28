@@ -22,8 +22,10 @@ PykCharts.oneD.funnel = function (options) {
         d3.json(options.data, function (e,data) {
             that.data = data.groupBy();
             $(options.selector+" #chart-loader").remove();
+            that.clubData.enable = that.data.length>that.clubData.maximumNodes ? that.clubData.enable : "no";
             that.render();
         });
+        // that.clubData.enable = that.data.length>that.clubData.maximumNodes ? that.clubData.enable : "no";
 
     };
 

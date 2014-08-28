@@ -14,9 +14,11 @@ PykCharts.oneD.pie = function (options) {
             that.data = data.groupBy();
             $(options.selector+" #chart-loader").remove();
             var pieFunctions = new PykCharts.oneD.pieFunctions(options,that,"pie");
+            that.clubData.enable = that.data.length > that.clubData.maximumNodes ? that.clubData.enable : "no";
             pieFunctions.render();
 
         });
+        // that.clubData.enable = that.data.length>that.clubData.maximumNodes ? that.clubData.enable : "no";
     };
 };
 
@@ -31,9 +33,10 @@ PykCharts.oneD.donut = function (options) {
         that.innerRadiusPercent = options.donut && _.isNumber(options.donut.innerRadiusPercent) && options.donut.innerRadiusPercent ? options.donut.innerRadiusPercent : theme.oneDimensionalCharts.donut.innerRadiusPercent;
 
         d3.json(options.data, function (e, data) {
-            that.data = data;
+            that.data = data.groupBy();
             $(options.selector+" #chart-loader").remove();
             var pieFunctions = new PykCharts.oneD.pieFunctions(options,that,"donut");
+            that.clubData.enable = that.data.length > that.clubData.maximumNodes ? that.clubData.enable : "no";
             pieFunctions.render();
         });
     };
@@ -50,9 +53,10 @@ PykCharts.oneD.election_pie = function (options) {
         that.radiusPercent = options.pie && _.isNumber(options.pie.radiusPercent) ? options.pie.radiusPercent : theme.oneDimensionalCharts.pie.radiusPercent;
         that.innerRadiusPercent = 0;
         d3.json(options.data, function (e, data) {
-            that.data = data;
+            that.data = data.groupBy();
             $(options.selector+" #chart-loader").remove();
             var pieFunctions = new PykCharts.oneD.pieFunctions(options,that,"election pie");
+            that.clubData.enable = that.data.length > that.clubData.maximumNodes ? that.clubData.enable : "no";
             pieFunctions.render();
 
         });
@@ -70,9 +74,10 @@ PykCharts.oneD.election_donut = function (options) {
         that.innerRadiusPercent = options.donut && _.isNumber(options.donut.innerRadiusPercent) && options.donut.innerRadiusPercent ? options.donut.innerRadiusPercent : theme.oneDimensionalCharts.donut.innerRadiusPercent;
 
         d3.json(options.data, function (e, data) {
-            that.data = data;
+            that.data = data.groupBy();
             $(options.selector+" #chart-loader").remove();
             var pieFunctions = new PykCharts.oneD.pieFunctions(options,that,"election donut");
+            that.clubData.enable = that.data.length> that.clubData.maximumNodes ? that.clubData.enable : "no";
             pieFunctions.render();
         });
     };
