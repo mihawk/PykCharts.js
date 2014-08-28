@@ -162,10 +162,8 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             .on("mouseover", function (d) {
               
                 if (PykCharts.boolean(that.tooltip.enable)) {
-                    // console.log("inside",d);
                     ttp.style("visibility", "visible");
                     ttp.html((_.where(that.data, {iso2: d.properties.iso_a2})[0]).tooltip);
-                    // console.log(ttp);
                 }
                 that.bodColor(d);
             })
@@ -198,13 +196,10 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             .enableLabel(that.label.enable)
             .enableClick(that.enableClick);
 
-        if (PykCharts.boolean(that.creditMySite.enable)) {
+        console.log("timeline",that.creditMySite.enable,that);
+
             that.k.credits();
-        }
-        if (PykCharts.boolean(that.dataSource.enable)) {
-            console.log("dataSource");
              that.k.dataSource();
-        }
 
         if(type === "timeline") {
             that.renderTimeline();
@@ -212,7 +207,6 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
     };
 
     that.optionalFeatures = function () {
-        console.log(that);
         var config = {
             enableLegend: function (el) {
                 if (PykCharts.boolean(el)) {
@@ -227,7 +221,6 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                 return this;
             },
             enableClick: function (ec) {
-                console.log("that.onhover1",ec);
                 if (PykCharts.boolean(ec)) {
                     that.areas.on("click", that.clicked);
                     // that.onhover = "color_saturati`on";
@@ -359,12 +352,9 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
 
     that.bodColor = function (d) {
         // console.log(that.onhover1);
-        console.log("highlight");
         var obj = _.where(that.data, {iso2: d.properties.iso_a2});
-        console.log(that.onhover1);
         if(that.onhover1 !== "none") {
             if (that.onhover1 === "highlight_border") {
-                console.log("highlight");
                 d3.select("path[state_name='" + d.properties.NAME_1 + "']")
                     .attr("stroke", that.border.color)
                     .attr("stroke-width", that.border.thickness + 0.5);

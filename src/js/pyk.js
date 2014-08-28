@@ -134,7 +134,9 @@ PykCharts.Configuration = function (options){
             return this;
         },
 	    credits : function () {
+            console.log(options.creditMySite.mySiteName);
 	        if(PykCharts.boolean(options.creditMySite.mySiteName) || PykCharts.boolean(options.creditMySite.mySiteUrl)) {
+                console.log("inside credits");
                 var credit = options.creditMySite;
                 var enable = true;
 
@@ -167,26 +169,26 @@ PykCharts.Configuration = function (options){
                 if(data_src.url === "") {
                     enable = false;
                 }
-                // if($(options.selector+" #footer").length === 0) {
-                    // console.log("**************credits");
+                if($(options.selector+" #footer").length) {
+                    console.log("**************dataSource");
                     d3.select(options.selector+" table tr")
                     .style("background", options.bg)
                     .append("td")
                     .style("text-align","right")
                     .html("<span style='pointer-events:none;'>Source: </span><a href='" + data_src.url + "' target='_blank' onclick='return " + enable +"'>"+ data_src.text +"</a></tr>");
-                // }
-                // else {
-                //     console.log("**************data_src");
-                //     d3.select(options.selector).append("table")
-                //         .attr("id","footer")
-                //         .style("background", options.bg)
-                //         .attr("width",options.width+"px")
-                //         .append("tr")
-                //         .attr("class","PykCharts-credits")
-                //         .append("td")
-                //         .style("text-align","right")
-                //         .html("<span style='pointer-events:none;'>Source: </span><a href='" + data_src.url + "' target='_blank' onclick='return " + enable +"'>"+ data_src.text +"</a></tr>");
-                // }
+                }
+                else {
+                    console.log("**************data_src");
+                    d3.select(options.selector).append("table")
+                        .attr("id","footer")
+                        .style("background", options.bg)
+                        .attr("width",options.width+"px")
+                        .append("tr")
+                        .attr("class","PykCharts-credits")
+                        .append("td")
+                        .style("text-align","right")
+                        .html("<span style='pointer-events:none;'>Source: </span><a href='" + data_src.url + "' target='_blank' onclick='return " + enable +"'>"+ data_src.text +"</a></tr>");
+                }
             }
 	        return this;
 	    },
