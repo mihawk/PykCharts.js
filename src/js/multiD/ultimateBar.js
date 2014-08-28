@@ -29,12 +29,14 @@ PykCharts.multiD.ultimateBar = function(options){
             that.the_bars = fD[0];
             that.the_keys = fD[1];
             that.the_layers = that.buildLayers(that.the_bars);
+            console.log("hey");
             if(that.max_length === 1) {
                 that.legends.enable = "no";
             }
             that.optionalFeatures()
                     .createColumnChart()
-                    .legends();
+                    .legends()
+                    .ticks();
             that.k.xAxis(that.svg,that.xgroup,that.xScale);
         });
     };

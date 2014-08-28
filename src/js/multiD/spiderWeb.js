@@ -21,15 +21,15 @@ PykCharts.multiD.spiderWeb = function (options) {
         });
     };
 
-    this.refresh = function () {
+    that.refresh = function () {
         d3.json(options.data, function (e, data) {
             that.data = data;
-        that.mapGroupData = that.multiD.mapGroup(that.data);                   
-        that.optionalFeatures()
-            .createSpiderWeb()
-            .legends()
-            .axisTicks()
-            .axisTitle();
+            that.mapGroupData = that.multiD.mapGroup(that.data); 
+            that.optionalFeatures()
+                .createSpiderWeb()
+                .legends()
+                .axisTicks()
+                .axisTitle();
         });
     };
 
@@ -291,7 +291,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                     var unique = _.uniq(that.sorted_weight);
                     var k = 0;
                     var l = 0;
-                    if(options.optional.legends.display === "vertical" ) {
+                    if(that.legends.display === "vertical" ) {
                         that.legendSvg.attr("height", (that.mapGroupData[0].length * 30)+20);
                         text_parameter1 = "x";
                         text_parameter2 = "y";
@@ -306,7 +306,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                         var rect_parameter4value = function (d,i) { return i * 24 + 12;};
                         var text_parameter2value = function (d,i) { return i * 24 + 23;};
 
-                    } else if(options.optional.legends.display === "horizontal") {
+                    } else if(that.legends.display === "horizontal") {
                          // that.legendSvg.attr("height", (k+1)*70);
                         text_parameter1 = "x";
                         text_parameter2 = "y";

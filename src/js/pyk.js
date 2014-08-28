@@ -46,6 +46,7 @@ PykCharts.Configuration = function (options){
 		liveData : function (chart) {
             var frequency = options.realTimeCharts.refreshFrequency;
 	        if(PykCharts.boolean(frequency)) {
+                console.log("hey");
 	            setInterval(chart.refresh,frequency*1000);
 	        }
 	        return this;
@@ -856,7 +857,7 @@ configuration.Theme = function(){
         "chart": {
             "height": 400,
             "width": 600,
-            "margin":{"top": 0, "right": 0, "bottom": 0, "left": 0},
+            "margin":{"top": 20, "right": 20, "bottom": 20, "left": 20},
             "grid" : {
                 "xEnabled":"yes",
                 "yEnabled":"yes",
@@ -1027,7 +1028,7 @@ configuration.Theme = function(){
             "mode" : "fixed"
         },
         "scatterplot" : {
-            "radius" : 9
+            "radius" : 40
         },
         "line": {
             "color_from_data": "yes"
