@@ -16,7 +16,7 @@ PykCharts.multiD.line = function (options){
 		that.multiple_containers = optional && optional.multiple_containers && optional.multiple_containers.enable ? optional.multiple_containers.enable : multiDimensionalCharts.multiple_containers.enable;
 		that.interpolate = PykCharts.boolean(that.curvy_lines) ? "cardinal" : "linear";
 	    that.color_from_data = optional.line && optional.line.color_from_data ? optional.line.color_from_data : multiDimensionalCharts.line.color_from_data;
-	    
+	    console.log(that.mode);
 	    d3.json(options.data, function (e, data) {
 			that.data = data;
 			that.data_length = data.length;
@@ -375,7 +375,7 @@ PykCharts.multiD.line = function (options){
 					 	}
 					}
 
-					if(that.type === "lineChart") {
+					if(that.type === "lineChart" && that.mode === "default") {
 						that.svg
 							.on('mouseout',function (d) {
 								that.mouseEvent.tooltipHide();
@@ -557,7 +557,7 @@ PykCharts.multiD.line = function (options){
 							});
 						}
 					}
-					if(that.type === "lineChart") {
+					if(that.type === "lineChart" && that.mode === "default") {
 						that.svg
 							.on('mouseout',function (d) {
 								that.mouseEvent.tooltipHide();
@@ -569,7 +569,7 @@ PykCharts.multiD.line = function (options){
 								that.mouseEvent.crossHairPosition(that.data,null,that.xScale,that.yScale,that.dataLineGroup,that.lineMargin,that.type);
 							});
 					}
-					else if (that.type === "multilineChart") {
+					else if (that.type === "multilineChart" && that.mode === "default") {
 						that.svg
 							.on('mouseout', function (d) {
 								that.mouseEvent.tooltipHide();

@@ -201,12 +201,14 @@ PykCharts.Configuration = function (options){
             return this;
         },
 	    tooltip : function (d,selection,i) {
-	    	if(PykCharts.boolean(options.enableTooltip) && options.mode === "default") {
-	        	if(selection !== undefined){
+           console.log(options.selector,"---------------------------------------------");
+            if(PykCharts.boolean(options.enableTooltip) && options.mode === "default") {
+                console.log("default mode!!!!!!!!!!!!");
+                if(selection !== undefined){
                     PykCharts.Configuration.tooltipp = d3.select(selection).append("div")
-			        	.attr("id", "pyk-tooltip")
-			        	.attr("class","pyk-line-tooltip");
-	        	} else {
+                        .attr("id", "pyk-tooltip")
+                        .attr("class","pyk-line-tooltip");
+                } else {
                     PykCharts.Configuration.tooltipp = d3.select("body")
                         .append("div")
                         .attr("id", "pyk-tooltip")
@@ -225,10 +227,55 @@ PykCharts.Configuration = function (options){
                         .style("z-index","10")
                         .style("visibility", "hidden");
                 }
-            } else if (PykCharts.boolean(options.enableTooltip)) {
+            } else if (PykCharts.boolean(options.tooltip)) {
+                console.log("Maps!!!!!!!!!!!!");
+                if (options.tooltip.mode === "fixed" && PykCharts.boolean(options.tooltip.enable)) {
+                    console.log("Fixed --- Maps");
+                    PykCharts.Configuration.tooltipp = d3.select("body")
+                        .append("div")
+                        .attr("id", "pyk-tooltip")
+                        .style("height","auto")
+                        .style("padding", "5px 6px")
+                        .style("color","#4F4F4F")
+                        .style("background","#eeeeee")
+                        .style("text-decoration","none")
+                        .style("position", "absolute")
+                        .style("border-radius", "5px")
+                        .style("text-align","center")
+                        .style("font-family","Arial, Helvetica, sans-serif")
+                        .style("font-size","14px")
+                        .style("border","1px solid #CCCCCC")
+                        .style("min-width","30px")
+                        .style("z-index","10")
+                        .style("visibility", "hidden");
+                } else {
+                    console.log("Moving --- Maps");
+                    PykCharts.Configuration.tooltipp = d3.select("body")
+                        .append("div")
+                        .attr("id", "pyk-tooltip")
+                        // .attr("class","pyk-line-tooltip");
+                        .style("height","auto")
+                        .style("padding", "5px 6px")
+                        .style("color","#4F4F4F")
+                        .style("background","#eeeeee")
+                        .style("text-decoration","none")
+                        .style("position", "absolute")
+                        .style("border-radius", "5px")
+                        .style("text-align","center")
+                        .style("font-family","Arial, Helvetica, sans-serif")
+                        .style("font-size","14px")
+                        .style("border","1px solid #CCCCCC")
+                        .style("min-width","30px")
+                        .style("z-index","10")
+                        .style("visibility", "hidden");
+                }
+            }
+            else {
+                console.log("Infographics^^^^^");
                 PykCharts.Configuration.tooltipp = d3.select("body")
                     .append("div")
                     .attr("id", "pyk-tooltip")
+                    // .attr("class","pyk-line-tooltip");
                     .style("height","auto")
                     .style("padding", "5px 6px")
                     .style("color","#4F4F4F")
@@ -437,7 +484,7 @@ configuration.mouseEvent = function (options) {
     var status;
     var action = {
         tooltipPosition : function (d,xPos,yPos,xDiff,yDiff) {
-            if(PykCharts.boolean(options.enableTooltip) && options.mode === "default") {
+            if(PykCharts.boolean(options.enableTooltip)/* && options.mode === "default"*/) {
             	if(xPos !== undefined){
                     var width_tooltip = parseFloat($(options.selector+" #"+that.tooltip.attr("id")).css("width"));
                     that.tooltip
@@ -455,13 +502,13 @@ configuration.mouseEvent = function (options) {
             }
         },
         toolTextShow : function (d) {
-            if(PykCharts.boolean(options.enableTooltip) && options.mode === "default") {
+            if(PykCharts.boolean(options.enableTooltip)/* && options.mode === "default"*/) {
             	that.tooltip.html(d);
             }
             return this;
         },
         tooltipHide : function (d) {
-            if(PykCharts.boolean(options.enableTooltip) && options.mode === "default") {
+            if(PykCharts.boolean(options.enableTooltip)/* && options.mode === "default"*/) {
                 return that.tooltip.style("visibility", "hidden");
             }
         },
