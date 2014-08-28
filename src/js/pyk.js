@@ -806,7 +806,7 @@ configuration.Theme = function(){
             "weight": "bold",
             "family": "'Helvetica Neue',Helvetica,Arial,sans-serif"
         },
-        "overlapTicks" : "no",
+        "overflowTicks" : "no",
         "subtitle":{
             "size": "12px",
             "color": "black",
@@ -881,8 +881,8 @@ configuration.Theme = function(){
         // "enableLabel": "yes",
         "pictograph": {
             "showActive": "yes", //removes the grey heart i.e just shows the actual number of heart
-            "enableLabel": "yes", //shows both the text when yes
-            "labelText": "yes", //shows only the actual number when yes
+            "enableTotal": "yes", //shows both the text when yes
+            "enableCurrent": "yes", //shows only the actual number when yes
             "imagePerLine": 3,
             "imageWidth":79,
             "imageHeight":66,
