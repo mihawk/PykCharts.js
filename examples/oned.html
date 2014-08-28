@@ -26,12 +26,9 @@
       <div id="percentageColumn"></div>
       <hr/>
 
+      <script>
 
-
-        <script>
-
-		window.PykChartsInit = function (e) {
-
+		    window.PykChartsInit = function (e) {
             var k = new PykCharts.oneD.bubble({
                 selector: "#bubble",
                 data:"../data/pie.json"
@@ -97,9 +94,9 @@
                 data: "../data/pie2.json"
             });
             k.execute();
-		}
+		    }
 
-		</script>
-		 <script src="../dist/pykcharts.0.0.8.min.js"></script>
+		</script>    
+    <script src="../dist/pykcharts.0.0.8.min.js"></script>
 	</body>
 </html>

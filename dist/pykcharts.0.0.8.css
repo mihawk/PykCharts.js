@@ -46,7 +46,6 @@ body {
   stroke-width: 2px;
   stroke: orange;
   cursor: pointer;
-  pointer-events: none;
 }
 
 .PykCharts-multi-series2D .bullets {
@@ -269,7 +268,6 @@ body {
 }
 
 .PykCharts-spider-web .link {
-  stroke: #1D1D1D;
   stroke-width: 1.5px;
 }
 

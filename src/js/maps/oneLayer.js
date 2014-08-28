@@ -132,7 +132,7 @@ PykCharts.maps.oneLayer = function (options) {
             .attr("stroke", that.border.color)
             .attr("stroke-width", that.border.thickness + "px")
             .on("mouseover", function (d,i) {
-                // console.log((_.where(that.data, {iso2: d.properties.iso_a2})[0]).tooltip)
+                // console.log(d.properties,"^^^^^^");
                 if (PykCharts.boolean(that.tooltip.enable)) {
                     ttp.style("visibility", "visible");
                     ttp.html((_.where(that.data, {iso2: d.properties.iso_a2})[0]).tooltip);
