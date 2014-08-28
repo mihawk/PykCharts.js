@@ -201,9 +201,7 @@ PykCharts.Configuration = function (options){
             return this;
         },
 	    tooltip : function (d,selection,i) {
-           console.log(options.selector,"---------------------------------------------");
             if(PykCharts.boolean(options.enableTooltip) && options.mode === "default") {
-                console.log("default mode!!!!!!!!!!!!");
                 if(selection !== undefined){
                     PykCharts.Configuration.tooltipp = d3.select(selection).append("div")
                         .attr("id", "pyk-tooltip")
@@ -228,9 +226,7 @@ PykCharts.Configuration = function (options){
                         .style("visibility", "hidden");
                 }
             } else if (PykCharts.boolean(options.tooltip)) {
-                console.log("Maps!!!!!!!!!!!!");
                 if (options.tooltip.mode === "fixed" && PykCharts.boolean(options.tooltip.enable)) {
-                    console.log("Fixed --- Maps");
                     PykCharts.Configuration.tooltipp = d3.select("body")
                         .append("div")
                         .attr("id", "pyk-tooltip")
@@ -249,7 +245,6 @@ PykCharts.Configuration = function (options){
                         .style("z-index","10")
                         .style("visibility", "hidden");
                 } else {
-                    console.log("Moving --- Maps");
                     PykCharts.Configuration.tooltipp = d3.select("body")
                         .append("div")
                         .attr("id", "pyk-tooltip")
@@ -271,7 +266,6 @@ PykCharts.Configuration = function (options){
                 }
             }
             else {
-                console.log("Infographics^^^^^");
                 PykCharts.Configuration.tooltipp = d3.select("body")
                     .append("div")
                     .attr("id", "pyk-tooltip")
@@ -8342,6 +8336,7 @@ PykCharts.maps.oneLayer = function (options) {
                 return this;
             },
             enableClick: function (ec) {
+                console.log(ec);
                 if (PykCharts.boolean(ec)) {
                     that.areas.on("click", that.clicked);
                     // that.onhover = "color_saturation";
@@ -8430,7 +8425,7 @@ PykCharts.maps.oneLayer = function (options) {
             .attr("stroke", that.border.color)
             .attr("stroke-width", that.border.thickness + "px")
             .on("mouseover", function (d,i) {
-                console.log(d.properties,"^^^^^^");
+                // console.log(d.properties,"^^^^^^");
                 if (PykCharts.boolean(that.tooltip.enable)) {
                     ttp.style("visibility", "visible");
                     ttp.html((_.where(that.data, {iso2: d.properties.iso_a2})[0]).tooltip);
@@ -8865,8 +8860,8 @@ PykCharts.maps.timelineMap = function (options) {
             });
 
         that.optionalFeatures()
-            .enableLabel(that.label)
-            .enableClick(that.enable_click);
+            .enableLabel(that.label.enable)
+            .enableClick(that.enableClick);
 
         that.k.dataSource(that.dataSource)
             .credits(that.creditMySite);

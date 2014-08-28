@@ -198,8 +198,8 @@ PykCharts.maps.timelineMap = function (options) {
             });
 
         that.optionalFeatures()
-            .enableLabel(that.label)
-            .enableClick(that.enable_click);
+            .enableLabel(that.label.enable)
+            .enableClick(that.enableClick);
 
         that.k.dataSource(that.dataSource)
             .credits(that.creditMySite);
