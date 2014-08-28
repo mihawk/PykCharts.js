@@ -23,27 +23,27 @@ body {
 
 .PykCharts-multi-series2D path.multi-line {
   fill: none;
-  stroke-width: 1.5px;
+  stroke-width: 2px;
   stroke: #ccc;
   cursor: pointer
 }
 
 .PykCharts-multi-series2D path.multi-line-selected {
   fill: none;
-  stroke-width: 3px;
+  stroke-width: 4px;
   cursor: pointer;
 }
 
 .PykCharts-multi-series2D path.multi-line:hover {
   fill: none;
-  stroke-width: 2px;
+  stroke-width: 3px;
   stroke: orange;
   cursor: pointer;
 }
 
 .PykCharts-multi-series2D path.multi-line-hover {
   fill: none;
-  stroke-width: 2px;
+  stroke-width: 3px;
   stroke: orange;
   cursor: pointer;
   pointer-events: none;
@@ -75,7 +75,7 @@ body {
 
 .PykCharts-line-chart .line {
   fill: none;
-  stroke-width: 3px;
+  stroke-width: 2px;
   stroke: #58ADE6;
   shape-rendering: auto;
   pointer-events: none;
