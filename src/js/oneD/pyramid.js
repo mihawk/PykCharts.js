@@ -37,6 +37,7 @@ PykCharts.oneD.pyramid = function (options) {
         if (that.mode === "default") {
             that.k.title();
             that.k.subtitle();
+            that.chartData = that.optionalFeatures().clubData();
             var pyramid = that.optionalFeatures().svgContainer()
                 .createChart()
                 .label()
@@ -51,6 +52,7 @@ PykCharts.oneD.pyramid = function (options) {
             that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
 
         } else if (that.mode === "infographics") {
+            that.chartData = that.data;
             that.optionalFeatures().svgContainer()
                 .createChart()
                 .label();
@@ -134,7 +136,7 @@ PykCharts.oneD.pyramid = function (options) {
 
                 that.svg = d3.select(options.selector)
                     .append('svg')
-                    .attr("width", that.width +200)
+                    .attr("width", that.width) //+200 removed
                     .attr("height",that.height)
                     .attr("id","svgcontainer")
                     .attr("class","svgcontainer");
@@ -146,7 +148,7 @@ PykCharts.oneD.pyramid = function (options) {
             },
         	createChart : function () {
 
-        		that.chartData = that.optionalFeatures().clubData();
+        		
         		that.perValues = that.percentageValues(that.chartData);
 
         		var pyramid = that.pyramidLayout()
@@ -473,7 +475,7 @@ PykCharts.oneD.pyramid = function (options) {
                         }
                     }
                     var sumOthers = d3.sum(that.maximum_weight,function (d,i) {
-                            if(i>=count)
+                            if(i>=count-1)
                                 return d;
                         });
 

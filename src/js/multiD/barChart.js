@@ -1,4 +1,4 @@
-PykCharts.multiD.ultimateBar = function(options){
+PykCharts.multiD.barChart = function(options){
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
     
@@ -34,7 +34,8 @@ PykCharts.multiD.ultimateBar = function(options){
             }
             that.optionalFeatures()
                     .createColumnChart()
-                    .legends();
+                    .legends()
+                    .ticks();
             that.k.xAxis(that.svg,that.xgroup,that.xScale);
         });
     };

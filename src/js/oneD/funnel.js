@@ -204,7 +204,7 @@ PykCharts.oneD.funnel = function (options) {
 
                 that.svg = d3.select(options.selector)
                     .append('svg')
-                    .attr("width",that.width+100)
+                    .attr("width",that.width) //+100 removed
                     .attr("height",that.height)
                     .attr("id","svgcontainer")
                     .attr("class","svgcontainer");
@@ -456,6 +456,7 @@ PykCharts.oneD.funnel = function (options) {
                     if(that.newData.length < that.clubData.maximumNodes){
                         that.newData.push(otherSpan);
                     }
+                    that.newData.sort(function (a,b) { return b.weight - a.weight; });
                     that.newData1 = that.newData;
                 }
                 else {

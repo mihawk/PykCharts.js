@@ -1,4 +1,4 @@
-PykCharts.multiD.area = function (options){
+PykCharts.multiD.areaChart = function (options){
 	var that = this;
 	var theme = new PykCharts.Configuration.Theme({});
 

@@ -1,5 +1,5 @@
 
-PykCharts.multiD.scatterplot = function (options) {
+PykCharts.multiD.scatterPlot = function (options) {
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
     
@@ -44,7 +44,7 @@ PykCharts.multiD.pulse = function (options) {
         // that.enableCrossHair = optional && optional.enableCrossHair ? optional.enableCrossHair : multiDimensionalCharts.enableCrossHair;
         that.multiD = new PykCharts.multiD.configuration(that);
         that.multiple_containers = optional && optional.multiple_containers && optional.multiple_containers.enable ? optional.multiple_containers.enable : multiDimensionalCharts.multiple_containers.enable;
-        that.bubbleRadius = options.scatterplot && _.isNumber(options.scatterplot.radius) ? options.scatterplot.radius : multiDimensionalCharts.scatterplot.radius;
+        that.bubbleRadius = optional && optional.scatterplot && _.isNumber(optional.scatterplot.radius) ? optional.scatterplot.radius : multiDimensionalCharts.scatterplot.radius;
         that.zoomedOut = true;
         that.radius_range = [4,14];
         d3.json(options.data, function (e, data) {
@@ -57,14 +57,15 @@ PykCharts.multiD.pulse = function (options) {
 };
 PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
     var that = chartObject;
-    this.refresh = function () {
+    that.refresh = function () {
         d3.json(options.data, function (e, data) {
             that.data = data;
             that.mapGroupData = that.multiD.mapGroup(that.data);
-
+            console.log("hey");
             that.optionalFeatures()
                     .createScatterPlot()
                     .legends()
+                    .label()
                     .ticks();
         });
     };
@@ -119,7 +120,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                         // .crossHair();
 
                     that.k.xAxis(that.svgContainer,that.xGroup,that.x)
-                        .yAxis(that.svgContainer,that.yGroup,that.y);
+                        .yAxis(that.svgContainer,that.yGroup,that.y)
                         // .yGrid(that.svgContainer,that.group,that.y)
                         // .xGrid(that.svgContainer,that.group,that.x);
                     if((i+1)%4 === 0 && i !== 0) {
@@ -151,7 +152,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
 
 
                 that.k.xAxis(that.svgContainer,that.xGroup,that.x)
-                    .yAxis(that.svgContainer,that.yGroup,that.y);
+                    .yAxis(that.svgContainer,that.yGroup,that.y)
                     // .yGrid(that.svgContainer,that.group,that.y)
                     // .xGrid(that.svgContainer,that.group,that.x);
             }
@@ -647,11 +648,15 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                         tooltipText = d.tooltip ? d.tooltip : "<table class='PykCharts'><tr><th>"+d.name+"</th></tr><tr><td>X</td><td>"+d.x+"</td></tr><tr><td>Y</td><td>"+d.y+"</td></tr></table>";
                         that.mouseEvent.tooltipPosition(d);
                         that.mouseEvent.toolTextShow(tooltipText);
-                        d3.select(this).style("fill-opacity",1);
+                        if(PykCharts.boolean(that.size.enable)){
+                            d3.select(this).style("fill-opacity",1);
+                        }
                     })
                     .on('mouseout',function (d) {
                         that.mouseEvent.tooltipHide(d);
-                        d3.selectAll(".dot").style("fill-opacity",0.5);
+                        if(PykCharts.boolean(that.size.enable)) {
+                            d3.selectAll(".dot").style("fill-opacity",0.5);
+                        }
                     })
                     .on('mousemove', function (d) {
                         that.mouseEvent.tooltipPosition(d);
@@ -759,15 +764,15 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
 
             that.zoomedOut = false;
 
-            that.k.isOrdinal(that.svgContainer,".x.axis",that.x);
+            // that.k.isOrdinal(that.svgContainer,".x.axis",that.x);
 //            that.k.isOrdinal(that.svgContainer,".x.grid",that.x);
 
-            that.k.isOrdinal(that.svgContainer,".y.axis",that.y);
+            // that.k.isOrdinal(that.svgContainer,".y.axis",that.y);
   //          that.k.isOrdinal(that.svgContainer,".y.grid",that.y);
 
             that.optionalFeatures().plotCircle().label();
-
-            that.circlePlot
+            d3.select("#"+this.id)
+                .selectAll(".dot")
                 .attr("r", function (d) {
                     return that.sizes(d.weight)*d3.event.scale;
                 });
