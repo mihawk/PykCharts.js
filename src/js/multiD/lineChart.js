@@ -1,4 +1,4 @@
-PykCharts.multiD.line = function (options){
+PykCharts.multiD.lineChart = function (options){
 	var that = this;
 	var theme = new PykCharts.Configuration.Theme({});
 

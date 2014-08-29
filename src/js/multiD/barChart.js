@@ -1,4 +1,4 @@
-PykCharts.multiD.ultimateBar = function(options){
+PykCharts.multiD.barChart = function(options){
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
     

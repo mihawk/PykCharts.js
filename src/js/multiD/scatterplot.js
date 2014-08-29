@@ -1,5 +1,5 @@
 
-PykCharts.multiD.scatterplot = function (options) {
+PykCharts.multiD.scatterPlot = function (options) {
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
     
