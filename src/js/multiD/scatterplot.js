@@ -764,15 +764,15 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
 
             that.zoomedOut = false;
 
-            that.k.isOrdinal(that.svgContainer,".x.axis",that.x);
+            // that.k.isOrdinal(that.svgContainer,".x.axis",that.x);
 //            that.k.isOrdinal(that.svgContainer,".x.grid",that.x);
 
-            that.k.isOrdinal(that.svgContainer,".y.axis",that.y);
+            // that.k.isOrdinal(that.svgContainer,".y.axis",that.y);
   //          that.k.isOrdinal(that.svgContainer,".y.grid",that.y);
 
             that.optionalFeatures().plotCircle().label();
-
-            that.circlePlot
+            d3.select("#"+this.id)
+                .selectAll(".dot")
                 .attr("r", function (d) {
                     return that.sizes(d.weight)*d3.event.scale;
                 });
