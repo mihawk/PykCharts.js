@@ -59,7 +59,7 @@ PykCharts.maps.oneLayer = function (options) {
         var that = this;
 
         var that = this,
-            scale = 150,
+            scale = 10,
             offset = [that.width / 2, that.height / 2],
             i;
 
