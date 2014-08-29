@@ -354,6 +354,13 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
 
                     var count = that.clubData.maximumNodes-that.displayData.length;
 
+                    
+                    var sumOthers = d3.sum(that.maximum_weight,function (d,i) {
+                            if(i>=count-1)
+                                return d;
+                        });
+
+                    others_Slice.weight = sumOthers;
                     if(count>0)
                     {
                         that.displayData.push(others_Slice);
@@ -362,12 +369,6 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                             that.displayData.push(that.data[index]);
                         }
                     }
-                    var sumOthers = d3.sum(that.maximum_weight,function (d,i) {
-                            if(i>=count)
-                                return d;
-                        });
-
-                    others_Slice.weight = sumOthers;
                 }
                 else {
                     that.displayData = that.data;

@@ -29,12 +29,14 @@ PykCharts.multiD.ultimateBar = function(options){
             that.the_bars = fD[0];
             that.the_keys = fD[1];
             that.the_layers = that.buildLayers(that.the_bars);
+            console.log("hey");
             if(that.max_length === 1) {
                 that.legends.enable = "no";
             }
             that.optionalFeatures()
                     .createColumnChart()
-                    .legends();
+                    .legends()
+                    .ticks();
             that.k.xAxis(that.svg,that.xgroup,that.xScale);
         });
     };
@@ -185,7 +187,7 @@ PykCharts.multiD.ultimateBar = function(options){
                     .values(function(d){ // The values are present deep in the array, need to tell d3 where to find it
                         return d.values;
                     })(that.layers);
-                // console.log(stack);
+                console.log(stack);
                 that.layers = that.layers.map(function (group) {
                     return {
                         name : group.name,
@@ -361,7 +363,9 @@ PykCharts.multiD.ultimateBar = function(options){
                 return this;
             },
             ticks: function () {
+                console.log(that.ticks.size,"------------");
                 if(that.ticks.size) {
+                    console.log("hey");
                     that.txt_width;
                     that.txt_height;
                     var ticks = that.bars.selectAll("g")

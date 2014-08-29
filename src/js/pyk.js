@@ -46,7 +46,7 @@ PykCharts.Configuration = function (options){
 		liveData : function (chart) {
             var frequency = options.realTimeCharts.refreshFrequency;
 	        if(PykCharts.boolean(frequency)) {
-	            setInterval(chart.refresh,frequency*1000);
+                setInterval(chart.refresh,frequency*1000);
 	        }
 	        return this;
 	    },
@@ -134,7 +134,7 @@ PykCharts.Configuration = function (options){
             return this;
         },
 	    credits : function () {
-	        if(PykCharts.boolean(options.creditMySite.mySiteName) || PykCharts.boolean(options.creditMySite.mySiteUrl)) {
+            if(PykCharts.boolean(options.creditMySite.mySiteName) || PykCharts.boolean(options.creditMySite.mySiteUrl)) {
                 var credit = options.creditMySite;
                 var enable = true;
 
@@ -167,26 +167,24 @@ PykCharts.Configuration = function (options){
                 if(data_src.url === "") {
                     enable = false;
                 }
-                // if($(options.selector+" #footer").length === 0) {
-                    // console.log("**************credits");
+                if($(options.selector+" #footer").length) {
                     d3.select(options.selector+" table tr")
                     .style("background", options.bg)
                     .append("td")
                     .style("text-align","right")
                     .html("<span style='pointer-events:none;'>Source: </span><a href='" + data_src.url + "' target='_blank' onclick='return " + enable +"'>"+ data_src.text +"</a></tr>");
-                // }
-                // else {
-                //     console.log("**************data_src");
-                //     d3.select(options.selector).append("table")
-                //         .attr("id","footer")
-                //         .style("background", options.bg)
-                //         .attr("width",options.width+"px")
-                //         .append("tr")
-                //         .attr("class","PykCharts-credits")
-                //         .append("td")
-                //         .style("text-align","right")
-                //         .html("<span style='pointer-events:none;'>Source: </span><a href='" + data_src.url + "' target='_blank' onclick='return " + enable +"'>"+ data_src.text +"</a></tr>");
-                // }
+                }
+                else {
+                    d3.select(options.selector).append("table")
+                        .attr("id","footer")
+                        .style("background", options.bg)
+                        .attr("width",options.width+"px")
+                        .append("tr")
+                        .attr("class","PykCharts-credits")
+                        .append("td")
+                        .style("text-align","right")
+                        .html("<span style='pointer-events:none;'>Source: </span><a href='" + data_src.url + "' target='_blank' onclick='return " + enable +"'>"+ data_src.text +"</a></tr>");
+                }
             }
 	        return this;
 	    },
@@ -592,7 +590,7 @@ configuration.mouseEvent = function (options) {
             }
         },
         crossHairShow : function (x1,y1,x2,y2,cx,cy,type,no_bullets) {
-            if(PykCharts.boolean(options.enableCrossHair) && options.mode === "default") {
+            if(PykCharts.boolean(options.enableCrossHair)/* && options.mode === "default"*/) {
                 if(x1 !== undefined) {
                     if(type === "lineChart" || type === "areaChart") {
                         that.cross_hair_v.style("display","block");
@@ -628,7 +626,7 @@ configuration.mouseEvent = function (options) {
             return this;
         },
         crossHairHide : function (type) {
-            if(PykCharts.boolean(options.enableCrossHair) && options.mode === "default") {
+            if(PykCharts.boolean(options.enableCrossHair)/* && options.mode === "default"*/) {
                 that.cross_hair_v.style("display","none");
                 if(type === "lineChart" || type === "areaChart") {
                     that.cross_hair_h.style("display","none");
@@ -639,7 +637,7 @@ configuration.mouseEvent = function (options) {
         },
         axisHighlightShow : function (active_tick,axisHighlight,a) {
             var curr_tick,prev_tick,abc,selection,axis_data_length;
-            if(PykCharts.boolean(options.axis.onHoverHighlightenable) && options.mode === "default"){
+            if(PykCharts.boolean(options.axis.onHoverHighlightenable)/* && options.mode === "default"*/){
                 if(axisHighlight === options.selector + " .y.axis"){
                     selection = axisHighlight+" .tick text";
                     abc = options.axis.y.labelColor;
@@ -694,7 +692,7 @@ configuration.mouseEvent = function (options) {
         },
         axisHighlightHide : function (axisHighlight,a) {
             var abc,selection;
-            if(PykCharts.boolean(options.axis.onHoverHighlightenable) && options.mode === "default"){
+            if(PykCharts.boolean(options.axis.onHoverHighlightenable)/* && options.mode === "default"*/){
                 if(axisHighlight === options.selector + " .y.axis"){
                     selection = axisHighlight+" .tick text";
                     abc = options.axis.y.labelColor;
@@ -854,7 +852,7 @@ configuration.Theme = function(){
         "chart": {
             "height": 400,
             "width": 600,
-            "margin":{"top": 0, "right": 0, "bottom": 0, "left": 0},
+            "margin":{"top": 20, "right": 20, "bottom": 20, "left": 20},
             "grid" : {
                 "xEnabled":"yes",
                 "yEnabled":"yes",
@@ -1025,7 +1023,7 @@ configuration.Theme = function(){
             "mode" : "fixed"
         },
         "scatterplot" : {
-            "radius" : 9
+            "radius" : 40
         },
         "line": {
             "color_from_data": "yes"
