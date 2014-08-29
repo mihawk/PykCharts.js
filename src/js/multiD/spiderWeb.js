@@ -221,7 +221,6 @@ PykCharts.multiD.spiderWeb = function (options) {
                         
                     spider.attr("class","link")
                         .attr("stroke",function (d) {
-                            console.log(d.color);
                             return d.color;
                         })
                         .attr("stroke-opacity",1)

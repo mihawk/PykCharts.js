@@ -319,7 +319,7 @@ PykCharts.multiD.areaChart = function (options){
 								that.mouseEvent.axisHighlightHide(options.selector + " .y.axis");
 		          			})
 							.on("mousemove", function(){
-								that.mouseEvent.crossHairPosition(that.data,null,that.xScale,that.yScale,that.svg.select("#"+type),that.lineMargin,that.type,that.tooltip.mode);
+								that.mouseEvent.crossHairPosition(that.data,that.new_data,that.xScale,that.yScale,that.svg.select("#"+type),that.lineMargin,that.type,that.tooltip.mode);
 					  		});
 					}
 				}
@@ -375,7 +375,7 @@ PykCharts.multiD.areaChart = function (options){
 									that.mouseEvent.axisHighlightHide(options.selector + " .y.axis");
 			          		})
 						  	.on("mousemove", function(){
-						  		that.mouseEvent.crossHairPosition(that.data,null,that.xScale,that.yScale,that.dataLineGroup,that.lineMargin,that.type,that.tooltip.mode);
+						  		that.mouseEvent.crossHairPosition(that.data,that.new_data,that.xScale,that.yScale,that.dataLineGroup,that.lineMargin,that.type,that.tooltip.mode);
 						  	});
 					}
 					else if(that.type === "stackedAreaChart") {

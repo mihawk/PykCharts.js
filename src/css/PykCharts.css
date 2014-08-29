@@ -83,7 +83,8 @@ body {
 }
 
 .PykCharts-line-chart .area {
-  fill: #75b0e1;
+  fill: #013f73;
+  opacity: .7;
   shape-rendering: auto;
   pointer-events: none;
 }
@@ -102,17 +103,10 @@ body {
   pointer-events: all;
 }
 
-.PykCharts-line-chart .focus-area circle {
-  fill: none;
-  stroke: #1d1d1d;
-  stroke-width: 1.5px;
-  pointer-events: none;
-}
-
 .PykCharts-line-chart .focus circle {
   fill: #58ADE6;
-  stroke: none;
-  stroke-width: 3px;
+  stroke: white;
+  stroke-width: 1.5px;
   pointer-events: none;
 }
 
