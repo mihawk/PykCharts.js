@@ -473,7 +473,7 @@ PykCharts.oneD.pyramid = function (options) {
                         }
                     }
                     var sumOthers = d3.sum(that.maximum_weight,function (d,i) {
-                            if(i>=count)
+                            if(i>=count-1)
                                 return d;
                         });
 

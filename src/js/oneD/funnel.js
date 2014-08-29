@@ -456,6 +456,7 @@ PykCharts.oneD.funnel = function (options) {
                     if(that.newData.length < that.clubData.maximumNodes){
                         that.newData.push(otherSpan);
                     }
+                    that.newData.sort(function (a,b) { return b.weight - a.weight; });
                     that.newData1 = that.newData;
                 }
                 else {
