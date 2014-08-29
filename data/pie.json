@@ -1,37 +1,36 @@
 [
 	{
-		"name": "National Democratic Alliance",
+		"name": "NDA",
 		"weight": 4800,
 		"highlight":false
 	},
 	{
-		"name": "United Progressive Alliance",
+		"name": "UPA",
 		"weight": 5000,
 		"highlight":true
 	},
 	{
-		"name": "National Democratic Alliance",
+		"name": "NDA",
 		"weight": 2500,
-		"highlight":false
-		
+		"highlight":false		
 	},
 	{
-		"name": "Aam Aadmi Party",
+		"name": "AAP",
 		"weight": 800,
 		"highlight":false		
 	},
 	{
-		"name": "Indian National Congress",
+		"name": "INC",
 		"weight": 8000,
 		"highlight":false		
 	},
 	{
-		"name": "Bahujan Samaj Party",
+		"name": "BSP",
 		"weight": 300,
 		"highlight":false		
 	},
 	{
-		"name": "Nationalist Congress Party",
+		"name": "NCP",
 		"weight": 150,
 		"highlight":false
 	},

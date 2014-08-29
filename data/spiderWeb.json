@@ -5,7 +5,7 @@
         "y": 5,
         "weight":15,
         "group":"2014",
-        "color": "#ffbb78",
+        "color": "#75b0e1",
         "tooltip": "National Democratic Alliance"
     },
     {
@@ -13,7 +13,7 @@
         "y": 10,
         "weight":20,
         "group":"2014",
-        "color": "#ff7f0e",
+        "color": "#75b0e1",
         "tooltip": "United Progressive Alliance"
     },
     {
@@ -21,7 +21,7 @@
         "y": 12,
         "weight":10,
         "group":"2014",
-        "color": "#d62728",        
+        "color": "#75b0e1",        
         "tooltip": "Aam Aadmi Party"
     },
     {
@@ -29,7 +29,7 @@
         "y": 17,
         "weight":30,
         "group":"2014",
-        "color": "#aec7e8",
+        "color": "#75b0e1",
         "tooltip": "Bahujan Samaj Party"
     },
     {
@@ -37,7 +37,7 @@
         "y": 30,
         "weight":25,
         "group":"2014",
-        "color": "#1f77b4",
+        "color": "#75b0e1",
         "tooltip": "Congress Party"
     },
 
@@ -46,7 +46,7 @@
         "y": 40,
         "weight":25,
         "group":"2009",
-        "color": "#1f77b4",
+        "color": "#0e5ea1",
         "tooltip": "National Democratic Alliance"
     },
     {
@@ -54,7 +54,7 @@
         "y": 20,
         "weight":10,
         "group":"2009",
-        "color": "#ff7f0e",
+        "color": "#0e5ea1",
         "tooltip": "United Progressive Alliance"
     },
     {
@@ -62,7 +62,7 @@
         "y": 30,
         "weight":30,
         "group":"2009",
-        "color": "#d62728",        
+        "color": "#0e5ea1",        
         "tooltip": "Aam Aadmi Party"
     },
     {
@@ -70,7 +70,7 @@
         "y": 5,
         "weight":12,
         "group":"2009",
-        "color": "#aec7e8",
+        "color": "#0e5ea1",
         "tooltip": "Bahujan Samaj Party"
     },
     {
@@ -78,7 +78,7 @@
         "y": 15,
         "weight":7,
         "group":"2009",
-        "color": "#1f77b4",
+        "color": "#0e5ea1",
         "tooltip": "Nationalist Congress Party"
     }
     

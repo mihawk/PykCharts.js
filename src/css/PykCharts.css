@@ -23,20 +23,21 @@ body {
 
 .PykCharts-multi-series2D path.multi-line {
   fill: none;
-  stroke-width: 1.5px;
+  stroke-width: 3px;
+  stroke-linecap: round;
   stroke: #ccc;
   cursor: pointer
 }
 
 .PykCharts-multi-series2D path.multi-line-selected {
   fill: none;
-  stroke-width: 3px;
+  stroke-width: 4px;
   cursor: pointer;
 }
 
 .PykCharts-multi-series2D path.multi-line:hover {
   fill: none;
-  stroke-width: 2px;
+  stroke-width: 3.5px;
   stroke: orange;
   cursor: pointer;
 }
@@ -74,14 +75,16 @@ body {
 
 .PykCharts-line-chart .line {
   fill: none;
-  stroke-width: 2px;
-  stroke: #58ADE6;
+  stroke-width: 3px;
+  stroke-linecap: round;
+  stroke: #75b0e1;
   shape-rendering: auto;
   pointer-events: none;
 }
 
 .PykCharts-line-chart .area {
-  fill: #58ADE6;
+  fill: #013f73;
+  opacity: .7;
   shape-rendering: auto;
   pointer-events: none;
 }
@@ -100,17 +103,10 @@ body {
   pointer-events: all;
 }
 
-.PykCharts-line-chart .focus-area circle {
-  fill: none;
-  stroke: #1d1d1d;
-  stroke-width: 1.5px;
-  pointer-events: none;
-}
-
 .PykCharts-line-chart .focus circle {
   fill: #58ADE6;
-  stroke: none;
-  stroke-width: 3px;
+  stroke: white;
+  stroke-width: 1.5px;
   pointer-events: none;
 }
 
