@@ -187,7 +187,7 @@ PykCharts.multiD.ultimateBar = function(options){
                     .values(function(d){ // The values are present deep in the array, need to tell d3 where to find it
                         return d.values;
                     })(that.layers);
-                // console.log(stack);
+                console.log(stack);
                 that.layers = that.layers.map(function (group) {
                     return {
                         name : group.name,
@@ -363,7 +363,9 @@ PykCharts.multiD.ultimateBar = function(options){
                 return this;
             },
             ticks: function () {
+                console.log(that.ticks.size,"------------");
                 if(that.ticks.size) {
+                    console.log("hey");
                     that.txt_width;
                     that.txt_height;
                     var ticks = that.bars.selectAll("g")

@@ -213,10 +213,13 @@ PykCharts.multiD.spiderWeb = function (options) {
                         links.push({source: that.nodes[m][i], target: target, color : color});
                     }
 
-                    that.group.selectAll("#link"+m)
-                        .data(links)
-                        .enter().append("path")
+                    var spider =  that.group.selectAll("#link"+m)
+                        .data(links);
+
+                    spider.enter().append("path")
                         .attr("class", "link")
+                        
+                    spider.attr("class","link")
                         .attr("stroke",function (d) {
                            return d.color;
                         })
@@ -225,7 +228,8 @@ PykCharts.multiD.spiderWeb = function (options) {
                         .attr("d", d3.customHive.link()
                             .angle(function(d) { /*console.log(d,"d");*/ return that.angle(d.x); })
                             .radius(function(d) { return that.radius(d.y); })
-                        )
+                        );
+                    spider.exit().remove();
 
 
                     that.weight = _.map(that.new_data[m].data, function (d) {
@@ -239,11 +243,15 @@ PykCharts.multiD.spiderWeb = function (options) {
                     that.sorted_weight = that.weight.slice(0);
                     that.sorted_weight.sort(function(a,b) { return a-b; });
 
-                    that.group.selectAll(".node"+m)
+                    var spidernode = that.group.selectAll(".node"+m)
                         .data(that.nodes[m])
-                        .enter().append("circle")
+                    
+                    spidernode.enter().append("circle")
                         .attr("class", "node"+m)
                         .attr("transform", function(d) { return "rotate(" + that.degrees(that.angle(d.x)) + ")"; })
+                        
+                        
+                    spidernode.attr("class","node"+m)
                         .attr("cx", function (d) { return that.radius(d.y); })
                         .attr("r", function (d,i) { return that.sizes(that.new_data[m].data[i].weight); })
                         .style("fill", function (d,i) {
@@ -264,6 +272,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                         .on('mousemove', function (d) {
                           that.mouseEvent.tooltipPosition(d);
                         });
+                    spidernode.exit().remove();
                 }
 
                 that.group.selectAll(".axis")

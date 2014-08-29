@@ -34,7 +34,8 @@ PykCharts.multiD.ultimateBar = function(options){
             }
             that.optionalFeatures()
                     .createColumnChart()
-                    .legends();
+                    .legends()
+                    .ticks();
             that.k.xAxis(that.svg,that.xgroup,that.xScale);
         });
     };

@@ -46,8 +46,7 @@ PykCharts.Configuration = function (options){
 		liveData : function (chart) {
             var frequency = options.realTimeCharts.refreshFrequency;
 	        if(PykCharts.boolean(frequency)) {
-                console.log("hey");
-	            setInterval(chart.refresh,frequency*1000);
+                setInterval(chart.refresh,frequency*1000);
 	        }
 	        return this;
 	    },
@@ -135,9 +134,7 @@ PykCharts.Configuration = function (options){
             return this;
         },
 	    credits : function () {
-            console.log(options.creditMySite.mySiteName);
-	        if(PykCharts.boolean(options.creditMySite.mySiteName) || PykCharts.boolean(options.creditMySite.mySiteUrl)) {
-                console.log("inside credits");
+            if(PykCharts.boolean(options.creditMySite.mySiteName) || PykCharts.boolean(options.creditMySite.mySiteUrl)) {
                 var credit = options.creditMySite;
                 var enable = true;
 
@@ -171,7 +168,6 @@ PykCharts.Configuration = function (options){
                     enable = false;
                 }
                 if($(options.selector+" #footer").length) {
-                    console.log("**************dataSource");
                     d3.select(options.selector+" table tr")
                     .style("background", options.bg)
                     .append("td")
@@ -179,7 +175,6 @@ PykCharts.Configuration = function (options){
                     .html("<span style='pointer-events:none;'>Source: </span><a href='" + data_src.url + "' target='_blank' onclick='return " + enable +"'>"+ data_src.text +"</a></tr>");
                 }
                 else {
-                    console.log("**************data_src");
                     d3.select(options.selector).append("table")
                         .attr("id","footer")
                         .style("background", options.bg)
