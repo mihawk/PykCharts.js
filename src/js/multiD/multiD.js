@@ -378,6 +378,7 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
         chartObject.label.size = "size" in optional.label ? optional.label.size : stylesheet.label.size;
         chartObject.label.color = optional.label.color ? optional.label.color : stylesheet.label.color;
         chartObject.label.weight = optional.label.weight ? optional.label.weight : stylesheet.label.weight;
+        chartObject.label.weight = (chartObject.label.weight === "thick") ? "bold" : "normal";
         chartObject.label.family = optional.label.family ? optional.label.family : stylesheet.label.family;
     } else {
         chartObject.label = stylesheet.label;
