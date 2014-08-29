@@ -2,7 +2,7 @@
 	<head>
         <link rel="stylesheet" type="text/css" href="../dist/pykcharts.0.0.8.min.css">
 	</head>
-	<body style="background: lightgray;">
+	<body>
       <div id="bubble"></div>
       <hr/>
       <div id="funnel"></div>
@@ -31,7 +31,8 @@
 		    window.PykChartsInit = function (e) {
             var k = new PykCharts.oneD.bubble({
                 selector: "#bubble",
-                data:"../data/pie.json"
+                data:"../data/pie.json",
+                
             });
             k.execute();
 
@@ -43,8 +44,7 @@
 
             var k = new PykCharts.oneD.pictograph({
                 selector: "#pictograph",
-                data:"../data/pictograph.json",
-                mode:"infographics"
+                data:"../data/pictograph.json"
              });
             k.execute();
 
@@ -56,7 +56,7 @@
 
             var k = new PykCharts.oneD.treemap({
                 selector: "#treemap",
-                data: "../data/pie.json",
+                data: "../data/pie.json"
             });
             k.execute();
 

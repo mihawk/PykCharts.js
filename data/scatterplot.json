@@ -4,15 +4,15 @@
         "x": 80,
         "y": 2,
         "weight": 500,
-        "color": "#DE5851",
-        "group": "cadbury"
+        "color": "#07365e",
+        "group": "Cadbury"
     },
     {
         "name": "Galaxy",
         "x": 42,
         "y": 5,
         "weight": 530,
-        "color": "#1a9850",
+        "color": "#0e5ea1",
         "tooltip": "<table class='PykCharts'><tr><th>Galaxy</th></tr><tr><td>X</td><td>42</td></tr><tr><td>Y</td><td>5</td></tr></table>",
         "group": "Nestle"
     },
@@ -30,7 +30,7 @@
         "x": 80,
         "y": 4,    
         "weight": 590,
-        "color": "#a6d96a",
+        "color": "#4682b4",
         "tooltip": "<table class='PykCharts'><tr><th>Lindt</th></tr><tr><td>X</td><td>80</td></tr><tr><td>Y</td><td>4</td></tr></table>",
         "group": "ABC"
     },
@@ -39,7 +39,7 @@
         "x": 65,
         "y": 2.5,
         "weight": 570,
-        "color": "#fee08b",
+        "color": "#75b0e1",
         "tooltip": "<table class='PykCharts'><tr><th>5 Star</th></tr><tr><td>X</td><td>65</td></tr><tr><td>Y</td><td>2.5</td></tr></table>",
         "group": "Hershey"
     },
@@ -66,7 +66,7 @@
         "x": 60,
         "y": 4,
         "weight": 250,     
-        "color": "#ECF572",
+        "color": "#a0ccf1",
         "tooltip": "<table class='PykCharts'><tr><th>Lindt</th></tr><tr><td>X</td><td>60</td></tr><tr><td>Y</td><td>4</td></tr></table>",
         "group": "Lindt"
     }, 
@@ -75,18 +75,18 @@
         "x": 70,
         "y": 2,
         "weight": 500,
-        "color": "#DE5851",
+        "color": "#07365e",
         "tooltip": "<table class='PykCharts'><tr><th>Bournville</th></tr><tr><td>X</td><td>70</td></tr><tr><td>Y</td><td>2</td></tr></table>",
-        "group": "cadbury"
+        "group": "Cadbury"
     },
     {
         "name": "Dairy Milk",
         "x": 100,
         "y": 3,
         "weight": 400,
-        "color": "#DE5851",
+        "color": "#07365e",
         "tooltip": "<table class='PykCharts'><tr><th>Dairy Milk</th></tr><tr><td>X</td><td>100</td></tr><tr><td>Y</td><td>3</td></tr></table>",
-        "group": "cadbury"
+        "group": "Cadbury"
     },
     {
         "name": "Galaxy",
@@ -156,8 +156,8 @@
         "x": 30,
         "y": 5,
         "weight": 400,
-        "color": "#DE5851",
+        "color": "#07365e",
         "tooltip": "<table class='PykCharts'><tr><th>Bournville</th></tr><tr><td>X</td><td>30</td></tr><tr><td>Y</td><td>5</td></tr></table>",
-        "group": "cadbury"
+        "group": "Cadbury"
     }
 ]

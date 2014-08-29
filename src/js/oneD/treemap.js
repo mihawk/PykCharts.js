@@ -22,7 +22,7 @@ PykCharts.oneD.treemap = function (options){
 
     this.refresh = function (){
         d3.json(options.data, function (e,data) {
-            that.data = data;
+            that.data = data.groupBy();
             that.optionalFeatures()
                 .clubData()
                 .createChart()
@@ -44,7 +44,7 @@ PykCharts.oneD.treemap = function (options){
         that.k.tooltip();
         that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
         if(that.mode === "infographics"){
-            that.new_data1 = that.data;
+            that.new_data1 = {"children" : that.data};
         }
 
         if(that.mode === "default") {

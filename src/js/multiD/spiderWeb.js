@@ -17,7 +17,7 @@ PykCharts.multiD.spiderWeb = function (options) {
         d3.json(options.data, function (e, data) {
             that.data = data;
             $(that.selector+" #chart-loader").remove();
-            that.render();            
+            that.render();
         });
     };
 
@@ -221,7 +221,8 @@ PykCharts.multiD.spiderWeb = function (options) {
                         
                     spider.attr("class","link")
                         .attr("stroke",function (d) {
-                           return d.color;
+                            console.log(d.color);
+                            return d.color;
                         })
                         .attr("stroke-opacity",1)
                         .attr("id","link"+m)
