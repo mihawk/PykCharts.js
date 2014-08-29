@@ -4157,7 +4157,7 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     }
     return chartObject;
 };
-PykCharts.multiD.line = function (options){
+PykCharts.multiD.lineChart = function (options){
 	var that = this;
 	var theme = new PykCharts.Configuration.Theme({});
 
@@ -4843,7 +4843,7 @@ PykCharts.multiD.line = function (options){
 	// 	$("#modalFullScreen").bPopup({position: [30, 10],transition: 'fadeIn',onClose: function(){ $('.clone').remove(); }});
 	// };
 };
-PykCharts.multiD.area = function (options){
+PykCharts.multiD.areaChart = function (options){
 	var that = this;
 	var theme = new PykCharts.Configuration.Theme({});
 
@@ -5303,7 +5303,7 @@ PykCharts.multiD.area = function (options){
  //    $("#modalFullScreen").bPopup({position: [30, 10],transition: 'fadeIn',onClose: function(){ $('.clone').remove(); }});
  //  };
 };
-PykCharts.multiD.ultimateBar = function(options){
+PykCharts.multiD.barChart = function(options){
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
     
@@ -6036,7 +6036,7 @@ PykCharts.multiD.ultimateBar = function(options){
     };
     return this;
 };
-PykCharts.multiD.ultimate = function(options){
+PykCharts.multiD.columnChart = function(options){
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
     
@@ -6695,7 +6695,7 @@ PykCharts.multiD.ultimate = function(options){
     return this;
 };
 
-PykCharts.multiD.scatterplot = function (options) {
+PykCharts.multiD.scatterPlot = function (options) {
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
     
