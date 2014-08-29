@@ -1234,7 +1234,8 @@ PykCharts.oneD.bubble = function (options) {
         d3.json (options.data, function (e,data) {
             that.data = data;
             that.optionalFeatures()
-                .createBubble();
+                .createBubble()
+                .label();
         });
     };
 
@@ -1245,7 +1246,7 @@ PykCharts.oneD.bubble = function (options) {
         if (that.mode ==="default") {
             that.k.title();
             that.k.subtitle();
-
+            that.b = that.optionalFeatures().clubData();
             var bubble = that.optionalFeatures().svgContainer()
                 .createBubble()
                 .label();
@@ -1258,6 +1259,7 @@ PykCharts.oneD.bubble = function (options) {
         that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
        }
        else if (that.mode ==="infographics") {
+            that.b = {"children" : that.data};
             that.optionalFeatures().svgContainer()
                 .createBubble()
                 .label();
@@ -1284,7 +1286,7 @@ PykCharts.oneD.bubble = function (options) {
                 return this;
             },
             createBubble : function () {
-                that.b = that.optionalFeatures().clubData();
+                
                 that.bubble = d3.layout.pack()
                     .sort(function (a,b) { return b.weight - a.weight; })
                     .size([that.width, that.height])
@@ -1297,7 +1299,7 @@ PykCharts.oneD.bubble = function (options) {
                 that.max = that.b.children[l-1].weight;
                 that.node = that.bubble.nodes(that.b);
 
-                that.bub_node = that.group.selectAll(".node")
+                that.bub_node = that.group.selectAll(".bubble-node")
                     .data(that.node);
 
                 that.bub_node.enter()
@@ -1335,6 +1337,7 @@ PykCharts.oneD.bubble = function (options) {
                     .transition()
                     .duration(that.transitions.duration())
                     .attr("r",function (d) {return d.r; });
+                that.bub_node.exit().remove();
 
                 return this;
             },
@@ -1374,6 +1377,7 @@ PykCharts.oneD.bubble = function (options) {
                         })
                         .attr("fill", that.label.color)
                         .style("font-family", that.label.family);
+                    that.bub_text.exit().remove;
                 return this;
             },
             clubData : function () {
@@ -1490,7 +1494,7 @@ PykCharts.oneD.funnel = function (options) {
     //----------------------------------------------------------------------------------------
     this.refresh = function () {
         d3.json (options.data, function (e,data) {
-            that.data = data;
+            that.data = data.groupBy();
             that.optionalFeatures()
                     .clubData()
                     .createFunnel()
@@ -1764,7 +1768,7 @@ PykCharts.oneD.funnel = function (options) {
                 if(PykCharts.boolean(that.overflowTicks)) {
                     that.svg.style("overflow","visible");
                 }   
-                    var line = that.group.selectAll("funnel-ticks")
+                    var line = that.group.selectAll(".funnel-ticks")
                         .data(that.coordinates);
 
                     line.enter()
@@ -2085,7 +2089,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                 return this;
             },
             label : function () {
-                    that.per_text = that.group.selectAll(".text")
+                    that.per_text = that.group.selectAll(".per-text")
                         .data(that.newData1);
                     var sum = 0;
                     that.per_text.enter()
@@ -2539,7 +2543,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
     var that = chartObject;
        that.refresh = function () {
         d3.json(options.data, function (e, data) {
-            that.data = data;
+            that.data = data.groupBy();
             that.optionalFeatures()
                     .createPie()
                     .label()
@@ -2567,6 +2571,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                 .subtitle();
 
             that.optionalFeatures().svgContainer();
+            that.chartData = that.optionalFeatures().clubData();
 
             that.k.credits()
                     .dataSource()
@@ -2583,6 +2588,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
 
             that.k.liveData(that);
         } else if(that.mode.toLowerCase() == "infographics") {
+            that.chartData = that.data;
             that.optionalFeatures().svgContainer()
                     .set_start_end_angle()
                     .createPie()
@@ -2616,8 +2622,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
             },
             createPie : function () {
                 d3.select(options.selector +" "+"#pieGroup").node().innerHTML="";
-                that.chartData = that.optionalFeatures().clubData();
-
+                
                 if(type.toLowerCase() == "pie" || type.toLowerCase() == "donut") {
                     that.chartData.sort(function (a,b) { return a.weight - b.weight;});
                     var temp = that.chartData.pop();
@@ -3019,7 +3024,7 @@ PykCharts.oneD.pyramid = function (options) {
 
     this.refresh = function () {
         d3.json (options.data, function (e,data) {
-            that.data = data;
+            that.data = data.groupBy();
             that.optionalFeatures()
                     .createChart()
                     .label()
@@ -3271,7 +3276,7 @@ PykCharts.oneD.pyramid = function (options) {
                 if(PykCharts.boolean(that.overflowTicks)) {
                     that.svg.style("overflow","visible");
                 }
-                var line = that.group.selectAll("pyr-ticks")
+                var line = that.group.selectAll(".pyr-ticks")
                     .data(that.coordinates);
 
                 var n = that.chartData.length;
