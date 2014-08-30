@@ -903,7 +903,7 @@ configuration.Theme = function(){
             "enableFullScreen": "no"
         },
         "tooltip": {
-            "enable" : "no"
+            "enable" : "yes"
         },
         "creditMySite":{
             "mySiteName": "Pykih",
@@ -2645,7 +2645,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                     .attr("id","container")
                     .attr("class","svgcontainer");
                 that.group = that.svgContainer.append("g")
-                    .attr("transform","translate("+(that.width/2)+","+(that.k._radiusCalculation(that.radiusPercent)+40)+")")
+                    .attr("transform","translate("+(that.width/2)+","+(that.k._radiusCalculation(that.radiusPercent))+")")
                     .attr("id","pieGroup");
 
                 return this;
@@ -2675,6 +2675,8 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                 });
                 that.innerRadius = that.k._radiusCalculation(that.innerRadiusPercent);
                 that.radius = that.k._radiusCalculation(that.radiusPercent);
+
+                console.log(that.radius,"radius",type);
 
                 that.arc = d3.svg.arc()
                     .innerRadius(that.innerRadius)
