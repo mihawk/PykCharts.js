@@ -239,7 +239,6 @@ PykCharts.multiD.mouseEvent = function (options) {
 PykCharts.multiD.bubbleSizeCalculation = function (options,data,rad_range) {
     var size = function (d) {
         if(d && PykCharts.boolean(options.size.enable)) {
-            console.log(rad_range,"rad_range");
             var z = d3.scale.linear()
                         .domain(d3.extent(data,function (d) {
                             return d.weight;

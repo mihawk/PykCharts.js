@@ -19,7 +19,6 @@ PykCharts.multiD.scatterPlot = function (options) {
         that.bubbleRadius = options.scatterplot && _.isNumber(options.scatterplot.radius) ? options.scatterplot.radius : multiDimensionalCharts.scatterplot.radius;
         that.zoomedOut = true;
         if(PykCharts.boolean(that.multiple_containers)) {
-            console.log("inside");
             that.radius_range = [5,12];
         } else {
             that.radius_range = [20,50];
@@ -65,7 +64,6 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
         d3.json(options.data, function (e, data) {
             that.data = data;
             that.mapGroupData = that.multiD.mapGroup(that.data);
-            console.log("hey");
             that.optionalFeatures()
                     .createScatterPlot()
                     .legends()
@@ -94,8 +92,8 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                 that.no_of_groups = that.data_group.length;
                 that.w = that.width/4;
                 that.height = that.height/2;
-                that.margin.left = 25;
-                that.margin.right = 15;
+                that.margin.left = that.margin.left;
+                that.margin.right = that.margin.right;
 //                that.radius_range = [20,35];
                 for(i=0;i<that.no_of_groups;i++){
                     that.new_data = [];
@@ -295,6 +293,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                             yinvert = y_domain[1] - yinvert;
                             return yinvert;
                         });
+                        console.log(y_data,"y_data");
                         y_range = [that.height - that.margin.top - that.margin.bottom, 0];
                         that.y = that.k.scaleIdentification("linear",y_data,y_range);
                         that.top_margin = 0;
