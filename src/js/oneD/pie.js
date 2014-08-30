@@ -164,7 +164,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                     .attr("id","container")
                     .attr("class","svgcontainer");
                 that.group = that.svgContainer.append("g")
-                    .attr("transform","translate("+(that.width/2)+","+(that.k._radiusCalculation(that.radiusPercent)+40)+")")
+                    .attr("transform","translate("+(that.width/2)+","+(that.k._radiusCalculation(that.radiusPercent))+")")
                     .attr("id","pieGroup");
 
                 return this;

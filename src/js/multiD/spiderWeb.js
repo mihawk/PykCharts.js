@@ -119,7 +119,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                 that.group_arr = [];
                 that.unique_arr = [];
                 for(j=0; j<that.data.length; j++) {
-                    that.group_arr[j] = that.data[j].group;
+                    that.group_arr[j] = that.data[j].name;
                 }
                 that.uniq_arr = _.uniq(that.group_arr);
                 var len = that.uniq_arr.length;
@@ -131,7 +131,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                         data: []
                     };                   
                     for (l=0; l<that.data.length; l++) {
-                        if (that.uniq_arr[k] === that.data[l].group) {
+                        if (that.uniq_arr[k] === that.data[l].name) {
                             that.new_data[k].data.push({
                                 x: that.data[l].x,
                                 y: that.data[l].y,
@@ -434,7 +434,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                         .attr("fill","black")
                         .attr(text_parameter1, text_parameter1value)
                         .attr(text_parameter2, text_parameter2value)
-                        .text(function (d) { return d.group });
+                        .text(function (d) { return d.name });
 
                     that.legends_text.exit()
                                     .remove();

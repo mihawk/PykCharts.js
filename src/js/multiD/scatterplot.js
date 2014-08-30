@@ -1,4 +1,3 @@
-
 PykCharts.multiD.scatterPlot = function (options) {
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
@@ -19,7 +18,11 @@ PykCharts.multiD.scatterPlot = function (options) {
         that.multiple_containers = optional && optional.multiple_containers && optional.multiple_containers.enable ? optional.multiple_containers.enable : multiDimensionalCharts.multiple_containers.enable;
         that.bubbleRadius = options.scatterplot && _.isNumber(options.scatterplot.radius) ? options.scatterplot.radius : multiDimensionalCharts.scatterplot.radius;
         that.zoomedOut = true;
-        that.radius_range = [20,50];
+        if(PykCharts.boolean(that.multiple_containers)) {
+            that.radius_range = [5,12];
+        } else {
+            that.radius_range = [20,50];
+        }
         d3.json(options.data, function (e, data) {
             that.data = data;
             $(that.selector+" #chart-loader").remove();
@@ -61,7 +64,6 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
         d3.json(options.data, function (e, data) {
             that.data = data;
             that.mapGroupData = that.multiD.mapGroup(that.data);
-            console.log("hey");
             that.optionalFeatures()
                     .createScatterPlot()
                     .legends()
@@ -90,9 +92,9 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                 that.no_of_groups = that.data_group.length;
                 that.w = that.width/4;
                 that.height = that.height/2;
-                that.margin.left = 25;
-                that.margin.right = 15;
-                that.radius_range = [20,35];
+                that.margin.left = that.margin.left;
+                that.margin.right = that.margin.right;
+//                that.radius_range = [20,35];
                 for(i=0;i<that.no_of_groups;i++){
                     that.new_data = [];
                     for(j=0;j<that.data.length;j++) {
@@ -291,6 +293,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                             yinvert = y_domain[1] - yinvert;
                             return yinvert;
                         });
+                        console.log(y_data,"y_data");
                         y_range = [that.height - that.margin.top - that.margin.bottom, 0];
                         that.y = that.k.scaleIdentification("linear",y_data,y_range);
                         that.top_margin = 0;
