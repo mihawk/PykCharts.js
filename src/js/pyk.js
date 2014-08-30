@@ -456,20 +456,16 @@ configuration.mouseEvent = function (options) {
     that.focus_circle = configuration.focus_circle;
     var status;
     var action = {
-        tooltipPosition : function (d,xPos,yPos,xDiff,yDiff) {
+        tooltipPosition : function (d,xPos,yPos,xDiff,yDiff,group_index) {
             if(PykCharts.boolean(options.tooltip.enable)) {
-                // var tooltip = d3.selectAll(options.selector+" #pyk-tooltip");
-                // console.log(tooltip,"**********");
             	if(xPos !== undefined){
-                    var width_tooltip = parseFloat($(options.selector+" #"+that.tooltip.attr("id")).css("width"));
-                    // d3.selectAll(options.selector+" #pyk-tooltip")
-                    that.tooltip
-            			.style("visibility", "visible")
-                        .style("top", (yPos + yDiff) + "px")
-                        .style("left", (xPos + options.margin.left + xDiff - width_tooltip) + "px");
+                    var width_tooltip = parseFloat($(options.selector+" #tooltip-svg-container-"+group_index).next("#pyk-tooltip").css("width"));
+                    $(options.selector+" #tooltip-svg-container-"+group_index).next("#pyk-tooltip")
+            			.css("visibility", "visible")
+                        .css("top", (yPos + yDiff) + "px")
+                        .css("left", (xPos + options.margin.left + xDiff - width_tooltip) + "px");
                 }
                 else {
-                    // d3.selectAll(options.selector+" #pyk-tooltip")
                     that.tooltip
                         .style("visibility", "visible")
                         .style("top", (d3.event.pageY - 20) + "px")
@@ -478,17 +474,25 @@ configuration.mouseEvent = function (options) {
                 return that.tooltip;
             }
         },
-        toolTextShow : function (d) {
+        toolTextShow : function (d,multiple_containers,type,group_index) {
             if(PykCharts.boolean(options.tooltip.enable)) {
-            	// d3.selectAll(options.selector+" #pyk-tooltip").html(d);
-                that.tooltip.html(d);
+                if(multiple_containers === "yes" && type === "multilineChart") {
+                    $(options.selector+" #tooltip-svg-container-"+group_index).next("#pyk-tooltip").html(d);
+                }
+                else {
+                    that.tooltip.html(d);
+                }                
             }
             return this;
         },
-        tooltipHide : function (d) {
+        tooltipHide : function (d,multiple_containers,type) {
             if(PykCharts.boolean(options.tooltip.enable)) {
-                // return d3.selectAll(options.selector+" #pyk-tooltip").style("visibility", "hidden");
-                return that.tooltip.style("visibility", "hidden");
+                if(multiple_containers === "yes" && type === "multilineChart") {
+                    return d3.selectAll(options.selector+" .pyk-line-tooltip").style("visibility","hidden");
+                }
+                else {
+                    return that.tooltip.style("visibility", "hidden");
+                }
             }
         },
         crossHairPosition: function(data,new_data,xScale,yScale,dataLineGroup,lineMargin,type,tooltipMode,color_from_data,multiple_containers){
@@ -503,12 +507,13 @@ configuration.mouseEvent = function (options) {
                 var w = options.width;
                 var h = options.height;
                 var group_index = parseInt(d3.event.target.id.substr((d3.event.target.id.length-1),1));
+                var c = b - a;
                 var x = d3.event.pageX - offsetLeft;
                 var y = d3.event.pageY - offsetTop;
                 var x_range = xScale.range();
                 var y_range = yScale.range();
                 var j,tooltpText,active_x_tick,active_y_tick = [],left_diff,right_diff,
-                    pos_line_cursor_x,pos_line_cursor_y,right_tick,left_tick,
+                    pos_line_cursor_x,pos_line_cursor_y = [],right_tick,left_tick,
                     range_length = x_range.length,colspan;
 
                 for(j = 0;j < range_length;j++) {
@@ -525,9 +530,6 @@ configuration.mouseEvent = function (options) {
 
                             if(left_diff >= right_diff) {
                                 active_x_tick = data[j].x;
-                                // for(var a=0;a < number_of_lines;a++) {
-                                //     if(new_data[a].)
-                                // }
                                 active_y_tick.push(data[j].y);
                                 tooltipText = data[j].tooltip;
                                 pos_line_cursor_x = (xScale(active_x_tick) + lineMargin + left);
@@ -562,31 +564,49 @@ configuration.mouseEvent = function (options) {
                                     }
                                     pos_line_cursor_x += 6;
                                     tooltipText = "<table><thead><th colspan='"+colspan+"'>"+active_x_tick+"</th></thead><tbody>"+tt_row+"</tbody></table>";
-                                    this.tooltipPosition(tooltipText,pos_line_cursor_x,y,60,-15);
+                                    this.tooltipPosition(tooltipText,pos_line_cursor_x,y,60,-15,group_index);
+                                    this.toolTextShow(tooltipText);
+                                    (options.enableCrossHair) ? this.crossHairShow(pos_line_cursor_x,top,pos_line_cursor_x,(h - bottom),pos_line_cursor_x,pos_line_cursor_y,type,active_y_tick.length,multiple_containers) : null;
+                                    this.axisHighlightShow(active_y_tick,options.selector+" .y.axis");
+                                    this.axisHighlightShow(active_x_tick,options.selector+" .x.axis");
                                 }
-                                else if(multiple_containers === "yes") {                                    
-                                    // console.log(dataLineGroup[0].attr("id"),x);
+                                else if(multiple_containers === "yes") {
+                                    var first_axis = $(options.selector+" #svg-0 #xaxis").offset().left;
+                                    var second_axis = $(options.selector+" #svg-1 #xaxis").offset().left;
+                                    var diff_containers = second_axis - first_axis;
                                     pos_line_cursor_x += 5;
-                                    this.tooltipPosition(tooltipText,pos_line_cursor_x,pos_line_cursor_y,0,-45);
+                                    var len_data = new_data[0].data.length;
+                                    for(var a=0;a < number_of_lines;a++) {
+                                        for(var b=0;b < len_data;b++) {
+                                            if(new_data[a].data[b].x === active_x_tick) {
+                                                active_y_tick.push(new_data[a].data[b].y);
+                                                tooltipText = new_data[a].data[b].tooltip;
+                                                pos_line_cursor_y = (yScale(new_data[a].data[b].y) + top);
+                                                this.tooltipPosition(tooltipText,(pos_line_cursor_x+(a*diff_containers)),pos_line_cursor_y,-15,-15,a);
+                                                this.toolTextShow(tooltipText,multiple_containers,type,a);
+                                                (options.enableCrossHair) ? this.crossHairShow(pos_line_cursor_x,top,pos_line_cursor_x,(h - bottom),pos_line_cursor_x,pos_line_cursor_y,type,active_y_tick.length,multiple_containers,a) : null;
+                                            }
+                                        }
+                                    }
                                 }
                             }
                             else if(type === "lineChart" || type === "areaChart") {
                                 if((options.tooltip.mode).toLowerCase() === "fixed") {
-                                    this.tooltipPosition(tooltipText,0,pos_line_cursor_y,-14,-15);
+                                    this.tooltipPosition(tooltipText,0,pos_line_cursor_y,-14,-15,group_index);
                                 } else if((options.tooltip.mode).toLowerCase() === "moving"){
-                                    this.tooltipPosition(tooltipText,pos_line_cursor_x,pos_line_cursor_y,5,-45);
+                                    this.tooltipPosition(tooltipText,pos_line_cursor_x,pos_line_cursor_y,5,-45,group_index);
                                 }
+                                this.toolTextShow(tooltipText);
+                                (options.enableCrossHair) ? this.crossHairShow(pos_line_cursor_x,top,pos_line_cursor_x,(h - bottom),pos_line_cursor_x,pos_line_cursor_y,type,active_y_tick.length,multiple_containers) : null;
+                                this.axisHighlightShow(active_y_tick,options.selector+" .y.axis");
+                                this.axisHighlightShow(active_x_tick,options.selector+" .x.axis");
                             }
-                            this.toolTextShow(tooltipText);
-                            (options.enableCrossHair) ? this.crossHairShow(pos_line_cursor_x,top,pos_line_cursor_x,(h - bottom),pos_line_cursor_x,pos_line_cursor_y,type,active_y_tick.length,multiple_containers) : null;
-                            this.axisHighlightShow(active_x_tick,options.selector+" .x.axis");
-                            this.axisHighlightShow(active_y_tick,options.selector+" .y.axis");
                         }
                     }
                 }
             }
         },
-        crossHairShow : function (x1,y1,x2,y2,cx,cy,type,no_bullets,multiple_containers) {
+        crossHairShow : function (x1,y1,x2,y2,cx,cy,type,no_bullets,multiple_containers,group_index) {
             if(PykCharts.boolean(options.enableCrossHair)) {
                 if(x1 !== undefined) {
                     if(type === "lineChart" || type === "areaChart") {
@@ -607,7 +627,6 @@ configuration.mouseEvent = function (options) {
 
                     }
                     else if(type === "multilineChart") {
-                        // Horizontal Cursor Removed & Multiple focus circles --- Pending!!!
                         if(multiple_containers === "no") {
                             that.cross_hair_v.style("display","block");
                             that.cross_hair_v.select(options.selector + " #cross-hair-v")
@@ -623,12 +642,12 @@ configuration.mouseEvent = function (options) {
                                 .attr("y1",y1)
                                 .attr("x2",(x2 - 5))
                                 .attr("y2",y2);
-                            d3.selectAll(options.selector + " .cross-hair-h")
+                            d3.select(options.selector+" #svg-"+group_index+" .cross-hair-h")
                                 .attr("x1",options.margin.left)
                                 .attr("y1",cy)
                                 .attr("x2",(options.width - options.margin.right))
                                 .attr("y2",cy);
-                            d3.selectAll(options.selector+" .focus").style("display","block")
+                            d3.select(options.selector+" #svg-"+group_index+" .focus").style("display","block")
                                 .attr("transform", "translate(" + (cx - 5) + "," + cy + ")");
                         }
                     }

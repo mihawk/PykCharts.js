@@ -101,7 +101,7 @@ PykCharts.multiD.areaChart = function (options){
 				$(options.selector).css({"background-color":that.bg,"position":"relative"});
 
 				that.svg = d3.select(options.selector+" "+"#tooltip-svg-container-"+i).append("svg:svg")
-					.attr("id","svg")
+					.attr("id","svg-"+i)
 					.attr("width",that.width)
 					.attr("height",that.height);
 

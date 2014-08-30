@@ -8,7 +8,9 @@
         <hr/>
         <div id="area"></div>
         <hr/>
-        <div id="multiLine"></div>
+        <div id="multiLine1"></div>
+        <hr/>
+        <div id="multiLine2"></div>
         <hr/>
         <div id="multiArea"></div>
         <hr/>
@@ -281,7 +283,81 @@
                 k.execute();
 
                 var k = new PykCharts.multiD.lineChart ({
-                    selector: "#multiLine",
+                    selector: "#multiLine1",
+                    data: "../data/multiLineChart.json",
+                    mode : "default",
+                    yAxisDataFormat : "number",
+                    xAxisDataFormat : "string",
+                    optional:{
+                         chart: {
+                            height: 400,
+                            width: 630,
+                            margin: {top: 5, right: 25, bottom: 25, left: 45},
+                            grid: {
+                                xEnabled: "no",
+                                yEnabled: "yes",
+                                color: ""
+                            },
+                        },/*
+                        line: {
+                            color_from_data: "no"
+                        },*/
+                        transition : {
+                            duration : 0 //milliseconds
+                        },
+                        multiple_containers: {
+                            enable : "no"
+                        },
+                        realTimeCharts: {
+                            refreshFrequency: 0 // seconds
+                        },/*
+                        colors: {
+                            highlightColor: "red",
+                            chartColor: "#ccc"
+                        },*/
+                        enableTooltip: "yes",
+                        axis : {
+                            onHoverHighlightenable: "yes",
+                            x: {
+                                enable: "yes",
+                                position: "bottom", //top or bottom
+                                orient : "bottom",
+                                axisColor: "#1D1D1D",
+                                labelColor: "#1D1D1D",
+                                tickSize: 3,
+                                ticksPadding: 10,
+                                outer_tick_size: 3
+                            },
+                            y: {
+                                enable: "yes",
+                                position:"left", //left or right
+                                orient: "left",
+                                axisColor: "#1D1D1D",
+                                labelColor: "#1D1D1D",
+                                tickSize: 3,
+                                ticksPadding: 10,
+                                outer_tick_size: 3,
+                                no_of_ticks: 10
+                            }
+                        },
+                        legends: {
+                            enable: "yes",
+                            display: "horizontal"
+                        },
+                        legendsText: {
+                            size: "14",
+                            color: "black",
+                            weight: "thin", // or "thick"
+                            family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
+                        },
+                        curvy_lines : "yes",
+                        enableCrossHair: "yes"
+                    }
+                });
+                k.execute();
+
+                var k = new PykCharts.multiD.lineChart ({
+                    selector: "#multiLine2",
                     data: "../data/multiLineChart.json",
                     mode : "default",
                     yAxisDataFormat : "number",
@@ -322,9 +398,9 @@
                                 orient : "bottom",
                                 axisColor: "#1D1D1D",
                                 labelColor: "#1D1D1D",
-                                tickSize: 3,
-                                ticksPadding: 3,
-                                outer_tick_size: 3
+                                tickSize: 0,
+                                ticksPadding: 10,
+                                outer_tick_size: 0
                             },
                             y: {
                                 enable: "yes",
@@ -332,10 +408,9 @@
                                 orient: "left",
                                 axisColor: "#1D1D1D",
                                 labelColor: "#1D1D1D",
-                                tickSize: 3,
+                                tickSize: 0,
                                 ticksPadding: 10,
-                                outer_tick_size: 3,
-                                no_of_ticks: 10
+                                outer_tick_size: 0
                             }
                         },
                         legends: {

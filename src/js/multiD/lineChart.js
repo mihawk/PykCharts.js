@@ -540,7 +540,7 @@ PykCharts.multiD.lineChart = function (options){
 					else if (that.type === "multilineChart" && that.mode === "default") {
 						that.svg
 							.on('mouseout', function (d) {
-								that.mouseEvent.tooltipHide();
+								that.mouseEvent.tooltipHide(null,that.multiple_containers,that.type);
 								that.mouseEvent.crossHairHide(that.type);
 								that.mouseEvent.axisHighlightHide(that.selector + " .x.axis");
 								that.mouseEvent.axisHighlightHide(that.selector + " .y.axis");
