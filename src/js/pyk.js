@@ -199,7 +199,7 @@ PykCharts.Configuration = function (options){
             return this;
         },
 	    tooltip : function (d,selection,i) {
-            if(PykCharts.boolean(options.enableTooltip) && options.mode === "default") {
+            if(PykCharts.boolean(options.tooltip.enable) && options.mode === "default") {
                 if(selection !== undefined){
                     PykCharts.Configuration.tooltipp = d3.select(selection).append("div")
                         .attr("id", "pyk-tooltip")
@@ -223,8 +223,8 @@ PykCharts.Configuration = function (options){
                         .style("z-index","10")
                         .style("visibility", "hidden");
                 }
-            } else if (PykCharts.boolean(options.tooltip)) {
-                if (options.tooltip.mode === "fixed" && PykCharts.boolean(options.tooltip.enable)) {
+            } else if (PykCharts.boolean(options.tooltip.enable)) {
+                if (options.tooltip.mode === "fixed") {
                     PykCharts.Configuration.tooltipp = d3.select("body")
                         .append("div")
                         .attr("id", "pyk-tooltip")
@@ -262,26 +262,6 @@ PykCharts.Configuration = function (options){
                         .style("z-index","10")
                         .style("visibility", "hidden");
                 }
-            }
-            else {
-                PykCharts.Configuration.tooltipp = d3.select("body")
-                    .append("div")
-                    .attr("id", "pyk-tooltip")
-                    // .attr("class","pyk-line-tooltip");
-                    .style("height","auto")
-                    .style("padding", "5px 6px")
-                    .style("color","#4F4F4F")
-                    .style("background","#eeeeee")
-                    .style("text-decoration","none")
-                    .style("position", "absolute")
-                    .style("border-radius", "5px")
-                    .style("text-align","center")
-                    .style("font-family","Arial, Helvetica, sans-serif")
-                    .style("font-size","14px")
-                    .style("border","1px solid #CCCCCC")
-                    .style("min-width","30px")
-                    .style("z-index","10")
-                    .style("visibility", "hidden");
             }
             return this;
         },
@@ -477,7 +457,7 @@ configuration.mouseEvent = function (options) {
     var status;
     var action = {
         tooltipPosition : function (d,xPos,yPos,xDiff,yDiff) {
-            if(PykCharts.boolean(options.enableTooltip)) {
+            if(PykCharts.boolean(options.tooltip.enable)) {
                 // var tooltip = d3.selectAll(options.selector+" #pyk-tooltip");
                 // console.log(tooltip,"**********");
             	if(xPos !== undefined){
@@ -499,20 +479,20 @@ configuration.mouseEvent = function (options) {
             }
         },
         toolTextShow : function (d) {
-            if(PykCharts.boolean(options.enableTooltip)) {
+            if(PykCharts.boolean(options.tooltip.enable)) {
             	// d3.selectAll(options.selector+" #pyk-tooltip").html(d);
                 that.tooltip.html(d);
             }
             return this;
         },
         tooltipHide : function (d) {
-            if(PykCharts.boolean(options.enableTooltip)) {
+            if(PykCharts.boolean(options.tooltip.enable)) {
                 // return d3.selectAll(options.selector+" #pyk-tooltip").style("visibility", "hidden");
                 return that.tooltip.style("visibility", "hidden");
             }
         },
         crossHairPosition: function(data,new_data,xScale,yScale,dataLineGroup,lineMargin,type,tooltipMode,color_from_data,multiple_containers){
-            if((PykCharts.boolean(options.enableCrossHair) || PykCharts.boolean(options.enableTooltip) || PykCharts.boolean(options.onHoverHighlightenable))  && options.mode === "default") {
+            if((PykCharts.boolean(options.enableCrossHair) || PykCharts.boolean(options.tooltip.enable) || PykCharts.boolean(options.onHoverHighlightenable))  && options.mode === "default") {
                 var offsetLeft = $(options.selector + " #"+dataLineGroup[0].attr("id")).offset().left;
                 var offsetTop = $(options.selector + " #"+dataLineGroup[0].attr("id")).offset().top;
                 var number_of_lines = new_data.length;
@@ -921,7 +901,9 @@ configuration.Theme = function(){
         "buttons":{
             "enableFullScreen": "no"
         },
-        "enableTooltip": "yes",
+        "tooltip": {
+            "enable" : "yes"
+        },
         "creditMySite":{
             "mySiteName": "Pykih",
             "mySiteUrl": "http://www.pykih.com"

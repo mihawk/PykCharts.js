@@ -158,7 +158,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                 return this;
             },
             label : function () {
-                    that.per_text = that.group.selectAll(".text")
+                    that.per_text = that.group.selectAll(".per-text")
                         .data(that.newData1);
                     var sum = 0;
                     that.per_text.enter()

@@ -199,7 +199,7 @@ PykCharts.Configuration = function (options){
             return this;
         },
 	    tooltip : function (d,selection,i) {
-            if(PykCharts.boolean(options.enableTooltip) && options.mode === "default") {
+            if(PykCharts.boolean(options.tooltip.enable) && options.mode === "default") {
                 if(selection !== undefined){
                     PykCharts.Configuration.tooltipp = d3.select(selection).append("div")
                         .attr("id", "pyk-tooltip")
@@ -223,8 +223,8 @@ PykCharts.Configuration = function (options){
                         .style("z-index","10")
                         .style("visibility", "hidden");
                 }
-            } else if (PykCharts.boolean(options.tooltip)) {
-                if (options.tooltip.mode === "fixed" && PykCharts.boolean(options.tooltip.enable)) {
+            } else if (PykCharts.boolean(options.tooltip.enable)) {
+                if (options.tooltip.mode === "fixed") {
                     PykCharts.Configuration.tooltipp = d3.select("body")
                         .append("div")
                         .attr("id", "pyk-tooltip")
@@ -263,29 +263,9 @@ PykCharts.Configuration = function (options){
                         .style("visibility", "hidden");
                 }
             }
-            else {
-                PykCharts.Configuration.tooltipp = d3.select("body")
-                    .append("div")
-                    .attr("id", "pyk-tooltip")
-                    // .attr("class","pyk-line-tooltip");
-                    .style("height","auto")
-                    .style("padding", "5px 6px")
-                    .style("color","#4F4F4F")
-                    .style("background","#eeeeee")
-                    .style("text-decoration","none")
-                    .style("position", "absolute")
-                    .style("border-radius", "5px")
-                    .style("text-align","center")
-                    .style("font-family","Arial, Helvetica, sans-serif")
-                    .style("font-size","14px")
-                    .style("border","1px solid #CCCCCC")
-                    .style("min-width","30px")
-                    .style("z-index","10")
-                    .style("visibility", "hidden");
-            }
             return this;
         },
-        crossHair : function (svg,i) {
+        crossHair : function (svg) {
             if(PykCharts.boolean(options.enableCrossHair) && options.mode === "default") {
                 /*$(options.selector + " " + "#cross-hair-v").remove();
                 $(options.selector + " " + "#focus-circle").remove();*/
@@ -295,7 +275,7 @@ PykCharts.Configuration = function (options){
                 PykCharts.Configuration.cross_hair_v.append("line")
                     .attr("class","cross-hair-v")
                     .attr("id","cross-hair-v");
-
+                
                 PykCharts.Configuration.cross_hair_h = svg.append("g")
                     .attr("class","line-cursor")
                     .style("display","none");
@@ -304,13 +284,11 @@ PykCharts.Configuration = function (options){
                     .attr("id","cross-hair-h");
 
                 PykCharts.Configuration.focus_circle = svg.append("g")
-                    .attr("class", function () { return (options.type === "areaChart") ? "focus-area" : "focus"; })
-                    .style("display", "none");
+                    .attr("class","focus")
+                    .style("display","none");
                 PykCharts.Configuration.focus_circle.append("circle")
                     .attr("id","focus-circle")
-                    .attr("r",6)
-                    .style("fill",function () { return (options.type === "areaChart") ? "none" : options.chartColor; });
-                // console.log(PykCharts.Configuration.cross_hair_v.select("line").attr("id"),"**********8",svg.attr("id"),options.selector);
+                    .attr("r",6);
             }
             return this;
         },
@@ -479,15 +457,19 @@ configuration.mouseEvent = function (options) {
     var status;
     var action = {
         tooltipPosition : function (d,xPos,yPos,xDiff,yDiff) {
-            if(PykCharts.boolean(options.enableTooltip)) {
+            if(PykCharts.boolean(options.tooltip.enable)) {
+                // var tooltip = d3.selectAll(options.selector+" #pyk-tooltip");
+                // console.log(tooltip,"**********");
             	if(xPos !== undefined){
                     var width_tooltip = parseFloat($(options.selector+" #"+that.tooltip.attr("id")).css("width"));
+                    // d3.selectAll(options.selector+" #pyk-tooltip")
                     that.tooltip
             			.style("visibility", "visible")
                         .style("top", (yPos + yDiff) + "px")
                         .style("left", (xPos + options.margin.left + xDiff - width_tooltip) + "px");
                 }
                 else {
+                    // d3.selectAll(options.selector+" #pyk-tooltip")
                     that.tooltip
                         .style("visibility", "visible")
                         .style("top", (d3.event.pageY - 20) + "px")
@@ -497,28 +479,31 @@ configuration.mouseEvent = function (options) {
             }
         },
         toolTextShow : function (d) {
-            if(PykCharts.boolean(options.enableTooltip)) {
-            	that.tooltip.html(d);
+            if(PykCharts.boolean(options.tooltip.enable)) {
+            	// d3.selectAll(options.selector+" #pyk-tooltip").html(d);
+                that.tooltip.html(d);
             }
             return this;
         },
         tooltipHide : function (d) {
-            if(PykCharts.boolean(options.enableTooltip)) {
+            if(PykCharts.boolean(options.tooltip.enable)) {
+                // return d3.selectAll(options.selector+" #pyk-tooltip").style("visibility", "hidden");
                 return that.tooltip.style("visibility", "hidden");
             }
         },
         crossHairPosition: function(data,new_data,xScale,yScale,dataLineGroup,lineMargin,type,tooltipMode,color_from_data,multiple_containers){
-            if((PykCharts.boolean(options.enableCrossHair) || PykCharts.boolean(options.enableTooltip) || PykCharts.boolean(options.onHoverHighlightenable))  && options.mode === "default") {
+            if((PykCharts.boolean(options.enableCrossHair) || PykCharts.boolean(options.tooltip.enable) || PykCharts.boolean(options.onHoverHighlightenable))  && options.mode === "default") {
                 var offsetLeft = $(options.selector + " #"+dataLineGroup[0].attr("id")).offset().left;
                 var offsetTop = $(options.selector + " #"+dataLineGroup[0].attr("id")).offset().top;
-                var radius_focus_circle = parseFloat($(options.selector+" #focus-circle").attr("r"));
-                var number_of_lines = dataLineGroup.length;
+                var number_of_lines = new_data.length;
                 var left = options.margin.left;
                 var right = options.margin.right;
                 var top = options.margin.top;
                 var bottom = options.margin.bottom;
                 var w = options.width;
                 var h = options.height;
+                var group_index = parseInt(d3.event.target.id.substr((d3.event.target.id.length-1),1));
+                // console.log(d3.event.pageX,group_index);
                 var x = d3.event.pageX - offsetLeft;
                 var y = d3.event.pageY - offsetTop;
                 var x_range = xScale.range();
@@ -541,6 +526,9 @@ configuration.mouseEvent = function (options) {
 
                             if(left_diff >= right_diff) {
                                 active_x_tick = data[j].x;
+                                // for(var a=0;a < number_of_lines;a++) {
+                                //     if(new_data[a].)
+                                // }
                                 active_y_tick.push(data[j].y);
                                 tooltipText = data[j].tooltip;
                                 pos_line_cursor_x = (xScale(active_x_tick) + lineMargin + left);
@@ -554,27 +542,34 @@ configuration.mouseEvent = function (options) {
                                 pos_line_cursor_y = (yScale(data[j+1].y) + top);
                             }
                             if(type === "multilineChart") {
-                                that.tooltip.classed({"pyk-line-tooltip":false,"pyk-multiline-tooltip":true,"pyk-tooltip-table":true});
-                                var len_data = new_data[0].data.length,tt_row=""; // Assumption -- number of Data points in different groups will always be equal
-                                active_y_tick = [];
-                                for(var a=0;a < number_of_lines;a++) {
-                                    for(var b=0;b < len_data;b++) {
-                                        if(new_data[a].data[b].x === active_x_tick) {
-                                            active_y_tick.push(new_data[a].data[b].y);
-                                            if(!PykCharts.boolean(color_from_data)) {
-                                                tt_row += "<tr><td>"+new_data[a].name+"</td><td><b>"+new_data[a].data[b].tooltip+"</b></td></tr>";
-                                                colspan = 2;
-                                            }
-                                            else if (PykCharts.boolean(color_from_data)) {
-                                                tt_row += "<tr><td><div style='padding:2px;width:5px;height:5px;background-color:"+new_data[a].color+"'></div></td><td>"+new_data[a].name+"</td><td><b>"+new_data[a].data[b].tooltip+"</b></td></tr>";
-                                                colspan = 3;
+                                if(multiple_containers === "no") {
+                                    d3.selectAll(options.selector+" #pyk-tooltip").classed({"pyk-line-tooltip":false,"pyk-multiline-tooltip":true,"pyk-tooltip-table":true});
+                                    var len_data = new_data[0].data.length,tt_row=""; // Assumption -- number of Data points in different groups will always be equal
+                                    active_y_tick = [];
+                                    for(var a=0;a < number_of_lines;a++) {
+                                        for(var b=0;b < len_data;b++) {
+                                            if(new_data[a].data[b].x === active_x_tick) {
+                                                active_y_tick.push(new_data[a].data[b].y);
+                                                if(!PykCharts.boolean(color_from_data)) {
+                                                    tt_row += "<tr><td>"+new_data[a].name+"</td><td><b>"+new_data[a].data[b].tooltip+"</b></td></tr>";
+                                                    colspan = 2;
+                                                }
+                                                else if (PykCharts.boolean(color_from_data)) {
+                                                    tt_row += "<tr><td><div style='padding:2px;width:5px;height:5px;background-color:"+new_data[a].color+"'></div></td><td>"+new_data[a].name+"</td><td><b>"+new_data[a].data[b].tooltip+"</b></td></tr>";
+                                                    colspan = 3;
+                                                }
                                             }
                                         }
                                     }
+                                    pos_line_cursor_x += 6;
+                                    tooltipText = "<table><thead><th colspan='"+colspan+"'>"+active_x_tick+"</th></thead><tbody>"+tt_row+"</tbody></table>";
+                                    this.tooltipPosition(tooltipText,pos_line_cursor_x,y,60,-15);
                                 }
-                                pos_line_cursor_x += 6;
-                                tooltipText = "<table><thead><th colspan='"+colspan+"'>"+active_x_tick+"</th></thead><tbody>"+tt_row+"</tbody></table>";
-                                this.tooltipPosition(tooltipText,pos_line_cursor_x,y,60,50);
+                                else if(multiple_containers === "yes") {                                    
+                                    // console.log(dataLineGroup[0].attr("id"),x);
+                                    pos_line_cursor_x += 5;
+                                    this.tooltipPosition(tooltipText,pos_line_cursor_x,pos_line_cursor_y,0,-45);
+                                }
                             }
                             else if(type === "lineChart" || type === "areaChart") {
                                 if((options.tooltip.mode).toLowerCase() === "fixed") {
@@ -584,7 +579,7 @@ configuration.mouseEvent = function (options) {
                                 }
                             }
                             this.toolTextShow(tooltipText);
-                            (options.enableCrossHair) ? this.crossHairShow(pos_line_cursor_x,top,pos_line_cursor_x,(h - bottom),pos_line_cursor_x,pos_line_cursor_y,type,active_y_tick.length) : null;
+                            (options.enableCrossHair) ? this.crossHairShow(pos_line_cursor_x,top,pos_line_cursor_x,(h - bottom),pos_line_cursor_x,pos_line_cursor_y,type,active_y_tick.length,multiple_containers) : null;
                             this.axisHighlightShow(active_x_tick,options.selector+" .x.axis");
                             this.axisHighlightShow(active_y_tick,options.selector+" .y.axis");
                         }
@@ -592,7 +587,7 @@ configuration.mouseEvent = function (options) {
                 }
             }
         },
-        crossHairShow : function (x1,y1,x2,y2,cx,cy,type,no_bullets) {
+        crossHairShow : function (x1,y1,x2,y2,cx,cy,type,no_bullets,multiple_containers) {
             if(PykCharts.boolean(options.enableCrossHair)) {
                 if(x1 !== undefined) {
                     if(type === "lineChart" || type === "areaChart") {
@@ -614,17 +609,29 @@ configuration.mouseEvent = function (options) {
                     }
                     else if(type === "multilineChart") {
                         // Horizontal Cursor Removed & Multiple focus circles --- Pending!!!
-                        // if(options.multiple_containers.enable === "no") {
+                        if(multiple_containers === "no") {
                             that.cross_hair_v.style("display","block");
                             that.cross_hair_v.select(options.selector + " #cross-hair-v")
                                 .attr("x1",(x1 - 5))
                                 .attr("y1",y1)
                                 .attr("x2",(x2 - 5))
                                 .attr("y2",y2);
-                        // }
-                        // else if(options.multiple_containers.enable === "yes") {
-                        //     console.log(that.cross_hair_v.selectAll("line").attr("id"),"******");
-                        // }
+                        }
+                        else if(multiple_containers === "yes") {
+                            d3.selectAll(options.selector+" .line-cursor").style("display","block");
+                            d3.selectAll(options.selector+" .cross-hair-v")
+                                .attr("x1",(x1 - 5))
+                                .attr("y1",y1)
+                                .attr("x2",(x2 - 5))
+                                .attr("y2",y2);
+                            d3.selectAll(options.selector + " .cross-hair-h")
+                                .attr("x1",options.margin.left)
+                                .attr("y1",cy)
+                                .attr("x2",(options.width - options.margin.right))
+                                .attr("y2",cy);
+                            d3.selectAll(options.selector+" .focus").style("display","block")
+                                .attr("transform", "translate(" + (cx - 5) + "," + cy + ")");
+                        }
                     }
                 }
             }
@@ -636,6 +643,10 @@ configuration.mouseEvent = function (options) {
                 if(type === "lineChart" || type === "areaChart") {
                     that.cross_hair_h.style("display","none");
                     that.focus_circle.style("display","none");
+                }
+                else if(type === "multilineChart") {
+                    d3.selectAll(options.selector+" .line-cursor").style("display","none");
+                    d3.selectAll(options.selector+" .focus").style("display","none");
                 }
             }
             return this;
@@ -891,7 +902,9 @@ configuration.Theme = function(){
         "buttons":{
             "enableFullScreen": "no"
         },
-        "enableTooltip": "yes",
+        "tooltip": {
+            "enable" : "no"
+        },
         "creditMySite":{
             "mySiteName": "Pykih",
             "mySiteUrl": "http://www.pykih.com"
@@ -1188,7 +1201,13 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
     chartObject.highlightColor = optional && optional.colors && optional.colors.highlightColor ? optional.colors.highlightColor : stylesheet.colors.highlightColor;
     chartObject.fullscreen = optional && optional.buttons && optional.buttons.enableFullScreen ? optional.buttons.enableFullScreen : stylesheet.buttons.enableFullScreen;
     chartObject.loading = optional && optional.loading && optional.loading.animationGifUrl ? optional.loading.animationGifUrl: stylesheet.loading.animationGifUrl;
-    chartObject.enableTooltip = optional && optional.enableTooltip ? optional.enableTooltip : stylesheet.enableTooltip;
+    if (optional && optional.tooltip) {
+        chartObject.tooltip = optional.tooltip;        
+        chartObject.tooltip.enable = optional.tooltip.enable ? optional.tooltip.enable : stylesheet.tooltip.enable;
+    } else {
+        chartObject.tooltip = stylesheet.tooltip;
+    //    chartObject.enableTooltip = multiDimensionalCharts.tooltip.enable;     
+    }   
     if (optional && optional.borderBetweenChartElements) {
         chartObject.borderBetweenChartElements = optional.borderBetweenChartElements;
         chartObject.borderBetweenChartElements.width = "width" in optional.borderBetweenChartElements ? optional.borderBetweenChartElements.width : stylesheet.borderBetweenChartElements.width;
@@ -1245,7 +1264,8 @@ PykCharts.oneD.bubble = function (options) {
         d3.json (options.data, function (e,data) {
             that.data = data;
             that.optionalFeatures()
-                .createBubble();
+                .createBubble()
+                .label();
         });
     };
 
@@ -1256,7 +1276,7 @@ PykCharts.oneD.bubble = function (options) {
         if (that.mode ==="default") {
             that.k.title();
             that.k.subtitle();
-
+            that.b = that.optionalFeatures().clubData();
             var bubble = that.optionalFeatures().svgContainer()
                 .createBubble()
                 .label();
@@ -1269,6 +1289,7 @@ PykCharts.oneD.bubble = function (options) {
         that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
        }
        else if (that.mode ==="infographics") {
+            that.b = {"children" : that.data};
             that.optionalFeatures().svgContainer()
                 .createBubble()
                 .label();
@@ -1295,7 +1316,7 @@ PykCharts.oneD.bubble = function (options) {
                 return this;
             },
             createBubble : function () {
-                that.b = that.optionalFeatures().clubData();
+                
                 that.bubble = d3.layout.pack()
                     .sort(function (a,b) { return b.weight - a.weight; })
                     .size([that.width, that.height])
@@ -1308,7 +1329,7 @@ PykCharts.oneD.bubble = function (options) {
                 that.max = that.b.children[l-1].weight;
                 that.node = that.bubble.nodes(that.b);
 
-                that.bub_node = that.group.selectAll(".node")
+                that.bub_node = that.group.selectAll(".bubble-node")
                     .data(that.node);
 
                 that.bub_node.enter()
@@ -1346,6 +1367,7 @@ PykCharts.oneD.bubble = function (options) {
                     .transition()
                     .duration(that.transitions.duration())
                     .attr("r",function (d) {return d.r; });
+                that.bub_node.exit().remove();
 
                 return this;
             },
@@ -1385,6 +1407,7 @@ PykCharts.oneD.bubble = function (options) {
                         })
                         .attr("fill", that.label.color)
                         .style("font-family", that.label.family);
+                    that.bub_text.exit().remove;
                 return this;
             },
             clubData : function () {
@@ -1501,7 +1524,7 @@ PykCharts.oneD.funnel = function (options) {
     //----------------------------------------------------------------------------------------
     this.refresh = function () {
         d3.json (options.data, function (e,data) {
-            that.data = data;
+            that.data = data.groupBy();
             that.optionalFeatures()
                     .clubData()
                     .createFunnel()
@@ -1775,7 +1798,7 @@ PykCharts.oneD.funnel = function (options) {
                 if(PykCharts.boolean(that.overflowTicks)) {
                     that.svg.style("overflow","visible");
                 }   
-                    var line = that.group.selectAll("funnel-ticks")
+                    var line = that.group.selectAll(".funnel-ticks")
                         .data(that.coordinates);
 
                     line.enter()
@@ -2096,7 +2119,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                 return this;
             },
             label : function () {
-                    that.per_text = that.group.selectAll(".text")
+                    that.per_text = that.group.selectAll(".per-text")
                         .data(that.newData1);
                     var sum = 0;
                     that.per_text.enter()
@@ -2550,7 +2573,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
     var that = chartObject;
        that.refresh = function () {
         d3.json(options.data, function (e, data) {
-            that.data = data;
+            that.data = data.groupBy();
             that.optionalFeatures()
                     .createPie()
                     .label()
@@ -2578,6 +2601,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                 .subtitle();
 
             that.optionalFeatures().svgContainer();
+            that.chartData = that.optionalFeatures().clubData();
 
             that.k.credits()
                     .dataSource()
@@ -2594,6 +2618,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
 
             that.k.liveData(that);
         } else if(that.mode.toLowerCase() == "infographics") {
+            that.chartData = that.data;
             that.optionalFeatures().svgContainer()
                     .set_start_end_angle()
                     .createPie()
@@ -2627,8 +2652,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
             },
             createPie : function () {
                 d3.select(options.selector +" "+"#pieGroup").node().innerHTML="";
-                that.chartData = that.optionalFeatures().clubData();
-
+                
                 if(type.toLowerCase() == "pie" || type.toLowerCase() == "donut") {
                     that.chartData.sort(function (a,b) { return a.weight - b.weight;});
                     var temp = that.chartData.pop();
@@ -3030,7 +3054,7 @@ PykCharts.oneD.pyramid = function (options) {
 
     this.refresh = function () {
         d3.json (options.data, function (e,data) {
-            that.data = data;
+            that.data = data.groupBy();
             that.optionalFeatures()
                     .createChart()
                     .label()
@@ -3282,7 +3306,7 @@ PykCharts.oneD.pyramid = function (options) {
                 if(PykCharts.boolean(that.overflowTicks)) {
                     that.svg.style("overflow","visible");
                 }
-                var line = that.group.selectAll("pyr-ticks")
+                var line = that.group.selectAll(".pyr-ticks")
                     .data(that.coordinates);
 
                 var n = that.chartData.length;
@@ -4110,7 +4134,7 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     chartObject.highlightColor = optional && optional.colors && optional.colors.highlightColor ? optional.colors.highlightColor : stylesheet.colors.highlightColor;
     chartObject.fullscreen = optional && optional.buttons && optional.buttons.enableFullScreen ? optional.buttons.enableFullScreen : stylesheet.buttons.enableFullScreen;
     chartObject.loading = optional && optional.loading && optional.loading.animationGifUrl ? optional.loading.animationGifUrl: stylesheet.loading.animationGifUrl;
-    chartObject.enableTooltip = optional && optional.enableTooltip ? optional.enableTooltip : stylesheet.enableTooltip;
+//    chartObject.enableTooltip = optional && optional.enableTooltip ? optional.enableTooltip : stylesheet.enableTooltip
     if (optional && optional.borderBetweenChartElements /*&& optional.borderBetweenChartElements.width!=0 && optional.borderBetweenChartElements.width!="0px"*/) {
         chartObject.borderBetweenChartElements = optional.borderBetweenChartElements;
         chartObject.borderBetweenChartElements.width = "width" in optional.borderBetweenChartElements ? optional.borderBetweenChartElements.width : stylesheet.borderBetweenChartElements.width;
@@ -4167,11 +4191,11 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     chartObject.k = new PykCharts.Configuration(chartObject);
     if (optional && optional.tooltip) {
         chartObject.tooltip = optional.tooltip;        
-        chartObject.enableTooltip = optional.tooltip.enable ? optional.tooltip.enable : multiDimensionalCharts.tooltip.enable;
+        chartObject.tooltip.enable = optional.tooltip.enable ? optional.tooltip.enable : multiDimensionalCharts.tooltip.enable;
         chartObject.tooltip.mode = optional.tooltip.mode ? optional.tooltip.mode : multiDimensionalCharts.tooltip.mode;
     } else {
         chartObject.tooltip = multiDimensionalCharts.tooltip;
-        chartObject.enableTooltip = multiDimensionalCharts.tooltip.enable;     
+    //    chartObject.enableTooltip = multiDimensionalCharts.tooltip.enable;     
     }
     return chartObject;
 };
@@ -4277,9 +4301,7 @@ PykCharts.multiD.lineChart = function (options){
 							.axisContainer();
 
 					that.k.xAxis(that.svg,that.gxaxis,that.xScale)
-							.yAxis(that.svg,that.gyaxis,that.yScale)
-							.yGrid(that.svg,that.group,that.yScale)
-							.xGrid(that.svg,that.group,that.xScale);
+							.yAxis(that.svg,that.gyaxis,that.yScale);
 					if((i+1)%4 === 0 && i !== 0) {
                         that.k.emptyDiv();
                     }
@@ -4699,42 +4721,7 @@ PykCharts.multiD.lineChart = function (options){
 					      			.style("fill", function() { return that.legendsText.color; });
 
 								that.dataLineGroup[0]
-									.style("stroke", that.chartColor)
-									.on("mouseover",function (d) {
-										if(this !== that.selected) {
-											d3.select(this)
-											.classed({'multi-line-hover':true,'multi-line':false})
-											.style("stroke", "orange");
-										}											
-									})
-									.on("mouseout",function (d) {
-										if(this !== that.selected) {
-											d3.select(this)
-												.classed({'multi-line-hover':false,'multi-line':true})
-												.style("stroke", that.chartColor);
-										}
-									})
-									.on("click",function (d) {
-							  			that.selected_line = d3.event.target;
-										that.selected_line_data = that.selected_line.__data__;
-										that.selected_line_data_len = that.selected_line_data.length;
-										
-										that.deselected = that.selected;
-										d3.select(that.deselected)
-												.classed({'multi-line-selected':false,'multi-line':true,'multi-line-hover':false})
-												.style("stroke", function() { return (PykCharts.boolean(that.color_from_data)) ? that.color_before_selection : that.chartColor; });
-										that.selected = this;
-										that.color_before_selection = d3.select(that.selected).style("stroke");
-										d3.select(that.selected)
-												.classed({'multi-line-selected':true,'multi-line':false,'multi-line-hover':false})
-												.style("stroke", function() { return (PykCharts.boolean(that.color_from_data)) ? that.color_before_selection : that.highlightColor; });
-
-										if(PykCharts.boolean(that.legends.enable)) {
-											(that.deselected !== undefined)? d3.select("text#"+that.deselected.id).style("visibility","hidden") : null;
-											d3.select(that.selector+" text#"+that.selected.id).style("visibility","visible");
-											that.updateSelectedLine(that.selected.id);
-										}
-									});
+									.style("stroke", that.chartColor);
 							}
 						}
 					}
@@ -4748,21 +4735,28 @@ PykCharts.multiD.lineChart = function (options){
 								that.mouseEvent.axisHighlightHide(that.selector + " .y.axis");
 							})
 							.on("mousemove", function(){
-								that.mouseEvent.crossHairPosition(that.data,null,that.xScale,that.yScale,that.dataLineGroup,that.lineMargin,that.type,that.tooltipMode,that.color_from_data,null);
+								that.mouseEvent.crossHairPosition(that.data,that.new_data,that.xScale,that.yScale,that.dataLineGroup,that.lineMargin,that.type,that.tooltipMode,that.color_from_data,null);
 							});
 					}
 					else if (that.type === "multilineChart" && that.mode === "default") {
-						// var curr_svg = d3.select("#"+this.id);
 						that.svg
 							.on('mouseout', function (d) {
 								that.mouseEvent.tooltipHide();
 								that.mouseEvent.crossHairHide(that.type);
 								that.mouseEvent.axisHighlightHide(that.selector + " .x.axis");
 								that.mouseEvent.axisHighlightHide(that.selector + " .y.axis");
+								for(var a=0;a < that.new_data_length;a++) {
+									$(options.selector+" #svg-"+a).trigger("mouseout");
+								}
 							})
 							.on("mousemove", function(){
-								console.log(d3.select("#"+this.id),"****",that.svg.attr("id"));
-								that.mouseEvent.crossHairPosition(that.data,that.new_data,that.xScale,that.yScale,that.dataLineGroup,that.lineMargin,that.type,that.tooltipMode,that.color_from_data,that.multiple_containers);
+								// console.log(d3.select(options.selector+" #"+this.id+" .multi-line").attr("id"),"^^^^^^",this.id);
+								var line = [];
+								line[0] = d3.select(options.selector+" #"+this.id+" .multi-line");
+								that.mouseEvent.crossHairPosition(that.data,that.new_data,that.xScale,that.yScale,line,that.lineMargin,that.type,that.tooltipMode,that.color_from_data,that.multiple_containers);
+								for(var a=0;a < that.new_data_length;a++) {										
+									$(options.selector+" #svg-"+a).trigger("mousemove");
+								}
 							});
 					}
 				}
@@ -5194,7 +5188,7 @@ PykCharts.multiD.areaChart = function (options){
 								that.mouseEvent.axisHighlightHide(options.selector + " .y.axis");
 		          			})
 							.on("mousemove", function(){
-								that.mouseEvent.crossHairPosition(that.data,null,that.xScale,that.yScale,that.svg.select("#"+type),that.lineMargin,that.type,that.tooltip.mode);
+								that.mouseEvent.crossHairPosition(that.data,that.new_data,that.xScale,that.yScale,that.svg.select("#"+type),that.lineMargin,that.type,that.tooltip.mode);
 					  		});
 					}
 				}
@@ -5250,7 +5244,7 @@ PykCharts.multiD.areaChart = function (options){
 									that.mouseEvent.axisHighlightHide(options.selector + " .y.axis");
 			          		})
 						  	.on("mousemove", function(){
-						  		that.mouseEvent.crossHairPosition(that.data,null,that.xScale,that.yScale,that.dataLineGroup,that.lineMargin,that.type,that.tooltip.mode);
+						  		that.mouseEvent.crossHairPosition(that.data,that.new_data,that.xScale,that.yScale,that.dataLineGroup,that.lineMargin,that.type,that.tooltip.mode);
 						  	});
 					}
 					else if(that.type === "stackedAreaChart") {
@@ -7762,7 +7756,6 @@ PykCharts.multiD.spiderWeb = function (options) {
                         
                     spider.attr("class","link")
                         .attr("stroke",function (d) {
-                            console.log(d.color);
                             return d.color;
                         })
                         .attr("stroke-opacity",1)

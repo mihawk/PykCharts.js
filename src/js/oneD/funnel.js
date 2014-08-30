@@ -35,7 +35,7 @@ PykCharts.oneD.funnel = function (options) {
     //----------------------------------------------------------------------------------------
     this.refresh = function () {
         d3.json (options.data, function (e,data) {
-            that.data = data;
+            that.data = data.groupBy();
             that.optionalFeatures()
                     .clubData()
                     .createFunnel()
@@ -309,7 +309,7 @@ PykCharts.oneD.funnel = function (options) {
                 if(PykCharts.boolean(that.overflowTicks)) {
                     that.svg.style("overflow","visible");
                 }   
-                    var line = that.group.selectAll("funnel-ticks")
+                    var line = that.group.selectAll(".funnel-ticks")
                         .data(that.coordinates);
 
                     line.enter()

@@ -196,8 +196,6 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             .enableLabel(that.label.enable)
             .enableClick(that.enableClick);
 
-        console.log("timeline",that.creditMySite.enable,that);
-
             that.k.credits();
              that.k.dataSource();
 

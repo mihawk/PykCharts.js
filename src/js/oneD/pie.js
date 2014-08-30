@@ -92,7 +92,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
     var that = chartObject;
        that.refresh = function () {
         d3.json(options.data, function (e, data) {
-            that.data = data;
+            that.data = data.groupBy();
             that.optionalFeatures()
                     .createPie()
                     .label()
@@ -120,6 +120,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                 .subtitle();
 
             that.optionalFeatures().svgContainer();
+            that.chartData = that.optionalFeatures().clubData();
 
             that.k.credits()
                     .dataSource()
@@ -136,6 +137,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
 
             that.k.liveData(that);
         } else if(that.mode.toLowerCase() == "infographics") {
+            that.chartData = that.data;
             that.optionalFeatures().svgContainer()
                     .set_start_end_angle()
                     .createPie()
@@ -169,8 +171,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
             },
             createPie : function () {
                 d3.select(options.selector +" "+"#pieGroup").node().innerHTML="";
-                that.chartData = that.optionalFeatures().clubData();
-
+                
                 if(type.toLowerCase() == "pie" || type.toLowerCase() == "donut") {
                     that.chartData.sort(function (a,b) { return a.weight - b.weight;});
                     var temp = that.chartData.pop();
