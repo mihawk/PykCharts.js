@@ -1,4 +1,4 @@
-PykCharts.multiD.ultimate = function(options){
+PykCharts.multiD.columnChart = function(options){
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
     

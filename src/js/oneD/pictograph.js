@@ -45,16 +45,20 @@ PykCharts.oneD.pictograph = function (options) {
     this.render = function () {
 
         that.transitions = new PykCharts.Configuration.transition(that);
-        that.k.title();
-        that.k.subtitle();
+        if(that.mode==="default") {
+            that.k.title();
+            that.k.subtitle();
+        }
 
         var picto = that.optionalFeatures()
                 .svgContainer()
                 .createPictograph()
                 .labelText()
                 .enableLabel();
-        that.k.credits()
+        if(that.mode==="default") {
+            that.k.credits()
                 .dataSource();
+        }
     };
 
     this.optionalFeatures = function () {

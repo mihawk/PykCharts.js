@@ -42,7 +42,7 @@
         <script>
 
             $(document).ready(function (e) {
-                var k = new PykCharts.multiD.line({
+                var k = new PykCharts.multiD.lineChart ({
                     selector: "#line",
                     data: "../data/lineChart.json",
                     mode : "default",
@@ -55,8 +55,7 @@
                             margin: {top: 5, right: 25, bottom: 25, left: 45},
                             grid: {
                                 xEnabled: "no",
-                                yEnabled: "yes",
-                                color: ""
+                                yEnabled: "yes"
                             },
                         },
                         transition : {
@@ -97,7 +96,7 @@
                 });
                 k.execute();
 
-                var k = new PykCharts.multiD.area({
+                var k = new PykCharts.multiD.areaChart ({
                     selector: "#area",
                     data: "../data/lineChart.json",
                     mode : "default",
@@ -110,8 +109,7 @@
                             margin: {top: 5, right: 25, bottom: 25, left: 45},
                             grid: {
                                 xEnabled: "no",
-                                yEnabled: "yes",
-                                color: ""
+                                yEnabled: "yes"
                             }
                         },
                         transition : {
@@ -155,13 +153,13 @@
                 });
                 k.execute();
 
-                var k = new PykCharts.multiD.spiderWeb({
+                var k = new PykCharts.multiD.spiderWeb ({
                     selector: "#spiderWeb",
                     data: "../data/spiderWeb.json",
                     mode : "default", //  default or infographics
                     spiderweb : {
                         radius : 5,
-                        outer_radius :200,
+                        outer_radius :200
                     },
                     optional : {
                          chart : {
@@ -200,15 +198,12 @@
                 });
                 k.execute();
 
-                var k = new PykCharts.multiD.scatterplot({
+                var k = new PykCharts.multiD.scatterPlot ({
                     selector: "#scatterPlot",
                     data: "../data/scatterplot.json",
                     mode : "default", //  default or infographics
                     yAxisDataFormat : "number",
                     xAxisDataFormat : "number",
-                    scatterplot : {
-                        radius: 9
-                    },
                     optional : {
                         chart : {
                             width: 700,
@@ -220,11 +215,14 @@
                                 color:""
                             }
                         },
+                        scatterplot : {
+                            radius: 9
+                        },
                         realTimeCharts: {
                             refreshFrequency: 0 // seconds
                         },
                         multiple_containers: {
-                            enable : "yes",
+                            enable : "no"
                         },
                         size : {
                             enable : "yes"
@@ -273,8 +271,8 @@
                         },
                         label:{
                             size: 12,
-                            color: "black",
-                            weight: "thin",
+                            color: "white",
+                            weight: "thick",
                             family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
                         },
                         enableCrossHair: "yes"
@@ -282,7 +280,7 @@
                 });
                 k.execute();
 
-                var k = new PykCharts.multiD.line({
+                var k = new PykCharts.multiD.lineChart ({
                     selector: "#multiLine",
                     data: "../data/multiLineChart.json",
                     mode : "default",
@@ -298,10 +296,10 @@
                                 yEnabled: "yes",
                                 color: ""
                             },
-                        },
+                        },/*
                         line: {
-                            color_from_data: "yes"
-                        },
+                            color_from_data: "no"
+                        },*/
                         transition : {
                             duration : 0 //milliseconds
                         },
@@ -310,11 +308,11 @@
                         },
                         realTimeCharts: {
                             refreshFrequency: 0 // seconds
-                        },
+                        },/*
                         colors: {
                             highlightColor: "red",
                             chartColor: "#ccc"
-                        },
+                        },*/
                         enableTooltip: "yes",
                         axis : {
                             onHoverHighlightenable: "yes",
@@ -337,7 +335,7 @@
                                 tickSize: 3,
                                 ticksPadding: 10,
                                 outer_tick_size: 3,
-                                "no_of_ticks": 10
+                                no_of_ticks: 10
                             }
                         },
                         legends: {
@@ -345,18 +343,10 @@
                             display: "horizontal"
                         },
                         legendsText: {
-                            size: "16",
+                            size: "14",
                             color: "black",
                             weight: "thin", // or "thick"
                             family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
-                        },
-                        dataSource:{
-                            text: "World Bank",
-                            url: "http://www.pykih.com/"
-                        },
-                        creditMySite:{
-                            mySiteName: "",
-                            mySiteUrl: ""
                         },
                         curvy_lines : "yes",
                         enableCrossHair: "yes"
@@ -364,7 +354,7 @@
                 });
                 k.execute();
 
-                var k = new PykCharts.multiD.area({
+                var k = new PykCharts.multiD.areaChart ({
                     selector: "#multiArea",
                     data: "../data/multiLineChart.json",
                     mode : "default",
@@ -392,7 +382,7 @@
                                 enable: "yes",
                                 position:"bottom", //top or bottom
                                 orient : "bottom",
-                                axisColor: "#fff",
+                                axisColor: "#1D1D1D",
                                 labelColor: "#1D1D1D",
                                 tickSize: 3,
                                 ticksPadding: 10
@@ -426,7 +416,7 @@
                     optional : {
                         chart : {
                             width: 650,
-                            height: 350,                            
+                            height: 350,
                             margin: {top: 25, right: 25, bottom: 25, left: 75},
                             grid: {
                                 xEnabled: "yes",
@@ -491,7 +481,7 @@
                 });
                 k.execute();
 
-                var k = new PykCharts.multiD.ultimate({
+                var k = new PykCharts.multiD.columnChart({
                     data: "../data/ultimateColumn.json",
                     mode: "default",
                     selector: "#column",
@@ -550,7 +540,7 @@
                 });
                 k.execute();
 
-                var k = new PykCharts.multiD.ultimate({
+                var k = new PykCharts.multiD.columnChart({
                     data: "../data/ultimateGroupColumn.json",
                     mode: "default",
                     selector: "#groupColumn",
@@ -612,7 +602,7 @@
                 });
                 k.execute();
 
-                var k = new PykCharts.multiD.ultimateBar({
+                var k = new PykCharts.multiD.barChart({
                     data: "../data/ultimatebar.json",
                     mode: "default",
                     selector: "#bar",
@@ -686,7 +676,7 @@
                 });
                 k.execute();
 
-                var k = new PykCharts.multiD.ultimateBar({
+                var k = new PykCharts.multiD.barChart({
                     data: "../data/ultimateGroupBar.json",
                     mode: "default",
                     selector: "#groupBar",

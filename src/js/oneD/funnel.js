@@ -35,7 +35,7 @@ PykCharts.oneD.funnel = function (options) {
     //----------------------------------------------------------------------------------------
     this.refresh = function () {
         d3.json (options.data, function (e,data) {
-            that.data = data;
+            that.data = data.groupBy();
             that.optionalFeatures()
                     .clubData()
                     .createFunnel()
@@ -204,7 +204,7 @@ PykCharts.oneD.funnel = function (options) {
 
                 that.svg = d3.select(options.selector)
                     .append('svg')
-                    .attr("width",that.width+100)
+                    .attr("width",that.width) //+100 removed
                     .attr("height",that.height)
                     .attr("id","svgcontainer")
                     .attr("class","svgcontainer");
@@ -309,7 +309,7 @@ PykCharts.oneD.funnel = function (options) {
                 if(PykCharts.boolean(that.overflowTicks)) {
                     that.svg.style("overflow","visible");
                 }   
-                    var line = that.group.selectAll("funnel-ticks")
+                    var line = that.group.selectAll(".funnel-ticks")
                         .data(that.coordinates);
 
                     line.enter()
@@ -456,6 +456,7 @@ PykCharts.oneD.funnel = function (options) {
                     if(that.newData.length < that.clubData.maximumNodes){
                         that.newData.push(otherSpan);
                     }
+                    that.newData.sort(function (a,b) { return b.weight - a.weight; });
                     that.newData1 = that.newData;
                 }
                 else {

@@ -17,19 +17,19 @@ PykCharts.multiD.spiderWeb = function (options) {
         d3.json(options.data, function (e, data) {
             that.data = data;
             $(that.selector+" #chart-loader").remove();
-            that.render();            
+            that.render();
         });
     };
 
-    this.refresh = function () {
+    that.refresh = function () {
         d3.json(options.data, function (e, data) {
             that.data = data;
-        that.mapGroupData = that.multiD.mapGroup(that.data);                   
-        that.optionalFeatures()
-            .createSpiderWeb()
-            .legends()
-            .axisTicks()
-            .axisTitle();
+            that.mapGroupData = that.multiD.mapGroup(that.data); 
+            that.optionalFeatures()
+                .createSpiderWeb()
+                .legends()
+                .axisTicks()
+                .axisTitle();
         });
     };
 
@@ -213,19 +213,23 @@ PykCharts.multiD.spiderWeb = function (options) {
                         links.push({source: that.nodes[m][i], target: target, color : color});
                     }
 
-                    that.group.selectAll("#link"+m)
-                        .data(links)
-                        .enter().append("path")
+                    var spider =  that.group.selectAll("#link"+m)
+                        .data(links);
+
+                    spider.enter().append("path")
                         .attr("class", "link")
+                        
+                    spider.attr("class","link")
                         .attr("stroke",function (d) {
-                           return d.color;
+                            return d.color;
                         })
                         .attr("stroke-opacity",1)
                         .attr("id","link"+m)
                         .attr("d", d3.customHive.link()
                             .angle(function(d) { /*console.log(d,"d");*/ return that.angle(d.x); })
                             .radius(function(d) { return that.radius(d.y); })
-                        )
+                        );
+                    spider.exit().remove();
 
 
                     that.weight = _.map(that.new_data[m].data, function (d) {
@@ -239,11 +243,15 @@ PykCharts.multiD.spiderWeb = function (options) {
                     that.sorted_weight = that.weight.slice(0);
                     that.sorted_weight.sort(function(a,b) { return a-b; });
 
-                    that.group.selectAll(".node"+m)
+                    var spidernode = that.group.selectAll(".node"+m)
                         .data(that.nodes[m])
-                        .enter().append("circle")
+                    
+                    spidernode.enter().append("circle")
                         .attr("class", "node"+m)
                         .attr("transform", function(d) { return "rotate(" + that.degrees(that.angle(d.x)) + ")"; })
+                        
+                        
+                    spidernode.attr("class","node"+m)
                         .attr("cx", function (d) { return that.radius(d.y); })
                         .attr("r", function (d,i) { return that.sizes(that.new_data[m].data[i].weight); })
                         .style("fill", function (d,i) {
@@ -264,6 +272,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                         .on('mousemove', function (d) {
                           that.mouseEvent.tooltipPosition(d);
                         });
+                    spidernode.exit().remove();
                 }
 
                 that.group.selectAll(".axis")
@@ -291,7 +300,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                     var unique = _.uniq(that.sorted_weight);
                     var k = 0;
                     var l = 0;
-                    if(options.optional.legends.display === "vertical" ) {
+                    if(that.legends.display === "vertical" ) {
                         that.legendSvg.attr("height", (that.mapGroupData[0].length * 30)+20);
                         text_parameter1 = "x";
                         text_parameter2 = "y";
@@ -306,7 +315,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                         var rect_parameter4value = function (d,i) { return i * 24 + 12;};
                         var text_parameter2value = function (d,i) { return i * 24 + 23;};
 
-                    } else if(options.optional.legends.display === "horizontal") {
+                    } else if(that.legends.display === "horizontal") {
                          // that.legendSvg.attr("height", (k+1)*70);
                         text_parameter1 = "x";
                         text_parameter2 = "y";
