@@ -503,7 +503,6 @@ configuration.mouseEvent = function (options) {
                 var w = options.width;
                 var h = options.height;
                 var group_index = parseInt(d3.event.target.id.substr((d3.event.target.id.length-1),1));
-                // console.log(d3.event.pageX,group_index);
                 var x = d3.event.pageX - offsetLeft;
                 var y = d3.event.pageY - offsetTop;
                 var x_range = xScale.range();
