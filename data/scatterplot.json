@@ -13,7 +13,7 @@
         "y": 5,
         "weight": 530,
         "color": "#0e5ea1",
-        "tooltip": "<table class='PykCharts'><tr><th>Galaxy</th></tr><tr><td>X</td><td>42</td></tr><tr><td>Y</td><td>5</td></tr></table>",
+        "tooltip": "",
         "group": "Nestle"
     },
     {
@@ -22,7 +22,7 @@
         "y": 4,
         "weight": 580,
         "color": " #FFF44F",
-        "tooltip": "<table class='PykCharts'><tr><th>Kit-Kat</th></tr><tr><td>X</td><td>55</td></tr><tr><td>Y</td><td>4</td></tr></table>",
+        "tooltip": "",
         "group": "Nestle"
     },
     {
@@ -31,7 +31,7 @@
         "y": 4,    
         "weight": 590,
         "color": "#4682b4",
-        "tooltip": "<table class='PykCharts'><tr><th>Lindt</th></tr><tr><td>X</td><td>80</td></tr><tr><td>Y</td><td>4</td></tr></table>",
+        "tooltip": "",
         "group": "ABC"
     },
     {
@@ -40,7 +40,7 @@
         "y": 2.5,
         "weight": 570,
         "color": "#75b0e1",
-        "tooltip": "<table class='PykCharts'><tr><th>5 Star</th></tr><tr><td>X</td><td>65</td></tr><tr><td>Y</td><td>2.5</td></tr></table>",
+        "tooltip": "",
         "group": "Hershey"
     },
     {
@@ -49,7 +49,7 @@
         "y": 3.5,
         "weight": 200,
         "color": " #FFF44F",
-        "tooltip": "<table class='PykCharts'><tr><th>Munch</th></tr><tr><td>X</td><td>65</td></tr><tr><td>Y</td><td>3.5</td></tr></table>",
+        "tooltip": "",
         "group": "Hershey"
     }, 
     {
@@ -58,7 +58,7 @@
         "y": 4,
         "weight": 560,
         "color": "steelblue",
-        "tooltip": "<table class='PykCharts'><tr><th>Hershey</th></tr><tr><td>X</td><td>61</td></tr><tr><td>Y</td><td>4</td></tr></table>",
+        "tooltip": "",
         "group": "Hershey"
     }, 
     {
@@ -67,7 +67,7 @@
         "y": 4,
         "weight": 250,     
         "color": "#a0ccf1",
-        "tooltip": "<table class='PykCharts'><tr><th>Lindt</th></tr><tr><td>X</td><td>60</td></tr><tr><td>Y</td><td>4</td></tr></table>",
+        "tooltip": "",
         "group": "Lindt"
     }, 
     {
@@ -76,7 +76,7 @@
         "y": 2,
         "weight": 500,
         "color": "#07365e",
-        "tooltip": "<table class='PykCharts'><tr><th>Bournville</th></tr><tr><td>X</td><td>70</td></tr><tr><td>Y</td><td>2</td></tr></table>",
+        "tooltip": "",
         "group": "Cadbury"
     },
     {
@@ -85,7 +85,7 @@
         "y": 3,
         "weight": 400,
         "color": "#07365e",
-        "tooltip": "<table class='PykCharts'><tr><th>Dairy Milk</th></tr><tr><td>X</td><td>100</td></tr><tr><td>Y</td><td>3</td></tr></table>",
+        "tooltip": "",
         "group": "Cadbury"
     },
     {
@@ -94,7 +94,7 @@
         "y": 2.5,
         "weight": 480,
         "color": " #44A770",
-        "tooltip": "<table class='PykCharts'><tr><th>Galaxy</th></tr><tr><td>X</td><td>50</td></tr><tr><td>Y</td><td>2.5</td></tr></table>",
+        "tooltip": "",
         "group": "Nestle"
     },
     {
@@ -103,7 +103,7 @@
         "y": 2.5,
         "weight": 350,
         "color": " #FFF44F",
-        "tooltip": "<table class='PykCharts'><tr><th>Kit-Kat</th></tr><tr><td>X</td><td>51</td></tr><tr><td>Y</td><td>2.5</td></tr></table>",
+        "tooltip": "",
         "group": "Nestle"
     },
     {
@@ -112,7 +112,7 @@
         "y": 5,
         "weight": 270,
         "color": "#e65f3d",
-        "tooltip": "<table class='PykCharts'><tr><th>Lindt</th></tr><tr><td>X</td><td>51</td></tr><tr><td>Y</td><td>2.5</td></tr></table>",
+        "tooltip": "",
         "group": "ABC"
     },
     {
@@ -121,7 +121,7 @@
         "y": 2.5,
         "weight": 470,
         "color": "steelblue",
-        "tooltip": "<table class='PykCharts'><tr><th>5 Star</th></tr><tr><td>X</td><td>45</td></tr><tr><td>Y</td><td>2.5</td></tr></table>",
+        "tooltip": "",
         "group": "Hershey"
     },
     {
@@ -130,7 +130,7 @@
         "y": 3.5,
         "weight": 360,
         "color": "#FFF44F",
-        "tooltip": "<table class='PykCharts'><tr><th>Munch</th></tr><tr><td>X</td><td>85</td></tr><tr><td>Y</td><td>3.5</td></tr></table>",
+        "tooltip": "",
         "group": "Hershey"
     }, 
     {
@@ -139,7 +139,7 @@
         "y": 5,
         "weight": 270,
         "color": "steelblue",
-        "tooltip": "<table class='PykCharts'><tr><th>Hershey</th></tr><tr><td>X</td><td>40</td></tr><tr><td>Y</td><td>5</td></tr></table>",
+        "tooltip": "",
         "group": "Hershey"
     }, 
     {
@@ -148,7 +148,7 @@
         "y": 3,
         "weight": 350,
         "color": "#493452",
-        "tooltip": "<table class='PykCharts'><tr><th>Dolfin</th></tr><tr><td>X</td><td>60</td></tr><tr><td>Y</td><td>3</td></tr></table>",
+        "tooltip": "",
         "group": "Lindt"
     }, 
     {
@@ -157,7 +157,7 @@
         "y": 5,
         "weight": 400,
         "color": "#07365e",
-        "tooltip": "<table class='PykCharts'><tr><th>Bournville</th></tr><tr><td>X</td><td>30</td></tr><tr><td>Y</td><td>5</td></tr></table>",
+        "tooltip": "",
         "group": "Cadbury"
     }
 ]

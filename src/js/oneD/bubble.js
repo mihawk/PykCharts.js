@@ -21,7 +21,8 @@ PykCharts.oneD.bubble = function (options) {
         d3.json (options.data, function (e,data) {
             that.data = data;
             that.optionalFeatures()
-                .createBubble();
+                .createBubble()
+                .label();
         });
     };
 
@@ -32,7 +33,7 @@ PykCharts.oneD.bubble = function (options) {
         if (that.mode ==="default") {
             that.k.title();
             that.k.subtitle();
-
+            that.b = that.optionalFeatures().clubData();
             var bubble = that.optionalFeatures().svgContainer()
                 .createBubble()
                 .label();
@@ -45,6 +46,7 @@ PykCharts.oneD.bubble = function (options) {
         that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
        }
        else if (that.mode ==="infographics") {
+            that.b = {"children" : that.data};
             that.optionalFeatures().svgContainer()
                 .createBubble()
                 .label();
@@ -71,7 +73,7 @@ PykCharts.oneD.bubble = function (options) {
                 return this;
             },
             createBubble : function () {
-                that.b = that.optionalFeatures().clubData();
+                
                 that.bubble = d3.layout.pack()
                     .sort(function (a,b) { return b.weight - a.weight; })
                     .size([that.width, that.height])
@@ -84,7 +86,7 @@ PykCharts.oneD.bubble = function (options) {
                 that.max = that.b.children[l-1].weight;
                 that.node = that.bubble.nodes(that.b);
 
-                that.bub_node = that.group.selectAll(".node")
+                that.bub_node = that.group.selectAll(".bubble-node")
                     .data(that.node);
 
                 that.bub_node.enter()
@@ -122,6 +124,7 @@ PykCharts.oneD.bubble = function (options) {
                     .transition()
                     .duration(that.transitions.duration())
                     .attr("r",function (d) {return d.r; });
+                that.bub_node.exit().remove();
 
                 return this;
             },
@@ -161,6 +164,7 @@ PykCharts.oneD.bubble = function (options) {
                         })
                         .attr("fill", that.label.color)
                         .style("font-family", that.label.family);
+                    that.bub_text.exit().remove;
                 return this;
             },
             clubData : function () {

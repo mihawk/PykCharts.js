@@ -100,9 +100,7 @@ PykCharts.multiD.lineChart = function (options){
 							.axisContainer();
 
 					that.k.xAxis(that.svg,that.gxaxis,that.xScale)
-							.yAxis(that.svg,that.gyaxis,that.yScale)
-							.yGrid(that.svg,that.group,that.yScale)
-							.xGrid(that.svg,that.group,that.xScale);
+							.yAxis(that.svg,that.gyaxis,that.yScale);
 					if((i+1)%4 === 0 && i !== 0) {
                         that.k.emptyDiv();
                     }
@@ -522,42 +520,7 @@ PykCharts.multiD.lineChart = function (options){
 					      			.style("fill", function() { return that.legendsText.color; });
 
 								that.dataLineGroup[0]
-									.style("stroke", that.chartColor)
-									.on("mouseover",function (d) {
-										if(this !== that.selected) {
-											d3.select(this)
-											.classed({'multi-line-hover':true,'multi-line':false})
-											.style("stroke", "orange");
-										}
-									})
-									.on("mouseout",function (d) {
-										if(this !== that.selected) {
-											d3.select(this)
-												.classed({'multi-line-hover':false,'multi-line':true})
-												.style("stroke", that.chartColor);
-										}
-									})
-									.on("click",function (d) {
-							  			that.selected_line = d3.event.target;
-										that.selected_line_data = that.selected_line.__data__;
-										that.selected_line_data_len = that.selected_line_data.length;
-
-										that.deselected = that.selected;
-										d3.select(that.deselected)
-												.classed({'multi-line-selected':false,'multi-line':true,'multi-line-hover':false})
-												.style("stroke", function() { return (PykCharts.boolean(that.color_from_data)) ? that.color_before_selection : that.chartColor; });
-										that.selected = this;
-										that.color_before_selection = d3.select(that.selected).style("stroke");
-										d3.select(that.selected)
-												.classed({'multi-line-selected':true,'multi-line':false,'multi-line-hover':false})
-												.style("stroke", function() { return (PykCharts.boolean(that.color_from_data)) ? that.color_before_selection : that.highlightColor; });
-
-										if(PykCharts.boolean(that.legends.enable)) {
-											(that.deselected !== undefined)? d3.select("text#"+that.deselected.id).style("visibility","hidden") : null;
-											d3.select(that.selector+" text#"+that.selected.id).style("visibility","visible");
-											that.updateSelectedLine(that.selected.id);
-										}
-									});
+									.style("stroke", that.chartColor);
 							}
 						}
 					}
@@ -571,21 +534,28 @@ PykCharts.multiD.lineChart = function (options){
 								that.mouseEvent.axisHighlightHide(that.selector + " .y.axis");
 							})
 							.on("mousemove", function(){
-								that.mouseEvent.crossHairPosition(that.data,null,that.xScale,that.yScale,that.dataLineGroup,that.lineMargin,that.type,that.tooltipMode,that.color_from_data,null);
+								that.mouseEvent.crossHairPosition(that.data,that.new_data,that.xScale,that.yScale,that.dataLineGroup,that.lineMargin,that.type,that.tooltipMode,that.color_from_data,null);
 							});
 					}
 					else if (that.type === "multilineChart" && that.mode === "default") {
-						// var curr_svg = d3.select("#"+this.id);
 						that.svg
 							.on('mouseout', function (d) {
-								that.mouseEvent.tooltipHide();
+								that.mouseEvent.tooltipHide(null,that.multiple_containers,that.type);
 								that.mouseEvent.crossHairHide(that.type);
 								that.mouseEvent.axisHighlightHide(that.selector + " .x.axis");
 								that.mouseEvent.axisHighlightHide(that.selector + " .y.axis");
+								for(var a=0;a < that.new_data_length;a++) {
+									$(options.selector+" #svg-"+a).trigger("mouseout");
+								}
 							})
 							.on("mousemove", function(){
-								console.log(d3.select("#"+this.id),"****",that.svg.attr("id"));
-								that.mouseEvent.crossHairPosition(that.data,that.new_data,that.xScale,that.yScale,that.dataLineGroup,that.lineMargin,that.type,that.tooltipMode,that.color_from_data,that.multiple_containers);
+								// console.log(d3.select(options.selector+" #"+this.id+" .multi-line").attr("id"),"^^^^^^",this.id);
+								var line = [];
+								line[0] = d3.select(options.selector+" #"+this.id+" .multi-line");
+								that.mouseEvent.crossHairPosition(that.data,that.new_data,that.xScale,that.yScale,line,that.lineMargin,that.type,that.tooltipMode,that.color_from_data,that.multiple_containers);
+								for(var a=0;a < that.new_data_length;a++) {
+									$(options.selector+" #svg-"+a).trigger("mousemove");
+								}
 							});
 					}
 				}

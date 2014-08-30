@@ -120,6 +120,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                 .subtitle();
 
             that.optionalFeatures().svgContainer();
+            that.chartData = that.optionalFeatures().clubData();
 
             that.k.credits()
                     .dataSource()
@@ -136,6 +137,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
 
             that.k.liveData(that);
         } else if(that.mode.toLowerCase() == "infographics") {
+            that.chartData = that.data;
             that.optionalFeatures().svgContainer()
                     .set_start_end_angle()
                     .createPie()
@@ -162,14 +164,13 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                     .attr("id","container")
                     .attr("class","svgcontainer");
                 that.group = that.svgContainer.append("g")
-                    .attr("transform","translate("+(that.width/2)+","+(that.k._radiusCalculation(that.radiusPercent)+40)+")")
+                    .attr("transform","translate("+(that.width/2)+","+(that.k._radiusCalculation(that.radiusPercent))+")")
                     .attr("id","pieGroup");
 
                 return this;
             },
             createPie : function () {
                 d3.select(options.selector +" "+"#pieGroup").node().innerHTML="";
-                that.chartData = that.optionalFeatures().clubData();
 
                 if(type.toLowerCase() == "pie" || type.toLowerCase() == "donut") {
                     that.chartData.sort(function (a,b) { return a.weight - b.weight;});

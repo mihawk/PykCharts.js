@@ -20,7 +20,7 @@ PykCharts.oneD.pyramid = function (options) {
 
     this.refresh = function () {
         d3.json (options.data, function (e,data) {
-            that.data = data;
+            that.data = data.groupBy();
             that.optionalFeatures()
                     .createChart()
                     .label()
@@ -272,7 +272,7 @@ PykCharts.oneD.pyramid = function (options) {
                 if(PykCharts.boolean(that.overflowTicks)) {
                     that.svg.style("overflow","visible");
                 }
-                var line = that.group.selectAll("pyr-ticks")
+                var line = that.group.selectAll(".pyr-ticks")
                     .data(that.coordinates);
 
                 var n = that.chartData.length;
