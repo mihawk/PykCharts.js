@@ -199,7 +199,7 @@ PykCharts.Configuration = function (options){
             return this;
         },
 	    tooltip : function (d,selection,i) {
-            if(PykCharts.boolean(options.enableTooltip) && options.mode === "default") {
+            if(PykCharts.boolean(options.tooltip.enable) && options.mode === "default") {
                 if(selection !== undefined){
                     PykCharts.Configuration.tooltipp = d3.select(selection).append("div")
                         .attr("id", "pyk-tooltip")
@@ -223,8 +223,8 @@ PykCharts.Configuration = function (options){
                         .style("z-index","10")
                         .style("visibility", "hidden");
                 }
-            } else if (PykCharts.boolean(options.tooltip)) {
-                if (options.tooltip.mode === "fixed" && PykCharts.boolean(options.tooltip.enable)) {
+            } else if (PykCharts.boolean(options.tooltip.enable)) {
+                if (options.tooltip.mode === "fixed") {
                     PykCharts.Configuration.tooltipp = d3.select("body")
                         .append("div")
                         .attr("id", "pyk-tooltip")
@@ -262,26 +262,6 @@ PykCharts.Configuration = function (options){
                         .style("z-index","10")
                         .style("visibility", "hidden");
                 }
-            }
-            else {
-                PykCharts.Configuration.tooltipp = d3.select("body")
-                    .append("div")
-                    .attr("id", "pyk-tooltip")
-                    // .attr("class","pyk-line-tooltip");
-                    .style("height","auto")
-                    .style("padding", "5px 6px")
-                    .style("color","#4F4F4F")
-                    .style("background","#eeeeee")
-                    .style("text-decoration","none")
-                    .style("position", "absolute")
-                    .style("border-radius", "5px")
-                    .style("text-align","center")
-                    .style("font-family","Arial, Helvetica, sans-serif")
-                    .style("font-size","14px")
-                    .style("border","1px solid #CCCCCC")
-                    .style("min-width","30px")
-                    .style("z-index","10")
-                    .style("visibility", "hidden");
             }
             return this;
         },
@@ -477,7 +457,7 @@ configuration.mouseEvent = function (options) {
     var status;
     var action = {
         tooltipPosition : function (d,xPos,yPos,xDiff,yDiff) {
-            if(PykCharts.boolean(options.enableTooltip)) {
+            if(PykCharts.boolean(options.tooltip.enable)) {
                 // var tooltip = d3.selectAll(options.selector+" #pyk-tooltip");
                 // console.log(tooltip,"**********");
             	if(xPos !== undefined){
@@ -499,20 +479,20 @@ configuration.mouseEvent = function (options) {
             }
         },
         toolTextShow : function (d) {
-            if(PykCharts.boolean(options.enableTooltip)) {
+            if(PykCharts.boolean(options.tooltip.enable)) {
             	// d3.selectAll(options.selector+" #pyk-tooltip").html(d);
                 that.tooltip.html(d);
             }
             return this;
         },
         tooltipHide : function (d) {
-            if(PykCharts.boolean(options.enableTooltip)) {
+            if(PykCharts.boolean(options.tooltip.enable)) {
                 // return d3.selectAll(options.selector+" #pyk-tooltip").style("visibility", "hidden");
                 return that.tooltip.style("visibility", "hidden");
             }
         },
         crossHairPosition: function(data,new_data,xScale,yScale,dataLineGroup,lineMargin,type,tooltipMode,color_from_data,multiple_containers){
-            if((PykCharts.boolean(options.enableCrossHair) || PykCharts.boolean(options.enableTooltip) || PykCharts.boolean(options.onHoverHighlightenable))  && options.mode === "default") {
+            if((PykCharts.boolean(options.enableCrossHair) || PykCharts.boolean(options.tooltip.enable) || PykCharts.boolean(options.onHoverHighlightenable))  && options.mode === "default") {
                 var offsetLeft = $(options.selector + " #"+dataLineGroup[0].attr("id")).offset().left;
                 var offsetTop = $(options.selector + " #"+dataLineGroup[0].attr("id")).offset().top;
                 var number_of_lines = new_data.length;
@@ -922,7 +902,9 @@ configuration.Theme = function(){
         "buttons":{
             "enableFullScreen": "no"
         },
-        "enableTooltip": "yes",
+        "tooltip": {
+            "enable" : "no"
+        },
         "creditMySite":{
             "mySiteName": "Pykih",
             "mySiteUrl": "http://www.pykih.com"
@@ -1219,7 +1201,13 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
     chartObject.highlightColor = optional && optional.colors && optional.colors.highlightColor ? optional.colors.highlightColor : stylesheet.colors.highlightColor;
     chartObject.fullscreen = optional && optional.buttons && optional.buttons.enableFullScreen ? optional.buttons.enableFullScreen : stylesheet.buttons.enableFullScreen;
     chartObject.loading = optional && optional.loading && optional.loading.animationGifUrl ? optional.loading.animationGifUrl: stylesheet.loading.animationGifUrl;
-    chartObject.enableTooltip = optional && optional.enableTooltip ? optional.enableTooltip : stylesheet.enableTooltip;
+    if (optional && optional.tooltip) {
+        chartObject.tooltip = optional.tooltip;        
+        chartObject.tooltip.enable = optional.tooltip.enable ? optional.tooltip.enable : stylesheet.tooltip.enable;
+    } else {
+        chartObject.tooltip = stylesheet.tooltip;
+    //    chartObject.enableTooltip = multiDimensionalCharts.tooltip.enable;     
+    }   
     if (optional && optional.borderBetweenChartElements) {
         chartObject.borderBetweenChartElements = optional.borderBetweenChartElements;
         chartObject.borderBetweenChartElements.width = "width" in optional.borderBetweenChartElements ? optional.borderBetweenChartElements.width : stylesheet.borderBetweenChartElements.width;
@@ -4146,7 +4134,7 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     chartObject.highlightColor = optional && optional.colors && optional.colors.highlightColor ? optional.colors.highlightColor : stylesheet.colors.highlightColor;
     chartObject.fullscreen = optional && optional.buttons && optional.buttons.enableFullScreen ? optional.buttons.enableFullScreen : stylesheet.buttons.enableFullScreen;
     chartObject.loading = optional && optional.loading && optional.loading.animationGifUrl ? optional.loading.animationGifUrl: stylesheet.loading.animationGifUrl;
-    chartObject.enableTooltip = optional && optional.enableTooltip ? optional.enableTooltip : stylesheet.enableTooltip;
+//    chartObject.enableTooltip = optional && optional.enableTooltip ? optional.enableTooltip : stylesheet.enableTooltip
     if (optional && optional.borderBetweenChartElements /*&& optional.borderBetweenChartElements.width!=0 && optional.borderBetweenChartElements.width!="0px"*/) {
         chartObject.borderBetweenChartElements = optional.borderBetweenChartElements;
         chartObject.borderBetweenChartElements.width = "width" in optional.borderBetweenChartElements ? optional.borderBetweenChartElements.width : stylesheet.borderBetweenChartElements.width;
@@ -4203,11 +4191,11 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     chartObject.k = new PykCharts.Configuration(chartObject);
     if (optional && optional.tooltip) {
         chartObject.tooltip = optional.tooltip;        
-        chartObject.enableTooltip = optional.tooltip.enable ? optional.tooltip.enable : multiDimensionalCharts.tooltip.enable;
+        chartObject.tooltip.enable = optional.tooltip.enable ? optional.tooltip.enable : multiDimensionalCharts.tooltip.enable;
         chartObject.tooltip.mode = optional.tooltip.mode ? optional.tooltip.mode : multiDimensionalCharts.tooltip.mode;
     } else {
         chartObject.tooltip = multiDimensionalCharts.tooltip;
-        chartObject.enableTooltip = multiDimensionalCharts.tooltip.enable;     
+    //    chartObject.enableTooltip = multiDimensionalCharts.tooltip.enable;     
     }
     return chartObject;
 };
