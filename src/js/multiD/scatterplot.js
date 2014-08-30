@@ -154,7 +154,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
 
 
                 that.k.xAxis(that.svgContainer,that.xGroup,that.x)
-                    .yAxis(that.svgContainer,that.yGroup,that.y)
+                    .yAxis(that.svgContainer,that.yGroup,that.y);
                     // .yGrid(that.svgContainer,that.group,that.y)
                     // .xGrid(that.svgContainer,that.group,that.x);
             }
@@ -174,7 +174,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
             that.optionalFeatures()
                     .svgContainer(1);
             that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
-            that.optionalFeatures().createScatterPlot()
+            that.optionalFeatures().createScatterPlot();
                 // .crossHair();
 
             that.k.xAxis(that.svgContainer,that.xGroup,that.x)
@@ -293,7 +293,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                             yinvert = y_domain[1] - yinvert;
                             return yinvert;
                         });
-                        console.log(y_data,"y_data");
+                        // console.log(y_data,"y_data");
                         y_range = [that.height - that.margin.top - that.margin.bottom, 0];
                         that.y = that.k.scaleIdentification("linear",y_data,y_range);
                         that.top_margin = 0;
@@ -648,7 +648,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                     .attr("stroke-width",that.border.width())
                     .attr("stroke-opacity",1)
                     .on('mouseover',function (d) {
-                        tooltipText = d.tooltip ? d.tooltip : "<table class='PykCharts'><tr><th>"+d.name+"</th></tr><tr><td>X</td><td>"+d.x+"</td></tr><tr><td>Y</td><td>"+d.y+"</td></tr></table>";
+                        tooltipText = d.tooltip ? d.tooltip : "<table class='PykCharts'><tr><th colspan='2'>"+d.name+"</th></tr><tr><td>X</td><td>"+d.x+"</td></tr><tr><td>Y</td><td>"+d.y+"</td></tr><tr><td>Weight</td><td>"+d.weight+"</td></tr></table>";
                         that.mouseEvent.tooltipPosition(d);
                         that.mouseEvent.toolTextShow(tooltipText);
                         if(PykCharts.boolean(that.size.enable)){
@@ -774,7 +774,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
   //          that.k.isOrdinal(that.svgContainer,".y.grid",that.y);
 
             that.optionalFeatures().plotCircle().label();
-            d3.select("#"+this.id)
+            d3.select(that.selector+" #"+this.id)
                 .selectAll(".dot")
                 .attr("r", function (d) {
                     return that.sizes(d.weight)*d3.event.scale;
