@@ -503,7 +503,6 @@ configuration.mouseEvent = function (options) {
                 var w = options.width;
                 var h = options.height;
                 var group_index = parseInt(d3.event.target.id.substr((d3.event.target.id.length-1),1));
-                // console.log(d3.event.pageX,group_index);
                 var x = d3.event.pageX - offsetLeft;
                 var y = d3.event.pageY - offsetTop;
                 var x_range = xScale.range();
@@ -2675,8 +2674,6 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                 });
                 that.innerRadius = that.k._radiusCalculation(that.innerRadiusPercent);
                 that.radius = that.k._radiusCalculation(that.radiusPercent);
-
-                console.log(that.radius,"radius",type);
 
                 that.arc = d3.svg.arc()
                     .innerRadius(that.innerRadius)
@@ -4883,8 +4880,8 @@ PykCharts.multiD.areaChart = function (options){
 			stylesheet = theme.stylesheet,
 			optional = options.optional;
 	    that.enableCrossHair = optional && optional.enableCrossHair ? optional.enableCrossHair : twoDimensionalCharts.enableCrossHair;
-			that.curvy_lines = optional && optional.curvy_lines ? optional.curvy_lines : twoDimensionalCharts.curvy_lines;
-			// that.grid = options.chart && options.chart.grid ? options.chart.grid : stylesheet.chart.grid;
+		that.curvy_lines = optional && optional.curvy_lines ? optional.curvy_lines : twoDimensionalCharts.curvy_lines;
+		// that.grid = options.chart && options.chart.grid ? options.chart.grid : stylesheet.chart.grid;
 	  	// that.grid.yEnabled = options.chart && options.chart.grid && options.chart.grid.yEnabled ? options.chart.grid.yEnabled : stylesheet.chart.grid.yEnabled;
 	  	// that.grid.xEnabled = options.chart && options.chart.grid && options.chart.grid.xEnabled ? options.chart.grid.xEnabled : stylesheet.chart.grid.xEnabled;
 	  	that.interpolate = PykCharts.boolean(that.curvy_lines) ? "cardinal" : "linear";

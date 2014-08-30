@@ -195,8 +195,6 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                 that.innerRadius = that.k._radiusCalculation(that.innerRadiusPercent);
                 that.radius = that.k._radiusCalculation(that.radiusPercent);
 
-                console.log(that.radius,"radius",type);
-
                 that.arc = d3.svg.arc()
                     .innerRadius(that.innerRadius)
                     .outerRadius(that.radius);
