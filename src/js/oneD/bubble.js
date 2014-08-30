@@ -8,11 +8,11 @@ PykCharts.oneD.bubble = function (options) {
            that.k.loading();
         }
         d3.json(options.data, function (e,data) {
-            that.data = data.groupBy();
+            that.data = data.groupBy("oned");
             $(options.selector+" #chart-loader").remove();
             that.clubData.enable = that.data.length>that.clubData.maximumNodes ? that.clubData.enable : "no";
             that.render();
-        
+
         });
     };
 
@@ -98,7 +98,7 @@ PykCharts.oneD.bubble = function (options) {
                     .attr("x",function (d) { return d.x; })
                     .attr("y",function (d) { return d.y; })
                     .attr("r",0)
-                    .attr("transform",function (d) {return "translate(" + d.x + "," + d.y +")";})
+                    .attr("transform",function (d) { return "translate(" + d.x + "," + d.y +")"; })
                     .attr("fill",function (d) {
                         return d.children ? that.bg : that.fillChart.chartColor(d);
                     })

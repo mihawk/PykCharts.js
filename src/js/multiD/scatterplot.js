@@ -2,7 +2,7 @@
 PykCharts.multiD.scatterPlot = function (options) {
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
-    
+
     this.execute = function() {
         that = new PykCharts.multiD.processInputs(that, options, "scatterplot");
         if(that.mode === "default") {
@@ -21,7 +21,7 @@ PykCharts.multiD.scatterPlot = function (options) {
         that.zoomedOut = true;
         that.radius_range = [20,50];
         d3.json(options.data, function (e, data) {
-            that.data = data;
+            that.data = data.groupBy("scatterplot");
             $(that.selector+" #chart-loader").remove();
             var a = new PykCharts.multiD.scatterplotFunction(options,that,"scatterplot");
             a.render();
@@ -32,7 +32,7 @@ PykCharts.multiD.scatterPlot = function (options) {
 PykCharts.multiD.pulse = function (options) {
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
-    
+
     this.execute = function() {
         that = new PykCharts.multiD.processInputs(that, options, "pulse");
         if(that.mode === "default") {
@@ -48,7 +48,7 @@ PykCharts.multiD.pulse = function (options) {
         that.zoomedOut = true;
         that.radius_range = [4,14];
         d3.json(options.data, function (e, data) {
-            that.data = data;
+            that.data = data.groupBy("pulse");
             $(that.selector+" #chart-loader").remove();
             var a = new PykCharts.multiD.scatterplotFunction(options,that,"pulse");
             a.render();
@@ -59,7 +59,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
     var that = chartObject;
     that.refresh = function () {
         d3.json(options.data, function (e, data) {
-            that.data = data;
+            that.data = data.groupBy("scatterplot");
             that.mapGroupData = that.multiD.mapGroup(that.data);
             console.log("hey");
             that.optionalFeatures()
@@ -72,20 +72,20 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
 
     this.render = function () {
         that.mapGroupData = that.multiD.mapGroup(that.data);
-        that.fillChart = new PykCharts.Configuration.fillChart(that);      
-        
+        that.fillChart = new PykCharts.Configuration.fillChart(that);
+
         that.border = new PykCharts.Configuration.border(that);
-    
+
         if(that.mode === "default") {
             that.k.title()
                 .subtitle();
-            
+
             that.data_group = jQuery.unique(that.data.map(function (d) {
                 return d.group;
             }));
 
             that.no_of_groups = 1;
-            
+
             if(PykCharts.boolean(that.multiple_containers) && type === "scatterplot") {
                 that.no_of_groups = that.data_group.length;
                 that.w = that.width/4;
@@ -111,7 +111,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                         .tooltip();
 
                     that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
-                    that.sizes = new PykCharts.multiD.bubbleSizeCalculation(that,that.data,that.radius_range); 
+                    that.sizes = new PykCharts.multiD.bubbleSizeCalculation(that,that.data,that.radius_range);
 
                     that.optionalFeatures().createScatterPlot()
                         .legends(i)
@@ -127,7 +127,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                         that.k.emptyDiv();
                     }
                 }
-                that.k.emptyDiv(); 
+                that.k.emptyDiv();
             } else {
                 that.w = that.width;
                 that.new_data = that.data;
@@ -141,8 +141,8 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
 
                 that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
                 // that.k.positionContainers(that.legends,that);
-                that.sizes = new PykCharts.multiD.bubbleSizeCalculation(that,that.data,that.radius_range); 
-                
+                that.sizes = new PykCharts.multiD.bubbleSizeCalculation(that,that.data,that.radius_range);
+
                 that.optionalFeatures().createScatterPlot()
                     .legends()
                     .label()
@@ -263,7 +263,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
 
                 that.sorted_weight = that.weight.slice(0);
                 that.sorted_weight.sort(function(a,b) { return a-b; });
-                
+
                 that.group.append("text")
                     .attr("fill", "black")
                     .attr("text-anchor", "end")
@@ -354,7 +354,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
             legends : function (index) {
                 if (PykCharts.boolean(that.legends.enable) && PykCharts.boolean(that.size.enable) && that.mapGroupData[1]) {
                     var unique = _.uniq(that.sorted_weight);
-                    
+
                     var k = 0;
                     var l = 0;
                     if(options.optional.legends.display === "vertical" ) {
@@ -382,19 +382,19 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                         rect_parameter4 = "y";
                         k = 0, l = 0;
 
-                        var text_parameter1value = function (d,i) { 
+                        var text_parameter1value = function (d,i) {
                             if( i === 0) {
                                 l = 0;
                             }
                             if((that.w - (i*100 + 75)) > 0) {
-                                return that.w - (i*100 + 75); 
+                                return that.w - (i*100 + 75);
                             } else if ((that.w - (l*100 + 75)) < that.w) {
                                 l++;
-                                return that.w - ((l-1)*100 + 75); 
+                                return that.w - ((l-1)*100 + 75);
                             } else {
                                 l = 0;
                                 l++;
-                                return that.w - ((l-1)*100 + 75); 
+                                return that.w - ((l-1)*100 + 75);
                             }
                         };
 
@@ -411,30 +411,30 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                             } else {
                                 l = 0;
                                 l++;
-                                k++;    
+                                k++;
                             }
-                        return k * 24 + 23;  
-                        }; 
+                        return k * 24 + 23;
+                        };
                         rect_parameter1value = 13;
                         rect_parameter2value = 13;
-                        var rect_parameter3value = function (d,i) {      
+                        var rect_parameter3value = function (d,i) {
                             if( i === 0) {
                                 k = 0, l = 0;
                             }
                             if((that.w - (i*100 + 100)) >= 0) {
-                                return that.w - (i*100 + 100); 
+                                return that.w - (i*100 + 100);
                             } else if ((that.w - (i*100 + 100)) < that.w) {
                                 k++;
                                 if(l === 0) {
                                     that.legendsContainer.attr("height", (k+1)*50);
                                 }
                                 l++;
-                                return that.w - ((l-1)*100 + 100); 
+                                return that.w - ((l-1)*100 + 100);
                             } else {
                                 l = 0;
                                 l++;
                                 k++;
-                                return that.w - ((l-1)*100 + 100); 
+                                return that.w - ((l-1)*100 + 100);
                             }
                         };
                         rect_parameter4value = function (d,i) {
@@ -450,11 +450,11 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                             } else {
                                 l = 0;
                                 l++;
-                                k++;    
+                                k++;
                             }
                             // console.log(k*24+12, "k", d.group);
-                        return k * 24 + 12;;  
-                        } 
+                        return k * 24 + 12;;
+                        }
                     };
                     var legend;
                     if(PykCharts.boolean(that.multiple_containers)){
@@ -627,7 +627,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                 return this;
             },
             plotCircle : function () {
-                
+
                 that.circlePlot = that.chartBody.selectAll(".dot")
                                      .data(that.new_data);
 
@@ -697,7 +697,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                         .remove();
                 }
                 return this;
-            },            
+            },
             // crossHair : function () {
             //     if(PykCharts.boolean(that.enableCrossHair)) {
 
@@ -724,7 +724,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
 
             //         that.svgContainer.on("mousemove",function () {
             //             id = this.id
-    
+
             //             $(that.selector + " " +"#horizontal-cursor").show();
             //             $(that.selector + " " +"#vertical-cursor").show();
 
@@ -734,7 +734,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
 
             //             d3.select(that.selector + " #" + id).style('cursor', 'none');
 
-            //             if(x >= that.margin.left && x <=(that.w-that.margin.right)) { 
+            //             if(x >= that.margin.left && x <=(that.w-that.margin.right)) {
 
             //                 d3.select(options.selector+" #"+ id +' #vertical-cursor')
             //                     .attr("x1",x)
@@ -749,9 +749,9 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
 
             //         that.svgContainer.on("mouseout",function () {
             //             $(that.selector + " " +"#horizontal-cursor").hide();
-            //             $(that.selector + " " +"#vertical-cursor").hide();                        
+            //             $(that.selector + " " +"#vertical-cursor").hide();
             //         });
-                    
+
             //     }
             //     return this;
             // }
