@@ -8498,27 +8498,27 @@ PykCharts.maps.oneLayer = function (options) {
     this.execute = function () {
         that = PykCharts.maps.processInputs(that, options);
         //$(that.selector).css("height",that.height);
-        that.data = options.data;
+        d3.json(options.data, function (d) {
+            that.data = options.data;
 
-        that.k
-            .totalColors(that.colors.total)
-            .colorType(that.colors.type)
-            .loading(that.loading)
-            .tooltip()
+            that.k
+                .totalColors(that.colors.total)
+                .colorType(that.colors.type)
+                .loading(that.loading)
+                .tooltip()
 
-        d3.json("https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/maps/" + that.mapCode + ".json", function (data) {
-            that.map_data = data;
-            d3.json("https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/palette/colorPalette.json", function (data) {
-                that.colorPalette_data = data;
-                $(that.selector).html("");
-                var oneLayer = new PykCharts.maps.mapFunctions(options,that,"oneLayer");
-                oneLayer.render();
-                oneLayer.simulateLiveData(that.data);
+            d3.json("https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/maps/" + that.mapCode + ".json", function (data) {
+                that.map_data = data;
+                d3.json("https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/palette/colorPalette.json", function (data) {
+                    that.colorPalette_data = data;
+                    $(that.selector).html("");
+                    var oneLayer = new PykCharts.maps.mapFunctions(options,that,"oneLayer");
+                    oneLayer.render();
+                });
             });
+            that.extent_size = d3.extent(that.data, function (d) { return parseInt(d.size, 10); });
+            that.difference = that.extent_size[1] - that.extent_size[0];
         })
-
-        that.extent_size = d3.extent(that.data, function (d) { return parseInt(d.size, 10); });
-        that.difference = that.extent_size[1] - that.extent_size[0];
     };
 };
 
@@ -8528,44 +8528,44 @@ PykCharts.maps.timelineMap = function (options) {
     this.execute = function () {
         that = PykCharts.maps.processInputs(that, options);
         //$(that.selector).css("height",that.height);
+        d3.json(options.data, function (d) {
+            that.timeline_data = options.data;
 
-        that.timeline_data = options.data;
+            var x_extent = d3.extent(options.data, function (d) { return d.timestamp; });
+            that.data = _.where(options.data, {timestamp: x_extent[0]});
 
-        var x_extent = d3.extent(options.data, function (d) { return d.timestamp; })
-        that.data = _.where(options.data, {timestamp: x_extent[0]});
+            // that.margin = {top:10, right:30, bottom:10, left:30};
 
-        // that.margin = {top:10, right:30, bottom:10, left:30};
+            that.reducedWidth = that.width - (that.timeline.margin.left * 2) - that.timeline.margin.right;
+            that.reducedHeight = that.height - that.timeline.margin.top - that.timeline.margin.bottom;
 
-        that.reducedWidth = that.width - (that.timeline.margin.left * 2) - that.timeline.margin.right;
-        that.reducedHeight = that.height - that.timeline.margin.top - that.timeline.margin.bottom;
+            that.k
+                .totalColors(that.colors.total)
+                .colorType(that.colors.type)
+                .loading(that.loading)
+                .tooltip(that.tooltip.enable)
 
-        that.k
-            .totalColors(that.colors.total)
-            .colorType(that.colors.type)
-            .loading(that.loading)
-            .tooltip(that.tooltip.enable)
+            d3.json("https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/maps/" + that.mapCode + ".json", function (data) {
+                that.map_data = data;
 
-        d3.json("https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/maps/" + that.mapCode + ".json", function (data) {
-            that.map_data = data;
+                d3.json("https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/palette/colorPalette.json", function (data) {
+                    that.colorPalette_data = data;
 
-            d3.json("https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/palette/colorPalette.json", function (data) {
-                that.colorPalette_data = data;
+                    var x_extent = d3.extent(that.timeline_data, function (d) { return d.timestamp; })
+                    that.data = _.where(that.timeline_data, {timestamp: x_extent[0]});
 
-                var x_extent = d3.extent(that.timeline_data, function (d) { return d.timestamp; })
-                that.data = _.where(that.timeline_data, {timestamp: x_extent[0]});
-
-                that.data.sort(function (a,b) {
-                    return a.timestamp - b.timestamp;
+                    that.data.sort(function (a,b) {
+                        return a.timestamp - b.timestamp;
+                    });
+                    $(that.selector).html("");
+                    var timeline = new PykCharts.maps.mapFunctions(options,that,"timeline");
+                    timeline.render();
                 });
-                $(that.selector).html("");
-                var timeline = new PykCharts.maps.mapFunctions(options,that,"timeline");
-                timeline.render();
-                timeline.simulateLiveData(that.timeline_data);
             });
-        });
 
-        that.extent_size = d3.extent(that.data, function (d) { return parseInt(d.size, 10); });
-        that.difference = that.extent_size[1] - that.extent_size[0];
+            that.extent_size = d3.extent(that.data, function (d) { return parseInt(d.size, 10); });
+            that.difference = that.extent_size[1] - that.extent_size[0];
+        });
     };
 };
 
@@ -8902,27 +8902,6 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             /*console.log(e);*/
         }
     };
-
-    this.simulateLiveData = function(data) {
-        var bat = $('#live-data').val();
-        batSplit = bat.split("\n");
-        var ball = [];
-        that.live_json = [];
-        for (var i = 0; i < batSplit.length -1 ; i++) {
-            ball[i] = batSplit[i].split(",");
-        };
-        for (var i = 1; i < batSplit.length -1 ; i++) {
-            var tep = {}
-            for (var j = 0; j < ball[i].length; j++) {
-                tep[ball[0][j]] = ball[i][j];
-            };
-            that.live_json.push(tep);
-        };
-        that.data = that.live_json;
-        d3.selectAll("path")
-            .attr("fill", that.renderColor)
-            .attr("opacity", that.renderOpacity);
-    }
 
     that.renderTimeline = function () {
         var x_extent
