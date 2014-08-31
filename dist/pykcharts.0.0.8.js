@@ -367,7 +367,7 @@ PykCharts.Configuration = function (options){
                 PykCharts.Configuration.cross_hair_v.append("line")
                     .attr("class","cross-hair-v")
                     .attr("id","cross-hair-v");
-                
+
                 PykCharts.Configuration.cross_hair_h = svg.append("g")
                     .attr("class","line-cursor")
                     .style("display","none");
@@ -573,7 +573,7 @@ configuration.mouseEvent = function (options) {
                 }
                 else {
                     that.tooltip.html(d);
-                }                
+                }
             }
             return this;
         },
@@ -1174,7 +1174,7 @@ configuration.Theme = function(){
 
     that.mapsTheme = {
         // "mapCode": "india-topo",
-        "map": {
+        "chart": {
             "width":1000,
             "height":1000
         },
@@ -8361,8 +8361,8 @@ PykCharts.maps.processInputs = function (chartObject, options) {
         , optional = options.optional;
 
     chartObject.selector = options.selector ? options.selector : stylesheet.selector;
-    chartObject.width = optional.map && _.isNumber(parseInt(optional.map.width,10)) ? optional.map.width : mapsTheme.map.width;
-    chartObject.height = optional.map && _.isNumber(parseInt(optional.map.height,10)) ? optional.map.height : mapsTheme.map.height;
+    chartObject.width = optional.map && _.isNumber(parseInt(optional.chart.width,10)) ? optional.chart.width : mapsTheme.chart.width;
+    chartObject.height = optional.map && _.isNumber(parseInt(optional.chart.height,10)) ? optional.chart.height : mapsTheme.chart.height;
     chartObject.mapCode = options.mapCode ? options.mapCode : mapsTheme.mapCode;
     chartObject.enableClick = options.enableClick ? options.enableClick : mapsTheme.enableClick;
     // chartObject.defaultColor = optional && optional.colors && optional.colors.defaultColor ? optional.colors.defaultColor : mapsTheme.colors.defaultColor;

@@ -319,7 +319,10 @@
                         mapCode: $("#one").val() + "-topo",
                         data: "../data/maps/" + $("#one").val() + "_data.json",
                         optional: {
-
+                            chart: {
+                                width: 1000,
+                                height: 800
+                            },
                             colors: {
                                 defaultColor: $("#a6").val(),
                                 type: checked("colortype"),

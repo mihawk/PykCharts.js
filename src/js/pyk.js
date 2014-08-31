@@ -367,7 +367,7 @@ PykCharts.Configuration = function (options){
                 PykCharts.Configuration.cross_hair_v.append("line")
                     .attr("class","cross-hair-v")
                     .attr("id","cross-hair-v");
-                
+
                 PykCharts.Configuration.cross_hair_h = svg.append("g")
                     .attr("class","line-cursor")
                     .style("display","none");
@@ -573,7 +573,7 @@ configuration.mouseEvent = function (options) {
                 }
                 else {
                     that.tooltip.html(d);
-                }                
+                }
             }
             return this;
         },
@@ -1174,7 +1174,7 @@ configuration.Theme = function(){
 
     that.mapsTheme = {
         // "mapCode": "india-topo",
-        "map": {
+        "chart": {
             "width":1000,
             "height":1000
         },
