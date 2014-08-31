@@ -10,11 +10,15 @@
         <hr/>
         <div id="multiLine"></div>
         <hr/>
+        <div id="multiple-multiLine"></div>
+        <hr/>
         <div id="multiArea"></div>
         <hr/>
         <div id="pulse"></div>
         <hr/>
         <div id="scatterPlot"></div>
+        <hr/>
+        <div id="multiple-scatterplots"></div>
         <hr/>
         <div id="spiderWeb"></div>
         <hr/>
@@ -280,8 +284,157 @@
                 });
                 k.execute();
 
+                var k = new PykCharts.multiD.scatterPlot ({
+                    selector: "#multiple-scatterplots",
+                    data: "../data/scatterplot.json",
+                    mode : "default", //  default or infographics
+                    yAxisDataFormat : "number",
+                    xAxisDataFormat : "number",
+                    optional : {
+                        chart : {
+                            width: 700,
+                            height: 450,
+                            margin: {top: 25, right: 15, bottom: 25, left: 30},
+                            grid: {
+                                xEnabled: "yes",
+                                yEnabled: "yes",
+                                color:""
+                            }
+                        },
+                        scatterplot : {
+                            radius: 9
+                        },
+                        realTimeCharts: {
+                            refreshFrequency: 0 // seconds
+                        },
+                        multiple_containers: {
+                            enable : "yes"
+                        },
+                        size : {
+                            enable : "yes"
+                        },
+                        axis : {
+                            x: {
+                                enable: "yes",
+                                position:"bottom", //top or bottom
+                                orient : "bottom",
+                                axisColor: "#1D1D1D",
+                                no_of_ticks: "10",
+                                tickFormat: "",
+                                tickSize: 5,
+                                ticksPadding: 6,
+                                labelColor: "black",
+                                tickValues: []
+                            },
+                            y: {
+                                enable: "yes",
+                                position:"left", //left or right
+                                orient: "left",
+                                axisColor: "#1D1D1D",
+                                no_of_ticks: "10",
+                                tickSize: 5,
+                                ticksPadding: 6,
+                                tickFormat: "",
+                                labelColor: "black"
+                            }
+                        },
+                        legends: {
+                            enable: "yes",
+                            display: "horizontal"
+                        },
+                        legendsText: {
+                            size: 13,
+                            color: "black",
+                            weight: "thin",
+                            family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
+                        },
+                        zoom: {
+                            enable: "yes"
+                        },
+                        borderBetweenChartElements: {
+                            width: "0px",
+                            color: "blue"
+                        },
+                        label:{
+                            size: 12,
+                            color: "white",
+                            weight: "thin",
+                            family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
+                        },
+                        enableCrossHair: "yes"
+                    }
+                });
+                k.execute();
+
                 var k = new PykCharts.multiD.lineChart ({
                     selector: "#multiLine",
+                    data: "../data/multiLineChart.json",
+                    mode : "default",
+                    yAxisDataFormat : "number",
+                    xAxisDataFormat : "string",
+                    optional:{
+                         chart: {
+                            height: 400,
+                            width: 630,
+                            margin: {top: 5, right: 25, bottom: 25, left: 45},
+                            grid: {
+                                xEnabled: "no",
+                                yEnabled: "yes",
+                                color: ""
+                            },
+                        },
+                        transition : {
+                            duration : 0 //milliseconds
+                        },
+                        multiple_containers: {
+                            enable : "no"
+                        },
+                        realTimeCharts: {
+                            refreshFrequency: 0 // seconds
+                        },
+                        enableTooltip: "yes",
+                        axis : {
+                            onHoverHighlightenable: "yes",
+                            x: {
+                                enable: "yes",
+                                position: "bottom", //top or bottom
+                                orient : "bottom",
+                                axisColor: "#1D1D1D",
+                                labelColor: "#1D1D1D",
+                                tickSize: 3,
+                                ticksPadding: 10,
+                                outer_tick_size: 3
+                            },
+                            y: {
+                                enable: "yes",
+                                position:"left", //left or right
+                                orient: "left",
+                                axisColor: "#1D1D1D",
+                                labelColor: "#1D1D1D",
+                                tickSize: 3,
+                                ticksPadding: 10,
+                                outer_tick_size: 3,
+                                no_of_ticks: 10
+                            }
+                        },
+                        legends: {
+                            enable: "yes",
+                            display: "horizontal"
+                        },
+                        legendsText: {
+                            size: "14",
+                            color: "black",
+                            weight: "thin", // or "thick"
+                            family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
+                        },
+                        curvy_lines : "yes",
+                        enableCrossHair: "yes"
+                    }
+                });
+                k.execute();
+
+                var k = new PykCharts.multiD.lineChart ({
+                    selector: "#multiple-multiLine",
                     data: "../data/multiLineChart.json",
                     mode : "default",
                     yAxisDataFormat : "number",
@@ -322,9 +475,9 @@
                                 orient : "bottom",
                                 axisColor: "#1D1D1D",
                                 labelColor: "#1D1D1D",
-                                tickSize: 3,
-                                ticksPadding: 3,
-                                outer_tick_size: 3
+                                tickSize: 2,
+                                ticksPadding: 5,
+                                outer_tick_size: 2
                             },
                             y: {
                                 enable: "yes",
@@ -332,10 +485,9 @@
                                 orient: "left",
                                 axisColor: "#1D1D1D",
                                 labelColor: "#1D1D1D",
-                                tickSize: 3,
-                                ticksPadding: 10,
-                                outer_tick_size: 3,
-                                no_of_ticks: 10
+                                tickSize: 2,
+                                ticksPadding: 5,
+                                outer_tick_size: 2
                             }
                         },
                         legends: {

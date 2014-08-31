@@ -12,22 +12,22 @@
 	{
 		"name": "NDA",
 		"weight": 2500,
-		"highlight":false		
+		"highlight":false
 	},
 	{
 		"name": "AAP",
 		"weight": 800,
-		"highlight":false		
+		"highlight":false
 	},
 	{
 		"name": "INC",
 		"weight": 8000,
-		"highlight":false		
+		"highlight":false
 	},
 	{
 		"name": "BSP",
 		"weight": 300,
-		"highlight":false		
+		"highlight":false
 	},
 	{
 		"name": "NCP",
@@ -43,6 +43,11 @@
 		"name":"PQR",
 		"weight":590,
 		"highlight":false
-		
+
+	},
+	{
+		"name": "NDA",
+		"weight": 3000,
+		"highlight":false
 	}
 ]

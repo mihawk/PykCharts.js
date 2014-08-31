@@ -4,7 +4,7 @@ PykCharts.multiD.areaChart = function (options){
 
 	this.execute = function (){
 		that = new PykCharts.multiD.processInputs(that, options, "area");
-		                        
+
 		if(that.mode === "default") {
 			that.k.loading();
 		}
@@ -21,7 +21,7 @@ PykCharts.multiD.areaChart = function (options){
 		that.reducedHeight = that.height - that.margin.top - that.margin.bottom;
 
 		d3.json(options.data, function (e, data) {
-			that.data = data;
+			that.data = data.groupBy("area");
 			that.data_length = data.length;
 			$(that.selector+" #chart-loader").remove();
 			that.render();
@@ -31,7 +31,7 @@ PykCharts.multiD.areaChart = function (options){
 	this.render = function (){
 		if(that.mode === "default") {
 			that.transitions = new PykCharts.Configuration.transition(that);
-			
+
 			that.k.title()
 					.subtitle()
 					.liveData(that)
@@ -71,7 +71,7 @@ PykCharts.multiD.areaChart = function (options){
 
 	this.refresh = function (){
 		d3.json(options.data, function (e,data) {
-			that.data = data;
+			that.data = data.groupBy("area");
 			that.data_length = data.length;
 
 			that.optional_feature().createChart("liveData");
@@ -101,7 +101,7 @@ PykCharts.multiD.areaChart = function (options){
 				$(options.selector).css({"background-color":that.bg,"position":"relative"});
 
 				that.svg = d3.select(options.selector+" "+"#tooltip-svg-container-"+i).append("svg:svg")
-					.attr("id","svg")
+					.attr("id","svg-"+i)
 					.attr("width",that.width)
 					.attr("height",that.height);
 
@@ -133,7 +133,7 @@ PykCharts.multiD.areaChart = function (options){
 
 				that.chart_path_stack = d3.layout.stack()
 					.values(function(d) { return d.data; });
-    		
+
     			return this;
 			},
 			axisContainer : function () {
