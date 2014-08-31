@@ -19,7 +19,7 @@ PykCharts.multiD.lineChart = function (options){
 
 	    d3.json(options.data, function (e, data) {
 			that.data = data.groupBy("line");
-			that.data_length = data.length;
+			that.data_length = that.data.length;
 			that.dataTransform();
 			$(that.selector+" #chart-loader").remove();
 			that.render();
@@ -156,7 +156,7 @@ PykCharts.multiD.lineChart = function (options){
 	this.refresh = function () {
 		d3.json(options.data, function (e,data) {
 			that.data = data.groupBy("line");
-			that.data_length = data.length;
+			that.data_length = that.data.length;
 			that.dataTransform();
 
 			that.optionalFeature().createLineChart("livedata");
