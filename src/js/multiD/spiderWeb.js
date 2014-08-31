@@ -14,6 +14,7 @@ PykCharts.multiD.spiderWeb = function (options) {
         that.innerRadius = 0;
         that.enableTicks = options.optional && options.optional.enableTicks ? options.optional.enableTicks : theme.multiDimensionalCharts.spiderweb.enableTicks;        
 
+        console.log(that.outerRadius,"outerRadius");
         d3.json(options.data, function (e, data) {
             that.data = data;
             $(that.selector+" #chart-loader").remove();
@@ -524,7 +525,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                             return "translate(" + (-that.width/2) + "," + (-that.height/2) + ")";
                         })
                         .style("text-anchor","middle")
-                        .attr("x", function (d, i){return that.width/2*(1-0.2*Math.sin(i*2*Math.PI/that.length))+245*Math.sin(i*2*Math.PI/that.length);})
+                        .attr("x", function (d, i){ return that.width/2*(1-0.2*Math.sin(i*2*Math.PI/that.length))+245*Math.sin(i*2*Math.PI/that.length);})
                         .attr("y", function (d, i){
                             return that.height/2*(1-0.60*Math.cos(i*2*Math.PI/that.length))-75*Math.cos(i*2*Math.PI/that.length);
                         })
@@ -541,26 +542,39 @@ PykCharts.multiD.spiderWeb = function (options) {
             axisTicks: function () {
                 if (PykCharts.boolean(that.enableTicks)) {
                     var a = that.yScale.domain();
+                    that.textGroup = that.svg.append("g")
+                        .attr("transform", "translate(" + that.width / 2 + "," + that.height / 2 + ")");
+                    console.log(a,"domain",that.outerRadius/5);
                     var t = a[1]/4;
                     var b=[];
                     for(i=4,j=0; i>=0 ;i--,j++){
                         b[j]=i*t;
                     }
-                    var spider_ticks = that.group.selectAll("text.ticks")
+                    var spider_ticks = that.textGroup.selectAll("text.ticks")
                         .data(b);
 
                     spider_ticks.enter()
                         .append("text")
-                        .attr("class","ticks");
+                        .attr("class","ticks"); 
 
+                        //var levelFactor =   that.outerRadius*((i+1)/4));
                     spider_ticks
                         .style("text-anchor","start")
-                        .attr("transform", "translate(5,-180)") 
+                        .attr("transform", "translate(5,"+(-that.outerRadius)+")") 
                         .attr("x",0)
-                        .attr("y", function (d,i) { return i*40; });
+                        .attr("y", function (d,i) { return (i*(that.outerRadius/4)); })
+                        .attr("dy",-2);
+                        // .attr("dy",function(d,i) {
+                        //     if(i === 0) 2
+                        //         return -20;
+                        //     } else {
+                        //         console.log(i,-20/(4*(5-(i))),(4*(5-(i))));
+                        //         return -4;
+                        //     }
+                        // });
 
                     spider_ticks               
-                        .text(function (d) { return d; })
+                        .text(function (d,i) { return d; })
                         .style("font-size",that.label.size)
                         .style("font-family",that.label.family);
                 }              

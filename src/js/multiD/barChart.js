@@ -196,7 +196,7 @@ PykCharts.multiD.barChart = function(options){
                                 x: d.y,
                                 y: d.x,
                                 x0: d.y0,
-                                tooltip : d.tooltip,
+                                tooltip : d.tooltip ? d.tooltip : d.y,
                                 color: d.color,
                                 group: d.group,
                                 name:d.name,
