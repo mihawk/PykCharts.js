@@ -32,7 +32,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                     .clubData()
                     .createChart()
                     .label()
-                    .ticks()
+                    .ticks();
         });
     };
 
@@ -187,7 +187,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                         .attr("fill", that.label.color)
                         .style("font-family", that.label.family)
                         .text(function (d) {
-                            if(this.getBBox().width < (that.width/4 ) && this.getBBox().height < (d.percentValue * that.height / 100)) {
+                            if(this.getBBox().width < (that.width/4) && this.getBBox().height < (d.percentValue * that.height / 100)) {
                                 return that.k.appendUnits(d.weight);
                             }else {
                                 return "";
