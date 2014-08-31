@@ -6,12 +6,12 @@
         include.async = true;
         include.onload = include.onreadystatechange = function () {
             try {
-                if (_ && d3 && ($ || jQuery) && d3.customHive) {
+                if (_ && d3 && ($ || jQuery) && d3.customHive && topojson) {
                     window.PykChartsInit();
                 };
             }
             catch (e) {
-                
+
             }
         }
         include.src = url;
@@ -49,5 +49,13 @@
     }
     catch (e) {
         importFiles('https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/js/custom-hive.min.js');
+    }
+    try {
+        if (!topojson) {
+            importFiles('https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/js/topojson.js');
+        }
+    }
+    catch (e) {
+          importFiles('https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/js/topojson.js');
     }
 })();
