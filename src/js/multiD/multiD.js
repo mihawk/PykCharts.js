@@ -11,7 +11,7 @@ PykCharts.multiD.configuration = function (options){
                 xScale.focus(mouse[0]);
                 rect
                 .attr("x", function(d) { return xScale(d.x); })
-                .attr("width", function(d) {return xScale.rangeBand(d.x);});                         
+                .attr("width", function(d) {return xScale.rangeBand(d.x);});
             });
         },
         opacity : function (d,weight,data) {
@@ -21,7 +21,7 @@ PykCharts.multiD.configuration = function (options){
                                 return d.weight;
                             }))
                             .range([0.1,1]);
-                
+
                 return d ? z(d) : z(_.min(weight));
             }
             else {
@@ -40,7 +40,7 @@ PykCharts.multiD.configuration = function (options){
             if(status) {
                 var j = 0,k = 0;
                 j = series.length;
-                k = series.length;                
+                k = series.length;
 
                 if(options.optional.legends.display === "vertical") {
                     svg.attr("height", (series.length * 30)+20)
@@ -57,7 +57,7 @@ PykCharts.multiD.configuration = function (options){
                     var rect_parameter4value = function (d,i) { return i * 24 + 12;};
                     var text_parameter2value = function (d,i) { return i * 24 + 26;};
                 }
-                if(options.optional.legends.display === "horizontal"){                    
+                if(options.optional.legends.display === "horizontal"){
                     svg.attr("height",70);
                     text_parameter1 = "x";
                     text_parameter2 = "y";
@@ -72,7 +72,7 @@ PykCharts.multiD.configuration = function (options){
                     var rect_parameter3value = function (d,i) { k--;return options.optional.chart.width - (k*100 + 100); };
                     rect_parameter4value = 18;
                 }
-                
+
                 that.legends_text = group1.selectAll(".legends_text")
                     .data(series);
                 that.legends_text.enter()
@@ -90,10 +90,10 @@ PykCharts.multiD.configuration = function (options){
 
                 that.legends_text.exit()
                     .remove();
-                
+
                 that.legends_rect = group1.selectAll(".legends_rect")
                     .data(series);
-                
+
                 that.legends_rect.enter()
                     .append("rect")
                     .attr("class","legends_rect");
@@ -160,7 +160,7 @@ PykCharts.multiD.configuration = function (options){
             var k = 0;
             var checkGroup = true;
             var checkColor = true;
-            
+
             data.forEach(function (item) {
                 if(item.group) {
                     checkGroup = true;
@@ -182,9 +182,9 @@ PykCharts.multiD.configuration = function (options){
                         }
                         newarr.push(item);
                         unique[item.group] = item;
-                    } 
-                }); 
-                
+                    }
+                });
+
                 var arr = [];
                 var uniqueColor = {};
                 k = 0;
@@ -198,22 +198,22 @@ PykCharts.multiD.configuration = function (options){
                         arr.push(item);
                         uniqueColor[item.color] = item;
                     }
-                }); 
+                });
                 var arr_length = arr.length,
-                data_length = data.length; 
+                data_length = data.length;
                 for(var i = 0;i < arr_length; i++) {
                     for(var j = 0;j<data_length;j++) {
                         if(data[j].group === arr[i].group) {
                             data[j].color = arr[i].color;
                         }
                     }
-                }                
+                }
                 return [arr,checkGroup];
             } else {
                 return [data,checkGroup];
-            }                
+            }
         }
-        
+
     };
     return multiDConfig;
 };
@@ -245,7 +245,7 @@ PykCharts.multiD.bubbleSizeCalculation = function (options,data,rad_range) {
                         }))
                         .range(rad_range);
             return z(d);
-        } else { 
+        } else {
             return options.bubbleRadius;
         }
     };
@@ -389,10 +389,10 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     chartObject.units = optional && optional.units ? optional.units : false;
     chartObject.size = optional && optional.size ? optional.size : multiDimensionalCharts.size;
     chartObject.size.enable = optional && optional.size && optional.size.enable ? optional.size.enable : multiDimensionalCharts.size.enable;
-    chartObject.colorPalette = ["#b2df8a", "#1f78b4", "#33a02c", "#fb9a99", "#e31a1c", "#fdbf6f", "#ff7f00", "#cab2d6", "#6a3d9a", "#ffff99", "#b15928", "#a6cee3"]; 
+    chartObject.colorPalette = ["#b2df8a", "#1f78b4", "#33a02c", "#fb9a99", "#e31a1c", "#fdbf6f", "#ff7f00", "#cab2d6", "#6a3d9a", "#ffff99", "#b15928", "#a6cee3"];
     chartObject.k = new PykCharts.Configuration(chartObject);
     if (optional && optional.tooltip) {
-        chartObject.tooltip = optional.tooltip;        
+        chartObject.tooltip = optional.tooltip;
         chartObject.tooltip.enable = optional.tooltip.enable ? optional.tooltip.enable : multiDimensionalCharts.tooltip.enable;
         chartObject.tooltip.mode = optional.tooltip.mode ? optional.tooltip.mode : multiDimensionalCharts.tooltip.mode;
     } else {

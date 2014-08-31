@@ -1,7 +1,7 @@
 PykCharts.multiD.ultimate = function(options){
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
-    
+
     this.execute = function () {
         that = new PykCharts.multiD.processInputs(that, options, "column");
 
@@ -21,9 +21,9 @@ PykCharts.multiD.ultimate = function(options){
 
     this.refresh = function () {
         d3.json(options.data, function (e, data) {
-            that.data = data;      
-            that.data = that.dataTransformation(); 
-            that.data = that.emptygroups(that.data);                          
+            that.data = data;
+            that.data = that.dataTransformation();
+            that.data = that.emptygroups(that.data);
 
             var fD = that.flattenData();
             that.the_bars = fD[0];
@@ -35,7 +35,7 @@ PykCharts.multiD.ultimate = function(options){
             that.optionalFeatures()
                     .createColumnChart()
                     .legends();
-                    
+
             that.k.yAxis(that.svg,that.ygroup,that.yScaleInvert)
                 .yGrid(that.svg,that.group,that.yScaleInvert);
         });
@@ -47,7 +47,7 @@ PykCharts.multiD.ultimate = function(options){
     this.render = function(){
         var that = this;
         that.data = that.dataTransformation();
-        that.data = that.emptygroups(that.data);                          
+        that.data = that.emptygroups(that.data);
         var fD = that.flattenData();
         that.the_bars = fD[0];
         that.the_keys = fD[1];
@@ -75,7 +75,7 @@ PykCharts.multiD.ultimate = function(options){
                 .tooltip();
 
             that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
-            
+
             that.optionalFeatures()
                 .createColumnChart()
                 .legends()
@@ -84,7 +84,7 @@ PykCharts.multiD.ultimate = function(options){
             that.k.yAxis(that.svg,that.ygroup,that.yScaleInvert)
                 // .xAxis(that.svg,that.xgroup,that.xScale)
                 .yGrid(that.svg,that.group,that.yScaleInvert);
-              
+
         } else if(that.mode === "infographics") {
             that.k.makeMainDiv(that.selector,1);
             that.optionalFeatures().svgContainer(1)
@@ -114,7 +114,7 @@ PykCharts.multiD.ultimate = function(options){
                     .attr("id","svggroup")
                     .attr("class","svggroup")
                     .attr("transform","translate(" + that.margin.left + "," + that.margin.top +")");
-               
+
                 if(PykCharts.boolean(that.grid.yEnabled)) {
                     that.group.append("g")
                         .attr("id","ygrid")
@@ -162,9 +162,9 @@ PykCharts.multiD.ultimate = function(options){
                     that.xgroup = that.group.append("g")
                         .attr("id","xaxis")
                         .attr("class", "x axis")
-                        .style("stroke","none"); 
+                        .style("stroke","none");
                 }
-                
+
                 if(PykCharts.boolean(that.axis.y.enable)) {
                     that.ygroup = that.group.append("g")
                         .attr("id","yaxis")
@@ -180,7 +180,7 @@ PykCharts.multiD.ultimate = function(options){
                 var keys = that.the_keys;
                 var layers = that.the_layers;
                 var groups= that.getGroups();
-  
+
                 var stack = d3.layout.stack() // Create default stack
                     .values(function(d){ // The values are present deep in the array, need to tell d3 where to find it
                         return d.values;
@@ -200,8 +200,8 @@ PykCharts.multiD.ultimate = function(options){
                     }))
                     .rangeBands([0,w],0.1);
 
-                y_domain = [0,d3.max(yValues)]  
-                // console.log(d3.max(yValues));              
+                y_domain = [0,d3.max(yValues)]
+                // console.log(d3.max(yValues));
                 y_domain = that.k._domainBandwidth(y_domain,1);
                 // console.log(y_domain,"y_domain");
                 that.yScale = d3.scale.linear().domain(y_domain).range([0, h]);
@@ -236,7 +236,7 @@ PykCharts.multiD.ultimate = function(options){
                 //     .domain(that.barName.map(function(d) { return d; }))
                 //     .rangeRoundBands([0, that.x0.rangeBand()]) ;
 
-                
+
                 var bars = that.group.selectAll(".bars")
                     .data(layers);
 
@@ -309,7 +309,7 @@ PykCharts.multiD.ultimate = function(options){
 
                 bars.exit()
                     .remove();
-                
+
                 var xAxis_label = that.group.selectAll("text.axis-text")
                     .data(group_label_data);
 
@@ -353,7 +353,7 @@ PykCharts.multiD.ultimate = function(options){
                 if(PykCharts.boolean(that.legends.enable)) {
                     var params = that.getParameters(),color;
                     // console.log(params);
-                    color = params[0].color; 
+                    color = params[0].color;
                     params = params.map(function (d) {
                         return d.name;
                     });
@@ -361,8 +361,8 @@ PykCharts.multiD.ultimate = function(options){
                     params = jQuery.unique(params);
                     var j = 0,k = 0;
                     j = params.length;
-                    k = params.length;                
-                    
+                    k = params.length;
+
                     if(that.legends.display === "vertical" ) {
                         that.legend_svg.attr("height", (params.length * 30)+20);
                         text_parameter1 = "x";
@@ -416,7 +416,7 @@ PykCharts.multiD.ultimate = function(options){
 
                     that.legends_text = that.legends_group.selectAll(".legends_text")
                         .data(params);
-                    
+
                     that.legends_text
                         .enter()
                         .append('text')
@@ -431,12 +431,12 @@ PykCharts.multiD.ultimate = function(options){
                     .attr(text_parameter1, text_parameter1value)
                     .attr(text_parameter2, text_parameter2value)
                     .text(function (d) { return d; });
-                    
+
                     that.legends_text.exit()
-                                    .remove();                
-                }     
-                return this;    
-            } 
+                                    .remove();
+                }
+                return this;
+            }
         }
         return optional;
     };
@@ -444,7 +444,7 @@ PykCharts.multiD.ultimate = function(options){
     //----------------------------------------------------------------------------------------
     // 6. Rendering groups:
     //----------------------------------------------------------------------------------------
-    
+
     this.getGroups = function(){
         var groups = {};
         for(var i in that.the_bars){
@@ -555,7 +555,7 @@ PykCharts.multiD.ultimate = function(options){
                         color = that.chartColor;
                     }
                     else if(that.the_layers[i].values[0].color) {
-                        color = that.the_layers[i].values[0].color;   
+                        color = that.the_layers[i].values[0].color;
                     }
                 }
                 else {
@@ -594,10 +594,10 @@ PykCharts.multiD.ultimate = function(options){
 
         var data_tranform = [];
         that.barName = [];
-        var data_length = that.data.length;   
+        var data_length = that.data.length;
         that.data.sort(function (a,b) {
             return b.y - a.y;
-        }); 
+        });
         for(var i=0; i < data_length; i++) {
             var group = {},
                 bar = {},
@@ -612,7 +612,7 @@ PykCharts.multiD.ultimate = function(options){
             }
 
             that.barName[i] = that.data[i].group;
-            group[that.data[i].x] = [];      
+            group[that.data[i].x] = [];
             bar[that.data[i].group] = [];
             stack = { "name": that.data[i].stack, "tooltip": that.data[i].tooltip, "color": that.data[i].color, "val": that.data[i].y, highlight: that.data[i].highlight };
 
@@ -635,15 +635,15 @@ PykCharts.multiD.ultimate = function(options){
                             }
                         }
                         if(k < barLength) {
-                            data_tranform[j][that.data[i].x][k][that.data[i].group].push(stack);                   
+                            data_tranform[j][that.data[i].x][k][that.data[i].group].push(stack);
                         } else {
                             data_tranform[j][that.data[i].x].push(bar);
-                            data_tranform[j][that.data[i].x][k][that.data[i].group].push(stack);                      
+                            data_tranform[j][that.data[i].x][k][that.data[i].group].push(stack);
                         }
                         break;
                     }
                 }
-                if(j === data_tranform_lenght) {    
+                if(j === data_tranform_lenght) {
                     data_tranform.push(group);
                     data_tranform[j][that.data[i].x].push(bar);
                     data_tranform[j][that.data[i].x][0][that.data[i].group].push(stack);

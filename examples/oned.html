@@ -32,15 +32,14 @@
 		    window.PykChartsInit = function (e) {
             var k = new PykCharts.oneD.bubble({
                 selector: "#bubble",
-                data:"../data/pie.json",
-                
+                data:"../data/pie.json"
             });
             k.execute();
 
       			var k = new PykCharts.oneD.funnel({
-        				selector: "#funnel",
-        				data:"../data/pie.json"
-      			 });
+          				selector: "#funnel",
+          				data:"../data/pie.json"
+        			});
       			k.execute();
 
             var k = new PykCharts.oneD.pictograph({
@@ -98,7 +97,7 @@
             k.execute();
 		    }
 
-		</script>    
-    <script src="../dist/pykcharts.0.0.8.min.js"></script>
+		</script>
+    <script src="../dist/pykcharts.0.0.8.js"></script>
 	</body>
 </html>

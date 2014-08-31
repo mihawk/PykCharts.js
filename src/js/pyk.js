@@ -1,24 +1,118 @@
 var PykCharts = {};
 
-Array.prototype.groupBy = function () {
+Array.prototype.groupBy = function (chart) {
     var gd = []
     , i
-    , group = _.groupBy(this, function (d) {
-        return d.name;
-    });
-    for(i in group) {
-        var highlight = _.where(group[i], {highlight: true}).length;
-        if (highlight>0) {
-            gd.push({
-                name: i,
-                weight: d3.sum(group[i], function (d) { return d.weight; }),
-                highlight: true
-            })
-        } else {
-            gd.push({
-                name: i,
-                weight: d3.sum(group[i], function (d) { return d.weight; })
-            })
+    , obj
+    , dimensions = {
+        "oned": ["name"],
+        "line": ["x","name"],
+        "area": ["x","name"],
+        "bar": ["y","group"],
+        "column": ["x","group"],
+        "scatterplot": ["x","name","group"],
+        "pulse": ["x","name","group"],
+        "spiderweb": ["x","name"],
+    }
+    , charts = {
+        "oned": {
+            "dimension": "name",
+            "fact": "weight"
+        },
+        "line": {
+          "dimension": "x",
+          "fact": "y",
+          "name": "name"
+        },
+        "area": {
+          "dimension": "x",
+          "fact": "y",
+          "name": "name"
+        },
+        "bar": {
+          "dimension": "y",
+          "fact": "x",
+          "name": "group"
+        },
+        "column": {
+          "dimension": "x",
+          "fact": "y",
+          "name": "group"
+        },
+        "scatterplot": {
+          "dimension": "x",
+          "fact": "y",
+          "weight": "weight",
+          "name": "name",
+          "group": "group"
+        },
+        "pulse": {
+          "dimension": "x",
+          "fact": "y",
+          "weight": "weight",
+          "name": "name",
+          "group": "group"
+        },
+        "spiderweb": {
+          "dimension": "x",
+          "fact": "y",
+          "name": "name",
+          "weight": "weight"
+        }
+    };
+
+    var properties = dimensions[chart];
+    var arr = this;
+    var groups = [];
+    for(var i = 0, len = arr.length; i<len; i+=1){
+        var obj = arr[i];
+        if(groups.length == 0){
+            groups.push([obj]);
+        }
+        else{
+            var equalGroup = false;
+            for(var a = 0, glen = groups.length; a<glen;a+=1){
+                var group = groups[a];
+                var equal = true;
+                var firstElement = group[0];
+                properties.forEach(function(property){
+
+                    if(firstElement[property] !== obj[property]){
+                        equal = false;
+                    }
+
+                });
+                if(equal){
+                    equalGroup = group;
+                }
+            }
+            if(equalGroup){
+                equalGroup.push(obj);
+            }
+            else {
+                groups.push([obj]);
+            }
+        }
+    }
+
+    for(i in groups) {
+        if ($.isArray(groups[i])) {
+            obj = {};
+            var grp = groups[i]
+            var chart_name = charts[chart];
+            obj[chart_name.dimension] = grp[0][chart_name.dimension];
+            obj[chart_name.fact] = d3.sum(grp, function (d) { return d[charts[chart].fact]; });
+            if (chart_name.name) {
+                obj[chart_name.name] = grp[0][chart_name.name];
+            }
+            if (chart_name.weight) {
+                obj[chart_name.weight] = d3.sum(grp, function (d) { return d[charts[chart].weight]; });
+            }
+            if (chart_name.group) {
+                obj[chart_name.group] = grp[0][chart_name.group];
+            }
+            var f = _.extend(obj,_.omit(grp[0], _.values(charts[chart])));
+            gd.push(f);
         }
     };
     return gd;
@@ -674,7 +768,7 @@ configuration.mouseEvent = function (options) {
                     selection = axisHighlight+" .tick text";
                     abc = options.axis.y.labelColor;
                     axis_data_length = d3.selectAll(selection)[0].length;
-                    
+
                     d3.selectAll(selection)
                         .style("fill","#bbb")
                         .style("font-size","12px")
@@ -689,7 +783,7 @@ configuration.mouseEvent = function (options) {
                             }
                         }
                     }
-                } 
+                }
                 else {
                     if(axisHighlight === options.selector + " .x.axis") {
                         selection = axisHighlight+" .tick text";
@@ -709,7 +803,7 @@ configuration.mouseEvent = function (options) {
 
                     for(curr_tick = 0;d3.selectAll(selection)[0][curr_tick].innerHTML !== active_tick;curr_tick++){}
                     prev_tick = curr_tick;
-                    
+
                     d3.selectAll(selection)
                         .style("fill","#bbb")
                         .style("font-size","12px")
