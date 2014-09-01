@@ -515,19 +515,18 @@ PykCharts.multiD.spiderWeb = function (options) {
 
                     var spider_text = that.group.selectAll("text.axisTitle")
                         .data(that.nodes[0]);
-
                     spider_text.enter()
                         .append("text")
                         .attr("class","axisTitle");
 
                     spider_text
                         .attr("transform", function(d, i){
-                            return "translate(" + (-that.width/2) + "," + (-that.height/2) + ")";
+                            return "translate(" + (-that.outerRadius) + "," + (-that.outerRadius) + ")";
                         })
                         .style("text-anchor","middle")
-                        .attr("x", function (d, i){ return that.width/2*(1-0.2*Math.sin(i*2*Math.PI/that.length))+245*Math.sin(i*2*Math.PI/that.length);})
+                        .attr("x", function (d, i){ return that.outerRadius*(1-0.2*Math.sin(i*2*Math.PI/that.length))+(that.outerRadius * 1.25)*Math.sin(i*2*Math.PI/that.length);})
                         .attr("y", function (d, i){
-                            return that.height/2*(1-0.60*Math.cos(i*2*Math.PI/that.length))-75*Math.cos(i*2*Math.PI/that.length);
+                            return that.outerRadius*(1-0.60*Math.cos(i*2*Math.PI/that.length))-(that.outerRadius * 0.47)*Math.cos(i*2*Math.PI/that.length);
                         })
                         .style("font-size",that.label.size)
                         .style("font-family",that.label.family)
