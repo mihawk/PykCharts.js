@@ -8285,7 +8285,6 @@ PykCharts.multiD.spiderWeb = function (options) {
     //     $("#abc").bPopup({position: [30, 10],transition: 'fadeIn',onClose: function(){ $('.clone').remove(); }});
     // };
 };
-
 PykCharts.maps = {};
 
 PykCharts.maps.mouseEvent = function (options) {
