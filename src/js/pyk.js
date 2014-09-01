@@ -1203,7 +1203,8 @@ configuration.Theme = function(){
             "margin": {"top": 5, "right": 25, "bottom": 25, "left": 45}
         },
         "legends": {
-            "enable":"yes"
+            "enable":"yes",
+            "display": "horizontal"
         },
         "label": {
             "enable": "no"

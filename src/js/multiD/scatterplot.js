@@ -360,7 +360,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
 
                     var k = 0;
                     var l = 0;
-                    if(options.optional.legends.display === "vertical" ) {
+                    if(that.legends.display === "vertical" ) {
                         that.legendsContainer.attr("height", (that.mapGroupData[0].length * 30)+20);
                         text_parameter1 = "x";
                         text_parameter2 = "y";
@@ -375,7 +375,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                         var rect_parameter4value = function (d,i) { return i * 24 + 12;};
                         var text_parameter2value = function (d,i) { return i * 24 + 23;};
 
-                    } else if(options.optional.legends.display === "horizontal") {
+                    } else if(that.legends.display === "horizontal") {
                         // that.legendsContainer.attr("height", (k+1)*70);
                         text_parameter1 = "x";
                         text_parameter2 = "y";

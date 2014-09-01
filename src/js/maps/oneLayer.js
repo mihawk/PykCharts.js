@@ -291,50 +291,102 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         // var that = this,
             var k,
             onetenth;
+
         if (that.colors.type === "saturation") {
             that.legs = d3.select(that.selector)
                 .append("svg")
                 .attr("id", "legend-container")
                 .attr("width", that.width)
                 .attr("height", 50);
-            if (that.colors.palette === "") {
-                for (k = 1; k <= 9; k++) {
-                    onetenth = d3.format(".1f")(that.extent_size[1] / 9);
-                    that.leg = d3.round(onetenth * k);
-                    that.legs.append("rect")
-                        .attr("x", k * (that.width / 11))
-                        .attr("y", 20)
-                        .attr("width", (that.width / 11))
-                        .attr("height", 5)
-                        .attr("fill", that.defaultColor)
-                        .attr("opacity", k / 9);
 
-                    that.legs.append("text")
-                        .attr("x", (k + 1) * (that.width / 11) - 5)
-                        .attr("y", 34)
-                        .style("font-size", 10)
-                        .style("font", "Arial")
-                        .text("< " + that.leg);
+            if(that.legends.display === "vertical" ) {
+                var j = 0, i = 0;
+                if(that.colors.palette === "") {
+                    that.legs.attr("height", (9 * 30)+20);
                 }
-            } else {
-                for (k = 1; k <= that.current_palette.number; k++) {
-                    that.leg = d3.round(that.extent_size[0] + k * (that.difference / that.current_palette.number));
-                    that.legs.append("rect")
-                        .attr("x", k * that.width / (that.current_palette.number + 2))
-                        .attr("y", 20)
-                        .attr("width", that.width / (that.current_palette.number + 2))
-                        .attr("height", 5)
-                        .attr("fill", that.current_palette.colors[k - 1]);
+                else {
+                    that.legs.attr("height", (that.current_palette.number * 30)+20);    
+                }
+                text_parameter1 = "x";
+                text_parameter2 = "y";
+                rect_parameter1 = "width";
+                rect_parameter2 = "height";
+                rect_parameter3 = "x";
+                rect_parameter4 = "y";
+                rect_parameter1value = 13;
+                rect_parameter2value = 13;
+                text_parameter1value = function (d,i) { return that.width - (that.width/12) + 18; };
+                rect_parameter3value = function (d,i) { return that.width - (that.width/12); };
+                var rect_parameter4value = function (d) {j++; return j * 24 + 12;};
+                var text_parameter2value = function (d) {i++; return i * 24 + 23;};
 
-                    that.legs.append("text")
-                        .attr("x", (k + 1) * that.width / (that.current_palette.number + 2) - 5)
-                        .attr("y", 34)
-                        .style("font-size", 10)
-                        .style("font", "Arial")
-                        .text("< " + that.leg);
+            } else if(options.optional.legends.display === "horizontal") {
+                var j = 0, i = 0;
+                if(that.colors.palette === "") {
+
+                    j = 9, i = 9;
                 }
+                else {
+                    j = that.current_palette.number, i = that.current_palette.number;                    that.legs.attr("height", (that.current_palette.number * 30)+20);    
+                }
+                that.legs.attr("height", 50);
+                text_parameter1 = "x";
+                text_parameter2 = "y";
+                rect_parameter1 = "width";
+                rect_parameter2 = "height";
+                rect_parameter3 = "x";
+                rect_parameter4 = "y";
+                var text_parameter1value = function () { i--; return that.width - (i*60 + 40);};
+                text_parameter2value = 30;
+                rect_parameter1value = 13;
+                rect_parameter2value = 13;
+                var rect_parameter3value = function () {j--; return that.width - (j*60 + 60); };
+                rect_parameter4value = 18;
+
+            };
+
+        if (that.colors.palette === "") {
+            for (k = 1; k <= 9; k++) {
+                onetenth = d3.format(".1f")(that.extent_size[1] / 9);
+                that.leg = d3.round(onetenth * k);
+                that.legs.append("rect")
+                    .attr("x", function (d) {
+                        rect_parameter3value(d,k);
+                    })
+                    .attr("y", function (d) {
+                        rect_parameter4value(d,k);
+                    } )
+                    .attr("width", rect_parameter1value)
+                    .attr("height", rect_parameter2value)
+                    .attr("fill", that.defaultColor)
+                    .attr("opacity", k / 9);
+
+                that.legs.append("text")
+                    .attr("x", text_parameter1value)
+                    .attr("y", text_parameter2value)
+                    .style("font-size", 10)
+                    .style("font", "Arial")
+                    .text("< " + that.leg);
             }
-            $("#legend-container").after("</br>");
+        } else {
+            for (k = 1; k <= that.current_palette.number; k++) {
+                that.leg = d3.round(that.extent_size[0] + k * (that.difference / that.current_palette.number));
+                that.legs.append("rect")
+                    .attr("x",rect_parameter3value)
+                    .attr("y", rect_parameter4value)
+                    .attr("width", rect_parameter1value)
+                    .attr("height", rect_parameter2value)                    
+                    .attr("fill", that.current_palette.colors[k - 1]);
+
+                that.legs.append("text")
+                    .attr("x", text_parameter1value)
+                    .attr("y",text_parameter2value)
+                    .style("font-size", 10)
+                    .style("font", "Arial")
+                    .text(that.leg);
+            }
+        }
+        $("#legend-container").after("</br>");
         } else {
             $("#legend-container").remove();
         }

@@ -109,6 +109,7 @@ PykCharts.maps.processInputs = function (chartObject, options) {
     if(optional && optional.legends) {
         chartObject.legends = optional.legends;
         chartObject.legends.enable = optional.legends.enable && optional.legends.enable ? optional.legends.enable : mapsTheme.legends.enable;
+        chartObject.legends.display = optional.legends.display ? optional.legends.display : mapsTheme.legends.display;
     } else {
         chartObject.legends =  mapsTheme.legends;
     }
