@@ -1000,7 +1000,7 @@ configuration.Theme = function(){
             "size": "15px",
             "color": "#1D1D1D",
             "weight": "bold",
-            "family": "'Helvetica Neue',Helvetica,Arial,sans-serif"
+            "famgroup ily": "'Helvetica Neue',Helvetica,Arial,sans-serif"
         },
         "overflowTicks" : "no",
         "subtitle":{
@@ -1134,7 +1134,6 @@ configuration.Theme = function(){
         },
         "yAxisDataFormat" : "number",
         "xAxisDataFormat" : "string",
-        "curvy_lines" : "no",
         "enableCrossHair" : "yes",
         "zoom" : {
             "enable" : "no"
@@ -1163,7 +1162,8 @@ configuration.Theme = function(){
             "radius" : 40
         },
         "line": {
-            "color_from_data": "yes"
+            "color_from_data": "yes",
+            "curvy_lines" : "no"        
         }
     };
 

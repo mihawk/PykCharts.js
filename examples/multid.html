@@ -91,10 +91,12 @@
                                 outer_tick_size: 3
                             }
                         },
+                        line: {                            
+                            curvy_lines : "yes"
+                        },
                         tooltip : {
                             mode : "moving"
                         },
-                        curvy_lines : "yes",
                         enableCrossHair: "yes"
                     }
                 });
@@ -145,7 +147,9 @@
                                 outer_tick_size: 3
                             }
                         },
-                        curvy_lines : "yes",
+                        line: {                            
+                            curvy_lines : "yes"
+                        },
                         enableCrossHair: "yes",
                         zoom: {
                             enable: "yes"
@@ -373,14 +377,13 @@
                     yAxisDataFormat : "number",
                     xAxisDataFormat : "string",
                     optional:{
-                         chart: {
+                        chart: {
                             height: 400,
                             width: 630,
                             margin: {top: 5, right: 25, bottom: 25, left: 45},
                             grid: {
                                 xEnabled: "no",
-                                yEnabled: "yes",
-                                color: ""
+                                yEnabled: "yes"
                             },
                         },
                         transition : {
@@ -427,7 +430,9 @@
                             weight: "thin", // or "thick"
                             family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
                         },
-                        curvy_lines : "yes",
+                        line: {                            
+                            curvy_lines : "yes"
+                        },
                         enableCrossHair: "yes"
                     }
                 });
@@ -449,9 +454,10 @@
                                 yEnabled: "yes",
                                 color: ""
                             },
-                        },/*
-                        line: {
-                            color_from_data: "no"
+                        },
+                        /*line: {
+                            color_from_data: "no",
+                            curvy_lines : "yes"
                         },*/
                         transition : {
                             duration : 0 //milliseconds
@@ -500,7 +506,6 @@
                             weight: "thin", // or "thick"
                             family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
                         },
-                        curvy_lines : "yes",
                         enableCrossHair: "yes"
                     }
                 });
@@ -513,14 +518,13 @@
                     yAxisDataFormat : "number",
                     xAxisDataFormat : "string",
                     optional:{
-                         chart: {
+                        chart: {
                             height: 400,
                             width: 630,
                             margin: {top: 5, right: 25, bottom: 25, left: 45},
                             grid: {
                                 xEnabled: "no",
-                                yEnabled: "yes",
-                                color: ""
+                                yEnabled: "yes"
                             },
                         },
                         transition : {
@@ -550,7 +554,9 @@
                                 outer_tick_size: 3
                             }
                         },
-                        curvy_lines : "yes",
+                        line: {                            
+                            curvy_lines : "yes"
+                        },
                         enableCrossHair: "yes",
                         zoom: {
                             enable: "yes"

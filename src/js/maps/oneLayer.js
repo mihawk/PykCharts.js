@@ -4,8 +4,8 @@ PykCharts.maps.oneLayer = function (options) {
     this.execute = function () {
         that = PykCharts.maps.processInputs(that, options);
         //$(that.selector).css("height",that.height);
-        d3.json(options.data, function (d) {
-            that.data = options.data;
+        d3.json(options.data, function (data) {
+            that.data = data;
 
             that.k
                 .totalColors(that.colors.total)
@@ -13,8 +13,11 @@ PykCharts.maps.oneLayer = function (options) {
                 .loading(that.loading)
                 .tooltip()
 
+            console.log(that.mapCode);
+
             d3.json("https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/maps/" + that.mapCode + "-topo.json", function (data) {
                 that.map_data = data;
+                console.log(that.map_data,"map_data");
                 d3.json("https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/palette/colorPalette.json", function (data) {
                     that.colorPalette_data = data;
                     $(that.selector).html("");
@@ -163,6 +166,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
 
                 if (PykCharts.boolean(that.tooltip.enable)) {
                     ttp.style("visibility", "visible");
+                    console.log(that.data,"data");
                     ttp.html((_.where(that.data, {iso2: d.properties.iso_a2})[0]).tooltip);
                 }
                 that.bodColor(d);
