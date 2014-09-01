@@ -27,8 +27,8 @@ PykCharts.maps.processInputs = function (chartObject, options) {
         , optional = options.optional;
 
     chartObject.selector = options.selector ? options.selector : stylesheet.selector;
-    chartObject.width = optional.map && _.isNumber(parseInt(optional.chart.width,10)) ? optional.chart.width : mapsTheme.chart.width;
-    chartObject.height = optional.map && _.isNumber(parseInt(optional.chart.height,10)) ? optional.chart.height : mapsTheme.chart.height;
+    chartObject.width = optional.chart && _.isNumber(parseInt(optional.chart.width,10)) ? optional.chart.width : mapsTheme.chart.width;
+    chartObject.height = optional.chart && _.isNumber(parseInt(optional.chart.height,10)) ? optional.chart.height : mapsTheme.chart.height;
     chartObject.mapCode = options.mapCode ? options.mapCode : mapsTheme.mapCode;
     chartObject.enableClick = options.enableClick ? options.enableClick : mapsTheme.enableClick;
     // chartObject.defaultColor = optional && optional.colors && optional.colors.defaultColor ? optional.colors.defaultColor : mapsTheme.colors.defaultColor;
