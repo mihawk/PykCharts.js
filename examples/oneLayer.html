@@ -166,13 +166,13 @@
                         </td>
                     </tr>
 
-                    <tr>
+                    <!-- <tr>
                         <td>Enable Source :</td>
                         <td class="cstm-form-control cstm-form-control">
                             <input type="radio" name="source" value="yes" onclick = "sourceFunction()" checked="checked"> Yes &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
                             <input type="radio" name="source" value="no" onclick = "sourceFunction()"> No
                         </td>
-                    </tr>
+                    </tr> -->
 
                     <tr>
                         <td>Data Source :</td>
@@ -184,13 +184,13 @@
                         <td><input class="cstm-form-control form-control" type="text" id = "d2" value="http://pykih.com"></td>
                     </tr>
 
-                    <tr>
+                    <!-- <tr>
                         <td>Enable Credits :</td>
                         <td class="cstm-form-control cstm-form-control">
                             <input type="radio" name="credits" value="yes" onclick = "creditsFunction()" checked="checked"> Yes &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
                             <input type="radio" name="credits" value="no" onclick = "creditsFunction()"> No
                         </td>
-                    </tr>
+                    </tr> -->
 
                     <tr>
                         <td>Credits :</td>
@@ -309,6 +309,7 @@
                 }
 
                 $("#sub").click(function(){
+                    console.log($("#d3").val(),$("#d4").val());
                     $("#map-container").html("");
                     $("#legend-container").html("");
                     $("#map-container").attr("style", "float: left; position: static");
@@ -352,12 +353,12 @@
                                 animationGifUrl: "http://www.sportdiver.com/sites/all/modules/platform/inline_login/loading.gif"
                             },
                             creditMySite:{
-                                mySiteName: "World Bank",
-                                mySiteUrl: "http://www.pykih.com/"
+                                mySiteName: $("#d3").val(),
+                                mySiteUrl: $("#d4").val()
                             },
                             dataSource:{
-                                text: "World Bank",
-                                url: "http://www.pykih.com/"
+                                text: $("#d1").val(),
+                                url: $("#d2").val()
                             }
                         }
 

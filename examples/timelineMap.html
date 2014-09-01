@@ -6,7 +6,6 @@
     <body>
         <div class="container cstm-container">
             <div id = "map-container" class="col-sm-12">
-
             </div>
         <div id = "from" class="form-group col-sm-6" style = "float: left;">
             <form class="PykCharts-map">
@@ -167,14 +166,14 @@
                         </td>
                     </tr>
 
-                    <tr>
+<!--                     <tr>
                         <td>Enable Source :</td>
                         <td class="cstm-form-control cstm-form-control">
                             <input type="radio" name="source" value="yes" onclick = "sourceFunction()" checked="checked"> Yes &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
                             <input type="radio" name="source" value="no" onclick = "sourceFunction()"> No
                         </td>
                     </tr>
-
+ -->
                     <tr>
                         <td>Data Source :</td>
                         <td><input class="cstm-form-control form-control" type="text" id = "d1" value="Pykih"></td>
@@ -185,14 +184,14 @@
                         <td><input class="cstm-form-control form-control" type="text" id = "d2" value="http://pykih.com"></td>
                     </tr>
 
-                    <tr>
+<!--                     <tr>
                         <td>Enable Credits :</td>
                         <td class="cstm-form-control cstm-form-control">
                             <input type="radio" name="credits" value="yes" onclick = "creditsFunction()" checked="checked"> Yes &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
                             <input type="radio" name="credits" value="no" onclick = "creditsFunction()"> No
                         </td>
                     </tr>
-
+ -->
                     <tr>
                         <td>Credits :</td>
                         <td><input class="cstm-form-control form-control" type="text" id = "d3" value="Pykih"></td>
@@ -217,7 +216,7 @@
         <script src = "../lib/topojson.js"></script>
         <script src="../src/js/pyk.js"></script>
         <script src = "../src/js/maps/maps.js"></script>
-        <script src = "../src/js/maps/oneLaper.js"></script>
+        <script src = "../src/js/maps/oneLayer.js"></script>
         <script>
             function colFunction () {
                 if ($("input[name='colortype']:checked").val() === "colors") {
@@ -319,8 +318,8 @@
                     $("#legend-container").attr("style", "background-color: white");
                     k = new PykCharts.maps.timelineMap({
                         selector: "#map-container",
-                        mapCode: $("#one").val() + "-topo",
-                        data: "../data/maps/" + $("#one").val() + "_data.json",
+                        mapCode: $("#one").val(),
+                        data: "../data/maps/" + $("#one").val() + "_data_timeline.json",
                         optional: {
                             chart: {
                                 width: 1000,
@@ -360,12 +359,12 @@
                                 animationGifUrl: "http://www.sportdiver.com/sites/all/modules/platform/inline_login/loading.gif"
                             },
                             creditMySite:{
-                                mySiteName: "World Bank",
-                                mySiteUrl: "http://www.pykih.com/"
+                                mySiteName: $("#d3").val(),
+                                mySiteUrl: $("#d4").val()
                             },
                             dataSource:{
-                                text: "World Bank",
-                                url: "http://www.pykih.com/"
+                                text: $("#d1").val(),
+                                url: $("#d2").val()
                             }
                         }
 

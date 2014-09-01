@@ -11,13 +11,10 @@ PykCharts.maps.oneLayer = function (options) {
                 .totalColors(that.colors.total)
                 .colorType(that.colors.type)
                 .loading(that.loading)
-                .tooltip()
-
-            console.log(that.mapCode);
+                .tooltip();
 
             d3.json("https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/maps/" + that.mapCode + "-topo.json", function (data) {
                 that.map_data = data;
-                console.log(that.map_data,"map_data");
                 d3.json("https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/palette/colorPalette.json", function (data) {
                     that.colorPalette_data = data;
                     $(that.selector).html("");
@@ -37,11 +34,11 @@ PykCharts.maps.timelineMap = function (options) {
     this.execute = function () {
         that = PykCharts.maps.processInputs(that, options);
         //$(that.selector).css("height",that.height);
-        d3.json(options.data, function (d) {
-            that.timeline_data = options.data;
+        d3.json(options.data, function (data) {
+            that.timeline_data = data;
 
-            var x_extent = d3.extent(options.data, function (d) { return d.timestamp; });
-            that.data = _.where(options.data, {timestamp: x_extent[0]});
+            var x_extent = d3.extent(data, function (d) { return d.timestamp; });
+            that.data = _.where(data, {timestamp: x_extent[0]});
 
             // that.margin = {top:10, right:30, bottom:10, left:30};
 
@@ -52,7 +49,7 @@ PykCharts.maps.timelineMap = function (options) {
                 .totalColors(that.colors.total)
                 .colorType(that.colors.type)
                 .loading(that.loading)
-                .tooltip(that.tooltip.enable)
+                .tooltip(that.tooltip.enable);
 
             d3.json("https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/maps/" + that.mapCode + "-topo.json", function (data) {
                 that.map_data = data;
@@ -81,6 +78,8 @@ PykCharts.maps.timelineMap = function (options) {
 PykCharts.maps.mapFunctions = function (options,chartObject,type) {
     var that = chartObject;
     this.render = function () {
+    that.k.title()
+        .subtitle();
     //    var that = this;
         var scale = 150
         , offset = [that.width / 2, that.height / 2]
@@ -166,7 +165,6 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
 
                 if (PykCharts.boolean(that.tooltip.enable)) {
                     ttp.style("visibility", "visible");
-                    console.log(that.data,"data");
                     ttp.html((_.where(that.data, {iso2: d.properties.iso_a2})[0]).tooltip);
                 }
                 that.bodColor(d);
@@ -433,6 +431,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             if (unique.indexOf(d.timestamp) === -1) {
                 unique.push(d.timestamp);
             }
+
         });
 
         var bbox = d3.select(that.selector+" .axis").node().getBBox()
