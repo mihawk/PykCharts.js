@@ -22,7 +22,7 @@ PykCharts.multiD.areaChart = function (options){
 
 		d3.json(options.data, function (e, data) {
 			that.data = data.groupBy("area");
-			that.data_length = data.length;
+			that.data_length = that.data.length;
 			$(that.selector+" #chart-loader").remove();
 			that.render();
 		});
@@ -72,7 +72,7 @@ PykCharts.multiD.areaChart = function (options){
 	this.refresh = function (){
 		d3.json(options.data, function (e,data) {
 			that.data = data.groupBy("area");
-			that.data_length = data.length;
+			that.data_length = that.data.length;
 
 			that.optional_feature().createChart("liveData");
 

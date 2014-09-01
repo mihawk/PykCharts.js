@@ -36,12 +36,12 @@
 	},
 	{
 		"name":"LMN",
-		"weight":350,
+		"weight":10,
 		"highlight":false
 	},
 	{
 		"name":"PQR",
-		"weight":590,
+		"weight":20,
 		"highlight":false
 
 	},

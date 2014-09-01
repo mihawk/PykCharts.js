@@ -209,8 +209,6 @@
             </form>
         </div>
 
-            <textarea rows="4" cols="50" id="live-data"></textarea>
-
         <script src="../lib/d3.min.js"></script>
         <script src="../lib/jquery-1.11.1.min.js"></script>
         <script src="../lib/underscore-min.js"></script>
@@ -219,7 +217,7 @@
         <script src = "../lib/topojson.js"></script>
         <script src="../src/js/pyk.js"></script>
         <script src = "../src/js/maps/maps.js"></script>
-        <script src = "../src/js/maps/mergeMaps.js"></script>
+        <script src = "../src/js/maps/oneLaper.js"></script>
         <script>
             function colFunction () {
                 if ($("input[name='colortype']:checked").val() === "colors") {
@@ -313,54 +311,6 @@
                       if (elements[i].checked) return elements[i].value;
                 }
 
-                $("#one").click(function(){
-
-                    d3.json("../data/maps/" + $("#one").val() + "_data_timeline.json", function (data) {
-                    
-                        var hold_key  = "";
-                        var hold_property = "";
-
-                        for (var key in data[0]) {
-                           hold_key = hold_key + key + ","  ;
-                        }
-
-                        hold_key =  hold_key.substring(0, hold_key.length - 1);
-                        hold_key = hold_key + "\n";
-                        for (var i = 0; i < data.length; i++) {
-
-                          for (var key in data[i]) {
-
-                            hold_property = hold_property + data[i][key] + ","  ;
-
-                          }
-                        hold_property =  hold_property.substring(0, hold_property.length - 1);
-                        hold_property = hold_property + "\n";
-
-
-                        }
-
-                        $("#live-data").val(hold_key + hold_property);
-
-                        var bat = $('#live-data').val();
-                        batSplit = bat.split("\n");
-                        var ball = [];
-                        var live_json = [];
-                        for (var i = 0; i < batSplit.length -1 ; i++) {
-                            ball[i] = batSplit[i].split(",");
-                        };
-                        for (var i = 1; i < batSplit.length -1 ; i++) {
-                            var tep = {}
-                            for (var j = 0; j < ball[i].length; j++) {
-                                tep[ball[0][j]] = ball[i][j];
-                            };
-                            live_json.push(tep);
-                        };
-                        window.data_final = live_json;
-                        $("#sub").trigger("click");
-                    });
-                });
-
-                $("#one").trigger("click");
 
                 $("#sub").click(function(){
                     $("#map-container").html("");
@@ -370,9 +320,9 @@
                     k = new PykCharts.maps.timelineMap({
                         selector: "#map-container",
                         mapCode: $("#one").val() + "-topo",
-                        data: window.data_final,
+                        data: "../data/maps/" + $("#one").val() + "_data.json",
                         optional: {
-                            map: {
+                            chart: {
                                 width: 1000,
                                 height: 800
                             },
@@ -391,7 +341,7 @@
                             timeline: {
                                 duration: 1000,
                                 margin: {top: 10, right: 30, bottom: 10, left: 30}
-                            },                           
+                            },
                             border: {
                                 color: $("#a2").val(),
                                 thickness: $("#a3").val()
