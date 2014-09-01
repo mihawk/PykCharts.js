@@ -10,9 +10,9 @@ Array.prototype.groupBy = function (chart) {
         "area": ["x","name"],
         "bar": ["y","group"],
         "column": ["x","group"],
-        "scatterplot": ["x","name","group"],
-        "pulse": ["x","name","group"],
-        "spiderweb": ["x","name"],
+        "scatterplot": ["x","y","name","group"],
+        "pulse": ["x","y","name","group"],
+        "spiderweb": ["x","y","name"],
     }
     , charts = {
         "oned": {
@@ -47,8 +47,8 @@ Array.prototype.groupBy = function (chart) {
           "group": "group"
         },
         "pulse": {
-          "dimension": "x",
-          "fact": "y",
+          "dimension": "y",
+          "fact": "x",
           "weight": "weight",
           "name": "name",
           "group": "group"
@@ -101,12 +101,14 @@ Array.prototype.groupBy = function (chart) {
             var grp = groups[i]
             var chart_name = charts[chart];
             obj[chart_name.dimension] = grp[0][chart_name.dimension];
-            obj[chart_name.fact] = d3.sum(grp, function (d) { return d[charts[chart].fact]; });
             if (chart_name.name) {
                 obj[chart_name.name] = grp[0][chart_name.name];
             }
             if (chart_name.weight) {
                 obj[chart_name.weight] = d3.sum(grp, function (d) { return d[charts[chart].weight]; });
+                obj[chart_name.fact] = grp[0][chart_name.fact];
+            } else {
+                obj[chart_name.fact] = d3.sum(grp, function (d) { return d[charts[chart].fact]; });
             }
             if (chart_name.group) {
                 obj[chart_name.group] = grp[0][chart_name.group];
@@ -1141,7 +1143,7 @@ configuration.Theme = function(){
             "enable" : "yes"
         },
         "spiderweb" : {
-            "outer_radius" : 200,
+            "outer_radius_percent" : 80,
             "radius" : 5,
             "axisTitle" : "yes",
             "enableTicks" : "yes"
@@ -1274,7 +1276,7 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
 
     chartObject.mode = options.mode ? options.mode : stylesheet.mode;
 
-    if (optional && optional.title) {
+    if (optional && optional.title && PykCharts.boolean(optional.title.text)) {
         chartObject.title = optional.title;
         chartObject.title.size = optional.title.size ? optional.title.size : stylesheet.title.size;
         chartObject.title.color = optional.title.color ? optional.title.color : stylesheet.title.color;
@@ -1283,7 +1285,7 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
     } else {
         chartObject.title = stylesheet.title;
     }
-    if (optional && optional.subtitle) {
+    if (optional && optional.subtitle && PykCharts.boolean(optional.subtitle.text)) {
         chartObject.subtitle = optional.subtitle;
         chartObject.subtitle.size = optional.subtitle.size ? optional.subtitle.size : stylesheet.subtitle.size;
         chartObject.subtitle.color = optional.subtitle.color ? optional.subtitle.color : stylesheet.subtitle.color;
@@ -4228,7 +4230,7 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     chartObject.grid.yEnabled = optional && optional.chart && optional.chart.grid ? optional.chart.grid.yEnabled : stylesheet.chart.grid.yEnabled;
     chartObject.grid.color = optional && optional.chart && optional.chart.grid ? optional.chart.grid.color : stylesheet.chart.grid.color;
     chartObject.mode = options.mode ? options.mode : "default";
-    if (optional && optional.title) {
+    if (optional && optional.title && PykCharts.boolean(optional.title.text)) {
         chartObject.title = optional.title;
         chartObject.title.size = optional.title.size ? optional.title.size : stylesheet.title.size;
         chartObject.title.color = optional.title.color ? optional.title.color : stylesheet.title.color;
@@ -4237,7 +4239,7 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     } else {
         chartObject.title = stylesheet.title;
     }
-    if (optional && optional.subtitle) {
+    if (optional && optional.subtitle && PykCharts.boolean(optional.subtitle.text)) {
         chartObject.subtitle = optional.subtitle;
         chartObject.subtitle.size = optional.subtitle.size ? optional.subtitle.size : stylesheet.subtitle.size;
         chartObject.subtitle.color = optional.subtitle.color ? optional.subtitle.color : stylesheet.subtitle.color;
@@ -6900,9 +6902,9 @@ PykCharts.multiD.scatterPlot = function (options) {
         that.bubbleRadius = options.scatterplot && _.isNumber(options.scatterplot.radius) ? options.scatterplot.radius : multiDimensionalCharts.scatterplot.radius;
         that.zoomedOut = true;
         if(PykCharts.boolean(that.multiple_containers)) {
-            that.radius_range = [5,12];
+            that.radius_range = [that.k._radiusCalculation(1.1)*2,that.k._radiusCalculation(2.6)*2];
         } else {
-            that.radius_range = [20,50];
+            that.radius_range = [that.k._radiusCalculation(4.5)*2,that.k._radiusCalculation(11)*2];
         }
         d3.json(options.data, function (e, data) {
             that.data = data.groupBy("scatterplot");
@@ -6930,7 +6932,7 @@ PykCharts.multiD.pulse = function (options) {
         that.multiple_containers = optional && optional.multiple_containers && optional.multiple_containers.enable ? optional.multiple_containers.enable : multiDimensionalCharts.multiple_containers.enable;
         that.bubbleRadius = optional && optional.scatterplot && _.isNumber(optional.scatterplot.radius) ? optional.scatterplot.radius : multiDimensionalCharts.scatterplot.radius;
         that.zoomedOut = true;
-        that.radius_range = [4,14];
+        that.radius_range = [that.k._radiusCalculation(1.1)*2,that.k._radiusCalculation(3.5)*2];
         d3.json(options.data, function (e, data) {
             that.data = data.groupBy("pulse");
             $(that.selector+" #chart-loader").remove();
@@ -7710,11 +7712,11 @@ PykCharts.multiD.spiderWeb = function (options) {
         that.multiD = new PykCharts.multiD.configuration(that);
         that.axisTitle = options.optional && options.optional.axisTitle ? options.optional.axisTitle : theme.multiDimensionalCharts.spiderweb.axisTitle;
         that.bubbleRadius = options.spiderweb && _.isNumber(options.spiderweb.radius) ? options.spiderweb.radius : theme.multiDimensionalCharts.spiderweb.radius;
-        that.outerRadius = options.spiderweb && _.isNumber(options.spiderweb.outer_radius) ? options.spiderweb.outer_radius : theme.multiDimensionalCharts.spiderweb.radius;
+        that.outerRadius = options.spiderweb && _.isNumber(options.spiderweb.outer_radius_percent) ? options.spiderweb.outer_radius_percent : theme.multiDimensionalCharts.spiderweb.outer_radius_percent;
         that.innerRadius = 0;
         that.enableTicks = options.optional && options.optional.enableTicks ? options.optional.enableTicks : theme.multiDimensionalCharts.spiderweb.enableTicks;
-
-        console.log(that.outerRadius,"outerRadius");
+        that.outerRadius = that.k._radiusCalculation(that.outerRadius);   
+    
         d3.json(options.data, function (e, data) {
             that.data = data.groupBy("spiderweb");
             $(that.selector+" #chart-loader").remove();
@@ -7735,7 +7737,7 @@ PykCharts.multiD.spiderWeb = function (options) {
     };
 
     this.render = function () {
-        that.radius_range = [7,18];
+        that.radius_range = [(3*that.outerRadius)/100,(0.09*that.outerRadius)];
         that.fillChart = new PykCharts.Configuration.fillChart(that);
         that.sizes = new PykCharts.multiD.bubbleSizeCalculation(that,that.data,that.radius_range);
         that.border = new PykCharts.Configuration.border(that);
@@ -8244,7 +8246,6 @@ PykCharts.multiD.spiderWeb = function (options) {
                     var a = that.yScale.domain();
                     that.textGroup = that.svg.append("g")
                         .attr("transform", "translate(" + that.width / 2 + "," + that.height / 2 + ")");
-                    console.log(a,"domain",that.outerRadius/5);
                     var t = a[1]/4;
                     var b=[];
                     for(i=4,j=0; i>=0 ;i--,j++){
@@ -9006,10 +9007,10 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
     function importFiles (url) {
         var include = document.createElement('script');
         include.type = 'text/javascript';
-        include.async = true;
+        include.async = false;
         include.onload = include.onreadystatechange = function () {
             try {
-                if (_ && d3 && ($ || jQuery) && d3.customHive && topojson) {
+                if (_ && d3 && ($ || jQuery) && d3.customHive && topojson) { 
                     window.PykChartsInit();
                 };
             }
@@ -9022,20 +9023,20 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         s.parentNode.insertBefore(include, s);
     };
     try {
-        if (!_) {
-            importFiles('https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/js/underscore-min.js');
-        }
-    }
-    catch (e) {
-        importFiles('https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/js/underscore-min.js');
-    }
-    try {
         if (!d3) {
             importFiles('https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/js/d3.min.js');
         }
     }
     catch (e) {
         importFiles('https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/js/d3.min.js');
+    }
+    try {
+        if (!_) {
+            importFiles('https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/js/underscore-min.js');
+        }
+    }
+    catch (e) {
+        importFiles('https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/js/underscore-min.js');
     }
     try {
         if (!$ && !jQuery) {
@@ -9046,19 +9047,19 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         importFiles('https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/js/jquery-1.11.1.min.js');
     }
     try {
-        if (!d3.customHive) {
-            importFiles('https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/js/custom-hive.min.js');
-        }
-    }
-    catch (e) {
-        importFiles('https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/js/custom-hive.min.js');
-    }
-    try {
         if (!topojson) {
             importFiles('https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/js/topojson.js');
         }
     }
     catch (e) {
           importFiles('https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/js/topojson.js');
+    }
+    try {
+        if (!d3.customHive) {
+            importFiles('https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/js/custom-hive.min.js');
+        }
+    }
+    catch (e) {
+        importFiles('https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/js/custom-hive.min.js');
     }
 })();

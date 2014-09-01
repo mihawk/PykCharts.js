@@ -10,9 +10,9 @@ Array.prototype.groupBy = function (chart) {
         "area": ["x","name"],
         "bar": ["y","group"],
         "column": ["x","group"],
-        "scatterplot": ["x","name","group"],
-        "pulse": ["x","name","group"],
-        "spiderweb": ["x","name"],
+        "scatterplot": ["x","y","name","group"],
+        "pulse": ["x","y","name","group"],
+        "spiderweb": ["x","y","name"],
     }
     , charts = {
         "oned": {
@@ -47,8 +47,8 @@ Array.prototype.groupBy = function (chart) {
           "group": "group"
         },
         "pulse": {
-          "dimension": "x",
-          "fact": "y",
+          "dimension": "y",
+          "fact": "x",
           "weight": "weight",
           "name": "name",
           "group": "group"
@@ -101,12 +101,14 @@ Array.prototype.groupBy = function (chart) {
             var grp = groups[i]
             var chart_name = charts[chart];
             obj[chart_name.dimension] = grp[0][chart_name.dimension];
-            obj[chart_name.fact] = d3.sum(grp, function (d) { return d[charts[chart].fact]; });
             if (chart_name.name) {
                 obj[chart_name.name] = grp[0][chart_name.name];
             }
             if (chart_name.weight) {
                 obj[chart_name.weight] = d3.sum(grp, function (d) { return d[charts[chart].weight]; });
+                obj[chart_name.fact] = grp[0][chart_name.fact];
+            } else {
+                obj[chart_name.fact] = d3.sum(grp, function (d) { return d[charts[chart].fact]; });
             }
             if (chart_name.group) {
                 obj[chart_name.group] = grp[0][chart_name.group];

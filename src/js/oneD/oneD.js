@@ -46,7 +46,7 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
 
     chartObject.mode = options.mode ? options.mode : stylesheet.mode;
 
-    if (optional && optional.title) {
+    if (optional && optional.title && PykCharts.boolean(optional.title.text)) {
         chartObject.title = optional.title;
         chartObject.title.size = optional.title.size ? optional.title.size : stylesheet.title.size;
         chartObject.title.color = optional.title.color ? optional.title.color : stylesheet.title.color;
@@ -55,7 +55,7 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
     } else {
         chartObject.title = stylesheet.title;
     }
-    if (optional && optional.subtitle) {
+    if (optional && optional.subtitle && PykCharts.boolean(optional.subtitle.text)) {
         chartObject.subtitle = optional.subtitle;
         chartObject.subtitle.size = optional.subtitle.size ? optional.subtitle.size : stylesheet.subtitle.size;
         chartObject.subtitle.color = optional.subtitle.color ? optional.subtitle.color : stylesheet.subtitle.color;

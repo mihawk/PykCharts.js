@@ -22,7 +22,6 @@ PykCharts.multiD.scatterPlot = function (options) {
             that.radius_range = [that.k._radiusCalculation(1.1)*2,that.k._radiusCalculation(2.6)*2];
         } else {
             that.radius_range = [that.k._radiusCalculation(4.5)*2,that.k._radiusCalculation(11)*2];
-            console.log(that.radius_range,"radius_range");
         }
         d3.json(options.data, function (e, data) {
             that.data = data.groupBy("scatterplot");
@@ -50,7 +49,7 @@ PykCharts.multiD.pulse = function (options) {
         that.multiple_containers = optional && optional.multiple_containers && optional.multiple_containers.enable ? optional.multiple_containers.enable : multiDimensionalCharts.multiple_containers.enable;
         that.bubbleRadius = optional && optional.scatterplot && _.isNumber(optional.scatterplot.radius) ? optional.scatterplot.radius : multiDimensionalCharts.scatterplot.radius;
         that.zoomedOut = true;
-        that.radius_range = [4,14];
+        that.radius_range = [that.k._radiusCalculation(1.1)*2,that.k._radiusCalculation(3.5)*2];
         d3.json(options.data, function (e, data) {
             that.data = data.groupBy("pulse");
             $(that.selector+" #chart-loader").remove();
