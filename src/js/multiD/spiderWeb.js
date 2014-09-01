@@ -15,7 +15,6 @@ PykCharts.multiD.spiderWeb = function (options) {
         that.enableTicks = options.optional && options.optional.enableTicks ? options.optional.enableTicks : theme.multiDimensionalCharts.spiderweb.enableTicks;
         that.outerRadius = that.k._radiusCalculation(that.outerRadius);   
     
-        console.log(that.outerRadius);
         d3.json(options.data, function (e, data) {
             that.data = data.groupBy("spiderweb");
             $(that.selector+" #chart-loader").remove();
@@ -545,7 +544,6 @@ PykCharts.multiD.spiderWeb = function (options) {
                     var a = that.yScale.domain();
                     that.textGroup = that.svg.append("g")
                         .attr("transform", "translate(" + that.width / 2 + "," + that.height / 2 + ")");
-                    console.log(a,"domain",that.outerRadius/5);
                     var t = a[1]/4;
                     var b=[];
                     for(i=4,j=0; i>=0 ;i--,j++){
