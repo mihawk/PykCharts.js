@@ -1,6 +1,5 @@
 <html>
     <head>
-        <link rel="stylesheet" type="text/css" href="../lib/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="../src/css/PykCharts.css">
     </head>
     <body>
@@ -316,7 +315,7 @@
                     $("#legend-container").attr("style", "background-color: white");
                     k = new PykCharts.maps.oneLayer({
                         selector: "#map-container",
-                        mapCode: $("#one").val() + "-topo",
+                        mapCode: $("#one").val(),
                         data: "../data/maps/" + $("#one").val() + "_data.json",
                         optional: {
                             chart: {
