@@ -174,11 +174,11 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     if (that.tooltip.mode === "moving") {
                         ttp.style("top", function () {
 
-                                return (d3.event.clientY + 10 ) + "px";
+                                return (d3.event.pageY + 10 ) + "px";
                             })
                             .style("left", function () {
 
-                                return (d3.event.clientX + 10 ) + "px";
+                                return (d3.event.pageX + 10 ) + "px";
 
                             });
                     } else if (that.tooltip.mode === "fixed") {
