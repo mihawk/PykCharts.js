@@ -10,11 +10,12 @@ PykCharts.multiD.spiderWeb = function (options) {
         that.multiD = new PykCharts.multiD.configuration(that);
         that.axisTitle = options.optional && options.optional.axisTitle ? options.optional.axisTitle : theme.multiDimensionalCharts.spiderweb.axisTitle;
         that.bubbleRadius = options.spiderweb && _.isNumber(options.spiderweb.radius) ? options.spiderweb.radius : theme.multiDimensionalCharts.spiderweb.radius;
-        that.outerRadius = options.spiderweb && _.isNumber(options.spiderweb.outer_radius) ? options.spiderweb.outer_radius : theme.multiDimensionalCharts.spiderweb.radius;
+        that.outerRadius = options.spiderweb && _.isNumber(options.spiderweb.outer_radius_percent) ? options.spiderweb.outer_radius_percent : theme.multiDimensionalCharts.spiderweb.outer_radius_percent;
         that.innerRadius = 0;
         that.enableTicks = options.optional && options.optional.enableTicks ? options.optional.enableTicks : theme.multiDimensionalCharts.spiderweb.enableTicks;
-
-        console.log(that.outerRadius,"outerRadius");
+        that.outerRadius = that.k._radiusCalculation(that.outerRadius);   
+    
+        console.log(that.outerRadius);
         d3.json(options.data, function (e, data) {
             that.data = data.groupBy("spiderweb");
             $(that.selector+" #chart-loader").remove();
@@ -35,7 +36,7 @@ PykCharts.multiD.spiderWeb = function (options) {
     };
 
     this.render = function () {
-        that.radius_range = [7,18];
+        that.radius_range = [(3*that.outerRadius)/100,(0.09*that.outerRadius)];
         that.fillChart = new PykCharts.Configuration.fillChart(that);
         that.sizes = new PykCharts.multiD.bubbleSizeCalculation(that,that.data,that.radius_range);
         that.border = new PykCharts.Configuration.border(that);

@@ -19,9 +19,10 @@ PykCharts.multiD.scatterPlot = function (options) {
         that.bubbleRadius = options.scatterplot && _.isNumber(options.scatterplot.radius) ? options.scatterplot.radius : multiDimensionalCharts.scatterplot.radius;
         that.zoomedOut = true;
         if(PykCharts.boolean(that.multiple_containers)) {
-            that.radius_range = [5,12];
+            that.radius_range = [that.k._radiusCalculation(1.1)*2,that.k._radiusCalculation(2.6)*2];
         } else {
-            that.radius_range = [20,50];
+            that.radius_range = [that.k._radiusCalculation(4.5)*2,that.k._radiusCalculation(11)*2];
+            console.log(that.radius_range,"radius_range");
         }
         d3.json(options.data, function (e, data) {
             that.data = data.groupBy("scatterplot");

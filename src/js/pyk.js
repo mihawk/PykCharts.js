@@ -1141,7 +1141,7 @@ configuration.Theme = function(){
             "enable" : "yes"
         },
         "spiderweb" : {
-            "outer_radius" : 200,
+            "outer_radius_percent" : 80,
             "radius" : 5,
             "axisTitle" : "yes",
             "enableTicks" : "yes"
