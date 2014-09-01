@@ -209,6 +209,8 @@ PykCharts.Configuration = function (options){
                         + "'>" +
                         options.title.text +
                         "</span>");
+            console.log($(options.selector + " " + "#title"));
+            console.log(options.title.text,options.selector);
 	        }
 	        return this;
 	    },
