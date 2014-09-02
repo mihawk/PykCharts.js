@@ -225,7 +225,9 @@ PykCharts.Configuration = function (options){
                         .style("text-align","left")
                         .html("</span><br><span style='pointer-events:none;font-size:" +
                         options.subtitle.size+";color:" +
-                        options.subtitle.color + ";font-family:" +
+                        options.subtitle.color + 
+                        ";font-weight:" +
+                        options.subtitle.weight+";font-family:" +
                         options.subtitle.family + "'>"+
                         options.subtitle.text + "</span>");
             }
@@ -1008,6 +1010,7 @@ configuration.Theme = function(){
         "subtitle":{
             "size": "12px",
             "color": "black",
+            "weight": "thin",
             "family": "'Helvetica Neue',Helvetica,Arial,sans-serif"
         },
         "loading":{
@@ -1277,7 +1280,7 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
 
     if (optional && optional.title && PykCharts.boolean(optional.title.text)) {
         chartObject.title = optional.title;
-        chartObject.title.size = optional.title.size ? optional.title.size : stylesheet.title.size;
+        chartObject.title.size = "size" in optional.title ? optional.title.size : stylesheet.title.size;
         chartObject.title.color = optional.title.color ? optional.title.color : stylesheet.title.color;
         chartObject.title.weight = optional.title.weight ? optional.title.weight : stylesheet.title.weight;
         chartObject.title.family = optional.title.family ? optional.title.family : stylesheet.title.family;
@@ -1286,7 +1289,7 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
     }
     if (optional && optional.subtitle && PykCharts.boolean(optional.subtitle.text)) {
         chartObject.subtitle = optional.subtitle;
-        chartObject.subtitle.size = optional.subtitle.size ? optional.subtitle.size : stylesheet.subtitle.size;
+        chartObject.subtitle.size = "size" in optional.subtitle ? optional.subtitle.size : stylesheet.subtitle.size;
         chartObject.subtitle.color = optional.subtitle.color ? optional.subtitle.color : stylesheet.subtitle.color;
         chartObject.subtitle.weight = optional.subtitle.weight ? optional.subtitle.weight : stylesheet.subtitle.weight;
         chartObject.subtitle.family = optional.subtitle.family ? optional.subtitle.family : stylesheet.subtitle.family;
@@ -4256,7 +4259,7 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     chartObject.mode = options.mode ? options.mode : "default";
     if (optional && optional.title && PykCharts.boolean(optional.title.text)) {
         chartObject.title = optional.title;
-        chartObject.title.size = optional.title.size ? optional.title.size : stylesheet.title.size;
+        chartObject.title.size = "size"  in optional.title ? optional.title.size : stylesheet.title.size;
         chartObject.title.color = optional.title.color ? optional.title.color : stylesheet.title.color;
         chartObject.title.weight = optional.title.weight ? optional.title.weight : stylesheet.title.weight;
         chartObject.title.family = optional.title.family ? optional.title.family : stylesheet.title.family;
@@ -4265,7 +4268,7 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     }
     if (optional && optional.subtitle && PykCharts.boolean(optional.subtitle.text)) {
         chartObject.subtitle = optional.subtitle;
-        chartObject.subtitle.size = optional.subtitle.size ? optional.subtitle.size : stylesheet.subtitle.size;
+        chartObject.subtitle.size = "size"  in optional.subtitle? optional.subtitle.size : stylesheet.subtitle.size;
         chartObject.subtitle.color = optional.subtitle.color ? optional.subtitle.color : stylesheet.subtitle.color;
         chartObject.subtitle.weight = optional.subtitle.weight ? optional.subtitle.weight : stylesheet.subtitle.weight;
         chartObject.subtitle.family = optional.subtitle.family ? optional.subtitle.family : stylesheet.subtitle.family;
@@ -8490,7 +8493,7 @@ PykCharts.maps.processInputs = function (chartObject, options) {
     chartObject.highlightArea = optional && optional.highlightArea ? optional.highlightArea : mapsTheme.highlightArea;
     if (optional && optional.title) {
         chartObject.title = optional.title;
-        chartObject.title.size = optional.title.size ? optional.title.size : stylesheet.title.size;
+        chartObject.title.size = "size"  in optional.title ? optional.title.size : stylesheet.title.size;
         chartObject.title.color = optional.title.color ? optional.title.color : stylesheet.title.color;
         chartObject.title.weight = optional.title.weight ? optional.title.weight : stylesheet.title.weight;
         chartObject.title.family = optional.title.family ? optional.title.family : stylesheet.title.family;
@@ -8499,7 +8502,7 @@ PykCharts.maps.processInputs = function (chartObject, options) {
     }
     if (optional && optional.subtitle) {
         chartObject.subtitle = optional.subtitle;
-        chartObject.subtitle.size = optional.subtitle.size ? optional.subtitle.size : stylesheet.subtitle.size;
+        chartObject.subtitle.size = "size"  in optional.subtitle ? optional.subtitle.size : stylesheet.subtitle.size;
         chartObject.subtitle.color = optional.subtitle.color ? optional.subtitle.color : stylesheet.subtitle.color;
         chartObject.subtitle.family = optional.subtitle.family ? optional.subtitle.family : stylesheet.subtitle.family;
     } else {
@@ -8509,7 +8512,7 @@ PykCharts.maps.processInputs = function (chartObject, options) {
     chartObject.transition = optional && optional.transition ? optional.transition : functionality.transition;
     chartObject.creditMySite = optional && optional.creditMySite ? optional.creditMySite : stylesheet.creditMySite;
     chartObject.dataSource = optional && optional.dataSource ? optional.dataSource : "no";
-
+    chartObject.units = optional && optional.units ? optional.units : false;
     chartObject.k = new PykCharts.Configuration(chartObject);
     return chartObject;
 };

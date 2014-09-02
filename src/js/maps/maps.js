@@ -136,7 +136,7 @@ PykCharts.maps.processInputs = function (chartObject, options) {
     chartObject.highlightArea = optional && optional.highlightArea ? optional.highlightArea : mapsTheme.highlightArea;
     if (optional && optional.title) {
         chartObject.title = optional.title;
-        chartObject.title.size = optional.title.size ? optional.title.size : stylesheet.title.size;
+        chartObject.title.size = "size"  in optional.title ? optional.title.size : stylesheet.title.size;
         chartObject.title.color = optional.title.color ? optional.title.color : stylesheet.title.color;
         chartObject.title.weight = optional.title.weight ? optional.title.weight : stylesheet.title.weight;
         chartObject.title.family = optional.title.family ? optional.title.family : stylesheet.title.family;
@@ -145,7 +145,7 @@ PykCharts.maps.processInputs = function (chartObject, options) {
     }
     if (optional && optional.subtitle) {
         chartObject.subtitle = optional.subtitle;
-        chartObject.subtitle.size = optional.subtitle.size ? optional.subtitle.size : stylesheet.subtitle.size;
+        chartObject.subtitle.size = "size"  in optional.subtitle ? optional.subtitle.size : stylesheet.subtitle.size;
         chartObject.subtitle.color = optional.subtitle.color ? optional.subtitle.color : stylesheet.subtitle.color;
         chartObject.subtitle.family = optional.subtitle.family ? optional.subtitle.family : stylesheet.subtitle.family;
     } else {
@@ -155,7 +155,7 @@ PykCharts.maps.processInputs = function (chartObject, options) {
     chartObject.transition = optional && optional.transition ? optional.transition : functionality.transition;
     chartObject.creditMySite = optional && optional.creditMySite ? optional.creditMySite : stylesheet.creditMySite;
     chartObject.dataSource = optional && optional.dataSource ? optional.dataSource : "no";
-
+    chartObject.units = optional && optional.units ? optional.units : false;
     chartObject.k = new PykCharts.Configuration(chartObject);
     return chartObject;
 };

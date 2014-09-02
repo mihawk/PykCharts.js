@@ -225,7 +225,9 @@ PykCharts.Configuration = function (options){
                         .style("text-align","left")
                         .html("</span><br><span style='pointer-events:none;font-size:" +
                         options.subtitle.size+";color:" +
-                        options.subtitle.color + ";font-family:" +
+                        options.subtitle.color + 
+                        ";font-weight:" +
+                        options.subtitle.weight+";font-family:" +
                         options.subtitle.family + "'>"+
                         options.subtitle.text + "</span>");
             }
@@ -1008,6 +1010,7 @@ configuration.Theme = function(){
         "subtitle":{
             "size": "12px",
             "color": "black",
+            "weight": "thin",
             "family": "'Helvetica Neue',Helvetica,Arial,sans-serif"
         },
         "loading":{
