@@ -327,7 +327,8 @@
                                 defaultColor: $("#a6").val(),
                                 type: checked("colortype"),
                                 total: $("#seven").val(),
-                                palette: $("#eight").val()
+                                palette: $("#eight").val(),
+                                backgroundColor: "white"
                             },
                             tooltip: {
                                 enable: checked('tooltip'),
@@ -335,9 +336,10 @@
                                 positionTop: $("#a7").val(),
                                 positionLeft: $("#a8").val()
                             },
-                            border: {
+                            borderBetweenChartElements: {
                                 color: $("#a2").val(),
-                                thickness: $("#a3").val()
+                                width: $("#a3").val(),
+                                style: "solid" // or "dotted / dashed / solid"
                             },
                             enableClick: "yes",
                             onhover: $("#a5").val(),
@@ -360,6 +362,10 @@
                             dataSource:{
                                 text: $("#d1").val(),
                                 url: $("#d2").val()
+                            },
+                            units : {
+                                prefix: "",
+                                suffix: ""
                             }
                         }
 

@@ -122,12 +122,21 @@ PykCharts.maps.processInputs = function (chartObject, options) {
     // } else {
     //     chartObject.legends = stylesheet.legends;
     // }
-    if(optional && optional.border) {
-        chartObject.border = optional.border;
-        chartObject.border.color = optional.border.color ? optional.border.color : mapsTheme.border.color;
-        chartObject.border.thickness = optional.border.thickness ? optional.border.thickness : mapsTheme.border.thickness;
+    if (optional && optional.borderBetweenChartElements) {
+        chartObject.borderBetweenChartElements = optional.borderBetweenChartElements;
+        chartObject.borderBetweenChartElements.width = "width" in optional.borderBetweenChartElements ? optional.borderBetweenChartElements.width : stylesheet.borderBetweenChartElements.width;
+        chartObject.borderBetweenChartElements.color = optional.borderBetweenChartElements.color ? optional.borderBetweenChartElements.color : stylesheet.borderBetweenChartElements.color;
+        chartObject.borderBetweenChartElements.style = optional.borderBetweenChartElements.style ? optional.borderBetweenChartElements.style : stylesheet.borderBetweenChartElements.style;
+        switch(chartObject.borderBetweenChartElements.style) {
+            case "dotted" : chartObject.borderBetweenChartElements.style = "1,3";
+                            break;
+            case "dashed" : chartObject.borderBetweenChartElements.style = "5,5";
+                           break;
+            default : chartObject.borderBetweenChartElements.style = "0";
+                      break;
+        }
     } else {
-        chartObject.border = mapsTheme.border;
+        chartObject.borderBetweenChartElements = stylesheet.borderBetweenChartElements;
     }
     chartObject.onhover = optional && optional.onhover ? optional.onhover : mapsTheme.onhover;
     chartObject.defaultZoomLevel = optional && optional.defaultZoomLevel ? optional.defaultZoomLevel : 80;
@@ -135,7 +144,7 @@ PykCharts.maps.processInputs = function (chartObject, options) {
     chartObject.highlightArea = optional && optional.highlightArea ? optional.highlightArea : mapsTheme.highlightArea;
     if (optional && optional.title) {
         chartObject.title = optional.title;
-        chartObject.title.size = optional.title.size ? optional.title.size : stylesheet.title.size;
+        chartObject.title.size = "size"  in optional.title ? optional.title.size : stylesheet.title.size;
         chartObject.title.color = optional.title.color ? optional.title.color : stylesheet.title.color;
         chartObject.title.weight = optional.title.weight ? optional.title.weight : stylesheet.title.weight;
         chartObject.title.family = optional.title.family ? optional.title.family : stylesheet.title.family;
@@ -144,7 +153,7 @@ PykCharts.maps.processInputs = function (chartObject, options) {
     }
     if (optional && optional.subtitle) {
         chartObject.subtitle = optional.subtitle;
-        chartObject.subtitle.size = optional.subtitle.size ? optional.subtitle.size : stylesheet.subtitle.size;
+        chartObject.subtitle.size = "size"  in optional.subtitle ? optional.subtitle.size : stylesheet.subtitle.size;
         chartObject.subtitle.color = optional.subtitle.color ? optional.subtitle.color : stylesheet.subtitle.color;
         chartObject.subtitle.family = optional.subtitle.family ? optional.subtitle.family : stylesheet.subtitle.family;
     } else {
@@ -154,7 +163,7 @@ PykCharts.maps.processInputs = function (chartObject, options) {
     chartObject.transition = optional && optional.transition ? optional.transition : functionality.transition;
     chartObject.creditMySite = optional && optional.creditMySite ? optional.creditMySite : stylesheet.creditMySite;
     chartObject.dataSource = optional && optional.dataSource ? optional.dataSource : "no";
-
+    chartObject.units = optional && optional.units ? optional.units : false;
     chartObject.k = new PykCharts.Configuration(chartObject);
     return chartObject;
 };

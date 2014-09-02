@@ -225,7 +225,9 @@ PykCharts.Configuration = function (options){
                         .style("text-align","left")
                         .html("</span><br><span style='pointer-events:none;font-size:" +
                         options.subtitle.size+";color:" +
-                        options.subtitle.color + ";font-family:" +
+                        options.subtitle.color + 
+                        ";font-weight:" +
+                        options.subtitle.weight+";font-family:" +
                         options.subtitle.family + "'>"+
                         options.subtitle.text + "</span>");
             }
@@ -897,11 +899,14 @@ configuration.border = function (options) {
 	var that = this;
 	var border = {
 	    width: function () {
-	    		return options.borderBetweenChartElements.width;
+	    	return options.borderBetweenChartElements.width;
 	    },
 		color: function () {
-				return options.borderBetweenChartElements.color;
-		}
+			return options.borderBetweenChartElements.color;
+		},
+        style: function () {
+            return options.borderBetweenChartElements.style;  
+        }
 	};
 	return border;
 };
@@ -1008,6 +1013,7 @@ configuration.Theme = function(){
         "subtitle":{
             "size": "12px",
             "color": "black",
+            "weight": "thin",
             "family": "'Helvetica Neue',Helvetica,Arial,sans-serif"
         },
         "loading":{
@@ -1187,10 +1193,6 @@ configuration.Theme = function(){
             "total" :3,
             "type" : "satuartion",
             "palette" : "Blue"
-        },
-        "border" :{
-            "color": "white",
-            "thickness" : 1
         },
         "tooltip" : {
             "enable": "yes",

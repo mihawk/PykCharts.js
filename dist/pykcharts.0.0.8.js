@@ -225,7 +225,9 @@ PykCharts.Configuration = function (options){
                         .style("text-align","left")
                         .html("</span><br><span style='pointer-events:none;font-size:" +
                         options.subtitle.size+";color:" +
-                        options.subtitle.color + ";font-family:" +
+                        options.subtitle.color + 
+                        ";font-weight:" +
+                        options.subtitle.weight+";font-family:" +
                         options.subtitle.family + "'>"+
                         options.subtitle.text + "</span>");
             }
@@ -897,11 +899,14 @@ configuration.border = function (options) {
 	var that = this;
 	var border = {
 	    width: function () {
-	    		return options.borderBetweenChartElements.width;
+	    	return options.borderBetweenChartElements.width;
 	    },
 		color: function () {
-				return options.borderBetweenChartElements.color;
-		}
+			return options.borderBetweenChartElements.color;
+		},
+        style: function () {
+            return options.borderBetweenChartElements.style;  
+        }
 	};
 	return border;
 };
@@ -1008,6 +1013,7 @@ configuration.Theme = function(){
         "subtitle":{
             "size": "12px",
             "color": "black",
+            "weight": "thin",
             "family": "'Helvetica Neue',Helvetica,Arial,sans-serif"
         },
         "loading":{
@@ -1188,10 +1194,6 @@ configuration.Theme = function(){
             "type" : "satuartion",
             "palette" : "Blue"
         },
-        "border" :{
-            "color": "white",
-            "thickness" : 1
-        },
         "tooltip" : {
             "enable": "yes",
             "mode":"moving",
@@ -1281,7 +1283,7 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
 
     if (optional && optional.title && PykCharts.boolean(optional.title.text)) {
         chartObject.title = optional.title;
-        chartObject.title.size = optional.title.size ? optional.title.size : stylesheet.title.size;
+        chartObject.title.size = "size" in optional.title ? optional.title.size : stylesheet.title.size;
         chartObject.title.color = optional.title.color ? optional.title.color : stylesheet.title.color;
         chartObject.title.weight = optional.title.weight ? optional.title.weight : stylesheet.title.weight;
         chartObject.title.family = optional.title.family ? optional.title.family : stylesheet.title.family;
@@ -1290,7 +1292,7 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
     }
     if (optional && optional.subtitle && PykCharts.boolean(optional.subtitle.text)) {
         chartObject.subtitle = optional.subtitle;
-        chartObject.subtitle.size = optional.subtitle.size ? optional.subtitle.size : stylesheet.subtitle.size;
+        chartObject.subtitle.size = "size" in optional.subtitle ? optional.subtitle.size : stylesheet.subtitle.size;
         chartObject.subtitle.color = optional.subtitle.color ? optional.subtitle.color : stylesheet.subtitle.color;
         chartObject.subtitle.weight = optional.subtitle.weight ? optional.subtitle.weight : stylesheet.subtitle.weight;
         chartObject.subtitle.family = optional.subtitle.family ? optional.subtitle.family : stylesheet.subtitle.family;
@@ -1328,6 +1330,14 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
         chartObject.borderBetweenChartElements.width = "width" in optional.borderBetweenChartElements ? optional.borderBetweenChartElements.width : stylesheet.borderBetweenChartElements.width;
         chartObject.borderBetweenChartElements.color = optional.borderBetweenChartElements.color ? optional.borderBetweenChartElements.color : stylesheet.borderBetweenChartElements.color;
         chartObject.borderBetweenChartElements.style = optional.borderBetweenChartElements.style ? optional.borderBetweenChartElements.style : stylesheet.borderBetweenChartElements.style;
+        switch(chartObject.borderBetweenChartElements.style) {
+            case "dotted" : chartObject.borderBetweenChartElements.style = "1,3";
+                            break;
+            case "dashed" : chartObject.borderBetweenChartElements.style = "5,5";
+                           break;
+            default : chartObject.borderBetweenChartElements.style = "0";
+                      break;
+        }
     } else {
         chartObject.borderBetweenChartElements = stylesheet.borderBetweenChartElements;
     }
@@ -1847,6 +1857,7 @@ PykCharts.oneD.funnel = function (options) {
         			})
                     .attr("stroke",that.border.color())
                     .attr("stroke-width",that.border.width())
+                    .attr("stroke-dasharray", that.border.style())                    
                     .attr("stroke-opacity",1)
         			.on("mouseover", function (d,i) {
                         that.mouseEvent1.highlight(options.selector +" "+".fun-path",this);
@@ -1925,22 +1936,30 @@ PykCharts.oneD.funnel = function (options) {
                            if (d.values.length === 4) {
                                 return ((d.values[3].x + d.values[2].x)/2 );
                            } else {
-                                return ((d.values[4].x + d.values[5].x + d.values[3].x)/3 - 5);
+                                return (d.values[4].x);
                            }
 
                         })
                         .attr("y1", function (d,i) {
-                               return (d.values[0].y + d.values[2].y)/2;
+                            if (d.values.length === 4) {
+                                return ((d.values[0].y + d.values[2].y)/2);
+                           } else {
+                                return (d.values[4].y);
+                           }
                         })
                         .attr("x2", function (d, i) {
-                              if (d.values.length === 4) {
+                            if (d.values.length === 4) {
                                 return ((d.values[3].x + d.values[2].x)/2 );
                            } else {
-                                return ((d.values[4].x + d.values[5].x + d.values[3].x)/3 - 5);
+                                return (d.values[4].x);
                            }
                         })
                         .attr("y2", function (d, i) {
-                               return ((d.values[0].y + d.values[2].y)/2);
+                            if (d.values.length === 4) {
+                                return ((d.values[0].y + d.values[2].y)/2);
+                           } else {
+                                return (d.values[4].y);
+                           }
                         })
                         .attr("stroke-width", that.ticks.strokeWidth)
                         .attr("stroke", that.ticks.color)
@@ -1951,13 +1970,13 @@ PykCharts.oneD.funnel = function (options) {
                                 if (d.values.length === 4) {
                                     return ((d.values[3].x + d.values[2].x)/2 ) + 5;
                                 } else {
-                                    return ((d.values[4].x + d.values[5].x + d.values[3].x)/3 );
+                                    return ((d.values[4].x) +5);
                                 }
                             } else {
                                 if (d.values.length === 4) {
                                     return ((d.values[3].x + d.values[2].x)/2 );
                                 } else {
-                                    return ((d.values[4].x + d.values[5].x + d.values[3].x)/3 -5);
+                                    return (d.values[4].x);
                                 }
                             }
 
@@ -1980,11 +1999,11 @@ PykCharts.oneD.funnel = function (options) {
                     ticks_label.attr("transform",function (d) {
                         if (d.values.length === 4) {
                             x = ((d.values[3].x + d.values[2].x)/2 ) + 10;
+                            y = ((d.values[0].y + d.values[2].y)/2) + 5;
                         } else {
-                            x = ((d.values[4].x + d.values[5].x + d.values[3].x)/3 ) + 5;
+                            x = (d.values[4].x) + 10;
+                            y = (d.values[4].y) + 5;
                         }
-                        y = (d.values[0].y + d.values[2].y)/2 + 5;
-
                         return "translate(" + x + "," + y + ")";});
 
                     ticks_label.text("")
@@ -2195,6 +2214,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                     })
                     .attr("stroke",that.border.color())
                     .attr("stroke-width",that.border.width())
+                    .attr("stroke-dasharray", that.border.style())
                     .on("mouseover", function (d,i) {
                         d.tooltip=d.tooltip||"<table class='PykCharts'><tr><th colspan='2' class='tooltip-heading'>"+d.name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.weight)+"<td class='tooltip-right-content'>(&nbsp;"+d.percentValue.toFixed(2)+"%&nbsp)</tr></table>"
                         that.mouseEvent1.highlight(".per-rect",this);
@@ -2826,7 +2846,8 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                         that.mouseEvent.tooltipPosition(d);
                     })
                     .attr("stroke",that.border.color())
-                    .attr("stroke-width",that.border.width());
+                    .attr("stroke-width",that.border.width())
+                    .attr("stroke-dasharray", that.border.style());
 
                 cv_path.transition()
                     .delay(function(d, i) {
@@ -2974,74 +2995,8 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                 if(PykCharts.boolean(that.overflowTicks)) {
                     that.svgContainer.style("overflow","visible");
                 }
+                var w = [];
                 // if(PykCharts.boolean(that.enableTicks)) {
-                    var line = that.group.selectAll("line")
-                        .data(that.pie(that.chartData));
-
-                    line.enter()
-                        .append("line")
-                        .attr("class", "ticks");
-                    
-                    line.attr("x1", function (d,i) {
-                            if(d3.selectAll(that.selector+" #pieGroup .pie-label")[0][i].innerHTML === "") {
-                                return 0;
-                            }
-                            else {
-                                return (that.radius) * (1)* Math.cos((d.startAngle + d.endAngle)/2);
-                            }
-                        })
-                        .attr("y1", function (d,i) {
-                            if(d3.selectAll(that.selector+" #pieGroup .pie-label")[0][i].innerHTML === "") {
-                                return 0;
-                            }
-                            else {
-                                return (that.radius) * (1) *Math.sin((d.endAngle + d.startAngle )/2);
-                            }
-                        })
-                        .attr("x2", function (d,i) {
-                            if(d3.selectAll(that.selector+" #pieGroup .pie-label")[0][i].innerHTML === "") {
-                                return 0;
-                            }
-                            else {
-                                return (that.radius) * (1)* Math.cos((d.startAngle + d.endAngle)/2);
-                            }
-                        })
-                        .attr("y2", function (d,i) {
-                            if(d3.selectAll(that.selector+" #pieGroup .pie-label")[0][i].innerHTML === "") {
-                                return 0;
-                            }
-                            else {
-                                return (that.radius) * (1) *Math.sin((d.endAngle + d.startAngle )/2);
-                            }
-                        })
-                        .transition()
-                        .delay(function(d, i) {
-                            if(PykCharts.boolean(that.transition.duration)) {
-                                return ((i) * that.transition.duration)/that.chartData.length;
-                            } else return 0;
-                        })
-                        .duration(that.transitions.duration()/that.chartData.length)
-                        .attr("x2", function (d, i) {
-                            if(d3.selectAll(that.selector+" #pieGroup .pie-label")[0][i].innerHTML === "") {
-                                return 0;
-                            }
-                            else {
-                                return (that.radius/1+12)* (1) * Math.cos((d.startAngle + d.endAngle)/2);
-                            }
-                        })
-                        .attr("y2", function (d, i) {                            
-                            if(d3.selectAll(that.selector+" #pieGroup .pie-label")[0][i].innerHTML === "") {
-                                return 0;
-                            }
-                            else {
-                                return (that.radius/1+12)* (1) * Math.sin((d.startAngle + d.endAngle)/2);
-                            }
-                        })
-                        .attr("transform","rotate(-90)")
-                        .attr("stroke-width", that.ticks.strokeWidth)
-                        .attr("stroke",that.ticks.color);
-                    line.exit().remove();
-
                     var ticks_label = that.group.selectAll(".ticks_label")
                                     .data(that.pie(that.chartData));
 
@@ -3063,7 +3018,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                         }
                         return "translate(" + x + "," + y + ")";});
                     
-                    ticks_label.text(function(d) { return that.k.appendUnits(d.data.name); })
+                    ticks_label.text(function(d) { return d.data.name; })
                         .style("visibility","hidden")
                         .transition()
                         .delay(function(d, i) {
@@ -3073,18 +3028,40 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                         })
                         .text(function (d,i) {
                             if(type.toLowerCase() === "pie" || type.toLowerCase() === "election pie") {
-                                if(this.getBBox().width<((d.endAngle-d.startAngle)*((that.radius/2)*0.9))) {
-                                    return that.k.appendUnits(d.data.name);
-                                }
-                                else {
-                                    return "";
+                                if(type.toLowerCase() === "pie") {  
+                                    w[i] = this.getBBox().width;  
+                                    if(this.getBBox().width < ((d.endAngle-d.startAngle)*((that.radius/2)*0.9))) {
+                                        return d.data.name;
+                                    }
+                                    else {
+                                        return "";
+                                    }
+                                } else {
+                                    w[i] =this.getBBox().height;
+                                    if(this.getBBox().height < ((d.endAngle-d.startAngle)*((that.radius/2)*0.9))) {
+                                        return d.data.name;
+                                    }
+                                    else {
+                                        return "";
+                                    }
                                 }
                             } else {
-                                if((this.getBBox().width < (Math.abs(d.endAngle - d.startAngle)*that.radius*0.9))  && (this.getBBox().height < (((that.radius-that.innerRadius)*0.75)))) {
-                                    return that.k.appendUnits(d.data.weight);
-                                }
-                                else {
-                                    return "";
+                                if(type.toLowerCase() === "donut") {    
+                                    w[i] = this.getBBox().width;
+                                    if(this.getBBox().width < ((d.endAngle-d.startAngle)*((that.radius/2)*0.9))) {
+                                        return d.data.name;
+                                    }
+                                    else {
+                                        return "";
+                                    }
+                                } else {
+                                    w[i] = this.getBBox().height;
+                                    if(this.getBBox().height < ((d.endAngle-d.startAngle)*((that.radius/2)*0.9))) {
+                                        return d.data.name;
+                                    }
+                                    else {
+                                        return "";
+                                    }
                                 }
                             }
                         })
@@ -3110,6 +3087,75 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                         .style("font-family", that.ticks.family);
 
                     ticks_label.exit().remove();
+
+                    var line = that.group.selectAll("line")
+                        .data(that.pie(that.chartData));
+
+                    line.enter()
+                        .append("line")
+                        .attr("class", "ticks");
+                    
+                    line.attr("x1", function (d,i) {
+                            if(w[i] >= ((d.endAngle-d.startAngle)*((that.radius/2)*0.9))) {
+                                return 0;
+                            }
+                            else {
+                                return (that.radius) * (1)* Math.cos((d.startAngle + d.endAngle)/2);
+                            }
+                        })
+                        .attr("y1", function (d,i) {
+                            if(w[i] >= ((d.endAngle-d.startAngle)*((that.radius/2)*0.9))) {
+                                return 0;
+                            }
+                            else {
+                                return (that.radius) * (1) *Math.sin((d.endAngle + d.startAngle )/2);
+                            }
+                        })
+                        .attr("x2", function (d,i) {
+                            if(w[i] >= ((d.endAngle-d.startAngle)*((that.radius/2)*0.9))) {
+                                return 0;
+                            }
+                            else {
+                                return (that.radius) * (1)* Math.cos((d.startAngle + d.endAngle)/2);
+                            }
+                        })
+                        .attr("y2", function (d,i) {
+                            if(w[i] >= ((d.endAngle-d.startAngle)*((that.radius/2)*0.9))) {
+                                return 0;
+                            }
+                            else {
+                                return (that.radius) * (1) *Math.sin((d.endAngle + d.startAngle )/2);
+                            }
+                        })
+                        .transition()
+                        .delay(function(d, i) {
+                            if(PykCharts.boolean(that.transition.duration)) {
+                                return ((i) * that.transition.duration)/that.chartData.length;
+                            } else return 0;
+                        })
+                        .duration(that.transitions.duration()/that.chartData.length)
+                        .attr("x2", function (d, i) {
+                            if(w[i] >= ((d.endAngle-d.startAngle)*((that.radius/2)*0.9))) {
+                                return 0;
+                            }
+                            else {
+                                return (that.radius/1+12)* (1) * Math.cos((d.startAngle + d.endAngle)/2);
+                            }
+                        })
+                        .attr("y2", function (d, i) {                            
+                            if(w[i] >= ((d.endAngle-d.startAngle)*((that.radius/2)*0.9))) {
+                                return 0;
+                            }
+                            else {
+                                return (that.radius/1+12)* (1) * Math.sin((d.startAngle + d.endAngle)/2);
+                            }
+                        })
+                        .attr("transform","rotate(-90)")
+                        .attr("stroke-width", that.ticks.strokeWidth)
+                        .attr("stroke",that.ticks.color);
+                    line.exit().remove();
+
+                    
                 // }
                 return this;
             },
@@ -3381,6 +3427,7 @@ PykCharts.oneD.pyramid = function (options) {
                     .attr('d',function(d) {return that.line(a);})
                     .attr("stroke",that.border.color())
                     .attr("stroke-width",that.border.width())
+                    .attr("stroke-dasharray", that.border.style())
                    	.attr("fill",function (d,i) {
                         if(i===0) {
                             b = that.chartData[i];
@@ -4235,7 +4282,7 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     chartObject.mode = options.mode ? options.mode : "default";
     if (optional && optional.title && PykCharts.boolean(optional.title.text)) {
         chartObject.title = optional.title;
-        chartObject.title.size = optional.title.size ? optional.title.size : stylesheet.title.size;
+        chartObject.title.size = "size"  in optional.title ? optional.title.size : stylesheet.title.size;
         chartObject.title.color = optional.title.color ? optional.title.color : stylesheet.title.color;
         chartObject.title.weight = optional.title.weight ? optional.title.weight : stylesheet.title.weight;
         chartObject.title.family = optional.title.family ? optional.title.family : stylesheet.title.family;
@@ -4244,7 +4291,7 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     }
     if (optional && optional.subtitle && PykCharts.boolean(optional.subtitle.text)) {
         chartObject.subtitle = optional.subtitle;
-        chartObject.subtitle.size = optional.subtitle.size ? optional.subtitle.size : stylesheet.subtitle.size;
+        chartObject.subtitle.size = "size"  in optional.subtitle? optional.subtitle.size : stylesheet.subtitle.size;
         chartObject.subtitle.color = optional.subtitle.color ? optional.subtitle.color : stylesheet.subtitle.color;
         chartObject.subtitle.weight = optional.subtitle.weight ? optional.subtitle.weight : stylesheet.subtitle.weight;
         chartObject.subtitle.family = optional.subtitle.family ? optional.subtitle.family : stylesheet.subtitle.family;
@@ -5040,10 +5087,10 @@ PykCharts.multiD.areaChart = function (options){
 		if(that.mode === "default") {
 			that.k.loading();
 		}
-		var twoDimensionalCharts = theme.twoDimensionalCharts,
+		var multiDimensionalCharts = theme.multiDimensionalCharts,
 			stylesheet = theme.stylesheet,
 			optional = options.optional;
-	    that.enableCrossHair = optional && optional.enableCrossHair ? optional.enableCrossHair : twoDimensionalCharts.enableCrossHair;
+	    that.enableCrossHair = optional && optional.enableCrossHair ? optional.enableCrossHair : multiDimensionalCharts.enableCrossHair;
 		that.curvy_lines = optional && optional.line && optional.line.curvy_lines ? optional.line.curvy_lines : multiDimensionalCharts.line.curvy_lines;
 		// that.grid = options.chart && options.chart.grid ? options.chart.grid : stylesheet.chart.grid;
 	  	// that.grid.yEnabled = options.chart && options.chart.grid && options.chart.grid.yEnabled ? options.chart.grid.yEnabled : stylesheet.chart.grid.yEnabled;
@@ -5549,7 +5596,6 @@ PykCharts.multiD.barChart = function(options){
         that.the_keys = fD[1];
         that.the_layers = that.buildLayers(that.the_bars);
         // console.log(that.the_bars);
-        that.border = new PykCharts.Configuration.border(that);
         that.transitions = new PykCharts.Configuration.transition(that);
         that.mouseEvent1 = new PykCharts.multiD.mouseEvent(that);
         that.fillColor = new PykCharts.Configuration.fillChart(that,null,options);
@@ -5782,6 +5828,7 @@ PykCharts.multiD.barChart = function(options){
                     })
                     .attr("stroke",that.border.color())
                     .attr("stroke-width",that.border.width())
+                    .attr("stroke-dasharray", that.border.style())
                     .attr("stroke-opacity",1)
                     .on('mouseover',function (d) {
                         that.mouseEvent.tooltipPosition(d);
@@ -6505,6 +6552,7 @@ PykCharts.multiD.columnChart = function(options){
                     })
                     .attr("stroke",that.border.color())
                     .attr("stroke-width",that.border.width())
+                    .attr("stroke-dasharray", that.border.style())
                     .attr("stroke-opacity",1)
                     .on('mouseover',function (d) {
                         that.mouseEvent.tooltipPosition(d);
@@ -6898,9 +6946,6 @@ PykCharts.multiD.scatterPlot = function (options) {
             optional = options.optional;
         // that.enableCrossHair = optional && optional.enableCrossHair ? optional.enableCrossHair : multiDimensionalCharts.enableCrossHair;
         that.multiD = new PykCharts.multiD.configuration(that);
-        // that.grid = options.chart && options.chart.grid ? options.chart.grid : stylesheet.chart.grid;
-        // that.grid.yEnabled = options.chart && options.chart.grid && options.chart.grid.yEnabled ? options.chart.grid.yEnabled : stylesheet.chart.grid.yEnabled;
-        // that.grid.xEnabled = options.chart && options.chart.grid && options.chart.grid.xEnabled ? options.chart.grid.xEnabled : stylesheet.chart.grid.xEnabled;
         that.multiple_containers = optional && optional.multiple_containers && optional.multiple_containers.enable ? optional.multiple_containers.enable : multiDimensionalCharts.multiple_containers.enable;
         that.bubbleRadius = options.scatterplot && _.isNumber(options.scatterplot.radius) ? options.scatterplot.radius : multiDimensionalCharts.scatterplot.radius;
         that.zoomedOut = true;
@@ -7532,6 +7577,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                     .style("fill-opacity", function (d) { return that.multiD.opacity(d.weight,that.weight,that.data); })
                     .attr("stroke", that.border.color())
                     .attr("stroke-width",that.border.width())
+                    .attr("stroke-dasharray", that.border.style())
                     .attr("stroke-opacity",1)
                     .on('mouseover',function (d) {
                         tooltipText = d.tooltip ? d.tooltip : "<table class='PykCharts'><tr><th colspan='2'>"+d.name+"</th></tr><tr><td>X</td><td>"+d.x+"</td></tr><tr><td>Y</td><td>"+d.y+"</td></tr><tr><td>Weight</td><td>"+d.weight+"</td></tr></table>";
@@ -7968,6 +8014,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                         })
                         .attr("stroke",that.border.color())
                         .attr("stroke-width",that.border.width())
+                        .attr("stroke-dasharray", that.border.style())
                         .on('mouseover',function (d,i) {
                             that.mouseEvent.tooltipPosition(d);
                             that.mouseEvent.toolTextShow(toolTip[i]);
@@ -8458,12 +8505,21 @@ PykCharts.maps.processInputs = function (chartObject, options) {
     // } else {
     //     chartObject.legends = stylesheet.legends;
     // }
-    if(optional && optional.border) {
-        chartObject.border = optional.border;
-        chartObject.border.color = optional.border.color ? optional.border.color : mapsTheme.border.color;
-        chartObject.border.thickness = optional.border.thickness ? optional.border.thickness : mapsTheme.border.thickness;
+    if (optional && optional.borderBetweenChartElements) {
+        chartObject.borderBetweenChartElements = optional.borderBetweenChartElements;
+        chartObject.borderBetweenChartElements.width = "width" in optional.borderBetweenChartElements ? optional.borderBetweenChartElements.width : stylesheet.borderBetweenChartElements.width;
+        chartObject.borderBetweenChartElements.color = optional.borderBetweenChartElements.color ? optional.borderBetweenChartElements.color : stylesheet.borderBetweenChartElements.color;
+        chartObject.borderBetweenChartElements.style = optional.borderBetweenChartElements.style ? optional.borderBetweenChartElements.style : stylesheet.borderBetweenChartElements.style;
+        switch(chartObject.borderBetweenChartElements.style) {
+            case "dotted" : chartObject.borderBetweenChartElements.style = "1,3";
+                            break;
+            case "dashed" : chartObject.borderBetweenChartElements.style = "5,5";
+                           break;
+            default : chartObject.borderBetweenChartElements.style = "0";
+                      break;
+        }
     } else {
-        chartObject.border = mapsTheme.border;
+        chartObject.borderBetweenChartElements = stylesheet.borderBetweenChartElements;
     }
     chartObject.onhover = optional && optional.onhover ? optional.onhover : mapsTheme.onhover;
     chartObject.defaultZoomLevel = optional && optional.defaultZoomLevel ? optional.defaultZoomLevel : 80;
@@ -8471,7 +8527,7 @@ PykCharts.maps.processInputs = function (chartObject, options) {
     chartObject.highlightArea = optional && optional.highlightArea ? optional.highlightArea : mapsTheme.highlightArea;
     if (optional && optional.title) {
         chartObject.title = optional.title;
-        chartObject.title.size = optional.title.size ? optional.title.size : stylesheet.title.size;
+        chartObject.title.size = "size"  in optional.title ? optional.title.size : stylesheet.title.size;
         chartObject.title.color = optional.title.color ? optional.title.color : stylesheet.title.color;
         chartObject.title.weight = optional.title.weight ? optional.title.weight : stylesheet.title.weight;
         chartObject.title.family = optional.title.family ? optional.title.family : stylesheet.title.family;
@@ -8480,7 +8536,7 @@ PykCharts.maps.processInputs = function (chartObject, options) {
     }
     if (optional && optional.subtitle) {
         chartObject.subtitle = optional.subtitle;
-        chartObject.subtitle.size = optional.subtitle.size ? optional.subtitle.size : stylesheet.subtitle.size;
+        chartObject.subtitle.size = "size"  in optional.subtitle ? optional.subtitle.size : stylesheet.subtitle.size;
         chartObject.subtitle.color = optional.subtitle.color ? optional.subtitle.color : stylesheet.subtitle.color;
         chartObject.subtitle.family = optional.subtitle.family ? optional.subtitle.family : stylesheet.subtitle.family;
     } else {
@@ -8490,7 +8546,7 @@ PykCharts.maps.processInputs = function (chartObject, options) {
     chartObject.transition = optional && optional.transition ? optional.transition : functionality.transition;
     chartObject.creditMySite = optional && optional.creditMySite ? optional.creditMySite : stylesheet.creditMySite;
     chartObject.dataSource = optional && optional.dataSource ? optional.dataSource : "no";
-
+    chartObject.units = optional && optional.units ? optional.units : false;
     chartObject.k = new PykCharts.Configuration(chartObject);
     return chartObject;
 };
@@ -8574,10 +8630,14 @@ PykCharts.maps.timelineMap = function (options) {
 
 PykCharts.maps.mapFunctions = function (options,chartObject,type) {
     var that = chartObject;
+
     this.render = function () {
-    that.k.title()
-        .subtitle();
-    //    var that = this;
+        
+        that.border = new PykCharts.Configuration.border(that);
+        console.log(that.border.color());
+        that.k.title()
+            .subtitle();
+        //    var that = this;
         var scale = 150
         , offset = [that.width / 2, that.height / 2]
         , i;
@@ -8585,6 +8645,8 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         that.current_palette = _.where(that.colorPalette_data, {name:that.colors.palette, number:that.colors.total})[0];
         that.optionalFeatures()
             .enableLegend(that.legends.enable);
+
+        $(options.selector).css("background-color",that.bg);
 
         that.svg = d3.select(that.selector)
             .append("svg")
@@ -8656,8 +8718,9 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                 return d3.select(this).attr("fill");
             })
             .attr("opacity", that.renderOpacity)
-            .attr("stroke", that.border.color)
-            .attr("stroke-width", that.border.thickness + "px")
+            .attr("stroke", that.border.color())
+            .attr("stroke-width", that.border.width() + "px")
+            .attr("stroke-dasharray", that.border.style())
             .on("mouseover", function (d) {
 
                 if (PykCharts.boolean(that.tooltip.enable)) {
@@ -8671,11 +8734,11 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     if (that.tooltip.mode === "moving") {
                         ttp.style("top", function () {
 
-                                return (d3.event.pageY + 10 ) + "px";
+                                return (d3.event.pageY - 20 ) + "px";
                             })
                             .style("left", function () {
 
-                                return (d3.event.pageX + 10 ) + "px";
+                                return (d3.event.pageX + 20 ) + "px";
 
                             });
                     } else if (that.tooltip.mode === "fixed") {
@@ -8905,8 +8968,9 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         if(that.onhover1 !== "none") {
             if (that.onhover1 === "highlight_border") {
                 d3.select("path[state_name='" + d.properties.NAME_1 + "']")
-                    .attr("stroke", that.border.color)
-                    .attr("stroke-width", that.border.thickness + 0.5);
+                    .attr("stroke", that.border.color())
+                    .attr("stroke-width", parseInt(that.border.width()) + 1.5 + "px")
+                    .attr("stroke-dasharray", that.border.style());
             } else if (that.onhover1 === "shadow") {
                 d3.select("path[state_name='" + d.properties.NAME_1 + "']")
                     .attr('filter', 'url(#dropshadow)')
@@ -8935,8 +8999,9 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
     };
     that.bodUncolor = function (d) {
         d3.select("path[state_name='" + d.properties.NAME_1 + "']")
-            .attr("stroke", that.border.color)
-            .attr("stroke-width", that.border.thickness)
+            .attr("stroke", that.border.color())
+            .attr("stroke-width", that.border.width())
+            .attr("stroke-dasharray", that.border.style())
             .attr('filter', null)
             .attr("opacity", function () {
                 if (that.colors.palette === "" && that.colors.type === "saturation") {
