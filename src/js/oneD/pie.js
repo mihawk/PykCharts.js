@@ -230,7 +230,8 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                         that.mouseEvent.tooltipPosition(d);
                     })
                     .attr("stroke",that.border.color())
-                    .attr("stroke-width",that.border.width());
+                    .attr("stroke-width",that.border.width())
+                    .attr("stroke-dasharray", that.border.style());
 
                 cv_path.transition()
                     .delay(function(d, i) {

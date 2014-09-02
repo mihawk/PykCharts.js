@@ -899,11 +899,14 @@ configuration.border = function (options) {
 	var that = this;
 	var border = {
 	    width: function () {
-	    		return options.borderBetweenChartElements.width;
+	    	return options.borderBetweenChartElements.width;
 	    },
 		color: function () {
-				return options.borderBetweenChartElements.color;
-		}
+			return options.borderBetweenChartElements.color;
+		},
+        style: function () {
+            return options.borderBetweenChartElements.style;  
+        }
 	};
 	return border;
 };

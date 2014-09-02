@@ -186,6 +186,7 @@ PykCharts.oneD.pyramid = function (options) {
                     .attr('d',function(d) {return that.line(a);})
                     .attr("stroke",that.border.color())
                     .attr("stroke-width",that.border.width())
+                    .attr("stroke-dasharray", that.border.style())
                    	.attr("fill",function (d,i) {
                         if(i===0) {
                             b = that.chartData[i];
