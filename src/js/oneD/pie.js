@@ -379,74 +379,8 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                 if(PykCharts.boolean(that.overflowTicks)) {
                     that.svgContainer.style("overflow","visible");
                 }
+                var w = [];
                 // if(PykCharts.boolean(that.enableTicks)) {
-                    var line = that.group.selectAll("line")
-                        .data(that.pie(that.chartData));
-
-                    line.enter()
-                        .append("line")
-                        .attr("class", "ticks");
-                    
-                    line.attr("x1", function (d,i) {
-                            if(d3.selectAll(that.selector+" #pieGroup .pie-label")[0][i].innerHTML === "") {
-                                return 0;
-                            }
-                            else {
-                                return (that.radius) * (1)* Math.cos((d.startAngle + d.endAngle)/2);
-                            }
-                        })
-                        .attr("y1", function (d,i) {
-                            if(d3.selectAll(that.selector+" #pieGroup .pie-label")[0][i].innerHTML === "") {
-                                return 0;
-                            }
-                            else {
-                                return (that.radius) * (1) *Math.sin((d.endAngle + d.startAngle )/2);
-                            }
-                        })
-                        .attr("x2", function (d,i) {
-                            if(d3.selectAll(that.selector+" #pieGroup .pie-label")[0][i].innerHTML === "") {
-                                return 0;
-                            }
-                            else {
-                                return (that.radius) * (1)* Math.cos((d.startAngle + d.endAngle)/2);
-                            }
-                        })
-                        .attr("y2", function (d,i) {
-                            if(d3.selectAll(that.selector+" #pieGroup .pie-label")[0][i].innerHTML === "") {
-                                return 0;
-                            }
-                            else {
-                                return (that.radius) * (1) *Math.sin((d.endAngle + d.startAngle )/2);
-                            }
-                        })
-                        .transition()
-                        .delay(function(d, i) {
-                            if(PykCharts.boolean(that.transition.duration)) {
-                                return ((i) * that.transition.duration)/that.chartData.length;
-                            } else return 0;
-                        })
-                        .duration(that.transitions.duration()/that.chartData.length)
-                        .attr("x2", function (d, i) {
-                            if(d3.selectAll(that.selector+" #pieGroup .pie-label")[0][i].innerHTML === "") {
-                                return 0;
-                            }
-                            else {
-                                return (that.radius/1+12)* (1) * Math.cos((d.startAngle + d.endAngle)/2);
-                            }
-                        })
-                        .attr("y2", function (d, i) {                            
-                            if(d3.selectAll(that.selector+" #pieGroup .pie-label")[0][i].innerHTML === "") {
-                                return 0;
-                            }
-                            else {
-                                return (that.radius/1+12)* (1) * Math.sin((d.startAngle + d.endAngle)/2);
-                            }
-                        })
-                        .attr("transform","rotate(-90)")
-                        .attr("stroke-width", that.ticks.strokeWidth)
-                        .attr("stroke",that.ticks.color);
-                    line.exit().remove();
-
                     var ticks_label = that.group.selectAll(".ticks_label")
                                     .data(that.pie(that.chartData));
 
@@ -468,7 +402,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                         }
                         return "translate(" + x + "," + y + ")";});
                     
-                    ticks_label.text(function(d) { return that.k.appendUnits(d.data.name); })
+                    ticks_label.text(function(d) { return d.data.name; })
                         .style("visibility","hidden")
                         .transition()
                         .delay(function(d, i) {
@@ -478,18 +412,40 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                         })
                         .text(function (d,i) {
                             if(type.toLowerCase() === "pie" || type.toLowerCase() === "election pie") {
-                                if(this.getBBox().width<((d.endAngle-d.startAngle)*((that.radius/2)*0.9))) {
-                                    return d.data.name;
-                                }
-                                else {
-                                    return "";
+                                if(type.toLowerCase() === "pie") {  
+                                    w[i] = this.getBBox().width;  
+                                    if(this.getBBox().width < ((d.endAngle-d.startAngle)*((that.radius/2)*0.9))) {
+                                        return d.data.name;
+                                    }
+                                    else {
+                                        return "";
+                                    }
+                                } else {
+                                    w[i] =this.getBBox().height;
+                                    if(this.getBBox().height < ((d.endAngle-d.startAngle)*((that.radius/2)*0.9))) {
+                                        return d.data.name;
+                                    }
+                                    else {
+                                        return "";
+                                    }
                                 }
                             } else {
-                                if((this.getBBox().width < (Math.abs(d.endAngle - d.startAngle)*that.radius*0.9))  && (this.getBBox().height < (((that.radius-that.innerRadius)*0.75)))) {
-                                    return that.k.appendUnits(d.data.weight);
-                                }
-                                else {
-                                    return "";
+                                if(type.toLowerCase() === "donut") {    
+                                    w[i] = this.getBBox().width;
+                                    if(this.getBBox().width < ((d.endAngle-d.startAngle)*((that.radius/2)*0.9))) {
+                                        return d.data.name;
+                                    }
+                                    else {
+                                        return "";
+                                    }
+                                } else {
+                                    w[i] = this.getBBox().height;
+                                    if(this.getBBox().height < ((d.endAngle-d.startAngle)*((that.radius/2)*0.9))) {
+                                        return d.data.name;
+                                    }
+                                    else {
+                                        return "";
+                                    }
                                 }
                             }
                         })
@@ -515,6 +471,75 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                         .style("font-family", that.ticks.family);
 
                     ticks_label.exit().remove();
+
+                    var line = that.group.selectAll("line")
+                        .data(that.pie(that.chartData));
+
+                    line.enter()
+                        .append("line")
+                        .attr("class", "ticks");
+                    
+                    line.attr("x1", function (d,i) {
+                            if(w[i] >= ((d.endAngle-d.startAngle)*((that.radius/2)*0.9))) {
+                                return 0;
+                            }
+                            else {
+                                return (that.radius) * (1)* Math.cos((d.startAngle + d.endAngle)/2);
+                            }
+                        })
+                        .attr("y1", function (d,i) {
+                            if(w[i] >= ((d.endAngle-d.startAngle)*((that.radius/2)*0.9))) {
+                                return 0;
+                            }
+                            else {
+                                return (that.radius) * (1) *Math.sin((d.endAngle + d.startAngle )/2);
+                            }
+                        })
+                        .attr("x2", function (d,i) {
+                            if(w[i] >= ((d.endAngle-d.startAngle)*((that.radius/2)*0.9))) {
+                                return 0;
+                            }
+                            else {
+                                return (that.radius) * (1)* Math.cos((d.startAngle + d.endAngle)/2);
+                            }
+                        })
+                        .attr("y2", function (d,i) {
+                            if(w[i] >= ((d.endAngle-d.startAngle)*((that.radius/2)*0.9))) {
+                                return 0;
+                            }
+                            else {
+                                return (that.radius) * (1) *Math.sin((d.endAngle + d.startAngle )/2);
+                            }
+                        })
+                        .transition()
+                        .delay(function(d, i) {
+                            if(PykCharts.boolean(that.transition.duration)) {
+                                return ((i) * that.transition.duration)/that.chartData.length;
+                            } else return 0;
+                        })
+                        .duration(that.transitions.duration()/that.chartData.length)
+                        .attr("x2", function (d, i) {
+                            if(w[i] >= ((d.endAngle-d.startAngle)*((that.radius/2)*0.9))) {
+                                return 0;
+                            }
+                            else {
+                                return (that.radius/1+12)* (1) * Math.cos((d.startAngle + d.endAngle)/2);
+                            }
+                        })
+                        .attr("y2", function (d, i) {                            
+                            if(w[i] >= ((d.endAngle-d.startAngle)*((that.radius/2)*0.9))) {
+                                return 0;
+                            }
+                            else {
+                                return (that.radius/1+12)* (1) * Math.sin((d.startAngle + d.endAngle)/2);
+                            }
+                        })
+                        .attr("transform","rotate(-90)")
+                        .attr("stroke-width", that.ticks.strokeWidth)
+                        .attr("stroke",that.ticks.color);
+                    line.exit().remove();
+
+                    
                 // }
                 return this;
             },
