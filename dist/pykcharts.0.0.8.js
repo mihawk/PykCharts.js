@@ -1431,7 +1431,7 @@ PykCharts.oneD.bubble = function (options) {
                 return this;
             },
             createBubble : function () {
-                
+
                 that.bubble = d3.layout.pack()
                     .sort(function (a,b) { return b.weight - a.weight; })
                     .size([that.width, that.height])
@@ -1479,8 +1479,8 @@ PykCharts.oneD.bubble = function (options) {
                             that.mouseEvent.tooltipPosition(d);
                         }
                     })
-                    .transition()
-                    .duration(that.transitions.duration())
+                    // .transition()
+                    // .duration(that.transitions.duration())
                     .attr("r",function (d) {return d.r; });
                 that.bub_node.exit().remove();
 
@@ -1861,8 +1861,8 @@ PykCharts.oneD.funnel = function (options) {
         			.on("mousemove", function (d,i) {
                         that.mouseEvent.tooltipPosition(d);
         			})
-                    .transition()
-                    .duration(that.transitions.duration())
+                    // .transition()
+                    // .duration(that.transitions.duration())
                     .attr('d',function(d){ return line(d.values); });
 
                that.path.exit()
@@ -2208,8 +2208,8 @@ PykCharts.oneD.percentageColumn = function (options) {
                     .on("mousemove", function (d,i) {
                         that.mouseEvent.tooltipPosition(d);
                     })
-                    .transition()
-                    .duration(that.transitions.duration())
+                    // .transition()
+                    // .duration(that.transitions.duration())
                     .attr('height', function (d) {
                         return d.percentValue * that.height / 100;
                     });
@@ -3506,8 +3506,8 @@ PykCharts.oneD.pyramid = function (options) {
                     })
                     .attr("stroke-width", that.ticks.strokeWidth)
                     .attr("stroke",that.ticks.color)
-                    .transition()
-                    .duration(that.transitions.duration())
+                    // .transition()
+                    // .duration(that.transitions.duration())
                     .attr("x2", function (d,i) {
                         if(Math.abs(d.values[0].y - d.values[1].y) > 15) {
                             if (d.values.length === 3) {
@@ -3817,8 +3817,8 @@ PykCharts.oneD.treemap = function (options){
                             that.mouseEvent.tooltipPosition(d);
                         }
                     })
-                    .transition()
-                    .duration(that.transitions.duration())
+                    // .transition()
+                    // .duration(that.transitions.duration())
                     .attr("height", function (d) { return d.dy-1; });
 
                 that.treemap_data.exit()

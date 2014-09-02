@@ -73,7 +73,7 @@ PykCharts.oneD.bubble = function (options) {
                 return this;
             },
             createBubble : function () {
-                
+
                 that.bubble = d3.layout.pack()
                     .sort(function (a,b) { return b.weight - a.weight; })
                     .size([that.width, that.height])
@@ -121,8 +121,8 @@ PykCharts.oneD.bubble = function (options) {
                             that.mouseEvent.tooltipPosition(d);
                         }
                     })
-                    .transition()
-                    .duration(that.transitions.duration())
+                    // .transition()
+                    // .duration(that.transitions.duration())
                     .attr("r",function (d) {return d.r; });
                 that.bub_node.exit().remove();
 
