@@ -15,7 +15,6 @@ PykCharts.maps.oneLayer = function (options) {
 
             d3.json("../data/maps/" + that.mapCode + "-topo.json", function (data) {
                 that.map_data = data;
-
                 d3.json("https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/palette/colorPalette.json", function (data) {
                     that.colorPalette_data = data;
                     $(that.selector).html("");
@@ -111,7 +110,6 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
     this.render = function () {
         
         that.border = new PykCharts.Configuration.border(that);
-        console.log(that.border.color());
         that.k.title()
             .subtitle();
         //    var that = this;
@@ -450,7 +448,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             .attr("text-anchor", "middle")
             .attr("font-size", "10")
             .attr("pointer-events", "none")
-            .text(function (d) { return d.properties.NAME_1; });
+            .text(function (d) { return (d.properties.NAME_1.search("&#39;") !== -1) ? d.properties.NAME_1.replace("&#39;","'") : d.properties.NAME_1; });
     };
 
     that.bodColor = function (d) {
