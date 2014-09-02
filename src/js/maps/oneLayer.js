@@ -211,6 +211,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             .attr("opacity", that.renderOpacity)
             .attr("stroke", that.border.color())
             .attr("stroke-width", that.border.width() + "px")
+            .attr("stroke-dasharray", that.border.style())
             .on("mouseover", function (d) {
 
                 if (PykCharts.boolean(that.tooltip.enable)) {
@@ -457,10 +458,10 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         var obj = _.where(that.data, {iso2: d.properties.iso_a2});
         if(that.onhover1 !== "none") {
             if (that.onhover1 === "highlight_border") {
-                console.log(parseInt(that.border.width())+1.5);
                 d3.select("path[state_name='" + d.properties.NAME_1 + "']")
                     .attr("stroke", that.border.color())
-                    .attr("stroke-width", parseInt(that.border.width()) + 1.5 + "px");
+                    .attr("stroke-width", parseInt(that.border.width()) + 1.5 + "px")
+                    .attr("stroke-dasharray", that.border.style());
             } else if (that.onhover1 === "shadow") {
                 d3.select("path[state_name='" + d.properties.NAME_1 + "']")
                     .attr('filter', 'url(#dropshadow)')
@@ -491,6 +492,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         d3.select("path[state_name='" + d.properties.NAME_1 + "']")
             .attr("stroke", that.border.color())
             .attr("stroke-width", that.border.width())
+            .attr("stroke-dasharray", that.border.style())
             .attr('filter', null)
             .attr("opacity", function () {
                 if (that.colors.palette === "" && that.colors.type === "saturation") {

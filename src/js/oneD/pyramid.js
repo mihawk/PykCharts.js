@@ -186,6 +186,7 @@ PykCharts.oneD.pyramid = function (options) {
                     .attr('d',function(d) {return that.line(a);})
                     .attr("stroke",that.border.color())
                     .attr("stroke-width",that.border.width())
+                    .attr("stroke-dasharray", that.border.style())
                    	.attr("fill",function (d,i) {
                         if(i===0) {
                             b = that.chartData[i];
@@ -208,8 +209,8 @@ PykCharts.oneD.pyramid = function (options) {
         			.on("mousemove", function (d,i) {
                         that.mouseEvent.tooltipPosition(d);
         			})
-                    .transition()
-                    .duration(that.transitions.duration())
+                    // .transition()
+                    // .duration(that.transitions.duration())
                     .attr('d',function (d){ return that.line(d.values); });
 
                 path.exit().remove();
@@ -311,8 +312,8 @@ PykCharts.oneD.pyramid = function (options) {
                     })
                     .attr("stroke-width", that.ticks.strokeWidth)
                     .attr("stroke",that.ticks.color)
-                    .transition()
-                    .duration(that.transitions.duration())
+                    // .transition()
+                    // .duration(that.transitions.duration())
                     .attr("x2", function (d,i) {
                         if(Math.abs(d.values[0].y - d.values[1].y) > 15) {
                             if (d.values.length === 3) {

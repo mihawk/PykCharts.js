@@ -899,11 +899,14 @@ configuration.border = function (options) {
 	var that = this;
 	var border = {
 	    width: function () {
-	    		return options.borderBetweenChartElements.width;
+	    	return options.borderBetweenChartElements.width;
 	    },
 		color: function () {
-				return options.borderBetweenChartElements.color;
-		}
+			return options.borderBetweenChartElements.color;
+		},
+        style: function () {
+            return options.borderBetweenChartElements.style;  
+        }
 	};
 	return border;
 };
@@ -1327,6 +1330,14 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
         chartObject.borderBetweenChartElements.width = "width" in optional.borderBetweenChartElements ? optional.borderBetweenChartElements.width : stylesheet.borderBetweenChartElements.width;
         chartObject.borderBetweenChartElements.color = optional.borderBetweenChartElements.color ? optional.borderBetweenChartElements.color : stylesheet.borderBetweenChartElements.color;
         chartObject.borderBetweenChartElements.style = optional.borderBetweenChartElements.style ? optional.borderBetweenChartElements.style : stylesheet.borderBetweenChartElements.style;
+        switch(chartObject.borderBetweenChartElements.style) {
+            case "dotted" : chartObject.borderBetweenChartElements.style = "1,3";
+                            break;
+            case "dashed" : chartObject.borderBetweenChartElements.style = "5,5";
+                           break;
+            default : chartObject.borderBetweenChartElements.style = "0";
+                      break;
+        }
     } else {
         chartObject.borderBetweenChartElements = stylesheet.borderBetweenChartElements;
     }
@@ -1430,7 +1441,7 @@ PykCharts.oneD.bubble = function (options) {
                 return this;
             },
             createBubble : function () {
-                
+
                 that.bubble = d3.layout.pack()
                     .sort(function (a,b) { return b.weight - a.weight; })
                     .size([that.width, that.height])
@@ -1478,8 +1489,8 @@ PykCharts.oneD.bubble = function (options) {
                             that.mouseEvent.tooltipPosition(d);
                         }
                     })
-                    .transition()
-                    .duration(that.transitions.duration())
+                    // .transition()
+                    // .duration(that.transitions.duration())
                     .attr("r",function (d) {return d.r; });
                 that.bub_node.exit().remove();
 
@@ -1846,6 +1857,7 @@ PykCharts.oneD.funnel = function (options) {
         			})
                     .attr("stroke",that.border.color())
                     .attr("stroke-width",that.border.width())
+                    .attr("stroke-dasharray", that.border.style())                    
                     .attr("stroke-opacity",1)
         			.on("mouseover", function (d,i) {
                         that.mouseEvent1.highlight(options.selector +" "+".fun-path",this);
@@ -1860,8 +1872,8 @@ PykCharts.oneD.funnel = function (options) {
         			.on("mousemove", function (d,i) {
                         that.mouseEvent.tooltipPosition(d);
         			})
-                    .transition()
-                    .duration(that.transitions.duration())
+                    // .transition()
+                    // .duration(that.transitions.duration())
                     .attr('d',function(d){ return line(d.values); });
 
                that.path.exit()
@@ -1924,22 +1936,30 @@ PykCharts.oneD.funnel = function (options) {
                            if (d.values.length === 4) {
                                 return ((d.values[3].x + d.values[2].x)/2 );
                            } else {
-                                return ((d.values[4].x + d.values[5].x + d.values[3].x)/3 - 5);
+                                return (d.values[4].x);
                            }
 
                         })
                         .attr("y1", function (d,i) {
-                               return (d.values[0].y + d.values[2].y)/2;
+                            if (d.values.length === 4) {
+                                return ((d.values[0].y + d.values[2].y)/2);
+                           } else {
+                                return (d.values[4].y);
+                           }
                         })
                         .attr("x2", function (d, i) {
-                              if (d.values.length === 4) {
+                            if (d.values.length === 4) {
                                 return ((d.values[3].x + d.values[2].x)/2 );
                            } else {
-                                return ((d.values[4].x + d.values[5].x + d.values[3].x)/3 - 5);
+                                return (d.values[4].x);
                            }
                         })
                         .attr("y2", function (d, i) {
-                               return ((d.values[0].y + d.values[2].y)/2);
+                            if (d.values.length === 4) {
+                                return ((d.values[0].y + d.values[2].y)/2);
+                           } else {
+                                return (d.values[4].y);
+                           }
                         })
                         .attr("stroke-width", that.ticks.strokeWidth)
                         .attr("stroke", that.ticks.color)
@@ -1950,13 +1970,13 @@ PykCharts.oneD.funnel = function (options) {
                                 if (d.values.length === 4) {
                                     return ((d.values[3].x + d.values[2].x)/2 ) + 5;
                                 } else {
-                                    return ((d.values[4].x + d.values[5].x + d.values[3].x)/3 );
+                                    return ((d.values[4].x) +5);
                                 }
                             } else {
                                 if (d.values.length === 4) {
                                     return ((d.values[3].x + d.values[2].x)/2 );
                                 } else {
-                                    return ((d.values[4].x + d.values[5].x + d.values[3].x)/3 -5);
+                                    return (d.values[4].x);
                                 }
                             }
 
@@ -1979,11 +1999,11 @@ PykCharts.oneD.funnel = function (options) {
                     ticks_label.attr("transform",function (d) {
                         if (d.values.length === 4) {
                             x = ((d.values[3].x + d.values[2].x)/2 ) + 10;
+                            y = ((d.values[0].y + d.values[2].y)/2) + 5;
                         } else {
-                            x = ((d.values[4].x + d.values[5].x + d.values[3].x)/3 ) + 5;
+                            x = (d.values[4].x) + 10;
+                            y = (d.values[4].y) + 5;
                         }
-                        y = (d.values[0].y + d.values[2].y)/2 + 5;
-
                         return "translate(" + x + "," + y + ")";});
 
                     ticks_label.text("")
@@ -2194,6 +2214,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                     })
                     .attr("stroke",that.border.color())
                     .attr("stroke-width",that.border.width())
+                    .attr("stroke-dasharray", that.border.style())
                     .on("mouseover", function (d,i) {
                         d.tooltip=d.tooltip||"<table class='PykCharts'><tr><th colspan='2' class='tooltip-heading'>"+d.name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.weight)+"<td class='tooltip-right-content'>(&nbsp;"+d.percentValue.toFixed(2)+"%&nbsp)</tr></table>"
                         that.mouseEvent1.highlight(".per-rect",this);
@@ -2207,8 +2228,8 @@ PykCharts.oneD.percentageColumn = function (options) {
                     .on("mousemove", function (d,i) {
                         that.mouseEvent.tooltipPosition(d);
                     })
-                    .transition()
-                    .duration(that.transitions.duration())
+                    // .transition()
+                    // .duration(that.transitions.duration())
                     .attr('height', function (d) {
                         return d.percentValue * that.height / 100;
                     });
@@ -2825,7 +2846,8 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                         that.mouseEvent.tooltipPosition(d);
                     })
                     .attr("stroke",that.border.color())
-                    .attr("stroke-width",that.border.width());
+                    .attr("stroke-width",that.border.width())
+                    .attr("stroke-dasharray", that.border.style());
 
                 cv_path.transition()
                     .delay(function(d, i) {
@@ -3405,6 +3427,7 @@ PykCharts.oneD.pyramid = function (options) {
                     .attr('d',function(d) {return that.line(a);})
                     .attr("stroke",that.border.color())
                     .attr("stroke-width",that.border.width())
+                    .attr("stroke-dasharray", that.border.style())
                    	.attr("fill",function (d,i) {
                         if(i===0) {
                             b = that.chartData[i];
@@ -3427,8 +3450,8 @@ PykCharts.oneD.pyramid = function (options) {
         			.on("mousemove", function (d,i) {
                         that.mouseEvent.tooltipPosition(d);
         			})
-                    .transition()
-                    .duration(that.transitions.duration())
+                    // .transition()
+                    // .duration(that.transitions.duration())
                     .attr('d',function (d){ return that.line(d.values); });
 
                 path.exit().remove();
@@ -3530,8 +3553,8 @@ PykCharts.oneD.pyramid = function (options) {
                     })
                     .attr("stroke-width", that.ticks.strokeWidth)
                     .attr("stroke",that.ticks.color)
-                    .transition()
-                    .duration(that.transitions.duration())
+                    // .transition()
+                    // .duration(that.transitions.duration())
                     .attr("x2", function (d,i) {
                         if(Math.abs(d.values[0].y - d.values[1].y) > 15) {
                             if (d.values.length === 3) {
@@ -3841,8 +3864,8 @@ PykCharts.oneD.treemap = function (options){
                             that.mouseEvent.tooltipPosition(d);
                         }
                     })
-                    .transition()
-                    .duration(that.transitions.duration())
+                    // .transition()
+                    // .duration(that.transitions.duration())
                     .attr("height", function (d) { return d.dy-1; });
 
                 that.treemap_data.exit()
@@ -5573,7 +5596,6 @@ PykCharts.multiD.barChart = function(options){
         that.the_keys = fD[1];
         that.the_layers = that.buildLayers(that.the_bars);
         // console.log(that.the_bars);
-        that.border = new PykCharts.Configuration.border(that);
         that.transitions = new PykCharts.Configuration.transition(that);
         that.mouseEvent1 = new PykCharts.multiD.mouseEvent(that);
         that.fillColor = new PykCharts.Configuration.fillChart(that,null,options);
@@ -5806,6 +5828,7 @@ PykCharts.multiD.barChart = function(options){
                     })
                     .attr("stroke",that.border.color())
                     .attr("stroke-width",that.border.width())
+                    .attr("stroke-dasharray", that.border.style())
                     .attr("stroke-opacity",1)
                     .on('mouseover',function (d) {
                         that.mouseEvent.tooltipPosition(d);
@@ -6529,6 +6552,7 @@ PykCharts.multiD.columnChart = function(options){
                     })
                     .attr("stroke",that.border.color())
                     .attr("stroke-width",that.border.width())
+                    .attr("stroke-dasharray", that.border.style())
                     .attr("stroke-opacity",1)
                     .on('mouseover',function (d) {
                         that.mouseEvent.tooltipPosition(d);
@@ -7553,6 +7577,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                     .style("fill-opacity", function (d) { return that.multiD.opacity(d.weight,that.weight,that.data); })
                     .attr("stroke", that.border.color())
                     .attr("stroke-width",that.border.width())
+                    .attr("stroke-dasharray", that.border.style())
                     .attr("stroke-opacity",1)
                     .on('mouseover',function (d) {
                         tooltipText = d.tooltip ? d.tooltip : "<table class='PykCharts'><tr><th colspan='2'>"+d.name+"</th></tr><tr><td>X</td><td>"+d.x+"</td></tr><tr><td>Y</td><td>"+d.y+"</td></tr><tr><td>Weight</td><td>"+d.weight+"</td></tr></table>";
@@ -7989,6 +8014,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                         })
                         .attr("stroke",that.border.color())
                         .attr("stroke-width",that.border.width())
+                        .attr("stroke-dasharray", that.border.style())
                         .on('mouseover',function (d,i) {
                             that.mouseEvent.tooltipPosition(d);
                             that.mouseEvent.toolTextShow(toolTip[i]);
@@ -8484,6 +8510,14 @@ PykCharts.maps.processInputs = function (chartObject, options) {
         chartObject.borderBetweenChartElements.width = "width" in optional.borderBetweenChartElements ? optional.borderBetweenChartElements.width : stylesheet.borderBetweenChartElements.width;
         chartObject.borderBetweenChartElements.color = optional.borderBetweenChartElements.color ? optional.borderBetweenChartElements.color : stylesheet.borderBetweenChartElements.color;
         chartObject.borderBetweenChartElements.style = optional.borderBetweenChartElements.style ? optional.borderBetweenChartElements.style : stylesheet.borderBetweenChartElements.style;
+        switch(chartObject.borderBetweenChartElements.style) {
+            case "dotted" : chartObject.borderBetweenChartElements.style = "1,3";
+                            break;
+            case "dashed" : chartObject.borderBetweenChartElements.style = "5,5";
+                           break;
+            default : chartObject.borderBetweenChartElements.style = "0";
+                      break;
+        }
     } else {
         chartObject.borderBetweenChartElements = stylesheet.borderBetweenChartElements;
     }
@@ -8686,6 +8720,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             .attr("opacity", that.renderOpacity)
             .attr("stroke", that.border.color())
             .attr("stroke-width", that.border.width() + "px")
+            .attr("stroke-dasharray", that.border.style())
             .on("mouseover", function (d) {
 
                 if (PykCharts.boolean(that.tooltip.enable)) {
@@ -8932,10 +8967,10 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         var obj = _.where(that.data, {iso2: d.properties.iso_a2});
         if(that.onhover1 !== "none") {
             if (that.onhover1 === "highlight_border") {
-                console.log(parseInt(that.border.width())+1.5);
                 d3.select("path[state_name='" + d.properties.NAME_1 + "']")
                     .attr("stroke", that.border.color())
-                    .attr("stroke-width", parseInt(that.border.width()) + 1.5 + "px");
+                    .attr("stroke-width", parseInt(that.border.width()) + 1.5 + "px")
+                    .attr("stroke-dasharray", that.border.style());
             } else if (that.onhover1 === "shadow") {
                 d3.select("path[state_name='" + d.properties.NAME_1 + "']")
                     .attr('filter', 'url(#dropshadow)')
@@ -8966,6 +9001,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         d3.select("path[state_name='" + d.properties.NAME_1 + "']")
             .attr("stroke", that.border.color())
             .attr("stroke-width", that.border.width())
+            .attr("stroke-dasharray", that.border.style())
             .attr('filter', null)
             .attr("opacity", function () {
                 if (that.colors.palette === "" && that.colors.type === "saturation") {

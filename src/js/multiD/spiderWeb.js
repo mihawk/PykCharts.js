@@ -263,6 +263,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                         })
                         .attr("stroke",that.border.color())
                         .attr("stroke-width",that.border.width())
+                        .attr("stroke-dasharray", that.border.style())
                         .on('mouseover',function (d,i) {
                             that.mouseEvent.tooltipPosition(d);
                             that.mouseEvent.toolTextShow(toolTip[i]);

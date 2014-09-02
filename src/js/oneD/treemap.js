@@ -128,8 +128,8 @@ PykCharts.oneD.treemap = function (options){
                             that.mouseEvent.tooltipPosition(d);
                         }
                     })
-                    .transition()
-                    .duration(that.transitions.duration())
+                    // .transition()
+                    // .duration(that.transitions.duration())
                     .attr("height", function (d) { return d.dy-1; });
 
                 that.treemap_data.exit()
