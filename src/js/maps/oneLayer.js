@@ -450,7 +450,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             .attr("text-anchor", "middle")
             .attr("font-size", "10")
             .attr("pointer-events", "none")
-            .text(function (d) { return (that.mapCode === "world1") ? d.properties.name : d.properties.NAME_1; });
+            .text(function (d) { return d.properties.NAME_1; });
     };
 
     that.bodColor = function (d) {
