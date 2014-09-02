@@ -27,8 +27,8 @@ PykCharts.maps.processInputs = function (chartObject, options) {
         , optional = options.optional;
 
     chartObject.selector = options.selector ? options.selector : stylesheet.selector;
-    chartObject.width = optional.map && _.isNumber(parseInt(optional.chart.width,10)) ? optional.chart.width : mapsTheme.chart.width;
-    chartObject.height = optional.map && _.isNumber(parseInt(optional.chart.height,10)) ? optional.chart.height : mapsTheme.chart.height;
+    chartObject.width = optional.chart && _.isNumber(parseInt(optional.chart.width,10)) ? optional.chart.width : mapsTheme.chart.width;
+    chartObject.height = optional.chart && _.isNumber(parseInt(optional.chart.height,10)) ? optional.chart.height : mapsTheme.chart.height;
     chartObject.mapCode = options.mapCode ? options.mapCode : mapsTheme.mapCode;
     chartObject.enableClick = options.enableClick ? options.enableClick : mapsTheme.enableClick;
     // chartObject.defaultColor = optional && optional.colors && optional.colors.defaultColor ? optional.colors.defaultColor : mapsTheme.colors.defaultColor;
@@ -122,12 +122,13 @@ PykCharts.maps.processInputs = function (chartObject, options) {
     // } else {
     //     chartObject.legends = stylesheet.legends;
     // }
-    if(optional && optional.border) {
-        chartObject.border = optional.border;
-        chartObject.border.color = optional.border.color ? optional.border.color : mapsTheme.border.color;
-        chartObject.border.thickness = optional.border.thickness ? optional.border.thickness : mapsTheme.border.thickness;
+    if (optional && optional.borderBetweenChartElements) {
+        chartObject.borderBetweenChartElements = optional.borderBetweenChartElements;
+        chartObject.borderBetweenChartElements.width = "width" in optional.borderBetweenChartElements ? optional.borderBetweenChartElements.width : stylesheet.borderBetweenChartElements.width;
+        chartObject.borderBetweenChartElements.color = optional.borderBetweenChartElements.color ? optional.borderBetweenChartElements.color : stylesheet.borderBetweenChartElements.color;
+        chartObject.borderBetweenChartElements.style = optional.borderBetweenChartElements.style ? optional.borderBetweenChartElements.style : stylesheet.borderBetweenChartElements.style;
     } else {
-        chartObject.border = mapsTheme.border;
+        chartObject.borderBetweenChartElements = stylesheet.borderBetweenChartElements;
     }
     chartObject.onhover = optional && optional.onhover ? optional.onhover : mapsTheme.onhover;
     chartObject.defaultZoomLevel = optional && optional.defaultZoomLevel ? optional.defaultZoomLevel : 80;

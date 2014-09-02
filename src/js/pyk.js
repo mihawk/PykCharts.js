@@ -1188,10 +1188,6 @@ configuration.Theme = function(){
             "type" : "satuartion",
             "palette" : "Blue"
         },
-        "border" :{
-            "color": "white",
-            "thickness" : 1
-        },
         "tooltip" : {
             "enable": "yes",
             "mode":"moving",
