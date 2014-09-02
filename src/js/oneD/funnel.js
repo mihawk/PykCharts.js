@@ -321,22 +321,30 @@ PykCharts.oneD.funnel = function (options) {
                            if (d.values.length === 4) {
                                 return ((d.values[3].x + d.values[2].x)/2 );
                            } else {
-                                return ((d.values[4].x + d.values[5].x + d.values[3].x)/3 - 5);
+                                return (d.values[4].x);
                            }
 
                         })
                         .attr("y1", function (d,i) {
-                               return (d.values[0].y + d.values[2].y)/2;
+                            if (d.values.length === 4) {
+                                return ((d.values[0].y + d.values[2].y)/2);
+                           } else {
+                                return (d.values[4].y);
+                           }
                         })
                         .attr("x2", function (d, i) {
-                              if (d.values.length === 4) {
+                            if (d.values.length === 4) {
                                 return ((d.values[3].x + d.values[2].x)/2 );
                            } else {
-                                return ((d.values[4].x + d.values[5].x + d.values[3].x)/3 - 5);
+                                return (d.values[4].x);
                            }
                         })
                         .attr("y2", function (d, i) {
-                               return ((d.values[0].y + d.values[2].y)/2);
+                            if (d.values.length === 4) {
+                                return ((d.values[0].y + d.values[2].y)/2);
+                           } else {
+                                return (d.values[4].y);
+                           }
                         })
                         .attr("stroke-width", that.ticks.strokeWidth)
                         .attr("stroke", that.ticks.color)
@@ -347,13 +355,13 @@ PykCharts.oneD.funnel = function (options) {
                                 if (d.values.length === 4) {
                                     return ((d.values[3].x + d.values[2].x)/2 ) + 5;
                                 } else {
-                                    return ((d.values[4].x + d.values[5].x + d.values[3].x)/3 );
+                                    return ((d.values[4].x) +5);
                                 }
                             } else {
                                 if (d.values.length === 4) {
                                     return ((d.values[3].x + d.values[2].x)/2 );
                                 } else {
-                                    return ((d.values[4].x + d.values[5].x + d.values[3].x)/3 -5);
+                                    return (d.values[4].x);
                                 }
                             }
 
@@ -376,11 +384,11 @@ PykCharts.oneD.funnel = function (options) {
                     ticks_label.attr("transform",function (d) {
                         if (d.values.length === 4) {
                             x = ((d.values[3].x + d.values[2].x)/2 ) + 10;
+                            y = ((d.values[0].y + d.values[2].y)/2) + 5;
                         } else {
-                            x = ((d.values[4].x + d.values[5].x + d.values[3].x)/3 ) + 5;
+                            x = (d.values[4].x) + 10;
+                            y = (d.values[4].y) + 5;
                         }
-                        y = (d.values[0].y + d.values[2].y)/2 + 5;
-
                         return "translate(" + x + "," + y + ")";});
 
                     ticks_label.text("")
