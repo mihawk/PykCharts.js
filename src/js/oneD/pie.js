@@ -478,7 +478,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                         .text(function (d,i) {
                             if(type.toLowerCase() === "pie" || type.toLowerCase() === "election pie") {
                                 if(this.getBBox().width<((d.endAngle-d.startAngle)*((that.radius/2)*0.9))) {
-                                    return that.k.appendUnits(d.data.name);
+                                    return d.data.name;
                                 }
                                 else {
                                     return "";
