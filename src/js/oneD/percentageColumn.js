@@ -178,8 +178,8 @@ PykCharts.oneD.percentageColumn = function (options) {
                             });
                     sum = 0;
                     that.per_text.text("")
-                        .transition()
-                        .delay(that.transitions.duration())
+                    //     .transition()
+                    //     .delay(that.transitions.duration())
                     that.per_text.text(function (d) { return that.k.appendUnits(d.weight); })
                         .attr("text-anchor","middle")
                         .attr("pointer-events","none")
@@ -235,8 +235,8 @@ PykCharts.oneD.percentageColumn = function (options) {
                         })
                         .attr("stroke-width", that.ticks.strokeWidth)
                         .attr("stroke", that.ticks.color)
-                        .transition()
-                        .duration(that.transitions.duration())
+                        // .transition()
+                        // .duration(that.transitions.duration())
                         .attr("x2", function (d, i) {
                             if((d.percentValue * that.height / 100) > 15) {
                                 return that.width/3 + (that.width/4) + 5;
@@ -265,8 +265,8 @@ PykCharts.oneD.percentageColumn = function (options) {
                         });
 
                     ticks_label.text("")
-                        .transition()
-                        .delay(that.transitions.duration())
+                        // .transition()
+                        // .delay(that.transitions.duration())
                         .text(function (d,i) {
                             if (this.getBBox().height < (d.percentValue * that.height / 100)-15) {
                                 return d.name;

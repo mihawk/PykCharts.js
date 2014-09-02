@@ -1508,8 +1508,8 @@ PykCharts.oneD.bubble = function (options) {
                     that.bub_text.attr("text-anchor","middle")
                         .attr("transform",function (d) {return "translate(" + d.x + "," + (d.y + 5) +")";})
                         .text("")
-                        .transition()
-                        .delay(that.transitions.duration());
+                        // .transition()
+                        // .delay(that.transitions.duration());
 
                     that.bub_text
                         .text(function (d) { return d.children ? " " :  d.name; })
@@ -1857,7 +1857,7 @@ PykCharts.oneD.funnel = function (options) {
         			})
                     .attr("stroke",that.border.color())
                     .attr("stroke-width",that.border.width())
-                    .attr("stroke-dasharray", that.border.style())                    
+                    .attr("stroke-dasharray", that.border.style())
                     .attr("stroke-opacity",1)
         			.on("mouseover", function (d,i) {
                         that.mouseEvent1.highlight(options.selector +" "+".fun-path",this);
@@ -1963,8 +1963,8 @@ PykCharts.oneD.funnel = function (options) {
                         })
                         .attr("stroke-width", that.ticks.strokeWidth)
                         .attr("stroke", that.ticks.color)
-                        .transition()
-                        .duration(that.transitions.duration())
+                        // .transition()
+                        // .duration(that.transitions.duration())
                         .attr("x2", function (d, i) {
                             if(( d.values[2].y - d.values[0].y) > 15) {
                                 if (d.values.length === 4) {
@@ -2007,8 +2007,8 @@ PykCharts.oneD.funnel = function (options) {
                         return "translate(" + x + "," + y + ")";});
 
                     ticks_label.text("")
-                        .transition()
-                        .delay(that.transitions.duration())
+                        // .transition()
+                        // .delay(that.transitions.duration())
                         .text(function (d,i) { return that.newData1[i].name; })
                         .text(function (d,i) {
                             if (this.getBBox().height < (d.values[2].y - d.values[0].y)-15) {
@@ -2273,8 +2273,8 @@ PykCharts.oneD.percentageColumn = function (options) {
                             });
                     sum = 0;
                     that.per_text.text("")
-                        .transition()
-                        .delay(that.transitions.duration())
+                    //     .transition()
+                    //     .delay(that.transitions.duration())
                     that.per_text.text(function (d) { return that.k.appendUnits(d.weight); })
                         .attr("text-anchor","middle")
                         .attr("pointer-events","none")
@@ -2330,8 +2330,8 @@ PykCharts.oneD.percentageColumn = function (options) {
                         })
                         .attr("stroke-width", that.ticks.strokeWidth)
                         .attr("stroke", that.ticks.color)
-                        .transition()
-                        .duration(that.transitions.duration())
+                        // .transition()
+                        // .duration(that.transitions.duration())
                         .attr("x2", function (d, i) {
                             if((d.percentValue * that.height / 100) > 15) {
                                 return that.width/3 + (that.width/4) + 5;
@@ -2360,8 +2360,8 @@ PykCharts.oneD.percentageColumn = function (options) {
                         });
 
                     ticks_label.text("")
-                        .transition()
-                        .delay(that.transitions.duration())
+                        // .transition()
+                        // .delay(that.transitions.duration())
                         .text(function (d,i) {
                             if (this.getBBox().height < (d.percentValue * that.height / 100)-15) {
                                 return d.name;
@@ -2889,7 +2889,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                     cv_text.text(function (d) { return that.k.appendUnits(d.data.weight); })
                         .attr("text-anchor","middle")
                         .attr("pointer-events","none")
-                        .text(function (d,i) {                            
+                        .text(function (d,i) {
                             if(type.toLowerCase() === "pie" || type.toLowerCase() === "election pie") {
                                 if(this.getBBox().width<((d.endAngle-d.startAngle)*((that.radius/2)*0.9))) {
                                     return that.k.appendUnits(d.data.weight);
@@ -3017,7 +3017,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                              y = (that.radius/1+24) * (1) * Math.sin((d.startAngle + d.endAngle -  Math.PI)/2);
                         }
                         return "translate(" + x + "," + y + ")";});
-                    
+
                     ticks_label.text(function(d) { return d.data.name; })
                         .style("visibility","hidden")
                         .transition()
@@ -3028,8 +3028,8 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                         })
                         .text(function (d,i) {
                             if(type.toLowerCase() === "pie" || type.toLowerCase() === "election pie") {
-                                if(type.toLowerCase() === "pie") {  
-                                    w[i] = this.getBBox().width;  
+                                if(type.toLowerCase() === "pie") {
+                                    w[i] = this.getBBox().width;
                                     if(this.getBBox().width < ((d.endAngle-d.startAngle)*((that.radius/2)*0.9))) {
                                         return d.data.name;
                                     }
@@ -3046,7 +3046,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                                     }
                                 }
                             } else {
-                                if(type.toLowerCase() === "donut") {    
+                                if(type.toLowerCase() === "donut") {
                                     w[i] = this.getBBox().width;
                                     if(this.getBBox().width < ((d.endAngle-d.startAngle)*((that.radius/2)*0.9))) {
                                         return d.data.name;
@@ -3094,7 +3094,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                     line.enter()
                         .append("line")
                         .attr("class", "ticks");
-                    
+
                     line.attr("x1", function (d,i) {
                             if(w[i] >= ((d.endAngle-d.startAngle)*((that.radius/2)*0.9))) {
                                 return 0;
@@ -3142,7 +3142,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                                 return (that.radius/1+12)* (1) * Math.cos((d.startAngle + d.endAngle)/2);
                             }
                         })
-                        .attr("y2", function (d, i) {                            
+                        .attr("y2", function (d, i) {
                             if(w[i] >= ((d.endAngle-d.startAngle)*((that.radius/2)*0.9))) {
                                 return 0;
                             }
@@ -3155,7 +3155,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                         .attr("stroke",that.ticks.color);
                     line.exit().remove();
 
-                    
+
                 // }
                 return this;
             },
@@ -3476,8 +3476,8 @@ PykCharts.oneD.pyramid = function (options) {
                         })
                         .attr("x", function (d,i) { return that.width/2;})
                         .text("")
-                        .transition()
-                        .delay(that.transitions.duration())
+                        // .transition()
+                        // .delay(that.transitions.duration())
                     pyr_text.text(function (d,i) {
                             if(i===0) {
                                 return that.k.appendUnits(that.chartData[i].weight);
@@ -3616,8 +3616,8 @@ PykCharts.oneD.pyramid = function (options) {
 
                 ticks_label
                 .text("")
-                .transition()
-                .delay(that.transitions.duration())
+                // .transition()
+                // .delay(that.transitions.duration())
 
                 ticks_label.text(function (d,i) {
                     if(i===0) {
@@ -3899,8 +3899,8 @@ PykCharts.oneD.treemap = function (options){
                         .attr("fill", that.label.color)
                         .style("font-family", that.label.family)
                         .text("")
-                        .transition()
-                        .delay(that.transitions.duration())
+                        // .transition()
+                        // .delay(that.transitions.duration())
 
                     that.treemap_text.text(function (d) { return d.children ? " " :  d.name; })
                         .attr("pointer-events","none")
@@ -3921,8 +3921,8 @@ PykCharts.oneD.treemap = function (options){
                         .style("font-family", that.label.family)
                         .text("")
                         .attr("pointer-events","none")
-                        .transition()
-                        .delay(that.transitions.duration())
+                        // .transition()
+                        // .delay(that.transitions.duration())
                     that.treemap_text1.text(function (d) { return d.children ? " " :  that.k.appendUnits(d.weight); })
                         .text(function (d) {
                             if(this.getBBox().width < d.dx && this.getBBox().height < d.dy-15) {

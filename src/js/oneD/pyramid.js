@@ -235,8 +235,8 @@ PykCharts.oneD.pyramid = function (options) {
                         })
                         .attr("x", function (d,i) { return that.width/2;})
                         .text("")
-                        .transition()
-                        .delay(that.transitions.duration())
+                        // .transition()
+                        // .delay(that.transitions.duration())
                     pyr_text.text(function (d,i) {
                             if(i===0) {
                                 return that.k.appendUnits(that.chartData[i].weight);
@@ -375,8 +375,8 @@ PykCharts.oneD.pyramid = function (options) {
 
                 ticks_label
                 .text("")
-                .transition()
-                .delay(that.transitions.duration())
+                // .transition()
+                // .delay(that.transitions.duration())
 
                 ticks_label.text(function (d,i) {
                     if(i===0) {

@@ -140,8 +140,8 @@ PykCharts.oneD.bubble = function (options) {
                     that.bub_text.attr("text-anchor","middle")
                         .attr("transform",function (d) {return "translate(" + d.x + "," + (d.y + 5) +")";})
                         .text("")
-                        .transition()
-                        .delay(that.transitions.duration());
+                        // .transition()
+                        // .delay(that.transitions.duration());
 
                     that.bub_text
                         .text(function (d) { return d.children ? " " :  d.name; })

@@ -163,8 +163,8 @@ PykCharts.oneD.treemap = function (options){
                         .attr("fill", that.label.color)
                         .style("font-family", that.label.family)
                         .text("")
-                        .transition()
-                        .delay(that.transitions.duration())
+                        // .transition()
+                        // .delay(that.transitions.duration())
 
                     that.treemap_text.text(function (d) { return d.children ? " " :  d.name; })
                         .attr("pointer-events","none")
@@ -185,8 +185,8 @@ PykCharts.oneD.treemap = function (options){
                         .style("font-family", that.label.family)
                         .text("")
                         .attr("pointer-events","none")
-                        .transition()
-                        .delay(that.transitions.duration())
+                        // .transition()
+                        // .delay(that.transitions.duration())
                     that.treemap_text1.text(function (d) { return d.children ? " " :  that.k.appendUnits(d.weight); })
                         .text(function (d) {
                             if(this.getBBox().width < d.dx && this.getBBox().height < d.dy-15) {
