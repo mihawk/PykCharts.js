@@ -56,7 +56,6 @@ PykCharts.multiD.barChart = function(options){
         that.the_keys = fD[1];
         that.the_layers = that.buildLayers(that.the_bars);
         // console.log(that.the_bars);
-        that.border = new PykCharts.Configuration.border(that);
         that.transitions = new PykCharts.Configuration.transition(that);
         that.mouseEvent1 = new PykCharts.multiD.mouseEvent(that);
         that.fillColor = new PykCharts.Configuration.fillChart(that,null,options);
@@ -289,6 +288,7 @@ PykCharts.multiD.barChart = function(options){
                     })
                     .attr("stroke",that.border.color())
                     .attr("stroke-width",that.border.width())
+                    .attr("stroke-dasharray", that.border.style())
                     .attr("stroke-opacity",1)
                     .on('mouseover',function (d) {
                         that.mouseEvent.tooltipPosition(d);

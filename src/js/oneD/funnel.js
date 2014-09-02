@@ -243,6 +243,7 @@ PykCharts.oneD.funnel = function (options) {
         			})
                     .attr("stroke",that.border.color())
                     .attr("stroke-width",that.border.width())
+                    .attr("stroke-dasharray", that.border.style())                    
                     .attr("stroke-opacity",1)
         			.on("mouseover", function (d,i) {
                         that.mouseEvent1.highlight(options.selector +" "+".fun-path",this);

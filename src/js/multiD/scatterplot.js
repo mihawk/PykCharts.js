@@ -643,6 +643,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                     .style("fill-opacity", function (d) { return that.multiD.opacity(d.weight,that.weight,that.data); })
                     .attr("stroke", that.border.color())
                     .attr("stroke-width",that.border.width())
+                    .attr("stroke-dasharray", that.border.style())
                     .attr("stroke-opacity",1)
                     .on('mouseover',function (d) {
                         tooltipText = d.tooltip ? d.tooltip : "<table class='PykCharts'><tr><th colspan='2'>"+d.name+"</th></tr><tr><td>X</td><td>"+d.x+"</td></tr><tr><td>Y</td><td>"+d.y+"</td></tr><tr><td>Weight</td><td>"+d.weight+"</td></tr></table>";

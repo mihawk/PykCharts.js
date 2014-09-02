@@ -127,6 +127,14 @@ PykCharts.maps.processInputs = function (chartObject, options) {
         chartObject.borderBetweenChartElements.width = "width" in optional.borderBetweenChartElements ? optional.borderBetweenChartElements.width : stylesheet.borderBetweenChartElements.width;
         chartObject.borderBetweenChartElements.color = optional.borderBetweenChartElements.color ? optional.borderBetweenChartElements.color : stylesheet.borderBetweenChartElements.color;
         chartObject.borderBetweenChartElements.style = optional.borderBetweenChartElements.style ? optional.borderBetweenChartElements.style : stylesheet.borderBetweenChartElements.style;
+        switch(chartObject.borderBetweenChartElements.style) {
+            case "dotted" : chartObject.borderBetweenChartElements.style = "1,3";
+                            break;
+            case "dashed" : chartObject.borderBetweenChartElements.style = "5,5";
+                           break;
+            default : chartObject.borderBetweenChartElements.style = "0";
+                      break;
+        }
     } else {
         chartObject.borderBetweenChartElements = stylesheet.borderBetweenChartElements;
     }
