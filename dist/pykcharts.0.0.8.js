@@ -629,14 +629,14 @@ configuration.mouseEvent = function (options) {
                             if(left_diff >= right_diff) {
                                 active_x_tick = data[j].x;
                                 active_y_tick.push(data[j].y);
-                                tooltipText = data[j].tooltip;
+                                tooltipText = data[j].tooltip || data[j].y;
                                 pos_line_cursor_x = (xScale(active_x_tick) + lineMargin + left);
                                 pos_line_cursor_y = (yScale(data[j].y) + top );
                             }
                             else {
                                 active_x_tick = data[j+1].x;
                                 active_y_tick.push(data[j+1].y);
-                                tooltipText = data[j+1].tooltip; // Line Chart ONLY!
+                                tooltipText = data[j+1].tooltip || data[j+1].y; // Line Chart ONLY!
                                 pos_line_cursor_x = (xScale(active_x_tick) + lineMargin + left);
                                 pos_line_cursor_y = (yScale(data[j+1].y) + top);
                             }
@@ -2493,7 +2493,6 @@ PykCharts.oneD.pictograph = function (options) {
             that.data = data.sort(function(a,b) {
                 return b.weight - a.weight;
             });
-            console.log(that.data);
             $(options.selector+" #chart-loader").remove();
             that.render();
         })
@@ -2613,7 +2612,6 @@ PykCharts.oneD.pictograph = function (options) {
                         .text(function () {
                             textHeight =this.getBBox().height;
                             that.textWidth = this.getBBox().width;
-                            console.log(that.data[1].weight);
                             return that.data[1].weight;
                         })
                         .attr("y", that.height/2 - textHeight);
@@ -8481,24 +8479,17 @@ PykCharts.maps.processInputs = function (chartObject, options) {
     }
     if (optional && optional.axis) {
         chartObject.axis = optional.axis;
-        chartObject.axis.onHoverHighlightenable = optional.axis.onHoverHighlightenable ? optional.axis.onHoverHighlightenable : mapsTheme.axis.onHoverHighlightenable;
         chartObject.axis.x = optional.axis.x;
+        chartObject.axis.onHoverHighlightenable = PykCharts.boolean(optional.axis.x.enable) && optional.axis.onHoverHighlightenable ? optional.axis.onHoverHighlightenable : mapsTheme.axis.onHoverHighlightenable;
         chartObject.axis.x.orient = PykCharts.boolean(optional.axis.x.enable) && optional.axis.x.orient ? optional.axis.x.orient : mapsTheme.axis.x.orient;
         chartObject.axis.x.axisColor = PykCharts.boolean(optional.axis.x.enable) && optional.axis.x.axisColor ? optional.axis.x.axisColor : mapsTheme.axis.x.axisColor;
         chartObject.axis.x.labelColor = PykCharts.boolean(optional.axis.x.enable) && optional.axis.x.labelColor ? optional.axis.x.labelColor : mapsTheme.axis.x.labelColor;
         chartObject.axis.x.no_of_ticks = PykCharts.boolean(optional.axis.x.enable) && optional.axis.x.no_of_ticks ? optional.axis.x.no_of_ticks : mapsTheme.axis.x.no_of_ticks;
         chartObject.axis.x.ticksPadding = PykCharts.boolean(optional.axis.x.enable) && optional.axis.x.ticksPadding ? optional.axis.x.ticksPadding : mapsTheme.axis.x.ticksPadding;
-        chartObject.axis.x.tickSize = PykCharts.boolean(optional.axis.x.enable) && optional.axis.x.tickSize ? optional.axis.x.tickSize : mapsTheme.axis.x.tickSize;
+        chartObject.axis.x.tickSize = "tickSize" in optional.axis.x && PykCharts.boolean(optional.axis.x.enable) ? optional.axis.x.tickSize : mapsTheme.axis.x.tickSize;
         chartObject.axis.x.tickFormat = PykCharts.boolean(optional.axis.x.enable) && optional.axis.x.tickFormat ? optional.axis.x.tickFormat : mapsTheme.axis.x.tickFormat;
         chartObject.axis.x.tickValues = PykCharts.boolean(optional.axis.x.enable) && optional.axis.x.tickValues ? optional.axis.x.tickValues : mapsTheme.axis.x.tickValues;
-        chartObject.axis.y = optional.axis.y;
-        chartObject.axis.y.orient = PykCharts.boolean(optional.axis.y.enable) && optional.axis.y.orient ? optional.axis.y.orient : mapsTheme.axis.y.orient;
-        chartObject.axis.y.axisColor = PykCharts.boolean(optional.axis.y.enable) && optional.axis.y.axisColor ? optional.axis.y.axisColor : mapsTheme.axis.y.axisColor;
-        chartObject.axis.y.labelColor = PykCharts.boolean(optional.axis.y.enable) && optional.axis.y.labelColor ? optional.axis.y.labelColor : mapsTheme.axis.y.labelColor;
-        chartObject.axis.y.no_of_ticks = PykCharts.boolean(optional.axis.y.enable) && optional.axis.y.no_of_ticks ? optional.axis.y.no_of_ticks : mapsTheme.axis.y.no_of_ticks;
-        chartObject.axis.y.ticksPadding = PykCharts.boolean(optional.axis.y.enable) && optional.axis.y.ticksPadding ? optional.axis.y.ticksPadding : mapsTheme.axis.y.ticksPadding;
-        chartObject.axis.y.tickSize = PykCharts.boolean(optional.axis.y.enable) && optional.axis.y.tickSize ? optional.axis.y.tickSize : mapsTheme.axis.y.tickSize;
-        chartObject.axis.y.tickFormat = PykCharts.boolean(optional.axis.y.enable) && optional.axis.y.tickFormat ? optional.axis.y.tickFormat : mapsTheme.axis.y.tickFormat;
+        chartObject.axis.x.outer_tick_size = "outer_tick_size" in optional.axis.x && PykCharts.boolean(optional.axis.x.enable) ? optional.axis.x.outer_tick_size : mapsTheme.axis.x.outer_tick_size;
     } else {
         chartObject.axis = mapsTheme.axis;
     }
@@ -8662,7 +8653,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
     this.render = function () {
 
         that.border = new PykCharts.Configuration.border(that);
-        console.log(that.border.color());
+        // console.log(that.border.color());
         that.k.title()
             .subtitle();
         //    var that = this;
