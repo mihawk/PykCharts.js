@@ -8660,7 +8660,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
     var that = chartObject;
 
     this.render = function () {
-        
+
         that.border = new PykCharts.Configuration.border(that);
         console.log(that.border.color());
         that.k.title()
@@ -8892,7 +8892,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     that.legs.attr("height", (9 * 30)+20);
                 }
                 else {
-                    that.legs.attr("height", (that.current_palette.number * 30)+20);    
+                    that.legs.attr("height", (that.current_palette.number * 30)+20);
                 }
                 text_parameter1 = "x";
                 text_parameter2 = "y";
@@ -8914,7 +8914,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     j = 9, i = 9;
                 }
                 else {
-                    j = that.current_palette.number, i = that.current_palette.number;                    that.legs.attr("height", (that.current_palette.number * 30)+20);    
+                    j = that.current_palette.number, i = that.current_palette.number;                    that.legs.attr("height", (that.current_palette.number * 30)+20);
                 }
                 that.legs.attr("height", 50);
                 text_parameter1 = "x";
@@ -8962,7 +8962,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     .attr("x",rect_parameter3value)
                     .attr("y", rect_parameter4value)
                     .attr("width", rect_parameter1value)
-                    .attr("height", rect_parameter2value)                    
+                    .attr("height", rect_parameter2value)
                     .attr("fill", that.current_palette.colors[k - 1]);
 
                 that.legs.append("text")
@@ -8970,7 +8970,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     .attr("y",text_parameter2value)
                     .style("font-size", 10)
                     .style("font", "Arial")
-                    .text(that.leg);
+                    .text("< " + that.leg);
             }
         }
         $("#legend-container").after("</br>");
