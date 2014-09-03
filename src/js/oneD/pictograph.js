@@ -7,7 +7,7 @@ PykCharts.oneD.pictograph = function (options) {
 
         var optional = options.optional
         ,functionality = theme.oneDimensionalCharts;
-        that.showActive = optional && optional.pictograph && optional.pictograph.showActive ? optional.pictograph.showActive : functionality.pictograph.showActive;
+        that.showTotal = optional && optional.pictograph && optional.pictograph.showTotal ? optional.pictograph.showTotal : functionality.pictograph.showTotal;
         that.enableTotal = optional && optional.pictograph && optional.pictograph.enableTotal ? optional.pictograph.enableTotal : functionality.pictograph.enableTotal;
         that.enableCurrent = optional && optional.pictograph && optional.pictograph.enableCurrent ? optional.pictograph.enableCurrent : functionality.pictograph.enableCurrent;
         that.imgperline = optional && optional.pictograph && optional.pictograph.imagePerLine ?  optional.pictograph.imagePerLine : functionality.pictograph.imagePerLine;
@@ -36,7 +36,10 @@ PykCharts.oneD.pictograph = function (options) {
            that.k.loading();
         }
         d3.json(options.data, function (e,data) {
-            that.data = data;
+            that.data = data.sort(function(a,b) {
+                return b.weight - a.weight;
+            });
+            console.log(that.data);
             $(options.selector+" #chart-loader").remove();
             that.render();
         })
@@ -82,7 +85,7 @@ PykCharts.oneD.pictograph = function (options) {
             createPictograph: function () {
                 var a = 1,b=1;
 
-                that.optionalFeatures().showActive();
+                that.optionalFeatures().showTotal();
                 var counter = 0;
                 for(var j=1; j<=that.weight; j++) {
                     if(j <= that.data[1].weight ) {
@@ -117,8 +120,8 @@ PykCharts.oneD.pictograph = function (options) {
                 }
                 return this;
             },
-            showActive: function () {
-                 if (PykCharts.boolean(that.showActive)) {
+            showTotal: function () {
+                 if (PykCharts.boolean(that.showTotal)) {
                     that.weight = that.data[0].weight;
                 }
                 else {
