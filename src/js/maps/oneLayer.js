@@ -169,7 +169,6 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             .attr("stroke-width", that.border.width() + "px")
             .attr("stroke-dasharray", that.border.style())
             .on("mouseover", function (d) {
-
                 if (PykCharts.boolean(that.tooltip.enable)) {
                     ttp.style("visibility", "visible");
                     ttp.html((_.where(that.data, {iso2: d.properties.iso_a2})[0]).tooltip);
