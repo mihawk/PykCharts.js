@@ -168,7 +168,8 @@ PykCharts.multiD.spiderWeb = function (options) {
                     for (j=0;j<uniq.length;j++) {
                         xyz[j] = {
                             x: j,
-                            y: that.y(that.yDomain[i][j])
+                            y: that.y(that.yDomain[i][j]),
+                            tooltip: that.new_data[i].data[j].tooltip || that.new_data[i].data[j].weight
                         }
                     }
                     that.nodes[i] = xyz;
@@ -266,7 +267,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                         .attr("stroke-dasharray", that.border.style())
                         .on('mouseover',function (d,i) {
                             that.mouseEvent.tooltipPosition(d);
-                            that.mouseEvent.toolTextShow(toolTip[i]);
+                            that.mouseEvent.toolTextShow(d.tooltip);
                         })
                         .on('mouseout',function (d) {
                             that.mouseEvent.tooltipHide(d);
