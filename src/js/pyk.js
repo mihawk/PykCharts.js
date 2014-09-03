@@ -194,7 +194,7 @@ PykCharts.Configuration = function (options){
             return label;
         },
 		title : function () {
-            if(PykCharts.boolean(options.title.text)) {
+            if(PykCharts.boolean(options.title.text) && options.title.size) {
 	        	that.titleDiv = d3.select(options.selector)
 	                .append("div")
 	                    .attr("id","title")
@@ -217,7 +217,7 @@ PykCharts.Configuration = function (options){
 	        return this;
 	    },
         subtitle : function () {
-            if(PykCharts.boolean(options.subtitle.text)) {
+            if(PykCharts.boolean(options.subtitle.text) && options.subtitle.size) {
                 that.subtitleDiv = d3.select(options.selector)
                     .append("div")
                         .attr("id","sub-title")
