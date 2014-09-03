@@ -146,20 +146,6 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         projection = d3.geo.mercator().center(center)
             .scale((that.defaultZoomLevel / 100) * scale).translate(offset);
 
-        // var center = d3.geo.centroid(topojson.feature(that.map_data, that.map_data.objects)),
-        //     projection = d3.geo.mercator().center(center).scale(scale).translate(offset);
-
-        // that.path = d3.geo.path().projection(projection);
-
-        // var bounds = that.path.bounds(topojson.feature(that.map_data, that.map_data.objects)),
-        //     hscale = scale * (that.width) / (bounds[1][0] - bounds[0][0]),
-        //     vscale = scale * (that.height) / (bounds[1][1] - bounds[0][1]),
-        //     scale = (hscale < vscale) ? hscale : vscale,
-        //     offset = [that.width - (bounds[0][0] + bounds[1][0]) / 2, that.height - (bounds[0][1] + bounds[1][1]) / 2];
-
-        // projection = d3.geo.mercator().center(center)
-        //     .scale((100 / 100) * scale).translate([500,300]);
-
         that.path = that.path.projection(projection);
         var ttp = d3.select("#pyk-tooltip");
 
@@ -182,7 +168,6 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             .attr("stroke-width", that.border.width() + "px")
             .attr("stroke-dasharray", that.border.style())
             .on("mouseover", function (d) {
-
                 if (PykCharts.boolean(that.tooltip.enable)) {
                     ttp.style("visibility", "visible");
                     ttp.html((_.where(that.data, {iso2: d.properties.iso_a2})[0]).tooltip);
