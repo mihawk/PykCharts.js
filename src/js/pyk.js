@@ -1086,7 +1086,7 @@ configuration.Theme = function(){
         },
         // "enableLabel": "yes",
         "pictograph": {
-            "showActive": "yes", //removes the grey heart i.e just shows the actual number of heart
+            "showTotal": "yes", // when no removes the grey heart i.e just shows the actual number of heart
             "enableTotal": "yes", //shows both the text when yes
             "enableCurrent": "yes", //shows only the actual number when yes
             "imagePerLine": 3,

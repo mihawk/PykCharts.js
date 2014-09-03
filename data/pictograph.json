@@ -1,12 +1,12 @@
  [
     {
-        "name": "total",
-        "weight": 9,
-        "image": "https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/heart-grey.png"
-    },
-    {
         "name": "current",
         "weight": 7,
-        "image": "https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/heart-red.png"
+        "image": "../img/heart-red.png"
+    },
+    {
+        "name": "total",
+        "weight": 9,
+        "image": "../img/heart-grey.png"
     }
 ]
