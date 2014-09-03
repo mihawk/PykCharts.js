@@ -243,7 +243,7 @@ PykCharts.oneD.funnel = function (options) {
         			})
                     .attr("stroke",that.border.color())
                     .attr("stroke-width",that.border.width())
-                    .attr("stroke-dasharray", that.border.style())                    
+                    .attr("stroke-dasharray", that.border.style())
                     .attr("stroke-opacity",1)
         			.on("mouseover", function (d,i) {
                         that.mouseEvent1.highlight(options.selector +" "+".fun-path",this);
@@ -258,8 +258,8 @@ PykCharts.oneD.funnel = function (options) {
         			.on("mousemove", function (d,i) {
                         that.mouseEvent.tooltipPosition(d);
         			})
-                    .transition()
-                    .duration(that.transitions.duration())
+                    // .transition()
+                    // .duration(that.transitions.duration())
                     .attr('d',function(d){ return line(d.values); });
 
                that.path.exit()
@@ -349,8 +349,8 @@ PykCharts.oneD.funnel = function (options) {
                         })
                         .attr("stroke-width", that.ticks.strokeWidth)
                         .attr("stroke", that.ticks.color)
-                        .transition()
-                        .duration(that.transitions.duration())
+                        // .transition()
+                        // .duration(that.transitions.duration())
                         .attr("x2", function (d, i) {
                             if(( d.values[2].y - d.values[0].y) > 15) {
                                 if (d.values.length === 4) {
@@ -393,8 +393,8 @@ PykCharts.oneD.funnel = function (options) {
                         return "translate(" + x + "," + y + ")";});
 
                     ticks_label.text("")
-                        .transition()
-                        .delay(that.transitions.duration())
+                        // .transition()
+                        // .delay(that.transitions.duration())
                         .text(function (d,i) { return that.newData1[i].name; })
                         .text(function (d,i) {
                             if (this.getBBox().height < (d.values[2].y - d.values[0].y)-15) {
