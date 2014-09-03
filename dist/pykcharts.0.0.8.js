@@ -194,7 +194,7 @@ PykCharts.Configuration = function (options){
             return label;
         },
 		title : function () {
-            if(PykCharts.boolean(options.title.text)) {
+            if(PykCharts.boolean(options.title.text) && options.title.size) {
 	        	that.titleDiv = d3.select(options.selector)
 	                .append("div")
 	                    .attr("id","title")
@@ -217,7 +217,7 @@ PykCharts.Configuration = function (options){
 	        return this;
 	    },
         subtitle : function () {
-            if(PykCharts.boolean(options.subtitle.text)) {
+            if(PykCharts.boolean(options.subtitle.text) && options.subtitle.size) {
                 that.subtitleDiv = d3.select(options.selector)
                     .append("div")
                         .attr("id","sub-title")
@@ -2538,10 +2538,10 @@ PykCharts.oneD.pictograph = function (options) {
 
                 that.optionalFeatures().showActive();
                 var counter = 0;
-                for(var j=1; j<=that.size; j++) {
-                    if(j <= that.data[1].size ) {
+                for(var j=1; j<=that.weight; j++) {
+                    if(j <= that.data[1].weight ) {
                         that.group.append("image")
-                            .attr("xlink:href",that.data[1].img)
+                            .attr("xlink:href",that.data[1]["image"])
                             .attr("x", b *(that.imageWidth + 1))
                             .attr("y", a *(that.imageHeight + 10))
                             .attr("width",0)
@@ -2551,7 +2551,7 @@ PykCharts.oneD.pictograph = function (options) {
                             .attr("width", that.imageWidth + "px");
                     }else {
                         that.group.append("image")
-                            .attr("xlink:href",that.data[0].img)
+                            .attr("xlink:href",that.data[0]["image"])
                             .attr("x", b *(that.imageWidth + 1))
                             .attr("y", a *(that.imageHeight+ 10))
                             .attr("width",0)
@@ -2573,10 +2573,10 @@ PykCharts.oneD.pictograph = function (options) {
             },
             showActive: function () {
                  if (PykCharts.boolean(that.showActive)) {
-                    that.size = that.data[0].size;
+                    that.weight = that.data[0].weight;
                 }
                 else {
-                    that.size = that.data[1].size;
+                    that.weight = that.data[1].weight;
                 }
                 return this ;
             },
@@ -2588,10 +2588,10 @@ PykCharts.oneD.pictograph = function (options) {
                         .attr("font-family",that.inactiveText.family)
                         .attr("font-size",that.inactiveText.size)
                         .attr("fill",that.inactiveText.color)
-                        .text("/"+that.data[0].size)
+                        .text("/"+that.data[0].weight)
                         .text(function () {
                             textHeight =this.getBBox().height;
-                            return "/"+that.data[0].size;
+                            return "/"+that.data[0].weight;
                         })
                         .attr("x", (that.textWidth+5))
                         .attr("y", that.height/2 - textHeight);
@@ -2606,11 +2606,12 @@ PykCharts.oneD.pictograph = function (options) {
                         .attr("font-family",that.activeText.family)
                         .attr("font-size",that.activeText.size)
                         .attr("fill",that.activeText.color)
-                        .text(that.data[1].size)
+                        .text(that.data[1].weight)
                         .text(function () {
                             textHeight =this.getBBox().height;
                             that.textWidth = this.getBBox().width;
-                            return that.data[1].size;
+                            console.log(that.data[1].weight);
+                            return that.data[1].weight;
                         })
                         .attr("y", that.height/2 - textHeight);
 
@@ -2621,7 +2622,6 @@ PykCharts.oneD.pictograph = function (options) {
         return optional;
     }
 };
-
 PykCharts.oneD.pie = function (options) {
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
