@@ -4776,7 +4776,7 @@ PykCharts.multiD.lineChart = function (options){
 						type = that.type + that.svg.attr("id");
 			    		that.svg.select(that.selector + " #"+type)
 								.datum(that.new_data1.data)
-								.transition()
+								//.transition()
 				      			.attr("transform", "translate("+ that.lineMargin +",0)")
 					      		.attr("d", that.chart_path);
 
@@ -5383,7 +5383,7 @@ PykCharts.multiD.areaChart = function (options){
         			type = that.chartPathClass + i;
         			that.svg.select("#"+type)
 						.datum(that.stacked_new_data[i].data)
-						.transition()
+						// .transition()
 				      	// .ease(that.transition.transition_type)
 			      		// .duration(that.transitions[that.transition.enable]().duration())
 						.attr("transform", "translate("+ that.lineMargin +",0)")
@@ -5391,9 +5391,9 @@ PykCharts.multiD.areaChart = function (options){
 
 						that.svg.select("#border-stacked-area"+i)
 							.datum(that.stacked_new_data[i].data)
-					  		.transition()
-				      		.ease("linear")
-			      			.duration(that.transitions.duration())
+					  		// .transition()
+				      		// .ease("linear")
+			      			// .duration(that.transitions.duration())
 							.attr("transform", "translate("+ that.lineMargin +",0)")
 					      	.attr("d", that.chart_path_border);
 
@@ -5864,8 +5864,9 @@ PykCharts.multiD.barChart = function(options){
                         that.mouseEvent.tooltipPosition(d);
                     });
 
-                rect.transition()
-                    .duration(that.transitions.duration())
+                rect
+                    // .transition()
+                    // .duration(that.transitions.duration())
                     .attr("x", function(d){
                         return that.xScale(d.x0);
                     })
@@ -6347,7 +6348,7 @@ PykCharts.multiD.columnChart = function(options){
         that.the_bars = fD[0];
         that.the_keys = fD[1];
         that.the_layers = that.layers(that.the_bars);
-
+                    console.log(that.data,"data");
         that.border = new PykCharts.Configuration.border(that);
         that.transitions = new PykCharts.Configuration.transition(that);
         that.mouseEvent1 = new PykCharts.multiD.mouseEvent(that);
@@ -6588,8 +6589,9 @@ PykCharts.multiD.columnChart = function(options){
                         that.mouseEvent.tooltipPosition(d);
                     });
 
-                rect.transition()
-                    .duration(that.transitions.duration())
+                rect
+                    // .transition()
+                    // .duration(that.transitions.duration())
                     .attr("x", function(d){
                         return that.xScale(d.x)-x_factor;
                     })
@@ -8744,7 +8746,6 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             .attr("stroke-width", that.border.width() + "px")
             .attr("stroke-dasharray", that.border.style())
             .on("mouseover", function (d) {
-
                 if (PykCharts.boolean(that.tooltip.enable)) {
                     ttp.style("visibility", "visible");
                     ttp.html((_.where(that.data, {iso2: d.properties.iso_a2})[0]).tooltip);

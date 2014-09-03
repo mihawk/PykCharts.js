@@ -283,7 +283,7 @@ PykCharts.multiD.areaChart = function (options){
         			type = that.chartPathClass + i;
         			that.svg.select("#"+type)
 						.datum(that.stacked_new_data[i].data)
-						.transition()
+						// .transition()
 				      	// .ease(that.transition.transition_type)
 			      		// .duration(that.transitions[that.transition.enable]().duration())
 						.attr("transform", "translate("+ that.lineMargin +",0)")
@@ -291,9 +291,9 @@ PykCharts.multiD.areaChart = function (options){
 
 						that.svg.select("#border-stacked-area"+i)
 							.datum(that.stacked_new_data[i].data)
-					  		.transition()
-				      		.ease("linear")
-			      			.duration(that.transitions.duration())
+					  		// .transition()
+				      		// .ease("linear")
+			      			// .duration(that.transitions.duration())
 							.attr("transform", "translate("+ that.lineMargin +",0)")
 					      	.attr("d", that.chart_path_border);
 
