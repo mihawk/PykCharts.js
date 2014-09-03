@@ -194,7 +194,7 @@ PykCharts.Configuration = function (options){
             return label;
         },
 		title : function () {
-            if(PykCharts.boolean(options.title.text)) {
+            if(PykCharts.boolean(options.title.text) && options.title.size) {
 	        	that.titleDiv = d3.select(options.selector)
 	                .append("div")
 	                    .attr("id","title")
@@ -217,7 +217,7 @@ PykCharts.Configuration = function (options){
 	        return this;
 	    },
         subtitle : function () {
-            if(PykCharts.boolean(options.subtitle.text)) {
+            if(PykCharts.boolean(options.subtitle.text) && options.subtitle.size) {
                 that.subtitleDiv = d3.select(options.selector)
                     .append("div")
                         .attr("id","sub-title")
@@ -1086,7 +1086,7 @@ configuration.Theme = function(){
         },
         // "enableLabel": "yes",
         "pictograph": {
-            "showActive": "yes", //removes the grey heart i.e just shows the actual number of heart
+            "showTotal": "yes", // when no removes the grey heart i.e just shows the actual number of heart
             "enableTotal": "yes", //shows both the text when yes
             "enableCurrent": "yes", //shows only the actual number when yes
             "imagePerLine": 3,

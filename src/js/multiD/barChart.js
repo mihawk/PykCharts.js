@@ -303,8 +303,9 @@ PykCharts.multiD.barChart = function(options){
                         that.mouseEvent.tooltipPosition(d);
                     });
 
-                rect.transition()
-                    .duration(that.transitions.duration())
+                rect
+                    // .transition()
+                    // .duration(that.transitions.duration())
                     .attr("x", function(d){
                         return that.xScale(d.x0);
                     })

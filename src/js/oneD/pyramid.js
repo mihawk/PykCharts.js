@@ -444,14 +444,16 @@ PykCharts.oneD.pyramid = function (options) {
                             });
                         return result;
                     } ;
-                    if(that.clubData.alwaysIncludeDataPoints.length!==0) {
-                        for (i=0;i<that.clubData.alwaysIncludeDataPoints.length;i++)
+                    
+                    if(that.clubData.alwaysIncludeDataPoints.length!== 0) {
+                        for (var l=0;l<that.clubData.alwaysIncludeDataPoints.length;l++)
                         {
-                            index = that.getIndexByName(that.clubData.alwaysIncludeDataPoints[i]);
-                            that.displayData.push(that.data[index]);
 
-                            that.maximum_weight = reject (index);
-
+                            index = that.getIndexByName(that.clubData.alwaysIncludeDataPoints[l]);
+                            if(index!= undefined) {
+                                that.displayData.push(that.data[index]);
+                                that.maximum_weight = reject (index);
+                            }
                         }
                     }
 

@@ -345,7 +345,7 @@ PykCharts.multiD.lineChart = function (options){
 						type = that.type + that.svg.attr("id");
 			    		that.svg.select(that.selector + " #"+type)
 								.datum(that.new_data1.data)
-								.transition()
+								//.transition()
 				      			.attr("transform", "translate("+ that.lineMargin +",0)")
 					      		.attr("d", that.chart_path);
 
