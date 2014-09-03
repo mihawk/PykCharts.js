@@ -81,7 +81,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
     this.render = function () {
         
         that.border = new PykCharts.Configuration.border(that);
-        console.log(that.border.color());
+        // console.log(that.border.color());
         that.k.title()
             .subtitle();
         //    var that = this;

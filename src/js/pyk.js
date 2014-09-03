@@ -629,14 +629,14 @@ configuration.mouseEvent = function (options) {
                             if(left_diff >= right_diff) {
                                 active_x_tick = data[j].x;
                                 active_y_tick.push(data[j].y);
-                                tooltipText = data[j].tooltip;
+                                tooltipText = data[j].tooltip || data[j].y;
                                 pos_line_cursor_x = (xScale(active_x_tick) + lineMargin + left);
                                 pos_line_cursor_y = (yScale(data[j].y) + top );
                             }
                             else {
                                 active_x_tick = data[j+1].x;
                                 active_y_tick.push(data[j+1].y);
-                                tooltipText = data[j+1].tooltip; // Line Chart ONLY!
+                                tooltipText = data[j+1].tooltip || data[j+1].y; // Line Chart ONLY!
                                 pos_line_cursor_x = (xScale(active_x_tick) + lineMargin + left);
                                 pos_line_cursor_y = (yScale(data[j+1].y) + top);
                             }
