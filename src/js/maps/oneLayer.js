@@ -492,6 +492,9 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                 unique.push(d.timestamp);
             }
 
+        })
+        unique.sort(function (a,b) {
+          return a - b;
         });
 
         var bbox = d3.select(that.selector+" .axis").node().getBBox()
@@ -507,8 +510,9 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                 play.attr("xlink:href","https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/pause.gif");
                 that.playInterval = setInterval(function () {
 
-                    marker.transition()
-                        .duration(that.timeline.duration/2)
+                    marker
+                        // .transition()
+                        // .duration(that.timeline.duration/2)
                         .attr("x",  (that.timeline.margin.left*2) + that.xScale(unique[interval]) - 7);
 
                     that.data = _.where(that.timeline_data, {timestamp:unique[interval]});
@@ -517,8 +521,8 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     });
                     _.each(that.data, function (d) {
                         d3.select("path[iso2='"+d.iso2+"']")
-                            .transition()
-                            .duration(that.timeline.duration/4)
+                            // .transition()
+                            // .duration(that.timeline.duration/4)
                             .attr("fill", that.renderColor);
                     });
 

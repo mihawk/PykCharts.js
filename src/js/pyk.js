@@ -225,7 +225,7 @@ PykCharts.Configuration = function (options){
                         .style("text-align","left")
                         .html("</span><br><span style='pointer-events:none;font-size:" +
                         options.subtitle.size+";color:" +
-                        options.subtitle.color + 
+                        options.subtitle.color +
                         ";font-weight:" +
                         options.subtitle.weight+";font-family:" +
                         options.subtitle.family + "'>"+
@@ -529,10 +529,10 @@ PykCharts.Configuration = function (options){
                 if (count === 0) {
                     domain_array[0] -= (padding + addFactor);
                 }else if(count === 1) {
-                    domain_array[1] += (padding + addFactor);
+                    domain_array[1] = parseInt(domain_array[1],10) + (padding + addFactor);
                 }else if (count === 2) {
                     domain_array[0] -= (padding + addFactor);
-                    domain_array[1] += (padding + addFactor);
+                    domain_array[1] = parseInt(domain_array[1],10) + (padding + addFactor);
                 }
                 return domain_array;
             },
@@ -905,7 +905,7 @@ configuration.border = function (options) {
 			return options.borderBetweenChartElements.color;
 		},
         style: function () {
-            return options.borderBetweenChartElements.style;  
+            return options.borderBetweenChartElements.style;
         }
 	};
 	return border;
@@ -1171,7 +1171,7 @@ configuration.Theme = function(){
         },
         "line": {
             "color_from_data": "yes",
-            "curvy_lines" : "no"        
+            "curvy_lines" : "no"
         }
     };
 

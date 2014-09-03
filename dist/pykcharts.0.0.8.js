@@ -225,7 +225,7 @@ PykCharts.Configuration = function (options){
                         .style("text-align","left")
                         .html("</span><br><span style='pointer-events:none;font-size:" +
                         options.subtitle.size+";color:" +
-                        options.subtitle.color + 
+                        options.subtitle.color +
                         ";font-weight:" +
                         options.subtitle.weight+";font-family:" +
                         options.subtitle.family + "'>"+
@@ -529,10 +529,10 @@ PykCharts.Configuration = function (options){
                 if (count === 0) {
                     domain_array[0] -= (padding + addFactor);
                 }else if(count === 1) {
-                    domain_array[1] += (padding + addFactor);
+                    domain_array[1] = parseInt(domain_array[1],10) + (padding + addFactor);
                 }else if (count === 2) {
                     domain_array[0] -= (padding + addFactor);
-                    domain_array[1] += (padding + addFactor);
+                    domain_array[1] = parseInt(domain_array[1],10) + (padding + addFactor);
                 }
                 return domain_array;
             },
@@ -905,7 +905,7 @@ configuration.border = function (options) {
 			return options.borderBetweenChartElements.color;
 		},
         style: function () {
-            return options.borderBetweenChartElements.style;  
+            return options.borderBetweenChartElements.style;
         }
 	};
 	return border;
@@ -1171,7 +1171,7 @@ configuration.Theme = function(){
         },
         "line": {
             "color_from_data": "yes",
-            "curvy_lines" : "no"        
+            "curvy_lines" : "no"
         }
     };
 
@@ -9064,6 +9064,9 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                 unique.push(d.timestamp);
             }
 
+        })
+        unique.sort(function (a,b) {
+          return a - b;
         });
 
         var bbox = d3.select(that.selector+" .axis").node().getBBox()
@@ -9079,8 +9082,9 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                 play.attr("xlink:href","https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/pause.gif");
                 that.playInterval = setInterval(function () {
 
-                    marker.transition()
-                        .duration(that.timeline.duration/2)
+                    marker
+                        // .transition()
+                        // .duration(that.timeline.duration/2)
                         .attr("x",  (that.timeline.margin.left*2) + that.xScale(unique[interval]) - 7);
 
                     that.data = _.where(that.timeline_data, {timestamp:unique[interval]});
@@ -9089,8 +9093,8 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     });
                     _.each(that.data, function (d) {
                         d3.select("path[iso2='"+d.iso2+"']")
-                            .transition()
-                            .duration(that.timeline.duration/4)
+                            // .transition()
+                            // .duration(that.timeline.duration/4)
                             .attr("fill", that.renderColor);
                     });
 
