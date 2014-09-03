@@ -2,11 +2,11 @@
     {
         "name": "total",
         "size": 9,
-        "img": "../img/heart-grey.png"
+        "img": "https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/heart-grey.png"
     },
     {
         "name": "current",
         "size": 7,
-        "img": "../img/heart-red.png"
+        "img": "https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/heart-red.png"
     }
 ]
