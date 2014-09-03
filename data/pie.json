@@ -1,27 +1,27 @@
 [
 	{
 		"name": "NDA",
-		"weight": 100,
+		"weight": 4800,
 		"highlight":false
 	},
 	{
 		"name": "UPA",
-		"weight": 100,
+		"weight": 5000,
 		"highlight":true
 	},
 	{
 		"name": "NDA",
-		"weight": 150,
+		"weight": 2500,
 		"highlight":false
 	},
 	{
 		"name": "AAP",
-		"weight": 300,
+		"weight": 800,
 		"highlight":false
 	},
 	{
 		"name": "INC",
-		"weight": 43000,
+		"weight": 8000,
 		"highlight":false
 	},
 	{
@@ -47,7 +47,7 @@
 	},
 	{
 		"name": "NDA",
-		"weight": 200,
+		"weight": 3000,
 		"highlight":false
 	}
 ]
