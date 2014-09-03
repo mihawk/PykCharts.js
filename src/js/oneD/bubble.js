@@ -73,7 +73,7 @@ PykCharts.oneD.bubble = function (options) {
                 return this;
             },
             createBubble : function () {
-                
+
                 that.bubble = d3.layout.pack()
                     .sort(function (a,b) { return b.weight - a.weight; })
                     .size([that.width, that.height])
@@ -121,8 +121,8 @@ PykCharts.oneD.bubble = function (options) {
                             that.mouseEvent.tooltipPosition(d);
                         }
                     })
-                    .transition()
-                    .duration(that.transitions.duration())
+                    // .transition()
+                    // .duration(that.transitions.duration())
                     .attr("r",function (d) {return d.r; });
                 that.bub_node.exit().remove();
 
@@ -140,8 +140,8 @@ PykCharts.oneD.bubble = function (options) {
                     that.bub_text.attr("text-anchor","middle")
                         .attr("transform",function (d) {return "translate(" + d.x + "," + (d.y + 5) +")";})
                         .text("")
-                        .transition()
-                        .delay(that.transitions.duration());
+                        // .transition()
+                        // .delay(that.transitions.duration());
 
                     that.bub_text
                         .text(function (d) { return d.children ? " " :  d.name; })

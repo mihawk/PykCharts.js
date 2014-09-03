@@ -273,7 +273,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                     cv_text.text(function (d) { return that.k.appendUnits(d.data.weight); })
                         .attr("text-anchor","middle")
                         .attr("pointer-events","none")
-                        .text(function (d,i) {                            
+                        .text(function (d,i) {
                             if(type.toLowerCase() === "pie" || type.toLowerCase() === "election pie") {
                                 if(this.getBBox().width<((d.endAngle-d.startAngle)*((that.radius/2)*0.9))) {
                                     return that.k.appendUnits(d.data.weight);
@@ -401,7 +401,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                              y = (that.radius/1+24) * (1) * Math.sin((d.startAngle + d.endAngle -  Math.PI)/2);
                         }
                         return "translate(" + x + "," + y + ")";});
-                    
+
                     ticks_label.text(function(d) { return d.data.name; })
                         .style("visibility","hidden")
                         // .transition()
@@ -412,8 +412,8 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                         // })
                         .text(function (d,i) {
                             if(type.toLowerCase() === "pie" || type.toLowerCase() === "election pie") {
-                                if(type.toLowerCase() === "pie") {  
-                                    w[i] = this.getBBox().width;  
+                                if(type.toLowerCase() === "pie") {
+                                    w[i] = this.getBBox().width;
                                     if(this.getBBox().width < ((d.endAngle-d.startAngle)*((that.radius/2)*0.9))) {
                                         return d.data.name;
                                     }
@@ -430,7 +430,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                                     }
                                 }
                             } else {
-                                if(type.toLowerCase() === "donut") {    
+                                if(type.toLowerCase() === "donut") {
                                     w[i] = this.getBBox().width;
                                     if(this.getBBox().width < ((d.endAngle-d.startAngle)*((that.radius/2)*0.9))) {
                                         return d.data.name;
@@ -478,7 +478,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                     line.enter()
                         .append("line")
                         .attr("class", "ticks");
-                    
+
                     line.attr("x1", function (d,i) {
                             if(w[i] >= ((d.endAngle-d.startAngle)*((that.radius/2)*0.9))) {
                                 return 0;
@@ -526,7 +526,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                                 return (that.radius/1+12)* (1) * Math.cos((d.startAngle + d.endAngle)/2);
                             }
                         })
-                        .attr("y2", function (d, i) {                            
+                        .attr("y2", function (d, i) {
                             if(w[i] >= ((d.endAngle-d.startAngle)*((that.radius/2)*0.9))) {
                                 return 0;
                             }
@@ -539,7 +539,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                         .attr("stroke",that.ticks.color);
                     line.exit().remove();
 
-                    
+
                 // }
                 return this;
             },

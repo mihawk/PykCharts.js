@@ -209,8 +209,8 @@ PykCharts.oneD.pyramid = function (options) {
         			.on("mousemove", function (d,i) {
                         that.mouseEvent.tooltipPosition(d);
         			})
-                    .transition()
-                    .duration(that.transitions.duration())
+                    // .transition()
+                    // .duration(that.transitions.duration())
                     .attr('d',function (d){ return that.line(d.values); });
 
                 path.exit().remove();
@@ -235,8 +235,8 @@ PykCharts.oneD.pyramid = function (options) {
                         })
                         .attr("x", function (d,i) { return that.width/2;})
                         .text("")
-                        .transition()
-                        .delay(that.transitions.duration())
+                        // .transition()
+                        // .delay(that.transitions.duration())
                     pyr_text.text(function (d,i) {
                             if(i===0) {
                                 return that.k.appendUnits(that.chartData[i].weight);
@@ -312,8 +312,8 @@ PykCharts.oneD.pyramid = function (options) {
                     })
                     .attr("stroke-width", that.ticks.strokeWidth)
                     .attr("stroke",that.ticks.color)
-                    .transition()
-                    .duration(that.transitions.duration())
+                    // .transition()
+                    // .duration(that.transitions.duration())
                     .attr("x2", function (d,i) {
                         if(Math.abs(d.values[0].y - d.values[1].y) > 15) {
                             if (d.values.length === 3) {
@@ -375,8 +375,8 @@ PykCharts.oneD.pyramid = function (options) {
 
                 ticks_label
                 .text("")
-                .transition()
-                .delay(that.transitions.duration())
+                // .transition()
+                // .delay(that.transitions.duration())
 
                 ticks_label.text(function (d,i) {
                     if(i===0) {
