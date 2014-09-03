@@ -273,21 +273,90 @@ PykCharts.oneD.pyramid = function (options) {
                 if(PykCharts.boolean(that.overflowTicks)) {
                     that.svg.style("overflow","visible");
                 }
+                
+                var ticks_label = that.group.selectAll(".ticks_label")
+                        .data(that.coordinates);
+
+                ticks_label.enter()
+                    .append("text")
+                    .attr("x",0)
+                    .attr("y",0)
+                    .attr("class","ticks_label");
+
+                var x,y,w = [];
+                var j = that.chartData.length;
+                var n = that.chartData.length;
+                ticks_label.attr("transform",function (d) {
+                    if (d.values.length === 3) {
+                        x = ((d.values[0].x + that.coordinates[that.coordinates.length-1].values[2].x)/2) + 30;
+                    } else {
+                        x = ((d.values[2].x + d.values[3].x)/2 ) + 30;
+                    }
+                     if(d.values.length === 4) {
+                            y= (((d.values[0].y-d.values[1].y)/2)+d.values[1].y) +2;
+                        } else {
+                            y =(d.values[0].y + that.coordinates[that.coordinates.length-1].values[1].y)/2;
+                        }
+
+                    return "translate(" + x + "," + (y + 5) + ")";
+                });
+
+                ticks_label
+                .text("")
+                // .transition()
+                // .delay(that.transitions.duration())
+
+                ticks_label.text(function (d,i) {
+                    if(i===0) {
+                        return that.chartData[i].name;
+                    }
+                    else {
+                        n--;
+                        return that.chartData[n].name;
+                    }
+                })
+                .text(function (d,i) {
+                    if(i===0) {
+                        w[i] = this.getBBox().height;
+                        if (this.getBBox().height < (d.values[1].y - d.values[0].y)) {
+                            return that.chartData[i].name;
+
+                        } else {
+                            return "";
+                        }
+                    }
+                    else {
+                        w[i] = this.getBBox().height;
+                        if (this.getBBox().height < (d.values[0].y - d.values[1].y)) {
+                             j--;
+                            return that.chartData[j].name;
+                        }
+                        else {
+                            return "";
+                        }
+                    }
+                })
+                .style("fill",that.ticks.color)
+                .style("font-size",that.ticks.size)
+                .style("font-family", that.ticks.family)
+                .attr("text-anchor","start");
+
+                ticks_label.exit().remove();
                 var line = that.group.selectAll(".pyr-ticks")
                     .data(that.coordinates);
 
-                var n = that.chartData.length;
+                
 
                 line.enter()
                     .append("line")
                     .attr("class", "pyr-ticks");
 
                 line.attr("x1", function (d,i) {
-                       if (d.values.length === 3) {
+                        if (d.values.length === 3) {
                             return (d.values[0].x + that.coordinates[that.coordinates.length-1].values[2].x)/2 ;
-                       } else {
+                        } else {
                             return ((d.values[2].x + d.values[3].x)/2 );
-                       }
+                        }
                     })
                     .attr("y1", function (d,i) {
                         if(d.values.length === 4) {
@@ -297,14 +366,14 @@ PykCharts.oneD.pyramid = function (options) {
                         }
                     })
                     .attr("x2", function (d, i) {
-                          if (d.values.length === 3) {
+                        if (d.values.length === 3) {
                             return (d.values[0].x + that.coordinates[that.coordinates.length-1].values[2].x)/2  ;
-                       } else {
+                        } else {
                             return ((d.values[2].x + d.values[3].x)/2 )  ;
-                       }
+                        }
                     })
                     .attr("y2", function (d, i) {
-                         if(d.values.length === 4) {
+                        if(d.values.length === 4) {
                             return (((d.values[0].y-d.values[1].y)/2)+d.values[1].y) +2;
                         } else {
                             return (d.values[0].y + that.coordinates[that.coordinates.length-1].values[1].y)/2;
@@ -315,7 +384,7 @@ PykCharts.oneD.pyramid = function (options) {
                     // .transition()
                     // .duration(that.transitions.duration())
                     .attr("x2", function (d,i) {
-                        if(Math.abs(d.values[0].y - d.values[1].y) > 15) {
+                        if(Math.abs(d.values[0].y - d.values[1].y) > w[i]) {
                             if (d.values.length === 3) {
                                 return (d.values[0].x + that.coordinates[that.coordinates.length-1].values[2].x)/2 + 20;
                             } else {
@@ -346,71 +415,6 @@ PykCharts.oneD.pyramid = function (options) {
                     // });
 
                 line.exit().remove();
-
-                var ticks_label = that.group.selectAll(".ticks_label")
-                        .data(that.coordinates);
-
-                ticks_label.enter()
-                    .append("text")
-                    .attr("x",0)
-                    .attr("y",0)
-                    .attr("class","ticks_label");
-
-                var x,y;
-                var j = that.chartData.length;
-                ticks_label.attr("transform",function (d) {
-                    if (d.values.length === 3) {
-                        x = ((d.values[0].x + that.coordinates[that.coordinates.length-1].values[2].x)/2) + 30;
-                    } else {
-                        x = ((d.values[2].x + d.values[3].x)/2 ) + 30;
-                    }
-                     if(d.values.length === 4) {
-                            y= (((d.values[0].y-d.values[1].y)/2)+d.values[1].y) +2;
-                        } else {
-                            y =(d.values[0].y + that.coordinates[that.coordinates.length-1].values[1].y)/2;
-                        }
-
-                    return "translate(" + x + "," + (y + 5) + ")";
-                });
-
-                ticks_label
-                .text("")
-                // .transition()
-                // .delay(that.transitions.duration())
-
-                ticks_label.text(function (d,i) {
-                    if(i===0) {
-                        return that.chartData[i].name;
-                    }
-                    else {
-                        n--;
-                        return that.chartData[n].name;                    }
-                })
-                .text(function (d,i) {
-                    if(i===0) {
-                        if (this.getBBox().height < (d.values[1].y - d.values[0].y)) {
-                            return that.chartData[i].name;
-
-                        } else {
-                            return "";
-                        }
-                    }
-                    else {
-                        if (this.getBBox().height < (d.values[0].y - d.values[1].y)) {
-                             j--;
-                            return that.chartData[j].name;
-                        }
-                        else {
-                            return "";
-                        }
-                    }
-                })
-                .style("fill",that.ticks.color)
-                .style("font-size",that.ticks.size)
-                .style("font-family", that.ticks.family)
-                .attr("text-anchor","start");
-
-                ticks_label.exit().remove();
 
                 // }
                 return this;

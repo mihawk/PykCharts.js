@@ -310,6 +310,50 @@ PykCharts.oneD.funnel = function (options) {
                 if(PykCharts.boolean(that.overflowTicks)) {
                     that.svg.style("overflow","visible");
                 }
+                    
+                var w =[];
+                    var ticks_label = that.group.selectAll(".ticks_label")
+                                        .data(that.coordinates);
+
+                    ticks_label.attr("class","ticks_label");
+
+                    ticks_label.enter()
+                        .append("text")
+                        .attr("x",0)
+                        .attr("y",0);
+
+                    var x,y;
+
+                    ticks_label.attr("transform",function (d) {
+                        if (d.values.length === 4) {
+                            x = ((d.values[3].x + d.values[2].x)/2 ) + 10;
+                            y = ((d.values[0].y + d.values[2].y)/2) + 5;
+                        } else {
+                            x = (d.values[4].x) + 10;
+                            y = (d.values[4].y) + 5;
+                        }
+                        return "translate(" + x + "," + y + ")";});
+
+                    ticks_label.text("")
+                        // .transition()
+                        // .delay(that.transitions.duration())
+                        .text(function (d,i) { return that.newData1[i].name; })
+                        .text(function (d,i) {
+                            w[i] = this.getBBox().height;
+                            if (this.getBBox().height < (d.values[2].y - d.values[0].y)) {
+                                return that.newData1[i].name;
+                            }
+                            else {
+                                return "";
+                            }
+                        })
+                        .attr("font-size", that.ticks.size)
+                        .attr("text-anchor","start")
+                        .attr("fill", that.ticks.color)
+                        .attr("pointer-events","none")
+                        .attr("font-family", that.ticks.family);
+
+                    ticks_label.exit().remove();
                     var line = that.group.selectAll(".funnel-ticks")
                         .data(that.coordinates);
 
@@ -352,7 +396,7 @@ PykCharts.oneD.funnel = function (options) {
                         // .transition()
                         // .duration(that.transitions.duration())
                         .attr("x2", function (d, i) {
-                            if(( d.values[2].y - d.values[0].y) > 15) {
+                            if(( d.values[2].y - d.values[0].y) > w[i]) {
                                 if (d.values.length === 4) {
                                     return ((d.values[3].x + d.values[2].x)/2 ) + 5;
                                 } else {
@@ -369,48 +413,6 @@ PykCharts.oneD.funnel = function (options) {
                         });
 
                     line.exit().remove();
-
-                    var ticks_label = that.group.selectAll(".ticks_label")
-                                        .data(that.coordinates);
-
-                    ticks_label.attr("class","ticks_label");
-
-                    ticks_label.enter()
-                        .append("text")
-                        .attr("x",0)
-                        .attr("y",0);
-
-                    var x,y;
-
-                    ticks_label.attr("transform",function (d) {
-                        if (d.values.length === 4) {
-                            x = ((d.values[3].x + d.values[2].x)/2 ) + 10;
-                            y = ((d.values[0].y + d.values[2].y)/2) + 5;
-                        } else {
-                            x = (d.values[4].x) + 10;
-                            y = (d.values[4].y) + 5;
-                        }
-                        return "translate(" + x + "," + y + ")";});
-
-                    ticks_label.text("")
-                        // .transition()
-                        // .delay(that.transitions.duration())
-                        .text(function (d,i) { return that.newData1[i].name; })
-                        .text(function (d,i) {
-                            if (this.getBBox().height < (d.values[2].y - d.values[0].y)-15) {
-                                return that.newData1[i].name;
-                            }
-                            else {
-                                return "";
-                            }
-                        })
-                        .attr("font-size", that.ticks.size)
-                        .attr("text-anchor","start")
-                        .attr("fill", that.ticks.color)
-                        .attr("pointer-events","none")
-                        .attr("font-family", that.ticks.family);
-
-                    ticks_label.exit().remove();
 
                 return this;
             },

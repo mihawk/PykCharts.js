@@ -203,6 +203,48 @@ PykCharts.oneD.percentageColumn = function (options) {
                     that.svg.style("overflow","visible");
                 }
                     var sum = 0,sum1=0;
+                    
+                    var x,y,w = [];
+                    sum = 0;
+                    var ticks_label = that.group.selectAll(".ticks_label")
+                                        .data(that.newData1);
+
+                    ticks_label.enter()
+                        .append("text")
+                        .attr("class", "ticks_label")
+
+                    ticks_label.attr("class", "ticks_label")
+                        .attr("transform",function (d) {
+                            sum = sum + d.percentValue
+                            x = that.width/3+(that.width/4) + 10;
+                            y = (((sum - d.percentValue) * that.height/100)+(sum * that.height / 100))/2 + 5;
+
+                            return "translate(" + x + "," + y + ")";
+                        });
+
+                    ticks_label.text(function (d) {
+                        return d.name;
+                    })
+                        // .transition()
+                        // .delay(that.transitions.duration())
+                        .text(function (d,i) {
+                            console.log((d.percentValue * that.height / 100));
+                            w[i] = this.getBBox().height;
+                            if (this.getBBox().height < (d.percentValue * that.height / 100)) {
+                                return d.name;
+                            }
+                            else {
+                                return "";
+                            }
+                        })
+                        .attr("font-size", that.ticks.size)
+                        .attr("text-anchor","start")
+                        .attr("fill", that.ticks.color)
+                        .attr("font-family", that.ticks.family)
+                        .attr("pointer-events","none");
+
+                    ticks_label.exit().remove();
+                    sum = 0;
                     var line = that.group.selectAll(".per-ticks")
                         .data(that.newData1);
 
@@ -238,7 +280,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                         // .transition()
                         // .duration(that.transitions.duration())
                         .attr("x2", function (d, i) {
-                            if((d.percentValue * that.height / 100) > 15) {
+                            if((d.percentValue * that.height / 100) > w[i]) {
                                 return that.width/3 + (that.width/4) + 5;
                             } else {
                                 return that.width/3 + (that.width/4) ;
@@ -246,42 +288,6 @@ PykCharts.oneD.percentageColumn = function (options) {
                         });
 
                     line.exit().remove();
-                    var x,y;
-                    sum = 0;
-                    var ticks_label = that.group.selectAll(".ticks_label")
-                                        .data(that.newData1);
-
-                    ticks_label.enter()
-                        .append("text")
-                        .attr("class", "ticks_label")
-
-                    ticks_label.attr("class", "ticks_label")
-                        .attr("transform",function (d) {
-                            sum = sum + d.percentValue
-                            x = that.width/3+(that.width/4) + 10;
-                            y = (((sum - d.percentValue) * that.height/100)+(sum * that.height / 100))/2 + 5;
-
-                            return "translate(" + x + "," + y + ")";
-                        });
-
-                    ticks_label.text("")
-                        // .transition()
-                        // .delay(that.transitions.duration())
-                        .text(function (d,i) {
-                            if (this.getBBox().height < (d.percentValue * that.height / 100)-15) {
-                                return d.name;
-                            }
-                            else {
-                                return "";
-                            }
-                        })
-                        .attr("font-size", that.ticks.size)
-                        .attr("text-anchor","start")
-                        .attr("fill", that.ticks.color)
-                        .attr("font-family", that.ticks.family)
-                        .attr("pointer-events","none");
-
-                    ticks_label.exit().remove();
 
                 return this;
             },

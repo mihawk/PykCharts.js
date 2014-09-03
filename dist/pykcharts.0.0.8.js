@@ -1924,6 +1924,50 @@ PykCharts.oneD.funnel = function (options) {
                 if(PykCharts.boolean(that.overflowTicks)) {
                     that.svg.style("overflow","visible");
                 }
+                    
+                var w =[];
+                    var ticks_label = that.group.selectAll(".ticks_label")
+                                        .data(that.coordinates);
+
+                    ticks_label.attr("class","ticks_label");
+
+                    ticks_label.enter()
+                        .append("text")
+                        .attr("x",0)
+                        .attr("y",0);
+
+                    var x,y;
+
+                    ticks_label.attr("transform",function (d) {
+                        if (d.values.length === 4) {
+                            x = ((d.values[3].x + d.values[2].x)/2 ) + 10;
+                            y = ((d.values[0].y + d.values[2].y)/2) + 5;
+                        } else {
+                            x = (d.values[4].x) + 10;
+                            y = (d.values[4].y) + 5;
+                        }
+                        return "translate(" + x + "," + y + ")";});
+
+                    ticks_label.text("")
+                        // .transition()
+                        // .delay(that.transitions.duration())
+                        .text(function (d,i) { return that.newData1[i].name; })
+                        .text(function (d,i) {
+                            w[i] = this.getBBox().height;
+                            if (this.getBBox().height < (d.values[2].y - d.values[0].y)) {
+                                return that.newData1[i].name;
+                            }
+                            else {
+                                return "";
+                            }
+                        })
+                        .attr("font-size", that.ticks.size)
+                        .attr("text-anchor","start")
+                        .attr("fill", that.ticks.color)
+                        .attr("pointer-events","none")
+                        .attr("font-family", that.ticks.family);
+
+                    ticks_label.exit().remove();
                     var line = that.group.selectAll(".funnel-ticks")
                         .data(that.coordinates);
 
@@ -1966,7 +2010,7 @@ PykCharts.oneD.funnel = function (options) {
                         // .transition()
                         // .duration(that.transitions.duration())
                         .attr("x2", function (d, i) {
-                            if(( d.values[2].y - d.values[0].y) > 15) {
+                            if(( d.values[2].y - d.values[0].y) > w[i]) {
                                 if (d.values.length === 4) {
                                     return ((d.values[3].x + d.values[2].x)/2 ) + 5;
                                 } else {
@@ -1983,48 +2027,6 @@ PykCharts.oneD.funnel = function (options) {
                         });
 
                     line.exit().remove();
-
-                    var ticks_label = that.group.selectAll(".ticks_label")
-                                        .data(that.coordinates);
-
-                    ticks_label.attr("class","ticks_label");
-
-                    ticks_label.enter()
-                        .append("text")
-                        .attr("x",0)
-                        .attr("y",0);
-
-                    var x,y;
-
-                    ticks_label.attr("transform",function (d) {
-                        if (d.values.length === 4) {
-                            x = ((d.values[3].x + d.values[2].x)/2 ) + 10;
-                            y = ((d.values[0].y + d.values[2].y)/2) + 5;
-                        } else {
-                            x = (d.values[4].x) + 10;
-                            y = (d.values[4].y) + 5;
-                        }
-                        return "translate(" + x + "," + y + ")";});
-
-                    ticks_label.text("")
-                        // .transition()
-                        // .delay(that.transitions.duration())
-                        .text(function (d,i) { return that.newData1[i].name; })
-                        .text(function (d,i) {
-                            if (this.getBBox().height < (d.values[2].y - d.values[0].y)-15) {
-                                return that.newData1[i].name;
-                            }
-                            else {
-                                return "";
-                            }
-                        })
-                        .attr("font-size", that.ticks.size)
-                        .attr("text-anchor","start")
-                        .attr("fill", that.ticks.color)
-                        .attr("pointer-events","none")
-                        .attr("font-family", that.ticks.family);
-
-                    ticks_label.exit().remove();
 
                 return this;
             },
@@ -2298,6 +2300,48 @@ PykCharts.oneD.percentageColumn = function (options) {
                     that.svg.style("overflow","visible");
                 }
                     var sum = 0,sum1=0;
+                    
+                    var x,y,w = [];
+                    sum = 0;
+                    var ticks_label = that.group.selectAll(".ticks_label")
+                                        .data(that.newData1);
+
+                    ticks_label.enter()
+                        .append("text")
+                        .attr("class", "ticks_label")
+
+                    ticks_label.attr("class", "ticks_label")
+                        .attr("transform",function (d) {
+                            sum = sum + d.percentValue
+                            x = that.width/3+(that.width/4) + 10;
+                            y = (((sum - d.percentValue) * that.height/100)+(sum * that.height / 100))/2 + 5;
+
+                            return "translate(" + x + "," + y + ")";
+                        });
+
+                    ticks_label.text(function (d) {
+                        return d.name;
+                    })
+                        // .transition()
+                        // .delay(that.transitions.duration())
+                        .text(function (d,i) {
+                            console.log((d.percentValue * that.height / 100));
+                            w[i] = this.getBBox().height;
+                            if (this.getBBox().height < (d.percentValue * that.height / 100)) {
+                                return d.name;
+                            }
+                            else {
+                                return "";
+                            }
+                        })
+                        .attr("font-size", that.ticks.size)
+                        .attr("text-anchor","start")
+                        .attr("fill", that.ticks.color)
+                        .attr("font-family", that.ticks.family)
+                        .attr("pointer-events","none");
+
+                    ticks_label.exit().remove();
+                    sum = 0;
                     var line = that.group.selectAll(".per-ticks")
                         .data(that.newData1);
 
@@ -2333,7 +2377,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                         // .transition()
                         // .duration(that.transitions.duration())
                         .attr("x2", function (d, i) {
-                            if((d.percentValue * that.height / 100) > 15) {
+                            if((d.percentValue * that.height / 100) > w[i]) {
                                 return that.width/3 + (that.width/4) + 5;
                             } else {
                                 return that.width/3 + (that.width/4) ;
@@ -2341,42 +2385,6 @@ PykCharts.oneD.percentageColumn = function (options) {
                         });
 
                     line.exit().remove();
-                    var x,y;
-                    sum = 0;
-                    var ticks_label = that.group.selectAll(".ticks_label")
-                                        .data(that.newData1);
-
-                    ticks_label.enter()
-                        .append("text")
-                        .attr("class", "ticks_label")
-
-                    ticks_label.attr("class", "ticks_label")
-                        .attr("transform",function (d) {
-                            sum = sum + d.percentValue
-                            x = that.width/3+(that.width/4) + 10;
-                            y = (((sum - d.percentValue) * that.height/100)+(sum * that.height / 100))/2 + 5;
-
-                            return "translate(" + x + "," + y + ")";
-                        });
-
-                    ticks_label.text("")
-                        // .transition()
-                        // .delay(that.transitions.duration())
-                        .text(function (d,i) {
-                            if (this.getBBox().height < (d.percentValue * that.height / 100)-15) {
-                                return d.name;
-                            }
-                            else {
-                                return "";
-                            }
-                        })
-                        .attr("font-size", that.ticks.size)
-                        .attr("text-anchor","start")
-                        .attr("fill", that.ticks.color)
-                        .attr("font-family", that.ticks.family)
-                        .attr("pointer-events","none");
-
-                    ticks_label.exit().remove();
 
                 return this;
             },
@@ -3521,21 +3529,90 @@ PykCharts.oneD.pyramid = function (options) {
                 if(PykCharts.boolean(that.overflowTicks)) {
                     that.svg.style("overflow","visible");
                 }
+                
+                var ticks_label = that.group.selectAll(".ticks_label")
+                        .data(that.coordinates);
+
+                ticks_label.enter()
+                    .append("text")
+                    .attr("x",0)
+                    .attr("y",0)
+                    .attr("class","ticks_label");
+
+                var x,y,w = [];
+                var j = that.chartData.length;
+                var n = that.chartData.length;
+                ticks_label.attr("transform",function (d) {
+                    if (d.values.length === 3) {
+                        x = ((d.values[0].x + that.coordinates[that.coordinates.length-1].values[2].x)/2) + 30;
+                    } else {
+                        x = ((d.values[2].x + d.values[3].x)/2 ) + 30;
+                    }
+                     if(d.values.length === 4) {
+                            y= (((d.values[0].y-d.values[1].y)/2)+d.values[1].y) +2;
+                        } else {
+                            y =(d.values[0].y + that.coordinates[that.coordinates.length-1].values[1].y)/2;
+                        }
+
+                    return "translate(" + x + "," + (y + 5) + ")";
+                });
+
+                ticks_label
+                .text("")
+                // .transition()
+                // .delay(that.transitions.duration())
+
+                ticks_label.text(function (d,i) {
+                    if(i===0) {
+                        return that.chartData[i].name;
+                    }
+                    else {
+                        n--;
+                        return that.chartData[n].name;
+                    }
+                })
+                .text(function (d,i) {
+                    if(i===0) {
+                        w[i] = this.getBBox().height;
+                        if (this.getBBox().height < (d.values[1].y - d.values[0].y)) {
+                            return that.chartData[i].name;
+
+                        } else {
+                            return "";
+                        }
+                    }
+                    else {
+                        w[i] = this.getBBox().height;
+                        if (this.getBBox().height < (d.values[0].y - d.values[1].y)) {
+                             j--;
+                            return that.chartData[j].name;
+                        }
+                        else {
+                            return "";
+                        }
+                    }
+                })
+                .style("fill",that.ticks.color)
+                .style("font-size",that.ticks.size)
+                .style("font-family", that.ticks.family)
+                .attr("text-anchor","start");
+
+                ticks_label.exit().remove();
                 var line = that.group.selectAll(".pyr-ticks")
                     .data(that.coordinates);
 
-                var n = that.chartData.length;
+                
 
                 line.enter()
                     .append("line")
                     .attr("class", "pyr-ticks");
 
                 line.attr("x1", function (d,i) {
-                       if (d.values.length === 3) {
+                        if (d.values.length === 3) {
                             return (d.values[0].x + that.coordinates[that.coordinates.length-1].values[2].x)/2 ;
-                       } else {
+                        } else {
                             return ((d.values[2].x + d.values[3].x)/2 );
-                       }
+                        }
                     })
                     .attr("y1", function (d,i) {
                         if(d.values.length === 4) {
@@ -3545,14 +3622,14 @@ PykCharts.oneD.pyramid = function (options) {
                         }
                     })
                     .attr("x2", function (d, i) {
-                          if (d.values.length === 3) {
+                        if (d.values.length === 3) {
                             return (d.values[0].x + that.coordinates[that.coordinates.length-1].values[2].x)/2  ;
-                       } else {
+                        } else {
                             return ((d.values[2].x + d.values[3].x)/2 )  ;
-                       }
+                        }
                     })
                     .attr("y2", function (d, i) {
-                         if(d.values.length === 4) {
+                        if(d.values.length === 4) {
                             return (((d.values[0].y-d.values[1].y)/2)+d.values[1].y) +2;
                         } else {
                             return (d.values[0].y + that.coordinates[that.coordinates.length-1].values[1].y)/2;
@@ -3563,7 +3640,7 @@ PykCharts.oneD.pyramid = function (options) {
                     // .transition()
                     // .duration(that.transitions.duration())
                     .attr("x2", function (d,i) {
-                        if(Math.abs(d.values[0].y - d.values[1].y) > 15) {
+                        if(Math.abs(d.values[0].y - d.values[1].y) > w[i]) {
                             if (d.values.length === 3) {
                                 return (d.values[0].x + that.coordinates[that.coordinates.length-1].values[2].x)/2 + 20;
                             } else {
@@ -3594,71 +3671,6 @@ PykCharts.oneD.pyramid = function (options) {
                     // });
 
                 line.exit().remove();
-
-                var ticks_label = that.group.selectAll(".ticks_label")
-                        .data(that.coordinates);
-
-                ticks_label.enter()
-                    .append("text")
-                    .attr("x",0)
-                    .attr("y",0)
-                    .attr("class","ticks_label");
-
-                var x,y;
-                var j = that.chartData.length;
-                ticks_label.attr("transform",function (d) {
-                    if (d.values.length === 3) {
-                        x = ((d.values[0].x + that.coordinates[that.coordinates.length-1].values[2].x)/2) + 30;
-                    } else {
-                        x = ((d.values[2].x + d.values[3].x)/2 ) + 30;
-                    }
-                     if(d.values.length === 4) {
-                            y= (((d.values[0].y-d.values[1].y)/2)+d.values[1].y) +2;
-                        } else {
-                            y =(d.values[0].y + that.coordinates[that.coordinates.length-1].values[1].y)/2;
-                        }
-
-                    return "translate(" + x + "," + (y + 5) + ")";
-                });
-
-                ticks_label
-                .text("")
-                // .transition()
-                // .delay(that.transitions.duration())
-
-                ticks_label.text(function (d,i) {
-                    if(i===0) {
-                        return that.chartData[i].name;
-                    }
-                    else {
-                        n--;
-                        return that.chartData[n].name;                    }
-                })
-                .text(function (d,i) {
-                    if(i===0) {
-                        if (this.getBBox().height < (d.values[1].y - d.values[0].y)) {
-                            return that.chartData[i].name;
-
-                        } else {
-                            return "";
-                        }
-                    }
-                    else {
-                        if (this.getBBox().height < (d.values[0].y - d.values[1].y)) {
-                             j--;
-                            return that.chartData[j].name;
-                        }
-                        else {
-                            return "";
-                        }
-                    }
-                })
-                .style("fill",that.ticks.color)
-                .style("font-size",that.ticks.size)
-                .style("font-family", that.ticks.family)
-                .attr("text-anchor","start");
-
-                ticks_label.exit().remove();
 
                 // }
                 return this;
@@ -8614,7 +8626,7 @@ PykCharts.maps.timelineMap = function (options) {
 
             d3.json("https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/maps/" + that.mapCode + "-topo.json", function (data) {
                 that.map_data = data;
-                
+
                 d3.json("https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/palette/colorPalette.json", function (data) {
                     that.colorPalette_data = data;
 
@@ -8642,6 +8654,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
     this.render = function () {
         
         that.border = new PykCharts.Configuration.border(that);
+        console.log(that.border.color());
         that.k.title()
             .subtitle();
         //    var that = this;
@@ -8706,20 +8719,6 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
 
         projection = d3.geo.mercator().center(center)
             .scale((that.defaultZoomLevel / 100) * scale).translate(offset);
-
-        // var center = d3.geo.centroid(topojson.feature(that.map_data, that.map_data.objects)),
-        //     projection = d3.geo.mercator().center(center).scale(scale).translate(offset);
-
-        // that.path = d3.geo.path().projection(projection);
-
-        // var bounds = that.path.bounds(topojson.feature(that.map_data, that.map_data.objects)),
-        //     hscale = scale * (that.width) / (bounds[1][0] - bounds[0][0]),
-        //     vscale = scale * (that.height) / (bounds[1][1] - bounds[0][1]),
-        //     scale = (hscale < vscale) ? hscale : vscale,
-        //     offset = [that.width - (bounds[0][0] + bounds[1][0]) / 2, that.height - (bounds[0][1] + bounds[1][1]) / 2];
-
-        // projection = d3.geo.mercator().center(center)
-        //     .scale((100 / 100) * scale).translate([500,300]);
 
         that.path = that.path.projection(projection);
         var ttp = d3.select("#pyk-tooltip");
@@ -8870,7 +8869,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
 
     that.renderLegend = function () {
         // var that = this,
-        var k,
+            var k,
             onetenth;
 
         if (that.colors.type === "saturation") {
@@ -8980,7 +8979,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             .attr("text-anchor", "middle")
             .attr("font-size", "10")
             .attr("pointer-events", "none")
-            .text(function (d) { return (d.properties.NAME_1.search("&#39;") !== -1) ? d.properties.NAME_1.replace("&#39;","'") : d.properties.NAME_1; });
+            .text(function (d) { return d.properties.NAME_1; });
     };
 
     that.bodColor = function (d) {

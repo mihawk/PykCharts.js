@@ -53,7 +53,7 @@ PykCharts.maps.timelineMap = function (options) {
 
             d3.json("https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/maps/" + that.mapCode + "-topo.json", function (data) {
                 that.map_data = data;
-                
+
                 d3.json("https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/palette/colorPalette.json", function (data) {
                     that.colorPalette_data = data;
 
@@ -81,6 +81,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
     this.render = function () {
         
         that.border = new PykCharts.Configuration.border(that);
+        console.log(that.border.color());
         that.k.title()
             .subtitle();
         //    var that = this;
@@ -145,20 +146,6 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
 
         projection = d3.geo.mercator().center(center)
             .scale((that.defaultZoomLevel / 100) * scale).translate(offset);
-
-        // var center = d3.geo.centroid(topojson.feature(that.map_data, that.map_data.objects)),
-        //     projection = d3.geo.mercator().center(center).scale(scale).translate(offset);
-
-        // that.path = d3.geo.path().projection(projection);
-
-        // var bounds = that.path.bounds(topojson.feature(that.map_data, that.map_data.objects)),
-        //     hscale = scale * (that.width) / (bounds[1][0] - bounds[0][0]),
-        //     vscale = scale * (that.height) / (bounds[1][1] - bounds[0][1]),
-        //     scale = (hscale < vscale) ? hscale : vscale,
-        //     offset = [that.width - (bounds[0][0] + bounds[1][0]) / 2, that.height - (bounds[0][1] + bounds[1][1]) / 2];
-
-        // projection = d3.geo.mercator().center(center)
-        //     .scale((100 / 100) * scale).translate([500,300]);
 
         that.path = that.path.projection(projection);
         var ttp = d3.select("#pyk-tooltip");
@@ -309,7 +296,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
 
     that.renderLegend = function () {
         // var that = this,
-        var k,
+            var k,
             onetenth;
 
         if (that.colors.type === "saturation") {
@@ -419,7 +406,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             .attr("text-anchor", "middle")
             .attr("font-size", "10")
             .attr("pointer-events", "none")
-            .text(function (d) { return (d.properties.NAME_1.search("&#39;") !== -1) ? d.properties.NAME_1.replace("&#39;","'") : d.properties.NAME_1; });
+            .text(function (d) { return d.properties.NAME_1; });
     };
 
     that.bodColor = function (d) {
