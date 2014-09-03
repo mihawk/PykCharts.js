@@ -247,7 +247,7 @@ PykCharts.oneD.pyramid = function (options) {
                             }
                          })
                         .text(function (d,i) {
-                            if(this.getBBox().width < (d.values[2].x - d.values[1].x) || this.getBBox().height < (d.values[1].y - d.values[0].y)) {
+                            if(this.getBBox().width < (d.values[2].x - d.values[1].x) && this.getBBox().height < Math.abs(d.values[1].y - d.values[0].y)) {
                                 if(i===0) {
                                     return that.k.appendUnits(that.chartData[i].weight);
                                 }else {

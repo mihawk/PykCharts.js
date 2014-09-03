@@ -3495,7 +3495,7 @@ PykCharts.oneD.pyramid = function (options) {
                             }
                          })
                         .text(function (d,i) {
-                            if(this.getBBox().width < (d.values[2].x - d.values[1].x) || this.getBBox().height < (d.values[1].y - d.values[0].y)) {
+                            if(this.getBBox().width < (d.values[2].x - d.values[1].x) && this.getBBox().height < Math.abs(d.values[1].y - d.values[0].y)) {
                                 if(i===0) {
                                     return that.k.appendUnits(that.chartData[i].weight);
                                 }else {
@@ -7926,7 +7926,8 @@ PykCharts.multiD.spiderWeb = function (options) {
                     for (j=0;j<uniq.length;j++) {
                         xyz[j] = {
                             x: j,
-                            y: that.y(that.yDomain[i][j])
+                            y: that.y(that.yDomain[i][j]),
+                            tooltip: that.new_data[i].data[j].tooltip || that.new_data[i].data[j].weight
                         }
                     }
                     that.nodes[i] = xyz;
@@ -8024,7 +8025,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                         .attr("stroke-dasharray", that.border.style())
                         .on('mouseover',function (d,i) {
                             that.mouseEvent.tooltipPosition(d);
-                            that.mouseEvent.toolTextShow(toolTip[i]);
+                            that.mouseEvent.toolTextShow(d.tooltip);
                         })
                         .on('mouseout',function (d) {
                             that.mouseEvent.tooltipHide(d);
