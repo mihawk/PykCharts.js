@@ -39,7 +39,6 @@ PykCharts.oneD.pictograph = function (options) {
             that.data = data.sort(function(a,b) {
                 return b.weight - a.weight;
             });
-            console.log(that.data);
             $(options.selector+" #chart-loader").remove();
             that.render();
         })
@@ -159,7 +158,6 @@ PykCharts.oneD.pictograph = function (options) {
                         .text(function () {
                             textHeight =this.getBBox().height;
                             that.textWidth = this.getBBox().width;
-                            console.log(that.data[1].weight);
                             return that.data[1].weight;
                         })
                         .attr("y", that.height/2 - textHeight);
