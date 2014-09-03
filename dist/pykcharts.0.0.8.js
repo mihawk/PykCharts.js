@@ -2546,8 +2546,8 @@ PykCharts.oneD.pictograph = function (options) {
                             .attr("y", a *(that.imageHeight + 10))
                             .attr("width",0)
                             .attr("height", that.imageHeight + "px")
-                            .transition()
-                            .duration(that.transitions.duration())
+                            // .transition()
+                            // .duration(that.transitions.duration())
                             .attr("width", that.imageWidth + "px");
                     }else {
                         that.group.append("image")
@@ -2556,8 +2556,8 @@ PykCharts.oneD.pictograph = function (options) {
                             .attr("y", a *(that.imageHeight+ 10))
                             .attr("width",0)
                             .attr("height", that.imageHeight + "px")
-                            .transition()
-                            .duration(that.transitions.duration())
+                            // .transition()
+                            // .duration(that.transitions.duration())
                             .attr("width", that.imageWidth + "px");
                     }
                     counter++;
@@ -2622,6 +2622,7 @@ PykCharts.oneD.pictograph = function (options) {
         return optional;
     }
 };
+
 PykCharts.oneD.pie = function (options) {
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
