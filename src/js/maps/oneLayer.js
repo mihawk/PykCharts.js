@@ -54,7 +54,7 @@ PykCharts.maps.timelineMap = function (options) {
             d3.json("https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/maps/" + that.mapCode + "-topo.json", function (data) {
                 that.map_data = data;
 
-                d3.json("https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/palette/colorPalette.json", function (data) {
+                d3.json("https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/palette/colorPalette_datate.json", function (data) {
                     that.colorPalette_data = data;
 
                     var x_extent = d3.extent(that.timeline_data, function (d) { return d.timestamp; })
@@ -133,8 +133,12 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             .enter()
             .append("g");
 
-        var center = d3.geo.centroid(topojson.feature(that.map_data, that.map_data.objects)),
-            projection = d3.geo.mercator().center(center).scale(scale).translate(offset);
+        if (that.mapCode==="world") {
+            var center = [0,0];
+        } else { 
+            var center = d3.geo.centroid(topojson.feature(that.map_data, that.map_data.objects));
+        }   
+        var projection = d3.geo.mercator().center(center).scale(scale).translate(offset);
 
         that.path = d3.geo.path().projection(projection);
 
@@ -145,8 +149,8 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             offset = [that.width - (bounds[0][0] + bounds[1][0]) / 2, that.height - (bounds[0][1] + bounds[1][1]) / 2];
 
         projection = d3.geo.mercator().center(center)
-            .scale((that.defaultZoomLevel / 100) * scale).translate(offset);
-
+           .scale((that.defaultZoomLevel / 100) * scale).translate(offset);
+console.log(center);
         that.path = that.path.projection(projection);
         var ttp = d3.select("#pyk-tooltip");
 
