@@ -54,8 +54,13 @@ PykCharts.maps.timelineMap = function (options) {
             d3.json("https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/maps/" + that.mapCode + "-topo.json", function (data) {
                 that.map_data = data;
 
+<<<<<<< HEAD
                 d3.json("https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/palette/colorPalette.json", function (data) {
                     that.color_palette_data = data;
+=======
+                d3.json("https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/palette/colorPalette_datate.json", function (data) {
+                    that.colorPalette_data = data;
+>>>>>>> b908bca1f31186bc4d59602c8ffb893bcff10000
 
                     var x_extent = d3.extent(that.timeline_data, function (d) { return d.timestamp; })
                     that.data = _.where(that.timeline_data, {timestamp: x_extent[0]});
@@ -133,9 +138,13 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             .enter()
             .append("g");
 
-        var center = d3.geo.centroid(topojson.feature(that.map_data, that.map_data.objects)),
-            projection = d3.geo.mercator().center(center).scale(scale).translate(offset);
-        console.log(typeof(projection));
+        if (that.mapCode==="world") {
+            var center = [0,0];
+        } else { 
+            var center = d3.geo.centroid(topojson.feature(that.map_data, that.map_data.objects));
+        }   
+        var projection = d3.geo.mercator().center(center).scale(scale).translate(offset);
+
         that.path = d3.geo.path().projection(projection);
 
         var bounds = that.path.bounds(topojson.feature(that.map_data, that.map_data.objects)),
@@ -145,8 +154,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             offset = [that.width - (bounds[0][0] + bounds[1][0]) / 2, that.height - (bounds[0][1] + bounds[1][1]) / 2];
 
         projection = d3.geo.mercator().center(center)
-            .scale((that.defaultZoomLevel / 100) * scale).translate(offset);
-
+           .scale((that.defaultZoomLevel / 100) * scale).translate(offset);
         that.path = that.path.projection(projection);
         var ttp = d3.select("#pyk-tooltip");
 
