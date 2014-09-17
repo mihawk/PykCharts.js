@@ -38,7 +38,8 @@
 
       			var k = new PykCharts.oneD.funnel({
           				selector: "#funnel",
-          				data:"../data/pie.json"
+          				data:"../data/pie.json",
+                "realTimeCharts_refreshFrequency": 3
         			});
       			k.execute();
 
@@ -80,13 +81,7 @@
 
             var k = new PykCharts.oneD.pie({
                 selector: "#pieContainer",
-                data: "../data/pie.json",
-                optional : {
-                  "realTimeCharts": {
-                    "refreshFrequency": 2,
-                    "enableLastUpdatedAt": "yes"
-                  }
-                }
+                data: "../data/pie.json"
             });
             k.execute();
 

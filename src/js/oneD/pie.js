@@ -140,6 +140,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                     .centerLabel();
 
             that.k.liveData(that);
+
         } else if(that.mode.toLowerCase() == "infographics") {
             that.new_data = that.data;
             that.optionalFeatures().svgContainer()

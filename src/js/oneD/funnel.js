@@ -34,7 +34,7 @@ PykCharts.oneD.funnel = function (options) {
     //----------------------------------------------------------------------------------------
     this.refresh = function () {
         d3.json (options.data, function (e,data) {
-            that.data = data.groupBy();
+            that.data = data.groupBy("oned");
             that.optionalFeatures()
                     .clubData()
                     .createChart()

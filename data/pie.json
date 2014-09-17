@@ -6,7 +6,7 @@
 	},
 	{
 		"name": "UPA",
-		"weight": 15000,
+		"weight": 5000,
 		"highlight":true
 	},
 	{

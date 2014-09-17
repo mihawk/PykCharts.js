@@ -1894,7 +1894,7 @@ PykCharts.oneD.funnel = function (options) {
     //----------------------------------------------------------------------------------------
     this.refresh = function () {
         d3.json (options.data, function (e,data) {
-            that.data = data.groupBy();
+            that.data = data.groupBy("oned");
             that.optionalFeatures()
                     .clubData()
                     .createChart()
@@ -2370,7 +2370,7 @@ PykCharts.oneD.percentageColumn = function (options) {
     //----------------------------------------------------------------------------------------
     this.refresh = function () {
         d3.json (options.data, function (e,data) {
-            that.data = data;
+            that.data = data.groupBy("oned");
             that.optionalFeatures()
                     .clubData()
                     .createChart()
@@ -3027,6 +3027,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                     .centerLabel();
 
             that.k.liveData(that);
+
         } else if(that.mode.toLowerCase() == "infographics") {
             that.new_data = that.data;
             that.optionalFeatures().svgContainer()
@@ -3543,7 +3544,8 @@ PykCharts.oneD.pyramid = function (options) {
 
     this.refresh = function () {
         d3.json (options.data, function (e,data) {
-            that.data = data.groupBy();
+            that.data = data.groupBy("oned");
+            that.new_data = that.optionalFeatures().clubData();
             that.optionalFeatures()
                     .createChart()
                     .label()
@@ -4047,7 +4049,7 @@ PykCharts.oneD.treemap = function (options){
 
     this.refresh = function (){
         d3.json(options.data, function (e,data) {
-            that.data = data.groupBy();
+            that.data = data.groupBy("oned");
             that.optionalFeatures()
                 .clubData()
                 .createChart()

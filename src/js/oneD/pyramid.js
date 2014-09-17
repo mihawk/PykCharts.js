@@ -20,7 +20,8 @@ PykCharts.oneD.pyramid = function (options) {
 
     this.refresh = function () {
         d3.json (options.data, function (e,data) {
-            that.data = data.groupBy();
+            that.data = data.groupBy("oned");
+            that.new_data = that.optionalFeatures().clubData();
             that.optionalFeatures()
                     .createChart()
                     .label()
