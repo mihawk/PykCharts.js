@@ -2719,7 +2719,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
     var that = chartObject;
        that.refresh = function () {
         d3.json(options.data, function (e, data) {
-            that.data = data.groupBy("oned");
+           that.data = data.groupBy("oned");
             that.optionalFeatures()
                     .createPie()
                     .label()
