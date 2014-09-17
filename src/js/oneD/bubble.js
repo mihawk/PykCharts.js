@@ -10,7 +10,7 @@ PykCharts.oneD.bubble = function (options) {
         d3.json(options.data, function (e,data) {
             that.data = data.groupBy("oned");
             $(options.selector+" #chart-loader").remove();
-            that.clubData.enable = that.data.length>that.clubData.maximumNodes ? that.clubData.enable : "no";
+            that.clubData_enable = that.data.length>that.clubData_maximumNodes ? that.clubData_enable : "no";
             that.render();
 
         });
@@ -155,32 +155,32 @@ PykCharts.oneD.bubble = function (options) {
                                  return "";
                                 }
                         })
-                        .style("font-weight", that.label.weight)
+                        .style("font-weight", that.label_weight)
                         .style("font-size",function (d,i) {
                             if (d.r > 24) {
-                                return that.label.size;
+                                return that.label_size;
                             } else {
                                 return "10px";
                             }
                         })
-                        .attr("fill", that.label.color)
-                        .style("font-family", that.label.family);
+                        .attr("fill", that.label_color)
+                        .style("font-family", that.label_family);
                     that.chart_text.exit().remove;
                 return this;
             },
             clubData : function () {
                 var new_data1;
-                if (PykCharts.boolean(that.clubData.enable)) {
+                if (PykCharts.boolean(that.clubData_enable)) {
                     var clubdata_content = [];
                     var k = 0, j, i, new_data = [];
-                    if(that.data.length <= that.clubData.maximumNodes) {
+                    if(that.data.length <= that.clubData_maximumNodes) {
                         new_data1 = { "children" : that.data };
                         return new_data1;
                     }
-                    if (that.clubData.alwaysIncludeDataPoints.length!== 0) {
-                        var l = that.clubData.alwaysIncludeDataPoints.length;
+                    if (that.clubData_alwaysIncludeDataPoints.length!== 0) {
+                        var l = that.clubData_alwaysIncludeDataPoints.length;
                         for (i =0; i<l; i++) {
-                            clubdata_content[i] = that.clubData.alwaysIncludeDataPoints[i];
+                            clubdata_content[i] = that.clubData_alwaysIncludeDataPoints[i];
                         }
                     }
                     for (i=0; i<clubdata_content.length; i++) {
@@ -191,7 +191,7 @@ PykCharts.oneD.bubble = function (options) {
                         }
                     }
                     that.data.sort (function (a,b) { return b.weight - a.weight;});
-                    while (new_data.length < that.clubData.maximumNodes-1) {
+                    while (new_data.length < that.clubData_maximumNodes-1) {
                         for(i=0;i<clubdata_content.length;i++) {
                             if(that.data[k].name.toUpperCase() === clubdata_content[i].toUpperCase()) {
                                 k++;
@@ -214,15 +214,16 @@ PykCharts.oneD.bubble = function (options) {
                         }
                     }
                     var f = function (a,b) {return b.weight- a.weight;};
-                    while (new_data.length > that.clubData.maximumNodes) {
+                    while (new_data.length > that.clubData_maximumNodes) {
                         new_data.sort(f);
                         var a = new_data.pop();
                     }
 
-                    var others_Slice = {"name": that.clubData.text,"weight": sum_others, "color": that.clubData.color,"tooltip": that.clubData.tooltipText,"highlight":false};
+                    var others_Slice = {"name": that.clubData_text,"weight": sum_others, "color": that.clubData_color,"tooltip": that.clubData_tooltipText,"highlight":false};
 
-                    if (new_data.length < that.clubData.maximumNodes) {
+                    if (new_data.length < that.clubData_maximumNodes) {
                         new_data.push(others_Slice);
+
                     }
                     new_data.sort(function (a,b) {
                         return a.weight - b.weight;

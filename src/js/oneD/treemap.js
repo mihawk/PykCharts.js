@@ -14,7 +14,7 @@ PykCharts.oneD.treemap = function (options){
         d3.json(options.data, function (e,data) {
             that.data = data.groupBy("oned");
             $(options.selector+" #chart-loader").remove();
-            that.clubData.enable = that.data.length>that.clubData.maximumNodes ? that.clubData.enable : "no";
+            that.clubData_enable = that.data.length>that.clubData_maximumNodes ? that.clubData_enable : "no";
             that.render();
         });
         // that.clubData.enable = that.data.length > that.clubData.maximumNodes ? that.clubData.enable : "no";
@@ -22,7 +22,7 @@ PykCharts.oneD.treemap = function (options){
 
     this.refresh = function (){
         d3.json(options.data, function (e,data) {
-            that.data = data.groupBy();
+            that.data = data.groupBy("oned");
             that.optionalFeatures()
                 .clubData()
                 .createChart()
@@ -158,10 +158,11 @@ PykCharts.oneD.treemap = function (options){
                         .attr("y", function (d) { return d.y + d.dy / 2 + 15; });
 
                     that.chart_text.attr("text-anchor","middle")
-                        .style("font-weight", that.label.weight)
-                        .style("font-size", that.label.size)
-                        .attr("fill", that.label.color)
-                        .style("font-family", that.label.family)
+                        .style("font-weight", that.label_weight)
+                        .style("font-size", that.label_size)
+                        .attr("fill", that.label_color)
+                        .style("font-family", that.label_family)
+
                         .text("")
                         // .transition()
                         // .delay(that.transitions.duration())
@@ -179,10 +180,10 @@ PykCharts.oneD.treemap = function (options){
                         });
 
                     that.chart_text1.attr("text-anchor","middle")
-                        .style("font-weight", that.label.weight)
-                        .style("font-size", that.label.size)
-                        .attr("fill", that.label.color)
-                        .style("font-family", that.label.family)
+                        .style("font-weight", that.label_weight)
+                        .style("font-size", that.label_size)
+                        .attr("fill", that.label_color)
+                        .style("font-family", that.label_family)
                         .text("")
                         .attr("pointer-events","none")
                         // .transition()
@@ -204,16 +205,17 @@ PykCharts.oneD.treemap = function (options){
                 return this;
             },
             clubData : function () {
-                if(PykCharts.boolean(that.clubData.enable)){
+
+                if(PykCharts.boolean(that.clubData_enable)){
                     var clubdata_content = [],sum_others = 0,k=0;
-                    if(that.data.length <= that.clubData.maximumNodes) {
+                    if(that.data.length <= that.clubData_maximumNodes) {
                         that.new_data = { "children" : that.data };
                         return this;
                     }
-                    if(that.clubData.alwaysIncludeDataPoints.length!== 0){
-                        var l = that.clubData.alwaysIncludeDataPoints.length;
+                    if(that.clubData_alwaysIncludeDataPoints.length!== 0){
+                        var l = that.clubData_alwaysIncludeDataPoints.length;
                         for(i=0; i < l; i++){
-                            clubdata_content[i] = that.clubData.alwaysIncludeDataPoints[i];
+                            clubdata_content[i] = that.clubData_alwaysIncludeDataPoints[i];
                         }
                     }
                     var new_data1 = [];
@@ -225,7 +227,8 @@ PykCharts.oneD.treemap = function (options){
                         }
                     }
                     that.data.sort(function (a,b) { return b.weight - a.weight; });
-                    while(new_data1.length<that.clubData.maximumNodes-1){
+
+                    while(new_data1.length<that.clubData_maximumNodes-1){
                         for(i=0;i<clubdata_content.length;i++){
                             if(that.data[k].name.toUpperCase() === clubdata_content[i].toUpperCase()){
                                 k++;
@@ -247,14 +250,15 @@ PykCharts.oneD.treemap = function (options){
                         }
                     }
                     var sortfunc = function (a,b) { return b.weight - a.weight; };
-                    while(new_data1.length > that.clubData.maximumNodes){
+                    while(new_data1.length > that.clubData_maximumNodes){
                         new_data1.sort(sortfunc);
                         var a=new_data1.pop();
                     }
-                    var others_Slice = { "name":that.clubData.text, "weight": sum_others, "color": that.clubData.color, "tooltip": that.clubData.tooltip };
+                    var others_Slice = { "name":that.clubData_text, "weight": sum_others, "color": that.clubData_color, "tooltip": that.clubData_tooltip };
 
-                    if(new_data1.length < that.clubData.maximumNodes){
+                    if(new_data1.length < that.clubData_maximumNodes){
                         new_data1.push(others_Slice);
+
                     }
                     that.new_data = {"children" : new_data1};
                 }

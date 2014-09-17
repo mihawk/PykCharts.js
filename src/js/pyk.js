@@ -140,7 +140,7 @@ PykCharts.Configuration = function (options){
 
 	var configuration = {
 		liveData : function (chart) {
-            var frequency = options.realTimeCharts.refreshFrequency;
+            var frequency = options.realTimeCharts_refreshFrequency;
 	        if(PykCharts.boolean(frequency)) {
                 setInterval(chart.refresh,frequency*1000);
 	        }
@@ -174,9 +174,8 @@ PykCharts.Configuration = function (options){
         },
 	    appendUnits : function (text) {
             var label,prefix,suffix;
-            if(options.units) {
-                prefix = options.units.prefix,
-                suffix = options.units.suffix;
+                prefix = options.units_prefix,
+                suffix = options.units_suffix;
                 if(prefix && prefix !== "") {
                     label = prefix + " " + text;
                     if(suffix) {
@@ -187,63 +186,67 @@ PykCharts.Configuration = function (options){
                 } else {
                     label = text;
                 }
-            }
-            else {
-                label = text;
-            }
+           
             return label;
         },
 		title : function () {
-            if(PykCharts.boolean(options.title.text) && options.title.size) {
+            if(PykCharts.boolean(options.title_text) && options.title_size) {
 	        	that.titleDiv = d3.select(options.selector)
 	                .append("div")
 	                    .attr("id","title")
 	                    .style("width", options.width + "px")
 	                    .style("text-align","left")
 	                    .html("<span style='pointer-events:none;font-size:" +
-                        options.title.size+
+                        options.title_size+
                         ";color:" +
-                        options.title.color+
+                        options.title_color+
                         ";font-weight:" +
-                        options.title.weight+
+                        options.title_weight+
                         ";font-family:" +
-                        options.title.family
+                        options.title_family
                         + "'>" +
-                        options.title.text +
+                        options.title_text +
                         "</span>");
             console.log($(options.selector + " " + "#title"));
-            console.log(options.title.text,options.selector);
+            console.log(options.title_text,options.selector);
 	        }
 	        return this;
 	    },
         subtitle : function () {
-            if(PykCharts.boolean(options.subtitle.text) && options.subtitle.size) {
+            if(PykCharts.boolean(options.subtitle_text) && options.subtitle_size) {
                 that.subtitleDiv = d3.select(options.selector)
                     .append("div")
                         .attr("id","sub-title")
                         .style("width", options.width + "px")
                         .style("text-align","left")
                         .html("</span><br><span style='pointer-events:none;font-size:" +
-                        options.subtitle.size+";color:" +
-                        options.subtitle.color +
+                        options.subtitle_size+";color:" +
+                        options.subtitle_color +
                         ";font-weight:" +
-                        options.subtitle.weight+";font-family:" +
-                        options.subtitle.family + "'>"+
-                        options.subtitle.text + "</span>");
+                        options.subtitle_weight+";font-family:" +
+                        options.subtitle_family + "'>"+
+                        options.subtitle_text + "</span>");
             }
             return this;
         },
 	    credits : function () {
-            if(PykCharts.boolean(options.creditMySite.mySiteName) || PykCharts.boolean(options.creditMySite.mySiteUrl)) {
-                var credit = options.creditMySite;
+            if(PykCharts.boolean(options.creditMySite_name) || PykCharts.boolean(options.creditMySite_url)) {
+                // var credit = options.creditMySite;
                 var enable = true;
 
-                if(credit.mySiteName === "") {
-                    credit.mySiteName = credit.mySiteUrl;
+                if(options.creditMySite_name === "") {
+                    options.creditMySite_name = options.creditMySite_url;
                 }
-                if(credit.mySiteUrl === "") {
+                if(options.creditMySite_url === "") {
                     enable = false;
                 }
+
+                // if(credit.mySiteName === "") {
+                //     credit.mySiteName = credit.mySiteUrl;
+                // }
+                // if(credit.mySiteUrl === "") {
+                //     enable = false;
+                // }
                 d3.select(options.selector).append("table")
                     .attr("id","footer")
                     .style("background", options.bg)
@@ -252,19 +255,20 @@ PykCharts.Configuration = function (options){
                     .attr("class","PykCharts-credits")
                     .append("td")
                     .style("text-align","left")
-                    .html("<span style='pointer-events:none;'>Credits: </span><a href='" + credit.mySiteUrl + "' target='_blank' onclick='return " + enable +"'>"+ credit.mySiteName +"</a>");
+                    .html("<span style='pointer-events:none;'>Credits: </span><a href='" +  options.creditMySite_url + "' target='_blank' onclick='return " + enable +"'>"+  options.creditMySite_name +"</a>");
+                    // .html("<span style='pointer-events:none;'>Credits: </span><a href='" + credit.mySiteUrl + "' target='_blank' onclick='return " + enable +"'>"+ credit.mySiteName +"</a>");
 
             }
 	        return this;
 	    },
 	    dataSource : function () {
-	        if(PykCharts.boolean(options.dataSource) && (PykCharts.boolean(options.dataSource.text) || PykCharts.boolean(options.dataSource.url))) {
+	        if( (PykCharts.boolean(options.dataSource_text) && PykCharts.boolean(options.dataSource_url))) {
                 var enable = true;
-                var data_src = options.dataSource;
-                if(data_src.text === "") {
-                    data_src.text = data_src.url;
+                // var data_src = options.dataSource;
+                if(options.dataSource_text === "") {
+                    options.dataSource_text =options.dataSource_url;
                 }
-                if(data_src.url === "") {
+                if(options.dataSource_url === "") {
                     enable = false;
                 }
                 if($(options.selector+" #footer").length) {
@@ -272,7 +276,7 @@ PykCharts.Configuration = function (options){
                         .style("background", options.bg)
                         .append("td")
                         .style("text-align","right")
-                        .html("<span style='pointer-events:none;'>Source: </span><a href='" + data_src.url + "' target='_blank' onclick='return " + enable +"'>"+ data_src.text +"</a></tr>");
+                        .html("<span style='pointer-events:none;'>Source: </span><a href='" + options.dataSource_url + "' target='_blank' onclick='return " + enable +"'>"+ options.dataSource_text +"</a></tr>");
                 }
                 else {
                     d3.select(options.selector).append("table")
@@ -283,7 +287,7 @@ PykCharts.Configuration = function (options){
                         .attr("class","PykCharts-credits")
                         .append("td")
                         .style("text-align","right")
-                        .html("<span style='pointer-events:none;'>Source: </span><a href='" + data_src.url + "' target='_blank' onclick='return " + enable +"'>"+ data_src.text +"</a></tr>");
+                        .html("<span style='pointer-events:none;'>Source: </span><a href='" + options.dataSource_url + "' target='_blank' onclick='return " + enable +"'>"+ options.dataSource_text +"</a></tr>");
                 }
             }
 	        return this;
@@ -299,7 +303,7 @@ PykCharts.Configuration = function (options){
             return this;
         },
 	    tooltip : function (d,selection,i) {
-            if(PykCharts.boolean(options.tooltip.enable) && options.mode === "default") {
+            if(PykCharts.boolean(options.tooltip_enable) && options.mode === "default") {
                 if(selection !== undefined){
                     PykCharts.Configuration.tooltipp = d3.select(selection).append("div")
                         .attr("id", "pyk-tooltip")
@@ -324,7 +328,7 @@ PykCharts.Configuration = function (options){
                         .style("visibility", "hidden")
                         .style("box-shadow","0 5px 10px rgba(0,0,0,.2)");
                 }
-            } else if (PykCharts.boolean(options.tooltip.enable)) {
+            } else if (PykCharts.boolean(options.tooltip_enable)) {
                 if (options.tooltip.mode === "fixed") {
                     PykCharts.Configuration.tooltipp = d3.select("body")
                         .append("div")
@@ -555,7 +559,7 @@ configuration.mouseEvent = function (options) {
     var status;
     var action = {
         tooltipPosition : function (d,xPos,yPos,xDiff,yDiff,group_index) {
-            if(PykCharts.boolean(options.tooltip.enable)) {
+            if(PykCharts.boolean(options.tooltip_enable)) {
             	if(xPos !== undefined){
                     var width_tooltip = parseFloat($(options.selector+" #tooltip-svg-container-"+group_index).next("#pyk-tooltip").css("width"));
                     $(options.selector+" #tooltip-svg-container-"+group_index).next("#pyk-tooltip")
@@ -573,7 +577,7 @@ configuration.mouseEvent = function (options) {
             }
         },
         toolTextShow : function (d,multiple_containers,type,group_index) {
-            if(PykCharts.boolean(options.tooltip.enable)) {
+            if(PykCharts.boolean(options.tooltip_enable)) {
                 if(multiple_containers === "yes" && type === "multilineChart") {
                     $(options.selector+" #tooltip-svg-container-"+group_index).next("#pyk-tooltip").html(d);
                 }
@@ -584,7 +588,7 @@ configuration.mouseEvent = function (options) {
             return this;
         },
         tooltipHide : function (d,multiple_containers,type) {
-            if(PykCharts.boolean(options.tooltip.enable)) {
+            if(PykCharts.boolean(options.tooltip_enable)) {
                 if(multiple_containers === "yes" && type === "multilineChart") {
                     return d3.selectAll(options.selector+" .pyk-line-tooltip").style("visibility","hidden");
                 }
@@ -863,15 +867,15 @@ configuration.fillChart = function (options,theme,config) {
         },
         colorChart : function (d) {
             if(d.highlight === true) {
-                return theme.stylesheet.colors.highlightColor;
+                return theme.stylesheet.colors_highlightColor;
             } else{
-                return theme.stylesheet.colors.chartColor;
+                return theme.stylesheet.colors_chartColor;
             }
         },
         colorPieW : function (d) {
-            if(!(PykCharts.boolean(options.size.enable))) {
+            if(!(PykCharts.boolean(options.size_enable))) {
                 return options.saturationColor;
-            } else if(PykCharts.boolean(options.size.enable)) {
+            } else if(PykCharts.boolean(options.size_enable)) {
                 if(d.color) {
                     return d.color;
                 }
@@ -883,7 +887,7 @@ configuration.fillChart = function (options,theme,config) {
                 return options.highlightColor;
             } else if(PykCharts.boolean(options.saturationEnable)) {
                 return options.saturationColor;
-            } else if(config.optional && config.optional.colors && config.optional.colors.chartColor) {
+            } else if(config.optional && config.optional.colors && config.optional.colors_chartColor) {
                 return options.chartColor;
             } else if(config.optional && config.optional.colors && d.color){
                 return d.color;
@@ -899,13 +903,13 @@ configuration.border = function (options) {
 	var that = this;
 	var border = {
 	    width: function () {
-	    	return options.borderBetweenChartElements.width;
+	    	return options.borderBetweenChartElements_width;
 	    },
 		color: function () {
-			return options.borderBetweenChartElements.color;
+			return options.borderBetweenChartElements_color;
 		},
         style: function () {
-            return options.borderBetweenChartElements.style;
+            return options.borderBetweenChartElements_style;
         }
 	};
 	return border;
@@ -978,8 +982,8 @@ configuration.transition = function (options) {
     var that = this;
     var transition = {
         duration : function() {
-            if(options.mode === "default" && PykCharts.boolean(options.transition.duration)) {
-                return options.transition.duration;
+            if(options.mode === "default" && PykCharts.boolean(options.transition_duration)) {
+                return options.transition_duration;
             } else {
                 return 0;
             }
@@ -991,244 +995,417 @@ configuration.transition = function (options) {
 configuration.Theme = function(){
     var that = this;
     that.stylesheet = {
-        "chart": {
-            "height": 400,
-            "width": 600,
-            "margin":{"top": 20, "right": 20, "bottom": 20, "left": 20},
-            "grid" : {
-                "xEnabled":"yes",
-                "yEnabled":"yes",
-                "color": "#ddd"
-            }
-        },
+        "chart_height": 400,
+        "chart_width": 600,
+        "chart_margin_top": 20,
+        "chart_margin_right": 20,
+        "chart_margin_bottom": 20,
+        "chart_margin_left": 20,
+        "chart_grid_xEnabled": "yes",
+        "chart_grid_yEnabled": "yes",
+        "chart_grid_color":"#ddd",
         "mode": "default",
         "selector": "body",
-        "title":{
-            "size": "15px",
-            "color": "#1D1D1D",
-            "weight": "bold",
-            "famgroup ily": "'Helvetica Neue',Helvetica,Arial,sans-serif"
-        },
-        "overflowTicks" : "no",
-        "subtitle":{
-            "size": "12px",
-            "color": "black",
-            "weight": "thin",
-            "family": "'Helvetica Neue',Helvetica,Arial,sans-serif"
-        },
-        "loading":{
-            "animationGifUrl": "https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/img/loader.gif"
-        },
-        "buttons":{
-            "enableFullScreen": "no"
-        },
-        "tooltip": {
-            "enable" : "yes"
-        },
-        "creditMySite":{
-            "mySiteName": "Pykih",
-            "mySiteUrl": "http://www.pykih.com"
-        },
-        "colors":{
-            "backgroundColor": "transparent",
-            "chartColor": "steelblue",
-            "highlightColor": "#013F73",
-            "saturationColor" : "steelblue"
-        },
-        "borderBetweenChartElements":{
-            "width": 1,
-            "color": "white",
-            "style": "solid" // or "dotted / dashed"
-        },
-        "legendsText":{ //partially done for oneD, pending for twoD
-            "size": "13",
-            "color": "white",
-            "weight": "thin",
-            "family": "'Helvetica Neue',Helvetica,Arial,sans-serif"
-        },
-        "label":{ //partially done for oneD, pending for twoD
-            "size": "13",
-            "color": "white",
-            "weight": "thin",
-            "family": "'Helvetica Neue',Helvetica,Arial,sans-serif"
-        },
-        "ticks":{
-            "strokeWidth": 1,
-            "size": 13,
-            "color": "#1D1D1D",
-            "family": "'Helvetica Neue',Helvetica,Arial,sans-serif"
-        }
+        "title_size": "15px",
+        "title_color": "#1D1D1D",
+        "title_weight": "bold",
+        "title_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
+        "overflowTicks": "no",
+        "subtitle_size": "12px",
+        "subtitle_color": "black",
+        "subtitle_weight": "thin",
+        "subtitle_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
+        "loading_animationGifUrl": "https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/img/loader.gif",
+        "buttons_enableFullScreen": "no",
+        "tooltip_enable": "yes",
+        "creditMySite_name": "Pykih",
+        "creditMySite_url": "http://www.pykih.com",
+        "backgroundColor": "transparent",
+        "chartColor": "steelblue",
+        "highlightColor": "#013F73",
+        "saturationColor": "steelblue",
+        "borderBetweenChartElements_width": 1,
+        "borderBetweenChartElements_color": "white", 
+        "borderBetweenChartElements_style": "solid",
+        "legendsText_size": 13,
+        "legendsText_color": "white",
+        "legendsText_weight": "thin",
+        "legendsText_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
+        "label_size": 13,
+        "label_color": "white",
+        "label_weight": "thin",
+        "label_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
+        "ticks_strokeWidth": 1,
+        "ticks_size": 13,
+        "ticks_color": "#1D1D1D",
+        "ticks_family": "'Helvetica Neue',Helvetica,Arial,sans-serif"
     };
 
     that.functionality = {
-        "realTimeCharts": {
-            "refreshFrequency": 0,
-            "enableLastUpdatedAt": "yes"
-        },
-        "transition": {
-            "duration": 0
-        }
+        "realTimeCharts_refreshFrequency": 0,
+        "realTimeCharts_enableLastUpdatedAt": "yes",
+        "transition_duration": 0
     };
 
-    that.oneDimensionalCharts = { //pending
-        "donut":{
-            "radiusPercent": 70,
-            "innerRadiusPercent": 40,
-            "showTotalAtTheCenter": "yes" //done
-        },
-        "pie":{
-            "radiusPercent": 70
-        },
-        "clubData":{
-            "enable": "yes",
-            "text": "Others", //text must be resused as tooltipText
-            "maximumNodes": 5
-        },
-        // "enableLabel": "yes",
-        "pictograph": {
-            "showTotal": "yes", // when no removes the grey heart i.e just shows the actual number of heart
-            "enableTotal": "yes", //shows both the text when yes
-            "enableCurrent": "yes", //shows only the actual number when yes
-            "imagePerLine": 3,
-            "imageWidth":79,
-            "imageHeight":66,
-            "activeText": {
-                "size": 64,
-                "color": "steelblue",
-                "weight": "thin",
-                "family": "'Helvetica Neue',Helvetica,Arial,sans-serif"
-            },
-            "inactiveText": {
-                "size": 64,
-                "color": "grey",
-                "weight": "thin",
-                "family": "'Helvetica Neue',Helvetica,Arial,sans-serif"
-            }
-        },
-        "funnel": {
-            "rect_width": 100,
-            "rect_height": 100
-        }
+    that.oneDimensionalCharts = {
+        "clubData_enable": "yes",
+        "clubData_text": "others",
+        "clubData_maximumNodes": 5,
+        "donut_radiusPercent": 70,
+        "donut_innerRadiusPercent": 40,
+        "donut_showTotalAtTheCenter": "yes",
+        "pie_radiusPercent": 70,
+        "pictograph_showTotal": "yes",
+        "pictograph_enableTotal": "yes",
+        "pictograph_enableCurrent": "yes",
+        "pictograph_imagePerLine": 3,
+        "pictograph_imageWidth": 79,
+        "pictograph_imageHeight": 66,
+        "pictograph_activeText_size": 64,
+        "pictograph_activeText_color": "steelblue",
+        "pictograph_activeText_weight": "thin",
+        "pictograph_activeText_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
+        "pictograph_inactiveText_size": 64,
+        "pictograph_inactiveText_color": "grey",
+        "pictograph_inactiveText_weight": "thin",
+        "pictograph_inactiveText_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
+        "funnel_rectWidth": 100,
+        "funnel_rectHeight": 100
     };
 
     that.multiDimensionalCharts = {
-        "axis" : {
-            "onHoverHighlightenable": "no",
-            "x": {
-                "enable": "yes",
-                "position":"bottom",
-                "orient" : "bottom",
-                "axisColor": "#1D1D1D",
-                "labelColor": "#1D1D1D",
-                "no_of_ticks": 5,
-                "tickSize": 5,
-                "tickFormat": "",
-                "ticksPadding": 6,
-                "tickValues": [],
-                "outer_tick_size": 0
-            },
-            "y": {
-                "enable": "yes",
-                "position":"left",
-                "orient": "left",
-                "axisColor": "#1D1D1D",
-                "labelColor": "#1D1D1D",
-                "no_of_ticks": 5,
-                "tickSize": 5,
-                "tickFormat": "",
-                "ticksPadding": 6,
-                "outer_tick_size": 0
-            }
-        },
-        "yAxisDataFormat" : "number",
-        "xAxisDataFormat" : "string",
-        "enableCrossHair" : "yes",
-        "zoom" : {
-            "enable" : "no"
-        },
-        "size" : {
-            "enable" : "yes"
-        },
-        "spiderweb" : {
-            "outer_radius_percent" : 80,
-            "radius" : 5,
-            "axisTitle" : "yes",
-            "enableTicks" : "yes"
-        },
-        "multiple_containers" : {
-            "enable" : "no"
-        },
-        "legends" : {
-            "enable": "yes",
-            "display" : "horizontal"
-        },
-        "tooltip" : {
-            "enable" : "yes",
-            "mode" : "fixed"
-        },
-        "scatterplot" : {
-            "radius" : 40
-        },
-        "line": {
-            "color_from_data": "yes",
-            "curvy_lines" : "no"
-        }
+        "axis_onHoverHighlightenable": "no",
+
+        "axis_x_enable": "yes",
+        "axis_x_position": "bottom",
+        "axis_x_orient": "bottom",
+        "axis_x_axisColor": "1D1D1D",
+        "axis_x_labelColor": "1D1D1D",
+        "axis_x_no_of_ticks": 5,
+        "axis_x_tickSize": 5,
+        "axis_x_tickFormat": "",
+        "axis_x_tickPadding": 6,
+        "axis_x_tickValues": [],
+        "axis_x_outer_tick_size": 0,
+
+        "axis_y_enable": "yes",
+        "axis_y_position": "left",
+        "axis_y_orient": "left",
+        "axis_y_axisColor": "1D1D1D",
+        "axis_y_labelColor": "1D1D1D",
+        "axis_y_no_of_ticks": 5,
+        "axis_y_tickSize": 5,
+        "axis_y_tickFormat": "",
+        "axis_y_tickPadding": 6,
+        "axis_y_tickValues": [],
+        "axis_y_outer_tick_size": 0,
+            
+        "yAxisDataFormat": "number",
+        "xAxisDataFormat": "string",
+        "enableCrossHair": "yes",
+        "zoom_enable": "no",
+            
+        "size_enable" : "yes",
+
+        "spiderweb_outerRadiusPercent" : 80,
+        "spiderweb_radius": 5,
+        "spiderweb_axisTitle": "yes",
+        "spiderweb_enableTicks": "yes",        
+        "multiple_containers_enable": "no",
+          
+        "legends_enable": "yes",
+        "legends_display": "horizontal",
+
+        "tooltip_enable" : "yes",
+        "tooltip_mode": "fixed",
+      
+        "scatterplot_radius" : 40,
+
+        "line_color_from_data": "yes",
+        "line_curvy_lines": "no"
+            
     };
 
     that.treeCharts = {
-        "zoom" : {
-            "enable" : "no"
-        },
+        "zoom_enable" : "no",
         "nodeRadius" : 4.5
     };
 
     that.mapsTheme = {
-        // "mapCode": "india-topo",
-        "chart": {
-            "width":1000,
-            "height":1000
-        },
-        "colors" : {
-            "defaultColor" : "#4682B4",
-            "total" :3,
-            "type" : "satuartion",
-            "palette" : "Blue"
-        },
-        "tooltip" : {
-            "enable": "yes",
-            "mode":"moving",
-            "positionTop":0,
-            "positionLeft":0
-        },
-        "timeline": {
-            "duration": 1000,
-            "margin": {"top": 5, "right": 25, "bottom": 25, "left": 45}
-        },
-        "legends": {
-            "enable":"yes",
-            "display": "horizontal"
-        },
-        "label": {
-            "enable": "no"
-        },
+        "chart_width": 1000,
+        "chart_height": 1000, 
+        "colors_defaultColor" : "#4682B4",
+        "colors_total": 3,
+        "colors_type": "satuartion",
+        "colors_palette": "Blue",
+        "tooltip_enable" : "yes",
+        "tooltip_mode": "moving",
+        "tooltip_positionTop": 0,
+        "tooltip_positionLeft": 0,     
+        "timeline_duration": 1000, 
+        "timeline_margin_top": 5, 
+        "timeline_margin_right": 25, 
+        "timeline_margin_bottom": 25, 
+        "timeline_margin_left": 45,
+        "legends_enable": "yes",
+        "legends_display": "horizontal",
+        "label_enable": "no", 
         "enableClick": "yes",
         "onhover": "shadow",
         "highlightArea":"no",
-        "axis" : {
-            "onHoverHighlightenable": "no",
-            "x": {
-                "enable": "yes",
-                "orient" : "top",
-                "axisColor": "#1D1D1D",
-                "labelColor": "#1D1D1D",
-                "no_of_ticks": 10,
-                "tickSize": 5,
-                "tickFormat": "",
-                "ticksPadding": 6,
-                "tickValues": [],
-                "outer_tick_size": 0
-            }
-        }
+        "axis_onHoverHighlightenable" : "no",
+        "axis_x_enable": "yes",
+        "axis_x_position": "bottom",
+        "axis_x_orient": "bottom",
+        "axis_x_axisColor": "1D1D1D",
+        "axis_x_labelColor": "1D1D1D",
+        "axis_x_no_of_ticks": 5,
+        "axis_x_tickSize": 5,
+        "axis_x_tickFormat": "",
+        "axis_x_tickPadding": 6,
+        "axis_x_tickValues": [],
+        "axis_x_outer_tick_size": 0       
     };
+
+    //     that.stylesheet = {
+    //     "chart": {
+    //         "height": 400,
+    //         "width": 600,
+    //         "margin":{"top": 20, "right": 20, "bottom": 20, "left": 20},
+    //         "grid" : {
+    //             "xEnabled":"yes",
+    //             "yEnabled":"yes",
+    //             "color": "#ddd"
+    //         }
+    //     },
+    //     "mode": "default",
+    //     "selector": "body",
+    //     "title":{
+    //         "size": "15px",
+    //         "color": "#1D1D1D",
+    //         "weight": "bold",
+    //         "family": "'Helvetica Neue',Helvetica,Arial,sans-serif"
+    //     },
+    //     "overflowTicks" : "no",
+    //     "subtitle":{
+    //         "size": "12px",
+    //         "color": "black",
+    //         "weight": "thin",
+    //         "family": "'Helvetica Neue',Helvetica,Arial,sans-serif"
+    //     },
+    //     "loading":{
+    //         "animationGifUrl": "https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/img/loader.gif"
+    //     },
+    //     "buttons":{
+    //         "enableFullScreen": "no"
+    //     },
+    //     "tooltip": {
+    //         "enable" : "yes"
+    //     },
+    //     "creditMySite":{
+    //         "mySiteName": "Pykih",
+    //         "mySiteUrl": "http://www.pykih.com"
+    //     },
+    //     "colors":{
+    //         "backgroundColor": "transparent",
+    //         "chartColor": "steelblue",
+    //         "highlightColor": "#013F73",
+    //         "saturationColor" : "steelblue"
+    //     },
+    //     "borderBetweenChartElements":{
+    //         "width": 1,
+    //         "color": "white",
+    //         "style": "solid" // or "dotted / dashed"
+    //     },
+    //     "legendsText":{ //partially done for oneD, pending for twoD
+    //         "size": "13",
+    //         "color": "white",
+    //         "weight": "thin",
+    //         "family": "'Helvetica Neue',Helvetica,Arial,sans-serif"
+    //     },
+    //     "label":{ //partially done for oneD, pending for twoD
+    //         "size": "13",
+    //         "color": "white",
+    //         "weight": "thin",
+    //         "family": "'Helvetica Neue',Helvetica,Arial,sans-serif"
+    //     },
+    //     "ticks":{
+    //         "strokeWidth": 1,
+    //         "size": 13,
+    //         "color": "#1D1D1D",
+    //         "family": "'Helvetica Neue',Helvetica,Arial,sans-serif"
+    //     }
+    // };
+
+    // that.functionality = {
+    //     "realTimeCharts": {
+    //         "refreshFrequency": 0,
+    //         "enableLastUpdatedAt": "yes"
+    //     },
+    //     "transition": {
+    //         "duration": 0
+    //     }
+    // };
+
+    // that.oneDimensionalCharts = { //pending
+    //     "donut":{
+    //         "radiusPercent": 70,
+    //         "innerRadiusPercent": 40,
+    //         "showTotalAtTheCenter": "yes" //done
+    //     },
+    //     "pie":{
+    //         "radiusPercent": 70
+    //     },
+    //     "clubData":{
+    //         "enable": "yes",
+    //         "text": "Others", //text must be resused as tooltipText
+    //         "maximumNodes": 5
+    //     },
+    //     // "enableLabel": "yes",
+    //     "pictograph": {
+    //         "showTotal": "yes", // when no removes the grey heart i.e just shows the actual number of heart
+    //         "enableTotal": "yes", //shows both the text when yes
+    //         "enableCurrent": "yes", //shows only the actual number when yes
+    //         "imagePerLine": 3,
+    //         "imageWidth":79,
+    //         "imageHeight":66,
+    //         "activeText": {
+    //             "size": 64,
+    //             "color": "steelblue",
+    //             "weight": "thin",
+    //             "family": "'Helvetica Neue',Helvetica,Arial,sans-serif"
+    //         },
+    //         "inactiveText": {
+    //             "size": 64,
+    //             "color": "grey",
+    //             "weight": "thin",
+    //             "family": "'Helvetica Neue',Helvetica,Arial,sans-serif"
+    //         }
+    //     },
+    //     "funnel": {
+    //         "rect_width": 100,
+    //         "rect_height": 100
+    //     }
+    // };
+
+    // that.multiDimensionalCharts = {
+    //     "axis" : {
+    //         "onHoverHighlightenable": "no",
+    //         "x": {
+    //             "enable": "yes",
+    //             "position":"bottom",
+    //             "orient" : "bottom",
+    //             "axisColor": "#1D1D1D",
+    //             "labelColor": "#1D1D1D",
+    //             "no_of_ticks": 5,
+    //             "tickSize": 5,
+    //             "tickFormat": "",
+    //             "ticksPadding": 6,
+    //             "tickValues": [],
+    //             "outer_tick_size": 0
+    //         },
+    //         "y": {
+    //             "enable": "yes",
+    //             "position":"left",
+    //             "orient": "left",
+    //             "axisColor": "#1D1D1D",
+    //             "labelColor": "#1D1D1D",
+    //             "no_of_ticks": 5,
+    //             "tickSize": 5,
+    //             "tickFormat": "",
+    //             "ticksPadding": 6,
+    //             "outer_tick_size": 0
+    //         }
+    //     },
+    //     "yAxisDataFormat" : "number",
+    //     "xAxisDataFormat" : "string",
+    //     "enableCrossHair" : "yes",
+    //     "zoom" : {
+    //         "enable" : "no"
+    //     },
+    //     "size" : {
+    //         "enable" : "yes"
+    //     },
+    //     "spiderweb" : {
+    //         "outer_radius_percent" : 80,
+    //         "radius" : 5,
+    //         "axisTitle" : "yes",
+    //         "enableTicks" : "yes"
+    //     },
+    //     "multiple_containers" : {
+    //         "enable" : "no"
+    //     },
+    //     "legends" : {
+    //         "enable": "yes",
+    //         "display" : "horizontal"
+    //     },
+    //     "tooltip" : {
+    //         "enable" : "yes",
+    //         "mode" : "fixed"
+    //     },
+    //     "scatterplot" : {
+    //         "radius" : 40
+    //     },
+    //     "line": {
+    //         "color_from_data": "yes",
+    //         "curvy_lines" : "no"
+    //     }
+    // };
+
+    // that.treeCharts = {
+    //     "zoom" : {
+    //         "enable" : "no"
+    //     },
+    //     "nodeRadius" : 4.5
+    // };
+
+    // that.mapsTheme = {
+    //     // "mapCode": "india-topo",
+    //     "chart": {
+    //         "width":1000,
+    //         "height":1000
+    //     },
+    //     "colors" : {
+    //         "defaultColor" : "#4682B4",
+    //         "total" :3,
+    //         "type" : "satuartion",
+    //         "palette" : "Blue"
+    //     },
+    //     "tooltip" : {
+    //         "enable": "yes",
+    //         "mode":"moving",
+    //         "positionTop":0,
+    //         "positionLeft":0
+    //     },
+    //     "timeline": {
+    //         "duration": 1000,
+    //         "margin": {"top": 5, "right": 25, "bottom": 25, "left": 45}
+    //     },
+    //     "legends": {
+    //         "enable":"yes",
+    //         "display": "horizontal"
+    //     },
+    //     "label": {
+    //         "enable": "no"
+    //     },
+    //     "enableClick": "yes",
+    //     "onhover": "shadow",
+    //     "highlightArea":"no",
+    //     "axis" : {
+    //         "onHoverHighlightenable": "no",
+    //         "x": {
+    //             "enable": "yes",
+    //             "orient" : "top",
+    //             "axisColor": "#1D1D1D",
+    //             "labelColor": "#1D1D1D",
+    //             "no_of_ticks": 10,
+    //             "tickSize": 5,
+    //             "tickFormat": "",
+    //             "ticksPadding": 6,
+    //             "tickValues": [],
+    //             "outer_tick_size": 0
+    //         }
+    //     }
+    // };
     return that;
 }

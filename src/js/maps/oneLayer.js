@@ -54,6 +54,7 @@ PykCharts.maps.timelineMap = function (options) {
             d3.json("https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/maps/" + that.mapCode + "-topo.json", function (data) {
                 that.map_data = data;
                 d3.json("https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/palette/colorPalette_datate.json", function (data) {
+
                     that.color_palette_data = data;
 
                     var x_extent = d3.extent(that.timeline_data, function (d) { return d.timestamp; })
