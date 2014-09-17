@@ -32,6 +32,7 @@
                             <option value = "greece">Greece</option>
                             <option value = "india" selected = "selected">India</option>
                             <option value = "india-district">India Districtwise</option>
+                            <option value = "india-pc">India-pc</option>
                             <option value = "ireland">Ireland</option>
                             <option value = "italy">Italy</option>
                             <option value = "japan">Japan</option>
@@ -260,7 +261,7 @@
 
             function tooltipFunction () {
                 if ($("input[name='tooltip']:checked").val() === "yes") {
-                    console.log("tooltip yes");
+                    // console.log("tooltip yes");
                     $("input[name='tooltip_mode']").prop('disabled', false);
                     if ($("input[name='tooltip_mode']:checked").val() === "fixed") {
                         $("#a7").prop('disabled', false);
@@ -270,7 +271,7 @@
                         $("#a7").prop('disabled', true);
                     }
                 } else {
-                    console.log("tooltip no");
+                    // console.log("tooltip no");
                     $("input[name='tooltip_mode']").prop('disabled', true);
                     $("#a8").prop('disabled', true);
                     $("#a7").prop('disabled', true);
@@ -309,7 +310,7 @@
                 }
 
                 $("#sub").click(function(){
-                    console.log($("#d3").val(),$("#d4").val());
+                    // console.log($("#d3").val(),$("#d4").val());
                     $("#map-container").html("");
                     $("#legend-container").html("");
                     $("#map-container").attr("style", "float: left; position: static");

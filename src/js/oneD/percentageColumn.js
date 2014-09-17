@@ -17,7 +17,7 @@ PykCharts.oneD.percentageColumn = function (options) {
         d3.json(options.data, function (e, data) {
             that.data = data.groupBy("oned");
             $(options.selector+" #chart-loader").remove();
-            that.clubData.enable = that.data.length>that.clubData.maximumNodes ? that.clubData.enable : "no";
+            that.clubData_enable = that.data.length>that.clubData_maximumNodes ? that.clubData_enable : "no";
             that.render();
         });
         // that.clubData.enable = that.data.length>that.clubData.maximumNodes ? that.clubData.enable : "no";
@@ -39,7 +39,7 @@ PykCharts.oneD.percentageColumn = function (options) {
     this.render = function () {
         var that = this;
         that.fillChart = new PykCharts.oneD.fillChart(that);
-        that.mouseEvent1 = new PykCharts.oneD.mouseEvent(options);
+        that.onHoverEffect = new PykCharts.oneD.mouseEvent(options);
         that.transitions = new PykCharts.Configuration.transition(that);
         that.border = new PykCharts.Configuration.border(that);
         if(that.mode === "default") {
@@ -48,7 +48,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                 // [that.fullscreen]().fullScreen(that);
         }
         if(that.mode === "infographics") {
-            that.newData1 = that.data;
+            that.new_data = that.data;
         }
 
         that.k.tooltip();
@@ -71,7 +71,7 @@ PykCharts.oneD.percentageColumn = function (options) {
     this.optionalFeatures = function () {
         var optional = {
             createChart: function () {
-                var arr = that.newData1.map(function (d) {
+                var arr = that.new_data.map(function (d) {
                     return d.weight;
                 });
                 arr.sum = function () {
@@ -83,27 +83,27 @@ PykCharts.oneD.percentageColumn = function (options) {
                 };
 
                 var sum = arr.sum();
-                that.newData1.forEach(function (d, i) {
+                that.new_data.forEach(function (d, i) {
                     this[i].percentValue= d.weight * 100 / sum;
-                }, that.newData1);
-                that.newData1.sort(function (a,b) { return b.weight - a.weight; })
-                that.map1 = _.map(that.newData1,function (d,i) {
-                    return d.percentValue;
-                });
-                that.perColumn = that.group.selectAll('.per-rect')
-                    .data(that.newData1)
+                }, that.new_data);
+                that.new_data.sort(function (a,b) { return b.weight - a.weight; })
+                // that.map1 = _.map(that.new_data,function (d,i) {
+                //     return d.percentValue;
+                // });
+                that.chart_data = that.group.selectAll('.per-rect')
+                    .data(that.new_data)
 
-                that.perColumn.enter()
+                that.chart_data.enter()
                     .append('rect')
                     .attr("class","per-rect")
 
-                that.perColumn.attr('x', (that.width/3))
+                that.chart_data.attr('x', (that.width/3))
                     .attr('y', function (d, i) {
                         if (i === 0) {
                             return 0;
                         } else {
                             var sum = 0,
-                                subset = that.newData1.slice(0,i);
+                                subset = that.new_data.slice(0,i);
 
                             subset.forEach(function(d, i){
                                 sum += this[i].percentValue;
@@ -122,12 +122,12 @@ PykCharts.oneD.percentageColumn = function (options) {
                     .attr("stroke-dasharray", that.border.style())
                     .on("mouseover", function (d,i) {
                         d.tooltip=d.tooltip||"<table class='PykCharts'><tr><th colspan='2' class='tooltip-heading'>"+d.name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.weight)+"<td class='tooltip-right-content'>(&nbsp;"+d.percentValue.toFixed(2)+"%&nbsp)</tr></table>"
-                        that.mouseEvent1.highlight(".per-rect",this);
+                        that.onHoverEffect.highlight(".per-rect",this);
                         that.mouseEvent.tooltipPosition(d);
                         that.mouseEvent.toolTextShow(d.tooltip);
                     })
                     .on("mouseout", function (d) {
-                        that.mouseEvent1.highlightHide(".per-rect");
+                        that.onHoverEffect.highlightHide(".per-rect");
                         that.mouseEvent.tooltipHide(d);
                     })
                     .on("mousemove", function (d,i) {
@@ -138,7 +138,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                     .attr('height', function (d) {
                         return d.percentValue * that.height / 100;
                     });
-                that.perColumn.exit()
+                that.chart_data.exit()
                     .remove();
 
                 return this;
@@ -146,27 +146,27 @@ PykCharts.oneD.percentageColumn = function (options) {
             svgContainer :function () {
                 $(options.selector).css("background-color",that.bg);
 
-                that.svg = d3.select(options.selector)
+                that.svgContainer = d3.select(options.selector)
                     .append('svg')
                     .attr("width",that.width)
                     .attr("height",that.height)
                     .attr("id","svgcontainer")
                     .attr("class","svgcontainer");
 
-                    that.group = that.svg.append("g")
+                    that.group = that.svgContainer.append("g")
                         .attr("id","funnel");
 
                 return this;
             },
             label : function () {
-                    that.per_text = that.group.selectAll(".per-text")
-                        .data(that.newData1);
+                    that.chart_text = that.group.selectAll(".per-text")
+                        .data(that.new_data);
                     var sum = 0;
-                    that.per_text.enter()
+                    that.chart_text.enter()
                         .append("text")
                         .attr("class","per-text");
 
-                    that.per_text.attr("class","per-text")
+                    that.chart_text.attr("class","per-text")
                         .attr("x", (that.width/3 + that.width/8 ))
                         .attr("y",function (d,i) {
                                 sum = sum + d.percentValue;
@@ -177,16 +177,16 @@ PykCharts.oneD.percentageColumn = function (options) {
                                 }
                             });
                     sum = 0;
-                    that.per_text.text("")
+                    that.chart_text.text("")
                     //     .transition()
                     //     .delay(that.transitions.duration())
-                    that.per_text.text(function (d) { return that.k.appendUnits(d.weight); })
+                    that.chart_text.text(function (d) { return that.k.appendUnits(d.weight); })
                         .attr("text-anchor","middle")
                         .attr("pointer-events","none")
-                        .style("font-weight", that.label.weight)
-                        .style("font-size", that.label.size)
-                        .attr("fill", that.label.color)
-                        .style("font-family", that.label.family)
+                        .style("font-weight", that.label_weight)
+                        .style("font-size", that.label_size)
+                        .attr("fill", that.label_color)
+                        .style("font-family", that.label_family)
                         .text(function (d) {
                             if(this.getBBox().width < (that.width/4) && this.getBBox().height < (d.percentValue * that.height / 100)) {
                                 return that.k.appendUnits(d.weight);
@@ -194,26 +194,26 @@ PykCharts.oneD.percentageColumn = function (options) {
                                 return "";
                             }
                         });
-                    that.per_text.exit()
+                    that.chart_text.exit()
                         .remove();
                 return this;
             },
             ticks : function () {
                 if(PykCharts.boolean(that.overflowTicks)) {
-                    that.svg.style("overflow","visible");
+                    that.svgContainer.style("overflow","visible");
                 }
                     var sum = 0,sum1=0;
                     
                     var x,y,w = [];
                     sum = 0;
-                    var ticks_label = that.group.selectAll(".ticks_label")
-                                        .data(that.newData1);
+                    var tick_label = that.group.selectAll(".ticks_label")
+                                        .data(that.new_data);
 
-                    ticks_label.enter()
+                    tick_label.enter()
                         .append("text")
                         .attr("class", "ticks_label")
 
-                    ticks_label.attr("class", "ticks_label")
+                    tick_label.attr("class", "ticks_label")
                         .attr("transform",function (d) {
                             sum = sum + d.percentValue
                             x = that.width/3+(that.width/4) + 10;
@@ -222,13 +222,12 @@ PykCharts.oneD.percentageColumn = function (options) {
                             return "translate(" + x + "," + y + ")";
                         });
 
-                    ticks_label.text(function (d) {
-                        return d.name;
-                    })
+                    tick_label.text(function (d) {
+                            return d.name;
+                        })
                         // .transition()
                         // .delay(that.transitions.duration())
                         .text(function (d,i) {
-                            console.log((d.percentValue * that.height / 100));
                             w[i] = this.getBBox().height;
                             if (this.getBBox().height < (d.percentValue * that.height / 100)) {
                                 return d.name;
@@ -237,22 +236,22 @@ PykCharts.oneD.percentageColumn = function (options) {
                                 return "";
                             }
                         })
-                        .attr("font-size", that.ticks.size)
+                        .attr("font-size", that.ticks_size)
                         .attr("text-anchor","start")
-                        .attr("fill", that.ticks.color)
-                        .attr("font-family", that.ticks.family)
+                        .attr("fill", that.ticks_color)
+                        .attr("font-family", that.ticks_family)
                         .attr("pointer-events","none");
 
-                    ticks_label.exit().remove();
+                    tick_label.exit().remove();
                     sum = 0;
-                    var line = that.group.selectAll(".per-ticks")
-                        .data(that.newData1);
+                    var tick_line = that.group.selectAll(".per-ticks")
+                        .data(that.new_data);
 
-                    line.enter()
+                    tick_line.enter()
                         .append("line")
                         .attr("class", "per-ticks");
 
-                    line
+                    tick_line
                         .attr("x1", function (d,i) {
                             return that.width/3 + that.width/4;
                         })
@@ -275,8 +274,8 @@ PykCharts.oneD.percentageColumn = function (options) {
                                 return (((sum1 - d.percentValue) * that.height/100)+(sum1 * that.height / 100))/2;
                             }
                         })
-                        .attr("stroke-width", that.ticks.strokeWidth)
-                        .attr("stroke", that.ticks.color)
+                        .attr("stroke-width", that.ticks_strokeWidth)
+                        .attr("stroke", that.ticks_color)
                         // .transition()
                         // .duration(that.transitions.duration())
                         .attr("x2", function (d, i) {
@@ -287,66 +286,69 @@ PykCharts.oneD.percentageColumn = function (options) {
                             }
                         });
 
-                    line.exit().remove();
+                    tick_line.exit().remove();
 
                 return this;
             },
             clubData : function () {
-                if(PykCharts.boolean(that.clubData.enable)) {
-                    var clubdataContent = [];
-                    if(that.clubData.alwaysIncludeDataPoints.length!== 0){
-                        var l = that.clubData.alwaysIncludeDataPoints.length;
+
+                if(PykCharts.boolean(that.clubData_enable)) {
+                    var clubdata_content = [];
+                    if(that.clubData_alwaysIncludeDataPoints.length!== 0){
+                        var l = that.clubData_alwaysIncludeDataPoints.length;
                         for(i=0; i < l; i++){
-                            clubdataContent[i] = that.clubData.alwaysIncludeDataPoints[i];
+                            clubdata_content[i] = that.clubData_alwaysIncludeDataPoints[i];
                         }
                     }
-                    that.newData = [];
-                    for(i=0;i<clubdataContent.length;i++){
+                    var new_data1 = [];
+                    for(i=0;i<clubdata_content.length;i++){
                         for(j=0;j<that.data.length;j++){
-                            if(clubdataContent[i].toUpperCase() === that.data[j].name.toUpperCase()){
-                                that.newData.push(that.data[j]);
+                            if(clubdata_content[i].toUpperCase() === that.data[j].name.toUpperCase()){
+                                new_data1.push(that.data[j]);
                             }
                         }
                     }
                     that.data.sort(function (a,b) { return b.weight - a.weight; });
                     var k = 0;
-                    while(that.newData.length<that.clubData.maximumNodes-1){
-                        for(i=0;i<clubdataContent.length;i++){
-                            if(that.data[k].name.toUpperCase() === clubdataContent[i].toUpperCase()){
+
+                    while(new_data1.length<that.clubData_maximumNodes-1){
+                        for(i=0;i<clubdata_content.length;i++){
+                            if(that.data[k].name.toUpperCase() === clubdata_content[i].toUpperCase()){
                                 k++;
                             }
                         }
-                        that.newData.push(that.data[k]);
+                        new_data1.push(that.data[k]);
                         k++;
                     }
-                    var weight = 0;
+                    var sum_others = 0;
                     for(j=k; j < that.data.length; j++){
-                        for(i=0; i<that.newData.length && j<that.data.length; i++){
-                            if(that.data[j].name.toUpperCase() === that.newData[i].name.toUpperCase()){
-                                weight +=0;
+                        for(i=0; i<new_data1.length && j<that.data.length; i++){
+                            if(that.data[j].name.toUpperCase() === new_data1[i].name.toUpperCase()){
+                                sum_others +=0;
                                 j++;
                                 i = -1;
                             }
                         }
                         if(j < that.data.length){
-                            weight += that.data[j].weight;
+                            sum_others += that.data[j].weight;
                         }
                     }
                     var sortfunc = function (a,b) { return b.weight - a.weight; };
-                    while(that.newData.length > that.clubData.maximumNodes){
-                        that.newData.sort(sortfunc);
-                        var a=that.newData.pop();
-                    }
-                    var otherSpan = { "name":that.clubData.text, "weight": weight, "color": that.clubData.color, "tooltip": that.clubData.tooltip };
 
-                    if(that.newData.length < that.clubData.maximumNodes){
-                        that.newData.push(otherSpan);
+                    while(new_data1.length > that.clubData_maximumNodes){
+                        new_data1.sort(sortfunc);
+                        var a=new_data1.pop();
                     }
-                    that.newData1 = that.newData;
+                    var others_Slice = { "name":that.clubData_text, "weight": sum_others, "color": that.clubData_color, "tooltip": that.clubData_tooltip };
+
+                    if(new_data1.length < that.clubData_maximumNodes){
+                        new_data1.push(others_Slice);
+                    }
+                    that.new_data = new_data1;
                 }
                 else {
                     that.data.sort(function (a,b) { return b.weight - a.weight; });
-                    that.newData1 = that.data;
+                    that.new_data = that.data;
                 }
                 return this;
             }
