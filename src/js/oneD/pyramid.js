@@ -12,7 +12,7 @@ PykCharts.oneD.pyramid = function (options) {
         d3.json(options.data, function (e,data) {
 			that.data = data.groupBy("oned");
             $(options.selector+" #chart-loader").remove();
-			that.clubData.enable = that.data.length>that.clubData.maximumNodes ? that.clubData.enable : "no";
+			that.clubData_enable = that.data.length>that.clubData_maximumNodes ? that.clubData_enable : "no";
             that.render();
 		});
         // that.clubData.enable = that.data.length>that.clubData.maximumNodes ? that.clubData.enable : "no";
@@ -261,10 +261,10 @@ PykCharts.oneD.pyramid = function (options) {
                         })
                         .attr("text-anchor","middle")
                         .attr("pointer-events","none")
-                        .style("font-weight", that.label.weight)
-                        .style("font-size", that.label.size)
-                        .attr("fill", that.label.color)
-                        .style("font-family", that.label.family);
+                        .style("font-weight", that.label_weight)
+                        .style("font-size", that.label_size)
+                        .attr("fill", that.label_color)
+                        .style("font-family", that.label_family);
                     pyr_text.exit().remove();
                 return this;
             },
@@ -336,9 +336,9 @@ PykCharts.oneD.pyramid = function (options) {
                         }
                     }
                 })
-                .style("fill",that.ticks.color)
-                .style("font-size",that.ticks.size)
-                .style("font-family", that.ticks.family)
+                .style("fill",that.ticks_color)
+                .style("font-size",that.ticks_size)
+                .style("font-family", that.ticks_family)
                 .attr("text-anchor","start");
 
                 ticks_label.exit().remove();
@@ -379,8 +379,8 @@ PykCharts.oneD.pyramid = function (options) {
                             return (d.values[0].y + that.coordinates[that.coordinates.length-1].values[1].y)/2;
                         }
                     })
-                    .attr("stroke-width", that.ticks.strokeWidth)
-                    .attr("stroke",that.ticks.color)
+                    .attr("stroke-width", that.ticks_strokeWidth)
+                    .attr("stroke",that.ticks_color)
                     // .transition()
                     // .duration(that.transitions.duration())
                     .attr("x2", function (d,i) {
@@ -421,12 +421,12 @@ PykCharts.oneD.pyramid = function (options) {
             },
             clubData: function () {
 
-            	if (PykCharts.boolean(that.clubData.enable)) {
+            	if (PykCharts.boolean(that.clubData_enable)) {
             		that.displayData = [];
                     that.maximum_weight = _.map(that.data,function(num){ return num.weight; });
                     that.maximum_weight.sort(function(a,b){ return b-a; });
                     that.checkDuplicate = [];
-                    var others_Slice = {"name":that.clubData.text,"color":that.clubData.color,"tooltip":that.clubData.tooltipText,"highlight":false};
+                    var others_Slice = {"name":that.clubData_text,"color":that.clubData_color,"tooltip":that.clubData_tooltipText,"highlight":false};
                     var index;
                     var i;
                     that.getIndexByName = function(name){
@@ -445,11 +445,11 @@ PykCharts.oneD.pyramid = function (options) {
                         return result;
                     } ;
                     
-                    if(that.clubData.alwaysIncludeDataPoints.length!== 0) {
-                        for (var l=0;l<that.clubData.alwaysIncludeDataPoints.length;l++)
+                    if(that.clubData_alwaysIncludeDataPoints.length!== 0) {
+                        for (var l=0;l<that.clubData_alwaysIncludeDataPoints.length;l++)
                         {
 
-                            index = that.getIndexByName(that.clubData.alwaysIncludeDataPoints[l]);
+                            index = that.getIndexByName(that.clubData_alwaysIncludeDataPoints[l]);
                             if(index!= undefined) {
                                 that.displayData.push(that.data[index]);
                                 that.maximum_weight = reject (index);
@@ -472,7 +472,7 @@ PykCharts.oneD.pyramid = function (options) {
                         }
                     };
 
-                    var count = that.clubData.maximumNodes-that.displayData.length;
+                    var count = that.clubData_maximumNodes-that.displayData.length;
 
                     if(count>0)
                     {   that.displayData.push(others_Slice);

@@ -2,7 +2,6 @@ PykCharts.oneD.funnel = function (options) {
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
 
-    that.creditMySite = theme.stylesheet.creditMySite;
     //----------------------------------------------------------------------------------------
     //1. This is the method that executes the various JS functions in the proper sequence to generate the chart
     //----------------------------------------------------------------------------------------
@@ -11,9 +10,9 @@ PykCharts.oneD.funnel = function (options) {
         that = new PykCharts.oneD.processInputs(that, options);
 
         var optional = options.optional
-        , functionality = theme.oneDimensionalCharts.funnel;
-        that.rect_width = optional && optional.funnel && optional.funnel.rect_width && _.isNumber(optional.funnel.rect_width)  ? optional.funnel.rect_width : functionality.rect_width;
-        that.rect_height = optional && optional.funnel && optional.funnel.rect_height && _.isNumber(optional.funnel.rect_height) ? optional.funnel.rect_height : functionality.rect_height;
+        , functionality = theme.oneDimensionalCharts;
+        that.rect_width =  options.funnel_rectWidth && _.isNumber(options.funnel_rectWidth)  ? options.funnel_rectWidth : functionality.funnel_rectWidth;
+        that.rect_height = options.funnel_rectHeight && _.isNumber(options.funnel_rectHeight) ? options.funnel_rectHeight : functionality.funnel_rectHeight;
 
         if(that.mode === "default") {
            that.k.loading();
@@ -22,7 +21,7 @@ PykCharts.oneD.funnel = function (options) {
         d3.json(options.data, function (e,data) {
             that.data = data.groupBy("oned");
             $(options.selector+" #chart-loader").remove();
-            that.clubData.enable = that.data.length>that.clubData.maximumNodes ? that.clubData.enable : "no";
+            that.clubData_enable = that.data.length>that.clubData_maximumNodes ? that.clubData_enable : "no";
             that.render();
         });
         // that.clubData.enable = that.data.length>that.clubData.maximumNodes ? that.clubData.enable : "no";
@@ -289,10 +288,10 @@ PykCharts.oneD.funnel = function (options) {
                          })
                         .attr("text-anchor","middle")
                         .attr("pointer-events","none")
-                        .style("font-weight", that.label.weight)
-                        .style("font-size", that.label.size)
-                        .attr("fill", that.label.color)
-                        .style("font-family", that.label.family)
+                        .style("font-weight", that.label_weight)
+                        .style("font-size", that.label_size)
+                        .attr("fill", that.label_color)
+                        .style("font-family", that.label_family)
                         .text(function (d,i) {
                             if(this.getBBox().width<(d.values[3].x - d.values[1].x) && this.getBBox().height < (d.values[2].y - d.values[0].y)) {
 
@@ -307,6 +306,7 @@ PykCharts.oneD.funnel = function (options) {
                 return this;
             },
             ticks : function () {
+                // console.log("ticks");
                 if(PykCharts.boolean(that.overflowTicks)) {
                     that.svg.style("overflow","visible");
                 }
@@ -347,11 +347,11 @@ PykCharts.oneD.funnel = function (options) {
                                 return "";
                             }
                         })
-                        .attr("font-size", that.ticks.size)
+                        .attr("font-size", that.ticks_size)
                         .attr("text-anchor","start")
-                        .attr("fill", that.ticks.color)
+                        .attr("fill", that.ticks_color)
                         .attr("pointer-events","none")
-                        .attr("font-family", that.ticks.family);
+                        .attr("font-family", that.ticks_family);
 
                     ticks_label.exit().remove();
                     var line = that.group.selectAll(".funnel-ticks")
@@ -391,8 +391,8 @@ PykCharts.oneD.funnel = function (options) {
                                 return (d.values[4].y);
                            }
                         })
-                        .attr("stroke-width", that.ticks.strokeWidth)
-                        .attr("stroke", that.ticks.color)
+                        .attr("stroke-width", that.ticks_strokeWidth)
+                        .attr("stroke", that.ticks_color)
                         // .transition()
                         // .duration(that.transitions.duration())
                         .attr("x2", function (d, i) {
@@ -417,12 +417,12 @@ PykCharts.oneD.funnel = function (options) {
                 return this;
             },
             clubData : function () {
-                if(PykCharts.boolean(that.clubData.enable)) {
+                if(PykCharts.boolean(that.clubData_enable)) {
                     var clubdataContent = [];
-                    if(that.clubData.alwaysIncludeDataPoints.length!== 0){
-                        var l = that.clubData.alwaysIncludeDataPoints.length;
+                    if(that.clubData_alwaysIncludeDataPoints.length!== 0){
+                        var l = that.clubData_alwaysIncludeDataPoints.length;
                         for(i=0; i < l; i++){
-                            clubdataContent[i] = that.clubData.alwaysIncludeDataPoints[i];
+                            clubdataContent[i] = that.clubData_alwaysIncludeDataPoints[i];
                         }
                     }
                     that.newData = [];
@@ -435,7 +435,7 @@ PykCharts.oneD.funnel = function (options) {
                     }
                     that.data.sort(function (a,b) { return b.weight - a.weight; });
                     var k = 0;
-                    while(that.newData.length<that.clubData.maximumNodes-1){
+                    while(that.newData.length<that.clubData_maximumNodes-1){
                         for(i=0;i<clubdataContent.length;i++){
                             if(that.data[k].name.toUpperCase() === clubdataContent[i].toUpperCase()){
                                 k++;
@@ -458,13 +458,13 @@ PykCharts.oneD.funnel = function (options) {
                         }
                     }
                     var sortfunc = function (a,b) { return b.weight - a.weight; };
-                    while(that.newData.length > that.clubData.maximumNodes){
+                    while(that.newData.length > that.clubData_maximumNodes){
                         that.newData.sort(sortfunc);
                         var a=that.newData.pop();
                     }
 
-                    var otherSpan = { "name":that.clubData.text, "weight": weight, "color": that.clubData.color, "tooltip": (that.clubData.tooltip)};
-                    if(that.newData.length < that.clubData.maximumNodes){
+                    var otherSpan = { "name":that.clubData_text, "weight": weight, "color": that.clubData_color, "tooltip": (that.clubData_tooltip)};
+                    if(that.newData.length < that.clubData_maximumNodes){
                         that.newData.push(otherSpan);
                     }
                     that.newData.sort(function (a,b) { return b.weight - a.weight; });
