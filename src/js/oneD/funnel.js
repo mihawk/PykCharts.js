@@ -38,7 +38,7 @@ PykCharts.oneD.funnel = function (options) {
             that.data = data.groupBy();
             that.optionalFeatures()
                     .clubData()
-                    .createFunnel()
+                    .createChart()
                     .label()
                     .ticks()
         });
@@ -47,7 +47,7 @@ PykCharts.oneD.funnel = function (options) {
     this.render = function () {
         var that = this;
         that.fillChart = new PykCharts.oneD.fillChart(that);
-        that.mouseEvent1 = new PykCharts.oneD.mouseEvent(that);
+        that.onHoverEffect = new PykCharts.oneD.mouseEvent(that);
         that.transitions = new PykCharts.Configuration.transition(that);
 //        theme.stylesheet.borderBetweenChartElements;
         that.border = new PykCharts.Configuration.border(that);
@@ -59,14 +59,14 @@ PykCharts.oneD.funnel = function (options) {
         that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
         if(that.mode === "infographics") {
 
-            that.newData1 = that.data;
+            that.new_data = that.data;
         }
         if(that.mode === "default") {
-            var funnel = that.optionalFeatures()
-                            .clubData();
+            that.optionalFeatures()
+                .clubData();
         }
         that.optionalFeatures().svgContainer()
-            .createFunnel()
+            .createChart()
             .label();
         if(that.mode === "default") {
             that.optionalFeatures().ticks();
@@ -185,11 +185,11 @@ PykCharts.oneD.funnel = function (options) {
 
     this.percentageValues = function (data){
         var that = this;
-        var total = d3.sum(data, function (d){
+        that.sum = d3.sum(data, function (d){
             return d.weight;
         });
         var percentValues = data.map(function (d){
-            return d.weight/total*100;
+            return d.weight/that.sum*100;
         });
         percentValues.sort(function(a,b){
             return b-a;
@@ -202,57 +202,57 @@ PykCharts.oneD.funnel = function (options) {
             svgContainer :function () {
                 $(options.selector).css("background-color",that.bg);
 
-                that.svg = d3.select(options.selector)
+                that.svgContainer = d3.select(options.selector)
                     .append('svg')
                     .attr("width",that.width) //+100 removed
                     .attr("height",that.height)
                     .attr("id","svgcontainer")
                     .attr("class","svgcontainer");
 
-                    that.group = that.svg.append("g")
+                    that.group = that.svgContainer.append("g")
                         .attr("id","funnel");
 
                 return this;
             },
-            createFunnel: function () {
-                that.pervalue = that.percentageValues(that.newData1);
-                var funnel = that.funnelLayout()
-                                .data(that.newData1)
+            createChart: function () {
+                that.per_values = that.percentageValues(that.new_data);
+                that.funnel = that.funnelLayout()
+                                .data(that.new_data)
                                 .size([that.width,that.height])
                                 .mouth([that.rect_width,that.rect_height]);
 
-                that.coordinates = funnel.coordinates();
+                that.coordinates = that.funnel.coordinates();
                 var line = d3.svg.line()
                                 .interpolate('linear-closed')
                                 .x(function(d,i) { return d.x; })
                                 .y(function(d,i) { return d.y; });
 
-                that.path = that.group.selectAll('.fun-path')
+                that.chart_data = that.group.selectAll('.fun-path')
                                 .data(that.coordinates);
                 var a = [{x:0,y:0},{x:that.width,y:0},{x:0,y:0},{x:that.width,y:0},{x:0,y:0},{x:that.width,y:0}];
-                that.path.enter()
+                that.chart_data.enter()
                     .append('path')
                     .attr("class", "fun-path")
 
-                that.path
+                that.chart_data
                     .attr("class","fun-path")
                     .attr('d',function(d){ return line(a); })
 
                    	.attr("fill",function (d,i) {
-                        return that.fillChart.chartColor(that.newData1[i]);
+                        return that.fillChart.chartColor(that.new_data[i]);
         			})
                     .attr("stroke",that.border.color())
                     .attr("stroke-width",that.border.width())
                     .attr("stroke-dasharray", that.border.style())
                     .attr("stroke-opacity",1)
         			.on("mouseover", function (d,i) {
-                        that.mouseEvent1.highlight(options.selector +" "+".fun-path",this);
-                        tooltip = that.newData1[i].tooltip || "<table class='PykCharts'><tr><th colspan='3' class='tooltip-heading'>"+that.newData1[i].name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(that.newData1[i].weight)+"<td class='tooltip-right-content'>(&nbsp; "+that.pervalue[i].toFixed(2)+"%&nbsp) </tr></table>";
+                        that.onHoverEffect.highlight(options.selector +" "+".fun-path",this);
+                        tooltip = that.new_data[i].tooltip || "<table class='PykCharts'><tr><th colspan='3' class='tooltip-heading'>"+that.new_data[i].name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(that.new_data[i].weight)+"<td class='tooltip-right-content'>(&nbsp; "+that.per_values[i].toFixed(2)+"%&nbsp) </tr></table>";
             			that.mouseEvent.tooltipPosition(d);
                         that.mouseEvent.toolTextShow(tooltip);
         			})
         			.on("mouseout", function (d) {
-                        that.mouseEvent1.highlightHide(options.selector +" "+".fun-path");
+                        that.onHoverEffect.highlightHide(options.selector +" "+".fun-path");
             			that.mouseEvent.tooltipHide(d);
         			})
         			.on("mousemove", function (d,i) {
@@ -262,21 +262,21 @@ PykCharts.oneD.funnel = function (options) {
                     // .duration(that.transitions.duration())
                     .attr('d',function(d){ return line(d.values); });
 
-               that.path.exit()
+               that.chart_data.exit()
                    .remove();
 
                 return this;
             },
             label : function () {
 
-                    var pyr_text = that.group.selectAll("text")
+                that.chart_text = that.group.selectAll("text")
                     .data(that.coordinates)
 
-                    pyr_text.enter()
+                    that.chart_text.enter()
                         .append("text")
 
 
-                    pyr_text.attr("y",function (d,i) {
+                    that.chart_text.attr("y",function (d,i) {
                             if(d.values.length===4){
                                 return (((d.values[0].y-d.values[1].y)/2)+d.values[1].y) + 5;
                             } else {
@@ -284,8 +284,8 @@ PykCharts.oneD.funnel = function (options) {
                             }
                         })
                         .attr("x", function (d,i) { return that.width/2;})
-                    pyr_text.text(function (d,i) {
-                            return that.k.appendUnits(that.newData1[i].weight);
+                    that.chart_text.text(function (d,i) {
+                            return that.k.appendUnits(that.new_data[i].weight);
                          })
                         .attr("text-anchor","middle")
                         .attr("pointer-events","none")
@@ -296,35 +296,35 @@ PykCharts.oneD.funnel = function (options) {
                         .text(function (d,i) {
                             if(this.getBBox().width<(d.values[3].x - d.values[1].x) && this.getBBox().height < (d.values[2].y - d.values[0].y)) {
 
-                                return that.k.appendUnits(that.newData1[i].weight);
+                                return that.k.appendUnits(that.new_data[i].weight);
                             }
                             else {
                                 return "";
                             }
                         });
-                    pyr_text.exit()
+                    that.chart_text.exit()
                          .remove();
                 return this;
             },
             ticks : function () {
                 if(PykCharts.boolean(that.overflowTicks)) {
-                    that.svg.style("overflow","visible");
+                    that.svgContainer.style("overflow","visible");
                 }
                     
                 var w =[];
-                    var ticks_label = that.group.selectAll(".ticks_label")
+                    var tick_label = that.group.selectAll(".ticks_label")
                                         .data(that.coordinates);
 
-                    ticks_label.attr("class","ticks_label");
+                    tick_label.attr("class","ticks_label");
 
-                    ticks_label.enter()
+                    tick_label.enter()
                         .append("text")
                         .attr("x",0)
                         .attr("y",0);
 
                     var x,y;
 
-                    ticks_label.attr("transform",function (d) {
+                    tick_label.attr("transform",function (d) {
                         if (d.values.length === 4) {
                             x = ((d.values[3].x + d.values[2].x)/2 ) + 10;
                             y = ((d.values[0].y + d.values[2].y)/2) + 5;
@@ -334,14 +334,14 @@ PykCharts.oneD.funnel = function (options) {
                         }
                         return "translate(" + x + "," + y + ")";});
 
-                    ticks_label.text("")
+                    tick_label.text("")
                         // .transition()
                         // .delay(that.transitions.duration())
-                        .text(function (d,i) { return that.newData1[i].name; })
+                        .text(function (d,i) { return that.new_data[i].name; })
                         .text(function (d,i) {
                             w[i] = this.getBBox().height;
                             if (this.getBBox().height < (d.values[2].y - d.values[0].y)) {
-                                return that.newData1[i].name;
+                                return that.new_data[i].name;
                             }
                             else {
                                 return "";
@@ -353,15 +353,15 @@ PykCharts.oneD.funnel = function (options) {
                         .attr("pointer-events","none")
                         .attr("font-family", that.ticks.family);
 
-                    ticks_label.exit().remove();
-                    var line = that.group.selectAll(".funnel-ticks")
+                    tick_label.exit().remove();
+                    var tick_line = that.group.selectAll(".funnel-ticks")
                         .data(that.coordinates);
 
-                    line.enter()
+                    tick_line.enter()
                         .append("line")
                         .attr("class", "funnel-ticks");
 
-                    line
+                    tick_line
                         .attr("x1", function (d,i) {
                            if (d.values.length === 4) {
                                 return ((d.values[3].x + d.values[2].x)/2 );
@@ -412,67 +412,67 @@ PykCharts.oneD.funnel = function (options) {
 
                         });
 
-                    line.exit().remove();
+                    tick_line.exit().remove();
 
                 return this;
             },
             clubData : function () {
                 if(PykCharts.boolean(that.clubData.enable)) {
-                    var clubdataContent = [];
+                    var clubdata_content = [];
                     if(that.clubData.alwaysIncludeDataPoints.length!== 0){
                         var l = that.clubData.alwaysIncludeDataPoints.length;
                         for(i=0; i < l; i++){
-                            clubdataContent[i] = that.clubData.alwaysIncludeDataPoints[i];
+                            clubdata_content[i] = that.clubData.alwaysIncludeDataPoints[i];
                         }
                     }
-                    that.newData = [];
-                    for(i=0;i<clubdataContent.length;i++){
+                    var newData = [];
+                    for(i=0;i<clubdata_content.length;i++){
                         for(j=0;j<that.data.length;j++){
-                            if(clubdataContent[i].toUpperCase() === that.data[j].name.toUpperCase()){
-                                that.newData.push(that.data[j]);
+                            if(clubdata_content[i].toUpperCase() === that.data[j].name.toUpperCase()){
+                                newData.push(that.data[j]);
                             }
                         }
                     }
                     that.data.sort(function (a,b) { return b.weight - a.weight; });
                     var k = 0;
-                    while(that.newData.length<that.clubData.maximumNodes-1){
-                        for(i=0;i<clubdataContent.length;i++){
-                            if(that.data[k].name.toUpperCase() === clubdataContent[i].toUpperCase()){
+                    while(newData.length<that.clubData.maximumNodes-1){
+                        for(i=0;i<clubdata_content.length;i++){
+                            if(that.data[k].name.toUpperCase() === clubdata_content[i].toUpperCase()){
                                 k++;
                             }
                         }
-                        that.newData.push(that.data[k]);
+                        newData.push(that.data[k]);
                         k++;
                     }
-                    var weight = 0;
+                    var sum_others = 0;
                     for(j=k; j < that.data.length; j++){
-                        for(i=0; i<that.newData.length && j<that.data.length; i++){
-                            if(that.data[j].name.toUpperCase() === that.newData[i].name.toUpperCase()){
-                                weight +=0;
+                        for(i=0; i<newData.length && j<that.data.length; i++){
+                            if(that.data[j].name.toUpperCase() === newData[i].name.toUpperCase()){
+                                sum_others +=0;
                                 j++;
                                 i = -1;
                             }
                         }
                         if(j < that.data.length){
-                            weight += that.data[j].weight;
+                            sum_others += that.data[j].weight;
                         }
                     }
                     var sortfunc = function (a,b) { return b.weight - a.weight; };
-                    while(that.newData.length > that.clubData.maximumNodes){
-                        that.newData.sort(sortfunc);
-                        var a=that.newData.pop();
+                    while(newData.length > that.clubData.maximumNodes){
+                        newData.sort(sortfunc);
+                        var a=newData.pop();
                     }
 
-                    var otherSpan = { "name":that.clubData.text, "weight": weight, "color": that.clubData.color, "tooltip": (that.clubData.tooltip)};
-                    if(that.newData.length < that.clubData.maximumNodes){
-                        that.newData.push(otherSpan);
+                    var others_Slice = { "name":that.clubData.text, "weight": sum_others, "color": that.clubData.color, "tooltip": (that.clubData.tooltip)};
+                    if(newData.length < that.clubData.maximumNodes){
+                        newData.push(others_Slice);
                     }
-                    that.newData.sort(function (a,b) { return b.weight - a.weight; });
-                    that.newData1 = that.newData;
+                    newData.sort(function (a,b) { return b.weight - a.weight; });
+                    that.new_data = newData;
                 }
                 else {
                     that.data.sort(function (a,b) { return b.weight - a.weight; });
-                    that.newData1 = that.data;
+                    that.new_data = that.data;
                 }
                 return this;
             }
