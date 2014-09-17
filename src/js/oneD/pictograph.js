@@ -65,9 +65,9 @@ PykCharts.oneD.pictograph = function (options) {
             that.k.subtitle();
         }
 
-        var picto = that.optionalFeatures()
+        that.optionalFeatures()
                 .svgContainer()
-                .createPictograph()
+                .createChart()
                 .labelText()
                 .enableLabel();
         if(that.mode==="default") {
@@ -82,19 +82,19 @@ PykCharts.oneD.pictograph = function (options) {
             svgContainer: function () {
                 $(options.selector).css("background-color",that.bg);
 
-                that.svg = d3.select(options.selector).append('svg')
+                that.svgContainer = d3.select(options.selector).append('svg')
                     .attr("width",that.width)
                     .attr("height",that.height);
 
-                that.group = that.svg.append("g")
+                that.group = that.svgContainer.append("g")
                     .attr("transform", "translate(" + that.imageWidth + ",0)");
 
-                that.group1 = that.svg.append("g")
+                that.group1 = that.svgContainer.append("g")
                     .attr("transform","translate(0,"+ that.imageHeight +")");
 
                 return this;
             },
-            createPictograph: function () {
+            createChart: function () {
                 var a = 1,b=1;
 
                 that.optionalFeatures().showTotal();
