@@ -53,7 +53,7 @@ PykCharts.maps.timelineMap = function (options) {
 
             d3.json("https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/maps/" + that.mapCode + "-topo.json", function (data) {
                 that.map_data = data;
-                d3.json("https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/palette/colorPalette_datate.json", function (data) {
+                d3.json("https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/palette/colorPalette.json", function (data) {
 
                     that.color_palette_data = data;
 
@@ -135,9 +135,9 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
 
         if (that.mapCode==="world") {
             var center = [0,0];
-        } else { 
+        } else {
             var center = d3.geo.centroid(topojson.feature(that.map_data, that.map_data.objects));
-        }   
+        }
         var projection = d3.geo.mercator().center(center).scale(scale).translate(offset);
 
         that.path = d3.geo.path().projection(projection);
