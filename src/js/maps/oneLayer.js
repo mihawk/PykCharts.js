@@ -53,14 +53,8 @@ PykCharts.maps.timelineMap = function (options) {
 
             d3.json("https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/maps/" + that.mapCode + "-topo.json", function (data) {
                 that.map_data = data;
-
-<<<<<<< HEAD
-                d3.json("https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/palette/colorPalette.json", function (data) {
-                    that.color_palette_data = data;
-=======
                 d3.json("https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/palette/colorPalette_datate.json", function (data) {
-                    that.colorPalette_data = data;
->>>>>>> b908bca1f31186bc4d59602c8ffb893bcff10000
+                    that.color_palette_data = data;
 
                     var x_extent = d3.extent(that.timeline_data, function (d) { return d.timestamp; })
                     that.data = _.where(that.timeline_data, {timestamp: x_extent[0]});
@@ -96,7 +90,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
 
         that.current_palette = _.where(that.color_palette_data, {name:that.colors.palette, number:that.colors.total})[0];
         that.optionalFeatures()
-            .enableLegend(that.legends.enable);
+            .legends(that.legends.enable);
 
         $(options.selector).css("background-color",that.bg);
 
@@ -209,7 +203,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             });
 
         that.optionalFeatures()
-            .enableLabel(that.label.enable)
+            .label(that.label.enable)
             .enableClick(that.enableClick);
 
             that.k.credits();
@@ -222,13 +216,13 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
 
     that.optionalFeatures = function () {
         var config = {
-            enableLegend: function (el) {
+            legends: function (el) {
                 if (PykCharts.boolean(el)) {
                     that.renderLegend();
                 };
                 return this;
             },
-            enableLabel: function (el) {
+            label: function (el) {
                 if (PykCharts.boolean(el)) {
                     that.renderLabel();
                 };
@@ -307,7 +301,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             onetenth;
 
         if (that.colors.type === "saturation") {
-            that.legs = d3.select(that.selector)
+            that.legendsContainer = d3.select(that.selector)
                 .append("svg")
                 .attr("id", "legend-container")
                 .attr("width", that.width)
@@ -316,10 +310,10 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             if(that.legends.display === "vertical" ) {
                 var j = 0, i = 0;
                 if(that.colors.palette === "") {
-                    that.legs.attr("height", (9 * 30)+20);
+                    that.legendsContainer.attr("height", (9 * 30)+20);
                 }
                 else {
-                    that.legs.attr("height", (that.current_palette.number * 30)+20);
+                    that.legendsContainer.attr("height", (that.current_palette.number * 30)+20);
                 }
                 text_parameter1 = "x";
                 text_parameter2 = "y";
@@ -341,9 +335,10 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     j = 9, i = 9;
                 }
                 else {
-                    j = that.current_palette.number, i = that.current_palette.number;                    that.legs.attr("height", (that.current_palette.number * 30)+20);
+                    j = that.current_palette.number, i = that.current_palette.number;
+                    that.legendsContainer.attr("height", (that.current_palette.number * 30)+20);
                 }
-                that.legs.attr("height", 50);
+                that.legendsContainer.attr("height", 50);
                 text_parameter1 = "x";
                 text_parameter2 = "y";
                 rect_parameter1 = "width";
@@ -363,7 +358,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             for (k = 1; k <= 9; k++) {
                 onetenth = d3.format(".1f")(that.extent_size[1] / 9);
                 that.leg = d3.round(onetenth * k);
-                that.legs.append("rect")
+                that.legendsContainer.append("rect")
                     .attr("x", function (d) {
                         rect_parameter3value(d,k);
                     })
@@ -375,7 +370,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     .attr("fill", that.defaultColor)
                     .attr("opacity", k / 9);
 
-                that.legs.append("text")
+                that.legendsContainer.append("text")
                     .attr("x", text_parameter1value)
                     .attr("y", text_parameter2value)
                     .style("font-size", 10)
@@ -385,14 +380,14 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         } else {
             for (k = 1; k <= that.current_palette.number; k++) {
                 that.leg = d3.round(that.extent_size[0] + k * (that.difference / that.current_palette.number));
-                that.legs.append("rect")
+                that.legendsContainer.append("rect")
                     .attr("x",rect_parameter3value)
                     .attr("y", rect_parameter4value)
                     .attr("width", rect_parameter1value)
                     .attr("height", rect_parameter2value)
                     .attr("fill", that.current_palette.colors[k - 1]);
 
-                that.legs.append("text")
+                that.legendsContainer.append("text")
                     .attr("x", text_parameter1value)
                     .attr("y",text_parameter2value)
                     .style("font-size", 10)
@@ -511,12 +506,12 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         var startTimeline = function () {
             if (timeline_status==="playing") {
                 play.attr("xlink:href","https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/play.gif");
-                clearInterval(that.playInterval);
+                clearInterval(that.play_interval);
                 timeline_status = "paused";
             } else {
                 timeline_status = "playing";
                 play.attr("xlink:href","https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/pause.gif");
-                that.playInterval = setInterval(function () {
+                that.play_interval = setInterval(function () {
 
                     marker
                         // .transition()
@@ -537,21 +532,21 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     interval++;
 
                     if (interval===unique.length) {
-                        clearInterval(that.playInterval);
+                        clearInterval(that.play_interval);
                     };
                 }, that.timeline.duration);
 
-                var timelag = setTimeout(function () {
-                    var undoHeatmap = setInterval(function () {
+                var time_lag = setTimeout(function () {
+                    var undo_heatmap = setInterval(function () {
                         interval1++;
 
                         if (interval1 === interval) {
                             clearInterval(undoHeatmap);
-                            clearTimeout(timelag)
+                            clearTimeout(time_lag)
                         }
 
                         if (interval1===unique.length) {
-                            clearInterval(undoHeatmap);
+                            clearInterval(undo_heatmap);
                             play.attr("xlink:href","https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/play.gif");
                             marker.attr("x",  (that.timeline.margin.left*2) + that.xScale(unique[0]) - 7);
                             interval = interval1 = 1;
