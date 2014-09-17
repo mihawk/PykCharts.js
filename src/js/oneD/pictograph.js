@@ -4,33 +4,46 @@ PykCharts.oneD.pictograph = function (options) {
 
     this.execute = function () {
         that = new PykCharts.oneD.processInputs(that, options);
-
         var optional = options.optional
         ,functionality = theme.oneDimensionalCharts;
-        that.showTotal = optional && optional.pictograph && optional.pictograph.showTotal ? optional.pictograph.showTotal : functionality.pictograph.showTotal;
-        that.enableTotal = optional && optional.pictograph && optional.pictograph.enableTotal ? optional.pictograph.enableTotal : functionality.pictograph.enableTotal;
-        that.enableCurrent = optional && optional.pictograph && optional.pictograph.enableCurrent ? optional.pictograph.enableCurrent : functionality.pictograph.enableCurrent;
-        that.imgperline = optional && optional.pictograph && optional.pictograph.imagePerLine ?  optional.pictograph.imagePerLine : functionality.pictograph.imagePerLine;
-        if (optional && optional.pictograph && optional.pictograph.activeText) {
-            that.activeText = optional.pictograph.activeText;
-            that.activeText.size = optional.pictograph.activeText.size ? optional.pictograph.activeText.size : functionality.pictograph.activeText.size;
-            that.activeText.color = optional.pictograph.activeText.color ? optional.pictograph.activeText.color : functionality.pictograph.activeText.color;
-            that.activeText.weight = optional.pictograph.activeText.weight ? optional.pictograph.activeText.weight : functionality.pictograph.activeText.weight;
-            that.activeText.family = optional.pictograph.activeText.family ? optional.pictograph.activeText.family : functionality.pictograph.activeText.family;
-        } else {
-            that.activeText = functionality.pictograph.activeText;
-        }
-        if (optional && optional.pictograph && optional.pictograph.inactiveText) {
-            that.inactiveText = optional.pictograph.inactiveText;
-            that.inactiveText.size = optional.pictograph.inactiveText.size ? optional.pictograph.inactiveText.size : functionality.pictograph.inactiveText.size;
-            that.inactiveText.color = optional.pictograph.inactiveText.color ? optional.pictograph.inactiveText.color : functionality.pictograph.inactiveText.color;
-            that.inactiveText.weight = optional.pictograph.inactiveText.weight ? optional.pictograph.inactiveText.weight : functionality.pictograph.inactiveText.weight;
-            that.inactiveText.family = optional.pictograph.inactiveText.family ? optional.pictograph.inactiveText.family : functionality.pictograph.inactiveText.family;
-        } else {
-            that.inactiveText = functionality.pictograph.inactiveText;
-        }
-        that.imageWidth = optional && optional.pictograph && optional.pictograph.imageWidth ? optional.pictograph.imageWidth : functionality.pictograph.imageWidth;
-        that.imageHeight = optional && optional.pictograph && optional.pictograph.imageHeight ? optional.pictograph.imageHeight : functionality.pictograph.imageHeight;
+        that.showTotal = options.pictograph_showTotal ? options.pictograph_showTotal : functionality.pictograph_showTotal;
+        that.enableTotal = options.pictograph_enableTotal ? options.pictograph_enableTotal : functionality.pictograph_enableTotal;
+        that.enableCurrent = options.pictograph_enableCurrent ? options.pictograph_enableCurrent : functionality.pictograph_enableCurrent;
+        that.imgperline = options.pictograph_imagePerLine ?  options.pictograph_imagePerLine : functionality.pictograph_imagePerLine;
+        that.activeText_size = options.pictograph_activeText_size ? options.pictograph_activeText_size : functionality.pictograph_activeText_size;
+        that.activeText_color = options.pictograph_activeText_color ? options.pictograph_activeText_color : functionality.pictograph_activeText_color;
+        that.activeText_weight = options.pictograph_activeText_weight ? options.pictograph_activeText_weight : functionality.pictograph_activeText_weight;
+        that.activeText_family = options.pictograph_activeText_family ? options.pictograph_activeText_family : functionality.pictograph_activeText_family;
+        that.inactiveText_size = options.pictograph_inactiveText_size ? options.pictograph_inactiveText_size : functionality.pictograph_inactiveText_size;
+        that.inactiveText_color = options.pictograph_inactiveText_color ? options.pictograph_inactiveText_color : functionality.pictograph_inactiveText_color;
+        that.inactiveText_weight = options.pictograph_inactiveText_weight ? options.pictograph_inactiveText_weight : functionality.pictograph_inactiveText_weight;
+        that.inactiveText_family = options.pictograph_inactiveText_family ? options.pictograph_inactiveText_family : functionality.pictograph_inactiveText_family;
+        that.imageWidth =  options.pictograph_imageWidth ? options.pictograph_imageWidth : functionality.pictograph_imageWidth;
+        that.imageHeight = options.pictograph_imageHeight ? options.pictograph_imageHeight : functionality.pictograph_imageHeight;
+        // that.showTotal = optional && optional.pictograph && optional.pictograph.showTotal ? optional.pictograph.showTotal : functionality.pictograph.showTotal;
+        // that.enableTotal = optional && optional.pictograph && optional.pictograph.enableTotal ? optional.pictograph.enableTotal : functionality.pictograph.enableTotal;
+        // that.enableCurrent = optional && optional.pictograph && optional.pictograph.enableCurrent ? optional.pictograph.enableCurrent : functionality.pictograph.enableCurrent;
+        // that.imgperline = optional && optional.pictograph && optional.pictograph.imagePerLine ?  optional.pictograph.imagePerLine : functionality.pictograph.imagePerLine;
+        // if (optional && optional.pictograph && optional.pictograph.activeText) {
+        //     that.activeText = optional.pictograph.activeText;
+        //     that.activeText.size = optional.pictograph.activeText.size ? optional.pictograph.activeText.size : functionality.pictograph.activeText.size;
+        //     that.activeText.color = optional.pictograph.activeText.color ? optional.pictograph.activeText.color : functionality.pictograph.activeText.color;
+        //     that.activeText.weight = optional.pictograph.activeText.weight ? optional.pictograph.activeText.weight : functionality.pictograph.activeText.weight;
+        //     that.activeText.family = optional.pictograph.activeText.family ? optional.pictograph.activeText.family : functionality.pictograph.activeText.family;
+        // } else {
+        //     that.activeText = functionality.pictograph.activeText;
+        // }
+        // if (optional && optional.pictograph && optional.pictograph.inactiveText) {
+        //     that.inactiveText = optional.pictograph.inactiveText;
+        //     that.inactiveText.size = optional.pictograph.inactiveText.size ? optional.pictograph.inactiveText.size : functionality.pictograph.inactiveText.size;
+        //     that.inactiveText.color = optional.pictograph.inactiveText.color ? optional.pictograph.inactiveText.color : functionality.pictograph.inactiveText.color;
+        //     that.inactiveText.weight = optional.pictograph.inactiveText.weight ? optional.pictograph.inactiveText.weight : functionality.pictograph.inactiveText.weight;
+        //     that.inactiveText.family = optional.pictograph.inactiveText.family ? optional.pictograph.inactiveText.family : functionality.pictograph.inactiveText.family;
+        // } else {
+        //     that.inactiveText = functionality.pictograph.inactiveText;
+        // }
+        // that.imageWidth = optional && optional.pictograph && optional.pictograph.imageWidth ? optional.pictograph.imageWidth : functionality.pictograph.imageWidth;
+        // that.imageHeight = optional && optional.pictograph && optional.pictograph.imageHeight ? optional.pictograph.imageHeight : functionality.pictograph.imageHeight;
 
         if(that.mode === "default") {
            that.k.loading();
@@ -52,9 +65,9 @@ PykCharts.oneD.pictograph = function (options) {
             that.k.subtitle();
         }
 
-        var picto = that.optionalFeatures()
+        that.optionalFeatures()
                 .svgContainer()
-                .createPictograph()
+                .createChart()
                 .labelText()
                 .enableLabel();
         if(that.mode==="default") {
@@ -69,19 +82,19 @@ PykCharts.oneD.pictograph = function (options) {
             svgContainer: function () {
                 $(options.selector).css("background-color",that.bg);
 
-                that.svg = d3.select(options.selector).append('svg')
+                that.svgContainer = d3.select(options.selector).append('svg')
                     .attr("width",that.width)
                     .attr("height",that.height);
 
-                that.group = that.svg.append("g")
+                that.group = that.svgContainer.append("g")
                     .attr("transform", "translate(" + that.imageWidth + ",0)");
 
-                that.group1 = that.svg.append("g")
+                that.group1 = that.svgContainer.append("g")
                     .attr("transform","translate(0,"+ that.imageHeight +")");
 
                 return this;
             },
-            createPictograph: function () {
+            createChart: function () {
                 var a = 1,b=1;
 
                 that.optionalFeatures().showTotal();
@@ -133,9 +146,9 @@ PykCharts.oneD.pictograph = function (options) {
                     var textHeight;
                      this.labelText();
                      that.group1.append("text")
-                        .attr("font-family",that.inactiveText.family)
-                        .attr("font-size",that.inactiveText.size)
-                        .attr("fill",that.inactiveText.color)
+                        .attr("font-family",that.inactiveText_family)
+                        .attr("font-size",that.inactiveText_size)
+                        .attr("fill",that.inactiveText_color)
                         .text("/"+that.data[0].weight)
                         .text(function () {
                             textHeight =this.getBBox().height;
@@ -151,9 +164,9 @@ PykCharts.oneD.pictograph = function (options) {
                     var textHeight;
                     that.group1.append("text")
                         .attr("x", 0)
-                        .attr("font-family",that.activeText.family)
-                        .attr("font-size",that.activeText.size)
-                        .attr("fill",that.activeText.color)
+                        .attr("font-family",that.activeText_family)
+                        .attr("font-size",that.activeText_size)
+                        .attr("fill",that.activeText_color)
                         .text(that.data[1].weight)
                         .text(function () {
                             textHeight =this.getBBox().height;
