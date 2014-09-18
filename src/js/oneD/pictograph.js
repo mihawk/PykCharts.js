@@ -71,7 +71,8 @@ PykCharts.oneD.pictograph = function (options) {
                 .labelText()
                 .enableLabel();
         if(that.mode==="default") {
-            that.k.credits()
+            that.k.createFooter()
+                .credits()
                 .dataSource();
         }
     };

@@ -26,7 +26,8 @@ PykCharts.oneD.treemap = function (options){
             that.optionalFeatures()
                 .clubData()
                 .createChart()
-                .label();
+                .label()
+            that.k.lastUpdatedAt("liveData");
         });
     };
 
@@ -56,6 +57,8 @@ PykCharts.oneD.treemap = function (options){
             .label();
         if(that.mode === "default") {
             that.k.liveData(that)
+                .createFooter()
+                .lastUpdatedAt()
                 .credits()
                 .dataSource();
         }

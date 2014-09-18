@@ -12,7 +12,7 @@ PykCharts.oneD.pyramid = function (options) {
         d3.json(options.data, function (e,data) {
 			that.data = data.groupBy("oned");
             $(options.selector+" #chart-loader").remove();
-			that.clubData_enable = that.data.length>that.clubData_maximumNodes ? that.clubData_enable : "no";
+			that.clubData_enable = that.data.length > that.clubData_maximumNodes ? that.clubData_enable : "no";
             that.render();
 		});
         // that.clubData.enable = that.data.length>that.clubData.maximumNodes ? that.clubData.enable : "no";
@@ -26,6 +26,7 @@ PykCharts.oneD.pyramid = function (options) {
                     .createChart()
                     .label()
                     .ticks();
+            that.k.lastUpdatedAt("liveData");
         });
     };
 
@@ -44,7 +45,9 @@ PykCharts.oneD.pyramid = function (options) {
                 .label()
                 .ticks();
 
-            that.k.credits()
+            that.k.createFooter()
+                .lastUpdatedAt()
+                .credits()
                 .dataSource()
                 .tooltip()
                 .liveData(that);

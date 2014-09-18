@@ -229,6 +229,37 @@ PykCharts.Configuration = function (options){
             }
             return this;
         },
+        createFooter : function () {
+            d3.select(options.selector).append("table")
+                .attr("id","footer")
+                .style("background", options.bg)
+                .attr("width",options.width+"px");
+            return this;
+        },
+        lastUpdatedAt : function (a) {
+            if(PykCharts.boolean(options.realTimeCharts_refreshFrequency) && PykCharts.boolean(options.realTimeCharts_enableLastUpdatedAt)) {
+                if(a === "liveData"){
+                    var currentdate = new Date();
+                    var date = currentdate.getDate() + "/"+(currentdate.getMonth()+1) 
+                        + "/" + currentdate.getFullYear() + " " 
+                        + currentdate.getHours() + ":" 
+                        + currentdate.getMinutes() + ":" + currentdate.getSeconds();
+                    $(options.selector+" #lastUpdatedAt").html("<span style='pointer-events:none;'>Last Updated At: </span><span style='pointer-events:none;'>"+ date +"</span>");
+                } else {
+                    var currentdate = new Date();
+                    console.log(currentdate.getDate());
+                    var date = currentdate.getDate() + "/"+(currentdate.getMonth()+1) 
+                        + "/" + currentdate.getFullYear() + " " 
+                        + currentdate.getHours() + ":" 
+                        + currentdate.getMinutes() + ":" + currentdate.getSeconds();
+                    d3.select(options.selector+" #footer")
+                        .append("tr")
+                        .attr("class","PykCharts-credits")
+                        .html("<td colspan=2 style='text-align:right' id='lastUpdatedAt'><span style='pointer-events:none;'>Last Updated At: </span><span style='pointer-events:none;'>"+ date +"</span></tr>")
+                }
+            }
+            return this;
+        },
 	    credits : function () {
             if(PykCharts.boolean(options.creditMySite_name) || PykCharts.boolean(options.creditMySite_url)) {
                 // var credit = options.creditMySite;
@@ -247,11 +278,7 @@ PykCharts.Configuration = function (options){
                 // if(credit.mySiteUrl === "") {
                 //     enable = false;
                 // }
-                d3.select(options.selector).append("table")
-                    .attr("id","footer")
-                    .style("background", options.bg)
-                    .attr("width",options.width+"px")
-                    .append("tr")
+                d3.select(options.selector+" #footer").append("tr")
                     .attr("class","PykCharts-credits")
                     .append("td")
                     .style("text-align","left")

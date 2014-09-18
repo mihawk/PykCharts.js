@@ -229,6 +229,37 @@ PykCharts.Configuration = function (options){
             }
             return this;
         },
+        createFooter : function () {
+            d3.select(options.selector).append("table")
+                .attr("id","footer")
+                .style("background", options.bg)
+                .attr("width",options.width+"px");
+            return this;
+        },
+        lastUpdatedAt : function (a) {
+            if(PykCharts.boolean(options.realTimeCharts_refreshFrequency) && PykCharts.boolean(options.realTimeCharts_enableLastUpdatedAt)) {
+                if(a === "liveData"){
+                    var currentdate = new Date();
+                    var date = currentdate.getDate() + "/"+(currentdate.getMonth()+1) 
+                        + "/" + currentdate.getFullYear() + " " 
+                        + currentdate.getHours() + ":" 
+                        + currentdate.getMinutes() + ":" + currentdate.getSeconds();
+                    $(options.selector+" #lastUpdatedAt").html("<span style='pointer-events:none;'>Last Updated At: </span><span style='pointer-events:none;'>"+ date +"</span>");
+                } else {
+                    var currentdate = new Date();
+                    console.log(currentdate.getDate());
+                    var date = currentdate.getDate() + "/"+(currentdate.getMonth()+1) 
+                        + "/" + currentdate.getFullYear() + " " 
+                        + currentdate.getHours() + ":" 
+                        + currentdate.getMinutes() + ":" + currentdate.getSeconds();
+                    d3.select(options.selector+" #footer")
+                        .append("tr")
+                        .attr("class","PykCharts-credits")
+                        .html("<td colspan=2 style='text-align:right' id='lastUpdatedAt'><span style='pointer-events:none;'>Last Updated At: </span><span style='pointer-events:none;'>"+ date +"</span></tr>")
+                }
+            }
+            return this;
+        },
 	    credits : function () {
             if(PykCharts.boolean(options.creditMySite_name) || PykCharts.boolean(options.creditMySite_url)) {
                 // var credit = options.creditMySite;
@@ -247,11 +278,7 @@ PykCharts.Configuration = function (options){
                 // if(credit.mySiteUrl === "") {
                 //     enable = false;
                 // }
-                d3.select(options.selector).append("table")
-                    .attr("id","footer")
-                    .style("background", options.bg)
-                    .attr("width",options.width+"px")
-                    .append("tr")
+                d3.select(options.selector+" #footer").append("tr")
                     .attr("class","PykCharts-credits")
                     .append("td")
                     .style("text-align","left")
@@ -1637,6 +1664,7 @@ PykCharts.oneD.bubble = function (options) {
             that.optionalFeatures()
                 .createChart()
                 .label();
+            that.k.lastUpdatedAt("liveData");
         });
     };
 
@@ -1652,7 +1680,9 @@ PykCharts.oneD.bubble = function (options) {
                 .createChart()
                 .label();
 
-            that.k.credits()
+            that.k.createFooter()
+                .lastUpdatedAt()
+                .credits()
                 .dataSource()
                 .liveData(that)
                 .tooltip();
@@ -1899,7 +1929,8 @@ PykCharts.oneD.funnel = function (options) {
                     .clubData()
                     .createChart()
                     .label()
-                    .ticks()
+                    .ticks();
+            that.k.lastUpdatedAt("liveData");
         });
     };
 
@@ -1930,6 +1961,8 @@ PykCharts.oneD.funnel = function (options) {
         if(that.mode === "default") {
             that.optionalFeatures().ticks();
             that.k.liveData(that)
+                .createFooter()
+                .lastUpdatedAt()
                 .credits()
                 .dataSource();
         }
@@ -2376,6 +2409,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                     .createChart()
                     .label()
                     .ticks();
+            that.k.lastUpdatedAt("liveData");
         });
     };
 
@@ -2407,6 +2441,8 @@ PykCharts.oneD.percentageColumn = function (options) {
         if(that.mode === "default") {
             that.optionalFeatures().ticks()
             that.k.liveData(that)
+                .createFooter()
+                .lastUpdatedAt()
                 .credits()
                 .dataSource();
         }
@@ -2773,7 +2809,8 @@ PykCharts.oneD.pictograph = function (options) {
                 .labelText()
                 .enableLabel();
         if(that.mode==="default") {
-            that.k.credits()
+            that.k.createFooter()
+                .credits()
                 .dataSource();
         }
     };
@@ -2989,6 +3026,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                     .label()
                     .ticks()
                     .centerLabel();
+            that.k.lastUpdatedAt("liveData");
         });
     };
 
@@ -3013,7 +3051,9 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
             that.optionalFeatures().svgContainer();
             that.new_data = that.optionalFeatures().clubData();
 
-            that.k.credits()
+            that.k.createFooter()
+                    .lastUpdatedAt()
+                    .credits()
                     .dataSource()
                     .tooltip();
 
@@ -3536,7 +3576,7 @@ PykCharts.oneD.pyramid = function (options) {
         d3.json(options.data, function (e,data) {
 			that.data = data.groupBy("oned");
             $(options.selector+" #chart-loader").remove();
-			that.clubData_enable = that.data.length>that.clubData_maximumNodes ? that.clubData_enable : "no";
+			that.clubData_enable = that.data.length > that.clubData_maximumNodes ? that.clubData_enable : "no";
             that.render();
 		});
         // that.clubData.enable = that.data.length>that.clubData.maximumNodes ? that.clubData.enable : "no";
@@ -3550,6 +3590,7 @@ PykCharts.oneD.pyramid = function (options) {
                     .createChart()
                     .label()
                     .ticks();
+            that.k.lastUpdatedAt("liveData");
         });
     };
 
@@ -3568,7 +3609,9 @@ PykCharts.oneD.pyramid = function (options) {
                 .label()
                 .ticks();
 
-            that.k.credits()
+            that.k.createFooter()
+                .lastUpdatedAt()
+                .credits()
                 .dataSource()
                 .tooltip()
                 .liveData(that);
@@ -4053,7 +4096,8 @@ PykCharts.oneD.treemap = function (options){
             that.optionalFeatures()
                 .clubData()
                 .createChart()
-                .label();
+                .label()
+            that.k.lastUpdatedAt("liveData");
         });
     };
 
@@ -4083,6 +4127,8 @@ PykCharts.oneD.treemap = function (options){
             .label();
         if(that.mode === "default") {
             that.k.liveData(that)
+                .createFooter()
+                .lastUpdatedAt()
                 .credits()
                 .dataSource();
         }
