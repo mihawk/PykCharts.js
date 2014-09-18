@@ -264,6 +264,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                 that.sorted_weight = that.weight.slice(0);
                 that.sorted_weight.sort(function(a,b) { return a-b; });
 
+
                 that.group.append("text")
                     .attr("fill", "black")
                     .attr("text-anchor", "end")
