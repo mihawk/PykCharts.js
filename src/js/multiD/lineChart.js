@@ -131,8 +131,10 @@ PykCharts.multiD.lineChart = function (options){
 						.yGrid(that.svgContainer,that.group,that.yScale)
 						.xGrid(that.svgContainer,that.group,that.xScale);
 			}
-			that.k.credits()
-					.dataSource();
+			that.k.createFooter()
+                .lastUpdatedAt()
+                .credits()
+                .dataSource();
 		}
 		else if(that.mode === "infographics") {
 			that.w = that.width;
@@ -165,7 +167,8 @@ PykCharts.multiD.lineChart = function (options){
 			that.k.xAxis(that.svgContainer,that.xGroup,that.xScale)
 					.yAxis(that.svgContainer,that.yGroup,that.yScale)
 					.yGrid(that.svgContainer,that.group,that.yScale)
-					.xGrid(that.svgContainer,that.group,that.xScale);
+					.xGrid(that.svgContainer,that.group,that.xScale)
+					.lastUpdatedAt("liveData");
 		});
 	};
 

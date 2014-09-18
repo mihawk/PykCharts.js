@@ -29,13 +29,14 @@ PykCharts.multiD.barChart = function(options){
             that.the_keys = fD[1];
             that.the_layers = that.buildLayers(that.the_bars);
             if(that.no_of_groups === 1) {
-                that.legends.enable = "no";
+                that.legends_enable = "no";
             }
             that.optionalFeatures()
                     .createChart()
                     .legends()
                     .ticks();
-            that.k.xAxis(that.svgContainer,that.xGroup,that.xScale);
+            that.k.xAxis(that.svgContainer,that.xGroup,that.xScale)
+                .lastUpdatedAt("liveData");
         });
     };
 
@@ -71,10 +72,12 @@ PykCharts.multiD.barChart = function(options){
                 .legendsContainer(1)
                 .svgContainer(1);
 
-            that.k.credits()
-                .dataSource()
-                .liveData(that)
-                .tooltip();
+            that.k.liveData(that)
+                .tooltip()
+                .createFooter()
+                .lastUpdatedAt()
+                .credits()
+                .dataSource();
 
             that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
 

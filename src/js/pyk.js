@@ -208,8 +208,8 @@ PykCharts.Configuration = function (options){
                         + "'>" +
                         options.title_text +
                         "</span>");
-            console.log($(options.selector + " " + "#title"));
-            console.log(options.title_text,options.selector);
+            // console.log($(options.selector + " " + "#title"));
+            // console.log(options.title_text,options.selector);
 	        }
 	        return this;
 	    },
@@ -248,7 +248,7 @@ PykCharts.Configuration = function (options){
                     $(options.selector+" #lastUpdatedAt").html("<span style='pointer-events:none;'>Last Updated At: </span><span style='pointer-events:none;'>"+ date +"</span>");
                 } else {
                     var currentdate = new Date();
-                    console.log(currentdate.getDate());
+                    // console.log(currentdate.getDate());
                     var date = currentdate.getDate() + "/"+(currentdate.getMonth()+1) 
                         + "/" + currentdate.getFullYear() + " " 
                         + currentdate.getHours() + ":" 
@@ -519,7 +519,7 @@ PykCharts.Configuration = function (options){
                 gsvg.style("stroke",function () { return options.axis_y_axisColor; })
                     .call(yaxis);
     
-                console.log(options.axis_y_axisColor,yaxis,"in y axis");
+                // console.log(options.axis_y_axisColor,yaxis,"in y axis");
                 gsvg.selectAll(options.selector + " g.y.axis text").attr("pointer-events","none");
             }
             return this;
@@ -983,8 +983,8 @@ configuration.makeYAxis = function(options,yScale) {
                     })
                     .tickFormat(d3.format(",.0f"));
 
-                    console.log(yaxis.ticks(),yaxis,/*yaxis.tickSize(),yaxis.tickPadding(),yaxis.tickFormat
-                        (),*/"erroeeeeeeeeeeeeeeeee");
+                    //console.log(yaxis.ticks(),yaxis,/*yaxis.tickSize(),yaxis.tickPadding(),yaxis.tickFormat
+                    //    (),*/"erroeeeeeeeeeeeeeeeee");
     return yaxis;
 };
 
