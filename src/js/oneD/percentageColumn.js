@@ -136,8 +136,8 @@ PykCharts.oneD.percentageColumn = function (options) {
                     .on("mousemove", function (d,i) {
                         that.mouseEvent.tooltipPosition(d);
                     })
-                    // .transition()
-                    // .duration(that.transitions.duration())
+                    .transition()
+                    .duration(that.transitions.duration())
                     .attr('height', function (d) {
                         return d.percentValue * that.height / 100;
                     });
@@ -180,23 +180,29 @@ PykCharts.oneD.percentageColumn = function (options) {
                                 }
                             });
                     sum = 0;
+
                     that.chart_text.text("")
-                    //     .transition()
-                    //     .delay(that.transitions.duration())
-                    that.chart_text.text(function (d) { return that.k.appendUnits(d.weight); })
+                        .attr("fill", that.label_color)
+                        .style("font-size", that.label_size)
                         .attr("text-anchor","middle")
                         .attr("pointer-events","none")
                         .style("font-weight", that.label_weight)
-                        .style("font-size", that.label_size)
-                        .attr("fill", that.label_color)
-                        .style("font-family", that.label_family)
-                        .text(function (d) {
-                            if(this.getBBox().width < (that.width/4) && this.getBBox().height < (d.percentValue * that.height / 100)) {
-                                return that.k.appendUnits(d.weight);
-                            }else {
-                                return "";
-                            }
-                        });
+                        .style("font-family", that.label_family);
+                        // .transition()
+                        // .delay(that.transitions.duration())
+
+                        setTimeout(function(){
+                            that.chart_text.text(function (d) { return that.k.appendUnits(d.weight); })
+                                .text(function (d) {
+                                    if(this.getBBox().width < (that.width/4) && this.getBBox().height < (d.percentValue * that.height / 100)) {
+                                        return that.k.appendUnits(d.weight);
+                                    }else {
+                                        return "";
+                                    }
+                                });        
+                        }, that.transitions.duration());
+
+
                     that.chart_text.exit()
                         .remove();
                 return this;
@@ -205,10 +211,18 @@ PykCharts.oneD.percentageColumn = function (options) {
                 if(PykCharts.boolean(that.overflowTicks)) {
                     that.svgContainer.style("overflow","visible");
                 }
-                    var sum = 0,sum1=0;
+                    var sum = 0, sum1 = 0;
                     
-                    var x,y,w = [];
+                    var x, y, w = [];
                     sum = 0;
+
+                    var tick_line = that.group.selectAll(".per-ticks")
+                        .data(that.new_data);
+
+                    tick_line.enter()
+                        .append("line")
+                        .attr("class", "per-ticks");
+
                     var tick_label = that.group.selectAll(".ticks_label")
                                         .data(that.new_data);
 
@@ -226,18 +240,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                         });
 
                     tick_label.text(function (d) {
-                            return d.name;
-                        })
-                        // .transition()
-                        // .delay(that.transitions.duration())
-                        .text(function (d,i) {
-                            w[i] = this.getBBox().height;
-                            if (this.getBBox().height < (d.percentValue * that.height / 100)) {
-                                return d.name;
-                            }
-                            else {
-                                return "";
-                            }
+                            return "";
                         })
                         .attr("font-size", that.ticks_size)
                         .attr("text-anchor","start")
@@ -245,49 +248,59 @@ PykCharts.oneD.percentageColumn = function (options) {
                         .attr("font-family", that.ticks_family)
                         .attr("pointer-events","none");
 
+                        setTimeout(function() {
+                            tick_label.text(function (d) {
+                                return d.name;
+                            })
+                            .text(function (d,i) {
+                                w[i] = this.getBBox().height;
+                                if (this.getBBox().height < (d.percentValue * that.height / 100)) {
+                                    return d.name;
+                                }
+                                else {
+                                    return "";
+                                }
+                            });
+
+                            sum = 0;
+                            tick_line
+                                .attr("x1", function (d,i) {
+                                    return that.width/3 + that.width/4;
+                                })
+                                .attr("y1", function (d,i) {
+                                    sum = sum + d.percentValue;
+                                    if (i===0){
+                                        return (0 + (sum * that.height / 100))/2;
+                                    }else {
+                                        return (((sum - d.percentValue) * that.height/100)+(sum * that.height / 100))/2;
+                                    }
+                                })
+                                .attr("x2", function (d, i) {
+                                     return that.width/3 + (that.width/4);
+                                })
+                                .attr("y2", function (d,i) {
+                                    sum1 = sum1 + d.percentValue;
+                                    if (i===0){
+                                        return (0 + (sum1 * that.height / 100))/2;
+                                    }else {
+                                        return (((sum1 - d.percentValue) * that.height/100)+(sum1 * that.height / 100))/2;
+                                    }
+                                })
+                                .attr("stroke-width", that.ticks_strokeWidth)
+                                .attr("stroke", that.ticks_color)
+                                // .transition()
+                                // .duration(that.transitions.duration())
+                                .attr("x2", function (d, i) {
+                                    if((d.percentValue * that.height / 100) > w[i]) {
+                                        return that.width/3 + (that.width/4) + 5;
+                                    } else {
+                                        return that.width/3 + (that.width/4) ;
+                                    }
+                                });
+                        },that.transitions.duration());
+
                     tick_label.exit().remove();
-                    sum = 0;
-                    var tick_line = that.group.selectAll(".per-ticks")
-                        .data(that.new_data);
 
-                    tick_line.enter()
-                        .append("line")
-                        .attr("class", "per-ticks");
-
-                    tick_line
-                        .attr("x1", function (d,i) {
-                            return that.width/3 + that.width/4;
-                        })
-                        .attr("y1", function (d,i) {
-                            sum = sum + d.percentValue;
-                            if (i===0){
-                                return (0 + (sum * that.height / 100))/2;
-                            }else {
-                                return (((sum - d.percentValue) * that.height/100)+(sum * that.height / 100))/2;
-                            }
-                        })
-                        .attr("x2", function (d, i) {
-                             return that.width/3 + (that.width/4);
-                        })
-                        .attr("y2", function (d,i) {
-                            sum1 = sum1 + d.percentValue;
-                            if (i===0){
-                                return (0 + (sum1 * that.height / 100))/2;
-                            }else {
-                                return (((sum1 - d.percentValue) * that.height/100)+(sum1 * that.height / 100))/2;
-                            }
-                        })
-                        .attr("stroke-width", that.ticks_strokeWidth)
-                        .attr("stroke", that.ticks_color)
-                        // .transition()
-                        // .duration(that.transitions.duration())
-                        .attr("x2", function (d, i) {
-                            if((d.percentValue * that.height / 100) > w[i]) {
-                                return that.width/3 + (that.width/4) + 5;
-                            } else {
-                                return that.width/3 + (that.width/4) ;
-                            }
-                        });
 
                     tick_line.exit().remove();
 

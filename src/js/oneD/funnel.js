@@ -260,8 +260,8 @@ PykCharts.oneD.funnel = function (options) {
         			.on("mousemove", function (d,i) {
                         that.mouseEvent.tooltipPosition(d);
         			})
-                    // .transition()
-                    // .duration(that.transitions.duration())
+                    .transition()
+                    .duration(that.transitions.duration())
                     .attr('d',function(d){ return line(d.values); });
 
                that.chart_data.exit()
@@ -286,24 +286,30 @@ PykCharts.oneD.funnel = function (options) {
                             }
                         })
                         .attr("x", function (d,i) { return that.width/2;})
-                    that.chart_text.text(function (d,i) {
-                            return that.k.appendUnits(that.new_data[i].weight);
-                         })
-                        .attr("text-anchor","middle")
-                        .attr("pointer-events","none")
-                        .style("font-weight", that.label_weight)
-                        .style("font-size", that.label_size)
-                        .attr("fill", that.label_color)
-                        .style("font-family", that.label_family)
-                        .text(function (d,i) {
-                            if(this.getBBox().width<(d.values[3].x - d.values[1].x) && this.getBBox().height < (d.values[2].y - d.values[0].y)) {
 
+                    that.chart_text.text("");
+
+                    setTimeout(function(){
+                        that.chart_text.text(function (d,i) {
                                 return that.k.appendUnits(that.new_data[i].weight);
-                            }
-                            else {
-                                return "";
-                            }
-                        });
+                             })
+                            .attr("text-anchor","middle")
+                            .attr("pointer-events","none")
+                            .style("font-weight", that.label_weight)
+                            .style("font-size", that.label_size)
+                            .attr("fill", that.label_color)
+                            .style("font-family", that.label_family)
+                            .text(function (d,i) {
+                                if(this.getBBox().width<(d.values[3].x - d.values[1].x) && this.getBBox().height < (d.values[2].y - d.values[0].y)) {
+
+                                    return that.k.appendUnits(that.new_data[i].weight);
+                                }
+                                else {
+                                    return "";
+                                }
+                            });
+                    },that.transitions.duration());
+
                     that.chart_text.exit()
                          .remove();
                 return this;
@@ -337,24 +343,27 @@ PykCharts.oneD.funnel = function (options) {
                         }
                         return "translate(" + x + "," + y + ")";});
 
-                    tick_label.text("")
+                    tick_label.text("");
                         // .transition()
                         // .delay(that.transitions.duration())
-                        .text(function (d,i) { return that.new_data[i].name; })
-                        .text(function (d,i) {
-                            w[i] = this.getBBox().height;
-                            if (this.getBBox().height < (d.values[2].y - d.values[0].y)) {
-                                return that.new_data[i].name;
-                            }
-                            else {
-                                return "";
-                            }
-                        })
-                        .attr("font-size", that.ticks_size)
-                        .attr("text-anchor","start")
-                        .attr("fill", that.ticks_color)
-                        .attr("pointer-events","none")
-                        .attr("font-family", that.ticks_family);
+
+                    setTimeout(function() {
+                        tick_label.text(function (d,i) { return that.new_data[i].name; })
+                            .text(function (d,i) {
+                                w[i] = this.getBBox().height;
+                                if (this.getBBox().height < (d.values[2].y - d.values[0].y)) {
+                                    return that.new_data[i].name;
+                                }
+                                else {
+                                    return "";
+                                }
+                            })
+                            .attr("font-size", that.ticks_size)
+                            .attr("text-anchor","start")
+                            .attr("fill", that.ticks_color)
+                            .attr("pointer-events","none")
+                            .attr("font-family", that.ticks_family);
+                    },that.transitions.duration());
 
                     tick_label.exit().remove();
                     var tick_line = that.group.selectAll(".funnel-ticks")
@@ -398,22 +407,24 @@ PykCharts.oneD.funnel = function (options) {
                         .attr("stroke", that.ticks_color)
                         // .transition()
                         // .duration(that.transitions.duration())
-                        .attr("x2", function (d, i) {
-                            if(( d.values[2].y - d.values[0].y) > w[i]) {
-                                if (d.values.length === 4) {
-                                    return ((d.values[3].x + d.values[2].x)/2 ) + 5;
-                                } else {
-                                    return ((d.values[4].x) +5);
-                                }
-                            } else {
-                                if (d.values.length === 4) {
-                                    return ((d.values[3].x + d.values[2].x)/2 );
-                                } else {
-                                    return (d.values[4].x);
-                                }
-                            }
 
-                        });
+                        setTimeout(function(){
+                            tick_line.attr("x2", function (d, i) {
+                                if(( d.values[2].y - d.values[0].y) > w[i]) {
+                                    if (d.values.length === 4) {
+                                        return ((d.values[3].x + d.values[2].x)/2 ) + 5;
+                                    } else {
+                                        return ((d.values[4].x) +5);
+                                    }
+                                } else {
+                                    if (d.values.length === 4) {
+                                        return ((d.values[3].x + d.values[2].x)/2 );
+                                    } else {
+                                        return (d.values[4].x);
+                                    }
+                                }
+                            });
+                        },that.transitions.duration());
 
                     tick_line.exit().remove();
 

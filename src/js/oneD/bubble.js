@@ -125,8 +125,8 @@ PykCharts.oneD.bubble = function (options) {
                             that.mouseEvent.tooltipPosition(d);
                         }
                     })
-                    // .transition()
-                    // .duration(that.transitions.duration())
+                    .transition()
+                    .duration(that.transitions.duration())
                     .attr("r",function (d) {return d.r; });
                 that.chart_data.exit().remove();
 
@@ -147,27 +147,30 @@ PykCharts.oneD.bubble = function (options) {
                         // .transition()
                         // .delay(that.transitions.duration());
 
-                    that.chart_text
-                        .text(function (d) { return d.children ? " " :  d.name; })
-                        .attr("pointer-events","none")
-                        .text(function (d) {
-                            if(this.getBBox().width< 2*d.r && this.getBBox().height<2*d.r) {
-                                return d.children ? " " :  d.name;
-                            }
-                            else {
-                                 return "";
+                    setTimeout(function() {
+                        that.chart_text
+                            .text(function (d) { return d.children ? " " :  d.name; })
+                            .attr("pointer-events","none")
+                            .text(function (d) {
+                                if(this.getBBox().width< 2*d.r && this.getBBox().height<2*d.r) {
+                                    return d.children ? " " :  d.name;
                                 }
-                        })
-                        .style("font-weight", that.label_weight)
-                        .style("font-size",function (d,i) {
-                            if (d.r > 24) {
-                                return that.label_size;
-                            } else {
-                                return "10px";
-                            }
-                        })
-                        .attr("fill", that.label_color)
-                        .style("font-family", that.label_family);
+                                else {
+                                     return "";
+                                    }
+                            })
+                            .style("font-weight", that.label_weight)
+                            .style("font-size",function (d,i) {
+                                if (d.r > 24) {
+                                    return that.label_size;
+                                } else {
+                                    return "10px";
+                                }
+                            })
+                            .attr("fill", that.label_color)
+                            .style("font-family", that.label_family);
+                    },that.transitions.duration());
+                        
                     that.chart_text.exit().remove;
                 return this;
             },
