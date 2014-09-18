@@ -69,6 +69,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                     .legends()
                     .label()
                     .ticks();
+            that.k.lastUpdatedAt("liveData");
         });
     };
 
@@ -159,7 +160,9 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                     // .xGrid(that.svgContainer,that.group,that.x);
             }
 
-            that.k.credits()
+            that.k.createFooter()
+                .lastUpdatedAt()
+                .credits()
                 .dataSource();
             that.optionalFeatures()
                 .zoom();
@@ -267,6 +270,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
 
                 that.sorted_weight = that.weight.slice(0);
                 that.sorted_weight.sort(function(a,b) { return a-b; });
+
 
                 that.group.append("text")
                     .attr("fill", "black")

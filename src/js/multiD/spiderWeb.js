@@ -32,6 +32,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                 .legends()
                 .axisTicks()
                 .axisTitle();
+            that.k.lastUpdatedAt("liveData");
         });
     };
 
@@ -62,7 +63,9 @@ PykCharts.multiD.spiderWeb = function (options) {
                 .axisTitle()
                 .legends();
 
-              that.k.credits()
+              that.k.createFooter()
+                .lastUpdatedAt()
+                .credits()
                 .dataSource();
 
         } else if (that.mode==="infographics") {

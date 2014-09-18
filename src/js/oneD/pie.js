@@ -102,6 +102,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                     .label()
                     .ticks()
                     .centerLabel();
+            that.k.lastUpdatedAt("liveData");
         });
     };
 
@@ -126,7 +127,9 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
             that.optionalFeatures().svgContainer();
             that.new_data = that.optionalFeatures().clubData();
 
-            that.k.credits()
+            that.k.createFooter()
+                    .lastUpdatedAt()
+                    .credits()
                     .dataSource()
                     .tooltip();
 
