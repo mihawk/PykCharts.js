@@ -12,8 +12,9 @@ PykCharts.multiD.scatterPlot = function (options) {
             optional = options.optional;
         // that.enableCrossHair = optional && optional.enableCrossHair ? optional.enableCrossHair : multiDimensionalCharts.enableCrossHair;
         that.multiD = new PykCharts.multiD.configuration(that);
-        that.multiple_containers =options.multiple_containers_enable && options.multiple_containers_enable ? options.multiple_containers_enable : multiDimensionalCharts.multiple_containers_enable;
+        that.multiple_containers_enable =options.multiple_containers_enable && options.multiple_containers_enable ? options.multiple_containers_enable : multiDimensionalCharts.multiple_containers_enable;
         that.bubbleRadius = options.scatterplot_radius && _.isNumber(options.scatterplot_radius) ? options.scatterplot_radius : multiDimensionalCharts.scatterplot_radius;
+        that.enableTicks =  options.scatterplot_ticks && _.isNumber(options.scatterplot_ticks) ? options.scatterplot_ticks : multiDimensionalCharts.scatterplot_ticks;
         that.zoomed_out = true;
 
         if(PykCharts.boolean(that.multiple_containers_enable)) {
@@ -44,8 +45,9 @@ PykCharts.multiD.pulse = function (options) {
             optional = options.optional;
         // that.enableCrossHair = optional && optional.enableCrossHair ? optional.enableCrossHair : multiDimensionalCharts.enableCrossHair;
         that.multiD = new PykCharts.multiD.configuration(that);
-        that.multiple_containers = options.multiple_containers && options.multiple_containers_enable ? options.multiple_containers_enable : multiDimensionalCharts.multiple_containers_enable;
+        that.multiple_containers_enable = options.multiple_containers_enable && options.multiple_containers_enable ? options.multiple_containers_enable : multiDimensionalCharts.multiple_containers_enable;
         that.bubbleRadius = options.scatterplot_radius && _.isNumber(options.scatterplot_radius) ? options.scatterplot_radius : multiDimensionalCharts.scatterplot_radius;
+        that.enableTicks =  options.scatterplot_ticks && _.isNumber(options.scatterplot_ticks) ? options.scatterplot_ticks : multiDimensionalCharts.scatterplot_ticks;
         that.zoomed_out = true;
         that.radius_range = [that.k._radiusCalculation(1.1)*2,that.k._radiusCalculation(3.5)*2];
         d3.json(options.data, function (e, data) {
@@ -86,7 +88,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
 
             that.no_of_groups = 1;
 
-            if(PykCharts.boolean(that.multiple_containers) && type === "scatterplot") {
+            if(PykCharts.boolean(that.multiple_containers_enable) && type === "scatterplot") {
                 that.no_of_groups = that.uniq_group_arr.length;
                 that.w = that.width/4;
                 that.height = that.height/2;
@@ -463,7 +465,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                         }
                     };
                     var legend;
-                    if(PykCharts.boolean(that.multiple_containers)){
+                    if(PykCharts.boolean(that.multiple_containers_enable)){
                         var abc =[];
                         abc.push(that.map_group_data[0][index]);
                         legend = that.legendsGroup.selectAll("rect")
@@ -603,7 +605,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                         .attr("dx",-1)
                         .attr("dy",function (d) { return -that.sizes(d.weight)-4; });
 
-                    tick_label.text(function (d) { return d.name; });
+                    tick_label.text(function (d) { console.log(d);return d.name; });
 
                     tick_label.exit().remove();
                 }

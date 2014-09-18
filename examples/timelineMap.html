@@ -321,57 +321,39 @@
                         selector: "#map-container",
                         mapCode: $("#one").val(),
                         data: "../data/maps/" + $("#one").val() + "_data_timeline.json",
-                        optional: {
-                            chart: {
-                                width: 800,
-                                height: 500
-                            },
-                            colors: {
-                                defaultColor: $("#a6").val(),
-                                type: checked("colortype"),
-                                total: $("#seven").val(),
-                                palette: $("#eight").val(),
-                                backgroundColor: "white"
-                            },
-                            tooltip: {
-                                enable: checked("tooltip"),
-                                mode: checked("tooltip_mode"),
-                                positionTop: $("#a7").val(),
-                                positionLeft: $("#a8").val()
-                            },
-                            timeline: {
-                                duration: 1000,
-                                margin: {top: 10, right: 30, bottom: 10, left: 30}
-                            },
-                            borderBetweenChartElements: {
-                                color: $("#a2").val(),
-                                width: $("#a3").val(),
-                                style: "solid" // or "dotted / dashed"
-                            },
-                            enableClick: "yes",
-                            onhover: $("#a5").val(),
-                            defaultZoomLevel: $("#a9").val(),
-                            label:{
-                                enable: checked('label')
-                            },
-                            legends: {
-                                enable: checked('legend'),
-                                display: "horizontal" //  vertical/horizontal
-                            },
-                            highlightArea: checked("highlight"),
-                            loading: {
-                                animationGifUrl: "http://www.sportdiver.com/sites/all/modules/platform/inline_login/loading.gif"
-                            },
-                            creditMySite:{
-                                mySiteName: $("#d3").val(),
-                                mySiteUrl: $("#d4").val()
-                            },
-                            dataSource:{
-                                text: $("#d1").val(),
-                                url: $("#d2").val()
-                            }
-                        }
-
+                        chart_height: 500,
+                        chart_width: 800,
+                        colors_defaultColor : $("#a6").val(),
+                        colors_total: $("#seven").val(),
+                        colors_type: checked("colortype"),
+                        colors_palette: $("#eight").val(),
+                        colors_backgroundColor: "white",
+                        tooltip_enable : checked('tooltip'),
+                        tooltip_mode: checked('tooltip_mode'),
+                        tooltip_positionTop: $("#a7").val(),
+                        tooltip_positionLeft:$("#a8").val(),
+                        borderBetweenChartElements_color: $("#a2").val(),
+                        borderBetweenChartElements_width: $("#a3").val(),
+                        borderBetweenChartElements_style: "solid",
+                        timeline_duration: 1000, 
+                        timeline_margin_top: 10, 
+                        timeline_margin_right: 30, 
+                        timeline_margin_bottom: 10, 
+                        timeline_margin_left: 30,
+                        enableClick: "yes",
+                        onhover: $("#a5").val(),
+                        label_enable: checked('label'),
+                        defaultZoomLevel: $("#a9").val(),
+                        legends_enable: checked('legend'),
+                        legends_display: "horizontal",
+                        highlightArea: checked("highlight"),
+                        creditMySite_name: $("#d3").val(),
+                        creditMySite_url: $("#d4").val(),
+                        loading_animationGifUrl: "http://www.sportdiver.com/sites/all/modules/platform/inline_login/loading.gif",
+                        dataSource_text: $("#d1").val(),
+                        dataSource_url: $("#d2").val(),
+                        units_prefix: "",
+                        units_suffix: ""
                     });
                     k.execute();
                 });
