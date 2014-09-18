@@ -40,10 +40,10 @@ PykCharts.maps.processInputs = function (chartObject, options) {
     chartObject.bg = options.colors_backgroundColor ? options.colors_backgroundColor : stylesheet.backgroundColor;
     
     chartObject.timeline_duration = options.timeline_duration ? options.timeline_duration :mapsTheme.timeline_duration;
-    chartObject.timeline_margin_left = options.timeline_margin_left ? options.timeline_margin_left : mapsTheme.timeline_margin_left;
-    chartObject.timeline_margin_right = options.timeline_margin_right ? options.timeline_margin_right : mapsTheme.timeline_margin_right;
-    chartObject.timeline_margin_top = options.timeline_margin_top ? options.timeline_margin_top : mapsTheme.timeline_margin_top;
-    chartObject.timeline_margin_bottom = options.timeline_margin_bottom ? options.timeline_margin_bottom : mapsTheme.timeline_margin_bottom;
+    chartObject.margin_left = options.timeline_margin_left ? options.timeline_margin_left : mapsTheme.timeline_margin_left;
+    chartObject.margin_right = options.timeline_margin_right ? options.timeline_margin_right : mapsTheme.timeline_margin_right;
+    chartObject.margin_top = options.timeline_margin_top ? options.timeline_margin_top : mapsTheme.timeline_margin_top;
+    chartObject.margin_bottom = options.timeline_margin_bottom ? options.timeline_margin_bottom : mapsTheme.timeline_margin_bottom;
 
     chartObject.tooltip_enable = options.tooltip_enable ? options.tooltip_enable : mapsTheme.tooltip_enable;
     chartObject.tooltip_mode = options.tooltip_mode ? options.tooltip_mode : mapsTheme.tooltip_mode;
@@ -60,7 +60,7 @@ PykCharts.maps.processInputs = function (chartObject, options) {
     chartObject.axis_onHoverHighlightenable = PykCharts.boolean(options.axis_x_enable) && options.axis_onHoverHighlightenable ? options.axis_onHoverHighlightenable : mapsTheme.axis_onHoverHighlightenable;
     chartObject.axis_x_enable = options.axis_x_enable ? options.axis_x_enable : mapsTheme.axis_x_enable;
     chartObject.axis_x_orient = PykCharts.boolean(options.axis_x_enable) && options.axis_x_orient ? options.axis_x_orient : mapsTheme.axis_x_orient;
-    chartObject.axis_x_position = PykCharts.boolean(options.axis_x_enable) && options.axis_x_position ? options.axis_x_position : mapsTheme.axis_x_position;
+    // chartObject.axis_x_position = PykCharts.boolean(options.axis_x_enable) && options.axis_x_position ? options.axis_x_position : mapsTheme.axis_x_position;
     chartObject.axis_x_axisColor = PykCharts.boolean(options.axis_x_enable) && options.axis_x_axisColor ? options.axis_x_axisColor : mapsTheme.axis_x_axisColor;
     chartObject.axis_x_labelColor = PykCharts.boolean(options.axis_x_enable) && options.axis_x_labelColor ? options.axis_x_labelColor : mapsTheme.axis_x_labelColor;
     chartObject.axis_x_no_of_ticks = PykCharts.boolean(options.axis_x_enable) && options.axis_x_no_of_ticks ? options.axis_x_no_of_ticks : mapsTheme.axis_x_no_of_ticks;

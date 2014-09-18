@@ -42,8 +42,8 @@ PykCharts.maps.timelineMap = function (options) {
 
             // that.margin = {top:10, right:30, bottom:10, left:30};
 
-            that.redeced_width = that.width - (that.timeline_margin_left * 2) - that.timeline_margin_right;
-            that.redeced_height = that.height - that.timeline_margin_top - that.timeline_margin_bottom;
+            that.redeced_width = that.width - (that.margin_left * 2) - that.margin_right;
+            that.redeced_height = that.height - that.margin_top - that.margin_bottom;
 
             that.k
                 .totalColors(that.colors_total)
@@ -242,7 +242,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     that.gxaxis = that.svgContainer.append("g")
                         .attr("id","xaxis")
                         .attr("class", "x axis")
-                        .attr("transform", "translate("+that.timeline_margin_left*2+"," + that.redeced_height + ")");
+                        .attr("transform", "translate("+(that.margin_left*2)+"," + that.redeced_height + ")");
                 }
                 return this;
             }
@@ -517,7 +517,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     marker
                         // .transition()
                         // .duration(that.timeline.duration/2)
-                        .attr("x",  (that.timeline_margin_left*2) + that.xScale(unique[interval]) - 7);
+                        .attr("x",  (that.margin_left*2) + that.xScale(unique[interval]) - 7);
 
                     that.data = _.where(that.timeline_data, {timestamp:unique[interval]});
                     that.data.sort(function (a,b) {
@@ -549,7 +549,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                         if (interval1===unique.length) {
                             clearInterval(undo_heatmap);
                             play.attr("xlink:href","https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/play.gif");
-                            marker.attr("x",  (that.timeline_margin_left*2) + that.xScale(unique[0]) - 7);
+                            marker.attr("x",  (that.margin_left*2) + that.xScale(unique[0]) - 7);
                             interval = interval1 = 1;
                             timeline_status = "";
                         };
@@ -560,8 +560,8 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
 
         var play = that.svgContainer.append("image")
             .attr("xlink:href","https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/play.gif")
-            .attr("x", that.timeline_margin_left / 2)
-            .attr("y", that.redeced_height - that.timeline_margin_top - (bbox.height/2))
+            .attr("x", that.margin_left / 2)
+            .attr("y", that.redeced_height - that.margin_top - (bbox.height/2))
             .attr("width","24px")
             .attr("height", "21px")
             .style("cursor", "pointer")
@@ -569,7 +569,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
 
         var marker = that.svgContainer.append("image")
             .attr("xlink:href","https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/marker.png")
-            .attr("x", (that.timeline_margin_left*2) + that.xScale(unique[0]) - 7)
+            .attr("x", (that.margin_left*2) + that.xScale(unique[0]) - 7)
             .attr("y", that.redeced_height)
             .attr("width","14px")
             .attr("height", "12px")
