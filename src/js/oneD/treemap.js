@@ -22,7 +22,7 @@ PykCharts.oneD.treemap = function (options){
 
     this.refresh = function (){
         d3.json(options.data, function (e,data) {
-            that.data = data.groupBy();
+            that.data = data.groupBy("oned");
             that.optionalFeatures()
                 .clubData()
                 .createChart()
@@ -128,8 +128,8 @@ PykCharts.oneD.treemap = function (options){
                             that.mouseEvent.tooltipPosition(d);
                         }
                     })
-                    // .transition()
-                    // .duration(that.transitions.duration())
+                    .transition()
+                    .duration(that.transitions.duration())
                     .attr("height", function (d) { return d.dy-1; });
 
                 that.chart_data.exit()
@@ -167,17 +167,19 @@ PykCharts.oneD.treemap = function (options){
                         // .transition()
                         // .delay(that.transitions.duration())
 
-                    that.chart_text.text(function (d) { return d.children ? " " :  d.name; })
-                        .attr("pointer-events","none")
-                        .text(function (d) {
+                    setTimeout(function() {
+                        that.chart_text.text(function (d) { return d.children ? " " :  d.name; })
+                            .attr("pointer-events","none")
+                            .text(function (d) {
 
-                            if(this.getBBox().width<d.dx && this.getBBox().height<d.dy-15) {
-                                return d.children ? " " :  d.name;
-                            }
-                            else {
-                                return "";
-                            }
-                        });
+                                if(this.getBBox().width<d.dx && this.getBBox().height<d.dy-15) {
+                                    return d.children ? " " :  d.name;
+                                }
+                                else {
+                                    return "";
+                                }
+                            });
+                    },that.transitions.duration());
 
                     that.chart_text1.attr("text-anchor","middle")
                         .style("font-weight", that.label_weight)
@@ -188,15 +190,18 @@ PykCharts.oneD.treemap = function (options){
                         .attr("pointer-events","none")
                         // .transition()
                         // .delay(that.transitions.duration())
-                    that.chart_text1.text(function (d) { return d.children ? " " :  that.k.appendUnits(d.weight); })
-                        .text(function (d) {
-                            if(this.getBBox().width < d.dx && this.getBBox().height < d.dy-15) {
-                                return d.children ? " " :  that.k.appendUnits(d.weight);
-                            }
-                            else {
-                                return "";
-                            }
-                        });
+
+                    setTimeout(function () {
+                        that.chart_text1.text(function (d) { return d.children ? " " :  that.k.appendUnits(d.weight); })
+                            .text(function (d) {
+                                if(this.getBBox().width < d.dx && this.getBBox().height < d.dy-15) {
+                                    return d.children ? " " :  that.k.appendUnits(d.weight);
+                                }
+                                else {
+                                    return "";
+                                }
+                            });
+                    },that.transitions.duration());
 
                     that.chart_text.exit()
                         .remove();

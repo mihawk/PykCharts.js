@@ -140,6 +140,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                     .centerLabel();
 
             that.k.liveData(that);
+
         } else if(that.mode.toLowerCase() == "infographics") {
             that.new_data = that.data;
             that.optionalFeatures().svgContainer()
@@ -175,6 +176,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
             },
             createChart : function () {
                 d3.select(that.selector +" #pieGroup").node().innerHTML="";
+                
                 if(type.toLowerCase() == "pie" || type.toLowerCase() == "donut") {
                     that.new_data.sort(function (a,b) { return a.weight - b.weight;});
                     var temp = that.new_data.pop();
@@ -235,26 +237,28 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                     .attr("stroke",that.border.color())
                     .attr("stroke-width",that.border.width())
                     .attr("stroke-dasharray", that.border.style())
-                    .attr("d",that.arc); // comment this if u want to enable transition 
-                // cv_path.transition()
-                //     .delay(function(d, i) {
-                //         if(that.transition.duration && that.mode == "default") {
-                //             return (i * that.transition.duration)/that.new_data.length;
-                //         } else return 0;
-                //     })
-                //     .duration(that.transitions.duration()/that.new_data.length)
-                //     .attrTween("d",function(d) {
-                //         var i = d3.interpolate(d.startAngle, d.endAngle);
-                //         return function(t) {
-                //             d.endAngle = i(t);
-                //             return that.arc(d);
-                //         }
-                //     });
+//                    .attr("d",that.arc); // comment this if u want to enable transition 
+
+                that.chart_data.transition()
+                    .delay(function(d, i) {
+                        if(that.transition_duration && that.mode == "default") {
+                            return (i * that.transition_duration)/that.new_data.length;
+                        } else return 0;
+                    })
+                    .duration(that.transitions.duration()/that.new_data.length)
+                    .attrTween("d",function(d) {
+                        var i = d3.interpolate(d.startAngle, d.endAngle);
+                        return function(t) {
+                            d.endAngle = i(t);
+                            return that.arc(d);
+                        }
+                    });
 
                 that.chart_data.exit().remove();
                 return this;
             },
             label : function () {
+            
                     that.chart_text = that.group.selectAll("text")
                                        .data(that.pie(that.new_data));
 
@@ -265,41 +269,45 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
 
                     that.chart_text.attr("transform",function (d) { return "translate("+that.arc.centroid(d)+")"; });
 
-                    // cv_text.text("")
+                    that.chart_text.text("")
+                        .attr("fill", "red");
+
+
                     //     .transition()
                     //     .delay(function(d, i) {
-                    //         if(PykCharts.boolean(that.transition.duration)) {
-                    //             return (i * that.transition.duration)/that.new_data.length;
-                    //         } else return 0;
-                    //     }); 
+                        //     if(PykCharts.boolean(that.transition.duration)) {
+                        //         return (i * that.transition.duration)/that.new_data.length;
+                        //     } else return 0;
+                        // }); 
 
-                    that.chart_text.text(function (d) { return that.k.appendUnits(d.data.weight); })
-                        .attr("text-anchor","middle")
-                        .attr("pointer-events","none")
-                        .text(function (d,i) {
-                            if(type.toLowerCase() === "pie" || type.toLowerCase() === "election pie") {
-                                if(this.getBBox().width<((d.endAngle-d.startAngle)*((that.outer_radius/2)*0.9))) {
-                                    return that.k.appendUnits(d.data.weight);
+                    setTimeout(function () {
+                        that.chart_text.text(function (d) { return that.k.appendUnits(d.data.weight); })
+                            .attr("text-anchor","middle")
+                            .attr("pointer-events","none")
+                            .text(function (d,i) {
+                                if(type.toLowerCase() === "pie" || type.toLowerCase() === "election pie") {
+                                    if(this.getBBox().width<((d.endAngle-d.startAngle)*((that.outer_radius/2)*0.9))) {
+                                        return that.k.appendUnits(d.data.weight);
+                                    }
+                                    else {
+                                        return "";
+                                    }
+                                } else {
+                                    if((this.getBBox().width < (Math.abs(d.endAngle - d.startAngle)*that.outer_radius*0.9))  && (this.getBBox().height < (((that.outer_radius-that.inner_radius)*0.75)))) {
+                                        return that.k.appendUnits(d.data.weight);
+                                    }
+                                    else {
+                                        return "";
+                                    }
                                 }
-                                else {
-                                    return "";
-                                }
-                            } else {
-                                if((this.getBBox().width < (Math.abs(d.endAngle - d.startAngle)*that.outer_radius*0.9))  && (this.getBBox().height < (((that.outer_radius-that.inner_radius)*0.75)))) {
-                                    return that.k.appendUnits(d.data.weight);
-                                }
-                                else {
-                                    return "";
-                                }
-                            }
-                        })
-                        .attr("dy",5)
-                        .style("font-weight", that.label_weight)
-                        .style("font-size", that.label_size)
-                        .attr("fill", that.label_color)
-                        .style("font-family", that.label_family);
-
-                    that.chart_text.exit().remove();
+                            })
+                            .attr("dy",5)
+                            .style("font-weight", that.label_weight)
+                            .style("font-size", that.label_size)
+                            .attr("fill", that.label_color)
+                            .style("font-family", that.label_family);
+                        that.chart_text.exit().remove();
+                    },that.transitions.duration());
 
                 return this;
             },
@@ -383,7 +391,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                     that.svgContainer.style("overflow","visible");
                 }
                 var w = [];
-                // if(PykCharts.boolean(that.enableTicks)) {
+                //if(PykCharts.boolean(that.enableTicks)) {
                     var tick_label = that.group.selectAll(".ticks_label")
                                     .data(that.pie(that.new_data));
 
@@ -405,8 +413,8 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                         }
                         return "translate(" + x + "," + y + ")";});
 
-                    tick_label.text(function(d) { return d.data.name; })
-                        .style("visibility","hidden")
+                    tick_label.text("")
+                        //.style("visibility","hidden");
                         // .transition()
                         // .delay(function(d, i) {
                         //     if(PykCharts.boolean(that.transition.duration)) {
@@ -453,28 +461,32 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                         //         }
                         //     }
                         // })
-                        .style("visibility","visible")
-                        .attr("text-anchor",function(d) {
-                            var rads = ((d.endAngle - d.startAngle) / 2) + d.startAngle;
-                            if (rads>0 && rads<1.5) {
-                                return "start";
-                            } else if (rads>=1.5 && rads<3.5) {
-                                return "middle";
-                            } else if (rads>=3.5 && rads<6) {
-                                return "end";
-                            } else if (rads>=6) {
-                                return "middle";
-                            } else if(rads<0) {
-                                return "middle";
-                            }
-                        })
-                        .attr("dy",5)
-                        .attr("pointer-events","none")
-                        .style("fill",that.ticks_color)
-                        .style("font-size",that.ticks_size)
-                        .style("font-family", that.ticks_family);
+                        // .style("visibility","visible")
 
-                    tick_label.exit().remove();
+                    setTimeout(function() {
+                        tick_label.text(function(d) { return d.data.name; })
+                            .attr("text-anchor",function(d) {
+                                var rads = ((d.endAngle - d.startAngle) / 2) + d.startAngle;
+                                if (rads>0 && rads<1.5) {
+                                    return "start";
+                                } else if (rads>=1.5 && rads<3.5) {
+                                    return "middle";
+                                } else if (rads>=3.5 && rads<6) {
+                                    return "end";
+                                } else if (rads>=6) {
+                                    return "middle";
+                                } else if(rads<0) {
+                                    return "middle";
+                                }
+                            })
+                            .attr("dy",5)
+                            .attr("pointer-events","none")
+                            .style("fill",that.ticks_color)
+                            .style("font-size",that.ticks_size)
+                            .style("font-family", that.ticks_family);
+
+                        tick_label.exit().remove();
+                    },that.transitions.duration());
 
                     var tick_line = that.group.selectAll("line")
                         .data(that.pie(that.new_data));
@@ -526,31 +538,31 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                         //     } else return 0;
                         // })
                         // .duration(that.transitions.duration()/that.new_data.length)
-                        .attr("x2", function (d, i) {
-                            return (that.outer_radius/1+12)* (1) * Math.cos((d.startAngle + d.endAngle)/2);
-                            // if(w[i] >= ((d.endAngle-d.startAngle)*((that.outer_radius/2)*0.9))) {
-                            //     return 0;
-                            // }
-                            // else {
-                            //     return (that.outer_radius/1+12)* (1) * Math.cos((d.startAngle + d.endAngle)/2);
-                            // }
-                        })
-                        .attr("y2", function (d, i) {
-                            return (that.outer_radius/1+12)* (1) * Math.sin((d.startAngle + d.endAngle)/2);
-                            // if(w[i] >= ((d.endAngle-d.startAngle)*((that.outer_radius/2)*0.9))) {
-                            //     return 0;
-                            // }
-                            // else {
-                            //     return (that.outer_radius/1+12)* (1) * Math.sin((d.startAngle + d.endAngle)/2);
-                            // }
-                        })
-                        .attr("transform","rotate(-90)")
-                        .attr("stroke-width", that.ticks_strokeWidth)
-                        .attr("stroke",that.ticks_color);
-                    tick_line.exit().remove();
-
-
-
+                        
+                    setTimeout(function () {
+                        tick_line.attr("x2", function (d, i) {
+                                return (that.outer_radius/1+12)* (1) * Math.cos((d.startAngle + d.endAngle)/2);
+                                // if(w[i] >= ((d.endAngle-d.startAngle)*((that.outer_radius/2)*0.9))) {
+                                //     return 0;
+                                // }
+                                // else {
+                                //     return (that.outer_radius/1+12)* (1) * Math.cos((d.startAngle + d.endAngle)/2);
+                                // }
+                            })
+                            .attr("y2", function (d, i) {
+                                return (that.outer_radius/1+12)* (1) * Math.sin((d.startAngle + d.endAngle)/2);
+                                // if(w[i] >= ((d.endAngle-d.startAngle)*((that.outer_radius/2)*0.9))) {
+                                //     return 0;
+                                // }
+                                // else {
+                                //     return (that.outer_radius/1+12)* (1) * Math.sin((d.startAngle + d.endAngle)/2);
+                                // }
+                            })
+                            .attr("transform","rotate(-90)")
+                            .attr("stroke-width", that.ticks_strokeWidth)
+                            .attr("stroke",that.ticks_color);
+                        tick_line.exit().remove();
+                    },that.transitions.duration());
                 // }
                 return this;
             },
@@ -594,13 +606,13 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
 
                     label.attr("class","centerLabel")
                         .text("")
-                        // .transition()
-                        // .delay( function(d) {
-                        //     if(PykCharts.boolean(that.transition.duration)) {
-                        //         return that.transition.duration;
-                        //     }
-                        // })
-                        label.text( function(d) {
+                        .transition()
+                        .delay( function(d) {
+                            if(PykCharts.boolean(that.transitions.duration())) {
+                                return that.transitions.duration();
+                            }
+                        })
+                        .text( function(d) {
                             return that.k.appendUnits(that.sum);
                         })
                         .attr("pointer-events","none")

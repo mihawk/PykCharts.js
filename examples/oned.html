@@ -32,67 +32,79 @@
 		    window.PykChartsInit = function (e) {
             var k = new PykCharts.oneD.bubble({
                 selector: "#bubble",
-                data:"../data/pie.json"
+                data:"../data/pie.json",
+                "transition_duration": 1000
             });
             k.execute();
 
       			var k = new PykCharts.oneD.funnel({
           				selector: "#funnel",
-          				data:"../data/pie.json"
+          				data:"../data/pie.json",
+                 "transition_duration": 1000
         			});
       			k.execute();
 
             var k = new PykCharts.oneD.pictograph({
                 selector: "#pictograph",
-                data:"../data/pictograph.json"
+                data:"../data/pictograph.json",
+                "transition_duration": 1000
              });
             k.execute();
 
             var k = new PykCharts.oneD.pyramid ({
                 selector: "#pyramid",
-                data:"../data/pie.json"
+                data:"../data/pie.json",
+                "transition_duration": 1000
              });
             k.execute();
 
             var k = new PykCharts.oneD.treemap({
                 selector: "#treemap",
-                data: "../data/pie.json"
+                data: "../data/pie.json",
+                "transition_duration": 1000
             });
             k.execute();
 
             var k = new PykCharts.oneD.donut({
                 selector: "#donutContainer",
-                data: "../data/pie.json"
+                data: "../data/pie.json",
+                "transition_duration": 1000
             });
             k.execute();
 
             var k = new PykCharts.oneD.election_pie({
                 selector: "#electionPieContainer",
-                data: "../data/pie.json"
+                data: "../data/pie.json",
+                "transition_duration": 4000
             });
             k.execute();
 
             var k = new PykCharts.oneD.election_donut({
                 selector: "#electionDonutContainer",
-                data: "../data/pie.json"
+                data: "../data/pie.json",
+                "transition_duration": 4000                
             });
             k.execute();
 
             var k = new PykCharts.oneD.pie({
                 selector: "#pieContainer",
-                data: "../data/pie.json"
+                data: "../data/pie.json",
+                "transition_duration": 4000
             });
             k.execute();
 
             var k = new PykCharts.oneD.percentageColumn({
                 selector: "#percentageColumn",
-                data:"../data/pie.json"
+                data:"../data/pie.json",
+                "transition_duration": 1000,
+                // "realTimeCharts_refreshFrequency": 11
             });
             k.execute();
 
             var k = new PykCharts.oneD.pie({
                 selector: "#pie2Container",
-                data: "../data/pie2.json"
+                data: "../data/pie2.json",
+                "transition_duration": 1000
             });
             k.execute();
 		    }
