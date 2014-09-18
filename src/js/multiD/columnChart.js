@@ -5,9 +5,8 @@ PykCharts.multiD.columnChart = function(options){
     this.execute = function () {
         that = new PykCharts.multiD.processInputs(that, options, "column");
 
-        that.grid = options.chart && options.chart.grid ? options.chart.grid : theme.stylesheet.chart.grid;
-        that.grid.yEnabled = options.chart && options.chart.grid && options.chart.grid.yEnabled ? options.chart.grid.yEnabled : theme.stylesheet.chart.grid.yEnabled;
-        that.grid.color = options.chart && options.chart.grid && options.chart.grid.color ? options.chart.grid.color : theme.stylesheet.chart.grid.color;
+        that.grid_yEnabled = options.chart_grid_yEnabled ? options.chart_grid_yEnabled : theme.stylesheet.chart_grid_yEnabled;
+        that.grid_color = options.chart_grid_color ? options.chart_grid_color : theme.stylesheet.chart_grid_color;
 
         if(that.mode === "default") {
            that.k.loading();
@@ -52,13 +51,12 @@ PykCharts.multiD.columnChart = function(options){
         that.the_bars = fD[0];
         that.the_keys = fD[1];
         that.the_layers = that.layers(that.the_bars);
-                    console.log(that.data,"data");
         that.border = new PykCharts.Configuration.border(that);
         that.transitions = new PykCharts.Configuration.transition(that);
         that.mouseEvent1 = new PykCharts.multiD.mouseEvent(that);
         that.fillColor = new PykCharts.Configuration.fillChart(that,null,options);
         if(that.max_length === 1) {
-            that.legends.enable = "no";
+            that.legends_enable = "no";
         }
         if(that.mode === "default") {
             that.k.title()
@@ -113,18 +111,18 @@ PykCharts.multiD.columnChart = function(options){
                 that.group = that.svg.append("g")
                     .attr("id","svggroup")
                     .attr("class","svggroup")
-                    .attr("transform","translate(" + that.margin.left + "," + that.margin.top +")");
+                    .attr("transform","translate(" + that.margin_left + "," + that.margin_top +")");
 
-                if(PykCharts.boolean(that.grid.yEnabled)) {
+                if(PykCharts.boolean(that.grid_yEnabled)) {
                     that.group.append("g")
                         .attr("id","ygrid")
-                        .style("stroke",that.grid.color)
+                        .style("stroke",that.grid_color)
                         .attr("class","y grid-line");
                 }
                 return this;
             },
             legendsContainer: function (i) {
-                if(PykCharts.boolean(that.legends.enable)) {
+                if(PykCharts.boolean(that.legends_enable)) {
                     that.legend_svg = d3.select(options.selector + " #tooltip-svg-container-" + i)
                         .append("svg:svg")
                         .attr("width",that.width)
@@ -140,7 +138,7 @@ PykCharts.multiD.columnChart = function(options){
                 return this;
             },
             axisContainer : function () {
-                if(PykCharts.boolean(that.axis.x.enable)) {
+                if(PykCharts.boolean(that.axis_x_enable)) {
                     var axis_line = that.group.selectAll(".axis-line")
                         .data(["line"]);
 
@@ -149,11 +147,11 @@ PykCharts.multiD.columnChart = function(options){
 
                     axis_line.attr("class","axis-line")
                             .attr("x1",0)
-                            .attr("y1",that.height-that.margin.top-that.margin.bottom)
-                            .attr("x2",that.width-that.margin.left-that.margin.right)
-                            .attr("y2",that.height-that.margin.top-that.margin.bottom)
-                            .attr("stroke",that.axis.x.axisColor);
-                    if(that.axis.x.position === "top") {
+                            .attr("y1",that.height-that.margin_top-that.margin_bottom)
+                            .attr("x2",that.width-that.margin_left-that.margin_right)
+                            .attr("y2",that.height-that.margin_top-that.margin_bottom)
+                            .attr("stroke",that.axis_x_axisColor);
+                    if(that.axis_x_position === "top") {
                         axis_line.attr("y1",0)
                             .attr("y2",0);
                     }
@@ -165,7 +163,7 @@ PykCharts.multiD.columnChart = function(options){
                         .style("stroke","none");
                 }
 
-                if(PykCharts.boolean(that.axis.y.enable)) {
+                if(PykCharts.boolean(that.axis_y_enable)) {
                     that.ygroup = that.group.append("g")
                         .attr("id","yaxis")
                         .attr("class","y axis");
@@ -173,8 +171,8 @@ PykCharts.multiD.columnChart = function(options){
                 return this;
             },
             createColumnChart: function() {
-                var w = that.width - that.margin.left - that.margin.right;
-                var h = that.height - that.margin.top - that.margin.bottom,j=that.max_length+1;
+                var w = that.width - that.margin_left - that.margin_right;
+                var h = that.height - that.margin_top - that.margin_bottom,j=that.max_length+1;
 
                 var the_bars = that.the_bars;
                 var keys = that.the_keys;
@@ -323,28 +321,28 @@ PykCharts.multiD.columnChart = function(options){
                             return d.x;
                         })
                         .attr("text-anchor", "middle")
-                        .attr("fill",that.axis.x.labelColor)
+                        .attr("fill",that.axis_x_labelColor)
                         .text(function(d){
                             return d.name;
                         });
 
                 xAxis_label.exit().remove();
-                if(that.axis.x.position==="top") {
-                    if(that.axis.x.orient === "top") {
+                if(that.axis_x_position==="top") {
+                    if(that.axis_x_orient === "top") {
                         xAxis_label.attr("y", function () {
                             return -15;
                         });
-                    } else if(that.axis.x.orient === "bottom") {
+                    } else if(that.axis_x_orient === "bottom") {
                         xAxis_label.attr("y", function () {
                             return 15;
                         });
                     }
                 }
-                if(that.axis.x.orient === "top") {
+                if(that.axis_x_orient === "top") {
                     xAxis_label.attr("y", function () {
                         return h-15;
                     });
-                } else if(that.axis.x.orient === "bottom") {
+                } else if(that.axis_x_orient === "bottom") {
                     xAxis_label.attr("y", function () {
                         return h+15;
                     });
@@ -352,7 +350,7 @@ PykCharts.multiD.columnChart = function(options){
                 return this;
             },
             legends: function () {
-                if(PykCharts.boolean(that.legends.enable)) {
+                if(PykCharts.boolean(that.legends_enable)) {
                     var params = that.getParameters(),color;
                     // console.log(params);
                     color = params[0].color;
@@ -365,7 +363,7 @@ PykCharts.multiD.columnChart = function(options){
                     j = params.length;
                     k = params.length;
 
-                    if(that.legends.display === "vertical" ) {
+                    if(that.legends_display === "vertical" ) {
                         that.legend_svg.attr("height", (params.length * 30)+20);
                         text_parameter1 = "x";
                         text_parameter2 = "y";
@@ -380,7 +378,7 @@ PykCharts.multiD.columnChart = function(options){
                         var rect_parameter4value = function (d,i) { return i * 24 + 12;};
                         var text_parameter2value = function (d,i) { return i * 24 + 23;};
                     }
-                    else if(that.legends.display === "horizontal") {
+                    else if(that.legends_display === "horizontal") {
                         text_parameter1 = "x";
                         text_parameter2 = "y";
                         rect_parameter1 = "width";
