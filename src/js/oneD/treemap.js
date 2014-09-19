@@ -41,7 +41,8 @@ PykCharts.oneD.treemap = function (options){
 
     this.render = function (){
 
-        that.fillChart = new PykCharts.oneD.fillChart(that);
+//        that.fillChart = new PykCharts.oneD.fillChart(that);
+        that.fillChart = new PykCharts.Configuration.fillChart(that);
         that.onHoverEffect = new PykCharts.oneD.mouseEvent(options);
         that.transitions = new PykCharts.Configuration.transition(that);
         that.border = new PykCharts.Configuration.border(that);
@@ -120,7 +121,7 @@ PykCharts.oneD.treemap = function (options){
                     .attr("width", function (d) { return d.dx-1; })
                     .attr("height", 0)
                     .attr("fill",function (d) {
-                        return d.children ? "white" : that.fillChart.chartColor(d);
+                        return d.children ? "white" : that.fillChart.selectColor(d);
                     })
                     .on('mouseover',function (d) {
                         if(!d.children) {

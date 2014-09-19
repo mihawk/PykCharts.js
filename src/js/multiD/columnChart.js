@@ -338,21 +338,21 @@ PykCharts.multiD.columnChart = function(options){
 
                 xAxis_label.exit().remove();
                 if(that.axis_x_position==="top") {
-                    if(that.axis_x_orient === "top") {
+                    if(that.axis_x_value_position === "top") {
                         xAxis_label.attr("y", function () {
                             return -15;
                         });
-                    } else if(that.axis_x_orient === "bottom") {
+                    } else if(that.axis_x_value_position === "bottom") {
                         xAxis_label.attr("y", function () {
                             return 15;
                         });
                     }
                 }
-                if(that.axis_x_orient === "top") {
+                if(that.axis_x_value_position === "top") {
                     xAxis_label.attr("y", function () {
                         return h-15;
                     });
-                } else if(that.axis_x_orient === "bottom") {
+                } else if(that.axis_x_value_position === "bottom") {
                     xAxis_label.attr("y", function () {
                         return h+15;
                     });

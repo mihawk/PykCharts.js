@@ -514,8 +514,8 @@ PykCharts.Configuration = function (options){
                 }
                 var xaxis = PykCharts.Configuration.makeXAxis(options,xScale);
             
-                if(options.axis_x_tickValues.length != 0) {
-                    xaxis.tickValues(options.axis_x_tickValues);
+                if(options.axis_x_pointer_values.length != 0) {
+                    xaxis.tickValues(options.axis_x_pointer_values);
                 }
 
                 gsvg.style("stroke",function () { return options.axis_x_axisColor; })
@@ -986,9 +986,9 @@ configuration.makeXAxis = function(options,xScale) {
     var k = PykCharts.Configuration(options);
     var xaxis = d3.svg.axis()
                     .scale(xScale)
-                    .ticks(options.axis_x_no_of_ticks)
-                    .tickSize(options.axis_x_tickSize)
-                    .outerTickSize(options.axis_x_outer_tick_size)
+                    .ticks(options.axis_x_no_of_axis_value)
+                    .tickSize(options.axis_x_pointer_size)
+                    .outerTickSize(options.axis_x_outer_pointer_size)
                     .tickFormat(function (d,i) {
                         if(options.multiple_containers_enable === "yes" && options.xAxisDataFormat === "string") {
                             return d.substr(0,2);
@@ -997,8 +997,8 @@ configuration.makeXAxis = function(options,xScale) {
                             return k.appendUnits(d);
                         }
                     })
-                   .tickPadding(options.axis_x_tickPadding)
-                    .orient(options.axis_x_orient);
+                   .tickPadding(options.axis_x_pointer_padding)
+                    .orient(options.axis_x_value_position);
     return xaxis;
 };
 
@@ -1007,11 +1007,11 @@ configuration.makeYAxis = function(options,yScale) {
     var k = PykCharts.Configuration(options);
     var yaxis = d3.svg.axis()
                     .scale(yScale)
-                    .orient(options.axis_y_orient)
-                    .ticks(options.axis_y_no_of_ticks)
-                    .tickSize(options.axis_y_tickSize)
-                    .outerTickSize(options.axis_y_outer_tick_size)
-                    .tickPadding(options.axis_y_tickPadding)
+                    .orient(options.axis_y_value_position)
+                    .ticks(options.axis_y_no_of_axis_value)
+                    .tickSize(options.axis_y_pointer_size)
+                    .outerTickSize(options.axis_y_outer_pointer_size)
+                    .tickPadding(options.axis_y_pointer_padding)
                     .tickFormat(function (d,i) {
                         return k.appendUnits(d);
                     })
@@ -1025,7 +1025,7 @@ configuration.makeXGrid = function(options,xScale) {
     var xgrid = d3.svg.axis()
                     .scale(xScale)
                     .orient("bottom")
-                    .ticks(options.axis_x_no_of_ticks)
+                    .ticks(options.axis_x_no_of_axis_value)
                     .tickFormat("")
                     .tickSize(options.height - options.margin_top - options.margin_bottom)
                     .outerTickSize(0);
@@ -1037,7 +1037,7 @@ configuration.makeYGrid = function(options,yScale) {
     var ygrid = d3.svg.axis()
                     .scale(yScale)
                     .orient("left")
-                    .ticks(options.axis_x_no_of_ticks)
+                    .ticks(options.axis_x_no_of_axis_value)
                     .tickSize(-(options.width - options.margin_left - options.margin_right))
                     .tickFormat("")
                     .outerTickSize(0);
@@ -1101,10 +1101,11 @@ configuration.Theme = function(){
         "label_color": "white",
         "label_weight": "thin",
         "label_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
-        "ticks_thickness": 1,
-        "ticks_size": 13,
-        "ticks_color": "#1D1D1D",
-        "ticks_family": "'Helvetica Neue',Helvetica,Arial,sans-serif"
+        "pointer_thickness": 1,
+        "pointer_weight": "thin",
+        "pointer_size": 13,
+        "pointer_color": "#1D1D1D",
+        "pointer_family": "'Helvetica Neue',Helvetica,Arial,sans-serif"
     };
 
     that.functionality = {
@@ -1144,27 +1145,27 @@ configuration.Theme = function(){
 
         "axis_x_enable": "yes",
         "axis_x_position": "bottom",
-        "axis_x_orient": "bottom",
+        "axis_x_value_position": "bottom", //axis orient
         "axis_x_axisColor": "1D1D1D",
         "axis_x_labelColor": "1D1D1D",
-        "axis_x_no_of_ticks": 5,
-        "axis_x_tickSize": 5,
-        "axis_x_tickFormat": "",
-        "axis_x_tickPadding": 6,
-        "axis_x_tickValues": [],
-        "axis_x_outer_tick_size": 0,
+        "axis_x_no_of_axis_value": 5,
+        "axis_x_pointer_size": 5, 
+        "axis_x_value_format": "",
+        "axis_x_pointer_padding": 6,
+        "axis_x_pointer_values": [],
+        "axis_x_outer_pointer_size": 0,
 
         "axis_y_enable": "yes",
         "axis_y_position": "left",
-        "axis_y_orient": "left",
+        "axis_y_value_position": "left",
         "axis_y_axisColor": "1D1D1D",
         "axis_y_labelColor": "1D1D1D",
-        "axis_y_no_of_ticks": 5,
-        "axis_y_tickSize": 5,
-        "axis_y_tickFormat": "",
-        "axis_y_tickPadding": 6,
-        "axis_y_tickValues": [],
-        "axis_y_outer_tick_size": 0,
+        "axis_y_no_of_axis_value": 5,
+        "axis_y_pointer_size": 5,
+        "axis_y_value_format": "",
+        "axis_y_pointer_padding": 6,
+        "axis_y_pointer_values": [],
+        "axis_y_outer_pointer_size": 0,
             
         "yAxisDataFormat": "number",
         "xAxisDataFormat": "string",
@@ -1223,33 +1224,34 @@ configuration.Theme = function(){
         "highlightArea":"no",
         "axis_onHoverHighlightenable" : "no",
         "axis_x_enable": "yes",
-        "axis_x_orient": "top",
+        "axis_x_value_position": "top",
         "axis_x_axisColor": "1D1D1D",
         "axis_x_labelColor": "1D1D1D",
-        "axis_x_no_of_ticks": 5,
-        "axis_x_tickSize": 5,
-        "axis_x_tickFormat": "",
-        "axis_x_tickPadding": 6,
-        "axis_x_tickValues": [],
-        "axis_x_outer_tick_size": 0       
+        "axis_x_no_of_axis_value": 5,
+        "axis_x_pointer_size": 5,
+        "axis_x_value_format": "",
+        "axis_x_pointer_padding": 6,
+        "axis_x_pointer_values": [],
+        "axis_x_outer_pointer_size": 0       
     };    
     return that;
 }
+
 PykCharts.oneD = {};
 
-PykCharts.oneD.fillChart = function (options) {
+// PykCharts.oneD.fillChart = function (options) {
 
-    var colorPie = {
-        chartColor: function (d) {
-            if(d.highlight === true) {
-                return options.highlightColor;
-            } else{
-                return options.chartColor;
-            }
-        }
-    };
-    return colorPie;
-};
+//     var colorPie = {
+//         chartColor: function (d) {
+//             if(d.highlight === true) {
+//                 return options.highlightColor;
+//             } else{
+//                 return options.chartColor;
+//             }
+//         }
+//     };
+//     return colorPie;
+// };
 
 PykCharts.oneD.mouseEvent = function (options) {
     var highlight_selected = {
@@ -1363,10 +1365,10 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
     chartObject.label_weight = options.label_weight ? options.label_weight : stylesheet.label_weight;
     chartObject.label_family = options.label_family ? options.label_family : stylesheet.label_family;
 
-    chartObject.ticks_thickness = "ticks_thickness" in options ? options.ticks_thickness : stylesheet.ticks_thickness;
-    chartObject.ticks_size = "ticks_size" in options ? options.ticks_size : stylesheet.ticks_size;
-    chartObject.ticks_color = options.ticks_color ? options.ticks_color : stylesheet.ticks_color;
-    chartObject.ticks_family = options.ticks_family ? options.ticks_family : stylesheet.ticks_family;
+    chartObject.pointer_thickness = "pointer_thickness" in options ? options.pointer_thickness : stylesheet.pointer_thickness;
+    chartObject.pointer_size = "pointer_size" in options ? options.pointer_size : stylesheet.pointer_size;
+    chartObject.pointer_color = options.pointer_color ? options.pointer_color : stylesheet.pointer_color;
+    chartObject.pointer_family = options.pointer_family ? options.pointer_family : stylesheet.pointer_family;
 
     chartObject.showTotalAtTheCenter = options.donut_showTotalAtTheCenter ? options.donut_showTotalAtTheCenter : oneDimensionalCharts.donut_showTotalAtTheCenter;
     chartObject.units = options.units ? options.units : false;
@@ -1374,66 +1376,6 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
     chartObject.k = new PykCharts.Configuration(chartObject);
 
     return chartObject;
-    // chartObject.dataSource = optional && optional.dataSource ? optional.dataSource : "no";
-    // if (optional && optional.clubData) {
-    //     chartObject.clubData = optional.clubData;
-    //     chartObject.clubData.text = PykCharts.boolean(optional.clubData.enable) && optional.clubData.text ? optional.clubData.text : oneDimensionalCharts.clubData.text;
-    //     chartObject.clubData.maximumNodes = PykCharts.boolean(optional.clubData.maximumNodes) && optional.clubData.maximumNodes ? optional.clubData.maximumNodes : oneDimensionalCharts.clubData.maximumNodes;
-    //     chartObject.clubData.alwaysIncludeDataPoints = PykCharts.boolean(optional.clubData.enable) && optional.clubData.alwaysIncludeDataPoints ? optional.clubData.alwaysIncludeDataPoints : [];
-    // } else {
-    //     chartObject.clubData = oneDimensionalCharts.clubData;
-    //     chartObject.clubData.alwaysIncludeDataPoints = [];
-    // }
-    // chartObject.overflowTicks = optional && optional.overflowTicks ? optional.overflowTicks : stylesheet.overflowTicks;
-    // chartObject.bg = optional && optional.colors && optional.colors.backgroundColor ? optional.colors.backgroundColor : stylesheet.colors.backgroundColor;
-    // chartObject.chartColor = optional && optional.colors && optional.colors.chartColor ? optional.colors.chartColor : stylesheet.colors.chartColor;
-    // chartObject.highlightColor = optional && optional.colors && optional.colors.highlightColor ? optional.colors.highlightColor : stylesheet.colors.highlightColor;
-    // chartObject.fullscreen = optional && optional.buttons && optional.buttons.enableFullScreen ? optional.buttons.enableFullScreen : stylesheet.buttons.enableFullScreen;
-    // chartObject.loading = optional && optional.loading && optional.loading.animationGifUrl ? optional.loading.animationGifUrl: stylesheet.loading.animationGifUrl;
-    // if (optional && optional.tooltip) {
-    //     chartObject.tooltip = optional.tooltip;        
-    //     chartObject.tooltip.enable = optional.tooltip.enable ? optional.tooltip.enable : stylesheet.tooltip.enable;
-    // } else {
-    //     chartObject.tooltip = stylesheet.tooltip;
-    // //    chartObject.enableTooltip = multiDimensionalCharts.tooltip.enable;     
-    // }   
-    // if (optional && optional.borderBetweenChartElements) {
-    //     chartObject.borderBetweenChartElements = optional.borderBetweenChartElements;
-    //     chartObject.borderBetweenChartElements.width = "width" in optional.borderBetweenChartElements ? optional.borderBetweenChartElements.width : stylesheet.borderBetweenChartElements.width;
-    //     chartObject.borderBetweenChartElements.color = optional.borderBetweenChartElements.color ? optional.borderBetweenChartElements.color : stylesheet.borderBetweenChartElements.color;
-    //     chartObject.borderBetweenChartElements.style = optional.borderBetweenChartElements.style ? optional.borderBetweenChartElements.style : stylesheet.borderBetweenChartElements.style;
-    //     switch(chartObject.borderBetweenChartElements.style) {
-    //         case "dotted" : chartObject.borderBetweenChartElements.style = "1,3";
-    //                         break;
-    //         case "dashed" : chartObject.borderBetweenChartElements.style = "5,5";
-    //                        break;
-    //         default : chartObject.borderBetweenChartElements.style = "0";
-    //                   break;
-    //     }
-    // } else {
-    //     chartObject.borderBetweenChartElements = stylesheet.borderBetweenChartElements;
-    // }
-    // if (optional && optional.label) {
-    //     chartObject.label = optional.label;
-    //     chartObject.label.size = "size" in optional.label ? optional.label.size : stylesheet.label.size;
-    //     chartObject.label.color = optional.label.color ? optional.label.color : stylesheet.label.color;
-    //     chartObject.label.weight = optional.label.weight ? optional.label.weight : stylesheet.label.weight;
-    //     chartObject.label.family = optional.label.family ? optional.label.family : stylesheet.label.family;
-    // } else {
-    //     chartObject.label = stylesheet.label;
-    // }
-    // if(optional && optional.ticks) {
-    //     chartObject.ticks = optional.ticks;
-    //     chartObject.ticks.strokeWidth = "strokeWidth" in optional.ticks ? optional.ticks.strokeWidth : stylesheet.ticks.strokeWidth;
-    //     chartObject.ticks.size = "size" in optional.ticks ? optional.ticks.size : stylesheet.ticks.size;
-    //     chartObject.ticks.color = optional.ticks.color ? optional.ticks.color : stylesheet.ticks.color;
-    //     chartObject.ticks.family = optional.ticks.family ? optional.ticks.family : stylesheet.ticks.family;
-    // } else {
-    //     chartObject.ticks = stylesheet.ticks;
-    // }
-    // chartObject.showTotalAtTheCenter = optional && optional.donut && optional.donut.showTotalAtTheCenter ? optional.donut.showTotalAtTheCenter : oneDimensionalCharts.donut.showTotalAtTheCenter;
-    // chartObject.units = optional && optional.units ? optional.units : false;
-
    
 };
 PykCharts.oneD.bubble = function (options) {
@@ -1474,7 +1416,8 @@ PykCharts.oneD.bubble = function (options) {
     };
 
     this.render = function () {
-        that.fillChart = new PykCharts.oneD.fillChart(that);
+        // that.fillChart = new PykCharts.oneD.fillChart(that);
+        that.fillChart = new PykCharts.Configuration.fillChart(that);
         that.onHoverEffect = new PykCharts.oneD.mouseEvent(that);
         that.transitions = new PykCharts.Configuration.transition(that);
         if (that.mode ==="default") {
@@ -1551,7 +1494,7 @@ PykCharts.oneD.bubble = function (options) {
                     .attr("r",0)
                     .attr("transform",function (d) { return "translate(" + d.x + "," + d.y +")"; })
                     .attr("fill",function (d) {
-                        return d.children ? that.bg : that.fillChart.chartColor(d);
+                        return d.children ? that.bg : that.fillChart.selectColor(d);
                     })
                     .on("mouseover", function (d) {
                         if(!d.children) {
@@ -1751,7 +1694,8 @@ PykCharts.oneD.funnel = function (options) {
 
     this.render = function () {
         var that = this;
-        that.fillChart = new PykCharts.oneD.fillChart(that);
+        //that.fillChart = new PykCharts.oneD.fillChart(that);
+        that.fillChart = new PykCharts.Configuration.fillChart(that);        
         that.onHoverEffect = new PykCharts.oneD.mouseEvent(that);
         that.transitions = new PykCharts.Configuration.transition(that);
 //        theme.stylesheet.borderBetweenChartElements;
@@ -1946,7 +1890,7 @@ PykCharts.oneD.funnel = function (options) {
                     .attr('d',function(d){ return line(a); })
 
                    	.attr("fill",function (d,i) {
-                        return that.fillChart.chartColor(that.new_data[i]);
+                        return that.fillChart.selectColor(that.new_data[i]);
         			})
                     .attr("stroke",that.border.color())
                     .attr("stroke-width",that.border.width())
@@ -2063,11 +2007,11 @@ PykCharts.oneD.funnel = function (options) {
                                     return "";
                                 }
                             })
-                            .attr("font-size", that.ticks_size)
+                            .attr("font-size", that.pointer_size)
                             .attr("text-anchor","start")
-                            .attr("fill", that.ticks_color)
+                            .attr("fill", that.pointer_color)
                             .attr("pointer-events","none")
-                            .attr("font-family", that.ticks_family);
+                            .attr("font-family", that.pointer_family);
                     },that.transitions.duration());
 
                     tick_label.exit().remove();
@@ -2108,8 +2052,8 @@ PykCharts.oneD.funnel = function (options) {
                                 return (d.values[4].y);
                            }
                         })
-                        .attr("stroke-width", that.ticks_thickness)
-                        .attr("stroke", that.ticks_color)
+                        .attr("stroke-width", that.pointer_thickness)
+                        .attr("stroke", that.pointer_color)
                         // .transition()
                         // .duration(that.transitions.duration())
 
@@ -2248,7 +2192,8 @@ PykCharts.oneD.percentageColumn = function (options) {
 
     this.render = function () {
         var that = this;
-        that.fillChart = new PykCharts.oneD.fillChart(that);
+    //    that.fillChart = new PykCharts.oneD.fillChart(that);
+        that.fillChart = new PykCharts.Configuration.fillChart(that);    
         that.onHoverEffect = new PykCharts.oneD.mouseEvent(options);
         that.transitions = new PykCharts.Configuration.transition(that);
         that.border = new PykCharts.Configuration.border(that);
@@ -2327,7 +2272,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                     .attr('width', that.width/4)
                     .attr('height', 0)
                     .attr("fill",function (d) {
-                        return that.fillChart.chartColor(d);
+                        return that.fillChart.selectColor(d);
                     })
                     .attr("stroke",that.border.color())
                     .attr("stroke-width",that.border.width())
@@ -2451,10 +2396,10 @@ PykCharts.oneD.percentageColumn = function (options) {
                     tick_label.text(function (d) {
                             return "";
                         })
-                        .attr("font-size", that.ticks_size)
+                        .attr("font-size", that.pointer_size)
                         .attr("text-anchor","start")
-                        .attr("fill", that.ticks_color)
-                        .attr("font-family", that.ticks_family)
+                        .attr("fill", that.pointer_color)
+                        .attr("font-family", that.pointer_family)
                         .attr("pointer-events","none");
 
                         setTimeout(function() {
@@ -2495,8 +2440,8 @@ PykCharts.oneD.percentageColumn = function (options) {
                                         return (((sum1 - d.percentValue) * that.height/100)+(sum1 * that.height / 100))/2;
                                     }
                                 })
-                                .attr("stroke-width", that.ticks_thickness)
-                                .attr("stroke", that.ticks_color)
+                                .attr("stroke-width", that.pointer_thickness)
+                                .attr("stroke", that.pointer_color)
                                 // .transition()
                                 // .duration(that.transitions.duration())
                                 .attr("x2", function (d, i) {
@@ -2894,7 +2839,8 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
 
         that.count = 1;
 
-        that.fillChart = new PykCharts.oneD.fillChart(that);
+        //that.fillChart = new PykCharts.oneD.fillChart(that);
+        that.fillChart = new PykCharts.Configuration.fillChart(that);
         that.onHoverEffect = new PykCharts.oneD.mouseEvent(options);
         that.border = new PykCharts.Configuration.border(that);
         that.transitions = new PykCharts.Configuration.transition(that);
@@ -3002,7 +2948,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
 
                 that.chart_data
                     .attr("fill",function (d) {
-                            return that.fillChart.chartColor(d.data);
+                            return that.fillChart.selectColor(d.data);
                     })
                     .on('mouseover',function (d) {
                         d.data.tooltip = d.data.tooltip || "<table class='PykCharts'><tr><th colspan='3' class='tooltip-heading'>"+d.data.name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.data.weight)+"<td class='tooltip-right-content'>( "+((d.data.weight*100)/that.sum).toFixed(2)+"% ) </tr></table>";
@@ -3264,9 +3210,9 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                             })
                             .attr("dy",5)
                             .attr("pointer-events","none")
-                            .style("fill",that.ticks_color)
-                            .style("font-size",that.ticks_size)
-                            .style("font-family", that.ticks_family);
+                            .style("fill",that.pointer_color)
+                            .style("font-size",that.pointer_size)
+                            .style("font-family", that.pointer_family);
 
                         tick_label.exit().remove();
                     },that.transitions.duration());
@@ -3342,8 +3288,8 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                                 // }
                             })
                             .attr("transform","rotate(-90)")
-                            .attr("stroke-width", that.ticks_thickness)
-                            .attr("stroke",that.ticks_color);
+                            .attr("stroke-width", that.pointer_thickness)
+                            .attr("stroke",that.pointer_color);
                         tick_line.exit().remove();
                     },that.transitions.duration());
                 // }
@@ -3469,7 +3415,8 @@ PykCharts.oneD.pyramid = function (options) {
     };
 
 	this.render = function () {
-		that.fillChart = new PykCharts.oneD.fillChart(that);
+//		that.fillChart = new PykCharts.oneD.fillChart(that);
+        that.fillChart = new PykCharts.Configuration.fillChart(that);
         that.onHoverEffect = new PykCharts.oneD.mouseEvent(options);
         that.transitions = new PykCharts.Configuration.transition(that);
         that.border = new PykCharts.Configuration.border(that);
@@ -3637,7 +3584,7 @@ PykCharts.oneD.pyramid = function (options) {
                             k--;
                             b = that.new_data[k];
                         }
-                        return that.fillChart.chartColor(b);
+                        return that.fillChart.selectColor(b);
                     })
         			.on("mouseover", function (d,i) {
                         that.onHoverEffect.highlight(options.selector +" "+".pyr-path",this);
@@ -3784,9 +3731,9 @@ PykCharts.oneD.pyramid = function (options) {
                                 }
                             }
                     })
-                    .style("fill",that.ticks_color)
-                    .style("font-size",that.ticks_size)
-                    .style("font-family", that.ticks_family)
+                    .style("fill",that.pointer_color)
+                    .style("font-size",that.pointer_size)
+                    .style("font-family", that.pointer_family)
                     .attr("text-anchor","start");
                 },that.transitions.duration());
 
@@ -3827,8 +3774,8 @@ PykCharts.oneD.pyramid = function (options) {
                             return (d.values[0].y + that.coordinates[that.coordinates.length-1].values[1].y)/2;
                         }
                     })
-                    .attr("stroke-width", that.ticks_thickness)
-                    .attr("stroke",that.ticks_color)
+                    .attr("stroke-width", that.pointer_thickness)
+                    .attr("stroke",that.pointer_color)
                     // .transition()
                     // .duration(that.transitions.duration())
                
@@ -3994,7 +3941,8 @@ PykCharts.oneD.treemap = function (options){
 
     this.render = function (){
 
-        that.fillChart = new PykCharts.oneD.fillChart(that);
+//        that.fillChart = new PykCharts.oneD.fillChart(that);
+        that.fillChart = new PykCharts.Configuration.fillChart(that);
         that.onHoverEffect = new PykCharts.oneD.mouseEvent(options);
         that.transitions = new PykCharts.Configuration.transition(that);
         that.border = new PykCharts.Configuration.border(that);
@@ -4073,7 +4021,7 @@ PykCharts.oneD.treemap = function (options){
                     .attr("width", function (d) { return d.dx-1; })
                     .attr("height", 0)
                     .attr("fill",function (d) {
-                        return d.children ? "white" : that.fillChart.chartColor(d);
+                        return d.children ? "white" : that.fillChart.selectColor(d);
                     })
                     .on('mouseover',function (d) {
                         if(!d.children) {
@@ -4528,8 +4476,6 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     chartObject.selector = options.selector ? options.selector : "body";
     chartObject.width = _.isNumber(options.chart_width) ? options.chart_width : stylesheet.chart_width;
     chartObject.height = _.isNumber(options.chart_height) ? options.chart_height : stylesheet.chart_height;
-    // chartObject.width = optional && optional.chart && _.isNumber(optional.chart.width) ? optional.chart.width : stylesheet.chart.width;
-    // chartObject.height = optional && optional.chart &&_.isNumber(optional.chart.height) ? optional.chart.height : stylesheet.chart.height;
     chartObject.margin_left = options.chart_margin_left && _.isNumber(options.chart_margin_left) ? options.chart_margin_left : stylesheet.chart_margin_left;
     chartObject.margin_right = options.chart_margin_left && _.isNumber(options.chart_margin_right) ? options.chart_margin_right : stylesheet.chart_margin_right;
     chartObject.margin_top = options.chart_margin_top && _.isNumber(options.chart_margin_top) ? options.chart_margin_top : stylesheet.chart_margin_top;
@@ -4564,30 +4510,28 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     }
     chartObject.axis_onHoverHighlightenable = PykCharts.boolean(options.axis_x_enable) && options.axis_onHoverHighlightenable ? options.axis_onHoverHighlightenable : multiDimensionalCharts.axis_onHoverHighlightenable;
     chartObject.axis_x_enable = options.axis_x_enable ? options.axis_x_enable : multiDimensionalCharts.axis_x_enable;
-    chartObject.axis_x_orient = PykCharts.boolean(options.axis_x_enable) && options.axis_x_orient ? options.axis_x_orient : multiDimensionalCharts.axis_x_orient;
+    chartObject.axis_x_value_position = PykCharts.boolean(options.axis_x_enable) && options.axis_x_value_position ? options.axis_x_value_position : multiDimensionalCharts.axis_x_value_position;
     chartObject.axis_x_position = PykCharts.boolean(options.axis_x_enable) && options.axis_x_position ? options.axis_x_position : multiDimensionalCharts.axis_x_position;
     chartObject.axis_x_axisColor = PykCharts.boolean(options.axis_x_enable) && options.axis_x_axisColor ? options.axis_x_axisColor : multiDimensionalCharts.axis_x_axisColor;
     chartObject.axis_x_labelColor = PykCharts.boolean(options.axis_x_enable) && options.axis_x_labelColor ? options.axis_x_labelColor : multiDimensionalCharts.axis_x_labelColor;
-    chartObject.axis_x_no_of_ticks = PykCharts.boolean(options.axis_x_enable) && options.axis_x_no_of_ticks ? options.axis_x_no_of_ticks : multiDimensionalCharts.axis_x_no_of_ticks;
-    chartObject.axis_x_tickPadding = PykCharts.boolean(options.axis_x_enable) && options.axis_x_tickPadding ? options.axis_x_tickPadding : multiDimensionalCharts.axis_x_tickPadding;
-    
-    // console.log(chartObject.axis_x_ticksPadding)
-    chartObject.axis_x_tickSize = "axis_x_tickSize" in options && PykCharts.boolean(options.axis_x_enable) ? options.axis_x_tickSize : multiDimensionalCharts.axis_x_tickSize;
-    chartObject.axis_x_tickFormat = PykCharts.boolean(options.axis_x_enable) && options.axis_x_tickFormat ? options.axis_x_tickFormat : multiDimensionalCharts.axis_x_tickFormat;
-    chartObject.axis_x_tickValues = PykCharts.boolean(options.axis_x_enable) && options.axis_x_tickValues ? options.axis_x_tickValues : multiDimensionalCharts.axis_x_tickValues;
-    chartObject.axis_x_outer_tick_size = "axis_x_outer_tick_size" in options && PykCharts.boolean(options.axis_x_enable) ? options.axis_x_outer_tick_size : multiDimensionalCharts.axis_x_outer_tick_size;
+    chartObject.axis_x_no_of_axis_value = PykCharts.boolean(options.axis_x_enable) && options.axis_x_no_of_axis_value ? options.axis_x_no_of_axis_value : multiDimensionalCharts.axis_x_no_of_axis_value;
+    chartObject.axis_x_pointer_padding = PykCharts.boolean(options.axis_x_enable) && options.axis_x_pointer_padding ? options.axis_x_pointer_padding : multiDimensionalCharts.axis_x_pointer_padding;
+    chartObject.axis_x_pointer_size = "axis_x_pointer_size" in options && PykCharts.boolean(options.axis_x_enable) ? options.axis_x_pointer_size : multiDimensionalCharts.axis_x_pointer_size;
+    chartObject.axis_x_value_format = PykCharts.boolean(options.axis_x_enable) && options.axis_x_value_format ? options.axis_x_value_format : multiDimensionalCharts.axis_x_value_format;
+    chartObject.axis_x_pointer_values = PykCharts.boolean(options.axis_x_enable) && options.axis_x_pointer_values ? options.axis_x_pointer_values : multiDimensionalCharts.axis_x_pointer_values;
+    chartObject.axis_x_outer_pointer_size = "axis_x_outer_pointer_size" in options && PykCharts.boolean(options.axis_x_enable) ? options.axis_x_outer_pointer_size : multiDimensionalCharts.axis_x_outer_pointer_size;
 
     chartObject.axis_y_enable = options.axis_y_enable ? options.axis_y_enable : multiDimensionalCharts.axis_y_enable;
-    chartObject.axis_y_orient = PykCharts.boolean(options.axis_y_enable) && options.axis_y_orient ? options.axis_y_orient : multiDimensionalCharts.axis_y_orient;
+    chartObject.axis_y_value_position = PykCharts.boolean(options.axis_y_enable) && options.axis_y_value_position ? options.axis_y_value_position : multiDimensionalCharts.axis_y_value_position;
     chartObject.axis_y_position = PykCharts.boolean(options.axis_y_enable) && options.axis_y_position ? options.axis_y_position : multiDimensionalCharts.axis_y_position;
     chartObject.axis_y_axisColor = PykCharts.boolean(options.axis_y_enable) && options.axis_y_axisColor ? options.axis_y_axisColor : multiDimensionalCharts.axis_y_axisColor;
     chartObject.axis_y_labelColor = PykCharts.boolean(options.axis_y_enable) && options.axis_y_labelColor ? options.axis_y_labelColor : multiDimensionalCharts.axis_y_labelColor;
-    chartObject.axis_y_no_of_ticks = PykCharts.boolean(options.axis_y_enable) && options.axis_y_no_of_ticks ? options.axis_y_no_of_ticks : multiDimensionalCharts.axis_y_no_of_ticks;
-    chartObject.axis_y_tickPadding = PykCharts.boolean(options.axis_y_enable) && options.axis_y_tickPadding ? options.axis_y_tickPadding : multiDimensionalCharts.axis_y_tickPadding;
-    chartObject.axis_y_tickSize = "axis_y_tickSize" in options && PykCharts.boolean(options.axis_y_enable) ? options.axis_y_tickSize : multiDimensionalCharts.axis_y_tickSize;
-    chartObject.axis_y_tickFormat = PykCharts.boolean(options.axis_y_enable) && options.axis_y_tickFormat ? options.axis_y_tickFormat : multiDimensionalCharts.axis_y_tickFormat;
-    chartObject.axis_y_tickValues = PykCharts.boolean(options.axis_y_enable) && options.axis_y_tickValues ? options.axis_y_tickValues : multiDimensionalCharts.axis_y_tickValues;
-    chartObject.axis_y_outer_tick_size = "axis_y_outer_tick_size" in options && PykCharts.boolean(options.axis_y_enable) ? options.axis_y_outer_tick_size : multiDimensionalCharts.axis_y_outer_tick_size;
+    chartObject.axis_y_no_of_axis_value = PykCharts.boolean(options.axis_y_enable) && options.axis_y_no_of_axis_value ? options.axis_y_no_of_axis_value : multiDimensionalCharts.axis_y_no_of_axis_value;
+    chartObject.axis_y_pointer_padding = PykCharts.boolean(options.axis_y_enable) && options.axis_y_pointer_padding ? options.axis_y_pointer_padding : multiDimensionalCharts.axis_y_pointer_padding;
+    chartObject.axis_y_pointer_size = "axis_y_pointer_size" in options && PykCharts.boolean(options.axis_y_enable) ? options.axis_y_pointer_size : multiDimensionalCharts.axis_y_pointer_size;
+    chartObject.axis_y_value_format = PykCharts.boolean(options.axis_y_enable) && options.axis_y_value_format ? options.axis_y_value_format : multiDimensionalCharts.axis_y_value_format;
+    chartObject.axis_y_pointer_values = PykCharts.boolean(options.axis_y_enable) && options.axis_y_pointer_values ? options.axis_y_pointer_values : multiDimensionalCharts.axis_y_pointer_values;
+    chartObject.axis_y_outer_pointer_size = "axis_y_outer_pointer_size" in options && PykCharts.boolean(options.axis_y_enable) ? options.axis_y_outer_pointer_size : multiDimensionalCharts.axis_y_outer_pointer_size;
 
     chartObject.legends_enable =  options.legends_enable ? options.legends_enable : multiDimensionalCharts.legends_enable;
     chartObject.legends_display = options.legends_display ? options.legends_display : multiDimensionalCharts.legends_display;
@@ -4606,7 +4550,6 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     chartObject.saturationEnable = options.saturation_enable ? options.saturation_enable : "no";
     chartObject.saturationColor = options.saturationColor ? options.saturationColor : stylesheet.saturationColor;
 
-//    chartObject.enableTooltip = optional && optional.enableTooltip ? optional.enableTooltip : stylesheet.enableTooltip
     chartObject.borderBetweenChartElements_width = "borderBetweenChartElements_width" in options ? options.borderBetweenChartElements_width : stylesheet.borderBetweenChartElements_width;
     chartObject.borderBetweenChartElements_color = options.borderBetweenChartElements_color ? options.borderBetweenChartElements_color : stylesheet.borderBetweenChartElements_color;
     chartObject.borderBetweenChartElements_style = options.borderBetweenChartElements_style ? options.borderBetweenChartElements_style : stylesheet.borderBetweenChartElements_style;
@@ -4618,11 +4561,11 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
         default : chartObject.borderBetweenChartElements_style = "0";
                   break;
     }
-    chartObject.ticks_thickness = "ticks_thickness" in options ? options.ticks_thickness : stylesheet.ticks_thickness;
-    chartObject.ticks_size = "ticks_size" in options ? options.ticks_size : stylesheet.ticks_size;
-    chartObject.ticks_color = options.ticks_color ? options.ticks_color : stylesheet.ticks_color;
-    chartObject.ticks_family = options.ticks_family ? options.ticks_family : stylesheet.ticks_family;
-
+    chartObject.pointer_thickness = "pointer_thickness" in options ? options.pointer_thickness : stylesheet.pointer_thickness;
+    chartObject.pointer_size = "pointer_size" in options ? options.pointer_size : stylesheet.pointer_size;
+    chartObject.pointer_color = options.pointer_color ? options.pointer_color : stylesheet.pointer_color;
+    chartObject.pointer_family = options.pointer_family ? options.pointer_family : stylesheet.pointer_family;
+    chartObject.pointer_weight = (chartObject.pointer_weight === "thick") ? "bold" : "normal";
     chartObject.zoom_enable = options.zoom_enable ? options.zoom_enable : multiDimensionalCharts.zoom_enable;
 
     chartObject.label_size = "label_size" in options ? options.label_size : stylesheet.label_size;
@@ -4646,60 +4589,7 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     chartObject.colorPalette = ["#b2df8a", "#1f78b4", "#33a02c", "#fb9a99", "#e31a1c", "#fdbf6f", "#ff7f00", "#cab2d6", "#6a3d9a", "#ffff99", "#b15928", "#a6cee3"];
     chartObject.k = new PykCharts.Configuration(chartObject); 
 
-    // if (optional && optional.axis) {
-    //     chartObject.axis = optional.axis;
-    //     chartObject.axis.x = optional.axis.x;
-    //     chartObject.axis.onHoverHighlightenable = PykCharts.boolean(optional.axis.x.enable) && optional.axis.onHoverHighlightenable ? optional.axis.onHoverHighlightenable : multiDimensionalCharts.axis.onHoverHighlightenable;
-    //     chartObject.axis.x.orient = PykCharts.boolean(optional.axis.x.enable) && optional.axis.x.orient ? optional.axis.x.orient : multiDimensionalCharts.axis.x.orient;
-    //     chartObject.axis.x.axisColor = PykCharts.boolean(optional.axis.x.enable) && optional.axis.x.axisColor ? optional.axis.x.axisColor : multiDimensionalCharts.axis.x.axisColor;
-    //     chartObject.axis.x.labelColor = PykCharts.boolean(optional.axis.x.enable) && optional.axis.x.labelColor ? optional.axis.x.labelColor : multiDimensionalCharts.axis.x.labelColor;
-    //     chartObject.axis.x.no_of_ticks = PykCharts.boolean(optional.axis.x.enable) && optional.axis.x.no_of_ticks ? optional.axis.x.no_of_ticks : multiDimensionalCharts.axis.x.no_of_ticks;
-    //     chartObject.axis.x.ticksPadding = PykCharts.boolean(optional.axis.x.enable) && optional.axis.x.ticksPadding ? optional.axis.x.ticksPadding : multiDimensionalCharts.axis.x.ticksPadding;
-    //     chartObject.axis.x.tickSize = "tickSize" in optional.axis.x && PykCharts.boolean(optional.axis.x.enable) ? optional.axis.x.tickSize : multiDimensionalCharts.axis.x.tickSize;
-    //     chartObject.axis.x.tickFormat = PykCharts.boolean(optional.axis.x.enable) && optional.axis.x.tickFormat ? optional.axis.x.tickFormat : multiDimensionalCharts.axis.x.tickFormat;
-    //     chartObject.axis.x.tickValues = PykCharts.boolean(optional.axis.x.enable) && optional.axis.x.tickValues ? optional.axis.x.tickValues : multiDimensionalCharts.axis.x.tickValues;
-    //     chartObject.axis.x.outer_tick_size = "outer_tick_size" in optional.axis.x && PykCharts.boolean(optional.axis.x.enable) ? optional.axis.x.outer_tick_size : multiDimensionalCharts.axis.x.outer_tick_size;
-    //     chartObject.axis.y = optional.axis.y;
-    //     chartObject.axis.y.orient = PykCharts.boolean(optional.axis.y.enable) && optional.axis.y.orient ? optional.axis.y.orient : multiDimensionalCharts.axis.y.orient;
-    //     chartObject.axis.y.axisColor = PykCharts.boolean(optional.axis.y.enable) && optional.axis.y.axisColor ? optional.axis.y.axisColor : multiDimensionalCharts.axis.y.axisColor;
-    //     chartObject.axis.y.labelColor = PykCharts.boolean(optional.axis.y.enable) && optional.axis.y.labelColor ? optional.axis.y.labelColor : multiDimensionalCharts.axis.y.labelColor;
-    //     chartObject.axis.y.no_of_ticks = PykCharts.boolean(optional.axis.y.enable) && optional.axis.y.no_of_ticks ? optional.axis.y.no_of_ticks : multiDimensionalCharts.axis.y.no_of_ticks;
-    //     chartObject.axis.y.ticksPadding = PykCharts.boolean(optional.axis.y.enable) && optional.axis.y.ticksPadding ? optional.axis.y.ticksPadding : multiDimensionalCharts.axis.y.ticksPadding;
-    //     chartObject.axis.y.tickSize = "tickSize" in optional.axis.y && PykCharts.boolean(optional.axis.y.enable) ? optional.axis.y.tickSize : multiDimensionalCharts.axis.y.tickSize;
-    //     chartObject.axis.y.tickFormat = PykCharts.boolean(optional.axis.y.enable) && optional.axis.y.tickFormat ? optional.axis.y.tickFormat : multiDimensionalCharts.axis.y.tickFormat;
-    //     chartObject.axis.y.outer_tick_size = "outer_tick_size" in optional.axis.y && PykCharts.boolean(optional.axis.y.enable) ? optional.axis.y.outer_tick_size : multiDimensionalCharts.axis.y.outer_tick_size;
-    // } else {
-    //     chartObject.axis = multiDimensionalCharts.axis;
-    // }
-
-    // if(optional && optional.legends) {
-    //     chartObject.legends = optional.legends;
-    //     chartObject.legends.enable = optional.legends.enable && optional.legends.enable ? optional.legends.enable : multiDimensionalCharts.legends.enable;
-    //     chartObject.legends.display = optional.legends.display ? optional.legends.display : multiDimensionalCharts.legends.display;
-    // } else {
-    //     chartObject.legends =  multiDimensionalCharts.legends;
-    // }
-
-   // if (optional && optional.legendsText) {
-    //     chartObject.legendsText = optional.legendsText;
-    //     chartObject.legendsText.size = optional.legendsText.size ? optional.legendsText.size : stylesheet.legendsText.size;
-    //     chartObject.legendsText.color = optional.legendsText.color ? optional.legendsText.color : stylesheet.legendsText.color;
-    //     chartObject.legendsText.weight = optional.legendsText.weight ? optional.legendsText.weight : stylesheet.legendsText.weight;
-    //     chartObject.legendsText.weight = (chartObject.legendsText.weight === "thick") ? "bold" : "normal";
-    //     chartObject.legendsText.family = optional.legendsText.family ? optional.legendsText.family : stylesheet.legendsText.family;
-    // } else {
-    //     chartObject.legendsText = stylesheet.legendsText;
-    // }
-    // chartObject.units = optional && optional.units ? optional.units : false;
-    // chartObject.size = optional && optional.size ? optional.size : multiDimensionalCharts.size;
-    // chartObject.size.enable = optional && optional.size && optional.size.enable ? optional.size.enable : multiDimensionalCharts.size.enable;
-    // if (optional && optional.tooltip) {
-    //     chartObject.tooltip = optional.tooltip;
-    //     chartObject.tooltip.enable = optional.tooltip.enable ? optional.tooltip.enable : multiDimensionalCharts.tooltip.enable;
-    //     chartObject.tooltip.mode = optional.tooltip.mode ? optional.tooltip.mode : multiDimensionalCharts.tooltip.mode;
-    // } else {
-    //     chartObject.tooltip = multiDimensionalCharts.tooltip;  
-    // }
+  
     return chartObject;
 };
 
@@ -6259,19 +6149,19 @@ PykCharts.multiD.barChart = function(options){
                         return (that.width-that.margin_left-that.margin_right) + 10;
                     });
                 }
-                if(that.axis_y_position === "left" && that.axis_y_orient === "right") {
+                if(that.axis_y_position === "left" && that.axis_y_value_position === "right") {
                     yAxis_label.attr("x", function (d) {
                         return 10;
                     });
                 }
-                if(that.axis_y_position === "right" && that.axis_y_orient === "left") {
+                if(that.axis_y_position === "right" && that.axis_y_value_position === "left") {
                     yAxis_label.attr("x", function (d) {
                         return (that.width-that.margin_left-that.margin_right) - 10;
                     });
                 }
-                if(that.axis_y_orient === "right") {
+                if(that.axis_y_value_position === "right") {
                     yAxis_label.attr("text-anchor","start");
-                } else if(that.axis_y_orient === "left") {
+                } else if(that.axis_y_value_position === "left") {
                     yAxis_label.attr("text-anchor","end");
                 }
 
@@ -6279,7 +6169,7 @@ PykCharts.multiD.barChart = function(options){
                 return this;
             },
             ticks: function () {
-                if(that.ticks_size) {
+                if(that.pointer_size) {
                     that.txt_width;
                     that.txt_height;
                     that.ticksElement = that.bars.selectAll("g")
@@ -6301,10 +6191,10 @@ PykCharts.multiD.barChart = function(options){
                                 return d.x;
                             }
                         })
-                        .style("font-weight", that.ticks_weight)
-                        .style("font-size", that.ticks_size)
-                        .attr("fill", that.ticks_color)
-                        .style("font-family", that.ticks_family)
+                        .style("font-weight", that.pointer_weight)
+                        .style("font-size", that.pointer_size)
+                        .attr("fill", that.pointer_color)
+                        .style("font-family", that.pointer_family)
                         .text(function(d) {
                             if(d.x) {
                                 that.txt_width = this.getBBox().width;
@@ -6330,7 +6220,7 @@ PykCharts.multiD.barChart = function(options){
                         })
                         .style("font-size",function(d) {
                             // console.log(that.label.size);
-                            return that.ticks_size;
+                            return that.pointer_size;
                         });
 
                     tick_label.exit().remove();
@@ -6988,21 +6878,21 @@ PykCharts.multiD.columnChart = function(options){
 
                 xAxis_label.exit().remove();
                 if(that.axis_x_position==="top") {
-                    if(that.axis_x_orient === "top") {
+                    if(that.axis_x_value_position === "top") {
                         xAxis_label.attr("y", function () {
                             return -15;
                         });
-                    } else if(that.axis_x_orient === "bottom") {
+                    } else if(that.axis_x_value_position === "bottom") {
                         xAxis_label.attr("y", function () {
                             return 15;
                         });
                     }
                 }
-                if(that.axis_x_orient === "top") {
+                if(that.axis_x_value_position === "top") {
                     xAxis_label.attr("y", function () {
                         return h-15;
                     });
-                } else if(that.axis_x_orient === "bottom") {
+                } else if(that.axis_x_value_position === "bottom") {
                     xAxis_label.attr("y", function () {
                         return h+15;
                     });
@@ -8830,14 +8720,8 @@ PykCharts.maps.processInputs = function (chartObject, options) {
     chartObject.selector = options.selector ? options.selector : stylesheet.selector;
     chartObject.width = _.isNumber(parseInt(options.chart_width,10)) ? options.chart_width : mapsTheme.chart_width;
     chartObject.height = _.isNumber(parseInt(options.chart_height,10)) ? options.chart_height : mapsTheme.chart_height;
-    // chartObject.width = optional.chart && _.isNumber(parseInt(optional.chart.width,10)) ? optional.chart.width : mapsTheme.chart.width;
-    // chartObject.height = optional.chart && _.isNumber(parseInt(optional.chart.height,10)) ? optional.chart.height : mapsTheme.chart.height;
     chartObject.mapCode = options.mapCode ? options.mapCode : mapsTheme.mapCode;
     chartObject.enableClick = options.enableClick ? options.enableClick : mapsTheme.enableClick;
-    // chartObject.defaultColor = optional && optional.colors && optional.colors.defaultColor ? optional.colors.defaultColor : mapsTheme.colors.defaultColor;
-    // chartObject.colorType = optional && optional.colors && optional.colors.type ? optional.colors.type : stylesheet.colors.type;
-    // chartObject.totalColors = optional && optional.colors && _.isNumber(parseInt(optional.colors.total,10)) ? parseInt(optional.colors.total,10) : stylesheet.colors.total;
-    // chartObject.colorPalette = optional && optional.colors && optional.colors.palette ? optional.colors.palette : mapsTheme.colors.palette;
     chartObject.bg = options.colors_backgroundColor ? options.colors_backgroundColor : stylesheet.backgroundColor;
     
     chartObject.timeline_duration = options.timeline_duration ? options.timeline_duration :mapsTheme.timeline_duration;
@@ -8860,16 +8744,15 @@ PykCharts.maps.processInputs = function (chartObject, options) {
 
     chartObject.axis_onHoverHighlightenable = PykCharts.boolean(options.axis_x_enable) && options.axis_onHoverHighlightenable ? options.axis_onHoverHighlightenable : mapsTheme.axis_onHoverHighlightenable;
     chartObject.axis_x_enable = options.axis_x_enable ? options.axis_x_enable : mapsTheme.axis_x_enable;
-    chartObject.axis_x_orient = PykCharts.boolean(options.axis_x_enable) && options.axis_x_orient ? options.axis_x_orient : mapsTheme.axis_x_orient;
-    // chartObject.axis_x_position = PykCharts.boolean(options.axis_x_enable) && options.axis_x_position ? options.axis_x_position : mapsTheme.axis_x_position;
+    chartObject.axis_x_value_position = PykCharts.boolean(options.axis_x_enable) && options.axis_x_value_position ? options.axis_x_value_position : mapsTheme.axis_x_value_position;
     chartObject.axis_x_axisColor = PykCharts.boolean(options.axis_x_enable) && options.axis_x_axisColor ? options.axis_x_axisColor : mapsTheme.axis_x_axisColor;
     chartObject.axis_x_labelColor = PykCharts.boolean(options.axis_x_enable) && options.axis_x_labelColor ? options.axis_x_labelColor : mapsTheme.axis_x_labelColor;
-    chartObject.axis_x_no_of_ticks = PykCharts.boolean(options.axis_x_enable) && options.axis_x_no_of_ticks ? options.axis_x_no_of_ticks : mapsTheme.axis_x_no_of_ticks;
-    chartObject.axis_x_tickPadding = PykCharts.boolean(options.axis_x_enable) && options.axis_x_tickPadding ? options.axis_x_tickPadding : mapsTheme.axis_x_tickPadding;
-    chartObject.axis_x_tickSize = "axis_x_tickSize" in options && PykCharts.boolean(options.axis_x_enable) ? options.axis_x_tickSize : mapsTheme.axis_x_tickSize;
-    chartObject.axis_x_tickFormat = PykCharts.boolean(options.axis_x_enable) && options.axis_x_tickFormat ? options.axis_x_tickFormat : mapsTheme.axis_x_tickFormat;
-    chartObject.axis_x_tickValues = PykCharts.boolean(options.axis_x_enable) && options.axis_x_tickValues ? options.axis_x_tickValues : mapsTheme.axis_x_tickValues;
-    chartObject.axis_x_outer_tick_size = "axis_x_outer_tick_size" in options && PykCharts.boolean(options.axis_x_enable) ? options.axis_x_outer_tick_size : mapsTheme.axis_x_outer_tick_size;
+    chartObject.axis_x_no_of_axis_value = PykCharts.boolean(options.axis_x_enable) && options.axis_x_no_of_axis_value ? options.axis_x_no_of_axis_value : mapsTheme.axis_x_no_of_axis_value;
+    chartObject.axis_x_pointer_padding = PykCharts.boolean(options.axis_x_enable) && options.axis_x_pointer_padding ? options.axis_x_pointer_padding : mapsTheme.axis_x_pointer_padding;
+    chartObject.axis_x_pointer_size = "axis_x_pointer_size" in options && PykCharts.boolean(options.axis_x_enable) ? options.axis_x_pointer_size : mapsTheme.axis_x_pointer_size;
+    chartObject.axis_x_value_format = PykCharts.boolean(options.axis_x_enable) && options.axis_x_value_format ? options.axis_x_value_format : mapsTheme.axis_x_value_format;
+    chartObject.axis_x_pointer_values = PykCharts.boolean(options.axis_x_enable) && options.axis_x_pointer_values ? options.axis_x_pointer_values : mapsTheme.axis_x_pointer_values;
+    chartObject.axis_x_outer_pointer_size = "axis_x_outer_pointer_size" in options && PykCharts.boolean(options.axis_x_enable) ? options.axis_x_outer_pointer_size : mapsTheme.axis_x_outer_pointer_size;
 
     chartObject.label_enable = options.label_enable ? options.label_enable : mapsTheme.label_enable;
     chartObject.legends_enable = options.legends_enable ? options.legends_enable : mapsTheme.legends_enable;
@@ -8926,115 +8809,7 @@ PykCharts.maps.processInputs = function (chartObject, options) {
 
     chartObject.k = new PykCharts.Configuration(chartObject);
     return chartObject; 
-    // if (optional && optional.colors) {
-    //     chartObject.colors = optional.colors;
-    //     chartObject.colors.defaultColor = optional.colors.defaultColor ? optional.colors.defaultColor : mapsTheme.colors.defaultColor;
-    //     chartObject.colors.total = optional.colors.total && _.isNumber(parseInt(optional.colors.total,10))? parseInt(optional.colors.total,10) : mapsTheme.colors.total;
-    //     chartObject.colors.type = optional.colors.type ? optional.colors.type : mapsTheme.colors.type;
-    //     chartObject.colors.palette = optional.colors.palette ? optional.colors.palette : mapsTheme.colors.palette;
-    // } else {
-    //     chartObject.colors = mapsTheme.colors;
-    // }
-    // if (optional && optional.axis) {
-    //     chartObject.axis = optional.axis;
-    //     chartObject.axis.x = optional.axis.x;
-    //     chartObject.axis.onHoverHighlightenable = PykCharts.boolean(optional.axis.x.enable) && optional.axis.onHoverHighlightenable ? optional.axis.onHoverHighlightenable : mapsTheme.axis.onHoverHighlightenable;
-    //     chartObject.axis.x.orient = PykCharts.boolean(optional.axis.x.enable) && optional.axis.x.orient ? optional.axis.x.orient : mapsTheme.axis.x.orient;
-    //     chartObject.axis.x.axisColor = PykCharts.boolean(optional.axis.x.enable) && optional.axis.x.axisColor ? optional.axis.x.axisColor : mapsTheme.axis.x.axisColor;
-    //     chartObject.axis.x.labelColor = PykCharts.boolean(optional.axis.x.enable) && optional.axis.x.labelColor ? optional.axis.x.labelColor : mapsTheme.axis.x.labelColor;
-    //     chartObject.axis.x.no_of_ticks = PykCharts.boolean(optional.axis.x.enable) && optional.axis.x.no_of_ticks ? optional.axis.x.no_of_ticks : mapsTheme.axis.x.no_of_ticks;
-    //     chartObject.axis.x.ticksPadding = PykCharts.boolean(optional.axis.x.enable) && optional.axis.x.ticksPadding ? optional.axis.x.ticksPadding : mapsTheme.axis.x.ticksPadding;
-    //     chartObject.axis.x.tickSize = "tickSize" in optional.axis.x && PykCharts.boolean(optional.axis.x.enable) ? optional.axis.x.tickSize : mapsTheme.axis.x.tickSize;
-    //     chartObject.axis.x.tickFormat = PykCharts.boolean(optional.axis.x.enable) && optional.axis.x.tickFormat ? optional.axis.x.tickFormat : mapsTheme.axis.x.tickFormat;
-    //     chartObject.axis.x.tickValues = PykCharts.boolean(optional.axis.x.enable) && optional.axis.x.tickValues ? optional.axis.x.tickValues : mapsTheme.axis.x.tickValues;
-    //     chartObject.axis.x.outer_tick_size = "outer_tick_size" in optional.axis.x && PykCharts.boolean(optional.axis.x.enable) ? optional.axis.x.outer_tick_size : mapsTheme.axis.x.outer_tick_size;
-    // } else {
-    //     chartObject.axis = mapsTheme.axis;
-    // }
-    // if(optional && optional.label) {
-    //     chartObject.label = optional.label;
-    //     chartObject.label.enable = optional.label.enable && optional.label.enable ? optional.label.enable : mapsTheme.label.enable;
-    // } else {
-    //     chartObject.label =  mapsTheme.label;
-    // }
-    // if (optional && optional.label) {
-    //     chartObject.label = optional.label;
-    //     chartObject.label.size = optional.label.size ? optional.label.size : stylesheet.label.size;
-    //     chartObject.label.color = optional.label.color ? optional.label.color : stylesheet.label.color;
-    //     chartObject.label.weight = optional.label.weight ? optional.label.weight : stylesheet.label.weight;
-    //     chartObject.label.family = optional.label.family ? optional.label.family : stylesheet.label.family;
-    // } else {
-    //     chartObject.label = stylesheet.label;
-    // }
-    // if(optional && optional.legends) {
-    //     chartObject.legends = optional.legends;
-    //     chartObject.legends.enable = optional.legends.enable && optional.legends.enable ? optional.legends.enable : mapsTheme.legends.enable;
-    //     chartObject.legends.display = optional.legends.display ? optional.legends.display : mapsTheme.legends.display;
-    // } else {
-    //     chartObject.legends =  mapsTheme.legends;
-    // }
-    // if(optional && optional.legends) {
-    //     chartObject.legends = optional.legends;
-    //     chartObject.legends.strokeWidth = optional.legends.strokeWidth ? optional.legends.strokeWidth : stylesheet.legends.strokeWidth;
-    //     chartObject.legends.size = optional.legends.size ? optional.legends.size : stylesheet.legends.size;
-    //     chartObject.legends.color = optional.legends.color ? optional.legends.color : stylesheet.legends.color;
-    //     chartObject.legends.family = optional.legends.family ? optional.legends.family : stylesheet.legends.family;
-    // } else {
-    //     chartObject.legends = stylesheet.legends;
-    // }
-    // if (optional && optional.borderBetweenChartElements) {
-    //     chartObject.borderBetweenChartElements = optional.borderBetweenChartElements;
-    //     chartObject.borderBetweenChartElements.width = "width" in optional.borderBetweenChartElements ? optional.borderBetweenChartElements.width : stylesheet.borderBetweenChartElements.width;
-    //     chartObject.borderBetweenChartElements.color = optional.borderBetweenChartElements.color ? optional.borderBetweenChartElements.color : stylesheet.borderBetweenChartElements.color;
-    //     chartObject.borderBetweenChartElements.style = optional.borderBetweenChartElements.style ? optional.borderBetweenChartElements.style : stylesheet.borderBetweenChartElements.style;
-    //     switch(chartObject.borderBetweenChartElements.style) {
-    //         case "dotted" : chartObject.borderBetweenChartElements.style = "1,3";
-    //                         break;
-    //         case "dashed" : chartObject.borderBetweenChartElements.style = "5,5";
-    //                        break;
-    //         default : chartObject.borderBetweenChartElements.style = "0";
-    //                   break;
-    //     }
-    // } else {
-    //     chartObject.borderBetweenChartElements = stylesheet.borderBetweenChartElements;
-    // }
-    // chartObject.onhover = optional && optional.onhover ? optional.onhover : mapsTheme.onhover;
-    // chartObject.defaultZoomLevel = optional && optional.defaultZoomLevel ? optional.defaultZoomLevel : 80;
-    // chartObject.loading = optional && optional.loading && optional.loading.animationGifUrl ? optional.loading.animationGifUrl: stylesheet.loading.animationGifUrl;
-    // chartObject.highlightArea = optional && optional.highlightArea ? optional.highlightArea : mapsTheme.highlightArea;
-    // if (optional && optional.title) {
-    //     chartObject.title = optional.title;
-    //     chartObject.title.size = "size"  in optional.title ? optional.title.size : stylesheet.title.size;
-    //     chartObject.title.color = optional.title.color ? optional.title.color : stylesheet.title.color;
-    //     chartObject.title.weight = optional.title.weight ? optional.title.weight : stylesheet.title.weight;
-    //     chartObject.title.family = optional.title.family ? optional.title.family : stylesheet.title.family;
-    // } else {
-    //     chartObject.title = stylesheet.title;
-    // }
-    // if (optional && optional.subtitle) {
-    //     chartObject.subtitle = optional.subtitle;
-    //     chartObject.subtitle.size = "size"  in optional.subtitle ? optional.subtitle.size : stylesheet.subtitle.size;
-    //     chartObject.subtitle.color = optional.subtitle.color ? optional.subtitle.color : stylesheet.subtitle.color;
-    //     chartObject.subtitle.family = optional.subtitle.family ? optional.subtitle.family : stylesheet.subtitle.family;
-    // } else {
-    //     chartObject.subtitle = stylesheet.subtitle;
-    // }
-    // chartObject.realTimeCharts = optional && optional.realTimeCharts ? optional.realTimeCharts : functionality.realTimeCharts;
-    // chartObject.transition = optional && optional.transition ? optional.transition : functionality.transition;
-    // chartObject.creditMySite = optional && optional.creditMySite ? optional.creditMySite : stylesheet.creditMySite;
-    // chartObject.dataSource = optional && optional.dataSource ? optional.dataSource : "no";
-    // chartObject.units = optional && optional.units ? optional.units : false;
-     // if (optional && optional.timeline) {
-    //     chartObject.timeline = optional.timeline;
-    //     chartObject.timeline.duration = optional.timeline.duration ? optional.timeline.duration :mapsTheme.timeline.duration;
-    //     chartObject.timeline.margin = optional.timeline.margin;
-    //     chartObject.timeline.margin.left = optional.timeline.margin.left ? optional.timeline.margin.left : mapsTheme.timeline.margin.left;
-    //     chartObject.timeline.margin.right = optional.timeline.margin.right ? optional.timeline.margin.right : mapsTheme.timeline.margin.right;
-    //     chartObject.timeline.margin.top = optional.timeline.margin.top ? optional.timeline.margin.top : mapsTheme.timeline.margin.top;
-    //     chartObject.timeline.margin.bottom = optional.timeline.margin.bottom ? optional.timeline.margin.bottom : mapsTheme.timeline.margin.bottom;
-    // } else {
-    //     chartObject.timeline = mapsTheme.timeline;
-    // }
+   
 };
 
 PykCharts.maps.oneLayer = function (options) {
@@ -9093,10 +8868,10 @@ PykCharts.maps.timelineMap = function (options) {
             d3.json("https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/maps/" + that.mapCode + "-topo.json", function (data) {
                 that.map_data = data;
                 d3.json("https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/palette/colorPalette.json", function (data) {
-
                     that.color_palette_data = data;
 
-                    var x_extent = d3.extent(that.timeline_data, function (d) { return d.timestamp; })
+
+                    var x_extent = d3.extent(that.timeline_data, function (d) { return d.timestamp; }) 
                     that.data = _.where(that.timeline_data, {timestamp: x_extent[0]});
 
                     that.data.sort(function (a,b) {

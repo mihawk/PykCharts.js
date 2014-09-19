@@ -38,7 +38,8 @@ PykCharts.oneD.pyramid = function (options) {
     };
 
 	this.render = function () {
-		that.fillChart = new PykCharts.oneD.fillChart(that);
+//		that.fillChart = new PykCharts.oneD.fillChart(that);
+        that.fillChart = new PykCharts.Configuration.fillChart(that);
         that.onHoverEffect = new PykCharts.oneD.mouseEvent(options);
         that.transitions = new PykCharts.Configuration.transition(that);
         that.border = new PykCharts.Configuration.border(that);
@@ -206,7 +207,7 @@ PykCharts.oneD.pyramid = function (options) {
                             k--;
                             b = that.new_data[k];
                         }
-                        return that.fillChart.chartColor(b);
+                        return that.fillChart.selectColor(b);
                     })
         			.on("mouseover", function (d,i) {
                         that.onHoverEffect.highlight(options.selector +" "+".pyr-path",this);
@@ -353,9 +354,9 @@ PykCharts.oneD.pyramid = function (options) {
                                 }
                             }
                     })
-                    .style("fill",that.ticks_color)
-                    .style("font-size",that.ticks_size)
-                    .style("font-family", that.ticks_family)
+                    .style("fill",that.pointer_color)
+                    .style("font-size",that.pointer_size)
+                    .style("font-family", that.pointer_family)
                     .attr("text-anchor","start");
                 },that.transitions.duration());
 
@@ -396,8 +397,8 @@ PykCharts.oneD.pyramid = function (options) {
                             return (d.values[0].y + that.coordinates[that.coordinates.length-1].values[1].y)/2;
                         }
                     })
-                    .attr("stroke-width", that.ticks_thickness)
-                    .attr("stroke",that.ticks_color)
+                    .attr("stroke-width", that.pointer_thickness)
+                    .attr("stroke",that.pointer_color)
                     // .transition()
                     // .duration(that.transitions.duration())
                

@@ -124,7 +124,8 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
 
         that.count = 1;
 
-        that.fillChart = new PykCharts.oneD.fillChart(that);
+        //that.fillChart = new PykCharts.oneD.fillChart(that);
+        that.fillChart = new PykCharts.Configuration.fillChart(that);
         that.onHoverEffect = new PykCharts.oneD.mouseEvent(options);
         that.border = new PykCharts.Configuration.border(that);
         that.transitions = new PykCharts.Configuration.transition(that);
@@ -232,7 +233,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
 
                 that.chart_data
                     .attr("fill",function (d) {
-                            return that.fillChart.chartColor(d.data);
+                            return that.fillChart.selectColor(d.data);
                     })
                     .on('mouseover',function (d) {
                         d.data.tooltip = d.data.tooltip || "<table class='PykCharts'><tr><th colspan='3' class='tooltip-heading'>"+d.data.name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.data.weight)+"<td class='tooltip-right-content'>( "+((d.data.weight*100)/that.sum).toFixed(2)+"% ) </tr></table>";
@@ -494,9 +495,9 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                             })
                             .attr("dy",5)
                             .attr("pointer-events","none")
-                            .style("fill",that.ticks_color)
-                            .style("font-size",that.ticks_size)
-                            .style("font-family", that.ticks_family);
+                            .style("fill",that.pointer_color)
+                            .style("font-size",that.pointer_size)
+                            .style("font-family", that.pointer_family);
 
                         tick_label.exit().remove();
                     },that.transitions.duration());
@@ -572,8 +573,8 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                                 // }
                             })
                             .attr("transform","rotate(-90)")
-                            .attr("stroke-width", that.ticks_thickness)
-                            .attr("stroke",that.ticks_color);
+                            .attr("stroke-width", that.pointer_thickness)
+                            .attr("stroke",that.pointer_color);
                         tick_line.exit().remove();
                     },that.transitions.duration());
                 // }
