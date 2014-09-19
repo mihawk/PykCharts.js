@@ -1072,7 +1072,7 @@ configuration.Theme = function(){
         "label_color": "white",
         "label_weight": "thin",
         "label_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
-        "ticks_strokeWidth": 1,
+        "ticks_thickness": 1,
         "ticks_size": 13,
         "ticks_color": "#1D1D1D",
         "ticks_family": "'Helvetica Neue',Helvetica,Arial,sans-serif"

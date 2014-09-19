@@ -389,7 +389,7 @@ PykCharts.oneD.pyramid = function (options) {
                             return (d.values[0].y + that.coordinates[that.coordinates.length-1].values[1].y)/2;
                         }
                     })
-                    .attr("stroke-width", that.ticks_strokeWidth)
+                    .attr("stroke-width", that.ticks_thickness)
                     .attr("stroke",that.ticks_color)
                     // .transition()
                     // .duration(that.transitions.duration())
