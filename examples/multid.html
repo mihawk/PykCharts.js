@@ -52,53 +52,42 @@
                     mode : "default",
                     yAxisDataFormat : "number",
                     xAxisDataFormat : "string",
-                    optional:{
-                        chart: {
-                            height: 400,
-                            width: 630,
-                            margin: {top: 5, right: 25, bottom: 25, left: 45},
-                            grid: {
-                                xEnabled: "no",
-                                yEnabled: "yes"
-                            },
-                        },
-                        transition : {
-                            duration : 0 //milliseconds
-                        },
-                        realTimeCharts: {
-                            refreshFrequency: 0 // seconds
-                        },
-                        axis : {
-                            onHoverHighlightenable: "yes",
-                            x: {
-                                enable: "yes",
-                                position:"bottom", //top or bottom
-                                orient : "bottom",
-                                axisColor: "#1D1D1D",
-                                labelColor: "#1D1D1D",
-                                tickSize: 3,
-                                ticksPadding: 3,
-                                outer_tick_size: 3
-                            },
-                            y: {
-                                enable: "yes",
-                                position:"left", //left or right
-                                orient: "left",
-                                axisColor: "#1D1D1D",
-                                labelColor: "#1D1D1D",
-                                tickSize: 3,
-                                ticksPadding: 10,
-                                outer_tick_size: 3
-                            }
-                        },
-                        line: {                            
-                            curvy_lines : "yes"
-                        },
-                        tooltip : {
-                            mode : "moving"
-                        },
-                        enableCrossHair: "yes"
-                    }
+                    chart_height: 400,
+                    chart_width : 630,
+                    chart_margin_top: 5,
+                    chart_margin_right: 25,
+                    chart_margin_bottom: 25,
+                    chart_margin_left: 45, 
+                    chart_grid_xEnabled: "no",
+                    chart_grid_yEnabled: "yes",
+
+                    transition_duration: 0,       
+                    realTimeCharts_refreshFrequency: 0,
+
+                    axis_onHoverHighlightenable: "yes",
+
+                    axis_x_enable: "yes",
+                    axis_x_position: "bottom",
+                    axis_x_value_position: "bottom",
+                    axis_x_axisColor: "#1D1D1D",
+                    axis_x_labelColor: "#1D1D1D",
+                    axis_x_pointer_size: 3,
+                    axis_x_pointer_padding: 3,
+                    axis_x_outer_pointer_size: 3,
+
+                    axis_y_enable: "yes",
+                    axis_y_position: "left",
+                    axis_y_value_position: "left",
+                    axis_y_axisColor: "#1D1D1D",
+                    axis_y_labelColor: "#1D1D1D",
+                    axis_y_pointer_size: 3,
+                    axis_y_pointer_padding: 10,
+                    axis_y_outer_pointer_size: 3, 
+
+                    line_curvy_lines:"yes",
+                    tooltip_mode : "moving",
+                    enableCrossHair: "yes"
+                  
                 });
                 k.execute();
 
@@ -108,56 +97,44 @@
                     mode : "default",
                     yAxisDataFormat : "number",
                     xAxisDataFormat : "string",
-                    optional:{
-                        chart: {
-                            height: 400,
-                            width: 630,
-                            margin: {top: 5, right: 25, bottom: 25, left: 45},
-                            grid: {
-                                xEnabled: "no",
-                                yEnabled: "yes"
-                            }
-                        },
-                        transition : {
-                            duration : 0 //milliseconds
-                        },
-                        realTimeCharts: {
-                            refreshFrequency: 0 // seconds
-                        },
-                        axis : {
-                            onHoverHighlightenable: "yes",
-                            x: {
-                                enable: "yes",
-                                position:"bottom", //top or bottom
-                                orient : "bottom",
-                                axisColor: "#1D1D1D",
-                                labelColor: "#1D1D1D",
-                                tickSize: 3,
-                                ticksPadding: 3,
-                                outer_tick_size: 3
-                            },
-                            y: {
-                                enable: "yes",
-                                position:"left", //left or right
-                                orient: "left",
-                                axisColor: "#1D1D1D",
-                                labelColor: "#1D1D1D",
-                                tickSize: 3,
-                                ticksPadding: 10,
-                                outer_tick_size: 3
-                            }
-                        },
-                        line: {                            
-                            curvy_lines : "yes"
-                        },
-                        enableCrossHair: "yes",
-                        zoom: {
-                            enable: "yes"
-                        },
-                        tooltip : {
-                            mode : "fixed"
-                        }
-                    }
+
+                    chart_height: 400,
+                    chart_width : 630,
+                    chart_margin_top: 5,
+                    chart_margin_right: 25,
+                    chart_margin_bottom: 25,
+                    chart_margin_left: 45, 
+                    chart_grid_xEnabled: "no",
+                    chart_grid_yEnabled: "yes",
+
+                    transition_duration: 0,       
+                    realTimeCharts_refreshFrequency: 0,
+
+                    axis_onHoverHighlightenable: "yes",
+
+                    axis_x_enable: "yes",
+                    axis_x_position: "bottom",
+                    axis_x_value_position: "bottom",
+                    axis_x_axisColor: "#1D1D1D",
+                    axis_x_labelColor: "#1D1D1D",
+                    axis_x_pointer_size: 3,
+                    axis_x_pointer_padding: 3,
+                    axis_x_outer_pointer_size: 3,
+
+                    axis_y_enable: "yes",
+                    axis_y_position: "left",
+                    axis_y_value_position: "left",
+                    axis_y_axisColor: "#1D1D1D",
+                    axis_y_labelColor: "#1D1D1D",
+                    axis_y_pointer_size: 3,
+                    axis_y_pointer_padding: 10,
+                    axis_y_outer_pointer_size: 3,
+
+                    line_curvy_lines:"yes",
+                    tooltip_mode : "moving",
+                    enableCrossHair: "yes",
+                    zoom_enable: "yes"
+        
                 });
                 k.execute();
 
@@ -165,43 +142,29 @@
                     selector: "#spiderWeb",
                     data: "../data/spiderWeb.json",
                     mode : "default", //  default or infographics
-                    spiderweb : {
-                        radius : 5,
-                        outer_radius_percent :80
-                    },
-                    optional : {
-                         chart : {
-                            width: 530,
-                            height: 430,
-                            margin: {top: 25, right: 25, bottom: 25, left: 55}
-                        },
-                        realTimeCharts: {
-                            refreshFrequency: 0 // seconds
-                        },
-                        size : {
-                           enable : "yes"
-                        },
-                        dataSource:{
-                            text: "World Bank",
-                            url: "http://www.pykih.com/"
-                        },
-                        enableTicks: "yes",
-                        borderBetweenChartElements: {
-                            width: "0px",
-                            color: "blue",
-                        },
-                        legends: {
-                            enable: "yes", //will be enabled only when size is "no"
-                            display: "horizontal" //horizontal or vertical
-                        },
-                        legendsText: {
-                            size: 13,
-                            color: "black",
-                            weight: "thin",
-                            family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
-                        },
-                        axisTitle: "yes"
-                    }
+                    spiderweb_radius : 5,
+                    spiderweb_outer_radius_percent: 80,
+
+                    chart_height: 430,
+                    chart_width : 530,
+                    chart_margin_top: 25,
+                    chart_margin_right: 25,
+                    chart_margin_bottom: 25,
+                    chart_margin_left: 55, 
+                    
+                    realTimeCharts_refreshFrequency: 0,
+                    size_enable: "yes",
+                    enableTicks: "yes",
+                    borderBetweenChartElements_width: 0,
+                    borderBetweenChartElements_color: "blue",
+                    legends_enable: "yes", 
+                    legends_display: "horizontal",//horizontal or vertical
+                    legendsText_size: 13,
+                    legendsText_color: "black",
+                    legendsText_weight: "thin",
+                    legendsText_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
+                    axisTitle: "yes"
+                    
                 });
                 k.execute();
 
@@ -211,79 +174,59 @@
                     mode : "default", //  default or infographics
                     yAxisDataFormat : "number",
                     xAxisDataFormat : "number",
-                    optional : {
-                        chart : {
-                            width: 700,
-                            height: 450,
-                            margin: {top: 25, right: 15, bottom: 25, left: 30},
-                            grid: {
-                                xEnabled: "yes",
-                                yEnabled: "yes",
-                                color:""
-                            }
-                        },
-                        scatterplot : {
-                            radius: 9
-                        },
-                        realTimeCharts: {
-                            refreshFrequency: 0 // seconds
-                        },
-                        multiple_containers: {
-                            enable : "no"
-                        },
-                        size : {
-                            enable : "yes"
-                        },
-                        axis : {
-                            x: {
-                                enable: "yes",
-                                position:"bottom", //top or bottom
-                                orient : "bottom",
-                                axisColor: "#1D1D1D",
-                                no_of_ticks: "10",
-                                tickFormat: "",
-                                tickSize: 5,
-                                ticksPadding: 6,
-                                labelColor: "black",
-                                tickValues: []
-                            },
-                            y: {
-                                enable: "yes",
-                                position:"left", //left or right
-                                orient: "left",
-                                axisColor: "#1D1D1D",
-                                no_of_ticks: "10",
-                                tickSize: 5,
-                                ticksPadding: 6,
-                                tickFormat: "",
-                                labelColor: "black"
-                            }
-                        },
-                        legends: {
-                            enable: "yes",
-                            display: "horizontal"
-                        },
-                        legendsText: {
-                            size: 13,
-                            color: "black",
-                            weight: "thin",
-                            family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
-                        },
-                        zoom: {
-                            enable: "yes"
-                        },
-                        borderBetweenChartElements: {
-                            width: "0px",
-                            color: "blue",
-                        },
-                        label:{
-                            size: 12,
-                            color: "white",
-                            weight: "thick",
-                            family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
-                        },
-                        enableCrossHair: "yes"
-                    }
+
+                    chart_height: 450,
+                    chart_width : 700,
+                    chart_margin_top: 25,
+                    chart_margin_right: 15,
+                    chart_margin_bottom: 25,
+                    chart_margin_left: 30,
+                    chart_grid_xEnabled: "yes",
+                    chart_grid_yEnabled: "yes", 
+                    
+                    scatterplot_radius : 9,
+                    realTimeCharts_refreshFrequency: 0, 
+                    multiple_containers_enable: "no",
+                    size_enable: "yes",
+
+                    axis_x_enable: "yes",
+                    axis_x_position: "bottom",
+                    axis_x_value_position: "bottom",
+                    axis_x_axisColor: "#1D1D1D",
+                    axis_x_no_of_axis_value: 10,
+                    axis_x_labelColor: "black",
+                    axis_x_pointer_size: 5,
+                    axis_x_pointer_padding: 3,
+                    axis_x_outer_pointer_size: 3,
+
+                    axis_y_enable: "yes",
+                    axis_y_position: "left",
+                    axis_y_value_position: "left",
+                    axis_y_axisColor: "#1D1D1D",
+                    axis_y_no_of_axis_value: 10,
+                    axis_y_labelColor: "#1D1D1D",
+                    axis_y_pointer_size: 5,
+                    axis_y_pointer_padding: 10,
+                    axis_y_outer_pointer_size: 3,
+
+                    legends_enable: "yes", 
+                    legends_display: "horizontal", //horizontal or vertical
+                    legendsText_size: 13,
+                    legendsText_color: "black",
+                    legendsText_weight: "thin",
+                    legendsText_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
+            
+                    zoom_enable: "yes",
+
+                    borderBetweenChartElements_width:0,
+                    borderBetweenChartElements_color:"blue", 
+        
+                    label_size:12,
+                    label_color: "white",
+                    label_weight: "thick",
+                    label_family:"'Helvetica Neue',Helvetica,Arial,sans-serif",
+
+                    enableCrossHair: "yes"
                 });
                 k.execute();
 
@@ -293,79 +236,59 @@
                     mode : "default", //  default or infographics
                     yAxisDataFormat : "number",
                     xAxisDataFormat : "number",
-                    optional : {
-                        chart : {
-                            width: 700,
-                            height: 450,
-                            margin: {top: 25, right: 15, bottom: 25, left: 30},
-                            grid: {
-                                xEnabled: "yes",
-                                yEnabled: "yes",
-                                color:""
-                            }
-                        },
-                        scatterplot : {
-                            radius: 9
-                        },
-                        realTimeCharts: {
-                            refreshFrequency: 0 // seconds
-                        },
-                        multiple_containers: {
-                            enable : "yes"
-                        },
-                        size : {
-                            enable : "yes"
-                        },
-                        axis : {
-                            x: {
-                                enable: "yes",
-                                position:"bottom", //top or bottom
-                                orient : "bottom",
-                                axisColor: "#1D1D1D",
-                                no_of_ticks: "10",
-                                tickFormat: "",
-                                tickSize: 5,
-                                ticksPadding: 6,
-                                labelColor: "black",
-                                tickValues: []
-                            },
-                            y: {
-                                enable: "yes",
-                                position:"left", //left or right
-                                orient: "left",
-                                axisColor: "#1D1D1D",
-                                no_of_ticks: "10",
-                                tickSize: 5,
-                                ticksPadding: 6,
-                                tickFormat: "",
-                                labelColor: "black"
-                            }
-                        },
-                        legends: {
-                            enable: "yes",
-                            display: "horizontal"
-                        },
-                        legendsText: {
-                            size: 13,
-                            color: "black",
-                            weight: "thin",
-                            family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
-                        },
-                        zoom: {
-                            enable: "yes"
-                        },
-                        borderBetweenChartElements: {
-                            width: "0px",
-                            color: "blue"
-                        },
-                        label:{
-                            size: 12,
-                            color: "white",
-                            weight: "thin",
-                            family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
-                        },
-                        enableCrossHair: "yes"
-                    }
+
+                    chart_height: 450,
+                    chart_width : 700,
+                    chart_margin_top: 25,
+                    chart_margin_right: 15,
+                    chart_margin_bottom: 25,
+                    chart_margin_left: 30,
+                    chart_grid_xEnabled: "yes",
+                    chart_grid_yEnabled: "yes", 
+                    
+                    scatterplot_radius : 9,
+                    realTimeCharts_refreshFrequency: 0, 
+                    multiple_containers_enable: "no",
+                    size_enable: "yes",
+
+                    axis_x_enable: "yes",
+                    axis_x_position: "bottom",
+                    axis_x_value_position: "bottom",
+                    axis_x_axisColor: "#1D1D1D",
+                    axis_x_no_of_axis_value: 10,
+                    axis_x_labelColor: "black",
+                    axis_x_pointer_size: 5,
+                    axis_x_pointer_padding: 3,
+                    axis_x_outer_pointer_size: 3,
+
+                    axis_y_enable: "yes",
+                    axis_y_position: "left",
+                    axis_y_value_position: "left",
+                    axis_y_axisColor: "#1D1D1D",
+                    axis_y_no_of_axis_value: 10,
+                    axis_y_labelColor: "#1D1D1D",
+                    axis_y_pointer_size: 5,
+                    axis_y_pointer_padding: 10,
+                    axis_y_outer_pointer_size: 3,
+
+                    legends_enable: "yes", 
+                    legends_display: "horizontal", //horizontal or vertical
+                    legendsText_size: 13,
+                    legendsText_color: "black",
+                    legendsText_weight: "thin",
+                    legendsText_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
+            
+                    zoom_enable: "yes",
+
+                    borderBetweenChartElements_width:0,
+                    borderBetweenChartElements_color:"blue", 
+        
+                    label_size:12,
+                    label_color: "white",
+                    label_weight: "thick",
+                    label_family:"'Helvetica Neue',Helvetica,Arial,sans-serif",
+
+                    enableCrossHair: "yes"
                 });
                 k.execute();
 
@@ -375,65 +298,44 @@
                     mode : "default",
                     yAxisDataFormat : "number",
                     xAxisDataFormat : "string",
-                    optional:{
-                        chart: {
-                            height: 400,
-                            width: 630,
-                            margin: {top: 5, right: 25, bottom: 25, left: 45},
-                            grid: {
-                                xEnabled: "no",
-                                yEnabled: "yes"
-                            },
-                        },
-                        transition : {
-                            duration : 0 //milliseconds
-                        },
-                        multiple_containers: {
-                            enable : "no"
-                        },
-                        realTimeCharts: {
-                            refreshFrequency: 0 // seconds
-                        },
-                        enableTooltip: "yes",
-                        axis : {
-                            onHoverHighlightenable: "yes",
-                            x: {
-                                enable: "yes",
-                                position: "bottom", //top or bottom
-                                orient : "bottom",
-                                axisColor: "#1D1D1D",
-                                labelColor: "#1D1D1D",
-                                tickSize: 3,
-                                ticksPadding: 10,
-                                outer_tick_size: 3
-                            },
-                            y: {
-                                enable: "yes",
-                                position:"left", //left or right
-                                orient: "left",
-                                axisColor: "#1D1D1D",
-                                labelColor: "#1D1D1D",
-                                tickSize: 3,
-                                ticksPadding: 10,
-                                outer_tick_size: 3,
-                                no_of_ticks: 10
-                            }
-                        },
-                        legends: {
-                            enable: "yes",
-                            display: "horizontal"
-                        },
-                        legendsText: {
-                            size: "14",
-                            color: "black",
-                            weight: "thin", // or "thick"
-                            family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
-                        },
-                        line: {                            
-                            curvy_lines : "yes"
-                        },
-                        enableCrossHair: "yes"
-                    }
+                    chart_height: 400,
+                    chart_width : 630,
+                    chart_margin_top: 5,
+                    chart_margin_right: 25,
+                    chart_margin_bottom: 25,
+                    chart_margin_left: 45, 
+                    chart_grid_xEnabled: "no",
+                    chart_grid_yEnabled: "yes",
+
+                    transition_duration: 0,       
+                    realTimeCharts_refreshFrequency: 0,
+
+                    axis_onHoverHighlightenable: "yes",
+
+                    axis_x_enable: "yes",
+                    axis_x_position: "bottom",
+                    axis_x_value_position: "bottom",
+                    axis_x_axisColor: "#1D1D1D",
+                    axis_x_labelColor: "#1D1D1D",
+                    axis_x_pointer_size: 3,
+                    axis_x_pointer_padding: 3,
+                    axis_x_outer_pointer_size: 3,
+
+                    axis_y_enable: "yes",
+                    axis_y_position: "left",
+                    axis_y_value_position: "left",
+                    axis_y_axisColor: "#1D1D1D",
+                    axis_y_labelColor: "#1D1D1D",
+                    axis_y_pointer_size: 3,
+                    axis_y_pointer_padding: 10,
+                    axis_y_outer_pointer_size: 3, 
+
+                    line_curvy_lines:"yes",
+                    tooltip_mode : "moving",
+                    enableCrossHair: "yes",
+                    multiple_containers_enable: "yes",
+                    enableTooltip: "yes"
+
                 });
                 k.execute();
 
@@ -443,124 +345,91 @@
                     mode : "default",
                     yAxisDataFormat : "number",
                     xAxisDataFormat : "string",
-                    optional:{
-                         chart: {
-                            height: 400,
-                            width: 630,
-                            margin: {top: 5, right: 25, bottom: 25, left: 45},
-                            grid: {
-                                xEnabled: "no",
-                                yEnabled: "yes",
-                                color: ""
-                            },
-                        },
-                        /*line: {
-                            color_from_data: "no",
-                            curvy_lines : "yes"
-                        },*/
-                        transition : {
-                            duration : 0 //milliseconds
-                        },
-                        multiple_containers: {
-                            enable : "yes"
-                        },
-                        realTimeCharts: {
-                            refreshFrequency: 0 // seconds
-                        },/*
-                        colors: {
-                            highlightColor: "red",
-                            chartColor: "#ccc"
-                        },*/
-                        enableTooltip: "yes",
-                        axis : {
-                            onHoverHighlightenable: "yes",
-                            x: {
-                                enable: "yes",
-                                position: "bottom", //top or bottom
-                                orient : "bottom",
-                                axisColor: "#1D1D1D",
-                                labelColor: "#1D1D1D",
-                                tickSize: 2,
-                                ticksPadding: 5,
-                                outer_tick_size: 2
-                            },
-                            y: {
-                                enable: "yes",
-                                position:"left", //left or right
-                                orient: "left",
-                                axisColor: "#1D1D1D",
-                                labelColor: "#1D1D1D",
-                                tickSize: 2,
-                                ticksPadding: 5,
-                                outer_tick_size: 2
-                            }
-                        },
-                        legends: {
-                            enable: "yes",
-                            display: "horizontal"
-                        },
-                        legendsText: {
-                            size: "14",
-                            color: "black",
-                            weight: "thin", // or "thick"
-                            family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
-                        },
-                        enableCrossHair: "yes"
-                    }
+                    chart_height: 400,
+                    chart_width : 630,
+                    chart_margin_top: 5,
+                    chart_margin_right: 25,
+                    chart_margin_bottom: 25,
+                    chart_margin_left: 45, 
+                    chart_grid_xEnabled: "no",
+                    chart_grid_yEnabled: "yes",
+
+                    transition_duration: 0,       
+                    realTimeCharts_refreshFrequency: 0,
+
+                    axis_onHoverHighlightenable: "yes",
+
+                    axis_x_enable: "yes",
+                    axis_x_position: "bottom",
+                    axis_x_value_position: "bottom",
+                    axis_x_axisColor: "#1D1D1D",
+                    axis_x_labelColor: "#1D1D1D",
+                    axis_x_pointer_size: 3,
+                    axis_x_pointer_padding: 3,
+                    axis_x_outer_pointer_size: 3,
+
+                    axis_y_enable: "yes",
+                    axis_y_position: "left",
+                    axis_y_value_position: "left",
+                    axis_y_axisColor: "#1D1D1D",
+                    axis_y_labelColor: "#1D1D1D",
+                    axis_y_pointer_size: 3,
+                    axis_y_pointer_padding: 10,
+                    axis_y_outer_pointer_size: 3, 
+
+                    line_curvy_lines:"yes",
+                    tooltip_mode : "moving",
+                    enableCrossHair: "yes",
+                    // multiple_containers_enable: "no",
+                    enableTooltip: "yes"
+                    
                 });
                 k.execute();
 
                 var k = new PykCharts.multiD.areaChart ({
+
                     selector: "#multiArea",
                     data: "../data/multiLineChart.json",
                     mode : "default",
                     yAxisDataFormat : "number",
                     xAxisDataFormat : "string",
-                    optional:{
-                        chart: {
-                            height: 400,
-                            width: 630,
-                            margin: {top: 5, right: 25, bottom: 25, left: 45},
-                            grid: {
-                                xEnabled: "no",
-                                yEnabled: "yes"
-                            },
-                        },
-                        transition : {
-                            duration : 1000     //milliseconds
-                        },
-                        realTimeCharts: {
-                            refreshFrequency: 0 // seconds
-                        },
-                        axis : {
-                            x: {
-                                enable: "yes",
-                                position:"bottom", //top or bottom
-                                orient : "bottom",
-                                axisColor: "#1D1D1D",
-                                labelColor: "#1D1D1D",
-                                tickSize: 3,
-                                ticksPadding: 10
-                            },
-                            y: {
-                                enable: "yes",
-                                position:"left", //left or right
-                                orient: "left",
-                                axisColor: "#1D1D1D",
-                                labelColor: "#1D1D1D",
-                                tickSize: 3,
-                                ticksPadding: 10,
-                                outer_tick_size: 3
-                            }
-                        },
-                        line: {                            
-                            curvy_lines : "yes"
-                        },
-                        enableCrossHair: "yes",
-                        zoom: {
-                            enable: "yes"
-                        }
-                    }
+                    chart_height: 400,
+                    chart_width : 630,
+                    chart_margin_top: 5,
+                    chart_margin_right: 25,
+                    chart_margin_bottom: 25,
+                    chart_margin_left: 45, 
+                    chart_grid_xEnabled: "no",
+                    chart_grid_yEnabled: "yes",
+
+                    transition_duration: 0,       
+                    realTimeCharts_refreshFrequency: 0,
+
+                    axis_onHoverHighlightenable: "yes",
+
+                    axis_x_enable: "yes",
+                    axis_x_position: "bottom",
+                    axis_x_value_position: "bottom",
+                    axis_x_axisColor: "#1D1D1D",
+                    axis_x_labelColor: "#1D1D1D",
+                    axis_x_pointer_size: 3,
+                    axis_x_pointer_padding: 3,
+                    axis_x_outer_pointer_size: 3,
+
+                    axis_y_enable: "yes",
+                    axis_y_position: "left",
+                    axis_y_value_position: "left",
+                    axis_y_axisColor: "#1D1D1D",
+                    axis_y_labelColor: "#1D1D1D",
+                    axis_y_pointer_size: 3,
+                    axis_y_pointer_padding: 10,
+                    axis_y_outer_pointer_size: 3, 
+
+                    line_curvy_lines:"yes",
+                    enableCrossHair: "yes",
+                    enableTooltip: "yes",
+                    zoom_enable: "yes"
+                       
                 });
                 k.execute();
 
@@ -570,130 +439,114 @@
                     mode : "default", //  default or infographics
                     yAxisDataFormat : "string",
                     xAxisDataFormat : "number",
-                    optional : {
-                        chart : {
-                            width: 650,
-                            height: 350,
-                            margin: {top: 25, right: 25, bottom: 25, left: 75},
-                            grid: {
-                                xEnabled: "yes",
-                                yEnabled: "yes",
-                                color:""
-                           },
-                        },
-                        realTimeCharts: {
-                            refreshFrequency: 0 // seconds
-                        },
-                        size : {
-                            enable : "yes"
-                        },
-                        axis : {
-                            x: {
-                                enable: "yes",
-                                position:"bottom", //top or bottom
-                                orient : "bottom",
-                                axisColor: "#1D1D1D",
-                                no_of_ticks: "",
-                                tickFormat: "",
-                                tickSize: 5,
-                                ticksPadding: 6,
-                                labelColor: "red",
-                                tickValues: []
-                            },
-                            y: {
-                                enable: "yes",
-                                position:"left", //left or right
-                                orient: "left",
-                                axisColor: "#1D1D1D",
-                                no_of_ticks: "",
-                                tickSize: 5,
-                                ticksPadding: 6,
-                                tickFormat: "",
-                                labelColor: "black"
-                            }
-                        },
-                        legends: {
-                            enable: "yes",
-                            display: "horizontal" //horizontal or vertical
-                        },
-                        legendsText: {
-                            size: 13,
-                            color: "black",
-                            weight: "thin",
-                            family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
-                        },
-                        borderBetweenChartElements:{
-                            width: "0px",
-                            color: "white",
-                            style: "solid"
-                        },
-                        label:{
-                            size: 0,
-                            color: "black",
-                            weight: "thin",
-                            family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
-                        },
-                        enableCrossHair: "yes"
-                    }
+                    chart_height: 350,
+                    chart_width : 650,
+                    chart_margin_top: 5,
+                    chart_margin_right: 25,
+                    chart_margin_bottom: 25,
+                    chart_margin_left: 45, 
+                    chart_grid_xEnabled: "yes",
+                    chart_grid_yEnabled: "yes",
+
+                    transition_duration: 0,       
+                    realTimeCharts_refreshFrequency: 0,
+
+                    axis_onHoverHighlightenable: "yes",
+
+                    axis_x_enable: "yes",
+                    axis_x_position: "bottom",
+                    axis_x_value_position: "bottom",
+                    axis_x_axisColor: "#1D1D1D",
+                    axis_x_labelColor: "#1D1D1D",
+                    axis_x_pointer_size: 3,
+                    axis_x_pointer_padding: 3,
+                    axis_x_outer_pointer_size: 3,
+
+                    axis_y_enable: "yes",
+                    axis_y_position: "left",
+                    axis_y_value_position: "left",
+                    axis_y_axisColor: "#1D1D1D",
+                    axis_y_labelColor: "#1D1D1D",
+                    axis_y_pointer_size: 3,
+                    axis_y_pointer_padding: 10,
+                    axis_y_outer_pointer_size: 3, 
+
+                    line_curvy_lines:"yes",
+                    tooltip_mode : "moving",
+                    enableCrossHair: "yes",
+                    multiple_containers_enable: "no",
+                    enableTooltip: "yes",
+                    
+                    size_enable : "yes",
+            
+                    legends_enable: "yes",
+                    legends_display: "horizontal",
+                    legendsText_size: 13,
+                    legendsText_color: "black",
+                    legendsText_weight: "thin",
+                    legendsText_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
+                    
+                    borderBetweenChartElements_width: 0,
+                    borderBetweenChartElements_color: "white",
+                    borderBetweenChartElements_style: "solid",
+
+                    label_size:12,
+                    label_color: "white",
+                    label_weight: "thick",
+                    label_family:"'Helvetica Neue',Helvetica,Arial,sans-serif",
+
+                    enableCrossHair: "yes"
                 });
-                k.execute();
+               k.execute();
 
                 var k = new PykCharts.multiD.columnChart({
                     data: "../data/ultimateColumn.json",
                     mode: "default",
                     selector: "#column",
-                    optional : {
-                        chart : {
-                            width: 400,
-                            height: 430,
-                            margin: {top: 25, right: 25, bottom: 25, left: 25},
-                            grid: {
-                                yEnabled: "yes",
-                                color:""
-                            }
-                        },
-                        realTimeCharts: {
-                            refreshFrequency: 0 // seconds
-                        },
-                        axis : {
-                            onHoverHighlightenable: "yes",
-                            x: {
-                                enable: "yes",
-                                position:"bottom", //top or bottom
-                                orient : "bottom",
-                                axisColor: "#1D1D1D",
-                                labelColor: "#1D1D1D"
-                            },
-                            y: {
-                                enable: "yes",
-                                position:"left", //left or right
-                                orient: "left",
-                                axisColor: "#1D1D1D",
-                                labelColor: "#1D1D1D",
-                                tickSize: 5,
-                                ticksPadding: 6,
-                                no_of_ticks: "",
-                                tickFormat: ""
-                            }
-                        },
-                        colors:{
-                            backgroundColor: "white",
-                            chartColor: "steelblue",
-                            highlightColor: "#013F73"
-                        },
-                        legends: {
-                            enable : "no",
-                            display : "horizontal" //horizontal or vertical
-                        },
-                        borderBetweenChartElements:{
-                            width: "1px",
-                            color: "white",
-                            style: "solid"
-                        },
-                        transition : {
-                            duration : 0 //milliseconds
-                        }
-                    }
+
+                    chart_height: 430,
+                    chart_width : 400,
+                    chart_margin_top: 25,
+                    chart_margin_right: 25,
+                    chart_margin_bottom: 25,
+                    chart_margin_left: 25, 
+                    chart_grid_xEnabled: "yes",
+
+                    realTimeCharts_refreshFrequency: 0 ,
+
+                    axis_onHoverHighlightenable: "yes",
+
+                    axis_x_enable: "yes",
+                    axis_x_position: "bottom",
+                    axis_x_value_position: "bottom",
+                    axis_x_axisColor: "#1D1D1D",
+                    axis_x_labelColor: "#1D1D1D",
+                    axis_x_pointer_size: 3,
+                    axis_x_pointer_padding: 3,
+                    axis_x_outer_pointer_size: 3,
+
+                    axis_y_enable: "yes",
+                    axis_y_position: "left",
+                    axis_y_value_position: "left",
+                    axis_y_axisColor: "#1D1D1D",
+                    axis_y_labelColor: "#1D1D1D",
+                    axis_y_pointer_size: 3,
+                    axis_y_pointer_padding: 10,
+                    axis_y_outer_pointer_size: 3, 
+
+                    colors_backgroundColor: "white",
+                    colors_chartColor: "steelblue",
+                    colors_highlightColor: "#013F73",
+
+                    legends_enable: "no",
+                    legends_display: "horizontal", 
+
+                    transition_duration:0,
+
+                    borderBetweenChartElements_width: "1px",
+                    borderBetweenChartElements_color: "white",
+                    borderBetweenChartElements_style: "solid"
+
                 });
                 k.execute();
 
@@ -701,61 +554,52 @@
                     data: "../data/ultimateGroupColumn.json",
                     mode: "default",
                     selector: "#groupColumn",
-                    optional : {
-                        chart : {
-                            width: 400,
-                            height: 430,
-                            margin: {top: 25, right: 25, bottom: 25, left: 25},
-                            grid: {
-                                yEnabled: "yes",
-                                color:""
-                            }
-                        },
-                        realTimeCharts: {
-                            refreshFrequency: 0 // seconds
-                        },
-                        saturation : {
-                            enable : "yes"
-                        },
-                        axis : {
-                            onHoverHighlightenable: "yes",
-                            x: {
-                                enable: "yes",
-                                position:"bottom", //top or bottom
-                                orient : "bottom",
-                                axisColor: "#1D1D1D",
-                                labelColor: "#1D1D1D"
-                            },
-                            y: {
-                                enable: "yes",
-                                position:"left", //left or right
-                                orient: "left",
-                                axisColor: "#1D1D1D",
-                                labelColor: "#1D1D1D",
-                                tickSize: 5,
-                                ticksPadding: 6,
-                                no_of_ticks: "",
-                                tickFormat: ""
-                            }
-                        },
-                        colors:{
-                            backgroundColor: "white",
-                            chartColor: "steelblue",
-                            highlightColor: "#013F73"
-                        },
-                        legends: {
-                            enable : "yes",
-                            display : "horizontal"
-                        },
-                        borderBetweenChartElements: {
-                            width: "1px",
-                            color: "white",
-                            style: "solid"
-                        },
-                        transition : {
-                            duration : 0 //milliseconds
-                        }
-                    }
+
+                    chart_height: 430,
+                    chart_width : 400,
+                    chart_margin_top: 25,
+                    chart_margin_right: 25,
+                    chart_margin_bottom: 25,
+                    chart_margin_left: 25, 
+                    chart_grid_xEnabled: "yes",
+
+                    realTimeCharts_refreshFrequency: 0 ,
+
+                    axis_onHoverHighlightenable: "yes",
+
+                    axis_x_enable: "yes",
+                    axis_x_position: "bottom",
+                    axis_x_value_position: "bottom",
+                    axis_x_axisColor: "#1D1D1D",
+                    axis_x_labelColor: "#1D1D1D",
+                    axis_x_pointer_size: 3,
+                    axis_x_pointer_padding: 3,
+                    axis_x_outer_pointer_size: 3,
+
+                    axis_y_enable: "yes",
+                    axis_y_position: "left",
+                    axis_y_value_position: "left",
+                    axis_y_axisColor: "#1D1D1D",
+                    axis_y_labelColor: "#1D1D1D",
+                    axis_y_pointer_size: 3,
+                    axis_y_pointer_padding: 10,
+                    axis_y_outer_pointer_size: 3, 
+
+                    colors_backgroundColor: "white",
+                    colors_chartColor: "steelblue",
+                    colors_highlightColor: "#013F73",
+
+                    legends_enable: "yes",
+                    legends_display: "horizontal", 
+
+                    transition_duration:0,
+
+                    borderBetweenChartElements_width: "1px",
+                    borderBetweenChartElements_color: "white",
+                    borderBetweenChartElements_style: "solid",
+                                         
+                   saturation_enable: "yes",
+    
                 });
                 k.execute();
 
@@ -763,73 +607,61 @@
                     data: "../data/ultimatebar.json",
                     mode: "default",
                     selector: "#bar",
-                    optional : {
-                        chart : {
-                        width: 400,
-                            height: 430,
-                            margin: {top: 25, right: 25, bottom: 25, left: 75},
-                            grid: {
-                                yEnabled: "yes",
-                                color:""
-                            }
-                        },
-                        realTimeCharts: {
-                            refreshFrequency: 0 // seconds
-                        },
-                        axis : {
-                            onHoverHighlightenable: "yes",
-                            x: {
-                                enable: "yes",
-                                position:"top", //top or bottom
-                                orient : "top",
-                                axisColor: "#1D1D1D",
-                                labelColor: "#1D1D1D",
-                                no_of_ticks: "",
-                                tickSize: 5,
-                                ticksPadding: 6,
-                                tickFormat: "",
-                                tickValues: []
-                            },
-                            y: {
-                                enable: "yes",
-                                position:"left", //left or right
-                                orient: "left",
-                                axisColor: "#1D1D1D",
-                                labelColor: "#1D1D1D"
-                            }
-                        },
-                        colors:{
-                            backgroundColor: "white",
-                            chartColor: "steelblue",
-                            highlightColor: "#013F73"
-                        },
-                        legends: {
-                            enable : "no",
-                            display : "horizontal" //horizontal or vertical
-                        },
-                        borderBetweenChartElements:{ //done for oneD
-                            width: "1px", // if width is 0 means it is disabled.
-                            color: "white",
-                            style: "solid" // could be dotted too
-                        },
-                        transition : {
-                            duration : 1000    //milliseconds
-                        },
-                        label:{ //partially done for oneD, pending for twoD
-                            size: "10",
-                            color: "white",
-                            weight: "thin",
-                            family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
-                        },
-                        ticks:{
-                            strokeWidth: 1,
-                            size: 10,
-                            weight: "thin",
-                            color: "#1D1D1D",
-                            family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
-                        }
 
-                    }
+                    chart_height: 430,
+                    chart_width : 400,
+                    chart_margin_top: 25,
+                    chart_margin_right: 25,
+                    chart_margin_bottom: 25,
+                    chart_margin_left: 25, 
+                    chart_grid_xEnabled: "yes",
+
+                    realTimeCharts_refreshFrequency: 0 ,
+
+                    axis_onHoverHighlightenable: "yes",
+
+                    axis_x_enable: "yes",
+                    axis_x_position: "bottom",
+                    // axis_x_value_position: "bottom",
+                    axis_x_axisColor: "#1D1D1D",
+                    axis_x_labelColor: "#1D1D1D",
+                    axis_x_pointer_size: 10,
+                    axis_x_pointer_padding: 3,
+                    axis_x_outer_pointer_size: 3,
+
+                    axis_y_enable: "yes",
+                    axis_y_position: "left",
+                    // axis_y_value_position: "left",
+                    axis_y_axisColor: "#1D1D1D",
+                    axis_y_labelColor: "#1D1D1D",
+                    axis_y_pointer_size: 3,
+                    axis_y_pointer_padding: 10,
+                    axis_y_outer_pointer_size: 3, 
+
+                    colors_backgroundColor: "white",
+                    colors_chartColor: "steelblue",
+                    colors_highlightColor: "#013F73",
+
+                    legends_enable: "no",
+                    legends_display: "horizontal", 
+
+                    transition_duration:0,
+
+                    borderBetweenChartElements_width: "1px",
+                    borderBetweenChartElements_color: "white",
+                    borderBetweenChartElements_style: "solid",
+
+                    label_size:10,
+                    label_color: "white",
+                    label_weight: "thick",
+                    label_family:"'Helvetica Neue',Helvetica,Arial,sans-serif",
+                   
+                    pointer_thickness: 1,
+                    pointer_weight: "thin",
+                    pointer_size: 10,
+                    pointer_color: "#1D1D1D",
+                    pointer_family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
+
                 });
                 k.execute();
 
@@ -838,78 +670,64 @@
                     mode: "default",
                     selector: "#groupBar",
 
-                    optional : {
-                         chart : {
-                            width: 400,
-                            height: 430,
-                            margin: {top: 25, right: 25, bottom: 25, left: 75},
-                            grid: {
-                                yEnabled: "yes",
-                                color:""
-                            }
-                        },
-                        realTimeCharts: {
-                            refreshFrequency: 0 // seconds
-                        },
-                        saturation : {
-                            enable : "yes"
-                        },
-                        axis : {
-                            onHoverHighlightenable: "yes",
-                            x: {
-                                enable: "yes",
-                                position:"top", //top or bottom
-                                orient : "top",
-                                axisColor: "#1D1D1D",
-                                labelColor: "#1D1D1D",
-                                no_of_ticks: "",
-                                tickSize: 5,
-                                ticksPadding: 6,
-                                tickFormat: "",
-                                tickValues: []
-                            },
-                            y: {
-                                enable: "yes",
-                                position:"left", //left or right
-                                orient: "left",
-                                axisColor: "#1D1D1D",
-                                labelColor: "#1D1D1D"
-                            }
-                        },
-                        colors:{
-                            backgroundColor: "white",
-                            chartColor: "steelblue",
-                            highlightColor: "#013F73"
-                        },
-                        legends: {
-                            enable : "yes",
-                            display : "horizontal" //horizontal or vertical
-                        },
-                        borderBetweenChartElements:{ //done for oneD
-                            width: "1px", // if width is 0 means it is disabled.
-                            color: "white",
-                            style: "solid" // could be dotted too
-                        },
-                        transition : {
-                            duration : 1000    //milliseconds
-                        },
-                        label:{ //partially done for oneD, pending for twoD
-                            size: "10",
-                            color: "white",
-                            weight: "thin",
-                            family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
-                        },
-                        ticks:{
-                            strokeWidth: 1,
-                            size: 10,
-                            weight: "thin",
-                            color: "#1D1D1D",
-                            family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
-                        }
-                    }
-                });
+                     chart_height: 430,
+                    chart_width : 400,
+                    chart_margin_top: 25,
+                    chart_margin_right: 45,
+                    chart_margin_bottom: 25,
+                    chart_margin_left: 25, 
+                    chart_grid_xEnabled: "yes",
+
+                    realTimeCharts_refreshFrequency: 0 ,
+
+                    axis_onHoverHighlightenable: "yes",
+
+                    axis_x_enable: "yes",
+                    axis_x_position: "bottom",
+                    axis_x_value_position: "bottom",
+                    axis_x_axisColor: "#1D1D1D",
+                    axis_x_labelColor: "#1D1D1D",
+                    axis_x_pointer_size: 3,
+                    axis_x_pointer_padding: 3,
+                    axis_x_outer_pointer_size: 3,
+
+                    axis_y_enable: "yes",
+                    axis_y_position: "left",
+                    axis_y_value_position: "left",
+                    axis_y_axisColor: "#1D1D1D",
+                    axis_y_labelColor: "#1D1D1D",
+                    axis_y_pointer_size: 3,
+                    axis_y_pointer_padding: 10,
+                    axis_y_outer_pointer_size: 3, 
+
+                    colors_backgroundColor: "white",
+                    colors_chartColor: "steelblue",
+                    colors_highlightColor: "#013F73",
+
+                    legends_enable: "yes",
+                    legends_display: "horizontal", 
+
+                    transition_duration:0,
+
+                    borderBetweenChartElements_width: "1px",
+                    borderBetweenChartElements_color: "white",
+                    borderBetweenChartElements_style: "solid",
+
+                    label_size:10,
+                    label_color: "white",
+                    label_weight: "thick",
+                    label_family:"'Helvetica Neue',Helvetica,Arial,sans-serif",
+                   
+                    pointer_thickness: 1,
+                    pointer_weight: "thin",
+                    pointer_size: 10,
+                    pointer_color: "#1D1D1D",
+                    pointer_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
+                    saturation_enable: "yes",
+                  });
                 k.execute();
             });
+
         </script>
     </body>
 </html>

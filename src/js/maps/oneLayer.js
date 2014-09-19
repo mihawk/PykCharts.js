@@ -8,15 +8,15 @@ PykCharts.maps.oneLayer = function (options) {
             that.data = data;
 
             that.k
-                .totalColors(that.colors.total)
-                .colorType(that.colors.type)
+                .totalColors(that.colors_total)
+                .colorType(that.colors_type)
                 .loading(that.loading)
                 .tooltip();
 
             d3.json("https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/maps/" + that.mapCode + "-topo.json", function (data) {
                 that.map_data = data;
                 d3.json("https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/palette/colorPalette.json", function (data) {
-                    that.colorPalette_data = data;
+                    that.color_palette_data = data;
                     $(that.selector).html("");
                     var oneLayer = new PykCharts.maps.mapFunctions(options,that,"oneLayer");
                     oneLayer.render();
@@ -42,20 +42,20 @@ PykCharts.maps.timelineMap = function (options) {
 
             // that.margin = {top:10, right:30, bottom:10, left:30};
 
-            that.reducedWidth = that.width - (that.timeline.margin.left * 2) - that.timeline.margin.right;
-            that.reducedHeight = that.height - that.timeline.margin.top - that.timeline.margin.bottom;
+            that.redeced_width = that.width - (that.margin_left * 2) - that.margin_right;
+            that.redeced_height = that.height - that.margin_top - that.margin_bottom;
 
             that.k
-                .totalColors(that.colors.total)
-                .colorType(that.colors.type)
+                .totalColors(that.colors_total)
+                .colorType(that.colors_type)
                 .loading(that.loading)
-                .tooltip(that.tooltip.enable);
+                .tooltip(that.tooltip_enable);
 
             d3.json("https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/maps/" + that.mapCode + "-topo.json", function (data) {
                 that.map_data = data;
-
                 d3.json("https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/palette/colorPalette.json", function (data) {
-                    that.colorPalette_data = data;
+                    that.color_palette_data = data;
+
 
                     var x_extent = d3.extent(that.timeline_data, function (d) { return d.timestamp; }) 
                     that.data = _.where(that.timeline_data, {timestamp: x_extent[0]});
@@ -89,20 +89,20 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         , offset = [that.width / 2, that.height / 2]
         , i;
 
-        that.current_palette = _.where(that.colorPalette_data, {name:that.colors.palette, number:that.colors.total})[0];
+        that.current_palette = _.where(that.color_palette_data, {name:that.colors_palette, number:that.colors_total})[0];
         that.optionalFeatures()
-            .enableLegend(that.legends.enable);
+            .legends(that.legends_enable);
 
         $(options.selector).css("background-color",that.bg);
 
-        that.svg = d3.select(that.selector)
+        that.svgContainer = d3.select(that.selector)
             .append("svg")
             .attr("width", that.width)
             .attr("height", that.height)
             .attr("style", "border:1px solid lightgrey")
             .style("border-radius", "5px");
 
-        var map_cont = that.svg.append("g")
+        var map_cont = that.svgContainer.append("g")
             .attr("id", "map_group");
 
         var defs = map_cont.append('defs');
@@ -135,9 +135,9 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
 
         if (that.mapCode==="world") {
             var center = [0,0];
-        } else { 
+        } else {
             var center = d3.geo.centroid(topojson.feature(that.map_data, that.map_data.objects));
-        }   
+        }
         var projection = d3.geo.mercator().center(center).scale(scale).translate(offset);
 
         that.path = d3.geo.path().projection(projection);
@@ -150,11 +150,10 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
 
         projection = d3.geo.mercator().center(center)
            .scale((that.defaultZoomLevel / 100) * scale).translate(offset);
-console.log(center);
         that.path = that.path.projection(projection);
         var ttp = d3.select("#pyk-tooltip");
 
-        that.areas = that.group.append("path")
+        that.chart_data = that.group.append("path")
             .attr("d", that.path)
             .attr("class", "area")
             .attr("iso2", function (d) {
@@ -173,15 +172,15 @@ console.log(center);
             .attr("stroke-width", that.border.width() + "px")
             .attr("stroke-dasharray", that.border.style())
             .on("mouseover", function (d) {
-                if (PykCharts.boolean(that.tooltip.enable)) {
+                if (PykCharts.boolean(that.tooltip_enable)) {
                     ttp.style("visibility", "visible");
                     ttp.html((_.where(that.data, {iso2: d.properties.iso_a2})[0]).tooltip);
                 }
                 that.bodColor(d);
             })
             .on("mousemove", function () {
-                if (PykCharts.boolean(that.tooltip.enable)) {
-                    if (that.tooltip.mode === "moving") {
+                if (PykCharts.boolean(that.tooltip_enable)) {
+                    if (that.tooltip_mode === "moving") {
                         ttp.style("top", function () {
 
                                 return (d3.event.pageY - 20 ) + "px";
@@ -191,21 +190,21 @@ console.log(center);
                                 return (d3.event.pageX + 20 ) + "px";
 
                             });
-                    } else if (that.tooltip.mode === "fixed") {
-                        ttp.style("top", (that.tooltip.positionTop) + "px")
-                            .style("left", (that.tooltip.positionLeft) + "px");
+                    } else if (that.tooltip_mode === "fixed") {
+                        ttp.style("top", (that.tooltip_positionTop) + "px")
+                            .style("left", (that.tooltip_positionLeft) + "px");
                     }
                 }
             })
             .on("mouseout", function (d) {
-                if (PykCharts.boolean(that.tooltip.enable)) {
+                if (PykCharts.boolean(that.tooltip_enable)) {
                     ttp.style("visibility", "hidden");
                 }
                 that.bodUncolor(d);
             });
 
         that.optionalFeatures()
-            .enableLabel(that.label.enable)
+            .label(that.label_enable)
             .enableClick(that.enableClick);
 
             that.k.credits();
@@ -218,13 +217,13 @@ console.log(center);
 
     that.optionalFeatures = function () {
         var config = {
-            enableLegend: function (el) {
+            legends: function (el) {
                 if (PykCharts.boolean(el)) {
                     that.renderLegend();
                 };
                 return this;
             },
-            enableLabel: function (el) {
+            label: function (el) {
                 if (PykCharts.boolean(el)) {
                     that.renderLabel();
                 };
@@ -232,18 +231,18 @@ console.log(center);
             },
             enableClick: function (ec) {
                 if (PykCharts.boolean(ec)) {
-                    that.areas.on("click", that.clicked);
-                    // that.onhover = "color_saturati`on";
+                    that.chart_data.on("click", that.clicked);
+                    // that.onhover = "color_saturation";
                     that.onhover1 = that.onhover;
                 };
                 return this;
             },
             axisContainer : function (ae) {
                 if(PykCharts.boolean(ae)){
-                    that.gxaxis = that.svg.append("g")
+                    that.gxaxis = that.svgContainer.append("g")
                         .attr("id","xaxis")
                         .attr("class", "x axis")
-                        .attr("transform", "translate("+that.timeline.margin.left*2+"," + that.reducedHeight + ")");
+                        .attr("transform", "translate("+(that.margin_left*2)+"," + that.redeced_height + ")");
                 }
                 return this;
             }
@@ -259,18 +258,18 @@ console.log(center);
         var col_shade,
             obj = _.where(that.data, {iso2: d.properties.iso_a2});
         if (obj.length > 0) {
-            if (that.colors.type === "colors") {
+            if (that.colors_type === "colors") {
                 if (obj.length > 0 && obj[0].color !== "") {
                     return obj[0].color;
                 }
-                return that.colors.defaultColor;
+                return that.colors_defaultColor;
             }
-            if (that.colors.type === "saturation") {
+            if (that.colors_type === "saturation") {
 
                 if ((that.highlightArea === "yes") && obj[0].highlight == "true") {
                     return obj[0].highlight_color;
                 } else {
-                    if (that.colors.palette !== "") {
+                    if (that.colors_palette !== "") {
                         col_shade = obj[0].size;
                         for (i = 0; i < that.current_palette.colors.length; i++) {
                             if (col_shade >= that.extent_size[0] + i * (that.difference / that.current_palette.colors.length) && col_shade <= that.extent_size[0] + (i + 1) * (that.difference / that.current_palette.colors.length)) {
@@ -279,17 +278,17 @@ console.log(center);
                         }
 
                     }
-                    return that.colors.defaultColor;
+                    return that.colors_defaultColor;
                 }
             }
-            return that.colors.defaultColor;
+            return that.colors_defaultColor;
         }
-        return that.colors.defaultColor;
+        return that.colors_defaultColor;
     };
 
     that.renderOpacity = function (d) {
 
-        if (that.colors.palette === "" && that.colors.type === "saturation") {
+        if (that.colors_palette === "" && that.colors_type === "saturation") {
             that.oneninth = +(d3.format(".2f")(that.difference / 10));
             that.opacity = (that.extent_size[0] + (_.where(that.data, {iso2: d.properties.iso_a2})[0]).size + that.oneninth) / that.difference;
             return that.opacity;
@@ -302,20 +301,20 @@ console.log(center);
             var k,
             onetenth;
 
-        if (that.colors.type === "saturation") {
-            that.legs = d3.select(that.selector)
+        if (that.colors_type === "saturation") {
+            that.legendsContainer = d3.select(that.selector)
                 .append("svg")
                 .attr("id", "legend-container")
                 .attr("width", that.width)
                 .attr("height", 50);
 
-            if(that.legends.display === "vertical" ) {
+            if(that.legends_display === "vertical" ) {
                 var j = 0, i = 0;
-                if(that.colors.palette === "") {
-                    that.legs.attr("height", (9 * 30)+20);
+                if(that.colors_palette === "") {
+                    that.legendsContainer.attr("height", (9 * 30)+20);
                 }
                 else {
-                    that.legs.attr("height", (that.current_palette.number * 30)+20);
+                    that.legendsContainer.attr("height", (that.current_palette.number * 30)+20);
                 }
                 text_parameter1 = "x";
                 text_parameter2 = "y";
@@ -330,16 +329,17 @@ console.log(center);
                 var rect_parameter4value = function (d) {j++; return j * 24 + 12;};
                 var text_parameter2value = function (d) {i++; return i * 24 + 23;};
 
-            } else if(options.optional.legends.display === "horizontal") {
+            } else if(options.legends_display === "horizontal") {
                 var j = 0, i = 0;
-                if(that.colors.palette === "") {
+                if(that.colors_palette === "") {
 
                     j = 9, i = 9;
                 }
                 else {
-                    j = that.current_palette.number, i = that.current_palette.number;                    that.legs.attr("height", (that.current_palette.number * 30)+20);
+                    j = that.current_palette.number, i = that.current_palette.number;
+                    that.legendsContainer.attr("height", (that.current_palette.number * 30)+20);
                 }
-                that.legs.attr("height", 50);
+                that.legendsContainer.attr("height", 50);
                 text_parameter1 = "x";
                 text_parameter2 = "y";
                 rect_parameter1 = "width";
@@ -355,11 +355,11 @@ console.log(center);
 
             };
 
-        if (that.colors.palette === "") {
+        if (that.colors_palette === "") {
             for (k = 1; k <= 9; k++) {
                 onetenth = d3.format(".1f")(that.extent_size[1] / 9);
                 that.leg = d3.round(onetenth * k);
-                that.legs.append("rect")
+                that.legendsContainer.append("rect")
                     .attr("x", function (d) {
                         rect_parameter3value(d,k);
                     })
@@ -371,7 +371,7 @@ console.log(center);
                     .attr("fill", that.defaultColor)
                     .attr("opacity", k / 9);
 
-                that.legs.append("text")
+                that.legendsContainer.append("text")
                     .attr("x", text_parameter1value)
                     .attr("y", text_parameter2value)
                     .style("font-size", 10)
@@ -381,14 +381,14 @@ console.log(center);
         } else {
             for (k = 1; k <= that.current_palette.number; k++) {
                 that.leg = d3.round(that.extent_size[0] + k * (that.difference / that.current_palette.number));
-                that.legs.append("rect")
+                that.legendsContainer.append("rect")
                     .attr("x",rect_parameter3value)
                     .attr("y", rect_parameter4value)
                     .attr("width", rect_parameter1value)
                     .attr("height", rect_parameter2value)
                     .attr("fill", that.current_palette.colors[k - 1]);
 
-                that.legs.append("text")
+                that.legendsContainer.append("text")
                     .attr("x", text_parameter1value)
                     .attr("y",text_parameter2value)
                     .style("font-size", 10)
@@ -425,7 +425,7 @@ console.log(center);
                 d3.select("path[state_name='" + d.properties.NAME_1 + "']")
                     .attr('filter', 'url(#dropshadow)')
                     .attr("opacity", function () {
-                        if (that.colors.palette === "" && that.colors.type === "saturation") {
+                        if (that.colors_palette === "" && that.colors_type === "saturation") {
                             that.oneninth_dim = +(d3.format(".2f")(that.difference / 10));
                             that.opacity_dim = (that.extent_size[0] + (obj[0]).size + that.oneninth_dim) / that.difference;
                             return that.opacity_dim/2;
@@ -435,7 +435,7 @@ console.log(center);
             } else if (that.onhover1 === "color_saturation") {
                 d3.select("path[state_name='" + d.properties.NAME_1 + "']")
                     .attr("opacity", function () {
-                        if (that.colors.palette=== "" && that.colors.type === "saturation") {
+                        if (that.colors_palette=== "" && that.colors_type === "saturation") {
                             that.oneninth_dim = +(d3.format(".2f")(that.difference / 10));
                             that.opacity_dim = (that.extent_size[0] + (obj[0]).size + that.oneninth_dim) / that.difference;
                             return that.opacity_dim/2;
@@ -454,7 +454,7 @@ console.log(center);
             .attr("stroke-dasharray", that.border.style())
             .attr('filter', null)
             .attr("opacity", function () {
-                if (that.colors.palette === "" && that.colors.type === "saturation") {
+                if (that.colors_palette === "" && that.colors_type === "saturation") {
                     that.oneninth_high = +(d3.format(".2f")(that.difference / 10));
                     that.opacity_high = (that.extent_size[0] + (_.where(that.data, {iso2: d.properties.iso_a2})[0]).size + that.oneninth_high) / that.difference;
                     return that.opacity_high;
@@ -486,10 +486,10 @@ console.log(center);
             .axisContainer(true);
 
         x_extent = d3.extent(that.timeline_data, function(d) { return d.timestamp; });
-        x_range = [0 ,that.reducedWidth];
+        x_range = [0 ,that.redeced_width];
         that.xScale = that.k.scaleIdentification("linear",x_extent,x_range);
 
-        that.k.xAxis(that.svg,that.gxaxis,that.xScale);
+        that.k.xAxis(that.svgContainer,that.gxaxis,that.xScale);
 
         _.each(that.timeline_data, function (d) {
             if (unique.indexOf(d.timestamp) === -1) {
@@ -507,17 +507,17 @@ console.log(center);
         var startTimeline = function () {
             if (timeline_status==="playing") {
                 play.attr("xlink:href","https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/play.gif");
-                clearInterval(that.playInterval);
+                clearInterval(that.play_interval);
                 timeline_status = "paused";
             } else {
                 timeline_status = "playing";
                 play.attr("xlink:href","https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/pause.gif");
-                that.playInterval = setInterval(function () {
+                that.play_interval = setInterval(function () {
 
                     marker
                         // .transition()
                         // .duration(that.timeline.duration/2)
-                        .attr("x",  (that.timeline.margin.left*2) + that.xScale(unique[interval]) - 7);
+                        .attr("x",  (that.margin_left*2) + that.xScale(unique[interval]) - 7);
 
                     that.data = _.where(that.timeline_data, {timestamp:unique[interval]});
                     that.data.sort(function (a,b) {
@@ -533,44 +533,44 @@ console.log(center);
                     interval++;
 
                     if (interval===unique.length) {
-                        clearInterval(that.playInterval);
+                        clearInterval(that.play_interval);
                     };
-                }, that.timeline.duration);
+                }, that.timeline_duration);
 
-                var timelag = setTimeout(function () {
-                    var undoHeatmap = setInterval(function () {
+                var time_lag = setTimeout(function () {
+                    var undo_heatmap = setInterval(function () {
                         interval1++;
 
                         if (interval1 === interval) {
-                            clearInterval(undoHeatmap);
-                            clearTimeout(timelag)
+                            clearInterval(undo_heatmap);
+                            clearTimeout(time_lag)
                         }
 
                         if (interval1===unique.length) {
-                            clearInterval(undoHeatmap);
+                            clearInterval(undo_heatmap);
                             play.attr("xlink:href","https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/play.gif");
-                            marker.attr("x",  (that.timeline.margin.left*2) + that.xScale(unique[0]) - 7);
+                            marker.attr("x",  (that.margin_left*2) + that.xScale(unique[0]) - 7);
                             interval = interval1 = 1;
                             timeline_status = "";
                         };
-                    }, that.timeline.duration);
-                },that.timeline.duration);
+                    }, that.timeline_duration);
+                },that.timeline_duration);
             }
         }
 
-        var play = that.svg.append("image")
+        var play = that.svgContainer.append("image")
             .attr("xlink:href","https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/play.gif")
-            .attr("x", that.timeline.margin.left / 2)
-            .attr("y", that.reducedHeight - that.timeline.margin.top - (bbox.height/2))
+            .attr("x", that.margin_left / 2)
+            .attr("y", that.redeced_height - that.margin_top - (bbox.height/2))
             .attr("width","24px")
             .attr("height", "21px")
             .style("cursor", "pointer")
             .on("click", startTimeline)
 
-        var marker = that.svg.append("image")
+        var marker = that.svgContainer.append("image")
             .attr("xlink:href","https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/marker.png")
-            .attr("x", (that.timeline.margin.left*2) + that.xScale(unique[0]) - 7)
-            .attr("y", that.reducedHeight)
+            .attr("x", (that.margin_left*2) + that.xScale(unique[0]) - 7)
+            .attr("y", that.redeced_height)
             .attr("width","14px")
             .attr("height", "12px")
 
