@@ -14,6 +14,27 @@ PykCharts.multiD.configuration = function (options){
                 .attr("width", function(d) {return xScale.rangeBand(d.x);});
             });
         },
+        checkChangeInData: function (data, compare_data) { // this function checks if the data in json has been changed
+            var key1 = Object.keys(compare_data[0]);
+            var key2 = Object.keys(data[0]);
+            var changed = false;
+            that.data = data.groupBy("oned");
+            if(key1.length === key2.length && compare_data.length === data.length) {
+                for(i=0;i<data.length;i++) {
+                    for(j=0;j<key1.length;j++){
+                        if(data[i][key2[j]] !== compare_data[i][key1[j]] || key1[j] !== key2[j]) {
+                            console.log("changed");
+                            changed = true;
+                            break;
+                        }
+                    }
+                }
+            } else {
+                changed = true;
+            }
+            that.compare_data = data;
+            return [that.compare_data, changed];
+        },
         opacity : function (d,weight,data) {
             if(!(PykCharts.boolean(options.size_enable))) {
                 var z = d3.scale.linear()
@@ -354,7 +375,7 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
         default : chartObject.borderBetweenChartElements_style = "0";
                   break;
     }
-    chartObject.ticks_strokeWidth = "ticks_strokeWidth" in options ? options.ticks_strokeWidth : stylesheet.ticks_strokeWidth;
+    chartObject.ticks_thickness = "ticks_thickness" in options ? options.ticks_thickness : stylesheet.ticks_thickness;
     chartObject.ticks_size = "ticks_size" in options ? options.ticks_size : stylesheet.ticks_size;
     chartObject.ticks_color = options.ticks_color ? options.ticks_color : stylesheet.ticks_color;
     chartObject.ticks_family = options.ticks_family ? options.ticks_family : stylesheet.ticks_family;

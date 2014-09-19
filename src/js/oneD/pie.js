@@ -562,7 +562,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                                 // }
                             })
                             .attr("transform","rotate(-90)")
-                            .attr("stroke-width", that.ticks_strokeWidth)
+                            .attr("stroke-width", that.ticks_thickness)
                             .attr("stroke",that.ticks_color);
                         tick_line.exit().remove();
                     },that.transitions.duration());

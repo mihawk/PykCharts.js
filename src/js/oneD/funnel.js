@@ -403,7 +403,7 @@ PykCharts.oneD.funnel = function (options) {
                                 return (d.values[4].y);
                            }
                         })
-                        .attr("stroke-width", that.ticks_strokeWidth)
+                        .attr("stroke-width", that.ticks_thickness)
                         .attr("stroke", that.ticks_color)
                         // .transition()
                         // .duration(that.transitions.duration())
