@@ -47,14 +47,16 @@ PykCharts.multiD.areaChart = function (options){
 					.createChart()
 		    		.axisContainer();
 
-			that.k.crossHair(that.svgContainer,that.type)
-					.credits();
+			that.k.crossHair(that.svgContainer,that.type);
 
 			that.k.xAxis(that.svgContainer,that.xGroup,that.xScale)
 					.yAxis(that.svgContainer,that.yGroup,that.yScale)
 					.yGrid(that.svgContainer,that.group,that.yScale)
 					.xGrid(that.svgContainer,that.group,that.xScale)
-					.dataSource();
+					.createFooter()
+	                .lastUpdatedAt()
+	                .credits()
+	                .dataSource();
 		}
 		else if(that.mode === "infographics") {
 			  that.k.liveData(that)
@@ -93,7 +95,8 @@ PykCharts.multiD.areaChart = function (options){
 					.yAxis(that.svgContainer,that.yGroup,that.yScale)
 					.yGrid(that.svgContainer,that.group,that.yScale)
 					.xGrid(that.svgContainer,that.group,that.xScale)
-					.tooltip(true,options.selector);
+					.tooltip(true,options.selector)
+					.lastUpdatedAt("liveData");
 		});
 	};
 

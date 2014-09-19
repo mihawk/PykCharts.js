@@ -24,6 +24,7 @@ PykCharts.oneD.bubble = function (options) {
             that.optionalFeatures()
                 .createChart()
                 .label();
+            that.k.lastUpdatedAt("liveData");
         });
     };
 
@@ -39,7 +40,9 @@ PykCharts.oneD.bubble = function (options) {
                 .createChart()
                 .label();
 
-            that.k.credits()
+            that.k.createFooter()
+                .lastUpdatedAt()
+                .credits()
                 .dataSource()
                 .liveData(that)
                 .tooltip();

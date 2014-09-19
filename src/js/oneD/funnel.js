@@ -39,7 +39,8 @@ PykCharts.oneD.funnel = function (options) {
                     .clubData()
                     .createChart()
                     .label()
-                    .ticks()
+                    .ticks();
+            that.k.lastUpdatedAt("liveData");
         });
     };
 
@@ -70,6 +71,8 @@ PykCharts.oneD.funnel = function (options) {
         if(that.mode === "default") {
             that.optionalFeatures().ticks();
             that.k.liveData(that)
+                .createFooter()
+                .lastUpdatedAt()
                 .credits()
                 .dataSource();
         }
@@ -400,7 +403,7 @@ PykCharts.oneD.funnel = function (options) {
                                 return (d.values[4].y);
                            }
                         })
-                        .attr("stroke-width", that.ticks_strokeWidth)
+                        .attr("stroke-width", that.ticks_thickness)
                         .attr("stroke", that.ticks_color)
                         // .transition()
                         // .duration(that.transitions.duration())

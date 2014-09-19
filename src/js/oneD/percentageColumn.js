@@ -33,6 +33,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                     .createChart()
                     .label()
                     .ticks();
+            that.k.lastUpdatedAt("liveData");
         });
     };
 
@@ -64,6 +65,8 @@ PykCharts.oneD.percentageColumn = function (options) {
         if(that.mode === "default") {
             that.optionalFeatures().ticks()
             that.k.liveData(that)
+                .createFooter()
+                .lastUpdatedAt()
                 .credits()
                 .dataSource();
         }
@@ -283,7 +286,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                                         return (((sum1 - d.percentValue) * that.height/100)+(sum1 * that.height / 100))/2;
                                     }
                                 })
-                                .attr("stroke-width", that.ticks_strokeWidth)
+                                .attr("stroke-width", that.ticks_thickness)
                                 .attr("stroke", that.ticks_color)
                                 // .transition()
                                 // .duration(that.transitions.duration())

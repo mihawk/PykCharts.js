@@ -126,7 +126,7 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
     chartObject.label_weight = options.label_weight ? options.label_weight : stylesheet.label_weight;
     chartObject.label_family = options.label_family ? options.label_family : stylesheet.label_family;
 
-    chartObject.ticks_strokeWidth = "ticks_strokeWidth" in options ? options.ticks_strokeWidth : stylesheet.ticks_strokeWidth;
+    chartObject.ticks_thickness = "ticks_thickness" in options ? options.ticks_thickness : stylesheet.ticks_thickness;
     chartObject.ticks_size = "ticks_size" in options ? options.ticks_size : stylesheet.ticks_size;
     chartObject.ticks_color = options.ticks_color ? options.ticks_color : stylesheet.ticks_color;
     chartObject.ticks_family = options.ticks_family ? options.ticks_family : stylesheet.ticks_family;

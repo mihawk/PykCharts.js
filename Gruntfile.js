@@ -86,6 +86,11 @@ module.exports = function(grunt) {
                 // Run the script
                 command: 'bash pre-build/script.bash'
             }
+        },
+
+        // Run QUnit Test
+        qunit: {
+            all: ['examples/*.html']
         }
     });
 
@@ -96,6 +101,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-shell');
     grunt.loadNpmTasks('grunt-contrib-jshint');
+    grunt.loadNpmTasks('grunt-contrib-qunit');
 
     // Remove all console.logs
     grunt.registerTask('rmconsolelogs', ['shell:rmclogs']);

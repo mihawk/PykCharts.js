@@ -29,14 +29,15 @@ PykCharts.multiD.columnChart = function(options){
             that.the_keys = fD[1];
             that.the_layers = that.buildLayers(that.the_bars);
             if(that.no_of_groups === 1) {
-                that.legends.enable = "no";
+                that.legends_enable = "no";
             }
             that.optionalFeatures()
                     .createChart()
                     .legends();
 
             that.k.yAxis(that.svgContainer,that.yGroup,that.yScaleInvert)
-                .yGrid(that.svgContainer,that.group,that.yScaleInvert);
+                .yGrid(that.svgContainer,that.group,that.yScaleInvert)
+                .lastUpdatedAt("liveData");
         });
     };
 
@@ -67,10 +68,12 @@ PykCharts.multiD.columnChart = function(options){
                 .legendsContainer(1)
                 .svgContainer(1);
 
-            that.k.credits()
-                .dataSource()
-                .liveData(that)
-                .tooltip();
+            that.k.liveData(that)
+                .tooltip()
+                .createFooter()
+                .lastUpdatedAt()
+                .credits()
+                .dataSource();
 
             that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
 
