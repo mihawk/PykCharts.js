@@ -1,18 +1,18 @@
 PykCharts.oneD = {};
 
-PykCharts.oneD.fillChart = function (options) {
+// PykCharts.oneD.fillChart = function (options) {
 
-    var colorPie = {
-        chartColor: function (d) {
-            if(d.highlight === true) {
-                return options.highlightColor;
-            } else{
-                return options.chartColor;
-            }
-        }
-    };
-    return colorPie;
-};
+//     var colorPie = {
+//         chartColor: function (d) {
+//             if(d.highlight === true) {
+//                 return options.highlightColor;
+//             } else{
+//                 return options.chartColor;
+//             }
+//         }
+//     };
+//     return colorPie;
+// };
 
 PykCharts.oneD.mouseEvent = function (options) {
     var highlight_selected = {

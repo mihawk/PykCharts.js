@@ -29,7 +29,8 @@ PykCharts.oneD.bubble = function (options) {
     };
 
     this.render = function () {
-        that.fillChart = new PykCharts.oneD.fillChart(that);
+        // that.fillChart = new PykCharts.oneD.fillChart(that);
+        that.fillChart = new PykCharts.Configuration.fillChart(that);
         that.onHoverEffect = new PykCharts.oneD.mouseEvent(that);
         that.transitions = new PykCharts.Configuration.transition(that);
         if (that.mode ==="default") {
@@ -106,7 +107,7 @@ PykCharts.oneD.bubble = function (options) {
                     .attr("r",0)
                     .attr("transform",function (d) { return "translate(" + d.x + "," + d.y +")"; })
                     .attr("fill",function (d) {
-                        return d.children ? that.bg : that.fillChart.chartColor(d);
+                        return d.children ? that.bg : that.fillChart.selectColor(d);
                     })
                     .on("mouseover", function (d) {
                         if(!d.children) {

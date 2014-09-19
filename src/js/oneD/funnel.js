@@ -46,7 +46,8 @@ PykCharts.oneD.funnel = function (options) {
 
     this.render = function () {
         var that = this;
-        that.fillChart = new PykCharts.oneD.fillChart(that);
+        //that.fillChart = new PykCharts.oneD.fillChart(that);
+        that.fillChart = new PykCharts.Configuration.fillChart(that);        
         that.onHoverEffect = new PykCharts.oneD.mouseEvent(that);
         that.transitions = new PykCharts.Configuration.transition(that);
 //        theme.stylesheet.borderBetweenChartElements;
@@ -241,7 +242,7 @@ PykCharts.oneD.funnel = function (options) {
                     .attr('d',function(d){ return line(a); })
 
                    	.attr("fill",function (d,i) {
-                        return that.fillChart.chartColor(that.new_data[i]);
+                        return that.fillChart.selectColor(that.new_data[i]);
         			})
                     .attr("stroke",that.border.color())
                     .attr("stroke-width",that.border.width())

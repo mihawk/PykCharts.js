@@ -31,7 +31,8 @@ PykCharts.oneD.pyramid = function (options) {
     };
 
 	this.render = function () {
-		that.fillChart = new PykCharts.oneD.fillChart(that);
+//		that.fillChart = new PykCharts.oneD.fillChart(that);
+        that.fillChart = new PykCharts.Configuration.fillChart(that);
         that.onHoverEffect = new PykCharts.oneD.mouseEvent(options);
         that.transitions = new PykCharts.Configuration.transition(that);
         that.border = new PykCharts.Configuration.border(that);
@@ -199,7 +200,7 @@ PykCharts.oneD.pyramid = function (options) {
                             k--;
                             b = that.new_data[k];
                         }
-                        return that.fillChart.chartColor(b);
+                        return that.fillChart.selectColor(b);
                     })
         			.on("mouseover", function (d,i) {
                         that.onHoverEffect.highlight(options.selector +" "+".pyr-path",this);
