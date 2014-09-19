@@ -346,9 +346,9 @@ PykCharts.oneD.pyramid = function (options) {
                                 }
                             }
                     })
-                    .style("fill",that.ticks_color)
-                    .style("font-size",that.ticks_size)
-                    .style("font-family", that.ticks_family)
+                    .style("fill",that.pointer_color)
+                    .style("font-size",that.pointer_size)
+                    .style("font-family", that.pointer_family)
                     .attr("text-anchor","start");
                 },that.transitions.duration());
 
@@ -389,8 +389,8 @@ PykCharts.oneD.pyramid = function (options) {
                             return (d.values[0].y + that.coordinates[that.coordinates.length-1].values[1].y)/2;
                         }
                     })
-                    .attr("stroke-width", that.ticks_thickness)
-                    .attr("stroke",that.ticks_color)
+                    .attr("stroke-width", that.pointer_thickness)
+                    .attr("stroke",that.pointer_color)
                     // .transition()
                     // .duration(that.transitions.duration())
                

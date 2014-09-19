@@ -484,9 +484,9 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                             })
                             .attr("dy",5)
                             .attr("pointer-events","none")
-                            .style("fill",that.ticks_color)
-                            .style("font-size",that.ticks_size)
-                            .style("font-family", that.ticks_family);
+                            .style("fill",that.pointer_color)
+                            .style("font-size",that.pointer_size)
+                            .style("font-family", that.pointer_family);
 
                         tick_label.exit().remove();
                     },that.transitions.duration());
@@ -562,8 +562,8 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                                 // }
                             })
                             .attr("transform","rotate(-90)")
-                            .attr("stroke-width", that.ticks_thickness)
-                            .attr("stroke",that.ticks_color);
+                            .attr("stroke-width", that.pointer_thickness)
+                            .attr("stroke",that.pointer_color);
                         tick_line.exit().remove();
                     },that.transitions.duration());
                 // }

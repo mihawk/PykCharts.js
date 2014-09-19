@@ -491,8 +491,8 @@ PykCharts.Configuration = function (options){
                 }
                 var xaxis = PykCharts.Configuration.makeXAxis(options,xScale);
             
-                if(options.axis_x_tickValues.length != 0) {
-                    xaxis.tickValues(options.axis_x_tickValues);
+                if(options.axis_x_pointer_values.length != 0) {
+                    xaxis.tickValues(options.axis_x_pointer_values);
                 }
 
                 gsvg.style("stroke",function () { return options.axis_x_axisColor; })
@@ -957,9 +957,9 @@ configuration.makeXAxis = function(options,xScale) {
     var k = PykCharts.Configuration(options);
     var xaxis = d3.svg.axis()
                     .scale(xScale)
-                    .ticks(options.axis_x_no_of_ticks)
-                    .tickSize(options.axis_x_tickSize)
-                    .outerTickSize(options.axis_x_outer_tick_size)
+                    .ticks(options.axis_x_no_of_axis_value)
+                    .tickSize(options.axis_x_pointer_size)
+                    .outerTickSize(options.axis_x_outer_pointer_size)
                     .tickFormat(function (d,i) {
                         if(options.multiple_containers_enable === "yes" && options.xAxisDataFormat === "string") {
                             return d.substr(0,2);
@@ -968,8 +968,8 @@ configuration.makeXAxis = function(options,xScale) {
                             return k.appendUnits(d);
                         }
                     })
-                   .tickPadding(options.axis_x_tickPadding)
-                    .orient(options.axis_x_orient);
+                   .tickPadding(options.axis_x_pointer_padding)
+                    .orient(options.axis_x_value_position);
     return xaxis;
 };
 
@@ -978,11 +978,11 @@ configuration.makeYAxis = function(options,yScale) {
     var k = PykCharts.Configuration(options);
     var yaxis = d3.svg.axis()
                     .scale(yScale)
-                    .orient(options.axis_y_orient)
-                    .ticks(options.axis_y_no_of_ticks)
-                    .tickSize(options.axis_y_tickSize)
-                    .outerTickSize(options.axis_y_outer_tick_size)
-                    .tickPadding(options.axis_y_tickPadding)
+                    .orient(options.axis_y_value_position)
+                    .ticks(options.axis_y_no_of_axis_value)
+                    .tickSize(options.axis_y_pointer_size)
+                    .outerTickSize(options.axis_y_outer_pointer_size)
+                    .tickPadding(options.axis_y_pointer_padding)
                     .tickFormat(function (d,i) {
                         return k.appendUnits(d);
                     })
@@ -996,7 +996,7 @@ configuration.makeXGrid = function(options,xScale) {
     var xgrid = d3.svg.axis()
                     .scale(xScale)
                     .orient("bottom")
-                    .ticks(options.axis_x_no_of_ticks)
+                    .ticks(options.axis_x_no_of_axis_value)
                     .tickFormat("")
                     .tickSize(options.height - options.margin_top - options.margin_bottom)
                     .outerTickSize(0);
@@ -1008,7 +1008,7 @@ configuration.makeYGrid = function(options,yScale) {
     var ygrid = d3.svg.axis()
                     .scale(yScale)
                     .orient("left")
-                    .ticks(options.axis_x_no_of_ticks)
+                    .ticks(options.axis_x_no_of_axis_value)
                     .tickSize(-(options.width - options.margin_left - options.margin_right))
                     .tickFormat("")
                     .outerTickSize(0);
@@ -1072,10 +1072,11 @@ configuration.Theme = function(){
         "label_color": "white",
         "label_weight": "thin",
         "label_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
-        "ticks_thickness": 1,
-        "ticks_size": 13,
-        "ticks_color": "#1D1D1D",
-        "ticks_family": "'Helvetica Neue',Helvetica,Arial,sans-serif"
+        "pointer_thickness": 1,
+        "pointer_weight": "thin",
+        "pointer_size": 13,
+        "pointer_color": "#1D1D1D",
+        "pointer_family": "'Helvetica Neue',Helvetica,Arial,sans-serif"
     };
 
     that.functionality = {
@@ -1115,27 +1116,27 @@ configuration.Theme = function(){
 
         "axis_x_enable": "yes",
         "axis_x_position": "bottom",
-        "axis_x_orient": "bottom",
+        "axis_x_value_position": "bottom", //axis orient
         "axis_x_axisColor": "1D1D1D",
         "axis_x_labelColor": "1D1D1D",
-        "axis_x_no_of_ticks": 5,
-        "axis_x_tickSize": 5,
-        "axis_x_tickFormat": "",
-        "axis_x_tickPadding": 6,
-        "axis_x_tickValues": [],
-        "axis_x_outer_tick_size": 0,
+        "axis_x_no_of_axis_value": 5,
+        "axis_x_pointer_size": 5, 
+        "axis_x_value_format": "",
+        "axis_x_pointer_padding": 6,
+        "axis_x_pointer_values": [],
+        "axis_x_outer_pointer_size": 0,
 
         "axis_y_enable": "yes",
         "axis_y_position": "left",
-        "axis_y_orient": "left",
+        "axis_y_value_position": "left",
         "axis_y_axisColor": "1D1D1D",
         "axis_y_labelColor": "1D1D1D",
-        "axis_y_no_of_ticks": 5,
-        "axis_y_tickSize": 5,
-        "axis_y_tickFormat": "",
-        "axis_y_tickPadding": 6,
-        "axis_y_tickValues": [],
-        "axis_y_outer_tick_size": 0,
+        "axis_y_no_of_axis_value": 5,
+        "axis_y_pointer_size": 5,
+        "axis_y_value_format": "",
+        "axis_y_pointer_padding": 6,
+        "axis_y_pointer_values": [],
+        "axis_y_outer_pointer_size": 0,
             
         "yAxisDataFormat": "number",
         "xAxisDataFormat": "string",
@@ -1194,15 +1195,15 @@ configuration.Theme = function(){
         "highlightArea":"no",
         "axis_onHoverHighlightenable" : "no",
         "axis_x_enable": "yes",
-        "axis_x_orient": "top",
+        "axis_x_value_position": "top",
         "axis_x_axisColor": "1D1D1D",
         "axis_x_labelColor": "1D1D1D",
-        "axis_x_no_of_ticks": 5,
-        "axis_x_tickSize": 5,
-        "axis_x_tickFormat": "",
-        "axis_x_tickPadding": 6,
-        "axis_x_tickValues": [],
-        "axis_x_outer_tick_size": 0       
+        "axis_x_no_of_axis_value": 5,
+        "axis_x_pointer_size": 5,
+        "axis_x_value_format": "",
+        "axis_x_pointer_padding": 6,
+        "axis_x_pointer_values": [],
+        "axis_x_outer_pointer_size": 0       
     };    
     return that;
 }

@@ -358,11 +358,11 @@ PykCharts.oneD.funnel = function (options) {
                                     return "";
                                 }
                             })
-                            .attr("font-size", that.ticks_size)
+                            .attr("font-size", that.pointer_size)
                             .attr("text-anchor","start")
-                            .attr("fill", that.ticks_color)
+                            .attr("fill", that.pointer_color)
                             .attr("pointer-events","none")
-                            .attr("font-family", that.ticks_family);
+                            .attr("font-family", that.pointer_family);
                     },that.transitions.duration());
 
                     tick_label.exit().remove();
@@ -403,8 +403,8 @@ PykCharts.oneD.funnel = function (options) {
                                 return (d.values[4].y);
                            }
                         })
-                        .attr("stroke-width", that.ticks_thickness)
-                        .attr("stroke", that.ticks_color)
+                        .attr("stroke-width", that.pointer_thickness)
+                        .attr("stroke", that.pointer_color)
                         // .transition()
                         // .duration(that.transitions.duration())
 
