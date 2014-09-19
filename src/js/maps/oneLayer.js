@@ -329,7 +329,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                 var rect_parameter4value = function (d) {j++; return j * 24 + 12;};
                 var text_parameter2value = function (d) {i++; return i * 24 + 23;};
 
-            } else if(options.legends_display === "horizontal") {
+            } else if(that.legends_display === "horizontal") {
                 var j = 0, i = 0;
                 if(that.colors_palette === "") {
 
