@@ -172,6 +172,7 @@ PykCharts.multiD.lineChart = function (options){
 			that.dataTransformation();
 
 			if(data_changed) {
+				that.k.lastUpdatedAt("liveData");
 				that.mouseEvent.tooltipHide(null,that.multiple_containers_enable,that.type);
 				that.mouseEvent.crossHairHide(that.type);
 				that.mouseEvent.axisHighlightHide(that.selector + " .x.axis");
@@ -184,7 +185,6 @@ PykCharts.multiD.lineChart = function (options){
 					.yAxis(that.svgContainer,that.yGroup,that.yScale)
 					.yGrid(that.svgContainer,that.group,that.yScale)
 					.xGrid(that.svgContainer,that.group,that.xScale)
-					.lastUpdatedAt("liveData");
 		});
 	};
 

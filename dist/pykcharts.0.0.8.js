@@ -263,12 +263,10 @@ PykCharts.Configuration = function (options){
             var key1 = Object.keys(compare_data[0]);
             var key2 = Object.keys(data[0]);
             var changed = false;
-            that.data = data.groupBy("oned");
             if(key1.length === key2.length && compare_data.length === data.length) {
                 for(i=0;i<data.length;i++) {
                     for(j=0;j<key1.length;j++){
                         if(data[i][key2[j]] !== compare_data[i][key1[j]] || key1[j] !== key2[j]) {
-                            console.log("changed");
                             changed = true;
                             break;
                         }
@@ -1445,6 +1443,7 @@ PykCharts.oneD.bubble = function (options) {
         }
         d3.json(options.data, function (e,data) {
             that.data = data.groupBy("oned");
+            that.compare_data = data.groupBy("oned"); 
             $(options.selector+" #chart-loader").remove();
             that.clubData_enable = that.data.length>that.clubData_maximumNodes ? that.clubData_enable : "no";
             that.render();
@@ -1456,11 +1455,17 @@ PykCharts.oneD.bubble = function (options) {
 
         d3.json (options.data, function (e,data) {
             that.data = data.groupBy("oned");
+            that.refresh_data = data.groupBy("oned");
+            var compare = that.k.checkChangeInData(that.refresh_data,that.compare_data);
+            that.compare_data = compare[0];
+            var data_changed = compare[1];
+            if(data_changed) {
+                that.k.lastUpdatedAt("liveData");
+            }
             that.new_data = that.optionalFeatures().clubData();
             that.optionalFeatures()
                 .createChart()
                 .label();
-            that.k.lastUpdatedAt("liveData");
         });
     };
 
@@ -1710,6 +1715,7 @@ PykCharts.oneD.funnel = function (options) {
 
         d3.json(options.data, function (e,data) {
             that.data = data.groupBy("oned");
+            that.compare_data = data.groupBy("oned"); 
             $(options.selector+" #chart-loader").remove();
             that.clubData_enable = that.data.length>that.clubData_maximumNodes ? that.clubData_enable : "no";
             that.render();
@@ -1725,12 +1731,18 @@ PykCharts.oneD.funnel = function (options) {
     this.refresh = function () {
         d3.json (options.data, function (e,data) {
             that.data = data.groupBy("oned");
+            that.refresh_data = data.groupBy("oned");
+            var compare = that.k.checkChangeInData(that.refresh_data,that.compare_data);
+            that.compare_data = compare[0];
+            var data_changed = compare[1];
+            if(data_changed) {
+                that.k.lastUpdatedAt("liveData");
+            }
             that.optionalFeatures()
                     .clubData()
                     .createChart()
                     .label()
                     .ticks();
-            that.k.lastUpdatedAt("liveData");
         });
     };
 
@@ -2204,6 +2216,7 @@ PykCharts.oneD.percentageColumn = function (options) {
         }
         d3.json(options.data, function (e, data) {
             that.data = data.groupBy("oned");
+            that.compare_data = data.groupBy("oned"); 
             $(options.selector+" #chart-loader").remove();
             that.clubData_enable = that.data.length>that.clubData_maximumNodes ? that.clubData_enable : "no";
             that.render();
@@ -2216,12 +2229,18 @@ PykCharts.oneD.percentageColumn = function (options) {
     this.refresh = function () {
         d3.json (options.data, function (e,data) {
             that.data = data.groupBy("oned");
+            that.refresh_data = data.groupBy("oned");
+            var compare = that.k.checkChangeInData(that.refresh_data,that.compare_data);
+            that.compare_data = compare[0];
+            var data_changed = compare[1];
+            if(data_changed) {
+                that.k.lastUpdatedAt("liveData");
+            }
             that.optionalFeatures()
                     .clubData()
                     .createChart()
                     .label()
                     .ticks();
-            that.k.lastUpdatedAt("liveData");
         });
     };
 
@@ -2763,6 +2782,7 @@ PykCharts.oneD.pie = function (options) {
         }
         d3.json(options.data, function (e, data) {
             that.data = data.groupBy("oned");
+            that.compare_data = data.groupBy("oned"); 
             $(options.selector+" #chart-loader").remove();
             var pieFunctions = new PykCharts.oneD.pieFunctions(options,that,"pie");
             that.clubData_enable = that.data.length > that.clubData_maximumNodes ? that.clubData_enable : "no";
@@ -2787,6 +2807,7 @@ PykCharts.oneD.donut = function (options) {
 
         d3.json(options.data, function (e, data) {
             that.data = data.groupBy("oned");
+            that.compare_data = data.groupBy("oned"); 
             $(options.selector+" #chart-loader").remove();
             var pieFunctions = new PykCharts.oneD.pieFunctions(options,that,"donut");
             that.clubData_enable = that.data.length > that.clubData_maximumNodes ? that.clubData_enable : "no";
@@ -2807,6 +2828,7 @@ PykCharts.oneD.election_pie = function (options) {
         that.innerRadiusPercent = 0;
         d3.json(options.data, function (e, data) {
             that.data = data.groupBy("oned");
+            that.compare_data = data.groupBy("oned"); 
             $(options.selector+" #chart-loader").remove();
             var pieFunctions = new PykCharts.oneD.pieFunctions(options,that,"election pie");
             that.clubData_enable = that.data.length > that.clubData_maximumNodes ? that.clubData_enable : "no";
@@ -2828,6 +2850,7 @@ PykCharts.oneD.election_donut = function (options) {
 
         d3.json(options.data, function (e, data) {
             that.data = data.groupBy("oned");
+            that.compare_data = data.groupBy("oned"); 
             $(options.selector+" #chart-loader").remove();
             var pieFunctions = new PykCharts.oneD.pieFunctions(options,that,"election donut");
             that.clubData_enable = that.data.length> that.clubData_maximumNodes ? that.clubData_enable : "no";
@@ -2846,13 +2869,19 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
        that.refresh = function () {
         d3.json(options.data, function (e, data) {
             that.data = data.groupBy("oned");
+            that.refresh_data = data.groupBy("oned");
+            var compare = that.k.checkChangeInData(that.refresh_data,that.compare_data);
+            that.compare_data = compare[0];
+            var data_changed = compare[1];
+            if(data_changed) {
+                that.k.lastUpdatedAt("liveData");
+            }
             that.new_data = that.optionalFeatures().clubData();
             that.optionalFeatures()
                     .createChart()
                     .label()
                     .ticks()
                     .centerLabel();
-            that.k.lastUpdatedAt("liveData");
         });
     };
 
@@ -3413,6 +3442,7 @@ PykCharts.oneD.pyramid = function (options) {
 
         d3.json(options.data, function (e,data) {
 			that.data = data.groupBy("oned");
+            that.compare_data = data.groupBy("oned"); 
             $(options.selector+" #chart-loader").remove();
 			that.clubData_enable = that.data.length > that.clubData_maximumNodes ? that.clubData_enable : "no";
             that.render();
@@ -3423,12 +3453,18 @@ PykCharts.oneD.pyramid = function (options) {
     this.refresh = function () {
         d3.json (options.data, function (e,data) {
             that.data = data.groupBy("oned");
+            that.refresh_data = data.groupBy("oned");
+            var compare = that.k.checkChangeInData(that.refresh_data,that.compare_data);
+            that.compare_data = compare[0];
+            var data_changed = compare[1];
+            if(data_changed) {
+                that.k.lastUpdatedAt("liveData");
+            }
             that.new_data = that.optionalFeatures().clubData();
             that.optionalFeatures()
                     .createChart()
                     .label()
                     .ticks();
-            that.k.lastUpdatedAt("liveData");
         });
     };
 
@@ -3931,6 +3967,7 @@ PykCharts.oneD.treemap = function (options){
 
         d3.json(options.data, function (e,data) {
             that.data = data.groupBy("oned");
+            that.compare_data = data.groupBy("oned");     
             $(options.selector+" #chart-loader").remove();
             that.clubData_enable = that.data.length>that.clubData_maximumNodes ? that.clubData_enable : "no";
             that.render();
@@ -3941,11 +3978,18 @@ PykCharts.oneD.treemap = function (options){
     this.refresh = function (){
         d3.json(options.data, function (e,data) {
             that.data = data.groupBy("oned");
+            that.refresh_data = data.groupBy("oned");
+            var compare = that.k.checkChangeInData(that.refresh_data,that.compare_data);
+            that.compare_data = compare[0];
+            var data_changed = compare[1];
+            if(data_changed) {
+                that.k.lastUpdatedAt("liveData");
+            }
             that.optionalFeatures()
                 .clubData()
                 .createChart()
-                .label()
-            that.k.lastUpdatedAt("liveData");
+                .label();
+            
         });
     };
 
@@ -4835,6 +4879,7 @@ PykCharts.multiD.lineChart = function (options){
 			that.dataTransformation();
 
 			if(data_changed) {
+				that.k.lastUpdatedAt("liveData");
 				that.mouseEvent.tooltipHide(null,that.multiple_containers_enable,that.type);
 				that.mouseEvent.crossHairHide(that.type);
 				that.mouseEvent.axisHighlightHide(that.selector + " .x.axis");
@@ -4847,7 +4892,6 @@ PykCharts.multiD.lineChart = function (options){
 					.yAxis(that.svgContainer,that.yGroup,that.yScale)
 					.yGrid(that.svgContainer,that.group,that.yScale)
 					.xGrid(that.svgContainer,that.group,that.xScale)
-					.lastUpdatedAt("liveData");
 		});
 	};
 
@@ -5468,6 +5512,7 @@ PykCharts.multiD.areaChart = function (options){
 			var data_changed = compare[1];
 
 			if(data_changed) {
+				that.k.lastUpdatedAt("liveData");
 				that.mouseEvent.tooltipHide();
 				that.mouseEvent.crossHairHide(that.type);
 				that.mouseEvent.axisHighlightHide(that.selector + " .x.axis");
@@ -5480,8 +5525,7 @@ PykCharts.multiD.areaChart = function (options){
 					.yAxis(that.svgContainer,that.yGroup,that.yScale)
 					.yGrid(that.svgContainer,that.group,that.yScale)
 					.xGrid(that.svgContainer,that.group,that.xScale)
-					.tooltip(true,options.selector)
-					.lastUpdatedAt("liveData");
+					.tooltip(true,options.selector);
 		});
 	};
 
@@ -5877,6 +5921,7 @@ PykCharts.multiD.barChart = function(options){
         }
         d3.json(options.data, function(e, data){
             that.data = data.groupBy("bar");
+            that.compare_data = data.groupBy("bar");
             //console.log(data);
             $(that.selector+" #chart-loader").remove();
             that.render();
@@ -5886,6 +5931,13 @@ PykCharts.multiD.barChart = function(options){
     this.refresh = function () {
         d3.json(options.data, function (e, data) {
             that.data = data.groupBy("bar");
+            that.refresh_data = data.groupBy("bar");
+            var compare = that.k.checkChangeInData(that.refresh_data,that.compare_data);
+            that.compare_data = compare[0];
+            var data_changed = compare[1];
+            if(data_changed) {
+                that.k.lastUpdatedAt("liveData");
+            }
             that.data = that.dataTransformation();
             that.data = that.emptygroups(that.data);
             var fD = that.flattenData();
@@ -5899,8 +5951,7 @@ PykCharts.multiD.barChart = function(options){
                     .createChart()
                     .legends()
                     .ticks();
-            that.k.xAxis(that.svgContainer,that.xGroup,that.xScale)
-                .lastUpdatedAt("liveData");
+            that.k.xAxis(that.svgContainer,that.xGroup,that.xScale);
         });
     };
 
@@ -6614,6 +6665,7 @@ PykCharts.multiD.columnChart = function(options){
         }
         d3.json(options.data, function(e, data){
             that.data = data.groupBy("column");
+            that.compare_data = data.groupBy("column");
             $(that.selector+" #chart-loader").remove();
             that.render();
         });
@@ -6621,7 +6673,14 @@ PykCharts.multiD.columnChart = function(options){
 
     this.refresh = function () {
         d3.json(options.data, function (e, data) {
-            that.data = data.groupBy("column");      
+            that.data = data.groupBy("column");
+            that.refresh_data = data.groupBy("column");
+            var compare = that.k.checkChangeInData(that.refresh_data,that.compare_data);
+            that.compare_data = compare[0];
+            var data_changed = compare[1];
+            if(data_changed) {
+                that.k.lastUpdatedAt("liveData");
+            }      
             that.data = that.dataTransformation();
             that.data = that.emptygroups(that.data);
 
@@ -6637,8 +6696,7 @@ PykCharts.multiD.columnChart = function(options){
                     .legends();
 
             that.k.yAxis(that.svgContainer,that.yGroup,that.yScaleInvert)
-                .yGrid(that.svgContainer,that.group,that.yScaleInvert)
-                .lastUpdatedAt("liveData");
+                .yGrid(that.svgContainer,that.group,that.yScaleInvert);
         });
     };
 
@@ -7287,6 +7345,7 @@ PykCharts.multiD.scatterPlot = function (options) {
         }
         d3.json(options.data, function (e, data) {
             that.data = data.groupBy("scatterplot");
+            that.compare_data = data.groupBy("scatterplot");
             $(that.selector+" #chart-loader").remove();
             var a = new PykCharts.multiD.scatterplotFunction(options,that,"scatterplot");
             a.render();
@@ -7315,6 +7374,7 @@ PykCharts.multiD.pulse = function (options) {
         that.radius_range = [that.k._radiusCalculation(1.1)*2,that.k._radiusCalculation(3.5)*2];
         d3.json(options.data, function (e, data) {
             that.data = data.groupBy("pulse");
+            that.compare_data = data.groupBy("pulse");
             $(that.selector+" #chart-loader").remove();
             var a = new PykCharts.multiD.scatterplotFunction(options,that,"pulse");
             a.render();
@@ -7326,13 +7386,19 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
     that.refresh = function () {
         d3.json(options.data, function (e, data) {
             that.data = data.groupBy("scatterplot");
+            that.refresh_data = data.groupBy("scatterplot");
+            var compare = that.k.checkChangeInData(that.refresh_data,that.compare_data);
+            that.compare_data = compare[0];
+            var data_changed = compare[1];
+            if(data_changed) {
+                that.k.lastUpdatedAt("liveData");
+            }
             that.map_group_data = that.multiD.mapGroup(that.data);
             that.optionalFeatures()
                     .createChart()
                     .legends()
                     .label()
                     .ticks();
-            that.k.lastUpdatedAt("liveData");
         });
     };
 
@@ -8110,6 +8176,7 @@ PykCharts.multiD.spiderWeb = function (options) {
     
         d3.json(options.data, function (e, data) {
             that.data = data.groupBy("spiderweb");
+            that.compare_data = data.groupBy("spiderweb");
             $(that.selector+" #chart-loader").remove();
             that.render();
         });
@@ -8118,13 +8185,19 @@ PykCharts.multiD.spiderWeb = function (options) {
     that.refresh = function () {
         d3.json(options.data, function (e, data) {
             that.data = data.groupBy("spiderweb");
+            that.refresh_data = data.groupBy("spiderweb");
+            var compare = that.k.checkChangeInData(that.refresh_data,that.compare_data);
+            that.compare_data = compare[0];
+            var data_changed = compare[1];
+            if(data_changed) {
+                that.k.lastUpdatedAt("liveData");
+            }
             that.map_group_data = that.multiD.mapGroup(that.data);
             that.optionalFeatures()
                 .createChart()
                 .legends()
                 .axisTicks()
                 .axisTitle();
-            that.k.lastUpdatedAt("liveData");
         });
     };
 
