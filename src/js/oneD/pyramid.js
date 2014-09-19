@@ -11,6 +11,7 @@ PykCharts.oneD.pyramid = function (options) {
 
         d3.json(options.data, function (e,data) {
 			that.data = data.groupBy("oned");
+            that.compare_data = data.groupBy("oned"); 
             $(options.selector+" #chart-loader").remove();
 			that.clubData_enable = that.data.length > that.clubData_maximumNodes ? that.clubData_enable : "no";
             that.render();
@@ -21,12 +22,18 @@ PykCharts.oneD.pyramid = function (options) {
     this.refresh = function () {
         d3.json (options.data, function (e,data) {
             that.data = data.groupBy("oned");
+            that.refresh_data = data.groupBy("oned");
+            var compare = that.k.checkChangeInData(that.refresh_data,that.compare_data);
+            that.compare_data = compare[0];
+            var data_changed = compare[1];
+            if(data_changed) {
+                that.k.lastUpdatedAt("liveData");
+            }
             that.new_data = that.optionalFeatures().clubData();
             that.optionalFeatures()
                     .createChart()
                     .label()
                     .ticks();
-            that.k.lastUpdatedAt("liveData");
         });
     };
 

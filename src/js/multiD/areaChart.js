@@ -83,6 +83,7 @@ PykCharts.multiD.areaChart = function (options){
 			var data_changed = compare[1];
 
 			if(data_changed) {
+				that.k.lastUpdatedAt("liveData");
 				that.mouseEvent.tooltipHide();
 				that.mouseEvent.crossHairHide(that.type);
 				that.mouseEvent.axisHighlightHide(that.selector + " .x.axis");
@@ -95,8 +96,7 @@ PykCharts.multiD.areaChart = function (options){
 					.yAxis(that.svgContainer,that.yGroup,that.yScale)
 					.yGrid(that.svgContainer,that.group,that.yScale)
 					.xGrid(that.svgContainer,that.group,that.xScale)
-					.tooltip(true,options.selector)
-					.lastUpdatedAt("liveData");
+					.tooltip(true,options.selector);
 		});
 	};
 
