@@ -13,6 +13,7 @@ PykCharts.multiD.columnChart = function(options){
         }
         d3.json(options.data, function(e, data){
             that.data = data.groupBy("column");
+            that.compare_data = data.groupBy("column");
             $(that.selector+" #chart-loader").remove();
             that.render();
         });
@@ -20,7 +21,14 @@ PykCharts.multiD.columnChart = function(options){
 
     this.refresh = function () {
         d3.json(options.data, function (e, data) {
-            that.data = data.groupBy("column");      
+            that.data = data.groupBy("column");
+            that.refresh_data = data.groupBy("column");
+            var compare = that.k.checkChangeInData(that.refresh_data,that.compare_data);
+            that.compare_data = compare[0];
+            var data_changed = compare[1];
+            if(data_changed) {
+                that.k.lastUpdatedAt("liveData");
+            }      
             that.data = that.dataTransformation();
             that.data = that.emptygroups(that.data);
 
@@ -36,8 +44,7 @@ PykCharts.multiD.columnChart = function(options){
                     .legends();
 
             that.k.yAxis(that.svgContainer,that.yGroup,that.yScaleInvert)
-                .yGrid(that.svgContainer,that.group,that.yScaleInvert)
-                .lastUpdatedAt("liveData");
+                .yGrid(that.svgContainer,that.group,that.yScaleInvert);
         });
     };
 

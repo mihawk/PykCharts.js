@@ -13,6 +13,7 @@ PykCharts.oneD.treemap = function (options){
 
         d3.json(options.data, function (e,data) {
             that.data = data.groupBy("oned");
+            that.compare_data = data.groupBy("oned");     
             $(options.selector+" #chart-loader").remove();
             that.clubData_enable = that.data.length>that.clubData_maximumNodes ? that.clubData_enable : "no";
             that.render();
@@ -23,17 +24,25 @@ PykCharts.oneD.treemap = function (options){
     this.refresh = function (){
         d3.json(options.data, function (e,data) {
             that.data = data.groupBy("oned");
+            that.refresh_data = data.groupBy("oned");
+            var compare = that.k.checkChangeInData(that.refresh_data,that.compare_data);
+            that.compare_data = compare[0];
+            var data_changed = compare[1];
+            if(data_changed) {
+                that.k.lastUpdatedAt("liveData");
+            }
             that.optionalFeatures()
                 .clubData()
                 .createChart()
-                .label()
-            that.k.lastUpdatedAt("liveData");
+                .label();
+            
         });
     };
 
     this.render = function (){
 
-        that.fillChart = new PykCharts.oneD.fillChart(that);
+//        that.fillChart = new PykCharts.oneD.fillChart(that);
+        that.fillChart = new PykCharts.Configuration.fillChart(that);
         that.onHoverEffect = new PykCharts.oneD.mouseEvent(options);
         that.transitions = new PykCharts.Configuration.transition(that);
         that.border = new PykCharts.Configuration.border(that);
@@ -112,7 +121,7 @@ PykCharts.oneD.treemap = function (options){
                     .attr("width", function (d) { return d.dx-1; })
                     .attr("height", 0)
                     .attr("fill",function (d) {
-                        return d.children ? "white" : that.fillChart.chartColor(d);
+                        return d.children ? "white" : that.fillChart.selectColor(d);
                     })
                     .on('mouseover',function (d) {
                         if(!d.children) {

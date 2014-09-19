@@ -13,6 +13,7 @@ PykCharts.oneD.pie = function (options) {
         }
         d3.json(options.data, function (e, data) {
             that.data = data.groupBy("oned");
+            that.compare_data = data.groupBy("oned"); 
             $(options.selector+" #chart-loader").remove();
             var pieFunctions = new PykCharts.oneD.pieFunctions(options,that,"pie");
             that.clubData_enable = that.data.length > that.clubData_maximumNodes ? that.clubData_enable : "no";
@@ -37,6 +38,7 @@ PykCharts.oneD.donut = function (options) {
 
         d3.json(options.data, function (e, data) {
             that.data = data.groupBy("oned");
+            that.compare_data = data.groupBy("oned"); 
             $(options.selector+" #chart-loader").remove();
             var pieFunctions = new PykCharts.oneD.pieFunctions(options,that,"donut");
             that.clubData_enable = that.data.length > that.clubData_maximumNodes ? that.clubData_enable : "no";
@@ -57,6 +59,7 @@ PykCharts.oneD.election_pie = function (options) {
         that.innerRadiusPercent = 0;
         d3.json(options.data, function (e, data) {
             that.data = data.groupBy("oned");
+            that.compare_data = data.groupBy("oned"); 
             $(options.selector+" #chart-loader").remove();
             var pieFunctions = new PykCharts.oneD.pieFunctions(options,that,"election pie");
             that.clubData_enable = that.data.length > that.clubData_maximumNodes ? that.clubData_enable : "no";
@@ -78,6 +81,7 @@ PykCharts.oneD.election_donut = function (options) {
 
         d3.json(options.data, function (e, data) {
             that.data = data.groupBy("oned");
+            that.compare_data = data.groupBy("oned"); 
             $(options.selector+" #chart-loader").remove();
             var pieFunctions = new PykCharts.oneD.pieFunctions(options,that,"election donut");
             that.clubData_enable = that.data.length> that.clubData_maximumNodes ? that.clubData_enable : "no";
@@ -96,13 +100,19 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
        that.refresh = function () {
         d3.json(options.data, function (e, data) {
             that.data = data.groupBy("oned");
+            that.refresh_data = data.groupBy("oned");
+            var compare = that.k.checkChangeInData(that.refresh_data,that.compare_data);
+            that.compare_data = compare[0];
+            var data_changed = compare[1];
+            if(data_changed) {
+                that.k.lastUpdatedAt("liveData");
+            }
             that.new_data = that.optionalFeatures().clubData();
             that.optionalFeatures()
                     .createChart()
                     .label()
                     .ticks()
                     .centerLabel();
-            that.k.lastUpdatedAt("liveData");
         });
     };
 
@@ -114,7 +124,8 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
 
         that.count = 1;
 
-        that.fillChart = new PykCharts.oneD.fillChart(that);
+        //that.fillChart = new PykCharts.oneD.fillChart(that);
+        that.fillChart = new PykCharts.Configuration.fillChart(that);
         that.onHoverEffect = new PykCharts.oneD.mouseEvent(options);
         that.border = new PykCharts.Configuration.border(that);
         that.transitions = new PykCharts.Configuration.transition(that);
@@ -222,7 +233,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
 
                 that.chart_data
                     .attr("fill",function (d) {
-                            return that.fillChart.chartColor(d.data);
+                            return that.fillChart.selectColor(d.data);
                     })
                     .on('mouseover',function (d) {
                         d.data.tooltip = d.data.tooltip || "<table class='PykCharts'><tr><th colspan='3' class='tooltip-heading'>"+d.data.name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.data.weight)+"<td class='tooltip-right-content'>( "+((d.data.weight*100)/that.sum).toFixed(2)+"% ) </tr></table>";

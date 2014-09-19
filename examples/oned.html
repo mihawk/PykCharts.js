@@ -61,7 +61,8 @@
             var k = new PykCharts.oneD.treemap({
                 selector: "#treemap",
                 data: "../data/pie.json",
-                "transition_duration": 1000
+                "transition_duration": 0, 
+                "realTimeCharts_refreshFrequency": 11
             });
             k.execute();
 

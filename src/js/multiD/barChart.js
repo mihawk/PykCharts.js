@@ -13,6 +13,7 @@ PykCharts.multiD.barChart = function(options){
         }
         d3.json(options.data, function(e, data){
             that.data = data.groupBy("bar");
+            that.compare_data = data.groupBy("bar");
             //console.log(data);
             $(that.selector+" #chart-loader").remove();
             that.render();
@@ -22,6 +23,13 @@ PykCharts.multiD.barChart = function(options){
     this.refresh = function () {
         d3.json(options.data, function (e, data) {
             that.data = data.groupBy("bar");
+            that.refresh_data = data.groupBy("bar");
+            var compare = that.k.checkChangeInData(that.refresh_data,that.compare_data);
+            that.compare_data = compare[0];
+            var data_changed = compare[1];
+            if(data_changed) {
+                that.k.lastUpdatedAt("liveData");
+            }
             that.data = that.dataTransformation();
             that.data = that.emptygroups(that.data);
             var fD = that.flattenData();
@@ -35,8 +43,7 @@ PykCharts.multiD.barChart = function(options){
                     .createChart()
                     .legends()
                     .ticks();
-            that.k.xAxis(that.svgContainer,that.xGroup,that.xScale)
-                .lastUpdatedAt("liveData");
+            that.k.xAxis(that.svgContainer,that.xGroup,that.xScale);
         });
     };
 
