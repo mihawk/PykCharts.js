@@ -104,7 +104,10 @@ PykCharts.multiD.lineChart = function (options){
 							.axisContainer();
 
 					that.k.xAxis(that.svgContainer,that.xGroup,that.xScale)
-							.yAxis(that.svgContainer,that.yGroup,that.yScale);
+							.yAxis(that.svgContainer,that.yGroup,that.yScale)
+							.yGrid(that.svgContainer,that.group,that.yScale)
+							.xGrid(that.svgContainer,that.group,that.xScale);
+	
 					if((i+1)%4 === 0 && i !== 0) {
                         that.k.emptyDiv();
                     }
@@ -169,7 +172,7 @@ PykCharts.multiD.lineChart = function (options){
 			that.dataTransformation();
 
 			if(data_changed) {
-				that.mouseEvent.tooltipHide();
+				that.mouseEvent.tooltipHide(null,that.multiple_containers_enable,that.type);
 				that.mouseEvent.crossHairHide(that.type);
 				that.mouseEvent.axisHighlightHide(that.selector + " .x.axis");
 				that.mouseEvent.axisHighlightHide(that.selector + " .y.axis");
@@ -330,19 +333,11 @@ PykCharts.multiD.lineChart = function (options){
 					if(!PykCharts.boolean(that.multiple_containers_enable)) {
 						for (var i = 0;i < that.new_data_length;i++) {
 				    		type = that.type + "-svg-" +i;
-/*					    that.newDataLineGroup = [];
-					    that.newDataLineGroup[0] = */
-					    that.svgContainer.select(that.selector + " #"+type)
+					    	that.svgContainer.select(that.selector + " #"+type)
 									.datum(that.new_data[i].data)
 									// .transition()
 									// .attr("transform", "translate("+ that.extra_left_margin +",0)")
 						      		.attr("d", that.chart_path);
-
-					    // that.newDataLineGroup = [];
-					    // that.newDataLineGroup[0] = that.svgContainer.select(that.selector + " #"+type);
-
-// console.log(type);
-// console.log(that.svgContainer.select(that.selector + " #"+type)[0],"-_-");
 
 						 	if(that.type === "multilineChart") {
 						 	// 	that.svgContainer.select(that.selector + " #"+type).on("click",function (d) {
@@ -370,13 +365,38 @@ PykCharts.multiD.lineChart = function (options){
 					} else {
 						type = that.type + that.svgContainer.attr("id");
 
-			    		that.svgContainer.select(that.selector + " #"+type)
-								.datum(that.new_data1.data)
-								//.transition()
-				      			.attr("transform", "translate("+ that.extra_left_margin +",0)")
-					      		.attr("d", that.chart_path);
+						for(var i = 0;i < that.new_data_length;i++) {
+						
+							var currentSvg = d3.select(that.selector + " #svg-" +i);
+							var current_x_axis = currentSvg.select("#xaxis");
+							var current_y_axis = currentSvg.select("#yaxis");
+							var current_xgrid = currentSvg.select("#xgrid");
+							var current_ygrid = currentSvg.select("#ygrid");
+							
+							console.log(current_x_axis,"m blank");
+							var type_length = type.length;
+							var containerId = type.substring(0,type_length-1);
+							console.log(currentSvg.select(that.selector + " #"+containerId+i),":'(");
+							that.k.xAxis(that.svgContainer,current_x_axis,that.xScale)
+								.yAxis(that.svgContainer,current_y_axis,that.yScale)
+								.yGrid(that.svgContainer,that.group,that.yScale)
+								.xGrid(that.svgContainer,that.group,that.xScale);						
 
+							currentSvg.select(that.selector + " #"+containerId+i)
+									.datum(that.new_data[i].data)
+									//.transition()
+					      			.attr("transform", "translate("+ that.extra_left_margin +",0)")
+						      		.attr("d", that.chart_path);
 
+//				    		console.log($(that.selector + " #"+containerId+i+ " g #xAxis"),"hhhhhhhhhhhhhhhhh",that.selector + " #"+type);
+				    		//console.log(that.svgContainer.select(that.selector + " #"+containerId+2),"duhhhhhhhhhhh");
+				    	// 	that.svgContainer.select(that.selector + " #"+containerId+i)
+									// .datum(that.new_data1.data)
+									// //.transition()
+					    //   			.attr("transform", "translate("+ that.extra_left_margin +",0)")
+						   //    		.attr("d", that.chart_path);
+
+						}
 					 	if(that.type === "multilineChart") {
 					 	// 	that.svgContainer.select(that.selector + " #"+type).on("click",function (d) {
 				 		// 		that.selected_line = d3.event.target;
@@ -411,7 +431,7 @@ PykCharts.multiD.lineChart = function (options){
 								that.mouseEvent.axisHighlightHide(that.selector + " .y.axis");
 							})
 							.on("mousemove", function(){
-								if(!PykCharts.boolean(that.multiple_containers)) {
+								if(!PykCharts.boolean(that.multiple_containers_enable)) {
 									console.log(that.dataLineGroup[0].attr("id"),"help :(");
 									that.mouseEvent.crossHairPosition(that.data,that.new_data,that.xScale,that.yScale,that.dataLineGroup,that.extra_left_margin,that.type,that.tooltipMode,that.color_from_data,null);
 								}
@@ -566,14 +586,14 @@ PykCharts.multiD.lineChart = function (options){
 								that.mouseEvent.axisHighlightHide(that.selector + " .y.axis");
 							})
 							.on("mousemove", function(){
-									console.log(that.dataLineGroup[0],"that.dataLineGroup", "yooo");								
+								console.log(that.dataLineGroup[0],"that.dataLineGroup", "yooo");								
 								that.mouseEvent.crossHairPosition(that.data,that.new_data,that.xScale,that.yScale,that.dataLineGroup,that.extra_left_margin,that.type,that.tooltipMode,that.color_from_data,null);
 							});
 					}
 					else if (that.type === "multilineChart" && that.mode === "default") {
 						that.svgContainer
 							.on('mouseout', function (d) {
-								that.mouseEvent.tooltipHide(null,that.multiple_containers,that.type);
+								that.mouseEvent.tooltipHide(null,that.multiple_containers_enable,that.type);
 								that.mouseEvent.crossHairHide(that.type);
 								that.mouseEvent.axisHighlightHide(that.selector + " .x.axis");
 								that.mouseEvent.axisHighlightHide(that.selector + " .y.axis");
