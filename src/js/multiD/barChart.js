@@ -165,7 +165,14 @@ PykCharts.multiD.barChart = function(options){
 
                     that.yGroup = that.group.append("g")
                         .attr("id","yaxis")
-                        .attr("class", "y axis");
+                        .attr("class", "y axis")
+                        .append("text")
+                            .attr("transform", "rotate(-90)")
+                            .attr("y", 6)
+                            .attr("dy", ".71em")
+                            .style("text-anchor", "end")
+                            .text(options.axis_y_title);
+
                     if(that.axis_y_position === "right") {
                         axis_line.attr("x1",(that.width-that.margin_left-that.margin_right))
                             .attr("x2",(that.width-that.margin_left-that.margin_right));

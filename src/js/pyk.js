@@ -514,7 +514,13 @@ PykCharts.Configuration = function (options){
                 }
 
                 gsvg.style("stroke",function () { return options.axis_x_axisColor; })
-                    .call(xaxis);
+                    .call(xaxis)
+                    .append("text")
+                    .attr("x", options.width - options.margin_left - options.margin_right)
+                    .attr("y", -8)
+                    .style("text-anchor", "end")
+                    .text(options.axis_x_title);
+
                 gsvg.selectAll(options.selector + " g.x.axis text").attr("pointer-events","none");
             }
             return this;
@@ -531,7 +537,13 @@ PykCharts.Configuration = function (options){
                 var yaxis = PykCharts.Configuration.makeYAxis(options,yScale);
 
                 gsvg.style("stroke",function () { return options.axis_y_axisColor; })
-                    .call(yaxis);
+                    .call(yaxis)
+                    .append("text")
+                    .attr("transform", "rotate(-90)")
+                    .attr("y", 6)
+                    .attr("dy", ".71em")
+                    .style("text-anchor", "end")
+                    .text(options.axis_y_title);
 
                 gsvg.selectAll(options.selector + " g.y.axis text").attr("pointer-events","none");
             }
@@ -992,8 +1004,9 @@ configuration.makeXAxis = function(options,xScale) {
                             return k.appendUnits(d);
                         }
                     })
-                   .tickPadding(options.axis_x_pointer_padding)
+                    .tickPadding(options.axis_x_pointer_padding)
                     .orient(options.axis_x_value_position);
+
     return xaxis;
 };
 
@@ -1011,6 +1024,7 @@ configuration.makeYAxis = function(options,yScale) {
                         return k.appendUnits(d);
                     })
                     // .tickFormat(d3.format(",.0f"));
+
     return yaxis;
 };
 
@@ -1139,6 +1153,7 @@ configuration.Theme = function(){
         "axis_onHoverHighlightenable": "no",
 
         "axis_x_enable": "yes",
+        "axis_x_title" : "X axis",
         "axis_x_position": "bottom",
         "axis_x_value_position": "bottom", //axis orient
         "axis_x_axisColor": "1D1D1D",
@@ -1151,6 +1166,7 @@ configuration.Theme = function(){
         "axis_x_outer_pointer_size": 0,
 
         "axis_y_enable": "yes",
+        "axis_y_title" : "Y axis",
         "axis_y_position": "left",
         "axis_y_value_position": "left",
         "axis_y_axisColor": "1D1D1D",
