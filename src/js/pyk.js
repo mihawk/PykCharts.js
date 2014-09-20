@@ -153,7 +153,7 @@ PykCharts.Configuration = function (options){
         },
         scaleIdentification : function (type,data,range,x) {
             var scale;
-            if(type === "ordinal") { 
+            if(type === "ordinal") {
                scale = d3.scale.ordinal()
                     .domain(data)
                     .rangeRoundBands(range, x);
@@ -187,7 +187,7 @@ PykCharts.Configuration = function (options){
                 } else {
                     label = text;
                 }
-           
+
             return label;
         },
 		title : function () {
@@ -491,7 +491,7 @@ PykCharts.Configuration = function (options){
 
                 gsvg.style("stroke",function () { return options.axis_y_axisColor; })
                     .call(yaxis);
-    
+
                 console.log(options.axis_y_axisColor,yaxis,"in y axis");
                 gsvg.selectAll(options.selector + " g.y.axis text").attr("pointer-events","none");
             }
@@ -1033,7 +1033,7 @@ configuration.Theme = function(){
         "highlightColor": "#013F73",
         "saturationColor": "steelblue",
         "borderBetweenChartElements_width": 1,
-        "borderBetweenChartElements_color": "white", 
+        "borderBetweenChartElements_color": "white",
         "borderBetweenChartElements_style": "solid",
         "legendsText_size": 13,
         "legendsText_color": "white",
@@ -1107,31 +1107,31 @@ configuration.Theme = function(){
         "axis_y_tickPadding": 6,
         "axis_y_tickValues": [],
         "axis_y_outer_tick_size": 0,
-            
+
         "yAxisDataFormat": "number",
         "xAxisDataFormat": "string",
         "enableCrossHair": "yes",
         "zoom_enable": "no",
-            
+
         "size_enable" : "yes",
 
         "spiderweb_outerRadiusPercent" : 80,
         "spiderweb_radius": 5,
         "spiderweb_axisTitle": "yes",
-        "spiderweb_enableTicks": "yes",        
+        "spiderweb_enableTicks": "yes",
         "multiple_containers_enable": "no",
-          
+
         "legends_enable": "yes",
         "legends_display": "horizontal",
 
         "tooltip_enable" : "yes",
         "tooltip_mode": "fixed",
-      
+
         "scatterplot_radius" : 40,
 
         "line_color_from_data": "yes",
         "line_curvy_lines": "no"
-            
+
     };
 
     that.treeCharts = {
@@ -1141,23 +1141,23 @@ configuration.Theme = function(){
 
     that.mapsTheme = {
         "chart_width": 1000,
-        "chart_height": 1000, 
+        "chart_height": 1000,
         "colors_defaultColor" : "#4682B4",
         "colors_total": 3,
-        "colors_type": "satuartion",
+        "colors_type": "saturation",
         "colors_palette": "Blue",
         "tooltip_enable" : "yes",
         "tooltip_mode": "moving",
         "tooltip_positionTop": 0,
-        "tooltip_positionLeft": 0,     
-        "timeline_duration": 1000, 
-        "timeline_margin_top": 5, 
-        "timeline_margin_right": 25, 
-        "timeline_margin_bottom": 25, 
+        "tooltip_positionLeft": 0,
+        "timeline_duration": 1000,
+        "timeline_margin_top": 5,
+        "timeline_margin_right": 25,
+        "timeline_margin_bottom": 25,
         "timeline_margin_left": 45,
         "legends_enable": "yes",
         "legends_display": "horizontal",
-        "label_enable": "no", 
+        "label_enable": "no",
         "enableClick": "yes",
         "onhover": "shadow",
         "highlightArea":"no",
@@ -1172,7 +1172,7 @@ configuration.Theme = function(){
         "axis_x_tickFormat": "",
         "axis_x_tickPadding": 6,
         "axis_x_tickValues": [],
-        "axis_x_outer_tick_size": 0       
-    };    
+        "axis_x_outer_tick_size": 0
+    };
     return that;
 }
