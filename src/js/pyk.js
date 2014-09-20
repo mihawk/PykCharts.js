@@ -352,11 +352,13 @@ PykCharts.Configuration = function (options){
                 if(selection !== undefined){
                     PykCharts.Configuration.tooltipp = d3.select(selection).append("div")
                         .attr("id", "pyk-tooltip")
-                        .attr("class","pyk-line-tooltip");
+                        .attr("class","pyk-line-tooltip")
+                        .style('pointer-events',"none");
                 } else {
                     PykCharts.Configuration.tooltipp = d3.select("body")
                         .append("div")
                         .attr("id", "pyk-tooltip")
+                        .style("pointer-events","none")
                         .style("height","auto")
                         .style("padding", "5px 6px")
                         .style("color","#4F4F4F")
@@ -378,6 +380,7 @@ PykCharts.Configuration = function (options){
                     PykCharts.Configuration.tooltipp = d3.select("body")
                         .append("div")
                         .attr("id", "pyk-tooltip")
+                        .style("pointer-events","none")
                         .style("height","auto")
                         .style("padding", "5px 6px")
                         .style("color","#4F4F4F")
@@ -395,6 +398,7 @@ PykCharts.Configuration = function (options){
                     PykCharts.Configuration.tooltipp = d3.select("body")
                         .append("div")
                         .attr("id", "pyk-tooltip")
+                        .style("pointer-events","none")
                         .style("height","auto")
                         .style("padding", "5px 6px")
                         .style("color","#4F4F4F")

@@ -54,10 +54,10 @@ PykCharts.maps.timelineMap = function (options) {
             d3.json("https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/maps/" + that.mapCode + "-topo.json", function (data) {
                 that.map_data = data;
                 d3.json("https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/palette/colorPalette.json", function (data) {
-
                     that.color_palette_data = data;
 
-                    var x_extent = d3.extent(that.timeline_data, function (d) { return d.timestamp; })
+
+                    var x_extent = d3.extent(that.timeline_data, function (d) { return d.timestamp; }) 
                     that.data = _.where(that.timeline_data, {timestamp: x_extent[0]});
 
                     that.data.sort(function (a,b) {
@@ -99,6 +99,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             .append("svg")
             .attr("width", that.width)
             .attr("height", that.height)
+            .attr("class",'PykCharts-map')
             .attr("style", "border:1px solid lightgrey")
             .style("border-radius", "5px");
 
@@ -168,18 +169,13 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                 return d3.select(this).attr("fill");
             })
             .attr("opacity", that.renderOpacity)
-            .attr("stroke", that.border.color())
-            .attr("stroke-width", that.border.width() + "px")
-            .attr("stroke-dasharray", that.border.style())
+            .style("stroke", that.border.color())
+            .style("stroke-width", that.border.width() + "px")
+            .style("stroke-dasharray", that.border.style())
             .on("mouseover", function (d) {
                 if (PykCharts.boolean(that.tooltip_enable)) {
                     ttp.style("visibility", "visible");
                     ttp.html((_.where(that.data, {iso2: d.properties.iso_a2})[0]).tooltip);
-                }
-                that.bodColor(d);
-            })
-            .on("mousemove", function () {
-                if (PykCharts.boolean(that.tooltip_enable)) {
                     if (that.tooltip_mode === "moving") {
                         ttp.style("top", function () {
 
@@ -195,7 +191,26 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                             .style("left", (that.tooltip_positionLeft) + "px");
                     }
                 }
+                that.bodColor(d);
             })
+            // .on("mousemove", function () {
+            //     if (PykCharts.boolean(that.tooltip_enable)) {
+            //         if (that.tooltip_mode === "moving") {
+            //             ttp.style("top", function () {
+
+            //                     return (d3.event.pageY - 20 ) + "px";
+            //                 })
+            //                 .style("left", function () {
+
+            //                     return (d3.event.pageX + 20 ) + "px";
+
+            //                 });
+            //         } else if (that.tooltip_mode === "fixed") {
+            //             ttp.style("top", (that.tooltip_positionTop) + "px")
+            //                 .style("left", (that.tooltip_positionLeft) + "px");
+            //         }
+            //     }
+            // })
             .on("mouseout", function (d) {
                 if (PykCharts.boolean(that.tooltip_enable)) {
                     ttp.style("visibility", "hidden");
@@ -418,9 +433,9 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         if(that.onhover1 !== "none") {
             if (that.onhover1 === "highlight_border") {
                 d3.select("path[state_name='" + d.properties.NAME_1 + "']")
-                    .attr("stroke", that.border.color())
-                    .attr("stroke-width", parseInt(that.border.width()) + 1.5 + "px")
-                    .attr("stroke-dasharray", that.border.style());
+                    .style("stroke", that.border.color())
+                    .style("stroke-width", parseInt(that.border.width()) + 1.5 + "px")
+                    .style("stroke-dasharray", that.border.style());
             } else if (that.onhover1 === "shadow") {
                 d3.select("path[state_name='" + d.properties.NAME_1 + "']")
                     .attr('filter', 'url(#dropshadow)')
@@ -449,9 +464,9 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
     };
     that.bodUncolor = function (d) {
         d3.select("path[state_name='" + d.properties.NAME_1 + "']")
-            .attr("stroke", that.border.color())
-            .attr("stroke-width", that.border.width())
-            .attr("stroke-dasharray", that.border.style())
+            .style("stroke", that.border.color())
+            .style("stroke-width", that.border.width())
+            .style("stroke-dasharray", that.border.style())
             .attr('filter', null)
             .attr("opacity", function () {
                 if (that.colors_palette === "" && that.colors_type === "saturation") {
