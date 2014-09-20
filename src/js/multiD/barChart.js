@@ -222,15 +222,45 @@ PykCharts.multiD.barChart = function(options){
                         x_data.push(d.x + d.x0); // Adding up y0 and y to get total height
                     }
                 });
+
                 that.yScale = d3.scale.ordinal()
                     .domain(the_bars.map(function(e, i){
                         return e.id || i; // Keep the ID for bars and numbers for integers
                     }))
                     .rangeBands([0,h]);
+
                 var x_domain = [0,d3.max(x_data)];
                 that.xScale = d3.scale.linear().domain(that.k._domainBandwidth(x_domain,1)).range([0, w]);
+
                 // that.yScaleInvert = d3.scale.linear().domain([d3.max(yValues), 0]).range([0, h]).nice(); // For the yAxis
                 // var zScale = d3.scale.category10();
+
+                // if(that.xAxisDataFormat === "number") {
+                //     max = d3.max(that.new_data, function(d) { return d3.max(d.data, function(k) { return k.x; }); });
+                //     min = d3.min(that.new_data, function(d) { return d3.min(d.data, function(k) { return k.x; }); });
+                //     x_domain = [min,max];
+                //     x_data = that.k._domainBandwidth(x_domain,2);
+                //     x_range = [0 ,that.reducedWidth];
+                //     that.xScale = that.k.scaleIdentification("linear",x_data,x_range);
+                //     that.extra_left_margin = 0;
+
+                // } else if(that.xAxisDataFormat === "string") {
+                //     that.new_data[0].data.forEach(function(d) { x_data.push(d.x); });
+                //     x_range = [0 ,that.reducedWidth];
+                //     that.xScale = that.k.scaleIdentification("ordinal",x_data,x_range,0);
+                //     that.extra_left_margin = (that.xScale.rangeBand() / 2);
+
+                // } else if (that.xAxisDataFormat === "time") {
+                //     max = d3.max(that.new_data, function(d) { return d3.max(d.data, function(k) { return new Date(k.x); }); });
+                //     min = d3.min(that.new_data, function(d) { return d3.min(d.data, function(k) { return new Date(k.x); }); });
+                //     x_data = [min,max];
+                //     x_range = [0 ,that.reducedWidth];
+                //     that.xScale = that.k.scaleIdentification("time",x_data,x_range);
+                //     that.new_data[0].data.forEach(function (d) {
+                //         d.x = new Date(d.x);
+                //     });
+                //     that.extra_left_margin = 0;
+                // }
 
                 var group_arr = [];
 
