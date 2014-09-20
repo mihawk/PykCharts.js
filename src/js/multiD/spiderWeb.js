@@ -12,7 +12,7 @@ PykCharts.multiD.spiderWeb = function (options) {
         that.bubbleRadius = options.spiderweb_radius && _.isNumber(options.spiderweb_radius) ? options.spiderweb_radius : theme.multiDimensionalCharts.spiderweb_radius;
         that.outerRadius = options.spiderweb_outer_radius_percent && _.isNumber(options.spiderweb_outer_radius_percent) ? options.spiderweb_outer_radius_percent : theme.multiDimensionalCharts.spiderweb_outer_radius_percent;
         that.inner_radius = 0;
-        that.enableTicks =  options.enableTicks ? options.enableTicks : theme.multiDimensionalCharts.spiderweb_enableTicks;
+        that.enableTicks =  options.spiderweb_pointer ? options.spiderweb_pointer : theme.multiDimensionalCharts.spiderweb_pointer;
 
         that.outerRadius = that.k._radiusCalculation(that.outerRadius);   
     

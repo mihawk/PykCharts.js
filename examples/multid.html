@@ -142,8 +142,11 @@
                     selector: "#spiderWeb",
                     data: "../data/spiderWeb.json",
                     mode : "default", //  default or infographics
+
                     spiderweb_radius : 5,
                     spiderweb_outer_radius_percent: 80,
+                    spiderweb_pointer: "yes",
+                    spiderweb_axisTitle : "yes",
 
                     chart_height: 430,
                     chart_width : 530,
@@ -154,7 +157,6 @@
                     
                     realTimeCharts_refreshFrequency: 0,
                     size_enable: "yes",
-                    enableTicks: "yes",
                     borderBetweenChartElements_width: 0,
                     borderBetweenChartElements_color: "blue",
                     legends_enable: "yes", 
@@ -163,7 +165,7 @@
                     legendsText_color: "black",
                     legendsText_weight: "thin",
                     legendsText_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
-                    axisTitle: "yes"
+                   
                     
                 });
                 k.execute();
@@ -185,6 +187,8 @@
                     chart_grid_yEnabled: "yes", 
                     
                     scatterplot_radius : 9,
+                    scatterplot_pointer: "no",
+
                     realTimeCharts_refreshFrequency: 0, 
                     multiple_containers_enable: "no",
                     size_enable: "yes",
@@ -217,12 +221,12 @@
                     legendsText_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
             
                     zoom_enable: "yes",
-
+                    
                     borderBetweenChartElements_width:0,
                     borderBetweenChartElements_color:"blue", 
         
                     label_size:12,
-                    label_color: "white",
+                    label_color: "black",
                     label_weight: "thick",
                     label_family:"'Helvetica Neue',Helvetica,Arial,sans-serif",
 
@@ -247,6 +251,7 @@
                     chart_grid_yEnabled: "yes", 
                     
                     scatterplot_radius : 9,
+                    scatterplot_pointer: "no",
                     realTimeCharts_refreshFrequency: 0, 
                     multiple_containers_enable: "no",
                     size_enable: "yes",
@@ -332,9 +337,9 @@
 
                     line_curvy_lines:"yes",
                     tooltip_mode : "moving",
+                    tooltip_enable : "yes",
                     enableCrossHair: "yes",
                     multiple_containers_enable: "yes",
-                    enableTooltip: "yes"
 
                 });
                 k.execute();
@@ -379,9 +384,10 @@
 
                     line_curvy_lines:"yes",
                     tooltip_mode : "moving",
-                    enableCrossHair: "yes",
+                    tooltip_enable : "yes",
+                    enableCrossHair: "yes"
                     // multiple_containers_enable: "no",
-                    enableTooltip: "yes"
+                    
                     
                 });
                 k.execute();
@@ -427,7 +433,7 @@
 
                     line_curvy_lines:"yes",
                     enableCrossHair: "yes",
-                    enableTooltip: "yes",
+                    tooltip_enable : "yes",
                     zoom_enable: "yes"
                        
                 });
@@ -473,9 +479,9 @@
 
                     line_curvy_lines:"yes",
                     tooltip_mode : "moving",
+                    tooltip_enable : "yes",
                     enableCrossHair: "yes",
                     multiple_containers_enable: "no",
-                    enableTooltip: "yes",
                     
                     size_enable : "yes",
             
@@ -491,7 +497,7 @@
                     borderBetweenChartElements_style: "solid",
 
                     label_size:12,
-                    label_color: "white",
+                    label_color: "red",
                     label_weight: "thick",
                     label_family:"'Helvetica Neue',Helvetica,Arial,sans-serif",
 

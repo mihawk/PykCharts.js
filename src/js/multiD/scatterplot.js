@@ -14,7 +14,7 @@ PykCharts.multiD.scatterPlot = function (options) {
         that.multiD = new PykCharts.multiD.configuration(that);
         that.multiple_containers_enable =options.multiple_containers_enable && options.multiple_containers_enable ? options.multiple_containers_enable : multiDimensionalCharts.multiple_containers_enable;
         that.bubbleRadius = options.scatterplot_radius && _.isNumber(options.scatterplot_radius) ? options.scatterplot_radius : multiDimensionalCharts.scatterplot_radius;
-        that.enableTicks =  options.scatterplot_ticks && _.isNumber(options.scatterplot_ticks) ? options.scatterplot_ticks : multiDimensionalCharts.scatterplot_ticks;
+        that.enableTicks =  options.scatterplot_pointer ? options.scatterplot_pointer : multiDimensionalCharts.scatterplot_pointer;
         that.zoomed_out = true;
 
         if(PykCharts.boolean(that.multiple_containers_enable)) {
@@ -48,7 +48,6 @@ PykCharts.multiD.pulse = function (options) {
         that.multiD = new PykCharts.multiD.configuration(that);
         that.multiple_containers_enable = options.multiple_containers_enable && options.multiple_containers_enable ? options.multiple_containers_enable : multiDimensionalCharts.multiple_containers_enable;
         that.bubbleRadius = options.scatterplot_radius && _.isNumber(options.scatterplot_radius) ? options.scatterplot_radius : multiDimensionalCharts.scatterplot_radius;
-        that.enableTicks =  options.scatterplot_ticks && _.isNumber(options.scatterplot_ticks) ? options.scatterplot_ticks : multiDimensionalCharts.scatterplot_ticks;
         that.zoomed_out = true;
         that.radius_range = [that.k._radiusCalculation(1.1)*2,that.k._radiusCalculation(3.5)*2];
         d3.json(options.data, function (e, data) {
@@ -285,7 +284,6 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                     .attr("text-anchor", "end")
                     .attr("x", that.w - 70)
                     .attr("y", that.height + 40)
-                    // .text("adhavdh");
                     // .text(that.axis_x_label);
 
                 if(that.zoomed_out === true) {
@@ -617,7 +615,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                         .attr("dx",-1)
                         .attr("dy",function (d) { return -that.sizes(d.weight)-4; });
 
-                    tick_label.text(function (d) { console.log(d);return d.name; });
+                    tick_label.text(function (d) {return d.name; });
 
                     tick_label.exit().remove();
                 }
@@ -630,7 +628,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                 //         .append("input")
                 //             .attr("type","button")
                 //             .attr("value","Zoom Out")
-                //             .attr("id","zoomOut")
+                //             .attr("id","zoomOuts")
                 //             .style("position","absolute")
                 //             .style("left",that.width)
                 //             .style("top", that.margin.top + 50)
