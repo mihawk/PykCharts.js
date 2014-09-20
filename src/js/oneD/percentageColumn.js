@@ -250,10 +250,10 @@ PykCharts.oneD.percentageColumn = function (options) {
                     tick_label.text(function (d) {
                             return "";
                         })
-                        .attr("font-size", that.ticks_size)
+                        .attr("font-size", that.pointer_size)
                         .attr("text-anchor","start")
-                        .attr("fill", that.ticks_color)
-                        .attr("font-family", that.ticks_family)
+                        .attr("fill", that.pointer_color)
+                        .attr("font-family", that.pointer_family)
                         .attr("pointer-events","none");
 
                         setTimeout(function() {
@@ -294,8 +294,8 @@ PykCharts.oneD.percentageColumn = function (options) {
                                         return (((sum1 - d.percentValue) * that.height/100)+(sum1 * that.height / 100))/2;
                                     }
                                 })
-                                .attr("stroke-width", that.ticks_thickness)
-                                .attr("stroke", that.ticks_color)
+                                .attr("stroke-width", that.pointer_thickness)
+                                .attr("stroke", that.pointer_color)
                                 // .transition()
                                 // .duration(that.transitions.duration())
                                 .attr("x2", function (d, i) {

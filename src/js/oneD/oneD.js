@@ -41,8 +41,8 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
         , optional = options.optional;
 
     chartObject.selector = options.selector ? options.selector : stylesheet.selector;
-    chartObject.width = _.isNumber(options.chart_width) ? options.chart_width : stylesheet.chart_width;
-    chartObject.height = _.isNumber(options.chart_height) ? options.chart_height : stylesheet.chart_height;
+    chartObject.width = options.chart_width && _.isNumber(options.chart_width) ? options.chart_width : stylesheet.chart_width;
+    chartObject.height = options.chart_height && _.isNumber(options.chart_height) ? options.chart_height : stylesheet.chart_height;
     // chartObject.width = optional && optional.chart && _.isNumber(optional.chart.width) ? optional.chart.width : stylesheet.chart.width;
     // chartObject.height = optional && optional.chart &&_.isNumber(optional.chart.height) ? optional.chart.height : stylesheet.chart.height;
 
@@ -69,7 +69,7 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
         chartObject.subtitle_size = stylesheet.subtitle_size;
         chartObject.subtitle_color = stylesheet.subtitle_color;
         chartObject.subtitle_weight = stylesheet.subtitle_weight;
-        chartObject.subtitle_family = stylesheet.subtitle_family;        
+        chartObject.subtitle_family = stylesheet.subtitle_family;
     }
 
     // if (optional && optional.title && PykCharts.boolean(optional.title.text)) {
@@ -108,7 +108,7 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
     chartObject.chartColor = options.chartColor ? options.chartColor : stylesheet.chartColor;
     chartObject.highlightColor = options.highlightColor ? options.highlightColor : stylesheet.highlightColor;
     chartObject.fullscreen = options.buttons_enableFullScreen ? options.buttons_enableFullScreen : stylesheet.buttons_enableFullScreen;
-    chartObject.loading = options.loading_animationGifUrl ? options.loading_animationGifUrl: stylesheet.loading_animationGifUrl;   
+    chartObject.loading = options.loading_animationGifUrl ? options.loading_animationGifUrl: stylesheet.loading_animationGifUrl;
     chartObject.tooltip_enable = options.tooltip_enable ? options.tooltip_enable : stylesheet.tooltip_enable;
     chartObject.borderBetweenChartElements_width = "borderBetweenChartElements_width" in options ? options.borderBetweenChartElements_width : stylesheet.borderBetweenChartElements_width;
     chartObject.borderBetweenChartElements_color = options.borderBetweenChartElements_color ? options.borderBetweenChartElements_color : stylesheet.borderBetweenChartElements_color;
@@ -126,10 +126,10 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
     chartObject.label_weight = options.label_weight ? options.label_weight : stylesheet.label_weight;
     chartObject.label_family = options.label_family ? options.label_family : stylesheet.label_family;
 
-    chartObject.ticks_thickness = "ticks_thickness" in options ? options.ticks_thickness : stylesheet.ticks_thickness;
-    chartObject.ticks_size = "ticks_size" in options ? options.ticks_size : stylesheet.ticks_size;
-    chartObject.ticks_color = options.ticks_color ? options.ticks_color : stylesheet.ticks_color;
-    chartObject.ticks_family = options.ticks_family ? options.ticks_family : stylesheet.ticks_family;
+    chartObject.pointer_thickness = "pointer_thickness" in options ? options.pointer_thickness : stylesheet.pointer_thickness;
+    chartObject.pointer_size = "pointer_size" in options ? options.pointer_size : stylesheet.pointer_size;
+    chartObject.pointer_color = options.pointer_color ? options.pointer_color : stylesheet.pointer_color;
+    chartObject.pointer_family = options.pointer_family ? options.pointer_family : stylesheet.pointer_family;
 
     chartObject.showTotalAtTheCenter = options.donut_showTotalAtTheCenter ? options.donut_showTotalAtTheCenter : oneDimensionalCharts.donut_showTotalAtTheCenter;
     chartObject.units = options.units ? options.units : false;
@@ -137,65 +137,5 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
     chartObject.k = new PykCharts.Configuration(chartObject);
 
     return chartObject;
-    // chartObject.dataSource = optional && optional.dataSource ? optional.dataSource : "no";
-    // if (optional && optional.clubData) {
-    //     chartObject.clubData = optional.clubData;
-    //     chartObject.clubData.text = PykCharts.boolean(optional.clubData.enable) && optional.clubData.text ? optional.clubData.text : oneDimensionalCharts.clubData.text;
-    //     chartObject.clubData.maximumNodes = PykCharts.boolean(optional.clubData.maximumNodes) && optional.clubData.maximumNodes ? optional.clubData.maximumNodes : oneDimensionalCharts.clubData.maximumNodes;
-    //     chartObject.clubData.alwaysIncludeDataPoints = PykCharts.boolean(optional.clubData.enable) && optional.clubData.alwaysIncludeDataPoints ? optional.clubData.alwaysIncludeDataPoints : [];
-    // } else {
-    //     chartObject.clubData = oneDimensionalCharts.clubData;
-    //     chartObject.clubData.alwaysIncludeDataPoints = [];
-    // }
-    // chartObject.overflowTicks = optional && optional.overflowTicks ? optional.overflowTicks : stylesheet.overflowTicks;
-    // chartObject.bg = optional && optional.colors && optional.colors.backgroundColor ? optional.colors.backgroundColor : stylesheet.colors.backgroundColor;
-    // chartObject.chartColor = optional && optional.colors && optional.colors.chartColor ? optional.colors.chartColor : stylesheet.colors.chartColor;
-    // chartObject.highlightColor = optional && optional.colors && optional.colors.highlightColor ? optional.colors.highlightColor : stylesheet.colors.highlightColor;
-    // chartObject.fullscreen = optional && optional.buttons && optional.buttons.enableFullScreen ? optional.buttons.enableFullScreen : stylesheet.buttons.enableFullScreen;
-    // chartObject.loading = optional && optional.loading && optional.loading.animationGifUrl ? optional.loading.animationGifUrl: stylesheet.loading.animationGifUrl;
-    // if (optional && optional.tooltip) {
-    //     chartObject.tooltip = optional.tooltip;        
-    //     chartObject.tooltip.enable = optional.tooltip.enable ? optional.tooltip.enable : stylesheet.tooltip.enable;
-    // } else {
-    //     chartObject.tooltip = stylesheet.tooltip;
-    // //    chartObject.enableTooltip = multiDimensionalCharts.tooltip.enable;     
-    // }   
-    // if (optional && optional.borderBetweenChartElements) {
-    //     chartObject.borderBetweenChartElements = optional.borderBetweenChartElements;
-    //     chartObject.borderBetweenChartElements.width = "width" in optional.borderBetweenChartElements ? optional.borderBetweenChartElements.width : stylesheet.borderBetweenChartElements.width;
-    //     chartObject.borderBetweenChartElements.color = optional.borderBetweenChartElements.color ? optional.borderBetweenChartElements.color : stylesheet.borderBetweenChartElements.color;
-    //     chartObject.borderBetweenChartElements.style = optional.borderBetweenChartElements.style ? optional.borderBetweenChartElements.style : stylesheet.borderBetweenChartElements.style;
-    //     switch(chartObject.borderBetweenChartElements.style) {
-    //         case "dotted" : chartObject.borderBetweenChartElements.style = "1,3";
-    //                         break;
-    //         case "dashed" : chartObject.borderBetweenChartElements.style = "5,5";
-    //                        break;
-    //         default : chartObject.borderBetweenChartElements.style = "0";
-    //                   break;
-    //     }
-    // } else {
-    //     chartObject.borderBetweenChartElements = stylesheet.borderBetweenChartElements;
-    // }
-    // if (optional && optional.label) {
-    //     chartObject.label = optional.label;
-    //     chartObject.label.size = "size" in optional.label ? optional.label.size : stylesheet.label.size;
-    //     chartObject.label.color = optional.label.color ? optional.label.color : stylesheet.label.color;
-    //     chartObject.label.weight = optional.label.weight ? optional.label.weight : stylesheet.label.weight;
-    //     chartObject.label.family = optional.label.family ? optional.label.family : stylesheet.label.family;
-    // } else {
-    //     chartObject.label = stylesheet.label;
-    // }
-    // if(optional && optional.ticks) {
-    //     chartObject.ticks = optional.ticks;
-    //     chartObject.ticks.strokeWidth = "strokeWidth" in optional.ticks ? optional.ticks.strokeWidth : stylesheet.ticks.strokeWidth;
-    //     chartObject.ticks.size = "size" in optional.ticks ? optional.ticks.size : stylesheet.ticks.size;
-    //     chartObject.ticks.color = optional.ticks.color ? optional.ticks.color : stylesheet.ticks.color;
-    //     chartObject.ticks.family = optional.ticks.family ? optional.ticks.family : stylesheet.ticks.family;
-    // } else {
-    //     chartObject.ticks = stylesheet.ticks;
-    // }
-    // chartObject.showTotalAtTheCenter = optional && optional.donut && optional.donut.showTotalAtTheCenter ? optional.donut.showTotalAtTheCenter : oneDimensionalCharts.donut.showTotalAtTheCenter;
-    // chartObject.units = optional && optional.units ? optional.units : false;
 
-   
 };

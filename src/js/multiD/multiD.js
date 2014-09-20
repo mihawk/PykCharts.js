@@ -283,10 +283,8 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     chartObject.yAxisDataFormat = options.yAxisDataFormat ? options.yAxisDataFormat : multiDimensionalCharts.yAxisDataFormat
     chartObject.xAxisDataFormat = options.xAxisDataFormat ? options.xAxisDataFormat : multiDimensionalCharts.xAxisDataFormat;
     chartObject.selector = options.selector ? options.selector : "body";
-    chartObject.width = _.isNumber(options.chart_width) ? options.chart_width : stylesheet.chart_width;
-    chartObject.height = _.isNumber(options.chart_height) ? options.chart_height : stylesheet.chart_height;
-    // chartObject.width = optional && optional.chart && _.isNumber(optional.chart.width) ? optional.chart.width : stylesheet.chart.width;
-    // chartObject.height = optional && optional.chart &&_.isNumber(optional.chart.height) ? optional.chart.height : stylesheet.chart.height;
+    chartObject.width = options.chart_width && _.isNumber(options.chart_width) ? options.chart_width : stylesheet.chart_width;
+    chartObject.height = options.chart_height && _.isNumber(options.chart_height) ? options.chart_height : stylesheet.chart_height;
     chartObject.margin_left = options.chart_margin_left && _.isNumber(options.chart_margin_left) ? options.chart_margin_left : stylesheet.chart_margin_left;
     chartObject.margin_right = options.chart_margin_left && _.isNumber(options.chart_margin_right) ? options.chart_margin_right : stylesheet.chart_margin_right;
     chartObject.margin_top = options.chart_margin_top && _.isNumber(options.chart_margin_top) ? options.chart_margin_top : stylesheet.chart_margin_top;
@@ -295,7 +293,7 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     chartObject.grid_yEnabled = options.chart_grid_yEnabled ? options.chart_grid_yEnabled : stylesheet.chart_grid_yEnabled;
     chartObject.grid_color = options.chart_grid_color ? options.chart_grid_color : stylesheet.chart_grid_color;
     chartObject.mode = options.mode ? options.mode : "default";
-    
+
     if (options &&  PykCharts.boolean (options.title_text)) {
         chartObject.title_size = "size" in options ? options.title_size : stylesheet.title_size;
         chartObject.title_color = options.title_color ? options.title_color : stylesheet.title_color;
@@ -307,7 +305,7 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
         chartObject.title_weight = stylesheet.title_weight;
         chartObject.title_family = stylesheet.title_family;
     }
-    
+
     if (options && PykCharts.boolean(options.subtitle_text)) {
         chartObject.subtitle_size = "subtitle_size" in options ? options.subtitle_size : stylesheet.subtitle_size;
         chartObject.subtitle_color = options.subtitle_color ? options.subtitle_color : stylesheet.subtitle_color;
@@ -317,38 +315,38 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
         chartObject.subtitle_size = stylesheet.subtitle_size;
         chartObject.subtitle_color = stylesheet.subtitle_color;
         chartObject.subtitle_weight = stylesheet.subtitle_weight;
-        chartObject.subtitle_family = stylesheet.subtitle_family;        
+        chartObject.subtitle_family = stylesheet.subtitle_family;
     }
     chartObject.axis_onHoverHighlightenable = PykCharts.boolean(options.axis_x_enable) && options.axis_onHoverHighlightenable ? options.axis_onHoverHighlightenable : multiDimensionalCharts.axis_onHoverHighlightenable;
     chartObject.axis_x_enable = options.axis_x_enable ? options.axis_x_enable : multiDimensionalCharts.axis_x_enable;
-    chartObject.axis_x_orient = PykCharts.boolean(options.axis_x_enable) && options.axis_x_orient ? options.axis_x_orient : multiDimensionalCharts.axis_x_orient;
+    chartObject.axis_x_title = PykCharts.boolean(options.axis_x_enable) && options.axis_x_title ? options.axis_x_title : multiDimensionalCharts.axis_x_title;
+    chartObject.axis_x_value_position = PykCharts.boolean(options.axis_x_enable) && options.axis_x_value_position ? options.axis_x_value_position : multiDimensionalCharts.axis_x_value_position;
     chartObject.axis_x_position = PykCharts.boolean(options.axis_x_enable) && options.axis_x_position ? options.axis_x_position : multiDimensionalCharts.axis_x_position;
     chartObject.axis_x_axisColor = PykCharts.boolean(options.axis_x_enable) && options.axis_x_axisColor ? options.axis_x_axisColor : multiDimensionalCharts.axis_x_axisColor;
     chartObject.axis_x_labelColor = PykCharts.boolean(options.axis_x_enable) && options.axis_x_labelColor ? options.axis_x_labelColor : multiDimensionalCharts.axis_x_labelColor;
-    chartObject.axis_x_no_of_ticks = PykCharts.boolean(options.axis_x_enable) && options.axis_x_no_of_ticks ? options.axis_x_no_of_ticks : multiDimensionalCharts.axis_x_no_of_ticks;
-    chartObject.axis_x_tickPadding = PykCharts.boolean(options.axis_x_enable) && options.axis_x_tickPadding ? options.axis_x_tickPadding : multiDimensionalCharts.axis_x_tickPadding;
-    
-    // console.log(chartObject.axis_x_ticksPadding)
-    chartObject.axis_x_tickSize = "axis_x_tickSize" in options && PykCharts.boolean(options.axis_x_enable) ? options.axis_x_tickSize : multiDimensionalCharts.axis_x_tickSize;
-    chartObject.axis_x_tickFormat = PykCharts.boolean(options.axis_x_enable) && options.axis_x_tickFormat ? options.axis_x_tickFormat : multiDimensionalCharts.axis_x_tickFormat;
-    chartObject.axis_x_tickValues = PykCharts.boolean(options.axis_x_enable) && options.axis_x_tickValues ? options.axis_x_tickValues : multiDimensionalCharts.axis_x_tickValues;
-    chartObject.axis_x_outer_tick_size = "axis_x_outer_tick_size" in options && PykCharts.boolean(options.axis_x_enable) ? options.axis_x_outer_tick_size : multiDimensionalCharts.axis_x_outer_tick_size;
+    chartObject.axis_x_no_of_axis_value = PykCharts.boolean(options.axis_x_enable) && options.axis_x_no_of_axis_value ? options.axis_x_no_of_axis_value : multiDimensionalCharts.axis_x_no_of_axis_value;
+    chartObject.axis_x_pointer_padding = PykCharts.boolean(options.axis_x_enable) && options.axis_x_pointer_padding ? options.axis_x_pointer_padding : multiDimensionalCharts.axis_x_pointer_padding;
+    chartObject.axis_x_pointer_size = "axis_x_pointer_size" in options && PykCharts.boolean(options.axis_x_enable) ? options.axis_x_pointer_size : multiDimensionalCharts.axis_x_pointer_size;
+    chartObject.axis_x_value_format = PykCharts.boolean(options.axis_x_enable) && options.axis_x_value_format ? options.axis_x_value_format : multiDimensionalCharts.axis_x_value_format;
+    chartObject.axis_x_pointer_values = PykCharts.boolean(options.axis_x_enable) && options.axis_x_pointer_values ? options.axis_x_pointer_values : multiDimensionalCharts.axis_x_pointer_values;
+    chartObject.axis_x_outer_pointer_size = "axis_x_outer_pointer_size" in options && PykCharts.boolean(options.axis_x_enable) ? options.axis_x_outer_pointer_size : multiDimensionalCharts.axis_x_outer_pointer_size;
 
     chartObject.axis_y_enable = options.axis_y_enable ? options.axis_y_enable : multiDimensionalCharts.axis_y_enable;
-    chartObject.axis_y_orient = PykCharts.boolean(options.axis_y_enable) && options.axis_y_orient ? options.axis_y_orient : multiDimensionalCharts.axis_y_orient;
+    chartObject.axis_y_title = PykCharts.boolean(options.axis_y_enable) && options.axis_y_title ? options.axis_y_title : multiDimensionalCharts.axis_y_title;
+    chartObject.axis_y_value_position = PykCharts.boolean(options.axis_y_enable) && options.axis_y_value_position ? options.axis_y_value_position : multiDimensionalCharts.axis_y_value_position;
     chartObject.axis_y_position = PykCharts.boolean(options.axis_y_enable) && options.axis_y_position ? options.axis_y_position : multiDimensionalCharts.axis_y_position;
     chartObject.axis_y_axisColor = PykCharts.boolean(options.axis_y_enable) && options.axis_y_axisColor ? options.axis_y_axisColor : multiDimensionalCharts.axis_y_axisColor;
     chartObject.axis_y_labelColor = PykCharts.boolean(options.axis_y_enable) && options.axis_y_labelColor ? options.axis_y_labelColor : multiDimensionalCharts.axis_y_labelColor;
-    chartObject.axis_y_no_of_ticks = PykCharts.boolean(options.axis_y_enable) && options.axis_y_no_of_ticks ? options.axis_y_no_of_ticks : multiDimensionalCharts.axis_y_no_of_ticks;
-    chartObject.axis_y_tickPadding = PykCharts.boolean(options.axis_y_enable) && options.axis_y_tickPadding ? options.axis_y_tickPadding : multiDimensionalCharts.axis_y_tickPadding;
-    chartObject.axis_y_tickSize = "axis_y_tickSize" in options && PykCharts.boolean(options.axis_y_enable) ? options.axis_y_tickSize : multiDimensionalCharts.axis_y_tickSize;
-    chartObject.axis_y_tickFormat = PykCharts.boolean(options.axis_y_enable) && options.axis_y_tickFormat ? options.axis_y_tickFormat : multiDimensionalCharts.axis_y_tickFormat;
-    chartObject.axis_y_tickValues = PykCharts.boolean(options.axis_y_enable) && options.axis_y_tickValues ? options.axis_y_tickValues : multiDimensionalCharts.axis_y_tickValues;
-    chartObject.axis_y_outer_tick_size = "axis_y_outer_tick_size" in options && PykCharts.boolean(options.axis_y_enable) ? options.axis_y_outer_tick_size : multiDimensionalCharts.axis_y_outer_tick_size;
+    chartObject.axis_y_no_of_axis_value = PykCharts.boolean(options.axis_y_enable) && options.axis_y_no_of_axis_value ? options.axis_y_no_of_axis_value : multiDimensionalCharts.axis_y_no_of_axis_value;
+    chartObject.axis_y_pointer_padding = PykCharts.boolean(options.axis_y_enable) && options.axis_y_pointer_padding ? options.axis_y_pointer_padding : multiDimensionalCharts.axis_y_pointer_padding;
+    chartObject.axis_y_pointer_size = "axis_y_pointer_size" in options && PykCharts.boolean(options.axis_y_enable) ? options.axis_y_pointer_size : multiDimensionalCharts.axis_y_pointer_size;
+    chartObject.axis_y_value_format = PykCharts.boolean(options.axis_y_enable) && options.axis_y_value_format ? options.axis_y_value_format : multiDimensionalCharts.axis_y_value_format;
+    chartObject.axis_y_pointer_values = PykCharts.boolean(options.axis_y_enable) && options.axis_y_pointer_values ? options.axis_y_pointer_values : multiDimensionalCharts.axis_y_pointer_values;
+    chartObject.axis_y_outer_pointer_size = "axis_y_outer_pointer_size" in options && PykCharts.boolean(options.axis_y_enable) ? options.axis_y_outer_pointer_size : multiDimensionalCharts.axis_y_outer_pointer_size;
 
     chartObject.legends_enable =  options.legends_enable ? options.legends_enable : multiDimensionalCharts.legends_enable;
     chartObject.legends_display = options.legends_display ? options.legends_display : multiDimensionalCharts.legends_display;
-      
+
     chartObject.creditMySite_name = options.creditMySite_name ? options.creditMySite_name : stylesheet.creditMySite_name;
     chartObject.creditMySite_url = options.creditMySite_url ? options.creditMySite_url : stylesheet.creditMySite_url;
     chartObject.dataSource = options.dataSource ? options.dataSource : "no";
@@ -356,14 +354,13 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     chartObject.chartColor = options.chartColor ? options.chartColor : stylesheet.chartColor;
     chartObject.highlightColor = options.highlightColor ? options.highlightColor : stylesheet.highlightColor;
     chartObject.fullscreen = options.buttons_enableFullScreen ? options.buttons_enableFullScreen : stylesheet.buttons_enableFullScreen;
-    chartObject.loading = options.loading_animationGifUrl ? options.loading_animationGifUrl: stylesheet.loading_animationGifUrl;   
+    chartObject.loading = options.loading_animationGifUrl ? options.loading_animationGifUrl: stylesheet.loading_animationGifUrl;
     chartObject.realTimeCharts_refreshFrequency = options.realTimeCharts_refreshFrequency ? options.realTimeCharts_refreshFrequency : functionality.realTimeCharts_refreshFrequency;
     chartObject.realTimeCharts_enableLastUpdatedAt = options.realTimeCharts_enableLastUpdatedAt ? options.realTimeCharts_enableLastUpdatedAt : functionality.realTimeCharts_enableLastUpdatedAt;
     chartObject.transition_duration = options.transition_duration ? options.transition_duration : functionality.transition_duration;
     chartObject.saturationEnable = options.saturation_enable ? options.saturation_enable : "no";
     chartObject.saturationColor = options.saturationColor ? options.saturationColor : stylesheet.saturationColor;
 
-//    chartObject.enableTooltip = optional && optional.enableTooltip ? optional.enableTooltip : stylesheet.enableTooltip
     chartObject.borderBetweenChartElements_width = "borderBetweenChartElements_width" in options ? options.borderBetweenChartElements_width : stylesheet.borderBetweenChartElements_width;
     chartObject.borderBetweenChartElements_color = options.borderBetweenChartElements_color ? options.borderBetweenChartElements_color : stylesheet.borderBetweenChartElements_color;
     chartObject.borderBetweenChartElements_style = options.borderBetweenChartElements_style ? options.borderBetweenChartElements_style : stylesheet.borderBetweenChartElements_style;
@@ -375,11 +372,11 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
         default : chartObject.borderBetweenChartElements_style = "0";
                   break;
     }
-    chartObject.ticks_thickness = "ticks_thickness" in options ? options.ticks_thickness : stylesheet.ticks_thickness;
-    chartObject.ticks_size = "ticks_size" in options ? options.ticks_size : stylesheet.ticks_size;
-    chartObject.ticks_color = options.ticks_color ? options.ticks_color : stylesheet.ticks_color;
-    chartObject.ticks_family = options.ticks_family ? options.ticks_family : stylesheet.ticks_family;
-
+    chartObject.pointer_thickness = "pointer_thickness" in options ? options.pointer_thickness : stylesheet.pointer_thickness;
+    chartObject.pointer_size = "pointer_size" in options ? options.pointer_size : stylesheet.pointer_size;
+    chartObject.pointer_color = options.pointer_color ? options.pointer_color : stylesheet.pointer_color;
+    chartObject.pointer_family = options.pointer_family ? options.pointer_family : stylesheet.pointer_family;
+    chartObject.pointer_weight = (chartObject.pointer_weight === "thick") ? "bold" : "normal";
     chartObject.zoom_enable = options.zoom_enable ? options.zoom_enable : multiDimensionalCharts.zoom_enable;
 
     chartObject.label_size = "label_size" in options ? options.label_size : stylesheet.label_size;
@@ -398,64 +395,10 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     chartObject.legendsText_family = options.legendsText_family ? options.legendsText_family : stylesheet.legendsText_family;
 
     chartObject.size_enable = options.size_enable ? options.size_enable : multiDimensionalCharts.size_enable;
-    chartObject.units = options.units ? options.units : false; 
+    chartObject.units = options.units ? options.units : false;
 
     chartObject.colorPalette = ["#b2df8a", "#1f78b4", "#33a02c", "#fb9a99", "#e31a1c", "#fdbf6f", "#ff7f00", "#cab2d6", "#6a3d9a", "#ffff99", "#b15928", "#a6cee3"];
-    chartObject.k = new PykCharts.Configuration(chartObject); 
+    chartObject.k = new PykCharts.Configuration(chartObject);
 
-    // if (optional && optional.axis) {
-    //     chartObject.axis = optional.axis;
-    //     chartObject.axis.x = optional.axis.x;
-    //     chartObject.axis.onHoverHighlightenable = PykCharts.boolean(optional.axis.x.enable) && optional.axis.onHoverHighlightenable ? optional.axis.onHoverHighlightenable : multiDimensionalCharts.axis.onHoverHighlightenable;
-    //     chartObject.axis.x.orient = PykCharts.boolean(optional.axis.x.enable) && optional.axis.x.orient ? optional.axis.x.orient : multiDimensionalCharts.axis.x.orient;
-    //     chartObject.axis.x.axisColor = PykCharts.boolean(optional.axis.x.enable) && optional.axis.x.axisColor ? optional.axis.x.axisColor : multiDimensionalCharts.axis.x.axisColor;
-    //     chartObject.axis.x.labelColor = PykCharts.boolean(optional.axis.x.enable) && optional.axis.x.labelColor ? optional.axis.x.labelColor : multiDimensionalCharts.axis.x.labelColor;
-    //     chartObject.axis.x.no_of_ticks = PykCharts.boolean(optional.axis.x.enable) && optional.axis.x.no_of_ticks ? optional.axis.x.no_of_ticks : multiDimensionalCharts.axis.x.no_of_ticks;
-    //     chartObject.axis.x.ticksPadding = PykCharts.boolean(optional.axis.x.enable) && optional.axis.x.ticksPadding ? optional.axis.x.ticksPadding : multiDimensionalCharts.axis.x.ticksPadding;
-    //     chartObject.axis.x.tickSize = "tickSize" in optional.axis.x && PykCharts.boolean(optional.axis.x.enable) ? optional.axis.x.tickSize : multiDimensionalCharts.axis.x.tickSize;
-    //     chartObject.axis.x.tickFormat = PykCharts.boolean(optional.axis.x.enable) && optional.axis.x.tickFormat ? optional.axis.x.tickFormat : multiDimensionalCharts.axis.x.tickFormat;
-    //     chartObject.axis.x.tickValues = PykCharts.boolean(optional.axis.x.enable) && optional.axis.x.tickValues ? optional.axis.x.tickValues : multiDimensionalCharts.axis.x.tickValues;
-    //     chartObject.axis.x.outer_tick_size = "outer_tick_size" in optional.axis.x && PykCharts.boolean(optional.axis.x.enable) ? optional.axis.x.outer_tick_size : multiDimensionalCharts.axis.x.outer_tick_size;
-    //     chartObject.axis.y = optional.axis.y;
-    //     chartObject.axis.y.orient = PykCharts.boolean(optional.axis.y.enable) && optional.axis.y.orient ? optional.axis.y.orient : multiDimensionalCharts.axis.y.orient;
-    //     chartObject.axis.y.axisColor = PykCharts.boolean(optional.axis.y.enable) && optional.axis.y.axisColor ? optional.axis.y.axisColor : multiDimensionalCharts.axis.y.axisColor;
-    //     chartObject.axis.y.labelColor = PykCharts.boolean(optional.axis.y.enable) && optional.axis.y.labelColor ? optional.axis.y.labelColor : multiDimensionalCharts.axis.y.labelColor;
-    //     chartObject.axis.y.no_of_ticks = PykCharts.boolean(optional.axis.y.enable) && optional.axis.y.no_of_ticks ? optional.axis.y.no_of_ticks : multiDimensionalCharts.axis.y.no_of_ticks;
-    //     chartObject.axis.y.ticksPadding = PykCharts.boolean(optional.axis.y.enable) && optional.axis.y.ticksPadding ? optional.axis.y.ticksPadding : multiDimensionalCharts.axis.y.ticksPadding;
-    //     chartObject.axis.y.tickSize = "tickSize" in optional.axis.y && PykCharts.boolean(optional.axis.y.enable) ? optional.axis.y.tickSize : multiDimensionalCharts.axis.y.tickSize;
-    //     chartObject.axis.y.tickFormat = PykCharts.boolean(optional.axis.y.enable) && optional.axis.y.tickFormat ? optional.axis.y.tickFormat : multiDimensionalCharts.axis.y.tickFormat;
-    //     chartObject.axis.y.outer_tick_size = "outer_tick_size" in optional.axis.y && PykCharts.boolean(optional.axis.y.enable) ? optional.axis.y.outer_tick_size : multiDimensionalCharts.axis.y.outer_tick_size;
-    // } else {
-    //     chartObject.axis = multiDimensionalCharts.axis;
-    // }
-
-    // if(optional && optional.legends) {
-    //     chartObject.legends = optional.legends;
-    //     chartObject.legends.enable = optional.legends.enable && optional.legends.enable ? optional.legends.enable : multiDimensionalCharts.legends.enable;
-    //     chartObject.legends.display = optional.legends.display ? optional.legends.display : multiDimensionalCharts.legends.display;
-    // } else {
-    //     chartObject.legends =  multiDimensionalCharts.legends;
-    // }
-
-   // if (optional && optional.legendsText) {
-    //     chartObject.legendsText = optional.legendsText;
-    //     chartObject.legendsText.size = optional.legendsText.size ? optional.legendsText.size : stylesheet.legendsText.size;
-    //     chartObject.legendsText.color = optional.legendsText.color ? optional.legendsText.color : stylesheet.legendsText.color;
-    //     chartObject.legendsText.weight = optional.legendsText.weight ? optional.legendsText.weight : stylesheet.legendsText.weight;
-    //     chartObject.legendsText.weight = (chartObject.legendsText.weight === "thick") ? "bold" : "normal";
-    //     chartObject.legendsText.family = optional.legendsText.family ? optional.legendsText.family : stylesheet.legendsText.family;
-    // } else {
-    //     chartObject.legendsText = stylesheet.legendsText;
-    // }
-    // chartObject.units = optional && optional.units ? optional.units : false;
-    // chartObject.size = optional && optional.size ? optional.size : multiDimensionalCharts.size;
-    // chartObject.size.enable = optional && optional.size && optional.size.enable ? optional.size.enable : multiDimensionalCharts.size.enable;
-    // if (optional && optional.tooltip) {
-    //     chartObject.tooltip = optional.tooltip;
-    //     chartObject.tooltip.enable = optional.tooltip.enable ? optional.tooltip.enable : multiDimensionalCharts.tooltip.enable;
-    //     chartObject.tooltip.mode = optional.tooltip.mode ? optional.tooltip.mode : multiDimensionalCharts.tooltip.mode;
-    // } else {
-    //     chartObject.tooltip = multiDimensionalCharts.tooltip;  
-    // }
     return chartObject;
 };

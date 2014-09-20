@@ -1,0 +1,734 @@
+<html>
+    <head>
+        <title>Multi-Dimensional Charts</title>
+        <link rel="stylesheet" type="text/css" href="../src/css/PykCharts.css">
+    </head>
+    <body>
+        <div id="line"></div>
+        <hr/>
+        <div id="area"></div>
+        <hr/>
+        <div id="multiLine"></div>
+        <hr/>
+        <div id="multiple-multiLine"></div>
+        <hr/>
+        <div id="multiArea"></div>
+        <hr/>
+        <div id="pulse"></div>
+        <hr/>
+        <div id="scatterPlot"></div>
+        <hr/>
+        <div id="multiple-scatterplots"></div>
+        <hr/>
+        <div id="spiderWeb"></div>
+        <hr/>
+        <div id="column"></div>
+        <hr/>
+        <div id="groupColumn"></div>
+        <hr/>
+        <div id="bar"></div>
+        <hr/>
+        <div id="groupBar"></div>
+        <hr/>
+        <script src="../lib/d3.min.js"></script>
+        <script src="../lib/jquery-1.11.1.min.js"></script>
+        <script src="../lib/underscore-min.js"></script>
+        <script src="../lib/custom-hive.js"></script>
+        <script src="../src/js/pyk.js"></script>
+        <script src="../src/js/multiD/multiD.js"></script>
+        <script src="../src/js/multiD/columnChart.js"></script>
+        <script src="../src/js/multiD/areaChart.js"></script>
+        <script src="../src/js/multiD/lineChart.js"></script>
+        <script src="../src/js/multiD/spiderWeb.js"></script>
+        <script src="../src/js/multiD/scatterplot.js"></script>
+        <script src="../src/js/multiD/barChart.js"></script>
+
+        <script>
+
+            $(document).ready(function (e) {
+                var k = new PykCharts.multiD.lineChart ({
+                    selector: "#line",
+                    data: "../data/lineChart.json",
+                    mode : "default",
+                    yAxisDataFormat : "number",
+                    xAxisDataFormat : "string",
+                    chart_height: 400,
+                    chart_width : 630,
+                    chart_margin_top: 5,
+                    chart_margin_right: 25,
+                    chart_margin_bottom: 25,
+                    chart_margin_left: 45, 
+                    chart_grid_xEnabled: "no",
+                    chart_grid_yEnabled: "yes",
+
+                    transition_duration: 0,       
+                    realTimeCharts_refreshFrequency: 0,
+
+                    axis_onHoverHighlightenable: "yes",
+
+                    axis_x_enable: "yes",
+                    axis_x_position: "bottom",
+                    axis_x_orient: "bottom",
+                    axis_x_axisColor: "#1D1D1D",
+                    axis_x_labelColor: "#1D1D1D",
+                    axis_x_tickSize: 3,
+                    axis_x_tickPadding: 3,
+                    axis_x_outer_tick_size: 3,
+
+                    axis_y_enable: "yes",
+                    axis_y_position: "left",
+                    axis_y_orient: "left",
+                    axis_y_axisColor: "#1D1D1D",
+                    axis_y_labelColor: "#1D1D1D",
+                    axis_y_tickSize: 3,
+                    axis_y_tickPadding: 10,
+                    axis_y_outer_tick_size: 3, 
+
+                    line_curvy_lines:"yes",
+                    tooltip_mode : "moving",
+                    enableCrossHair: "yes"
+                  
+                });
+                k.execute();
+
+                var k = new PykCharts.multiD.areaChart ({
+                    selector: "#area",
+                    data: "../data/lineChart.json",
+                    mode : "default",
+                    yAxisDataFormat : "number",
+                    xAxisDataFormat : "string",
+
+                    chart_height: 400,
+                    chart_width : 630,
+                    chart_margin_top: 5,
+                    chart_margin_right: 25,
+                    chart_margin_bottom: 25,
+                    chart_margin_left: 45, 
+                    chart_grid_xEnabled: "no",
+                    chart_grid_yEnabled: "yes",
+
+                    transition_duration: 0,       
+                    realTimeCharts_refreshFrequency: 0,
+
+                    axis_onHoverHighlightenable: "yes",
+
+                    axis_x_enable: "yes",
+                    axis_x_position: "bottom",
+                    axis_x_orient: "bottom",
+                    axis_x_axisColor: "#1D1D1D",
+                    axis_x_labelColor: "#1D1D1D",
+                    axis_x_tickSize: 3,
+                    axis_x_tickPadding: 3,
+                    axis_x_outer_tick_size: 3,
+
+                    axis_y_enable: "yes",
+                    axis_y_position: "left",
+                    axis_y_orient: "left",
+                    axis_y_axisColor: "#1D1D1D",
+                    axis_y_labelColor: "#1D1D1D",
+                    axis_y_tickSize: 3,
+                    axis_y_tickPadding: 10,
+                    axis_y_outer_tick_size: 3,
+
+                    line_curvy_lines:"yes",
+                    tooltip_mode : "moving",
+                    enableCrossHair: "yes",
+                    zoom_enable: "yes"
+        
+                });
+                k.execute();
+
+                var k = new PykCharts.multiD.spiderWeb ({
+                    selector: "#spiderWeb",
+                    data: "../data/spiderWeb.json",
+                    mode : "default", //  default or infographics
+                    spiderweb_radius : 5,
+                    spiderweb_outer_radius_percent: 80,
+
+                    chart_height: 430,
+                    chart_width : 530,
+                    chart_margin_top: 25,
+                    chart_margin_right: 25,
+                    chart_margin_bottom: 25,
+                    chart_margin_left: 55, 
+                    
+                    realTimeCharts_refreshFrequency: 0,
+                    size_enable: "yes",
+                    enableTicks: "yes",
+                    borderBetweenChartElements_width: 0,
+                    borderBetweenChartElements_color: "blue",
+                    legends_enable: "yes", 
+                    legends_display: "horizontal",//horizontal or vertical
+                    legendsText_size: 13,
+                    legendsText_color: "black",
+                    legendsText_weight: "thin",
+                    legendsText_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
+                    axisTitle: "yes"
+                    
+                });
+                k.execute();
+
+                var k = new PykCharts.multiD.scatterPlot ({
+                    selector: "#scatterPlot",
+                    data: "../data/scatterplot.json",
+                    mode : "default", //  default or infographics
+                    yAxisDataFormat : "number",
+                    xAxisDataFormat : "number",
+
+                    chart_height: 450,
+                    chart_width : 700,
+                    chart_margin_top: 25,
+                    chart_margin_right: 15,
+                    chart_margin_bottom: 25,
+                    chart_margin_left: 30,
+                    chart_grid_xEnabled: "yes",
+                    chart_grid_yEnabled: "yes", 
+                    
+                    scatterplot_radius : 9,
+                    realTimeCharts_refreshFrequency: 0, 
+                    multiple_containers_enable: "no",
+                    size_enable: "yes",
+
+                    axis_x_enable: "yes",
+                    axis_x_position: "bottom",
+                    axis_x_orient: "bottom",
+                    axis_x_axisColor: "#1D1D1D",
+                    axis_x_no_of_ticks: 10,
+                    axis_x_labelColor: "black",
+                    axis_x_tickSize: 5,
+                    axis_x_tickPadding: 3,
+                    axis_x_outer_tick_size: 3,
+
+                    axis_y_enable: "yes",
+                    axis_y_position: "left",
+                    axis_y_orient: "left",
+                    axis_y_axisColor: "#1D1D1D",
+                    axis_y_no_of_ticks: 10,
+                    axis_y_labelColor: "#1D1D1D",
+                    axis_y_tickSize: 5,
+                    axis_y_tickPadding: 10,
+                    axis_y_outer_tick_size: 3,
+
+                    legends_enable: "yes", 
+                    legends_display: "horizontal", //horizontal or vertical
+                    legendsText_size: 13,
+                    legendsText_color: "black",
+                    legendsText_weight: "thin",
+                    legendsText_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
+            
+                    zoom_enable: "yes",
+
+                    borderBetweenChartElements_width:0,
+                    borderBetweenChartElements_color:"blue", 
+        
+                    label_size:12,
+                    label_color: "white",
+                    label_weight: "thick",
+                    label_family:"'Helvetica Neue',Helvetica,Arial,sans-serif",
+
+                    enableCrossHair: "yes"
+                });
+                k.execute();
+
+                var k = new PykCharts.multiD.scatterPlot ({
+                    selector: "#multiple-scatterplots",
+                    data: "../data/scatterplot.json",
+                    mode : "default", //  default or infographics
+                    yAxisDataFormat : "number",
+                    xAxisDataFormat : "number",
+
+                    chart_height: 450,
+                    chart_width : 700,
+                    chart_margin_top: 25,
+                    chart_margin_right: 15,
+                    chart_margin_bottom: 25,
+                    chart_margin_left: 30,
+                    chart_grid_xEnabled: "yes",
+                    chart_grid_yEnabled: "yes", 
+                    
+                    scatterplot_radius : 9,
+                    realTimeCharts_refreshFrequency: 0, 
+                    multiple_containers_enable: "no",
+                    size_enable: "yes",
+
+                    axis_x_enable: "yes",
+                    axis_x_position: "bottom",
+                    axis_x_orient: "bottom",
+                    axis_x_axisColor: "#1D1D1D",
+                    axis_x_no_of_ticks: 10,
+                    axis_x_labelColor: "black",
+                    axis_x_tickSize: 5,
+                    axis_x_tickPadding: 3,
+                    axis_x_outer_tick_size: 3,
+
+                    axis_y_enable: "yes",
+                    axis_y_position: "left",
+                    axis_y_orient: "left",
+                    axis_y_axisColor: "#1D1D1D",
+                    axis_y_no_of_ticks: 10,
+                    axis_y_labelColor: "#1D1D1D",
+                    axis_y_tickSize: 5,
+                    axis_y_tickPadding: 10,
+                    axis_y_outer_tick_size: 3,
+
+                    legends_enable: "yes", 
+                    legends_display: "horizontal", //horizontal or vertical
+                    legendsText_size: 13,
+                    legendsText_color: "black",
+                    legendsText_weight: "thin",
+                    legendsText_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
+            
+                    zoom_enable: "yes",
+
+                    borderBetweenChartElements_width:0,
+                    borderBetweenChartElements_color:"blue", 
+        
+                    label_size:12,
+                    label_color: "white",
+                    label_weight: "thick",
+                    label_family:"'Helvetica Neue',Helvetica,Arial,sans-serif",
+
+                    enableCrossHair: "yes"
+                });
+                k.execute();
+
+                var k = new PykCharts.multiD.lineChart ({
+                    selector: "#multiLine",
+                    data: "../data/multiLineChart.json",
+                    mode : "default",
+                    yAxisDataFormat : "number",
+                    xAxisDataFormat : "string",
+                    chart_height: 400,
+                    chart_width : 630,
+                    chart_margin_top: 5,
+                    chart_margin_right: 25,
+                    chart_margin_bottom: 25,
+                    chart_margin_left: 45, 
+                    chart_grid_xEnabled: "no",
+                    chart_grid_yEnabled: "yes",
+
+                    transition_duration: 0,       
+                    realTimeCharts_refreshFrequency: 0,
+
+                    axis_onHoverHighlightenable: "yes",
+
+                    axis_x_enable: "yes",
+                    axis_x_position: "bottom",
+                    axis_x_orient: "bottom",
+                    axis_x_axisColor: "#1D1D1D",
+                    axis_x_labelColor: "#1D1D1D",
+                    axis_x_tickSize: 3,
+                    axis_x_tickPadding: 3,
+                    axis_x_outer_tick_size: 3,
+
+                    axis_y_enable: "yes",
+                    axis_y_position: "left",
+                    axis_y_orient: "left",
+                    axis_y_axisColor: "#1D1D1D",
+                    axis_y_labelColor: "#1D1D1D",
+                    axis_y_tickSize: 3,
+                    axis_y_tickPadding: 10,
+                    axis_y_outer_tick_size: 3, 
+
+                    line_curvy_lines:"yes",
+                    tooltip_mode : "moving",
+                    enableCrossHair: "yes",
+                    // multiple_containers_enable: "yes",
+                    enableTooltip: "yes"
+
+                });
+                k.execute();
+
+                var k = new PykCharts.multiD.lineChart ({
+                    selector: "#multiple-multiLine",
+                    data: "../data/multiLineChart.json",
+                    mode : "default",
+                    yAxisDataFormat : "number",
+                    xAxisDataFormat : "string",
+                    chart_height: 400,
+                    chart_width : 630,
+                    chart_margin_top: 5,
+                    chart_margin_right: 25,
+                    chart_margin_bottom: 25,
+                    chart_margin_left: 45, 
+                    chart_grid_xEnabled: "no",
+                    chart_grid_yEnabled: "yes",
+
+                    transition_duration: 0,       
+                    realTimeCharts_refreshFrequency: 0,
+
+                    axis_onHoverHighlightenable: "yes",
+
+                    axis_x_enable: "yes",
+                    axis_x_position: "bottom",
+                    axis_x_orient: "bottom",
+                    axis_x_axisColor: "#1D1D1D",
+                    axis_x_labelColor: "#1D1D1D",
+                    axis_x_tickSize: 3,
+                    axis_x_tickPadding: 3,
+                    axis_x_outer_tick_size: 3,
+
+                    axis_y_enable: "yes",
+                    axis_y_position: "left",
+                    axis_y_orient: "left",
+                    axis_y_axisColor: "#1D1D1D",
+                    axis_y_labelColor: "#1D1D1D",
+                    axis_y_tickSize: 3,
+                    axis_y_tickPadding: 10,
+                    axis_y_outer_tick_size: 3, 
+
+                    line_curvy_lines:"yes",
+                    tooltip_mode : "moving",
+                    enableCrossHair: "yes",
+                    // multiple_containers_enable: "no",
+                    enableTooltip: "yes"
+                    
+                });
+                k.execute();
+
+                var k = new PykCharts.multiD.areaChart ({
+
+                    selector: "#multiArea",
+                    data: "../data/multiLineChart.json",
+                    mode : "default",
+                    yAxisDataFormat : "number",
+                    xAxisDataFormat : "string",
+                    chart_height: 400,
+                    chart_width : 630,
+                    chart_margin_top: 5,
+                    chart_margin_right: 25,
+                    chart_margin_bottom: 25,
+                    chart_margin_left: 45, 
+                    chart_grid_xEnabled: "no",
+                    chart_grid_yEnabled: "yes",
+
+                    transition_duration: 0,       
+                    realTimeCharts_refreshFrequency: 0,
+
+                    axis_onHoverHighlightenable: "yes",
+
+                    axis_x_enable: "yes",
+                    axis_x_position: "bottom",
+                    axis_x_orient: "bottom",
+                    axis_x_axisColor: "#1D1D1D",
+                    axis_x_labelColor: "#1D1D1D",
+                    axis_x_tickSize: 3,
+                    axis_x_tickPadding: 3,
+                    axis_x_outer_tick_size: 3,
+
+                    axis_y_enable: "yes",
+                    axis_y_position: "left",
+                    axis_y_orient: "left",
+                    axis_y_axisColor: "#1D1D1D",
+                    axis_y_labelColor: "#1D1D1D",
+                    axis_y_tickSize: 3,
+                    axis_y_tickPadding: 10,
+                    axis_y_outer_tick_size: 3, 
+
+                    line_curvy_lines:"yes",
+                    enableCrossHair: "yes",
+                    enableTooltip: "yes",
+                    zoom_enable: "yes"
+                       
+                });
+                k.execute();
+
+                var k = new PykCharts.multiD.pulse({
+                    selector: "#pulse",
+                    data: "../data/pulse.json",
+                    mode : "default", //  default or infographics
+                    yAxisDataFormat : "string",
+                    xAxisDataFormat : "number",
+                    chart_height: 350,
+                    chart_width : 650,
+                    chart_margin_top: 5,
+                    chart_margin_right: 25,
+                    chart_margin_bottom: 25,
+                    chart_margin_left: 45, 
+                    chart_grid_xEnabled: "yes",
+                    chart_grid_yEnabled: "yes",
+
+                    transition_duration: 0,       
+                    realTimeCharts_refreshFrequency: 0,
+
+                    axis_onHoverHighlightenable: "yes",
+
+                    axis_x_enable: "yes",
+                    axis_x_position: "bottom",
+                    axis_x_orient: "bottom",
+                    axis_x_axisColor: "#1D1D1D",
+                    axis_x_labelColor: "#1D1D1D",
+                    axis_x_tickSize: 3,
+                    axis_x_tickPadding: 3,
+                    axis_x_outer_tick_size: 3,
+
+                    axis_y_enable: "yes",
+                    axis_y_position: "left",
+                    axis_y_orient: "left",
+                    axis_y_axisColor: "#1D1D1D",
+                    axis_y_labelColor: "#1D1D1D",
+                    axis_y_tickSize: 3,
+                    axis_y_tickPadding: 10,
+                    axis_y_outer_tick_size: 3, 
+
+                    line_curvy_lines:"yes",
+                    tooltip_mode : "moving",
+                    enableCrossHair: "yes",
+                    multiple_containers_enable: "no",
+                    enableTooltip: "yes",
+                    
+                    size_enable : "yes",
+            
+                    legends_enable: "yes",
+                    legends_display: "horizontal",
+                    legendsText_size: 13,
+                    legendsText_color: "black",
+                    legendsText_weight: "thin",
+                    legendsText_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
+                    
+                    borderBetweenChartElements_width: 0,
+                    borderBetweenChartElements_color: "white",
+                    borderBetweenChartElements_style: "solid",
+
+                    label_size:12,
+                    label_color: "white",
+                    label_weight: "thick",
+                    label_family:"'Helvetica Neue',Helvetica,Arial,sans-serif",
+
+                    enableCrossHair: "yes"
+                });
+               k.execute();
+
+                var k = new PykCharts.multiD.columnChart({
+                    data: "../data/ultimateColumn.json",
+                    mode: "default",
+                    selector: "#column",
+
+                    chart_height: 430,
+                    chart_width : 400,
+                    chart_margin_top: 25,
+                    chart_margin_right: 25,
+                    chart_margin_bottom: 25,
+                    chart_margin_left: 25, 
+                    chart_grid_xEnabled: "yes",
+
+                    realTimeCharts_refreshFrequency: 0 ,
+
+                    axis_onHoverHighlightenable: "yes",
+
+                    axis_x_enable: "yes",
+                    axis_x_position: "bottom",
+                    axis_x_orient: "bottom",
+                    axis_x_axisColor: "#1D1D1D",
+                    axis_x_labelColor: "#1D1D1D",
+                    axis_x_tickSize: 3,
+                    axis_x_tickPadding: 3,
+                    axis_x_outer_tick_size: 3,
+
+                    axis_y_enable: "yes",
+                    axis_y_position: "left",
+                    axis_y_orient: "left",
+                    axis_y_axisColor: "#1D1D1D",
+                    axis_y_labelColor: "#1D1D1D",
+                    axis_y_tickSize: 3,
+                    axis_y_tickPadding: 10,
+                    axis_y_outer_tick_size: 3, 
+
+                    colors_backgroundColor: "white",
+                    colors_chartColor: "steelblue",
+                    colors_highlightColor: "#013F73",
+
+                    legends_enable: "no",
+                    legends_display: "horizontal", 
+
+                    transition_duration:0,
+
+                    borderBetweenChartElements_width: "1px",
+                    borderBetweenChartElements_color: "white",
+                    borderBetweenChartElements_style: "solid"
+
+                });
+                k.execute();
+
+                var k = new PykCharts.multiD.columnChart({
+                    data: "../data/ultimateGroupColumn.json",
+                    mode: "default",
+                    selector: "#groupColumn",
+
+                    chart_height: 430,
+                    chart_width : 400,
+                    chart_margin_top: 25,
+                    chart_margin_right: 25,
+                    chart_margin_bottom: 25,
+                    chart_margin_left: 25, 
+                    chart_grid_xEnabled: "yes",
+
+                    realTimeCharts_refreshFrequency: 0 ,
+
+                    axis_onHoverHighlightenable: "yes",
+
+                    axis_x_enable: "yes",
+                    axis_x_position: "bottom",
+                    axis_x_orient: "bottom",
+                    axis_x_axisColor: "#1D1D1D",
+                    axis_x_labelColor: "#1D1D1D",
+                    axis_x_tickSize: 3,
+                    axis_x_tickPadding: 3,
+                    axis_x_outer_tick_size: 3,
+
+                    axis_y_enable: "yes",
+                    axis_y_position: "left",
+                    axis_y_orient: "left",
+                    axis_y_axisColor: "#1D1D1D",
+                    axis_y_labelColor: "#1D1D1D",
+                    axis_y_tickSize: 3,
+                    axis_y_tickPadding: 10,
+                    axis_y_outer_tick_size: 3, 
+
+                    colors_backgroundColor: "white",
+                    colors_chartColor: "steelblue",
+                    colors_highlightColor: "#013F73",
+
+                    legends_enable: "yes",
+                    legends_display: "horizontal", 
+
+                    transition_duration:0,
+
+                    borderBetweenChartElements_width: "1px",
+                    borderBetweenChartElements_color: "white",
+                    borderBetweenChartElements_style: "solid",
+                                         
+                   saturation_enable: "yes",
+    
+                });
+                k.execute();
+
+                var k = new PykCharts.multiD.barChart({
+                    data: "../data/ultimatebar.json",
+                    mode: "default",
+                    selector: "#bar",
+
+                    chart_height: 430,
+                    chart_width : 400,
+                    chart_margin_top: 25,
+                    chart_margin_right: 25,
+                    chart_margin_bottom: 25,
+                    chart_margin_left: 25, 
+                    chart_grid_xEnabled: "yes",
+
+                    realTimeCharts_refreshFrequency: 0 ,
+
+                    axis_onHoverHighlightenable: "yes",
+
+                    axis_x_enable: "yes",
+                    axis_x_position: "bottom",
+                    axis_x_orient: "bottom",
+                    axis_x_axisColor: "#1D1D1D",
+                    axis_x_labelColor: "#1D1D1D",
+                    axis_x_tickSize: 3,
+                    axis_x_tickPadding: 3,
+                    axis_x_outer_tick_size: 3,
+
+                    axis_y_enable: "yes",
+                    axis_y_position: "left",
+                    axis_y_orient: "left",
+                    axis_y_axisColor: "#1D1D1D",
+                    axis_y_labelColor: "#1D1D1D",
+                    axis_y_tickSize: 3,
+                    axis_y_tickPadding: 10,
+                    axis_y_outer_tick_size: 3, 
+
+                    colors_backgroundColor: "white",
+                    colors_chartColor: "steelblue",
+                    colors_highlightColor: "#013F73",
+
+                    legends_enable: "no",
+                    legends_display: "horizontal", 
+
+                    transition_duration:0,
+
+                    borderBetweenChartElements_width: "1px",
+                    borderBetweenChartElements_color: "white",
+                    borderBetweenChartElements_style: "solid",
+
+                    label_size:10,
+                    label_color: "white",
+                    label_weight: "thick",
+                    label_family:"'Helvetica Neue',Helvetica,Arial,sans-serif",
+                   
+            
+                    ticks_strokeWidth: 1,
+                    ticks_weight: "thin",
+                    ticks_size: 10,
+                    ticks_color: "#1D1D1D",
+                    ticks_family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
+
+                });
+                k.execute();
+
+                var k = new PykCharts.multiD.barChart({
+                    data: "../data/ultimateGroupBar.json",
+                    mode: "default",
+                    selector: "#groupBar",
+
+                     chart_height: 430,
+                    chart_width : 400,
+                    chart_margin_top: 25,
+                    chart_margin_right: 45,
+                    chart_margin_bottom: 25,
+                    chart_margin_left: 25, 
+                    chart_grid_xEnabled: "yes",
+
+                    realTimeCharts_refreshFrequency: 0 ,
+
+                    axis_onHoverHighlightenable: "yes",
+
+                    axis_x_enable: "yes",
+                    axis_x_position: "bottom",
+                    axis_x_orient: "bottom",
+                    axis_x_axisColor: "#1D1D1D",
+                    axis_x_labelColor: "#1D1D1D",
+                    axis_x_tickSize: 3,
+                    axis_x_tickPadding: 3,
+                    axis_x_outer_tick_size: 3,
+
+                    axis_y_enable: "yes",
+                    axis_y_position: "left",
+                    axis_y_orient: "left",
+                    axis_y_axisColor: "#1D1D1D",
+                    axis_y_labelColor: "#1D1D1D",
+                    axis_y_tickSize: 3,
+                    axis_y_tickPadding: 10,
+                    axis_y_outer_tick_size: 3, 
+
+                    colors_backgroundColor: "white",
+                    colors_chartColor: "steelblue",
+                    colors_highlightColor: "#013F73",
+
+                    legends_enable: "no",
+                    legends_display: "horizontal", 
+
+                    transition_duration:0,
+
+                    borderBetweenChartElements_width: "1px",
+                    borderBetweenChartElements_color: "white",
+                    borderBetweenChartElements_style: "solid",
+
+                    label_size:10,
+                    label_color: "white",
+                    label_weight: "thick",
+                    label_family:"'Helvetica Neue',Helvetica,Arial,sans-serif",
+                   
+            
+                    ticks_strokeWidth: 1,
+                    ticks_weight: "thin",
+                    ticks_size: 10,
+                    ticks_color: "#1D1D1D",
+                    ticks_family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
+                  });
+                k.execute();
+            });
+
+        </script>
+    </body>
+</html>

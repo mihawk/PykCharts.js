@@ -90,7 +90,20 @@ module.exports = function(grunt) {
 
         // Run QUnit Test
         qunit: {
-            all: ['examples/*.html']
+            all: {
+                options: {
+                    timeout: 5000,
+                    urls: ['http://localhost:80/PykCharts/unit_testing/test.html']
+                }
+            }
+        },
+        connect: {
+            server: {
+                options: {
+                    port: 80,
+                    base: '.'
+                }
+            }
         }
     });
 
@@ -102,6 +115,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-shell');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-qunit');
+    grunt.loadNpmTasks('grunt-contrib-connect');
 
     // Remove all console.logs
     grunt.registerTask('rmconsolelogs', ['shell:rmclogs']);
@@ -115,5 +129,8 @@ module.exports = function(grunt) {
     grunt.event.on('watch', function(action, filepath) {
         grunt.log.writeln(filepath + ' has ' + action);
     });
+
+    //Connect to port for qunit to communicate
+    grunt.registerTask('test', ['connect', 'qunit']);
 
 };

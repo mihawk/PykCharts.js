@@ -161,6 +161,7 @@ PykCharts.multiD.columnChart = function(options){
                             .attr("x2",that.width-that.margin_left-that.margin_right)
                             .attr("y2",that.height-that.margin_top-that.margin_bottom)
                             .attr("stroke",that.axis_x_axisColor);
+
                     if(that.axis_x_position === "top") {
                         axis_line.attr("y1",0)
                             .attr("y2",0);
@@ -170,7 +171,13 @@ PykCharts.multiD.columnChart = function(options){
                     that.xGroup = that.group.append("g")
                         .attr("id","xaxis")
                         .attr("class", "x axis")
-                        .style("stroke","none");
+                        .style("stroke","none")
+                        .append("text")
+                            .attr("x", that.width - that.margin_left - that.margin_right)
+                            .attr("y", that.height -that.margin_bottom - that.margin_top)
+                            .attr("dy", -8)
+                            .style("text-anchor", "end")
+                            .text(that.axis_x_title);
                 }
 
                 if(PykCharts.boolean(that.axis_y_enable)) {
@@ -338,21 +345,21 @@ PykCharts.multiD.columnChart = function(options){
 
                 xAxis_label.exit().remove();
                 if(that.axis_x_position==="top") {
-                    if(that.axis_x_orient === "top") {
+                    if(that.axis_x_value_position === "top") {
                         xAxis_label.attr("y", function () {
                             return -15;
                         });
-                    } else if(that.axis_x_orient === "bottom") {
+                    } else if(that.axis_x_value_position === "bottom") {
                         xAxis_label.attr("y", function () {
                             return 15;
                         });
                     }
                 }
-                if(that.axis_x_orient === "top") {
+                if(that.axis_x_value_position === "top") {
                     xAxis_label.attr("y", function () {
                         return h-15;
                     });
-                } else if(that.axis_x_orient === "bottom") {
+                } else if(that.axis_x_value_position === "bottom") {
                     xAxis_label.attr("y", function () {
                         return h+15;
                     });
