@@ -284,7 +284,6 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                     .attr("text-anchor", "end")
                     .attr("x", that.w - 70)
                     .attr("y", that.height + 40)
-                    // .text("adhavdh");
                     // .text(that.axis_x_label);
 
                 if(that.zoomed_out === true) {
@@ -314,7 +313,6 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                         that.extra_top_margin = 0;
 
                     } else if(that.yAxisDataFormat === "string") {
-                        console.log("xhva");
                         that.data.forEach(function(d) { y_data.push(d.y); });
                         y_range = [0,that.height - that.margin_top - that.margin_bottom];
                         that.yScale = that.k.scaleIdentification("ordinal",y_data,y_range,0);
@@ -617,7 +615,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                         .attr("dx",-1)
                         .attr("dy",function (d) { return -that.sizes(d.weight)-4; });
 
-                    tick_label.text(function (d) { console.log(d);return d.name; });
+                    tick_label.text(function (d) {return d.name; });
 
                     tick_label.exit().remove();
                 }
@@ -630,7 +628,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                 //         .append("input")
                 //             .attr("type","button")
                 //             .attr("value","Zoom Out")
-                //             .attr("id","zoomOut")
+                //             .attr("id","zoomOuts")
                 //             .style("position","absolute")
                 //             .style("left",that.width)
                 //             .style("top", that.margin.top + 50)
@@ -688,7 +686,6 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
             },
             label : function () {
                 if(PykCharts.boolean(that.label_size)) {
-                    console.log(that.label_size);
                     that.circleLabel = that.chartBody.selectAll(".text")
                         .data(that.new_data);
 
