@@ -1173,7 +1173,7 @@ configuration.Theme = function(){
         "spiderweb_outerRadiusPercent" : 80,
         "spiderweb_radius": 5,
         "spiderweb_axisTitle": "yes",
-        "spiderweb_enableTicks": "yes",        
+        "spiderweb_pointer": "yes",        
         "multiple_containers_enable": "no",
           
         "legends_enable": "yes",
@@ -1183,7 +1183,7 @@ configuration.Theme = function(){
         "tooltip_mode": "fixed",
       
         "scatterplot_radius" : 40,
-        "scatterplot_ticks": "no",
+        "scatterplot_pointer": "no",
 
         "line_color_from_data": "yes",
         "line_curvy_lines": "no"

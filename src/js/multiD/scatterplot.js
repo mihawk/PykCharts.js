@@ -14,7 +14,7 @@ PykCharts.multiD.scatterPlot = function (options) {
         that.multiD = new PykCharts.multiD.configuration(that);
         that.multiple_containers_enable =options.multiple_containers_enable && options.multiple_containers_enable ? options.multiple_containers_enable : multiDimensionalCharts.multiple_containers_enable;
         that.bubbleRadius = options.scatterplot_radius && _.isNumber(options.scatterplot_radius) ? options.scatterplot_radius : multiDimensionalCharts.scatterplot_radius;
-        that.enableTicks =  options.scatterplot_ticks && _.isNumber(options.scatterplot_ticks) ? options.scatterplot_ticks : multiDimensionalCharts.scatterplot_ticks;
+        that.enableTicks =  options.scatterplot_pointer ? options.scatterplot_pointer : multiDimensionalCharts.scatterplot_pointer;
         that.zoomed_out = true;
 
         if(PykCharts.boolean(that.multiple_containers_enable)) {
@@ -48,7 +48,6 @@ PykCharts.multiD.pulse = function (options) {
         that.multiD = new PykCharts.multiD.configuration(that);
         that.multiple_containers_enable = options.multiple_containers_enable && options.multiple_containers_enable ? options.multiple_containers_enable : multiDimensionalCharts.multiple_containers_enable;
         that.bubbleRadius = options.scatterplot_radius && _.isNumber(options.scatterplot_radius) ? options.scatterplot_radius : multiDimensionalCharts.scatterplot_radius;
-        that.enableTicks =  options.scatterplot_ticks && _.isNumber(options.scatterplot_ticks) ? options.scatterplot_ticks : multiDimensionalCharts.scatterplot_ticks;
         that.zoomed_out = true;
         that.radius_range = [that.k._radiusCalculation(1.1)*2,that.k._radiusCalculation(3.5)*2];
         d3.json(options.data, function (e, data) {
@@ -315,6 +314,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                         that.extra_top_margin = 0;
 
                     } else if(that.yAxisDataFormat === "string") {
+                        console.log("xhva");
                         that.data.forEach(function(d) { y_data.push(d.y); });
                         y_range = [0,that.height - that.margin_top - that.margin_bottom];
                         that.yScale = that.k.scaleIdentification("ordinal",y_data,y_range,0);
@@ -688,6 +688,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
             },
             label : function () {
                 if(PykCharts.boolean(that.label_size)) {
+                    console.log(that.label_size);
                     that.circleLabel = that.chartBody.selectAll(".text")
                         .data(that.new_data);
 
