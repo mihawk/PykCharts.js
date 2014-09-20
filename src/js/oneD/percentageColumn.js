@@ -16,6 +16,7 @@ PykCharts.oneD.percentageColumn = function (options) {
         }
         d3.json(options.data, function (e, data) {
             that.data = data.groupBy("oned");
+            that.compare_data = data.groupBy("oned"); 
             $(options.selector+" #chart-loader").remove();
             that.clubData_enable = that.data.length>that.clubData_maximumNodes ? that.clubData_enable : "no";
             that.render();
@@ -28,6 +29,13 @@ PykCharts.oneD.percentageColumn = function (options) {
     this.refresh = function () {
         d3.json (options.data, function (e,data) {
             that.data = data.groupBy("oned");
+            that.refresh_data = data.groupBy("oned");
+            var compare = that.k.checkChangeInData(that.refresh_data,that.compare_data);
+            that.compare_data = compare[0];
+            var data_changed = compare[1];
+            if(data_changed) {
+                that.k.lastUpdatedAt("liveData");
+            }
             that.optionalFeatures()
                     .clubData()
                     .createChart()
@@ -38,7 +46,8 @@ PykCharts.oneD.percentageColumn = function (options) {
 
     this.render = function () {
         var that = this;
-        that.fillChart = new PykCharts.oneD.fillChart(that);
+    //    that.fillChart = new PykCharts.oneD.fillChart(that);
+        that.fillChart = new PykCharts.Configuration.fillChart(that);    
         that.onHoverEffect = new PykCharts.oneD.mouseEvent(options);
         that.transitions = new PykCharts.Configuration.transition(that);
         that.border = new PykCharts.Configuration.border(that);
@@ -64,6 +73,8 @@ PykCharts.oneD.percentageColumn = function (options) {
         if(that.mode === "default") {
             that.optionalFeatures().ticks()
             that.k.liveData(that)
+                .createFooter()
+                .lastUpdatedAt()
                 .credits()
                 .dataSource();
         }
@@ -115,7 +126,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                     .attr('width', that.width/4)
                     .attr('height', 0)
                     .attr("fill",function (d) {
-                        return that.fillChart.chartColor(d);
+                        return that.fillChart.selectColor(d);
                     })
                     .attr("stroke",that.border.color())
                     .attr("stroke-width",that.border.width())
@@ -239,10 +250,10 @@ PykCharts.oneD.percentageColumn = function (options) {
                     tick_label.text(function (d) {
                             return "";
                         })
-                        .attr("font-size", that.ticks_size)
+                        .attr("font-size", that.pointer_size)
                         .attr("text-anchor","start")
-                        .attr("fill", that.ticks_color)
-                        .attr("font-family", that.ticks_family)
+                        .attr("fill", that.pointer_color)
+                        .attr("font-family", that.pointer_family)
                         .attr("pointer-events","none");
 
                         setTimeout(function() {
@@ -283,8 +294,8 @@ PykCharts.oneD.percentageColumn = function (options) {
                                         return (((sum1 - d.percentValue) * that.height/100)+(sum1 * that.height / 100))/2;
                                     }
                                 })
-                                .attr("stroke-width", that.ticks_strokeWidth)
-                                .attr("stroke", that.ticks_color)
+                                .attr("stroke-width", that.pointer_thickness)
+                                .attr("stroke", that.pointer_color)
                                 // .transition()
                                 // .duration(that.transitions.duration())
                                 .attr("x2", function (d, i) {

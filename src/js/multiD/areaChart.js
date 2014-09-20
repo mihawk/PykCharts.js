@@ -22,6 +22,7 @@ PykCharts.multiD.areaChart = function (options){
 
 		d3.json(options.data, function (e, data) {
 			that.data = data.groupBy("area");
+			that.compare_data = that.data;
 			that.data_length = that.data.length;
 			$(that.selector+" #chart-loader").remove();
 			that.render();
@@ -29,6 +30,8 @@ PykCharts.multiD.areaChart = function (options){
 	};
 
 	this.render = function (){
+		that.dataLineGroup = [], that.dataLineGroupBorder = [];
+		that.multid = new PykCharts.multiD.configuration(that);
 		if(that.mode === "default") {
 			that.transitions = new PykCharts.Configuration.transition(that);
 
@@ -44,14 +47,16 @@ PykCharts.multiD.areaChart = function (options){
 					.createChart()
 		    		.axisContainer();
 
-			that.k.crossHair(that.svgContainer,that.type)
-					.credits();
+			that.k.crossHair(that.svgContainer,that.type);
 
 			that.k.xAxis(that.svgContainer,that.xGroup,that.xScale)
 					.yAxis(that.svgContainer,that.yGroup,that.yScale)
 					.yGrid(that.svgContainer,that.group,that.yScale)
 					.xGrid(that.svgContainer,that.group,that.xScale)
-					.dataSource();
+					.createFooter()
+	                .lastUpdatedAt()
+	                .credits()
+	                .dataSource();
 		}
 		else if(that.mode === "infographics") {
 			  that.k.liveData(that)
@@ -73,6 +78,17 @@ PykCharts.multiD.areaChart = function (options){
 		d3.json(options.data, function (e,data) {
 			that.data = data.groupBy("area");
 			that.data_length = that.data.length;
+			var compare = that.multid.checkChangeInData(that.data,that.compare_data);
+			that.compare_data = compare[0];
+			var data_changed = compare[1];
+
+			if(data_changed) {
+				that.k.lastUpdatedAt("liveData");
+				that.mouseEvent.tooltipHide();
+				that.mouseEvent.crossHairHide(that.type);
+				that.mouseEvent.axisHighlightHide(that.selector + " .x.axis");
+				that.mouseEvent.axisHighlightHide(that.selector + " .y.axis");
+			}
 
 			that.optional_feature().createChart("liveData");
 
@@ -150,8 +166,8 @@ PykCharts.multiD.areaChart = function (options){
 	        	return this;
       		},
 			createChart : function (evt) {
-				that.group_arr = [], that.color_arr = [], that.new_data = [], that.dataLineGroup = [],
-				that.legend_text = [], that.dataLineGroupBorder = [];
+				that.group_arr = [], that.color_arr = [], that.new_data = [],
+				that.legend_text = [];
 
 				if(that.type === "areaChart") {
 					that.new_data[0] = {
@@ -287,7 +303,7 @@ PykCharts.multiD.areaChart = function (options){
 						// .transition()
 				      	// .ease(that.transition.transition_type)
 			      		// .duration(that.transitions[that.transition.enable]().duration())
-						.attr("transform", "translate("+ that.extra_left_margin +",0)")
+						//.attr("transform", "translate("+ that.extra_left_margin +",0)")
 					    .attr("d", that.chart_path);
 
 						that.svgContainer.select("#border-stacked-area"+i)
@@ -295,7 +311,7 @@ PykCharts.multiD.areaChart = function (options){
 					  		// .transition()
 				      		// .ease("linear")
 			      			// .duration(that.transitions.duration())
-							.attr("transform", "translate("+ that.extra_left_margin +",0)")
+							//.attr("transform", "translate("+ that.extra_left_margin +",0)")
 					      	.attr("d", that.chart_path_border);
 
 						// that.svgContainer.select("#"+type).on("click",function (d) {
@@ -320,7 +336,8 @@ PykCharts.multiD.areaChart = function (options){
 								that.mouseEvent.axisHighlightHide(options.selector + " .y.axis");
 		          			})
 							.on("mousemove", function(){
-								that.mouseEvent.crossHairPosition(that.data,that.new_data,that.xScale,that.yScale,that.svgContainer.select("#"+type),that.extra_left_margin,that.type,that.tooltip_mode);
+								console.log(that.svgContainer.select("#"+type),"no no no");
+								that.mouseEvent.crossHairPosition(that.data,that.new_data,that.xScale,that.yScale,that.dataLineGroup,that.extra_left_margin,that.type,that.tooltip_mode);
 					  		});
 					}
 				}
@@ -353,7 +370,7 @@ PykCharts.multiD.areaChart = function (options){
 					  // 		.attr("x", 20)
 					  // 		.attr("y", 20)
 					  // 		.style("display","none")
-					  // 		.text(that.new_data[i].name);
+					  // 		.text(that.new_data[i].name);data
 
 						// that.dataLineGroup[i].on("click",function (d,j) {
 						// 		that.curr_line_data = d;

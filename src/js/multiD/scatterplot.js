@@ -12,8 +12,9 @@ PykCharts.multiD.scatterPlot = function (options) {
             optional = options.optional;
         // that.enableCrossHair = optional && optional.enableCrossHair ? optional.enableCrossHair : multiDimensionalCharts.enableCrossHair;
         that.multiD = new PykCharts.multiD.configuration(that);
-        that.multiple_containers =options.multiple_containers_enable && options.multiple_containers_enable ? options.multiple_containers_enable : multiDimensionalCharts.multiple_containers_enable;
+        that.multiple_containers_enable =options.multiple_containers_enable && options.multiple_containers_enable ? options.multiple_containers_enable : multiDimensionalCharts.multiple_containers_enable;
         that.bubbleRadius = options.scatterplot_radius && _.isNumber(options.scatterplot_radius) ? options.scatterplot_radius : multiDimensionalCharts.scatterplot_radius;
+        that.enableTicks =  options.scatterplot_pointer ? options.scatterplot_pointer : multiDimensionalCharts.scatterplot_pointer;
         that.zoomed_out = true;
 
         if(PykCharts.boolean(that.multiple_containers_enable)) {
@@ -23,6 +24,7 @@ PykCharts.multiD.scatterPlot = function (options) {
         }
         d3.json(options.data, function (e, data) {
             that.data = data.groupBy("scatterplot");
+            that.compare_data = data.groupBy("scatterplot");
             $(that.selector+" #chart-loader").remove();
             var a = new PykCharts.multiD.scatterplotFunction(options,that,"scatterplot");
             a.render();
@@ -44,12 +46,13 @@ PykCharts.multiD.pulse = function (options) {
             optional = options.optional;
         // that.enableCrossHair = optional && optional.enableCrossHair ? optional.enableCrossHair : multiDimensionalCharts.enableCrossHair;
         that.multiD = new PykCharts.multiD.configuration(that);
-        that.multiple_containers = options.multiple_containers && options.multiple_containers_enable ? options.multiple_containers_enable : multiDimensionalCharts.multiple_containers_enable;
+        that.multiple_containers_enable = options.multiple_containers_enable && options.multiple_containers_enable ? options.multiple_containers_enable : multiDimensionalCharts.multiple_containers_enable;
         that.bubbleRadius = options.scatterplot_radius && _.isNumber(options.scatterplot_radius) ? options.scatterplot_radius : multiDimensionalCharts.scatterplot_radius;
         that.zoomed_out = true;
         that.radius_range = [that.k._radiusCalculation(1.1)*2,that.k._radiusCalculation(3.5)*2];
         d3.json(options.data, function (e, data) {
             that.data = data.groupBy("pulse");
+            that.compare_data = data.groupBy("pulse");
             $(that.selector+" #chart-loader").remove();
             var a = new PykCharts.multiD.scatterplotFunction(options,that,"pulse");
             a.render();
@@ -61,6 +64,13 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
     that.refresh = function () {
         d3.json(options.data, function (e, data) {
             that.data = data.groupBy("scatterplot");
+            that.refresh_data = data.groupBy("scatterplot");
+            var compare = that.k.checkChangeInData(that.refresh_data,that.compare_data);
+            that.compare_data = compare[0];
+            var data_changed = compare[1];
+            if(data_changed) {
+                that.k.lastUpdatedAt("liveData");
+            }
             that.map_group_data = that.multiD.mapGroup(that.data);
             that.optionalFeatures()
                     .createChart()
@@ -86,7 +96,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
 
             that.no_of_groups = 1;
 
-            if(PykCharts.boolean(that.multiple_containers) && type === "scatterplot") {
+            if(PykCharts.boolean(that.multiple_containers_enable) && type === "scatterplot") {
                 that.no_of_groups = that.uniq_group_arr.length;
                 that.w = that.width/4;
                 that.height = that.height/2;
@@ -157,7 +167,9 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                     // .xGrid(that.svgContainer,that.group,that.x);
             }
 
-            that.k.credits()
+            that.k.createFooter()
+                .lastUpdatedAt()
+                .credits()
                 .dataSource();
             that.optionalFeatures()
                 .zoom();
@@ -272,7 +284,6 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                     .attr("text-anchor", "end")
                     .attr("x", that.w - 70)
                     .attr("y", that.height + 40)
-                    // .text("adhavdh");
                     // .text(that.axis_x_label);
 
                 if(that.zoomed_out === true) {
@@ -464,7 +475,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                         }
                     };
                     var legend;
-                    if(PykCharts.boolean(that.multiple_containers)){
+                    if(PykCharts.boolean(that.multiple_containers_enable)){
                         var abc =[];
                         abc.push(that.map_group_data[0][index]);
                         legend = that.legendsGroup.selectAll("rect")
@@ -604,7 +615,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                         .attr("dx",-1)
                         .attr("dy",function (d) { return -that.sizes(d.weight)-4; });
 
-                    tick_label.text(function (d) { return d.name; });
+                    tick_label.text(function (d) {return d.name; });
 
                     tick_label.exit().remove();
                 }
@@ -617,7 +628,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                 //         .append("input")
                 //             .attr("type","button")
                 //             .attr("value","Zoom Out")
-                //             .attr("id","zoomOut")
+                //             .attr("id","zoomOuts")
                 //             .style("position","absolute")
                 //             .style("left",that.width)
                 //             .style("top", that.margin.top + 50)

@@ -12,12 +12,13 @@ PykCharts.multiD.spiderWeb = function (options) {
         that.bubbleRadius = options.spiderweb_radius && _.isNumber(options.spiderweb_radius) ? options.spiderweb_radius : theme.multiDimensionalCharts.spiderweb_radius;
         that.outerRadius = options.spiderweb_outer_radius_percent && _.isNumber(options.spiderweb_outer_radius_percent) ? options.spiderweb_outer_radius_percent : theme.multiDimensionalCharts.spiderweb_outer_radius_percent;
         that.inner_radius = 0;
-        that.enableTicks =  options.enableTicks ? options.enableTicks : theme.multiDimensionalCharts.spiderweb_enableTicks;
+        that.enableTicks =  options.spiderweb_pointer ? options.spiderweb_pointer : theme.multiDimensionalCharts.spiderweb_pointer;
 
         that.outerRadius = that.k._radiusCalculation(that.outerRadius);   
     
         d3.json(options.data, function (e, data) {
             that.data = data.groupBy("spiderweb");
+            that.compare_data = data.groupBy("spiderweb");
             $(that.selector+" #chart-loader").remove();
             that.render();
         });
@@ -26,6 +27,13 @@ PykCharts.multiD.spiderWeb = function (options) {
     that.refresh = function () {
         d3.json(options.data, function (e, data) {
             that.data = data.groupBy("spiderweb");
+            that.refresh_data = data.groupBy("spiderweb");
+            var compare = that.k.checkChangeInData(that.refresh_data,that.compare_data);
+            that.compare_data = compare[0];
+            var data_changed = compare[1];
+            if(data_changed) {
+                that.k.lastUpdatedAt("liveData");
+            }
             that.map_group_data = that.multiD.mapGroup(that.data);
             that.optionalFeatures()
                 .createChart()
@@ -62,7 +70,9 @@ PykCharts.multiD.spiderWeb = function (options) {
                 .axisTitle()
                 .legends();
 
-              that.k.credits()
+              that.k.createFooter()
+                .lastUpdatedAt()
+                .credits()
                 .dataSource();
 
         } else if (that.mode==="infographics") {

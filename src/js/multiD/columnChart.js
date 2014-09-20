@@ -13,6 +13,7 @@ PykCharts.multiD.columnChart = function(options){
         }
         d3.json(options.data, function(e, data){
             that.data = data.groupBy("column");
+            that.compare_data = data.groupBy("column");
             $(that.selector+" #chart-loader").remove();
             that.render();
         });
@@ -20,7 +21,14 @@ PykCharts.multiD.columnChart = function(options){
 
     this.refresh = function () {
         d3.json(options.data, function (e, data) {
-            that.data = data.groupBy("column");      
+            that.data = data.groupBy("column");
+            that.refresh_data = data.groupBy("column");
+            var compare = that.k.checkChangeInData(that.refresh_data,that.compare_data);
+            that.compare_data = compare[0];
+            var data_changed = compare[1];
+            if(data_changed) {
+                that.k.lastUpdatedAt("liveData");
+            }      
             that.data = that.dataTransformation();
             that.data = that.emptygroups(that.data);
 
@@ -29,7 +37,7 @@ PykCharts.multiD.columnChart = function(options){
             that.the_keys = fD[1];
             that.the_layers = that.buildLayers(that.the_bars);
             if(that.no_of_groups === 1) {
-                that.legends.enable = "no";
+                that.legends_enable = "no";
             }
             that.optionalFeatures()
                     .createChart()
@@ -67,10 +75,12 @@ PykCharts.multiD.columnChart = function(options){
                 .legendsContainer(1)
                 .svgContainer(1);
 
-            that.k.credits()
-                .dataSource()
-                .liveData(that)
-                .tooltip();
+            that.k.liveData(that)
+                .tooltip()
+                .createFooter()
+                .lastUpdatedAt()
+                .credits()
+                .dataSource();
 
             that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
 
@@ -151,6 +161,7 @@ PykCharts.multiD.columnChart = function(options){
                             .attr("x2",that.width-that.margin_left-that.margin_right)
                             .attr("y2",that.height-that.margin_top-that.margin_bottom)
                             .attr("stroke",that.axis_x_axisColor);
+
                     if(that.axis_x_position === "top") {
                         axis_line.attr("y1",0)
                             .attr("y2",0);
@@ -160,7 +171,13 @@ PykCharts.multiD.columnChart = function(options){
                     that.xGroup = that.group.append("g")
                         .attr("id","xaxis")
                         .attr("class", "x axis")
-                        .style("stroke","none");
+                        .style("stroke","none")
+                        .append("text")
+                            .attr("x", that.width - that.margin_left - that.margin_right)
+                            .attr("y", that.height -that.margin_bottom - that.margin_top)
+                            .attr("dy", -8)
+                            .style("text-anchor", "end")
+                            .text(that.axis_x_title);
                 }
 
                 if(PykCharts.boolean(that.axis_y_enable)) {
@@ -328,21 +345,21 @@ PykCharts.multiD.columnChart = function(options){
 
                 xAxis_label.exit().remove();
                 if(that.axis_x_position==="top") {
-                    if(that.axis_x_orient === "top") {
+                    if(that.axis_x_value_position === "top") {
                         xAxis_label.attr("y", function () {
                             return -15;
                         });
-                    } else if(that.axis_x_orient === "bottom") {
+                    } else if(that.axis_x_value_position === "bottom") {
                         xAxis_label.attr("y", function () {
                             return 15;
                         });
                     }
                 }
-                if(that.axis_x_orient === "top") {
+                if(that.axis_x_value_position === "top") {
                     xAxis_label.attr("y", function () {
                         return h-15;
                     });
-                } else if(that.axis_x_orient === "bottom") {
+                } else if(that.axis_x_value_position === "bottom") {
                     xAxis_label.attr("y", function () {
                         return h+15;
                     });

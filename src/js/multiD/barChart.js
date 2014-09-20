@@ -13,6 +13,7 @@ PykCharts.multiD.barChart = function(options){
         }
         d3.json(options.data, function(e, data){
             that.data = data.groupBy("bar");
+            that.compare_data = data.groupBy("bar");
             //console.log(data);
             $(that.selector+" #chart-loader").remove();
             that.render();
@@ -22,6 +23,13 @@ PykCharts.multiD.barChart = function(options){
     this.refresh = function () {
         d3.json(options.data, function (e, data) {
             that.data = data.groupBy("bar");
+            that.refresh_data = data.groupBy("bar");
+            var compare = that.k.checkChangeInData(that.refresh_data,that.compare_data);
+            that.compare_data = compare[0];
+            var data_changed = compare[1];
+            if(data_changed) {
+                that.k.lastUpdatedAt("liveData");
+            }
             that.data = that.dataTransformation();
             that.data = that.emptygroups(that.data);
             var fD = that.flattenData();
@@ -29,7 +37,7 @@ PykCharts.multiD.barChart = function(options){
             that.the_keys = fD[1];
             that.the_layers = that.buildLayers(that.the_bars);
             if(that.no_of_groups === 1) {
-                that.legends.enable = "no";
+                that.legends_enable = "no";
             }
             that.optionalFeatures()
                     .createChart()
@@ -71,10 +79,12 @@ PykCharts.multiD.barChart = function(options){
                 .legendsContainer(1)
                 .svgContainer(1);
 
-            that.k.credits()
-                .dataSource()
-                .liveData(that)
-                .tooltip();
+            that.k.liveData(that)
+                .tooltip()
+                .createFooter()
+                .lastUpdatedAt()
+                .credits()
+                .dataSource();
 
             that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
 
@@ -155,7 +165,14 @@ PykCharts.multiD.barChart = function(options){
 
                     that.yGroup = that.group.append("g")
                         .attr("id","yaxis")
-                        .attr("class", "y axis");
+                        .attr("class", "y axis")
+                        .append("text")
+                            .attr("transform", "rotate(-90)")
+                            .attr("y", 6)
+                            .attr("dy", ".71em")
+                            .style("text-anchor", "end")
+                            .text(options.axis_y_title);
+
                     if(that.axis_y_position === "right") {
                         axis_line.attr("x1",(that.width-that.margin_left-that.margin_right))
                             .attr("x2",(that.width-that.margin_left-that.margin_right));
@@ -343,19 +360,19 @@ PykCharts.multiD.barChart = function(options){
                         return (that.width-that.margin_left-that.margin_right) + 10;
                     });
                 }
-                if(that.axis_y_position === "left" && that.axis_y_orient === "right") {
+                if(that.axis_y_position === "left" && that.axis_y_value_position === "right") {
                     yAxis_label.attr("x", function (d) {
                         return 10;
                     });
                 }
-                if(that.axis_y_position === "right" && that.axis_y_orient === "left") {
+                if(that.axis_y_position === "right" && that.axis_y_value_position === "left") {
                     yAxis_label.attr("x", function (d) {
                         return (that.width-that.margin_left-that.margin_right) - 10;
                     });
                 }
-                if(that.axis_y_orient === "right") {
+                if(that.axis_y_value_position === "right") {
                     yAxis_label.attr("text-anchor","start");
-                } else if(that.axis_y_orient === "left") {
+                } else if(that.axis_y_value_position === "left") {
                     yAxis_label.attr("text-anchor","end");
                 }
 
@@ -363,7 +380,7 @@ PykCharts.multiD.barChart = function(options){
                 return this;
             },
             ticks: function () {
-                if(that.ticks_size) {
+                if(that.pointer_size) {
                     that.txt_width;
                     that.txt_height;
                     that.ticksElement = that.bars.selectAll("g")
@@ -385,10 +402,10 @@ PykCharts.multiD.barChart = function(options){
                                 return d.x;
                             }
                         })
-                        .style("font-weight", that.ticks_weight)
-                        .style("font-size", that.ticks_size)
-                        .attr("fill", that.ticks_color)
-                        .style("font-family", that.ticks_family)
+                        .style("font-weight", that.pointer_weight)
+                        .style("font-size", that.pointer_size)
+                        .attr("fill", that.pointer_color)
+                        .style("font-family", that.pointer_family)
                         .text(function(d) {
                             if(d.x) {
                                 that.txt_width = this.getBBox().width;
@@ -414,7 +431,7 @@ PykCharts.multiD.barChart = function(options){
                         })
                         .style("font-size",function(d) {
                             // console.log(that.label.size);
-                            return that.ticks_size;
+                            return that.pointer_size;
                         });
 
                     tick_label.exit().remove();
