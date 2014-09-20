@@ -136,6 +136,8 @@ PykCharts.multiD.lineChart = function (options){
 						.yAxis(that.svgContainer,that.yGroup,that.yScale)
 						.yGrid(that.svgContainer,that.group,that.yScale)
 						.xGrid(that.svgContainer,that.group,that.xScale);
+
+			    console.log(that.xScale.domain(),that.yScale.domain(),"R & D");
 			}
 			that.k.createFooter()
                 .lastUpdatedAt()
@@ -543,7 +545,7 @@ PykCharts.multiD.lineChart = function (options){
 					} else { // Multiple Containers -- "Yes"
 						type = that.type + that.svgContainer.attr("id");
 						that.dataLineGroup[0] = that.chartBody.append("path");
-						console.log(that.new_data1);
+						//console.log(that.new_data1);
 						that.dataLineGroup[0]
 								.datum(that.new_data1.data)
 							    .attr("class", that.chartPathClass)

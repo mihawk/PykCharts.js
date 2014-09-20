@@ -593,10 +593,10 @@ PykCharts.Configuration = function (options){
                 if (count === 0) {
                     domain_array[0] -= (padding + addFactor);
                 }else if(count === 1) {
-                    domain_array[1] = parseInt(domain_array[1],10) + (padding + addFactor);
+                    domain_array[1] = parseFloat(domain_array[1],10) + (padding + addFactor);
                 }else if (count === 2) {
                     domain_array[0] -= (padding + addFactor);
-                    domain_array[1] = parseInt(domain_array[1],10) + (padding + addFactor);
+                    domain_array[1] = parseFloat(domain_array[1],10) + (padding + addFactor);
                 }
                 return domain_array;
             },
@@ -619,8 +619,10 @@ configuration.mouseEvent = function (options) {
     var status;
     var action = {
         tooltipPosition : function (d,xPos,yPos,xDiff,yDiff,group_index) {
+
             if(PykCharts.boolean(options.tooltip_enable)) {
             	if(xPos !== undefined){
+                    // console.log("checking stackedAreaChart","1",group_index);
                     var width_tooltip = parseFloat($(options.selector+" #tooltip-svg-container-"+group_index).next("#pyk-tooltip").css("width"));
                     $(options.selector+" #tooltip-svg-container-"+group_index).next("#pyk-tooltip")
             			.css("visibility", "visible")
@@ -660,7 +662,7 @@ configuration.mouseEvent = function (options) {
         },
         crossHairPosition: function(data,new_data,xScale,yScale,dataLineGroup,lineMargin,type,tooltipMode,color_from_data,multiple_containers_enable){
             if((PykCharts.boolean(options.enableCrossHair) || PykCharts.boolean(options.tooltip_enable) || PykCharts.boolean(options.onHoverHighlightenable))  && options.mode === "default") {
-                console.log(dataLineGroup[0],/*(options.selector + " #"+dataLineGroup[0].attr("id")),*/"heyyyyyy");
+                console.log(type,"trying to understand #_#");
                 var offsetLeft = $(options.selector + " #"+dataLineGroup[0].attr("id")).offset().left;
                 var offsetTop = $(options.selector + " #"+dataLineGroup[0].attr("id")).offset().top;
                 var number_of_lines = new_data.length;
@@ -672,7 +674,8 @@ configuration.mouseEvent = function (options) {
                 var h = options.height;
                 console.log(d3.event.target.id,"saveeeeeee me");
                 var group_index = parseInt(d3.event.target.id.substr((d3.event.target.id.length-1),1));
-                console.log(group_index,"group_index");
+                console.log(group_index,type,"confusion");
+                // console.log(group_index,"group_index");
                 var c = b - a;
                 var x = d3.event.pageX - offsetLeft;
                 var y = d3.event.pageY - offsetTop;
@@ -684,7 +687,7 @@ configuration.mouseEvent = function (options) {
 
                 for(j = 0;j < range_length;j++) {
                     if((j+1) >= range_length) {
-                        console.log("false",j);
+                    //    console.log("false",j);
                         return false;
                     }
                     else {
@@ -709,7 +712,8 @@ configuration.mouseEvent = function (options) {
                                 pos_line_cursor_x = (xScale(active_x_tick) + lineMargin + left);
                                 pos_line_cursor_y = (yScale(data[j+1].y) + top);
                             }
-                            if(type === "multilineChart") {
+                            if(type === "multilineChart" || type === "stackedAreaChart") {
+                            console.log(type,"magic");
                                 if(multiple_containers_enable === "no") {
                                     d3.selectAll(options.selector+" #pyk-tooltip").classed({"pyk-line-tooltip":false,"pyk-multiline-tooltip":true,"pyk-tooltip-table":true});
                                     var len_data = new_data[0].data.length,tt_row=""; // Assumption -- number of Data points in different groups will always be equal
@@ -729,9 +733,15 @@ configuration.mouseEvent = function (options) {
                                             }
                                         }
                                     }
+                                    
                                     pos_line_cursor_x += 6;
                                     tooltipText = "<table><thead><th colspan='"+colspan+"'>"+active_x_tick+"</th></thead><tbody>"+tt_row+"</tbody></table>";
-                                    this.tooltipPosition(tooltipText,pos_line_cursor_x,y,60,-15,group_index);
+                                    if(type === "stackedAreaChart") {
+                                        group_index = 1;
+                                        this.tooltipPosition(tooltipText,pos_line_cursor_x,y,60,70,group_index);
+                                    } else {      
+                                        this.tooltipPosition(tooltipText,pos_line_cursor_x,y,60,-15,group_index);
+                                    }
                                     this.toolTextShow(tooltipText);
                                     (options.enableCrossHair) ? this.crossHairShow(pos_line_cursor_x,top,pos_line_cursor_x,(h - bottom),pos_line_cursor_x,pos_line_cursor_y,type,active_y_tick.length,multiple_containers_enable) : null;
                                     this.axisHighlightShow(active_y_tick,options.selector+" .y.axis");
@@ -794,7 +804,7 @@ configuration.mouseEvent = function (options) {
                             .attr("transform", "translate(" + cx + "," + cy + ")");
 
                     }
-                    else if(type === "multilineChart") {
+                    else if(type === "multilineChart" || type === "stackedAreaChart") {
                         if(multiple_containers_enable === "no") {
                             that.cross_hair_v.style("display","block");
                             that.cross_hair_v.select(options.selector + " #cross-hair-v")
@@ -830,7 +840,7 @@ configuration.mouseEvent = function (options) {
                     that.cross_hair_h.style("display","none");
                     that.focus_circle.style("display","none");
                 }
-                else if(type === "multilineChart") {
+                else if(type === "multilineChart" || type === "stackedAreaChart") {
                     d3.selectAll(options.selector+" .line-cursor").style("display","none");
                     d3.selectAll(options.selector+" .focus").style("display","none");
                 }
@@ -1028,7 +1038,6 @@ configuration.makeYAxis = function(options,yScale) {
                         return k.appendUnits(d);
                     })
                     // .tickFormat(d3.format(",.0f"));
-
     return yaxis;
 };
 

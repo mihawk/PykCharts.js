@@ -13,6 +13,7 @@ PykCharts.multiD.areaChart = function (options){
 			optional = options.optional;
 	    that.enableCrossHair = options.enableCrossHair ? options.enableCrossHair : multiDimensionalCharts.enableCrossHair;
 		that.curvy_lines = options.line_curvy_lines ? options.line_curvy_lines : multiDimensionalCharts.line_curvy_lines;
+		that.color_from_data = options.line_color_from_data ? options.line_color_from_data : multiDimensionalCharts.line_color_from_data;
 		// that.grid = options.chart && options.chart.grid ? options.chart.grid : stylesheet.chart.grid;
 	  	// that.grid.yEnabled = options.chart && options.chart.grid && options.chart.grid.yEnabled ? options.chart.grid.yEnabled : stylesheet.chart.grid.yEnabled;
 	  	// that.grid.xEnabled = options.chart && options.chart.grid && options.chart.grid.xEnabled ? options.chart.grid.xEnabled : stylesheet.chart.grid.xEnabled;
@@ -397,7 +398,27 @@ PykCharts.multiD.areaChart = function (options){
 						  	});
 					}
 					else if(that.type === "stackedAreaChart") {
+						console.log(that.type);
 						// that.svgContainer.on("mousemove", function() { console.log(d3.event.pageX,d3.event.pageY); });
+						that.svgContainer
+							.on('mouseout', function (d) {
+								that.mouseEvent.tooltipHide();
+								that.mouseEvent.crossHairHide(that.type);
+								that.mouseEvent.axisHighlightHide(that.selector + " .x.axis");
+								that.mouseEvent.axisHighlightHide(that.selector + " .y.axis");
+								for(var a=0;a < that.new_data_length;a++) {
+									$(options.selector+" #svg-"+a).trigger("mouseout");
+								}
+							})
+							.on("mousemove", function(){
+								// console.log(d3.select(options.selector+" #"+this.id+" .multi-line").attr("id"),"^^^^^^",this.id);
+								var line = [];
+								line[0] = d3.select(options.selector+" #"+this.id+" .stacked-area");
+								that.mouseEvent.crossHairPosition(that.data,that.new_data,that.xScale,that.yScale,line,that.extra_left_margin,that.type,that.tooltipMode,that.color_from_data,"no");
+								for(var a=0;a < that.new_data_length;a++) {
+									$(options.selector+" #svg-"+a).trigger("mousemove");
+								}
+							});
 					}
 				}
 				return this;
