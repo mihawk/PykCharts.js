@@ -658,7 +658,7 @@ configuration.mouseEvent = function (options) {
         },
         crossHairPosition: function(data,new_data,xScale,yScale,dataLineGroup,lineMargin,type,tooltipMode,color_from_data,multiple_containers_enable){
             if((PykCharts.boolean(options.enableCrossHair) || PykCharts.boolean(options.tooltip_enable) || PykCharts.boolean(options.onHoverHighlightenable))  && options.mode === "default") {
-                console.log(type,"trying to understand #_#");
+            //    console.log(type,"trying to understand #_#");
                 var offsetLeft = $(options.selector + " #"+dataLineGroup[0].attr("id")).offset().left;
                 var offsetTop = $(options.selector + " #"+dataLineGroup[0].attr("id")).offset().top;
                 var number_of_lines = new_data.length;
@@ -668,9 +668,9 @@ configuration.mouseEvent = function (options) {
                 var bottom = options.margin_bottom;
                 var w = options.width;
                 var h = options.height;
-                console.log(d3.event.target.id,"saveeeeeee me");
+            //    console.log(d3.event.target.id,"saveeeeeee me");
                 var group_index = parseInt(d3.event.target.id.substr((d3.event.target.id.length-1),1));
-                console.log(group_index,type,"confusion");
+            //    console.log(group_index,type,"confusion");
                 // console.log(group_index,"group_index");
                 var c = b - a;
                 var x = d3.event.pageX - offsetLeft;
@@ -709,7 +709,7 @@ configuration.mouseEvent = function (options) {
                                 pos_line_cursor_y = (yScale(data[j+1].y) + top);
                             }
                             if(type === "multilineChart" || type === "stackedAreaChart") {
-                            console.log(type,"magic");
+                        //    console.log(type,"magic");
                                 if(multiple_containers_enable === "no") {
                                     d3.selectAll(options.selector+" #pyk-tooltip").classed({"pyk-line-tooltip":false,"pyk-multiline-tooltip":true,"pyk-tooltip-table":true});
                                     var len_data = new_data[0].data.length,tt_row=""; // Assumption -- number of Data points in different groups will always be equal
@@ -1210,7 +1210,8 @@ configuration.Theme = function(){
         "scatterplot_pointer": "no",
 
         "line_color_from_data": "yes",
-        "line_curvy_lines": "no"
+        "line_curvy_lines": "no",
+        "line_highlight_group": []
 
     };
 
