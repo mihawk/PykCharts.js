@@ -536,6 +536,10 @@ PykCharts.Configuration = function (options){
                 d3.selectAll(options.selector + " .y.axis").attr("fill",function () { return options.axis_y_labelColor; });
                 var yaxis = PykCharts.Configuration.makeYAxis(options,yScale);
 
+                if(options.axis_y_pointer_values.length != 0) {
+                    yaxis.tickValues(options.axis_y_pointer_values);
+                }
+
                 gsvg.style("stroke",function () { return options.axis_y_axisColor; })
                     .call(yaxis)
                     .append("text")
