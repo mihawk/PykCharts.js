@@ -273,7 +273,12 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                         col_shade = obj[0].size;
                         for (i = 0; i < that.current_palette.colors.length; i++) {
                             if (col_shade >= that.extent_size[0] + i * (that.difference / that.current_palette.colors.length) && col_shade <= that.extent_size[0] + (i + 1) * (that.difference / that.current_palette.colors.length)) {
-                                return that.current_palette.colors[i];
+                                if (that.data.length===1) {
+                                    return(that.current_palette.colors[that.current_palette.colors.length-1]);
+                                }
+                                else{
+                                    return that.current_palette.colors[i];
+                                }
                             }
                         }
 
