@@ -16,7 +16,7 @@ PykCharts.multiD.lineChart = function (options){
 		that.multiple_containers_enable = options.multiple_containers_enable ? options.multiple_containers_enable : multiDimensionalCharts.multiple_containers_enable;
 		that.interpolate = PykCharts.boolean(that.curvy_lines) ? "cardinal" : "linear";
 	    that.color_from_data = options.line_color_from_data ? options.line_color_from_data : multiDimensionalCharts.line_color_from_data;
-	   that.color_from_data = false;
+
 	    d3.json(options.data, function (e, data) {
 			that.data = data.groupBy("line");
 			that.compare_data = that.data;

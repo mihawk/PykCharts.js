@@ -141,10 +141,10 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
             } else {
                 that.w = that.width;
                 that.new_data = that.data;
-                that.k.makeMainDiv(that.selector,1);
+                that.k.makeMainDiv(that.selector,0);
                 that.optionalFeatures()
-                    .legendsContainer(1)
-                    .svgContainer(1);
+                    .legendsContainer(0)
+                    .svgContainer(0);
 
                 that.k.liveData(that)
                     .tooltip();
@@ -180,11 +180,11 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
             that.w = that.width
             that.sizes = new PykCharts.multiD.bubbleSizeCalculation(that,that.data,that.radius_range);
             that.k.tooltip()
-                .makeMainDiv(that.selector,1);
+                .makeMainDiv(that.selector,0);
             that.optionalFeatures()
-                    .svgContainer(1);
+                    .svgContainer(0);
             that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
-            that.optionalFeatures().createChart();
+            that.optionalFeatures().createChart(0);
                 // .crossHair();
 
             that.k.xAxis(that.svgContainer,that.xGroup,that.x)
@@ -359,17 +359,42 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                         that.extra_left_margin = 0;
                     }
 
-                    if(PykCharts.boolean(that.zoom_enable) && !(that.yAxisDataFormat==="string" || that.xAxisDataFormat==="string") && (that.mode === "default")) {
-                        that.svgContainer
-                            .call(d3.behavior.zoom()
+                    var zoom = d3.behavior.zoom()
                             .x(that.x)
                             .y(that.yScale)
                             .scaleExtent([1, 10])
-                            .on("zoom", zoomed));
+                            .on("zoom",zoomed);
+
+                    if(PykCharts.boolean(that.zoom_enable) && !(that.yAxisDataFormat==="string" || that.xAxisDataFormat==="string") && (that.mode === "default") ) {                                           
+                            console.log("hey hello m in zoom",that.x.domain(),that.yScale.domain(),i);
+                        var n;
+                        if(PykCharts.boolean(that.multiple_containers_enable)) {
+                            n = that.no_of_groups;
+                        } else {
+                            n = 1;
+                        }
+
+                        for(var i = 0; i < that.no_of_groups; i++) {
+                            d3.select(that.selector+ " #svgcontainer" +i)
+                                .call(zoom);
+
+                            // d3.select(that.selector+ " #svgcontainer" +1)
+                            //     .call(zoom);
+
+                            // d3.select(that.selector+ " #svgcontainer" +2)
+                            //     .call(zoom);
+
+                            // d3.select(that.selector+ " #svgcontainer" +3)
+                            //     .call(zoom);
+
+                            // d3.select(that.selector+ " #svgcontainer" +4)
+                            //     .call(zoom);
+                        }
+                    
                     }
                     that.optionalFeatures().plotCircle();
                 }
-                return this;
+                return this ;
             },
             legends : function (index) {
 
@@ -781,24 +806,41 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
         };
         return optional;
     };
-
+    
     function zoomed () {
 
-            that.zoomed_out = false;
+        that.zoomed_out = false;
+        var id = this.id,
+        idLength = id.length,
+        n;
 
-            // that.k.isOrdinal(that.svgContainer,".x.axis",that.x);
-//            that.k.isOrdinal(that.svgContainer,".x.grid",that.x);
+        if(PykCharts.boolean(that.multiple_containers_enable)) {
+            n = that.no_of_groups;
+        } else {
+            n = 1;
+        }
+        console.log(this.id,"id");
+        for(var i = 0; i < n; i++) {
+            var containerId = id.substring(0,idLength-1);
+            console.log(d3.select(that.selector+" #"+containerId +i),"fishyyyyyyyy",that.x.domain());
 
-            // that.k.isOrdinal(that.svgContainer,".y.axis",that.yScale);
-  //          that.k.isOrdinal(that.svgContainer,".y.grid",that.yScale);
+            current_container = d3.select(that.selector+" #"+containerId +i);
+            
+            that.k.isOrdinal(current_container,".x.axis",that.x);
+            that.k.isOrdinal(current_container,".x.grid",that.x);
+
+            that.k.isOrdinal(current_container,".y.axis",that.yScale);
+            that.k.isOrdinal(current_container,".y.grid",that.yScale);
 
             that.optionalFeatures().plotCircle().label();
-            d3.select(that.selector+" #"+this.id)
+            d3.select(that.selector+" #"+containerId +i)
                 .selectAll(".dot")
                 .attr("r", function (d) {
                     return that.sizes(d.weight)*d3.event.scale;
                 });
+        }
     };
+
 
     // this.fullScreen = function () {
     //     var modalDiv = d3.select(that.selector).append("div")
