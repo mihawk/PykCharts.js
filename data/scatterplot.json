@@ -2,7 +2,7 @@
     {
         "name": "Dairy Milk",
         "x": 80,
-        "y": 2,
+        "y": 1.5,
         "weight": 500,
         "color": "#07365e",
         "group": "Cadbury"

@@ -67,21 +67,25 @@
                     axis_onHoverHighlightenable: "yes",
 
                     axis_x_enable: "yes",
+                    axis_x_title : "Industries",
                     axis_x_position: "bottom",
                     axis_x_value_position: "bottom",
                     axis_x_axisColor: "#1D1D1D",
                     axis_x_labelColor: "#1D1D1D",
                     axis_x_pointer_size: 3,
                     axis_x_pointer_padding: 3,
+                    // axis_x_pointer_values: ["Bank", "IT", "Cables"],
                     axis_x_outer_pointer_size: 3,
 
                     axis_y_enable: "yes",
+                    axis_y_title : "Growth rate",
                     axis_y_position: "left",
                     axis_y_value_position: "left",
                     axis_y_axisColor: "#1D1D1D",
                     axis_y_labelColor: "#1D1D1D",
                     axis_y_pointer_size: 3,
                     axis_y_pointer_padding: 10,
+                    // axis_y_pointer_values: [30,40,50],
                     axis_y_outer_pointer_size: 3, 
 
                     line_curvy_lines:"yes",
@@ -113,6 +117,7 @@
                     axis_onHoverHighlightenable: "yes",
 
                     axis_x_enable: "yes",
+                    axis_x_title : "Industries",
                     axis_x_position: "bottom",
                     axis_x_value_position: "bottom",
                     axis_x_axisColor: "#1D1D1D",
@@ -122,6 +127,7 @@
                     axis_x_outer_pointer_size: 3,
 
                     axis_y_enable: "yes",
+                    axis_y_title : "Growth rate",
                     axis_y_position: "left",
                     axis_y_value_position: "left",
                     axis_y_axisColor: "#1D1D1D",
@@ -142,8 +148,11 @@
                     selector: "#spiderWeb",
                     data: "../data/spiderWeb.json",
                     mode : "default", //  default or infographics
+
                     spiderweb_radius : 5,
                     spiderweb_outer_radius_percent: 80,
+                    spiderweb_pointer: "yes",
+                    spiderweb_axisTitle : "yes",
 
                     chart_height: 430,
                     chart_width : 530,
@@ -154,7 +163,6 @@
                     
                     realTimeCharts_refreshFrequency: 0,
                     size_enable: "yes",
-                    enableTicks: "yes",
                     borderBetweenChartElements_width: 0,
                     borderBetweenChartElements_color: "blue",
                     legends_enable: "yes", 
@@ -163,7 +171,7 @@
                     legendsText_color: "black",
                     legendsText_weight: "thin",
                     legendsText_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
-                    axisTitle: "yes"
+                   
                     
                 });
                 k.execute();
@@ -185,11 +193,14 @@
                     chart_grid_yEnabled: "yes", 
                     
                     scatterplot_radius : 9,
+                    scatterplot_pointer: "no",
+
                     realTimeCharts_refreshFrequency: 0, 
                     multiple_containers_enable: "no",
                     size_enable: "yes",
 
                     axis_x_enable: "yes",
+                    axis_x_title : "Price",
                     axis_x_position: "bottom",
                     axis_x_value_position: "bottom",
                     axis_x_axisColor: "#1D1D1D",
@@ -200,6 +211,7 @@
                     axis_x_outer_pointer_size: 3,
 
                     axis_y_enable: "yes",
+                    axis_y_title : "Rating",
                     axis_y_position: "left",
                     axis_y_value_position: "left",
                     axis_y_axisColor: "#1D1D1D",
@@ -217,12 +229,12 @@
                     legendsText_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
             
                     zoom_enable: "yes",
-
+                    
                     borderBetweenChartElements_width:0,
                     borderBetweenChartElements_color:"blue", 
         
                     label_size:12,
-                    label_color: "white",
+                    label_color: "black",
                     label_weight: "thick",
                     label_family:"'Helvetica Neue',Helvetica,Arial,sans-serif",
 
@@ -247,11 +259,13 @@
                     chart_grid_yEnabled: "yes", 
                     
                     scatterplot_radius : 9,
+                    scatterplot_pointer: "no",
                     realTimeCharts_refreshFrequency: 0, 
                     multiple_containers_enable: "no",
                     size_enable: "yes",
 
                     axis_x_enable: "yes",
+                    axis_x_title : "Price",
                     axis_x_position: "bottom",
                     axis_x_value_position: "bottom",
                     axis_x_axisColor: "#1D1D1D",
@@ -262,6 +276,7 @@
                     axis_x_outer_pointer_size: 3,
 
                     axis_y_enable: "yes",
+                    axis_y_title : "Rating",
                     axis_y_position: "left",
                     axis_y_value_position: "left",
                     axis_y_axisColor: "#1D1D1D",
@@ -313,6 +328,7 @@
                     axis_onHoverHighlightenable: "yes",
 
                     axis_x_enable: "yes",
+                    axis_x_title : "Industries",
                     axis_x_position: "bottom",
                     axis_x_value_position: "bottom",
                     axis_x_axisColor: "#1D1D1D",
@@ -322,6 +338,7 @@
                     axis_x_outer_pointer_size: 3,
 
                     axis_y_enable: "yes",
+                    axis_y_title : "Growth rate",
                     axis_y_position: "left",
                     axis_y_value_position: "left",
                     axis_y_axisColor: "#1D1D1D",
@@ -330,11 +347,14 @@
                     axis_y_pointer_padding: 10,
                     axis_y_outer_pointer_size: 3, 
 
+
                     line_curvy_lines:"yes",
                     tooltip_mode : "moving",
+                    tooltip_enable : "yes",
                     enableCrossHair: "yes",
                     multiple_containers_enable: "yes",
-                    enableTooltip: "yes"
+                    line_highlight_group: ["india"],
+                    "highlightColor": "#013F73",
 
                 });
                 k.execute();
@@ -360,6 +380,7 @@
                     axis_onHoverHighlightenable: "yes",
 
                     axis_x_enable: "yes",
+                    axis_x_title : "Industries",
                     axis_x_position: "bottom",
                     axis_x_value_position: "bottom",
                     axis_x_axisColor: "#1D1D1D",
@@ -369,6 +390,7 @@
                     axis_x_outer_pointer_size: 3,
 
                     axis_y_enable: "yes",
+                    axis_y_title : "Growth rate",
                     axis_y_position: "left",
                     axis_y_value_position: "left",
                     axis_y_axisColor: "#1D1D1D",
@@ -379,9 +401,12 @@
 
                     line_curvy_lines:"yes",
                     tooltip_mode : "moving",
+                    tooltip_enable : "yes",
                     enableCrossHair: "yes",
+                    line_highlight_group: ["india"], 
+                   // "highlightColor": "red",// name of the group which is to be highlighted on onload
                     // multiple_containers_enable: "no",
-                    enableTooltip: "yes"
+                    
                     
                 });
                 k.execute();
@@ -408,6 +433,7 @@
                     axis_onHoverHighlightenable: "yes",
 
                     axis_x_enable: "yes",
+                    axis_x_title : "Industries",
                     axis_x_position: "bottom",
                     axis_x_value_position: "bottom",
                     axis_x_axisColor: "#1D1D1D",
@@ -417,6 +443,7 @@
                     axis_x_outer_pointer_size: 3,
 
                     axis_y_enable: "yes",
+                    axis_y_title : "Growth rate",
                     axis_y_position: "left",
                     axis_y_value_position: "left",
                     axis_y_axisColor: "#1D1D1D",
@@ -427,7 +454,7 @@
 
                     line_curvy_lines:"yes",
                     enableCrossHair: "yes",
-                    enableTooltip: "yes",
+                    tooltip_enable : "yes",
                     zoom_enable: "yes"
                        
                 });
@@ -454,28 +481,32 @@
                     axis_onHoverHighlightenable: "yes",
 
                     axis_x_enable: "yes",
+                    axis_x_title : "Years",
                     axis_x_position: "bottom",
                     axis_x_value_position: "bottom",
                     axis_x_axisColor: "#1D1D1D",
                     axis_x_labelColor: "#1D1D1D",
                     axis_x_pointer_size: 3,
                     axis_x_pointer_padding: 3,
+                    axis_x_pointer_values: [2002, 2004, 2006, 2008],
                     axis_x_outer_pointer_size: 3,
 
                     axis_y_enable: "yes",
+                    axis_y_title : "Categories",
                     axis_y_position: "left",
                     axis_y_value_position: "left",
                     axis_y_axisColor: "#1D1D1D",
                     axis_y_labelColor: "#1D1D1D",
                     axis_y_pointer_size: 3,
                     axis_y_pointer_padding: 10,
+                    axis_x_pointer_values: [],
                     axis_y_outer_pointer_size: 3, 
 
                     line_curvy_lines:"yes",
                     tooltip_mode : "moving",
+                    tooltip_enable : "yes",
                     enableCrossHair: "yes",
                     multiple_containers_enable: "no",
-                    enableTooltip: "yes",
                     
                     size_enable : "yes",
             
@@ -491,7 +522,7 @@
                     borderBetweenChartElements_style: "solid",
 
                     label_size:12,
-                    label_color: "white",
+                    label_color: "red",
                     label_weight: "thick",
                     label_family:"'Helvetica Neue',Helvetica,Arial,sans-serif",
 
@@ -517,6 +548,7 @@
                     axis_onHoverHighlightenable: "yes",
 
                     axis_x_enable: "yes",
+                    axis_x_title : "Months",
                     axis_x_position: "bottom",
                     axis_x_value_position: "bottom",
                     axis_x_axisColor: "#1D1D1D",
@@ -526,6 +558,7 @@
                     axis_x_outer_pointer_size: 3,
 
                     axis_y_enable: "yes",
+                    axis_y_title : "Rainfall",
                     axis_y_position: "left",
                     axis_y_value_position: "left",
                     axis_y_axisColor: "#1D1D1D",
@@ -568,6 +601,7 @@
                     axis_onHoverHighlightenable: "yes",
 
                     axis_x_enable: "yes",
+                    axis_x_title : "Months",
                     axis_x_position: "bottom",
                     axis_x_value_position: "bottom",
                     axis_x_axisColor: "#1D1D1D",
@@ -577,6 +611,7 @@
                     axis_x_outer_pointer_size: 3,
 
                     axis_y_enable: "yes",
+                    axis_y_title : "Rainfall",
                     axis_y_position: "left",
                     axis_y_value_position: "left",
                     axis_y_axisColor: "#1D1D1D",
@@ -613,7 +648,7 @@
                     chart_margin_top: 25,
                     chart_margin_right: 25,
                     chart_margin_bottom: 25,
-                    chart_margin_left: 25, 
+                    chart_margin_left: 60, 
                     chart_grid_xEnabled: "yes",
 
                     realTimeCharts_refreshFrequency: 0 ,
@@ -621,6 +656,7 @@
                     axis_onHoverHighlightenable: "yes",
 
                     axis_x_enable: "yes",
+                    axis_x_title : "Rainfall",
                     axis_x_position: "bottom",
                     // axis_x_value_position: "bottom",
                     axis_x_axisColor: "#1D1D1D",
@@ -630,6 +666,7 @@
                     axis_x_outer_pointer_size: 3,
 
                     axis_y_enable: "yes",
+                    axis_y_title : "Months",
                     axis_y_position: "left",
                     // axis_y_value_position: "left",
                     axis_y_axisColor: "#1D1D1D",
@@ -670,12 +707,12 @@
                     mode: "default",
                     selector: "#groupBar",
 
-                     chart_height: 430,
+                    chart_height: 430,
                     chart_width : 400,
                     chart_margin_top: 25,
                     chart_margin_right: 45,
                     chart_margin_bottom: 25,
-                    chart_margin_left: 25, 
+                    chart_margin_left: 60, 
                     chart_grid_xEnabled: "yes",
 
                     realTimeCharts_refreshFrequency: 0 ,
@@ -683,6 +720,7 @@
                     axis_onHoverHighlightenable: "yes",
 
                     axis_x_enable: "yes",
+                    axis_x_title : "Rainfall",
                     axis_x_position: "bottom",
                     axis_x_value_position: "bottom",
                     axis_x_axisColor: "#1D1D1D",
@@ -692,6 +730,7 @@
                     axis_x_outer_pointer_size: 3,
 
                     axis_y_enable: "yes",
+                    axis_y_title : "Months",
                     axis_y_position: "left",
                     axis_y_value_position: "left",
                     axis_y_axisColor: "#1D1D1D",

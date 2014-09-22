@@ -1,0 +1,66 @@
+[
+	{
+		"x": "Q1",
+		"y":  500,
+		"group": "Views",
+		"tooltip": "<table class='PykCharts'><tr><th>Views</th></tr><tr><td>500</td></tr></table>",
+		"color": "#4b6377",
+		"highlight": true
+	},
+	{
+		"x": "Q1",
+		"y":  200,
+		"group": "CTR",
+		"tooltip": "<table class='PykCharts'><tr><th>CTR</th></tr><tr><td>200</td></tr></table>",
+		"color": "#4b6377",
+		"highlight": false
+	},
+	{
+		"x": "Q2",
+		"y":  600,
+		"group": "Views",
+		"tooltip": "<table class='PykCharts'><tr><th>Views</th></tr><tr><td>600</td></tr></table>",
+		"color": "#4b6377",
+		"highlight": false
+	},
+	{
+		"x": "Q2",
+		"y":  300,
+		"group": "CTR",
+		"tooltip": "<table class='PykCharts'><tr><th>CTR</th></tr><tr><td>300</td></tr></table>",
+		"color": "#4b6377",
+		"highlight": false
+	},
+	{
+		"x": "Q3",
+		"y":  700,
+		"group": "Views",
+		"tooltip": "<table class='PykCharts'><tr><th>Views</th></tr><tr><td>700</td></tr></table>",
+		"color": "#4b6377",
+		"highlight": false
+	},
+	{
+		"x": "Q3",
+		"y":  400,
+		"group": "CTR",
+		"tooltip": "<table class='PykCharts'><tr><th>CTR</th></tr><tr><td>400</td></tr></table>",
+		"color": "#4b6377",
+		"highlight": false
+	},
+	{
+		"x": "Q4",
+		"y":  800,
+		"group": "Views",
+		"tooltip": "<table class='PykCharts'><tr><th>Views</th></tr><tr><td>800</td></tr></table>",
+		"color": "#4b6377",
+		"highlight": false
+	},
+	{
+		"x": "Q4",
+		"y":  500,
+		"group": "CTR",
+		"tooltip": "<table class='PykCharts'><tr><th>CTR</th></tr><tr><td>500</td></tr></table>",
+		"color": "#4b6377",
+		"highlight": false
+	}
+]

@@ -1,0 +1,134 @@
+<html>
+	<head>
+        <title>One-Dimensional Charts</title>
+        <link rel="stylesheet" type="text/css" href="../src/css/PykCharts.css">
+	</head>
+	<body>
+      <div id="bubble"></div>
+      <hr/>
+      <div id="funnel"></div>
+      <hr/>
+      <div id="pieContainer"></div>
+      <hr/>
+      <div id="pictograph"></div>
+      <hr/>
+      <div id="pyramid"></div>
+      <hr/>
+      <div id="treemap"></div>
+      <hr/>
+      <div id="donutContainer"></div>
+      <hr/>
+      <div id="electionPieContainer"></div>
+      <hr/>
+      <div id="electionDonutContainer"></div>
+      <hr/>
+      <div id="pie2Container"></div>
+      <hr/>
+      <div id="percentageColumn"></div>
+      <hr/>
+  <div id="qunit"></div>
+	<div id="qunit-fixture"></div>
+      <script src="../lib/d3.min.js"></script>
+      <script src="../lib/jquery-1.11.1.min.js"></script>
+      <script src="../lib/underscore-min.js"></script>
+      <script src="../lib/custom-hive.js"></script>
+	    <script src="../src/js/pyk.js"></script>
+	    <script src="../src/js/oneD/oneD.js"></script>
+	    <script src="../src/js/oneD/bubble.js"></script>
+	    <script src="../src/js/oneD/funnel.js"></script>
+	    <script src="../src/js/oneD/percentageColumn.js"></script>
+	    <script src="../src/js/oneD/pictograph.js"></script>
+	    <script src="../src/js/oneD/pie.js"></script>
+	    <script src="../src/js/oneD/pyramid.js"></script>
+	    <script src="../src/js/oneD/treemap.js"></script>
+	    <script src="../src/js/init.js"></script>
+      <script>
+
+		    window.PykChartsInit = function (e) {
+					console.log("====TEST===");
+					test("testing",function () {
+						console.log("****TEST 2****");
+            // var k = new PykCharts.oneD.bubble({
+            //     selector: "#bubble",
+            //     data:"../data/pie.json",
+            //     "transition_duration": 1000
+            // });
+            // k.execute();
+						ok( 1 == "1", "Passed!" );
+					})
+
+      			var k = new PykCharts.oneD.funnel({
+          				selector: "#funnel",
+          				data:"../data/pie.json",
+                 "transition_duration": 1000
+        			});
+      			k.execute();
+
+            var k = new PykCharts.oneD.pictograph({
+                selector: "#pictograph",
+                data:"../data/pictograph.json",
+                "transition_duration": 1000
+             });
+            k.execute();
+
+            var k = new PykCharts.oneD.pyramid ({
+                selector: "#pyramid",
+                data:"../data/pie.json",
+                "transition_duration": 1000
+             });
+            k.execute();
+
+            var k = new PykCharts.oneD.treemap({
+                selector: "#treemap",
+                data: "../data/pie.json",
+                "transition_duration": 1000
+            });
+            k.execute();
+
+            var k = new PykCharts.oneD.donut({
+                selector: "#donutContainer",
+                data: "../data/pie.json",
+                "transition_duration": 1000
+            });
+            k.execute();
+
+            var k = new PykCharts.oneD.election_pie({
+                selector: "#electionPieContainer",
+                data: "../data/pie.json",
+                "transition_duration": 4000
+            });
+            k.execute();
+
+            var k = new PykCharts.oneD.election_donut({
+                selector: "#electionDonutContainer",
+                data: "../data/pie.json",
+                "transition_duration": 4000
+            });
+            k.execute();
+
+            var k = new PykCharts.oneD.pie({
+                selector: "#pieContainer",
+                data: "../data/pie.json",
+                "transition_duration": 4000
+            });
+            k.execute();
+
+            var k = new PykCharts.oneD.percentageColumn({
+                selector: "#percentageColumn",
+                data:"../data/pie.json",
+                "transition_duration": 1000,
+                // "realTimeCharts_refreshFrequency": 11
+            });
+            k.execute();
+
+            var k = new PykCharts.oneD.pie({
+                selector: "#pie2Container",
+                data: "../data/pie2.json",
+                "transition_duration": 1000
+            });
+            k.execute();
+		    }
+
+		</script>
+	</body>
+</html>
