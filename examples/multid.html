@@ -204,7 +204,7 @@
                     axis_x_position: "bottom",
                     axis_x_value_position: "bottom",
                     axis_x_axisColor: "#1D1D1D",
-                    axis_x_no_of_axis_value: 10,
+                    axis_x_no_of_axis_value: 5,
                     axis_x_labelColor: "black",
                     axis_x_pointer_size: 5,
                     axis_x_pointer_padding: 3,
@@ -215,7 +215,7 @@
                     axis_y_position: "left",
                     axis_y_value_position: "left",
                     axis_y_axisColor: "#1D1D1D",
-                    axis_y_no_of_axis_value: 10,
+                    axis_y_no_of_axis_value: 5,
                     axis_y_labelColor: "#1D1D1D",
                     axis_y_pointer_size: 5,
                     axis_y_pointer_padding: 10,
@@ -261,7 +261,7 @@
                     scatterplot_radius : 9,
                     scatterplot_pointer: "no",
                     realTimeCharts_refreshFrequency: 0, 
-                    multiple_containers_enable: "no",
+                    multiple_containers_enable: "yes",
                     size_enable: "yes",
 
                     axis_x_enable: "yes",
@@ -269,7 +269,7 @@
                     axis_x_position: "bottom",
                     axis_x_value_position: "bottom",
                     axis_x_axisColor: "#1D1D1D",
-                    axis_x_no_of_axis_value: 10,
+                    axis_x_no_of_axis_value: 5,
                     axis_x_labelColor: "black",
                     axis_x_pointer_size: 5,
                     axis_x_pointer_padding: 3,
@@ -280,7 +280,7 @@
                     axis_y_position: "left",
                     axis_y_value_position: "left",
                     axis_y_axisColor: "#1D1D1D",
-                    axis_y_no_of_axis_value: 10,
+                    axis_y_no_of_axis_value: 5,
                     axis_y_labelColor: "#1D1D1D",
                     axis_y_pointer_size: 5,
                     axis_y_pointer_padding: 10,
@@ -353,6 +353,8 @@
                     tooltip_enable : "yes",
                     enableCrossHair: "yes",
                     multiple_containers_enable: "yes",
+                    line_highlight_group: ["india"],
+                    "highlightColor": "#013F73",
 
                 });
                 k.execute();
@@ -400,7 +402,9 @@
                     line_curvy_lines:"yes",
                     tooltip_mode : "moving",
                     tooltip_enable : "yes",
-                    enableCrossHair: "yes"
+                    enableCrossHair: "yes",
+                    line_highlight_group: ["india"], 
+                    "highlightColor": "yellow",// name of the group which is to be highlighted on onload
                     // multiple_containers_enable: "no",
                     
                     

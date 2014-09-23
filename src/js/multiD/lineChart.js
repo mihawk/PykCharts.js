@@ -39,6 +39,7 @@ PykCharts.multiD.lineChart = function (options){
 		$.unique(that.uniq_group_arr);
 		$.unique(that.uniq_color_arr);
 		var len = that.uniq_group_arr.length;
+		console.log(that.uniq_group_arr,"what is this?????")
 		if(!PykCharts.boolean(that.group_arr[0])){
 			that.new_data[0] = {
 					name: (that.data[0].name || ""),
@@ -69,6 +70,7 @@ PykCharts.multiD.lineChart = function (options){
 				}
 			}
 		}
+
 		that.new_data_length = that.new_data.length;
 	};
 
@@ -125,7 +127,8 @@ PykCharts.multiD.lineChart = function (options){
 
 				that.optionalFeature()
 						.chartType()
-						.svgContainer(1);
+						.svgContainer(1)
+						.hightLightOnload();
 
 				that.k.crossHair(that.svgContainer,1);
 
@@ -137,8 +140,6 @@ PykCharts.multiD.lineChart = function (options){
 						.yAxis(that.svgContainer,that.yGroup,that.yScale)
 						.yGrid(that.svgContainer,that.group,that.yScale)
 						.xGrid(that.svgContainer,that.group,that.xScale);
-
-			    // console.log(that.xScale.domain(),that.yScale.domain(),"R & D");
 			}
 			that.k.createFooter()
                 .lastUpdatedAt()
@@ -204,6 +205,23 @@ PykCharts.multiD.lineChart = function (options){
 				}
 				that.type = that.type || "lineChart";
 				return this;
+			},
+			hightLightOnload: function () {
+				if(that.type === "multilineChart") {
+					if(that.new_data_length > 0 && that.line_highlight_group.length) {
+						for(var i = 0;i< that.uniq_group_arr.length;i++) {
+							if(that.line_highlight_group[0].toLowerCase() === that.uniq_group_arr[i].toLowerCase()) {
+								that.new_data[i].highlight = true;
+							} else
+							{
+								that.new_data[i].highlight = false;
+							}
+						}
+					}
+				}
+				console.log(that.new_data,"testing");				
+				return this;
+				
 			},
 			svgContainer: function (i){
 				if(that.type === "multilineChart") {
@@ -471,10 +489,30 @@ PykCharts.multiD.lineChart = function (options){
 						  	if(that.type === "multilineChart") {
 						  		if(PykCharts.boolean(that.color_from_data)) {
 									that.legend_text[i]
-						      			.style("fill", function() { return that.new_data[i].color; });
+						      			.style("fill", function() {
+						      				if(that.new_data[i].highlight) {
+						      					return that.highlightColor;
+							      			} else {
+							      				return that.new_data[i].color;							      				
+							      			}
+							      		});
 
 						      		that.dataLineGroup[i]
-						      			.style("stroke", function() { return that.new_data[i].color; })
+						      			.style("stroke", function() {
+						      				if(that.new_data[i].highlight) {
+						      					that.selected = this;
+						      					that.selected_line_data = this.__data__;
+						      					that.selected_line_data_len = that.selected_line_data.length;
+						      					d3.select(that.selector+" text#"+this.id).style("visibility","visible")
+						      					d3.select(this).classed({'multi-line-selected':true,'multi-line':false,'multi-line-hover':false});
+						      					that.color_before_selection = that.highlightColor;
+						      					that.updateSelectedLine(this.id);
+
+						      					return that.highlightColor;
+						      				} else {
+						      					return that.new_data[i].color; 
+						      				}
+						      			})
 							      		.on("click",function (d) {
 								  			that.selected_line = d3.event.target;
 											that.selected_line_data = that.selected_line.__data__;
@@ -486,6 +524,7 @@ PykCharts.multiD.lineChart = function (options){
 													.style("stroke", function() { return (PykCharts.boolean(that.color_from_data)) ? that.color_before_selection : that.chartColor; });
 											that.selected = this;
 											that.color_before_selection = d3.select(that.selected).style("stroke");
+											console.log("faith");
 											d3.select(that.selected)
 													.classed({'multi-line-selected':true,'multi-line':false,'multi-line-hover':false})
 													.style("stroke", function() { return (PykCharts.boolean(that.color_from_data)) ? that.color_before_selection : that.highlightColor; })
@@ -501,10 +540,29 @@ PykCharts.multiD.lineChart = function (options){
 								}
 								else if(!PykCharts.boolean(that.color_from_data)) {
 									that.legend_text[i]
-						      			.style("fill", function() { return that.legendsText_color; });
+						      			.style("fill", function() { 
+						      				if(that.new_data[i].highlight) {
+						      					return that.highlightColor;
+							      			} else {
+							      				console.log(that.legendsText_color,"hope");
+							      				return that.legendsText_color;							      				
+							      			}						      				
+						      			});
 
 									that.dataLineGroup[i]
-										.style("stroke", that.chartColor)
+										.style("stroke", function() {
+						      				if(that.new_data[i].highlight) {
+												that.selected = this;
+						      					that.selected_line_data = this.__data__;
+						      					that.selected_line_data_len = that.selected_line_data.length;
+						      					d3.select(that.selector+" text#"+this.id).style("visibility","visible")
+						      					d3.select(this).classed({'multi-line-selected':true,'multi-line':false,'multi-line-hover':false});
+						      					that.color_before_selection = that.highlightColor;
+						      					that.updateSelectedLine(this.id);						      					return that.highlightColor;
+						      				} else {
+						      					return that.chartColor;
+						      				}
+						      			})
 										.on("mouseover",function (d) {
 											if(this !== that.selected) {
 												d3.select(this)
@@ -589,7 +647,7 @@ PykCharts.multiD.lineChart = function (options){
 								that.mouseEvent.axisHighlightHide(that.selector + " .y.axis");
 							})
 							.on("mousemove", function(){
-								console.log(that.dataLineGroup[0],"that.dataLineGroup", "yooo");								
+								//console.log(that.dataLineGroup[0],"that.dataLineGroup", "yooo");								
 								that.mouseEvent.crossHairPosition(that.data,that.new_data,that.xScale,that.yScale,that.dataLineGroup,that.extra_left_margin,that.type,that.tooltipMode,that.color_from_data,null);
 							});
 					}
