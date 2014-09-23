@@ -48,7 +48,7 @@ PykCharts.multiD.areaChart = function (options){
 					.createChart()
 		    		.axisContainer();
 
-			that.k.crossHair(that.svgContainer,that.type);
+			that.k.crossHair(that.svgContainer,that.new_data.length,that.type);
 
 			that.k.xAxis(that.svgContainer,that.xGroup,that.xScale)
 					.yAxis(that.svgContainer,that.yGroup,that.yScale)
@@ -208,12 +208,15 @@ PykCharts.multiD.areaChart = function (options){
 										y: that.data[l].y,
 										tooltip: that.data[l].tooltip
 	            			 	});
+	            			 	console.log(that.data[l].y);
 	            			}
 	          			}
 	        		}
 				}
 				that.new_data_length = that.new_data.length;
 				that.layers = that.stack_layout(that.new_data);
+				console.log(that.layers,"layerssss");
+				console.log(that.new_data,"newdata");
 
         		var x_domain,x_data = [],y_data,y_range,x_range,y_domain;
 
