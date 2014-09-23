@@ -429,7 +429,7 @@ PykCharts.Configuration = function (options){
                     .attr("class","cross-hair-h")
                     .attr("id","cross-hair-h");
 
-                for (j=0; j<3;j++) {
+                for (j=0; j<3; j++) {
                     PykCharts.Configuration.focus_circle = svg.append("g")
                         .attr("class","focus")
                         .style("display","none")
@@ -440,7 +440,6 @@ PykCharts.Configuration = function (options){
                         .attr("r",6);
                     console.log("jjjjjj", j,len);
                 } 
-                // console.log( PykCharts.Configuration.focus_circle.selectAll("circle"),"aajaaaa");              
             }
             return this;
         },
@@ -721,7 +720,6 @@ configuration.mouseEvent = function (options) {
                                 pos_line_cursor_y = (yScale(data[j+1].y) + top);
                             }
                             if(type === "multilineChart" || type === "stackedAreaChart") {
-                            // console.log(type,"magic");
                                 if(multiple_containers_enable === "no") {
                                     var test = [];
                                     d3.selectAll(options.selector+" #pyk-tooltip").classed({"pyk-line-tooltip":false,"pyk-multiline-tooltip":true,"pyk-tooltip-table":true});
