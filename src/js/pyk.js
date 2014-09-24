@@ -412,6 +412,7 @@ PykCharts.Configuration = function (options){
             return this;
         },
         crossHair : function (svg,len) {
+            //var length = len.length;
             if(PykCharts.boolean(options.enableCrossHair) && options.mode === "default") {
                 /*$(options.selector + " " + "#cross-hair-v").remove();
                 $(options.selector + " " + "#focus-circle").remove();*/
@@ -428,8 +429,10 @@ PykCharts.Configuration = function (options){
                 PykCharts.Configuration.cross_hair_h.append("line")
                     .attr("class","cross-hair-h")
                     .attr("id","cross-hair-h");
-
-                for (j=0; j<3; j++) {
+                // console.log(parseInt(len.length),"lennnnnnnnnn");
+                for (j=0; j<len; j++) {
+                    console.log(len, options.selector);
+                    // console.log(len.length,"for len",j);
                     PykCharts.Configuration.focus_circle = svg.append("g")
                         .attr("class","focus")
                         .style("display","none")
@@ -438,7 +441,7 @@ PykCharts.Configuration = function (options){
                     PykCharts.Configuration.focus_circle.append("circle")
                         .attr("id","focus-circle"+j)
                         .attr("r",6);
-                    console.log("jjjjjj", j,len);
+                    console.log("jjjjjj", j,len,d3.select(options.selector+ " #f_circle"+j));
                 } 
             }
             return this;
@@ -718,7 +721,7 @@ configuration.mouseEvent = function (options) {
                                 pos_line_cursor_x = (xScale(active_x_tick) + lineMargin + left);
                                 pos_line_cursor_y = (yScale(data[j+1].y) + top);
                             }
-                            if(type === "multilineChart" || type === "stackedAreaChart") {
+                            if(type === "multilineChart" /*|| type === "stackedAreaChart"*/) {
                                 if(multiple_containers_enable === "no") {
                                     var test = [];
                                     d3.selectAll(options.selector+" #pyk-tooltip").classed({"pyk-line-tooltip":false,"pyk-multiline-tooltip":true,"pyk-tooltip-table":true});
@@ -769,7 +772,8 @@ configuration.mouseEvent = function (options) {
                                                 pos_line_cursor_y = (yScale(new_data[a].data[b].y) + top);
                                                 this.tooltipPosition(tooltipText,(pos_line_cursor_x+(a*diff_containers)),pos_line_cursor_y,-15,-15,a);
                                                 this.toolTextShow(tooltipText,multiple_containers_enable,type,a);
-                                                (options.enableCrossHair) ? this.crossHairShow(pos_line_cursor_x,top,pos_line_cursor_x,(h - bottom),pos_line_cursor_x,pos_line_cursor_y,type,active_y_tick.length,multiple_containers_enable,a) : null;
+                                                (options.enableCrossHair) ? this.crossHairShow(pos_line_cursor_x,top,pos_line_cursor_x,(h - bottom),pos_line_cursor_x,pos_line_cursor_y,type,active_y_tick.length,multiple_containers_enable,new_data[a],a) : null;
+                                                console.log(a,"aaaaaaaaaaaaaaaaaaa");
                                             }
                                         }
                                     }
@@ -786,6 +790,43 @@ configuration.mouseEvent = function (options) {
                                 (options.enableCrossHair) ? this.crossHairShow(pos_line_cursor_x,top,pos_line_cursor_x,(h - bottom),pos_line_cursor_x,pos_line_cursor_y,type,active_y_tick.length,multiple_containers_enable) : null;
                                 this.axisHighlightShow(active_y_tick,options.selector+" .y.axis");
                                 this.axisHighlightShow(active_x_tick,options.selector+" .x.axis");
+                            }
+                            else if (type === "stackedAreaChart") {
+                                 var test = [];
+                                    d3.selectAll(options.selector+" #pyk-tooltip").classed({"pyk-line-tooltip":false,"pyk-multiline-tooltip":true,"pyk-tooltip-table":true});
+                                    var len_data = new_data[0].data.length,tt_row=""; // Assumption -- number of Data points in different groups will always be equal
+                                    active_y_tick = [];
+                                    for(var a=0;a < number_of_lines;a++) {
+                                        for(var b=0;b < len_data;b++) {
+                                            if(new_data[a].data[b].x === active_x_tick) {
+                                                active_y_tick.push(new_data[a].data[b].y);
+                                                test.push(yScale(new_data[a].data[b].y+new_data[a].data[b].y0) + top);
+                                                if(!PykCharts.boolean(color_from_data)) {
+                                                    tt_row += "<tr><td>"+new_data[a].name+"</td><td><b>"+new_data[a].data[b].tooltip+"</b></td></tr>";
+                                                    colspan = 2;
+                                                }
+                                                else if (PykCharts.boolean(color_from_data)) {
+                                                    tt_row += "<tr><td><div style='padding:2px;width:5px;height:5px;background-color:"+new_data[a].color+"'></div></td><td>"+new_data[a].name+"</td><td><b>"+new_data[a].data[b].tooltip+"</b></td></tr>";
+                                                    colspan = 3;
+                                                }
+                                            }
+                                        }
+                                    }
+                                    
+                                    pos_line_cursor_x += 6;
+                                    tooltipText = "<table><thead><th colspan='"+colspan+"'>"+active_x_tick+"</th></thead><tbody>"+tt_row+"</tbody></table>";
+                                    if(type === "stackedAreaChart") {
+                                        group_index = 1;
+                                        this.tooltipPosition(tooltipText,pos_line_cursor_x,y,60,70,group_index);
+                                    } else {      
+                                        this.tooltipPosition(tooltipText,pos_line_cursor_x,y,60,-15,group_index);
+                                    }
+                                    this.toolTextShow(tooltipText);
+                                    (options.enableCrossHair) ? this.crossHairShow(pos_line_cursor_x,top,pos_line_cursor_x,(h - bottom),pos_line_cursor_x,test,type,active_y_tick.length,multiple_containers_enable,new_data) : null;
+                                    // (options.enableCrossHair) ? this.crossHairShow(pos_line_cursor_x,top,pos_line_cursor_x,(h - bottom),pos_line_cursor_x,pos_line_cursor_y,type,active_y_tick.length,multiple_containers_enable) : null;
+                                    this.axisHighlightShow(active_y_tick,options.selector+" .y.axis");
+                                    this.axisHighlightShow(active_x_tick,options.selector+" .x.axis");
+
                             }
                         }
                     }
@@ -812,7 +853,7 @@ configuration.mouseEvent = function (options) {
                             .attr("transform", "translate(" + cx + "," + cy + ")");
 
                     }
-                    else if(type === "multilineChart" || type === "stackedAreaChart") {
+                    else if(type === "multilineChart" /*|| type === "stackedAreaChart"*/) {
                         if(multiple_containers_enable === "no") {
                             that.cross_hair_v.style("display","block");
                             that.cross_hair_v.select(options.selector + " #cross-hair-v")
@@ -820,15 +861,15 @@ configuration.mouseEvent = function (options) {
                                 .attr("y1",y1)
                                 .attr("x2",(x2 - 5))
                                 .attr("y2",y2);
-                            for(j=0; j<new_data.length; j++) {
-                            // console.log("cx",cx,"cy",cy[j],"bheja fry");                            
-                            // that.focus_circle.select("#focus-circle"+j)
-                            //     .attr("cx",cx)
-                            //     .attr("cy",cy[j]);
-                            // console.log(d3.select(options.selector+" #f_circle"+j),"phooooooooo");
-                            d3.select(options.selector+" #f_circle"+j).style("display","block")
-                                .attr("transform", "translate(" + (cx-3) + "," + cy[j] + ")");
-                            }
+                                for(j=0; j<new_data.length; j++) {
+                                // console.log("cx",cx,"cy",cy[j],"bheja fry");                            
+                                // that.focus_circle.select("#focus-circle"+j)
+                                //     .attr("cx",cx)
+                                //     .attr("cy",cy[j]);
+                                // console.log(d3.select(options.selector+" #f_circle"+j),"phooooooooo");
+                                d3.select(options.selector+" #f_circle"+j).style("display","block")
+                                    .attr("transform", "translate(" + (cx-3) + "," + cy[j] + ")");
+                                }
                         }
                         else if(multiple_containers_enable === "yes") {
                             d3.selectAll(options.selector+" .line-cursor").style("display","block");
@@ -842,8 +883,21 @@ configuration.mouseEvent = function (options) {
                                 .attr("y1",cy)
                                 .attr("x2",(options.width - options.margin_right))
                                 .attr("y2",cy);
+                            console.log(group_index);
                             d3.select(options.selector+" #svg-"+group_index+" .focus").style("display","block")
                                 .attr("transform", "translate(" + (cx - 5) + "," + cy + ")");
+                        }
+                    }
+                    else if (type === "stackedAreaChart") {
+                        that.cross_hair_v.style("display","block");
+                        that.cross_hair_v.select(options.selector + " #cross-hair-v")
+                            .attr("x1",(x1 - 5))
+                            .attr("y1",y1)
+                            .attr("x2",(x2 - 5))
+                            .attr("y2",y2);
+                        for(j=0; j<new_data.length; j++) {
+                            d3.select(options.selector+" #f_circle"+j).style("display","block")
+                                .attr("transform", "translate(" + (cx-3) + "," + cy[j] + ")");
                         }
                     }
                 }
