@@ -71,28 +71,6 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
         chartObject.subtitle_weight = stylesheet.subtitle_weight;
         chartObject.subtitle_family = stylesheet.subtitle_family;
     }
-
-    // if (optional && optional.title && PykCharts.boolean(optional.title.text)) {
-    //     chartObject.title = optional.title;
-    //     chartObject.title.size = "size" in optional.title ? optional.title.size : stylesheet.title.size;
-    //     chartObject.title.color = optional.title.color ? optional.title.color : stylesheet.title.color;
-    //     chartObject.title.weight = optional.title.weight ? optional.title.weight : stylesheet.title.weight;
-    //     chartObject.title.family = optional.title.family ? optional.title.family : stylesheet.title.family;
-    // } else {
-    //     chartObject.title = stylesheet.title;
-    // }
-    // if (optional && optional.subtitle && PykCharts.boolean(optional.subtitle.text)) {
-    //     chartObject.subtitle = optional.subtitle;
-    //     chartObject.subtitle.size = "size" in optional.subtitle ? optional.subtitle.size : stylesheet.subtitle.size;
-    //     chartObject.subtitle.color = optional.subtitle.color ? optional.subtitle.color : stylesheet.subtitle.color;
-    //     chartObject.subtitle.weight = optional.subtitle.weight ? optional.subtitle.weight : stylesheet.subtitle.weight;
-    //     chartObject.subtitle.family = optional.subtitle.family ? optional.subtitle.family : stylesheet.subtitle.family;
-    // } else {
-    //     chartObject.subtitle = stylesheet.subtitle;
-    // }
-    // chartObject.realTimeCharts = optional && optional.realTimeCharts ? optional.realTimeCharts : functionality.realTimeCharts;
-    // chartObject.transition = optional && optional.transition && optional.transition.duration ? optional.transition : functionality.transition;
-    // chartObject.creditMySite = optional && optional.creditMySite ? optional.creditMySite : stylesheet.creditMySite;
     chartObject.realTimeCharts_refreshFrequency = options.realTimeCharts_refreshFrequency ? options.realTimeCharts_refreshFrequency : functionality.realTimeCharts_refreshFrequency;
     chartObject.realTimeCharts_enableLastUpdatedAt = options.realTimeCharts_enableLastUpdatedAt ? options.realTimeCharts_enableLastUpdatedAt : functionality.realTimeCharts_enableLastUpdatedAt;
     chartObject.creditMySite_name = options.creditMySite_name ? options.creditMySite_name : stylesheet.creditMySite_name;
@@ -121,6 +99,8 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
         default : chartObject.borderBetweenChartElements_style = "0";
                   break;
     }
+    chartObject.highlight = options.highlight ? options.highlight : stylesheet.highlight;
+    
     chartObject.label_size = "label_size" in options ? options.label_size : stylesheet.label_size;
     chartObject.label_color = options.label_color ? options.label_color : stylesheet.label_color;
     chartObject.label_weight = options.label_weight ? options.label_weight : stylesheet.label_weight;

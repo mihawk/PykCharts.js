@@ -558,7 +558,8 @@ PykCharts.multiD.lineChart = function (options){
 						      					d3.select(that.selector+" text#"+this.id).style("visibility","visible")
 						      					d3.select(this).classed({'multi-line-selected':true,'multi-line':false,'multi-line-hover':false});
 						      					that.color_before_selection = that.highlightColor;
-						      					that.updateSelectedLine(this.id);						      					return that.highlightColor;
+						      					that.updateSelectedLine(this.id);						      					
+						      					return that.highlightColor;
 						      				} else {
 						      					return that.chartColor;
 						      				}

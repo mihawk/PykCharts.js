@@ -1001,22 +1001,23 @@ configuration.mouseEvent = function (options) {
 };
 
 configuration.fillChart = function (options,theme,config) {
+    console.log(options,"options");
     var that = this;
     var fillchart = {
         color : function (d) { return d.color; },
         saturation : function (d) { return "steelblue"; },
         selectColor: function (d) {
-            if(d.highlight === true) {
+            if(d.name === options.highlight) {
                 return options.highlightColor;
             } else{
                 return options.chartColor;
             }
         },
         colorChart : function (d) {
-            if(d.highlight === true) {
-                return theme.stylesheet.colors_highlightColor;
+            if(d.name === options.highlight) {
+                return theme.stylesheet.highlightColor;
             } else{
-                return theme.stylesheet.colors_chartColor;
+                return theme.stylesheet.chartColor;
             }
         },
         colorPieW : function (d) {
@@ -1179,6 +1180,7 @@ configuration.Theme = function(){
         "tooltip_enable": "yes",
         "creditMySite_name": "Pykih",
         "creditMySite_url": "http://www.pykih.com",
+        "highlight": "UPA",
         "backgroundColor": "transparent",
         "chartColor": "steelblue",
         "highlightColor": "#013F73",
@@ -1214,7 +1216,7 @@ configuration.Theme = function(){
         "donut_radiusPercent": 70,
         "donut_innerRadiusPercent": 40,
         "donut_showTotalAtTheCenter": "yes",
-        "pie_radiusPercent": 70,
+        "pie_radiusPercent": 70, 
         "pictograph_showTotal": "yes",
         "pictograph_enableTotal": "yes",
         "pictograph_enableCurrent": "yes",

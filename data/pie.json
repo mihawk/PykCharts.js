@@ -1,53 +1,43 @@
 [
 	{
 		"name": "NDA",
-		"weight": 4800,
-		"highlight":false
+		"weight": 4800
 	},
 	{
 		"name": "UPA",
-		"weight": 4000,
-		"highlight":true
+		"weight": 4000
 	},
 	{
 		"name": "NDA",
-		"weight": 2500,
-		"highlight":false
+		"weight": 2500
 	},
 	{
 		"name": "AAP",
-		"weight": 800,
-		"highlight":false
+		"weight": 800
 	},
 	{
 		"name": "INC",
-		"weight": 8000,
-		"highlight":false
+		"weight": 8000
 	},
 	{
 		"name": "BSP",
-		"weight": 300,
-		"highlight":false
+		"weight": 300
 	},
 	{
 		"name": "NCP",
-		"weight": 150,
-		"highlight":false
+		"weight": 150
 	},
 	{
 		"name":"LMN",
-		"weight":10,
-		"highlight":false
+		"weight":10
 	},
 	{
 		"name":"PQR",
-		"weight":20,
-		"highlight":false
+		"weight":20
 
 	},
 	{
 		"name": "NDA",
-		"weight": 3000,
-		"highlight":false
+		"weight": 3000
 	}
 ]
