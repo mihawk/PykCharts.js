@@ -1001,7 +1001,6 @@ configuration.mouseEvent = function (options) {
 };
 
 configuration.fillChart = function (options,theme,config) {
-    console.log(options,"options");
     var that = this;
     var fillchart = {
         color : function (d) { return d.color; },
@@ -1031,11 +1030,13 @@ configuration.fillChart = function (options,theme,config) {
             }
         },
         colorPieMS : function (d) {
-            if(PykCharts.boolean(d.highlight)) {
+            // console.log(d.name,"data");
+            // console.log(options.highlight,"optionssss");
+            if(d.name === options.highlight) {
                 return options.highlightColor;
             } else if(PykCharts.boolean(options.saturationEnable)) {
                 return options.saturationColor;
-            } else if(config.options && config.options.colors_chartColor) {
+            } else if(config.options && config.options.chartColor) {
                 return options.chartColor;
             } else if(config.options && d.color){
                 return d.color;
@@ -1320,6 +1321,7 @@ configuration.Theme = function(){
         "enableClick": "yes",
         "onhover": "shadow",
         "highlightArea":"no",
+        "highlight": "",
         "axis_onHoverHighlightenable" : "no",
         "axis_x_enable": "yes",
         "axis_x_value_position": "top",

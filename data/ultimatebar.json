@@ -5,8 +5,7 @@
 		"group": "India",
 		"stack": "Stack", 
 		"tooltip": "<table class='PykCharts'><tr><th>India</th></tr><tr><td>8</td></tr></table>",
-		"color": "#4b6377",
-		"highlight": false
+		"color": "#4b6377"
 	},
 	{
 		"y": "February",
@@ -14,8 +13,7 @@
 		"group": "India",
 		"stack": "Stack", 
 		"tooltip": "<table class='PykCharts'><tr><th>India</th></tr><tr><td>10</td></tr></table>",
-		"color": "#4b6377",
-		"highlight": true
+		"color": "#4b6377"
 	},
 	{
 		"y": "March",
@@ -23,8 +21,7 @@
 		"group": "India",
 		"stack": "Stack", 
 		"tooltip": "<table class='PykCharts'><tr><th>India</th></tr><tr><td>12</td></tr></table>",
-		"color": "#4b6377",
-		"highlight": false
+		"color": "#4b6377"
 	},
 	{
 		"y": "April",
@@ -32,8 +29,7 @@
 		"group": "India",
 		"stack": "Stack", 
 		"tooltip": "<table class='PykCharts'><tr><th>India</th></tr><tr><td>14</td></tr></table>",
-		"color": "#4b6377",
-		"highlight": false
+		"color": "#4b6377"
 	},
 	{
 		"y": "May",
@@ -41,8 +37,7 @@
 		"group": "India",
 		"stack": "Stack", 
 		"tooltip": "<table class='PykCharts'><tr><th>India</th></tr><tr><td>16</td></tr></table>",
-		"color": "#4b6377",
-		"highlight": false
+		"color": "#4b6377"
 	},
 	{
 		"y": "June",
@@ -50,8 +45,7 @@
 		"group": "India",
 		"stack": "Stack", 
 		"tooltip": "<table class='PykCharts'><tr><th>India</th></tr><tr><td>18</td></tr></table>",
-		"color": "#4b6377",
-		"highlight": false
+		"color": "#4b6377"
 	},
 	{
 		"y": "July",
@@ -59,8 +53,7 @@
 		"group": "India",
 		"stack": "Stack", 
 		"tooltip": "<table class='PykCharts'><tr><th>India</th></tr><tr><td>20</td></tr></table>",
-		"color": "#4b6377",
-		"highlight": false
+		"color": "#4b6377"
 	},
 	{
 		"y": "August",
@@ -68,7 +61,6 @@
 		"group": "India",
 		"stack": "Stack", 
 		"tooltip": "<table class='PykCharts'><tr><th>India</th></tr><tr><td>22</td></tr></table>",
-		"color": "#4b6377",
-		"highlight": false
+		"color": "#4b6377"
 	}
 ]

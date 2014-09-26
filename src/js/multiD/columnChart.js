@@ -277,7 +277,12 @@ PykCharts.multiD.columnChart = function(options){
                     })
                     .attr("fill-opacity", function (d,i) {
                         if(PykCharts.boolean(that.saturationEnable))     {
-                            if(d.highlight) {
+                            // if(d.highlight) {
+                            //     j--;
+                            //     return 1;
+                            // }
+                            if(that.highlight === d.name) {
+                                // console.log("gjagdhagd");
                                 j--;
                                 return 1;
                             }
@@ -525,8 +530,8 @@ PykCharts.multiD.columnChart = function(options){
                         "color": icing.color,
                         "tooltip": icing.tooltip,
                         "group": that.keys[id],
-                        "name": bar.group,
-                        "highlight": icing.highlight
+                        "name": bar.group
+                        // "highlight": icing.highlight
                     });
                 }
             }
@@ -597,7 +602,7 @@ PykCharts.multiD.columnChart = function(options){
             var value = _.values(d);
             while(value[0].length < that.no_of_groups) {
                 var key = _.keys(d);
-                var stack = { "name": "stack", "tooltip": "null", "color": "white", "val": 0, highlight: false };
+                var stack = { "name": "stack", "tooltip": "null", "color": "white", "val": 0/*, highlight: false*/ };
                 var group = {"group3":[stack]};
                 data[i][key[0]].push(group);
                 value = _.values(d);
@@ -631,7 +636,7 @@ PykCharts.multiD.columnChart = function(options){
             that.barName[i] = that.data[i].group;
             group[that.data[i].x] = [];
             bar[that.data[i].group] = [];
-            stack = { "name": that.data[i].stack, "tooltip": that.data[i].tooltip, "color": that.data[i].color, "val": that.data[i].y, highlight: that.data[i].highlight };
+            stack = { "name": that.data[i].stack, "tooltip": that.data[i].tooltip, "color": that.data[i].color, "val": that.data[i].y/*, highlight: that.data[i].highlight */};
 
             if(i === 0) {
                 data_tranform.push(group);

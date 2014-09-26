@@ -93,7 +93,7 @@
                     enableCrossHair: "yes"
                   
                 });
-                k.execute();
+                // k.execute();
 
                 var k = new PykCharts.multiD.areaChart ({
                     selector: "#area",
@@ -142,7 +142,7 @@
                     zoom_enable: "yes"
         
                 });
-                k.execute();
+                // k.execute();
 
                 var k = new PykCharts.multiD.spiderWeb ({
                     selector: "#spiderWeb",
@@ -174,7 +174,7 @@
                    
                     
                 });
-                k.execute();
+                // k.execute();
 
                 var k = new PykCharts.multiD.scatterPlot ({
                     selector: "#scatterPlot",
@@ -240,7 +240,7 @@
 
                     enableCrossHair: "yes"
                 });
-                k.execute();
+                // k.execute();
 
                 var k = new PykCharts.multiD.scatterPlot ({
                     selector: "#multiple-scatterplots",
@@ -305,7 +305,7 @@
 
                     enableCrossHair: "yes"
                 });
-                k.execute();
+                // k.execute();
 
                 var k = new PykCharts.multiD.lineChart ({
                     selector: "#multiLine",
@@ -347,17 +347,16 @@
                     axis_y_pointer_padding: 10,
                     axis_y_outer_pointer_size: 3, 
 
-
                     line_curvy_lines:"yes",
                     tooltip_mode : "moving",
                     tooltip_enable : "yes",
                     enableCrossHair: "yes",
                     multiple_containers_enable: "yes",
                     line_highlight_group: ["india"],
-                    "highlightColor": "#013F73",
+                    highlightColor: "#013F73",
 
                 });
-                k.execute();
+                // k.execute();
 
                 var k = new PykCharts.multiD.lineChart ({
                     selector: "#multiple-multiLine",
@@ -404,12 +403,12 @@
                     tooltip_enable : "yes",
                     enableCrossHair: "yes",
                     line_highlight_group: ["india"], 
-                    "highlightColor": "yellow",// name of the group which is to be highlighted on onload
+                    highlightColor: "yellow",// name of the group which is to be highlighted on onload
                     // multiple_containers_enable: "no",
                     
                     
                 });
-                k.execute();
+                // k.execute();
 
                 var k = new PykCharts.multiD.areaChart ({
 
@@ -458,7 +457,7 @@
                     zoom_enable: "yes"
                        
                 });
-               k.execute();
+               // k.execute();
 
                 var k = new PykCharts.multiD.pulse({
                     selector: "#pulse",
@@ -528,7 +527,7 @@
 
                     enableCrossHair: "yes"
                 });
-               k.execute();
+               // k.execute();
 
                 var k = new PykCharts.multiD.columnChart({
                     data: "../data/ultimateColumn.json",
@@ -578,7 +577,10 @@
 
                     borderBetweenChartElements_width: "1px",
                     borderBetweenChartElements_color: "white",
-                    borderBetweenChartElements_style: "solid"
+                    borderBetweenChartElements_style: "solid",
+
+                    highlight:"January",
+
 
                 });
                 k.execute();
@@ -634,6 +636,8 @@
                     borderBetweenChartElements_style: "solid",
                                          
                    saturation_enable: "yes",
+
+                   highlight:"January",
     
                 });
                 k.execute();
@@ -697,7 +701,9 @@
                     pointer_weight: "thin",
                     pointer_size: 10,
                     pointer_color: "#1D1D1D",
-                    pointer_family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
+                    pointer_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
+
+                    highlight: "January"
 
                 });
                 k.execute();
@@ -763,6 +769,8 @@
                     pointer_color: "#1D1D1D",
                     pointer_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
                     saturation_enable: "yes",
+
+                    highlight: "January"
                   });
                 k.execute();
             });

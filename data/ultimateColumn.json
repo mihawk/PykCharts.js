@@ -5,8 +5,7 @@
 		"group": "India",
 		"stack": "Stack", 
 		"tooltip": "<table class='PykCharts'><tr><th>India</th></tr><tr><td>8</td></tr></table>",
-		"color": "#4b6377",
-		"highlight": true
+		"color": "#4b6377"
 	},
 	{
 		"x": "Feb",
@@ -14,8 +13,7 @@
 		"group": "India",
 		"stack": "Stack", 
 		"tooltip": "<table class='PykCharts'><tr><th>India</th></tr><tr><td>10</td></tr></table>",
-		"color": "#4b6377",
-		"highlight": false
+		"color": "#4b6377"
 	},
 	{
 		"x": "March",
@@ -23,8 +21,7 @@
 		"group": "India",
 		"stack": "Stack", 
 		"tooltip": "<table class='PykCharts'><tr><th>India</th></tr><tr><td>12</td></tr></table>",
-		"color": "#4b6377",
-		"highlight": false
+		"color": "#4b6377"
 	},
 	{
 		"x": "April",
@@ -32,8 +29,7 @@
 		"group": "India",
 		"stack": "Stack", 
 		"tooltip": "<table class='PykCharts'><tr><th>India</th></tr><tr><td>14</td></tr></table>",
-		"color": "#4b6377",
-		"highlight": false
+		"color": "#4b6377"
 	},
 	{
 		"x": "June",
@@ -41,8 +37,7 @@
 		"group": "India",
 		"stack": "Stack", 
 		"tooltip": "<table class='PykCharts'><tr><th>India</th></tr><tr><td>16</td></tr></table>",
-		"color": "#4b6377",
-		"highlight": false
+		"color": "#4b6377"
 	},
 	{
 		"x": "July",
@@ -50,8 +45,7 @@
 		"group": "India",
 		"stack": "Stack", 
 		"tooltip": "<table class='PykCharts'><tr><th>India</th></tr><tr><td>18</td></tr></table>",
-		"color": "#4b6377",
-		"highlight": false
+		"color": "#4b6377"
 	},
 	{
 		"x": "August",
@@ -59,8 +53,7 @@
 		"group": "India",
 		"stack": "Stack", 
 		"tooltip": "<table class='PykCharts'><tr><th>India</th></tr><tr><td>20</td></tr></table>",
-		"color": "#4b6377",
-		"highlight": false
+		"color": "#4b6377"
 	},
 	{
 		"x": "September",
@@ -68,8 +61,7 @@
 		"group": "India",
 		"stack": "Stack", 
 		"tooltip": "<table class='PykCharts'><tr><th>India</th></tr><tr><td>22</td></tr></table>",
-		"color": "#4b6377",
-		"highlight": false
+		"color": "#4b6377"
 	},
 	{
 		"x": "October",
@@ -77,7 +69,6 @@
 		"group": "India",
 		"stack": "Stack", 
 		"tooltip": "<table class='PykCharts'><tr><th>India</th></tr><tr><td>24</td></tr></table>",
-		"color": "#4b6377",
-		"highlight": false
+		"color": "#4b6377"
 	}
 ]

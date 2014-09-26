@@ -53,6 +53,7 @@ PykCharts.maps.timelineMap = function (options) {
 
             d3.json("https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/maps/" + that.mapCode + "-topo.json", function (data) {
                 that.map_data = data;
+                // console.log(that.map_data,"map data");
                 d3.json("https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/palette/colorPalette.json", function (data) {
                     that.color_palette_data = data;
 
@@ -210,6 +211,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                 var scale = 150
                 , offset = [that.width / 2, that.height / 2]
                 , i;
+                console.log(that.map);
                 $(options.selector).css("background-color",that.bg);
 
                 that.group = that.map_cont.selectAll(".map_group")
@@ -325,9 +327,11 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                 return that.colors_defaultColor;
             }
             if (that.colors_type === "saturation") {
-
-                if ((that.highlightArea === "yes") && obj[0].highlight == "true") {
-                    return obj[0].highlight_color;
+                // console.log(that.highlight,"selection highlight");
+                // console.log(that.highlight === that.map_data.objects.geometries[i].properties.iso_a2,"check condition");
+                if ((that.highlightArea === "yes") &&  that.highlight === that.map_data.objects.geometries[i].properties.iso_a2/*obj[0].highlight === true*/) {
+                    return "yellow";
+                    // return obj[0].highlight_color;
                 } else {
                     if (that.colors_palette !== "") {
                         col_shade = obj[0].size;
