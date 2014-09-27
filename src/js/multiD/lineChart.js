@@ -209,6 +209,7 @@ PykCharts.multiD.lineChart = function (options){
 			},
 			hightLightOnload: function () {
 				if(that.type === "multilineChart") {
+					// console.log(that.line_highlight_group);
 					if(that.new_data_length > 0 && that.line_highlight_group.length) {
 						for(var i = 0;i< that.uniq_group_arr.length;i++) {
 							if(that.line_highlight_group[0].toLowerCase() === that.uniq_group_arr[i].toLowerCase()) {
@@ -488,10 +489,11 @@ PykCharts.multiD.lineChart = function (options){
 									.html(that.new_data[i].name);
 
 						  	if(that.type === "multilineChart") {
-						  		// if (that.color_mode === "color")
-						  		if(PykCharts.boolean(that.color_from_data)) {
+						  		if (that.color_mode === "color") {
+						  		// if(PykCharts.boolean(that.color_from_data)) {
 									that.legend_text[i]
 						      			.style("fill", function() {
+						      				console.log(that.new_data[i].highlight,"highhhhhh");
 						      				if(that.new_data[i].highlight) {
 						      					return that.highlightColor;
 							      			} else {
@@ -529,7 +531,7 @@ PykCharts.multiD.lineChart = function (options){
 											// console.log("faith");
 											d3.select(that.selected)
 													.classed({'multi-line-selected':true,'multi-line':false,'multi-line-hover':false})
-													.style("stroke", function() { return (PykCharts.boolean(that.color_from_data)) ? that.color_before_selection : that.highlightColor; })
+													.style("stroke", function() { return that.color_mode === "color"/*PykCharts.boolean(that.color_from_data)*/ ? that.color_before_selection : that.highlightColor; })
 													.style("opacity",1);
 											d3.selectAll(options.selector+" path.multi-line").style("opacity",0.3);
 
@@ -540,7 +542,8 @@ PykCharts.multiD.lineChart = function (options){
 											}
 										});
 								}
-								else if(!PykCharts.boolean(that.color_from_data)) {
+								// else if(!PykCharts.boolean(that.color_from_data)) {
+								else if(that.color_mode === "color") {
 									that.legend_text[i]
 						      			.style("fill", function() { 
 						      				if(that.new_data[i].highlight) {
@@ -588,7 +591,7 @@ PykCharts.multiD.lineChart = function (options){
 											that.deselected = that.selected;
 											d3.select(that.deselected)
 													.classed({'multi-line-selected':false,'multi-line':true,'multi-line-hover':false})
-													.style("stroke", function() { return (PykCharts.boolean(that.color_from_data)) ? that.color_before_selection : that.chartColor; });
+													.style("stroke", function() { return that.color_mode === "color" /*(PykCharts.boolean(that.color_from_data))*/ ? that.color_before_selection : that.chartColor; });
 											that.selected = this;
 											that.color_before_selection = d3.select(that.selected).style("stroke");
 											d3.select(that.selected)
@@ -624,14 +627,24 @@ PykCharts.multiD.lineChart = function (options){
 								.html(that.new_data1.name);
 
 						if(that.type === "multilineChart") {
-							if(PykCharts.boolean(that.color_from_data)) {
+							if(that.color_mode === "color") {
+								// console.log(that.data[0].color,"its ddddddddd");
+							// if(PykCharts.boolean(that.color_from_data)) {
 								that.legend_text[0]
 					      			.style("fill", function() { return that.new_data[index].color; });
 
 					      		that.dataLineGroup[0]
-					      			.style("stroke", function() { return that.new_data[index].color; });
+					      			.style("stroke", function (d,i) { return that.new_data[index].color; });
+					      		// that.dataLineGroup[0]
+					      		// 	.style("stroke", function (d,i) {
+					      		// 		if(that.data[i].color) {
+					      		// 			return that.new_data[index].color;
+					      		// 		}
+					      		// 		return that.color;
+					      		// 	});
 							}
-							else if(!PykCharts.boolean(that.color_from_data)) {
+							// else if(!PykCharts.boolean(that.color_from_data)) {
+							else if(that.color_mode === "saturation") {
 								that.legend_text[0]
 					      			.style("fill", function() { return that.legendsText_color; });
 

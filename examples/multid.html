@@ -53,7 +53,8 @@
                     yAxisDataFormat : "number",
                     xAxisDataFormat : "string",
 
-                    // color_mode: "color",  //color or saturation
+                    color_mode: "color",  //color or saturation
+                    color:["orange"],
 
                     chart_height: 400,
                     chart_width : 630,
@@ -96,7 +97,7 @@
                     enableCrossHair: "yes"
                   
                 });
-                // k.execute();
+                k.execute();
 
                 var k = new PykCharts.multiD.areaChart ({
                     selector: "#area",
@@ -104,6 +105,9 @@
                     mode : "default",
                     yAxisDataFormat : "number",
                     xAxisDataFormat : "string",
+
+                    color_mode: "color",  //color or saturation
+                    color:["orange"],
 
                     chart_height: 400,
                     chart_width : 630,
@@ -145,7 +149,7 @@
                     zoom_enable: "yes"
         
                 });
-                // k.execute();
+                k.execute();
 
                 var k = new PykCharts.multiD.spiderWeb ({
                     selector: "#spiderWeb",
@@ -314,6 +318,10 @@
                     selector: "#multiLine",
                     data: "../data/multiLineChart.json",
                     mode : "default",
+
+                    color_mode: "color",  //color or saturation
+                    color:["orange"],
+
                     yAxisDataFormat : "number",
                     xAxisDataFormat : "string",
                     chart_height: 400,
@@ -359,12 +367,16 @@
                     highlightColor: "#013F73",
 
                 });
-                // k.execute();
+                k.execute();
 
                 var k = new PykCharts.multiD.lineChart ({
                     selector: "#multiple-multiLine",
                     data: "../data/multiLineChart.json",
                     mode : "default",
+
+                    color_mode: "color",  //color or saturation
+                    color:["orange"],
+
                     yAxisDataFormat : "number",
                     xAxisDataFormat : "string",
                     chart_height: 400,
@@ -406,18 +418,22 @@
                     tooltip_enable : "yes",
                     enableCrossHair: "yes",
                     line_highlight_group: ["india"], 
-                    highlightColor: "yellow",// name of the group which is to be highlighted on onload
+                    highlightColor: "purple",// name of the group which is to be highlighted on onload
                     // multiple_containers_enable: "no",
                     
                     
                 });
-                // k.execute();
+                k.execute();
 
                 var k = new PykCharts.multiD.areaChart ({
 
                     selector: "#multiArea",
                     data: "../data/multiLineChart.json",
                     mode : "default",
+
+                    color_mode: "color",  //color or saturation
+                    color:["orange"],
+
                     yAxisDataFormat : "number",
                     xAxisDataFormat : "string",
                     chart_height: 400,
@@ -460,7 +476,7 @@
                     zoom_enable: "yes"
                        
                 });
-               // k.execute();
+               k.execute();
 
                 var k = new PykCharts.multiD.pulse({
                     selector: "#pulse",
@@ -589,7 +605,7 @@
 
 
                 });
-                k.execute();
+                // k.execute();
 
                 var k = new PykCharts.multiD.columnChart({
                     data: "../data/ultimateGroupColumn.json",
@@ -649,7 +665,7 @@
                    highlight:"January",
     
                 });
-                k.execute();
+                // k.execute();
 
                 var k = new PykCharts.multiD.barChart({
                     data: "../data/ultimatebar.json",
@@ -718,7 +734,7 @@
                     highlight: "January"
 
                 });
-                k.execute();
+                // k.execute();
 
                 var k = new PykCharts.multiD.barChart({
                     data: "../data/ultimateGroupBar.json",
@@ -787,7 +803,7 @@
 
                     highlight: "January"
                   });
-                k.execute();
+                // k.execute();
             });
 
         </script>
