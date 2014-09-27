@@ -16,6 +16,7 @@ PykCharts.multiD.lineChart = function (options){
 		that.multiple_containers_enable = options.multiple_containers_enable ? options.multiple_containers_enable : multiDimensionalCharts.multiple_containers_enable;
 		that.interpolate = PykCharts.boolean(that.curvy_lines) ? "cardinal" : "linear";
 	    that.color_from_data = options.line_color_from_data ? options.line_color_from_data : multiDimensionalCharts.line_color_from_data;
+	    console.log(that.color_from_data,"color from data");
 
 	    d3.json(options.data, function (e, data) {
 			that.data = data.groupBy("line");
@@ -487,6 +488,7 @@ PykCharts.multiD.lineChart = function (options){
 									.html(that.new_data[i].name);
 
 						  	if(that.type === "multilineChart") {
+						  		// if (that.color_mode === "color")
 						  		if(PykCharts.boolean(that.color_from_data)) {
 									that.legend_text[i]
 						      			.style("fill", function() {
@@ -521,7 +523,7 @@ PykCharts.multiD.lineChart = function (options){
 											that.deselected = that.selected;
 											d3.select(that.deselected)
 													.classed({'multi-line-selected':false,'multi-line':true,'multi-line-hover':false})
-													.style("stroke", function() { return (PykCharts.boolean(that.color_from_data)) ? that.color_before_selection : that.chartColor; });
+													.style("stroke", function() {console.log(that.color_from_data); return (PykCharts.boolean(that.color_from_data)) ? that.color_before_selection : that.chartColor; });
 											that.selected = this;
 											that.color_before_selection = d3.select(that.selected).style("stroke");
 											// console.log("faith");

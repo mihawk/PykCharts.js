@@ -431,7 +431,7 @@ PykCharts.Configuration = function (options){
                     .attr("id","cross-hair-h");
                 // console.log(parseInt(len.length),"lennnnnnnnnn");
                 for (j=0; j<len; j++) {
-                    console.log(len, options.selector);
+                    // console.log(len, options.selector);
                     // console.log(len.length,"for len",j);
                     PykCharts.Configuration.focus_circle = svg.append("g")
                         .attr("class","focus")
@@ -441,7 +441,7 @@ PykCharts.Configuration = function (options){
                     PykCharts.Configuration.focus_circle.append("circle")
                         .attr("id","focus-circle"+j)
                         .attr("r",6);
-                    console.log("jjjjjj", j,len,d3.select(options.selector+ " #f_circle"+j));
+                    // console.log("jjjjjj", j,len,d3.select(options.selector+ " #f_circle"+j));
                 } 
             }
             return this;
@@ -1030,26 +1030,25 @@ configuration.fillChart = function (options,theme,config) {
             }
         },
         colorPieMS : function (d) {
-            // console.log(d.name,"data");
-            // console.log(options.highlight,"optionssss");
-            if(d.name === options.highlight) {
+             if(d.name === options.highlight) {
                 return options.highlightColor;
-            } else if(PykCharts.boolean(options.saturationEnable)) {
+            } else if(options.color_mode === "saturation") {
+                console.log("saturationColor");
                 return options.saturationColor;
-            } else if(config.options && config.options.chartColor) {
-                return options.chartColor;
-            } else if(config.options && d.color){
+            } else if(options.color_mode === "color" && d.color) {
                 return d.color;
+            } else if(options.color_mode === "color" && options.color.length){
+                return options.color;
             } else {
                 return options.chartColor;
             } return options.chartColor;
-            // if(PykCharts.boolean(d.highlight)) {
+            // if(d.name === options.highlight) {
             //     return options.highlightColor;
             // } else if(PykCharts.boolean(options.saturationEnable)) {
             //     return options.saturationColor;
-            // } else if(config.optional && config.optional.colors && config.optional.colors_chartColor) {
+            // } else if(options && options.chartColor) {
             //     return options.chartColor;
-            // } else if(config.optional && config.optional.colors && d.color){
+            // } else if(options && d.color){
             //     return d.color;
             // } else {
             //     return options.chartColor;
@@ -1271,6 +1270,9 @@ configuration.Theme = function(){
         "zoom_enable": "no",
 
         "size_enable" : "yes",
+
+        "colors_mode" : "color",
+        "color": ["pink"],
 
         "spiderweb_outerRadiusPercent" : 80,
         "spiderweb_radius": 5,

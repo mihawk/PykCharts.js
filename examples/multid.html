@@ -52,6 +52,9 @@
                     mode : "default",
                     yAxisDataFormat : "number",
                     xAxisDataFormat : "string",
+
+                    // color_mode: "color",  //color or saturation
+
                     chart_height: 400,
                     chart_width : 630,
                     chart_margin_top: 5,
@@ -534,6 +537,9 @@
                     mode: "default",
                     selector: "#column",
 
+                    color_mode: "color",
+                    color:["orange"],
+
                     chart_height: 430,
                     chart_width : 400,
                     chart_margin_top: 25,
@@ -566,9 +572,9 @@
                     axis_y_pointer_padding: 10,
                     axis_y_outer_pointer_size: 3, 
 
-                    colors_backgroundColor: "white",
-                    colors_chartColor: "steelblue",
-                    colors_highlightColor: "#013F73",
+                    backgroundColor: "white",
+                    chartColor: "steelblue",
+                    highlightColor: "#013F73",
 
                     legends_enable: "no",
                     legends_display: "horizontal", 
@@ -590,6 +596,9 @@
                     mode: "default",
                     selector: "#groupColumn",
 
+                    color_mode: "saturation",
+                    color:["orange"],
+
                     chart_height: 430,
                     chart_width : 400,
                     chart_margin_top: 25,
@@ -622,9 +631,9 @@
                     axis_y_pointer_padding: 10,
                     axis_y_outer_pointer_size: 3, 
 
-                    colors_backgroundColor: "white",
-                    colors_chartColor: "steelblue",
-                    colors_highlightColor: "#013F73",
+                    backgroundColor: "white",
+                    chartColor: "steelblue",
+                    highlightColor: "#013F73",
 
                     legends_enable: "yes",
                     legends_display: "horizontal", 
@@ -635,7 +644,7 @@
                     borderBetweenChartElements_color: "white",
                     borderBetweenChartElements_style: "solid",
                                          
-                   saturation_enable: "yes",
+                   // saturation_enable: "yes",
 
                    highlight:"January",
     
@@ -646,6 +655,9 @@
                     data: "../data/ultimatebar.json",
                     mode: "default",
                     selector: "#bar",
+
+                    color_mode: "color",
+                    color:["orange"],
 
                     chart_height: 430,
                     chart_width : 400,
@@ -679,9 +691,9 @@
                     axis_y_pointer_padding: 10,
                     axis_y_outer_pointer_size: 3, 
 
-                    colors_backgroundColor: "white",
-                    colors_chartColor: "steelblue",
-                    colors_highlightColor: "#013F73",
+                    backgroundColor: "white",
+                    chartColor: "steelblue",
+                    highlightColor: "#013F73",
 
                     legends_enable: "no",
                     legends_display: "horizontal", 
@@ -721,6 +733,9 @@
                     chart_margin_left: 60, 
                     chart_grid_xEnabled: "yes",
 
+                    color_mode:"saturation",
+                    color:["orange"],
+
                     realTimeCharts_refreshFrequency: 0 ,
 
                     axis_onHoverHighlightenable: "yes",
@@ -745,9 +760,9 @@
                     axis_y_pointer_padding: 10,
                     axis_y_outer_pointer_size: 3, 
 
-                    colors_backgroundColor: "white",
-                    colors_chartColor: "steelblue",
-                    colors_highlightColor: "#013F73",
+                    backgroundColor: "white",
+                    chartColor: "steelblue",
+                    highlightColor: "#013F73",
 
                     legends_enable: "yes",
                     legends_display: "horizontal", 
@@ -768,7 +783,7 @@
                     pointer_size: 10,
                     pointer_color: "#1D1D1D",
                     pointer_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
-                    saturation_enable: "yes",
+                    saturation_enable: "no",
 
                     highlight: "January"
                   });

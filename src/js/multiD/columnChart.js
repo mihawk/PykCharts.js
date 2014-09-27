@@ -276,11 +276,8 @@ PykCharts.multiD.columnChart = function(options){
                         return that.fillColor.colorPieMS(d);
                     })
                     .attr("fill-opacity", function (d,i) {
-                        if(PykCharts.boolean(that.saturationEnable))     {
-                            // if(d.highlight) {
-                            //     j--;
-                            //     return 1;
-                            // }
+                        if (that.color_mode === "saturation") {
+                        // if(PykCharts.boolean(that.saturationEnable))     {
                             if(that.highlight === d.name) {
                                 // console.log("gjagdhagd");
                                 j--;
@@ -376,6 +373,7 @@ PykCharts.multiD.columnChart = function(options){
                     var params = that.getParameters(),color;
                     // console.log(params);
                     color = params[0].color;
+                    console.log(color,"legend color");
                     params = params.map(function (d) {
                         return d.name;
                     });
@@ -426,10 +424,12 @@ PykCharts.multiD.columnChart = function(options){
                         .attr(rect_parameter3, rect_parameter3value)
                         .attr(rect_parameter4, rect_parameter4value)
                         .attr("fill", function (d) {
+                            console.log("color",color);
                             return that.fillColor.colorPieMS(color);
                         })
                         .attr("fill-opacity", function (d,i) {
-                            if(PykCharts.boolean(that.saturationEnable)){
+                            if (that.color_mode === "saturation") {
+                            // if(PykCharts.boolean(that.saturationEnable)){
                                 return (that.no_of_groups-i)/that.no_of_groups;
                             }
                         });
@@ -449,7 +449,7 @@ PykCharts.multiD.columnChart = function(options){
                         .attr("font-size",12);
 
                     that.legends_text.attr("class","legends_text")
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   .attr("fill","black")
+                    .attr("fill","black")
                     .attr(text_parameter1, text_parameter1value)
                     .attr(text_parameter2, text_parameter2value)
                     .text(function (d) { return d; });

@@ -12,6 +12,7 @@ PykCharts.multiD.barChart = function(options){
            that.k.loading();
         }
         d3.json(options.data, function(e, data){
+            console.log("data",data);
             that.data = data.groupBy("bar");
             that.compare_data = data.groupBy("bar");
             //console.log(data);
@@ -312,23 +313,17 @@ PykCharts.multiD.barChart = function(options){
                     .attr("class","rect")
 
                 rect.attr("width", 0).attr("x", 0)
-                    .attr("fill", function(d){
-                        return that.fillColor.colorPieMS(d);
+                    .attr("fill", function(d,i){
+                        return that.fillColor.colorPieMS(d,i);
                     })
                     .attr("fill-opacity", function (d,i) {
-                        //console.log(d.x);
-                        if(PykCharts.boolean(that.saturationEnable)){
-                            // if(d.highlight) {
-                            //     j--;
-                            //     return 1;
-                            // }
+                        if (that.color_mode === "saturation"){
+                        // if(PykCharts.boolean(that.saturationEnable)){
                             if(that.highlight === d.name) {
-                                // console.log("gjagdhagd");
                                 j--;
                                 return 1;
                             }
                             if(j>1){
-                                //console.log(d.x, "d.x" , j, "j");
                                 j--;
                                 return j/that.no_of_groups;
                             } else {
@@ -531,7 +526,8 @@ PykCharts.multiD.barChart = function(options){
                             return that.fillColor.colorPieMS(color);
                         })
                         .attr("fill-opacity", function (d,i) {
-                            if(PykCharts.boolean(that.saturationEnable)){
+                            // if(PykCharts.boolean(that.saturationEnable)){
+                                if(that.color_mode === "saturation"){
                                 return (that.no_of_groups-i)/that.no_of_groups;
                             }
                         });
@@ -551,7 +547,7 @@ PykCharts.multiD.barChart = function(options){
                         .attr("font-size",12);
 
                     that.legends_text.attr("class","legends_text")
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   .attr("fill","black")
+                    .attr("fill","black")
                     .attr(text_parameter1, text_parameter1value)
                     .attr(text_parameter2, text_parameter2value)
                     .text(function (d) { return d; });

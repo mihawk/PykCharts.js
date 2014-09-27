@@ -211,7 +211,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                 var scale = 150
                 , offset = [that.width / 2, that.height / 2]
                 , i;
-                console.log(that.map);
+                console.log(that.map_data);
                 $(options.selector).css("background-color",that.bg);
 
                 that.group = that.map_cont.selectAll(".map_group")

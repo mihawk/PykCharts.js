@@ -4,63 +4,55 @@
 		"x":  18,
 		"group": "India",
 		"stack": "Stack", 
-		"tooltip": "<table class='PykCharts'><tr><th>India</th></tr><tr><td>8</td></tr></table>",
-		"color": "#4b6377"
+		"tooltip": "<table class='PykCharts'><tr><th>India</th></tr><tr><td>8</td></tr></table>"
 	},
 	{
 		"y": "February",
 		"x":  56,
 		"group": "India",
 		"stack": "Stack", 
-		"tooltip": "<table class='PykCharts'><tr><th>India</th></tr><tr><td>10</td></tr></table>",
-		"color": "#4b6377"
+		"tooltip": "<table class='PykCharts'><tr><th>India</th></tr><tr><td>10</td></tr></table>"
 	},
 	{
 		"y": "March",
 		"x":  30,
 		"group": "India",
 		"stack": "Stack", 
-		"tooltip": "<table class='PykCharts'><tr><th>India</th></tr><tr><td>12</td></tr></table>",
-		"color": "#4b6377"
+		"tooltip": "<table class='PykCharts'><tr><th>India</th></tr><tr><td>12</td></tr></table>"
 	},
 	{
 		"y": "April",
 		"x":  41,
 		"group": "India",
 		"stack": "Stack", 
-		"tooltip": "<table class='PykCharts'><tr><th>India</th></tr><tr><td>14</td></tr></table>",
-		"color": "#4b6377"
+		"tooltip": "<table class='PykCharts'><tr><th>India</th></tr><tr><td>14</td></tr></table>"
 	},
 	{
 		"y": "May",
 		"x":  16,
 		"group": "India",
 		"stack": "Stack", 
-		"tooltip": "<table class='PykCharts'><tr><th>India</th></tr><tr><td>16</td></tr></table>",
-		"color": "#4b6377"
+		"tooltip": "<table class='PykCharts'><tr><th>India</th></tr><tr><td>16</td></tr></table>"
 	},
 	{
 		"y": "June",
 		"x":  87,
 		"group": "India",
 		"stack": "Stack", 
-		"tooltip": "<table class='PykCharts'><tr><th>India</th></tr><tr><td>18</td></tr></table>",
-		"color": "#4b6377"
+		"tooltip": "<table class='PykCharts'><tr><th>India</th></tr><tr><td>18</td></tr></table>"
 	},
 	{
 		"y": "July",
 		"x":  22,
 		"group": "India",
 		"stack": "Stack", 
-		"tooltip": "<table class='PykCharts'><tr><th>India</th></tr><tr><td>20</td></tr></table>",
-		"color": "#4b6377"
+		"tooltip": "<table class='PykCharts'><tr><th>India</th></tr><tr><td>20</td></tr></table>"
 	},
 	{
 		"y": "August",
 		"x":  24,
 		"group": "India",
 		"stack": "Stack", 
-		"tooltip": "<table class='PykCharts'><tr><th>India</th></tr><tr><td>22</td></tr></table>",
-		"color": "#4b6377"
+		"tooltip": "<table class='PykCharts'><tr><th>India</th></tr><tr><td>22</td></tr></table>"
 	}
 ]

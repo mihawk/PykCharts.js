@@ -1030,11 +1030,13 @@ configuration.fillChart = function (options,theme,config) {
             }
         },
         colorPieMS : function (d) {
-            if(PykCharts.boolean(d.highlight)) {
+            // console.log(d.name,"data");
+            // console.log(options.highlight,"optionssss");
+            if(d.name === options.highlight) {
                 return options.highlightColor;
             } else if(PykCharts.boolean(options.saturationEnable)) {
                 return options.saturationColor;
-            } else if(config.options && config.options.colors_chartColor) {
+            } else if(config.options && config.options.chartColor) {
                 return options.chartColor;
             } else if(config.options && d.color){
                 return d.color;
@@ -1319,6 +1321,7 @@ configuration.Theme = function(){
         "enableClick": "yes",
         "onhover": "shadow",
         "highlightArea":"no",
+        "highlight": "",
         "axis_onHoverHighlightenable" : "no",
         "axis_x_enable": "yes",
         "axis_x_value_position": "top",
@@ -4662,6 +4665,7 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     chartObject.legendsText_weight = (chartObject.legendsText_weight === "thick") ? "bold" : "normal";
     chartObject.legendsText_family = options.legendsText_family ? options.legendsText_family : stylesheet.legendsText_family;
     chartObject.line_highlight_group = options.line_highlight_group ? options.line_highlight_group : multiDimensionalCharts.line_highlight_group;
+    chartObject.highlight = options.highlight ? options.highlight : stylesheet.highlight;
     chartObject.size_enable = options.size_enable ? options.size_enable : multiDimensionalCharts.size_enable;
     chartObject.units = options.units ? options.units : false;
 
@@ -6213,8 +6217,8 @@ PykCharts.multiD.barChart = function(options){
                                 tooltip : d.tooltip ? d.tooltip : d.y,
                                 color: d.color,
                                 group: d.group,
-                                name:d.name,
-                                highlight:d.highlight
+                                name:d.name
+                                // highlight:d.highlight
                             };
                         })
                     };
@@ -6316,7 +6320,12 @@ PykCharts.multiD.barChart = function(options){
                     .attr("fill-opacity", function (d,i) {
                         //console.log(d.x);
                         if(PykCharts.boolean(that.saturationEnable)){
-                            if(d.highlight) {
+                            // if(d.highlight) {
+                            //     j--;
+                            //     return 1;
+                            // }
+                            if(that.highlight === d.name) {
+                                // console.log("gjagdhagd");
                                 j--;
                                 return 1;
                             }
@@ -6623,7 +6632,7 @@ PykCharts.multiD.barChart = function(options){
                         "y": icing.val,
                         "color": icing.color,
                         "tooltip": icing.tooltip,
-                        "highlight": icing.highlight,
+                        // "highlight": icing.highlight,
                         "group": that.keys[id],
                         "name": bar.group
                     });
@@ -6667,17 +6676,17 @@ PykCharts.multiD.barChart = function(options){
             for(var j in that.the_layers[i].values) {
                 if(!PykCharts.boolean(that.the_layers[i].values[j].y)) continue;
                 var name = that.the_layers[i].values[j].group, color;
-                if(options.optional && options.optional.colors) {
-                    if(options.optional.colors.chartColor) {
+                // if(options.optional && options.optional.colors) {
+                    if(options.chartColor) {
                         color = that.chartColor;
                     }
                     else if(that.the_layers[i].values[0].color) {
                         color = that.the_layers[i].values[0].color;
                     }
-                }
-                else {
-                    color = that.chartColor;
-                }
+                // }
+                // else {
+                //     color = that.chartColor;
+                // }
 
                 p.push({
                     "name": name,
@@ -6699,7 +6708,7 @@ PykCharts.multiD.barChart = function(options){
             var value = _.values(d);
             while(value[0].length < that.no_of_groups) {
                 var key = _.keys(d);
-                var stack = { "name": "stack", "tooltip": "null", "color": "white", "val": 0, highlight: false };
+                var stack = { "name": "stack", "tooltip": "null", "color": "white", "val": 0, /*highlight: false*/ };
                 var group = {"group3":[stack]};
                 // console.log(data[1],"dataaaaaaaa");
                 data[i][key[0]].push(group);
@@ -6734,7 +6743,7 @@ PykCharts.multiD.barChart = function(options){
             that.barName[i] = that.data[i].group;
             group[that.data[i].y] = [];
             bar[that.data[i].group] = [];
-            stack = { "name": that.data[i].stack, "tooltip": that.data[i].tooltip, "color": that.data[i].color, "val": that.data[i].x, highlight: that.data[i].highlight };
+            stack = { "name": that.data[i].stack, "tooltip": that.data[i].tooltip, "color": that.data[i].color, "val": that.data[i].x/*, highlight: that.data[i].highlight */};
             if(i === 0) {
                 data_tranform.push(group);
                 data_tranform[i][that.data[i].y].push(bar);
@@ -7056,7 +7065,12 @@ PykCharts.multiD.columnChart = function(options){
                     })
                     .attr("fill-opacity", function (d,i) {
                         if(PykCharts.boolean(that.saturationEnable))     {
-                            if(d.highlight) {
+                            // if(d.highlight) {
+                            //     j--;
+                            //     return 1;
+                            // }
+                            if(that.highlight === d.name) {
+                                // console.log("gjagdhagd");
                                 j--;
                                 return 1;
                             }
@@ -7304,8 +7318,8 @@ PykCharts.multiD.columnChart = function(options){
                         "color": icing.color,
                         "tooltip": icing.tooltip,
                         "group": that.keys[id],
-                        "name": bar.group,
-                        "highlight": icing.highlight
+                        "name": bar.group
+                        // "highlight": icing.highlight
                     });
                 }
             }
@@ -7376,7 +7390,7 @@ PykCharts.multiD.columnChart = function(options){
             var value = _.values(d);
             while(value[0].length < that.no_of_groups) {
                 var key = _.keys(d);
-                var stack = { "name": "stack", "tooltip": "null", "color": "white", "val": 0, highlight: false };
+                var stack = { "name": "stack", "tooltip": "null", "color": "white", "val": 0/*, highlight: false*/ };
                 var group = {"group3":[stack]};
                 data[i][key[0]].push(group);
                 value = _.values(d);
@@ -7410,7 +7424,7 @@ PykCharts.multiD.columnChart = function(options){
             that.barName[i] = that.data[i].group;
             group[that.data[i].x] = [];
             bar[that.data[i].group] = [];
-            stack = { "name": that.data[i].stack, "tooltip": that.data[i].tooltip, "color": that.data[i].color, "val": that.data[i].y, highlight: that.data[i].highlight };
+            stack = { "name": that.data[i].stack, "tooltip": that.data[i].tooltip, "color": that.data[i].color, "val": that.data[i].y/*, highlight: that.data[i].highlight */};
 
             if(i === 0) {
                 data_tranform.push(group);
@@ -9062,7 +9076,8 @@ PykCharts.maps.processInputs = function (chartObject, options) {
     chartObject.defaultZoomLevel = options.defaultZoomLevel ? options.defaultZoomLevel : 80;
     chartObject.loading = options.loading_animationGifUrl ? options.loading_animationGifUrl: stylesheet.loading_animationGifUrl;
     chartObject.highlightArea = options.highlightArea ? options.highlightArea : mapsTheme.highlightArea;
-    
+    chartObject.highlight = options.highlight ? options.highlight : mapsTheme.highlight;
+    // chartObject.highlightArea = "yes";    
     if (options &&  PykCharts.boolean (options.title_text)) {
         chartObject.title_size = "size" in options ? options.title_size : stylesheet.title_size;
         chartObject.title_color = options.title_color ? options.title_color : stylesheet.title_color;
@@ -9156,6 +9171,7 @@ PykCharts.maps.timelineMap = function (options) {
 
             d3.json("https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/maps/" + that.mapCode + "-topo.json", function (data) {
                 that.map_data = data;
+                // console.log(that.map_data,"map data");
                 d3.json("https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/palette/colorPalette.json", function (data) {
                     that.color_palette_data = data;
 
@@ -9313,6 +9329,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                 var scale = 150
                 , offset = [that.width / 2, that.height / 2]
                 , i;
+                console.log(that.map_data);
                 $(options.selector).css("background-color",that.bg);
 
                 that.group = that.map_cont.selectAll(".map_group")
@@ -9428,9 +9445,11 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                 return that.colors_defaultColor;
             }
             if (that.colors_type === "saturation") {
-
-                if ((that.highlightArea === "yes") && obj[0].highlight == "true") {
-                    return obj[0].highlight_color;
+                // console.log(that.highlight,"selection highlight");
+                // console.log(that.highlight === that.map_data.objects.geometries[i].properties.iso_a2,"check condition");
+                if ((that.highlightArea === "yes") &&  that.highlight === that.map_data.objects.geometries[i].properties.iso_a2/*obj[0].highlight === true*/) {
+                    return "yellow";
+                    // return obj[0].highlight_color;
                 } else {
                     if (that.colors_palette !== "") {
                         col_shade = obj[0].size;
