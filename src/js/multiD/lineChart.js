@@ -16,7 +16,7 @@ PykCharts.multiD.lineChart = function (options){
 		that.multiple_containers_enable = options.multiple_containers_enable ? options.multiple_containers_enable : multiDimensionalCharts.multiple_containers_enable;
 		that.interpolate = PykCharts.boolean(that.curvy_lines) ? "cardinal" : "linear";
 	    that.color_from_data = options.line_color_from_data ? options.line_color_from_data : multiDimensionalCharts.line_color_from_data;
-	    console.log(that.color_from_data,"color from data");
+	    // console.log(that.color_from_data,"color from data");
 
 	    d3.json(options.data, function (e, data) {
 			that.data = data.groupBy("line");
@@ -33,14 +33,20 @@ PykCharts.multiD.lineChart = function (options){
 		that.legend_text = [];
 		for(j = 0;j < that.data_length;j++) {
 			that.group_arr[j] = that.data[j].name;
-			that.color_arr[j] = that.data[j].color;
+			if(!that.data[j].color) {
+				console.log(that.color[0],"colorrrrrrrrr");
+				that.color_arr[j] = that.color[0];
+			}
+			else that.color_arr[j] = that.data[j].color;
 		}
+		console.log(that.color_arr,"color array");
 		that.uniq_group_arr = that.group_arr.slice();
 		that.uniq_color_arr = that.color_arr.slice();
+		console.log(that.color_arr.slice(),"slicee it");
 		$.unique(that.uniq_group_arr);
 		$.unique(that.uniq_color_arr);
 		var len = that.uniq_group_arr.length;
-		// console.log(that.uniq_group_arr,"what is this?????")
+		console.log(that.uniq_group_arr,"what is this?????");
 		if(!PykCharts.boolean(that.group_arr[0])){
 			that.new_data[0] = {
 					name: (that.data[0].name || ""),
@@ -55,6 +61,7 @@ PykCharts.multiD.lineChart = function (options){
 			}
 		} else {
 			for (k = 0;k < len;k++) {
+				console.log(that.uniq_color_arr[0],"color you are coming from where??");
 				that.new_data[k] = {
 						name: that.uniq_group_arr[k],
 						data: [],
@@ -71,7 +78,7 @@ PykCharts.multiD.lineChart = function (options){
 				}
 			}
 		}
-
+		console.log(that.new_data,"its new_data");
 		that.new_data_length = that.new_data.length;
 	};
 
@@ -488,6 +495,12 @@ PykCharts.multiD.lineChart = function (options){
 									.style("visibility","hidden")
 									.html(that.new_data[i].name);
 
+							if(that.type === "lineChart") {
+								that.dataLineGroup[i]
+					      			.style("stroke", function() {					      				
+					      					return that.new_data[i].color; 
+					      				});
+							}
 						  	if(that.type === "multilineChart") {
 						  		if (that.color_mode === "color") {
 						  		// if(PykCharts.boolean(that.color_from_data)) {
@@ -511,11 +524,17 @@ PykCharts.multiD.lineChart = function (options){
 						      					d3.select(this).classed({'multi-line-selected':true,'multi-line':false,'multi-line-hover':false});
 						      					that.color_before_selection = that.highlightColor;
 						      					that.updateSelectedLine(this.id);
-
 						      					return that.highlightColor;
-						      				} else {
+						      				// } else {
+						      				// 	console.log("data from json", that.new_data[i].color);
+						      				// 	return that.new_data[i].color; 
+						      				// }
+						      			} else if(that.color_mode === "color" && that.new_data[i].color){
 						      					return that.new_data[i].color; 
 						      				}
+						      				else if(that.color_mode === "color" && that.color.length) {
+						      					return that.color[i];
+						      				} else return that.chartColor;
 						      			})
 							      		.on("click",function (d) {
 								  			that.selected_line = d3.event.target;
@@ -655,6 +674,7 @@ PykCharts.multiD.lineChart = function (options){
 					}
 
 					if(that.type === "lineChart" && that.mode === "default") {
+
 						that.svgContainer
 							.on('mouseout',function (d) {
 								that.mouseEvent.tooltipHide();
