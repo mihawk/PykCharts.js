@@ -130,7 +130,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                         // .crossHair();
 
                     that.k.xAxis(that.svgContainer,that.xGroup,that.x)
-                        .yAxis(that.svgContainer,that.yGroup,that.yScale)
+                        .yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain)
                         // .yGrid(that.svgContainer,that.group,that.yScale)
                         // .xGrid(that.svgContainer,that.group,that.x);
                     if((i+1)%4 === 0 && i !== 0) {
@@ -162,7 +162,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
 
 
                 that.k.xAxis(that.svgContainer,that.xGroup,that.x)
-                    .yAxis(that.svgContainer,that.yGroup,that.yScale);
+                    .yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain);
                     // .yGrid(that.svgContainer,that.group,that.yScale)
                     // .xGrid(that.svgContainer,that.group,that.x);
             }
@@ -188,7 +188,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                 // .crossHair();
 
             that.k.xAxis(that.svgContainer,that.xGroup,that.x)
-                .yAxis(that.svgContainer,that.yGroup,that.yScale)
+                .yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain)
         }
     };
 
@@ -311,7 +311,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
 
                         y_range = [that.height - that.margin_top - that.margin_bottom, 0];
                         that.yScale = that.k.scaleIdentification("linear",y_data,y_range);
-                        console.log(that.yScale.domain());
+                        // console.log(that.yScale.domain());
                             
                         that.extra_top_margin = 0;
 
@@ -358,7 +358,8 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                         });
                         that.extra_left_margin = 0;
                     }
-
+                    that.xdomain = that.x.domain();
+                    that.ydomain = that.yScale.domain();
                     var zoom = d3.behavior.zoom()
                             .x(that.x)
                             .y(that.yScale)
@@ -366,7 +367,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                             .on("zoom",zoomed);
 
                     if(PykCharts.boolean(that.zoom_enable) && !(that.yAxisDataFormat==="string" || that.xAxisDataFormat==="string") && (that.mode === "default") ) {                                           
-                            console.log("hey hello m in zoom",that.x.domain(),that.yScale.domain(),i);
+                            // console.log("hey hello m in zoom",that.x.domain(),that.yScale.domain(),i);
                         var n;
                         if(PykCharts.boolean(that.multiple_containers_enable)) {
                             n = that.no_of_groups;
@@ -819,10 +820,10 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
         } else {
             n = 1;
         }
-        console.log(this.id,"id");
+        // console.log(this.id,"id");
         for(var i = 0; i < n; i++) {
             var containerId = id.substring(0,idLength-1);
-            console.log(d3.select(that.selector+" #"+containerId +i),"fishyyyyyyyy",that.x.domain());
+            // console.log(d3.select(that.selector+" #"+containerId +i),"fishyyyyyyyy",that.x.domain());
 
             current_container = d3.select(that.selector+" #"+containerId +i);
             

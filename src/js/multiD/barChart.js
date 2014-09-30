@@ -7,7 +7,7 @@ PykCharts.multiD.barChart = function(options){
 
         that.grid_yEnabled =  options.chart_grid_yEnabled ? options.chart_grid_yEnabled : theme.stylesheet.chart_grid_yEnabled;
         that.grid_color = options.chart_grid_color ? options.chart_grid_color : theme.stylesheet.chart_grid_color;
-
+        that.xAxisDataFormat = "";
         if(that.mode === "default") {
            that.k.loading();
         }
@@ -278,7 +278,9 @@ PykCharts.multiD.barChart = function(options){
                     y = y + (totalHeight/2);
                     group_arr.push({y: y, name: i});
                 }
-
+                that.domain = group_arr.map(function (d) {
+                    return d.name;
+                });
                 that.y0 = d3.scale.ordinal()
                     .domain(group_arr.map(function (d,i) { return d.name; }))
                     .rangeRoundBands([0, h], 0.1);
@@ -340,7 +342,7 @@ PykCharts.multiD.barChart = function(options){
                     .on('mouseover',function (d) {
                         that.mouseEvent.tooltipPosition(d);
                         that.mouseEvent.toolTextShow(d.tooltip ? d.tooltip : d.y);
-                        that.mouseEvent.axisHighlightShow(d.name,options.selector + " .axis-text","bar");
+                        that.mouseEvent.axisHighlightShow(d.name,options.selector + " .axis-text",that.domain,"bar");
                     })
                     .on('mouseout',function (d) {
                         that.mouseEvent.tooltipHide(d);
@@ -384,6 +386,23 @@ PykCharts.multiD.barChart = function(options){
                         .attr("fill",that.axis_y_labelColor)
                         .text(function(d){
                             return d.name;
+                        })
+                        .text(function (d) {
+                            if(this.getBBox().width > (0.8*that.margin_left)) {
+                                return d.name.substr(0,2) + "..";
+                            } else {
+                                return d.name;
+                            }
+                        })
+                        .on('mouseover',function (d) {
+                            that.mouseEvent.tooltipPosition(d);
+                            that.mouseEvent.toolTextShow(d.name);
+                        })
+                        .on('mouseout',function (d) {
+                            that.mouseEvent.tooltipHide(d);
+                        })
+                        .on('mousemove', function (d) {
+                            that.mouseEvent.tooltipPosition(d);
                         });
                 if(that.axis_y_position === "right") {
                     yAxis_label.attr("x", function () {
