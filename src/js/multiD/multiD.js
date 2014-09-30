@@ -399,7 +399,8 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     chartObject.highlight = options.highlight ? options.highlight : stylesheet.highlight;
     chartObject.size_enable = options.size_enable ? options.size_enable : multiDimensionalCharts.size_enable;
     chartObject.units = options.units ? options.units : false;
-
+    chartObject.multiple_containers_enable = options.multiple_containers_enable ? options.multiple_containers_enable : multiDimensionalCharts.multiple_containers_enable;
+        
     chartObject.colorPalette = ["#b2df8a", "#1f78b4", "#33a02c", "#fb9a99", "#e31a1c", "#fdbf6f", "#ff7f00", "#cab2d6", "#6a3d9a", "#ffff99", "#b15928", "#a6cee3"];
     chartObject.k = new PykCharts.Configuration(chartObject);
 
