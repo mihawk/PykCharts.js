@@ -329,14 +329,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                     }
                     if(that.xAxisDataFormat === "number") {
                         x_domain = d3.extent(that.data, function(d) { return d.x; });
-                        x_data = that.k._domainBandwidth(x_domain,2, function () {
-                            var scale1 = d3.scale.linear()
-                                .range([0 ,that.w - that.margin_left - that.margin_right])
-                                .domain(x_domain);
-                            xinvert = scale1.invert(that.radius_range[1]);
-                            xinvert = x_domain[1] - xinvert;
-                            return xinvert;
-                        });
+                        x_data = that.k._domainBandwidth(x_domain,2);
                         x_range = [0 ,that.w - that.margin_left - that.margin_right];
                         that.x = that.k.scaleIdentification("linear",x_data,x_range);
                         that.extra_left_margin = 0;
@@ -348,12 +341,13 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                         that.extra_left_margin = (that.x.rangeBand()/2);
 
                     } else if (that.xAxisDataFormat === "time") {
-                        max = d3.max(that.data, function(d) { return d3.max(d.data, function(k) { return new Date(k.x); }); });
-                        min = d3.min(that.data, function(d) { return d3.min(d.data, function(k) { return new Date(k.x); }); });
-                        x_data = [min,max];
+                        max = d3.max(that.data, function(k) { return new Date(k.x); });
+                        min = d3.min(that.data, function(k) { return new Date(k.x); }); 
+                        x_domain = [min.getTime(),max.getTime()];
+                        x_data = that.k._domainBandwidth(x_domain,2,"time");
                         x_range = [0 ,that.w - that.margin_left - that.margin_right];
                         that.x = that.k.scaleIdentification("time",x_data,x_range);
-                        that.new_data[0].data.forEach(function (d) {
+                        that.data.forEach(function (d) {
                             d.x = new Date(d.x);
                         });
                         that.extra_left_margin = 0;

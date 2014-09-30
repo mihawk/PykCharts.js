@@ -649,10 +649,24 @@ PykCharts.Configuration = function (options){
             return this;
         },
         __proto__: {
-            _domainBandwidth: function (domain_array, count, callback) {
+            _domainBandwidth: function (domain_array, count, type) {
                 addFactor = 0;
-                if (callback) {
-                    // addFactor = callback();
+                // if (callback) {
+                //     // addFactor = callback();
+                // }
+                if(type === "time") {
+                    var a = domain_array[0],
+                        b = domain_array[1], new_array = [];
+                    padding = (b - a) * 0.1;
+                    if (count === 0) {
+                        new_array[0] = a - (padding + addFactor);
+                    }else if(count === 1) {
+                        new_array[1] = b + (padding + addFactor);
+                    }else if (count === 2) {
+                        new_array[0] = a - (padding + addFactor);
+                        new_array[1] = b + (padding + addFactor);
+                    }
+                    return [new Date(new_array[0]),new Date(new_array[1])];
                 }
                 padding = (domain_array[1] - domain_array[0]) * 0.1;
                 if (count === 0) {
@@ -1150,7 +1164,7 @@ configuration.makeXAxis = function(options,xScale) {
     var k = PykCharts.Configuration(options);
     var xaxis = d3.svg.axis()
                     .scale(xScale)
-                    // .ticks(options.axis_x_no_of_axis_value)
+                    .ticks(options.axis_x_no_of_axis_value)
                     .tickSize(options.axis_x_pointer_size)
                     .outerTickSize(options.axis_x_outer_pointer_size)
                     .tickFormat(function (d,i) {
