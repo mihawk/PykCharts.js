@@ -161,6 +161,8 @@
                     spiderweb_pointer: "yes",
                     spiderweb_axisTitle : "yes",
 
+                    color: ["purple","red"],
+
                     chart_height: 430,
                     chart_width : 530,
                     chart_margin_top: 25,
@@ -181,7 +183,7 @@
                    
                     
                 });
-                // k.execute();
+                k.execute();
 
                 var k = new PykCharts.multiD.scatterPlot ({
                     selector: "#scatterPlot",
@@ -189,6 +191,8 @@
                     mode : "default", //  default or infographics
                     yAxisDataFormat : "number",
                     xAxisDataFormat : "number",
+
+                    color: ["purple","red","yellow","pink","blue"],
 
                     chart_height: 450,
                     chart_width : 700,
@@ -247,7 +251,7 @@
 
                     enableCrossHair: "yes"
                 });
-                // k.execute();
+                k.execute();
 
                 var k = new PykCharts.multiD.scatterPlot ({
                     selector: "#multiple-scatterplots",
@@ -312,7 +316,7 @@
 
                     enableCrossHair: "yes"
                 });
-                // k.execute();
+                k.execute();
 
                 var k = new PykCharts.multiD.lineChart ({
                     selector: "#multiLine",
@@ -482,6 +486,9 @@
                     selector: "#pulse",
                     data: "../data/pulse.json",
                     mode : "default", //  default or infographics
+
+                    color: ["purple","red","yellow"],
+
                     yAxisDataFormat : "string",
                     xAxisDataFormat : "number",
                     chart_height: 350,
@@ -546,7 +553,7 @@
 
                     enableCrossHair: "yes"
                 });
-               // k.execute();
+                k.execute();
 
                 var k = new PykCharts.multiD.columnChart({
                     data: "../data/ultimateColumn.json",
@@ -605,7 +612,7 @@
 
 
                 });
-                // k.execute();
+                k.execute();
 
                 var k = new PykCharts.multiD.columnChart({
                     data: "../data/ultimateGroupColumn.json",
@@ -665,7 +672,7 @@
                    highlight:"January",
     
                 });
-                // k.execute();
+                k.execute();
 
                 var k = new PykCharts.multiD.barChart({
                     data: "../data/ultimatebar.json",
@@ -734,7 +741,7 @@
                     highlight: "January"
 
                 });
-                // k.execute();
+                k.execute();
 
                 var k = new PykCharts.multiD.barChart({
                     data: "../data/ultimateGroupBar.json",
@@ -803,7 +810,7 @@
 
                     highlight: "January"
                   });
-                // k.execute();
+                k.execute();
             });
 
         </script>

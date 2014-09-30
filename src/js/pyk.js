@@ -532,10 +532,6 @@ PykCharts.Configuration = function (options){
                     .style("text-anchor", "end")
                     .text(options.axis_x_title);
 
-                // gsvg.selectAll(options.selector + " g.x.axis text").attr("pointer-events","none");
-                // gsvg.selectAll(options.selector + " g.x.axis text").attr("pointer-events","none");
-// console.log(/*(options.xAxisDataFormat === "string" || options.xAxisDataFormat === "time") && */options.multiple_containers_enable === "yes");
-                console.log(options.multiple_containers_enable);
                 if((options.xAxisDataFormat === "string" || options.xAxisDataFormat === "time") && options.multiple_containers_enable === "no") {
                     console.log("inside if");
                     var a = $(options.selector + " g.x.axis text");
@@ -1059,14 +1055,27 @@ configuration.fillChart = function (options,theme,config) {
             }
         },
         colorPieW : function (d) {
-            if(!(PykCharts.boolean(options.size_enable))) {
+             if(!(PykCharts.boolean(options.size_enable))) {
+                // console.log("no size enable");
                 return options.saturationColor;
             } else if(PykCharts.boolean(options.size_enable)) {
                 if(d.color) {
+                    // console.log("yes size enable",d.color);
                     return d.color;
+                } else if(options.color.length) {
+                    // console.log("config color",options.color);
+                    return options.color;
                 }
-                return options.chartColor;
+                else return options.chartColor;
             }
+            // if(!(PykCharts.boolean(options.size_enable))) {
+            //     return options.saturationColor;
+            // } else if(PykCharts.boolean(options.size_enable)) {
+            //     if(d.color) {
+            //         return d.color;
+            //     }
+            //     return options.chartColor;
+            // }
         },
         colorPieMS : function (d) {
              if(d.name === options.highlight) {
@@ -1311,7 +1320,7 @@ configuration.Theme = function(){
         "size_enable" : "yes",
 
         "colors_mode" : "color",
-        "color": ["pink"],
+        "color": ["pink","blue","purple","red","orange"],
 
         "spiderweb_outerRadiusPercent" : 80,
         "spiderweb_radius": 5,

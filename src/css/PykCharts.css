@@ -77,7 +77,7 @@ body {
   fill: none;
   stroke-width: 3px;
   stroke-linecap: round;
-  stroke: "yellow";
+  /*stroke: "yellow";*/
   shape-rendering: auto;
   pointer-events: none;
 }

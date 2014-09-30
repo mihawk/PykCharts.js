@@ -176,6 +176,7 @@ PykCharts.multiD.configuration = function (options){
             return this;
         },
         mapGroup : function (data) {
+            console.log(data,"data");
             var newarr = [];
             var unique = {};
             var k = 0;
@@ -183,11 +184,19 @@ PykCharts.multiD.configuration = function (options){
             var checkColor = true;
 
             data.forEach(function (item) {
+                // console.log("item group", item.group, "item", item);
                 if(item.group) {
                     checkGroup = true;
                 } else {
                     checkGroup = false;
-                    if(!item.color) {
+                    if(item.color) {
+                        checkGroup = false;
+                        item.color = item.color;
+                    }else if(options.color) {
+                        checkColor = false;
+                        item.color = options.color[0];
+                        // item.color = options.colorPalette[0];
+                    } else{
                         checkColor = false;
                         item.color = options.colorPalette[0];
                     }
@@ -197,12 +206,22 @@ PykCharts.multiD.configuration = function (options){
             if(checkGroup) {
                 data.forEach(function(item) {
                     if (!unique[item.group]) {
-                        if(!item.color) {
+                        if(item.color) {
+                            checkGroup = false;
+                            item.color = item.color;
+                        }else if(options.color) {
+                            item.color = options.color[k];
+                            console.log("hey",options.color[k],k);
+                            k++;
+                        } else {
+                            console.log("else");
                             item.color = options.colorPalette[k];
                             k++;
                         }
+                        console.log(item);
                         newarr.push(item);
                         unique[item.group] = item;
+                        console.log(newarr,"new array",options.colorPalette[k]);
                     }
                 });
 
@@ -229,6 +248,7 @@ PykCharts.multiD.configuration = function (options){
                         }
                     }
                 }
+                console.log(arr,checkGroup,"before return");
                 return [arr,checkGroup];
             } else {
                 return [data,checkGroup];
