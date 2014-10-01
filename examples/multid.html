@@ -48,10 +48,10 @@
             $(document).ready(function (e) {
                 var k = new PykCharts.multiD.lineChart ({
                     selector: "#line",
-                    data: "../data/lineChart.json",
+                    data: "../data/line_timescale.json",
                     mode : "default",
                     yAxisDataFormat : "number",
-                    xAxisDataFormat : "string",
+                    xAxisDataFormat : "time",
                     chart_height: 400,
                     chart_width : 630,
                     chart_margin_top: 5,
@@ -178,10 +178,10 @@
 
                 var k = new PykCharts.multiD.scatterPlot ({
                     selector: "#scatterPlot",
-                    data: "../data/scatterplot_timescale.json",
+                    data: "../data/scatterplot.json",
                     mode : "default", //  default or infographics
                     yAxisDataFormat : "number",
-                    xAxisDataFormat : "time",
+                    xAxisDataFormat : "number",
 
                     chart_height: 450,
                     chart_width : 700,
@@ -247,7 +247,7 @@
                     data: "../data/scatterplot.json",
                     mode : "default", //  default or infographics
                     yAxisDataFormat : "number",
-                    xAxisDataFormat : "time",
+                    xAxisDataFormat : "number",
 
                     chart_height: 450,
                     chart_width : 700,

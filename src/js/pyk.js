@@ -621,6 +621,7 @@ PykCharts.Configuration = function (options){
         isOrdinal: function(svg,container,scale) {
             if(container === ".x.axis") {
                 svg.select(container).call(PykCharts.Configuration.makeXAxis(options,scale));
+                
             }
             else if (container === ".x.grid") {
                 svg.select(container).call(PykCharts.Configuration.makeXGrid(options,scale));
@@ -667,17 +668,18 @@ PykCharts.Configuration = function (options){
                         new_array[1] = b + (padding + addFactor);
                     }
                     return [new Date(new_array[0]),new Date(new_array[1])];
+                }else {
+                    padding = (domain_array[1] - domain_array[0]) * 0.1;
+                    if (count === 0) {
+                        domain_array[0] -= (padding + addFactor);
+                    }else if(count === 1) {
+                        domain_array[1] = parseFloat(domain_array[1],10) + (padding + addFactor);
+                    }else if (count === 2) {
+                        domain_array[0] -= (padding + addFactor);
+                        domain_array[1] = parseFloat(domain_array[1],10) + (padding + addFactor);
+                    }
+                    return domain_array;
                 }
-                padding = (domain_array[1] - domain_array[0]) * 0.1;
-                if (count === 0) {
-                    domain_array[0] -= (padding + addFactor);
-                }else if(count === 1) {
-                    domain_array[1] = parseFloat(domain_array[1],10) + (padding + addFactor);
-                }else if (count === 2) {
-                    domain_array[0] -= (padding + addFactor);
-                    domain_array[1] = parseFloat(domain_array[1],10) + (padding + addFactor);
-                }
-                return domain_array;
             },
             _radiusCalculation: function (radius_percent) {
                 var min_value = d3.min([options.width,options.height]);
@@ -1033,8 +1035,12 @@ configuration.mouseEvent = function (options) {
                             .style("fill",abc)
                             .style("font-weight","normal");
                     }
-
-                    for(curr_tick = 0;domain[curr_tick] !== active_tick;curr_tick++){}
+                    var len = domain.length;
+                    for(curr_tick = 0;curr_tick<len;curr_tick++){
+                        if(domain[curr_tick] === active_tick) {
+                            break;
+                        }
+                    }
                     prev_tick = curr_tick;
 
                     d3.selectAll(selection)

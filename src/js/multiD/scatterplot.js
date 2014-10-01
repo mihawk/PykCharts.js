@@ -299,15 +299,9 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                     if(that.yAxisDataFormat === "number") {
                         y_domain = d3.extent(that.data, function(d) { return d.y });
 
-                        y_data = that.k._domainBandwidth(y_domain,2, function () {
-                            var scale1 = d3.scale.linear()
-                                .range([that.height - that.margin_top - that.margin_bottom, 0])
-                                .domain(y_domain);
-                            yinvert = scale1.invert(that.radius_range[1]);
-                            yinvert = y_domain[1] - yinvert;
-                            return yinvert;
-                        });
-                        //console.log(y_data,"y_data");
+                        y_data = that.k._domainBandwidth(y_domain,2,"number");
+                        
+                        console.log(y_data,"y_data");
 
                         y_range = [that.height - that.margin_top - that.margin_bottom, 0];
                         that.yScale = that.k.scaleIdentification("linear",y_data,y_range);
