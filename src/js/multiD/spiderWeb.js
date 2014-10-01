@@ -13,7 +13,7 @@ PykCharts.multiD.spiderWeb = function (options) {
         that.outerRadius = options.spiderweb_outer_radius_percent && _.isNumber(options.spiderweb_outer_radius_percent) ? options.spiderweb_outer_radius_percent : theme.multiDimensionalCharts.spiderweb_outer_radius_percent;
         that.inner_radius = 0;
         that.enableTicks =  options.spiderweb_pointer ? options.spiderweb_pointer : theme.multiDimensionalCharts.spiderweb_pointer;
-
+        that.size_enable = options.size_enable ? options.size_enable : theme.multiDimensionalCharts.size_enable;
         that.outerRadius = that.k._radiusCalculation(that.outerRadius);   
     
         d3.json(options.data, function (e, data) {
@@ -131,7 +131,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                 that.group_arr = [];
                 that.uniq_group_arr = [];
                 for(j=0; j<that.data.length; j++) {
-                    that.group_arr[j] = that.data[j].name;
+                    that.group_arr[j] = that.data[j].group;
                 }
                 that.uniq_group_arr = _.uniq(that.group_arr);
                 var len = that.uniq_group_arr.length;
@@ -143,7 +143,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                         data: []
                     };
                     for (l=0; l<that.data.length; l++) {
-                        if (that.uniq_group_arr[k] === that.data[l].name) {
+                        if (that.uniq_group_arr[k] === that.data[l].group) {
                             that.new_data[k].data.push({
                                 x: that.data[l].x,
                                 y: that.data[l].y,
@@ -449,7 +449,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                         .attr("fill","black")
                         .attr(text_parameter1, text_parameter1value)
                         .attr(text_parameter2, text_parameter2value)
-                        .text(function (d) { return d.name });
+                        .text(function (d) { return d.group });
 
                     that.legends_text.exit()
                                     .remove();

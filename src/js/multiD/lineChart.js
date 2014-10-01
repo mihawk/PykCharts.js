@@ -34,7 +34,7 @@ PykCharts.multiD.lineChart = function (options){
 			that.group_arr[j] = that.data[j].name;
 			if(!that.data[j].color) {
 				// console.log(that.color[0],"colorrrrrrrrr");
-				that.color_arr[j] = that.color[0];
+				that.color_arr[j] = that.color[j];
 			}
 			else that.color_arr[j] = that.data[j].color;
 		}
@@ -345,7 +345,6 @@ PykCharts.multiD.lineChart = function (options){
 		          	that.extra_left_margin = 0;
 		      	}
 		      	that.domain = that.xScale.domain();
-		      	// console.log(that.domain);
 		      	//
 					// that.zoom_event = d3.behavior.zoom()
 					// 	.y(that.yScale)
@@ -554,7 +553,10 @@ PykCharts.multiD.lineChart = function (options){
 											// console.log("faith");
 											d3.select(that.selected)
 													.classed({'multi-line-selected':true,'multi-line':false,'multi-line-hover':false})
-													.style("stroke", function() { return that.color_mode === "color"/*PykCharts.boolean(that.color_from_data)*/ ? that.color_before_selection : that.highlightColor; })
+													.style("stroke", function() { 
+														console.log("hey");
+														return PykCharts.boolean(that.color_from_data) ? that.color_before_selection : that.highlightColor; 
+													})
 													.style("opacity",1);
 											d3.selectAll(options.selector+" path.multi-line").style("opacity",0.3);
 
@@ -570,9 +572,10 @@ PykCharts.multiD.lineChart = function (options){
 									that.legend_text[i]
 						      			.style("fill", function() { 
 						      				if(that.new_data[i].highlight) {
+						      					console.log(that.new_data[i].highlight,"jagdjadgajdfil");
 						      					return that.highlightColor;
 							      			} else {
-							      				// console.log(that.legendsText_color,"hope");
+							      				console.log(that.legendsText_color,"hope");
 							      				return that.legendsText_color;							      				
 							      			}						      				
 						      			});
@@ -589,6 +592,7 @@ PykCharts.multiD.lineChart = function (options){
 						      					that.updateSelectedLine(this.id);						      					
 						      					return that.highlightColor;
 						      				} else {
+						      					console.log("stroke", that.chartColor);
 						      					return that.chartColor;
 						      				}
 						      			})
@@ -657,7 +661,9 @@ PykCharts.multiD.lineChart = function (options){
 					      			.style("fill", function() { return that.new_data[index].color; });
 
 					      		that.dataLineGroup[0]
-					      			.style("stroke", function (d,i) { return that.new_data[index].color; });
+					      			.style("stroke", function (d,i) {
+					      				// console.log(that.new_data[index].color,"hell");
+					      			 return that.new_data[index].color; });
 					      		// that.dataLineGroup[0]
 					      		// 	.style("stroke", function (d,i) {
 					      		// 		if(that.data[i].color) {

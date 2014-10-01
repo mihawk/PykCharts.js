@@ -52,6 +52,10 @@
                     mode : "default",
                     yAxisDataFormat : "number",
                     xAxisDataFormat : "time",
+
+                    color_mode: "color",  //color or saturation
+                    color:["orange"],
+
                     chart_height: 400,
                     chart_width : 630,
                     chart_margin_top: 5,
@@ -101,6 +105,9 @@
                     mode : "default",
                     yAxisDataFormat : "number",
                     xAxisDataFormat : "string",
+
+                    color_mode: "color",  //color or saturation
+                    color:["orange"],
 
                     chart_height: 400,
                     chart_width : 630,
@@ -154,6 +161,8 @@
                     spiderweb_pointer: "yes",
                     spiderweb_axisTitle : "yes",
 
+                    color: ["purple","red"],
+
                     chart_height: 430,
                     chart_width : 530,
                     chart_margin_top: 25,
@@ -174,7 +183,7 @@
 
 
                 });
-                k.execute();
+                // k.execute();
 
                 var k = new PykCharts.multiD.scatterPlot ({
                     selector: "#scatterPlot",
@@ -182,6 +191,8 @@
                     mode : "default", //  default or infographics
                     yAxisDataFormat : "number",
                     xAxisDataFormat : "number",
+
+                    color: ["purple","red","yellow","pink","blue"],
 
                     chart_height: 450,
                     chart_width : 700,
@@ -240,7 +251,7 @@
 
                     enableCrossHair: "yes"
                 });
-                k.execute();
+                // k.execute();
 
                 var k = new PykCharts.multiD.scatterPlot ({
                     selector: "#multiple-scatterplots",
@@ -305,12 +316,16 @@
 
                     enableCrossHair: "yes"
                 });
-                k.execute();
+                // k.execute();
 
                 var k = new PykCharts.multiD.lineChart ({
                     selector: "#multiLine",
                     data: "../data/multiLineChart.json",
                     mode : "default",
+
+                    color_mode: "color",  //color or saturation
+                    color:["orange","pink","purple"],
+
                     yAxisDataFormat : "number",
                     xAxisDataFormat : "string",
                     chart_height: 400,
@@ -347,14 +362,13 @@
                     axis_y_pointer_padding: 10,
                     axis_y_outer_pointer_size: 3,
 
-
                     line_curvy_lines:"yes",
                     tooltip_mode : "moving",
                     tooltip_enable : "yes",
                     enableCrossHair: "yes",
                     multiple_containers_enable: "yes",
                     line_highlight_group: ["india"],
-                    "highlightColor": "#013F73",
+                    highlightColor: "#013F73",
 
                 });
                 k.execute();
@@ -363,6 +377,10 @@
                     selector: "#multiple-multiLine",
                     data: "../data/multiLineChart.json",
                     mode : "default",
+
+                    color_mode: "color",  //color or saturation
+                    color:["orange","purple","red"],
+
                     yAxisDataFormat : "number",
                     xAxisDataFormat : "string",
                     chart_height: 400,
@@ -403,8 +421,8 @@
                     tooltip_mode : "moving",
                     tooltip_enable : "yes",
                     enableCrossHair: "yes",
-                    line_highlight_group: ["india"],
-                    "highlightColor": "yellow",// name of the group which is to be highlighted on onload
+                    // line_highlight_group: ["india"],
+                    // highlightColor: "yellow",// name of the group which is to be highlighted on onload
                     // multiple_containers_enable: "no",
 
 
@@ -416,6 +434,10 @@
                     selector: "#multiArea",
                     data: "../data/multiLineChart.json",
                     mode : "default",
+
+                    color_mode: "color",  //color or saturation
+                    color:["orange","pink","purple"],
+
                     yAxisDataFormat : "number",
                     xAxisDataFormat : "string",
                     chart_height: 400,
@@ -464,6 +486,9 @@
                     selector: "#pulse",
                     data: "../data/pulse.json",
                     mode : "default", //  default or infographics
+
+                    color: ["purple","red","yellow"],
+
                     yAxisDataFormat : "string",
                     xAxisDataFormat : "number",
                     chart_height: 350,
@@ -523,12 +548,15 @@
 
                     enableCrossHair: "yes"
                 });
-               k.execute();
+                // k.execute();
 
                 var k = new PykCharts.multiD.columnChart({
                     data: "../data/ultimateColumn.json",
                     mode: "default",
                     selector: "#column",
+
+                    color_mode: "color",
+                    color:["orange"],
 
                     chart_height: 430,
                     chart_width : 400,
@@ -562,9 +590,9 @@
                     axis_y_pointer_padding: 10,
                     axis_y_outer_pointer_size: 3,
 
-                    colors_backgroundColor: "white",
-                    colors_chartColor: "steelblue",
-                    colors_highlightColor: "#013F73",
+                    backgroundColor: "white",
+                    chartColor: "steelblue",
+                    highlightColor: "#013F73",
 
                     legends_enable: "no",
                     legends_display: "horizontal",
@@ -573,15 +601,21 @@
 
                     borderBetweenChartElements_width: "1px",
                     borderBetweenChartElements_color: "white",
-                    borderBetweenChartElements_style: "solid"
+                    borderBetweenChartElements_style: "solid",
+
+                    highlight:"January",
+
 
                 });
-                k.execute();
+                // k.execute();
 
                 var k = new PykCharts.multiD.columnChart({
                     data: "../data/ultimateGroupColumn.json",
                     mode: "default",
                     selector: "#groupColumn",
+
+                    color_mode: "saturation",
+                    color:["orange"],
 
                     chart_height: 430,
                     chart_width : 400,
@@ -615,9 +649,9 @@
                     axis_y_pointer_padding: 10,
                     axis_y_outer_pointer_size: 3,
 
-                    colors_backgroundColor: "white",
-                    colors_chartColor: "steelblue",
-                    colors_highlightColor: "#013F73",
+                    backgroundColor: "white",
+                    chartColor: "steelblue",
+                    highlightColor: "#013F73",
 
                     legends_enable: "yes",
                     legends_display: "horizontal",
@@ -626,17 +660,20 @@
 
                     borderBetweenChartElements_width: "1px",
                     borderBetweenChartElements_color: "white",
-                    borderBetweenChartElements_style: "solid",
+                    borderBetweenChartElements_style: "solid",                                         
+                   // saturation_enable: "yes",
 
-                   saturation_enable: "yes",
-
+                   highlight:"January",
                 });
-                k.execute();
+                // k.execute();
 
                 var k = new PykCharts.multiD.barChart({
                     data: "../data/ultimatebar.json",
                     mode: "default",
                     selector: "#bar",
+
+                    color_mode: "color",
+                    color:["orange"],
 
                     chart_height: 430,
                     chart_width : 400,
@@ -670,9 +707,9 @@
                     axis_y_pointer_padding: 10,
                     axis_y_outer_pointer_size: 3,
 
-                    colors_backgroundColor: "white",
-                    colors_chartColor: "steelblue",
-                    colors_highlightColor: "#013F73",
+                    backgroundColor: "white",
+                    chartColor: "steelblue",
+                    highlightColor: "#013F73",
 
                     legends_enable: "no",
                     legends_display: "horizontal",
@@ -692,10 +729,12 @@
                     pointer_weight: "thin",
                     pointer_size: 10,
                     pointer_color: "#1D1D1D",
-                    pointer_family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
+                    pointer_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
+
+                    highlight: "January"
 
                 });
-                k.execute();
+                // k.execute();
 
                 var k = new PykCharts.multiD.barChart({
                     data: "../data/ultimateGroupBar.json",
@@ -709,6 +748,9 @@
                     chart_margin_bottom: 25,
                     chart_margin_left: 35,
                     chart_grid_xEnabled: "yes",
+
+                    color_mode:"saturation",
+                    color:["orange"],
 
                     realTimeCharts_refreshFrequency: 0 ,
 
@@ -734,9 +776,9 @@
                     axis_y_pointer_padding: 10,
                     axis_y_outer_pointer_size: 3,
 
-                    colors_backgroundColor: "white",
-                    colors_chartColor: "steelblue",
-                    colors_highlightColor: "#013F73",
+                    backgroundColor: "white",
+                    chartColor: "steelblue",
+                    highlightColor: "#013F73",
 
                     legends_enable: "yes",
                     legends_display: "horizontal",
@@ -757,7 +799,9 @@
                     pointer_size: 10,
                     pointer_color: "#1D1D1D",
                     pointer_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
-                    saturation_enable: "yes",
+                    saturation_enable: "no",
+
+                    highlight: "January"
                   });
                 k.execute();
             });
