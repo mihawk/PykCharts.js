@@ -339,6 +339,9 @@ PykCharts.multiD.lineChart = function (options){
 		          	that.new_data[0].data.forEach(function (d) {
 			          	d.x = new Date(d.x);
 		          	});
+		          	that.data.forEach(function (d) {
+			          	d.x = new Date(d.x);
+		          	});
 		          	that.extra_left_margin = 0;
 		      	}
 		      	that.domain = that.xScale.domain();

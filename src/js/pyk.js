@@ -519,7 +519,7 @@ PykCharts.Configuration = function (options){
                     gsvg.attr("transform", "translate(0," + (options.height - options.margin_top - options.margin_bottom) + ")");
                 }
                 var xaxis = PykCharts.Configuration.makeXAxis(options,xScale);
-
+                // console.log(xaxis,options.selector);
                 if(options.axis_x_pointer_values.length != 0) {
                     xaxis.tickValues(options.axis_x_pointer_values);
                 }
@@ -539,7 +539,6 @@ PykCharts.Configuration = function (options){
                         comp = a[i].innerHTML;
                         if(a[i].getBBox().width > ((extra*2) * 0.7)) {
                             comp = comp.substr(0,3) + "..";
-
                         }
                         a[i].innerHTML = comp;
                     }
@@ -561,7 +560,7 @@ PykCharts.Configuration = function (options){
             }
             return this;
         },
-        yAxis: function (svg, gsvg, yScale) {
+        yAxis: function (svg, gsvg, yScale,domain) {
             var width = options.width,
                 height = options.height;
 
@@ -575,7 +574,7 @@ PykCharts.Configuration = function (options){
                 if(options.axis_y_pointer_values.length != 0) {
                     yaxis.tickValues(options.axis_y_pointer_values);
                 }
-
+                var mouseEvent = new PykCharts.Configuration.mouseEvent(options);
                 gsvg.style("stroke",function () { return options.axis_y_axisColor; })
                     .call(yaxis)
                     .append("text")
@@ -585,13 +584,42 @@ PykCharts.Configuration = function (options){
                     .style("text-anchor", "end")
                     .text(options.axis_y_title);
 
-                gsvg.selectAll(options.selector + " g.y.axis text").attr("pointer-events","none");
+                if((options.yAxisDataFormat === "string") && options.multiple_containers_enable === "no") {
+                    // console.log("inside if", options.selector);
+                    var a = $(options.selector + " g.y.axis text");
+                    
+                    var len = a.length,comp;
+                    
+                    for(i=0; i<len-1;i++) {
+                        comp = a[i].innerHTML;
+                        if(a[i].getBBox().width > (options.margin_left * 0.7)) {
+                            comp = comp.substr(0,3) + "..";
+
+                        }
+                        a[i].innerHTML = comp;
+                    }
+                    // console.log(a, "-------", options.selector);
+                    xaxistooltip = gsvg.selectAll(options.selector + " g.y.axis text")
+                        .data(domain)
+                    xaxistooltip.on('mouseover',function (d) {
+                            mouseEvent.tooltipPosition(d);
+                            mouseEvent.toolTextShow(d);
+                        })
+                        .on('mousemove', function (d) {
+                            mouseEvent.tooltipPosition(d);
+                            mouseEvent.toolTextShow(d);
+                        })
+                        .on('mouseout', function (d) {
+                            mouseEvent.tooltipHide(d);
+                        });
+                }
             }
             return this;
         },
         isOrdinal: function(svg,container,scale) {
             if(container === ".x.axis") {
                 svg.select(container).call(PykCharts.Configuration.makeXAxis(options,scale));
+                
             }
             else if (container === ".x.grid") {
                 svg.select(container).call(PykCharts.Configuration.makeXGrid(options,scale));
@@ -620,21 +648,36 @@ PykCharts.Configuration = function (options){
             return this;
         },
         __proto__: {
-            _domainBandwidth: function (domain_array, count, callback) {
+            _domainBandwidth: function (domain_array, count, type) {
                 addFactor = 0;
-                if (callback) {
-                    // addFactor = callback();
+                // if (callback) {
+                //     // addFactor = callback();
+                // }
+                if(type === "time") {
+                    var a = domain_array[0],
+                        b = domain_array[1], new_array = [];
+                    padding = (b - a) * 0.1;
+                    if (count === 0) {
+                        new_array[0] = a - (padding + addFactor);
+                    }else if(count === 1) {
+                        new_array[1] = b + (padding + addFactor);
+                    }else if (count === 2) {
+                        new_array[0] = a - (padding + addFactor);
+                        new_array[1] = b + (padding + addFactor);
+                    }
+                    return [new Date(new_array[0]),new Date(new_array[1])];
+                }else {
+                    padding = (domain_array[1] - domain_array[0]) * 0.1;
+                    if (count === 0) {
+                        domain_array[0] -= (padding + addFactor);
+                    }else if(count === 1) {
+                        domain_array[1] = parseFloat(domain_array[1],10) + (padding + addFactor);
+                    }else if (count === 2) {
+                        domain_array[0] -= (padding + addFactor);
+                        domain_array[1] = parseFloat(domain_array[1],10) + (padding + addFactor);
+                    }
+                    return domain_array;
                 }
-                padding = (domain_array[1] - domain_array[0]) * 0.1;
-                if (count === 0) {
-                    domain_array[0] -= (padding + addFactor);
-                }else if(count === 1) {
-                    domain_array[1] = parseFloat(domain_array[1],10) + (padding + addFactor);
-                }else if (count === 2) {
-                    domain_array[0] -= (padding + addFactor);
-                    domain_array[1] = parseFloat(domain_array[1],10) + (padding + addFactor);
-                }
-                return domain_array;
             },
             _radiusCalculation: function (radius_percent) {
                 var min_value = d3.min([options.width,options.height]);
@@ -671,8 +714,8 @@ configuration.mouseEvent = function (options) {
                 else {
                     that.tooltip
                         .style("visibility", "visible")
-                        .style("top", (d3.event.pageY - 20) + "px")
-                        .style("left", (d3.event.pageX + 30) + "px");
+                        .style("top", (d3.event.layerY - 20) + "px")
+                        .style("left", (d3.event.layerX + 30) + "px");
                 }
                 return that.tooltip;
             }
@@ -913,7 +956,6 @@ configuration.mouseEvent = function (options) {
                                 .attr("y1",cy)
                                 .attr("x2",(options.width - options.margin_right))
                                 .attr("y2",cy);
-                            // console.log(group_index);
                             d3.select(options.selector+" #svg-"+group_index+" .focus").style("display","block")
                                 .attr("transform", "translate(" + (cx - 5) + "," + cy + ")");
                         }
@@ -987,8 +1029,12 @@ configuration.mouseEvent = function (options) {
                             .style("fill",abc)
                             .style("font-weight","normal");
                     }
-
-                    for(curr_tick = 0;domain[curr_tick] !== active_tick;curr_tick++){}
+                    var len = domain.length;
+                    for(curr_tick = 0;curr_tick<len;curr_tick++){
+                        if(domain[curr_tick] === active_tick) {
+                            break;
+                        }
+                    }
                     prev_tick = curr_tick;
 
                     d3.selectAll(selection)
@@ -1051,14 +1097,12 @@ configuration.fillChart = function (options,theme,config) {
         },
         colorPieW : function (d) {
              if(!(PykCharts.boolean(options.size_enable))) {
-                // console.log("no size enable");
                 return options.saturationColor;
             } else if(PykCharts.boolean(options.size_enable)) {
                 if(d.color) {
                     // console.log("yes size enable",d.color);
                     return d.color;
                 } else if(options.color.length) {
-                    // console.log("config color",options.color);
                     return options.color;
                 }
                 else return options.chartColor;
@@ -1076,7 +1120,6 @@ configuration.fillChart = function (options,theme,config) {
              if(d.name === options.highlight) {
                 return options.highlightColor;
             } else if(options.color_mode === "saturation") {
-                // console.log("saturationColor");
                 return options.saturationColor;
             } else if(options.color_mode === "color" && d.color) {
                 return d.color;
@@ -1135,7 +1178,10 @@ configuration.makeXAxis = function(options,xScale) {
                     })
                     .tickPadding(options.axis_x_pointer_padding)
                     .orient(options.axis_x_value_position);
-
+    if(options.xAxisDataFormat=== "time") {
+        xaxis.ticks(d3.time.month,2)
+            .tickFormat(d3.time.format("%b"));
+    }
     return xaxis;
 };
 
@@ -1151,7 +1197,8 @@ configuration.makeYAxis = function(options,yScale) {
                     .tickPadding(options.axis_y_pointer_padding)
                     .tickFormat(function (d,i) {
                         return k.appendUnits(d);
-                    })
+                    });
+
                     // .tickFormat(d3.format(",.0f"));
     return yaxis;
 };

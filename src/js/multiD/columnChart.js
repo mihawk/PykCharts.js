@@ -240,7 +240,7 @@ PykCharts.multiD.columnChart = function(options){
                     x = x + (totalWidth/2);
                     group_arr.push({x: x, name: i});
                 }
-
+                 var len = w/group_arr.length;
                 // console.log(that.xScale.rangeBand()*17,"rangeBand");
 
                 // that.x0 = d3.scale.ordinal()
@@ -260,7 +260,9 @@ PykCharts.multiD.columnChart = function(options){
                         .append("g")
                         .attr("class", "bars");
 //                        .attr("transform","translate("+that.columnMargin+",0)");
-
+                that.domain = group_arr.map(function (d) {
+                    return d.name;
+                });
                 var rect = bars.selectAll("rect")
                     .data(function(d,i){
                         return d.values;
@@ -300,7 +302,7 @@ PykCharts.multiD.columnChart = function(options){
                     .on('mouseover',function (d) {
                         that.mouseEvent.tooltipPosition(d);
                         that.mouseEvent.toolTextShow(d.tooltip ? d.tooltip : d.y);
-                        that.mouseEvent.axisHighlightShow(d.name,options.selector + " " + ".axis-text","column");
+                        that.mouseEvent.axisHighlightShow(d.name,options.selector + " " + ".axis-text",that.domain,"column");
                     })
                     .on('mouseout',function (d) {
                         that.mouseEvent.tooltipHide(d);
@@ -343,6 +345,23 @@ PykCharts.multiD.columnChart = function(options){
                         .attr("fill",that.axis_x_labelColor)
                         .text(function(d){
                             return d.name;
+                        })
+                        .text(function (d) {
+                            if(this.getBBox().width > (len*0.8)) {
+                                return d.name.substr(0,3) + "..";
+                            } else {
+                                return d.name;
+                            }
+                        })
+                        .on('mouseover',function (d) {
+                            that.mouseEvent.tooltipPosition(d);
+                            that.mouseEvent.toolTextShow(d.name);
+                        })
+                        .on('mouseout',function (d) {
+                            that.mouseEvent.tooltipHide(d);
+                        })
+                        .on('mousemove', function (d) {
+                            that.mouseEvent.tooltipPosition(d);
                         });
 
                 xAxis_label.exit().remove();
