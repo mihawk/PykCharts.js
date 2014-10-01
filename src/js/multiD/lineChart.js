@@ -33,19 +33,19 @@ PykCharts.multiD.lineChart = function (options){
 		for(j = 0;j < that.data_length;j++) {
 			that.group_arr[j] = that.data[j].name;
 			if(!that.data[j].color) {
-				console.log(that.color[0],"colorrrrrrrrr");
-				that.color_arr[j] = that.color[0];
+				// console.log(that.color[0],"colorrrrrrrrr");
+				that.color_arr[j] = that.color[j];
 			}
 			else that.color_arr[j] = that.data[j].color;
 		}
-		console.log(that.color_arr,"color array");
+		// console.log(that.color_arr,"color array");
 		that.uniq_group_arr = that.group_arr.slice();
 		that.uniq_color_arr = that.color_arr.slice();
-		console.log(that.color_arr.slice(),"slicee it");
+		// console.log(that.color_arr.slice(),"slicee it");
 		$.unique(that.uniq_group_arr);
 		$.unique(that.uniq_color_arr);
 		var len = that.uniq_group_arr.length;
-		console.log(that.uniq_group_arr,"what is this?????");
+		// console.log(that.uniq_group_arr,"what is this?????");
 		if(!PykCharts.boolean(that.group_arr[0])){
 			that.new_data[0] = {
 					name: (that.data[0].name || ""),
@@ -60,7 +60,7 @@ PykCharts.multiD.lineChart = function (options){
 			}
 		} else {
 			for (k = 0;k < len;k++) {
-				console.log(that.uniq_color_arr[0],"color you are coming from where??");
+				// console.log(that.uniq_color_arr[0],"color you are coming from where??");
 				that.new_data[k] = {
 						name: that.uniq_group_arr[k],
 						data: [],
@@ -77,7 +77,7 @@ PykCharts.multiD.lineChart = function (options){
 				}
 			}
 		}
-		console.log(that.new_data,"its new_data");
+		// console.log(that.new_data,"its new_data");
 		that.new_data_length = that.new_data.length;
 	};
 
@@ -506,7 +506,7 @@ PykCharts.multiD.lineChart = function (options){
 						  		// if(PykCharts.boolean(that.color_from_data)) {
 									that.legend_text[i]
 						      			.style("fill", function() {
-						      				console.log(that.new_data[i].highlight,"highhhhhh");
+						      				// console.log(that.new_data[i].highlight,"highhhhhh");
 						      				if(that.new_data[i].highlight) {
 						      					return that.highlightColor;
 							      			} else {
@@ -544,13 +544,16 @@ PykCharts.multiD.lineChart = function (options){
 											that.deselected = that.selected;
 											d3.select(that.deselected)
 													.classed({'multi-line-selected':false,'multi-line':true,'multi-line-hover':false})
-													.style("stroke", function() {console.log(that.color_from_data); return (PykCharts.boolean(that.color_from_data)) ? that.color_before_selection : that.chartColor; });
+													.style("stroke", function() { return (PykCharts.boolean(that.color_from_data)) ? that.color_before_selection : that.chartColor; });
 											that.selected = this;
 											that.color_before_selection = d3.select(that.selected).style("stroke");
 											// console.log("faith");
 											d3.select(that.selected)
 													.classed({'multi-line-selected':true,'multi-line':false,'multi-line-hover':false})
-													.style("stroke", function() { return that.color_mode === "color"/*PykCharts.boolean(that.color_from_data)*/ ? that.color_before_selection : that.highlightColor; })
+													.style("stroke", function() { 
+														console.log("hey");
+														return PykCharts.boolean(that.color_from_data) ? that.color_before_selection : that.highlightColor; 
+													})
 													.style("opacity",1);
 											d3.selectAll(options.selector+" path.multi-line").style("opacity",0.3);
 
@@ -566,9 +569,10 @@ PykCharts.multiD.lineChart = function (options){
 									that.legend_text[i]
 						      			.style("fill", function() { 
 						      				if(that.new_data[i].highlight) {
+						      					console.log(that.new_data[i].highlight,"jagdjadgajdfil");
 						      					return that.highlightColor;
 							      			} else {
-							      				// console.log(that.legendsText_color,"hope");
+							      				console.log(that.legendsText_color,"hope");
 							      				return that.legendsText_color;							      				
 							      			}						      				
 						      			});
@@ -585,6 +589,7 @@ PykCharts.multiD.lineChart = function (options){
 						      					that.updateSelectedLine(this.id);						      					
 						      					return that.highlightColor;
 						      				} else {
+						      					console.log("stroke", that.chartColor);
 						      					return that.chartColor;
 						      				}
 						      			})
@@ -653,7 +658,9 @@ PykCharts.multiD.lineChart = function (options){
 					      			.style("fill", function() { return that.new_data[index].color; });
 
 					      		that.dataLineGroup[0]
-					      			.style("stroke", function (d,i) { return that.new_data[index].color; });
+					      			.style("stroke", function (d,i) {
+					      				// console.log(that.new_data[index].color,"hell");
+					      			 return that.new_data[index].color; });
 					      		// that.dataLineGroup[0]
 					      		// 	.style("stroke", function (d,i) {
 					      		// 		if(that.data[i].color) {

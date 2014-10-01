@@ -533,7 +533,6 @@ PykCharts.Configuration = function (options){
                     .text(options.axis_x_title);
 
                 if((options.xAxisDataFormat === "string" || options.xAxisDataFormat === "time") && options.multiple_containers_enable === "no") {
-                    console.log("inside if");
                     var a = $(options.selector + " g.x.axis text");
                     var len = a.length,comp;
                     for(i=0; i<len-1;i++) {
@@ -726,16 +725,13 @@ configuration.mouseEvent = function (options) {
                 for(j = 0;j < range_length;j++) {
                     for(k = 0; k<y_range.length;k++) {
                     if((j+1) >= range_length) {
-                       console.log("false",j);
                         return false;
                     }
                     else {
                       if((right_tick === x_range[j] && left_tick === x_range[j+1]) && (bottom_tick === y_range[k+1] && top_tick === y_range[k])) {
-                            console.log("false");
                             return false;
                         }
                         else if((x >= x_range[j] && x <= x_range[j+1]) && (y <= (y_range[k] - top - bottom) && y >= (y_range[k+1]))) {
-                            console.log(y_range,y);
                             left_tick = x_range[j], right_tick = x_range[j+1];
                             bottom_tick = y_range[k+1];
                             top_tick = y_range[k];
@@ -807,7 +803,6 @@ configuration.mouseEvent = function (options) {
                                                 this.tooltipPosition(tooltipText,(pos_line_cursor_x+(a*diff_containers)),pos_line_cursor_y,-15,-15,a);
                                                 this.toolTextShow(tooltipText,multiple_containers_enable,type,a);
                                                 (options.enableCrossHair) ? this.crossHairShow(pos_line_cursor_x,top,pos_line_cursor_x,(h - bottom),pos_line_cursor_x,pos_line_cursor_y,type,active_y_tick.length,multiple_containers_enable,new_data[a],a) : null;
-                                                console.log(a,"aaaaaaaaaaaaaaaaaaa");
                                             }
                                         }
                                     }
@@ -918,7 +913,7 @@ configuration.mouseEvent = function (options) {
                                 .attr("y1",cy)
                                 .attr("x2",(options.width - options.margin_right))
                                 .attr("y2",cy);
-                            console.log(group_index);
+                            // console.log(group_index);
                             d3.select(options.selector+" #svg-"+group_index+" .focus").style("display","block")
                                 .attr("transform", "translate(" + (cx - 5) + "," + cy + ")");
                         }
@@ -1081,7 +1076,7 @@ configuration.fillChart = function (options,theme,config) {
              if(d.name === options.highlight) {
                 return options.highlightColor;
             } else if(options.color_mode === "saturation") {
-                console.log("saturationColor");
+                // console.log("saturationColor");
                 return options.saturationColor;
             } else if(options.color_mode === "color" && d.color) {
                 return d.color;
