@@ -3,40 +3,35 @@
         "x": "National Democratic Alliance",
         "y": 5,
         "weight":15,
-        "name":"2014",
-        "color": "#75b0e1",
+        "group":"2014",
         "tooltip": "National Democratic Alliance"
     },
     {
         "x": "United Progressive Alliance",
         "y": 10,
         "weight":20,
-        "name":"2014",
-        "color": "#75b0e1",
+        "group":"2014",
         "tooltip": "United Progressive Alliance"
     },
     {
         "x": "Aam Aadmi Party",
         "y": 12,
         "weight":10,
-        "name":"2014",
-        "color": "#75b0e1",        
+        "group":"2014",   
         "tooltip": "Aam Aadmi Party"
     },
     {
         "x": "Bahujan Samaj Party",
         "y": 17,
         "weight":30,
-        "name":"2014",
-        "color": "#75b0e1",
+        "group":"2014",
         "tooltip": "Bahujan Samaj Party"
     },
     {
         "x": "Congress Party",
         "y": 30,
         "weight":25,
-        "name":"2014",
-        "color": "#75b0e1",
+        "group":"2014",
         "tooltip": "Congress Party"
     },
 
@@ -44,40 +39,35 @@
         "x": "National Democratic Alliance",
         "y": 40,
         "weight":25,
-        "name":"2009",
-        "color": "#0e5ea1",
+        "group":"2009",
         "tooltip": "National Democratic Alliance"
     },
     {
         "x": "United Progressive Alliance",
         "y": 20,
         "weight":10,
-        "name":"2009",
-        "color": "#0e5ea1",
+        "group":"2009",
         "tooltip": "United Progressive Alliance"
     },
     {
         "x": "Aam Aadmi Party",
         "y": 30,
         "weight":30,
-        "name":"2009",
-        "color": "#0e5ea1",        
+        "group":"2009",     
         "tooltip": "Aam Aadmi Party"
     },
     {
         "x": "Bahujan Samaj Party",
         "y": 5,
         "weight":12,
-        "name":"2009",
-        "color": "#0e5ea1",
+        "group":"2009",
         "tooltip": "Bahujan Samaj Party"
     },
     {
         "x": "Nationalist Congress Party",
         "y": 15,
         "weight":7,
-        "name":"2009",
-        "color": "#0e5ea1",
+        "group":"2009",
         "tooltip": "Nationalist Congress Party"
     }    
 ]

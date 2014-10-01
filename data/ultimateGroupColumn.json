@@ -3,112 +3,84 @@
 		"x": "January",
 		"y":  8,
 		"group": "India",
-		"tooltip": "<table class='PykCharts'><tr><th>India</th></tr><tr><td>8</td></tr></table>",
-		"color": "#4b6377",
-		"highlight": true
+		"tooltip": "<table class='PykCharts'><tr><th>India</th></tr><tr><td>8</td></tr></table>"
 	},
 	{
 		"x": "January",
 		"y":  12,
 		"group": "China",
-		"tooltip": "<table class='PykCharts'><tr><th>China</th></tr><tr><td>12</td></tr></table>",
-		"color": "#4b6377",
-		"highlight": false
+		"tooltip": "<table class='PykCharts'><tr><th>China</th></tr><tr><td>12</td></tr></table>"
 	},
 	{
 		"x": "January",
 		"y":  16,
 		"group": "Japan",
-		"tooltip": "<table class='PykCharts'><tr><th>Japan</th></tr><tr><td>16</td></tr></table>",
-		"color": "#4b6377",
-		"highlight": false
+		"tooltip": "<table class='PykCharts'><tr><th>Japan</th></tr><tr><td>16</td></tr></table>"
 	},
 	{
 		"x": "January",
 		"y":  20,
 		"group": "United States",
-		"tooltip": "<table class='PykCharts'><tr><th>United States</th></tr><tr><td>20</td></tr></table>",
-		"color": "#4b6377",
-		"highlight": false
+		"tooltip": "<table class='PykCharts'><tr><th>United States</th></tr><tr><td>20</td></tr></table>"
 	},
 	{
 		"x": "Feb",
 		"y":  20,
 		"group": "India",
-		"tooltip": "<table class='PykCharts'><tr><th>India</th></tr><tr><td>20</td></tr></table>",
-		"color": "#4b6377",
-		"highlight": false
+		"tooltip": "<table class='PykCharts'><tr><th>India</th></tr><tr><td>20</td></tr></table>"
 	},
 	{
 		"x": "Feb",
 		"y":  22,
 		"group": "China",
-		"tooltip": "<table class='PykCharts'><tr><th>China</th></tr><tr><td>22</td></tr></table>",
-		"color": "#4b6377",
-		"highlight": false
+		"tooltip": "<table class='PykCharts'><tr><th>China</th></tr><tr><td>22</td></tr></table>"
 	},
 	{
 		"x": "Feb",
 		"y":  24,
 		"group": "Japan",
-		"tooltip": "<table class='PykCharts'><tr><th>Japan</th></tr><tr><td>24</td></tr></table>",
-		"color": "#4b6377",
-		"highlight": false
+		"tooltip": "<table class='PykCharts'><tr><th>Japan</th></tr><tr><td>24</td></tr></table>"
 	},
 	{
 		"x": "Feb",
 		"y":  28,
 		"group": "United States",
-		"tooltip": "<table class='PykCharts'><tr><th>United States</th></tr><tr><td>28</td></tr></table>",
-		"color": "#4b6377",
-		"highlight": false
+		"tooltip": "<table class='PykCharts'><tr><th>United States</th></tr><tr><td>28</td></tr></table>"
 	},
 	{
 		"x": "March",
 		"y":  8,
 		"group": "India",
-		"tooltip": "<table class='PykCharts'><tr><th>India</th></tr><tr><td>8</td></tr></table>",
-		"color": "#4b6377",
-		"highlight": false
+		"tooltip": "<table class='PykCharts'><tr><th>India</th></tr><tr><td>8</td></tr></table>"
 	},
 	{
 		"x": "March",
 		"y":  12,
 		"group": "Japan",
-		"tooltip": "<table class='PykCharts'><tr><th>Japan</th></tr><tr><td>12</td></tr></table>",
-		"color": "#4b6377",
-		"highlight": false
+		"tooltip": "<table class='PykCharts'><tr><th>Japan</th></tr><tr><td>12</td></tr></table>"
 	},
 	{
 		"x": "March",
 		"y":  16,
 		"group": "United States",
-		"tooltip": "<table class='PykCharts'><tr><th>United States</th></tr><tr><td>16</td></tr></table>",
-		"color": "#4b6377",
-		"highlight": false
+		"tooltip": "<table class='PykCharts'><tr><th>United States</th></tr><tr><td>16</td></tr></table>"
 	},
 	{
 		"x": "April",
 		"y":  8,
 		"group": "India",
-		"tooltip": "<table class='PykCharts'><tr><th>India</th></tr><tr><td>8</td></tr></table>",
-		"color": "#4b6377",
-		"highlight": false
+		"tooltip": "<table class='PykCharts'><tr><th>India</th></tr><tr><td>8</td></tr></table>"
 	},
 	{
 		"x": "April",
 		"y":  12,
 		"group": "Japan",
-		"tooltip": "<table class='PykCharts'><tr><th>Japan</th></tr><tr><td>12</td></tr></table>",
-		"color": "#4b6377",
-		"highlight": false
+		"tooltip": "<table class='PykCharts'><tr><th>Japan</th></tr><tr><td>12</td></tr></table>"
 	},
 	{
 		"x": "April",
 		"y":  16,
 		"group": "United States",
-		"tooltip": "<table class='PykCharts'><tr><th>United States</th></tr><tr><td>16</td></tr></table>",
-		"color": "#4b6377",
-		"highlight": false
+		"tooltip": "<table class='PykCharts'><tr><th>United States</th></tr><tr><td>16</td></tr></table>"
 	}
 ]

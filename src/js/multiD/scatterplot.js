@@ -16,6 +16,7 @@ PykCharts.multiD.scatterPlot = function (options) {
         that.bubbleRadius = options.scatterplot_radius && _.isNumber(options.scatterplot_radius) ? options.scatterplot_radius : multiDimensionalCharts.scatterplot_radius;
         that.enableTicks =  options.scatterplot_pointer ? options.scatterplot_pointer : multiDimensionalCharts.scatterplot_pointer;
         that.zoomed_out = true;
+        that.size_enable = options.size_enable ? options.size_enable : multiDimensionalCharts.size_enable;
 
         if(PykCharts.boolean(that.multiple_containers_enable)) {
             that.radius_range = [that.k._radiusCalculation(1.1)*2,that.k._radiusCalculation(2.6)*2];
@@ -50,8 +51,10 @@ PykCharts.multiD.pulse = function (options) {
         that.bubbleRadius = options.scatterplot_radius && _.isNumber(options.scatterplot_radius) ? options.scatterplot_radius : multiDimensionalCharts.scatterplot_radius;
         that.zoomed_out = true;
         that.radius_range = [that.k._radiusCalculation(1.1)*2,that.k._radiusCalculation(3.5)*2];
+        that.size_enable = options.size_enable ? options.size_enable : multiDimensionalCharts.size_enable;
         d3.json(options.data, function (e, data) {
             that.data = data.groupBy("pulse");
+            console.log(data);
             that.compare_data = data.groupBy("pulse");
             $(that.selector+" #chart-loader").remove();
             var a = new PykCharts.multiD.scatterplotFunction(options,that,"pulse");
@@ -72,6 +75,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                 that.k.lastUpdatedAt("liveData");
             }
             that.map_group_data = that.multiD.mapGroup(that.data);
+            console.log(that.map_group_data);
             that.optionalFeatures()
                     .createChart()
                     .legends()
@@ -81,6 +85,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
     };
 
     this.render = function () {
+        console.log(that.data);
         that.map_group_data = that.multiD.mapGroup(that.data);
         that.fillChart = new PykCharts.Configuration.fillChart(that);
 
@@ -155,11 +160,12 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
 
                 that.optionalFeatures().createChart()
                     .legends()
-                    .label()
                     .zoom()
                     .ticks();
                     // .crossHair();
-
+                if(type === "scatterplot") {
+                    that.optionalFeatures().label();
+                }
 
                 that.k.xAxis(that.svgContainer,that.xGroup,that.x,that.extra_left_margin,that.xdomain)
                     .yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain);
@@ -508,13 +514,10 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                         .attr(rect_parameter3, rect_parameter3value)
                         .attr(rect_parameter4, rect_parameter4value)
                         .attr("fill", function (d) {
-                             // console.log(d);
-                        //      console.log(that.fillChart.colorPieW(d));
                             return that.fillChart.colorPieW(d);
                         })
                         .attr("opacity", function (d) {
                             return 0.6;
-                        //    return that.multiD.opacity(d,that.sorted_weight,that.data);
                         });
 
                     legend.exit().remove();

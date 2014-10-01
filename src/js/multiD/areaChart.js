@@ -188,7 +188,10 @@ PykCharts.multiD.areaChart = function (options){
 				else if(that.type === "stackedAreaChart") {
 					for(j = 0;j < that.data_length;j++) {
 						that.group_arr[j] = that.data[j].name;
-						that.color_arr[j] = that.data[j].color;
+							if(!that.data[j].color) {
+								that.color_arr[j] = that.color[j];
+							}
+							else that.color_arr[j] = that.data[j].color;
 					}
 					that.uniq_group_arr = that.group_arr.slice();
 					that.uniq_color_arr = that.color_arr.slice();
@@ -358,7 +361,15 @@ PykCharts.multiD.areaChart = function (options){
 							.datum(that.layers[i].data)
 							.attr("class", that.chartPathClass)
 							.attr("id", type)
-							.style("fill", function(d,k) { return (that.new_data[i].color !== "") ? that.new_data[i].color : that.chartColor; })
+							.style("fill", function(d,k) { 
+								// console.log(that.new_data[i].color,"color in json",that.chartColor,"color from chart");
+								if (that.new_data[i].color) {
+									return that.new_data[i].color;
+								} else if (that.color) {
+									return that.color[i];
+								} else return that.chartColor;
+								// return (that.new_data[i].color !== "") ? that.new_data[i].color : that.chartColor; 
+							})
 							.attr("transform", "translate("+ that.extra_left_margin +",0)")
 							.attr("d", that.chart_path);
 

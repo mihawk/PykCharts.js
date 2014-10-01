@@ -794,7 +794,6 @@ configuration.mouseEvent = function (options) {
                 for(j = 0;j < range_length;j++) {
                     for(k = 0; k<y_range.length;k++) {
                     if((j+1) >= range_length) {
-                       // console.log("false",j);
                         return false;
                     }
                     else {
@@ -876,8 +875,6 @@ configuration.mouseEvent = function (options) {
                                                 this.tooltipPosition(tooltipText,(pos_line_cursor_x+(a*diff_containers)),pos_line_cursor_y,-15,-15,a);
                                                 this.toolTextShow(tooltipText,multiple_containers_enable,type,a);
                                                 (options.enableCrossHair) ? this.crossHairShow(pos_line_cursor_x,top,pos_line_cursor_x,(h - bottom),pos_line_cursor_x,pos_line_cursor_y,type,active_y_tick.length,multiple_containers_enable,new_data[a],a) : null;
-                                                // console.log(a,"aaaaaaaaaaaaaaaaaaa");
-
                                             }
                                         }
                                     }
@@ -1132,6 +1129,7 @@ configuration.fillChart = function (options,theme,config) {
                 return options.saturationColor;
             } else if(PykCharts.boolean(options.size_enable)) {
                 if(d.color) {
+                    // console.log("yes size enable",d.color);
                     return d.color;
                 } else if(options.color.length) {
                     return options.color;
@@ -1434,7 +1432,7 @@ configuration.Theme = function(){
         "size_enable" : "yes",
 
         "colors_mode" : "color",
-        "color": ["pink"],
+        "color": ["pink","blue","purple","red","orange"],
 
         "spiderweb_outerRadiusPercent" : 80,
         "spiderweb_radius": 5,
