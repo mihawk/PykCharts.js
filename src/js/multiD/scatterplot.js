@@ -129,7 +129,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                         .ticks();
                         // .crossHair();
 
-                    that.k.xAxis(that.svgContainer,that.xGroup,that.x)
+                    that.k.xAxis(that.svgContainer,that.xGroup,that.x,that.extra_left_margin,that.xdomain)
                         .yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain)
                         // .yGrid(that.svgContainer,that.group,that.yScale)
                         // .xGrid(that.svgContainer,that.group,that.x);
@@ -161,7 +161,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                     // .crossHair();
 
 
-                that.k.xAxis(that.svgContainer,that.xGroup,that.x)
+                that.k.xAxis(that.svgContainer,that.xGroup,that.x,that.extra_left_margin,that.xdomain)
                     .yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain);
                     // .yGrid(that.svgContainer,that.group,that.yScale)
                     // .xGrid(that.svgContainer,that.group,that.x);
@@ -187,7 +187,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
             that.optionalFeatures().createChart(0);
                 // .crossHair();
 
-            that.k.xAxis(that.svgContainer,that.xGroup,that.x)
+            that.k.xAxis(that.svgContainer,that.xGroup,that.x,that.extra_left_margin,that.xdomain)
                 .yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain)
         }
     };
@@ -298,15 +298,9 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
 
                     if(that.yAxisDataFormat === "number") {
                         y_domain = d3.extent(that.data, function(d) { return d.y });
-
                         y_data = that.k._domainBandwidth(y_domain,2,"number");
-                        
-                        console.log(y_data,"y_data");
-
                         y_range = [that.height - that.margin_top - that.margin_bottom, 0];
                         that.yScale = that.k.scaleIdentification("linear",y_data,y_range);
-                        // console.log(that.yScale.domain());
-                            
                         that.extra_top_margin = 0;
 
                     } else if(that.yAxisDataFormat === "string") {
