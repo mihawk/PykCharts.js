@@ -33,8 +33,7 @@ PykCharts.multiD.lineChart = function (options){
 		for(j = 0;j < that.data_length;j++) {
 			that.group_arr[j] = that.data[j].name;
 			if(!that.data[j].color) {
-				// console.log(that.color[0],"colorrrrrrrrr");
-				that.color_arr[j] = that.color[0];
+				that.color_arr[j] = that.color[j];
 			}
 			else that.color_arr[j] = that.data[j].color;
 		}
