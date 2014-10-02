@@ -514,7 +514,7 @@ PykCharts.Configuration = function (options){
             var e = extra;
 
             if(PykCharts.boolean(options.axis_x_enable)){
-                d3.selectAll(options.selector + " .x.axis").attr("fill",function () { return options.axis_x_labelColor;});
+                d3.selectAll(options.selector + " .x.axis").attr("fill",function () { console.log("label fill",options.axis_x_labelColor);return options.axis_x_labelColor;});
                 if(options.axis_x_position === "bottom") {
                     gsvg.attr("transform", "translate(0," + (options.height - options.margin_top - options.margin_bottom) + ")");
                 }
@@ -526,12 +526,25 @@ PykCharts.Configuration = function (options){
 
                 gsvg.style("stroke",function () { return options.axis_x_axisColor; })
                     .call(xaxis)
-                    .append("text")
-                    .attr("x", options.width - options.margin_left - options.margin_right)
-                    .attr("y", -8)
-                    .style("text-anchor", "end")
-                    .text(options.axis_x_title);
 
+                if(options.axis_x_position === "bottom") {
+                   gsvg.append("text")
+                        .attr("x", (options.width)/2- options.margin_left - options.margin_right)
+                        // .attr("x", options.width - options.margin_left - options.margin_right)
+                        .attr("y", 35)
+                        .style("text-anchor", "middle")
+                        .style("fill",options.axis_x_labelColor)
+                        .text(options.axis_x_title); 
+                } else if (options.axis_x_position === "top") {
+                    gsvg.append("text")
+                        .attr("x", (options.width)/2 - options.margin_left - options.margin_right)
+                        // .attr("x", options.width - options.margin_left - options.margin_right)
+                        .attr("y", -5)
+                        .style("text-anchor", "middle")
+                        .style("fill",options.axis_x_labelColor)
+                        .text(options.axis_x_title); 
+                }
+                    
                 if((options.xAxisDataFormat === "string" || options.xAxisDataFormat === "time") && options.multiple_containers_enable === "no") {
                     var a = $(options.selector + " g.x.axis text");
                     var len = a.length,comp;
@@ -577,13 +590,27 @@ PykCharts.Configuration = function (options){
                 var mouseEvent = new PykCharts.Configuration.mouseEvent(options);
                 gsvg.style("stroke",function () { return options.axis_y_axisColor; })
                     .call(yaxis)
-                    .append("text")
-                    .attr("transform", "rotate(-90)")
-                    .attr("y", 6)
-                    .attr("dy", ".71em")
-                    .style("text-anchor", "end")
-                    .text(options.axis_y_title);
 
+                if(options.axis_y_position === "left"){
+                    gsvg.append("text")
+                        .attr("x",-(options.height)/2)
+                        .attr("transform", "rotate(-90)")
+                        .attr("y", -40)
+                        .attr("dy", ".71em")
+                        .style("fill",options.axis_y_labelColor)
+                        // .style("text-anchor", "end")
+                        .text(options.axis_y_title);
+                } else if (options.axis_y_position === "right") {
+                     gsvg.append("text")
+                        .attr("x",-(options.height)/2)
+                        .attr("transform", "rotate(-90)")
+                        .style("fill",options.axis_y_labelColor)
+                        // .attr("y", 12)
+                        .attr("y", 6)
+                        .attr("dy", ".71em")
+                        // .style("text-anchor", "end")
+                        .text(options.axis_y_title);
+                }
                 if((options.yAxisDataFormat === "string") && options.multiple_containers_enable === "no") {
                     // console.log("inside if", options.selector);
                     var a = $(options.selector + " g.y.axis text");

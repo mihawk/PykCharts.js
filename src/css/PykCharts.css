@@ -181,7 +181,6 @@ body {
 .PykCharts-twoD .axis text {
   font: 12px "Helvetica Neue",Helvetica,Arial,sans-serif;
   font-weight: normal;
-  fill: #1D1D1D;
   stroke: none;
   z-index: 10;
 }
@@ -190,7 +189,6 @@ body {
   font: 12px "Helvetica Neue",Helvetica,Arial,sans-serif;
   font-style: normal;
   font-weight: normal;
-  fill: #1D1D1D;
   stroke: none;
   z-index: 10;
 }
