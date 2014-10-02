@@ -544,7 +544,7 @@ PykCharts.Configuration = function (options){
                     gsvg.append("text")
                         .attr("x", (w - options.margin_left - options.margin_right)/2)
                         // .attr("y", -5)
-                        .attr("y", - options.margin_top)
+                        .attr("y", - options.margin_top + 10)
                         .style("text-anchor", "middle")
                         .style("fill",options.axis_x_labelColor)
                         .text(options.axis_x_title); 
@@ -560,9 +560,15 @@ PykCharts.Configuration = function (options){
             var width = options.width,
                 height = options.height;
             var k = new PykCharts.Configuration(options);
+            var w;
+            if(PykCharts.boolean(options.multiple_containers_enable)) {
+                w = options.w;
+            } else {
+                w = options.width;
+            }
             if(PykCharts.boolean(options.axis_y_enable)){
                 if(options.axis_y_position === "right") {
-                    gsvg.attr("transform", "translate(" + (options.width - options.margin_left - options.margin_right) + ",0)");
+                    gsvg.attr("transform", "translate(" + (w - options.margin_left - options.margin_right) + ",0)");
                 }
                 d3.selectAll(options.selector + " .y.axis").attr("fill",function () { return options.axis_y_labelColor; });
                 var yaxis = PykCharts.Configuration.makeYAxis(options,yScale);
