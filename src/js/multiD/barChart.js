@@ -12,7 +12,7 @@ PykCharts.multiD.barChart = function(options){
            that.k.loading();
         }
         d3.json(options.data, function(e, data){
-            console.log("data",data);
+            // console.log("data",data);
             that.data = data.groupBy("bar");
             that.compare_data = data.groupBy("bar");
             //console.log(data);

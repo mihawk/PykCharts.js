@@ -18,6 +18,8 @@ PykCharts.multiD.lineChart = function (options){
 	    
 	    d3.json(options.data, function (e, data) {
 			that.data = data.groupBy("line");
+			that.yAxisDataFormat = options.yAxisDataFormat ? options.yAxisDataFormat : that.k.yAxisDataFormatIdentification(that.data);
+    		that.xAxisDataFormat = options.xAxisDataFormat ? options.xAxisDataFormat : that.k.xAxisDataFormatIdentification(that.data);
 			that.compare_data = that.data;
 			that.data_length = that.data.length;
 			that.dataTransformation();

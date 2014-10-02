@@ -694,6 +694,24 @@ PykCharts.Configuration = function (options){
             };
             return this;
         },
+        xAxisDataFormatIdentification : function (data){
+            if(_.isNumber(data[0].x) || !(isNaN(data[0].x))){ 
+                return "number";
+            } else if(!(isNaN(new Date(data[0].x).getTime()))) {
+                return "time";
+            } else {
+                return "string";
+            }
+        },
+        yAxisDataFormatIdentification : function (data){ 
+            if(_.isNumber(data[0].y) || !(isNaN(data[0].y))){ 
+                return "number";
+            } else if(!(isNaN(new Date(data[0].y).getTime()))) {
+                return "time";
+            } else {
+                return "string";
+            }
+        },
         __proto__: {
             _domainBandwidth: function (domain_array, count, type) {
                 addFactor = 0;
@@ -799,10 +817,7 @@ configuration.mouseEvent = function (options) {
                 var bottom = options.margin_bottom;
                 var w = options.width;
                 var h = options.height;
-            //    console.log(d3.event.target.id,"saveeeeeee me");
                 var group_index = parseInt(d3.event.target.id.substr((d3.event.target.id.length-1),1));
-            //    console.log(group_index,type,"confusion");
-                // console.log(group_index,"group_index");
                 var c = b - a;
                 var x = d3.event.pageX - offsetLeft;
                 var y = d3.event.pageY - offsetTop;
@@ -827,113 +842,124 @@ configuration.mouseEvent = function (options) {
 
                 for(j = 0;j < range_length;j++) {
                     for(k = 0; k<y_range.length;k++) {
-                    if((j+1) >= range_length) {
-                        return false;
-                    }
-                    else {
-                      if((right_tick === x_range[j] && left_tick === x_range[j+1]) && (top_tick === y_range[k])) {
-                            // console.log("false");
+                        if((j+1) >= range_length) {
                             return false;
                         }
-                        else if((x >= x_range[j] && x <= x_range[j+1]) && (y <= (y_range[k] - top - bottom))) {
-                            // console.log(y_range,y);
-                            left_tick = x_range[j], right_tick = x_range[j+1];
-                            bottom_tick = y_range[k+1];
-                            top_tick = y_range[k];
-                            left_diff = (left_tick - x), right_diff = (x - right_tick);
+                        else {
+                          if((right_tick === x_range[j] && left_tick === x_range[j+1]) && (top_tick === y_range[k])) {
+                                return false;
+                            }
+                            else if((x >= x_range[j] && x <= x_range[j+1]) && (y <= (y_range[k] - top - bottom))) {
+                                left_tick = x_range[j], right_tick = x_range[j+1];
+                                bottom_tick = y_range[k+1];
+                                top_tick = y_range[k];
+                                left_diff = (left_tick - x), right_diff = (x - right_tick);
 
-                            if(left_diff >= right_diff) {
-                                active_x_tick = data[j].x;
-                                active_y_tick.push(data[j].y);
-                                tooltipText = data[j].tooltip || data[j].y;
-                                pos_line_cursor_x = (xScale(active_x_tick) + lineMargin + left);
-                                pos_line_cursor_y = (yScale(data[j].y) + top );
-                            }
-                            else {
-                                active_x_tick = data[j+1].x;
-                                active_y_tick.push(data[j+1].y);
-                                tooltipText = data[j+1].tooltip || data[j+1].y; // Line Chart ONLY!
-                                pos_line_cursor_x = (xScale(active_x_tick) + lineMargin + left);
-                                pos_line_cursor_y = (yScale(data[j+1].y) + top);
-                            }
-                            if(type === "multilineChart" /*|| type === "stackedAreaChart"*/) {
-                                if(multiple_containers_enable === "no") {
+                                if(left_diff >= right_diff) {
+                                    active_x_tick = data[j].x;
+                                    active_y_tick.push(data[j].y);
+                                    tooltipText = data[j].tooltip || data[j].y;
+                                    pos_line_cursor_x = (xScale(active_x_tick) + lineMargin + left);
+                                    pos_line_cursor_y = (yScale(data[j].y) + top );
+                                }
+                                else {
+                                    active_x_tick = data[j+1].x;
+                                    active_y_tick.push(data[j+1].y);
+                                    tooltipText = data[j+1].tooltip || data[j+1].y; // Line Chart ONLY!
+                                    pos_line_cursor_x = (xScale(active_x_tick) + lineMargin + left);
+                                    pos_line_cursor_y = (yScale(data[j+1].y) + top);
+                                }
+                                if(type === "multilineChart" /*|| type === "stackedAreaChart"*/) {
+                                    if(multiple_containers_enable === "no") {
+                                        var test = [];
+                                        d3.selectAll(options.selector+" #pyk-tooltip").classed({"pyk-line-tooltip":false,"pyk-multiline-tooltip":true,"pyk-tooltip-table":true});
+                                        var len_data = new_data[0].data.length,tt_row=""; // Assumption -- number of Data points in different groups will always be equal
+                                        active_y_tick = [];
+                                        for(var a=0;a < number_of_lines;a++) {
+                                            for(var b=0;b < len_data;b++) {
+                                                if(options.xAxisDataFormat === "time") {
+                                                    cond = Date.parse(active_x_tick)===Date.parse(new_data[a].data[b].x);
+                                                } else {
+                                                    cond = new_data[a].data[b].x === active_x_tick;
+                                                }
+                                                if(cond) {
+                                                    active_y_tick.push(new_data[a].data[b].y);
+                                                    test.push(yScale(new_data[a].data[b].y) + top);
+                                                    if(!PykCharts.boolean(color_from_data)) {
+                                                        tt_row += "<tr><td>"+new_data[a].name+"</td><td><b>"+new_data[a].data[b].tooltip+"</b></td></tr>";
+                                                        colspan = 2;
+                                                    }
+                                                    else if (PykCharts.boolean(color_from_data)) {
+                                                        tt_row += "<tr><td><div style='padding:2px;width:5px;height:5px;background-color:"+new_data[a].color+"'></div></td><td>"+new_data[a].name+"</td><td><b>"+new_data[a].data[b].tooltip+"</b></td></tr>";
+                                                        colspan = 3;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        
+                                        pos_line_cursor_x += 6;
+                                        tooltipText = "<table><thead><th colspan='"+colspan+"'>"+active_x_tick+"</th></thead><tbody>"+tt_row+"</tbody></table>";
+                                        if(type === "stackedAreaChart") {
+                                            group_index = 1;
+                                            this.tooltipPosition(tooltipText,pos_line_cursor_x,y,60,70,group_index);
+                                        } else {      
+                                            this.tooltipPosition(tooltipText,pos_line_cursor_x,y,60,-15,group_index);
+                                        }
+                                        this.toolTextShow(tooltipText);
+                                        (options.enableCrossHair) ? this.crossHairShow(pos_line_cursor_x,top,pos_line_cursor_x,(h - bottom),pos_line_cursor_x,test,type,active_y_tick.length,multiple_containers_enable,new_data) : null;
+                                        // (options.enableCrossHair) ? this.crossHairShow(pos_line_cursor_x,top,pos_line_cursor_x,(h - bottom),pos_line_cursor_x,pos_line_cursor_y,type,active_y_tick.length,multiple_containers_enable) : null;
+                                        this.axisHighlightShow(active_y_tick,options.selector+" .y.axis",domain);
+                                        this.axisHighlightShow(active_x_tick,options.selector+" .x.axis",domain);
+                                    }
+                                    else if(multiple_containers_enable === "yes") {
+                                        var first_axis = $(options.selector+" #svg-0 #xaxis").offset().left;
+                                        var second_axis = $(options.selector+" #svg-1 #xaxis").offset().left;
+                                        var diff_containers = second_axis - first_axis;
+                                        pos_line_cursor_x += 5;
+                                        var len_data = new_data[0].data.length;
+                                        for(var a=0;a < number_of_lines;a++) {
+                                            for(var b=0;b < len_data;b++) {
+                                                if(options.xAxisDataFormat === "time") {
+                                                    cond = Date.parse(active_x_tick)===Date.parse(new_data[a].data[b].x);
+                                                } else {
+                                                    cond = new_data[a].data[b].x === active_x_tick;
+                                                }
+                                                if(cond) {
+                                                    active_y_tick.push(new_data[a].data[b].y);
+                                                    tooltipText = new_data[a].data[b].tooltip;
+                                                    pos_line_cursor_y = (yScale(new_data[a].data[b].y) + top);
+                                                    this.tooltipPosition(tooltipText,(pos_line_cursor_x+(a*diff_containers)),pos_line_cursor_y,-15,-15,a);
+                                                    this.toolTextShow(tooltipText,multiple_containers_enable,type,a);
+                                                    (options.enableCrossHair) ? this.crossHairShow(pos_line_cursor_x,top,pos_line_cursor_x,(h - bottom),pos_line_cursor_x,pos_line_cursor_y,type,active_y_tick.length,multiple_containers_enable,new_data[a],a) : null;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                else if(type === "lineChart" || type === "areaChart") {
+                                    if((options.tooltip_mode).toLowerCase() === "fixed") {
+                                        this.tooltipPosition(tooltipText,0,pos_line_cursor_y,-14,-15,group_index);
+                                    } else if((options.tooltip_mode).toLowerCase() === "moving"){
+                                        this.tooltipPosition(tooltipText,pos_line_cursor_x,pos_line_cursor_y,5,-45,group_index);
+                                    }
+                                    this.toolTextShow(tooltipText);
+                                    (options.enableCrossHair) ? this.crossHairShow(pos_line_cursor_x,top,pos_line_cursor_x,(h - bottom),pos_line_cursor_x,pos_line_cursor_y,type,active_y_tick.length,multiple_containers_enable) : null;
+                                    this.axisHighlightShow(active_y_tick,options.selector+" .y.axis",domain);
+                                    this.axisHighlightShow(active_x_tick,options.selector+" .x.axis",domain);
+                                }
+                                else if (type === "stackedAreaChart") {
                                     var test = [];
                                     d3.selectAll(options.selector+" #pyk-tooltip").classed({"pyk-line-tooltip":false,"pyk-multiline-tooltip":true,"pyk-tooltip-table":true});
                                     var len_data = new_data[0].data.length,tt_row=""; // Assumption -- number of Data points in different groups will always be equal
                                     active_y_tick = [];
                                     for(var a=0;a < number_of_lines;a++) {
                                         for(var b=0;b < len_data;b++) {
-                                            if(new_data[a].data[b].x === active_x_tick) {
-                                                
-                                                active_y_tick.push(new_data[a].data[b].y);
-                                                test.push(yScale(new_data[a].data[b].y) + top);
-                                                if(!PykCharts.boolean(color_from_data)) {
-                                                    tt_row += "<tr><td>"+new_data[a].name+"</td><td><b>"+new_data[a].data[b].tooltip+"</b></td></tr>";
-                                                    colspan = 2;
-                                                }
-                                                else if (PykCharts.boolean(color_from_data)) {
-                                                    tt_row += "<tr><td><div style='padding:2px;width:5px;height:5px;background-color:"+new_data[a].color+"'></div></td><td>"+new_data[a].name+"</td><td><b>"+new_data[a].data[b].tooltip+"</b></td></tr>";
-                                                    colspan = 3;
-                                                }
+                                            if(options.xAxisDataFormat === "time") {
+                                                cond = Date.parse(active_x_tick)===Date.parse(new_data[a].data[b].x);
+                                            } else {
+                                                cond = new_data[a].data[b].x === active_x_tick;
                                             }
-                                        }
-                                    }
-                                    
-                                    pos_line_cursor_x += 6;
-                                    tooltipText = "<table><thead><th colspan='"+colspan+"'>"+active_x_tick+"</th></thead><tbody>"+tt_row+"</tbody></table>";
-                                    if(type === "stackedAreaChart") {
-                                        group_index = 1;
-                                        this.tooltipPosition(tooltipText,pos_line_cursor_x,y,60,70,group_index);
-                                    } else {      
-                                        this.tooltipPosition(tooltipText,pos_line_cursor_x,y,60,-15,group_index);
-                                    }
-                                    this.toolTextShow(tooltipText);
-                                    (options.enableCrossHair) ? this.crossHairShow(pos_line_cursor_x,top,pos_line_cursor_x,(h - bottom),pos_line_cursor_x,test,type,active_y_tick.length,multiple_containers_enable,new_data) : null;
-                                    // (options.enableCrossHair) ? this.crossHairShow(pos_line_cursor_x,top,pos_line_cursor_x,(h - bottom),pos_line_cursor_x,pos_line_cursor_y,type,active_y_tick.length,multiple_containers_enable) : null;
-                                    this.axisHighlightShow(active_y_tick,options.selector+" .y.axis",domain);
-                                    this.axisHighlightShow(active_x_tick,options.selector+" .x.axis",domain);
-                                }
-                                else if(multiple_containers_enable === "yes") {
-                                    var first_axis = $(options.selector+" #svg-0 #xaxis").offset().left;
-                                    var second_axis = $(options.selector+" #svg-1 #xaxis").offset().left;
-                                    var diff_containers = second_axis - first_axis;
-                                    pos_line_cursor_x += 5;
-                                    var len_data = new_data[0].data.length;
-                                    for(var a=0;a < number_of_lines;a++) {
-                                        for(var b=0;b < len_data;b++) {
-                                            if(new_data[a].data[b].x === active_x_tick) {
-                                                active_y_tick.push(new_data[a].data[b].y);
-                                                tooltipText = new_data[a].data[b].tooltip;
-                                                pos_line_cursor_y = (yScale(new_data[a].data[b].y) + top);
-                                                this.tooltipPosition(tooltipText,(pos_line_cursor_x+(a*diff_containers)),pos_line_cursor_y,-15,-15,a);
-                                                this.toolTextShow(tooltipText,multiple_containers_enable,type,a);
-                                                (options.enableCrossHair) ? this.crossHairShow(pos_line_cursor_x,top,pos_line_cursor_x,(h - bottom),pos_line_cursor_x,pos_line_cursor_y,type,active_y_tick.length,multiple_containers_enable,new_data[a],a) : null;
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                            else if(type === "lineChart" || type === "areaChart") {
-                                // console.log("inside");
-                                if((options.tooltip_mode).toLowerCase() === "fixed") {
-                                    this.tooltipPosition(tooltipText,0,pos_line_cursor_y,-14,-15,group_index);
-                                } else if((options.tooltip_mode).toLowerCase() === "moving"){
-                                    this.tooltipPosition(tooltipText,pos_line_cursor_x,pos_line_cursor_y,5,-45,group_index);
-                                }
-                                this.toolTextShow(tooltipText);
-                                (options.enableCrossHair) ? this.crossHairShow(pos_line_cursor_x,top,pos_line_cursor_x,(h - bottom),pos_line_cursor_x,pos_line_cursor_y,type,active_y_tick.length,multiple_containers_enable) : null;
-                                this.axisHighlightShow(active_y_tick,options.selector+" .y.axis",domain);
-                                this.axisHighlightShow(active_x_tick,options.selector+" .x.axis",domain);
-                            }
-                            else if (type === "stackedAreaChart") {
-                                 var test = [];
-                                    d3.selectAll(options.selector+" #pyk-tooltip").classed({"pyk-line-tooltip":false,"pyk-multiline-tooltip":true,"pyk-tooltip-table":true});
-                                    var len_data = new_data[0].data.length,tt_row=""; // Assumption -- number of Data points in different groups will always be equal
-                                    active_y_tick = [];
-                                    for(var a=0;a < number_of_lines;a++) {
-                                        for(var b=0;b < len_data;b++) {
-                                            if(new_data[a].data[b].x === active_x_tick) {
+                                            if(cond) {
                                                 active_y_tick.push(new_data[a].data[b].y);
                                                 test.push(yScale(new_data[a].data[b].y+new_data[a].data[b].y0) + top);
                                                 if(!PykCharts.boolean(color_from_data)) {
@@ -958,15 +984,13 @@ configuration.mouseEvent = function (options) {
                                     }
                                     this.toolTextShow(tooltipText);
                                     (options.enableCrossHair) ? this.crossHairShow(pos_line_cursor_x,top,pos_line_cursor_x,(h - bottom),pos_line_cursor_x,test,type,active_y_tick.length,multiple_containers_enable,new_data) : null;
-                                    // (options.enableCrossHair) ? this.crossHairShow(pos_line_cursor_x,top,pos_line_cursor_x,(h - bottom),pos_line_cursor_x,pos_line_cursor_y,type,active_y_tick.length,multiple_containers_enable) : null;
                                     this.axisHighlightShow(active_y_tick,options.selector+" .y.axis",domain);
                                     this.axisHighlightShow(active_x_tick,options.selector+" .x.axis",domain);
-
+                                }
                             }
                         }
                     }
                 }
-            }
             }
         },
         crossHairShow : function (x1,y1,x2,y2,cx,cy,type,no_bullets,multiple_containers_enable,new_data,group_index) {
@@ -998,13 +1022,8 @@ configuration.mouseEvent = function (options) {
                                 .attr("x2",(x2 - 5))
                                 .attr("y2",y2);
                                 for(j=0; j<new_data.length; j++) {
-                                // console.log("cx",cx,"cy",cy[j],"bheja fry");                            
-                                // that.focus_circle.select("#focus-circle"+j)
-                                //     .attr("cx",cx)
-                                //     .attr("cy",cy[j]);
-                                // console.log(d3.select(options.selector+" #f_circle"+j),"phooooooooo");
-                                d3.select(options.selector+" #f_circle"+j).style("display","block")
-                                    .attr("transform", "translate(" + (cx-3) + "," + cy[j] + ")");
+                                    d3.select(options.selector+" #f_circle"+j).style("display","block")
+                                        .attr("transform", "translate(" + (cx-3) + "," + cy[j] + ")");
                                 }
                         }
                         else if(multiple_containers_enable === "yes") {
@@ -1163,7 +1182,6 @@ configuration.fillChart = function (options,theme,config) {
                 return options.saturationColor;
             } else if(PykCharts.boolean(options.size_enable)) {
                 if(d.color) {
-                    // console.log("yes size enable",d.color);
                     return d.color;
                 } else if(options.color.length) {
                     return options.color;

@@ -23,6 +23,8 @@ PykCharts.multiD.areaChart = function (options){
 
 		d3.json(options.data, function (e, data) {
 			that.data = data.groupBy("area");
+			that.yAxisDataFormat = options.yAxisDataFormat ? options.yAxisDataFormat : that.k.yAxisDataFormatIdentification(that.data);
+    		that.xAxisDataFormat = options.xAxisDataFormat ? options.xAxisDataFormat : that.k.xAxisDataFormatIdentification(that.data);
 			that.compare_data = that.data;
 			that.data_length = that.data.length;
 			$(that.selector+" #chart-loader").remove();
@@ -274,9 +276,11 @@ PykCharts.multiD.areaChart = function (options){
 		         	x_data = [min,max];
 		          	x_range = [0 ,that.w];
 		          	that.xScale = that.k.scaleIdentification("time",x_data,x_range);
-		          	that.new_data[0].data.forEach(function (d) {
-		          		d.x = new Date(d.x);
-		          	});
+		          	for(i=0;i<that.new_data_length;i++) {
+			          	that.new_data[i].data.forEach(function (d) {
+			          		d.x = new Date(d.x);
+			          	});
+			        }
 		          	that.data.forEach(function (d) {
 		          		d.x = new Date(d.x);
 		          	});
