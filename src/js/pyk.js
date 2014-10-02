@@ -661,15 +661,11 @@ PykCharts.Configuration = function (options){
             return this;
         },
         xAxisDataFormatIdentification : function (data){
-            console.log(isNaN(new Date(data[0].x).getTime()), !(isNaN(data[0].x)));
             if(_.isNumber(data[0].x) || !(isNaN(data[0].x))){ 
-                console.log("hey", "number",options.selector);
                 return "number";
             } else if(!(isNaN(new Date(data[0].x).getTime()))) {
-                console.log("hey", "date",options.selector);
                 return "time";
             } else {
-                console.log("hey","string",options.selector);
                 return "string";
             }
         },
@@ -1221,7 +1217,6 @@ configuration.makeXAxis = function(options,xScale) {
                     .outerTickSize(options.axis_x_outer_pointer_size)
                     .tickFormat(function (d,i) {
                         if(options.multiple_containers_enable === "yes" && options.xAxisDataFormat === "string") {
-                            console.log(d);
                             return d.substr(0,2);
                         }
                         else {

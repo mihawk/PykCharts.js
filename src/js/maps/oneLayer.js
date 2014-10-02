@@ -135,14 +135,16 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                 var compare = that.k.checkChangeInData(that.refresh_data,that.compare_data);
                 that.compare_data = compare[0];
                 var data_changed = compare[1];
+                var x_extent = d3.extent(data, function (d) { return d.timestamp; });
+                that.data = _.where(data, {timestamp: x_extent[0]});
+                that.optionalFeatures()
+                    .legends(that.legends_enable)
+                    .createMap();
+                
                 if(data_changed) {
                     that.k.lastUpdatedAt("liveData");
                 }
-                that.optionalFeatures()
-                .legends(that.legends_enable)
-                .createMap();
-                var x_extent = d3.extent(data, function (d) { return d.timestamp; });
-                that.data = _.where(data, {timestamp: x_extent[0]});
+                
             });
         }
     };
@@ -211,7 +213,6 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                 var scale = 150
                 , offset = [that.width / 2, that.height / 2]
                 , i;
-                console.log(that.map_data);
                 $(options.selector).css("background-color",that.bg);
 
                 that.group = that.map_cont.selectAll(".map_group")

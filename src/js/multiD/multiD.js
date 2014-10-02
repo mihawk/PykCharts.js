@@ -23,7 +23,7 @@ PykCharts.multiD.configuration = function (options){
                 for(i=0;i<data.length;i++) {
                     for(j=0;j<key1.length;j++){
                         if(data[i][key2[j]] !== compare_data[i][key1[j]] || key1[j] !== key2[j]) {
-                            console.log("changed");
+                            // console.log("changed");
                             changed = true;
                             break;
                         }
@@ -176,7 +176,7 @@ PykCharts.multiD.configuration = function (options){
             return this;
         },
         mapGroup : function (data) {
-            console.log(data,"data");
+            // console.log(data,"data");
             var newarr = [];
             var unique = {};
             var k = 0;
@@ -211,17 +211,17 @@ PykCharts.multiD.configuration = function (options){
                             item.color = item.color;
                         }else if(options.color) {
                             item.color = options.color[k];
-                            console.log("hey",options.color[k],k);
+                            // console.log("hey",options.color[k],k);
                             k++;
                         } else {
-                            console.log("else");
+                            // console.log("else");
                             item.color = options.colorPalette[k];
                             k++;
                         }
-                        console.log(item);
+                        // console.log(item);
                         newarr.push(item);
                         unique[item.group] = item;
-                        console.log(newarr,"new array",options.colorPalette[k]);
+                        // console.log(newarr,"new array",options.colorPalette[k]);
                     }
                 });
 
@@ -248,7 +248,7 @@ PykCharts.multiD.configuration = function (options){
                         }
                     }
                 }
-                console.log(arr,checkGroup,"before return");
+                // console.log(arr,checkGroup,"before return");
                 return [arr,checkGroup];
             } else {
                 return [data,checkGroup];
