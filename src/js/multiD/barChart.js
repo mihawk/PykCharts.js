@@ -169,9 +169,11 @@ PykCharts.multiD.barChart = function(options){
                         .attr("class", "y axis")
                         .append("text")
                             .attr("transform", "rotate(-90)")
-                            .attr("y", 6)
+                            .attr("x",-(that.height-that.margin_top-that.margin_bottom)/2)
+                            .attr("y", -60)
                             .attr("dy", ".71em")
                             .style("text-anchor", "end")
+                            .style("fill",that.axis_x_labelColor)
                             .text(options.axis_y_title);
 
                     if(that.axis_y_position === "right") {
@@ -181,7 +183,7 @@ PykCharts.multiD.barChart = function(options){
                     }
                         // .style("stroke","none");
                 }
-
+                // console.log(PykCharts.boolean(that.axis_x_enable),"is boolean");
                 if(PykCharts.boolean(that.axis_x_enable)) {
                     that.xGroup = that.group.append("g")
                         .attr("id","xaxis")

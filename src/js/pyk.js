@@ -525,20 +525,26 @@ PykCharts.Configuration = function (options){
 
                 gsvg.style("stroke",function () { return options.axis_x_axisColor; })
                     .call(xaxis)
-
+                var w;
+                if(PykCharts.boolean(options.multiple_containers_enable)) {
+                    w = options.w;
+                } else {
+                    w = options.width;
+                }
                 if(options.axis_x_position === "bottom") {
+
                    gsvg.append("text")
-                        .attr("x", (options.width)/2- options.margin_left - options.margin_right)
-                        // .attr("x", options.width - options.margin_left - options.margin_right)
-                        .attr("y", 35)
+                        .attr("x", (w- options.margin_left - options.margin_right)/2)
+                        // .attr("y", 35)
+                        .attr("y", options.margin_bottom)
                         .style("text-anchor", "middle")
                         .style("fill",options.axis_x_labelColor)
                         .text(options.axis_x_title); 
                 } else if (options.axis_x_position === "top") {
                     gsvg.append("text")
-                        .attr("x", (options.width)/2 - options.margin_left - options.margin_right)
-                        // .attr("x", options.width - options.margin_left - options.margin_right)
-                        .attr("y", -5)
+                        .attr("x", (w - options.margin_left - options.margin_right)/2)
+                        // .attr("y", -5)
+                        .attr("y", - options.margin_top)
                         .style("text-anchor", "middle")
                         .style("fill",options.axis_x_labelColor)
                         .text(options.axis_x_title); 
@@ -569,11 +575,12 @@ PykCharts.Configuration = function (options){
                     .call(yaxis)
 
                 if(options.axis_y_position === "left"){
+                    console.log(-(options.margin_left + 20));
                     gsvg.append("text")
-                        .attr("x",-(options.height)/2)
+                        .attr("x",-(options.height)/2 )
                         .attr("transform", "rotate(-90)")
-                        .attr("y", -40)
-                        .attr("dy", ".71em")
+                        .attr("y", -(options.margin_left - 12))
+                        // .attr("dy", ".71em")
                         .style("fill",options.axis_y_labelColor)
                         // .style("text-anchor", "end")
                         .text(options.axis_y_title);
@@ -583,7 +590,7 @@ PykCharts.Configuration = function (options){
                         .attr("transform", "rotate(-90)")
                         .style("fill",options.axis_y_labelColor)
                         // .attr("y", 12)
-                        .attr("y", 6)
+                        .attr("y", options.margin_right - 12)
                         .attr("dy", ".71em")
                         // .style("text-anchor", "end")
                         .text(options.axis_y_title);

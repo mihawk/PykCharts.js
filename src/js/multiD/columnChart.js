@@ -173,9 +173,11 @@ PykCharts.multiD.columnChart = function(options){
                         .attr("class", "x axis")
                         .style("stroke","none")
                         .append("text")
-                            .attr("x", that.width - that.margin_left - that.margin_right)
+                            .attr("x", (that.width - that.margin_left - that.margin_right)/2)
                             .attr("y", that.height -that.margin_bottom - that.margin_top)
-                            .attr("dy", -8)
+                            // .attr("dy", -8)
+                            .attr("dy", that.margin_top + 10)
+                            .style("fill", that.axis_x_labelColor)
                             .style("text-anchor", "end")
                             .text(that.axis_x_title);
                 }
