@@ -510,7 +510,7 @@ PykCharts.Configuration = function (options){
             var width = options.width,
                 height = options.height;
 
-            var mouseEvent = new PykCharts.Configuration.mouseEvent(options);
+            var k = new PykCharts.Configuration(options);
             var e = extra;
 
             if(PykCharts.boolean(options.axis_x_enable)){
@@ -519,7 +519,6 @@ PykCharts.Configuration = function (options){
                     gsvg.attr("transform", "translate(0," + (options.height - options.margin_top - options.margin_bottom) + ")");
                 }
                 var xaxis = PykCharts.Configuration.makeXAxis(options,xScale);
-                // console.log(xaxis,options.selector);
                 if(options.axis_x_pointer_values.length != 0) {
                     xaxis.tickValues(options.axis_x_pointer_values);
                 }
@@ -544,39 +543,17 @@ PykCharts.Configuration = function (options){
                         .style("fill",options.axis_x_labelColor)
                         .text(options.axis_x_title); 
                 }
-                    
-                if((options.xAxisDataFormat === "string" || options.xAxisDataFormat === "time") && options.multiple_containers_enable === "no") {
-                    var a = $(options.selector + " g.x.axis text");
-                    var len = a.length,comp;
-                    for(i=0; i<len-1;i++) {
-                        comp = a[i].innerHTML;
-                        if(a[i].getBBox().width > ((extra*2) * 0.7)) {
-                            comp = comp.substr(0,3) + "..";
-                        }
-                        a[i].innerHTML = comp;
-                    }
-                    // console.log(a, "-------", options.selector);
-                    xaxistooltip = gsvg.selectAll(options.selector + " g.x.axis text")
-                        .data(domain)
-                    xaxistooltip.on('mouseover',function (d) {
-                            mouseEvent.tooltipPosition(d);
-                            mouseEvent.toolTextShow(d);
-                        })
-                        .on('mousemove', function (d) {
-                            mouseEvent.tooltipPosition(d);
-                            mouseEvent.toolTextShow(d);
-                        })
-                        .on('mouseout', function (d) {
-                            mouseEvent.tooltipHide(d);
-                        });
+                if((options.xAxisDataFormat === "string") && options.multiple_containers_enable === "no") {
+                    k.ordinalXAxisTickFormat(domain,extra);
                 }
             }
             return this;
         },
+        
         yAxis: function (svg, gsvg, yScale,domain) {
             var width = options.width,
                 height = options.height;
-
+            var k = new PykCharts.Configuration(options);
             if(PykCharts.boolean(options.axis_y_enable)){
                 if(options.axis_y_position === "right") {
                     gsvg.attr("transform", "translate(" + (options.width - options.margin_left - options.margin_right) + ",0)");
@@ -612,51 +589,87 @@ PykCharts.Configuration = function (options){
                         .text(options.axis_y_title);
                 }
                 if((options.yAxisDataFormat === "string") && options.multiple_containers_enable === "no") {
-                    // console.log("inside if", options.selector);
-                    var a = $(options.selector + " g.y.axis text");
-                    
-                    var len = a.length,comp;
-                    
-                    for(i=0; i<len-1;i++) {
-                        comp = a[i].innerHTML;
-                        if(a[i].getBBox().width > (options.margin_left * 0.7)) {
-                            comp = comp.substr(0,3) + "..";
-
-                        }
-                        a[i].innerHTML = comp;
-                    }
-                    // console.log(a, "-------", options.selector);
-                    xaxistooltip = gsvg.selectAll(options.selector + " g.y.axis text")
-                        .data(domain)
-                    xaxistooltip.on('mouseover',function (d) {
-                            mouseEvent.tooltipPosition(d);
-                            mouseEvent.toolTextShow(d);
-                        })
-                        .on('mousemove', function (d) {
-                            mouseEvent.tooltipPosition(d);
-                            mouseEvent.toolTextShow(d);
-                        })
-                        .on('mouseout', function (d) {
-                            mouseEvent.tooltipHide(d);
-                        });
+                    k.ordinalYAxisTickFormat(domain);
                 }
             }
             return this;
         },
-        isOrdinal: function(svg,container,scale) {
+        isOrdinal: function(svg,container,scale,domain,extra) {
+            var k = new PykCharts.Configuration(options);
             if(container === ".x.axis") {
                 svg.select(container).call(PykCharts.Configuration.makeXAxis(options,scale));
-                
+                if((options.xAxisDataFormat === "string") && options.multiple_containers_enable === "no") {
+                    k.ordinalXAxisTickFormat(domain,extra);
+                }
             }
             else if (container === ".x.grid") {
                 svg.select(container).call(PykCharts.Configuration.makeXGrid(options,scale));
             }
             else if (container === ".y.axis") {
                 svg.select(container).call(PykCharts.Configuration.makeYAxis(options,scale));
+                if((options.yAxisDataFormat === "string") && options.multiple_containers_enable === "no") {
+                    k.ordinalyAxisTickFormat(domain);
+                }
             }
             else if (container === ".y.grid") {
                 svg.select(container).call(PykCharts.Configuration.makeYGrid(options,scale));
             }
+            return this;
+        },
+        ordinalXAxisTickFormat :function (domain,extra) {
+            var mouseEvent = new PykCharts.Configuration.mouseEvent(options);
+            var a = $(options.selector + " g.x.axis text");
+            var len = a.length,comp;
+            for(i=0; i<len-1;i++) {
+                comp = a[i].innerHTML;
+                if(a[i].getBBox().width > ((extra*2) * 0.7)) {
+                    comp = comp.substr(0,3) + "..";
+
+                }
+                a[i].innerHTML = comp;
+            }
+            xaxistooltip = d3.selectAll(options.selector + " g.x.axis text")
+                .data(domain)
+            xaxistooltip.on('mouseover',function (d) {
+                    mouseEvent.tooltipPosition(d);
+                    mouseEvent.toolTextShow(d);
+                })
+                .on('mousemove', function (d) {
+                    mouseEvent.tooltipPosition(d);
+                    mouseEvent.toolTextShow(d);
+                })
+                .on('mouseout', function (d) {
+                    mouseEvent.tooltipHide(d);
+                });
+            return this;
+        },
+        ordinalYAxisTickFormat : function (domain) {
+            var mouseEvent = new PykCharts.Configuration.mouseEvent(options);
+            var a = $(options.selector + " g.y.axis text");
+                    
+            var len = a.length,comp;
+            
+            for(i=0; i<len-1;i++) {
+                comp = a[i].innerHTML;
+                if(a[i].getBBox().width > (options.margin_left * 0.7)) {
+                    comp = comp.substr(0,3) + "..";
+
+                }
+                a[i].innerHTML = comp;
+            }
+            xaxistooltip = d3.selectAll(options.selector + " g.y.axis text")
+                .data(domain)
+            xaxistooltip.on('mouseover',function (d) {
+                    mouseEvent.tooltipPosition(d);
+                    mouseEvent.toolTextShow(d);
+                })
+                .on('mousemove', function (d) {
+                    mouseEvent.tooltipPosition(d);
+                    mouseEvent.toolTextShow(d);
+                })
+                .on('mouseout', function (d) {
+                    mouseEvent.tooltipHide(d);
+                });
             return this;
         },
         totalColors: function (tc) {
@@ -786,7 +799,20 @@ configuration.mouseEvent = function (options) {
                 var c = b - a;
                 var x = d3.event.pageX - offsetLeft;
                 var y = d3.event.pageY - offsetTop;
-                var x_range = xScale.range();
+                var x_range = [];
+                if(options.xAxisDataFormat==="string") {
+                    x_range = xScale.range();
+                } else {
+                    temp = xScale.range();
+                    pad = (temp[1]-temp[0])/new_data[0].data.length;
+                    len = new_data[0].data.length;
+                    strt = 0;
+                    for(i = 0;i<=len;i++){
+                        strt = strt + pad;
+                        x_range[i] = strt;
+                    }
+                    
+                }
                 var y_range = yScale.range();
                 var j,tooltpText,active_x_tick,active_y_tick = [],left_diff,right_diff,
                     pos_line_cursor_x,pos_line_cursor_y = [],right_tick,left_tick,
@@ -798,10 +824,12 @@ configuration.mouseEvent = function (options) {
                         return false;
                     }
                     else {
-                      if((right_tick === x_range[j] && left_tick === x_range[j+1]) && (bottom_tick === y_range[k+1] && top_tick === y_range[k])) {
+                      if((right_tick === x_range[j] && left_tick === x_range[j+1]) && (top_tick === y_range[k])) {
+                            // console.log("false");
                             return false;
                         }
-                        else if((x >= x_range[j] && x <= x_range[j+1]) && (y <= (y_range[k] - top - bottom) && y >= (y_range[k+1]))) {
+                        else if((x >= x_range[j] && x <= x_range[j+1]) && (y <= (y_range[k] - top - bottom))) {
+                            // console.log(y_range,y);
                             left_tick = x_range[j], right_tick = x_range[j+1];
                             bottom_tick = y_range[k+1];
                             top_tick = y_range[k];
@@ -830,6 +858,7 @@ configuration.mouseEvent = function (options) {
                                     for(var a=0;a < number_of_lines;a++) {
                                         for(var b=0;b < len_data;b++) {
                                             if(new_data[a].data[b].x === active_x_tick) {
+                                                
                                                 active_y_tick.push(new_data[a].data[b].y);
                                                 test.push(yScale(new_data[a].data[b].y) + top);
                                                 if(!PykCharts.boolean(color_from_data)) {
@@ -1057,7 +1086,7 @@ configuration.mouseEvent = function (options) {
                             .style("font-weight","normal");
                     }
                     var len = domain.length;
-                    for(curr_tick = 0;curr_tick<len;curr_tick++){
+                    for(curr_tick = 0;curr_tick < len;curr_tick++){
                         if(domain[curr_tick] === active_tick) {
                             break;
                         }
@@ -1205,9 +1234,26 @@ configuration.makeXAxis = function(options,xScale) {
                     })
                     .tickPadding(options.axis_x_pointer_padding)
                     .orient(options.axis_x_value_position);
-    if(options.xAxisDataFormat=== "time") {
-        xaxis.ticks(d3.time.month,2)
-            .tickFormat(d3.time.format("%b"));
+
+    if(options.xAxisDataFormat=== "time" && PykCharts.boolean(options.axis_x_time_value_type)) {
+        if(options.axis_x_time_value_type === "month") {
+            a = d3.time.month;
+            b = "%b";
+        }else if(options.axis_x_time_value_type === "date") {
+            a = d3.time.day;
+            b = "%d";
+        } else if(options.axis_x_time_value_type === "year") {
+            a = d3.time.year;
+            b = "%Y";
+        } else if(options.axis_x_time_value_type === "hours") {
+            a = d3.time.hour;
+            b = "%H";
+        } else if(options.axis_x_time_value_type === "minutes") {
+            a = d3.time.minute;
+            b = "%M";
+        }
+        xaxis.ticks(a,options.axis_x_time_value_unit)
+            .tickFormat(d3.time.format(b));
     }
     return xaxis;
 };
@@ -1226,6 +1272,26 @@ configuration.makeYAxis = function(options,yScale) {
                         return k.appendUnits(d);
                     });
 
+    if(options.yAxisDataFormat=== "time" && PykCharts.boolean(options.axis_y_time_value_type)) {
+        if(options.axis_y_time_value_type === "month") {
+            a = d3.time.month;
+            b = "%b";
+        }else if(options.axis_y_time_value_type === "date") {
+            a = d3.time.day;
+            b = "%d";
+        } else if(options.axis_y_time_value_type === "year") {
+            a = d3.time.year;
+            b = "%Y";
+        } else if(options.axis_y_time_value_type === "hours") {
+            a = d3.time.hour;
+            b = "%H";
+        } else if(options.axis_y_time_value_type === "minutes") {
+            a = d3.time.minute;
+            b = "%M";
+        }
+        xaxis.ticks(a,options.axis_y_time_value_unit)
+            .tickFormat(d3.time.format(b));
+    }
                     // .tickFormat(d3.format(",.0f"));
     return yaxis;
 };
@@ -1367,6 +1433,8 @@ configuration.Theme = function(){
         "axis_x_pointer_padding": 6,
         "axis_x_pointer_values": [],
         "axis_x_outer_pointer_size": 0,
+        "axis_x_time_value_type":"",
+        "axis_x_time_value_unit":"",
 
         "axis_y_enable": "yes",
         "axis_y_title" : "Y axis",
@@ -1380,6 +1448,8 @@ configuration.Theme = function(){
         "axis_y_pointer_padding": 6,
         "axis_y_pointer_values": [],
         "axis_y_outer_pointer_size": 0,
+        "axis_y_time_value_type":"",
+        "axis_y_time_value_unit":"",
 
         "yAxisDataFormat": "number",
         "xAxisDataFormat": "string",
