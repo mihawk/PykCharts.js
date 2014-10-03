@@ -411,8 +411,8 @@ PykCharts.Configuration = function (options){
             }
             return this;
         },
-        crossHair : function (svg,len,data) {
-           console.log(data,"data");
+        crossHair : function (svg,len,data,fill) {
+           // console.log(fill,"fill");
             if(PykCharts.boolean(options.enableCrossHair) && options.mode === "default") {
                 /*$(options.selector + " " + "#cross-hair-v").remove();
                 $(options.selector + " " + "#focus-circle").remove();*/
@@ -430,7 +430,7 @@ PykCharts.Configuration = function (options){
                     .attr("class","cross-hair-h")
                     .attr("id","cross-hair-h");
                 // console.log(parseInt(len.length),"lennnnnnnnnn");
-                for (j=0; j<len; j++) {
+                for (j=0; j<3; j++) {
                     // console.log(len, options.selector);
                     // console.log(len.length,"for len",j);
                     PykCharts.Configuration.focus_circle = svg.append("g")
@@ -440,8 +440,10 @@ PykCharts.Configuration = function (options){
                     
                     PykCharts.Configuration.focus_circle.append("circle")
                         .attr("fill",function (d,i) {
-                            console.log("bullet color",data[i].color,i);
-                            return data[i].color;       
+                            console.log(fill.colorPieMS(data[i]),"fillll",data[j],"data");
+                            return fill.colorPieMS(data[j]);
+                            // console.log("bullet color",data[i].color,i);
+                            // return data[i].color;       
                         })
                         .attr("id","focus-circle"+j)
                         .attr("r",6);
@@ -1207,6 +1209,7 @@ configuration.fillChart = function (options,theme,config) {
             // }
         },
         colorPieMS : function (d) {
+            console.log(d.name,"whats my name?? whats my name??");
              if(d.name === options.highlight) {
                 return options.highlightColor;
             } else if(options.color_mode === "saturation") {
