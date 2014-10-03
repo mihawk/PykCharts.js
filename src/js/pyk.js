@@ -1204,7 +1204,6 @@ configuration.fillChart = function (options,theme,config) {
             // }
         },
         colorPieMS : function (d) {
-            console.log(d.name,options.highlight,"not working");
              if(d.name.toLowerCase() === options.highlight.toLowerCase()) {
                 console.log("inside",options.highlightColor);
                 return options.highlightColor;
