@@ -100,7 +100,7 @@
                     enableCrossHair: "yes"
 
                 });
-               k.execute();
+//                k.execute();
 
                 var k = new PykCharts.multiD.areaChart ({
                     selector: "#area",
@@ -369,11 +369,13 @@
                     tooltip_enable : "yes",
                     enableCrossHair: "yes",
                     multiple_containers_enable: "yes",
-                    // highlight: ["india"],
+
+                    highlight: "india",
                    // highlightColor: "#013F73",
 
                 });
-                k.execute();
+              k.execute();
+
 
                 var k = new PykCharts.multiD.lineChart ({
                     selector: "#multiple-multiLine",
@@ -423,12 +425,13 @@
                     tooltip_mode : "moving",
                     tooltip_enable : "yes",
                     enableCrossHair: "yes",
-                    // highlight: "india",   
-                    // highlightColor: "green",// name of the group which is to be highlighted on onload
+
+                    highlight: "india",   
+                    highlightColor: "red",// name of the group which is to be highlighted on onload
                     // multiple_containers_enable: "no",
 
                 });
-                k.execute();
+              k.execute();
 
                 var k = new PykCharts.multiD.areaChart ({
 
