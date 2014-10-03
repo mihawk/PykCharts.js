@@ -79,7 +79,7 @@
                     axis_x_labelColor: "red",
                     axis_x_pointer_size: 3,
                     axis_x_pointer_padding: 3,
-                    // axis_x_pointer_values: ["Bank", "IT", "Cables"],
+                    // axis_x_pointer_values: [1,2,3],
                     axis_x_outer_pointer_size: 3,
                     axis_x_time_value_type:"date",
                     axis_x_time_value_unit: 1,
@@ -186,7 +186,7 @@
 
 
                 });
-                k.execute();
+                // k.execute();
 
                 var k = new PykCharts.multiD.scatterPlot ({
                     selector: "#scatterPlot",
@@ -254,7 +254,7 @@
 
                     enableCrossHair: "yes"
                 });
-                k.execute();
+                // k.execute();
 
                 var k = new PykCharts.multiD.scatterPlot ({
                     selector: "#multiple-scatterplots",
@@ -319,7 +319,7 @@
 
                     enableCrossHair: "yes"
                 });
-                k.execute();
+                // k.execute();
 
                 var k = new PykCharts.multiD.lineChart ({
                     selector: "#multiLine",
@@ -428,7 +428,6 @@
                     // highlightColor: "yellow",// name of the group which is to be highlighted on onload
                     // multiple_containers_enable: "no",
 
-
                 });
                 k.execute();
 
@@ -483,7 +482,7 @@
                     zoom_enable: "yes"
 
                 });
-               k.execute();
+               // k.execute();
 
                 var k = new PykCharts.multiD.pulse({
                     selector: "#pulse",
@@ -551,7 +550,7 @@
 
                     enableCrossHair: "yes"
                 });
-                k.execute();
+                // k.execute();
 
                 var k = new PykCharts.multiD.columnChart({
                     data: "../data/ultimateColumn.json",
@@ -608,9 +607,8 @@
 
                     highlight:"January",
 
-
                 });
-                k.execute();
+                // k.execute();
 
                 var k = new PykCharts.multiD.columnChart({
                     data: "../data/ultimateGroupColumn.json",
@@ -668,7 +666,7 @@
 
                    highlight:"January",
                 });
-                k.execute();
+                // k.execute();
 
                 var k = new PykCharts.multiD.barChart({
                     data: "../data/ultimatebar.json",
@@ -737,7 +735,7 @@
                     highlight: "January"
 
                 });
-                k.execute();
+                // k.execute();
 
                 var k = new PykCharts.multiD.barChart({
                     data: "../data/ultimateGroupBar.json",
@@ -806,7 +804,7 @@
 
                     highlight: "January"
                   });
-                k.execute();
+                // k.execute();
             });
 
         </script>

@@ -51,7 +51,7 @@ PykCharts.multiD.areaChart = function (options){
 		    		.axisContainer();
 
 		    // console.log(that.new_data);
-			that.k.crossHair(that.svgContainer,that.new_data.length,that.type);
+			that.k.crossHair(that.svgContainer,that.new_data.length,that.data,that.type);
 
 			that.k.xAxis(that.svgContainer,that.xGroup,that.xScale,that.extra_left_margin,that.xdomain)
 					.yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain)

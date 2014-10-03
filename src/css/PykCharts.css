@@ -104,7 +104,6 @@ body {
 }
 
 .PykCharts-line-chart .focus circle {
-  fill: #58ADE6;
   stroke: white;
   stroke-width: 1.5px;
   pointer-events: none;

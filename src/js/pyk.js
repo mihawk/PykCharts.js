@@ -411,8 +411,8 @@ PykCharts.Configuration = function (options){
             }
             return this;
         },
-        crossHair : function (svg,len) {
-            //var length = len.length;
+        crossHair : function (svg,len,data) {
+           console.log(data,"data");
             if(PykCharts.boolean(options.enableCrossHair) && options.mode === "default") {
                 /*$(options.selector + " " + "#cross-hair-v").remove();
                 $(options.selector + " " + "#focus-circle").remove();*/
@@ -439,6 +439,10 @@ PykCharts.Configuration = function (options){
                         .attr("id","f_circle"+j);
                     
                     PykCharts.Configuration.focus_circle.append("circle")
+                        .attr("fill",function (d,i) {
+                            console.log("bullet color",data[i].color,i);
+                            return data[i].color;       
+                        })
                         .attr("id","focus-circle"+j)
                         .attr("r",6);
                     // console.log("jjjjjj", j,len,d3.select(options.selector+ " #f_circle"+j));
@@ -514,7 +518,7 @@ PykCharts.Configuration = function (options){
             var e = extra;
 
             if(PykCharts.boolean(options.axis_x_enable)){
-                d3.selectAll(options.selector + " .x.axis").attr("fill",function () { console.log("label fill",options.axis_x_labelColor);return options.axis_x_labelColor;});
+                d3.selectAll(options.selector + " .x.axis").attr("fill",function () {return options.axis_x_labelColor;});
                 if(options.axis_x_position === "bottom") {
                     gsvg.attr("transform", "translate(0," + (options.height - options.margin_top - options.margin_bottom) + ")");
                 }
@@ -581,7 +585,6 @@ PykCharts.Configuration = function (options){
                     .call(yaxis)
 
                 if(options.axis_y_position === "left"){
-                    console.log(-(options.margin_left + 20));
                     gsvg.append("text")
                         .attr("x",-(options.height)/2 )
                         .attr("transform", "rotate(-90)")
@@ -835,7 +838,7 @@ configuration.mouseEvent = function (options) {
                     pad = (temp[1]-temp[0])/new_data[0].data.length;
                     len = new_data[0].data.length;
                     strt = 0;
-                    for(i = 0;i<=len;i++){
+                    for(i = 0;i<len;i++){
                         strt = strt + pad;
                         x_range[i] = strt;
                     }
