@@ -106,7 +106,7 @@ PykCharts.multiD.lineChart = function (options){
 							.chartType()
 							.svgContainer(i);
 
-					that.k.crossHair(that.svgContainer,1);
+					that.k.crossHair(that.svgContainer,that.new_data_length,that.new_data,that.fillColor);
 
 					that.optionalFeature()
 							.createChart(null,i)
