@@ -1209,8 +1209,9 @@ configuration.fillChart = function (options,theme,config) {
             // }
         },
         colorPieMS : function (d) {
-            console.log(d.name,"whats my name?? whats my name??");
-             if(d.name === options.highlight) {
+            console.log(d.name,options.highlight,"not working");
+             if(d.name.toLowerCase() === options.highlight.toLowerCase()) {
+                console.log("inside",options.highlightColor);
                 return options.highlightColor;
             } else if(options.color_mode === "saturation") {
                 return options.saturationColor;
@@ -1221,17 +1222,6 @@ configuration.fillChart = function (options,theme,config) {
             } else {
                 return options.chartColor;
             } return options.chartColor;
-            // if(d.name === options.highlight) {
-            //     return options.highlightColor;
-            // } else if(PykCharts.boolean(options.saturationEnable)) {
-            //     return options.saturationColor;
-            // } else if(options && options.chartColor) {
-            //     return options.chartColor;
-            // } else if(options && d.color){
-            //     return d.color;
-            // } else {
-            //     return options.chartColor;
-            // } return options.chartColor;
         }
     }
     return fillchart;

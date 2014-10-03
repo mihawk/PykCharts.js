@@ -214,10 +214,10 @@ PykCharts.multiD.lineChart = function (options){
 			},
 			hightLightOnload: function () {
 				if(that.type === "multilineChart") {
-					// console.log(that.line_highlight_group);
-					if(that.new_data_length > 0 && that.line_highlight_group.length) {
+					// console.log(that.highlight);
+					if(that.new_data_length > 0 && that.highlight) {
 						for(var i = 0;i< that.uniq_group_arr.length;i++) {
-							if(that.line_highlight_group[0].toLowerCase() === that.uniq_group_arr[i].toLowerCase()) {
+							if(that.highlight.toLowerCase() === that.uniq_group_arr[i].toLowerCase()) {
 								that.new_data[i].highlight = true;
 							} else
 							{
@@ -226,7 +226,6 @@ PykCharts.multiD.lineChart = function (options){
 						}
 					}
 				}
-				// console.log(that.new_data,"testing");				
 				return this;
 				
 			},
@@ -511,7 +510,15 @@ PykCharts.multiD.lineChart = function (options){
 					      					that.color_before_selection = that.highlightColor;
 					      					that.updateSelectedLine(this.id);
 					      				}
+					      				console.log(that.fillColor.colorPieMS(that.new_data[i]),"hey");
 					      				return that.fillColor.colorPieMS(that.new_data[i]);
+					      			})
+					      			.style("stroke-opacity", function () {
+					      				if(that.type === "multilineChart" && that.color_mode === "saturation") {
+						      				return (i+1)/that.new_data.length;
+					      				} else {
+					      					return 1;
+					      				}
 					      			})
 								    .attr("d", that.chart_path);
 
