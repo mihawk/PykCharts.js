@@ -152,7 +152,7 @@
                     zoom_enable: "yes"
 
                 });
-               // k.execute();
+               k.execute();
 
                 var k = new PykCharts.multiD.spiderWeb ({
                     selector: "#spiderWeb",
@@ -319,14 +319,14 @@
                     enableCrossHair: "yes"
                 });
 
-              //  k.execute();
+               k.execute();
 
                 var k = new PykCharts.multiD.lineChart ({
                     selector: "#multiLine",
                     data: "../data/multiLineChart.json",
                     mode : "default",
 
-                    color_mode: "saturation",  //color or saturation
+                    color_mode: "color",  //color or saturation
                     color:["orange","pink","purple"],
 
                     // yAxisDataFormat : "number",
@@ -426,8 +426,8 @@
                     tooltip_enable : "yes",
                     enableCrossHair: "yes",
 
-                    // highlight: "india",   
-                    // highlightColor: "red",// name of the group which is to be highlighted on onload
+                    highlight: "india",   
+                    highlightColor: "red",// name of the group which is to be highlighted on onload
                     // multiple_containers_enable: "no",
 
                 });
@@ -484,7 +484,7 @@
                     zoom_enable: "yes"
 
                 });
-          //     k.execute();
+              k.execute();
 
                 var k = new PykCharts.multiD.pulse({
                     selector: "#pulse",

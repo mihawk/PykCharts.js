@@ -30,7 +30,9 @@ PykCharts.multiD.lineChart = function (options){
 
 	this.dataTransformation = function () {
 		that.group_arr = [], that.color_arr = [], that.new_data = []/*, that.dataLineGroup = []*/,
+
 		that.legend_text = [];
+
 		for(j = 0;j < that.data_length;j++) {
 			that.group_arr[j] = that.data[j].name;
 			if(!that.data[j].color) {
@@ -41,6 +43,7 @@ PykCharts.multiD.lineChart = function (options){
 				that.hover = true;
 			}
 		}
+
 		that.uniq_group_arr = that.group_arr.slice();
 		that.uniq_color_arr = that.color_arr.slice();
 		$.unique(that.uniq_group_arr);
@@ -106,7 +109,7 @@ PykCharts.multiD.lineChart = function (options){
 							.chartType()
 							.svgContainer(i);
 
-					that.k.crossHair(that.svgContainer,1);
+					that.k.crossHair(that.svgContainer,1,that.new_data,that.fillColor);
 
 					that.optionalFeature()
 							.createChart(null,i)
@@ -136,7 +139,7 @@ PykCharts.multiD.lineChart = function (options){
 						.svgContainer(1)
 						.hightLightOnload();
 
-				that.k.crossHair(that.svgContainer,that.new_data_length);
+				that.k.crossHair(that.svgContainer,that.new_data_length,that.new_data,that.fillColor);
 
 				that.optionalFeature()
 						.createChart()
@@ -456,16 +459,8 @@ PykCharts.multiD.lineChart = function (options){
 					      					return 1;
 					      				}
 					      			})
-								    .attr("d", that.chart_path);
-
-								that.legend_text[i]
-					      			.style("fill", function() {
-					      				return that.fillColor.colorPieMS(that.new_data[i]);
-						      		});
-
-						  	if(that.type === "multilineChart") {
-						      		that.dataLineGroup[i]
-							      		.on("click",function (d) {
+						      		.on("click",function (d) {
+						      			if(that.type === "multilineChart") {
 								  			that.selected_line = d3.event.target;
 											that.selected_line_data = that.selected_line.__data__;
 											that.selected_line_data_len = that.selected_line_data.length;
@@ -476,7 +471,7 @@ PykCharts.multiD.lineChart = function (options){
 													.style("stroke", function() { return (PykCharts.boolean(that.color_from_data)) ? that.color_before_selection : that.chartColor; });
 											that.selected = this;
 											that.color_before_selection = d3.select(that.selected).style("stroke");
-											// console.log("faith");
+									
 											d3.select(that.selected)
 													.classed({'multi-line-selected':true,'multi-line':false,'multi-line-hover':false})
 													.style("stroke", function() { 
@@ -490,22 +485,28 @@ PykCharts.multiD.lineChart = function (options){
 												d3.select(that.selector+" text#"+that.selected.id).style("visibility","visible");
 												that.updateSelectedLine(that.selected.id);
 											}
-										})
-										.on("mouseover",function (d) {
-											if(this !== that.selected && (that.color_mode === "saturation" || that.hover)) {
-												d3.select(this)
-												.classed({'multi-line-hover':true,'multi-line':false})
-												.style("stroke", "orange");
-											}
-										})
-										.on("mouseout",function (d) {
-											if(this !== that.selected && (that.color_mode === "saturation" || that.hover)) {
-												d3.select(this)
-													.classed({'multi-line-hover':false,'multi-line':true})
-													.style("stroke", that.chartColor);
-											}
-										});							
-							}
+										}
+									})
+									.on("mouseover",function (d) {
+										if(that.type === "multilineChart" && this !== that.selected && (that.color_mode === "saturation" || that.hover)) {
+											d3.select(this)
+											.classed({'multi-line-hover':true,'multi-line':false})
+											.style("stroke", "orange");
+										}
+									})
+									.on("mouseout",function (d) {
+										if(that.type === "multilineChart" && this !== that.selected && (that.color_mode === "saturation" || that.hover)) {
+											d3.select(this)
+												.classed({'multi-line-hover':false,'multi-line':true})
+												.style("stroke", that.chartColor);
+										}
+									})					
+							    	.attr("d", that.chart_path);
+
+							that.legend_text[i]
+				      			.style("fill", function() {
+				      				return that.fillColor.colorPieMS(that.new_data[i]);
+					      		});
 						}
 					} else {  				// Multiple Containers -- "Yes"
 						type = that.type + that.svgContainer.attr("id");
