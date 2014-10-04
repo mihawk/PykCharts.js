@@ -436,7 +436,7 @@ PykCharts.Configuration = function (options){
                     PykCharts.Configuration.focus_circle.append("circle")
                         .attr("fill",function (d) {
                             // console.log(j,"jjjjjjjjjjjj",data[j],fill.colorPieMS(data[j]));
-                            return fill.colorPieMS(data[j]);
+                            return /*fill.colorPieMS(data[j])*/ "blue";
                         })
                         .attr("id","focus-circle"+j)
                         .attr("r",6);
