@@ -163,7 +163,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
 
                 that.optionalFeatures().createChart()
                     .legends()
-                    .zoom()
+                  //  .zoom()
                     .ticks();
                     // .crossHair();
                 if(type === "scatterplot") {
@@ -181,7 +181,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                 .credits()
                 .dataSource();
             that.optionalFeatures()
-                .zoom();
+           //     .zoom();
 
         } else if (that.mode === "infographics") {
             that.radius_range = [7,18];
