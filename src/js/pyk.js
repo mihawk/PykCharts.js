@@ -1202,14 +1202,7 @@ configuration.fillChart = function (options,theme,config) {
             // }
         },
         colorPieMS : function (d) {
-<<<<<<< HEAD
-            console.log(d.color, options.highlight,"hhhhhhhhhhhhh");
-            if(d.name.toLowerCase() === options.highlight) {
-=======
-            // console.log(d,options.highlight,"not working");
-            if(d.name.toLowerCase() === options.highlight.toLowerCase()) {
-                // console.log("inside",options.highlightColor);
->>>>>>> 8688afdc63cf2172f4924cd19c4714af58ace69b
+        if(d.name.toLowerCase() === options.highlight.toLowerCase()) {
                 return options.highlightColor;
             } else if(options.color_mode === "saturation") {
                 return options.saturationColor;
