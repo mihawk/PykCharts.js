@@ -175,7 +175,8 @@ PykCharts.multiD.areaChart = function (options){
 				if(that.type === "areaChart") {
 					that.new_data[0] = {
 						name: (that.data[0].name || ""),
-						data: []
+						data: [],
+						color: (that.data[0].color || "")
 					};
 					for(j = 0;j < that.data_length;j++) {
 						that.new_data[0].data.push({
@@ -362,11 +363,12 @@ PykCharts.multiD.areaChart = function (options){
 							.attr("class", that.chartPathClass)
 							.attr("id", type)
 							.style("fill", function(d) { 
+								console.log(that.fillColor.colorPieMS(that.new_data[i]),"colorrrrrrrr",that.new_data[i]);
 								return that.fillColor.colorPieMS(that.new_data[i]);
 							})
-							// .style("fill-opacity",function() {
-							// 	return (i+1)/that.new_data.length;
-							// })
+							.style("fill-opacity",function() {
+								return (i+1)/that.new_data.length;
+							})
 							.attr("transform", "translate("+ that.extra_left_margin +",0)")
 							.attr("d", that.chart_path);
 
