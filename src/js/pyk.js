@@ -412,7 +412,6 @@ PykCharts.Configuration = function (options){
             return this;
         },
         crossHair : function (svg,len,data,fill) {
-           // console.log(len,"len");
             if(PykCharts.boolean(options.enableCrossHair) && options.mode === "default") {
                 PykCharts.Configuration.cross_hair_v = svg.append("g")
                     .attr("class","line-cursor")
@@ -435,8 +434,7 @@ PykCharts.Configuration = function (options){
                     
                     PykCharts.Configuration.focus_circle.append("circle")
                         .attr("fill",function (d) {
-                            // console.log(j,"jjjjjjjjjjjj",data[j],fill.colorPieMS(data[j]));
-                            return /*fill.colorPieMS(data[j])*/ "blue";
+                            return fill.colorPieMS(data[j]);
                         })
                         .attr("id","focus-circle"+j)
                         .attr("r",6);
@@ -533,7 +531,6 @@ PykCharts.Configuration = function (options){
 
                    gsvg.append("text")
                         .attr("x", (w- options.margin_left - options.margin_right)/2)
-                        // .attr("y", 35)
                         .attr("y", options.margin_bottom)
                         .style("text-anchor", "middle")
                         .style("fill",options.axis_x_labelColor)
@@ -541,7 +538,6 @@ PykCharts.Configuration = function (options){
                 } else if (options.axis_x_position === "top") {
                     gsvg.append("text")
                         .attr("x", (w - options.margin_left - options.margin_right)/2)
-                        // .attr("y", -5)
                         .attr("y", - options.margin_top + 10)
                         .style("text-anchor", "middle")
                         .style("fill",options.axis_x_labelColor)
@@ -763,10 +759,11 @@ configuration.mouseEvent = function (options) {
     that.cross_hair_v = configuration.cross_hair_v;
     that.cross_hair_h = configuration.cross_hair_h;
     that.focus_circle = configuration.focus_circle;
-    // console.log(that.focus_circle,"stupidity");
     that.pt_circle = configuration.pt_circle;
     that.start_pt_circle = configuration.start_pt_circle;
+
     var status;
+
     var action = {
         tooltipPosition : function (d,xPos,yPos,xDiff,yDiff,group_index) {
 
@@ -998,7 +995,6 @@ configuration.mouseEvent = function (options) {
         },
         crossHairShow : function (x1,y1,x2,y2,cx,cy,type,no_bullets,multiple_containers_enable,new_data,group_index) {
             if(PykCharts.boolean(options.enableCrossHair)) {
-                console.log(that.focus_circle,"focus is lost");
                 if(x1 !== undefined) {
                     if(type === "lineChart" || type === "areaChart") {
                         that.cross_hair_v.style("display","block");
