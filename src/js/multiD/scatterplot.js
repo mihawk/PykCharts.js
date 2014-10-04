@@ -734,63 +734,6 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                 }
                 return this;
             },
-            // crossHair : function () {
-            //     if(PykCharts.boolean(that.enableCrossHair)) {
-
-            //         var horizontalLine = that.svgContainer.append("line")
-            //             .attr("x1", that.margin.left)
-            //             .attr("y1", that.margin.top)
-            //             .attr("x2", that.w-that.margin.right)
-            //             .attr("y2", that.margin.top)
-            //             .attr("id","horizontal-cursor")
-            //             .attr("pointer-events","none")
-            //             .attr("class","line-cursor");
-
-            //         var verticalLine = that.svgContainer.append("line")
-            //             .attr("x1", that.margin.left)
-            //             .attr("y1", that.margin.top)
-            //             .attr("x2", that.margin.left)
-            //             .attr("y2", that.height-that.margin.bottom)
-            //             .attr("id", "vertical-cursor")
-            //             .attr("pointer-events","none")
-            //             .attr("class","line-cursor");
-
-            //         $(that.selector + " " +"#horizontal-cursor").hide();
-            //         $(that.selector + " " +"#vertical-cursor").hide();
-
-            //         that.svgContainer.on("mousemove",function () {
-            //             id = this.id
-
-            //             $(that.selector + " " +"#horizontal-cursor").show();
-            //             $(that.selector + " " +"#vertical-cursor").show();
-
-            //             var i,
-            //                 x = (d3.event.pageX) - ($(that.selector+ " #" + id).offset().left),
-            //                 y = (d3.event.pageY) - ($(that.selector+ " #" + id).offset().top);
-
-            //             d3.select(that.selector + " #" + id).style('cursor', 'none');
-
-            //             if(x >= that.margin.left && x <=(that.w-that.margin.right)) {
-
-            //                 d3.select(options.selector+" #"+ id +' #vertical-cursor')
-            //                     .attr("x1",x)
-            //                     .attr("x2",x);
-            //             }
-            //             if(y >= that.margin.top && y <=(that.height-that.margin.bottom)) {
-            //                 d3.selectAll(options.selector+" "+'#horizontal-cursor')
-            //                     .attr("y1",y)
-            //                     .attr("y2",y);
-            //             }
-            //         });
-
-            //         that.svgContainer.on("mouseout",function () {
-            //             $(that.selector + " " +"#horizontal-cursor").hide();
-            //             $(that.selector + " " +"#vertical-cursor").hide();
-            //         });
-
-            //     }
-            //     return this;
-            // }
 
         };
         return optional;
@@ -808,10 +751,8 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
         } else {
             n = 1;
         }
-        // console.log(this.id,"id");
         for(var i = 0; i < n; i++) {
             var containerId = id.substring(0,idLength-1);
-            // console.log(d3.select(that.selector+" #"+containerId +i),"fishyyyyyyyy",that.x.domain());
 
             current_container = d3.select(that.selector+" #"+containerId +i);
             
@@ -821,12 +762,23 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
             that.k.isOrdinal(current_container,".y.axis",that.yScale);
             that.k.isOrdinal(current_container,".y.grid",that.yScale);
 
-            that.optionalFeatures().plotCircle().label();
+            that.optionalFeatures().plotCircle()
+                                    .label();
+
             d3.select(that.selector+" #"+containerId +i)
                 .selectAll(".dot")
                 .attr("r", function (d) {
                     return that.sizes(d.weight)*d3.event.scale;
-                });
+                })                    
+                .attr("cx", function (d) { return (that.x(d.x)+that.extra_left_margin); })
+                .attr("cy", function (d) { return (that.yScale(d.y)+that.extra_top_margin); });
+
+            d3.select(that.selector+" #"+containerId +i)
+                .selectAll(".text")
+                .style("font-size", that.label_size)
+                .attr("x", function (d) {console.log((that.x(d.x)+that.extra_left_margin),"scatterplot label x position"); return (that.x(d.x)+that.extra_left_margin); })
+                .attr("y", function (d) { return (that.yScale(d.y)+that.extra_top_margin + 5); });
+
         }
     };
 
