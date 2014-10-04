@@ -411,11 +411,9 @@ PykCharts.Configuration = function (options){
             }
             return this;
         },
-        crossHair : function (svg,len) {
-            //var length = len.length;
+        crossHair : function (svg,len,data,fill) {
+           // console.log(len,"len");
             if(PykCharts.boolean(options.enableCrossHair) && options.mode === "default") {
-                /*$(options.selector + " " + "#cross-hair-v").remove();
-                $(options.selector + " " + "#focus-circle").remove();*/
                 PykCharts.Configuration.cross_hair_v = svg.append("g")
                     .attr("class","line-cursor")
                     .style("display","none");
@@ -429,19 +427,19 @@ PykCharts.Configuration = function (options){
                 PykCharts.Configuration.cross_hair_h.append("line")
                     .attr("class","cross-hair-h")
                     .attr("id","cross-hair-h");
-                // console.log(parseInt(len.length),"lennnnnnnnnn");
                 for (j=0; j<len; j++) {
-                    // console.log(len, options.selector);
-                    // console.log(len.length,"for len",j);
                     PykCharts.Configuration.focus_circle = svg.append("g")
                         .attr("class","focus")
                         .style("display","none")
                         .attr("id","f_circle"+j);
                     
                     PykCharts.Configuration.focus_circle.append("circle")
+                        .attr("fill",function (d) {
+                            // console.log(j,"jjjjjjjjjjjj",data[j],fill.colorPieMS(data[j]));
+                            return /*fill.colorPieMS(data[j])*/ "blue";
+                        })
                         .attr("id","focus-circle"+j)
                         .attr("r",6);
-                    // console.log("jjjjjj", j,len,d3.select(options.selector+ " #f_circle"+j));
                 } 
             }
             return this;
@@ -514,7 +512,7 @@ PykCharts.Configuration = function (options){
             var e = extra;
 
             if(PykCharts.boolean(options.axis_x_enable)){
-                d3.selectAll(options.selector + " .x.axis").attr("fill",function () { console.log("label fill",options.axis_x_labelColor);return options.axis_x_labelColor;});
+                d3.selectAll(options.selector + " .x.axis").attr("fill",function () {return options.axis_x_labelColor;});
                 if(options.axis_x_position === "bottom") {
                     gsvg.attr("transform", "translate(0," + (options.height - options.margin_top - options.margin_bottom) + ")");
                 }
@@ -581,7 +579,6 @@ PykCharts.Configuration = function (options){
                     .call(yaxis)
 
                 if(options.axis_y_position === "left"){
-                    console.log(-(options.margin_left + 20));
                     gsvg.append("text")
                         .attr("x",-(options.height)/2 )
                         .attr("transform", "rotate(-90)")
@@ -835,7 +832,7 @@ configuration.mouseEvent = function (options) {
                     pad = (temp[1]-temp[0])/new_data[0].data.length;
                     len = new_data[0].data.length;
                     strt = 0;
-                    for(i = 0;i<=len;i++){
+                    for(i = 0;i<len;i++){
                         strt = strt + pad;
                         x_range[i] = strt;
                     }
@@ -1001,6 +998,7 @@ configuration.mouseEvent = function (options) {
         },
         crossHairShow : function (x1,y1,x2,y2,cx,cy,type,no_bullets,multiple_containers_enable,new_data,group_index) {
             if(PykCharts.boolean(options.enableCrossHair)) {
+                console.log(that.focus_circle,"focus is lost");
                 if(x1 !== undefined) {
                     if(type === "lineChart" || type === "areaChart") {
                         that.cross_hair_v.style("display","block");
@@ -1204,8 +1202,7 @@ configuration.fillChart = function (options,theme,config) {
             // }
         },
         colorPieMS : function (d) {
-             if(d.name.toLowerCase() === options.highlight.toLowerCase()) {
-                console.log("inside",options.highlightColor);
+        if(d.name.toLowerCase() === options.highlight.toLowerCase()) {
                 return options.highlightColor;
             } else if(options.color_mode === "saturation") {
                 return options.saturationColor;
@@ -1387,7 +1384,7 @@ configuration.Theme = function(){
         "tooltip_enable": "yes",
         "creditMySite_name": "Pykih",
         "creditMySite_url": "http://www.pykih.com",
-        "highlight": "UPA",
+        "highlight": "",
         "backgroundColor": "transparent",
         "chartColor": "steelblue",
         "highlightColor": "#013F73",

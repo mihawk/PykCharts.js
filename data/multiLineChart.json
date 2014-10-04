@@ -3,126 +3,147 @@
 		"name":"China",
 		"x":"Bank",
 		"y":120,
+		"color": "green",
 		"tooltip":120
 	},
 	{
 		"name":"China",
 		"x":"IT",
 		"y":100,
+		"color": "green",
 		"tooltip":100
 	},	
 	{
 		"name":"China",
 		"x":"Cables",
 		"y":30,
+		"color": "green",
 		"tooltip":30
 	},
 	{
 		"name":"China",
 		"x":"Crude Oil",
 		"y":40,
+		"color": "green",
 		"tooltip":40
 	},
 	{
 		"name":"China",
 		"x":"Diamond",
 		"y":60,
+		"color": "green",
 		"tooltip":60
 	},
 	{
 		"name":"China",
 		"x":"Healthcare",
 		"y":70,
+		"color": "green",
 		"tooltip":70
 	},
 	{
 		"name":"China",
 		"x":"Automobile",
 		"y":30,
+		"color": "green",
 		"tooltip":30
 	},
 	{
 		"name":"U.S.A.",
 		"x":"Bank",
 		"y":70,
+		"color": "blue",
 		"tooltip":70
 	},
 	{
 		"name":"U.S.A.",
 		"x":"IT",
 		"y":100,
+		"color": "blue",
 		"tooltip":100
 	},	
 	{
 		"name":"U.S.A.",
 		"x":"Cables",
 		"y":50,
+		"color": "blue",
 		"tooltip":50
 	},
 	{
 		"name":"U.S.A.",
 		"x":"Crude Oil",
 		"y":60,
+		"color": "blue",
 		"tooltip":60
 	},
 	{
 		"name":"U.S.A.",
 		"x":"Diamond",
 		"y":30,
+		"color": "blue",
 		"tooltip":30
 	},
 	{
 		"name":"U.S.A.",
 		"x":"Healthcare",
 		"y":40,
+		"color": "blue",
 		"tooltip":40
 	},
 	{
 		"name":"U.S.A.",
 		"x":"Automobile",
 		"y":90,
+		"color": "blue",
 		"tooltip":90
 	},
 	{
 		"name":"India",
 		"x":"Bank",
-		"y":50,		
+		"y":50,	
+		"color": "yellow",	
 		"tooltip":50
 	},
 	{
 		"name":"India",
 		"x":"IT",
 		"y":30,
+		"color": "yellow",
 		"tooltip":30
 	},	
 	{
 		"name":"India",
 		"x":"Cables",
 		"y":80,
+		"color": "yellow",
 		"tooltip":80
 	},
 	{
 		"name":"India",
 		"x":"Crude Oil",
 		"y":40,
+		"color": "yellow",
 		"tooltip":40
 	},
 	{
 		"name":"India",
 		"x":"Diamond",
 		"y":50,
+		"color": "yellow",
 		"tooltip":50
 	},
 	{
 		"name":"India",
 		"x":"Healthcare",
 		"y":40,
+		"color": "yellow",
 		"tooltip":40
 	},
 	{
 		"name":"India",
 		"x":"Automobile",
 		"y":70,
+		"color": "yellow",
 		"tooltip":70
 	}
 ]

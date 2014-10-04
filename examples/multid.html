@@ -79,7 +79,7 @@
                     axis_x_labelColor: "red",
                     axis_x_pointer_size: 3,
                     axis_x_pointer_padding: 3,
-                    // axis_x_pointer_values: ["Bank", "IT", "Cables"],
+                    // axis_x_pointer_values: [1,2,3],
                     axis_x_outer_pointer_size: 3,
                     axis_x_time_value_type:"date",
                     axis_x_time_value_unit: 1,
@@ -152,7 +152,7 @@
                     zoom_enable: "yes"
 
                 });
-           //     k.execute();
+               // k.execute();
 
                 var k = new PykCharts.multiD.spiderWeb ({
                     selector: "#spiderWeb",
@@ -254,8 +254,7 @@
 
                     enableCrossHair: "yes"
                 });
-            //    k.execute();
-
+                // k.execute();
                 var k = new PykCharts.multiD.scatterPlot ({
                     selector: "#multiple-scatterplots",
                     data: "../data/scatterplot.json",
@@ -319,6 +318,7 @@
 
                     enableCrossHair: "yes"
                 });
+
               //  k.execute();
 
                 var k = new PykCharts.multiD.lineChart ({
@@ -326,7 +326,7 @@
                     data: "../data/multiLineChart.json",
                     mode : "default",
 
-                    color_mode: "color",  //color or saturation
+                    color_mode: "saturation",  //color or saturation
                     color:["orange","pink","purple"],
 
                     // yAxisDataFormat : "number",
@@ -334,7 +334,7 @@
                     chart_height: 400,
                     chart_width : 630,
                     chart_margin_top: 35,
-                    chart_margin_right: 5,
+                    chart_margin_right: 50,
                     chart_margin_bottom: 35,
                     chart_margin_left: 50,
                     chart_grid_xEnabled: "no",
@@ -357,8 +357,8 @@
 
                     axis_y_enable: "yes",
                     axis_y_title : "Growth rate",
-                    axis_y_position: "left",
-                    axis_y_value_position: "left",
+                    axis_y_position: "right",
+                    axis_y_value_position: "right",
                     axis_y_axisColor: "#1D1D1D",
                     axis_y_labelColor: "#1D1D1D",
                     axis_y_pointer_size: 3,
@@ -370,11 +370,12 @@
                     tooltip_enable : "yes",
                     enableCrossHair: "yes",
                     multiple_containers_enable: "yes",
-                    highlight: "india",
+
+                    // highlight: "india",
                    // highlightColor: "#013F73",
 
                 });
-              // k.execute();
+              k.execute();
 
                 var k = new PykCharts.multiD.lineChart ({
                     selector: "#multiple-multiLine",
@@ -424,10 +425,10 @@
                     tooltip_mode : "moving",
                     tooltip_enable : "yes",
                     enableCrossHair: "yes",
-                    highlight: "india",   
-                    highlightColor: "red",// name of the group which is to be highlighted on onload
-                    // multiple_containers_enable: "no",
 
+                    // highlight: "india",   
+                    // highlightColor: "red",// name of the group which is to be highlighted on onload
+                    // multiple_containers_enable: "no",
 
                 });
               k.execute();
@@ -608,8 +609,8 @@
 
                     highlight:"January",
 
-
                 });
+
         //        k.execute();
 
                 var k = new PykCharts.multiD.columnChart({
@@ -668,6 +669,7 @@
 
                    highlight:"January",
                 });
+
        //         k.execute();
 
                 var k = new PykCharts.multiD.barChart({
@@ -737,6 +739,7 @@
                     highlight: "January"
 
                 });
+
 //                k.execute();
 
                 var k = new PykCharts.multiD.barChart({
@@ -806,6 +809,7 @@
 
                     highlight: "January"
                   });
+
          //       k.execute();
             });
 
