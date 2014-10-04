@@ -37,6 +37,7 @@ PykCharts.multiD.areaChart = function (options){
 		that.multid = new PykCharts.multiD.configuration(that);
 		if(that.mode === "default") {
 			that.transitions = new PykCharts.Configuration.transition(that);
+			that.fillColor = new PykCharts.Configuration.fillChart(that,null,options);
 
 			that.k.title()
 					.subtitle()
@@ -50,8 +51,8 @@ PykCharts.multiD.areaChart = function (options){
 					.createChart()
 		    		.axisContainer();
 
-		    // console.log(that.new_data);
-			that.k.crossHair(that.svgContainer,that.new_data.length,that.data,that.type);
+		    console.log(that.data,"dataaaaa",that.data_length,"data_length");
+			that.k.crossHair(that.svgContainer,that.data_length,that.data,that.fillColor);
 
 			that.k.xAxis(that.svgContainer,that.xGroup,that.xScale,that.extra_left_margin,that.xdomain)
 					.yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain)
@@ -157,10 +158,10 @@ PykCharts.multiD.areaChart = function (options){
     			return this;
 			},
 			axisContainer : function () {
-	        if(PykCharts.boolean(that.axis_x_enable)){
-				that.xGroup = that.group.append("g")
-						.attr("id","xaxis")
-						.attr("class", "x axis");
+	        	if(PykCharts.boolean(that.axis_x_enable)){
+					that.xGroup = that.group.append("g")
+							.attr("id","xaxis")
+							.attr("class", "x axis");
 				}
 				if(PykCharts.boolean(that.axis_y_enable)){
 					that.yGroup = that.group.append("g")

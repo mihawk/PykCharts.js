@@ -93,18 +93,18 @@ PykCharts.multiD.lineChart = function (options){
                 that.height = that.height/2;
                 that.reducedWidth = that.w - that.margin_left - that.margin_right;
 				that.reducedHeight = that.height - that.margin_top - that.margin_bottom;
-				
+				that.fill_data = [];
 				for(i=0;i<that.new_data_length;i++) {
 					that.k.liveData(that)
 							.makeMainDiv(that.selector,i)
 							.tooltip(true,that.selector,i);
 
 					that.new_data1 = that.new_data[i];
+					that.fill_data[0] = that.new_data1;
 					that.optionalFeature()
 							.chartType()
 							.svgContainer(i);
-
-					that.k.crossHair(that.svgContainer,1);
+					that.k.crossHair(that.svgContainer,1,that.fill_data,that.fillColor);
 
 					that.optionalFeature()
 							.createChart(null,i)
@@ -134,7 +134,7 @@ PykCharts.multiD.lineChart = function (options){
 						.svgContainer(1)
 						.hightLightOnload();
 
-				that.k.crossHair(that.svgContainer,that.new_data_length);
+				that.k.crossHair(that.svgContainer,that.new_data_length,that.new_data,that.fillColor);
 
 				that.optionalFeature()
 						.createChart()

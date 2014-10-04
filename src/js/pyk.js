@@ -412,7 +412,7 @@ PykCharts.Configuration = function (options){
             return this;
         },
         crossHair : function (svg,len,data,fill) {
-           // console.log(len,"len");
+           console.log(len,"len");
             if(PykCharts.boolean(options.enableCrossHair) && options.mode === "default") {
                 PykCharts.Configuration.cross_hair_v = svg.append("g")
                     .attr("class","line-cursor")
@@ -1031,6 +1031,7 @@ configuration.mouseEvent = function (options) {
                                 }
                         }
                         else if(multiple_containers_enable === "yes") {
+                            console.log(group_index,"group index");
                             d3.selectAll(options.selector+" .line-cursor").style("display","block");
                             d3.selectAll(options.selector+" .cross-hair-v")
                                 .attr("x1",(x1 - 5))
