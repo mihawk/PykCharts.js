@@ -367,7 +367,9 @@ PykCharts.multiD.areaChart = function (options){
 								return that.fillColor.colorPieMS(that.new_data[i]);
 							})
 							.style("fill-opacity",function() {
+								if(that.type === "stackedAreaChart" && that.color_mode === "saturation") {
 								return (i+1)/that.new_data.length;
+								}
 							})
 							.attr("transform", "translate("+ that.extra_left_margin +",0)")
 							.attr("d", that.chart_path);

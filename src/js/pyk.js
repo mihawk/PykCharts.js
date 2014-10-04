@@ -1478,7 +1478,7 @@ configuration.Theme = function(){
         "size_enable" : "yes",
 
         "colors_mode" : "color",
-        "color": ["pink","blue","purple","red","orange"],
+        "color": ["yellow"],
 
         "spiderweb_outerRadiusPercent" : 80,
         "spiderweb_radius": 5,
