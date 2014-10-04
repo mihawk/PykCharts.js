@@ -1,147 +1,126 @@
 [
 	{
 		"name":"China",
-		"color": "#013f73",
 		"x":"Bank",
 		"y":120,
 		"tooltip":120
 	},
 	{
 		"name":"China",
-		"color": "#013f73",
 		"x":"IT",
 		"y":100,
 		"tooltip":100
 	},	
 	{
 		"name":"China",
-		"color": "#013f73",
 		"x":"Cables",
 		"y":30,
 		"tooltip":30
 	},
 	{
 		"name":"China",
-		"color": "#013f73",
 		"x":"Crude Oil",
 		"y":40,
 		"tooltip":40
 	},
 	{
 		"name":"China",
-		"color": "#013f73",
 		"x":"Diamond",
 		"y":60,
 		"tooltip":60
 	},
 	{
 		"name":"China",
-		"color": "#013f73",
 		"x":"Healthcare",
 		"y":70,
 		"tooltip":70
 	},
 	{
 		"name":"China",
-		"color": "#013f73",
 		"x":"Automobile",
 		"y":30,
 		"tooltip":30
 	},
 	{
 		"name":"U.S.A.",
-		"color": "#4682b4",
 		"x":"Bank",
 		"y":70,
 		"tooltip":70
 	},
 	{
 		"name":"U.S.A.",
-		"color": "#4682b4",
 		"x":"IT",
 		"y":100,
 		"tooltip":100
 	},	
 	{
 		"name":"U.S.A.",
-		"color": "#4682b4",
 		"x":"Cables",
 		"y":50,
 		"tooltip":50
 	},
 	{
 		"name":"U.S.A.",
-		"color": "#4682b4",
 		"x":"Crude Oil",
 		"y":60,
 		"tooltip":60
 	},
 	{
 		"name":"U.S.A.",
-		"color": "#4682b4",
 		"x":"Diamond",
 		"y":30,
 		"tooltip":30
 	},
 	{
 		"name":"U.S.A.",
-		"color": "#4682b4",
 		"x":"Healthcare",
 		"y":40,
 		"tooltip":40
 	},
 	{
 		"name":"U.S.A.",
-		"color": "#4682b4",
 		"x":"Automobile",
 		"y":90,
 		"tooltip":90
 	},
 	{
 		"name":"India",
-		"color": "#75b0e1",
 		"x":"Bank",
 		"y":50,		
 		"tooltip":50
 	},
 	{
 		"name":"India",
-		"color": "#75b0e1",
 		"x":"IT",
 		"y":30,
 		"tooltip":30
 	},	
 	{
 		"name":"India",
-		"color": "#75b0e1",
 		"x":"Cables",
 		"y":80,
 		"tooltip":80
 	},
 	{
 		"name":"India",
-		"color": "#75b0e1",
 		"x":"Crude Oil",
 		"y":40,
 		"tooltip":40
 	},
 	{
 		"name":"India",
-		"color": "#75b0e1",
 		"x":"Diamond",
 		"y":50,
 		"tooltip":50
 	},
 	{
 		"name":"India",
-		"color": "#75b0e1",
 		"x":"Healthcare",
 		"y":40,
 		"tooltip":40
 	},
 	{
 		"name":"India",
-		"color": "#75b0e1",
 		"x":"Automobile",
 		"y":70,
 		"tooltip":70

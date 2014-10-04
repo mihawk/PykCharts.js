@@ -531,16 +531,14 @@ PykCharts.Configuration = function (options){
                     .attr("y", -8)
                     .style("text-anchor", "end")
                     .text(options.axis_x_title);
-                // console.log("Hey",options.selector);
-                if((options.xAxisDataFormat === "string") && options.multiple_containers_enable === "no") {
-                    // console.log("inside if");
+
+                if((options.xAxisDataFormat === "string" || options.xAxisDataFormat === "time") && options.multiple_containers_enable === "no") {
                     var a = $(options.selector + " g.x.axis text");
                     var len = a.length,comp;
                     for(i=0; i<len-1;i++) {
                         comp = a[i].innerHTML;
                         if(a[i].getBBox().width > ((extra*2) * 0.7)) {
                             comp = comp.substr(0,3) + "..";
-
                         }
                         a[i].innerHTML = comp;
                     }
@@ -770,16 +768,13 @@ configuration.mouseEvent = function (options) {
                 for(j = 0;j < range_length;j++) {
                     for(k = 0; k<y_range.length;k++) {
                     if((j+1) >= range_length) {
-                       // console.log("false",j);
                         return false;
                     }
                     else {
                       if((right_tick === x_range[j] && left_tick === x_range[j+1]) && (bottom_tick === y_range[k+1] && top_tick === y_range[k])) {
-                            // console.log("false");
                             return false;
                         }
                         else if((x >= x_range[j] && x <= x_range[j+1]) && (y <= (y_range[k] - top - bottom) && y >= (y_range[k+1]))) {
-                            // console.log(y_range,y);
                             left_tick = x_range[j], right_tick = x_range[j+1];
                             bottom_tick = y_range[k+1];
                             top_tick = y_range[k];
@@ -851,7 +846,6 @@ configuration.mouseEvent = function (options) {
                                                 this.tooltipPosition(tooltipText,(pos_line_cursor_x+(a*diff_containers)),pos_line_cursor_y,-15,-15,a);
                                                 this.toolTextShow(tooltipText,multiple_containers_enable,type,a);
                                                 (options.enableCrossHair) ? this.crossHairShow(pos_line_cursor_x,top,pos_line_cursor_x,(h - bottom),pos_line_cursor_x,pos_line_cursor_y,type,active_y_tick.length,multiple_containers_enable,new_data[a],a) : null;
-                                                // console.log(a,"aaaaaaaaaaaaaaaaaaa");
                                             }
                                         }
                                     }
@@ -1106,6 +1100,7 @@ configuration.fillChart = function (options,theme,config) {
                 return options.saturationColor;
             } else if(PykCharts.boolean(options.size_enable)) {
                 if(d.color) {
+                    // console.log("yes size enable",d.color);
                     return d.color;
                 } else if(options.color.length) {
                     return options.color;
@@ -1122,7 +1117,8 @@ configuration.fillChart = function (options,theme,config) {
             // }
         },
         colorPieMS : function (d) {
-             if(d.name === options.highlight) {
+            console.log(d.color, options.highlight,"hhhhhhhhhhhhh");
+            if(d.name.toLowerCase() === options.highlight) {
                 return options.highlightColor;
             } else if(options.color_mode === "saturation") {
                 return options.saturationColor;
@@ -1367,7 +1363,7 @@ configuration.Theme = function(){
         "size_enable" : "yes",
 
         "colors_mode" : "color",
-        "color": ["pink"],
+        "color": ["pink","blue","purple","red","orange"],
 
         "spiderweb_outerRadiusPercent" : 80,
         "spiderweb_radius": 5,

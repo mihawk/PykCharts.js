@@ -25,7 +25,7 @@ body {
   fill: none;
   stroke-width: 3px;
   stroke-linecap: round;
-  stroke: #ccc;
+  /*stroke: #ccc;*/
   cursor: pointer
 }
 
@@ -77,7 +77,6 @@ body {
   fill: none;
   stroke-width: 3px;
   stroke-linecap: round;
-  stroke: #75b0e1;
   shape-rendering: auto;
   pointer-events: none;
 }

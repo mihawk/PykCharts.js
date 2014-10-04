@@ -176,6 +176,7 @@ PykCharts.multiD.configuration = function (options){
             return this;
         },
         mapGroup : function (data) {
+            console.log(data,"data");
             var newarr = [];
             var unique = {};
             var k = 0;
@@ -183,11 +184,19 @@ PykCharts.multiD.configuration = function (options){
             var checkColor = true;
 
             data.forEach(function (item) {
+                // console.log("item group", item.group, "item", item);
                 if(item.group) {
                     checkGroup = true;
                 } else {
                     checkGroup = false;
-                    if(!item.color) {
+                    if(item.color) {
+                        checkGroup = false;
+                        item.color = item.color;
+                    }else if(options.color) {
+                        checkColor = false;
+                        item.color = options.color[0];
+                        // item.color = options.colorPalette[0];
+                    } else{
                         checkColor = false;
                         item.color = options.colorPalette[0];
                     }
@@ -197,12 +206,22 @@ PykCharts.multiD.configuration = function (options){
             if(checkGroup) {
                 data.forEach(function(item) {
                     if (!unique[item.group]) {
-                        if(!item.color) {
+                        if(item.color) {
+                            checkGroup = false;
+                            item.color = item.color;
+                        }else if(options.color) {
+                            item.color = options.color[k];
+                            console.log("hey",options.color[k],k);
+                            k++;
+                        } else {
+                            console.log("else");
                             item.color = options.colorPalette[k];
                             k++;
                         }
+                        console.log(item);
                         newarr.push(item);
                         unique[item.group] = item;
+                        console.log(newarr,"new array",options.colorPalette[k]);
                     }
                 });
 
@@ -229,6 +248,7 @@ PykCharts.multiD.configuration = function (options){
                         }
                     }
                 }
+                console.log(arr,checkGroup,"before return");
                 return [arr,checkGroup];
             } else {
                 return [data,checkGroup];
@@ -293,6 +313,8 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     chartObject.grid_yEnabled = options.chart_grid_yEnabled ? options.chart_grid_yEnabled : stylesheet.chart_grid_yEnabled;
     chartObject.grid_color = options.chart_grid_color ? options.chart_grid_color : stylesheet.chart_grid_color;
     chartObject.mode = options.mode ? options.mode : "default";
+    chartObject.color_mode = options.color_mode ? options.color_mode : multiDimensionalCharts.color_mode;
+    chartObject.color = options.color ? options.color : multiDimensionalCharts.color;
 
     if (options &&  PykCharts.boolean (options.title_text)) {
         chartObject.title_size = "size" in options ? options.title_size : stylesheet.title_size;
@@ -393,7 +415,8 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     chartObject.legendsText_weight = options.legendsText_weight ? options.legendsText_weight : stylesheet.legendsText_weight;
     chartObject.legendsText_weight = (chartObject.legendsText_weight === "thick") ? "bold" : "normal";
     chartObject.legendsText_family = options.legendsText_family ? options.legendsText_family : stylesheet.legendsText_family;
-    chartObject.line_highlight_group = options.line_highlight_group ? options.line_highlight_group : multiDimensionalCharts.line_highlight_group;
+//    chartObject.line_highlight_group = options.line_highlight_group ? options.line_highlight_group : multiDimensionalCharts.line_highlight_group; 
+    chartObject.highlight = options.highlight ? options.highlight : stylesheet.highlight;
     chartObject.size_enable = options.size_enable ? options.size_enable : multiDimensionalCharts.size_enable;
     chartObject.units = options.units ? options.units : false;
     chartObject.multiple_containers_enable = options.multiple_containers_enable ? options.multiple_containers_enable : multiDimensionalCharts.multiple_containers_enable;
