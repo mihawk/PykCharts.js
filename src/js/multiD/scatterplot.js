@@ -25,6 +25,8 @@ PykCharts.multiD.scatterPlot = function (options) {
         }
         d3.json(options.data, function (e, data) {
             that.data = data.groupBy("scatterplot");
+            that.yAxisDataFormat = options.yAxisDataFormat ? options.yAxisDataFormat : that.k.yAxisDataFormatIdentification(that.data);
+            that.xAxisDataFormat = options.xAxisDataFormat ? options.xAxisDataFormat : that.k.xAxisDataFormatIdentification(that.data);
             that.compare_data = data.groupBy("scatterplot");
             $(that.selector+" #chart-loader").remove();
             var a = new PykCharts.multiD.scatterplotFunction(options,that,"scatterplot");
@@ -54,7 +56,8 @@ PykCharts.multiD.pulse = function (options) {
         that.size_enable = options.size_enable ? options.size_enable : multiDimensionalCharts.size_enable;
         d3.json(options.data, function (e, data) {
             that.data = data.groupBy("pulse");
-            console.log(data);
+            that.yAxisDataFormat = options.yAxisDataFormat ? options.yAxisDataFormat : that.k.yAxisDataFormatIdentification(that.data);
+            that.xAxisDataFormat = options.xAxisDataFormat ? options.xAxisDataFormat : that.k.xAxisDataFormatIdentification(that.data);
             that.compare_data = data.groupBy("pulse");
             $(that.selector+" #chart-loader").remove();
             var a = new PykCharts.multiD.scatterplotFunction(options,that,"pulse");
@@ -75,7 +78,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                 that.k.lastUpdatedAt("liveData");
             }
             that.map_group_data = that.multiD.mapGroup(that.data);
-            console.log(that.map_group_data);
+            // console.log(that.map_group_data);
             that.optionalFeatures()
                     .createChart()
                     .legends()
@@ -85,7 +88,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
     };
 
     this.render = function () {
-        console.log(that.data);
+        // console.log(that.data);
         that.map_group_data = that.multiD.mapGroup(that.data);
         that.fillChart = new PykCharts.Configuration.fillChart(that);
 
@@ -134,7 +137,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                         .ticks();
                         // .crossHair();
 
-                    that.k.xAxis(that.svgContainer,that.xGroup,that.x)
+                    that.k.xAxis(that.svgContainer,that.xGroup,that.x,that.extra_left_margin,that.xdomain)
                         .yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain)
                         // .yGrid(that.svgContainer,that.group,that.yScale)
                         // .xGrid(that.svgContainer,that.group,that.x);
@@ -167,7 +170,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                     that.optionalFeatures().label();
                 }
 
-                that.k.xAxis(that.svgContainer,that.xGroup,that.x)
+                that.k.xAxis(that.svgContainer,that.xGroup,that.x,that.extra_left_margin,that.xdomain)
                     .yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain);
                     // .yGrid(that.svgContainer,that.group,that.yScale)
                     // .xGrid(that.svgContainer,that.group,that.x);
@@ -193,7 +196,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
             that.optionalFeatures().createChart(0);
                 // .crossHair();
 
-            that.k.xAxis(that.svgContainer,that.xGroup,that.x)
+            that.k.xAxis(that.svgContainer,that.xGroup,that.x,that.extra_left_margin,that.xdomain)
                 .yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain)
         }
     };
@@ -304,15 +307,9 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
 
                     if(that.yAxisDataFormat === "number") {
                         y_domain = d3.extent(that.data, function(d) { return d.y });
-
                         y_data = that.k._domainBandwidth(y_domain,2,"number");
-                        
-                        console.log(y_data,"y_data");
-
                         y_range = [that.height - that.margin_top - that.margin_bottom, 0];
                         that.yScale = that.k.scaleIdentification("linear",y_data,y_range);
-                        // console.log(that.yScale.domain());
-                            
                         that.extra_top_margin = 0;
 
                     } else if(that.yAxisDataFormat === "string") {

@@ -12,7 +12,7 @@ PykCharts.multiD.barChart = function(options){
            that.k.loading();
         }
         d3.json(options.data, function(e, data){
-            console.log("data",data);
+            // console.log("data",data);
             that.data = data.groupBy("bar");
             that.compare_data = data.groupBy("bar");
             //console.log(data);
@@ -163,25 +163,40 @@ PykCharts.multiD.barChart = function(options){
                             .attr("stroke-width","1px");
 
                     axis_line.exit().remove();
-
-                    that.yGroup = that.group.append("g")
-                        .attr("id","yaxis")
-                        .attr("class", "y axis")
-                        .append("text")
+                    
+                    if(that.axis_y_position === "left") {
+                        that.yGroup = that.group.append("g")
+                            .attr("id","yaxis")
+                            .attr("class", "y axis")
+                            .append("text")
                             .attr("transform", "rotate(-90)")
-                            .attr("y", 6)
+                            .attr("x",-(that.height-that.margin_top-that.margin_bottom)/2)
+                            .attr("y", -60)
                             .attr("dy", ".71em")
                             .style("text-anchor", "end")
+                            .style("fill",that.axis_x_labelColor)
                             .text(options.axis_y_title);
 
-                    if(that.axis_y_position === "right") {
+                    } else if(that.axis_y_position === "right") {
                         axis_line.attr("x1",(that.width-that.margin_left-that.margin_right))
                             .attr("x2",(that.width-that.margin_left-that.margin_right));
+
+                        that.yGroup = that.group.append("g")
+                            .attr("id","yaxis")
+                            .attr("class", "y axis")
+                            .append("text")
+                            .attr("transform", "rotate(-90)")
+                            .attr("x",-(that.height-that.margin_top-that.margin_bottom)/2)
+                            .attr("y", (that.width-that.margin_left-that.margin_right)+12)
+                            .attr("dy", ".71em")
+                            .style("text-anchor", "end")
+                            .style("fill",that.axis_x_labelColor)
+                            .text(options.axis_y_title);
                         // that.xGroup.attr("transform","translate(0,"+(that.width-that.margin.left-that.margin.right)+")");
                     }
                         // .style("stroke","none");
                 }
-
+                // console.log(PykCharts.boolean(that.axis_x_enable),"is boolean");
                 if(PykCharts.boolean(that.axis_x_enable)) {
                     that.xGroup = that.group.append("g")
                         .attr("id","xaxis")

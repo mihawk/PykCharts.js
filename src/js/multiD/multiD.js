@@ -23,7 +23,7 @@ PykCharts.multiD.configuration = function (options){
                 for(i=0;i<data.length;i++) {
                     for(j=0;j<key1.length;j++){
                         if(data[i][key2[j]] !== compare_data[i][key1[j]] || key1[j] !== key2[j]) {
-                            console.log("changed");
+                            // console.log("changed");
                             changed = true;
                             break;
                         }
@@ -176,7 +176,7 @@ PykCharts.multiD.configuration = function (options){
             return this;
         },
         mapGroup : function (data) {
-            console.log(data,"data");
+            // console.log(data,"data");
             var newarr = [];
             var unique = {};
             var k = 0;
@@ -211,17 +211,17 @@ PykCharts.multiD.configuration = function (options){
                             item.color = item.color;
                         }else if(options.color) {
                             item.color = options.color[k];
-                            console.log("hey",options.color[k],k);
+                            // console.log("hey",options.color[k],k);
                             k++;
                         } else {
-                            console.log("else");
+                            // console.log("else");
                             item.color = options.colorPalette[k];
                             k++;
                         }
-                        console.log(item);
+                        // console.log(item);
                         newarr.push(item);
                         unique[item.group] = item;
-                        console.log(newarr,"new array",options.colorPalette[k]);
+                        // console.log(newarr,"new array",options.colorPalette[k]);
                     }
                 });
 
@@ -248,7 +248,7 @@ PykCharts.multiD.configuration = function (options){
                         }
                     }
                 }
-                console.log(arr,checkGroup,"before return");
+                // console.log(arr,checkGroup,"before return");
                 return [arr,checkGroup];
             } else {
                 return [data,checkGroup];
@@ -352,7 +352,9 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     chartObject.axis_x_value_format = PykCharts.boolean(options.axis_x_enable) && options.axis_x_value_format ? options.axis_x_value_format : multiDimensionalCharts.axis_x_value_format;
     chartObject.axis_x_pointer_values = PykCharts.boolean(options.axis_x_enable) && options.axis_x_pointer_values ? options.axis_x_pointer_values : multiDimensionalCharts.axis_x_pointer_values;
     chartObject.axis_x_outer_pointer_size = "axis_x_outer_pointer_size" in options && PykCharts.boolean(options.axis_x_enable) ? options.axis_x_outer_pointer_size : multiDimensionalCharts.axis_x_outer_pointer_size;
-
+    chartObject.axis_x_time_value_type = PykCharts.boolean(options.axis_x_enable) && options.axis_x_time_value_type ? options.axis_x_time_value_type : multiDimensionalCharts.axis_x_time_value_type;
+    chartObject.axis_x_time_value_unit = PykCharts.boolean(options.axis_x_enable) && options.axis_x_time_value_unit ? options.axis_x_time_value_unit : multiDimensionalCharts.axis_x_time_value_unit;
+    
     chartObject.axis_y_enable = options.axis_y_enable ? options.axis_y_enable : multiDimensionalCharts.axis_y_enable;
     chartObject.axis_y_title = PykCharts.boolean(options.axis_y_enable) && options.axis_y_title ? options.axis_y_title : multiDimensionalCharts.axis_y_title;
     chartObject.axis_y_value_position = PykCharts.boolean(options.axis_y_enable) && options.axis_y_value_position ? options.axis_y_value_position : multiDimensionalCharts.axis_y_value_position;
@@ -365,7 +367,9 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     chartObject.axis_y_value_format = PykCharts.boolean(options.axis_y_enable) && options.axis_y_value_format ? options.axis_y_value_format : multiDimensionalCharts.axis_y_value_format;
     chartObject.axis_y_pointer_values = PykCharts.boolean(options.axis_y_enable) && options.axis_y_pointer_values ? options.axis_y_pointer_values : multiDimensionalCharts.axis_y_pointer_values;
     chartObject.axis_y_outer_pointer_size = "axis_y_outer_pointer_size" in options && PykCharts.boolean(options.axis_y_enable) ? options.axis_y_outer_pointer_size : multiDimensionalCharts.axis_y_outer_pointer_size;
-
+    chartObject.axis_y_time_value_type = PykCharts.boolean(options.axis_y_enable) && options.axis_y_time_value_type ? options.axis_y_time_value_type : multiDimensionalCharts.axis_y_time_value_type;
+    chartObject.axis_y_time_value_unit = PykCharts.boolean(options.axis_y_enable) && options.axis_y_time_value_unit ? options.axis_y_time_value_unit : multiDimensionalCharts.axis_y_time_value_unit;
+    
     chartObject.legends_enable =  options.legends_enable ? options.legends_enable : multiDimensionalCharts.legends_enable;
     chartObject.legends_display = options.legends_display ? options.legends_display : multiDimensionalCharts.legends_display;
 
@@ -415,7 +419,11 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     chartObject.legendsText_weight = options.legendsText_weight ? options.legendsText_weight : stylesheet.legendsText_weight;
     chartObject.legendsText_weight = (chartObject.legendsText_weight === "thick") ? "bold" : "normal";
     chartObject.legendsText_family = options.legendsText_family ? options.legendsText_family : stylesheet.legendsText_family;
+<<<<<<< HEAD
 //    chartObject.line_highlight_group = options.line_highlight_group ? options.line_highlight_group : multiDimensionalCharts.line_highlight_group; 
+=======
+    //chartObject.line_highlight_group = options.line_highlight_group ? options.line_highlight_group : multiDimensionalCharts.line_highlight_group;
+>>>>>>> 8688afdc63cf2172f4924cd19c4714af58ace69b
     chartObject.highlight = options.highlight ? options.highlight : stylesheet.highlight;
     chartObject.size_enable = options.size_enable ? options.size_enable : multiDimensionalCharts.size_enable;
     chartObject.units = options.units ? options.units : false;

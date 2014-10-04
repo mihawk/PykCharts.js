@@ -3,42 +3,49 @@
 		"name":"India",
 		"x":"Bank",
 		"y":30,
+		"color": "yellow",
 		"tooltip":30
 	},
 	{
 		"name":"India",
 		"x":"IT",
 		"y":53,
+		"color": "yellow",
 		"tooltip":53
 	},	
 	{
 		"name":"India",
 		"x":"Cables",
 		"y":30,
+		"color": "yellow",
 		"tooltip":30
 	},
 	{
 		"name":"India",
 		"x":"Crude Oil",
 		"y":40,
+		"color": "yellow",
 		"tooltip":40
 	},
 	{
 		"name":"India",
 		"x":"Diamond",
 		"y":50,
+		"color": "yellow",
 		"tooltip":50
 	},
 	{
 		"name":"India",
 		"x":"Healthcare",
 		"y":40,
+		"color": "yellow",
 		"tooltip":40
 	},
 	{
 		"name":"India",
 		"x":"Automobile",
 		"y":70,
+		"color": "yellow",
 		"tooltip":70
 	}
 ]

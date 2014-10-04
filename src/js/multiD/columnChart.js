@@ -162,24 +162,39 @@ PykCharts.multiD.columnChart = function(options){
                             .attr("y2",that.height-that.margin_top-that.margin_bottom)
                             .attr("stroke",that.axis_x_axisColor);
 
-                    if(that.axis_x_position === "top") {
-                        axis_line.attr("y1",0)
-                            .attr("y2",0);
-                    }
                     axis_line.exit().remove();
 
-                    that.xGroup = that.group.append("g")
-                        .attr("id","xaxis")
-                        .attr("class", "x axis")
-                        .style("stroke","none")
-                        .append("text")
-                            .attr("x", that.width - that.margin_left - that.margin_right)
-                            .attr("y", that.height -that.margin_bottom - that.margin_top)
-                            .attr("dy", -8)
+                    if (that.axis_x_position === "bottom") {
+                        that.xGroup = that.group.append("g")
+                            .attr("id","xaxis")
+                            .attr("class", "x axis")
+                            .style("stroke","none")
+                            .append("text")
+                                .attr("x", (that.width - that.margin_left - that.margin_right)/2)
+                                .attr("y", that.height -that.margin_bottom - that.margin_top)
+                                // .attr("dy", -8)
+                                .attr("dy", that.margin_top + 10)
+                                .style("fill", that.axis_x_labelColor)
+                                .style("text-anchor", "end")
+                                .text(that.axis_x_title);
+                    } else if(that.axis_x_position === "top") {
+                        axis_line.attr("y1",0)
+                            .attr("y2",0);
+
+                        that.xGroup = that.group.append("g")
+                            .attr("id","xaxis")
+                            .attr("class", "x axis")
+                            .style("stroke","none")
+                            .append("text")
+                            .attr("x", (that.width - that.margin_left - that.margin_right)/2)
+                            .attr("y", -40)
+                            // .attr("dy", -8)
+                            .attr("dy", that.margin_top + 10)
+                            .style("fill", that.axis_x_labelColor)
                             .style("text-anchor", "end")
                             .text(that.axis_x_title);
+                    }                    
                 }
-
                 if(PykCharts.boolean(that.axis_y_enable)) {
                     that.yGroup = that.group.append("g")
                         .attr("id","yaxis")
@@ -371,19 +386,22 @@ PykCharts.multiD.columnChart = function(options){
                             return -15;
                         });
                     } else if(that.axis_x_value_position === "bottom") {
+                        console.log("bottem");
                         xAxis_label.attr("y", function () {
+                            console.log("y");
                             return 15;
                         });
                     }
-                }
-                if(that.axis_x_value_position === "top") {
-                    xAxis_label.attr("y", function () {
-                        return h-15;
-                    });
-                } else if(that.axis_x_value_position === "bottom") {
-                    xAxis_label.attr("y", function () {
-                        return h+15;
-                    });
+                }else {
+                    if(that.axis_x_value_position === "top") {
+                        xAxis_label.attr("y", function () {
+                            return h-15;
+                        });
+                    } else if(that.axis_x_value_position === "bottom") {
+                        xAxis_label.attr("y", function () {
+                            return h+15;
+                        });
+                    }
                 }
                 return this;
             },
