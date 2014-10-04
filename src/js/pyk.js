@@ -411,6 +411,31 @@ PykCharts.Configuration = function (options){
             }
             return this;
         },
+        annotation : function (d1) {
+            _.each(d1[0], function (d, i) {
+                if ($("#tooltip"+i).length>0) {
+                    $("#tooltip"+i).remove();
+                }
+
+                var position = $(d).offset();
+                var tooltip = d3.select(options.selector)
+                    .append("div").attr("id", "tooltip"+i)
+                    .style("position", "absolute")
+                    .style("z-index", "10")
+                    .style("visibility", "hidden")
+                    .style("background", "#fff")
+                    .style("padding", "5px 10px")
+                    //.style("box-shadow", "0 0 10px #000")
+                    //.style("border", "1px solid gray")
+                    .style("border-radius", "0")
+                    .html($(d)[0].__data__.annotation).style("visibility", "visible");
+
+                tooltip
+                    .style("top", (position.top-$("#tooltip"+i)[0].clientHeight+1) + "px")
+                    .style("left", (position.left-($("#tooltip"+i)[0].clientWidth/2)) + "px");
+
+            });
+        },
         crossHair : function (svg,len,data,fill) {
             if(PykCharts.boolean(options.enableCrossHair) && options.mode === "default") {
                 PykCharts.Configuration.cross_hair_v = svg.append("g")

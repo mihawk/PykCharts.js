@@ -4,7 +4,8 @@
 		"x":"Bank",
 		"y":30,
 		"color": "yellow",
-		"tooltip":30
+		"tooltip":30,
+		"annotations": "Bank"
 	},
 	{
 		"name":"India",
@@ -18,7 +19,8 @@
 		"x":"Cables",
 		"y":30,
 		"color": "yellow",
-		"tooltip":30
+		"tooltip":30,
+		"annotations": "Cables"
 	},
 	{
 		"name":"India",
@@ -32,7 +34,8 @@
 		"x":"Diamond",
 		"y":50,
 		"color": "yellow",
-		"tooltip":50
+		"tooltip":50,
+		"annotations": "Diamond"
 	},
 	{
 		"name":"India",
