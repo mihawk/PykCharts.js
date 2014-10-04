@@ -90,6 +90,7 @@ PykCharts.multiD.columnChart = function(options){
                 .axisContainer();
 
             that.k.yAxis(that.svgContainer,that.yGroup,that.yScaleInvert)
+                 .yAxisTitle(that.yGroup)
                 // .xAxis(that.svgContainer,that.xGroup,that.xScale)
                 .yGrid(that.svgContainer,that.group,that.yScaleInvert);
 
@@ -101,7 +102,8 @@ PykCharts.multiD.columnChart = function(options){
 
             that.k.tooltip();
             that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
-            that.k.yAxis(that.svgContainer,that.ygroup,that.yScaleInvert);
+            that.k.yAxis(that.svgContainer,that.ygroup,that.yScaleInvert)
+                 .yAxisTitle(that.yGroup);
         }
     };
 
@@ -461,8 +463,7 @@ PykCharts.multiD.columnChart = function(options){
                         .attr(rect_parameter3, rect_parameter3value)
                         .attr(rect_parameter4, rect_parameter4value)
                         .attr("fill", function (d) {
-                            console.log("color",color);
-                            return that.fillColor.colorPieMS(color);
+                           return color;
                         })
                         .attr("fill-opacity", function (d,i) {
                             if (that.color_mode === "saturation") {
@@ -609,18 +610,15 @@ PykCharts.multiD.columnChart = function(options){
             for(var j in that.the_layers[i].values) {
                 if(!PykCharts.boolean(that.the_layers[i].values[j].y)) continue;
                 var name = that.the_layers[i].values[j].group, color;
-                if(options.optional && options.optional.colors) {
-                    if(options.optional.colors.chartColor) {
-                        color = that.chartColor;
-                    }
-                    else if(that.the_layers[i].values[0].color) {
-                        color = that.the_layers[i].values[0].color;
-                    }
-                }
-                else {
+                if(that.color_mode === "saturation") {
+                    color = that.saturationColor;
+                } else if(that.color_mode === "color" && that.the_layers[i].values[0].color) {
+                    color = that.the_layers[i].values[0].color;
+                } else if(that.color_mode === "color" && that.color.length){
+                    color = that.color[0];
+                } else {
                     color = that.chartColor;
-                }
-
+                } 
                 p.push({
                     "name": name,
                     "color": color

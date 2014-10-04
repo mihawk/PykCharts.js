@@ -119,7 +119,9 @@ PykCharts.multiD.lineChart = function (options){
 					that.k.xAxis(that.svgContainer,that.xGroup,that.xScale,that.extra_left_margin,that.xdomain)
 							.yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain)
 							.yGrid(that.svgContainer,that.group,that.yScale)
-							.xGrid(that.svgContainer,that.group,that.xScale);
+							.xGrid(that.svgContainer,that.group,that.xScale)
+							.xAxisTitle(that.xGroup)
+							.yAxisTitle(that.yGroup);
 	
 					if((i+1)%4 === 0 && i !== 0) {
                         that.k.emptyDiv();
@@ -149,7 +151,9 @@ PykCharts.multiD.lineChart = function (options){
 				that.k.xAxis(that.svgContainer,that.xGroup,that.xScale,that.extra_left_margin,that.xdomain)
 						.yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain)
 						.yGrid(that.svgContainer,that.group,that.yScale)
-						.xGrid(that.svgContainer,that.group,that.xScale);
+						.xGrid(that.svgContainer,that.group,that.xScale)
+						.xAxisTitle(that.xGroup)
+						.yAxisTitle(that.yGroup);
 			}
 			that.k.createFooter()
                 .lastUpdatedAt()
@@ -171,7 +175,9 @@ PykCharts.multiD.lineChart = function (options){
 					.axisContainer();
 
 			that.k.xAxis(that.svgContainer,that.xGroup,that.xScale,that.extra_left_margin,that.xdomain)
-					.yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain);
+					.yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain)
+					.xAxisTitle(that.xGroup)
+					.yAxisTitle(that.yGroup);
 		}
 		that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
 	};

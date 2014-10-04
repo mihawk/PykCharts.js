@@ -56,6 +56,8 @@ PykCharts.multiD.areaChart = function (options){
 					.yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain)
 					.yGrid(that.svgContainer,that.group,that.yScale)
 					.xGrid(that.svgContainer,that.group,that.xScale)
+					.xAxisTitle(that.xGroup)
+					.yAxisTitle(that.yGroup)
 					.createFooter()
 	                .lastUpdatedAt()
 	                .credits()
@@ -72,7 +74,9 @@ PykCharts.multiD.areaChart = function (options){
 			    		.axisContainer();
 
 		    that.k.xAxis(that.svgContainer,that.xGroup,that.xScale,that.extra_left_margin,that.xdomain)
-					.yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain);
+					.yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain)
+					.xAxisTitle(that.xGroup)
+					.yAxisTitle(that.yGroup);
   		}
   		that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
 	};

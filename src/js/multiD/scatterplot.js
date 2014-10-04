@@ -139,6 +139,8 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
 
                     that.k.xAxis(that.svgContainer,that.xGroup,that.x,that.extra_left_margin,that.xdomain)
                         .yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain)
+                        .xAxisTitle(that.xGroup)
+                        .yAxisTitle(that.yGroup);
                         // .yGrid(that.svgContainer,that.group,that.yScale)
                         // .xGrid(that.svgContainer,that.group,that.x);
                     if((i+1)%4 === 0 && i !== 0) {
@@ -163,7 +165,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
 
                 that.optionalFeatures().createChart()
                     .legends()
-                    .zoom()
+                    // .zoom()
                     .ticks();
                     // .crossHair();
                 if(type === "scatterplot") {
@@ -171,7 +173,9 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                 }
 
                 that.k.xAxis(that.svgContainer,that.xGroup,that.x,that.extra_left_margin,that.xdomain)
-                    .yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain);
+                    .yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain)
+                    .xAxisTitle(that.xGroup)
+                    .yAxisTitle(that.yGroup);
                     // .yGrid(that.svgContainer,that.group,that.yScale)
                     // .xGrid(that.svgContainer,that.group,that.x);
             }
@@ -180,8 +184,8 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                 .lastUpdatedAt()
                 .credits()
                 .dataSource();
-            that.optionalFeatures()
-                .zoom();
+            // that.optionalFeatures()
+            //      .zoom();
 
         } else if (that.mode === "infographics") {
             that.radius_range = [7,18];
@@ -198,6 +202,8 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
 
             that.k.xAxis(that.svgContainer,that.xGroup,that.x,that.extra_left_margin,that.xdomain)
                 .yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain)
+                .xAxisTitle(that.xGroup)
+                .yAxisTitle(that.yGroup);
         }
     };
 
