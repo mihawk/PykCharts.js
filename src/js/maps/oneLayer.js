@@ -105,6 +105,10 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                 
 
         if(type === "timeline") {
+            that.optionalFeatures()
+                .axisContainer(true);
+            that.renderDataForTimescale();
+            that.renderButtons();
             that.renderTimeline();
         }
     };
@@ -140,6 +144,8 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                 that.optionalFeatures()
                     .legends(that.legends_enable)
                     .createMap();
+                that.renderDataForTimescale();
+                that.renderTimeline();
                 
                 if(data_changed) {
                     that.k.lastUpdatedAt("liveData");
@@ -563,52 +569,55 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             /*console.log(e);*/
         }
     };
-
-    that.renderTimeline = function () {
-        var x_extent
-        , x_range
-        , unique = []
-        , duration
-        , interval = interval1 = 1;
-
-        that.optionalFeatures()
-            .axisContainer(true);
-
+    that.renderDataForTimescale = function () {
+        that.unique = [];
         x_extent = d3.extent(that.timeline_data, function(d) { return d.timestamp; });
         x_range = [0 ,that.redeced_width];
         that.xScale = that.k.scaleIdentification("linear",x_extent,x_range);
-
-        that.k.xAxis(that.svgContainer,that.gxaxis,that.xScale);
-
         _.each(that.timeline_data, function (d) {
-            if (unique.indexOf(d.timestamp) === -1) {
-                unique.push(d.timestamp);
+            if (that.unique.indexOf(d.timestamp) === -1) {
+                that.unique.push(d.timestamp);
             }
 
         })
-        unique.sort(function (a,b) {
+        that.unique.sort(function (a,b) {
           return a - b;
         });
+        that.k.xAxis(that.svgContainer,that.gxaxis,that.xScale);
+    }
+    that.renderTimeline = function () {
+        var x_extent
+        , x_range
+        , duration
+        , interval = interval1 = 1;
 
-        var bbox = d3.select(that.selector+" .axis").node().getBBox()
-        , timeline_status;
+        
+
+        
+        that.play.on("click", function () {
+            startTimeline(); 
+        });
+        
+
+        var timeline_status;
 
         var startTimeline = function () {
+            console.log("hey");
             if (timeline_status==="playing") {
-                play.attr("xlink:href","https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/play.gif");
+                that.play.attr("xlink:href","https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/play.gif");
                 clearInterval(that.play_interval);
                 timeline_status = "paused";
             } else {
                 timeline_status = "playing";
-                play.attr("xlink:href","https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/pause.gif");
+                that.play.attr("xlink:href","https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/pause.gif");
                 that.play_interval = setInterval(function () {
 
-                    marker
+                    that.marker
                         // .transition()
                         // .duration(that.timeline.duration/2)
-                        .attr("x",  (that.margin_left*2) + that.xScale(unique[interval]) - 7);
+                        .attr("x",  (that.margin_left*2) + that.xScale(that.unique[interval]) - 7);
 
-                    that.data = _.where(that.timeline_data, {timestamp:unique[interval]});
+                    that.data = _.where(that.timeline_data, {timestamp:that.unique[interval]});
                     that.data.sort(function (a,b) {
                         return a.timestamp - b.timestamp;
                     });
@@ -621,7 +630,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
 
                     interval++;
 
-                    if (interval===unique.length) {
+                    if (interval===that.unique.length) {
                         clearInterval(that.play_interval);
                     };
                 }, that.timeline_duration);
@@ -635,10 +644,10 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                             clearTimeout(time_lag)
                         }
 
-                        if (interval1===unique.length) {
+                        if (interval1===that.unique.length) {
                             clearInterval(undo_heatmap);
-                            play.attr("xlink:href","https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/play.gif");
-                            marker.attr("x",  (that.margin_left*2) + that.xScale(unique[0]) - 7);
+                            that.play.attr("xlink:href","https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/play.gif");
+                            that.marker.attr("x",  (that.margin_left*2) + that.xScale(that.unique[0]) - 7);
                             interval = interval1 = 1;
                             timeline_status = "";
                         };
@@ -647,23 +656,27 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             }
         }
 
-        var play = that.svgContainer.append("image")
+
+
+        // duration = unique.length * 1000;
+
+    };
+    that.renderButtons = function () {
+        var bbox = d3.select(that.selector+" .axis").node().getBBox();
+        that.play = that.svgContainer.append("image")
             .attr("xlink:href","https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/play.gif")
             .attr("x", that.margin_left / 2)
             .attr("y", that.redeced_height - that.margin_top - (bbox.height/2))
             .attr("width","24px")
             .attr("height", "21px")
             .style("cursor", "pointer")
-            .on("click", startTimeline)
+            
 
-        var marker = that.svgContainer.append("image")
+        that.marker = that.svgContainer.append("image")
             .attr("xlink:href","https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/marker.png")
-            .attr("x", (that.margin_left*2) + that.xScale(unique[0]) - 7)
+            .attr("x", (that.margin_left*2) + that.xScale(that.unique[0]) - 7)
             .attr("y", that.redeced_height)
             .attr("width","14px")
             .attr("height", "12px")
-
-        // duration = unique.length * 1000;
-
     }
 };

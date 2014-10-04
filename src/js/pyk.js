@@ -412,7 +412,7 @@ PykCharts.Configuration = function (options){
             return this;
         },
         crossHair : function (svg,len,data,fill) {
-           console.log(len,"len");
+
             if(PykCharts.boolean(options.enableCrossHair) && options.mode === "default") {
                 PykCharts.Configuration.cross_hair_v = svg.append("g")
                     .attr("class","line-cursor")
@@ -435,7 +435,6 @@ PykCharts.Configuration = function (options){
                     
                     PykCharts.Configuration.focus_circle.append("circle")
                         .attr("fill",function (d) {
-                            // console.log(j,"jjjjjjjjjjjj",data[j],fill.colorPieMS(data[j]));
                             return fill.colorPieMS(data[j]);
                         })
                         .attr("id","focus-circle"+j)
@@ -533,7 +532,6 @@ PykCharts.Configuration = function (options){
 
                    gsvg.append("text")
                         .attr("x", (w- options.margin_left - options.margin_right)/2)
-                        // .attr("y", 35)
                         .attr("y", options.margin_bottom)
                         .style("text-anchor", "middle")
                         .style("fill",options.axis_x_labelColor)
@@ -541,7 +539,6 @@ PykCharts.Configuration = function (options){
                 } else if (options.axis_x_position === "top") {
                     gsvg.append("text")
                         .attr("x", (w - options.margin_left - options.margin_right)/2)
-                        // .attr("y", -5)
                         .attr("y", - options.margin_top + 10)
                         .style("text-anchor", "middle")
                         .style("fill",options.axis_x_labelColor)
@@ -763,10 +760,11 @@ configuration.mouseEvent = function (options) {
     that.cross_hair_v = configuration.cross_hair_v;
     that.cross_hair_h = configuration.cross_hair_h;
     that.focus_circle = configuration.focus_circle;
-    // console.log(that.focus_circle,"stupidity");
     that.pt_circle = configuration.pt_circle;
     that.start_pt_circle = configuration.start_pt_circle;
+
     var status;
+
     var action = {
         tooltipPosition : function (d,xPos,yPos,xDiff,yDiff,group_index) {
 
@@ -998,7 +996,6 @@ configuration.mouseEvent = function (options) {
         },
         crossHairShow : function (x1,y1,x2,y2,cx,cy,type,no_bullets,multiple_containers_enable,new_data,group_index) {
             if(PykCharts.boolean(options.enableCrossHair)) {
-                console.log(that.focus_circle,"focus is lost");
                 if(x1 !== undefined) {
                     if(type === "lineChart" || type === "areaChart") {
                         that.cross_hair_v.style("display","block");
@@ -1240,7 +1237,6 @@ configuration.makeXAxis = function(options,xScale) {
     var k = PykCharts.Configuration(options);
     var xaxis = d3.svg.axis()
                     .scale(xScale)
-                    .ticks(options.axis_x_no_of_axis_value)
                     .tickSize(options.axis_x_pointer_size)
                     .outerTickSize(options.axis_x_outer_pointer_size)
                     .tickFormat(function (d,i) {
@@ -1254,25 +1250,27 @@ configuration.makeXAxis = function(options,xScale) {
                     .tickPadding(options.axis_x_pointer_padding)
                     .orient(options.axis_x_value_position);
 
-    if(options.xAxisDataFormat=== "time" && PykCharts.boolean(options.axis_x_time_value_type)) {
-        if(options.axis_x_time_value_type === "month") {
+    if(options.xAxisDataFormat=== "time" && PykCharts.boolean(options.axis_x_time_value_datatype)) {
+        if(options.axis_x_time_value_datatype === "month") {
             a = d3.time.month;
             b = "%b";
-        }else if(options.axis_x_time_value_type === "date") {
+        }else if(options.axis_x_time_value_datatype === "date") {
             a = d3.time.day;
             b = "%d";
-        } else if(options.axis_x_time_value_type === "year") {
+        } else if(options.axis_x_time_value_datatype === "year") {
             a = d3.time.year;
             b = "%Y";
-        } else if(options.axis_x_time_value_type === "hours") {
+        } else if(options.axis_x_time_value_datatype === "hours") {
             a = d3.time.hour;
             b = "%H";
-        } else if(options.axis_x_time_value_type === "minutes") {
+        } else if(options.axis_x_time_value_datatype === "minutes") {
             a = d3.time.minute;
             b = "%M";
         }
-        xaxis.ticks(a,options.axis_x_time_value_unit)
+        xaxis.ticks(a,options.axis_x_time_value_interval)
             .tickFormat(d3.time.format(b));
+    } else if(options.xAxisDataFormat === "number") {
+        xaxis.ticks(options.axis_x_no_of_axis_value);
     }
     return xaxis;
 };
@@ -1283,7 +1281,6 @@ configuration.makeYAxis = function(options,yScale) {
     var yaxis = d3.svg.axis()
                     .scale(yScale)
                     .orient(options.axis_y_value_position)
-                    .ticks(options.axis_y_no_of_axis_value)
                     .tickSize(options.axis_y_pointer_size)
                     .outerTickSize(options.axis_y_outer_pointer_size)
                     .tickPadding(options.axis_y_pointer_padding)
@@ -1310,7 +1307,10 @@ configuration.makeYAxis = function(options,yScale) {
         }
         xaxis.ticks(a,options.axis_y_time_value_unit)
             .tickFormat(d3.time.format(b));
+    }else if(options.yAxisDataFormat === "number"){
+        yaxis.ticks(options.axis_y_no_of_axis_value);
     }
+    
                     // .tickFormat(d3.format(",.0f"));
     return yaxis;
 };
@@ -1452,8 +1452,8 @@ configuration.Theme = function(){
         "axis_x_pointer_padding": 6,
         "axis_x_pointer_values": [],
         "axis_x_outer_pointer_size": 0,
-        "axis_x_time_value_type":"",
-        "axis_x_time_value_unit":"",
+        "axis_x_time_value_datatype":"",
+        "axis_x_time_value_interval":"",
 
         "axis_y_enable": "yes",
         "axis_y_title" : "Y axis",
