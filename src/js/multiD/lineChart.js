@@ -502,15 +502,26 @@ PykCharts.multiD.lineChart = function (options){
 								})
 							    .attr("d", that.chart_path);
 
-						that.legend_text[0] = that.svgContainer.append("text")
+						if (that.axis_x_position  === "bottom" && (that.axis_y_position === "left" || that.axis_y_position === "right")) {
+							that.legend_text[0] = that.svgContainer.append("text")
 								.attr("id",type)
-								.attr("x", 65)
-								.attr("y", 20)
+								.attr("x", that.width/4)
+								.attr("y", that.height/3)
 								.style("font-size", that.legendsText_size)
 								.style("font-weight", that.legendsText_weight)
 								.style("font-family", that.legendsText_family)
 								.html(that.new_data1.name);
 
+						} else if (that.axis_x_position  === "top"  && (that.axis_y_position === "left" || that.axis_y_position === "right")) {
+							that.legend_text[0] = that.svgContainer.append("text")
+								.attr("id",type)
+								.attr("x", that.width/4)
+								.attr("y", that.height/0.5)
+								.style("font-size", that.legendsText_size)
+								.style("font-weight", that.legendsText_weight)
+								.style("font-family", that.legendsText_family)
+								.html(that.new_data1.name);						
+						}
 						if(that.type === "multilineChart") {
 								that.legend_text[0]
 					      			.style("fill", function() { return that.fillColor.colorPieMS(that.new_data[index]); });					      						      	
