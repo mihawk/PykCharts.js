@@ -543,6 +543,7 @@ PykCharts.Configuration = function (options){
                 var xaxis = PykCharts.Configuration.makeXAxis(options,xScale);
                 if(options.axis_x_pointer_values.length != 0) {
                     xaxis.tickValues(options.axis_x_pointer_values);
+                    // xaxis.tickValues([Date.parse("Tue Jan 01 2014 00:00:00 GMT+0530 (IST)"),Date.parse("Tue Jan 03 2014 00:00:00 GMT+0530 (IST)")]);
                 }
 
                 gsvg.style("stroke",function () { return options.axis_x_axisColor; })

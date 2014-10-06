@@ -341,14 +341,16 @@ PykCharts.multiD.lineChart = function (options){
 		         	x_data = [min,max];
 		          	x_range = [0 ,that.reducedWidth];
 		          	that.xScale = that.k.scaleIdentification("time",x_data,x_range);
-		          	for(i = 0;i<that.new_data_length;i++)
+		          	for(i = 0;i<that.new_data_length;i++) {
 			          	that.new_data[i].data.forEach(function (d) {
 				          	d.x = new Date(d.x);
 			          	});
-		          	that.data.forEach(function (d) {
-			          	d.x = new Date(d.x);
-			          	that.xdomain.push(d.x);
-		          	});
+			          	that.data.forEach(function (d) {
+				          	d.x = new Date(d.x);
+				          	that.xdomain.push(d.x);
+		          		});
+			        }
+			        console.log(that.new_data[0].data[2].x);
 		          	that.extra_left_margin = 0;
 
 		      	}
@@ -407,7 +409,7 @@ PykCharts.multiD.lineChart = function (options){
 						      		.attr("d", that.chart_path);
 						}
 					}
-					console.log(that.selected_line_data !== undefined,"whats wrong");
+					// console.log(that.selected_line_data !== undefined,"whats wrong");
 					if(that.type === "lineChart" && that.mode === "default") {
 						that.svgContainer
 							.on('mouseout',function (d) {
