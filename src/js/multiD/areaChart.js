@@ -49,8 +49,7 @@ PykCharts.multiD.areaChart = function (options){
 					.createChart()
 		    		.axisContainer();
 
-		    console.log(that.data,"dataaaaa",that.data_length,"data_length");
-			that.k.crossHair(that.svgContainer,that.new_data_length,that.new_data,that.fillColor);
+		    that.k.crossHair(that.svgContainer,that.new_data_length,that.new_data,that.fillColor);
 
 			that.k.xAxis(that.svgContainer,that.xGroup,that.xScale,that.extra_left_margin,that.xdomain)
 					.yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain)
@@ -369,7 +368,6 @@ PykCharts.multiD.areaChart = function (options){
 							.attr("class", that.chartPathClass)
 							.attr("id", type)
 							.style("fill", function(d) { 
-								console.log(that.fillColor.colorPieMS(that.new_data[i]),"colorrrrrrrr",that.new_data[i]);
 								return that.fillColor.colorPieMS(that.new_data[i]);
 							})
 							.style("fill-opacity",function() {
@@ -438,12 +436,14 @@ PykCharts.multiD.areaChart = function (options){
 						});
 				
 				}
+				that.line = d3.svg.line()
+                        .interpolate('linear-closed')
+                        .x(function(d,i) { return d.x; })
+                        .y(function(d,i) { return d.y; });
 				if(that.type === "areaChart" && that.mode === "default") {
 					var arrow_size = 10,annotation = [];
 					that.new_data[0].data.map(function (d) {
-						console.log(d);
 						if(d.annotation) {
-							console.log("hey");
 							annotation.push({
 								annotation : d.annotation,
 								x : d.x,
@@ -454,17 +454,66 @@ PykCharts.multiD.areaChart = function (options){
 					var anno = that.svgContainer.selectAll("linechart-arrows")
                         .data(annotation)
                     anno.enter()
-                        .append("image")
+                        .append("path")
                     anno.attr("class", "linechart-arrows")
-                        .attr("x", function (d,i) {
-                        	return parseInt(that.xScale(d.x)-(arrow_size*0.5))+that.extra_left_margin+that.margin_left;
+                        .attr("d", function (d,i) {
+                        	var a = [
+                        		{
+                        			x:parseInt(that.xScale(d.x)-(arrow_size*0.5))+that.extra_left_margin+that.margin_left,
+                        			y:parseInt(that.yScale(d.y)-(arrow_size)+that.margin_top)
+                        		},
+                        		{
+                        			x:parseInt(that.xScale(d.x)+(arrow_size*0.5))+that.extra_left_margin+that.margin_left,
+                        			y:parseInt(that.yScale(d.y)-(arrow_size)+that.margin_top)
+                        		},
+                        		{
+                        			x:parseInt(that.xScale(d.x))+that.extra_left_margin+that.margin_left,
+                        			y:parseInt(that.yScale(d.y)+that.margin_top),
+                        		}
+                        	];
+                        	return that.line(a);
                         })
-                        .attr("y", function (d,i) {
-                        	return parseInt(that.yScale(d.y)-(arrow_size)+that.margin_top);
+						.attr("fill","#eeeeee")
+                        .call(that.k.annotation);
+                    anno.exit()
+                    	.remove();
+				} else if(that.type === "stackedAreaChart" && that.mode === "default") {
+					var arrow_size = 10,annotation = [];	
+					for(i=0;i<that.new_data_length;i++) {
+						that.new_data[i].data.map(function (d) {
+							if(d.annotation) {
+								annotation.push({
+									annotation : d.annotation,
+									x : d.x,
+									y : d.y,
+									y0 : d.y0 
+								});
+							}
+						});
+					}
+					var anno = that.svgContainer.selectAll("linechart-arrows")
+                        .data(annotation)
+                    anno.enter()
+                        .append("path")
+                    anno.attr("class", "linechart-arrows")
+                        .attr("d", function (d,i) {
+                        	var a = [
+                        		{
+                        			x:parseInt(that.xScale(d.x)-(arrow_size*0.5))+that.extra_left_margin+that.margin_left,
+                        			y:parseInt(that.yScale(d.y0+d.y)-(arrow_size)+that.margin_top)
+                        		},
+                        		{
+                        			x:parseInt(that.xScale(d.x)+(arrow_size*0.5))+that.extra_left_margin+that.margin_left,
+                        			y:parseInt(that.yScale(d.y0+d.y)-(arrow_size)+that.margin_top)
+                        		},
+                        		{
+                        			x:parseInt(that.xScale(d.x))+that.extra_left_margin+that.margin_left,
+                        			y:parseInt(that.yScale(d.y0+d.y)+that.margin_top),
+                        		}
+                        	];
+                        	return that.line(a);
                         })
-                        .attr("xlink:href", "../img/down_arrow1.png")
-                        .attr("height", arrow_size)
-                        .attr("width", arrow_size)
+						.attr("fill","#eeeeee")
                         .call(that.k.annotation);
                     anno.exit()
                     	.remove();

@@ -413,25 +413,27 @@ PykCharts.Configuration = function (options){
         },
         annotation : function (d1) {
             _.each(d1[0], function (d, i) {
-                if ($(options.selector+" #tooltip"+i).length>0) {
-                    $("#tooltip"+i).remove();
+                if(PykCharts.boolean(options.multiple_containers_enable)) {
+                    if ($(options.selector+" #"+ d1[0].parentNode.id +" #tooltip"+i).length>0) {
+                        $(options.selector+" #"+ d1[0].parentNode.id +" #tooltip"+i).remove();
+                    }
+                }else {
+                    if ($(options.selector+" #tooltip"+i).length>0) {
+                        $(options.selector+" #tooltip"+i).remove();
+                    }
                 }
                 
                 var position = $(d).offset();
                 var container_position = $(options.selector).offset();
-                console.log($(d).offset(), container_position);
                 var tooltip = d3.select(options.selector)
                     .append("div").attr("id", "tooltip"+i)
                     .style("position", "absolute")
                     .style("z-index", "10")
                     .style("visibility", "hidden")
-                    .style("background", "#fff")
+                    .style("background", "#eeeeee")
                     .style("padding", "5px 10px")
-                    //.style("box-shadow", "0 0 10px #000")
-                    //.style("border", "1px solid gray")
                     .style("border-radius", "0")
                     .html($(d)[0].__data__.annotation).style("visibility", "visible");
-
                 tooltip
                     .style("top", ((position.top -container_position.top) -$("#tooltip"+i)[0].clientHeight) + "px")
                     .style("left", ((position.left-container_position.left) -($("#tooltip"+i)[0].clientWidth/2)) + "px");
@@ -1110,7 +1112,6 @@ configuration.mouseEvent = function (options) {
                                 }
                         }
                         else if(multiple_containers_enable === "yes") {
-                            console.log(group_index,"group index");
                             d3.selectAll(options.selector+" .line-cursor").style("display","block");
                             d3.selectAll(options.selector+" .cross-hair-v")
                                 .attr("x1",(x1 - 5))

@@ -111,7 +111,7 @@
 
                     color_mode: "color",  //color or saturation
                     color:["orange"],
-                    backgroundColor:"red",
+                    backgroundColor:"",
                     chart_height: 400,
                     chart_width : 630,
                     chart_margin_top: 5,
@@ -385,6 +385,7 @@
 
                     color_mode: "color",  //color or saturation
                     color:["orange","purple","red"],
+                    backgroundColor:"grey",
 
                     // yAxisDataFormat : "number",
                     // xAxisDataFormat : "string",
@@ -398,7 +399,7 @@
                     chart_grid_yEnabled: "yes",
 
                     transition_duration: 0,
-                    realTimeCharts_refreshFrequency: 2,
+                    // realTimeCharts_refreshFrequency: 2,
 
                     axis_onHoverHighlightenable: "yes",
 
@@ -432,7 +433,7 @@
                     // multiple_containers_enable: "no",
 
                 });
-              // k.execute();
+              k.execute();
 
                 var k = new PykCharts.multiD.areaChart ({
 
@@ -485,7 +486,7 @@
                     zoom_enable: "yes"
 
                 });
-          //    k.execute();
+             k.execute();
 
                 var k = new PykCharts.multiD.pulse({
                     selector: "#pulse",

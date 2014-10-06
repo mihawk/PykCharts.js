@@ -18,7 +18,8 @@
 		"x":"Cables",
 		"y":30,
 		"color": "green",
-		"tooltip":30
+		"tooltip":30,
+		"annotations" : "abc"
 	},
 	{
 		"name":"China",
@@ -53,7 +54,8 @@
 		"x":"Bank",
 		"y":70,
 		"color": "blue",
-		"tooltip":70
+		"tooltip":70,
+		"annotations" : "hey"
 	},
 	{
 		"name":"U.S.A.",
@@ -74,7 +76,8 @@
 		"x":"Crude Oil",
 		"y":60,
 		"color": "blue",
-		"tooltip":60
+		"tooltip":60,
+		"annotations" : "USA"
 	},
 	{
 		"name":"U.S.A.",
