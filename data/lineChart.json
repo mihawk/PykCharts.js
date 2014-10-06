@@ -3,6 +3,7 @@
 		"name":"India",
 		"x":"Bank",
 		"y":30,
+		"annotations": "Bank",
 		"color":"green",
 		"tooltip":30
 	},
@@ -17,6 +18,8 @@
 		"name":"India",
 		"x":"Cables",
 		"y":30,
+		"tooltip":30,
+		"annotations": "Cables",
 		"color":"green",
 		"tooltip":30
 	},
@@ -31,6 +34,7 @@
 		"name":"India",
 		"x":"Diamond",
 		"y":50,
+		"annotations": "Diamond",
 		"color":"green",
 		"tooltip":50
 	},
