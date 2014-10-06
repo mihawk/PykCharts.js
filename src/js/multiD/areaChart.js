@@ -51,6 +51,7 @@ PykCharts.multiD.areaChart = function (options){
 
 		    that.k.crossHair(that.svgContainer,that.new_data_length,that.new_data,that.fillColor);
 
+
 			that.k.xAxis(that.svgContainer,that.xGroup,that.xScale,that.extra_left_margin,that.xdomain)
 					.yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain)
 					.yGrid(that.svgContainer,that.group,that.yScale)
@@ -368,6 +369,7 @@ PykCharts.multiD.areaChart = function (options){
 							.attr("class", that.chartPathClass)
 							.attr("id", type)
 							.style("fill", function(d) { 
+
 								return that.fillColor.colorPieMS(that.new_data[i]);
 							})
 							.style("fill-opacity",function() {

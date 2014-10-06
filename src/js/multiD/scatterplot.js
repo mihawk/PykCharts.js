@@ -10,7 +10,7 @@ PykCharts.multiD.scatterPlot = function (options) {
         var multiDimensionalCharts = theme.multiDimensionalCharts,
             stylesheet = theme.stylesheet,
             optional = options.optional;
-        // that.enableCrossHair = optional && optional.enableCrossHair ? optional.enableCrossHair : multiDimensionalCharts.enableCrossHair;
+
         that.multiD = new PykCharts.multiD.configuration(that);
         that.multiple_containers_enable =options.multiple_containers_enable && options.multiple_containers_enable ? options.multiple_containers_enable : multiDimensionalCharts.multiple_containers_enable;
         that.bubbleRadius = options.scatterplot_radius && _.isNumber(options.scatterplot_radius) ? options.scatterplot_radius : multiDimensionalCharts.scatterplot_radius;
@@ -78,7 +78,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                 that.k.lastUpdatedAt("liveData");
             }
             that.map_group_data = that.multiD.mapGroup(that.data);
-            // console.log(that.map_group_data);
+        
             that.optionalFeatures()
                     .createChart()
                     .legends()
@@ -135,14 +135,13 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                         .legends(i)
                         .label()
                         .ticks();
-                        // .crossHair();
+        
 
                     that.k.xAxis(that.svgContainer,that.xGroup,that.x,that.extra_left_margin,that.xdomain)
                         .yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain)
                         .xAxisTitle(that.xGroup)
                         .yAxisTitle(that.yGroup);
-                        // .yGrid(that.svgContainer,that.group,that.yScale)
-                        // .xGrid(that.svgContainer,that.group,that.x);
+        
                     if((i+1)%4 === 0 && i !== 0) {
                         that.k.emptyDiv();
                     }
@@ -358,10 +357,13 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                     }
                     that.xdomain = that.x.domain();
                     that.ydomain = that.yScale.domain();
+                    that.x1 = 1;
+                    that.y1 = 4;
+                    that.count = 1;
                     var zoom = d3.behavior.zoom()
                             .x(that.x)
                             .y(that.yScale)
-                            .scaleExtent([1, 10])
+                            .scaleExtent([that.x1, that.y1])
                             .on("zoom",zoomed);
 
                     if(PykCharts.boolean(that.zoom_enable) && !(that.yAxisDataFormat==="string" || that.xAxisDataFormat==="string") && (that.mode === "default") ) {                                           
@@ -376,20 +378,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                         for(var i = 0; i < that.no_of_groups; i++) {
                             d3.select(that.selector+ " #svgcontainer" +i)
                                 .call(zoom);
-
-                            // d3.select(that.selector+ " #svgcontainer" +1)
-                            //     .call(zoom);
-
-                            // d3.select(that.selector+ " #svgcontainer" +2)
-                            //     .call(zoom);
-
-                            // d3.select(that.selector+ " #svgcontainer" +3)
-                            //     .call(zoom);
-
-                            // d3.select(that.selector+ " #svgcontainer" +4)
-                            //     .call(zoom);
                         }
-                    
                     }
                     that.optionalFeatures().plotCircle();
                 }
@@ -656,8 +645,10 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
     };
     
     function zoomed () {
-
         that.zoomed_out = false;
+        // that.x1 = 1;
+        // that.y1 = 4;
+        // that.count = 0;
         var id = this.id,
         idLength = id.length,
         n;
@@ -686,15 +677,46 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                 .attr("r", function (d) {
                     return that.sizes(d.weight)*d3.event.scale;
                 })                    
-                .attr("cx", function (d) { return (that.x(d.x)+that.extra_left_margin); })
+                .attr("cx", function (d) { console.log(that.x);return (that.x(d.x)+that.extra_left_margin); })
                 .attr("cy", function (d) { return (that.yScale(d.y)+that.extra_top_margin); });
 
             d3.select(that.selector+" #"+containerId +i)
                 .selectAll(".text")
                 .style("font-size", that.label_size)
-                .attr("x", function (d) {console.log((that.x(d.x)+that.extra_left_margin),"scatterplot label x position"); return (that.x(d.x)+that.extra_left_margin); })
+                .attr("x", function (d) { return (that.x(d.x)+that.extra_left_margin); })
                 .attr("y", function (d) { return (that.yScale(d.y)+that.extra_top_margin + 5); });
-
         }
+        that.count++;
+        console.log("counttttt",that.count);
+        if(that.count === 6) {
+            console.log("zoomed_out");
+            d3.select(that.selector+" #"+containerId +i)
+                .call(function () {
+                    return that.zoomOut();
+                });
+            that.count = 1;
+       }
+        
     };
+
+    that.zoomOut=function () {
+        console.log("zoomOut");
+        that.zoomed_out = true;
+        that.x1 = 1;
+        that.y1 = 8;
+
+        // d3.select(that.selector)
+        //     .on("click",function () {
+        //         that.optionalFeatures().createScatterPlot();
+        //         that.k.xAxis(that.svgContainer,that.xGroup,that.x,that.extra_left_margin,that.xdomain)
+        //             .yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain);
+        //     })
+
+        that.optionalFeatures().createChart()
+            .label();
+
+        that.k.xAxis(that.svgContainer,that.xGroup,that.x,that.extra_left_margin,that.xdomain)
+            .yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain);
+
+    }
 };
