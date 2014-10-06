@@ -49,7 +49,7 @@ PykCharts.multiD.areaChart = function (options){
 					.createChart()
 		    		.axisContainer();
 
-		    console.log(that.data,"dataaaaa",that.data_length,"data_length");
+		    // console.log(that.data,"dataaaaa",that.data_length,"data_length");
 			that.k.crossHair(that.svgContainer,that.new_data_length,that.new_data,that.fillColor);
 
 			that.k.xAxis(that.svgContainer,that.xGroup,that.xScale,that.extra_left_margin,that.xdomain)
@@ -369,7 +369,7 @@ PykCharts.multiD.areaChart = function (options){
 							.attr("class", that.chartPathClass)
 							.attr("id", type)
 							.style("fill", function(d) { 
-								console.log(that.fillColor.colorPieMS(that.new_data[i]),"colorrrrrrrr",that.new_data[i]);
+								// console.log(that.fillColor.colorPieMS(that.new_data[i]),"colorrrrrrrr",that.new_data[i]);
 								return that.fillColor.colorPieMS(that.new_data[i]);
 							})
 							.style("fill-opacity",function() {
@@ -441,9 +441,9 @@ PykCharts.multiD.areaChart = function (options){
 				if(that.type === "areaChart" && that.mode === "default") {
 					var arrow_size = 10,annotation = [];
 					that.new_data[0].data.map(function (d) {
-						console.log(d);
+						// console.log(d);
 						if(d.annotation) {
-							console.log("hey");
+							// console.log("hey");
 							annotation.push({
 								annotation : d.annotation,
 								x : d.x,
