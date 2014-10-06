@@ -687,7 +687,8 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                 .attr("y", function (d) { return (that.yScale(d.y)+that.extra_top_margin + 5); });
         }
         that.count++;
-        if(that.count === 4) {
+        console.log("counttttt",that.count);
+        if(that.count === 6) {
             console.log("zoomed_out");
             d3.select(that.selector+" #"+containerId +i)
                 .call(function () {
@@ -699,18 +700,13 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
     };
 
     that.zoomOut=function () {
-       
+        console.log("zoomOut");
+        that.zoomed_out = true;
         that.x1 = 1;
         that.y1 = 8;
 
-        d3.select(that.selector)
-            .on("click",function () {
-                that.optionalFeatures().plotCircle();
-                that.k.xAxis(that.svgContainer,that.xGroup,that.x,that.extra_left_margin,that.xdomain)
-                    .yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain);
-            })
-
-        that.optionalFeatures().plotCircle();
+        that.optionalFeatures().createChart()
+            .label();
 
         that.k.xAxis(that.svgContainer,that.xGroup,that.x,that.extra_left_margin,that.xdomain)
             .yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain);
