@@ -48,7 +48,7 @@
             $(document).ready(function (e) {
                 var k = new PykCharts.multiD.lineChart ({
                     selector: "#line",
-                    data: "../data/line_timescale.json",
+                    data: "../data/lineChart.json",
                     mode : "default",
 
                     // yAxisDataFormat : "number",
@@ -60,9 +60,9 @@
                     chart_height: 400,
                     chart_width : 630,
                     chart_margin_top: 25,
-                    chart_margin_right: 60,
+                    chart_margin_right: 40,
                     chart_margin_bottom: 35,
-                    chart_margin_left: 25,
+                    chart_margin_left:45 ,
                     chart_grid_xEnabled: "no",
                     chart_grid_yEnabled: "yes",
 
@@ -111,7 +111,7 @@
 
                     color_mode: "color",  //color or saturation
                     color:["orange"],
-
+                    // backgroundColor:"red",
                     chart_height: 400,
                     chart_width : 630,
                     chart_margin_top: 5,
@@ -152,7 +152,7 @@
                     zoom_enable: "yes"
 
                 });
-              // k.execute();
+              k.execute();
 
                 var k = new PykCharts.multiD.spiderWeb ({
                     selector: "#spiderWeb",
@@ -342,7 +342,7 @@
                     chart_grid_yEnabled: "yes",
 
                     transition_duration: 0,
-                    realTimeCharts_refreshFrequency: 0,
+                    realTimeCharts_refreshFrequency: 11,
 
                     axis_onHoverHighlightenable: "yes",
 
@@ -398,7 +398,7 @@
                     chart_grid_yEnabled: "yes",
 
                     transition_duration: 0,
-                    realTimeCharts_refreshFrequency: 2,
+                    realTimeCharts_refreshFrequency: 3,
 
                     axis_onHoverHighlightenable: "yes",
 
@@ -432,7 +432,7 @@
                     // multiple_containers_enable: "no",
 
                 });
-              // k.execute();
+              k.execute();
 
                 var k = new PykCharts.multiD.areaChart ({
 

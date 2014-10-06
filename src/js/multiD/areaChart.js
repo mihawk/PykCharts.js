@@ -187,7 +187,8 @@ PykCharts.multiD.areaChart = function (options){
 							x: that.data[j].x,
 							y: that.data[j].y,
 							tooltip: that.data[j].tooltip,
-							color: (that.data[j].color || "")
+							color: (that.data[j].color || ""),
+							annotation : that.data[j].annotations || ""
 						});
 					}
 				}
@@ -216,7 +217,8 @@ PykCharts.multiD.areaChart = function (options){
 								that.new_data[k].data.push({
 										x: that.data[l].x,
 										y: that.data[l].y,
-										tooltip: that.data[l].tooltip
+										tooltip: that.data[l].tooltip,
+										annotation : that.data[l].annotations || ""
 	            			 	});
 	            			}
 	          			}
@@ -435,6 +437,37 @@ PykCharts.multiD.areaChart = function (options){
 							}
 						});
 				
+				}
+				if(that.type === "areaChart" && that.mode === "default") {
+					var arrow_size = 10,annotation = [];
+					that.new_data[0].data.map(function (d) {
+						console.log(d);
+						if(d.annotation) {
+							console.log("hey");
+							annotation.push({
+								annotation : d.annotation,
+								x : d.x,
+								y : d.y 
+							})
+						}
+					});
+					var anno = that.svgContainer.selectAll("linechart-arrows")
+                        .data(annotation)
+                    anno.enter()
+                        .append("image")
+                    anno.attr("class", "linechart-arrows")
+                        .attr("x", function (d,i) {
+                        	return parseInt(that.xScale(d.x)-(arrow_size*0.5))+that.extra_left_margin+that.margin_left;
+                        })
+                        .attr("y", function (d,i) {
+                        	return parseInt(that.yScale(d.y)-(arrow_size)+that.margin_top);
+                        })
+                        .attr("xlink:href", "../img/down_arrow1.png")
+                        .attr("height", arrow_size)
+                        .attr("width", arrow_size)
+                        .call(that.k.annotation);
+                    anno.exit()
+                    	.remove();
 				}
 				return this;
 			}
