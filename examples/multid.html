@@ -48,7 +48,7 @@
             $(document).ready(function (e) {
                 var k = new PykCharts.multiD.lineChart ({
                     selector: "#line",
-                    data: "../data/line_timescale.json",
+                    data: "../data/lineChart.json",
                     mode : "default",
 
                     // yAxisDataFormat : "number",
@@ -100,7 +100,7 @@
                     enableCrossHair: "yes"
 
                 });
-               // k.execute();
+               k.execute();
 
                 var k = new PykCharts.multiD.areaChart ({
                     selector: "#area",
@@ -111,7 +111,7 @@
 
                     color_mode: "color",  //color or saturation
                     color:["orange"],
-
+                    backgroundColor:"red",
                     chart_height: 400,
                     chart_width : 630,
                     chart_margin_top: 5,
@@ -152,7 +152,7 @@
                     zoom_enable: "yes"
 
                 });
-              // k.execute();
+              k.execute();
 
                 var k = new PykCharts.multiD.spiderWeb ({
                     selector: "#spiderWeb",
@@ -332,8 +332,8 @@
 
                     // yAxisDataFormat : "number",
                     // xAxisDataFormat : "string",
-                    chart_height: 400,
-                    chart_width : 630,
+                    chart_height: 400, //400
+                    chart_width : 630, //630
                     chart_margin_top: 35,
                     chart_margin_right: 50,
                     chart_margin_bottom: 35,
@@ -348,7 +348,7 @@
 
                     axis_x_enable: "yes",
                     axis_x_title : "Industries",
-                    axis_x_position: "top",
+                    axis_x_position: "bottom",
                     axis_x_value_position: "bottom",
                     axis_x_axisColor: "#1D1D1D",
                     axis_x_labelColor: "#1D1D1D",

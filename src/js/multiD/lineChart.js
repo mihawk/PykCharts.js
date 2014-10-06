@@ -56,11 +56,11 @@ PykCharts.multiD.lineChart = function (options){
 					data: []
 			};
 			for (l = 0;l < that.data_length;l++) {
-
 				that.new_data[0].data.push({
 					x: that.data[l].x,
 					y: that.data[l].y,
-					tooltip: that.data[l].tooltip
+					tooltip: that.data[l].tooltip,
+					annotation: that.data[l].annotations || ""
 				});
 			}
 		} else {
@@ -76,7 +76,7 @@ PykCharts.multiD.lineChart = function (options){
 							x: that.data[l].x,
 							y: that.data[l].y,
 							tooltip: that.data[l].tooltip,
-							annotation: that.data[l].annotations || ""
+							annotation: that.data[l].annotations || ""	
 						});
 					}
 				}
@@ -507,8 +507,9 @@ PykCharts.multiD.lineChart = function (options){
 						if (that.axis_x_position  === "bottom" && (that.axis_y_position === "left" || that.axis_y_position === "right")) {
 							that.legend_text[0] = that.svgContainer.append("text")
 								.attr("id",type)
-								.attr("x", that.width/4)
+								.attr("x", that.width/6)
 								.attr("y", that.height/3)
+								.attr("dx",-20)
 								.style("font-size", that.legendsText_size)
 								.style("font-weight", that.legendsText_weight)
 								.style("font-family", that.legendsText_family)
@@ -517,8 +518,9 @@ PykCharts.multiD.lineChart = function (options){
 						} else if (that.axis_x_position  === "top"  && (that.axis_y_position === "left" || that.axis_y_position === "right")) {
 							that.legend_text[0] = that.svgContainer.append("text")
 								.attr("id",type)
-								.attr("x", that.width/4)
-								.attr("y", that.height/0.5)
+								.attr("x", that.width/6)
+								.attr("y", that.height)
+								.attr("dy",-20)
 								.style("font-size", that.legendsText_size)
 								.style("font-weight", that.legendsText_weight)
 								.style("font-family", that.legendsText_family)
@@ -531,7 +533,7 @@ PykCharts.multiD.lineChart = function (options){
 					}
 
 					if(that.type === "lineChart" && that.mode === "default") {
-						
+						var arrow_size = 10,annotation = [];
 						that.svgContainer
 							.on('mouseout',function (d) {
 								that.mouseEvent.tooltipHide();
@@ -542,7 +544,6 @@ PykCharts.multiD.lineChart = function (options){
 							.on("mousemove", function(){	
 								that.mouseEvent.crossHairPosition(that.data,that.new_data,that.xScale,that.yScale,that.dataLineGroup,that.extra_left_margin,that.xdomain,that.type,that.tooltipMode,that.color_from_data,null);
 							});
-						
 					}
 					else if (that.type === "multilineChart" && that.mode === "default") {
 						that.svgContainer
@@ -567,6 +568,7 @@ PykCharts.multiD.lineChart = function (options){
 					}
 				}
 				if(that.type === "lineChart" && that.mode === "default") {
+					console.log("hey");
 					var arrow_size = 10,annotation = [];
 					that.new_data[0].data.map(function (d) {
 						console.log(d);
@@ -602,6 +604,35 @@ PykCharts.multiD.lineChart = function (options){
 		};
 		return optional;
 	};
+	// that.renderTooltip = function (d1) {
+	// 	console.log(d1[0]);
+	// 	_.each(d1[0], function (d, i) {
+ //          if ($("#tooltip"+i).length>0) {
+ //            $("#tooltip"+i).remove();
+ //          }
+
+ //            var position = $(d).offset();
+ //            var tooltip = d3.select(that.selector)
+ //                .append("div").attr("id", "tooltip"+i)
+ //                .style("position", "absolute")
+ //                .style("z-index", "10")
+ //                .style("visibility", "hidden")
+ //                .style("color","#4F4F4F")
+ //                        .style("background","#eeeeee")
+ //                .style("padding", "5px 10px")
+ //                //.style("box-shadow", "0 0 10px #000")
+ //                //.style("border", "1px solid gray")
+ //                .style("border-radius", "0")
+ //                .html($(d)[0].__data__.annotation).style("visibility", "visible");
+ //            console.log(tooltip);
+ //            tooltip
+ //                .style("top", (position.top-$("#tooltip"+i)[0].clientHeight+1) + "px")
+ //                .style("left", (position.left-($("#tooltip"+i)[0].clientWidth/2)) + "px");
+
+
+ //        });
+	// }
+
 	
 	this.highlightLine = function(linePath,clicked) {
 	
