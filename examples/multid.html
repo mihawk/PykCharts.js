@@ -60,9 +60,9 @@
                     chart_height: 400,
                     chart_width : 630,
                     chart_margin_top: 25,
-                    chart_margin_right: 60,
+                    chart_margin_right: 40,
                     chart_margin_bottom: 35,
-                    chart_margin_left: 25,
+                    chart_margin_left:45 ,
                     chart_grid_xEnabled: "no",
                     chart_grid_yEnabled: "yes",
 
@@ -92,7 +92,7 @@
                     axis_y_labelColor: "red",
                     axis_y_pointer_size: 3,
                     axis_y_pointer_padding: 10,
-                    // axis_y_pointer_values: [30,40,50],
+                    axis_y_pointer_values: [30,40,50],
                     axis_y_outer_pointer_size: 3,
 
                     line_curvy_lines:"yes",
@@ -111,7 +111,7 @@
 
                     color_mode: "color",  //color or saturation
                     color:["orange"],
-                    backgroundColor:"red",
+                    // backgroundColor:"red",
                     chart_height: 400,
                     chart_width : 630,
                     chart_margin_top: 5,
@@ -254,7 +254,7 @@
 
                     enableCrossHair: "yes"
                 });
-                // k.execute();
+                k.execute();
 
                 var k = new PykCharts.multiD.scatterPlot ({
                     selector: "#multiple-scatterplots",
@@ -320,7 +320,7 @@
                     enableCrossHair: "yes"
                 });
 
-               // k.execute();
+               k.execute();
 
                 var k = new PykCharts.multiD.lineChart ({
                     selector: "#multiLine",
@@ -482,7 +482,6 @@
                     line_curvy_lines:"yes",
                     enableCrossHair: "yes",
                     tooltip_enable : "yes",
-                    zoom_enable: "yes"
 
                 });
           //    k.execute();
@@ -553,7 +552,7 @@
 
                     enableCrossHair: "yes"
                 });
-               // k.execute();
+               k.execute();
 
                 var k = new PykCharts.multiD.columnChart({
                     data: "../data/ultimateColumn.json",

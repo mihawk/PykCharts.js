@@ -120,7 +120,9 @@ PykCharts.multiD.lineChart = function (options){
 					that.k.xAxis(that.svgContainer,that.xGroup,that.xScale,that.extra_left_margin,that.xdomain)
 							.yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain)
 							.yGrid(that.svgContainer,that.group,that.yScale)
-							.xGrid(that.svgContainer,that.group,that.xScale);
+							.xGrid(that.svgContainer,that.group,that.xScale)
+							.xAxisTitle(that.xGroup)
+							.yAxisTitle(that.yGroup);
 	
 					if((i+1)%4 === 0 && i !== 0) {
                         that.k.emptyDiv();
@@ -150,7 +152,9 @@ PykCharts.multiD.lineChart = function (options){
 				that.k.xAxis(that.svgContainer,that.xGroup,that.xScale,that.extra_left_margin,that.xdomain)
 						.yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain)
 						.yGrid(that.svgContainer,that.group,that.yScale)
-						.xGrid(that.svgContainer,that.group,that.xScale);
+						.xGrid(that.svgContainer,that.group,that.xScale)
+						.xAxisTitle(that.xGroup)
+						.yAxisTitle(that.yGroup);
 			}
 			that.k.createFooter()
                 .lastUpdatedAt()
@@ -337,14 +341,16 @@ PykCharts.multiD.lineChart = function (options){
 		         	x_data = [min,max];
 		          	x_range = [0 ,that.reducedWidth];
 		          	that.xScale = that.k.scaleIdentification("time",x_data,x_range);
-		          	for(i = 0;i<that.new_data_length;i++)
+		          	for(i = 0;i<that.new_data_length;i++) {
 			          	that.new_data[i].data.forEach(function (d) {
 				          	d.x = new Date(d.x);
 			          	});
-		          	that.data.forEach(function (d) {
-			          	d.x = new Date(d.x);
-			          	that.xdomain.push(d.x);
-		          	});
+			          	that.data.forEach(function (d) {
+				          	d.x = new Date(d.x);
+				          	that.xdomain.push(d.x);
+		          		});
+			        }
+			        console.log(that.new_data[0].data[2].x);
 		          	that.extra_left_margin = 0;
 		      	}
 		      	
@@ -524,10 +530,12 @@ PykCharts.multiD.lineChart = function (options){
 								})
 							    .attr("d", that.chart_path);
 
-						that.legend_text[0] = that.svgContainer.append("text")
+						if (that.axis_x_position  === "bottom" && (that.axis_y_position === "left" || that.axis_y_position === "right")) {
+							that.legend_text[0] = that.svgContainer.append("text")
 								.attr("id",type)
-								.attr("x", 65)
-								.attr("y", 20)
+								.attr("x", that.width/6)
+								.attr("y", that.height/3)
+								.attr("dx",-20)
 								.style("font-size", that.legendsText_size)
 								.style("font-weight", that.legendsText_weight)
 								.style("font-family", that.legendsText_family)
@@ -535,6 +543,17 @@ PykCharts.multiD.lineChart = function (options){
 					      		.style("fill", function() { 
 					      			return that.fillColor.colorPieMS(that.new_data[index]); 
 					      		});					      
+						} else if (that.axis_x_position  === "top"  && (that.axis_y_position === "left" || that.axis_y_position === "right")) {
+							that.legend_text[0] = that.svgContainer.append("text")
+								.attr("id",type)
+								.attr("x", that.width/6)
+								.attr("y", that.height)
+								.attr("dy",-20)
+								.style("font-size", that.legendsText_size)
+								.style("font-weight", that.legendsText_weight)
+								.style("font-family", that.legendsText_family)
+								.html(that.new_data1.name);						
+						}
 
 					}
 
