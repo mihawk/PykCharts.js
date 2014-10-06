@@ -81,8 +81,8 @@
                     axis_x_pointer_padding: 3,
                     // axis_x_pointer_values: [1,2,3],
                     axis_x_outer_pointer_size: 3,
-                    axis_x_time_value_type:"date",
-                    axis_x_time_value_unit: 1,
+                    axis_x_time_value_datatype:"date",
+                    axis_x_time_value_interval: 1,
 
                     axis_y_enable: "yes",
                     axis_y_title : "Growth rate",
@@ -111,7 +111,7 @@
 
                     color_mode: "color",  //color or saturation
                     color:["orange"],
-
+                    backgroundColor:"red",
                     chart_height: 400,
                     chart_width : 630,
                     chart_margin_top: 5,
@@ -152,7 +152,7 @@
                     zoom_enable: "yes"
 
                 });
-         //      k.execute();
+              k.execute();
 
                 var k = new PykCharts.multiD.spiderWeb ({
                     selector: "#spiderWeb",
@@ -186,7 +186,7 @@
 
 
                 });
-            //    k.execute();
+               // k.execute();
 
                 var k = new PykCharts.multiD.scatterPlot ({
                     selector: "#scatterPlot",
@@ -255,7 +255,7 @@
                     enableCrossHair: "yes"
                 });
                 // k.execute();
-                
+
                 var k = new PykCharts.multiD.scatterPlot ({
                     selector: "#multiple-scatterplots",
                     data: "../data/scatterplot.json",
@@ -332,8 +332,8 @@
 
                     // yAxisDataFormat : "number",
                     // xAxisDataFormat : "string",
-                    chart_height: 400,
-                    chart_width : 630,
+                    chart_height: 400, //400
+                    chart_width : 630, //630
                     chart_margin_top: 35,
                     chart_margin_right: 50,
                     chart_margin_bottom: 35,
@@ -358,8 +358,8 @@
 
                     axis_y_enable: "yes",
                     axis_y_title : "Growth rate",
-                    axis_y_position: "right",
-                    axis_y_value_position: "right",
+                    axis_y_position: "left",
+                    axis_y_value_position: "left",
                     axis_y_axisColor: "#1D1D1D",
                     axis_y_labelColor: "#1D1D1D",
                     axis_y_pointer_size: 3,
@@ -398,7 +398,7 @@
                     chart_grid_yEnabled: "yes",
 
                     transition_duration: 0,
-                    realTimeCharts_refreshFrequency: 11,
+                    realTimeCharts_refreshFrequency: 5,
 
                     axis_onHoverHighlightenable: "yes",
 
@@ -553,7 +553,7 @@
 
                     enableCrossHair: "yes"
                 });
-         //       k.execute();
+               // k.execute();
 
                 var k = new PykCharts.multiD.columnChart({
                     data: "../data/ultimateColumn.json",
@@ -612,7 +612,7 @@
 
                 });
 
-        //        k.execute();
+               // k.execute();
 
                 var k = new PykCharts.multiD.columnChart({
                     data: "../data/ultimateGroupColumn.json",
@@ -671,7 +671,7 @@
                    highlight:"January",
                 });
 
-       //         k.execute();
+                // k.execute();
 
                 var k = new PykCharts.multiD.barChart({
                     data: "../data/ultimatebar.json",
@@ -741,7 +741,7 @@
 
                 });
 
-//                k.execute();
+                // k.execute();
 
                 var k = new PykCharts.multiD.barChart({
                     data: "../data/ultimateGroupBar.json",
@@ -811,7 +811,7 @@
                     highlight: "January"
                   });
 
-         //       k.execute();
+                // k.execute();
             });
 
         </script>

@@ -96,6 +96,8 @@ PykCharts.multiD.barChart = function(options){
                .ticks();
 
             that.k.xAxis(that.svgContainer,that.xGroup,that.xScale)
+                    .xAxisTitle(that.xGroup);
+                          
         } else if(that.mode === "infographics") {
             that.k.makeMainDiv(that.selector,1);
             that.optionalFeatures().svgContainer(1)
@@ -104,7 +106,9 @@ PykCharts.multiD.barChart = function(options){
 
             that.k.tooltip();
             that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
-            that.k.xAxis(that.svgContainer,that.xGroup,that.xScale);
+            that.k.xAxis(that.svgContainer,that.xGroup,that.xScale)
+                .xAxisTitle(that.xGroup);
+                         
         }
     };
 
@@ -331,7 +335,8 @@ PykCharts.multiD.barChart = function(options){
 
                 rect.attr("width", 0).attr("x", 0)
                     .attr("fill", function(d,i){
-                        return that.fillColor.colorPieMS(d,i);
+                        console.log(d.name);
+                        return that.fillColor.colorPieMS(d);
                     })
                     .attr("fill-opacity", function (d,i) {
                         if (that.color_mode === "saturation"){
@@ -505,7 +510,7 @@ PykCharts.multiD.barChart = function(options){
             legends: function () {
                 if(PykCharts.boolean(that.legends_enable)) {
                     var params = that.getParameters(),color;
-                    // console.log(params);
+                    console.log(params);
                     color = params[0].color;
                     params = params.map(function (d) {
                         return d.name;
@@ -557,7 +562,7 @@ PykCharts.multiD.barChart = function(options){
                         .attr(rect_parameter3, rect_parameter3value)
                         .attr(rect_parameter4, rect_parameter4value)
                         .attr("fill", function (d) {
-                            return that.fillColor.colorPieMS(color);
+                            return color;
                         })
                         .attr("fill-opacity", function (d,i) {
                             // if(PykCharts.boolean(that.saturationEnable)){
@@ -704,18 +709,21 @@ PykCharts.multiD.barChart = function(options){
             for(var j in that.the_layers[i].values) {
                 if(!PykCharts.boolean(that.the_layers[i].values[j].y)) continue;
                 var name = that.the_layers[i].values[j].group, color;
-                // if(options.optional && options.optional.colors) {
-                    if(options.chartColor) {
-                        color = that.chartColor;
-                    }
-                    else if(that.the_layers[i].values[0].color) {
-                        color = that.the_layers[i].values[0].color;
-                    }
-                // }
-                // else {
-                //     color = that.chartColor;
-                // }
-
+                if(that.color_mode === "saturation") {
+                    color = that.saturationColor;
+                } else if(that.color_mode === "color" && that.the_layers[i].values[0].color) {
+                    color = that.the_layers[i].values[0].color;
+                } else if(that.color_mode === "color" && that.color.length){
+                    color = that.color[0];
+                } else {
+                    color = that.chartColor;
+                } 
+                    // if(options.chartColor) {
+                    //     color = that.chartColor;
+                    // }
+                    // else if(that.the_layers[i].values[0].color) {
+                    //     color = that.the_layers[i].values[0].color;
+                    // }
                 p.push({
                     "name": name,
                     "color": color
