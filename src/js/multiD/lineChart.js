@@ -84,7 +84,7 @@ PykCharts.multiD.lineChart = function (options){
 	};
 
 	this.render = function () {
-		that.dataLineGroup = [];
+		that.dataLineGroup = [],that.clicked;
 		that.multid = new PykCharts.multiD.configuration(that);
 		if(that.mode === "default") {
 			that.transitions = new PykCharts.Configuration.transition(options);
@@ -224,7 +224,6 @@ PykCharts.multiD.lineChart = function (options){
 
 							if(that.highlight.toLowerCase() === that.uniq_group_arr[i].toLowerCase()) {
 								that.new_data[i].highlight = true;
-										console.log("heyyyyy",that.new_data[i].highlight,"livedata")
 							} else
 							{
 								that.new_data[i].highlight = false;
@@ -294,7 +293,6 @@ PykCharts.multiD.lineChart = function (options){
 			createChart : function (evt,index) {
 			
 				var x_domain,x_data = [],y_data,y_range,x_range,y_domain;
-				that.clicked;
 
 				if(that.yAxisDataFormat === "number") {
 					max = d3.max(that.new_data, function(d) { return d3.max(d.data, function(k) { return k.y; }); });
@@ -347,7 +345,6 @@ PykCharts.multiD.lineChart = function (options){
 			          	that.xdomain.push(d.x);
 		          	});
 		          	that.extra_left_margin = 0;
-
 		      	}
 		      	
 		      	that.ydomain = that.yScale.domain();
@@ -620,4 +617,3 @@ PykCharts.multiD.lineChart = function (options){
 
 	};
 };				
-
