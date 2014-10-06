@@ -505,8 +505,9 @@ PykCharts.multiD.lineChart = function (options){
 						if (that.axis_x_position  === "bottom" && (that.axis_y_position === "left" || that.axis_y_position === "right")) {
 							that.legend_text[0] = that.svgContainer.append("text")
 								.attr("id",type)
-								.attr("x", that.width/4)
+								.attr("x", that.width/6)
 								.attr("y", that.height/3)
+								.attr("dx",-20)
 								.style("font-size", that.legendsText_size)
 								.style("font-weight", that.legendsText_weight)
 								.style("font-family", that.legendsText_family)
@@ -515,8 +516,9 @@ PykCharts.multiD.lineChart = function (options){
 						} else if (that.axis_x_position  === "top"  && (that.axis_y_position === "left" || that.axis_y_position === "right")) {
 							that.legend_text[0] = that.svgContainer.append("text")
 								.attr("id",type)
-								.attr("x", that.width/4)
-								.attr("y", that.height/0.5)
+								.attr("x", that.width/6)
+								.attr("y", that.height)
+								.attr("dy",-20)
 								.style("font-size", that.legendsText_size)
 								.style("font-weight", that.legendsText_weight)
 								.style("font-family", that.legendsText_family)
