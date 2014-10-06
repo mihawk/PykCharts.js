@@ -699,8 +699,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
     };
 
     that.zoomOut=function () {
-        console.log("zoomOut");
-        // that.zoomed_out = true;
+       
         that.x1 = 1;
         that.y1 = 8;
 
