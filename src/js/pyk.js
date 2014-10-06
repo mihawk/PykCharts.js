@@ -1110,7 +1110,7 @@ configuration.mouseEvent = function (options) {
                                 }
                         }
                         else if(multiple_containers_enable === "yes") {
-                            console.log(group_index,"group index");
+                            // console.log(group_index,"group index");
                             d3.selectAll(options.selector+" .line-cursor").style("display","block");
                             d3.selectAll(options.selector+" .cross-hair-v")
                                 .attr("x1",(x1 - 5))
