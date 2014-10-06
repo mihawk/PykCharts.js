@@ -56,6 +56,7 @@ PykCharts.multiD.lineChart = function (options){
 					data: []
 			};
 			for (l = 0;l < that.data_length;l++) {
+
 				that.new_data[0].data.push({
 					x: that.data[l].x,
 					y: that.data[l].y,
@@ -74,7 +75,8 @@ PykCharts.multiD.lineChart = function (options){
 						that.new_data[k].data.push({
 							x: that.data[l].x,
 							y: that.data[l].y,
-							tooltip: that.data[l].tooltip
+							tooltip: that.data[l].tooltip,
+							annotation: that.data[l].annotations || ""
 						});
 					}
 				}
@@ -529,7 +531,7 @@ PykCharts.multiD.lineChart = function (options){
 					}
 
 					if(that.type === "lineChart" && that.mode === "default") {
-						var arrow_size = 10,annotation = [];
+						
 						that.svgContainer
 							.on('mouseout',function (d) {
 								that.mouseEvent.tooltipHide();
@@ -540,32 +542,7 @@ PykCharts.multiD.lineChart = function (options){
 							.on("mousemove", function(){	
 								that.mouseEvent.crossHairPosition(that.data,that.new_data,that.xScale,that.yScale,that.dataLineGroup,that.extra_left_margin,that.xdomain,that.type,that.tooltipMode,that.color_from_data,null);
 							});
-						that.data.map(function (d) {
-							console.log(d);
-							if(d.annotations) {
-								annotation.push({
-									annotation : d.annotations,
-									x : d.x,
-									y : d.y
-								})
-							}
-						});
-						that.svgContainer.selectAll("linechart-arrows")
-                            .data(annotation)
-                            .enter()
-                            .append("image")
-                            .attr("class", "linechart-arrows")
-                            .attr("x", function (d,i) {
-                                return parseInt(that.xScale(d.x)-(arrow_size*0.5))+that.extra_left_margin+that.margin_left
-                                ;
-                            })
-                            .attr("y", function (d,i) {
-                                return parseInt(that.yScale(d.y)-(arrow_size));
-                            })
-                            .attr("xlink:href", "../img/down_arrow1.png")
-                            .attr("height", arrow_size)
-                            .attr("width", arrow_size)
-                            .call(that.k.annotation);
+						
 					}
 					else if (that.type === "multilineChart" && that.mode === "default") {
 						that.svgContainer
@@ -589,40 +566,42 @@ PykCharts.multiD.lineChart = function (options){
 							});
 					}
 				}
+				if(that.type === "lineChart" && that.mode === "default") {
+					var arrow_size = 10,annotation = [];
+					that.new_data[0].data.map(function (d) {
+						console.log(d);
+						if(d.annotation) {
+							console.log("hey");
+							annotation.push({
+								annotation : d.annotation,
+								x : d.x,
+								y : d.y 
+							})
+						}
+					});
+					var anno = that.svgContainer.selectAll("linechart-arrows")
+                        .data(annotation)
+                    anno.enter()
+                        .append("image")
+                    anno.attr("class", "linechart-arrows")
+                        .attr("x", function (d,i) {
+                        	return parseInt(that.xScale(d.x)-(arrow_size*0.5))+that.extra_left_margin+that.margin_left;
+                        })
+                        .attr("y", function (d,i) {
+                        	return parseInt(that.yScale(d.y)-(arrow_size)+that.margin_top);
+                        })
+                        .attr("xlink:href", "../img/down_arrow1.png")
+                        .attr("height", arrow_size)
+                        .attr("width", arrow_size)
+                        .call(that.k.annotation);
+                    anno.exit()
+                    	.remove();
+				}
 				return this;
 			}
 		};
 		return optional;
 	};
-	// that.renderTooltip = function (d1) {
-	// 	console.log(d1[0]);
-	// 	_.each(d1[0], function (d, i) {
- //          if ($("#tooltip"+i).length>0) {
- //            $("#tooltip"+i).remove();
- //          }
-
- //            var position = $(d).offset();
- //            var tooltip = d3.select(that.selector)
- //                .append("div").attr("id", "tooltip"+i)
- //                .style("position", "absolute")
- //                .style("z-index", "10")
- //                .style("visibility", "hidden")
- //                .style("color","#4F4F4F")
- //                        .style("background","#eeeeee")
- //                .style("padding", "5px 10px")
- //                //.style("box-shadow", "0 0 10px #000")
- //                //.style("border", "1px solid gray")
- //                .style("border-radius", "0")
- //                .html($(d)[0].__data__.annotation).style("visibility", "visible");
- //            console.log(tooltip);
- //            tooltip
- //                .style("top", (position.top-$("#tooltip"+i)[0].clientHeight+1) + "px")
- //                .style("left", (position.left-($("#tooltip"+i)[0].clientWidth/2)) + "px");
-
-
- //        });
-	// }
-
 	
 	this.highlightLine = function(linePath,clicked) {
 	
