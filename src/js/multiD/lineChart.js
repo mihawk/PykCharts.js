@@ -668,7 +668,7 @@ PykCharts.multiD.lineChart = function (options){
 								.attr("dy",-5)
 								.style("font-size", that.pointer_size)
 								.style("font-weight", that.pointer_weight)
-								.style("font-family", that.that.pointer_family)
+								.style("font-family", that.pointer_family)
 								.html(that.new_data1.name)
 					      		.style("fill", function() { 
 					      			return that.fillColor.colorPieMS(that.new_data[index]); 

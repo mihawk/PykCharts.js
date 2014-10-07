@@ -1368,8 +1368,8 @@ configuration.makeXAxis = function(options,xScale) {
             a = d3.time.minute;
             b = "%M";
         }
-        xaxis.ticks(a,options.axis_x_time_value_interval)
-            .tickFormat(d3.time.format(b))
+        // xaxis.ticks(a,options.axis_x_time_value_interval)
+            xaxis.tickFormat(d3.time.format(b))
             .tickValues(d3.time.day.range("Wed Jan 01 2014 00:00:00 GMT+0530 (IST)","Tue Jan 07 2014 00:00:00 GMT+0530 (IST)"));
         // console.log(xaxis.tickValues(d3.time.day.range("Wed Jan 01 2014 00:00:00 GMT+0530 (IST)","Tue Jan 07 2014 00:00:00 GMT+0530 (IST)")),"tickValues");
 
