@@ -446,15 +446,6 @@ PykCharts.multiD.lineChart = function (options){
 	                    	.remove();
 					}
 				}
-		      	// console.log(that.domain);
-		      	//
-					// that.zoom_event = d3.behavior.zoom()
-					// 	.y(that.yScale)
-					// 	.scaleExtent([1,2])
-					// 	.on("zoom",that.zoomed);
-					// if(PykCharts.boolean(that.zoom.enable)) {
-					// 	that.svgContainer.call(that.zoom_event);
-					// }
 
 				that.chart_path = d3.svg.line()
 					.x(function(d) { return that.xScale(d.x); })
@@ -535,8 +526,10 @@ PykCharts.multiD.lineChart = function (options){
 				}
 				else { // Static Viz
 					if(!PykCharts.boolean(that.multiple_containers_enable)) {
-						for (var i = 0;i < that.new_data_length;i++) {
-							type = that.type + "-svg-" + i;
+						var i;
+						for (i = 0;i < that.new_data_length;i++) {
+							console.log(i);
+							var type = that.type + "-svg-" + i;
 							that.dataLineGroup[i] = that.chartBody.append("path");
 							var data = that.new_data[i].data;
 
@@ -587,23 +580,23 @@ PykCharts.multiD.lineChart = function (options){
 												.style("stroke", that.chartColor);
 										}
 									})					
-									.attr("d",that.chart_path);
-							    	// .attr("d",function(d,k) {
-								    // 	return that.chart_path(data[0]);
-								    // })
-								    // .transition()		
-								    // .duration(that.transitions.duration())						    
-								    // .attrTween("d", function (d,k) {
-		    						// 	console.log(data,"hey",i,k);
-								    // 	var interpolate = d3.scale.quantile()
-							     //            .domain([0,1])
-							     //            .range(d3.range(1, data.length + 1));
-										  //       return function(t) {
-										  //           return that.chart_path(data.slice(0, interpolate(t)));
-										  //       };
-								    // });
+							    	.attr("d",function(d,k) {
+								    	return that.chart_path(data[0]);
+								    });
 
-
+								function transition (i) {    
+								    that.dataLineGroup[i].transition()		
+									    .duration(that.transitions.duration())						    
+									    .attrTween("d", function (d) {
+									    	var interpolate = d3.scale.quantile()
+								                .domain([0,1])
+								                .range(d3.range(1, data.length + 1));
+											        return function(t) {
+											            return that.chart_path(that.new_data[i].data.slice(0, interpolate(t)));
+											        };
+									    })
+								}
+								transition(i);
 						}
 					} else {  				// Multiple Containers -- "Yes"
 						type = that.type + that.svgContainer.attr("id");
@@ -617,7 +610,16 @@ PykCharts.multiD.lineChart = function (options){
 							    .style("stroke", function (d,i) {
 										return that.fillColor.colorPieMS(that.new_data[index]); 
 								})
-							    .attr("d", that.chart_path);
+							    .transition()		
+								    .duration(that.transitions.duration())						    
+								    .attrTween("d", function (d) {
+								    	var interpolate = d3.scale.quantile()
+							                .domain([0,1])
+							                .range(d3.range(1, that.new_data1.data.length + 1));
+										        return function(t) {
+										            return that.chart_path(that.new_data1.data.slice(0, interpolate(t)));
+										        };
+								    });
 					}
 
 					if(that.type === "lineChart" && that.mode === "default") {
@@ -659,6 +661,7 @@ PykCharts.multiD.lineChart = function (options){
 			ticks: function (index) {
 				if(PykCharts.boolean(that.pointer_size)) { 
 					if(PykCharts.boolean(that.multiple_containers_enable)) {
+						type = that.type + that.svgContainer.attr("id");
 						if (that.axis_x_position  === "bottom" && (that.axis_y_position === "left" || that.axis_y_position === "right")) {
 							that.ticks[0] = that.svgContainer.append("text")
 								.attr("id",type)
@@ -707,7 +710,7 @@ PykCharts.multiD.lineChart = function (options){
 							}
 
 							that.ticks[i] = that.svgContainer.append("text")
-									.attr("id",type)
+									.attr("id",id)
 									.attr("class","legend-heading")
 									.html(that.new_data[i].name)
 									.attr("transform","translate("+text_x+","+text_y+") rotate("+text_rotate+")")
