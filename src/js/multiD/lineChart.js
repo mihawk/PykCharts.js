@@ -349,8 +349,9 @@ PykCharts.multiD.lineChart = function (options){
 				          	d.x = new Date(d.x);
 				          	that.xdomain.push(d.x);
 		          		});
+		          	console.log(that.new_data[i],"x axis dataaaaaaaa");
 			        }
-			        console.log(that.new_data[0].data[2].x);
+			        console.log(that.new_data[0].data[2].x,"tick data");
 		          	that.extra_left_margin = 0;
 		      	}
 		      	
