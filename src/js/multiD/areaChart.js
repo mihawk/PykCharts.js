@@ -438,88 +438,7 @@ PykCharts.multiD.areaChart = function (options){
 						});
 				
 				}
-				that.line = d3.svg.line()
-                        .interpolate('linear-closed')
-                        .x(function(d,i) { return d.x; })
-                        .y(function(d,i) { return d.y; });
-				if(that.type === "areaChart" && that.mode === "default") {
-					var arrow_size = 10,annotation = [];
-					that.new_data[0].data.map(function (d) {
-						if(d.annotation) {
-							annotation.push({
-								annotation : d.annotation,
-								x : d.x,
-								y : d.y 
-							})
-						}
-					});
-					var anno = that.svgContainer.selectAll("linechart-arrows")
-                        .data(annotation)
-                    anno.enter()
-                        .append("path")
-                    anno.attr("class", "linechart-arrows")
-                        .attr("d", function (d,i) {
-                        	var a = [
-                        		{
-                        			x:parseInt(that.xScale(d.x)-(arrow_size*0.5))+that.extra_left_margin+that.margin_left,
-                        			y:parseInt(that.yScale(d.y)-(arrow_size)+that.margin_top)
-                        		},
-                        		{
-                        			x:parseInt(that.xScale(d.x)+(arrow_size*0.5))+that.extra_left_margin+that.margin_left,
-                        			y:parseInt(that.yScale(d.y)-(arrow_size)+that.margin_top)
-                        		},
-                        		{
-                        			x:parseInt(that.xScale(d.x))+that.extra_left_margin+that.margin_left,
-                        			y:parseInt(that.yScale(d.y)+that.margin_top),
-                        		}
-                        	];
-                        	return that.line(a);
-                        })
-						.attr("fill","#eeeeee")
-                        .call(that.k.annotation);
-                    anno.exit()
-                    	.remove();
-				} else if(that.type === "stackedAreaChart" && that.mode === "default") {
-					var arrow_size = 10,annotation = [];	
-					for(i=0;i<that.new_data_length;i++) {
-						that.new_data[i].data.map(function (d) {
-							if(d.annotation) {
-								annotation.push({
-									annotation : d.annotation,
-									x : d.x,
-									y : d.y,
-									y0 : d.y0 
-								});
-							}
-						});
-					}
-					var anno = that.svgContainer.selectAll("linechart-arrows")
-                        .data(annotation)
-                    anno.enter()
-                        .append("path")
-                    anno.attr("class", "linechart-arrows")
-                        .attr("d", function (d,i) {
-                        	var a = [
-                        		{
-                        			x:parseInt(that.xScale(d.x)-(arrow_size*0.5))+that.extra_left_margin+that.margin_left,
-                        			y:parseInt(that.yScale(d.y0+d.y)-(arrow_size)+that.margin_top)
-                        		},
-                        		{
-                        			x:parseInt(that.xScale(d.x)+(arrow_size*0.5))+that.extra_left_margin+that.margin_left,
-                        			y:parseInt(that.yScale(d.y0+d.y)-(arrow_size)+that.margin_top)
-                        		},
-                        		{
-                        			x:parseInt(that.xScale(d.x))+that.extra_left_margin+that.margin_left,
-                        			y:parseInt(that.yScale(d.y0+d.y)+that.margin_top),
-                        		}
-                        	];
-                        	return that.line(a);
-                        })
-						.attr("fill","#eeeeee")
-                        .call(that.k.annotation);
-                    anno.exit()
-                    	.remove();
-				}
+				that.annotation();
 				return this;
 			}
 		};
@@ -542,4 +461,88 @@ PykCharts.multiD.areaChart = function (options){
 				.attr("d", that.chart_path_border);
 	    }
 	};
+	that.annotation = function () {
+		that.line = d3.svg.line()
+                .interpolate('linear-closed')
+                .x(function(d,i) { return d.x; })
+                .y(function(d,i) { return d.y; });
+		if(that.type === "areaChart" && that.mode === "default") {
+			var arrow_size = 10,annotation = [];
+			that.new_data[0].data.map(function (d) {
+				if(d.annotation) {
+					annotation.push({
+						annotation : d.annotation,
+						x : d.x,
+						y : d.y 
+					})
+				}
+			});
+			var anno = that.svgContainer.selectAll("linechart-arrows")
+                .data(annotation)
+            anno.enter()
+                .append("path")
+            anno.attr("class", "linechart-arrows")
+                .attr("d", function (d,i) {
+                	var a = [
+                		{
+                			x:parseInt(that.xScale(d.x)-(arrow_size*0.5))+that.extra_left_margin+that.margin_left,
+                			y:parseInt(that.yScale(d.y)-(arrow_size)+that.margin_top)
+                		},
+                		{
+                			x:parseInt(that.xScale(d.x)+(arrow_size*0.5))+that.extra_left_margin+that.margin_left,
+                			y:parseInt(that.yScale(d.y)-(arrow_size)+that.margin_top)
+                		},
+                		{
+                			x:parseInt(that.xScale(d.x))+that.extra_left_margin+that.margin_left,
+                			y:parseInt(that.yScale(d.y)+that.margin_top),
+                		}
+                	];
+                	return that.line(a);
+                })
+				.attr("fill","#eeeeee")
+                .call(that.k.annotation);
+            anno.exit()
+            	.remove();
+		} else if(that.type === "stackedAreaChart" && that.mode === "default") {
+			var arrow_size = 10,annotation = [];	
+			for(i=0;i<that.new_data_length;i++) {
+				that.new_data[i].data.map(function (d) {
+					if(d.annotation) {
+						annotation.push({
+							annotation : d.annotation,
+							x : d.x,
+							y : d.y,
+							y0 : d.y0 
+						});
+					}
+				});
+			}
+			var anno = that.svgContainer.selectAll("linechart-arrows")
+                .data(annotation)
+            anno.enter()
+                .append("path")
+            anno.attr("class", "linechart-arrows")
+                .attr("d", function (d,i) {
+                	var a = [
+                		{
+                			x:parseInt(that.xScale(d.x)-(arrow_size*0.5))+that.extra_left_margin+that.margin_left,
+                			y:parseInt(that.yScale(d.y0+d.y)-(arrow_size)+that.margin_top)
+                		},
+                		{
+                			x:parseInt(that.xScale(d.x)+(arrow_size*0.5))+that.extra_left_margin+that.margin_left,
+                			y:parseInt(that.yScale(d.y0+d.y)-(arrow_size)+that.margin_top)
+                		},
+                		{
+                			x:parseInt(that.xScale(d.x))+that.extra_left_margin+that.margin_left,
+                			y:parseInt(that.yScale(d.y0+d.y)+that.margin_top),
+                		}
+                	];
+                	return that.line(a);
+                })
+				.attr("fill","#eeeeee")
+                .call(that.k.annotation);
+            anno.exit()
+            	.remove();
+		}
+	}
 };

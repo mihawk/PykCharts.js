@@ -163,6 +163,8 @@ PykCharts.multiD.lineChart = function (options){
                 .lastUpdatedAt()
                 .credits()
                 .dataSource();
+
+           	that.annotation();
 		}
 		else if(that.mode === "infographics") {
 			that.w = that.width;
@@ -208,6 +210,8 @@ PykCharts.multiD.lineChart = function (options){
 					.yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain)
 					.yGrid(that.svgContainer,that.group,that.yScale)
 					.xGrid(that.svgContainer,that.group,that.xScale)
+
+			that.annotation();
 		});
 	};
 
@@ -751,5 +755,96 @@ PykCharts.multiD.lineChart = function (options){
 			if(clicked) {
 				d3.selectAll(options.selector+" path.multi-line").style("opacity",0.3);
 			}
+	};
+	this.annotation = function () {
+		that.line = d3.svg.line()
+                .interpolate('linear-closed')
+                .x(function(d,i) { return d.x; })
+                .y(function(d,i) { return d.y; });
+      	if(!PykCharts.boolean(that.multiple_containers_enable) && that.mode === "default") {
+			var arrow_size = 10,annotation = [];
+			
+			for(i=0;i<that.new_data_length;i++){
+				that.new_data[i].data.map(function (d) {
+					if(d.annotation) {
+						annotation.push({
+							annotation : d.annotation,
+							x : d.x,
+							y : d.y 
+						})
+					}
+				});
+			}
+
+
+			var anno = that.svgContainer.selectAll(that.selector+ " .linechart-arrows")
+                .data(annotation)
+            anno.enter()
+                .append("path")
+            anno.attr("class", "linechart-arrows")
+                .attr("d", function (d,i) {
+                	var a = [
+                		{
+                			x:parseInt(that.xScale(d.x)-(arrow_size*0.5))+that.extra_left_margin+that.margin_left,
+                			y:parseInt(that.yScale(d.y)-(arrow_size)+that.margin_top)
+                		},
+                		{
+                			x:parseInt(that.xScale(d.x)+(arrow_size*0.5))+that.extra_left_margin+that.margin_left,
+                			y:parseInt(that.yScale(d.y)-(arrow_size)+that.margin_top)
+                		},
+                		{
+                			x:parseInt(that.xScale(d.x))+that.extra_left_margin+that.margin_left,
+                			y:parseInt(that.yScale(d.y)+that.margin_top),
+                		}
+                	];
+                	return that.line(a);
+                })
+				.attr("fill","#eeeeee")
+                .call(that.k.annotation);
+            anno.exit()
+            	.remove();
+		} else if(PykCharts.boolean(that.multiple_containers_enable)) {
+			for(i=0;i<that.new_data_length;i++){
+				var annotation = [], arrow_size = 10;
+				that.new_data[i].data.map(function (d) {
+					if(d.annotation) {
+						annotation.push({
+							annotation : d.annotation,
+							x : d.x,
+							y : d.y 
+						})
+					}
+				});
+				var anno = d3.select(that.selector + " #svg-" + i).selectAll(that.selector+ " .linechart-arrows")
+                    .data(annotation);
+                anno.enter()
+                    .append("path")
+
+                anno.attr("class", "linechart-arrows")
+                    .attr("d", function (d,i) {
+                    	console.log(annotation);
+                    	var a = [
+                    		{
+                    			x:parseInt(that.xScale(d.x)-(arrow_size*0.5))+that.extra_left_margin+that.margin_left,
+                    			y:parseInt(that.yScale(d.y)-(arrow_size)+that.margin_top)
+                    		},
+                    		{
+                    			x:parseInt(that.xScale(d.x)+(arrow_size*0.5))+that.extra_left_margin+that.margin_left,
+                    			y:parseInt(that.yScale(d.y)-(arrow_size)+that.margin_top)
+                    		},
+                    		{
+                    			x:parseInt(that.xScale(d.x))+that.extra_left_margin+that.margin_left,
+                    			y:parseInt(that.yScale(d.y)+that.margin_top),
+                    		}
+                    	];
+                    	return that.line(a);
+                    })
+					.attr("fill","#eeeeee")
+                    .call(that.k.annotation);
+                anno.exit()
+                	.remove();
+			}
+		}
 	}
+
 };				
