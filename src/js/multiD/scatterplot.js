@@ -705,13 +705,6 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
         that.x1 = 1;
         that.y1 = 8;
 
-        // d3.select(that.selector)
-        //     .on("click",function () {
-        //         that.optionalFeatures().createScatterPlot();
-        //         that.k.xAxis(that.svgContainer,that.xGroup,that.x,that.extra_left_margin,that.xdomain)
-        //             .yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain);
-        //     })
-
         that.optionalFeatures().createChart()
             .label();
 
