@@ -1320,6 +1320,7 @@ configuration.border = function (options) {
 };
 
 configuration.makeXAxis = function(options,xScale) {
+    // console.log("makeXAxis",options);
     var that = this;
     var k = PykCharts.Configuration(options);
     var xaxis = d3.svg.axis()
@@ -1343,9 +1344,10 @@ configuration.makeXAxis = function(options,xScale) {
     t1 = iso.parse(start_date),
     t2 = iso.parse(end_date);
     // console.log("t1",t1,"and t2",t2);
-
+    // console.log(options.axis_x_time_value_datatype,"datatype");
     if(options.xAxisDataFormat=== "time" && PykCharts.boolean(options.axis_x_time_value_datatype)) {
         if(options.axis_x_time_value_datatype === "month") {
+            console.log("its a month");
             a = d3.time.month;
             b = "%b";
         }else if(options.axis_x_time_value_datatype === "date") {
@@ -1361,9 +1363,9 @@ configuration.makeXAxis = function(options,xScale) {
             a = d3.time.minute;
             b = "%M";
         }
-        // xaxis.ticks(a,options.axis_x_time_value_interval)
-            xaxis.tickFormat(d3.time.format(b))
-            .tickValues(d3.time.day.range("Wed Jan 01 2014 00:00:00 GMT+0530 (IST)","Tue Jan 07 2014 00:00:00 GMT+0530 (IST)"));
+        xaxis.ticks(a,options.axis_x_time_value_interval)
+            .tickFormat(d3.time.format(b))
+            // .tickValues(d3.time.day.range(t1,t2));
         // console.log(xaxis.tickValues(d3.time.day.range("Wed Jan 01 2014 00:00:00 GMT+0530 (IST)","Tue Jan 07 2014 00:00:00 GMT+0530 (IST)")),"tickValues");
 
     } else if(options.xAxisDataFormat === "number") {
@@ -1565,8 +1567,8 @@ configuration.Theme = function(){
         "axis_y_pointer_padding": 6,
         "axis_y_pointer_values": [],
         "axis_y_outer_pointer_size": 0,
-        "axis_y_time_value_type":"",
-        "axis_y_time_value_unit":"",
+        "axis_y_time_value_datatype":"",
+        "axis_y_time_value_interval":"",
 
         "yAxisDataFormat": "number",
         "xAxisDataFormat": "string",
