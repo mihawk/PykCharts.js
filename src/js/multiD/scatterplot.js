@@ -614,11 +614,11 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                     .on("dblclick",function() {
                         d3.event.stopPropagation();
                     })
-                    .on("select",function() {
+                    .on("mousedown",function() {
                         console.log(d3.event,"d3 event");
                         d3.event.stopPropagation();
                     });
-                console.log($("#svgcontainer0 .dot"));
+                // console.log($("#svgcontainer0 .dot"));
                 // $("#svgcontainer0 .dot").dblclick(function(){
                 //     console.log("heyyyyyyyy");
                 //     return false;
