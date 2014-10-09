@@ -539,33 +539,20 @@ PykCharts.Configuration = function (options){
                 }
                 var xaxis = PykCharts.Configuration.makeXAxis(options,xScale);
                 if(options.axis_x_pointer_values.length != 0) {
-                    xaxis.tickValues(options.axis_x_pointer_values);
+                    var newVal = [];
+                    if(options.xAxisDataFormat === "time") {
+                        _.each(options.axis_x_pointer_values, function (d) {
+                            newVal.push(new Date(d));
+                        });
+                    } else {
+                        newVal = options.axis_x_pointer_values;
+                    }
+                    xaxis.tickValues(newVal);
                 }
 
                 gsvg.style("stroke",function () { return options.axis_x_axisColor; })
                     .call(xaxis)
-                // var w;
-                // if(PykCharts.boolean(options.multiple_containers_enable)) {
-                //     w = options.w;
-                // } else {
-                //     w = options.width;
-                // }
-                // if(options.axis_x_position === "bottom") {
-
-                //    gsvg.append("text")
-                //         .attr("x", (w- options.margin_left - options.margin_right)/2)
-                //         .attr("y", options.margin_bottom)
-                //         .style("text-anchor", "middle")
-                //         .style("fill",options.axis_x_labelColor)
-                //         .text(options.axis_x_title); 
-                // } else if (options.axis_x_position === "top") {
-                //     gsvg.append("text")
-                //         .attr("x", (w - options.margin_left - options.margin_right)/2)
-                //         .attr("y", - options.margin_top + 10)
-                //         .style("text-anchor", "middle")
-                //         .style("fill",options.axis_x_labelColor)
-                //         .text(options.axis_x_title); 
-                // }
+            
                 if((options.xAxisDataFormat === "string") && options.multiple_containers_enable === "no") {
                     k.ordinalXAxisTickFormat(domain,extra);
                 }
@@ -598,27 +585,6 @@ PykCharts.Configuration = function (options){
                 gsvg.style("stroke",function () { return options.axis_y_axisColor; })
                     .call(yaxis)
 
-
-                // if(options.axis_y_position === "left"){
-                //     gsvg.append("text")
-                //         .attr("x",-(options.height)/2 )
-                //         .attr("transform", "rotate(-90)")
-                //         .attr("y", -(options.margin_left - 12))
-                //         // .attr("dy", ".71em")
-                //         .style("fill",options.axis_y_labelColor)
-                //         // .style("text-anchor", "end")
-                //         .text(options.axis_y_title);
-                // } else if (options.axis_y_position === "right") {
-                //      gsvg.append("text")
-                //         .attr("x",-(options.height)/2)
-                //         .attr("transform", "rotate(-90)")
-                //         .style("fill",options.axis_y_labelColor)
-                //         // .attr("y", 12)
-                //         .attr("y", options.margin_right - 12)
-                //         .attr("dy", ".71em")
-                //         // .style("text-anchor", "end")
-                //         .text(options.axis_y_title);
-                // }
                 if((options.yAxisDataFormat === "string") && options.multiple_containers_enable === "no") {
                     k.ordinalYAxisTickFormat(domain);
                 }
@@ -1365,8 +1331,6 @@ configuration.makeXAxis = function(options,xScale) {
         }
         xaxis.ticks(a,options.axis_x_time_value_interval)
             .tickFormat(d3.time.format(b))
-            // .tickValues(d3.time.day.range(t1,t2));
-        // console.log(xaxis.tickValues(d3.time.day.range("Wed Jan 01 2014 00:00:00 GMT+0530 (IST)","Tue Jan 07 2014 00:00:00 GMT+0530 (IST)")),"tickValues");
 
     } else if(options.xAxisDataFormat === "number") {
         xaxis.ticks(options.axis_x_no_of_axis_value);

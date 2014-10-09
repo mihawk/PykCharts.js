@@ -734,7 +734,7 @@ PykCharts.multiD.lineChart = function (options){
 
                 anno.attr("class", "linechart-arrows")
                     .attr("d", function (d,i) {
-                    	// console.log(annotation);
+                    	console.log(annotation);
                     	var a = [
                     		{
                     			x:parseInt(that.xScale(d.x)-(arrow_size*0.5))+that.extra_left_margin+that.margin_left,
