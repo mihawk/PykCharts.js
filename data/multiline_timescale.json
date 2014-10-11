@@ -1,152 +1,149 @@
 [
 	{
 		"name":"China",
-		"x":"Bank",
+		"color": "#013f73",
+		"x":"1-jan-14",
 		"y":120,
-		"color": "green",
 		"tooltip":120
 	},
 	{
 		"name":"China",
-		"x":"IT",
+		"color": "#013f73",
+		"x":"2-jan-14",
 		"y":100,
-		"color": "green",
 		"tooltip":100
 	},	
 	{
 		"name":"China",
-		"x":"Cables",
+		"color": "#013f73",
+		"x":"3-jan-14",
 		"y":30,
-		"color": "green",
-		"tooltip":30,
-		"annotations" : "abc"
+		"tooltip":30
 	},
 	{
 		"name":"China",
-		"x":"Crude Oil",
+		"color": "#013f73",
+		"x":"4-jan-14",
 		"y":40,
-		"color": "green",
 		"tooltip":40
 	},
 	{
 		"name":"China",
-		"x":"Diamond",
+		"color": "#013f73",
+		"x":"5-jan-14",
 		"y":60,
-		"color": "green",
 		"tooltip":60
 	},
 	{
 		"name":"China",
-		"x":"Healthcare",
+		"color": "#013f73",
+		"x":"6-jan-14",
 		"y":70,
-		"color": "green",
 		"tooltip":70
 	},
 	{
 		"name":"China",
-		"x":"Automobile",
+		"color": "#013f73",
+		"x":"7-jan-14",
 		"y":30,
-		"color": "green",
 		"tooltip":30
 	},
 	{
 		"name":"U.S.A.",
-		"x":"Bank",
+		"color": "#4682b4",
+		"x":"1-jan-14",
 		"y":70,
-		"color": "blue",
-		"tooltip":70,
-		"annotations" : "hey"
+		"tooltip":70
 	},
 	{
 		"name":"U.S.A.",
-		"x":"IT",
+		"color": "#4682b4",
+		"x":"2-jan-14",
 		"y":100,
-		"color": "blue",
 		"tooltip":100
 	},	
 	{
 		"name":"U.S.A.",
-		"x":"Cables",
+		"color": "#4682b4",
+		"x":"3-jan-14",
 		"y":50,
-		"color": "blue",
 		"tooltip":50
 	},
 	{
 		"name":"U.S.A.",
-		"x":"Crude Oil",
+		"color": "#4682b4",
+		"x":"4-jan-14",
 		"y":60,
-		"color": "blue",
-		"tooltip":60,
-		"annotations" : "USA"
+		"tooltip":60
 	},
 	{
 		"name":"U.S.A.",
-		"x":"Diamond",
+		"color": "#4682b4",
+		"x":"5-jan-14",
 		"y":30,
-		"color": "blue",
 		"tooltip":30
 	},
 	{
 		"name":"U.S.A.",
-		"x":"Healthcare",
+		"color": "#4682b4",
+		"x":"6-jan-14",
 		"y":40,
-		"color": "blue",
 		"tooltip":40
 	},
 	{
 		"name":"U.S.A.",
-		"x":"Automobile",
+		"color": "#4682b4",
+		"x":"7-jan-14",
 		"y":90,
-		"color": "blue",
 		"tooltip":90
 	},
 	{
 		"name":"India",
-		"x":"Bank",
-		"y":50,	
-		"color": "yellow",	
+		"color": "#75b0e1",
+		"x":"1-jan-14",
+		"y":50,		
 		"tooltip":50
 	},
 	{
 		"name":"India",
-		"x":"IT",
+		"color": "#75b0e1",
+		"x":"2-jan-14",
 		"y":30,
-		"color": "yellow",
 		"tooltip":30
 	},	
 	{
 		"name":"India",
-		"x":"Cables",
+		"color": "#75b0e1",
+		"x":"3-jan-14",
 		"y":80,
-		"color": "yellow",
 		"tooltip":80
 	},
 	{
 		"name":"India",
-		"x":"Crude Oil",
+		"color": "#75b0e1",
+		"x":"4-jan-14",
 		"y":40,
-		"color": "yellow",
 		"tooltip":40
 	},
 	{
 		"name":"India",
-		"x":"Diamond",
+		"color": "#75b0e1",
+		"x":"5-jan-14",
 		"y":50,
-		"color": "yellow",
 		"tooltip":50
 	},
 	{
 		"name":"India",
-		"x":"Healthcare",
+		"color": "#75b0e1",
+		"x":"6-jan-14",
 		"y":40,
-		"color": "yellow",
 		"tooltip":40
 	},
 	{
 		"name":"India",
-		"x":"Automobile",
+		"color": "#75b0e1",
+		"x":"7-jan-14",
 		"y":70,
-		"color": "yellow",
 		"tooltip":70
 	}
 ]

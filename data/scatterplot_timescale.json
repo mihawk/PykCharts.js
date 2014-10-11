@@ -1,143 +1,162 @@
 [
     {
         "name": "Dairy Milk",
-        "x": 80,
+        "x": "1-jan-14",
         "y": 1.5,
         "weight": 500,
+        "color": "#07365e",
         "group": "Cadbury"
     },
     {
         "name": "Galaxy",
-        "x": 42,
+        "x": "3-jun-14",
         "y": 5,
         "weight": 530,
+        "color": "#0e5ea1",
+        "tooltip": "",
         "group": "Nestle"
     },
     {
         "name": "Kit-Kat",
-        "x": 55,
+        "x": "12-jul-14",
         "y": 4,
         "weight": 580,
+        "color": " #FFF44F",
         "tooltip": "",
         "group": "Nestle"
     },
     {
         "name": "Lindt",
-        "x": 80,
+        "x": "1-apr-14",
         "y": 4,    
         "weight": 590,
+        "color": "#4682b4",
         "tooltip": "",
         "group": "ABC"
     },
     {
         "name": "5 Star",
-        "x": 65,
+        "x": "2-jul-14",
         "y": 2.5,
         "weight": 570,
+        "color": "#75b0e1",
         "tooltip": "",
         "group": "Hershey"
     },
     {
         "name": "Munch",
-        "x": 65,
+        "x": "6-may-14",
         "y": 3.5,
         "weight": 200,
+        "color": " #FFF44F",
         "tooltip": "",
         "group": "Hershey"
     }, 
     {
         "name": "Hershey",
-        "x": 61,
+        "x": "12-mar-14",
         "y": 4,
         "weight": 560,
+        "color": "steelblue",
         "tooltip": "",
         "group": "Hershey"
     }, 
     {
         "name": "Dolfin",
-        "x": 60,
+        "x": "2-jan-14",
         "y": 4,
         "weight": 250,     
+        "color": "#a0ccf1",
         "tooltip": "",
         "group": "Lindt"
     }, 
     {
         "name": "Bournville",
-        "x": 70,
+        "x": "2-feb-14",
         "y": 2,
         "weight": 500,
+        "color": "#07365e",
         "tooltip": "",
         "group": "Cadbury"
     },
     {
         "name": "Dairy Milk",
-        "x": 100,
+        "x": "13-jan-14",
         "y": 3,
         "weight": 400,
+        "color": "#07365e",
         "tooltip": "",
         "group": "Cadbury"
     },
     {
         "name": "Galaxy",
-        "x": 50,
+        "x": "2-feb-14",
         "y": 2.5,
         "weight": 480,
+        "color": " #44A770",
         "tooltip": "",
         "group": "Nestle"
     },
     {
         "name": "Kit-Kat",
-        "x": 51,
+        "x": "14-may-14",
         "y": 2.5,
         "weight": 350,
+        "color": " #FFF44F",
         "tooltip": "",
         "group": "Nestle"
     },
     {
         "name": "Lindt",
-        "x": 80,
+        "x": "7-apr-14",
         "y": 5,
         "weight": 270,
+        "color": "#e65f3d",
         "tooltip": "",
         "group": "ABC"
     },
     {
         "name": "5 Star",
-        "x": 45,
+        "x": "3-jul-14",
         "y": 2.5,
         "weight": 470,
+        "color": "steelblue",
         "tooltip": "",
         "group": "Hershey"
     },
     {
         "name": "Munch",
-        "x": 85,
+        "x": "28-feb-14",
         "y": 3.5,
         "weight": 360,
+        "color": "#FFF44F",
         "tooltip": "",
         "group": "Hershey"
     }, 
     {
         "name": "Hershey",
-        "x": 40,
+        "x": "5-mar-14",
         "y": 5,
         "weight": 270,
+        "color": "steelblue",
         "tooltip": "",
         "group": "Hershey"
     }, 
     {
         "name": "Dolfin",
-        "x": 60,
+        "x": "13-mar-14",
         "y": 3,
         "weight": 350,
+        "color": "#493452",
         "tooltip": "",
         "group": "Lindt"
     }, 
     {
         "name": "Bournville",
-        "x": 30,
+        "x": "2-may-14",
         "y": 5,
         "weight": 400,
+        "color": "#07365e",
         "tooltip": "",
         "group": "Cadbury"
     }

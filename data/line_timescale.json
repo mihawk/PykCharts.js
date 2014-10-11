@@ -1,55 +1,51 @@
 [			
 	{
 		"name":"India",
-		"x":"Bank",
+		"color": "#4682b4",
+		"x":"1-jan-14",
 		"y":30,
-		"annotations": "Bank",
-		"color":"green",
 		"tooltip":30
 	},
 	{
 		"name":"India",
-		"x":"IT",
+		"color": "#4682b4",
+		"x":"2-jan-14",
 		"y":53,
-		"color":"green",
 		"tooltip":53
 	},	
 	{
 		"name":"India",
-		"x":"Cables",
+		"color": "#4682b4",
+		"x":"3-jan-14",
 		"y":30,
-		"tooltip":30,
-		"annotations": "Cables",
-		"color":"green",
 		"tooltip":30
 	},
 	{
 		"name":"India",
-		"x":"Crude Oil",
+		"color": "#4682b4",
+		"x":"4-jan-14",
 		"y":40,
-		"color":"green",
 		"tooltip":40
 	},
 	{
 		"name":"India",
-		"x":"Diamond",
+		"color": "#4682b4",
+		"x":"5-jan-14",
 		"y":50,
-		"annotations": "Diamond",
-		"color":"green",
 		"tooltip":50
 	},
 	{
 		"name":"India",
-		"x":"Healthcare",
+		"color": "#4682b4",
+		"x":"6-jan-14",
 		"y":40,
-		"color":"green",
 		"tooltip":40
 	},
 	{
 		"name":"India",
-		"x":"Automobile",
+		"color": "#4682b4",
+		"x":"7-jan-14",
 		"y":70,
-		"color":"green",
 		"tooltip":70
 	}
 ]

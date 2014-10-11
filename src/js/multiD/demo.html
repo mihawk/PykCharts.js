@@ -1,0 +1,129 @@
+<html>
+    <head>
+        <script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
+    </head>
+    <body>
+        <div id="chart"></div>
+        <script type="text/javascript">
+            var data = [
+                {
+                    "name": "Dairy Milk",
+                    "x": 80,
+                    "y": 1.5,
+                    "weight": 500,
+                    "group": "Cadbury"
+                },
+                {
+                    "name": "Galaxy",
+                    "x": 42,
+                    "y": 5,
+                    "weight": 530,
+                    "group": "Nestle"
+                },
+                {
+                    "name": "Kit-Kat",
+                    "x": 55,
+                    "y": 4,
+                    "weight": 580,
+                    "group": "Nestle"
+                },
+                {
+                    "name": "Lindt",
+                    "x": 80,
+                    "y": 4,    
+                    "weight": 590,
+                    "group": "ABC"
+                },
+                {
+                    "name": "5 Star",
+                    "x": 65,
+                    "y": 2.5,
+                    "weight": 570,
+                    "group": "Hershey"
+                },
+                {
+                    "name": "Munch",
+                    "x": 65,
+                    "y": 3.5,
+                    "weight": 200,
+                    "group": "Hershey"
+                }, 
+                {
+                    "name": "Hershey",
+                    "x": 61,
+                    "y": 4,
+                    "weight": 560,
+                    "group": "Hershey"
+                }, 
+                {
+                    "name": "Dolfin",
+                    "x": 60,
+                    "y": 4,
+                    "weight": 250,
+                    "group": "Lindt"
+                }, 
+                {
+                    "name": "Bournville",
+                    "x": 70,
+                    "y": 2,
+                    "weight": 500,
+                    "group": "Cadbury"
+                },
+                {
+                    "name": "Dairy Milk",
+                    "x": 100,
+                    "y": 3,
+                    "weight": 400,
+                    "group": "Cadbury"
+                }
+            ]
+            var margin_left = 40, margin_right = 15, margin_top = 25, margin_bottom = 25, height = 450, width = 700;
+            var svgContainer = d3.select("#chart")
+                            .append('svg')
+                            .attr("width",width)
+                            .attr("height",height)
+                            .attr("id","svgcontainer")
+                            .attr("class","svgcontainer");
+
+            var group = svgContainer.append("g")
+                  .attr("transform","translate(" + margin_left+ "," + margin_top + ")")
+                            .attr("id","main");
+            var clip = group.append("svg:clipPath")
+                                    .attr("id", "clip")
+                                    .append("svg:rect")
+                                    .attr("width",(width-margin_left-margin_right))
+                                    .attr("height", (height-margin_top-margin_bottom));
+
+            var chartBody = group.append("g")
+                                    .attr("clip-path", "url(#clip)");
+            var xExtend = d3.extent(data, function(d) { return d.x }); 
+            var padding = (xExtend[1] - xExtend[0]) * 0.1;
+            xExtend[0] -= (padding);
+            xExtend[1] = parseFloat(xExtend[1],10) + (padding);
+            var xScale = d3.scale.linear()
+                                .domain(xExtend)
+                                .range([0,(width-margin_left-margin_right)]);
+            var yExtend = d3.extent(data, function(d) { return d.y }); 
+            padding = (yExtend[1] - yExtend[0]) * 0.1;
+            yExtend[0] -= (padding);
+            yExtend[1] = parseFloat(yExtend[1],10) + (padding);
+            var yScale = d3.scale.linear()
+                                .domain(yExtend)
+                                .range([height-margin_top-margin_bottom, 0]);
+            var sizes = d3.scale.linear()
+                .domain(d3.extent(data,function (d) {
+                    return d.weight;
+                }))
+                .range([20,50]);
+            circlePlot = chartBody.selectAll(".dot")
+                .data(data)
+                .enter()
+                    .append("circle")
+                    .attr("class", "dot")
+                    .attr("r", function (d) { return sizes(d.weight); })
+                    .attr("cx", function (d) { return xScale(d.x); })
+                    .attr("cy", function (d) { return yScale(d.y); })
+                    .style("fill", function (d) { return d.color; });
+        </script>
+    </body>
+</html>
