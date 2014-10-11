@@ -9,7 +9,7 @@ Array.prototype.groupBy = function (chart) {
         "line": ["x","name"],
         "area": ["x","name"],
         "bar": ["y","group"],
-        "column": ["x","group"],
+        "column": ["x","group","stack"],
         "scatterplot": ["x","y","name","group"],
         "pulse": ["x","y","name","group"],
         "spiderweb": ["x","y","name"],
@@ -37,7 +37,8 @@ Array.prototype.groupBy = function (chart) {
         "column": {
           "dimension": "x",
           "fact": "y",
-          "name": "group"
+          "name": "stack",
+          "group": "group"
         },
         "scatterplot": {
           "dimension": "x",
@@ -191,6 +192,7 @@ PykCharts.Configuration = function (options){
         },
 		title : function () {
             if(PykCharts.boolean(options.title_text) && options.title_size) {
+
 	        	that.titleDiv = d3.select(options.selector)
 	                .append("div")
 	                    .attr("id","title")
@@ -297,6 +299,7 @@ PykCharts.Configuration = function (options){
                 // }
                 d3.select(options.selector+" #footer").append("tr")
                     .attr("class","PykCharts-credits")
+                    .attr("id", "credits-datasource")
                     .append("td")
                     .style("text-align","left")
                     .html("<span style='pointer-events:none;'>Credits: </span><a href='" +  options.creditMySite_url + "' target='_blank' onclick='return " + enable +"'>"+  options.creditMySite_name +"</a>");
@@ -306,21 +309,21 @@ PykCharts.Configuration = function (options){
 	        return this;
 	    },
 	    dataSource : function () {
-	        if( (PykCharts.boolean(options.dataSource_text) && PykCharts.boolean(options.dataSource_url))) {
+	        if( (PykCharts.boolean(options.dataSource_name) || PykCharts.boolean(options.dataSource_url))) {
                 var enable = true;
                 // var data_src = options.dataSource;
-                if(options.dataSource_text === "") {
-                    options.dataSource_text =options.dataSource_url;
+                if(options.dataSource_name === "") {
+                    options.dataSource_name =options.dataSource_url;
                 }
                 if(options.dataSource_url === "") {
                     enable = false;
                 }
                 if($(options.selector+" #footer").length) {
-                    d3.select(options.selector+" table tr")
+                    d3.select(options.selector+" table #credits-datasource")
                         .style("background", options.bg)
                         .append("td")
                         .style("text-align","right")
-                        .html("<span style='pointer-events:none;'>Source: </span><a href='" + options.dataSource_url + "' target='_blank' onclick='return " + enable +"'>"+ options.dataSource_text +"</a></tr>");
+                        .html("<span style='pointer-events:none;'>Source: </span><a href='" + options.dataSource_url + "' target='_blank' onclick='return " + enable +"'>"+ options.dataSource_name +"</a></tr>");
                 }
                 else {
                     d3.select(options.selector).append("table")
@@ -331,7 +334,7 @@ PykCharts.Configuration = function (options){
                         .attr("class","PykCharts-credits")
                         .append("td")
                         .style("text-align","right")
-                        .html("<span style='pointer-events:none;'>Source: </span><a href='" + options.dataSource_url + "' target='_blank' onclick='return " + enable +"'>"+ options.dataSource_text +"</a></tr>");
+                        .html("<span style='pointer-events:none;'>Source: </span><a href='" + options.dataSource_url + "' target='_blank' onclick='return " + enable +"'>"+ options.dataSource_name +"</a></tr>");
                 }
             }
 	        return this;
@@ -339,6 +342,7 @@ PykCharts.Configuration = function (options){
         makeMainDiv : function (selection,i) {
             var d = d3.select(selection).append("div")
                 .attr("id","tooltip-svg-container-"+i)
+                .attr("class","main-div")
                 .style("width",options.width);
             if(PykCharts.boolean(options.multiple_containers_enable)){
                 d.style("float","left")
@@ -787,6 +791,32 @@ PykCharts.Configuration = function (options){
                 return "time";
             } else {
                 return "string";
+            }
+        },
+        resize : function (svg,lsvg) {
+            var aspect = (options.width/options.height);
+            var targetWidth = $(options.selector).width();
+            if(targetWidth > options.width) {
+                targetWidth = options.width;
+            }
+            svg.attr("width", targetWidth);
+            svg.attr("height", targetWidth / aspect);
+            if(PykCharts.boolean(options.title_text)) {
+                $(options.selector + " #title").css("width", targetWidth);
+            }
+            if(PykCharts.boolean(options.sub-title)) {
+                $(options.selector + " #sub-title").css("width", targetWidth);
+            }
+            if(lsvg !== undefined) {
+                lsvg.attr("width",targetWidth);
+            }
+            var a = $(options.selector + " #footer");
+            if(a) {
+                a.attr("width",targetWidth);
+            }
+            var b = $(options.selector + " .main-div");
+            if(b && !(PykCharts.boolean(options.multiple_containers_enable))) {
+                b.css("width",targetWidth);
             }
         },
         __proto__: {

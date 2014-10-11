@@ -708,7 +708,6 @@ PykCharts.multiD.columnChart = function(options){
             }
         }
         that.barName = _.unique(that.barName);
-
         return data_tranform;
     };
     return this;

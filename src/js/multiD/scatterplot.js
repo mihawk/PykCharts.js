@@ -78,12 +78,15 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                 that.k.lastUpdatedAt("liveData");
             }
             that.map_group_data = that.multiD.mapGroup(that.data);
-        
+            
             that.optionalFeatures()
                     .createChart()
                     .legends()
+                    .plotCircle()
                     .label()
                     .ticks();
+            that.k.xAxis(that.svgContainer,that.xGroup,that.x,that.extra_left_margin,that.xdomain)
+                    .yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain)
         });
     };
 
@@ -98,7 +101,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
             that.k.title()
                 .subtitle();
 
-            that.uniq_group_arr = jQuery.unique(that.data.map(function (d) {
+            that.uniq_group_arr = _.uniq(that.data.map(function (d) {
                 return d.group;
             }));
 
@@ -106,6 +109,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
 
             if(PykCharts.boolean(that.multiple_containers_enable) && type === "scatterplot") {
                 that.no_of_groups = that.uniq_group_arr.length;
+                console.log(that.no_of_groups,"--------------",that.uniq_group_arr);
                 that.w = that.width/4;
                 that.height = that.height/2;
                 that.margin_left = that.margin_left;
@@ -205,6 +209,13 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                 .xAxisTitle(that.xGroup)
                 .yAxisTitle(that.yGroup);
         }
+        if(type === "scatterplot" && PykCharts.boolean(that.legends_enable) && PykCharts.boolean(that.size_enable) && that.map_group_data[1]) {
+            $(window).on("load", function () { return that.k.resize(that.svgContainer,that.legendsContainer); })
+                        .on("resize", function () { return that.k.resize(that.svgContainer,that.legendsContainer); });
+        } else {
+            $(window).on("load", function () { return that.k.resize(that.svgContainer); })
+                        .on("resize", function () { return that.k.resize(that.svgContainer); });
+        }
     };
 
     that.optionalFeatures = function () {
@@ -216,6 +227,8 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                     .append('svg')
                     .attr("width",that.w)
                     .attr("height",that.height)
+                    .attr("preserveAspectRatio", "xMinYMin")
+                    .attr("viewBox", "0 0 " + that.w + " " + that.height)
                     .attr("id","svgcontainer" + i)
                     .attr("class","svgcontainer")
                     .style("background-color",that.bg);
@@ -258,7 +271,8 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                             .attr("height", that.height-that.margin_top-that.margin_bottom);
 
                 that.chartBody = that.group.append("g")
-                            .attr("clip-path", "url(#clip)");
+                            .attr("clip-path", "url(#clip)")
+                            // .style("-moz-clip-path","url(#clip)");
 
                 return this;
             },
@@ -269,6 +283,8 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                         .append('svg')
                         .attr('width',that.w)
                         .attr('height',50)
+                        .attr("preserveAspectRatio", "xMinYMin")
+                        .attr("viewBox", "0 0 " + that.w + " " + "50")
                         .attr('class','legends')
                         .attr('id','legendscontainer');
                     
