@@ -353,8 +353,8 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     chartObject.axis_x_value_format = PykCharts.boolean(options.axis_x_enable) && options.axis_x_value_format ? options.axis_x_value_format : multiDimensionalCharts.axis_x_value_format;
     chartObject.axis_x_pointer_values = PykCharts.boolean(options.axis_x_enable) && options.axis_x_pointer_values ? options.axis_x_pointer_values : multiDimensionalCharts.axis_x_pointer_values;
     chartObject.axis_x_outer_pointer_size = "axis_x_outer_pointer_size" in options && PykCharts.boolean(options.axis_x_enable) ? options.axis_x_outer_pointer_size : multiDimensionalCharts.axis_x_outer_pointer_size;
-    chartObject.axis_x_time_value_type = PykCharts.boolean(options.axis_x_enable) && options.axis_x_time_value_type ? options.axis_x_time_value_type : multiDimensionalCharts.axis_x_time_value_type;
-    chartObject.axis_x_time_value_unit = PykCharts.boolean(options.axis_x_enable) && options.axis_x_time_value_unit ? options.axis_x_time_value_unit : multiDimensionalCharts.axis_x_time_value_unit;
+    chartObject.axis_x_time_value_datatype = PykCharts.boolean(options.axis_x_enable) && options.axis_x_time_value_datatype ? options.axis_x_time_value_datatype : multiDimensionalCharts.axis_x_time_value_datatype;
+    chartObject.axis_x_time_value_interval = PykCharts.boolean(options.axis_x_enable) && options.axis_x_time_value_interval ? options.axis_x_time_value_interval : multiDimensionalCharts.axis_x_time_value_interval;
     
     chartObject.axis_y_enable = options.axis_y_enable ? options.axis_y_enable : multiDimensionalCharts.axis_y_enable;
     chartObject.axis_y_title = PykCharts.boolean(options.axis_y_enable) && options.axis_y_title ? options.axis_y_title : multiDimensionalCharts.axis_y_title;
@@ -368,8 +368,8 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     chartObject.axis_y_value_format = PykCharts.boolean(options.axis_y_enable) && options.axis_y_value_format ? options.axis_y_value_format : multiDimensionalCharts.axis_y_value_format;
     chartObject.axis_y_pointer_values = PykCharts.boolean(options.axis_y_enable) && options.axis_y_pointer_values ? options.axis_y_pointer_values : multiDimensionalCharts.axis_y_pointer_values;
     chartObject.axis_y_outer_pointer_size = "axis_y_outer_pointer_size" in options && PykCharts.boolean(options.axis_y_enable) ? options.axis_y_outer_pointer_size : multiDimensionalCharts.axis_y_outer_pointer_size;
-    chartObject.axis_y_time_value_type = PykCharts.boolean(options.axis_y_enable) && options.axis_y_time_value_type ? options.axis_y_time_value_type : multiDimensionalCharts.axis_y_time_value_type;
-    chartObject.axis_y_time_value_unit = PykCharts.boolean(options.axis_y_enable) && options.axis_y_time_value_unit ? options.axis_y_time_value_unit : multiDimensionalCharts.axis_y_time_value_unit;
+    chartObject.axis_y_time_value_datatype = PykCharts.boolean(options.axis_y_enable) && options.axis_y_time_value_datatype ? options.axis_y_time_value_datatype : multiDimensionalCharts.axis_y_time_value_datatype;
+    chartObject.axis_y_time_value_interval = PykCharts.boolean(options.axis_y_enable) && options.axis_y_time_value_interval ? options.axis_y_time_value_interval : multiDimensionalCharts.axis_y_time_value_interval;
     
     chartObject.legends_enable =  options.legends_enable ? options.legends_enable : multiDimensionalCharts.legends_enable;
     chartObject.legends_display = options.legends_display ? options.legends_display : multiDimensionalCharts.legends_display;

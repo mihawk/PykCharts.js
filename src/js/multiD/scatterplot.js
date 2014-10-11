@@ -272,7 +272,6 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
 
                 that.chartBody = that.group.append("g")
                             .attr("clip-path", "url(#clip)")
-                            // .style("-moz-clip-path","url(#clip)");
 
                 return this;
             },
@@ -374,16 +373,21 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                     that.xdomain = that.x.domain();
                     that.ydomain = that.yScale.domain();
                     that.x1 = 1;
-                    that.y1 = 4;
+                    that.y1 = 12;
                     that.count = 1;
                     var zoom = d3.behavior.zoom()
                             .x(that.x)
                             .y(that.yScale)
                             .scaleExtent([that.x1, that.y1])
                             .on("zoom",zoomed);
+                    // console.log($("#svgcontainer0 .dot"));
+                     // $("#svgcontainer0 .dot").dblclick(function(){
+                     //    console.log(d3.event,"d33333 eeee");
+                     //    // console.log("heyyyyyyyy");
+                     //    return false;
+                     // })
 
                     if(PykCharts.boolean(that.zoom_enable) && !(that.yAxisDataFormat==="string" || that.xAxisDataFormat==="string") && (that.mode === "default") ) {                                           
-                            // console.log("hey hello m in zoom",that.x.domain(),that.yScale.domain(),i);
                         var n;
                         if(PykCharts.boolean(that.multiple_containers_enable)) {
                             n = that.no_of_groups;
@@ -393,7 +397,11 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
 
                         for(var i = 0; i < that.no_of_groups; i++) {
                             d3.select(that.selector+ " #svgcontainer" +i)
-                                .call(zoom);
+                                .call(zoom)
+
+                            d3.select(that.selector+ " #svgcontainer" +i)
+                                .on("wheel.zoom", null)
+                                .on("mousewheel.zoom", null);
                         }
                     }
                     that.optionalFeatures().plotCircle();
@@ -585,7 +593,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
             plotCircle : function () {
 
                 that.circlePlot = that.chartBody.selectAll(".dot")
-                                     .data(that.new_data);
+                                     .data(that.new_data)
 
                 that.circlePlot.enter()
                             .append("circle")
@@ -617,7 +625,19 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                     })
                     .on('mousemove', function (d) {
                         that.mouseEvent.tooltipPosition(d);
+                    })
+                    .on("dblclick",function() {
+                        d3.event.stopPropagation();
+                    })
+                    .on("mousedown",function() {
+                        console.log(d3.event,"d3 event");
+                        d3.event.stopPropagation();
                     });
+                // console.log($("#svgcontainer0 .dot"));
+                // $("#svgcontainer0 .dot").dblclick(function(){
+                //     console.log("heyyyyyyyy");
+                //     return false;
+                // })
 
                 that.circlePlot.exit().remove();
                 return this;
@@ -677,7 +697,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
         for(var i = 0; i < n; i++) {
             var containerId = id.substring(0,idLength-1);
 
-            current_container = d3.select(that.selector+" #"+containerId +i);
+            current_container = d3.select(that.selector+" #"+containerId +i)
             
             that.k.isOrdinal(current_container,".x.axis",that.x);
             that.k.isOrdinal(current_container,".x.grid",that.x);
@@ -704,22 +724,21 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
         }
         that.count++;
         console.log("counttttt",that.count);
-        if(that.count === 6) {
+        if(that.count === 10) {
             console.log("zoomed_out");
             d3.select(that.selector+" #"+containerId +i)
                 .call(function () {
                     return that.zoomOut();
                 });
             that.count = 1;
-       }
-        
+       }        
     };
 
     that.zoomOut=function () {
         console.log("zoomOut");
         that.zoomed_out = true;
         that.x1 = 1;
-        that.y1 = 8;
+        that.y1 = 12;
 
         that.optionalFeatures().createChart()
             .label();
