@@ -144,14 +144,14 @@ PykCharts.multiD.areaChart = function (options){
 				}
 
 				that.clip = that.svgContainer.append("svg:clipPath")
-				    .attr("id","clip")
+				    .attr("id","clip" + i + that.selector)
 				    .append("svg:rect")
 				    .attr("width", that.w)
 				    .attr("height", that.h);
 
 				that.chartBody = that.svgContainer.append("g")
 					.attr("id","clipPath")
-					.attr("clip-path", "url(#clip)")
+					.attr("clip-path", "url(#clip" + i + that.selector + " )")
 					.attr("transform","translate("+ that.margin_left +","+ that.margin_top +")");
 
 				that.stack_layout = d3.layout.stack()

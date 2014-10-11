@@ -209,12 +209,14 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                 .xAxisTitle(that.xGroup)
                 .yAxisTitle(that.yGroup);
         }
-        if(type === "scatterplot" && PykCharts.boolean(that.legends_enable) && PykCharts.boolean(that.size_enable) && that.map_group_data[1]) {
-            $(window).on("load", function () { return that.k.resize(that.svgContainer,that.legendsContainer); })
-                        .on("resize", function () { return that.k.resize(that.svgContainer,that.legendsContainer); });
-        } else {
-            $(window).on("load", function () { return that.k.resize(that.svgContainer); })
-                        .on("resize", function () { return that.k.resize(that.svgContainer); });
+        if(!PykCharts.boolean(that.multiple_containers_enable)) {
+            if(type === "scatterplot" && PykCharts.boolean(that.legends_enable) && PykCharts.boolean(that.size_enable) && that.map_group_data[1]) {
+                $(window).on("load", function () { return that.k.resize(that.svgContainer,that.legendsContainer); })
+                            .on("resize", function () { return that.k.resize(that.svgContainer,that.legendsContainer); });
+            } else {
+                $(window).on("load", function () { return that.k.resize(that.svgContainer); })
+                            .on("resize", function () { return that.k.resize(that.svgContainer); });
+            }
         }
     };
 
@@ -265,13 +267,13 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                 // }
 
                 that.clip = that.group.append("svg:clipPath")
-                            .attr("id", "clip")
+                            .attr("id", "clip" + i + that.selector)
                             .append("svg:rect")
                             .attr("width",(that.w-that.margin_left-that.margin_right))
                             .attr("height", that.height-that.margin_top-that.margin_bottom);
 
                 that.chartBody = that.group.append("g")
-                            .attr("clip-path", "url(#clip)")
+                            .attr("clip-path", "url(#clip" + i + that.selector + " )")
 
                 return this;
             },

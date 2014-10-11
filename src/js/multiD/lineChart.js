@@ -183,6 +183,10 @@ PykCharts.multiD.lineChart = function (options){
 			that.k.xAxis(that.svgContainer,that.xGroup,that.xScale,that.extra_left_margin,that.xdomain)
 					.yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain);
 		}
+		if(!PykCharts.boolean(that.multiple_containers_enable)) {
+            $(window).on("load", function () { return that.k.resize(that.svgContainer); })
+                        .on("resize", function () { return that.k.resize(that.svgContainer); });
+        }
 		that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
 	};
 
@@ -258,7 +262,9 @@ PykCharts.multiD.lineChart = function (options){
 					.append("svg:svg")
 					.attr("id","svg-" + i)
 					.attr("width",that.w)
-					.attr("height",that.height);
+					.attr("height",that.height)
+					.attr("preserveAspectRatio", "xMinYMin")
+                    .attr("viewBox", "0 0 " + that.w + " " + that.height);
 
 				that.group = that.svgContainer.append("g")
 					.attr("id","chartsvg")
@@ -276,14 +282,14 @@ PykCharts.multiD.lineChart = function (options){
 				}
 
 				that.clip = that.svgContainer.append("svg:clipPath")
-					.attr("id","clip")
+					.attr("id","clip" + i + that.selector)
 					.append("svg:rect")
 					.attr("width", that.reducedWidth)
 					.attr("height", that.reducedHeight);
 
 				that.chartBody = that.svgContainer.append("g")
 					.attr("id","clipPath")
-					.attr("clip-path", "url(#clip)")
+					.attr("clip-path", "url(#clip" + i + that.selector + ")")
 					.attr("transform","translate("+ that.margin_left +","+ that.margin_top +")");
 
 				return this;
