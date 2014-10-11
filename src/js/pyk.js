@@ -756,6 +756,7 @@ PykCharts.Configuration = function (options){
             }
         },
         resize : function (svg,lsvg) {
+            console.log(options.selector)
             var aspect = (options.width/options.height);
             var targetWidth = $(options.selector).width();
             if(targetWidth > options.width) {
@@ -766,7 +767,7 @@ PykCharts.Configuration = function (options){
             if(PykCharts.boolean(options.title_text)) {
                 $(options.selector + " #title").css("width", targetWidth);
             }
-            if(PykCharts.boolean(options.sub-title)) {
+            if(PykCharts.boolean(options.subtitle_text)) {
                 $(options.selector + " #sub-title").css("width", targetWidth);
             }
             if(lsvg !== undefined) {

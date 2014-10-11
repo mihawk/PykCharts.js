@@ -79,6 +79,8 @@ PykCharts.multiD.areaChart = function (options){
 					.yAxisTitle(that.yGroup);
   		}
   		that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
+  		$(window).on("load", function () { return that.k.resize(that.svgContainer); })
+                        .on("resize", function () { return that.k.resize(that.svgContainer); });
 	};
 
 	this.refresh = function (){
@@ -126,7 +128,9 @@ PykCharts.multiD.areaChart = function (options){
 				that.svgContainer = d3.select(options.selector+" "+"#tooltip-svg-container-"+i).append("svg:svg")
 					.attr("id","svg-"+i)
 					.attr("width",that.width)
-					.attr("height",that.height);
+					.attr("height",that.height)
+					.attr("preserveAspectRatio", "xMinYMin")
+                    .attr("viewBox", "0 0 " + that.width + " " + that.height);
 
 				that.group = that.svgContainer.append("g")
 					.attr("id","chartsvg")

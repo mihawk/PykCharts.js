@@ -49,6 +49,7 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
     chartObject.mode = options.mode ? options.mode : stylesheet.mode;
 
     if (options &&  PykCharts.boolean (options.title_text)) {
+        chartObject.title_text = options.title_text;
         chartObject.title_size = "size" in options ? options.title_size : stylesheet.title_size;
         chartObject.title_color = options.title_color ? options.title_color : stylesheet.title_color;
         chartObject.title_weight = options.title_weight ? options.title_weight : stylesheet.title_weight;
@@ -61,6 +62,7 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
     }
 
     if (options && PykCharts.boolean(options.subtitle_text)) {
+        chartObject.subtitle_text = options.subtitle_text
         chartObject.subtitle_size = "subtitle_size" in options ? options.subtitle_size : stylesheet.subtitle_size;
         chartObject.subtitle_color = options.subtitle_color ? options.subtitle_color : stylesheet.subtitle_color;
         chartObject.subtitle_weight = options.subtitle_weight ? options.subtitle_weight : stylesheet.subtitle_weight;
@@ -75,7 +77,8 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
     chartObject.realTimeCharts_enableLastUpdatedAt = options.realTimeCharts_enableLastUpdatedAt ? options.realTimeCharts_enableLastUpdatedAt : functionality.realTimeCharts_enableLastUpdatedAt;
     chartObject.creditMySite_name = options.creditMySite_name ? options.creditMySite_name : stylesheet.creditMySite_name;
     chartObject.creditMySite_url = options.creditMySite_url ? options.creditMySite_url : stylesheet.creditMySite_url;
-    chartObject.dataSource = options.dataSource ? options.dataSource : "no";
+    chartObject.dataSource_name = options.dataSource_name ? options.dataSource_name : "";
+    chartObject.dataSource_url = options.dataSource_url ? options.dataSource_url : "";
     chartObject.clubData_enable = options.clubData_enable ? options.clubData_enable : oneDimensionalCharts.clubData_enable;
     chartObject.clubData_text = PykCharts.boolean(options.clubData_enable) && options.clubData_text ? options.clubData_text : oneDimensionalCharts.clubData_text;
     chartObject.clubData_maximumNodes = PykCharts.boolean(options.clubData_maximumNodes) && options.clubData_maximumNodes ? options.clubData_maximumNodes : oneDimensionalCharts.clubData_maximumNodes;

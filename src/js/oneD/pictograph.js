@@ -75,6 +75,8 @@ PykCharts.oneD.pictograph = function (options) {
                 .credits()
                 .dataSource();
         }
+        $(window).on("load", function () { return that.k.resize(that.svgContainer); })
+                            .on("resize", function () { return that.k.resize(that.svgContainer); });
     };
 
     this.optionalFeatures = function () {
@@ -85,7 +87,9 @@ PykCharts.oneD.pictograph = function (options) {
 
                 that.svgContainer = d3.select(options.selector).append('svg')
                     .attr("width",that.width)
-                    .attr("height",that.height);
+                    .attr("height",that.height)
+                    .attr("preserveAspectRatio", "xMinYMin")
+                    .attr("viewBox", "0 0 " + that.width + " " + that.height);
 
                 that.group = that.svgContainer.append("g")
                     .attr("transform", "translate(" + that.imageWidth + ",0)");

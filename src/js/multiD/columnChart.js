@@ -105,6 +105,13 @@ PykCharts.multiD.columnChart = function(options){
             that.k.yAxis(that.svgContainer,that.ygroup,that.yScaleInvert)
                  .yAxisTitle(that.yGroup);
         }
+        if(PykCharts.boolean(that.legends_enable)) {
+            $(window).on("load", function () { return that.k.resize(that.svgContainer,that.legendsContainer); })
+                .on("resize", function () { return that.k.resize(that.svgContainer,that.legendsContainer); });
+        } else {
+            $(window).on("load", function () { return that.k.resize(that.svgContainer); })
+                .on("resize", function () { return that.k.resize(that.svgContainer); });
+        }
     };
 
     this.optionalFeatures = function() {
@@ -118,7 +125,9 @@ PykCharts.multiD.columnChart = function(options){
                     .attr("height",that.height)
                     .attr("id","svgcontainer")
                     .attr("class","svgcontainer")
-                    .style("background-color",that.bg);
+                    .style("background-color",that.bg)
+                    .attr("preserveAspectRatio", "xMinYMin")
+                    .attr("viewBox", "0 0 " + that.width + " " + that.height);
 
                 that.group = that.svgContainer.append("g")
                     .attr("id","svggroup")
@@ -140,7 +149,9 @@ PykCharts.multiD.columnChart = function(options){
                         .attr("width",that.width)
                         .attr("height",50)
                         .attr("class","legendscontainer")
-                        .attr("id","legendscontainer");
+                        .attr("id","legendscontainer")
+                        .attr("preserveAspectRatio", "xMinYMin")
+                        .attr("viewBox", "0 0 " + that.width + " 50");
 
                     that.legendsGroup = that.legendsContainer.append("g")
                         .attr("id","legends")
@@ -417,7 +428,7 @@ PykCharts.multiD.columnChart = function(options){
                         return d.name;
                     });
 
-                    params = jQuery.unique(params);
+                    params = _.uniq(params);
                     var j = 0,k = 0;
                     j = params.length;
                     k = params.length;

@@ -71,6 +71,8 @@ PykCharts.oneD.treemap = function (options){
                 .credits()
                 .dataSource();
         }
+        $(window).on("load", function () { return that.k.resize(that.svgContainer); })
+                            .on("resize", function () { return that.k.resize(that.svgContainer); });
     };
 
     this.optionalFeatures = function (){
@@ -81,6 +83,8 @@ PykCharts.oneD.treemap = function (options){
                 that.svgContainer = d3.select(that.selector).append("svg:svg")
                     .attr("width",that.width)
                     .attr("height",that.height)
+                    .attr("preserveAspectRatio", "xMinYMin")
+                    .attr("viewBox", "0 0 " + that.width + " " + that.height)
                     .attr("id","svgcontainer")
                     .attr("class","svgcontainer");
 

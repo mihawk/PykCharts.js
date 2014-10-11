@@ -111,7 +111,7 @@ PykCharts.multiD.lineChart = function (options){
 					that.optionalFeature()
 							.chartType()
 							.svgContainer(i);
-
+					console.log(that.new_data1);
 					that.k.crossHair(that.svgContainer,1,that.fill_data,that.fillColor);
 
 					that.optionalFeature()
@@ -535,6 +535,7 @@ PykCharts.multiD.lineChart = function (options){
 							    .transition()		
 								    .duration(that.transitions.duration())						    
 								    .attrTween("d", function (d) {
+								    	console.log(that.new_data1);
 								    	var interpolate = d3.scale.quantile()
 							                .domain([0,1])
 							                .range(d3.range(1, that.new_data1.data.length + 1));
