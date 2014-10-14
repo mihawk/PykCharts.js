@@ -111,7 +111,6 @@ PykCharts.multiD.lineChart = function (options){
 					that.optionalFeature()
 							.chartType()
 							.svgContainer(i);
-					console.log(that.new_data1);
 					that.k.crossHair(that.svgContainer,1,that.fill_data,that.fillColor);
 
 					that.optionalFeature()
@@ -184,8 +183,11 @@ PykCharts.multiD.lineChart = function (options){
 					.yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain);
 		}
 		if(!PykCharts.boolean(that.multiple_containers_enable)) {
-            $(window).on("load", function () { return that.k.resize(that.svgContainer); })
-                        .on("resize", function () { return that.k.resize(that.svgContainer); });
+            $(window).on("load", function () { return that.k.resize(that.svgContainer,"yes"); })
+                        .on("resize", function () { return that.k.resize(that.svgContainer,"yes"); });
+        } else {
+        	$(window).on("load", function () { return that.annotation(); })
+                        .on("resize", function () { return that.annotation(); });
         }
 		that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
 	};
@@ -257,7 +259,7 @@ PykCharts.multiD.lineChart = function (options){
 					$(that.selector).attr("class","PykCharts-twoD PykCharts-line-chart");
 				}
 				$(that.selector).css({"background-color":that.bg,"position":"relative"});
-
+				
 				that.svgContainer = d3.select(that.selector+" #tooltip-svg-container-"+i)
 					.append("svg:svg")
 					.attr("id","svg-" + i)
@@ -363,7 +365,7 @@ PykCharts.multiD.lineChart = function (options){
 				          	that.xdomain.push(d.x);
 		          		});
 			        }
-			        console.log(that.new_data[0].data[2].x);
+			        // console.log(that.new_data[0].data[2].x);
 		          	that.extra_left_margin = 0;
 		      	}
 		      	
@@ -450,7 +452,6 @@ PykCharts.multiD.lineChart = function (options){
 					if(!PykCharts.boolean(that.multiple_containers_enable)) {
 						var i;
 						for (i = 0;i < that.new_data_length;i++) {
-							console.log(i);
 							var type = that.type + "-svg-" + i;
 							that.dataLineGroup[i] = that.chartBody.append("path");
 							var data = that.new_data[i].data;
@@ -531,18 +532,20 @@ PykCharts.multiD.lineChart = function (options){
 							    .attr("transform", "translate("+ that.extra_left_margin +",0)")
 							    .style("stroke", function (d,i) {
 										return that.fillColor.colorPieMS(that.new_data[index]); 
-								})
-							    .transition()		
+								});
+						function tra(i) {
+							that.dataLineGroup[0].transition()		
 								    .duration(that.transitions.duration())						    
 								    .attrTween("d", function (d) {
-								    	console.log(that.new_data1);
 								    	var interpolate = d3.scale.quantile()
 							                .domain([0,1])
-							                .range(d3.range(1, that.new_data1.data.length + 1));
+							                .range(d3.range(1, that.new_data[i].data.length + 1));
 										        return function(t) {
-										            return that.chart_path(that.new_data1.data.slice(0, interpolate(t)));
+										            return that.chart_path(that.new_data[i].data.slice(0, interpolate(t)));
 										        };
 								    });
+						}
+						tra(index);
 					}
 
 					if(that.type === "lineChart" && that.mode === "default") {
@@ -689,7 +692,8 @@ PykCharts.multiD.lineChart = function (options){
 						annotation.push({
 							annotation : d.annotation,
 							x : d.x,
-							y : d.y 
+							y : d.y,
+							svgid : "#svg-1"
 						})
 					}
 				});
@@ -730,7 +734,8 @@ PykCharts.multiD.lineChart = function (options){
 						annotation.push({
 							annotation : d.annotation,
 							x : d.x,
-							y : d.y 
+							y : d.y,
+							svgid : "#svg-" + i
 						})
 					}
 				});
@@ -741,7 +746,6 @@ PykCharts.multiD.lineChart = function (options){
 
                 anno.attr("class", "linechart-arrows")
                     .attr("d", function (d,i) {
-                    	console.log(annotation);
                     	var a = [
                     		{
                     			x:parseInt(that.xScale(d.x)-(arrow_size*0.5))+that.extra_left_margin+that.margin_left,

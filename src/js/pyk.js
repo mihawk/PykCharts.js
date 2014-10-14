@@ -149,7 +149,6 @@ PykCharts.Configuration = function (options){
         emptyDiv : function () {
             d3.select(options.selector).append("div")
                 .style("clear","both");
-
         },
         scaleIdentification : function (type,data,range,x) {
             var scale;
@@ -339,6 +338,7 @@ PykCharts.Configuration = function (options){
         makeMainDiv : function (selection,i) {
             var d = d3.select(selection).append("div")
                 .attr("id","tooltip-svg-container-"+i)
+                .attr("class","main-div")
                 .style("width",options.width);
             if(PykCharts.boolean(options.multiple_containers_enable)){
                 d.style("float","left")
@@ -417,19 +417,39 @@ PykCharts.Configuration = function (options){
                     $(options.selector+" #"+ d1[0].parentNode.id +"-tooltip"+i).remove();
                 }
                 var position = $(d).offset();
-                var container_position = $(options.selector).offset();
-                var tooltip = d3.select(options.selector)
-                    .append("div").attr("id", d1[0].parentNode.id+"-tooltip"+i)
-                    .style("position", "absolute")
+                var svg_position_left = 0, svg_position_top=0;
+                if(PykCharts.boolean(options.multiple_containers_enable)) {
+                    svg_position_left = $(options.selector+" #"+ d1[0].parentNode.parentNode.id).offset().left /*- $(options.selector).offset().left*/;
+                    svg_position_top = $(options.selector+" #"+ d1[0].parentNode.parentNode.id).offset().top/* - $(options.selector).offset().top*/;
+                } else {
+                    svg_position_left = $(options.selector).offset().left;
+                    svg_position_top = $(options.selector).offset().top;
+                }
+                var grp = d3.select(options.selector+" #"+ d1[0].parentNode.id)
+                    .append("g")
+                    .attr("id",d1[0].parentNode.id+"-tooltip"+i);
+                var annotation_rect = grp
+                    .append("rect");
+                var annotation_text = grp
+                    .append("text")
+                    .attr("x",(position.left - svg_position_left))
+                    .attr("y", (position.top - svg_position_top) - 5)
+                    .attr("text-anchor","middle")
                     .style("z-index", "10")
-                    .style("visibility", "hidden")
-                    .style("background", "#eeeeee")
-                    .style("padding", "5px 10px")
-                    .style("border-radius", "0")
-                    .html($(d)[0].__data__.annotation).style("visibility", "visible");
-                tooltip
-                    .style("top", ((position.top -container_position.top) -$("#"+ d1[0].parentNode.id +"-tooltip"+i)[0].clientHeight) + "px")
-                    .style("left", ((position.left-container_position.left) -($("#"+ d1[0].parentNode.id +"-tooltip"+i)[0].clientWidth/2)) + "px");
+                    .text(function () {
+                        return $(d)[0].__data__.annotation;
+                    })
+                    .text(function () {
+                        w = this.getBBox().width + 20;
+                        h = this.getBBox().height + 10;
+                        return $(d)[0].__data__.annotation;
+                    });
+                
+                annotation_rect.attr("x",(position.left - svg_position_left) - (w/2))
+                    .attr("y", (position.top - svg_position_top) - (h))
+                    .attr("width",w)
+                    .attr("height",h)
+                    .attr("fill","#eeeeee");
 
             });
         },
@@ -755,8 +775,7 @@ PykCharts.Configuration = function (options){
                 return "string";
             }
         },
-        resize : function (svg,lsvg) {
-            console.log(options.selector)
+        resize : function (svg,anno,lsvg) {
             var aspect = (options.width/options.height);
             var targetWidth = $(options.selector).width();
             if(targetWidth > options.width) {
@@ -779,7 +798,10 @@ PykCharts.Configuration = function (options){
             }
             var b = $(options.selector + " .main-div");
             if(b && !(PykCharts.boolean(options.multiple_containers_enable))) {
-                b.css("width",targetWidth);
+                $(options.selector + " .main-div").css("width",targetWidth);
+            }
+            if(PykCharts.boolean(anno)) {
+                options.annotation;
             }
         },
         __proto__: {
