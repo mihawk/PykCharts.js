@@ -573,6 +573,7 @@ PykCharts.multiD.lineChart = function (options){
 								}
 							})
 							.on("mousemove", function(){
+
 								var line = [];
 								line[0] = d3.select(options.selector+" #"+this.id+" .multi-line");
 								that.mouseEvent.crossHairPosition(that.data,that.new_data,that.xScale,that.yScale,line,that.extra_left_margin,that.xdomain,that.type,that.tooltipMode,that.color_from_data,that.multiple_containers_enable);
@@ -692,8 +693,7 @@ PykCharts.multiD.lineChart = function (options){
 						annotation.push({
 							annotation : d.annotation,
 							x : d.x,
-							y : d.y,
-							svgid : "#svg-1"
+							y : d.y
 						})
 					}
 				});
@@ -734,8 +734,7 @@ PykCharts.multiD.lineChart = function (options){
 						annotation.push({
 							annotation : d.annotation,
 							x : d.x,
-							y : d.y,
-							svgid : "#svg-" + i
+							y : d.y
 						})
 					}
 				});

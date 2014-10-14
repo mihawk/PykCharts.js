@@ -481,7 +481,8 @@ PykCharts.multiD.areaChart = function (options){
 		    that.svgContainer.select(that.selector+" #border-stacked-area"+i)
 				.attr("class","area-border")
 				.attr("d", that.chart_path_border);
-	    }
+	    }	
+	    that.annotation();
 	};
 
 	that.annotation = function () {
@@ -500,7 +501,7 @@ PykCharts.multiD.areaChart = function (options){
 					})
 				}
 			});
-			var anno = that.svgContainer.selectAll("linechart-arrows")
+			var anno = that.svgContainer.selectAll(that.selector + " .linechart-arrows")
                 .data(annotation)
             anno.enter()
                 .append("path")

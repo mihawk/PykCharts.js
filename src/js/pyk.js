@@ -422,8 +422,8 @@ PykCharts.Configuration = function (options){
                     svg_position_left = $(options.selector+" #"+ d1[0].parentNode.parentNode.id).offset().left /*- $(options.selector).offset().left*/;
                     svg_position_top = $(options.selector+" #"+ d1[0].parentNode.parentNode.id).offset().top/* - $(options.selector).offset().top*/;
                 } else {
-                    svg_position_left = $(options.selector).offset().left;
-                    svg_position_top = $(options.selector).offset().top;
+                    svg_position_left = $(options.selector+" #"+ d1[0].parentNode.parentNode.id).offset().left /*- $(options.selector).offset().left*/;
+                    svg_position_top = $(options.selector+" #"+ d1[0].parentNode.parentNode.id).offset().top/* - $(options.selector).offset().top*/;
                 }
                 var grp = d3.select(options.selector+" #"+ d1[0].parentNode.id)
                     .append("g")
@@ -443,13 +443,15 @@ PykCharts.Configuration = function (options){
                         w = this.getBBox().width + 20;
                         h = this.getBBox().height + 10;
                         return $(d)[0].__data__.annotation;
-                    });
+                    })
+                    .style("pointer-events","none");
                 
                 annotation_rect.attr("x",(position.left - svg_position_left) - (w/2))
                     .attr("y", (position.top - svg_position_top) - (h))
                     .attr("width",w)
                     .attr("height",h)
-                    .attr("fill","#eeeeee");
+                    .attr("fill","#eeeeee")
+                    .style("pointer-events","none");
 
             });
         },
@@ -801,7 +803,7 @@ PykCharts.Configuration = function (options){
                 $(options.selector + " .main-div").css("width",targetWidth);
             }
             if(PykCharts.boolean(anno)) {
-                options.annotation;
+                // options.annotation;
             }
         },
         __proto__: {
@@ -1005,12 +1007,11 @@ configuration.mouseEvent = function (options) {
                                         this.axisHighlightShow(active_x_tick,options.selector+" .x.axis",domain);
                                     }
                                     else if(multiple_containers_enable === "yes") {
-                                        var first_axis = $(options.selector+" #svg-0 #xaxis").offset().left;
-                                        var second_axis = $(options.selector+" #svg-1 #xaxis").offset().left;
-                                        var diff_containers = second_axis - first_axis;
                                         pos_line_cursor_x += 5;
                                         var len_data = new_data[0].data.length;
                                         for(var a=0;a < number_of_lines;a++) {
+                                            var left_offset = $(options.selector + " #svg-"+a).offset().left;
+                                            var top_offset = $(options.selector + " #svg-"+a).offset().top - $(options.selector).offset().top;
                                             for(var b=0;b < len_data;b++) {
                                                 if(options.xAxisDataFormat === "time") {
                                                     cond = Date.parse(active_x_tick)===Date.parse(new_data[a].data[b].x);
@@ -1021,7 +1022,7 @@ configuration.mouseEvent = function (options) {
                                                     active_y_tick.push(new_data[a].data[b].y);
                                                     tooltipText = new_data[a].data[b].tooltip;
                                                     pos_line_cursor_y = (yScale(new_data[a].data[b].y) + top);
-                                                    this.tooltipPosition(tooltipText,(pos_line_cursor_x+(a*diff_containers)),pos_line_cursor_y,-15,-15,a);
+                                                    this.tooltipPosition(tooltipText,(pos_line_cursor_x+left_offset),(pos_line_cursor_y+top_offset),-15,-15,a);
                                                     this.toolTextShow(tooltipText,multiple_containers_enable,type,a);
                                                     (options.enableCrossHair) ? this.crossHairShow(pos_line_cursor_x,top,pos_line_cursor_x,(h - bottom),pos_line_cursor_x,pos_line_cursor_y,type,active_y_tick.length,multiple_containers_enable,new_data[a],a) : null;
                                                 }
