@@ -278,7 +278,6 @@ PykCharts.Configuration = function (options){
         },
 	    credits : function () {
             if(PykCharts.boolean(options.creditMySite_name) || PykCharts.boolean(options.creditMySite_url)) {
-                // var credit = options.creditMySite;
                 var enable = true;
 
                 if(options.creditMySite_name === "") {
@@ -287,15 +286,9 @@ PykCharts.Configuration = function (options){
                 if(options.creditMySite_url === "") {
                     enable = false;
                 }
-
-                // if(credit.mySiteName === "") {
-                //     credit.mySiteName = credit.mySiteUrl;
-                // }
-                // if(credit.mySiteUrl === "") {
-                //     enable = false;
-                // }
                 d3.select(options.selector+" #footer").append("tr")
                     .attr("class","PykCharts-credits")
+                    .attr("id","credit-datasource")
                     .append("td")
                     .style("text-align","left")
                     .html("<span style='pointer-events:none;'>Credits: </span><a href='" +  options.creditMySite_url + "' target='_blank' onclick='return " + enable +"'>"+  options.creditMySite_name +"</a>");
@@ -305,21 +298,20 @@ PykCharts.Configuration = function (options){
 	        return this;
 	    },
 	    dataSource : function () {
-	        if( (PykCharts.boolean(options.dataSource_text) && PykCharts.boolean(options.dataSource_url))) {
+	        if( (PykCharts.boolean(options.dataSource_name) && PykCharts.boolean(options.dataSource_url))) {
                 var enable = true;
-                // var data_src = options.dataSource;
-                if(options.dataSource_text === "") {
-                    options.dataSource_text =options.dataSource_url;
+                if(options.dataSource_name === "") {
+                    options.dataSource_name =options.dataSource_url;
                 }
                 if(options.dataSource_url === "") {
                     enable = false;
                 }
                 if($(options.selector+" #footer").length) {
-                    d3.select(options.selector+" table tr")
+                    d3.select(options.selector+" table #credit-datasource")
                         .style("background", options.bg)
                         .append("td")
                         .style("text-align","right")
-                        .html("<span style='pointer-events:none;'>Source: </span><a href='" + options.dataSource_url + "' target='_blank' onclick='return " + enable +"'>"+ options.dataSource_text +"</a></tr>");
+                        .html("<span style='pointer-events:none;'>Source: </span><a href='" + options.dataSource_url + "' target='_blank' onclick='return " + enable +"'>"+ options.dataSource_name +"</a></tr>");
                 }
                 else {
                     d3.select(options.selector).append("table")
@@ -330,7 +322,7 @@ PykCharts.Configuration = function (options){
                         .attr("class","PykCharts-credits")
                         .append("td")
                         .style("text-align","right")
-                        .html("<span style='pointer-events:none;'>Source: </span><a href='" + options.dataSource_url + "' target='_blank' onclick='return " + enable +"'>"+ options.dataSource_text +"</a></tr>");
+                        .html("<span style='pointer-events:none;'>Source: </span><a href='" + options.dataSource_url + "' target='_blank' onclick='return " + enable +"'>"+ options.dataSource_name +"</a></tr>");
                 }
             }
 	        return this;

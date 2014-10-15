@@ -232,7 +232,7 @@ PykCharts.multiD.areaChart = function (options){
 				that.layers = that.stack_layout(that.new_data);
 
         		var x_domain,x_data = [],y_data,y_range,x_range,y_domain;
-
+        		that.cnt = 0;
 				if(that.yAxisDataFormat === "number") {
 					max = d3.max(that.layers, function(d) { return d3.max(d.data, function(k) { return k.y0 + k.y; }); });
 					min = 0;
@@ -297,11 +297,13 @@ PykCharts.multiD.areaChart = function (options){
 		        that.ydomain = that.yScale.domain();
 				that.zoom_event = d3.behavior.zoom()
 				    .y(that.yScale)
-				    .scaleExtent([1,2])
+				    .scaleExtent([1,4])
 				    .on("zoom", that.zoomed);
-
+				
 				if(PykCharts.boolean(that.zoom_enable)) {
 					that.svgContainer.call(that.zoom_event);
+					that.svgContainer.on("wheel.zoom", null)
+                    	.on("mousewheel.zoom", null);
 				}
 
 				that.chart_path = d3.svg.area()
@@ -474,6 +476,7 @@ PykCharts.multiD.areaChart = function (options){
 	    that.k.isOrdinal(that.svgContainer,".y.grid",that.yScale);
 
 	    for (i = 0;i < that.new_data_length;i++) {
+	    	
 	    	type = that.chartPathClass + i;
 	  	 	that.svgContainer.select(that.selector+" #"+type)
 	        	.attr("class", that.chartPathClass)
@@ -482,7 +485,19 @@ PykCharts.multiD.areaChart = function (options){
 				.attr("class","area-border")
 				.attr("d", that.chart_path_border);
 	    }	
+	    if(event.type === "dblclick") {
+	    	that.cnt++;
+	    }
+	    
 	    that.annotation();
+	    if(that.cnt === 3) {
+	    	that.optional_feature().createChart("liveData");
+	    	that.k.isOrdinal(that.svgContainer,".x.axis",that.xScale,that.xdomain,that.extra_left_margin);
+		    that.k.isOrdinal(that.svgContainer,".x.grid",that.xScale);
+		    that.k.isOrdinal(that.svgContainer,".y.axis",that.yScale,that.ydomain);
+		    that.k.isOrdinal(that.svgContainer,".y.grid",that.yScale);
+
+	    }
 	};
 
 	that.annotation = function () {
@@ -541,7 +556,7 @@ PykCharts.multiD.areaChart = function (options){
 					}
 				});
 			}
-			var anno = that.svgContainer.selectAll("linechart-arrows")
+			var anno = that.svgContainer.selectAll(".linechart-arrows")
                 .data(annotation)
             anno.enter()
                 .append("path")
