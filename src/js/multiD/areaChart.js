@@ -488,18 +488,23 @@ PykCharts.multiD.areaChart = function (options){
 	    if(event.type === "dblclick") {
 	    	that.cnt++;
 	    }
-	    
-	    that.annotation();
+	    that.mouseEvent.tooltipHide();
+		that.mouseEvent.crossHairHide(that.type);
+		that.mouseEvent.axisHighlightHide(that.selector + " .x.axis");
+		that.mouseEvent.axisHighlightHide(that.selector + " .y.axis");
 	    if(that.cnt === 3) {
-	    	that.optional_feature().createChart("liveData");
-	    	that.k.isOrdinal(that.svgContainer,".x.axis",that.xScale,that.xdomain,that.extra_left_margin);
-		    that.k.isOrdinal(that.svgContainer,".x.grid",that.xScale);
-		    that.k.isOrdinal(that.svgContainer,".y.axis",that.yScale,that.ydomain);
-		    that.k.isOrdinal(that.svgContainer,".y.grid",that.yScale);
+	    	that.zoomOut();
 
 	    }
+	    that.annotation();
 	};
-
+	that.zoomOut =  function () {
+		that.optional_feature().createChart("liveData");
+    	that.k.isOrdinal(that.svgContainer,".x.axis",that.xScale,that.xdomain,that.extra_left_margin);
+	    that.k.isOrdinal(that.svgContainer,".x.grid",that.xScale);
+	    that.k.isOrdinal(that.svgContainer,".y.axis",that.yScale,that.ydomain);
+	    that.k.isOrdinal(that.svgContainer,".y.grid",that.yScale);
+	}
 	that.annotation = function () {
 		that.line = d3.svg.line()
                 .interpolate('linear-closed')
