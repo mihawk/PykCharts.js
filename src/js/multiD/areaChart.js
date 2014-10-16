@@ -295,12 +295,19 @@ PykCharts.multiD.areaChart = function (options){
 		        }
 		        that.xdomain = that.xScale.domain();
 		        that.ydomain = that.yScale.domain();
-				that.zoom_event = d3.behavior.zoom()
-				    .y(that.yScale)
-				    .scaleExtent([1,4])
-				    .on("zoom", that.zoomed);
+				that.zoom_event = d3.behavior.zoom();
+		      	if(!(that.yAxisDataFormat==="string" || that.xAxisDataFormat==="string")) {
+		      		that.zoom_event.x(that.xScale)
+					    .y(that.yScale)
+					    .scaleExtent([1,4])
+					    .on("zoom",that.zoomed);
+				} else {
+					that.zoom_event.y(that.yScale)
+					    .scaleExtent([1,4])
+					    .on("zoom",that.zoomed);
+				}
 				
-				if(PykCharts.boolean(that.zoom_enable)) {
+				if(PykCharts.boolean(that.zoom_enable) && (that.mode === "default")) {					console.log
 					that.svgContainer.call(that.zoom_event);
 					that.svgContainer.on("wheel.zoom", null)
                     	.on("mousewheel.zoom", null);

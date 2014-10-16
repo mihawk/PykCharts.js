@@ -371,12 +371,19 @@ PykCharts.multiD.lineChart = function (options){
 		      	}
 		      	
 		      	that.cnt = 0;
-		      	that.zoom_event = d3.behavior.zoom()
-				    .y(that.yScale)
-				    .scaleExtent([1,4])
-				    .on("zoom",that.zoomed);
+		      	that.zoom_event = d3.behavior.zoom();
+		      	if(!(that.yAxisDataFormat==="string" || that.xAxisDataFormat==="string")) {
+		      		that.zoom_event.x(that.xScale)
+					    .y(that.yScale)
+					    .scaleExtent([1,4])
+					    .on("zoom",that.zoomed);
+				} else {
+					that.zoom_event.y(that.yScale)
+					    .scaleExtent([1,4])
+					    .on("zoom",that.zoomed);
+				}
 				
-				if(PykCharts.boolean(that.zoom_enable)) {
+				if(PykCharts.boolean(that.zoom_enable) && (that.mode === "default")) {
 					if(PykCharts.boolean(that.multiple_containers_enable)){
 						n = that.new_data_length;
 						j = 0;
