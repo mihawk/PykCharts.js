@@ -88,9 +88,9 @@ PykCharts.multiD.lineChart = function (options){
 	this.render = function () {
 		that.dataLineGroup = [],that.clicked;
 		that.multid = new PykCharts.multiD.configuration(that);
+		that.fillColor = new PykCharts.Configuration.fillChart(that,null,options);
 		if(that.mode === "default") {
 			that.transitions = new PykCharts.Configuration.transition(options);
-			that.fillColor = new PykCharts.Configuration.fillChart(that,null,options);
 
 			that.k.title()
 					.subtitle();

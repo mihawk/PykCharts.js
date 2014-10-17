@@ -306,14 +306,16 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                             .text(function (d,i) {
                                 if(type.toLowerCase() === "pie" || type.toLowerCase() === "election pie") {
                                     if(this.getBBox().width<((d.endAngle-d.startAngle)*((that.outer_radius/2)*0.9))) {
-                                        return that.k.appendUnits(d.data.weight);
+                                        return ((d.data.weight*100)/that.sum).toFixed(2)+"%"; 
+                                        // return that.k.appendUnits(d.data.weight);
                                     }
                                     else {
                                         return "";
                                     }
                                 } else {
                                     if((this.getBBox().width < (Math.abs(d.endAngle - d.startAngle)*that.outer_radius*0.9))  && (this.getBBox().height < (((that.outer_radius-that.inner_radius)*0.75)))) {
-                                        return that.k.appendUnits(d.data.weight);
+                                        return ((d.data.weight*100)/that.sum).toFixed(2)+"%";
+                                        // return that.k.appendUnits(d.data.weight);
                                     }
                                     else {
                                         return "";
