@@ -75,8 +75,15 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
     }
     chartObject.realTimeCharts_refreshFrequency = options.realTimeCharts_refreshFrequency ? options.realTimeCharts_refreshFrequency : functionality.realTimeCharts_refreshFrequency;
     chartObject.realTimeCharts_enableLastUpdatedAt = options.realTimeCharts_enableLastUpdatedAt ? options.realTimeCharts_enableLastUpdatedAt : functionality.realTimeCharts_enableLastUpdatedAt;
-    chartObject.creditMySite_name = options.creditMySite_name ? options.creditMySite_name : stylesheet.creditMySite_name;
-    chartObject.creditMySite_url = options.creditMySite_url ? options.creditMySite_url : stylesheet.creditMySite_url;
+
+    if(options.creditMySite_name || options.creditMySite_url) {
+        chartObject.creditMySite_name = options.creditMySite_name ? options.creditMySite_name : "";
+        chartObject.creditMySite_url = options.creditMySite_url ? options.creditMySite_url : "";
+    } else {
+        chartObject.creditMySite_name = stylesheet.creditMySite_name;
+        chartObject.creditMySite_url = stylesheet.creditMySite_url;
+    } 
+
     chartObject.dataSource_name = options.dataSource_name ? options.dataSource_name : "";
     chartObject.dataSource_url = options.dataSource_url ? options.dataSource_url : "";
     chartObject.clubData_enable = options.clubData_enable ? options.clubData_enable : oneDimensionalCharts.clubData_enable;

@@ -373,8 +373,14 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     chartObject.legends_enable =  options.legends_enable ? options.legends_enable : multiDimensionalCharts.legends_enable;
     chartObject.legends_display = options.legends_display ? options.legends_display : multiDimensionalCharts.legends_display;
 
-    chartObject.creditMySite_name = options.creditMySite_name ? options.creditMySite_name : stylesheet.creditMySite_name;
-    chartObject.creditMySite_url = options.creditMySite_url ? options.creditMySite_url : stylesheet.creditMySite_url;
+    if(options.creditMySite_name || options.creditMySite_url) {
+        chartObject.creditMySite_name = options.creditMySite_name ? options.creditMySite_name : "";
+        chartObject.creditMySite_url = options.creditMySite_url ? options.creditMySite_url : "";
+    } else {
+        chartObject.creditMySite_name = stylesheet.creditMySite_name;
+        chartObject.creditMySite_url = stylesheet.creditMySite_url;
+    } 
+
     chartObject.dataSource_name = options.dataSource_name ? options.dataSource_name : "";
     chartObject.dataSource_url = options.dataSource_url ? options.dataSource_url : "";
     chartObject.bg = options.backgroundColor ? options.backgroundColor : stylesheet.backgroundColor;
