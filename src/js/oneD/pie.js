@@ -4,9 +4,14 @@ PykCharts.oneD.pie = function (options) {
 
     this.execute = function() {
         that = new PykCharts.oneD.processInputs(that, options, "pie");
-        that.width = that.height < that.width ? that.height : that.width;
-        that.height = that.width;
-        console.log(that.height);
+        if(options.height) {
+            that.height = options.height;
+            that.calculation = "";
+        }
+        else {
+            that.height = that.width;
+            that.calculation = "pie";
+        }
         that.height_translate = that.height/2;
         that.radiusPercent = options.pie_radiusPercent && _.isNumber(options.pie_radiusPercent) ? options.pie_radiusPercent : theme.oneDimensionalCharts.pie_radiusPercent;
         // that.radiusPercent = options.optional && options.optional.pie && _.isNumber(options.optional.pie.radiusPercent) ? options.optional.pie.radiusPercent : theme.oneDimensionalCharts.pie.radiusPercent;
@@ -33,8 +38,14 @@ PykCharts.oneD.donut = function (options) {
     this.execute = function() {
         
         that = new PykCharts.oneD.processInputs(that, options, "pie");
-        that.width = that.height < that.width ? that.height : that.width;
-        that.height = that.width;
+        if(options.height) {
+            that.height = options.height;
+            that.calculation = "";
+        }
+        else {
+            that.height = that.width;
+            that.calculation = "pie";
+        }
         that.height_translate = that.height/2;
         that.radiusPercent = options.donut_radiusPercent && _.isNumber(options.donut_radiusPercent) ? options.donut_radiusPercent : theme.oneDimensionalCharts.donut_radiusPercent;
         that.innerRadiusPercent = options.donut_innerRadiusPercent && _.isNumber(options.donut_innerRadiusPercent) ? options.donut_innerRadiusPercent : theme.oneDimensionalCharts.donut_innerRadiusPercent;
@@ -59,9 +70,16 @@ PykCharts.oneD.election_pie = function (options) {
     this.execute = function() {
 
         that = new PykCharts.oneD.processInputs(that, options, "pie");
-        that.width = that.height < that.width ? that.height : that.width;
-        that.height = (that.width)/2;
-        that.height_translate = that.height;
+        if(options.height) {
+            that.height = options.height;
+            that.calculation = "";
+            that.height_translate = that.height/2;
+        }
+        else {
+            that.height = that.width/2;
+            that.calculation = "pie";
+            that.height_translate = that.height;
+        }
         that.radiusPercent = options.pie_radiusPercent && _.isNumber(options.pie_radiusPercent) ? options.pie_radiusPercent : theme.oneDimensionalCharts.pie_radiusPercent;
         that.innerRadiusPercent = 0;
         d3.json(options.data, function (e, data) {
@@ -82,10 +100,17 @@ PykCharts.oneD.election_donut = function (options) {
 
     this.execute = function() {
         that = new PykCharts.oneD.processInputs(that, options, "pie");
-        that.width = that.height < that.width ? that.height : that.width;
-        that.height = (that.width)/2;
-        console.log(that.height)
-        that.height_translate = that.height;
+        if(options.height) {
+            that.height = options.height;
+            that.calculation = "";
+            that.height_translate = that.height/2;
+        }
+        else {
+            that.height = that.width/2;
+            that.calculation = "pie";
+            that.height_translate = that.height;
+        }
+        
         that.radiusPercent = options.donut_radiusPercent && _.isNumber(options.donut_radiusPercent) ? options.donut_radiusPercent : theme.oneDimensionalCharts.donut_radiusPercent;
         that.innerRadiusPercent = options.donut_innerRadiusPercent && _.isNumber(options.donut_innerRadiusPercent) && options.donut_innerRadiusPercent ? options.donut_innerRadiusPercent : theme.oneDimensionalCharts.donut_innerRadiusPercent;
 
@@ -227,8 +252,8 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                 // var proportion =_.map(that.new_data,function (d,i) {
                 //     return d.weight*100/that.sum;
                 // });
-                that.inner_radius = that.k._radiusCalculation(that.innerRadiusPercent,"pie");
-                that.outer_radius = that.k._radiusCalculation(that.radiusPercent,"pie");
+                that.inner_radius = that.k._radiusCalculation(that.innerRadiusPercent,that.calculation);
+                that.outer_radius = that.k._radiusCalculation(that.radiusPercent,that.calculation);
 
                 that.arc = d3.svg.arc()
                     .innerRadius(that.inner_radius)

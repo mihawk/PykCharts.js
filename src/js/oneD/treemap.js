@@ -6,7 +6,7 @@ PykCharts.oneD.treemap = function (options){
         optional = options.optional;
         // that.enableText = optional && PykCharts.boolean(optional.enableText) ? optional.enableText : false;
         that.selector = options.selector;
-
+        that.height = options.chart_height ? options.chart_height : that.width;
         if(that.mode === "default") {
            that.k.loading();
         }
