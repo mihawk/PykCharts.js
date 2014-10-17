@@ -1,52 +1,52 @@
-[			
+[
 	{
 		"name":"India",
 		"x":1,
 		"y":30,
-		"color":"green",
+		"color":"steelblue",
 		"tooltip":30
 	},
 	{
 		"name":"India",
 		"x":3,
 		"y":53,
-		"color":"green",
+		"color":"steelblue",
 		"tooltip":53
-	},	
+	},
 	{
 		"name":"India",
 		"x":5,
 		"y":30,
 		"tooltip":30,
-		"color":"green",
+		"color":"steelblue",
 		"tooltip":30
 	},
 	{
 		"name":"India",
 		"x":7,
 		"y":40,
-		"color":"green",
+		"color":"steelblue",
 		"tooltip":40
 	},
 	{
 		"name":"India",
 		"x":9,
 		"y":50,
-		"color":"green",
+		"color":"steelblue",
 		"tooltip":50
 	},
 	{
 		"name":"India",
 		"x":11,
 		"y":40,
-		"color":"green",
+		"color":"steelblue",
 		"tooltip":40
 	},
 	{
 		"name":"India",
 		"x":13,
 		"y":70,
-		"color":"green",
+		"color":"steelblue",
 		"tooltip":70
 	}
 ]
