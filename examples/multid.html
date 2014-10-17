@@ -48,6 +48,7 @@
         <script src="../lib/canvg.js"></script> 
         <script src="../lib/svgToPdf.js"></script>                
 -->
+        <script src="../src/js/init.js"></script>
         <script src="../src/js/pyk.js"></script>
         <script src="../src/js/multiD/multiD.js"></script>
         <script src="../src/js/multiD/columnChart.js"></script>
@@ -60,7 +61,7 @@
 
         <script>
 
-            $(document).ready(function (e) {                
+            window.PykChartsInit = function (e) {             
                 var k = new PykCharts.multiD.lineChart ({
                     selector: "#line",
                     data: "../data/line_timescale.json",
@@ -832,7 +833,7 @@
                     highlight: "January"
                   });
                 k.execute();
-            });
+            };
         </script>
     </body>
 </html>
