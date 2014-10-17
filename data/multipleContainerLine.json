@@ -3,21 +3,21 @@
 		"name":"China",
 		"x":"Bank",
 		"y":120,
-		"color": "",
+		"color": "#013f73",
 		"tooltip":120
 	},
 	{
 		"name":"China",
 		"x":"IT",
 		"y":100,
-		"color": "",
+		"color": "#013f73",
 		"tooltip":100
 	},
 	{
 		"name":"China",
 		"x":"Cables",
 		"y":30,
-		"color": "",
+		"color": "#013f73",
 		"tooltip":30,
 		"annotations" : "abc"
 	},
@@ -25,35 +25,35 @@
 		"name":"China",
 		"x":"Crude Oil",
 		"y":40,
-		"color": "",
+		"color": "#013f73",
 		"tooltip":40
 	},
 	{
 		"name":"China",
 		"x":"Diamond",
 		"y":60,
-		"color": "",
+		"color": "#013f73",
 		"tooltip":60
 	},
 	{
 		"name":"China",
 		"x":"Healthcare",
 		"y":70,
-		"color": "",
+		"color": "#013f73",
 		"tooltip":70
 	},
 	{
 		"name":"China",
 		"x":"Automobile",
 		"y":30,
-		"color": "",
+		"color": "#013f73",
 		"tooltip":30
 	},
 	{
 		"name":"U.S.A.",
 		"x":"Bank",
 		"y":70,
-		"color": "",
+		"color": "#4682b4",
 		"tooltip":70,
 		"annotations" : "hey"
 	},
@@ -61,21 +61,21 @@
 		"name":"U.S.A.",
 		"x":"IT",
 		"y":100,
-		"color": "",
+		"color": "#4682b4",
 		"tooltip":100
 	},
 	{
 		"name":"U.S.A.",
 		"x":"Cables",
 		"y":50,
-		"color": "",
+		"color": "#4682b4",
 		"tooltip":50
 	},
 	{
 		"name":"U.S.A.",
 		"x":"Crude Oil",
 		"y":60,
-		"color": "",
+		"color": "#4682b4",
 		"tooltip":60,
 		"annotations" : "USA"
 	},
@@ -83,70 +83,70 @@
 		"name":"U.S.A.",
 		"x":"Diamond",
 		"y":30,
-		"color": "",
+		"color": "#4682b4",
 		"tooltip":30
 	},
 	{
 		"name":"U.S.A.",
 		"x":"Healthcare",
 		"y":40,
-		"color": "",
+		"color": "#4682b4",
 		"tooltip":40
 	},
 	{
 		"name":"U.S.A.",
 		"x":"Automobile",
 		"y":90,
-		"color": "",
+		"color": "#4682b4",
 		"tooltip":90
 	},
 	{
 		"name":"India",
 		"x":"Bank",
 		"y":50,
-		"color": "",
+		"color": "#75b0e1",
 		"tooltip":50
 	},
 	{
 		"name":"India",
 		"x":"IT",
 		"y":30,
-		"color": "",
+		"color": "#75b0e1",
 		"tooltip":30
 	},
 	{
 		"name":"India",
 		"x":"Cables",
 		"y":80,
-		"color": "",
+		"color": "#75b0e1",
 		"tooltip":80
 	},
 	{
 		"name":"India",
 		"x":"Crude Oil",
 		"y":40,
-		"color": "",
+		"color": "#75b0e1",
 		"tooltip":40
 	},
 	{
 		"name":"India",
 		"x":"Diamond",
 		"y":50,
-		"color": "",
+		"color": "#75b0e1",
 		"tooltip":50
 	},
 	{
 		"name":"India",
 		"x":"Healthcare",
 		"y":40,
-		"color": "",
+		"color": "#75b0e1",
 		"tooltip":40
 	},
 	{
 		"name":"India",
 		"x":"Automobile",
 		"y":70,
-		"color": "",
+		"color": "#75b0e1",
 		"tooltip":70
 	}
 ]
