@@ -277,9 +277,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                 return this;
             },
             legendsContainer : function (i) {
-                console.log(that.selector, /*PykCharts.boolean(that.legends_enable) && PykCharts.boolean(that.size_enable)*/ /*&&*/ that.map_group_data[1]);
                 if (PykCharts.boolean(that.legends_enable) && PykCharts.boolean(that.size_enable) && that.map_group_data[1]) {
-                    console.log(that.selector);
                     that.legendsContainer = d3.select(that.selector + " #tooltip-svg-container-" + i)
                         .append('svg')
                         .attr('width',that.w)

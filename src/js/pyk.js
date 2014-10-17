@@ -298,7 +298,7 @@ PykCharts.Configuration = function (options){
 	        return this;
 	    },
 	    dataSource : function () {
-	        if( (PykCharts.boolean(options.dataSource_name) && PykCharts.boolean(options.dataSource_url))) {
+	        if( (PykCharts.boolean(options.dataSource_name) || PykCharts.boolean(options.dataSource_url))) {
                 var enable = true;
                 if(options.dataSource_name === "") {
                     options.dataSource_name =options.dataSource_url;

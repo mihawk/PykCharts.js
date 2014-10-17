@@ -684,7 +684,6 @@ PykCharts.multiD.lineChart = function (options){
 							that.ticks.attr("id", function (d,i) { return that.type + "-svg-" + i; })
 									.attr("class","legend-heading")
 									.html(function (d,i) {
-										console.log(d.name);
 										return d.name;
 									})
 									.attr("transform", tickPosition)
