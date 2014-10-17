@@ -3,6 +3,7 @@ PykCharts.oneD.bubble = function (options) {
 
     this.execute = function () {
         that = PykCharts.oneD.processInputs(that, options);
+        console.log("bubble");
 
         if(that.mode === "default") {
            that.k.loading();
@@ -54,9 +55,9 @@ PykCharts.oneD.bubble = function (options) {
                 .liveData(that)
                 .tooltip();
 
-        that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
+            that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
         }
-       else if (that.mode ==="infographics") {
+        else if (that.mode ==="infographics") {
             that.new_data = {"children" : that.data};
             that.optionalFeatures().svgContainer()
                 .createChart()
@@ -66,6 +67,8 @@ PykCharts.oneD.bubble = function (options) {
             that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
         }
         that.k.export(that,"#svgcontainer","bubble");
+        $(window).on("load", function () { return that.k.resize(that.svgContainer); })
+                            .on("resize", function () { return that.k.resize(that.svgContainer); });
     };
 
     this.optionalFeatures = function () {
@@ -77,6 +80,8 @@ PykCharts.oneD.bubble = function (options) {
                 that.svgContainer = d3.select(that.selector).append("svg")
                     .attr("class","svgcontainer")
                     .attr("id","svgcontainer")
+                    .attr("preserveAspectRatio", "xMinYMin")
+                    .attr("viewBox", "0 0 " + that.width + " " + that.height)
                     .attr("width",that.width)
                     .attr("height",that.height);
 

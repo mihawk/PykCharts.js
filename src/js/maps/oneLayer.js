@@ -112,7 +112,15 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             that.renderButtons();
             that.renderTimeline();
         }
-    //    that.k.export(that,"#svgcontainer",type)
+    
+        if(PykCharts.boolean(that.legends_enable) && that.colors_type === "saturation") {
+            $(window).on("load", function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); })
+                .on("resize", function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); });
+        } else {
+            $(window).on("load", function () { return that.k.resize(that.svgContainer,""); })
+                .on("resize", function () { return that.k.resize(that.svgContainer,""); });
+        }
+        //    that.k.export(that,"#svgcontainer",type)
     };
 
     that.refresh = function () {
@@ -184,6 +192,8 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                 return this;
             },
             svgContainer : function () {
+                $(that.selector).css("width","100%");
+
                 that.svgContainer = d3.select(that.selector)
                     .append("svg")
                     .attr("width", that.width)
@@ -191,7 +201,9 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     .attr("id","svgcontainer")
                     .attr("class",'PykCharts-map')
                     .attr("style", "border:1px solid lightgrey")
-                    .style("border-radius", "5px");
+                    .style("border-radius", "5px")
+                    .attr("preserveAspectRatio", "xMinYMin")
+                    .attr("viewBox", "0 0 " + that.width + " " + that.height);
 
                 that.map_cont = that.svgContainer.append("g")
                     .attr("id", "map_group");
@@ -312,8 +324,6 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                 return this;
             },
             axisContainer : function (ae) {
-                console.log(that.redeced_height,"hey");
-
                 if(PykCharts.boolean(ae)){
                     that.gxaxis = that.svgContainer.append("g")
                         .attr("id","xaxis")

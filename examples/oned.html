@@ -3,6 +3,7 @@
         <title>One-Dimensional Charts</title>
         <link rel="stylesheet" type="text/css" href="../dist/pykcharts.0.0.8.min.css">
         <script src="../lib/paper-full.js"></script>
+        <script src="../lib/downloadDataURI.js"></script>
 	</head>
 	<body>
       <div id="bubble"></div>
@@ -35,17 +36,15 @@
                 selector: "#bubble",
                 data:"../data/pie.json",
                 transition_duration: 1000,
-                "title_text": "hello",
-                // "title_color": "#1D1D1D",
-                // "title_"
-                // highlight: "AAP"
+                highlight: "AAP"
+
             });
             k.execute();
 
       			var k = new PykCharts.oneD.funnel({
           				selector: "#funnel",
           				data:"../data/pie.json",
-                 transition_duration: 1000
+                 transition_duration: 1000,
         			});
       			k.execute();
 
@@ -60,8 +59,7 @@
                 selector: "#pyramid",
                 data:"../data/pie.json",
                 transition_duration: 1000,
-                units_prefix: "#",
-                units_suffix: "hello"
+                "pointer_overflow_enable": "no",
              });
             k.execute();
 
@@ -122,4 +120,3 @@
     <script src="../dist/pykcharts.0.0.8.js"></script>
 	</body>
 </html>
-l.i 

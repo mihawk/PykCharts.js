@@ -108,7 +108,15 @@ PykCharts.multiD.columnChart = function(options){
             that.k.yAxis(that.svgContainer,that.ygroup,that.yScaleInvert)
                  .yAxisTitle(that.yGroup);
         }
+
         that.k.export(that,"#svgcontainer","columnChart");
+        if(PykCharts.boolean(that.legends_enable)) {
+            $(window).on("load", function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); })
+                .on("resize", function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); });
+        } else {
+            $(window).on("load", function () { return that.k.resize(that.svgContainer,""); })
+                .on("resize", function () { return that.k.resize(that.svgContainer,""); });
+        }
     };
 
     this.optionalFeatures = function() {
@@ -122,7 +130,9 @@ PykCharts.multiD.columnChart = function(options){
                     .attr("height",that.height)
                     .attr("id","svgcontainer")
                     .attr("class","svgcontainer")
-                    .style("background-color",that.bg);
+                    .style("background-color",that.bg)
+                    .attr("preserveAspectRatio", "xMinYMin")
+                    .attr("viewBox", "0 0 " + that.width + " " + that.height);
 
                 return this;
             },
@@ -149,6 +159,7 @@ PykCharts.multiD.columnChart = function(options){
                         .attr("id","legends")
                         .attr("class","legends")
                         .attr("transform","translate(0,10)");
+                        
                 } else {
                     that.legendsGroup_height = 0;
                 }
@@ -393,9 +404,7 @@ PykCharts.multiD.columnChart = function(options){
                             return -15;
                         });
                     } else if(that.axis_x_value_position === "bottom") {
-                        console.log("bottem");
                         xAxis_label.attr("y", function () {
-                            console.log("y");
                             return 15;
                         });
                     }
@@ -417,12 +426,11 @@ PykCharts.multiD.columnChart = function(options){
                     var params = that.getParameters(),color;
                     // console.log(params);
                     color = params[0].color;
-                    console.log(color,"legend color");
                     params = params.map(function (d) {
                         return d.name;
                     });
 
-                    params = jQuery.unique(params);
+                    params = _.uniq(params);
                     var j = 0,k = 0;
                     j = params.length;
                     k = params.length;
@@ -716,7 +724,6 @@ PykCharts.multiD.columnChart = function(options){
             }
         }
         that.barName = _.unique(that.barName);
-
         return data_tranform;
     };
     return this;

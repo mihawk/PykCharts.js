@@ -1,7 +1,13 @@
 body {
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
-
+.Pykcharts-svg-container {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    vertical-align: top;
+    overflow: hidden;
+}
 .PykCharts-multi-series2D .legend-heading {
   text-align: left;
   font-weight: bold;
