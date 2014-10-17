@@ -20,7 +20,7 @@ PykCharts.oneD.pictograph = function (options) {
         that.inactiveText_family = options.pictograph_inactive_text_family ? options.pictograph_inactive_text_family : functionality.pictograph_inactive_text_family;
         that.imageWidth =  options.pictograph_image_width ? options.pictograph_image_width : functionality.pictograph_image_width;
         that.imageHeight = options.pictograph_image_height ? options.pictograph_image_height : functionality.pictograph_image_height;
-        that.height = options.chart_height ? options.chart_height : that.width;tional.pictograph && optional.pictograph.imageHeight ? optional.pictograph.imageHeight : functionality.pictograph.imageHeight;
+        that.height = options.chart_height ? options.chart_height : that.width;
         if(that.mode === "default") {
            that.k.loading();
         }

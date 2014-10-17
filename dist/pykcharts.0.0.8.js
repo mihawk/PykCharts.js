@@ -1584,8 +1584,8 @@ configuration.Theme = function(){
         "pictograph_inactive_text_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
         "funnel_rect_width": 100,
         "funnel_rect_height": 100,
-        "percent_column_rect_width": 90,
-        "percent_row_rect_height": 80,
+        "percent_column_rect_width": 15,
+        "percent_row_rect_height": 13,
     };
 
     that.multiDimensionalCharts = {
@@ -3080,7 +3080,7 @@ PykCharts.oneD.percentageBar = function (options) {
         // 1.2 Read Json File Get all the data and pass to render
         that.percent_row_rect_height = that.percent_row_rect_height ? that.percent_row_rect_height : theme.oneDimensionalCharts.percent_row_rect_height;
         that.percent_row_rect_height = that.k._radiusCalculation(that.percent_row_rect_height,"percentageBar") * 2;
-        that.height = options.chart_height ? options.chart_height : that.width;
+        that.height = options.chart_height ? options.chart_height : that.width/2;
         if(that.mode === "default") {
            that.k.loading();
         }
@@ -3482,7 +3482,7 @@ PykCharts.oneD.pictograph = function (options) {
         that.inactiveText_family = options.pictograph_inactive_text_family ? options.pictograph_inactive_text_family : functionality.pictograph_inactive_text_family;
         that.imageWidth =  options.pictograph_image_width ? options.pictograph_image_width : functionality.pictograph_image_width;
         that.imageHeight = options.pictograph_image_height ? options.pictograph_image_height : functionality.pictograph_image_height;
-        that.height = options.chart_height ? options.chart_height : that.width;tional.pictograph && optional.pictograph.imageHeight ? optional.pictograph.imageHeight : functionality.pictograph.imageHeight;
+        that.height = options.chart_height ? options.chart_height : that.width;
         if(that.mode === "default") {
            that.k.loading();
         }
