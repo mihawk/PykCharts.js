@@ -495,24 +495,25 @@ PykCharts.multiD.lineChart = function (options){
 												.classed({'multi-line-hover':false,'multi-line':true})
 												.style("stroke", that.chartColor);
 										}
-									})					
-							    	.attr("d",function(d,k) {
-								    	return that.chart_path(data[0]);
-								    });
+									})	
+									.attr("d",that.chart_path);			
+							    	// .attr("d",function(d,k) {
+								    // 	return that.chart_path(data[0]);
+								    // });
 
-								function transition (i) {    
-								    that.dataLineGroup[i].transition()		
-									    .duration(that.transitions.duration())						    
-									    .attrTween("d", function (d) {
-									    	var interpolate = d3.scale.quantile()
-								                .domain([0,1])
-								                .range(d3.range(1, data.length + 1));
-											        return function(t) {
-											            return that.chart_path(that.new_data[i].data.slice(0, interpolate(t)));
-											        };
-									    })
-								}
-								transition(i);
+								// function transition (i) {    
+								//     that.dataLineGroup[i].transition()		
+								// 	    .duration(that.transitions.duration())						    
+								// 	    .attrTween("d", function (d) {
+								// 	    	var interpolate = d3.scale.quantile()
+								//                 .domain([0,1])
+								//                 .range(d3.range(1, data.length + 1));
+								// 			        return function(t) {
+								// 			            return that.chart_path(that.new_data[i].data.slice(0, interpolate(t)));
+								// 			        };
+								// 	    })
+								// }
+								// transition(i);
 						}
 					} else {  				// Multiple Containers -- "Yes"
 						type = that.type + that.svgContainer.attr("id");
@@ -526,16 +527,17 @@ PykCharts.multiD.lineChart = function (options){
 							    .style("stroke", function (d,i) {
 										return that.fillColor.colorPieMS(that.new_data[index]); 
 								})
-							    .transition()		
-								    .duration(that.transitions.duration())						    
-								    .attrTween("d", function (d) {
-								    	var interpolate = d3.scale.quantile()
-							                .domain([0,1])
-							                .range(d3.range(1, that.new_data1.data.length + 1));
-										        return function(t) {
-										            return that.chart_path(that.new_data1.data.slice(0, interpolate(t)));
-										        };
-								    });
+								.attr("d",that.chart_path);
+							    // .transition()		
+								    // .duration(that.transitions.duration())						    
+								    // .attrTween("d", function (d) {
+								    // 	var interpolate = d3.scale.quantile()
+							     //            .domain([0,1])
+							     //            .range(d3.range(1, that.new_data1.data.length + 1));
+										  //       return function(t) {
+										  //           return that.chart_path(that.new_data1.data.slice(0, interpolate(t)));
+										  //       };
+								    // });
 					}
 
 					if(that.type === "lineChart" && that.mode === "default") {

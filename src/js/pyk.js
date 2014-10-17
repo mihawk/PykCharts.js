@@ -1304,13 +1304,6 @@ configuration.makeXAxis = function(options,xScale) {
                     .tickPadding(options.axis_x_pointer_padding)
                     .orient(options.axis_x_value_position);
 
-    var start_date = "2013-12-21T00:00:00Z",
-    end_date  = "2014-01-07T00:00:00Z",
-    iso = d3.time.format.iso,
-    t1 = iso.parse(start_date),
-    t2 = iso.parse(end_date);
-    // console.log("t1",t1,"and t2",t2);
-    // console.log(options.axis_x_time_value_datatype,"datatype");
     if(options.xAxisDataFormat=== "time" && PykCharts.boolean(options.axis_x_time_value_datatype)) {
         if(options.axis_x_time_value_datatype === "month") {
             console.log("its a month");
@@ -1508,8 +1501,8 @@ configuration.Theme = function(){
         "axis_x_title" : "X axis",
         "axis_x_position": "bottom",
         "axis_x_value_position": "bottom", //axis orient
-        "axis_x_axisColor": "1D1D1D",
-        "axis_x_labelColor": "1D1D1D",
+        "axis_x_axisColor": "#1D1D1D",
+        "axis_x_labelColor": "#1D1D1D",
         "axis_x_no_of_axis_value": 5,
         "axis_x_pointer_size": 5,
         "axis_x_value_format": "",
@@ -1523,8 +1516,8 @@ configuration.Theme = function(){
         "axis_y_title" : "Y axis",
         "axis_y_position": "left",
         "axis_y_value_position": "left",
-        "axis_y_axisColor": "1D1D1D",
-        "axis_y_labelColor": "1D1D1D",
+        "axis_y_axisColor": "#1D1D1D",
+        "axis_y_labelColor": "#1D1D1D",
         "axis_y_no_of_axis_value": 5,
         "axis_y_pointer_size": 5,
         "axis_y_value_format": "",
@@ -1541,7 +1534,7 @@ configuration.Theme = function(){
 
         "size_enable" : "yes",
 
-        "colors_mode" : "color",
+        "color_mode" : "color",
         "color": ["yellow"],
 
         "spiderweb_outerRadiusPercent" : 80,
@@ -1559,9 +1552,7 @@ configuration.Theme = function(){
         "scatterplot_radius" : 40,
         "scatterplot_pointer": "no",
 
-        "line_color_from_data": "yes",
-        "line_curvy_lines": "no",
-        "line_highlight_group": []
+        "line_curvy_lines": "no"
 
     };
 
@@ -1597,8 +1588,8 @@ configuration.Theme = function(){
         "axis_onHoverHighlightenable" : "no",
         "axis_x_enable": "yes",
         "axis_x_value_position": "top",
-        "axis_x_axisColor": "1D1D1D",
-        "axis_x_labelColor": "1D1D1D",
+        "axis_x_axisColor": "#1D1D1D",
+        "axis_x_labelColor": "#1D1D1D",
         "axis_x_pointer_size": 5,
         "axis_x_value_format": "",
         "axis_x_pointer_padding": 6,

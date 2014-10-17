@@ -3,6 +3,7 @@ PykCharts.oneD.bubble = function (options) {
 
     this.execute = function () {
         that = PykCharts.oneD.processInputs(that, options);
+        console.log("bubble");
 
         if(that.mode === "default") {
            that.k.loading();

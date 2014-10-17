@@ -49,10 +49,10 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
     chartObject.mode = options.mode ? options.mode : stylesheet.mode;
 
     if (options &&  PykCharts.boolean (options.title_text)) {
-        chartObject.title_size = "size" in options ? options.title_size : stylesheet.title_size;
+        chartObject.title_size = "title_size" in options ? options.title_size : stylesheet.title_size;
         chartObject.title_color = options.title_color ? options.title_color : stylesheet.title_color;
         chartObject.title_weight = options.title_weight ? options.title_weight : stylesheet.title_weight;
-        chartObject.title_family = options.title_family ? optional.title_family : stylesheet.title_family;
+        chartObject.title_family = options.title_family ? options.title_family : stylesheet.title_family;
     } else {
         chartObject.title_size = stylesheet.title_size;
         chartObject.title_color = stylesheet.title_color;
