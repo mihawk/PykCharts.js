@@ -863,7 +863,9 @@ PykCharts.Configuration = function (options){
             project._view._viewSize.height = chart.height;
             var name = chart_name + ".svg"
             
+            console.log(document.querySelector(options.selector +" "+svgId),"svgContainer");
             $(chart.selector + " #"+id).click(function(){
+
                 project.importSVG(document.querySelector(options.selector +" "+svgId));
                 var svg = project.exportSVG({ asString: true });
                 downloadDataURI({
