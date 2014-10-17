@@ -33,15 +33,15 @@
             var k = new PykCharts.oneD.bubble({
                 selector: "#bubble",
                 data:"../data/pie.json",
-                transition_duration: 1000
-                // highlight: "AAP"
+                transition_duration: 1000,
+                highlight: "AAP"
             });
             k.execute();
 
       			var k = new PykCharts.oneD.funnel({
           				selector: "#funnel",
           				data:"../data/pie.json",
-                 transition_duration: 1000
+                 transition_duration: 1000,
         			});
       			k.execute();
 
@@ -55,7 +55,8 @@
             var k = new PykCharts.oneD.pyramid ({
                 selector: "#pyramid",
                 data:"../data/pie.json",
-                transition_duration: 1000
+                transition_duration: 1000,
+                "pointer_overflow_enable": "no",
              });
             k.execute();
 

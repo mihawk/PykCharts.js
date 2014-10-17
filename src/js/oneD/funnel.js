@@ -84,6 +84,8 @@ PykCharts.oneD.funnel = function (options) {
                 .credits()
                 .dataSource();
         }
+        $(window).on("load", function () { return that.k.resize(that.svgContainer); })
+                            .on("resize", function () { return that.k.resize(that.svgContainer); });
     };
 
     this.funnelLayout = function (){
@@ -216,6 +218,8 @@ PykCharts.oneD.funnel = function (options) {
                     .append('svg')
                     .attr("width",that.width) //+100 removed
                     .attr("height",that.height)
+                    .attr("preserveAspectRatio", "xMinYMin")
+                    .attr("viewBox", "0 0 " + that.width + " " + that.height)
                     .attr("id","svgcontainer")
                     .attr("class","svgcontainer");
 
@@ -324,7 +328,7 @@ PykCharts.oneD.funnel = function (options) {
             },
             ticks : function () {
                 // console.log("ticks");
-                if(PykCharts.boolean(that.overflowTicks)) {
+                if(PykCharts.boolean(that.pointer_overflow_enable)) {
                     that.svgContainer.style("overflow","visible");
                 }
                     

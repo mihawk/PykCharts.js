@@ -4,6 +4,7 @@
         "y": 5,
         "weight":15,
         "group":"2014",
+        "color": "#75b0e1",
         "tooltip": "National Democratic Alliance"
     },
     {
@@ -17,7 +18,7 @@
         "x": "Aam Aadmi Party",
         "y": 12,
         "weight":10,
-        "group":"2014",   
+        "group":"2014",
         "tooltip": "Aam Aadmi Party"
     },
     {
@@ -40,6 +41,7 @@
         "y": 40,
         "weight":25,
         "group":"2009",
+        "color": "#0e5ea1",
         "tooltip": "National Democratic Alliance"
     },
     {
@@ -53,7 +55,7 @@
         "x": "Aam Aadmi Party",
         "y": 30,
         "weight":30,
-        "group":"2009",     
+        "group":"2009",
         "tooltip": "Aam Aadmi Party"
     },
     {
@@ -69,5 +71,5 @@
         "weight":7,
         "group":"2009",
         "tooltip": "Nationalist Congress Party"
-    }    
+    }
 ]

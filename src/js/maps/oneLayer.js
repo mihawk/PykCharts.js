@@ -111,6 +111,13 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             that.renderButtons();
             that.renderTimeline();
         }
+        if(PykCharts.boolean(that.legends_enable) && that.colors_type === "saturation") {
+            $(window).on("load", function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); })
+                .on("resize", function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); });
+        } else {
+            $(window).on("load", function () { return that.k.resize(that.svgContainer,""); })
+                .on("resize", function () { return that.k.resize(that.svgContainer,""); });
+        }
     };
 
     that.refresh = function () {
@@ -169,7 +176,9 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                         .append("svg")
                         .attr("id", "legend-container")
                         .attr("width", that.width)
-                        .attr("height", 50);
+                        .attr("height", 50)
+                        .attr("preserveAspectRatio", "xMinYMin")
+                        .attr("viewBox", "0 0 " + that.width + " 50");
                 }
                 return this;
             },
@@ -180,13 +189,16 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                 return this;
             },
             svgContainer : function () {
+                $(that.selector).css("width","100%");
                 that.svgContainer = d3.select(that.selector)
                     .append("svg")
                     .attr("width", that.width)
                     .attr("height", that.height)
                     .attr("class",'PykCharts-map')
                     .attr("style", "border:1px solid lightgrey")
-                    .style("border-radius", "5px");
+                    .style("border-radius", "5px")
+                    .attr("preserveAspectRatio", "xMinYMin")
+                    .attr("viewBox", "0 0 " + that.width + " " + that.height);
 
                 that.map_cont = that.svgContainer.append("g")
                     .attr("id", "map_group");

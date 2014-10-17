@@ -110,6 +110,13 @@ PykCharts.multiD.barChart = function(options){
                 .xAxisTitle(that.xGroup);
                          
         }
+        if(PykCharts.boolean(that.legends_enable)) {
+            $(window).on("load", function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); })
+                .on("resize", function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); });
+        } else {
+            $(window).on("load", function () { return that.k.resize(that.svgContainer,""); })
+                .on("resize", function () { return that.k.resize(that.svgContainer,""); });
+        }
     };
 
     this.optionalFeatures = function() {
@@ -123,7 +130,9 @@ PykCharts.multiD.barChart = function(options){
                     .attr("height",that.height)
                     .attr("id","svgcontainer")
                     .attr("class","svgcontainer")
-                    .style("background-color",that.bg);
+                    .style("background-color",that.bg)
+                    .attr("preserveAspectRatio", "xMinYMin")
+                    .attr("viewBox", "0 0 " + that.width + " " + that.height);
 
                 that.group = that.svgContainer.append("g")
                     .attr("id","svggroup")
@@ -139,7 +148,9 @@ PykCharts.multiD.barChart = function(options){
                         .attr("width",that.width)
                         .attr("height",50)
                         .attr("class","legendscontainer")
-                        .attr("id","legendscontainer");
+                        .attr("id","legendscontainer")
+                        .attr("preserveAspectRatio", "xMinYMin")
+                    .attr("viewBox", "0 0 " + that.width + " 50");
 
                     that.legendsGroup = that.legendsContainer.append("g")
                         .attr("id","legends")
@@ -335,7 +346,6 @@ PykCharts.multiD.barChart = function(options){
 
                 rect.attr("width", 0).attr("x", 0)
                     .attr("fill", function(d,i){
-                        console.log(d.name);
                         return that.fillColor.colorPieMS(d);
                     })
                     .attr("fill-opacity", function (d,i) {
@@ -510,13 +520,12 @@ PykCharts.multiD.barChart = function(options){
             legends: function () {
                 if(PykCharts.boolean(that.legends_enable)) {
                     var params = that.getParameters(),color;
-                    console.log(params);
                     color = params[0].color;
                     params = params.map(function (d) {
                         return d.name;
                     });
 
-                    params = jQuery.unique(params);
+                    params = _.uniq(params);
                     var j = 0,k = 0;
                     j = params.length;
                     k = params.length;

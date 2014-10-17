@@ -149,7 +149,6 @@ PykCharts.Configuration = function (options){
         emptyDiv : function () {
             d3.select(options.selector).append("div")
                 .style("clear","both");
-
         },
         scaleIdentification : function (type,data,range,x) {
             var scale;
@@ -217,7 +216,7 @@ PykCharts.Configuration = function (options){
                         .attr("id","sub-title")
                         .style("width", options.width + "px")
                         .style("text-align","left")
-                        .html("</span><br><span style='pointer-events:none;font-size:" +
+                        .html("<span style='pointer-events:none;font-size:" +
                         options.subtitle_size+";color:" +
                         options.subtitle_color +
                         ";font-weight:" +
@@ -279,7 +278,6 @@ PykCharts.Configuration = function (options){
         },
 	    credits : function () {
             if(PykCharts.boolean(options.creditMySite_name) || PykCharts.boolean(options.creditMySite_url)) {
-                // var credit = options.creditMySite;
                 var enable = true;
 
                 if(options.creditMySite_name === "") {
@@ -288,15 +286,9 @@ PykCharts.Configuration = function (options){
                 if(options.creditMySite_url === "") {
                     enable = false;
                 }
-
-                // if(credit.mySiteName === "") {
-                //     credit.mySiteName = credit.mySiteUrl;
-                // }
-                // if(credit.mySiteUrl === "") {
-                //     enable = false;
-                // }
                 d3.select(options.selector+" #footer").append("tr")
                     .attr("class","PykCharts-credits")
+                    .attr("id","credit-datasource")
                     .append("td")
                     .style("text-align","left")
                     .html("<span style='pointer-events:none;'>Credits: </span><a href='" +  options.creditMySite_url + "' target='_blank' onclick='return " + enable +"'>"+  options.creditMySite_name +"</a>");
@@ -306,21 +298,20 @@ PykCharts.Configuration = function (options){
 	        return this;
 	    },
 	    dataSource : function () {
-	        if( (PykCharts.boolean(options.dataSource_text) && PykCharts.boolean(options.dataSource_url))) {
+	        if( (PykCharts.boolean(options.dataSource_name) && PykCharts.boolean(options.dataSource_url))) {
                 var enable = true;
-                // var data_src = options.dataSource;
-                if(options.dataSource_text === "") {
-                    options.dataSource_text =options.dataSource_url;
+                if(options.dataSource_name === "") {
+                    options.dataSource_name =options.dataSource_url;
                 }
                 if(options.dataSource_url === "") {
                     enable = false;
                 }
                 if($(options.selector+" #footer").length) {
-                    d3.select(options.selector+" table tr")
+                    d3.select(options.selector+" table #credit-datasource")
                         .style("background", options.bg)
                         .append("td")
                         .style("text-align","right")
-                        .html("<span style='pointer-events:none;'>Source: </span><a href='" + options.dataSource_url + "' target='_blank' onclick='return " + enable +"'>"+ options.dataSource_text +"</a></tr>");
+                        .html("<span style='pointer-events:none;'>Source: </span><a href='" + options.dataSource_url + "' target='_blank' onclick='return " + enable +"'>"+ options.dataSource_name +"</a></tr>");
                 }
                 else {
                     d3.select(options.selector).append("table")
@@ -331,7 +322,7 @@ PykCharts.Configuration = function (options){
                         .attr("class","PykCharts-credits")
                         .append("td")
                         .style("text-align","right")
-                        .html("<span style='pointer-events:none;'>Source: </span><a href='" + options.dataSource_url + "' target='_blank' onclick='return " + enable +"'>"+ options.dataSource_text +"</a></tr>");
+                        .html("<span style='pointer-events:none;'>Source: </span><a href='" + options.dataSource_url + "' target='_blank' onclick='return " + enable +"'>"+ options.dataSource_name +"</a></tr>");
                 }
             }
 	        return this;
@@ -339,6 +330,7 @@ PykCharts.Configuration = function (options){
         makeMainDiv : function (selection,i) {
             var d = d3.select(selection).append("div")
                 .attr("id","tooltip-svg-container-"+i)
+                .attr("class","main-div")
                 .style("width",options.width);
             if(PykCharts.boolean(options.multiple_containers_enable)){
                 d.style("float","left")
@@ -417,19 +409,41 @@ PykCharts.Configuration = function (options){
                     $(options.selector+" #"+ d1[0].parentNode.id +"-tooltip"+i).remove();
                 }
                 var position = $(d).offset();
-                var container_position = $(options.selector).offset();
-                var tooltip = d3.select(options.selector)
-                    .append("div").attr("id", d1[0].parentNode.id+"-tooltip"+i)
-                    .style("position", "absolute")
+                var svg_position_left = 0, svg_position_top=0;
+                if(PykCharts.boolean(options.multiple_containers_enable)) {
+                    svg_position_left = $(options.selector+" #"+ d1[0].parentNode.parentNode.id).offset().left /*- $(options.selector).offset().left*/;
+                    svg_position_top = $(options.selector+" #"+ d1[0].parentNode.parentNode.id).offset().top/* - $(options.selector).offset().top*/;
+                } else {
+                    svg_position_left = $(options.selector+" #"+ d1[0].parentNode.parentNode.id).offset().left /*- $(options.selector).offset().left*/;
+                    svg_position_top = $(options.selector+" #"+ d1[0].parentNode.parentNode.id).offset().top/* - $(options.selector).offset().top*/;
+                }
+                var grp = d3.select(options.selector+" #"+ d1[0].parentNode.id)
+                    .append("g")
+                    .attr("id",d1[0].parentNode.id+"-tooltip"+i);
+                var annotation_rect = grp
+                    .append("rect");
+                var annotation_text = grp
+                    .append("text")
+                    .attr("x",(position.left - svg_position_left))
+                    .attr("y", (position.top - svg_position_top) - 5)
+                    .attr("text-anchor","middle")
                     .style("z-index", "10")
-                    .style("visibility", "hidden")
-                    .style("background", "#eeeeee")
-                    .style("padding", "5px 10px")
-                    .style("border-radius", "0")
-                    .html($(d)[0].__data__.annotation).style("visibility", "visible");
-                tooltip
-                    .style("top", ((position.top -container_position.top) -$("#"+ d1[0].parentNode.id +"-tooltip"+i)[0].clientHeight) + "px")
-                    .style("left", ((position.left-container_position.left) -($("#"+ d1[0].parentNode.id +"-tooltip"+i)[0].clientWidth/2)) + "px");
+                    .text(function () {
+                        return $(d)[0].__data__.annotation;
+                    })
+                    .text(function () {
+                        w = this.getBBox().width + 20;
+                        h = this.getBBox().height + 10;
+                        return $(d)[0].__data__.annotation;
+                    })
+                    .style("pointer-events","none");
+                
+                annotation_rect.attr("x",(position.left - svg_position_left) - (w/2))
+                    .attr("y", (position.top - svg_position_top) - (h))
+                    .attr("width",w)
+                    .attr("height",h)
+                    .attr("fill","#eeeeee")
+                    .style("pointer-events","none");
 
             });
         },
@@ -755,6 +769,35 @@ PykCharts.Configuration = function (options){
                 return "string";
             }
         },
+        resize : function (svg,anno,lsvg) {
+            var aspect = (options.width/options.height);
+            var targetWidth = $(options.selector).width();
+            if(targetWidth > options.width) {
+                targetWidth = options.width;
+            }
+            svg.attr("width", targetWidth);
+            svg.attr("height", targetWidth / aspect);
+            if(PykCharts.boolean(options.title_text)) {
+                $(options.selector + " #title").css("width", targetWidth);
+            }
+            if(PykCharts.boolean(options.subtitle_text)) {
+                $(options.selector + " #sub-title").css("width", targetWidth);
+            }
+            if(lsvg !== undefined) {
+                lsvg.attr("width",targetWidth);
+            }
+            var a = $(options.selector + " #footer");
+            if(a) {
+                a.attr("width",targetWidth);
+            }
+            var b = $(options.selector + " .main-div");
+            if(b && !(PykCharts.boolean(options.multiple_containers_enable))) {
+                $(options.selector + " .main-div").css("width",targetWidth);
+            }
+            if(PykCharts.boolean(anno)) {
+                // options.annotation;
+            }
+        },
         __proto__: {
             _domainBandwidth: function (domain_array, count, type) {
                 addFactor = 0;
@@ -956,12 +999,11 @@ configuration.mouseEvent = function (options) {
                                         this.axisHighlightShow(active_x_tick,options.selector+" .x.axis",domain);
                                     }
                                     else if(multiple_containers_enable === "yes") {
-                                        var first_axis = $(options.selector+" #svg-0 #xaxis").offset().left;
-                                        var second_axis = $(options.selector+" #svg-1 #xaxis").offset().left;
-                                        var diff_containers = second_axis - first_axis;
                                         pos_line_cursor_x += 5;
                                         var len_data = new_data[0].data.length;
                                         for(var a=0;a < number_of_lines;a++) {
+                                            var left_offset = $(options.selector + " #svg-"+a).offset().left;
+                                            var top_offset = $(options.selector + " #svg-"+a).offset().top - $(options.selector).offset().top;
                                             for(var b=0;b < len_data;b++) {
                                                 if(options.xAxisDataFormat === "time") {
                                                     cond = Date.parse(active_x_tick)===Date.parse(new_data[a].data[b].x);
@@ -972,7 +1014,7 @@ configuration.mouseEvent = function (options) {
                                                     active_y_tick.push(new_data[a].data[b].y);
                                                     tooltipText = new_data[a].data[b].tooltip;
                                                     pos_line_cursor_y = (yScale(new_data[a].data[b].y) + top);
-                                                    this.tooltipPosition(tooltipText,(pos_line_cursor_x+(a*diff_containers)),pos_line_cursor_y,-15,-15,a);
+                                                    this.tooltipPosition(tooltipText,(pos_line_cursor_x+left_offset),(pos_line_cursor_y+top_offset),-15,-15,a);
                                                     this.toolTextShow(tooltipText,multiple_containers_enable,type,a);
                                                     (options.enableCrossHair) ? this.crossHairShow(pos_line_cursor_x,top,pos_line_cursor_x,(h - bottom),pos_line_cursor_x,pos_line_cursor_y,type,active_y_tick.length,multiple_containers_enable,new_data[a],a) : null;
                                                 }
@@ -1429,7 +1471,6 @@ configuration.Theme = function(){
         "title_color": "#1D1D1D",
         "title_weight": "bold",
         "title_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
-        "overflowTicks": "no",
         "subtitle_size": "12px",
         "subtitle_color": "black",
         "subtitle_weight": "thin",
@@ -1455,6 +1496,7 @@ configuration.Theme = function(){
         "label_color": "white",
         "label_weight": "thin",
         "label_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
+        "pointer_overflow_enable": "no",
         "pointer_thickness": 1,
         "pointer_weight": "thin",
         "pointer_size": 13,

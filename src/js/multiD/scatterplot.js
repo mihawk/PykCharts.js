@@ -78,18 +78,21 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                 that.k.lastUpdatedAt("liveData");
             }
             that.map_group_data = that.multiD.mapGroup(that.data);
-        
+            
             that.optionalFeatures()
                     .createChart()
                     .legends()
+                    .plotCircle()
                     .label()
                     .ticks();
+            that.k.xAxis(that.svgContainer,that.xGroup,that.x,that.extra_left_margin,that.xdomain)
+                    .yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain)
         });
     };
 
     this.render = function () {
         // console.log(that.data);
-        that.map_group_data = that.multiD.mapGroup(that.data);
+        that.map_group_data = that.multiD.mapGroup(that.data); 
         that.fillChart = new PykCharts.Configuration.fillChart(that);
 
         that.border = new PykCharts.Configuration.border(that);
@@ -98,7 +101,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
             that.k.title()
                 .subtitle();
 
-            that.uniq_group_arr = jQuery.unique(that.data.map(function (d) {
+            that.uniq_group_arr = _.uniq(that.data.map(function (d) {
                 return d.group;
             }));
 
@@ -205,6 +208,15 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                 .xAxisTitle(that.xGroup)
                 .yAxisTitle(that.yGroup);
         }
+        if(!PykCharts.boolean(that.multiple_containers_enable)) {
+            if(type === "scatterplot" && PykCharts.boolean(that.legends_enable) && PykCharts.boolean(that.size_enable) && that.map_group_data[1]) {
+                $(window).on("load", function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); })
+                            .on("resize", function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); });
+            } else {
+                $(window).on("load", function () { return that.k.resize(that.svgContainer); })
+                            .on("resize", function () { return that.k.resize(that.svgContainer); });
+            }
+        }
     };
 
     that.optionalFeatures = function () {
@@ -216,6 +228,8 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                     .append('svg')
                     .attr("width",that.w)
                     .attr("height",that.height)
+                    .attr("preserveAspectRatio", "xMinYMin")
+                    .attr("viewBox", "0 0 " + that.w + " " + that.height)
                     .attr("id","svgcontainer" + i)
                     .attr("class","svgcontainer")
                     .style("background-color",that.bg);
@@ -252,23 +266,26 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                 // }
 
                 that.clip = that.group.append("svg:clipPath")
-                            .attr("id", "clip")
+                            .attr("id", "clip" + i + that.selector)
                             .append("svg:rect")
                             .attr("width",(that.w-that.margin_left-that.margin_right))
                             .attr("height", that.height-that.margin_top-that.margin_bottom);
 
                 that.chartBody = that.group.append("g")
-                            .attr("clip-path", "url(#clip)")
+                            .attr("clip-path", "url(#clip" + i + that.selector + " )")
 
                 return this;
             },
             legendsContainer : function (i) {
-
+                console.log(that.selector, /*PykCharts.boolean(that.legends_enable) && PykCharts.boolean(that.size_enable)*/ /*&&*/ that.map_group_data[1]);
                 if (PykCharts.boolean(that.legends_enable) && PykCharts.boolean(that.size_enable) && that.map_group_data[1]) {
+                    console.log(that.selector);
                     that.legendsContainer = d3.select(that.selector + " #tooltip-svg-container-" + i)
                         .append('svg')
                         .attr('width',that.w)
                         .attr('height',50)
+                        .attr("preserveAspectRatio", "xMinYMin")
+                        .attr("viewBox", "0 0 " + that.w + " " + "50")
                         .attr('class','legends')
                         .attr('id','legendscontainer');
                     
@@ -615,7 +632,6 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                         d3.event.stopPropagation();
                     })
                     .on("mousedown",function() {
-                        console.log(d3.event,"d3 event");
                         d3.event.stopPropagation();
                     });
                 // console.log($("#svgcontainer0 .dot"));
@@ -698,7 +714,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                 .attr("r", function (d) {
                     return that.sizes(d.weight)*d3.event.scale;
                 })                    
-                .attr("cx", function (d) { console.log(that.x);return (that.x(d.x)+that.extra_left_margin); })
+                .attr("cx", function (d) { return (that.x(d.x)+that.extra_left_margin); })
                 .attr("cy", function (d) { return (that.yScale(d.y)+that.extra_top_margin); });
 
             d3.select(that.selector+" #"+containerId +i)
@@ -708,9 +724,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                 .attr("y", function (d) { return (that.yScale(d.y)+that.extra_top_margin + 5); });
         }
         that.count++;
-        console.log("counttttt",that.count);
         if(that.count === 10) {
-            console.log("zoomed_out");
             d3.select(that.selector+" #"+containerId +i)
                 .call(function () {
                     return that.zoomOut();
@@ -720,7 +734,6 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
     };
 
     that.zoomOut=function () {
-        console.log("zoomOut");
         that.zoomed_out = true;
         that.x1 = 1;
         that.y1 = 12;
