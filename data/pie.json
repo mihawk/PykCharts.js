@@ -1,43 +1,30 @@
 [
 	{
-		"name": "NDA",
-		"weight": 4800
+		"name": "<5",
+		"weight": 2704659
 	},
 	{
-		"name": "UPA",
-		"weight": 4000
+		"name": "5-13",
+		"weight": 4499890
 	},
 	{
-		"name": "NDA",
-		"weight": 2500
+		"name": "14-17",
+		"weight": 2159981
 	},
 	{
-		"name": "AAP",
-		"weight": 800
+		"name": "18-24",
+		"weight": 3853788
 	},
 	{
-		"name": "INC",
-		"weight": 8000
+		"name": "25-44",
+		"weight": 14106543
 	},
 	{
-		"name": "BSP",
-		"weight": 300
+		"name": "45-64",
+		"weight": 8819342
 	},
 	{
-		"name": "NCP",
-		"weight": 150
-	},
-	{
-		"name":"LMN",
-		"weight":10
-	},
-	{
-		"name":"PQR",
-		"weight":20
-
-	},
-	{
-		"name": "NDA",
-		"weight": 3000
+		"name": "≥65",
+		"weight": 612463
 	}
 ]
