@@ -1580,7 +1580,9 @@ configuration.Theme = function(){
         "pictograph_inactiveText_weight": "thin",
         "pictograph_inactiveText_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
         "funnel_rectWidth": 100,
-        "funnel_rectHeight": 100
+        "funnel_rectHeight": 100,
+        "percent_column_rect_width": 90,
+        "percent_row_rect_height": 80,
     };
 
     that.multiDimensionalCharts = {
@@ -2680,6 +2682,7 @@ PykCharts.oneD.percentageColumn = function (options) {
 
         that = new PykCharts.oneD.processInputs(that, options, "percentageColumn");
         // 1.2 Read Json File Get all the data and pass to render
+        that.percent_column_rect_width = that.percent_column_rect_width ? that.percent_column_rect_width : theme.oneDimensionalCharts.percent_column_rect_width;
         if(that.mode === "default") {
            that.k.loading();
         }
@@ -2795,7 +2798,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                             return sum * that.height / 100;
                         }
                     })
-                    .attr('width', that.width/4)
+                    .attr('width', that.percent_column_rect_width)
                     .attr('height', 0)
                     .attr("fill",function (d) {
                         return that.fillChart.selectColor(d);
@@ -2852,7 +2855,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                         .attr("class","per-text");
 
                     that.chart_text.attr("class","per-text")
-                        .attr("x", (that.width/8 ))
+                        .attr("x", (that.percent_column_rect_width/2 ))
                         .attr("y",function (d,i) {
                                 sum = sum + d.percentValue;
                                 if (i===0) {
@@ -2916,7 +2919,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                     tick_label.attr("class", "ticks_label")
                         .attr("transform",function (d) {
                             sum = sum + d.percentValue
-                            x = (that.width/4) + 10;
+                            x = (that.percent_column_rect_width) + 10;
                             y = (((sum - d.percentValue) * that.height/100)+(sum * that.height / 100))/2 + 5;
 
                             return "translate(" + x + "," + y + ")";
@@ -2948,7 +2951,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                             sum = 0;
                             tick_line
                                 .attr("x1", function (d,i) {
-                                    return that.width/4;
+                                    return that.percent_column_rect_width;
                                 })
                                 .attr("y1", function (d,i) {
                                     sum = sum + d.percentValue;
@@ -2959,7 +2962,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                                     }
                                 })
                                 .attr("x2", function (d, i) {
-                                     return (that.width/4);
+                                     return (that.percent_column_rect_width);
                                 })
                                 .attr("y2", function (d,i) {
                                     sum1 = sum1 + d.percentValue;
@@ -2975,9 +2978,9 @@ PykCharts.oneD.percentageColumn = function (options) {
                                 // .duration(that.transitions.duration())
                                 .attr("x2", function (d, i) {
                                     if((d.percentValue * that.height / 100) > w[i]) {
-                                        return (that.width/4) + 5;
+                                        return (that.percent_column_rect_width) + 5;
                                     } else {
-                                        return (that.width/4) ;
+                                        return (that.percent_column_rect_width) ;
                                     }
                                 });
                         },that.transitions.duration());
@@ -3070,6 +3073,7 @@ PykCharts.oneD.percentageBar = function (options) {
 
         that = new PykCharts.oneD.processInputs(that, options, "percentageBar");
         // 1.2 Read Json File Get all the data and pass to render
+        that.percent_row_rect_height = that.percent_row_rect_height ? that.percent_row_rect_height : theme.oneDimensionalCharts.percent_row_rect_height;
         if(that.mode === "default") {
            that.k.loading();
         }
@@ -3187,7 +3191,7 @@ PykCharts.oneD.percentageBar = function (options) {
                     })
                     .attr("width",0)
                     .attr('height', function (d) {
-                        return that.height/ 4;
+                        return that.percent_row_rect_height;
                     })
                     .attr("fill",function (d) {
                         return that.fillChart.selectColor(d);
@@ -3245,7 +3249,7 @@ PykCharts.oneD.percentageBar = function (options) {
                         .attr("class","per-text");
 
                     that.chart_text.attr("class","per-text")
-                        .attr("y", (that.height/8 ))
+                        .attr("y", (that.percent_row_rect_height/2 ))
                         .attr("x",function (d,i) {
                                 sum = sum + d.percentValue;
                                 if (i===0) {
@@ -3309,8 +3313,8 @@ PykCharts.oneD.percentageBar = function (options) {
                     tick_label.attr("class", "ticks_label")
                         .attr("transform",function (d) {
                             sum = sum + d.percentValue
-                            x = (that.width/4) + 10;
-                            y = (((sum - d.percentValue) * that.height/100)+(sum * that.height / 100))/2 + 5;
+                            y = (that.percent_row_rect_height) + 20;
+                            x = (((sum - d.percentValue) * that.width/100)+(sum * that.width / 100))/2;
 
                             return "translate(" + x + "," + y + ")";
                         });
@@ -3319,7 +3323,7 @@ PykCharts.oneD.percentageBar = function (options) {
                             return "";
                         })
                         .attr("font-size", that.pointer_size)
-                        .attr("text-anchor","start")
+                        .attr("text-anchor","middle")
                         .attr("fill", that.pointer_color)
                         .attr("font-family", that.pointer_family)
                         .attr("pointer-events","none");
@@ -3329,8 +3333,8 @@ PykCharts.oneD.percentageBar = function (options) {
                                 return d.name;
                             })
                             .text(function (d,i) {
-                                w[i] = this.getBBox().height;
-                                if (this.getBBox().height < (d.percentValue * that.height / 100)) {
+                                w[i] = this.getBBox().width;
+                                if (this.getBBox().width < (d.percentValue * that.width / 100)) {
                                     return d.name;
                                 }
                                 else {
@@ -3340,37 +3344,37 @@ PykCharts.oneD.percentageBar = function (options) {
 
                             sum = 0;
                             tick_line
-                                .attr("x1", function (d,i) {
-                                    return that.width/4;
-                                })
                                 .attr("y1", function (d,i) {
+                                    return that.percent_row_rect_height;
+                                })
+                                .attr("x1", function (d,i) {
                                     sum = sum + d.percentValue;
                                     if (i===0){
-                                        return (0 + (sum * that.height / 100))/2;
+                                        return (0 + (sum * that.width / 100))/2;
                                     }else {
-                                        return (((sum - d.percentValue) * that.height/100)+(sum * that.height / 100))/2;
+                                        return (((sum - d.percentValue) * that.width/100)+(sum * that.width / 100))/2;
                                     }
                                 })
-                                .attr("x2", function (d, i) {
-                                     return (that.width/4);
+                                .attr("y2", function (d, i) {
+                                     return (that.percent_row_rect_height);
                                 })
-                                .attr("y2", function (d,i) {
+                                .attr("x2", function (d,i) {
                                     sum1 = sum1 + d.percentValue;
                                     if (i===0){
-                                        return (0 + (sum1 * that.height / 100))/2;
+                                        return (0 + (sum1 * that.width / 100))/2;
                                     }else {
-                                        return (((sum1 - d.percentValue) * that.height/100)+(sum1 * that.height / 100))/2;
+                                        return (((sum1 - d.percentValue) * that.width/100)+(sum1 * that.width / 100))/2;
                                     }
                                 })
                                 .attr("stroke-width", that.pointer_thickness)
                                 .attr("stroke", that.pointer_color)
                                 // .transition()
                                 // .duration(that.transitions.duration())
-                                .attr("x2", function (d, i) {
-                                    if((d.percentValue * that.height / 100) > w[i]) {
-                                        return (that.width/4) + 5;
+                                .attr("y2", function (d, i) {
+                                    if((d.percentValue * that.width / 100) > w[i]) {
+                                        return (that.percent_row_rect_height) + 5;
                                     } else {
-                                        return (that.width/4) ;
+                                        return (that.percent_row_rect_height) ;
                                     }
                                 });
                         },that.transitions.duration());
