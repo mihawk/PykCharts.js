@@ -3900,7 +3900,8 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                             }
                         })
                         .text( function(d) {
-                            return that.k.appendUnits(that.sum);
+                            var format = d3.format(",");
+                            return that.k.appendUnits(format(that.sum));
                         })
                         .attr("pointer-events","none")
                         .attr("text-anchor","middle")
