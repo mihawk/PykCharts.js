@@ -172,6 +172,7 @@ PykCharts.Configuration = function (options){
             }
         },
 	    appendUnits : function (text) {
+            console.log(PykCharts);
             text = PykCharts.numberFormat(text);
             var label,prefix,suffix;
                 prefix = options.units_prefix,
@@ -10909,6 +10910,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         include.onload = include.onreadystatechange = function () {
             try {
                 if (_ && d3 && ($ || jQuery) && d3.customHive && topojson) {
+                    console.log("init");
                     PykCharts.numberFormat = d3.format(",");
                     window.PykChartsInit();
                 };
