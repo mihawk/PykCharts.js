@@ -16,7 +16,7 @@ PykCharts.oneD.percentageColumn = function (options) {
         }
         d3.json(options.data, function (e, data) {
             that.data = data.groupBy("oned");
-            that.compare_data = data.groupBy("oned"); 
+            that.compare_data = data.groupBy("oned");
             $(options.selector+" #chart-loader").remove();
             that.clubData_enable = that.data.length>that.clubData_maximumNodes ? that.clubData_enable : "no";
             that.render();
@@ -47,7 +47,7 @@ PykCharts.oneD.percentageColumn = function (options) {
     this.render = function () {
         var that = this;
     //    that.fillChart = new PykCharts.oneD.fillChart(that);
-        that.fillChart = new PykCharts.Configuration.fillChart(that);    
+        that.fillChart = new PykCharts.Configuration.fillChart(that);
         that.onHoverEffect = new PykCharts.oneD.mouseEvent(options);
         that.transitions = new PykCharts.Configuration.transition(that);
         that.border = new PykCharts.Configuration.border(that);
@@ -208,12 +208,12 @@ PykCharts.oneD.percentageColumn = function (options) {
                             that.chart_text.text(function (d) { return that.k.appendUnits(d.weight); })
                                 .text(function (d) {
                                     if(this.getBBox().width < (that.width/4) && this.getBBox().height < (d.percentValue * that.height / 100)) {
-                                        return d.percentValue.toFixed(2)+"%"
+                                        return d.percentValue.toFixed(1)+"%"
                                         // return that.k.appendUnits(d.weight);
                                     }else {
                                         return "";
                                     }
-                                });        
+                                });
                         }, that.transitions.duration());
 
 
@@ -226,7 +226,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                     that.svgContainer.style("overflow","visible");
                 }
                     var sum = 0, sum1 = 0;
-                    
+
                     var x, y, w = [];
                     sum = 0;
 

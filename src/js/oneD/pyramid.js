@@ -11,7 +11,7 @@ PykCharts.oneD.pyramid = function (options) {
 
         d3.json(options.data, function (e,data) {
 			that.data = data.groupBy("oned");
-            that.compare_data = data.groupBy("oned"); 
+            that.compare_data = data.groupBy("oned");
             $(options.selector+" #chart-loader").remove();
 			that.clubData_enable = that.data.length > that.clubData_maximumNodes ? that.clubData_enable : "no";
             that.render();
@@ -262,26 +262,26 @@ PykCharts.oneD.pyramid = function (options) {
                         // .transition()
                         // .delay(that.transitions.duration())
 
-                    setTimeout(function () {    
+                    setTimeout(function () {
                         that.chart_text.text(function (d,i) {
                                 if(i===0) {
-                                    return ((that.new_data[i].weight*100)/that.sum).toFixed(2)+"%";
+                                    return ((that.new_data[i].weight*100)/that.sum).toFixed(1)+"%";
                                     // return that.k.appendUnits(that.new_data[i].weight);
                                 }
                                 else {
                                     j--;
-                                     return ((that.new_data[j].weight*100)/that.sum).toFixed(2)+"%";
+                                     return ((that.new_data[j].weight*100)/that.sum).toFixed(1)+"%";
                                     // return that.k.appendUnits(that.new_data[j].weight);
                                 }
                              })
                             .text(function (d,i) {
                                 if(this.getBBox().width < (d.values[2].x - d.values[1].x) && this.getBBox().height < Math.abs(d.values[1].y - d.values[0].y)) {
                                     if(i===0) {
-                                        return ((that.new_data[i].weight*100)/that.sum).toFixed(2)+"%";
+                                        return ((that.new_data[i].weight*100)/that.sum).toFixed(1)+"%";
                                         // return that.k.appendUnits(that.new_data[i].weight);
                                     }else {
                                         p--;
-                                        return ((that.new_data[p].weight*100)/that.sum).toFixed(2)+"%";
+                                        return ((that.new_data[p].weight*100)/that.sum).toFixed(1)+"%";
                                         // return that.k.appendUnits(that.new_data[p].weight);
                                     }
                                 }
@@ -289,7 +289,7 @@ PykCharts.oneD.pyramid = function (options) {
                                     return "";
                                 }
                             });
-                    },that.transitions.duration());    
+                    },that.transitions.duration());
 
                     that.chart_text.exit().remove();
 
@@ -300,7 +300,7 @@ PykCharts.oneD.pyramid = function (options) {
                 if(PykCharts.boolean(that.pointer_overflow_enable)) {
                     that.svgContainer.style("overflow","visible");
                 }
-                
+
                 var tick_label = that.group.selectAll(".ticks_label")
                         .data(that.coordinates);
 
@@ -411,7 +411,7 @@ PykCharts.oneD.pyramid = function (options) {
                     .attr("stroke",that.pointer_color)
                     // .transition()
                     // .duration(that.transitions.duration())
-               
+
                     setTimeout(function() {
                         tick_line.attr("x2", function (d,i) {
                             if(Math.abs(d.values[0].y - d.values[1].y) > w[i]) {
@@ -476,7 +476,7 @@ PykCharts.oneD.pyramid = function (options) {
                             });
                         return result;
                     } ;
-                    
+
                     if(that.clubData_alwaysIncludeDataPoints.length!== 0) {
                         for (var l=0;l<that.clubData_alwaysIncludeDataPoints.length;l++)
                         {
