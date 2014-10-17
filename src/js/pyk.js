@@ -834,8 +834,13 @@ PykCharts.Configuration = function (options){
                     return domain_array;
                 }
             },
-            _radiusCalculation: function (radius_percent) {
-                var min_value = d3.min([options.width,options.height]);
+            _radiusCalculation: function (radius_percent,type) {
+                var min_value;
+                if(type !== undefined) {
+                    min_value = options.width;
+                } else {
+                    min_value = d3.min([options.width,options.height]);
+                }
                 return (min_value*radius_percent)/200;
             }
         },

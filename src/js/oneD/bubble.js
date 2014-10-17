@@ -3,7 +3,8 @@ PykCharts.oneD.bubble = function (options) {
 
     this.execute = function () {
         that = PykCharts.oneD.processInputs(that, options);
-        console.log("bubble");
+        that.width = that.height < that.width ? that.height :that.width;
+        that.height = that.width;
 
         if(that.mode === "default") {
            that.k.loading();
