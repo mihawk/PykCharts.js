@@ -1,5 +1,6 @@
-PykCharts.oneD.percentageColumn = function (options) {
+PykCharts.oneD.percentageBar = function (options) {
     var that = this;
+    console.log("percentageBarf")
     var theme = new PykCharts.Configuration.Theme({});
 
     //----------------------------------------------------------------------------------------
@@ -9,9 +10,9 @@ PykCharts.oneD.percentageColumn = function (options) {
         //1.3 Assign Global variable var that to access function and variable throughout
         var that = this;
 
-        that = new PykCharts.oneD.processInputs(that, options, "percentageColumn");
+        that = new PykCharts.oneD.processInputs(that, options, "percentageBar");
         // 1.2 Read Json File Get all the data and pass to render
-        that.percent_column_rect_width = that.percent_column_rect_width ? that.percent_column_rect_width : theme.oneDimensionalCharts.percent_column_rect_width;
+        that.percent_row_rect_height = that.percent_row_rect_height ? that.percent_row_rect_height : theme.oneDimensionalCharts.percent_row_rect_height;
         if(that.mode === "default") {
            that.k.loading();
         }
@@ -19,7 +20,7 @@ PykCharts.oneD.percentageColumn = function (options) {
             that.data = data.groupBy("oned");
             that.compare_data = data.groupBy("oned");
             $(options.selector+" #chart-loader").remove();
-            that.clubdata_enable = that.data.length>that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
+            that.clubData_enable = that.data.length>that.clubData_maximumNodes ? that.clubData_enable : "no";
             that.render();
         });
         // that.clubData.enable = that.data.length>that.clubData.maximumNodes ? that.clubData.enable : "no";
@@ -65,7 +66,7 @@ PykCharts.oneD.percentageColumn = function (options) {
 
         that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
         if(that.mode === "default") {
-            percent_column = that.optionalFeatures()
+            percent_bar = that.optionalFeatures()
                             .clubData();
         }
         that.optionalFeatures().svgContainer()
@@ -79,7 +80,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                 .credits()
                 .dataSource();
         }
-        that.k.export(that,"#svgcontainer","percentageColumn");
+        that.k.export(that,"#svgcontainer","percentageBar");
         $(window).on("load", function () { return that.k.resize(that.svgContainer); })
                             .on("resize", function () { return that.k.resize(that.svgContainer); });
     };
@@ -113,7 +114,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                     .attr("class","per-rect")
 
                 that.chart_data.attr('x', 0)
-                    .attr('y', function (d, i) {
+                    .attr('x', function (d, i) {
                         if (i === 0) {
                             return 0;
                         } else {
@@ -124,11 +125,13 @@ PykCharts.oneD.percentageColumn = function (options) {
                                 sum += this[i].percentValue;
                             },subset);
 
-                            return sum * that.height / 100;
+                            return sum * that.width / 100;
                         }
                     })
-                    .attr('width', that.percent_column_rect_width)
-                    .attr('height', 0)
+                    .attr("width",0)
+                    .attr('height', function (d) {
+                        return that.percent_row_rect_height;
+                    })
                     .attr("fill",function (d) {
                         return that.fillChart.selectColor(d);
                     })
@@ -150,16 +153,17 @@ PykCharts.oneD.percentageColumn = function (options) {
                     })
                     .transition()
                     .duration(that.transitions.duration())
-                    .attr('height', function (d) {
-                        return d.percentValue * that.height / 100;
+                    .attr('width', function (d) {
+                        return d.percentValue * that.width / 100;
                     });
+
                 that.chart_data.exit()
                     .remove();
 
                 return this;
             },
             svgContainer :function () {
-                $(options.selector).css("background-color",that.background_color);
+                $(options.selector).css("background-color",that.bg);
 
                 that.svgContainer = d3.select(options.selector)
                     .append('svg')
@@ -184,13 +188,13 @@ PykCharts.oneD.percentageColumn = function (options) {
                         .attr("class","per-text");
 
                     that.chart_text.attr("class","per-text")
-                        .attr("x", (that.percent_column_rect_width/2 ))
-                        .attr("y",function (d,i) {
+                        .attr("y", (that.percent_row_rect_height/2 ))
+                        .attr("x",function (d,i) {
                                 sum = sum + d.percentValue;
                                 if (i===0) {
-                                    return (0 + (sum * that.height / 100))/2+5;
+                                    return (0 + (sum * that.width / 100))/2+5;
                                 } else {
-                                    return (((sum - d.percentValue) * that.height/100)+(sum * that.height / 100))/2+5;
+                                    return (((sum - d.percentValue) * that.width/100)+(sum * that.width / 100))/2+5;
                                 }
                             });
                     sum = 0;
@@ -248,8 +252,8 @@ PykCharts.oneD.percentageColumn = function (options) {
                     tick_label.attr("class", "ticks_label")
                         .attr("transform",function (d) {
                             sum = sum + d.percentValue
-                            x = (that.percent_column_rect_width) + 10;
-                            y = (((sum - d.percentValue) * that.height/100)+(sum * that.height / 100))/2 + 5;
+                            y = (that.percent_row_rect_height) + 20;
+                            x = (((sum - d.percentValue) * that.width/100)+(sum * that.width / 100))/2;
 
                             return "translate(" + x + "," + y + ")";
                         });
@@ -258,7 +262,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                             return "";
                         })
                         .attr("font-size", that.pointer_size)
-                        .attr("text-anchor","start")
+                        .attr("text-anchor","middle")
                         .attr("fill", that.pointer_color)
                         .attr("font-family", that.pointer_family)
                         .attr("pointer-events","none");
@@ -268,8 +272,8 @@ PykCharts.oneD.percentageColumn = function (options) {
                                 return d.name;
                             })
                             .text(function (d,i) {
-                                w[i] = this.getBBox().height;
-                                if (this.getBBox().height < (d.percentValue * that.height / 100)) {
+                                w[i] = this.getBBox().width;
+                                if (this.getBBox().width < (d.percentValue * that.width / 100)) {
                                     return d.name;
                                 }
                                 else {
@@ -279,37 +283,37 @@ PykCharts.oneD.percentageColumn = function (options) {
 
                             sum = 0;
                             tick_line
-                                .attr("x1", function (d,i) {
-                                    return that.percent_column_rect_width;
-                                })
                                 .attr("y1", function (d,i) {
+                                    return that.percent_row_rect_height;
+                                })
+                                .attr("x1", function (d,i) {
                                     sum = sum + d.percentValue;
                                     if (i===0){
-                                        return (0 + (sum * that.height / 100))/2;
+                                        return (0 + (sum * that.width / 100))/2;
                                     }else {
-                                        return (((sum - d.percentValue) * that.height/100)+(sum * that.height / 100))/2;
+                                        return (((sum - d.percentValue) * that.width/100)+(sum * that.width / 100))/2;
                                     }
                                 })
-                                .attr("x2", function (d, i) {
-                                     return (that.percent_column_rect_width);
+                                .attr("y2", function (d, i) {
+                                     return (that.percent_row_rect_height);
                                 })
-                                .attr("y2", function (d,i) {
+                                .attr("x2", function (d,i) {
                                     sum1 = sum1 + d.percentValue;
                                     if (i===0){
-                                        return (0 + (sum1 * that.height / 100))/2;
+                                        return (0 + (sum1 * that.width / 100))/2;
                                     }else {
-                                        return (((sum1 - d.percentValue) * that.height/100)+(sum1 * that.height / 100))/2;
+                                        return (((sum1 - d.percentValue) * that.width/100)+(sum1 * that.width / 100))/2;
                                     }
                                 })
                                 .attr("stroke-width", that.pointer_thickness)
                                 .attr("stroke", that.pointer_color)
                                 // .transition()
                                 // .duration(that.transitions.duration())
-                                .attr("x2", function (d, i) {
-                                    if((d.percentValue * that.height / 100) > w[i]) {
-                                        return (that.percent_column_rect_width) + 5;
+                                .attr("y2", function (d, i) {
+                                    if((d.percentValue * that.width / 100) > w[i]) {
+                                        return (that.percent_row_rect_height) + 5;
                                     } else {
-                                        return (that.percent_column_rect_width) ;
+                                        return (that.percent_row_rect_height) ;
                                     }
                                 });
                         },that.transitions.duration());
@@ -323,12 +327,12 @@ PykCharts.oneD.percentageColumn = function (options) {
             },
             clubData : function () {
 
-                if(PykCharts.boolean(that.clubdata_enable)) {
+                if(PykCharts.boolean(that.clubData_enable)) {
                     var clubdata_content = [];
-                    if(that.clubData_always_include_data_points.length!== 0){
-                        var l = that.clubData_always_include_data_points.length;
+                    if(that.clubData_alwaysIncludeDataPoints.length!== 0){
+                        var l = that.clubData_alwaysIncludeDataPoints.length;
                         for(i=0; i < l; i++){
-                            clubdata_content[i] = that.clubData_always_include_data_points[i];
+                            clubdata_content[i] = that.clubData_alwaysIncludeDataPoints[i];
                         }
                     }
                     var new_data1 = [];
@@ -342,7 +346,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                     that.data.sort(function (a,b) { return b.weight - a.weight; });
                     var k = 0;
 
-                    while(new_data1.length<that.clubdata_maximum_nodes-1){
+                    while(new_data1.length<that.clubData_maximumNodes-1){
                         for(i=0;i<clubdata_content.length;i++){
                             if(that.data[k].name.toUpperCase() === clubdata_content[i].toUpperCase()){
                                 k++;
@@ -366,13 +370,13 @@ PykCharts.oneD.percentageColumn = function (options) {
                     }
                     var sortfunc = function (a,b) { return b.weight - a.weight; };
 
-                    while(new_data1.length > that.clubdata_maximum_nodes){
+                    while(new_data1.length > that.clubData_maximumNodes){
                         new_data1.sort(sortfunc);
                         var a=new_data1.pop();
                     }
-                    var others_Slice = { "name":that.clubdata_text, "weight": sum_others, "color": that.clubData_color, "tooltip": that.clubData_tooltip };
+                    var others_Slice = { "name":that.clubData_text, "weight": sum_others, "color": that.clubData_color, "tooltip": that.clubData_tooltip };
 
-                    if(new_data1.length < that.clubdata_maximum_nodes){
+                    if(new_data1.length < that.clubData_maximumNodes){
                         new_data1.push(others_Slice);
                     }
                     that.new_data = new_data1;

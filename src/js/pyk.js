@@ -172,6 +172,7 @@ PykCharts.Configuration = function (options){
             }
         },
 	    appendUnits : function (text) {
+            text = PykCharts.numberFormat(text);
             var label,prefix,suffix;
                 prefix = options.units_prefix,
                 suffix = options.units_suffix;
@@ -438,7 +439,7 @@ PykCharts.Configuration = function (options){
                         return $(d)[0].__data__.annotation;
                     })
                     .style("pointer-events","none");
-                
+
                 annotation_rect.attr("x",(position.left - svg_position_left) - (w/2))
                     .attr("y", (position.top - svg_position_top) - (h))
                     .attr("width",w)
@@ -469,14 +470,14 @@ PykCharts.Configuration = function (options){
                         .attr("class","focus")
                         .style("display","none")
                         .attr("id","f_circle"+j);
-                    
+
                     PykCharts.Configuration.focus_circle.append("circle")
                         .attr("fill",function (d) {
                             return fill.colorPieMS(data[j]);
                         })
                         .attr("id","focus-circle"+j)
                         .attr("r",6);
-                } 
+                }
             }
             return this;
         },
@@ -577,7 +578,7 @@ PykCharts.Configuration = function (options){
             }
             return this;
         },
-        
+
         yAxis: function (svg, gsvg, yScale,domain) {
             var width = options.width,
                 height = options.height;
@@ -623,6 +624,7 @@ PykCharts.Configuration = function (options){
                         .style("text-anchor", "middle")
                         .style("fill",options.axis_x_label_color)
                         .text(options.axis_x_title); 
+
                 } else if (options.axis_x_position === "top") {
                     gsvg.append("text")
                         .attr("x", (w - options.margin_left - options.margin_right)/2)
@@ -714,9 +716,9 @@ PykCharts.Configuration = function (options){
         ordinalYAxisTickFormat : function (domain) {
             var mouseEvent = new PykCharts.Configuration.mouseEvent(options);
             var a = $(options.selector + " g.y.axis text");
-                    
+
             var len = a.length,comp;
-            
+
             for(i=0; i<len-1;i++) {
                 comp = a[i].innerHTML;
                 if(a[i].getBBox().width > (options.margin_left * 0.7)) {
@@ -756,7 +758,7 @@ PykCharts.Configuration = function (options){
             return this;
         },
         xAxisDataFormatIdentification : function (data){
-            if(_.isNumber(data[0].x) || !(isNaN(data[0].x))){ 
+            if(_.isNumber(data[0].x) || !(isNaN(data[0].x))){
                 return "number";
             } else if(!(isNaN(new Date(data[0].x).getTime()))) {
                 return "time";
@@ -764,8 +766,8 @@ PykCharts.Configuration = function (options){
                 return "string";
             }
         },
-        yAxisDataFormatIdentification : function (data){ 
-            if(_.isNumber(data[0].y) || !(isNaN(data[0].y))){ 
+        yAxisDataFormatIdentification : function (data){
+            if(_.isNumber(data[0].y) || !(isNaN(data[0].y))){
                 return "number";
             } else if(!(isNaN(new Date(data[0].y).getTime()))) {
                 return "time";
@@ -834,8 +836,13 @@ PykCharts.Configuration = function (options){
                     return domain_array;
                 }
             },
-            _radiusCalculation: function (radius_percent) {
-                var min_value = d3.min([options.width,options.height]);
+            _radiusCalculation: function (radius_percent,type) {
+                var min_value;
+                if(type !== undefined) {
+                    min_value = options.width;
+                } else {
+                    min_value = d3.min([options.width,options.height]);
+                }
                 return (min_value*radius_percent)/200;
             }
         },
@@ -846,13 +853,13 @@ PykCharts.Configuration = function (options){
             canvas.setAttribute('display', "none")
             canvas.setAttribute('id', canvas_id);
             var id = "export";
-            
+
             d3.select(chart.selector)
-                        .append("input")                                                            
+                        .append("input")
                             .attr("type","button")
                             .attr("value","download")
-                            .attr("id",id)      
-                            .style("left",chart.width - 100)                                                                                                                                   
+                            .attr("id",id)
+                            .style("left",chart.width - 100)
                             .style("top",chart.height/2)
                             .style("height","20")
 
@@ -862,8 +869,10 @@ PykCharts.Configuration = function (options){
             project._view._viewSize.width = chart.width;
             project._view._viewSize.height = chart.height;
             var name = chart_name + ".svg"
-            
+
+            console.log(document.querySelector(options.selector +" "+svgId),"svgContainer");
             $(chart.selector + " #"+id).click(function(){
+
                 project.importSVG(document.querySelector(options.selector +" "+svgId));
                 var svg = project.exportSVG({ asString: true });
                 downloadDataURI({
@@ -960,7 +969,7 @@ configuration.mouseEvent = function (options) {
                         strt = strt + pad;
                         x_range[i] = strt;
                     }
-                    
+
                 }
                 var y_range = yScale.range();
                 var j,tooltpText,active_x_tick,active_y_tick = [],left_diff,right_diff,
@@ -1023,13 +1032,13 @@ configuration.mouseEvent = function (options) {
                                                 }
                                             }
                                         }
-                                        
+
                                         pos_line_cursor_x += 6;
                                         tooltipText = "<table><thead><th colspan='"+colspan+"'>"+active_x_tick+"</th></thead><tbody>"+tt_row+"</tbody></table>";
                                         if(type === "stackedAreaChart") {
                                             group_index = 1;
                                             this.tooltipPosition(tooltipText,pos_line_cursor_x,y,60,70,group_index);
-                                        } else {      
+                                        } else {
                                             this.tooltipPosition(tooltipText,pos_line_cursor_x,y,60,-15,group_index);
                                         }
                                         this.toolTextShow(tooltipText);
@@ -1100,13 +1109,13 @@ configuration.mouseEvent = function (options) {
                                             }
                                         }
                                     }
-                                    
+
                                     pos_line_cursor_x += 6;
                                     tooltipText = "<table><thead><th colspan='"+colspan+"'>"+active_x_tick+"</th></thead><tbody>"+tt_row+"</tbody></table>";
                                     if(type === "stackedAreaChart") {
                                         group_index = 1;
                                         this.tooltipPosition(tooltipText,pos_line_cursor_x,y,60,70,group_index);
-                                    } else {      
+                                    } else {
                                         this.tooltipPosition(tooltipText,pos_line_cursor_x,y,60,-15,group_index);
                                     }
                                     this.toolTextShow(tooltipText);
@@ -1449,7 +1458,7 @@ configuration.makeYAxis = function(options,yScale) {
     }else if(options.axis_y_data_format === "number"){
         yaxis.ticks(options.axis_y_no_of_axis_value);
     }
-    
+
                     // .tickFormat(d3.format(",.0f"));
     return yaxis;
 };
@@ -1573,7 +1582,9 @@ configuration.Theme = function(){
         "pictograph_inactive_text_weight": "thin",
         "pictograph_inactive_text_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
         "funnel_rect_width": 100,
-        "funnel_rect_height": 100
+        "funnel_rect_height": 100,
+        "percent_column_rect_width": 90,
+        "percent_row_rect_height": 80,
     };
 
     that.multiDimensionalCharts = {

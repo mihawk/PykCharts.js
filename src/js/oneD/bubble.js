@@ -3,14 +3,15 @@ PykCharts.oneD.bubble = function (options) {
 
     this.execute = function () {
         that = PykCharts.oneD.processInputs(that, options);
-        console.log("bubble");
+        that.width = that.height < that.width ? that.height :that.width;
+        that.height = that.width;
 
         if(that.mode === "default") {
            that.k.loading();
         }
         d3.json(options.data, function (e,data) {
             that.data = data.groupBy("oned");
-            that.compare_data = data.groupBy("oned"); 
+            that.compare_data = data.groupBy("oned");
             $(options.selector+" #chart-loader").remove();
             that.clubdata_enable = that.data.length>that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
             that.render();
@@ -132,7 +133,7 @@ PykCharts.oneD.bubble = function (options) {
                     .on("mouseout", function (d) {
                         that.mouseEvent.tooltipHide(d)
                         that.onHoverEffect.highlightHide(options.selector+" "+".bubble");
-                        
+
                     })
                     .on("mousemove", function (d) {
                         if(!d.children) {
@@ -184,7 +185,7 @@ PykCharts.oneD.bubble = function (options) {
                 //             .attr("fill", that.label_color)
                 //             .style("font-family", that.label_family);
                 //     },that.transitions.duration());
-                        
+
                 //     that.chart_text.exit().remove;
                 // return this;
                  that.chart_text = that.group.selectAll(".name")
@@ -244,7 +245,7 @@ PykCharts.oneD.bubble = function (options) {
                         that.chart_text1.text(function (d) { return d.children ? " " :  that.k.appendUnits(d.weight); })
                             .text(function (d) {
                                 if(this.getBBox().width<2*d.r*0.55 && this.getBBox().height<2*d.r*0.55) {
-                                    return d.children ? " " :  ((d.weight*100)/that.sum).toFixed(2)+"%"; /*that.k.appendUnits(d.weight);*/                                    
+                                    return d.children ? " " :  ((d.weight*100)/that.sum).toFixed(1)+"%"; /*that.k.appendUnits(d.weight);*/                                    
                                 }
                                 else {
                                     return "";

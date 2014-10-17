@@ -18,6 +18,7 @@ module.exports = function(grunt) {
                     , '<%= js_src_path %>/oneD/bubble.js'
                     , '<%= js_src_path %>/oneD/funnel.js'
                     , '<%= js_src_path %>/oneD/percentageColumn.js'
+                    , '<%= js_src_path %>/oneD/percentageBar.js'
                     , '<%= js_src_path %>/oneD/pictograph.js'
                     , '<%= js_src_path %>/oneD/pie.js'
                     , '<%= js_src_path %>/oneD/pyramid.js'
