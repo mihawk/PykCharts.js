@@ -21,7 +21,7 @@ PykCharts.oneD.percentageColumn = function (options) {
             that.data = data.groupBy("oned");
             that.compare_data = data.groupBy("oned");
             $(options.selector+" #chart-loader").remove();
-            that.clubData_enable = that.data.length>that.clubData_maximumNodes ? that.clubData_enable : "no";
+            that.clubdata_enable = that.data.length>that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
             that.render();
         });
         // that.clubData.enable = that.data.length>that.clubData.maximumNodes ? that.clubData.enable : "no";
@@ -161,7 +161,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                 return this;
             },
             svgContainer :function () {
-                $(options.selector).css("background-color",that.bg);
+                $(options.selector).css("background-color",that.background_color);
 
                 that.svgContainer = d3.select(options.selector)
                     .append('svg')
@@ -325,12 +325,12 @@ PykCharts.oneD.percentageColumn = function (options) {
             },
             clubData : function () {
 
-                if(PykCharts.boolean(that.clubData_enable)) {
+                if(PykCharts.boolean(that.clubdata_enable)) {
                     var clubdata_content = [];
-                    if(that.clubData_alwaysIncludeDataPoints.length!== 0){
-                        var l = that.clubData_alwaysIncludeDataPoints.length;
+                    if(that.clubData_always_include_data_points.length!== 0){
+                        var l = that.clubData_always_include_data_points.length;
                         for(i=0; i < l; i++){
-                            clubdata_content[i] = that.clubData_alwaysIncludeDataPoints[i];
+                            clubdata_content[i] = that.clubData_always_include_data_points[i];
                         }
                     }
                     var new_data1 = [];
@@ -344,7 +344,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                     that.data.sort(function (a,b) { return b.weight - a.weight; });
                     var k = 0;
 
-                    while(new_data1.length<that.clubData_maximumNodes-1){
+                    while(new_data1.length<that.clubdata_maximum_nodes-1){
                         for(i=0;i<clubdata_content.length;i++){
                             if(that.data[k].name.toUpperCase() === clubdata_content[i].toUpperCase()){
                                 k++;
@@ -368,13 +368,13 @@ PykCharts.oneD.percentageColumn = function (options) {
                     }
                     var sortfunc = function (a,b) { return b.weight - a.weight; };
 
-                    while(new_data1.length > that.clubData_maximumNodes){
+                    while(new_data1.length > that.clubdata_maximum_nodes){
                         new_data1.sort(sortfunc);
                         var a=new_data1.pop();
                     }
-                    var others_Slice = { "name":that.clubData_text, "weight": sum_others, "color": that.clubData_color, "tooltip": that.clubData_tooltip };
+                    var others_Slice = { "name":that.clubdata_text, "weight": sum_others, "color": that.clubData_color, "tooltip": that.clubData_tooltip };
 
-                    if(new_data1.length < that.clubData_maximumNodes){
+                    if(new_data1.length < that.clubdata_maximum_nodes){
                         new_data1.push(others_Slice);
                     }
                     that.new_data = new_data1;

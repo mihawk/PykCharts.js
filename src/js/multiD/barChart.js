@@ -7,7 +7,7 @@ PykCharts.multiD.barChart = function(options){
 
         that.grid_yEnabled =  options.chart_grid_yEnabled ? options.chart_grid_yEnabled : theme.stylesheet.chart_grid_yEnabled;
         that.grid_color = options.chart_grid_color ? options.chart_grid_color : theme.stylesheet.chart_grid_color;
-        that.xAxisDataFormat = "";
+        that.axis_x_data_format = "";
         if(that.mode === "default") {
            that.k.loading();
         }
@@ -271,7 +271,7 @@ PykCharts.multiD.barChart = function(options){
                 // that.yScaleInvert = d3.scale.linear().domain([d3.max(yValues), 0]).range([0, h]).nice(); // For the yAxis
                 // var zScale = d3.scale.category10();
 
-                // if(that.xAxisDataFormat === "number") {
+                // if(that.axis_x_data_format === "number") {
                 //     max = d3.max(that.new_data, function(d) { return d3.max(d.data, function(k) { return k.x; }); });
                 //     min = d3.min(that.new_data, function(d) { return d3.min(d.data, function(k) { return k.x; }); });
                 //     x_domain = [min,max];
@@ -280,13 +280,13 @@ PykCharts.multiD.barChart = function(options){
                 //     that.xScale = that.k.scaleIdentification("linear",x_data,x_range);
                 //     that.extra_left_margin = 0;
 
-                // } else if(that.xAxisDataFormat === "string") {
+                // } else if(that.axis_x_data_format === "string") {
                 //     that.new_data[0].data.forEach(function(d) { x_data.push(d.x); });
                 //     x_range = [0 ,that.reducedWidth];
                 //     that.xScale = that.k.scaleIdentification("ordinal",x_data,x_range,0);
                 //     that.extra_left_margin = (that.xScale.rangeBand() / 2);
 
-                // } else if (that.xAxisDataFormat === "time") {
+                // } else if (that.axis_x_data_format === "time") {
                 //     max = d3.max(that.new_data, function(d) { return d3.max(d.data, function(k) { return new Date(k.x); }); });
                 //     min = d3.min(that.new_data, function(d) { return d3.min(d.data, function(k) { return new Date(k.x); }); });
                 //     x_data = [min,max];

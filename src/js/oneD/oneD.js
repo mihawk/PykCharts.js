@@ -3,11 +3,11 @@ PykCharts.oneD = {};
 // PykCharts.oneD.fillChart = function (options) {
 
 //     var colorPie = {
-//         chartColor: function (d) {
+//         chart_color: function (d) {
 //             if(d.highlight === true) {
-//                 return options.highlightColor;
+//                 return options.highlight_color;
 //             } else{
-//                 return options.chartColor;
+//                 return options.chart_color;
 //             }
 //         }
 //     };
@@ -73,40 +73,41 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
         chartObject.subtitle_weight = stylesheet.subtitle_weight;
         chartObject.subtitle_family = stylesheet.subtitle_family;
     }
-    chartObject.realTimeCharts_refreshFrequency = options.realTimeCharts_refreshFrequency ? options.realTimeCharts_refreshFrequency : functionality.realTimeCharts_refreshFrequency;
-    chartObject.realTimeCharts_enableLastUpdatedAt = options.realTimeCharts_enableLastUpdatedAt ? options.realTimeCharts_enableLastUpdatedAt : functionality.realTimeCharts_enableLastUpdatedAt;
-
-    if(options.creditMySite_name || options.creditMySite_url) {
-        chartObject.creditMySite_name = options.creditMySite_name ? options.creditMySite_name : "";
-        chartObject.creditMySite_url = options.creditMySite_url ? options.creditMySite_url : "";
+    chartObject.real_time_charts_refresh_frequency = options.real_time_charts_refresh_frequency ? options.real_time_charts_refresh_frequency : functionality.real_time_charts_refresh_frequency;
+    chartObject.real_time_charts_last_updated_at_enable = options.real_time_charts_last_updated_at_enable ? options.real_time_charts_last_updated_at_enable : functionality.real_time_charts_last_updated_at_enable;
+    
+    if(options.credit_my_site_name || options.credit_my_site_url) {
+        chartObject.credit_my_site_name = options.credit_my_site_name ? options.credit_my_site_name : "";
+        chartObject.credit_my_site_url = options.credit_my_site_url ? options.credit_my_site_url : "";
     } else {
-        chartObject.creditMySite_name = stylesheet.creditMySite_name;
-        chartObject.creditMySite_url = stylesheet.creditMySite_url;
+        chartObject.credit_my_site_name = stylesheet.credit_my_site_name;
+        chartObject.credit_my_site_url = stylesheet.credit_my_site_url;
     } 
-
-    chartObject.dataSource_name = options.dataSource_name ? options.dataSource_name : "";
-    chartObject.dataSource_url = options.dataSource_url ? options.dataSource_url : "";
-    chartObject.clubData_enable = options.clubData_enable ? options.clubData_enable : oneDimensionalCharts.clubData_enable;
-    chartObject.clubData_text = PykCharts.boolean(options.clubData_enable) && options.clubData_text ? options.clubData_text : oneDimensionalCharts.clubData_text;
-    chartObject.clubData_maximumNodes = PykCharts.boolean(options.clubData_maximumNodes) && options.clubData_maximumNodes ? options.clubData_maximumNodes : oneDimensionalCharts.clubData_maximumNodes;
-    chartObject.clubData_alwaysIncludeDataPoints = PykCharts.boolean(options.clubData_enable) && options.clubData_alwaysIncludeDataPoints ? options.clubData_alwaysIncludeDataPoints : [];
+    // chartObject.credit_my_site_name = options.credit_my_site_name ? options.credit_my_site_name : stylesheet.credit_my_site_name;
+    // chartObject.credit_my_site_url = options.credit_my_site_url ? options.credit_my_site_url : stylesheet.credit_my_site_url;
+    chartObject.data_source_name = options.data_source_name ? options.data_source_name : "";
+    chartObject.data_source_url = options.data_source_url ? options.data_source_url : "";
+    chartObject.clubdata_enable = options.clubdata_enable ? options.clubdata_enable : oneDimensionalCharts.clubdata_enable;
+    chartObject.clubdata_text = PykCharts.boolean(options.clubdata_enable) && options.clubdata_text ? options.clubdata_text : oneDimensionalCharts.clubdata_text;
+    chartObject.clubdata_maximum_nodes = PykCharts.boolean(options.clubdata_maximum_nodes) && options.clubdata_maximum_nodes ? options.clubdata_maximum_nodes : oneDimensionalCharts.clubdata_maximum_nodes;
+    chartObject.clubData_always_include_data_points = PykCharts.boolean(options.clubdata_enable) && options.clubData_always_include_data_points ? options.clubData_always_include_data_points : [];
     chartObject.transition_duration = options.transition_duration ? options.transition_duration : functionality.transition_duration;
     chartObject.pointer_overflow_enable = options.pointer_overflow_enable ? options.pointer_overflow_enable : stylesheet.pointer_overflow_enable;
-    chartObject.bg = options.backgroundColor ? options.backgroundColor : stylesheet.backgroundColor;
-    chartObject.chartColor = options.chartColor ? options.chartColor : stylesheet.chartColor;
-    chartObject.highlightColor = options.highlightColor ? options.highlightColor : stylesheet.highlightColor;
-    chartObject.fullscreen = options.buttons_enableFullScreen ? options.buttons_enableFullScreen : stylesheet.buttons_enableFullScreen;
-    chartObject.loading = options.loading_animationGifUrl ? options.loading_animationGifUrl: stylesheet.loading_animationGifUrl;
+    chartObject.background_color = options.background_color ? options.background_color : stylesheet.background_color;
+    chartObject.chart_color = options.chart_color ? options.chart_color : stylesheet.chart_color;
+    chartObject.highlight_color = options.highlight_color ? options.highlight_color : stylesheet.highlight_color;
+    chartObject.fullscreen_enable = options.fullscreen_enable ? options.fullscreen_enable : stylesheet.fullscreen_enable;
+    chartObject.loading = options.loading_gif_url ? options.loading_gif_url: stylesheet.loading_gif_url;
     chartObject.tooltip_enable = options.tooltip_enable ? options.tooltip_enable : stylesheet.tooltip_enable;
-    chartObject.borderBetweenChartElements_thickness = "borderBetweenChartElements_thickness" in options ? options.borderBetweenChartElements_thickness : stylesheet.borderBetweenChartElements_thickness;
-    chartObject.borderBetweenChartElements_color = options.borderBetweenChartElements_color ? options.borderBetweenChartElements_color : stylesheet.borderBetweenChartElements_color;
-    chartObject.borderBetweenChartElements_style = options.borderBetweenChartElements_style ? options.borderBetweenChartElements_style : stylesheet.borderBetweenChartElements_style;
-    switch(chartObject.borderBetweenChartElements_style) {
-        case "dotted" : chartObject.borderBetweenChartElements_style = "1,3";
+    chartObject.border_between_chart_elements_thickness = "border_between_chart_elements_thickness" in options ? options.border_between_chart_elements_thickness : stylesheet.border_between_chart_elements_thickness;
+    chartObject.border_between_chart_elements_color = options.border_between_chart_elements_color ? options.border_between_chart_elements_color : stylesheet.border_between_chart_elements_color;
+    chartObject.border_between_chart_elements_style = options.border_between_chart_elements_style ? options.border_between_chart_elements_style : stylesheet.border_between_chart_elements_style;
+    switch(chartObject.border_between_chart_elements_style) {
+        case "dotted" : chartObject.border_between_chart_elements_style = "1,3";
                         break;
-        case "dashed" : chartObject.borderBetweenChartElements_style = "5,5";
+        case "dashed" : chartObject.border_between_chart_elements_style = "5,5";
                        break;
-        default : chartObject.borderBetweenChartElements_style = "0";
+        default : chartObject.border_between_chart_elements_style = "0";
                   break;
     }
     chartObject.highlight = options.highlight ? options.highlight : stylesheet.highlight;
@@ -121,7 +122,7 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
     chartObject.pointer_color = options.pointer_color ? options.pointer_color : stylesheet.pointer_color;
     chartObject.pointer_family = options.pointer_family ? options.pointer_family : stylesheet.pointer_family;
 
-    chartObject.showTotalAtTheCenter = options.donut_showTotalAtTheCenter ? options.donut_showTotalAtTheCenter : oneDimensionalCharts.donut_showTotalAtTheCenter;
+    chartObject.donut_show_total_at_center = options.donut_show_total_at_center ? options.donut_show_total_at_center : oneDimensionalCharts.donut_show_total_at_center;
     chartObject.units_prefix = options.units_prefix ? options.units_prefix : false;
     chartObject.units_suffix = options.units_suffix ? options.units_suffix : false;
 

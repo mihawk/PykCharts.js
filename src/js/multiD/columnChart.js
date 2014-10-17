@@ -137,7 +137,7 @@ PykCharts.multiD.columnChart = function(options){
                 return this;
             },
             createGroups: function (i) {
-                console.log(that.legendsGroup_height,"hello");
+                // console.log(that.legendsGroup_height,"hello");
                 that.group = that.svgContainer.append("g")
                     .attr("id","svggroup")
                     .attr("class","svggroup")

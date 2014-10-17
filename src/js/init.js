@@ -6,7 +6,8 @@
         include.async = false;
         include.onload = include.onreadystatechange = function () {
             try {
-                if (_ && d3 && ($ || jQuery) && d3.customHive && topojson) { 
+                if (_ && d3 && ($ || jQuery) && d3.customHive && topojson) {
+                    PykCharts.numberFormat = d3.format(",");
                     window.PykChartsInit();
                 };
             }

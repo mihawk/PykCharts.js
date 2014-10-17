@@ -8,7 +8,7 @@ PykCharts.multiD.spiderWeb = function (options) {
         }
         that = new PykCharts.multiD.processInputs(that, options, "spiderweb");
         that.multiD = new PykCharts.multiD.configuration(that);
-        that.axisTitle = options.axisTitle ? options.axisTitle : theme.multiDimensionalCharts.spiderweb_axisTitle;
+        that.axisTitle = options.spiderweb_axis_title ? options.spiderweb_axis_title : theme.multiDimensionalCharts.spiderweb_axis_title;
         that.bubbleRadius = options.spiderweb_radius && _.isNumber(options.spiderweb_radius) ? options.spiderweb_radius : theme.multiDimensionalCharts.spiderweb_radius;
         that.outerRadius = options.spiderweb_outer_radius_percent && _.isNumber(options.spiderweb_outer_radius_percent) ? options.spiderweb_outer_radius_percent : theme.multiDimensionalCharts.spiderweb_outer_radius_percent;
         that.inner_radius = 0;
@@ -451,10 +451,10 @@ PykCharts.multiD.spiderWeb = function (options) {
                         .enter()
                         .append('text')
                         .attr("class","legends_text")
-                         .attr("fill",that.legendsText_color)
+                         .attr("fill",that.legends_text_color)
                         .attr("pointer-events","none")
-                        .style("font-family", that.legendsText_family)
-                        .attr("font-size",that.legendsText_size);
+                        .style("font-family", that.legends_text_family)
+                        .attr("font-size",that.legends_text_size);
 
                     that.legends_text.attr("class","legends_text")
                         .attr("fill","black")
