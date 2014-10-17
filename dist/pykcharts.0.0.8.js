@@ -2654,7 +2654,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                     .append('rect')
                     .attr("class","per-rect")
 
-                that.chart_data.attr('x', (that.width/3))
+                that.chart_data.attr('x', 0)
                     .attr('y', function (d, i) {
                         if (i === 0) {
                             return 0;
@@ -2726,7 +2726,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                         .attr("class","per-text");
 
                     that.chart_text.attr("class","per-text")
-                        .attr("x", (that.width/3 + that.width/8 ))
+                        .attr("x", (that.width/8 ))
                         .attr("y",function (d,i) {
                                 sum = sum + d.percentValue;
                                 if (i===0) {
@@ -2789,7 +2789,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                     tick_label.attr("class", "ticks_label")
                         .attr("transform",function (d) {
                             sum = sum + d.percentValue
-                            x = that.width/3+(that.width/4) + 10;
+                            x = (that.width/4) + 10;
                             y = (((sum - d.percentValue) * that.height/100)+(sum * that.height / 100))/2 + 5;
 
                             return "translate(" + x + "," + y + ")";
@@ -2821,7 +2821,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                             sum = 0;
                             tick_line
                                 .attr("x1", function (d,i) {
-                                    return that.width/3 + that.width/4;
+                                    return that.width/4;
                                 })
                                 .attr("y1", function (d,i) {
                                     sum = sum + d.percentValue;
@@ -2832,7 +2832,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                                     }
                                 })
                                 .attr("x2", function (d, i) {
-                                     return that.width/3 + (that.width/4);
+                                     return (that.width/4);
                                 })
                                 .attr("y2", function (d,i) {
                                     sum1 = sum1 + d.percentValue;
@@ -2848,9 +2848,9 @@ PykCharts.oneD.percentageColumn = function (options) {
                                 // .duration(that.transitions.duration())
                                 .attr("x2", function (d, i) {
                                     if((d.percentValue * that.height / 100) > w[i]) {
-                                        return that.width/3 + (that.width/4) + 5;
+                                        return (that.width/4) + 5;
                                     } else {
-                                        return that.width/3 + (that.width/4) ;
+                                        return (that.width/4) ;
                                     }
                                 });
                         },that.transitions.duration());
@@ -3125,7 +3125,10 @@ PykCharts.oneD.pie = function (options) {
 
     this.execute = function() {
         that = new PykCharts.oneD.processInputs(that, options, "pie");
-
+        that.width = that.height < that.width ? that.height : that.width;
+        that.h = that.width;
+        console.log(that.h);
+        that.height_translate = that.h/2;
         that.radiusPercent = options.pie_radiusPercent && _.isNumber(options.pie_radiusPercent) ? options.pie_radiusPercent : theme.oneDimensionalCharts.pie_radiusPercent;
         // that.radiusPercent = options.optional && options.optional.pie && _.isNumber(options.optional.pie.radiusPercent) ? options.optional.pie.radiusPercent : theme.oneDimensionalCharts.pie.radiusPercent;
         that.innerRadiusPercent = 0;
@@ -3149,9 +3152,11 @@ PykCharts.oneD.donut = function (options) {
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
     this.execute = function() {
-
+        
         that = new PykCharts.oneD.processInputs(that, options, "pie");
-
+        that.width = that.height < that.width ? that.height : that.width;
+        that.h = that.width;
+        that.height_translate = that.h/2;
         that.radiusPercent = options.donut_radiusPercent && _.isNumber(options.donut_radiusPercent) ? options.donut_radiusPercent : theme.oneDimensionalCharts.donut_radiusPercent;
         that.innerRadiusPercent = options.donut_innerRadiusPercent && _.isNumber(options.donut_innerRadiusPercent) ? options.donut_innerRadiusPercent : theme.oneDimensionalCharts.donut_innerRadiusPercent;
         // that.radiusPercent = options.optional && options.optional.donut && _.isNumber(options.optional.donut.radiusPercent) ? options.optional.donut.radiusPercent : theme.oneDimensionalCharts.donut.radiusPercent;
@@ -3175,7 +3180,10 @@ PykCharts.oneD.election_pie = function (options) {
     this.execute = function() {
 
         that = new PykCharts.oneD.processInputs(that, options, "pie");
-
+        that.width = that.height < that.width ? that.height : that.width;
+        that.h = (that.width)/2;
+        console.log(that.h);
+        that.height_translate = that.h;
         that.radiusPercent = options.pie_radiusPercent && _.isNumber(options.pie_radiusPercent) ? options.pie_radiusPercent : theme.oneDimensionalCharts.pie_radiusPercent;
         that.innerRadiusPercent = 0;
         d3.json(options.data, function (e, data) {
@@ -3196,7 +3204,10 @@ PykCharts.oneD.election_donut = function (options) {
 
     this.execute = function() {
         that = new PykCharts.oneD.processInputs(that, options, "pie");
-
+        that.width = that.height < that.width ? that.height : that.width;
+        that.h = (that.width)/2;
+        console.log(that.h)
+        that.height_translate = that.h;
         that.radiusPercent = options.donut_radiusPercent && _.isNumber(options.donut_radiusPercent) ? options.donut_radiusPercent : theme.oneDimensionalCharts.donut_radiusPercent;
         that.innerRadiusPercent = options.donut_innerRadiusPercent && _.isNumber(options.donut_innerRadiusPercent) && options.donut_innerRadiusPercent ? options.donut_innerRadiusPercent : theme.oneDimensionalCharts.donut_innerRadiusPercent;
 
@@ -3299,17 +3310,20 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
         var optional = {
             svgContainer :function () {
                 $(options.selector).css("background-color",that.bg);
-
+                console.log(that.h, that.selector);
                 that.svgContainer = d3.select(that.selector)
                     .append('svg')
                     .attr("width",that.width)
-                    .attr("height",that.height)
+                    .attr("height",function () {
+                        console.log(that.h);
+                        return that.h;
+                    })
                     .attr("preserveAspectRatio", "xMinYMin")
-                    .attr("viewBox", "0 0 " + that.width + " " + that.height)
+                    .attr("viewBox", "0 0 " + that.width + " " + that.h)
                     .attr("id","container")
                     .attr("class","svgcontainer");
                 that.group = that.svgContainer.append("g")
-                    .attr("transform","translate("+(that.width/2)+","+(that.k._radiusCalculation(that.radiusPercent)+20)+")")
+                    .attr("transform","translate("+(that.width/2)+","+that.height_translate+")")
                     .attr("id","pieGroup");
 
                 return this;

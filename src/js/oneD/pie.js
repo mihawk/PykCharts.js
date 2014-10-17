@@ -4,7 +4,10 @@ PykCharts.oneD.pie = function (options) {
 
     this.execute = function() {
         that = new PykCharts.oneD.processInputs(that, options, "pie");
-
+        that.width = that.height < that.width ? that.height : that.width;
+        that.h = that.width;
+        console.log(that.h);
+        that.height_translate = that.h/2;
         that.radiusPercent = options.pie_radiusPercent && _.isNumber(options.pie_radiusPercent) ? options.pie_radiusPercent : theme.oneDimensionalCharts.pie_radiusPercent;
         // that.radiusPercent = options.optional && options.optional.pie && _.isNumber(options.optional.pie.radiusPercent) ? options.optional.pie.radiusPercent : theme.oneDimensionalCharts.pie.radiusPercent;
         that.innerRadiusPercent = 0;
@@ -28,9 +31,11 @@ PykCharts.oneD.donut = function (options) {
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
     this.execute = function() {
-
+        
         that = new PykCharts.oneD.processInputs(that, options, "pie");
-
+        that.width = that.height < that.width ? that.height : that.width;
+        that.h = that.width;
+        that.height_translate = that.h/2;
         that.radiusPercent = options.donut_radiusPercent && _.isNumber(options.donut_radiusPercent) ? options.donut_radiusPercent : theme.oneDimensionalCharts.donut_radiusPercent;
         that.innerRadiusPercent = options.donut_innerRadiusPercent && _.isNumber(options.donut_innerRadiusPercent) ? options.donut_innerRadiusPercent : theme.oneDimensionalCharts.donut_innerRadiusPercent;
         // that.radiusPercent = options.optional && options.optional.donut && _.isNumber(options.optional.donut.radiusPercent) ? options.optional.donut.radiusPercent : theme.oneDimensionalCharts.donut.radiusPercent;
@@ -54,7 +59,10 @@ PykCharts.oneD.election_pie = function (options) {
     this.execute = function() {
 
         that = new PykCharts.oneD.processInputs(that, options, "pie");
-
+        that.width = that.height < that.width ? that.height : that.width;
+        that.h = (that.width)/2;
+        console.log(that.h);
+        that.height_translate = that.h;
         that.radiusPercent = options.pie_radiusPercent && _.isNumber(options.pie_radiusPercent) ? options.pie_radiusPercent : theme.oneDimensionalCharts.pie_radiusPercent;
         that.innerRadiusPercent = 0;
         d3.json(options.data, function (e, data) {
@@ -75,7 +83,10 @@ PykCharts.oneD.election_donut = function (options) {
 
     this.execute = function() {
         that = new PykCharts.oneD.processInputs(that, options, "pie");
-
+        that.width = that.height < that.width ? that.height : that.width;
+        that.h = (that.width)/2;
+        console.log(that.h)
+        that.height_translate = that.h;
         that.radiusPercent = options.donut_radiusPercent && _.isNumber(options.donut_radiusPercent) ? options.donut_radiusPercent : theme.oneDimensionalCharts.donut_radiusPercent;
         that.innerRadiusPercent = options.donut_innerRadiusPercent && _.isNumber(options.donut_innerRadiusPercent) && options.donut_innerRadiusPercent ? options.donut_innerRadiusPercent : theme.oneDimensionalCharts.donut_innerRadiusPercent;
 
@@ -178,17 +189,20 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
         var optional = {
             svgContainer :function () {
                 $(options.selector).css("background-color",that.bg);
-
+                console.log(that.h, that.selector);
                 that.svgContainer = d3.select(that.selector)
                     .append('svg')
                     .attr("width",that.width)
-                    .attr("height",that.height)
+                    .attr("height",function () {
+                        console.log(that.h);
+                        return that.h;
+                    })
                     .attr("preserveAspectRatio", "xMinYMin")
-                    .attr("viewBox", "0 0 " + that.width + " " + that.height)
+                    .attr("viewBox", "0 0 " + that.width + " " + that.h)
                     .attr("id","container")
                     .attr("class","svgcontainer");
                 that.group = that.svgContainer.append("g")
-                    .attr("transform","translate("+(that.width/2)+","+(that.k._radiusCalculation(that.radiusPercent)+20)+")")
+                    .attr("transform","translate("+(that.width/2)+","+that.height_translate+")")
                     .attr("id","pieGroup");
 
                 return this;

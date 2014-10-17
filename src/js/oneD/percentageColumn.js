@@ -110,7 +110,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                     .append('rect')
                     .attr("class","per-rect")
 
-                that.chart_data.attr('x', (that.width/3))
+                that.chart_data.attr('x', 0)
                     .attr('y', function (d, i) {
                         if (i === 0) {
                             return 0;
@@ -182,7 +182,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                         .attr("class","per-text");
 
                     that.chart_text.attr("class","per-text")
-                        .attr("x", (that.width/3 + that.width/8 ))
+                        .attr("x", (that.width/8 ))
                         .attr("y",function (d,i) {
                                 sum = sum + d.percentValue;
                                 if (i===0) {
@@ -245,7 +245,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                     tick_label.attr("class", "ticks_label")
                         .attr("transform",function (d) {
                             sum = sum + d.percentValue
-                            x = that.width/3+(that.width/4) + 10;
+                            x = (that.width/4) + 10;
                             y = (((sum - d.percentValue) * that.height/100)+(sum * that.height / 100))/2 + 5;
 
                             return "translate(" + x + "," + y + ")";
@@ -277,7 +277,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                             sum = 0;
                             tick_line
                                 .attr("x1", function (d,i) {
-                                    return that.width/3 + that.width/4;
+                                    return that.width/4;
                                 })
                                 .attr("y1", function (d,i) {
                                     sum = sum + d.percentValue;
@@ -288,7 +288,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                                     }
                                 })
                                 .attr("x2", function (d, i) {
-                                     return that.width/3 + (that.width/4);
+                                     return (that.width/4);
                                 })
                                 .attr("y2", function (d,i) {
                                     sum1 = sum1 + d.percentValue;
@@ -304,9 +304,9 @@ PykCharts.oneD.percentageColumn = function (options) {
                                 // .duration(that.transitions.duration())
                                 .attr("x2", function (d, i) {
                                     if((d.percentValue * that.height / 100) > w[i]) {
-                                        return that.width/3 + (that.width/4) + 5;
+                                        return (that.width/4) + 5;
                                     } else {
-                                        return that.width/3 + (that.width/4) ;
+                                        return (that.width/4) ;
                                     }
                                 });
                         },that.transitions.duration());
