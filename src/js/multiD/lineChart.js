@@ -626,7 +626,7 @@ PykCharts.multiD.lineChart = function (options){
 								.style("font-family", that.pointer_family)
 								.html(that.new_data1.name)
 					      		.style("fill", function() { 
-					      			return that.fillColor.colorPieMS(that.new_data[index]); 
+					      			return that.fillColor.colorPieMS(that.new_data1); 
 					      		});					      
 						} else if (that.axis_x_position  === "top"  && (that.axis_y_position === "left" || that.axis_y_position === "right")) {
 							that.ticks[0] = that.svgContainer.append("text")
@@ -640,7 +640,7 @@ PykCharts.multiD.lineChart = function (options){
 								.style("font-family", that.pointer_family)
 								.html(that.new_data1.name)
 								.style("fill", function() { 
-					      			return that.fillColor.colorPieMS(that.new_data[index]); 
+					      			return that.fillColor.colorPieMS(that.new_data1); 
 					      		});					      						
 						}
 
