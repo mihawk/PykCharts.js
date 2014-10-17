@@ -20,7 +20,7 @@ PykCharts.oneD.funnel = function (options) {
 
         d3.json(options.data, function (e,data) {
             that.data = data.groupBy("oned");
-            that.compare_data = data.groupBy("oned"); 
+            that.compare_data = data.groupBy("oned");
             $(options.selector+" #chart-loader").remove();
             that.clubData_enable = that.data.length>that.clubData_maximumNodes ? that.clubData_enable : "no";
             that.render();
@@ -54,7 +54,7 @@ PykCharts.oneD.funnel = function (options) {
     this.render = function () {
         var that = this;
         //that.fillChart = new PykCharts.oneD.fillChart(that);
-        that.fillChart = new PykCharts.Configuration.fillChart(that);        
+        that.fillChart = new PykCharts.Configuration.fillChart(that);
         that.onHoverEffect = new PykCharts.oneD.mouseEvent(that);
         that.transitions = new PykCharts.Configuration.transition(that);
 //        theme.stylesheet.borderBetweenChartElements;
@@ -304,7 +304,7 @@ PykCharts.oneD.funnel = function (options) {
 
                     setTimeout(function(){
                         that.chart_text.text(function (d,i) {
-                                return that.per_values[i].toFixed(2) + "%";
+                                return that.per_values[i].toFixed(1) + "%";
                                 // return that.k.appendUnits(that.new_data[i].weight);
                              })
                             .attr("text-anchor","middle")
@@ -315,7 +315,7 @@ PykCharts.oneD.funnel = function (options) {
                             .style("font-family", that.label_family)
                             .text(function (d,i) {
                                 if(this.getBBox().width<(d.values[3].x - d.values[1].x) && this.getBBox().height < (d.values[2].y - d.values[0].y)) {
-                                    return that.per_values[i].toFixed(2) + "%";
+                                    return that.per_values[i].toFixed(1) + "%";
                                     // return that.k.appendUnits(that.new_data[i].weight);
                                 }
                                 else {
@@ -333,7 +333,7 @@ PykCharts.oneD.funnel = function (options) {
                 if(PykCharts.boolean(that.pointer_overflow_enable)) {
                     that.svgContainer.style("overflow","visible");
                 }
-                    
+
                 var w =[];
                     var tick_label = that.group.selectAll(".ticks_label")
                                         .data(that.coordinates);

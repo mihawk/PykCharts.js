@@ -13,7 +13,7 @@ PykCharts.oneD.treemap = function (options){
 
         d3.json(options.data, function (e,data) {
             that.data = data.groupBy("oned");
-            that.compare_data = data.groupBy("oned");     
+            that.compare_data = data.groupBy("oned");
             $(options.selector+" #chart-loader").remove();
             that.clubData_enable = that.data.length>that.clubData_maximumNodes ? that.clubData_enable : "no";
             that.render();
@@ -35,7 +35,7 @@ PykCharts.oneD.treemap = function (options){
                 .clubData()
                 .createChart()
                 .label();
-            
+
         });
     };
 
@@ -212,8 +212,8 @@ PykCharts.oneD.treemap = function (options){
                         that.chart_text1.text(function (d) { return d.children ? " " :  that.k.appendUnits(d.weight); })
                             .text(function (d) {
                                 if(this.getBBox().width < d.dx && this.getBBox().height < d.dy-15) {
-                                    return d.children ? " " :  ((d.weight*100)/that.sum).toFixed(2)+"%"; /*that.k.appendUnits(d.weight);*/
-                                    
+                                    return d.children ? " " :  ((d.weight*100)/that.sum).toFixed(1)+"%"; /*that.k.appendUnits(d.weight);*/
+
                                 }
                                 else {
                                     return "";

@@ -10,7 +10,7 @@ PykCharts.oneD.bubble = function (options) {
         }
         d3.json(options.data, function (e,data) {
             that.data = data.groupBy("oned");
-            that.compare_data = data.groupBy("oned"); 
+            that.compare_data = data.groupBy("oned");
             $(options.selector+" #chart-loader").remove();
             that.clubData_enable = that.data.length>that.clubData_maximumNodes ? that.clubData_enable : "no";
             that.render();
@@ -119,7 +119,7 @@ PykCharts.oneD.bubble = function (options) {
                     .attr("r",0)
                     .attr("transform",function (d) { return "translate(" + d.x + "," + d.y +")"; })
                     .attr("fill",function (d) {
-                        
+
                         return d.children ? that.bg : that.fillChart.selectColor(d);
                     })
                     .on("mouseover", function (d) {
@@ -133,7 +133,7 @@ PykCharts.oneD.bubble = function (options) {
                     .on("mouseout", function (d) {
                         that.mouseEvent.tooltipHide(d)
                         that.onHoverEffect.highlightHide(options.selector+" "+".bubble");
-                        
+
                     })
                     .on("mousemove", function (d) {
                         if(!d.children) {
@@ -185,7 +185,7 @@ PykCharts.oneD.bubble = function (options) {
                 //             .attr("fill", that.label_color)
                 //             .style("font-family", that.label_family);
                 //     },that.transitions.duration());
-                        
+
                 //     that.chart_text.exit().remove;
                 // return this;
                  that.chart_text = that.group.selectAll(".name")
@@ -245,7 +245,7 @@ PykCharts.oneD.bubble = function (options) {
                         that.chart_text1.text(function (d) { return d.children ? " " :  that.k.appendUnits(d.weight); })
                             .text(function (d) {
                                 if(this.getBBox().width<2*d.r*0.55 && this.getBBox().height<2*d.r*0.55) {
-                                    return d.children ? " " :  ((d.weight*100)/that.sum).toFixed(2)+"%"; /*that.k.appendUnits(d.weight);*/                                    
+                                    return d.children ? " " :  ((d.weight*100)/that.sum).toFixed(1)+"%"; /*that.k.appendUnits(d.weight);*/                                    
                                 }
                                 else {
                                     return "";
