@@ -1824,7 +1824,7 @@ PykCharts.oneD.bubble = function (options) {
         }
         d3.json(options.data, function (e,data) {
             that.data = data.groupBy("oned");
-            that.compare_data = data.groupBy("oned"); 
+            that.compare_data = data.groupBy("oned");
             $(options.selector+" #chart-loader").remove();
             that.clubData_enable = that.data.length>that.clubData_maximumNodes ? that.clubData_enable : "no";
             that.render();
@@ -1933,7 +1933,7 @@ PykCharts.oneD.bubble = function (options) {
                     .attr("r",0)
                     .attr("transform",function (d) { return "translate(" + d.x + "," + d.y +")"; })
                     .attr("fill",function (d) {
-                        
+
                         return d.children ? that.bg : that.fillChart.selectColor(d);
                     })
                     .on("mouseover", function (d) {
@@ -1947,7 +1947,7 @@ PykCharts.oneD.bubble = function (options) {
                     .on("mouseout", function (d) {
                         that.mouseEvent.tooltipHide(d)
                         that.onHoverEffect.highlightHide(options.selector+" "+".bubble");
-                        
+
                     })
                     .on("mousemove", function (d) {
                         if(!d.children) {
@@ -1999,7 +1999,7 @@ PykCharts.oneD.bubble = function (options) {
                 //             .attr("fill", that.label_color)
                 //             .style("font-family", that.label_family);
                 //     },that.transitions.duration());
-                        
+
                 //     that.chart_text.exit().remove;
                 // return this;
                  that.chart_text = that.group.selectAll(".name")
@@ -2059,7 +2059,7 @@ PykCharts.oneD.bubble = function (options) {
                         that.chart_text1.text(function (d) { return d.children ? " " :  that.k.appendUnits(d.weight); })
                             .text(function (d) {
                                 if(this.getBBox().width<2*d.r*0.55 && this.getBBox().height<2*d.r*0.55) {
-                                    return d.children ? " " :  ((d.weight*100)/that.sum).toFixed(2)+"%"; /*that.k.appendUnits(d.weight);*/                                    
+                                    return d.children ? " " :  ((d.weight*100)/that.sum).toFixed(1)+"%"; /*that.k.appendUnits(d.weight);*/                                    
                                 }
                                 else {
                                     return "";
@@ -2172,7 +2172,7 @@ PykCharts.oneD.funnel = function (options) {
 
         d3.json(options.data, function (e,data) {
             that.data = data.groupBy("oned");
-            that.compare_data = data.groupBy("oned"); 
+            that.compare_data = data.groupBy("oned");
             $(options.selector+" #chart-loader").remove();
             that.clubData_enable = that.data.length>that.clubData_maximumNodes ? that.clubData_enable : "no";
             that.render();
@@ -2206,7 +2206,7 @@ PykCharts.oneD.funnel = function (options) {
     this.render = function () {
         var that = this;
         //that.fillChart = new PykCharts.oneD.fillChart(that);
-        that.fillChart = new PykCharts.Configuration.fillChart(that);        
+        that.fillChart = new PykCharts.Configuration.fillChart(that);
         that.onHoverEffect = new PykCharts.oneD.mouseEvent(that);
         that.transitions = new PykCharts.Configuration.transition(that);
 //        theme.stylesheet.borderBetweenChartElements;
@@ -2456,7 +2456,7 @@ PykCharts.oneD.funnel = function (options) {
 
                     setTimeout(function(){
                         that.chart_text.text(function (d,i) {
-                                return that.per_values[i].toFixed(2) + "%";
+                                return that.per_values[i].toFixed(1) + "%";
                                 // return that.k.appendUnits(that.new_data[i].weight);
                              })
                             .attr("text-anchor","middle")
@@ -2467,7 +2467,7 @@ PykCharts.oneD.funnel = function (options) {
                             .style("font-family", that.label_family)
                             .text(function (d,i) {
                                 if(this.getBBox().width<(d.values[3].x - d.values[1].x) && this.getBBox().height < (d.values[2].y - d.values[0].y)) {
-                                    return that.per_values[i].toFixed(2) + "%";
+                                    return that.per_values[i].toFixed(1) + "%";
                                     // return that.k.appendUnits(that.new_data[i].weight);
                                 }
                                 else {
@@ -2485,7 +2485,7 @@ PykCharts.oneD.funnel = function (options) {
                 if(PykCharts.boolean(that.pointer_overflow_enable)) {
                     that.svgContainer.style("overflow","visible");
                 }
-                    
+
                 var w =[];
                     var tick_label = that.group.selectAll(".ticks_label")
                                         .data(that.coordinates);
@@ -2679,7 +2679,7 @@ PykCharts.oneD.percentageColumn = function (options) {
         }
         d3.json(options.data, function (e, data) {
             that.data = data.groupBy("oned");
-            that.compare_data = data.groupBy("oned"); 
+            that.compare_data = data.groupBy("oned");
             $(options.selector+" #chart-loader").remove();
             that.clubData_enable = that.data.length>that.clubData_maximumNodes ? that.clubData_enable : "no";
             that.render();
@@ -2710,7 +2710,7 @@ PykCharts.oneD.percentageColumn = function (options) {
     this.render = function () {
         var that = this;
     //    that.fillChart = new PykCharts.oneD.fillChart(that);
-        that.fillChart = new PykCharts.Configuration.fillChart(that);    
+        that.fillChart = new PykCharts.Configuration.fillChart(that);
         that.onHoverEffect = new PykCharts.oneD.mouseEvent(options);
         that.transitions = new PykCharts.Configuration.transition(that);
         that.border = new PykCharts.Configuration.border(that);
@@ -2774,7 +2774,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                     .append('rect')
                     .attr("class","per-rect")
 
-                that.chart_data.attr('x', (that.width/3))
+                that.chart_data.attr('x', 0)
                     .attr('y', function (d, i) {
                         if (i === 0) {
                             return 0;
@@ -2846,7 +2846,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                         .attr("class","per-text");
 
                     that.chart_text.attr("class","per-text")
-                        .attr("x", (that.width/3 + that.width/8 ))
+                        .attr("x", (that.width/8 ))
                         .attr("y",function (d,i) {
                                 sum = sum + d.percentValue;
                                 if (i===0) {
@@ -2871,12 +2871,12 @@ PykCharts.oneD.percentageColumn = function (options) {
                             that.chart_text.text(function (d) { return that.k.appendUnits(d.weight); })
                                 .text(function (d) {
                                     if(this.getBBox().width < (that.width/4) && this.getBBox().height < (d.percentValue * that.height / 100)) {
-                                        return d.percentValue.toFixed(2)+"%"
+                                        return d.percentValue.toFixed(1)+"%"
                                         // return that.k.appendUnits(d.weight);
                                     }else {
                                         return "";
                                     }
-                                });        
+                                });
                         }, that.transitions.duration());
 
 
@@ -2889,7 +2889,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                     that.svgContainer.style("overflow","visible");
                 }
                     var sum = 0, sum1 = 0;
-                    
+
                     var x, y, w = [];
                     sum = 0;
 
@@ -2910,7 +2910,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                     tick_label.attr("class", "ticks_label")
                         .attr("transform",function (d) {
                             sum = sum + d.percentValue
-                            x = that.width/3+(that.width/4) + 10;
+                            x = (that.width/4) + 10;
                             y = (((sum - d.percentValue) * that.height/100)+(sum * that.height / 100))/2 + 5;
 
                             return "translate(" + x + "," + y + ")";
@@ -2942,7 +2942,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                             sum = 0;
                             tick_line
                                 .attr("x1", function (d,i) {
-                                    return that.width/3 + that.width/4;
+                                    return that.width/4;
                                 })
                                 .attr("y1", function (d,i) {
                                     sum = sum + d.percentValue;
@@ -2953,7 +2953,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                                     }
                                 })
                                 .attr("x2", function (d, i) {
-                                     return that.width/3 + (that.width/4);
+                                     return (that.width/4);
                                 })
                                 .attr("y2", function (d,i) {
                                     sum1 = sum1 + d.percentValue;
@@ -2969,9 +2969,9 @@ PykCharts.oneD.percentageColumn = function (options) {
                                 // .duration(that.transitions.duration())
                                 .attr("x2", function (d, i) {
                                     if((d.percentValue * that.height / 100) > w[i]) {
-                                        return that.width/3 + (that.width/4) + 5;
+                                        return (that.width/4) + 5;
                                     } else {
-                                        return that.width/3 + (that.width/4) ;
+                                        return (that.width/4) ;
                                     }
                                 });
                         },that.transitions.duration());
@@ -3250,7 +3250,10 @@ PykCharts.oneD.pie = function (options) {
 
     this.execute = function() {
         that = new PykCharts.oneD.processInputs(that, options, "pie");
-
+        that.width = that.height < that.width ? that.height : that.width;
+        that.h = that.width;
+        console.log(that.h);
+        that.height_translate = that.h/2;
         that.radiusPercent = options.pie_radiusPercent && _.isNumber(options.pie_radiusPercent) ? options.pie_radiusPercent : theme.oneDimensionalCharts.pie_radiusPercent;
         // that.radiusPercent = options.optional && options.optional.pie && _.isNumber(options.optional.pie.radiusPercent) ? options.optional.pie.radiusPercent : theme.oneDimensionalCharts.pie.radiusPercent;
         that.innerRadiusPercent = 0;
@@ -3259,7 +3262,7 @@ PykCharts.oneD.pie = function (options) {
         }
         d3.json(options.data, function (e, data) {
             that.data = data.groupBy("oned");
-            that.compare_data = data.groupBy("oned"); 
+            that.compare_data = data.groupBy("oned");
             $(options.selector+" #chart-loader").remove();
             var pieFunctions = new PykCharts.oneD.pieFunctions(options,that,"pie");
             that.clubData_enable = that.data.length > that.clubData_maximumNodes ? that.clubData_enable : "no";
@@ -3274,9 +3277,11 @@ PykCharts.oneD.donut = function (options) {
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
     this.execute = function() {
-
+        
         that = new PykCharts.oneD.processInputs(that, options, "pie");
-
+        that.width = that.height < that.width ? that.height : that.width;
+        that.h = that.width;
+        that.height_translate = that.h/2;
         that.radiusPercent = options.donut_radiusPercent && _.isNumber(options.donut_radiusPercent) ? options.donut_radiusPercent : theme.oneDimensionalCharts.donut_radiusPercent;
         that.innerRadiusPercent = options.donut_innerRadiusPercent && _.isNumber(options.donut_innerRadiusPercent) ? options.donut_innerRadiusPercent : theme.oneDimensionalCharts.donut_innerRadiusPercent;
         // that.radiusPercent = options.optional && options.optional.donut && _.isNumber(options.optional.donut.radiusPercent) ? options.optional.donut.radiusPercent : theme.oneDimensionalCharts.donut.radiusPercent;
@@ -3284,7 +3289,7 @@ PykCharts.oneD.donut = function (options) {
 
         d3.json(options.data, function (e, data) {
             that.data = data.groupBy("oned");
-            that.compare_data = data.groupBy("oned"); 
+            that.compare_data = data.groupBy("oned");
             $(options.selector+" #chart-loader").remove();
             var pieFunctions = new PykCharts.oneD.pieFunctions(options,that,"donut");
             that.clubData_enable = that.data.length > that.clubData_maximumNodes ? that.clubData_enable : "no";
@@ -3300,12 +3305,15 @@ PykCharts.oneD.election_pie = function (options) {
     this.execute = function() {
 
         that = new PykCharts.oneD.processInputs(that, options, "pie");
-
+        that.width = that.height < that.width ? that.height : that.width;
+        that.h = (that.width)/2;
+        console.log(that.h);
+        that.height_translate = that.h;
         that.radiusPercent = options.pie_radiusPercent && _.isNumber(options.pie_radiusPercent) ? options.pie_radiusPercent : theme.oneDimensionalCharts.pie_radiusPercent;
         that.innerRadiusPercent = 0;
         d3.json(options.data, function (e, data) {
             that.data = data.groupBy("oned");
-            that.compare_data = data.groupBy("oned"); 
+            that.compare_data = data.groupBy("oned");
             $(options.selector+" #chart-loader").remove();
             var pieFunctions = new PykCharts.oneD.pieFunctions(options,that,"election pie");
             that.clubData_enable = that.data.length > that.clubData_maximumNodes ? that.clubData_enable : "no";
@@ -3321,13 +3329,16 @@ PykCharts.oneD.election_donut = function (options) {
 
     this.execute = function() {
         that = new PykCharts.oneD.processInputs(that, options, "pie");
-
+        that.width = that.height < that.width ? that.height : that.width;
+        that.h = (that.width)/2;
+        console.log(that.h)
+        that.height_translate = that.h;
         that.radiusPercent = options.donut_radiusPercent && _.isNumber(options.donut_radiusPercent) ? options.donut_radiusPercent : theme.oneDimensionalCharts.donut_radiusPercent;
         that.innerRadiusPercent = options.donut_innerRadiusPercent && _.isNumber(options.donut_innerRadiusPercent) && options.donut_innerRadiusPercent ? options.donut_innerRadiusPercent : theme.oneDimensionalCharts.donut_innerRadiusPercent;
 
         d3.json(options.data, function (e, data) {
             that.data = data.groupBy("oned");
-            that.compare_data = data.groupBy("oned"); 
+            that.compare_data = data.groupBy("oned");
             $(options.selector+" #chart-loader").remove();
             var pieFunctions = new PykCharts.oneD.pieFunctions(options,that,"election donut");
             that.clubData_enable = that.data.length> that.clubData_maximumNodes ? that.clubData_enable : "no";
@@ -3424,24 +3435,27 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
         var optional = {
             svgContainer :function () {
                 $(options.selector).css("background-color",that.bg);
-
+                console.log(that.h, that.selector);
                 that.svgContainer = d3.select(that.selector)
                     .append('svg')
                     .attr("width",that.width)
-                    .attr("height",that.height)
+                    .attr("height",function () {
+                        console.log(that.h);
+                        return that.h;
+                    })
                     .attr("preserveAspectRatio", "xMinYMin")
-                    .attr("viewBox", "0 0 " + that.width + " " + that.height)
+                    .attr("viewBox", "0 0 " + that.width + " " + that.h)
                     .attr("id","container")
                     .attr("class","svgcontainer");
                 that.group = that.svgContainer.append("g")
-                    .attr("transform","translate("+(that.width/2)+","+(that.k._radiusCalculation(that.radiusPercent)+20)+")")
+                    .attr("transform","translate("+(that.width/2)+","+that.height_translate+")")
                     .attr("id","pieGroup");
 
                 return this;
             },
             createChart : function () {
                 d3.select(that.selector +" #pieGroup").node().innerHTML="";
-                
+
                 if(type.toLowerCase() == "pie" || type.toLowerCase() == "donut") {
                     that.new_data.sort(function (a,b) { return a.weight - b.weight;});
                     var temp = that.new_data.pop();
@@ -3502,7 +3516,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                     .attr("stroke",that.border.color())
                     .attr("stroke-width",that.border.width())
                     .attr("stroke-dasharray", that.border.style())
-//                    .attr("d",that.arc); // comment this if u want to enable transition 
+//                    .attr("d",that.arc); // comment this if u want to enable transition
 
                 that.chart_data.transition()
                     .delay(function(d, i) {
@@ -3523,7 +3537,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                 return this;
             },
             label : function () {
-            
+
                     that.chart_text = that.group.selectAll("text")
                                        .data(that.pie(that.new_data));
 
@@ -3543,7 +3557,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                         //     if(PykCharts.boolean(that.transition.duration)) {
                         //         return (i * that.transition.duration)/that.new_data.length;
                         //     } else return 0;
-                        // }); 
+                        // });
 
                     setTimeout(function () {
                         that.chart_text.text(function (d) { return that.k.appendUnits(d.data.weight); })
@@ -3552,7 +3566,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                             .text(function (d,i) {
                                 if(type.toLowerCase() === "pie" || type.toLowerCase() === "election pie") {
                                     if(this.getBBox().width<((d.endAngle-d.startAngle)*((that.outer_radius/2)*0.9))) {
-                                        return ((d.data.weight*100)/that.sum).toFixed(2)+"%"; 
+                                        return ((d.data.weight*100)/that.sum).toFixed(1)+"%";
                                         // return that.k.appendUnits(d.data.weight);
                                     }
                                     else {
@@ -3560,7 +3574,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                                     }
                                 } else {
                                     if((this.getBBox().width < (Math.abs(d.endAngle - d.startAngle)*that.outer_radius*0.9))  && (this.getBBox().height < (((that.outer_radius-that.inner_radius)*0.75)))) {
-                                        return ((d.data.weight*100)/that.sum).toFixed(2)+"%";
+                                        return ((d.data.weight*100)/that.sum).toFixed(1)+"%";
                                         // return that.k.appendUnits(d.data.weight);
                                     }
                                     else {
@@ -3634,7 +3648,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                     };
 
                     var count = that.clubData_maximumNodes-that.displayData.length;
-                    
+
                     var sum_others = d3.sum(that.sorted_weight,function (d,i) {
                             if(i>=count-1)
                                 return d;
@@ -3807,7 +3821,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                         //     } else return 0;
                         // })
                         // .duration(that.transitions.duration()/that.new_data.length)
-                        
+
                     setTimeout(function () {
                         tick_line.attr("x2", function (d, i) {
                                 return (that.outer_radius/1+12)* (1) * Math.cos((d.startAngle + d.endAngle)/2);
@@ -3928,7 +3942,7 @@ PykCharts.oneD.pyramid = function (options) {
 
         d3.json(options.data, function (e,data) {
 			that.data = data.groupBy("oned");
-            that.compare_data = data.groupBy("oned"); 
+            that.compare_data = data.groupBy("oned");
             $(options.selector+" #chart-loader").remove();
 			that.clubData_enable = that.data.length > that.clubData_maximumNodes ? that.clubData_enable : "no";
             that.render();
@@ -4179,26 +4193,26 @@ PykCharts.oneD.pyramid = function (options) {
                         // .transition()
                         // .delay(that.transitions.duration())
 
-                    setTimeout(function () {    
+                    setTimeout(function () {
                         that.chart_text.text(function (d,i) {
                                 if(i===0) {
-                                    return ((that.new_data[i].weight*100)/that.sum).toFixed(2)+"%";
+                                    return ((that.new_data[i].weight*100)/that.sum).toFixed(1)+"%";
                                     // return that.k.appendUnits(that.new_data[i].weight);
                                 }
                                 else {
                                     j--;
-                                     return ((that.new_data[j].weight*100)/that.sum).toFixed(2)+"%";
+                                     return ((that.new_data[j].weight*100)/that.sum).toFixed(1)+"%";
                                     // return that.k.appendUnits(that.new_data[j].weight);
                                 }
                              })
                             .text(function (d,i) {
                                 if(this.getBBox().width < (d.values[2].x - d.values[1].x) && this.getBBox().height < Math.abs(d.values[1].y - d.values[0].y)) {
                                     if(i===0) {
-                                        return ((that.new_data[i].weight*100)/that.sum).toFixed(2)+"%";
+                                        return ((that.new_data[i].weight*100)/that.sum).toFixed(1)+"%";
                                         // return that.k.appendUnits(that.new_data[i].weight);
                                     }else {
                                         p--;
-                                        return ((that.new_data[p].weight*100)/that.sum).toFixed(2)+"%";
+                                        return ((that.new_data[p].weight*100)/that.sum).toFixed(1)+"%";
                                         // return that.k.appendUnits(that.new_data[p].weight);
                                     }
                                 }
@@ -4206,7 +4220,7 @@ PykCharts.oneD.pyramid = function (options) {
                                     return "";
                                 }
                             });
-                    },that.transitions.duration());    
+                    },that.transitions.duration());
 
                     that.chart_text.exit().remove();
 
@@ -4217,7 +4231,7 @@ PykCharts.oneD.pyramid = function (options) {
                 if(PykCharts.boolean(that.pointer_overflow_enable)) {
                     that.svgContainer.style("overflow","visible");
                 }
-                
+
                 var tick_label = that.group.selectAll(".ticks_label")
                         .data(that.coordinates);
 
@@ -4328,7 +4342,7 @@ PykCharts.oneD.pyramid = function (options) {
                     .attr("stroke",that.pointer_color)
                     // .transition()
                     // .duration(that.transitions.duration())
-               
+
                     setTimeout(function() {
                         tick_line.attr("x2", function (d,i) {
                             if(Math.abs(d.values[0].y - d.values[1].y) > w[i]) {
@@ -4393,7 +4407,7 @@ PykCharts.oneD.pyramid = function (options) {
                             });
                         return result;
                     } ;
-                    
+
                     if(that.clubData_alwaysIncludeDataPoints.length!== 0) {
                         for (var l=0;l<that.clubData_alwaysIncludeDataPoints.length;l++)
                         {
@@ -4463,7 +4477,7 @@ PykCharts.oneD.treemap = function (options){
 
         d3.json(options.data, function (e,data) {
             that.data = data.groupBy("oned");
-            that.compare_data = data.groupBy("oned");     
+            that.compare_data = data.groupBy("oned");
             $(options.selector+" #chart-loader").remove();
             that.clubData_enable = that.data.length>that.clubData_maximumNodes ? that.clubData_enable : "no";
             that.render();
@@ -4485,7 +4499,7 @@ PykCharts.oneD.treemap = function (options){
                 .clubData()
                 .createChart()
                 .label();
-            
+
         });
     };
 
@@ -4662,8 +4676,8 @@ PykCharts.oneD.treemap = function (options){
                         that.chart_text1.text(function (d) { return d.children ? " " :  that.k.appendUnits(d.weight); })
                             .text(function (d) {
                                 if(this.getBBox().width < d.dx && this.getBBox().height < d.dy-15) {
-                                    return d.children ? " " :  ((d.weight*100)/that.sum).toFixed(2)+"%"; /*that.k.appendUnits(d.weight);*/
-                                    
+                                    return d.children ? " " :  ((d.weight*100)/that.sum).toFixed(1)+"%"; /*that.k.appendUnits(d.weight);*/
+
                                 }
                                 else {
                                     return "";
