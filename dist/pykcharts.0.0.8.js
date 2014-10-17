@@ -1584,8 +1584,8 @@ configuration.Theme = function(){
         "pictograph_inactive_text_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
         "funnel_rect_width": 100,
         "funnel_rect_height": 100,
-        "percent_column_rect_width": 90,
-        "percent_row_rect_height": 80,
+        "percent_column_rect_width": 15,
+        "percent_row_rect_height": 13,
     };
 
     that.multiDimensionalCharts = {
@@ -1734,7 +1734,7 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
 
     chartObject.selector = options.selector ? options.selector : stylesheet.selector;
     chartObject.width = options.chart_width && _.isNumber(options.chart_width) ? options.chart_width : stylesheet.chart_width;
-    chartObject.height = options.chart_height && _.isNumber(options.chart_height) ? options.chart_height : stylesheet.chart_height;
+    // chartObject.height = options.chart_height && _.isNumber(options.chart_height) ? options.chart_height : stylesheet.chart_height;
     // chartObject.width = optional && optional.chart && _.isNumber(optional.chart.width) ? optional.chart.width : stylesheet.chart.width;
     // chartObject.height = optional && optional.chart &&_.isNumber(optional.chart.height) ? optional.chart.height : stylesheet.chart.height;
 
@@ -1829,8 +1829,7 @@ PykCharts.oneD.bubble = function (options) {
 
     this.execute = function () {
         that = PykCharts.oneD.processInputs(that, options);
-        that.width = that.height < that.width ? that.height :that.width;
-        that.height = that.width;
+        that.height = options.chart_height ? options.chart_height : that.width
 
         if(that.mode === "default") {
            that.k.loading();
@@ -2172,7 +2171,7 @@ PykCharts.oneD.funnel = function (options) {
     this.execute = function () {
         //1.3 Assign Global variable var that to access function and variable throughout
         that = new PykCharts.oneD.processInputs(that, options);
-
+        that.height = options.chart_height ? options.chart_height : that.width;
         var optional = options.optional
         , functionality = theme.oneDimensionalCharts;
         that.rect_width =  options.funnel_rect_width && _.isNumber(options.funnel_rect_width)  ? options.funnel_rect_width : functionality.funnel_rect_width;
@@ -2687,6 +2686,8 @@ PykCharts.oneD.percentageColumn = function (options) {
         that = new PykCharts.oneD.processInputs(that, options, "percentageColumn");
         // 1.2 Read Json File Get all the data and pass to render
         that.percent_column_rect_width = that.percent_column_rect_width ? that.percent_column_rect_width : theme.oneDimensionalCharts.percent_column_rect_width;
+        that.percent_column_rect_width = that.k._radiusCalculation(that.percent_column_rect_width,"percentageColumn") * 2;
+        that.height = options.chart_height ? options.chart_height : that.width;
         if(that.mode === "default") {
            that.k.loading();
         }
@@ -3078,6 +3079,8 @@ PykCharts.oneD.percentageBar = function (options) {
         that = new PykCharts.oneD.processInputs(that, options, "percentageBar");
         // 1.2 Read Json File Get all the data and pass to render
         that.percent_row_rect_height = that.percent_row_rect_height ? that.percent_row_rect_height : theme.oneDimensionalCharts.percent_row_rect_height;
+        that.percent_row_rect_height = that.k._radiusCalculation(that.percent_row_rect_height,"percentageBar") * 2;
+        that.height = options.chart_height ? options.chart_height : that.width/2;
         if(that.mode === "default") {
            that.k.loading();
         }
@@ -3479,31 +3482,7 @@ PykCharts.oneD.pictograph = function (options) {
         that.inactiveText_family = options.pictograph_inactive_text_family ? options.pictograph_inactive_text_family : functionality.pictograph_inactive_text_family;
         that.imageWidth =  options.pictograph_image_width ? options.pictograph_image_width : functionality.pictograph_image_width;
         that.imageHeight = options.pictograph_image_height ? options.pictograph_image_height : functionality.pictograph_image_height;
-        // that.showTotal = optional && optional.pictograph && optional.pictograph.showTotal ? optional.pictograph.showTotal : functionality.pictograph.showTotal;
-        // that.enableTotal = optional && optional.pictograph && optional.pictograph.enableTotal ? optional.pictograph.enableTotal : functionality.pictograph.enableTotal;
-        // that.enableCurrent = optional && optional.pictograph && optional.pictograph.enableCurrent ? optional.pictograph.enableCurrent : functionality.pictograph.enableCurrent;
-        // that.imgperline = optional && optional.pictograph && optional.pictograph.imagePerLine ?  optional.pictograph.imagePerLine : functionality.pictograph.imagePerLine;
-        // if (optional && optional.pictograph && optional.pictograph.activeText) {
-        //     that.activeText = optional.pictograph.activeText;
-        //     that.activeText.size = optional.pictograph.activeText.size ? optional.pictograph.activeText.size : functionality.pictograph.activeText.size;
-        //     that.activeText.color = optional.pictograph.activeText.color ? optional.pictograph.activeText.color : functionality.pictograph.activeText.color;
-        //     that.activeText.weight = optional.pictograph.activeText.weight ? optional.pictograph.activeText.weight : functionality.pictograph.activeText.weight;
-        //     that.activeText.family = optional.pictograph.activeText.family ? optional.pictograph.activeText.family : functionality.pictograph.activeText.family;
-        // } else {
-        //     that.activeText = functionality.pictograph.activeText;
-        // }
-        // if (optional && optional.pictograph && optional.pictograph.inactiveText) {
-        //     that.inactiveText = optional.pictograph.inactiveText;
-        //     that.inactiveText.size = optional.pictograph.inactiveText.size ? optional.pictograph.inactiveText.size : functionality.pictograph.inactiveText.size;
-        //     that.inactiveText.color = optional.pictograph.inactiveText.color ? optional.pictograph.inactiveText.color : functionality.pictograph.inactiveText.color;
-        //     that.inactiveText.weight = optional.pictograph.inactiveText.weight ? optional.pictograph.inactiveText.weight : functionality.pictograph.inactiveText.weight;
-        //     that.inactiveText.family = optional.pictograph.inactiveText.family ? optional.pictograph.inactiveText.family : functionality.pictograph.inactiveText.family;
-        // } else {
-        //     that.inactiveText = functionality.pictograph.inactiveText;
-        // }
-        // that.imageWidth = optional && optional.pictograph && optional.pictograph.imageWidth ? optional.pictograph.imageWidth : functionality.pictograph.imageWidth;
-        // that.imageHeight = optional && optional.pictograph && optional.pictograph.imageHeight ? optional.pictograph.imageHeight : functionality.pictograph.imageHeight;
-
+        that.height = options.chart_height ? options.chart_height : that.width;
         if(that.mode === "default") {
            that.k.loading();
         }
@@ -3558,12 +3537,12 @@ PykCharts.oneD.pictograph = function (options) {
                     .attr("transform", "translate(" + that.imageWidth + ",0)");
 
                 that.group1 = that.svgContainer.append("g")
-                    .attr("transform","translate(0,"+ that.imageHeight +")");
+                    .attr("transform","translate(0,0)");
 
                 return this;
             },
             createChart: function () {
-                var a = 1,b=1;
+                var a = 0,b=1;
 
                 that.optionalFeatures().showTotal();
                 var counter = 0;
@@ -3611,6 +3590,7 @@ PykCharts.oneD.pictograph = function (options) {
             },
             enableLabel: function () {
                 if (PykCharts.boolean(that.enableTotal)) {
+                    var y_pos =  ((that.data[0].weight)/(that.imgperline));
                     var textHeight;
                      this.labelText();
                      that.group1.append("text")
@@ -3623,12 +3603,14 @@ PykCharts.oneD.pictograph = function (options) {
                             return "/"+that.data[0].weight;
                         })
                         .attr("x", (that.textWidth+5))
-                        .attr("y", that.height/2 - textHeight);
+                        .attr("y", function () { return (((that.imageHeight * y_pos)/2)+30); });
                 }
                 return this;
             },
             labelText: function () {
                 if (PykCharts.boolean(that.enableCurrent)) {
+                    var y_pos =  ((that.data[0].weight)/(that.imgperline));
+                    console.log(y_pos);
                     var textHeight;
                     that.group1.append("text")
                         .attr("x", 0)
@@ -3641,7 +3623,7 @@ PykCharts.oneD.pictograph = function (options) {
                             that.textWidth = this.getBBox().width;
                             return that.data[1].weight;
                         })
-                        .attr("y", that.height/2 - textHeight);
+                        .attr("y", function () { return (((that.imageHeight * y_pos)/2)+ 30); });
 
                 }
                 return this;
@@ -3657,9 +3639,14 @@ PykCharts.oneD.pie = function (options) {
 
     this.execute = function() {
         that = new PykCharts.oneD.processInputs(that, options, "pie");
-        that.width = that.height < that.width ? that.height : that.width;
-        that.height = that.width;
-        console.log(that.height);
+        if(options.height) {
+            that.height = options.height;
+            that.calculation = "";
+        }
+        else {
+            that.height = that.width;
+            that.calculation = "pie";
+        }
         that.height_translate = that.height/2;
        that.radiusPercent = options.pie_radius_percent && _.isNumber(options.pie_radius_percent) ? options.pie_radius_percent : theme.oneDimensionalCharts.pie_radius_percent;
         // that.radiusPercent = options.optional && options.optional.pie && _.isNumber(options.optional.pie.radiusPercent) ? options.optional.pie.radiusPercent : theme.oneDimensionalCharts.pie.radiusPercent;
@@ -3686,9 +3673,14 @@ PykCharts.oneD.donut = function (options) {
     this.execute = function() {
 
         that = new PykCharts.oneD.processInputs(that, options, "pie");
-
-        that.width = that.height < that.width ? that.height : that.width;
-        that.height = that.width;
+        if(options.height) {
+            that.height = options.height;
+            that.calculation = "";
+        }
+        else {
+            that.height = that.width;
+            that.calculation = "pie";
+        }
         that.height_translate = that.height/2;
         that.radiusPercent = options.donut_radius_percent && _.isNumber(options.donut_radius_percent) ? options.donut_radius_percent : theme.oneDimensionalCharts.donut_radius_percent;
         that.innerRadiusPercent = options.donut_inner_radius_percent && _.isNumber(options.donut_inner_radius_percent) ? options.donut_inner_radius_percent : theme.oneDimensionalCharts.donut_inner_radius_percent;
@@ -3713,10 +3705,16 @@ PykCharts.oneD.election_pie = function (options) {
     this.execute = function() {
 
         that = new PykCharts.oneD.processInputs(that, options, "pie");
-
-        that.width = that.height < that.width ? that.height : that.width;
-        that.height = (that.width)/2;
-        that.height_translate = that.height;
+        if(options.height) {
+            that.height = options.height;
+            that.calculation = "";
+            that.height_translate = that.height/2;
+        }
+        else {
+            that.height = that.width/2;
+            that.calculation = "pie";
+            that.height_translate = that.height;
+        }
         that.radiusPercent = options.pie_radius_percent && _.isNumber(options.pie_radius_percent) ? options.pie_radius_percent : theme.oneDimensionalCharts.pie_radius_percent;
         that.innerRadiusPercent = 0;
         d3.json(options.data, function (e, data) {
@@ -3737,13 +3735,20 @@ PykCharts.oneD.election_donut = function (options) {
 
     this.execute = function() {
         that = new PykCharts.oneD.processInputs(that, options, "pie");
-
-        that.width = that.height < that.width ? that.height : that.width;
-        that.height = (that.width)/2;
-        console.log(that.height)
-        that.height_translate = that.height;
+        if(options.height) {
+            that.height = options.height;
+            that.calculation = "";
+            that.height_translate = that.height/2;
+        }
+        else {
+            that.height = that.width/2;
+            that.calculation = "pie";
+            that.height_translate = that.height;
+        }
+        
         that.radiusPercent = options.donut_radius_percent && _.isNumber(options.donut_radius_percent) ? options.donut_radius_percent : theme.oneDimensionalCharts.donut_radius_percent;
         that.innerRadiusPercent = options.donut_inner_radius_percent && _.isNumber(options.donut_inner_radius_percent) && options.donut_inner_radius_percent ? options.donut_inner_radius_percent : theme.oneDimensionalCharts.donut_inner_radius_percent;
+
 
         d3.json(options.data, function (e, data) {
             that.data = data.groupBy("oned");
@@ -3883,8 +3888,8 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                 // var proportion =_.map(that.new_data,function (d,i) {
                 //     return d.weight*100/that.sum;
                 // });
-                that.inner_radius = that.k._radiusCalculation(that.innerRadiusPercent,"pie");
-                that.outer_radius = that.k._radiusCalculation(that.radiusPercent,"pie");
+                that.inner_radius = that.k._radiusCalculation(that.innerRadiusPercent,that.calculation);
+                that.outer_radius = that.k._radiusCalculation(that.radiusPercent,that.calculation);
 
                 that.arc = d3.svg.arc()
                     .innerRadius(that.inner_radius)
@@ -4341,7 +4346,7 @@ PykCharts.oneD.pyramid = function (options) {
 
 	this.execute = function () {
         that = new PykCharts.oneD.processInputs(that, options, "pyramid");
-
+        that.height = options.chart_height ? options.chart_height : that.width;
         if(that.mode === "default") {
            that.k.loading();
         }
@@ -4876,7 +4881,7 @@ PykCharts.oneD.treemap = function (options){
         optional = options.optional;
         // that.enableText = optional && PykCharts.boolean(optional.enableText) ? optional.enableText : false;
         that.selector = options.selector;
-
+        that.height = options.chart_height ? options.chart_height : that.width;
         if(that.mode === "default") {
            that.k.loading();
         }

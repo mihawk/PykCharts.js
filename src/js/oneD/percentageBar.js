@@ -13,6 +13,8 @@ PykCharts.oneD.percentageBar = function (options) {
         that = new PykCharts.oneD.processInputs(that, options, "percentageBar");
         // 1.2 Read Json File Get all the data and pass to render
         that.percent_row_rect_height = that.percent_row_rect_height ? that.percent_row_rect_height : theme.oneDimensionalCharts.percent_row_rect_height;
+        that.percent_row_rect_height = that.k._radiusCalculation(that.percent_row_rect_height,"percentageBar") * 2;
+        that.height = options.chart_height ? options.chart_height : that.width/2;
         if(that.mode === "default") {
            that.k.loading();
         }

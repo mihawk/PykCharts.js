@@ -54,6 +54,7 @@
             var k = new PykCharts.oneD.pictograph({
                 selector: "#pictograph",
                 data:"../data/pictograph.json",
+                chart_width : 400,
                 transition_duration: 1000
              });
             k.execute();
@@ -114,7 +115,7 @@
                 selector: "#percentageBar",
                 data:"../data/pie.json",
                 transition_duration: 1000,
-                "chart_height": 200,
+                // "chart_height": 200,
                 "chart_width": 600,
                 // "realTimeCharts_refreshFrequency": 11
             });
