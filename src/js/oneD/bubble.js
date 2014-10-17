@@ -14,7 +14,6 @@ PykCharts.oneD.bubble = function (options) {
             $(options.selector+" #chart-loader").remove();
             that.clubData_enable = that.data.length>that.clubData_maximumNodes ? that.clubData_enable : "no";
             that.render();
-
         });
     };
 
@@ -56,9 +55,9 @@ PykCharts.oneD.bubble = function (options) {
                 .liveData(that)
                 .tooltip();
 
-        that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
-       }
-       else if (that.mode ==="infographics") {
+            that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
+        }
+        else if (that.mode ==="infographics") {
             that.new_data = {"children" : that.data};
             that.optionalFeatures().svgContainer()
                 .createChart()
@@ -66,8 +65,9 @@ PykCharts.oneD.bubble = function (options) {
 
             that.k.tooltip();
             that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
-       }
-       $(window).on("load", function () { return that.k.resize(that.svgContainer); })
+        }
+        that.k.export(that,"#svgcontainer","bubble");
+        $(window).on("load", function () { return that.k.resize(that.svgContainer); })
                             .on("resize", function () { return that.k.resize(that.svgContainer); });
     };
 
@@ -119,6 +119,7 @@ PykCharts.oneD.bubble = function (options) {
                     .attr("r",0)
                     .attr("transform",function (d) { return "translate(" + d.x + "," + d.y +")"; })
                     .attr("fill",function (d) {
+                        
                         return d.children ? that.bg : that.fillChart.selectColor(d);
                     })
                     .on("mouseover", function (d) {
@@ -132,6 +133,7 @@ PykCharts.oneD.bubble = function (options) {
                     .on("mouseout", function (d) {
                         that.mouseEvent.tooltipHide(d)
                         that.onHoverEffect.highlightHide(options.selector+" "+".bubble");
+                        
                     })
                     .on("mousemove", function (d) {
                         if(!d.children) {
@@ -147,20 +149,75 @@ PykCharts.oneD.bubble = function (options) {
             },
             label : function () {
 
-                    that.chart_text = that.group.selectAll("text")
-                        .data(that.node);
+                //     that.chart_text = that.group.selectAll("text")
+                //         .data(that.node);
 
+                //     that.chart_text.enter()
+                //     .append("text")
+                //     .style("pointer-events","none");
+
+                //     that.chart_text.attr("text-anchor","middle")
+                //         .attr("transform",function (d) {return "translate(" + d.x + "," + (d.y + 5) +")";})
+                //         .text("")
+                //         // .transition()
+                //         // .delay(that.transitions.duration());
+
+                //     setTimeout(function() {
+                //         that.chart_text
+                //             .text(function (d) { return d.children ? " " :  d.name; })
+                //             .attr("pointer-events","none")
+                //             .text(function (d) {
+                //                 if(this.getBBox().width< 2*d.r && this.getBBox().height<2*d.r) {
+                //                     return d.children ? " " :  d.name;
+                //                 }
+                //                 else {
+                //                      return "";
+                //                     }
+                //             })
+                //             .style("font-weight", that.label_weight)
+                //             .style("font-size",function (d,i) {
+                //                 if (d.r > 24) {
+                //                     return that.label_size;
+                //                 } else {
+                //                     return "10px";
+                //                 }
+                //             })
+                //             .attr("fill", that.label_color)
+                //             .style("font-family", that.label_family);
+                //     },that.transitions.duration());
+                        
+                //     that.chart_text.exit().remove;
+                // return this;
+                 that.chart_text = that.group.selectAll(".name")
+                        .data(that.node);
+                    that.chart_text1 = that.group.selectAll(".weight")
+                        .data(that.node);
                     that.chart_text.enter()
-                    .append("text")
-                    .style("pointer-events","none");
+                        .append("svg:text")
+                        .attr("class","name");
+
+                    that.chart_text1.enter()
+                        .append("svg:text")
+                        .attr("class","weight");
+
+                    that.chart_text.attr("class","name")
+                        .attr("x", function (d) { return d.x })
+                        .attr("y", function (d) { return d.y -5 });
+
+                    that.chart_text1.attr("class","weight")
+                        .attr("x", function (d) { return d.x })
+                        .attr("y", function (d) { return d.y + 10; });
 
                     that.chart_text.attr("text-anchor","middle")
-                        .attr("transform",function (d) {return "translate(" + d.x + "," + (d.y + 5) +")";})
+                        .style("font-weight", that.label_weight)
+                        .style("font-size", that.label_size)
+                        .attr("fill", that.label_color)
+                        .style("font-family", that.label_family)
                         .text("")
                         // .transition()
-                        // .delay(that.transitions.duration());
+                        // .delay(that.transitions.duration())
 
-                    setTimeout(function() {
+                  setTimeout(function() {
                         that.chart_text
                             .text(function (d) { return d.children ? " " :  d.name; })
                             .attr("pointer-events","none")
@@ -169,22 +226,37 @@ PykCharts.oneD.bubble = function (options) {
                                     return d.children ? " " :  d.name;
                                 }
                                 else {
-                                     return "";
-                                    }
-                            })
-                            .style("font-weight", that.label_weight)
-                            .style("font-size",function (d,i) {
-                                if (d.r > 24) {
-                                    return that.label_size;
-                                } else {
-                                    return "10px";
+                                    return "";
                                 }
-                            })
-                            .attr("fill", that.label_color)
-                            .style("font-family", that.label_family);
+                            });
                     },that.transitions.duration());
-                        
-                    that.chart_text.exit().remove;
+
+                    that.chart_text1.attr("text-anchor","middle")
+                        .style("font-weight", that.label_weight)
+                        .style("font-size", that.label_size)
+                        .attr("fill", that.label_color)
+                        .style("font-family", that.label_family)
+                        .text("")
+                        .attr("pointer-events","none")
+                        // .transition()
+                        // .delay(that.transitions.duration())
+
+                    setTimeout(function () {
+                        that.chart_text1.text(function (d) { return d.children ? " " :  that.k.appendUnits(d.weight); })
+                            .text(function (d) {
+                                if(this.getBBox().width<2*d.r*0.55 && this.getBBox().height<2*d.r*0.55) {
+                                    return d.children ? " " :  ((d.weight*100)/that.sum).toFixed(2)+"%"; /*that.k.appendUnits(d.weight);*/                                    
+                                }
+                                else {
+                                    return "";
+                                }
+                            });
+                    },that.transitions.duration());
+
+                    that.chart_text.exit()
+                        .remove();
+                    that.chart_text1.exit()
+                        .remove();
                 return this;
             },
             clubData : function () {

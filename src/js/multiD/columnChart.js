@@ -72,8 +72,9 @@ PykCharts.multiD.columnChart = function(options){
                 .makeMainDiv(that.selector,1);
 
             that.optionalFeatures()
-                .legendsContainer(1)
-                .svgContainer(1);
+                .svgContainer(1)
+                .legendsContainer(1);
+                
 
             that.k.liveData(that)
                 .tooltip()
@@ -85,8 +86,9 @@ PykCharts.multiD.columnChart = function(options){
             that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
 
             that.optionalFeatures()
-                .createChart()
                 .legends()
+                .createGroups(1)
+                .createChart()
                 .axisContainer();
 
             that.k.yAxis(that.svgContainer,that.yGroup,that.yScaleInvert)
@@ -97,6 +99,7 @@ PykCharts.multiD.columnChart = function(options){
         } else if(that.mode === "infographics") {
             that.k.makeMainDiv(that.selector,1);
             that.optionalFeatures().svgContainer(1)
+                .createGroups(1)
                 .createChart()
                 .axisContainer();
 
@@ -105,6 +108,8 @@ PykCharts.multiD.columnChart = function(options){
             that.k.yAxis(that.svgContainer,that.ygroup,that.yScaleInvert)
                  .yAxisTitle(that.yGroup);
         }
+
+        that.k.export(that,"#svgcontainer","columnChart");
         if(PykCharts.boolean(that.legends_enable)) {
             $(window).on("load", function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); })
                 .on("resize", function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); });
@@ -129,10 +134,14 @@ PykCharts.multiD.columnChart = function(options){
                     .attr("preserveAspectRatio", "xMinYMin")
                     .attr("viewBox", "0 0 " + that.width + " " + that.height);
 
+                return this;
+            },
+            createGroups: function (i) {
+                console.log(that.legendsGroup_height,"hello");
                 that.group = that.svgContainer.append("g")
                     .attr("id","svggroup")
                     .attr("class","svggroup")
-                    .attr("transform","translate(" + that.margin_left + "," + that.margin_top +")");
+                    .attr("transform","translate(" + that.margin_left + "," + (that.margin_top + that.legendsGroup_height) +")");
 
                 if(PykCharts.boolean(that.grid_yEnabled)) {
                     that.group.append("g")
@@ -143,20 +152,16 @@ PykCharts.multiD.columnChart = function(options){
                 return this;
             },
             legendsContainer: function (i) {
-                if(PykCharts.boolean(that.legends_enable)) {
-                    that.legendsContainer = d3.select(options.selector + " #tooltip-svg-container-" + i)
-                        .append("svg:svg")
-                        .attr("width",that.width)
-                        .attr("height",50)
-                        .attr("class","legendscontainer")
-                        .attr("id","legendscontainer")
-                        .attr("preserveAspectRatio", "xMinYMin")
-                        .attr("viewBox", "0 0 " + that.width + " 50");
 
-                    that.legendsGroup = that.legendsContainer.append("g")
+                if(PykCharts.boolean(that.legends_enable)) {
+                  
+                    that.legendsGroup = that.svgContainer.append("g")
                         .attr("id","legends")
                         .attr("class","legends")
                         .attr("transform","translate(0,10)");
+                        
+                } else {
+                    that.legendsGroup_height = 0;
                 }
                 return this;
             },
@@ -170,9 +175,9 @@ PykCharts.multiD.columnChart = function(options){
 
                     axis_line.attr("class","axis-line")
                             .attr("x1",0)
-                            .attr("y1",that.height-that.margin_top-that.margin_bottom)
+                            .attr("y1",that.height-that.margin_top-that.margin_bottom-that.legendsGroup_height )
                             .attr("x2",that.width-that.margin_left-that.margin_right)
-                            .attr("y2",that.height-that.margin_top-that.margin_bottom)
+                            .attr("y2",that.height-that.margin_top-that.margin_bottom-that.legendsGroup_height)
                             .attr("stroke",that.axis_x_axisColor);
 
                     axis_line.exit().remove();
@@ -184,7 +189,7 @@ PykCharts.multiD.columnChart = function(options){
                             .style("stroke","none")
                             .append("text")
                                 .attr("x", (that.width - that.margin_left - that.margin_right)/2)
-                                .attr("y", that.height -that.margin_bottom - that.margin_top)
+                                .attr("y", that.height -that.margin_bottom - that.margin_top - that.legendsGroup_height)
                                 // .attr("dy", -8)
                                 .attr("dy", that.margin_top + 10)
                                 .style("fill", that.axis_x_labelColor)
@@ -202,7 +207,7 @@ PykCharts.multiD.columnChart = function(options){
                             .attr("x", (that.width - that.margin_left - that.margin_right)/2)
                             .attr("y", -40)
                             // .attr("dy", -8)
-                            .attr("dy", that.margin_top + 10)
+                            .attr("dy", that.margin_top + that.legendsGroup_height + 10)
                             .style("fill", that.axis_x_labelColor)
                             .style("text-anchor", "end")
                             .text(that.axis_x_title);
@@ -217,7 +222,7 @@ PykCharts.multiD.columnChart = function(options){
             },
             createChart: function() {
                 var w = that.width - that.margin_left - that.margin_right;
-                var h = that.height - that.margin_top - that.margin_bottom,j=that.no_of_groups+1;
+                var h = that.height - that.margin_top - that.margin_bottom - that.legendsGroup_height,j=that.no_of_groups+1;
 
                 var the_bars = that.the_bars;
                 var keys = that.the_keys;
@@ -431,7 +436,9 @@ PykCharts.multiD.columnChart = function(options){
                     k = params.length;
 
                     if(that.legends_display === "vertical" ) {
-                        that.legendsContainer.attr("height", (params.length * 30)+20);
+                        that.legendsGroup.attr("height", (params.length * 30)+20);
+                        that.legendsGroup_height = (params.length * 30)+20;
+
                         text_parameter1 = "x";
                         text_parameter2 = "y";
                         rect_parameter1 = "width";
@@ -446,6 +453,7 @@ PykCharts.multiD.columnChart = function(options){
                         var text_parameter2value = function (d,i) { return i * 24 + 23;};
                     }
                     else if(that.legends_display === "horizontal") {
+                        that.legendsGroup_height = 50;
                         text_parameter1 = "x";
                         text_parameter2 = "y";
                         rect_parameter1 = "width";

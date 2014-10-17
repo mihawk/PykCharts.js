@@ -71,6 +71,7 @@ PykCharts.oneD.treemap = function (options){
                 .credits()
                 .dataSource();
         }
+        that.k.export(that,"#svgcontainer","treemap");
         $(window).on("load", function () { return that.k.resize(that.svgContainer); })
                             .on("resize", function () { return that.k.resize(that.svgContainer); });
     };
@@ -119,7 +120,7 @@ PykCharts.oneD.treemap = function (options){
                 that.chart_data.attr("class","cell")
                     .select("rect")
                     .attr("class","treemap-rect")
-                    .attr("id",function (d,i) { return i; })
+                    .attr("id",function (d,i) { return "rect" + i; })
                     .attr("x",function (d) { return d.x; })
                     .attr("y", function (d) { return d.y; })
                     .attr("width", function (d) { return d.dx-1; })
@@ -211,7 +212,8 @@ PykCharts.oneD.treemap = function (options){
                         that.chart_text1.text(function (d) { return d.children ? " " :  that.k.appendUnits(d.weight); })
                             .text(function (d) {
                                 if(this.getBBox().width < d.dx && this.getBBox().height < d.dy-15) {
-                                    return d.children ? " " :  that.k.appendUnits(d.weight);
+                                    return d.children ? " " :  ((d.weight*100)/that.sum).toFixed(2)+"%"; /*that.k.appendUnits(d.weight);*/
+                                    
                                 }
                                 else {
                                     return "";

@@ -2,6 +2,8 @@
 	<head>
         <title>One-Dimensional Charts</title>
         <link rel="stylesheet" type="text/css" href="../dist/pykcharts.0.0.8.min.css">
+        <script src="../lib/paper-full.js"></script>
+        <script src="../lib/downloadDataURI.js"></script>
 	</head>
 	<body>
       <div id="bubble"></div>
@@ -34,7 +36,33 @@
                 selector: "#bubble",
                 data:"../data/pie.json",
                 transition_duration: 1000,
-                highlight: "AAP"
+                highlight: "A",
+                "chart_height": 700,
+                "chart_width": 600,
+                "title_text": "nehal",
+                "title_size": "30px",
+                "title_color": "yellow",
+                "title_weight": "thin",
+                "title_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
+                "subtitle_text": "gala",
+                "subtitle_size": "20px",
+                "subtitle_color": "red",
+                "subtitle_weight": "bold",
+                "subtitle_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
+                "tooltip_enable": "no",
+                "highlight": "",
+                "backgroundColor": "green",
+                "chartColor": "red",
+                "label_size": 13,
+                "label_color": "white",
+                "label_weight": "thin",
+                "label_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",     
+                "highlightColor": "#013F73",
+                "clubData_enable": "yes",
+                "clubData_text": "others",
+                "clubData_maximumNodes": 4,
+                "realTimeCharts_refreshFrequency": 3,
+                "realTimeCharts_enableLastUpdatedAt": "yes",
             });
             k.execute();
 
@@ -42,6 +70,7 @@
           				selector: "#funnel",
           				data:"../data/pie.json",
                  transition_duration: 1000,
+                 units_suffix: "rs"
         			});
       			k.execute();
 
@@ -64,7 +93,7 @@
                 selector: "#treemap",
                 data: "../data/pie.json",
                 transition_duration: 0, 
-                realTimeCharts_refreshFrequency: 11
+                realTimeCharts_refreshFrequency: 0
             });
             k.execute();
 
@@ -111,6 +140,7 @@
             });
             k.execute();
 		    }
+
 
 		</script>
     <script src="../dist/pykcharts.0.0.8.js"></script>

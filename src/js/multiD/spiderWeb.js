@@ -55,8 +55,8 @@ PykCharts.multiD.spiderWeb = function (options) {
                 .makeMainDiv(that.selector,1);
 
             that.optionalFeatures()
-                .legendsContainer(1)
-                .svgContainer(1);
+                .svgContainer(1)
+                .legendsContainer(1);
 
             that.k
                 .liveData(that)
@@ -65,10 +65,11 @@ PykCharts.multiD.spiderWeb = function (options) {
             that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
 
             that.optionalFeatures()
+                .legends()
+                .createGroups()
                 .createChart()
                 .axisTicks()
-                .axisTitle()
-                .legends();
+                .axisTitle();
 
               that.k.createFooter()
                 .lastUpdatedAt()
@@ -84,8 +85,10 @@ PykCharts.multiD.spiderWeb = function (options) {
             that.k.tooltip();
 
             that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
-       }
-       if(PykCharts.boolean(that.legends_enable)) {
+        }
+
+        that.k.export(that,"#svgcontainer","spiderweb");
+        if(PykCharts.boolean(that.legends_enable)) {
             $(window).on("load", function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); })
                 .on("resize", function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); });
         } else {
@@ -114,24 +117,18 @@ PykCharts.multiD.spiderWeb = function (options) {
                     .attr("preserveAspectRatio", "xMinYMin")
                     .attr("viewBox", "0 0 " + that.width + " " + that.height);
 
+                return this;
+            },
+            createGroups: function () {
                 that.group = that.svgContainer.append("g")
                     .attr("id","spidergrp")
-                    .attr("transform", "translate(" + that.width / 2 + "," + that.height / 2 + ")");
+                    .attr("transform", "translate(" + that.width / 2 + "," + (that.height+that.legendsGroup_height) / 2 + ")");
 
                 return this;
             },
             legendsContainer : function (i) {
                 if (PykCharts.boolean(that.legends_enable) && PykCharts.boolean(that.size_enable) && that.map_group_data[1]) {
-                    that.legendsContainer = d3.select(that.selector + " #tooltip-svg-container-" + i)
-                        .append("svg")
-                        .attr("class","legendsvg")
-                        .attr("id","legendscontainer")
-                        .attr("width",that.width)
-                        .attr("height",50)
-                        .attr("preserveAspectRatio", "xMinYMin")
-                        .attr("viewBox", "0 0 " + that.width + " 50");
-
-                    that.legendsGroup = that.legendsContainer.append("g")
+                    that.legendsGroup = that.svgContainer.append("g")
                         .attr("class","legendgrp")
                         .attr("id","legendgrp");
                 }
@@ -281,7 +278,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                         .style("fill", function (d,i) {
                             return that.fillChart.colorPieW(that.new_data[m].data[i]);
                         })
-                        .style("opacity", function (d,i) {
+                        .style("fill-opacity", function (d,i) {
                             return that.multiD.opacity(that.new_data[m].data[i].weight,that.weight,that.data);
                         })
                         .attr("stroke",that.border.color())
@@ -326,7 +323,8 @@ PykCharts.multiD.spiderWeb = function (options) {
                     var k = 0;
                     var l = 0;
                     if(that.legends_display === "vertical" ) {
-                        that.legendsContainer.attr("height", (that.map_group_data[0].length * 30)+20);
+                        that.legendsGroup.attr("height", (that.map_group_data[0].length * 30)+20);
+                        that.legendsGroup_height = (that.map_group_data[0].length * 30)+20;
                         text_parameter1 = "x";
                         text_parameter2 = "y";
                         rect_parameter1 = "width";
@@ -343,6 +341,7 @@ PykCharts.multiD.spiderWeb = function (options) {
 
                     } else if(that.legends_display === "horizontal") {
                          // that.legendsContainer.attr("height", (k+1)*70);
+                        that.legendsGroup_height = 50;
                         text_parameter1 = "x";
                         text_parameter2 = "y";
                         rect_parameter1 = "width";
@@ -395,7 +394,8 @@ PykCharts.multiD.spiderWeb = function (options) {
                             } else if ((that.width - (i*100 + 100)) < that.width) {
                                 k++;
                                 if(l === 0) {
-                                    that.legendsContainer.attr("height", (l+1)*50);
+                                    that.legendsGroup.attr("height", (l+1)*50);
+                                    that.legendsGroup_height = (l+1)*50;
                                 }
                                 l++;
                                 return that.width - ((l-1)*100 + 100);
@@ -438,7 +438,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                         .attr("fill", function (d) {
                             return that.fillChart.colorPieW(d);
                         })
-                        .attr("opacity", function (d) {
+                        .attr("fill-opacity", function (d) {
                             return 0.6;
                         });
 
@@ -567,7 +567,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                 if (PykCharts.boolean(that.enableTicks)) {
                     var a = that.yScale.domain();
                     that.ticksElement = that.svgContainer.append("g")
-                        .attr("transform", "translate(" + that.width / 2 + "," + that.height / 2 + ")");
+                        .attr("transform", "translate(" + that.width / 2 + "," + (that.height+that.legendsGroup_height) / 2 + ")");
                     var t = a[1]/4;
                     var b = [];
                     for(i=4,j=0; i>=0 ;i--,j++){

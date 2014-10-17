@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Multi-Dimensional Charts</title>
+        <link rel="stylesheet" type="text/css" href="../src/css/PykCharts.css">
+    </head>
+    <body>
+        <canvas id="canvas" width="600" height="600" style="display:none;"></canvas>
+        <div id="scatterPlot"></div>
+        <hr/>
+        <div id="multiple-scatterplots"></div>
+        <hr/>
+        <button type="button" id = "export-button">Click Me!</button>
+        <script src="../lib/d3.min.js"></script>
+        <script src="../lib/jquery-1.11.1.min.js"></script>
+        <script src="../lib/underscore-min.js"></script>
+        <script src="../lib/custom-hive.js"></script>
+        <script src="../lib/paper-core.js"></script>
+        <script src="../lib/paper-full.js"></script>
+        <script src="../lib/FileSaver.js"></script>
+        <script src="../lib/jspdf.js"></script>                
+        <script src="../lib/rgbcolor.js"></script>                
+        <script src="../lib/Blob.js"></script>
+        <script src="../lib/StackBlur.js"></script>
+        <script src="../lib/jspdf.plugin.addimage.js"></script>
+        <script src="../lib/canvg.js"></script> 
+        <script src="../lib/svgToPdf.js"></script>                
+        <script src="../src/js/export.js"></script>
+        <script src="../src/js/multiD/multiD.js"></script>
+        <script src="../src/js/multiD/columnChart.js"></script>
+        <script src="../src/js/multiD/areaChart.js"></script>
+        <script src="../src/js/multiD/lineChart.js"></script>
+        <script src="../src/js/multiD/spiderWeb.js"></script>
+        <script src="../src/js/multiD/export.js"></script>
+        <script src="../src/js/multiD/barChart.js"></script>
+
+        <script>
+
+            $(document).ready(function (e) {                
+
+                var k = new PykCharts.multiD.scatterPlot ({
+                    selector: "#scatterPlot",
+                    data: "../data/scatterplot.json",
+                    mode : "default", //  default or infographics
+                    // yAxisDataFormat : "number",
+                    // xAxisDataFormat : "number",
+
+                    color: ["purple","red","yellow","pink","blue"],
+
+                    chart_height: 500,
+                    chart_width : 700,
+                    chart_margin_top: 25,
+                    chart_margin_right: 15,
+                    chart_margin_bottom: 25,
+                    chart_margin_left: 40,
+                    chart_grid_xEnabled: "yes",
+                    chart_grid_yEnabled: "yes",
+
+                    scatterplot_radius : 9,
+                    scatterplot_pointer: "no",
+
+                    realTimeCharts_refreshFrequency: 0,
+                    multiple_containers_enable: "no",
+                    size_enable: "yes",
+
+                    axis_x_enable: "no",
+                    axis_x_title : "Price",
+                    axis_x_position: "bottom",
+                    axis_x_value_position: "bottom",
+                    axis_x_axisColor: "#1D1D1D",
+                    axis_x_no_of_axis_value: 5,
+                    axis_x_labelColor: "black",
+                    axis_x_pointer_size: 5,
+                    axis_x_pointer_padding: 3,
+                    axis_x_outer_pointer_size: 3,
+
+                    axis_y_enable: "no",
+                    axis_y_title : "Rating",
+                    axis_y_position: "left",
+                    axis_y_value_position: "left",
+                    axis_y_axisColor: "#1D1D1D",
+                    axis_y_no_of_axis_value: 5,
+                    axis_y_labelColor: "#1D1D1D",
+                    axis_y_pointer_size: 5,
+                    axis_y_pointer_padding: 10,
+                    axis_y_outer_pointer_size: 3,
+
+                    legends_enable: "yes",
+                    legends_display: "vertical", //horizontal or vertical
+                    legendsText_size: 13,
+                    legendsText_color: "black",
+                    legendsText_weight: "thin",
+                    legendsText_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
+
+                    zoom_enable: "yes",
+
+                    borderBetweenChartElements_width:0,
+                    borderBetweenChartElements_color:"blue",
+
+                    label_size:12,
+                    label_color: "black",
+                    label_weight: "thick",
+                    label_family:"'Helvetica Neue',Helvetica,Arial,sans-serif",
+
+                    enableCrossHair: "yes"
+                });
+//            k.execute();
+
+                var k = new PykCharts.multiD.scatterPlot ({
+                    selector: "#multiple-scatterplots",
+                    data: "../data/scatterplot.json",
+                    mode : "default", //  default or infographics
+                    // yAxisDataFormat : "number",
+                    // xAxisDataFormat : "number",
+
+                    chart_height: 500,
+                    chart_width : 700,
+                    chart_margin_top: 25,
+                    chart_margin_right: 15,
+                    chart_margin_bottom: 40,
+                    chart_margin_left: 45,
+                    chart_grid_xEnabled: "yes",
+                    chart_grid_yEnabled: "yes",
+
+                    scatterplot_radius : 9,
+                    scatterplot_pointer: "no",
+                    realTimeCharts_refreshFrequency: 0,
+                    multiple_containers_enable: "yes",
+                    size_enable: "yes",
+
+                    axis_x_enable: "yes",
+                    axis_x_title : "Price",
+                    axis_x_position: "bottom",
+                    axis_x_value_position: "bottom",
+                    axis_x_axisColor: "#1D1D1D",
+                    axis_x_no_of_axis_value: 5,
+                    axis_x_labelColor: "black",
+                    axis_x_pointer_size: 5,
+                    axis_x_pointer_padding: 3,
+                    axis_x_outer_pointer_size: 3,
+
+                    axis_y_enable: "yes",
+                    axis_y_title : "Rating",
+                    axis_y_position: "left",
+                    axis_y_value_position: "left",
+                    axis_y_axisColor: "#1D1D1D",
+                    axis_y_no_of_axis_value: 5,
+                    axis_y_labelColor: "#1D1D1D",
+                    axis_y_pointer_size: 5,
+                    axis_y_pointer_padding: 10,
+                    axis_y_outer_pointer_size: 3,
+
+                    legends_enable: "yes",
+                    legends_display: "horizontal", //horizontal or vertical
+                    legendsText_size: 13,
+                    legendsText_color: "black",
+                    legendsText_weight: "thin",
+                    legendsText_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
+
+                    zoom_enable: "yes",
+
+                    borderBetweenChartElements_width:0,
+                    borderBetweenChartElements_color:"blue",
+
+                    label_size:12,
+                    label_color: "white",
+                    label_weight: "thick",
+                    label_family:"'Helvetica Neue',Helvetica,Arial,sans-serif",
+
+                    enableCrossHair: "yes"
+                });
+
+              k.execute();
+            });
+        </script>
+
+        <script type="text/paperscript" canvas="canvas">
+ 
+            project.importSVG(document.getElementById('svgcontainer1'));
+            //console.log(project,"project");
+            
+            function downloadDataUri(options) {
+                if (!options.url)
+                    options.url = "http://download-data-uri.appspot.com/";
+                $('<form method="post" action="' + options.url
+                    + '" style="display:none"><input type="hidden" name="filename" value="'
+                    + options.filename + '"/><input type="hidden" name="data" value="'
+                    + options.data + '"/></form>').appendTo('body').submit().remove();
+            }
+            $('#export-button').click(function() {
+            var svg = project.exportSVG({ asString: true });
+            downloadDataUri({
+                data: 'data:image/svg+xml;base64,' + btoa(svg),
+                filename: 'export.svg'
+            });
+        });
+        </script>
+    </body>
+</html>

@@ -84,6 +84,7 @@ PykCharts.oneD.funnel = function (options) {
                 .credits()
                 .dataSource();
         }
+        that.k.export(that,"#svgcontainer","funnel");
         $(window).on("load", function () { return that.k.resize(that.svgContainer); })
                             .on("resize", function () { return that.k.resize(that.svgContainer); });
     };
@@ -303,7 +304,8 @@ PykCharts.oneD.funnel = function (options) {
 
                     setTimeout(function(){
                         that.chart_text.text(function (d,i) {
-                                return that.k.appendUnits(that.new_data[i].weight);
+                                return that.per_values[i].toFixed(2) + "%";
+                                // return that.k.appendUnits(that.new_data[i].weight);
                              })
                             .attr("text-anchor","middle")
                             .attr("pointer-events","none")
@@ -313,8 +315,8 @@ PykCharts.oneD.funnel = function (options) {
                             .style("font-family", that.label_family)
                             .text(function (d,i) {
                                 if(this.getBBox().width<(d.values[3].x - d.values[1].x) && this.getBBox().height < (d.values[2].y - d.values[0].y)) {
-
-                                    return that.k.appendUnits(that.new_data[i].weight);
+                                    return that.per_values[i].toFixed(2) + "%";
+                                    // return that.k.appendUnits(that.new_data[i].weight);
                                 }
                                 else {
                                     return "";
