@@ -1581,7 +1581,9 @@ configuration.Theme = function(){
         "pictograph_inactiveText_weight": "thin",
         "pictograph_inactiveText_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
         "funnel_rectWidth": 100,
-        "funnel_rectHeight": 100
+        "funnel_rectHeight": 100,
+        "percent_column_rect_width": 90,
+        "percent_row_rect_height": 80,
     };
 
     that.multiDimensionalCharts = {
