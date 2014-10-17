@@ -406,7 +406,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                 return that.displayData;
             },
             ticks : function () {
-                if(PykCharts.boolean(that.overflowTicks)) {
+                if(PykCharts.boolean(that.pointer_overflow_enable)) {
                     that.svgContainer.style("overflow","visible");
                 }
                 var w = [];

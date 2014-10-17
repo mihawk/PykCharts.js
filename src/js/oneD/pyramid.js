@@ -291,7 +291,7 @@ PykCharts.oneD.pyramid = function (options) {
             },
             ticks : function () {
                 // if(PykCharts.boolean(that.enableTicks)) {
-                if(PykCharts.boolean(that.overflowTicks)) {
+                if(PykCharts.boolean(that.pointer_overflow_enable)) {
                     that.svgContainer.style("overflow","visible");
                 }
                 

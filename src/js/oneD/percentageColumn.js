@@ -220,7 +220,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                 return this;
             },
             ticks : function () {
-                if(PykCharts.boolean(that.overflowTicks)) {
+                if(PykCharts.boolean(that.pointer_overflow_enable)) {
                     that.svgContainer.style("overflow","visible");
                 }
                     var sum = 0, sum1 = 0;
