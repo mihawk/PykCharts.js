@@ -389,7 +389,7 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     chartObject.saturationEnable = options.saturation_enable ? options.saturation_enable : "no";
     chartObject.saturationColor = options.saturationColor ? options.saturationColor : stylesheet.saturationColor;
 
-    chartObject.borderBetweenChartElements_width = "borderBetweenChartElements_width" in options ? options.borderBetweenChartElements_width : stylesheet.borderBetweenChartElements_width;
+    chartObject.borderBetweenChartElements_thickness = "borderBetweenChartElements_thickness" in options ? options.borderBetweenChartElements_thickness : stylesheet.borderBetweenChartElements_thickness;
     chartObject.borderBetweenChartElements_color = options.borderBetweenChartElements_color ? options.borderBetweenChartElements_color : stylesheet.borderBetweenChartElements_color;
     chartObject.borderBetweenChartElements_style = options.borderBetweenChartElements_style ? options.borderBetweenChartElements_style : stylesheet.borderBetweenChartElements_style;
     switch(chartObject.borderBetweenChartElements_style) {
