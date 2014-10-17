@@ -1315,7 +1315,7 @@ configuration.border = function (options) {
 	var that = this;
 	var border = {
 	    width: function () {
-	    	return options.borderBetweenChartElements_width;
+	    	return options.borderBetweenChartElements_thickness;
 	    },
 		color: function () {
 			return options.borderBetweenChartElements_color;
@@ -1485,7 +1485,7 @@ configuration.Theme = function(){
         "chartColor": "steelblue",
         "highlightColor": "#013F73",
         "saturationColor": "steelblue",
-        "borderBetweenChartElements_width": 1,
+        "borderBetweenChartElements_thickness": 1,
         "borderBetweenChartElements_color": "white",
         "borderBetweenChartElements_style": "solid",
         "legendsText_size": 13,

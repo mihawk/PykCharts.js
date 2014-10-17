@@ -1315,7 +1315,7 @@ configuration.border = function (options) {
 	var that = this;
 	var border = {
 	    width: function () {
-	    	return options.borderBetweenChartElements_width;
+	    	return options.borderBetweenChartElements_thickness;
 	    },
 		color: function () {
 			return options.borderBetweenChartElements_color;
@@ -1485,7 +1485,7 @@ configuration.Theme = function(){
         "chartColor": "steelblue",
         "highlightColor": "#013F73",
         "saturationColor": "steelblue",
-        "borderBetweenChartElements_width": 1,
+        "borderBetweenChartElements_thickness": 1,
         "borderBetweenChartElements_color": "white",
         "borderBetweenChartElements_style": "solid",
         "legendsText_size": 13,
@@ -1734,7 +1734,7 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
     chartObject.fullscreen = options.buttons_enableFullScreen ? options.buttons_enableFullScreen : stylesheet.buttons_enableFullScreen;
     chartObject.loading = options.loading_animationGifUrl ? options.loading_animationGifUrl: stylesheet.loading_animationGifUrl;
     chartObject.tooltip_enable = options.tooltip_enable ? options.tooltip_enable : stylesheet.tooltip_enable;
-    chartObject.borderBetweenChartElements_width = "borderBetweenChartElements_width" in options ? options.borderBetweenChartElements_width : stylesheet.borderBetweenChartElements_width;
+    chartObject.borderBetweenChartElements_thickness = "borderBetweenChartElements_thickness" in options ? options.borderBetweenChartElements_thickness : stylesheet.borderBetweenChartElements_thickness;
     chartObject.borderBetweenChartElements_color = options.borderBetweenChartElements_color ? options.borderBetweenChartElements_color : stylesheet.borderBetweenChartElements_color;
     chartObject.borderBetweenChartElements_style = options.borderBetweenChartElements_style ? options.borderBetweenChartElements_style : stylesheet.borderBetweenChartElements_style;
     switch(chartObject.borderBetweenChartElements_style) {
@@ -4998,7 +4998,7 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     chartObject.saturationEnable = options.saturation_enable ? options.saturation_enable : "no";
     chartObject.saturationColor = options.saturationColor ? options.saturationColor : stylesheet.saturationColor;
 
-    chartObject.borderBetweenChartElements_width = "borderBetweenChartElements_width" in options ? options.borderBetweenChartElements_width : stylesheet.borderBetweenChartElements_width;
+    chartObject.borderBetweenChartElements_thickness = "borderBetweenChartElements_thickness" in options ? options.borderBetweenChartElements_thickness : stylesheet.borderBetweenChartElements_thickness;
     chartObject.borderBetweenChartElements_color = options.borderBetweenChartElements_color ? options.borderBetweenChartElements_color : stylesheet.borderBetweenChartElements_color;
     chartObject.borderBetweenChartElements_style = options.borderBetweenChartElements_style ? options.borderBetweenChartElements_style : stylesheet.borderBetweenChartElements_style;
     switch(chartObject.borderBetweenChartElements_style) {
