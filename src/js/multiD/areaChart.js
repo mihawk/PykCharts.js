@@ -46,6 +46,7 @@ PykCharts.multiD.areaChart = function (options){
 			that.optional_feature()
 		    		.chartType()
 					.svgContainer(1)
+					.createGroups(1)
 					.createChart()
 		    		.axisContainer();
 
@@ -70,6 +71,7 @@ PykCharts.multiD.areaChart = function (options){
 			  that.optional_feature()
 			    		.chartType()
 						.svgContainer(1)
+						.createGroups(1)
 						.createChart()
 			    		.axisContainer();
 
@@ -78,6 +80,7 @@ PykCharts.multiD.areaChart = function (options){
 					.xAxisTitle(that.xGroup)
 					.yAxisTitle(that.yGroup);
   		}
+  		that.k.export(that,"#svg-1","areaChart"); 
   		that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
   		$(window).on("load", function () { return that.k.resize(that.svgContainer,"yes"); })
                         .on("resize", function () { return that.k.resize(that.svgContainer,"yes"); });
@@ -131,6 +134,10 @@ PykCharts.multiD.areaChart = function (options){
 					.attr("height",that.height)
 					.attr("preserveAspectRatio", "xMinYMin")
                     .attr("viewBox", "0 0 " + that.width + " " + that.height);
+
+    			return this;
+			},
+			createGroups : function (i) {
 
 				that.group = that.svgContainer.append("g")
 					.attr("id","chartsvg")
@@ -233,6 +240,7 @@ PykCharts.multiD.areaChart = function (options){
 
         		var x_domain,x_data = [],y_data,y_range,x_range,y_domain;
         		that.cnt = 0;
+
 				if(that.yAxisDataFormat === "number") {
 					max = d3.max(that.layers, function(d) { return d3.max(d.data, function(k) { return k.y0 + k.y; }); });
 					min = 0;
@@ -483,7 +491,6 @@ PykCharts.multiD.areaChart = function (options){
 	    that.k.isOrdinal(that.svgContainer,".y.grid",that.yScale);
 
 	    for (i = 0;i < that.new_data_length;i++) {
-	    	
 	    	type = that.chartPathClass + i;
 	  	 	that.svgContainer.select(that.selector+" #"+type)
 	        	.attr("class", that.chartPathClass)

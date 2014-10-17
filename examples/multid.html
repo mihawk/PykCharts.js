@@ -1,6 +1,9 @@
+<!DOCTYPE html>
+<html>
     <head>
         <title>Multi-Dimensional Charts</title>
         <link rel="stylesheet" type="text/css" href="../src/css/PykCharts.css">
+
     </head>
     <body>
         <div id="line"></div>
@@ -27,24 +30,37 @@
         <hr/>
         <div id="bar"></div>
         <hr/>
-        <div id="groupBar"></div>
+        <div id="groupBar">
+        </div>
         <hr/>
         <script src="../lib/d3.min.js"></script>
         <script src="../lib/jquery-1.11.1.min.js"></script>
         <script src="../lib/underscore-min.js"></script>
         <script src="../lib/custom-hive.js"></script>
+        <script src="../lib/paper-full.js"></script>
+        <script src="../lib/downloadDataURI.js"></script>
+<!--        <script src="../lib/FileSaver.js"></script>
+        <script src="../lib/jspdf.js"></script>                
+        <script src="../lib/rgbcolor.js"></script>                
+        <script src="../lib/Blob.js"></script>
+        <script src="../lib/StackBlur.js"></script>
+        <script src="../lib/jspdf.plugin.addimage.js"></script>
+        <script src="../lib/canvg.js"></script> 
+        <script src="../lib/svgToPdf.js"></script>                
+-->
         <script src="../src/js/pyk.js"></script>
         <script src="../src/js/multiD/multiD.js"></script>
         <script src="../src/js/multiD/columnChart.js"></script>
         <script src="../src/js/multiD/areaChart.js"></script>
         <script src="../src/js/multiD/lineChart.js"></script>
         <script src="../src/js/multiD/spiderWeb.js"></script>
-        <script src="../src/js/multiD/scatterplot.js"></script>
+        <script src="../src/js/multiD/scatter.js"></script>
         <script src="../src/js/multiD/barChart.js"></script>
+
 
         <script>
 
-            $(document).ready(function (e) {
+            $(document).ready(function (e) {                
                 var k = new PykCharts.multiD.lineChart ({
                     selector: "#line",
                     data: "../data/line_timescale.json",
@@ -54,20 +70,20 @@
                     // xAxisDataFormat : "time",
 
                     color_mode: "color",  //color or saturation
-                    color:["orange"],
+                    color:["steelblue"],
 
                     chart_height: 400,
                     chart_width : 630,
-                    chart_margin_top: 25,
+                    chart_margin_top: 35,
                     chart_margin_right: 40,
-                    chart_margin_bottom: 35,
+                    chart_margin_bottom: 40,
                     chart_margin_left:45 ,
                     chart_grid_xEnabled: "no",
                     chart_grid_yEnabled: "yes",
 
                     transition_duration: 0,
                     realTimeCharts_refreshFrequency: 0,
-
+                    "backgroundColor": "white",
                     axis_onHoverHighlightenable: "yes",
 
                     axis_x_enable: "yes",
@@ -75,7 +91,7 @@
                     axis_x_position: "bottom",
                     axis_x_value_position: "bottom",
                     axis_x_axisColor: "#1D1D1D",
-                    axis_x_labelColor: "#1d1d1d",
+                    axis_x_labelColor: "#1D1D1D",
                     axis_x_pointer_size: 3,
                     axis_x_pointer_padding: 3,
                     // axis_x_pointer_values: ["2014/01/01","2014/01/03"],
@@ -93,14 +109,13 @@
                     axis_y_pointer_padding: 10,
                     // axis_y_pointer_values: [30,40,50],
                     axis_y_outer_pointer_size: 3,
-
                     line_curvy_lines:"yes",
                     tooltip_mode : "moving",
                     enableCrossHair: "yes",
                     zoom_enable: "yes"
 
                 });
-               k.execute();
+            k.execute();
 
                 var k = new PykCharts.multiD.areaChart ({
                     selector: "#area",
@@ -110,7 +125,7 @@
                     // xAxisDataFormat : "string",
 
                     color_mode: "color",  //color or saturation
-                    color:["orange"],
+                    color:["steelblue"],
                     backgroundColor:"",
 
                     chart_height: 400,
@@ -153,7 +168,7 @@
                     zoom_enable: "yes"
 
                 });
-              k.execute();
+             k.execute();
 
                 var k = new PykCharts.multiD.spiderWeb ({
                     selector: "#spiderWeb",
@@ -168,7 +183,7 @@
                     color: ["purple","red"],
 
                     chart_height: 430,
-                    chart_width : 530,
+                    chart_width : 700,
                     chart_margin_top: 25,
                     chart_margin_right: 25,
                     chart_margin_bottom: 25,
@@ -225,7 +240,7 @@
                     axis_x_pointer_size: 5,
                     axis_x_pointer_padding: 3,
                     axis_x_outer_pointer_size: 3,
-                    dataSource_name : "Devanshi",
+                    dataSource_name : "Google",
                     dataSource_url : "www.google.com",
                     axis_y_enable: "yes",
                     axis_y_title : "Rating",
@@ -257,7 +272,7 @@
 
                     enableCrossHair: "yes"
                 });
-                k.execute();
+          //   k.execute();
 
                 var k = new PykCharts.multiD.scatterPlot ({
                     selector: "#multiple-scatterplots",
@@ -323,7 +338,7 @@
                     enableCrossHair: "yes"
                 });
 
-               k.execute();
+            //   k.execute();
 
                 var k = new PykCharts.multiD.lineChart ({
                     selector: "#multiLine",
@@ -380,7 +395,7 @@
                    // highlightColor: "#013F73",
 
                 });
-              k.execute();
+             k.execute();
 
                 var k = new PykCharts.multiD.lineChart ({
                     selector: "#multiple-multiLine",
@@ -439,7 +454,7 @@
                     // multiple_containers_enable: "no",
 
                 });
-              k.execute();
+              //k.execute();
 
                 var k = new PykCharts.multiD.areaChart ({
 
@@ -492,7 +507,7 @@
                     zoom_enable: "yes"
 
                 });
-             k.execute();
+            k.execute();
 
                 var k = new PykCharts.multiD.pulse({
                     selector: "#pulse",
@@ -560,7 +575,7 @@
 
                     enableCrossHair: "yes"
                 });
-               k.execute();
+              k.execute();
 
                 var k = new PykCharts.multiD.columnChart({
                     data: "../data/ultimateColumn.json",
@@ -630,7 +645,7 @@
                     color:["orange"],
 
                     chart_height: 430,
-                    chart_width : 400,
+                    chart_width : 700,
                     chart_margin_top: 25,
                     chart_margin_right: 25,
                     chart_margin_bottom: 45,
@@ -684,7 +699,6 @@
                     data: "../data/ultimatebar.json",
                     mode: "default",
                     selector: "#bar",
-
                     color_mode: "color",
                     color:["steelblue"],
 
@@ -756,7 +770,7 @@
                     selector: "#groupBar",
 
                     chart_height: 430,
-                    chart_width : 400,
+                    chart_width : 700,
                     chart_margin_top: 25,
                     chart_margin_right: 45,
                     chart_margin_bottom: 35,
@@ -775,7 +789,7 @@
                     axis_x_position: "bottom",
                     axis_x_value_position: "bottom",
                     axis_x_axisColor: "#1D1D1D",
-                    axis_x_labelColor: "1D1D1D",
+                    axis_x_labelColor: "#1D1D1D",
                     axis_x_pointer_size: 3,
                     axis_x_pointer_padding: 3,
                     axis_x_outer_pointer_size: 3,
@@ -785,7 +799,7 @@
                     axis_y_position: "left",
                     axis_y_value_position: "left",
                     axis_y_axisColor: "#1D1D1D",
-                    axis_y_labelColor: "1D1D1D",
+                    axis_y_labelColor: "#1D1D1D",
                     axis_y_pointer_size: 3,
                     axis_y_pointer_padding: 10,
                     axis_y_outer_pointer_size: 3,
@@ -817,10 +831,8 @@
 
                     highlight: "January"
                   });
-
                 k.execute();
             });
-
         </script>
     </body>
 </html>

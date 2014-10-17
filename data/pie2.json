@@ -1,19 +1,34 @@
 [
   {
-    "name": "rb",
-    "weight": 100,
-    "highlight": true
+    "name": "2004",
+    "weight": 56454
   },
   {
-    "name": "rp",
-    "weight": 200
+    "name": "2005",
+    "weight": 60218
   },
   {
-    "name": "al",
-    "weight": 100
+    "name": "2006",
+    "weight": 61004
   },
   {
-    "name": "b",
-    "weight": 20
+    "name": "2007",
+    "weight": 63111
+  },
+  {
+    "name": "2008",
+    "weight": 62688
+  },
+  {
+    "name": "2009",
+    "weight": 50803
+  },
+  {
+    "name": "2010",
+    "weight": 52740
+  },
+  {
+    "name": "2011",
+    "weight": 52260
   }
 ]

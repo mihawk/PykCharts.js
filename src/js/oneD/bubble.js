@@ -14,7 +14,6 @@ PykCharts.oneD.bubble = function (options) {
             $(options.selector+" #chart-loader").remove();
             that.clubData_enable = that.data.length>that.clubData_maximumNodes ? that.clubData_enable : "no";
             that.render();
-
         });
     };
 
@@ -56,9 +55,9 @@ PykCharts.oneD.bubble = function (options) {
                 .liveData(that)
                 .tooltip();
 
-        that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
-       }
-       else if (that.mode ==="infographics") {
+            that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
+        }
+        else if (that.mode ==="infographics") {
             that.new_data = {"children" : that.data};
             that.optionalFeatures().svgContainer()
                 .createChart()
@@ -66,8 +65,9 @@ PykCharts.oneD.bubble = function (options) {
 
             that.k.tooltip();
             that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
-       }
-       $(window).on("load", function () { return that.k.resize(that.svgContainer); })
+        }
+        that.k.export(that,"#svgcontainer","bubble");
+        $(window).on("load", function () { return that.k.resize(that.svgContainer); })
                             .on("resize", function () { return that.k.resize(that.svgContainer); });
     };
 
@@ -119,6 +119,7 @@ PykCharts.oneD.bubble = function (options) {
                     .attr("r",0)
                     .attr("transform",function (d) { return "translate(" + d.x + "," + d.y +")"; })
                     .attr("fill",function (d) {
+                        
                         return d.children ? that.bg : that.fillChart.selectColor(d);
                     })
                     .on("mouseover", function (d) {
@@ -132,6 +133,7 @@ PykCharts.oneD.bubble = function (options) {
                     .on("mouseout", function (d) {
                         that.mouseEvent.tooltipHide(d)
                         that.onHoverEffect.highlightHide(options.selector+" "+".bubble");
+                        
                     })
                     .on("mousemove", function (d) {
                         if(!d.children) {
@@ -215,8 +217,9 @@ PykCharts.oneD.bubble = function (options) {
                         // .transition()
                         // .delay(that.transitions.duration())
 
-                    setTimeout(function() {
-                        that.chart_text.text(function (d) { return d.children ? " " :  d.name; })
+                  setTimeout(function() {
+                        that.chart_text
+                            .text(function (d) { return d.children ? " " :  d.name; })
                             .attr("pointer-events","none")
                             .text(function (d) {
                                 if(this.getBBox().width< 2*d.r && this.getBBox().height<2*d.r) {
