@@ -31,7 +31,7 @@ PykCharts.oneD.donut = function (options) {
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
     this.execute = function() {
-        
+
         that = new PykCharts.oneD.processInputs(that, options, "pie");
         that.width = that.height < that.width ? that.height : that.width;
         that.height = that.width;
@@ -648,8 +648,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                             }
                         })
                         .text( function(d) {
-                            var format = d3.format(",");
-                            return that.k.appendUnits(format(that.sum));
+                            return that.k.appendUnits(that.sum);
                         })
                         .attr("pointer-events","none")
                         .attr("text-anchor","middle")
