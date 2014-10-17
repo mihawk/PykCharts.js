@@ -212,7 +212,8 @@ PykCharts.oneD.treemap = function (options){
                         that.chart_text1.text(function (d) { return d.children ? " " :  that.k.appendUnits(d.weight); })
                             .text(function (d) {
                                 if(this.getBBox().width < d.dx && this.getBBox().height < d.dy-15) {
-                                    return d.children ? " " :  that.k.appendUnits(d.weight);
+                                    return d.children ? " " :  ((d.weight*100)/that.sum).toFixed(2)+"%"; /*that.k.appendUnits(d.weight);*/
+                                    
                                 }
                                 else {
                                     return "";

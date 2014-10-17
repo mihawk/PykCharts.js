@@ -208,7 +208,8 @@ PykCharts.oneD.percentageColumn = function (options) {
                             that.chart_text.text(function (d) { return that.k.appendUnits(d.weight); })
                                 .text(function (d) {
                                     if(this.getBBox().width < (that.width/4) && this.getBBox().height < (d.percentValue * that.height / 100)) {
-                                        return that.k.appendUnits(d.weight);
+                                        return d.percentValue.toFixed(2)+"%"
+                                        // return that.k.appendUnits(d.weight);
                                     }else {
                                         return "";
                                     }

@@ -265,20 +265,24 @@ PykCharts.oneD.pyramid = function (options) {
                     setTimeout(function () {    
                         that.chart_text.text(function (d,i) {
                                 if(i===0) {
-                                    return that.k.appendUnits(that.new_data[i].weight);
+                                    return ((that.new_data[i].weight*100)/that.sum).toFixed(2)+"%";
+                                    // return that.k.appendUnits(that.new_data[i].weight);
                                 }
                                 else {
                                     j--;
-                                    return that.k.appendUnits(that.new_data[j].weight);
+                                     return ((that.new_data[j].weight*100)/that.sum).toFixed(2)+"%";
+                                    // return that.k.appendUnits(that.new_data[j].weight);
                                 }
                              })
                             .text(function (d,i) {
                                 if(this.getBBox().width < (d.values[2].x - d.values[1].x) && this.getBBox().height < Math.abs(d.values[1].y - d.values[0].y)) {
                                     if(i===0) {
-                                        return that.k.appendUnits(that.new_data[i].weight);
+                                        return ((that.new_data[i].weight*100)/that.sum).toFixed(2)+"%";
+                                        // return that.k.appendUnits(that.new_data[i].weight);
                                     }else {
                                         p--;
-                                        return that.k.appendUnits(that.new_data[p].weight);
+                                        return ((that.new_data[p].weight*100)/that.sum).toFixed(2)+"%";
+                                        // return that.k.appendUnits(that.new_data[p].weight);
                                     }
                                 }
                                 else {

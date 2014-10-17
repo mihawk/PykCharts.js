@@ -149,18 +149,73 @@ PykCharts.oneD.bubble = function (options) {
             },
             label : function () {
 
-                    that.chart_text = that.group.selectAll("text")
-                        .data(that.node);
+                //     that.chart_text = that.group.selectAll("text")
+                //         .data(that.node);
 
+                //     that.chart_text.enter()
+                //     .append("text")
+                //     .style("pointer-events","none");
+
+                //     that.chart_text.attr("text-anchor","middle")
+                //         .attr("transform",function (d) {return "translate(" + d.x + "," + (d.y + 5) +")";})
+                //         .text("")
+                //         // .transition()
+                //         // .delay(that.transitions.duration());
+
+                //     setTimeout(function() {
+                //         that.chart_text
+                //             .text(function (d) { return d.children ? " " :  d.name; })
+                //             .attr("pointer-events","none")
+                //             .text(function (d) {
+                //                 if(this.getBBox().width< 2*d.r && this.getBBox().height<2*d.r) {
+                //                     return d.children ? " " :  d.name;
+                //                 }
+                //                 else {
+                //                      return "";
+                //                     }
+                //             })
+                //             .style("font-weight", that.label_weight)
+                //             .style("font-size",function (d,i) {
+                //                 if (d.r > 24) {
+                //                     return that.label_size;
+                //                 } else {
+                //                     return "10px";
+                //                 }
+                //             })
+                //             .attr("fill", that.label_color)
+                //             .style("font-family", that.label_family);
+                //     },that.transitions.duration());
+                        
+                //     that.chart_text.exit().remove;
+                // return this;
+                 that.chart_text = that.group.selectAll(".name")
+                        .data(that.node);
+                    that.chart_text1 = that.group.selectAll(".weight")
+                        .data(that.node);
                     that.chart_text.enter()
-                    .append("text")
-                    .style("pointer-events","none");
+                        .append("svg:text")
+                        .attr("class","name");
+
+                    that.chart_text1.enter()
+                        .append("svg:text")
+                        .attr("class","weight");
+
+                    that.chart_text.attr("class","name")
+                        .attr("x", function (d) { return d.x })
+                        .attr("y", function (d) { return d.y -5 });
+
+                    that.chart_text1.attr("class","weight")
+                        .attr("x", function (d) { return d.x })
+                        .attr("y", function (d) { return d.y + 10; });
 
                     that.chart_text.attr("text-anchor","middle")
-                        .attr("transform",function (d) {return "translate(" + d.x + "," + (d.y + 5) +")";})
+                        .style("font-weight", that.label_weight)
+                        .style("font-size", that.label_size)
+                        .attr("fill", that.label_color)
+                        .style("font-family", that.label_family)
                         .text("")
                         // .transition()
-                        // .delay(that.transitions.duration());
+                        // .delay(that.transitions.duration())
 
                   setTimeout(function() {
                         that.chart_text
@@ -171,22 +226,37 @@ PykCharts.oneD.bubble = function (options) {
                                     return d.children ? " " :  d.name;
                                 }
                                 else {
-                                     return "";
-                                    }
-                            })
-                            .style("font-weight", that.label_weight)
-                            .style("font-size",function (d,i) {
-                                if (d.r > 24) {
-                                    return that.label_size;
-                                } else {
-                                    return "10px";
+                                    return "";
                                 }
-                            })
-                            .attr("fill", that.label_color)
-                            .style("font-family", that.label_family);
-                   },500);
-                        
-                    that.chart_text.exit().remove;
+                            });
+                    },that.transitions.duration());
+
+                    that.chart_text1.attr("text-anchor","middle")
+                        .style("font-weight", that.label_weight)
+                        .style("font-size", that.label_size)
+                        .attr("fill", that.label_color)
+                        .style("font-family", that.label_family)
+                        .text("")
+                        .attr("pointer-events","none")
+                        // .transition()
+                        // .delay(that.transitions.duration())
+
+                    setTimeout(function () {
+                        that.chart_text1.text(function (d) { return d.children ? " " :  that.k.appendUnits(d.weight); })
+                            .text(function (d) {
+                                if(this.getBBox().width<2*d.r*0.55 && this.getBBox().height<2*d.r*0.55) {
+                                    return d.children ? " " :  ((d.weight*100)/that.sum).toFixed(2)+"%"; /*that.k.appendUnits(d.weight);*/                                    
+                                }
+                                else {
+                                    return "";
+                                }
+                            });
+                    },that.transitions.duration());
+
+                    that.chart_text.exit()
+                        .remove();
+                    that.chart_text1.exit()
+                        .remove();
                 return this;
             },
             clubData : function () {
