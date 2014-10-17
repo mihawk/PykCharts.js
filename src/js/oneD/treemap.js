@@ -71,6 +71,7 @@ PykCharts.oneD.treemap = function (options){
                 .credits()
                 .dataSource();
         }
+        that.k.export(that,"#svgcontainer","treemap");
     };
 
     this.optionalFeatures = function (){
@@ -115,7 +116,7 @@ PykCharts.oneD.treemap = function (options){
                 that.chart_data.attr("class","cell")
                     .select("rect")
                     .attr("class","treemap-rect")
-                    .attr("id",function (d,i) { return i; })
+                    .attr("id",function (d,i) { return "rect" + i; })
                     .attr("x",function (d) { return d.x; })
                     .attr("y", function (d) { return d.y; })
                     .attr("width", function (d) { return d.dx-1; })

@@ -78,6 +78,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                 .credits()
                 .dataSource();
         }
+        that.k.export(that,"#svgcontainer","percentageColumn");
     };
     this.optionalFeatures = function () {
         var optional = {

@@ -84,6 +84,7 @@ PykCharts.oneD.funnel = function (options) {
                 .credits()
                 .dataSource();
         }
+        that.k.export(that,"#svgcontainer","funnel");
     };
 
     this.funnelLayout = function (){

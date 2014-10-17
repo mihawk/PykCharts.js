@@ -72,6 +72,7 @@ PykCharts.oneD.pyramid = function (options) {
             that.k.tooltip();
             that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
         }
+        that.k.export(that,"#svgcontainer","pyramid");
 	};
 
 	this.percentageValues = function (data){

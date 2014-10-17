@@ -13,7 +13,6 @@ PykCharts.oneD.bubble = function (options) {
             $(options.selector+" #chart-loader").remove();
             that.clubData_enable = that.data.length>that.clubData_maximumNodes ? that.clubData_enable : "no";
             that.render();
-
         });
     };
 
@@ -56,7 +55,7 @@ PykCharts.oneD.bubble = function (options) {
                 .tooltip();
 
         that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
-       }
+        }
        else if (that.mode ==="infographics") {
             that.new_data = {"children" : that.data};
             that.optionalFeatures().svgContainer()
@@ -65,7 +64,8 @@ PykCharts.oneD.bubble = function (options) {
 
             that.k.tooltip();
             that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
-       }
+        }
+        that.k.export(that,"#svgcontainer","bubble");
     };
 
     this.optionalFeatures = function () {
@@ -114,6 +114,7 @@ PykCharts.oneD.bubble = function (options) {
                     .attr("r",0)
                     .attr("transform",function (d) { return "translate(" + d.x + "," + d.y +")"; })
                     .attr("fill",function (d) {
+                        
                         return d.children ? that.bg : that.fillChart.selectColor(d);
                     })
                     .on("mouseover", function (d) {
@@ -127,6 +128,7 @@ PykCharts.oneD.bubble = function (options) {
                     .on("mouseout", function (d) {
                         that.mouseEvent.tooltipHide(d)
                         that.onHoverEffect.highlightHide(options.selector+" "+".bubble");
+                        
                     })
                     .on("mousemove", function (d) {
                         if(!d.children) {
@@ -155,7 +157,7 @@ PykCharts.oneD.bubble = function (options) {
                         // .transition()
                         // .delay(that.transitions.duration());
 
-                    setTimeout(function() {
+                  setTimeout(function() {
                         that.chart_text
                             .text(function (d) { return d.children ? " " :  d.name; })
                             .attr("pointer-events","none")
@@ -177,7 +179,7 @@ PykCharts.oneD.bubble = function (options) {
                             })
                             .attr("fill", that.label_color)
                             .style("font-family", that.label_family);
-                    },that.transitions.duration());
+                   },500);
                         
                     that.chart_text.exit().remove;
                 return this;

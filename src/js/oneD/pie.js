@@ -165,6 +165,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
             that.k.tooltip();
             that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
         }
+        that.k.export(that,"#container",type);
     };
 
     //----------------------------------------------------------------------------------------
@@ -331,6 +332,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                     that.sorted_weight = _.map(that.data,function(num){ return num.weight; });
                     that.sorted_weight.sort(function(a,b){ return b-a; });
                     that.checkDuplicate = [];
+
                     var others_Slice = {"name":that.clubData_text,"color":that.clubData_color,"tooltip":that.clubData_tooltipText,"highlight":false};
                     var index;
                     var i;
@@ -380,6 +382,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                     };
 
                     var count = that.clubData_maximumNodes-that.displayData.length;
+                    
                     var sum_others = d3.sum(that.sorted_weight,function (d,i) {
                             if(i>=count-1)
                                 return d;

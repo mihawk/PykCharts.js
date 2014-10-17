@@ -43,7 +43,6 @@ PykCharts.maps.timelineMap = function (options) {
             // that.margin = {top:10, right:30, bottom:10, left:30};
 
             that.redeced_width = that.width - (that.margin_left * 2) - that.margin_right;
-            that.redeced_height = that.height - that.margin_top - that.margin_bottom;
 
             that.k
                 .totalColors(that.colors_total)
@@ -89,13 +88,15 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         //    var that = this;
         that.current_palette = _.where(that.color_palette_data, {name:that.colors_palette, number:that.colors_total})[0];
         that.optionalFeatures()
+            .svgContainer()
             .legendsContainer(that.legends_enable)
             .legends(that.legends_enable)
-            .svgContainer()
             .createMap()
             .label(that.label_enable)
             .enableClick(that.enableClick);
 
+        that.redeced_height = that.height - that.margin_top - that.margin_bottom - that.legendsGroup_height;
+        
         that.k
             .createFooter()
             .lastUpdatedAt()
@@ -111,6 +112,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             that.renderButtons();
             that.renderTimeline();
         }
+    //    that.k.export(that,"#svgcontainer",type)
     };
 
     that.refresh = function () {
@@ -165,11 +167,13 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             },
             legendsContainer : function (el) {
                 if (PykCharts.boolean(el) && that.colors_type === "saturation") {
-                    that.legendsContainer = d3.select(that.selector)
-                        .append("svg")
+                    that.legendsContainer = that.svgContainer
+                        .append("g")
                         .attr("id", "legend-container")
-                        .attr("width", that.width)
-                        .attr("height", 50);
+                        // .attr("width", that.width)
+                        // .attr("height", 50);
+                } else {
+                    that.legendsGroup_height = 0;
                 }
                 return this;
             },
@@ -184,6 +188,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     .append("svg")
                     .attr("width", that.width)
                     .attr("height", that.height)
+                    .attr("id","svgcontainer")
                     .attr("class",'PykCharts-map')
                     .attr("style", "border:1px solid lightgrey")
                     .style("border-radius", "5px");
@@ -307,6 +312,8 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                 return this;
             },
             axisContainer : function (ae) {
+                console.log(that.redeced_height,"hey");
+
                 if(PykCharts.boolean(ae)){
                     that.gxaxis = that.svgContainer.append("g")
                         .attr("id","xaxis")
@@ -382,9 +389,11 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                 var j = 0, i = 0;
                 if(that.colors_palette === "") {
                     that.legendsContainer.attr("height", (9 * 30)+20);
+                    that.legendsGroup_height = (9 * 30)+20;
                 }
                 else {
                     that.legendsContainer.attr("height", (that.current_palette.number * 30)+20);
+                    that.legendsGroup_height = (that.current_palette.number * 30)+20;
                 }
                 text_parameter1 = "x";
                 text_parameter2 = "y";
@@ -408,8 +417,10 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                 else {
                     j = that.current_palette.number, i = that.current_palette.number;
                     that.legendsContainer.attr("height", (that.current_palette.number * 30)+20);
+                    that.legendsGroup_height = (that.current_palette.number * 30)+20;
                 }
                 that.legendsContainer.attr("height", 50);
+                that.legendsGroup_height = 50;
                 text_parameter1 = "x";
                 text_parameter2 = "y";
                 rect_parameter1 = "width";

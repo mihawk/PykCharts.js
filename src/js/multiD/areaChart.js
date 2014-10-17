@@ -46,6 +46,7 @@ PykCharts.multiD.areaChart = function (options){
 			that.optional_feature()
 		    		.chartType()
 					.svgContainer(1)
+					.createGroups(1)
 					.createChart()
 		    		.axisContainer();
 
@@ -70,6 +71,7 @@ PykCharts.multiD.areaChart = function (options){
 			  that.optional_feature()
 			    		.chartType()
 						.svgContainer(1)
+						.createGroups(1)
 						.createChart()
 			    		.axisContainer();
 
@@ -78,6 +80,7 @@ PykCharts.multiD.areaChart = function (options){
 					.xAxisTitle(that.xGroup)
 					.yAxisTitle(that.yGroup);
   		}
+  		that.k.export(that,"#svg-1","areaChart"); 
   		that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
 	};
 
@@ -128,6 +131,9 @@ PykCharts.multiD.areaChart = function (options){
 					.attr("width",that.width)
 					.attr("height",that.height);
 
+    			return this;
+			},
+			createGroups : function (i) {
 				that.group = that.svgContainer.append("g")
 					.attr("id","chartsvg")
 					.attr("transform","translate("+ that.margin_left +","+ that.margin_top +")");
@@ -157,7 +163,7 @@ PykCharts.multiD.areaChart = function (options){
 				that.stack_layout = d3.layout.stack()
 					.values(function(d) { return d.data; });
 
-    			return this;
+				return this;
 			},
 			axisContainer : function () {
 	        	if(PykCharts.boolean(that.axis_x_enable)){

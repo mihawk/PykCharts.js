@@ -75,6 +75,7 @@ PykCharts.oneD.pictograph = function (options) {
                 .credits()
                 .dataSource();
         }
+        that.k.export(that,"#svgcontainer","pictograph");
     };
 
     this.optionalFeatures = function () {
@@ -85,7 +86,8 @@ PykCharts.oneD.pictograph = function (options) {
 
                 that.svgContainer = d3.select(options.selector).append('svg')
                     .attr("width",that.width)
-                    .attr("height",that.height);
+                    .attr("height",that.height)
+                    .attr("id",svgcontainer);
 
                 that.group = that.svgContainer.append("g")
                     .attr("transform", "translate(" + that.imageWidth + ",0)");
