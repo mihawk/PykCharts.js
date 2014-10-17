@@ -1,5 +1,6 @@
 PykCharts.oneD.percentageBar = function (options) {
     var that = this;
+    console.log("percentageBarf")
     var theme = new PykCharts.Configuration.Theme({});
 
     //----------------------------------------------------------------------------------------
@@ -78,7 +79,7 @@ PykCharts.oneD.percentageBar = function (options) {
                 .credits()
                 .dataSource();
         }
-        that.k.export(that,"#svgcontainer","percentageBarf");
+        that.k.export(that,"#svgcontainer","percentageBar");
         $(window).on("load", function () { return that.k.resize(that.svgContainer); })
                             .on("resize", function () { return that.k.resize(that.svgContainer); });
     };
@@ -112,7 +113,7 @@ PykCharts.oneD.percentageBar = function (options) {
                     .attr("class","per-rect")
 
                 that.chart_data.attr('x', 0)
-                    .attr('y', function (d, i) {
+                    .attr('x', function (d, i) {
                         if (i === 0) {
                             return 0;
                         } else {
@@ -123,11 +124,13 @@ PykCharts.oneD.percentageBar = function (options) {
                                 sum += this[i].percentValue;
                             },subset);
 
-                            return sum * that.height / 100;
+                            return sum * that.width / 100;
                         }
                     })
-                    .attr('width', that.width/4)
-                    .attr('height', 0)
+                    .attr("width",0)
+                    .attr('height', function (d) {
+                        return that.height/ 4;
+                    })
                     .attr("fill",function (d) {
                         return that.fillChart.selectColor(d);
                     })
@@ -149,9 +152,10 @@ PykCharts.oneD.percentageBar = function (options) {
                     })
                     .transition()
                     .duration(that.transitions.duration())
-                    .attr('height', function (d) {
-                        return d.percentValue * that.height / 100;
+                    .attr('width', function (d) {
+                        return d.percentValue * that.width / 100;
                     });
+
                 that.chart_data.exit()
                     .remove();
 
@@ -183,13 +187,13 @@ PykCharts.oneD.percentageBar = function (options) {
                         .attr("class","per-text");
 
                     that.chart_text.attr("class","per-text")
-                        .attr("x", (that.width/8 ))
-                        .attr("y",function (d,i) {
+                        .attr("y", (that.height/8 ))
+                        .attr("x",function (d,i) {
                                 sum = sum + d.percentValue;
                                 if (i===0) {
-                                    return (0 + (sum * that.height / 100))/2+5;
+                                    return (0 + (sum * that.width / 100))/2+5;
                                 } else {
-                                    return (((sum - d.percentValue) * that.height/100)+(sum * that.height / 100))/2+5;
+                                    return (((sum - d.percentValue) * that.width/100)+(sum * that.width / 100))/2+5;
                                 }
                             });
                     sum = 0;

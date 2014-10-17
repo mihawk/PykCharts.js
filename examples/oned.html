@@ -28,6 +28,9 @@
       <hr/>
       <div id="percentageColumn"></div>
       <hr/>
+      <div id="percentageBar"></div>
+      <hr/>
+
 
       <script>
 
@@ -103,6 +106,16 @@
                 selector: "#percentageColumn",
                 data:"../data/pie.json",
                 transition_duration: 1000,
+               // "realTimeCharts_refreshFrequency": 11
+            });
+            k.execute();
+
+            var k = new PykCharts.oneD.percentageBar({
+                selector: "#percentageBar",
+                data:"../data/pie.json",
+                transition_duration: 1000,
+                "chart_height": 200,
+                "chart_width": 600,
                 // "realTimeCharts_refreshFrequency": 11
             });
             k.execute();
