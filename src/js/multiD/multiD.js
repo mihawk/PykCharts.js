@@ -207,7 +207,6 @@ PykCharts.multiD.configuration = function (options){
                 data.forEach(function(item) {
                     if (!unique[item.group]) {
                         if(item.color) {
-                            checkGroup = false;
                             item.color = item.color;
                         }else if(options.color) {
                             item.color = options.color[k];
