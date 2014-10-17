@@ -172,6 +172,7 @@ PykCharts.Configuration = function (options){
             }
         },
 	    appendUnits : function (text) {
+            console.log(PykCharts);
             text = PykCharts.numberFormat(text);
             var label,prefix,suffix;
                 prefix = options.units_prefix,

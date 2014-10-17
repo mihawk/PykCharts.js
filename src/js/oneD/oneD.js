@@ -76,7 +76,7 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
     chartObject.real_time_charts_refresh_frequency = options.real_time_charts_refresh_frequency ? options.real_time_charts_refresh_frequency : functionality.real_time_charts_refresh_frequency;
     chartObject.real_time_charts_last_updated_at_enable = options.real_time_charts_last_updated_at_enable ? options.real_time_charts_last_updated_at_enable : functionality.real_time_charts_last_updated_at_enable;
     
-    if(options.creditMySite_name || options.creditMySite_url) {
+    if(options.credit_my_site_name || options.credit_my_site_url) {
         chartObject.credit_my_site_name = options.credit_my_site_name ? options.credit_my_site_name : "";
         chartObject.credit_my_site_url = options.credit_my_site_url ? options.credit_my_site_url : "";
     } else {

@@ -1516,11 +1516,11 @@ configuration.Theme = function(){
         "chart_grid_color":"#ddd",
         "mode": "default",
         "selector": "body",
-        "title_size": "15px",
+        "title_size": 15,
         "title_color": "#1D1D1D",
         "title_weight": "bold",
         "title_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
-        "subtitle_size": "12px",
+        "subtitle_size": 12,
         "subtitle_color": "black",
         "subtitle_weight": "thin",
         "subtitle_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
@@ -1767,7 +1767,7 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
     chartObject.real_time_charts_refresh_frequency = options.real_time_charts_refresh_frequency ? options.real_time_charts_refresh_frequency : functionality.real_time_charts_refresh_frequency;
     chartObject.real_time_charts_last_updated_at_enable = options.real_time_charts_last_updated_at_enable ? options.real_time_charts_last_updated_at_enable : functionality.real_time_charts_last_updated_at_enable;
     
-    if(options.creditMySite_name || options.creditMySite_url) {
+    if(options.credit_my_site_name || options.credit_my_site_url) {
         chartObject.credit_my_site_name = options.credit_my_site_name ? options.credit_my_site_name : "";
         chartObject.credit_my_site_url = options.credit_my_site_url ? options.credit_my_site_url : "";
     } else {
