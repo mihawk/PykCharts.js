@@ -1509,6 +1509,9 @@ configuration.transition = function (options) {
 configuration.Theme = function(){
     var that = this;
     that.stylesheet = {
+        "mode": "default",
+        "selector": "body",
+        
         "chart_height": 400,
         "chart_width": 600,
         "chart_margin_top": 35,
@@ -1518,8 +1521,7 @@ configuration.Theme = function(){
         "chart_grid_x_enable": "yes",
         "chart_grid_y_enable": "yes",
         "chart_grid_color":"#ddd",
-        "mode": "default",
-        "selector": "body",
+
         "title_size": 15,
         "title_color": "#1D1D1D",
         "title_weight": "bold",
@@ -1528,15 +1530,10 @@ configuration.Theme = function(){
         "subtitle_color": "black",
         "subtitle_weight": "thin",
         "subtitle_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
-        "loading_gif_url": "https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/img/loader.gif",
-        "fullscreen_enable": "no",
-        "tooltip_enable": "yes",
-        "credit_my_site_name": "Pykih",
-        "credit_my_site_url": "http://www.pykih.com",
         "highlight": "",
+        "highlight_color": "#013F73",
         "background_color": "transparent",
         "chart_color": "steelblue",
-        "highlight_color": "#013F73",
         "saturation_color": "steelblue",
         "border_between_chart_elements_thickness": 1,
         "border_between_chart_elements_color": "white",
@@ -1554,7 +1551,12 @@ configuration.Theme = function(){
         "pointer_weight": "thin",
         "pointer_size": 13,
         "pointer_color": "#1D1D1D",
-        "pointer_family": "'Helvetica Neue',Helvetica,Arial,sans-serif"
+        "pointer_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
+        "loading_gif_url": "https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/img/loader.gif",
+        "fullscreen_enable": "no",
+        "tooltip_enable": "yes",
+        "credit_my_site_name": "Pykih",
+        "credit_my_site_url": "http://www.pykih.com"
     };
 
     that.functionality = {
@@ -1567,10 +1569,12 @@ configuration.Theme = function(){
         "clubdata_enable": "yes",
         "clubdata_text": "others",
         "clubdata_maximum_nodes": 5,
+
+        "pie_radius_percent": 70,
         "donut_radius_percent": 70,
         "donut_inner_radius_percent": 40,
-        "donut_show_total_at_center": "yes",
-        "pie_radius_percent": 70, 
+        "donut_show_total_at_center": "yes", 
+
         "pictograph_show_total": "yes",
         "pictograph_total_enable": "yes",
         "pictograph_current_enable": "yes",
@@ -1585,8 +1589,10 @@ configuration.Theme = function(){
         "pictograph_inactive_text_color": "grey",
         "pictograph_inactive_text_weight": "thin",
         "pictograph_inactive_text_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
+
         "funnel_rect_width": 100,
         "funnel_rect_height": 100,
+
         "percent_column_rect_width": 15,
         "percent_row_rect_height": 13,
     };
@@ -1608,6 +1614,7 @@ configuration.Theme = function(){
         "axis_x_outer_pointer_size": 0,
         "axis_x_time_value_datatype":"",
         "axis_x_time_value_interval":"",
+        "axis_x_data_format": "string",
 
         "axis_y_enable": "yes",
         "axis_y_title" : "Y axis",
@@ -1624,18 +1631,6 @@ configuration.Theme = function(){
         "axis_y_time_value_datatype":"",
         "axis_y_time_value_interval":"",
         "axis_y_data_format": "number",
-        "axis_x_data_format": "string",
-        "crosshair_enable": "yes",
-        "zoom_enable": "no",
-        "variable_circle_size_enable" : "yes",
-        "color_mode" : "color",
-        "color": ["yellow"],
-
-        "spiderweb_outer_radius_percent" : 80,
-        "spiderweb_radius": 5,
-        "spiderweb_axis_title": "yes",
-        "spiderweb_pointer": "yes",
-        "multiple_containers_enable": "no",
 
         "legends_enable": "yes",
         "legends_display": "horizontal",
@@ -1643,11 +1638,24 @@ configuration.Theme = function(){
         "tooltip_enable" : "yes",
         "tooltip_mode": "fixed",
 
+        "multiple_containers_enable": "no",
+        "variable_circle_size_enable" : "yes",
+
+        "crosshair_enable": "yes",
+        "zoom_enable": "no",
+        
+        "color_mode" : "color",
+        "color": ["yellow"],
+
+        "spiderweb_outer_radius_percent" : 80,
+        "spiderweb_radius": 5,
+        "spiderweb_axis_title": "yes",
+        "spiderweb_pointer": "yes",
+
         "scatterplot_radius" : 40,
         "scatterplot_pointer": "no",
 
-        "line_curvy_lines": "no"
-
+        "line_curvy_lines": "no",
     };
 
     that.treeCharts = {
@@ -1658,27 +1666,35 @@ configuration.Theme = function(){
     that.mapsTheme = {
         "chart_width": 1000,
         "chart_height": 1000,
-        "default_color" : "#4682B4",
-        "total_no_of_colors": 3,
+       
         "color_mode": "saturation",
+        "total_no_of_colors": 3,
         "palette_color": "Blue",
         "background_color": "white",
+        "default_color" : "#4682B4",
+
         "tooltip_enable" : "yes",
         "tooltip_mode": "moving",
         "tooltip_position_top": 0,
         "tooltip_position_left": 0,
+
         "timeline_duration": 1000,
         "timeline_margin_top": 5,
         "timeline_margin_right": 25,
         "timeline_margin_bottom": 25,
         "timeline_margin_left": 45,
+
         "legends_enable": "yes",
         "legends_display": "horizontal",
+
         "label_enable": "no",
         "click_enable": "yes",
+
         "onhover": "shadow",
+
         "highlight_area_enable":"no",
         "highlight": "",
+
         "axis_onhover_hightlight_enable" : "no",
         "axis_x_enable": "yes",
         "axis_x_pointer_position": "top",
