@@ -207,7 +207,7 @@ PykCharts.multiD.areaChart = function (options){
 					for(j = 0;j < that.data_length;j++) {
 						that.group_arr[j] = that.data[j].name;
 							if(!that.data[j].color) {
-								that.color_arr[j] = that.color[j];
+								that.color_arr[j] = that.chart_color[j];
 							}
 							else that.color_arr[j] = that.data[j].color;
 					}
@@ -315,7 +315,7 @@ PykCharts.multiD.areaChart = function (options){
 					    .on("zoom",that.zoomed);
 				}
 				
-				if(PykCharts.boolean(that.zoom_enable) && (that.mode === "default")) {					console.log
+				if(PykCharts.boolean(that.zoom_enable) && (that.mode === "default")) {
 					that.svgContainer.call(that.zoom_event);
 					that.svgContainer.on("wheel.zoom", null)
                     	.on("mousewheel.zoom", null);
