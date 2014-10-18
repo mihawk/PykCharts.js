@@ -435,7 +435,6 @@ PykCharts.Configuration = function (options){
                 })
                 .text(function (d) {
                     w = this.getBBox().width + 20;
-                    console.log(w);
                     h = this.getBBox().height + 10;
                     return d.annotation;
                 })
@@ -1323,10 +1322,10 @@ configuration.fillChart = function (options,theme,config) {
             } else if(PykCharts.boolean(options.variable_circle_size_enable)) {
                 if(d.color) {
                     return d.color;
-                } else if(options.color.length) {
+                } else if(options.chart_color.length) {
                     return options.color;
                 }
-                else return options.chart_color;
+                else return options.chart_color[0];
             }
             // if(!(PykCharts.boolean(options.variable_circle_variable_circle_size_enable))) {
             //     return options.saturation_color;
@@ -1344,21 +1343,19 @@ configuration.fillChart = function (options,theme,config) {
                 return options.saturation_color;
             } else if(options.color_mode === "color" && d.color) {
                 return d.color;
-            } else if(options.color_mode === "color" && options.color.length){
-                return options.color;
-            } else {
+            } else if(options.color_mode === "color"){
                 return options.chart_color;
-            } return options.chart_color;
+            } return options.chart_color[0];
         },
         colorLegends : function (d) {
             if(options.color_mode === "saturation") {
                 return options.saturation_color;
             } else if(options.color_mode === "color" && d) {
                 return d;
-            } else if(options.color_mode === "color" && options.color.length){
-                return options.color;
-            } else {
+            } else if(options.color_mode === "color"){
                 return options.chart_color;
+            } else {
+                return options.chart_color[0];
             } return options.chart_color;
         }
     }
@@ -1401,7 +1398,6 @@ configuration.makeXAxis = function(options,xScale) {
 
     if(options.axis_x_data_format=== "time" && PykCharts.boolean(options.axis_x_time_value_datatype)) {
         if(options.axis_x_time_value_datatype === "month") {
-            console.log("its a month");
             a = d3.time.month;
             b = "%b";
         }else if(options.axis_x_time_value_datatype === "date") {
@@ -1497,7 +1493,7 @@ configuration.transition = function (options) {
     var transition = {
         duration : function() {
             if(options.mode === "default" && PykCharts.boolean(options.transition_duration)) {
-                return options.transition_duration;
+                return options.transition_duration * 1000;
             } else {
                 return 0;
             }
@@ -1518,43 +1514,50 @@ configuration.Theme = function(){
         "chart_margin_right": 50,
         "chart_margin_bottom": 35,
         "chart_margin_left": 50,
-        "chart_grid_x_enable": "yes",
-        "chart_grid_y_enable": "yes",
-        "chart_grid_color":"#ddd",
-
+        
         "title_size": 15,
         "title_color": "#1D1D1D",
         "title_weight": "bold",
         "title_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
+
         "subtitle_size": 12,
         "subtitle_color": "black",
         "subtitle_weight": "thin",
         "subtitle_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
+
         "highlight": "",
         "highlight_color": "#013F73",
         "background_color": "transparent",
-        "chart_color": "steelblue",
+        "chart_color": ["steelblue"],
         "saturation_color": "steelblue",
+
         "border_between_chart_elements_thickness": 1,
         "border_between_chart_elements_color": "white",
         "border_between_chart_elements_style": "solid",
+
         "legends_text_size": 13,
         "legends_text_color": "white",
         "legends_text_weight": "thin",
         "legends_text_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
+
         "label_size": 13,
         "label_color": "white",
         "label_weight": "thin",
         "label_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
+
         "pointer_overflow_enable": "no",
         "pointer_thickness": 1,
         "pointer_weight": "thin",
         "pointer_size": 13,
         "pointer_color": "#1D1D1D",
         "pointer_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
+
         "loading_gif_url": "https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/img/loader.gif",
+        
         "fullscreen_enable": "no",
+        
         "tooltip_enable": "yes",
+        
         "credit_my_site_name": "Pykih",
         "credit_my_site_url": "http://www.pykih.com"
     };
@@ -1598,6 +1601,11 @@ configuration.Theme = function(){
     };
 
     that.multiDimensionalCharts = {
+        
+        "chart_grid_x_enable": "yes",
+        "chart_grid_y_enable": "yes",
+        "chart_grid_color":"#ddd",
+
         "axis_onhover_hightlight_enable": "no",
 
         "axis_x_enable": "yes",
@@ -1645,7 +1653,7 @@ configuration.Theme = function(){
         "zoom_enable": "no",
         
         "color_mode" : "color",
-        "color": ["yellow"],
+        // "color": ["yellow"],
 
         "spiderweb_outer_radius_percent" : 80,
         "spiderweb_radius": 5,
