@@ -1794,14 +1794,14 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
     }
     chartObject.real_time_charts_refresh_frequency = options.real_time_charts_refresh_frequency ? options.real_time_charts_refresh_frequency : functionality.real_time_charts_refresh_frequency;
     chartObject.real_time_charts_last_updated_at_enable = options.real_time_charts_last_updated_at_enable ? options.real_time_charts_last_updated_at_enable : functionality.real_time_charts_last_updated_at_enable;
-    
+
     if(options.credit_my_site_name || options.credit_my_site_url) {
         chartObject.credit_my_site_name = options.credit_my_site_name ? options.credit_my_site_name : "";
         chartObject.credit_my_site_url = options.credit_my_site_url ? options.credit_my_site_url : "";
     } else {
         chartObject.credit_my_site_name = stylesheet.credit_my_site_name;
         chartObject.credit_my_site_url = stylesheet.credit_my_site_url;
-    } 
+    }
     // chartObject.credit_my_site_name = options.credit_my_site_name ? options.credit_my_site_name : stylesheet.credit_my_site_name;
     // chartObject.credit_my_site_url = options.credit_my_site_url ? options.credit_my_site_url : stylesheet.credit_my_site_url;
     chartObject.data_source_name = options.data_source_name ? options.data_source_name : "";
@@ -1809,7 +1809,7 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
     chartObject.clubdata_enable = options.clubdata_enable ? options.clubdata_enable : oneDimensionalCharts.clubdata_enable;
     chartObject.clubdata_text = PykCharts.boolean(options.clubdata_enable) && options.clubdata_text ? options.clubdata_text : oneDimensionalCharts.clubdata_text;
     chartObject.clubdata_maximum_nodes = PykCharts.boolean(options.clubdata_maximum_nodes) && options.clubdata_maximum_nodes ? options.clubdata_maximum_nodes : oneDimensionalCharts.clubdata_maximum_nodes;
-    chartObject.clubData_always_include_data_points = PykCharts.boolean(options.clubdata_enable) && options.clubData_always_include_data_points ? options.clubData_always_include_data_points : [];
+    chartObject.clubdata_always_include_data_points = PykCharts.boolean(options.clubdata_enable) && options.clubdata_always_include_data_points ? options.clubdata_always_include_data_points : [];
     chartObject.transition_duration = options.transition_duration ? options.transition_duration : functionality.transition_duration;
     chartObject.pointer_overflow_enable = options.pointer_overflow_enable ? options.pointer_overflow_enable : stylesheet.pointer_overflow_enable;
     chartObject.background_color = options.background_color ? options.background_color : stylesheet.background_color;
@@ -1830,7 +1830,7 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
                   break;
     }
     chartObject.highlight = options.highlight ? options.highlight : stylesheet.highlight;
-    
+
     chartObject.label_size = "label_size" in options ? options.label_size : stylesheet.label_size;
     chartObject.label_color = options.label_color ? options.label_color : stylesheet.label_color;
     chartObject.label_weight = options.label_weight ? options.label_weight : stylesheet.label_weight;
@@ -2120,10 +2120,10 @@ PykCharts.oneD.bubble = function (options) {
                         new_data1 = { "children" : that.data };
                         return new_data1;
                     }
-                    if (that.clubData_always_include_data_points.length!== 0) {
-                        var l = that.clubData_always_include_data_points.length;
+                    if (that.clubdata_always_include_data_points.length!== 0) {
+                        var l = that.clubdata_always_include_data_points.length;
                         for (i =0; i<l; i++) {
-                            clubdata_content[i] = that.clubData_always_include_data_points[i];
+                            clubdata_content[i] = that.clubdata_always_include_data_points[i];
                         }
                     }
                     for (i=0; i<clubdata_content.length; i++) {
@@ -2638,10 +2638,10 @@ PykCharts.oneD.funnel = function (options) {
             clubData : function () {
                 if(PykCharts.boolean(that.clubdata_enable)) {
                     var clubdata_content = [];
-                    if(that.clubData_always_include_data_points.length!== 0){
-                        var l = that.clubData_always_include_data_points.length;
+                    if(that.clubdata_always_include_data_points.length!== 0){
+                        var l = that.clubdata_always_include_data_points.length;
                         for(i=0; i < l; i++){
-                            clubdata_content[i] = that.clubData_always_include_data_points[i];
+                            clubdata_content[i] = that.clubdata_always_include_data_points[i];
                         }
                     }
                     var newData = [];
@@ -3029,10 +3029,10 @@ PykCharts.oneD.percentageColumn = function (options) {
 
                 if(PykCharts.boolean(that.clubdata_enable)) {
                     var clubdata_content = [];
-                    if(that.clubData_always_include_data_points.length!== 0){
-                        var l = that.clubData_always_include_data_points.length;
+                    if(that.clubdata_always_include_data_points.length!== 0){
+                        var l = that.clubdata_always_include_data_points.length;
                         for(i=0; i < l; i++){
-                            clubdata_content[i] = that.clubData_always_include_data_points[i];
+                            clubdata_content[i] = that.clubdata_always_include_data_points[i];
                         }
                     }
                     var new_data1 = [];
@@ -3773,7 +3773,7 @@ PykCharts.oneD.election_donut = function (options) {
             that.calculation = "pie";
             that.height_translate = that.height;
         }
-        
+
         that.radiusPercent = options.donut_radius_percent && _.isNumber(options.donut_radius_percent) ? options.donut_radius_percent : theme.oneDimensionalCharts.donut_radius_percent;
         that.innerRadiusPercent = options.donut_inner_radius_percent && _.isNumber(options.donut_inner_radius_percent) && options.donut_inner_radius_percent ? options.donut_inner_radius_percent : theme.oneDimensionalCharts.donut_inner_radius_percent;
 
@@ -4061,11 +4061,11 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                     } ;
                     var k = 0;
 
-                    if(that.clubData_always_include_data_points.length!== 0) {
-                        for (var l=0;l<that.clubData_always_include_data_points.length;l++)
+                    if(that.clubdata_always_include_data_points.length!== 0) {
+                        for (var l=0;l<that.clubdata_always_include_data_points.length;l++)
                         {
 
-                            index = that.getIndexByName(that.clubData_always_include_data_points[l]);
+                            index = that.getIndexByName(that.clubdata_always_include_data_points[l]);
                             if(index!= undefined) {
                                 that.displayData.push(that.data[index]);
                                 that.sorted_weight = reject (index);
@@ -4088,7 +4088,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                         }
                     };
                     var count = that.clubdata_maximum_nodes-that.displayData.length;
-                    
+
                     var sum_others = d3.sum(that.sorted_weight,function (d,i) {
                             if(i>=count-1)
                                 return d;
@@ -4847,11 +4847,11 @@ PykCharts.oneD.pyramid = function (options) {
                         return result;
                     } ;
                     
-                    if(that.clubData_always_include_data_points.length!== 0) {
-                        for (var l=0;l<that.clubData_always_include_data_points.length;l++)
+                    if(that.clubdata_always_include_data_points.length!== 0) {
+                        for (var l=0;l<that.clubdata_always_include_data_points.length;l++)
                         {
 
-                            index = that.getIndexByName(that.clubData_always_include_data_points[l]);
+                            index = that.getIndexByName(that.clubdata_always_include_data_points[l]);
                             if(index!= undefined) {
                                 that.displayData.push(that.data[index]);
                                 that.sorted_weight = reject (index);
@@ -5138,10 +5138,10 @@ PykCharts.oneD.treemap = function (options){
                         that.new_data = { "children" : that.data };
                         return this;
                     }
-                    if(that.clubData_always_include_data_points.length!== 0){
-                        var l = that.clubData_always_include_data_points.length;
+                    if(that.clubdata_always_include_data_points.length!== 0){
+                        var l = that.clubdata_always_include_data_points.length;
                         for(i=0; i < l; i++){
-                            clubdata_content[i] = that.clubData_always_include_data_points[i];
+                            clubdata_content[i] = that.clubdata_always_include_data_points[i];
                         }
                     }
                     var new_data1 = [];
