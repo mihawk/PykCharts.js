@@ -405,49 +405,54 @@ PykCharts.Configuration = function (options){
             }
             return this;
         },
-        annotation : function (d1) {
-            _.each(d1[0], function (d, i) {
-                if ($(options.selector+" #"+ d1[0].parentNode.id +"-tooltip"+i).length>0) {
-                    $(options.selector+" #"+ d1[0].parentNode.id +"-tooltip"+i).remove();
-                }
-                var position = $(d).offset();
-                var svg_position_left = 0, svg_position_top=0;
-                if(PykCharts.boolean(options.multiple_containers_enable)) {
-                    svg_position_left = $(options.selector+" #"+ d1[0].parentNode.parentNode.id).offset().left /*- $(options.selector).offset().left*/;
-                    svg_position_top = $(options.selector+" #"+ d1[0].parentNode.parentNode.id).offset().top/* - $(options.selector).offset().top*/;
-                } else {
-                    svg_position_left = $(options.selector+" #"+ d1[0].parentNode.parentNode.id).offset().left /*- $(options.selector).offset().left*/;
-                    svg_position_top = $(options.selector+" #"+ d1[0].parentNode.parentNode.id).offset().top/* - $(options.selector).offset().top*/;
-                }
-                var grp = d3.select(options.selector+" #"+ d1[0].parentNode.id)
-                    .append("g")
-                    .attr("id",d1[0].parentNode.id+"-tooltip"+i);
-                var annotation_rect = grp
-                    .append("rect");
-                var annotation_text = grp
-                    .append("text")
-                    .attr("x",(position.left - svg_position_left))
-                    .attr("y", (position.top - svg_position_top) - 5)
-                    .attr("text-anchor","middle")
-                    .style("z-index", "10")
-                    .text(function () {
-                        return $(d)[0].__data__.annotation;
-                    })
-                    .text(function () {
-                        w = this.getBBox().width + 20;
-                        h = this.getBBox().height + 10;
-                        return $(d)[0].__data__.annotation;
-                    })
-                    .style("pointer-events","none");
+        annotation : function (svg,data,xScale,yScale) {
+            var w = 0,h=0;
+            
+            var annotation_rect = d3.select(svg).selectAll(".annotation-rect")
+                .data(data)
+            
+            annotation_rect.enter()
+                .append("rect")
+                .attr("class","annotation-rect");
+            
+            var annotation_text = d3.select(svg).selectAll(".annotation-text")
+                .data(data)
+            
+            annotation_text.enter()
+                .append("text")
+                .attr("class","annotation-text");
+            
+            annotation_text.attr("x",function (d) {
+                    return parseInt(xScale(d.x)-(5))+options.extra_left_margin+options.margin_left;
+                })
+                .attr("y", function (d) {
+                    return parseInt(yScale(d.y)-20+options.margin_top);
+                })
+                .attr("text-anchor","middle")
+                .style("z-index", "10")
+                .text(function (d) {
+                    return d.annotation;
+                })
+                .text(function (d) {
+                    w = this.getBBox().width + 20;
+                    console.log(w);
+                    h = this.getBBox().height + 10;
+                    return d.annotation;
+                })
+                .style("pointer-events","none");
 
-                annotation_rect.attr("x",(position.left - svg_position_left) - (w/2))
-                    .attr("y", (position.top - svg_position_top) - (h))
-                    .attr("width",w)
-                    .attr("height",h)
-                    .attr("fill","#eeeeee")
-                    .style("pointer-events","none");
+            annotation_rect.attr("x",function (d) {
+                    return (parseInt(xScale(d.x)-(5))+options.extra_left_margin+options.margin_left) - (w/2);
+                })
+                .attr("y", function (d) {
+                    return (parseInt(yScale(d.y)-10+options.margin_top)) - h;
+                })
+                .attr("width",w)
+                .attr("height",h)
+                .attr("fill","#eeeeee")
+                .style("pointer-events","none");
 
-            });
+            // });
         },
         crossHair : function (svg,len,data,fill) {
 
@@ -946,7 +951,6 @@ configuration.mouseEvent = function (options) {
             if((PykCharts.boolean(options.crosshair_enable) || PykCharts.boolean(options.tooltip_enable) || PykCharts.boolean(options.onHoverHighlightenable))  && options.mode === "default") {
                 var offsetLeft = options.margin_left + lineMargin +  $(options.selector + " #"+dataLineGroup[0][0][0].parentNode.parentNode.id).offset().left;
                 var offsetTop = $(options.selector + " #"+dataLineGroup[0][0][0].parentNode.parentNode.id).offset().top;
-                console.log(offsetLeft, dataLineGroup[0][0][0].parentNode.parentNode.id);
                 var number_of_lines = new_data.length;
                 var left = options.margin_left;
                 var right = options.margin_right;
@@ -957,7 +961,7 @@ configuration.mouseEvent = function (options) {
                 var group_index = parseInt(d3.event.target.id.substr((d3.event.target.id.length-1),1));
                 var c = b - a;
                 var x = d3.event.pageX - offsetLeft;
-                var y = d3.event.pageY - $(options.selector).offset().top - top ;
+                var y = d3.event.pageY - offsetTop - top ;
                 var x_range = [];
                 if(options.axis_x_data_format==="string") {
                     x_range = xScale.range();
@@ -976,7 +980,6 @@ configuration.mouseEvent = function (options) {
                 var j,tooltpText,active_x_tick,active_y_tick = [],left_diff,right_diff,
                     pos_line_cursor_x,pos_line_cursor_y = [],right_tick,left_tick,
                     range_length = x_range.length,colspan,bottom_tick,top_tick;
-                console.log(x,x_range, y, y_range);
                 for(j = 0;j < range_length;j++) {
                     for(k = 0; k<y_range.length;k++) {
                         if((j+1) >= range_length) {

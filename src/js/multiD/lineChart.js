@@ -11,7 +11,7 @@ PykCharts.multiD.lineChart = function (options){
 		var multiDimensionalCharts = theme.multiDimensionalCharts,
 			stylesheet = theme.stylesheet,
 			optional = options.optional;
-		that.crosshair_enable = options.crosshair_enable ? options.crosshair_enable : multiDimensionalCharts.crosshair_enable;
+		that.enableCrossHair = options.crosshair_enable ? options.crosshair_enable : multiDimensionalCharts.crosshair_enable;
 		that.curvy_lines = options.line_curvy_lines ? options.line_curvy_lines : multiDimensionalCharts.line_curvy_lines;
 		that.interpolate = PykCharts.boolean(that.curvy_lines) ? "cardinal" : "linear";
 	    that.color_from_data = options.line_color_from_data ? options.line_color_from_data : multiDimensionalCharts.line_color_from_data;
@@ -300,7 +300,7 @@ PykCharts.multiD.lineChart = function (options){
 					.attr("id","chartsvg")
 					.attr("transform","translate("+ that.margin_left +","+ that.margin_top +")");
 
-				if(PykCharts.boolean(that.grid_y_enable)){
+				if(PykCharts.boolean(that.grid_yEnabled)){
 					that.group.append("g")
 						.attr("id","ygrid")
 						.attr("class","y grid-line");
@@ -843,9 +843,10 @@ PykCharts.multiD.lineChart = function (options){
                 	return that.line(a);
                 })
 				.attr("fill","#eeeeee")
-                .call(that.k.annotation);
+                // .call(that.k.annotation);
             anno.exit()
             	.remove();
+            that.k.annotation(that.selector + " #svg-1",annotation, that.xScale,that.yScale);
 		} else if(PykCharts.boolean(that.multiple_containers_enable)) {
 			for(i=0;i<that.new_data_length;i++){
 				var annotation = [], arrow_size = 10;
@@ -881,10 +882,10 @@ PykCharts.multiD.lineChart = function (options){
                     	];
                     	return that.line(a);
                     })
-					.attr("fill","#eeeeee")
-                    .call(that.k.annotation);
+					.attr("fill","#eeeeee");
                 anno.exit()
                 	.remove();
+                that.k.annotation(that.selector + " #svg-" + i,annotation, that.xScale,that.yScale)
 			}
 		}
 	}

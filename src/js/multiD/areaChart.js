@@ -558,9 +558,10 @@ PykCharts.multiD.areaChart = function (options){
                 	return that.line(a);
                 })
 				.attr("fill","#eeeeee")
-                .call(that.k.annotation);
+                // .call(that.k.annotation);
             anno.exit()
             	.remove();
+            that.k.annotation(that.selector + " #svg-1",annotation, that.xScale,that.yScale)
 		} else if(that.type === "stackedAreaChart" && that.mode === "default") {
 			var arrow_size = 10,annotation = [];	
 			for(i=0;i<that.new_data_length;i++) {
@@ -569,8 +570,8 @@ PykCharts.multiD.areaChart = function (options){
 						annotation.push({
 							annotation : d.annotation,
 							x : d.x,
-							y : d.y,
-							y0 : d.y0 
+							y : d.y + d.y0
+							// y0 : d.y0 
 						});
 					}
 				});
@@ -584,23 +585,24 @@ PykCharts.multiD.areaChart = function (options){
                 	var a = [
                 		{
                 			x:parseInt(that.xScale(d.x)-(arrow_size*0.5))+that.extra_left_margin+that.margin_left,
-                			y:parseInt(that.yScale(d.y0+d.y)-(arrow_size)+that.margin_top)
+                			y:parseInt(that.yScale(d.y)-(arrow_size)+that.margin_top)
                 		},
                 		{
                 			x:parseInt(that.xScale(d.x)+(arrow_size*0.5))+that.extra_left_margin+that.margin_left,
-                			y:parseInt(that.yScale(d.y0+d.y)-(arrow_size)+that.margin_top)
+                			y:parseInt(that.yScale(d.y)-(arrow_size)+that.margin_top)
                 		},
                 		{
                 			x:parseInt(that.xScale(d.x))+that.extra_left_margin+that.margin_left,
-                			y:parseInt(that.yScale(d.y0+d.y)+that.margin_top),
+                			y:parseInt(that.yScale(d.y)+that.margin_top),
                 		}
                 	];
                 	return that.line(a);
                 })
 				.attr("fill","#eeeeee")
-                .call(that.k.annotation);
+                // .call(that.k.annotation);
             anno.exit()
             	.remove();
+            that.k.annotation(that.selector + " #svg-1",annotation, that.xScale,that.yScale)
 		}
 	}
 };
