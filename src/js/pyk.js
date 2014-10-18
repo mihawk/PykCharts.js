@@ -172,7 +172,6 @@ PykCharts.Configuration = function (options){
             }
         },
 	    appendUnits : function (text) {
-            console.log(PykCharts);
             text = PykCharts.numberFormat(text);
             var label,prefix,suffix;
                 prefix = options.units_prefix,
@@ -506,7 +505,7 @@ PykCharts.Configuration = function (options){
             return this;
         },
 	    positionContainers : function (position, chart) {
-            if(PykCharts.boolean(options.legends_enable) && !(PykCharts.boolean(options.size_enable))) {
+            if(PykCharts.boolean(options.legends_enable) && !(PykCharts.boolean(options.variable_circle_size_enable))) {
                 if(position == "top" || position == "left") {
                     chart.optionalFeatures().legendsContainer().svgContainer();
                 }
@@ -522,7 +521,7 @@ PykCharts.Configuration = function (options){
         yGrid: function (svg, gsvg, yScale) {
             var width = options.width,
                 height = options.height;
-            if(PykCharts.boolean(options.grid_yEnabled)) {
+            if(PykCharts.boolean(options.grid_y_enable)) {
                 var ygrid = PykCharts.Configuration.makeYGrid(options,yScale);
                 gsvg.selectAll(options.selector + " g.y.grid-line")
                     .style("stroke",function () { return options.grid_color; })
@@ -534,7 +533,7 @@ PykCharts.Configuration = function (options){
              var width = options.width,
                 height = options.height;
 
-            if(PykCharts.boolean(options.grid_xEnabled)) {
+            if(PykCharts.boolean(options.grid_x_enable)) {
                 var xgrid = PykCharts.Configuration.makeXGrid(options,xScale);
                 gsvg.selectAll(options.selector + " g.x.grid-line")
                     .style("stroke",function () { return options.grid_color; })
@@ -871,7 +870,7 @@ PykCharts.Configuration = function (options){
             project._view._viewSize.height = chart.height;
             var name = chart_name + ".svg"
 
-            console.log(document.querySelector(options.selector +" "+svgId),"svgContainer");
+            // console.log(document.querySelector(options.selector +" "+svgId),"svgContainer");
             $(chart.selector + " #"+id).click(function(){
 
                 project.importSVG(document.querySelector(options.selector +" "+svgId));
@@ -1315,9 +1314,9 @@ configuration.fillChart = function (options,theme,config) {
             }
         },
         colorPieW : function (d) {
-             if(!(PykCharts.boolean(options.size_enable))) {
+             if(!(PykCharts.boolean(options.variable_circle_size_enable))) {
                 return options.saturation_color;
-            } else if(PykCharts.boolean(options.size_enable)) {
+            } else if(PykCharts.boolean(options.variable_circle_size_enable)) {
                 if(d.color) {
                     return d.color;
                 } else if(options.color.length) {
@@ -1325,9 +1324,9 @@ configuration.fillChart = function (options,theme,config) {
                 }
                 else return options.chart_color;
             }
-            // if(!(PykCharts.boolean(options.size_enable))) {
+            // if(!(PykCharts.boolean(options.variable_circle_variable_circle_size_enable))) {
             //     return options.saturation_color;
-            // } else if(PykCharts.boolean(options.size_enable)) {
+            // } else if(PykCharts.boolean(options.variable_circle_variable_circle_size_enable)) {
             //     if(d.color) {
             //         return d.color;
             //     }
@@ -1394,7 +1393,7 @@ configuration.makeXAxis = function(options,xScale) {
                         }
                     })
                     .tickPadding(options.axis_x_pointer_padding)
-                    .orient(options.axis_x_value_position);
+                    .orient(options.axis_x_pointer_position);
 
     if(options.axis_x_data_format=== "time" && PykCharts.boolean(options.axis_x_time_value_datatype)) {
         if(options.axis_x_time_value_datatype === "month") {
@@ -1428,7 +1427,7 @@ configuration.makeYAxis = function(options,yScale) {
     var k = PykCharts.Configuration(options);
     var yaxis = d3.svg.axis()
                     .scale(yScale)
-                    .orient(options.axis_y_value_position)
+                    .orient(options.axis_y_pointer_position)
                     .tickSize(options.axis_y_pointer_size)
                     .outerTickSize(options.axis_y_outer_pointer_size)
                     .tickPadding(options.axis_y_pointer_padding)
@@ -1512,8 +1511,8 @@ configuration.Theme = function(){
         "chart_margin_right": 50,
         "chart_margin_bottom": 35,
         "chart_margin_left": 50,
-        "chart_grid_xEnabled": "yes",
-        "chart_grid_yEnabled": "yes",
+        "chart_grid_x_enable": "yes",
+        "chart_grid_y_enable": "yes",
         "chart_grid_color":"#ddd",
         "mode": "default",
         "selector": "body",
@@ -1594,7 +1593,7 @@ configuration.Theme = function(){
         "axis_x_enable": "yes",
         "axis_x_title" : "X axis",
         "axis_x_position": "bottom",
-        "axis_x_value_position": "bottom", //axis orient
+        "axis_x_pointer_position": "bottom", //axis orient
         "axis_x_line_color": "#1D1D1D",
         "axis_x_label_color": "#1D1D1D",
         "axis_x_no_of_axis_value": 5,
@@ -1609,7 +1608,7 @@ configuration.Theme = function(){
         "axis_y_enable": "yes",
         "axis_y_title" : "Y axis",
         "axis_y_position": "left",
-        "axis_y_value_position": "left",
+        "axis_y_pointer_position": "left",
         "axis_y_line_color": "#1D1D1D",
         "axis_y_label_color": "#1D1D1D",
         "axis_y_no_of_axis_value": 5,
@@ -1624,7 +1623,7 @@ configuration.Theme = function(){
         "axis_x_data_format": "string",
         "crosshair_enable": "yes",
         "zoom_enable": "no",
-        "size_enable" : "yes",
+        "variable_circle_size_enable" : "yes",
         "color_mode" : "color",
         "color": ["yellow"],
 
@@ -1662,8 +1661,8 @@ configuration.Theme = function(){
         "background_color": "white",
         "tooltip_enable" : "yes",
         "tooltip_mode": "moving",
-        "tooltip_positionTop": 0,
-        "tooltip_positionLeft": 0,
+        "tooltip_position_top": 0,
+        "tooltip_position_left": 0,
         "timeline_duration": 1000,
         "timeline_margin_top": 5,
         "timeline_margin_right": 25,
@@ -1678,7 +1677,7 @@ configuration.Theme = function(){
         "highlight": "",
         "axis_onhover_hightlight_enable" : "no",
         "axis_x_enable": "yes",
-        "axis_x_value_position": "top",
+        "axis_x_pointer_position": "top",
         "axis_x_line_color": "#1D1D1D",
         "axis_x_label_color": "#1D1D1D",
         "axis_x_pointer_size": 5,

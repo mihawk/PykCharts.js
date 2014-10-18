@@ -38,8 +38,8 @@
             var k = new PykCharts.oneD.bubble({
                 selector: "#bubble",
                 data:"../data/pie.json",
-                transition_duration: 1000,
-                highlight: "A"
+                transition_duration: 1000
+
             });
             k.execute();
 
@@ -55,7 +55,7 @@
                 selector: "#pictograph",
                 data:"../data/pictograph.json",
                 chart_width : 400,
-                transition_duration: 1000
+                transition_duration: 1000,
              });
             k.execute();
 
@@ -63,7 +63,7 @@
                 selector: "#pyramid",
                 data:"../data/pie.json",
                 transition_duration: 1000,
-                "pointer_overflow_enable": "no",
+                pointer_overflow_enable: "no",
              });
             k.execute();
 
@@ -71,7 +71,6 @@
                 selector: "#treemap",
                 data: "../data/pie.json",
                 transition_duration: 0, 
-                realTimeCharts_refreshFrequency: 0
             });
             k.execute();
 
@@ -107,7 +106,7 @@
                 selector: "#percentageColumn",
                 data:"../data/pie.json",
                 transition_duration: 1000,
-               // "realTimeCharts_refreshFrequency": 11
+
             });
             k.execute();
 
@@ -116,8 +115,7 @@
                 data:"../data/pie.json",
                 transition_duration: 1000,
                 // "chart_height": 200,
-                "chart_width": 600,
-                // "realTimeCharts_refreshFrequency": 11
+                chart_width: 600,
             });
             k.execute();
 

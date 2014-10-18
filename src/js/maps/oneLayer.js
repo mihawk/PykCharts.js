@@ -13,7 +13,7 @@ PykCharts.maps.oneLayer = function (options) {
                 .loading(that.loading)
                 .tooltip();
 
-            d3.json("https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/maps/" + that.mapCode + "-topo.json", function (data) {
+            d3.json("https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/maps/" + that.map_code + "-topo.json", function (data) {
                 that.map_data = data;
                 d3.json("https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/palette/colorPalette.json", function (data) {
                     that.color_palette_data = data;
@@ -50,7 +50,7 @@ PykCharts.maps.timelineMap = function (options) {
                 .loading(that.loading)
                 .tooltip(that.tooltip_enable);
 
-            d3.json("https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/maps/" + that.mapCode + "-topo.json", function (data) {
+            d3.json("https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/maps/" + that.map_code + "-topo.json", function (data) {
                 that.map_data = data;
                 // console.log(that.map_data,"map data");
                 d3.json("https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/palette/colorPalette.json", function (data) {
@@ -246,7 +246,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     .attr("class","map_group")
                     .append("path");
 
-                if (that.mapCode==="world") {
+                if (that.map_code==="world") {
                     var center = [0,0];
                 } else {
                     var center = d3.geo.centroid(topojson.feature(that.map_data, that.map_data.objects));
@@ -262,7 +262,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     offset = [that.width - (bounds[0][0] + bounds[1][0]) / 2, that.height - (bounds[0][1] + bounds[1][1]) / 2];
 
                 projection = d3.geo.mercator().center(center)
-                   .scale((that.defaultZoomLevel / 100) * scale).translate(offset);
+                   .scale((that.default_zoom_level / 100) * scale).translate(offset);
                 that.path = that.path.projection(projection);
                 var ttp = d3.select("#pyk-tooltip");
 
@@ -299,8 +299,8 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
 
                                     });
                             } else if (that.tooltip_mode === "fixed") {
-                                ttp.style("top", (that.tooltip_positionTop) + "px")
-                                    .style("left", (that.tooltip_positionLeft) + "px");
+                                ttp.style("top", (that.tooltip_position_top) + "px")
+                                    .style("left", (that.tooltip_position_left) + "px");
                             }
                         }
                         that.bodColor(d);

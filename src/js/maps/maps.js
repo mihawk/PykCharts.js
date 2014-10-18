@@ -29,7 +29,7 @@ PykCharts.maps.processInputs = function (chartObject, options) {
     chartObject.selector = options.selector ? options.selector : stylesheet.selector;
     chartObject.width = _.isNumber(parseInt(options.chart_width,10)) ? options.chart_width : mapsTheme.chart_width;
     chartObject.height = _.isNumber(parseInt(options.chart_height,10)) ? options.chart_height : mapsTheme.chart_height;
-    chartObject.mapCode = options.mapCode ? options.mapCode : mapsTheme.mapCode;
+    chartObject.map_code = options.map_code ? options.map_code : mapsTheme.map_code;
     chartObject.click_enable = options.click_enable ? options.click_enable : mapsTheme.click_enable;
     chartObject.background_color = options.background_color ? options.background_color : stylesheet.background_color;
     
@@ -41,8 +41,8 @@ PykCharts.maps.processInputs = function (chartObject, options) {
 
     chartObject.tooltip_enable = options.tooltip_enable ? options.tooltip_enable : mapsTheme.tooltip_enable;
     chartObject.tooltip_mode = options.tooltip_mode ? options.tooltip_mode : mapsTheme.tooltip_mode;
-    chartObject.tooltip_positionTop = options.tooltip_positionTop ? options.tooltip_positionTop : mapsTheme.tooltip_positionTop;
-    chartObject.tooltip_positionLeft = options.tooltip_positionLeft ? options.tooltip_positionLeft : mapsTheme.tooltip_positionLeft;
+    chartObject.tooltip_position_top = options.tooltip_position_top ? options.tooltip_position_top : mapsTheme.tooltip_position_top;
+    chartObject.tooltip_position_left = options.tooltip_position_left ? options.tooltip_position_left : mapsTheme.tooltip_position_left;
     chartObject.tooltipTopCorrection = d3.select(chartObject.selector).style("top");
     chartObject.tooltipLeftCorrection = d3.select(chartObject.selector).style("left");
 
@@ -53,7 +53,7 @@ PykCharts.maps.processInputs = function (chartObject, options) {
 
     chartObject.axis_onhover_hightlight_enable = PykCharts.boolean(options.axis_x_enable) && options.axis_onhover_hightlight_enable ? options.axis_onhover_hightlight_enable : mapsTheme.axis_onhover_hightlight_enable;
     chartObject.axis_x_enable = options.axis_x_enable ? options.axis_x_enable : mapsTheme.axis_x_enable;
-    chartObject.axis_x_value_position = PykCharts.boolean(options.axis_x_enable) && options.axis_x_value_position ? options.axis_x_value_position : mapsTheme.axis_x_value_position;
+    chartObject.axis_x_pointer_position = PykCharts.boolean(options.axis_x_enable) && options.axis_x_pointer_position ? options.axis_x_pointer_position : mapsTheme.axis_x_pointer_position;
     chartObject.axis_x_line_color = PykCharts.boolean(options.axis_x_enable) && options.axis_x_line_color ? options.axis_x_line_color : mapsTheme.axis_x_line_color;
     chartObject.axis_x_label_color = PykCharts.boolean(options.axis_x_enable) && options.axis_x_label_color ? options.axis_x_label_color : mapsTheme.axis_x_label_color;
     chartObject.axis_x_no_of_axis_value = PykCharts.boolean(options.axis_x_enable) && options.axis_x_no_of_axis_value ? options.axis_x_no_of_axis_value : mapsTheme.axis_x_no_of_axis_value;
@@ -67,20 +67,20 @@ PykCharts.maps.processInputs = function (chartObject, options) {
     chartObject.legends_enable = options.legends_enable ? options.legends_enable : mapsTheme.legends_enable;
     chartObject.legends_display = options.legends_display ? options.legends_display : mapsTheme.legends_display;
 
-    chartObject.borderBetweenChartElements_width = "borderBetweenChartElements_width" in options ? options.borderBetweenChartElements_width : stylesheet.borderBetweenChartElements_width;
-    chartObject.borderBetweenChartElements_color = options.borderBetweenChartElements_color ? options.borderBetweenChartElements_color : stylesheet.borderBetweenChartElements_color;
-    chartObject.borderBetweenChartElements_style = options.borderBetweenChartElements_style ? options.borderBetweenChartElements_style : stylesheet.borderBetweenChartElements_style;
-    switch(chartObject.borderBetweenChartElements_style) {
-        case "dotted" : chartObject.borderBetweenChartElements_style = "1,3";
+    chartObject.border_between_chart_elements_thickness = "border_between_chart_elements_thickness" in options ? options.border_between_chart_elements_thickness : stylesheet.border_between_chart_elements_thickness;
+    chartObject.border_between_chart_elements_color = options.border_between_chart_elements_color ? options.border_between_chart_elements_color : stylesheet.border_between_chart_elements_color;
+    chartObject.border_between_chart_elements_style = options.border_between_chart_elements_style ? options.border_between_chart_elements_style : stylesheet.border_between_chart_elements_style;
+    switch(chartObject.border_between_chart_elements_style) {
+        case "dotted" : chartObject.border_between_chart_elements_style = "1,3";
                         break;
-        case "dashed" : chartObject.borderBetweenChartElements_style = "5,5";
+        case "dashed" : chartObject.border_between_chart_elements_style = "5,5";
                        break;
-        default : chartObject.borderBetweenChartElements_style = "0";
+        default : chartObject.border_between_chart_elements_style = "0";
                   break;
     }
     chartObject.onhover = options.onhover ? options.onhover : mapsTheme.onhover;
-    chartObject.defaultZoomLevel = options.defaultZoomLevel ? options.defaultZoomLevel : 80;
-    chartObject.loading = options.loading_animationGifUrl ? options.loading_animationGifUrl: stylesheet.loading_animationGifUrl;
+    chartObject.default_zoom_level = options.default_zoom_level ? options.default_zoom_level : 80;
+    chartObject.loading = options.loading_gif_url ? options.loading_gif_url: stylesheet.loading_gif_url;
     chartObject.highlight_area_enable = options.highlight_area_enable ? options.highlight_area_enable : mapsTheme.highlight_area_enable;
     chartObject.highlight = options.highlight ? options.highlight : mapsTheme.highlight;
     // chartObject.highlight_area_enable = "yes";    
@@ -114,8 +114,13 @@ PykCharts.maps.processInputs = function (chartObject, options) {
     chartObject.real_time_charts_last_updated_at_enable = options.real_time_charts_last_updated_at_enable ? options.real_time_charts_last_updated_at_enable : functionality.real_time_charts_last_updated_at_enable;
     chartObject.transition_duration = options.transition_duration ? options.transition_duration : functionality.transition_duration;
     
-    chartObject.credit_my_site_name = options.credit_my_site_name ? options.credit_my_site_name : stylesheet.credit_my_site_name;
-    chartObject.credit_my_site_url = options.credit_my_site_url ? options.credit_my_site_url : stylesheet.credit_my_site_url;
+    if(options.credit_my_site_name || options.credit_my_site_url) {
+        chartObject.credit_my_site_name = options.credit_my_site_name ? options.credit_my_site_name : "";
+        chartObject.credit_my_site_url = options.credit_my_site_url ? options.credit_my_site_url : "";
+    } else {
+        chartObject.credit_my_site_name = stylesheet.credit_my_site_name;
+        chartObject.credit_my_site_url = stylesheet.credit_my_site_url;
+    } 
     chartObject.data_source_name = options.data_source_name ? options.data_source_name : "";
     chartObject.data_source_url = options.data_source_url ? options.data_source_url : "";
     chartObject.units = options.units ? options.units : false;

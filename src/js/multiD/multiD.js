@@ -36,7 +36,7 @@ PykCharts.multiD.configuration = function (options){
             return [that.compare_data, changed];
         },
         opacity : function (d,weight,data) {
-            if(!(PykCharts.boolean(options.size_enable))) {
+            if(!(PykCharts.boolean(options.variable_circle_size_enable))) {
                 var z = d3.scale.linear()
                             .domain(d3.extent(data,function (d) {
                                 return d.weight;
@@ -278,7 +278,7 @@ PykCharts.multiD.mouseEvent = function (options) {
 
 PykCharts.multiD.bubbleSizeCalculation = function (options,data,rad_range) {
     var size = function (d) {
-        if(d && PykCharts.boolean(options.size_enable)) {
+        if(d && PykCharts.boolean(options.variable_circle_size_enable)) {
             var z = d3.scale.linear()
                         .domain(d3.extent(data,function (d) {
                             return d.weight;
@@ -307,8 +307,8 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     chartObject.margin_right = options.chart_margin_left && _.isNumber(options.chart_margin_right) ? options.chart_margin_right : stylesheet.chart_margin_right;
     chartObject.margin_top = options.chart_margin_top && _.isNumber(options.chart_margin_top) ? options.chart_margin_top : stylesheet.chart_margin_top;
     chartObject.margin_bottom = options.chart_margin_bottom && _.isNumber(options.chart_margin_bottom) ? options.chart_margin_bottom : stylesheet.chart_margin_bottom;
-    chartObject.grid_xEnabled = options.chart_grid_xEnabled ? options.chart_grid_xEnabled : stylesheet.chart_grid_xEnabled;
-    chartObject.grid_yEnabled = options.chart_grid_yEnabled ? options.chart_grid_yEnabled : stylesheet.chart_grid_yEnabled;
+    chartObject.grid_x_enable = options.chart_grid_x_enable ? options.chart_grid_x_enable : stylesheet.chart_grid_x_enable;
+    chartObject.grid_y_enable = options.chart_grid_y_enable ? options.chart_grid_y_enable : stylesheet.chart_grid_y_enable;
     chartObject.grid_color = options.chart_grid_color ? options.chart_grid_color : stylesheet.chart_grid_color;
     chartObject.mode = options.mode ? options.mode : "default";
     chartObject.color_mode = options.color_mode ? options.color_mode : multiDimensionalCharts.color_mode;
@@ -342,7 +342,7 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     chartObject.axis_onhover_hightlight_enable = PykCharts.boolean(options.axis_x_enable) && options.axis_onhover_hightlight_enable ? options.axis_onhover_hightlight_enable : multiDimensionalCharts.axis_onhover_hightlight_enable;
     chartObject.axis_x_enable = options.axis_x_enable ? options.axis_x_enable : multiDimensionalCharts.axis_x_enable;
     chartObject.axis_x_title = PykCharts.boolean(options.axis_x_enable) && options.axis_x_title ? options.axis_x_title : multiDimensionalCharts.axis_x_title;
-    chartObject.axis_x_value_position = PykCharts.boolean(options.axis_x_enable) && options.axis_x_value_position ? options.axis_x_value_position : multiDimensionalCharts.axis_x_value_position;
+    chartObject.axis_x_pointer_position = PykCharts.boolean(options.axis_x_enable) && options.axis_x_pointer_position ? options.axis_x_pointer_position : multiDimensionalCharts.axis_x_pointer_position;
     chartObject.axis_x_position = PykCharts.boolean(options.axis_x_enable) && options.axis_x_position ? options.axis_x_position : multiDimensionalCharts.axis_x_position;
     chartObject.axis_x_line_color = PykCharts.boolean(options.axis_x_enable) && options.axis_x_line_color ? options.axis_x_line_color : multiDimensionalCharts.axis_x_line_color;
     chartObject.axis_x_label_color = PykCharts.boolean(options.axis_x_enable) && options.axis_x_label_color ? options.axis_x_label_color : multiDimensionalCharts.axis_x_label_color;
@@ -357,7 +357,7 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     
     chartObject.axis_y_enable = options.axis_y_enable ? options.axis_y_enable : multiDimensionalCharts.axis_y_enable;
     chartObject.axis_y_title = PykCharts.boolean(options.axis_y_enable) && options.axis_y_title ? options.axis_y_title : multiDimensionalCharts.axis_y_title;
-    chartObject.axis_y_value_position = PykCharts.boolean(options.axis_y_enable) && options.axis_y_value_position ? options.axis_y_value_position : multiDimensionalCharts.axis_y_value_position;
+    chartObject.axis_y_pointer_position = PykCharts.boolean(options.axis_y_enable) && options.axis_y_pointer_position ? options.axis_y_pointer_position : multiDimensionalCharts.axis_y_pointer_position;
     chartObject.axis_y_position = PykCharts.boolean(options.axis_y_enable) && options.axis_y_position ? options.axis_y_position : multiDimensionalCharts.axis_y_position;
     chartObject.axis_y_line_color = PykCharts.boolean(options.axis_y_enable) && options.axis_y_line_color ? options.axis_y_line_color : multiDimensionalCharts.axis_y_line_color;
     chartObject.axis_y_label_color = PykCharts.boolean(options.axis_y_enable) && options.axis_y_label_color ? options.axis_y_label_color : multiDimensionalCharts.axis_y_label_color;
@@ -429,7 +429,7 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     chartObject.legends_text_weight = (chartObject.legends_text_weight === "thick") ? "bold" : "normal";
     chartObject.legends_text_family = options.legends_text_family ? options.legends_text_family : stylesheet.legends_text_family;
     chartObject.highlight = options.highlight ? options.highlight : stylesheet.highlight;
-    chartObject.size_enable = options.size_enable ? options.size_enable : multiDimensionalCharts.size_enable;
+    chartObject.variable_circle_size_enable = options.variable_circle_size_enable ? options.variable_circle_size_enable : multiDimensionalCharts.variable_circle_size_enable;
     chartObject.units = options.units ? options.units : false;
     chartObject.multiple_containers_enable = options.multiple_containers_enable ? options.multiple_containers_enable : multiDimensionalCharts.multiple_containers_enable;
     chartObject.colorPalette = ["#b2df8a", "#1f78b4", "#33a02c", "#fb9a99", "#e31a1c", "#fdbf6f", "#ff7f00", "#cab2d6", "#6a3d9a", "#ffff99", "#b15928", "#a6cee3"];

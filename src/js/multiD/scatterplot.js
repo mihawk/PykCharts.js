@@ -16,7 +16,7 @@ PykCharts.multiD.scatterPlot = function (options) {
         that.bubbleRadius = options.scatterplot_radius && _.isNumber(options.scatterplot_radius) ? options.scatterplot_radius : multiDimensionalCharts.scatterplot_radius;
         that.enableTicks =  options.scatterplot_pointer ? options.scatterplot_pointer : multiDimensionalCharts.scatterplot_pointer;
         that.zoomed_out = true;
-        that.size_enable = options.size_enable ? options.size_enable : multiDimensionalCharts.size_enable;
+        that.variable_circle_size_enable = options.variable_circle_size_enable ? options.variable_circle_size_enable : multiDimensionalCharts.variable_circle_size_enable;
 
         if(PykCharts.boolean(that.multiple_containers_enable)) {
             that.radius_range = [that.k._radiusCalculation(1.1)*2,that.k._radiusCalculation(2.6)*2];
@@ -53,7 +53,7 @@ PykCharts.multiD.pulse = function (options) {
         that.bubbleRadius = options.scatterplot_radius && _.isNumber(options.scatterplot_radius) ? options.scatterplot_radius : multiDimensionalCharts.scatterplot_radius;
         that.zoomed_out = true;
         that.radius_range = [that.k._radiusCalculation(1.1)*2,that.k._radiusCalculation(3.5)*2];
-        that.size_enable = options.size_enable ? options.size_enable : multiDimensionalCharts.size_enable;
+        that.variable_circle_size_enable = options.variable_circle_size_enable ? options.variable_circle_size_enable : multiDimensionalCharts.variable_circle_size_enable;
         d3.json(options.data, function (e, data) {
             that.data = data.groupBy("pulse");
             that.axis_y_data_format = options.axis_y_data_format ? options.axis_y_data_format : that.k.axis_y_data_formatIdentification(that.data);
@@ -210,7 +210,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                 .yAxisTitle(that.yGroup);
         }
         if(!PykCharts.boolean(that.multiple_containers_enable)) {
-            if(type === "scatterplot" && PykCharts.boolean(that.legends_enable) && PykCharts.boolean(that.size_enable) && that.map_group_data[1]) {
+            if(type === "scatterplot" && PykCharts.boolean(that.legends_enable) && PykCharts.boolean(that.variable_circle_size_enable) && that.map_group_data[1]) {
                 $(window).on("load", function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); })
                             .on("resize", function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); });
             } else {
@@ -278,7 +278,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                 return this;
             },
             legendsContainer : function (i) {
-                if (PykCharts.boolean(that.legends_enable) && PykCharts.boolean(that.size_enable) && that.map_group_data[1]) {
+                if (PykCharts.boolean(that.legends_enable) && PykCharts.boolean(that.variable_circle_size_enable) && that.map_group_data[1]) {
                     that.legendsContainer = d3.select(that.selector + " #tooltip-svg-container-" + i)
                         .append('svg')
                         .attr('width',that.w)
@@ -414,7 +414,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
             },
             legends : function (index) {
 
-                if (PykCharts.boolean(that.legends_enable) && PykCharts.boolean(that.size_enable) && that.map_group_data[1]) {
+                if (PykCharts.boolean(that.legends_enable) && PykCharts.boolean(that.variable_circle_size_enable) && that.map_group_data[1]) {
                     var unique = _.uniq(that.sorted_weight);
                     var k = 0;
                     var l = 0;
@@ -617,13 +617,13 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                         tooltipText = d.tooltip ? d.tooltip : "<table class='PykCharts'><tr><th colspan='2'>"+d.name+"</th></tr><tr><td>X</td><td>"+d.x+"</td></tr><tr><td>Y</td><td>"+d.y+"</td></tr><tr><td>Weight</td><td>"+d.weight+"</td></tr></table>";
                         that.mouseEvent.tooltipPosition(d);
                         that.mouseEvent.toolTextShow(tooltipText);
-                        if(PykCharts.boolean(that.size_enable)){
+                        if(PykCharts.boolean(that.variable_circle_size_enable)){
                             d3.select(this).style("fill-opacity",1);
                         }
                     })
                     .on('mouseout',function (d) {
                         that.mouseEvent.tooltipHide(d);
-                        if(PykCharts.boolean(that.size_enable)) {
+                        if(PykCharts.boolean(that.variable_circle_size_enable)) {
                             d3.selectAll(".dot").style("fill-opacity",0.5);
                         }
                     })
