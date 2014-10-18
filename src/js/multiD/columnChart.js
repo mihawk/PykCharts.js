@@ -5,7 +5,7 @@ PykCharts.multiD.columnChart = function(options){
     this.execute = function () {
         that = new PykCharts.multiD.processInputs(that, options, "column");
 
-        that.grid_yEnabled = options.chart_grid_yEnabled ? options.chart_grid_yEnabled : theme.stylesheet.chart_grid_yEnabled;
+        that.grid_y_enable = options.chart_grid_y_enable ? options.chart_grid_y_enable : theme.stylesheet.chart_grid_y_enable;
         that.grid_color = options.chart_grid_color ? options.chart_grid_color : theme.stylesheet.chart_grid_color;
 
         if(that.mode === "default") {
@@ -143,7 +143,7 @@ PykCharts.multiD.columnChart = function(options){
                     .attr("class","svggroup")
                     .attr("transform","translate(" + that.margin_left + "," + (that.margin_top + that.legendsGroup_height) +")");
 
-                if(PykCharts.boolean(that.grid_yEnabled)) {
+                if(PykCharts.boolean(that.grid_y_enable)) {
                     that.group.append("g")
                         .attr("id","ygrid")
                         .style("stroke",that.grid_color)
@@ -178,7 +178,7 @@ PykCharts.multiD.columnChart = function(options){
                             .attr("y1",that.height-that.margin_top-that.margin_bottom-that.legendsGroup_height )
                             .attr("x2",that.width-that.margin_left-that.margin_right)
                             .attr("y2",that.height-that.margin_top-that.margin_bottom-that.legendsGroup_height)
-                            .attr("stroke",that.axis_x_axisColor);
+                            .attr("stroke",that.axis_x_line_color);
 
                     axis_line.exit().remove();
 
@@ -192,7 +192,7 @@ PykCharts.multiD.columnChart = function(options){
                                 .attr("y", that.height -that.margin_bottom - that.margin_top - that.legendsGroup_height)
                                 // .attr("dy", -8)
                                 .attr("dy", that.margin_top + 10)
-                                .style("fill", that.axis_x_labelColor)
+                                .style("fill", that.axis_x_label_color)
                                 .style("text-anchor", "end")
                                 .text(that.axis_x_title);
                     } else if(that.axis_x_position === "top") {
@@ -208,7 +208,7 @@ PykCharts.multiD.columnChart = function(options){
                             .attr("y", -40)
                             // .attr("dy", -8)
                             .attr("dy", that.margin_top + that.legendsGroup_height + 10)
-                            .style("fill", that.axis_x_labelColor)
+                            .style("fill", that.axis_x_label_color)
                             .style("text-anchor", "end")
                             .text(that.axis_x_title);
                     }                    
@@ -399,21 +399,21 @@ PykCharts.multiD.columnChart = function(options){
 
                 xAxis_label.exit().remove();
                 if(that.axis_x_position==="top") {
-                    if(that.axis_x_value_position === "top") {
+                    if(that.axis_x_pointer_position === "top") {
                         xAxis_label.attr("y", function () {
                             return -15;
                         });
-                    } else if(that.axis_x_value_position === "bottom") {
+                    } else if(that.axis_x_pointer_position === "bottom") {
                         xAxis_label.attr("y", function () {
                             return 15;
                         });
                     }
                 }else {
-                    if(that.axis_x_value_position === "top") {
+                    if(that.axis_x_pointer_position === "top") {
                         xAxis_label.attr("y", function () {
                             return h-15;
                         });
-                    } else if(that.axis_x_value_position === "bottom") {
+                    } else if(that.axis_x_pointer_position === "bottom") {
                         xAxis_label.attr("y", function () {
                             return h+15;
                         });
@@ -627,13 +627,13 @@ PykCharts.multiD.columnChart = function(options){
                 if(!PykCharts.boolean(that.the_layers[i].values[j].y)) continue;
                 var name = that.the_layers[i].values[j].group, color;
                 if(that.color_mode === "saturation") {
-                    color = that.saturationColor;
+                    color = that.saturation_color;
                 } else if(that.color_mode === "color" && that.the_layers[i].values[0].color) {
                     color = that.the_layers[i].values[0].color;
                 } else if(that.color_mode === "color" && that.color.length){
                     color = that.color[0];
                 } else {
-                    color = that.chartColor;
+                    color = that.chart_color;
                 } 
                 p.push({
                     "name": name,

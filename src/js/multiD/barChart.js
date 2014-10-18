@@ -5,7 +5,7 @@ PykCharts.multiD.barChart = function(options){
     this.execute = function () {
         that = new PykCharts.multiD.processInputs(that, options, "column");
 
-        that.grid_yEnabled =  options.chart_grid_yEnabled ? options.chart_grid_yEnabled : theme.stylesheet.chart_grid_yEnabled;
+        that.grid_y_enable =  options.chart_grid_y_enable ? options.chart_grid_y_enable : theme.stylesheet.chart_grid_y_enable;
         that.grid_color = options.chart_grid_color ? options.chart_grid_color : theme.stylesheet.chart_grid_color;
         that.axis_x_data_format = "";
         if(that.mode === "default") {
@@ -172,7 +172,7 @@ PykCharts.multiD.barChart = function(options){
                             .attr("y1",0)
                             .attr("x2",0)
                             .attr("y2",that.height-that.margin_top-that.margin_bottom - that.legendsGroup_height)
-                            .attr("stroke",that.axis_x_axisColor)
+                            .attr("stroke",that.axis_x_line_color)
                             .attr("stroke-width","1px");
 
                     axis_line.exit().remove();
@@ -187,8 +187,8 @@ PykCharts.multiD.barChart = function(options){
                             .attr("y", -60)
                             .attr("dy", ".71em")
                             .style("text-anchor", "end")
-                            .style("fill",that.axis_x_labelColor)
-                            .text(options.axis_y_title);
+                            .style("fill",that.axis_x_label_color)
+                            .text(that.axis_y_title);
 
                     } else if(that.axis_y_position === "right") {
                         axis_line.attr("x1",(that.width-that.margin_left-that.margin_right))
@@ -203,8 +203,8 @@ PykCharts.multiD.barChart = function(options){
                             .attr("y", (that.width-that.margin_left-that.margin_right)+12)
                             .attr("dy", ".71em")
                             .style("text-anchor", "end")
-                            .style("fill",that.axis_x_labelColor)
-                            .text(options.axis_y_title);
+                            .style("fill",that.axis_x_label_color)
+                            .text(that.axis_y_title);
                         // that.xGroup.attr("transform","translate(0,"+(that.width-that.margin.left-that.margin.right)+")");
                     }
                         // .style("stroke","none");
@@ -437,19 +437,19 @@ PykCharts.multiD.barChart = function(options){
                         return (that.width-that.margin_left-that.margin_right) + 10;
                     });
                 }
-                if(that.axis_y_position === "left" && that.axis_y_value_position === "right") {
+                if(that.axis_y_position === "left" && that.axis_y_pointer_position === "right") {
                     yAxis_label.attr("x", function (d) {
                         return 10;
                     });
                 }
-                if(that.axis_y_position === "right" && that.axis_y_value_position === "left") {
+                if(that.axis_y_position === "right" && that.axis_y_pointer_position === "left") {
                     yAxis_label.attr("x", function (d) {
                         return (that.width-that.margin_left-that.margin_right) - 10;
                     });
                 }
-                if(that.axis_y_value_position === "right") {
+                if(that.axis_y_pointer_position === "right") {
                     yAxis_label.attr("text-anchor","start");
-                } else if(that.axis_y_value_position === "left") {
+                } else if(that.axis_y_pointer_position === "left") {
                     yAxis_label.attr("text-anchor","end");
                 }
 
@@ -518,6 +518,7 @@ PykCharts.multiD.barChart = function(options){
             legends: function () {
                 if(PykCharts.boolean(that.legends_enable)) {
                     var params = that.getParameters(),color;
+                    console.log(params);
                     color = params[0].color;
                     params = params.map(function (d) {
                         return d.name;
@@ -719,13 +720,13 @@ PykCharts.multiD.barChart = function(options){
                 if(!PykCharts.boolean(that.the_layers[i].values[j].y)) continue;
                 var name = that.the_layers[i].values[j].group, color;
                 if(that.color_mode === "saturation") {
-                    color = that.saturationColor;
+                    color = that.saturation_color;
                 } else if(that.color_mode === "color" && that.the_layers[i].values[0].color) {
                     color = that.the_layers[i].values[0].color;
                 } else if(that.color_mode === "color" && that.color.length){
                     color = that.color[0];
                 } else {
-                    color = that.chartColor;
+                    color = that.chart_color;
                 } 
                     // if(options.chartColor) {
                     //     color = that.chartColor;
