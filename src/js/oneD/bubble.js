@@ -276,10 +276,11 @@ PykCharts.oneD.bubble = function (options) {
                     for (i=0; i<clubdata_content.length; i++) {
                         for (j=0; j< that.data.length; j++) {
                             if (clubdata_content[i].toUpperCase() === that.data[j].name.toUpperCase()) {
-                                new_data.push(that.data[i]);
+                                new_data.push(that.data[j]);
                             }
                         }
                     }
+
                     that.data.sort (function (a,b) { return b.weight - a.weight;});
                     while (new_data.length < that.clubdata_maximum_nodes-1) {
                         for(i=0;i<clubdata_content.length;i++) {
@@ -318,7 +319,7 @@ PykCharts.oneD.bubble = function (options) {
                     new_data.sort(function (a,b) {
                         return a.weight - b.weight;
                     })
-
+                    
                     new_data1 = {"children": new_data};
                     that.map1 = new_data1.children.map(function (d) { return d.weight;});
                 }

@@ -435,7 +435,6 @@ PykCharts.Configuration = function (options){
                 })
                 .text(function (d) {
                     w = this.getBBox().width + 20;
-                    console.log(w);
                     h = this.getBBox().height + 10;
                     return d.annotation;
                 })
@@ -1399,7 +1398,6 @@ configuration.makeXAxis = function(options,xScale) {
 
     if(options.axis_x_data_format=== "time" && PykCharts.boolean(options.axis_x_time_value_datatype)) {
         if(options.axis_x_time_value_datatype === "month") {
-            console.log("its a month");
             a = d3.time.month;
             b = "%b";
         }else if(options.axis_x_time_value_datatype === "date") {
@@ -2131,10 +2129,11 @@ PykCharts.oneD.bubble = function (options) {
                     for (i=0; i<clubdata_content.length; i++) {
                         for (j=0; j< that.data.length; j++) {
                             if (clubdata_content[i].toUpperCase() === that.data[j].name.toUpperCase()) {
-                                new_data.push(that.data[i]);
+                                new_data.push(that.data[j]);
                             }
                         }
                     }
+
                     that.data.sort (function (a,b) { return b.weight - a.weight;});
                     while (new_data.length < that.clubdata_maximum_nodes-1) {
                         for(i=0;i<clubdata_content.length;i++) {
@@ -2173,7 +2172,7 @@ PykCharts.oneD.bubble = function (options) {
                     new_data.sort(function (a,b) {
                         return a.weight - b.weight;
                     })
-
+                    
                     new_data1 = {"children": new_data};
                     that.map1 = new_data1.children.map(function (d) { return d.weight;});
                 }
@@ -5499,7 +5498,6 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
         functionality = theme.functionality,
         multiDimensionalCharts = theme.multiDimensionalCharts,
         optional = options.optional;
-        console.log(options.chart_grid_y_enable);
     chartObject.axis_y_data_format = options.axis_y_data_format ? options.axis_y_data_format : multiDimensionalCharts.axis_y_data_format
     chartObject.axis_x_data_format = options.axis_x_data_format ? options.axis_x_data_format : multiDimensionalCharts.axis_x_data_format;
     chartObject.selector = options.selector ? options.selector : "body";
@@ -5514,8 +5512,6 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     chartObject.grid_color = options.chart_grid_color ? options.chart_grid_color : stylesheet.chart_grid_color;
     chartObject.mode = options.mode ? options.mode : "default";
     chartObject.color_mode = options.color_mode ? options.color_mode : multiDimensionalCharts.color_mode;
-    // chartObject.color = options.chart_color ? options.chart_color : stylesheet.chart_color;
-    // console.log(chartObject.grid_y_enable);
     if (options &&  PykCharts.boolean (options.title_text)) {
         chartObject.title_text = options.title_text;
         chartObject.title_size = "title_size" in options ? options.title_size : stylesheet.title_size;
@@ -6291,7 +6287,6 @@ PykCharts.multiD.lineChart = function (options){
 			},
 			ticks: function (index) {
 				if(PykCharts.boolean(that.pointer_size)) { 
-					console.log("inside")
 					if(PykCharts.boolean(that.multiple_containers_enable)) {
 						type = that.type + that.svgContainer.attr("id");
 						if (that.axis_x_position  === "bottom" && (that.axis_y_position === "left" || that.axis_y_position === "right")) {
@@ -6849,7 +6844,7 @@ PykCharts.multiD.areaChart = function (options){
 					    .on("zoom",that.zoomed);
 				}
 				
-				if(PykCharts.boolean(that.zoom_enable) && (that.mode === "default")) {					console.log
+				if(PykCharts.boolean(that.zoom_enable) && (that.mode === "default")) {
 					that.svgContainer.call(that.zoom_event);
 					that.svgContainer.on("wheel.zoom", null)
                     	.on("mousewheel.zoom", null);
@@ -7661,7 +7656,6 @@ PykCharts.multiD.barChart = function(options){
             legends: function () {
                 if(PykCharts.boolean(that.legends_enable)) {
                     var params = that.getParameters(),color;
-                    console.log(params);
                     color = params[0].color;
                     params = params.map(function (d) {
                         return d.name;
@@ -10954,7 +10948,6 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         include.onload = include.onreadystatechange = function () {
             try {
                 if (_ && d3 && ($ || jQuery) && d3.customHive && topojson) {
-                    console.log("init");
                     PykCharts.numberFormat = d3.format(",");
                     window.PykChartsInit();
                 };
