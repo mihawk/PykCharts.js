@@ -165,7 +165,10 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
         that.onHoverEffect = new PykCharts.oneD.mouseEvent(options);
         that.border = new PykCharts.Configuration.border(that);
         that.transitions = new PykCharts.Configuration.transition(that);
+
+            that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
         that.k.export(that,"#container",type);
+
 
         if(that.mode.toLowerCase() == "default") {
 
@@ -182,7 +185,6 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                     .dataSource()
                     .tooltip();
 
-            that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
 
             that.optionalFeatures()
                     .set_start_end_angle()
@@ -204,7 +206,6 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                     .centerLabel();
 
             that.k.tooltip();
-            that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
         }
 
         $(window).on("load", function () { return that.k.resize(that.svgContainer); })
@@ -237,6 +238,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                 return this;
             },
             createChart : function () {
+                console.log(that.new_data,"new_data");
                 d3.select(that.selector +" #pieGroup").node().innerHTML="";
 
                 if(type.toLowerCase() == "pie" || type.toLowerCase() == "donut") {
