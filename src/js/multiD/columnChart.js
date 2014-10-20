@@ -5,7 +5,7 @@ PykCharts.multiD.columnChart = function(options){
     this.execute = function () {
         that = new PykCharts.multiD.processInputs(that, options, "column");
 
-        that.grid_y_enable = options.chart_grid_y_enable ? options.chart_grid_y_enable : theme.stylesheet.chart_grid_y_enable;
+        // that.grid_y_enable = options.chart_grid_y_enable ? options.chart_grid_y_enable : theme.stylesheet.chart_grid_y_enable;
         that.grid_color = options.chart_grid_color ? options.chart_grid_color : theme.stylesheet.chart_grid_color;
 
         if(that.mode === "default") {
@@ -630,8 +630,8 @@ PykCharts.multiD.columnChart = function(options){
                     color = that.saturation_color;
                 } else if(that.color_mode === "color" && that.the_layers[i].values[0].color) {
                     color = that.the_layers[i].values[0].color;
-                } else if(that.color_mode === "color" && that.color.length){
-                    color = that.color[0];
+                } else if(that.color_mode === "color" && that.chart_color.length){
+                    color = that.chart_color[0];
                 } else {
                     color = that.chart_color;
                 } 

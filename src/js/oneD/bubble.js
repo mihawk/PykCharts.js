@@ -41,7 +41,11 @@ PykCharts.oneD.bubble = function (options) {
         that.onHoverEffect = new PykCharts.oneD.mouseEvent(that);
         that.transitions = new PykCharts.Configuration.transition(that);
         if (that.mode ==="default") {
-            that.k.title();
+            that.k.export(that,"#svgcontainer","bubble");
+            that.k.title()
+            .subtitle()
+            .emptyDiv();
+
             that.k.subtitle();
             that.new_data = that.optionalFeatures().clubData();
             that.optionalFeatures().svgContainer()
@@ -58,6 +62,10 @@ PykCharts.oneD.bubble = function (options) {
             that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
         }
         else if (that.mode ==="infographics") {
+            that.k.export(that,"#svgcontainer","bubble")
+                .emptyDiv();
+
+
             that.new_data = {"children" : that.data};
             that.optionalFeatures().svgContainer()
                 .createChart()
@@ -66,7 +74,6 @@ PykCharts.oneD.bubble = function (options) {
             that.k.tooltip();
             that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
         }
-        that.k.export(that,"#svgcontainer","bubble");
         $(window).on("load", function () { return that.k.resize(that.svgContainer); })
                             .on("resize", function () { return that.k.resize(that.svgContainer); });
     };
@@ -267,19 +274,20 @@ PykCharts.oneD.bubble = function (options) {
                         new_data1 = { "children" : that.data };
                         return new_data1;
                     }
-                    if (that.clubData_always_include_data_points.length!== 0) {
-                        var l = that.clubData_always_include_data_points.length;
+                    if (that.clubdata_always_include_data_points.length!== 0) {
+                        var l = that.clubdata_always_include_data_points.length;
                         for (i =0; i<l; i++) {
-                            clubdata_content[i] = that.clubData_always_include_data_points[i];
+                            clubdata_content[i] = that.clubdata_always_include_data_points[i];
                         }
                     }
                     for (i=0; i<clubdata_content.length; i++) {
                         for (j=0; j< that.data.length; j++) {
                             if (clubdata_content[i].toUpperCase() === that.data[j].name.toUpperCase()) {
-                                new_data.push(that.data[i]);
+                                new_data.push(that.data[j]);
                             }
                         }
                     }
+
                     that.data.sort (function (a,b) { return b.weight - a.weight;});
                     while (new_data.length < that.clubdata_maximum_nodes-1) {
                         for(i=0;i<clubdata_content.length;i++) {
@@ -318,7 +326,7 @@ PykCharts.oneD.bubble = function (options) {
                     new_data.sort(function (a,b) {
                         return a.weight - b.weight;
                     })
-
+                    
                     new_data1 = {"children": new_data};
                     that.map1 = new_data1.children.map(function (d) { return d.weight;});
                 }

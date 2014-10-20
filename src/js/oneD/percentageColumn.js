@@ -49,17 +49,20 @@ PykCharts.oneD.percentageColumn = function (options) {
 
     this.render = function () {
         var that = this;
-    //    that.fillChart = new PykCharts.oneD.fillChart(that);
+
         that.fillChart = new PykCharts.Configuration.fillChart(that);
         that.onHoverEffect = new PykCharts.oneD.mouseEvent(options);
         that.transitions = new PykCharts.Configuration.transition(that);
         that.border = new PykCharts.Configuration.border(that);
+        that.k.export(that,"#svgcontainer","percentageColumn");
         if(that.mode === "default") {
             that.k.title()
-                    .subtitle();
+                    .subtitle()
+                    .emptyDiv();
                 // [that.fullscreen]().fullScreen(that);
         }
         if(that.mode === "infographics") {
+            that.k.emptyDiv();
             that.new_data = that.data;
         }
 
@@ -72,16 +75,17 @@ PykCharts.oneD.percentageColumn = function (options) {
         }
         that.optionalFeatures().svgContainer()
             .createChart()
-            .label();
+            .label()
+            .ticks();
         if(that.mode === "default") {
-            that.optionalFeatures().ticks()
+            // that.optionalFeatures().ticks()
             that.k.liveData(that)
                 .createFooter()
                 .lastUpdatedAt()
                 .credits()
                 .dataSource();
         }
-        that.k.export(that,"#svgcontainer","percentageColumn");
+        
         $(window).on("load", function () { return that.k.resize(that.svgContainer); })
                             .on("resize", function () { return that.k.resize(that.svgContainer); });
     };
@@ -327,10 +331,10 @@ PykCharts.oneD.percentageColumn = function (options) {
 
                 if(PykCharts.boolean(that.clubdata_enable)) {
                     var clubdata_content = [];
-                    if(that.clubData_always_include_data_points.length!== 0){
-                        var l = that.clubData_always_include_data_points.length;
+                    if(that.clubdata_always_include_data_points.length!== 0){
+                        var l = that.clubdata_always_include_data_points.length;
                         for(i=0; i < l; i++){
-                            clubdata_content[i] = that.clubData_always_include_data_points[i];
+                            clubdata_content[i] = that.clubdata_always_include_data_points[i];
                         }
                     }
                     var new_data1 = [];
