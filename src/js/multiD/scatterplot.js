@@ -288,8 +288,6 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                 return this;
             },
             legendsContainer : function (i) {
-                console.log("legends",PykCharts.boolean(that.legends_enable),PykCharts.boolean(that.size_enable),that.map_group_data[1]);            
-                
                 if (PykCharts.boolean(that.legends_enable) && PykCharts.boolean(that.variable_circle_size_enable) && that.map_group_data[1]) {
                     console.log("legends");                    
                     that.legendsGroup = that.svgContainer
