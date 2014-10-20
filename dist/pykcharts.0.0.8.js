@@ -512,7 +512,8 @@ PykCharts.Configuration = function (options){
         loading: function () {
             if(options.loading) {
                 $(options.selector).html("<div id='chart-loader'><img src="+options.loading+"></div>");
-                $(options.selector + " #chart-loader").css({"visibility":"visible","padding-left":((options.width)/2) +"px","padding-top":((options.height)/2) + "px"});
+                var initial_height_div = $(options.selector).height();
+                $(options.selector + " #chart-loader").css({"visibility":"visible","padding-left":(options.width/2) +"px","padding-top":(initial_height_div/2) + "px"});
             }
             return this;
         },
@@ -1882,7 +1883,7 @@ PykCharts.oneD.bubble = function (options) {
     this.execute = function () {
         that = PykCharts.oneD.processInputs(that, options);
         that.height = options.chart_height ? options.chart_height : that.width;
-        
+
         if(that.mode === "default") {
            that.k.loading();
         }
@@ -3952,7 +3953,6 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                 return this;
             },
             createChart : function () {
-                console.log(that.new_data,"new_data");
                 d3.select(that.selector +" #pieGroup").node().innerHTML="";
 
                 if(type.toLowerCase() == "pie" || type.toLowerCase() == "donut") {
@@ -10920,19 +10920,14 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         , x_range
         , duration
         , interval = interval1 = 1;
-
-        
-
         
         that.play.on("click", function () {
             startTimeline(); 
-        });
-        
+        });       
 
         var timeline_status;
 
         var startTimeline = function () {
-            console.log("hey");
             if (timeline_status==="playing") {
                 that.play.attr("xlink:href","https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/play.gif");
                 clearInterval(that.play_interval);
@@ -10985,12 +10980,9 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                 },that.timeline_duration);
             }
         }
-
-
-
         // duration = unique.length * 1000;
-
     };
+
     that.renderButtons = function () {
         var bbox = d3.select(that.selector+" .axis").node().getBBox();
         that.play = that.svgContainer.append("image")
