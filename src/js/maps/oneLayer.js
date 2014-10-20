@@ -350,11 +350,9 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                 return that.default_color;
             }
             if (that.color_mode === "saturation") {
-                console.log("highlight color >>>> ",that.highlight_color);
                 // console.log(that.highlight,"selection highlight");
                 // console.log(that.highlight === that.map_data.objects.geometries[i].properties.iso_a2,"check condition");
                 if ((that.highlight_area_enable === "yes") &&  that.highlight === that.map_data.objects.geometries[i].properties.iso_a2/*obj[0].highlight === true*/) { 
-                    console.log("highlight color >>>> ",that.highlight_color);
                     return that.highlight_color;
                     // return obj[0].highlight_color;
                 } else {
