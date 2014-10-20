@@ -510,9 +510,9 @@ PykCharts.Configuration = function (options){
             return this;
 	    },
         loading: function () {
-            if(PykCharts.boolean(options.loading)) {
+            if(options.loading) {
                 $(options.selector).html("<div id='chart-loader'><img src="+options.loading+"></div>");
-                $(options.selector + " #chart-loader").css({"visibility":"visible","padding-left":(options.width)/2 +"px","padding-top":(options.height)/2 + "px"});
+                $(options.selector + " #chart-loader").css({"visibility":"visible","padding-left":((options.width)/2) +"px","padding-top":((options.height)/2) + "px"});
             }
             return this;
         },
@@ -865,7 +865,6 @@ PykCharts.Configuration = function (options){
         },
         export : function(chart,svgId,chart_name) {
 
-            //console.log(PykCharts.boolean(options.export_enable),chart_name,"export");
             if(PykCharts.boolean(options.export_enable)) {
 
                 var canvas_id = chart_name+"canvas";
@@ -886,11 +885,11 @@ PykCharts.Configuration = function (options){
                 d3.select(chart.selector)
                                 .append("div")
                                 .attr("id",id)
-                                .attr("class","glyphicon glyphicon-list")
                                 .attr("width",div_size)
                                 .style("left",div_left+"px")
                                 // .style("padding-left","15px")
                                 .style("margin-bottom","3px")
+                                .html("<img src='../img/download-icon.png' />");
 
                 var get_canvas = document.getElementById(canvas_id);
                 paper.setup(get_canvas);

@@ -295,7 +295,6 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
             },
             legendsContainer : function (i) {
                 if (PykCharts.boolean(that.legends_enable) && PykCharts.boolean(that.variable_circle_size_enable) && that.map_group_data[1] && that.mode === "default") {
-                    console.log("legends");                    
                     that.legendsGroup = that.svgContainer
                         .append("g")
                                 .attr('id',"legends")
