@@ -1577,7 +1577,10 @@ configuration.Theme = function(){
         "pointer_size": 13,
         "pointer_color": "#1D1D1D",
         "pointer_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
+
         "export_enable": "yes",
+        "export_image_url":"",
+
         "loading_gif_url": "https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/img/loader.gif",
         "fullscreen_enable": "no",
         "tooltip_enable": "yes",
@@ -1715,6 +1718,10 @@ configuration.Theme = function(){
         "timeline_margin_right": 25,
         "timeline_margin_bottom": 25,
         "timeline_margin_left": 45,
+
+        "play_image_url":"https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/play.gif",
+        "pause_image_url":"https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/pause.gif",
+        "marker_image_url":"https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/marker.png",
 
         "legends_enable": "yes",
         "legends_display": "horizontal",
@@ -1869,7 +1876,9 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
     chartObject.donut_show_total_at_center = options.donut_show_total_at_center ? options.donut_show_total_at_center : oneDimensionalCharts.donut_show_total_at_center;
     chartObject.units_prefix = options.units_prefix ? options.units_prefix : false;
     chartObject.units_suffix = options.units_suffix ? options.units_suffix : false;
-    chartObject.export_enable = options.export_enable ? options.export_enable : stylesheet.export_enable 
+    
+    chartObject.export_enable = options.export_enable ? options.export_enable : stylesheet.export_enable;
+    chartObject.export_image_url = options.export_image_url ? options.export_image_url : stylesheet.export_image_url; 
     chartObject.k = new PykCharts.Configuration(chartObject);
 
     return chartObject;
@@ -5694,6 +5703,7 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     chartObject.multiple_containers_enable = options.multiple_containers_enable ? options.multiple_containers_enable : multiDimensionalCharts.multiple_containers_enable;
     chartObject.colorPalette = ["#b2df8a", "#1f78b4", "#33a02c", "#fb9a99", "#e31a1c", "#fdbf6f", "#ff7f00", "#cab2d6", "#6a3d9a", "#ffff99", "#b15928", "#a6cee3"];
     chartObject.export_enable = options.export_enable ? options.export_enable : stylesheet.export_enable; 
+    chartObject.export_image_url = options.export_image_url ? options.export_image_url : stylesheet.export_image_url; 
     chartObject.k = new PykCharts.Configuration(chartObject);
 
     return chartObject;
@@ -10307,6 +10317,12 @@ PykCharts.maps.processInputs = function (chartObject, options) {
     chartObject.data_source_url = options.data_source_url ? options.data_source_url : "";
     chartObject.units = options.units ? options.units : false;
 
+    chartObject.play_image_url = options.play_image_url ? options.play_image_url : mapsTheme.play_image_url;
+    chartObject.pause_image_url = options.pause_image_url ? options.pause_image_url : mapsTheme.pause_image_url;
+    chartObject.marker_image_url = options.marker_image_url ? options.marker_image_url : mapsTheme.marker_image_url;
+
+    chartObject.export_image_url = options.export_image_url ? options.export_image_url : stylesheet.export_image_url; 
+
     chartObject.k = new PykCharts.Configuration(chartObject);
     return chartObject; 
    
@@ -10938,12 +10954,12 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         var startTimeline = function () {
             console.log("hey");
             if (timeline_status==="playing") {
-                that.play.attr("xlink:href","https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/play.gif");
+                that.play.attr("xlink:href",that.play_image_url);
                 clearInterval(that.play_interval);
                 timeline_status = "paused";
             } else {
                 timeline_status = "playing";
-                that.play.attr("xlink:href","https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/pause.gif");
+                that.play.attr("xlink:href",that.pause_image_url);
                 that.play_interval = setInterval(function () {
 
                     that.marker
@@ -10980,7 +10996,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
 
                         if (interval1===that.unique.length) {
                             clearInterval(undo_heatmap);
-                            that.play.attr("xlink:href","https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/play.gif");
+                            that.play.attr("xlink:href",that.play_image_url);
                             that.marker.attr("x",  (that.margin_left*2) + that.xScale(that.unique[0]) - 7);
                             interval = interval1 = 1;
                             timeline_status = "";
@@ -10998,7 +11014,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
     that.renderButtons = function () {
         var bbox = d3.select(that.selector+" .axis").node().getBBox();
         that.play = that.svgContainer.append("image")
-            .attr("xlink:href","https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/play.gif")
+            .attr("xlink:href",that.play_image_url)
             .attr("x", that.margin_left / 2)
             .attr("y", that.redeced_height - that.margin_top - (bbox.height/2))
             .attr("width","24px")
@@ -11007,7 +11023,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             
 
         that.marker = that.svgContainer.append("image")
-            .attr("xlink:href","https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/marker.png")
+            .attr("xlink:href",that.marker_image_url)
             .attr("x", (that.margin_left*2) + that.xScale(that.unique[0]) - 7)
             .attr("y", that.redeced_height)
             .attr("width","14px")

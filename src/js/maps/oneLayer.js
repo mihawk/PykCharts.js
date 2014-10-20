@@ -624,12 +624,12 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         var startTimeline = function () {
             console.log("hey");
             if (timeline_status==="playing") {
-                that.play.attr("xlink:href","https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/play.gif");
+                that.play.attr("xlink:href",that.play_image_url);
                 clearInterval(that.play_interval);
                 timeline_status = "paused";
             } else {
                 timeline_status = "playing";
-                that.play.attr("xlink:href","https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/pause.gif");
+                that.play.attr("xlink:href",that.pause_image_url);
                 that.play_interval = setInterval(function () {
 
                     that.marker
@@ -666,7 +666,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
 
                         if (interval1===that.unique.length) {
                             clearInterval(undo_heatmap);
-                            that.play.attr("xlink:href","https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/play.gif");
+                            that.play.attr("xlink:href",that.play_image_url);
                             that.marker.attr("x",  (that.margin_left*2) + that.xScale(that.unique[0]) - 7);
                             interval = interval1 = 1;
                             timeline_status = "";
@@ -684,7 +684,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
     that.renderButtons = function () {
         var bbox = d3.select(that.selector+" .axis").node().getBBox();
         that.play = that.svgContainer.append("image")
-            .attr("xlink:href","https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/play.gif")
+            .attr("xlink:href",that.play_image_url)
             .attr("x", that.margin_left / 2)
             .attr("y", that.redeced_height - that.margin_top - (bbox.height/2))
             .attr("width","24px")
@@ -693,7 +693,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             
 
         that.marker = that.svgContainer.append("image")
-            .attr("xlink:href","https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/marker.png")
+            .attr("xlink:href",that.marker_image_url)
             .attr("x", (that.margin_left*2) + that.xScale(that.unique[0]) - 7)
             .attr("y", that.redeced_height)
             .attr("width","14px")
