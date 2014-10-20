@@ -54,14 +54,16 @@ PykCharts.oneD.percentageBar = function (options) {
         that.onHoverEffect = new PykCharts.oneD.mouseEvent(options);
         that.transitions = new PykCharts.Configuration.transition(that);
         that.border = new PykCharts.Configuration.border(that);
-        that.k.export(that,"#svgcontainer","percentageBar");
+
         if(that.mode === "default") {
+
             that.k.title()
                     .subtitle()
+                    .export(that,"#svgcontainer","percentageBar")
                     .emptyDiv();
         }
         if(that.mode === "infographics") {
-            that.k.emptyDiv();
+            that.k.export(that,"#svgcontainer","percentageBar").emptyDiv();
             that.new_data = that.data;
         }
 
@@ -69,7 +71,7 @@ PykCharts.oneD.percentageBar = function (options) {
 
         that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
         if(that.mode === "default") {
-            that.k.emptyDiv();
+
             percent_bar = that.optionalFeatures()
                             .clubData();
         }

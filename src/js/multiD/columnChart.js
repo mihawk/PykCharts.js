@@ -64,7 +64,6 @@ PykCharts.multiD.columnChart = function(options){
         that.mouseEvent1 = new PykCharts.multiD.mouseEvent(that);
         that.fillColor = new PykCharts.Configuration.fillChart(that,null,options);
 
-        that.k.export(that,"#svgcontainer","columnChart");
         
         if(that.no_of_groups === 1) {
             that.legends_enable = "no";
@@ -72,6 +71,7 @@ PykCharts.multiD.columnChart = function(options){
         if(that.mode === "default") {
             that.k.title()
                 .subtitle()
+                .export(that,"#svgcontainer","columnChart")
                 .emptyDiv()
                 .makeMainDiv(that.selector,1);
 
@@ -102,7 +102,9 @@ PykCharts.multiD.columnChart = function(options){
 
         } else if(that.mode === "infographics") {
             that.k.emptyDiv()
+                .export(that,"#svgcontainer","columnChart")
                 .makeMainDiv(that.selector,1);
+                
             that.optionalFeatures().svgContainer(1)
                 .createGroups(1)
                 .createChart()

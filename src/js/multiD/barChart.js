@@ -65,7 +65,7 @@ PykCharts.multiD.barChart = function(options){
         that.fillColor = new PykCharts.Configuration.fillChart(that,null,options);
         that.border = new PykCharts.Configuration.border(that);
 
-        that.k.export(that,"#svgcontainer","barChart"); 
+//        that.k.export(that,"#svgcontainer","barChart"); 
 
         if(that.no_of_groups === 1) {
             that.legends_enable = "no";
@@ -74,6 +74,7 @@ PykCharts.multiD.barChart = function(options){
 
             that.k.title()
                 .subtitle()
+                .export(that,"#svgcontainer","barChart")
                 .emptyDiv()
                 .makeMainDiv(that.selector,1);
 
@@ -98,7 +99,8 @@ PykCharts.multiD.barChart = function(options){
                .ticks();
                           
         } else if(that.mode === "infographics") {
-            that.k.emptyDiv()
+            that.k.export(that,"#svgcontainer","barChart")
+                .emptyDiv()
                 .makeMainDiv(that.selector,1);
             that.optionalFeatures().svgContainer(1)
                 .createGroups()

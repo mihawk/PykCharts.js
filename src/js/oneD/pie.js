@@ -166,14 +166,13 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
         that.border = new PykCharts.Configuration.border(that);
         that.transitions = new PykCharts.Configuration.transition(that);
 
-            that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
-        that.k.export(that,"#container",type);
-
+        that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
 
         if(that.mode.toLowerCase() == "default") {
 
             that.k.title()
                 .subtitle()
+                .export(that,"#container",type)
                 .emptyDiv();
 
             that.optionalFeatures().svgContainer();
@@ -197,6 +196,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
 
         } else if(that.mode.toLowerCase() == "infographics") {
             that.new_data = that.data;
+            that.k.export(that,"#container",type)
             that.k.emptyDiv();
             that.optionalFeatures().svgContainer()
                     .set_start_end_angle()

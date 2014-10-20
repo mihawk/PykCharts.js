@@ -11,6 +11,7 @@ PykCharts.multiD.areaChart = function (options){
 		var multiDimensionalCharts = theme.multiDimensionalCharts,
 			stylesheet = theme.stylesheet,
 			optional = options.optional;
+
 	    that.crosshair_enable = options.crosshair_enable ? options.crosshair_enable : multiDimensionalCharts.crosshair_enable;
 		that.curvy_lines = options.line_curvy_lines ? options.line_curvy_lines : multiDimensionalCharts.line_curvy_lines;
 		that.color_from_data = options.line_color_from_data ? options.line_color_from_data : multiDimensionalCharts.line_color_from_data;
@@ -35,11 +36,12 @@ PykCharts.multiD.areaChart = function (options){
 		that.fillColor = new PykCharts.Configuration.fillChart(that,null,options);
 		that.transitions = new PykCharts.Configuration.transition(that);
 
-		that.k.export(that,"#svg-1","areaChart"); 
+//		that.k.export(that,"#svg-1","areaChart"); 
 		if(that.mode === "default") {
 
 			that.k.title()
 					.subtitle()
+					.export(that,"#svg-1","areaChart")
 					.liveData(that)
 					.emptyDiv()
 					.makeMainDiv(options.selector,1)
@@ -69,6 +71,7 @@ PykCharts.multiD.areaChart = function (options){
 		}
 		else if(that.mode === "infographics") {
 			  that.k.liveData(that)
+			  			.export(that,"#svg-1","areaChart")
 			  			.emptyDiv()
 						.makeMainDiv(options.selector,1);
 

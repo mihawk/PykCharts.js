@@ -197,7 +197,9 @@ PykCharts.Configuration = function (options){
 
                 if(PykCharts.boolean(options.export_enable)) {
                     div_width = 0.9*options.width;
+                    console.log(div_width,"div_width")
                 }
+
 	        	that.titleDiv = d3.select(options.selector)
 	                .append("div")
 	                    .attr("id","title")
@@ -795,11 +797,16 @@ PykCharts.Configuration = function (options){
             }
             svg.attr("width", targetWidth);
             svg.attr("height", targetWidth / aspect);
+            var title_div_width;
             if(PykCharts.boolean(options.title_text)) {
-                $(options.selector + " #title").css("width", targetWidth);
+                if(PykCharts.boolean(options.export_enable)) {
+                    title_div_width = 0.9*targetWidth;
+                    $(options.selector + " #title").css("width",title_div_width);
+                }
             }
             if(PykCharts.boolean(options.subtitle_text)) {
-                $(options.selector + " #sub-title").css("width", targetWidth);
+                title_div_width = 0.9*targetWidth;
+                $(options.selector + " #sub-title").css("width", title_div_width);
             }
             if(lsvg !== undefined) {
                 lsvg.attr("width",targetWidth);
@@ -868,23 +875,23 @@ PykCharts.Configuration = function (options){
                 canvas.setAttribute('id', canvas_id);
                 var id = "export",
                 div_size = options.width
-                div_float ="none"
+               div_float ="none"
                 div_left = options.width-15;
 
                 if(PykCharts.boolean(options.title_text) && options.title_size) {
                     div_size = 0.1*options.width;
-                    div_float ="right";
-                    div_left = -15;
+                    div_float ="left";
+                    div_left = 0;
                 }
                 
                 d3.select(chart.selector)
                                 .append("div")
                                 .attr("id",id)      
-                                .attr("class","glyphicon glyphicon-download-alt")
-                                .attr("width",div_size)
+                                .style("width",div_size + "px")
                                 .style("left",div_left+"px")
-                                // .style("padding-left","15px")
-                                .style("margin-bottom","3px")
+                                .style("float",div_float)
+                                .style("text-align","right")
+                                .html("<img src='../img/download-icon.png' style='left:"+div_left+"px;margin-bottom:3px'/>");
 
                 var get_canvas = document.getElementById(canvas_id);
                 paper.setup(get_canvas);
