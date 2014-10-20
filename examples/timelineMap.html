@@ -2,6 +2,7 @@
     <head>
         <!-- <link rel="stylesheet" type="text/css" href="../lib/bootstrap/css/bootstrap.min.css"> -->
         <link rel="stylesheet" type="text/css" href="../src/css/PykCharts.css">
+        <link rel="stylesheet" type="text/css" href="../lib/bootstrap.min.css">
         <script src="../lib/paper-full.js"></script>
         <script src="../lib/downloadDataURI.js"></script>
     </head>
@@ -377,7 +378,6 @@
                       if (elements[i].checked) return elements[i].value;
                 }
 
-
                 $("#sub").click(function(){
                     $("#map-container").html("");
                     $("#legend-container").html("");
@@ -412,8 +412,6 @@
                         default_zoom_level: $("#a9").val(),
                         legends_enable: checked('legend'),
                         legends_display: "horizontal",
-                        highlight_area_enable: "yes",
-                        highlight: "IN_GJ",
                         credit_my_site_name: $("#d3").val(),
                         credit_my_site_url: $("#d4").val(),
                         loading_gif_url: "http://www.sportdiver.com/sites/all/modules/platform/inline_login/loading.gif",
@@ -425,6 +423,7 @@
                     });
                     k.execute();
                 });
+                $("#sub").trigger("click");
 
             });
 

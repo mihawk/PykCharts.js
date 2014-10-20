@@ -510,9 +510,10 @@ PykCharts.Configuration = function (options){
             return this;
 	    },
         loading: function () {
-            if(PykCharts.boolean(options.loading)) {
+            if(options.loading) {
                 $(options.selector).html("<div id='chart-loader'><img src="+options.loading+"></div>");
-                $(options.selector + " #chart-loader").css({"visibility":"visible","padding-left":(options.width)/2 +"px","padding-top":(options.height)/2 + "px"});
+                var initial_height_div = $(options.selector).height();
+                $(options.selector + " #chart-loader").css({"visibility":"visible","padding-left":(options.width/2) +"px","padding-top":(initial_height_div/2) + "px"});
             }
             return this;
         },
@@ -859,7 +860,6 @@ PykCharts.Configuration = function (options){
         },
         export : function(chart,svgId,chart_name) {
 
-            //console.log(PykCharts.boolean(options.export_enable),chart_name,"export");
             if(PykCharts.boolean(options.export_enable)) {
 
                 var canvas_id = chart_name+"canvas";

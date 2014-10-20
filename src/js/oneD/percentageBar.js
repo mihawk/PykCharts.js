@@ -1,6 +1,5 @@
 PykCharts.oneD.percentageBar = function (options) {
     var that = this;
-    console.log("percentageBarf")
     var theme = new PykCharts.Configuration.Theme({});
 
     //----------------------------------------------------------------------------------------

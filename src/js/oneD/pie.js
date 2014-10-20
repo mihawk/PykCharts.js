@@ -238,7 +238,6 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                 return this;
             },
             createChart : function () {
-                console.log(that.new_data,"new_data");
                 d3.select(that.selector +" #pieGroup").node().innerHTML="";
 
                 if(type.toLowerCase() == "pie" || type.toLowerCase() == "donut") {
