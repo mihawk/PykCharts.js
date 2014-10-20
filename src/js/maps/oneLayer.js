@@ -119,7 +119,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             $(window).on("load", function () { return that.k.resize(that.svgContainer,""); })
                 .on("resize", function () { return that.k.resize(that.svgContainer,""); });
         }
-        //    that.k.export(that,"#svgcontainer",type)
+           that.k.export(that,"#svgcontainer",type)
     };
 
     that.refresh = function () {
