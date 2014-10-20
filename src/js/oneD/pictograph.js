@@ -150,7 +150,7 @@ PykCharts.oneD.pictograph = function (options) {
                             return "/"+that.data[0].weight;
                         })
                         .attr("x", (that.textWidth+5))
-                        .attr("y", function () { return (((that.imageHeight * y_pos)/2)+30); });
+                        .attr("y", function () { return (((that.imageHeight * y_pos)/2) + (textHeight/2)); });
                 }
                 return this;
             },
@@ -170,7 +170,7 @@ PykCharts.oneD.pictograph = function (options) {
                             that.textWidth = this.getBBox().width;
                             return that.data[1].weight;
                         })
-                        .attr("y", function () { return (((that.imageHeight * y_pos)/2)+ 30); });
+                        .attr("y", function () { return (((that.imageHeight * y_pos)/2)+ (textHeight/2)); });
 
                 }
                 return this;

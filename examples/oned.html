@@ -2,7 +2,6 @@
 	<head>
         <title>One-Dimensional Charts</title>
         <link rel="stylesheet" type="text/css" href="../dist/pykcharts.0.0.8.min.css">
-        <link rel="stylesheet" type="text/css" href="../lib/bootstrap.min.css">
         <script src="../lib/paper-full.js"></script>
         <script src="../lib/downloadDataURI.js"></script>
 
@@ -43,7 +42,10 @@
                 transition_duration: 1,
                 clubdata_enable: "yes",
                 clubData_always_include_data_points : ["18-24","25-44"],
-                export_enable: "no"
+                export_enable: "yes",
+                background_color: "white",
+                chart_width: 500,
+                chart_height: 500
             });
             k.execute();
 
@@ -60,8 +62,8 @@
                 data:"../data/pictograph.json",
                 chart_width : 400,
                 transition_duration: 1,
-                "pictograph_current_count_weight": "bold",
-                "pictograph_total_count_weight": "thin"
+                pictograph_current_count_weight: "bold",
+                pictograph_total_count_weight: "thin"
              });
             k.execute();
 
@@ -97,7 +99,7 @@
             var k = new PykCharts.oneD.election_donut({
                 selector: "#electionDonutContainer",
                 data: "../data/pie.json",
-                transition_duration: 4                
+                transition_duration: 4
             });
             k.execute();
 
@@ -112,7 +114,7 @@
                 selector: "#percentageColumn",
                 data:"../data/pie.json",
                 transition_duration: 1,
-
+                "mode" : "infographics"
             });
             k.execute();
 
@@ -121,7 +123,9 @@
                 data:"../data/pie.json",
                 transition_duration: 1,
                 // "chart_height": 200,
-                chart_width: 600
+                chart_width: 600,
+                // clubdata_enable: "yes"
+                "mode" : "infographics"
             });
             k.execute();
 

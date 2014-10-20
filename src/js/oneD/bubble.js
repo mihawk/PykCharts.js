@@ -47,7 +47,6 @@ PykCharts.oneD.bubble = function (options) {
             .subtitle()
             .emptyDiv();
 
-            that.k.subtitle();
             that.new_data = that.optionalFeatures().clubData();
             that.optionalFeatures().svgContainer()
                 .createChart()
@@ -64,7 +63,6 @@ PykCharts.oneD.bubble = function (options) {
             that.k.export(that,"#svgcontainer","bubble")
                 .emptyDiv();
 
-
             that.new_data = {"children" : that.data};
             that.optionalFeatures().svgContainer()
                 .createChart()
@@ -73,8 +71,8 @@ PykCharts.oneD.bubble = function (options) {
             that.k.tooltip();
             that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
         }
-        $(window).on("load", function () { return that.k.resize(that.svgContainer); })
-                            .on("resize", function () { return that.k.resize(that.svgContainer); });
+        // $(window).on("load", function () { return that.k.resize(that.svgContainer); })
+        //                     .on("resize", function () { return that.k.resize(that.svgContainer); });
     };
 
     this.optionalFeatures = function () {
@@ -250,7 +248,7 @@ PykCharts.oneD.bubble = function (options) {
                         that.chart_text1.text(function (d) { return d.children ? " " :  that.k.appendUnits(d.weight); })
                             .text(function (d) {
                                 if(this.getBBox().width<2*d.r*0.55 && this.getBBox().height<2*d.r*0.55) {
-                                    return d.children ? " " :  ((d.weight*100)/that.sum).toFixed(1)+"%"; /*that.k.appendUnits(d.weight);*/                                    
+                                    return d.children ? " " :  ((d.weight*100)/that.sum).toFixed(1)+"%"; /*that.k.appendUnits(d.weight);*/
                                 }
                                 else {
                                     return "";
@@ -325,7 +323,7 @@ PykCharts.oneD.bubble = function (options) {
                     new_data.sort(function (a,b) {
                         return a.weight - b.weight;
                     })
-                    
+
                     new_data1 = {"children": new_data};
                     that.map1 = new_data1.children.map(function (d) { return d.weight;});
                 }
