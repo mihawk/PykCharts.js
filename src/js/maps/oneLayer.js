@@ -612,19 +612,14 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         , x_range
         , duration
         , interval = interval1 = 1;
-
-        
-
         
         that.play.on("click", function () {
             startTimeline(); 
-        });
-        
+        });       
 
         var timeline_status;
 
         var startTimeline = function () {
-            console.log("hey");
             if (timeline_status==="playing") {
                 that.play.attr("xlink:href","https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/play.gif");
                 clearInterval(that.play_interval);
@@ -678,8 +673,8 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             }
         }
         // duration = unique.length * 1000;
-
     };
+
     that.renderButtons = function () {
         var bbox = d3.select(that.selector+" .axis").node().getBBox();
         that.play = that.svgContainer.append("image")
