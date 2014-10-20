@@ -184,21 +184,19 @@ PykCharts.multiD.configuration = function (options){
             var checkColor = true;
 
             data.forEach(function (item) {
-                // console.log("item group", item.group, "item", item);
                 if(item.group) {
                     checkGroup = true;
                 } else {
                     checkGroup = false;
-                    if(item.color) {
+                    if(options.chart_color) {
                         checkGroup = false;
-                        item.color = item.color;
-                    }else if(options.color) {
+                        item.color = options.chart_color[0];
+                    }else if(item.color) {
                         checkColor = false;
-                        item.color = options.color[0];
-                        // item.color = options.colorPalette[0];
+                        item.color = item.color;
                     } else{
                         checkColor = false;
-                        item.color = options.colorPalette[0];
+                        item.color = options.default_color[0];
                     }
                 }
             });
@@ -206,21 +204,16 @@ PykCharts.multiD.configuration = function (options){
             if(checkGroup) {
                 data.forEach(function(item) {
                     if (!unique[item.group]) {
-                        if(item.color) {
+                        if(options.chart_color) {
+                            item.color = options.chart_color[k];
+                            k++;
+                        }else if(item.color) {
                             item.color = item.color;
-                        }else if(options.color) {
-                            item.color = options.color[k];
-                            // console.log("hey",options.color[k],k);
-                            k++;
                         } else {
-                            // console.log("else");
-                            item.color = options.colorPalette[k];
-                            k++;
+                            item.color = options.default_color;
                         }
-                        // console.log(item);
                         newarr.push(item);
                         unique[item.group] = item;
-                        // console.log(newarr,"new array",options.colorPalette[k]);
                     }
                 });
 
@@ -383,7 +376,8 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     chartObject.data_source_name = options.data_source_name ? options.data_source_name : "";
     chartObject.data_source_url = options.data_source_url ? options.data_source_url : "";
     chartObject.background_color = options.background_color ? options.background_color : stylesheet.background_color;
-    chartObject.chart_color = options.chart_color ? options.chart_color : stylesheet.chart_color;
+    chartObject.chart_color = options.chart_color ? options.chart_color : [];
+    chartObject.default_color = stylesheet.chart_color;
     chartObject.highlight_color = options.highlight_color ? options.highlight_color : stylesheet.highlight_color;
     chartObject.fullscreen_enable = options.fullscreen_enable ? options.fullscreen_enable : stylesheet.fullscreen_enable;
     chartObject.loading = options.loading_gif_url ? options.loading_gif_url: stylesheet.loading_gif_url;
