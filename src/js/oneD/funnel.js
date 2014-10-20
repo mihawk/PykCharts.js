@@ -59,9 +59,12 @@ PykCharts.oneD.funnel = function (options) {
         that.transitions = new PykCharts.Configuration.transition(that);
 //        theme.stylesheet.borderBetweenChartElements;
         that.border = new PykCharts.Configuration.border(that);
+        that.k.export(that,"#svgcontainer","funnel");
         if(that.mode === "default") {
+        
             that.k.title()
-                .subtitle();
+                .subtitle()
+                .emptyDiv();
         }
         that.k.tooltip();
         that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
@@ -84,7 +87,6 @@ PykCharts.oneD.funnel = function (options) {
                 .credits()
                 .dataSource();
         }
-        that.k.export(that,"#svgcontainer","funnel");
         $(window).on("load", function () { return that.k.resize(that.svgContainer); })
                             .on("resize", function () { return that.k.resize(that.svgContainer); });
     };

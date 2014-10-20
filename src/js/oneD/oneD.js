@@ -124,7 +124,7 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
     chartObject.showTotalAtTheCenter = options.donut_showTotalAtTheCenter ? options.donut_showTotalAtTheCenter : oneDimensionalCharts.donut_showTotalAtTheCenter;
     chartObject.units_prefix = options.units_prefix ? options.units_prefix : false;
     chartObject.units_suffix = options.units_suffix ? options.units_suffix : false;
-
+    chartObject.export_enable = options.export_enable ? options.export_enable : stylesheet.export_enable 
     chartObject.k = new PykCharts.Configuration(chartObject);
 
     return chartObject;

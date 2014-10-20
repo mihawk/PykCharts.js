@@ -43,6 +43,7 @@ PykCharts.multiD.areaChart = function (options){
 					.makeMainDiv(options.selector,1)
 					.tooltip(true,options.selector,1);
 
+
 			that.optional_feature()
 		    		.chartType()
 					.svgContainer(1)

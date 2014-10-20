@@ -46,14 +46,16 @@ PykCharts.oneD.percentageColumn = function (options) {
 
     this.render = function () {
         var that = this;
-    //    that.fillChart = new PykCharts.oneD.fillChart(that);
+
         that.fillChart = new PykCharts.Configuration.fillChart(that);
         that.onHoverEffect = new PykCharts.oneD.mouseEvent(options);
         that.transitions = new PykCharts.Configuration.transition(that);
         that.border = new PykCharts.Configuration.border(that);
+        that.k.export(that,"#svgcontainer","percentageColumn");
         if(that.mode === "default") {
             that.k.title()
-                    .subtitle();
+                    .subtitle()
+                    .emptyDiv();
                 // [that.fullscreen]().fullScreen(that);
         }
         if(that.mode === "infographics") {
@@ -78,7 +80,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                 .credits()
                 .dataSource();
         }
-        that.k.export(that,"#svgcontainer","percentageColumn");
+        
         $(window).on("load", function () { return that.k.resize(that.svgContainer); })
                             .on("resize", function () { return that.k.resize(that.svgContainer); });
     };

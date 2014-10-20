@@ -190,11 +190,17 @@ PykCharts.Configuration = function (options){
         },
 		title : function () {
             if(PykCharts.boolean(options.title_text) && options.title_size) {
+                var div_width = options.width;
+
+                if(PykCharts.boolean(options.export_enable)) {
+                    div_width = 0.9*options.width;
+                }
 	        	that.titleDiv = d3.select(options.selector)
 	                .append("div")
 	                    .attr("id","title")
-	                    .style("width", options.width + "px")
+	                    .style("width", (options.width) + "px")
 	                    .style("text-align","left")
+                        .style("float","left")
 	                    .html("<span style='pointer-events:none;font-size:" +
                         options.title_size+
                         ";color:" +
@@ -845,41 +851,49 @@ PykCharts.Configuration = function (options){
             }
         },
         export : function(chart,svgId,chart_name) {
+            console.log("inside export",options.export_enable);
+            if(PykCharts.boolean(options.export_enable)) {
+                console.log("inside export");
+                var canvas_id = chart_name+"canvas";
+                var canvas = document.createElement("canvas");
+                canvas.setAttribute('display', "none")
+                canvas.setAttribute('id', canvas_id);
+                var id = "export",
+                div_size = options.width
+                div_float ="none"
+                div_left = options.width;
 
-            var canvas_id = chart_name+"canvas";
-            var canvas = document.createElement("canvas");
-            canvas.setAttribute('display', "none")
-            canvas.setAttribute('id', canvas_id);
-            var id = "export";
-            
-            d3.select(chart.selector)
-                        .append("input")                                                            
-                            .attr("type","button")
-                            .attr("value","download")
-                            .attr("id",id)      
-                            .style("left",chart.width - 100)                                                                                                                                   
-                            .style("top",chart.height/2)
-                            .style("height","20")
+                if(PykCharts.boolean(options.title_text) && options.title_size) {
+                    div_size = 0.1*options.width;
+                    div_float ="right";
+                    div_left = 0;
+                }
+                
+                d3.select(chart.selector)
+                                .append("div")
+                                .attr("id",id)      
+                                .attr("class","glyphicon glyphicon-download-alt")
+                                .attr("width",div_size)
+                                .style("left",div_left+"px")
 
-            var get_canvas = document.getElementById(canvas_id);
-            paper.setup(get_canvas);
-            var project = new paper.Project();
-            project._view._viewSize.width = chart.width;
-            project._view._viewSize.height = chart.height;
-            var name = chart_name + ".svg"
-            
-            console.log(document.querySelector(options.selector +" "+svgId),"svgContainer");
-            $(chart.selector + " #"+id).click(function(){
+                var get_canvas = document.getElementById(canvas_id);
+                paper.setup(get_canvas);
+                var project = new paper.Project();
+                project._view._viewSize.width = chart.width;
+                project._view._viewSize.height = chart.height;
+                var name = chart_name + ".svg"
+                
+                $(chart.selector + " #"+id).click(function(){
 
-                project.importSVG(document.querySelector(options.selector +" "+svgId));
-                var svg = project.exportSVG({ asString: true });
-                downloadDataURI({
-                    data: 'data:image/svg+xml;base64,' + btoa(svg),
-                    filename: name
+                    project.importSVG(document.querySelector(options.selector +" "+svgId));
+                    var svg = project.exportSVG({ asString: true });
+                    downloadDataURI({
+                        data: 'data:image/svg+xml;base64,' + btoa(svg),
+                        filename: name
+                    });
+                    project.clear();
                 });
-                project.clear();
-            });
-
+            }
             return this;
         }
     };
@@ -911,6 +925,7 @@ configuration.mouseEvent = function (options) {
                         .css("left", (xPos + options.margin_left + xDiff - width_tooltip) + "px");
                 }
                 else {
+                    console.log("Download");
                     that.tooltip
                         .style("visibility", "visible")
                         .style("top", (d3.event.layerY - 20) + "px")
@@ -1548,7 +1563,8 @@ configuration.Theme = function(){
         "pointer_weight": "thin",
         "pointer_size": 13,
         "pointer_color": "#1D1D1D",
-        "pointer_family": "'Helvetica Neue',Helvetica,Arial,sans-serif"
+        "pointer_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
+        "export_enable": "yes"
     };
 
     that.functionality = {

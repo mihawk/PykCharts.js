@@ -52,10 +52,11 @@ PykCharts.oneD.percentageBar = function (options) {
         that.onHoverEffect = new PykCharts.oneD.mouseEvent(options);
         that.transitions = new PykCharts.Configuration.transition(that);
         that.border = new PykCharts.Configuration.border(that);
+        that.k.export(that,"#svgcontainer","percentageBar");
         if(that.mode === "default") {
             that.k.title()
-                    .subtitle();
-                // [that.fullscreen]().fullScreen(that);
+                    .subtitle()
+                    .emptyDiv();
         }
         if(that.mode === "infographics") {
             that.new_data = that.data;
@@ -79,7 +80,6 @@ PykCharts.oneD.percentageBar = function (options) {
                 .credits()
                 .dataSource();
         }
-        that.k.export(that,"#svgcontainer","percentageBar");
         $(window).on("load", function () { return that.k.resize(that.svgContainer); })
                             .on("resize", function () { return that.k.resize(that.svgContainer); });
     };
@@ -129,7 +129,7 @@ PykCharts.oneD.percentageBar = function (options) {
                     })
                     .attr("width",0)
                     .attr('height', function (d) {
-                        return that.height/ 4;
+                        return that.height - (that.height/4);
                     })
                     .attr("fill",function (d) {
                         return that.fillChart.selectColor(d);
@@ -174,7 +174,7 @@ PykCharts.oneD.percentageBar = function (options) {
                     .attr("class","svgcontainer");
 
                     that.group = that.svgContainer.append("g")
-                        .attr("id","funnel");
+                        .attr("id","percentageBar");
 
                 return this;
             },

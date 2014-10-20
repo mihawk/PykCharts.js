@@ -2,8 +2,10 @@
 	<head>
         <title>One-Dimensional Charts</title>
         <link rel="stylesheet" type="text/css" href="../dist/pykcharts.0.0.8.min.css">
+        <link rel="stylesheet" type="text/css" href="../lib/bootstrap.min.css">
         <script src="../lib/paper-full.js"></script>
         <script src="../lib/downloadDataURI.js"></script>
+
 	</head>
 	<body>
       <div id="bubble"></div>
@@ -39,7 +41,8 @@
                 selector: "#bubble",
                 data:"../data/pie.json",
                 transition_duration: 1000,
-                highlight: "A"
+                highlight: "A",
+                title_text: "PykCharts"
             });
             k.execute();
 
