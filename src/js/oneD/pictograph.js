@@ -6,18 +6,18 @@ PykCharts.oneD.pictograph = function (options) {
         that = new PykCharts.oneD.processInputs(that, options);
         var optional = options.optional
         ,functionality = theme.oneDimensionalCharts;
-        that.showTotal = options.pictograph_show_total ? options.pictograph_show_total : functionality.pictograph_show_total;
-        that.enableTotal = options.pictograph_total_enable ? options.pictograph_total_enable : functionality.pictograph_total_enable;
-        that.enableCurrent = options.pictograph_current_enable ? options.pictograph_current_enable : functionality.pictograph_current_enable;
+        that.showTotal = options.pictograph_show_all_images ? options.pictograph_show_all_images : functionality.pictograph_show_all_images;
+        that.enableTotal = options.pictograph_total_count_enable ? options.pictograph_total_count_enable : functionality.pictograph_total_count_enable;
+        that.enableCurrent = options.pictograph_current_count_enable ? options.pictograph_current_count_enable : functionality.pictograph_current_count_enable;
         that.imgperline = options.pictograph_image_per_line ?  options.pictograph_image_per_line : functionality.pictograph_image_per_line;
-        that.activeText_size = options.pictograph_active_text_size ? options.pictograph_active_text_size : functionality.pictograph_active_text_size;
-        that.activeText_color = options.pictograph_active_text_color ? options.pictograph_active_text_color : functionality.pictograph_active_text_color;
-        that.activeText_weight = options.pictograph_active_text_weight ? options.pictograph_active_text_weight : functionality.pictograph_active_text_weight;
-        that.activeText_family = options.pictograph_active_text_family ? options.pictograph_active_text_family : functionality.pictograph_active_text_family;
-        that.inactiveText_size = options.pictograph_inactive_text_size ? options.pictograph_inactive_text_size : functionality.pictograph_inactive_text_size;
-        that.inactiveText_color = options.pictograph_inactive_text_color ? options.pictograph_inactive_text_color : functionality.pictograph_inactive_text_color;
-        that.inactiveText_weight = options.pictograph_inactive_text_weight ? options.pictograph_inactive_text_weight : functionality.pictograph_inactive_text_weight;
-        that.inactiveText_family = options.pictograph_inactive_text_family ? options.pictograph_inactive_text_family : functionality.pictograph_inactive_text_family;
+        that.activeText_size = options.pictograph_current_count_size ? options.pictograph_current_count_size : functionality.pictograph_current_count_size;
+        that.activeText_color = options.pictograph_current_count_color ? options.pictograph_current_count_color : functionality.pictograph_current_count_color;
+        that.activeText_weight = options.pictograph_current_count_weight ? options.pictograph_current_count_weight : functionality.pictograph_current_count_weight;
+        that.activeText_family = options.pictograph_current_count_family ? options.pictograph_current_count_family : functionality.pictograph_current_count_family;
+        that.inactiveText_size = options.pictograph_total_count_size ? options.pictograph_total_count_size : functionality.pictograph_total_count_size;
+        that.inactiveText_color = options.pictograph_total_count_color ? options.pictograph_total_count_color : functionality.pictograph_total_count_color;
+        that.inactiveText_weight = options.pictograph_total_count_weight ? options.pictograph_total_count_weight : functionality.pictograph_total_count_weight;
+        that.inactiveText_family = options.pictograph_total_count_family ? options.pictograph_total_count_family : functionality.pictograph_total_count_family;
         that.imageWidth =  options.pictograph_image_width ? options.pictograph_image_width : functionality.pictograph_image_width;
         that.imageHeight = options.pictograph_image_height ? options.pictograph_image_height : functionality.pictograph_image_height;
         that.height = options.chart_height ? options.chart_height : that.width;
@@ -72,6 +72,7 @@ PykCharts.oneD.pictograph = function (options) {
                     .attr("viewBox", "0 0 " + that.width + " " + that.height);
 
                 that.group = that.svgContainer.append("g")
+                    // .attr("transform", "translate(100,0)")
                     .attr("transform", "translate(" + that.imageWidth + ",0)");
 
                 that.group1 = that.svgContainer.append("g")
@@ -88,9 +89,12 @@ PykCharts.oneD.pictograph = function (options) {
                     if(j <= that.data[1].weight ) {
                         that.group.append("image")
                             .attr("xlink:href",that.data[1]["image"])
+                            // .attr("x", b *(50 + 1))
+                            // .attr("y", a *(100 + 10))
                             .attr("x", b *(that.imageWidth + 1))
                             .attr("y", a *(that.imageHeight + 10))
                             .attr("width",0)
+                            // .attr("height",100)
                             .attr("height", that.imageHeight + "px")
                             .transition()
                             .duration(that.transitions.duration())
@@ -100,7 +104,10 @@ PykCharts.oneD.pictograph = function (options) {
                             .attr("xlink:href",that.data[0]["image"])
                             .attr("x", b *(that.imageWidth + 1))
                             .attr("y", a *(that.imageHeight+ 10))
+                            // .attr("x", b *(50 + 1))
+                            // .attr("y", a *(100 + 10))
                             .attr("width",0)
+                            // .attr("height",100)
                             .attr("height", that.imageHeight + "px")
                             .transition()
                             .duration(that.transitions.duration())

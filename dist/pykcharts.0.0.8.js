@@ -944,8 +944,9 @@ configuration.mouseEvent = function (options) {
         },
         crossHairPosition: function(data,new_data,xScale,yScale,dataLineGroup,lineMargin,domain,type,tooltipMode,color_from_data,multiple_containers_enable){
             if((PykCharts.boolean(options.crosshair_enable) || PykCharts.boolean(options.tooltip_enable) || PykCharts.boolean(options.onHoverHighlightenable))  && options.mode === "default") {
-                var offsetLeft = $(options.selector + " #"+dataLineGroup[0].attr("id")).offset().left;
-                var offsetTop = $(options.selector + " #"+dataLineGroup[0].attr("id")).offset().top;
+                var offsetLeft = options.margin_left + lineMargin +  $(options.selector + " #"+dataLineGroup[0][0][0].parentNode.parentNode.id).offset().left;
+                var offsetTop = $(options.selector + " #"+dataLineGroup[0][0][0].parentNode.parentNode.id).offset().top;
+                console.log(offsetLeft, dataLineGroup[0][0][0].parentNode.parentNode.id);
                 var number_of_lines = new_data.length;
                 var left = options.margin_left;
                 var right = options.margin_right;
@@ -956,7 +957,7 @@ configuration.mouseEvent = function (options) {
                 var group_index = parseInt(d3.event.target.id.substr((d3.event.target.id.length-1),1));
                 var c = b - a;
                 var x = d3.event.pageX - offsetLeft;
-                var y = d3.event.pageY - offsetTop;
+                var y = d3.event.pageY - $(options.selector).offset().top - top ;
                 var x_range = [];
                 if(options.axis_x_data_format==="string") {
                     x_range = xScale.range();
@@ -975,7 +976,7 @@ configuration.mouseEvent = function (options) {
                 var j,tooltpText,active_x_tick,active_y_tick = [],left_diff,right_diff,
                     pos_line_cursor_x,pos_line_cursor_y = [],right_tick,left_tick,
                     range_length = x_range.length,colspan,bottom_tick,top_tick;
-
+                console.log(x,x_range, y, y_range);
                 for(j = 0;j < range_length;j++) {
                     for(k = 0; k<y_range.length;k++) {
                         if((j+1) >= range_length) {
@@ -985,7 +986,7 @@ configuration.mouseEvent = function (options) {
                           if((right_tick === x_range[j] && left_tick === x_range[j+1]) && (top_tick === y_range[k])) {
                                 return false;
                             }
-                            else if((x >= x_range[j] && x <= x_range[j+1]) && (y <= (y_range[k] - top - bottom))) {
+                            else if((x >= x_range[j] && x <= x_range[j+1]) && (y <= (y_range[k]))) {
                                 left_tick = x_range[j], right_tick = x_range[j+1];
                                 bottom_tick = y_range[k+1];
                                 top_tick = y_range[k];
@@ -1505,6 +1506,9 @@ configuration.transition = function (options) {
 configuration.Theme = function(){
     var that = this;
     that.stylesheet = {
+        "mode": "default",
+        "selector": "body",
+        
         "chart_height": 400,
         "chart_width": 600,
         "chart_margin_top": 35,
@@ -1514,8 +1518,7 @@ configuration.Theme = function(){
         "chart_grid_x_enable": "yes",
         "chart_grid_y_enable": "yes",
         "chart_grid_color":"#ddd",
-        "mode": "default",
-        "selector": "body",
+
         "title_size": 15,
         "title_color": "#1D1D1D",
         "title_weight": "bold",
@@ -1524,15 +1527,10 @@ configuration.Theme = function(){
         "subtitle_color": "black",
         "subtitle_weight": "thin",
         "subtitle_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
-        "loading_gif_url": "https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/img/loader.gif",
-        "fullscreen_enable": "no",
-        "tooltip_enable": "yes",
-        "credit_my_site_name": "Pykih",
-        "credit_my_site_url": "http://www.pykih.com",
         "highlight": "",
+        "highlight_color": "#013F73",
         "background_color": "transparent",
         "chart_color": "steelblue",
-        "highlight_color": "#013F73",
         "saturation_color": "steelblue",
         "border_between_chart_elements_thickness": 1,
         "border_between_chart_elements_color": "white",
@@ -1550,7 +1548,12 @@ configuration.Theme = function(){
         "pointer_weight": "thin",
         "pointer_size": 13,
         "pointer_color": "#1D1D1D",
-        "pointer_family": "'Helvetica Neue',Helvetica,Arial,sans-serif"
+        "pointer_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
+        "loading_gif_url": "https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/img/loader.gif",
+        "fullscreen_enable": "no",
+        "tooltip_enable": "yes",
+        "credit_my_site_name": "Pykih",
+        "credit_my_site_url": "http://www.pykih.com"
     };
 
     that.functionality = {
@@ -1563,26 +1566,30 @@ configuration.Theme = function(){
         "clubdata_enable": "yes",
         "clubdata_text": "others",
         "clubdata_maximum_nodes": 5,
+
+        "pie_radius_percent": 70,
         "donut_radius_percent": 70,
         "donut_inner_radius_percent": 40,
-        "donut_show_total_at_center": "yes",
-        "pie_radius_percent": 70, 
-        "pictograph_show_total": "yes",
-        "pictograph_total_enable": "yes",
-        "pictograph_current_enable": "yes",
+        "donut_show_total_at_center": "yes", 
+
+        "pictograph_show_all_images": "yes",
+        "pictograph_total_count_enable": "yes",
+        "pictograph_current_count_enable": "yes",
         "pictograph_image_per_line": 3,
         "pictograph_image_width": 79,
         "pictograph_image_height": 66,
-        "pictograph_active_text_size": 64,
-        "pictograph_active_text_color": "steelblue",
-        "pictograph_active_text_weight": "thin",
-        "pictograph_active_text_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
-        "pictograph_inactive_text_size": 64,
-        "pictograph_inactive_text_color": "grey",
-        "pictograph_inactive_text_weight": "thin",
-        "pictograph_inactive_text_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
+        "pictograph_current_count_size": 64,
+        "pictograph_current_count_color": "steelblue",
+        "pictograph_current_count_weight": "thin",
+        "pictograph_current_count_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
+        "pictograph_total_count_size": 64,
+        "pictograph_total_count_color": "grey",
+        "pictograph_total_count_weight": "thin",
+        "pictograph_total_count_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
+
         "funnel_rect_width": 100,
         "funnel_rect_height": 100,
+
         "percent_column_rect_width": 15,
         "percent_row_rect_height": 13,
     };
@@ -1604,6 +1611,7 @@ configuration.Theme = function(){
         "axis_x_outer_pointer_size": 0,
         "axis_x_time_value_datatype":"",
         "axis_x_time_value_interval":"",
+        "axis_x_data_format": "string",
 
         "axis_y_enable": "yes",
         "axis_y_title" : "Y axis",
@@ -1620,18 +1628,6 @@ configuration.Theme = function(){
         "axis_y_time_value_datatype":"",
         "axis_y_time_value_interval":"",
         "axis_y_data_format": "number",
-        "axis_x_data_format": "string",
-        "crosshair_enable": "yes",
-        "zoom_enable": "no",
-        "variable_circle_size_enable" : "yes",
-        "color_mode" : "color",
-        "color": ["yellow"],
-
-        "spiderweb_outer_radius_percent" : 80,
-        "spiderweb_radius": 5,
-        "spiderweb_axis_title": "yes",
-        "spiderweb_pointer": "yes",
-        "multiple_containers_enable": "no",
 
         "legends_enable": "yes",
         "legends_display": "horizontal",
@@ -1639,11 +1635,24 @@ configuration.Theme = function(){
         "tooltip_enable" : "yes",
         "tooltip_mode": "fixed",
 
+        "multiple_containers_enable": "no",
+        "variable_circle_size_enable" : "yes",
+
+        "crosshair_enable": "yes",
+        "zoom_enable": "no",
+        
+        "color_mode" : "color",
+        "color": ["yellow"],
+
+        "spiderweb_outer_radius_percent" : 80,
+        "spiderweb_radius": 5,
+        "spiderweb_axis_title": "yes",
+        "spiderweb_pointer": "yes",
+
         "scatterplot_radius" : 40,
         "scatterplot_pointer": "no",
 
-        "line_curvy_lines": "no"
-
+        "line_curvy_lines": "no",
     };
 
     that.treeCharts = {
@@ -1654,27 +1663,35 @@ configuration.Theme = function(){
     that.mapsTheme = {
         "chart_width": 1000,
         "chart_height": 1000,
-        "default_color" : "#4682B4",
-        "total_no_of_colors": 3,
+       
         "color_mode": "saturation",
+        "total_no_of_colors": 3,
         "palette_color": "Blue",
         "background_color": "white",
+        "default_color" : "#4682B4",
+
         "tooltip_enable" : "yes",
         "tooltip_mode": "moving",
         "tooltip_position_top": 0,
         "tooltip_position_left": 0,
+
         "timeline_duration": 1000,
         "timeline_margin_top": 5,
         "timeline_margin_right": 25,
         "timeline_margin_bottom": 25,
         "timeline_margin_left": 45,
+
         "legends_enable": "yes",
         "legends_display": "horizontal",
+
         "label_enable": "no",
         "click_enable": "yes",
+
         "onhover": "shadow",
+
         "highlight_area_enable":"no",
         "highlight": "",
+
         "axis_onhover_hightlight_enable" : "no",
         "axis_x_enable": "yes",
         "axis_x_pointer_position": "top",
@@ -3467,18 +3484,18 @@ PykCharts.oneD.pictograph = function (options) {
         that = new PykCharts.oneD.processInputs(that, options);
         var optional = options.optional
         ,functionality = theme.oneDimensionalCharts;
-        that.showTotal = options.pictograph_show_total ? options.pictograph_show_total : functionality.pictograph_show_total;
-        that.enableTotal = options.pictograph_total_enable ? options.pictograph_total_enable : functionality.pictograph_total_enable;
-        that.enableCurrent = options.pictograph_current_enable ? options.pictograph_current_enable : functionality.pictograph_current_enable;
+        that.showTotal = options.pictograph_show_all_images ? options.pictograph_show_all_images : functionality.pictograph_show_all_images;
+        that.enableTotal = options.pictograph_total_count_enable ? options.pictograph_total_count_enable : functionality.pictograph_total_count_enable;
+        that.enableCurrent = options.pictograph_current_count_enable ? options.pictograph_current_count_enable : functionality.pictograph_current_count_enable;
         that.imgperline = options.pictograph_image_per_line ?  options.pictograph_image_per_line : functionality.pictograph_image_per_line;
-        that.activeText_size = options.pictograph_active_text_size ? options.pictograph_active_text_size : functionality.pictograph_active_text_size;
-        that.activeText_color = options.pictograph_active_text_color ? options.pictograph_active_text_color : functionality.pictograph_active_text_color;
-        that.activeText_weight = options.pictograph_active_text_weight ? options.pictograph_active_text_weight : functionality.pictograph_active_text_weight;
-        that.activeText_family = options.pictograph_active_text_family ? options.pictograph_active_text_family : functionality.pictograph_active_text_family;
-        that.inactiveText_size = options.pictograph_inactive_text_size ? options.pictograph_inactive_text_size : functionality.pictograph_inactive_text_size;
-        that.inactiveText_color = options.pictograph_inactive_text_color ? options.pictograph_inactive_text_color : functionality.pictograph_inactive_text_color;
-        that.inactiveText_weight = options.pictograph_inactive_text_weight ? options.pictograph_inactive_text_weight : functionality.pictograph_inactive_text_weight;
-        that.inactiveText_family = options.pictograph_inactive_text_family ? options.pictograph_inactive_text_family : functionality.pictograph_inactive_text_family;
+        that.activeText_size = options.pictograph_current_count_size ? options.pictograph_current_count_size : functionality.pictograph_current_count_size;
+        that.activeText_color = options.pictograph_current_count_color ? options.pictograph_current_count_color : functionality.pictograph_current_count_color;
+        that.activeText_weight = options.pictograph_current_count_weight ? options.pictograph_current_count_weight : functionality.pictograph_current_count_weight;
+        that.activeText_family = options.pictograph_current_count_family ? options.pictograph_current_count_family : functionality.pictograph_current_count_family;
+        that.inactiveText_size = options.pictograph_total_count_size ? options.pictograph_total_count_size : functionality.pictograph_total_count_size;
+        that.inactiveText_color = options.pictograph_total_count_color ? options.pictograph_total_count_color : functionality.pictograph_total_count_color;
+        that.inactiveText_weight = options.pictograph_total_count_weight ? options.pictograph_total_count_weight : functionality.pictograph_total_count_weight;
+        that.inactiveText_family = options.pictograph_total_count_family ? options.pictograph_total_count_family : functionality.pictograph_total_count_family;
         that.imageWidth =  options.pictograph_image_width ? options.pictograph_image_width : functionality.pictograph_image_width;
         that.imageHeight = options.pictograph_image_height ? options.pictograph_image_height : functionality.pictograph_image_height;
         that.height = options.chart_height ? options.chart_height : that.width;
@@ -3533,6 +3550,7 @@ PykCharts.oneD.pictograph = function (options) {
                     .attr("viewBox", "0 0 " + that.width + " " + that.height);
 
                 that.group = that.svgContainer.append("g")
+                    // .attr("transform", "translate(100,0)")
                     .attr("transform", "translate(" + that.imageWidth + ",0)");
 
                 that.group1 = that.svgContainer.append("g")
@@ -3549,9 +3567,12 @@ PykCharts.oneD.pictograph = function (options) {
                     if(j <= that.data[1].weight ) {
                         that.group.append("image")
                             .attr("xlink:href",that.data[1]["image"])
+                            // .attr("x", b *(50 + 1))
+                            // .attr("y", a *(100 + 10))
                             .attr("x", b *(that.imageWidth + 1))
                             .attr("y", a *(that.imageHeight + 10))
                             .attr("width",0)
+                            // .attr("height",100)
                             .attr("height", that.imageHeight + "px")
                             .transition()
                             .duration(that.transitions.duration())
@@ -3561,7 +3582,10 @@ PykCharts.oneD.pictograph = function (options) {
                             .attr("xlink:href",that.data[0]["image"])
                             .attr("x", b *(that.imageWidth + 1))
                             .attr("y", a *(that.imageHeight+ 10))
+                            // .attr("x", b *(50 + 1))
+                            // .attr("y", a *(100 + 10))
                             .attr("width",0)
+                            // .attr("height",100)
                             .attr("height", that.imageHeight + "px")
                             .transition()
                             .duration(that.transitions.duration())
