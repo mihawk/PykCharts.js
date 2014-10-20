@@ -196,7 +196,9 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
             that.optionalFeatures().svgContainer()
                     .set_start_end_angle()
                     .createChart()
-                    .label();
+                    .label()
+                    .ticks()
+                    .centerLabel();
 
             that.k.tooltip();
             that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);

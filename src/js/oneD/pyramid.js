@@ -67,7 +67,8 @@ PykCharts.oneD.pyramid = function (options) {
             that.new_data = that.data;
             that.optionalFeatures().svgContainer()
                 .createChart()
-                .label();
+                .label()
+                .ticks();
 
             that.k.tooltip();
             that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
