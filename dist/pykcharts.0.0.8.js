@@ -866,7 +866,6 @@ PykCharts.Configuration = function (options){
         },
         export : function(chart,svgId,chart_name) {
 
-            //console.log(PykCharts.boolean(options.export_enable),chart_name,"export");
             if(PykCharts.boolean(options.export_enable)) {
 
                 var canvas_id = chart_name+"canvas";
@@ -1923,8 +1922,8 @@ PykCharts.oneD.bubble = function (options) {
         if (that.mode ==="default") {
             that.k.export(that,"#svgcontainer","bubble");
             that.k.title()
-            .subtitle()
-            .emptyDiv();
+                .subtitle()
+                .emptyDiv();
 
             that.new_data = that.optionalFeatures().clubData();
             that.optionalFeatures().svgContainer()
@@ -10302,7 +10301,8 @@ PykCharts.maps.processInputs = function (chartObject, options) {
     chartObject.data_source_name = options.data_source_name ? options.data_source_name : "";
     chartObject.data_source_url = options.data_source_url ? options.data_source_url : "";
     chartObject.units = options.units ? options.units : false;
-
+    chartObject.export_enable = options.export_enable ? options.export_enable : stylesheet.export_enable; 
+    
     chartObject.k = new PykCharts.Configuration(chartObject);
     return chartObject; 
    
@@ -10390,11 +10390,13 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
     this.render = function () {
 
         that.border = new PykCharts.Configuration.border(that);
-        // console.log(that.border.color());
+        if(type === "oneLayer") {
+            that.k.export(that,"#svgcontainer",type)
+        }
         that.k.title()
-            .subtitle();
+            .subtitle()
+            .emptyDiv();
 
-        //    var that = this;
         that.current_palette = _.where(that.color_palette_data, {name:that.palette_color, number:that.total_no_of_colors})[0];
         that.optionalFeatures()
             .svgContainer()
@@ -10413,7 +10415,6 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             .dataSource()
             .liveData(that);
                 
-
         if(type === "timeline") {
             that.optionalFeatures()
                 .axisContainer(true);
@@ -10429,7 +10430,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             $(window).on("load", function () { return that.k.resize(that.svgContainer,""); })
                 .on("resize", function () { return that.k.resize(that.svgContainer,""); });
         }
-           that.k.export(that,"#svgcontainer",type)
+
     };
 
     that.refresh = function () {
@@ -10487,8 +10488,6 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     that.legendsContainer = that.svgContainer
                         .append("g")
                         .attr("id", "legend-container");
-                        // .attr("width", that.width)
-                        // .attr("height", 50);
                 } else {
                     that.legendsGroup_height = 0;
                 }
@@ -10515,7 +10514,8 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     .attr("viewBox", "0 0 " + that.width + " " + that.height);
 
                 that.map_cont = that.svgContainer.append("g")
-                    .attr("id", "map_group");
+                    .attr("id", "map_group")
+                //    .attr("transform","translate(0,"+that.legendsGroup_height+")");
 
                 var defs = that.map_cont.append('defs');
                 var filter = defs.append('filter')
@@ -11063,13 +11063,5 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
     }
     catch (e) {
         importFiles('https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/js/custom-hive.min.js');
-    }
-    try {
-        if (!paper) {
-            importFiles('https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/js/paper-full.js');
-        }
-    }
-    catch (e) {
-        importFiles('https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/js/paper-full.js');
     }
 })();

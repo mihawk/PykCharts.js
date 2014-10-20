@@ -866,7 +866,6 @@ PykCharts.Configuration = function (options){
         },
         export : function(chart,svgId,chart_name) {
 
-            //console.log(PykCharts.boolean(options.export_enable),chart_name,"export");
             if(PykCharts.boolean(options.export_enable)) {
 
                 var canvas_id = chart_name+"canvas";
