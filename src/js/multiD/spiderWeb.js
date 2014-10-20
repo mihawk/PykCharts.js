@@ -82,7 +82,11 @@ PykCharts.multiD.spiderWeb = function (options) {
 
         } else if (that.mode==="infographics") {
             that.k.emptyDiv();
-            that.optionalFeatures().svgContainer()
+            that.k.makeMainDiv(that.selector,1);
+
+            that.optionalFeatures().svgContainer(1)
+                .legendsContainer()
+                .createGroups()
                 .createChart()
                 .axisTicks()
                 .axisTitle();
@@ -131,10 +135,12 @@ PykCharts.multiD.spiderWeb = function (options) {
                 return this;
             },
             legendsContainer : function (i) {
-                if (PykCharts.boolean(that.legends_enable) && PykCharts.boolean(that.variable_circle_size_enable) && that.map_group_data[1]) {
+                if (PykCharts.boolean(that.legends_enable) && PykCharts.boolean(that.variable_circle_size_enable) && that.map_group_data[1] && that.mode === "default") {
                     that.legendsGroup = that.svgContainer.append("g")
                         .attr("class","legendgrp")
                         .attr("id","legendgrp");
+                } else {
+                    that.legendsGroup_height = 0;
                 }
                 return this;
             },

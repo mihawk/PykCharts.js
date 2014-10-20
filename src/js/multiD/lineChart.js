@@ -78,9 +78,10 @@ PykCharts.multiD.lineChart = function (options){
 		that.dataLineGroup = [],that.clicked;
 		that.multid = new PykCharts.multiD.configuration(that);
 		that.fillColor = new PykCharts.Configuration.fillChart(that,null,options);
+		that.transitions = new PykCharts.Configuration.transition(options);
 		if(that.mode === "default") {
 			that.k.export(that,"#svg-1","lineChart"); 
-			that.transitions = new PykCharts.Configuration.transition(options);
+
 
 			that.k.title()
 					.subtitle()

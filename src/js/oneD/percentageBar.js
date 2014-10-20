@@ -62,6 +62,7 @@ PykCharts.oneD.percentageBar = function (options) {
                     .emptyDiv();
         }
         if(that.mode === "infographics") {
+            that.k.emptyDiv();
             that.new_data = that.data;
         }
 
@@ -78,6 +79,7 @@ PykCharts.oneD.percentageBar = function (options) {
             .label()
             .ticks();
         if(that.mode === "default") {
+            
             // that.optionalFeatures().ticks()
             that.k.liveData(that)
                 .createFooter()

@@ -65,7 +65,6 @@ PykCharts.oneD.bubble = function (options) {
             that.k.export(that,"#svgcontainer","bubble")
                 .emptyDiv();
 
-
             that.new_data = {"children" : that.data};
             that.optionalFeatures().svgContainer()
                 .createChart()
@@ -74,8 +73,8 @@ PykCharts.oneD.bubble = function (options) {
             that.k.tooltip();
             that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
         }
-        $(window).on("load", function () { return that.k.resize(that.svgContainer); })
-                            .on("resize", function () { return that.k.resize(that.svgContainer); });
+        // $(window).on("load", function () { return that.k.resize(that.svgContainer); })
+        //                     .on("resize", function () { return that.k.resize(that.svgContainer); });
     };
 
     this.optionalFeatures = function () {

@@ -33,10 +33,10 @@ PykCharts.multiD.areaChart = function (options){
 		that.dataLineGroup = [], that.dataLineGroupBorder = [];
 		that.multid = new PykCharts.multiD.configuration(that);
 		that.fillColor = new PykCharts.Configuration.fillChart(that,null,options);
+		that.transitions = new PykCharts.Configuration.transition(that);
+
 		that.k.export(that,"#svg-1","areaChart"); 
 		if(that.mode === "default") {
-			that.transitions = new PykCharts.Configuration.transition(that);
-			that.fillColor = new PykCharts.Configuration.fillChart(that,null,options);
 
 			that.k.title()
 					.subtitle()

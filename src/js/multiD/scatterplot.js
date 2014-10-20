@@ -211,11 +211,16 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
             that.sizes = new PykCharts.multiD.bubbleSizeCalculation(that,that.data,that.radius_range);
 
             that.k.export(that,"#svgcontainer0",type);
+
             that.k.tooltip()
                 .emptyDiv()
                 .makeMainDiv(that.selector,0);
+
             that.optionalFeatures()
-                    .svgContainer(0);
+                    .svgContainer(0)
+                    .legendsContainer(0)
+                    .createGroups(0);
+
             that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
             that.optionalFeatures().createChart(0);
                 // .crossHair();
@@ -256,6 +261,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
             },
             createGroups : function (i) {
 
+                console.log(that.legendsGroup_height,"ypoooooooo");
                 that.group = that.svgContainer.append("g")
                     .attr("transform","translate("+(that.margin_left)+","+(that.margin_top+that.legendsGroup_height)+")")
                     .attr("id","main");
@@ -288,7 +294,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                 return this;
             },
             legendsContainer : function (i) {
-                if (PykCharts.boolean(that.legends_enable) && PykCharts.boolean(that.variable_circle_size_enable) && that.map_group_data[1]) {
+                if (PykCharts.boolean(that.legends_enable) && PykCharts.boolean(that.variable_circle_size_enable) && that.map_group_data[1] && that.mode === "default") {
                     console.log("legends");                    
                     that.legendsGroup = that.svgContainer
                         .append("g")
@@ -644,11 +650,6 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                     .on("mousedown",function() {
                         d3.event.stopPropagation();
                     });
-                // console.log($("#svgcontainer0 .dot"));
-                // $("#svgcontainer0 .dot").dblclick(function(){
-                //     console.log("heyyyyyyyy");
-                //     return false;
-                // })
 
                 that.circlePlot.exit().remove();
                 return this;
@@ -749,7 +750,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
         that.optionalFeatures().createChart()
             .label();
 
-        that.k.xAxis(that.svgContainer,that.xGroup,that.x,that.extra_left_margin,that.xdomain)
+        that.k.xAxis(that.svgContainer,that.xGroup,that.x,that.extra_left_margin,that.xdomain,that.legendsGroup_height)
             .yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain);
 
     }
