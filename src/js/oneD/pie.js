@@ -165,11 +165,13 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
         that.onHoverEffect = new PykCharts.oneD.mouseEvent(options);
         that.border = new PykCharts.Configuration.border(that);
         that.transitions = new PykCharts.Configuration.transition(that);
+        that.k.export(that,"#container",type);
 
         if(that.mode.toLowerCase() == "default") {
 
             that.k.title()
-                .subtitle();
+                .subtitle()
+                .emptyDiv();
 
             that.optionalFeatures().svgContainer();
             that.new_data = that.optionalFeatures().clubData();
@@ -193,6 +195,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
 
         } else if(that.mode.toLowerCase() == "infographics") {
             that.new_data = that.data;
+            that.k.emptyDiv();
             that.optionalFeatures().svgContainer()
                     .set_start_end_angle()
                     .createChart()
@@ -203,7 +206,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
             that.k.tooltip();
             that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
         }
-        that.k.export(that,"#container",type);
+
         $(window).on("load", function () { return that.k.resize(that.svgContainer); })
                             .on("resize", function () { return that.k.resize(that.svgContainer); });
     };

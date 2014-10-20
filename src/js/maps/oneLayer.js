@@ -77,7 +77,6 @@ PykCharts.maps.timelineMap = function (options) {
 
 PykCharts.maps.mapFunctions = function (options,chartObject,type) {
     var that = chartObject;
-
     this.render = function () {
 
         that.border = new PykCharts.Configuration.border(that);

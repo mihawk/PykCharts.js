@@ -55,10 +55,11 @@ PykCharts.oneD.percentageBar = function (options) {
         that.onHoverEffect = new PykCharts.oneD.mouseEvent(options);
         that.transitions = new PykCharts.Configuration.transition(that);
         that.border = new PykCharts.Configuration.border(that);
+        that.k.export(that,"#svgcontainer","percentageBar");
         if(that.mode === "default") {
             that.k.title()
-                    .subtitle();
-                // [that.fullscreen]().fullScreen(that);
+                    .subtitle()
+                    .emptyDiv();
         }
         if(that.mode === "infographics") {
             that.new_data = that.data;
@@ -68,6 +69,7 @@ PykCharts.oneD.percentageBar = function (options) {
 
         that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
         if(that.mode === "default") {
+            that.k.emptyDiv();
             percent_bar = that.optionalFeatures()
                             .clubData();
         }
@@ -83,7 +85,6 @@ PykCharts.oneD.percentageBar = function (options) {
                 .credits()
                 .dataSource();
         }
-        that.k.export(that,"#svgcontainer","percentageBar");
         $(window).on("load", function () { return that.k.resize(that.svgContainer); })
                             .on("resize", function () { return that.k.resize(that.svgContainer); });
     };
@@ -178,7 +179,7 @@ PykCharts.oneD.percentageBar = function (options) {
                     .attr("class","svgcontainer");
 
                     that.group = that.svgContainer.append("g")
-                        .attr("id","funnel");
+                        .attr("id","percentageBar");
 
                 return this;
             },

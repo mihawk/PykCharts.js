@@ -46,14 +46,18 @@ PykCharts.oneD.treemap = function (options){
         that.onHoverEffect = new PykCharts.oneD.mouseEvent(options);
         that.transitions = new PykCharts.Configuration.transition(that);
         that.border = new PykCharts.Configuration.border(that);
+        that.k.export(that,"#svgcontainer","treemap");
+
         if(that.mode === "default") {
-            that.k.title();
-            that.k.subtitle();
+            that.k.title()
+                .subtitle()
+                .emptyDiv();
         }
 
         that.k.tooltip();
         that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
         if(that.mode === "infographics"){
+            that.k.emptyDiv();
             that.new_data = {"children" : that.data};
         }
 
@@ -71,7 +75,7 @@ PykCharts.oneD.treemap = function (options){
                 .credits()
                 .dataSource();
         }
-        that.k.export(that,"#svgcontainer","treemap");
+    
         $(window).on("load", function () { return that.k.resize(that.svgContainer); })
                             .on("resize", function () { return that.k.resize(that.svgContainer); });
     };

@@ -33,6 +33,7 @@ PykCharts.multiD.areaChart = function (options){
 		that.dataLineGroup = [], that.dataLineGroupBorder = [];
 		that.multid = new PykCharts.multiD.configuration(that);
 		that.fillColor = new PykCharts.Configuration.fillChart(that,null,options);
+		that.k.export(that,"#svg-1","areaChart"); 
 		if(that.mode === "default") {
 			that.transitions = new PykCharts.Configuration.transition(that);
 			that.fillColor = new PykCharts.Configuration.fillChart(that,null,options);
@@ -40,8 +41,10 @@ PykCharts.multiD.areaChart = function (options){
 			that.k.title()
 					.subtitle()
 					.liveData(that)
+					.emptyDiv()
 					.makeMainDiv(options.selector,1)
 					.tooltip(true,options.selector,1);
+
 
 			that.optional_feature()
 		    		.chartType()
@@ -66,6 +69,7 @@ PykCharts.multiD.areaChart = function (options){
 		}
 		else if(that.mode === "infographics") {
 			  that.k.liveData(that)
+			  			.emptyDiv()
 						.makeMainDiv(options.selector,1);
 
 			  that.optional_feature()
@@ -80,7 +84,7 @@ PykCharts.multiD.areaChart = function (options){
 					.xAxisTitle(that.xGroup)
 					.yAxisTitle(that.yGroup);
   		}
-  		that.k.export(that,"#svg-1","areaChart"); 
+
   		that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
   		$(window).on("load", function () { return that.k.resize(that.svgContainer,"yes"); })
                         .on("resize", function () { return that.k.resize(that.svgContainer,"yes"); });

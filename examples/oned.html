@@ -2,8 +2,10 @@
 	<head>
         <title>One-Dimensional Charts</title>
         <link rel="stylesheet" type="text/css" href="../dist/pykcharts.0.0.8.min.css">
+        <link rel="stylesheet" type="text/css" href="../lib/bootstrap.min.css">
         <script src="../lib/paper-full.js"></script>
         <script src="../lib/downloadDataURI.js"></script>
+
 	</head>
 	<body>
       <div id="bubble"></div>
@@ -41,8 +43,8 @@
                 transition_duration: 1,
                 clubdata_enable: "yes",
                 mode:"infographics",
-                "clubData_always_include_data_points" : ["18-24","25-44"]
-
+                "clubData_always_include_data_points" : ["18-24","25-44"],
+                export_enable: "no"
             });
             k.execute();
 
@@ -60,6 +62,8 @@
                 data:"../data/pictograph.json",
                 chart_width : 400,
                 transition_duration: 1,
+                "pictograph_current_count_weight": "bold",
+                "pictograph_total_count_weight": "thin",
              });
             k.execute();
 

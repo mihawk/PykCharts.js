@@ -149,6 +149,8 @@ PykCharts.Configuration = function (options){
         emptyDiv : function () {
             d3.select(options.selector).append("div")
                 .style("clear","both");
+
+            return this;
         },
         scaleIdentification : function (type,data,range,x) {
             var scale;
@@ -191,11 +193,17 @@ PykCharts.Configuration = function (options){
         },
 		title : function () {
             if(PykCharts.boolean(options.title_text) && options.title_size) {
+                var div_width = options.width;
+
+                if(PykCharts.boolean(options.export_enable)) {
+                    div_width = 0.9*options.width;
+                }
 	        	that.titleDiv = d3.select(options.selector)
 	                .append("div")
 	                    .attr("id","title")
-	                    .style("width", options.width + "px")
+	                    .style("width", (options.width) + "px")
 	                    .style("text-align","left")
+                        .style("float","left")
 	                    .html("<span style='pointer-events:none;font-size:" +
                         options.title_size+
                         "px;color:" +
@@ -852,40 +860,50 @@ PykCharts.Configuration = function (options){
         },
         export : function(chart,svgId,chart_name) {
 
-            var canvas_id = chart_name+"canvas";
-            var canvas = document.createElement("canvas");
-            canvas.setAttribute('display', "none")
-            canvas.setAttribute('id', canvas_id);
-            var id = "export";
+            //console.log(PykCharts.boolean(options.export_enable),chart_name,"export");
+            if(PykCharts.boolean(options.export_enable)) {
 
-            d3.select(chart.selector)
-                        .append("input")
-                            .attr("type","button")
-                            .attr("value","download")
-                            .attr("id",id)
-                            .style("left",chart.width - 100)
-                            .style("top",chart.height/2)
-                            .style("height","20")
+                var canvas_id = chart_name+"canvas";
+                var canvas = document.createElement("canvas");
+                canvas.setAttribute('display', "none")
+                canvas.setAttribute('id', canvas_id);
+                var id = "export",
+                div_size = options.width
+                div_float ="none"
+                div_left = options.width;
 
-            var get_canvas = document.getElementById(canvas_id);
-            paper.setup(get_canvas);
-            var project = new paper.Project();
-            project._view._viewSize.width = chart.width;
-            project._view._viewSize.height = chart.height;
-            var name = chart_name + ".svg"
+                if(PykCharts.boolean(options.title_text) && options.title_size) {
+                    div_size = 0.1*options.width;
+                    div_float ="right";
+                    div_left = 0;
+                }
+                
+                d3.select(chart.selector)
+                                .append("div")
+                                .attr("id",id)      
+                                .attr("class","glyphicon glyphicon-download-alt")
+                                .attr("width",div_size)
+                                .style("left",div_left+"px")
 
-            // console.log(document.querySelector(options.selector +" "+svgId),"svgContainer");
-            $(chart.selector + " #"+id).click(function(){
+                var get_canvas = document.getElementById(canvas_id);
+                paper.setup(get_canvas);
+                var project = new paper.Project();
+                project._view._viewSize.width = chart.width;
+                project._view._viewSize.height = chart.height;
+                var name = chart_name + ".svg"
+                
+                $(chart.selector + " #"+id).click(function(){
 
-                project.importSVG(document.querySelector(options.selector +" "+svgId));
-                var svg = project.exportSVG({ asString: true });
-                downloadDataURI({
-                    data: 'data:image/svg+xml;base64,' + btoa(svg),
-                    filename: name
+                    project.importSVG(document.querySelector(options.selector +" "+svgId));
+                    var svg = project.exportSVG({ asString: true });
+                    downloadDataURI({
+                        data: 'data:image/svg+xml;base64,' + btoa(svg),
+                        filename: name
+                    });
+                    project.clear();
+
                 });
-                project.clear();
-            });
-
+            }
             return this;
         }
     };
@@ -917,6 +935,7 @@ configuration.mouseEvent = function (options) {
                         .css("left", (xPos + options.margin_left + xDiff - width_tooltip) + "px");
                 }
                 else {
+                    console.log("Download");
                     that.tooltip
                         .style("visibility", "visible")
                         .style("top", (d3.event.layerY - 20) + "px")
@@ -1551,15 +1570,13 @@ configuration.Theme = function(){
         "pointer_size": 13,
         "pointer_color": "#1D1D1D",
         "pointer_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
-
-        "loading_gif_url": "https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/img/loader.gif",
-        
+        "export_enable": "yes",
+        "loading_gif_url": "https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/img/loader.gif",        
         "fullscreen_enable": "no",
-        
-        "tooltip_enable": "yes",
-        
+        "tooltip_enable": "yes",        
         "credit_my_site_name": "Pykih",
         "credit_my_site_url": "http://www.pykih.com"
+
     };
 
     that.functionality = {
@@ -1578,20 +1595,20 @@ configuration.Theme = function(){
         "donut_inner_radius_percent": 40,
         "donut_show_total_at_center": "yes", 
 
-        "pictograph_show_total": "yes",
-        "pictograph_total_enable": "yes",
-        "pictograph_current_enable": "yes",
+        "pictograph_show_all_images": "yes",
+        "pictograph_total_count_enable": "yes",
+        "pictograph_current_count_enable": "yes",
         "pictograph_image_per_line": 3,
         "pictograph_image_width": 79,
         "pictograph_image_height": 66,
-        "pictograph_active_text_size": 64,
-        "pictograph_active_text_color": "steelblue",
-        "pictograph_active_text_weight": "thin",
-        "pictograph_active_text_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
-        "pictograph_inactive_text_size": 64,
-        "pictograph_inactive_text_color": "grey",
-        "pictograph_inactive_text_weight": "thin",
-        "pictograph_inactive_text_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
+        "pictograph_current_count_size": 64,
+        "pictograph_current_count_color": "steelblue",
+        "pictograph_current_count_weight": "thin",
+        "pictograph_current_count_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
+        "pictograph_total_count_size": 64,
+        "pictograph_total_count_color": "grey",
+        "pictograph_total_count_weight": "thin",
+        "pictograph_total_count_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
 
         "funnel_rect_width": 100,
         "funnel_rect_height": 100,
