@@ -184,42 +184,36 @@ PykCharts.multiD.configuration = function (options){
             var checkColor = true;
 
             data.forEach(function (item) {
-                // console.log("item group", item.group, "item", item);
                 if(item.group) {
                     checkGroup = true;
                 } else {
                     checkGroup = false;
-                    if(item.color) {
+                    if(options.chart_color) {
                         checkGroup = false;
-                        item.color = item.color;
-                    }else if(options.color) {
+                        item.color = options.chart_color[0];
+                    }else if(item.color) {
                         checkColor = false;
-                        item.color = options.color[0];
-                        // item.color = options.colorPalette[0];
+                        item.color = item.color;
                     } else{
                         checkColor = false;
-                        item.color = options.colorPalette[0];
+                        item.color = options.default_color[0];
                     }
                 }
             });
 
             if(checkGroup) {
                 data.forEach(function(item) {
-                    if (!unique[item.group]) {
-                        if(item.color) {
-                            item.color = item.color;
-                        }else if(options.color) {
-                            item.color = options.color[k];
-                            // console.log("hey",options.color[k],k);
+                    if (!unique[item.group] && item.color) {
+                        if(options.chart_color.length !== 0 && PykCharts.boolean(options.chart_color[k])) {
+                            item.color = options.chart_color[k];
                             k++;
+                        }else if(item.color) {
+                            item.color = item.color;    
                         } else {
-                            item.color = options.colorPalette[k];
-                            k++;
+                            item.color = options.default_color;
                         }
-                        // console.log(item);
                         newarr.push(item);
                         unique[item.group] = item;
-                        // console.log(newarr,"new array",options.colorPalette[k]);
                     }
                 });
 
@@ -227,15 +221,15 @@ PykCharts.multiD.configuration = function (options){
                 var uniqueColor = {};
                 k = 0;
                 newarr.forEach(function(item) {
-                    if (!uniqueColor[item.color]) {
+                    // if (!uniqueColor[item.color]) {
                         arr.push(item);
-                        uniqueColor[item.color] = item;
-                    } else {
-                        item.color = options.colorPalette[k];
-                        k++;
-                        arr.push(item);
-                        uniqueColor[item.color] = item;
-                    }
+                    //     uniqueColor[item.color] = item;
+                    // } else {
+                    //     item.color = options.colorPalette[k];
+                    //     k++;
+                    //     arr.push(item);
+                    //     uniqueColor[item.color] = item;
+                    // }
                 });
                 var arr_length = arr.length,
                 data_length = data.length;
@@ -431,6 +425,7 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     chartObject.units = options.units ? options.units : false;
     chartObject.multiple_containers_enable = options.multiple_containers_enable ? options.multiple_containers_enable : multiDimensionalCharts.multiple_containers_enable;
     chartObject.colorPalette = ["#b2df8a", "#1f78b4", "#33a02c", "#fb9a99", "#e31a1c", "#fdbf6f", "#ff7f00", "#cab2d6", "#6a3d9a", "#ffff99", "#b15928", "#a6cee3"];
+    chartObject.export_enable = options.export_enable ? options.export_enable : stylesheet.export_enable; 
     chartObject.k = new PykCharts.Configuration(chartObject);
 
     return chartObject;

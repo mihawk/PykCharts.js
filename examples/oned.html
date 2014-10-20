@@ -2,7 +2,6 @@
 	<head>
         <title>One-Dimensional Charts</title>
         <link rel="stylesheet" type="text/css" href="../dist/pykcharts.0.0.8.min.css">
-        <link rel="stylesheet" type="text/css" href="../lib/bootstrap.min.css">
         <script src="../lib/paper-full.js"></script>
         <script src="../lib/downloadDataURI.js"></script>
 
@@ -82,7 +81,7 @@
             var k = new PykCharts.oneD.treemap({
                 selector: "#treemap",
                 data: "../data/pie.json",
-                transition_duration: 0, 
+                transition_duration: 0,
                 mode:"infographics",
             });
             k.execute();
@@ -105,7 +104,7 @@
             var k = new PykCharts.oneD.election_donut({
                 selector: "#electionDonutContainer",
                 data: "../data/pie.json",
-                transition_duration: 4                
+                transition_duration: 4
             });
             k.execute();
 
@@ -120,8 +119,7 @@
                 selector: "#percentageColumn",
                 data:"../data/pie.json",
                 transition_duration: 1,
-                "mode" : "infographics",
-                percent_column_rect_width : 30
+                "mode" : "infographics"
 
             });
             k.execute();
@@ -132,8 +130,8 @@
                 transition_duration: 1,
                 // "chart_height": 200,
                 chart_width: 600,
-                "mode" : "infographics",
-                percent_row_rect_height: 30
+                // clubdata_enable: "yes"
+                "mode" : "infographics"
             });
             k.execute();
 

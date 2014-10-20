@@ -55,7 +55,7 @@
         <script src="../src/js/multiD/areaChart.js"></script>
         <script src="../src/js/multiD/lineChart.js"></script>
         <script src="../src/js/multiD/spiderWeb.js"></script>
-        <script src="../src/js/multiD/scatter.js"></script>
+        <script src="../src/js/multiD/scatterplot.js"></script>
         <script src="../src/js/multiD/barChart.js"></script>
 
 
@@ -176,7 +176,7 @@
                     spiderweb_pointer: "yes",
                     spiderweb_axis_title : "yes",
 
-                    chart_color: ["purple","red"],
+                    chart_color: ["#75b0e1","#0e5ea1"],
 
                     chart_height: 430,
                     chart_width : 700,
@@ -205,7 +205,7 @@
                     data: "../data/scatterplot.json",
                     mode : "default", //  default or infographics
 
-                    chart_color: ["purple","red","yellow","pink","blue"],
+                    chart_color: ["#07365e","#0e5ea1","#4682b4","#75b0e1","#a0ccf1"],
 
                     chart_height: 450,
                     chart_width : 700,
@@ -270,7 +270,9 @@
                     selector: "#multiple-scatterplots",
                     data: "../data/scatterplot.json",
                     mode : "default", //  default or infographics
-    
+
+                    chart_color: ["#07365e","#0e5ea1","#4682b4","#75b0e1","#a0ccf1"],
+
                     chart_height: 450,
                     chart_width : 700,
                     chart_margin_top: 25,
@@ -328,7 +330,7 @@
                     crosshair_enable: "yes"
                 });
 
-            //   k.execute();
+              k.execute();
 
                 var k = new PykCharts.multiD.lineChart ({
                     selector: "#multiLine",
@@ -336,7 +338,7 @@
                     mode : "default",
 
                     color_mode: "color",  //color or saturation
-                    chart_color:["orange","pink","purple"],
+                    chart_color:["#013f73","#4682b4","#75b0e1"],
 
                     chart_height: 400, //400
                     chart_width : 630, //630
@@ -391,7 +393,7 @@
                     mode : "default",
 
                     color_mode: "color",  //color or saturation
-                    chart_color:["lightgray","steelblue","red"],
+                    chart_color:["lightgray","lightgray","lightgray"],
                     background_color:"",
 
                     chart_height: 400,
@@ -434,8 +436,8 @@
                     crosshair_enable: "yes",
                     zoom_enable: "yes",
 
-                    // highlight: "india",
-                    // highlight_color: "steelblue",// name of the group which is to be highlighted on onload
+                    highlight: "india",
+                    highlight_color: "steelblue",// name of the group which is to be highlighted on onload
                     // multiple_containers_enable: "no",
 
                 });
@@ -497,7 +499,7 @@
                     data: "../data/pulse.json",
                     mode : "default", //  default or infographics
 
-                    chart_color: ["purple","red","yellow"],
+                    chart_color: ["#75b0e1","#4682b4","#013f73"],
 
                     chart_height: 350,
                     chart_width : 650,
@@ -599,7 +601,6 @@
                     axis_y_outer_pointer_size: 3,
 
                     background_color: "white",
-                    chart_color: "steelblue",
                     highlight_color: "#013F73",
 
                     legends_enable: "no",
@@ -623,7 +624,7 @@
                     selector: "#groupColumn",
 
                     color_mode: "saturation",
-                    chart_color:["orange"],
+                    chart_color:["orange","red","steelblue","gray"],
 
                     chart_height: 430,
                     chart_width : 700,
@@ -658,7 +659,6 @@
                     axis_y_outer_pointer_size: 3,
 
                     background_color: "white",
-                    chart_color: "steelblue",
                     highlight_color: "#013F73",
 
                     legends_enable: "yes",
@@ -680,7 +680,7 @@
                     data: "../data/ultimatebar.json",
                     mode: "default",
                     selector: "#bar",
-                    color_mode: "color",
+                    color_mode: "saturation",
                     chart_color:["steelblue"],
 
                     chart_height: 430,
@@ -716,7 +716,6 @@
                     axis_y_outer_pointer_size: 3,
 
                     background_color: "white",
-                    chart_color: "steelblue",
                     highlight_color: "#013F73",
 
                     legends_enable: "no",
@@ -759,7 +758,7 @@
                     chart_grid_x_enable: "yes",
 
                     color_mode:"saturation",
-                    chart_color:["orange"],
+                    chart_color:["orange","red"],
 
                     real_time_charts_refresh_frequency: 0 ,
 
@@ -786,7 +785,6 @@
                     axis_y_outer_pointer_size: 3,
 
                     background_color: "white",
-                    chart_color: "steelblue",
                     highlight_color: "#013F73",
 
                     legends_enable: "yes",
