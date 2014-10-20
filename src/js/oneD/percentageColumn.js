@@ -11,7 +11,7 @@ PykCharts.oneD.percentageColumn = function (options) {
 
         that = new PykCharts.oneD.processInputs(that, options, "percentageColumn");
         // 1.2 Read Json File Get all the data and pass to render
-        that.percent_column_rect_width = that.percent_column_rect_width ? that.percent_column_rect_width : theme.oneDimensionalCharts.percent_column_rect_width;
+        that.percent_column_rect_width = options.percent_column_rect_width ? options.percent_column_rect_width : theme.oneDimensionalCharts.percent_column_rect_width;
         that.percent_column_rect_width = that.k._radiusCalculation(that.percent_column_rect_width,"percentageColumn") * 2;
         that.height = options.chart_height ? options.chart_height : that.width;
         if(that.mode === "default") {
@@ -54,15 +54,18 @@ PykCharts.oneD.percentageColumn = function (options) {
         that.onHoverEffect = new PykCharts.oneD.mouseEvent(options);
         that.transitions = new PykCharts.Configuration.transition(that);
         that.border = new PykCharts.Configuration.border(that);
-        that.k.export(that,"#svgcontainer","percentageColumn");
+
         if(that.mode === "default") {
             that.k.title()
                     .subtitle()
+                    .export(that,"#svgcontainer","percentageColumn")
                     .emptyDiv();
                 // [that.fullscreen]().fullScreen(that);
         }
         if(that.mode === "infographics") {
-            that.k.emptyDiv();
+            that.k.export(that,"#svgcontainer","percentageColumn")
+                    .emptyDiv();
+
             that.new_data = that.data;
         }
 
@@ -143,12 +146,12 @@ PykCharts.oneD.percentageColumn = function (options) {
                     .attr("stroke-dasharray", that.border.style())
                     .on("mouseover", function (d,i) {
                         d.tooltip=d.tooltip||"<table class='PykCharts'><tr><th colspan='2' class='tooltip-heading'>"+d.name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.weight)+"<td class='tooltip-right-content'>(&nbsp;"+d.percentValue.toFixed(2)+"%&nbsp)</tr></table>"
-                        that.onHoverEffect.highlight(".per-rect",this);
+                        that.onHoverEffect.highlight(options.selector+" "+".per-rect",this);
                         that.mouseEvent.tooltipPosition(d);
                         that.mouseEvent.toolTextShow(d.tooltip);
                     })
                     .on("mouseout", function (d) {
-                        that.onHoverEffect.highlightHide(".per-rect");
+                        that.onHoverEffect.highlightHide(options.selector+" "+".per-rect");
                         that.mouseEvent.tooltipHide(d);
                     })
                     .on("mousemove", function (d,i) {
@@ -212,10 +215,13 @@ PykCharts.oneD.percentageColumn = function (options) {
                         // .delay(that.transitions.duration())
 
                         setTimeout(function(){
-                            that.chart_text.text(function (d) { return that.k.appendUnits(d.weight); })
+                            that.chart_text.text(function (d) { 
+                                return d.percentValue.toFixed(1)+"%";
+                                // return that.k.appendUnits(d.weight); 
+                            })
                                 .text(function (d) {
                                     if(this.getBBox().width < (that.width/4) && this.getBBox().height < (d.percentValue * that.height / 100)) {
-                                        return d.percentValue.toFixed(1)+"%"
+                                        return d.percentValue.toFixed(1)+"%";
                                         // return that.k.appendUnits(d.weight);
                                     }else {
                                         return "";
@@ -376,7 +382,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                         new_data1.sort(sortfunc);
                         var a=new_data1.pop();
                     }
-                    var others_Slice = { "name":that.clubdata_text, "weight": sum_others, "color": that.clubData_color, "tooltip": that.clubData_tooltip };
+                    var others_Slice = { "name":that.clubdata_text, "weight": sum_others, /*"color": that.clubData_color,*/ "tooltip": that.clubdata_tooltip };
 
                     if(new_data1.length < that.clubdata_maximum_nodes){
                         new_data1.push(others_Slice);

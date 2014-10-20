@@ -59,17 +59,21 @@ PykCharts.oneD.funnel = function (options) {
         that.transitions = new PykCharts.Configuration.transition(that);
 //        theme.stylesheet.borderBetweenChartElements;
         that.border = new PykCharts.Configuration.border(that);
-        that.k.export(that,"#svgcontainer","funnel");
+
         if(that.mode === "default") {
         
             that.k.title()
-                .subtitle()
+                .subtitle();
+
+                that.k.export(that,"#svgcontainer","funnel")
                 .emptyDiv();
         }
         that.k.tooltip();
         that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
         if(that.mode === "infographics") {
-            that.k.emptyDiv();
+            that.k.export(that,"#svgcontainer","funnel")
+                .emptyDiv();
+
             that.new_data = that.data;
         }
         if(that.mode === "default") {

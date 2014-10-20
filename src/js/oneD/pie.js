@@ -4,8 +4,8 @@ PykCharts.oneD.pie = function (options) {
 
     this.execute = function() {
         that = new PykCharts.oneD.processInputs(that, options, "pie");
-        if(options.height) {
-            that.height = options.height;
+        if(options.chart_height) {
+            that.height = options.chart_height;
             that.calculation = "";
         }
         else {
@@ -38,8 +38,8 @@ PykCharts.oneD.donut = function (options) {
     this.execute = function() {
 
         that = new PykCharts.oneD.processInputs(that, options, "pie");
-        if(options.height) {
-            that.height = options.height;
+        if(options.chart_height) {
+            that.height = options.chart_height;
             that.calculation = "";
         }
         else {
@@ -70,8 +70,8 @@ PykCharts.oneD.election_pie = function (options) {
     this.execute = function() {
 
         that = new PykCharts.oneD.processInputs(that, options, "pie");
-        if(options.height) {
-            that.height = options.height;
+        if(options.chart_height) {
+            that.height = options.chart_height;
             that.calculation = "";
             that.height_translate = that.height/2;
         }
@@ -100,8 +100,8 @@ PykCharts.oneD.election_donut = function (options) {
 
     this.execute = function() {
         that = new PykCharts.oneD.processInputs(that, options, "pie");
-        if(options.height) {
-            that.height = options.height;
+        if(options.chart_height) {
+            that.height = options.chart_height;
             that.calculation = "";
             that.height_translate = that.height/2;
         }
@@ -165,12 +165,14 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
         that.onHoverEffect = new PykCharts.oneD.mouseEvent(options);
         that.border = new PykCharts.Configuration.border(that);
         that.transitions = new PykCharts.Configuration.transition(that);
-        that.k.export(that,"#container",type);
+
+        that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
 
         if(that.mode.toLowerCase() == "default") {
 
             that.k.title()
                 .subtitle()
+                .export(that,"#container",type)
                 .emptyDiv();
 
             that.optionalFeatures().svgContainer();
@@ -182,7 +184,6 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                     .dataSource()
                     .tooltip();
 
-            that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
 
             that.optionalFeatures()
                     .set_start_end_angle()
@@ -195,6 +196,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
 
         } else if(that.mode.toLowerCase() == "infographics") {
             that.new_data = that.data;
+            that.k.export(that,"#container",type)
             that.k.emptyDiv();
             that.optionalFeatures().svgContainer()
                     .set_start_end_angle()
@@ -204,7 +206,6 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                     .centerLabel();
 
             that.k.tooltip();
-            that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
         }
 
         $(window).on("load", function () { return that.k.resize(that.svgContainer); })
@@ -304,7 +305,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                 that.chart_data.transition()
                     .delay(function(d, i) {
                         if(that.transition_duration && that.mode == "default") {
-                            return (i * that.transition_duration)/that.new_data.length;
+                            return (i * that.transition_duration * 1000)/that.new_data.length;
                         } else return 0;
                     })
                     .duration(that.transitions.duration()/that.new_data.length)

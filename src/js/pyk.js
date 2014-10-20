@@ -149,6 +149,8 @@ PykCharts.Configuration = function (options){
         emptyDiv : function () {
             d3.select(options.selector).append("div")
                 .style("clear","both");
+
+            return this;
         },
         scaleIdentification : function (type,data,range,x) {
             var scale;
@@ -195,7 +197,9 @@ PykCharts.Configuration = function (options){
 
                 if(PykCharts.boolean(options.export_enable)) {
                     div_width = 0.9*options.width;
+                    console.log(div_width,"div_width")
                 }
+
 	        	that.titleDiv = d3.select(options.selector)
 	                .append("div")
 	                    .attr("id","title")
@@ -510,7 +514,8 @@ PykCharts.Configuration = function (options){
         loading: function () {
             if(PykCharts.boolean(options.loading)) {
                 $(options.selector).html("<div id='chart-loader'><img src="+options.loading+"></div>");
-                $(options.selector + " #chart-loader").css({"visibility":"visible","padding-left":(options.width)/2 +"px","padding-top":(options.height)/2 + "px"});
+                var initial_height_div = $(options.selector).height();
+                $(options.selector + " #chart-loader").css({"visibility":"visible","padding-left":(options.width/2) +"px","padding-top":(initial_height_div/2) + "px"});
             }
             return this;
         },
@@ -728,7 +733,6 @@ PykCharts.Configuration = function (options){
             var a = $(options.selector + " g.y.axis text");
 
             var len = a.length,comp;
-
             for(i=0; i<len-1;i++) {
                 comp = a[i].innerHTML;
                 if(a[i].getBBox().width > (options.margin_left * 0.7)) {
@@ -793,11 +797,16 @@ PykCharts.Configuration = function (options){
             }
             svg.attr("width", targetWidth);
             svg.attr("height", targetWidth / aspect);
+            var title_div_width;
             if(PykCharts.boolean(options.title_text)) {
-                $(options.selector + " #title").css("width", targetWidth);
+                if(PykCharts.boolean(options.export_enable)) {
+                    title_div_width = 0.9*targetWidth;
+                    $(options.selector + " #title").css("width",title_div_width);
+                }
             }
             if(PykCharts.boolean(options.subtitle_text)) {
-                $(options.selector + " #sub-title").css("width", targetWidth);
+                title_div_width = 0.9*targetWidth;
+                $(options.selector + " #sub-title").css("width", title_div_width);
             }
             if(lsvg !== undefined) {
                 lsvg.attr("width",targetWidth);
@@ -857,28 +866,32 @@ PykCharts.Configuration = function (options){
             }
         },
         export : function(chart,svgId,chart_name) {
+
             if(PykCharts.boolean(options.export_enable)) {
+
                 var canvas_id = chart_name+"canvas";
                 var canvas = document.createElement("canvas");
                 canvas.setAttribute('display', "none")
                 canvas.setAttribute('id', canvas_id);
                 var id = "export",
                 div_size = options.width
-                div_float ="none"
-                div_left = options.width;
+               div_float ="none"
+                div_left = options.width-15;
 
                 if(PykCharts.boolean(options.title_text) && options.title_size) {
                     div_size = 0.1*options.width;
-                    div_float ="right";
+                    div_float ="left";
                     div_left = 0;
                 }
                 
                 d3.select(chart.selector)
                                 .append("div")
                                 .attr("id",id)      
-                                .attr("class","glyphicon glyphicon-download-alt")
-                                .attr("width",div_size)
+                                .style("width",div_size + "px")
                                 .style("left",div_left+"px")
+                                .style("float",div_float)
+                                .style("text-align","right")
+                                .html("<img src='../img/download-icon.png' style='left:"+div_left+"px;margin-bottom:3px'/>");
 
                 var get_canvas = document.getElementById(canvas_id);
                 paper.setup(get_canvas);
@@ -930,7 +943,6 @@ configuration.mouseEvent = function (options) {
                         .css("left", (xPos + options.margin_left + xDiff - width_tooltip) + "px");
                 }
                 else {
-                    console.log("Download");
                     that.tooltip
                         .style("visibility", "visible")
                         .style("top", (d3.event.layerY - 20) + "px")
@@ -1355,7 +1367,7 @@ configuration.fillChart = function (options,theme,config) {
                 return options.highlight_color;
             } else if(options.color_mode === "saturation") {
                 return options.saturation_color;
-            } else if(options.color_mode === "color" && d.color) {
+            } else if(options.color_mode === "color") {
                 return d.color;
             } else if(options.color_mode === "color"){
                 return options.chart_color;
@@ -1446,7 +1458,7 @@ configuration.makeYAxis = function(options,yScale) {
                     .outerTickSize(options.axis_y_outer_pointer_size)
                     .tickPadding(options.axis_y_pointer_padding)
                     .tickFormat(function (d,i) {
-                        return k.appendUnits(d);
+                        return d;
                     });
 
     if(options.axis_y_data_format=== "time" && PykCharts.boolean(options.axis_y_time_value_type)) {
@@ -1565,7 +1577,7 @@ configuration.Theme = function(){
         "pointer_size": 13,
         "pointer_color": "#1D1D1D",
         "pointer_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
-        "export_enable": "no",
+        "export_enable": "yes",
         "loading_gif_url": "https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/img/loader.gif",        
         "fullscreen_enable": "no",
         "tooltip_enable": "yes",        
@@ -1590,20 +1602,20 @@ configuration.Theme = function(){
         "donut_inner_radius_percent": 40,
         "donut_show_total_at_center": "yes", 
 
-        "pictograph_show_total": "yes",
-        "pictograph_total_enable": "yes",
-        "pictograph_current_enable": "yes",
+        "pictograph_show_all_images": "yes",
+        "pictograph_total_count_enable": "yes",
+        "pictograph_current_count_enable": "yes",
         "pictograph_image_per_line": 3,
         "pictograph_image_width": 79,
         "pictograph_image_height": 66,
-        "pictograph_active_text_size": 64,
-        "pictograph_active_text_color": "steelblue",
-        "pictograph_active_text_weight": "thin",
-        "pictograph_active_text_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
-        "pictograph_inactive_text_size": 64,
-        "pictograph_inactive_text_color": "grey",
-        "pictograph_inactive_text_weight": "thin",
-        "pictograph_inactive_text_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
+        "pictograph_current_count_size": 64,
+        "pictograph_current_count_color": "steelblue",
+        "pictograph_current_count_weight": "thin",
+        "pictograph_current_count_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
+        "pictograph_total_count_size": 64,
+        "pictograph_total_count_color": "grey",
+        "pictograph_total_count_weight": "thin",
+        "pictograph_total_count_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
 
         "funnel_rect_width": 100,
         "funnel_rect_height": 100,
@@ -1714,6 +1726,7 @@ configuration.Theme = function(){
 
         "highlight_area_enable":"no",
         "highlight": "",
+        "highlight_color": "yellow",
 
         "axis_onhover_hightlight_enable" : "no",
         "axis_x_enable": "yes",

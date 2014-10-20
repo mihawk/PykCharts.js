@@ -506,7 +506,6 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                         that.legends_text = that.legendsGroup.selectAll(".legends_text")
                             .data(that.map_group_data[0]);
                     }
-                    // console.log(that.map_group_data[0]);
                     legend.enter()
                             .append("rect");
 

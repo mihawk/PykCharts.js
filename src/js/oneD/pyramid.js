@@ -43,11 +43,11 @@ PykCharts.oneD.pyramid = function (options) {
         that.onHoverEffect = new PykCharts.oneD.mouseEvent(options);
         that.transitions = new PykCharts.Configuration.transition(that);
         that.border = new PykCharts.Configuration.border(that);
-        that.k.export(that,"#svgcontainer","pyramid");
 
         if (that.mode === "default") {
             that.k.title()
                 .subtitle()
+                .export(that,"#container","pyramid")
                 .emptyDiv();
             that.new_data = that.optionalFeatures().clubData();
             that.optionalFeatures().svgContainer()
@@ -67,7 +67,8 @@ PykCharts.oneD.pyramid = function (options) {
 
         } else if (that.mode === "infographics") {
             that.new_data = that.data;
-            that.k.emptyDiv();
+            that.k.export(that,"#container","pyramid")
+                .emptyDiv();
             that.optionalFeatures().svgContainer()
                 .createChart()
                 .label()

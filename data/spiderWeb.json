@@ -4,7 +4,6 @@
         "y": 5,
         "weight":15,
         "group":"2014",
-        "color": "#75b0e1",
         "tooltip": "National Democratic Alliance"
     },
     {
@@ -33,6 +32,7 @@
         "y": 30,
         "weight":25,
         "group":"2014",
+        "color": "#75b0e1",
         "tooltip": "Congress Party"
     },
 
