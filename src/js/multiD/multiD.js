@@ -307,13 +307,11 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     chartObject.margin_right = options.chart_margin_left && _.isNumber(options.chart_margin_right) ? options.chart_margin_right : stylesheet.chart_margin_right;
     chartObject.margin_top = options.chart_margin_top && _.isNumber(options.chart_margin_top) ? options.chart_margin_top : stylesheet.chart_margin_top;
     chartObject.margin_bottom = options.chart_margin_bottom && _.isNumber(options.chart_margin_bottom) ? options.chart_margin_bottom : stylesheet.chart_margin_bottom;
-    chartObject.grid_x_enable = options.chart_grid_x_enable ? options.chart_grid_x_enable : stylesheet.chart_grid_x_enable;
-    chartObject.grid_y_enable = options.chart_grid_y_enable ? options.chart_grid_y_enable : stylesheet.chart_grid_y_enable;
+    chartObject.grid_x_enable = options.chart_grid_x_enable ? options.chart_grid_x_enable : multiDimensionalCharts.chart_grid_x_enable;
+    chartObject.grid_y_enable = options.chart_grid_y_enable ? options.chart_grid_y_enable : multiDimensionalCharts.chart_grid_y_enable;
     chartObject.grid_color = options.chart_grid_color ? options.chart_grid_color : stylesheet.chart_grid_color;
     chartObject.mode = options.mode ? options.mode : "default";
     chartObject.color_mode = options.color_mode ? options.color_mode : multiDimensionalCharts.color_mode;
-    chartObject.color = options.color ? options.color : multiDimensionalCharts.color;
-
     if (options &&  PykCharts.boolean (options.title_text)) {
         chartObject.title_text = options.title_text;
         chartObject.title_size = "title_size" in options ? options.title_size : stylesheet.title_size;

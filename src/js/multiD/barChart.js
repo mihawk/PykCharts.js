@@ -518,7 +518,6 @@ PykCharts.multiD.barChart = function(options){
             legends: function () {
                 if(PykCharts.boolean(that.legends_enable)) {
                     var params = that.getParameters(),color;
-                    console.log(params);
                     color = params[0].color;
                     params = params.map(function (d) {
                         return d.name;
@@ -723,8 +722,8 @@ PykCharts.multiD.barChart = function(options){
                     color = that.saturation_color;
                 } else if(that.color_mode === "color" && that.the_layers[i].values[0].color) {
                     color = that.the_layers[i].values[0].color;
-                } else if(that.color_mode === "color" && that.color.length){
-                    color = that.color[0];
+                } else if(that.color_mode === "color" && that.chart_color.length){
+                    color = that.chart_color[0];
                 } else {
                     color = that.chart_color;
                 } 

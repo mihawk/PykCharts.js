@@ -43,10 +43,12 @@ PykCharts.oneD.pyramid = function (options) {
         that.onHoverEffect = new PykCharts.oneD.mouseEvent(options);
         that.transitions = new PykCharts.Configuration.transition(that);
         that.border = new PykCharts.Configuration.border(that);
+        that.k.export(that,"#svgcontainer","pyramid");
 
         if (that.mode === "default") {
-            that.k.title();
-            that.k.subtitle();
+            that.k.title()
+                .subtitle()
+                .emptyDiv();
             that.new_data = that.optionalFeatures().clubData();
             that.optionalFeatures().svgContainer()
                 .createChart()
@@ -65,15 +67,16 @@ PykCharts.oneD.pyramid = function (options) {
 
         } else if (that.mode === "infographics") {
             that.new_data = that.data;
+            that.k.emptyDiv();
             that.optionalFeatures().svgContainer()
                 .createChart()
-                .label();
+                .label()
+                .ticks();
 
             that.k.tooltip();
             that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
         }
 
-        that.k.export(that,"#svgcontainer","pyramid");
         $(window).on("load", function () { return that.k.resize(that.svgContainer); })
                             .on("resize", function () { return that.k.resize(that.svgContainer); });
 	};
@@ -477,11 +480,11 @@ PykCharts.oneD.pyramid = function (options) {
                         return result;
                     } ;
                     
-                    if(that.clubData_always_include_data_points.length!== 0) {
-                        for (var l=0;l<that.clubData_always_include_data_points.length;l++)
+                    if(that.clubdata_always_include_data_points.length!== 0) {
+                        for (var l=0;l<that.clubdata_always_include_data_points.length;l++)
                         {
 
-                            index = that.getIndexByName(that.clubData_always_include_data_points[l]);
+                            index = that.getIndexByName(that.clubdata_always_include_data_points[l]);
                             if(index!= undefined) {
                                 that.displayData.push(that.data[index]);
                                 that.sorted_weight = reject (index);

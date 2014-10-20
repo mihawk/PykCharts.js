@@ -36,7 +36,7 @@ PykCharts.multiD.lineChart = function (options){
 		for(j = 0;j < that.data_length;j++) {
 			that.group_arr[j] = that.data[j].name;
 			if(!that.data[j].color) {
-				that.color_arr[j] = that.color[j];
+				that.color_arr[j] = that.chart_color[j];
 			} else if (that.data[j].color){ 
 				that.color_arr[j] = that.data[j].color;
 			} else {
@@ -305,7 +305,7 @@ PykCharts.multiD.lineChart = function (options){
 						.attr("id","ygrid")
 						.attr("class","y grid-line");
 				}
-				if(PykCharts.boolean(that.grid_xEnabled)){
+				if(PykCharts.boolean(that.grid_x_enable)){
 					that.group.append("g")
 						.attr("id","xgrid")
 						.attr("class","x grid-line");
@@ -649,7 +649,6 @@ PykCharts.multiD.lineChart = function (options){
 			},
 			ticks: function (index) {
 				if(PykCharts.boolean(that.pointer_size)) { 
-					console.log("inside")
 					if(PykCharts.boolean(that.multiple_containers_enable)) {
 						type = that.type + that.svgContainer.attr("id");
 						if (that.axis_x_position  === "bottom" && (that.axis_y_position === "left" || that.axis_y_position === "right")) {
@@ -843,9 +842,10 @@ PykCharts.multiD.lineChart = function (options){
                 	return that.line(a);
                 })
 				.attr("fill","#eeeeee")
-                .call(that.k.annotation);
+                // .call(that.k.annotation);
             anno.exit()
             	.remove();
+            that.k.annotation(that.selector + " #svg-1",annotation, that.xScale,that.yScale);
 		} else if(PykCharts.boolean(that.multiple_containers_enable)) {
 			for(i=0;i<that.new_data_length;i++){
 				var annotation = [], arrow_size = 10;
@@ -881,10 +881,10 @@ PykCharts.multiD.lineChart = function (options){
                     	];
                     	return that.line(a);
                     })
-					.attr("fill","#eeeeee")
-                    .call(that.k.annotation);
+					.attr("fill","#eeeeee");
                 anno.exit()
                 	.remove();
+                that.k.annotation(that.selector + " #svg-" + i,annotation, that.xScale,that.yScale)
 			}
 		}
 	}

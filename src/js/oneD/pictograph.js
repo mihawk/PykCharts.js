@@ -36,11 +36,14 @@ PykCharts.oneD.pictograph = function (options) {
     this.render = function () {
 
         that.transitions = new PykCharts.Configuration.transition(that);
-        if(that.mode==="default") {
-            that.k.title();
-            that.k.subtitle();
-        }
+        that.k.export(that,"#svgcontainer","pictograph");
 
+        if(that.mode==="default") {
+            that.k.title()
+                .subtitle()
+                
+        }
+        that.k.emptyDiv();
         that.optionalFeatures()
                 .svgContainer()
                 .createChart()
@@ -51,8 +54,6 @@ PykCharts.oneD.pictograph = function (options) {
                 .credits()
                 .dataSource();
         }
-
-        that.k.export(that,"#svgcontainer","pictograph");
 
         $(window).on("load", function () { return that.k.resize(that.svgContainer); })
                             .on("resize", function () { return that.k.resize(that.svgContainer); });

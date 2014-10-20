@@ -7,7 +7,6 @@
         include.onload = include.onreadystatechange = function () {
             try {
                 if (_ && d3 && ($ || jQuery) && d3.customHive && topojson) {
-                    console.log("init");
                     PykCharts.numberFormat = d3.format(",");
                     window.PykChartsInit();
                 };

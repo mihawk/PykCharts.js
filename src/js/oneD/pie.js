@@ -110,7 +110,7 @@ PykCharts.oneD.election_donut = function (options) {
             that.calculation = "pie";
             that.height_translate = that.height;
         }
-        
+
         that.radiusPercent = options.donut_radius_percent && _.isNumber(options.donut_radius_percent) ? options.donut_radius_percent : theme.oneDimensionalCharts.donut_radius_percent;
         that.innerRadiusPercent = options.donut_inner_radius_percent && _.isNumber(options.donut_inner_radius_percent) && options.donut_inner_radius_percent ? options.donut_inner_radius_percent : theme.oneDimensionalCharts.donut_inner_radius_percent;
 
@@ -165,11 +165,13 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
         that.onHoverEffect = new PykCharts.oneD.mouseEvent(options);
         that.border = new PykCharts.Configuration.border(that);
         that.transitions = new PykCharts.Configuration.transition(that);
+        that.k.export(that,"#container",type);
 
         if(that.mode.toLowerCase() == "default") {
 
             that.k.title()
-                .subtitle();
+                .subtitle()
+                .emptyDiv();
 
             that.optionalFeatures().svgContainer();
             that.new_data = that.optionalFeatures().clubData();
@@ -193,15 +195,18 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
 
         } else if(that.mode.toLowerCase() == "infographics") {
             that.new_data = that.data;
+            that.k.emptyDiv();
             that.optionalFeatures().svgContainer()
                     .set_start_end_angle()
                     .createChart()
-                    .label();
+                    .label()
+                    .ticks()
+                    .centerLabel();
 
             that.k.tooltip();
             that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
         }
-        that.k.export(that,"#container",type);
+
         $(window).on("load", function () { return that.k.resize(that.svgContainer); })
                             .on("resize", function () { return that.k.resize(that.svgContainer); });
     };
@@ -398,11 +403,11 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                     } ;
                     var k = 0;
 
-                    if(that.clubData_always_include_data_points.length!== 0) {
-                        for (var l=0;l<that.clubData_always_include_data_points.length;l++)
+                    if(that.clubdata_always_include_data_points.length!== 0) {
+                        for (var l=0;l<that.clubdata_always_include_data_points.length;l++)
                         {
 
-                            index = that.getIndexByName(that.clubData_always_include_data_points[l]);
+                            index = that.getIndexByName(that.clubdata_always_include_data_points[l]);
                             if(index!= undefined) {
                                 that.displayData.push(that.data[index]);
                                 that.sorted_weight = reject (index);
@@ -425,7 +430,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                         }
                     };
                     var count = that.clubdata_maximum_nodes-that.displayData.length;
-                    
+
                     var sum_others = d3.sum(that.sorted_weight,function (d,i) {
                             if(i>=count-1)
                                 return d;

@@ -46,14 +46,18 @@ PykCharts.oneD.treemap = function (options){
         that.onHoverEffect = new PykCharts.oneD.mouseEvent(options);
         that.transitions = new PykCharts.Configuration.transition(that);
         that.border = new PykCharts.Configuration.border(that);
+        that.k.export(that,"#svgcontainer","treemap");
+
         if(that.mode === "default") {
-            that.k.title();
-            that.k.subtitle();
+            that.k.title()
+                .subtitle()
+                .emptyDiv();
         }
 
         that.k.tooltip();
         that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
         if(that.mode === "infographics"){
+            that.k.emptyDiv();
             that.new_data = {"children" : that.data};
         }
 
@@ -71,7 +75,7 @@ PykCharts.oneD.treemap = function (options){
                 .credits()
                 .dataSource();
         }
-        that.k.export(that,"#svgcontainer","treemap");
+    
         $(window).on("load", function () { return that.k.resize(that.svgContainer); })
                             .on("resize", function () { return that.k.resize(that.svgContainer); });
     };
@@ -235,10 +239,10 @@ PykCharts.oneD.treemap = function (options){
                         that.new_data = { "children" : that.data };
                         return this;
                     }
-                    if(that.clubData_always_include_data_points.length!== 0){
-                        var l = that.clubData_always_include_data_points.length;
+                    if(that.clubdata_always_include_data_points.length!== 0){
+                        var l = that.clubdata_always_include_data_points.length;
                         for(i=0; i < l; i++){
-                            clubdata_content[i] = that.clubData_always_include_data_points[i];
+                            clubdata_content[i] = that.clubdata_always_include_data_points[i];
                         }
                     }
                     var new_data1 = [];
