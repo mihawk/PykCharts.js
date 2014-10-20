@@ -881,11 +881,11 @@ PykCharts.Configuration = function (options){
                 d3.select(chart.selector)
                                 .append("div")
                                 .attr("id",id)
-                                .attr("class","glyphicon glyphicon-list")
                                 .attr("width",div_size)
                                 .style("left",div_left+"px")
                                 // .style("padding-left","15px")
                                 .style("margin-bottom","3px")
+                                .html("<img src='../img/download-icon.png' />");
 
                 var get_canvas = document.getElementById(canvas_id);
                 paper.setup(get_canvas);
