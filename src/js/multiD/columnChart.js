@@ -63,12 +63,16 @@ PykCharts.multiD.columnChart = function(options){
         that.transitions = new PykCharts.Configuration.transition(that);
         that.mouseEvent1 = new PykCharts.multiD.mouseEvent(that);
         that.fillColor = new PykCharts.Configuration.fillChart(that,null,options);
+
+        that.k.export(that,"#svgcontainer","columnChart");
+        
         if(that.no_of_groups === 1) {
             that.legends_enable = "no";
         }
         if(that.mode === "default") {
             that.k.title()
                 .subtitle()
+                .emptyDiv()
                 .makeMainDiv(that.selector,1);
 
             that.optionalFeatures()
@@ -97,7 +101,8 @@ PykCharts.multiD.columnChart = function(options){
                 .yGrid(that.svgContainer,that.group,that.yScaleInvert);
 
         } else if(that.mode === "infographics") {
-            that.k.makeMainDiv(that.selector,1);
+            that.k.emptyDiv()
+                .makeMainDiv(that.selector,1);
             that.optionalFeatures().svgContainer(1)
                 .createGroups(1)
                 .createChart()
@@ -109,7 +114,6 @@ PykCharts.multiD.columnChart = function(options){
                  .yAxisTitle(that.yGroup);
         }
 
-        that.k.export(that,"#svgcontainer","columnChart");
         if(PykCharts.boolean(that.legends_enable)) {
             $(window).on("load", function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); })
                 .on("resize", function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); });

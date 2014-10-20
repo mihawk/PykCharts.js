@@ -90,10 +90,12 @@ PykCharts.multiD.lineChart = function (options){
 		that.multid = new PykCharts.multiD.configuration(that);
 		that.fillColor = new PykCharts.Configuration.fillChart(that,null,options);
 		if(that.mode === "default") {
+			that.k.export(that,"#svg-1","lineChart"); 
 			that.transitions = new PykCharts.Configuration.transition(options);
 
 			that.k.title()
-					.subtitle();
+					.subtitle()
+					.emptyDiv();
 
 			if(PykCharts.boolean(that.multiple_containers_enable)) {
 				that.w = that.width/3;
@@ -160,7 +162,7 @@ PykCharts.multiD.lineChart = function (options){
 						.xAxisTitle(that.xGroup)
 						.yAxisTitle(that.yGroup);
 
-				that.k.export(that,"#svg-1","lineChart"); 
+			
 			}
 			that.k.createFooter()
                 .lastUpdatedAt()
@@ -192,6 +194,7 @@ PykCharts.multiD.lineChart = function (options){
 			that.reducedHeight = that.height - that.margin_top - that.margin_bottom;
 
 			that.k.liveData(that)
+					.emptyDiv()
 					.makeMainDiv(that.selector,1);
 
 			that.optionalFeature()
