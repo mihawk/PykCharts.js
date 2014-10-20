@@ -149,6 +149,8 @@ PykCharts.Configuration = function (options){
         emptyDiv : function () {
             d3.select(options.selector).append("div")
                 .style("clear","both");
+
+            return this;
         },
         scaleIdentification : function (type,data,range,x) {
             var scale;
@@ -5672,6 +5674,8 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     chartObject.units = options.units ? options.units : false;
     chartObject.multiple_containers_enable = options.multiple_containers_enable ? options.multiple_containers_enable : multiDimensionalCharts.multiple_containers_enable;
     chartObject.colorPalette = ["#b2df8a", "#1f78b4", "#33a02c", "#fb9a99", "#e31a1c", "#fdbf6f", "#ff7f00", "#cab2d6", "#6a3d9a", "#ffff99", "#b15928", "#a6cee3"];
+    chartObject.export_enable = options.export_enable ? options.export_enable : stylesheet.export_enable 
+    
     chartObject.k = new PykCharts.Configuration(chartObject);
 
     return chartObject;
@@ -6603,6 +6607,7 @@ PykCharts.multiD.areaChart = function (options){
 		that.dataLineGroup = [], that.dataLineGroupBorder = [];
 		that.multid = new PykCharts.multiD.configuration(that);
 		that.fillColor = new PykCharts.Configuration.fillChart(that,null,options);
+		that.k.export(that,"#svg-1","areaChart"); 
 		if(that.mode === "default") {
 			that.transitions = new PykCharts.Configuration.transition(that);
 			that.fillColor = new PykCharts.Configuration.fillChart(that,null,options);
@@ -6610,6 +6615,7 @@ PykCharts.multiD.areaChart = function (options){
 			that.k.title()
 					.subtitle()
 					.liveData(that)
+					.emptyDiv()
 					.makeMainDiv(options.selector,1)
 					.tooltip(true,options.selector,1);
 
@@ -6651,7 +6657,7 @@ PykCharts.multiD.areaChart = function (options){
 					.xAxisTitle(that.xGroup)
 					.yAxisTitle(that.yGroup);
   		}
-  		that.k.export(that,"#svg-1","areaChart"); 
+
   		that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
   		$(window).on("load", function () { return that.k.resize(that.svgContainer,"yes"); })
                         .on("resize", function () { return that.k.resize(that.svgContainer,"yes"); });

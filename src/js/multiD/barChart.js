@@ -55,19 +55,18 @@ PykCharts.multiD.barChart = function(options){
         var that = this;
 
         that.data = that.dataTransformation();
-        //console.log(that.data);
         that.data = that.emptygroups(that.data);
-        //console.log(that.data);
         var fD = that.flattenData();
-        // console.log(fD);
         that.the_bars = fD[0];
         that.the_keys = fD[1];
         that.the_layers = that.buildLayers(that.the_bars);
-        // console.log(that.the_bars);
         that.transitions = new PykCharts.Configuration.transition(that);
         that.mouseEvent1 = new PykCharts.multiD.mouseEvent(that);
         that.fillColor = new PykCharts.Configuration.fillChart(that,null,options);
         that.border = new PykCharts.Configuration.border(that);
+
+        that.k.export(that,"#svgcontainer","barChart"); 
+
         if(that.no_of_groups === 1) {
             that.legends_enable = "no";
         }
@@ -75,7 +74,9 @@ PykCharts.multiD.barChart = function(options){
 
             that.k.title()
                 .subtitle()
+                .emptyDiv()
                 .makeMainDiv(that.selector,1);
+
             that.optionalFeatures()
                 .svgContainer(1)
                 .legendsContainer(1);
@@ -97,7 +98,8 @@ PykCharts.multiD.barChart = function(options){
                .ticks();
                           
         } else if(that.mode === "infographics") {
-            that.k.makeMainDiv(that.selector,1);
+            that.k.emptyDiv()
+                .makeMainDiv(that.selector,1);
             that.optionalFeatures().svgContainer(1)
                 .createGroups()
                 .createChart()
@@ -110,7 +112,6 @@ PykCharts.multiD.barChart = function(options){
         that.k.xAxis(that.svgContainer,that.xGroup,that.xScale,undefined,undefined,that.legendsGroup_height)
                 .xAxisTitle(that.xGroup);
 
-        that.k.export(that,"#svgcontainer","barChart"); 
         if(PykCharts.boolean(that.legends_enable)) {
             $(window).on("load", function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); })
                 .on("resize", function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); });
