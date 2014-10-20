@@ -870,12 +870,12 @@ PykCharts.Configuration = function (options){
                 var id = "export",
                 div_size = options.width
                 div_float ="none"
-                div_left = options.width;
+                div_left = options.width-15;
 
                 if(PykCharts.boolean(options.title_text) && options.title_size) {
                     div_size = 0.1*options.width;
                     div_float ="right";
-                    div_left = 0;
+                    div_left = -15;
                 }
                 
                 d3.select(chart.selector)
@@ -884,6 +884,8 @@ PykCharts.Configuration = function (options){
                                 .attr("class","glyphicon glyphicon-download-alt")
                                 .attr("width",div_size)
                                 .style("left",div_left+"px")
+                                // .style("padding-left","15px")
+                                .style("margin-bottom","3px")
 
                 var get_canvas = document.getElementById(canvas_id);
                 paper.setup(get_canvas);
@@ -10423,7 +10425,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             $(window).on("load", function () { return that.k.resize(that.svgContainer,""); })
                 .on("resize", function () { return that.k.resize(that.svgContainer,""); });
         }
-        //    that.k.export(that,"#svgcontainer",type)
+           that.k.export(that,"#svgcontainer",type)
     };
 
     that.refresh = function () {
@@ -11065,5 +11067,13 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
     }
     catch (e) {
         importFiles('https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/js/custom-hive.min.js');
+    }
+    try {
+        if (!paper) {
+            importFiles('https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/js/paper-full.js');
+        }
+    }
+    catch (e) {
+        importFiles('https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/js/paper-full.js');
     }
 })();
