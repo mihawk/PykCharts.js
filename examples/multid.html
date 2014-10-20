@@ -3,7 +3,7 @@
     <head>
         <title>Multi-Dimensional Charts</title>
         <link rel="stylesheet" type="text/css" href="../src/css/PykCharts.css">
-        <link rel="stylesheet" type="text/css" href="../lib/bootstrap.min.css">
+
     </head>
     <body>
         <div id="line"></div>
@@ -48,7 +48,6 @@
         <script src="../lib/canvg.js"></script> 
         <script src="../lib/svgToPdf.js"></script>                
 -->
-        <script src="../lib/bootstrap.min.js"></script>
         <script src="../src/js/init.js"></script>
         <script src="../src/js/pyk.js"></script>
         <script src="../src/js/multiD/multiD.js"></script>
@@ -56,8 +55,9 @@
         <script src="../src/js/multiD/areaChart.js"></script>
         <script src="../src/js/multiD/lineChart.js"></script>
         <script src="../src/js/multiD/spiderWeb.js"></script>
-        <script src="../src/js/multiD/scatterplot.js"></script>
+        <script src="../src/js/multiD/scatter.js"></script>
         <script src="../src/js/multiD/barChart.js"></script>
+
 
         <script>
 
@@ -123,7 +123,7 @@
                     color_mode: "color",  //color or saturation
                     chart_color:["steelblue"],
                     background_color:"",
-                    export_enable: "yes",
+
                     chart_height: 400,
                     chart_width : 630,
                     chart_margin_top: 5,
@@ -328,7 +328,7 @@
                     crosshair_enable: "yes"
                 });
 
-              k.execute();
+            //   k.execute();
 
                 var k = new PykCharts.multiD.lineChart ({
                     selector: "#multiLine",
@@ -497,7 +497,7 @@
                     data: "../data/pulse.json",
                     mode : "default", //  default or infographics
 
-                    chart_color: ["purple"],
+                    chart_color: ["purple","red","yellow"],
 
                     chart_height: 350,
                     chart_width : 650,
