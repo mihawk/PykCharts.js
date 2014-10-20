@@ -510,9 +510,9 @@ PykCharts.Configuration = function (options){
             return this;
 	    },
         loading: function () {
-            if(PykCharts.boolean(options.loading)) {
+            if(options.loading) {
                 $(options.selector).html("<div id='chart-loader'><img src="+options.loading+"></div>");
-                $(options.selector + " #chart-loader").css({"visibility":"visible","padding-left":(options.width)/2 +"px","padding-top":(options.height)/2 + "px"});
+                $(options.selector + " #chart-loader").css({"visibility":"visible","padding-left":((options.width)/2) +"px","padding-top":((options.height)/2) + "px"});
             }
             return this;
         },
@@ -935,7 +935,6 @@ configuration.mouseEvent = function (options) {
                         .css("left", (xPos + options.margin_left + xDiff - width_tooltip) + "px");
                 }
                 else {
-                    console.log("Download");
                     that.tooltip
                         .style("visibility", "visible")
                         .style("top", (d3.event.layerY - 20) + "px")
@@ -1571,7 +1570,7 @@ configuration.Theme = function(){
         "pointer_color": "#1D1D1D",
         "pointer_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
         "export_enable": "yes",
-        "loading_gif_url": "https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/img/loader.gif",        
+        "loading_gif_url": "https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/img/loader.gif",
         "fullscreen_enable": "no",
         "tooltip_enable": "yes",        
         "credit_my_site_name": "Pykih",

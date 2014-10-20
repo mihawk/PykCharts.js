@@ -157,7 +157,6 @@ PykCharts.oneD.pictograph = function (options) {
             labelText: function () {
                 if (PykCharts.boolean(that.enableCurrent)) {
                     var y_pos =  ((that.data[0].weight)/(that.imgperline));
-                    console.log(y_pos);
                     var textHeight;
                     that.group1.append("text")
                         .attr("x", 0)

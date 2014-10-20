@@ -3,11 +3,12 @@ PykCharts.oneD.bubble = function (options) {
 
     this.execute = function () {
         that = PykCharts.oneD.processInputs(that, options);
-        that.height = options.chart_height ? options.chart_height : that.width
-
+        that.height = options.chart_height ? options.chart_height : that.width;
+        
         if(that.mode === "default") {
            that.k.loading();
         }
+
         d3.json(options.data, function (e,data) {
             that.data = data.groupBy("oned");
             that.compare_data = data.groupBy("oned");
@@ -58,8 +59,6 @@ PykCharts.oneD.bubble = function (options) {
                 .dataSource()
                 .liveData(that)
                 .tooltip();
-
-            that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
         }
         else if (that.mode ==="infographics") {
             that.k.export(that,"#svgcontainer","bubble")
