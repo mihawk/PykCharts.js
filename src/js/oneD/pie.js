@@ -4,11 +4,16 @@ PykCharts.oneD.pie = function (options) {
 
     this.execute = function() {
         that = new PykCharts.oneD.processInputs(that, options, "pie");
-        that.width = that.height < that.width ? that.height : that.width;
-        that.height = that.width;
-        console.log(that.height);
+        if(options.height) {
+            that.height = options.height;
+            that.calculation = "";
+        }
+        else {
+            that.height = that.width;
+            that.calculation = "pie";
+        }
         that.height_translate = that.height/2;
-        that.radiusPercent = options.pie_radiusPercent && _.isNumber(options.pie_radiusPercent) ? options.pie_radiusPercent : theme.oneDimensionalCharts.pie_radiusPercent;
+       that.radiusPercent = options.pie_radius_percent && _.isNumber(options.pie_radius_percent) ? options.pie_radius_percent : theme.oneDimensionalCharts.pie_radius_percent;
         // that.radiusPercent = options.optional && options.optional.pie && _.isNumber(options.optional.pie.radiusPercent) ? options.optional.pie.radiusPercent : theme.oneDimensionalCharts.pie.radiusPercent;
         that.innerRadiusPercent = 0;
         if(that.mode === "default") {
@@ -19,7 +24,7 @@ PykCharts.oneD.pie = function (options) {
             that.compare_data = data.groupBy("oned");
             $(options.selector+" #chart-loader").remove();
             var pieFunctions = new PykCharts.oneD.pieFunctions(options,that,"pie");
-            that.clubData_enable = that.data.length > that.clubData_maximumNodes ? that.clubData_enable : "no";
+            that.clubdata_enable = that.data.length > that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
             pieFunctions.render();
 
         });
@@ -31,13 +36,19 @@ PykCharts.oneD.donut = function (options) {
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
     this.execute = function() {
-        
+
         that = new PykCharts.oneD.processInputs(that, options, "pie");
-        that.width = that.height < that.width ? that.height : that.width;
-        that.height = that.width;
+        if(options.height) {
+            that.height = options.height;
+            that.calculation = "";
+        }
+        else {
+            that.height = that.width;
+            that.calculation = "pie";
+        }
         that.height_translate = that.height/2;
-        that.radiusPercent = options.donut_radiusPercent && _.isNumber(options.donut_radiusPercent) ? options.donut_radiusPercent : theme.oneDimensionalCharts.donut_radiusPercent;
-        that.innerRadiusPercent = options.donut_innerRadiusPercent && _.isNumber(options.donut_innerRadiusPercent) ? options.donut_innerRadiusPercent : theme.oneDimensionalCharts.donut_innerRadiusPercent;
+        that.radiusPercent = options.donut_radius_percent && _.isNumber(options.donut_radius_percent) ? options.donut_radius_percent : theme.oneDimensionalCharts.donut_radius_percent;
+        that.innerRadiusPercent = options.donut_inner_radius_percent && _.isNumber(options.donut_inner_radius_percent) ? options.donut_inner_radius_percent : theme.oneDimensionalCharts.donut_inner_radius_percent;
         // that.radiusPercent = options.optional && options.optional.donut && _.isNumber(options.optional.donut.radiusPercent) ? options.optional.donut.radiusPercent : theme.oneDimensionalCharts.donut.radiusPercent;
         // that.innerRadiusPercent = options.optional && options.optional.donut && _.isNumber(options.optional.donut.innerRadiusPercent) && options.optional.donut.innerRadiusPercent ? options.optional.donut.innerRadiusPercent : theme.oneDimensionalCharts.donut.innerRadiusPercent;
 
@@ -46,7 +57,7 @@ PykCharts.oneD.donut = function (options) {
             that.compare_data = data.groupBy("oned");
             $(options.selector+" #chart-loader").remove();
             var pieFunctions = new PykCharts.oneD.pieFunctions(options,that,"donut");
-            that.clubData_enable = that.data.length > that.clubData_maximumNodes ? that.clubData_enable : "no";
+            that.clubdata_enable = that.data.length > that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
             pieFunctions.render();
         });
     };
@@ -59,17 +70,24 @@ PykCharts.oneD.election_pie = function (options) {
     this.execute = function() {
 
         that = new PykCharts.oneD.processInputs(that, options, "pie");
-        that.width = that.height < that.width ? that.height : that.width;
-        that.height = (that.width)/2;
-        that.height_translate = that.height;
-        that.radiusPercent = options.pie_radiusPercent && _.isNumber(options.pie_radiusPercent) ? options.pie_radiusPercent : theme.oneDimensionalCharts.pie_radiusPercent;
+        if(options.height) {
+            that.height = options.height;
+            that.calculation = "";
+            that.height_translate = that.height/2;
+        }
+        else {
+            that.height = that.width/2;
+            that.calculation = "pie";
+            that.height_translate = that.height;
+        }
+        that.radiusPercent = options.pie_radius_percent && _.isNumber(options.pie_radius_percent) ? options.pie_radius_percent : theme.oneDimensionalCharts.pie_radius_percent;
         that.innerRadiusPercent = 0;
         d3.json(options.data, function (e, data) {
             that.data = data.groupBy("oned");
             that.compare_data = data.groupBy("oned");
             $(options.selector+" #chart-loader").remove();
             var pieFunctions = new PykCharts.oneD.pieFunctions(options,that,"election pie");
-            that.clubData_enable = that.data.length > that.clubData_maximumNodes ? that.clubData_enable : "no";
+            that.clubdata_enable = that.data.length > that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
             pieFunctions.render();
 
         });
@@ -82,19 +100,27 @@ PykCharts.oneD.election_donut = function (options) {
 
     this.execute = function() {
         that = new PykCharts.oneD.processInputs(that, options, "pie");
-        that.width = that.height < that.width ? that.height : that.width;
-        that.height = (that.width)/2;
-        console.log(that.height)
-        that.height_translate = that.height;
-        that.radiusPercent = options.donut_radiusPercent && _.isNumber(options.donut_radiusPercent) ? options.donut_radiusPercent : theme.oneDimensionalCharts.donut_radiusPercent;
-        that.innerRadiusPercent = options.donut_innerRadiusPercent && _.isNumber(options.donut_innerRadiusPercent) && options.donut_innerRadiusPercent ? options.donut_innerRadiusPercent : theme.oneDimensionalCharts.donut_innerRadiusPercent;
+        if(options.height) {
+            that.height = options.height;
+            that.calculation = "";
+            that.height_translate = that.height/2;
+        }
+        else {
+            that.height = that.width/2;
+            that.calculation = "pie";
+            that.height_translate = that.height;
+        }
+
+        that.radiusPercent = options.donut_radius_percent && _.isNumber(options.donut_radius_percent) ? options.donut_radius_percent : theme.oneDimensionalCharts.donut_radius_percent;
+        that.innerRadiusPercent = options.donut_inner_radius_percent && _.isNumber(options.donut_inner_radius_percent) && options.donut_inner_radius_percent ? options.donut_inner_radius_percent : theme.oneDimensionalCharts.donut_inner_radius_percent;
+
 
         d3.json(options.data, function (e, data) {
             that.data = data.groupBy("oned");
             that.compare_data = data.groupBy("oned");
             $(options.selector+" #chart-loader").remove();
             var pieFunctions = new PykCharts.oneD.pieFunctions(options,that,"election donut");
-            that.clubData_enable = that.data.length> that.clubData_maximumNodes ? that.clubData_enable : "no";
+            that.clubdata_enable = that.data.length> that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
             pieFunctions.render();
         });
     };
@@ -169,10 +195,13 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
 
         } else if(that.mode.toLowerCase() == "infographics") {
             that.new_data = that.data;
+            that.k.emptyDiv();
             that.optionalFeatures().svgContainer()
                     .set_start_end_angle()
                     .createChart()
-                    .label();
+                    .label()
+                    .ticks()
+                    .centerLabel();
 
             that.k.tooltip();
             that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
@@ -189,8 +218,8 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
     that.optionalFeatures = function () {
         var optional = {
             svgContainer :function () {
-                $(options.selector).css("background-color",that.bg);
-                console.log(that.height, that.selector);
+                $(options.selector).css("background-color",that.background_color);
+
                 that.svgContainer = d3.select(that.selector)
                     .append('svg')
                     .attr("width",that.width)
@@ -229,8 +258,8 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                 // var proportion =_.map(that.new_data,function (d,i) {
                 //     return d.weight*100/that.sum;
                 // });
-                that.inner_radius = that.k._radiusCalculation(that.innerRadiusPercent,"pie");
-                that.outer_radius = that.k._radiusCalculation(that.radiusPercent,"pie");
+                that.inner_radius = that.k._radiusCalculation(that.innerRadiusPercent,that.calculation);
+                that.outer_radius = that.k._radiusCalculation(that.radiusPercent,that.calculation);
 
                 that.arc = d3.svg.arc()
                     .innerRadius(that.inner_radius)
@@ -347,13 +376,13 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                 return this;
             },
             clubData: function () {
-                if(PykCharts.boolean(that.clubData_enable)) {
+                if(PykCharts.boolean(that.clubdata_enable)) {
                     that.displayData = [];
                     that.sorted_weight = _.map(that.data,function(num){ return num.weight; });
                     that.sorted_weight.sort(function(a,b){ return b-a; });
                     that.checkDuplicate = [];
 
-                    var others_Slice = {"name":that.clubData_text,"color":that.clubData_color,"tooltip":that.clubData_tooltipText,"highlight":false};
+                    var others_Slice = {"name":that.clubdata_text,"color":that.clubData_color,"tooltip":that.clubData_tooltipText,"highlight":false};
                     var index;
                     var i;
                     that.getIndexByName = function(name) {
@@ -374,11 +403,11 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                     } ;
                     var k = 0;
 
-                    if(that.clubData_alwaysIncludeDataPoints.length!== 0) {
-                        for (var l=0;l<that.clubData_alwaysIncludeDataPoints.length;l++)
+                    if(that.clubdata_always_include_data_points.length!== 0) {
+                        for (var l=0;l<that.clubdata_always_include_data_points.length;l++)
                         {
 
-                            index = that.getIndexByName(that.clubData_alwaysIncludeDataPoints[l]);
+                            index = that.getIndexByName(that.clubdata_always_include_data_points[l]);
                             if(index!= undefined) {
                                 that.displayData.push(that.data[index]);
                                 that.sorted_weight = reject (index);
@@ -400,8 +429,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                             }
                         }
                     };
-
-                    var count = that.clubData_maximumNodes-that.displayData.length;
+                    var count = that.clubdata_maximum_nodes-that.displayData.length;
 
                     var sum_others = d3.sum(that.sorted_weight,function (d,i) {
                             if(i>=count-1)
@@ -604,8 +632,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                 return this;
             },
             centerLabel: function () {
-
-                if(PykCharts.boolean(that.showTotalAtTheCenter) && (type == "donut" || type == "election donut")) {
+                if(PykCharts.boolean(that.donut_show_total_at_center) && (type == "donut" || type == "election donut")) {
 
                     // var displaySum = that.group.selectAll(".total")
                     //             .data(["sum"]);

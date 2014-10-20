@@ -5,9 +5,9 @@ PykCharts.multiD.barChart = function(options){
     this.execute = function () {
         that = new PykCharts.multiD.processInputs(that, options, "column");
 
-        that.grid_yEnabled =  options.chart_grid_yEnabled ? options.chart_grid_yEnabled : theme.stylesheet.chart_grid_yEnabled;
+        that.grid_y_enable =  options.chart_grid_y_enable ? options.chart_grid_y_enable : theme.stylesheet.chart_grid_y_enable;
         that.grid_color = options.chart_grid_color ? options.chart_grid_color : theme.stylesheet.chart_grid_color;
-        that.xAxisDataFormat = "";
+        that.axis_x_data_format = "";
         if(that.mode === "default") {
            that.k.loading();
         }
@@ -172,7 +172,7 @@ PykCharts.multiD.barChart = function(options){
                             .attr("y1",0)
                             .attr("x2",0)
                             .attr("y2",that.height-that.margin_top-that.margin_bottom - that.legendsGroup_height)
-                            .attr("stroke",that.axis_x_axisColor)
+                            .attr("stroke",that.axis_x_line_color)
                             .attr("stroke-width","1px");
 
                     axis_line.exit().remove();
@@ -187,8 +187,8 @@ PykCharts.multiD.barChart = function(options){
                             .attr("y", -60)
                             .attr("dy", ".71em")
                             .style("text-anchor", "end")
-                            .style("fill",that.axis_x_labelColor)
-                            .text(options.axis_y_title);
+                            .style("fill",that.axis_x_label_color)
+                            .text(that.axis_y_title);
 
                     } else if(that.axis_y_position === "right") {
                         axis_line.attr("x1",(that.width-that.margin_left-that.margin_right))
@@ -203,8 +203,8 @@ PykCharts.multiD.barChart = function(options){
                             .attr("y", (that.width-that.margin_left-that.margin_right)+12)
                             .attr("dy", ".71em")
                             .style("text-anchor", "end")
-                            .style("fill",that.axis_x_labelColor)
-                            .text(options.axis_y_title);
+                            .style("fill",that.axis_x_label_color)
+                            .text(that.axis_y_title);
                         // that.xGroup.attr("transform","translate(0,"+(that.width-that.margin.left-that.margin.right)+")");
                     }
                         // .style("stroke","none");
@@ -271,7 +271,7 @@ PykCharts.multiD.barChart = function(options){
                 // that.yScaleInvert = d3.scale.linear().domain([d3.max(yValues), 0]).range([0, h]).nice(); // For the yAxis
                 // var zScale = d3.scale.category10();
 
-                // if(that.xAxisDataFormat === "number") {
+                // if(that.axis_x_data_format === "number") {
                 //     max = d3.max(that.new_data, function(d) { return d3.max(d.data, function(k) { return k.x; }); });
                 //     min = d3.min(that.new_data, function(d) { return d3.min(d.data, function(k) { return k.x; }); });
                 //     x_domain = [min,max];
@@ -280,13 +280,13 @@ PykCharts.multiD.barChart = function(options){
                 //     that.xScale = that.k.scaleIdentification("linear",x_data,x_range);
                 //     that.extra_left_margin = 0;
 
-                // } else if(that.xAxisDataFormat === "string") {
+                // } else if(that.axis_x_data_format === "string") {
                 //     that.new_data[0].data.forEach(function(d) { x_data.push(d.x); });
                 //     x_range = [0 ,that.reducedWidth];
                 //     that.xScale = that.k.scaleIdentification("ordinal",x_data,x_range,0);
                 //     that.extra_left_margin = (that.xScale.rangeBand() / 2);
 
-                // } else if (that.xAxisDataFormat === "time") {
+                // } else if (that.axis_x_data_format === "time") {
                 //     max = d3.max(that.new_data, function(d) { return d3.max(d.data, function(k) { return new Date(k.x); }); });
                 //     min = d3.min(that.new_data, function(d) { return d3.min(d.data, function(k) { return new Date(k.x); }); });
                 //     x_data = [min,max];
@@ -437,19 +437,19 @@ PykCharts.multiD.barChart = function(options){
                         return (that.width-that.margin_left-that.margin_right) + 10;
                     });
                 }
-                if(that.axis_y_position === "left" && that.axis_y_value_position === "right") {
+                if(that.axis_y_position === "left" && that.axis_y_pointer_position === "right") {
                     yAxis_label.attr("x", function (d) {
                         return 10;
                     });
                 }
-                if(that.axis_y_position === "right" && that.axis_y_value_position === "left") {
+                if(that.axis_y_position === "right" && that.axis_y_pointer_position === "left") {
                     yAxis_label.attr("x", function (d) {
                         return (that.width-that.margin_left-that.margin_right) - 10;
                     });
                 }
-                if(that.axis_y_value_position === "right") {
+                if(that.axis_y_pointer_position === "right") {
                     yAxis_label.attr("text-anchor","start");
-                } else if(that.axis_y_value_position === "left") {
+                } else if(that.axis_y_pointer_position === "left") {
                     yAxis_label.attr("text-anchor","end");
                 }
 
@@ -719,13 +719,13 @@ PykCharts.multiD.barChart = function(options){
                 if(!PykCharts.boolean(that.the_layers[i].values[j].y)) continue;
                 var name = that.the_layers[i].values[j].group, color;
                 if(that.color_mode === "saturation") {
-                    color = that.saturationColor;
+                    color = that.saturation_color;
                 } else if(that.color_mode === "color" && that.the_layers[i].values[0].color) {
                     color = that.the_layers[i].values[0].color;
-                } else if(that.color_mode === "color" && that.color.length){
-                    color = that.color[0];
+                } else if(that.color_mode === "color" && that.chart_color.length){
+                    color = that.chart_color[0];
                 } else {
-                    color = that.chartColor;
+                    color = that.chart_color;
                 } 
                     // if(options.chartColor) {
                     //     color = that.chartColor;

@@ -3,8 +3,7 @@ PykCharts.oneD.bubble = function (options) {
 
     this.execute = function () {
         that = PykCharts.oneD.processInputs(that, options);
-        that.width = that.height < that.width ? that.height :that.width;
-        that.height = that.width;
+        that.height = options.chart_height ? options.chart_height : that.width
 
         if(that.mode === "default") {
            that.k.loading();
@@ -13,7 +12,7 @@ PykCharts.oneD.bubble = function (options) {
             that.data = data.groupBy("oned");
             that.compare_data = data.groupBy("oned");
             $(options.selector+" #chart-loader").remove();
-            that.clubData_enable = that.data.length>that.clubData_maximumNodes ? that.clubData_enable : "no";
+            that.clubdata_enable = that.data.length>that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
             that.render();
         });
     };
@@ -63,7 +62,10 @@ PykCharts.oneD.bubble = function (options) {
             that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
         }
         else if (that.mode ==="infographics") {
-            that.k.export(that,"#svgcontainer","bubble");
+            that.k.export(that,"#svgcontainer","bubble")
+                .emptyDiv();
+
+
             that.new_data = {"children" : that.data};
             that.optionalFeatures().svgContainer()
                 .createChart()
@@ -80,7 +82,7 @@ PykCharts.oneD.bubble = function (options) {
 
         var optional = {
             svgContainer: function () {
-                $(that.selector).css("background-color",that.bg);
+                $(that.selector).css("background-color",that.background_color);
 
                 that.svgContainer = d3.select(that.selector).append("svg")
                     .attr("class","svgcontainer")
@@ -124,8 +126,7 @@ PykCharts.oneD.bubble = function (options) {
                     .attr("r",0)
                     .attr("transform",function (d) { return "translate(" + d.x + "," + d.y +")"; })
                     .attr("fill",function (d) {
-
-                        return d.children ? that.bg : that.fillChart.selectColor(d);
+                        return d.children ? that.background_color : that.fillChart.selectColor(d);
                     })
                     .on("mouseover", function (d) {
                         if(!d.children) {
@@ -266,28 +267,29 @@ PykCharts.oneD.bubble = function (options) {
             },
             clubData : function () {
                 var new_data1;
-                if (PykCharts.boolean(that.clubData_enable)) {
+                if (PykCharts.boolean(that.clubdata_enable)) {
                     var clubdata_content = [];
                     var k = 0, j, i, new_data = [];
-                    if(that.data.length <= that.clubData_maximumNodes) {
+                    if(that.data.length <= that.clubdata_maximum_nodes) {
                         new_data1 = { "children" : that.data };
                         return new_data1;
                     }
-                    if (that.clubData_alwaysIncludeDataPoints.length!== 0) {
-                        var l = that.clubData_alwaysIncludeDataPoints.length;
+                    if (that.clubdata_always_include_data_points.length!== 0) {
+                        var l = that.clubdata_always_include_data_points.length;
                         for (i =0; i<l; i++) {
-                            clubdata_content[i] = that.clubData_alwaysIncludeDataPoints[i];
+                            clubdata_content[i] = that.clubdata_always_include_data_points[i];
                         }
                     }
                     for (i=0; i<clubdata_content.length; i++) {
                         for (j=0; j< that.data.length; j++) {
                             if (clubdata_content[i].toUpperCase() === that.data[j].name.toUpperCase()) {
-                                new_data.push(that.data[i]);
+                                new_data.push(that.data[j]);
                             }
                         }
                     }
+
                     that.data.sort (function (a,b) { return b.weight - a.weight;});
-                    while (new_data.length < that.clubData_maximumNodes-1) {
+                    while (new_data.length < that.clubdata_maximum_nodes-1) {
                         for(i=0;i<clubdata_content.length;i++) {
                             if(that.data[k].name.toUpperCase() === clubdata_content[i].toUpperCase()) {
                                 k++;
@@ -310,21 +312,21 @@ PykCharts.oneD.bubble = function (options) {
                         }
                     }
                     var f = function (a,b) {return b.weight- a.weight;};
-                    while (new_data.length > that.clubData_maximumNodes) {
+                    while (new_data.length > that.clubdata_maximum_nodes) {
                         new_data.sort(f);
                         var a = new_data.pop();
                     }
 
-                    var others_Slice = {"name": that.clubData_text,"weight": sum_others, "color": that.clubData_color,"tooltip": that.clubData_tooltipText,"highlight":false};
+                    var others_Slice = {"name": that.clubdata_text,"weight": sum_others, "color": that.clubData_color,"tooltip": that.clubData_tooltipText,"highlight":false};
 
-                    if (new_data.length < that.clubData_maximumNodes) {
+                    if (new_data.length < that.clubdata_maximum_nodes) {
                         new_data.push(others_Slice);
 
                     }
                     new_data.sort(function (a,b) {
                         return a.weight - b.weight;
                     })
-
+                    
                     new_data1 = {"children": new_data};
                     that.map1 = new_data1.children.map(function (d) { return d.weight;});
                 }

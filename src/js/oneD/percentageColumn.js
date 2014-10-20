@@ -11,6 +11,9 @@ PykCharts.oneD.percentageColumn = function (options) {
 
         that = new PykCharts.oneD.processInputs(that, options, "percentageColumn");
         // 1.2 Read Json File Get all the data and pass to render
+        that.percent_column_rect_width = that.percent_column_rect_width ? that.percent_column_rect_width : theme.oneDimensionalCharts.percent_column_rect_width;
+        that.percent_column_rect_width = that.k._radiusCalculation(that.percent_column_rect_width,"percentageColumn") * 2;
+        that.height = options.chart_height ? options.chart_height : that.width;
         if(that.mode === "default") {
            that.k.loading();
         }
@@ -18,7 +21,7 @@ PykCharts.oneD.percentageColumn = function (options) {
             that.data = data.groupBy("oned");
             that.compare_data = data.groupBy("oned");
             $(options.selector+" #chart-loader").remove();
-            that.clubData_enable = that.data.length>that.clubData_maximumNodes ? that.clubData_enable : "no";
+            that.clubdata_enable = that.data.length>that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
             that.render();
         });
         // that.clubData.enable = that.data.length>that.clubData.maximumNodes ? that.clubData.enable : "no";
@@ -59,6 +62,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                 // [that.fullscreen]().fullScreen(that);
         }
         if(that.mode === "infographics") {
+            that.k.emptyDiv();
             that.new_data = that.data;
         }
 
@@ -71,9 +75,10 @@ PykCharts.oneD.percentageColumn = function (options) {
         }
         that.optionalFeatures().svgContainer()
             .createChart()
-            .label();
+            .label()
+            .ticks();
         if(that.mode === "default") {
-            that.optionalFeatures().ticks()
+            // that.optionalFeatures().ticks()
             that.k.liveData(that)
                 .createFooter()
                 .lastUpdatedAt()
@@ -128,7 +133,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                             return sum * that.height / 100;
                         }
                     })
-                    .attr('width', that.width/4)
+                    .attr('width', that.percent_column_rect_width)
                     .attr('height', 0)
                     .attr("fill",function (d) {
                         return that.fillChart.selectColor(d);
@@ -160,7 +165,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                 return this;
             },
             svgContainer :function () {
-                $(options.selector).css("background-color",that.bg);
+                $(options.selector).css("background-color",that.background_color);
 
                 that.svgContainer = d3.select(options.selector)
                     .append('svg')
@@ -185,7 +190,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                         .attr("class","per-text");
 
                     that.chart_text.attr("class","per-text")
-                        .attr("x", (that.width/8 ))
+                        .attr("x", (that.percent_column_rect_width/2 ))
                         .attr("y",function (d,i) {
                                 sum = sum + d.percentValue;
                                 if (i===0) {
@@ -249,7 +254,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                     tick_label.attr("class", "ticks_label")
                         .attr("transform",function (d) {
                             sum = sum + d.percentValue
-                            x = (that.width/4) + 10;
+                            x = (that.percent_column_rect_width) + 10;
                             y = (((sum - d.percentValue) * that.height/100)+(sum * that.height / 100))/2 + 5;
 
                             return "translate(" + x + "," + y + ")";
@@ -281,7 +286,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                             sum = 0;
                             tick_line
                                 .attr("x1", function (d,i) {
-                                    return that.width/4;
+                                    return that.percent_column_rect_width;
                                 })
                                 .attr("y1", function (d,i) {
                                     sum = sum + d.percentValue;
@@ -292,7 +297,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                                     }
                                 })
                                 .attr("x2", function (d, i) {
-                                     return (that.width/4);
+                                     return (that.percent_column_rect_width);
                                 })
                                 .attr("y2", function (d,i) {
                                     sum1 = sum1 + d.percentValue;
@@ -308,9 +313,9 @@ PykCharts.oneD.percentageColumn = function (options) {
                                 // .duration(that.transitions.duration())
                                 .attr("x2", function (d, i) {
                                     if((d.percentValue * that.height / 100) > w[i]) {
-                                        return (that.width/4) + 5;
+                                        return (that.percent_column_rect_width) + 5;
                                     } else {
-                                        return (that.width/4) ;
+                                        return (that.percent_column_rect_width) ;
                                     }
                                 });
                         },that.transitions.duration());
@@ -324,12 +329,12 @@ PykCharts.oneD.percentageColumn = function (options) {
             },
             clubData : function () {
 
-                if(PykCharts.boolean(that.clubData_enable)) {
+                if(PykCharts.boolean(that.clubdata_enable)) {
                     var clubdata_content = [];
-                    if(that.clubData_alwaysIncludeDataPoints.length!== 0){
-                        var l = that.clubData_alwaysIncludeDataPoints.length;
+                    if(that.clubdata_always_include_data_points.length!== 0){
+                        var l = that.clubdata_always_include_data_points.length;
                         for(i=0; i < l; i++){
-                            clubdata_content[i] = that.clubData_alwaysIncludeDataPoints[i];
+                            clubdata_content[i] = that.clubdata_always_include_data_points[i];
                         }
                     }
                     var new_data1 = [];
@@ -343,7 +348,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                     that.data.sort(function (a,b) { return b.weight - a.weight; });
                     var k = 0;
 
-                    while(new_data1.length<that.clubData_maximumNodes-1){
+                    while(new_data1.length<that.clubdata_maximum_nodes-1){
                         for(i=0;i<clubdata_content.length;i++){
                             if(that.data[k].name.toUpperCase() === clubdata_content[i].toUpperCase()){
                                 k++;
@@ -367,13 +372,13 @@ PykCharts.oneD.percentageColumn = function (options) {
                     }
                     var sortfunc = function (a,b) { return b.weight - a.weight; };
 
-                    while(new_data1.length > that.clubData_maximumNodes){
+                    while(new_data1.length > that.clubdata_maximum_nodes){
                         new_data1.sort(sortfunc);
                         var a=new_data1.pop();
                     }
-                    var others_Slice = { "name":that.clubData_text, "weight": sum_others, "color": that.clubData_color, "tooltip": that.clubData_tooltip };
+                    var others_Slice = { "name":that.clubdata_text, "weight": sum_others, "color": that.clubData_color, "tooltip": that.clubData_tooltip };
 
-                    if(new_data1.length < that.clubData_maximumNodes){
+                    if(new_data1.length < that.clubdata_maximum_nodes){
                         new_data1.push(others_Slice);
                     }
                     that.new_data = new_data1;

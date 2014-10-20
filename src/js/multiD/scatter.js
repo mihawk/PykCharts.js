@@ -263,9 +263,9 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                 return this;
             },
             legendsContainer : function (i) {
-                    console.log(type,"inside");
+                    // console.log(type,"inside");
                 if (PykCharts.boolean(that.legends_enable) && PykCharts.boolean(that.size_enable) && that.map_group_data[1]) {
-                    console.log(type,"inside");
+                    // console.log(type,"inside");
                     that.legendsGroup = that.svgContainer
                         .append("g")
                                 .attr('id',"legends")

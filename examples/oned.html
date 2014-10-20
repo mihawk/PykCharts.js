@@ -40,16 +40,19 @@
             var k = new PykCharts.oneD.bubble({
                 selector: "#bubble",
                 data:"../data/pie.json",
-                transition_duration: 1000,
-                highlight: "A",
-                title_text: "PykCharts"
+                transition_duration: 1,
+                clubdata_enable: "yes",
+                mode:"infographics",
+                "clubData_always_include_data_points" : ["18-24","25-44"],
+                export_enable: "no"
             });
             k.execute();
 
       			var k = new PykCharts.oneD.funnel({
           				selector: "#funnel",
           				data:"../data/pie.json",
-                 transition_duration: 1000,
+                 transition_duration: 1,
+                 mode:"infographics",
                  units_suffix: "rs"
         			});
       			k.execute();
@@ -57,15 +60,17 @@
             var k = new PykCharts.oneD.pictograph({
                 selector: "#pictograph",
                 data:"../data/pictograph.json",
-                transition_duration: 1000
+                chart_width : 400,
+                transition_duration: 1,
              });
             k.execute();
 
             var k = new PykCharts.oneD.pyramid ({
                 selector: "#pyramid",
                 data:"../data/pie.json",
-                transition_duration: 1000,
-                "pointer_overflow_enable": "no",
+                transition_duration: 1,
+                mode:"infographics",
+                pointer_overflow_enable: "no",
              });
             k.execute();
 
@@ -73,60 +78,60 @@
                 selector: "#treemap",
                 data: "../data/pie.json",
                 transition_duration: 0, 
-                realTimeCharts_refreshFrequency: 0
+                mode:"infographics",
             });
             k.execute();
 
             var k = new PykCharts.oneD.donut({
                 selector: "#donutContainer",
                 data: "../data/pie.json",
-                transition_duration: 1000
+                mode:"infographics",
+                transition_duration: 1
             });
             k.execute();
 
             var k = new PykCharts.oneD.election_pie({
                 selector: "#electionPieContainer",
                 data: "../data/pie.json",
-                transition_duration: 4000
+                transition_duration: 4
             });
             k.execute();
 
             var k = new PykCharts.oneD.election_donut({
                 selector: "#electionDonutContainer",
                 data: "../data/pie.json",
-                transition_duration: 4000                
+                transition_duration: 4                
             });
             k.execute();
 
             var k = new PykCharts.oneD.pie({
                 selector: "#pieContainer",
                 data: "../data/pie.json",
-                transition_duration: 4000
+                transition_duration: 4
             });
             k.execute();
 
             var k = new PykCharts.oneD.percentageColumn({
                 selector: "#percentageColumn",
                 data:"../data/pie.json",
-                transition_duration: 1000,
-               // "realTimeCharts_refreshFrequency": 11
+                transition_duration: 1,
+
             });
             k.execute();
 
             var k = new PykCharts.oneD.percentageBar({
                 selector: "#percentageBar",
                 data:"../data/pie.json",
-                transition_duration: 1000,
-                "chart_height": 200,
-                "chart_width": 600,
-                // "realTimeCharts_refreshFrequency": 11
+                transition_duration: 1,
+                // "chart_height": 200,
+                chart_width: 600
             });
             k.execute();
 
             var k = new PykCharts.oneD.pie({
                 selector: "#pie2Container",
                 data: "../data/pie2.json",
-                transition_duration: 1000
+                transition_duration: 1
             });
             k.execute();
 		    }

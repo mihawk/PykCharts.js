@@ -8,12 +8,12 @@ PykCharts.multiD.spiderWeb = function (options) {
         }
         that = new PykCharts.multiD.processInputs(that, options, "spiderweb");
         that.multiD = new PykCharts.multiD.configuration(that);
-        that.axisTitle = options.axisTitle ? options.axisTitle : theme.multiDimensionalCharts.spiderweb_axisTitle;
+        that.axisTitle = options.spiderweb_axis_title ? options.spiderweb_axis_title : theme.multiDimensionalCharts.spiderweb_axis_title;
         that.bubbleRadius = options.spiderweb_radius && _.isNumber(options.spiderweb_radius) ? options.spiderweb_radius : theme.multiDimensionalCharts.spiderweb_radius;
         that.outerRadius = options.spiderweb_outer_radius_percent && _.isNumber(options.spiderweb_outer_radius_percent) ? options.spiderweb_outer_radius_percent : theme.multiDimensionalCharts.spiderweb_outer_radius_percent;
         that.inner_radius = 0;
         that.enableTicks =  options.spiderweb_pointer ? options.spiderweb_pointer : theme.multiDimensionalCharts.spiderweb_pointer;
-        that.size_enable = options.size_enable ? options.size_enable : theme.multiDimensionalCharts.size_enable;
+        that.variable_circle_size_enable = options.variable_circle_size_enable ? options.variable_circle_size_enable : theme.multiDimensionalCharts.variable_circle_size_enable;
         that.outerRadius = that.k._radiusCalculation(that.outerRadius);   
     
         d3.json(options.data, function (e, data) {
@@ -127,7 +127,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                 return this;
             },
             legendsContainer : function (i) {
-                if (PykCharts.boolean(that.legends_enable) && PykCharts.boolean(that.size_enable) && that.map_group_data[1]) {
+                if (PykCharts.boolean(that.legends_enable) && PykCharts.boolean(that.variable_circle_size_enable) && that.map_group_data[1]) {
                     that.legendsGroup = that.svgContainer.append("g")
                         .attr("class","legendgrp")
                         .attr("id","legendgrp");
@@ -318,7 +318,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                 return this;
             },
             legends : function () {
-                if (PykCharts.boolean(that.legends_enable) && PykCharts.boolean(that.size_enable) && that.map_group_data[1]) {
+                if (PykCharts.boolean(that.legends_enable) && PykCharts.boolean(that.variable_circle_size_enable) && that.map_group_data[1]) {
                     var unique = _.uniq(that.sorted_weight);
                     var k = 0;
                     var l = 0;
@@ -451,10 +451,10 @@ PykCharts.multiD.spiderWeb = function (options) {
                         .enter()
                         .append('text')
                         .attr("class","legends_text")
-                         .attr("fill",that.legendsText_color)
+                         .attr("fill",that.legends_text_color)
                         .attr("pointer-events","none")
-                        .style("font-family", that.legendsText_family)
-                        .attr("font-size",that.legendsText_size);
+                        .style("font-family", that.legends_text_family)
+                        .attr("font-size",that.legends_text_size);
 
                     that.legends_text.attr("class","legends_text")
                         .attr("fill","black")
