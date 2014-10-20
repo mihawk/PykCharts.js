@@ -730,10 +730,12 @@ PykCharts.Configuration = function (options){
             var a = $(options.selector + " g.y.axis text");
 
             var len = a.length,comp;
-
+            console.log(a,"heyyyyyyyyy");
             for(i=0; i<len-1;i++) {
                 comp = a[i].innerHTML;
+                console.log(comp,"comp");
                 if(a[i].getBBox().width > (options.margin_left * 0.7)) {
+                    console.log(comp);
                     comp = comp.substr(0,3) + "..";
 
                 }
@@ -779,11 +781,14 @@ PykCharts.Configuration = function (options){
             }
         },
         yAxisDataFormatIdentification : function (data){
+            console.log(!(isNaN(data[0].y)),options.selector,_.isNumber(data[0].y));
             if(_.isNumber(data[0].y) || !(isNaN(data[0].y))){
+                console.log(data,"dddd");
                 return "number";
             } else if(!(isNaN(new Date(data[0].y).getTime()))) {
                 return "time";
             } else {
+                console.log(options.selector);  
                 return "string";
             }
         },
