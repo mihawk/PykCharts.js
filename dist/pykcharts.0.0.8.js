@@ -728,10 +728,12 @@ PykCharts.Configuration = function (options){
             var a = $(options.selector + " g.y.axis text");
 
             var len = a.length,comp;
-
+            console.log(a,"heyyyyyyyyy");
             for(i=0; i<len-1;i++) {
                 comp = a[i].innerHTML;
+                console.log(comp,"comp");
                 if(a[i].getBBox().width > (options.margin_left * 0.7)) {
+                    console.log(comp);
                     comp = comp.substr(0,3) + "..";
 
                 }
@@ -777,11 +779,14 @@ PykCharts.Configuration = function (options){
             }
         },
         yAxisDataFormatIdentification : function (data){
+            console.log(!(isNaN(data[0].y)),options.selector,_.isNumber(data[0].y));
             if(_.isNumber(data[0].y) || !(isNaN(data[0].y))){
+                console.log(data,"dddd");
                 return "number";
             } else if(!(isNaN(new Date(data[0].y).getTime()))) {
                 return "time";
             } else {
+                console.log(options.selector);  
                 return "string";
             }
         },
@@ -1446,7 +1451,7 @@ configuration.makeYAxis = function(options,yScale) {
                     .outerTickSize(options.axis_y_outer_pointer_size)
                     .tickPadding(options.axis_y_pointer_padding)
                     .tickFormat(function (d,i) {
-                        return k.appendUnits(d);
+                        return d;
                     });
 
     if(options.axis_y_data_format=== "time" && PykCharts.boolean(options.axis_y_time_value_type)) {
@@ -2867,12 +2872,12 @@ PykCharts.oneD.percentageColumn = function (options) {
                     .attr("stroke-dasharray", that.border.style())
                     .on("mouseover", function (d,i) {
                         d.tooltip=d.tooltip||"<table class='PykCharts'><tr><th colspan='2' class='tooltip-heading'>"+d.name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.weight)+"<td class='tooltip-right-content'>(&nbsp;"+d.percentValue.toFixed(2)+"%&nbsp)</tr></table>"
-                        that.onHoverEffect.highlight(".per-rect",this);
+                        that.onHoverEffect.highlight(options.selector+" "+".per-rect",this);
                         that.mouseEvent.tooltipPosition(d);
                         that.mouseEvent.toolTextShow(d.tooltip);
                     })
                     .on("mouseout", function (d) {
-                        that.onHoverEffect.highlightHide(".per-rect");
+                        that.onHoverEffect.highlightHide(options.selector+" "+".per-rect");
                         that.mouseEvent.tooltipHide(d);
                     })
                     .on("mousemove", function (d,i) {
@@ -2936,10 +2941,13 @@ PykCharts.oneD.percentageColumn = function (options) {
                         // .delay(that.transitions.duration())
 
                         setTimeout(function(){
-                            that.chart_text.text(function (d) { return that.k.appendUnits(d.weight); })
+                            that.chart_text.text(function (d) { 
+                                return d.percentValue.toFixed(1)+"%";
+                                // return that.k.appendUnits(d.weight); 
+                            })
                                 .text(function (d) {
                                     if(this.getBBox().width < (that.width/4) && this.getBBox().height < (d.percentValue * that.height / 100)) {
-                                        return d.percentValue.toFixed(1)+"%"
+                                        return d.percentValue.toFixed(1)+"%";
                                         // return that.k.appendUnits(d.weight);
                                     }else {
                                         return "";
@@ -3100,7 +3108,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                         new_data1.sort(sortfunc);
                         var a=new_data1.pop();
                     }
-                    var others_Slice = { "name":that.clubdata_text, "weight": sum_others, "color": that.clubData_color, "tooltip": that.clubData_tooltip };
+                    var others_Slice = { "name":that.clubdata_text, "weight": sum_others, /*"color": that.clubData_color,*/ "tooltip": that.clubdata_tooltip };
 
                     if(new_data1.length < that.clubdata_maximum_nodes){
                         new_data1.push(others_Slice);
@@ -3142,7 +3150,7 @@ PykCharts.oneD.percentageBar = function (options) {
             that.data = data.groupBy("oned");
             that.compare_data = data.groupBy("oned");
             $(options.selector+" #chart-loader").remove();
-            that.clubData_enable = that.data.length>that.clubData_maximumNodes ? that.clubData_enable : "no";
+            that.clubdata_enable = that.data.length>that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
             that.render();
         });
         // that.clubData.enable = that.data.length>that.clubData.maximumNodes ? that.clubData.enable : "no";
@@ -3264,12 +3272,12 @@ PykCharts.oneD.percentageBar = function (options) {
                     .attr("stroke-dasharray", that.border.style())
                     .on("mouseover", function (d,i) {
                         d.tooltip=d.tooltip||"<table class='PykCharts'><tr><th colspan='2' class='tooltip-heading'>"+d.name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.weight)+"<td class='tooltip-right-content'>(&nbsp;"+d.percentValue.toFixed(2)+"%&nbsp)</tr></table>"
-                        that.onHoverEffect.highlight(".per-rect",this);
+                        that.onHoverEffect.highlight(options.selector+" "+".per-rect",this);
                         that.mouseEvent.tooltipPosition(d);
                         that.mouseEvent.toolTextShow(d.tooltip);
                     })
                     .on("mouseout", function (d) {
-                        that.onHoverEffect.highlightHide(".per-rect");
+                        that.onHoverEffect.highlightHide(options.selector+" "+".per-rect");
                         that.mouseEvent.tooltipHide(d);
                     })
                     .on("mousemove", function (d,i) {
@@ -3451,12 +3459,12 @@ PykCharts.oneD.percentageBar = function (options) {
             },
             clubData : function () {
 
-                if(PykCharts.boolean(that.clubData_enable)) {
+                if(PykCharts.boolean(that.clubdata_enable)) {
                     var clubdata_content = [];
-                    if(that.clubData_alwaysIncludeDataPoints.length!== 0){
-                        var l = that.clubData_alwaysIncludeDataPoints.length;
+                    if(that.clubdata_always_include_data_points.length!== 0){
+                        var l = that.clubdata_always_include_data_points.length;
                         for(i=0; i < l; i++){
-                            clubdata_content[i] = that.clubData_alwaysIncludeDataPoints[i];
+                            clubdata_content[i] = that.clubdata_always_include_data_points[i];
                         }
                     }
                     var new_data1 = [];
@@ -3470,7 +3478,7 @@ PykCharts.oneD.percentageBar = function (options) {
                     that.data.sort(function (a,b) { return b.weight - a.weight; });
                     var k = 0;
 
-                    while(new_data1.length<that.clubData_maximumNodes-1){
+                    while(new_data1.length<that.clubdata_maximum_nodes-1){
                         for(i=0;i<clubdata_content.length;i++){
                             if(that.data[k].name.toUpperCase() === clubdata_content[i].toUpperCase()){
                                 k++;
@@ -3494,13 +3502,13 @@ PykCharts.oneD.percentageBar = function (options) {
                     }
                     var sortfunc = function (a,b) { return b.weight - a.weight; };
 
-                    while(new_data1.length > that.clubData_maximumNodes){
+                    while(new_data1.length > that.clubdata_maximum_nodes){
                         new_data1.sort(sortfunc);
                         var a=new_data1.pop();
                     }
-                    var others_Slice = { "name":that.clubData_text, "weight": sum_others, "color": that.clubData_color, "tooltip": that.clubData_tooltip };
+                    var others_Slice = { "name":that.clubdata_text, "weight": sum_others,/* "color": that.clubdata_color,*/ "tooltip": that.clubdata_tooltip };
 
-                    if(new_data1.length < that.clubData_maximumNodes){
+                    if(new_data1.length < that.clubdata_maximum_nodes){
                         new_data1.push(others_Slice);
                     }
                     that.new_data = new_data1;
@@ -8777,8 +8785,8 @@ PykCharts.multiD.scatterPlot = function (options) {
         }
         d3.json(options.data, function (e, data) {
             that.data = data.groupBy("scatterplot");
-            that.axis_y_data_format = options.axis_y_data_format ? options.axis_y_data_format : that.k.axis_y_data_formatIdentification(that.data);
-            that.axis_x_data_format = options.axis_x_data_format ? options.axis_x_data_format : that.k.axis_x_data_formatIdentification(that.data);
+            that.axis_y_data_format = options.axis_y_data_format ? options.axis_y_data_format : that.k.yAxisDataFormatIdentification(that.data);
+            that.axis_x_data_format = options.axis_x_data_format ? options.axis_x_data_format : that.k.xAxisDataFormatIdentification(that.data);
             that.compare_data = data.groupBy("scatterplot");
             $(that.selector+" #chart-loader").remove();
             var a = new PykCharts.multiD.scatterplotFunction(options,that,"scatterplot");
@@ -8808,8 +8816,10 @@ PykCharts.multiD.pulse = function (options) {
         that.variable_circle_size_enable = options.variable_circle_size_enable ? options.variable_circle_size_enable : multiDimensionalCharts.variable_circle_size_enable;
         d3.json(options.data, function (e, data) {
             that.data = data.groupBy("pulse");
-            that.axis_y_data_format = options.axis_y_data_format ? options.axis_y_data_format : that.k.axis_y_data_formatIdentification(that.data);
-            that.axis_x_data_format = options.axis_x_data_format ? options.axis_x_data_format : that.k.axis_x_data_formatIdentification(that.data);
+            console.log(data,that.data,"dataaaa");
+            that.axis_y_data_format = options.axis_y_data_format ? options.axis_y_data_format : that.k.yAxisDataFormatIdentification(that.data);
+            that.axis_x_data_format = options.axis_x_data_format ? options.axis_x_data_format : that.k.xAxisDataFormatIdentification(that.data);
+            console.log(that.axis_y_data_format);
             that.compare_data = data.groupBy("pulse");
             $(that.selector+" #chart-loader").remove();
             var a = new PykCharts.multiD.scatterplotFunction(options,that,"pulse");
@@ -9087,6 +9097,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                         that.extra_top_margin = 0;
 
                     } else if(that.axis_y_data_format === "string") {
+                        console.log("hey")
                         that.data.forEach(function(d) { y_data.push(d.y); });
                         y_range = [0,that.height - that.margin_top - that.margin_bottom];
                         that.yScale = that.k.scaleIdentification("ordinal",y_data,y_range,0);

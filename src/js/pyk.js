@@ -728,10 +728,12 @@ PykCharts.Configuration = function (options){
             var a = $(options.selector + " g.y.axis text");
 
             var len = a.length,comp;
-
+            console.log(a,"heyyyyyyyyy");
             for(i=0; i<len-1;i++) {
                 comp = a[i].innerHTML;
+                console.log(comp,"comp");
                 if(a[i].getBBox().width > (options.margin_left * 0.7)) {
+                    console.log(comp);
                     comp = comp.substr(0,3) + "..";
 
                 }
@@ -777,11 +779,14 @@ PykCharts.Configuration = function (options){
             }
         },
         yAxisDataFormatIdentification : function (data){
+            console.log(!(isNaN(data[0].y)),options.selector,_.isNumber(data[0].y));
             if(_.isNumber(data[0].y) || !(isNaN(data[0].y))){
+                console.log(data,"dddd");
                 return "number";
             } else if(!(isNaN(new Date(data[0].y).getTime()))) {
                 return "time";
             } else {
+                console.log(options.selector);  
                 return "string";
             }
         },
@@ -1446,7 +1451,7 @@ configuration.makeYAxis = function(options,yScale) {
                     .outerTickSize(options.axis_y_outer_pointer_size)
                     .tickPadding(options.axis_y_pointer_padding)
                     .tickFormat(function (d,i) {
-                        return k.appendUnits(d);
+                        return d;
                     });
 
     if(options.axis_y_data_format=== "time" && PykCharts.boolean(options.axis_y_time_value_type)) {
