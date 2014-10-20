@@ -49,9 +49,13 @@ PykCharts.multiD.spiderWeb = function (options) {
         that.sizes = new PykCharts.multiD.bubbleSizeCalculation(that,that.data,that.radius_range);
         that.border = new PykCharts.Configuration.border(that);
         that.map_group_data = that.multiD.mapGroup(that.data);
+
+        that.k.export(that,"#svgcontainer","spiderweb");
+
         if(that.mode === "default") {
-            that.k.title();
-            that.k.subtitle()
+            that.k.title()
+                .subtitle()
+                .emptyDiv()
                 .makeMainDiv(that.selector,1);
 
             that.optionalFeatures()
@@ -77,7 +81,12 @@ PykCharts.multiD.spiderWeb = function (options) {
                 .dataSource();
 
         } else if (that.mode==="infographics") {
-            that.optionalFeatures().svgContainer()
+            that.k.emptyDiv();
+            that.k.makeMainDiv(that.selector,1);
+
+            that.optionalFeatures().svgContainer(1)
+                .legendsContainer()
+                .createGroups()
                 .createChart()
                 .axisTicks()
                 .axisTitle();
@@ -87,7 +96,6 @@ PykCharts.multiD.spiderWeb = function (options) {
             that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
         }
 
-        that.k.export(that,"#svgcontainer","spiderweb");
         if(PykCharts.boolean(that.legends_enable)) {
             $(window).on("load", function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); })
                 .on("resize", function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); });
@@ -127,10 +135,12 @@ PykCharts.multiD.spiderWeb = function (options) {
                 return this;
             },
             legendsContainer : function (i) {
-                if (PykCharts.boolean(that.legends_enable) && PykCharts.boolean(that.variable_circle_size_enable) && that.map_group_data[1]) {
+                if (PykCharts.boolean(that.legends_enable) && PykCharts.boolean(that.variable_circle_size_enable) && that.map_group_data[1] && that.mode === "default") {
                     that.legendsGroup = that.svgContainer.append("g")
                         .attr("class","legendgrp")
                         .attr("id","legendgrp");
+                } else {
+                    that.legendsGroup_height = 0;
                 }
                 return this;
             },

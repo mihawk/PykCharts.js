@@ -59,4 +59,12 @@
     catch (e) {
         importFiles('https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/js/custom-hive.min.js');
     }
+    try {
+        if (!paper) {
+            importFiles('https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/js/paper-full.js');
+        }
+    }
+    catch (e) {
+        importFiles('https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/js/paper-full.js');
+    }
 })();

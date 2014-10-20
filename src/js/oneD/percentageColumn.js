@@ -11,7 +11,7 @@ PykCharts.oneD.percentageColumn = function (options) {
 
         that = new PykCharts.oneD.processInputs(that, options, "percentageColumn");
         // 1.2 Read Json File Get all the data and pass to render
-        that.percent_column_rect_width = that.percent_column_rect_width ? that.percent_column_rect_width : theme.oneDimensionalCharts.percent_column_rect_width;
+        that.percent_column_rect_width = options.percent_column_rect_width ? options.percent_column_rect_width : theme.oneDimensionalCharts.percent_column_rect_width;
         that.percent_column_rect_width = that.k._radiusCalculation(that.percent_column_rect_width,"percentageColumn") * 2;
         that.height = options.chart_height ? options.chart_height : that.width;
         if(that.mode === "default") {
