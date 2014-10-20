@@ -85,7 +85,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                     .plotCircle()
                     .label()
                     .ticks();
-            that.k.xAxis(that.svgContainer,that.xGroup,that.x,that.extra_left_margin,that.xdomain)
+                    that.k.xAxis(that.svgContainer,that.xGroup,that.x,that.extra_left_margin,that.xdomain,that.legendsGroup_height)
                     .yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain)
         });
     };
