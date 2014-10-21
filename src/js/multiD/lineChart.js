@@ -80,9 +80,6 @@ PykCharts.multiD.lineChart = function (options){
 		that.fillColor = new PykCharts.Configuration.fillChart(that,null,options);
 		that.transitions = new PykCharts.Configuration.transition(options);
 		if(that.mode === "default") {
-		//	that.k.export(that,"#svg-1","lineChart"); 
-
-
 			that.k.title()
 					.subtitle()
 					.export(that,"#svg-1","lineChart")
@@ -161,22 +158,6 @@ PykCharts.multiD.lineChart = function (options){
                 .dataSource();
 
            	that.annotation();
-
-           	// var doc = new jsPDF();
-            // doc.fromHTML($('#svg-1').html(), 15, 15, {'width': 900});
-            // doc.save('sample-file.pdf');
-
-   //          var doc = new jsPDF();
-			// doc.text(20, 20, 'Hello world.');
-			// doc.save('Test.pdf');
-
-		// var	svg = $('#svg-1').parent().html();
-		// canvg('canvas', svg)
-		// canvas = document.getElementById("canvas")
-		// img_PNG = "<img src='#{canvas.toDataURL()}' />"
-
-//		img_PNG = Canvas2Image.saveAsPNG(canvas, true)		 
-//		$('#line').html(img_PNG)
 
 		}
 		else if(that.mode === "infographics") {
@@ -791,6 +772,9 @@ PykCharts.multiD.lineChart = function (options){
 
 			if(clicked) {
 				d3.selectAll(options.selector+" path.multi-line").style("opacity",0.3);
+				d3.selectAll(options.selector+ " .legend-heading").style("opacity",0.3);				
+				d3.select(that.selector+" text#"+that.selected.id).style("opacity",1).style
+				("font-weight","bold");
 			}
 	};
 	this.annotation = function () {
