@@ -917,7 +917,7 @@ PykCharts.Configuration = function (options){
                 var name = chart_name + ".svg"
                 
                 $(chart.selector + " #"+id).click(function () {
-                    chart.k.processSVG(document.querySelector(options.selector +" "+svgId));
+                    chart.k.processSVG(document.querySelector(options.selector +" "+svgId),chart_name);
                     project.importSVG(document.querySelector(options.selector +" "+svgId));
                     var svg = project.exportSVG({ asString: true });
                     downloadDataURI({
@@ -930,7 +930,8 @@ PykCharts.Configuration = function (options){
             }
             return this;
         },
-        processSVG: function (svg) {
+        processSVG: function (svg,svgId) {
+            console.log(svg,svgId,"svg")
             var x = svg.querySelectorAll("text");
             for (var i = 0; i < x.length; i++) {
                 if(x[i].hasAttribute("dy")) {
