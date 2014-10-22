@@ -11,6 +11,7 @@ PykCharts.multiD.columnChart = function(options){
         if(that.mode === "default") {
            that.k.loading();
         }
+        that.multiD = new PykCharts.multiD.configuration(that);
         d3.json(options.data, function(e, data){
             that.data = data.groupBy("column");
             that.compare_data = data.groupBy("column");
@@ -39,6 +40,7 @@ PykCharts.multiD.columnChart = function(options){
             if(that.no_of_groups === 1) {
                 that.legends_enable = "no";
             }
+            that.map_group_data = that.multiD.mapGroup(that.data);
             that.optionalFeatures()
                     .createChart()
                     .legends();
@@ -53,6 +55,7 @@ PykCharts.multiD.columnChart = function(options){
     //----------------------------------------------------------------------------------------
     this.render = function(){
         var that = this;
+        that.map_group_data = that.multiD.mapGroup(that.data);
         that.data = that.dataTransformation();
         that.data = that.emptygroups(that.data);
         var fD = that.flattenData();
@@ -136,10 +139,11 @@ PykCharts.multiD.columnChart = function(options){
                     .attr("height",that.height)
                     .attr("id","svgcontainer")
                     .attr("class","svgcontainer")
-                    .style("background-color",that.bg)
+                    // .style("background-color",that.background_color)
                     .attr("preserveAspectRatio", "xMinYMin")
                     .attr("viewBox", "0 0 " + that.width + " " + that.height);
 
+                // $(options.selector).colourBrightness();
                 return this;
             },
             createGroups: function (i) {
