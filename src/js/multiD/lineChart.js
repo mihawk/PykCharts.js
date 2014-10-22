@@ -184,8 +184,8 @@ PykCharts.multiD.lineChart = function (options){
             $(window).on("load", function () { return that.k.resize(that.svgContainer,"yes"); })
                         .on("resize", function () { return that.k.resize(that.svgContainer,"yes"); });
         } else {
-        	$(window).on("load", function () { return that.annotation(); })
-                        .on("resize", function () { return that.annotation(); });
+        	$(window).on("load", function () { return that.k.resize(null); })
+                        .on("resize", function () { return that.k.resize(null); });
         }
 		that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
 

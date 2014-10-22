@@ -238,6 +238,9 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                 $(window).on("load", function () { return that.k.resize(that.svgContainer); })
                             .on("resize", function () { return that.k.resize(that.svgContainer); });
             }
+        } else {
+            $(window).on("load", function () { return that.k.resize(); })
+                .on("resize", function () { return that.k.resize(); });
         }
     };
 

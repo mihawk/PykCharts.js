@@ -737,7 +737,6 @@ PykCharts.Configuration = function (options){
                 comp = a[i].innerHTML;
                 if(a[i].getBBox().width > (options.margin_left * 0.7)) {
                     comp = comp.substr(0,3) + "..";
-
                 }
                 a[i].innerHTML = comp;
             }
@@ -795,8 +794,10 @@ PykCharts.Configuration = function (options){
             if(targetWidth > options.width) {
                 targetWidth = options.width;
             }
-            svg.attr("width", targetWidth);
-            svg.attr("height", targetWidth / aspect);
+            if(PykCharts.boolean(svg)) {
+                svg.attr("width", targetWidth);
+                svg.attr("height", targetWidth / aspect);
+            }
             var title_div_width;
             if(PykCharts.boolean(options.title_text)) {
                 if(PykCharts.boolean(options.export_enable)) {
@@ -807,6 +808,20 @@ PykCharts.Configuration = function (options){
             if(PykCharts.boolean(options.subtitle_text)) {
                 title_div_width = 0.9*targetWidth;
                 $(options.selector + " #sub-title").css("width", title_div_width);
+            }
+            if(PykCharts.boolean(options.export_enable)) {
+                div_size = targetWidth
+                div_float ="none"
+                div_left = targetWidth-15;
+                if(PykCharts.boolean(options.title_text) && options.title_size) {
+                    div_size = 0.1*targetWidth;
+                    div_float ="left";
+                    div_left = 0;
+                }
+                $(options.selector + " #export").css("width",div_size)
+                        .css("left",div_left)
+                        .css("float",div_float);
+
             }
             if(lsvg !== undefined) {
                 lsvg.attr("width",targetWidth);
@@ -875,7 +890,7 @@ PykCharts.Configuration = function (options){
                 canvas.setAttribute('id', canvas_id);
                 var id = "export",
                 div_size = options.width
-               div_float ="none"
+                div_float ="none"
                 div_left = options.width-15;
 
                 if(PykCharts.boolean(options.title_text) && options.title_size) {
