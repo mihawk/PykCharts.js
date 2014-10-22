@@ -899,15 +899,6 @@ PykCharts.Configuration = function (options){
                 }
 
                 d3.select(chart.selector)
-<<<<<<< HEAD
-                    .append("div")
-                    .attr("id",id)      
-                    .style("width",div_size + "px")
-                    .style("left",div_left+"px")
-                    .style("float",div_float)
-                    .style("text-align","right")
-                    .html("<img src='../img/download-icon.png' style='left:"+div_left+"px;margin-bottom:3px'/>");
-=======
                                 .append("div")
                                 .attr("id",id)
                                 .style("width",div_size + "px")
@@ -917,7 +908,6 @@ PykCharts.Configuration = function (options){
                                 .style("cursor","pointer")
                                 .attr("title","Export to SVG")
                                 .html("<img src='../img/download.png' style='left:"+div_left+"px;margin-bottom:3px'/>");
->>>>>>> ba250104160fe375577e79c1eab1c29698c5ab25
 
                 var get_canvas = document.getElementById(canvas_id);
                 paper.setup(get_canvas);
@@ -925,13 +915,8 @@ PykCharts.Configuration = function (options){
                 project._view._viewSize.width = chart.width;
                 project._view._viewSize.height = chart.height;
                 var name = chart_name + ".svg"
-<<<<<<< HEAD
                 
                 $(chart.selector + " #"+id).click(function () {
-=======
-
-                $(chart.selector + " #"+id).click(function(){
->>>>>>> ba250104160fe375577e79c1eab1c29698c5ab25
                     chart.k.processSVG(document.querySelector(options.selector +" "+svgId));
                     project.importSVG(document.querySelector(options.selector +" "+svgId));
                     var svg = project.exportSVG({ asString: true });
