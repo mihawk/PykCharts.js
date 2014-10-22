@@ -900,13 +900,13 @@ PykCharts.Configuration = function (options){
                 }
                 
                 d3.select(chart.selector)
-                                .append("div")
-                                .attr("id",id)      
-                                .style("width",div_size + "px")
-                                .style("left",div_left+"px")
-                                .style("float",div_float)
-                                .style("text-align","right")
-                                .html("<img src='../img/download-icon.png' style='left:"+div_left+"px;margin-bottom:3px'/>");
+                    .append("div")
+                    .attr("id",id)      
+                    .style("width",div_size + "px")
+                    .style("left",div_left+"px")
+                    .style("float",div_float)
+                    .style("text-align","right")
+                    .html("<img src='../img/download-icon.png' style='left:"+div_left+"px;margin-bottom:3px'/>");
 
                 var get_canvas = document.getElementById(canvas_id);
                 paper.setup(get_canvas);
@@ -915,7 +915,7 @@ PykCharts.Configuration = function (options){
                 project._view._viewSize.height = chart.height;
                 var name = chart_name + ".svg"
                 
-                $(chart.selector + " #"+id).click(function(){
+                $(chart.selector + " #"+id).click(function () {
                     chart.k.processSVG(document.querySelector(options.selector +" "+svgId));
                     project.importSVG(document.querySelector(options.selector +" "+svgId));
                     var svg = project.exportSVG({ asString: true });

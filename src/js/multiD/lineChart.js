@@ -158,9 +158,6 @@ PykCharts.multiD.lineChart = function (options){
                 .dataSource();
 
            	that.annotation();
-
-           //	that.k.processSVG(document.querySelector(options.selector +" #svg-1"))
-
 		}
 		else if(that.mode === "infographics") {
 			that.w = that.width;
