@@ -50,11 +50,10 @@ PykCharts.multiD.spiderWeb = function (options) {
         that.border = new PykCharts.Configuration.border(that);
         that.map_group_data = that.multiD.mapGroup(that.data);
 
-        that.k.export(that,"#svgcontainer","spiderweb");
-
         if(that.mode === "default") {
             that.k.title()
                 .subtitle()
+                .export(that,"#svgcontainer","spiderweb")
                 .emptyDiv()
                 .makeMainDiv(that.selector,1);
 
@@ -81,7 +80,8 @@ PykCharts.multiD.spiderWeb = function (options) {
                 .dataSource();
 
         } else if (that.mode==="infographics") {
-            that.k.emptyDiv();
+            that.k.export(that,"#svgcontainer","spiderweb")
+                .emptyDiv();
             that.k.makeMainDiv(that.selector,1);
 
             that.optionalFeatures().svgContainer(1)

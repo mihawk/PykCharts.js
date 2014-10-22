@@ -54,14 +54,16 @@ PykCharts.oneD.percentageBar = function (options) {
         that.onHoverEffect = new PykCharts.oneD.mouseEvent(options);
         that.transitions = new PykCharts.Configuration.transition(that);
         that.border = new PykCharts.Configuration.border(that);
-        that.k.export(that,"#svgcontainer","percentageBar");
+
         if(that.mode === "default") {
+
             that.k.title()
                     .subtitle()
+                    .export(that,"#svgcontainer","percentageBar")
                     .emptyDiv();
         }
         if(that.mode === "infographics") {
-            that.k.emptyDiv();
+            that.k.export(that,"#svgcontainer","percentageBar").emptyDiv();
             that.new_data = that.data;
         }
 
@@ -69,7 +71,7 @@ PykCharts.oneD.percentageBar = function (options) {
 
         that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
         if(that.mode === "default") {
-            that.k.emptyDiv();
+
             percent_bar = that.optionalFeatures()
                             .clubData();
         }
@@ -197,9 +199,9 @@ PykCharts.oneD.percentageBar = function (options) {
                         .attr("x",function (d,i) {
                                 sum = sum + d.percentValue;
                                 if (i===0) {
-                                    return (0 + (sum * that.width / 100))/2+5;
+                                    return (0 + (sum * that.width / 100))/2;
                                 } else {
-                                    return (((sum - d.percentValue) * that.width/100)+(sum * that.width / 100))/2+5;
+                                    return (((sum - d.percentValue) * that.width/100)+(sum * that.width / 100))/2;
                                 }
                             });
                     sum = 0;
@@ -215,9 +217,9 @@ PykCharts.oneD.percentageBar = function (options) {
                         // .delay(that.transitions.duration())
 
                         setTimeout(function(){
-                            that.chart_text.text(function (d) { return that.k.appendUnits(d.weight); })
+                            that.chart_text.text(function (d) { return d.percentValue.toFixed(1)+"%"; })
                                 .text(function (d) {
-                                    if(this.getBBox().width < (that.width/4) && this.getBBox().height < (d.percentValue * that.height / 100)) {
+                                    if(this.getBBox().width < (d.percentValue * that.width / 100) && this.getBBox().height < that.percent_row_rect_height) {
                                         return d.percentValue.toFixed(1)+"%"
                                         // return that.k.appendUnits(d.weight);
                                     }else {

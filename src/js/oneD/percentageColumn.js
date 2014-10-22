@@ -54,15 +54,18 @@ PykCharts.oneD.percentageColumn = function (options) {
         that.onHoverEffect = new PykCharts.oneD.mouseEvent(options);
         that.transitions = new PykCharts.Configuration.transition(that);
         that.border = new PykCharts.Configuration.border(that);
-        that.k.export(that,"#svgcontainer","percentageColumn");
+
         if(that.mode === "default") {
             that.k.title()
                     .subtitle()
+                    .export(that,"#svgcontainer","percentageColumn")
                     .emptyDiv();
                 // [that.fullscreen]().fullScreen(that);
         }
         if(that.mode === "infographics") {
-            that.k.emptyDiv();
+            that.k.export(that,"#svgcontainer","percentageColumn")
+                    .emptyDiv();
+
             that.new_data = that.data;
         }
 

@@ -80,12 +80,14 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
     this.render = function () {
 
         that.border = new PykCharts.Configuration.border(that);
+        
+        that.k.title()
+            .subtitle();
+
         if(type === "oneLayer") {
             that.k.export(that,"#svgcontainer",type)
+                .emptyDiv();
         }
-        that.k.title()
-            .subtitle()
-            .emptyDiv();
 
         that.current_palette = _.where(that.color_palette_data, {name:that.palette_color, number:that.total_no_of_colors})[0];
         that.optionalFeatures()
@@ -608,7 +610,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         var x_extent
         , x_range
         , duration
-        , interval = interval1 = 1;
+        , interval = interval1 = that.interval_index = 1;
         
         that.play.on("click", function () {
             startTimeline(); 
