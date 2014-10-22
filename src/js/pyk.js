@@ -906,6 +906,8 @@ PykCharts.Configuration = function (options){
                                 .style("left",div_left+"px")
                                 .style("float",div_float)
                                 .style("text-align","right")
+                                .style("cursor","pointer")
+                                .attr("title","Export to SVG")
                                 .html("<img src='../img/download.png' style='left:"+div_left+"px;margin-bottom:3px'/>");
 
                 var get_canvas = document.getElementById(canvas_id);
@@ -934,7 +936,7 @@ PykCharts.Configuration = function (options){
             for (var i = 0; i < x.length; i++) {
                 if(x[i].hasAttribute("dy")) {
                     var attr_value = x[i].getAttribute("dy");
-                    var attr_length = attr_value.length;                      
+                    var attr_length = attr_value.length;
                     if(attr_value.substring(attr_length-2,attr_length) == "em") {
                         var value = 12*parseFloat(attr_value);
                         x[i].setAttribute("dy", value);
