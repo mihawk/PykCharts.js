@@ -376,16 +376,16 @@ PykCharts.multiD.lineChart = function (options){
 		          	that.extra_left_margin = 0;
 		      	}
 		      	
-		      	that.cnt = 0;
+		      	that.count = 1;
 		      	that.zoom_event = d3.behavior.zoom();
 		      	if(!(that.axis_y_data_format==="string" || that.axis_x_data_format==="string")) {
 		      		that.zoom_event.x(that.xScale)
 					    .y(that.yScale)
-					    .scaleExtent([1,4])
+					    .scale(that.count)
 					    .on("zoom",that.zoomed);
 				} else {
 					that.zoom_event.y(that.yScale)
-					    .scaleExtent([1,4])
+					    .scale(that.count)
 					    .on("zoom",that.zoomed);
 				}
 				
@@ -758,14 +758,14 @@ PykCharts.multiD.lineChart = function (options){
 		    }	
 		}
 	    if(event.type === "dblclick") {
-	    	that.cnt++;
+	    	that.count++;
 	    }
 	    that.mouseEvent.tooltipHide();
 		that.mouseEvent.crossHairHide(that.type);
 		that.mouseEvent.axisHighlightHide(that.selector + " .x.axis");
 		that.mouseEvent.axisHighlightHide(that.selector + " .y.axis");
 	    
-	    if(that.cnt === 3) {
+	    if(that.count === that.zoom_level+1) {
 	    	that.zoomOut();
 	    }
 	    that.annotation();

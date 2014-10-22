@@ -1704,6 +1704,7 @@ configuration.Theme = function(){
 
         "crosshair_enable": "yes",
         "zoom_enable": "no",
+        "zoom_level" : 3,
 
         "color_mode" : "color",
         // "color": ["yellow"],

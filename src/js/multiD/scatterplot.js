@@ -389,11 +389,14 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                     that.x1 = 1;
                     that.y1 = 12;
                     that.count = 1;
-                    var zoom = d3.behavior.zoom()
-                            .x(that.x)
-                            .y(that.yScale)
-                            .scaleExtent([that.x1, that.y1])
-                            .on("zoom",zoomed);
+                    if(type!== "pulse") {
+                        var zoom = d3.behavior.zoom()
+                                .x(that.x)
+                                .y(that.yScale)
+                                // .scaleExtent()
+                                .scale(that.count)
+                                .on("zoom",zoomed);
+                    }
                     // console.log($("#svgcontainer0 .dot"));
                      // $("#svgcontainer0 .dot").dblclick(function(){
                      //    console.log(d3.event,"d33333 eeee");
@@ -735,7 +738,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                 .attr("y", function (d) { return (that.yScale(d.y)+that.extra_top_margin + 5); });
         }
         that.count++;
-        if(that.count === 10) {
+        if(that.count === that.zoom_level+1) {
             for(var i = 0; i < n; i++) {
                 if(that.multiple_containers_enable==="yes"){
                     that.new_data = [];
