@@ -203,7 +203,12 @@ PykCharts.multiD.configuration = function (options){
 
             if(checkGroup) {
                 data.forEach(function(item) {
-                    if (!unique[item.group] && item.color) {
+                    if (!unique[item.group]) {
+                        if(item.color) {
+                            unique[item.group] = item;
+                        } else {
+                            unique[item.group] = {};    
+                        }
                         if(options.chart_color.length !== 0 && PykCharts.boolean(options.chart_color[k])) {
                             item.color = options.chart_color[k];
                             k++;
@@ -213,7 +218,7 @@ PykCharts.multiD.configuration = function (options){
                             item.color = options.default_color;
                         }
                         newarr.push(item);
-                        unique[item.group] = item;
+                        
                     }
                 });
 
@@ -405,6 +410,7 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     chartObject.pointer_family = options.pointer_family ? options.pointer_family : stylesheet.pointer_family;
     chartObject.pointer_weight = (chartObject.pointer_weight === "thick") ? "bold" : "normal";
     chartObject.zoom_enable = options.zoom_enable ? options.zoom_enable : multiDimensionalCharts.zoom_enable;
+    chartObject.zoom_level = options.zoom_level ? options.zoom_level : multiDimensionalCharts.zoom_level;
 
     chartObject.label_size = "label_size" in options ? options.label_size : stylesheet.label_size;
     chartObject.label_color = options.label_color ? options.label_color : stylesheet.label_color;

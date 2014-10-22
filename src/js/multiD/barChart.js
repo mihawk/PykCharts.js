@@ -115,7 +115,6 @@ PykCharts.multiD.barChart = function(options){
         that.k.xAxis(that.svgContainer,that.xGroup,that.xScale,undefined,undefined,that.legendsGroup_height)
                 .xAxisTitle(that.xGroup);
 
-        that.k.export(that,"#svgcontainer","barChart"); 
         if(PykCharts.boolean(that.legends_enable)) {
             $(window).on("load", function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); })
                 .on("resize", function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); });

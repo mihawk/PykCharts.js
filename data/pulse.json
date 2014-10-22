@@ -4,7 +4,7 @@
         "x" : 2001,
         "y" : "Rice",
         "weight" : 4834,
-        "color": "#75b0e1",
+        "color": "",
         "tooltip" : "",
         "group": "Cereals"
 	},
@@ -13,7 +13,7 @@
         "x" : 2002,
         "y" : "Rice",
         "weight" : 10402,
-        "color": "#75b0e1",
+        "color": "",
         "tooltip" : "",
         "group": "Cereals"
 	},
@@ -22,7 +22,7 @@
         "x" : 2003,
         "y" : "Rice",
         "weight" : 5964,
-        "color": "#75b0e1",
+        "color": "",
         "tooltip" : "",
         "group": "Cereals"
 	},
@@ -31,7 +31,7 @@
         "x" : 2004,
         "y" : "Rice",
         "weight" : 13385,
-        "color": "#75b0e1",
+        "color": "",
         "tooltip" : "",
         "group": "Cereals"
 	},
@@ -40,7 +40,7 @@
         "x" : 2005,
         "y" : "Rice",
         "weight" : 11966,
-        "color": "#75b0e1",
+        "color": "",
         "tooltip" : "",
         "group": "Cereals"
 	},
@@ -49,7 +49,7 @@
         "x" : 2006,
         "y" : "Rice",
         "weight" : 12836,
-        "color": "#75b0e1",
+        "color": "",
         "tooltip" : "",
         "group": "Cereals"
 	},
@@ -58,7 +58,7 @@
         "x" : 2007,
         "y" : "Rice",
         "weight" : 11412,
-        "color": "#75b0e1",
+        "color": "",
         "tooltip" : "",
         "group": "Cereals"
 	},
@@ -67,7 +67,7 @@
         "x" : 2008,
         "y" : "Rice",
         "weight" : 14742,
-        "color": "#75b0e1",
+        "color": "",
         "tooltip" : "",
         "group": "Cereals"
 	},
@@ -76,7 +76,7 @@
         "x" : 2009,
         "y" : "Rice",
         "weight" : 13029,
-        "color": "#75b0e1",
+        "color": "",
         "tooltip" : "",
         "group": "Cereals"
 	},
@@ -85,7 +85,7 @@
         "x" : 2010,
         "y" : "Rice",
         "weight" : 12930,
-        "color": "#75b0e1",
+        "color": "",
         "tooltip" : "",
         "group": "Cereals"
 	},
@@ -94,7 +94,7 @@
         "x" : 2011,
         "y" : "Rice",
         "weight" : 16658,
-        "color": "#75b0e1",
+        "color": "",
         "tooltip" : "",
         "group": "Cereals"
 	},
@@ -103,7 +103,7 @@
         "x" : 2012,
         "y" : "Rice",
         "weight" : 17897,
-        "color": "#75b0e1",
+        "color": "",
         "tooltip" : "",
         "group": "Cereals"
 	},
@@ -112,7 +112,7 @@
         "x" : 2001,
         "y" : "Wheat",
         "weight" : 4834,
-        "color": "#44A770",
+        "color": "",
         "tooltip" : "",
         "group": "Cereals"
 	},
@@ -121,7 +121,7 @@
         "x" : 2002,
         "y" : "Wheat",
         "weight" : 10402,
-        "color": "#44A770",
+        "color": "",
         "tooltip" : "",
         "group": "Cereals"
 	},
@@ -130,7 +130,7 @@
         "x" : 2003,
         "y" : "Wheat",
         "weight" : 5964,
-        "color": "#44A770",
+        "color": "",
         "tooltip" : "",
         "group": "Cereals"
 	},
@@ -139,7 +139,7 @@
         "x" : 2004,
         "y" : "Wheat",
         "weight" : 13385,
-        "color": "#44A770",
+        "color": "",
         "tooltip" : "",
         "group": "Cereals"
 	},
@@ -148,7 +148,7 @@
         "x" : 2005,
         "y" : "Wheat",
         "weight" : 11966,
-        "color": "#44A770",
+        "color": "",
         "tooltip" : "",
         "group": "Cereals"
 	},
@@ -157,7 +157,7 @@
         "x" : 2006,
         "y" : "Wheat",
         "weight" : 12836,
-        "color": "#44A770",
+        "color": "",
         "tooltip" : "",
         "group": "Cereals"
 	},
@@ -166,7 +166,7 @@
         "x" : 2007,
         "y" : "Wheat",
         "weight" : 11412,
-        "color": "#44A770",
+        "color": "",
         "tooltip" : "",
         "group": "Cereals"
 	},
@@ -175,7 +175,7 @@
         "x" : 2008,
         "y" : "Wheat",
         "weight" : 14742,
-        "color": "#44A770",
+        "color": "",
         "tooltip" : "",
         "group": "Cereals"
 	},
@@ -184,7 +184,7 @@
         "x" : 2009,
         "y" : "Wheat",
         "weight" : 13029,
-        "color": "#44A770",
+        "color": "",
         "tooltip" : "",
         "group": "Cereals"
 	},
@@ -193,7 +193,7 @@
         "x" : 2010,
         "y" : "Wheat",
         "weight" : 12930,
-        "color": "#44A770",
+        "color": "",
         "tooltip" : "",
         "group": "Cereals"
 	},
@@ -202,7 +202,7 @@
         "x" : 2011,
         "y" : "Wheat",
         "weight" : 16658,
-        "color": "#44A770",
+        "color": "",
         "tooltip" : "",
         "group": "Cereals"
 	},
@@ -211,7 +211,7 @@
         "x" : 2012,
         "y" : "Wheat",
         "weight" : 17897,
-        "color": "#44A770",
+        "color": "",
         "tooltip" : "",
         "group": "Cereals"
 	},
@@ -220,7 +220,7 @@
         "x" : 2001,
         "y" : "Jowar",
         "weight" : 17800,
-        "color": "#013f73",
+        "color": "",
         "tooltip" : "",
         "group": "Cereals"
 	},
@@ -229,7 +229,7 @@
         "x" : 2002,
         "y" : "Jowar",
         "weight" : 16930,
-        "color": "#013f73",
+        "color": "",
         "tooltip" : "",
         "group": "Cereals"
 	},
@@ -238,7 +238,7 @@
         "x" : 2003,
         "y" : "Jowar",
         "weight" : 12170,
-        "color": "#013f73",
+        "color": "",
         "tooltip" : "",
         "group": "Cereals"
 	},
@@ -247,7 +247,7 @@
         "x" : 2004,
         "y" : "Jowar",
         "weight" : 19680,
-        "color": "#013f73",
+        "color": "",
         "tooltip" : "",
         "group": "Cereals"
 	},
@@ -256,7 +256,7 @@
         "x" : 2005,
         "y" : "Jowar",
         "weight" : 13440,
-        "color": "#013f73",
+        "color": "",
         "tooltip" : "",
         "group": "Cereals"
 	},
@@ -265,7 +265,7 @@
         "x" : 2006,
         "y" : "Jowar",
         "weight" : 15700,
-        "color": "#013f73",
+        "color": "",
         "tooltip" : "",
         "group": "Cereals"
 	},
@@ -274,7 +274,7 @@
         "x" : 2007,
         "y" : "Jowar",
         "weight" : 14930,
-        "color": "#013f73",
+        "color": "",
         "tooltip" : "",
         "group": "Cereals"
 	},
@@ -283,7 +283,7 @@
         "x" : 2008,
         "y" : "Jowar",
         "weight" : 15640,
-        "color": "#013f73",
+        "color": "",
         "tooltip" : "",
         "group": "Cereals"
 	},
@@ -292,7 +292,7 @@
         "x" : 2009,
         "y" : "Jowar",
         "weight" : 20820,
-        "color": "#013f73",
+        "color": "",
         "tooltip" : "",
         "group": "Cereals"
 	},
@@ -301,7 +301,7 @@
         "x" : 2010,
         "y" : "Jowar",
         "weight" : 17130,
-        "color": "#013f73",
+        "color": "",
         "tooltip" : "",
         "group": "Cereals"
 	},
@@ -310,7 +310,7 @@
         "x" : 2011,
         "y" : "Jowar",
         "weight" : 13900,
-        "color": "#013f73",
+        "color": "",
         "tooltip" : "",
         "group": "Cereals"
 	},
@@ -319,7 +319,7 @@
         "x" : 2012,
         "y" : "Jowar",
         "weight" : 4834,
-        "color": "#013f73",
+        "color": "",
         "tooltip" : "",
         "group": "Cereals"
 	},
@@ -328,7 +328,7 @@
         "x" : 2001,
         "y" : "Groundnut",
         "weight" : 6882,
-        "color" : "#4682b4",
+        "color" : "",
         "tooltip" : "",
         "group" : "Oilseeds"
     },
@@ -337,7 +337,7 @@
         "x" : 2002,
         "y" : "Groundnut",
         "weight" : 16466,
-        "color" : "#4682b4",
+        "color" : "",
         "tooltip" : "",
         "group" : "Oilseeds"
     },
@@ -346,7 +346,7 @@
         "x" : 2003,
         "y" : "Groundnut",
         "weight" : 10945,
-        "color" : "#4682b4",
+        "color" : "",
         "tooltip" : "",
         "group" : "Oilseeds"
     },
@@ -355,7 +355,7 @@
         "x" : 2004,
         "y" : "Groundnut",
         "weight" : 15775,
-        "color" : "#4682b4",
+        "color" : "",
         "tooltip" : "",
         "group" : "Oilseeds"
     },
@@ -364,7 +364,7 @@
         "x" : 2005,
         "y" : "Groundnut",
         "weight" : 1821,
-        "color" : "#4682b4",
+        "color" : "",
         "tooltip" : "",
         "group" : "Oilseeds"
     },
@@ -373,7 +373,7 @@
         "x" : 2006,
         "y" : "Groundnut",
         "weight" : 13581,
-        "color" : "#4682b4",
+        "color" : "",
         "tooltip" : "",
         "group" : "Oilseeds"
     },
@@ -382,7 +382,7 @@
         "x" : 2007,
         "y" : "Groundnut",
         "weight" : 18504,
-        "color" : "#4682b4",
+        "color" : "",
         "tooltip" : "",
         "group" : "Oilseeds"
     },
@@ -391,7 +391,7 @@
         "x" : 2008,
         "y" : "Groundnut",
         "weight" : 12979,
-        "color" : "#4682b4",
+        "color" : "",
         "tooltip" : "",
         "group" : "Oilseeds"
     },
@@ -400,7 +400,7 @@
         "x" : 2009,
         "y" : "Groundnut",
         "weight" : 16609,
-        "color" : "#4682b4",
+        "color" : "",
         "tooltip" : "",
         "group" : "Oilseeds"
     },
@@ -409,7 +409,7 @@
         "x" : 2010,
         "y" : "Groundnut",
         "weight" : 17569,
-        "color" : "#4682b4",
+        "color" : "",
         "tooltip" : "",
         "group" : "Oilseeds"
     },
@@ -418,7 +418,7 @@
         "x" : 2011,
         "y" : "Groundnut",
         "weight" : 9750,
-        "color" : "#4682b4",
+        "color" : "",
         "tooltip" : "",
         "group" : "Oilseeds"
     },
@@ -427,7 +427,7 @@
         "x" : 2012,
         "y" : "Groundnut",
         "weight" : 17168,
-        "color" : "#4682b4",
+        "color" : "",
         "tooltip" : "",
         "group" : "Oilseeds"
     },
@@ -436,7 +436,7 @@
         "x" : 2001,
         "y" : "Castor",
         "weight" : 6388,
-        "color" : "#4682b4",
+        "color" : "",
         "tooltip" : "",
         "group" : "Oilseeds"
     },
@@ -445,7 +445,7 @@
         "x" : 2002,
         "y" : "Castor",
         "weight" : 4651,
-        "color" : "#4682b4",
+        "color" : "",
         "tooltip" : "",
         "group" : "Oilseeds"
     },
@@ -454,7 +454,7 @@
         "x" : 2003,
         "y" : "Castor",
         "weight" : 2831,
-        "color" : "#4682b4",
+        "color" : "",
         "tooltip" : "",
         "group" : "Oilseeds"
     },
@@ -463,7 +463,7 @@
         "x" : 2004,
         "y" : "Castor",
         "weight" : 6365,
-        "color" : "#4682b4",
+        "color" : "",
         "tooltip" : "",
         "group" : "Oilseeds"
     },
@@ -472,7 +472,7 @@
         "x" : 2005,
         "y" : "Castor",
         "weight" : 6365,
-        "color" : "#4682b4",
+        "color" : "",
         "tooltip" : "",
         "group" : "Oilseeds"
     },
@@ -481,7 +481,7 @@
         "x" : 2006,
         "y" : "Castor",
         "weight" : 6650,
-        "color" : "#4682b4",
+        "color" : "",
         "tooltip" : "",
         "group" : "Oilseeds"
     },
@@ -490,7 +490,7 @@
         "x" : 2007,
         "y" : "Castor",
         "weight" : 5888,
-        "color" : "#4682b4",
+        "color" : "",
         "tooltip" : "",
         "group" : "Oilseeds"
     },
@@ -499,7 +499,7 @@
         "x" : 2008,
         "y" : "Castor",
         "weight" : 7083,
-        "color" : "#4682b4",
+        "color" : "",
         "tooltip" : "",
         "group" : "Oilseeds"
     },
@@ -508,7 +508,7 @@
         "x" : 2009,
         "y" : "Castor",
         "weight" : 8517,
-        "color" : "#4682b4",
+        "color" : "",
         "tooltip" : "",
         "group" : "Oilseeds"
     },
@@ -517,7 +517,7 @@
         "x" : 2010,
         "y" : "Castor",
         "weight" : 8314,
-        "color" : "#4682b4",
+        "color" : "",
         "tooltip" : "",
         "group" : "Oilseeds"
     },
@@ -526,7 +526,7 @@
         "x" : 2011,
         "y" : "Castor",
         "weight" : 9860,
-        "color" : "#4682b4",
+        "color" : "",
         "tooltip" : "",
         "group" : "Oilseeds"
     },
@@ -535,7 +535,7 @@
         "x" : 2012,
         "y" : "Castor",
         "weight" : 18034,
-        "color" : "#4682b4",
+        "color" : "",
         "tooltip" : "",
         "group" : "Oilseeds"
     },
@@ -544,7 +544,7 @@
         "x" : 2001,
         "y" : "Sesamum",
         "weight" : 9840,
-        "color" : "#4682b4",
+        "color" : "",
         "tooltip" : "",
         "group" : "Oilseeds"
     },
@@ -553,7 +553,7 @@
         "x" : 2002,
         "y" : "Sesamum",
         "weight" : 9266,
-        "color" : "#4682b4",
+        "color" : "",
         "tooltip" : "",
         "group" : "Oilseeds"
     },
@@ -562,7 +562,7 @@
         "x" : 2003,
         "y" : "Sesamum",
         "weight" : 12302,
-        "color" : "#4682b4",
+        "color" : "",
         "tooltip" : "",
         "group" : "Oilseeds"
     },
@@ -571,7 +571,7 @@
         "x" : 2004,
         "y" : "Sesamum",
         "weight" : 12388,
-        "color" : "#4682b4",
+        "color" : "",
         "tooltip" : "",
         "group" : "Oilseeds"
     },
@@ -580,7 +580,7 @@
         "x" : 2005,
         "y" : "Sesamum",
         "weight" : 9171,
-        "color" : "#4682b4",
+        "color" : "",
         "tooltip" : "",
         "group" : "Oilseeds"
     },
@@ -589,7 +589,7 @@
         "x" : 2006,
         "y" : "Sesamum",
         "weight" : 14205,
-        "color" : "#4682b4",
+        "color" : "",
         "tooltip" : "",
         "group" : "Oilseeds"
     },
@@ -598,7 +598,7 @@
         "x" : 2007,
         "y" : "Sesamum",
         "weight" : 10500,
-        "color" : "#4682b4",
+        "color" : "",
         "tooltip" : "",
         "group" : "Oilseeds"
     },
@@ -607,7 +607,7 @@
         "x" : 2008,
         "y" : "Sesamum",
         "weight" : 14090,
-        "color" : "#4682b4",
+        "color" : "",
         "tooltip" : "",
         "group" : "Oilseeds"
     },
@@ -616,7 +616,7 @@
         "x" : 2009,
         "y" : "Sesamum",
         "weight" : 11849,
-        "color" : "#4682b4",
+        "color" : "",
         "tooltip" : "",
         "group" : "Oilseeds"
     },
@@ -625,7 +625,7 @@
         "x" : 2010,
         "y" : "Sesamum",
         "weight" : 10804,
-        "color" : "#4682b4",
+        "color" : "",
         "tooltip" : "",
         "group" : "Oilseeds"
     },
@@ -634,7 +634,7 @@
         "x" : 2011,
         "y" : "Sesamum",
         "weight" : 12066,
-        "color" : "#4682b4",
+        "color" : "",
         "tooltip" : "",
         "group" : "Oilseeds"
     },
@@ -643,7 +643,7 @@
         "x" : 2012,
         "y" : "Sesamum",
         "weight" : 11660,
-        "color" : "#4682b4",
+        "color" : "",
         "tooltip" : "",
         "group" : "Oilseeds"
     },
@@ -652,7 +652,7 @@
         "x" : 2001,
         "y" : "Sugarcane",
         "weight" : 12695,
-        "color" : "#013f73",
+        "color" : "",
         "tooltip" : "",
         "group" : "Other"
     },
@@ -661,7 +661,7 @@
         "x" : 2002,
         "y" : "Sugarcane",
         "weight" : 12465,
-        "color" : "#013f73",
+        "color" : "",
         "tooltip" : "",
         "group" : "Other"
     },
@@ -670,7 +670,7 @@
         "x" : 2003,
         "y" : "Sugarcane",
         "weight" : 14071,
-        "color" : "#013f73",
+        "color" : "",
         "tooltip" : "",
         "group" : "Other"
     },
@@ -679,7 +679,7 @@
         "x" : 2004,
         "y" : "Sugarcane",
         "weight" : 19242,
-        "color" : "#013f73",
+        "color" : "",
         "tooltip" : "",
         "group" : "Other"
     },
@@ -688,7 +688,7 @@
         "x" : 2005,
         "y" : "Sugarcane",
         "weight" : 14570,
-        "color" : "#013f73",
+        "color" : "",
         "tooltip" : "",
         "group" : "Other"
     },
@@ -697,7 +697,7 @@
         "x" : 2006,
         "y" : "Sugarcane",
         "weight" : 17786,
-        "color" : "#013f73",
+        "color" : "",
         "tooltip" : "",
         "group" : "Other"
     },
@@ -706,7 +706,7 @@
         "x" : 2007,
         "y" : "Sugarcane",
         "weight" : 16554,
-        "color" : "#013f73",
+        "color" : "",
         "tooltip" : "",
         "group" : "Other"
     },
@@ -715,7 +715,7 @@
         "x" : 2008,
         "y" : "Sugarcane",
         "weight" : 15190,
-        "color" : "#013f73",
+        "color" : "",
         "tooltip" : "",
         "group" : "Other"
     },
@@ -724,7 +724,7 @@
         "x" : 2009,
         "y" : "Sugarcane",
         "weight" : 15512,
-        "color" : "#013f73",
+        "color" : "",
         "tooltip" : "",
         "group" : "Other"
     },
@@ -733,7 +733,7 @@
         "x" : 2010,
         "y" : "Sugarcane",
         "weight" : 13304,
-        "color" : "#013f73",
+        "color" : "",
         "tooltip" : "",
         "group" : "Other"
     },
@@ -742,7 +742,7 @@
         "x" : 2011,
         "y" : "Sugarcane",
         "weight" : 13763,
-        "color" : "#013f73",
+        "color" : "",
         "tooltip" : "",
         "group" : "Other"
     },
@@ -751,7 +751,7 @@
         "x" : 2012,
         "y" : "Sugarcane",
         "weight" : 12749,
-        "color" : "#013f73",
+        "color" : "",
         "tooltip" : "",
         "group" : "Other"
     },
@@ -760,7 +760,7 @@
         "x" : 2001,
         "y" : "Potato",
         "weight" : 7161,
-        "color" : "#013f73",
+        "color" : "",
         "tooltip" : "",
         "group" : "Other"
     },
@@ -769,7 +769,7 @@
         "x" : 2002,
         "y" : "Potato",
         "weight" : 8020,
-        "color" : "#013f73",
+        "color" : "",
         "tooltip" : "",
         "group" : "Other"
     },
@@ -778,7 +778,7 @@
         "x" : 2003,
         "y" : "Potato",
         "weight" : 7800,
-        "color" : "#013f73",
+        "color" : "",
         "tooltip" : "",
         "group" : "Other"
     },
@@ -787,7 +787,7 @@
         "x" : 2004,
         "y" : "Potato",
         "weight" : 6959,
-        "color" : "#013f73",
+        "color" : "",
         "tooltip" : "",
         "group" : "Other"
     },
@@ -796,7 +796,7 @@
         "x" : 2005,
         "y" : "Potato",
         "weight" : 10887,
-        "color" : "#013f73",
+        "color" : "",
         "tooltip" : "",
         "group" : "Other"
     },
@@ -805,7 +805,7 @@
         "x" : 2006,
         "y" : "Potato",
         "weight" : 12383,
-        "color" : "#013f73",
+        "color" : "",
         "tooltip" : "",
         "group" : "Other"
     },
@@ -814,7 +814,7 @@
         "x" : 2007,
         "y" : "Potato",
         "weight" : 10784,
-        "color" : "#013f73",
+        "color" : "",
         "tooltip" : "",
         "group" : "Other"
     },
@@ -823,7 +823,7 @@
         "x" : 2008,
         "y" : "Potato",
         "weight" : 17956,
-        "color" : "#013f73",
+        "color" : "",
         "tooltip" : "",
         "group" : "Other"
     },
@@ -832,7 +832,7 @@
         "x" : 2009,
         "y" : "Potato",
         "weight" : 11714,
-        "color" : "#013f73",
+        "color" : "",
         "tooltip" : "",
         "group" : "Other"
     },
@@ -841,7 +841,7 @@
         "x" : 2010,
         "y" : "Potato",
         "weight" : 9877,
-        "color" : "#013f73",
+        "color" : "",
         "tooltip" : "",
         "group" : "Other"
     },
@@ -850,7 +850,7 @@
         "x" : 2011,
         "y" : "Potato",
         "weight" : 12827,
-        "color" : "#013f73",
+        "color" : "",
         "tooltip" : "",
         "group" : "Other"
     },
@@ -859,7 +859,7 @@
         "x" : 2012,
         "y" : "Potato",
         "weight" : 17923,
-        "color" : "#013f73",
+        "color" : "",
         "tooltip" : "",
         "group" : "Other"
     },
@@ -868,7 +868,7 @@
         "x" : 2001,
         "y" : "Chillies",
         "weight" : 105,
-        "color" : "#013f73",
+        "color" : "",
         "tooltip" : "",
         "group" : "Other"
     },
@@ -877,7 +877,7 @@
         "x" : 2002,
         "y" : "Chillies",
         "weight" : 121,
-        "color" : "#013f73",
+        "color" : "",
         "tooltip" : "",
         "group" : "Other"
     },
@@ -886,7 +886,7 @@
         "x" : 2003,
         "y" : "Chillies",
         "weight" : 105,
-        "color" : "#013f73",
+        "color" : "",
         "tooltip" : "",
         "group" : "Other"
     },
@@ -895,7 +895,7 @@
         "x" : 2004,
         "y" : "Chillies",
         "weight" : 208,
-        "color" : "#013f73",
+        "color" : "",
         "tooltip" : "",
         "group" : "Other"
     },
@@ -904,7 +904,7 @@
         "x" : 2005,
         "y" : "Chillies",
         "weight" : 57,
-        "color" : "#013f73",
+        "color" : "",
         "tooltip" : "",
         "group" : "Other"
     },
@@ -913,7 +913,7 @@
         "x" : 2006,
         "y" : "Chillies",
         "weight" : 68,
-        "color" : "#013f73",
+        "color" : "",
         "tooltip" : "",
         "group" : "Other"
     },
@@ -922,7 +922,7 @@
         "x" : 2007,
         "y" : "Chillies",
         "weight" : 64,
-        "color" : "#013f73",
+        "color" : "",
         "tooltip" : "",
         "group" : "Other"
     },
@@ -931,7 +931,7 @@
         "x" : 2008,
         "y" : "Chillies",
         "weight" : 79,
-        "color" : "#013f73",
+        "color" : "",
         "tooltip" : "",
         "group" : "Other"
     },
@@ -940,7 +940,7 @@
         "x" : 2009,
         "y" : "Chillies",
         "weight" : 67,
-        "color" : "#013f73",
+        "color" : "",
         "tooltip" : "",
         "group" : "Other"
     },
@@ -949,7 +949,7 @@
         "x" : 2010,
         "y" : "Chillies",
         "weight" : 85,
-        "color" : "#013f73",
+        "color" : "",
         "tooltip" : "",
         "group" : "Other"
     },
@@ -958,7 +958,7 @@
         "x" : 2011,
         "y" : "Chillies",
         "weight" : 69,
-        "color" : "#013f73",
+        "color" : "",
         "tooltip" : "",
         "group" : "Other"
     },
@@ -967,7 +967,7 @@
         "x" : 2012,
         "y" : "Chillies",
         "weight" : 74,
-        "color" : "#013f73",
+        "color" : "",
         "tooltip" : "",
         "group" : "Other"
     }

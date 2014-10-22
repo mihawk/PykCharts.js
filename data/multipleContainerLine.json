@@ -3,21 +3,21 @@
 		"name":"China",
 		"x":"Bank",
 		"y":120,
-		"color": "#013f73",
+		"color": "",
 		"tooltip":120
 	},
 	{
 		"name":"China",
 		"x":"IT",
 		"y":100,
-		"color": "#013f73",
+		"color": "",
 		"tooltip":100
 	},
 	{
 		"name":"China",
 		"x":"Cables",
 		"y":30,
-		"color": "#013f73",
+		"color": "",
 		"tooltip":30,
 		"annotations" : "abc"
 	},
@@ -25,35 +25,35 @@
 		"name":"China",
 		"x":"Crude Oil",
 		"y":40,
-		"color": "#013f73",
+		"color": "",
 		"tooltip":40
 	},
 	{
 		"name":"China",
 		"x":"Diamond",
 		"y":60,
-		"color": "#013f73",
+		"color": "",
 		"tooltip":60
 	},
 	{
 		"name":"China",
 		"x":"Healthcare",
 		"y":70,
-		"color": "#013f73",
+		"color": "",
 		"tooltip":70
 	},
 	{
 		"name":"China",
 		"x":"Automobile",
 		"y":30,
-		"color": "#013f73",
+		"color": "",
 		"tooltip":30
 	},
 	{
 		"name":"U.S.A.",
 		"x":"Bank",
 		"y":70,
-		"color": "#4682b4",
+		"color": "purple",
 		"tooltip":70,
 		"annotations" : "hey"
 	},

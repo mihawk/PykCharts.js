@@ -3,7 +3,6 @@
     <head>
         <title>Multi-Dimensional Charts</title>
         <link rel="stylesheet" type="text/css" href="../src/css/PykCharts.css">
-
     </head>
     <body>
         <div id="line"></div>
@@ -165,7 +164,7 @@
                     zoom_enable: "yes"
 
                 });
-             k.execute();
+            k.execute();
 
                 var k = new PykCharts.multiD.spiderWeb ({
                     selector: "#spiderWeb",
@@ -199,7 +198,7 @@
 
 
                 });
-               k.execute();
+            k.execute();
 
                 var k = new PykCharts.multiD.scatterPlot ({
                     selector: "#scatterPlot",
@@ -213,7 +212,7 @@
                     chart_margin_top: 25,
                     chart_margin_right: 15,
                     chart_margin_bottom: 25,
-                    chart_margin_left: 40,
+                    chart_margin_left: 60,
                     chart_grid_x_enable: "yes",
                     chart_grid_y_enable: "yes",
 
@@ -221,7 +220,6 @@
                     scatterplot_pointer: "no",
                     title_text : "How is the chocolate products rated?",
                     subtitle_text : "",
-                    real_time_charts_refresh_frequency: 10,
                     multiple_containers_enable: "no",
                     variable_circle_size_enable: "yes",
 
@@ -279,7 +277,7 @@
                     chart_margin_top: 25,
                     chart_margin_right: 15,
                     chart_margin_bottom: 40,
-                    chart_margin_left: 45,
+                    chart_margin_left: 60,
                     chart_grid_x_enable: "yes",
                     chart_grid_y_enable: "yes",
 
@@ -331,9 +329,9 @@
                     crosshair_enable: "yes"
                 });
 
-              k.execute();
+            k.execute();
 
-                var k = new PykCharts.multiD.lineChart ({
+               var k = new PykCharts.multiD.lineChart ({
                     selector: "#multiLine",
                     data: "../data/multipleContainerLine.json",
                     mode : "default",
@@ -386,15 +384,15 @@
                    // highlight_color: "#013F73",
 
                 });
-             k.execute();
+            k.execute();
 
                 var k = new PykCharts.multiD.lineChart ({
                     selector: "#multiple-multiLine",
                     data: "../data/multiLineChart.json",
                     mode : "default",
 
-                    color_mode: "color",  //color or saturation
-                    chart_color:["lightgray","lightgray","lightgray"],
+                    color_mode: "saturation",  //color or saturation
+                    chart_color:["green","red","blue"],
                     background_color:"",
 
                     chart_height: 400,
@@ -442,7 +440,7 @@
                     // multiple_containers_enable: "no",
 
                 });
-              k.execute();
+             k.execute();
 
                 var k = new PykCharts.multiD.areaChart ({
 
@@ -493,7 +491,7 @@
                     zoom_enable: "yes"
 
                 });
-            k.execute();
+           k.execute();
 
                 var k = new PykCharts.multiD.pulse({
                     selector: "#pulse",
@@ -559,7 +557,7 @@
 
                     crosshair_enable: "yes"
                 });
-              k.execute();
+             k.execute();
 
                 var k = new PykCharts.multiD.columnChart({
                     data: "../data/ultimateColumn.json",
@@ -617,7 +615,7 @@
 
                 });
 
-               k.execute();
+              k.execute();
 
                 var k = new PykCharts.multiD.columnChart({
                     data: "../data/ultimateGroupColumn.json",
@@ -675,7 +673,7 @@
                    highlight:"January",
                 });
 
-                k.execute();
+               k.execute();
 
                 var k = new PykCharts.multiD.barChart({
                     data: "../data/ultimatebar.json",
@@ -743,7 +741,7 @@
 
                 });
 
-                k.execute();
+               k.execute();
 
                 var k = new PykCharts.multiD.barChart({
                     data: "../data/ultimateGroupBar.json",
@@ -811,7 +809,7 @@
 
                     highlight: "January"
                   });
-                k.execute();
+               k.execute();
             };
         </script>
     </body>
