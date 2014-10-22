@@ -46,18 +46,19 @@ PykCharts.oneD.treemap = function (options){
         that.onHoverEffect = new PykCharts.oneD.mouseEvent(options);
         that.transitions = new PykCharts.Configuration.transition(that);
         that.border = new PykCharts.Configuration.border(that);
-        that.k.export(that,"#svgcontainer","treemap");
 
         if(that.mode === "default") {
             that.k.title()
                 .subtitle()
+                .export(that,"#container","treemap")
                 .emptyDiv();
         }
 
         that.k.tooltip();
         that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
         if(that.mode === "infographics"){
-            that.k.emptyDiv();
+            that.k.export(that,"#container","treemap")
+                .emptyDiv();
             that.new_data = {"children" : that.data};
         }
 

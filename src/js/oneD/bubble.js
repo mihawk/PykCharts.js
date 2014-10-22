@@ -4,7 +4,7 @@ PykCharts.oneD.bubble = function (options) {
     this.execute = function () {
         that = PykCharts.oneD.processInputs(that, options);
         that.height = options.chart_height ? options.chart_height : that.width;
-        
+
         if(that.mode === "default") {
            that.k.loading();
         }
@@ -41,10 +41,13 @@ PykCharts.oneD.bubble = function (options) {
         that.fillChart = new PykCharts.Configuration.fillChart(that);
         that.onHoverEffect = new PykCharts.oneD.mouseEvent(that);
         that.transitions = new PykCharts.Configuration.transition(that);
+       
         if (that.mode ==="default") {
-            that.k.export(that,"#svgcontainer","bubble");
+            
             that.k.title()
-                .subtitle()
+                .subtitle();
+
+            that.k.export(that,"#svgcontainer","bubble")
                 .emptyDiv();
 
             that.new_data = that.optionalFeatures().clubData();
@@ -69,8 +72,9 @@ PykCharts.oneD.bubble = function (options) {
                 .label();
 
             that.k.tooltip();
-            that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
+
         }
+        that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
         // $(window).on("load", function () { return that.k.resize(that.svgContainer); })
         //                     .on("resize", function () { return that.k.resize(that.svgContainer); });
     };
