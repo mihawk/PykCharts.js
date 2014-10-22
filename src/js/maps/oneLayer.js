@@ -98,14 +98,13 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             .label(that.label_enable)
             .enableClick(that.click_enable);
 
-        that.redeced_height = that.height - that.margin_top - that.margin_bottom - that.legendsGroup_height;
-        
+        that.redeced_height = that.height - that.margin_top - that.margin_bottom;
+
         that.k
             .createFooter()
             .lastUpdatedAt()
             .credits()
-            .dataSource()
-            .liveData(that);
+            .dataSource();
                 
         if(type === "timeline") {
             that.optionalFeatures()
@@ -611,24 +610,24 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         var x_extent
         , x_range
         , duration
-        , interval = interval1 = 1;
+        , interval = interval1 = that.interval_index = 1;
         
         that.play.on("click", function () {
             startTimeline(); 
-        });       
+        });
 
-        var timeline_status;
+        that.timeline_status = "";
 
         var startTimeline = function () {
-            if (timeline_status==="playing") {
+            if (that.timeline_status==="playing") {
                 that.play.attr("xlink:href","https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/play.gif");
                 clearInterval(that.play_interval);
-                timeline_status = "paused";
+                that.timeline_status = "paused";
             } else {
-                timeline_status = "playing";
+                that.timeline_status = "playing";
                 that.play.attr("xlink:href","https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/pause.gif");
+                interval = that.interval_index;
                 that.play_interval = setInterval(function () {
-
                     that.marker
                         // .transition()
                         // .duration(that.timeline.duration/2)
@@ -644,7 +643,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                             // .duration(that.timeline.duration/4)
                             .attr("fill", that.renderColor);
                     });
-
+            
                     interval++;
 
                     if (interval===that.unique.length) {
@@ -658,7 +657,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
 
                         if (interval1 === interval) {
                             clearInterval(undo_heatmap);
-                            clearTimeout(time_lag)
+                            clearTimeout(time_lag);
                         }
 
                         if (interval1===that.unique.length) {
@@ -666,7 +665,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                             that.play.attr("xlink:href","https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/play.gif");
                             that.marker.attr("x",  (that.margin_left*2) + that.xScale(that.unique[0]) - 7);
                             interval = interval1 = 1;
-                            timeline_status = "";
+                            that.timeline_status = "";
                         };
                     }, that.timeline_duration);
                 },that.timeline_duration);
@@ -676,21 +675,72 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
     };
 
     that.renderButtons = function () {
-        var bbox = d3.select(that.selector+" .axis").node().getBBox();
+        var bbox = d3.select(that.selector+" .axis").node().getBBox(),
+            drag = d3.behavior.drag()
+                    .origin(Object)
+                    .on("drag",dragmove);
+        function dragmove (d) {
+            if (that.timeline_status !== "playing") {
+                var x = d3.event.sourceEvent.pageX - (that.margin_left*2),
+                    x_range = [],
+                    temp = that.xScale.range(),
+                    len = that.unique.length,
+                    pad = (temp[1]-temp[0])/len,
+                    strt = 0, left_tick, right_tick, left_diff, right_diff;
+
+                for(i = 0 ; i<len ; i++){
+                    strt = strt + pad;
+                    x_range[i] = parseInt(strt);
+                }
+
+                for(var i=0 ; i<len ; i++) {
+                    if (x >= x_range[i] && x <= x_range[i+1]) {
+                        left_tick = x_range[i], right_tick = x_range[i+1],
+                        left_diff = (x - left_tick), right_diff = (right_tick - x);
+
+                        if ((left_diff >= right_diff) && (i <= (len-2))) {
+                            that.marker.attr("x", (that.margin_left*2) + that.xScale(that.unique[i]) - 7);
+                            that.data = _.where(that.timeline_data, {timestamp:that.unique[i]});
+                            that.data.sort(function (a,b) {
+                                return a.timestamp - b.timestamp;
+                            });
+                            _.each(that.data, function (d) {
+                                d3.select("path[iso2='"+d.iso2+"']")
+                                    .attr("fill", that.renderColor);
+                            });
+                            that.interval_index = i;
+                        }
+                    }
+                    else if ((x > x_range[i]) && (i > (len-2))) {
+                            that.marker.attr("x", (that.margin_left*2) + that.xScale(that.unique[i]) - 7);
+                            that.data = _.where(that.timeline_data, {timestamp:that.unique[i]});
+                            that.data.sort(function (a,b) {
+                                return a.timestamp - b.timestamp;
+                            });
+                            _.each(that.data, function (d) {
+                                d3.select("path[iso2='"+d.iso2+"']")
+                                    .attr("fill", that.renderColor);
+                            });
+                            that.interval_index = i;
+                    }
+                }
+            }            
+        }
+
         that.play = that.svgContainer.append("image")
             .attr("xlink:href","https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/play.gif")
             .attr("x", that.margin_left / 2)
             .attr("y", that.redeced_height - that.margin_top - (bbox.height/2))
             .attr("width","24px")
-            .attr("height", "21px")
-            .style("cursor", "pointer")
-            
+            .attr("height","21px")
+            .style("cursor","pointer");
 
         that.marker = that.svgContainer.append("image")
             .attr("xlink:href","https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/marker.png")
             .attr("x", (that.margin_left*2) + that.xScale(that.unique[0]) - 7)
             .attr("y", that.redeced_height)
             .attr("width","14px")
-            .attr("height", "12px")
+            .attr("height","12px")
+            .call(drag);
     }
 };

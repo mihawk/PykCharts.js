@@ -197,7 +197,6 @@ PykCharts.Configuration = function (options){
 
                 if(PykCharts.boolean(options.export_enable)) {
                     div_width = 0.9*options.width;
-                    console.log(div_width,"div_width")
                 }
 
 	        	that.titleDiv = d3.select(options.selector)
@@ -417,21 +416,21 @@ PykCharts.Configuration = function (options){
         },
         annotation : function (svg,data,xScale,yScale) {
             var w = 0,h=0;
-            
+
             var annotation_rect = d3.select(svg).selectAll(".annotation-rect")
                 .data(data)
-            
+
             annotation_rect.enter()
                 .append("rect")
                 .attr("class","annotation-rect");
-            
+
             var annotation_text = d3.select(svg).selectAll(".annotation-text")
                 .data(data)
-            
+
             annotation_text.enter()
                 .append("text")
                 .attr("class","annotation-text");
-            
+
             annotation_text.attr("x",function (d) {
                     return parseInt(xScale(d.x)-(5))+options.extra_left_margin+options.margin_left;
                 })
@@ -439,7 +438,7 @@ PykCharts.Configuration = function (options){
                     return parseInt(yScale(d.y)-20+options.margin_top);
                 })
                 .attr("text-anchor","middle")
-                .style("z-index", "10")
+                .style("font-size","12px")
                 .text(function (d) {
                     return d.annotation;
                 })
@@ -459,6 +458,7 @@ PykCharts.Configuration = function (options){
                 .attr("width",w)
                 .attr("height",h)
                 .attr("fill","#eeeeee")
+                .attr("stroke","darkgray")
                 .style("pointer-events","none");
 
             // });
@@ -566,7 +566,6 @@ PykCharts.Configuration = function (options){
 
             var k = new PykCharts.Configuration(options);
             var e = extra;
-            console.log("hey");
             if(PykCharts.boolean(options.axis_x_enable)){
                 d3.selectAll(options.selector + " .x.axis").attr("fill",function () {return options.axis_x_label_color;});
                 if(options.axis_x_position === "bottom") {
@@ -638,7 +637,7 @@ PykCharts.Configuration = function (options){
                         .attr("y", options.margin_bottom)
                         .style("text-anchor", "middle")
                         .style("fill",options.axis_x_label_color)
-                        .text(options.axis_x_title); 
+                        .text(options.axis_x_title);
 
                 } else if (options.axis_x_position === "top") {
                     gsvg.append("text")
@@ -646,7 +645,7 @@ PykCharts.Configuration = function (options){
                         .attr("y", - options.margin_top + 10)
                         .style("text-anchor", "middle")
                         .style("fill",options.axis_x_label_color)
-                        .text(options.axis_x_title); 
+                        .text(options.axis_x_title);
                 }
             return this;
         },
@@ -898,8 +897,9 @@ PykCharts.Configuration = function (options){
                     div_float ="left";
                     div_left = 0;
                 }
-                
+
                 d3.select(chart.selector)
+<<<<<<< HEAD
                     .append("div")
                     .attr("id",id)      
                     .style("width",div_size + "px")
@@ -907,6 +907,17 @@ PykCharts.Configuration = function (options){
                     .style("float",div_float)
                     .style("text-align","right")
                     .html("<img src='../img/download-icon.png' style='left:"+div_left+"px;margin-bottom:3px'/>");
+=======
+                                .append("div")
+                                .attr("id",id)
+                                .style("width",div_size + "px")
+                                .style("left",div_left+"px")
+                                .style("float",div_float)
+                                .style("text-align","right")
+                                .style("cursor","pointer")
+                                .attr("title","Export to SVG")
+                                .html("<img src='../img/download.png' style='left:"+div_left+"px;margin-bottom:3px'/>");
+>>>>>>> ba250104160fe375577e79c1eab1c29698c5ab25
 
                 var get_canvas = document.getElementById(canvas_id);
                 paper.setup(get_canvas);
@@ -914,8 +925,13 @@ PykCharts.Configuration = function (options){
                 project._view._viewSize.width = chart.width;
                 project._view._viewSize.height = chart.height;
                 var name = chart_name + ".svg"
+<<<<<<< HEAD
                 
                 $(chart.selector + " #"+id).click(function () {
+=======
+
+                $(chart.selector + " #"+id).click(function(){
+>>>>>>> ba250104160fe375577e79c1eab1c29698c5ab25
                     chart.k.processSVG(document.querySelector(options.selector +" "+svgId));
                     project.importSVG(document.querySelector(options.selector +" "+svgId));
                     var svg = project.exportSVG({ asString: true });
@@ -934,7 +950,7 @@ PykCharts.Configuration = function (options){
             for (var i = 0; i < x.length; i++) {
                 if(x[i].hasAttribute("dy")) {
                     var attr_value = x[i].getAttribute("dy");
-                    var attr_length = attr_value.length;                      
+                    var attr_length = attr_value.length;
                     if(attr_value.substring(attr_length-2,attr_length) == "em") {
                         var value = 12*parseFloat(attr_value);
                         x[i].setAttribute("dy", value);
@@ -1040,7 +1056,7 @@ configuration.mouseEvent = function (options) {
                             return false;
                         }
                         else {
-                          if((right_tick === x_range[j] && left_tick === x_range[j+1]) && (top_tick === y_range[k])) {
+                            if((right_tick === x_range[j] && left_tick === x_range[j+1]) && (top_tick === y_range[k])) {
                                 return false;
                             }
                             else if((x >= x_range[j] && x <= x_range[j+1]) && (y <= (y_range[k]))) {
@@ -1562,14 +1578,14 @@ configuration.Theme = function(){
     that.stylesheet = {
         "mode": "default",
         "selector": "body",
-        
+
         "chart_height": 400,
         "chart_width": 600,
         "chart_margin_top": 35,
         "chart_margin_right": 50,
         "chart_margin_bottom": 35,
         "chart_margin_left": 50,
-        
+
         "title_size": 15,
         "title_color": "#1D1D1D",
         "title_weight": "bold",
@@ -1607,9 +1623,9 @@ configuration.Theme = function(){
         "pointer_color": "#1D1D1D",
         "pointer_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
         "export_enable": "yes",
-        "loading_gif_url": "https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/img/loader.gif",        
+        "loading_gif_url": "https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/img/loader.gif",
         "fullscreen_enable": "no",
-        "tooltip_enable": "yes",        
+        "tooltip_enable": "yes",
         "credit_my_site_name": "Pykih",
         "credit_my_site_url": "http://www.pykih.com"
 
@@ -1629,7 +1645,7 @@ configuration.Theme = function(){
         "pie_radius_percent": 70,
         "donut_radius_percent": 70,
         "donut_inner_radius_percent": 40,
-        "donut_show_total_at_center": "yes", 
+        "donut_show_total_at_center": "yes",
 
         "pictograph_show_all_images": "yes",
         "pictograph_total_count_enable": "yes",
@@ -1654,7 +1670,7 @@ configuration.Theme = function(){
     };
 
     that.multiDimensionalCharts = {
-        
+
         "chart_grid_x_enable": "yes",
         "chart_grid_y_enable": "yes",
         "chart_grid_color":"#ddd",
@@ -1704,7 +1720,8 @@ configuration.Theme = function(){
 
         "crosshair_enable": "yes",
         "zoom_enable": "no",
-        
+        "zoom_level" : 3,
+
         "color_mode" : "color",
         // "color": ["yellow"],
 
@@ -1727,10 +1744,10 @@ configuration.Theme = function(){
     that.mapsTheme = {
         "chart_width": 1000,
         "chart_height": 1000,
-       
+
         "color_mode": "saturation",
         "total_no_of_colors": 3,
-        "palette_color": "Blue",
+        "palette_color": "Blue-1",
         "background_color": "white",
         "default_color" : "#4682B4",
 
