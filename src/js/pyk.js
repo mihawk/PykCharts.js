@@ -438,7 +438,7 @@ PykCharts.Configuration = function (options){
                     return parseInt(yScale(d.y)-20+options.margin_top);
                 })
                 .attr("text-anchor","middle")
-                .style("z-index", "10")
+                .style("font-size","12px")
                 .text(function (d) {
                     return d.annotation;
                 })
@@ -458,6 +458,7 @@ PykCharts.Configuration = function (options){
                 .attr("width",w)
                 .attr("height",h)
                 .attr("fill","#eeeeee")
+                .attr("stroke","darkgray")
                 .style("pointer-events","none");
 
             // });
