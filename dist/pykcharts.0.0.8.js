@@ -140,6 +140,7 @@ PykCharts.Configuration = function (options){
 
 	var configuration = {
 		liveData : function (chart) {
+            console.log("Ishaaaa");
             var frequency = options.real_time_charts_refresh_frequency;
 	        if(PykCharts.boolean(frequency)) {
                 setInterval(chart.refresh,frequency*1000);
@@ -10966,7 +10967,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
 
                         if (interval1 === interval) {
                             clearInterval(undo_heatmap);
-                            clearTimeout(time_lag)
+                            clearTimeout(time_lag);
                         }
 
                         if (interval1===that.unique.length) {

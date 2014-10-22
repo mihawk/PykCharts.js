@@ -142,6 +142,7 @@ PykCharts.Configuration = function (options){
 		liveData : function (chart) {
             var frequency = options.real_time_charts_refresh_frequency;
 	        if(PykCharts.boolean(frequency)) {
+                console.log("Ishaaaa");
                 setInterval(chart.refresh,frequency*1000);
 	        }
 	        return this;
@@ -1011,7 +1012,7 @@ configuration.mouseEvent = function (options) {
                             return false;
                         }
                         else {
-                          if((right_tick === x_range[j] && left_tick === x_range[j+1]) && (top_tick === y_range[k])) {
+                            if((right_tick === x_range[j] && left_tick === x_range[j+1]) && (top_tick === y_range[k])) {
                                 return false;
                             }
                             else if((x >= x_range[j] && x <= x_range[j+1]) && (y <= (y_range[k]))) {
