@@ -438,7 +438,7 @@ PykCharts.Configuration = function (options){
                     return parseInt(yScale(d.y)-20+options.margin_top);
                 })
                 .attr("text-anchor","middle")
-                .style("z-index", "10")
+                .style("font-size","12px")
                 .text(function (d) {
                     return d.annotation;
                 })
@@ -458,6 +458,7 @@ PykCharts.Configuration = function (options){
                 .attr("width",w)
                 .attr("height",h)
                 .attr("fill","#eeeeee")
+                .attr("stroke","darkgray")
                 .style("pointer-events","none");
 
             // });
@@ -1040,7 +1041,7 @@ configuration.mouseEvent = function (options) {
                             return false;
                         }
                         else {
-                          if((right_tick === x_range[j] && left_tick === x_range[j+1]) && (top_tick === y_range[k])) {
+                            if((right_tick === x_range[j] && left_tick === x_range[j+1]) && (top_tick === y_range[k])) {
                                 return false;
                             }
                             else if((x >= x_range[j] && x <= x_range[j+1]) && (y <= (y_range[k]))) {
@@ -1731,7 +1732,7 @@ configuration.Theme = function(){
 
         "color_mode": "saturation",
         "total_no_of_colors": 3,
-        "palette_color": "Blue",
+        "palette_color": "Blue-1",
         "background_color": "white",
         "default_color" : "#4682B4",
 
