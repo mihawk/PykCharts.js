@@ -159,6 +159,8 @@ PykCharts.multiD.lineChart = function (options){
 
            	that.annotation();
 
+           //	that.k.processSVG(document.querySelector(options.selector +" #svg-1"))
+
 		}
 		else if(that.mode === "infographics") {
 			that.w = that.width;
@@ -676,9 +678,11 @@ PykCharts.multiD.lineChart = function (options){
 								return "translate("+text_x+","+text_y+") rotate("+text_rotate+")";
 							}
 							that.ticks = that.svgContainer.selectAll(".legend-heading")
-									.data(that.new_data)
+									.data(that.new_data);
+
 							that.ticks.enter()
 									.append("text")
+
 							that.ticks.attr("id", function (d,i) { return that.type + "-svg-" + i; })
 									.attr("class","legend-heading")
 									.html(function (d,i) {
@@ -686,7 +690,13 @@ PykCharts.multiD.lineChart = function (options){
 									})
 									.attr("transform", tickPosition)
 									.style("font-size", that.pointer_size)
-									.style("font-weight", that.pointer_weight)
+									.style("font-weight", function(d){
+										if(d.highlight) {
+											return "bold";
+										} else {
+											return that.pointer_weight;
+										}
+									})
 									.style("font-family", that.pointer_family)
 									.style("visibility","visible")
 									.attr("text-anchor","start")

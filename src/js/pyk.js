@@ -875,7 +875,7 @@ PykCharts.Configuration = function (options){
                 canvas.setAttribute('id', canvas_id);
                 var id = "export",
                 div_size = options.width
-               div_float ="none"
+                div_float ="none"
                 div_left = options.width-15;
 
                 if(PykCharts.boolean(options.title_text) && options.title_size) {
@@ -901,7 +901,7 @@ PykCharts.Configuration = function (options){
                 var name = chart_name + ".svg"
                 
                 $(chart.selector + " #"+id).click(function(){
-
+                    chart.k.processSVG(document.querySelector(options.selector +" "+svgId));
                     project.importSVG(document.querySelector(options.selector +" "+svgId));
                     var svg = project.exportSVG({ asString: true });
                     downloadDataURI({
@@ -911,6 +911,20 @@ PykCharts.Configuration = function (options){
                     project.clear();
 
                 });
+            }
+            return this;
+        },
+        processSVG: function (svg) {
+            var x = svg.querySelectorAll("text");
+            for (var i = 0; i < x.length; i++) {
+                if(x[i].hasAttribute("dy")) {
+                    var attr_value = x[i].getAttribute("dy");
+                    var attr_length = attr_value.length;                      
+                    if(attr_value.substring(attr_length-2,attr_length) == "em") {
+                        var value = 12*parseFloat(attr_value);
+                        x[i].setAttribute("dy", value);
+                    }
+                }
             }
             return this;
         }
