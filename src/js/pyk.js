@@ -732,6 +732,7 @@ PykCharts.Configuration = function (options){
             var a = $(options.selector + " g.y.axis text");
 
             var len = a.length,comp;
+
             for(i=0; i<len-1;i++) {
                 comp = a[i].innerHTML;
                 if(a[i].getBBox().width > (options.margin_left * 0.7)) {
@@ -779,6 +780,7 @@ PykCharts.Configuration = function (options){
             }
         },
         yAxisDataFormatIdentification : function (data){
+
             if(_.isNumber(data[0].y) || !(isNaN(data[0].y))){
                 return "number";
             } else if(!(isNaN(new Date(data[0].y).getTime()))) {
@@ -880,8 +882,55 @@ PykCharts.Configuration = function (options){
             }
         },
         export : function(chart,svgId,chart_name) {
-
             if(PykCharts.boolean(options.export_enable)) {
+               
+                var bg;
+                $(chart.selector).css({"background-color":chart.background_color,"position":"relative"});
+                // if(PykCharts.boolean(options.background_color)) {
+                //     bg = options.background_color;
+                // } else if ( $(this).parents().css('background')){
+                //     bg = $(this).parents().css('background');
+                // } else {
+                //     bg = "white";
+                // }
+               // console.log($(options.selector).parent(),"hhhhhhhh"); 
+               console.log($(chart.selector).css("background-color"),"color");
+               console.log(options.background_color,"config");
+               console.log($(options.selector).css("background-color")!= "rgba(0, 0, 0, 0)","jjjjjjjjj");
+               if (PykCharts.boolean(options.background_color) && $(options.selector).css("background-color")!= "rgba(0, 0, 0, 0)") {
+                    console.log(options.background_color,"hey");
+                    bg = options.background_color;
+               } 
+               else {
+                    console.log("ohhh");
+                    bgColor(options.selector);
+                }
+
+               function bgColor (child) {
+                 console.log("oooooooo");
+                 if (document.getElementsByTagName("body").parentNode !== undefined) {
+                    console.log("heyyyyyy");
+                    bg = $(child).parent().css("background-color");
+                    // break;
+                } else {
+                    bg = "white";
+                }
+               }
+               // console.log($(options.selector).css("background"),"background-color");
+
+                // if (document.getElementsByTagName("body").parentNode !== undefined) {
+                //     $(options.selector).parent();
+                //     // break;
+                // } else {
+                //     return "white";
+                // }
+
+                // $("#svg-1").css("background", function () {
+                //    return $(this).parent().css("background-color","red");
+                // })
+                
+                console.log(bg,"gdjagdahdg");
+                $(chart.selector).colourBrightness();
 
                 var canvas_id = chart_name+"canvas";
                 var canvas = document.createElement("canvas");
@@ -896,9 +945,17 @@ PykCharts.Configuration = function (options){
                     div_size = 0.1*options.width;
                     div_float ="left";
                     div_left = 0;
-                }
+                }   
+                // console.log(d3.selectAll(options.selector).attr("class"));
+                // console.log($(options.selector)[0].classList.add("light"),"add class");
+                // console.log($(options.selector)[0].classList,"classList");
+                console.log($(options.selector)[0].classList.contains("light"),"contains");
+                // console.log($(options.selector).hasClassName("light"),"class name");
 
-                d3.select(chart.selector)
+                console.log($(options.selector).hasClass("light"),d3.select(options.selector),"==============================")
+                if ($(options.selector)[0].classList.contains("light")) {
+                    console.log("light class",$(options.selector));
+                    d3.select(chart.selector)
                                 .append("div")
                                 .attr("id",id)
                                 .style("width",div_size + "px")
@@ -909,14 +966,28 @@ PykCharts.Configuration = function (options){
                                 .attr("title","Export to SVG")
                                 .html("<img src='../img/download.png' style='left:"+div_left+"px;margin-bottom:3px'/>");
 
+                } else {
+                    console.log("dark class",$(options.selector));
+                     d3.select(chart.selector)
+                                .append("div")
+                                .attr("id",id)
+                                .style("width",div_size + "px")
+                                .style("left",div_left+"px")
+                                .style("float",div_float)
+                                .style("text-align","right")
+                                .style("cursor","pointer")
+                                .attr("title","Export to SVG")
+                                .html("<img src='../img/download-light.png' style='left:"+div_left+"px;margin-bottom:3px'/>");
+                }
+            
                 var get_canvas = document.getElementById(canvas_id);
                 paper.setup(get_canvas);
                 var project = new paper.Project();
                 project._view._viewSize.width = chart.width;
                 project._view._viewSize.height = chart.height;
                 var name = chart_name + ".svg"
-
-                $(chart.selector + " #"+id).click(function(){
+                
+                $(chart.selector + " #"+id).click(function () {
                     chart.k.processSVG(document.querySelector(options.selector +" "+svgId));
                     project.importSVG(document.querySelector(options.selector +" "+svgId));
                     var svg = project.exportSVG({ asString: true });
@@ -1583,7 +1654,7 @@ configuration.Theme = function(){
 
         "highlight": "",
         "highlight_color": "#013F73",
-        "background_color": "transparent",
+        // "background_color": "transparent",
         "chart_color": ["steelblue"],
         "saturation_color": "steelblue",
 
@@ -1607,7 +1678,10 @@ configuration.Theme = function(){
         "pointer_size": 13,
         "pointer_color": "#1D1D1D",
         "pointer_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
+
         "export_enable": "yes",
+        "export_image_url":"",
+
         "loading_gif_url": "https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/img/loader.gif",
         "fullscreen_enable": "no",
         "tooltip_enable": "yes",
@@ -1670,7 +1744,7 @@ configuration.Theme = function(){
         "axis_x_label_color": "#1D1D1D",
         "axis_x_no_of_axis_value": 5,
         "axis_x_pointer_size": 5,
-        "axis_x_value_format": "",
+        // "axis_x_value_format": "",
         "axis_x_pointer_padding": 6,
         "axis_x_pointer_values": [],
         "axis_x_outer_pointer_size": 0,
@@ -1686,7 +1760,7 @@ configuration.Theme = function(){
         "axis_y_label_color": "#1D1D1D",
         "axis_y_no_of_axis_value": 5,
         "axis_y_pointer_size": 5,
-        "axis_y_value_format": "",
+        // "axis_y_value_format": "",
         "axis_y_pointer_padding": 6,
         "axis_y_pointer_values": [],
         "axis_y_outer_pointer_size": 0,
@@ -1711,11 +1785,11 @@ configuration.Theme = function(){
         // "color": ["yellow"],
 
         "spiderweb_outer_radius_percent" : 80,
-        "spiderweb_radius": 5,
+        // "spiderweb_radius": 5,
         "spiderweb_axis_title": "yes",
         "spiderweb_pointer": "yes",
 
-        "scatterplot_radius" : 40,
+        // "scatterplot_radius" : 40,
         "scatterplot_pointer": "no",
 
         "line_curvy_lines": "no",
@@ -1746,6 +1820,10 @@ configuration.Theme = function(){
         "timeline_margin_right": 25,
         "timeline_margin_bottom": 25,
         "timeline_margin_left": 45,
+
+        "play_image_url":"https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/play.gif",
+        "pause_image_url":"https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/pause.gif",
+        "marker_image_url":"https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/marker.png",
 
         "legends_enable": "yes",
         "legends_display": "horizontal",

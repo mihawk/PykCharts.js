@@ -260,12 +260,13 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                     .attr("viewBox", "0 0 " + that.w + " " + that.height)
                     .attr("id","svgcontainer" + i)
                     .attr("class","svgcontainer")
-                    .style("background-color",that.bg);
+                    // .style("background-color",that.background_color);
+
+                // $(options.selector).colourBrightness();
 
                 return this;
             },
             createGroups : function (i) {
-
                 that.group = that.svgContainer.append("g")
                     .attr("transform","translate("+(that.margin_left)+","+(that.margin_top+that.legendsGroup_height)+")")
                     .attr("id","main");

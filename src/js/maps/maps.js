@@ -125,6 +125,12 @@ PykCharts.maps.processInputs = function (chartObject, options) {
     chartObject.data_source_name = options.data_source_name ? options.data_source_name : "";
     chartObject.data_source_url = options.data_source_url ? options.data_source_url : "";
     chartObject.units = options.units ? options.units : false;
+
+    chartObject.play_image_url = options.play_image_url ? options.play_image_url : mapsTheme.play_image_url;
+    chartObject.pause_image_url = options.pause_image_url ? options.pause_image_url : mapsTheme.pause_image_url;
+    chartObject.marker_image_url = options.marker_image_url ? options.marker_image_url : mapsTheme.marker_image_url;
+
+    chartObject.export_image_url = options.export_image_url ? options.export_image_url : stylesheet.export_image_url; 
     chartObject.export_enable = options.export_enable ? options.export_enable : stylesheet.export_enable; 
     
     chartObject.k = new PykCharts.Configuration(chartObject);
