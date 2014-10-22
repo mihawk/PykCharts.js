@@ -621,7 +621,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
 
                 that.circlePlot
                     .attr("r", function (d) { return that.sizes(d.weight); })
-                    .attr("cx", function (d) { console.log(that.x(d.x), "d.x");return (that.x(d.x)+that.extra_left_margin); })
+                    .attr("cx", function (d) { return (that.x(d.x)+that.extra_left_margin); })
                     .attr("cy", function (d) { return (that.yScale(d.y)+that.extra_top_margin); })
                     .attr("fill", function (d) { return that.fillChart.colorPieW(d); })
                     .attr("fill-opacity", function (d) { return that.multiD.opacity(d.weight,that.weight,that.data); })
@@ -750,7 +750,6 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                 var containerId = id.substring(0,idLength-1);
                 d3.select(that.selector+" #"+containerId +i)
                     .call(function () {
-                        console.log(that.selector+" #"+containerId +i);
                         return that.zoomOut(i);
                     });
                 that.count = 1;

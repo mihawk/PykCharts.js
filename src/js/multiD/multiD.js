@@ -203,7 +203,12 @@ PykCharts.multiD.configuration = function (options){
 
             if(checkGroup) {
                 data.forEach(function(item) {
-                    if (!unique[item.group] && item.color) {
+                    if (!unique[item.group]) {
+                        if(item.color) {
+                            unique[item.group] = item;
+                        } else {
+                            unique[item.group] = {};    
+                        }
                         if(options.chart_color.length !== 0 && PykCharts.boolean(options.chart_color[k])) {
                             item.color = options.chart_color[k];
                             k++;
@@ -213,7 +218,7 @@ PykCharts.multiD.configuration = function (options){
                             item.color = options.default_color;
                         }
                         newarr.push(item);
-                        unique[item.group] = item;
+                        
                     }
                 });
 
