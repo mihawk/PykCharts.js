@@ -1,51 +1,51 @@
 [			
 	{
-		"name":"India",
+		"name":"New York",
 		"color": "#4682b4",
-		"x":"1-jan-14",
-		"y":30,
-		"tooltip":30
+		"x":"Monday",
+		"y":2,
+		"tooltip":2
 	},
 	{
-		"name":"India",
+		"name":"New York",
 		"color": "#4682b4",
-		"x":"2-jan-14",
-		"y":53,
-		"tooltip":53
+		"x":"Tuesday",
+		"y":4,
+		"tooltip":4
 	},	
 	{
-		"name":"India",
+		"name":"New York",
 		"color": "#4682b4",
-		"x":"3-jan-14",
-		"y":30,
-		"tooltip":30
+		"x":"Wednesday",
+		"y":6,
+		"tooltip":6
 	},
 	{
-		"name":"India",
+		"name":"New York",
 		"color": "#4682b4",
-		"x":"4-jan-14",
-		"y":40,
-		"tooltip":40
+		"x":"Thrusday",
+		"y":7,
+		"tooltip":7
 	},
 	{
-		"name":"India",
+		"name":"New York",
 		"color": "#4682b4",
-		"x":"5-jan-14",
-		"y":50,
-		"tooltip":50
+		"x":"Friday",
+		"y":6,
+		"tooltip":6
 	},
 	{
-		"name":"India",
+		"name":"New York",
 		"color": "#4682b4",
-		"x":"6-jan-14",
-		"y":40,
-		"tooltip":40
+		"x":"Saturday",
+		"y":4,
+		"tooltip":4
 	},
 	{
-		"name":"India",
+		"name":"New York",
 		"color": "#4682b4",
-		"x":"7-jan-14",
-		"y":70,
-		"tooltip":70
+		"x":"Sunday",
+		"y":3,
+		"tooltip":3
 	}
 ]
