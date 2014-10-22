@@ -50,7 +50,7 @@ PykCharts.oneD.treemap = function (options){
         if(that.mode === "default") {
             that.k.title()
                 .subtitle()
-                .export(that,"#container","treemap")
+                .export(that,"#svgcontainer","treemap")
                 .emptyDiv();
         }
 
