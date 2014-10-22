@@ -521,16 +521,30 @@ PykCharts.multiD.lineChart = function (options){
 									})
 									.on("mouseover",function (d) {
 										if(that.type === "multilineChart" && this !== that.selected && (that.color_mode === "saturation" || that.hover)) {
+											that.previous_color = d3.select(this).style("stroke-opacity");
+											that.click_color = d3.select(this).style("stroke");
 											d3.select(this)
-											.classed({'multi-line-hover':true,'multi-line':false})
-											.style("stroke", "orange");
+												.classed({'multi-line-hover':true,'multi-line':false})
+												.style("stroke", "orange");
 										}
 									})
-									.on("mouseout",function (d) {
+									.on("mouseout",function (d,i) {
 										if(that.type === "multilineChart" && this !== that.selected && (that.color_mode === "saturation" || that.hover)) {
 											d3.select(this)
 												.classed({'multi-line-hover':false,'multi-line':true})
-												.style("stroke", that.chartColor);
+												.style("stroke", function() {
+													if(that.new_data[i].highlight && that.type === "multilineChart") {
+								      					that.highlightLine(this,null,that.new_data[i].highlight);
+								      				}
+								      				return that.click_color;
+								      			})
+								      			.style("stroke-opacity", function () {
+								      				if(that.type === "multilineChart" && that.color_mode === "saturation") {
+									      				return that.previous_color;
+								      				} else {
+								      					return 1;
+								      				}
+								      			});
 										}
 									})	
 									// .attr("d",that.chart_path);			
@@ -768,13 +782,18 @@ PykCharts.multiD.lineChart = function (options){
 	
 			d3.select(that.selected)
 					.classed({'multi-line-selected':true,'multi-line':false,'multi-line-hover':false})
-					.style("opacity",1);
+			if(that.type === "multilineChart" && (that.color_mode === "saturation" || that.hover))
+				d3.select(that.selected)
+					.style("stroke", function (d,i) {
+	      				return that.click_color;
+	      			});
 
 			if(clicked) {
-				d3.selectAll(options.selector+" path.multi-line").style("opacity",0.3);
+				d3.selectAll(options.selector+" path.multi-line").style("stroke-opacity",0.3);
 				d3.selectAll(options.selector+ " .legend-heading").style("opacity",0.3);				
 				d3.select(that.selector+" text#"+that.selected.id).style("opacity",1).style
 				("font-weight","bold");
+				d3.select(that.selected).style("stroke-opacity",1);
 			}
 	};
 	this.annotation = function () {
