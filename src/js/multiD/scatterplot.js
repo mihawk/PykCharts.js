@@ -28,6 +28,7 @@ PykCharts.multiD.scatterPlot = function (options) {
             that.axis_y_data_format = options.axis_y_data_format ? options.axis_y_data_format : that.k.yAxisDataFormatIdentification(that.data);
             that.axis_x_data_format = options.axis_x_data_format ? options.axis_x_data_format : that.k.xAxisDataFormatIdentification(that.data);
             that.compare_data = data.groupBy("scatterplot");
+            console.log(that.data);
             $(that.selector+" #chart-loader").remove();
             var a = new PykCharts.multiD.scatterplotFunction(options,that,"scatterplot");
             a.render();
@@ -123,6 +124,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                             that.new_data.push(that.data[j]);
                         }
                     }
+                    console.log(that.new_data);
                     that.k.positionContainers(that.legends_enable,that);
 
                     that.k.makeMainDiv(that.selector,i);

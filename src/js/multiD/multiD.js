@@ -245,7 +245,7 @@ PykCharts.multiD.configuration = function (options){
                         }
                     }
                 }
-                // console.log(arr,checkGroup,"before return");
+                console.log(arr,checkGroup,"before return");
                 return [arr,checkGroup];
             } else {
                 return [data,checkGroup];
