@@ -1731,7 +1731,7 @@ configuration.Theme = function(){
 
         "color_mode": "saturation",
         "total_no_of_colors": 3,
-        "palette_color": "Blue",
+        "palette_color": "Blue-1",
         "background_color": "white",
         "default_color" : "#4682B4",
 
