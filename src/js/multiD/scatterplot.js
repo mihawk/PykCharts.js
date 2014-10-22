@@ -28,6 +28,7 @@ PykCharts.multiD.scatterPlot = function (options) {
             that.axis_y_data_format = options.axis_y_data_format ? options.axis_y_data_format : that.k.yAxisDataFormatIdentification(that.data);
             that.axis_x_data_format = options.axis_x_data_format ? options.axis_x_data_format : that.k.xAxisDataFormatIdentification(that.data);
             that.compare_data = data.groupBy("scatterplot");
+            console.log(that.data);
             $(that.selector+" #chart-loader").remove();
             var a = new PykCharts.multiD.scatterplotFunction(options,that,"scatterplot");
             a.render();
@@ -123,6 +124,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                             that.new_data.push(that.data[j]);
                         }
                     }
+                    console.log(that.new_data);
                     that.k.positionContainers(that.legends_enable,that);
 
                     that.k.makeMainDiv(that.selector,i);
@@ -258,12 +260,13 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                     .attr("viewBox", "0 0 " + that.w + " " + that.height)
                     .attr("id","svgcontainer" + i)
                     .attr("class","svgcontainer")
-                    .style("background-color",that.bg);
+                    // .style("background-color",that.background_color);
+
+                // $(options.selector).colourBrightness();
 
                 return this;
             },
             createGroups : function (i) {
-
                 that.group = that.svgContainer.append("g")
                     .attr("transform","translate("+(that.margin_left)+","+(that.margin_top+that.legendsGroup_height)+")")
                     .attr("id","main");
@@ -389,11 +392,14 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                     that.x1 = 1;
                     that.y1 = 12;
                     that.count = 1;
-                    var zoom = d3.behavior.zoom()
-                            .x(that.x)
-                            .y(that.yScale)
-                            .scaleExtent([that.x1, that.y1])
-                            .on("zoom",zoomed);
+                    if(type!== "pulse") {
+                        var zoom = d3.behavior.zoom()
+                                .x(that.x)
+                                .y(that.yScale)
+                                // .scaleExtent()
+                                .scale(that.count)
+                                .on("zoom",zoomed);
+                    }
                     // console.log($("#svgcontainer0 .dot"));
                      // $("#svgcontainer0 .dot").dblclick(function(){
                      //    console.log(d3.event,"d33333 eeee");
@@ -735,7 +741,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                 .attr("y", function (d) { return (that.yScale(d.y)+that.extra_top_margin + 5); });
         }
         that.count++;
-        if(that.count === 10) {
+        if(that.count === that.zoom_level+1) {
             for(var i = 0; i < n; i++) {
                 if(that.multiple_containers_enable==="yes"){
                     that.new_data = [];

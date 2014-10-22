@@ -133,7 +133,7 @@ PykCharts.multiD.areaChart = function (options){
 			},
 			svgContainer: function (i){
 				$(that.selector).attr("class","PykCharts-twoD PykCharts-multi-series2D PykCharts-line-chart");
-				$(options.selector).css({"background-color":that.bg,"position":"relative"});
+				// $(options.selector).css({"background-color":that.background_color,"position":"relative"});
 
 				that.svgContainer = d3.select(options.selector+" "+"#tooltip-svg-container-"+i).append("svg:svg")
 					.attr("id","svg-"+i)
@@ -141,7 +141,8 @@ PykCharts.multiD.areaChart = function (options){
 					.attr("height",that.height)
 					.attr("preserveAspectRatio", "xMinYMin")
                     .attr("viewBox", "0 0 " + that.width + " " + that.height);
-
+                    
+                // $(options.selector).colourBrightness();
     			return this;
 			},
 			createGroups : function (i) {
@@ -237,7 +238,7 @@ PykCharts.multiD.areaChart = function (options){
 				that.layers = that.stack_layout(that.new_data);
 
         		var x_domain,x_data = [],y_data,y_range,x_range,y_domain;
-        		that.cnt = 0;
+        		that.count = 1;
 
 				if(that.axis_y_data_format === "number") {
 					max = d3.max(that.layers, function(d) { return d3.max(d.data, function(k) { return k.y0 + k.y; }); });
@@ -305,11 +306,11 @@ PykCharts.multiD.areaChart = function (options){
 		      	if(!(that.axis_y_data_format==="string" || that.axis_x_data_format==="string")) {
 		      		that.zoom_event.x(that.xScale)
 					    .y(that.yScale)
-					    .scaleExtent([1,4])
+					    .scale(that.count)
 					    .on("zoom",that.zoomed);
 				} else {
 					that.zoom_event.y(that.yScale)
-					    .scaleExtent([1,4])
+					    .scale(that.count)
 					    .on("zoom",that.zoomed);
 				}
 
@@ -498,13 +499,13 @@ PykCharts.multiD.areaChart = function (options){
 				.attr("d", that.chart_path_border);
 	    }
 	    if(event.type === "dblclick") {
-	    	that.cnt++;
+	    	that.count++;
 	    }
 	    that.mouseEvent.tooltipHide();
 		that.mouseEvent.crossHairHide(that.type);
 		that.mouseEvent.axisHighlightHide(that.selector + " .x.axis");
 		that.mouseEvent.axisHighlightHide(that.selector + " .y.axis");
-	    if(that.cnt === 3) {
+	    if(that.count === that.zoom_level+1) {
 	    	that.zoomOut();
 
 	    }

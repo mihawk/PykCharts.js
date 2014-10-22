@@ -1,52 +1,52 @@
 [
 	{
-		"name":"India",
-		"x":1,
-		"y":30,
+		"name":"New York",
+		"x":"Monday",
+		"y":2,
 		"color":"steelblue",
-		"tooltip":30
+		"tooltip":2
 	},
 	{
-		"name":"India",
-		"x":3,
-		"y":53,
+		"name":"New York",
+		"x":"Tuesday",
+		"y":4,
 		"color":"steelblue",
-		"tooltip":53
+		"tooltip":4
 	},
 	{
-		"name":"India",
-		"x":5,
-		"y":30,
+		"name":"New York",
+		"x":"Wednesday",
+		"y":6,
 		"tooltip":30,
 		"color":"steelblue",
-		"tooltip":30
+		"tooltip":6
 	},
 	{
-		"name":"India",
-		"x":7,
-		"y":40,
+		"name":"New York",
+		"x":"Thrusday",
+		"y":7,
 		"color":"steelblue",
-		"tooltip":40
+		"tooltip":7	
 	},
 	{
-		"name":"India",
-		"x":9,
-		"y":50,
+		"name":"New York",
+		"x":"Friday",
+		"y":6,
 		"color":"steelblue",
-		"tooltip":50
+		"tooltip":6
 	},
 	{
-		"name":"India",
-		"x":11,
-		"y":40,
+		"name":"New York",
+		"x":"Saturday",
+		"y":4,
 		"color":"steelblue",
-		"tooltip":40
+		"tooltip":4
 	},
 	{
-		"name":"India",
-		"x":13,
-		"y":70,
+		"name":"New York",
+		"x":"Sunday",
+		"y":3,
 		"color":"steelblue",
-		"tooltip":70
+		"tooltip":3
 	}
 ]
