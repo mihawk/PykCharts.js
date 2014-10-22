@@ -2,6 +2,7 @@
 	<head>
         <title>One-Dimensional Charts</title>
         <link rel="stylesheet" type="text/css" href="../dist/pykcharts.0.0.8.min.css">
+        <link rel="stylesheet" type="text/css" href="../lib/bootstrap.min.css">
         <script src="../lib/paper-full.js"></script>
         <script src="../lib/downloadDataURI.js"></script>
 
@@ -41,11 +42,12 @@
                 data:"../data/pie.json",
                 transition_duration: 1,
                 clubdata_enable: "yes",
-                clubData_always_include_data_points : ["18-24","25-44"],
+                mode:"infographics",
+                "clubData_always_include_data_points" : ["18-24","25-44"],
                 export_enable: "yes",
-                background_color: "white",
-                chart_width: 500,
-                chart_height: 500
+                "background_color": "white",
+                "chart_width": 500,
+                "chart_height": 500,
             });
             k.execute();
 
@@ -53,6 +55,7 @@
           				selector: "#funnel",
           				data:"../data/pie.json",
                  transition_duration: 1,
+                 mode:"infographics",
                  units_suffix: "rs"
         			});
       			k.execute();
@@ -62,8 +65,8 @@
                 data:"../data/pictograph.json",
                 chart_width : 400,
                 transition_duration: 1,
-                pictograph_current_count_weight: "bold",
-                pictograph_total_count_weight: "thin"
+                "pictograph_current_count_weight": "bold",
+                "pictograph_total_count_weight": "thin",
              });
             k.execute();
 
@@ -71,20 +74,23 @@
                 selector: "#pyramid",
                 data:"../data/pie.json",
                 transition_duration: 1,
-                pointer_overflow_enable: "no"
+                mode:"infographics",
+                pointer_overflow_enable: "no",
              });
             k.execute();
 
             var k = new PykCharts.oneD.treemap({
                 selector: "#treemap",
                 data: "../data/pie.json",
-                transition_duration: 0
+                transition_duration: 0,
+                mode:"infographics",
             });
             k.execute();
 
             var k = new PykCharts.oneD.donut({
                 selector: "#donutContainer",
                 data: "../data/pie.json",
+                mode:"infographics",
                 transition_duration: 1
             });
             k.execute();
@@ -115,6 +121,7 @@
                 data:"../data/pie.json",
                 transition_duration: 1,
                 "mode" : "infographics"
+
             });
             k.execute();
 

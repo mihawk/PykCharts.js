@@ -4,7 +4,6 @@ PykCharts.multiD.lineChart = function (options){
 
 	this.execute = function (){
 		that = new PykCharts.multiD.processInputs(that, options, "line");
-
 		if(that.mode === "default") {
 			that.k.loading();
 		}
@@ -80,11 +79,12 @@ PykCharts.multiD.lineChart = function (options){
 		that.fillColor = new PykCharts.Configuration.fillChart(that,null,options);
 		that.transitions = new PykCharts.Configuration.transition(options);
 		if(that.mode === "default") {
-			that.k.export(that,"#svg-1","lineChart"); 
 
+			// that.k.export(that,"#svg-1","lineChart"); 
 
 			that.k.title()
 					.subtitle()
+					.export(that,"#svg-1","lineChart")
 					.emptyDiv();
 
 			if(PykCharts.boolean(that.multiple_containers_enable)) {
@@ -105,7 +105,7 @@ PykCharts.multiD.lineChart = function (options){
 							.svgContainer(i)
 							.createGroups(i);
 					that.k.crossHair(that.svgContainer,1,that.fill_data,that.fillColor);
-
+					
 					that.optionalFeature()
 							.createChart(null,i)
 							.ticks(i)
@@ -161,6 +161,8 @@ PykCharts.multiD.lineChart = function (options){
 
            	that.annotation();
 
+
+
            	// var doc = new jsPDF();
             // doc.fromHTML($('#svg-1').html(), 15, 15, {'width': 900});
             // doc.save('sample-file.pdf');
@@ -205,8 +207,6 @@ PykCharts.multiD.lineChart = function (options){
                         .on("resize", function () { return that.annotation(); });
         }
 		that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
-
-
 
 	};
 
@@ -276,8 +276,17 @@ PykCharts.multiD.lineChart = function (options){
 				else if(that.type === "lineChart") {
 					$(that.selector).attr("class","PykCharts-twoD PykCharts-line-chart");
 				}
-				$(that.selector).css({"background-color":that.bg,"position":"relative"});
-				
+
+//					$(that.selector).css({"background-color":that.background_color,"position":"relative"});
+
+				// console.log(PykCharts.boolean(that.background_color));
+				// var bg;
+				// if(PykCharts.boolean(that.background_color)) {
+				// 	bg = that.background_color;
+				// } else {
+				// 	bg = "white";
+				// }
+			
 				that.svgContainer = d3.select(that.selector+" #tooltip-svg-container-"+i)
 					.append("svg:svg")
 					.attr("id","svg-" + i)
@@ -286,6 +295,10 @@ PykCharts.multiD.lineChart = function (options){
 					.attr("preserveAspectRatio", "xMinYMin")
                     .attr("viewBox", "0 0 " + that.w + " " + that.height);
 
+				// var x = $(that.selector).colourBrightness(bg);
+
+				// console.log("after appending the class light/dark");
+				
 				return this;
 			},
 			createGroups : function (i) {

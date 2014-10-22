@@ -730,12 +730,12 @@ PykCharts.Configuration = function (options){
             var a = $(options.selector + " g.y.axis text");
 
             var len = a.length,comp;
-            console.log(a,"heyyyyyyyyy");
+            // console.log(a,"heyyyyyyyyy");
             for(i=0; i<len-1;i++) {
                 comp = a[i].innerHTML;
-                console.log(comp,"comp");
+                // console.log(comp,"comp");
                 if(a[i].getBBox().width > (options.margin_left * 0.7)) {
-                    console.log(comp);
+                    // console.log(comp);
                     comp = comp.substr(0,3) + "..";
 
                 }
@@ -781,14 +781,13 @@ PykCharts.Configuration = function (options){
             }
         },
         yAxisDataFormatIdentification : function (data){
-            console.log(!(isNaN(data[0].y)),options.selector,_.isNumber(data[0].y));
+            // console.log(!(isNaN(data[0].y)),options.selector,_.isNumber(data[0].y));
             if(_.isNumber(data[0].y) || !(isNaN(data[0].y))){
-                console.log(data,"dddd");
+                // console.log(data,"dddd");
                 return "number";
             } else if(!(isNaN(new Date(data[0].y).getTime()))) {
                 return "time";
             } else {
-                console.log(options.selector);  
                 return "string";
             }
         },
@@ -864,8 +863,55 @@ PykCharts.Configuration = function (options){
             }
         },
         export : function(chart,svgId,chart_name) {
-
             if(PykCharts.boolean(options.export_enable)) {
+               
+                var bg;
+                $(chart.selector).css({"background-color":chart.background_color,"position":"relative"});
+                // if(PykCharts.boolean(options.background_color)) {
+                //     bg = options.background_color;
+                // } else if ( $(this).parents().css('background')){
+                //     bg = $(this).parents().css('background');
+                // } else {
+                //     bg = "white";
+                // }
+               // console.log($(options.selector).parent(),"hhhhhhhh"); 
+               console.log($(chart.selector).css("background-color"),"color");
+               console.log(options.background_color,"config");
+               console.log($(options.selector).css("background-color")!= "rgba(0, 0, 0, 0)","jjjjjjjjj");
+               if (PykCharts.boolean(options.background_color) && $(options.selector).css("background-color")!= "rgba(0, 0, 0, 0)") {
+                    console.log(options.background_color,"hey");
+                    bg = options.background_color;
+               } 
+               else {
+                    console.log("ohhh");
+                    bgColor(options.selector);
+                }
+
+               function bgColor (child) {
+                 console.log("oooooooo");
+                 if (document.getElementsByTagName("body").parentNode !== undefined) {
+                    console.log("heyyyyyy");
+                    bg = $(child).parent().css("background-color");
+                    // break;
+                } else {
+                    bg = "white";
+                }
+               }
+               // console.log($(options.selector).css("background"),"background-color");
+
+                // if (document.getElementsByTagName("body").parentNode !== undefined) {
+                //     $(options.selector).parent();
+                //     // break;
+                // } else {
+                //     return "white";
+                // }
+
+                // $("#svg-1").css("background", function () {
+                //    return $(this).parent().css("background-color","red");
+                // })
+                
+                console.log(bg,"gdjagdahdg");
+                $(chart.selector).colourBrightness();
 
                 var canvas_id = chart_name+"canvas";
                 var canvas = document.createElement("canvas");
@@ -881,16 +927,39 @@ PykCharts.Configuration = function (options){
                     div_float ="right";
                     div_left = -15;
                 }
+                
+                // console.log(d3.selectAll(options.selector).attr("class"));
+                // console.log($(options.selector)[0].classList.add("light"),"add class");
+                // console.log($(options.selector)[0].classList,"classList");
+                console.log($(options.selector)[0].classList.contains("light"),"contains");
+                // console.log($(options.selector).hasClassName("light"),"class name");
 
-                d3.select(chart.selector)
-                                .append("div")
-                                .attr("id",id)
-                                .attr("width",div_size)
-                                .style("left",div_left+"px")
-                                // .style("padding-left","15px")
-                                .style("margin-bottom","3px")
-                                .html("<img src='../img/download-icon.png' />");
-
+                console.log($(options.selector).hasClass("light"),d3.select(options.selector),"==============================")
+                if ($(options.selector)[0].classList.contains("light")) {
+                    console.log("light class",$(options.selector));
+                    d3.select(chart.selector)
+                        .append("div")
+                        .attr("id",id)
+                        .attr("width",div_size)
+                        .style("left",div_left+"px")
+                        // .style("padding-left","15px")
+                        .style("margin-bottom","3px")
+                        .text("hello");
+                        // .html("<img src='../img/download-icon.png' />");
+                        // .html("<img src='../img/heart-grey.png' />");
+                } else {
+                    console.log("dark class",$(options.selector));
+                    d3.select(chart.selector)
+                        .append("div")
+                        .attr("id",id)
+                        .attr("width",div_size)
+                        .style("left",div_left+"px")
+                        // .style("padding-left","15px")
+                        .style("margin-bottom","3px")
+                        .text("hell");
+                        // .html("<img src='../img/download-icon.png' />");
+                }
+              
                 var get_canvas = document.getElementById(canvas_id);
                 paper.setup(get_canvas);
                 var project = new paper.Project();
@@ -1552,7 +1621,7 @@ configuration.Theme = function(){
 
         "highlight": "",
         "highlight_color": "#013F73",
-        "background_color": "transparent",
+        // "background_color": "transparent",
         "chart_color": ["steelblue"],
         "saturation_color": "steelblue",
 
@@ -1642,7 +1711,7 @@ configuration.Theme = function(){
         "axis_x_label_color": "#1D1D1D",
         "axis_x_no_of_axis_value": 5,
         "axis_x_pointer_size": 5,
-        "axis_x_value_format": "",
+        // "axis_x_value_format": "",
         "axis_x_pointer_padding": 6,
         "axis_x_pointer_values": [],
         "axis_x_outer_pointer_size": 0,
@@ -1658,7 +1727,7 @@ configuration.Theme = function(){
         "axis_y_label_color": "#1D1D1D",
         "axis_y_no_of_axis_value": 5,
         "axis_y_pointer_size": 5,
-        "axis_y_value_format": "",
+        // "axis_y_value_format": "",
         "axis_y_pointer_padding": 6,
         "axis_y_pointer_values": [],
         "axis_y_outer_pointer_size": 0,
@@ -1682,11 +1751,11 @@ configuration.Theme = function(){
         // "color": ["yellow"],
 
         "spiderweb_outer_radius_percent" : 80,
-        "spiderweb_radius": 5,
+        // "spiderweb_radius": 5,
         "spiderweb_axis_title": "yes",
         "spiderweb_pointer": "yes",
 
-        "scatterplot_radius" : 40,
+        // "scatterplot_radius" : 40,
         "scatterplot_pointer": "no",
 
         "line_curvy_lines": "no",
