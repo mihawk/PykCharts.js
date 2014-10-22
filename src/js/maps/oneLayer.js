@@ -15,7 +15,7 @@ PykCharts.maps.oneLayer = function (options) {
 
             d3.json("https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/maps/" + that.map_code + "-topo.json", function (data) {
                 that.map_data = data;
-                d3.json("https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/palette/colorPalette.json", function (data) {
+                d3.json("https://s3-ap-southeast-1.amazonaws.com/uploads-ap.hipchat.com/64187/1081820/s37tUj81oDVVfF6/colorPalette.json", function (data) {
                     that.color_palette_data = data;
                     $(that.selector).html("");
                     var oneLayer = new PykCharts.maps.mapFunctions(options,that,"oneLayer");
@@ -53,7 +53,7 @@ PykCharts.maps.timelineMap = function (options) {
             d3.json("https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/maps/" + that.map_code + "-topo.json", function (data) {
                 that.map_data = data;
                 // console.log(that.map_data,"map data");
-                d3.json("https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/palette/colorPalette.json", function (data) {
+                d3.json("https://s3-ap-southeast-1.amazonaws.com/uploads-ap.hipchat.com/64187/1081820/s37tUj81oDVVfF6/colorPalette.json", function (data) {
                     that.color_palette_data = data;
 
 
