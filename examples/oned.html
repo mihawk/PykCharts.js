@@ -44,8 +44,9 @@
                 // clubData_always_include_data_points : ["18-24","25-44"],
                 export_enable: "yes",
                 background_color: "white",
-                chart_width: 500,
-                chart_height: 500
+                chart_width: 300,
+                chart_height: 300,
+                title_text: "PykCharts"
             });
             k.execute();
 
@@ -60,10 +61,11 @@
             var k = new PykCharts.oneD.pictograph({
                 selector: "#pictograph",
                 data:"../data/pictograph.json",
-                chart_width : 400,
+                chart_width : 500,
                 transition_duration: 1,
                 pictograph_current_count_weight: "bold",
-                pictograph_total_count_weight: "thin"
+                pictograph_total_count_weight: "thin",
+                title_text: "PykCharts"
              });
             k.execute();
 

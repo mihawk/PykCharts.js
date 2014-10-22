@@ -75,6 +75,8 @@ PykCharts.multiD.barChart = function(options){
 
             that.k.title()
                 .subtitle()
+                .export(that,"#svgcontainer","barChart")
+                .emptyDiv()
                 .makeMainDiv(that.selector,1);
             that.optionalFeatures()
                 .svgContainer(1)
@@ -97,7 +99,10 @@ PykCharts.multiD.barChart = function(options){
                .ticks();
                           
         } else if(that.mode === "infographics") {
-            that.k.makeMainDiv(that.selector,1);
+            that.k.export(that,"#svgcontainer","barChart")
+                .emptyDiv()
+                .makeMainDiv(that.selector,1);
+
             that.optionalFeatures().svgContainer(1)
                 .createGroups()
                 .createChart()

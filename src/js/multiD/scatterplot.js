@@ -158,9 +158,9 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                 that.k.emptyDiv();
             } else {
                 
-                that.k.export(that,"#svgcontainer0",type);
                 that.k.title()
                     .subtitle()
+                    .export(that,"#svgcontainer0",type)
                     .emptyDiv();
 
                 that.w = that.width;

@@ -36,13 +36,12 @@ PykCharts.oneD.pictograph = function (options) {
     this.render = function () {
 
         that.transitions = new PykCharts.Configuration.transition(that);
-        that.k.export(that,"#svgcontainer","pictograph");
 
         if(that.mode==="default") {
             that.k.title()
                 .subtitle()
-                
         }
+        that.k.export(that,"#svgcontainer","pictograph")
         that.k.emptyDiv();
         that.optionalFeatures()
                 .svgContainer()
