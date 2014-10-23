@@ -359,7 +359,9 @@ PykCharts.Configuration = function (options){
                     PykCharts.Configuration.tooltipp = d3.select("body")
                         .append("div")
                         .attr("id", "pyk-tooltip")
+                        .attr("class","pyk-tooltip")
                         .style("height","auto")
+                        .style("weight","auto")
                         .style("padding", "5px 6px")
                         .style("color","#4F4F4F")
                         .style("background","#fff")
@@ -367,9 +369,9 @@ PykCharts.Configuration = function (options){
                         .style("position", "absolute")
                         .style("border-radius", "5px")
                         .style("border","1px solid #CCCCCC")
+                        .style("font-family","'Helvetica Neue', Helvetica, Arial, sans-serif")
+                        .style("font-size","12px")
                         .style("text-align","center")
-                        .style("font-family","Arial, Helvetica, sans-serif")
-                        .style("font-size","14px")
                         .style("min-width","30px")
                         .style("z-index","10")
                         .style("visibility", "hidden")
@@ -930,7 +932,7 @@ PykCharts.Configuration = function (options){
                 // })
                 
                 console.log(bg,"gdjagdahdg");
-                $(chart.selector).colourBrightness();
+//                $(chart.selector).colourBrightness();
 
                 var canvas_id = chart_name+"canvas";
                 var canvas = document.createElement("canvas");
@@ -988,9 +990,10 @@ PykCharts.Configuration = function (options){
                 var name = chart_name + ".svg"
                 
                 $(chart.selector + " #"+id).click(function () {
-                    chart.k.processSVG(document.querySelector(options.selector +" "+svgId));
+                    chart.k.processSVG(document.querySelector(options.selector +" "+svgId),chart_name);
                     project.importSVG(document.querySelector(options.selector +" "+svgId));
                     var svg = project.exportSVG({ asString: true });
+                    console.log(project,"project");
                     downloadDataURI({
                         data: 'data:image/svg+xml;base64,' + btoa(svg),
                         filename: name
@@ -1001,7 +1004,8 @@ PykCharts.Configuration = function (options){
             }
             return this;
         },
-        processSVG: function (svg) {
+        processSVG: function (svg,svgId) {
+            console.log(svg,svgId,"svg")
             var x = svg.querySelectorAll("text");
             for (var i = 0; i < x.length; i++) {
                 if(x[i].hasAttribute("dy")) {

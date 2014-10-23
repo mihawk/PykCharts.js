@@ -40,13 +40,13 @@
         <script src="../lib/downloadDataURI.js"></script>
         <script src="../lib/jquery.colourbrightness.js"></script>
 <!--        <script src="../lib/FileSaver.js"></script>
-        <script src="../lib/jspdf.js"></script>                
-        <script src="../lib/rgbcolor.js"></script>                
+        <script src="../lib/jspdf.js"></script>
+        <script src="../lib/rgbcolor.js"></script>
         <script src="../lib/Blob.js"></script>
         <script src="../lib/StackBlur.js"></script>
         <script src="../lib/jspdf.plugin.addimage.js"></script>
-        <script src="../lib/canvg.js"></script> 
-        <script src="../lib/svgToPdf.js"></script>                
+        <script src="../lib/canvg.js"></script>
+        <script src="../lib/svgToPdf.js"></script>
 -->
         <script src="../src/js/init.js"></script>
         <script src="../src/js/pyk.js"></script>
@@ -60,7 +60,7 @@
 
         <script>
             // $(document).ready(function (e) {
-            window.PykChartsInit = function (e) {             
+            window.PykChartsInit = function (e) {
                 var k = new PykCharts.multiD.lineChart ({
                     selector: "#line",
                     data: "../data/lineChart.json",
@@ -114,7 +114,7 @@
                     zoom_enable: "yes"
 
                 });
-            k.execute();
+//            k.execute();
 
                 var k = new PykCharts.multiD.areaChart ({
                     selector: "#area",
@@ -169,7 +169,7 @@
 
                 });
 
-            k.execute();
+            // k.execute();
 
                 var k = new PykCharts.multiD.spiderWeb ({
                     selector: "#spiderWeb",
@@ -206,7 +206,7 @@
 
                 });
 
-            k.execute();
+            // k.execute();
 
                 var k = new PykCharts.multiD.scatterPlot ({
                     selector: "#scatterPlot",
@@ -271,7 +271,7 @@
                     label_weight: "thick",
                     label_family:"'Helvetica Neue',Helvetica,Arial,sans-serif",
                 });
-                 // k.execute();
+                 k.execute();
 
                 var k = new PykCharts.multiD.scatterPlot ({
                     selector: "#multiple-scatterplots",
@@ -279,7 +279,7 @@
                     mode : "default", //  default or infographics
 
                     background_color: "white",
-    
+
                     chart_color: ["#07365e","#0e5ea1","#4682b4","#75b0e1","#a0ccf1"],
                     chart_height: 450,
                     chart_width : 700,
@@ -326,6 +326,7 @@
                     legendsText_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
 
                     zoom_enable: "yes",
+                    zoom_level: 6,
 
                     border_between_chart_elements_thickness:0,
                     border_between_chart_elements_color:"blue",
@@ -337,7 +338,7 @@
 
                 });
 
-            k.execute();
+            // k.execute();
 
                var k = new PykCharts.multiD.lineChart ({
                     selector: "#multiLine",
@@ -395,14 +396,14 @@
 
                 });
 
-            k.execute();
+            // k.execute();
 
                 var k = new PykCharts.multiD.lineChart ({
                     selector: "#multiple-multiLine",
                     data: "../data/multiLineChart.json",
                     mode : "default",
 
-                    color_mode: "color",  //color or saturation
+                    color_mode: "saturation",  //color or saturation
                     chart_color:["lightgray","steelblue","red"],
                     background_color:"white",
 
@@ -505,7 +506,7 @@
 
                 });
 
-           k.execute();
+           // k.execute();
 
                 var k = new PykCharts.multiD.pulse({
                     selector: "#pulse",
@@ -571,7 +572,7 @@
                     border_between_chart_elements_style: "solid",
 
                 });
-             k.execute();
+             // k.execute();
 
                 var k = new PykCharts.multiD.columnChart({
                     data: "../data/ultimateColumn.json",
@@ -629,7 +630,7 @@
 
                 });
 
-              k.execute();
+      //        k.execute();
 
                 var k = new PykCharts.multiD.columnChart({
                     data: "../data/ultimateGroupColumn.json",
@@ -688,7 +689,7 @@
                    highlight:"January",
                 });
 
-               k.execute();
+ //              k.execute();
 
                 var k = new PykCharts.multiD.barChart({
                     data: "../data/ultimatebar.json",
@@ -757,7 +758,7 @@
 
                 });
 
-               k.execute();
+//               k.execute();
 
                 var k = new PykCharts.multiD.barChart({
                     data: "../data/ultimateGroupBar.json",
@@ -826,7 +827,7 @@
 
                     highlight: "January"
                   });
-               k.execute();
+              k.execute();
             };
         </script>
     </body>
