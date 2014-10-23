@@ -993,6 +993,7 @@ PykCharts.Configuration = function (options){
                     chart.k.processSVG(document.querySelector(options.selector +" "+svgId),chart_name);
                     project.importSVG(document.querySelector(options.selector +" "+svgId));
                     var svg = project.exportSVG({ asString: true });
+                    console.log(project,"project");
                     downloadDataURI({
                         data: 'data:image/svg+xml;base64,' + btoa(svg),
                         filename: name
@@ -9492,7 +9493,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                         .attr("fill", function (d) {
                             return that.fillChart.colorPieW(d);
                         })
-                        .attr("opacity", function (d) {
+                        .attr("fill-opacity", function (d) {
                             return 0.6;
                         });
 

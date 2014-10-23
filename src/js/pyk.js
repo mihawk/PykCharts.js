@@ -993,6 +993,7 @@ PykCharts.Configuration = function (options){
                     chart.k.processSVG(document.querySelector(options.selector +" "+svgId),chart_name);
                     project.importSVG(document.querySelector(options.selector +" "+svgId));
                     var svg = project.exportSVG({ asString: true });
+                    console.log(project,"project");
                     downloadDataURI({
                         data: 'data:image/svg+xml;base64,' + btoa(svg),
                         filename: name
