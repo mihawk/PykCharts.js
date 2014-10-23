@@ -41,7 +41,6 @@
         "y": 40,
         "weight":25,
         "group":"2009",
-        "color": "#0e5ea1",
         "tooltip": "National Democratic Alliance"
     },
     {
@@ -49,6 +48,7 @@
         "y": 20,
         "weight":10,
         "group":"2009",
+        "color": "#0e5ea1",
         "tooltip": "United Progressive Alliance"
     },
     {
