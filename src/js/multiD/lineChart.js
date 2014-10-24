@@ -186,7 +186,6 @@ PykCharts.multiD.lineChart = function (options){
                         .on("resize", function () { return that.k.resize(null); });
         }
 		that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
-
 	};
 
 	this.refresh = function () {
@@ -500,13 +499,13 @@ PykCharts.multiD.lineChart = function (options){
 								    .attr("class", that.chartPathClass)
 								    .attr("id", type)
 								    .attr("transform", "translate("+ that.extra_left_margin +",0)")
-							      	.style("stroke", function() {
+							      	.attr("stroke", function() {
 					      				if(that.new_data[i].highlight && that.type === "multilineChart") {
 					      					that.highlightLine(this,null,that.new_data[i].highlight);
 					      				}
 					      				return that.fillColor.colorPieMS(that.new_data[i]);
 					      			})
-					      			.style("stroke-opacity", function () {
+					      			.attr("stroke-opacity", function () {
 					      				if(that.type === "multilineChart" && that.color_mode === "saturation") {
 						      				return (i+1)/that.new_data.length;
 					      				} else {

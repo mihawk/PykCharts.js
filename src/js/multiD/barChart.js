@@ -11,6 +11,7 @@ PykCharts.multiD.barChart = function(options){
         if(that.mode === "default") {
            that.k.loading();
         }
+        that.multiD = new PykCharts.multiD.configuration(that);
         d3.json(options.data, function(e, data){
             // console.log("data",data);
             that.data = data.groupBy("bar");
@@ -40,6 +41,7 @@ PykCharts.multiD.barChart = function(options){
             if(that.no_of_groups === 1) {
                 that.legends_enable = "no";
             }
+            that.map_group_data = that.multiD.mapGroup(that.data);
             that.optionalFeatures()
                     .createChart()
                     .legends()
@@ -53,7 +55,7 @@ PykCharts.multiD.barChart = function(options){
     //----------------------------------------------------------------------------------------
     this.render = function(){
         var that = this;
-
+        that.map_group_data = that.multiD.mapGroup(that.data);
         that.data = that.dataTransformation();
         //console.log(that.data);
         that.data = that.emptygroups(that.data);

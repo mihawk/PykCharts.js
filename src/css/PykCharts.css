@@ -120,7 +120,8 @@ body {
   width: auto;
   padding: 5px 6px;
   color: #4F4F4F;
-  background: #eeeeee;
+  background: #fff;
+  box-shadow: 0 5px 10px rgba(0,0,0,.2);
   text-decoration: none;
   position: absolute;
   border-radius: 5px;
@@ -149,7 +150,6 @@ body {
   min-width: 30px;
   visibility: hidden;
   box-shadow: 0 5px 10px rgba(0,0,0,.2);
-  padding: 7px;
   pointer-events: none;
   transition: opacity 250ms linear;
   -moz-transition: opacity 250ms linear;
@@ -176,6 +176,45 @@ body {
 .PykCharts-line-chart .pyk-tooltip-table table th {
   font-size: 13px;
   text-align: left;
+}
+
+body .pyk-tooltip table {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  color:#1f1f1f;
+  border:1px solid #e7e3e7;
+  border-collapse: collapse;  
+  pointer-events: none;
+}
+
+body .pyk-tooltip table td, table th {
+  border: 1px dashed #e7e3e7;
+  padding: 5px;
+}
+
+body .pyk-tooltip table th {
+  font-size: 13px;
+  text-align: left;
+}
+
+body .pyk-tooltip .tooltip-heading{
+  font-size: 13px;
+  text-align: left;
+  border-bottom: 1px solid lightgray;
+  padding: 5px;
+}
+
+body .pyk-tooltip td{
+  padding: 5px;
+}
+
+body .pyk-tooltip .tooltip-right-content{
+  text-align:right;
+  padding-left:20px;
+}
+
+body .pyk-tooltip .tooltip-left-content{
+  padding-right:20px;
 }
 
 .PykCharts-twoD #title {
@@ -284,29 +323,6 @@ body {
   min-height: 1px;
   padding-right: 15px;
   padding-left: 15px;
-}
-
-.PykCharts {
-font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-font-size: 12px;
-color:#1f1f1f;
-}
-.PykCharts .tooltip-heading{
-font-size: 13px;
-text-align: left;
-border-bottom: 1px solid lightgray;
-padding: 5px;
-}
-.PykCharts td{
-padding: 5px;
-}
-.PykCharts .tooltip-right-content{
-text-align:right;
-padding-left:20px;
-}
-
-.PykCharts .tooltip-left-content{
-padding-right:20px;
 }
 
 .PykCharts-map .cstm-form-control{
