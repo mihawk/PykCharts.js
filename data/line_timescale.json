@@ -1,51 +1,52 @@
 [
 	{
-		"name":"New York",
+		"name":"India",
 		"color": "#4682b4",
-		"x":"Monday",
-		"y":2,
+		"x":"January",
+		"y":30,
 		"tooltip":2
 	},
 	{
-		"name":"New York",
+		"name":"India",
 		"color": "#4682b4",
-		"x":"Tuesday",
-		"y":4,
+		"x":"February",
+		"y":35,
 		"tooltip":4
 	},	
 	{
-		"name":"New York",
+		"name":"India",
 		"color": "#4682b4",
-		"x":"Wednesday",
-		"y":6,
+		"x":"March",
+		"y":40,
 		"tooltip":6
 	},
 	{
-		"name":"New York",
+		"name":"India",
 		"color": "#4682b4",
-		"x":"Thrusday",
-		"y":7,
+		"x":"April",
+		"y":40,
 		"tooltip":7
 	},
 	{
-		"name":"New York",
+		"name":"India",
 		"color": "#4682b4",
-		"x":"Friday",
-		"y":6,
+		"x":"May",
+		"y":60,
+		"annotations" : "new product launch",
 		"tooltip":6
 	},
 	{
-		"name":"New York",
+		"name":"India",
 		"color": "#4682b4",
-		"x":"Saturday",
-		"y":4,
+		"x":"June",
+		"y":40,
 		"tooltip":4
 	},
 	{
-		"name":"New York",
+		"name":"India",
 		"color": "#4682b4",
-		"x":"Sunday",
-		"y":3,
+		"x":"July",
+		"y":30,
 		"tooltip":3
 	}
 ]

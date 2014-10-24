@@ -885,7 +885,7 @@ PykCharts.Configuration = function (options){
             if(PykCharts.boolean(options.export_enable)) {
                
                 var bg;
-                $(chart.selector).css({"background-color":chart.background_color,"position":"relative"});
+                $(chart.selector).css({"background-color":options.background_color,"position":"relative"});
                 // if(PykCharts.boolean(options.background_color)) {
                 //     bg = options.background_color;
                 // } else if ( $(this).parents().css('background')){
@@ -893,7 +893,7 @@ PykCharts.Configuration = function (options){
                 // } else {
                 //     bg = "white";
                 // }
-               // console.log($(options.selector).parent(),"hhhhhhhh"); 
+               // console.log($(options.selector).parent(),"hhhhhhhh"); s
                console.log($(chart.selector).css("background-color"),"color");
                console.log(options.background_color,"config");
                console.log($(options.selector).css("background-color")!= "rgba(0, 0, 0, 0)","jjjjjjjjj");
@@ -903,17 +903,20 @@ PykCharts.Configuration = function (options){
                } 
                else {
                     console.log("ohhh");
-                    bgColor(options.selector);
+                    bg = bgColor(options.selector);
+                    console.log(bg, "its bggggggg");
                 }
-
+                
                function bgColor (child) {
-                 console.log("oooooooo");
+                 console.log("oooooooo",document.getElementsByTagName("body").parentNode);
                  if (document.getElementsByTagName("body").parentNode !== undefined) {
                     console.log("heyyyyyy");
-                    bg = $(child).parent().css("background-color");
+                    // bgColor(child);
+                    return $(child).parent().css("background-color");
                     // break;
                 } else {
-                    bg = "white";
+                    console.log("hii");
+                    return "white";
                 }
                }
                // console.log($(options.selector).css("background"),"background-color");
@@ -930,7 +933,7 @@ PykCharts.Configuration = function (options){
                 // })
                 
                 console.log(bg,"gdjagdahdg");
-                $(chart.selector).colourBrightness();
+                $(chart.selector).colourBrightness(bg);
 
                 var canvas_id = chart_name+"canvas";
                 var canvas = document.createElement("canvas");
@@ -1654,7 +1657,7 @@ configuration.Theme = function(){
 
         "highlight": "",
         "highlight_color": "#013F73",
-        // "background_color": "transparent",
+        "background_color": "transparent",
         "chart_color": ["steelblue"],
         "saturation_color": "steelblue",
 
