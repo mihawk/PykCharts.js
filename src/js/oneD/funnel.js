@@ -267,17 +267,23 @@ PykCharts.oneD.funnel = function (options) {
                     .attr("stroke-dasharray", that.border.style())
                     .attr("stroke-opacity",1)
         			.on("mouseover", function (d,i) {
-                        that.onHoverEffect.highlight(options.selector +" "+".fun-path",this);
-                        tooltip = that.new_data[i].tooltip || "<table class='PykCharts'><tr><th colspan='3' class='tooltip-heading'>"+that.new_data[i].name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(that.new_data[i].weight)+"<td class='tooltip-right-content'>(&nbsp; "+that.per_values[i].toFixed(2)+"%&nbsp) </tr></table>";
-            			that.mouseEvent.tooltipPosition(d);
-                        that.mouseEvent.toolTextShow(tooltip);
+                        if(that.mode === "default") {
+                            that.onHoverEffect.highlight(options.selector +" "+".fun-path",this);
+                            tooltip = that.new_data[i].tooltip || "<table class='PykCharts'><tr><th colspan='3' class='tooltip-heading'>"+that.new_data[i].name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(that.new_data[i].weight)+"<td class='tooltip-right-content'>(&nbsp; "+that.per_values[i].toFixed(2)+"%&nbsp) </tr></table>";
+                			that.mouseEvent.tooltipPosition(d);
+                            that.mouseEvent.toolTextShow(tooltip);
+                        }
         			})
         			.on("mouseout", function (d) {
-                        that.onHoverEffect.highlightHide(options.selector +" "+".fun-path");
-            			that.mouseEvent.tooltipHide(d);
+                        if(that.mode === "default") {
+                            that.onHoverEffect.highlightHide(options.selector +" "+".fun-path");
+                			that.mouseEvent.tooltipHide(d);
+                        }
         			})
         			.on("mousemove", function (d,i) {
-                        that.mouseEvent.tooltipPosition(d);
+                        if(that.mode === "default") {
+                            that.mouseEvent.tooltipPosition(d);
+                        }
         			})
                     .transition()
                     .duration(that.transitions.duration())
