@@ -297,14 +297,20 @@ PykCharts.multiD.spiderWeb = function (options) {
                         .attr("stroke-width",that.border.width())
                         .attr("stroke-dasharray", that.border.style())
                         .on('mouseover',function (d,i) {
-                            that.mouseEvent.tooltipPosition(d);
-                            that.mouseEvent.toolTextShow(d.tooltip);
+                            if(that.mode === "default") {
+                                that.mouseEvent.tooltipPosition(d);
+                                that.mouseEvent.toolTextShow(d.tooltip);
+                            }
                         })
                         .on('mouseout',function (d) {
-                            that.mouseEvent.tooltipHide(d);
+                            if(that.mode === "default") {
+                                that.mouseEvent.tooltipHide(d);
+                            }
                         })
                         .on('mousemove', function (d) {
-                          that.mouseEvent.tooltipPosition(d);
+                            if(that.mode === "default") {
+                                that.mouseEvent.tooltipPosition(d);
+                            }
                         });
                     spiderNode.exit().remove();
                 }

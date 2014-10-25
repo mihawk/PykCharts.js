@@ -377,16 +377,22 @@ PykCharts.multiD.barChart = function(options){
                     .attr("stroke-dasharray", that.border.style())
                     .attr("stroke-opacity",1)
                     .on('mouseover',function (d) {
-                        that.mouseEvent.tooltipPosition(d);
-                        that.mouseEvent.toolTextShow(d.tooltip ? d.tooltip : d.y);
-                        that.mouseEvent.axisHighlightShow(d.name,options.selector + " .axis-text",that.domain,"bar");
+                        if(that.mode === "default") {
+                            that.mouseEvent.tooltipPosition(d);
+                            that.mouseEvent.toolTextShow(d.tooltip ? d.tooltip : d.y);
+                            that.mouseEvent.axisHighlightShow(d.name,options.selector + " .axis-text",that.domain,"bar");
+                        }
                     })
                     .on('mouseout',function (d) {
-                        that.mouseEvent.tooltipHide(d);
-                        that.mouseEvent.axisHighlightHide(options.selector + " .axis-text","bar");
+                        if(that.mode === "default") {
+                            that.mouseEvent.tooltipHide(d);
+                            that.mouseEvent.axisHighlightHide(options.selector + " .axis-text","bar");
+                        }
                     })
                     .on('mousemove', function (d) {
-                        that.mouseEvent.tooltipPosition(d);
+                        if(that.mode === "default") {
+                            that.mouseEvent.tooltipPosition(d);
+                        }
                     });
 
                 rect
