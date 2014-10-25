@@ -896,22 +896,22 @@ PykCharts.Configuration = function (options){
                 //     bg = "white";
                 // }
                // console.log($(options.selector).parent(),"hhhhhhhh"); 
-               console.log($(chart.selector).css("background-color"),"color");
-               console.log(options.background_color,"config");
-               console.log($(options.selector).css("background-color")!= "rgba(0, 0, 0, 0)","jjjjjjjjj");
+               // console.log($(chart.selector).css("background-color"),"color");
+               // console.log(options.background_color,"config");
+               // console.log($(options.selector).css("background-color")!= "rgba(0, 0, 0, 0)","jjjjjjjjj");
                if (PykCharts.boolean(options.background_color) && $(options.selector).css("background-color")!= "rgba(0, 0, 0, 0)") {
-                    console.log(options.background_color,"hey");
+                    // console.log(options.background_color,"hey");
                     bg = options.background_color;
                } 
                else {
-                    console.log("ohhh");
+                    // console.log("ohhh");
                     bgColor(options.selector);
                 }
 
                function bgColor (child) {
-                 console.log("oooooooo");
+                 // console.log("oooooooo");
                  if (document.getElementsByTagName("body").parentNode !== undefined) {
-                    console.log("heyyyyyy");
+                    // console.log("heyyyyyy");
                     bg = $(child).parent().css("background-color");
                     // break;
                 } else {
@@ -931,7 +931,7 @@ PykCharts.Configuration = function (options){
                 //    return $(this).parent().css("background-color","red");
                 // })
                 
-                console.log(bg,"gdjagdahdg");
+                // console.log(bg,"gdjagdahdg");
 //                $(chart.selector).colourBrightness();
 
                 var canvas_id = chart_name+"canvas";
@@ -951,12 +951,12 @@ PykCharts.Configuration = function (options){
                 // console.log(d3.selectAll(options.selector).attr("class"));
                 // console.log($(options.selector)[0].classList.add("light"),"add class");
                 // console.log($(options.selector)[0].classList,"classList");
-                console.log($(options.selector)[0].classList.contains("light"),"contains");
+                // console.log($(options.selector)[0].classList.contains("light"),"contains");
                 // console.log($(options.selector).hasClassName("light"),"class name");
 
-                console.log($(options.selector).hasClass("light"),d3.select(options.selector),"==============================")
+                // console.log($(options.selector).hasClass("light"),d3.select(options.selector),"==============================")
                 if ($(options.selector)[0].classList.contains("light")) {
-                    console.log("light class",$(options.selector));
+                    // console.log("light class",$(options.selector));
                     d3.select(chart.selector)
                                 .append("div")
                                 .attr("id",id)
@@ -969,7 +969,7 @@ PykCharts.Configuration = function (options){
                                 .html("<img src='../img/download.png' style='left:"+div_left+"px;margin-bottom:3px'/>");
 
                 } else {
-                    console.log("dark class",$(options.selector));
+                    // console.log("dark class",$(options.selector));
                      d3.select(chart.selector)
                                 .append("div")
                                 .attr("id",id)
@@ -993,7 +993,7 @@ PykCharts.Configuration = function (options){
                     chart.k.processSVG(document.querySelector(options.selector +" "+svgId),chart_name);
                     project.importSVG(document.querySelector(options.selector +" "+svgId));
                     var svg = project.exportSVG({ asString: true });
-                    console.log(project,"project");
+                    // console.log(project,"project");
                     downloadDataURI({
                         data: 'data:image/svg+xml;base64,' + btoa(svg),
                         filename: name
