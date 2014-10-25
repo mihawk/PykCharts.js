@@ -1711,7 +1711,7 @@ configuration.Theme = function(){
 
         "highlight": "",
         "highlight_color": "#08306b",
-        // "background_color": "transparent",
+        "background_color": "transparent",
         "chart_color": ["#255AEE"],
         "saturation_color": "#255AEE",
 
