@@ -666,7 +666,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
 
                     // displaySum.exit().remove();
 
-
+                    var h;
                     var label = that.group.selectAll(options.selector +" "+".centerLabel")
                                     .data([that.sum]);
 
@@ -675,25 +675,31 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
 
                     label.attr("class","centerLabel")
                         .text("")
-                        .transition()
-                        .delay( function(d) {
-                            if(PykCharts.boolean(that.transitions.duration())) {
-                                return that.transitions.duration();
-                            }
-                        })
-                        .text( function(d) {
-                            return that.k.appendUnits(that.sum);
-                        })
-                        .attr("pointer-events","none")
-                        .attr("text-anchor","middle")
-                        .attr("y",function () {
-                            return (type == "donut") ? (0.2*that.inner_radius) : (-0.25*that.inner_radius);
-                        })
-                        .attr("font-size",function () {
-                            return (type == "donut") ? 0.4*that.inner_radius : 0.2*that.inner_radius;
-                        })
-                        .style("font-family","'Helvetica Neue',Helvetica,Arial,sans-serif")
-                        .attr("fill","#484848");
+                        // .transition()
+                        // .delay( function(d) {
+                        //     if(PykCharts.boolean(that.transitions.duration())) {
+                        //         return that.transitions.duration();
+                        //     }
+                        // })
+                    setTimeout(function () {
+                        label.text( function(d) {
+                                return that.k.appendUnits(that.sum);
+                            })
+                            .text( function(d) {
+                                h = this.getBBox().height;
+                                return that.k.appendUnits(that.sum);
+                            })
+                            .attr("pointer-events","none")
+                            .attr("text-anchor","middle")
+                            .attr("y",function () {
+                                return (type == "donut") ? h/2 : (-0.25*that.inner_radius);
+                            })
+                            .attr("font-size",function () {
+                                return (type == "donut") ? 0.32*that.inner_radius : 0.2*that.inner_radius;
+                            })
+                            .style("font-family","'Helvetica Neue',Helvetica,Arial,sans-serif")
+                            .attr("fill","#484848");
+                    },that.transitions.duration());
 
                     label.exit().remove();
                 }
