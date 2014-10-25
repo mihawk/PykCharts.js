@@ -164,7 +164,7 @@ PykCharts.multiD.columnChart = function(options){
             },
             legendsContainer: function (i) {
 
-                if(PykCharts.boolean(that.legends_enable)) {
+                if(PykCharts.boolean(that.legends_enable) && that.mode === "default") {
                   
                     that.legendsGroup = that.svgContainer.append("g")
                         .attr("id","legends")

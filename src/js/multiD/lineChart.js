@@ -511,7 +511,6 @@ PykCharts.multiD.lineChart = function (options){
 					      				if(that.new_data[i].highlight && that.type === "multilineChart") {
 					      					that.highlightLine(this,null,that.new_data[i].highlight);
 					      				}
-					      				console.log(that.fillColor.colorPieMS(that.new_data[i]))
 					      				return that.fillColor.colorPieMS(that.new_data[i]);
 					      			})
 					      			.style("stroke-opacity", function () {
