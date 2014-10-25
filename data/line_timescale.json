@@ -4,49 +4,48 @@
 		"color": "#4682b4",
 		"x":"January",
 		"y":30,
-		"tooltip":2
+		"tooltip":30
 	},
 	{
 		"name":"India",
 		"color": "#4682b4",
 		"x":"February",
-		"y":35,
-		"tooltip":4
+		"y":20,
+		"tooltip":20
 	},	
 	{
 		"name":"India",
 		"color": "#4682b4",
 		"x":"March",
 		"y":40,
-		"tooltip":6
+		"tooltip":40
 	},
 	{
 		"name":"India",
 		"color": "#4682b4",
 		"x":"April",
-		"y":40,
-		"tooltip":7
+		"y":5,
+		"tooltip":5
 	},
 	{
 		"name":"India",
 		"color": "#4682b4",
 		"x":"May",
 		"y":60,
-		"annotations" : "new product launch",
-		"tooltip":6
+		"tooltip":60
 	},
 	{
 		"name":"India",
 		"color": "#4682b4",
 		"x":"June",
 		"y":40,
-		"tooltip":4
+		"tooltip":40
 	},
 	{
 		"name":"India",
 		"color": "#4682b4",
 		"x":"July",
 		"y":30,
-		"tooltip":3
+		"tooltip":30
 	}
 ]

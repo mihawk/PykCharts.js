@@ -883,60 +883,57 @@ PykCharts.Configuration = function (options){
                 return (min_value*radius_percent)/200;
             }
         },
+        background: function (options) {
+            console.log(options,"options");
+            var bg;
+                $(options.selector).css({"background-color":options.background_color,"position":"relative"});
+
+               bgColor(options.selector);
+                   
+                function bgColor(child) {
+                    bg = $(child).css("background-color");
+                    console.log(bg,"oh bggg");
+                }
+
+                if (bg === "transparent" || bg === "rgba(0, 0, 0, 0)") {
+                    if (document.getElementsByTagName("body").parentNode !== undefined ){
+                        return "white";
+                    } else {
+                        return bgColor(options.selector);
+                    }
+                } else {
+                    console.log("bg",bg);
+                    return $(options.selector).colourBrightness(bg);
+                } 
+            return this;    
+        },
         export : function(chart,svgId,chart_name) {
             if(PykCharts.boolean(options.export_enable)) {
                
-                var bg;
                 $(chart.selector).css({"background-color":options.background_color,"position":"relative"});
-                // if(PykCharts.boolean(options.background_color)) {
-                //     bg = options.background_color;
-                // } else if ( $(this).parents().css('background')){
-                //     bg = $(this).parents().css('background');
-                // } else {
-                //     bg = "white";
-                // }
-               // console.log($(options.selector).parent(),"hhhhhhhh"); s
-               console.log($(chart.selector).css("background-color"),"color");
-               console.log(options.background_color,"config");
-               console.log($(options.selector).css("background-color")!= "rgba(0, 0, 0, 0)","jjjjjjjjj");
-               if (PykCharts.boolean(options.background_color) && $(options.selector).css("background-color")!= "rgba(0, 0, 0, 0)") {
-                    console.log(options.background_color,"hey");
-                    bg = options.background_color;
-               } 
-               else {
-                    console.log("ohhh");
-                    bg = bgColor(options.selector);
-                    console.log(bg, "its bggggggg");
+
+                var bg;
+                bgColor(options.selector);
+                   
+                function bgColor(child) {
+                    bg = $(child).css("background-color");
+                    console.log(bg,"oh bggg");
+                    if (bg === "transparent" || bg === "rgba(0, 0, 0, 0)") {
+                        if (document.getElementsByTagName("body")!== undefined ){
+                            console.log("is it going");
+                            $(child).colourBrightness("rgb(255,255,255)");
+                        } else {
+                            return bgColor(child.parent());
+                        }
+                    } else {
+                        console.log("bg",bg);
+                        $(child).colourBrightness(bg);
+                    }     
                 }
-                
-               function bgColor (child) {
-                 console.log("oooooooo",document.getElementsByTagName("body").parentNode);
-                 if (document.getElementsByTagName("body").parentNode !== undefined) {
-                    console.log("heyyyyyy");
-                    // bgColor(child);
-                    return $(child).parent().css("background-color");
-                    // break;
-                } else {
-                    console.log("hii");
-                    return "white";
-                }
-               }
-               // console.log($(options.selector).css("background"),"background-color");
-
-                // if (document.getElementsByTagName("body").parentNode !== undefined) {
-                //     $(options.selector).parent();
-                //     // break;
-                // } else {
-                //     return "white";
-                // }
-
-                // $("#svg-1").css("background", function () {
-                //    return $(this).parent().css("background-color","red");
-                // })
-                
-                console.log(bg,"gdjagdahdg");
-                $(chart.selector).colourBrightness(bg);
-
+               
+                // console.log(bg,"bgggggggg");
+                // $(chart.selector).colourBrightness(bg);
+                console.log("heyy");
                 var canvas_id = chart_name+"canvas";
                 var canvas = document.createElement("canvas");
                 canvas.setAttribute('display', "none")
@@ -951,13 +948,8 @@ PykCharts.Configuration = function (options){
                     div_float ="left";
                     div_left = 0;
                 }   
-                // console.log(d3.selectAll(options.selector).attr("class"));
-                // console.log($(options.selector)[0].classList.add("light"),"add class");
-                // console.log($(options.selector)[0].classList,"classList");
-                console.log($(options.selector)[0].classList.contains("light"),"contains");
-                // console.log($(options.selector).hasClassName("light"),"class name");
-
-                console.log($(options.selector).hasClass("light"),d3.select(options.selector),"==============================")
+                console.log($(options.selector)[0].classList.contains("light"),"heyyyyy");
+                // console.log($(options.selector).hasClass("light"),d3.select(options.selector),"==============================")
                 if ($(options.selector)[0].classList.contains("light")) {
                     console.log("light class",$(options.selector));
                     d3.select(chart.selector)
@@ -1760,7 +1752,7 @@ configuration.Theme = function(){
         "axis_x_data_format": "string",
 
         "axis_y_enable": "yes",
-        "axis_y_title" : "Y axis",
+        // "axis_y_title" : "Y axis",
         "axis_y_position": "left",
         "axis_y_pointer_position": "left",
         "axis_y_line_color": "#1D1D1D",

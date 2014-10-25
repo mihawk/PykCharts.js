@@ -238,6 +238,11 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                 , i;
                 $(options.selector).css("background-color",that.background_color);
 
+                if (type == "timeline") {
+                    console.log($(options.selector),"selector");
+                    $(that.selector).colourBrightness();
+                }
+
                 that.group = that.map_cont.selectAll(".map_group")
                     .data(topojson.feature(that.map_data, that.map_data.objects).features)
 

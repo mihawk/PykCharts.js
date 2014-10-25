@@ -76,13 +76,13 @@
                     chart_margin_top: 35,
                     chart_margin_right: 40,
                     chart_margin_bottom: 40,
-                    chart_margin_left:45 ,
+                    chart_margin_left:50 ,
                     chart_grid_x_enable: "no",
                     chart_grid_y_enable: "yes",
 
                     transition_duration: 0,
                     real_time_charts_refresh_frequency: 0,
-                    // background_color: "white",
+                    background_color: "transparent",
                     axis_onhover_hightlight_enable: "yes",
 
                     axis_x_enable: "yes",
@@ -90,8 +90,8 @@
                     axis_x_position: "bottom",
                     axis_x_pointer_position: "bottom",
                     axis_x_line_color: "#1D1D1D",
-                    axis_x_label_color: "#1D1D1D",
-                    axis_x_pointer_size: 3,
+                    axis_x_label_color: "blue",
+                    axis_x_pointer_size: 8,
                     axis_x_pointer_padding: 3,
                     // axis_x_pointer_values: ["2014/01/01","2014/01/03"],
                     axis_x_outer_pointer_size: 3,
@@ -99,7 +99,7 @@
                     axis_x_time_value_interval: 1,
 
                     axis_y_enable: "yes",
-                    axis_y_title : "Stock Price",
+                    // axis_y_title : "",
                     axis_y_position: "left",
                     axis_y_pointer_position: "left",
                     axis_y_line_color: "#1D1D1D",
@@ -115,7 +115,7 @@
                     zoom_enable: "yes"
 
                 });
-//            k.execute();
+           k.execute();
 
                 var k = new PykCharts.multiD.areaChart ({
                     selector: "#area",
@@ -164,13 +164,13 @@
                     axis_y_outer_pointer_size: 3,
 
                     line_curvy_lines:"yes",
-                    tooltip_mode : "moving",
+                    tooltip_mode : "fixed",
                     crosshair_enable: "yes",
                     zoom_enable: "yes"
 
                 });
 
-            // k.execute();
+            k.execute();
 
                 var k = new PykCharts.multiD.spiderWeb ({
                     selector: "#spiderWeb",
@@ -207,7 +207,7 @@
 
                 });
 
-            // k.execute();
+            k.execute();
 
                 var k = new PykCharts.multiD.scatterPlot ({
                     selector: "#scatterPlot",
@@ -216,7 +216,7 @@
 
                     chart_color: ["#07365e","#0e5ea1","#4682b4","#75b0e1","#a0ccf1"],
 
-                    background_color: "white",
+                    background_color: "transparent",
 
                     chart_height: 450,
                     chart_width : 700,
@@ -339,7 +339,7 @@
 
                 });
 
-            // k.execute();
+            k.execute();
 
                var k = new PykCharts.multiD.lineChart ({
                     selector: "#multiLine",
@@ -347,7 +347,7 @@
                     mode : "default",
 
                     color_mode: "color",  //color or saturation
-                    background_color: "white",
+                    // background_color: "white",
 
                     chart_color:["#013f73","#4682b4","#75b0e1"],
 
@@ -397,7 +397,7 @@
 
                 });
 
-            // k.execute();
+            k.execute();
 
                 var k = new PykCharts.multiD.lineChart ({
                     selector: "#multiple-multiLine",
@@ -443,7 +443,7 @@
                     axis_y_outer_pointer_size: 3,
 
                     line_curvy_lines:"yes",
-                    tooltip_mode : "moving",
+                    tooltip_mode : "fixed",
                     tooltip_enable : "yes",
                     crosshair_enable: "yes",
                     zoom_enable: "yes",
@@ -507,7 +507,7 @@
 
                 });
 
-           // k.execute();
+           k.execute();
 
                 var k = new PykCharts.multiD.pulse({
                     selector: "#pulse",
@@ -573,7 +573,7 @@
                     border_between_chart_elements_style: "solid",
 
                 });
-             // k.execute();
+             k.execute();
 
                 var k = new PykCharts.multiD.columnChart({
                     data: "../data/ultimateColumn.json",
@@ -631,7 +631,7 @@
 
                 });
 
-      //        k.execute();
+             k.execute();
 
                 var k = new PykCharts.multiD.columnChart({
                     data: "../data/ultimateGroupColumn.json",
@@ -690,7 +690,7 @@
                    highlight:"January",
                 });
 
- //              k.execute();
+              k.execute();
 
                 var k = new PykCharts.multiD.barChart({
                     data: "../data/ultimatebar.json",
@@ -732,7 +732,6 @@
                     axis_y_pointer_padding: 10,
                     axis_y_outer_pointer_size: 3,
 
-                    background_color: "white",
                     highlight_color: "#013F73",
 
                     legends_enable: "no",
@@ -759,7 +758,7 @@
 
                 });
 
-//               k.execute();
+              k.execute();
 
                 var k = new PykCharts.multiD.barChart({
                     data: "../data/ultimateGroupBar.json",

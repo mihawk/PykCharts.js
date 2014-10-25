@@ -81,6 +81,7 @@ PykCharts.multiD.lineChart = function (options){
 		if(that.mode === "default") {
 			that.k.title()
 					.subtitle()
+					// .background(that)
 					.export(that,"#svg-1","lineChart")
 					.emptyDiv();
 
