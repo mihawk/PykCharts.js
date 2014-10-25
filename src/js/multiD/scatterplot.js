@@ -204,15 +204,13 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
             //      .zoom();
 
         } else if (that.mode === "infographics") {
-            that.radius_range = [7,18];
             that.new_data = that.data;
             that.w = that.width
             that.sizes = new PykCharts.multiD.bubbleSizeCalculation(that,that.data,that.radius_range);
 
             that.k.export(that,"#svgcontainer0",type);
 
-            that.k.tooltip()
-                .emptyDiv()
+            that.k.emptyDiv()
                 .makeMainDiv(that.selector,0);
 
             that.optionalFeatures()
@@ -220,10 +218,11 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                     .legendsContainer(0)
                     .createGroups(0);
 
-            that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
             that.optionalFeatures().createChart(0);
                 // .crossHair();
-
+            if(type === "scatterplot") {
+                that.optionalFeatures().label();
+            }
             that.k.xAxis(that.svgContainer,that.xGroup,that.x,that.extra_left_margin,that.xdomain)
                 .yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain)
                 .xAxisTitle(that.xGroup)
@@ -630,21 +629,27 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                     .attr("stroke-dasharray", that.border.style())
                     .attr("stroke-opacity",1)
                     .on('mouseover',function (d) {
-                        tooltipText = d.tooltip ? d.tooltip : "<table><thead><th colspan='2'><b>"+d.name+"</b></th></thead><tr><td>X</td><td><b>"+d.x+"</b></td></tr><tr><td>Y</td><td><b>"+d.y+"<b></td></tr><tr><td>Weight</td><td><b>"+d.weight+"</b></td></tr></table>";
-                        that.mouseEvent.tooltipPosition(d);
-                        that.mouseEvent.toolTextShow(tooltipText);
-                        if(PykCharts.boolean(that.variable_circle_size_enable)){
-                            d3.select(this).style("fill-opacity",1);
+                        if(that.mode === "default") {
+                            tooltipText = d.tooltip ? d.tooltip : "<table><thead><th colspan='2'><b>"+d.name+"</b></th></thead><tr><td>X</td><td><b>"+d.x+"</b></td></tr><tr><td>Y</td><td><b>"+d.y+"<b></td></tr><tr><td>Weight</td><td><b>"+d.weight+"</b></td></tr></table>";
+                            that.mouseEvent.tooltipPosition(d);
+                            that.mouseEvent.toolTextShow(tooltipText);
+                            if(PykCharts.boolean(that.variable_circle_size_enable)){
+                                d3.select(this).style("fill-opacity",1);
+                            }
                         }
                     })
                     .on('mouseout',function (d) {
-                        that.mouseEvent.tooltipHide(d);
-                        if(PykCharts.boolean(that.variable_circle_size_enable)) {
-                            d3.selectAll(".dot").style("fill-opacity",0.5);
+                        if(that.mode === "default") {
+                            that.mouseEvent.tooltipHide(d);
+                            if(PykCharts.boolean(that.variable_circle_size_enable)) {
+                                d3.selectAll(".dot").style("fill-opacity",0.5);
+                            }
                         }
                     })
                     .on('mousemove', function (d) {
-                        that.mouseEvent.tooltipPosition(d);
+                        if(that.mode === "default") {
+                            that.mouseEvent.tooltipPosition(d);
+                        }
                     })
                     .on("dblclick",function() {
                         d3.event.stopPropagation();

@@ -260,14 +260,9 @@ PykCharts.multiD.columnChart = function(options){
                     .rangeBands([0,w],0.1);
 
                 y_domain = [0,d3.max(y_data)]
-                // console.log(d3.max(y_data));
                 y_domain = that.k._domainBandwidth(y_domain,1);
-                // console.log(y_domain,"y_domain");
                 that.yScale = d3.scale.linear().domain(y_domain).range([0, h]);
-                // console.log(y_domain[1],"y_domain");
-                // console.log(that.yScale.domain());
                 that.yScaleInvert = d3.scale.linear().domain([y_domain[1],y_domain[0]]).range([0, h]); // For the yAxis
-                // console.log(that.yScaleInvert.domain());
                 var zScale = d3.scale.category10();
 
                 var group_arr = [], g, x, totalWidth, i;
@@ -285,17 +280,6 @@ PykCharts.multiD.columnChart = function(options){
                     group_arr.push({x: x, name: i});
                 }
                  var len = w/group_arr.length;
-                // console.log(that.xScale.rangeBand()*17,"rangeBand");
-
-                // that.x0 = d3.scale.ordinal()
-                //     .domain(group_arr.map(function (d,i) { return d.name; }))
-                //     .rangeRoundBands([0, w], 0.1);
-
-                // that.x1 = d3.scale.ordinal()
-                //     .domain(that.barName.map(function(d) { return d; }))
-                //     .rangeRoundBands([0, that.x0.rangeBand()]) ;
-
-
                 var bars = that.group.selectAll(".bars")
                     .data(layers);
 
@@ -303,7 +287,6 @@ PykCharts.multiD.columnChart = function(options){
                 bars.enter()
                         .append("g")
                         .attr("class", "bars");
-//                        .attr("transform","translate("+that.columnMargin+",0)");
                 that.domain = group_arr.map(function (d) {
                     return d.name;
                 });
@@ -344,16 +327,22 @@ PykCharts.multiD.columnChart = function(options){
                     .attr("stroke-dasharray", that.border.style())
                     .attr("stroke-opacity",1)
                     .on('mouseover',function (d) {
-                        that.mouseEvent.tooltipPosition(d);
-                        that.mouseEvent.toolTextShow(d.tooltip ? d.tooltip : d.y);
-                        that.mouseEvent.axisHighlightShow(d.name,options.selector + " " + ".axis-text",that.domain,"column");
+                        if(that.mode === "default") {
+                            that.mouseEvent.tooltipPosition(d);
+                            that.mouseEvent.toolTextShow(d.tooltip ? d.tooltip : d.y);
+                            that.mouseEvent.axisHighlightShow(d.name,options.selector + " " + ".axis-text",that.domain,"column");
+                        }
                     })
                     .on('mouseout',function (d) {
-                        that.mouseEvent.tooltipHide(d);
-                        that.mouseEvent.axisHighlightHide(options.selector + " " + ".axis-text","column");
+                        if(that.mode === "default") {
+                            that.mouseEvent.tooltipHide(d);
+                            that.mouseEvent.axisHighlightHide(options.selector + " " + ".axis-text","column");
+                        }
                      })
                     .on('mousemove', function (d) {
-                        that.mouseEvent.tooltipPosition(d);
+                        if(that.mode === "default") {
+                            that.mouseEvent.tooltipPosition(d);
+                        }
                     });
 
                 rect
