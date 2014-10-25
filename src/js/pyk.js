@@ -923,13 +923,13 @@ PykCharts.Configuration = function (options){
         },
         export : function(chart,svgId,chart_name,multiple_containers_enable,containers) {
             if(PykCharts.boolean(options.export_enable)) {
-               
+
                 var bg,svgIds = [];
                 $(chart.selector).css({"background-color":chart.background_color,"position":"relative"});
                if (PykCharts.boolean(options.background_color) && $(options.selector).css("background-color")!= "rgba(0, 0, 0, 0)") {
                     // console.log(options.background_color,"hey");
                     bg = options.background_color;
-               } 
+               }
                else {
                     bgColor(options.selector);
                 }
@@ -999,7 +999,7 @@ PykCharts.Configuration = function (options){
                     div_size = 0.1*options.width;
                     div_float ="left";
                     div_left = 0;
-                }   
+                }
 
                 var export_div = d3.select(chart.selector)
                                 .append("div")
@@ -1018,7 +1018,7 @@ PykCharts.Configuration = function (options){
 
                     export_div.html("<img src='../img/download-light.png' style='left:"+div_left+"px;margin-bottom:3px'/>");
                 }
-            
+
                 var get_canvas = document.getElementById(canvas_id);
                 paper.setup(get_canvas);
                 var project = new paper.Project();
@@ -1038,7 +1038,7 @@ PykCharts.Configuration = function (options){
                             filename: name
                         });
                         project.clear();
-                    });    
+                    });
                 } else {
                     $(chart.selector + " #"+id).click(function () {
                         d3.select(options.selector + " #dropdown-multipleConatiner-export").style("visibility", "visible");
@@ -1046,7 +1046,7 @@ PykCharts.Configuration = function (options){
                     for(var i = 0; i<containers.length; i++) {
                         $(chart.selector + " #"+chart_name + i).click(function () {
                             d3.select(options.selector + " #dropdown-multipleConatiner-export").style("visibility", "hidden");
-                            var id = this.id.substring(this.id.length-1,this.id.length);                        
+                            var id = this.id.substring(this.id.length-1,this.id.length);
                             chart.k.processSVG(document.querySelector(options.selector + " #" +svgId + id),chart_name);
                             project.importSVG(document.querySelector(options.selector + " #" +svgId + id));
                             var svg = project.exportSVG({ asString: true });
@@ -1055,7 +1055,7 @@ PykCharts.Configuration = function (options){
                                 filename: name
                             });
                             project.clear();
-                        });    
+                        });
                     }
                 }
             }
@@ -1490,8 +1490,6 @@ configuration.mouseEvent = function (options) {
 configuration.fillChart = function (options,theme,config) {
     var that = this;
     var fillchart = {
-        color : function (d) { return d.color; },
-        saturation : function (d) { return "steelblue"; },
         selectColor: function (d) {
             if(d.name === options.highlight) {
                 return options.highlight_color;
@@ -1716,10 +1714,10 @@ configuration.Theme = function(){
         "subtitle_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
 
         "highlight": "",
-        "highlight_color": "#013F73",
+        "highlight_color": "#08306b",
         // "background_color": "transparent",
-        "chart_color": ["steelblue"],
-        "saturation_color": "steelblue",
+        "chart_color": ["#255AEE"],
+        "saturation_color": "#255AEE",
 
         "border_between_chart_elements_thickness": 1,
         "border_between_chart_elements_color": "white",
@@ -1776,7 +1774,7 @@ configuration.Theme = function(){
         "pictograph_image_width": 79,
         "pictograph_image_height": 66,
         "pictograph_current_count_size": 64,
-        "pictograph_current_count_color": "steelblue",
+        "pictograph_current_count_color": "#255AEE",
         "pictograph_current_count_weight": "thin",
         "pictograph_current_count_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
         "pictograph_total_count_size": 64,
