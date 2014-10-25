@@ -1007,16 +1007,12 @@ PykCharts.Configuration = function (options){
                                 .style("width",div_size + "px")
                                 .style("left",div_left+"px")
                                 .style("float",div_float)
-                                .style("text-align","right")
-                                .style("cursor","pointer")
-                                .attr("title","Export to SVG");
+                                .style("text-align","right");
 
                 if ($(options.selector)[0].classList.contains("light")) {
-                    export_div.html("<img src='../img/download.png' style='left:"+div_left+"px;margin-bottom:3px'/>");
-
+                    export_div.html("<img title='Export to SVG' src='../img/download.png' style='left:"+div_left+"px;margin-bottom:3px;cursor:pointer;'/>");
                 } else {
-
-                    export_div.html("<img src='../img/download-light.png' style='left:"+div_left+"px;margin-bottom:3px'/>");
+                    export_div.html("<img title='Export to SVG' src='../img/download-light.png' style='left:"+div_left+"px;margin-bottom:3px;cursor:pointer;'/>");
                 }
 
                 var get_canvas = document.getElementById(canvas_id);
