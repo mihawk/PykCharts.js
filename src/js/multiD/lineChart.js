@@ -735,6 +735,7 @@ PykCharts.multiD.lineChart = function (options){
 		return optional;
 	};
 	this.zoomed = function() {
+		console.log("Isha>>>>>",options.multiple_containers_enable,options.selector);
 		if(!PykCharts.boolean(that.multiple_containers_enable)) {
 			that.k.isOrdinal(that.svgContainer,".x.axis",that.xScale,that.xdomain,that.extra_left_margin);
 		    that.k.isOrdinal(that.svgContainer,".x.grid",that.xScale);
