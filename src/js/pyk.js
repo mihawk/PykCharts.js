@@ -1838,7 +1838,7 @@ configuration.Theme = function(){
         "spiderweb_axis_title": "yes",
         "spiderweb_pointer": "yes",
 
-        // "scatterplot_radius" : 40,
+        "scatterplot_radius" : 20,
         "scatterplot_pointer": "no",
 
         "line_curvy_lines": "no",
