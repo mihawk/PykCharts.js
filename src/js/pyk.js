@@ -663,7 +663,14 @@ PykCharts.Configuration = function (options){
                         .attr("y", options.margin_bottom)
                         .style("text-anchor", "middle")
                         .style("fill",options.axis_x_label_color)
-                        .text(options.axis_x_title);
+                        .text(function () {
+                            if(options.multiple_containers_enable === "yes" && options.axis_x_data_format === "string") {
+                                return options.axis_x_title.substr(0,2);
+                            }
+                            else {
+                                return options.axis_x_title;
+                            }
+                        });
 
                 } else if (options.axis_x_position === "top") {
                     gsvg.append("text")
@@ -671,7 +678,14 @@ PykCharts.Configuration = function (options){
                         .attr("y", - options.margin_top + 10)
                         .style("text-anchor", "middle")
                         .style("fill",options.axis_x_label_color)
-                        .text(options.axis_x_title);
+                        .text(function () {
+                            if(options.multiple_containers_enable === "yes" && options.axis_x_data_format === "string") {
+                                return options.axis_x_title.substr(0,2);
+                            }
+                            else {
+                                return options.axis_x_title;
+                            }
+                        });
                 }
             return this;
         },
@@ -1123,7 +1137,7 @@ configuration.mouseEvent = function (options) {
             }
         },
         crossHairPosition: function(data,new_data,xScale,yScale,dataLineGroup,lineMargin,domain,type,tooltipMode,color_from_data,multiple_containers_enable){
-            if((PykCharts.boolean(options.crosshair_enable) || PykCharts.boolean(options.tooltip_enable) || PykCharts.boolean(options.onHoverHighlightenable))  && options.mode === "default") {
+            if((PykCharts.boolean(options.crosshair_enable) || PykCharts.boolean(options.tooltip_enable) || PykCharts.boolean(options.axis_onhover_hightlight_enable))  && options.mode === "default") {
                 var offsetLeft = options.margin_left + lineMargin +  $(options.selector + " #"+dataLineGroup[0][0][0].parentNode.parentNode.id).offset().left;
                 var offsetTop = $(options.selector + " #"+dataLineGroup[0][0][0].parentNode.parentNode.id).offset().top;
                 var number_of_lines = new_data.length;
