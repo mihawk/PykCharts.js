@@ -114,7 +114,7 @@ body {
   pointer-events: none;
 }
 
-.PykCharts-line-chart .pyk-line-tooltip{
+/*.PykCharts-line-chart .pyk-line-tooltip{
   display: block;
   height: auto;
   width: auto;
@@ -131,7 +131,7 @@ body {
   border: 1px solid #CCCCCC;
   min-width: 30px;
   visibility: hidden;
-}
+}*/
 
 .PykCharts-line-chart .pyk-multiline-tooltip{
   display: block;
