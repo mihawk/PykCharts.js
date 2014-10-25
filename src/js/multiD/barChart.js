@@ -106,6 +106,7 @@ PykCharts.multiD.barChart = function(options){
                 .makeMainDiv(that.selector,1);
 
             that.optionalFeatures().svgContainer(1)
+                .legendsContainer(1)
                 .createGroups()
                 .createChart()
                 .axisContainer();

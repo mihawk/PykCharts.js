@@ -109,13 +109,14 @@ PykCharts.multiD.columnChart = function(options){
                 .makeMainDiv(that.selector,1);
                 
             that.optionalFeatures().svgContainer(1)
+                .legendsContainer(1)
                 .createGroups(1)
                 .createChart()
                 .axisContainer();
 
             that.k.tooltip();
             that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
-            that.k.yAxis(that.svgContainer,that.ygroup,that.yScaleInvert)
+            that.k.yAxis(that.svgContainer,that.yGroup,that.yScaleInvert)
                  .yAxisTitle(that.yGroup);
         }
 
