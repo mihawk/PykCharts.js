@@ -216,9 +216,11 @@ PykCharts.multiD.configuration = function (options){
                             k++
                         }
                         newarr.push(item);
-
+                    } else {
+                        k++;
                     }
                 });
+                k=0;
                 data.forEach(function(item) {
                     if(!unique[item.group]) {
                         unique[item.group] = item;
@@ -230,6 +232,8 @@ PykCharts.multiD.configuration = function (options){
                             k++;
                         }
                         newarr.push(item);
+                    } else {
+                        k++;
                     }
                 })
 
