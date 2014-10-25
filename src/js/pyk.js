@@ -883,61 +883,73 @@ PykCharts.Configuration = function (options){
                 return (min_value*radius_percent)/200;
             }
         },
-        export : function(chart,svgId,chart_name) {
+        export : function(chart,svgId,chart_name,multiple_containers_enable,containers) {
             if(PykCharts.boolean(options.export_enable)) {
                
-                var bg;
+                var bg,svgIds = [];
                 $(chart.selector).css({"background-color":chart.background_color,"position":"relative"});
-                // if(PykCharts.boolean(options.background_color)) {
-                //     bg = options.background_color;
-                // } else if ( $(this).parents().css('background')){
-                //     bg = $(this).parents().css('background');
-                // } else {
-                //     bg = "white";
-                // }
-               // console.log($(options.selector).parent(),"hhhhhhhh"); 
-               console.log($(chart.selector).css("background-color"),"color");
-               console.log(options.background_color,"config");
-               console.log($(options.selector).css("background-color")!= "rgba(0, 0, 0, 0)","jjjjjjjjj");
+               
                if (PykCharts.boolean(options.background_color) && $(options.selector).css("background-color")!= "rgba(0, 0, 0, 0)") {
                     console.log(options.background_color,"hey");
                     bg = options.background_color;
                } 
                else {
-                    console.log("ohhh");
                     bgColor(options.selector);
                 }
 
-               function bgColor (child) {
-                 console.log("oooooooo");
-                 if (document.getElementsByTagName("body").parentNode !== undefined) {
-                    console.log("heyyyyyy");
-                    bg = $(child).parent().css("background-color");
-                    // break;
-                } else {
-                    bg = "white";
+                function bgColor (child) {
+                    if (document.getElementsByTagName("body").parentNode !== undefined) {
+                        bg = $(child).parent().css("background-color");
+                    } else {
+                        bg = "white";
+                    }
                 }
-               }
-               // console.log($(options.selector).css("background"),"background-color");
 
-                // if (document.getElementsByTagName("body").parentNode !== undefined) {
-                //     $(options.selector).parent();
-                //     // break;
-                // } else {
-                //     return "white";
-                // }
+                d3.select(options.selector)
+                        .append("div")
+                        .attr("id", "dropdown-multipleConatiner-export")
+                        .attr("class","pyk-tooltip")
+                        .style("left",options.width + 5 + "px")
+                        .style("top","10px")
+                        .style("height","auto")
+                        .style("width","auto")
+                        .style("padding", "8px 8px")
+                        .style("color","#4F4F4F")
+                        .style("background","#fff")
+                        .style("text-decoration","none")
+                        .style("position", "absolute")
+                        .style("border-radius", "3px")
+                        .style("border","1px solid #CCCCCC")
+                        .style("font-family","'Helvetica Neue', Helvetica, Arial, sans-serif")
+                        .style("font-size","12px")
+                        .style("text-align","center")
+                        .style("z-index","10")
+                        .style("visibility", "hidden")
+                        .style("box-shadow","0 5px 10px rgba(0,0,0,.2)");
 
-                // $("#svg-1").css("background", function () {
-                //    return $(this).parent().css("background-color","red");
-                // })
-                
-                console.log(bg,"gdjagdahdg");
-//                $(chart.selector).colourBrightness();
+                if(PykCharts.boolean(multiple_containers_enable)) {
+                    for(var i = 0; i < containers.length; i++) {
+                        d3.select(options.selector + " #dropdown-multipleConatiner-export")
+                            .append("span")
+                            .attr("id",chart_name + i)
+                            .on("mouseover",function () {
+                                $(this).css("background-color","#E0E0E1");
+                            })
+                            .on("mouseout",function() {
+                                $(this).css('background-color',"#fff")
+                            })
+                            .style("margin-bottom", "3px")
+                            .style("cursor","pointer")
+                            .html("Container " + (i+1) + "<br>");
+                    }
+                }
 
                 var canvas_id = chart_name+"canvas";
                 var canvas = document.createElement("canvas");
-                canvas.setAttribute('display', "none")
                 canvas.setAttribute('id', canvas_id);
+                canvas.setAttribute('width',500);
+                canvas.setAttribute('height',500);
+
                 var id = "export",
                 div_size = options.width
                 div_float ="none"
@@ -948,16 +960,8 @@ PykCharts.Configuration = function (options){
                     div_float ="left";
                     div_left = 0;
                 }   
-                // console.log(d3.selectAll(options.selector).attr("class"));
-                // console.log($(options.selector)[0].classList.add("light"),"add class");
-                // console.log($(options.selector)[0].classList,"classList");
-                console.log($(options.selector)[0].classList.contains("light"),"contains");
-                // console.log($(options.selector).hasClassName("light"),"class name");
 
-                console.log($(options.selector).hasClass("light"),d3.select(options.selector),"==============================")
-                if ($(options.selector)[0].classList.contains("light")) {
-                    console.log("light class",$(options.selector));
-                    d3.select(chart.selector)
+                var export_div = d3.select(chart.selector)
                                 .append("div")
                                 .attr("id",id)
                                 .style("width",div_size + "px")
@@ -965,21 +969,13 @@ PykCharts.Configuration = function (options){
                                 .style("float",div_float)
                                 .style("text-align","right")
                                 .style("cursor","pointer")
-                                .attr("title","Export to SVG")
-                                .html("<img src='../img/download.png' style='left:"+div_left+"px;margin-bottom:3px'/>");
+                                .attr("title","Export to SVG");
+
+                if ($(options.selector)[0].classList.contains("light")) {
+                    export_div.html("<img src='../img/download.png' style='left:"+div_left+"px;margin-bottom:3px'/>");
 
                 } else {
-                    console.log("dark class",$(options.selector));
-                     d3.select(chart.selector)
-                                .append("div")
-                                .attr("id",id)
-                                .style("width",div_size + "px")
-                                .style("left",div_left+"px")
-                                .style("float",div_float)
-                                .style("text-align","right")
-                                .style("cursor","pointer")
-                                .attr("title","Export to SVG")
-                                .html("<img src='../img/download-light.png' style='left:"+div_left+"px;margin-bottom:3px'/>");
+                    export_div.html("<img src='../img/download-light.png' style='left:"+div_left+"px;margin-bottom:3px'/>");
                 }
             
                 var get_canvas = document.getElementById(canvas_id);
@@ -987,25 +983,43 @@ PykCharts.Configuration = function (options){
                 var project = new paper.Project();
                 project._view._viewSize.width = chart.width;
                 project._view._viewSize.height = chart.height;
-                var name = chart_name + ".svg"
-                
-                $(chart.selector + " #"+id).click(function () {
-                    chart.k.processSVG(document.querySelector(options.selector +" "+svgId),chart_name);
-                    project.importSVG(document.querySelector(options.selector +" "+svgId));
-                    var svg = project.exportSVG({ asString: true });
-                    console.log(project,"project");
-                    downloadDataURI({
-                        data: 'data:image/svg+xml;base64,' + btoa(svg),
-                        filename: name
-                    });
-                    project.clear();
+                var name = chart_name + ".svg";
 
-                });
+                if(!PykCharts.boolean(multiple_containers_enable)) {
+
+                    $(chart.selector + " #"+id).click(function () {
+                        chart.k.processSVG(document.querySelector(options.selector +" "+svgId),chart_name);
+                        project.importSVG(document.querySelector(options.selector +" "+svgId));
+                        var svg = project.exportSVG({ asString: true });
+                        downloadDataURI({
+                            data: 'data:image/svg+xml;base64,' + btoa(svg),
+                            filename: name
+                        });
+                        project.clear();
+                    });    
+                } else {
+                    $(chart.selector + " #"+id).click(function () {
+                        d3.select(options.selector + " #dropdown-multipleConatiner-export").style("visibility", "visible");
+                    });
+                    for(var i = 0; i<containers.length; i++) {
+                        $(chart.selector + " #"+chart_name + i).click(function () {
+                            d3.select(options.selector + " #dropdown-multipleConatiner-export").style("visibility", "hidden");
+                            var id = this.id.substring(this.id.length-1,this.id.length);                        
+                            chart.k.processSVG(document.querySelector(options.selector + " #" +svgId + id),chart_name);
+                            project.importSVG(document.querySelector(options.selector + " #" +svgId + id));
+                            var svg = project.exportSVG({ asString: true });
+                            downloadDataURI({
+                                data: 'data:image/svg+xml;base64,' + btoa(svg),
+                                filename: name
+                            });
+                            project.clear();
+                        });    
+                    }
+                }
             }
             return this;
         },
         processSVG: function (svg,svgId) {
-            console.log(svg,svgId,"svg")
             var x = svg.querySelectorAll("text");
             for (var i = 0; i < x.length; i++) {
                 if(x[i].hasAttribute("dy")) {
