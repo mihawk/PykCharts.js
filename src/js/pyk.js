@@ -396,7 +396,6 @@ PykCharts.Configuration = function (options){
                         .style("box-shadow","0 5px 10px rgba(0,0,0,.2)");
                 }
             } else if (PykCharts.boolean(options.tooltip_enable)) {
-                console.log("heyyyyyy",options.selector);
                 if (options.tooltip_mode === "fixed") {
                     PykCharts.Configuration.tooltipp = d3.select("body")
                         .append("div")
@@ -418,7 +417,6 @@ PykCharts.Configuration = function (options){
                         .style("visibility", "hidden")
                         .style("box-shadow","0 5px 10px rgba(0,0,0,.2)");
                 } else {
-                    console.log("heyyyyyy",options.selector);
                     PykCharts.Configuration.tooltipp = d3.select("body")
                         .append("div")
                         .attr("id", "pyk-tooltip")
@@ -1085,7 +1083,6 @@ configuration.mouseEvent = function (options) {
             if(PykCharts.boolean(options.tooltip_enable)) {
                 if(xPos !== undefined){
                     var selector = options.selector.substr(1,options.selector.length)
-                    console.log( $("#tooltip-svg-container-"+group_index +"-pyk-tooltip"+selector));
                     var width_tooltip = parseFloat($("#tooltip-svg-container-"+group_index +"-pyk-tooltip"+selector).css("width"));
                     tooltip = $("#tooltip-svg-container-"+group_index +"-pyk-tooltip"+selector);
                     offset = $(options.selector).offset();

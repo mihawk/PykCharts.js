@@ -205,7 +205,6 @@ PykCharts.multiD.configuration = function (options){
                 data.forEach(function(item) {
                     if (!unique[item.group] && item.color) {
                         unique[item.group] = item;
-                        console.log(options.chart_color,options.selector);
                         if(options.chart_color.length !== 0 && PykCharts.boolean(options.chart_color[k])) {
                             item.color = options.chart_color[k];
                             k++;
@@ -238,15 +237,7 @@ PykCharts.multiD.configuration = function (options){
                 var uniqueColor = {};
                 k = 0;
                 newarr.forEach(function(item) {
-                    // if (!uniqueColor[item.color]) {
-                        arr.push(item);
-                    //     uniqueColor[item.color] = item;
-                    // } else {
-                    //     item.color = options.colorPalette[k];
-                    //     k++;
-                    //     arr.push(item);
-                    //     uniqueColor[item.color] = item;
-                    // }
+                    arr.push(item);
                 });
                 var arr_length = arr.length,
                 data_length = data.length;
