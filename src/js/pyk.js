@@ -980,7 +980,7 @@ PykCharts.Configuration = function (options){
                             })
                             .style("margin-bottom", "3px")
                             .style("cursor","pointer")
-                            .html("Pannel " + (i+1) + "<br>");
+                            .html("Panel " + (i+1) + "<br>");
                     }
                 }
 
