@@ -663,7 +663,14 @@ PykCharts.Configuration = function (options){
                         .attr("y", options.margin_bottom)
                         .style("text-anchor", "middle")
                         .style("fill",options.axis_x_label_color)
-                        .text(options.axis_x_title);
+                        .text(function () {
+                            if(options.multiple_containers_enable === "yes" && options.axis_x_data_format === "string") {
+                                return options.axis_x_title.substr(0,2);
+                            }
+                            else {
+                                return options.axis_x_title;
+                            }
+                        });
 
                 } else if (options.axis_x_position === "top") {
                     gsvg.append("text")
@@ -671,7 +678,14 @@ PykCharts.Configuration = function (options){
                         .attr("y", - options.margin_top + 10)
                         .style("text-anchor", "middle")
                         .style("fill",options.axis_x_label_color)
-                        .text(options.axis_x_title);
+                        .text(function () {
+                            if(options.multiple_containers_enable === "yes" && options.axis_x_data_format === "string") {
+                                return options.axis_x_title.substr(0,2);
+                            }
+                            else {
+                                return options.axis_x_title;
+                            }
+                        });
                 }
             return this;
         },
@@ -909,13 +923,13 @@ PykCharts.Configuration = function (options){
         },
         export : function(chart,svgId,chart_name,multiple_containers_enable,containers) {
             if(PykCharts.boolean(options.export_enable)) {
-               
+
                 var bg,svgIds = [];
                 $(chart.selector).css({"background-color":chart.background_color,"position":"relative"});
                if (PykCharts.boolean(options.background_color) && $(options.selector).css("background-color")!= "rgba(0, 0, 0, 0)") {
                     // console.log(options.background_color,"hey");
                     bg = options.background_color;
-               } 
+               }
                else {
                     bgColor(options.selector);
                 }
@@ -985,7 +999,7 @@ PykCharts.Configuration = function (options){
                     div_size = 0.1*options.width;
                     div_float ="left";
                     div_left = 0;
-                }   
+                }
 
                 var export_div = d3.select(chart.selector)
                                 .append("div")
@@ -1004,7 +1018,7 @@ PykCharts.Configuration = function (options){
 
                     export_div.html("<img src='../img/download-light.png' style='left:"+div_left+"px;margin-bottom:3px'/>");
                 }
-            
+
                 var get_canvas = document.getElementById(canvas_id);
                 paper.setup(get_canvas);
                 var project = new paper.Project();
@@ -1024,7 +1038,7 @@ PykCharts.Configuration = function (options){
                             filename: name
                         });
                         project.clear();
-                    });    
+                    });
                 } else {
                     $(chart.selector + " #"+id).click(function () {
                         d3.select(options.selector + " #dropdown-multipleConatiner-export").style("visibility", "visible");
@@ -1032,7 +1046,7 @@ PykCharts.Configuration = function (options){
                     for(var i = 0; i<containers.length; i++) {
                         $(chart.selector + " #"+chart_name + i).click(function () {
                             d3.select(options.selector + " #dropdown-multipleConatiner-export").style("visibility", "hidden");
-                            var id = this.id.substring(this.id.length-1,this.id.length);                        
+                            var id = this.id.substring(this.id.length-1,this.id.length);
                             chart.k.processSVG(document.querySelector(options.selector + " #" +svgId + id),chart_name);
                             project.importSVG(document.querySelector(options.selector + " #" +svgId + id));
                             var svg = project.exportSVG({ asString: true });
@@ -1041,7 +1055,7 @@ PykCharts.Configuration = function (options){
                                 filename: name
                             });
                             project.clear();
-                        });    
+                        });
                     }
                 }
             }
@@ -1123,7 +1137,7 @@ configuration.mouseEvent = function (options) {
             }
         },
         crossHairPosition: function(data,new_data,xScale,yScale,dataLineGroup,lineMargin,domain,type,tooltipMode,color_from_data,multiple_containers_enable){
-            if((PykCharts.boolean(options.crosshair_enable) || PykCharts.boolean(options.tooltip_enable) || PykCharts.boolean(options.onHoverHighlightenable))  && options.mode === "default") {
+            if((PykCharts.boolean(options.crosshair_enable) || PykCharts.boolean(options.tooltip_enable) || PykCharts.boolean(options.axis_onhover_hightlight_enable))  && options.mode === "default") {
                 var offsetLeft = options.margin_left + lineMargin +  $(options.selector + " #"+dataLineGroup[0][0][0].parentNode.parentNode.id).offset().left;
                 var offsetTop = $(options.selector + " #"+dataLineGroup[0][0][0].parentNode.parentNode.id).offset().top;
                 var number_of_lines = new_data.length;
@@ -1253,7 +1267,7 @@ configuration.mouseEvent = function (options) {
                                 }
                                 else if(type === "lineChart" || type === "areaChart") {
                                     if((options.tooltip_mode).toLowerCase() === "fixed") {
-                                        this.tooltipPosition(tooltipText,0,pos_line_cursor_y,-14,-15,group_index);
+                                        this.tooltipPosition(tooltipText,0,pos_line_cursor_y,-14,23,group_index);
                                     } else if((options.tooltip_mode).toLowerCase() === "moving"){
                                         this.tooltipPosition(tooltipText,pos_line_cursor_x,pos_line_cursor_y,5,-45,group_index);
                                     }
@@ -1476,8 +1490,6 @@ configuration.mouseEvent = function (options) {
 configuration.fillChart = function (options,theme,config) {
     var that = this;
     var fillchart = {
-        color : function (d) { return d.color; },
-        saturation : function (d) { return "steelblue"; },
         selectColor: function (d) {
             if(d.name === options.highlight) {
                 return options.highlight_color;
@@ -1702,10 +1714,10 @@ configuration.Theme = function(){
         "subtitle_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
 
         "highlight": "",
-        "highlight_color": "#013F73",
+        "highlight_color": "#08306b",
         // "background_color": "transparent",
-        "chart_color": ["steelblue"],
-        "saturation_color": "steelblue",
+        "chart_color": ["#255AEE"],
+        "saturation_color": "#255AEE",
 
         "border_between_chart_elements_thickness": 1,
         "border_between_chart_elements_color": "white",
@@ -1762,7 +1774,7 @@ configuration.Theme = function(){
         "pictograph_image_width": 79,
         "pictograph_image_height": 66,
         "pictograph_current_count_size": 64,
-        "pictograph_current_count_color": "steelblue",
+        "pictograph_current_count_color": "#255AEE",
         "pictograph_current_count_weight": "thin",
         "pictograph_current_count_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
         "pictograph_total_count_size": 64,
