@@ -60,12 +60,11 @@ PykCharts.oneD.funnel = function (options) {
 //        theme.stylesheet.borderBetweenChartElements;
         that.border = new PykCharts.Configuration.border(that);
 
-        if(that.mode === "default") {
-        
+        if(that.mode === "default") {        
             that.k.title()
                 .subtitle();
 
-                that.k.export(that,"#svgcontainer","funnel")
+            that.k.export(that,"#svgcontainer","funnel")
                 .emptyDiv();
         }
         that.k.tooltip();
