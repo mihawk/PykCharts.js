@@ -353,11 +353,10 @@ PykCharts.Configuration = function (options){
 
             if(PykCharts.boolean(options.tooltip_enable) && options.mode === "default") {
                 if(selection !== undefined){
-                    console.log(i);
                     var selector = options.selector.substr(1,options.selector.length)
                     PykCharts.Configuration.tooltipp = d3.select("body").append("div")
                         .attr("id", "tooltip-svg-container-" + i + "-pyk-tooltip"+selector)
-                        .attr("class","pyk-line-tooltip")
+                        .attr("class","pyk-tooltip")
                         .style("height","auto")
                         .style("weight","auto")
                         .style("padding", "5px 6px")
@@ -1111,7 +1110,6 @@ configuration.mouseEvent = function (options) {
                     $("#tooltip-svg-container-"+group_index +"-pyk-tooltip"+selector).html(d);
                 }
                 else {
-                    console.log(d);
                     that.tooltip.html(d);
                 }
             }
@@ -1120,7 +1118,7 @@ configuration.mouseEvent = function (options) {
         tooltipHide : function (d,multiple_containers_enable,type) {
             if(PykCharts.boolean(options.tooltip_enable)) {
                 if(multiple_containers_enable === "yes" && type === "multilineChart") {
-                    return d3.selectAll(".pyk-line-tooltip").style("visibility","hidden");
+                    return d3.selectAll(".pyk-tooltip").style("visibility","hidden");
                 }
                 else {
                     return that.tooltip.style("visibility", "hidden");
@@ -1192,7 +1190,7 @@ configuration.mouseEvent = function (options) {
                                 if(type === "multilineChart" /*|| type === "stackedAreaChart"*/) {
                                     if(multiple_containers_enable === "no") {
                                         var test = [];
-                                        d3.selectAll(options.selector+" #pyk-tooltip").classed({"pyk-line-tooltip":false,"pyk-multiline-tooltip":true,"pyk-tooltip-table":true});
+                                        d3.selectAll(options.selector+" #pyk-tooltip").classed({"pyk-tooltip":false,"pyk-multiline-tooltip":true,"pyk-tooltip-table":true});
                                         var len_data = new_data[0].data.length,tt_row=""; // Assumption -- number of Data points in different groups will always be equal
                                         active_y_tick = [];
                                         for(var a=0;a < number_of_lines;a++) {
@@ -1269,7 +1267,7 @@ configuration.mouseEvent = function (options) {
                                 }
                                 else if (type === "stackedAreaChart") {
                                     var test = [];
-                                    d3.selectAll(options.selector+" #pyk-tooltip").classed({"pyk-line-tooltip":false,"pyk-multiline-tooltip":true,"pyk-tooltip-table":true});
+                                    d3.selectAll(options.selector+" #pyk-tooltip").classed({"pyk-tooltip":false,"pyk-multiline-tooltip":true,"pyk-tooltip-table":true});
                                     var len_data = new_data[0].data.length,tt_row=""; // Assumption -- number of Data points in different groups will always be equal
                                     active_y_tick = [];
                                     for(var a=0;a < number_of_lines;a++) {
