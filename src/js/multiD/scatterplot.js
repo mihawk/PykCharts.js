@@ -109,7 +109,9 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
 
             if(PykCharts.boolean(that.multiple_containers_enable) && type === "scatterplot") {
                 that.k.title()
-                    .subtitle();
+                    .subtitle()
+                    .export(that,"svgcontainer",type,that.multiple_containers_enable,that.uniq_group_arr)
+                    .emptyDiv();
 
                 that.no_of_groups = that.uniq_group_arr.length;
                 that.w = that.width/4;
