@@ -358,10 +358,10 @@ PykCharts.multiD.barChart = function(options){
                     .attr("fill-opacity", function (d,i) {
                         if (that.color_mode === "saturation"){
                         // if(PykCharts.boolean(that.saturationEnable)){
-                            if(that.highlight === d.name) {
-                                j--;
-                                return 1;
-                            }
+                            // if(that.highlight === d.name) {
+                            //     j--;
+                            //     return 1;
+                            // }
                             if(j>1){
                                 j--;
                                 return j/that.no_of_groups;
