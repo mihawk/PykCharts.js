@@ -203,24 +203,36 @@ PykCharts.multiD.configuration = function (options){
 
             if(checkGroup) {
                 data.forEach(function(item) {
-                    if (!unique[item.group]) {
-                        if(item.color) {
-                            unique[item.group] = item;
-                        } else {
-                            unique[item.group] = {};    
-                        }
+                    if (!unique[item.group] && item.color) {
+                        unique[item.group] = item;
+                        console.log(options.chart_color,options.selector);
                         if(options.chart_color.length !== 0 && PykCharts.boolean(options.chart_color[k])) {
                             item.color = options.chart_color[k];
                             k++;
                         }else if(item.color) {
-                            item.color = item.color;    
+                            item.color = item.color; 
+                            k++   
                         } else {
                             item.color = options.default_color;
+                            k++
                         }
                         newarr.push(item);
                         
                     }
                 });
+                data.forEach(function(item) {
+                    if(!unique[item.group]) {
+                        unique[item.group] = item;
+                        if(options.chart_color.length !== 0 && PykCharts.boolean(options.chart_color[k])) {
+                            item.color = options.chart_color[k];
+                            k++;
+                        } else {
+                            item.color = options.default_color;
+                            k++;
+                        }
+                        newarr.push(item);
+                    }
+                })
 
                 var arr = [];
                 var uniqueColor = {};
@@ -245,7 +257,7 @@ PykCharts.multiD.configuration = function (options){
                         }
                     }
                 }
-                console.log(arr,checkGroup,"before return");
+                // console.log(arr,checkGroup,"before return");
                 return [arr,checkGroup];
             } else {
                 return [data,checkGroup];

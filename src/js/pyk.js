@@ -383,35 +383,41 @@ PykCharts.Configuration = function (options){
                         .append("div")
                         .attr("id", "pyk-tooltip")
                         .style("height","auto")
+                        .style("weight","auto")
                         .style("padding", "5px 6px")
                         .style("color","#4F4F4F")
                         .style("background","#fff")
                         .style("text-decoration","none")
                         .style("position", "absolute")
                         .style("border-radius", "5px")
+                        .style("border","1px solid #CCCCCC")
+                        .style("font-family","'Helvetica Neue', Helvetica, Arial, sans-serif")
+                        .style("font-size","12px")
                         .style("text-align","center")
-                        .style("font-family","Arial, Helvetica, sans-serif")
-                        .style("font-size","14px")
                         .style("min-width","30px")
                         .style("z-index","10")
-                        .style("visibility", "hidden");
+                        .style("visibility", "hidden")
+                        .style("box-shadow","0 5px 10px rgba(0,0,0,.2)");
                 } else {
                     PykCharts.Configuration.tooltipp = d3.select("body")
                         .append("div")
                         .attr("id", "pyk-tooltip")
                         .style("height","auto")
+                        .style("weight","auto")
                         .style("padding", "5px 6px")
                         .style("color","#4F4F4F")
                         .style("background","#fff")
                         .style("text-decoration","none")
                         .style("position", "absolute")
                         .style("border-radius", "5px")
+                        .style("border","1px solid #CCCCCC")
+                        .style("font-family","'Helvetica Neue', Helvetica, Arial, sans-serif")
+                        .style("font-size","12px")
                         .style("text-align","center")
-                        .style("font-family","Arial, Helvetica, sans-serif")
-                        .style("font-size","14px")
                         .style("min-width","30px")
                         .style("z-index","10")
-                        .style("visibility", "hidden");
+                        .style("visibility", "hidden")
+                        .style("box-shadow","0 5px 10px rgba(0,0,0,.2)");
                 }
             }
             return this;
@@ -896,22 +902,22 @@ PykCharts.Configuration = function (options){
                 //     bg = "white";
                 // }
                // console.log($(options.selector).parent(),"hhhhhhhh"); 
-               console.log($(chart.selector).css("background-color"),"color");
-               console.log(options.background_color,"config");
-               console.log($(options.selector).css("background-color")!= "rgba(0, 0, 0, 0)","jjjjjjjjj");
+               // console.log($(chart.selector).css("background-color"),"color");
+               // console.log(options.background_color,"config");
+               // console.log($(options.selector).css("background-color")!= "rgba(0, 0, 0, 0)","jjjjjjjjj");
                if (PykCharts.boolean(options.background_color) && $(options.selector).css("background-color")!= "rgba(0, 0, 0, 0)") {
-                    console.log(options.background_color,"hey");
+                    // console.log(options.background_color,"hey");
                     bg = options.background_color;
                } 
                else {
-                    console.log("ohhh");
+                    // console.log("ohhh");
                     bgColor(options.selector);
                 }
 
                function bgColor (child) {
-                 console.log("oooooooo");
+                 // console.log("oooooooo");
                  if (document.getElementsByTagName("body").parentNode !== undefined) {
-                    console.log("heyyyyyy");
+                    // console.log("heyyyyyy");
                     bg = $(child).parent().css("background-color");
                     // break;
                 } else {
@@ -931,8 +937,8 @@ PykCharts.Configuration = function (options){
                 //    return $(this).parent().css("background-color","red");
                 // })
                 
-                console.log(bg,"gdjagdahdg");
-                $(chart.selector).colourBrightness();
+                // console.log(bg,"gdjagdahdg");
+//                $(chart.selector).colourBrightness();
 
                 var canvas_id = chart_name+"canvas";
                 var canvas = document.createElement("canvas");
@@ -951,12 +957,12 @@ PykCharts.Configuration = function (options){
                 // console.log(d3.selectAll(options.selector).attr("class"));
                 // console.log($(options.selector)[0].classList.add("light"),"add class");
                 // console.log($(options.selector)[0].classList,"classList");
-                console.log($(options.selector)[0].classList.contains("light"),"contains");
+                // console.log($(options.selector)[0].classList.contains("light"),"contains");
                 // console.log($(options.selector).hasClassName("light"),"class name");
 
-                console.log($(options.selector).hasClass("light"),d3.select(options.selector),"==============================")
+                // console.log($(options.selector).hasClass("light"),d3.select(options.selector),"==============================")
                 if ($(options.selector)[0].classList.contains("light")) {
-                    console.log("light class",$(options.selector));
+                    // console.log("light class",$(options.selector));
                     d3.select(chart.selector)
                                 .append("div")
                                 .attr("id",id)
@@ -969,7 +975,7 @@ PykCharts.Configuration = function (options){
                                 .html("<img src='../img/download.png' style='left:"+div_left+"px;margin-bottom:3px'/>");
 
                 } else {
-                    console.log("dark class",$(options.selector));
+                    // console.log("dark class",$(options.selector));
                      d3.select(chart.selector)
                                 .append("div")
                                 .attr("id",id)
@@ -990,9 +996,10 @@ PykCharts.Configuration = function (options){
                 var name = chart_name + ".svg"
                 
                 $(chart.selector + " #"+id).click(function () {
-                    chart.k.processSVG(document.querySelector(options.selector +" "+svgId));
+                    chart.k.processSVG(document.querySelector(options.selector +" "+svgId),chart_name);
                     project.importSVG(document.querySelector(options.selector +" "+svgId));
                     var svg = project.exportSVG({ asString: true });
+                    // console.log(project,"project");
                     downloadDataURI({
                         data: 'data:image/svg+xml;base64,' + btoa(svg),
                         filename: name
@@ -1003,7 +1010,8 @@ PykCharts.Configuration = function (options){
             }
             return this;
         },
-        processSVG: function (svg) {
+        processSVG: function (svg,svgId) {
+            console.log(svg,svgId,"svg")
             var x = svg.querySelectorAll("text");
             for (var i = 0; i < x.length; i++) {
                 if(x[i].hasAttribute("dy")) {

@@ -566,7 +566,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                         .attr("fill", function (d) {
                             return that.fillChart.colorPieW(d);
                         })
-                        .attr("opacity", function (d) {
+                        .attr("fill-opacity", function (d) {
                             return 0.6;
                         });
 
