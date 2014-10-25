@@ -888,22 +888,24 @@ PykCharts.Configuration = function (options){
                
                 var bg,svgIds = [];
                 $(chart.selector).css({"background-color":chart.background_color,"position":"relative"});
-               
                if (PykCharts.boolean(options.background_color) && $(options.selector).css("background-color")!= "rgba(0, 0, 0, 0)") {
-                    console.log(options.background_color,"hey");
+                    // console.log(options.background_color,"hey");
                     bg = options.background_color;
                } 
                else {
                     bgColor(options.selector);
                 }
 
-                function bgColor (child) {
-                    if (document.getElementsByTagName("body").parentNode !== undefined) {
-                        bg = $(child).parent().css("background-color");
-                    } else {
-                        bg = "white";
-                    }
+               function bgColor (child) {
+                 // console.log("oooooooo");
+                 if (document.getElementsByTagName("body").parentNode !== undefined) {
+                    // console.log("heyyyyyy");
+                    bg = $(child).parent().css("background-color");
+                    // break;
+                } else {
+                    bg = "white";
                 }
+            }
 
                 d3.select(options.selector)
                         .append("div")
@@ -975,6 +977,7 @@ PykCharts.Configuration = function (options){
                     export_div.html("<img src='../img/download.png' style='left:"+div_left+"px;margin-bottom:3px'/>");
 
                 } else {
+
                     export_div.html("<img src='../img/download-light.png' style='left:"+div_left+"px;margin-bottom:3px'/>");
                 }
             
@@ -983,6 +986,7 @@ PykCharts.Configuration = function (options){
                 var project = new paper.Project();
                 project._view._viewSize.width = chart.width;
                 project._view._viewSize.height = chart.height;
+
                 var name = chart_name + ".svg";
 
                 if(!PykCharts.boolean(multiple_containers_enable)) {

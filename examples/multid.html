@@ -64,7 +64,7 @@
                 var k = new PykCharts.multiD.lineChart ({
                     selector: "#line",
                     data: "../data/lineChart.json",
-                    mode : "default",
+                    mode : "infographics",
 
                     color_mode: "color",  //color or saturation
                     chart_color:["steelblue"],
@@ -169,7 +169,7 @@
 
                 });
 
-            // k.execute();
+            k.execute();
 
                 var k = new PykCharts.multiD.spiderWeb ({
                     selector: "#spiderWeb",
@@ -183,8 +183,8 @@
 
                     background_color:"white",
 
-                    chart_color: ["#75b0e1","#0e5ea1"],
-
+                    // chart_color: ["#75b0e1","#0e5ea1"],
+                    chart_color: ["","green"],
                     chart_height: 430,
                     chart_width : 700,
                     chart_margin_top: 25,
