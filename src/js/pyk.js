@@ -911,7 +911,7 @@ PykCharts.Configuration = function (options){
                         .append("div")
                         .attr("id", "dropdown-multipleConatiner-export")
                         .attr("class","pyk-tooltip")
-                        .style("left",options.width + 5 + "px")
+                        .style("left",options.width - 80 + "px")
                         .style("top","10px")
                         .style("height","auto")
                         .style("width","auto")
@@ -942,7 +942,7 @@ PykCharts.Configuration = function (options){
                             })
                             .style("margin-bottom", "3px")
                             .style("cursor","pointer")
-                            .html("Container " + (i+1) + "<br>");
+                            .html("Pannel " + (i+1) + "<br>");
                     }
                 }
 
