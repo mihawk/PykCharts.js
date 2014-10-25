@@ -618,7 +618,6 @@ PykCharts.Configuration = function (options){
             }
             return this;
         },
-
         yAxis: function (svg, gsvg, yScale,domain) {
             var width = options.width,
                 height = options.height;
@@ -651,42 +650,32 @@ PykCharts.Configuration = function (options){
             return this;
         },
         xAxisTitle : function (gsvg) {
-              var w;
-                if(PykCharts.boolean(options.multiple_containers_enable)) {
-                    w = options.w;
-                } else {
-                    w = options.width;
-                }
-                if(options.axis_x_position === "bottom") {
-                    gsvg.append("text")
-                        .attr("x", (w- options.margin_left - options.margin_right)/2)
-                        .attr("y", options.margin_bottom)
-                        .style("text-anchor", "middle")
-                        .style("fill",options.axis_x_label_color)
-                        .text(function () {
-                            if(options.multiple_containers_enable === "yes" && options.axis_x_data_format === "string") {
-                                return options.axis_x_title.substr(0,2);
-                            }
-                            else {
-                                return options.axis_x_title;
-                            }
-                        });
+            var w;
+            if(PykCharts.boolean(options.multiple_containers_enable)) {
+                w = options.w;
+            } else {
+                w = options.width;
+            }
+            if(options.axis_x_position === "bottom") {
+                gsvg.append("text")
+                    .attr("class","x-axis-title")
+                    .attr("x", (w- options.margin_left - options.margin_right)/2)
+                    .attr("y", options.margin_bottom)
+                    .style("text-anchor", "middle")
+                    .style("fill",options.axis_x_label_color)
+                    .style("font-weight","bold")
+                    .text(options.axis_x_title);
 
-                } else if (options.axis_x_position === "top") {
-                    gsvg.append("text")
-                        .attr("x", (w - options.margin_left - options.margin_right)/2)
-                        .attr("y", - options.margin_top + 10)
-                        .style("text-anchor", "middle")
-                        .style("fill",options.axis_x_label_color)
-                        .text(function () {
-                            if(options.multiple_containers_enable === "yes" && options.axis_x_data_format === "string") {
-                                return options.axis_x_title.substr(0,2);
-                            }
-                            else {
-                                return options.axis_x_title;
-                            }
-                        });
-                }
+            } else if (options.axis_x_position === "top") {
+                gsvg.append("text")
+                    .attr("class","x-axis-title")
+                    .attr("x", (w - options.margin_left - options.margin_right)/2)
+                    .attr("y", - options.margin_top + 10)
+                    .style("text-anchor", "middle")
+                    .style("fill",options.axis_x_label_color)
+                    .style("font-weight","bold")
+                    .text(options.axis_x_title);
+            }
             return this;
         },
         yAxisTitle: function (gsvg) {
@@ -698,18 +687,22 @@ PykCharts.Configuration = function (options){
                 }
                 if(options.axis_y_position === "left"){
                     gsvg.append("text")
+                        .attr("class","y-axis-title")
                         .attr("x",-(options.height)/2 )
                         .attr("transform", "rotate(-90)")
                         .attr("y", -(options.margin_left - 12))
                         // .attr("dy", ".71em")
                         .style("fill",options.axis_y_label_color)
+                        .style("font-weight","bold")
                         // .style("text-anchor", "end")
                         .text(options.axis_y_title);
                 } else if (options.axis_y_position === "right") {
-                     gsvg.append("text")
+                    gsvg.append("text")
+                        .attr("class","y-axis-title")
                         .attr("x",-(options.height)/2)
                         .attr("transform", "rotate(-90)")
                         .style("fill",options.axis_y_label_color)
+                        .style("font-weight","bold")
                         // .attr("y", 12)
                         .attr("y", options.margin_right - 12)
                         .attr("dy", ".71em")
@@ -741,30 +734,29 @@ PykCharts.Configuration = function (options){
             return this;
         },
         ordinalXAxisTickFormat :function (domain,extra) {
-            var mouseEvent = new PykCharts.Configuration.mouseEvent(options);
-            var a = $(options.selector + " g.x.axis text");
-            var len = a.length,comp;
-            for(i=0; i<len-1;i++) {
+            var mouseEvent = new PykCharts.Configuration.mouseEvent(options),
+                a = $(options.selector + " g.x.axis text"),
+                len = a.length, comp;
+            for(i=0; i<len; i++) {
                 comp = a[i].innerHTML;
-                if(a[i].getBBox().width > ((extra*2) * 0.7)) {
+                if(a[i].getBBox().width > ((extra*2) * 0.8)) {
                     comp = comp.substr(0,3) + "..";
-
                 }
                 a[i].innerHTML = comp;
             }
             xaxistooltip = d3.selectAll(options.selector + " g.x.axis text")
-                .data(domain)
+                .data(domain);
             xaxistooltip.on('mouseover',function (d) {
-                    mouseEvent.tooltipPosition(d);
-                    mouseEvent.toolTextShow(d);
-                })
-                .on('mousemove', function (d) {
-                    mouseEvent.tooltipPosition(d);
-                    mouseEvent.toolTextShow(d);
-                })
-                .on('mouseout', function (d) {
-                    mouseEvent.tooltipHide(d);
-                });
+                mouseEvent.tooltipPosition(d);
+                mouseEvent.toolTextShow(d);
+            })
+            .on('mousemove', function (d) {
+                mouseEvent.tooltipPosition(d);
+                mouseEvent.toolTextShow(d);
+            })
+            .on('mouseout', function (d) {
+                mouseEvent.tooltipHide(d);
+            });
             return this;
         },
         ordinalYAxisTickFormat : function (domain) {
@@ -773,7 +765,7 @@ PykCharts.Configuration = function (options){
 
             var len = a.length,comp;
 
-            for(i=0; i<len-1;i++) {
+            for(i=0; i<len; i++) {
                 comp = a[i].innerHTML;
                 if(a[i].getBBox().width > (options.margin_left * 0.7)) {
                     comp = comp.substr(0,3) + "..";
@@ -781,18 +773,18 @@ PykCharts.Configuration = function (options){
                 a[i].innerHTML = comp;
             }
             xaxistooltip = d3.selectAll(options.selector + " g.y.axis text")
-                .data(domain)
+                .data(domain);
             xaxistooltip.on('mouseover',function (d) {
-                    mouseEvent.tooltipPosition(d);
-                    mouseEvent.toolTextShow(d);
-                })
-                .on('mousemove', function (d) {
-                    mouseEvent.tooltipPosition(d);
-                    mouseEvent.toolTextShow(d);
-                })
-                .on('mouseout', function (d) {
-                    mouseEvent.tooltipHide(d);
-                });
+                mouseEvent.tooltipPosition(d);
+                mouseEvent.toolTextShow(d);
+            })
+            .on('mousemove', function (d) {
+                mouseEvent.tooltipPosition(d);
+                mouseEvent.toolTextShow(d);
+            })
+            .on('mouseout', function (d) {
+                mouseEvent.tooltipHide(d);
+            });
             return this;
         },
         totalColors: function (tc) {
