@@ -6,16 +6,17 @@ PykCharts.multiD.spiderWeb = function (options) {
         if(that.mode === "default") {
             that.k.loading();
         }
+        var multiDimensionalCharts = theme.multiDimensionalCharts;
         that = new PykCharts.multiD.processInputs(that, options, "spiderweb");
         that.multiD = new PykCharts.multiD.configuration(that);
         that.axisTitle = options.spiderweb_axis_title ? options.spiderweb_axis_title : theme.multiDimensionalCharts.spiderweb_axis_title;
-        // that.bubbleRadius = options.spiderweb_radius && _.isNumber(options.spiderweb_radius) ? options.spiderweb_radius : theme.multiDimensionalCharts.spiderweb_radius;
-        that.outerRadius = options.spiderweb_outer_radius_percent && _.isNumber(options.spiderweb_outer_radius_percent) ? options.spiderweb_outer_radius_percent : theme.multiDimensionalCharts.spiderweb_outer_radius_percent;
+        that.bubbleRadius = options.spiderweb_radius && _.isNumber(options.spiderweb_radius) ? options.spiderweb_radius : (0.6 * multiDimensionalCharts.scatterplot_radius);
+        that.outerRadius = options.spiderweb_outer_radius_percent && _.isNumber(options.spiderweb_outer_radius_percent) ? options.spiderweb_outer_radius_percent : multiDimensionalCharts.spiderweb_outer_radius_percent;
         that.inner_radius = 0;
-        that.enableTicks =  options.spiderweb_pointer ? options.spiderweb_pointer : theme.multiDimensionalCharts.spiderweb_pointer;
-        that.variable_circle_size_enable = options.variable_circle_size_enable ? options.variable_circle_size_enable : theme.multiDimensionalCharts.variable_circle_size_enable;
-        that.outerRadius = that.k._radiusCalculation(that.outerRadius);   
-    
+        that.enableTicks =  options.spiderweb_pointer ? options.spiderweb_pointer : multiDimensionalCharts.spiderweb_pointer;
+        that.variable_circle_size_enable = options.variable_circle_size_enable ? options.variable_circle_size_enable : multiDimensionalCharts.variable_circle_size_enable;
+        that.outerRadius = that.k._radiusCalculation(that.outerRadius);
+        
         d3.json(options.data, function (e, data) {
             that.data = data.groupBy("spiderweb");
             that.compare_data = data.groupBy("spiderweb");
@@ -297,14 +298,20 @@ PykCharts.multiD.spiderWeb = function (options) {
                         .attr("stroke-width",that.border.width())
                         .attr("stroke-dasharray", that.border.style())
                         .on('mouseover',function (d,i) {
-                            that.mouseEvent.tooltipPosition(d);
-                            that.mouseEvent.toolTextShow(d.tooltip);
+                            if(that.mode === "default") {
+                                that.mouseEvent.tooltipPosition(d);
+                                that.mouseEvent.toolTextShow(d.tooltip);
+                            }
                         })
                         .on('mouseout',function (d) {
-                            that.mouseEvent.tooltipHide(d);
+                            if(that.mode === "default") {
+                                that.mouseEvent.tooltipHide(d);
+                            }
                         })
                         .on('mousemove', function (d) {
-                          that.mouseEvent.tooltipPosition(d);
+                            if(that.mode === "default") {
+                                that.mouseEvent.tooltipPosition(d);
+                            }
                         });
                     spiderNode.exit().remove();
                 }

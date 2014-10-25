@@ -64,7 +64,7 @@
                 var k = new PykCharts.multiD.lineChart ({
                     selector: "#line",
                     data: "../data/lineChart.json",
-                    mode : "infographics",
+                    mode : "default",
 
                     color_mode: "color",  //color or saturation
                     chart_color:["steelblue"],
@@ -108,9 +108,9 @@
                     // axis_y_pointer_values: [30,40,50],
                     axis_y_outer_pointer_size: 3,
                     line_curvy_lines:"no",
-                    tooltip_enable: "no",
+                    tooltip_enable: "yes",
                     tooltip_mode : "moving",
-                    crosshair_enable: "no",
+                    crosshair_enable: "yes",
                     zoom_enable: "yes"
 
                 });
@@ -174,9 +174,9 @@
                 var k = new PykCharts.multiD.spiderWeb ({
                     selector: "#spiderWeb",
                     data: "../data/spiderWeb.json",
-                    mode : "default", //  default or infographics
+                    mode : "default",
 
-                    // spiderweb_radius : 5,
+                    spiderweb_radius : 5,
                     spiderweb_outer_radius_percent: 80,
                     spiderweb_pointer: "yes",
                     spiderweb_axis_title : "no",
@@ -201,9 +201,7 @@
                     legendsText_size: 13,
                     legendsText_color: "black",
                     legendsText_weight: "thin",
-                    legendsText_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
-
-
+                    legendsText_family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
                 });
 
             k.execute();
@@ -211,7 +209,7 @@
                 var k = new PykCharts.multiD.scatterPlot ({
                     selector: "#scatterPlot",
                     data: "../data/scatterplot.json",
-                    mode : "default", //  default or infographics
+                    mode : "default",
 
                     chart_color: ["#07365e","#0e5ea1","#4682b4","#75b0e1","#a0ccf1"],
 
@@ -225,7 +223,7 @@
                     chart_margin_left: 60,
                     chart_grid_x_enable: "yes",
                     chart_grid_y_enable: "yes",
-
+                    saturation_color:"red",
                     scatterplot_radius : 20,
                     scatterplot_pointer: "no",
                     title_text : "How is the chocolate products rated?",
@@ -269,14 +267,14 @@
                     label_size:12,
                     label_color: "black",
                     label_weight: "thick",
-                    label_family:"'Helvetica Neue',Helvetica,Arial,sans-serif",
+                    label_family:"'Helvetica Neue',Helvetica,Arial,sans-serif"
                 });
-                 k.execute();
+                k.execute();
 
                 var k = new PykCharts.multiD.scatterPlot ({
                     selector: "#multiple-scatterplots",
                     data: "../data/scatterplot.json",
-                    mode : "default", //  default or infographics
+                    mode : "default",
 
                     background_color: "white",
 
@@ -294,7 +292,7 @@
                     scatterplot_pointer: "no",
                     real_time_charts_refresh_frequency: 0,
                     multiple_containers_enable: "yes",
-                    variable_circle_size_enable: "no",
+                    variable_circle_size_enable: "yes",
 
                     axis_x_enable: "yes",
                     axis_x_title : "Price",
@@ -334,8 +332,7 @@
                     label_size:12,
                     label_color: "white",
                     label_weight: "thick",
-                    label_family:"'Helvetica Neue',Helvetica,Arial,sans-serif",
-
+                    label_family:"'Helvetica Neue',Helvetica,Arial,sans-serif"
                 });
 
             k.execute();
@@ -557,7 +554,6 @@
                     tooltip_enable : "yes",
                     crosshair_enable: "yes",
                     multiple_containers_enable: "no",
-
                     variable_circle_size_enable : "yes",
 
                     legends_enable: "yes",
@@ -572,7 +568,7 @@
                     border_between_chart_elements_style: "solid",
 
                 });
-             k.execute();
+                k.execute();
 
                 var k = new PykCharts.multiD.columnChart({
                     data: "../data/ultimateColumn.json",
@@ -627,10 +623,9 @@
                     border_between_chart_elements_style: "solid",
 
                     highlight:"January",
-
                 });
 
-            k.execute();
+             k.execute();
 
                 var k = new PykCharts.multiD.columnChart({
                     data: "../data/ultimateGroupColumn.json",

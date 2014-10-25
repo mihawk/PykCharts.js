@@ -41,6 +41,7 @@
                 data:"../data/pie.json",
                 transition_duration: 1,
                 clubdata_enable: "yes",
+                // clubData_always_include_data_points : ["18-24","25-44"],
                 export_enable: "yes",
                 background_color: "white",
                 chart_width: 300,
@@ -50,12 +51,11 @@
             k.execute();
 
       			var k = new PykCharts.oneD.funnel({
-          				selector: "#funnel",
-          				data:"../data/pie.json",
-                 transition_duration: 1,
-                 mode:"infographics",
-                 units_suffix: "rs"
-        			});
+          			selector: "#funnel",
+          			data:"../data/pie.json",
+                transition_duration: 1,
+                units_suffix: "rs"
+        		});
       			k.execute();
 
             var k = new PykCharts.oneD.pictograph({
@@ -65,30 +65,27 @@
                 transition_duration: 1,
                 pictograph_total_count_weight: "thin",
                 title_text: "PykCharts"
-             });
+            });
             k.execute();
 
             var k = new PykCharts.oneD.pyramid ({
                 selector: "#pyramid",
                 data:"../data/pie.json",
                 transition_duration: 1,
-                mode:"infographics",
                 pointer_overflow_enable: "no",
-             });
+            });
             k.execute();
 
             var k = new PykCharts.oneD.treemap({
                 selector: "#treemap",
                 data: "../data/pie.json",
-                transition_duration: 0,
-                mode:"infographics",
+                transition_duration: 0
             });
             k.execute();
 
             var k = new PykCharts.oneD.donut({
                 selector: "#donutContainer",
                 data: "../data/pie.json",
-                mode:"infographics",
                 transition_duration: 1
             });
             k.execute();
@@ -117,9 +114,7 @@
             var k = new PykCharts.oneD.percentageColumn({
                 selector: "#percentageColumn",
                 data:"../data/pie.json",
-                transition_duration: 1,
-                "mode" : "infographics"
-
+                transition_duration: 1
             });
             k.execute();
 
@@ -129,8 +124,7 @@
                 transition_duration: 1,
                 // "chart_height": 200,
                 chart_width: 600,
-                // clubdata_enable: "yes",
-                "mode" : "infographics"
+                // clubdata_enable: "yes"
             });
             k.execute();
 

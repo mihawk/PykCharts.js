@@ -283,17 +283,23 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                             return that.fillChart.selectColor(d.data);
                     })
                     .on('mouseover',function (d) {
-                        d.data.tooltip = d.data.tooltip || "<table class='PykCharts'><tr><th colspan='3' class='tooltip-heading'>"+d.data.name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.data.weight)+"<td class='tooltip-right-content'>( "+((d.data.weight*100)/that.sum).toFixed(2)+"% ) </tr></table>";
-                        that.onHoverEffect.highlight(options.selector +" "+".pie", this);
-                        that.mouseEvent.tooltipPosition(d);
-                        that.mouseEvent.toolTextShow(d.data.tooltip);
+                        if(that.mode === "default") {
+                            d.data.tooltip = d.data.tooltip || "<table class='PykCharts'><tr><th colspan='3' class='tooltip-heading'>"+d.data.name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.data.weight)+"<td class='tooltip-right-content'>( "+((d.data.weight*100)/that.sum).toFixed(2)+"% ) </tr></table>";
+                            that.onHoverEffect.highlight(options.selector +" "+".pie", this);
+                            that.mouseEvent.tooltipPosition(d);
+                            that.mouseEvent.toolTextShow(d.data.tooltip);
+                        }
                     })
                     .on('mouseout',function (d) {
-                        that.onHoverEffect.highlightHide(options.selector +" "+".pie");
-                        that.mouseEvent.tooltipHide(d);
+                        if(that.mode === "default") {
+                            that.onHoverEffect.highlightHide(options.selector +" "+".pie");
+                            that.mouseEvent.tooltipHide(d);
+                        }
                     })
                     .on('mousemove', function (d) {
-                        that.mouseEvent.tooltipPosition(d);
+                        if(that.mode === "default") {
+                            that.mouseEvent.tooltipPosition(d);
+                        }
                     })
                     .attr("stroke",that.border.color())
                     .attr("stroke-width",that.border.width())

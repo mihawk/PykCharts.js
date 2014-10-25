@@ -15,11 +15,13 @@
 		"x": "January",
 		"y":  16,
 		"group": "Japan",
+		"color":"blue",
 		"tooltip": "<table class='PykCharts'><tr><th>Japan</th></tr><tr><td>16</td></tr></table>"
 	},
 	{
 		"x": "January",
 		"y":  20,
+		"color":"grey",
 		"group": "United States",
 		"tooltip": "<table class='PykCharts'><tr><th>United States</th></tr><tr><td>20</td></tr></table>"
 	},

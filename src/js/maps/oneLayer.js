@@ -618,15 +618,14 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         that.timeline_status = "";
 
         var startTimeline = function () {
-            console.log("hey");
-            if (timeline_status==="playing") {
+            if (that.timeline_status==="playing") {
                 // that.play.attr("xlink:href",that.play_image_url);
                 that.play.attr("xlink:href","https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/play.gif");
                 clearInterval(that.play_interval);
                 that.timeline_status = "paused";
             } else {
 
-                timeline_status = "playing";
+                that.timeline_status = "playing";
                 // that.play.attr("xlink:href",that.pause_image_url);
                 that.play.attr("xlink:href","https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/pause.gif");
                 interval = that.interval_index;
