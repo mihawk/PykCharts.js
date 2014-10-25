@@ -941,7 +941,7 @@ PykCharts.Configuration = function (options){
                         .append("div")
                         .attr("id", "dropdown-multipleConatiner-export")
                         .attr("class","pyk-tooltip")
-                        .style("left",options.width + 5 + "px")
+                        .style("left",options.width - 80 + "px")
                         .style("top","10px")
                         .style("height","auto")
                         .style("width","auto")
@@ -972,7 +972,7 @@ PykCharts.Configuration = function (options){
                             })
                             .style("margin-bottom", "3px")
                             .style("cursor","pointer")
-                            .html("Container " + (i+1) + "<br>");
+                            .html("Panel " + (i+1) + "<br>");
                     }
                 }
 
@@ -999,16 +999,12 @@ PykCharts.Configuration = function (options){
                                 .style("width",div_size + "px")
                                 .style("left",div_left+"px")
                                 .style("float",div_float)
-                                .style("text-align","right")
-                                .style("cursor","pointer")
-                                .attr("title","Export to SVG");
+                                .style("text-align","right");
 
                 if ($(options.selector)[0].classList.contains("light")) {
-                    export_div.html("<img src='../img/download.png' style='left:"+div_left+"px;margin-bottom:3px'/>");
-
+                    export_div.html("<img title='Export to SVG' src='../img/download.png' style='left:"+div_left+"px;margin-bottom:3px;cursor:pointer;'/>");
                 } else {
-
-                    export_div.html("<img src='../img/download-light.png' style='left:"+div_left+"px;margin-bottom:3px'/>");
+                    export_div.html("<img title='Export to SVG' src='../img/download-light.png' style='left:"+div_left+"px;margin-bottom:3px;cursor:pointer;'/>");
                 }
 
                 var get_canvas = document.getElementById(canvas_id);
@@ -1896,7 +1892,7 @@ configuration.Theme = function(){
         "axis_x_line_color": "#1D1D1D",
         "axis_x_label_color": "#1D1D1D",
         "axis_x_pointer_size": 5,
-        "axis_x_value_format": "",
+        // "axis_x_value_format": "",
         "axis_x_pointer_padding": 6,
         "axis_x_pointer_values": [],
         "axis_x_outer_pointer_size": 0

@@ -95,16 +95,12 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
         that.fillChart = new PykCharts.Configuration.fillChart(that);
 
         that.border = new PykCharts.Configuration.border(that);
+        that.uniq_group_arr = _.uniq(that.data.map(function (d) {
+            return d.group;
+        }));
+        that.no_of_groups = 1;
 
         if(that.mode === "default") {
-        
-            that.uniq_group_arr = _.uniq(that.data.map(function (d) {
-
-                return d.group;
-            }));
-
-            that.no_of_groups = 1;
-
             if(PykCharts.boolean(that.multiple_containers_enable) && type === "scatterplot") {
                 that.k.title()
                     .subtitle()
@@ -204,29 +200,88 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
             //      .zoom();
 
         } else if (that.mode === "infographics") {
-            that.new_data = that.data;
-            that.w = that.width
-            that.sizes = new PykCharts.multiD.bubbleSizeCalculation(that,that.data,that.radius_range);
+            
+            if(PykCharts.boolean(that.multiple_containers_enable) && type === "scatterplot") {
+                that.k.export(that,"svgcontainer",type,that.multiple_containers_enable,that.uniq_group_arr)
+                    .emptyDiv();
 
-            that.k.export(that,"#svgcontainer0",type);
+                that.no_of_groups = that.uniq_group_arr.length;
+                that.w = that.width/4;
+                that.height = that.height/2;
+                that.margin_left = that.margin_left;
+                that.margin_right = that.margin_right;
+//                that.radius_range = [20,35];
+                for(i=0;i<that.no_of_groups;i++){
+                    that.new_data = [];
+                    for(j=0;j<that.data.length;j++) {
+                        if(that.data[j].group === that.uniq_group_arr[i]) {
+                            that.new_data.push(that.data[j]);
+                        }
+                    }
+                    that.k.makeMainDiv(that.selector,i);
+                    
+                    that.optionalFeatures()
+                        .svgContainer(i)
+                        .legendsContainer(i);
 
-            that.k.emptyDiv()
-                .makeMainDiv(that.selector,0);
+                    that.k.tooltip();
 
-            that.optionalFeatures()
+                    that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
+                    that.sizes = new PykCharts.multiD.bubbleSizeCalculation(that,that.data,that.radius_range);
+
+                    that.optionalFeatures()
+                        .legends(i)
+                        .createGroups(i)
+                        .createChart()
+                        .label()
+                        .ticks();        
+
+                    that.k.xAxis(that.svgContainer,that.xGroup,that.x,that.extra_left_margin,that.xdomain,that.legendsGroup_height)
+                        .yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain)
+                        .xAxisTitle(that.xGroup)
+                        .yAxisTitle(that.yGroup);
+        
+                    if((i+1)%4 === 0 && i !== 0) {
+                        that.k.emptyDiv();
+                    }
+                }
+                that.k.emptyDiv();
+            } else {
+                
+                that.k.export(that,"#svgcontainer0",type)
+                    .emptyDiv();
+
+                that.w = that.width;
+                that.new_data = that.data;
+                that.k.makeMainDiv(that.selector,0);
+
+                that.optionalFeatures()
                     .svgContainer(0)
-                    .legendsContainer(0)
-                    .createGroups(0);
+                    .legendsContainer(0);
 
-            that.optionalFeatures().createChart(0);
-                // .crossHair();
-            if(type === "scatterplot") {
-                that.optionalFeatures().label();
+                that.k.liveData(that)
+                    .tooltip();
+
+                that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
+                that.sizes = new PykCharts.multiD.bubbleSizeCalculation(that,that.data,that.radius_range);
+
+                that.optionalFeatures()
+                    .legends()
+                    .createGroups(0)
+                    .createChart()
+                    .ticks();
+                  //  .zoom();
+
+                if(type === "scatterplot") {
+                    that.optionalFeatures().label();
+                }
+
+                that.k.xAxis(that.svgContainer,that.xGroup,that.x,that.extra_left_margin,that.xdomain,that.legendsGroup_height)
+                    .yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain)
+                    .xAxisTitle(that.xGroup)
+                    .yAxisTitle(that.yGroup);
             }
-            that.k.xAxis(that.svgContainer,that.xGroup,that.x,that.extra_left_margin,that.xdomain)
-                .yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain)
-                .xAxisTitle(that.xGroup)
-                .yAxisTitle(that.yGroup);
+
         }
         if(!PykCharts.boolean(that.multiple_containers_enable)) {
             if(type === "scatterplot" && PykCharts.boolean(that.legends_enable) && PykCharts.boolean(that.variable_circle_size_enable) && that.map_group_data[1]) {
@@ -426,7 +481,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
             },
             legends : function (index) {
 
-                if (PykCharts.boolean(that.legends_enable) && PykCharts.boolean(that.variable_circle_size_enable) && that.map_group_data[1]) {
+                if (PykCharts.boolean(that.legends_enable) && PykCharts.boolean(that.variable_circle_size_enable) && that.map_group_data[1] && that.mode==="default") {
                     var unique = _.uniq(that.sorted_weight);
                     var k = 0;
                     var l = 0;

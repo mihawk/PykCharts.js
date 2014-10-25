@@ -8,6 +8,7 @@
 	{
 		"x": "January",
 		"y":  12,
+		"color":"grey",
 		"group": "China",
 		"tooltip": "<table class='PykCharts'><tr><th>China</th></tr><tr><td>12</td></tr></table>"
 	},
@@ -21,7 +22,6 @@
 	{
 		"x": "January",
 		"y":  20,
-		"color":"grey",
 		"group": "United States",
 		"tooltip": "<table class='PykCharts'><tr><th>United States</th></tr><tr><td>20</td></tr></table>"
 	},

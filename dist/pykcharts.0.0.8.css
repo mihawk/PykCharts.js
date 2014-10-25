@@ -114,25 +114,6 @@ body {
   pointer-events: none;
 }
 
-/*.PykCharts-line-chart .pyk-line-tooltip{
-  display: block;
-  height: auto;
-  width: auto;
-  padding: 5px 6px;
-  color: #4F4F4F;
-  background: #fff;
-  box-shadow: 0 5px 10px rgba(0,0,0,.2);
-  text-decoration: none;
-  position: absolute;
-  border-radius: 5px;
-  text-align: center;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 14px;
-  border: 1px solid #CCCCCC;
-  min-width: 30px;
-  visibility: hidden;
-}*/
-
 .PykCharts-line-chart .pyk-multiline-tooltip{
   display: block;
   height: auto;
