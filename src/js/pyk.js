@@ -1267,7 +1267,7 @@ configuration.mouseEvent = function (options) {
                                 }
                                 else if(type === "lineChart" || type === "areaChart") {
                                     if((options.tooltip_mode).toLowerCase() === "fixed") {
-                                        this.tooltipPosition(tooltipText,0,pos_line_cursor_y,-14,-15,group_index);
+                                        this.tooltipPosition(tooltipText,0,pos_line_cursor_y,-14,23,group_index);
                                     } else if((options.tooltip_mode).toLowerCase() === "moving"){
                                         this.tooltipPosition(tooltipText,pos_line_cursor_x,pos_line_cursor_y,5,-45,group_index);
                                     }
