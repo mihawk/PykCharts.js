@@ -73,9 +73,9 @@ PykCharts.multiD.columnChart = function(options){
         }
         if(that.mode === "default") {
             that.k.title()
-                .subtitle()
                 .export(that,"#svgcontainer","columnChart")
                 .emptyDiv()
+                .subtitle()
                 .makeMainDiv(that.selector,1);
 
             that.optionalFeatures()
@@ -104,8 +104,9 @@ PykCharts.multiD.columnChart = function(options){
                 .yGrid(that.svgContainer,that.group,that.yScaleInvert);
 
         } else if(that.mode === "infographics") {
-            that.k.emptyDiv()
+            that.k
                 .export(that,"#svgcontainer","columnChart")
+                .emptyDiv()
                 .makeMainDiv(that.selector,1);
                 
             that.optionalFeatures().svgContainer(1)

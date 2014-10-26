@@ -57,9 +57,9 @@ PykCharts.oneD.percentageColumn = function (options) {
 
         if(that.mode === "default") {
             that.k.title()
-                    .subtitle()
                     .export(that,"#svgcontainer","percentageColumn")
-                    .emptyDiv();
+                    .emptyDiv()
+                    .subtitle();
                 // [that.fullscreen]().fullScreen(that);
         }
         if(that.mode === "infographics") {

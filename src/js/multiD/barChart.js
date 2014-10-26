@@ -76,9 +76,9 @@ PykCharts.multiD.barChart = function(options){
         if(that.mode === "default") {
 
             that.k.title()
-                .subtitle()
                 .export(that,"#svgcontainer","barChart")
                 .emptyDiv()
+                .subtitle()
                 .makeMainDiv(that.selector,1);
             that.optionalFeatures()
                 .svgContainer(1)

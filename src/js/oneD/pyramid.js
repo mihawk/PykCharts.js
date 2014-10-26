@@ -46,9 +46,9 @@ PykCharts.oneD.pyramid = function (options) {
 
         if (that.mode === "default") {
             that.k.title()
-                .subtitle()
                 .export(that,"#svgcontainer","pyramid")
-                .emptyDiv();
+                .emptyDiv()
+                .subtitle();
             that.new_data = that.optionalFeatures().clubData();
             that.optionalFeatures().svgContainer()
                 .createChart()

@@ -20,7 +20,8 @@ PykCharts.oneD.pie = function (options) {
            that.k.loading();
         }
         d3.json(options.data, function (e, data) {
-            that.data = data.groupBy("oned");
+            tha
+            t.data = data.groupBy("oned");
             that.compare_data = data.groupBy("oned");
             $(options.selector+" #chart-loader").remove();
             var pieFunctions = new PykCharts.oneD.pieFunctions(options,that,"pie");
@@ -169,9 +170,9 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
         if(that.mode.toLowerCase() == "default") {
 
             that.k.title()
-                .subtitle()
                 .export(that,"#container",type)
-                .emptyDiv();
+                .emptyDiv()
+                .subtitle();
 
             that.optionalFeatures().svgContainer();
             that.new_data = that.optionalFeatures().clubData();
@@ -195,7 +196,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
         } else if(that.mode.toLowerCase() == "infographics") {
             that.new_data = that.data;
             that.k.export(that,"#container",type)
-            that.k.emptyDiv();
+                    .emptyDiv();
             that.optionalFeatures().svgContainer()
                     .set_start_end_angle()
                     .createChart()

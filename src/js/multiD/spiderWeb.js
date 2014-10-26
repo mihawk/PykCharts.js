@@ -53,9 +53,9 @@ PykCharts.multiD.spiderWeb = function (options) {
 
         if(that.mode === "default") {
             that.k.title()
-                .subtitle()
                 .export(that,"#svgcontainer","spiderweb")
                 .emptyDiv()
+                .subtitle()
                 .makeMainDiv(that.selector,1);
 
             that.optionalFeatures()
