@@ -1534,6 +1534,15 @@ configuration.fillChart = function (options,theme,config) {
                 return options.chart_color;
             } return options.chart_color[0];
         },
+        colorGroup : function (d) {
+            if(options.color_mode === "saturation") {
+                return options.saturation_color;
+            } else if(options.color_mode === "color") {
+                return d.color;
+            } else if(options.color_mode === "color"){
+                return options.chart_color[0];
+            }
+        },
         colorLegends : function (d) {
             if(options.color_mode === "saturation") {
                 return options.saturation_color;
