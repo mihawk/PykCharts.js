@@ -546,6 +546,7 @@ PykCharts.multiD.barChart = function(options){
                     function ascending( a, b ) {
                         return a - b;
                     }
+
                     that.highlight_x_positions.sort(ascending)
                     that.highlight_y_positions.sort(ascending);
                     var x_len = that.highlight_x_positions.length,
@@ -553,7 +554,12 @@ PykCharts.multiD.barChart = function(options){
                         x = -5,
                         y = (that.highlight_y_positions[0] - 5),
                         width = (that.highlight_x_positions[x_len - 1] + 15 + that.txt_width),
+                        height;
+                    if(PykCharts.boolean(that.highlight_x_positions[0])){
                         height = (that.highlight_y_positions[y_len - 1] - that.highlight_y_positions[0] + 10 + that.yScale.rangeBand()+that.height_factor);
+                    } else {
+                        height = (that.highlight_y_positions[y_len - 1] - that.highlight_y_positions[0] + 10);
+                    }
                     that.group.append("rect")
                         .attr("class","highlight-rect")
                         .attr("x", x)
@@ -561,7 +567,7 @@ PykCharts.multiD.barChart = function(options){
                         .attr("width", width)
                         .attr("height", height)
                         .attr("fill","none")
-                        .attr("stroke", "black")
+                        .attr("stroke", that.highlight_color)
                         .attr("stroke-width", "1")
                         .attr("stroke-dasharray", "5,5")
                         .attr("stroke-opacity",1);

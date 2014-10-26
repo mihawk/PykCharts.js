@@ -469,7 +469,6 @@ PykCharts.Configuration = function (options){
                     return d.annotation;
                 })
                 .text(function (d,i) {
-                    console.log(d.annotation , this.getBBox().width + 20);
                     w[i] = this.getBBox().width + 20;
                     h[i] = this.getBBox().height + 10;
                     return d.annotation;
