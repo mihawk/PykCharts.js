@@ -169,6 +169,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
         if(that.mode.toLowerCase() == "default") {
 
             that.k.title()
+                .backgroundColor(that)
                 .export(that,"#container",type)
                 .emptyDiv()
                 .subtitle();
@@ -194,7 +195,8 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
 
         } else if(that.mode.toLowerCase() == "infographics") {
             that.new_data = that.data;
-            that.k.export(that,"#container",type)
+            that.k.backgroundColor(that)
+                .export(that,"#container",type)
                     .emptyDiv();
             that.optionalFeatures().svgContainer()
                     .set_start_end_angle()

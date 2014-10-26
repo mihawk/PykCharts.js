@@ -39,11 +39,13 @@ PykCharts.oneD.pictograph = function (options) {
 
         if(that.mode==="default") {
             that.k.title()
+                .backgroundColor(that)
                 .export(that,"#svgcontainer","pictograph")
                 .emptyDiv()
                 .subtitle();
         } else {
-            that.k.export(that,"#svgcontainer","pictograph")
+            that.k.backgroundColor(that)
+                .export(that,"#svgcontainer","pictograph")
                 .emptyDiv();
         }
            

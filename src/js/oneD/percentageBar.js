@@ -58,12 +58,14 @@ PykCharts.oneD.percentageBar = function (options) {
         if(that.mode === "default") {
 
             that.k.title()
+                    .backgroundColor(that)
                     .export(that,"#svgcontainer","percentageBar")
                     .emptyDiv()
                     .subtitle();
         }
         if(that.mode === "infographics") {
-            that.k.export(that,"#svgcontainer","percentageBar").emptyDiv();
+            that.k.backgroundColor(that)
+            .export(that,"#svgcontainer","percentageBar").emptyDiv();
             that.new_data = that.data;
         }
 
