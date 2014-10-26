@@ -49,41 +49,43 @@
                 background_color: "white",
                 chart_width: 300,
                 chart_height: 300,
- title_text:"Air Pollution in New York </br>(23/12/2013 - 29/12/2013)",
-                    subtitle_text:"Air Pollution in New York",
+                title_text:"Air Pollution in New York </br>(23/12/2013 - 29/12/2013)",
+                subtitle_text:"Air Pollution in New York",
             });
             k.execute();
 
       			var k = new PykCharts.oneD.funnel({
-<<<<<<< HEAD
-                background_color: "transparent",
-                "pointer_overflow_enable": "yes",
-          				selector: "#funnel",
-          				data:"../data/screenshot.json",
-                 transition_duration: 1,
-                 mode:"default",
-                "funnel_rect_width": 50,
-                "funnel_rect_height": 100,
-                 units_suffix: "rs"
-        			});
-=======
           			selector: "#funnel",
           			data:"../data/pie.json",
                 transition_duration: 1,
                 units_suffix: "rs"
         		});
->>>>>>> cf61f734673352c53ea7a7e794d9c7da65f2333e
       			k.execute();
 
             var k = new PykCharts.oneD.pictograph({
                 selector: "#pictograph",
                 data:"../data/pictograph.json",
-                // chart_width : 300,
-                // chart_height: 300,
-                background_color: "pink",
+                chart_width : 300,
+                chart_height: 300,
+                background_color: "white",
                 transition_duration: 1,
                 pictograph_total_count_weight: "thin",
-                title_text: "PykCharts"
+                // title_text: "PykCharts",
+
+                "pictograph_show_all_images": "no",
+                "pictograph_total_count_enable": "no",
+                "pictograph_current_count_enable": "no",
+                "pictograph_image_per_line": 3,
+                "pictograph_image_width": 50,
+                "pictograph_image_height": 50,
+                "pictograph_current_count_size": 50,
+                "pictograph_current_count_color": "#255AEE",
+                "pictograph_current_count_weight": "thin",
+                "pictograph_current_count_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
+                "pictograph_total_count_size": 50,
+                "pictograph_total_count_color": "grey",
+                "pictograph_total_count_weight": "thin",
+                "pictograph_total_count_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
             });
             k.execute();
 
@@ -119,14 +121,14 @@
                 selector: "#electionPieContainer",
                 data: "../data/pie.json",
                 transition_duration: 4,
-                background_color: "pink",
+                background_color: "white",
             });
             k.execute();
 
             var k = new PykCharts.oneD.election_donut({
                 selector: "#electionDonutContainer",
                 data: "../data/pie.json",
-                background_color: "pink",
+                background_color: "white",
                 transition_duration: 4
             });
             k.execute();
@@ -134,7 +136,7 @@
             var k = new PykCharts.oneD.pie({
                 chart_width: 400,
                 chart_height:400,
-                background_color: "pink",
+                background_color: "white",
                 selector: "#pieContainer",
                 data: "../data/screenshot.json",
                 "pie_radius_percent": 80,
@@ -154,7 +156,7 @@
             var k = new PykCharts.oneD.percentageBar({
                 selector: "#percentageBar",
                 data:"../data/screenshot.json",
-                background_color: "pink",
+                background_color: "white",
                 transition_duration: 1,
                 // "chart_height": 200,
                 chart_width: 600,
@@ -164,7 +166,7 @@
 
             var k = new PykCharts.oneD.pie({
                 selector: "#pie2Container",
-                background_color: "pink",
+                background_color: "white",
                 data: "../data/pie2.json",
                 transition_duration: 1
             });
