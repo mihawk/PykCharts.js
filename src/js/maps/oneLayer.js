@@ -198,8 +198,6 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     .attr("height", that.height)
                     .attr("id","svgcontainer")
                     .attr("class",'PykCharts-map')
-                    .attr("style", "border:1px solid lightgrey")
-                    .style("border-radius", "5px")
                     .attr("preserveAspectRatio", "xMinYMin")
                     .attr("viewBox", "0 0 " + that.width + " " + that.height);
 

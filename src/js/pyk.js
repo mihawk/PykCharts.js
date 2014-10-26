@@ -736,11 +736,26 @@ PykCharts.Configuration = function (options){
         ordinalXAxisTickFormat :function (domain,extra) {
             var mouseEvent = new PykCharts.Configuration.mouseEvent(options),
                 a = $(options.selector + " g.x.axis text"),
-                len = a.length, comp;
+                len = a.length, comp, flag, largest = 0, smallest = a[0].getBBox().width;
+
+            _.each(a, function (d) {
+                largest = (d.getBBox().width > largest) ? d.getBBox().width : largest;
+                smallest = (d.getBBox().width < smallest) ? d.getBBox().width : smallest;
+            });
+            if (smallest <= ((extra*2) * 0.75) && smallest >= ((extra*2) * 0.55))  { flag = 0; }
+            else if (largest > ((extra*2) * 0.75)) { flag = 1; }
+            else if ((largest <= ((extra*2) * 0.75)) && (largest > ((extra*2) * 0.55))) { flag = 2; }
+
             for(i=0; i<len; i++) {
                 comp = a[i].innerHTML;
-                if(a[i].getBBox().width > ((extra*2) * 0.8)) {
+                if (flag === 0) {
+                    comp = "";
+                }
+                else if ((a[i].getBBox().width > ((extra*2) * 0.75)) && flag === 1){
                     comp = comp.substr(0,3) + "..";
+                }
+                else if ((a[i].getBBox().width <= ((extra*2) * 0.75)) && (a[i].getBBox().width > ((extra*2) * 0.55)) && flag === 2) {
+                    comp = comp.substr(0,2);
                 }
                 a[i].innerHTML = comp;
             }
@@ -1708,7 +1723,7 @@ configuration.Theme = function(){
         "saturation_color": "#255AEE",
 
         "border_between_chart_elements_thickness": 1,
-        "border_between_chart_elements_color": "white",
+        "border_between_chart_elements_color": "#666666",
         "border_between_chart_elements_style": "solid",
 
         "legends_text_size": 13,
