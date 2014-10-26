@@ -45,9 +45,8 @@ PykCharts.oneD.bubble = function (options) {
         if (that.mode ==="default") {
             
             that.k.title()
-                .subtitle();
-
-            that.k.export(that,"#svgcontainer","bubble")
+                .subtitle()
+                .export(that,"#svgcontainer","bubble")
                 .emptyDiv();
 
             that.new_data = that.optionalFeatures().clubData();
@@ -83,7 +82,7 @@ PykCharts.oneD.bubble = function (options) {
 
         var optional = {
             svgContainer: function () {
-                $(that.selector).css("background-color",that.background_color);
+                // $(that.selector).css("background-color",that.background_color);
 
                 that.svgContainer = d3.select(that.selector).append("svg")
                     .attr("class","svgcontainer")

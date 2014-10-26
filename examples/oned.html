@@ -5,6 +5,9 @@
         <link rel="stylesheet" type="text/css" href="../lib/bootstrap.min.css">
         <script src="../lib/paper-full.js"></script>
         <script src="../lib/downloadDataURI.js"></script>
+        
+
+
 	</head>
 	<body>
       <div id="bubble"></div>
@@ -38,7 +41,7 @@
 		    window.PykChartsInit = function (e) {
             var k = new PykCharts.oneD.bubble({
                 selector: "#bubble",
-                data:"../data/pie.json",
+                data:"../data/screenshot.json",
                 transition_duration: 1,
                 clubdata_enable: "yes",
                 export_enable: "yes",
@@ -50,10 +53,14 @@
             k.execute();
 
       			var k = new PykCharts.oneD.funnel({
+                background_color: "transparent",
+                "pointer_overflow_enable": "yes",
           				selector: "#funnel",
-          				data:"../data/pie.json",
+          				data:"../data/screenshot.json",
                  transition_duration: 1,
-                 mode:"infographics",
+                 mode:"default",
+                "funnel_rect_width": 50,
+                "funnel_rect_height": 100,
                  units_suffix: "rs"
         			});
       			k.execute();
@@ -61,10 +68,27 @@
             var k = new PykCharts.oneD.pictograph({
                 selector: "#pictograph",
                 data:"../data/pictograph.json",
-                chart_width : 500,
+                // chart_width : 300,
+                // chart_height: 300,
+                background_color: "pink",
                 transition_duration: 1,
                 pictograph_total_count_weight: "thin",
-                title_text: "PykCharts"
+                // title_text: "PykCharts",
+
+                "pictograph_show_all_images": "no",
+                "pictograph_total_count_enable": "yes",
+                "pictograph_current_count_enable": "yes",
+                "pictograph_image_per_line": 3,
+                "pictograph_image_width": 50,
+                "pictograph_image_height": 50,
+                "pictograph_current_count_size": 50,
+                "pictograph_current_count_color": "steelblue",
+                "pictograph_current_count_weight": "thin",
+                "pictograph_current_count_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
+                "pictograph_total_count_size": 50,
+                "pictograph_total_count_color": "grey",
+                "pictograph_total_count_weight": "thin",
+                "pictograph_total_count_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
              });
             k.execute();
 
@@ -72,6 +96,7 @@
                 selector: "#pyramid",
                 data:"../data/pie.json",
                 transition_duration: 1,
+                background_color: "pink",
                 mode:"infographics",
                 pointer_overflow_enable: "no",
              });
@@ -81,61 +106,80 @@
                 selector: "#treemap",
                 data: "../data/pie.json",
                 transition_duration: 0,
+                background_color: "pink",
                 mode:"infographics",
             });
             k.execute();
 
             var k = new PykCharts.oneD.donut({
                 selector: "#donutContainer",
-                data: "../data/pie.json",
-                mode:"infographics",
-                transition_duration: 1
+                data: "../data/screenshot.json",
+                mode:"default",
+                transition_duration: 1,
+                background_color: "pink",
+                "donut_radius_percent": 40,
+                "donut_inner_radius_percent": 20,
+                "donut_show_total_at_center": "yes",
             });
             k.execute();
 
             var k = new PykCharts.oneD.election_pie({
                 selector: "#electionPieContainer",
                 data: "../data/pie.json",
-                transition_duration: 4
+                transition_duration: 4,
+                background_color: "pink",
             });
             k.execute();
 
             var k = new PykCharts.oneD.election_donut({
                 selector: "#electionDonutContainer",
                 data: "../data/pie.json",
+                background_color: "pink",
                 transition_duration: 4
             });
             k.execute();
 
             var k = new PykCharts.oneD.pie({
+                chart_width: 400,
+                chart_height:400,
+                background_color: "pink",
                 selector: "#pieContainer",
-                data: "../data/pie.json",
-                transition_duration: 4
+                data: "../data/screenshot.json",
+                "pie_radius_percent": 80,
+                // transition_duration: 4
             });
             k.execute();
 
             var k = new PykCharts.oneD.percentageColumn({
+                chart_width: 600,
+                chart_height: 300,
                 selector: "#percentageColumn",
-                data:"../data/pie.json",
-                transition_duration: 1,
-                "mode" : "infographics"
+                data:"../data/screenshot.json",
+                background_color: "pink",
+                // transition_duration: 1,
+                "mode" : "default",
+                "percent_column_rect_width": 10,
 
             });
             k.execute();
 
             var k = new PykCharts.oneD.percentageBar({
                 selector: "#percentageBar",
-                data:"../data/pie.json",
+                data:"../data/screenshot.json",
+                background_color: "pink",
                 transition_duration: 1,
                 // "chart_height": 200,
-                chart_width: 600,
+                chart_width: 400,
                 // clubdata_enable: "yes",
-                "mode" : "infographics"
+                "mode" : "default",
+                // "percent_column_rect_width": 15,
+                "percent_row_rect_height": 15,
             });
             k.execute();
 
             var k = new PykCharts.oneD.pie({
                 selector: "#pie2Container",
+                background_color: "pink",
                 data: "../data/pie2.json",
                 transition_duration: 1
             });
@@ -144,6 +188,8 @@
 
 
 		</script>
+    
     <script src="../dist/pykcharts.0.0.8.js"></script>
+
 	</body>
 </html>

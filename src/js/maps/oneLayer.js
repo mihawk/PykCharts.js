@@ -110,6 +110,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             that.optionalFeatures()
                 .axisContainer(true);
             that.renderDataForTimescale();
+            that.backgroundColor();
             that.renderButtons();
             that.renderTimeline();
         }
@@ -237,11 +238,6 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                 , offset = [that.width / 2, that.height / 2]
                 , i;
                 $(options.selector).css("background-color",that.background_color);
-
-                if (type == "timeline") {
-                    console.log($(options.selector),"selector");
-                    $(that.selector).colourBrightness();
-                }
 
                 that.group = that.map_cont.selectAll(".map_group")
                     .data(topojson.feature(that.map_data, that.map_data.objects).features)
@@ -594,6 +590,27 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             /*console.log(e);*/
         }
     };
+
+    that.backgroundColor =function () {        
+        var bg;
+        bgColor(options.selector);
+           
+        function bgColor(child) {
+            bg = $(child).css("background-color");
+            console.log(bg,"oh bggg");
+            if (bg === "transparent" || bg === "rgba(0, 0, 0, 0)") {
+                if (document.getElementsByTagName("body")!== undefined ){
+                    console.log("is it going");
+                    $(child).colourBrightness("rgb(255,255,255)");
+                } else {
+                    return bgColor(child.parent());
+                }
+            } else {
+                console.log("bg",bg,child);
+                $(child).colourBrightness(bg);
+            }     
+        }
+    }
     that.renderDataForTimescale = function () {
         that.unique = [];
         x_extent = d3.extent(that.timeline_data, function(d) { return d.timestamp; });
@@ -611,6 +628,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         that.k.xAxis(that.svgContainer,that.gxaxis,that.xScale);
     }
     that.renderTimeline = function () {
+        console.log("heyy");
         var x_extent
         , x_range
         , duration
@@ -624,7 +642,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
 
         var startTimeline = function () {
             console.log("hey");
-            if (timeline_status==="playing") {
+            if (that.timeline_status==="playing") {
                 if ($(that.selector)[0].classList.contains("light")) {
                     that.play.attr("xlink:href","../img/play.png");
                  }
@@ -637,7 +655,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                 that.timeline_status = "paused";
             } else {
 
-                timeline_status = "playing";
+                that.timeline_status = "playing";
                 // that.play.attr("xlink:href",that.pause_image_url);
                 // that.play.attr("xlink:href","https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/pause.gif");
                 if ($(that.selector)[0].classList.contains("light")) {
@@ -674,15 +692,21 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                 var time_lag = setTimeout(function () {
                     var undo_heatmap = setInterval(function () {
                         interval1++;
-
+                        var play1;
                         if (interval1 === interval) {
                             clearInterval(undo_heatmap);
                             clearTimeout(time_lag);
                         }
+                        if ($(that.selector)[0].classList.contains("light")) {
+                            play1 = "../img/play.png"; 
+                        } else  {
+                            console.log("yeahhh");
+                            play1 = "../img/play-light.png";            
+                        } 
 
                         if (interval1===that.unique.length) {
                             clearInterval(undo_heatmap);
-                            that.play.attr("xlink:href",that.play_image_url);
+                            that.play.attr("xlink:href",play1);
                             that.marker.attr("x",  (that.margin_left*2) + that.xScale(that.unique[0]) - 7);
                             interval = interval1 = 1;
                             that.timeline_status = "";
@@ -746,11 +770,14 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                 }
             }
         }
+        
         var play;
+        console.log(($(that.selector)[0].classList.contains("light")),"lightttttt");
         if ($(that.selector)[0].classList.contains("light")) {
             play = "../img/play.png"; 
         }          
         else  {
+            console.log("yeahhh");
             play = "../img/play-light.png";            
         } 
         that.play = that.svgContainer.append("image")

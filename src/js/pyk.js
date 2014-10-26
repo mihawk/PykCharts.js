@@ -883,30 +883,6 @@ PykCharts.Configuration = function (options){
                 return (min_value*radius_percent)/200;
             }
         },
-        background: function (options) {
-            console.log(options,"options");
-            var bg;
-                $(options.selector).css({"background-color":options.background_color,"position":"relative"});
-
-               bgColor(options.selector);
-                   
-                function bgColor(child) {
-                    bg = $(child).css("background-color");
-                    console.log(bg,"oh bggg");
-                }
-
-                if (bg === "transparent" || bg === "rgba(0, 0, 0, 0)") {
-                    if (document.getElementsByTagName("body").parentNode !== undefined ){
-                        return "white";
-                    } else {
-                        return bgColor(options.selector);
-                    }
-                } else {
-                    console.log("bg",bg);
-                    return $(options.selector).colourBrightness(bg);
-                } 
-            return this;    
-        },
         export : function(chart,svgId,chart_name) {
             if(PykCharts.boolean(options.export_enable)) {
                
@@ -1651,11 +1627,11 @@ configuration.Theme = function(){
         "subtitle_weight": "thin",
         "subtitle_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
 
-        "highlight": "",
-        "highlight_color": "#013F73",
-        "background_color": "transparent",
-        "chart_color": ["steelblue"],
-        "saturation_color": "steelblue",
+        "highlight_color": "#08306b",
+        // "background_color": "transparent",
+        "chart_color": ["#255AEE"],
+        "saturation_color": "#255AEE",
+        "highlight": "",        
 
         "border_between_chart_elements_thickness": 1,
         "border_between_chart_elements_color": "white",
@@ -1697,7 +1673,7 @@ configuration.Theme = function(){
 
     that.oneDimensionalCharts = {
         "clubdata_enable": "yes",
-        "clubdata_text": "others",
+        "clubdata_text": "Others",
         "clubdata_maximum_nodes": 5,
 
         "pie_radius_percent": 70,

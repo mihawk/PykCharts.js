@@ -39,15 +39,7 @@
         <script src="../lib/paper-full.js"></script>
         <script src="../lib/downloadDataURI.js"></script>
         <script src="../lib/jquery.colourbrightness.js"></script>
-<!--        <script src="../lib/FileSaver.js"></script>
-        <script src="../lib/jspdf.js"></script>
-        <script src="../lib/rgbcolor.js"></script>
-        <script src="../lib/Blob.js"></script>
-        <script src="../lib/StackBlur.js"></script>
-        <script src="../lib/jspdf.plugin.addimage.js"></script>
-        <script src="../lib/canvg.js"></script>
-        <script src="../lib/svgToPdf.js"></script>
--->
+
         <script src="../src/js/init.js"></script>
         <script src="../src/js/pyk.js"></script>
         <script src="../src/js/multiD/multiD.js"></script>
@@ -82,7 +74,7 @@
 
                     transition_duration: 0,
                     real_time_charts_refresh_frequency: 0,
-                    background_color: "transparent",
+                    background_color: "white",
                     axis_onhover_hightlight_enable: "yes",
 
                     axis_x_enable: "yes",
@@ -401,7 +393,7 @@
 
                 var k = new PykCharts.multiD.lineChart ({
                     selector: "#multiple-multiLine",
-                    data: "../data/multiLineChart.json",
+                    data: "../data/multipleContainerLine.json",
                     mode : "default",
 
                     color_mode: "saturation",  //color or saturation
