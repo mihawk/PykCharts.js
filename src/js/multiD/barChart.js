@@ -570,7 +570,7 @@ PykCharts.multiD.barChart = function(options){
                         .attr("height", height)
                         .attr("fill","none")
                         .attr("stroke", that.highlight_color)
-                        .attr("stroke-width", "1")
+                        .attr("stroke-width", "1.5")
                         .attr("stroke-dasharray", "5,5")
                         .attr("stroke-opacity",1);
                 }

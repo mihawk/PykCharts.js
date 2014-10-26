@@ -374,8 +374,8 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     chartObject.axis_y_time_value_datatype = PykCharts.boolean(options.axis_y_enable) && options.axis_y_time_value_datatype ? options.axis_y_time_value_datatype : multiDimensionalCharts.axis_y_time_value_datatype;
     chartObject.axis_y_time_value_interval = PykCharts.boolean(options.axis_y_enable) && options.axis_y_time_value_interval ? options.axis_y_time_value_interval : multiDimensionalCharts.axis_y_time_value_interval;
 
-    chartObject.legends_enable =  options.legends_enable ? options.legends_enable : multiDimensionalCharts.legends_enable;
-    chartObject.legends_display = options.legends_display ? options.legends_display : multiDimensionalCharts.legends_display;
+    chartObject.legends_enable =  options.legends_enable ? options.legends_enable : stylesheet.legends_enable;
+    chartObject.legends_display = options.legends_display ? options.legends_display : stylesheet.legends_display;
 
     if(options.credit_my_site_name || options.credit_my_site_url) {
         chartObject.credit_my_site_name = options.credit_my_site_name ? options.credit_my_site_name : "";
