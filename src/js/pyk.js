@@ -441,7 +441,7 @@ PykCharts.Configuration = function (options){
             return this;
         },
         annotation : function (svg,data,xScale,yScale) {
-            var w = 0,h=0;
+            var w = [],h=[];
 
             var annotation_rect = d3.select(svg).selectAll(".annotation-rect")
                 .data(data)
@@ -468,21 +468,22 @@ PykCharts.Configuration = function (options){
                 .text(function (d) {
                     return d.annotation;
                 })
-                .text(function (d) {
-                    w = this.getBBox().width + 20;
-                    h = this.getBBox().height + 10;
+                .text(function (d,i) {
+                    console.log(d.annotation , this.getBBox().width + 20);
+                    w[i] = this.getBBox().width + 20;
+                    h[i] = this.getBBox().height + 10;
                     return d.annotation;
                 })
                 .style("pointer-events","none");
 
-            annotation_rect.attr("x",function (d) {
-                    return (parseInt(xScale(d.x)-(5))+options.extra_left_margin+options.margin_left) - (w/2);
+            annotation_rect.attr("x",function (d,i) {
+                    return (parseInt(xScale(d.x)-(5))+options.extra_left_margin+options.margin_left) - (w[i]/2);
                 })
-                .attr("y", function (d) {
-                    return (parseInt(yScale(d.y)-10+options.margin_top)) - h;
+                .attr("y", function (d,i) {
+                    return (parseInt(yScale(d.y)-10+options.margin_top)) - h[i];
                 })
-                .attr("width",w)
-                .attr("height",h)
+                .attr("width",function (d,i) { return w[i]; })
+                .attr("height",function (d,i) { return h[i]; })
                 .attr("fill","#eeeeee")
                 .attr("stroke","darkgray")
                 .style("pointer-events","none");
@@ -938,23 +939,23 @@ PykCharts.Configuration = function (options){
                    
                 function bgColor(child) {
                     bg = $(child).css("background-color");
-                    console.log(bg,"oh bggg");
+                    // console.log(bg,"oh bggg");
                     if (bg === "transparent" || bg === "rgba(0, 0, 0, 0)") {
                         if (document.getElementsByTagName("body")!== undefined ){
-                            console.log("is it going");
+                            // console.log("is it going");
                             $(child).colourBrightness("rgb(255,255,255)");
                         } else {
                             return bgColor(child.parent());
                         }
                     } else {
-                        console.log("bg",bg);
+                        // console.log("bg",bg);
                         $(child).colourBrightness(bg);
                     }     
                 }
                
                 // console.log(bg,"bgggggggg");
                 // $(chart.selector).colourBrightness(bg);
-                console.log("heyy");
+                // console.log("heyy");
 
                 d3.select(options.selector)
                         .append("div")
@@ -1541,6 +1542,15 @@ configuration.fillChart = function (options,theme,config) {
             } else if(options.color_mode === "color"){
                 return options.chart_color;
             } return options.chart_color[0];
+        },
+        colorGroup : function (d) {
+            if(options.color_mode === "saturation") {
+                return options.saturation_color;
+            } else if(options.color_mode === "color") {
+                return d.color;
+            } else if(options.color_mode === "color"){
+                return options.chart_color[0];
+            }
         },
         colorLegends : function (d) {
             if(options.color_mode === "saturation") {

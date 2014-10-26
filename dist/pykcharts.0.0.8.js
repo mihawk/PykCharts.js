@@ -1542,6 +1542,15 @@ configuration.fillChart = function (options,theme,config) {
                 return options.chart_color;
             } return options.chart_color[0];
         },
+        colorGroup : function (d) {
+            if(options.color_mode === "saturation") {
+                return options.saturation_color;
+            } else if(options.color_mode === "color") {
+                return d.color;
+            } else if(options.color_mode === "color"){
+                return options.chart_color[0];
+            }
+        },
         colorLegends : function (d) {
             if(options.color_mode === "saturation") {
                 return options.saturation_color;
@@ -5889,6 +5898,7 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     chartObject.pointer_size = "pointer_size" in options ? options.pointer_size : stylesheet.pointer_size;
     chartObject.pointer_color = options.pointer_color ? options.pointer_color : stylesheet.pointer_color;
     chartObject.pointer_family = options.pointer_family ? options.pointer_family : stylesheet.pointer_family;
+    chartObject.pointer_weight = options.pointer_weight ? options.pointer_weight : stylesheet.pointer_weight;
     chartObject.pointer_weight = (chartObject.pointer_weight === "thick") ? "bold" : "normal";
     chartObject.zoom_enable = options.zoom_enable ? options.zoom_enable : multiDimensionalCharts.zoom_enable;
     chartObject.zoom_level = options.zoom_level ? options.zoom_level : multiDimensionalCharts.zoom_level;
@@ -6691,6 +6701,7 @@ PykCharts.multiD.lineChart = function (options){
 									if(d.highlight) {
 										return "bold";
 									} else {
+										console.log(that.pointer_weight);
 										return that.pointer_weight;
 									}
 								})
@@ -7594,7 +7605,8 @@ PykCharts.multiD.barChart = function(options){
                 .createGroups()
                 .createChart()
                 .axisContainer()
-               .ticks();
+                .ticks()
+                .highlightRect();
                           
         } else if(that.mode === "infographics") {
             that.k.export(that,"#svgcontainer","barChart")
@@ -7829,7 +7841,8 @@ PykCharts.multiD.barChart = function(options){
                     that.y_factor = that.yScale.rangeBand()/4;
                     that.height_factor = (that.yScale.rangeBand()/(2*that.no_of_groups));
                 };
-
+                that.highlight_y_positions = [];
+                that.highlight_x_positions = [];
 
                 that.bars = that.group.selectAll(".bars")
                     .data(that.layers);
@@ -7849,7 +7862,11 @@ PykCharts.multiD.barChart = function(options){
 
                 rect.attr("width", 0).attr("x", 0)
                     .attr("fill", function(d,i){
-                        return that.fillColor.colorPieMS(d);
+                        if(that.no_of_groups === 1) {
+                            return that.fillColor.colorPieMS(d);
+                        } else {
+                            return that.fillColor.colorGroup(d);
+                        }
                     })
                     .attr("fill-opacity", function (d,i) {
                         if (that.color_mode === "saturation"){
@@ -7898,12 +7915,18 @@ PykCharts.multiD.barChart = function(options){
                         return that.xScale(d.x0);
                     })
                     .attr("width", function(d){
+                        if(that.highlight.toLowerCase() === d.name.toLowerCase()) {
+                            that.highlight_x_positions.push(that.xScale(d.x));
+                        }
                         return that.xScale(d.x);
                     })
                     .attr("height", function(d){
                         return that.yScale.rangeBand()+that.height_factor;
                     })
                     .attr("y", function(d){
+                        if(that.highlight.toLowerCase() === d.name.toLowerCase()) {
+                            that.highlight_y_positions.push(that.yScale(d.y)-that.y_factor);
+                        }
                         return that.yScale(d.y)-that.y_factor;
                     });
 
@@ -7963,7 +7986,6 @@ PykCharts.multiD.barChart = function(options){
                 } else if(that.axis_y_pointer_position === "left") {
                     yAxis_label.attr("text-anchor","end");
                 }
-
                 yAxis_label.exit().remove();
                 return this;
             },
@@ -8023,6 +8045,33 @@ PykCharts.multiD.barChart = function(options){
                         });
 
                     tick_label.exit().remove();
+                }
+                return this;
+            },
+            highlightRect : function () {
+                if(that.no_of_groups > 1) {
+                    function ascending( a, b ) {
+                        return a - b;
+                    }
+                    that.highlight_x_positions.sort(ascending)
+                    that.highlight_y_positions.sort(ascending);
+                    var x_len = that.highlight_x_positions.length,
+                        y_len = that.highlight_y_positions.length,
+                        x = -5,
+                        y = (that.highlight_y_positions[0] - 5),
+                        width = (that.highlight_x_positions[x_len - 1] + 15 + that.txt_width),
+                        height = (that.highlight_y_positions[y_len - 1] - that.highlight_y_positions[0] + 10 + that.yScale.rangeBand()+that.height_factor);
+                    that.group.append("rect")
+                        .attr("class","highlight-rect")
+                        .attr("x", x)
+                        .attr("y", y)
+                        .attr("width", width)
+                        .attr("height", height)
+                        .attr("fill","none")
+                        .attr("stroke", "black")
+                        .attr("stroke-width", "1")
+                        .attr("stroke-dasharray", "5,5")
+                        .attr("stroke-opacity",1);
                 }
                 return this;
             },

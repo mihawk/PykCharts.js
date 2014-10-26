@@ -770,6 +770,7 @@ PykCharts.multiD.lineChart = function (options){
 									if(d.highlight) {
 										return "bold";
 									} else {
+										console.log(that.pointer_weight);
 										return that.pointer_weight;
 									}
 								})
