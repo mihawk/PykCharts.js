@@ -13,7 +13,7 @@ PykCharts.maps.oneLayer = function (options) {
                 .loading(that.loading)
                 .tooltip();
 
-            d3.json("https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/maps/" + that.map_code + "-topo.json", function (data) {
+            d3.json("../data/maps/" + that.map_code + "-topo.json", function (data) {
                 that.map_data = data;
                 d3.json("../data/maps/colorPalette.json", function (data) {
                     that.color_palette_data = data;
@@ -50,9 +50,8 @@ PykCharts.maps.timelineMap = function (options) {
                 .loading(that.loading)
                 .tooltip(that.tooltip_enable);
 
-            d3.json("https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/maps/" + that.map_code + "-topo.json", function (data) {
+            d3.json("../data/maps/" + that.map_code + "-topo.json", function (data) {
                 that.map_data = data;
-                // console.log(that.map_data,"map data");
                 d3.json("../data/maps/colorPalette.json", function (data) {
                     that.color_palette_data = data;
 
@@ -200,8 +199,6 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     .attr("height", that.height)
                     .attr("id","svgcontainer")
                     .attr("class",'PykCharts-map')
-                    .attr("style", "border:1px solid lightgrey")
-                    .style("border-radius", "5px")
                     .attr("preserveAspectRatio", "xMinYMin")
                     .attr("viewBox", "0 0 " + that.width + " " + that.height);
 

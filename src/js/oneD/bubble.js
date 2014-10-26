@@ -45,9 +45,9 @@ PykCharts.oneD.bubble = function (options) {
         if (that.mode ==="default") {
             
             that.k.title()
-                .subtitle()
                 .export(that,"#svgcontainer","bubble")
-                .emptyDiv();
+                .emptyDiv()
+                .subtitle();
 
             that.new_data = that.optionalFeatures().clubData();
             that.optionalFeatures().svgContainer()
@@ -129,7 +129,7 @@ PykCharts.oneD.bubble = function (options) {
                         return d.children ? that.background_color : that.fillChart.selectColor(d);
                     })
                     .on("mouseover", function (d) {
-                        if(!d.children) {
+                        if(!d.children && that.mode==="default") {
                             that.onHoverEffect.highlight(options.selector+" "+".bubble", this);
                             d.tooltip = d.tooltip ||"<table><thead><th colspan='2' class='tooltip-heading'>"+d.name+"</th></thead><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.weight)+"  <td class='tooltip-right-content'>(&nbsp;"+((d.weight*100)/that.sum).toFixed(2)+"%&nbsp;)</tr></table>";
                             that.mouseEvent.tooltipPosition(d);
@@ -137,12 +137,14 @@ PykCharts.oneD.bubble = function (options) {
                         }
                     })
                     .on("mouseout", function (d) {
-                        that.mouseEvent.tooltipHide(d)
-                        that.onHoverEffect.highlightHide(options.selector+" "+".bubble");
+                        if(that.mode==="default") {
+                            that.mouseEvent.tooltipHide(d)
+                            that.onHoverEffect.highlightHide(options.selector+" "+".bubble");
+                        }
 
                     })
                     .on("mousemove", function (d) {
-                        if(!d.children) {
+                        if(!d.children && that.mode==="default") {
                             that.mouseEvent.tooltipPosition(d);
                         }
                     })

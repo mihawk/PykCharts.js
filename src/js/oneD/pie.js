@@ -169,9 +169,9 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
         if(that.mode.toLowerCase() == "default") {
 
             that.k.title()
-                .subtitle()
                 .export(that,"#container",type)
-                .emptyDiv();
+                .emptyDiv()
+                .subtitle();
 
             that.optionalFeatures().svgContainer();
             that.new_data = that.optionalFeatures().clubData();
@@ -195,7 +195,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
         } else if(that.mode.toLowerCase() == "infographics") {
             that.new_data = that.data;
             that.k.export(that,"#container",type)
-            that.k.emptyDiv();
+                    .emptyDiv();
             that.optionalFeatures().svgContainer()
                     .set_start_end_angle()
                     .createChart()
@@ -283,17 +283,23 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                             return that.fillChart.selectColor(d.data);
                     })
                     .on('mouseover',function (d) {
-                        d.data.tooltip = d.data.tooltip || "<table class='PykCharts'><tr><th colspan='3' class='tooltip-heading'>"+d.data.name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.data.weight)+"<td class='tooltip-right-content'>( "+((d.data.weight*100)/that.sum).toFixed(2)+"% ) </tr></table>";
-                        that.onHoverEffect.highlight(options.selector +" "+".pie", this);
-                        that.mouseEvent.tooltipPosition(d);
-                        that.mouseEvent.toolTextShow(d.data.tooltip);
+                        if(that.mode === "default") {
+                            d.data.tooltip = d.data.tooltip || "<table class='PykCharts'><tr><th colspan='3' class='tooltip-heading'>"+d.data.name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.data.weight)+"<td class='tooltip-right-content'>( "+((d.data.weight*100)/that.sum).toFixed(2)+"% ) </tr></table>";
+                            that.onHoverEffect.highlight(options.selector +" "+".pie", this);
+                            that.mouseEvent.tooltipPosition(d);
+                            that.mouseEvent.toolTextShow(d.data.tooltip);
+                        }
                     })
                     .on('mouseout',function (d) {
-                        that.onHoverEffect.highlightHide(options.selector +" "+".pie");
-                        that.mouseEvent.tooltipHide(d);
+                        if(that.mode === "default") {
+                            that.onHoverEffect.highlightHide(options.selector +" "+".pie");
+                            that.mouseEvent.tooltipHide(d);
+                        }
                     })
                     .on('mousemove', function (d) {
-                        that.mouseEvent.tooltipPosition(d);
+                        if(that.mode === "default") {
+                            that.mouseEvent.tooltipPosition(d);
+                        }
                     })
                     .attr("stroke",that.border.color())
                     .attr("stroke-width",that.border.width())
@@ -660,7 +666,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
 
                     // displaySum.exit().remove();
 
-
+                    var h;
                     var label = that.group.selectAll(options.selector +" "+".centerLabel")
                                     .data([that.sum]);
 
@@ -669,25 +675,31 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
 
                     label.attr("class","centerLabel")
                         .text("")
-                        .transition()
-                        .delay( function(d) {
-                            if(PykCharts.boolean(that.transitions.duration())) {
-                                return that.transitions.duration();
-                            }
-                        })
-                        .text( function(d) {
-                            return that.k.appendUnits(that.sum);
-                        })
-                        .attr("pointer-events","none")
-                        .attr("text-anchor","middle")
-                        .attr("y",function () {
-                            return (type == "donut") ? (0.2*that.inner_radius) : (-0.25*that.inner_radius);
-                        })
-                        .attr("font-size",function () {
-                            return (type == "donut") ? 0.4*that.inner_radius : 0.2*that.inner_radius;
-                        })
-                        .style("font-family","'Helvetica Neue',Helvetica,Arial,sans-serif")
-                        .attr("fill","#484848");
+                        // .transition()
+                        // .delay( function(d) {
+                        //     if(PykCharts.boolean(that.transitions.duration())) {
+                        //         return that.transitions.duration();
+                        //     }
+                        // })
+                    setTimeout(function () {
+                        label.text( function(d) {
+                                return that.k.appendUnits(that.sum);
+                            })
+                            .text( function(d) {
+                                h = this.getBBox().height;
+                                return that.k.appendUnits(that.sum);
+                            })
+                            .attr("pointer-events","none")
+                            .attr("text-anchor","middle")
+                            .attr("y",function () {
+                                return (type == "donut") ? h/2 : (-0.25*that.inner_radius);
+                            })
+                            .attr("font-size",function () {
+                                return (type == "donut") ? 0.32*that.inner_radius : 0.2*that.inner_radius;
+                            })
+                            .style("font-family","'Helvetica Neue',Helvetica,Arial,sans-serif")
+                            .attr("fill","#484848");
+                    },that.transitions.duration());
 
                     label.exit().remove();
                 }
