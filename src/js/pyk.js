@@ -931,12 +931,12 @@ PykCharts.Configuration = function (options){
         },
         export : function(chart,svgId,chart_name,multiple_containers_enable,containers) {
             if(PykCharts.boolean(options.export_enable)) {
-               
+
                 $(chart.selector).css({"background-color":options.background_color,"position":"relative"});
 
                 var bg;
                 bgColor(options.selector);
-                   
+
                 function bgColor(child) {
                     bg = $(child).css("background-color");
                     // console.log(bg,"oh bggg");
@@ -950,9 +950,9 @@ PykCharts.Configuration = function (options){
                     } else {
                         // console.log("bg",bg);
                         $(child).colourBrightness(bg);
-                    }     
+                    }
                 }
-               
+
                 // console.log(bg,"bgggggggg");
                 // $(chart.selector).colourBrightness(bg);
                 // console.log("heyy");
@@ -1761,7 +1761,7 @@ configuration.Theme = function(){
         "export_image_url":"",
 
         "loading_gif_url": "https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/img/loader.gif",
-        "fullscreen_enable": "no",
+        // "fullscreen_enable": "no",
         "tooltip_enable": "yes",
         "credit_my_site_name": "Pykih",
         "credit_my_site_url": "http://www.pykih.com"
