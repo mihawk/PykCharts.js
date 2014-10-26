@@ -1073,6 +1073,10 @@ PykCharts.Configuration = function (options){
                 }
             }
             return this;
+        },
+        errorHandling: function(error_msg,error_code) {
+            console.log();
+            return this;
         }
     };
     return configuration;
