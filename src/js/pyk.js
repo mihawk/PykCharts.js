@@ -930,23 +930,31 @@ PykCharts.Configuration = function (options){
         },
         export : function(chart,svgId,chart_name,multiple_containers_enable,containers) {
             if(PykCharts.boolean(options.export_enable)) {
+               
+                $(chart.selector).css({"background-color":options.background_color,"position":"relative"});
 
-                var bg,svgIds = [];
-                $(chart.selector).css({"background-color":chart.background_color,"position":"relative"});
-               if (PykCharts.boolean(options.background_color) && $(options.selector).css("background-color")!= "rgba(0, 0, 0, 0)") {
-                    bg = options.background_color;
-               }
-               else {
-                    bgColor(options.selector);
+                var bg;
+                bgColor(options.selector);
+                   
+                function bgColor(child) {
+                    bg = $(child).css("background-color");
+                    console.log(bg,"oh bggg");
+                    if (bg === "transparent" || bg === "rgba(0, 0, 0, 0)") {
+                        if (document.getElementsByTagName("body")!== undefined ){
+                            console.log("is it going");
+                            $(child).colourBrightness("rgb(255,255,255)");
+                        } else {
+                            return bgColor(child.parent());
+                        }
+                    } else {
+                        console.log("bg",bg);
+                        $(child).colourBrightness(bg);
+                    }     
                 }
-
-               function bgColor (child) {
-                 if (document.getElementsByTagName("body").parentNode !== undefined) {
-                    bg = $(child).parent().css("background-color");
-                } else {
-                    bg = "white";
-                }
-            }
+               
+                // console.log(bg,"bgggggggg");
+                // $(chart.selector).colourBrightness(bg);
+                console.log("heyy");
 
                 d3.select(options.selector)
                         .append("div")
@@ -1767,7 +1775,7 @@ configuration.Theme = function(){
 
     that.oneDimensionalCharts = {
         "clubdata_enable": "yes",
-        "clubdata_text": "others",
+        "clubdata_text": "Others",
         "clubdata_maximum_nodes": 5,
 
         "pie_radius_percent": 70,
@@ -1822,7 +1830,7 @@ configuration.Theme = function(){
         "axis_x_data_format": "string",
 
         "axis_y_enable": "yes",
-        "axis_y_title" : "Y axis",
+        // "axis_y_title" : "Y axis",
         "axis_y_position": "left",
         "axis_y_pointer_position": "left",
         "axis_y_line_color": "#1D1D1D",

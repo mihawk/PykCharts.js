@@ -79,8 +79,9 @@ PykCharts.multiD.lineChart = function (options){
 		that.fillColor = new PykCharts.Configuration.fillChart(that,null,options);
 		that.transitions = new PykCharts.Configuration.transition(options);
 		if(that.mode === "default") {
-			that.k.title();	
-				
+
+			that.k.title();
+					
 			if(PykCharts.boolean(that.multiple_containers_enable)) {
 
 				that.k.export(that,"svg-","lineChart",that.multiple_containers_enable,that.new_data)

@@ -585,7 +585,7 @@ PykCharts.multiD.barChart = function(options){
                     k = params.length;
 
                     if(that.legends_display === "vertical" ) {
-                        that.legendsContainer.attr("height", (params.length * 30)+20);
+                        // that.legendsContainer.attr("height", (params.length * 30)+20);
                         that.legendsGroup_height = (params.length * 30)+20;
                         text_parameter1 = "x";
                         text_parameter2 = "y";
