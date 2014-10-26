@@ -737,7 +737,7 @@ PykCharts.Configuration = function (options){
             var mouseEvent = new PykCharts.Configuration.mouseEvent(options),
                 a = $(options.selector + " g.x.axis text"),
                 len = a.length, comp, flag, largest = 0, smallest = a[0].getBBox().width;
-            
+
             _.each(a, function (d) {
                 largest = (d.getBBox().width > largest) ? d.getBBox().width : largest;
                 smallest = (d.getBBox().width < smallest) ? d.getBBox().width : smallest;
@@ -1723,7 +1723,7 @@ configuration.Theme = function(){
         "saturation_color": "#255AEE",
 
         "border_between_chart_elements_thickness": 1,
-        "border_between_chart_elements_color": "white",
+        "border_between_chart_elements_color": "#666666",
         "border_between_chart_elements_style": "solid",
 
         "legends_text_size": 13,
