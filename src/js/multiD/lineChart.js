@@ -181,7 +181,6 @@ PykCharts.multiD.lineChart = function (options){
 				that.reducedHeight = that.height - that.margin_top - that.margin_bottom;
 				that.fill_data = [];
 				for(i=0;i<that.new_data_length;i++) {
-					console.log(i);
 					that.new_data1 = that.new_data[i];
 					that.fill_data[0] = that.new_data1;
 					that.k.makeMainDiv(that.selector,i)
@@ -773,7 +772,6 @@ PykCharts.multiD.lineChart = function (options){
 									if(d.highlight) {
 										return "bold";
 									} else {
-										console.log(that.pointer_weight);
 										return that.pointer_weight;
 									}
 								})
@@ -795,7 +793,6 @@ PykCharts.multiD.lineChart = function (options){
 		return optional;
 	};
 	this.zoomed = function() {
-		console.log("Isha>>>>>",options.multiple_containers_enable,options.selector);
 		if(!PykCharts.boolean(that.multiple_containers_enable)) {
 			that.k.isOrdinal(that.svgContainer,".x.axis",that.xScale,that.xdomain,that.extra_left_margin);
 		    that.k.isOrdinal(that.svgContainer,".x.grid",that.xScale);

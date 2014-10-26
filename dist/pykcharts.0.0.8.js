@@ -1081,6 +1081,10 @@ PykCharts.Configuration = function (options){
                 }
             }
             return this;
+        },
+        errorHandling: function(error_msg,error_code) {
+            console.log();
+            return this;
         }
     };
     return configuration;
@@ -1927,7 +1931,6 @@ configuration.Theme = function(){
     };
     return that;
 }
-
 PykCharts.oneD = {};
 
 // PykCharts.oneD.fillChart = function (options) {
@@ -6701,7 +6704,10 @@ PykCharts.multiD.lineChart = function (options){
 									if(d.highlight) {
 										return "bold";
 									} else {
+<<<<<<< HEAD
+=======
 										console.log(that.pointer_weight);
+>>>>>>> 4b0376f488b2ca38ba41aff2b55eead33f0fe5b1
 										return that.pointer_weight;
 									}
 								})

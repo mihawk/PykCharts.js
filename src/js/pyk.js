@@ -469,7 +469,6 @@ PykCharts.Configuration = function (options){
                     return d.annotation;
                 })
                 .text(function (d,i) {
-                    console.log(d.annotation , this.getBBox().width + 20);
                     w[i] = this.getBBox().width + 20;
                     h[i] = this.getBBox().height + 10;
                     return d.annotation;
@@ -930,11 +929,11 @@ PykCharts.Configuration = function (options){
             }
         },
         backgroundColor: function (chart) {
-             $(options.selector).css({"background-color":options.background_color,"position":"relative"});
+             $(options.selector).css({"background-color":options.background_color,"position":"relative"})
 
                 var bg;
                 bgColor(options.selector);
-                   
+
                 function bgColor(child) {
                     bg = $(child).css("background-color");
                     console.log("what is bg", bg);
@@ -950,7 +949,7 @@ PykCharts.Configuration = function (options){
                     } else {
                         console.log("bg",bg);
                         $(child).colourBrightness(bg);
-                    }     
+                    }
                 }
             return this;
         },
@@ -1081,6 +1080,10 @@ PykCharts.Configuration = function (options){
                     }
                 }
             }
+            return this;
+        },
+        errorHandling: function(error_msg,error_code) {
+            console.log();
             return this;
         }
     };
@@ -1737,7 +1740,7 @@ configuration.Theme = function(){
         "saturation_color": "#255AEE",
 
         "border_between_chart_elements_thickness": 1,
-        "border_between_chart_elements_color": "#666666",
+        "border_between_chart_elements_color": "white",
         "border_between_chart_elements_style": "solid",
 
         "legends_text_size": 13,
@@ -1761,7 +1764,7 @@ configuration.Theme = function(){
         "export_image_url":"",
 
         "loading_gif_url": "https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/img/loader.gif",
-        "fullscreen_enable": "no",
+        // "fullscreen_enable": "no",
         "tooltip_enable": "yes",
         "credit_my_site_name": "Pykih",
         "credit_my_site_url": "http://www.pykih.com"
