@@ -45,6 +45,7 @@ PykCharts.oneD.bubble = function (options) {
         if (that.mode ==="default") {
             
             that.k.title()
+                .backgroundColor(that)
                 .export(that,"#svgcontainer","bubble")
                 .emptyDiv()
                 .subtitle();
@@ -62,7 +63,8 @@ PykCharts.oneD.bubble = function (options) {
                 .tooltip();
         }
         else if (that.mode ==="infographics") {
-            that.k.export(that,"#svgcontainer","bubble")
+            that.k.backgroundColor(that)
+                .export(that,"#svgcontainer","bubble")
                 .emptyDiv();
 
             that.new_data = {"children" : that.data};

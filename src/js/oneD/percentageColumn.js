@@ -57,13 +57,15 @@ PykCharts.oneD.percentageColumn = function (options) {
 
         if(that.mode === "default") {
             that.k.title()
+                    .backgroundColor(that)
                     .export(that,"#svgcontainer","percentageColumn")
                     .emptyDiv()
                     .subtitle();
                 // [that.fullscreen]().fullScreen(that);
         }
         if(that.mode === "infographics") {
-            that.k.export(that,"#svgcontainer","percentageColumn")
+            that.k.backgroundColor(that)
+                .export(that,"#svgcontainer","percentageColumn")
                     .emptyDiv();
 
             that.new_data = that.data;
