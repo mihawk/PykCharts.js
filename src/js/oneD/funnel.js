@@ -218,7 +218,7 @@ PykCharts.oneD.funnel = function (options) {
 
         var optional = {
             svgContainer :function () {
-                $(options.selector).css("background-color",that.background_color);
+                // $(options.selector).css("background-color",that.background_color);
 
                 that.svgContainer = d3.select(options.selector)
                     .append('svg')

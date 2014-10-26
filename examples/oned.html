@@ -5,6 +5,9 @@
         <link rel="stylesheet" type="text/css" href="../lib/bootstrap.min.css">
         <script src="../lib/paper-full.js"></script>
         <script src="../lib/downloadDataURI.js"></script>
+        
+
+
 	</head>
 	<body>
       <div id="bubble"></div>
@@ -38,7 +41,7 @@
 		    window.PykChartsInit = function (e) {
             var k = new PykCharts.oneD.bubble({
                 selector: "#bubble",
-                data:"../data/pie.json",
+                data:"../data/screenshot.json",
                 transition_duration: 1,
                 clubdata_enable: "yes",
                 // clubData_always_include_data_points : ["18-24","25-44"],
@@ -46,8 +49,8 @@
                 background_color: "white",
                 chart_width: 300,
                 chart_height: 300,
- title_text:"Air Pollution in New York </br>(23/12/2013 - 29/12/2013)",
-                    subtitle_text:"Air Pollution in New York",
+                title_text:"Air Pollution in New York </br>(23/12/2013 - 29/12/2013)",
+                subtitle_text:"Air Pollution in New York",
             });
             k.execute();
 
@@ -62,11 +65,12 @@
             var k = new PykCharts.oneD.pictograph({
                 selector: "#pictograph",
                 data:"../data/pictograph.json",
-                chart_width : 500,
+                chart_width : 300,
+                chart_height: 300,
+                background_color: "white",
                 transition_duration: 1,
                 pictograph_total_count_weight: "thin",
                 title_text: "PykCharts"
-
             });
             k.execute();
 
@@ -74,6 +78,9 @@
                 selector: "#pyramid",
                 data:"../data/pie.json",
                 transition_duration: 1,
+                background_color: "white",
+                mode:"infographics",
+
                 pointer_overflow_enable: "no",
             });
             k.execute();
@@ -81,7 +88,10 @@
             var k = new PykCharts.oneD.treemap({
                 selector: "#treemap",
                 data: "../data/pie.json",
-                transition_duration: 0
+                transition_duration: 0,
+                background_color: "white",
+                mode:"infographics",
+
             });
             k.execute();
 
@@ -95,25 +105,33 @@
             var k = new PykCharts.oneD.election_pie({
                 selector: "#electionPieContainer",
                 data: "../data/pie.json",
-                transition_duration: 4
+                transition_duration: 4,
+                background_color: "white",
             });
             k.execute();
 
             var k = new PykCharts.oneD.election_donut({
                 selector: "#electionDonutContainer",
                 data: "../data/pie.json",
+                background_color: "white",
                 transition_duration: 4
             });
             k.execute();
 
             var k = new PykCharts.oneD.pie({
+                chart_width: 400,
+                chart_height:400,
+                background_color: "white",
                 selector: "#pieContainer",
-                data: "../data/pie.json",
-                transition_duration: 4
+                data: "../data/screenshot.json",
+                "pie_radius_percent": 80,
+                // transition_duration: 4
             });
             k.execute();
 
             var k = new PykCharts.oneD.percentageColumn({
+                chart_width: 600,
+                chart_height: 300,
                 selector: "#percentageColumn",
                 data:"../data/pie.json",
                 transition_duration: 1
@@ -122,7 +140,8 @@
 
             var k = new PykCharts.oneD.percentageBar({
                 selector: "#percentageBar",
-                data:"../data/pie.json",
+                data:"../data/screenshot.json",
+                background_color: "white",
                 transition_duration: 1,
                 // "chart_height": 200,
                 chart_width: 600,
@@ -132,13 +151,14 @@
 
             var k = new PykCharts.oneD.pie({
                 selector: "#pie2Container",
+                background_color: "white",
                 data: "../data/pie2.json",
                 transition_duration: 1
             });
             k.execute();
 		    }
 		</script>
-
     <script src="../dist/pykcharts.0.0.8.js"></script>
+
 	</body>
 </html>

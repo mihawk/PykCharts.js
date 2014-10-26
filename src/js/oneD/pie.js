@@ -217,7 +217,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
     that.optionalFeatures = function () {
         var optional = {
             svgContainer :function () {
-                $(options.selector).css("background-color",that.background_color);
+                // $(options.selector).css("background-color",that.background_color);
 
                 that.svgContainer = d3.select(that.selector)
                     .append('svg')

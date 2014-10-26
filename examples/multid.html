@@ -39,15 +39,7 @@
         <script src="../lib/paper-full.js"></script>
         <script src="../lib/downloadDataURI.js"></script>
         <script src="../lib/jquery.colourbrightness.js"></script>
-<!--        <script src="../lib/FileSaver.js"></script>
-        <script src="../lib/jspdf.js"></script>
-        <script src="../lib/rgbcolor.js"></script>
-        <script src="../lib/Blob.js"></script>
-        <script src="../lib/StackBlur.js"></script>
-        <script src="../lib/jspdf.plugin.addimage.js"></script>
-        <script src="../lib/canvg.js"></script>
-        <script src="../lib/svgToPdf.js"></script>
--->
+
         <script src="../src/js/init.js"></script>
         <script src="../src/js/pyk.js"></script>
         <script src="../src/js/multiD/multiD.js"></script>
@@ -59,24 +51,24 @@
         <script src="../src/js/multiD/barChart.js"></script>
 
         <script>
+         
             // $(document).ready(function (e) {
             window.PykChartsInit = function (e) {
                 var k = new PykCharts.multiD.lineChart ({
                     selector: "#line",
-                    data: "../data/lineChart.json",
+                    data: "../data/line_timescale.json",
                     mode : "default",
 
                     color_mode: "color",  //color or saturation
                     chart_color:["steelblue"],
                     title_text:"Air Pollution in New York </br>(23/12/2013 - 29/12/2013)",
-                    subtitle_text:"Air Pollution in New York",
                     title_family:"sans-serif",
                     chart_height: 400,
-                    chart_width : 330,
+                    chart_width : 630,
                     chart_margin_top: 35,
                     chart_margin_right: 40,
                     chart_margin_bottom: 40,
-                    chart_margin_left:45 ,
+                    chart_margin_left:50 ,
                     chart_grid_x_enable: "no",
                     chart_grid_y_enable: "yes",
 
@@ -84,22 +76,21 @@
                     real_time_charts_refresh_frequency: 0,
                     background_color: "white",
                     axis_onhover_hightlight_enable: "yes",
-
                     axis_x_enable: "yes",
-                    axis_x_title : "Air Pollution in New York",
+                    axis_x_title : "Month",
                     axis_x_position: "bottom",
                     axis_x_pointer_position: "bottom",
                     axis_x_line_color: "#1D1D1D",
-                    axis_x_label_color: "#1D1D1D",
-                    axis_x_pointer_size: 3,
+                    axis_x_label_color: "blue",
+                    axis_x_pointer_size: 8,
                     axis_x_pointer_padding: 3,
                     // axis_x_pointer_values: ["2014/01/01","2014/01/03"],
                     axis_x_outer_pointer_size: 3,
-                    axis_x_time_value_datatype:"date",
+                    axis_x_time_value_datatype:"month",
                     axis_x_time_value_interval: 1,
 
                     axis_y_enable: "yes",
-                    axis_y_title : "Air Quantity Index",
+                    // axis_y_title : "",
                     axis_y_position: "left",
                     axis_y_pointer_position: "left",
                     axis_y_line_color: "#1D1D1D",
@@ -109,9 +100,9 @@
                     // axis_y_pointer_values: [30,40,50],
                     axis_y_outer_pointer_size: 3,
                     line_curvy_lines:"no",
-                    tooltip_enable: "yes",
+                    tooltip_enable: "no",
                     tooltip_mode : "moving",
-                    crosshair_enable: "yes",
+                    crosshair_enable: "no",
                     zoom_enable: "yes"
 
                 });
@@ -164,7 +155,7 @@
                     axis_y_outer_pointer_size: 3,
 
                     line_curvy_lines:"yes",
-                    tooltip_mode : "moving",
+                    tooltip_mode : "fixed",
                     crosshair_enable: "yes",
                     zoom_enable: "yes"
 
@@ -214,7 +205,7 @@
 
                     chart_color: ["#07365e","#0e5ea1","#4682b4","#75b0e1","#a0ccf1"],
 
-                    background_color: "white",
+                    background_color: "transparent",
 
                     chart_height: 450,
                     chart_width : 700,
@@ -398,7 +389,7 @@
 
                 var k = new PykCharts.multiD.lineChart ({
                     selector: "#multiple-multiLine",
-                    data: "../data/multiLineChart.json",
+                    data: "../data/multipleContainerLine.json",
                     mode : "default",
 
                     color_mode: "saturation",  //color or saturation
@@ -440,7 +431,7 @@
                     axis_y_outer_pointer_size: 3,
 
                     line_curvy_lines:"yes",
-                    tooltip_mode : "moving",
+                    tooltip_mode : "fixed",
                     tooltip_enable : "yes",
                     crosshair_enable: "yes",
                     zoom_enable: "yes",
@@ -682,7 +673,7 @@
                     border_between_chart_elements_style: "solid",
                    // saturation_enable: "yes",
 
-                   highlight:"January",
+                   highlight:"april",
                 });
 
               k.execute();
@@ -727,7 +718,6 @@
                     axis_y_pointer_padding: 10,
                     axis_y_outer_pointer_size: 3,
 
-                    background_color: "white",
                     highlight_color: "#013F73",
 
                     legends_enable: "no",
@@ -821,10 +811,12 @@
                     pointer_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
                     saturation_enable: "no",
 
-                    highlight: "January"
+                    highlight: "april"
                   });
+
               k.execute();
             };
+
         </script>
     </body>
 </html>

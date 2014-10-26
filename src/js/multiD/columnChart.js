@@ -96,7 +96,8 @@ PykCharts.multiD.columnChart = function(options){
                 .legends()
                 .createGroups(1)
                 .createChart()
-                .axisContainer();
+                .axisContainer()
+                .highlightRect();
 
             that.k.yAxis(that.svgContainer,that.yGroup,that.yScaleInvert)
                  .yAxisTitle(that.yGroup)
@@ -259,7 +260,8 @@ PykCharts.multiD.columnChart = function(options){
                         return e.id || i; // Keep the ID for bars and numbers for integers
                     }))
                     .rangeBands([0,w],0.1);
-
+                that.highlight_y_positions = [];
+                that.highlight_x_positions = [];
                 y_domain = [0,d3.max(y_data)]
                 y_domain = that.k._domainBandwidth(y_domain,1);
                 that.yScale = d3.scale.linear().domain(y_domain).range([0, h]);
@@ -302,8 +304,11 @@ PykCharts.multiD.columnChart = function(options){
 
                 rect.attr("height", 0).attr("y", h)
                     .attr("fill", function(d){
-                        // console.log(d.highlight);
-                        return that.fillColor.colorPieMS(d);
+                        if(that.no_of_groups === 1) {
+                            return that.fillColor.colorPieMS(d);
+                        } else {
+                            return that.fillColor.colorGroup(d);
+                        }
                     })
                     .attr("fill-opacity", function (d,i) {
                         if (that.color_mode === "saturation") {
@@ -345,16 +350,22 @@ PykCharts.multiD.columnChart = function(options){
                 rect
                     // .transition()
                     // .duration(that.transitions.duration())
-                    .attr("x", function(d){
-                        return that.xScale(d.x)-x_factor;
+                    .attr("x", function(d) {
+                        if(that.highlight.toLowerCase() === d.name.toLowerCase()) {
+                            that.highlight_x_positions.push(that.xScale(d.x) - x_factor);
+                        }
+                        return that.xScale(d.x) - x_factor;
                     })
-                    .attr("width", function(d){
+                    .attr("width", function(d) {
                         return that.xScale.rangeBand()+width_factor;
                     })
                     .attr("height", function(d){
                         return that.yScale(d.y);
                     })
                     .attr("y", function(d){
+                        if(that.highlight.toLowerCase() === d.name.toLowerCase()) {
+                            that.highlight_y_positions.push(that.yScale(d.y0+d.y));
+                        }
                         return h - that.yScale(d.y0 + d.y);
                     });
 
@@ -415,6 +426,39 @@ PykCharts.multiD.columnChart = function(options){
                             return h+15;
                         });
                     }
+                }
+                return this;
+            },
+            highlightRect : function () {
+                if(that.no_of_groups > 1) {
+                    function ascending( a, b ) {
+                        return a - b;
+                    }
+                    that.highlight_x_positions.sort(ascending)
+                    that.highlight_y_positions.sort(ascending);
+
+                    var x_len = that.highlight_x_positions.length,
+                        y_len = that.highlight_y_positions.length,
+                        x = that.highlight_x_positions[0] - 5,
+                        y = (that.height - that.margin_bottom - that.margin_top - that.legendsGroup_height - that.highlight_y_positions[y_len - 1] - 5),
+                        height = (that.highlight_y_positions[y_len - 1] + 10),
+                        height;
+                    if(PykCharts.boolean(that.highlight_y_positions[0])){
+                        width = (that.highlight_x_positions[x_len - 1] - that.highlight_x_positions[0] + 10 + that.xScale.rangeBand());
+                    } else {
+                        width = (that.highlight_x_positions[x_len - 1] - that.highlight_x_positions[0] + 10);
+                    }
+                    that.group.append("rect")
+                        .attr("class","highlight-rect")
+                        .attr("x", x)
+                        .attr("y", y)
+                        .attr("width", width)
+                        .attr("height", height)
+                        .attr("fill","none")
+                        .attr("stroke", that.highlight_color)
+                        .attr("stroke-width", "1")
+                        .attr("stroke-dasharray", "5,5")
+                        .attr("stroke-opacity",1);
                 }
                 return this;
             },
