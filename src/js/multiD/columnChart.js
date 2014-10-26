@@ -308,11 +308,7 @@ PykCharts.multiD.columnChart = function(options){
                     .attr("fill-opacity", function (d,i) {
                         if (that.color_mode === "saturation") {
                         // if(PykCharts.boolean(that.saturationEnable))     {
-                            if(that.highlight === d.name) {
-                                // console.log("gjagdhagd");
-                                j--;
-                                return 1;
-                            }
+                            
                             if(j>1) {
                                 j--;
                                 return j/that.no_of_groups;
@@ -589,7 +585,7 @@ PykCharts.multiD.columnChart = function(options){
                         "x": id,
                         "y": icing.val,
                         "group": that.keys[id],
-                        "color": that.chart_color[index_group] || icing.color || that.default_color,
+                        "color": icing.color,
                         "tooltip": icing.tooltip,
                         "name": bar.group
                         // "highlight": icing.highlight
@@ -671,13 +667,14 @@ PykCharts.multiD.columnChart = function(options){
         var data_tranform = [];
         that.barName = [];
         var data_length = that.data.length;
-        that.data.sort(function (a,b) {
-            return b.y - a.y;
-        });
         that.unique_group = that.data.map(function (d) {
             return d.group;
         });
         that.unique_group = _.uniq(that.unique_group);
+        that.data.sort(function (a,b) {
+            return b.y - a.y;
+        });
+        
         for(var i=0; i < data_length; i++) {
             var group = {},
                 bar = {},

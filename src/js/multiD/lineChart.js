@@ -311,7 +311,7 @@ PykCharts.multiD.lineChart = function (options){
 					.attr("height",that.height)
 					.attr("preserveAspectRatio", "xMinYMin")
                     .attr("viewBox", "0 0 " + that.w + " " + that.height);
-                console.log(that.svgContainer);
+                // console.log(that.svgContainer);
 				// var x = $(that.selector).colourBrightness(bg);
 
 				// console.log("after appending the class light/dark");
@@ -613,9 +613,7 @@ PykCharts.multiD.lineChart = function (options){
 								transition(i);
 						}
 					} else {  				// Multiple Containers -- "Yes"
-						console.log("hey",that.svgContainer);
 						type = that.type + that.svgContainer.attr("id");
-						console.log("hey");
 						that.dataLineGroup[0] = that.chartBody.append("path");
 
 						that.dataLineGroup[0]
@@ -628,8 +626,7 @@ PykCharts.multiD.lineChart = function (options){
 
 								})
 								//.attr("d",that.chart_path)
-						console.log("hey");
-
+						
 						function animation(i) {
 							that.dataLineGroup[0].transition()
 								    .duration(that.transitions.duration())
@@ -776,6 +773,7 @@ PykCharts.multiD.lineChart = function (options){
 		return optional;
 	};
 	this.zoomed = function() {
+		console.log("Isha>>>>>",options.multiple_containers_enable,options.selector);
 		if(!PykCharts.boolean(that.multiple_containers_enable)) {
 			that.k.isOrdinal(that.svgContainer,".x.axis",that.xScale,that.xdomain,that.extra_left_margin);
 		    that.k.isOrdinal(that.svgContainer,".x.grid",that.xScale);
