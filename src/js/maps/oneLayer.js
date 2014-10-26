@@ -346,7 +346,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                 if (obj.length > 0 && obj[0].color !== "") {
                     return obj[0].color;
                 }
-                return that.default_color;
+                return that.default_color[0];
             }
             if (that.color_mode === "saturation") {
                 // console.log(that.highlight,"selection highlight");
@@ -369,12 +369,12 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                         }
 
                     }
-                    return that.default_color;
+                    return that.default_color[0];
                 }
             }
-            return that.default_color;
+            return that.default_color[0];
         }
-        return that.default_color;
+        return that.default_color[0];
     };
 
     that.renderOpacity = function (d) {
@@ -456,7 +456,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     .attr("y", rect_parameter4value)
                     .attr("width", rect_parameter1value)
                     .attr("height", rect_parameter2value)
-                    .attr("fill", that.default_color)
+                    .attr("fill", that.default_color[0])
                     .attr("opacity", function(d,i) { return (i+1)/9; });
 
                 legend.exit()

@@ -27,8 +27,8 @@ PykCharts.maps.processInputs = function (chartObject, options) {
         , optional = options.optional;
 
     chartObject.selector = options.selector ? options.selector : stylesheet.selector;
-    chartObject.width = _.isNumber(parseInt(options.chart_width,10)) ? options.chart_width : mapsTheme.chart_width;
-    chartObject.height = _.isNumber(parseInt(options.chart_height,10)) ? options.chart_height : mapsTheme.chart_height;
+    chartObject.width = _.isNumber(parseInt(options.chart_width,10)) ? options.chart_width : stylesheet.chart_width;
+    chartObject.height = _.isNumber(parseInt(options.chart_height,10)) ? options.chart_height : stylesheet.chart_height;
     chartObject.map_code = options.map_code ? options.map_code : mapsTheme.map_code;
     chartObject.click_enable = options.click_enable ? options.click_enable : mapsTheme.click_enable;
     chartObject.background_color = options.background_color ? options.background_color : stylesheet.background_color;
@@ -46,7 +46,7 @@ PykCharts.maps.processInputs = function (chartObject, options) {
     chartObject.tooltipTopCorrection = d3.select(chartObject.selector).style("top");
     chartObject.tooltipLeftCorrection = d3.select(chartObject.selector).style("left");
 
-    chartObject.default_color = options.default_color ? options.default_color : mapsTheme.default_color;
+    chartObject.default_color = options.chart_color ? options.chart_color : stylesheet.chart_color;
     chartObject.total_no_of_colors = options.total_no_of_colors && _.isNumber(parseInt(options.total_no_of_colors,10))? parseInt(options.total_no_of_colors,10) : mapsTheme.total_no_of_colors;
     chartObject.color_mode = options.color_mode ? options.color_mode : mapsTheme.color_mode;
     chartObject.palette_color = options.palette_color ? options.palette_color : mapsTheme.palette_color;
@@ -64,8 +64,8 @@ PykCharts.maps.processInputs = function (chartObject, options) {
     chartObject.axis_x_outer_pointer_size = "axis_x_outer_pointer_size" in options && PykCharts.boolean(options.axis_x_enable) ? options.axis_x_outer_pointer_size : mapsTheme.axis_x_outer_pointer_size;
 
     chartObject.label_enable = options.label_enable ? options.label_enable : mapsTheme.label_enable;
-    chartObject.legends_enable = options.legends_enable ? options.legends_enable : mapsTheme.legends_enable;
-    chartObject.legends_display = options.legends_display ? options.legends_display : mapsTheme.legends_display;
+    chartObject.legends_enable = options.legends_enable ? options.legends_enable : stylesheet.legends_enable;
+    chartObject.legends_display = options.legends_display ? options.legends_display : stylesheet.legends_display;
 
     chartObject.border_between_chart_elements_thickness = "border_between_chart_elements_thickness" in options ? options.border_between_chart_elements_thickness : stylesheet.border_between_chart_elements_thickness;
     chartObject.border_between_chart_elements_color = options.border_between_chart_elements_color ? options.border_between_chart_elements_color : stylesheet.border_between_chart_elements_color;
@@ -82,8 +82,8 @@ PykCharts.maps.processInputs = function (chartObject, options) {
     chartObject.default_zoom_level = options.default_zoom_level ? options.default_zoom_level : 80;
     chartObject.loading = options.loading_gif_url ? options.loading_gif_url: stylesheet.loading_gif_url;
     chartObject.highlight_area_enable = options.highlight_area_enable ? options.highlight_area_enable : mapsTheme.highlight_area_enable;
-    chartObject.highlight = options.highlight ? options.highlight : mapsTheme.highlight;
-    chartObject.highlight_color = options.highlight_color ? options.highlight_color: mapsTheme.highlight_color;
+    chartObject.highlight = options.highlight ? options.highlight : stylesheet.highlight;
+    chartObject.highlight_color = options.highlight_color ? options.highlight_color: stylesheet.highlight_color;
     // chartObject.highlight_area_enable = "yes";    
     if (options &&  PykCharts.boolean (options.title_text)) {
         chartObject.title_text = options.title_text;

@@ -1739,6 +1739,8 @@ configuration.Theme = function(){
         "border_between_chart_elements_color": "white",
         "border_between_chart_elements_style": "solid",
 
+        "legends_enable": "yes",
+        "legends_display": "horizontal",
         "legends_text_size": 13,
         "legends_text_color": "white",
         "legends_text_weight": "thin",
@@ -1845,9 +1847,6 @@ configuration.Theme = function(){
         "axis_y_time_value_interval":"",
         "axis_y_data_format": "number",
 
-        "legends_enable": "yes",
-        "legends_display": "horizontal",
-
         "tooltip_enable" : "yes",
         "tooltip_mode": "fixed",
 
@@ -1878,14 +1877,9 @@ configuration.Theme = function(){
     };
 
     that.mapsTheme = {
-        "chart_width": 1000,
-        "chart_height": 1000,
-
         "color_mode": "saturation",
         "total_no_of_colors": 3,
         "palette_color": "Blue-1",
-        "background_color": "white",
-        "default_color" : "#4682B4",
 
         "tooltip_enable" : "yes",
         "tooltip_mode": "moving",
@@ -1902,17 +1896,13 @@ configuration.Theme = function(){
         "pause_image_url":"https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/pause.gif",
         "marker_image_url":"https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/marker.png",
 
-        "legends_enable": "yes",
-        "legends_display": "horizontal",
-
+        
         "label_enable": "no",
         "click_enable": "yes",
 
         "onhover": "shadow",
 
         "highlight_area_enable":"no",
-        "highlight": "",
-        "highlight_color": "yellow",
 
         "axis_onhover_hightlight_enable" : "no",
         "axis_x_enable": "yes",
