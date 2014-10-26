@@ -1737,7 +1737,7 @@ configuration.Theme = function(){
         "saturation_color": "#255AEE",
 
         "border_between_chart_elements_thickness": 1,
-        "border_between_chart_elements_color": "#666666",
+        "border_between_chart_elements_color": "white",
         "border_between_chart_elements_style": "solid",
 
         "legends_text_size": 13,
