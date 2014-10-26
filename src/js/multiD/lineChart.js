@@ -84,7 +84,8 @@ PykCharts.multiD.lineChart = function (options){
 					
 			if(PykCharts.boolean(that.multiple_containers_enable)) {
 
-				that.k.export(that,"svg-","lineChart",that.multiple_containers_enable,that.new_data)
+				that.k.backgroundColor(that)
+					.export(that,"svg-","lineChart",that.multiple_containers_enable,that.new_data)
 					.emptyDiv()
 					.subtitle();
 
@@ -125,7 +126,8 @@ PykCharts.multiD.lineChart = function (options){
 				that.k.emptyDiv();
 			} else {
 
-				that.k.export(that,"#svg-1","lineChart")
+				that.k.backgroundColor(that)
+					.export(that,"#svg-1","lineChart")
 					.emptyDiv()
 					.subtitle();
 
@@ -169,7 +171,8 @@ PykCharts.multiD.lineChart = function (options){
 		else if(that.mode === "infographics") {
 			if(PykCharts.boolean(that.multiple_containers_enable)) {
 
-				that.k.export(that,"svg-","lineChart",that.multiple_containers_enable,that.new_data)
+				that.k.backgroundColor(that)
+					.export(that,"svg-","lineChart",that.multiple_containers_enable,that.new_data)
 					.emptyDiv();
 
 				that.w = that.width/3;
