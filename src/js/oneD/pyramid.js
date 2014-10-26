@@ -47,7 +47,7 @@ PykCharts.oneD.pyramid = function (options) {
         if (that.mode === "default") {
             that.k.title()
                 .subtitle()
-                .export(that,"#container","pyramid")
+                .export(that,"#svgcontainer","pyramid")
                 .emptyDiv();
             that.new_data = that.optionalFeatures().clubData();
             that.optionalFeatures().svgContainer()
@@ -67,7 +67,7 @@ PykCharts.oneD.pyramid = function (options) {
 
         } else if (that.mode === "infographics") {
             that.new_data = that.data;
-            that.k.export(that,"#container","pyramid")
+            that.k.export(that,"#svgcontainer","pyramid")
                 .emptyDiv();
             that.optionalFeatures().svgContainer()
                 .createChart()
@@ -220,16 +220,22 @@ PykCharts.oneD.pyramid = function (options) {
                         return that.fillChart.selectColor(b);
                     })
         			.on("mouseover", function (d,i) {
-                        that.onHoverEffect.highlight(options.selector +" "+".pyr-path",this);
-                        that.mouseEvent.tooltipPosition(d);
-                        that.mouseEvent.toolTextShow(tooltipArray[i]);
+                        if(that.mode === "default") {
+                            that.onHoverEffect.highlight(options.selector +" "+".pyr-path",this);
+                            that.mouseEvent.tooltipPosition(d);
+                            that.mouseEvent.toolTextShow(tooltipArray[i]);
+                        }
         			})
         			.on("mouseout", function (d) {
-                        that.onHoverEffect.highlightHide(options.selector +" "+".pyr-path")
-            			that.mouseEvent.tooltipHide(d);
+                        if(that.mode === "default") {
+                            that.onHoverEffect.highlightHide(options.selector +" "+".pyr-path")
+                			that.mouseEvent.tooltipHide(d);
+                        }
         			})
         			.on("mousemove", function (d,i) {
-                        that.mouseEvent.tooltipPosition(d);
+                        if(that.mode === "default") {
+                            that.mouseEvent.tooltipPosition(d);
+                        }
         			})
                     .transition()
                     .duration(that.transitions.duration())
@@ -263,30 +269,28 @@ PykCharts.oneD.pyramid = function (options) {
                         .style("font-size", that.label_size)
                         .attr("fill", that.label_color)
                         .style("font-family", that.label_family);
-                        // .transition()
-                        // .delay(that.transitions.duration())
+                        
 
                     setTimeout(function () {
                         that.chart_text.text(function (d,i) {
                                 if(i===0) {
                                     return ((that.new_data[i].weight*100)/that.sum).toFixed(1)+"%";
-                                    // return that.k.appendUnits(that.new_data[i].weight);
+                                    
                                 }
                                 else {
                                     j--;
                                      return ((that.new_data[j].weight*100)/that.sum).toFixed(1)+"%";
-                                    // return that.k.appendUnits(that.new_data[j].weight);
                                 }
                              })
                             .text(function (d,i) {
                                 if(this.getBBox().width < (d.values[2].x - d.values[1].x) && this.getBBox().height < Math.abs(d.values[1].y - d.values[0].y)) {
                                     if(i===0) {
                                         return ((that.new_data[i].weight*100)/that.sum).toFixed(1)+"%";
-                                        // return that.k.appendUnits(that.new_data[i].weight);
+                                        
                                     }else {
                                         p--;
                                         return ((that.new_data[p].weight*100)/that.sum).toFixed(1)+"%";
-                                        // return that.k.appendUnits(that.new_data[p].weight);
+                                        
                                     }
                                 }
                                 else {
@@ -300,7 +304,6 @@ PykCharts.oneD.pyramid = function (options) {
                 return this;
             },
             ticks : function () {
-                // if(PykCharts.boolean(that.enableTicks)) {
                 if(PykCharts.boolean(that.pointer_overflow_enable)) {
                     that.svgContainer.style("overflow","visible");
                 }
@@ -334,9 +337,7 @@ PykCharts.oneD.pyramid = function (options) {
 
                 tick_label
                 .text("")
-                // .transition()
-                // .delay(that.transitions.duration())
-
+                
                 setTimeout(function() {
                     tick_label.text(function (d,i) {
                             if(i===0) {
@@ -413,9 +414,7 @@ PykCharts.oneD.pyramid = function (options) {
                     })
                     .attr("stroke-width", that.pointer_thickness)
                     .attr("stroke",that.pointer_color)
-                    // .transition()
-                    // .duration(that.transitions.duration())
-
+                    
                     setTimeout(function() {
                         tick_line.attr("x2", function (d,i) {
                             if(Math.abs(d.values[0].y - d.values[1].y) > w[i]) {
@@ -433,22 +432,6 @@ PykCharts.oneD.pyramid = function (options) {
                             }
                         });
                     }, that.transitions.duration());
-
-                    // .attr("x2", function (d, i) {
-                    //     if(( d.values[0].y - d.values[1].y) > 0) {
-                    //         if (d.values.length === 3) {
-                    //             return (d.values[0].x + that.coordinates[that.coordinates.length-1].values[2].x)/2 + 20;
-                    //         } else {
-                    //             return ((d.values[2].x + d.values[3].x)/2 ) + 20;
-                    //         }
-                    //     } else {
-                    //         if (d.values.length === 3) {
-                    //             return (d.values[0].x + that.coordinates[that.coordinates.length-1].values[2].x)/2  ;
-                    //         } else {
-                    //             return ((d.values[2].x + d.values[3].x)/2 ) ;
-                    //         }
-                    //     }
-                    // });
 
                 tick_line.exit().remove();
 

@@ -5,7 +5,6 @@
         <link rel="stylesheet" type="text/css" href="../lib/bootstrap.min.css">
         <script src="../lib/paper-full.js"></script>
         <script src="../lib/downloadDataURI.js"></script>
-
 	</head>
 	<body>
       <div id="bubble"></div>
@@ -42,31 +41,21 @@
                 data:"../data/pie.json",
                 transition_duration: 1,
                 clubdata_enable: "yes",
-<<<<<<< HEAD
-                mode:"infographics",
-                "clubData_always_include_data_points" : ["18-24","25-44"],
-                export_enable: "yes",
-                "background_color": "white",
-                "chart_width": 500,
-                "chart_height": 500,
-=======
                 // clubData_always_include_data_points : ["18-24","25-44"],
                 export_enable: "yes",
                 background_color: "white",
                 chart_width: 300,
                 chart_height: 300,
                 title_text: "PykCharts"
->>>>>>> 8c1987a79b4266207b479f01e7cdd5f28d632797
             });
             k.execute();
 
       			var k = new PykCharts.oneD.funnel({
-          				selector: "#funnel",
-          				data:"../data/pie.json",
-                 transition_duration: 1,
-                 mode:"infographics",
-                 units_suffix: "rs"
-        			});
+          			selector: "#funnel",
+          			data:"../data/pie.json",
+                transition_duration: 1,
+                units_suffix: "rs"
+        		});
       			k.execute();
 
             var k = new PykCharts.oneD.pictograph({
@@ -74,38 +63,29 @@
                 data:"../data/pictograph.json",
                 chart_width : 500,
                 transition_duration: 1,
-<<<<<<< HEAD
-                "pictograph_current_count_weight": "bold",
-                "pictograph_total_count_weight": "thin",
-=======
-                pictograph_current_count_weight: "bold",
                 pictograph_total_count_weight: "thin",
                 title_text: "PykCharts"
->>>>>>> 8c1987a79b4266207b479f01e7cdd5f28d632797
-             });
+            });
             k.execute();
 
             var k = new PykCharts.oneD.pyramid ({
                 selector: "#pyramid",
                 data:"../data/pie.json",
                 transition_duration: 1,
-                mode:"infographics",
                 pointer_overflow_enable: "no",
-             });
+            });
             k.execute();
 
             var k = new PykCharts.oneD.treemap({
                 selector: "#treemap",
                 data: "../data/pie.json",
-                transition_duration: 0,
-                mode:"infographics",
+                transition_duration: 0
             });
             k.execute();
 
             var k = new PykCharts.oneD.donut({
                 selector: "#donutContainer",
                 data: "../data/pie.json",
-                mode:"infographics",
                 transition_duration: 1
             });
             k.execute();
@@ -134,9 +114,7 @@
             var k = new PykCharts.oneD.percentageColumn({
                 selector: "#percentageColumn",
                 data:"../data/pie.json",
-                transition_duration: 1,
-                "mode" : "infographics"
-
+                transition_duration: 1
             });
             k.execute();
 
@@ -146,8 +124,7 @@
                 transition_duration: 1,
                 // "chart_height": 200,
                 chart_width: 600,
-                // clubdata_enable: "yes",
-                "mode" : "infographics"
+                // clubdata_enable: "yes"
             });
             k.execute();
 
@@ -158,9 +135,8 @@
             });
             k.execute();
 		    }
-
-
 		</script>
+
     <script src="../dist/pykcharts.0.0.8.js"></script>
 	</body>
 </html>

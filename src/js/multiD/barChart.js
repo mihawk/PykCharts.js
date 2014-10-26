@@ -106,6 +106,7 @@ PykCharts.multiD.barChart = function(options){
                 .makeMainDiv(that.selector,1);
 
             that.optionalFeatures().svgContainer(1)
+                .legendsContainer(1)
                 .createGroups()
                 .createChart()
                 .axisContainer();
@@ -154,7 +155,7 @@ PykCharts.multiD.barChart = function(options){
                 return this;                   
             },
             legendsContainer: function (i) {
-                if(PykCharts.boolean(that.legends_enable)) {
+                if(PykCharts.boolean(that.legends_enable)&&that.mode === "default") {
                     that.legendsGroup = that.svgContainer.append("g")
                         .attr("id","legends")
                         .attr("class","legends")
@@ -357,10 +358,10 @@ PykCharts.multiD.barChart = function(options){
                     .attr("fill-opacity", function (d,i) {
                         if (that.color_mode === "saturation"){
                         // if(PykCharts.boolean(that.saturationEnable)){
-                            if(that.highlight === d.name) {
-                                j--;
-                                return 1;
-                            }
+                            // if(that.highlight === d.name) {
+                            //     j--;
+                            //     return 1;
+                            // }
                             if(j>1){
                                 j--;
                                 return j/that.no_of_groups;
@@ -376,16 +377,22 @@ PykCharts.multiD.barChart = function(options){
                     .attr("stroke-dasharray", that.border.style())
                     .attr("stroke-opacity",1)
                     .on('mouseover',function (d) {
-                        that.mouseEvent.tooltipPosition(d);
-                        that.mouseEvent.toolTextShow(d.tooltip ? d.tooltip : d.y);
-                        that.mouseEvent.axisHighlightShow(d.name,options.selector + " .axis-text",that.domain,"bar");
+                        if(that.mode === "default") {
+                            that.mouseEvent.tooltipPosition(d);
+                            that.mouseEvent.toolTextShow(d.tooltip ? d.tooltip : d.y);
+                            that.mouseEvent.axisHighlightShow(d.name,options.selector + " .axis-text",that.domain,"bar");
+                        }
                     })
                     .on('mouseout',function (d) {
-                        that.mouseEvent.tooltipHide(d);
-                        that.mouseEvent.axisHighlightHide(options.selector + " .axis-text","bar");
+                        if(that.mode === "default") {
+                            that.mouseEvent.tooltipHide(d);
+                            that.mouseEvent.axisHighlightHide(options.selector + " .axis-text","bar");
+                        }
                     })
                     .on('mousemove', function (d) {
-                        that.mouseEvent.tooltipPosition(d);
+                        if(that.mode === "default") {
+                            that.mouseEvent.tooltipPosition(d);
+                        }
                     });
 
                 rect
@@ -687,7 +694,7 @@ PykCharts.multiD.barChart = function(options){
                         "x": id,
                         "y": icing.val,
                         "group": that.keys[id],
-                        "color": that.chart_color[index_group] || icing.color || that.default_color,
+                        "color": icing.color,
                         "tooltip": icing.tooltip,
                         "name": bar.group
                     });
@@ -772,13 +779,14 @@ PykCharts.multiD.barChart = function(options){
         var data_tranform = [];
         that.barName = [];
         var data_length = that.data.length;
-        that.data.sort(function (a,b) {
-            return b.x - a.x;
-        });
         that.unique_group = that.data.map(function (d) {
             return d.group;
         });
         that.unique_group = _.uniq(that.unique_group);
+        that.data.sort(function (a,b) {
+            return b.x - a.x;
+        });
+        
         for(var i=0; i < data_length; i++) {
             var group = {},
                 bar = {},
