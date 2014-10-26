@@ -928,33 +928,33 @@ PykCharts.Configuration = function (options){
                 return (min_value*radius_percent)/200;
             }
         },
-        export : function(chart,svgId,chart_name,multiple_containers_enable,containers) {
-            if(PykCharts.boolean(options.export_enable)) {
-
-                $(chart.selector).css({"background-color":options.background_color,"position":"relative"});
+        backgroundColor: function (chart) {
+             $(options.selector).css({"background-color":options.background_color,"position":"relative"})
 
                 var bg;
                 bgColor(options.selector);
 
                 function bgColor(child) {
                     bg = $(child).css("background-color");
+                    console.log("what is bg", bg);
                     // console.log(bg,"oh bggg");
                     if (bg === "transparent" || bg === "rgba(0, 0, 0, 0)") {
-                        if (document.getElementsByTagName("body")!== undefined ){
-                            // console.log("is it going");
+                        if (document.getElementsByTagName("body") !== undefined ){
+                            console.log("is it going");
                             $(child).colourBrightness("rgb(255,255,255)");
                         } else {
-                            return bgColor(child.parent());
+                            // console.log(($(child)[0].parentNode()),"child");
+                            return bgColor((child)[0].parentNode);
                         }
                     } else {
-                        // console.log("bg",bg);
+                        console.log("bg",bg);
                         $(child).colourBrightness(bg);
                     }
                 }
-
-                // console.log(bg,"bgggggggg");
-                // $(chart.selector).colourBrightness(bg);
-                // console.log("heyy");
+            return this;
+        },
+        export : function(chart,svgId,chart_name,multiple_containers_enable,containers) {
+            if(PykCharts.boolean(options.export_enable)) {
 
                 d3.select(options.selector)
                         .append("div")
@@ -1080,6 +1080,10 @@ PykCharts.Configuration = function (options){
                     }
                 }
             }
+            return this;
+        },
+        errorHandling: function(error_msg,error_code) {
+            console.log();
             return this;
         }
     };

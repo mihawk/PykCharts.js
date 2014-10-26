@@ -76,6 +76,7 @@ PykCharts.multiD.barChart = function(options){
         if(that.mode === "default") {
 
             that.k.title()
+                .backgroundColor(that)
                 .export(that,"#svgcontainer","barChart")
                 .emptyDiv()
                 .subtitle()
@@ -102,7 +103,8 @@ PykCharts.multiD.barChart = function(options){
                 .highlightRect();
                           
         } else if(that.mode === "infographics") {
-            that.k.export(that,"#svgcontainer","barChart")
+            that.k.backgroundColor(that)
+                .export(that,"#svgcontainer","barChart")
                 .emptyDiv()
                 .makeMainDiv(that.selector,1);
 

@@ -103,6 +103,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
         if(that.mode === "default") {
             if(PykCharts.boolean(that.multiple_containers_enable) && type === "scatterplot") {
                 that.k.title()
+                    .backgroundColor(that)
                     .export(that,"svgcontainer",type,that.multiple_containers_enable,that.uniq_group_arr)
                     .emptyDiv()
                     .subtitle();
@@ -154,6 +155,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
             } else {
                 
                 that.k.title()
+                    .backgroundColor(that)
                     .export(that,"#svgcontainer0",type)
                     .emptyDiv()
                     .subtitle();
@@ -202,7 +204,8 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
         } else if (that.mode === "infographics") {
             
             if(PykCharts.boolean(that.multiple_containers_enable) && type === "scatterplot") {
-                that.k.export(that,"svgcontainer",type,that.multiple_containers_enable,that.uniq_group_arr)
+                that.k.backgroundColor(that)
+                    .export(that,"svgcontainer",type,that.multiple_containers_enable,that.uniq_group_arr)
                     .emptyDiv();
 
                 that.no_of_groups = that.uniq_group_arr.length;
@@ -248,7 +251,8 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                 that.k.emptyDiv();
             } else {
                 
-                that.k.export(that,"#svgcontainer0",type)
+                that.k.backgroundColor(that)
+                    .export(that,"#svgcontainer0",type)
                     .emptyDiv();
 
                 that.w = that.width;
