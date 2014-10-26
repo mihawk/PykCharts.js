@@ -49,9 +49,9 @@ PykCharts.oneD.treemap = function (options){
 
         if(that.mode === "default") {
             that.k.title()
-                .subtitle()
                 .export(that,"#svgcontainer","treemap")
-                .emptyDiv();
+                .emptyDiv()
+                .subtitle();
         }
 
         that.k.tooltip();

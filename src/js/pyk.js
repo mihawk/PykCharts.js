@@ -934,7 +934,6 @@ PykCharts.Configuration = function (options){
                 var bg,svgIds = [];
                 $(chart.selector).css({"background-color":chart.background_color,"position":"relative"});
                if (PykCharts.boolean(options.background_color) && $(options.selector).css("background-color")!= "rgba(0, 0, 0, 0)") {
-                    // console.log(options.background_color,"hey");
                     bg = options.background_color;
                }
                else {
@@ -942,11 +941,8 @@ PykCharts.Configuration = function (options){
                 }
 
                function bgColor (child) {
-                 // console.log("oooooooo");
                  if (document.getElementsByTagName("body").parentNode !== undefined) {
-                    // console.log("heyyyyyy");
                     bg = $(child).parent().css("background-color");
-                    // break;
                 } else {
                     bg = "white";
                 }

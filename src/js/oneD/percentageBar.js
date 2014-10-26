@@ -58,9 +58,9 @@ PykCharts.oneD.percentageBar = function (options) {
         if(that.mode === "default") {
 
             that.k.title()
-                    .subtitle()
                     .export(that,"#svgcontainer","percentageBar")
-                    .emptyDiv();
+                    .emptyDiv()
+                    .subtitle();
         }
         if(that.mode === "infographics") {
             that.k.export(that,"#svgcontainer","percentageBar").emptyDiv();

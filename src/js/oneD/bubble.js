@@ -45,10 +45,9 @@ PykCharts.oneD.bubble = function (options) {
         if (that.mode ==="default") {
             
             that.k.title()
+                .export(that,"#svgcontainer","bubble")
+                .emptyDiv()
                 .subtitle();
-
-            that.k.export(that,"#svgcontainer","bubble")
-                .emptyDiv();
 
             that.new_data = that.optionalFeatures().clubData();
             that.optionalFeatures().svgContainer()
