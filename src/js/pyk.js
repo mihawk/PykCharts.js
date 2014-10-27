@@ -928,29 +928,37 @@ PykCharts.Configuration = function (options){
             }
         },
         backgroundColor: function (options) {
-            console.log("heyy",options);
              $(options.selector).css({"background-color":options.background_color,"position":"relative"})
-                var bg;
-                // console.log(options.selector,"bodyyy");
+                var bg,child1;
                 bgColor(options.selector);
                 
                 function bgColor(child) {
+                    child1 = child;
                     bg = $(child).css("background-color");
-                    console.log("what is bg", child);
-                    // console.log(bg,"oh bggg");
+                    // console.log("what is bg", child,bg);
                     if (bg === "transparent" || bg === "rgba(0, 0, 0, 0)") {
-                        if (document.getElementsByTagName("body")!== undefined){
-                            console.log("is it going");
+                        // console.log($(child)[0].parentNode.tagName,"is parent node body");
+                        if($(child)[0].parentNode.tagName === undefined || $(child)[0].parentNode.tagName.toLowerCase() === "body") {
+                        // if (document.getElementsByTagName("body").parentNode === null){
+                            // console.log("is it going");
                             $(child).colourBrightness("rgb(255,255,255)");
                         } else {
-                            console.log($(child)[0].parentNode,"child");
+                            // console.log($(child)[0].parentNode,"child");
                             return bgColor($(child)[0].parentNode);
                         }
                     } else {
-                        console.log("bg",bg);
-                        $(child).colourBrightness(bg);
+                        // console.log("bg",bg);
+                       return $(child).colourBrightness(bg);
                     }
                 }
+
+                if ($(child1)[0].classList.contains("light")) {
+                    options.img = "../img/download.png";
+
+                } else {
+                    options.img = "../img/download-light.png";
+                }
+                 
             return this;
         },
         export : function(chart,svgId,chart_name,panels_enable,containers) {
@@ -1030,13 +1038,8 @@ PykCharts.Configuration = function (options){
                                 .style("width",div_size + "px")
                                 .style("left",div_left+"px")
                                 .style("float",div_float)
-                                .style("text-align","right");
-
-                if ($(options.selector)[0].classList.contains("light")) {
-                    export_div.html("<img title='Export to SVG' src='../img/download.png' style='left:"+div_left+"px;margin-bottom:3px;cursor:pointer;'/>");
-                } else {
-                    export_div.html("<img title='Export to SVG' src='../img/download-light.png' style='left:"+div_left+"px;margin-bottom:3px;cursor:pointer;'/>");
-                }
+                                .style("text-align","right")
+                                .html("<img title='Export to SVG' src='"+options.img+"' style='left:"+div_left+"px;margin-bottom:3px;cursor:pointer;'/>");
 
                 var get_canvas = document.getElementById(canvas_id);
                 paper.setup(get_canvas);

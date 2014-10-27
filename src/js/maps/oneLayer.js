@@ -568,23 +568,35 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
     };
 
     that.backgroundColor =function () {        
-        var bg;
+        var bg,child1;
         bgColor(options.selector);
-           
+                
         function bgColor(child) {
+            child1 = child;
             bg = $(child).css("background-color");
-            console.log(bg,"oh bggg");
+            // console.log("what is bg", child);
             if (bg === "transparent" || bg === "rgba(0, 0, 0, 0)") {
-                if (document.getElementsByTagName("body")!== undefined ){
-                    console.log("is it going");
+                 if($(child)[0].parentNode.tagName === undefined || $(child)[0].parentNode.tagName.toLowerCase() === "body") {
+                    // console.log("is it going");
                     $(child).colourBrightness("rgb(255,255,255)");
                 } else {
-                    return bgColor(child.parent());
+                    console.log($(child)[0].parentNode,"child");
+                    return bgColor($(child)[0].parentNode);
                 }
             } else {
-                console.log("bg",bg,child);
+                // console.log("bg",bg);
                 $(child).colourBrightness(bg);
-            }     
+            }
+        }
+        if ($(child1)[0].classList.contains("light")) {
+            options.play = "../img/play.png";
+            options.pause = "../img/pause.png"
+            options.marker = "../img/marker.png"
+        } else {
+            // console.log("dark");
+            options.play = "../img/play-light.png";
+            options.pause = "../img/pause-light.png"
+            options.marker = "../img/marker-light.png"
         }
     }
     that.renderDataForTimescale = function () {
@@ -619,12 +631,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         var startTimeline = function () {
             console.log("hey");
             if (that.timeline_status==="playing") {
-                if ($(that.selector)[0].classList.contains("light")) {
-                    that.play.attr("xlink:href","../img/play.png");
-                 }
-                else {
-                    that.play.attr("xlink:href","../img/play-light.png");
-                }
+                    that.play.attr("xlink:href",options.play);
                 // that.play.attr("xlink:href",that.play_image_url);
                 // that.play.attr("xlink:href","https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/play.gif");
                 clearInterval(that.play_interval);
@@ -634,12 +641,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                 that.timeline_status = "playing";
                 // that.play.attr("xlink:href",that.pause_image_url);
                 // that.play.attr("xlink:href","https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/pause.gif");
-                if ($(that.selector)[0].classList.contains("light")) {
-                    that.play.attr("xlink:href","../img/pause.png");
-                 }
-                else {
-                    that.play.attr("xlink:href","../img/pause-light.png");
-                }
+                    that.play.attr("xlink:href",options.pause);
                 interval = that.interval_index;
                 that.play_interval = setInterval(function () {
                     that.marker
@@ -673,16 +675,10 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                             clearInterval(undo_heatmap);
                             clearTimeout(time_lag);
                         }
-                        if ($(that.selector)[0].classList.contains("light")) {
-                            play1 = "../img/play.png"; 
-                        } else  {
-                            console.log("yeahhh");
-                            play1 = "../img/play-light.png";            
-                        } 
 
                         if (interval1===that.unique.length) {
                             clearInterval(undo_heatmap);
-                            that.play.attr("xlink:href",play1);
+                            that.play.attr("xlink:href",options.play);
                             that.marker.attr("x",  (that.margin_left*2) + that.xScale(that.unique[0]) - 7);
                             interval = interval1 = 1;
                             that.timeline_status = "";
@@ -747,31 +743,16 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             }
         }
         
-        var play;
-        console.log(($(that.selector)[0].classList.contains("light")),"lightttttt");
-        if ($(that.selector)[0].classList.contains("light")) {
-            play = "../img/play.png"; 
-        }          
-        else  {
-            console.log("yeahhh");
-            play = "../img/play-light.png";            
-        } 
         that.play = that.svgContainer.append("image")
-            .attr("xlink:href",play)
+            .attr("xlink:href",options.play)
             .attr("x", that.margin_left / 2)
             .attr("y", that.redeced_height - that.margin_top - (bbox.height/2))
             .attr("width","24px")
             .attr("height","21px")
             .style("cursor","pointer");          
-        var mark;
-        if ($(that.selector)[0].classList.contains("light")) {
-            mark = "../img/marker.png";           
-        } else  {
-            mark = "../img/marker-light.png";            
-        } 
 
         that.marker = that.svgContainer.append("image")
-            .attr("xlink:href",mark)
+            .attr("xlink:href",options.marker)
             .attr("x", (that.margin_left*2) + that.xScale(that.unique[0]) - 7)
             .attr("y", that.redeced_height)
             .attr("width","14px")
