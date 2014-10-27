@@ -721,35 +721,24 @@ PykCharts.multiD.lineChart = function (options){
 					} else {
 						tickPosition = function (d,i) {
 							var end_x_circle, end_y_circle;
-							if(that.type === "lineChart") {
-								if(that.axis_x_position === "bottom" && that.axis_y_position === "left") {
-									end_x_circle = (that.xScale(that.new_data[i].data[(that.new_data[i].data.length - 1)].x) + that.extra_left_margin + that.margin_left);
-									end_y_circle = (that.yScale(that.new_data[i].data[(that.new_data[i].data.length - 1)].y) + that.margin_top);
-								} else if (that.axis_x_position === "bottom" && that.axis_y_position === "right") {
-									end_x_circle = (that.xScale(that.new_data[i].data[0].x) + that.extra_left_margin + that.margin_left) - that.tick_w;
-									end_y_circle = (that.yScale(that.new_data[i].data[(that.new_data[i].data.length - 1)].y) + that.margin_top);
-								} else if(that.axis_x_position === "top" && that.axis_y_position === "left") {
-									end_x_circle = (that.xScale(that.new_data[i].data[(that.new_data[i].data.length - 1)].x) + that.extra_left_margin + that.margin_left);
-									end_y_circle = (that.yScale(that.new_data[i].data[0].y) + that.margin_top);
-								} else if(that.axis_x_position === "top" && that.axis_y_position === "right") {
-									end_x_circle = (that.xScale(that.new_data[i].data[0].x) + that.extra_left_margin + that.margin_left) - that.tick_w;
-									end_y_circle = (that.yScale(that.new_data[i].data[0].y) + that.margin_top);
-								}
-							} else {
+							if(that.axis_y_position === "left") {
 								end_x_circle = (that.xScale(that.new_data[i].data[(that.new_data[i].data.length - 1)].x) + that.extra_left_margin + that.margin_left);
 								end_y_circle = (that.yScale(that.new_data[i].data[(that.new_data[i].data.length - 1)].y) + that.margin_top);
+							} else if(that.axis_y_position === "right") {
+								end_x_circle = (that.xScale(that.new_data[i].data[0].x) + that.extra_left_margin + that.margin_left) - 10;
+								end_y_circle = (that.yScale(that.new_data[i].data[0].y) + that.margin_top);
 							}
-							// if(that.legends_display === "vertical") {
-							// 	text_x = (end_x_circle - that.margin_left + 25),
-							// 	text_y = (end_y_circle - that.margin_top + 20),
-							// 	text_rotate = -90;
-							// }
-							// else if(that.legends_display === "horizontal") {
-								text_x = end_x_circle,
-								text_y = end_y_circle,
-								text_rotate = 0;
-							// }
+							text_x = end_x_circle,
+							text_y = end_y_circle,
+							text_rotate = 0;
 							return "translate("+text_x+","+text_y+") rotate("+text_rotate+")";
+						}
+						orient = function () {
+							if(that.axis_y_position === "left") {
+								return "start";
+							} else if(that.axis_y_position === "right") {
+								return "end";
+							}
 						}
 						that.ticks = that.svgContainer.selectAll(".legend-heading")
 								.data(that.new_data);
@@ -777,7 +766,7 @@ PykCharts.multiD.lineChart = function (options){
 								})
 								.style("font-family", that.pointer_family)
 								.style("visibility","visible")
-								.attr("text-anchor","start")
+								.attr("text-anchor",orient)
 								.attr("dx",5)
 								.attr("dy",5)
 				      			.style("fill", function(d,i) {
