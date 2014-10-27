@@ -20,7 +20,6 @@ PykCharts.maps.oneLayer = function (options) {
                   d.properties.NAME_1 = a;
                   return d;
                 });
-                console.log(that.map_data.objects.geometries);
                 d3.json("../data/maps/colorPalette.json", function (data) {
                     that.color_palette_data = data;
                     $(that.selector).html("");
