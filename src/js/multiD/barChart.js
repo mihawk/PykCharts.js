@@ -10,7 +10,7 @@ PykCharts.multiD.barChart = function(options){
         that.grid_color = options.chart_grid_color ? options.chart_grid_color : theme.stylesheet.chart_grid_color;
         that.axis_x_data_format = "";
         that.data_sort = options.data_sort ? options.data_sort : multiDimensionalCharts.data_sort;
-        that.data_sort_order = options.data_sort_order ? options.data_sort_order : multiDimensionalCharts.data_sort_order;
+        that.data_sort_type = options.data_sort_type ? options.data_sort_type : multiDimensionalCharts.data_sort_type;
 
         if(that.mode === "default") {
            that.k.loading();
@@ -836,12 +836,12 @@ PykCharts.multiD.barChart = function(options){
 
         that.data.sort(function (a,b) {
             switch (that.data_sort) {
-                case "numerically": return ((that.data_sort_order === "descending") ? (b.x - a.x) : (a.x - b.x));
+                case "numerically": return ((that.data_sort_type === "descending") ? (b.x - a.x) : (a.x - b.x));
                                     break;
                 case "alphabetically":  if (a.y < b.y)
-                                            return (that.data_sort_order === "descending") ? 1 : -1;
+                                            return (that.data_sort_type === "descending") ? 1 : -1;
                                         if (a.y > b.y)
-                                            return (that.data_sort_order === "descending") ? -1 : 1;
+                                            return (that.data_sort_type === "descending") ? -1 : 1;
                                         return 0;
                                         break;
             }
