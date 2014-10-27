@@ -4,6 +4,9 @@ PykCharts.multiD.areaChart = function (options){
 
 	this.execute = function (){
 		that = new PykCharts.multiD.processInputs(that, options, "area");
+		
+		if(that.stop) 
+			return;
 
 		if(that.mode === "default") {
 			that.k.loading();

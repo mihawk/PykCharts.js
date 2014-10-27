@@ -5,6 +5,9 @@ PykCharts.multiD.columnChart = function(options){
     this.execute = function () {
         that = new PykCharts.multiD.processInputs(that, options, "column");
 
+        if(that.stop) 
+            return;
+        
         // that.grid_y_enable = options.chart_grid_y_enable ? options.chart_grid_y_enable : theme.stylesheet.chart_grid_y_enable;
         that.grid_color = options.chart_grid_color ? options.chart_grid_color : theme.stylesheet.chart_grid_color;
 
@@ -716,9 +719,6 @@ PykCharts.multiD.columnChart = function(options){
             return d.group;
         });
         that.unique_group = _.uniq(that.unique_group);
-        that.data.sort(function (a,b) {
-            return b.y - a.y;
-        });
         
         for(var i=0; i < data_length; i++) {
             var group = {},

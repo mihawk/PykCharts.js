@@ -487,7 +487,6 @@ PykCharts.Configuration = function (options){
                 .attr("stroke","darkgray")
                 .style("pointer-events","none");
 
-            // });
         },
         crossHair : function (svg,len,data,fill) {
 
@@ -1106,24 +1105,111 @@ PykCharts.Configuration = function (options){
             }
             return this;
         },
-        errorHandling: function(error_msg,error_code) {
-            console.log("PykCharts Error " + error_code);
-            console.log(error_msg);
-            console.log("To know more about the error visit  http://www.pykih.com/");
-            return this;
+        errorHandling: function(error_msg,error_code,err_url) {
+            console.log('%c[Error Pykih Charts] ', 'color: red;font-weight:bold;font-size:13px', " at "+options.selector+".(Invalid value for attribute \""+error_msg+"\")  Visit http://www.pykih.com/");
+            options.stop = true;
+            return;
         },
         validator: function () {
             var validator = {
                 validatingSelector : function (selector) {
                     try {
                         if(!document.getElementById(selector)) {
-                            throw "     Rendering div not found";
+                            throw "selector";
                         } 
                     }
                     catch (err) {
                         options.k.errorHandling(err,"#1");
                     }
                     return this;
+                },
+                validatingDataType : function (attr_value,config_name) {
+                    try {
+                        if(!_.isNumber(attr_value)) {
+                            throw config_name;  
+                        }
+                    }
+                    catch (err) {
+                        options.k.errorHandling(err,"#2");    
+                    }
+                    return this;
+                },
+                validatingChartMode: function (mode) {
+                    try {
+                        if(mode.toLowerCase() === "default" || mode.toLowerCase()=== "infographics") {
+                        } else {
+                            throw "mode";
+                        }
+                    }
+                    catch (err) {
+
+                        options.k.errorHandling(err,"#3");    
+                    }
+                    return this;    
+                },
+                validatingAxisDataFormat: function (axis_data_format,config_name) {
+                    if(axis_data_format) {
+                        try {
+                            if(axis_data_format.toLowerCase() === "number" || axis_data_format.toLowerCase()=== "string" || axis_data_format.toLowerCase() === "time") {
+                            } else {
+                                throw config_name;
+                            }
+                        }
+                        catch (err) {
+                            options.k.errorHandling(err,"#4");    
+                        }
+                    }
+                    return this;                        
+                },
+                validatingColorMode: function (color_mode) {
+                    if(color_mode) {
+                        try {
+                            if(color_mode.toLowerCase() === "color" || color_mode.toLowerCase()=== "saturation") {
+                            } else {
+                                throw "color_mode";
+                            }
+                        }
+                        catch (err) {
+                            options.k.errorHandling(err,"#5");    
+                        }
+                    }
+                    return this;                        
+                },
+                validatingAxisPointerPosition: function (axis_pointer_position,config_name) {
+                        try {
+                            if(axis_pointer_position.toLowerCase() === "left" || axis_pointer_position.toLowerCase()=== "right" || axis_pointer_position.toLowerCase()=== "top" || axis_pointer_position.toLowerCase()=== "bottom") {
+                            } else {
+                                throw config_name;
+                            }
+                        }
+                        catch (err) {
+                            options.k.errorHandling(err,"#6");    
+                        }
+                    return this;                        
+                },
+                validatingBorderBetweenChartElementsStyle: function (border_between_chart_elements_style,config_name) {
+                        try {
+                            if(border_between_chart_elements_style.toLowerCase() === "1,3" || border_between_chart_elements_style.toLowerCase()=== "5,5" || border_between_chart_elements_style.toLowerCase() === "0") {
+                            } else {
+                                throw config_name;
+                            }
+                        }
+                        catch (err) {
+                            options.k.errorHandling(err,"#7");    
+                        }
+                    return this;                        
+                },
+                validatingBorderBetweenChartElementsStyle: function (border_between_chart_elements_style,config_name) {
+                        try {
+                            if(border_between_chart_elements_style.toLowerCase() === "1,3" || border_between_chart_elements_style.toLowerCase()=== "5,5" || border_between_chart_elements_style.toLowerCase() === "0") {
+                            } else {
+                                throw config_name;
+                            }
+                        }
+                        catch (err) {
+                            options.k.errorHandling(err,"#8");    
+                        }
+                    return this;                        
                 }
             };
             return validator;
@@ -1838,7 +1924,6 @@ configuration.Theme = function(){
 
         "credit_my_site_name": "Pykih",
         "credit_my_site_url": "http://www.pykih.com"
-
     };
 
     that.functionality = {
@@ -1922,8 +2007,8 @@ configuration.Theme = function(){
 
         "line_curvy_lines": "no",
 
-        "barchart_sort": "numerically", // sort type --- "alphabetically" / "numerically"
-        "barchart_sort_order": "descending" // sort order --- "descending" / "ascending"
+        "data_sort_type": "numerically", // sort type --- "alphabetically" / "numerically"
+        "data_sort_order": "descending" // sort order --- "descending" / "ascending"
     };
 
     that.treeCharts = {
