@@ -19,6 +19,7 @@
         <script src="../src/js/pyk.js"></script>
         <script src = "../src/js/maps/maps.js"></script>
         <script src = "../src/js/maps/oneLayer.js"></script>
+         <script src="../lib/jquery.colourbrightness.js"></script>
         <script>
             $(document).ready(function() {
 
@@ -38,13 +39,13 @@
                     k = new PykCharts.maps.oneLayer({
 
                         selector: "#map-container",
-                        map_code: "newzealand",
-                        data: "../data/maps/newzealand_data.json",
-                        chart_height: 800,
-                        chart_width: 1000,
+                        map_code: "india",
+                        data: "../data/maps/india_data.json",
+                        chart_height: 600,
+                        chart_width: 800,
                         chart_color : ["#636363"],
                         color_mode: "saturation",
-                        palette_color: "Pink",
+                        palette_color: "Blue-1",
                         total_no_of_colors: 3,
                         background_color: "white",
                         tooltip_enable : "yes",

@@ -29,7 +29,7 @@ PykCharts.maps.oneLayer = function (options) {
             });
             that.extent_size = d3.extent(that.data, function (d) { return parseInt(d.size, 10); });
             that.difference = that.extent_size[1] - that.extent_size[0];
-        })
+        });
     };
 };
 
@@ -91,14 +91,18 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         that.border = new PykCharts.Configuration.border(that);
 
         that.k.title()
+            .backgroundColor(that)
             .subtitle();
-
+            
         if(type === "oneLayer") {
-            that.k.export(that,"#svgcontainer",type)
-                .emptyDiv();
+            that.k
+            .export(that,"#svgcontainer",type)
+            .emptyDiv();
+            
         }
-
+        // console.log(that.color_palette_data,"color_palette_data",that.palette_color);
         that.current_palette = _.where(that.color_palette_data, {name:that.palette_color, number:that.total_no_of_colors})[0];
+        // console.log(that.current_palette,"current_palette");
         that.optionalFeatures()
             .svgContainer()
             .legendsContainer(that.legends_enable)
@@ -602,21 +606,39 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         var bg;
         bgColor(options.selector);
 
+        var bg,child1;
+        bgColor(options.selector);
+        
         function bgColor(child) {
+            child1 = child;
             bg = $(child).css("background-color");
-            console.log(bg,"oh bggg");
+            // console.log("what is bg", child,bg);
             if (bg === "transparent" || bg === "rgba(0, 0, 0, 0)") {
-                if (document.getElementsByTagName("body")!== undefined ){
-                    console.log("is it going");
+                // console.log($(child)[0].parentNode.tagName,"is parent node body");
+                if($(child)[0].parentNode.tagName === undefined || $(child)[0].parentNode.tagName.toLowerCase() === "body") {
+                // if (document.getElementsByTagName("body").parentNode === null){
+                    // console.log("is it going");
                     $(child).colourBrightness("rgb(255,255,255)");
                 } else {
-                    return bgColor(child.parent());
+                    // console.log($(child)[0].parentNode,"child");
+                    return bgColor($(child)[0].parentNode);
                 }
             } else {
-                console.log("bg",bg,child);
-                $(child).colourBrightness(bg);
+                // console.log("bg",bg);
+               return $(child).colourBrightness(bg);
             }
+                }
+        if ($(child1)[0].classList.contains("light")) {
+            that.play_image_url = "../img/play.png";
+            that.pause_image_url = "../img/pause.png";
+            that.marker_image_url = "../img/marker.png";
+        } else {
+            // console.log("dark");
+            that.play_image_url = "../img/play-light.png";
+            that.pause_image_url = "../img/pause-light.png";
+            that.marker_image_url = "../img/marker-light.png";
         }
+
     }
     that.renderDataForTimescale = function () {
         that.unique = [];
@@ -648,30 +670,21 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         that.timeline_status = "";
 
         var startTimeline = function () {
-            console.log("hey");
             if (that.timeline_status==="playing") {
-                if ($(that.selector)[0].classList.contains("light")) {
-                    that.play.attr("xlink:href","../img/play.png");
-                 }
-                else {
-                    that.play.attr("xlink:href","../img/play-light.png");
-                }
-                // that.play.attr("xlink:href",that.play_image_url);
+                that.play.attr("xlink:href",that.play_image_url);
                 // that.play.attr("xlink:href","https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/play.gif");
                 clearInterval(that.play_interval);
                 that.timeline_status = "paused";
+                that.interval_index = interval;
+                // console.log(interval, that.interval_index, " ******** Paused");
+            
             } else {
-
                 that.timeline_status = "playing";
-                // that.play.attr("xlink:href",that.pause_image_url);
+                that.play.attr("xlink:href",that.pause_image_url);
                 // that.play.attr("xlink:href","https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/pause.gif");
-                if ($(that.selector)[0].classList.contains("light")) {
-                    that.play.attr("xlink:href","../img/pause.png");
-                 }
-                else {
-                    that.play.attr("xlink:href","../img/pause-light.png");
-                }
                 interval = that.interval_index;
+                // console.log(interval, that.interval_index, " >>> PLAY-START!!!!");
+
                 that.play_interval = setInterval(function () {
                     that.marker
                         // .transition()
@@ -693,7 +706,8 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
 
                     if (interval===that.unique.length) {
                         clearInterval(that.play_interval);
-                    };
+                    };                    
+                    // console.log(interval, that.interval_index, " >>> PLAYING");
                 }, that.timeline_duration);
 
                 var time_lag = setTimeout(function () {
@@ -704,19 +718,14 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                             clearInterval(undo_heatmap);
                             clearTimeout(time_lag);
                         }
-                        if ($(that.selector)[0].classList.contains("light")) {
-                            play1 = "../img/play.png";
-                        } else  {
-                            console.log("yeahhh");
-                            play1 = "../img/play-light.png";
-                        }
 
                         if (interval1===that.unique.length) {
                             clearInterval(undo_heatmap);
-                            that.play.attr("xlink:href",play1);
+                            that.play.attr("xlink:href",that.play_image_url);
                             that.marker.attr("x",  (that.margin_left*2) + that.xScale(that.unique[0]) - 7);
-                            interval = interval1 = 1;
+                            interval = interval1 = that.interval_index = 1;
                             that.timeline_status = "";
+                            // console.log(interval, that.interval_index, " >>> STOPPED-Playing");
                         };
                     }, that.timeline_duration);
                 },that.timeline_duration);
@@ -775,38 +784,25 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                             that.interval_index = i;
                     }
                 }
+                // console.log(that.interval_index, " <<<<<<<<<<<<<<<<<<<<<<<<< DRAGGING");
             }
         }
 
-        var play;
-        console.log(($(that.selector)[0].classList.contains("light")),"lightttttt");
-        if ($(that.selector)[0].classList.contains("light")) {
-            play = "../img/play.png";
-        }
-        else  {
-            console.log("yeahhh");
-            play = "../img/play-light.png";
-        }
         that.play = that.svgContainer.append("image")
-            .attr("xlink:href",play)
+            .attr("xlink:href",that.play_image_url)
             .attr("x", that.margin_left / 2)
             .attr("y", that.redeced_height - that.margin_top - (bbox.height/2))
             .attr("width","24px")
             .attr("height","21px")
             .style("cursor","pointer");
-        var mark;
-        if ($(that.selector)[0].classList.contains("light")) {
-            mark = "../img/marker.png";
-        } else  {
-            mark = "../img/marker-light.png";
-        }
 
         that.marker = that.svgContainer.append("image")
-            .attr("xlink:href",mark)
+            .attr("xlink:href",that.marker_image_url)
             .attr("x", (that.margin_left*2) + that.xScale(that.unique[0]) - 7)
             .attr("y", that.redeced_height)
             .attr("width","14px")
             .attr("height","12px")
+            .style("cursor","pointer")
             .call(drag);
     }
 };
