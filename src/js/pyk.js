@@ -1715,11 +1715,16 @@ configuration.makeXGrid = function(options,xScale) {
 
 configuration.makeYGrid = function(options,yScale) {
     var that = this;
+    if(PykCharts.boolean(options.panels_enable)) {
+        size = options.w - options.margin_left - options.margin_right
+    } else {
+        size = options.width - options.margin_left - options.margin_right
+    }
     var ygrid = d3.svg.axis()
                     .scale(yScale)
                     .orient("left")
                     .ticks(options.axis_x_no_of_axis_value)
-                    .tickSize(-(options.width - options.margin_left - options.margin_right))
+                    .tickSize(-(size))
                     .tickFormat("")
                     .outerTickSize(0);
     return ygrid;
