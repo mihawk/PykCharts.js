@@ -171,7 +171,7 @@ PykCharts.multiD.lineChart = function (options){
 		else if(that.mode === "infographics") {
 			if(PykCharts.boolean(that.panels_enable)) {
 
-				that.k.backgroundColor(that)
+				that.k/*.backgroundColor(that)*/
 					.export(that,"svg-","lineChart",that.panels_enable,that.new_data)
 					.emptyDiv();
 
@@ -204,7 +204,8 @@ PykCharts.multiD.lineChart = function (options){
 				that.k.emptyDiv();
 			} else {
 
-				that.k.export(that,"#svg-1","lineChart")
+				that.k/*.backgroundColor(that)*/
+					.export(that,"#svg-1","lineChart")
 					.emptyDiv();
 
 				that.w = that.width;
@@ -256,7 +257,8 @@ PykCharts.multiD.lineChart = function (options){
 			}
 
 			that.optionalFeature().hightLightOnload()
-				.createChart("livedata");
+				.createChart("livedata")
+				.ticks();
 
 			that.k.xAxis(that.svgContainer,that.xGroup,that.xScale,that.extra_left_margin,that.xdomain)
 					.yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain)
