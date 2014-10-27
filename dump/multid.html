@@ -5,10 +5,7 @@
         <link rel="stylesheet" type="text/css" href="../src/css/PykCharts.css">
     </head>
     <body>
-    <!-- <div id = "hello" style="height:500px;width:1000px;background-color:black"> -->
-        <div id="line">
-        </div>        
-    <!-- </div> -->
+        <div id="line"></div>
         <hr/>
         <div id="area"></div>
         <hr/>
@@ -42,7 +39,15 @@
         <script src="../lib/paper-full.js"></script>
         <script src="../lib/downloadDataURI.js"></script>
         <script src="../lib/jquery.colourbrightness.js"></script>
-
+<!--        <script src="../lib/FileSaver.js"></script>
+        <script src="../lib/jspdf.js"></script>
+        <script src="../lib/rgbcolor.js"></script>
+        <script src="../lib/Blob.js"></script>
+        <script src="../lib/StackBlur.js"></script>
+        <script src="../lib/jspdf.plugin.addimage.js"></script>
+        <script src="../lib/canvg.js"></script>
+        <script src="../lib/svgToPdf.js"></script>
+-->
         <script src="../src/js/init.js"></script>
         <script src="../src/js/pyk.js"></script>
         <script src="../src/js/multiD/multiD.js"></script>
@@ -54,12 +59,11 @@
         <script src="../src/js/multiD/barChart.js"></script>
 
         <script>
-         
             // $(document).ready(function (e) {
             window.PykChartsInit = function (e) {
                 var k = new PykCharts.multiD.lineChart ({
                     selector: "#line",
-                    data: "../data/line_timescale.json",
+                    data: "../data/lineChart.json",
                     mode : "default",
 
                     color_mode: "color",  //color or saturation
@@ -71,30 +75,30 @@
                     chart_margin_top: 35,
                     chart_margin_right: 40,
                     chart_margin_bottom: 40,
-                    chart_margin_left: 45,
-
+                    chart_margin_left:45 ,
                     chart_grid_x_enable: "no",
                     chart_grid_y_enable: "yes",
 
                     transition_duration: 0,
                     real_time_charts_refresh_frequency: 0,
-                    background_color: "transparent",
+                    background_color: "white",
                     axis_onhover_hightlight_enable: "yes",
+
                     axis_x_enable: "yes",
-                    axis_x_title : "Month",
+                    axis_x_title : "Air Pollution in New York",
                     axis_x_position: "bottom",
                     axis_x_pointer_position: "bottom",
                     axis_x_line_color: "#1D1D1D",
-                    axis_x_label_color: "blue",
-                    axis_x_pointer_size: 8,
+                    axis_x_label_color: "#1D1D1D",
+                    axis_x_pointer_size: 3,
                     axis_x_pointer_padding: 3,
                     // axis_x_pointer_values: ["2014/01/01","2014/01/03"],
                     axis_x_outer_pointer_size: 3,
-                    axis_x_time_value_datatype:"month",
+                    axis_x_time_value_datatype:"date",
                     axis_x_time_value_interval: 1,
 
                     axis_y_enable: "yes",
-                    // axis_y_title : "",
+                    axis_y_title : "Air Quantity Index",
                     axis_y_position: "left",
                     axis_y_pointer_position: "left",
                     axis_y_line_color: "#1D1D1D",
@@ -106,10 +110,11 @@
                     line_curvy_lines:"no",
                     tooltip_enable: "no",
                     tooltip_mode : "moving",
-                    crosshair_enable: "yes",
+                    crosshair_enable: "no",
                     zoom_enable: "yes"
+
                 });
-            k.execute();
+           k.execute();
 
                 var k = new PykCharts.multiD.areaChart ({
                     selector: "#area",
@@ -158,9 +163,10 @@
                     axis_y_outer_pointer_size: 3,
 
                     line_curvy_lines:"yes",
-                    tooltip_mode : "fixed",
+                    tooltip_mode : "moving",
                     crosshair_enable: "yes",
                     zoom_enable: "yes"
+
                 });
 
             k.execute();
@@ -207,7 +213,7 @@
 
                     chart_color: ["#07365e","#0e5ea1","#4682b4","#75b0e1","#a0ccf1"],
 
-                    background_color: "transparent",
+                    background_color: "white",
 
                     chart_height: 450,
                     chart_width : 700,
@@ -222,7 +228,7 @@
                     scatterplot_pointer: "no",
                     title_text : "How is the chocolate products rated?",
                     subtitle_text : "",
-                    panels_enable: "no",
+                    multiple_containers_enable: "no",
                     variable_circle_size_enable: "yes",
 
                     axis_x_enable: "yes",
@@ -285,7 +291,7 @@
                     scatterplot_radius : 9,
                     scatterplot_pointer: "no",
                     real_time_charts_refresh_frequency: 0,
-                    panels_enable: "yes",
+                    multiple_containers_enable: "yes",
                     variable_circle_size_enable: "yes",
 
                     axis_x_enable: "yes",
@@ -379,7 +385,7 @@
                     tooltip_mode : "moving",
                     tooltip_enable : "yes",
                     crosshair_enable: "yes",
-                    panels_enable: "yes",
+                    multiple_containers_enable: "yes",
                     zoom_enable: "yes"
 
                     // highlight: "india",
@@ -391,7 +397,7 @@
 
                 var k = new PykCharts.multiD.lineChart ({
                     selector: "#multiple-multiLine",
-                    data: "../data/multipleContainerLine.json",
+                    data: "../data/multiLineChart.json",
                     mode : "default",
 
                     color_mode: "saturation",  //color or saturation
@@ -433,18 +439,18 @@
                     axis_y_outer_pointer_size: 3,
 
                     line_curvy_lines:"yes",
-                    tooltip_mode : "fixed",
+                    tooltip_mode : "moving",
                     tooltip_enable : "yes",
                     crosshair_enable: "yes",
                     zoom_enable: "yes",
 
                     highlight: "india",
                     highlight_color: "steelblue",// name of the group which is to be highlighted on onload
-                    // panels_enable: "no",
+                    // multiple_containers_enable: "no",
 
                 });
 
-            k.execute();
+             k.execute();
 
                 var k = new PykCharts.multiD.areaChart ({
 
@@ -497,7 +503,7 @@
 
                 });
 
-            k.execute();
+           k.execute();
 
                 var k = new PykCharts.multiD.pulse({
                     selector: "#pulse",
@@ -547,7 +553,7 @@
                     tooltip_mode : "moving",
                     tooltip_enable : "yes",
                     crosshair_enable: "yes",
-                    panels_enable: "no",
+                    multiple_containers_enable: "no",
                     variable_circle_size_enable : "yes",
 
                     legends_enable: "yes",
@@ -562,7 +568,7 @@
                     border_between_chart_elements_style: "solid",
 
                 });
-            k.execute();
+                k.execute();
 
                 var k = new PykCharts.multiD.columnChart({
                     data: "../data/ultimateColumn.json",
@@ -619,7 +625,7 @@
                     highlight:"January",
                 });
 
-            k.execute();
+             k.execute();
 
                 var k = new PykCharts.multiD.columnChart({
                     data: "../data/ultimateGroupColumn.json",
@@ -675,7 +681,7 @@
                     border_between_chart_elements_style: "solid",
                    // saturation_enable: "yes",
 
-                   highlight:"april",
+                   highlight:"January",
                 });
 
               k.execute();
@@ -720,6 +726,7 @@
                     axis_y_pointer_padding: 10,
                     axis_y_outer_pointer_size: 3,
 
+                    background_color: "white",
                     highlight_color: "#013F73",
 
                     legends_enable: "no",
@@ -746,7 +753,7 @@
 
                 });
 
-            k.execute();
+              k.execute();
 
                 var k = new PykCharts.multiD.barChart({
                     data: "../data/ultimateGroupBar.json",
@@ -813,12 +820,10 @@
                     pointer_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
                     saturation_enable: "no",
 
-                    highlight: "april"
+                    highlight: "January"
                   });
-
-            k.execute();
+              k.execute();
             };
-
         </script>
     </body>
 </html>

@@ -57,13 +57,15 @@ PykCharts.oneD.percentageColumn = function (options) {
 
         if(that.mode === "default") {
             that.k.title()
-                    .subtitle()
+                    .backgroundColor(that)
                     .export(that,"#svgcontainer","percentageColumn")
-                    .emptyDiv();
+                    .emptyDiv()
+                    .subtitle();
                 // [that.fullscreen]().fullScreen(that);
         }
         if(that.mode === "infographics") {
-            that.k.export(that,"#svgcontainer","percentageColumn")
+            that.k.backgroundColor(that)
+                .export(that,"#svgcontainer","percentageColumn")
                     .emptyDiv();
 
             that.new_data = that.data;
@@ -174,7 +176,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                 return this;
             },
             svgContainer :function () {
-                $(options.selector).css("background-color",that.background_color);
+                // $(options.selector).css("background-color",that.background_color);
 
                 that.svgContainer = d3.select(options.selector)
                     .append('svg')

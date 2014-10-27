@@ -169,9 +169,10 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
         if(that.mode.toLowerCase() == "default") {
 
             that.k.title()
-                .subtitle()
+                .backgroundColor(that)
                 .export(that,"#container",type)
-                .emptyDiv();
+                .emptyDiv()
+                .subtitle();
 
             that.optionalFeatures().svgContainer();
             that.new_data = that.optionalFeatures().clubData();
@@ -194,8 +195,9 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
 
         } else if(that.mode.toLowerCase() == "infographics") {
             that.new_data = that.data;
-            that.k.export(that,"#container",type)
-            that.k.emptyDiv();
+            that.k.backgroundColor(that)
+                .export(that,"#container",type)
+                    .emptyDiv();
             that.optionalFeatures().svgContainer()
                     .set_start_end_angle()
                     .createChart()
@@ -217,7 +219,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
     that.optionalFeatures = function () {
         var optional = {
             svgContainer :function () {
-                $(options.selector).css("background-color",that.background_color);
+                // $(options.selector).css("background-color",that.background_color);
 
                 that.svgContainer = d3.select(that.selector)
                     .append('svg')

@@ -1,150 +1,149 @@
 [
 	{
 		"name":"China",
-		"x":"Bank",
+		"x":"January",
 		"y":120,
 		"color": "",
 		"tooltip":120
 	},
 	{
 		"name":"China",
-		"x":"IT",
+		"x":"February",
 		"y":100,
 		"color": "",
 		"tooltip":100
 	},
 	{
 		"name":"China",
-		"x":"Cables",
+		"x":"March",
 		"y":30,
 		"color": "",
 		"tooltip":30,
-		"annotations" : "abc"
+		"annotations" : "product launch"
 	},
 	{
 		"name":"China",
-		"x":"Crude Oil",
+		"x":"April",
 		"y":40,
 		"color": "",
 		"tooltip":40
 	},
 	{
 		"name":"China",
-		"x":"Diamond",
+		"x":"May",
 		"y":60,
 		"color": "",
 		"tooltip":60
 	},
 	{
 		"name":"China",
-		"x":"Healthcare",
+		"x":"June",
 		"y":70,
 		"color": "",
 		"tooltip":70
 	},
 	{
 		"name":"China",
-		"x":"Automobile",
+		"x":"July",
 		"y":30,
 		"color": "",
 		"tooltip":30
 	},
 	{
 		"name":"U.S.A.",
-		"x":"Bank",
+		"x":"January",
 		"y":70,
 		"color": "purple",
 		"tooltip":70,
-		"annotations" : "hey"
+		"annotations" : "inflation"
 	},
 	{
 		"name":"U.S.A.",
-		"x":"IT",
+		"x":"February",
 		"y":100,
 		"color": "#4682b4",
 		"tooltip":100
 	},
 	{
 		"name":"U.S.A.",
-		"x":"Cables",
+		"x":"March",
 		"y":50,
 		"color": "#4682b4",
 		"tooltip":50
 	},
 	{
 		"name":"U.S.A.",
-		"x":"Crude Oil",
+		"x":"April",
 		"y":60,
 		"color": "#4682b4",
-		"tooltip":60,
-		"annotations" : "USA"
+		"tooltip":60
 	},
 	{
 		"name":"U.S.A.",
-		"x":"Diamond",
+		"x":"May",
 		"y":30,
 		"color": "#4682b4",
 		"tooltip":30
 	},
 	{
 		"name":"U.S.A.",
-		"x":"Healthcare",
+		"x":"June",
 		"y":40,
 		"color": "#4682b4",
 		"tooltip":40
 	},
 	{
 		"name":"U.S.A.",
-		"x":"Automobile",
+		"x":"July",
 		"y":90,
 		"color": "#4682b4",
 		"tooltip":90
 	},
 	{
 		"name":"India",
-		"x":"Bank",
+		"x":"January",
 		"y":50,
 		"color": "#75b0e1",
 		"tooltip":50
 	},
 	{
 		"name":"India",
-		"x":"IT",
+		"x":"February",
 		"y":30,
 		"color": "#75b0e1",
 		"tooltip":30
 	},
 	{
 		"name":"India",
-		"x":"Cables",
+		"x":"March",
 		"y":80,
 		"color": "#75b0e1",
 		"tooltip":80
 	},
 	{
 		"name":"India",
-		"x":"Crude Oil",
+		"x":"April",
 		"y":40,
 		"color": "#75b0e1",
 		"tooltip":40
 	},
 	{
 		"name":"India",
-		"x":"Diamond",
+		"x":"May",
 		"y":50,
 		"color": "#75b0e1",
 		"tooltip":50
 	},
 	{
 		"name":"India",
-		"x":"Healthcare",
+		"x":"June",
 		"y":40,
 		"color": "#75b0e1",
 		"tooltip":40
 	},
 	{
 		"name":"India",
-		"x":"Automobile",
+		"x":"July",
 		"y":70,
 		"color": "#75b0e1",
 		"tooltip":70

@@ -49,15 +49,17 @@ PykCharts.oneD.treemap = function (options){
 
         if(that.mode === "default") {
             that.k.title()
-                .subtitle()
+                .backgroundColor(that)
                 .export(that,"#svgcontainer","treemap")
-                .emptyDiv();
+                .emptyDiv()
+                .subtitle();
         }
 
         that.k.tooltip();
         that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
         if(that.mode === "infographics"){
-            that.k.export(that,"#svgcontainer","treemap")
+            that.k.backgroundColor(that)
+                .export(that,"#svgcontainer","treemap")
                 .emptyDiv();
             that.new_data = {"children" : that.data};
         }
@@ -84,7 +86,7 @@ PykCharts.oneD.treemap = function (options){
     this.optionalFeatures = function (){
         var optional = {
             svgContainer: function () {
-                $(options.selector).css("background-color",that.background_color);
+                // $(options.selector).css("background-color",that.background_color);
 
                 that.svgContainer = d3.select(that.selector).append("svg:svg")
                     .attr("width",that.width)

@@ -53,9 +53,10 @@ PykCharts.multiD.spiderWeb = function (options) {
 
         if(that.mode === "default") {
             that.k.title()
-                .subtitle()
+                .backgroundColor(that)
                 .export(that,"#svgcontainer","spiderweb")
                 .emptyDiv()
+                .subtitle()
                 .makeMainDiv(that.selector,1);
 
             that.optionalFeatures()
@@ -81,7 +82,8 @@ PykCharts.multiD.spiderWeb = function (options) {
                 .dataSource();
 
         } else if (that.mode==="infographics") {
-            that.k.export(that,"#svgcontainer","spiderweb")
+            that.k.backgroundColor(that)
+                .export(that,"#svgcontainer","spiderweb")
                 .emptyDiv();
             that.k.makeMainDiv(that.selector,1);
 
