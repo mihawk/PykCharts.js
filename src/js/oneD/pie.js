@@ -5,8 +5,9 @@ PykCharts.oneD.pie = function (options) {
     this.execute = function() {
         that = new PykCharts.oneD.processInputs(that, options, "pie");
         if(options.chart_height) {
+            console.log("height");
             that.height = options.chart_height;
-            that.calculation = "";
+            that.calculation = undefined;
         }
         else {
             that.height = that.width;
@@ -39,7 +40,7 @@ PykCharts.oneD.donut = function (options) {
         that = new PykCharts.oneD.processInputs(that, options, "pie");
         if(options.chart_height) {
             that.height = options.chart_height;
-            that.calculation = "";
+            that.calculation = undefined;
         }
         else {
             that.height = that.width;
@@ -71,7 +72,7 @@ PykCharts.oneD.election_pie = function (options) {
         that = new PykCharts.oneD.processInputs(that, options, "pie");
         if(options.chart_height) {
             that.height = options.chart_height;
-            that.calculation = "";
+            that.calculation = undefined;
             that.height_translate = that.height/2;
         }
         else {
@@ -101,7 +102,7 @@ PykCharts.oneD.election_donut = function (options) {
         that = new PykCharts.oneD.processInputs(that, options, "pie");
         if(options.chart_height) {
             that.height = options.chart_height;
-            that.calculation = "";
+            that.calculation = undefined;
             that.height_translate = that.height/2;
         }
         else {
