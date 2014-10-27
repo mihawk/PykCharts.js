@@ -1921,8 +1921,9 @@ configuration.Theme = function(){
 
         "line_curvy_lines": "no",
 
-        "data_sort_type": "numerically", // sort type --- "alphabetically" / "numerically"
-        "data_sort_order": "descending" // sort order --- "descending" / "ascending"
+        "data_sort_enable": "yes",
+        "data_sort_type": "alphabetically", // sort type --- "alphabetically" / "numerically" / "date"
+        "data_sort_order": "ascending" // sort order --- "descending" / "ascending"
     };
 
     that.treeCharts = {
@@ -1947,13 +1948,11 @@ configuration.Theme = function(){
         // "play_image_url":"https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/play.gif",
         // "pause_image_url":"https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/pause.gif",
         // "marker_image_url":"https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/marker.png",
-
         
         "label_enable": "no",
         "click_enable": "yes",
 
-        "onhover": "shadow",
-
+        "onhover": "shadow"
     };
     return that;
 }
