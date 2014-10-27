@@ -1931,7 +1931,7 @@ configuration.Theme = function(){
 
     that.mapsTheme = {
         "total_no_of_colors": 3,
-        "palette_color": "Blue-1",
+        "palette_color": "Blue",
 
         
         "tooltip_position_top": 0,
