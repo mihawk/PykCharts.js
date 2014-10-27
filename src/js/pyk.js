@@ -736,25 +736,34 @@ PykCharts.Configuration = function (options){
         ordinalXAxisTickFormat :function (domain,extra) {
             var mouseEvent = new PykCharts.Configuration.mouseEvent(options),
                 a = $(options.selector + " g.x.axis text"),
-                len = a.length, comp, flag, largest = 0, smallest = a[0].getBBox().width;
+                len = a.length, comp, flag, largest = 0, rangeband = (extra*2);
 
             _.each(a, function (d) {
                 largest = (d.getBBox().width > largest) ? d.getBBox().width : largest;
-                smallest = (d.getBBox().width < smallest) ? d.getBBox().width : smallest;
             });
-            if (smallest <= ((extra*2) * 0.75) && smallest > ((extra*2) * 0.55)/* && largest > ((extra*2) * 0.75)*/)  { flag = 0; }
-            else if (largest > ((extra*2) * 0.75)) { flag = 1; }
-            else if ((largest <= ((extra*2) * 0.75)) && (largest > ((extra*2) * 0.55))) { flag = 2; }
-            
+            if (rangeband >= (largest+10)) { flag = 1; }
+            else if (rangeband >= (largest*0.75) && rangeband < largest) { flag = 2; }
+            else if (rangeband >= (largest*0.65) && rangeband < (largest*0.75)) { flag = 3; }
+            else if (rangeband >= (largest*0.55) && rangeband < (largest*0.65)) { flag = 4; }
+            else if (rangeband >= (largest*0.35) && rangeband < (largest*0.55)) { flag = 5; }
+            else if (rangeband <= 20 || rangeband < (largest*0.35)) { flag = 0; }
+
             for(i=0; i<len; i++) {
                 comp = a[i].innerHTML;
                 if (flag === 0) {
                     comp = "";
                 }
-                else if ((a[i].getBBox().width > ((extra*2) * 0.75)) && flag === 1){
-                    comp = comp.substr(0,3) + "..";
+                else if (rangeband >= (a[i].getBBox().width+10) && flag === 1) {}
+                else if (rangeband >= (a[i].getBBox().width*0.75) && rangeband < a[i].getBBox().width && flag === 2){
+                    comp = comp.substr(0,5) + "..";
                 }
-                else if ((a[i].getBBox().width <= ((extra*2) * 0.75)) && (a[i].getBBox().width > ((extra*2) * 0.55)) && flag === 2) {
+                else if (rangeband >= (a[i].getBBox().width*0.65) && rangeband < (a[i].getBBox().width*0.75) && flag === 3){
+                    comp = comp.substr(0,4) + "..";
+                }
+                else if (flag === 4){
+                    comp = comp.substr(0,3);
+                }
+                else if (flag === 5){
                     comp = comp.substr(0,2);
                 }
                 a[i].innerHTML = comp;
