@@ -928,23 +928,24 @@ PykCharts.Configuration = function (options){
                 return (min_value*radius_percent)/200;
             }
         },
-        backgroundColor: function (chart) {
+        backgroundColor: function (options) {
+            console.log("heyy",options);
              $(options.selector).css({"background-color":options.background_color,"position":"relative"})
-
                 var bg;
+                // console.log(options.selector,"bodyyy");
                 bgColor(options.selector);
-
+                
                 function bgColor(child) {
                     bg = $(child).css("background-color");
-                    console.log("what is bg", bg);
+                    console.log("what is bg", child);
                     // console.log(bg,"oh bggg");
                     if (bg === "transparent" || bg === "rgba(0, 0, 0, 0)") {
-                        if (document.getElementsByTagName("body") !== undefined ){
+                        if (document.getElementsByTagName("body")!== undefined){
                             console.log("is it going");
                             $(child).colourBrightness("rgb(255,255,255)");
                         } else {
-                            // console.log(($(child)[0].parentNode()),"child");
-                            return bgColor((child)[0].parentNode);
+                            console.log($(child)[0].parentNode,"child");
+                            return bgColor($(child)[0].parentNode);
                         }
                     } else {
                         console.log("bg",bg);
@@ -1896,9 +1897,9 @@ configuration.Theme = function(){
         "timeline_margin_bottom": 25,
         "timeline_margin_left": 45,
 
-        "play_image_url":"https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/play.gif",
-        "pause_image_url":"https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/pause.gif",
-        "marker_image_url":"https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/marker.png",
+        // "play_image_url":"https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/play.gif",
+        // "pause_image_url":"https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/pause.gif",
+        // "marker_image_url":"https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/marker.png",
 
         
         "label_enable": "no",

@@ -5,9 +5,9 @@
         <link rel="stylesheet" type="text/css" href="../src/css/PykCharts.css">
     </head>
     <body>
-    <!-- <div id = "hello" style="height:500px;width:1000px;background-color:black"> -->
-        <div id="line">
-        </div>        
+    <!-- <div id="hi" style="height:500px;width:1200px;background-color:pink;"> -->
+    <!-- <div id = "hello" style="height:500px;width:1000px;background-color:red;"> -->
+        <div id="line"></div>        
     <!-- </div> -->
         <hr/>
         <div id="area"></div>
@@ -77,7 +77,7 @@
 
                     transition_duration: 0,
                     real_time_charts_refresh_frequency: 0,
-                    background_color: "transparent",
+                    background_color: "white",
                     axis_onhover_hightlight_enable: "yes",
                     axis_x_enable: "yes",
                     axis_x_title : "Month",
@@ -103,9 +103,9 @@
                     // axis_y_pointer_values: [30,40,50],
                     axis_y_outer_pointer_size: 3,
                     line_curvy_lines:"no",
-                    tooltip_enable: "no",
+                    tooltip_enable: "yes",
                     tooltip_mode : "moving",
-                    crosshair_enable: "no",
+                    crosshair_enable: "yes",
                     zoom_enable: "yes"
 
                 });
@@ -176,7 +176,7 @@
                     spiderweb_pointer: "yes",
                     spiderweb_axis_title : "no",
 
-                    background_color:"white",
+                    background_color:"transparent",
 
                     // chart_color: ["#75b0e1","#0e5ea1"],
                     chart_color: ["","green"],
@@ -271,7 +271,7 @@
                     data: "../data/scatterplot.json",
                     mode : "default",
 
-                    background_color: "white",
+                    background_color: "transparent",
 
                     chart_color: ["#07365e","#0e5ea1","#4682b4","#75b0e1","#a0ccf1"],
                     chart_height: 450,
