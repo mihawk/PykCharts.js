@@ -49,6 +49,7 @@ PykCharts.oneD.treemap = function (options){
 
         if(that.mode === "default") {
             that.k.title()
+                .backgroundColor(that)
                 .export(that,"#svgcontainer","treemap")
                 .emptyDiv()
                 .subtitle();
@@ -57,7 +58,8 @@ PykCharts.oneD.treemap = function (options){
         that.k.tooltip();
         that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
         if(that.mode === "infographics"){
-            that.k.export(that,"#svgcontainer","treemap")
+            that.k.backgroundColor(that)
+                .export(that,"#svgcontainer","treemap")
                 .emptyDiv();
             that.new_data = {"children" : that.data};
         }

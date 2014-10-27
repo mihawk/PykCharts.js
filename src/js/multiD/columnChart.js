@@ -73,6 +73,7 @@ PykCharts.multiD.columnChart = function(options){
         }
         if(that.mode === "default") {
             that.k.title()
+                .backgroundColor(that)
                 .export(that,"#svgcontainer","columnChart")
                 .emptyDiv()
                 .subtitle()
@@ -105,7 +106,7 @@ PykCharts.multiD.columnChart = function(options){
                 .yGrid(that.svgContainer,that.group,that.yScaleInvert);
 
         } else if(that.mode === "infographics") {
-            that.k
+            that.k.backgroundColor(that)
                 .export(that,"#svgcontainer","columnChart")
                 .emptyDiv()
                 .makeMainDiv(that.selector,1);
@@ -456,7 +457,7 @@ PykCharts.multiD.columnChart = function(options){
                         .attr("height", height)
                         .attr("fill","none")
                         .attr("stroke", that.highlight_color)
-                        .attr("stroke-width", "1")
+                        .attr("stroke-width", "1.5")
                         .attr("stroke-dasharray", "5,5")
                         .attr("stroke-opacity",1);
                 }

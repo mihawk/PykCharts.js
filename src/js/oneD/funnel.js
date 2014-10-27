@@ -62,6 +62,7 @@ PykCharts.oneD.funnel = function (options) {
 
         if(that.mode === "default") {        
             that.k.title()
+                .backgroundColor(that)
                 .export(that,"#svgcontainer","funnel")
                 .emptyDiv()
                 .subtitle();
@@ -69,7 +70,8 @@ PykCharts.oneD.funnel = function (options) {
         that.k.tooltip();
         that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
         if(that.mode === "infographics") {
-            that.k.export(that,"#svgcontainer","funnel")
+            that.k.backgroundColor(that)
+                .export(that,"#svgcontainer","funnel")
                 .emptyDiv();
 
             that.new_data = that.data;
