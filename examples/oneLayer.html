@@ -20,86 +20,6 @@
         <script src = "../src/js/maps/maps.js"></script>
         <script src = "../src/js/maps/oneLayer.js"></script>
         <script>
-            function colFunction () {
-                if ($("input[name='colortype']:checked").val() === "colors") {
-                    $("#seven").prop('disabled', true);
-                    $("#a6").prop('disabled', true);
-                    $("#eight").prop('disabled', true);
-                    $("#high1").prop('disabled', true);
-                    $("#high2").prop('disabled', true);
-                } else {
-                    $("#seven").prop('disabled', false);
-                    $("#a6").prop('disabled', false);
-                    $("#eight").prop('disabled', false);
-                    $("#high1").prop('disabled', false);
-                    $("#high2").prop('disabled', false);
-                }
-            }
-
-            function defFunction () {
-                $("#a6").prop('disabled', false);
-            }
-
-            function sourceFunction () {
-                if ($("input[name='source']:checked").val() === "yes") {
-                    $("#d1").prop('disabled', false);
-                    $("#d2").prop('disabled', false);
-                } else {
-                    $("#d1").prop('disabled', true);
-                    $("#d2").prop('disabled', true);
-                }
-            }
-
-            function creditsFunction () {
-                if ($("input[name='credits']:checked").val() === "yes") {
-                    $("#d3").prop('disabled', false);
-                    $("#d4").prop('disabled', false);
-                } else {
-                    $("#d3").prop('disabled', true);
-                    $("#d4").prop('disabled', true);
-                }
-            }
-
-            function tooltipFunction () {
-                if ($("input[name='tooltip']:checked").val() === "yes") {
-                    // console.log("tooltip yes");
-                    $("input[name='tooltip_mode']").prop('disabled', false);
-                    if ($("input[name='tooltip_mode']:checked").val() === "fixed") {
-                        $("#a7").prop('disabled', false);
-                        $("#a8").prop('disabled', false);
-                    } else {
-                        $("#a8").prop('disabled', true);
-                        $("#a7").prop('disabled', true);
-                    }
-                } else {
-                    // console.log("tooltip no");
-                    $("input[name='tooltip_mode']").prop('disabled', true);
-                    $("#a8").prop('disabled', true);
-                    $("#a7").prop('disabled', true);
-                }
-            }
-
-            function tooltipmodeFunction () {
-                if ($("input[name='tooltip_mode']:checked").val() === "fixed") {
-                    $("#a7").prop('disabled', false);
-                    $("#a8").prop('disabled', false);
-                } else {
-                    $("#a8").prop('disabled', true);
-                    $("#a7").prop('disabled', true);
-                }
-            }
-
-            function palFunction () {
-                if ($("#eight").val() === "") {
-                    $("#a6").prop('disabled', false);
-                } else {
-                    $("#a6").prop('disabled', true);
-                }
-            }
-
-            $("#ttipPos").trigger("click");
-
-
             $(document).ready(function() {
 
                 var data_final;
@@ -124,8 +44,8 @@
                         chart_width: 1000,
                         chart_color : ["#636363"],
                         color_mode: "saturation",
-                        palette_color: "Blue-1",
-                        total_no_of_colors: 9,
+                        palette_color: "Pink",
+                        total_no_of_colors: 3,
                         background_color: "white",
                         tooltip_enable : "yes",
                         tooltip_mode: "moving",
@@ -137,7 +57,7 @@
                         click_enable: "yes",
                         real_time_charts_refresh_frequency : 5,
                         onhover: "shadow",
-                        label_enable: "no",
+                        label_enable: "yes",
                         default_zoom_level: 80,
                         highlight_area_enable: "no",
                         highlight: "IN_GJ",
