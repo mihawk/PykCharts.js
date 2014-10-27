@@ -1909,7 +1909,6 @@ configuration.Theme = function(){
         "crosshair_enable": "yes",
         "zoom_enable": "no",
         "zoom_level" : 3,
-
         
         // "color": ["yellow"],
 
@@ -1922,6 +1921,9 @@ configuration.Theme = function(){
         "scatterplot_pointer": "no",
 
         "line_curvy_lines": "no",
+
+        "barchart_sort": "numerically", // sort type --- "alphabetically" / "numerically"
+        "barchart_sort_order": "descending" // sort order --- "descending" / "ascending"
     };
 
     that.treeCharts = {
