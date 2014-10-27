@@ -993,6 +993,19 @@ PykCharts.Configuration = function (options){
                             .style("cursor","pointer")
                             .html("Panel " + (i+1) + "<br>");
                     }
+                } else {
+                    d3.select(options.selector + " #dropdown-multipleConatiner-export")
+                        .append("span")
+                        .attr("id",chart_name + "span")
+                        .on("mouseover",function () {
+                            $(this).css("background-color","#E0E0E1");
+                        })
+                        .on("mouseout",function() {
+                            $(this).css('background-color',"#fff")
+                        })
+                        .style("margin-bottom", "3px")
+                        .style("cursor","pointer")
+                        .html("Export as SVG" + "<br>");
                 }
 
                 var canvas_id = chart_name+"canvas";
@@ -1034,9 +1047,13 @@ PykCharts.Configuration = function (options){
 
                 var name = chart_name + ".svg";
 
-                if(!PykCharts.boolean(multiple_containers_enable)) {
+                $(chart.selector + " #"+id).click(function () {
+                    d3.select(options.selector + " #dropdown-multipleConatiner-export").style("visibility", "visible");                        
+                });
 
-                    $(chart.selector + " #"+id).click(function () {
+                if(!PykCharts.boolean(multiple_containers_enable)) {
+                    $(chart.selector + " #"+chart_name+"span").click(function () {
+                        d3.select(options.selector + " #dropdown-multipleConatiner-export").style("visibility", "hidden");                        
                         chart.k.processSVG(document.querySelector(options.selector +" "+svgId),chart_name);
                         project.importSVG(document.querySelector(options.selector +" "+svgId));
                         var svg = project.exportSVG({ asString: true });
@@ -1047,9 +1064,6 @@ PykCharts.Configuration = function (options){
                         project.clear();
                     });
                 } else {
-                    $(chart.selector + " #"+id).click(function () {
-                        d3.select(options.selector + " #dropdown-multipleConatiner-export").style("visibility", "visible");
-                    });
                     for(var i = 0; i<containers.length; i++) {
                         $(chart.selector + " #"+chart_name + i).click(function () {
                             d3.select(options.selector + " #dropdown-multipleConatiner-export").style("visibility", "hidden");
@@ -1083,8 +1097,26 @@ PykCharts.Configuration = function (options){
             return this;
         },
         errorHandling: function(error_msg,error_code) {
-            console.log();
+            console.log("PykCharts Error " + error_code);
+            console.log(error_msg);
+            console.log("To know more about the error visit  http://www.pykih.com/");
             return this;
+        },
+        validator: function () {
+            var validator = {
+                validatingSelector : function (selector) {
+                    try {
+                        if(!document.getElementById(selector)) {
+                            throw "     Rendering div not found";
+                        } 
+                    }
+                    catch (err) {
+                        options.k.errorHandling(err,"#1");
+                    }
+                    return this;
+                }
+            };
+            return validator;
         }
     };
     return configuration;
@@ -1714,7 +1746,7 @@ configuration.Theme = function(){
     var that = this;
     that.stylesheet = {
         "mode": "default",
-        "selector": "body",
+        "selector": "",
 
         "chart_height": 400,
         "chart_width": 600,
