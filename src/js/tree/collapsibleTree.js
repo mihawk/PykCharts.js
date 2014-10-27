@@ -146,7 +146,7 @@ PykCharts.tree.collapsibleTree = function (options) {
                     .style("stroke-width",that.border.width())
                     .on("mouseover", function (d) {
                         that.mouseEvent.tooltipPosition(d);
-                        that.mouseEvent.toolTextShow(d.key);
+                        that.mouseEvent.tooltipTextShow(d.key);
                     })
                     .on("mousemove", function (d) {
                         that.mouseEvent.tooltipPosition(d);

@@ -253,7 +253,7 @@ PykCharts.weighted.spiderWeb = function (options) {
                         .attr("stroke-width",that.border.width())
                         .on('mouseover',function (d,i) {
                             that.mouseEvent.tooltipPosition(d);
-                            that.mouseEvent.toolTextShow(toolTip[i]);
+                            that.mouseEvent.tooltipTextShow(toolTip[i]);
                         })
                         .on('mouseout',function (d) {
                             that.mouseEvent.tooltipHide(d);  

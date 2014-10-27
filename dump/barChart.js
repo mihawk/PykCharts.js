@@ -195,7 +195,7 @@ PykCharts.twoD.bar = function (options) {
                     .on('mouseover',function (d) {
                         that.mouseEvent1.highlight(options.selector+" "+".hbar", this);
                         that.mouseEvent.tooltipPosition(d);
-                        that.mouseEvent.toolTextShow(d.tooltip ? d.tooltip : d.x);
+                        that.mouseEvent.tooltipTextShow(d.tooltip ? d.tooltip : d.x);
                     })
                     .on('mouseout',function (d) {
                         that.mouseEvent1.highlightHide(options.selector+" "+".hbar");
