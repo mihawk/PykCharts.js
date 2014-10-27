@@ -483,7 +483,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                 return this ;
             },
             legends : function (index) {
-
+                   
                 if (PykCharts.boolean(that.legends_enable) && PykCharts.boolean(that.variable_circle_size_enable) && that.map_group_data[1] && that.mode==="default") {
                     var unique = _.uniq(that.sorted_weight);
                     var k = 0;

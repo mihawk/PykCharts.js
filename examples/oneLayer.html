@@ -1,5 +1,6 @@
 <html>
     <head>
+        <title>One Layer</title>
         <link rel="stylesheet" type="text/css" href="../src/css/PykCharts.css">
         <script src="../lib/paper-full.js"></script>
         <script src="../lib/downloadDataURI.js"></script>
@@ -117,7 +118,6 @@
                     $("#map-container").attr("style", "float: left; position: static");
                     $("#legend-container").attr("style", "background-color: white");
                     k = new PykCharts.maps.oneLayer({
-
                         selector: "#map-container",
                         map_code: "india",
                         data: "../data/maps/india_data.json",
@@ -140,10 +140,13 @@
                         onhover: "shadow",
                         label_enable: "yes",
                         default_zoom_level: 80,
-                        highlight_area_enable: "no",
+                        highlight_area_enable: "yes",
                         highlight: "IN_GJ",
+                        // highlight_color: "yellow",
                         legends_enable: "yes",
                         legends_display: "horizontal",
+                        title_text: "HELLO WORLD",
+                        subtitle_text: "india",
                         credit_my_site_name: "Pykih",
                         credit_my_site_url: "http://pykih.com",
                         loading_gif_url: "http://www.sportdiver.com/sites/all/modules/platform/inline_login/loading.gif",
