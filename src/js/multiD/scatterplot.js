@@ -4,6 +4,10 @@ PykCharts.multiD.scatterPlot = function (options) {
 
     this.execute = function() {
         that = new PykCharts.multiD.processInputs(that, options, "scatterplot");
+        
+        if(that.stop) 
+            return;
+
         if(that.mode === "default") {
             that.k.loading();
         }
@@ -483,7 +487,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                 return this ;
             },
             legends : function (index) {
-
+                   
                 if (PykCharts.boolean(that.legends_enable) && PykCharts.boolean(that.variable_circle_size_enable) && that.map_group_data[1] && that.mode==="default") {
                     var unique = _.uniq(that.sorted_weight);
                     var k = 0;

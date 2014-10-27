@@ -1,46 +1,27 @@
 <html>
     <head>
+        <title>One Layer</title>
         <link rel="stylesheet" type="text/css" href="../src/css/PykCharts.css">
         <script src="../lib/paper-full.js"></script>
         <script src="../lib/downloadDataURI.js"></script>
-        <link rel="stylesheet" type="text/css" href="../lib/bootstrap.min.css">
     </head>
     <body>
         <div class="container cstm-container">
             <div id = "map-container">
 
             </div>
-        <script src="../lib/d3.min.js"></script>
-        <script src="../lib/jquery-1.11.1.min.js"></script>
-        <script src="../lib/underscore-min.js"></script>
-        <script src="../lib/jquery.bpopup.min.js"></script>
-        <script src="../lib/bootstrap.min.js"></script>
-        <script src = "../lib/topojson.js"></script>
         <script src="../src/js/pyk.js"></script>
         <script src = "../src/js/maps/maps.js"></script>
         <script src = "../src/js/maps/oneLayer.js"></script>
-         <script src="../lib/jquery.colourbrightness.js"></script>
+        <script src = "../src/js/init.js"></script>
         <script>
-            $(document).ready(function() {
-
-                var data_final;
-
-                function checked (name) {
-                  var elements = document.getElementsByName(name);
-                  for (var i=0, len=elements.length; i<len; ++i)
-                      if (elements[i].checked) return elements[i].value;
-                }
+            window.PykChartsInit = function (e) {
 
                     // console.log($("#d3").val(),$("#d4").val());
-                    $("#map-container").html("");
-                    $("#legend-container").html("");
-                    $("#map-container").attr("style", "float: left; position: static");
-                    $("#legend-container").attr("style", "background-color: white");
                     k = new PykCharts.maps.oneLayer({
-
                         selector: "#map-container",
-                        map_code: "uae",
-                        data: "../data/maps/uae_data.json",
+                        map_code: "newzealand",
+                        data: "../data/maps/newzealand_data.json",
                         chart_height: 600,
                         chart_width: 800,
                         chart_color : ["#636363"],
@@ -60,10 +41,13 @@
                         onhover: "shadow",
                         label_enable: "yes",
                         default_zoom_level: 80,
-                        highlight_area_enable: "no",
+                        highlight_area_enable: "yes",
                         highlight: "IN_GJ",
+                        // highlight_color: "yellow",
                         legends_enable: "yes",
                         legends_display: "horizontal",
+                        title_text: "HELLO WORLD",
+                        subtitle_text: "india",
                         credit_my_site_name: "Pykih",
                         credit_my_site_url: "http://pykih.com",
                         loading_gif_url: "http://www.sportdiver.com/sites/all/modules/platform/inline_login/loading.gif",
@@ -75,7 +59,7 @@
                     k.execute();
 
 
-            });
+            }
 
         </script>
     </body>
