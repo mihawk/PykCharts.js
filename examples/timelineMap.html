@@ -114,16 +114,14 @@
                   for (var i=0, len=elements.length; i<len; ++i)
                       if (elements[i].checked) return elements[i].value;
                 }
-
-<<<<<<< HEAD
                 $("#map-container").html("");
                 $("#legend-container").html("");
                 $("#map-container").attr("style", "float: left; position: static");
                 $("#legend-container").attr("style", "background-color: white");
                 k = new PykCharts.maps.timelineMap({
                     selector: "#map-container",
-                    map_code: "world2",
-                    data: "../data/maps/world2_data_timeline.json",
+                    map_code: "india",
+                    data: "../data/maps/india_data.json",
                     chart_height: 500,
                     chart_width: 800,
                     default_color : "#636363",
@@ -159,55 +157,6 @@
                     data_source_url: "http://pykih.com",
                     units_prefix: "",
                     units_suffix: ""
-=======
-                $("#sub").click(function(){
-                    $("#map-container").html("");
-                    $("#legend-container").html("");
-                    $("#map-container").attr("style", "float: left; position: static");
-                    $("#legend-container").attr("style", "background-color: white");
-                    k = new PykCharts.maps.timelineMap({
-                        selector: "#map-container",
-                        map_code: $("#one").val(),
-                        data: "../data/maps/" + $("#one").val() + "_data_timeline.json",
-                        chart_height: 500,
-                        chart_width: 800,
-                        default_color : $("#a6").val(),
-                        total_no_of_colors: $("#seven").val(),
-                        color_mode: checked("colortype"),
-                        palette_color: $("#eight").val(),
-                        background_color: "transparent",
-                        tooltip_enable : checked('tooltip'),
-                        tooltip_mode: checked('tooltip_mode'),
-                        tooltip_position_top: $("#a7").val(),
-                        tooltip_position_left:$("#a8").val(),
-                        border_between_chart_elements_color: $("#a2").val(),
-                        border_between_chart_elements_thickness: $("#a3").val(),
-                        border_between_chart_elements_style: "solid",
-                        timeline_duration: 1000, 
-                        timeline_margin_top: 10,
-                        timeline_margin_right: 30,
-                        timeline_margin_bottom: 10, 
-                        timeline_margin_left: 30,
-                        // play_image_url:"https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/play.gif",
-                        // pause_image_url:"https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/pause.gif",
-                        // marker_image_url:"https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/marker.png",
-                        click_enable: "yes",
-                        onhover: $("#a5").val(),
-                        label_enable: checked('label'),
-                        default_zoom_level: $("#a9").val(),
-                        legends_enable: checked('legend'),
-                        legends_display: "horizontal",
-                        credit_my_site_name: $("#d3").val(),
-                        credit_my_site_url: $("#d4").val(),
-                        loading_gif_url: "http://www.sportdiver.com/sites/all/modules/platform/inline_login/loading.gif",
-                        data_source_name: $("#d1").val(),
-                        data_source_url: $("#d2").val(),
-                        units_prefix: "",
-                        units_suffix: "",
-                        export_enable: "yes"
-                    });
-                    k.execute();
->>>>>>> a243e0696c2fc0124b2baa6fd7da00e1b037a50d
                 });
                 k.execute();
             

@@ -13,7 +13,7 @@ PykCharts.maps.oneLayer = function (options) {
                 .loading(that.loading)
                 .tooltip();
 
-            d3.json("../data/maps/" + that.map_code + "-topo.json", function (data) {
+            d3.json("https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/maps/" + that.map_code + "-topo.json", function (data) {
                 that.map_data = data;
                 d3.json("../data/maps/colorPalette.json", function (data) {
                     that.color_palette_data = data;
@@ -50,7 +50,7 @@ PykCharts.maps.timelineMap = function (options) {
                 .loading(that.loading)
                 .tooltip(that.tooltip_enable);
 
-            d3.json("../data/maps/" + that.map_code + "-topo.json", function (data) {
+            d3.json("https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/maps/" + that.map_code + "-topo.json", function (data) {
                 that.map_data = data;
                 d3.json("../data/maps/colorPalette.json", function (data) {
                     that.color_palette_data = data;
@@ -223,7 +223,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     .attr("class","map_group")
                     .append("path");
 
-                if (that.map_code==="world" || that.map_code==="world2" || that.map_code==="world3") {
+                if (that.map_code==="world" || that.map_code==="world_without_antarctica") {
                     var center = [0,0];
                 } else {
                     var center = d3.geo.centroid(topojson.feature(that.map_data, that.map_data.objects));
