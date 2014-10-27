@@ -1823,7 +1823,10 @@ configuration.Theme = function(){
 
         "loading_gif_url": "https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/img/loader.gif",
         // "fullscreen_enable": "no",
+        
         "tooltip_enable": "yes",
+        "tooltip_mode": "moving",
+
         "credit_my_site_name": "Pykih",
         "credit_my_site_url": "http://www.pykih.com"
 
@@ -1891,8 +1894,6 @@ configuration.Theme = function(){
         "axis_y_time_value_interval":"",
         "axis_y_data_format": "number",
 
-        "tooltip_mode": "fixed",
-
         "panels_enable": "no",
         "variable_circle_size_enable" : "yes",
 
@@ -1923,7 +1924,7 @@ configuration.Theme = function(){
         "total_no_of_colors": 3,
         "palette_color": "Blue-1",
 
-        "tooltip_mode": "moving",
+        
         "tooltip_position_top": 0,
         "tooltip_position_left": 0,
 
@@ -1942,8 +1943,6 @@ configuration.Theme = function(){
         "click_enable": "yes",
 
         "onhover": "shadow",
-
-        "highlight_area_enable":"no",
 
     };
     return that;
