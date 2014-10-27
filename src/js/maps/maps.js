@@ -41,7 +41,7 @@ PykCharts.maps.processInputs = function (chartObject, options) {
     chartObject.margin_bottom = options.timeline_margin_bottom ? options.timeline_margin_bottom : mapsTheme.timeline_margin_bottom;
 
     chartObject.tooltip_enable = options.tooltip_enable ? options.tooltip_enable : stylesheet.tooltip_enable;
-    chartObject.tooltip_mode = options.tooltip_mode ? options.tooltip_mode : mapsTheme.tooltip_mode;
+    chartObject.tooltip_mode = options.tooltip_mode ? options.tooltip_mode : stylesheet.tooltip_mode;
     chartObject.tooltip_position_top = options.tooltip_position_top ? options.tooltip_position_top : mapsTheme.tooltip_position_top;
     chartObject.tooltip_position_left = options.tooltip_position_left ? options.tooltip_position_left : mapsTheme.tooltip_position_left;
     chartObject.tooltipTopCorrection = d3.select(chartObject.selector).style("top");
@@ -81,7 +81,6 @@ PykCharts.maps.processInputs = function (chartObject, options) {
     chartObject.onhover = options.onhover ? options.onhover : mapsTheme.onhover;
     chartObject.default_zoom_level = options.default_zoom_level ? options.default_zoom_level : 80;
     chartObject.loading = options.loading_gif_url ? options.loading_gif_url: stylesheet.loading_gif_url;
-    chartObject.highlight_area_enable = options.highlight_area_enable ? options.highlight_area_enable : mapsTheme.highlight_area_enable;
     chartObject.highlight = options.highlight ? options.highlight : stylesheet.highlight;
     chartObject.highlight_color = options.highlight_color ? options.highlight_color: stylesheet.highlight_color;
     // chartObject.highlight_area_enable = "yes";    

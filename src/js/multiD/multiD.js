@@ -321,6 +321,7 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     chartObject.grid_color = options.chart_grid_color ? options.chart_grid_color : stylesheet.chart_grid_color;
     chartObject.mode = options.mode ? options.mode : "default";
     chartObject.color_mode = options.color_mode ? options.color_mode : stylesheet.color_mode;
+
     if (options &&  PykCharts.boolean (options.title_text)) {
         chartObject.title_text = options.title_text;
         chartObject.title_size = "title_size" in options ? options.title_size : stylesheet.title_size;
@@ -413,8 +414,8 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
                         break;
         case "dashed" : chartObject.border_between_chart_elements_style = "5,5";
                        break;
-        default : chartObject.border_between_chart_elements_style = "0";
-                  break;
+        case "solid" : chartObject.border_between_chart_elements_style = "0";
+                       break;
     }
     chartObject.pointer_thickness = "pointer_thickness" in options ? options.pointer_thickness : stylesheet.pointer_thickness;
     chartObject.pointer_size = "pointer_size" in options ? options.pointer_size : stylesheet.pointer_size;
@@ -432,7 +433,7 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     chartObject.label_family = options.label_family ? options.label_family : stylesheet.label_family;
 
     chartObject.tooltip_enable = options.tooltip_enable ? options.tooltip_enable : stylesheet.tooltip_enable;
-    chartObject.tooltip_mode = options.tooltip_mode ? options.tooltip_mode : multiDimensionalCharts.tooltip_mode;
+    chartObject.tooltip_mode = options.tooltip_mode ? options.tooltip_mode : stylesheet.tooltip_mode;
 
     chartObject.legends_text_size = options.legends_text_size ? options.legends_text_size : stylesheet.legends_text_size;
     chartObject.legends_text_color = options.legends_text_color ? options.legends_text_color : stylesheet.legends_text_color;
@@ -460,12 +461,25 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
                 .validatingDataType(chartObject.real_time_charts_refresh_frequency,"real_time_charts_refresh_frequency")
                 .validatingDataType(chartObject.transition_duration,"transition_duration")
                 .validatingDataType(chartObject.border_between_chart_elements_thickness,"border_between_chart_elements_thickness")
+                .validatingDataType(chartObject.axis_x_pointer_size,"axis_x_pointer_size")
+                .validatingDataType(chartObject.axis_y_pointer_size,"axis_y_pointer_size")
+                .validatingDataType(chartObject.label_size,"label_size")
+                .validatingDataType(chartObject.legends_text_size ,"legends_text_size")                 
+                .validatingDataType(chartObject.zoom_level,"zoom_level")
+                .validatingDataType(chartObject.pointer_thickness,"pointer_thickness")
+                .validatingDataType(chartObject.pointer_size,"pointer_size")                                
+                .validatingDataType(chartObject.axis_x_outer_pointer_size,"axis_x_outer_pointer_size")
+                .validatingDataType(chartObject.axis_y_outer_pointer_size,"axis_y_outer_pointer_size")
+                .validatingDataType(chartObject.axis_x_pointer_padding,"axis_x_pointer_padding")                
+                .validatingDataType(chartObject.axis_y_pointer_padding,"axis_y_pointer_padding")                
                 .validatingAxisDataFormat(options.axis_x_data_format,"axis_x_data_format")
                 .validatingAxisDataFormat(options.axis_y_data_format,"axis_y_data_format")
                 .validatingColorMode(chartObject.color_mode,"color_mode")
                 .validatingAxisPointerPosition(chartObject.axis_y_pointer_position,"axis_y_pointer_position")
                 .validatingAxisPointerPosition(chartObject.axis_x_pointer_position,"axis_x_pointer_position")
-
+                .validatingAxisPointerPosition(chartObject.axis_x_position,"axis_x_position")
+                .validatingAxisPointerPosition(chartObject.axis_y_position,"axis_y_position")
+                .validatingBorderBetweenChartElementsStyle(chartObject.border_between_chart_elements_style,"border_between_chart_elements_style")
                 // .validatingDataType(,"");
 
     return chartObject;

@@ -15,6 +15,11 @@ PykCharts.maps.oneLayer = function (options) {
 
             d3.json("../data/maps/" + that.map_code + "-topo.json", function (data) {
                 that.map_data = data;
+                _.each(that.map_data.objects.geometries, function (d) {
+                  var a = d.properties.NAME_1.replace("'","&#39;");
+                  d.properties.NAME_1 = a;
+                  return d;
+                });
                 d3.json("../data/maps/colorPalette.json", function (data) {
                     that.color_palette_data = data;
                     $(that.selector).html("");
@@ -52,6 +57,11 @@ PykCharts.maps.timelineMap = function (options) {
 
             d3.json("../data/maps/" + that.map_code + "-topo.json", function (data) {
                 that.map_data = data;
+                _.each(that.map_data.objects.geometries, function (d) {
+                  var a = d.properties.NAME_1.replace("'","&#39;");
+                  d.properties.NAME_1 = a;
+                  return d;
+                });
                 d3.json("../data/maps/colorPalette.json", function (data) {
                     that.color_palette_data = data;
 
@@ -270,7 +280,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     .attr("iso2", function (d) {
                         return d.properties.iso_a2;
                     })
-                    .attr("state_name", function (d) {
+                    .attr("area_name", function (d) {
                         return d.properties.NAME_1;
                     })
                     //.attr("prev-fill",that.renderPreColor)
@@ -520,9 +530,9 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             .attr("x", function (d) { return that.path.centroid(d)[0]; })
             .attr("y", function (d) { return that.path.centroid(d)[1]; })
             .attr("text-anchor", "middle")
-            .attr("font-size", "10")
+            .attr("font-size", "10px")
             .attr("pointer-events", "none")
-            .text(function (d) { return d.properties.NAME_1; });
+            .text(function (d) { return d.properties.NAME_1.replace("&#39;","'"); });
     };
 
     that.bodColor = function (d) {
@@ -530,12 +540,12 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         var obj = _.where(that.data, {iso2: d.properties.iso_a2});
         if(that.onhover1 !== "none") {
             if (that.onhover1 === "highlight_border") {
-                d3.select("path[state_name='" + d.properties.NAME_1 + "']")
+                d3.select("path[area_name='" + d.properties.NAME_1 + "']")
                     .style("stroke", that.border.color())
                     .style("stroke-width", parseInt(that.border.width()) + 1.5 + "px")
                     .style("stroke-dasharray", that.border.style());
             } else if (that.onhover1 === "shadow") {
-                d3.select("path[state_name='" + d.properties.NAME_1 + "']")
+                d3.select("path[area_name='" + d.properties.NAME_1 + "']")
                     .attr('filter', 'url(#dropshadow)')
                     .attr("opacity", function () {
                         if (that.palette_color === "" && that.color_mode === "saturation") {
@@ -546,7 +556,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                         return 0.5;
                     });
             } else if (that.onhover1 === "color_saturation") {
-                d3.select("path[state_name='" + d.properties.NAME_1 + "']")
+                d3.select("path[area_name='" + d.properties.NAME_1 + "']")
                     .attr("opacity", function () {
                         if (that.palette_color=== "" && that.color_mode === "saturation") {
                             that.oneninth_dim = +(d3.format(".2f")(that.difference / 10));
@@ -561,7 +571,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         }
     };
     that.bodUncolor = function (d) {
-        d3.select("path[state_name='" + d.properties.NAME_1 + "']")
+        d3.select("path[area_name='" + d.properties.NAME_1 + "']")
             .style("stroke", that.border.color())
             .style("stroke-width", that.border.width())
             .style("stroke-dasharray", that.border.style())
@@ -588,10 +598,10 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         }
     };
 
-    that.backgroundColor =function () {        
+    that.backgroundColor =function () {
         var bg;
         bgColor(options.selector);
-           
+
         function bgColor(child) {
             bg = $(child).css("background-color");
             console.log(bg,"oh bggg");
@@ -605,7 +615,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             } else {
                 console.log("bg",bg,child);
                 $(child).colourBrightness(bg);
-            }     
+            }
         }
     }
     that.renderDataForTimescale = function () {
@@ -695,11 +705,11 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                             clearTimeout(time_lag);
                         }
                         if ($(that.selector)[0].classList.contains("light")) {
-                            play1 = "../img/play.png"; 
+                            play1 = "../img/play.png";
                         } else  {
                             console.log("yeahhh");
-                            play1 = "../img/play-light.png";            
-                        } 
+                            play1 = "../img/play-light.png";
+                        }
 
                         if (interval1===that.unique.length) {
                             clearInterval(undo_heatmap);
@@ -767,29 +777,29 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                 }
             }
         }
-        
+
         var play;
         console.log(($(that.selector)[0].classList.contains("light")),"lightttttt");
         if ($(that.selector)[0].classList.contains("light")) {
-            play = "../img/play.png"; 
-        }          
+            play = "../img/play.png";
+        }
         else  {
             console.log("yeahhh");
-            play = "../img/play-light.png";            
-        } 
+            play = "../img/play-light.png";
+        }
         that.play = that.svgContainer.append("image")
             .attr("xlink:href",play)
             .attr("x", that.margin_left / 2)
             .attr("y", that.redeced_height - that.margin_top - (bbox.height/2))
             .attr("width","24px")
             .attr("height","21px")
-            .style("cursor","pointer");          
+            .style("cursor","pointer");
         var mark;
         if ($(that.selector)[0].classList.contains("light")) {
-            mark = "../img/marker.png";           
+            mark = "../img/marker.png";
         } else  {
-            mark = "../img/marker-light.png";            
-        } 
+            mark = "../img/marker-light.png";
+        }
 
         that.marker = that.svgContainer.append("image")
             .attr("xlink:href",mark)
