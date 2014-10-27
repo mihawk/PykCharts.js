@@ -71,7 +71,8 @@
                     chart_margin_top: 35,
                     chart_margin_right: 40,
                     chart_margin_bottom: 40,
-                    chart_margin_left:50 ,
+                    chart_margin_left: 45,
+
                     chart_grid_x_enable: "no",
                     chart_grid_y_enable: "yes",
 
@@ -105,11 +106,10 @@
                     line_curvy_lines:"no",
                     tooltip_enable: "no",
                     tooltip_mode : "moving",
-                    crosshair_enable: "no",
+                    crosshair_enable: "yes",
                     zoom_enable: "yes"
-
                 });
-           k.execute();
+            k.execute();
 
                 var k = new PykCharts.multiD.areaChart ({
                     selector: "#area",
@@ -161,7 +161,6 @@
                     tooltip_mode : "fixed",
                     crosshair_enable: "yes",
                     zoom_enable: "yes"
-
                 });
 
             k.execute();
@@ -445,7 +444,7 @@
 
                 });
 
-             k.execute();
+            k.execute();
 
                 var k = new PykCharts.multiD.areaChart ({
 
@@ -498,7 +497,7 @@
 
                 });
 
-           k.execute();
+            k.execute();
 
                 var k = new PykCharts.multiD.pulse({
                     selector: "#pulse",
@@ -563,7 +562,7 @@
                     border_between_chart_elements_style: "solid",
 
                 });
-                k.execute();
+            k.execute();
 
                 var k = new PykCharts.multiD.columnChart({
                     data: "../data/ultimateColumn.json",
@@ -620,7 +619,7 @@
                     highlight:"January",
                 });
 
-             k.execute();
+            k.execute();
 
                 var k = new PykCharts.multiD.columnChart({
                     data: "../data/ultimateGroupColumn.json",
@@ -747,7 +746,7 @@
 
                 });
 
-              k.execute();
+            k.execute();
 
                 var k = new PykCharts.multiD.barChart({
                     data: "../data/ultimateGroupBar.json",
@@ -817,7 +816,7 @@
                     highlight: "april"
                   });
 
-              k.execute();
+            k.execute();
             };
 
         </script>

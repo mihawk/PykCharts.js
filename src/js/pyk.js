@@ -688,7 +688,7 @@ PykCharts.Configuration = function (options){
                 if(options.axis_y_position === "left"){
                     gsvg.append("text")
                         .attr("class","y-axis-title")
-                        .attr("x",-(options.height)/2 )
+                        .attr("x",-(options.height)/2)
                         .attr("transform", "rotate(-90)")
                         .attr("y", -(options.margin_left - 12))
                         // .attr("dy", ".71em")
@@ -742,10 +742,10 @@ PykCharts.Configuration = function (options){
                 largest = (d.getBBox().width > largest) ? d.getBBox().width : largest;
                 smallest = (d.getBBox().width < smallest) ? d.getBBox().width : smallest;
             });
-            if (smallest <= ((extra*2) * 0.75) && smallest >= ((extra*2) * 0.55))  { flag = 0; }
+            if (smallest <= ((extra*2) * 0.75) && smallest > ((extra*2) * 0.55)/* && largest > ((extra*2) * 0.75)*/)  { flag = 0; }
             else if (largest > ((extra*2) * 0.75)) { flag = 1; }
             else if ((largest <= ((extra*2) * 0.75)) && (largest > ((extra*2) * 0.55))) { flag = 2; }
-
+            
             for(i=0; i<len; i++) {
                 comp = a[i].innerHTML;
                 if (flag === 0) {
@@ -869,7 +869,6 @@ PykCharts.Configuration = function (options){
                 $(options.selector + " #export").css("width",div_size)
                         .css("left",div_left)
                         .css("float",div_float);
-
             }
             if(lsvg !== undefined) {
                 lsvg.attr("width",targetWidth);
@@ -955,7 +954,6 @@ PykCharts.Configuration = function (options){
         },
         export : function(chart,svgId,chart_name,panels_enable,containers) {
             if(PykCharts.boolean(options.export_enable)) {
-
                 d3.select(options.selector)
                         .append("div")
                         .attr("id", "dropdown-multipleConatiner-export")
@@ -993,6 +991,19 @@ PykCharts.Configuration = function (options){
                             .style("cursor","pointer")
                             .html("Panel " + (i+1) + "<br>");
                     }
+                } else {
+                    d3.select(options.selector + " #dropdown-multipleConatiner-export")
+                        .append("span")
+                        .attr("id",chart_name + "span")
+                        .on("mouseover",function () {
+                            $(this).css("background-color","#E0E0E1");
+                        })
+                        .on("mouseout",function() {
+                            $(this).css('background-color',"#fff")
+                        })
+                        .style("margin-bottom", "3px")
+                        .style("cursor","pointer")
+                        .html("Export as SVG" + "<br>");
                 }
 
                 var canvas_id = chart_name+"canvas";
@@ -1034,9 +1045,12 @@ PykCharts.Configuration = function (options){
 
                 var name = chart_name + ".svg";
 
+                $(chart.selector + " #"+id).click(function () {
+                    d3.select(options.selector + " #dropdown-multipleConatiner-export").style("visibility", "visible");                        
+                });
                 if(!PykCharts.boolean(panels_enable)) {
-
-                    $(chart.selector + " #"+id).click(function () {
+                    $(chart.selector + " #"+chart_name+"span").click(function () {
+                        d3.select(options.selector + " #dropdown-multipleConatiner-export").style("visibility", "hidden");                        
                         chart.k.processSVG(document.querySelector(options.selector +" "+svgId),chart_name);
                         project.importSVG(document.querySelector(options.selector +" "+svgId));
                         var svg = project.exportSVG({ asString: true });
@@ -1047,9 +1061,6 @@ PykCharts.Configuration = function (options){
                         project.clear();
                     });
                 } else {
-                    $(chart.selector + " #"+id).click(function () {
-                        d3.select(options.selector + " #dropdown-multipleConatiner-export").style("visibility", "visible");
-                    });
                     for(var i = 0; i<containers.length; i++) {
                         $(chart.selector + " #"+chart_name + i).click(function () {
                             d3.select(options.selector + " #dropdown-multipleConatiner-export").style("visibility", "hidden");
@@ -1083,8 +1094,26 @@ PykCharts.Configuration = function (options){
             return this;
         },
         errorHandling: function(error_msg,error_code) {
-            console.log();
+            console.log("PykCharts Error " + error_code);
+            console.log(error_msg);
+            console.log("To know more about the error visit  http://www.pykih.com/");
             return this;
+        },
+        validator: function () {
+            var validator = {
+                validatingSelector : function (selector) {
+                    try {
+                        if(!document.getElementById(selector)) {
+                            throw "     Rendering div not found";
+                        } 
+                    }
+                    catch (err) {
+                        options.k.errorHandling(err,"#1");
+                    }
+                    return this;
+                }
+            };
+            return validator;
         }
     };
     return configuration;
@@ -1714,7 +1743,7 @@ configuration.Theme = function(){
     var that = this;
     that.stylesheet = {
         "mode": "default",
-        "selector": "body",
+        "selector": "",
 
         "chart_height": 400,
         "chart_width": 600,
