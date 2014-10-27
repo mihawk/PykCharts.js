@@ -24,7 +24,7 @@ PykCharts.maps.oneLayer = function (options) {
             });
             that.extent_size = d3.extent(that.data, function (d) { return parseInt(d.size, 10); });
             that.difference = that.extent_size[1] - that.extent_size[0];
-        })
+        });
     };
 };
 
@@ -589,14 +589,14 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             }
         }
         if ($(child1)[0].classList.contains("light")) {
-            that.play = "../img/play.png";
-            that.pause = "../img/pause.png"
-            that.marker = "../img/marker.png"
+            that.play_image_url = "../img/play.png";
+            that.pause_image_url = "../img/pause.png";
+            that.marker_image_url = "../img/marker.png";
         } else {
             // console.log("dark");
-            that.play = "../img/play-light.png";
-            that.pause = "../img/pause-light.png"
-            that.marker = "../img/marker-light.png"
+            that.play_image_url = "../img/play-light.png";
+            that.pause_image_url = "../img/pause-light.png";
+            that.marker_image_url = "../img/marker-light.png";
         }
     }
     that.renderDataForTimescale = function () {
@@ -629,20 +629,19 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         that.timeline_status = "";
 
         var startTimeline = function () {
-            console.log("hey");
             if (that.timeline_status==="playing") {
-                    that.play.attr("xlink:href",that.play);
-                // that.play.attr("xlink:href",that.play_image_url);
+                that.play.attr("xlink:href",that.play_image_url);
                 // that.play.attr("xlink:href","https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/play.gif");
                 clearInterval(that.play_interval);
                 that.timeline_status = "paused";
+                that.interval_index = interval;
+            
             } else {
-
                 that.timeline_status = "playing";
-                // that.play.attr("xlink:href",that.pause_image_url);
+                that.play.attr("xlink:href",that.pause_image_url);
                 // that.play.attr("xlink:href","https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/pause.gif");
-                    that.play.attr("xlink:href",that.pause);
                 interval = that.interval_index;
+
                 that.play_interval = setInterval(function () {
                     that.marker
                         // .transition()
@@ -678,9 +677,9 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
 
                         if (interval1===that.unique.length) {
                             clearInterval(undo_heatmap);
-                            that.play.attr("xlink:href",that.play);
+                            that.play.attr("xlink:href",that.play_image_url);
                             that.marker.attr("x",  (that.margin_left*2) + that.xScale(that.unique[0]) - 7);
-                            interval = interval1 = 1;
+                            interval = interval1 = that.interval_index = 1;
                             that.timeline_status = "";
                         };
                     }, that.timeline_duration);
@@ -744,19 +743,20 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         }
         
         that.play = that.svgContainer.append("image")
-            .attr("xlink:href",that.play)
+            .attr("xlink:href",that.play_image_url)
             .attr("x", that.margin_left / 2)
             .attr("y", that.redeced_height - that.margin_top - (bbox.height/2))
             .attr("width","24px")
             .attr("height","21px")
-            .style("cursor","pointer");          
+            .style("cursor","pointer");
 
         that.marker = that.svgContainer.append("image")
-            .attr("xlink:href",that.marker)
+            .attr("xlink:href",that.marker_image_url)
             .attr("x", (that.margin_left*2) + that.xScale(that.unique[0]) - 7)
             .attr("y", that.redeced_height)
             .attr("width","14px")
             .attr("height","12px")
+            .style("cursor","pointer")
             .call(drag);
     }
 };
