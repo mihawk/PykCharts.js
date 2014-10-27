@@ -39,10 +39,16 @@ PykCharts.oneD.pictograph = function (options) {
 
         if(that.mode==="default") {
             that.k.title()
-                .subtitle()
+                .backgroundColor(that)
+                .export(that,"#svgcontainer","pictograph")
+                .emptyDiv()
+                .subtitle();
+        } else {
+            that.k.backgroundColor(that)
+                .export(that,"#svgcontainer","pictograph")
+                .emptyDiv();
         }
-        that.k.export(that,"#svgcontainer","pictograph")
-        that.k.emptyDiv();
+           
         that.optionalFeatures()
                 .svgContainer()
                 .createChart()
@@ -62,7 +68,7 @@ PykCharts.oneD.pictograph = function (options) {
 
         var optional = {
             svgContainer: function () {
-                $(options.selector).css("background-color",that.background_color);
+                // $(options.selector).css("background-color",that.background_color);
 
                 that.svgContainer = d3.select(options.selector).append('svg')
                     .attr("width",that.width)

@@ -6,7 +6,7 @@
         include.async = false;
         include.onload = include.onreadystatechange = function () {
             try {
-                if (_ && d3 && ($ || jQuery) && d3.customHive && topojson) {
+                if (_ && d3 && ($ || jQuery) && d3.customHive && topojson && $("body").colourBrightness) {
                     PykCharts.numberFormat = d3.format(",");
                     window.PykChartsInit();
                 };
@@ -37,10 +37,12 @@
     }
     try {
         if (!$ && !jQuery) {
+            console.log("jquery");
             importFiles('https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/js/jquery-1.11.1.min.js');
         }
     }
     catch (e) {
+        console.log("catch jquery");
         importFiles('https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/js/jquery-1.11.1.min.js');
     }
     try {
@@ -58,5 +60,17 @@
     }
     catch (e) {
         importFiles('https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/js/custom-hive.min.js');
+    }
+    try {
+        if (!$("body").colourBrightness) {
+            // console.log($,"dollar");
+            importFiles("../lib/jquery.colourbrightness.js");
+            // importFiles('https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/js/jquery.colourbrightness.js');
+        }
+    }
+    catch (e) {
+        // console.log(jQuery,"dollar");
+        importFiles("../lib/jquery.colourbrightness.js");
+        // importFiles('https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/js/jquery.colourbrightness.js');
     }
 })();

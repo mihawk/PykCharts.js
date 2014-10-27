@@ -62,15 +62,16 @@ PykCharts.oneD.funnel = function (options) {
 
         if(that.mode === "default") {        
             that.k.title()
+                .backgroundColor(that)
+                .export(that,"#svgcontainer","funnel")
+                .emptyDiv()
                 .subtitle();
-
-            that.k.export(that,"#svgcontainer","funnel")
-                .emptyDiv();
         }
         that.k.tooltip();
         that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
         if(that.mode === "infographics") {
-            that.k.export(that,"#svgcontainer","funnel")
+            that.k.backgroundColor(that)
+                .export(that,"#svgcontainer","funnel")
                 .emptyDiv();
 
             that.new_data = that.data;
@@ -219,7 +220,7 @@ PykCharts.oneD.funnel = function (options) {
 
         var optional = {
             svgContainer :function () {
-                $(options.selector).css("background-color",that.background_color);
+                // $(options.selector).css("background-color",that.background_color);
 
                 that.svgContainer = d3.select(options.selector)
                     .append('svg')

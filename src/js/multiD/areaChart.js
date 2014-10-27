@@ -40,10 +40,11 @@ PykCharts.multiD.areaChart = function (options){
 		if(that.mode === "default") {
 
 			that.k.title()
-					.subtitle()
+					.backgroundColor(that)
 					.export(that,"#svg-1","areaChart")
 					.liveData(that)
 					.emptyDiv()
+					.subtitle()
 					.makeMainDiv(options.selector,1)
 					.tooltip(true,options.selector,1);
 
@@ -71,6 +72,7 @@ PykCharts.multiD.areaChart = function (options){
 		}
 		else if(that.mode === "infographics") {
 			  that.k.liveData(that)
+			  			.backgroundColor(that)
 			  			.export(that,"#svg-1","areaChart")
 			  			.emptyDiv()
 						.makeMainDiv(options.selector,1);

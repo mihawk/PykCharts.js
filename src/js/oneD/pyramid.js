@@ -46,9 +46,10 @@ PykCharts.oneD.pyramid = function (options) {
 
         if (that.mode === "default") {
             that.k.title()
-                .subtitle()
+                .backgroundColor(that)
                 .export(that,"#svgcontainer","pyramid")
-                .emptyDiv();
+                .emptyDiv()
+                .subtitle();
             that.new_data = that.optionalFeatures().clubData();
             that.optionalFeatures().svgContainer()
                 .createChart()
@@ -67,7 +68,8 @@ PykCharts.oneD.pyramid = function (options) {
 
         } else if (that.mode === "infographics") {
             that.new_data = that.data;
-            that.k.export(that,"#svgcontainer","pyramid")
+            that.k.backgroundColor(that)
+                .export(that,"#svgcontainer","pyramid")
                 .emptyDiv();
             that.optionalFeatures().svgContainer()
                 .createChart()
@@ -152,7 +154,7 @@ PykCharts.oneD.pyramid = function (options) {
 
     	var optional = {
             svgContainer :function () {
-                $(options.selector).css("background-color",that.background_color);
+                // $(options.selector).css("background-color",that.background_color);
 
                 that.svgContainer = d3.select(options.selector)
                     .append('svg')
