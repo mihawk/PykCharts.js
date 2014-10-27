@@ -4,7 +4,6 @@
         <title>Timeline Map</title>
         <!-- <link rel="stylesheet" type="text/css" href="../lib/bootstrap/css/bootstrap.min.css"> -->
         <link rel="stylesheet" type="text/css" href="../src/css/PykCharts.css">
-        <link rel="stylesheet" type="text/css" href="../lib/bootstrap.min.css">
         <script src="../lib/paper-full.js"></script>
         <script src="../lib/downloadDataURI.js"></script>
 
@@ -13,112 +12,12 @@
         <div class="container cstm-container">
             <div id = "map-container" class="col-sm-12">
             </div>
-        <script src="../lib/d3.min.js"></script>
-        <script src="../lib/jquery-1.11.1.min.js"></script>
-        <script src="../lib/underscore-min.js"></script>
-        <script src="../lib/jquery.bpopup.min.js"></script>
-        <script src="../lib/bootstrap.min.js"></script>
-        <script src = "../lib/topojson.js"></script>
         <script src="../src/js/pyk.js"></script>
         <script src = "../src/js/maps/maps.js"></script>
         <script src = "../src/js/maps/oneLayer.js"></script>
-         <script src="../lib/jquery.colourbrightness.js"></script>
+        <script src = "../src/js/init.js"></script>
         <script>
-            function colFunction () {
-                if ($("input[name='colortype']:checked").val() === "colors") {
-                    $("#seven").prop('disabled', true);
-                    $("#a6").prop('disabled', true);
-                    $("#eight").prop('disabled', true);
-                    $("#high1").prop('disabled', true);
-                    $("#high2").prop('disabled', true);
-                } else {
-                    $("#seven").prop('disabled', false);
-                    $("#a6").prop('disabled', false);
-                    $("#eight").prop('disabled', false);
-                    $("#high1").prop('disabled', false);
-                    $("#high2").prop('disabled', false);
-                }
-            }
-
-            function defFunction () {
-                $("#a6").prop('disabled', false);
-            }
-
-            function sourceFunction () {
-                if ($("input[name='source']:checked").val() === "yes") {
-                    $("#d1").prop('disabled', false);
-                    $("#d2").prop('disabled', false);
-                } else {
-                    $("#d1").prop('disabled', true);
-                    $("#d2").prop('disabled', true);
-                }
-            }
-
-            function creditsFunction () {
-                if ($("input[name='credits']:checked").val() === "yes") {
-                    $("#d3").prop('disabled', false);
-                    $("#d4").prop('disabled', false);
-                } else {
-                    $("#d3").prop('disabled', true);
-                    $("#d4").prop('disabled', true);
-                }
-            }
-
-            function tooltipFunction () {
-                if ($("input[name='tooltip']:checked").val() === "yes") {
-                    console.log("tooltip yes");
-                    $("input[name='tooltip_mode']").prop('disabled', false);
-                    if ($("input[name='tooltip_mode']:checked").val() === "fixed") {
-                        console.log("fixed");
-                        $("#a7").prop('disabled', false);
-                        $("#a8").prop('disabled', false);
-                    } else {
-                        console.log("moving");
-                        $("#a8").prop('disabled', true);
-                        $("#a7").prop('disabled', true);
-                    }
-                } else {
-                    console.log("tooltip no");
-                    $("input[name='tooltip_mode']").prop('disabled', true);
-                    $("#a8").prop('disabled', true);
-                    $("#a7").prop('disabled', true);
-                }
-            }
-
-            function tooltipmodeFunction () {
-                if ($("input[name='tooltip_mode']:checked").val() === "fixed") {
-                    $("#a7").prop('disabled', false);
-                    $("#a8").prop('disabled', false);
-                } else {
-                    $("#a8").prop('disabled', true);
-                    $("#a7").prop('disabled', true);
-                }
-            }
-
-            function palFunction () {
-                if ($("#eight").val() === "") {
-                    $("#a6").prop('disabled', false);
-                } else {
-                    $("#a6").prop('disabled', true);
-                }
-            }
-
-            $("#ttipPos").trigger("click");
-
-
-            $(document).ready(function() {
-
-                var data_final;
-
-                function checked (name) {
-                  var elements = document.getElementsByName(name);
-                  for (var i=0, len=elements.length; i<len; ++i)
-                      if (elements[i].checked) return elements[i].value;
-                }
-                $("#map-container").html("");
-                $("#legend-container").html("");
-                $("#map-container").attr("style", "float: left; position: static");
-                $("#legend-container").attr("style", "background-color: white");
+            window.PykChartsInit = function (e) {
                 k = new PykCharts.maps.timelineMap({
                     selector: "#map-container",
                     map_code: "world_without_antarctica",
@@ -137,10 +36,10 @@
                     border_between_chart_elements_color: "#666666",
                     border_between_chart_elements_thickness: 1,
                     border_between_chart_elements_style: "solid",
-                    timeline_duration: 1000, 
+                    timeline_duration: 1000,
                     timeline_margin_top: 10,
                     timeline_margin_right: 30,
-                    timeline_margin_bottom: 10, 
+                    timeline_margin_bottom: 10,
                     timeline_margin_left: 30,
                     title_text: "HELLO WORLD",
                     subtitle_text: "india",
@@ -162,7 +61,7 @@
                     units_suffix: ""
                 });
                 k.execute();
-            });
+            }
 
         </script>
     </body>

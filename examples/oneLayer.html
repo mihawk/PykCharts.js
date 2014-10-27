@@ -4,43 +4,24 @@
         <link rel="stylesheet" type="text/css" href="../src/css/PykCharts.css">
         <script src="../lib/paper-full.js"></script>
         <script src="../lib/downloadDataURI.js"></script>
-        <link rel="stylesheet" type="text/css" href="../lib/bootstrap.min.css">
     </head>
     <body>
         <div class="container cstm-container">
             <div id = "map-container">
 
             </div>
-        <script src="../lib/d3.min.js"></script>
-        <script src="../lib/jquery-1.11.1.min.js"></script>
-        <script src="../lib/underscore-min.js"></script>
-        <script src="../lib/jquery.bpopup.min.js"></script>
-        <script src="../lib/bootstrap.min.js"></script>
-        <script src = "../lib/topojson.js"></script>
         <script src="../src/js/pyk.js"></script>
         <script src = "../src/js/maps/maps.js"></script>
         <script src = "../src/js/maps/oneLayer.js"></script>
-         <script src="../lib/jquery.colourbrightness.js"></script>
+        <script src = "../src/js/init.js"></script>
         <script>
-            $(document).ready(function() {
-
-                var data_final;
-
-                function checked (name) {
-                  var elements = document.getElementsByName(name);
-                  for (var i=0, len=elements.length; i<len; ++i)
-                      if (elements[i].checked) return elements[i].value;
-                }
+            window.PykChartsInit = function (e) {
 
                     // console.log($("#d3").val(),$("#d4").val());
-                    $("#map-container").html("");
-                    $("#legend-container").html("");
-                    $("#map-container").attr("style", "float: left; position: static");
-                    $("#legend-container").attr("style", "background-color: white");
                     k = new PykCharts.maps.oneLayer({
                         selector: "#map-container",
-                        map_code: "india",
-                        data: "../data/maps/india_data.json",
+                        map_code: "newzealand",
+                        data: "../data/maps/newzealand_data.json",
                         chart_height: 600,
                         chart_width: 800,
                         chart_color : ["#636363"],
@@ -78,7 +59,7 @@
                     k.execute();
 
 
-            });
+            }
 
         </script>
     </body>
