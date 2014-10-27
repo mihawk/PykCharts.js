@@ -688,7 +688,7 @@ PykCharts.Configuration = function (options){
                 if(options.axis_y_position === "left"){
                     gsvg.append("text")
                         .attr("class","y-axis-title")
-                        .attr("x",-(options.height)/2 )
+                        .attr("x",-(options.height)/2)
                         .attr("transform", "rotate(-90)")
                         .attr("y", -(options.margin_left - 12))
                         // .attr("dy", ".71em")
@@ -742,10 +742,10 @@ PykCharts.Configuration = function (options){
                 largest = (d.getBBox().width > largest) ? d.getBBox().width : largest;
                 smallest = (d.getBBox().width < smallest) ? d.getBBox().width : smallest;
             });
-            if (smallest <= ((extra*2) * 0.75) && smallest >= ((extra*2) * 0.55))  { flag = 0; }
+            if (smallest <= ((extra*2) * 0.75) && smallest > ((extra*2) * 0.55)/* && largest > ((extra*2) * 0.75)*/)  { flag = 0; }
             else if (largest > ((extra*2) * 0.75)) { flag = 1; }
             else if ((largest <= ((extra*2) * 0.75)) && (largest > ((extra*2) * 0.55))) { flag = 2; }
-
+            
             for(i=0; i<len; i++) {
                 comp = a[i].innerHTML;
                 if (flag === 0) {
@@ -869,7 +869,6 @@ PykCharts.Configuration = function (options){
                 $(options.selector + " #export").css("width",div_size)
                         .css("left",div_left)
                         .css("float",div_float);
-
             }
             if(lsvg !== undefined) {
                 lsvg.attr("width",targetWidth);
@@ -930,20 +929,19 @@ PykCharts.Configuration = function (options){
         },
         export : function(chart,svgId,chart_name,multiple_containers_enable,containers) {
             if(PykCharts.boolean(options.export_enable)) {
-
                 var bg,svgIds = [];
                 $(chart.selector).css({"background-color":chart.background_color,"position":"relative"});
-               if (PykCharts.boolean(options.background_color) && $(options.selector).css("background-color")!= "rgba(0, 0, 0, 0)") {
+                if (PykCharts.boolean(options.background_color) && $(options.selector).css("background-color")!= "rgba(0, 0, 0, 0)") {
                     // console.log(options.background_color,"hey");
                     bg = options.background_color;
-               }
-               else {
+                }
+                else {
                     bgColor(options.selector);
                 }
 
-               function bgColor (child) {
-                 // console.log("oooooooo");
-                 if (document.getElementsByTagName("body").parentNode !== undefined) {
+                function bgColor (child) {
+                    // console.log("oooooooo");
+                    if (document.getElementsByTagName("body").parentNode !== undefined) {
                     // console.log("heyyyyyy");
                     bg = $(child).parent().css("background-color");
                     // break;
