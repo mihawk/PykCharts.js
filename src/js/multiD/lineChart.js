@@ -4,6 +4,10 @@ PykCharts.multiD.lineChart = function (options){
 
 	this.execute = function (){
 		that = new PykCharts.multiD.processInputs(that, options, "line");
+		
+		if(that.stop) 
+			return;
+
 		if(that.mode === "default") {
 			that.k.loading();
 		}

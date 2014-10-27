@@ -291,7 +291,7 @@ PykCharts.multiD.bubbleSizeCalculation = function (options,data,rad_range) {
                         .range(rad_range);
             return z(d);
         } else {
-            console.log("Same Radius >>> ",options.bubbleRadius,options.selector);
+            // console.log("Same Radius >>> ",options.bubbleRadius,options.selector);
             return options.bubbleRadius;
         }
     };
@@ -299,21 +299,23 @@ PykCharts.multiD.bubbleSizeCalculation = function (options,data,rad_range) {
 };
 
 PykCharts.multiD.processInputs = function (chartObject, options) {
+
     var theme = new PykCharts.Configuration.Theme({}),
         stylesheet = theme.stylesheet,
         functionality = theme.functionality,
         multiDimensionalCharts = theme.multiDimensionalCharts,
         optional = options.optional;
-    chartObject.axis_y_data_format = options.axis_y_data_format ? options.axis_y_data_format : multiDimensionalCharts.axis_y_data_format
-    chartObject.axis_x_data_format = options.axis_x_data_format ? options.axis_x_data_format : multiDimensionalCharts.axis_x_data_format;
-    chartObject.selector = options.selector ? options.selector : "body";
 
-    chartObject.width = options.chart_width && _.isNumber(options.chart_width) ? options.chart_width : stylesheet.chart_width;
-    chartObject.height = options.chart_height && _.isNumber(options.chart_height) ? options.chart_height : stylesheet.chart_height;
-    chartObject.margin_left = options.chart_margin_left && _.isNumber(options.chart_margin_left) ? options.chart_margin_left : stylesheet.chart_margin_left;
-    chartObject.margin_right = options.chart_margin_right && _.isNumber(options.chart_margin_right) ? options.chart_margin_right : stylesheet.chart_margin_right;
-    chartObject.margin_top = options.chart_margin_top && _.isNumber(options.chart_margin_top) ? options.chart_margin_top : stylesheet.chart_margin_top;
-    chartObject.margin_bottom = options.chart_margin_bottom && _.isNumber(options.chart_margin_bottom) ? options.chart_margin_bottom : stylesheet.chart_margin_bottom;
+    // chartObject.axis_y_data_format = options.axis_y_data_format ? options.axis_y_data_format : multiDimensionalCharts.axis_y_data_format;
+    // chartObject.axis_x_data_format = options.axis_x_data_format ? options.axis_x_data_format : multiDimensionalCharts.axis_x_data_format;
+    chartObject.selector = options.selector ? options.selector : "body";
+    chartObject.width = options.chart_width ? options.chart_width : stylesheet.chart_width;
+    chartObject.height = options.chart_height ? options.chart_height : stylesheet.chart_height;
+
+    chartObject.margin_left = options.chart_margin_left  ? options.chart_margin_left : stylesheet.chart_margin_left;
+    chartObject.margin_right = options.chart_margin_right  ? options.chart_margin_right : stylesheet.chart_margin_right;
+    chartObject.margin_top = options.chart_margin_top  ? options.chart_margin_top : stylesheet.chart_margin_top;
+    chartObject.margin_bottom = options.chart_margin_bottom  ? options.chart_margin_bottom : stylesheet.chart_margin_bottom;
     chartObject.grid_x_enable = options.chart_grid_x_enable ? options.chart_grid_x_enable : multiDimensionalCharts.chart_grid_x_enable;
     chartObject.grid_y_enable = options.chart_grid_y_enable ? options.chart_grid_y_enable : multiDimensionalCharts.chart_grid_y_enable;
     chartObject.grid_color = options.chart_grid_color ? options.chart_grid_color : stylesheet.chart_grid_color;
@@ -445,6 +447,26 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     chartObject.export_enable = options.export_enable ? options.export_enable : stylesheet.export_enable;
     chartObject.export_image_url = options.export_image_url ? options.export_image_url : stylesheet.export_image_url;
     chartObject.k = new PykCharts.Configuration(chartObject);
-    chartObject.k.validator().validatingSelector(chartObject.selector.substring(1,chartObject.selector.length));
+    chartObject.k.validator().validatingSelector(chartObject.selector.substring(1,chartObject.selector.length))
+                .validatingChartMode(chartObject.mode)
+                .validatingDataType(chartObject.width,"chart_width")
+                .validatingDataType(chartObject.height,"chart_height")
+                .validatingDataType(chartObject.margin_left,"chart_margin_left")
+                .validatingDataType(chartObject.margin_right,"chart_margin_right")
+                .validatingDataType(chartObject.margin_top,"chart_margin_top")
+                .validatingDataType(chartObject.margin_bottom,"chart_margin_bottom")
+                .validatingDataType(chartObject.title_size,"title_size")
+                .validatingDataType(chartObject.subtitle_size,"subtitle_size")
+                .validatingDataType(chartObject.real_time_charts_refresh_frequency,"real_time_charts_refresh_frequency")
+                .validatingDataType(chartObject.transition_duration,"transition_duration")
+                .validatingDataType(chartObject.border_between_chart_elements_thickness,"border_between_chart_elements_thickness")
+                .validatingAxisDataFormat(options.axis_x_data_format,"axis_x_data_format")
+                .validatingAxisDataFormat(options.axis_y_data_format,"axis_y_data_format")
+                .validatingColorMode(chartObject.color_mode,"color_mode")
+                .validatingAxisPointerPosition(chartObject.axis_y_pointer_position,"axis_y_pointer_position")
+                .validatingAxisPointerPosition(chartObject.axis_x_pointer_position,"axis_x_pointer_position")
+
+                // .validatingDataType(,"");
+
     return chartObject;
 };
