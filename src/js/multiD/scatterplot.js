@@ -153,7 +153,6 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                 }
                 that.k.emptyDiv();
             } else {
-                
                 that.k.title()
                     .backgroundColor(that)
                     .export(that,"#svgcontainer0",type)

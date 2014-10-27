@@ -936,29 +936,38 @@ PykCharts.Configuration = function (options){
                 return (min_value*radius_percent)/200;
             }
         },
-        backgroundColor: function (chart) {
+        backgroundColor: function (options) {
              $(options.selector).css({"background-color":options.background_color,"position":"relative"})
-
-                var bg;
+                var bg,child1;
                 bgColor(options.selector);
-
+                
                 function bgColor(child) {
+                    child1 = child;
                     bg = $(child).css("background-color");
-                    console.log("what is bg", bg);
-                    // console.log(bg,"oh bggg");
+                    // console.log("what is bg", child,bg);
                     if (bg === "transparent" || bg === "rgba(0, 0, 0, 0)") {
-                        if (document.getElementsByTagName("body") !== undefined ){
-                            console.log("is it going");
+                        // console.log($(child)[0].parentNode.tagName,"is parent node body");
+                        if($(child)[0].parentNode.tagName === undefined || $(child)[0].parentNode.tagName.toLowerCase() === "body") {
+                        // if (document.getElementsByTagName("body").parentNode === null){
+                            // console.log("is it going");
                             $(child).colourBrightness("rgb(255,255,255)");
                         } else {
-                            // console.log(($(child)[0].parentNode()),"child");
-                            return bgColor((child)[0].parentNode);
+                            // console.log($(child)[0].parentNode,"child");
+                            return bgColor($(child)[0].parentNode);
                         }
                     } else {
-                        console.log("bg",bg);
-                        $(child).colourBrightness(bg);
+                        // console.log("bg",bg);
+                       return $(child).colourBrightness(bg);
                     }
                 }
+
+                if ($(child1)[0].classList.contains("light")) {
+                    options.img = "../img/download.png";
+
+                } else {
+                    options.img = "../img/download-light.png";
+                }
+                 
             return this;
         },
         export : function(chart,svgId,chart_name,panels_enable,containers) {
@@ -1038,13 +1047,8 @@ PykCharts.Configuration = function (options){
                                 .style("width",div_size + "px")
                                 .style("left",div_left+"px")
                                 .style("float",div_float)
-                                .style("text-align","right");
-
-                if ($(options.selector)[0].classList.contains("light")) {
-                    export_div.html("<img title='Export to SVG' src='../img/download.png' style='left:"+div_left+"px;margin-bottom:3px;cursor:pointer;'/>");
-                } else {
-                    export_div.html("<img title='Export to SVG' src='../img/download-light.png' style='left:"+div_left+"px;margin-bottom:3px;cursor:pointer;'/>");
-                }
+                                .style("text-align","right")
+                                .html("<img title='Export to SVG' src='"+options.img+"' style='left:"+div_left+"px;margin-bottom:3px;cursor:pointer;'/>");
 
                 var get_canvas = document.getElementById(canvas_id);
                 paper.setup(get_canvas);
@@ -1941,9 +1945,9 @@ configuration.Theme = function(){
         "timeline_margin_bottom": 25,
         "timeline_margin_left": 45,
 
-        "play_image_url":"https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/play.gif",
-        "pause_image_url":"https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/pause.gif",
-        "marker_image_url":"https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/marker.png",
+        // "play_image_url":"https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/play.gif",
+        // "pause_image_url":"https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/pause.gif",
+        // "marker_image_url":"https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/marker.png",
 
         
         "label_enable": "no",
