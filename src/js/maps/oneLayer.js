@@ -602,22 +602,28 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         var bg;
         bgColor(options.selector);
 
+        var bg,child1;
+        bgColor(options.selector);
+        
         function bgColor(child) {
+            child1 = child;
             bg = $(child).css("background-color");
-            console.log(bg,"oh bggg");
+            // console.log("what is bg", child,bg);
             if (bg === "transparent" || bg === "rgba(0, 0, 0, 0)") {
-                if (document.getElementsByTagName("body")!== undefined ){
-                    console.log("is it going");
+                // console.log($(child)[0].parentNode.tagName,"is parent node body");
+                if($(child)[0].parentNode.tagName === undefined || $(child)[0].parentNode.tagName.toLowerCase() === "body") {
+                // if (document.getElementsByTagName("body").parentNode === null){
+                    // console.log("is it going");
                     $(child).colourBrightness("rgb(255,255,255)");
                 } else {
-                    return bgColor(child.parent());
+                    // console.log($(child)[0].parentNode,"child");
+                    return bgColor($(child)[0].parentNode);
                 }
             } else {
-                console.log("bg",bg,child);
-                $(child).colourBrightness(bg);
+                // console.log("bg",bg);
+               return $(child).colourBrightness(bg);
             }
-        }
-
+                }
         if ($(child1)[0].classList.contains("light")) {
             options.play = "../img/play.png";
             options.pause = "../img/pause.png"
@@ -706,12 +712,6 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                             clearInterval(undo_heatmap);
                             clearTimeout(time_lag);
                         }
-                        if ($(that.selector)[0].classList.contains("light")) {
-                            play1 = "../img/play.png";
-                        } else  {
-                            console.log("yeahhh");
-                            play1 = "../img/play-light.png";
-                        }
 
                         if (interval1===that.unique.length) {
                             clearInterval(undo_heatmap);
@@ -780,15 +780,6 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             }
         }
 
-        var play;
-        console.log(($(that.selector)[0].classList.contains("light")),"lightttttt");
-        if ($(that.selector)[0].classList.contains("light")) {
-            play = "../img/play.png";
-        }
-        else  {
-            console.log("yeahhh");
-            play = "../img/play-light.png";
-        }
         that.play = that.svgContainer.append("image")
             .attr("xlink:href",options.play)
             .attr("x", that.margin_left / 2)
