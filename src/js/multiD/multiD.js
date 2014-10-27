@@ -200,41 +200,48 @@ PykCharts.multiD.configuration = function (options){
                     }
                 }
             });
-
+            i = 0
             if(checkGroup) {
                 data.forEach(function(item) {
                     if (!unique[item.group] && item.color) {
                         unique[item.group] = item;
                         if(options.chart_color.length !== 0 && PykCharts.boolean(options.chart_color[k])) {
                             item.color = options.chart_color[k];
-                            k++;
                         }else if(item.color) {
                             item.color = item.color;
-                            k++
                         } else {
                             item.color = options.default_color;
-                            k++
+                        }
+                        if(i<data.length-2 &&item.group !== data[i+1].group) {
+                            k++;
                         }
                         newarr.push(item);
                     } else {
-                        k++;
+                        if(i<data.length-2 &&item.group !== data[i+1].group) {
+                            k++;
+                        }
                     }
+                    i++;
                 });
-                k=0;
+                k=0;i=0;
                 data.forEach(function(item) {
                     if(!unique[item.group]) {
                         unique[item.group] = item;
                         if(options.chart_color.length !== 0 && PykCharts.boolean(options.chart_color[k])) {
                             item.color = options.chart_color[k];
-                            k++;
                         } else {
                             item.color = options.default_color;
+                        }
+                        if(i<data.length-2 &&item.group !== data[i+1].group) {
                             k++;
                         }
                         newarr.push(item);
                     } else {
-                        k++;
+                        if(i<data.length-2 && item.group !== data[i+1].group) {
+                            k++;
+                        }
                     }
+                    i++;
                 })
 
                 var arr = [];

@@ -719,9 +719,6 @@ PykCharts.multiD.columnChart = function(options){
             return d.group;
         });
         that.unique_group = _.uniq(that.unique_group);
-        that.data.sort(function (a,b) {
-            return b.y - a.y;
-        });
         
         for(var i=0; i < data_length; i++) {
             var group = {},

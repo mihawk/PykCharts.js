@@ -1924,7 +1924,6 @@ configuration.Theme = function(){
 
         "credit_my_site_name": "Pykih",
         "credit_my_site_url": "http://www.pykih.com"
-
     };
 
     that.functionality = {
@@ -2008,8 +2007,8 @@ configuration.Theme = function(){
 
         "line_curvy_lines": "no",
 
-        "barchart_sort": "numerically", // sort type --- "alphabetically" / "numerically"
-        "barchart_sort_order": "descending" // sort order --- "descending" / "ascending"
+        "data_sort_type": "numerically", // sort type --- "alphabetically" / "numerically"
+        "data_sort_order": "descending" // sort order --- "descending" / "ascending"
     };
 
     that.treeCharts = {
