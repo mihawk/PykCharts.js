@@ -736,25 +736,34 @@ PykCharts.Configuration = function (options){
         ordinalXAxisTickFormat :function (domain,extra) {
             var mouseEvent = new PykCharts.Configuration.mouseEvent(options),
                 a = $(options.selector + " g.x.axis text"),
-                len = a.length, comp, flag, largest = 0, smallest = a[0].getBBox().width;
+                len = a.length, comp, flag, largest = 0, rangeband = (extra*2);
 
             _.each(a, function (d) {
                 largest = (d.getBBox().width > largest) ? d.getBBox().width : largest;
-                smallest = (d.getBBox().width < smallest) ? d.getBBox().width : smallest;
             });
-            if (smallest <= ((extra*2) * 0.75) && smallest > ((extra*2) * 0.55)/* && largest > ((extra*2) * 0.75)*/)  { flag = 0; }
-            else if (largest > ((extra*2) * 0.75)) { flag = 1; }
-            else if ((largest <= ((extra*2) * 0.75)) && (largest > ((extra*2) * 0.55))) { flag = 2; }
-            
+            if (rangeband >= (largest+10)) { flag = 1; }
+            else if (rangeband >= (largest*0.75) && rangeband < largest) { flag = 2; }
+            else if (rangeband >= (largest*0.65) && rangeband < (largest*0.75)) { flag = 3; }
+            else if (rangeband >= (largest*0.55) && rangeband < (largest*0.65)) { flag = 4; }
+            else if (rangeband >= (largest*0.35) && rangeband < (largest*0.55)) { flag = 5; }
+            else if (rangeband <= 20 || rangeband < (largest*0.35)) { flag = 0; }
+
             for(i=0; i<len; i++) {
                 comp = a[i].innerHTML;
                 if (flag === 0) {
                     comp = "";
                 }
-                else if ((a[i].getBBox().width > ((extra*2) * 0.75)) && flag === 1){
-                    comp = comp.substr(0,3) + "..";
+                else if (rangeband >= (a[i].getBBox().width+10) && flag === 1) {}
+                else if (rangeband >= (a[i].getBBox().width*0.75) && rangeband < a[i].getBBox().width && flag === 2){
+                    comp = comp.substr(0,5) + "..";
                 }
-                else if ((a[i].getBBox().width <= ((extra*2) * 0.75)) && (a[i].getBBox().width > ((extra*2) * 0.55)) && flag === 2) {
+                else if (rangeband >= (a[i].getBBox().width*0.65) && rangeband < (a[i].getBBox().width*0.75) && flag === 3){
+                    comp = comp.substr(0,4) + "..";
+                }
+                else if (flag === 4){
+                    comp = comp.substr(0,3);
+                }
+                else if (flag === 5){
                     comp = comp.substr(0,2);
                 }
                 a[i].innerHTML = comp;
@@ -1718,12 +1727,17 @@ configuration.makeXGrid = function(options,xScale) {
 };
 
 configuration.makeYGrid = function(options,yScale) {
-    var that = this;
+    var that = this, size;
+    if(PykCharts.boolean(options.panels_enable)) {
+        size = options.w - options.margin_left - options.margin_right
+    } else {
+        size = options.width - options.margin_left - options.margin_right
+    }
     var ygrid = d3.svg.axis()
                     .scale(yScale)
                     .orient("left")
                     .ticks(options.axis_x_no_of_axis_value)
-                    .tickSize(-(options.width - options.margin_left - options.margin_right))
+                    .tickSize(-size)
                     .tickFormat("")
                     .outerTickSize(0);
     return ygrid;
@@ -1818,7 +1832,10 @@ configuration.Theme = function(){
 
         "loading_gif_url": "https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/img/loader.gif",
         // "fullscreen_enable": "no",
+        
         "tooltip_enable": "yes",
+        "tooltip_mode": "moving",
+
         "credit_my_site_name": "Pykih",
         "credit_my_site_url": "http://www.pykih.com"
 
@@ -1886,8 +1903,6 @@ configuration.Theme = function(){
         "axis_y_time_value_interval":"",
         "axis_y_data_format": "number",
 
-        "tooltip_mode": "fixed",
-
         "panels_enable": "no",
         "variable_circle_size_enable" : "yes",
 
@@ -1918,7 +1933,7 @@ configuration.Theme = function(){
         "total_no_of_colors": 3,
         "palette_color": "Blue-1",
 
-        "tooltip_mode": "moving",
+        
         "tooltip_position_top": 0,
         "tooltip_position_left": 0,
 
@@ -1937,8 +1952,6 @@ configuration.Theme = function(){
         "click_enable": "yes",
 
         "onhover": "shadow",
-
-        "highlight_area_enable":"no",
 
     };
     return that;
