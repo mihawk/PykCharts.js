@@ -243,7 +243,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     .attr("class","map_group")
                     .append("path");
 
-                if (that.map_code==="world") {
+                if (that.map_code==="world" || that.map_code==="world2" || that.map_code==="world3") {
                     var center = [0,0];
                 } else {
                     var center = d3.geo.centroid(topojson.feature(that.map_data, that.map_data.objects));
