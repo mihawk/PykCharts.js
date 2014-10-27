@@ -672,12 +672,14 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                 clearInterval(that.play_interval);
                 that.timeline_status = "paused";
                 that.interval_index = interval;
+                console.log(interval, that.interval_index, " ******** Paused");
             
             } else {
                 that.timeline_status = "playing";
                 that.play.attr("xlink:href",that.pause_image_url);
                 // that.play.attr("xlink:href","https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/pause.gif");
                 interval = that.interval_index;
+                console.log(interval, that.interval_index, " >>> PLAY-START!!!!");
 
                 that.play_interval = setInterval(function () {
                     that.marker
@@ -775,6 +777,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                             });
                             that.interval_index = i;
                     }
+                    console.log(interval, that.interval_index, " <<<<<<<<<<<<<<<<<<<<<<<<< DRAGGING");
                 }
             }
         }
