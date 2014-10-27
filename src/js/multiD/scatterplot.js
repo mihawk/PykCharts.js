@@ -12,12 +12,12 @@ PykCharts.multiD.scatterPlot = function (options) {
             optional = options.optional;
 
         that.multiD = new PykCharts.multiD.configuration(that);
-        that.multiple_containers_enable =options.multiple_containers_enable && options.multiple_containers_enable ? options.multiple_containers_enable : multiDimensionalCharts.multiple_containers_enable;
+        that.panels_enable =options.panels_enable && options.panels_enable ? options.panels_enable : multiDimensionalCharts.panels_enable;
         that.bubbleRadius = options.scatterplot_radius && _.isNumber(options.scatterplot_radius) ? options.scatterplot_radius : multiDimensionalCharts.scatterplot_radius;
         that.enableTicks =  options.scatterplot_pointer ? options.scatterplot_pointer : multiDimensionalCharts.scatterplot_pointer;
         that.zoomed_out = true;
 
-        if(PykCharts.boolean(that.multiple_containers_enable)) {
+        if(PykCharts.boolean(that.panels_enable)) {
             that.radius_range = [that.k._radiusCalculation(1.1)*2,that.k._radiusCalculation(2.6)*2];
         } else {
             that.radius_range = [that.k._radiusCalculation(4.5)*2,that.k._radiusCalculation(11)*2];
@@ -48,7 +48,7 @@ PykCharts.multiD.pulse = function (options) {
             optional = options.optional;
         // that.enableCrossHair = optional && optional.enableCrossHair ? optional.enableCrossHair : multiDimensionalCharts.enableCrossHair;
         that.multiD = new PykCharts.multiD.configuration(that);
-        that.multiple_containers_enable = options.multiple_containers_enable && options.multiple_containers_enable ? options.multiple_containers_enable : multiDimensionalCharts.multiple_containers_enable;
+        that.panels_enable = options.panels_enable && options.panels_enable ? options.panels_enable : multiDimensionalCharts.panels_enable;
         that.bubbleRadius = options.scatterplot_radius && _.isNumber(options.scatterplot_radius) ? options.scatterplot_radius : (0.6 * multiDimensionalCharts.scatterplot_radius);
         that.zoomed_out = true;
         that.radius_range = [that.k._radiusCalculation(1.1)*2,that.k._radiusCalculation(3.5)*2];
@@ -101,10 +101,10 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
         that.no_of_groups = 1;
 
         if(that.mode === "default") {
-            if(PykCharts.boolean(that.multiple_containers_enable) && type === "scatterplot") {
+            if(PykCharts.boolean(that.panels_enable) && type === "scatterplot") {
                 that.k.title()
                     .backgroundColor(that)
-                    .export(that,"svgcontainer",type,that.multiple_containers_enable,that.uniq_group_arr)
+                    .export(that,"svgcontainer",type,that.panels_enable,that.uniq_group_arr)
                     .emptyDiv()
                     .subtitle();
 
@@ -203,9 +203,9 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
 
         } else if (that.mode === "infographics") {
             
-            if(PykCharts.boolean(that.multiple_containers_enable) && type === "scatterplot") {
+            if(PykCharts.boolean(that.panels_enable) && type === "scatterplot") {
                 that.k.backgroundColor(that)
-                    .export(that,"svgcontainer",type,that.multiple_containers_enable,that.uniq_group_arr)
+                    .export(that,"svgcontainer",type,that.panels_enable,that.uniq_group_arr)
                     .emptyDiv();
 
                 that.no_of_groups = that.uniq_group_arr.length;
@@ -287,7 +287,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
             }
 
         }
-        if(!PykCharts.boolean(that.multiple_containers_enable)) {
+        if(!PykCharts.boolean(that.panels_enable)) {
             if(type === "scatterplot" && PykCharts.boolean(that.legends_enable) && PykCharts.boolean(that.variable_circle_size_enable) && that.map_group_data[1]) {
                 $(window).on("load", function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); })
                             .on("resize", function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); });
@@ -464,7 +464,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
 
                     if(PykCharts.boolean(that.zoom_enable) && !(that.axis_y_data_format==="string" || that.axis_x_data_format==="string") && (that.mode === "default") ) {                                           
                         var n;
-                        if(PykCharts.boolean(that.multiple_containers_enable)) {
+                        if(PykCharts.boolean(that.panels_enable)) {
                             n = that.no_of_groups;
                         } else {
                             n = 1;
@@ -594,7 +594,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                         }
                     };
                     var legend;
-                    if(PykCharts.boolean(that.multiple_containers_enable)){
+                    if(PykCharts.boolean(that.panels_enable)){
                         var abc =[];
                         abc.push(that.map_group_data[0][index]);
                         legend = that.legendsGroup.selectAll("rect")
@@ -765,7 +765,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
         idLength = id.length,
         n;
 
-        if(PykCharts.boolean(that.multiple_containers_enable)) {
+        if(PykCharts.boolean(that.panels_enable)) {
             n = that.no_of_groups;
         } else {
             n = 1;
@@ -801,7 +801,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
         that.count++;
         if(that.count === that.zoom_level+1) {
             for(var i = 0; i < n; i++) {
-                if(that.multiple_containers_enable==="yes"){
+                if(that.panels_enable==="yes"){
                     that.new_data = [];
                     for(j=0;j<that.data.length;j++) {
                         if(that.data[j].group === that.uniq_group_arr[i]) {
