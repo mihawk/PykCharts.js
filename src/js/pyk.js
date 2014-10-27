@@ -1921,8 +1921,8 @@ configuration.Theme = function(){
 
         "line_curvy_lines": "no",
 
-        "data_sort": "numerically", // sort type --- "alphabetically" / "numerically"
-        "data_sort_type": "descending" // sort order --- "descending" / "ascending"
+        "data_sort_type": "numerically", // sort type --- "alphabetically" / "numerically"
+        "data_sort_order": "descending" // sort order --- "descending" / "ascending"
     };
 
     that.treeCharts = {

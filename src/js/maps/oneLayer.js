@@ -100,9 +100,9 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             .emptyDiv();
             
         }
-        console.log(that.color_palette_data,"color_palette_data",that.palette_color);
+        // console.log(that.color_palette_data,"color_palette_data",that.palette_color);
         that.current_palette = _.where(that.color_palette_data, {name:that.palette_color, number:that.total_no_of_colors})[0];
-        console.log(that.current_palette,"current_palette");
+        // console.log(that.current_palette,"current_palette");
         that.optionalFeatures()
             .svgContainer()
             .legendsContainer(that.legends_enable)
@@ -676,14 +676,14 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                 clearInterval(that.play_interval);
                 that.timeline_status = "paused";
                 that.interval_index = interval;
-                console.log(interval, that.interval_index, " ******** Paused");
+                // console.log(interval, that.interval_index, " ******** Paused");
             
             } else {
                 that.timeline_status = "playing";
                 that.play.attr("xlink:href",that.pause_image_url);
                 // that.play.attr("xlink:href","https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/pause.gif");
                 interval = that.interval_index;
-                console.log(interval, that.interval_index, " >>> PLAY-START!!!!");
+                // console.log(interval, that.interval_index, " >>> PLAY-START!!!!");
 
                 that.play_interval = setInterval(function () {
                     that.marker
@@ -707,7 +707,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     if (interval===that.unique.length) {
                         clearInterval(that.play_interval);
                     };                    
-                    console.log(interval, that.interval_index, " >>> PLAYING");
+                    // console.log(interval, that.interval_index, " >>> PLAYING");
                 }, that.timeline_duration);
 
                 var time_lag = setTimeout(function () {
@@ -725,7 +725,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                             that.marker.attr("x",  (that.margin_left*2) + that.xScale(that.unique[0]) - 7);
                             interval = interval1 = that.interval_index = 1;
                             that.timeline_status = "";
-                            console.log(interval, that.interval_index, " >>> STOPPED-Playing");
+                            // console.log(interval, that.interval_index, " >>> STOPPED-Playing");
                         };
                     }, that.timeline_duration);
                 },that.timeline_duration);
@@ -784,7 +784,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                             that.interval_index = i;
                     }
                 }
-                console.log(that.interval_index, " <<<<<<<<<<<<<<<<<<<<<<<<< DRAGGING");
+                // console.log(that.interval_index, " <<<<<<<<<<<<<<<<<<<<<<<<< DRAGGING");
             }
         }
 
