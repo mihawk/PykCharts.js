@@ -4,6 +4,10 @@ PykCharts.multiD.scatterPlot = function (options) {
 
     this.execute = function() {
         that = new PykCharts.multiD.processInputs(that, options, "scatterplot");
+        
+        if(that.stop) 
+            return;
+
         if(that.mode === "default") {
             that.k.loading();
         }

@@ -73,8 +73,7 @@
                     chart_margin_top: 35,
                     chart_margin_right: 40,
                     chart_margin_bottom: 40,
-                    chart_margin_left: 45,
-
+                    chart_margin_left:50,
                     chart_grid_x_enable: "no",
                     chart_grid_y_enable: "yes",
 
@@ -109,7 +108,7 @@
                     tooltip_enable: "yes",
                     tooltip_mode : "moving",
                     crosshair_enable: "yes",
-                    zoom_enable: "yes"
+                    zoom_enable: "yes",
                 });
                 k.execute();
 
@@ -187,17 +186,17 @@
                     chart_margin_right: 25,
                     chart_margin_bottom: 25,
                     chart_margin_left: 55,
-
                     real_time_charts_refresh_frequency: 0,
                     variable_circle_size_enable: "no",
                     border_between_chart_elements_thickness: 0,
                     border_between_chart_elements_color: "blue",
+
                     legends_enable: "yes",
-                    legends_display: "horizontal",//horizontal or vertical
-                    legendsText_size: 13,
-                    legendsText_color: "black",
-                    legendsText_weight: "thin",
-                    legendsText_family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
+                    legends_display: "vertical",//horizontal or vertical
+                    legends_text_size: 13,
+                    legends_text_color: "green",
+                    legends_text_weight: "thin",
+                    legends_text_family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
                 });
 
                  k.execute();
@@ -250,10 +249,10 @@
 
                     legends_enable: "yes",
                     legends_display: "horizontal", //horizontal or vertical
-                    legendsText_size: 13,
-                    legendsText_color: "black",
-                    legendsText_weight: "thin",
-                    legendsText_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
+                    legends_text_size: 13,
+                    legends_text_color: "black",
+                    legends_text_weight: "thin",
+                    legends_text_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
 
                     zoom_enable: "yes",
 
@@ -314,10 +313,10 @@
 
                     legends_enable: "yes",
                     legends_display: "horizontal", //horizontal or vertical
-                    legendsText_size: 13,
-                    legendsText_color: "black",
-                    legendsText_weight: "thin",
-                    legendsText_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
+                    legends_text_size: 13,
+                    legends_text_color: "black",
+                    legends_text_weight: "thin",
+                    legends_text_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
 
                     zoom_enable: "yes",
                     zoom_level: 6,
@@ -366,7 +365,6 @@
                     axis_x_pointer_size: 3,
                     axis_x_pointer_padding: 3,
                     axis_x_outer_pointer_size: 3,
-
                     axis_y_enable: "yes",
                     axis_y_title : "Growth rate",
                     axis_y_position: "left",
@@ -614,7 +612,7 @@
 
                     transition_duration:0,
 
-                    border_between_chart_elements_thickness: "1px",
+                    border_between_chart_elements_thickness: 1,
                     border_between_chart_elements_color: "white",
                     border_between_chart_elements_style: "solid",
 
@@ -672,7 +670,7 @@
 
                     transition_duration:0,
 
-                    border_between_chart_elements_thickness: "1px",
+                    border_between_chart_elements_thickness: 1,
                     border_between_chart_elements_color: "white",
                     border_between_chart_elements_style: "solid",
                    // saturation_enable: "yes",
@@ -686,7 +684,7 @@
                     data: "../data/ultimatebar.json",
                     mode: "default",
                     selector: "#bar",
-                    color_mode: "saturation",
+                    "color_mode": "saturation",
                     chart_color:["steelblue"],
                     background_color:"white",
 
@@ -729,14 +727,9 @@
 
                     transition_duration:0,
 
-                    border_between_chart_elements_thickness: "1px",
+                    border_between_chart_elements_thickness: 1,
                     border_between_chart_elements_color: "white",
                     border_between_chart_elements_style: "solid",
-
-                    label_size:10,
-                    label_color: "white",
-                    label_weight: "thick",
-                    label_family:"'Helvetica Neue',Helvetica,Arial,sans-serif",
 
                     pointer_thickness: 1,
                     pointer_weight: "thin",
@@ -798,14 +791,9 @@
 
                     transition_duration:0,
 
-                    border_between_chart_elements_thickness: "1px",
+                    border_between_chart_elements_thickness: 1,
                     border_between_chart_elements_color: "white",
                     border_between_chart_elements_style: "solid",
-
-                    label_size:10,
-                    label_color: "white",
-                    label_weight: "thick",
-                    label_family:"'Helvetica Neue',Helvetica,Arial,sans-serif",
 
                     pointer_thickness: 1,
                     pointer_weight: "thin",
