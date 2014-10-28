@@ -212,7 +212,7 @@ PykCharts.multi_series_2D.stackedColumn = function (option) {
                     .on('mouseover',function (d,i) {
                       
                         that.mouseEvent[that.toolTipsEnable]().tooltipPosition(d);
-                        that.mouseEvent[that.toolTipsEnable]().toolTextShow(d.tooltip ? d.tooltip : d.y);
+                        that.mouseEvent[that.toolTipsEnable]().tooltipTextShow(d.tooltip ? d.tooltip : d.y);
                     })
                     .on('mouseout',function (d) {
                         that.mouseEvent[that.toolTipsEnable]().tooltipHide(d);

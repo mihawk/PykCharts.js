@@ -256,7 +256,7 @@ PykCharts.multi_series_2D.ultimate = function(options){
                     .attr("stroke-opacity",1)
                     .on('mouseover',function (d) {
                         that.mouseEvent.tooltipPosition(d);
-                        that.mouseEvent.toolTextShow(d.tooltip ? d.tooltip : d.y);
+                        that.mouseEvent.tooltipTextShow(d.tooltip ? d.tooltip : d.y);
                     })
                     .on('mouseout',function (d) {
                         that.mouseEvent.tooltipHide(d);

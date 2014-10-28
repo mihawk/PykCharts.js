@@ -216,7 +216,7 @@ PykCharts.multi_series_2D.groupedBar = function (options) {
                     .attr("stroke-opacity",1)
                     .on('mouseover',function (d) {
                         that.mouseEvent[that.enableTooltip]().tooltipPosition(d);
-                        that.mouseEvent[that.enableTooltip]().toolTextShow(d.tooltip ? d.tooltip : d.weight);
+                        that.mouseEvent[that.enableTooltip]().tooltipTextShow(d.tooltip ? d.tooltip : d.weight);
                     })
                     .on('mouseout',function (d) {
                         that.mouseEvent[that.enableTooltip]().tooltipHide(d);  

@@ -294,7 +294,7 @@ PykCharts.multi_series_2D.groupedColumn = function (options) {
                     .attr("stroke-width",that.border.width())
                     .on('mouseover',function (d) {
                         that.mouseEvent.tooltipPosition(d);
-                        that.mouseEvent.toolTextShow(d.tooltip);
+                        that.mouseEvent.tooltipTextShow(d.tooltip);
                     })
                     .on('mouseout',function (d) {
                         that.mouseEvent.tooltipHide(d);

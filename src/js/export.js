@@ -711,11 +711,11 @@ PykCharts.Configuration = function (options){
                 .data(domain)
             xaxistooltip.on('mouseover',function (d) {
                     mouseEvent.tooltipPosition(d);
-                    mouseEvent.toolTextShow(d);
+                    mouseEvent.tooltipTextShow(d);
                 })
                 .on('mousemove', function (d) {
                     mouseEvent.tooltipPosition(d);
-                    mouseEvent.toolTextShow(d);
+                    mouseEvent.tooltipTextShow(d);
                 })
                 .on('mouseout', function (d) {
                     mouseEvent.tooltipHide(d);
@@ -740,11 +740,11 @@ PykCharts.Configuration = function (options){
                 .data(domain)
             xaxistooltip.on('mouseover',function (d) {
                     mouseEvent.tooltipPosition(d);
-                    mouseEvent.toolTextShow(d);
+                    mouseEvent.tooltipTextShow(d);
                 })
                 .on('mousemove', function (d) {
                     mouseEvent.tooltipPosition(d);
-                    mouseEvent.toolTextShow(d);
+                    mouseEvent.tooltipTextShow(d);
                 })
                 .on('mouseout', function (d) {
                     mouseEvent.tooltipHide(d);
@@ -858,7 +858,7 @@ configuration.mouseEvent = function (options) {
                 return that.tooltip;
             }
         },
-        toolTextShow : function (d,multiple_containers_enable,type,group_index) {
+        tooltipTextShow : function (d,multiple_containers_enable,type,group_index) {
             if(PykCharts.boolean(options.tooltip_enable)) {
                 if(multiple_containers_enable === "yes" && type === "multilineChart") {
                     $(options.selector+" #tooltip-svg-container-"+group_index).next("#pyk-tooltip").html(d);
@@ -978,7 +978,7 @@ configuration.mouseEvent = function (options) {
                                         } else {      
                                             this.tooltipPosition(tooltipText,pos_line_cursor_x,y,60,-15,group_index);
                                         }
-                                        this.toolTextShow(tooltipText);
+                                        this.tooltipTextShow(tooltipText);
                                         (options.enableCrossHair) ? this.crossHairShow(pos_line_cursor_x,top,pos_line_cursor_x,(h - bottom),pos_line_cursor_x,test,type,active_y_tick.length,multiple_containers_enable,new_data) : null;
                                         // (options.enableCrossHair) ? this.crossHairShow(pos_line_cursor_x,top,pos_line_cursor_x,(h - bottom),pos_line_cursor_x,pos_line_cursor_y,type,active_y_tick.length,multiple_containers_enable) : null;
                                         this.axisHighlightShow(active_y_tick,options.selector+" .y.axis",domain);
@@ -1002,7 +1002,7 @@ configuration.mouseEvent = function (options) {
                                                     tooltipText = new_data[a].data[b].tooltip;
                                                     pos_line_cursor_y = (yScale(new_data[a].data[b].y) + top);
                                                     this.tooltipPosition(tooltipText,(pos_line_cursor_x+(a*diff_containers)),pos_line_cursor_y,-15,-15,a);
-                                                    this.toolTextShow(tooltipText,multiple_containers_enable,type,a);
+                                                    this.tooltipTextShow(tooltipText,multiple_containers_enable,type,a);
                                                     (options.enableCrossHair) ? this.crossHairShow(pos_line_cursor_x,top,pos_line_cursor_x,(h - bottom),pos_line_cursor_x,pos_line_cursor_y,type,active_y_tick.length,multiple_containers_enable,new_data[a],a) : null;
                                                 }
                                             }
@@ -1015,7 +1015,7 @@ configuration.mouseEvent = function (options) {
                                     } else if((options.tooltip_mode).toLowerCase() === "moving"){
                                         this.tooltipPosition(tooltipText,pos_line_cursor_x,pos_line_cursor_y,5,-45,group_index);
                                     }
-                                    this.toolTextShow(tooltipText);
+                                    this.tooltipTextShow(tooltipText);
                                     (options.enableCrossHair) ? this.crossHairShow(pos_line_cursor_x,top,pos_line_cursor_x,(h - bottom),pos_line_cursor_x,pos_line_cursor_y,type,active_y_tick.length,multiple_containers_enable) : null;
                                     this.axisHighlightShow(active_y_tick,options.selector+" .y.axis",domain);
                                     this.axisHighlightShow(active_x_tick,options.selector+" .x.axis",domain);
@@ -1055,7 +1055,7 @@ configuration.mouseEvent = function (options) {
                                     } else {      
                                         this.tooltipPosition(tooltipText,pos_line_cursor_x,y,60,-15,group_index);
                                     }
-                                    this.toolTextShow(tooltipText);
+                                    this.tooltipTextShow(tooltipText);
                                     (options.enableCrossHair) ? this.crossHairShow(pos_line_cursor_x,top,pos_line_cursor_x,(h - bottom),pos_line_cursor_x,test,type,active_y_tick.length,multiple_containers_enable,new_data) : null;
                                     this.axisHighlightShow(active_y_tick,options.selector+" .y.axis",domain);
                                     this.axisHighlightShow(active_x_tick,options.selector+" .x.axis",domain);

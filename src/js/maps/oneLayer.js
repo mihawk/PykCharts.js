@@ -92,17 +92,21 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
 
         that.k.title()
             .backgroundColor(that)
-            .subtitle();
+            // .subtitle();
             
         if(type === "oneLayer") {
             that.k
             .export(that,"#svgcontainer",type)
-            .emptyDiv();
-            
+            .emptyDiv()
+            .subtitle();            
         }
         // console.log(that.color_palette_data,"color_palette_data",that.palette_color);
         that.current_palette = _.where(that.color_palette_data, {name:that.palette_color, number:that.total_no_of_colors})[0];
-        // console.log(that.current_palette,"current_palette");
+        
+        if (type === "timeline"){
+             that.k.subtitle();
+        }
+       
         that.optionalFeatures()
             .svgContainer()
             .legendsContainer(that.legends_enable)
@@ -258,7 +262,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     .attr("class","map_group")
                     .append("path");
 
-                if (that.map_code==="world") {
+                if (that.map_code==="world" || that.map_code==="world_without_antarctica") {
                     var center = [0,0];
                 } else {
                     var center = d3.geo.centroid(topojson.feature(that.map_data, that.map_data.objects));
