@@ -193,16 +193,18 @@ PykCharts.Configuration = function (options){
         },
         title : function () {
             if(PykCharts.boolean(options.title_text) && options.title_size) {
-                var div_width = options.width;
+                var div_width;
 
                 if(PykCharts.boolean(options.export_enable)) {
                     div_width = 0.9*options.width;
+                } else {
+                    div_width = options.width;
                 }
 
                 that.titleDiv = d3.select(options.selector)
                     .append("div")
                         .attr("id","title")
-                        .style("width", (options.width) + "px")
+                        .style("width", (div_width) + "px")
                         .style("text-align","left")
                         .style("float","left")
                         .html("<span style='pointer-events:none;font-size:" +
@@ -877,6 +879,10 @@ PykCharts.Configuration = function (options){
                 $(options.selector + " #export").css("width",div_size)
                         .css("left",div_left)
                         .css("float",div_float);
+
+                $(options.selector + " #dropdown-multipleConatiner-export")
+                        .css("left",(targetWidth - 80)+"px");
+
             }
             if(lsvg !== undefined) {
                 lsvg.attr("width",targetWidth);
@@ -927,7 +933,9 @@ PykCharts.Configuration = function (options){
             },
             _radiusCalculation: function (radius_percent,type) {
                 var min_value;
-                if(type !== undefined) {
+                if(type === "spiderweb") {
+                    min_value = d3.min([options.width,(options.height-options.legendsGroup_height-20)])
+                } else if(type !== undefined) {
                     min_value = options.width;
                 } else {
                     min_value = d3.min([options.width,options.height]);
@@ -1199,9 +1207,9 @@ PykCharts.Configuration = function (options){
                         }
                     return this;
                 },
-                validatingBorderBetweenChartElementsStyle: function (border_between_chart_elements_style,config_name) {
+                validatingLegendsPosition: function (legends_display,config_name) {
                         try {
-                            if(border_between_chart_elements_style.toLowerCase() === "1,3" || border_between_chart_elements_style.toLowerCase()=== "5,5" || border_between_chart_elements_style.toLowerCase() === "0") {
+                            if(legends_display.toLowerCase() === "horizontal" || legends_display.toLowerCase()=== "vertical") {
                             } else {
                                 throw config_name;
                             }
@@ -1209,6 +1217,58 @@ PykCharts.Configuration = function (options){
                         catch (err) {
                             options.k.errorHandling(err,"#8");
                         }
+                    return this;                        
+                },
+                isArray: function (value,config_name) {
+                    console.log(value,"value")
+                        try {
+                            if(!$.isArray(value)) {
+                                throw config_name;
+                            }
+                        }
+                        catch (err) {
+                            options.k.errorHandling(err,"#9");    
+                        }
+                    return this;
+                },
+                validatingTimeScaleDataType: function (axis_time_value_datatype,config_name) {
+                    if(axis_time_value_datatype) {
+                        try {
+                            if(axis_time_value_datatype.toLowerCase() === "date" || axis_time_value_datatype.toLowerCase()=== "year" || axis_time_value_datatype.toLowerCase() === "month" || axis_time_value_datatype === "hours" || axis_time_value_datatype === "minutes") {
+                            } else {
+                                throw config_name;
+                            }
+                        }
+                        catch (err) {
+                            options.k.errorHandling(err,"#9");    
+                        }
+                    }
+                    return this;
+                },
+                validatingTooltipMode: function (tooltip_mode,config_name) {
+                    if(tooltip_mode) {
+                        try {
+                            if(tooltip_mode.toLowerCase() === "fixed" || tooltip_mode.toLowerCase()=== "moving") {
+                            } else {
+                                throw config_name;
+                            }
+                        }
+                        catch (err) {
+                            options.k.errorHandling(err,"#9");    
+                        }
+                    }
+                    return this;
+                },
+                validatingFontWeight: function (font_weight,config_name) {
+                    try {
+                        if(font_weight.toLowerCase() === "bold" || font_weight.toLowerCase() === "normal") {
+                        } else {
+                             throw config_name;
+                        }
+                    }
+                    catch (err) {
+                        options.k.errorHandling(err,"#9");    
+                    }
                     return this;
                 }
             };
@@ -1863,7 +1923,7 @@ configuration.Theme = function(){
 
         "subtitle_size": 12,
         "subtitle_color": "black",
-        "subtitle_weight": "thin",
+        "subtitle_weight": "normal",
         "subtitle_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
 
         "highlight": "",
@@ -1880,17 +1940,17 @@ configuration.Theme = function(){
         "legends_display": "horizontal",
         "legends_text_size": 13,
         "legends_text_color": "white",
-        "legends_text_weight": "thin",
+        "legends_text_weight": "normal",
         "legends_text_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
 
         "label_size": 13,
         "label_color": "white",
-        "label_weight": "thin",
+        "label_weight": "normal",
         "label_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
 
         "pointer_overflow_enable": "no",
         "pointer_thickness": 1,
-        "pointer_weight": "thin",
+        "pointer_weight": "normal",
         "pointer_size": 13,
         "pointer_color": "#1D1D1D",
         "pointer_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
@@ -1913,7 +1973,7 @@ configuration.Theme = function(){
         "axis_x_pointer_values": [],
         "axis_x_outer_pointer_size": 0,
         "axis_x_time_value_datatype":"",
-        "axis_x_time_value_interval":"",
+        "axis_x_time_value_interval":0,
         "axis_x_data_format": "string",
 
         "loading_gif_url": "https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/img/loader.gif",
@@ -1950,11 +2010,11 @@ configuration.Theme = function(){
         "pictograph_image_height": 66,
         "pictograph_current_count_size": 64,
         "pictograph_current_count_color": "#255AEE",
-        "pictograph_current_count_weight": "thin",
+        "pictograph_current_count_weight": "normal",
         "pictograph_current_count_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
         "pictograph_total_count_size": 64,
         "pictograph_total_count_color": "grey",
-        "pictograph_total_count_weight": "thin",
+        "pictograph_total_count_weight": "normal",
         "pictograph_total_count_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
 
         "funnel_rect_width": 100,
@@ -1985,7 +2045,7 @@ configuration.Theme = function(){
         "axis_y_pointer_values": [],
         "axis_y_outer_pointer_size": 0,
         "axis_y_time_value_datatype":"",
-        "axis_y_time_value_interval":"",
+        "axis_y_time_value_interval":0,
         "axis_y_data_format": "number",
 
         "panels_enable": "no",
@@ -2090,7 +2150,7 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
         var targetWidth = $(options.selector).width();
         options.chart_width = targetWidth < options.chart_width ? targetWidth : options.chart_width;
     }
-    chartObject.width = options.chart_width && _.isNumber(options.chart_width) ? options.chart_width : stylesheet.chart_width;
+    chartObject.width = options.chart_width  ? options.chart_width : stylesheet.chart_width;
     // chartObject.height = options.chart_height && _.isNumber(options.chart_height) ? options.chart_height : stylesheet.chart_height;
     // chartObject.width = optional && optional.chart && _.isNumber(optional.chart.width) ? optional.chart.width : stylesheet.chart.width;
     // chartObject.height = optional && optional.chart &&_.isNumber(optional.chart.height) ? optional.chart.height : stylesheet.chart.height;
@@ -2170,7 +2230,8 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
     chartObject.pointer_size = "pointer_size" in options ? options.pointer_size : stylesheet.pointer_size;
     chartObject.pointer_color = options.pointer_color ? options.pointer_color : stylesheet.pointer_color;
     chartObject.pointer_family = options.pointer_family ? options.pointer_family : stylesheet.pointer_family;
-
+    chartObject.pointer_weight = options.pointer_weight ? options.pointer_weight : stylesheet.pointer_weight;
+    
     chartObject.donut_show_total_at_center = options.donut_show_total_at_center ? options.donut_show_total_at_center : oneDimensionalCharts.donut_show_total_at_center;
     chartObject.units_prefix = options.units_prefix ? options.units_prefix : false;
     chartObject.units_suffix = options.units_suffix ? options.units_suffix : false;
@@ -2179,8 +2240,27 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
     chartObject.export_image_url = options.export_image_url ? options.export_image_url : stylesheet.export_image_url; 
     chartObject.k = new PykCharts.Configuration(chartObject);
 
-    return chartObject;
+    chartObject.k.validator().validatingSelector(chartObject.selector.substring(1,chartObject.selector.length))
+                .validatingChartMode(chartObject.mode)
+                .validatingDataType(chartObject.width,"chart_width")
+                .validatingDataType(chartObject.title_size,"title_size")
+                .validatingDataType(chartObject.subtitle_size,"subtitle_size")
+                .validatingDataType(chartObject.real_time_charts_refresh_frequency,"real_time_charts_refresh_frequency")
+                .validatingDataType(chartObject.transition_duration,"transition_duration")
+                .validatingDataType(chartObject.border_between_chart_elements_thickness,"border_between_chart_elements_thickness")
+                .validatingDataType(chartObject.label_size,"label_size")
+                .validatingDataType(chartObject.pointer_thickness,"pointer_thickness")
+                .validatingDataType(chartObject.pointer_size,"pointer_size")                                
+                .validatingDataType(chartObject.clubdata_maximum_nodes,"clubdata_maximum_nodes")
+                .validatingBorderBetweenChartElementsStyle(chartObject.border_between_chart_elements_style,"border_between_chart_elements_style")
+                .isArray(chartObject.chart_color,"chart_color")
+                .isArray(chartObject.clubdata_always_include_data_points,"clubdata_always_include_data_points")
+                .validatingFontWeight(chartObject.title_weight,"title_weight")
+                .validatingFontWeight(chartObject.subtitle_weight,"subtitle_weight")
+                .validatingFontWeight(chartObject.pointer_weight,"pointer_weight")
+                .validatingFontWeight(chartObject.label_weight,"label_weight");
 
+    return chartObject;
 };
 
 PykCharts.oneD.bubble = function (options) {
@@ -2189,6 +2269,13 @@ PykCharts.oneD.bubble = function (options) {
     this.execute = function () {
         that = PykCharts.oneD.processInputs(that, options);
         that.height = options.chart_height ? options.chart_height : that.width;
+
+        that.k.validator()
+            .validatingDataType(that.height,"chart_height")    
+
+        if(that.stop) { 
+            return;
+        }
 
         if(that.mode === "default") {
            that.k.loading();
@@ -2923,7 +3010,9 @@ PykCharts.oneD.funnel = function (options) {
                             .attr("text-anchor","start")
                             .attr("fill", that.pointer_color)
                             .attr("pointer-events","none")
-                            .attr("font-family", that.pointer_family);
+                            .attr("font-family", that.pointer_family)
+                            .attr("font-weight",that.pointer_weight);
+                            
                     },that.transitions.duration());
 
                     tick_label.exit().remove();
@@ -3339,6 +3428,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                         .attr("text-anchor","start")
                         .attr("fill", that.pointer_color)
                         .attr("font-family", that.pointer_family)
+                        .attr("font-weight",that.pointer_weight)
                         .attr("pointer-events","none");
 
                         setTimeout(function() {
@@ -3748,6 +3838,7 @@ PykCharts.oneD.percentageBar = function (options) {
                         .attr("text-anchor","middle")
                         .attr("fill", that.pointer_color)
                         .attr("font-family", that.pointer_family)
+                        .attr("font-weight",that.pointer_weight)
                         .attr("pointer-events","none");
 
                         setTimeout(function() {
@@ -4620,6 +4711,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                             .attr("pointer-events","none")
                             .style("fill",that.pointer_color)
                             .style("font-size",that.pointer_size)
+                            .style("font-weight",that.pointer_weight)
                             .style("font-family", that.pointer_family);
 
                         tick_label.exit().remove();
@@ -5164,7 +5256,9 @@ PykCharts.oneD.pyramid = function (options) {
                     .style("fill",that.pointer_color)
                     .style("font-size",that.pointer_size)
                     .style("font-family", that.pointer_family)
+                    .style("font-weight",that.pointer_weight)
                     .attr("text-anchor","start");
+                    
                 },that.transitions.duration());
 
                 tick_label.exit().remove();
@@ -6102,6 +6196,10 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
                 .validatingDataType(chartObject.axis_y_outer_pointer_size,"axis_y_outer_pointer_size")
                 .validatingDataType(chartObject.axis_x_pointer_padding,"axis_x_pointer_padding")                
                 .validatingDataType(chartObject.axis_y_pointer_padding,"axis_y_pointer_padding")                
+                .validatingDataType(chartObject.axis_x_no_of_axis_value,"axis_x_no_of_axis_value")                    
+                .validatingDataType(chartObject.axis_y_no_of_axis_value,"axis_y_no_of_axis_value")                                                        
+                .validatingDataType(chartObject.axis_x_time_value_interval,"axis_x_time_value_interval")                
+                .validatingDataType(chartObject.axis_y_time_value_interval,"axis_y_time_value_interval")                                
                 .validatingAxisDataFormat(options.axis_x_data_format,"axis_x_data_format")
                 .validatingAxisDataFormat(options.axis_y_data_format,"axis_y_data_format")
                 .validatingColorMode(chartObject.color_mode,"color_mode")
@@ -6110,6 +6208,18 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
                 .validatingAxisPointerPosition(chartObject.axis_x_position,"axis_x_position")
                 .validatingAxisPointerPosition(chartObject.axis_y_position,"axis_y_position")
                 .validatingBorderBetweenChartElementsStyle(chartObject.border_between_chart_elements_style,"border_between_chart_elements_style")
+                .validatingLegendsPosition(chartObject.legends_display,"legends_display")
+                .isArray(chartObject.axis_x_pointer_values,"axis_x_pointer_values")                
+                .isArray(chartObject.axis_y_pointer_values,"axis_y_pointer_values")                
+                .isArray(chartObject.chart_color,"chart_color")
+                .validatingTimeScaleDataType(chartObject.axis_x_time_value_datatype,"axis_x_time_value_datatype")                
+                .validatingTimeScaleDataType(chartObject.axis_y_time_value_datatype,"axis_y_time_value_datatype")                
+                .validatingTooltipMode(chartObject.tooltip_mode,"tooltip_mode")                
+                .validatingFontWeight(chartObject.title_weight,"title_weight")
+                .validatingFontWeight(chartObject.subtitle_weight,"subtitle_weight")
+                .validatingFontWeight(chartObject.pointer_weight,"pointer_weight")
+                .validatingFontWeight(chartObject.label_weight,"label_weight")
+                .validatingFontWeight(chartObject.legends_text_weight,"legends_text_weight")  
                 // .validatingDataType(,"");
 
     return chartObject;
@@ -10305,8 +10415,8 @@ PykCharts.multiD.spiderWeb = function (options) {
             that.optionalFeatures()
                 .legends()
                 .createGroups();
-            that.height = that.height - that.legendsGroup_height;
-            that.outerRadius = that.k._radiusCalculation(that.outerRadius);
+            // that.height = that.height - that.legendsGroup_height - 20;
+            that.outerRadius = that.k._radiusCalculation(that.outerRadius,"spiderweb");
             that.radius_range = [(3*that.outerRadius)/100,(0.09*that.outerRadius)];
             that.sizes = new PykCharts.multiD.bubbleSizeCalculation(that,that.data,that.radius_range);
             
@@ -10328,8 +10438,8 @@ PykCharts.multiD.spiderWeb = function (options) {
             that.optionalFeatures().svgContainer(1)
                 .legendsContainer()
                 .createGroups();
-            that.height = that.height - that.legendsGroup_height;
-            that.outerRadius = that.k._radiusCalculation(that.outerRadius);
+            // that.height = that.height - that.legendsGroup_height - 20;
+            that.outerRadius = that.k._radiusCalculation(that.outerRadius,"spiderweb");
             that.radius_range = [(3*that.outerRadius)/100,(0.09*that.outerRadius)];
             that.sizes = new PykCharts.multiD.bubbleSizeCalculation(that,that.data,that.radius_range);
             that.optionalFeatures()
@@ -10378,7 +10488,7 @@ PykCharts.multiD.spiderWeb = function (options) {
             createGroups: function () {
                 that.group = that.svgContainer.append("g")
                     .attr("id","spidergrp")
-                    .attr("transform", "translate(" + that.width / 2 + "," + ((that.h+that.legendsGroup_height)/2) + ")");
+                    .attr("transform", "translate(" + that.width / 2 + "," + ((that.h+that.legendsGroup_height+20)/2) + ")");
 
                 return this;
             },
@@ -10835,7 +10945,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                 if (PykCharts.boolean(that.enableTicks)) {
                     var a = that.yScale.domain();
                     that.ticksElement = that.svgContainer.append("g")
-                        .attr("transform", "translate(" + that.width / 2 + "," + ((that.h+that.legendsGroup_height)/2) + ")");
+                        .attr("transform", "translate(" + that.width / 2 + "," + ((that.h+that.legendsGroup_height+20)/2) + ")");
                     var t = a[1]/4;
                     var b = [];
                     for(i=4,j=0; i>=0 ;i--,j++){

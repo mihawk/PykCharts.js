@@ -389,7 +389,9 @@ PykCharts.oneD.funnel = function (options) {
                             .attr("text-anchor","start")
                             .attr("fill", that.pointer_color)
                             .attr("pointer-events","none")
-                            .attr("font-family", that.pointer_family);
+                            .attr("font-family", that.pointer_family)
+                            .attr("font-weight",that.pointer_weight);
+                            
                     },that.transitions.duration());
 
                     tick_label.exit().remove();

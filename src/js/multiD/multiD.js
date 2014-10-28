@@ -497,7 +497,17 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
                 .validatingAxisPointerPosition(chartObject.axis_y_position,"axis_y_position")
                 .validatingBorderBetweenChartElementsStyle(chartObject.border_between_chart_elements_style,"border_between_chart_elements_style")
                 .validatingLegendsPosition(chartObject.legends_display,"legends_display")
-                // .isArray(chartObject.axis_x_pointer_values,"axis_x_pointer_values")                
+                .isArray(chartObject.axis_x_pointer_values,"axis_x_pointer_values")                
+                .isArray(chartObject.axis_y_pointer_values,"axis_y_pointer_values")                
+                .isArray(chartObject.chart_color,"chart_color")
+                .validatingTimeScaleDataType(chartObject.axis_x_time_value_datatype,"axis_x_time_value_datatype")                
+                .validatingTimeScaleDataType(chartObject.axis_y_time_value_datatype,"axis_y_time_value_datatype")                
+                .validatingTooltipMode(chartObject.tooltip_mode,"tooltip_mode")                
+                .validatingFontWeight(chartObject.title_weight,"title_weight")
+                .validatingFontWeight(chartObject.subtitle_weight,"subtitle_weight")
+                .validatingFontWeight(chartObject.pointer_weight,"pointer_weight")
+                .validatingFontWeight(chartObject.label_weight,"label_weight")
+                .validatingFontWeight(chartObject.legends_text_weight,"legends_text_weight")  
                 // .validatingDataType(,"");
 
     return chartObject;

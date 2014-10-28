@@ -280,6 +280,7 @@ PykCharts.oneD.percentageBar = function (options) {
                         .attr("text-anchor","middle")
                         .attr("fill", that.pointer_color)
                         .attr("font-family", that.pointer_family)
+                        .attr("font-weight",that.pointer_weight)
                         .attr("pointer-events","none");
 
                         setTimeout(function() {

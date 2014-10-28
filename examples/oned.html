@@ -41,7 +41,7 @@
                 data:"../data/screenshot.json",
                 transition_duration: 1,
                 clubdata_enable: "yes",
-                // clubData_always_include_data_points : ["18-24","25-44"],
+                clubData_always_include_data_points : "",
                 export_enable: "yes",
                 background_color: "white",
                 chart_width: 300,
@@ -54,8 +54,11 @@
       			var k = new PykCharts.oneD.funnel({
           			selector: "#funnel",
           			data:"../data/pie.json",
+                    clubdata_enable: "yes",
+                clubData_always_include_data_points : "",
                 transition_duration: 1,
-                units_suffix: "rs"
+                units_suffix: "rs",
+                pointer_weight: "normal"
         		});
       			k.execute();
 

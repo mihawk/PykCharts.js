@@ -5,6 +5,13 @@ PykCharts.oneD.bubble = function (options) {
         that = PykCharts.oneD.processInputs(that, options);
         that.height = options.chart_height ? options.chart_height : that.width;
 
+        that.k.validator()
+            .validatingDataType(that.height,"chart_height")    
+
+        if(that.stop) { 
+            return;
+        }
+
         if(that.mode === "default") {
            that.k.loading();
         }
