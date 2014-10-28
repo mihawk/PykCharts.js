@@ -2071,6 +2071,23 @@ configuration.Theme = function(){
         "percent_row_rect_height": 26,
     };
 
+    that.otherCharts = {
+        "pictograph_show_all_images": "yes",
+        "pictograph_total_count_enable": "yes",
+        "pictograph_current_count_enable": "yes",
+        "pictograph_image_per_line": 3,
+        "pictograph_image_width": 79,
+        "pictograph_image_height": 66,
+        "pictograph_current_count_size": 64,
+        "pictograph_current_count_color": "#255AEE",
+        "pictograph_current_count_weight": "normal",
+        "pictograph_current_count_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
+        "pictograph_total_count_size": 64,
+        "pictograph_total_count_color": "grey",
+        "pictograph_total_count_weight": "normal",
+        "pictograph_total_count_family": "'Helvetica Neue',Helvetica,Arial,sans-serif"
+    };
+
     that.multiDimensionalCharts = {
 
         "chart_grid_x_enable": "yes",
