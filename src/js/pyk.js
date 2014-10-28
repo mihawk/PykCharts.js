@@ -927,7 +927,9 @@ PykCharts.Configuration = function (options){
             },
             _radiusCalculation: function (radius_percent,type) {
                 var min_value;
-                if(type !== undefined) {
+                if(type === "percentageBar") {
+                    min_value = options.height;
+                } else if(type !== undefined) {
                     min_value = options.width;
                 } else {
                     min_value = d3.min([options.width,options.height]);
@@ -1961,7 +1963,7 @@ configuration.Theme = function(){
         "funnel_rect_height": 100,
 
         "percent_column_rect_width": 15,
-        "percent_row_rect_height": 13,
+        "percent_row_rect_height": 26,
     };
 
     that.multiDimensionalCharts = {
