@@ -1,21 +1,21 @@
 [
 	{
 		"name":"New York",
-		"x":"Monday",
+		"x":"1",
 		"y":2,
 		"color":"steelblue",
 		"tooltip":2
 	},
 	{
 		"name":"New York",
-		"x":"Tuesday",
+		"x":"2",
 		"y":4,
 		"color":"steelblue",
 		"tooltip":4
 	},
 	{
 		"name":"New York",
-		"x":"Wednesday",
+		"x":"3",
 		"y":6,
 		"tooltip":30,
 		"color":"steelblue",
@@ -23,28 +23,29 @@
 	},
 	{
 		"name":"New York",
-		"x":"Thursday",
+		"x":"4",
 		"y":7,
 		"color":"steelblue",
+		"annotation":"New York",
 		"tooltip":7
 	},
 	{
 		"name":"New York",
-		"x":"Friday",
+		"x":"5",
 		"y":6,
 		"color":"steelblue",
 		"tooltip":6
 	},
 	{
 		"name":"New York",
-		"x":"Saturday",
+		"x":"6",
 		"y":4,
 		"color":"steelblue",
 		"tooltip":4
 	},
 	{
 		"name":"New York",
-		"x":"Sunday",
+		"x":"7",
 		"y":3,
 		"color":"steelblue",
 		"tooltip":3

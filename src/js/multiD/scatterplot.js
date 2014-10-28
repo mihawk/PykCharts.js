@@ -691,7 +691,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                     .attr("stroke-dasharray", that.border.style())
                     .attr("stroke-opacity",1)
                     .on('mouseover',function (d) {
-                        if(that.mode === "default") {
+                        if(that.mode === "default" && PykCharts.boolean(that.tooltip_enable)) {
                             tooltipText = d.tooltip ? d.tooltip : "<table><thead><th colspan='2'><b>"+d.name+"</b></th></thead><tr><td>X</td><td><b>"+d.x+"</b></td></tr><tr><td>Y</td><td><b>"+d.y+"<b></td></tr><tr><td>Weight</td><td><b>"+d.weight+"</b></td></tr></table>";
                             that.mouseEvent.tooltipPosition(d);
                             that.mouseEvent.tooltipTextShow(tooltipText);
@@ -701,7 +701,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                         }
                     })
                     .on('mouseout',function (d) {
-                        if(that.mode === "default") {
+                        if(that.mode === "default" && PykCharts.boolean(that.tooltip_enable)) {
                             that.mouseEvent.tooltipHide(d);
                             if(PykCharts.boolean(that.variable_circle_size_enable)) {
                                 d3.selectAll(".dot").style("fill-opacity",0.5);
@@ -709,7 +709,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                         }
                     })
                     .on('mousemove', function (d) {
-                        if(that.mode === "default") {
+                        if(that.mode === "default" && PykCharts.boolean(that.tooltip_enable)) {
                             that.mouseEvent.tooltipPosition(d);
                         }
                     })

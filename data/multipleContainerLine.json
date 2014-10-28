@@ -19,7 +19,7 @@
 		"y":30,
 		"color": "",
 		"tooltip":30,
-		"annotations" : "product launch"
+		"annotation" : "product launch"
 	},
 	{
 		"name":"China",
@@ -55,7 +55,7 @@
 		"y":70,
 		"color": "purple",
 		"tooltip":70,
-		"annotations" : "inflation"
+		"annotation" : "inflation"
 	},
 	{
 		"name":"U.S.A.",
