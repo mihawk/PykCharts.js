@@ -822,7 +822,7 @@ PykCharts.Configuration = function (options){
             return this;
         },
         colorType: function (ct) {
-            if (ct === "colors") {
+            if (ct === "color") {
                 that.legends = "no";
             };
             return this;
@@ -1920,7 +1920,7 @@ configuration.Theme = function(){
         "pointer_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
 
         "export_enable": "yes",
-        "export_image_url":"",
+        // "export_image_url":"",
 
         "color_mode" : "saturation",
 
@@ -2023,13 +2023,13 @@ configuration.Theme = function(){
 
         "spiderweb_outer_radius_percent" : 80,
         // "spiderweb_radius": 5,
-        "spiderweb_axis_title": "yes",
-        "spiderweb_pointer": "yes",
+        // "spiderweb_axis_title": "yes",
+        // "spiderweb_pointer": "yes",
 
         "scatterplot_radius" : 20,
-        "scatterplot_pointer": "no",
+        "scatterplot_pointer_enable": "no",
 
-        "line_curvy_lines": "no",
+        "curvy_lines_enable": "no",
 
         "data_sort_enable": "yes",
         "data_sort_type": "alphabetically", // sort type --- "alphabetically" / "numerically" / "date"
