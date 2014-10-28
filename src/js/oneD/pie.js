@@ -5,13 +5,15 @@ PykCharts.oneD.pie = function (options) {
     this.execute = function() {
         that = new PykCharts.oneD.processInputs(that, options, "pie");
         if(options.chart_height) {
-            console.log("height");
             that.height = options.chart_height;
             that.calculation = undefined;
         }
         else {
             that.height = that.width;
             that.calculation = "pie";
+        }
+        if(options.pie_radius_percent && options.pie_radius_percent > 100) {
+            options.pie_radius_percent = 100;
         }
         that.height_translate = that.height/2;
         that.radiusPercent = options.pie_radius_percent && _.isNumber(options.pie_radius_percent) ? options.pie_radius_percent : theme.oneDimensionalCharts.pie_radius_percent;
@@ -45,6 +47,12 @@ PykCharts.oneD.donut = function (options) {
         else {
             that.height = that.width;
             that.calculation = "pie";
+        }
+        if(options.donut_radius_percent && options.donut_radius_percent > 100) {
+            options.donut_radius_percent = 100;
+        }
+        if(options.donut_inner_radius_percent && options.donut_inner_radius_percent > 100) {
+            options.donut_inner_radius_percent = 100;
         }
         that.height_translate = that.height/2;
         that.radiusPercent = options.donut_radius_percent && _.isNumber(options.donut_radius_percent) ? options.donut_radius_percent : theme.oneDimensionalCharts.donut_radius_percent;
@@ -80,6 +88,9 @@ PykCharts.oneD.election_pie = function (options) {
             that.calculation = "pie";
             that.height_translate = that.height;
         }
+        if(options.pie_radius_percent && options.pie_radius_percent > 100) {
+            options.pie_radius_percent = 100;
+        }
         that.radiusPercent = options.pie_radius_percent && _.isNumber(options.pie_radius_percent) ? options.pie_radius_percent : theme.oneDimensionalCharts.pie_radius_percent;
         that.innerRadiusPercent = 0;
         d3.json(options.data, function (e, data) {
@@ -110,7 +121,12 @@ PykCharts.oneD.election_donut = function (options) {
             that.calculation = "pie";
             that.height_translate = that.height;
         }
-
+        if(options.donut_radius_percent && options.donut_radius_percent > 100) {
+            options.donut_radius_percent = 100;
+        }
+        if(options.donut_inner_radius_percent && options.donut_inner_radius_percent > 100) {
+            options.donut_inner_radius_percent = 100;
+        }
         that.radiusPercent = options.donut_radius_percent && _.isNumber(options.donut_radius_percent) ? options.donut_radius_percent : theme.oneDimensionalCharts.donut_radius_percent;
         that.innerRadiusPercent = options.donut_inner_radius_percent && _.isNumber(options.donut_inner_radius_percent) && options.donut_inner_radius_percent ? options.donut_inner_radius_percent : theme.oneDimensionalCharts.donut_inner_radius_percent;
 
@@ -556,6 +572,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                             .attr("pointer-events","none")
                             .style("fill",that.pointer_color)
                             .style("font-size",that.pointer_size)
+                            .style("font-weight",that.pointer_weight)
                             .style("font-family", that.pointer_family);
 
                         tick_label.exit().remove();

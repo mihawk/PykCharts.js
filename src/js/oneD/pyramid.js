@@ -374,7 +374,9 @@ PykCharts.oneD.pyramid = function (options) {
                     .style("fill",that.pointer_color)
                     .style("font-size",that.pointer_size)
                     .style("font-family", that.pointer_family)
+                    .style("font-weight",that.pointer_weight)
                     .attr("text-anchor","start");
+                    
                 },that.transitions.duration());
 
                 tick_label.exit().remove();
