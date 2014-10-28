@@ -93,20 +93,20 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         that.k.title()
             .backgroundColor(that)
             // .subtitle();
-            
+
         if(type === "oneLayer") {
             that.k
             .export(that,"#svgcontainer",type)
             .emptyDiv()
-            .subtitle();            
+            .subtitle();
         }
         // console.log(that.color_palette_data,"color_palette_data",that.palette_color);
         that.current_palette = _.where(that.color_palette_data, {name:that.palette_color, number:that.total_no_of_colors})[0];
-        
+
         if (type === "timeline"){
              that.k.subtitle();
         }
-       
+
         that.optionalFeatures()
             .svgContainer()
             .legendsContainer(that.legends_enable)
@@ -133,11 +133,11 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         }
 
         if(PykCharts.boolean(that.legends_enable) && that.color_mode === "saturation") {
-            $(window).on("load", function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); })
-                .on("resize", function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); });
+            $(document).ready(function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); });
+            $(window).on("resize", function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); });
         } else {
-            $(window).on("load", function () { return that.k.resize(that.svgContainer,""); })
-                .on("resize", function () { return that.k.resize(that.svgContainer,""); });
+            $(document).ready(function () { return that.k.resize(that.svgContainer,""); });
+            $(window).on("resize", function () { return that.k.resize(that.svgContainer,""); });
         }
 
     };
@@ -612,7 +612,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
 
         var bg,child1;
         bgColor(options.selector);
-        
+
         function bgColor(child) {
             child1 = child;
             bg = $(child).css("background-color");
@@ -681,7 +681,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                 that.timeline_status = "paused";
                 that.interval_index = interval;
                 console.log(interval, that.interval_index, " ******** Paused");
-            
+
             } else {
                 that.timeline_status = "playing";
                 that.play.attr("xlink:href",that.pause_image_url);
@@ -710,7 +710,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
 
                     if (interval===that.unique.length) {
                         clearInterval(that.play_interval);
-                    };                    
+                    };
                     console.log(interval, that.interval_index, " >>> PLAYING");
                 }, that.timeline_duration);
 

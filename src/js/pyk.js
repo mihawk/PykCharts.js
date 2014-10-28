@@ -614,7 +614,7 @@ PykCharts.Configuration = function (options){
                     xaxis.tickValues(newVal);
                 }
 
-                
+
                 gsvg.style("stroke",function () { return options.axis_x_line_color; })
                     .call(xaxis)
                 if((options.axis_x_data_format === "string") && options.panels_enable === "no") {
@@ -624,7 +624,7 @@ PykCharts.Configuration = function (options){
                 d3.selectAll(options.selector + " .x.axis text")
                         .attr("font-size",options.axis_x_pointer_size)
                         .style("font-weight",options.axis_x_pointer_weight)
-                        .style("font-family",options.axis_x_pointer_family);                    
+                        .style("font-family",options.axis_x_pointer_family);
             }
             return this;
         },
@@ -659,7 +659,7 @@ PykCharts.Configuration = function (options){
                 d3.selectAll(options.selector + " .y.axis text")
                         .attr("font-size",options.axis_y_pointer_size)
                         .style("font-weight",options.axis_y_pointer_weight)
-                        .style("font-family",options.axis_y_pointer_family);                    
+                        .style("font-family",options.axis_y_pointer_family);
 
             }
             return this;
@@ -1324,7 +1324,7 @@ configuration.mouseEvent = function (options) {
                     .style("left", (d3.event.pageX + 30) + "px");
             }
             return that.tooltip;
-           
+
         },
         tooltipTextShow : function (d,panels_enable,type,group_index) {
             var selector = options.selector.substr(1,options.selector.length)
@@ -1810,7 +1810,7 @@ configuration.makeXAxis = function(options,xScale) {
     d3.selectAll(options.selector + " .x.axis text")
             .attr("font-size",options.axis_x_pointer_size)
             .style("font-weight",options.axis_x_pointer_weight)
-            .style("font-family",options.axis_x_pointer_family);                    
+            .style("font-family",options.axis_x_pointer_family);
 
     if(options.axis_x_data_format=== "time" && PykCharts.boolean(options.axis_x_time_value_datatype)) {
         if(options.axis_x_time_value_datatype === "month") {
@@ -1856,7 +1856,7 @@ configuration.makeYAxis = function(options,yScale) {
     d3.selectAll(options.selector + " .y.axis text")
                 .attr("font-size",options.axis_y_pointer_size)
                 .style("font-weight",options.axis_y_pointer_weight)
-                .style("font-family",options.axis_y_pointer_family);                    
+                .style("font-family",options.axis_y_pointer_family);
 
 
     if(options.axis_y_data_format=== "time" && PykCharts.boolean(options.axis_y_time_value_type)) {
@@ -1901,7 +1901,7 @@ configuration.makeXGrid = function(options,xScale) {
     d3.selectAll(options.selector + " .x.axis text")
                     .attr("font-size",options.axis_x_pointer_size)
                     .style("font-weight",options.axis_x_pointer_weight)
-                    .style("font-family",options.axis_x_pointer_family);                    
+                    .style("font-family",options.axis_x_pointer_family);
 
     return xgrid;
 };
@@ -1925,7 +1925,7 @@ configuration.makeYGrid = function(options,yScale) {
     d3.selectAll(options.selector + " .y.axis text")
                     .attr("font-size",options.axis_y_pointer_size)
                     .style("font-weight",options.axis_y_pointer_weight)
-                    .style("font-family",options.axis_y_pointer_family);                    
+                    .style("font-family",options.axis_y_pointer_family);
 
 
     return ygrid;
