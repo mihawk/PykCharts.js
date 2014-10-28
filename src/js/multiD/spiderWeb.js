@@ -12,7 +12,9 @@ PykCharts.multiD.spiderWeb = function (options) {
         if(that.mode === "default") {
             that.k.loading();
         }
-
+        if(options.spiderweb_outer_radius_percent && options.spiderweb_outer_radius_percent > 100) {
+            options.spiderweb_outer_radius_percent = 100;
+        }
         that.multiD = new PykCharts.multiD.configuration(that);
         that.axisTitle = options.spiderweb_axis_title ? options.spiderweb_axis_title : theme.multiDimensionalCharts.spiderweb_axis_title;
         that.bubbleRadius = options.spiderweb_radius && _.isNumber(options.spiderweb_radius) ? options.spiderweb_radius : (0.6 * multiDimensionalCharts.scatterplot_radius);

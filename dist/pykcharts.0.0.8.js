@@ -933,7 +933,9 @@ PykCharts.Configuration = function (options){
             },
             _radiusCalculation: function (radius_percent,type) {
                 var min_value;
-                if(type === "spiderweb") {
+                if(type === "percentageBar") {
+                    min_value = options.height;
+                } else if(type === "spiderweb") {
                     min_value = d3.min([options.width,(options.height-options.legendsGroup_height-20)])
                 } else if(type !== undefined) {
                     min_value = options.width;
@@ -1885,7 +1887,7 @@ configuration.Theme = function(){
 
         "subtitle_size": 12,
         "subtitle_color": "black",
-        "subtitle_weight": "thin",
+        "subtitle_weight": "normal",
         "subtitle_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
 
         "highlight": "",
@@ -1902,17 +1904,17 @@ configuration.Theme = function(){
         "legends_display": "horizontal",
         "legends_text_size": 13,
         "legends_text_color": "white",
-        "legends_text_weight": "thin",
+        "legends_text_weight": "normal",
         "legends_text_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
 
         "label_size": 13,
         "label_color": "white",
-        "label_weight": "thin",
+        "label_weight": "normal",
         "label_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
 
         "pointer_overflow_enable": "no",
         "pointer_thickness": 1,
-        "pointer_weight": "thin",
+        "pointer_weight": "normal",
         "pointer_size": 13,
         "pointer_color": "#1D1D1D",
         "pointer_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
@@ -1972,18 +1974,18 @@ configuration.Theme = function(){
         "pictograph_image_height": 66,
         "pictograph_current_count_size": 64,
         "pictograph_current_count_color": "#255AEE",
-        "pictograph_current_count_weight": "thin",
+        "pictograph_current_count_weight": "normal",
         "pictograph_current_count_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
         "pictograph_total_count_size": 64,
         "pictograph_total_count_color": "grey",
-        "pictograph_total_count_weight": "thin",
+        "pictograph_total_count_weight": "normal",
         "pictograph_total_count_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
 
         "funnel_rect_width": 100,
         "funnel_rect_height": 100,
 
         "percent_column_rect_width": 15,
-        "percent_row_rect_height": 13,
+        "percent_row_rect_height": 26,
     };
 
     that.multiDimensionalCharts = {
@@ -3095,6 +3097,9 @@ PykCharts.oneD.percentageColumn = function (options) {
 
         that = new PykCharts.oneD.processInputs(that, options, "percentageColumn");
         // 1.2 Read Json File Get all the data and pass to render
+        if(options.percent_column_rect_width && options.percent_column_rect_width > 100) {
+            options.percent_column_rect_width = 100;
+        }
         that.percent_column_rect_width = options.percent_column_rect_width ? options.percent_column_rect_width : theme.oneDimensionalCharts.percent_column_rect_width;
         that.percent_column_rect_width = that.k._radiusCalculation(that.percent_column_rect_width,"percentageColumn") * 2;
         that.height = options.chart_height ? options.chart_height : that.width;
@@ -3505,9 +3510,13 @@ PykCharts.oneD.percentageBar = function (options) {
 
         that = new PykCharts.oneD.processInputs(that, options, "percentageBar");
         // 1.2 Read Json File Get all the data and pass to render
+        if(options.percent_row_rect_height && options.percent_row_rect_height > 100) {
+            options.percent_row_rect_height = 100;
+        }
+        that.height = options.chart_height ? options.chart_height : that.width/2; 
         that.percent_row_rect_height = options.percent_row_rect_height ? options.percent_row_rect_height : theme.oneDimensionalCharts.percent_row_rect_height;
         that.percent_row_rect_height = that.k._radiusCalculation(that.percent_row_rect_height,"percentageBar") * 2;
-        that.height = options.chart_height ? options.chart_height : that.width/2;
+       
         if(that.mode === "default") {
            that.k.loading();
         }
@@ -4095,13 +4104,15 @@ PykCharts.oneD.pie = function (options) {
     this.execute = function() {
         that = new PykCharts.oneD.processInputs(that, options, "pie");
         if(options.chart_height) {
-            console.log("height");
             that.height = options.chart_height;
             that.calculation = undefined;
         }
         else {
             that.height = that.width;
             that.calculation = "pie";
+        }
+        if(options.pie_radius_percent && options.pie_radius_percent > 100) {
+            options.pie_radius_percent = 100;
         }
         that.height_translate = that.height/2;
         that.radiusPercent = options.pie_radius_percent && _.isNumber(options.pie_radius_percent) ? options.pie_radius_percent : theme.oneDimensionalCharts.pie_radius_percent;
@@ -4135,6 +4146,12 @@ PykCharts.oneD.donut = function (options) {
         else {
             that.height = that.width;
             that.calculation = "pie";
+        }
+        if(options.donut_radius_percent && options.donut_radius_percent > 100) {
+            options.donut_radius_percent = 100;
+        }
+        if(options.donut_inner_radius_percent && options.donut_inner_radius_percent > 100) {
+            options.donut_inner_radius_percent = 100;
         }
         that.height_translate = that.height/2;
         that.radiusPercent = options.donut_radius_percent && _.isNumber(options.donut_radius_percent) ? options.donut_radius_percent : theme.oneDimensionalCharts.donut_radius_percent;
@@ -4170,6 +4187,9 @@ PykCharts.oneD.election_pie = function (options) {
             that.calculation = "pie";
             that.height_translate = that.height;
         }
+        if(options.pie_radius_percent && options.pie_radius_percent > 100) {
+            options.pie_radius_percent = 100;
+        }
         that.radiusPercent = options.pie_radius_percent && _.isNumber(options.pie_radius_percent) ? options.pie_radius_percent : theme.oneDimensionalCharts.pie_radius_percent;
         that.innerRadiusPercent = 0;
         d3.json(options.data, function (e, data) {
@@ -4200,7 +4220,12 @@ PykCharts.oneD.election_donut = function (options) {
             that.calculation = "pie";
             that.height_translate = that.height;
         }
-
+        if(options.donut_radius_percent && options.donut_radius_percent > 100) {
+            options.donut_radius_percent = 100;
+        }
+        if(options.donut_inner_radius_percent && options.donut_inner_radius_percent > 100) {
+            options.donut_inner_radius_percent = 100;
+        }
         that.radiusPercent = options.donut_radius_percent && _.isNumber(options.donut_radius_percent) ? options.donut_radius_percent : theme.oneDimensionalCharts.donut_radius_percent;
         that.innerRadiusPercent = options.donut_inner_radius_percent && _.isNumber(options.donut_inner_radius_percent) && options.donut_inner_radius_percent ? options.donut_inner_radius_percent : theme.oneDimensionalCharts.donut_inner_radius_percent;
 
@@ -6078,14 +6103,12 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     chartObject.pointer_color = options.pointer_color ? options.pointer_color : stylesheet.pointer_color;
     chartObject.pointer_family = options.pointer_family ? options.pointer_family : stylesheet.pointer_family;
     chartObject.pointer_weight = options.pointer_weight ? options.pointer_weight : stylesheet.pointer_weight;
-    chartObject.pointer_weight = (chartObject.pointer_weight === "thick") ? "bold" : "normal";
     chartObject.zoom_enable = options.zoom_enable ? options.zoom_enable : multiDimensionalCharts.zoom_enable;
     chartObject.zoom_level = options.zoom_level ? options.zoom_level : multiDimensionalCharts.zoom_level;
 
     chartObject.label_size = "label_size" in options ? options.label_size : stylesheet.label_size;
     chartObject.label_color = options.label_color ? options.label_color : stylesheet.label_color;
     chartObject.label_weight = options.label_weight ? options.label_weight : stylesheet.label_weight;
-    chartObject.label_weight = (chartObject.label_weight === "thick") ? "bold" : "normal";
     chartObject.label_family = options.label_family ? options.label_family : stylesheet.label_family;
 
     chartObject.tooltip_enable = options.tooltip_enable ? options.tooltip_enable : stylesheet.tooltip_enable;
@@ -6094,7 +6117,6 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     chartObject.legends_text_size = options.legends_text_size ? options.legends_text_size : stylesheet.legends_text_size;
     chartObject.legends_text_color = options.legends_text_color ? options.legends_text_color : stylesheet.legends_text_color;
     chartObject.legends_text_weight = options.legends_text_weight ? options.legends_text_weight : stylesheet.legends_text_weight;
-    chartObject.legends_text_weight = (chartObject.legends_text_weight === "thick") ? "bold" : "normal";
     chartObject.legends_text_family = options.legends_text_family ? options.legends_text_family : stylesheet.legends_text_family;
     chartObject.highlight = options.highlight ? options.highlight : stylesheet.highlight;
     chartObject.variable_circle_size_enable = options.variable_circle_size_enable ? options.variable_circle_size_enable : multiDimensionalCharts.variable_circle_size_enable;
@@ -10275,7 +10297,9 @@ PykCharts.multiD.spiderWeb = function (options) {
         if(that.mode === "default") {
             that.k.loading();
         }
-
+        if(options.spiderweb_outer_radius_percent && options.spiderweb_outer_radius_percent > 100) {
+            options.spiderweb_outer_radius_percent = 100;
+        }
         that.multiD = new PykCharts.multiD.configuration(that);
         that.axisTitle = options.spiderweb_axis_title ? options.spiderweb_axis_title : theme.multiDimensionalCharts.spiderweb_axis_title;
         that.bubbleRadius = options.spiderweb_radius && _.isNumber(options.spiderweb_radius) ? options.spiderweb_radius : (0.6 * multiDimensionalCharts.scatterplot_radius);
