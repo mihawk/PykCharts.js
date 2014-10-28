@@ -879,6 +879,10 @@ PykCharts.Configuration = function (options){
                 $(options.selector + " #export").css("width",div_size)
                         .css("left",div_left)
                         .css("float",div_float);
+
+                $(options.selector + " #dropdown-multipleConatiner-export")
+                        .css("left",(targetWidth - 80)+"px");
+
             }
             if(lsvg !== undefined) {
                 lsvg.attr("width",targetWidth);
