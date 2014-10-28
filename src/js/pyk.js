@@ -835,7 +835,7 @@ PykCharts.Configuration = function (options){
             return this;
         },
         colorType: function (ct) {
-            if (ct === "colors") {
+            if (ct === "color") {
                 that.legends = "no";
             };
             return this;
@@ -1233,7 +1233,7 @@ PykCharts.Configuration = function (options){
                         catch (err) {
                             options.k.errorHandling(err,"#8");
                         }
-                    return this;                        
+                    return this;
                 },
                 isArray: function (value,config_name) {
                         try {
@@ -1242,7 +1242,7 @@ PykCharts.Configuration = function (options){
                             }
                         }
                         catch (err) {
-                            options.k.errorHandling(err,"#9");    
+                            options.k.errorHandling(err,"#9");
                         }
                     return this;
                 },
@@ -1255,7 +1255,7 @@ PykCharts.Configuration = function (options){
                             }
                         }
                         catch (err) {
-                            options.k.errorHandling(err,"#9");    
+                            options.k.errorHandling(err,"#9");
                         }
                     }
                     return this;
@@ -1269,7 +1269,7 @@ PykCharts.Configuration = function (options){
                             }
                         }
                         catch (err) {
-                            options.k.errorHandling(err,"#9");    
+                            options.k.errorHandling(err,"#9");
                         }
                     }
                     return this;
@@ -1282,7 +1282,7 @@ PykCharts.Configuration = function (options){
                         }
                     }
                     catch (err) {
-                        options.k.errorHandling(err,"#9");    
+                        options.k.errorHandling(err,"#9");
                     }
                     return this;
                 }
@@ -1397,7 +1397,7 @@ configuration.mouseEvent = function (options) {
                                     active_y_tick.push(data[j].y);
                                     tooltipText = data[j].tooltip || data[j].y;
                                     pos_line_cursor_x = (xScale(active_x_tick) + lineMargin + left);
-                                    pos_line_cursor_y = (yScale(data[j].y) + top );
+                                    pos_line_cursor_y = (yScale(data[j].y) + top);
                                 }
                                 else {
                                     active_x_tick = data[j+1].x;
@@ -1998,7 +1998,7 @@ configuration.Theme = function(){
         "pointer_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
 
         "export_enable": "yes",
-        "export_image_url":"",
+        // "export_image_url":"",
 
         "color_mode" : "saturation",
 
@@ -2111,13 +2111,14 @@ configuration.Theme = function(){
 
         "spiderweb_outer_radius_percent" : 80,
         // "spiderweb_radius": 5,
-        "spiderweb_axis_title": "yes",
-        "spiderweb_pointer": "yes",
+        // "spiderweb_axis_title": "yes",
+        // "spiderweb_pointer": "yes",
 
         "scatterplot_radius" : 20,
-        "scatterplot_pointer": "no",
+        "scatterplot_pointer_enable": "no",
 
-        "line_curvy_lines": "no",
+        "curvy_lines_enable": "no",
+
         "annotation_border_color" : "darkgray",
         "annotation_background_color" : "#EEEEEE",
         "annotation_font_color" : "black",
