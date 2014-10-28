@@ -379,7 +379,7 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     chartObject.axis_x_time_value_interval = PykCharts.boolean(chartObject.axis_x_enable) && options.axis_x_time_value_interval ? options.axis_x_time_value_interval : stylesheet.axis_x_time_value_interval;
 
 
-    chartObject.axis_x_pointer_size = options.axis_x_pointer_size ? options.axis_x_pointer_size : stylesheet.axis_x_pointer_size;
+    chartObject.axis_x_pointer_size = "axis_x_pointer_size" in options ? options.axis_x_pointer_size : stylesheet.axis_x_pointer_size;
     chartObject.axis_x_pointer_weight = options.axis_x_pointer_weight ? options.axis_x_pointer_weight.toLowerCase() : stylesheet.axis_x_pointer_weight; 
     chartObject.axis_x_pointer_family = options.axis_x_pointer_family ? options.axis_x_pointer_family.toLowerCase() : stylesheet.axis_x_pointer_family; 
     chartObject.axis_x_pointer_color = options.axis_x_pointer_color ? options.axis_x_pointer_color.toLowerCase() : stylesheet.axis_x_pointer_color; 
@@ -400,7 +400,7 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     chartObject.axis_y_time_value_datatype = PykCharts.boolean(chartObject.axis_y_enable) && options.axis_y_time_value_datatype ? options.axis_y_time_value_datatype.toLowerCase(): multiDimensionalCharts.axis_y_time_value_datatype;
     chartObject.axis_y_time_value_interval = PykCharts.boolean(chartObject.axis_y_enable) && options.axis_y_time_value_interval ? options.axis_y_time_value_interval : multiDimensionalCharts.axis_y_time_value_interval;
 
-    chartObject.axis_y_pointer_size = options.axis_y_pointer_size ? options.axis_y_pointer_size : multiDimensionalCharts.axis_y_pointer_size;
+    chartObject.axis_y_pointer_size = "axis_y_pointer_size" in options ? options.axis_y_pointer_size : multiDimensionalCharts.axis_y_pointer_size;
     chartObject.axis_y_pointer_weight = options.axis_y_pointer_weight ? options.axis_y_pointer_weight.toLowerCase() : multiDimensionalCharts.axis_y_pointer_weight; 
     chartObject.axis_y_pointer_family = options.axis_y_pointer_family ? options.axis_y_pointer_family.toLowerCase() : multiDimensionalCharts.axis_y_pointer_family; 
     chartObject.axis_y_pointer_color = options.axis_y_pointer_color ? options.axis_y_pointer_color.toLowerCase() : multiDimensionalCharts.axis_y_pointer_color; 
