@@ -1233,7 +1233,7 @@ PykCharts.Configuration = function (options){
                         catch (err) {
                             options.k.errorHandling(err,"#8");
                         }
-                    return this;                        
+                    return this;
                 },
                 isArray: function (value,config_name) {
                         try {
@@ -1242,7 +1242,7 @@ PykCharts.Configuration = function (options){
                             }
                         }
                         catch (err) {
-                            options.k.errorHandling(err,"#9");    
+                            options.k.errorHandling(err,"#9");
                         }
                     return this;
                 },
@@ -1255,7 +1255,7 @@ PykCharts.Configuration = function (options){
                             }
                         }
                         catch (err) {
-                            options.k.errorHandling(err,"#9");    
+                            options.k.errorHandling(err,"#9");
                         }
                     }
                     return this;
@@ -1269,7 +1269,7 @@ PykCharts.Configuration = function (options){
                             }
                         }
                         catch (err) {
-                            options.k.errorHandling(err,"#9");    
+                            options.k.errorHandling(err,"#9");
                         }
                     }
                     return this;
@@ -1282,7 +1282,7 @@ PykCharts.Configuration = function (options){
                         }
                     }
                     catch (err) {
-                        options.k.errorHandling(err,"#9");    
+                        options.k.errorHandling(err,"#9");
                     }
                     return this;
                 }
