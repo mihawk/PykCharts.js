@@ -10,10 +10,14 @@
             <div id = "map-container">
 
             </div>
+
+        <script src="../lib/jquery-1.11.1.min.js"></script>
         <script src="../src/js/pyk.js"></script>
         <script src = "../src/js/maps/maps.js"></script>
-        <script src = "../src/js/maps/oneLayer.js"></script>
         <script src = "../src/js/init.js"></script>
+        <script src = "../src/js/maps/oneLayer.js"></script>
+        <script src="../lib/jquery.colourbrightness.js"></script>
+
         <script>
             window.PykChartsInit = function (e) {
 
@@ -39,7 +43,7 @@
                         click_enable: "yes",
                         real_time_charts_refresh_frequency : 5,
                         onhover: "shadow",
-                        label_enable: "yes",
+                        label_enable: "no",
                         default_zoom_level: 80,
                         highlight_area_enable: "yes",
                         highlight: "IN_GJ",
@@ -57,9 +61,7 @@
                         units_suffix: ""
                     });
                     k.execute();
-
-
-            }
+            };
 
         </script>
     </body>

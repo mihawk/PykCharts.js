@@ -193,16 +193,18 @@ PykCharts.Configuration = function (options){
         },
         title : function () {
             if(PykCharts.boolean(options.title_text) && options.title_size) {
-                var div_width = options.width;
+                var div_width;
 
                 if(PykCharts.boolean(options.export_enable)) {
                     div_width = 0.9*options.width;
+                } else {
+                    div_width = options.width;
                 }
 
                 that.titleDiv = d3.select(options.selector)
                     .append("div")
                         .attr("id","title")
-                        .style("width", (options.width) + "px")
+                        .style("width", (div_width) + "px")
                         .style("text-align","left")
                         .style("float","left")
                         .html("<span style='pointer-events:none;font-size:" +
@@ -877,6 +879,10 @@ PykCharts.Configuration = function (options){
                 $(options.selector + " #export").css("width",div_size)
                         .css("left",div_left)
                         .css("float",div_float);
+
+                $(options.selector + " #dropdown-multipleConatiner-export")
+                        .css("left",(targetWidth - 80)+"px");
+
             }
             if(lsvg !== undefined) {
                 lsvg.attr("width",targetWidth);
@@ -1201,9 +1207,9 @@ PykCharts.Configuration = function (options){
                         }
                     return this;
                 },
-                validatingBorderBetweenChartElementsStyle: function (border_between_chart_elements_style,config_name) {
+                validatingLegendsPosition: function (legends_display,config_name) {
                         try {
-                            if(border_between_chart_elements_style.toLowerCase() === "1,3" || border_between_chart_elements_style.toLowerCase()=== "5,5" || border_between_chart_elements_style.toLowerCase() === "0") {
+                            if(legends_display.toLowerCase() === "horizontal" || legends_display.toLowerCase()=== "vertical") {
                             } else {
                                 throw config_name;
                             }
@@ -1211,6 +1217,20 @@ PykCharts.Configuration = function (options){
                         catch (err) {
                             options.k.errorHandling(err,"#8");
                         }
+                    return this;                        
+                },
+                isArray: function (value,config_name) {
+                    console.log(value);
+                    if(value) {
+                        try {
+                            if((value instanceof Array)) {
+                                throw config_name;
+                            }
+                        }
+                        catch (err){
+                            options.k.errorHandling(err,"#9");    
+                        }
+                    }
                     return this;
                 }
             };
@@ -1915,7 +1935,7 @@ configuration.Theme = function(){
         "axis_x_pointer_values": [],
         "axis_x_outer_pointer_size": 0,
         "axis_x_time_value_datatype":"",
-        "axis_x_time_value_interval":"",
+        "axis_x_time_value_interval":0,
         "axis_x_data_format": "string",
 
         "loading_gif_url": "https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/img/loader.gif",
@@ -1987,7 +2007,7 @@ configuration.Theme = function(){
         "axis_y_pointer_values": [],
         "axis_y_outer_pointer_size": 0,
         "axis_y_time_value_datatype":"",
-        "axis_y_time_value_interval":"",
+        "axis_y_time_value_interval":0,
         "axis_y_data_format": "number",
 
         "panels_enable": "no",

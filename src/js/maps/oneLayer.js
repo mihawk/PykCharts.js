@@ -739,7 +739,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
     };
 
     that.renderButtons = function () {
-        var bbox = d3.select(that.selector+" .axis").node().getBBox(),
+        var bbox = d3.select(that.selector+" .axis").node().getBBox();
             drag = d3.behavior.drag()
                     .origin(Object)
                     .on("drag",dragmove);
@@ -806,7 +806,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             .attr("y", that.redeced_height)
             .attr("width","14px")
             .attr("height","12px")
-            .style("cursor","pointer")
+            .style("cursor","pointer");
             .call(drag);
     }
 };
