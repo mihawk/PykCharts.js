@@ -738,8 +738,12 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         var bbox = d3.select(that.selector+" .axis").node().getBBox();
             drag = d3.behavior.drag()
                     .origin(Object)
-                    .on("drag",dragmove);
+                    .on("drag",dragmove)
+                    .on("dragend", function () {
+                        $("body").css("cursor","default");
+                    });
         function dragmove (d) {
+            $("body").css("cursor","pointer");
             if (that.timeline_status !== "playing") {
                 var x = d3.event.sourceEvent.pageX - (that.margin_left),
                     x_range = [],
