@@ -17,7 +17,6 @@ PykCharts.oneD.pie = function (options) {
         }
         that.height_translate = that.height/2;
         that.radiusPercent = options.pie_radius_percent && _.isNumber(options.pie_radius_percent) ? options.pie_radius_percent : theme.oneDimensionalCharts.pie_radius_percent;
-        // that.radiusPercent = options.optional && options.optional.pie && _.isNumber(options.optional.pie.radiusPercent) ? options.optional.pie.radiusPercent : theme.oneDimensionalCharts.pie.radiusPercent;
         that.innerRadiusPercent = 0;
         if(that.mode === "default") {
            that.k.loading();
@@ -57,6 +56,7 @@ PykCharts.oneD.donut = function (options) {
         that.height_translate = that.height/2;
         that.radiusPercent = options.donut_radius_percent && _.isNumber(options.donut_radius_percent) ? options.donut_radius_percent : theme.oneDimensionalCharts.donut_radius_percent;
         that.innerRadiusPercent = options.donut_inner_radius_percent && _.isNumber(options.donut_inner_radius_percent) ? options.donut_inner_radius_percent : theme.oneDimensionalCharts.donut_inner_radius_percent;
+        that.show_total_at_center = options.donut_show_total_at_center ? options.donut_show_total_at_center.toLowerCase() : theme.oneDimensionalCharts.donut_show_total_at_center;
         // that.radiusPercent = options.optional && options.optional.donut && _.isNumber(options.optional.donut.radiusPercent) ? options.optional.donut.radiusPercent : theme.oneDimensionalCharts.donut.radiusPercent;
         // that.innerRadiusPercent = options.optional && options.optional.donut && _.isNumber(options.optional.donut.innerRadiusPercent) && options.optional.donut.innerRadiusPercent ? options.optional.donut.innerRadiusPercent : theme.oneDimensionalCharts.donut.innerRadiusPercent;
 
@@ -129,7 +129,7 @@ PykCharts.oneD.election_donut = function (options) {
         }
         that.radiusPercent = options.donut_radius_percent && _.isNumber(options.donut_radius_percent) ? options.donut_radius_percent : theme.oneDimensionalCharts.donut_radius_percent;
         that.innerRadiusPercent = options.donut_inner_radius_percent && _.isNumber(options.donut_inner_radius_percent) && options.donut_inner_radius_percent ? options.donut_inner_radius_percent : theme.oneDimensionalCharts.donut_inner_radius_percent;
-
+        that.show_total_at_center = options.donut_show_total_at_center ? options.donut_show_total_at_center.toLowerCase() : theme.oneDimensionalCharts.donut_show_total_at_center;
 
         d3.json(options.data, function (e, data) {
             that.data = data.groupBy("oned");
@@ -657,7 +657,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                 return this;
             },
             centerLabel: function () {
-                if(PykCharts.boolean(that.donut_show_total_at_center) && (type == "donut" || type == "election donut")) {
+                if(PykCharts.boolean(that.show_total_at_center) && (type == "donut" || type == "election donut")) {
 
                     // var displaySum = that.group.selectAll(".total")
                     //             .data(["sum"]);

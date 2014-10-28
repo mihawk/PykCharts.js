@@ -43,15 +43,17 @@
                 //     {"name": "World","weight": 612463,"tooltip":"<h1>HTML tooltip, huh?</h1>But I am optional."}
                 //     ],
                 data:"../data/screenshot.json",
+                mode: "DEFault",
                 transition_duration: 1,
                 clubdata_enable: "yes",
-                clubData_always_include_data_points : "",
-                export_enable: "yes",
+                // clubData_always_include_data_points : ["18-24","25-44"],
+                export_enable: "YES",
                 background_color: "white",
                 chart_width: 300,
                 chart_height: 300,
                 title_text:"Air Pollution in New York </br>(23/12/2013 - 29/12/2013)",
                 subtitle_text:"Air Pollution in New York",
+            
             });
             k.execute();
 
@@ -82,7 +84,7 @@
                 "pictograph_image_width": 50,
                 "pictograph_image_height": 50,
                 "pictograph_current_count_size": 50,
-                "pictograph_current_count_color": "#255AEE",
+                "pictograph_current_count_color": "#255aee",
                 "pictograph_current_count_weight": "thin",
                 "pictograph_current_count_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
                 "pictograph_total_count_size": 50,
@@ -90,7 +92,7 @@
                 "pictograph_total_count_weight": "thin",
                 "pictograph_total_count_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
             });
-            k.execute();
+           k.execute();
 
             var k = new PykCharts.oneD.pyramid ({
                 selector: "#pyramid",
@@ -101,7 +103,7 @@
 
                 pointer_overflow_enable: "no",
             });
-            k.execute();
+           k.execute();
 
             var k = new PykCharts.oneD.treemap({
                 selector: "#treemap",
@@ -110,14 +112,14 @@
                 background_color: "white",
                 mode:"infographics",
             });
-            k.execute();
+           k.execute();
 
             var k = new PykCharts.oneD.donut({
                 selector: "#donutContainer",
                 data: "../data/pie.json",
                 transition_duration: 1
             });
-            k.execute();
+           k.execute();
 
             var k = new PykCharts.oneD.election_pie({
                 selector: "#electionPieContainer",
@@ -125,7 +127,7 @@
                 transition_duration: 4,
                 background_color: "white",
             });
-            k.execute();
+           k.execute();
 
             var k = new PykCharts.oneD.election_donut({
                 selector: "#electionDonutContainer",
@@ -133,7 +135,7 @@
                 background_color: "white",
                 transition_duration: 4
             });
-            k.execute();
+           k.execute();
 
             var k = new PykCharts.oneD.pie({
                 chart_width: 400,
@@ -144,7 +146,7 @@
                 "pie_radius_percent": 80,
                 // transition_duration: 4
             });
-            k.execute();
+           k.execute();
 
             var k = new PykCharts.oneD.percentageColumn({
                 chart_width: 600,
@@ -153,7 +155,7 @@
                 data:"../data/pie.json",
                 transition_duration: 1
             });
-            k.execute();
+           k.execute();
 
             var k = new PykCharts.oneD.percentageBar({
                 selector: "#percentageBar",
@@ -164,7 +166,7 @@
                 chart_width: 600,
                 // clubdata_enable: "yes"
             });
-            k.execute();
+           k.execute();
 
             var k = new PykCharts.oneD.pie({
                 selector: "#pie2Container",
@@ -172,7 +174,7 @@
                 data: "../data/pie2.json",
                 transition_duration: 1
             });
-            k.execute();
+           k.execute();
 		    }
 		</script>
     <script src="../dist/pykcharts.0.0.8.js"></script>
