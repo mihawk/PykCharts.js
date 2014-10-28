@@ -351,9 +351,8 @@ PykCharts.Configuration = function (options){
             }
             return this;
         },
-        tooltip : function (d,selection,i) {
-
-            if(PykCharts.boolean(options.tooltip_enable) && options.mode === "default") {
+        tooltip : function (d,selection,i,flag ) {
+            if((PykCharts.boolean(options.tooltip_enable) || options.axis_x_data_format === "string" || options.axis_y_data_format === "string" || flag > 0) && options.mode === "default") {
                 if(selection !== undefined){
                     var selector = options.selector.substr(1,options.selector.length)
                     PykCharts.Configuration.tooltipp = d3.select("body").append("div")
@@ -443,15 +442,13 @@ PykCharts.Configuration = function (options){
             return this;
         },
         annotation : function (svg,data,xScale,yScale) {
-            var mouseEvent = new PykCharts.Configuration.mouseEvent(options);
-
             var annotation_circle = d3.select(svg).selectAll(".PykCharts-annotation-circle")
                 .data(data)
 
             annotation_circle.enter()
                 .append("circle")
                 .attr("class","PykCharts-annotation-circle");
-
+            console.log(svg);
             var annotation_text = d3.select(svg).selectAll(".PykCharts-annotation-text")
                 .data(data)
 
@@ -473,6 +470,7 @@ PykCharts.Configuration = function (options){
                 .text(function (d,i) {
                     return i+1;
                 })
+                .attr("fill",options.annotation_font_color)
                 .style("pointer-events","none");
 
             annotation_circle
@@ -485,9 +483,14 @@ PykCharts.Configuration = function (options){
                 .attr("r", 8)
                 .style("cursor","pointer")
                 .on("click",function (d,i) {
-                  mouseEvent.tooltipPosition(d);
-                  mouseEvent.tooltipTextShow(d.annotation);
-                });
+                    options.mouseEvent.tooltipPosition(d);
+                    options.mouseEvent.tooltipTextShow(d.annotation);
+                })
+                .on("mouseover", function (d) {
+                    options.mouseEvent.tooltipHide(d,options.panels_enable,"multilineChart")
+                })
+                .attr("fill",options.annotation_background_color)
+                .attr("stroke",options.annotation_border_color);
 
         },
         crossHair : function (svg,len,data,fill) {
@@ -735,8 +738,8 @@ PykCharts.Configuration = function (options){
             return this;
         },
         ordinalXAxisTickFormat :function (domain,extra) {
-            var mouseEvent = new PykCharts.Configuration.mouseEvent(options),
-                a = $(options.selector + " g.x.axis text"),
+            // var mouseEvent = new PykCharts.Configuration.mouseEvent(options),
+                var a = $(options.selector + " g.x.axis text"),
                 len = a.length, comp, flag, largest = 0, rangeband = (extra*2);
 
             _.each(a, function (d) {
@@ -771,21 +774,20 @@ PykCharts.Configuration = function (options){
             }
             xaxistooltip = d3.selectAll(options.selector + " g.x.axis text")
                 .data(domain);
-            xaxistooltip.on('mouseover',function (d) {
-                mouseEvent.tooltipPosition(d);
-                mouseEvent.tooltipTextShow(d);
+             xaxistooltip.on('mouseover',function (d) {
+                options.mouseEvent.tooltipPosition(d);
+                options.mouseEvent.tooltipTextShow(d);
             })
             .on('mousemove', function (d) {
-                mouseEvent.tooltipPosition(d);
-                mouseEvent.tooltipTextShow(d);
+                options.mouseEvent.tooltipPosition(d);
+                options.mouseEvent.tooltipTextShow(d);
             })
             .on('mouseout', function (d) {
-                mouseEvent.tooltipHide(d);
+                options.mouseEvent.tooltipHide(d);
             });
             return this;
         },
         ordinalYAxisTickFormat : function (domain) {
-            var mouseEvent = new PykCharts.Configuration.mouseEvent(options);
             var a = $(options.selector + " g.y.axis text");
 
             var len = a.length,comp;
@@ -797,18 +799,18 @@ PykCharts.Configuration = function (options){
                 }
                 a[i].innerHTML = comp;
             }
-            xaxistooltip = d3.selectAll(options.selector + " g.y.axis text")
+            yaxistooltip = d3.selectAll(options.selector + " g.y.axis text")
                 .data(domain);
-            xaxistooltip.on('mouseover',function (d) {
-                mouseEvent.tooltipPosition(d);
-                mouseEvent.tooltipTextShow(d);
+            yaxistooltip.on('mouseover',function (d) {
+                options.mouseEvent.tooltipPosition(d);
+                options.mouseEvent.tooltipTextShow(d);
             })
             .on('mousemove', function (d) {
-                mouseEvent.tooltipPosition(d);
-                mouseEvent.tooltipTextShow(d);
+                options.mouseEvent.tooltipPosition(d);
+                options.mouseEvent.tooltipTextShow(d);
             })
             .on('mouseout', function (d) {
-                mouseEvent.tooltipHide(d);
+                options.mouseEvent.tooltipHide(d);
             });
             return this;
         },
@@ -1256,47 +1258,41 @@ configuration.mouseEvent = function (options) {
 
     var action = {
         tooltipPosition : function (d,xPos,yPos,xDiff,yDiff,group_index) {
-
-            if(PykCharts.boolean(options.tooltip_enable)) {
-                if(xPos !== undefined){
-                    var selector = options.selector.substr(1,options.selector.length)
-                    var width_tooltip = parseFloat($("#tooltip-svg-container-"+group_index +"-pyk-tooltip"+selector).css("width"));
-                    tooltip = $("#tooltip-svg-container-"+group_index +"-pyk-tooltip"+selector);
-                    offset = $(options.selector).offset();
-                    tooltip
-                        .css("visibility", "visible")
-                        .css("top", (yPos + yDiff+offset.top) + "px")
-                        .css("left", (xPos + options.margin_left + xDiff - width_tooltip + offset.left) + "px");
-                }
-                else {
-                    that.tooltip
-                        .style("visibility", "visible")
-                        .style("top", (d3.event.pageY - 20) + "px")
-                        .style("left", (d3.event.pageX + 30) + "px");
-                }
-                return that.tooltip;
+            if(xPos !== undefined){
+                var selector = options.selector.substr(1,options.selector.length)
+                var width_tooltip = parseFloat($("#tooltip-svg-container-"+group_index +"-pyk-tooltip"+selector).css("width"));
+                tooltip = $("#tooltip-svg-container-"+group_index +"-pyk-tooltip"+selector);
+                offset = $(options.selector).offset();
+                tooltip
+                    .css("visibility", "visible")
+                    .css("top", (yPos + yDiff+offset.top) + "px")
+                    .css("left", (xPos + options.margin_left + xDiff - width_tooltip + offset.left) + "px");
             }
+            else {
+                that.tooltip
+                    .style("visibility", "visible")
+                    .style("top", (d3.event.pageY - 20) + "px")
+                    .style("left", (d3.event.pageX + 30) + "px");
+            }
+            return that.tooltip;
+           
         },
         tooltipTextShow : function (d,panels_enable,type,group_index) {
             var selector = options.selector.substr(1,options.selector.length)
-            if(PykCharts.boolean(options.tooltip_enable)) {
-                if(panels_enable === "yes" && type === "multilineChart") {
-                    $("#tooltip-svg-container-"+group_index +"-pyk-tooltip"+selector).html(d);
-                }
-                else {
-                    that.tooltip.html(d);
-                }
+            if(panels_enable === "yes" && type === "multilineChart") {
+                $("#tooltip-svg-container-"+group_index +"-pyk-tooltip"+selector).html(d);
+            }
+            else {
+                that.tooltip.html(d);
             }
             return this;
         },
         tooltipHide : function (d,panels_enable,type) {
-            if(PykCharts.boolean(options.tooltip_enable)) {
-                if(panels_enable === "yes" && type === "multilineChart") {
-                    return d3.selectAll(".pyk-tooltip").style("visibility","hidden");
-                }
-                else {
-                    return that.tooltip.style("visibility", "hidden");
-                }
+            if(panels_enable === "yes" && type === "multilineChart") {
+                return d3.selectAll(".pyk-tooltip").style("visibility","hidden");
+            }
+            else {
+                return that.tooltip.style("visibility", "hidden");
             }
         },
         crossHairPosition: function(data,new_data,xScale,yScale,dataLineGroup,lineMargin,domain,type,tooltipMode,color_from_data,panels_enable){
@@ -1391,15 +1387,17 @@ configuration.mouseEvent = function (options) {
 
                                         pos_line_cursor_x += 6;
                                         tooltipText = "<table><thead><th colspan='"+colspan+"'>"+active_x_tick+"</th></thead><tbody>"+tt_row+"</tbody></table>";
-                                        if(type === "stackedAreaChart") {
-                                            group_index = 1;
-                                            this.tooltipPosition(tooltipText,pos_line_cursor_x,y,60,70,group_index);
-                                        } else {
-                                            this.tooltipPosition(tooltipText,pos_line_cursor_x,y,60,-15,group_index);
+                                        if(PykCharts.boolean(options.tooltip_enable)) {
+                                            if(type === "stackedAreaChart") {
+                                                group_index = 1;
+                                                this.tooltipPosition(tooltipText,pos_line_cursor_x,y,60,70,group_index);
+                                            } else {
+                                                this.tooltipPosition(tooltipText,pos_line_cursor_x,y,60,-15,group_index);
+                                            }
+                                            this.tooltipTextShow(tooltipText);
                                         }
-                                        this.tooltipTextShow(tooltipText);
                                         (options.crosshair_enable) ? this.crossHairShow(pos_line_cursor_x,top,pos_line_cursor_x,(h - bottom),pos_line_cursor_x,test,type,active_y_tick.length,panels_enable,new_data) : null;
-                                        // (options.crosshair_enable) ? this.crossHairShow(pos_line_cursor_x,top,pos_line_cursor_x,(h - bottom),pos_line_cursor_x,pos_line_cursor_y,type,active_y_tick.length,panels_enable) : null;
+                                        // (options.colspanrosshair_enable) ? this.crossHairShow(pos_line_cursor_x,top,pos_line_cursor_x,(h - bottom),pos_line_cursor_x,pos_line_cursor_y,type,active_y_tick.length,panels_enable) : null;
                                         this.axisHighlightShow(active_y_tick,options.selector+" .y.axis",domain);
                                         this.axisHighlightShow(active_x_tick,options.selector+" .x.axis",domain);
                                     }
@@ -1429,12 +1427,14 @@ configuration.mouseEvent = function (options) {
                                     }
                                 }
                                 else if(type === "lineChart" || type === "areaChart") {
-                                    if((options.tooltip_mode).toLowerCase() === "fixed") {
-                                        this.tooltipPosition(tooltipText,0,pos_line_cursor_y,-14,23,group_index);
-                                    } else if((options.tooltip_mode).toLowerCase() === "moving"){
-                                        this.tooltipPosition(tooltipText,pos_line_cursor_x,pos_line_cursor_y,5,-45,group_index);
+                                    if(PykCharts.boolean(options.tooltip_enable)) {
+                                        if((options.tooltip_mode).toLowerCase() === "fixed") {
+                                            this.tooltipPosition(tooltipText,0,pos_line_cursor_y,-14,23,group_index);
+                                        } else if((options.tooltip_mode).toLowerCase() === "moving"){
+                                            this.tooltipPosition(tooltipText,pos_line_cursor_x,pos_line_cursor_y,5,-45,group_index);
+                                        }
+                                        this.tooltipTextShow(tooltipText);
                                     }
-                                    this.tooltipTextShow(tooltipText);
                                     (options.crosshair_enable) ? this.crossHairShow(pos_line_cursor_x,top,pos_line_cursor_x,(h - bottom),pos_line_cursor_x,pos_line_cursor_y,type,active_y_tick.length,panels_enable) : null;
                                     this.axisHighlightShow(active_y_tick,options.selector+" .y.axis",domain);
                                     this.axisHighlightShow(active_x_tick,options.selector+" .x.axis",domain);
@@ -1468,13 +1468,15 @@ configuration.mouseEvent = function (options) {
 
                                     pos_line_cursor_x += 6;
                                     tooltipText = "<table><thead><th colspan='"+colspan+"'>"+active_x_tick+"</th></thead><tbody>"+tt_row+"</tbody></table>";
-                                    if(type === "stackedAreaChart") {
-                                        group_index = 1;
-                                        this.tooltipPosition(tooltipText,pos_line_cursor_x,y,60,70,group_index);
-                                    } else {
-                                        this.tooltipPosition(tooltipText,pos_line_cursor_x,y,60,-15,group_index);
+                                    if(PykCharts.boolean(options.tooltip_enable)) {
+                                        if(type === "stackedAreaChart") {
+                                            group_index = 1;
+                                            this.tooltipPosition(tooltipText,pos_line_cursor_x,y,60,70,group_index);
+                                        } else {
+                                            this.tooltipPosition(tooltipText,pos_line_cursor_x,y,60,-15,group_index);
+                                        }
+                                        this.tooltipTextShow(tooltipText);
                                     }
-                                    this.tooltipTextShow(tooltipText);
                                     (options.crosshair_enable) ? this.crossHairShow(pos_line_cursor_x,top,pos_line_cursor_x,(h - bottom),pos_line_cursor_x,test,type,active_y_tick.length,panels_enable,new_data) : null;
                                     this.axisHighlightShow(active_y_tick,options.selector+" .y.axis",domain);
                                     this.axisHighlightShow(active_x_tick,options.selector+" .x.axis",domain);
@@ -2030,6 +2032,9 @@ configuration.Theme = function(){
         "scatterplot_pointer": "no",
 
         "line_curvy_lines": "no",
+        "annotation_border_color" : "darkgray",
+        "annotation_background_color" : "#EEEEEE",
+        "annotation_font_color" : "black",
 
         "data_sort_enable": "yes",
         "data_sort_type": "alphabetically", // sort type --- "alphabetically" / "numerically" / "date"

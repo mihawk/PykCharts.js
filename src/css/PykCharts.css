@@ -388,10 +388,10 @@ body .pyk-tooltip .tooltip-left-content{
   fill-rule: evenodd;
 }
 
-.PykCharts-annotation-line, .PykCharts-annotation-circle {
+/*.PykCharts-annotation-line, .PykCharts-annotation-circle {
   stroke: darkgray;
 }
 
 .PykCharts-annotation-circle {
   fill: #EEEEEE;
-}
+}*/
