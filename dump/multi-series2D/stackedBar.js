@@ -231,7 +231,7 @@ PykCharts.multi_series_2D.stackedBar = function (option) {
                     .attr('width', 0)
                     .on('mouseover',function (d,i) {
                         that.mouseEvent[that.toolTipsEnable]().tooltipPosition(d);
-                        that.mouseEvent[that.toolTipsEnable]().toolTextShow(d.tooltip ? d.tooltip : d.x);
+                        that.mouseEvent[that.toolTipsEnable]().tooltipTextShow(d.tooltip ? d.tooltip : d.x);
                     })
                     .on('mouseout',function (d) {
                         that.mouseEvent[that.toolTipsEnable]().tooltipHide(d);

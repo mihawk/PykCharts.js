@@ -7,7 +7,7 @@
     <body>
   <!--   <div id="hi" style="height:500px;width:1200px;background-color:pink">
     <div id = "hello" style="height:500px;width:1000px;background-color:black;"> -->
-        <div id="line"></div>        
+        <div id="line"></div>
    <!--  </div></div> -->
         <hr/>
         <div id="area"></div>
@@ -54,7 +54,7 @@
         <script src="../src/js/multiD/barChart.js"></script>
 
         <script>
-         
+
             // $(document).ready(function (e) {
             window.PykChartsInit = function (e) {
                 var k = new PykCharts.multiD.lineChart ({
@@ -187,16 +187,19 @@
                     chart_margin_left: 55,
 
                     real_time_charts_refresh_frequency: 10,
-                    variable_circle_size_enable: "no",
+                    variable_circle_size_enable: "yes",
+
                     border_between_chart_elements_thickness: 0,
                     border_between_chart_elements_color: "blue",
 
                     legends_enable: "yes",
-                    legends_display: "horizo",//horizontal or vertical
-                    legendsText_size: 13,
-                    legendsText_color: "black",
-                    legendsText_weight: "thin",
-                    legendsText_family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
+                    legends_display: "horizontal",//horizontal or vertical
+
+                    legends_text_size: 13,
+                    legends_text_color: "green",
+                    legends_text_weight: "thin",
+                    legends_text_family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
+
                 });
 
                  k.execute();
@@ -249,10 +252,10 @@
 
                     legends_enable: "yes",
                     legends_display: "horizontal", //horizontal or vertical
-                    legendsText_size: 13,
-                    legendsText_color: "black",
-                    legendsText_weight: "thin",
-                    legendsText_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
+                    legends_text_size: 13,
+                    legends_text_color: "black",
+                    legends_text_weight: "thin",
+                    legends_text_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
 
                     zoom_enable: "yes",
 
@@ -313,10 +316,10 @@
 
                     legends_enable: "yes",
                     legends_display: "horizontal", //horizontal or vertical
-                    legendsText_size: 13,
-                    legendsText_color: "black",
-                    legendsText_weight: "thin",
-                    legendsText_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
+                    legends_text_size: 13,
+                    legends_text_color: "black",
+                    legends_text_weight: "thin",
+                    legends_text_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
 
                     zoom_enable: "yes",
                     zoom_level: 6,

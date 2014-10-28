@@ -225,7 +225,7 @@ PykCharts.oneD.pyramid = function (options) {
                         if(that.mode === "default") {
                             that.onHoverEffect.highlight(options.selector +" "+".pyr-path",this);
                             that.mouseEvent.tooltipPosition(d);
-                            that.mouseEvent.toolTextShow(tooltipArray[i]);
+                            that.mouseEvent.tooltipTextShow(tooltipArray[i]);
                         }
         			})
         			.on("mouseout", function (d) {

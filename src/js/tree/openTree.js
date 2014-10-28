@@ -138,7 +138,7 @@ PykCharts.tree.openTree = function (options) {
                 that.nodeUpdate.select("g.node circle")
                     .on('mouseover',function (d) {
                         that.mouseEvent.tooltipPosition(d);
-                        that.mouseEvent.toolTextShow(d.key);
+                        that.mouseEvent.tooltipTextShow(d.key);
                     })
                     .on('mouseout',function (d) {
                         that.mouseEvent.tooltipHide(d);

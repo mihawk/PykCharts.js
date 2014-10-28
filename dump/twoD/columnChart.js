@@ -205,7 +205,7 @@ PykCharts.twoD.column = function (option) {
                     .on('mouseover',function (d) {
                         that.mouseEvent1.highlight(option.selector+" "+".hbar", this);
                         that.mouseEvent.tooltipPosition(d);
-                        that.mouseEvent.toolTextShow(d.tooltip ? d.tooltip : d.y);
+                        that.mouseEvent.tooltipTextShow(d.tooltip ? d.tooltip : d.y);
                     })
                     .on('mouseout',function (d) {
                         that.mouseEvent1.highlightHide(option.selector+" "+".hbar");

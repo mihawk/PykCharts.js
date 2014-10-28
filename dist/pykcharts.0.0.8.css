@@ -145,7 +145,7 @@ body {
   font-size: 12px;
   color:#1f1f1f;
   border:1px solid #e7e3e7;
-  border-collapse: collapse;  
+  border-collapse: collapse;
   pointer-events: none;
 }
 
@@ -164,7 +164,7 @@ body .pyk-tooltip table {
   font-size: 12px;
   color:#1f1f1f;
   border:1px solid #e7e3e7;
-  border-collapse: collapse;  
+  border-collapse: collapse;
   pointer-events: none;
 }
 
@@ -386,4 +386,12 @@ body .pyk-tooltip .tooltip-left-content{
 .PykCharts-sunburst path {
   stroke: #fff;
   fill-rule: evenodd;
+}
+
+.PykCharts-annotation-line, .PykCharts-annotation-circle {
+  stroke: darkgray;
+}
+
+.PykCharts-annotation-circle {
+  fill: #EEEEEE;
 }
