@@ -1390,7 +1390,7 @@ configuration.mouseEvent = function (options) {
                                     active_y_tick.push(data[j].y);
                                     tooltipText = data[j].tooltip || data[j].y;
                                     pos_line_cursor_x = (xScale(active_x_tick) + lineMargin + left);
-                                    pos_line_cursor_y = (yScale(data[j].y) + top );
+                                    pos_line_cursor_y = (yScale(data[j].y) + top);
                                 }
                                 else {
                                     active_x_tick = data[j+1].x;
