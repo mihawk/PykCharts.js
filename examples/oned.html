@@ -13,8 +13,6 @@
       <hr/>
       <div id="pieContainer"></div>
       <hr/>
-      <div id="pictograph"></div>
-      <hr/>
       <div id="pyramid"></div>
       <hr/>
       <div id="treemap"></div>
@@ -43,14 +41,17 @@
                 //     {"name": "World","weight": 612463,"tooltip":"<h1>HTML tooltip, huh?</h1>But I am optional."}
                 //     ],
                 data:"../data/screenshot.json",
+                mode: "DEFault",
                 transition_duration: 1,
                 clubdata_enable: "yes",
-                export_enable: "yes",
+                // clubData_always_include_data_points : ["18-24","25-44"],
+                export_enable: "YES",
                 background_color: "white",
                 chart_width: 300,
                 chart_height: 300,
                 title_text:"Air Pollution in New York </br>(23/12/2013 - 29/12/2013)",
                 subtitle_text:"Air Pollution in New York",
+            
             });
             k.execute();
 
@@ -64,32 +65,6 @@
                 pointer_weight: "normal"
         		});
       			k.execute();
-
-            var k = new PykCharts.oneD.pictograph({
-                selector: "#pictograph",
-                data:"../data/pictograph.json",
-                chart_width : 350,
-                chart_height: 300,
-                background_color: "white",
-                transition_duration: 1,
-                pictograph_total_count_weight: "thin",
-
-                "pictograph_show_all_images": "yes",
-                "pictograph_total_count_enable": "yes",
-                "pictograph_current_count_enable": "yes",
-                "pictograph_image_per_line": 4,
-                "pictograph_image_width": 50,
-                "pictograph_image_height": 50,
-                "pictograph_current_count_size": 50,
-                "pictograph_current_count_color": "#255AEE",
-                "pictograph_current_count_weight": "thin",
-                "pictograph_current_count_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
-                "pictograph_total_count_size": 50,
-                "pictograph_total_count_color": "grey",
-                "pictograph_total_count_weight": "thin",
-                "pictograph_total_count_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
-            });
-           k.execute();
 
             var k = new PykCharts.oneD.pyramid ({
                 selector: "#pyramid",

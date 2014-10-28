@@ -203,14 +203,14 @@ body .pyk-tooltip .tooltip-left-content{
 }
 
 .PykCharts-twoD .axis text {
-  font: 12px "Helvetica Neue",Helvetica,Arial,sans-serif;
+/*  font: 12px "Helvetica Neue",Helvetica,Arial,sans-serif;*/
   font-weight: normal;
   stroke: none;
   z-index: 10;
 }
 
 .PykCharts-twoD .text-active {
-  font: 12px "Helvetica Neue",Helvetica,Arial,sans-serif;
+/*  font: 12px "Helvetica Neue",Helvetica,Arial,sans-serif;*/
   font-style: normal;
   font-weight: normal;
   stroke: none;
@@ -388,10 +388,10 @@ body .pyk-tooltip .tooltip-left-content{
   fill-rule: evenodd;
 }
 
-.PykCharts-annotation-line, .PykCharts-annotation-circle {
+/*.PykCharts-annotation-line, .PykCharts-annotation-circle {
   stroke: darkgray;
 }
 
 .PykCharts-annotation-circle {
   fill: #EEEEEE;
-}
+}*/

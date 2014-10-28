@@ -3,26 +3,27 @@ PykCharts.multiD.lineChart = function (options){
 	var theme = new PykCharts.Configuration.Theme({});
 
 	this.execute = function (){
-		that = new PykCharts.multiD.processInputs(that, options, "line");
 
+		that = new PykCharts.multiD.processInputs(that, options, "line");
+		// console.log(that,"that");
 		if(that.stop)
 			return;
-
+		// console.log(that.mode,"mode");
 		if(that.mode === "default") {
 			that.k.loading();
 		}
 		var multiDimensionalCharts = theme.multiDimensionalCharts,
 			stylesheet = theme.stylesheet,
 			optional = options.optional;
-		that.crosshair_enable = options.crosshair_enable ? options.crosshair_enable : multiDimensionalCharts.crosshair_enable;
-		that.curvy_lines = options.line_curvy_lines ? options.line_curvy_lines : multiDimensionalCharts.line_curvy_lines;
+		that.crosshair_enable = options.crosshair_enable ? options.crosshair_enable.toLowerCase() : multiDimensionalCharts.crosshair_enable;
+		that.curvy_lines = options.curvy_lines_enable ? options.curvy_lines_enable.toLowerCase() : multiDimensionalCharts.curvy_lines_enable;
 		that.interpolate = PykCharts.boolean(that.curvy_lines) ? "cardinal" : "linear";
-	    that.color_from_data = options.line_color_from_data ? options.line_color_from_data : multiDimensionalCharts.line_color_from_data;
+	    // that.color_from_data = options.line_color_from_data ? options.line_color_from_data : multiDimensionalCharts.line_color_from_data;
 
 	    d3.json(options.data, function (e, data) {
 			that.data = data.groupBy("line");
-			that.axis_y_data_format = options.axis_y_data_format ? options.axis_y_data_format : that.k.yAxisDataFormatIdentification(that.data);
-    		that.axis_x_data_format = options.axis_x_data_format ? options.axis_x_data_format : that.k.xAxisDataFormatIdentification(that.data);
+			that.axis_y_data_format = options.axis_y_data_format ? options.axis_y_data_format.toLowerCase() : that.k.yAxisDataFormatIdentification(that.data);
+    		that.axis_x_data_format = options.axis_x_data_format ? options.axis_x_data_format.toLowerCase() : that.k.xAxisDataFormatIdentification(that.data);
 			that.compare_data = that.data;
 			that.data_length = that.data.length;
 			that.dataTransformation();
@@ -163,8 +164,8 @@ PykCharts.multiD.lineChart = function (options){
 						.yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain)
 						.yGrid(that.svgContainer,that.group,that.yScale)
 						.xGrid(that.svgContainer,that.group,that.xScale)
-						// .xAxisTitle(that.xGroup)
-						// .yAxisTitle(that.yGroup);
+						.xAxisTitle(that.xGroup)
+						.yAxisTitle(that.yGroup);
 
 
 			}
@@ -230,8 +231,8 @@ PykCharts.multiD.lineChart = function (options){
 
 				that.k.xAxis(that.svgContainer,that.xGroup,that.xScale,that.extra_left_margin,that.xdomain)
 						.yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain)
-						// .xAxisTitle(that.xGroup)
-						// .yAxisTitle(that.yGroup);
+						.xAxisTitle(that.xGroup)
+						.yAxisTitle(that.yGroup);
 
 
 			}
@@ -360,12 +361,14 @@ PykCharts.multiD.lineChart = function (options){
 			},
 			axisContainer : function () {
 
-				if(PykCharts.boolean(that.axis_x_enable)){
+				if(PykCharts.boolean(that.axis_x_enable) || that.axis_x_title){
 					that.xGroup = that.group.append("g")
 						.attr("id","xaxis")
 						.attr("class", "x axis");
 				}
-				if(PykCharts.boolean(that.axis_y_enable)){
+				console.log(that.axis_y_title)
+				if(PykCharts.boolean(that.axis_y_enable) || that.axis_y_title) {
+					console.log("inside")
 					that.yGroup = that.group.append("g")
 						.attr("id","yaxis")
 						.attr("class","y axis");

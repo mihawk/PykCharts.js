@@ -16,11 +16,11 @@ PykCharts.multiD.spiderWeb = function (options) {
             options.spiderweb_outer_radius_percent = 100;
         }
         that.multiD = new PykCharts.multiD.configuration(that);
-        that.axisTitle = options.spiderweb_axis_title ? options.spiderweb_axis_title : theme.multiDimensionalCharts.spiderweb_axis_title;
+        // that.axisTitle = options.spiderweb_axis_title ? options.spiderweb_axis_title : theme.multiDimensionalCharts.spiderweb_axis_title;
         that.bubbleRadius = options.spiderweb_radius && _.isNumber(options.spiderweb_radius) ? options.spiderweb_radius : (0.6 * multiDimensionalCharts.scatterplot_radius);
         that.outerRadius = options.spiderweb_outer_radius_percent && _.isNumber(options.spiderweb_outer_radius_percent) ? options.spiderweb_outer_radius_percent : multiDimensionalCharts.spiderweb_outer_radius_percent;
         that.inner_radius = 0;
-        that.enableTicks =  options.spiderweb_pointer ? options.spiderweb_pointer : multiDimensionalCharts.spiderweb_pointer;
+        // that.enableTicks =  options.spiderweb_pointer ? options.spiderweb_pointer : multiDimensionalCharts.spiderweb_pointer;
         // that.variable_circle_size_enable = options.variable_circle_size_enable ? options.variable_circle_size_enable : multiDimensionalCharts.variable_circle_size_enable;
         
         
@@ -46,8 +46,10 @@ PykCharts.multiD.spiderWeb = function (options) {
             that.optionalFeatures()
                 .createChart()
                 .legends()
-                .axisTicks()
-                .axisTitle();
+                .xAxis()
+                .yAxis();
+                // .axisTicks()
+                // .axisTitle();
         });
     };
 
@@ -85,8 +87,8 @@ PykCharts.multiD.spiderWeb = function (options) {
             
             that.optionalFeatures()
                 .createChart()
-                .axisTicks()
-                .axisTitle();
+                .xAxis()
+                .yAxis();
             that.k.createFooter()
                 .lastUpdatedAt()
                 .credits()
@@ -107,8 +109,8 @@ PykCharts.multiD.spiderWeb = function (options) {
             that.sizes = new PykCharts.multiD.bubbleSizeCalculation(that,that.data,that.radius_range);
             that.optionalFeatures()
                 .createChart()
-                .axisTicks()
-                .axisTitle();
+                .xAxis()
+                .yAxis();
 
             that.k.tooltip();
 
@@ -497,10 +499,10 @@ PykCharts.multiD.spiderWeb = function (options) {
                          .attr("fill",that.legends_text_color)
                         .attr("pointer-events","none")
                         .style("font-family", that.legends_text_family)
-                        .attr("font-size",that.legends_text_size);
+                        .attr("font-size",that.legends_text_size)
+                        .style("font-weight",that.legends_text_weight);
 
                     that.legends_text.attr("class","legends_text")
-                        .attr("fill","black")
                         .attr(text_parameter1, text_parameter1value)
                         .attr(text_parameter2, text_parameter2value)
                         .text(function (d) { return d.group });
@@ -510,8 +512,8 @@ PykCharts.multiD.spiderWeb = function (options) {
                 }
                 return this;
             },
-            axisTitle : function () {
-                if(PykCharts.boolean(that.axisTitle)) {
+            xAxis : function () {
+                // if(PykCharts.boolean(that.axisTitle)) {
                     that.length = that.new_data[0].data.length;
 
                     var spiderAxisTitle = that.group.selectAll("text.axisTitle")
@@ -529,18 +531,20 @@ PykCharts.multiD.spiderWeb = function (options) {
                         .attr("y", function (d, i){
                             return that.outerRadius*(1-0.60*Math.cos(i*2*Math.PI/that.length))-(that.outerRadius * 0.47)*Math.cos(i*2*Math.PI/that.length);
                         })
-                        .style("font-size",that.label_size)
-                        .style("font-family",that.label_family)
+                        .style("font-size",that.axis_x_pointer_size)
+                        .style("font-family",that.axis_x_pointer_family)
+                        .style("font-weight",that.axis_x_pointer_weight)
+                        .style("fill",that.axis_x_pointer_color)
 
                     spiderAxisTitle
                         .text(function (d,i) { return that.new_data[0].data[i].x; });
 
                     spiderAxisTitle.exit().remove();
-                }
+                // }
                 return this;
             },
-            axisTicks: function () {
-                if (PykCharts.boolean(that.enableTicks)) {
+            yAxis: function () {
+                // if (PykCharts.boolean(that.enableTicks)) {
                     console.log("appending labels");
                     var a = that.yScale.domain();
                     var t = a[1]/4;
@@ -573,11 +577,13 @@ PykCharts.multiD.spiderWeb = function (options) {
 
                     tick_label               
                         .text(function (d,i) { return d; })
-                        .style("font-size",that.label_size)
-                        .style("font-family",that.label_family);
+                        .style("font-size",that.axis_y_pointer_size)
+                        .style("font-family",that.axis_y_pointer_family)
+                        .style("font-weight",that.axis_y_pointer_weight)
+                        .style("fill",that.axis_y_pointer_color);
 
                     tick_label.exit().remove();
-                }
+                // }
                 return this;
             },
         }
