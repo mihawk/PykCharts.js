@@ -572,6 +572,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                             .attr("pointer-events","none")
                             .style("fill",that.pointer_color)
                             .style("font-size",that.pointer_size)
+                            .style("font-weight",that.pointer_weight)
                             .style("font-family", that.pointer_family);
 
                         tick_label.exit().remove();

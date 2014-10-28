@@ -1222,16 +1222,54 @@ PykCharts.Configuration = function (options){
                     return this;                        
                 },
                 isArray: function (value,config_name) {
-                    console.log(value);
-                    if(value) {
+                    console.log(value,"value")
                         try {
-                            if((value instanceof Array)) {
+                            if(!$.isArray(value)) {
                                 throw config_name;
                             }
                         }
-                        catch (err){
+                        catch (err) {
                             options.k.errorHandling(err,"#9");    
                         }
+                    return this;
+                },
+                validatingTimeScaleDataType: function (axis_time_value_datatype,config_name) {
+                    if(axis_time_value_datatype) {
+                        try {
+                            if(axis_time_value_datatype.toLowerCase() === "date" || axis_time_value_datatype.toLowerCase()=== "year" || axis_time_value_datatype.toLowerCase() === "month" || axis_time_value_datatype === "hours" || axis_time_value_datatype === "minutes") {
+                            } else {
+                                throw config_name;
+                            }
+                        }
+                        catch (err) {
+                            options.k.errorHandling(err,"#9");    
+                        }
+                    }
+                    return this;
+                },
+                validatingTooltipMode: function (tooltip_mode,config_name) {
+                    if(tooltip_mode) {
+                        try {
+                            if(tooltip_mode.toLowerCase() === "fixed" || tooltip_mode.toLowerCase()=== "moving") {
+                            } else {
+                                throw config_name;
+                            }
+                        }
+                        catch (err) {
+                            options.k.errorHandling(err,"#9");    
+                        }
+                    }
+                    return this;
+                },
+                validatingFontWeight: function (font_weight,config_name) {
+                    try {
+                        if(font_weight.toLowerCase() === "bold" || font_weight.toLowerCase() === "normal") {
+                        } else {
+                             throw config_name;
+                        }
+                    }
+                    catch (err) {
+                        options.k.errorHandling(err,"#9");    
                     }
                     return this;
                 }
@@ -1887,7 +1925,7 @@ configuration.Theme = function(){
 
         "subtitle_size": 12,
         "subtitle_color": "black",
-        "subtitle_weight": "thin",
+        "subtitle_weight": "normal",
         "subtitle_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
 
         "highlight": "",
@@ -1904,17 +1942,17 @@ configuration.Theme = function(){
         "legends_display": "horizontal",
         "legends_text_size": 13,
         "legends_text_color": "white",
-        "legends_text_weight": "thin",
+        "legends_text_weight": "normal",
         "legends_text_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
 
         "label_size": 13,
         "label_color": "white",
-        "label_weight": "thin",
+        "label_weight": "normal",
         "label_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
 
         "pointer_overflow_enable": "no",
         "pointer_thickness": 1,
-        "pointer_weight": "thin",
+        "pointer_weight": "normal",
         "pointer_size": 13,
         "pointer_color": "#1D1D1D",
         "pointer_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
@@ -1974,11 +2012,11 @@ configuration.Theme = function(){
         "pictograph_image_height": 66,
         "pictograph_current_count_size": 64,
         "pictograph_current_count_color": "#255AEE",
-        "pictograph_current_count_weight": "thin",
+        "pictograph_current_count_weight": "normal",
         "pictograph_current_count_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
         "pictograph_total_count_size": 64,
         "pictograph_total_count_color": "grey",
-        "pictograph_total_count_weight": "thin",
+        "pictograph_total_count_weight": "normal",
         "pictograph_total_count_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
 
         "funnel_rect_width": 100,
@@ -2114,7 +2152,7 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
         var targetWidth = $(options.selector).width();
         options.chart_width = targetWidth < options.chart_width ? targetWidth : options.chart_width;
     }
-    chartObject.width = options.chart_width && _.isNumber(options.chart_width) ? options.chart_width : stylesheet.chart_width;
+    chartObject.width = options.chart_width  ? options.chart_width : stylesheet.chart_width;
     // chartObject.height = options.chart_height && _.isNumber(options.chart_height) ? options.chart_height : stylesheet.chart_height;
     // chartObject.width = optional && optional.chart && _.isNumber(optional.chart.width) ? optional.chart.width : stylesheet.chart.width;
     // chartObject.height = optional && optional.chart &&_.isNumber(optional.chart.height) ? optional.chart.height : stylesheet.chart.height;
@@ -2194,6 +2232,7 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
     chartObject.pointer_size = "pointer_size" in options ? options.pointer_size : stylesheet.pointer_size;
     chartObject.pointer_color = options.pointer_color ? options.pointer_color : stylesheet.pointer_color;
     chartObject.pointer_family = options.pointer_family ? options.pointer_family : stylesheet.pointer_family;
+    chartObject.pointer_weight = options.pointer_weight ? options.pointer_weight : stylesheet.pointer_weight;
 
     chartObject.donut_show_total_at_center = options.donut_show_total_at_center ? options.donut_show_total_at_center : oneDimensionalCharts.donut_show_total_at_center;
     chartObject.units_prefix = options.units_prefix ? options.units_prefix : false;
@@ -2203,8 +2242,27 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
     chartObject.export_image_url = options.export_image_url ? options.export_image_url : stylesheet.export_image_url; 
     chartObject.k = new PykCharts.Configuration(chartObject);
 
-    return chartObject;
+    chartObject.k.validator().validatingSelector(chartObject.selector.substring(1,chartObject.selector.length))
+                .validatingChartMode(chartObject.mode)
+                .validatingDataType(chartObject.width,"chart_width")
+                .validatingDataType(chartObject.title_size,"title_size")
+                .validatingDataType(chartObject.subtitle_size,"subtitle_size")
+                .validatingDataType(chartObject.real_time_charts_refresh_frequency,"real_time_charts_refresh_frequency")
+                .validatingDataType(chartObject.transition_duration,"transition_duration")
+                .validatingDataType(chartObject.border_between_chart_elements_thickness,"border_between_chart_elements_thickness")
+                .validatingDataType(chartObject.label_size,"label_size")
+                .validatingDataType(chartObject.pointer_thickness,"pointer_thickness")
+                .validatingDataType(chartObject.pointer_size,"pointer_size")                                
+                .validatingDataType(chartObject.clubdata_maximum_nodes,"clubdata_maximum_nodes")
+                .validatingBorderBetweenChartElementsStyle(chartObject.border_between_chart_elements_style,"border_between_chart_elements_style")
+                .isArray(chartObject.chart_color,"chart_color")
+                .isArray(chartObject.clubdata_always_include_data_points,"clubdata_always_include_data_points")
+                .validatingFontWeight(chartObject.title_weight,"title_weight")
+                .validatingFontWeight(chartObject.subtitle_weight,"subtitle_weight")
+                .validatingFontWeight(chartObject.pointer_weight,"pointer_weight")
+                .validatingFontWeight(chartObject.label_weight,"label_weight");
 
+    return chartObject;
 };
 
 PykCharts.oneD.bubble = function (options) {
@@ -2214,11 +2272,21 @@ PykCharts.oneD.bubble = function (options) {
         that = PykCharts.oneD.processInputs(that, options);
         that.height = options.chart_height ? options.chart_height : that.width;
 
+        that.k.validator()
+            .validatingDataType(that.height,"chart_height")    
+
+        if(that.stop) { 
+            return;
+        }
+
         if(that.mode === "default") {
            that.k.loading();
         }
 
         d3.json(options.data, function (e,data) {
+            console.log(options.data,"data");
+            // that.data =options.data;
+            // that.compare_data = options.data;
             that.data = data.groupBy("oned");
             that.compare_data = data.groupBy("oned");
             $(options.selector+" #chart-loader").remove();
@@ -2544,6 +2612,7 @@ PykCharts.oneD.bubble = function (options) {
                     that.map1 = new_data1.children.map(function (d) { return d.weight;});
                 }
                 else {
+                    // console.log(that.data.data,"what is this");
                     that.data.sort(function (a,b) {
                         return a.weight - b.weight;
                     })
@@ -2947,7 +3016,9 @@ PykCharts.oneD.funnel = function (options) {
                             .attr("text-anchor","start")
                             .attr("fill", that.pointer_color)
                             .attr("pointer-events","none")
-                            .attr("font-family", that.pointer_family);
+                            .attr("font-family", that.pointer_family)
+                            .attr("font-weight",that.pointer_weight);
+                            
                     },that.transitions.duration());
 
                     tick_label.exit().remove();
@@ -3366,6 +3437,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                         .attr("text-anchor","start")
                         .attr("fill", that.pointer_color)
                         .attr("font-family", that.pointer_family)
+                        .attr("font-weight",that.pointer_weight)
                         .attr("pointer-events","none");
 
                         setTimeout(function() {
@@ -3779,6 +3851,7 @@ PykCharts.oneD.percentageBar = function (options) {
                         .attr("text-anchor","middle")
                         .attr("fill", that.pointer_color)
                         .attr("font-family", that.pointer_family)
+                        .attr("font-weight",that.pointer_weight)
                         .attr("pointer-events","none");
 
                         setTimeout(function() {
@@ -4667,6 +4740,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                             .attr("pointer-events","none")
                             .style("fill",that.pointer_color)
                             .style("font-size",that.pointer_size)
+                            .style("font-weight",that.pointer_weight)
                             .style("font-family", that.pointer_family);
 
                         tick_label.exit().remove();
@@ -5211,7 +5285,9 @@ PykCharts.oneD.pyramid = function (options) {
                     .style("fill",that.pointer_color)
                     .style("font-size",that.pointer_size)
                     .style("font-family", that.pointer_family)
+                    .style("font-weight",that.pointer_weight)
                     .attr("text-anchor","start");
+                    
                 },that.transitions.duration());
 
                 tick_label.exit().remove();
@@ -6099,14 +6175,12 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     chartObject.pointer_color = options.pointer_color ? options.pointer_color : stylesheet.pointer_color;
     chartObject.pointer_family = options.pointer_family ? options.pointer_family : stylesheet.pointer_family;
     chartObject.pointer_weight = options.pointer_weight ? options.pointer_weight : stylesheet.pointer_weight;
-    chartObject.pointer_weight = (chartObject.pointer_weight === "thick") ? "bold" : "normal";
     chartObject.zoom_enable = options.zoom_enable ? options.zoom_enable : multiDimensionalCharts.zoom_enable;
     chartObject.zoom_level = options.zoom_level ? options.zoom_level : multiDimensionalCharts.zoom_level;
 
     chartObject.label_size = "label_size" in options ? options.label_size : stylesheet.label_size;
     chartObject.label_color = options.label_color ? options.label_color : stylesheet.label_color;
     chartObject.label_weight = options.label_weight ? options.label_weight : stylesheet.label_weight;
-    chartObject.label_weight = (chartObject.label_weight === "thick") ? "bold" : "normal";
     chartObject.label_family = options.label_family ? options.label_family : stylesheet.label_family;
 
     chartObject.tooltip_enable = options.tooltip_enable ? options.tooltip_enable : stylesheet.tooltip_enable;
@@ -6115,7 +6189,6 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     chartObject.legends_text_size = options.legends_text_size ? options.legends_text_size : stylesheet.legends_text_size;
     chartObject.legends_text_color = options.legends_text_color ? options.legends_text_color : stylesheet.legends_text_color;
     chartObject.legends_text_weight = options.legends_text_weight ? options.legends_text_weight : stylesheet.legends_text_weight;
-    chartObject.legends_text_weight = (chartObject.legends_text_weight === "thick") ? "bold" : "normal";
     chartObject.legends_text_family = options.legends_text_family ? options.legends_text_family : stylesheet.legends_text_family;
     chartObject.highlight = options.highlight ? options.highlight : stylesheet.highlight;
     chartObject.variable_circle_size_enable = options.variable_circle_size_enable ? options.variable_circle_size_enable : multiDimensionalCharts.variable_circle_size_enable;
@@ -6162,7 +6235,17 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
                 .validatingAxisPointerPosition(chartObject.axis_y_position,"axis_y_position")
                 .validatingBorderBetweenChartElementsStyle(chartObject.border_between_chart_elements_style,"border_between_chart_elements_style")
                 .validatingLegendsPosition(chartObject.legends_display,"legends_display")
-                // .isArray(chartObject.axis_x_pointer_values,"axis_x_pointer_values")                
+                .isArray(chartObject.axis_x_pointer_values,"axis_x_pointer_values")                
+                .isArray(chartObject.axis_y_pointer_values,"axis_y_pointer_values")                
+                .isArray(chartObject.chart_color,"chart_color")
+                .validatingTimeScaleDataType(chartObject.axis_x_time_value_datatype,"axis_x_time_value_datatype")                
+                .validatingTimeScaleDataType(chartObject.axis_y_time_value_datatype,"axis_y_time_value_datatype")                
+                .validatingTooltipMode(chartObject.tooltip_mode,"tooltip_mode")                
+                .validatingFontWeight(chartObject.title_weight,"title_weight")
+                .validatingFontWeight(chartObject.subtitle_weight,"subtitle_weight")
+                .validatingFontWeight(chartObject.pointer_weight,"pointer_weight")
+                .validatingFontWeight(chartObject.label_weight,"label_weight")
+                .validatingFontWeight(chartObject.legends_text_weight,"legends_text_weight")  
                 // .validatingDataType(,"");
 
     return chartObject;
@@ -11416,7 +11499,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         var col_shade,
             obj = _.where(that.data, {iso2: d.properties.iso_a2});
         if (obj.length > 0) {
-            if (that.color_mode === "colors") {
+            if (that.color_mode === "color") {
                 if (obj.length > 0 && obj[0].color !== "") {
                     return obj[0].color;
                 }

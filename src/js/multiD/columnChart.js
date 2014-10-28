@@ -286,7 +286,7 @@ PykCharts.multiD.columnChart = function(options){
                     x = x + (totalWidth/2);
                     group_arr.push({x: x, name: i});
                 }
-                 var len = w/group_arr.length;
+                var len = w/group_arr.length;
                 var bars = that.group.selectAll(".bars")
                     .data(layers);
 
@@ -378,6 +378,8 @@ PykCharts.multiD.columnChart = function(options){
 
                 var xAxis_label = that.group.selectAll("text.axis-text")
                     .data(group_arr);
+                var flag, length = group_arr.length,
+                    largest = 0, rangeband = len;
 
                 xAxis_label.enter()
                         .append("text")
@@ -392,9 +394,35 @@ PykCharts.multiD.columnChart = function(options){
                             return d.name;
                         })
                         .text(function (d) {
-                            if(this.getBBox().width > (len*0.8)) {
-                                return d.name.substr(0,3) + "..";
-                            } else {
+                            largest = (this.getBBox().width > largest) ? this.getBBox().width : largest;
+                        });
+                if (rangeband >= largest) { flag = 1; }
+                else if (rangeband >= (largest*0.75) && rangeband < largest) { flag = 2; }
+                else if (rangeband >= (largest*0.65) && rangeband < (largest*0.75)) { flag = 3; }
+                else if (rangeband >= (largest*0.55) && rangeband < (largest*0.65)) { flag = 4; }
+                else if (rangeband >= (largest*0.35) && rangeband < (largest*0.55)) { flag = 5; }
+                else if (rangeband <= 20 || rangeband < (largest*0.35)) { flag = 0; }
+
+                xAxis_label.text(function (d) {
+                            if (flag === 0) {
+                                return "";
+                            }
+                            else if (rangeband >= this.getBBox().width && flag === 1) {
+                                return d.name;
+                            }
+                            else if (rangeband >= (this.getBBox().width*0.75) && rangeband < this.getBBox().width && flag === 2){
+                                return d.name.substr(0,5) + "..";
+                            }
+                            else if (rangeband >= (this.getBBox().width*0.65) && rangeband < (this.getBBox().width*0.75) && flag === 3){
+                                return d.name.substr(0,4) + "..";
+                            }
+                            else if (flag === 4){
+                                return d.name.substr(0,3);
+                            }
+                            else if (flag === 5){
+                                return d.name.substr(0,2);
+                            }
+                            else {
                                 return d.name;
                             }
                         })
