@@ -492,7 +492,7 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
                 .validatingAxisPointerPosition(chartObject.axis_y_position,"axis_y_position")
                 .validatingBorderBetweenChartElementsStyle(chartObject.border_between_chart_elements_style,"border_between_chart_elements_style")
                 .validatingLegendsPosition(chartObject.legends_display,"legends_display")
-                .isArray(chartObject.axis_x_pointer_values,"axis_x_pointer_values")                
+                // .isArray(chartObject.axis_x_pointer_values,"axis_x_pointer_values")                
                 // .validatingDataType(,"");
 
     return chartObject;
