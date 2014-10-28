@@ -183,7 +183,7 @@ PykCharts.multiD.columnChart = function(options){
                 return this;
             },
             axisContainer : function () {
-                if(PykCharts.boolean(that.axis_x_enable)) {
+                if(that.axis_x_title) {
                     var axis_line = that.group.selectAll(".axis-line")
                         .data(["line"]);
 
@@ -209,8 +209,11 @@ PykCharts.multiD.columnChart = function(options){
                                 .attr("y", that.height -that.margin_bottom - that.margin_top - that.legendsGroup_height)
                                 // .attr("dy", -8)
                                 .attr("dy", that.margin_top + 10)
-                                .style("fill", that.axis_x_label_color)
                                 .style("text-anchor", "end")
+                                .style("fill",that.axis_x_title_color)
+                                .style("font-weight",that.axis_x_title_weight)
+                                .style("font-family",that.axis_x_title_family)
+                                .style("font-size",that.axis_x_title_size)
                                 .text(that.axis_x_title);
                     } else if(that.axis_x_position === "top") {
                         axis_line.attr("y1",0)
@@ -221,16 +224,19 @@ PykCharts.multiD.columnChart = function(options){
                             .attr("class", "x axis")
                             .style("stroke","none")
                             .append("text")
-                            .attr("x", (that.width - that.margin_left - that.margin_right)/2)
-                            .attr("y", -40)
-                            // .attr("dy", -8)
-                            .attr("dy", that.margin_top + that.legendsGroup_height + 10)
-                            .style("fill", that.axis_x_label_color)
-                            .style("text-anchor", "end")
-                            .text(that.axis_x_title);
+                                .attr("x", (that.width - that.margin_left - that.margin_right)/2)
+                                .attr("y", -40)
+                                // .attr("dy", -8)
+                                .attr("dy", that.margin_top + that.legendsGroup_height + 10)
+                                .style("text-anchor", "end")
+                                .style("fill",that.axis_x_title_color)
+                                .style("font-weight",that.axis_x_title_weight)
+                                .style("font-family",that.axis_x_title_family)
+                                .style("font-size",that.axis_x_title_size)
+                                .text(that.axis_x_title);
                     }                    
                 }
-                if(PykCharts.boolean(that.axis_y_enable)) {
+                if(PykCharts.boolean(that.axis_y_enable) || that.axis_y_enable) {
                     that.yGroup = that.group.append("g")
                         .attr("id","yaxis")
                         .attr("class","y axis");
