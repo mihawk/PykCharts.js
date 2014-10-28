@@ -15,7 +15,7 @@ PykCharts.multiD.barChart = function(options){
         that.data_sort_enable = options.data_sort_enable ? options.data_sort_enable : multiDimensionalCharts.data_sort_enable;
         that.data_sort_type = PykCharts.boolean(that.data_sort_enable) && options.data_sort_type ? options.data_sort_type : multiDimensionalCharts.data_sort_type;
         that.data_sort_order = PykCharts.boolean(that.data_sort_enable) && options.data_sort_order ? options.data_sort_order : multiDimensionalCharts.data_sort_order;
-        console.log(that.data_sort_enable,that.data_sort_type,that.data_sort_order);
+        
         if(that.mode === "default") {
            that.k.loading();
         }
