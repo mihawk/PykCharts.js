@@ -1887,7 +1887,7 @@ configuration.Theme = function(){
 
         "subtitle_size": 12,
         "subtitle_color": "black",
-        "subtitle_weight": "thin",
+        "subtitle_weight": "normal",
         "subtitle_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
 
         "highlight": "",
@@ -1904,17 +1904,17 @@ configuration.Theme = function(){
         "legends_display": "horizontal",
         "legends_text_size": 13,
         "legends_text_color": "white",
-        "legends_text_weight": "thin",
+        "legends_text_weight": "normal",
         "legends_text_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
 
         "label_size": 13,
         "label_color": "white",
-        "label_weight": "thin",
+        "label_weight": "normal",
         "label_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
 
         "pointer_overflow_enable": "no",
         "pointer_thickness": 1,
-        "pointer_weight": "thin",
+        "pointer_weight": "normal",
         "pointer_size": 13,
         "pointer_color": "#1D1D1D",
         "pointer_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
@@ -1974,11 +1974,11 @@ configuration.Theme = function(){
         "pictograph_image_height": 66,
         "pictograph_current_count_size": 64,
         "pictograph_current_count_color": "#255AEE",
-        "pictograph_current_count_weight": "thin",
+        "pictograph_current_count_weight": "normal",
         "pictograph_current_count_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
         "pictograph_total_count_size": 64,
         "pictograph_total_count_color": "grey",
-        "pictograph_total_count_weight": "thin",
+        "pictograph_total_count_weight": "normal",
         "pictograph_total_count_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
 
         "funnel_rect_width": 100,
