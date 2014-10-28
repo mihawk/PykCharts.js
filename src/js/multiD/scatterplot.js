@@ -148,7 +148,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
 
                     that.k.xAxis(that.svgContainer,that.xGroup,that.x,that.extra_left_margin,that.xdomain,that.legendsGroup_height)
                         .yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain)
-                        .xAxisTitle(that.xGroup)
+                        .xAxisTitle(that.xGroup,that.legendsGroup_height)
                         .yAxisTitle(that.yGroup);
         
                     if((i+1)%4 === 0 && i !== 0) {
@@ -190,7 +190,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
 
                 that.k.xAxis(that.svgContainer,that.xGroup,that.x,that.extra_left_margin,that.xdomain,that.legendsGroup_height)
                     .yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain)
-                    .xAxisTitle(that.xGroup)
+                    .xAxisTitle(that.xGroup,that.legendsGroup_height)
                     .yAxisTitle(that.yGroup);
                     // .yGrid(that.svgContainer,that.group,that.yScale)
                     // .xGrid(that.svgContainer,that.group,that.x);
@@ -244,7 +244,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
 
                     that.k.xAxis(that.svgContainer,that.xGroup,that.x,that.extra_left_margin,that.xdomain,that.legendsGroup_height)
                         .yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain)
-                        .xAxisTitle(that.xGroup)
+                        .xAxisTitle(that.xGroup,that.legendsGroup_height)
                         .yAxisTitle(that.yGroup);
         
                     if((i+1)%4 === 0 && i !== 0) {
@@ -285,7 +285,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
 
                 that.k.xAxis(that.svgContainer,that.xGroup,that.x,that.extra_left_margin,that.xdomain,that.legendsGroup_height)
                     .yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain)
-                    .xAxisTitle(that.xGroup)
+                    .xAxisTitle(that.xGroup,that.legendsGroup_height)
                     .yAxisTitle(that.yGroup);
             }
 
@@ -333,14 +333,14 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                     .attr("transform","translate("+(that.margin_left)+","+(that.margin_top)+")")
                     .attr("id","main2");
 
-                if(PykCharts.boolean(that.axis_x_enable)) {
+                if(PykCharts.boolean(that.axis_x_enable) || that.axis_x_title) {
                     that.xGroup = that.group.append("g")
                         .attr("class", "x axis")
                         .attr("id","xaxis")
                         .style("stroke","black");
                 }
                 
-                if(PykCharts.boolean(that.axis_y_enable)){
+                if(PykCharts.boolean(that.axis_y_enable) || that.axis_y_title){
                     that.yGroup = that.group.append("g")
                         .attr("class", "y axis")
                         .attr("id","yaxis")

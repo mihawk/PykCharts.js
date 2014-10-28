@@ -92,8 +92,15 @@
                     axis_x_outer_pointer_size: 3,
                     axis_x_time_value_datatype:"month",
                     axis_x_time_value_interval: 1,
+                    "axis_x_title_size" : 14,
+                    "axis_x_title_color" : "black",
+                    "axis_x_title_weight": "normal",
+                    "axis_x_title_family" : "'Helvetica Neue',Helvetica,Arial,sans-serif",
+
+
                     axis_y_enable: "yes",
-                    // axis_y_title : "",
+                    // axis_y_title: "hellllo",
+
                     axis_y_position: "left",
                     axis_y_pointer_position: "left",
                     axis_y_line_color: "#1D1D1D",
@@ -101,12 +108,16 @@
                     axis_y_pointer_padding: 10,
                     // axis_y_pointer_values: [30,40,50],
                     axis_y_outer_pointer_size: 3,
+                    axis_y_title : "month",
+                    "axis_y_title_size" : 14,
+                    "axis_y_title_color" : "black",
+                    "axis_y_title_weight": "normal",
+                    "axis_y_title_family" : "'Helvetica Neue',Helvetica,Arial,sans-serif",
 
                     "axis_x_pointer_size": 12,
                     "axis_x_pointer_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
                     "axis_x_pointer_weight": "normal",
                     "axis_x_pointer_color": "#1D1D1D",
-
 
                     "axis_y_pointer_size": 12,
                     "axis_y_pointer_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
@@ -147,7 +158,7 @@
 
                     axis_onhover_hightlight_enable: "yes",
                     title_text: "",
-                    axis_x_enable: "yes",
+                    axis_x_enable: "no",
                     axis_x_title : "Air Pollution in New York",
                     axis_x_position: "bottom",
                     axis_x_pointer_position: "bottom",
@@ -173,7 +184,7 @@
                     zoom_enable: "yes"
                 });
 
-               k.execute();
+              k.execute();
 
                 var k = new PykCharts.multiD.spiderWeb ({
                     selector: "#spiderWeb",
@@ -211,7 +222,7 @@
 
                 });
 
-                k.execute();
+               k.execute();
 
                 var k = new PykCharts.multiD.scatterPlot ({
                     selector: "#scatterPlot",
@@ -276,7 +287,7 @@
                     label_weight: "bold",
                     label_family:"'Helvetica Neue',Helvetica,Arial,sans-serif"
                 });
-                k.execute();
+               k.execute();
 
                 var k = new PykCharts.multiD.scatterPlot ({
                     selector: "#multiple-scatterplots",
@@ -399,7 +410,7 @@
 
                 });
 
-                k.execute();
+               k.execute();
 
                 var k = new PykCharts.multiD.lineChart ({
                     selector: "#multiple-multiLine",
@@ -456,7 +467,7 @@
 
                 });
 
-               k.execute();
+              k.execute();
 
                 var k = new PykCharts.multiD.areaChart ({
 
@@ -509,7 +520,7 @@
 
                 });
 
-               k.execute();
+              k.execute();
 
                 var k = new PykCharts.multiD.pulse({
                     selector: "#pulse",
@@ -574,7 +585,7 @@
                     border_between_chart_elements_style: "solid",
 
                 });
-               k.execute();
+              k.execute();
 
                 var k = new PykCharts.multiD.columnChart({
                     data: "../data/ultimateColumn.json",
@@ -631,7 +642,7 @@
                     highlight:"January",
                 });
 
-               k.execute();
+              k.execute();
 
                 var k = new PykCharts.multiD.columnChart({
                     data: "../data/ultimateGroupColumn.json",
@@ -688,9 +699,10 @@
                    // saturation_enable: "yes",
 
                    highlight:"april",
+
                 });
 
-               k.execute();
+              k.execute();
 
                 var k = new PykCharts.multiD.barChart({
                     data: "../data/ultimatebar.json",
@@ -755,7 +767,7 @@
                     data_sort_order: "descending"
                 });
 
-               k.execute();
+              k.execute();
 
                 var k = new PykCharts.multiD.barChart({
                     data: "../data/ultimateGroupBar.json",
@@ -767,7 +779,7 @@
                     chart_margin_top: 25,
                     chart_margin_right: 45,
                     chart_margin_bottom: 35,
-                    chart_margin_left: 60,
+                    chart_margin_left: 100,
                     chart_grid_x_enable: "yes",
 
                     color_mode:"saturation",
@@ -790,7 +802,7 @@
                     axis_x_outer_pointer_size: 3,
 
                     axis_y_enable: "yes",
-                    axis_y_title : "Months",
+                        axis_y_title : "Months",
                     axis_y_position: "left",
                     axis_y_pointer_position: "left",
                     axis_y_line_color: "#1D1D1D",
@@ -817,10 +829,12 @@
                     pointer_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
                     saturation_enable: "no",
 
-                    highlight: "april"
+                    highlight: "april",
+
+
                   });
 
-               k.execute();
+              k.execute();
             };
 
         </script>
