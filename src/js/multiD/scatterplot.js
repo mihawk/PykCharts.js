@@ -565,7 +565,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                             } else if ((that.w - (i*100 + 100)) < that.w) {
                                 k++;
                                 if(l === 0) {
-                                    that.legendsContainer.attr("height", (k+1)*50);
+                                    // that.legendsContainer.attr("height", (k+1)*50);
                                     that.legendsGroup.attr("height", (k+1)*50);
                                 }
                                 l++;
