@@ -45,7 +45,6 @@
                 data:"../data/screenshot.json",
                 transition_duration: 1,
                 clubdata_enable: "yes",
-                clubData_always_include_data_points : "",
                 export_enable: "yes",
                 background_color: "white",
                 chart_width: 300,
@@ -64,7 +63,7 @@
                 units_suffix: "rs",
                 pointer_weight: "normal"
         		});
-      			k.execute();
+      		//	k.execute();
 
             var k = new PykCharts.oneD.pictograph({
                 selector: "#pictograph",
@@ -90,7 +89,7 @@
                 "pictograph_total_count_weight": "thin",
                 "pictograph_total_count_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
             });
-            k.execute();
+      //      k.execute();
 
             var k = new PykCharts.oneD.pyramid ({
                 selector: "#pyramid",
@@ -101,7 +100,7 @@
 
                 pointer_overflow_enable: "no",
             });
-            k.execute();
+    //        k.execute();
 
             var k = new PykCharts.oneD.treemap({
                 selector: "#treemap",
@@ -110,14 +109,14 @@
                 background_color: "white",
                 mode:"infographics",
             });
-            k.execute();
+    //        k.execute();
 
             var k = new PykCharts.oneD.donut({
                 selector: "#donutContainer",
                 data: "../data/pie.json",
                 transition_duration: 1
             });
-            k.execute();
+    //        k.execute();
 
             var k = new PykCharts.oneD.election_pie({
                 selector: "#electionPieContainer",
@@ -125,7 +124,7 @@
                 transition_duration: 4,
                 background_color: "white",
             });
-            k.execute();
+    //        k.execute();
 
             var k = new PykCharts.oneD.election_donut({
                 selector: "#electionDonutContainer",
@@ -133,7 +132,7 @@
                 background_color: "white",
                 transition_duration: 4
             });
-            k.execute();
+    //        k.execute();
 
             var k = new PykCharts.oneD.pie({
                 chart_width: 400,
@@ -144,7 +143,7 @@
                 "pie_radius_percent": 80,
                 // transition_duration: 4
             });
-            k.execute();
+      //      k.execute();
 
             var k = new PykCharts.oneD.percentageColumn({
                 chart_width: 600,
@@ -153,7 +152,7 @@
                 data:"../data/pie.json",
                 transition_duration: 1
             });
-            k.execute();
+    //        k.execute();
 
             var k = new PykCharts.oneD.percentageBar({
                 selector: "#percentageBar",
@@ -164,7 +163,7 @@
                 chart_width: 600,
                 // clubdata_enable: "yes"
             });
-            k.execute();
+  //          k.execute();
 
             var k = new PykCharts.oneD.pie({
                 selector: "#pie2Container",
@@ -172,7 +171,7 @@
                 data: "../data/pie2.json",
                 transition_duration: 1
             });
-            k.execute();
+//            k.execute();
 		    }
 		</script>
     <script src="../dist/pykcharts.0.0.8.js"></script>

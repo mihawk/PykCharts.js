@@ -120,8 +120,8 @@ PykCharts.multiD.lineChart = function (options){
 							.yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain)
 							.yGrid(that.svgContainer,that.group,that.yScale)
 							.xGrid(that.svgContainer,that.group,that.xScale)
-							.xAxisTitle(that.xGroup)
-							.yAxisTitle(that.yGroup);
+							// .xAxisTitle(that.xGroup)
+							// .yAxisTitle(that.yGroup);
 
 					if((i+1)%4 === 0 && i !== 0) {
                         that.k.emptyDiv();
@@ -160,8 +160,8 @@ PykCharts.multiD.lineChart = function (options){
 						.yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain)
 						.yGrid(that.svgContainer,that.group,that.yScale)
 						.xGrid(that.svgContainer,that.group,that.xScale)
-						.xAxisTitle(that.xGroup)
-						.yAxisTitle(that.yGroup);
+						// .xAxisTitle(that.xGroup)
+						// .yAxisTitle(that.yGroup);
 
 
 			}
@@ -198,8 +198,8 @@ PykCharts.multiD.lineChart = function (options){
 
 					that.k.xAxis(that.svgContainer,that.xGroup,that.xScale,that.extra_left_margin,that.xdomain)
 							.yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain)
-							.xAxisTitle(that.xGroup)
-							.yAxisTitle(that.yGroup);
+							// .xAxisTitle(that.xGroup)
+							// .yAxisTitle(that.yGroup);
 
 					if((i+1)%4 === 0 && i !== 0) {
                         that.k.emptyDiv();
@@ -227,8 +227,8 @@ PykCharts.multiD.lineChart = function (options){
 
 				that.k.xAxis(that.svgContainer,that.xGroup,that.xScale,that.extra_left_margin,that.xdomain)
 						.yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain)
-						.xAxisTitle(that.xGroup)
-						.yAxisTitle(that.yGroup);
+						// .xAxisTitle(that.xGroup)
+						// .yAxisTitle(that.yGroup);
 
 
 			}
@@ -241,6 +241,8 @@ PykCharts.multiD.lineChart = function (options){
                         .on("resize", function () { return that.k.resize(null); });
         }
 		that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
+		console.log("nehal gala")
+		console.log(that.mouseEvent,"that.mouseEvent")
 	};
 
 	this.refresh = function () {

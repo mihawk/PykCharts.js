@@ -594,7 +594,7 @@ PykCharts.Configuration = function (options){
             var k = new PykCharts.Configuration(options);
             var e = extra;
             if(PykCharts.boolean(options.axis_x_enable)){
-                d3.selectAll(options.selector + " .x.axis").attr("fill",function () {return options.axis_x_label_color;});
+                d3.selectAll(options.selector + " .x.axis").attr("fill",function () {return options.axis_x_pointer_color;});
                 if(options.axis_x_position === "bottom") {
                     gsvg.attr("transform", "translate(0," + (options.height - options.margin_top - options.margin_bottom - legendsGroup_height) + ")");
                 }
@@ -611,11 +611,17 @@ PykCharts.Configuration = function (options){
                     xaxis.tickValues(newVal);
                 }
 
+                
                 gsvg.style("stroke",function () { return options.axis_x_line_color; })
                     .call(xaxis)
                 if((options.axis_x_data_format === "string") && options.panels_enable === "no") {
                     k.ordinalXAxisTickFormat(domain,extra);
                 }
+
+                d3.selectAll(options.selector + " .x.axis text")
+                        .attr("font-size",options.axis_x_pointer_size)
+                        .style("font-weight",options.axis_x_pointer_weight)
+                        .style("font-family",options.axis_x_pointer_family);                    
             }
             return this;
         },
@@ -634,7 +640,7 @@ PykCharts.Configuration = function (options){
                 if(options.axis_y_position === "right") {
                     gsvg.attr("transform", "translate(" + (w - options.margin_left - options.margin_right) + ",0)");
                 }
-                d3.selectAll(options.selector + " .y.axis").attr("fill",function () { return options.axis_y_label_color; });
+                d3.selectAll(options.selector + " .y.axis").attr("fill",function () { return options.axis_y_pointer_color; });
                 var yaxis = PykCharts.Configuration.makeYAxis(options,yScale);
 
                 if(options.axis_y_pointer_values.length != 0) {
@@ -647,6 +653,11 @@ PykCharts.Configuration = function (options){
                 if((options.axis_y_data_format === "string") && options.panels_enable === "no") {
                     k.ordinalYAxisTickFormat(domain);
                 }
+                d3.selectAll(options.selector + " .y.axis text")
+                        .attr("font-size",options.axis_y_pointer_size)
+                        .style("font-weight",options.axis_y_pointer_weight)
+                        .style("font-family",options.axis_y_pointer_family);                    
+
             }
             return this;
         },
@@ -1108,7 +1119,8 @@ PykCharts.Configuration = function (options){
                     var attr_value = x[i].getAttribute("dy");
                     var attr_length = attr_value.length;
                     if(attr_value.substring(attr_length-2,attr_length) == "em") {
-                        var value = 12*parseFloat(attr_value);
+                        var font_size = x[i].getAttribute('font-size');
+                        var value = font_size*parseFloat(attr_value);
                         x[i].setAttribute("dy", value);
                     }
                 }
@@ -1222,7 +1234,6 @@ PykCharts.Configuration = function (options){
                     return this;                        
                 },
                 isArray: function (value,config_name) {
-                    console.log(value,"value")
                         try {
                             if(!$.isArray(value)) {
                                 throw config_name;
@@ -1607,19 +1618,19 @@ configuration.mouseEvent = function (options) {
             if(PykCharts.boolean(options.axis_onhover_hightlight_enable)/* && options.mode === "default"*/){
                 if(axisHighlight === options.selector + " .y.axis"){
                     selection = axisHighlight+" .tick text";
-                    abc = options.axis_y_label_color;
+                    abc = options.axis_y_pointer_color;
                     axis_data_length = d3.selectAll(selection)[0].length;
 
                     d3.selectAll(selection)
                         .style("fill","#bbb")
-                        .style("font-size","12px")
+                        // .style("font-size","12px")
                         .style("font-weight","normal");
                     for(var b=0;b < axis_data_length;b++) {
                         for(var a=0;a < active_tick.length;a++) {
                             if(d3.selectAll(selection)[0][b].innerHTML == active_tick[a]) {
                                 d3.select(d3.selectAll(selection)[0][b])
                                     .style("fill",abc)
-                                    .style("font-size","13px")
+                                    // .style("font-size","13px")
                                     .style("font-weight","bold");
                             }
                         }
@@ -1628,13 +1639,13 @@ configuration.mouseEvent = function (options) {
                 else {
                     if(axisHighlight === options.selector + " .x.axis") {
                         selection = axisHighlight+" .tick text";
-                        abc = options.axis_x_label_color;
+                        abc = options.axis_x_pointer_color;
                     } else if(axisHighlight === options.selector + " .axis-text" && a === "column") {
                         selection = axisHighlight;
-                        abc = options.axis_x_label_color;
+                        abc = options.axis_x_pointer_color;
                     } else if(axisHighlight === options.selector + " .axis-text" && a === "bar") {
                         selection = axisHighlight;
-                        abc = options.axis_y_label_color;
+                        abc = options.axis_y_pointer_color;
                     }
                     if(prev_tick !== undefined) {
                         d3.select(d3.selectAll(selection)[0][prev_tick])
@@ -1651,11 +1662,11 @@ configuration.mouseEvent = function (options) {
 
                     d3.selectAll(selection)
                         .style("fill","#bbb")
-                        .style("font-size","12px")
+                        // .style("font-size","12px")
                         .style("font-weight","normal");
                     d3.select(d3.selectAll(selection)[0][curr_tick])
                         .style("fill",abc)
-                        .style("font-size","13px")
+                        // .style("font-size","13px")
                         .style("font-weight","bold");
                 }
             }
@@ -1666,20 +1677,20 @@ configuration.mouseEvent = function (options) {
             if(PykCharts.boolean(options.axis_onhover_hightlight_enable)/* && options.mode === "default"*/){
                 if(axisHighlight === options.selector + " .y.axis"){
                     selection = axisHighlight+" .tick text";
-                    abc = options.axis_y_label_color;
+                    abc = options.axis_y_pointer_color;
                 } else if(axisHighlight === options.selector + " .x.axis") {
                     selection = axisHighlight+" .tick text";
-                    abc = options.axis_x_label_color;
+                    abc = options.axis_x_pointer_color;
                 } else if(axisHighlight === options.selector + " .axis-text" && a === "column") {
                     selection = axisHighlight;
-                    abc = options.axis_x_label_color;
+                    abc = options.axis_x_pointer_color;
                 } else if(axisHighlight === options.selector + " .axis-text" && a === "bar") {
                     selection = axisHighlight;
-                    abc = options.axis_y_label_color;
+                    abc = options.axis_y_pointer_color;
                 }
                 d3.selectAll(selection)
                     .style("fill",abc)
-                    .style("font-size","12px")
+                    // .style("font-size","12px")
                     .style("font-weight","normal");
             }
             return this;
@@ -1781,7 +1792,7 @@ configuration.makeXAxis = function(options,xScale) {
     var k = PykCharts.Configuration(options);
     var xaxis = d3.svg.axis()
                     .scale(xScale)
-                    .tickSize(options.axis_x_pointer_size)
+                    .tickSize(options.axis_x_pointer_length)
                     .outerTickSize(options.axis_x_outer_pointer_size)
                     .tickFormat(function (d,i) {
                         if(options.panels_enable === "yes" && options.axis_x_data_format === "string") {
@@ -1793,6 +1804,11 @@ configuration.makeXAxis = function(options,xScale) {
                     })
                     .tickPadding(options.axis_x_pointer_padding)
                     .orient(options.axis_x_pointer_position);
+
+    d3.selectAll(options.selector + " .x.axis text")
+            .attr("font-size",options.axis_x_pointer_size)
+            .style("font-weight",options.axis_x_pointer_weight)
+            .style("font-family",options.axis_x_pointer_family);                    
 
     if(options.axis_x_data_format=== "time" && PykCharts.boolean(options.axis_x_time_value_datatype)) {
         if(options.axis_x_time_value_datatype === "month") {
@@ -1823,15 +1839,23 @@ configuration.makeXAxis = function(options,xScale) {
 configuration.makeYAxis = function(options,yScale) {
     var that = this;
     var k = PykCharts.Configuration(options);
+
     var yaxis = d3.svg.axis()
                     .scale(yScale)
                     .orient(options.axis_y_pointer_position)
-                    .tickSize(options.axis_y_pointer_size)
+                    .tickSize(options.axis_y_pointer_length)
                     .outerTickSize(options.axis_y_outer_pointer_size)
                     .tickPadding(options.axis_y_pointer_padding)
                     .tickFormat(function (d,i) {
+                        console.log(d,"d")
                         return d;
                     });
+
+    d3.selectAll(options.selector + " .y.axis text")
+                .attr("font-size",options.axis_y_pointer_size)
+                .style("font-weight",options.axis_y_pointer_weight)
+                .style("font-family",options.axis_y_pointer_family);                    
+
 
     if(options.axis_y_data_format=== "time" && PykCharts.boolean(options.axis_y_time_value_type)) {
         if(options.axis_y_time_value_type === "month") {
@@ -1871,6 +1895,12 @@ configuration.makeXGrid = function(options,xScale) {
                     .tickFormat("")
                     .tickSize(options.height - options.margin_top - options.margin_bottom)
                     .outerTickSize(0);
+
+    d3.selectAll(options.selector + " .x.axis text")
+                    .attr("font-size",options.axis_x_pointer_size)
+                    .style("font-weight",options.axis_x_pointer_weight)
+                    .style("font-family",options.axis_x_pointer_family);                    
+
     return xgrid;
 };
 
@@ -1888,6 +1918,14 @@ configuration.makeYGrid = function(options,yScale) {
                     .tickSize(-size)
                     .tickFormat("")
                     .outerTickSize(0);
+    console.log(options.axis_pointer_y_size)
+
+    d3.selectAll(options.selector + " .y.axis text")
+                    .attr("font-size",options.axis_y_pointer_size)
+                    .style("font-weight",options.axis_y_pointer_weight)
+                    .style("font-family",options.axis_y_pointer_family);                    
+
+
     return ygrid;
 };
 
@@ -1962,6 +2000,11 @@ configuration.Theme = function(){
 
         "color_mode" : "saturation",
 
+        "axis_x_pointer_size": 12,
+        "axis_x_pointer_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
+        "axis_x_pointer_weight": "normal",
+        "axis_x_pointer_color": "#1D1D1D",
+
         "axis_x_enable": "yes",
         "axis_x_title" : "X axis",
         "axis_x_position": "bottom",
@@ -1969,7 +2012,7 @@ configuration.Theme = function(){
         "axis_x_line_color": "#1D1D1D",
         "axis_x_label_color": "#1D1D1D",
         "axis_x_no_of_axis_value": 5,
-        "axis_x_pointer_size": 5,
+        "axis_x_pointer_length": 5,
         // "axis_x_value_format": "",
         "axis_x_pointer_padding": 6,
         "axis_x_pointer_values": [],
@@ -2034,6 +2077,11 @@ configuration.Theme = function(){
 
         "axis_onhover_hightlight_enable": "no",
 
+        "axis_y_pointer_size": 12,
+        "axis_y_pointer_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
+        "axis_y_pointer_weight": "normal",
+        "axis_y_pointer_color": "#1D1D1D",
+
         "axis_y_enable": "yes",
         // "axis_y_title" : "Y axis",
         "axis_y_position": "left",
@@ -2041,7 +2089,7 @@ configuration.Theme = function(){
         "axis_y_line_color": "#1D1D1D",
         "axis_y_label_color": "#1D1D1D",
         "axis_y_no_of_axis_value": 5,
-        "axis_y_pointer_size": 5,
+        "axis_y_pointer_length": 5,
         // "axis_y_value_format": "",
         "axis_y_pointer_padding": 6,
         "axis_y_pointer_values": [],
