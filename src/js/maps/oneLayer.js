@@ -361,7 +361,9 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             obj = _.where(that.data, {iso2: d.properties.iso_a2});
         if (obj.length > 0) {
             if (that.color_mode === "color") {
-                if (obj.length > 0 && obj[0].color !== "") {
+                if(that.chart_color[0]) {
+                    return that.chart_color[0];
+                } else if (obj.length > 0 && obj[0].color !== "") {
                     return obj[0].color;
                 }
                 return that.default_color[0];
