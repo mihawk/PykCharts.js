@@ -487,7 +487,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                 return this ;
             },
             legends : function (index) {
-
+                   
                 if (PykCharts.boolean(that.legends_enable) && PykCharts.boolean(that.variable_circle_size_enable) && that.map_group_data[1] && that.mode==="default") {
                     var unique = _.uniq(that.sorted_weight);
                     var k = 0;
@@ -694,7 +694,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                         if(that.mode === "default") {
                             tooltipText = d.tooltip ? d.tooltip : "<table><thead><th colspan='2'><b>"+d.name+"</b></th></thead><tr><td>X</td><td><b>"+d.x+"</b></td></tr><tr><td>Y</td><td><b>"+d.y+"<b></td></tr><tr><td>Weight</td><td><b>"+d.weight+"</b></td></tr></table>";
                             that.mouseEvent.tooltipPosition(d);
-                            that.mouseEvent.toolTextShow(tooltipText);
+                            that.mouseEvent.tooltipTextShow(tooltipText);
                             if(PykCharts.boolean(that.variable_circle_size_enable)){
                                 d3.select(this).style("fill-opacity",1);
                             }

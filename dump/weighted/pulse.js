@@ -277,7 +277,7 @@ PykCharts.multiD.pulse = function (options) {
 		                .on("mouseover", function (d) {
 		          
                             that.mouseEvent[that.enableTooltip]().tooltipPosition(d);
-                            that.mouseEvent[that.enableTooltip]().toolTextShow(d[1]);                        	
+                            that.mouseEvent[that.enableTooltip]().tooltipTextShow(d[1]);                        	
                     	})
                     	.on("mouseout", function (d) {
                         	that.mouseEvent[that.enableTooltip]().tooltipHide(d)

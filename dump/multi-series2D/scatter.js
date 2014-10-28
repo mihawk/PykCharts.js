@@ -589,7 +589,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                     .on('mouseover',function (d) {
                         tooltipText = d.tooltip ? d.tooltip : "<table class='PykCharts'><tr><th colspan='2'>"+d.name+"</th></tr><tr><td>X</td><td>"+d.x+"</td></tr><tr><td>Y</td><td>"+d.y+"</td></tr><tr><td>Weight</td><td>"+d.weight+"</td></tr></table>";
                         that.mouseEvent.tooltipPosition(d);
-                        that.mouseEvent.toolTextShow(tooltipText);
+                        that.mouseEvent.tooltipTextShow(tooltipText);
                         if(PykCharts.boolean(that.size_enable)){
                             d3.select(this).style("fill-opacity",1);
                         }

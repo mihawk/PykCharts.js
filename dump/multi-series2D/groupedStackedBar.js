@@ -286,7 +286,7 @@ PykCharts.multi_series_2D.groupedStackedBar = function (options) {
                     .on('mouseover',function (d) {
                         tooltip = d.tooltip || d.weight;
                         that.mouseEvent.tooltipPosition(d);
-                        that.mouseEvent.toolTextShow(d.tooltip);
+                        that.mouseEvent.tooltipTextShow(d.tooltip);
                     })
                     .on('mouseout',function (d) {
                         that.mouseEvent[that.enableTooltip]().tooltipHide(d);  

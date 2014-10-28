@@ -7,7 +7,7 @@
     <body>
   <!--   <div id="hi" style="height:500px;width:1200px;background-color:pink">
     <div id = "hello" style="height:500px;width:1000px;background-color:black;"> -->
-        <div id="line"></div>        
+        <div id="line"></div>
    <!--  </div></div> -->
         <hr/>
         <div id="area"></div>
@@ -54,7 +54,7 @@
         <script src="../src/js/multiD/barChart.js"></script>
 
         <script>
-         
+
             // $(document).ready(function (e) {
             window.PykChartsInit = function (e) {
                 var k = new PykCharts.multiD.lineChart ({
@@ -93,7 +93,6 @@
                     axis_x_outer_pointer_size: 3,
                     axis_x_time_value_datatype:"month",
                     axis_x_time_value_interval: 1,
-
                     axis_y_enable: "yes",
                     // axis_y_title : "",
                     axis_y_position: "left",
@@ -187,17 +186,20 @@
                     chart_margin_bottom: 25,
                     chart_margin_left: 55,
 
-                    real_time_charts_refresh_frequency: 10,
+                    real_time_charts_refresh_frequency: 2,
                     variable_circle_size_enable: "yes",
+
                     border_between_chart_elements_thickness: 0,
                     border_between_chart_elements_color: "blue",
 
                     legends_enable: "yes",
-                    legends_display: "vertical",//horizontal or vertical
+                    legends_display: "horizontal",//horizontal or vertical
+
                     legends_text_size: 13,
                     legends_text_color: "green",
                     legends_text_weight: "thin",
                     legends_text_family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
+
                 });
 
                  k.execute();
@@ -575,7 +577,7 @@
                     background_color:"white",
 
                     chart_height: 430,
-                    chart_width : 400,
+                    chart_width : 300,
                     chart_margin_top: 25,
                     chart_margin_right: 25,
                     chart_margin_bottom: 45,
@@ -694,7 +696,7 @@
                     chart_margin_top: 25,
                     chart_margin_right: 25,
                     chart_margin_bottom: 35,
-                    chart_margin_left: 60,
+                    chart_margin_left: 100,
                     chart_grid_x_enable: "yes",
 
                     real_time_charts_refresh_frequency: 0 ,
@@ -738,7 +740,10 @@
                     pointer_color: "#1D1D1D",
                     pointer_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
 
-                    highlight: "January"
+                    highlight: "January",
+                    data_sort_enable: "yes",
+                    data_sort_type: "date",
+                    data_sort_order: "descending"
                 });
 
                 k.execute();

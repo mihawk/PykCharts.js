@@ -272,7 +272,7 @@ PykCharts.oneD.funnel = function (options) {
                             that.onHoverEffect.highlight(options.selector +" "+".fun-path",this);
                             tooltip = that.new_data[i].tooltip || "<table class='PykCharts'><tr><th colspan='3' class='tooltip-heading'>"+that.new_data[i].name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(that.new_data[i].weight)+"<td class='tooltip-right-content'>(&nbsp; "+that.per_values[i].toFixed(2)+"%&nbsp) </tr></table>";
                 			that.mouseEvent.tooltipPosition(d);
-                            that.mouseEvent.toolTextShow(tooltip);
+                            that.mouseEvent.tooltipTextShow(tooltip);
                         }
         			})
         			.on("mouseout", function (d) {
