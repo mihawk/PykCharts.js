@@ -15,17 +15,17 @@ PykCharts.multiD.areaChart = function (options){
 			stylesheet = theme.stylesheet,
 			optional = options.optional;
 
-	    that.crosshair_enable = options.crosshair_enable ? options.crosshair_enable : multiDimensionalCharts.crosshair_enable;
-		that.curvy_lines = options.line_curvy_lines ? options.line_curvy_lines : multiDimensionalCharts.line_curvy_lines;
-		that.color_from_data = options.line_color_from_data ? options.line_color_from_data : multiDimensionalCharts.line_color_from_data;
+	    that.crosshair_enable = options.crosshair_enable ? options.crosshair_enable.toLowerCase() : multiDimensionalCharts.crosshair_enable;
+		that.curvy_lines = options.curvy_lines_enable ? options.curvy_lines_enable.toLowerCase() : multiDimensionalCharts.curvy_lines_enable;
+		// that.color_from_data = options.line_color_from_data ? options.line_color_from_data : multiDimensionalCharts.line_color_from_data;
 	  	that.interpolate = PykCharts.boolean(that.curvy_lines) ? "cardinal" : "linear";
 		that.w = that.width - that.margin_left - that.margin_right;
 		that.h = that.height - that.margin_top - that.margin_bottom;
 
 		d3.json(options.data, function (e, data) {
 			that.data = data.groupBy("area");
-			that.axis_y_data_format = options.axis_y_data_format ? options.axis_y_data_format : that.k.yAxisDataFormatIdentification(that.data);
-    		that.axis_x_data_format = options.axis_x_data_format ? options.axis_x_data_format : that.k.xAxisDataFormatIdentification(that.data);
+			that.axis_y_data_format = options.axis_y_data_format ? options.axis_y_data_format.toLowerCase() : that.k.yAxisDataFormatIdentification(that.data);
+    		that.axis_x_data_format = options.axis_x_data_format ? options.axis_x_data_format.toLowerCase() : that.k.xAxisDataFormatIdentification(that.data);
 			that.compare_data = that.data;
 			that.data_length = that.data.length;
 			$(that.selector+" #chart-loader").remove();
@@ -72,6 +72,7 @@ PykCharts.multiD.areaChart = function (options){
 	                .lastUpdatedAt()
 	                .credits()
 	                .dataSource();
+	        that.annotation();
 		}
 		else if(that.mode === "infographics") {
 			  that.k.liveData(that)
@@ -234,7 +235,7 @@ PykCharts.multiD.areaChart = function (options){
 									x: that.data[l].x,
 									y: that.data[l].y,
 									tooltip: that.data[l].tooltip,
-									annotation : that.data[l].annotations || ""
+									annotation : that.data[l].annotation || ""
             			 	});
             			}
           			}
@@ -481,7 +482,6 @@ PykCharts.multiD.areaChart = function (options){
 						});
 
 				}
-				that.annotation();
 				return this;
 			}
 		};
@@ -528,8 +528,8 @@ PykCharts.multiD.areaChart = function (options){
                 .interpolate('linear-closed')
                 .x(function(d,i) { return d.x; })
                 .y(function(d,i) { return d.y; });
-		if(that.type === "areaChart" && that.mode === "default") {
-			var arrow_size = 10,annotation = [];
+		if(that.type === "areaChart") {
+			var line_size = 10,annotation = [];
 			that.new_data[0].data.map(function (d) {
 				if(d.annotation) {
 					annotation.push({
@@ -539,20 +539,16 @@ PykCharts.multiD.areaChart = function (options){
 					})
 				}
 			});
-			var anno = that.svgContainer.selectAll(that.selector + " .linechart-arrows")
+			var anno = that.svgContainer.selectAll(that.selector + " .PykCharts-annotation-line")
                 .data(annotation)
             anno.enter()
                 .append("path")
-            anno.attr("class", "linechart-arrows")
+            anno.attr("class", "PykCharts-annotation-line")
                 .attr("d", function (d,i) {
                 	var a = [
                 		{
-                			x:parseInt(that.xScale(d.x)-(arrow_size*0.5))+that.extra_left_margin+that.margin_left,
-                			y:parseInt(that.yScale(d.y)-(arrow_size)+that.margin_top)
-                		},
-                		{
-                			x:parseInt(that.xScale(d.x)+(arrow_size*0.5))+that.extra_left_margin+that.margin_left,
-                			y:parseInt(that.yScale(d.y)-(arrow_size)+that.margin_top)
+                			x:parseInt(that.xScale(d.x))+that.extra_left_margin+that.margin_left,
+                			y:parseInt(that.yScale(d.y)-(line_size)+that.margin_top)
                 		},
                 		{
                 			x:parseInt(that.xScale(d.x))+that.extra_left_margin+that.margin_left,
@@ -561,14 +557,12 @@ PykCharts.multiD.areaChart = function (options){
                 	];
                 	return that.line(a);
                 })
-								.attr("stroke","darkgray")
-								.attr("fill","#eeeeee")
-                // .call(that.k.annotation);
+                .attr("stroke",that.annotation_border_color);
             anno.exit()
             	.remove();
             that.k.annotation(that.selector + " #svg-1",annotation, that.xScale,that.yScale)
 		} else if(that.type === "stackedAreaChart" && that.mode === "default") {
-			var arrow_size = 10,annotation = [];
+			var line_size = 10,annotation = [];
 			for(i=0;i<that.new_data_length;i++) {
 				that.new_data[i].data.map(function (d) {
 					if(d.annotation) {
@@ -581,20 +575,16 @@ PykCharts.multiD.areaChart = function (options){
 					}
 				});
 			}
-			var anno = that.svgContainer.selectAll(".linechart-arrows")
+			var anno = that.svgContainer.selectAll(" .PykCharts-annotation-line")
                 .data(annotation)
             anno.enter()
                 .append("path")
-            anno.attr("class", "linechart-arrows")
+            anno.attr("class", "PykCharts-annotation-line")
                 .attr("d", function (d,i) {
                 	var a = [
                 		{
-                			x:parseInt(that.xScale(d.x)-(arrow_size*0.5))+that.extra_left_margin+that.margin_left,
-                			y:parseInt(that.yScale(d.y)-(arrow_size)+that.margin_top)
-                		},
-                		{
-                			x:parseInt(that.xScale(d.x)+(arrow_size*0.5))+that.extra_left_margin+that.margin_left,
-                			y:parseInt(that.yScale(d.y)-(arrow_size)+that.margin_top)
+                			x:parseInt(that.xScale(d.x))+that.extra_left_margin+that.margin_left,
+                			y:parseInt(that.yScale(d.y)-(line_size)+that.margin_top)
                 		},
                 		{
                 			x:parseInt(that.xScale(d.x))+that.extra_left_margin+that.margin_left,
@@ -603,9 +593,8 @@ PykCharts.multiD.areaChart = function (options){
                 	];
                 	return that.line(a);
                 })
-								.attr("stroke","darkgray")
-								.attr("fill","#eeeeee")
-                // .call(that.k.annotation);
+                .attr("stroke",that.annotation_border_color);
+                
             anno.exit()
             	.remove();
             that.k.annotation(that.selector + " #svg-1",annotation, that.xScale,that.yScale)

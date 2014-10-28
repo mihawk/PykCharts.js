@@ -60,12 +60,12 @@
                 var k = new PykCharts.multiD.lineChart ({
                     selector: "#line",
                     data: "../data/line_timescale.json",
-                    mode : "default",
+                    mode : "DEFAULT",
 
-                    color_mode: "color",  //color or saturation
+                    color_mode: "COLOR",  //color or saturation
                     chart_color:["steelblue"],
                     title_text:"Air Pollution in New York </br>(23/12/2013 - 29/12/2013)",
-                    title_family:"sans-serif",
+                    title_family:"SANS-SERIF",
                     // title_size:30,
                     // subtitle_text:"this the analysis",
                     chart_height: 400,
@@ -74,14 +74,15 @@
                     chart_margin_right: 40,
                     chart_margin_bottom: 40,
                     chart_margin_left:50,
-                    chart_grid_x_enable: "no",
-                    chart_grid_y_enable: "yes",
+
+                    chart_grid_x_enable: "NO",
+                    chart_grid_y_enable: "YES",
 
                     transition_duration: 0,
                     real_time_charts_refresh_frequency: 0,
                     background_color: "white",
-                    axis_onhover_hightlight_enable: "yes",
-                    axis_x_enable: "yes",
+                    axis_onhover_hightlight_enable: "YES",
+                    axis_x_enable: "Yes",
                     axis_x_title : "Month",
                     axis_x_position: "bottom",
                     axis_x_pointer_position: "bottom",
@@ -92,6 +93,7 @@
                     axis_x_outer_pointer_size: 3,
                     axis_x_time_value_datatype:"month",
                     axis_x_time_value_interval: 1,
+
                     "axis_x_title_size" : 14,
                     "axis_x_title_color" : "black",
                     "axis_x_title_weight": "normal",
@@ -108,6 +110,7 @@
                     axis_y_pointer_padding: 10,
                     // axis_y_pointer_values: [30,40,50],
                     axis_y_outer_pointer_size: 3,
+
                     axis_y_title : "month",
                     "axis_y_title_size" : 14,
                     "axis_y_title_color" : "black",
@@ -124,11 +127,16 @@
                     "axis_y_pointer_weight": "normal",
                     "axis_y_pointer_color": "#1D1D1D",
 
-                    line_curvy_lines:"no",
+                   curvy_lines_enable:"no",
                     tooltip_enable: "yes",
+
                     tooltip_mode : "moving",
                     crosshair_enable: "yes",
                     zoom_enable: "yes",
+
+                    // "annotation_border_color" : "green",
+                    // "annotation_background_color" : "black",
+                    // "annotation_font_color" : "white",
                 });
                 k.execute();
 
@@ -178,7 +186,13 @@
                     axis_y_pointer_padding: 10,
                     axis_y_outer_pointer_size: 3,
 
-                    line_curvy_lines:"no",
+                    curvy_lines_enable:"no",
+
+
+                    // "annotation_border_color" : "green",
+                    // "annotation_background_color" : "black",
+                    // "annotation_font_color" : "white",
+
                     tooltip_mode : "fixed",
                     crosshair_enable: "yes",
                     zoom_enable: "yes"
@@ -206,13 +220,23 @@
                     chart_margin_bottom: 25,
                     chart_margin_left: 55,
 
+                    "axis_x_pointer_size": 12,
+                    "axis_x_pointer_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
+                    "axis_x_pointer_weight": "normal",
+                    "axis_x_pointer_color": "#1D1D1D",
+
+                    "axis_y_pointer_size": 12,
+                    "axis_y_pointer_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
+                    "axis_y_pointer_weight": "normal",
+                    "axis_y_pointer_color": "#1D1D1D",
+
                     real_time_charts_refresh_frequency: 0,
                     variable_circle_size_enable: "yes",
 
                     border_between_chart_elements_thickness: 0,
                     border_between_chart_elements_color: "blue",
 
-                    legends_enable: "yes",
+                    legends_enable: "YES",
                     legends_display: "horizontal",//horizontal or vertical
 
                     legends_text_size: 13,
@@ -243,7 +267,7 @@
                     chart_grid_y_enable: "yes",
                     saturation_color:"red",
                     scatterplot_radius : 20,
-                    scatterplot_pointer: "no",
+                    scatterplot_pointer_enable: "no",
                     title_text : "How is the chocolate products rated?",
                     subtitle_text : "",
                     panels_enable: "no",
@@ -307,7 +331,7 @@
                     chart_grid_y_enable: "yes",
 
                     scatterplot_radius : 9,
-                    scatterplot_pointer: "no",
+                    scatterplot_pointer_enable: "no",
                     real_time_charts_refresh_frequency: 0,
                     panels_enable: "yes",
                     variable_circle_size_enable: "yes",
@@ -398,7 +422,7 @@
                     axis_y_pointer_padding: 10,
                     axis_y_outer_pointer_size: 3,
 
-                    line_curvy_lines:"yes",
+                    curvy_lines_enable:"yes",
                     tooltip_mode : "moving",
                     tooltip_enable : "yes",
                     crosshair_enable: "yes",
@@ -455,7 +479,7 @@
                     axis_y_pointer_padding: 10,
                     axis_y_outer_pointer_size: 3,
 
-                    line_curvy_lines:"yes",
+                    curvy_lines_enable:"yes",
                     tooltip_mode : "fixed",
                     tooltip_enable : "yes",
                     crosshair_enable: "yes",
@@ -493,6 +517,10 @@
 
                     axis_onhover_hightlight_enable: "yes",
 
+                    // "annotation_border_color" : "green",
+                    // "annotation_background_color" : "black",
+                    // "annotation_font_color" : "white",
+
                     axis_x_enable: "yes",
                     axis_x_title : "Industries",
                     axis_x_position: "bottom",
@@ -513,7 +541,7 @@
                     axis_y_pointer_padding: 10,
                     axis_y_outer_pointer_size: 3,
 
-                    line_curvy_lines:"yes",
+                    curvy_lines_enable:"yes",
                     crosshair_enable: "yes",
                     tooltip_enable : "yes",
                     zoom_enable: "yes"
@@ -555,7 +583,6 @@
                     axis_x_pointer_padding: 3,
                     axis_x_pointer_values: [2002, 2004, 2006, 2008],
                     axis_x_outer_pointer_size: 3,
-
                     axis_y_enable: "yes",
                     axis_y_title : "Categories",
                     axis_y_position: "left",
@@ -579,6 +606,7 @@
                     legendsText_color: "black",
                     legendsText_weight: "normal",
                     legendsText_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
+
 
                     border_between_chart_elements_thickness: 0,
                     border_between_chart_elements_color: "white",
@@ -762,6 +790,7 @@
                     pointer_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
 
                     highlight: "January",
+
                     data_sort_enable: "yes",
                     data_sort_type: "date",
                     data_sort_order: "descending"
@@ -831,6 +860,9 @@
 
                     highlight: "april",
 
+                    data_sort_enable: "yes",
+                    data_sort_type: "alphabetically",
+                    data_sort_order: "ascending"
 
                   });
 
