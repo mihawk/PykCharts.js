@@ -93,20 +93,20 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         that.k.title()
             .backgroundColor(that)
             // .subtitle();
-            
+
         if(type === "oneLayer") {
             that.k
             .export(that,"#svgcontainer",type)
             .emptyDiv()
-            .subtitle();            
+            .subtitle();
         }
         // console.log(that.color_palette_data,"color_palette_data",that.palette_color);
         that.current_palette = _.where(that.color_palette_data, {name:that.palette_color, number:that.total_no_of_colors})[0];
-        
+
         if (type === "timeline"){
              that.k.subtitle();
         }
-       
+
         that.optionalFeatures()
             .svgContainer()
             .legendsContainer(that.legends_enable)
@@ -133,11 +133,11 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         }
 
         if(PykCharts.boolean(that.legends_enable) && that.color_mode === "saturation") {
-            $(window).on("load", function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); })
-                .on("resize", function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); });
+            $(document).ready(function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); });
+            $(window).on("resize", function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); });
         } else {
-            $(window).on("load", function () { return that.k.resize(that.svgContainer,""); })
-                .on("resize", function () { return that.k.resize(that.svgContainer,""); });
+            $(document).ready(function () { return that.k.resize(that.svgContainer,""); });
+            $(window).on("resize", function () { return that.k.resize(that.svgContainer,""); });
         }
 
     };
@@ -302,17 +302,15 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     .style("stroke-dasharray", that.border.style())
                     .on("mouseover", function (d) {
                         if (PykCharts.boolean(that.tooltip_enable)) {
+                            var tooltip_text = ((_.where(that.data, {iso2: d.properties.iso_a2})[0]).tooltip) ? ((_.where(that.data, {iso2: d.properties.iso_a2})[0]).tooltip) : ("<table><thead><th colspan='2'><b>"+d.properties.NAME_1+"</b></th></thead><tr><td>Size</td><td><b>"+((_.where(that.data, {iso2: d.properties.iso_a2})[0]).size)+"</b></td></tr></table>");
                             ttp.style("visibility", "visible");
-                            ttp.html((_.where(that.data, {iso2: d.properties.iso_a2})[0]).tooltip);
+                            ttp.html(tooltip_text);
                             if (that.tooltip_mode === "moving") {
                                 ttp.style("top", function () {
-
                                         return (d3.event.pageY - 20 ) + "px";
                                     })
                                     .style("left", function () {
-
                                         return (d3.event.pageX + 20 ) + "px";
-
                                     });
                             } else if (that.tooltip_mode === "fixed") {
                                 ttp.style("top", (that.tooltip_position_top) + "px")
@@ -614,7 +612,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
 
         var bg,child1;
         bgColor(options.selector);
-        
+
         function bgColor(child) {
             child1 = child;
             bg = $(child).css("background-color");
@@ -682,7 +680,6 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                 clearInterval(that.play_interval);
                 that.timeline_status = "paused";
                 that.interval_index = interval;
-            
             } else {
                 that.timeline_status = "playing";
                 that.play.attr("xlink:href",that.pause_image_url);
