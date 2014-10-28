@@ -13,8 +13,6 @@
       <hr/>
       <div id="pieContainer"></div>
       <hr/>
-      <div id="pictograph"></div>
-      <hr/>
       <div id="pyramid"></div>
       <hr/>
       <div id="treemap"></div>
@@ -67,32 +65,6 @@
                 pointer_weight: "normal"
         		});
       			k.execute();
-
-            var k = new PykCharts.oneD.pictograph({
-                selector: "#pictograph",
-                data:"../data/pictograph.json",
-                chart_width : 350,
-                chart_height: 300,
-                background_color: "white",
-                transition_duration: 1,
-                pictograph_total_count_weight: "thin",
-
-                "pictograph_show_all_images": "yes",
-                "pictograph_total_count_enable": "yes",
-                "pictograph_current_count_enable": "yes",
-                "pictograph_image_per_line": 4,
-                "pictograph_image_width": 50,
-                "pictograph_image_height": 50,
-                "pictograph_current_count_size": 50,
-                "pictograph_current_count_color": "#255aee",
-                "pictograph_current_count_weight": "thin",
-                "pictograph_current_count_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
-                "pictograph_total_count_size": 50,
-                "pictograph_total_count_color": "grey",
-                "pictograph_total_count_weight": "thin",
-                "pictograph_total_count_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
-            });
-           k.execute();
 
             var k = new PykCharts.oneD.pyramid ({
                 selector: "#pyramid",
