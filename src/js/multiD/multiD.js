@@ -479,6 +479,10 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
                 .validatingDataType(chartObject.axis_y_outer_pointer_size,"axis_y_outer_pointer_size")
                 .validatingDataType(chartObject.axis_x_pointer_padding,"axis_x_pointer_padding")                
                 .validatingDataType(chartObject.axis_y_pointer_padding,"axis_y_pointer_padding")                
+                .validatingDataType(chartObject.axis_x_no_of_axis_value,"axis_x_no_of_axis_value")                    
+                .validatingDataType(chartObject.axis_y_no_of_axis_value,"axis_y_no_of_axis_value")                                                        
+                .validatingDataType(chartObject.axis_x_time_value_interval,"axis_x_time_value_interval")                
+                .validatingDataType(chartObject.axis_y_time_value_interval,"axis_y_time_value_interval")                                
                 .validatingAxisDataFormat(options.axis_x_data_format,"axis_x_data_format")
                 .validatingAxisDataFormat(options.axis_y_data_format,"axis_y_data_format")
                 .validatingColorMode(chartObject.color_mode,"color_mode")
@@ -487,6 +491,8 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
                 .validatingAxisPointerPosition(chartObject.axis_x_position,"axis_x_position")
                 .validatingAxisPointerPosition(chartObject.axis_y_position,"axis_y_position")
                 .validatingBorderBetweenChartElementsStyle(chartObject.border_between_chart_elements_style,"border_between_chart_elements_style")
+                .validatingLegendsPosition(chartObject.legends_display,"legends_display")
+                .isArray(chartObject.axis_x_pointer_values,"axis_x_pointer_values")                
                 // .validatingDataType(,"");
 
     return chartObject;

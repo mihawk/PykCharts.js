@@ -19,7 +19,7 @@
         <script src="../src/js/pyk.js"></script>
         <script src = "../src/js/maps/maps.js"></script>
         <script src = "../src/js/maps/oneLayer.js"></script>
-         <script src="../lib/jquery.colourbrightness.js"></script>
+        <script src="../lib/jquery.colourbrightness.js"></script>
         <script>
             $(document).ready(function() {
 
@@ -39,14 +39,14 @@
                     k = new PykCharts.maps.oneLayer({
 
                         selector: "#map-container",
-                        map_code: "india",
-                        data: "../data/maps/india_data.json",
+                        map_code: "newzealand",
+                        data: "../data/maps/newzealand_data.json",
                         chart_height: 600,
                         chart_width: 800,
                         chart_color : ["#636363"],
                         color_mode: "saturation",
-                        palette_color: "Blue-1",
-                        total_no_of_colors: 3,
+                        palette_color: "Pink",
+                        total_no_of_colors: 8,
                         background_color: "white",
                         tooltip_enable : "yes",
                         tooltip_mode: "moving",
@@ -58,7 +58,7 @@
                         click_enable: "yes",
                         real_time_charts_refresh_frequency : 5,
                         onhover: "shadow",
-                        label_enable: "yes",
+                        label_enable: "no",
                         default_zoom_level: 80,
                         highlight_area_enable: "no",
                         highlight: "IN_GJ",
@@ -73,8 +73,6 @@
                         units_suffix: ""
                     });
                     k.execute();
-
-
             });
 
         </script>
