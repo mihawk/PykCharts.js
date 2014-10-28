@@ -535,7 +535,7 @@ PykCharts.weighted.scatterplot = function (options) {
                     .attr("stroke-opacity",1)
                     .on('mouseover',function (d) {
                         that.mouseEvent.tooltipPosition(d);
-                        that.mouseEvent.toolTextShow(d.group);
+                        that.mouseEvent.tooltipTextShow(d.group);
                     })
                     .on('mouseout',function (d) {
                         that.mouseEvent.tooltipHide(d);

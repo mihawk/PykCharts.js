@@ -318,7 +318,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                         .on('mouseover',function (d,i) {
                             if(that.mode === "default") {
                                 that.mouseEvent.tooltipPosition(d);
-                                that.mouseEvent.toolTextShow(d.tooltip);
+                                that.mouseEvent.tooltipTextShow(d.tooltip);
                             }
                         })
                         .on('mouseout',function (d) {

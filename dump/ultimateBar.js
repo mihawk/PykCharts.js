@@ -293,7 +293,7 @@ PykCharts.multiD.ultimateBar = function(options){
                     .attr("stroke-opacity",1)
                     .on('mouseover',function (d) {
                         that.mouseEvent.tooltipPosition(d);
-                        that.mouseEvent.toolTextShow(d.tooltip ? d.tooltip : d.y);
+                        that.mouseEvent.tooltipTextShow(d.tooltip ? d.tooltip : d.y);
                         that.mouseEvent.axisHighlightShow(d.name,options.selector + " .axis-text","bar");
                     })
                     .on('mouseout',function (d) {

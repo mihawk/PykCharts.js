@@ -395,7 +395,7 @@ PykCharts.multiD.barChart = function(options){
                     .on('mouseover',function (d) {
                         if(that.mode === "default") {
                             that.mouseEvent.tooltipPosition(d);
-                            that.mouseEvent.toolTextShow(d.tooltip ? d.tooltip : d.y);
+                            that.mouseEvent.tooltipTextShow(d.tooltip ? d.tooltip : d.y);
                             that.mouseEvent.axisHighlightShow(d.name,options.selector + " .axis-text",that.domain,"bar");
                         }
                     })
@@ -461,7 +461,7 @@ PykCharts.multiD.barChart = function(options){
                         })
                         .on('mouseover',function (d) {
                             that.mouseEvent.tooltipPosition(d);
-                            that.mouseEvent.toolTextShow(d.name);
+                            that.mouseEvent.tooltipTextShow(d.name);
                         })
                         .on('mouseout',function (d) {
                             that.mouseEvent.tooltipHide(d);

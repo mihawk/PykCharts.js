@@ -140,7 +140,7 @@ PykCharts.oneD.treemap = function (options){
                             d.tooltip = d.tooltip || "<table class='PykCharts'><tr><th colspan='2' class='tooltip-heading'>"+d.name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.weight)+"<td class='tooltip-right-content'>(&nbsp;"+((d.weight*100)/that.sum).toFixed(2)+"%&nbsp;)</tr></table>";
                             that.onHoverEffect.highlight(options.selector +" "+".treemap-rect", this);
                             that.mouseEvent.tooltipPosition(d);
-                            that.mouseEvent.toolTextShow(d.tooltip);
+                            that.mouseEvent.tooltipTextShow(d.tooltip);
                         }
                     })
                     .on('mouseout',function (d) {

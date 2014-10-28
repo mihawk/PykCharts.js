@@ -772,11 +772,11 @@ PykCharts.Configuration = function (options){
                 .data(domain);
             xaxistooltip.on('mouseover',function (d) {
                 mouseEvent.tooltipPosition(d);
-                mouseEvent.toolTextShow(d);
+                mouseEvent.tooltipTextShow(d);
             })
             .on('mousemove', function (d) {
                 mouseEvent.tooltipPosition(d);
-                mouseEvent.toolTextShow(d);
+                mouseEvent.tooltipTextShow(d);
             })
             .on('mouseout', function (d) {
                 mouseEvent.tooltipHide(d);
@@ -800,11 +800,11 @@ PykCharts.Configuration = function (options){
                 .data(domain);
             xaxistooltip.on('mouseover',function (d) {
                 mouseEvent.tooltipPosition(d);
-                mouseEvent.toolTextShow(d);
+                mouseEvent.tooltipTextShow(d);
             })
             .on('mousemove', function (d) {
                 mouseEvent.tooltipPosition(d);
-                mouseEvent.toolTextShow(d);
+                mouseEvent.tooltipTextShow(d);
             })
             .on('mouseout', function (d) {
                 mouseEvent.tooltipHide(d);
@@ -1167,7 +1167,7 @@ configuration.mouseEvent = function (options) {
                 return that.tooltip;
             }
         },
-        toolTextShow : function (d,panels_enable,type,group_index) {
+        tooltipTextShow : function (d,panels_enable,type,group_index) {
             var selector = options.selector.substr(1,options.selector.length)
             if(PykCharts.boolean(options.tooltip_enable)) {
                 if(panels_enable === "yes" && type === "multilineChart") {
@@ -1287,7 +1287,7 @@ configuration.mouseEvent = function (options) {
                                         } else {
                                             this.tooltipPosition(tooltipText,pos_line_cursor_x,y,60,-15,group_index);
                                         }
-                                        this.toolTextShow(tooltipText);
+                                        this.tooltipTextShow(tooltipText);
                                         (options.crosshair_enable) ? this.crossHairShow(pos_line_cursor_x,top,pos_line_cursor_x,(h - bottom),pos_line_cursor_x,test,type,active_y_tick.length,panels_enable,new_data) : null;
                                         // (options.crosshair_enable) ? this.crossHairShow(pos_line_cursor_x,top,pos_line_cursor_x,(h - bottom),pos_line_cursor_x,pos_line_cursor_y,type,active_y_tick.length,panels_enable) : null;
                                         this.axisHighlightShow(active_y_tick,options.selector+" .y.axis",domain);
@@ -1311,7 +1311,7 @@ configuration.mouseEvent = function (options) {
                                                     pos_line_cursor_y = (yScale(new_data[a].data[b].y) + top);
                                                     this.tooltipPosition(tooltipText,(pos_line_cursor_x+left_offset),(pos_line_cursor_y+top_offset),-15,-15,a);
 
-                                                    this.toolTextShow(tooltipText,panels_enable,type,a);
+                                                    this.tooltipTextShow(tooltipText,panels_enable,type,a);
                                                     (options.crosshair_enable) ? this.crossHairShow(pos_line_cursor_x,top,pos_line_cursor_x,(h - bottom),pos_line_cursor_x,pos_line_cursor_y,type,active_y_tick.length,panels_enable,new_data[a],a) : null;
                                                 }
                                             }
@@ -1324,7 +1324,7 @@ configuration.mouseEvent = function (options) {
                                     } else if((options.tooltip_mode).toLowerCase() === "moving"){
                                         this.tooltipPosition(tooltipText,pos_line_cursor_x,pos_line_cursor_y,5,-45,group_index);
                                     }
-                                    this.toolTextShow(tooltipText);
+                                    this.tooltipTextShow(tooltipText);
                                     (options.crosshair_enable) ? this.crossHairShow(pos_line_cursor_x,top,pos_line_cursor_x,(h - bottom),pos_line_cursor_x,pos_line_cursor_y,type,active_y_tick.length,panels_enable) : null;
                                     this.axisHighlightShow(active_y_tick,options.selector+" .y.axis",domain);
                                     this.axisHighlightShow(active_x_tick,options.selector+" .x.axis",domain);
@@ -1364,7 +1364,7 @@ configuration.mouseEvent = function (options) {
                                     } else {
                                         this.tooltipPosition(tooltipText,pos_line_cursor_x,y,60,-15,group_index);
                                     }
-                                    this.toolTextShow(tooltipText);
+                                    this.tooltipTextShow(tooltipText);
                                     (options.crosshair_enable) ? this.crossHairShow(pos_line_cursor_x,top,pos_line_cursor_x,(h - bottom),pos_line_cursor_x,test,type,active_y_tick.length,panels_enable,new_data) : null;
                                     this.axisHighlightShow(active_y_tick,options.selector+" .y.axis",domain);
                                     this.axisHighlightShow(active_x_tick,options.selector+" .x.axis",domain);
@@ -2236,7 +2236,7 @@ PykCharts.oneD.bubble = function (options) {
                             that.onHoverEffect.highlight(options.selector+" "+".bubble", this);
                             d.tooltip = d.tooltip ||"<table><thead><th colspan='2' class='tooltip-heading'>"+d.name+"</th></thead><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.weight)+"  <td class='tooltip-right-content'>(&nbsp;"+((d.weight*100)/that.sum).toFixed(2)+"%&nbsp;)</tr></table>";
                             that.mouseEvent.tooltipPosition(d);
-                            that.mouseEvent.toolTextShow(d.tooltip);
+                            that.mouseEvent.tooltipTextShow(d.tooltip);
                         }
                     })
                     .on("mouseout", function (d) {
@@ -2722,7 +2722,7 @@ PykCharts.oneD.funnel = function (options) {
                             that.onHoverEffect.highlight(options.selector +" "+".fun-path",this);
                             tooltip = that.new_data[i].tooltip || "<table class='PykCharts'><tr><th colspan='3' class='tooltip-heading'>"+that.new_data[i].name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(that.new_data[i].weight)+"<td class='tooltip-right-content'>(&nbsp; "+that.per_values[i].toFixed(2)+"%&nbsp) </tr></table>";
                 			that.mouseEvent.tooltipPosition(d);
-                            that.mouseEvent.toolTextShow(tooltip);
+                            that.mouseEvent.tooltipTextShow(tooltip);
                         }
         			})
         			.on("mouseout", function (d) {
@@ -3125,7 +3125,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                             d.tooltip=d.tooltip||"<table class='PykCharts'><tr><th colspan='2' class='tooltip-heading'>"+d.name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.weight)+"<td class='tooltip-right-content'>(&nbsp;"+d.percentValue.toFixed(2)+"%&nbsp)</tr></table>"
                             that.onHoverEffect.highlight(options.selector+" "+".per-rect",this);
                             that.mouseEvent.tooltipPosition(d);
-                            that.mouseEvent.toolTextShow(d.tooltip);
+                            that.mouseEvent.tooltipTextShow(d.tooltip);
                         }
                     })
                     .on("mouseout", function (d) {
@@ -3536,7 +3536,7 @@ PykCharts.oneD.percentageBar = function (options) {
                             d.tooltip=d.tooltip||"<table class='PykCharts'><tr><th colspan='2' class='tooltip-heading'>"+d.name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.weight)+"<td class='tooltip-right-content'>(&nbsp;"+d.percentValue.toFixed(2)+"%&nbsp)</tr></table>"
                             that.onHoverEffect.highlight(options.selector+" "+".per-rect",this);
                             that.mouseEvent.tooltipPosition(d);
-                            that.mouseEvent.toolTextShow(d.tooltip);
+                            that.mouseEvent.tooltipTextShow(d.tooltip);
                         }
                     })
                     .on("mouseout", function (d) {
@@ -4270,7 +4270,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                             d.data.tooltip = d.data.tooltip || "<table class='PykCharts'><tr><th colspan='3' class='tooltip-heading'>"+d.data.name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.data.weight)+"<td class='tooltip-right-content'>( "+((d.data.weight*100)/that.sum).toFixed(2)+"% ) </tr></table>";
                             that.onHoverEffect.highlight(options.selector +" "+".pie", this);
                             that.mouseEvent.tooltipPosition(d);
-                            that.mouseEvent.toolTextShow(d.data.tooltip);
+                            that.mouseEvent.tooltipTextShow(d.data.tooltip);
                         }
                     })
                     .on('mouseout',function (d) {
@@ -4931,7 +4931,7 @@ PykCharts.oneD.pyramid = function (options) {
                         if(that.mode === "default") {
                             that.onHoverEffect.highlight(options.selector +" "+".pyr-path",this);
                             that.mouseEvent.tooltipPosition(d);
-                            that.mouseEvent.toolTextShow(tooltipArray[i]);
+                            that.mouseEvent.tooltipTextShow(tooltipArray[i]);
                         }
         			})
         			.on("mouseout", function (d) {
@@ -5368,7 +5368,7 @@ PykCharts.oneD.treemap = function (options){
                             d.tooltip = d.tooltip || "<table class='PykCharts'><tr><th colspan='2' class='tooltip-heading'>"+d.name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.weight)+"<td class='tooltip-right-content'>(&nbsp;"+((d.weight*100)/that.sum).toFixed(2)+"%&nbsp;)</tr></table>";
                             that.onHoverEffect.highlight(options.selector +" "+".treemap-rect", this);
                             that.mouseEvent.tooltipPosition(d);
-                            that.mouseEvent.toolTextShow(d.tooltip);
+                            that.mouseEvent.tooltipTextShow(d.tooltip);
                         }
                     })
                     .on('mouseout',function (d) {
@@ -7952,7 +7952,7 @@ PykCharts.multiD.barChart = function(options){
                     .on('mouseover',function (d) {
                         if(that.mode === "default") {
                             that.mouseEvent.tooltipPosition(d);
-                            that.mouseEvent.toolTextShow(d.tooltip ? d.tooltip : d.y);
+                            that.mouseEvent.tooltipTextShow(d.tooltip ? d.tooltip : d.y);
                             that.mouseEvent.axisHighlightShow(d.name,options.selector + " .axis-text",that.domain,"bar");
                         }
                     })
@@ -8018,7 +8018,7 @@ PykCharts.multiD.barChart = function(options){
                         })
                         .on('mouseover',function (d) {
                             that.mouseEvent.tooltipPosition(d);
-                            that.mouseEvent.toolTextShow(d.name);
+                            that.mouseEvent.tooltipTextShow(d.name);
                         })
                         .on('mouseout',function (d) {
                             that.mouseEvent.tooltipHide(d);
@@ -8800,7 +8800,7 @@ PykCharts.multiD.columnChart = function(options){
                     .on('mouseover',function (d) {
                         if(that.mode === "default") {
                             that.mouseEvent.tooltipPosition(d);
-                            that.mouseEvent.toolTextShow(d.tooltip ? d.tooltip : d.y);
+                            that.mouseEvent.tooltipTextShow(d.tooltip ? d.tooltip : d.y);
                             that.mouseEvent.axisHighlightShow(d.name,options.selector + " " + ".axis-text",that.domain,"column");
                         }
                     })
@@ -8865,7 +8865,7 @@ PykCharts.multiD.columnChart = function(options){
                         })
                         .on('mouseover',function (d) {
                             that.mouseEvent.tooltipPosition(d);
-                            that.mouseEvent.toolTextShow(d.name);
+                            that.mouseEvent.tooltipTextShow(d.name);
                         })
                         .on('mouseout',function (d) {
                             that.mouseEvent.tooltipHide(d);
@@ -9938,7 +9938,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                         if(that.mode === "default") {
                             tooltipText = d.tooltip ? d.tooltip : "<table><thead><th colspan='2'><b>"+d.name+"</b></th></thead><tr><td>X</td><td><b>"+d.x+"</b></td></tr><tr><td>Y</td><td><b>"+d.y+"<b></td></tr><tr><td>Weight</td><td><b>"+d.weight+"</b></td></tr></table>";
                             that.mouseEvent.tooltipPosition(d);
-                            that.mouseEvent.toolTextShow(tooltipText);
+                            that.mouseEvent.tooltipTextShow(tooltipText);
                             if(PykCharts.boolean(that.variable_circle_size_enable)){
                                 d3.select(this).style("fill-opacity",1);
                             }
@@ -10400,7 +10400,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                         .on('mouseover',function (d,i) {
                             if(that.mode === "default") {
                                 that.mouseEvent.tooltipPosition(d);
-                                that.mouseEvent.toolTextShow(d.tooltip);
+                                that.mouseEvent.tooltipTextShow(d.tooltip);
                             }
                         })
                         .on('mouseout',function (d) {
