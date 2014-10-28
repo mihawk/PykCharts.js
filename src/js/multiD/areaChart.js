@@ -185,12 +185,12 @@ PykCharts.multiD.areaChart = function (options){
     			return this;
 			},
 			axisContainer : function () {
-	        	if(PykCharts.boolean(that.axis_x_enable)){
+	        	if(PykCharts.boolean(that.axis_x_enable) || options.axis_x_title){
 					that.xGroup = that.group.append("g")
 							.attr("id","xaxis")
 							.attr("class", "x axis");
 				}
-				if(PykCharts.boolean(that.axis_y_enable)){
+				if(PykCharts.boolean(that.axis_y_enable) || options.axis_y_title){
 					that.yGroup = that.group.append("g")
 						.attr("id","yaxis")
 						.attr("class","y axis");
