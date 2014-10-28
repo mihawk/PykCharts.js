@@ -302,17 +302,15 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     .style("stroke-dasharray", that.border.style())
                     .on("mouseover", function (d) {
                         if (PykCharts.boolean(that.tooltip_enable)) {
+                            var tooltip_text = ((_.where(that.data, {iso2: d.properties.iso_a2})[0]).tooltip) ? ((_.where(that.data, {iso2: d.properties.iso_a2})[0]).tooltip) : ("<table><thead><th colspan='2'><b>"+d.properties.NAME_1+"</b></th></thead><tr><td>Size</td><td><b>"+((_.where(that.data, {iso2: d.properties.iso_a2})[0]).size)+"</b></td></tr></table>");
                             ttp.style("visibility", "visible");
-                            ttp.html((_.where(that.data, {iso2: d.properties.iso_a2})[0]).tooltip);
+                            ttp.html(tooltip_text);
                             if (that.tooltip_mode === "moving") {
                                 ttp.style("top", function () {
-
                                         return (d3.event.pageY - 20 ) + "px";
                                     })
                                     .style("left", function () {
-
                                         return (d3.event.pageX + 20 ) + "px";
-
                                     });
                             } else if (that.tooltip_mode === "fixed") {
                                 ttp.style("top", (that.tooltip_position_top) + "px")
