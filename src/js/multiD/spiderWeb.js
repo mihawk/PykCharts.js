@@ -76,8 +76,8 @@ PykCharts.multiD.spiderWeb = function (options) {
             that.optionalFeatures()
                 .legends()
                 .createGroups();
-            that.height = that.height - that.legendsGroup_height;
-            that.outerRadius = that.k._radiusCalculation(that.outerRadius);
+            // that.height = that.height - that.legendsGroup_height - 20;
+            that.outerRadius = that.k._radiusCalculation(that.outerRadius,"spiderweb");
             that.radius_range = [(3*that.outerRadius)/100,(0.09*that.outerRadius)];
             that.sizes = new PykCharts.multiD.bubbleSizeCalculation(that,that.data,that.radius_range);
             
@@ -99,8 +99,8 @@ PykCharts.multiD.spiderWeb = function (options) {
             that.optionalFeatures().svgContainer(1)
                 .legendsContainer()
                 .createGroups();
-            that.height = that.height - that.legendsGroup_height;
-            that.outerRadius = that.k._radiusCalculation(that.outerRadius);
+            // that.height = that.height - that.legendsGroup_height - 20;
+            that.outerRadius = that.k._radiusCalculation(that.outerRadius,"spiderweb");
             that.radius_range = [(3*that.outerRadius)/100,(0.09*that.outerRadius)];
             that.sizes = new PykCharts.multiD.bubbleSizeCalculation(that,that.data,that.radius_range);
             that.optionalFeatures()
@@ -149,7 +149,7 @@ PykCharts.multiD.spiderWeb = function (options) {
             createGroups: function () {
                 that.group = that.svgContainer.append("g")
                     .attr("id","spidergrp")
-                    .attr("transform", "translate(" + that.width / 2 + "," + ((that.h+that.legendsGroup_height)/2) + ")");
+                    .attr("transform", "translate(" + that.width / 2 + "," + ((that.h+that.legendsGroup_height+20)/2) + ")");
 
                 return this;
             },
@@ -606,7 +606,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                 if (PykCharts.boolean(that.enableTicks)) {
                     var a = that.yScale.domain();
                     that.ticksElement = that.svgContainer.append("g")
-                        .attr("transform", "translate(" + that.width / 2 + "," + ((that.h+that.legendsGroup_height)/2) + ")");
+                        .attr("transform", "translate(" + that.width / 2 + "," + ((that.h+that.legendsGroup_height+20)/2) + ")");
                     var t = a[1]/4;
                     var b = [];
                     for(i=4,j=0; i>=0 ;i--,j++){
