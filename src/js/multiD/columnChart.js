@@ -462,7 +462,7 @@ PykCharts.multiD.columnChart = function(options){
                 return this;
             },
             highlightRect : function () {
-                if(that.no_of_groups > 1) {
+                if(that.no_of_groups > 1 && PykCharts.boolean(that.highlight)) {
                     function ascending( a, b ) {
                         return a - b;
                     }
