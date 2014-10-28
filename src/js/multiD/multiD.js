@@ -434,14 +434,12 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     chartObject.pointer_color = options.pointer_color ? options.pointer_color : stylesheet.pointer_color;
     chartObject.pointer_family = options.pointer_family ? options.pointer_family : stylesheet.pointer_family;
     chartObject.pointer_weight = options.pointer_weight ? options.pointer_weight : stylesheet.pointer_weight;
-    chartObject.pointer_weight = (chartObject.pointer_weight === "thick") ? "bold" : "normal";
     chartObject.zoom_enable = options.zoom_enable ? options.zoom_enable : multiDimensionalCharts.zoom_enable;
     chartObject.zoom_level = options.zoom_level ? options.zoom_level : multiDimensionalCharts.zoom_level;
 
     chartObject.label_size = "label_size" in options ? options.label_size : stylesheet.label_size;
     chartObject.label_color = options.label_color ? options.label_color : stylesheet.label_color;
     chartObject.label_weight = options.label_weight ? options.label_weight : stylesheet.label_weight;
-    chartObject.label_weight = (chartObject.label_weight === "thick") ? "bold" : "normal";
     chartObject.label_family = options.label_family ? options.label_family : stylesheet.label_family;
 
     chartObject.tooltip_enable = options.tooltip_enable ? options.tooltip_enable : stylesheet.tooltip_enable;
@@ -450,7 +448,6 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     chartObject.legends_text_size = options.legends_text_size ? options.legends_text_size : stylesheet.legends_text_size;
     chartObject.legends_text_color = options.legends_text_color ? options.legends_text_color : stylesheet.legends_text_color;
     chartObject.legends_text_weight = options.legends_text_weight ? options.legends_text_weight : stylesheet.legends_text_weight;
-    chartObject.legends_text_weight = (chartObject.legends_text_weight === "thick") ? "bold" : "normal";
     chartObject.legends_text_family = options.legends_text_family ? options.legends_text_family : stylesheet.legends_text_family;
     chartObject.highlight = options.highlight ? options.highlight : stylesheet.highlight;
     chartObject.variable_circle_size_enable = options.variable_circle_size_enable ? options.variable_circle_size_enable : multiDimensionalCharts.variable_circle_size_enable;

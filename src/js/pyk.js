@@ -933,7 +933,9 @@ PykCharts.Configuration = function (options){
             },
             _radiusCalculation: function (radius_percent,type) {
                 var min_value;
-                if(type === "spiderweb") {
+                if(type === "percentageBar") {
+                    min_value = options.height;
+                } else if(type === "spiderweb") {
                     min_value = d3.min([options.width,(options.height-options.legendsGroup_height-20)])
                 } else if(type !== undefined) {
                     min_value = options.width;
@@ -2021,7 +2023,7 @@ configuration.Theme = function(){
         "funnel_rect_height": 100,
 
         "percent_column_rect_width": 15,
-        "percent_row_rect_height": 13,
+        "percent_row_rect_height": 26,
     };
 
     that.multiDimensionalCharts = {

@@ -360,7 +360,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         var col_shade,
             obj = _.where(that.data, {iso2: d.properties.iso_a2});
         if (obj.length > 0) {
-            if (that.color_mode === "colors") {
+            if (that.color_mode === "color") {
                 if (obj.length > 0 && obj[0].color !== "") {
                     return obj[0].color;
                 }
@@ -739,7 +739,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
     };
 
     that.renderButtons = function () {
-        var bbox = d3.select(that.selector+" .axis").node().getBBox(),
+        var bbox = d3.select(that.selector+" .axis").node().getBBox();
             drag = d3.behavior.drag()
                     .origin(Object)
                     .on("drag",dragmove);

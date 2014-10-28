@@ -23,10 +23,10 @@
 	},
 	{
 		"name":"New York",
-		"x":"Thrusday",
+		"x":"Thursday",
 		"y":7,
 		"color":"steelblue",
-		"tooltip":7	
+		"tooltip":7
 	},
 	{
 		"name":"New York",
