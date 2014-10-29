@@ -679,13 +679,15 @@ PykCharts.Configuration = function (options){
             if(!legendsGroup_height) {
                 legendsGroup_height = 0;
             }
-
+            
             if(options.axis_x_title) {
+
                 if(!PykCharts.boolean(options.axis_x_enable)) {
                     gsvg.attr("transform", "translate(0," + (options.height - options.margin_top - options.margin_bottom - legendsGroup_height) + ")");
                 }
 
                 if(options.axis_x_position === "bottom") {
+
                     gsvg.append("text")
                         .attr("class","x-axis-title")
                         .attr("x", (w- options.margin_left - options.margin_right)/2)
@@ -1151,7 +1153,7 @@ PykCharts.Configuration = function (options){
             return this;
         },
         errorHandling: function(error_msg,error_code,err_url) {
-            // console.log('%c[Error Pykih Charts] ', 'color: red;font-weight:bold;font-size:13px', " at "+options.selector+".(Invalid value for attribute \""+error_msg+"\")  Visit http://www.pykih.com/");
+            console.log('%c[Error Pykih Charts] ', 'color: red;font-weight:bold;font-size:13px', " at "+options.selector+".(Invalid value for attribute \""+error_msg+"\")  Visit http://www.pykih.com/");
             options.stop = true;
             return;
         },
@@ -1686,7 +1688,7 @@ configuration.mouseEvent = function (options) {
                     d3.selectAll(selection)
                         .style("fill","#bbb")
                         // .style("font-size","12px")
-                        .style("font-weight","normal");
+                        // .style("font-weight","normal");
                     d3.select(d3.selectAll(selection)[0][curr_tick])
                         .style("fill",abc)
                         // .style("font-size","13px")
@@ -1696,25 +1698,28 @@ configuration.mouseEvent = function (options) {
             return this;
         },
         axisHighlightHide : function (axisHighlight,a) {
-            var abc,selection;
+            var fill_color,selection,font_weight;
             if(PykCharts.boolean(options.axis_onhover_hightlight_enable)/* && options.mode === "default"*/){
-                if(axisHighlight === options.selector + " .y.axis"){
+                if(axisHighlight === options.selector + " .y.axis") {
                     selection = axisHighlight+" .tick text";
-                    abc = options.axis_y_pointer_color;
+                    fill_color = options.axis_y_pointer_color;
+                    font_weight = options.axis_y_pointer_weight;
                 } else if(axisHighlight === options.selector + " .x.axis") {
                     selection = axisHighlight+" .tick text";
-                    abc = options.axis_x_pointer_color;
+                    fill_color = options.axis_x_pointer_color;
+                    font_weight = options.axis_x_pointer_weight;
                 } else if(axisHighlight === options.selector + " .axis-text" && a === "column") {
                     selection = axisHighlight;
-                    abc = options.axis_x_pointer_color;
+                    fill_color = options.axis_x_pointer_color;
+                    font_weight = options.axis_x_pointer_weight;
                 } else if(axisHighlight === options.selector + " .axis-text" && a === "bar") {
                     selection = axisHighlight;
-                    abc = options.axis_y_pointer_color;
+                    fill_color = options.axis_y_pointer_color;
+                    font_weight = options.axis_y_pointer_weight;
                 }
                 d3.selectAll(selection)
-                    .style("fill",abc)
-                    // .style("font-size","12px")
-                    .style("font-weight","normal");
+                    .style("fill",fill_color)
+                    .style("font-weight",font_weight);            
             }
             return this;
         }
@@ -1940,7 +1945,6 @@ configuration.makeYGrid = function(options,yScale) {
                     .tickSize(-size)
                     .tickFormat("")
                     .outerTickSize(0);
-    // console.log(options.axis_pointer_y_size)
 
     d3.selectAll(options.selector + " .y.axis text")
                     .attr("font-size",options.axis_y_pointer_size)
@@ -2030,7 +2034,7 @@ configuration.Theme = function(){
         "axis_x_enable": "yes",
 
         "axis_x_title" : "",
-        "axis_x_title_size" : 12,
+        "axis_x_title_size" : 14,
         "axis_x_title_color" : "#1D1D1D",
         "axis_x_title_weight": "bold",
         "axis_x_title_family" : "'Helvetica Neue',Helvetica,Arial,sans-serif",
@@ -2129,7 +2133,7 @@ configuration.Theme = function(){
         "axis_y_enable": "yes",
 
         "axis_y_title" : "",
-        "axis_y_title_size" : 12,
+        "axis_y_title_size" : 14,
         "axis_y_title_color" : "#1D1D1D",
         "axis_y_title_weight": "bold",
         "axis_y_title_family" : "'Helvetica Neue',Helvetica,Arial,sans-serif",
@@ -2167,7 +2171,7 @@ configuration.Theme = function(){
 
         "curvy_lines_enable": "no",
 
-        "annotation_border_color" : "darkgray",
+        "annotation_border_color" : "black",
         "annotation_background_color" : "#EEEEEE",
         "annotation_font_color" : "black",
 

@@ -77,8 +77,8 @@
                     chart_grid_x_enable: "no",
                     chart_grid_y_enable: "yes",
 
-                    transition_duration: 0,
-                    real_time_charts_refresh_frequency: 0,
+                    transition_duration: 5,
+                    real_time_charts_refresh_frequency: 10,
                     background_color: "white",
                     axis_onhover_hightlight_enable: "yes",
                     axis_x_enable: "yes",
@@ -87,7 +87,7 @@
                     axis_x_pointer_position: "bottom",
                     axis_x_line_color: "#1D1D1D",
                     axis_x_label_color: "blue",
-                    axis_x_pointer_size: 8,
+                    axis_x_pointer_size: 12,
                     axis_x_pointer_padding: 3,
                     // axis_x_pointer_values: ["2014/01/01","2014/01/03"],
                     axis_x_outer_pointer_size: 3,
@@ -95,20 +95,19 @@
                     axis_x_time_value_interval: 1,
 
                     axis_y_enable: "yes",
-                    // axis_y_title : "",
                     axis_y_position: "left",
                     axis_y_pointer_position: "left",
                     axis_y_line_color: "#1D1D1D",
                     axis_y_label_color: "#1d1d1d",
-                    axis_y_pointer_size: 3,
+                    axis_y_pointer_size: 12,
                     axis_y_pointer_padding: 10,
-                    // axis_y_pointer_values: [30,40,50],
                     axis_y_outer_pointer_size: 3,
                     line_curvy_lines:"no",
                     tooltip_enable: "yes",
                     tooltip_mode : "moving",
                     crosshair_enable: "yes",
-                    zoom_enable: "yes",
+                    zoom_enable: "no"
+
                 });
                 k.execute();
 
@@ -144,7 +143,7 @@
                     axis_x_pointer_position: "bottom",
                     axis_x_line_color: "#1D1D1D",
                     axis_x_label_color: "#1D1D1D",
-                    axis_x_pointer_size: 3,
+                    axis_x_pointer_size: 12,
                     axis_x_pointer_padding: 3,
                     axis_x_outer_pointer_size: 3,
 
@@ -154,7 +153,7 @@
                     axis_y_pointer_position: "left",
                     axis_y_line_color: "#1D1D1D",
                     axis_y_label_color: "#1D1D1D",
-                    axis_y_pointer_size: 3,
+                    axis_y_pointer_size: 12,
                     axis_y_pointer_padding: 10,
                     axis_y_outer_pointer_size: 3,
 
@@ -195,7 +194,7 @@
                     legends_display: "horizontal",//horizontal or vertical
 
                     legends_text_size: 13,
-                    legends_text_color: "green",
+                    legends_text_color: "black",
                     legends_text_weight: "normal",
                     legends_text_family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
 
@@ -234,7 +233,7 @@
                     axis_x_line_color: "#1D1D1D",
                     axis_x_no_of_axis_value: 5,
                     axis_x_label_color: "black",
-                    axis_x_pointer_size: 5,
+                    axis_x_pointer_size: 12,
                     axis_x_pointer_padding: 3,
                     axis_x_outer_pointer_size: 3,
                     axis_y_enable: "yes",
@@ -244,7 +243,7 @@
                     axis_y_line_color: "#1D1D1D",
                     axis_y_no_of_axis_value: 5,
                     axis_y_label_color: "#1D1D1D",
-                    axis_y_pointer_size: 5,
+                    axis_y_pointer_size: 12,
                     axis_y_pointer_padding: 10,
                     axis_y_outer_pointer_size: 3,
 
@@ -297,7 +296,7 @@
                     axis_x_line_color: "#1D1D1D",
                     axis_x_no_of_axis_value: 5,
                     axis_x_label_color: "black",
-                    axis_x_pointer_size: 5,
+                    axis_x_pointer_size: 12,
                     axis_x_pointer_padding: 3,
                     axis_x_outer_pointer_size: 3,
 
@@ -308,7 +307,7 @@
                     axis_y_line_color: "#1D1D1D",
                     axis_y_no_of_axis_value: 5,
                     axis_y_label_color: "#1D1D1D",
-                    axis_y_pointer_size: 5,
+                    axis_y_pointer_size: 12,
                     axis_y_pointer_padding: 10,
                     axis_y_outer_pointer_size: 3,
 
@@ -362,7 +361,7 @@
                     axis_x_pointer_position: "bottom",
                     axis_x_line_color: "#1D1D1D",
                     axis_x_label_color: "#1D1D1D",
-                    axis_x_pointer_size: 3,
+                    axis_x_pointer_size: 12,
                     axis_x_pointer_padding: 3,
                     axis_x_outer_pointer_size: 3,
                     axis_y_enable: "yes",
@@ -371,7 +370,7 @@
                     axis_y_pointer_position: "left",
                     axis_y_line_color: "#1D1D1D",
                     axis_y_label_color: "#1D1D1D",
-                    axis_y_pointer_size: 3,
+                    axis_y_pointer_size: 12,
                     axis_y_pointer_padding: 10,
                     axis_y_outer_pointer_size: 3,
 
@@ -417,7 +416,7 @@
                     axis_x_pointer_position: "bottom",
                     axis_x_line_color: "#1D1D1D",
                     axis_x_label_color: "#1D1D1D",
-                    axis_x_pointer_size: 3,
+                    axis_x_pointer_size: 12,
                     axis_x_pointer_padding: 3,
                     axis_x_outer_pointer_size: 3,
 
@@ -427,7 +426,7 @@
                     axis_y_pointer_position: "left",
                     axis_y_line_color: "#1D1D1D",
                     axis_y_label_color: "#1D1D1D",
-                    axis_y_pointer_size: 3,
+                    axis_y_pointer_size: 12,
                     axis_y_pointer_padding: 10,
                     axis_y_outer_pointer_size: 3,
 
@@ -447,7 +446,7 @@
                 var k = new PykCharts.multiD.areaChart ({
 
                     selector: "#multiArea",
-                    data: "../data/multiLineChart.json",
+                    data: "../data/multipleContainerLine.json",
                     mode : "default",
 
                     color_mode: "saturation",  //color or saturation
@@ -474,7 +473,7 @@
                     axis_x_pointer_position: "bottom",
                     axis_x_line_color: "#1D1D1D",
                     axis_x_label_color: "#1D1D1D",
-                    axis_x_pointer_size: 3,
+                    axis_x_pointer_size: 12,
                     axis_x_pointer_padding: 3,
                     axis_x_outer_pointer_size: 3,
 
@@ -484,15 +483,16 @@
                     axis_y_pointer_position: "left",
                     axis_y_line_color: "#1D1D1D",
                     axis_y_label_color: "#1D1D1D",
-                    axis_y_pointer_size: 3,
+                    axis_y_pointer_size: 12,
                     axis_y_pointer_padding: 10,
                     axis_y_outer_pointer_size: 3,
 
                     line_curvy_lines:"yes",
                     crosshair_enable: "yes",
                     tooltip_enable : "yes",
-                    zoom_enable: "yes"
+                    zoom_enable: "yes",
 
+                    annotation_border_color:"black"
                 });
                 k.execute();
 
@@ -525,7 +525,7 @@
                     axis_x_pointer_position: "bottom",
                     axis_x_line_color: "#1D1D1D",
                     axis_x_label_color: "#1D1D1D",
-                    axis_x_pointer_size: 3,
+                    axis_x_pointer_size: 12,
                     axis_x_pointer_padding: 3,
                     axis_x_pointer_values: [2002, 2004, 2006, 2008],
                     axis_x_outer_pointer_size: 3,
@@ -536,7 +536,7 @@
                     axis_y_pointer_position: "left",
                     axis_y_line_color: "#1D1D1D",
                     axis_y_label_color: "#1D1D1D",
-                    axis_y_pointer_size: 3,
+                    axis_y_pointer_size: 12,
                     axis_y_pointer_padding: 10,
                     axis_x_pointer_values: [],
                     axis_y_outer_pointer_size: 3,
@@ -549,10 +549,10 @@
 
                     legends_enable: "yes",
                     legends_display: "horizontal",
-                    legendsText_size: 13,
-                    legendsText_color: "black",
-                    legendsText_weight: "thin",
-                    legendsText_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
+                    legends_text_size: 13,
+                    legends_text_color: "black",
+                    legends_text_weight: "normal",
+                    legends_text_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
 
                     border_between_chart_elements_thickness: 0,
                     border_between_chart_elements_color: "white",
@@ -565,11 +565,9 @@
                     data: "../data/ultimateColumn.json",
                     mode: "default",
                     selector: "#column",
-
                     color_mode: "color",
                     chart_color:["steelblue"],
                     background_color:"white",
-
                     chart_height: 430,
                     chart_width : 400,
                     chart_margin_top: 25,
@@ -588,7 +586,7 @@
                     axis_x_pointer_position: "bottom",
                     axis_x_line_color: "#1D1D1D",
                     axis_x_label_color: "#1D1D1D",
-                    axis_x_pointer_size: 3,
+                    axis_x_pointer_size: 12,
                     axis_x_pointer_padding: 3,
                     axis_x_outer_pointer_size: 3,
 
@@ -598,7 +596,7 @@
                     axis_y_pointer_position: "left",
                     axis_y_line_color: "#1D1D1D",
                     axis_y_label_color: "#1D1D1D",
-                    axis_y_pointer_size: 3,
+                    axis_y_pointer_size: 12,
                     axis_y_pointer_padding: 10,
                     axis_y_outer_pointer_size: 3,
 
@@ -612,6 +610,11 @@
                     border_between_chart_elements_thickness: 1,
                     border_between_chart_elements_color: "white",
                     border_between_chart_elements_style: "solid",
+
+                    "axis_x_pointer_size": 12,
+                    "axis_x_pointer_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
+                    "axis_x_pointer_weight": "normal",
+                    "axis_x_pointer_color": "#1D1D1D",
 
                     highlight:"January",
                 });
@@ -645,7 +648,7 @@
                     axis_x_pointer_position: "bottom",
                     axis_x_line_color: "#1D1D1D",
                     axis_x_label_color: "#1D1D1D",
-                    axis_x_pointer_size: 3,
+                    axis_x_pointer_size: 12,
                     axis_x_pointer_padding: 3,
                     axis_x_outer_pointer_size: 3,
 
@@ -655,7 +658,7 @@
                     axis_y_pointer_position: "left",
                     axis_y_line_color: "#1D1D1D",
                     axis_y_label_color: "#1D1D1D",
-                    axis_y_pointer_size: 3,
+                    axis_y_pointer_size: 12,
                     axis_y_pointer_padding: 10,
                     axis_y_outer_pointer_size: 3,
 
@@ -663,13 +666,14 @@
 
                     legends_enable: "yes",
                     legends_display: "horizontal",
-
-                    transition_duration: 1,
+                    transition_duration:0,
+                    axis_x_pointer_weight:"normal",
 
                     border_between_chart_elements_thickness: 1,
                     border_between_chart_elements_color: "white",
                     border_between_chart_elements_style: "solid",
                    // saturation_enable: "yes",
+
 
                    highlight:"april",
                 });
@@ -701,7 +705,7 @@
                     // axis_x_pointer_position: "bottom",
                     axis_x_line_color: "#1D1D1D",
                     axis_x_label_color: "#1D1D1D",
-                    axis_x_pointer_size: 3,
+                    axis_x_pointer_size: 12,
                     axis_x_pointer_padding: 3,
                     axis_x_outer_pointer_size: 3,
 
@@ -711,7 +715,7 @@
                     // axis_y_pointer_position: "left",
                     axis_y_line_color: "#1D1D1D",
                     axis_y_label_color: "#1D1D1D",
-                    axis_y_pointer_size: 3,
+                    axis_y_pointer_size: 12,
                     axis_y_pointer_padding: 10,
                     axis_y_outer_pointer_size: 3,
 
@@ -764,7 +768,7 @@
                     axis_x_pointer_position: "bottom",
                     axis_x_line_color: "#1D1D1D",
                     axis_x_label_color: "#1D1D1D",
-                    axis_x_pointer_size: 3,
+                    axis_x_pointer_size: 12,
                     axis_x_pointer_padding: 3,
                     axis_x_outer_pointer_size: 3,
 
@@ -774,7 +778,7 @@
                     axis_y_pointer_position: "left",
                     axis_y_line_color: "#1D1D1D",
                     axis_y_label_color: "#1D1D1D",
-                    axis_y_pointer_size: 3,
+                    axis_y_pointer_size: 12,
                     axis_y_pointer_padding: 10,
                     axis_y_outer_pointer_size: 3,
 
@@ -790,7 +794,7 @@
                     border_between_chart_elements_style: "solid",
 
                     pointer_thickness: 1,
-                    pointer_weight: "normal",
+                    pointer_weight: "thin",
                     pointer_size: 10,
                     pointer_color: "#1D1D1D",
                     pointer_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
@@ -800,7 +804,6 @@
                 });
                 k.execute();
             };
-
         </script>
     </body>
 </html>
