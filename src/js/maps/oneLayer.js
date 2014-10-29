@@ -368,11 +368,8 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                 return that.default_color[0];
             }
             if (that.color_mode === "saturation") {
-                // console.log(that.highlight,"selection highlight");
-                // console.log(that.highlight === that.map_data.objects.geometries[i].properties.iso_a2,"check condition");
                 if (that.highlight === that.map_data.objects.geometries[i].properties.iso_a2/*obj[0].highlight === true*/) {
                     return that.highlight_color;
-                    // return obj[0].highlight_color;
                 } else {
                     if(that.saturation_color !== "") {
                         return that.saturation_color;
