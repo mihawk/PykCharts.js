@@ -316,7 +316,8 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     // chartObject.axis_y_data_format = options.axis_y_data_format ? options.axis_y_data_format : multiDimensionalCharts.axis_y_data_format;
     // chartObject.axis_x_data_format = options.axis_x_data_format ? options.axis_x_data_format : multiDimensionalCharts.axis_x_data_format;
     chartObject.selector = options.selector ? options.selector : "body";
-    if(options.chart_width) {
+    chartObject.panels_enable = options.panels_enable ? options.panels_enable.toLowerCase() : multiDimensionalCharts.panels_enable;
+    if(options.chart_width && !PykCharts.boolean(chartObject.panels_enable)) {
         var targetWidth = $(options.selector).width();
         options.chart_width = targetWidth < options.chart_width ? targetWidth : options.chart_width;
     }
@@ -484,7 +485,6 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     chartObject.highlight = options.highlight ? options.highlight : stylesheet.highlight;
     chartObject.variable_circle_size_enable = options.variable_circle_size_enable ? options.variable_circle_size_enable : multiDimensionalCharts.variable_circle_size_enable;
     // chartObject.units = options.units ? options.units : false;
-    chartObject.panels_enable = options.panels_enable ? options.panels_enable.toLowerCase() : multiDimensionalCharts.panels_enable;
     // chartObject.colorPalette = ["#b2df8a", "#1f78b4", "#33a02c", "#fb9a99", "#e31a1c", "#fdbf6f", "#ff7f00", "#cab2d6", "#6a3d9a", "#ffff99", "#b15928", "#a6cee3"];
     chartObject.export_enable = options.export_enable ? options.export_enable.toLowerCase() : stylesheet.export_enable;
     // chartObject.export_image_url = options.export_image_url ? options.export_image_url : stylesheet.export_image_url;

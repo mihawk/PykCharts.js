@@ -401,6 +401,7 @@ PykCharts.Configuration = function (options){
                     PykCharts.Configuration.tooltipp = d3.select("body")
                         .append("div")
                         .attr("id", "pyk-tooltip")
+                        .attr("class","pyk-tooltip")
                         .style("height","auto")
                         .style("weight","auto")
                         .style("padding", "5px 6px")
@@ -421,6 +422,7 @@ PykCharts.Configuration = function (options){
                     PykCharts.Configuration.tooltipp = d3.select("body")
                         .append("div")
                         .attr("id", "pyk-tooltip")
+                        .attr("class","pyk-tooltip")
                         .style("height","auto")
                         .style("weight","auto")
                         .style("padding", "5px 6px")
@@ -448,7 +450,7 @@ PykCharts.Configuration = function (options){
             annotation_circle.enter()
                 .append("circle")
                 .attr("class","PykCharts-annotation-circle");
-            console.log(svg);
+            // console.log(svg);
             var annotation_text = d3.select(svg).selectAll(".PykCharts-annotation-text")
                 .data(data)
 
@@ -614,7 +616,7 @@ PykCharts.Configuration = function (options){
                     xaxis.tickValues(newVal);
                 }
 
-                
+
                 gsvg.style("stroke",function () { return options.axis_x_line_color; })
                     .call(xaxis)
                 if((options.axis_x_data_format === "string") && options.panels_enable === "no") {
@@ -624,8 +626,9 @@ PykCharts.Configuration = function (options){
                 d3.selectAll(options.selector + " .x.axis text")
                         .attr("font-size",options.axis_x_pointer_size)
                         .style("font-weight",options.axis_x_pointer_weight)
-                        .style("font-family",options.axis_x_pointer_family);                    
+                        .style("font-family",options.axis_x_pointer_family);
             }
+
             return this;
         },
         yAxis: function (svg, gsvg, yScale,domain) {
@@ -659,37 +662,52 @@ PykCharts.Configuration = function (options){
                 d3.selectAll(options.selector + " .y.axis text")
                         .attr("font-size",options.axis_y_pointer_size)
                         .style("font-weight",options.axis_y_pointer_weight)
-                        .style("font-family",options.axis_y_pointer_family);                    
+                        .style("font-family",options.axis_y_pointer_family);
 
             }
             return this;
         },
-        xAxisTitle : function (gsvg) {
+        xAxisTitle : function (gsvg,legendsGroup_height) {
             var w;
             if(PykCharts.boolean(options.panels_enable)) {
                 w = options.w;
             } else {
                 w = options.width;
             }
-            if(options.axis_x_position === "bottom") {
-                gsvg.append("text")
-                    .attr("class","x-axis-title")
-                    .attr("x", (w- options.margin_left - options.margin_right)/2)
-                    .attr("y", options.margin_bottom)
-                    .style("text-anchor", "middle")
-                    .style("fill",options.axis_x_label_color)
-                    .style("font-weight","bold")
-                    .text(options.axis_x_title);
 
-            } else if (options.axis_x_position === "top") {
-                gsvg.append("text")
-                    .attr("class","x-axis-title")
-                    .attr("x", (w - options.margin_left - options.margin_right)/2)
-                    .attr("y", - options.margin_top + 10)
-                    .style("text-anchor", "middle")
-                    .style("fill",options.axis_x_label_color)
-                    .style("font-weight","bold")
-                    .text(options.axis_x_title);
+            if(!legendsGroup_height) {
+                legendsGroup_height = 0;
+            }
+
+            if(options.axis_x_title) {
+                if(!PykCharts.boolean(options.axis_x_enable)) {
+                    gsvg.attr("transform", "translate(0," + (options.height - options.margin_top - options.margin_bottom - legendsGroup_height) + ")");
+                }
+
+                if(options.axis_x_position === "bottom") {
+                    gsvg.append("text")
+                        .attr("class","x-axis-title")
+                        .attr("x", (w- options.margin_left - options.margin_right)/2)
+                        .attr("y", options.margin_bottom)
+                        .style("text-anchor", "middle")
+                        .style("fill",options.axis_x_title_color)
+                        .style("font-weight",options.axis_x_title_weight)
+                        .style("font-family",options.axis_x_title_family)
+                        .style("font-size",options.axis_x_title_size)
+                        .text(options.axis_x_title);
+
+                } else if (options.axis_x_position === "top") {
+                    gsvg.append("text")
+                        .attr("class","x-axis-title")
+                        .attr("x", (w - options.margin_left - options.margin_right)/2)
+                        .attr("y", - options.margin_top + 10)
+                        .style("text-anchor", "middle")
+                        .style("fill",options.axis_x_title_color)
+                        .style("font-weight",options.axis_x_title_weight)
+                        .style("font-family",options.axis_x_title_family)
+                        .style("font-size",options.axis_x_title_size)
+                        .text(options.axis_x_title);
+                }
             }
             return this;
         },
@@ -700,35 +718,37 @@ PykCharts.Configuration = function (options){
                 } else {
                     w = options.width;
                 }
+
+            if(options.axis_y_title) {   
                 if(options.axis_y_position === "left"){
                     gsvg.append("text")
                         .attr("class","y-axis-title")
                         .attr("x",-(options.height)/2)
                         .attr("transform", "rotate(-90)")
                         .attr("y", -(options.margin_left - 12))
-                        // .attr("dy", ".71em")
-                        .style("fill",options.axis_y_label_color)
-                        .style("font-weight","bold")
-                        // .style("text-anchor", "end")
+                        .style("fill",options.axis_y_title_color)
+                        .style("font-weight",options.axis_y_title_weight)
+                        .style("font-family",options.axis_y_title_family)
+                        .style("font-size",options.axis_y_title_size)
                         .text(options.axis_y_title);
                 } else if (options.axis_y_position === "right") {
                     gsvg.append("text")
                         .attr("class","y-axis-title")
                         .attr("x",-(options.height)/2)
                         .attr("transform", "rotate(-90)")
-                        .style("fill",options.axis_y_label_color)
-                        .style("font-weight","bold")
-                        // .attr("y", 12)
-                        .attr("y", options.margin_right - 12)
                         .attr("dy", ".71em")
-                        // .style("text-anchor", "end")
+                        .style("fill",options.axis_y_title_color)
+                        .style("font-weight",options.axis_y_title_weight)
+                        .style("font-family",options.axis_y_title_family)
+                        .style("font-size",options.axis_y_title_size)
                         .text(options.axis_y_title);
                 }
+            }
             return this;
         },
         isOrdinal: function(svg,container,scale,domain,extra) {
             var k = new PykCharts.Configuration(options);
-            if(container === ".x.axis") {
+            if(container === ".x.axis" && PykCharts.boolean(options.axis_x_enable)) {
                 svg.select(container).call(PykCharts.Configuration.makeXAxis(options,scale));
                 if((options.axis_x_data_format === "string") && options.panels_enable === "no") {
                     k.ordinalXAxisTickFormat(domain,extra);
@@ -737,7 +757,7 @@ PykCharts.Configuration = function (options){
             else if (container === ".x.grid") {
                 svg.select(container).call(PykCharts.Configuration.makeXGrid(options,scale));
             }
-            else if (container === ".y.axis") {
+            else if (container === ".y.axis" && PykCharts.boolean(options.axis_y_enable)) {
                 svg.select(container).call(PykCharts.Configuration.makeYAxis(options,scale));
                 if((options.axis_y_data_format === "string") && options.panels_enable === "no") {
                     k.ordinalyAxisTickFormat(domain);
@@ -862,7 +882,9 @@ PykCharts.Configuration = function (options){
         resize : function (svg,anno,lsvg) {
             var aspect = (options.width/options.height);
             var targetWidth = $(options.selector).width();
+            console.log(targetWidth,options.width);
             if(targetWidth > options.width) {
+
                 targetWidth = options.width;
             }
             if(PykCharts.boolean(svg)) {
@@ -1130,7 +1152,7 @@ PykCharts.Configuration = function (options){
             return this;
         },
         errorHandling: function(error_msg,error_code,err_url) {
-            console.log('%c[Error Pykih Charts] ', 'color: red;font-weight:bold;font-size:13px', " at "+options.selector+".(Invalid value for attribute \""+error_msg+"\")  Visit http://www.pykih.com/");
+            // console.log('%c[Error Pykih Charts] ', 'color: red;font-weight:bold;font-size:13px', " at "+options.selector+".(Invalid value for attribute \""+error_msg+"\")  Visit http://www.pykih.com/");
             options.stop = true;
             return;
         },
@@ -1324,7 +1346,7 @@ configuration.mouseEvent = function (options) {
                     .style("left", (d3.event.pageX + 30) + "px");
             }
             return that.tooltip;
-           
+
         },
         tooltipTextShow : function (d,panels_enable,type,group_index) {
             var selector = options.selector.substr(1,options.selector.length)
@@ -1807,10 +1829,10 @@ configuration.makeXAxis = function(options,xScale) {
                     .tickPadding(options.axis_x_pointer_padding)
                     .orient(options.axis_x_pointer_position);
 
-    d3.selectAll(options.selector + " .x.axis text")
+    d3.selectAll(options.selector + " .x.axis itext")
             .attr("font-size",options.axis_x_pointer_size)
             .style("font-weight",options.axis_x_pointer_weight)
-            .style("font-family",options.axis_x_pointer_family);                    
+            .style("font-family",options.axis_x_pointer_family);
 
     if(options.axis_x_data_format=== "time" && PykCharts.boolean(options.axis_x_time_value_datatype)) {
         if(options.axis_x_time_value_datatype === "month") {
@@ -1849,14 +1871,13 @@ configuration.makeYAxis = function(options,yScale) {
                     .outerTickSize(options.axis_y_outer_pointer_size)
                     .tickPadding(options.axis_y_pointer_padding)
                     .tickFormat(function (d,i) {
-                        console.log(d,"d")
                         return d;
                     });
 
     d3.selectAll(options.selector + " .y.axis text")
                 .attr("font-size",options.axis_y_pointer_size)
                 .style("font-weight",options.axis_y_pointer_weight)
-                .style("font-family",options.axis_y_pointer_family);                    
+                .style("font-family",options.axis_y_pointer_family);
 
 
     if(options.axis_y_data_format=== "time" && PykCharts.boolean(options.axis_y_time_value_type)) {
@@ -1901,7 +1922,7 @@ configuration.makeXGrid = function(options,xScale) {
     d3.selectAll(options.selector + " .x.axis text")
                     .attr("font-size",options.axis_x_pointer_size)
                     .style("font-weight",options.axis_x_pointer_weight)
-                    .style("font-family",options.axis_x_pointer_family);                    
+                    .style("font-family",options.axis_x_pointer_family);
 
     return xgrid;
 };
@@ -1920,12 +1941,12 @@ configuration.makeYGrid = function(options,yScale) {
                     .tickSize(-size)
                     .tickFormat("")
                     .outerTickSize(0);
-    console.log(options.axis_pointer_y_size)
+    // console.log(options.axis_pointer_y_size)
 
     d3.selectAll(options.selector + " .y.axis text")
                     .attr("font-size",options.axis_y_pointer_size)
                     .style("font-weight",options.axis_y_pointer_weight)
-                    .style("font-family",options.axis_y_pointer_family);                    
+                    .style("font-family",options.axis_y_pointer_family);
 
 
     return ygrid;
@@ -2008,11 +2029,17 @@ configuration.Theme = function(){
         "axis_x_pointer_color": "#1D1D1D",
 
         "axis_x_enable": "yes",
-        "axis_x_title" : "X axis",
+
+        "axis_x_title" : "",
+        "axis_x_title_size" : 12,
+        "axis_x_title_color" : "#1D1D1D",
+        "axis_x_title_weight": "bold",
+        "axis_x_title_family" : "'Helvetica Neue',Helvetica,Arial,sans-serif",
+
         "axis_x_position": "bottom",
         "axis_x_pointer_position": "top", //axis orient
         "axis_x_line_color": "#1D1D1D",
-        "axis_x_label_color": "#1D1D1D",
+        // "axis_x_label_color": "#1D1D1D",
         "axis_x_no_of_axis_value": 5,
         "axis_x_pointer_length": 5,
         // "axis_x_value_format": "",
@@ -2071,6 +2098,23 @@ configuration.Theme = function(){
         "percent_row_rect_height": 26,
     };
 
+    that.otherCharts = {
+        "pictograph_show_all_images": "yes",
+        "pictograph_total_count_enable": "yes",
+        "pictograph_current_count_enable": "yes",
+        "pictograph_image_per_line": 3,
+        "pictograph_image_width": 79,
+        "pictograph_image_height": 66,
+        "pictograph_current_count_size": 64,
+        "pictograph_current_count_color": "#255AEE",
+        "pictograph_current_count_weight": "normal",
+        "pictograph_current_count_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
+        "pictograph_total_count_size": 64,
+        "pictograph_total_count_color": "grey",
+        "pictograph_total_count_weight": "normal",
+        "pictograph_total_count_family": "'Helvetica Neue',Helvetica,Arial,sans-serif"
+    };
+
     that.multiDimensionalCharts = {
 
         "chart_grid_x_enable": "yes",
@@ -2083,13 +2127,18 @@ configuration.Theme = function(){
         "axis_y_pointer_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
         "axis_y_pointer_weight": "normal",
         "axis_y_pointer_color": "#1D1D1D",
-
         "axis_y_enable": "yes",
-        // "axis_y_title" : "Y axis",
+
+        "axis_y_title" : "",
+        "axis_y_title_size" : 12,
+        "axis_y_title_color" : "#1D1D1D",
+        "axis_y_title_weight": "bold",
+        "axis_y_title_family" : "'Helvetica Neue',Helvetica,Arial,sans-serif",
+
         "axis_y_position": "left",
         "axis_y_pointer_position": "left",
         "axis_y_line_color": "#1D1D1D",
-        "axis_y_label_color": "#1D1D1D",
+        // "axis_y_label_color": "#1D1D1D",
         "axis_y_no_of_axis_value": 5,
         "axis_y_pointer_length": 5,
         // "axis_y_value_format": "",
@@ -4037,193 +4086,6 @@ PykCharts.oneD.percentageBar = function (options) {
     };
 };
 
-PykCharts.oneD.pictograph = function (options) {
-    var that = this;
-    var theme = new PykCharts.Configuration.Theme({});
-
-    this.execute = function () {
-        that = new PykCharts.oneD.processInputs(that, options);
-        var optional = options.optional
-        ,functionality = theme.oneDimensionalCharts;
-        that.showTotal = options.pictograph_show_all_images ? options.pictograph_show_all_images.toLowerCase() : functionality.pictograph_show_all_images;
-        that.enableTotal = options.pictograph_total_count_enable ? options.pictograph_total_count_enable.toLowerCase() : functionality.pictograph_total_count_enable;
-        that.enableCurrent = options.pictograph_current_count_enable ? options.pictograph_current_count_enable.toLowerCase() : functionality.pictograph_current_count_enable;
-        that.imgperline = options.pictograph_image_per_line ?  options.pictograph_image_per_line : functionality.pictograph_image_per_line;
-        that.current_count_size = options.pictograph_current_count_size ? options.pictograph_current_count_size : functionality.pictograph_current_count_size;
-        that.current_count_color = options.pictograph_current_count_color ? options.pictograph_current_count_color.toLowerCase() : functionality.pictograph_current_count_color;
-        that.current_count_weight = options.pictograph_current_count_weight ? options.pictograph_current_count_weight.toLowerCase() : functionality.pictograph_current_count_weight;
-        that.current_count_family = options.pictograph_current_count_family ? options.pictograph_current_count_family.toLowerCase() : functionality.pictograph_current_count_family;
-        that.total_count_size = options.pictograph_total_count_size ? options.pictograph_total_count_size : functionality.pictograph_total_count_size;
-        that.total_count_color = options.pictograph_total_count_color ? options.pictograph_total_count_color.toLowerCase() : functionality.pictograph_total_count_color;
-        that.total_count_weight = options.pictograph_total_count_weight ? options.pictograph_total_count_weight.toLowerCase() : functionality.pictograph_total_count_weight;
-        that.total_count_family = options.pictograph_total_count_family ? options.pictograph_total_count_family.toLowerCase() : functionality.pictograph_total_count_family;
-        that.imageWidth =  options.pictograph_image_width ? options.pictograph_image_width : functionality.pictograph_image_width;
-        that.imageHeight = options.pictograph_image_height ? options.pictograph_image_height : functionality.pictograph_image_height;
-        that.height = options.chart_height ? options.chart_height : that.width;
-        if(that.mode === "default") {
-           that.k.loading();
-        }
-        d3.json(options.data, function (e,data) {
-            that.data = data.sort(function(a,b) {
-                return b.weight - a.weight;
-            });
-            $(options.selector+" #chart-loader").remove();
-            that.render();
-        })
-    };
-
-    this.render = function () {
-
-        that.transitions = new PykCharts.Configuration.transition(that);
-
-        if(that.mode==="default") {
-            that.k.title()
-                .backgroundColor(that)
-                .export(that,"#svgcontainer","pictograph")
-                .emptyDiv()
-                .subtitle();
-        } else {
-            that.k.backgroundColor(that)
-                .export(that,"#svgcontainer","pictograph")
-                .emptyDiv();
-        }
-           
-        that.optionalFeatures()
-                .svgContainer()
-                .createChart()
-                .labelText()
-                .enableLabel();
-        if(that.mode==="default") {
-            that.k.createFooter()
-                .credits()
-                .dataSource();
-        }
-
-        $(window).on("load", function () { return that.k.resize(that.svgContainer); })
-                            .on("resize", function () { return that.k.resize(that.svgContainer); });
-    };
-
-    this.optionalFeatures = function () {
-
-        var optional = {
-            svgContainer: function () {
-                // $(options.selector).css("background-color",that.background_color);
-
-                that.svgContainer = d3.select(options.selector).append('svg')
-                    .attr("width",that.width)
-                    .attr("height",that.height)
-                    .attr("id","svgcontainer")
-                    .attr("preserveAspectRatio", "xMinYMin")
-                    .attr("viewBox", "0 0 " + that.width + " " + that.height);
-
-                that.group = that.svgContainer.append("g")
-                    // .attr("transform", "translate(100,0)")
-                    .attr("transform", "translate(" + that.imageWidth + ",0)");
-
-                that.group1 = that.svgContainer.append("g")
-                    .attr("transform","translate(0,0)");
-
-                return this;
-            },
-            createChart: function () {
-                var a = 0,b=1;
-
-                that.optionalFeatures().showTotal();
-                var counter = 0;
-                for(var j=1; j<=that.weight; j++) {
-                    if(j <= that.data[1].weight ) {
-                        that.group.append("image")
-                            .attr("xlink:href",that.data[1]["image"])
-                            // .attr("x", b *(50 + 1))
-                            // .attr("y", a *(100 + 10))
-                            .attr("x", b *(that.imageWidth + 1))
-                            .attr("y", a *(that.imageHeight + 10))
-                            .attr("width",0)
-                            // .attr("height",100)
-                            .attr("height", that.imageHeight + "px")
-                            .transition()
-                            .duration(that.transitions.duration())
-                            .attr("width", that.imageWidth + "px");
-                    }else {
-                        that.group.append("image")
-                            .attr("xlink:href",that.data[0]["image"])
-                            .attr("x", b *(that.imageWidth + 1))
-                            .attr("y", a *(that.imageHeight+ 10))
-                            // .attr("x", b *(50 + 1))
-                            // .attr("y", a *(100 + 10))
-                            .attr("width",0)
-                            // .attr("height",100)
-                            .attr("height", that.imageHeight + "px")
-                            .transition()
-                            .duration(that.transitions.duration())
-                            .attr("width", that.imageWidth + "px");
-                    }
-                    counter++;
-                    b++;
-                    if (counter >= that.imgperline) {
-                        a++;
-                        b=1;
-                        counter=0;
-                        that.group.append("text").html("<br><br>");
-                    }
-                }
-                return this;
-            },
-            showTotal: function () {
-                 if (PykCharts.boolean(that.showTotal)) {
-                    that.weight = that.data[0].weight;
-                }
-                else {
-                    that.weight = that.data[1].weight;
-                }
-                return this ;
-            },
-            enableLabel: function () {
-                if (PykCharts.boolean(that.enableTotal)) {
-                    var y_pos =  ((that.data[0].weight)/(that.imgperline));
-                    var textHeight;
-                     this.labelText();
-                     that.group1.append("text")
-                        .attr("font-family",that.total_count_family)
-                        .attr("font-size",that.total_count_size)
-                        .attr("font-weight",that.total_count_weight)
-                        .attr("fill",that.total_count_color)
-                        .text("/"+that.data[0].weight)
-                        .text(function () {
-                            textHeight =this.getBBox().height;
-                            return "/"+that.data[0].weight;
-                        })
-                        .attr("x", (that.textWidth+5))
-                        .attr("y", function () { return (((that.imageHeight * y_pos)/2) + (textHeight/2)); });
-                }
-                return this;
-            },
-            labelText: function () {
-                if (PykCharts.boolean(that.enableCurrent)) {
-                    var y_pos =  ((that.data[0].weight)/(that.imgperline));
-                    var textHeight;
-                    that.group1.append("text")
-                        .attr("x", 0)
-                        .attr("font-family",that.current_count_family)
-                        .attr("font-size",that.current_count_size)
-                        .attr("font-weight",that.current_count_weight)
-                        .attr("fill",that.current_count_color)
-                        .text(that.data[1].weight)
-                        .text(function () {
-                            textHeight =this.getBBox().height;
-                            that.textWidth = this.getBBox().width;
-                            return that.data[1].weight;
-                        })
-                        .attr("y", function () { return (((that.imageHeight * y_pos)/2)+ (textHeight/2)); });
-
-                }
-                return this;
-            }
-        }
-        return optional;
-    }
-};
-
 PykCharts.oneD.pie = function (options) {
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
@@ -5797,6 +5659,307 @@ PykCharts.oneD.treemap = function (options){
     };
 };
 
+PykCharts.other = {};
+
+// PykCharts.other.fillChart = function (options) {
+
+//     var colorPie = {
+//         chart_color: function (d) {
+//             if(d.highlight === true) {
+//                 return options.highlight_color;
+//             } else{
+//                 return options.chart_color;
+//             }
+//         }
+//     };
+//     return colorPie;
+// };
+
+// PykCharts.other.mouseEvent = function (options) {
+//     var highlight_selected = {
+//         highlight: function (selectedclass, that) {
+//                 var t = d3.select(that);
+//                 d3.selectAll(selectedclass)
+//                     .attr("opacity",.5)
+//                 t.attr("opacity",1);
+//                 return this;
+//         },
+//         highlightHide : function (selectedclass) {
+//                 d3.selectAll(selectedclass)
+//                     .attr("opacity",1);
+//             return this;
+//         }
+//     }
+//     return highlight_selected;
+// }
+
+PykCharts.other.processInputs = function (chartObject, options) {
+
+    var theme = new PykCharts.Configuration.Theme({})
+        , stylesheet = theme.stylesheet
+        , functionality = theme.functionality
+        , otherCharts = theme.otherCharts;
+
+    chartObject.selector = options.selector ? options.selector : stylesheet.selector;
+    if(options.chart_width) {
+        var targetWidth = $(options.selector).width();
+        options.chart_width = targetWidth < options.chart_width ? targetWidth : options.chart_width;
+    }
+    chartObject.width = options.chart_width  ? options.chart_width : stylesheet.chart_width;
+    // chartObject.height = options.chart_height && _.isNumber(options.chart_height) ? options.chart_height : stylesheet.chart_height;
+    // chartObject.width = optional && optional.chart && _.isNumber(optional.chart.width) ? optional.chart.width : stylesheet.chart.width;
+    // chartObject.height = optional && optional.chart &&_.isNumber(optional.chart.height) ? optional.chart.height : stylesheet.chart.height;
+
+    chartObject.mode = options.mode ? options.mode.toLowerCase(): stylesheet.mode;
+
+    if (options &&  PykCharts.boolean (options.title_text)) {
+        chartObject.title_text = options.title_text;
+        chartObject.title_size = "title_size" in options ? options.title_size : stylesheet.title_size;
+        chartObject.title_color = options.title_color ? options.title_color.toLowerCase()  : stylesheet.title_color;
+        chartObject.title_weight = options.title_weight ? options.title_weight.toLowerCase() : stylesheet.title_weight;
+        chartObject.title_family = options.title_family ? options.title_family.toLowerCase() : stylesheet.title_family;
+    } else {
+        chartObject.title_size = stylesheet.title_size;
+        chartObject.title_color = stylesheet.title_color;
+        chartObject.title_weight = stylesheet.title_weight;
+        chartObject.title_family = stylesheet.title_family;
+    }
+
+    if (options && PykCharts.boolean(options.subtitle_text)) {
+        chartObject.subtitle_text = options.subtitle_text;
+        chartObject.subtitle_size = "subtitle_size" in options ? options.subtitle_size : stylesheet.subtitle_size;
+        chartObject.subtitle_color = options.subtitle_color ? options.subtitle_color : stylesheet.subtitle_color;
+        chartObject.subtitle_weight = options.subtitle_weight ? options.subtitle_weight.toLowerCase() : stylesheet.subtitle_weight;
+        chartObject.subtitle_family = options.subtitle_family ? options.subtitle_family.toLowerCase() : stylesheet.subtitle_family;
+    } else {
+        chartObject.subtitle_size = stylesheet.subtitle_size;
+        chartObject.subtitle_color = stylesheet.subtitle_color;
+        chartObject.subtitle_weight = stylesheet.subtitle_weight;
+        chartObject.subtitle_family = stylesheet.subtitle_family;
+    }
+
+    if(options.credit_my_site_name || options.credit_my_site_url) {
+        chartObject.credit_my_site_name = options.credit_my_site_name ? options.credit_my_site_name : "";
+        chartObject.credit_my_site_url = options.credit_my_site_url ? options.credit_my_site_url : "";
+    } else {
+        chartObject.credit_my_site_name = stylesheet.credit_my_site_name;
+        chartObject.credit_my_site_url = stylesheet.credit_my_site_url;
+    }
+    // chartObject.credit_my_site_name = options.credit_my_site_name ? options.credit_my_site_name : stylesheet.credit_my_site_name;
+    // chartObject.credit_my_site_url = options.credit_my_site_url ? options.credit_my_site_url : stylesheet.credit_my_site_url;
+    chartObject.data_source_name = options.data_source_name ? options.data_source_name : "";
+    chartObject.data_source_url = options.data_source_url ? options.data_source_url : "";
+    
+    chartObject.transition_duration = options.transition_duration ? options.transition_duration : functionality.transition_duration;
+    
+    chartObject.background_color = options.background_color ? options.background_color.toLowerCase() : stylesheet.background_color;
+    
+    chartObject.fullscreen_enable = options.fullscreen_enable ? options.fullscreen_enable : stylesheet.fullscreen_enable;
+    chartObject.loading = options.loading_gif_url ? options.loading_gif_url: stylesheet.loading_gif_url;
+    
+    chartObject.export_enable = options.export_enable ? options.export_enable.toLowerCase() : stylesheet.export_enable;
+    // chartObject.export_image_url = options.export_image_url ? options.export_image_url : stylesheet.export_image_url; 
+    chartObject.k = new PykCharts.Configuration(chartObject);
+
+    chartObject.k.validator().validatingSelector(chartObject.selector.substring(1,chartObject.selector.length))
+                .validatingChartMode(chartObject.mode)
+                .validatingDataType(chartObject.width,"chart_width")
+                .validatingDataType(chartObject.title_size,"title_size")
+                .validatingDataType(chartObject.subtitle_size,"subtitle_size")
+                .validatingDataType(chartObject.transition_duration,"transition_duration")
+                .validatingFontWeight(chartObject.title_weight,"title_weight")
+                .validatingFontWeight(chartObject.subtitle_weight,"subtitle_weight");
+
+    return chartObject;
+};
+
+PykCharts.other.pictograph = function (options) {
+    var that = this;
+    var theme = new PykCharts.Configuration.Theme({});
+
+    this.execute = function () {
+        that = new PykCharts.other.processInputs(that, options);
+        var optional = options.optional,
+            otherCharts = theme.otherCharts;
+        that.showTotal = options.pictograph_show_all_images ? options.pictograph_show_all_images.toLowerCase() : otherCharts.pictograph_show_all_images;
+        that.enableTotal = options.pictograph_total_count_enable ? options.pictograph_total_count_enable.toLowerCase() : otherCharts.pictograph_total_count_enable;
+        that.enableCurrent = options.pictograph_current_count_enable ? options.pictograph_current_count_enable.toLowerCase() : otherCharts.pictograph_current_count_enable;
+        that.imgperline = options.pictograph_image_per_line ?  options.pictograph_image_per_line : otherCharts.pictograph_image_per_line;
+        that.current_count_size = options.pictograph_current_count_size ? options.pictograph_current_count_size : otherCharts.pictograph_current_count_size;
+        that.current_count_color = options.pictograph_current_count_color ? options.pictograph_current_count_color.toLowerCase() : otherCharts.pictograph_current_count_color;
+        that.current_count_weight = options.pictograph_current_count_weight ? options.pictograph_current_count_weight.toLowerCase() : otherCharts.pictograph_current_count_weight;
+        that.current_count_family = options.pictograph_current_count_family ? options.pictograph_current_count_family.toLowerCase() : otherCharts.pictograph_current_count_family;
+        that.total_count_size = options.pictograph_total_count_size ? options.pictograph_total_count_size : otherCharts.pictograph_total_count_size;
+        that.total_count_color = options.pictograph_total_count_color ? options.pictograph_total_count_color.toLowerCase() : otherCharts.pictograph_total_count_color;
+        that.total_count_weight = options.pictograph_total_count_weight ? options.pictograph_total_count_weight.toLowerCase() : otherCharts.pictograph_total_count_weight;
+        that.total_count_family = options.pictograph_total_count_family ? options.pictograph_total_count_family.toLowerCase() : otherCharts.pictograph_total_count_family;
+        that.imageWidth =  options.pictograph_image_width ? options.pictograph_image_width : otherCharts.pictograph_image_width;
+        that.imageHeight = options.pictograph_image_height ? options.pictograph_image_height : otherCharts.pictograph_image_height;
+        that.height = options.chart_height ? options.chart_height : that.width;
+        if(that.mode === "default") {
+           that.k.loading();
+        }
+        d3.json(options.data, function (e,data) {
+            that.data = data.sort(function(a,b) {
+                return b.weight - a.weight;
+            });
+            $(options.selector+" #chart-loader").remove();
+            that.render();
+        })
+    };
+
+    this.render = function () {
+
+        that.transitions = new PykCharts.Configuration.transition(that);
+
+        if(that.mode==="default") {
+            that.k.title()
+                .backgroundColor(that)
+                .export(that,"#svgcontainer","pictograph")
+                .emptyDiv()
+                .subtitle();
+        } else {
+            that.k.backgroundColor(that)
+                .export(that,"#svgcontainer","pictograph")
+                .emptyDiv();
+        }
+           
+        that.optionalFeatures()
+                .svgContainer()
+                .createChart()
+                .labelText()
+                .enableLabel();
+        if(that.mode==="default") {
+            that.k.createFooter()
+                .credits()
+                .dataSource();
+        }
+
+        $(window).on("load", function () { return that.k.resize(that.svgContainer); })
+                            .on("resize", function () { return that.k.resize(that.svgContainer); });
+    };
+
+    this.optionalFeatures = function () {
+
+        var optional = {
+            svgContainer: function () {
+                // $(options.selector).css("background-color",that.background_color);
+
+                that.svgContainer = d3.select(options.selector).append('svg')
+                    .attr("width",that.width)
+                    .attr("height",that.height)
+                    .attr("id","svgcontainer")
+                    .attr("preserveAspectRatio", "xMinYMin")
+                    .attr("viewBox", "0 0 " + that.width + " " + that.height);
+
+                that.group = that.svgContainer.append("g")
+                    // .attr("transform", "translate(100,0)")
+                    .attr("transform", "translate(" + that.imageWidth + ",0)");
+
+                that.group1 = that.svgContainer.append("g")
+                    .attr("transform","translate(0,0)");
+
+                return this;
+            },
+            createChart: function () {
+                var a = 0,b=1;
+
+                that.optionalFeatures().showTotal();
+                var counter = 0;
+                for(var j=1; j<=that.weight; j++) {
+                    if(j <= that.data[1].weight ) {
+                        that.group.append("image")
+                            .attr("xlink:href",that.data[1]["image"])
+                            // .attr("x", b *(50 + 1))
+                            // .attr("y", a *(100 + 10))
+                            .attr("x", b *(that.imageWidth + 1))
+                            .attr("y", a *(that.imageHeight + 10))
+                            .attr("width",0)
+                            // .attr("height",100)
+                            .attr("height", that.imageHeight + "px")
+                            .transition()
+                            .duration(that.transitions.duration())
+                            .attr("width", that.imageWidth + "px");
+                    }else {
+                        that.group.append("image")
+                            .attr("xlink:href",that.data[0]["image"])
+                            .attr("x", b *(that.imageWidth + 1))
+                            .attr("y", a *(that.imageHeight+ 10))
+                            // .attr("x", b *(50 + 1))
+                            // .attr("y", a *(100 + 10))
+                            .attr("width",0)
+                            // .attr("height",100)
+                            .attr("height", that.imageHeight + "px")
+                            .transition()
+                            .duration(that.transitions.duration())
+                            .attr("width", that.imageWidth + "px");
+                    }
+                    counter++;
+                    b++;
+                    if (counter >= that.imgperline) {
+                        a++;
+                        b=1;
+                        counter=0;
+                        that.group.append("text").html("<br><br>");
+                    }
+                }
+                return this;
+            },
+            showTotal: function () {
+                 if (PykCharts.boolean(that.showTotal)) {
+                    that.weight = that.data[0].weight;
+                }
+                else {
+                    that.weight = that.data[1].weight;
+                }
+                return this ;
+            },
+            enableLabel: function () {
+                if (PykCharts.boolean(that.enableTotal)) {
+                    var y_pos =  ((that.data[0].weight)/(that.imgperline));
+                    var textHeight;
+                     this.labelText();
+                     that.group1.append("text")
+                        .attr("font-family",that.total_count_family)
+                        .attr("font-size",that.total_count_size)
+                        .attr("font-weight",that.total_count_weight)
+                        .attr("fill",that.total_count_color)
+                        .text("/"+that.data[0].weight)
+                        .text(function () {
+                            textHeight =this.getBBox().height;
+                            return "/"+that.data[0].weight;
+                        })
+                        .attr("x", (that.textWidth+5))
+                        .attr("y", function () { return (((that.imageHeight * y_pos)/2) + (textHeight/2)); });
+                }
+                return this;
+            },
+            labelText: function () {
+                if (PykCharts.boolean(that.enableCurrent)) {
+                    var y_pos =  ((that.data[0].weight)/(that.imgperline));
+                    var textHeight;
+                    that.group1.append("text")
+                        .attr("x", 0)
+                        .attr("font-family",that.current_count_family)
+                        .attr("font-size",that.current_count_size)
+                        .attr("font-weight",that.current_count_weight)
+                        .attr("fill",that.current_count_color)
+                        .text(that.data[1].weight)
+                        .text(function () {
+                            textHeight =this.getBBox().height;
+                            that.textWidth = this.getBBox().width;
+                            return that.data[1].weight;
+                        })
+                        .attr("y", function () { return (((that.imageHeight * y_pos)/2)+ (textHeight/2)); });
+
+                }
+                return this;
+            }
+        }
+        return optional;
+    }
+};
+
 PykCharts.multiD = {};
 var theme = new PykCharts.Configuration.Theme({});
 
@@ -6115,7 +6278,8 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     // chartObject.axis_y_data_format = options.axis_y_data_format ? options.axis_y_data_format : multiDimensionalCharts.axis_y_data_format;
     // chartObject.axis_x_data_format = options.axis_x_data_format ? options.axis_x_data_format : multiDimensionalCharts.axis_x_data_format;
     chartObject.selector = options.selector ? options.selector : "body";
-    if(options.chart_width) {
+    chartObject.panels_enable = options.panels_enable ? options.panels_enable.toLowerCase() : multiDimensionalCharts.panels_enable;
+    if(options.chart_width && !PykCharts.boolean(chartObject.panels_enable)) {
         var targetWidth = $(options.selector).width();
         options.chart_width = targetWidth < options.chart_width ? targetWidth : options.chart_width;
     }
@@ -6165,7 +6329,8 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     chartObject.axis_x_pointer_position = PykCharts.boolean(chartObject.axis_x_enable) && options.axis_x_pointer_position ? options.axis_x_pointer_position.toLowerCase(): stylesheet.axis_x_pointer_position;
     chartObject.axis_x_position = PykCharts.boolean(chartObject.axis_x_enable) && options.axis_x_position ? options.axis_x_position.toLowerCase() : stylesheet.axis_x_position;
     chartObject.axis_x_line_color = PykCharts.boolean(chartObject.axis_x_enable) && options.axis_x_line_color ? options.axis_x_line_color.toLowerCase() : stylesheet.axis_x_line_color;
-    chartObject.axis_x_label_color = PykCharts.boolean(chartObject.axis_x_enable) && options.axis_x_label_color ? options.axis_x_label_color.toLowerCase() : stylesheet.axis_x_label_color;
+    // chartObject.axis_x_label_color = PykCharts.boolean(chartObject.axis_x_enable) && options.axis_x_label_color ? options.axis_x_label_color.toLowerCase() : stylesheet.axis_x_label_color;
+
     chartObject.axis_x_no_of_axis_value = PykCharts.boolean(chartObject.axis_x_enable) && options.axis_x_no_of_axis_value ? options.axis_x_no_of_axis_value : stylesheet.axis_x_no_of_axis_value;
     chartObject.axis_x_pointer_padding = PykCharts.boolean(chartObject.axis_x_enable) && options.axis_x_pointer_padding ? options.axis_x_pointer_padding : stylesheet.axis_x_pointer_padding;
 
@@ -6177,6 +6342,10 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     chartObject.axis_x_time_value_datatype = PykCharts.boolean(chartObject.axis_x_enable) && options.axis_x_time_value_datatype ? options.axis_x_time_value_datatype.toLowerCase() : stylesheet.axis_x_time_value_datatype;
     chartObject.axis_x_time_value_interval = PykCharts.boolean(chartObject.axis_x_enable) && options.axis_x_time_value_interval ? options.axis_x_time_value_interval : stylesheet.axis_x_time_value_interval;
 
+    chartObject.axis_x_title_color = options.axis_x_title_color ? options.axis_x_title_color.toLowerCase() : stylesheet.axis_x_title_color;
+    chartObject.axis_x_title_weight = options.axis_x_title_weight ? options.axis_x_title_weight.toLowerCase() : stylesheet.axis_x_title_weight;
+    chartObject.axis_x_title_family = options.axis_x_title_family ? options.axis_x_title_family.toLowerCase() : stylesheet.axis_x_title_family;
+    chartObject.axis_x_title_size = "axis_x_title_size" in options ? options.axis_x_title_size : stylesheet.axis_x_title_size;    
 
     chartObject.axis_x_pointer_size = "axis_x_pointer_size" in options ? options.axis_x_pointer_size : stylesheet.axis_x_pointer_size;
     chartObject.axis_x_pointer_weight = options.axis_x_pointer_weight ? options.axis_x_pointer_weight.toLowerCase() : stylesheet.axis_x_pointer_weight; 
@@ -6188,7 +6357,8 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     chartObject.axis_y_pointer_position = PykCharts.boolean(chartObject.axis_y_enable) && options.axis_y_pointer_position ? options.axis_y_pointer_position.toLowerCase() : multiDimensionalCharts.axis_y_pointer_position;
     chartObject.axis_y_position = PykCharts.boolean(chartObject.axis_y_enable) && options.axis_y_position ? options.axis_y_position.toLowerCase(): multiDimensionalCharts.axis_y_position;
     chartObject.axis_y_line_color = PykCharts.boolean(chartObject.axis_y_enable) && options.axis_y_line_color ? options.axis_y_line_color.toLowerCase() : multiDimensionalCharts.axis_y_line_color;
-    chartObject.axis_y_label_color = PykCharts.boolean(chartObject.axis_y_enable) && options.axis_y_label_color ? options.axis_y_label_color.toLowerCase() : multiDimensionalCharts.axis_y_label_color;
+    // chartObject.axis_y_label_color = PykCharts.boolean(chartObject.axis_y_enable) && options.axis_y_label_color ? options.axis_y_label_color.toLowerCase() : multiDimensionalCharts.axis_y_label_color;
+
     chartObject.axis_y_no_of_axis_value = PykCharts.boolean(chartObject.axis_y_enable) && options.axis_y_no_of_axis_value ? options.axis_y_no_of_axis_value : multiDimensionalCharts.axis_y_no_of_axis_value;
     chartObject.axis_y_pointer_padding = PykCharts.boolean(chartObject.axis_y_enable) && options.axis_y_pointer_padding ? options.axis_y_pointer_padding : multiDimensionalCharts.axis_y_pointer_padding;
 
@@ -6204,7 +6374,13 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     chartObject.axis_y_pointer_family = options.axis_y_pointer_family ? options.axis_y_pointer_family.toLowerCase() : multiDimensionalCharts.axis_y_pointer_family; 
     chartObject.axis_y_pointer_color = options.axis_y_pointer_color ? options.axis_y_pointer_color.toLowerCase() : multiDimensionalCharts.axis_y_pointer_color; 
 
-console.log(chartObject.axis_y_pointer_size,chartObject.axis_y_pointer_family,chartObject.axis_y_pointer_weight,"what is wrong")
+// console.log("helooooooooooooooooooooo")
+    chartObject.axis_y_title_color = options.axis_y_title_color ? options.axis_y_title_color : multiDimensionalCharts.axis_y_title_color;
+    chartObject.axis_y_title_weight = options.axis_y_title_weight ? options.axis_y_title_weight : multiDimensionalCharts.axis_y_title_weight;
+    chartObject.axis_y_title_family = options.axis_y_title_family ? options.axis_y_title_family : multiDimensionalCharts.axis_y_title_family;
+    chartObject.axis_y_title_size = "axis_y_title_size" in options ? options.axis_y_title_size : multiDimensionalCharts.axis_y_title_size;    
+
+// console.log(chartObject.axis_y_pointer_size,chartObject.axis_y_pointer_family,chartObject.axis_y_pointer_weight,"what is wrong")
 
     chartObject.legends_enable =  options.legends_enable ? options.legends_enable.toLowerCase() : stylesheet.legends_enable;
     chartObject.legends_display = options.legends_display ? options.legends_display.toLowerCase() : stylesheet.legends_display;
@@ -6274,7 +6450,6 @@ console.log(chartObject.axis_y_pointer_size,chartObject.axis_y_pointer_family,ch
     chartObject.highlight = options.highlight ? options.highlight : stylesheet.highlight;
     chartObject.variable_circle_size_enable = options.variable_circle_size_enable ? options.variable_circle_size_enable : multiDimensionalCharts.variable_circle_size_enable;
     // chartObject.units = options.units ? options.units : false;
-    chartObject.panels_enable = options.panels_enable ? options.panels_enable.toLowerCase() : multiDimensionalCharts.panels_enable;
     // chartObject.colorPalette = ["#b2df8a", "#1f78b4", "#33a02c", "#fb9a99", "#e31a1c", "#fdbf6f", "#ff7f00", "#cab2d6", "#6a3d9a", "#ffff99", "#b15928", "#a6cee3"];
     chartObject.export_enable = options.export_enable ? options.export_enable.toLowerCase() : stylesheet.export_enable;
     // chartObject.export_image_url = options.export_image_url ? options.export_image_url : stylesheet.export_image_url;
@@ -6498,8 +6673,8 @@ PykCharts.multiD.lineChart = function (options){
 						.yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain)
 						.yGrid(that.svgContainer,that.group,that.yScale)
 						.xGrid(that.svgContainer,that.group,that.xScale)
-						// .xAxisTitle(that.xGroup)
-						// .yAxisTitle(that.yGroup);
+						.xAxisTitle(that.xGroup)
+						.yAxisTitle(that.yGroup);
 
 
 			}
@@ -6565,8 +6740,8 @@ PykCharts.multiD.lineChart = function (options){
 
 				that.k.xAxis(that.svgContainer,that.xGroup,that.xScale,that.extra_left_margin,that.xdomain)
 						.yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain)
-						// .xAxisTitle(that.xGroup)
-						// .yAxisTitle(that.yGroup);
+						.xAxisTitle(that.xGroup)
+						.yAxisTitle(that.yGroup);
 
 
 			}
@@ -6575,6 +6750,7 @@ PykCharts.multiD.lineChart = function (options){
             $(window).on("load", function () { return that.k.resize(that.svgContainer,"yes"); })
                         .on("resize", function () { return that.k.resize(that.svgContainer,"yes"); });
         } else {
+        	console.log("Multiple Containers");
         	$(window).on("load", function () { return that.k.resize(null); })
                         .on("resize", function () { return that.k.resize(null); });
         }
@@ -6695,12 +6871,12 @@ PykCharts.multiD.lineChart = function (options){
 			},
 			axisContainer : function () {
 
-				if(PykCharts.boolean(that.axis_x_enable)){
+				if(PykCharts.boolean(that.axis_x_enable) || that.axis_x_title){
 					that.xGroup = that.group.append("g")
 						.attr("id","xaxis")
 						.attr("class", "x axis");
 				}
-				if(PykCharts.boolean(that.axis_y_enable)){
+				if(PykCharts.boolean(that.axis_y_enable) || that.axis_y_title) {
 					that.yGroup = that.group.append("g")
 						.attr("id","yaxis")
 						.attr("class","y axis");
@@ -7472,12 +7648,12 @@ PykCharts.multiD.areaChart = function (options){
     			return this;
 			},
 			axisContainer : function () {
-	        	if(PykCharts.boolean(that.axis_x_enable)){
+	        	if(PykCharts.boolean(that.axis_x_enable) || options.axis_x_title){
 					that.xGroup = that.group.append("g")
 							.attr("id","xaxis")
 							.attr("class", "x axis");
 				}
-				if(PykCharts.boolean(that.axis_y_enable)){
+				if(PykCharts.boolean(that.axis_y_enable) || options.axis_y_title){
 					that.yGroup = that.group.append("g")
 						.attr("id","yaxis")
 						.attr("class","y axis");
@@ -8018,7 +8194,7 @@ PykCharts.multiD.barChart = function(options){
 
         }
         that.k.xAxis(that.svgContainer,that.xGroup,that.xScale,undefined,undefined,that.legendsGroup_height)
-                .xAxisTitle(that.xGroup);
+                .xAxisTitle(that.xGroup,that.legendsGroup_height);
 
         if(PykCharts.boolean(that.legends_enable)) {
             $(window).on("load", function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); })
@@ -8070,7 +8246,7 @@ PykCharts.multiD.barChart = function(options){
                 return this;
             },
             axisContainer : function () {
-                if(PykCharts.boolean(that.axis_y_enable)) {
+                if(that.axis_y_title) {
 
                     var axis_line = that.group.selectAll(".axis-line")
                         .data(["line"]);
@@ -8098,7 +8274,10 @@ PykCharts.multiD.barChart = function(options){
                             .attr("y", -60)
                             .attr("dy", ".71em")
                             .style("text-anchor", "end")
-                            .style("fill",that.axis_x_label_color)
+                            .style("fill",that.axis_y_title_color)
+                            .style("font-weight",that.axis_y_title_weight)
+                            .style("font-family",that.axis_y_title_family)
+                            .style("font-size",that.axis_y_title_size)
                             .text(that.axis_y_title);
 
                     } else if(that.axis_y_position === "right") {
@@ -8114,14 +8293,17 @@ PykCharts.multiD.barChart = function(options){
                             .attr("y", (that.width-that.margin_left-that.margin_right)+12)
                             .attr("dy", ".71em")
                             .style("text-anchor", "end")
-                            .style("fill",that.axis_x_label_color)
+                            .style("fill",that.axis_y_title_color)
+                            .style("font-weight",that.axis_y_title_weight)
+                            .style("font-family",that.axis_y_title_family)
+                            .style("font-size",that.axis_y_title_size)
                             .text(that.axis_y_title);
                         // that.xGroup.attr("transform","translate(0,"+(that.width-that.margin.left-that.margin.right)+")");
                     }
                         // .style("stroke","none");
                 }
                 // console.log(PykCharts.boolean(that.axis_x_enable),"is boolean");
-                if(PykCharts.boolean(that.axis_x_enable)) {
+                if(PykCharts.boolean(that.axis_x_enable) || that.axis_x_title) {
                     that.xGroup = that.group.append("g")
                         .attr("id","xaxis")
                         .attr("class","x axis");
@@ -8443,7 +8625,7 @@ PykCharts.multiD.barChart = function(options){
                 return this;
             },
             highlightRect : function () {
-                if(that.no_of_groups > 1) {
+                if(that.no_of_groups > 1 && PykCharts.boolean(that.highlight)) {
                     function ascending( a, b ) {
                         return a - b;
                     }
@@ -9006,7 +9188,7 @@ PykCharts.multiD.columnChart = function(options){
                 return this;
             },
             axisContainer : function () {
-                if(PykCharts.boolean(that.axis_x_enable)) {
+                if(that.axis_x_title) {
                     var axis_line = that.group.selectAll(".axis-line")
                         .data(["line"]);
 
@@ -9032,8 +9214,11 @@ PykCharts.multiD.columnChart = function(options){
                                 .attr("y", that.height -that.margin_bottom - that.margin_top - that.legendsGroup_height)
                                 // .attr("dy", -8)
                                 .attr("dy", that.margin_top + 10)
-                                .style("fill", that.axis_x_label_color)
                                 .style("text-anchor", "end")
+                                .style("fill",that.axis_x_title_color)
+                                .style("font-weight",that.axis_x_title_weight)
+                                .style("font-family",that.axis_x_title_family)
+                                .style("font-size",that.axis_x_title_size)
                                 .text(that.axis_x_title);
                     } else if(that.axis_x_position === "top") {
                         axis_line.attr("y1",0)
@@ -9044,16 +9229,19 @@ PykCharts.multiD.columnChart = function(options){
                             .attr("class", "x axis")
                             .style("stroke","none")
                             .append("text")
-                            .attr("x", (that.width - that.margin_left - that.margin_right)/2)
-                            .attr("y", -40)
-                            // .attr("dy", -8)
-                            .attr("dy", that.margin_top + that.legendsGroup_height + 10)
-                            .style("fill", that.axis_x_label_color)
-                            .style("text-anchor", "end")
-                            .text(that.axis_x_title);
+                                .attr("x", (that.width - that.margin_left - that.margin_right)/2)
+                                .attr("y", -40)
+                                // .attr("dy", -8)
+                                .attr("dy", that.margin_top + that.legendsGroup_height + 10)
+                                .style("text-anchor", "end")
+                                .style("fill",that.axis_x_title_color)
+                                .style("font-weight",that.axis_x_title_weight)
+                                .style("font-family",that.axis_x_title_family)
+                                .style("font-size",that.axis_x_title_size)
+                                .text(that.axis_x_title);
                     }                    
                 }
-                if(PykCharts.boolean(that.axis_y_enable)) {
+                if(PykCharts.boolean(that.axis_y_enable) || that.axis_y_enable) {
                     that.yGroup = that.group.append("g")
                         .attr("id","yaxis")
                         .attr("class","y axis");
@@ -9285,7 +9473,7 @@ PykCharts.multiD.columnChart = function(options){
                 return this;
             },
             highlightRect : function () {
-                if(that.no_of_groups > 1) {
+                if(that.no_of_groups > 1 && PykCharts.boolean(that.highlight)) {
                     function ascending( a, b ) {
                         return a - b;
                     }
@@ -9779,7 +9967,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
 
                     that.k.xAxis(that.svgContainer,that.xGroup,that.x,that.extra_left_margin,that.xdomain,that.legendsGroup_height)
                         .yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain)
-                        .xAxisTitle(that.xGroup)
+                        .xAxisTitle(that.xGroup,that.legendsGroup_height)
                         .yAxisTitle(that.yGroup);
         
                     if((i+1)%4 === 0 && i !== 0) {
@@ -9821,7 +10009,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
 
                 that.k.xAxis(that.svgContainer,that.xGroup,that.x,that.extra_left_margin,that.xdomain,that.legendsGroup_height)
                     .yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain)
-                    .xAxisTitle(that.xGroup)
+                    .xAxisTitle(that.xGroup,that.legendsGroup_height)
                     .yAxisTitle(that.yGroup);
                     // .yGrid(that.svgContainer,that.group,that.yScale)
                     // .xGrid(that.svgContainer,that.group,that.x);
@@ -9875,7 +10063,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
 
                     that.k.xAxis(that.svgContainer,that.xGroup,that.x,that.extra_left_margin,that.xdomain,that.legendsGroup_height)
                         .yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain)
-                        .xAxisTitle(that.xGroup)
+                        .xAxisTitle(that.xGroup,that.legendsGroup_height)
                         .yAxisTitle(that.yGroup);
         
                     if((i+1)%4 === 0 && i !== 0) {
@@ -9916,7 +10104,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
 
                 that.k.xAxis(that.svgContainer,that.xGroup,that.x,that.extra_left_margin,that.xdomain,that.legendsGroup_height)
                     .yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain)
-                    .xAxisTitle(that.xGroup)
+                    .xAxisTitle(that.xGroup,that.legendsGroup_height)
                     .yAxisTitle(that.yGroup);
             }
 
@@ -9964,14 +10152,14 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                     .attr("transform","translate("+(that.margin_left)+","+(that.margin_top)+")")
                     .attr("id","main2");
 
-                if(PykCharts.boolean(that.axis_x_enable)) {
+                if(PykCharts.boolean(that.axis_x_enable) || that.axis_x_title) {
                     that.xGroup = that.group.append("g")
                         .attr("class", "x axis")
                         .attr("id","xaxis")
                         .style("stroke","black");
                 }
                 
-                if(PykCharts.boolean(that.axis_y_enable)){
+                if(PykCharts.boolean(that.axis_y_enable) || that.axis_y_title){
                     that.yGroup = that.group.append("g")
                         .attr("class", "y axis")
                         .attr("id","yaxis")
@@ -10984,10 +11172,10 @@ PykCharts.multiD.spiderWeb = function (options) {
                          .attr("fill",that.legends_text_color)
                         .attr("pointer-events","none")
                         .style("font-family", that.legends_text_family)
-                        .attr("font-size",that.legends_text_size);
+                        .attr("font-size",that.legends_text_size)
+                        .style("font-weight",that.legends_text_weight);
 
                     that.legends_text.attr("class","legends_text")
-                        .attr("fill","black")
                         .attr(text_parameter1, text_parameter1value)
                         .attr(text_parameter2, text_parameter2value)
                         .text(function (d) { return d.group });
@@ -11170,8 +11358,8 @@ PykCharts.maps.processInputs = function (chartObject, options) {
     chartObject.tooltip_position_left = options.tooltip_position_left ? options.tooltip_position_left : mapsTheme.tooltip_position_left;
     chartObject.tooltipTopCorrection = d3.select(chartObject.selector).style("top");
     chartObject.tooltipLeftCorrection = d3.select(chartObject.selector).style("left");
-
-    chartObject.default_color = options.chart_color ? options.chart_color : stylesheet.chart_color;
+    chartObject.chart_color = options.chart_color ? options.chart_color : [];
+    chartObject.default_color = stylesheet.chart_color;
     chartObject.total_no_of_colors = options.total_no_of_colors && _.isNumber(parseInt(options.total_no_of_colors,10))? parseInt(options.total_no_of_colors,10) : mapsTheme.total_no_of_colors;
     chartObject.color_mode = options.color_mode ? options.color_mode.toLowerCase() : stylesheet.color_mode;
     chartObject.palette_color = options.palette_color ? options.palette_color : mapsTheme.palette_color;
@@ -11356,20 +11544,20 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         that.k.title()
             .backgroundColor(that)
             // .subtitle();
-            
+
         if(type === "oneLayer") {
             that.k
             .export(that,"#svgcontainer",type)
             .emptyDiv()
-            .subtitle();            
+            .subtitle();
         }
         // console.log(that.color_palette_data,"color_palette_data",that.palette_color);
         that.current_palette = _.where(that.color_palette_data, {name:that.palette_color, number:that.total_no_of_colors})[0];
-        
+
         if (type === "timeline"){
              that.k.subtitle();
         }
-       
+
         that.optionalFeatures()
             .svgContainer()
             .legendsContainer(that.legends_enable)
@@ -11396,11 +11584,11 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         }
 
         if(PykCharts.boolean(that.legends_enable) && that.color_mode === "saturation") {
-            $(window).on("load", function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); })
-                .on("resize", function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); });
+            $(document).ready(function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); });
+            $(window).on("resize", function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); });
         } else {
-            $(window).on("load", function () { return that.k.resize(that.svgContainer,""); })
-                .on("resize", function () { return that.k.resize(that.svgContainer,""); });
+            $(document).ready(function () { return that.k.resize(that.svgContainer,""); });
+            $(window).on("resize", function () { return that.k.resize(that.svgContainer,""); });
         }
 
     };
@@ -11565,17 +11753,15 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     .style("stroke-dasharray", that.border.style())
                     .on("mouseover", function (d) {
                         if (PykCharts.boolean(that.tooltip_enable)) {
+                            var tooltip_text = ((_.where(that.data, {iso2: d.properties.iso_a2})[0]).tooltip) ? ((_.where(that.data, {iso2: d.properties.iso_a2})[0]).tooltip) : ("<table><thead><th colspan='2'><b>"+d.properties.NAME_1+"</b></th></thead><tr><td>Size</td><td><b>"+((_.where(that.data, {iso2: d.properties.iso_a2})[0]).size)+"</b></td></tr></table>");
                             ttp.style("visibility", "visible");
-                            ttp.html((_.where(that.data, {iso2: d.properties.iso_a2})[0]).tooltip);
+                            ttp.html(tooltip_text);
                             if (that.tooltip_mode === "moving") {
                                 ttp.style("top", function () {
-
                                         return (d3.event.pageY - 20 ) + "px";
                                     })
                                     .style("left", function () {
-
                                         return (d3.event.pageX + 20 ) + "px";
-
                                     });
                             } else if (that.tooltip_mode === "fixed") {
                                 ttp.style("top", (that.tooltip_position_top) + "px")
@@ -11624,7 +11810,9 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             obj = _.where(that.data, {iso2: d.properties.iso_a2});
         if (obj.length > 0) {
             if (that.color_mode === "color") {
-                if (obj.length > 0 && obj[0].color !== "") {
+                if(that.chart_color[0]) {
+                    return that.chart_color[0];
+                } else if (obj.length > 0 && obj[0].color !== "") {
                     return obj[0].color;
                 }
                 return that.default_color[0];
@@ -11875,7 +12063,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
 
         var bg,child1;
         bgColor(options.selector);
-        
+
         function bgColor(child) {
             child1 = child;
             bg = $(child).css("background-color");
@@ -11943,7 +12131,6 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                 clearInterval(that.play_interval);
                 that.timeline_status = "paused";
                 that.interval_index = interval;
-            
             } else {
                 that.timeline_status = "playing";
                 that.play.attr("xlink:href",that.pause_image_url);
@@ -12002,8 +12189,12 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         var bbox = d3.select(that.selector+" .axis").node().getBBox();
             drag = d3.behavior.drag()
                     .origin(Object)
-                    .on("drag",dragmove);
+                    .on("drag",dragmove)
+                    .on("dragend", function () {
+                        $("body").css("cursor","default");
+                    });
         function dragmove (d) {
+            $("body").css("cursor","pointer");
             if (that.timeline_status !== "playing") {
                 var x = d3.event.sourceEvent.pageX - (that.margin_left),
                     x_range = [],
@@ -12072,6 +12263,15 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
 
 (function () {
 
+    var urls = [
+        'https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/js/jquery-1.11.1.min.js'
+      , 'https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/js/d3.min.js'
+      , '../lib/underscore-min.js'
+      , 'https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/js/topojson.js'
+      , 'https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/js/custom-hive.min.js'
+      , '../lib/jquery.colourbrightness.js'
+    ];
+
     function importFiles (url) {
         var include = document.createElement('script');
         include.type = 'text/javascript';
@@ -12091,58 +12291,14 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         var s = document.getElementsByTagName('link')[0];
         s.parentNode.insertBefore(include, s);
     };
-    try {
-        if (!d3) {
-            importFiles('https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/js/d3.min.js');
+    for (var i = 0; i < urls.length; i++) {
+        try {
+            if ((!$ && !jQuery) || !d3 || !_ || !d3.customHive || !topojson || !$("body").colourBrightness) {
+                importFiles(urls[i]);
+            }
         }
-    }
-    catch (e) {
-        importFiles('https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/js/d3.min.js');
-    }
-    try {
-        if (!_) {
-            importFiles('https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/js/underscore-min.js');
+        catch (e) {
+            importFiles(urls[i]);
         }
-    }
-    catch (e) {
-        importFiles('https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/js/underscore-min.js');
-    }
-    try {
-        if (!$ && !jQuery) {
-            console.log("jquery");
-            importFiles('https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/js/jquery-1.11.1.min.js');
-        }
-    }
-    catch (e) {
-        console.log("catch jquery");
-        importFiles('https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/js/jquery-1.11.1.min.js');
-    }
-    try {
-        if (!topojson) {
-            importFiles('https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/js/topojson.js');
-        }
-    }
-    catch (e) {
-          importFiles('https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/js/topojson.js');
-    }
-    try {
-        if (!d3.customHive) {
-            importFiles('https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/js/custom-hive.min.js');
-        }
-    }
-    catch (e) {
-        importFiles('https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/js/custom-hive.min.js');
-    }
-    try {
-        if (!$("body").colourBrightness) {
-            // console.log($,"dollar");
-            importFiles("../lib/jquery.colourbrightness.js");
-            // importFiles('https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/js/jquery.colourbrightness.js');
-        }
-    }
-    catch (e) {
-        // console.log(jQuery,"dollar");
-        importFiles("../lib/jquery.colourbrightness.js");
-        // importFiles('https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/js/jquery.colourbrightness.js');
     }
 })();

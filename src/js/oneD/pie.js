@@ -187,7 +187,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
 
             that.k.title()
                 .backgroundColor(that)
-                .export(that,"#container",type)
+                .export(that,"#svgcontainer",type)
                 .emptyDiv()
                 .subtitle();
 
@@ -213,7 +213,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
         } else if(that.mode.toLowerCase() == "infographics") {
             that.new_data = that.data;
             that.k.backgroundColor(that)
-                .export(that,"#container",type)
+                .export(that,"#svgcontainer",type)
                     .emptyDiv();
             that.optionalFeatures().svgContainer()
                     .set_start_end_angle()
@@ -246,7 +246,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                     })
                     .attr("preserveAspectRatio", "xMinYMin")
                     .attr("viewBox", "0 0 " + that.width + " " + that.height)
-                    .attr("id","container")
+                    .attr("id","svgcontainer")
                     .attr("class","svgcontainer");
                 that.group = that.svgContainer.append("g")
                     .attr("transform","translate("+(that.width/2)+","+that.height_translate+")")

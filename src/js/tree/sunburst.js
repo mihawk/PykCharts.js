@@ -83,6 +83,7 @@ PykCharts.tree.sunburst = function (options) {
             svgContainer : function () {
                 that.svg = d3.select(options.selector)
                     .attr("class", "Pykcharts-sunburst")
+                    .attr("id","svgcontainer")
                     .append("svg")
                     .attr("width", that.width)
                     .attr("height", that.height);

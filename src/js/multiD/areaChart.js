@@ -525,11 +525,10 @@ PykCharts.multiD.areaChart = function (options){
 	}
 	that.annotation = function () {
 		that.line = d3.svg.line()
-                .interpolate('linear-closed')
                 .x(function(d,i) { return d.x; })
                 .y(function(d,i) { return d.y; });
 		if(that.type === "areaChart") {
-			var line_size = 10,annotation = [];
+			var line_size = 15,annotation = [];
 			that.new_data[0].data.map(function (d) {
 				if(d.annotation) {
 					annotation.push({
@@ -548,7 +547,7 @@ PykCharts.multiD.areaChart = function (options){
                 	var a = [
                 		{
                 			x:parseInt(that.xScale(d.x))+that.extra_left_margin+that.margin_left,
-                			y:parseInt(that.yScale(d.y)-(line_size)+that.margin_top)
+                			y:parseInt(that.yScale(d.y)+that.margin_top - line_size)
                 		},
                 		{
                 			x:parseInt(that.xScale(d.x))+that.extra_left_margin+that.margin_left,
@@ -557,12 +556,13 @@ PykCharts.multiD.areaChart = function (options){
                 	];
                 	return that.line(a);
                 })
+                // .attr("stroke-width",0.5)
                 .attr("stroke",that.annotation_border_color);
             anno.exit()
             	.remove();
             that.k.annotation(that.selector + " #svg-1",annotation, that.xScale,that.yScale)
 		} else if(that.type === "stackedAreaChart" && that.mode === "default") {
-			var line_size = 10,annotation = [];
+			var line_size = 15,annotation = [];
 			for(i=0;i<that.new_data_length;i++) {
 				that.new_data[i].data.map(function (d) {
 					if(d.annotation) {
