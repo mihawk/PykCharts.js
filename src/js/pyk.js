@@ -536,6 +536,7 @@ PykCharts.Configuration = function (options){
                             h[i] = this.getBBox().height + 10;
                             return d.annotation;
                         })
+                        .attr("fill",options.annotation_font_color)
                         .style("pointer-events","none");
 
                     annotation_rect.attr("x",function (d,i) {
@@ -546,8 +547,8 @@ PykCharts.Configuration = function (options){
                         })
                         .attr("width",function (d,i) { return w[i]; })
                         .attr("height",function (d,i) { return h[i]; })
-                        .attr("fill","#eeeeee")
-                        .attr("stroke","darkgray")
+                        .attr("fill",options.annotation_background_color)
+                        .attr("stroke",options.annotation_border_color)
                         .style("pointer-events","none");
                 },options.transitions.duration());
                 annotation_text.exit()
@@ -1587,7 +1588,7 @@ configuration.mouseEvent = function (options) {
                                             }
                                             if(cond) {
                                                 active_y_tick.push(new_data[a].data[b].y);
-                                                test.push(yScale(new_data[a].data[b].y+new_data[a].data[b].y0) + top);
+                                                test.push(yScale(new_data[a].data[b].y+new_data[a].data[b].y0) + top + options.legendsGroup_height);
                                                 if(!PykCharts.boolean(color_from_data)) {
                                                     tt_row += "<tr><td>"+new_data[a].name+"</td><td><b>"+new_data[a].data[b].tooltip+"</b></td></tr>";
                                                     colspan = 2;
@@ -2067,7 +2068,7 @@ configuration.Theme = function(){
         "legends_enable": "yes",
         "legends_display": "horizontal",
         "legends_text_size": 13,
-        "legends_text_color": "white",
+        "legends_text_color": "#1D1D1D",
         "legends_text_weight": "normal",
         "legends_text_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
 
@@ -2256,7 +2257,7 @@ configuration.Theme = function(){
         "tooltip_position_top": 0,
         "tooltip_position_left": 0,
 
-        "timeline_duration": 1000,
+        "timeline_duration": 1,
         "timeline_margin_top": 5,
         "timeline_margin_right": 25,
         "timeline_margin_bottom": 25,
