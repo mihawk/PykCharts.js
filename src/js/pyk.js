@@ -536,6 +536,7 @@ PykCharts.Configuration = function (options){
                             h[i] = this.getBBox().height + 10;
                             return d.annotation;
                         })
+                        .attr("fill",options.annotation_font_color)
                         .style("pointer-events","none");
 
                     annotation_rect.attr("x",function (d,i) {
@@ -546,8 +547,8 @@ PykCharts.Configuration = function (options){
                         })
                         .attr("width",function (d,i) { return w[i]; })
                         .attr("height",function (d,i) { return h[i]; })
-                        .attr("fill","#eeeeee")
-                        .attr("stroke","darkgray")
+                        .attr("fill",options.annotation_background_color)
+                        .attr("stroke",options.annotation_border_color)
                         .style("pointer-events","none");
                 },options.transitions.duration());
                 annotation_text.exit()
@@ -1594,7 +1595,7 @@ configuration.mouseEvent = function (options) {
                                             }
                                             if(cond) {
                                                 active_y_tick.push(new_data[a].data[b].y);
-                                                test.push(yScale(new_data[a].data[b].y+new_data[a].data[b].y0) + top);
+                                                test.push(yScale(new_data[a].data[b].y+new_data[a].data[b].y0) + top + options.legendsGroup_height);
                                                 if(!PykCharts.boolean(color_from_data)) {
                                                     tt_row += "<tr><td>"+new_data[a].name+"</td><td><b>"+new_data[a].data[b].tooltip+"</b></td></tr>";
                                                     colspan = 2;
