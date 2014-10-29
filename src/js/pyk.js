@@ -2166,7 +2166,7 @@ configuration.Theme = function(){
 
         "curvy_lines_enable": "no",
 
-        "annotation_border_color" : "darkgray",
+        "annotation_border_color" : "black",
         "annotation_background_color" : "#EEEEEE",
         "annotation_font_color" : "black",
 
