@@ -137,10 +137,17 @@ PykCharts.boolean = function(d) {
 };
 
 PykCharts.getEvent = function () {
+  function getSourceEvent() {
+    try {
+      return d3.event.sourceEvent;
+    } catch (e) {
+      return d3.event;
+    }
+  }
   try {
-    return event || d3.event;
+    return event || getSourceEvent();
   } catch (e) {
-    return d3.event;
+    return getSourceEvent();
   }
 }
 
@@ -884,7 +891,7 @@ PykCharts.Configuration = function (options){
                     options.mouseEvent.tooltipHide(d);
                 });
             }
-            
+
             return this;
         },
         ordinalYAxisTickFormat : function (domain) {
