@@ -42,10 +42,10 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
     // console.log(options.mode,"options");
 
     chartObject.selector = options.selector ? options.selector : stylesheet.selector;
-    if(options.chart_width) {
-        var targetWidth = $(options.selector).width();
-        options.chart_width = targetWidth < options.chart_width ? targetWidth : options.chart_width;
-    }
+    // if(options.chart_width) {
+    //     var targetWidth = $(options.selector).width();
+    //     options.chart_width = targetWidth < options.chart_width ? targetWidth : options.chart_width;
+    // }
     chartObject.width = options.chart_width  ? options.chart_width : stylesheet.chart_width;
     // chartObject.height = options.chart_height && _.isNumber(options.chart_height) ? options.chart_height : stylesheet.chart_height;
     // chartObject.width = optional && optional.chart && _.isNumber(optional.chart.width) ? optional.chart.width : stylesheet.chart.width;

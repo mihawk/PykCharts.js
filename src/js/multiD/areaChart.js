@@ -95,8 +95,8 @@ PykCharts.multiD.areaChart = function (options){
   		}
 
   		that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
-  		$(window).on("load", function () { return that.k.resize(that.svgContainer,"yes"); })
-                        .on("resize", function () { return that.k.resize(that.svgContainer,"yes"); });
+  		$(document).ready(function () { return that.k.resize(that.svgContainer,"yes"); })
+        $(window).on("resize", function () { return that.k.resize(that.svgContainer,"yes"); });
 	};
 
 	this.refresh = function (){

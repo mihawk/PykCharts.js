@@ -292,15 +292,15 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
         }
         if(!PykCharts.boolean(that.panels_enable)) {
             if(type === "scatterplot" && PykCharts.boolean(that.legends_enable) && PykCharts.boolean(that.variable_circle_size_enable) && that.map_group_data[1]) {
-                $(window).on("load", function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); })
-                            .on("resize", function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); });
+                $(document).ready(function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); })
+                $(window).on("resize", function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); });
             } else {
-                $(window).on("load", function () { return that.k.resize(that.svgContainer); })
-                            .on("resize", function () { return that.k.resize(that.svgContainer); });
+                $(document).ready(function () { return that.k.resize(that.svgContainer); })
+                $(window).on("resize", function () { return that.k.resize(that.svgContainer); });
             }
         } else {
-            $(window).on("load", function () { return that.k.resize(); })
-                .on("resize", function () { return that.k.resize(); });
+            $(document).ready(function () { return that.k.resize(); })
+            $(window).on("resize", function () { return that.k.resize(); });
         }
     };
 
