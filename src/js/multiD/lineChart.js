@@ -575,7 +575,7 @@ PykCharts.multiD.lineChart = function (options){
 						      		.on("click",function (d) {
 						      			if(that.type === "multilineChart") {
 						      				that.clicked = true;
-						      				that.highlightLine(d3.event.target,that.clicked);
+						      				that.highlightLine(PykCharts.getEvent().target,that.clicked);
 										}
 									})
 									.on("mouseover",function (d) {
