@@ -362,7 +362,7 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     
     chartObject.axis_x_enable = options.axis_x_enable ? options.axis_x_enable.toLowerCase() : stylesheet.axis_x_enable;
     chartObject.axis_onhover_hightlight_enable = PykCharts.boolean(chartObject.axis_x_enable) && options.axis_onhover_hightlight_enable ? options.axis_onhover_hightlight_enable.toLowerCase() : multiDimensionalCharts.axis_onhover_hightlight_enable;
-    chartObject.axis_x_title = PykCharts.boolean(chartObject.axis_x_enable) && options.axis_x_title ? options.axis_x_title : stylesheet.axis_x_title;
+    chartObject.axis_x_title = options.axis_x_title ? options.axis_x_title : stylesheet.axis_x_title;
     chartObject.axis_x_pointer_position = PykCharts.boolean(chartObject.axis_x_enable) && options.axis_x_pointer_position ? options.axis_x_pointer_position.toLowerCase(): stylesheet.axis_x_pointer_position;
     chartObject.axis_x_position = PykCharts.boolean(chartObject.axis_x_enable) && options.axis_x_position ? options.axis_x_position.toLowerCase() : stylesheet.axis_x_position;
     chartObject.axis_x_line_color = PykCharts.boolean(chartObject.axis_x_enable) && options.axis_x_line_color ? options.axis_x_line_color.toLowerCase() : stylesheet.axis_x_line_color;
@@ -390,7 +390,7 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     chartObject.axis_x_pointer_color = options.axis_x_pointer_color ? options.axis_x_pointer_color.toLowerCase() : stylesheet.axis_x_pointer_color; 
 
     chartObject.axis_y_enable = options.axis_y_enable ? options.axis_y_enable.toLowerCase() : multiDimensionalCharts.axis_y_enable;
-    chartObject.axis_y_title = PykCharts.boolean(chartObject.axis_y_enable) && options.axis_y_title ? options.axis_y_title : multiDimensionalCharts.axis_y_title;
+    chartObject.axis_y_title =  options.axis_y_title ? options.axis_y_title : multiDimensionalCharts.axis_y_title;
     chartObject.axis_y_pointer_position = PykCharts.boolean(chartObject.axis_y_enable) && options.axis_y_pointer_position ? options.axis_y_pointer_position.toLowerCase() : multiDimensionalCharts.axis_y_pointer_position;
     chartObject.axis_y_position = PykCharts.boolean(chartObject.axis_y_enable) && options.axis_y_position ? options.axis_y_position.toLowerCase(): multiDimensionalCharts.axis_y_position;
     chartObject.axis_y_line_color = PykCharts.boolean(chartObject.axis_y_enable) && options.axis_y_line_color ? options.axis_y_line_color.toLowerCase() : multiDimensionalCharts.axis_y_line_color;
@@ -411,13 +411,10 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     chartObject.axis_y_pointer_family = options.axis_y_pointer_family ? options.axis_y_pointer_family.toLowerCase() : multiDimensionalCharts.axis_y_pointer_family; 
     chartObject.axis_y_pointer_color = options.axis_y_pointer_color ? options.axis_y_pointer_color.toLowerCase() : multiDimensionalCharts.axis_y_pointer_color; 
 
-console.log("helooooooooooooooooooooo")
     chartObject.axis_y_title_color = options.axis_y_title_color ? options.axis_y_title_color : multiDimensionalCharts.axis_y_title_color;
     chartObject.axis_y_title_weight = options.axis_y_title_weight ? options.axis_y_title_weight : multiDimensionalCharts.axis_y_title_weight;
     chartObject.axis_y_title_family = options.axis_y_title_family ? options.axis_y_title_family : multiDimensionalCharts.axis_y_title_family;
     chartObject.axis_y_title_size = "axis_y_title_size" in options ? options.axis_y_title_size : multiDimensionalCharts.axis_y_title_size;    
-
-console.log(chartObject.axis_y_pointer_size,chartObject.axis_y_pointer_family,chartObject.axis_y_pointer_weight,"what is wrong")
 
     chartObject.legends_enable =  options.legends_enable ? options.legends_enable.toLowerCase() : stylesheet.legends_enable;
     chartObject.legends_display = options.legends_display ? options.legends_display.toLowerCase() : stylesheet.legends_display;

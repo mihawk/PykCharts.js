@@ -183,7 +183,7 @@ PykCharts.multiD.columnChart = function(options){
                 return this;
             },
             axisContainer : function () {
-                if(that.axis_x_title) {
+                if(PykCharts.boolean(that.x_axis_enable)) {
                     var axis_line = that.group.selectAll(".axis-line")
                         .data(["line"]);
 
@@ -198,7 +198,14 @@ PykCharts.multiD.columnChart = function(options){
                             .attr("stroke",that.axis_x_line_color);
 
                     axis_line.exit().remove();
+                }
 
+                if(PykCharts.boolean(that.axis_y_enable) || that.axis_y_enable) {
+                    that.yGroup = that.group.append("g")
+                        .attr("id","yaxis")
+                        .attr("class","y axis");
+                }
+                if(that.axis_x_title) {
                     if (that.axis_x_position === "bottom") {
                         that.xGroup = that.group.append("g")
                             .attr("id","xaxis")
@@ -215,6 +222,7 @@ PykCharts.multiD.columnChart = function(options){
                                 .style("font-family",that.axis_x_title_family)
                                 .style("font-size",that.axis_x_title_size)
                                 .text(that.axis_x_title);
+
                     } else if(that.axis_x_position === "top") {
                         axis_line.attr("y1",0)
                             .attr("y2",0);
@@ -235,11 +243,6 @@ PykCharts.multiD.columnChart = function(options){
                                 .style("font-size",that.axis_x_title_size)
                                 .text(that.axis_x_title);
                     }                    
-                }
-                if(PykCharts.boolean(that.axis_y_enable) || that.axis_y_enable) {
-                    that.yGroup = that.group.append("g")
-                        .attr("id","yaxis")
-                        .attr("class","y axis");
                 }
                 return this;
             },
@@ -395,7 +398,10 @@ PykCharts.multiD.columnChart = function(options){
                             return d.x;
                         })
                         .attr("text-anchor", "middle")
-                        .attr("fill",that.axis_x_labelColor)
+                        .attr("fill",that.axis_x_pointer_color)
+                        .attr("font-size",that.axis_x_pointer_size)
+                        .style("font-weight",that.axis_x_pointer_weight)
+                        .style("font-family",that.axis_x_pointer_family)
                         .text(function(d){
                             return d.name;
                         })
@@ -730,16 +736,37 @@ PykCharts.multiD.columnChart = function(options){
             return value[0].length;
         });
 
-        var new_data = _.map(data,function (d,i){
-            var value = _.values(d);
-            while(value[0].length < that.no_of_groups) {
-                var key = _.keys(d);
-                var stack = { "name": "stack", "tooltip": "null", "color": "white", "val": 0/*, highlight: false*/ };
-                var group = {"group3":[stack]};
-                data[i][key[0]].push(group);
-                value = _.values(d);
-            }
+        that.group_data;
+
+        for(var i =0; i<that.no_of_groups;i++) {
+            if(_.values(data[i])[0].length === that.no_of_groups) {
+                that.group_data = _.values(data[i])[0];
+                break;
+            }            
+        }
+
+        that.get_unique_group = _.map(that.group_data,function(d,i) {
+            return _.keys(d)[0];
         });
+
+        for(var i = 0;i<data.length;i++) {
+            var value = _.values(data[i]);
+            var group = value[0];
+
+            if(value[0].length < that.no_of_groups) {
+                for(var k=0; k<that.no_of_groups;k++) {         
+                    var value = _.values(data[i]);
+                    var group = value[0];
+                    if(_.keys(group[k])[0] != that.get_unique_group[k]) {                        
+                        var stack = { "name": "stack", "tooltip": "null", "color": "white", "val": 0, /*highlight: false*/ };
+                        var missing_group = that.get_unique_group[k];
+                        _.values(data[i])[0].splice(k, 0, {});
+                        _.values(data[i])[0][k][missing_group] = [stack];
+                    }
+                }
+            }
+        }
+        console.log(data,"data")
         // console.log(data,"new_data");
         return data;
     };

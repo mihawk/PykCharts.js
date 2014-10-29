@@ -82,7 +82,7 @@
                     real_time_charts_refresh_frequency: 0,
                     background_color: "white",
                     axis_onhover_hightlight_enable: "YES",
-                    axis_x_enable: "Yes",
+                    axis_x_enable: "yes",
                     axis_x_title : "Month",
                     axis_x_position: "bottom",
                     axis_x_pointer_position: "bottom",
@@ -101,14 +101,11 @@
 
 
                     axis_y_enable: "yes",
-                    // axis_y_title: "hellllo",
-
                     axis_y_position: "left",
                     axis_y_pointer_position: "left",
                     axis_y_line_color: "#1D1D1D",
                     axis_y_pointer_length: 3,
                     axis_y_pointer_padding: 10,
-                    // axis_y_pointer_values: [30,40,50],
                     axis_y_outer_pointer_size: 3,
 
                     axis_y_title : "month",
@@ -166,7 +163,7 @@
 
                     axis_onhover_hightlight_enable: "yes",
                     title_text: "",
-                    axis_x_enable: "no",
+                    axis_x_enable: "yes",
                     axis_x_title : "Air Pollution in New York",
                     axis_x_position: "bottom",
                     axis_x_pointer_position: "bottom",
@@ -613,7 +610,7 @@
                     border_between_chart_elements_style: "solid",
 
                 });
-              k.execute();
+                k.execute();
 
                 var k = new PykCharts.multiD.columnChart({
                     data: "../data/ultimateColumn.json",
@@ -667,10 +664,15 @@
                     border_between_chart_elements_color: "white",
                     border_between_chart_elements_style: "solid",
 
+                    "axis_x_pointer_size": 12,
+                    "axis_x_pointer_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
+                    "axis_x_pointer_weight": "normal",
+                    "axis_x_pointer_color": "#1D1D1D",
+
                     highlight:"January",
                 });
 
-              k.execute();
+                k.execute();
 
                 var k = new PykCharts.multiD.columnChart({
                     data: "../data/ultimateGroupColumn.json",
@@ -720,17 +722,19 @@
                     legends_display: "horizontal",
 
                     transition_duration:0,
+                    axis_x_pointer_weight:"normal",
 
                     border_between_chart_elements_thickness: 1,
                     border_between_chart_elements_color: "white",
                     border_between_chart_elements_style: "solid",
                    // saturation_enable: "yes",
 
+
                    highlight:"april",
 
                 });
 
-              k.execute();
+                k.execute();
 
                 var k = new PykCharts.multiD.barChart({
                     data: "../data/ultimatebar.json",
@@ -796,7 +800,7 @@
                     data_sort_order: "descending"
                 });
 
-              k.execute();
+                // k.execute();
 
                 var k = new PykCharts.multiD.barChart({
                     data: "../data/ultimateGroupBar.json",
@@ -865,10 +869,8 @@
                     data_sort_order: "ascending"
 
                   });
-
-              k.execute();
+                k.execute();
             };
-
         </script>
     </body>
 </html>
