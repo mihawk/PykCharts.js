@@ -744,8 +744,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         function dragmove (d) {
             $("body").css("cursor","pointer");
             if (that.timeline_status !== "playing") {
-           //     console.log(PykCharts,PykCharts.getEvent(),d3.event);
-                var x = PykCharts.getEvent().sourceEvent.pageX - (that.margin_left),
+                var x = PykCharts.getEvent().pageX - (that.margin_left),
                     x_range = [],
                     temp = that.xScale.range(),
                     len = that.unique.length,
