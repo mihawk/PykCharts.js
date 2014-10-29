@@ -536,6 +536,7 @@ PykCharts.Configuration = function (options){
                             h[i] = this.getBBox().height + 10;
                             return d.annotation;
                         })
+                        .attr("fill",options.annotation_font_color)
                         .style("pointer-events","none");
 
                     annotation_rect.attr("x",function (d,i) {
@@ -546,8 +547,8 @@ PykCharts.Configuration = function (options){
                         })
                         .attr("width",function (d,i) { return w[i]; })
                         .attr("height",function (d,i) { return h[i]; })
-                        .attr("fill","#eeeeee")
-                        .attr("stroke","darkgray")
+                        .attr("fill",options.annotation_font_color)
+                        .attr("stroke",options.annotation_border_color)
                         .style("pointer-events","none");
                 },options.transitions.duration());
                 annotation_text.exit()
