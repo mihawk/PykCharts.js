@@ -10,13 +10,26 @@ PykCharts.oneD.percentageColumn = function (options) {
         var that = this;
 
         that = new PykCharts.oneD.processInputs(that, options, "percentageColumn");
-        // 1.2 Read Json File Get all the data and pass to render
-        if(options.percent_column_rect_width && options.percent_column_rect_width > 100) {
-            options.percent_column_rect_width = 100;
-        }
-        that.percent_column_rect_width = options.percent_column_rect_width ? options.percent_column_rect_width : theme.oneDimensionalCharts.percent_column_rect_width;
-        that.percent_column_rect_width = that.k._radiusCalculation(that.percent_column_rect_width,"percentageColumn") * 2;
+
         that.height = options.chart_height ? options.chart_height : that.width;
+        that.percent_column_rect_width = options.percent_column_rect_width ? options.percent_column_rect_width : theme.oneDimensionalCharts.percent_column_rect_width;
+
+        that.k.validator()
+            .validatingDataType(that.height,"chart_height")
+            .validatingDataType(that.percent_column_rect_width,"percent_column_rect_width")
+
+        // 1.2 Read Json File Get all the data and pass to render
+        
+        if(that.percent_column_rect_width > 100) {
+            that.percent_column_rect_width = 100;
+        }
+
+        that.percent_column_rect_width = that.k._radiusCalculation(that.percent_column_rect_width,"percentageColumn") * 2;
+
+        if(that.stop) { 
+            return;
+        }
+
         if(that.mode === "default") {
            that.k.loading();
         }
@@ -94,8 +107,8 @@ PykCharts.oneD.percentageColumn = function (options) {
                 .dataSource();
         }
         
-        $(window).on("load", function () { return that.k.resize(that.svgContainer); })
-                            .on("resize", function () { return that.k.resize(that.svgContainer); });
+        $(document).ready(function () { return that.k.resize(that.svgContainer); })
+        $(window).on("resize", function () { return that.k.resize(that.svgContainer); });
     };
     this.optionalFeatures = function () {
         var optional = {

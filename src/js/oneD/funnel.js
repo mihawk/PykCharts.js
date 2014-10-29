@@ -11,8 +11,17 @@ PykCharts.oneD.funnel = function (options) {
         that.height = options.chart_height ? options.chart_height : that.width;
         var optional = options.optional
         , functionality = theme.oneDimensionalCharts;
-        that.rect_width =  options.funnel_rect_width && _.isNumber(options.funnel_rect_width)  ? options.funnel_rect_width : functionality.funnel_rect_width;
-        that.rect_height = options.funnel_rect_height && _.isNumber(options.funnel_rect_height) ? options.funnel_rect_height : functionality.funnel_rect_height;
+        that.rect_width =  options.funnel_rect_width   ? options.funnel_rect_width : functionality.funnel_rect_width;
+        that.rect_height = options.funnel_rect_height  ? options.funnel_rect_height : functionality.funnel_rect_height;
+
+        that.k.validator()
+            .validatingDataType(that.height,"chart_height")
+            .validatingDataType(that.rect_width,"rect_width")
+            .validatingDataType(that.rect_height,"rect_height")
+
+        if(that.stop) { 
+            return;
+        }
 
         if(that.mode === "default") {
            that.k.loading();
@@ -92,8 +101,8 @@ PykCharts.oneD.funnel = function (options) {
                 .credits()
                 .dataSource();
         }
-        $(window).on("load", function () { return that.k.resize(that.svgContainer); })
-                            .on("resize", function () { return that.k.resize(that.svgContainer); });
+        $(document).ready(function () { return that.k.resize(that.svgContainer); })
+        $(window).on("resize", function () { return that.k.resize(that.svgContainer); });
     };
 
     this.funnelLayout = function (){

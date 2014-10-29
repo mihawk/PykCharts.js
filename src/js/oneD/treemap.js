@@ -7,6 +7,14 @@ PykCharts.oneD.treemap = function (options){
         // that.enableText = optional && PykCharts.boolean(optional.enableText) ? optional.enableText : false;
         that.selector = options.selector;
         that.height = options.chart_height ? options.chart_height : that.width;
+
+        that.k.validator()
+            .validatingDataType(that.height,"chart_height");    
+        
+        if(that.stop) { 
+            return;
+        }
+
         if(that.mode === "default") {
            that.k.loading();
         }
@@ -79,8 +87,8 @@ PykCharts.oneD.treemap = function (options){
                 .dataSource();
         }
     
-        $(window).on("load", function () { return that.k.resize(that.svgContainer); })
-                            .on("resize", function () { return that.k.resize(that.svgContainer); });
+        $(document).ready(function () { return that.k.resize(that.svgContainer); })
+        $(window).on("resize", function () { return that.k.resize(that.svgContainer); });
     };
 
     this.optionalFeatures = function (){

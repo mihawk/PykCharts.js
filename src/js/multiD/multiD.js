@@ -23,7 +23,6 @@ PykCharts.multiD.configuration = function (options){
                 for(i=0;i<data.length;i++) {
                     for(j=0;j<key1.length;j++){
                         if(data[i][key2[j]] !== compare_data[i][key1[j]] || key1[j] !== key2[j]) {
-                            // console.log("changed");
                             changed = true;
                             break;
                         }
@@ -317,10 +316,10 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     // chartObject.axis_x_data_format = options.axis_x_data_format ? options.axis_x_data_format : multiDimensionalCharts.axis_x_data_format;
     chartObject.selector = options.selector ? options.selector : "body";
     chartObject.panels_enable = options.panels_enable ? options.panels_enable.toLowerCase() : multiDimensionalCharts.panels_enable;
-    if(options.chart_width && !PykCharts.boolean(chartObject.panels_enable)) {
-        var targetWidth = $(options.selector).width();
-        options.chart_width = targetWidth < options.chart_width ? targetWidth : options.chart_width;
-    }
+    // if(options.chart_width && !PykCharts.boolean(chartObject.panels_enable)) {
+    //     var targetWidth = $(options.selector).width();
+    //     options.chart_width = targetWidth < options.chart_width ? targetWidth : options.chart_width;
+    // }
     chartObject.width = options.chart_width ? options.chart_width : stylesheet.chart_width;
     chartObject.height = options.chart_height ? options.chart_height : stylesheet.chart_height;
 
