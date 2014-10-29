@@ -1152,7 +1152,7 @@ PykCharts.Configuration = function (options){
             return this;
         },
         errorHandling: function(error_msg,error_code,err_url) {
-            // console.log('%c[Error Pykih Charts] ', 'color: red;font-weight:bold;font-size:13px', " at "+options.selector+".(Invalid value for attribute \""+error_msg+"\")  Visit http://www.pykih.com/");
+            console.log('%c[Error Pykih Charts] ', 'color: red;font-weight:bold;font-size:13px', " at "+options.selector+".(Invalid value for attribute \""+error_msg+"\")  Visit http://www.pykih.com/");
             options.stop = true;
             return;
         },
@@ -1697,25 +1697,28 @@ configuration.mouseEvent = function (options) {
             return this;
         },
         axisHighlightHide : function (axisHighlight,a) {
-            var abc,selection;
+            var fill_color,selection,font_weight;
             if(PykCharts.boolean(options.axis_onhover_hightlight_enable)/* && options.mode === "default"*/){
-                if(axisHighlight === options.selector + " .y.axis"){
+                if(axisHighlight === options.selector + " .y.axis") {
                     selection = axisHighlight+" .tick text";
-                    abc = options.axis_y_pointer_color;
+                    fill_color = options.axis_y_pointer_color;
+                    font_weight = options.axis_y_pointer_weight;
                 } else if(axisHighlight === options.selector + " .x.axis") {
                     selection = axisHighlight+" .tick text";
-                    abc = options.axis_x_pointer_color;
+                    fill_color = options.axis_x_pointer_color;
+                    font_weight = options.axis_x_pointer_weight;
                 } else if(axisHighlight === options.selector + " .axis-text" && a === "column") {
                     selection = axisHighlight;
-                    abc = options.axis_x_pointer_color;
+                    fill_color = options.axis_x_pointer_color;
+                    font_weight = options.axis_x_pointer_weight;
                 } else if(axisHighlight === options.selector + " .axis-text" && a === "bar") {
                     selection = axisHighlight;
-                    abc = options.axis_y_pointer_color;
+                    fill_color = options.axis_y_pointer_color;
+                    font_weight = options.axis_y_pointer_weight;
                 }
                 d3.selectAll(selection)
-                    .style("fill",abc)
-                    // .style("font-size","12px")
-                    // .style("font-weight","normal");
+                    .style("fill",fill_color)
+                    .style("font-weight",font_weight);            
             }
             return this;
         }
