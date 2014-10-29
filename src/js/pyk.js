@@ -136,6 +136,14 @@ PykCharts.boolean = function(d) {
     }
 };
 
+PykCharts.getEvent = function () {
+  try {
+    return event || d3.event;
+  } catch (e) {
+    return d3.event;
+  }
+}
+
 PykCharts.Configuration = function (options){
     var that = this;
 
@@ -1397,8 +1405,8 @@ configuration.mouseEvent = function (options) {
             else {
                 that.tooltip
                     .style("visibility", "visible")
-                    .style("top", (d3.event.pageY - 20) + "px")
-                    .style("left", (d3.event.pageX + 30) + "px");
+                    .style("top", (PykCharts.getEvent().pageY - 20) + "px")
+                    .style("left", (PykCharts.getEvent().pageX + 30) + "px");
             }
             return that.tooltip;
 
@@ -1432,10 +1440,10 @@ configuration.mouseEvent = function (options) {
                 var bottom = options.margin_bottom;
                 var w = options.width;
                 var h = options.height;
-                var group_index = parseInt(d3.event.target.id.substr((d3.event.target.id.length-1),1));
+                var group_index = parseInt(PykCharts.getEvent().target.id.substr((PykCharts.getEvent().target.id.length-1),1));
                 var c = b - a;
-                var x = d3.event.pageX - offsetLeft;
-                var y = d3.event.pageY - offsetTop - top ;
+                var x = PykCharts.getEvent().pageX - offsetLeft;
+                var y = PykCharts.getEvent().pageY - offsetTop - top ;
                 var x_range = [];
                 if(options.axis_x_data_format==="string") {
                     x_range = xScale.range();
@@ -1773,7 +1781,7 @@ configuration.mouseEvent = function (options) {
                 }
                 d3.selectAll(selection)
                     .style("fill",fill_color)
-                    .style("font-weight",font_weight);            
+                    .style("font-weight",font_weight);
             }
             return this;
         }
@@ -2245,11 +2253,10 @@ configuration.Theme = function(){
         "total_no_of_colors": 3,
         "palette_color": "Blue-1",
 
-
         "tooltip_position_top": 0,
         "tooltip_position_left": 0,
 
-        "timeline_duration": 1000,
+        "timeline_duration": 1,
         "timeline_margin_top": 5,
         "timeline_margin_right": 25,
         "timeline_margin_bottom": 25,
