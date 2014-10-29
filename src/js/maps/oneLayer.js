@@ -613,9 +613,6 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
     };
 
     that.backgroundColor =function () {
-        var bg;
-        bgColor(options.selector);
-
         var bg,child1;
         bgColor(options.selector);
 

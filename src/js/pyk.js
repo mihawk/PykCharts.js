@@ -869,17 +869,21 @@ PykCharts.Configuration = function (options){
             }
             xaxistooltip = d3.selectAll(options.selector + " g.x.axis text")
                 .data(domain);
-             xaxistooltip.on('mouseover',function (d) {
-                options.mouseEvent.tooltipPosition(d);
-                options.mouseEvent.tooltipTextShow(d);
-            })
-            .on('mousemove', function (d) {
-                options.mouseEvent.tooltipPosition(d);
-                options.mouseEvent.tooltipTextShow(d);
-            })
-            .on('mouseout', function (d) {
-                options.mouseEvent.tooltipHide(d);
-            });
+
+            if(options.mode === "default") {
+                xaxistooltip.on('mouseover',function (d) {
+                    options.mouseEvent.tooltipPosition(d);
+                    options.mouseEvent.tooltipTextShow(d);
+                })
+                .on('mousemove', function (d) {
+                    options.mouseEvent.tooltipPosition(d);
+                    options.mouseEvent.tooltipTextShow(d);
+                })
+                .on('mouseout', function (d) {
+                    options.mouseEvent.tooltipHide(d);
+                });
+            }
+            
             return this;
         },
         ordinalYAxisTickFormat : function (domain) {
@@ -896,17 +900,20 @@ PykCharts.Configuration = function (options){
             }
             yaxistooltip = d3.selectAll(options.selector + " g.y.axis text")
                 .data(domain);
-            yaxistooltip.on('mouseover',function (d) {
-                options.mouseEvent.tooltipPosition(d);
-                options.mouseEvent.tooltipTextShow(d);
-            })
-            .on('mousemove', function (d) {
-                options.mouseEvent.tooltipPosition(d);
-                options.mouseEvent.tooltipTextShow(d);
-            })
-            .on('mouseout', function (d) {
-                options.mouseEvent.tooltipHide(d);
-            });
+
+            if (options.mode === "default") {
+                yaxistooltip.on('mouseover',function (d) {
+                    options.mouseEvent.tooltipPosition(d);
+                    options.mouseEvent.tooltipTextShow(d);
+                })
+                .on('mousemove', function (d) {
+                    options.mouseEvent.tooltipPosition(d);
+                    options.mouseEvent.tooltipTextShow(d);
+                })
+                .on('mouseout', function (d) {
+                    options.mouseEvent.tooltipHide(d);
+                });
+            }
             return this;
         },
         totalColors: function (tc) {
@@ -968,7 +975,7 @@ PykCharts.Configuration = function (options){
                 div_size = targetWidth
                 div_float ="none"
                 div_left = targetWidth-15;
-                if(PykCharts.boolean(options.title_text) && options.title_size) {
+                if(PykCharts.boolean(options.title_text) && options.title_size && options.mode === "default") {
                     div_size = 0.1*targetWidth;
                     div_float ="left";
                     div_left = 0;
@@ -1069,7 +1076,6 @@ PykCharts.Configuration = function (options){
 
                 if ($(child1)[0].classList.contains("light")) {
                     options.img = "../img/download.png";
-
                 } else {
                     options.img = "../img/download-light.png";
                 }
@@ -1140,12 +1146,13 @@ PykCharts.Configuration = function (options){
                 div_size = options.width
                 div_float ="none"
                 div_left = options.width-15;
-
-                if(PykCharts.boolean(options.title_text) && options.title_size) {
+                // console.log(div_left,options.selector);
+                if(PykCharts.boolean(options.title_text) && options.title_size  && options.mode === "default") {
                     div_size = 0.1*options.width;
                     div_float ="left";
                     div_left = 0;
                 }
+                console.log(div_left,options.selector)
 
                 var export_div = d3.select(chart.selector)
                                 .append("div")

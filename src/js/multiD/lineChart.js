@@ -132,12 +132,11 @@ PykCharts.multiD.lineChart = function (options){
 				}
 				that.k.emptyDiv();
 			} else {
-
 				that.k.backgroundColor(that)
 					.export(that,"#svg-1","lineChart")
 					.emptyDiv()
 					.subtitle();
-
+				
 				that.w = that.width;
 				that.reducedWidth = that.w - that.margin_left - that.margin_right;
 				that.reducedHeight = that.height - that.margin_top - that.margin_bottom;
@@ -177,8 +176,8 @@ PykCharts.multiD.lineChart = function (options){
 		else if(that.mode === "infographics") {
 			if(PykCharts.boolean(that.panels_enable)) {
 
-				that.k/*.backgroundColor(that)*/
-					.export(that,"svg-","lineChart",that.panels_enable,that.new_data)
+				that.k.backgroundColor(that)
+					.export(that,"#svg-","lineChart",that.panels_enable,that.new_data)
 					.emptyDiv();
 
 				that.w = that.width/3;
@@ -210,8 +209,8 @@ PykCharts.multiD.lineChart = function (options){
 				that.k.emptyDiv();
 			} else {
 
-				that.k/*.backgroundColor(that)*/
-					.export(that,"#svg-1","lineChart")
+				that.k.backgroundColor(that)
+					.export(that,"#svg-0","lineChart")
 					.emptyDiv();
 
 				that.w = that.width;
@@ -756,7 +755,9 @@ PykCharts.multiD.lineChart = function (options){
 								.append("text")
 
 						that.ticks.attr("id", function (d,i) { return that.type + "-svg-" + i; })
-								.attr("class","legend-heading");
+								.attr("class","legend-heading")
+								.attr("transform", tickPosition)
+								.attr("text-anchor",orient);
 
 						setTimeout(function() {
 							that.ticks.text(function (d,i) {
@@ -764,9 +765,8 @@ PykCharts.multiD.lineChart = function (options){
 								})
 								.text(function (d,i) {
 									that.tick_w = this.getBBox().width + 5;
-									return d.name
+									return d.name;
 								})
-								.attr("transform", tickPosition)
 								.style("font-size", that.pointer_size)
 								.style("font-weight", function(d){
 									if(d.highlight) {
@@ -777,7 +777,6 @@ PykCharts.multiD.lineChart = function (options){
 								})
 								.style("font-family", that.pointer_family)
 								.style("visibility","visible")
-								.attr("text-anchor",orient)
 								.attr("dx",5)
 								.attr("dy",5)
 				      			.style("fill", function(d,i) {
