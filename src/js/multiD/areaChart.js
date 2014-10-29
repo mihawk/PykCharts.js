@@ -122,6 +122,8 @@ PykCharts.multiD.areaChart = function (options){
 					.yGrid(that.svgContainer,that.group,that.yScale)
 					.xGrid(that.svgContainer,that.group,that.xScale)
 					.tooltip(true,options.selector);
+
+			that.annotation();
 		});
 	};
 
@@ -338,25 +340,24 @@ PykCharts.multiD.areaChart = function (options){
 
 				that.chartPathClass = (that.type === "areaChart") ? "area" : "stacked-area";
 
-        	if(evt === "liveData"){
-        		for (var i = 0;i < that.new_data_length;i++) {
-        			type = that.chartPathClass + i;
-        			that.svgContainer.select("#"+type)
-						.datum(that.layers[i].data)
-						// .transition()
-				      	// .ease(that.transition.transition_type)
-			      		// .duration(that.transitions[that.transition.enable]().duration())
-						//.attr("transform", "translate("+ that.extra_left_margin +",0)")
-					    .attr("d", that.chart_path);
+	        	if(evt === "liveData"){
+	        		for (var i = 0;i < that.new_data_length;i++) {
+	        			type = that.chartPathClass + i;
+	        			that.svgContainer.select("#"+type)
+							.datum(that.layers[i].data)
+							// .transition()
+					      	// .ease(that.transition.transition_type)
+				      		// .duration(that.transitions[that.transition.enable]().duration())
+							.attr("transform", "translate("+ that.extra_left_margin +",0)")
+						    .attr("d", that.chart_path);
 
 						that.svgContainer.select("#border-stacked-area"+i)
 							.datum(that.layers[i].data)
 					  		// .transition()
 				      		// .ease("linear")
 			      			// .duration(that.transitions.duration())
-							//.attr("transform", "translate("+ that.extra_left_margin +",0)")
+							.attr("transform", "translate("+ that.extra_left_margin +",0)")
 					      	.attr("d", that.chart_path_border);
-
 					}
 
 					if(that.type === "areaChart") {
@@ -382,7 +383,6 @@ PykCharts.multiD.areaChart = function (options){
 							.attr("class", that.chartPathClass)
 							.attr("id", type)
 							.style("fill", function(d) {
-
 								return that.fillColor.colorPieMS(that.new_data[i]);
 							})
 							.style("fill-opacity",function() {
@@ -393,7 +393,7 @@ PykCharts.multiD.areaChart = function (options){
 							.attr("transform", "translate("+ that.extra_left_margin +",0)")
 							.attr("d",function(d,k) {
 							    	return that.chart_path(data[0]);
-							 })
+							 });
 
 						function transition (i) {
 						    that.dataLineGroup[i].transition()
@@ -402,12 +402,11 @@ PykCharts.multiD.areaChart = function (options){
 							    	var interpolate = d3.scale.quantile()
 						                .domain([0,1])
 						                .range(d3.range(1, data.length + 1));
-									        return function(t) {
-									            return that.chart_path(that.new_data[i].data.slice(0, interpolate(t)));
-									        };
-							    })
+							        return function(t) {
+							            return that.chart_path(that.new_data[i].data.slice(0, interpolate(t)));
+							        };
+							    });
 						}
-
 						transition(i);
 
 						that.dataLineGroupBorder[i] = that.chartBody.append("path");
@@ -512,24 +511,27 @@ PykCharts.multiD.areaChart = function (options){
 		that.mouseEvent.axisHighlightHide(that.selector + " .y.axis");
 	    if(that.count === that.zoom_level+1) {
 	    	that.zoomOut();
-
 	    }
 	    that.annotation();
 	};
-	that.zoomOut =  function () {
+
+	this.zoomOut =  function () {
 		that.optional_feature().createChart("liveData");
     	that.k.isOrdinal(that.svgContainer,".x.axis",that.xScale,that.xdomain,that.extra_left_margin);
 	    that.k.isOrdinal(that.svgContainer,".x.grid",that.xScale);
 	    that.k.isOrdinal(that.svgContainer,".y.axis",that.yScale,that.ydomain);
 	    that.k.isOrdinal(that.svgContainer,".y.grid",that.yScale);
-	}
-	that.annotation = function () {
+	};
+
+	this.annotation = function () {
 		that.line = d3.svg.line()
                 .interpolate('linear-closed')
                 .x(function(d,i) { return d.x; })
                 .y(function(d,i) { return d.y; });
+
 		if(that.type === "areaChart") {
-			var line_size = 10,annotation = [];
+			var line_size = 10, annotation = [];
+			
 			that.new_data[0].data.map(function (d) {
 				if(d.annotation) {
 					annotation.push({
@@ -539,10 +541,12 @@ PykCharts.multiD.areaChart = function (options){
 					})
 				}
 			});
+			
 			var anno = that.svgContainer.selectAll(that.selector + " .PykCharts-annotation-line")
-                .data(annotation)
+                .data(annotation);
             anno.enter()
-                .append("path")
+                .append("path");
+
             anno.attr("class", "PykCharts-annotation-line")
                 .attr("d", function (d,i) {
                 	var a = [
@@ -558,9 +562,10 @@ PykCharts.multiD.areaChart = function (options){
                 	return that.line(a);
                 })
                 .attr("stroke",that.annotation_border_color);
-            anno.exit()
-            	.remove();
-            that.k.annotation(that.selector + " #svg-1",annotation, that.xScale,that.yScale)
+            
+            anno.exit().remove();
+            that.k.annotation(that.selector + " #svg-1",annotation, that.xScale,that.yScale);
+
 		} else if(that.type === "stackedAreaChart" && that.mode === "default") {
 			var line_size = 10,annotation = [];
 			for(i=0;i<that.new_data_length;i++) {
@@ -575,28 +580,29 @@ PykCharts.multiD.areaChart = function (options){
 					}
 				});
 			}
+
 			var anno = that.svgContainer.selectAll(" .PykCharts-annotation-line")
-                .data(annotation)
+                .data(annotation);
             anno.enter()
-                .append("path")
-            anno.attr("class", "PykCharts-annotation-line")
-                .attr("d", function (d,i) {
-                	var a = [
-                		{
-                			x:parseInt(that.xScale(d.x))+that.extra_left_margin+that.margin_left,
-                			y:parseInt(that.yScale(d.y)-(line_size)+that.margin_top)
-                		},
-                		{
-                			x:parseInt(that.xScale(d.x))+that.extra_left_margin+that.margin_left,
-                			y:parseInt(that.yScale(d.y)+that.margin_top),
-                		}
-                	];
-                	return that.line(a);
-                })
-                .attr("stroke",that.annotation_border_color);
+                .append("path");
+
+        	anno.attr("class", "PykCharts-annotation-line")
+	            .attr("d", function (d,i) {
+	            	var a = [
+	            		{
+	            			x:parseInt(that.xScale(d.x))+that.extra_left_margin+that.margin_left,
+	            			y:parseInt(that.yScale(d.y)-(line_size)+that.margin_top)
+	            		},
+	            		{
+	            			x:parseInt(that.xScale(d.x))+that.extra_left_margin+that.margin_left,
+	            			y:parseInt(that.yScale(d.y)+that.margin_top),
+	            		}
+	            	];
+	            	return that.line(a);
+	            })
+	            .attr("stroke",that.annotation_border_color);
                 
-            anno.exit()
-            	.remove();
+            anno.exit().remove();
             that.k.annotation(that.selector + " #svg-1",annotation, that.xScale,that.yScale)
 		}
 	}

@@ -358,8 +358,8 @@ PykCharts.multiD.columnChart = function(options){
                     });
 
                 rect
-                    // .transition()
-                    // .duration(that.transitions.duration())
+                    .transition()
+                    .duration(that.transitions.duration())
                     .attr("x", function(d) {
                         if(that.highlight.toLowerCase() === d.name.toLowerCase()) {
                             that.highlight_x_positions.push(that.xScale(d.x) - x_factor);
@@ -469,34 +469,36 @@ PykCharts.multiD.columnChart = function(options){
             },
             highlightRect : function () {
                 if(that.no_of_groups > 1 && PykCharts.boolean(that.highlight)) {
-                    function ascending( a, b ) {
-                        return a - b;
-                    }
-                    that.highlight_x_positions.sort(ascending)
-                    that.highlight_y_positions.sort(ascending);
+                    setTimeout(function() {
+                        function ascending( a, b ) {
+                            return a - b;
+                        }
+                        that.highlight_x_positions.sort(ascending)
+                        that.highlight_y_positions.sort(ascending);
 
-                    var x_len = that.highlight_x_positions.length,
-                        y_len = that.highlight_y_positions.length,
-                        x = that.highlight_x_positions[0] - 5,
-                        y = (that.height - that.margin_bottom - that.margin_top - that.legendsGroup_height - that.highlight_y_positions[y_len - 1] - 5),
-                        height = (that.highlight_y_positions[y_len - 1] + 10),
-                        height;
-                    if(PykCharts.boolean(that.highlight_y_positions[0])){
-                        width = (that.highlight_x_positions[x_len - 1] - that.highlight_x_positions[0] + 10 + that.xScale.rangeBand());
-                    } else {
-                        width = (that.highlight_x_positions[x_len - 1] - that.highlight_x_positions[0] + 10);
-                    }
-                    that.group.append("rect")
-                        .attr("class","highlight-rect")
-                        .attr("x", x)
-                        .attr("y", y)
-                        .attr("width", width)
-                        .attr("height", height)
-                        .attr("fill","none")
-                        .attr("stroke", that.highlight_color)
-                        .attr("stroke-width", "1.5")
-                        .attr("stroke-dasharray", "5,5")
-                        .attr("stroke-opacity",1);
+                        var x_len = that.highlight_x_positions.length,
+                            y_len = that.highlight_y_positions.length,
+                            x = that.highlight_x_positions[0] - 5,
+                            y = (that.height - that.margin_bottom - that.margin_top - that.legendsGroup_height - that.highlight_y_positions[y_len - 1] - 5),
+                            height = (that.highlight_y_positions[y_len - 1] + 10),
+                            height;
+                        if(PykCharts.boolean(that.highlight_y_positions[0])){
+                            width = (that.highlight_x_positions[x_len - 1] - that.highlight_x_positions[0] + 10 + that.xScale.rangeBand());
+                        } else {
+                            width = (that.highlight_x_positions[x_len - 1] - that.highlight_x_positions[0] + 10);
+                        }
+                        that.group.append("rect")
+                            .attr("class","highlight-rect")
+                            .attr("x", x)
+                            .attr("y", y)
+                            .attr("width", width)
+                            .attr("height", height)
+                            .attr("fill","none")
+                            .attr("stroke", that.highlight_color)
+                            .attr("stroke-width", "1.5")
+                            .attr("stroke-dasharray", "5,5")
+                            .attr("stroke-opacity",1);
+                    }, that.transitions.duration());
                 }
                 return this;
             },

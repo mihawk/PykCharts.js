@@ -49,5 +49,13 @@
 		"y":3,
 		"color":"steelblue",
 		"tooltip":3
+	},
+	{
+		"name":"New York",
+		"x":"8",
+		"y":10,
+		"color":"steelblue",
+		"annotation":"New York - v.0.1",
+		"tooltip":10
 	}
 ]

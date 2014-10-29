@@ -133,7 +133,7 @@
                     chart_grid_x_enable: "no",
                     chart_grid_y_enable: "yes",
 
-                    transition_duration: 1,
+                    transition_duration: 0,
                     real_time_charts_refresh_frequency: 0,
 
                     axis_onhover_hightlight_enable: "yes",
@@ -158,13 +158,11 @@
                     axis_y_pointer_padding: 10,
                     axis_y_outer_pointer_size: 3,
 
-
                     line_curvy_lines:"no",
                     tooltip_mode : "fixed",
                     crosshair_enable: "yes",
                     zoom_enable: "yes"
                 });
-
                 k.execute();
 
                 var k = new PykCharts.multiD.spiderWeb ({
@@ -187,7 +185,7 @@
                     chart_margin_bottom: 25,
                     chart_margin_left: 55,
 
-                    real_time_charts_refresh_frequency: 10,
+                    real_time_charts_refresh_frequency: 0,
                     variable_circle_size_enable: "yes",
 
                     border_between_chart_elements_thickness: 0,
@@ -202,7 +200,7 @@
                     legends_text_family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
 
                 });
-                 k.execute();
+                k.execute();
 
                 var k = new PykCharts.multiD.scatterPlot ({
                     selector: "#scatterPlot",
@@ -334,7 +332,7 @@
                 });
                 k.execute();
 
-               var k = new PykCharts.multiD.lineChart ({
+                var k = new PykCharts.multiD.lineChart ({
                     selector: "#multiLine",
                     data: "../data/multipleContainerLine.json",
                     mode : "default",
@@ -388,7 +386,6 @@
                    // highlight_color: "#013F73",
 
                 });
-
                 k.execute();
 
                 var k = new PykCharts.multiD.lineChart ({
@@ -445,7 +442,6 @@
                     // panels_enable: "no",
 
                 });
-
                 k.execute();
 
                 var k = new PykCharts.multiD.areaChart ({
@@ -498,7 +494,6 @@
                     zoom_enable: "yes"
 
                 });
-
                 k.execute();
 
                 var k = new PykCharts.multiD.pulse({
@@ -612,7 +607,7 @@
                     legends_enable: "no",
                     legends_display: "horizontal",
 
-                    transition_duration:0,
+                    transition_duration: 0,
 
                     border_between_chart_elements_thickness: 1,
                     border_between_chart_elements_color: "white",
@@ -620,7 +615,6 @@
 
                     highlight:"January",
                 });
-
                 k.execute();
 
                 var k = new PykCharts.multiD.columnChart({
@@ -670,7 +664,7 @@
                     legends_enable: "yes",
                     legends_display: "horizontal",
 
-                    transition_duration:0,
+                    transition_duration: 1,
 
                     border_between_chart_elements_thickness: 1,
                     border_between_chart_elements_color: "white",
@@ -679,7 +673,6 @@
 
                    highlight:"april",
                 });
-
                 k.execute();
 
                 var k = new PykCharts.multiD.barChart({
@@ -727,7 +720,7 @@
                     legends_enable: "no",
                     legends_display: "horizontal",
 
-                    transition_duration:0,
+                    transition_duration: 0,
 
                     border_between_chart_elements_thickness: 1,
                     border_between_chart_elements_color: "white",
@@ -741,7 +734,6 @@
 
                     highlight: "January"
                 });
-
                 k.execute();
 
                 var k = new PykCharts.multiD.barChart({
@@ -791,7 +783,7 @@
                     legends_enable: "yes",
                     legends_display: "horizontal",
 
-                    transition_duration:0,
+                    transition_duration: 0,
 
                     border_between_chart_elements_thickness: 1,
                     border_between_chart_elements_color: "white",
@@ -805,8 +797,7 @@
                     saturation_enable: "no",
 
                     highlight: "april"
-                  });
-
+                });
                 k.execute();
             };
 

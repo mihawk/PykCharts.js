@@ -418,8 +418,8 @@ PykCharts.multiD.barChart = function(options){
                     });
 
                 rect
-                    // .transition()
-                    // .duration(that.transitions.duration())
+                    .transition()
+                    .duration(that.transitions.duration())
                     .attr("x", function(d){
                         return that.xScale(d.x0);
                     })
@@ -515,43 +515,47 @@ PykCharts.multiD.barChart = function(options){
                         .attr("class","ticksText");
 
                     tick_label.attr("class","ticksText")
-                        .text(function(d) {
-                            if(d.x) {
-                                // console.log(d.x);
-                                return d.x;
-                            }
-                        })
-                        .style("font-weight", that.pointer_weight)
-                        .style("font-size", that.pointer_size)
-                        .attr("fill", that.pointer_color)
-                        .style("font-family", that.pointer_family)
-                        .text(function(d) {
-                            if(d.x) {
-                                that.txt_width = this.getBBox().width;
-                                that.txt_height = this.getBBox().height;
-                                if(d.x && (that.txt_width< that.xScale(d.x)) && (that.txt_height < (that.yScale.rangeBand()+that.height_factor ))) {
+                        .text("");
+
+                    setTimeout(function() {
+                        tick_label.text(function(d) {
+                                if(d.x) {
+                                    // console.log(d.x);
                                     return d.x;
                                 }
-                            }
-                        })
-                        .attr("x", function(d){
-                            var bar_width  = that.xScale(d.x);
-                            return that.xScale(d.x0) + that.xScale(d.x)+ 5;
-                        })
-                        .attr("y",function(d){
-                            return that.yScale(d.y)-that.y_factor+(that.yScale.rangeBand()/2);
-                        })
-                        .attr("dy",function(d){
-                            if(that.no_of_groups ===1) {
-                                return that.yScale.rangeBand()/2;
-                            } else {
-                                return that.yScale.rangeBand()/4;
-                            }
-                        })
-                        .style("font-size",function(d) {
-                            // console.log(that.label.size);
-                            return that.pointer_size;
-                        });
+                            })
+                            .style("font-weight", that.pointer_weight)
+                            .style("font-size", that.pointer_size)
+                            .attr("fill", that.pointer_color)
+                            .style("font-family", that.pointer_family)
+                            .text(function(d) {
+                                if(d.x) {
+                                    that.txt_width = this.getBBox().width;
+                                    that.txt_height = this.getBBox().height;
+                                    if(d.x && (that.txt_width< that.xScale(d.x)) && (that.txt_height < (that.yScale.rangeBand()+that.height_factor ))) {
+                                        return d.x;
+                                    }
+                                }
+                            })
+                            .attr("x", function(d){
+                                var bar_width  = that.xScale(d.x);
+                                return that.xScale(d.x0) + that.xScale(d.x)+ 5;
+                            })
+                            .attr("y",function(d){
+                                return that.yScale(d.y)-that.y_factor+(that.yScale.rangeBand()/2);
+                            })
+                            .attr("dy",function(d){
+                                if(that.no_of_groups ===1) {
+                                    return that.yScale.rangeBand()/2;
+                                } else {
+                                    return that.yScale.rangeBand()/4;
+                                }
+                            })
+                            .style("font-size",function(d) {
+                                // console.log(that.label.size);
+                                return that.pointer_size;
+                            });
+                    }, that.transitions.duration());
 
                     tick_label.exit().remove();
                 }
@@ -559,34 +563,36 @@ PykCharts.multiD.barChart = function(options){
             },
             highlightRect : function () {
                 if(that.no_of_groups > 1 && PykCharts.boolean(that.highlight)) {
-                    function ascending( a, b ) {
-                        return a - b;
-                    }
+                    setTimeout(function() {
+                        function ascending( a, b ) {
+                            return a - b;
+                        }
 
-                    that.highlight_x_positions.sort(ascending)
-                    that.highlight_y_positions.sort(ascending);
-                    var x_len = that.highlight_x_positions.length,
-                        y_len = that.highlight_y_positions.length,
-                        x = -5,
-                        y = (that.highlight_y_positions[0] - 5),
-                        width = (that.highlight_x_positions[x_len - 1] + 15 + that.txt_width),
-                        height;
-                    if(PykCharts.boolean(that.highlight_x_positions[0])){
-                        height = (that.highlight_y_positions[y_len - 1] - that.highlight_y_positions[0] + 10 + that.yScale.rangeBand()+that.height_factor);
-                    } else {
-                        height = (that.highlight_y_positions[y_len - 1] - that.highlight_y_positions[0] + 10);
-                    }
-                    that.group.append("rect")
-                        .attr("class","highlight-rect")
-                        .attr("x", x)
-                        .attr("y", y)
-                        .attr("width", width)
-                        .attr("height", height)
-                        .attr("fill","none")
-                        .attr("stroke", that.highlight_color)
-                        .attr("stroke-width", "1.5")
-                        .attr("stroke-dasharray", "5,5")
-                        .attr("stroke-opacity",1);
+                        that.highlight_x_positions.sort(ascending)
+                        that.highlight_y_positions.sort(ascending);
+                        var x_len = that.highlight_x_positions.length,
+                            y_len = that.highlight_y_positions.length,
+                            x = -5,
+                            y = (that.highlight_y_positions[0] - 5),
+                            width = (that.highlight_x_positions[x_len - 1] + 15 + that.txt_width),
+                            height;
+                        if(PykCharts.boolean(that.highlight_x_positions[0])){
+                            height = (that.highlight_y_positions[y_len - 1] - that.highlight_y_positions[0] + 10 + that.yScale.rangeBand()+that.height_factor);
+                        } else {
+                            height = (that.highlight_y_positions[y_len - 1] - that.highlight_y_positions[0] + 10);
+                        }
+                        that.group.append("rect")
+                            .attr("class","highlight-rect")
+                            .attr("x", x)
+                            .attr("y", y)
+                            .attr("width", width)
+                            .attr("height", height)
+                            .attr("fill","none")
+                            .attr("stroke", that.highlight_color)
+                            .attr("stroke-width", "1.5")
+                            .attr("stroke-dasharray", "5,5")
+                            .attr("stroke-opacity",1);
+                    }, that.transitions.duration());
                 }
                 return this;
             },

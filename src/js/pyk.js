@@ -445,15 +445,13 @@ PykCharts.Configuration = function (options){
         },
         annotation : function (svg,data,xScale,yScale) {
             var annotation_circle = d3.select(svg).selectAll(".PykCharts-annotation-circle")
-                .data(data)
+                .data(data);
+            var annotation_text = d3.select(svg).selectAll(".PykCharts-annotation-text")
+                .data(data);
 
             annotation_circle.enter()
                 .append("circle")
                 .attr("class","PykCharts-annotation-circle");
-            // console.log(svg);
-            var annotation_text = d3.select(svg).selectAll(".PykCharts-annotation-text")
-                .data(data)
-
             annotation_text.enter()
                 .append("text")
                 .attr("class","PykCharts-annotation-text");
@@ -474,7 +472,6 @@ PykCharts.Configuration = function (options){
                 })
                 .attr("fill",options.annotation_font_color)
                 .style("pointer-events","none");
-
             annotation_circle
                 .attr("cx",function (d,i) {
                     return (parseInt(xScale(d.x))+options.extra_left_margin+options.margin_left);
@@ -494,6 +491,10 @@ PykCharts.Configuration = function (options){
                 .attr("fill",options.annotation_background_color)
                 .attr("stroke",options.annotation_border_color);
 
+            annotation_text.exit().remove();
+            annotation_circle.exit().remove();
+
+            return this;
         },
         crossHair : function (svg,len,data,fill) {
 
