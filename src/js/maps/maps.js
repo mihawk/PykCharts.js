@@ -50,6 +50,7 @@ PykCharts.maps.processInputs = function (chartObject, options) {
     chartObject.default_color = stylesheet.chart_color;
     chartObject.total_no_of_colors = options.total_no_of_colors && _.isNumber(parseInt(options.total_no_of_colors,10))? parseInt(options.total_no_of_colors,10) : mapsTheme.total_no_of_colors;
     chartObject.color_mode = options.color_mode ? options.color_mode.toLowerCase() : stylesheet.color_mode;
+    chartObject.saturation_color = options.saturation_color ? options.saturation_color : "";
     chartObject.palette_color = options.palette_color ? options.palette_color : mapsTheme.palette_color;
 
     chartObject.axis_x_enable = options.axis_x_enable ? options.axis_x_enable.toLowerCase() : stylesheet.axis_x_enable;
