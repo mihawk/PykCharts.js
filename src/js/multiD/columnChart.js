@@ -586,10 +586,11 @@ PykCharts.multiD.columnChart = function(options){
                         .enter()
                         .append('text')
                         .attr("class","legends_text")
-                        .attr("fill","#1D1D1D")
                         .attr("pointer-events","none")
-                        .style("font-family", "'Helvetica Neue',Helvetica,Arial,sans-serif")
-                        .attr("font-size",12);
+                        .attr("fill", that.legends_text_color)
+                        .attr("font-family", that.legends_text_family)
+                        .attr("font-size",that.legends_text_size)
+                        .attr("font-weight", that.legends_text_weight);
 
                     that.legends_text.attr("class","legends_text")
                     .attr("fill","black")

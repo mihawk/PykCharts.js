@@ -2191,7 +2191,6 @@ configuration.Theme = function(){
         "total_no_of_colors": 3,
         "palette_color": "Blue-1",
 
-
         "tooltip_position_top": 0,
         "tooltip_position_left": 0,
 

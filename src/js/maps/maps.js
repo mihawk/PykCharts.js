@@ -28,7 +28,6 @@ PykCharts.maps.processInputs = function (chartObject, options) {
 
     chartObject.selector = options.selector ? options.selector : stylesheet.selector;
     chartObject.width = options.chart_width && _.isNumber(parseInt(options.chart_width,10)) ? options.chart_width : stylesheet.chart_width;
-    console.log(chartObject.width,stylesheet.chart_width);
     chartObject.height = options.chart_height && _.isNumber(parseInt(options.chart_height,10)) ? options.chart_height : stylesheet.chart_height;
     chartObject.map_code = options.map_code ? options.map_code : mapsTheme.map_code;
     chartObject.click_enable = options.click_enable ? options.click_enable.toLowerCase() : mapsTheme.click_enable;
@@ -53,6 +52,13 @@ PykCharts.maps.processInputs = function (chartObject, options) {
     chartObject.saturation_color = options.saturation_color ? options.saturation_color : "";
     chartObject.palette_color = options.palette_color ? options.palette_color : mapsTheme.palette_color;
 
+    chartObject.legends_enable =  options.legends_enable ? options.legends_enable.toLowerCase() : stylesheet.legends_enable;
+    chartObject.legends_display = options.legends_display ? options.legends_display.toLowerCase() : stylesheet.legends_display;
+    chartObject.legends_text_size = options.legends_text_size ? options.legends_text_size : stylesheet.legends_text_size;
+    chartObject.legends_text_color = options.legends_text_color ? options.legends_text_color.toLowerCase() : stylesheet.legends_text_color;
+    chartObject.legends_text_weight = options.legends_text_weight ? options.legends_text_weight.toLowerCase() : stylesheet.legends_text_weight;
+    chartObject.legends_text_family = options.legends_text_family ? options.legends_text_family.toLowerCase() : stylesheet.legends_text_family;
+    
     chartObject.axis_x_enable = options.axis_x_enable ? options.axis_x_enable.toLowerCase() : stylesheet.axis_x_enable;
     chartObject.axis_x_pointer_position = PykCharts.boolean(chartObject.axis_x_enable) && options.axis_x_pointer_position ? options.axis_x_pointer_position.toLowerCase() : stylesheet.axis_x_pointer_position;
     chartObject.axis_x_line_color = PykCharts.boolean(chartObject.axis_x_enable) && options.axis_x_line_color ? options.axis_x_line_color.toLowerCase() : stylesheet.axis_x_line_color;
@@ -65,9 +71,7 @@ PykCharts.maps.processInputs = function (chartObject, options) {
     chartObject.axis_x_outer_pointer_size = "axis_x_outer_pointer_size" in options && PykCharts.boolean(chartObject.axis_x_enable) ? options.axis_x_outer_pointer_size : stylesheet.axis_x_outer_pointer_size;
 
     chartObject.label_enable = options.label_enable ? options.label_enable.toLowerCase() : mapsTheme.label_enable;
-    chartObject.legends_enable = options.legends_enable ? options.legends_enable.toLowerCase() : stylesheet.legends_enable;
-    chartObject.legends_display = options.legends_display ? options.legends_display.toLowerCase() : stylesheet.legends_display;
-
+    
     chartObject.border_between_chart_elements_thickness = "border_between_chart_elements_thickness" in options ? options.border_between_chart_elements_thickness : stylesheet.border_between_chart_elements_thickness;
     chartObject.border_between_chart_elements_color = options.border_between_chart_elements_color.toLowerCase() ? options.border_between_chart_elements_color : stylesheet.border_between_chart_elements_color;
     chartObject.border_between_chart_elements_style = options.border_between_chart_elements_style.toLowerCase() ? options.border_between_chart_elements_style : stylesheet.border_between_chart_elements_style;
