@@ -712,7 +712,7 @@ PykCharts.multiD.columnChart = function(options){
             // console.log(that.the_layers[i]);
             if(!that.the_layers[i].name) continue;
             for(var j in that.the_layers[i].values) {
-                if(!PykCharts.boolean(that.the_layers[i].values[j].y)) continue;
+                var name = that.the_layers[i].values[j].group, color;
                 if(that.color_mode === "saturation") {
                     color = that.saturation_color;
                 } else if(that.color_mode === "color" && that.the_layers[0].values[j].color){
