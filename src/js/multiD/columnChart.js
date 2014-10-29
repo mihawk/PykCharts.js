@@ -311,7 +311,7 @@ PykCharts.multiD.columnChart = function(options){
                     .data(function(d,i){
                         return d.values;
                     });
-
+                
                 rect.enter()
                     .append("svg:rect")
                     .attr("class","rect");
