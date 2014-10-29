@@ -545,7 +545,6 @@ PykCharts.multiD.spiderWeb = function (options) {
             },
             yAxis: function () {
                 // if (PykCharts.boolean(that.enableTicks)) {
-                    console.log("appending labels");
                     var a = that.yScale.domain();
                     var t = a[1]/4;
                     var b = [];
