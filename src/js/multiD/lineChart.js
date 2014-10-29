@@ -165,8 +165,6 @@ PykCharts.multiD.lineChart = function (options){
 						.xGrid(that.svgContainer,that.group,that.xScale)
 						.xAxisTitle(that.xGroup)
 						.yAxisTitle(that.yGroup);
-
-
 			}
 			that.k.createFooter()
                 .lastUpdatedAt()
@@ -759,7 +757,6 @@ PykCharts.multiD.lineChart = function (options){
 
 						that.ticks.attr("id", function (d,i) { return that.type + "-svg-" + i; })
 								.attr("class","legend-heading");
-								// .text("");
 
 						setTimeout(function() {
 							that.ticks.text(function (d,i) {
