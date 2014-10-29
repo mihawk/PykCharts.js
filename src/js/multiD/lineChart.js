@@ -166,8 +166,6 @@ PykCharts.multiD.lineChart = function (options){
 						.xGrid(that.svgContainer,that.group,that.xScale)
 						.xAxisTitle(that.xGroup)
 						.yAxisTitle(that.yGroup);
-
-
 			}
 			that.k.createFooter()
                 .lastUpdatedAt()
