@@ -450,7 +450,7 @@
                 var k = new PykCharts.multiD.areaChart ({
 
                     selector: "#multiArea",
-                    data: "../data/multiLineChart.json",
+                    data: "../data/multipleContainerLine.json",
                     mode : "default",
 
                     color_mode: "saturation",  //color or saturation
@@ -494,7 +494,9 @@
                     line_curvy_lines:"yes",
                     crosshair_enable: "yes",
                     tooltip_enable : "yes",
-                    zoom_enable: "yes"
+                    zoom_enable: "yes",
+
+                    annotation_border_color:"black"
 
                 });
                 k.execute();
@@ -552,10 +554,10 @@
 
                     legends_enable: "yes",
                     legends_display: "horizontal",
-                    legendsText_size: 13,
-                    legendsText_color: "black",
-                    legendsText_weight: "thin",
-                    legendsText_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
+                    legends_text_size: 13,
+                    legends_text_color: "black",
+                    legends_text_weight: "normal",
+                    legends_text_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
 
                     border_between_chart_elements_thickness: 0,
                     border_between_chart_elements_color: "white",

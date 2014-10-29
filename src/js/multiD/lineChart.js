@@ -241,6 +241,7 @@ PykCharts.multiD.lineChart = function (options){
             $(window).on("load", function () { return that.k.resize(that.svgContainer,"yes"); })
                         .on("resize", function () { return that.k.resize(that.svgContainer,"yes"); });
         } else {
+        	console.log("Multiple Containers");
         	$(window).on("load", function () { return that.k.resize(null); })
                         .on("resize", function () { return that.k.resize(null); });
         }
@@ -366,9 +367,7 @@ PykCharts.multiD.lineChart = function (options){
 						.attr("id","xaxis")
 						.attr("class", "x axis");
 				}
-				console.log(that.axis_y_title)
 				if(PykCharts.boolean(that.axis_y_enable) || that.axis_y_title) {
-					console.log("inside")
 					that.yGroup = that.group.append("g")
 						.attr("id","yaxis")
 						.attr("class","y axis");
