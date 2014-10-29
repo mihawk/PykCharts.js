@@ -30,7 +30,6 @@
       <div id="percentageBar"></div>
       <hr/>
 
-
       <script>
 
 		    window.PykChartsInit = function (e) {
@@ -45,6 +44,7 @@
                 transition_duration: 1,
                 clubdata_enable: "yes",
                 // clubData_always_include_data_points : ["18-24","25-44"],
+                // clubdata_maximum_nodes : 5,
                 export_enable: "YES",
                 background_color: "white",
                 chart_width: 300,
@@ -62,7 +62,11 @@
                 clubData_always_include_data_points : "",
                 transition_duration: 1,
                 units_suffix: "rs",
-                pointer_weight: "normal"
+                pointer_weight: "normal",
+                "funnel_rect_width": 100,
+                "funnel_rect_height": 100,
+                "chart_height": 500
+
         		});
       			k.execute();
 
@@ -89,7 +93,7 @@
             var k = new PykCharts.oneD.donut({
                 selector: "#donutContainer",
                 data: "../data/pie.json",
-                transition_duration: 1
+                transition_duration: 1,
             });
            k.execute();
 
@@ -97,7 +101,7 @@
                 selector: "#electionPieContainer",
                 data: "../data/pie.json",
                 transition_duration: 4,
-                background_color: "white",
+                background_color: "white"
             });
            k.execute();
 
@@ -105,7 +109,10 @@
                 selector: "#electionDonutContainer",
                 data: "../data/pie.json",
                 background_color: "white",
-                transition_duration: 4
+                transition_duration: 4,
+                donut_inner_radius_percent: 100,
+                donut_radius_percent: 100
+
             });
            k.execute();
 
@@ -115,7 +122,6 @@
                 background_color: "white",
                 selector: "#pieContainer",
                 data: "../data/screenshot.json",
-                "pie_radius_percent": 80,
                 // transition_duration: 4
             });
            k.execute();

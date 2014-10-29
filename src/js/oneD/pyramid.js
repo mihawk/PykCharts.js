@@ -5,6 +5,14 @@ PykCharts.oneD.pyramid = function (options) {
 	this.execute = function () {
         that = new PykCharts.oneD.processInputs(that, options, "pyramid");
         that.height = options.chart_height ? options.chart_height : that.width;
+
+        that.k.validator()
+            .validatingDataType(that.height,"chart_height");    
+
+        if(that.stop) { 
+            return;
+        }
+
         if(that.mode === "default") {
            that.k.loading();
         }
