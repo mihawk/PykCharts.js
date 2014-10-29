@@ -353,7 +353,7 @@ PykCharts.Configuration = function (options){
             return this;
         },
         tooltip : function (d,selection,i,flag ) {
-            if((PykCharts.boolean(options.tooltip_enable) || options.axis_x_data_format === "string" || options.axis_y_data_format === "string" || flag > 0) && options.mode === "default") {
+            if((PykCharts.boolean(options.tooltip_enable) || options.axis_x_data_format === "string" || options.axis_y_data_format === "string" || PykCharts.boolean(options.annotation_enable)) && options.mode === "default") {
                 if(selection !== undefined){
                     var selector = options.selector.substr(1,options.selector.length)
                     PykCharts.Configuration.tooltipp = d3.select("body").append("div")
@@ -445,55 +445,108 @@ PykCharts.Configuration = function (options){
             return this;
         },
         annotation : function (svg,data,xScale,yScale) {
-            var annotation_circle = d3.select(svg).selectAll(".PykCharts-annotation-circle")
-                .data(data);
-            var annotation_text = d3.select(svg).selectAll(".PykCharts-annotation-text")
-                .data(data);
+            if(options.annotation_view_mode.toLowerCase() === "onclick") {
+                var annotation_circle = d3.select(svg).selectAll(".PykCharts-annotation-circle")
+                    .data(data);
+                var annotation_text = d3.select(svg).selectAll(".PykCharts-annotation-text")
+                    .data(data);
 
-            annotation_circle.enter()
-                .append("circle")
-                .attr("class","PykCharts-annotation-circle");
-            annotation_text.enter()
-                .append("text")
-                .attr("class","PykCharts-annotation-text");
+                annotation_circle.enter()
+                    .append("circle")
+                    .attr("class","PykCharts-annotation-circle");
+                annotation_text.enter()
+                    .append("text")
+                    .attr("class","PykCharts-annotation-text");
+                setTimeout(function () {
+                    annotation_text.attr("x",function (d) {
+                            return parseInt(xScale(d.x))+options.extra_left_margin+options.margin_left;
+                        })
+                        .attr("y", function (d) {
+                            return parseInt(yScale(d.y)-16+options.margin_top);
+                        })
+                        .attr("text-anchor","middle")
+                        .style("font-size","12px")
+                        .text(function (d) {
+                            return d.annotation;
+                        })
+                        .text(function (d,i) {
+                            return i+1;
+                        })
+                        .attr("fill",options.annotation_font_color)
+                        .style("pointer-events","none");
+                    annotation_circle
+                        .attr("cx",function (d,i) {
+                            return (parseInt(xScale(d.x))+options.extra_left_margin+options.margin_left);
+                        })
+                        .attr("cy", function (d,i) {
+                            return (parseInt(yScale(d.y))-20+options.margin_top);
+                        })
+                        .attr("r", 8)
+                        .style("cursor","pointer")
+                        .on("click",function (d,i) {
+                            options.mouseEvent.tooltipPosition(d);
+                            options.mouseEvent.tooltipTextShow(d.annotation);
+                        })
+                        .on("mouseover", function (d) {
+                            options.mouseEvent.tooltipHide(d,options.panels_enable,"multilineChart")
+                        })
+                        .attr("fill",options.annotation_background_color)
+                        .attr("stroke",options.annotation_border_color);
+                },options.transitions.duration());
 
-            annotation_text.attr("x",function (d) {
-                    return parseInt(xScale(d.x))+options.extra_left_margin+options.margin_left;
-                })
-                .attr("y", function (d) {
-                    return parseInt(yScale(d.y)-16+options.margin_top);
-                })
-                .attr("text-anchor","middle")
-                .style("font-size","12px")
-                .text(function (d) {
-                    return d.annotation;
-                })
-                .text(function (d,i) {
-                    return i+1;
-                })
-                .attr("fill",options.annotation_font_color)
-                .style("pointer-events","none");
-            annotation_circle
-                .attr("cx",function (d,i) {
-                    return (parseInt(xScale(d.x))+options.extra_left_margin+options.margin_left);
-                })
-                .attr("cy", function (d,i) {
-                    return (parseInt(yScale(d.y))-20+options.margin_top);
-                })
-                .attr("r", 8)
-                .style("cursor","pointer")
-                .on("click",function (d,i) {
-                    options.mouseEvent.tooltipPosition(d);
-                    options.mouseEvent.tooltipTextShow(d.annotation);
-                })
-                .on("mouseover", function (d) {
-                    options.mouseEvent.tooltipHide(d,options.panels_enable,"multilineChart")
-                })
-                .attr("fill",options.annotation_background_color)
-                .attr("stroke",options.annotation_border_color);
+                annotation_text.exit().remove();
+                annotation_circle.exit().remove();
+            } else if(options.annotation_view_mode.toLowerCase() === "onload") {
+                var w = [],h=[];
+                var annotation_rect = d3.select(svg).selectAll(".annotation-rect")
+                    .data(data)
 
-            annotation_text.exit().remove();
-            annotation_circle.exit().remove();
+                annotation_rect.enter()
+                    .append("rect")
+                    .attr("class","annotation-rect");
+
+                var annotation_text = d3.select(svg).selectAll(".annotation-text")
+                    .data(data)
+
+                annotation_text.enter()
+                    .append("text")
+                    .attr("class","annotation-text");
+                setTimeout(function () {
+                    annotation_text.attr("x",function (d) {
+                            return parseInt(xScale(d.x)-(5))+options.extra_left_margin+options.margin_left;
+                        })
+                        .attr("y", function (d) {
+                            return parseInt(yScale(d.y)-20+options.margin_top);
+                        })
+                        .attr("text-anchor","middle")
+                        .style("font-size","12px")
+                        .text(function (d) {
+                            return d.annotation;
+                        })
+                        .text(function (d,i) {
+                            w[i] = this.getBBox().width + 20;
+                            h[i] = this.getBBox().height + 10;
+                            return d.annotation;
+                        })
+                        .style("pointer-events","none");
+
+                    annotation_rect.attr("x",function (d,i) {
+                            return (parseInt(xScale(d.x)-(5))+options.extra_left_margin+options.margin_left) - (w[i]/2);
+                        })
+                        .attr("y", function (d,i) {
+                            return (parseInt(yScale(d.y)-10+options.margin_top)) - h[i];
+                        })
+                        .attr("width",function (d,i) { return w[i]; })
+                        .attr("height",function (d,i) { return h[i]; })
+                        .attr("fill","#eeeeee")
+                        .attr("stroke","darkgray")
+                        .style("pointer-events","none");
+                },options.transitions.duration());
+                annotation_text.exit()
+                    .remove();
+                annotation_rect.exit()
+                    .remove();
+            }
 
             return this;
         },
@@ -883,7 +936,6 @@ PykCharts.Configuration = function (options){
             }
         },
         resize : function (svg,anno,lsvg) {
-            console.log("resize");
             var aspect = (options.width/options.height);
             var targetWidth = $(options.selector).width();
             if(targetWidth > options.width) {
@@ -2173,6 +2225,8 @@ configuration.Theme = function(){
 
         "curvy_lines_enable": "no",
 
+        "annotation_enable": "no",
+        "annotation_view_mode": "onload",
         "annotation_border_color" : "black",
         "annotation_background_color" : "#EEEEEE",
         "annotation_font_color" : "black",
