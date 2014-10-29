@@ -307,6 +307,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                             ttp.html(tooltip_text);
                             if (that.tooltip_mode === "moving") {
                                 ttp.style("top", function () {
+                                    console.log(PykCharts.getEvent());
                                         return (PykCharts.getEvent().pageY - 20 ) + "px";
                                     })
                                     .style("left", function () {

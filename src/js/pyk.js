@@ -138,9 +138,10 @@ PykCharts.boolean = function(d) {
 
 PykCharts.getEvent = function () {
   function getSourceEvent() {
-    try {
+    if (d3.event && d3.event.sourceEvent) {
       return d3.event.sourceEvent;
-    } catch (e) {
+    }
+    else {
       return d3.event;
     }
   }
