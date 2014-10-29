@@ -1579,7 +1579,7 @@ configuration.mouseEvent = function (options) {
                                             }
                                             if(cond) {
                                                 active_y_tick.push(new_data[a].data[b].y);
-                                                test.push(yScale(new_data[a].data[b].y+new_data[a].data[b].y0) + top);
+                                                test.push(yScale(new_data[a].data[b].y+new_data[a].data[b].y0) + top + options.legendsGroup_height);
                                                 if(!PykCharts.boolean(color_from_data)) {
                                                     tt_row += "<tr><td>"+new_data[a].name+"</td><td><b>"+new_data[a].data[b].tooltip+"</b></td></tr>";
                                                     colspan = 2;
@@ -2059,7 +2059,7 @@ configuration.Theme = function(){
         "legends_enable": "yes",
         "legends_display": "horizontal",
         "legends_text_size": 13,
-        "legends_text_color": "white",
+        "legends_text_color": "#1D1D1D",
         "legends_text_weight": "normal",
         "legends_text_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
 
