@@ -547,7 +547,7 @@ PykCharts.Configuration = function (options){
                         })
                         .attr("width",function (d,i) { return w[i]; })
                         .attr("height",function (d,i) { return h[i]; })
-                        .attr("fill",options.annotation_font_color)
+                        .attr("fill",options.annotation_background_color)
                         .attr("stroke",options.annotation_border_color)
                         .style("pointer-events","none");
                 },options.transitions.duration());
