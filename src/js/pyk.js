@@ -678,13 +678,15 @@ PykCharts.Configuration = function (options){
             if(!legendsGroup_height) {
                 legendsGroup_height = 0;
             }
-
+            
             if(options.axis_x_title) {
+
                 if(!PykCharts.boolean(options.axis_x_enable)) {
                     gsvg.attr("transform", "translate(0," + (options.height - options.margin_top - options.margin_bottom - legendsGroup_height) + ")");
                 }
 
                 if(options.axis_x_position === "bottom") {
+
                     gsvg.append("text")
                         .attr("class","x-axis-title")
                         .attr("x", (w- options.margin_left - options.margin_right)/2)
@@ -1685,7 +1687,7 @@ configuration.mouseEvent = function (options) {
                     d3.selectAll(selection)
                         .style("fill","#bbb")
                         // .style("font-size","12px")
-                        .style("font-weight","normal");
+                        // .style("font-weight","normal");
                     d3.select(d3.selectAll(selection)[0][curr_tick])
                         .style("fill",abc)
                         // .style("font-size","13px")
@@ -1713,7 +1715,7 @@ configuration.mouseEvent = function (options) {
                 d3.selectAll(selection)
                     .style("fill",abc)
                     // .style("font-size","12px")
-                    .style("font-weight","normal");
+                    // .style("font-weight","normal");
             }
             return this;
         }
@@ -1939,7 +1941,6 @@ configuration.makeYGrid = function(options,yScale) {
                     .tickSize(-size)
                     .tickFormat("")
                     .outerTickSize(0);
-    // console.log(options.axis_pointer_y_size)
 
     d3.selectAll(options.selector + " .y.axis text")
                     .attr("font-size",options.axis_y_pointer_size)
@@ -2029,7 +2030,7 @@ configuration.Theme = function(){
         "axis_x_enable": "yes",
 
         "axis_x_title" : "",
-        "axis_x_title_size" : 12,
+        "axis_x_title_size" : 14,
         "axis_x_title_color" : "#1D1D1D",
         "axis_x_title_weight": "bold",
         "axis_x_title_family" : "'Helvetica Neue',Helvetica,Arial,sans-serif",
@@ -2128,7 +2129,7 @@ configuration.Theme = function(){
         "axis_y_enable": "yes",
 
         "axis_y_title" : "",
-        "axis_y_title_size" : 12,
+        "axis_y_title_size" : 14,
         "axis_y_title_color" : "#1D1D1D",
         "axis_y_title_weight": "bold",
         "axis_y_title_family" : "'Helvetica Neue',Helvetica,Arial,sans-serif",

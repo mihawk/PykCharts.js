@@ -95,14 +95,12 @@
                     axis_x_time_value_interval: 1,
 
                     axis_y_enable: "yes",
-                    // axis_y_title : "",
                     axis_y_position: "left",
                     axis_y_pointer_position: "left",
                     axis_y_line_color: "#1D1D1D",
                     axis_y_label_color: "#1d1d1d",
                     axis_y_pointer_size: 12,
                     axis_y_pointer_padding: 10,
-                    // axis_y_pointer_values: [30,40,50],
                     axis_y_outer_pointer_size: 3,
                     line_curvy_lines:"no",
                     tooltip_enable: "yes",
@@ -620,6 +618,11 @@
                     border_between_chart_elements_color: "white",
                     border_between_chart_elements_style: "solid",
 
+                    "axis_x_pointer_size": 12,
+                    "axis_x_pointer_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
+                    "axis_x_pointer_weight": "normal",
+                    "axis_x_pointer_color": "#1D1D1D",
+
                     highlight:"January",
                 });
 
@@ -673,11 +676,13 @@
                     legends_display: "horizontal",
 
                     transition_duration:0,
+                    axis_x_pointer_weight:"normal",
 
                     border_between_chart_elements_thickness: 1,
                     border_between_chart_elements_color: "white",
                     border_between_chart_elements_style: "solid",
                    // saturation_enable: "yes",
+
 
                    highlight:"april",
                 });
@@ -808,10 +813,8 @@
 
                     highlight: "april"
                   });
-
                 k.execute();
             };
-
         </script>
     </body>
 </html>
