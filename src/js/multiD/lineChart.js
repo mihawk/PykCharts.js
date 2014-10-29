@@ -238,11 +238,11 @@ PykCharts.multiD.lineChart = function (options){
 			}
 		}
 		if(!PykCharts.boolean(that.panels_enable)) {
-            $(window).on("load", function () { return that.k.resize(that.svgContainer,"yes"); })
-                        .on("resize", function () { return that.k.resize(that.svgContainer,"yes"); });
+            $(document).ready(function () { return that.k.resize(that.svgContainer,"yes"); })
+            $(window).on("resize", function () { return that.k.resize(that.svgContainer,"yes"); });
         } else {
-        	$(window).on("load", function () { return that.k.resize(null); })
-                        .on("resize", function () { return that.k.resize(null); });
+        	$(document).ready(function () { return that.k.resize(null); })
+            $(window).on("resize", function () { return that.k.resize(null); });
         }
 	};
 

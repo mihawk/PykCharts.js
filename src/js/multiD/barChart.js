@@ -134,11 +134,11 @@ PykCharts.multiD.barChart = function(options){
                 .xAxisTitle(that.xGroup,that.legendsGroup_height);
 
         if(PykCharts.boolean(that.legends_enable)) {
-            $(window).on("load", function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); })
-                .on("resize", function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); });
+            $(document).ready(function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); })
+            $(window).on("resize", function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); });
         } else {
-            $(window).on("load", function () { return that.k.resize(that.svgContainer,""); })
-                .on("resize", function () { return that.k.resize(that.svgContainer,""); });
+            $(document).ready(function () { return that.k.resize(that.svgContainer,""); })
+            $(window).on("resize", function () { return that.k.resize(that.svgContainer,""); });
         }
     };
 
