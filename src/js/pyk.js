@@ -1,4 +1,5 @@
 var PykCharts = {};
+PykCharts.export_menu_status = 0;
 
 Array.prototype.groupBy = function (chart) {
     var gd = []
@@ -679,7 +680,7 @@ PykCharts.Configuration = function (options){
             if(!legendsGroup_height) {
                 legendsGroup_height = 0;
             }
-            
+
             if(options.axis_x_title) {
 
                 if(!PykCharts.boolean(options.axis_x_enable)) {
@@ -722,7 +723,7 @@ PykCharts.Configuration = function (options){
                     w = options.width;
                 }
 
-            if(options.axis_y_title) {   
+            if(options.axis_y_title) {
                 if(options.axis_y_position === "left"){
                     gsvg.append("text")
                         .attr("class","y-axis-title")
@@ -1104,6 +1105,7 @@ PykCharts.Configuration = function (options){
                 var name = chart_name + ".svg";
 
                 $(chart.selector + " #"+id).click(function () {
+                  PykCharts.export_menu_status = 1;
                     d3.select(options.selector + " #dropdown-multipleConatiner-export").style("visibility", "visible");
                 });
                 if(!PykCharts.boolean(panels_enable)) {

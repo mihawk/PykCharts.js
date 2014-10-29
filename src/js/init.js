@@ -18,6 +18,12 @@
                 if (_ && d3 && ($ || jQuery) && d3.customHive && topojson && $("body").colourBrightness) {
                     PykCharts.numberFormat = d3.format(",");
                     window.PykChartsInit();
+                    $("body").click(function () {
+                        if (PykCharts.export_menu_status === 0) {
+                            $("#dropdown-multipleConatiner-export").css("visibility","hidden");
+                        }
+                        PykCharts.export_menu_status = 0;
+                    })
                 };
             }
             catch (e) {
