@@ -623,7 +623,7 @@ PykCharts.Configuration = function (options){
                     k.ordinalXAxisTickFormat(domain,extra);
                 }
 
-                d3.selectAll(options.selector + " .x.axis text")
+                d3.selectAll(options.selector + " .x.axis .tick text")
                         .attr("font-size",options.axis_x_pointer_size)
                         .style("font-weight",options.axis_x_pointer_weight)
                         .style("font-family",options.axis_x_pointer_family);
@@ -659,7 +659,7 @@ PykCharts.Configuration = function (options){
                 if((options.axis_y_data_format === "string") && options.panels_enable === "no") {
                     k.ordinalYAxisTickFormat(domain);
                 }
-                d3.selectAll(options.selector + " .y.axis text")
+                d3.selectAll(options.selector + " .y.axis .tick text")
                         .attr("font-size",options.axis_y_pointer_size)
                         .style("font-weight",options.axis_y_pointer_weight)
                         .style("font-family",options.axis_y_pointer_family);
@@ -686,7 +686,7 @@ PykCharts.Configuration = function (options){
                 }
 
                 if(options.axis_x_position === "bottom") {
-
+                    // console.log(axis_x_pointer_weight,"weird")
                     gsvg.append("text")
                         .attr("class","x-axis-title")
                         .attr("x", (w- options.margin_left - options.margin_right)/2)
@@ -722,6 +722,8 @@ PykCharts.Configuration = function (options){
                 }
 
             if(options.axis_y_title) {   
+                console.log(options.axis_y_title_weight,"options.axis_y_title_weight");
+
                 if(options.axis_y_position === "left"){
                     gsvg.append("text")
                         .attr("class","y-axis-title")
@@ -1832,7 +1834,7 @@ configuration.makeXAxis = function(options,xScale) {
                     .tickPadding(options.axis_x_pointer_padding)
                     .orient(options.axis_x_pointer_position);
 
-    d3.selectAll(options.selector + " .x.axis itext")
+    d3.selectAll(options.selector + " .x.axis .tick text")
             .attr("font-size",options.axis_x_pointer_size)
             .style("font-weight",options.axis_x_pointer_weight)
             .style("font-family",options.axis_x_pointer_family);
@@ -1877,7 +1879,7 @@ configuration.makeYAxis = function(options,yScale) {
                         return d;
                     });
 
-    d3.selectAll(options.selector + " .y.axis text")
+    d3.selectAll(options.selector + " .y.axis .tick text")
                 .attr("font-size",options.axis_y_pointer_size)
                 .style("font-weight",options.axis_y_pointer_weight)
                 .style("font-family",options.axis_y_pointer_family);
@@ -1922,7 +1924,7 @@ configuration.makeXGrid = function(options,xScale) {
                     .tickSize(options.height - options.margin_top - options.margin_bottom)
                     .outerTickSize(0);
 
-    d3.selectAll(options.selector + " .x.axis text")
+    d3.selectAll(options.selector + " .x.axis .tick text")
                     .attr("font-size",options.axis_x_pointer_size)
                     .style("font-weight",options.axis_x_pointer_weight)
                     .style("font-family",options.axis_x_pointer_family);
@@ -1945,7 +1947,7 @@ configuration.makeYGrid = function(options,yScale) {
                     .tickFormat("")
                     .outerTickSize(0);
 
-    d3.selectAll(options.selector + " .y.axis text")
+    d3.selectAll(options.selector + " .y.axis .tick text")
                     .attr("font-size",options.axis_y_pointer_size)
                     .style("font-weight",options.axis_y_pointer_weight)
                     .style("font-family",options.axis_y_pointer_family);
