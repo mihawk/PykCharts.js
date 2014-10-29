@@ -450,7 +450,7 @@ PykCharts.Configuration = function (options){
             annotation_circle.enter()
                 .append("circle")
                 .attr("class","PykCharts-annotation-circle");
-            console.log(svg);
+            // console.log(svg);
             var annotation_text = d3.select(svg).selectAll(".PykCharts-annotation-text")
                 .data(data)
 
@@ -1150,7 +1150,7 @@ PykCharts.Configuration = function (options){
             return this;
         },
         errorHandling: function(error_msg,error_code,err_url) {
-            console.log('%c[Error Pykih Charts] ', 'color: red;font-weight:bold;font-size:13px', " at "+options.selector+".(Invalid value for attribute \""+error_msg+"\")  Visit http://www.pykih.com/");
+            // console.log('%c[Error Pykih Charts] ', 'color: red;font-weight:bold;font-size:13px', " at "+options.selector+".(Invalid value for attribute \""+error_msg+"\")  Visit http://www.pykih.com/");
             options.stop = true;
             return;
         },
@@ -1869,7 +1869,6 @@ configuration.makeYAxis = function(options,yScale) {
                     .outerTickSize(options.axis_y_outer_pointer_size)
                     .tickPadding(options.axis_y_pointer_padding)
                     .tickFormat(function (d,i) {
-                        console.log(d,"d")
                         return d;
                     });
 
@@ -1940,7 +1939,7 @@ configuration.makeYGrid = function(options,yScale) {
                     .tickSize(-size)
                     .tickFormat("")
                     .outerTickSize(0);
-    console.log(options.axis_pointer_y_size)
+    // console.log(options.axis_pointer_y_size)
 
     d3.selectAll(options.selector + " .y.axis text")
                     .attr("font-size",options.axis_y_pointer_size)
