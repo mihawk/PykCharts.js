@@ -118,7 +118,8 @@ PykCharts.multiD.columnChart = function(options){
                 .legendsContainer(1)
                 .createGroups(1)
                 .createChart()
-                .axisContainer();
+                .axisContainer()
+                .highlightRect();
 
             that.k.tooltip();
             that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
@@ -487,11 +488,7 @@ PykCharts.multiD.columnChart = function(options){
                         y = (that.height - that.margin_bottom - that.margin_top - that.legendsGroup_height - that.highlight_y_positions[y_len - 1] - 5),
                         height = (that.highlight_y_positions[y_len - 1] + 10),
                         height;
-                    if(PykCharts.boolean(that.highlight_y_positions[0])){
-                        width = (that.highlight_x_positions[x_len - 1] - that.highlight_x_positions[0] + 10 + that.xScale.rangeBand());
-                    } else {
-                        width = (that.highlight_x_positions[x_len - 1] - that.highlight_x_positions[0] + 10);
-                    }
+                    width = (that.highlight_x_positions[x_len - 1] - that.highlight_x_positions[0] + 10 + that.xScale.rangeBand());
                     that.group.append("rect")
                         .attr("class","highlight-rect")
                         .attr("x", x)
@@ -716,7 +713,6 @@ PykCharts.multiD.columnChart = function(options){
             if(!that.the_layers[i].name) continue;
             for(var j in that.the_layers[i].values) {
                 if(!PykCharts.boolean(that.the_layers[i].values[j].y)) continue;
-                var name = that.the_layers[i].values[j].group, color;
                 if(that.color_mode === "saturation") {
                     color = that.saturation_color;
                 } else if(that.color_mode === "color" && that.the_layers[0].values[j].color){
