@@ -65,9 +65,9 @@ PykCharts.multiD.barChart = function(options){
         var that = this;
         that.map_group_data = that.multiD.mapGroup(that.data);
         that.data = that.dataTransformation();
-        //console.log(that.data);
         that.data = that.emptygroups(that.data);
-        //console.log(that.data);
+
+        console.log(that.data,"that.data");
         var fD = that.flattenData();
         // console.log(fD);
         that.the_bars = fD[0];
@@ -179,7 +179,7 @@ PykCharts.multiD.barChart = function(options){
                 return this;
             },
             axisContainer : function () {
-                if(that.axis_y_title) {
+                if(that.axis_y_enable) {
 
                     var axis_line = that.group.selectAll(".axis-line")
                         .data(["line"]);
@@ -196,7 +196,8 @@ PykCharts.multiD.barChart = function(options){
                             .attr("stroke-width","1px");
 
                     axis_line.exit().remove();
-
+                }    
+                if(that.axis_y_title) {
                     if(that.axis_y_position === "left") {
                         that.yGroup = that.group.append("g")
                             .attr("id","yaxis")
@@ -353,6 +354,8 @@ PykCharts.multiD.barChart = function(options){
                 that.highlight_y_positions = [];
                 that.highlight_x_positions = [];
 
+                console.log(that.layers,"layers")
+
                 that.bars = that.group.selectAll(".bars")
                     .data(that.layers);
 
@@ -454,7 +457,10 @@ PykCharts.multiD.barChart = function(options){
                         .attr("x", function(d){
                             return -10;
                         })
-                        .attr("fill",that.axis_y_labelColor)
+                        .style("fill",that.axis_y_title_color)
+                        .style("font-weight",that.axis_y_title_weight)
+                        .style("font-family",that.axis_y_title_family)
+                        .style("font-size",that.axis_y_title_size)
                         .text(function(d){
                             return d.name;
                         })
@@ -818,19 +824,40 @@ PykCharts.multiD.barChart = function(options){
             return value[0].length;
         });
 
-        var new_data = _.map(data,function (d,i){
-            //console.log(that.data);
-            var value = _.values(d);
-            while(value[0].length < that.no_of_groups) {
-                var key = _.keys(d);
-                var stack = { "name": "stack", "tooltip": "null", "color": "white", "val": 0, /*highlight: false*/ };
-                var group = {"group3":[stack]};
-                // console.log(data[1],"dataaaaaaaa");
-                data[i][key[0]].push(group);
-                value = _.values(d);
-            }
+        that.group_data;
+
+        for(var i =0; i<that.no_of_groups;i++) {
+            if(_.values(data[i])[0].length === that.no_of_groups) {
+                that.group_data = _.values(data[i])[0];
+                break;
+            }            
+        }
+
+        that.get_unique_group = _.map(that.group_data,function(d,i) {
+            return _.keys(d)[0];
         });
-        // console.log(data,"new_data");
+
+        for(var i = 0;i<data.length;i++) {
+            var value = _.values(data[i]);
+            var group = value[0];
+
+            if(value[0].length < that.no_of_groups) {
+                for(var k=0; k<that.no_of_groups;k++) {         
+                // console.log(group[k],"hello",group,k,data[i][0])       
+                    var value = _.values(data[i]);
+                    var group = value[0];
+                    if(_.keys(group[k])[0] != that.get_unique_group[k]) {                        
+                        var stack = { "name": "stack", "tooltip": "null", "color": "white", "val": 0, /*highlight: false*/ };
+                        var missing_group = that.get_unique_group[k];
+                        _.values(data[i])[0].splice(k, 0, {});
+                        // _.values(data[i])[0][k] = {};
+                        _.values(data[i])[0][k][missing_group] = [stack];
+                        console.log(_.values(data[i])[0],data[i],"jhol",[stack])  
+                    }
+                }
+            }
+        }
+        console.log(data,"data")
         return data;
     };
 
@@ -877,6 +904,7 @@ PykCharts.multiD.barChart = function(options){
                     break;
             }
         }
+        console.log(that.data,"that.data")
 
         for(var i=0; i < data_length; i++) {
             var group = {},
@@ -930,7 +958,6 @@ PykCharts.multiD.barChart = function(options){
             }
         }
         that.barName = _.unique(that.barName);
-
         return data_tranform;
     };
     return this;
