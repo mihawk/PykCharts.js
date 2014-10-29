@@ -74,7 +74,6 @@ PykCharts.multiD.lineChart = function (options){
 						annotation: that.data[l].annotation || ""
 					});
 				}
-				that.data[l].annotation ? that.flag++ : 0;
 			}
 		}
 		that.new_data_length = that.new_data.length;
@@ -84,7 +83,7 @@ PykCharts.multiD.lineChart = function (options){
 		that.dataLineGroup = [],that.clicked;
 		that.multid = new PykCharts.multiD.configuration(that);
 		that.fillColor = new PykCharts.Configuration.fillChart(that,null,options);
-		that.transitions = new PykCharts.Configuration.transition(options);
+		that.transitions = new PykCharts.Configuration.transition(that);
 		if(that.mode === "default") {
 
 			that.k.title();
@@ -104,7 +103,7 @@ PykCharts.multiD.lineChart = function (options){
 				for(i=0;i<that.new_data_length;i++) {
 					that.k.liveData(that)
 							.makeMainDiv(that.selector,i)
-							.tooltip(true,that.selector,i,that.flag);
+							.tooltip(true,that.selector,i);
 
 					that.new_data1 = that.new_data[i];
 					that.fill_data[0] = that.new_data1;
@@ -133,12 +132,11 @@ PykCharts.multiD.lineChart = function (options){
 				}
 				that.k.emptyDiv();
 			} else {
-
 				that.k.backgroundColor(that)
 					.export(that,"#svg-1","lineChart")
 					.emptyDiv()
 					.subtitle();
-
+				
 				that.w = that.width;
 				that.reducedWidth = that.w - that.margin_left - that.margin_right;
 				that.reducedHeight = that.height - that.margin_top - that.margin_bottom;
@@ -166,21 +164,20 @@ PykCharts.multiD.lineChart = function (options){
 						.xGrid(that.svgContainer,that.group,that.xScale)
 						.xAxisTitle(that.xGroup)
 						.yAxisTitle(that.yGroup);
-
-
 			}
 			that.k.createFooter()
                 .lastUpdatedAt()
                 .credits()
                 .dataSource();
-
-    		that.annotation();
+            if(PykCharts.boolean(that.annotation_enable)) {
+            	that.annotation();
+            }
 		}
 		else if(that.mode === "infographics") {
 			if(PykCharts.boolean(that.panels_enable)) {
 
-				that.k/*.backgroundColor(that)*/
-					.export(that,"svg-","lineChart",that.panels_enable,that.new_data)
+				that.k.backgroundColor(that)
+					.export(that,"#svg-","lineChart",that.panels_enable,that.new_data)
 					.emptyDiv();
 
 				that.w = that.width/3;
@@ -212,8 +209,8 @@ PykCharts.multiD.lineChart = function (options){
 				that.k.emptyDiv();
 			} else {
 
-				that.k/*.backgroundColor(that)*/
-					.export(that,"#svg-1","lineChart")
+				that.k.backgroundColor(that)
+					.export(that,"#svg-0","lineChart")
 					.emptyDiv();
 
 				that.w = that.width;
@@ -250,11 +247,12 @@ PykCharts.multiD.lineChart = function (options){
 		d3.json(options.data, function (e,data) {
 			that.data = data.groupBy("line");
 			that.data_length = that.data.length;
+			that.transition_duration = 0;
 			var compare = that.multid.checkChangeInData(that.data,that.compare_data);
 			that.compare_data = compare[0];
 			var data_changed = compare[1];
 			that.dataTransformation();
-
+			
 			if(data_changed) {
 				that.k.lastUpdatedAt("liveData");
 				that.mouseEvent.tooltipHide(null,that.panels_enable,that.type);
@@ -271,8 +269,9 @@ PykCharts.multiD.lineChart = function (options){
 					.yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain)
 					.yGrid(that.svgContainer,that.group,that.yScale)
 					.xGrid(that.svgContainer,that.group,that.xScale)
-
-			that.annotation();
+			if(that.annotation_enable) {
+				that.annotation();
+			}
 		});
 	};
 
@@ -756,8 +755,9 @@ PykCharts.multiD.lineChart = function (options){
 								.append("text")
 
 						that.ticks.attr("id", function (d,i) { return that.type + "-svg-" + i; })
-								.attr("class","legend-heading");
-								// .text("");
+								.attr("class","legend-heading")
+								.attr("transform", tickPosition)
+								.attr("text-anchor",orient);
 
 						setTimeout(function() {
 							that.ticks.text(function (d,i) {
@@ -765,9 +765,8 @@ PykCharts.multiD.lineChart = function (options){
 								})
 								.text(function (d,i) {
 									that.tick_w = this.getBBox().width + 5;
-									return d.name
+									return d.name;
 								})
-								.attr("transform", tickPosition)
 								.style("font-size", that.pointer_size)
 								.style("font-weight", function(d){
 									if(d.highlight) {
@@ -778,7 +777,6 @@ PykCharts.multiD.lineChart = function (options){
 								})
 								.style("font-family", that.pointer_family)
 								.style("visibility","visible")
-								.attr("text-anchor",orient)
 								.attr("dx",5)
 								.attr("dy",5)
 				      			.style("fill", function(d,i) {
@@ -834,7 +832,9 @@ PykCharts.multiD.lineChart = function (options){
 
 	    	that.zoomOut();
 	    }
-	    that.annotation();
+	    if(PykCharts.boolean(that.annotation_enable)) {
+        	that.annotation();
+        }
 	    that.optionalFeature().ticks();
 	};
 	this.zoomOut = function () {
@@ -897,22 +897,23 @@ PykCharts.multiD.lineChart = function (options){
                 .data(annotation);
             anno.enter()
                 .append("path");
-
-        	anno.attr("class", "PykCharts-annotation-line")
-                .attr("d", function (d,i) {
-                	var a = [
-                		{
-                			x:parseInt(that.xScale(d.x))+that.extra_left_margin+that.margin_left,
-                			y:parseInt(that.yScale(d.y)-(line_size)+that.margin_top)
-                		},
-                		{
-                			x:parseInt(that.xScale(d.x))+that.extra_left_margin+that.margin_left,
-                			y:parseInt(that.yScale(d.y)+that.margin_top),
-                		}
-                	];
-                	return that.line(a);
-                })
-                .attr("stroke",that.annotation_border_color);
+           	setTimeout(function () {
+	        	anno.attr("class", "PykCharts-annotation-line")
+	                .attr("d", function (d,i) {
+	                	var a = [
+	                		{
+	                			x:parseInt(that.xScale(d.x))+that.extra_left_margin+that.margin_left,
+	                			y:parseInt(that.yScale(d.y)-(line_size)+that.margin_top)
+	                		},
+	                		{
+	                			x:parseInt(that.xScale(d.x))+that.extra_left_margin+that.margin_left,
+	                			y:parseInt(that.yScale(d.y)+that.margin_top),
+	                		}
+	                	];
+	                	return that.line(a);
+	                })
+	                .attr("stroke",that.annotation_border_color);
+           	},that.transitions.duration());
                 
             anno.exit()
             	.remove();

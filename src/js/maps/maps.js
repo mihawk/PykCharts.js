@@ -28,13 +28,13 @@ PykCharts.maps.processInputs = function (chartObject, options) {
 
     chartObject.selector = options.selector ? options.selector : stylesheet.selector;
     chartObject.width = options.chart_width && _.isNumber(parseInt(options.chart_width,10)) ? options.chart_width : stylesheet.chart_width;
-    console.log(chartObject.width,stylesheet.chart_width);
     chartObject.height = options.chart_height && _.isNumber(parseInt(options.chart_height,10)) ? options.chart_height : stylesheet.chart_height;
     chartObject.map_code = options.map_code ? options.map_code : mapsTheme.map_code;
     chartObject.click_enable = options.click_enable ? options.click_enable.toLowerCase() : mapsTheme.click_enable;
     chartObject.background_color = options.background_color ? options.background_color.toLowerCase() : stylesheet.background_color;
-    
-    chartObject.timeline_duration = options.timeline_duration ? options.timeline_duration :mapsTheme.timeline_duration;
+
+    chartObject.timeline_duration = "timeline_duration" in options ? options.timeline_duration :mapsTheme.timeline_duration;
+    chartObject.timeline_duration = (chartObject.timeline_duration * 1000);
     chartObject.margin_left = options.timeline_margin_left ? options.timeline_margin_left : mapsTheme.timeline_margin_left;
     chartObject.margin_right = options.timeline_margin_right ? options.timeline_margin_right : mapsTheme.timeline_margin_right;
     chartObject.margin_top = options.timeline_margin_top ? options.timeline_margin_top : mapsTheme.timeline_margin_top;
@@ -53,6 +53,13 @@ PykCharts.maps.processInputs = function (chartObject, options) {
     chartObject.saturation_color = options.saturation_color ? options.saturation_color : "";
     chartObject.palette_color = options.palette_color ? options.palette_color : mapsTheme.palette_color;
 
+    chartObject.legends_enable =  options.legends_enable ? options.legends_enable.toLowerCase() : stylesheet.legends_enable;
+    chartObject.legends_display = options.legends_display ? options.legends_display.toLowerCase() : stylesheet.legends_display;
+    chartObject.legends_text_size = options.legends_text_size ? options.legends_text_size : stylesheet.legends_text_size;
+    chartObject.legends_text_color = options.legends_text_color ? options.legends_text_color.toLowerCase() : stylesheet.legends_text_color;
+    chartObject.legends_text_weight = options.legends_text_weight ? options.legends_text_weight.toLowerCase() : stylesheet.legends_text_weight;
+    chartObject.legends_text_family = options.legends_text_family ? options.legends_text_family.toLowerCase() : stylesheet.legends_text_family;
+
     chartObject.axis_x_enable = options.axis_x_enable ? options.axis_x_enable.toLowerCase() : stylesheet.axis_x_enable;
     chartObject.axis_x_pointer_position = PykCharts.boolean(chartObject.axis_x_enable) && options.axis_x_pointer_position ? options.axis_x_pointer_position.toLowerCase() : stylesheet.axis_x_pointer_position;
     chartObject.axis_x_line_color = PykCharts.boolean(chartObject.axis_x_enable) && options.axis_x_line_color ? options.axis_x_line_color.toLowerCase() : stylesheet.axis_x_line_color;
@@ -65,12 +72,10 @@ PykCharts.maps.processInputs = function (chartObject, options) {
     chartObject.axis_x_outer_pointer_size = "axis_x_outer_pointer_size" in options && PykCharts.boolean(chartObject.axis_x_enable) ? options.axis_x_outer_pointer_size : stylesheet.axis_x_outer_pointer_size;
 
     chartObject.label_enable = options.label_enable ? options.label_enable.toLowerCase() : mapsTheme.label_enable;
-    chartObject.legends_enable = options.legends_enable ? options.legends_enable.toLowerCase() : stylesheet.legends_enable;
-    chartObject.legends_display = options.legends_display ? options.legends_display.toLowerCase() : stylesheet.legends_display;
 
     chartObject.border_between_chart_elements_thickness = "border_between_chart_elements_thickness" in options ? options.border_between_chart_elements_thickness : stylesheet.border_between_chart_elements_thickness;
-    chartObject.border_between_chart_elements_color = options.border_between_chart_elements_color.toLowerCase() ? options.border_between_chart_elements_color : stylesheet.border_between_chart_elements_color;
-    chartObject.border_between_chart_elements_style = options.border_between_chart_elements_style.toLowerCase() ? options.border_between_chart_elements_style : stylesheet.border_between_chart_elements_style;
+    chartObject.border_between_chart_elements_color = options.border_between_chart_elements_color ? options.border_between_chart_elements_color.toLowerCase() : stylesheet.border_between_chart_elements_color;
+    chartObject.border_between_chart_elements_style = options.border_between_chart_elements_style ? options.border_between_chart_elements_style.toLowerCase() : stylesheet.border_between_chart_elements_style;
     switch(chartObject.border_between_chart_elements_style) {
         case "dotted" : chartObject.border_between_chart_elements_style = "1,3";
                         break;
@@ -84,7 +89,7 @@ PykCharts.maps.processInputs = function (chartObject, options) {
     chartObject.loading = options.loading_gif_url ? options.loading_gif_url: stylesheet.loading_gif_url;
     chartObject.highlight = options.highlight ? options.highlight : stylesheet.highlight;
     chartObject.highlight_color = options.highlight_color ? options.highlight_color.toLowerCase(): stylesheet.highlight_color;
-    // chartObject.highlight_area_enable = "yes";    
+    // chartObject.highlight_area_enable = "yes";
     if (options &&  PykCharts.boolean (options.title_text)) {
         chartObject.title_text = options.title_text;
         chartObject.title_size = "title_size" in options ? options.title_size : stylesheet.title_size;
@@ -108,20 +113,20 @@ PykCharts.maps.processInputs = function (chartObject, options) {
         chartObject.subtitle_size = stylesheet.subtitle_size;
         chartObject.subtitle_color = stylesheet.subtitle_color;
         chartObject.subtitle_weight = stylesheet.subtitle_weight;
-        chartObject.subtitle_family = stylesheet.subtitle_family;        
+        chartObject.subtitle_family = stylesheet.subtitle_family;
     }
 
     chartObject.real_time_charts_refresh_frequency = options.real_time_charts_refresh_frequency ? options.real_time_charts_refresh_frequency : functionality.real_time_charts_refresh_frequency;
     chartObject.real_time_charts_last_updated_at_enable = options.real_time_charts_last_updated_at_enable ? options.real_time_charts_last_updated_at_enable.toLowerCase() : functionality.real_time_charts_last_updated_at_enable;
     chartObject.transition_duration = options.transition_duration ? options.transition_duration : functionality.transition_duration;
-    
+
     if(options.credit_my_site_name || options.credit_my_site_url) {
         chartObject.credit_my_site_name = options.credit_my_site_name ? options.credit_my_site_name : "";
         chartObject.credit_my_site_url = options.credit_my_site_url ? options.credit_my_site_url : "";
     } else {
         chartObject.credit_my_site_name = stylesheet.credit_my_site_name;
         chartObject.credit_my_site_url = stylesheet.credit_my_site_url;
-    } 
+    }
     chartObject.data_source_name = options.data_source_name ? options.data_source_name : "";
     chartObject.data_source_url = options.data_source_url ? options.data_source_url : "";
     // chartObject.units = options.units ? options.units : false;
@@ -130,10 +135,10 @@ PykCharts.maps.processInputs = function (chartObject, options) {
     // chartObject.pause_image_url = options.pause_image_url ? options.pause_image_url : mapsTheme.pause_image_url;
     // chartObject.marker_image_url = options.marker_image_url ? options.marker_image_url : mapsTheme.marker_image_url;
 
-    // chartObject.export_image_url = options.export_image_url ? options.export_image_url : stylesheet.export_image_url; 
-    chartObject.export_enable = options.export_enable ? options.export_enable.toLowerCase() : stylesheet.export_enable; 
-    
+    // chartObject.export_image_url = options.export_image_url ? options.export_image_url : stylesheet.export_image_url;
+    chartObject.export_enable = options.export_enable ? options.export_enable.toLowerCase() : stylesheet.export_enable;
+
     chartObject.k = new PykCharts.Configuration(chartObject);
-    return chartObject; 
-   
+    return chartObject;
+
 };
