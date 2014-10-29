@@ -71,6 +71,7 @@ PykCharts.tree.openTree = function (options) {
             svgContainer : function () {
                 that.svg = d3.select(options.selector)
                     .attr("class", "Pykcharts-tree")
+                    .attr("id","svgcontainer")
                     .append("svg")
                     .attr("width", that.width)
                     .attr("height", that.height);
