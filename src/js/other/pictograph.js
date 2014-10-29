@@ -21,6 +21,7 @@ PykCharts.other.pictograph = function (options) {
         that.imageWidth =  options.pictograph_image_width ? options.pictograph_image_width : otherCharts.pictograph_image_width;
         that.imageHeight = options.pictograph_image_height ? options.pictograph_image_height : otherCharts.pictograph_image_height;
         that.height = options.chart_height ? options.chart_height : that.width;
+
         if(that.mode === "default") {
            that.k.loading();
         }
