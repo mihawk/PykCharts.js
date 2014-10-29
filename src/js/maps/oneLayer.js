@@ -307,7 +307,6 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                             ttp.html(tooltip_text);
                             if (that.tooltip_mode === "moving") {
                                 ttp.style("top", function () {
-                                    console.log(PykCharts.getEvent());
                                         return (PykCharts.getEvent().pageY - 20 ) + "px";
                                     })
                                     .style("left", function () {
@@ -483,14 +482,18 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     .data(leg_data);
 
                 that.legends_text.enter()
-                    .append("text")
+                    .append("text");
 
                 that.legends_text.attr("class","text")
+                    .attr("pointer-events","none")
+                    .attr("fill", that.legends_text_color)
+                    .attr("font-family", that.legends_text_family)
+                    .attr("font-size",that.legends_text_size)
+                    .attr("font-weight", that.legends_text_weight)
                     .attr("x", text_parameter1value)
                     .attr("y", text_parameter2value)
-                    .style("font-size", 10)
-                    .style("font", "Arial")
                     .text(that.leg);
+
                 that.legends_text.exit()
                     .remove();
             } else {
@@ -518,10 +521,13 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     .append("text");
 
                 that.legends_text.attr("class","text")
+                    .attr("pointer-events","none")
+                    .attr("fill", that.legends_text_color)
+                    .attr("font-family", that.legends_text_family)
+                    .attr("font-size",that.legends_text_size)
+                    .attr("font-weight", that.legends_text_weight)
                     .attr("x", text_parameter1value)
                     .attr("y",text_parameter2value)
-                    .style("font-size", 10)
-                    .style("font", "Arial")
                     .text(that.leg);
 
                 that.legends_text.exit()
@@ -607,9 +613,6 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
     };
 
     that.backgroundColor =function () {
-        var bg;
-        bgColor(options.selector);
-
         var bg,child1;
         bgColor(options.selector);
 
