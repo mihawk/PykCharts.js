@@ -883,6 +883,7 @@ PykCharts.Configuration = function (options){
             }
         },
         resize : function (svg,anno,lsvg) {
+            console.log("resize");
             var aspect = (options.width/options.height);
             var targetWidth = $(options.selector).width();
             if(targetWidth > options.width) {
@@ -2256,10 +2257,10 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
     // console.log(options.mode,"options");
 
     chartObject.selector = options.selector ? options.selector : stylesheet.selector;
-    if(options.chart_width) {
-        var targetWidth = $(options.selector).width();
-        options.chart_width = targetWidth < options.chart_width ? targetWidth : options.chart_width;
-    }
+    // if(options.chart_width) {
+    //     var targetWidth = $(options.selector).width();
+    //     options.chart_width = targetWidth < options.chart_width ? targetWidth : options.chart_width;
+    // }
     chartObject.width = options.chart_width  ? options.chart_width : stylesheet.chart_width;
     // chartObject.height = options.chart_height && _.isNumber(options.chart_height) ? options.chart_height : stylesheet.chart_height;
     // chartObject.width = optional && optional.chart && _.isNumber(optional.chart.width) ? optional.chart.width : stylesheet.chart.width;
@@ -2464,8 +2465,8 @@ PykCharts.oneD.bubble = function (options) {
 
         }
         that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
-        // $(window).on("load", function () { return that.k.resize(that.svgContainer); })
-        //                     .on("resize", function () { return that.k.resize(that.svgContainer); });
+        $(document).ready(function () { return that.k.resize(that.svgContainer); })
+        $(window).on("resize", function () { return that.k.resize(that.svgContainer); });
     };
 
     this.optionalFeatures = function () {
@@ -2839,8 +2840,8 @@ PykCharts.oneD.funnel = function (options) {
                 .credits()
                 .dataSource();
         }
-        $(window).on("load", function () { return that.k.resize(that.svgContainer); })
-                            .on("resize", function () { return that.k.resize(that.svgContainer); });
+        $(document).ready(function () { return that.k.resize(that.svgContainer); })
+        $(window).on("resize", function () { return that.k.resize(that.svgContainer); });
     };
 
     this.funnelLayout = function (){
@@ -3380,8 +3381,8 @@ PykCharts.oneD.percentageColumn = function (options) {
                 .dataSource();
         }
         
-        $(window).on("load", function () { return that.k.resize(that.svgContainer); })
-                            .on("resize", function () { return that.k.resize(that.svgContainer); });
+        $(document).ready(function () { return that.k.resize(that.svgContainer); })
+        $(window).on("resize", function () { return that.k.resize(that.svgContainer); });
     };
     this.optionalFeatures = function () {
         var optional = {
@@ -3805,8 +3806,8 @@ PykCharts.oneD.percentageBar = function (options) {
                 .credits()
                 .dataSource();
         }
-        $(window).on("load", function () { return that.k.resize(that.svgContainer); })
-                            .on("resize", function () { return that.k.resize(that.svgContainer); });
+        $(document).ready(function () { return that.k.resize(that.svgContainer); })
+        $(window).on("resize", function () { return that.k.resize(that.svgContainer); });
     };
     this.optionalFeatures = function () {
         var optional = {
@@ -4197,7 +4198,7 @@ PykCharts.oneD.donut = function (options) {
         if(that.stop) { 
             return;
         }
-        
+
         if(that.radiusPercent > 100) {
             that.radiusPercent = 100;
         }
@@ -4212,7 +4213,6 @@ PykCharts.oneD.donut = function (options) {
             }
         }
         catch(err) {
-
             that.k.errorHandling(err,"#1");
         }
 
@@ -4431,8 +4431,8 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
             that.k.tooltip();
         }
 
-        $(window).on("load", function () { return that.k.resize(that.svgContainer); })
-                            .on("resize", function () { return that.k.resize(that.svgContainer); });
+        $(document).ready(function () { return that.k.resize(that.svgContainer); })
+        $(window).on("resize", function () { return that.k.resize(that.svgContainer); });
     };
 
     //----------------------------------------------------------------------------------------
@@ -5037,8 +5037,8 @@ PykCharts.oneD.pyramid = function (options) {
             that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
         }
 
-        $(window).on("load", function () { return that.k.resize(that.svgContainer); })
-                            .on("resize", function () { return that.k.resize(that.svgContainer); });
+        $(document).ready(function () { return that.k.resize(that.svgContainer); })
+        $(window).on("resize", function () { return that.k.resize(that.svgContainer); });
 	};
 
 	this.percentageValues = function (data){
@@ -5568,8 +5568,8 @@ PykCharts.oneD.treemap = function (options){
                 .dataSource();
         }
     
-        $(window).on("load", function () { return that.k.resize(that.svgContainer); })
-                            .on("resize", function () { return that.k.resize(that.svgContainer); });
+        $(document).ready(function () { return that.k.resize(that.svgContainer); })
+        $(window).on("resize", function () { return that.k.resize(that.svgContainer); });
     };
 
     this.optionalFeatures = function (){
@@ -5930,6 +5930,7 @@ PykCharts.other.pictograph = function (options) {
         that.imageWidth =  options.pictograph_image_width ? options.pictograph_image_width : otherCharts.pictograph_image_width;
         that.imageHeight = options.pictograph_image_height ? options.pictograph_image_height : otherCharts.pictograph_image_height;
         that.height = options.chart_height ? options.chart_height : that.width;
+
         if(that.mode === "default") {
            that.k.loading();
         }
@@ -6412,10 +6413,10 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     // chartObject.axis_x_data_format = options.axis_x_data_format ? options.axis_x_data_format : multiDimensionalCharts.axis_x_data_format;
     chartObject.selector = options.selector ? options.selector : "body";
     chartObject.panels_enable = options.panels_enable ? options.panels_enable.toLowerCase() : multiDimensionalCharts.panels_enable;
-    if(options.chart_width && !PykCharts.boolean(chartObject.panels_enable)) {
-        var targetWidth = $(options.selector).width();
-        options.chart_width = targetWidth < options.chart_width ? targetWidth : options.chart_width;
-    }
+    // if(options.chart_width && !PykCharts.boolean(chartObject.panels_enable)) {
+    //     var targetWidth = $(options.selector).width();
+    //     options.chart_width = targetWidth < options.chart_width ? targetWidth : options.chart_width;
+    // }
     chartObject.width = options.chart_width ? options.chart_width : stylesheet.chart_width;
     chartObject.height = options.chart_height ? options.chart_height : stylesheet.chart_height;
 
@@ -6877,11 +6878,11 @@ PykCharts.multiD.lineChart = function (options){
 			}
 		}
 		if(!PykCharts.boolean(that.panels_enable)) {
-            $(window).on("load", function () { return that.k.resize(that.svgContainer,"yes"); })
-                        .on("resize", function () { return that.k.resize(that.svgContainer,"yes"); });
+            $(document).ready(function () { return that.k.resize(that.svgContainer,"yes"); })
+            $(window).on("resize", function () { return that.k.resize(that.svgContainer,"yes"); });
         } else {
-        	$(window).on("load", function () { return that.k.resize(null); })
-                        .on("resize", function () { return that.k.resize(null); });
+        	$(document).ready(function () { return that.k.resize(null); })
+            $(window).on("resize", function () { return that.k.resize(null); });
         }
 	};
 
@@ -7696,8 +7697,8 @@ PykCharts.multiD.areaChart = function (options){
   		}
 
   		that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
-  		$(window).on("load", function () { return that.k.resize(that.svgContainer,"yes"); })
-                        .on("resize", function () { return that.k.resize(that.svgContainer,"yes"); });
+  		$(document).ready(function () { return that.k.resize(that.svgContainer,"yes"); })
+        $(window).on("resize", function () { return that.k.resize(that.svgContainer,"yes"); });
 	};
 
 	this.refresh = function (){
@@ -8215,9 +8216,10 @@ PykCharts.multiD.barChart = function(options){
 
         that = new PykCharts.multiD.processInputs(that, options, "column");
         var multiDimensionalCharts = theme.multiDimensionalCharts;
-
+        // console.log(that.stop);
         if(that.stop)
             return;
+        // console.log("barChart");        
 
         that.grid_y_enable =  options.chart_grid_y_enable ? options.chart_grid_y_enable.toLowerCase() : theme.stylesheet.chart_grid_y_enable;
         that.grid_color = options.chart_grid_color ? options.chart_grid_color.toLowerCase() : theme.stylesheet.chart_grid_color;
@@ -8272,7 +8274,7 @@ PykCharts.multiD.barChart = function(options){
     //4. Render function to create the chart
     //----------------------------------------------------------------------------------------
     this.render = function(){
-
+        // console.log("barChart")
         var that = this;
         that.map_group_data = that.multiD.mapGroup(that.data);
         that.data = that.dataTransformation();
@@ -8332,6 +8334,7 @@ PykCharts.multiD.barChart = function(options){
                 .createGroups()
                 .createChart()
                 .axisContainer()
+                .ticks()
                 .highlightRect();
 
             that.k.tooltip();
@@ -8342,11 +8345,11 @@ PykCharts.multiD.barChart = function(options){
                 .xAxisTitle(that.xGroup,that.legendsGroup_height);
 
         if(PykCharts.boolean(that.legends_enable)) {
-            $(window).on("load", function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); })
-                .on("resize", function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); });
+            $(document).ready(function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); })
+            $(window).on("resize", function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); });
         } else {
-            $(window).on("load", function () { return that.k.resize(that.svgContainer,""); })
-                .on("resize", function () { return that.k.resize(that.svgContainer,""); });
+            $(document).ready(function () { return that.k.resize(that.svgContainer,""); })
+            $(window).on("resize", function () { return that.k.resize(that.svgContainer,""); });
         }
     };
 
@@ -8565,6 +8568,8 @@ PykCharts.multiD.barChart = function(options){
                 };
                 that.highlight_y_positions = [];
                 that.highlight_x_positions = [];
+
+                // console.log(that.layers,"layers")
 
                 that.bars = that.group.selectAll(".bars")
                     .data(that.layers);
@@ -8978,7 +8983,7 @@ PykCharts.multiD.barChart = function(options){
                 }
             }
         }
-        console.log(layers,"layers");
+        // console.log(layers,"layers");
         return layers;
     };
 
@@ -9025,6 +9030,7 @@ PykCharts.multiD.barChart = function(options){
                 });
             }
         }
+        // console.log(p,"p");
         return p;
     };
     this.emptygroups = function (data) {
@@ -9062,10 +9068,12 @@ PykCharts.multiD.barChart = function(options){
                         _.values(data[i])[0].splice(k, 0, {});
                         // _.values(data[i])[0][k] = {};
                         _.values(data[i])[0][k][missing_group] = [stack];
+                        // console.log(_.values(data[i])[0],data[i],"jhol",[stack])
                     }
                 }
             }
         }
+        // console.log(data,"data")
         return data;
     };
 
@@ -9112,7 +9120,7 @@ PykCharts.multiD.barChart = function(options){
                     break;
             }
         }
-        console.log(that.data,"that.data")
+        // console.log(that.data,"that.data")
 
         for(var i=0; i < data_length; i++) {
             var group = {},
@@ -9302,11 +9310,11 @@ PykCharts.multiD.columnChart = function(options){
         }
 
         if(PykCharts.boolean(that.legends_enable)) {
-            $(window).on("load", function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); })
-                .on("resize", function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); });
+            $(document).ready(function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); })
+            $(window).on("resize", function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); });
         } else {
-            $(window).on("load", function () { return that.k.resize(that.svgContainer,""); })
-                .on("resize", function () { return that.k.resize(that.svgContainer,""); });
+            $(document).ready(function () { return that.k.resize(that.svgContainer,""); })
+            $(window).on("resize", function () { return that.k.resize(that.svgContainer,""); });
         }
     };
 
@@ -9485,7 +9493,7 @@ PykCharts.multiD.columnChart = function(options){
                     .data(function(d,i){
                         return d.values;
                     });
-
+                
                 rect.enter()
                     .append("svg:rect")
                     .attr("class","rect");
@@ -10304,15 +10312,15 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
         }
         if(!PykCharts.boolean(that.panels_enable)) {
             if(type === "scatterplot" && PykCharts.boolean(that.legends_enable) && PykCharts.boolean(that.variable_circle_size_enable) && that.map_group_data[1]) {
-                $(window).on("load", function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); })
-                            .on("resize", function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); });
+                $(document).ready(function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); })
+                $(window).on("resize", function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); });
             } else {
-                $(window).on("load", function () { return that.k.resize(that.svgContainer); })
-                            .on("resize", function () { return that.k.resize(that.svgContainer); });
+                $(document).ready(function () { return that.k.resize(that.svgContainer); })
+                $(window).on("resize", function () { return that.k.resize(that.svgContainer); });
             }
         } else {
-            $(window).on("load", function () { return that.k.resize(); })
-                .on("resize", function () { return that.k.resize(); });
+            $(document).ready(function () { return that.k.resize(); })
+            $(window).on("resize", function () { return that.k.resize(); });
         }
     };
 
@@ -10984,11 +10992,11 @@ PykCharts.multiD.spiderWeb = function (options) {
         }
 
         if(PykCharts.boolean(that.legends_enable)) {
-            $(window).on("load", function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); })
-                .on("resize", function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); });
+            $(document).ready(function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); })
+            $(window).on("resize", function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); });
         } else {
-            $(window).on("load", function () { return that.k.resize(that.svgContainer,""); })
-                .on("resize", function () { return that.k.resize(that.svgContainer,""); });
+            $(document).ready(function () { return that.k.resize(that.svgContainer,""); })
+            $(window).on("resize", function () { return that.k.resize(that.svgContainer,""); });
         }
     };
 
