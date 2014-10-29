@@ -307,10 +307,10 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                             ttp.html(tooltip_text);
                             if (that.tooltip_mode === "moving") {
                                 ttp.style("top", function () {
-                                        return (d3.event.pageY - 20 ) + "px";
+                                        return (PykCharts.getEvent().pageY - 20 ) + "px";
                                     })
                                     .style("left", function () {
-                                        return (d3.event.pageX + 20 ) + "px";
+                                        return (PykCharts.getEvent().pageX + 20 ) + "px";
                                     });
                             } else if (that.tooltip_mode === "fixed") {
                                 ttp.style("top", (that.tooltip_position_top) + "px")
@@ -482,18 +482,14 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     .data(leg_data);
 
                 that.legends_text.enter()
-                    .append("text");
+                    .append("text")
 
                 that.legends_text.attr("class","text")
-                    .attr("pointer-events","none")
-                    .attr("fill", that.legends_text_color)
-                    .attr("font-family", that.legends_text_family)
-                    .attr("font-size",that.legends_text_size)
-                    .attr("font-weight", that.legends_text_weight)
                     .attr("x", text_parameter1value)
                     .attr("y", text_parameter2value)
+                    .style("font-size", 10)
+                    .style("font", "Arial")
                     .text(that.leg);
-
                 that.legends_text.exit()
                     .remove();
             } else {
@@ -521,13 +517,10 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     .append("text");
 
                 that.legends_text.attr("class","text")
-                    .attr("pointer-events","none")
-                    .attr("fill", that.legends_text_color)
-                    .attr("font-family", that.legends_text_family)
-                    .attr("font-size",that.legends_text_size)
-                    .attr("font-weight", that.legends_text_weight)
                     .attr("x", text_parameter1value)
                     .attr("y",text_parameter2value)
+                    .style("font-size", 10)
+                    .style("font", "Arial")
                     .text(that.leg);
 
                 that.legends_text.exit()
@@ -602,7 +595,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
 
     this.clicked = function (d) {
         var obj = {};
-        obj.container = d3.event.target.ownerSVGElement.parentNode.id;
+        obj.container = PykCharts.getEvent().target.ownerSVGElement.parentNode.id;
         obj.area = d.properties;
         obj.data = _.where(that.data, {iso2: d.properties.iso_a2})[0];
         try {
@@ -613,6 +606,9 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
     };
 
     that.backgroundColor =function () {
+        var bg;
+        bgColor(options.selector);
+
         var bg,child1;
         bgColor(options.selector);
 
@@ -748,7 +744,8 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         function dragmove (d) {
             $("body").css("cursor","pointer");
             if (that.timeline_status !== "playing") {
-                var x = d3.event.sourceEvent.pageX - (that.margin_left),
+           //     console.log(PykCharts,PykCharts.getEvent(),d3.event);
+                var x = PykCharts.getEvent().sourceEvent.pageX - (that.margin_left),
                     x_range = [],
                     temp = that.xScale.range(),
                     len = that.unique.length,

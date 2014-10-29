@@ -480,7 +480,7 @@ PykCharts.multiD.lineChart = function (options){
 					      				if(that.new_data[i].highlight && that.type === "multilineChart" && !that.clicked) {
 					      					that.highlightLine(this,null);
 					      				} else if(that.clicked) {
-					      					that.highlightLine(tcreatecharthat.selected,null);
+					      					that.highlightLine(that.selected,null);
 					      				}
 					      				else {
 					      					d3.select(this).classed({'multi-line-selected':false,'multi-line':true,'multi-line-hover':false});
@@ -820,7 +820,7 @@ PykCharts.multiD.lineChart = function (options){
 
 		    }
 		}
-	    if(event.type === "dblclick") {
+	    if(PykCharts.getEvent().type === "dblclick") {
 	    	that.count++;
 	    }
 	    that.mouseEvent.tooltipHide();
