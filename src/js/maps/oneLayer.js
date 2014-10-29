@@ -361,9 +361,10 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             if (that.color_mode === "color") {
                 if(that.chart_color[0]) {
                     return that.chart_color[0];
-                } else if (obj.length > 0 && obj[0].color !== "") {
+                } else if (obj.length > 0 && PykCharts.boolean(obj[0].color)) {
                     return obj[0].color;
                 }
+                console.log(that.default_color[0]);
                 return that.default_color[0];
             }
             if (that.color_mode === "saturation") {
