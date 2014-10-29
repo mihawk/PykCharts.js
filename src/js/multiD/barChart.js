@@ -9,6 +9,7 @@ PykCharts.multiD.barChart = function(options){
         if(that.stop)
             return;
         // console.log("barChart");        
+
         that.grid_y_enable =  options.chart_grid_y_enable ? options.chart_grid_y_enable.toLowerCase() : theme.stylesheet.chart_grid_y_enable;
         that.grid_color = options.chart_grid_color ? options.chart_grid_color.toLowerCase() : theme.stylesheet.chart_grid_color;
         that.axis_x_data_format = "";
@@ -460,10 +461,10 @@ PykCharts.multiD.barChart = function(options){
                         .attr("x", function(d){
                             return -10;
                         })
-                        .style("fill",that.axis_y_title_color)
-                        .style("font-weight",that.axis_y_title_weight)
-                        .style("font-family",that.axis_y_title_family)
-                        .style("font-size",that.axis_y_title_size)
+                        .style("fill",that.axis_y_pointer_color)
+                        .style("font-weight",that.axis_y_pointer_weight)
+                        .style("font-family",that.axis_y_pointer_family)
+                        .style("font-size",that.axis_y_pointer_size)
                         .text(function(d){
                             return d.name;
                         })
@@ -856,7 +857,7 @@ PykCharts.multiD.barChart = function(options){
                         _.values(data[i])[0].splice(k, 0, {});
                         // _.values(data[i])[0][k] = {};
                         _.values(data[i])[0][k][missing_group] = [stack];
-                        // console.log(_.values(data[i])[0],data[i],"jhol",[stack])  
+                        // console.log(_.values(data[i])[0],data[i],"jhol",[stack])
                     }
                 }
             }
