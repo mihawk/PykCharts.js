@@ -33,7 +33,8 @@ PykCharts.maps.processInputs = function (chartObject, options) {
     chartObject.click_enable = options.click_enable ? options.click_enable.toLowerCase() : mapsTheme.click_enable;
     chartObject.background_color = options.background_color ? options.background_color.toLowerCase() : stylesheet.background_color;
     
-    chartObject.timeline_duration = options.timeline_duration ? options.timeline_duration :mapsTheme.timeline_duration;
+    chartObject.timeline_duration = "timeline_duration" in options ? options.timeline_duration :mapsTheme.timeline_duration;
+    chartObject.timeline_duration = (chartObject.timeline_duration * 1000);
     chartObject.margin_left = options.timeline_margin_left ? options.timeline_margin_left : mapsTheme.timeline_margin_left;
     chartObject.margin_right = options.timeline_margin_right ? options.timeline_margin_right : mapsTheme.timeline_margin_right;
     chartObject.margin_top = options.timeline_margin_top ? options.timeline_margin_top : mapsTheme.timeline_margin_top;

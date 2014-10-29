@@ -2248,7 +2248,7 @@ configuration.Theme = function(){
         "tooltip_position_top": 0,
         "tooltip_position_left": 0,
 
-        "timeline_duration": 1000,
+        "timeline_duration": 1,
         "timeline_margin_top": 5,
         "timeline_margin_right": 25,
         "timeline_margin_bottom": 25,
