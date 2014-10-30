@@ -490,7 +490,7 @@ PykCharts.Configuration = function (options){
                         })
                         .attr("text-anchor","middle")
                         .style("font-size","12px")
-                        
+
                         .text(function (d,i) {
                             return i+1;
                         })
@@ -1006,7 +1006,7 @@ PykCharts.Configuration = function (options){
                         .css("left",div_left)
                         .css("float",div_float);
 
-                $(options.selector + " #dropdown-multipleConatiner-export")
+                $(options.selector + " .dropdown-multipleConatiner-export")
                         .css("left",(targetWidth - 80)+"px");
 
             }
@@ -1108,8 +1108,7 @@ PykCharts.Configuration = function (options){
             if(PykCharts.boolean(options.export_enable)) {
                 d3.select(options.selector)
                         .append("div")
-                        .attr("id", "dropdown-multipleConatiner-export")
-                        .attr("class","pyk-tooltip")
+                        .attr("class","pyk-tooltip dropdown-multipleConatiner-export")
                         .style("left",options.width - 80 + "px")
                         .style("top","10px")
                         .style("height","auto")
@@ -1130,7 +1129,7 @@ PykCharts.Configuration = function (options){
 
                 if(PykCharts.boolean(panels_enable)) {
                     for(var i = 0; i < containers.length; i++) {
-                        d3.select(options.selector + " #dropdown-multipleConatiner-export")
+                        d3.select(options.selector + " .dropdown-multipleConatiner-export")
                             .append("span")
                             .attr("id",chart_name + i)
                             .on("mouseover",function () {
@@ -1144,7 +1143,7 @@ PykCharts.Configuration = function (options){
                             .html("Panel " + (i+1) + "<br>");
                     }
                 } else {
-                    d3.select(options.selector + " #dropdown-multipleConatiner-export")
+                    d3.select(options.selector + " .dropdown-multipleConatiner-export")
                         .append("span")
                         .attr("id","span")
                         .on("mouseover",function () {
@@ -1168,7 +1167,7 @@ PykCharts.Configuration = function (options){
                 div_size = options.width
                 div_float ="none"
                 div_left = options.width-15;
-                
+
                 if(PykCharts.boolean(options.title_text) && options.title_size  && options.mode === "default") {
                     div_size = 0.1*options.width;
                     div_float ="left";
@@ -1194,13 +1193,13 @@ PykCharts.Configuration = function (options){
 
                 $(chart.selector + " #"+id).click(function () {
                   PykCharts.export_menu_status = 1;
-                    d3.select(options.selector + " #dropdown-multipleConatiner-export").style("visibility", "visible");
+                    d3.select(options.selector + " .dropdown-multipleConatiner-export").style("visibility", "visible");
                 });
                 if(!PykCharts.boolean(panels_enable)) {
                     console.log(chart_name,"chart_name")
                     $(chart.selector + " #span").click(function () {
                         console.log("exportttttttttttttttt");
-                        d3.select(options.selector + " #dropdown-multipleConatiner-export").style("visibility", "hidden");
+                        d3.select(options.selector + " .dropdown-multipleConatiner-export").style("visibility", "hidden");
                         chart.k.processSVG(document.querySelector(options.selector +" "+svgId),chart_name);
                         project.importSVG(document.querySelector(options.selector +" "+svgId));
                         var svg = project.exportSVG({ asString: true });
@@ -1213,7 +1212,7 @@ PykCharts.Configuration = function (options){
                 } else {
                     for(var i = 0; i<containers.length; i++) {
                         $(chart.selector + " #"+chart_name + i).click(function () {
-                            d3.select(options.selector + " #dropdown-multipleConatiner-export").style("visibility", "hidden");
+                            d3.select(options.selector + " .dropdown-multipleConatiner-export").style("visibility", "hidden");
                             var id = this.id.substring(this.id.length-1,this.id.length);
                             chart.k.processSVG(document.querySelector(options.selector + " #" +svgId + id),chart_name);
                             project.importSVG(document.querySelector(options.selector + " #" +svgId + id));
@@ -1417,17 +1416,17 @@ PykCharts.Configuration = function (options){
                     if(color) {
                         try {
                             var checked;
-                            if(typeof color != "string" ) { 
+                            if(typeof color != "string" ) {
 
                                 throw config_name;
                             }
 
                             if(color.charAt(0)!= "#" && color.substring(0,3).toLowerCase() !="rgb" && color.toLowerCase()!= "transparent") {
-                                checked = $c.name2hex(color) ;  
+                                checked = $c.name2hex(color) ;
                                 if(checked === "Invalid Color Name") {
-                                    console.log(color,"color")                            
-                                    throw config_name;                                
-                                }   
+                                    console.log(color,"color")
+                                    throw config_name;
+                                }
                             } else if (color.charAt(0) === "#") {
                                 checked = /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test(color);
                                 if(!checked) {
@@ -2535,9 +2534,9 @@ PykCharts.oneD.bubble = function (options) {
         that.height = options.chart_height ? options.chart_height : that.width;
 
         that.k.validator()
-            .validatingDataType(that.height,"chart_height")    
+            .validatingDataType(that.height,"chart_height")
 
-        if(that.stop) { 
+        if(that.stop) {
             return;
         }
 
@@ -2580,9 +2579,9 @@ PykCharts.oneD.bubble = function (options) {
         that.fillChart = new PykCharts.Configuration.fillChart(that);
         that.onHoverEffect = new PykCharts.oneD.mouseEvent(that);
         that.transitions = new PykCharts.Configuration.transition(that);
-       
+
         if (that.mode ==="default") {
-            
+
             that.k.title()
                 .backgroundColor(that)
                 .export(that,"#svgcontainer","bubble")
@@ -2672,7 +2671,7 @@ PykCharts.oneD.bubble = function (options) {
                     .on("mouseover", function (d) {
                         if(!d.children && that.mode==="default") {
                             that.onHoverEffect.highlight(options.selector+" "+".bubble", this);
-                            d.tooltip = d.tooltip ||"<table><thead><th colspan='2' class='tooltip-heading'>"+d.name+"</th></thead><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.weight)+"  <td class='tooltip-right-content'>(&nbsp;"+((d.weight*100)/that.sum).toFixed(2)+"%&nbsp;)</tr></table>";
+                            d.tooltip = d.tooltip ||"<table><thead><th colspan='2' class='tooltip-heading'>"+d.name+"</th></thead><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.weight)+"  <td class='tooltip-right-content'>("+((d.weight*100)/that.sum).toFixed(2)+"%)</tr></table>";
                             that.mouseEvent.tooltipPosition(d);
                             that.mouseEvent.tooltipTextShow(d.tooltip);
                         }
@@ -2908,7 +2907,7 @@ PykCharts.oneD.funnel = function (options) {
             .validatingDataType(that.rect_width,"rect_width")
             .validatingDataType(that.rect_height,"rect_height")
 
-        if(that.stop) { 
+        if(that.stop) {
             return;
         }
 
@@ -2958,7 +2957,7 @@ PykCharts.oneD.funnel = function (options) {
 //        theme.stylesheet.borderBetweenChartElements;
         that.border = new PykCharts.Configuration.border(that);
 
-        if(that.mode === "default") {        
+        if(that.mode === "default") {
             that.k.title()
                 .backgroundColor(that)
                 .export(that,"#svgcontainer","funnel")
@@ -3168,7 +3167,7 @@ PykCharts.oneD.funnel = function (options) {
         			.on("mouseover", function (d,i) {
                         if(that.mode === "default") {
                             that.onHoverEffect.highlight(options.selector +" "+".fun-path",this);
-                            tooltip = that.new_data[i].tooltip || "<table class='PykCharts'><tr><th colspan='3' class='tooltip-heading'>"+that.new_data[i].name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(that.new_data[i].weight)+"<td class='tooltip-right-content'>(&nbsp; "+that.per_values[i].toFixed(2)+"%&nbsp) </tr></table>";
+                            tooltip = that.new_data[i].tooltip || "<table class='PykCharts'><tr><th colspan='3' class='tooltip-heading'>"+that.new_data[i].name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(that.new_data[i].weight)+"<td class='tooltip-right-content'>("+that.per_values[i].toFixed(2)+"%) </tr></table>";
                 			that.mouseEvent.tooltipPosition(d);
                             that.mouseEvent.tooltipTextShow(tooltip);
                         }
@@ -3289,7 +3288,7 @@ PykCharts.oneD.funnel = function (options) {
                             .attr("pointer-events","none")
                             .attr("font-family", that.pointer_family)
                             .attr("font-weight",that.pointer_weight);
-                            
+
                     },that.transitions.duration());
 
                     tick_label.exit().remove();
@@ -3443,14 +3442,14 @@ PykCharts.oneD.percentageColumn = function (options) {
             .validatingDataType(that.percent_column_rect_width,"percent_column_rect_width")
 
         // 1.2 Read Json File Get all the data and pass to render
-        
+
         if(that.percent_column_rect_width > 100) {
             that.percent_column_rect_width = 100;
         }
 
         that.percent_column_rect_width = that.k._radiusCalculation(that.percent_column_rect_width,"percentageColumn") * 2;
 
-        if(that.stop) { 
+        if(that.stop) {
             return;
         }
 
@@ -3530,7 +3529,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                 .credits()
                 .dataSource();
         }
-        
+
         $(document).ready(function () { return that.k.resize(that.svgContainer); })
         $(window).on("resize", function () { return that.k.resize(that.svgContainer); });
     };
@@ -3588,7 +3587,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                     .attr("stroke-dasharray", that.border.style())
                     .on("mouseover", function (d,i) {
                         if(that.mode === "default") {
-                            d.tooltip=d.tooltip||"<table class='PykCharts'><tr><th colspan='2' class='tooltip-heading'>"+d.name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.weight)+"<td class='tooltip-right-content'>(&nbsp;"+d.percentValue.toFixed(2)+"%&nbsp)</tr></table>"
+                            d.tooltip=d.tooltip||"<table class='PykCharts'><tr><th colspan='2' class='tooltip-heading'>"+d.name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.weight)+"<td class='tooltip-right-content'>("+d.percentValue.toFixed(2)+"%)</tr></table>"
                             that.onHoverEffect.highlight(options.selector+" "+".per-rect",this);
                             that.mouseEvent.tooltipPosition(d);
                             that.mouseEvent.tooltipTextShow(d.tooltip);
@@ -3663,9 +3662,9 @@ PykCharts.oneD.percentageColumn = function (options) {
                         // .delay(that.transitions.duration())
 
                         setTimeout(function(){
-                            that.chart_text.text(function (d) { 
+                            that.chart_text.text(function (d) {
                                 return d.percentValue.toFixed(1)+"%";
-                                // return that.k.appendUnits(d.weight); 
+                                // return that.k.appendUnits(d.weight);
                             })
                                 .text(function (d) {
                                     if(this.getBBox().width < (that.width/4) && this.getBBox().height < (d.percentValue * that.height / 100)) {
@@ -3863,16 +3862,16 @@ PykCharts.oneD.percentageBar = function (options) {
         that = new PykCharts.oneD.processInputs(that, options, "percentageBar");
         // 1.2 Read Json File Get all the data and pass to render
 
-        that.height = options.chart_height ? options.chart_height : that.width/2; 
+        that.height = options.chart_height ? options.chart_height : that.width/2;
         that.percent_row_rect_height = options.percent_row_rect_height ? options.percent_row_rect_height : theme.oneDimensionalCharts.percent_row_rect_height;
 
         that.k.validator()
             .validatingDataType(that.height,"chart_height")
             .validatingDataType(that.percent_row_rect_height,"percent_row_rect_height");
-        
-        if(that.stop) { 
+
+        if(that.stop) {
             return;
-        }       
+        }
 
         if(that.percent_row_rect_height > 100) {
             that.percent_row_rect_height = 100;
@@ -3948,7 +3947,7 @@ PykCharts.oneD.percentageBar = function (options) {
             .label()
             .ticks();
         if(that.mode === "default") {
-            
+
             // that.optionalFeatures().ticks()
             that.k.liveData(that)
                 .createFooter()
@@ -4015,7 +4014,7 @@ PykCharts.oneD.percentageBar = function (options) {
                     .attr("stroke-dasharray", that.border.style())
                     .on("mouseover", function (d,i) {
                         if(that.mode === "default") {
-                            d.tooltip=d.tooltip||"<table class='PykCharts'><tr><th colspan='2' class='tooltip-heading'>"+d.name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.weight)+"<td class='tooltip-right-content'>(&nbsp;"+d.percentValue.toFixed(2)+"%&nbsp)</tr></table>"
+                            d.tooltip=d.tooltip||"<table class='PykCharts'><tr><th colspan='2' class='tooltip-heading'>"+d.name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.weight)+"<td class='tooltip-right-content'>("+d.percentValue.toFixed(2)+"%)</tr></table>"
                             that.onHoverEffect.highlight(options.selector+" "+".per-rect",this);
                             that.mouseEvent.tooltipPosition(d);
                             that.mouseEvent.tooltipTextShow(d.tooltip);
@@ -4288,13 +4287,13 @@ PykCharts.oneD.pie = function (options) {
             that.height = that.width;
             that.calculation = "pie";
         }
-        that.radiusPercent = options.pie_radius_percent ? options.pie_radius_percent : theme.oneDimensionalCharts.pie_radius_percent;        
+        that.radiusPercent = options.pie_radius_percent ? options.pie_radius_percent : theme.oneDimensionalCharts.pie_radius_percent;
 
         that.k.validator()
-            .validatingDataType(that.height,"chart_height")    
+            .validatingDataType(that.height,"chart_height")
             .validatingDataType(that.radiusPercent,"pie_radius_percent");
 
-        if(that.stop) { 
+        if(that.stop) {
             return;
         }
 
@@ -4335,17 +4334,17 @@ PykCharts.oneD.donut = function (options) {
             that.height = that.width;
             that.calculation = "pie";
         }
-        
+
         that.radiusPercent = options.donut_radius_percent  ? options.donut_radius_percent : theme.oneDimensionalCharts.donut_radius_percent;
         that.innerRadiusPercent = options.donut_inner_radius_percent  ? options.donut_inner_radius_percent : theme.oneDimensionalCharts.donut_inner_radius_percent;
 
         that.k.validator()
-            .validatingDataType(that.height,"chart_height")    
+            .validatingDataType(that.height,"chart_height")
             .validatingDataType(that.radiusPercent,"donut_radius_percent")
             .validatingDataType(that.innerRadiusPercent,"donut_inner_radius_percent");
-        
 
-        if(that.stop) { 
+
+        if(that.stop) {
             return;
         }
 
@@ -4366,7 +4365,7 @@ PykCharts.oneD.donut = function (options) {
             that.k.errorHandling(err,"#1");
         }
 
-        if(that.stop) { 
+        if(that.stop) {
             return;
         }
 
@@ -4409,13 +4408,13 @@ PykCharts.oneD.election_pie = function (options) {
         that.radiusPercent = options.pie_radius_percent ? options.pie_radius_percent : theme.oneDimensionalCharts.pie_radius_percent;
 
         that.k.validator()
-            .validatingDataType(that.height,"chart_height")    
+            .validatingDataType(that.height,"chart_height")
             .validatingDataType(that.radiusPercent,"pie_radius_percent");
-        
-        if(that.stop) { 
+
+        if(that.stop) {
             return;
         }
-        
+
         if(that.radiusPercent > 100) {
             that.radiusPercent = 100;
         }
@@ -4455,11 +4454,11 @@ PykCharts.oneD.election_donut = function (options) {
         that.innerRadiusPercent = options.donut_inner_radius_percent  && options.donut_inner_radius_percent ? options.donut_inner_radius_percent : theme.oneDimensionalCharts.donut_inner_radius_percent;
 
         that.k.validator()
-            .validatingDataType(that.height,"chart_height")    
+            .validatingDataType(that.height,"chart_height")
             .validatingDataType(that.radiusPercent,"donut_radius_percent")
             .validatingDataType(that.innerRadiusPercent,"donut_inner_radius_percent");
-        
-        if(that.stop) { 
+
+        if(that.stop) {
             return;
         }
 
@@ -4481,10 +4480,10 @@ PykCharts.oneD.election_donut = function (options) {
             that.k.errorHandling(err,"#1");
         }
 
-        if(that.stop) { 
+        if(that.stop) {
             return;
         }
-        
+
         that.show_total_at_center = options.donut_show_total_at_center ? options.donut_show_total_at_center.toLowerCase() : theme.oneDimensionalCharts.donut_show_total_at_center;
 
         d3.json(options.data, function (e, data) {
@@ -4659,7 +4658,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                     })
                     .on('mouseover',function (d) {
                         if(that.mode === "default") {
-                            d.data.tooltip = d.data.tooltip || "<table class='PykCharts'><tr><th colspan='3' class='tooltip-heading'>"+d.data.name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.data.weight)+"<td class='tooltip-right-content'>( "+((d.data.weight*100)/that.sum).toFixed(2)+"% ) </tr></table>";
+                            d.data.tooltip = d.data.tooltip || "<table class='PykCharts'><tr><th colspan='3' class='tooltip-heading'>"+d.data.name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.data.weight)+"<td class='tooltip-right-content'>("+((d.data.weight*100)/that.sum).toFixed(2)+"%) </tr></table>";
                             that.onHoverEffect.highlight(options.selector +" "+".pie", this);
                             that.mouseEvent.tooltipPosition(d);
                             that.mouseEvent.tooltipTextShow(d.data.tooltip);
@@ -5106,9 +5105,9 @@ PykCharts.oneD.pyramid = function (options) {
         that.height = options.chart_height ? options.chart_height : that.width;
 
         that.k.validator()
-            .validatingDataType(that.height,"chart_height");    
+            .validatingDataType(that.height,"chart_height");
 
-        if(that.stop) { 
+        if(that.stop) {
             return;
         }
 
@@ -5294,9 +5293,9 @@ PykCharts.oneD.pyramid = function (options) {
                 var k = that.new_data.length-1,p = that.new_data.length-1,tooltipArray = [];
                 for(i=0;i<that.new_data.length;i++){
                     if(i==0) {
-                        tooltipArray[i] = that.new_data[i].tooltip || "<table class='PykCharts'><tr><th colspan='3'  class='tooltip-heading'>"+that.new_data[i].name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(that.new_data[i].weight)+"<td class='tooltip-right-content'>( "+((that.new_data[i].weight*100)/that.sum).toFixed(2)+"% ) </tr></table>";
+                        tooltipArray[i] = that.new_data[i].tooltip || "<table class='PykCharts'><tr><th colspan='3'  class='tooltip-heading'>"+that.new_data[i].name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(that.new_data[i].weight)+"<td class='tooltip-right-content'>("+((that.new_data[i].weight*100)/that.sum).toFixed(2)+"%) </tr></table>";
                     } else {
-                        tooltipArray[i] = that.new_data[k].tooltip || "<table class='PykCharts'><tr><th colspan='3'  class='tooltip-heading'>"+that.new_data[k].name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(that.new_data[k].weight)+"<td class='tooltip-right-content'>( "+((that.new_data[k].weight*100)/that.sum).toFixed(2)+"% ) </tr></table>";
+                        tooltipArray[i] = that.new_data[k].tooltip || "<table class='PykCharts'><tr><th colspan='3'  class='tooltip-heading'>"+that.new_data[k].name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(that.new_data[k].weight)+"<td class='tooltip-right-content'>("+((that.new_data[k].weight*100)/that.sum).toFixed(2)+"%) </tr></table>";
                         k--;
                     }
                 }
@@ -5378,13 +5377,13 @@ PykCharts.oneD.pyramid = function (options) {
                         .style("font-size", that.label_size)
                         .attr("fill", that.label_color)
                         .style("font-family", that.label_family);
-                        
+
 
                     setTimeout(function () {
                         that.chart_text.text(function (d,i) {
                                 if(i===0) {
                                     return ((that.new_data[i].weight*100)/that.sum).toFixed(1)+"%";
-                                    
+
                                 }
                                 else {
                                     j--;
@@ -5395,11 +5394,11 @@ PykCharts.oneD.pyramid = function (options) {
                                 if(this.getBBox().width < (d.values[2].x - d.values[1].x) && this.getBBox().height < Math.abs(d.values[1].y - d.values[0].y)) {
                                     if(i===0) {
                                         return ((that.new_data[i].weight*100)/that.sum).toFixed(1)+"%";
-                                        
+
                                     }else {
                                         p--;
                                         return ((that.new_data[p].weight*100)/that.sum).toFixed(1)+"%";
-                                        
+
                                     }
                                 }
                                 else {
@@ -5446,7 +5445,7 @@ PykCharts.oneD.pyramid = function (options) {
 
                 tick_label
                 .text("")
-                
+
                 setTimeout(function() {
                     tick_label.text(function (d,i) {
                             if(i===0) {
@@ -5483,7 +5482,7 @@ PykCharts.oneD.pyramid = function (options) {
                     .style("font-family", that.pointer_family)
                     .style("font-weight",that.pointer_weight)
                     .attr("text-anchor","start");
-                    
+
                 },that.transitions.duration());
 
                 tick_label.exit().remove();
@@ -5525,7 +5524,7 @@ PykCharts.oneD.pyramid = function (options) {
                     })
                     .attr("stroke-width", that.pointer_thickness)
                     .attr("stroke",that.pointer_color)
-                    
+
                     setTimeout(function() {
                         tick_line.attr("x2", function (d,i) {
                             if(Math.abs(d.values[0].y - d.values[1].y) > w[i]) {
@@ -5574,7 +5573,7 @@ PykCharts.oneD.pyramid = function (options) {
                             });
                         return result;
                     } ;
-                    
+
                     if(that.clubdata_always_include_data_points.length!== 0) {
                         for (var l=0;l<that.clubdata_always_include_data_points.length;l++)
                         {
@@ -5640,9 +5639,9 @@ PykCharts.oneD.treemap = function (options){
         that.height = options.chart_height ? options.chart_height : that.width;
 
         that.k.validator()
-            .validatingDataType(that.height,"chart_height");    
-        
-        if(that.stop) { 
+            .validatingDataType(that.height,"chart_height");
+
+        if(that.stop) {
             return;
         }
 
@@ -5717,7 +5716,7 @@ PykCharts.oneD.treemap = function (options){
                 .credits()
                 .dataSource();
         }
-    
+
         $(document).ready(function () { return that.k.resize(that.svgContainer); })
         $(window).on("resize", function () { return that.k.resize(that.svgContainer); });
     };
@@ -5776,7 +5775,7 @@ PykCharts.oneD.treemap = function (options){
                     })
                     .on('mouseover',function (d) {
                         if(!d.children && that.mode === "default") {
-                            d.tooltip = d.tooltip || "<table class='PykCharts'><tr><th colspan='2' class='tooltip-heading'>"+d.name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.weight)+"<td class='tooltip-right-content'>(&nbsp;"+((d.weight*100)/that.sum).toFixed(2)+"%&nbsp;)</tr></table>";
+                            d.tooltip = d.tooltip || "<table class='PykCharts'><tr><th colspan='2' class='tooltip-heading'>"+d.name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.weight)+"<td class='tooltip-right-content'>("+((d.weight*100)/that.sum).toFixed(2)+"%)</tr></table>";
                             that.onHoverEffect.highlight(options.selector +" "+".treemap-rect", this);
                             that.mouseEvent.tooltipPosition(d);
                             that.mouseEvent.tooltipTextShow(d.tooltip);
@@ -13096,8 +13095,9 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     PykCharts.numberFormat = d3.format(",");
                     window.PykChartsInit();
                     $("body").click(function () {
+                      console.log(PykCharts.export_menu_status);
                         if (PykCharts.export_menu_status === 0) {
-                            $("#dropdown-multipleConatiner-export").css("visibility","hidden");
+                            $(".dropdown-multipleConatiner-export").css("visibility","hidden");
                         }
                         PykCharts.export_menu_status = 0;
                     })
