@@ -18,6 +18,7 @@ PykCharts.multiD.columnChart = function(options){
         d3.json(options.data, function(e, data){
             that.data = data.groupBy("column");
             that.compare_data = data.groupBy("column");
+            that.axis_y_data_format = that.k.yAxisDataFormatIdentification(that.data);
             $(that.selector+" #chart-loader").remove();
             that.render();
         });

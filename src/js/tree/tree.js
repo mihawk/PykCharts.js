@@ -36,7 +36,7 @@ PykCharts.tree.configuration = function (options){
     	},
         zoom : function (svg,group) {
             zoomListener = d3.behavior.zoom().scaleExtent([0.1, 3]).on("zoom", function () {
-                group.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+                group.attr("transform", "translate(" + PykCharts.getEvent().translate + ")scale(" + PykCharts.getEvent().scale + ")");
             });
             if(PykCharts.boolean(options.zoom.enable))
             {

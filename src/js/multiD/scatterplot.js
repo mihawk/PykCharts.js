@@ -714,10 +714,10 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                         }
                     })
                     .on("dblclick",function() {
-                        d3.event.stopPropagation();
+                        PykCharts.getEvent().stopPropagation();
                     })
                     .on("mousedown",function() {
-                        d3.event.stopPropagation();
+                        PykCharts.getEvent().stopPropagation();
                     });
 
                 that.circlePlot.exit().remove();
@@ -790,7 +790,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
             d3.select(that.selector+" #"+containerId +i)
                 .selectAll(".dot")
                 .attr("r", function (d) {
-                    return that.sizes(d.weight)*d3.event.scale;
+                    return that.sizes(d.weight)*PykCharts.getEvent().scale;
                 })                    
                 .attr("cx", function (d) { return (that.x(d.x)+that.extra_left_margin); })
                 .attr("cy", function (d) { return (that.yScale(d.y)+that.extra_top_margin); });
