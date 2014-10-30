@@ -356,6 +356,7 @@ PykCharts.multiD.areaChart = function (options){
 				    .y0(function(d) { return that.yScale(d.y0); })
     				.y1(function(d) { return that.yScale(d.y0 + d.y); })
 				    .interpolate(that.interpolate);
+
 				that.chart_path_border = d3.svg.line()
 				    .x(function(d) { return that.xScale(d.x); })
 				    .y(function(d) { return that.yScale(d.y0 + d.y); })
@@ -367,15 +368,10 @@ PykCharts.multiD.areaChart = function (options){
 	        		for (var i = 0;i < that.new_data_length;i++) {
 	        			var data = that.new_data[i].data;
 	        			type = that.chartPathClass + i;
+
 	        			that.svgContainer.select("#"+type)
 							.datum(that.layers[i].data)
-							// .transition()
-					      	// .ease(that.transition.transition_type)
-				      		// .duration(that.transitions[that.transition.enable]().duration())
-							.attr("transform", "translate("+ that.extra_left_margin +",0)")
-						    .attr("d",function(d,k) {
-						    		return that.chart_path(data[0]);
-							 });
+							.attr("transform", "translate("+ that.extra_left_margin +",0)");
 
 						function transition1 (i) {
 						    that.dataLineGroup[i].transition()
@@ -389,15 +385,13 @@ PykCharts.multiD.areaChart = function (options){
 							        };
 							    });
 						}
+
 						transition1(i);
 
 						that.svgContainer.select("#border-stacked-area"+i)
 							.datum(that.layers[i].data)
-					  		// .transition()
-				      		// .ease("linear")
-			      			// .duration(that.transitions.duration())
-							.attr("transform", "translate("+ that.extra_left_margin +",0)")
-					      	.attr("d", that.chart_path_border);
+							.attr("transform", "translate("+ that.extra_left_margin +",0)");
+
 					    function borderTransition1 (i) {
 						    that.dataLineGroupBorder[i].transition()
 							    .duration(that.transitions.duration())
@@ -405,9 +399,9 @@ PykCharts.multiD.areaChart = function (options){
 							    	var interpolate = d3.scale.quantile()
 						                .domain([0,1])
 						                .range(d3.range(1, that.layers[i].data.length + 1));
-									        return function(t) {
-									            return that.chart_path(that.layers[i].data.slice(0, interpolate(t)));
-									        };
+							        return function(t) {
+							            return that.chart_path(that.layers[i].data.slice(0, interpolate(t)));
+							        };
 							    })
 						}
 						borderTransition1(i);
@@ -442,10 +436,7 @@ PykCharts.multiD.areaChart = function (options){
 									return (i+1)/that.new_data.length;
 								}
 							})
-							.attr("transform", "translate("+ that.extra_left_margin +",0)")
-							.attr("d",function(d,k) {
-							    	return that.chart_path(data[0]);
-							 });
+							.attr("transform", "translate("+ that.extra_left_margin +",0)");
 
 						function transition (i) {
 						    that.dataLineGroup[i].transition()
@@ -469,8 +460,7 @@ PykCharts.multiD.areaChart = function (options){
 							.style("stroke", that.border_between_chart_elements_color)
 							.style("stroke-width", that.border_between_chart_elements_thickness)
 							.style("stroke-dasharray", that.border_between_chart_elements_style)
-							.attr("transform", "translate("+ that.extra_left_margin +",0)")
-							.attr("d", that.chart_path_border);
+							.attr("transform", "translate("+ that.extra_left_margin +",0)");
 
 						function borderTransition (i) {
 						    that.dataLineGroupBorder[i].transition()
@@ -479,9 +469,9 @@ PykCharts.multiD.areaChart = function (options){
 							    	var interpolate = d3.scale.quantile()
 						                .domain([0,1])
 						                .range(d3.range(1, that.layers[i].data.length + 1));
-									        return function(t) {
-									            return that.chart_path(that.layers[i].data.slice(0, interpolate(t)));
-									        };
+							        return function(t) {
+							            return that.chart_path(that.layers[i].data.slice(0, interpolate(t)));
+							        };
 							    })
 						}
 						borderTransition(i);
@@ -809,11 +799,11 @@ PykCharts.multiD.areaChart = function (options){
 	            	var a = [
 	            		{
 	            			x:parseInt(that.xScale(d.x))+that.extra_left_margin+that.margin_left,
-	            			y:parseInt(that.yScale(d.y)-(line_size)+that.margin_top)
+	            			y:parseInt(that.yScale(d.y)-(line_size)+that.margin_top+that.legendsGroup_height)
 	            		},
 	            		{
 	            			x:parseInt(that.xScale(d.x))+that.extra_left_margin+that.margin_left,
-	            			y:parseInt(that.yScale(d.y)-(line_size)+that.margin_top)
+	            			y:parseInt(that.yScale(d.y)-(line_size)+that.margin_top+that.legendsGroup_height)
 	            		}
 	            	];
 	            	return that.line(a);
@@ -824,11 +814,11 @@ PykCharts.multiD.areaChart = function (options){
 		            	var a = [
 		            		{
 		            			x:parseInt(that.xScale(d.x))+that.extra_left_margin+that.margin_left,
-		            			y:parseInt(that.yScale(d.y)-(line_size)+that.margin_top)
+		            			y:parseInt(that.yScale(d.y)-(line_size)+that.margin_top+that.legendsGroup_height)
 		            		},
 		            		{
 		            			x:parseInt(that.xScale(d.x))+that.extra_left_margin+that.margin_left,
-		            			y:parseInt(that.yScale(d.y)+that.margin_top),
+		            			y:parseInt(that.yScale(d.y)+that.margin_top+that.legendsGroup_height),
 		            		}
 		            	];
 		            	return that.line(a);
@@ -837,7 +827,7 @@ PykCharts.multiD.areaChart = function (options){
             }, that.transitions.duration());
                 
             anno.exit().remove();
-            that.k.annotation(that.selector + " #svg-1",annotation, that.xScale,that.yScale)
+            that.k.annotation(that.selector + " #svg-1",annotation,that.xScale,that.yScale)
 		}
 	}
 };
