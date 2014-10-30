@@ -5,10 +5,10 @@ PykCharts.multiD.lineChart = function (options){
 	this.execute = function (){
 
 		that = new PykCharts.multiD.processInputs(that, options, "line");
-		// console.log(that,"that");
+
 		if(that.stop)
 			return;
-		// console.log(that.mode,"mode");
+
 		if(that.mode === "default") {
 			that.k.loading();
 		}
@@ -18,7 +18,6 @@ PykCharts.multiD.lineChart = function (options){
 		that.crosshair_enable = options.crosshair_enable ? options.crosshair_enable.toLowerCase() : multiDimensionalCharts.crosshair_enable;
 		that.curvy_lines = options.curvy_lines_enable ? options.curvy_lines_enable.toLowerCase() : multiDimensionalCharts.curvy_lines_enable;
 		that.interpolate = PykCharts.boolean(that.curvy_lines) ? "cardinal" : "linear";
-	    // that.color_from_data = options.line_color_from_data ? options.line_color_from_data : multiDimensionalCharts.line_color_from_data;
 
 	    d3.json(options.data, function (e, data) {
 			that.data = data.groupBy("line");

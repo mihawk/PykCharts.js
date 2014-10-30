@@ -13,6 +13,7 @@
         <script src="../src/js/pyk.js"></script>
         <script src = "../src/js/maps/maps.js"></script>
         <script src = "../src/js/maps/oneLayer.js"></script>
+        <script src="../lib/colors.js"></script>
         <script src = "../src/js/init.js"></script>
         <script>
             window.PykChartsInit = function (e) {
@@ -28,15 +29,15 @@
                         color_mode: "color",
                         // saturation_color : "green",
                         palette_color: "Blue-1",
-                        total_no_of_colors: 9,
+                        total_no_of_colors: 5,
                         background_color: "white",
                         tooltip_enable : "yes",
-                        tooltip_mode: "moving",
+                        tooltip_mode: "fixed",
                         tooltip_position_top: 10,
                         tooltip_position_left:10,
-                        border_between_chart_elements_color: "#737373",
+                        border_between_chart_elements_color: "black",
                         border_between_chart_elements_thickness: 0.5,
-                        border_between_chart_elements_style: "solid",
+                        border_between_chart_elements_style: "soid",
                         click_enable: "yes",
                         real_time_charts_refresh_frequency : 5,
                         onhover: "shadow",
@@ -47,8 +48,6 @@
                         // highlight_color: "yellow",
                         legends_enable: "yes",
                         legends_display: "horizontal",
-                        title_text: "",
-                        subtitle_text: "",
                         credit_my_site_name: "Pykih",
                         credit_my_site_url: "http://pykih.com",
                         loading_gif_url: "http://www.sportdiver.com/sites/all/modules/platform/inline_login/loading.gif",
@@ -58,8 +57,6 @@
                         units_suffix: ""
                     });
                     k.execute();
-
-
             }
 
         </script>

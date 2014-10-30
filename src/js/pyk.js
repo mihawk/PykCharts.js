@@ -13,7 +13,7 @@ Array.prototype.groupBy = function (chart) {
         "column": ["x","group"],
         "scatterplot": ["x","y","name","group"],
         "pulse": ["x","y","name","group"],
-        "spiderweb": ["x","y","name"],
+        "spiderweb": ["x","y","group"],
     }
     , charts = {
         "oned": {
@@ -883,7 +883,7 @@ PykCharts.Configuration = function (options){
             }
         },
         resize : function (svg,anno,lsvg) {
-            console.log("resize");
+
             var aspect = (options.width/options.height);
             var targetWidth = $(options.selector).width();
             if(targetWidth > options.width) {
@@ -1058,7 +1058,7 @@ PykCharts.Configuration = function (options){
                 } else {
                     d3.select(options.selector + " #dropdown-multipleConatiner-export")
                         .append("span")
-                        .attr("id",chart_name + "span")
+                        .attr("id","span")
                         .on("mouseover",function () {
                             $(this).css("background-color","#E0E0E1");
                         })
@@ -1109,7 +1109,9 @@ PykCharts.Configuration = function (options){
                     d3.select(options.selector + " #dropdown-multipleConatiner-export").style("visibility", "visible");
                 });
                 if(!PykCharts.boolean(panels_enable)) {
-                    $(chart.selector + " #"+chart_name+"span").click(function () {
+                    console.log(chart_name,"chart_name")
+                    $(chart.selector + " #span").click(function () {
+                        console.log("exportttttttttttttttt");
                         d3.select(options.selector + " #dropdown-multipleConatiner-export").style("visibility", "hidden");
                         chart.k.processSVG(document.querySelector(options.selector +" "+svgId),chart_name);
                         project.importSVG(document.querySelector(options.selector +" "+svgId));
@@ -1155,7 +1157,7 @@ PykCharts.Configuration = function (options){
             return this;
         },
         errorHandling: function(error_msg,error_code,err_url) {
-            console.log('%c[Error Pykih Charts] ', 'color: red;font-weight:bold;font-size:13px', " at "+options.selector+".(Invalid value for attribute \""+error_msg+"\")  Visit http://www.pykih.com/");
+            console.log('%c[Error Code 1 - Pykih Charts] ', 'color: red;font-weight:bold;font-size:14px', " at "+options.selector+".(Invalid value for attribute \""+error_msg+"\")  Visit http://www.pykih.com/");
             options.stop = true;
             return;
         },
@@ -1168,7 +1170,7 @@ PykCharts.Configuration = function (options){
                         }
                     }
                     catch (err) {
-                        options.k.errorHandling(err,"#1");
+                        options.k.errorHandling(err,"1");
                     }
                     return this;
                 },
@@ -1224,9 +1226,21 @@ PykCharts.Configuration = function (options){
                     }
                     return this;
                 },
-                validatingAxisPointerPosition: function (axis_pointer_position,config_name) {
+                validatingYAxisPointerPosition: function (axis_pointer_position,config_name) {
                         try {
-                            if(axis_pointer_position.toLowerCase() === "left" || axis_pointer_position.toLowerCase()=== "right" || axis_pointer_position.toLowerCase()=== "top" || axis_pointer_position.toLowerCase()=== "bottom") {
+                            if(axis_pointer_position.toLowerCase() === "left" || axis_pointer_position.toLowerCase()=== "right" ) {
+                            } else {
+                                throw config_name;
+                            }
+                        }
+                        catch (err) {
+                            options.k.errorHandling(err,"#6");
+                        }
+                    return this;
+                },
+                validatingXAxisPointerPosition: function (axis_pointer_position,config_name) {
+                        try {
+                            if(axis_pointer_position.toLowerCase()=== "top" || axis_pointer_position.toLowerCase()=== "bottom") {
                             } else {
                                 throw config_name;
                             }
@@ -1308,6 +1322,34 @@ PykCharts.Configuration = function (options){
                     }
                     catch (err) {
                         options.k.errorHandling(err,"#9");
+                    }
+                    return this;
+                },
+                validatingColor: function (color,config_name) {
+                    if(color) {
+                        try {
+                            var checked;
+                            if(typeof color != "string" ) { 
+
+                                throw config_name;
+                            }
+
+                            if(color.charAt(0)!= "#" && color.substring(0,3).toLowerCase() !="rgb" && color.toLowerCase()!= "transparent") {
+                                checked = $c.name2hex(color) ;  
+                                if(checked === "Invalid Color Name") {
+                                    console.log(color,"color")                            
+                                    throw config_name;                                
+                                }   
+                            } else if (color.charAt(0) === "#") {
+                                checked = /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test(color);
+                                if(!checked) {
+                                    throw config_name;
+                                }
+                            }
+                        }
+                        catch (err) {
+                            options.k.errorHandling(err,"#10");
+                        }
                     }
                     return this;
                 }
@@ -1733,10 +1775,13 @@ configuration.fillChart = function (options,theme,config) {
     var that = this;
     var fillchart = {
         selectColor: function (d) {
+        theme = new PykCharts.Configuration.Theme({});
             if(d.name === options.highlight) {
                 return options.highlight_color;
-            } else{
+            } else if (options.chart_color.length && options.chart_color[0]){
                 return options.chart_color;
+            } else {
+                return theme.stylesheet.chart_color
             }
         },
         colorChart : function (d) {
@@ -2044,7 +2089,6 @@ configuration.Theme = function(){
         "axis_x_position": "bottom",
         "axis_x_pointer_position": "top", //axis orient
         "axis_x_line_color": "#1D1D1D",
-        // "axis_x_label_color": "#1D1D1D",
         "axis_x_no_of_axis_value": 5,
         "axis_x_pointer_length": 5,
         // "axis_x_value_format": "",
@@ -2143,7 +2187,6 @@ configuration.Theme = function(){
         "axis_y_position": "left",
         "axis_y_pointer_position": "left",
         "axis_y_line_color": "#1D1D1D",
-        // "axis_y_label_color": "#1D1D1D",
         "axis_y_no_of_axis_value": 5,
         "axis_y_pointer_length": 5,
         // "axis_y_value_format": "",
