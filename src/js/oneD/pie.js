@@ -402,7 +402,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                     })
                     .attr("stroke",that.border.color())
                     .attr("stroke-width",that.border.width())
-                    .attr("stroke-dasharray", that.border.style())
+                    .attr("stroke-dasharray", that.border.style());
 //                    .attr("d",that.arc); // comment this if u want to enable transition
 
                 that.chart_data.transition()

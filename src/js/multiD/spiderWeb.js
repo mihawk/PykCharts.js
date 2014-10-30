@@ -107,7 +107,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                 .export(that,"#svgcontainer","spiderweb")
                 .emptyDiv();
             that.k.makeMainDiv(that.selector,1);
-
+            that.h = that.height;
             that.optionalFeatures().svgContainer(1)
                 .legendsContainer()
                 .createGroups();
@@ -168,7 +168,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                 return this;
             },
             legendsContainer : function (i) {
-                if (PykCharts.boolean(that.legends_enable) && PykCharts.boolean(that.variable_circle_size_enable) && that.map_group_data[1] && that.mode === "default") {
+                if (PykCharts.boolean(that.legends_enable) && that.map_group_data[1] && that.mode === "default") {
                     that.legendsGroup = that.svgContainer.append("g")
                         .attr("class","legendgrp")
                         .attr("id","legendgrp");
@@ -370,7 +370,7 @@ PykCharts.multiD.spiderWeb = function (options) {
             },
             legends : function () {
                  // console.log("heyy",PykCharts.boolean(that.variable_circle_size_enable));
-                if (PykCharts.boolean(that.legends_enable) && PykCharts.boolean(that.variable_circle_size_enable) && that.map_group_data[1] && that.mode==="default") {
+                if (PykCharts.boolean(that.legends_enable) && that.map_group_data[1] && that.mode==="default") {
                     // console.log("goes inside");
                     var unique = _.uniq(that.sorted_weight);
                     var k = 0;
@@ -504,11 +504,11 @@ PykCharts.multiD.spiderWeb = function (options) {
                         .enter()
                         .append('text')
                         .attr("class","legends_text")
-                         .attr("fill",that.legends_text_color)
                         .attr("pointer-events","none")
-                        .style("font-family", that.legends_text_family)
+                        .attr("fill",that.legends_text_color)
+                        .attr("font-family", that.legends_text_family)
                         .attr("font-size",that.legends_text_size)
-                        .style("font-weight",that.legends_text_weight);
+                        .attr("font-weight",that.legends_text_weight);
 
                     that.legends_text.attr("class","legends_text")
                         .attr(text_parameter1, text_parameter1value)

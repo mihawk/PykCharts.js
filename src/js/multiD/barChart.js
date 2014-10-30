@@ -9,7 +9,7 @@ PykCharts.multiD.barChart = function(options){
         // console.log("barChart");        
         that.grid_y_enable =  options.chart_grid_y_enable ? options.chart_grid_y_enable.toLowerCase() : theme.stylesheet.chart_grid_y_enable;
         that.grid_color = options.chart_grid_color ? options.chart_grid_color.toLowerCase() : theme.stylesheet.chart_grid_color;
-        that.axis_x_data_format = "";
+        
         that.data_sort_enable = options.data_sort_enable ? options.data_sort_enable.toLowerCase() : multiDimensionalCharts.data_sort_enable;
         that.data_sort_type = PykCharts.boolean(that.data_sort_enable) && options.data_sort_type ? options.data_sort_type.toLowerCase() : multiDimensionalCharts.data_sort_type;
         that.data_sort_order = PykCharts.boolean(that.data_sort_enable) && options.data_sort_order ? options.data_sort_order.toLowerCase() : multiDimensionalCharts.data_sort_order;
@@ -46,6 +46,7 @@ PykCharts.multiD.barChart = function(options){
             that.data = data.groupBy("bar");
             that.compare_data = data.groupBy("bar");
             //console.log(data);
+            that.axis_x_data_format = that.k.xAxisDataFormatIdentification(that.data);
             $(that.selector+" #chart-loader").remove();
             that.render();
         });
@@ -700,10 +701,11 @@ PykCharts.multiD.barChart = function(options){
                         .enter()
                         .append('text')
                         .attr("class","legends_text")
-                        .attr("fill","#1D1D1D")
                         .attr("pointer-events","none")
-                        .style("font-family", "'Helvetica Neue',Helvetica,Arial,sans-serif")
-                        .attr("font-size",12);
+                        .attr("fill", that.legends_text_color)
+                        .attr("font-family", that.legends_text_family)
+                        .attr("font-size",that.legends_text_size)
+                        .attr("font-weight", that.legends_text_weight);
 
                     that.legends_text.attr("class","legends_text")
                     .attr("fill","black")
