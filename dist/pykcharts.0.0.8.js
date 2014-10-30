@@ -490,7 +490,7 @@ PykCharts.Configuration = function (options){
                         })
                         .attr("text-anchor","middle")
                         .style("font-size","12px")
-                        
+
                         .text(function (d,i) {
                             return i+1;
                         })
@@ -1006,7 +1006,7 @@ PykCharts.Configuration = function (options){
                         .css("left",div_left)
                         .css("float",div_float);
 
-                $(options.selector + " #dropdown-multipleConatiner-export")
+                $(options.selector + " .dropdown-multipleConatiner-export")
                         .css("left",(targetWidth - 80)+"px");
 
             }
@@ -1108,8 +1108,7 @@ PykCharts.Configuration = function (options){
             if(PykCharts.boolean(options.export_enable)) {
                 d3.select(options.selector)
                         .append("div")
-                        .attr("id", "dropdown-multipleConatiner-export")
-                        .attr("class","pyk-tooltip")
+                        .attr("class","pyk-tooltip dropdown-multipleConatiner-export")
                         .style("left",options.width - 80 + "px")
                         .style("top","10px")
                         .style("height","auto")
@@ -1130,7 +1129,7 @@ PykCharts.Configuration = function (options){
 
                 if(PykCharts.boolean(panels_enable)) {
                     for(var i = 0; i < containers.length; i++) {
-                        d3.select(options.selector + " #dropdown-multipleConatiner-export")
+                        d3.select(options.selector + " .dropdown-multipleConatiner-export")
                             .append("span")
                             .attr("id",chart_name + i)
                             .on("mouseover",function () {
@@ -1144,7 +1143,7 @@ PykCharts.Configuration = function (options){
                             .html("Panel " + (i+1) + "<br>");
                     }
                 } else {
-                    d3.select(options.selector + " #dropdown-multipleConatiner-export")
+                    d3.select(options.selector + " .dropdown-multipleConatiner-export")
                         .append("span")
                         .attr("id","span")
                         .on("mouseover",function () {
@@ -1168,7 +1167,7 @@ PykCharts.Configuration = function (options){
                 div_size = options.width
                 div_float ="none"
                 div_left = options.width-15;
-                
+
                 if(PykCharts.boolean(options.title_text) && options.title_size  && options.mode === "default") {
                     div_size = 0.1*options.width;
                     div_float ="left";
@@ -1194,13 +1193,13 @@ PykCharts.Configuration = function (options){
 
                 $(chart.selector + " #"+id).click(function () {
                   PykCharts.export_menu_status = 1;
-                    d3.select(options.selector + " #dropdown-multipleConatiner-export").style("visibility", "visible");
+                    d3.select(options.selector + " .dropdown-multipleConatiner-export").style("visibility", "visible");
                 });
                 if(!PykCharts.boolean(panels_enable)) {
                     console.log(chart_name,"chart_name")
                     $(chart.selector + " #span").click(function () {
                         console.log("exportttttttttttttttt");
-                        d3.select(options.selector + " #dropdown-multipleConatiner-export").style("visibility", "hidden");
+                        d3.select(options.selector + " .dropdown-multipleConatiner-export").style("visibility", "hidden");
                         chart.k.processSVG(document.querySelector(options.selector +" "+svgId),chart_name);
                         project.importSVG(document.querySelector(options.selector +" "+svgId));
                         var svg = project.exportSVG({ asString: true });
@@ -1213,7 +1212,7 @@ PykCharts.Configuration = function (options){
                 } else {
                     for(var i = 0; i<containers.length; i++) {
                         $(chart.selector + " #"+chart_name + i).click(function () {
-                            d3.select(options.selector + " #dropdown-multipleConatiner-export").style("visibility", "hidden");
+                            d3.select(options.selector + " .dropdown-multipleConatiner-export").style("visibility", "hidden");
                             var id = this.id.substring(this.id.length-1,this.id.length);
                             chart.k.processSVG(document.querySelector(options.selector + " #" +svgId + id),chart_name);
                             project.importSVG(document.querySelector(options.selector + " #" +svgId + id));
@@ -1417,17 +1416,17 @@ PykCharts.Configuration = function (options){
                     if(color) {
                         try {
                             var checked;
-                            if(typeof color != "string" ) { 
+                            if(typeof color != "string" ) {
 
                                 throw config_name;
                             }
 
                             if(color.charAt(0)!= "#" && color.substring(0,3).toLowerCase() !="rgb" && color.toLowerCase()!= "transparent") {
-                                checked = $c.name2hex(color) ;  
+                                checked = $c.name2hex(color) ;
                                 if(checked === "Invalid Color Name") {
-                                    console.log(color,"color")                            
-                                    throw config_name;                                
-                                }   
+                                    console.log(color,"color")
+                                    throw config_name;
+                                }
                             } else if (color.charAt(0) === "#") {
                                 checked = /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test(color);
                                 if(!checked) {
@@ -13096,8 +13095,9 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     PykCharts.numberFormat = d3.format(",");
                     window.PykChartsInit();
                     $("body").click(function () {
+                      console.log(PykCharts.export_menu_status);
                         if (PykCharts.export_menu_status === 0) {
-                            $("#dropdown-multipleConatiner-export").css("visibility","hidden");
+                            $(".dropdown-multipleConatiner-export").css("visibility","hidden");
                         }
                         PykCharts.export_menu_status = 0;
                     })

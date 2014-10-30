@@ -19,8 +19,9 @@
                     PykCharts.numberFormat = d3.format(",");
                     window.PykChartsInit();
                     $("body").click(function () {
+                      console.log(PykCharts.export_menu_status);
                         if (PykCharts.export_menu_status === 0) {
-                            $("#dropdown-multipleConatiner-export").css("visibility","hidden");
+                            $(".dropdown-multipleConatiner-export").css("visibility","hidden");
                         }
                         PykCharts.export_menu_status = 0;
                     })
