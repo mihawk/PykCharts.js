@@ -1420,41 +1420,47 @@ configuration.mouseEvent = function (options) {
 
     var action = {
         tooltipPosition : function (d,xPos,yPos,xDiff,yDiff,group_index) {
-            if(xPos !== undefined){
-                var selector = options.selector.substr(1,options.selector.length)
-                var width_tooltip = parseFloat($("#tooltip-svg-container-"+group_index +"-pyk-tooltip"+selector).css("width"));
-                tooltip = $("#tooltip-svg-container-"+group_index +"-pyk-tooltip"+selector);
-                offset = $(options.selector).offset();
-                tooltip
-                    .css("visibility", "visible")
-                    .css("top", (yPos + yDiff+offset.top) + "px")
-                    .css("left", (xPos + options.margin_left + xDiff - width_tooltip + offset.left) + "px");
+            if(PykCharts.boolean(options.tooltip_enable) || PykCharts.boolean(options.annotation_enable) || options.axis_x_data_format === "string" || options.axis_y_data_format === "string") {
+                if(xPos !== undefined){
+                    var selector = options.selector.substr(1,options.selector.length)
+                    var width_tooltip = parseFloat($("#tooltip-svg-container-"+group_index +"-pyk-tooltip"+selector).css("width"));
+                    tooltip = $("#tooltip-svg-container-"+group_index +"-pyk-tooltip"+selector);
+                    offset = $(options.selector).offset();
+                    tooltip
+                        .css("visibility", "visible")
+                        .css("top", (yPos + yDiff+offset.top) + "px")
+                        .css("left", (xPos + options.margin_left + xDiff - width_tooltip + offset.left) + "px");
+                }
+                else {
+                    that.tooltip
+                        .style("visibility", "visible")
+                        .style("top", (PykCharts.getEvent().pageY - 20) + "px")
+                        .style("left", (PykCharts.getEvent().pageX + 30) + "px");
+                }
+                return that.tooltip;
             }
-            else {
-                that.tooltip
-                    .style("visibility", "visible")
-                    .style("top", (PykCharts.getEvent().pageY - 20) + "px")
-                    .style("left", (PykCharts.getEvent().pageX + 30) + "px");
-            }
-            return that.tooltip;
 
         },
         tooltipTextShow : function (d,panels_enable,type,group_index) {
             var selector = options.selector.substr(1,options.selector.length)
-            if(panels_enable === "yes" && type === "multilineChart") {
-                $("#tooltip-svg-container-"+group_index +"-pyk-tooltip"+selector).html(d);
+            if(PykCharts.boolean(options.tooltip_enable) || PykCharts.boolean(options.annotation_enable) || options.axis_x_data_format === "string" || options.axis_y_data_format === "string") {
+                if(panels_enable === "yes" && type === "multilineChart") {
+                    $("#tooltip-svg-container-"+group_index +"-pyk-tooltip"+selector).html(d);
+                }
+                else {
+                    that.tooltip.html(d);
+                }
+                return this;
             }
-            else {
-                that.tooltip.html(d);
-            }
-            return this;
         },
         tooltipHide : function (d,panels_enable,type) {
-            if(panels_enable === "yes" && type === "multilineChart") {
-                return d3.selectAll(".pyk-tooltip").style("visibility","hidden");
-            }
-            else {
-                return that.tooltip.style("visibility", "hidden");
+            if(PykCharts.boolean(options.tooltip_enable) || PykCharts.boolean(options.annotation_enable) || options.axis_x_data_format === "string" || options.axis_y_data_format === "string") {
+                if(panels_enable === "yes" && type === "multilineChart") {
+                    return d3.selectAll(".pyk-tooltip").style("visibility","hidden");
+                }
+                else {
+                    return that.tooltip.style("visibility", "hidden");
+                }
             }
         },
         crossHairPosition: function(data,new_data,xScale,yScale,dataLineGroup,lineMargin,domain,type,tooltipMode,color_from_data,panels_enable){
