@@ -103,12 +103,13 @@
                     axis_y_pointer_size: 12,
                     axis_y_pointer_padding: 10,
                     axis_y_outer_pointer_size: 3,
-                    line_curvy_lines:"no",
+                    curvy_lines_enable:"no",
                     tooltip_enable: "yes",
                     tooltip_mode : "moving",
                     crosshair_enable: "yes",
                     zoom_enable: "no",
-                    annotation_enable:"yes"
+                    annotation_enable: "yes",
+                    annotation_view_mode: "onload"
 
                 });
                 k.execute();
@@ -135,7 +136,7 @@
                     chart_grid_y_enable: "yes",
 
                     transition_duration: 5,
-                    real_time_charts_refresh_frequency: 10,
+                    real_time_charts_refresh_frequency: 0,
 
                     axis_onhover_hightlight_enable: "yes",
                     title_text: "",
@@ -159,8 +160,9 @@
                     axis_y_pointer_padding: 10,
                     axis_y_outer_pointer_size: 3,
 
-                    line_curvy_lines:"no",
+                    curvy_lines_enable:"yes",
                     tooltip_mode : "fixed",
+                    tooltip_enable: "yes",
                     crosshair_enable: "yes",
                     zoom_enable: "yes",
                     annotation_enable: "yes",
@@ -201,7 +203,6 @@
                     legends_text_color: "black",
                     legends_text_weight: "normal",
                     legends_text_family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
-
                 });
                 k.execute();
 
@@ -349,7 +350,7 @@
                     chart_grid_x_enable: "no",
                     chart_grid_y_enable: "yes",
 
-                    transition_duration: 0,
+                    transition_duration: 5,
                     real_time_charts_refresh_frequency: 0,
 
                     axis_onhover_hightlight_enable: "yes",
@@ -373,20 +374,20 @@
                     axis_y_pointer_padding: 10,
                     axis_y_outer_pointer_size: 3,
 
-                    line_curvy_lines:"yes",
+                    curvy_lines_enable:"yes",
                     tooltip_mode : "moving",
                     tooltip_enable : "yes",
                     crosshair_enable: "yes",
                     panels_enable: "yes",
-                    zoom_enable: "yes"
-
+                    zoom_enable: "yes",
+                    annotation_enable:"yes"
                 });
                 k.execute();
 
                 var k = new PykCharts.multiD.lineChart ({
                     selector: "#multiple-multiLine",
                     data: "../data/multipleContainerLine.json",
-                    mode : "infographics",
+                    mode : "default",
 
                     color_mode: "saturation",  //color or saturation
                     chart_color:["lightgray","steelblue","red"],
@@ -401,7 +402,7 @@
                     chart_grid_x_enable: "no",
                     chart_grid_y_enable: "yes",
 
-                    transition_duration: 0,
+                    transition_duration: 5,
                     real_time_charts_refresh_frequency: 0,
 
                     axis_onhover_hightlight_enable: "yes",
@@ -426,13 +427,15 @@
                     axis_y_pointer_padding: 10,
                     axis_y_outer_pointer_size: 3,
 
-                    line_curvy_lines:"yes",
+                    curvy_lines_enable:"yes",
                     tooltip_mode : "fixed",
                     tooltip_enable : "yes",
                     crosshair_enable: "yes",
                     zoom_enable: "yes",
                     highlight: "India",
-                    highlight_color: "red"
+                    highlight_color: "red",
+                    annotation_enable: "yes",
+                    annotation_view_mode: "onload"
                 });
                 k.execute();
 
@@ -455,7 +458,7 @@
                     chart_grid_x_enable: "no",
                     chart_grid_y_enable: "yes",
 
-                    transition_duration: 1,
+                    transition_duration: 5,
                     real_time_charts_refresh_frequency: 0,
 
                     axis_onhover_hightlight_enable: "yes",
@@ -480,7 +483,7 @@
                     axis_y_pointer_padding: 10,
                     axis_y_outer_pointer_size: 3,
 
-                    line_curvy_lines:"yes",
+                    curvy_lines_enable:"yes",
                     crosshair_enable: "yes",
                     tooltip_enable : "yes",
                     zoom_enable: "yes",
@@ -491,7 +494,8 @@
                     // legends_text_color: "black",
                     // legends_text_weight: "normal",
                     // legends_text_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
-
+                    annotation_enable: "yes",
+                    annotation_view_mode: "onclick",
                     annotation_border_color:"black"
                 });
                 k.execute();
@@ -681,7 +685,7 @@
                     data: "../data/ultimatebar.json",
                     mode: "default",
                     selector: "#bar",
-                    "color_mode": "saturation",
+                    color_mode: "saturation",
                     chart_color:["steelblue"],
                     background_color:"white",
 

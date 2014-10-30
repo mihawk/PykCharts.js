@@ -461,6 +461,8 @@ PykCharts.Configuration = function (options){
             return this;
         },
         annotation : function (svg,data,xScale,yScale) {
+            var legendsGroup_height = (options.legendsGroup_height) ? options.legendsGroup_height : 0;
+
             if(options.annotation_view_mode.toLowerCase() === "onclick") {
                 var annotation_circle = d3.select(svg).selectAll(".PykCharts-annotation-circle")
                     .data(data);
@@ -484,7 +486,7 @@ PykCharts.Configuration = function (options){
                             return parseInt(xScale(d.x))+options.extra_left_margin+options.margin_left;
                         })
                         .attr("y", function (d) {
-                            return parseInt(yScale(d.y)-16+options.margin_top);
+                            return parseInt(yScale(d.y)-16+options.margin_top+legendsGroup_height);
                         })
                         .attr("text-anchor","middle")
                         .style("font-size","12px")
@@ -499,7 +501,7 @@ PykCharts.Configuration = function (options){
                             return (parseInt(xScale(d.x))+options.extra_left_margin+options.margin_left);
                         })
                         .attr("cy", function (d,i) {
-                            return (parseInt(yScale(d.y))-20+options.margin_top);
+                            return (parseInt(yScale(d.y))-20+options.margin_top+legendsGroup_height);
                         })
                         .attr("r", 8)
                         .style("cursor","pointer")
@@ -543,7 +545,7 @@ PykCharts.Configuration = function (options){
                             return parseInt(xScale(d.x)-(5))+options.extra_left_margin+options.margin_left;
                         })
                         .attr("y", function (d) {
-                            return parseInt(yScale(d.y)-20+options.margin_top);
+                            return parseInt(yScale(d.y)-20+options.margin_top+legendsGroup_height);
                         })
                         .attr("text-anchor","middle")
                         .style("font-size","12px")
@@ -562,7 +564,7 @@ PykCharts.Configuration = function (options){
                             return (parseInt(xScale(d.x)-(5))+options.extra_left_margin+options.margin_left) - (w[i]/2);
                         })
                         .attr("y", function (d,i) {
-                            return (parseInt(yScale(d.y)-10+options.margin_top)) - h[i];
+                            return (parseInt(yScale(d.y)-10+options.margin_top)+legendsGroup_height) - h[i];
                         })
                         .attr("width",function (d,i) { return w[i]; })
                         .attr("height",function (d,i) { return h[i]; })
