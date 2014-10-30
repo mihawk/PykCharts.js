@@ -414,7 +414,7 @@ PykCharts.multiD.areaChart = function (options){
 						that.svgContainer
 							.on('mouseout',function (d) {
 			          			that.mouseEvent.tooltipHide();
-			          			that.mouseEvent.crossHairHide(type);
+			          			that.mouseEvent.crossHairHide(that.type);
 								that.mouseEvent.axisHighlightHide(options.selector + " .x.axis");
 								that.mouseEvent.axisHighlightHide(options.selector + " .y.axis");
 		          			})
