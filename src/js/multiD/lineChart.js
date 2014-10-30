@@ -984,24 +984,26 @@ PykCharts.multiD.lineChart = function (options){
                     	];
                     	return that.line(a);
                     })
-                setTimeout(function () {
-	            	anno.attr("class", "PykCharts-annotation-line")
-	                    .attr("d", function (d,i) {
-	                    	var a = [
-	                    		{
-	                    			x:parseInt(that.xScale(d.x))+that.extra_left_margin+that.margin_left,
-	                    			y:parseInt(that.yScale(d.y)-(line_size)+that.margin_top)
-	                    		},
-	                    		{
-	                    			x:parseInt(that.xScale(d.x))+that.extra_left_margin+that.margin_left,
-	                    			y:parseInt(that.yScale(d.y)+that.margin_top),
-	                    		}
-	                    	];
-	                    	return that.line(a);
-	                    })
-	                	.attr("stroke",that.annotation_border_color);
-	            },that.transitions.duration());
-
+                function annotationAnimation(a) {
+	                setTimeout(function () {
+		            	a.attr("class", "PykCharts-annotation-line")
+		                    .attr("d", function (d,i) {
+		                    	var a = [
+		                    		{
+		                    			x:parseInt(that.xScale(d.x))+that.extra_left_margin+that.margin_left,
+		                    			y:parseInt(that.yScale(d.y)-(line_size)+that.margin_top)
+		                    		},
+		                    		{
+		                    			x:parseInt(that.xScale(d.x))+that.extra_left_margin+that.margin_left,
+		                    			y:parseInt(that.yScale(d.y)+that.margin_top),
+		                    		}
+		                    	];
+		                    	return that.line(a);
+		                    })
+		                	.attr("stroke",that.annotation_border_color);
+		            },that.transitions.duration());
+	            }
+	            annotationAnimation(anno);
                 anno.exit().remove();
                 that.k.annotation(that.selector + " #svg-" + i,annotation, that.xScale,that.yScale)
 			}
