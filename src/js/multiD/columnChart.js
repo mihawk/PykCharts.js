@@ -265,7 +265,8 @@ PykCharts.multiD.columnChart = function(options){
 
                 var y_data = [];
                 layers.map(function(e, i){ // Get all values to create scale
-                    for(i in e.values){
+                    // for(i in e.values){
+                    for(i=0;i<e.values.length;i++) {
                         var d = e.values[i];
                         y_data.push(d.y + d.y0); // Adding up y0 and y to get total height
                     }
@@ -291,7 +292,8 @@ PykCharts.multiD.columnChart = function(options){
                     width_factor = (that.xScale.rangeBand()/(2*that.no_of_groups));
                 };
 
-                for(i in that.groups){
+                // for(i in that.groups){
+                for(i=0;i<that.groups.length;i++) {
                     g = that.groups[i];
                     x = that.xScale(g[0]);
                     totalWidth = that.xScale.rangeBand() * g.length;
@@ -614,7 +616,8 @@ PykCharts.multiD.columnChart = function(options){
 
     this.getGroups = function(){
         var groups = {};
-        for(var i in that.the_bars){
+        // for(var i in that.the_bars){
+        for(var i=0;i<that.the_bars.length;i++) {
             var bar = that.the_bars[i];
             if(!bar.id) continue;
             if(groups[bar.group]){
@@ -640,7 +643,8 @@ PykCharts.multiD.columnChart = function(options){
         var layers = [];
 
         function findLayer(l){
-            for(var i in layers){
+            // for(var i in layers){
+            for(var i=0; i<layers.length; i++) {
                 // console.log(layers[i])
                 var layer = layers[i];
                 if (layer.name == l) return layer;
@@ -657,7 +661,8 @@ PykCharts.multiD.columnChart = function(options){
             return new_layer;
         }
 
-        for(var i in the_bars){
+        // for(var i in the_bars){
+        for(var i=0; i<the_bars.length; i++) {
             // console.log(the_bars[i])
             var bar = the_bars[i];
             if(!bar.id) continue;
@@ -665,7 +670,8 @@ PykCharts.multiD.columnChart = function(options){
             for(var k in bar){
                 if(k === "id") continue;
                 var icings = bar[k];
-                for(var j in icings){
+                // for(var j in icings){
+                for(var j=0;j<icings.length;j++) {
                     var icing = icings[j];
                     if(!icing.name) continue;
                     var layer = findLayer(icing.name);
@@ -689,10 +695,12 @@ PykCharts.multiD.columnChart = function(options){
     this.flattenData = function(){
         var the_bars = [-1];
         that.keys = {};
-        for(var i in that.data){
+        // for(var i in that.data){
+        for(var i=0; i<that.data.length; i++) {
             var d = that.data[i];
             for(var cat_name in d){
-                for(var j in d[cat_name]){
+                // for(var j in d[cat_name]){
+                for(var j=0; j<d[cat_name].length; j++) {
                     var id = "i" + i + "j" + j;
                     if(typeof d[cat_name][j] !== "object"){
                         continue;
@@ -712,10 +720,12 @@ PykCharts.multiD.columnChart = function(options){
 
     this.getParameters = function () {
         var p = [];
-        for(var i in  that.the_layers){
+        // for(var i in  that.the_layers){
+        for(var i=0; i<that.the_layers.length; i++) {
             // console.log(that.the_layers[i]);
             if(!that.the_layers[i].name) continue;
-            for(var j in that.the_layers[i].values) {
+            // for(var j in that.the_layers[i].values) {
+            for(var j=0; j<that.the_layers[i].values.length; j++) {
                 var name = that.the_layers[i].values[j].group, color;
                 if(that.color_mode === "saturation") {
                     color = that.saturation_color;
