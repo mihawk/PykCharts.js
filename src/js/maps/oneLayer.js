@@ -4,6 +4,11 @@ PykCharts.maps.oneLayer = function (options) {
     this.execute = function () {
         that = PykCharts.maps.processInputs(that, options);
         //$(that.selector).css("height",that.height);
+
+        if(that.stop) {
+            return
+        }
+
         d3.json(options.data, function (data) {
             that.data = data;
             that.compare_data = data;
@@ -22,6 +27,7 @@ PykCharts.maps.oneLayer = function (options) {
                 });
                 d3.json("../data/maps/colorPalette.json", function (data) {
                     that.color_palette_data = data;
+                    console.log(data)
                     $(that.selector).html("");
                     var oneLayer = new PykCharts.maps.mapFunctions(options,that,"oneLayer");
                     oneLayer.render();

@@ -6,9 +6,9 @@ PykCharts.oneD.bubble = function (options) {
         that.height = options.chart_height ? options.chart_height : that.width;
 
         that.k.validator()
-            .validatingDataType(that.height,"chart_height")    
+            .validatingDataType(that.height,"chart_height")
 
-        if(that.stop) { 
+        if(that.stop) {
             return;
         }
 
@@ -51,9 +51,9 @@ PykCharts.oneD.bubble = function (options) {
         that.fillChart = new PykCharts.Configuration.fillChart(that);
         that.onHoverEffect = new PykCharts.oneD.mouseEvent(that);
         that.transitions = new PykCharts.Configuration.transition(that);
-       
+
         if (that.mode ==="default") {
-            
+
             that.k.title()
                 .backgroundColor(that)
                 .export(that,"#svgcontainer","bubble")
@@ -143,7 +143,7 @@ PykCharts.oneD.bubble = function (options) {
                     .on("mouseover", function (d) {
                         if(!d.children && that.mode==="default") {
                             that.onHoverEffect.highlight(options.selector+" "+".bubble", this);
-                            d.tooltip = d.tooltip ||"<table><thead><th colspan='2' class='tooltip-heading'>"+d.name+"</th></thead><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.weight)+"  <td class='tooltip-right-content'>(&nbsp;"+((d.weight*100)/that.sum).toFixed(2)+"%&nbsp;)</tr></table>";
+                            d.tooltip = d.tooltip ||"<table><thead><th colspan='2' class='tooltip-heading'>"+d.name+"</th></thead><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.weight)+"  <td class='tooltip-right-content'>("+((d.weight*100)/that.sum).toFixed(2)+"%)</tr></table>";
                             that.mouseEvent.tooltipPosition(d);
                             that.mouseEvent.tooltipTextShow(d.tooltip);
                         }

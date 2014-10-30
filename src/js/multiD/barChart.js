@@ -2,22 +2,42 @@ PykCharts.multiD.barChart = function(options){
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
     this.execute = function () {
-
         that = new PykCharts.multiD.processInputs(that, options, "column");
         var multiDimensionalCharts = theme.multiDimensionalCharts;
         // console.log(that.stop);
-        if(that.stop)
-            return;
+        
         // console.log("barChart");        
-
         that.grid_y_enable =  options.chart_grid_y_enable ? options.chart_grid_y_enable.toLowerCase() : theme.stylesheet.chart_grid_y_enable;
         that.grid_color = options.chart_grid_color ? options.chart_grid_color.toLowerCase() : theme.stylesheet.chart_grid_color;
         
         that.data_sort_enable = options.data_sort_enable ? options.data_sort_enable.toLowerCase() : multiDimensionalCharts.data_sort_enable;
         that.data_sort_type = PykCharts.boolean(that.data_sort_enable) && options.data_sort_type ? options.data_sort_type.toLowerCase() : multiDimensionalCharts.data_sort_type;
         that.data_sort_order = PykCharts.boolean(that.data_sort_enable) && options.data_sort_order ? options.data_sort_order.toLowerCase() : multiDimensionalCharts.data_sort_order;
-        
-        if(that.mode === "default") {
+       
+        try {
+            if(that.data_sort_type === "alphabetically" || that.data_sort_type === "numerically") {                
+            } else {
+                throw "data_sort_type";
+            } 
+        }
+        catch(err) {
+            that.k.errorHandling(err,"#1");
+        }
+
+        try {
+            if(that.data_sort_order === "ascending" || that.data_sort_order === "descending") {                
+            } else {
+                throw "data_sort_order";
+            } 
+        }
+        catch(err) {
+            that.k.errorHandling(err,"#1");
+        }
+
+        if(that.stop)
+            return;
+
+            if(that.mode === "default") {
            that.k.loading();
         }
         that.multiD = new PykCharts.multiD.configuration(that);

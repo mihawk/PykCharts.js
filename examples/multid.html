@@ -42,7 +42,7 @@
         <script src="../lib/paper-full.js"></script>
         <script src="../lib/downloadDataURI.js"></script>
         <script src="../lib/jquery.colourbrightness.js"></script>
-
+        <script src="../lib/colors.js"></script>
         <script src="../src/js/init.js"></script>
         <script src="../src/js/pyk.js"></script>
         <script src="../src/js/multiD/multiD.js"></script>
@@ -52,7 +52,6 @@
         <script src="../src/js/multiD/spiderWeb.js"></script>
         <script src="../src/js/multiD/scatterplot.js"></script>
         <script src="../src/js/multiD/barChart.js"></script>
-
         <script>
 
             // $(document).ready(function (e) {
@@ -61,9 +60,8 @@
                     selector: "#line",
                     data: "../data/line_timescale.json",
                     mode : "default",
-
                     color_mode: "color",  //color or saturation
-                    chart_color:["steelblue"],
+                    chart_color:["#00008B"],
                     title_text:"Air Pollution in New York </br>(23/12/2013 - 29/12/2013)",
                     title_family:"sans-serif",
                     // title_size:30,
@@ -79,14 +77,12 @@
 
                     transition_duration: 5,
                     real_time_charts_refresh_frequency: 0,
-                    background_color: "white",
                     axis_onhover_hightlight_enable: "yes",
                     axis_x_enable: "yes",
                     axis_x_title : "Month",
                     axis_x_position: "bottom",
                     axis_x_pointer_position: "bottom",
                     axis_x_line_color: "#1D1D1D",
-                    axis_x_label_color: "blue",
                     axis_x_pointer_size: 12,
                     axis_x_pointer_padding: 3,
                     // axis_x_pointer_values: ["2014/01/01","2014/01/03"],
@@ -94,7 +90,6 @@
                     axis_x_time_value_datatype:"month",
                     axis_x_time_value_interval: 1,
                     axis_y_title:"testing",
-                    axis_x_title_color: "green",
                     axis_y_enable: "yes",
                     axis_y_position: "left",
                     axis_y_pointer_position: "left",
@@ -159,7 +154,6 @@
                     axis_y_pointer_size: 12,
                     axis_y_pointer_padding: 10,
                     axis_y_outer_pointer_size: 3,
-
                     curvy_lines_enable:"yes",
                     tooltip_mode : "fixed",
                     tooltip_enable: "yes",
@@ -797,16 +791,14 @@
                     pointer_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
                     saturation_enable: "no",
                     axis_x_pointer_weight: "normal",
-
+                    data_sort_enable: "yes",
                     highlight: "april",
-
                     legends_enable: "yes",
                     legends_display: "horizontal",
                     legends_text_size: 12,
                     legends_text_color: "black",
                     legends_text_weight: "normal",
                     legends_text_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
-
                 });
                 k.execute();
             };

@@ -56,7 +56,7 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
     if (options &&  PykCharts.boolean (options.title_text)) {
         chartObject.title_text = options.title_text;
         chartObject.title_size = "title_size" in options ? options.title_size : stylesheet.title_size;
-        chartObject.title_color = options.title_color ? options.title_color.toLowerCase()  : stylesheet.title_color;
+        chartObject.title_color = options.title_color ? options.title_color : stylesheet.title_color;
         chartObject.title_weight = options.title_weight ? options.title_weight.toLowerCase() : stylesheet.title_weight;
         chartObject.title_family = options.title_family ? options.title_family.toLowerCase() : stylesheet.title_family;
     } else {
@@ -101,9 +101,10 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
     chartObject.transition_duration = options.transition_duration ? options.transition_duration : functionality.transition_duration;
     chartObject.pointer_overflow_enable = options.pointer_overflow_enable ? options.pointer_overflow_enable.toLowerCase() : stylesheet.pointer_overflow_enable;
     
-    chartObject.background_color = options.background_color ? options.background_color.toLowerCase() : stylesheet.background_color;
-    chartObject.chart_color = options.chart_color ? options.chart_color.toLowerCase() : stylesheet.chart_color;
-    chartObject.highlight_color = options.highlight_color ? options.highlight_color.toLowerCase() : stylesheet.highlight_color;
+    chartObject.background_color = options.background_color ? options.background_color : stylesheet.background_color;
+
+    chartObject.chart_color = options.chart_color  ? options.chart_color : stylesheet.chart_color;
+    chartObject.highlight_color = options.highlight_color ? options.highlight_color : stylesheet.highlight_color;
    
     chartObject.fullscreen_enable = options.fullscreen_enable ? options.fullscreen_enable : stylesheet.fullscreen_enable;
     chartObject.loading = options.loading_gif_url ? options.loading_gif_url: stylesheet.loading_gif_url;
@@ -122,13 +123,13 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
     chartObject.highlight = options.highlight ? options.highlight : stylesheet.highlight;
 
     chartObject.label_size = "label_size" in options ? options.label_size : stylesheet.label_size;
-    chartObject.label_color = options.label_color ? options.label_color.toLowerCase() : stylesheet.label_color;
+    chartObject.label_color = options.label_color ? options.label_color : stylesheet.label_color;
     chartObject.label_weight = options.label_weight ? options.label_weight.toLowerCase() : stylesheet.label_weight;
     chartObject.label_family = options.label_family ? options.label_family.toLowerCase() : stylesheet.label_family;
 
     chartObject.pointer_thickness = "pointer_thickness" in options ? options.pointer_thickness : stylesheet.pointer_thickness;
     chartObject.pointer_size = "pointer_size" in options ? options.pointer_size : stylesheet.pointer_size;
-    chartObject.pointer_color = options.pointer_color ? options.pointer_color.toLowerCase() : stylesheet.pointer_color;
+    chartObject.pointer_color = options.pointer_color ? options.pointer_color : stylesheet.pointer_color;
     chartObject.pointer_family = options.pointer_family ? options.pointer_family.toLowerCase() : stylesheet.pointer_family;
     chartObject.pointer_weight = options.pointer_weight ? options.pointer_weight.toLowerCase() : stylesheet.pointer_weight;
 
@@ -157,7 +158,22 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
                 .validatingFontWeight(chartObject.title_weight,"title_weight")
                 .validatingFontWeight(chartObject.subtitle_weight,"subtitle_weight")
                 .validatingFontWeight(chartObject.pointer_weight,"pointer_weight")
-                .validatingFontWeight(chartObject.label_weight,"label_weight");
+                .validatingFontWeight(chartObject.label_weight,"label_weight")
+                .validatingColor(chartObject.background_color,"background_color")
+                .validatingColor(chartObject.title_color,"title_color")
+                .validatingColor(chartObject.subtitle_color,"subtitle_color")
+                .validatingColor(chartObject.highlight_color,"highlight_color")                
+                .validatingColor(chartObject.label_color,"label_color")                                                                
+                .validatingColor(chartObject.pointer_color,"pointer_color")                                                
+                .validatingColor(chartObject.border_between_chart_elements_color,"border_between_chart_elements_color")                
+
+        if($.isArray(chartObject.chart_color)) {
+            if(chartObject.chart_color[0]) {
+                chartObject.k.validator()
+                    .validatingColor(chartObject.chart_color[0],"chart_color");                
+            }
+        }
+
 
     return chartObject;
 };
