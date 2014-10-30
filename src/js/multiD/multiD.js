@@ -312,6 +312,8 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
         multiDimensionalCharts = theme.multiDimensionalCharts,
         optional = options.optional;
 
+    chartObject.assets_location = options.pykih_charts_assets_location ? options.pykih_charts_assets_location : stylesheet.pykih_charts_assets_location;
+
     // chartObject.axis_y_data_format = options.axis_y_data_format ? options.axis_y_data_format : multiDimensionalCharts.axis_y_data_format;
     // chartObject.axis_x_data_format = options.axis_x_data_format ? options.axis_x_data_format : multiDimensionalCharts.axis_x_data_format;
     chartObject.selector = options.selector ? options.selector : "body";
@@ -359,7 +361,7 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
         chartObject.subtitle_weight = stylesheet.subtitle_weight;
         chartObject.subtitle_family = stylesheet.subtitle_family;
     }
-    
+
     chartObject.axis_x_enable = options.axis_x_enable ? options.axis_x_enable.toLowerCase() : stylesheet.axis_x_enable;
     chartObject.axis_onhover_hightlight_enable = PykCharts.boolean(chartObject.axis_x_enable) && options.axis_onhover_hightlight_enable ? options.axis_onhover_hightlight_enable.toLowerCase() : multiDimensionalCharts.axis_onhover_hightlight_enable;
     chartObject.axis_x_title = options.axis_x_title ? options.axis_x_title : stylesheet.axis_x_title;
@@ -382,12 +384,12 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     chartObject.axis_x_title_color = options.axis_x_title_color ? options.axis_x_title_color : stylesheet.axis_x_title_color;
     chartObject.axis_x_title_weight = options.axis_x_title_weight ? options.axis_x_title_weight.toLowerCase() : stylesheet.axis_x_title_weight;
     chartObject.axis_x_title_family = options.axis_x_title_family ? options.axis_x_title_family.toLowerCase() : stylesheet.axis_x_title_family;
-    chartObject.axis_x_title_size = "axis_x_title_size" in options ? options.axis_x_title_size : stylesheet.axis_x_title_size;    
+    chartObject.axis_x_title_size = "axis_x_title_size" in options ? options.axis_x_title_size : stylesheet.axis_x_title_size;
 
     chartObject.axis_x_pointer_size = "axis_x_pointer_size" in options ? options.axis_x_pointer_size : stylesheet.axis_x_pointer_size;
-    chartObject.axis_x_pointer_weight = options.axis_x_pointer_weight ? options.axis_x_pointer_weight.toLowerCase() : stylesheet.axis_x_pointer_weight; 
-    chartObject.axis_x_pointer_family = options.axis_x_pointer_family ? options.axis_x_pointer_family.toLowerCase() : stylesheet.axis_x_pointer_family; 
-    chartObject.axis_x_pointer_color = options.axis_x_pointer_color ? options.axis_x_pointer_color : stylesheet.axis_x_pointer_color; 
+    chartObject.axis_x_pointer_weight = options.axis_x_pointer_weight ? options.axis_x_pointer_weight.toLowerCase() : stylesheet.axis_x_pointer_weight;
+    chartObject.axis_x_pointer_family = options.axis_x_pointer_family ? options.axis_x_pointer_family.toLowerCase() : stylesheet.axis_x_pointer_family;
+    chartObject.axis_x_pointer_color = options.axis_x_pointer_color ? options.axis_x_pointer_color : stylesheet.axis_x_pointer_color;
 
     chartObject.axis_y_enable = options.axis_y_enable ? options.axis_y_enable.toLowerCase() : multiDimensionalCharts.axis_y_enable;
     chartObject.axis_y_title =  options.axis_y_title ? options.axis_y_title : multiDimensionalCharts.axis_y_title;
@@ -407,14 +409,14 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     chartObject.axis_y_time_value_interval = PykCharts.boolean(chartObject.axis_y_enable) && options.axis_y_time_value_interval ? options.axis_y_time_value_interval : multiDimensionalCharts.axis_y_time_value_interval;
 
     chartObject.axis_y_pointer_size = "axis_y_pointer_size" in options ? options.axis_y_pointer_size : multiDimensionalCharts.axis_y_pointer_size;
-    chartObject.axis_y_pointer_weight = options.axis_y_pointer_weight ? options.axis_y_pointer_weight.toLowerCase() : multiDimensionalCharts.axis_y_pointer_weight; 
-    chartObject.axis_y_pointer_family = options.axis_y_pointer_family ? options.axis_y_pointer_family.toLowerCase() : multiDimensionalCharts.axis_y_pointer_family; 
-    chartObject.axis_y_pointer_color = options.axis_y_pointer_color ? options.axis_y_pointer_color : multiDimensionalCharts.axis_y_pointer_color; 
+    chartObject.axis_y_pointer_weight = options.axis_y_pointer_weight ? options.axis_y_pointer_weight.toLowerCase() : multiDimensionalCharts.axis_y_pointer_weight;
+    chartObject.axis_y_pointer_family = options.axis_y_pointer_family ? options.axis_y_pointer_family.toLowerCase() : multiDimensionalCharts.axis_y_pointer_family;
+    chartObject.axis_y_pointer_color = options.axis_y_pointer_color ? options.axis_y_pointer_color : multiDimensionalCharts.axis_y_pointer_color;
 
     chartObject.axis_y_title_color = options.axis_y_title_color ? options.axis_y_title_color : multiDimensionalCharts.axis_y_title_color;
     chartObject.axis_y_title_weight = options.axis_y_title_weight ? options.axis_y_title_weight : multiDimensionalCharts.axis_y_title_weight;
     chartObject.axis_y_title_family = options.axis_y_title_family ? options.axis_y_title_family : multiDimensionalCharts.axis_y_title_family;
-    chartObject.axis_y_title_size = "axis_y_title_size" in options ? options.axis_y_title_size : multiDimensionalCharts.axis_y_title_size;    
+    chartObject.axis_y_title_size = "axis_y_title_size" in options ? options.axis_y_title_size : multiDimensionalCharts.axis_y_title_size;
 
     if(options.credit_my_site_name || options.credit_my_site_url) {
         chartObject.credit_my_site_name = options.credit_my_site_name ? options.credit_my_site_name : "";
@@ -442,7 +444,7 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
 
     chartObject.transition_duration = options.transition_duration ? options.transition_duration : functionality.transition_duration;
     // chartObject.saturationEnable = options.saturation_enable ? options.saturation_enable : "no";
-  
+
     chartObject.border_between_chart_elements_thickness = "border_between_chart_elements_thickness" in options ? options.border_between_chart_elements_thickness : stylesheet.border_between_chart_elements_thickness;
     chartObject.border_between_chart_elements_color = options.border_between_chart_elements_color ? options.border_between_chart_elements_color: stylesheet.border_between_chart_elements_color;
     chartObject.border_between_chart_elements_style = options.border_between_chart_elements_style ? options.border_between_chart_elements_style.toLowerCase() : stylesheet.border_between_chart_elements_style;
@@ -511,18 +513,18 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
                 .validatingDataType(chartObject.axis_x_title_size,"axis_x_title_size")
                 .validatingDataType(chartObject.axis_y_title_size,"axis_y_title_size")
                 .validatingDataType(chartObject.label_size,"label_size")
-                .validatingDataType(chartObject.legends_text_size ,"legends_text_size")                 
+                .validatingDataType(chartObject.legends_text_size ,"legends_text_size")
                 .validatingDataType(chartObject.zoom_level,"zoom_level")
                 .validatingDataType(chartObject.pointer_thickness,"pointer_thickness")
-                .validatingDataType(chartObject.pointer_size,"pointer_size")                                
+                .validatingDataType(chartObject.pointer_size,"pointer_size")
                 .validatingDataType(chartObject.axis_x_outer_pointer_size,"axis_x_outer_pointer_size")
                 .validatingDataType(chartObject.axis_y_outer_pointer_size,"axis_y_outer_pointer_size")
-                .validatingDataType(chartObject.axis_x_pointer_padding,"axis_x_pointer_padding")                
-                .validatingDataType(chartObject.axis_y_pointer_padding,"axis_y_pointer_padding")                
-                .validatingDataType(chartObject.axis_x_no_of_axis_value,"axis_x_no_of_axis_value")                    
-                .validatingDataType(chartObject.axis_y_no_of_axis_value,"axis_y_no_of_axis_value")                                                        
-                .validatingDataType(chartObject.axis_x_time_value_interval,"axis_x_time_value_interval")                
-                .validatingDataType(chartObject.axis_y_time_value_interval,"axis_y_time_value_interval")                                
+                .validatingDataType(chartObject.axis_x_pointer_padding,"axis_x_pointer_padding")
+                .validatingDataType(chartObject.axis_y_pointer_padding,"axis_y_pointer_padding")
+                .validatingDataType(chartObject.axis_x_no_of_axis_value,"axis_x_no_of_axis_value")
+                .validatingDataType(chartObject.axis_y_no_of_axis_value,"axis_y_no_of_axis_value")
+                .validatingDataType(chartObject.axis_x_time_value_interval,"axis_x_time_value_interval")
+                .validatingDataType(chartObject.axis_y_time_value_interval,"axis_y_time_value_interval")
                 .validatingAxisDataFormat(options.axis_x_data_format,"axis_x_data_format")
                 .validatingAxisDataFormat(options.axis_y_data_format,"axis_y_data_format")
                 .validatingColorMode(chartObject.color_mode,"color_mode")
@@ -532,19 +534,19 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
                 .validatingYAxisPointerPosition(chartObject.axis_y_position,"axis_y_position")
                 .validatingBorderBetweenChartElementsStyle(chartObject.border_between_chart_elements_style,"border_between_chart_elements_style")
                 .validatingLegendsPosition(chartObject.legends_display,"legends_display")
-                .isArray(chartObject.axis_x_pointer_values,"axis_x_pointer_values")                
-                .isArray(chartObject.axis_y_pointer_values,"axis_y_pointer_values")                
+                .isArray(chartObject.axis_x_pointer_values,"axis_x_pointer_values")
+                .isArray(chartObject.axis_y_pointer_values,"axis_y_pointer_values")
                 .isArray(chartObject.chart_color,"chart_color")
-                .validatingTimeScaleDataType(chartObject.axis_x_time_value_datatype,"axis_x_time_value_datatype")                
-                .validatingTimeScaleDataType(chartObject.axis_y_time_value_datatype,"axis_y_time_value_datatype")                
-                .validatingTooltipMode(chartObject.tooltip_mode,"tooltip_mode")                
+                .validatingTimeScaleDataType(chartObject.axis_x_time_value_datatype,"axis_x_time_value_datatype")
+                .validatingTimeScaleDataType(chartObject.axis_y_time_value_datatype,"axis_y_time_value_datatype")
+                .validatingTooltipMode(chartObject.tooltip_mode,"tooltip_mode")
                 .validatingFontWeight(chartObject.title_weight,"title_weight")
                 .validatingFontWeight(chartObject.subtitle_weight,"subtitle_weight")
                 .validatingFontWeight(chartObject.pointer_weight,"pointer_weight")
                 .validatingFontWeight(chartObject.label_weight,"label_weight")
                 .validatingFontWeight(chartObject.legends_text_weight,"legends_text_weight")
-                .validatingFontWeight(chartObject.axis_x_pointer_weight,"axis_x_pointer_weight")  
-                .validatingFontWeight(chartObject.axis_y_pointer_weight,"axis_y_pointer_weight")  
+                .validatingFontWeight(chartObject.axis_x_pointer_weight,"axis_x_pointer_weight")
+                .validatingFontWeight(chartObject.axis_y_pointer_weight,"axis_y_pointer_weight")
                 .validatingFontWeight(chartObject.axis_x_title_weight,"axis_x_title_weight")
                 .validatingFontWeight(chartObject.axis_y_title_weight,"axis_y_title_weight")
                 .validatingColor(chartObject.background_color,"background_color")
@@ -556,22 +558,22 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
                 .validatingColor(chartObject.axis_x_title_color,"axis_x_title_color")
                 .validatingColor(chartObject.axis_y_title_color,"axis_y_title_color")
                 .validatingColor(chartObject.axis_x_pointer_color,"axis_x_pointer_color")
-                .validatingColor(chartObject.axis_y_pointer_color,"axis_y_pointer_color")                
-                .validatingColor(chartObject.highlight_color,"highlight_color")                
-                .validatingColor(chartObject.saturation_color,"saturation_color")                
-                .validatingColor(chartObject.border_between_chart_elements_color,"border_between_chart_elements_color")                
-                .validatingColor(chartObject.pointer_color,"pointer_color")                                
-                .validatingColor(chartObject.label_color,"label_color")                                                
-                .validatingColor(chartObject.annotation_border_color,"annotation_border_color")                                                
-                .validatingColor(chartObject.annotation_background_color,"annotation_background_color")                                                                
-                .validatingColor(chartObject.annotation_font_color,"annotation_font_color")                                                                                
-                .validatingColor(chartObject.legends_text_color,"legends_text_color");                
+                .validatingColor(chartObject.axis_y_pointer_color,"axis_y_pointer_color")
+                .validatingColor(chartObject.highlight_color,"highlight_color")
+                .validatingColor(chartObject.saturation_color,"saturation_color")
+                .validatingColor(chartObject.border_between_chart_elements_color,"border_between_chart_elements_color")
+                .validatingColor(chartObject.pointer_color,"pointer_color")
+                .validatingColor(chartObject.label_color,"label_color")
+                .validatingColor(chartObject.annotation_border_color,"annotation_border_color")
+                .validatingColor(chartObject.annotation_background_color,"annotation_background_color")
+                .validatingColor(chartObject.annotation_font_color,"annotation_font_color")
+                .validatingColor(chartObject.legends_text_color,"legends_text_color");
 
         if($.isArray(chartObject.chart_color)) {
             for(var i = 0;i < chartObject.chart_color.length;i++) {
                 if(chartObject.chart_color[i]) {
                     chartObject.k.validator()
-                        .validatingColor(chartObject.chart_color[i],"chart_color");                
+                        .validatingColor(chartObject.chart_color[i],"chart_color");
                 }
             }
         }
