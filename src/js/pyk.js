@@ -230,7 +230,7 @@ PykCharts.Configuration = function (options){
                         options.title_color+
                         ";font-weight:" +
                         options.title_weight+
-                        ";font-family:" +
+                        ";padding-left:1px;font-family:" +
                         options.title_family
                         + "'>" +
                         options.title_text +
@@ -249,7 +249,7 @@ PykCharts.Configuration = function (options){
                         options.subtitle_size+"px;color:" +
                         options.subtitle_color +
                         ";font-weight:" +
-                        options.subtitle_weight+";font-family:" +
+                        options.subtitle_weight+";padding-left:1px;font-family:" +
                         options.subtitle_family + "'>"+
                         options.subtitle_text + "</span>");
             }
@@ -996,7 +996,7 @@ PykCharts.Configuration = function (options){
             if(PykCharts.boolean(options.export_enable)) {
                 div_size = targetWidth
                 div_float ="none"
-                div_left = targetWidth-15;
+                div_left = targetWidth-16;
                 if(PykCharts.boolean(options.title_text) && options.title_size && options.mode === "default") {
                     div_size = 0.1*targetWidth;
                     div_float ="left";
@@ -1167,7 +1167,7 @@ PykCharts.Configuration = function (options){
                 var id = "export",
                 div_size = options.width
                 div_float ="none"
-                div_left = options.width-15;
+                div_left = options.width-16;
                 
                 if(PykCharts.boolean(options.title_text) && options.title_size  && options.mode === "default") {
                     div_size = 0.1*options.width;
