@@ -676,7 +676,7 @@ PykCharts.multiD.areaChart = function (options){
 				.attr("class","area-border")
 				.attr("d", that.chart_path_border);
 	    }
-	    if(event.type === "dblclick") {
+	    if(PykCharts.getEvent().type === "dblclick") {
 	    	that.count++;
 	    }
 	    that.mouseEvent.tooltipHide();
