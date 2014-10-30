@@ -4619,7 +4619,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                     })
                     .attr("stroke",that.border.color())
                     .attr("stroke-width",that.border.width())
-                    .attr("stroke-dasharray", that.border.style())
+                    .attr("stroke-dasharray", that.border.style());
 //                    .attr("d",that.arc); // comment this if u want to enable transition
 
                 that.chart_data.transition()
@@ -7832,6 +7832,7 @@ PykCharts.multiD.areaChart = function (options){
 		that.multid = new PykCharts.multiD.configuration(that);
 		that.fillColor = new PykCharts.Configuration.fillChart(that,null,options);
 		that.transitions = new PykCharts.Configuration.transition(that);
+		that.border = new PykCharts.Configuration.border(that);
 
 //		that.k.export(that,"#svg-1","areaChart");
 		if(that.mode === "default") {
@@ -8122,7 +8123,10 @@ PykCharts.multiD.areaChart = function (options){
 
 	        			that.svgContainer.select("#"+type)
 							.datum(that.layers[i].data)
-							.attr("transform", "translate("+ that.extra_left_margin +",0)");
+							.attr("transform", "translate("+ that.extra_left_margin +",0)")
+							.style("stroke",that.border.color())
+		                    .style("stroke-width",that.border.width())
+		                    .style("stroke-dasharray", that.border.style());
 
 						function transition1 (i) {
 						    that.dataLineGroup[i].transition()
@@ -8151,7 +8155,7 @@ PykCharts.multiD.areaChart = function (options){
 						                .domain([0,1])
 						                .range(d3.range(1, that.layers[i].data.length + 1));
 							        return function(t) {
-							            return that.chart_path(that.layers[i].data.slice(0, interpolate(t)));
+							            return that.chart_path_border(that.layers[i].data.slice(0, interpolate(t)));
 							        };
 							    })
 						}
@@ -8161,7 +8165,7 @@ PykCharts.multiD.areaChart = function (options){
 						that.svgContainer
 							.on('mouseout',function (d) {
 			          			that.mouseEvent.tooltipHide();
-			          			that.mouseEvent.crossHairHide(type);
+			          			that.mouseEvent.crossHairHide(that.type);
 								that.mouseEvent.axisHighlightHide(options.selector + " .x.axis");
 								that.mouseEvent.axisHighlightHide(options.selector + " .y.axis");
 		          			})
@@ -8208,9 +8212,9 @@ PykCharts.multiD.areaChart = function (options){
 							.datum(that.layers[i].data)
 							.attr("class", "area-border")
 							.attr("id", "border-stacked-area"+i)
-							.style("stroke", that.border_between_chart_elements_color)
-							.style("stroke-width", that.border_between_chart_elements_thickness)
-							.style("stroke-dasharray", that.border_between_chart_elements_style)
+							.style("stroke",that.border.color())
+		                    .style("stroke-width",that.border.width())
+		                    .style("stroke-dasharray", that.border.style())
 							.attr("transform", "translate("+ that.extra_left_margin +",0)");
 
 						function borderTransition (i) {
@@ -8221,9 +8225,9 @@ PykCharts.multiD.areaChart = function (options){
 						                .domain([0,1])
 						                .range(d3.range(1, that.layers[i].data.length + 1));
 							        return function(t) {
-							            return that.chart_path(that.layers[i].data.slice(0, interpolate(t)));
+							            return that.chart_path_border(that.layers[i].data.slice(0, interpolate(t)));
 							        };
-							    })
+							    });
 						}
 						borderTransition(i);
 
