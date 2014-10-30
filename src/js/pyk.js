@@ -473,6 +473,12 @@ PykCharts.Configuration = function (options){
                 annotation_text.enter()
                     .append("text")
                     .attr("class","PykCharts-annotation-text");
+                annotation_text
+                    .text(function (d) {
+                        return "";
+                    });
+                annotation_circle
+                    .attr("r",0);
                 setTimeout(function () {
                     annotation_text.attr("x",function (d) {
                             return parseInt(xScale(d.x))+options.extra_left_margin+options.margin_left;
@@ -482,9 +488,7 @@ PykCharts.Configuration = function (options){
                         })
                         .attr("text-anchor","middle")
                         .style("font-size","12px")
-                        .text(function (d) {
-                            return d.annotation;
-                        })
+                        
                         .text(function (d,i) {
                             return i+1;
                         })
@@ -527,6 +531,13 @@ PykCharts.Configuration = function (options){
                 annotation_text.enter()
                     .append("text")
                     .attr("class","annotation-text");
+                annotation_text
+                    .text(function (d) {
+                        return "";
+                    });
+                annotation_rect
+                    .attr("width",0)
+                    .attr("height",0);
                 setTimeout(function () {
                     annotation_text.attr("x",function (d) {
                             return parseInt(xScale(d.x)-(5))+options.extra_left_margin+options.margin_left;

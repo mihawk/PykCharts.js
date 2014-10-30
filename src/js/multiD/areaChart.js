@@ -151,7 +151,8 @@ PykCharts.multiD.areaChart = function (options){
 		d3.json(options.data, function (e,data) {
 			that.data = data.groupBy("area");
 			that.data_length = that.data.length;
-			that.transition_duration = 0;
+			// that.transition_duration = 0;
+			that.dataTransformation();
 			var compare = that.multid.checkChangeInData(that.data,that.compare_data);
 			that.compare_data = compare[0];
 			var data_changed = compare[1];
@@ -364,6 +365,7 @@ PykCharts.multiD.areaChart = function (options){
 
 	        	if(evt === "liveData"){
 	        		for (var i = 0;i < that.new_data_length;i++) {
+	        			var data = that.new_data[i].data;
 	        			type = that.chartPathClass + i;
 	        			that.svgContainer.select("#"+type)
 							.datum(that.layers[i].data)
@@ -371,7 +373,23 @@ PykCharts.multiD.areaChart = function (options){
 					      	// .ease(that.transition.transition_type)
 				      		// .duration(that.transitions[that.transition.enable]().duration())
 							.attr("transform", "translate("+ that.extra_left_margin +",0)")
-						    .attr("d", that.chart_path);
+						    .attr("d",function(d,k) {
+							    	return that.chart_path(data[0]);
+							 });
+
+						function transition1 (i) {
+						    that.dataLineGroup[i].transition()
+							    .duration(that.transitions.duration())
+							    .attrTween("d", function (d) {
+							    	var interpolate = d3.scale.quantile()
+						                .domain([0,1])
+						                .range(d3.range(1, data.length + 1));
+							        return function(t) {
+							            return that.chart_path(that.new_data[i].data.slice(0, interpolate(t)));
+							        };
+							    });
+						}
+						transition1(i);
 
 						that.svgContainer.select("#border-stacked-area"+i)
 							.datum(that.layers[i].data)
@@ -380,8 +398,20 @@ PykCharts.multiD.areaChart = function (options){
 			      			// .duration(that.transitions.duration())
 							.attr("transform", "translate("+ that.extra_left_margin +",0)")
 					      	.attr("d", that.chart_path_border);
+					    function borderTransition1 (i) {
+						    that.dataLineGroupBorder[i].transition()
+							    .duration(that.transitions.duration())
+							    .attrTween("d", function (d) {
+							    	var interpolate = d3.scale.quantile()
+						                .domain([0,1])
+						                .range(d3.range(1, that.layers[i].data.length + 1));
+									        return function(t) {
+									            return that.chart_path(that.layers[i].data.slice(0, interpolate(t)));
+									        };
+							    })
+						}
+						borderTransition1(i);
 					}
-
 					if(that.type === "areaChart") {
 						that.svgContainer
 							.on('mouseout',function (d) {
@@ -720,6 +750,19 @@ PykCharts.multiD.areaChart = function (options){
                 .data(annotation);
             anno.enter()
                 .append("path");
+            anno.attr("d", function (d,i) {
+                	var a = [
+                		{
+                			x:parseInt(that.xScale(d.x))+that.extra_left_margin+that.margin_left,
+                			y:parseInt(that.yScale(d.y)+that.margin_top - line_size)
+                		},
+                		{
+                			x:parseInt(that.xScale(d.x))+that.extra_left_margin+that.margin_left,
+                			y:parseInt(that.yScale(d.y)+that.margin_top - line_size)
+                		}
+                	];
+                	return that.line(a);
+                })
             setTimeout(function () {
 	            anno.attr("class", "PykCharts-annotation-line")
 	                .attr("d", function (d,i) {
@@ -761,6 +804,20 @@ PykCharts.multiD.areaChart = function (options){
                 .data(annotation);
             anno.enter()
                 .append("path");
+
+            anno.attr("d", function (d,i) {
+	            	var a = [
+	            		{
+	            			x:parseInt(that.xScale(d.x))+that.extra_left_margin+that.margin_left,
+	            			y:parseInt(that.yScale(d.y)-(line_size)+that.margin_top)
+	            		},
+	            		{
+	            			x:parseInt(that.xScale(d.x))+that.extra_left_margin+that.margin_left,
+	            			y:parseInt(that.yScale(d.y)-(line_size)+that.margin_top)
+	            		}
+	            	];
+	            	return that.line(a);
+	            })
             setTimeout(function () {
 	        	anno.attr("class", "PykCharts-annotation-line")
 		            .attr("d", function (d,i) {
