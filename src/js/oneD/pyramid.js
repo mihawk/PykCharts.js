@@ -7,9 +7,9 @@ PykCharts.oneD.pyramid = function (options) {
         that.height = options.chart_height ? options.chart_height : that.width;
 
         that.k.validator()
-            .validatingDataType(that.height,"chart_height");    
+            .validatingDataType(that.height,"chart_height");
 
-        if(that.stop) { 
+        if(that.stop) {
             return;
         }
 
@@ -195,9 +195,9 @@ PykCharts.oneD.pyramid = function (options) {
                 var k = that.new_data.length-1,p = that.new_data.length-1,tooltipArray = [];
                 for(i=0;i<that.new_data.length;i++){
                     if(i==0) {
-                        tooltipArray[i] = that.new_data[i].tooltip || "<table class='PykCharts'><tr><th colspan='3'  class='tooltip-heading'>"+that.new_data[i].name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(that.new_data[i].weight)+"<td class='tooltip-right-content'>( "+((that.new_data[i].weight*100)/that.sum).toFixed(2)+"% ) </tr></table>";
+                        tooltipArray[i] = that.new_data[i].tooltip || "<table class='PykCharts'><tr><th colspan='3'  class='tooltip-heading'>"+that.new_data[i].name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(that.new_data[i].weight)+"<td class='tooltip-right-content'>("+((that.new_data[i].weight*100)/that.sum).toFixed(2)+"%) </tr></table>";
                     } else {
-                        tooltipArray[i] = that.new_data[k].tooltip || "<table class='PykCharts'><tr><th colspan='3'  class='tooltip-heading'>"+that.new_data[k].name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(that.new_data[k].weight)+"<td class='tooltip-right-content'>( "+((that.new_data[k].weight*100)/that.sum).toFixed(2)+"% ) </tr></table>";
+                        tooltipArray[i] = that.new_data[k].tooltip || "<table class='PykCharts'><tr><th colspan='3'  class='tooltip-heading'>"+that.new_data[k].name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(that.new_data[k].weight)+"<td class='tooltip-right-content'>("+((that.new_data[k].weight*100)/that.sum).toFixed(2)+"%) </tr></table>";
                         k--;
                     }
                 }
@@ -279,13 +279,13 @@ PykCharts.oneD.pyramid = function (options) {
                         .style("font-size", that.label_size)
                         .attr("fill", that.label_color)
                         .style("font-family", that.label_family);
-                        
+
 
                     setTimeout(function () {
                         that.chart_text.text(function (d,i) {
                                 if(i===0) {
                                     return ((that.new_data[i].weight*100)/that.sum).toFixed(1)+"%";
-                                    
+
                                 }
                                 else {
                                     j--;
@@ -296,11 +296,11 @@ PykCharts.oneD.pyramid = function (options) {
                                 if(this.getBBox().width < (d.values[2].x - d.values[1].x) && this.getBBox().height < Math.abs(d.values[1].y - d.values[0].y)) {
                                     if(i===0) {
                                         return ((that.new_data[i].weight*100)/that.sum).toFixed(1)+"%";
-                                        
+
                                     }else {
                                         p--;
                                         return ((that.new_data[p].weight*100)/that.sum).toFixed(1)+"%";
-                                        
+
                                     }
                                 }
                                 else {
@@ -347,7 +347,7 @@ PykCharts.oneD.pyramid = function (options) {
 
                 tick_label
                 .text("")
-                
+
                 setTimeout(function() {
                     tick_label.text(function (d,i) {
                             if(i===0) {
@@ -384,7 +384,7 @@ PykCharts.oneD.pyramid = function (options) {
                     .style("font-family", that.pointer_family)
                     .style("font-weight",that.pointer_weight)
                     .attr("text-anchor","start");
-                    
+
                 },that.transitions.duration());
 
                 tick_label.exit().remove();
@@ -426,7 +426,7 @@ PykCharts.oneD.pyramid = function (options) {
                     })
                     .attr("stroke-width", that.pointer_thickness)
                     .attr("stroke",that.pointer_color)
-                    
+
                     setTimeout(function() {
                         tick_line.attr("x2", function (d,i) {
                             if(Math.abs(d.values[0].y - d.values[1].y) > w[i]) {
@@ -475,7 +475,7 @@ PykCharts.oneD.pyramid = function (options) {
                             });
                         return result;
                     } ;
-                    
+
                     if(that.clubdata_always_include_data_points.length!== 0) {
                         for (var l=0;l<that.clubdata_always_include_data_points.length;l++)
                         {

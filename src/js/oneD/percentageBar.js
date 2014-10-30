@@ -12,16 +12,16 @@ PykCharts.oneD.percentageBar = function (options) {
         that = new PykCharts.oneD.processInputs(that, options, "percentageBar");
         // 1.2 Read Json File Get all the data and pass to render
 
-        that.height = options.chart_height ? options.chart_height : that.width/2; 
+        that.height = options.chart_height ? options.chart_height : that.width/2;
         that.percent_row_rect_height = options.percent_row_rect_height ? options.percent_row_rect_height : theme.oneDimensionalCharts.percent_row_rect_height;
 
         that.k.validator()
             .validatingDataType(that.height,"chart_height")
             .validatingDataType(that.percent_row_rect_height,"percent_row_rect_height");
-        
-        if(that.stop) { 
+
+        if(that.stop) {
             return;
-        }       
+        }
 
         if(that.percent_row_rect_height > 100) {
             that.percent_row_rect_height = 100;
@@ -97,7 +97,7 @@ PykCharts.oneD.percentageBar = function (options) {
             .label()
             .ticks();
         if(that.mode === "default") {
-            
+
             // that.optionalFeatures().ticks()
             that.k.liveData(that)
                 .createFooter()
@@ -164,7 +164,7 @@ PykCharts.oneD.percentageBar = function (options) {
                     .attr("stroke-dasharray", that.border.style())
                     .on("mouseover", function (d,i) {
                         if(that.mode === "default") {
-                            d.tooltip=d.tooltip||"<table class='PykCharts'><tr><th colspan='2' class='tooltip-heading'>"+d.name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.weight)+"<td class='tooltip-right-content'>(&nbsp;"+d.percentValue.toFixed(2)+"%&nbsp)</tr></table>"
+                            d.tooltip=d.tooltip||"<table class='PykCharts'><tr><th colspan='2' class='tooltip-heading'>"+d.name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.weight)+"<td class='tooltip-right-content'>("+d.percentValue.toFixed(2)+"%)</tr></table>"
                             that.onHoverEffect.highlight(options.selector+" "+".per-rect",this);
                             that.mouseEvent.tooltipPosition(d);
                             that.mouseEvent.tooltipTextShow(d.tooltip);

@@ -12,13 +12,13 @@ PykCharts.oneD.pie = function (options) {
             that.height = that.width;
             that.calculation = "pie";
         }
-        that.radiusPercent = options.pie_radius_percent ? options.pie_radius_percent : theme.oneDimensionalCharts.pie_radius_percent;        
+        that.radiusPercent = options.pie_radius_percent ? options.pie_radius_percent : theme.oneDimensionalCharts.pie_radius_percent;
 
         that.k.validator()
-            .validatingDataType(that.height,"chart_height")    
+            .validatingDataType(that.height,"chart_height")
             .validatingDataType(that.radiusPercent,"pie_radius_percent");
 
-        if(that.stop) { 
+        if(that.stop) {
             return;
         }
 
@@ -59,17 +59,17 @@ PykCharts.oneD.donut = function (options) {
             that.height = that.width;
             that.calculation = "pie";
         }
-        
+
         that.radiusPercent = options.donut_radius_percent  ? options.donut_radius_percent : theme.oneDimensionalCharts.donut_radius_percent;
         that.innerRadiusPercent = options.donut_inner_radius_percent  ? options.donut_inner_radius_percent : theme.oneDimensionalCharts.donut_inner_radius_percent;
 
         that.k.validator()
-            .validatingDataType(that.height,"chart_height")    
+            .validatingDataType(that.height,"chart_height")
             .validatingDataType(that.radiusPercent,"donut_radius_percent")
             .validatingDataType(that.innerRadiusPercent,"donut_inner_radius_percent");
-        
 
-        if(that.stop) { 
+
+        if(that.stop) {
             return;
         }
 
@@ -90,7 +90,7 @@ PykCharts.oneD.donut = function (options) {
             that.k.errorHandling(err,"#1");
         }
 
-        if(that.stop) { 
+        if(that.stop) {
             return;
         }
 
@@ -133,13 +133,13 @@ PykCharts.oneD.election_pie = function (options) {
         that.radiusPercent = options.pie_radius_percent ? options.pie_radius_percent : theme.oneDimensionalCharts.pie_radius_percent;
 
         that.k.validator()
-            .validatingDataType(that.height,"chart_height")    
+            .validatingDataType(that.height,"chart_height")
             .validatingDataType(that.radiusPercent,"pie_radius_percent");
-        
-        if(that.stop) { 
+
+        if(that.stop) {
             return;
         }
-        
+
         if(that.radiusPercent > 100) {
             that.radiusPercent = 100;
         }
@@ -179,11 +179,11 @@ PykCharts.oneD.election_donut = function (options) {
         that.innerRadiusPercent = options.donut_inner_radius_percent  && options.donut_inner_radius_percent ? options.donut_inner_radius_percent : theme.oneDimensionalCharts.donut_inner_radius_percent;
 
         that.k.validator()
-            .validatingDataType(that.height,"chart_height")    
+            .validatingDataType(that.height,"chart_height")
             .validatingDataType(that.radiusPercent,"donut_radius_percent")
             .validatingDataType(that.innerRadiusPercent,"donut_inner_radius_percent");
-        
-        if(that.stop) { 
+
+        if(that.stop) {
             return;
         }
 
@@ -205,10 +205,10 @@ PykCharts.oneD.election_donut = function (options) {
             that.k.errorHandling(err,"#1");
         }
 
-        if(that.stop) { 
+        if(that.stop) {
             return;
         }
-        
+
         that.show_total_at_center = options.donut_show_total_at_center ? options.donut_show_total_at_center.toLowerCase() : theme.oneDimensionalCharts.donut_show_total_at_center;
 
         d3.json(options.data, function (e, data) {
@@ -383,7 +383,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                     })
                     .on('mouseover',function (d) {
                         if(that.mode === "default") {
-                            d.data.tooltip = d.data.tooltip || "<table class='PykCharts'><tr><th colspan='3' class='tooltip-heading'>"+d.data.name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.data.weight)+"<td class='tooltip-right-content'>( "+((d.data.weight*100)/that.sum).toFixed(2)+"% ) </tr></table>";
+                            d.data.tooltip = d.data.tooltip || "<table class='PykCharts'><tr><th colspan='3' class='tooltip-heading'>"+d.data.name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.data.weight)+"<td class='tooltip-right-content'>("+((d.data.weight*100)/that.sum).toFixed(2)+"%) </tr></table>";
                             that.onHoverEffect.highlight(options.selector +" "+".pie", this);
                             that.mouseEvent.tooltipPosition(d);
                             that.mouseEvent.tooltipTextShow(d.data.tooltip);

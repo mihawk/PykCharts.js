@@ -19,14 +19,14 @@ PykCharts.oneD.percentageColumn = function (options) {
             .validatingDataType(that.percent_column_rect_width,"percent_column_rect_width")
 
         // 1.2 Read Json File Get all the data and pass to render
-        
+
         if(that.percent_column_rect_width > 100) {
             that.percent_column_rect_width = 100;
         }
 
         that.percent_column_rect_width = that.k._radiusCalculation(that.percent_column_rect_width,"percentageColumn") * 2;
 
-        if(that.stop) { 
+        if(that.stop) {
             return;
         }
 
@@ -106,7 +106,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                 .credits()
                 .dataSource();
         }
-        
+
         $(document).ready(function () { return that.k.resize(that.svgContainer); })
         $(window).on("resize", function () { return that.k.resize(that.svgContainer); });
     };
@@ -164,7 +164,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                     .attr("stroke-dasharray", that.border.style())
                     .on("mouseover", function (d,i) {
                         if(that.mode === "default") {
-                            d.tooltip=d.tooltip||"<table class='PykCharts'><tr><th colspan='2' class='tooltip-heading'>"+d.name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.weight)+"<td class='tooltip-right-content'>(&nbsp;"+d.percentValue.toFixed(2)+"%&nbsp)</tr></table>"
+                            d.tooltip=d.tooltip||"<table class='PykCharts'><tr><th colspan='2' class='tooltip-heading'>"+d.name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.weight)+"<td class='tooltip-right-content'>("+d.percentValue.toFixed(2)+"%)</tr></table>"
                             that.onHoverEffect.highlight(options.selector+" "+".per-rect",this);
                             that.mouseEvent.tooltipPosition(d);
                             that.mouseEvent.tooltipTextShow(d.tooltip);
@@ -239,9 +239,9 @@ PykCharts.oneD.percentageColumn = function (options) {
                         // .delay(that.transitions.duration())
 
                         setTimeout(function(){
-                            that.chart_text.text(function (d) { 
+                            that.chart_text.text(function (d) {
                                 return d.percentValue.toFixed(1)+"%";
-                                // return that.k.appendUnits(d.weight); 
+                                // return that.k.appendUnits(d.weight);
                             })
                                 .text(function (d) {
                                     if(this.getBBox().width < (that.width/4) && this.getBBox().height < (d.percentValue * that.height / 100)) {
