@@ -50,7 +50,7 @@ PykCharts.multiD.columnChart = function(options){
 
             that.k.yAxis(that.svgContainer,that.yGroup,that.yScaleInvert)
                 .yGrid(that.svgContainer,that.group,that.yScaleInvert);
-                console.log("inside liveData");
+                // console.log("inside liveData");
         });
     };
 
@@ -765,7 +765,7 @@ PykCharts.multiD.columnChart = function(options){
                 }
             }
         }
-        console.log(data,"data")
+        // console.log(data,"data")
         // console.log(data,"new_data");
         return data;
     };

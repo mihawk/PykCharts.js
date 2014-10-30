@@ -1147,13 +1147,12 @@ PykCharts.Configuration = function (options){
                 div_size = options.width
                 div_float ="none"
                 div_left = options.width-15;
-                // console.log(div_left,options.selector);
+                
                 if(PykCharts.boolean(options.title_text) && options.title_size  && options.mode === "default") {
                     div_size = 0.1*options.width;
                     div_float ="left";
                     div_left = 0;
                 }
-                console.log(div_left,options.selector)
 
                 var export_div = d3.select(chart.selector)
                                 .append("div")
@@ -1834,8 +1833,8 @@ configuration.fillChart = function (options,theme,config) {
             //     return options.chart_color;
             // }
         },
-        colorPieMS : function (d) {
-            if(d.name.toLowerCase() === options.highlight.toLowerCase()) {
+        colorPieMS : function (d,chart_type) {
+            if(d.name.toLowerCase() === options.highlight.toLowerCase() && chart_type !== "lineChart" && chart_type !== "areaChart") {
                 return options.highlight_color;
             } else if(options.color_mode === "saturation") {
                 return options.saturation_color;
@@ -2242,7 +2241,7 @@ configuration.Theme = function(){
         "curvy_lines_enable": "no",
 
         "annotation_enable": "no",
-        "annotation_view_mode": "onload",
+        "annotation_view_mode": "onload", // "onload" / "onclick"
         "annotation_border_color" : "black",
         "annotation_background_color" : "#EEEEEE",
         "annotation_font_color" : "black",

@@ -405,7 +405,7 @@ PykCharts.multiD.areaChart = function (options){
 							.attr("class", that.chartPathClass)
 							.attr("id", type)
 							.style("fill", function(d) {
-								return that.fillColor.colorPieMS(that.new_data[i]);
+								return that.fillColor.colorPieMS(that.new_data[i],that.type);
 							})
 							.style("fill-opacity",function() {
 								if(that.type === "stackedAreaChart" && that.color_mode === "saturation") {
@@ -627,7 +627,7 @@ PykCharts.multiD.areaChart = function (options){
                         .attr(rect_parameter3, rect_parameter3value)
                         .attr(rect_parameter4, rect_parameter4value)
                         .attr("fill", function (d) {
-                            return that.fillColor.colorPieMS(d);
+                            return that.fillColor.colorPieMS(d,that.type);
                         })
                         .attr("fill-opacity", function (d,i) {
                             if(that.type === "stackedAreaChart" && that.color_mode === "saturation") {
