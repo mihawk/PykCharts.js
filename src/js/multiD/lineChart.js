@@ -633,10 +633,7 @@ PykCharts.multiD.lineChart = function (options){
 								      				}
 								      			});
 										}
-									})
-							    	.attr("d",function(d,k) {
-								    	return that.chart_path(data[0]);
-								    });
+									});
 
 								function transition (i) {
 								    that.dataLineGroup[i].transition()
