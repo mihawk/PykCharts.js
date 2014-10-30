@@ -27,7 +27,18 @@ PykCharts.maps.oneLayer = function (options) {
                 });
                 d3.json("../data/maps/colorPalette.json", function (data) {
                     that.color_palette_data = data;
-                    console.log(data)
+                    var validate = _.where(that.color_palette_data,{name:that.palette_color});
+
+                    try {
+                        if (!validate.length) {
+                            throw "palette_color";
+                        }
+                    } 
+                    catch (err) {
+                        that.k.errorHandling(err,"#9");
+                        return;
+                    }
+
                     $(that.selector).html("");
                     var oneLayer = new PykCharts.maps.mapFunctions(options,that,"oneLayer");
                     oneLayer.render();
@@ -44,6 +55,10 @@ PykCharts.maps.timelineMap = function (options) {
     var theme = new PykCharts.Configuration.Theme({});
     this.execute = function () {
         that = PykCharts.maps.processInputs(that, options);
+
+        if(that.stop) {
+            return;
+        }
         //$(that.selector).css("height",that.height);
         d3.json(options.data, function (data) {
             that.timeline_data = data;
@@ -70,7 +85,17 @@ PykCharts.maps.timelineMap = function (options) {
                 });
                 d3.json("../data/maps/colorPalette.json", function (data) {
                     that.color_palette_data = data;
+                    var validate = _.where(that.color_palette_data,{name:that.palette_color});
 
+                    try {
+                        if (!validate.length) {
+                            throw "palette_color";
+                        }
+                    } 
+                    catch (err) {
+                        that.k.errorHandling(err,"#9");
+                        return;
+                    }
 
                     var x_extent = d3.extent(that.timeline_data, function (d) { return d.timestamp; })
                     that.data = _.where(that.timeline_data, {timestamp: x_extent[0]});

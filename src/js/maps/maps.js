@@ -36,7 +36,8 @@ PykCharts.maps.processInputs = function (chartObject, options) {
     chartObject.background_color = options.background_color ? options.background_color : stylesheet.background_color;
     
     chartObject.timeline_duration = "timeline_duration" in options ? options.timeline_duration :mapsTheme.timeline_duration;
-    chartObject.timeline_duration = (chartObject.timeline_duration * 1000);
+    console.log(chartObject.timeline_duration);    
+
     chartObject.margin_left = options.timeline_margin_left ? options.timeline_margin_left : mapsTheme.timeline_margin_left;
     chartObject.margin_right = options.timeline_margin_right ? options.timeline_margin_right : mapsTheme.timeline_margin_right;
     chartObject.margin_top = options.timeline_margin_top ? options.timeline_margin_top : mapsTheme.timeline_margin_top;
@@ -58,7 +59,7 @@ PykCharts.maps.processInputs = function (chartObject, options) {
     chartObject.legends_enable =  options.legends_enable ? options.legends_enable.toLowerCase() : stylesheet.legends_enable;
     chartObject.legends_display = options.legends_display ? options.legends_display.toLowerCase() : stylesheet.legends_display;
     chartObject.legends_text_size = options.legends_text_size ? options.legends_text_size : stylesheet.legends_text_size;
-    chartObject.legends_text_color = options.legends_text_color ? options.legends_text_color.toLowerCase() : stylesheet.legends_text_color;
+    chartObject.legends_text_color = options.legends_text_color ? options.legends_text_color : stylesheet.legends_text_color;
     chartObject.legends_text_weight = options.legends_text_weight ? options.legends_text_weight.toLowerCase() : stylesheet.legends_text_weight;
     chartObject.legends_text_family = options.legends_text_family ? options.legends_text_family.toLowerCase() : stylesheet.legends_text_family;
 
@@ -146,7 +147,8 @@ PykCharts.maps.processInputs = function (chartObject, options) {
     chartObject.export_enable = options.export_enable ? options.export_enable.toLowerCase() : stylesheet.export_enable;
 
     chartObject.k = new PykCharts.Configuration(chartObject);
-    
+
+
     chartObject.k.validator().validatingSelector(chartObject.selector.substring(1,chartObject.selector.length))
                 .validatingDataType(chartObject.width,"chart_width")
                 .validatingDataType(chartObject.height,"chart_height")
@@ -156,8 +158,10 @@ PykCharts.maps.processInputs = function (chartObject, options) {
                 .validatingDataType(chartObject.margin_bottom,"chart_margin_bottom")
                 .validatingDataType(chartObject.title_size,"title_size")
                 .validatingDataType(chartObject.subtitle_size,"subtitle_size")
+                .validatingDataType(chartObject.timeline_duration,"timeline_duration")
                 .validatingDataType(chartObject.real_time_charts_refresh_frequency,"real_time_charts_refresh_frequency")
                 .validatingDataType(chartObject.border_between_chart_elements_thickness,"border_between_chart_elements_thickness")
+                .validatingDataType(chartObject.legends_text_size ,"legends_text_size")                 
                 .validatingDataType(chartObject.axis_x_pointer_size,"axis_x_pointer_size")
                 .validatingDataType(chartObject.axis_x_pointer_length,"axis_x_pointer_length")
                 .validatingDataType(chartObject.axis_x_outer_pointer_size,"axis_x_outer_pointer_size")  
@@ -175,6 +179,7 @@ PykCharts.maps.processInputs = function (chartObject, options) {
                 .validatingFontWeight(chartObject.title_weight,"title_weight")
                 .validatingFontWeight(chartObject.subtitle_weight,"subtitle_weight")
                 .validatingFontWeight(chartObject.axis_x_pointer_weight,"axis_x_pointer_weight")  
+                .validatingFontWeight(chartObject.legends_text_weight,"legends_text_weight")
                 .validatingColor(chartObject.background_color,"background_color")
                 .validatingColor(chartObject.title_color,"title_color")
                 .validatingColor(chartObject.subtitle_color,"subtitle_color")
@@ -204,15 +209,6 @@ PykCharts.maps.processInputs = function (chartObject, options) {
             }
 
             try {
-                if (chartObject.timeline_duration < 1) {
-                    throw "timeline_duration";
-                }
-            } 
-            catch (err) {
-                chartObject.k.errorHandling(err,"#9");
-            }
-
-            try {
                 if(chartObject.onhover.toLowerCase() === "shadow" || chartObject.onhover.toLowerCase() === "none" || chartObject.onhover.toLowerCase() === "highlight_border" || chartObject.onhover.toLowerCase() === "color_saturation") {                    
                 } else {
                     throw "";
@@ -221,6 +217,8 @@ PykCharts.maps.processInputs = function (chartObject, options) {
             catch (err) {
                 chartObject.k.errorHandling(err,"#9");                
             }
+
+    chartObject.timeline_duration = (chartObject.timeline_duration * 1000);
 
     return chartObject; 
    
