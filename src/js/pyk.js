@@ -1834,16 +1834,12 @@ configuration.fillChart = function (options,theme,config) {
             }
         },
         colorPieW : function (d) {
-             if(!(PykCharts.boolean(options.variable_circle_size_enable))) {
-                return options.saturation_color;
-            } else if(PykCharts.boolean(options.variable_circle_size_enable)) {
-                if(d.color) {
-                    return d.color;
-                } else if(options.chart_color.length) {
-                    return options.color;
-                }
-                else return options.chart_color[0];
+            if(d.color) {
+                return d.color;
+            } else if(options.chart_color.length) {
+                return options.color;
             }
+            else return options.chart_color[0];
             // if(!(PykCharts.boolean(options.variable_circle_variable_circle_size_enable))) {
             //     return options.saturation_color;
             // } else if(PykCharts.boolean(options.variable_circle_variable_circle_size_enable)) {

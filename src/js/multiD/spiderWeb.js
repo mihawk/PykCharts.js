@@ -160,7 +160,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                 return this;
             },
             legendsContainer : function (i) {
-                if (PykCharts.boolean(that.legends_enable) && PykCharts.boolean(that.variable_circle_size_enable) && that.map_group_data[1] && that.mode === "default") {
+                if (PykCharts.boolean(that.legends_enable) && that.map_group_data[1] && that.mode === "default") {
                     that.legendsGroup = that.svgContainer.append("g")
                         .attr("class","legendgrp")
                         .attr("id","legendgrp");
@@ -362,7 +362,7 @@ PykCharts.multiD.spiderWeb = function (options) {
             },
             legends : function () {
                  // console.log("heyy",PykCharts.boolean(that.variable_circle_size_enable));
-                if (PykCharts.boolean(that.legends_enable) && PykCharts.boolean(that.variable_circle_size_enable) && that.map_group_data[1] && that.mode==="default") {
+                if (PykCharts.boolean(that.legends_enable) && that.map_group_data[1] && that.mode==="default") {
                     // console.log("goes inside");
                     var unique = _.uniq(that.sorted_weight);
                     var k = 0;

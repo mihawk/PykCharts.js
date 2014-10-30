@@ -269,7 +269,7 @@ PykCharts.multiD.lineChart = function (options){
 					.yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain)
 					.yGrid(that.svgContainer,that.group,that.yScale)
 					.xGrid(that.svgContainer,that.group,that.xScale)
-			if(that.annotation_enable) {
+			if(PykCharts.boolean(that.annotation_enable)) {
 				that.annotation();
 			}
 		});

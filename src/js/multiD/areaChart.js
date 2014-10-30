@@ -167,7 +167,7 @@ PykCharts.multiD.areaChart = function (options){
 
 			that.optional_feature().createChart("liveData");
 
-			that.k.xAxis(that.svgContainer,that.xGroup,that.xScale,that.extra_left_margin,that.xdomain)
+			that.k.xAxis(that.svgContainer,that.xGroup,that.xScale,that.extra_left_margin,that.xdomain,that.legendsGroup_height)
 					.yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain)
 					.yGrid(that.svgContainer,that.group,that.yScale)
 					.xGrid(that.svgContainer,that.group,that.xScale)
@@ -374,7 +374,7 @@ PykCharts.multiD.areaChart = function (options){
 				      		// .duration(that.transitions[that.transition.enable]().duration())
 							.attr("transform", "translate("+ that.extra_left_margin +",0)")
 						    .attr("d",function(d,k) {
-							    	return that.chart_path(data[0]);
+						    		return that.chart_path(data[0]);
 							 });
 
 						function transition1 (i) {
