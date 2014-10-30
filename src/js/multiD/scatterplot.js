@@ -4,7 +4,11 @@ PykCharts.multiD.scatterPlot = function (options) {
 
     this.execute = function() {
         that = new PykCharts.multiD.processInputs(that, options, "scatterplot");
-        
+        that.bubbleRadius = options.scatterplot_radius ? options.scatterplot_radius : multiDimensionalCharts.scatterplot_radius;
+
+        that.k.validator()
+            .validatingDataType(that.bubbleRadius,"scatterplot_radius");  
+
         if(that.stop) 
             return;
 
@@ -17,7 +21,6 @@ PykCharts.multiD.scatterPlot = function (options) {
 
         that.multiD = new PykCharts.multiD.configuration(that);
         that.panels_enable =options.panels_enable && options.panels_enable.toLowerCase() ? options.panels_enable.toLowerCase() : multiDimensionalCharts.panels_enable;
-        that.bubbleRadius = options.scatterplot_radius && _.isNumber(options.scatterplot_radius) ? options.scatterplot_radius : multiDimensionalCharts.scatterplot_radius;
         that.enableTicks =  options.scatterplot_pointer_enable ? options.scatterplot_pointer_enable.toLowerCase() : multiDimensionalCharts.scatterplot_pointer_enable;
         that.zoomed_out = true;
 
@@ -44,18 +47,27 @@ PykCharts.multiD.pulse = function (options) {
 
     this.execute = function() {
         that = new PykCharts.multiD.processInputs(that, options, "pulse");
-        if(that.mode === "default") {
-            that.k.loading();
-        }
         var multiDimensionalCharts = theme.multiDimensionalCharts,
             stylesheet = theme.stylesheet,
             optional = options.optional;
         // that.enableCrossHair = optional && optional.enableCrossHair ? optional.enableCrossHair : multiDimensionalCharts.enableCrossHair;
         that.multiD = new PykCharts.multiD.configuration(that);
+        that.bubbleRadius = options.scatterplot_radius ? options.scatterplot_radius : (0.6 * multiDimensionalCharts.scatterplot_radius);
         that.panels_enable = options.panels_enable && options.panels_enable.toLowerCase() ? options.panels_enable : multiDimensionalCharts.panels_enable;
-        that.bubbleRadius = options.scatterplot_radius && _.isNumber(options.scatterplot_radius) ? options.scatterplot_radius : (0.6 * multiDimensionalCharts.scatterplot_radius);
+
+        that.k.validator()
+            .validatingDataType(that.bubbleRadius,"scatterplot_radius")    
+
+        if(that.stop) {
+            return;
+        }
+
         that.zoomed_out = true;
         that.radius_range = [that.k._radiusCalculation(1.1)*2,that.k._radiusCalculation(3.5)*2];
+
+        if(that.mode === "default") {
+            that.k.loading();
+        }
 
         d3.json(options.data, function (e, data) {
             that.data = data.groupBy("pulse");

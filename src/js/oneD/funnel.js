@@ -19,7 +19,7 @@ PykCharts.oneD.funnel = function (options) {
             .validatingDataType(that.rect_width,"rect_width")
             .validatingDataType(that.rect_height,"rect_height")
 
-        if(that.stop) { 
+        if(that.stop) {
             return;
         }
 
@@ -69,7 +69,7 @@ PykCharts.oneD.funnel = function (options) {
 //        theme.stylesheet.borderBetweenChartElements;
         that.border = new PykCharts.Configuration.border(that);
 
-        if(that.mode === "default") {        
+        if(that.mode === "default") {
             that.k.title()
                 .backgroundColor(that)
                 .export(that,"#svgcontainer","funnel")
@@ -279,7 +279,7 @@ PykCharts.oneD.funnel = function (options) {
         			.on("mouseover", function (d,i) {
                         if(that.mode === "default") {
                             that.onHoverEffect.highlight(options.selector +" "+".fun-path",this);
-                            tooltip = that.new_data[i].tooltip || "<table class='PykCharts'><tr><th colspan='3' class='tooltip-heading'>"+that.new_data[i].name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(that.new_data[i].weight)+"<td class='tooltip-right-content'>(&nbsp; "+that.per_values[i].toFixed(2)+"%&nbsp) </tr></table>";
+                            tooltip = that.new_data[i].tooltip || "<table class='PykCharts'><tr><th colspan='3' class='tooltip-heading'>"+that.new_data[i].name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(that.new_data[i].weight)+"<td class='tooltip-right-content'>("+that.per_values[i].toFixed(2)+"%) </tr></table>";
                 			that.mouseEvent.tooltipPosition(d);
                             that.mouseEvent.tooltipTextShow(tooltip);
                         }
@@ -400,7 +400,7 @@ PykCharts.oneD.funnel = function (options) {
                             .attr("pointer-events","none")
                             .attr("font-family", that.pointer_family)
                             .attr("font-weight",that.pointer_weight);
-                            
+
                     },that.transitions.duration());
 
                     tick_label.exit().remove();

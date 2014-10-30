@@ -5,6 +5,13 @@ PykCharts.multiD.spiderWeb = function (options) {
     this.execute = function () {
         var multiDimensionalCharts = theme.multiDimensionalCharts;
         that = new PykCharts.multiD.processInputs(that, options, "spiderweb");
+        that.bubbleRadius = options.spiderweb_radius  ? options.spiderweb_radius : (0.6 * multiDimensionalCharts.scatterplot_radius);
+        that.outerRadius = options.spiderweb_outer_radius_percent  ? options.spiderweb_outer_radius_percent : multiDimensionalCharts.spiderweb_outer_radius_percent;
+
+        that.k.validator()
+            .validatingDataType(that.bubbleRadius,"spiderweb_radius") 
+            .validatingDataType(that.outerRadius,"spiderweb_outer_radius_percent"); 
+
 
         if(that.stop) 
             return;
@@ -12,13 +19,14 @@ PykCharts.multiD.spiderWeb = function (options) {
         if(that.mode === "default") {
             that.k.loading();
         }
-        if(options.spiderweb_outer_radius_percent && options.spiderweb_outer_radius_percent > 100) {
-            options.spiderweb_outer_radius_percent = 100;
+
+        if(that.outerRadius > 100) {
+            that.outerRadius = 100;
         }
+
         that.multiD = new PykCharts.multiD.configuration(that);
         // that.axisTitle = options.spiderweb_axis_title ? options.spiderweb_axis_title : theme.multiDimensionalCharts.spiderweb_axis_title;
-        that.bubbleRadius = options.spiderweb_radius && _.isNumber(options.spiderweb_radius) ? options.spiderweb_radius : (0.6 * multiDimensionalCharts.scatterplot_radius);
-        that.outerRadius = options.spiderweb_outer_radius_percent && _.isNumber(options.spiderweb_outer_radius_percent) ? options.spiderweb_outer_radius_percent : multiDimensionalCharts.spiderweb_outer_radius_percent;
+        
         that.inner_radius = 0;
         // that.enableTicks =  options.spiderweb_pointer ? options.spiderweb_pointer : multiDimensionalCharts.spiderweb_pointer;
         // that.variable_circle_size_enable = options.variable_circle_size_enable ? options.variable_circle_size_enable : multiDimensionalCharts.variable_circle_size_enable;

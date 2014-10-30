@@ -3,8 +3,10 @@
         <title>One-Dimensional Charts</title>
         <link rel="stylesheet" type="text/css" href="../dist/pykcharts.0.0.8.min.css">
         <link rel="stylesheet" type="text/css" href="../lib/bootstrap.min.css">
+        <script src="../lib/colors.js"></script>
         <script src="../lib/paper-full.js"></script>
         <script src="../lib/downloadDataURI.js"></script>
+
 	</head>
 	<body>
       <div id="bubble"></div>
@@ -46,7 +48,7 @@
                 // clubData_always_include_data_points : ["18-24","25-44"],
                 // clubdata_maximum_nodes : 5,
                 export_enable: "YES",
-                background_color: "white",
+                background_color: "transparent",
                 // chart_width: 300,
                 // chart_height: 300,
                 title_text:"Air Pollution in New York </br>(23/12/2013 - 29/12/2013)",
@@ -64,9 +66,7 @@
                 units_suffix: "rs",
                 pointer_weight: "normal",
                 "funnel_rect_width": 100,
-                "funnel_rect_height": 100,
-                "chart_height": 500
-
+                "funnel_rect_height": 100
         		});
       			k.execute();
 
@@ -109,8 +109,8 @@
                 selector: "#electionDonutContainer",
                 data: "../data/pie.json",
                 background_color: "white",
-                transition_duration: 4
-            });
+                transition_duration: 4,
+           });
            k.execute();
 
             var k = new PykCharts.oneD.pie({
