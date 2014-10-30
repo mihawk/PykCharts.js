@@ -78,7 +78,7 @@
                     chart_grid_y_enable: "yes",
 
                     transition_duration: 5,
-                    real_time_charts_refresh_frequency: 10,
+                    real_time_charts_refresh_frequency: 0,
                     background_color: "white",
                     axis_onhover_hightlight_enable: "yes",
                     axis_x_enable: "yes",
@@ -108,9 +108,7 @@
                     tooltip_mode : "moving",
                     crosshair_enable: "yes",
                     zoom_enable: "no",
-                    annotation_enable:"yes",
-                    highlight: "India",
-                    highlight_color: "red"
+                    annotation_enable:"yes"
 
                 });
                 k.execute();
@@ -164,7 +162,9 @@
                     line_curvy_lines:"no",
                     tooltip_mode : "fixed",
                     crosshair_enable: "yes",
-                    zoom_enable: "yes"
+                    zoom_enable: "yes",
+                    annotation_enable: "yes",
+                    annotation_view_mode: "onclick"
                 });
                 k.execute();
 
@@ -389,7 +389,7 @@
                 var k = new PykCharts.multiD.lineChart ({
                     selector: "#multiple-multiLine",
                     data: "../data/multipleContainerLine.json",
-                    mode : "default",
+                    mode : "infographics",
 
                     color_mode: "saturation",  //color or saturation
                     chart_color:["lightgray","steelblue","red"],
@@ -433,7 +433,9 @@
                     tooltip_mode : "fixed",
                     tooltip_enable : "yes",
                     crosshair_enable: "yes",
-                    zoom_enable: "yes"
+                    zoom_enable: "yes",
+                    highlight: "India",
+                    highlight_color: "red"
                 });
                 k.execute();
 
