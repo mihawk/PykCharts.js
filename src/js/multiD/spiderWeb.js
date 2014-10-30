@@ -99,7 +99,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                 .export(that,"#svgcontainer","spiderweb")
                 .emptyDiv();
             that.k.makeMainDiv(that.selector,1);
-
+            that.h = that.height;
             that.optionalFeatures().svgContainer(1)
                 .legendsContainer()
                 .createGroups();
