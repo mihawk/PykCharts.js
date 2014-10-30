@@ -360,7 +360,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                 return this;
             },
             legendsContainer : function (i) {
-                if (PykCharts.boolean(that.legends_enable) && PykCharts.boolean(that.variable_circle_size_enable) && that.map_group_data[1] && that.mode === "default") {
+                if (PykCharts.boolean(that.legends_enable) && that.map_group_data[1] && that.mode === "default") {
                     that.legendsGroup = that.svgContainer
                         .append("g")
                                 .attr('id',"legends")
@@ -488,7 +488,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
             },
             legends : function (index) {
                    
-                if (PykCharts.boolean(that.legends_enable) && PykCharts.boolean(that.variable_circle_size_enable) && that.map_group_data[1] && that.mode==="default") {
+                if (PykCharts.boolean(that.legends_enable) && that.map_group_data[1] && that.mode==="default") {
                     var unique = _.uniq(that.sorted_weight);
                     var k = 0;
                     var l = 0;
