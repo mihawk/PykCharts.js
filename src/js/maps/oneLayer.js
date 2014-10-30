@@ -445,26 +445,59 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                 }
                 that.legendsContainer.attr("height", 50);
                 that.legendsGroup_height = 50;
+                temp_i = i;
+                final_rect_x = 0;
+                final_text_x = 0;
+                legend_text_widths = [];
                 text_parameter1 = "x";
                 text_parameter2 = "y";
                 rect_parameter1 = "width";
                 rect_parameter2 = "height";
                 rect_parameter3 = "x";
                 rect_parameter4 = "y";
-                var text_parameter1value = function () { i--; return that.width - (i*60 + 40);};
+                var text_parameter1value = function () {
+                    i--;
+                    legend_text_widths[i]=this.getBBox().width;
+                    final_text_x = (i === 0) ? (that.width - (legend_text_widths[i])) : (that.width - ((i*(legend_text_widths[i]+25))+legend_text_widths[i])-3);
+                    return final_text_x;
+                };
                 text_parameter2value = 30;
                 rect_parameter1value = 13;
                 rect_parameter2value = 13;
-                var rect_parameter3value = function () {j--; return that.width - (j*60 + 60); };
+                var rect_parameter3value = function () {
+                    j--;
+                    final_rect_x = (j === 0) ? (that.width - (legend_text_widths[j]+this.getBBox().width+2)) : (that.width - ((j*(legend_text_widths[j]+25))+legend_text_widths[j]+this.getBBox().width+5));
+                    return final_rect_x;
+                };
                 rect_parameter4value = 18;
 
             };
             if (that.saturation_color !== "") {
-                var leg_data = [1,2,3,4,5,6,7,8,9];
-                onetenth = d3.format(".1f")(that.extent_size[1] / 9);
+                var leg_data = [1,2,3,4,5,6,7,8,9],
+                    onetenth = d3.format(".1f")(that.extent_size[1] / 9);
                 that.leg = function (d,i) { return "<" + d3.round(onetenth * (i+1)); };
                 var legend = that.legendsContainer.selectAll(".rect")
                     .data(leg_data)
+                
+                that.legends_text = that.legendsContainer.selectAll(".text")
+                    .data(leg_data);
+
+                that.legends_text.enter()
+                    .append("text");
+
+                that.legends_text.attr("class","text")
+                    .attr("pointer-events","none")
+                    .text(that.leg)
+                    .attr("fill", that.legends_text_color)
+                    .attr("font-family", that.legends_text_family)
+                    .attr("font-size",that.legends_text_size)
+                    .attr("font-weight", that.legends_text_weight)
+                    .attr("x", text_parameter1value)
+                    .attr("y", text_parameter2value);
+
+                that.legends_text.exit()
+                    .remove();
+
                 legend.enter()
                     .append("rect")
 
@@ -478,42 +511,11 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
 
                 legend.exit()
                     .remove();
-                that.legends_text = that.legendsContainer.selectAll(".text")
-                    .data(leg_data);
-
-                that.legends_text.enter()
-                    .append("text");
-
-                that.legends_text.attr("class","text")
-                    .attr("pointer-events","none")
-                    .attr("fill", that.legends_text_color)
-                    .attr("font-family", that.legends_text_family)
-                    .attr("font-size",that.legends_text_size)
-                    .attr("font-weight", that.legends_text_weight)
-                    .attr("x", text_parameter1value)
-                    .attr("y", text_parameter2value)
-                    .text(that.leg);
-
-                that.legends_text.exit()
-                    .remove();
             } else {
                 that.leg = function (d,i) { return  "<" + d3.round(that.extent_size[0] + (i+1) * (that.difference / that.current_palette.number)); };
                 var legend = that.legendsContainer.selectAll(".rect")
                     .data(that.current_palette.colors);
 
-                legend.enter()
-                    .append("rect")
-
-                legend.attr("class","rect")
-                    .attr("x",rect_parameter3value)
-                    .attr("y", rect_parameter4value)
-                    .attr("width", rect_parameter1value)
-                    .attr("height", rect_parameter2value)
-                    .attr("fill", function (d) { return d; });
-
-                legend.exit()
-                    .remove();
-
                 that.legends_text = that.legendsContainer.selectAll(".text")
                     .data(that.current_palette.colors);
 
@@ -523,14 +525,27 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                 that.legends_text.attr("class","text")
                     .attr("pointer-events","none")
                     .attr("fill", that.legends_text_color)
+                    .text(that.leg)
                     .attr("font-family", that.legends_text_family)
                     .attr("font-size",that.legends_text_size)
                     .attr("font-weight", that.legends_text_weight)
                     .attr("x", text_parameter1value)
-                    .attr("y",text_parameter2value)
-                    .text(that.leg);
+                    .attr("y",text_parameter2value);
 
                 that.legends_text.exit()
+                    .remove();
+
+                legend.enter()
+                    .append("rect")
+
+                legend.attr("class","rect")
+                    .attr("width", rect_parameter1value)
+                    .attr("height", rect_parameter2value)
+                    .attr("fill", function (d) { return d; })
+                    .attr("x",rect_parameter3value)
+                    .attr("y", rect_parameter4value);
+
+                legend.exit()
                     .remove();
             }
             // $("#legend-container").after("</br>");

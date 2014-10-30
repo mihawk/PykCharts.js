@@ -22,8 +22,8 @@
             window.PykChartsInit = function (e) {
                 k = new PykCharts.maps.timelineMap({
                     selector: "#map-container",
-                    map_code: "newzealand",
-                    data: "../data/maps/newzealand_data_timeline.json",
+                    map_code: "africa",
+                    data: "../data/maps/africa_data_timeline.json",
                     chart_height: 500,
                     chart_width: 500,
                     // default_color:["pink"],
@@ -61,10 +61,12 @@
                     units_suffix: "",
                     legends_enable: "yes",
                     legends_display: "horizontal",
-                    legends_text_size: 12,
+                    legends_text_size: 20,
                     legends_text_color: "black",
                     legends_text_weight: "normal",
-                    legends_text_family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
+                    legends_text_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
+                    highlight: "NG",
+                    // highlight_color: "yellow"
                 });
                 k.execute();
             }

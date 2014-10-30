@@ -89,7 +89,6 @@ PykCharts.maps.processInputs = function (chartObject, options) {
     chartObject.loading = options.loading_gif_url ? options.loading_gif_url: stylesheet.loading_gif_url;
     chartObject.highlight = options.highlight ? options.highlight : stylesheet.highlight;
     chartObject.highlight_color = options.highlight_color ? options.highlight_color.toLowerCase(): stylesheet.highlight_color;
-    // chartObject.highlight_area_enable = "yes";
     if (options &&  PykCharts.boolean (options.title_text)) {
         chartObject.title_text = options.title_text;
         chartObject.title_size = "title_size" in options ? options.title_size : stylesheet.title_size;
