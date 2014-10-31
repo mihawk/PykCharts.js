@@ -59,10 +59,10 @@
                     subtitle_text:"this the analysis",
                     chart_height: 400,
                     chart_width : 630,
-                    chart_margin_top: 100,
-                    chart_margin_right: 100,
-                    chart_margin_bottom: 80,
-                    chart_margin_left: 150,
+                    chart_margin_top: 30,
+                    chart_margin_right: 30,
+                    chart_margin_bottom: 30,
+                    chart_margin_left: 30,
 
                     chart_grid_x_enable: "yes",
                     chart_grid_y_enable: "yes",
@@ -76,8 +76,8 @@
                     axis_x_pointer_position: "bottom",
                     axis_x_line_color: "#1D1D1D",
                     axis_x_pointer_size: 12,
-                    axis_x_pointer_padding: 3,
-                    axis_y_pointer_values: [2,6],
+                    axis_x_pointer_padding: 5,
+                    axis_y_pointer_values: [],
                     axis_x_outer_pointer_length: 5,
                     axis_x_time_value_datatype:"month",
                     axis_x_time_value_interval: 1,
@@ -93,9 +93,9 @@
                     tooltip_enable: "yes",
                     tooltip_mode : "moving",
                     crosshair_enable: "yes",
-                    zoom_enable: "no",
-                    annotation_enable: "no",
-                    annotation_view_mode: "onload",
+                    zoom_enable: "yes",
+                    annotation_enable: "yes",
+                    annotation_view_mode: "onload"
 
                 });
                 k.execute();
@@ -146,7 +146,7 @@
                     axis_y_pointer_padding: 10,
                     axis_y_outer_pointer_length: 3,
                     curvy_lines_enable:"yes",
-                    tooltip_mode : "fixed",
+                    tooltip_mode : "moving",
                     tooltip_enable: "yes",
                     crosshair_enable: "yes",
                     zoom_enable: "yes",
@@ -203,7 +203,7 @@
                     chart_height: 450,
                     chart_width : 700,
                     chart_margin_top: 25,
-                    chart_margin_right: 15,
+                    chart_margin_right: 75,
                     chart_margin_bottom: 25,
                     chart_margin_left: 60,
                     saturation_color:"red",
@@ -250,7 +250,13 @@
                     label_size:12,
                     label_color: "black",
                     label_weight: "bold",
-                    label_family:"'Helvetica Neue',Helvetica,Arial,sans-serif"
+                    label_family:"'Helvetica Ne#scatterue',Helvetica,Arial,sans-serif",
+                    chart_height: 450,
+                    chart_width : 700,
+                    chart_margin_top: 125,
+                    chart_margin_right: 175,
+                    chart_margin_bottom: 125,
+                    chart_margin_left: 160,
                 });
                 k.execute();
 
@@ -309,12 +315,7 @@
                     zoom_level: 6,
 
                     border_between_chart_elements_thickness:0,
-                    border_between_chart_elements_color:"blue",
-
-                    label_size:12,
-                    label_color: "white",
-                    label_weight: "bold",
-                    label_family:"'Helvetica Neue',Helvetica,Arial,sans-serif"
+                    border_between_chart_elements_color:"blue"
                 });
                 k.execute();
 
@@ -623,7 +624,7 @@
                     chart_height: 430,
                     chart_width : 700,
                     chart_margin_top: 25,
-                    chart_margin_right: 25,
+                    chart_margin_right: 45,
                     chart_margin_bottom: 45,
                     chart_margin_left: 50,
                     chart_grid_y_enable: "yes",

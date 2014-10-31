@@ -22,14 +22,81 @@ PykCharts.other.pictograph = function (options) {
         that.imageHeight = options.pictograph_image_height ? options.pictograph_image_height : otherCharts.pictograph_image_height;
         that.height = options.chart_height ? options.chart_height : that.width;
 
-        that.k.validator()
-            .validatingDataType(that.height,"chart_height")
-            .validatingDataType(that.imgperline,"pictograph_image_per_line")
-            .validatingDataType(that.imageWidth,"pictograph_image_width")
-            .validatingDataType(that.imageHeight,"pictograph_image_height")
-            .validatingDataType(that.current_count_size,"pictograph_current_count_size")
-            .validatingColor(that.total_count_color,"pictograph_total_count_color")                                                              
-            .validatingColor(that.current_count_color,"pictograph_current_count_color")           
+        try {
+            if(!_.isNumber(that.height)) {
+                that.height = that.width;
+                throw "chart_height"
+            }
+        } 
+
+        catch (err) {
+            that.k.warningHandling(err,"3");
+        }
+
+        try {
+            if(!_.isNumber(that.imgperline)) {
+                that.imgperline = otherCharts.pictograph_image_per_line;
+                throw "pictograph_image_per_line"
+            }
+        } 
+
+        catch (err) {
+            that.k.warningHandling(err,"3");
+        }
+
+        try {
+            if(!_.isNumber(that.imageWidth)) {
+                that.imageWidth = otherCharts.pictograph_image_width;
+                throw "pictograph_image_width"
+            }
+        } 
+
+        catch (err) {
+            that.k.warningHandling(err,"3");
+        }
+
+        try {
+            if(!_.isNumber(that.imageHeight)) {
+                that.imageHeight = otherCharts.pictograph_image_height;
+                throw "pictograph_image_height"
+            }
+        } 
+
+        catch (err) {
+            that.k.warningHandling(err,"3");
+        }
+
+        try {
+            if(!_.isNumber(that.current_count_size)) {
+                that.current_count_size = otherCharts.pictograph_current_count_size;
+                throw "pictograph_current_count_size"
+            }
+        } 
+
+        catch (err) {
+            that.k.warningHandling(err,"3");
+        }
+
+        // try {
+        //     if(!_.isNumber(that.total_count_color)) {
+        //         that.total_count_color = otherCharts.pictograph_total_count_color;
+        //         throw "pictograph_total_count_color"
+        //     }
+        // } 
+
+        // catch (err) {
+        //     that.k.warningHandling(err,"3");
+        // }
+
+        // try {
+        //     if(!_.isNumber(that.current_count_color)) {
+        //         that.current_count_color = otherCharts.pictograph_current_count_color;
+        //         throw "pictograph_current_count_color"
+        //     }
+        // } 
+        // catch (err) {
+        //     that.k.warningHandling(err,"3");
+        // }
 
         if(that.stop) {
             return;

@@ -101,14 +101,14 @@ PykCharts.other.processInputs = function (chartObject, options) {
     chartObject.k = new PykCharts.Configuration(chartObject);
 
     chartObject.k.validator().validatingSelector(chartObject.selector.substring(1,chartObject.selector.length))
-                .validatingChartMode(chartObject.mode)
-                .validatingDataType(chartObject.width,"chart_width")
-                .validatingDataType(chartObject.title_size,"title_size")
-                .validatingDataType(chartObject.subtitle_size,"subtitle_size")
-                .validatingDataType(chartObject.transition_duration,"transition_duration")
-                .validatingFontWeight(chartObject.title_weight,"title_weight")
-                .validatingFontWeight(chartObject.subtitle_weight,"subtitle_weight")
-                .validatingColor(chartObject.background_color,"background_color")                                                              
+                .validatingChartMode(chartObject.mode,"mode",stylesheet.mode)
+                .validatingDataType(chartObject.width,"chart_width",stylesheet.chart_width,"width")
+                .validatingDataType(chartObject.title_size,"title_size",stylesheet.title_size)
+                .validatingDataType(chartObject.subtitle_size,"subtitle_size",stylesheet.subtitle_size)
+                .validatingDataType(chartObject.transition_duration,"transition_duration",functionality.transition_duration)
+                .validatingFontWeight(chartObject.title_weight,"title_weight",stylesheet.title_weight)
+                .validatingFontWeight(chartObject.subtitle_weight,"subtitle_weight",stylesheet.subtitle_weight)
+                .validatingColor(chartObject.background_color,"background_color",stylesheet.background_color)
 
     return chartObject;
 };

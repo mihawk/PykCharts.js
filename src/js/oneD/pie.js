@@ -163,8 +163,19 @@ PykCharts.oneD.election_pie = function (options) {
     this.execute = function() {
 
         that = new PykCharts.oneD.processInputs(that, options, "pie");
-
+        that.x = true;
         if(options.chart_height) {
+            try {
+                if(!_.isNumber(options.chart_height)) {
+                    that.x = false;
+                    throw "chart_height"
+                }
+            }
+            catch (err) {
+                that.k.warningHandling(err);
+            }
+        }
+        if(that.x) {
             that.height = options.chart_height;
             that.calculation = undefined;
             that.height_translate = that.height/2;
@@ -174,11 +185,19 @@ PykCharts.oneD.election_pie = function (options) {
             that.calculation = "pie";
             that.height_translate = that.height;
         }
+
         that.radiusPercent = options.pie_radius_percent ? options.pie_radius_percent : theme.oneDimensionalCharts.pie_radius_percent;
 
-        that.k.validator()
-            .validatingDataType(that.height,"chart_height",that.width/2,"height")
-            .validatingDataType(that.radiusPercent,"pie_radius_percent",theme.oneDimensionalCharts.pie_radius_percent);
+        try {
+            if(!_.isNumber(that.radiusPercent)) {
+                that.radiusPercent = theme.oneDimensionalCharts.pie_radius_percent;
+                throw "pie_radius_percent"
+            }
+        } 
+
+        catch (err) {
+            that.k.warningHandling(err,"3");
+        }
 
         if(that.stop) {
             return;
@@ -208,11 +227,26 @@ PykCharts.oneD.election_donut = function (options) {
 
     this.execute = function() {
         that = new PykCharts.oneD.processInputs(that, options, "pie");
+        
+        that.x = true;
         if(options.chart_height) {
+            try {
+                if(!_.isNumber(options.chart_height)) {
+                    that.x = false;
+                    throw "chart_height"
+                }
+            }
+            catch (err) {
+                that.k.warningHandling(err);
+            }
+        }
+
+        if(that.x) {
             that.height = options.chart_height;
             that.calculation = undefined;
             that.height_translate = that.height/2;
         }
+
         else {
             that.height = that.width/2;
             that.calculation = "pie";
@@ -222,10 +256,25 @@ PykCharts.oneD.election_donut = function (options) {
         that.radiusPercent = options.donut_radius_percent ? options.donut_radius_percent : theme.oneDimensionalCharts.donut_radius_percent;
         that.innerRadiusPercent = options.donut_inner_radius_percent  && options.donut_inner_radius_percent ? options.donut_inner_radius_percent : theme.oneDimensionalCharts.donut_inner_radius_percent;
 
-        that.k.validator()
-            .validatingDataType(that.height,"chart_height",that.width/2,"height")
-            .validatingDataType(that.radiusPercent,"donut_radius_percent",theme.oneDimensionalCharts.donut_radius_percent)
-            .validatingDataType(that.innerRadiusPercent,"donut_inner_radius_percent",theme.oneDimensionalCharts.donut_inner_radius_percent);
+        try {
+            if(!_.isNumber(that.radiusPercent)) {
+                that.radiusPercent = theme.oneDimensionalCharts.donut_radius_percent;
+                throw "donut_radius_percent"
+            }
+        } 
+        catch (err) {
+            that.k.warningHandling(err,"3");
+        }
+
+        try {
+            if(!_.isNumber(that.innerRadiusPercent)) {
+                that.innerRadiusPercent = theme.oneDimensionalCharts.donut_inner_radius_percent;
+                throw "donut_inner_radius_percent"
+            }
+        } 
+        catch (err) {
+            that.k.warningHandling(err,"3");
+        }
 
         if(that.stop) {
             return;
@@ -366,7 +415,6 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
         var optional = {
             svgContainer :function () {
                 // $(options.selector).css("background-color",that.background_color);
-
                 that.svgContainer = d3.select(that.selector)
                     .append('svg')
                     .attr("width",that.width)

@@ -147,7 +147,7 @@ PykCharts.getEvent = function () {
     }
   }
   try {
-    return event || getSourceEvent();
+    return getSourceEvent() || event;
   } catch (e) {
     return getSourceEvent();
   }
@@ -1494,10 +1494,10 @@ PykCharts.Configuration = function (options){
                 validatingJSON : function (data) {
                     if(!data) {
                         try {
+                            options.stop = true;
                             throw "json format not valid";
                         }
                         catch (err) {
-                            options.stop = true;
                             options.k.errorHandling(err);
                         }
                     }
@@ -4554,8 +4554,19 @@ PykCharts.oneD.election_pie = function (options) {
     this.execute = function() {
 
         that = new PykCharts.oneD.processInputs(that, options, "pie");
-
+        that.x = true;
         if(options.chart_height) {
+            try {
+                if(!_.isNumber(options.chart_height)) {
+                    that.x = false;
+                    throw "chart_height"
+                }
+            }
+            catch (err) {
+                that.k.warningHandling(err);
+            }
+        }
+        if(that.x) {
             that.height = options.chart_height;
             that.calculation = undefined;
             that.height_translate = that.height/2;
@@ -4565,11 +4576,19 @@ PykCharts.oneD.election_pie = function (options) {
             that.calculation = "pie";
             that.height_translate = that.height;
         }
+
         that.radiusPercent = options.pie_radius_percent ? options.pie_radius_percent : theme.oneDimensionalCharts.pie_radius_percent;
 
-        that.k.validator()
-            .validatingDataType(that.height,"chart_height",that.width/2,"height")
-            .validatingDataType(that.radiusPercent,"pie_radius_percent",theme.oneDimensionalCharts.pie_radius_percent);
+        try {
+            if(!_.isNumber(that.radiusPercent)) {
+                that.radiusPercent = theme.oneDimensionalCharts.pie_radius_percent;
+                throw "pie_radius_percent"
+            }
+        } 
+
+        catch (err) {
+            that.k.warningHandling(err,"3");
+        }
 
         if(that.stop) {
             return;
@@ -4599,11 +4618,26 @@ PykCharts.oneD.election_donut = function (options) {
 
     this.execute = function() {
         that = new PykCharts.oneD.processInputs(that, options, "pie");
+        
+        that.x = true;
         if(options.chart_height) {
+            try {
+                if(!_.isNumber(options.chart_height)) {
+                    that.x = false;
+                    throw "chart_height"
+                }
+            }
+            catch (err) {
+                that.k.warningHandling(err);
+            }
+        }
+
+        if(that.x) {
             that.height = options.chart_height;
             that.calculation = undefined;
             that.height_translate = that.height/2;
         }
+
         else {
             that.height = that.width/2;
             that.calculation = "pie";
@@ -4613,10 +4647,25 @@ PykCharts.oneD.election_donut = function (options) {
         that.radiusPercent = options.donut_radius_percent ? options.donut_radius_percent : theme.oneDimensionalCharts.donut_radius_percent;
         that.innerRadiusPercent = options.donut_inner_radius_percent  && options.donut_inner_radius_percent ? options.donut_inner_radius_percent : theme.oneDimensionalCharts.donut_inner_radius_percent;
 
-        that.k.validator()
-            .validatingDataType(that.height,"chart_height",that.width/2,"height")
-            .validatingDataType(that.radiusPercent,"donut_radius_percent",theme.oneDimensionalCharts.donut_radius_percent)
-            .validatingDataType(that.innerRadiusPercent,"donut_inner_radius_percent",theme.oneDimensionalCharts.donut_inner_radius_percent);
+        try {
+            if(!_.isNumber(that.radiusPercent)) {
+                that.radiusPercent = theme.oneDimensionalCharts.donut_radius_percent;
+                throw "donut_radius_percent"
+            }
+        } 
+        catch (err) {
+            that.k.warningHandling(err,"3");
+        }
+
+        try {
+            if(!_.isNumber(that.innerRadiusPercent)) {
+                that.innerRadiusPercent = theme.oneDimensionalCharts.donut_inner_radius_percent;
+                throw "donut_inner_radius_percent"
+            }
+        } 
+        catch (err) {
+            that.k.warningHandling(err,"3");
+        }
 
         if(that.stop) {
             return;
@@ -4757,7 +4806,6 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
         var optional = {
             svgContainer :function () {
                 // $(options.selector).css("background-color",that.background_color);
-
                 that.svgContainer = d3.select(that.selector)
                     .append('svg')
                     .attr("width",that.width)
@@ -6227,14 +6275,14 @@ PykCharts.other.processInputs = function (chartObject, options) {
     chartObject.k = new PykCharts.Configuration(chartObject);
 
     chartObject.k.validator().validatingSelector(chartObject.selector.substring(1,chartObject.selector.length))
-                .validatingChartMode(chartObject.mode)
-                .validatingDataType(chartObject.width,"chart_width")
-                .validatingDataType(chartObject.title_size,"title_size")
-                .validatingDataType(chartObject.subtitle_size,"subtitle_size")
-                .validatingDataType(chartObject.transition_duration,"transition_duration")
-                .validatingFontWeight(chartObject.title_weight,"title_weight")
-                .validatingFontWeight(chartObject.subtitle_weight,"subtitle_weight")
-                .validatingColor(chartObject.background_color,"background_color")                                                              
+                .validatingChartMode(chartObject.mode,"mode",stylesheet.mode)
+                .validatingDataType(chartObject.width,"chart_width",stylesheet.chart_width,"width")
+                .validatingDataType(chartObject.title_size,"title_size",stylesheet.title_size)
+                .validatingDataType(chartObject.subtitle_size,"subtitle_size",stylesheet.subtitle_size)
+                .validatingDataType(chartObject.transition_duration,"transition_duration",functionality.transition_duration)
+                .validatingFontWeight(chartObject.title_weight,"title_weight",stylesheet.title_weight)
+                .validatingFontWeight(chartObject.subtitle_weight,"subtitle_weight",stylesheet.subtitle_weight)
+                .validatingColor(chartObject.background_color,"background_color",stylesheet.background_color)
 
     return chartObject;
 };
@@ -6263,14 +6311,81 @@ PykCharts.other.pictograph = function (options) {
         that.imageHeight = options.pictograph_image_height ? options.pictograph_image_height : otherCharts.pictograph_image_height;
         that.height = options.chart_height ? options.chart_height : that.width;
 
-        that.k.validator()
-            .validatingDataType(that.height,"chart_height")
-            .validatingDataType(that.imgperline,"pictograph_image_per_line")
-            .validatingDataType(that.imageWidth,"pictograph_image_width")
-            .validatingDataType(that.imageHeight,"pictograph_image_height")
-            .validatingDataType(that.current_count_size,"pictograph_current_count_size")
-            .validatingColor(that.total_count_color,"pictograph_total_count_color")                                                              
-            .validatingColor(that.current_count_color,"pictograph_current_count_color")           
+        try {
+            if(!_.isNumber(that.height)) {
+                that.height = that.width;
+                throw "chart_height"
+            }
+        } 
+
+        catch (err) {
+            that.k.warningHandling(err,"3");
+        }
+
+        try {
+            if(!_.isNumber(that.imgperline)) {
+                that.imgperline = otherCharts.pictograph_image_per_line;
+                throw "pictograph_image_per_line"
+            }
+        } 
+
+        catch (err) {
+            that.k.warningHandling(err,"3");
+        }
+
+        try {
+            if(!_.isNumber(that.imageWidth)) {
+                that.imageWidth = otherCharts.pictograph_image_width;
+                throw "pictograph_image_width"
+            }
+        } 
+
+        catch (err) {
+            that.k.warningHandling(err,"3");
+        }
+
+        try {
+            if(!_.isNumber(that.imageHeight)) {
+                that.imageHeight = otherCharts.pictograph_image_height;
+                throw "pictograph_image_height"
+            }
+        } 
+
+        catch (err) {
+            that.k.warningHandling(err,"3");
+        }
+
+        try {
+            if(!_.isNumber(that.current_count_size)) {
+                that.current_count_size = otherCharts.pictograph_current_count_size;
+                throw "pictograph_current_count_size"
+            }
+        } 
+
+        catch (err) {
+            that.k.warningHandling(err,"3");
+        }
+
+        // try {
+        //     if(!_.isNumber(that.total_count_color)) {
+        //         that.total_count_color = otherCharts.pictograph_total_count_color;
+        //         throw "pictograph_total_count_color"
+        //     }
+        // } 
+
+        // catch (err) {
+        //     that.k.warningHandling(err,"3");
+        // }
+
+        // try {
+        //     if(!_.isNumber(that.current_count_color)) {
+        //         that.current_count_color = otherCharts.pictograph_current_count_color;
+        //         throw "pictograph_current_count_color"
+        //     }
+        // } 
+        // catch (err) {
+        //     that.k.warningHandling(err,"3");
+        // }
 
         if(that.stop) {
             return;

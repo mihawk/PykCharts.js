@@ -547,8 +547,8 @@ PykCharts.multiD.areaChart = function (options){
                         rect_parameter4 = "y";
                         rect_parameter1value = 13;
                         rect_parameter2value = 13;
-                        text_parameter1value = function (d,i) { return that.w - that.w/4 + 16; };
-                        rect_parameter3value = function (d,i) { return that.w - that.w/4; };
+                        text_parameter1value = function (d,i) { return that.width - that.width/4 + 16; };
+                        rect_parameter3value = function (d,i) { return that.width - that.width/4; };
                         var rect_parameter4value = function (d,i) { return i * 24 + 12;};
                         var text_parameter2value = function (d,i) { return i * 24 + 23;};
 
@@ -567,15 +567,15 @@ PykCharts.multiD.areaChart = function (options){
                             if( i === 0) {
                                 l = 0;
                             }
-                            if((that.w - (i*100 + 75)) > 0) {
-                                return that.w - (i*100 + 75);
-                            } else if ((that.w - (l*100 + 75)) < that.w) {
+                            if((that.width - (i*100 + 75)) > 0) {
+                                return that.width - (i*100 + 75);
+                            } else if ((that.width - (l*100 + 75)) < that.width) {
                                 l++;
-                                return that.w - ((l-1)*100 + 75);
+                                return that.width - ((l-1)*100 + 75);
                             } else {
                                 l = 0;
                                 l++;
-                                return that.w - ((l-1)*100 + 75);
+                                return that.width - ((l-1)*100 + 75);
                             }
                         };
 
@@ -583,8 +583,8 @@ PykCharts.multiD.areaChart = function (options){
                             if(i === 0) {
                                 k = 0, l = 0;
                             }
-                            if((that.w - (i*100 + 75)) > 0) {
-                            } else if ((that.w - (l*100 + 75)) < that.w) {
+                            if((that.width - (i*100 + 75)) > 0) {
+                            } else if ((that.width - (l*100 + 75)) < that.width) {
                                 if(l === 0) {
                                     k++;
                                 }
@@ -602,29 +602,29 @@ PykCharts.multiD.areaChart = function (options){
                             if( i === 0) {
                                 k = 0, l = 0;
                             }
-                            if((that.w - (i*100 + 100)) >= 0) {
-                                return that.w - (i*100 + 100);
-                            } else if ((that.w - (i*100 + 100)) < that.w) {
+                            if((that.width - (i*100 + 100)) >= 0) {
+                                return that.width - (i*100 + 100);
+                            } else if ((that.width - (i*100 + 100)) < that.width) {
                                 k++;
                                 if(l === 0) {
                                     // that.legendsContainer.attr("height", (k+1)*50);
                                     that.legendsGroup.attr("height", (k+1)*50);
                                 }
                                 l++;
-                                return that.w - ((l-1)*100 + 100);
+                                return that.width - ((l-1)*100 + 100);
                             } else {
                                 l = 0;
                                 l++;
                                 k++;
-                                return that.w - ((l-1)*100 + 100);
+                                return that.width - ((l-1)*100 + 100);
                             }
                         };
                         rect_parameter4value = function (d,i) {
                             if(i === 0) {
                                 k = 0, l = 0;
                             }
-                            if((that.w - (i*100 + 75)) > 0) {
-                            } else if ((that.w - (l*100 + 75)) < that.w) {
+                            if((that.width - (i*100 + 75)) > 0) {
+                            } else if ((that.width - (l*100 + 75)) < that.width) {
                                 if( l == 0) {
                                     k++;
                                 }
