@@ -2245,21 +2245,6 @@ configuration.Theme = function(){
         "donut_inner_radius_percent": 40,
         "donut_show_total_at_center": "yes",
 
-        "pictograph_show_all_images": "yes",
-        "pictograph_total_count_enable": "yes",
-        "pictograph_current_count_enable": "yes",
-        "pictograph_image_per_line": 3,
-        "pictograph_image_width": 79,
-        "pictograph_image_height": 66,
-        "pictograph_current_count_size": 64,
-        "pictograph_current_count_color": "#255AEE",
-        "pictograph_current_count_weight": "normal",
-        "pictograph_current_count_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
-        "pictograph_total_count_size": 64,
-        "pictograph_total_count_color": "grey",
-        "pictograph_total_count_weight": "normal",
-        "pictograph_total_count_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
-
         "funnel_rect_width": 100,
         "funnel_rect_height": 100,
 
