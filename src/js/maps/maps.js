@@ -96,12 +96,8 @@ PykCharts.maps.processInputs = function (chartObject, options) {
     chartObject.default_zoom_level = options.default_zoom_level ? options.default_zoom_level : 80;
     chartObject.loading = options.loading_gif_url ? options.loading_gif_url: stylesheet.loading_gif_url;
     chartObject.highlight = options.highlight ? options.highlight : stylesheet.highlight;
-<<<<<<< HEAD
     chartObject.highlight_color = options.highlight_color ? options.highlight_color.toLowerCase(): stylesheet.highlight_color;
-=======
-    chartObject.highlight_color = options.highlight_color ? options.highlight_color: stylesheet.highlight_color;
-    // chartObject.highlight_area_enable = "yes";    
->>>>>>> 8df0bed46930609580b7b678b39ee1d74a62509b
+
     if (options &&  PykCharts.boolean (options.title_text)) {
         chartObject.title_text = options.title_text;
         chartObject.title_size = "title_size" in options ? options.title_size : stylesheet.title_size;
