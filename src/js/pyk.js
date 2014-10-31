@@ -147,7 +147,7 @@ PykCharts.getEvent = function () {
     }
   }
   try {
-    return event || getSourceEvent();
+    return getSourceEvent() || event;
   } catch (e) {
     return getSourceEvent();
   }

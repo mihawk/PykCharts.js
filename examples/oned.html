@@ -1,13 +1,7 @@
-<!DOCTYPE html>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<html>
 	<head>
         <title>One-Dimensional Charts</title>
         <link rel="stylesheet" type="text/css" href="../dist/pykcharts.0.0.8.min.css">
-        <link rel="stylesheet" type="text/css" href="../lib/bootstrap.min.css">
-        <script src="../lib/colors.js"></script>
-        <script src="../lib/paper-full.js"></script>
-        <script src="../lib/downloadDataURI.js"></script>
-
 	</head>
 	<body>
       <div id="bubble"></div>
@@ -42,100 +36,60 @@
                 //     {"name": "Hello","weight": 8819342},
                 //     {"name": "World","weight": 612463,"tooltip":"<h1>HTML tooltip, huh?</h1>But I am optional."}
                 //     ],
-                chart_height :"500",
                 data:"../data/screenshot.json",
                 mode: "DEFault",
                 transition_duration: 1,
                 clubdata_enable: "yes",
-                // clubdata_maximum_nodes : 5,
                 export_enable: "YES",
                 background_color: "transparent",
-                chart_width: 300,
+                chart_width: 500,
                 // chart_height: 300,
                 title_text:"Air Pollution in New York </br>(23/12/2013 - 29/12/2013)",
                 subtitle_text:"Air Pollution in New York",
                 units_prefix: "$",
                 units_suffix: "/-",
-                mode: "DEFault",
-                clubdata_enable: "yes",
-                clubdata_always_include_data_points: ["Africa","South America"]
-
             });
             k.execute();
 
       			var k = new PykCharts.oneD.funnel({
           			selector: "#funnel",
           			data:"../data/pie.json",
-
                 clubdata_enable: "yes",
                 clubdata_always_include_data_points : "",
-
                 transition_duration: 1,
                 units_suffix: "rs",
                 pointer_weight: "normal",
                 "funnel_rect_width": 100,
-                "funnel_rect_height": 100,
-                units_prefix: "$",
-                units_suffix: "/-",
-                "pointer_overflow_enable": "yes",
-                "pointer_thickness": 1,
-                "pointer_weight": "bold",
-                "pointer_size": 12,
-                "pointer_color": "orange",
-                "pointer_family": "Papyrus",
-                mode: "DEFault",
-                clubdata_enable: "yes",
-                clubdata_always_include_data_points: ["Africa","South America"],
-
+                "funnel_rect_height": 100
         		});
       			k.execute();
 
             var k = new PykCharts.oneD.pyramid ({
                 selector: "#pyramid",
                 data:"../data/pie.json",
-                chart_height : "400",
+                chart_height : 400,
                 transition_duration: 1,
                 background_color: "white",
                 mode:"infographics",
-                chart_color: ["cyan"],
+
                 pointer_overflow_enable: "no",
-                units_prefix: "$",
-                units_suffix: "/-",
-                "pointer_overflow_enable": "yes",
-                "pointer_thickness": 1,
-                "pointer_weight": "bold",
-                "pointer_size": 10,
-                "pointer_color": "orange",
-                "pointer_family": "Courier New",
-                label_color: "black"
             });
            k.execute();
 
             var k = new PykCharts.oneD.treemap({
                 selector: "#treemap",
                 data: "../data/pie.json",
-                chart_height : "400",
+                chart_height : 300,
                 transition_duration: 0,
                 background_color: "white",
                 mode:"infographics",
-                units_prefix: "$",
-                units_suffix: "/-"
             });
            k.execute();
 
             var k = new PykCharts.oneD.donut({
                 selector: "#donutContainer",
-                data: "../data/screenshot.json",
+                data: "../data/pie.json",
                 transition_duration: 1,
-                mode: "DEFault",
-                clubdata_enable: "yes",
-                clubdata_always_include_data_points: ["Africa","South America"],
-                units_prefix: "$",
-                units_suffix: "/-",
-                "donut_show_total_at_center_size": 30,
-                "donut_show_total_at_center_color": "black",
-                "donut_show_total_at_center_weight": "bold",
-                "donut_show_total_at_center_family":"arial bold"
             });
            k.execute();
 
@@ -146,10 +100,10 @@
                 background_color: "white",
                 mode: "DEFault",
                 clubdata_enable: "yes",
+                chart_height : "600",
                 clubdata_always_include_data_points: ["Africa","South America"],
                 units_prefix: "$",
                 units_suffix: "/-",
-                pie_radius_percent :"hgjjj"
             });
            k.execute();
 
@@ -167,7 +121,8 @@
                 "donut_show_total_at_center_weight": "normal",
                 "donut_show_total_at_center_family":"sans-serif",
                 units_prefix: "$",
-                units_suffix: "/-"
+                units_suffix: "/-",
+                chart_height :"hjh"
            });
            k.execute();
 
@@ -177,26 +132,16 @@
                 background_color: "white",
                 selector: "#pieContainer",
                 data: "../data/screenshot.json",
-                // transition_duration: 4,
-                mode: "DEFault",
-                clubdata_enable: "yes",
-                clubdata_always_include_data_points: ["Africa","South America"],
-                units_prefix: "$",
-                units_suffix: "/-"
+                // transition_duration: 4
             });
            k.execute();
 
             var k = new PykCharts.oneD.percentageColumn({
                 chart_width: 600,
-                chart_height: "300",
+                chart_height: 300,
                 selector: "#percentageColumn",
                 data:"../data/pie.json",
-                transition_duration: 1,
-                mode: "DEFault",
-                clubdata_enable: "yes",
-                clubdata_always_include_data_points: ["Africa","South America"],
-                units_prefix: "$",
-                units_suffix: "/-"
+                transition_duration: 1
             });
            k.execute();
 
@@ -207,7 +152,7 @@
                 transition_duration: 1,
                 // "chart_height": 200,
                 chart_width: 600,
-                chart_height: "800",
+                chart_height: 800,
                 percent_row_rect_height : "899",
 
                 // clubdata_enable: "yes"

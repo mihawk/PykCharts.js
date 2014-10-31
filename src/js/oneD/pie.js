@@ -163,32 +163,28 @@ PykCharts.oneD.election_pie = function (options) {
     this.execute = function() {
 
         that = new PykCharts.oneD.processInputs(that, options, "pie");
-       // that.x = true;
-       //  try {
-       //      if(!_.isNumber(options.height)) {
-       //         that.x = false;
-       //          throw "chart_height"
-       //      }
-       //  }
-       //  catch (err) {
-       //      that.k.warningHandling(err);
-       //  }
-
-        // console.log(that.x,"that")
-
+        that.x = true;
         if(options.chart_height) {
-            console.log("inside")
+            try {
+                if(!_.isNumber(options.chart_height)) {
+                    that.x = false;
+                    throw "chart_height"
+                }
+            }
+            catch (err) {
+                that.k.warningHandling(err);
+            }
+        }
+        if(that.x) {
             that.height = options.chart_height;
             that.calculation = undefined;
             that.height_translate = that.height/2;
         }
         else {
-
             that.height = that.width/2;
             that.calculation = "pie";
             that.height_translate = that.height;
         }
-        // console.log(that.height,"height",that.x,that.selector);
 
         that.radiusPercent = options.pie_radius_percent ? options.pie_radius_percent : theme.oneDimensionalCharts.pie_radius_percent;
 
@@ -232,18 +228,20 @@ PykCharts.oneD.election_donut = function (options) {
     this.execute = function() {
         that = new PykCharts.oneD.processInputs(that, options, "pie");
         
-        var x = true;
-        try {
-            if(options.height && !_.isNumber(options.height)) {
-                x = false;
-                throw "chart_height"
+        that.x = true;
+        if(options.chart_height) {
+            try {
+                if(!_.isNumber(options.chart_height)) {
+                    that.x = false;
+                    throw "chart_height"
+                }
+            }
+            catch (err) {
+                that.k.warningHandling(err);
             }
         }
-        catch (err) {
-            that.k.warningHandling(err);
-        }
 
-        if(options.chart_height) {
+        if(that.x) {
             that.height = options.chart_height;
             that.calculation = undefined;
             that.height_translate = that.height/2;
