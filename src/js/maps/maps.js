@@ -170,7 +170,6 @@ PykCharts.maps.processInputs = function (chartObject, options) {
                 .validatingDataType(chartObject.tooltip_position_left,"tooltip_position_left")
                 .validatingColorMode(chartObject.color_mode,"color_mode")
                 .validatingTooltipMode(chartObject.tooltip_mode,"tooltip_mode")
-                .validatingBorderBetweenChartElementsStyle(chartObject.border_between_chart_elements_style,"border_between_chart_elements_style")
                 .validatingLegendsPosition(chartObject.legends_display,"legends_display")
                 .isArray(chartObject.axis_x_pointer_values,"axis_x_pointer_values")
                 .isArray(chartObject.chart_color,"chart_color")
@@ -220,5 +219,4 @@ PykCharts.maps.processInputs = function (chartObject, options) {
     chartObject.timeline_duration = (chartObject.timeline_duration * 1000);
 
     return chartObject;
-
 };

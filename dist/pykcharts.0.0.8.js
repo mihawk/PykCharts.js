@@ -2245,21 +2245,6 @@ configuration.Theme = function(){
         "donut_inner_radius_percent": 40,
         "donut_show_total_at_center": "yes",
 
-        "pictograph_show_all_images": "yes",
-        "pictograph_total_count_enable": "yes",
-        "pictograph_current_count_enable": "yes",
-        "pictograph_image_per_line": 3,
-        "pictograph_image_width": 79,
-        "pictograph_image_height": 66,
-        "pictograph_current_count_size": 64,
-        "pictograph_current_count_color": "#255AEE",
-        "pictograph_current_count_weight": "normal",
-        "pictograph_current_count_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
-        "pictograph_total_count_size": 64,
-        "pictograph_total_count_color": "grey",
-        "pictograph_total_count_weight": "normal",
-        "pictograph_total_count_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
-
         "funnel_rect_width": 100,
         "funnel_rect_height": 100,
 
@@ -2704,7 +2689,7 @@ PykCharts.oneD.bubble = function (options) {
                     .on("mouseover", function (d) {
                         if(!d.children && that.mode==="default") {
                             that.onHoverEffect.highlight(options.selector+" "+".bubble", this);
-                            d.tooltip = d.tooltip ||"<table><thead><th colspan='2' class='tooltip-heading'>"+d.name+"</th></thead><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.weight)+"  <td class='tooltip-right-content'>("+((d.weight*100)/that.sum).toFixed(2)+"%)</tr></table>";
+                            d.tooltip = d.tooltip ||"<table><thead><th colspan='2' class='tooltip-heading'>"+d.name+"</th></thead><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.weight)+"  <td class='tooltip-right-content'>("+((d.weight*100)/that.sum).toFixed(1)+"%)</tr></table>";
                             that.mouseEvent.tooltipPosition(d);
                             that.mouseEvent.tooltipTextShow(d.tooltip);
                         }
@@ -3200,7 +3185,7 @@ PykCharts.oneD.funnel = function (options) {
         			.on("mouseover", function (d,i) {
                         if(that.mode === "default") {
                             that.onHoverEffect.highlight(options.selector +" "+".fun-path",this);
-                            tooltip = that.new_data[i].tooltip || "<table class='PykCharts'><tr><th colspan='3' class='tooltip-heading'>"+that.new_data[i].name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(that.new_data[i].weight)+"<td class='tooltip-right-content'>("+that.per_values[i].toFixed(2)+"%) </tr></table>";
+                            tooltip = that.new_data[i].tooltip || "<table class='PykCharts'><tr><th colspan='3' class='tooltip-heading'>"+that.new_data[i].name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(that.new_data[i].weight)+"<td class='tooltip-right-content'>("+that.per_values[i].toFixed(1)+"%) </tr></table>";
                 			that.mouseEvent.tooltipPosition(d);
                             that.mouseEvent.tooltipTextShow(tooltip);
                         }
@@ -3620,7 +3605,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                     .attr("stroke-dasharray", that.border.style())
                     .on("mouseover", function (d,i) {
                         if(that.mode === "default") {
-                            d.tooltip=d.tooltip||"<table class='PykCharts'><tr><th colspan='2' class='tooltip-heading'>"+d.name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.weight)+"<td class='tooltip-right-content'>("+d.percentValue.toFixed(2)+"%)</tr></table>"
+                            d.tooltip=d.tooltip||"<table class='PykCharts'><tr><th colspan='2' class='tooltip-heading'>"+d.name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.weight)+"<td class='tooltip-right-content'>("+d.percentValue.toFixed(1)+"%)</tr></table>"
                             that.onHoverEffect.highlight(options.selector+" "+".per-rect",this);
                             that.mouseEvent.tooltipPosition(d);
                             that.mouseEvent.tooltipTextShow(d.tooltip);
@@ -4047,7 +4032,7 @@ PykCharts.oneD.percentageBar = function (options) {
                     .attr("stroke-dasharray", that.border.style())
                     .on("mouseover", function (d,i) {
                         if(that.mode === "default") {
-                            d.tooltip=d.tooltip||"<table class='PykCharts'><tr><th colspan='2' class='tooltip-heading'>"+d.name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.weight)+"<td class='tooltip-right-content'>("+d.percentValue.toFixed(2)+"%)</tr></table>"
+                            d.tooltip=d.tooltip||"<table class='PykCharts'><tr><th colspan='2' class='tooltip-heading'>"+d.name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.weight)+"<td class='tooltip-right-content'>("+d.percentValue.toFixed(1)+"%)</tr></table>"
                             that.onHoverEffect.highlight(options.selector+" "+".per-rect",this);
                             that.mouseEvent.tooltipPosition(d);
                             that.mouseEvent.tooltipTextShow(d.tooltip);
@@ -4691,7 +4676,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                     })
                     .on('mouseover',function (d) {
                         if(that.mode === "default") {
-                            d.data.tooltip = d.data.tooltip || "<table class='PykCharts'><tr><th colspan='3' class='tooltip-heading'>"+d.data.name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.data.weight)+"<td class='tooltip-right-content'>("+((d.data.weight*100)/that.sum).toFixed(2)+"%) </tr></table>";
+                            d.data.tooltip = d.data.tooltip || "<table class='PykCharts'><tr><th colspan='3' class='tooltip-heading'>"+d.data.name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.data.weight)+"<td class='tooltip-right-content'>("+((d.data.weight*100)/that.sum).toFixed(1)+"%) </tr></table>";
                             that.onHoverEffect.highlight(options.selector +" "+".pie", this);
                             that.mouseEvent.tooltipPosition(d);
                             that.mouseEvent.tooltipTextShow(d.data.tooltip);
@@ -5326,9 +5311,9 @@ PykCharts.oneD.pyramid = function (options) {
                 var k = that.new_data.length-1,p = that.new_data.length-1,tooltipArray = [];
                 for(i=0;i<that.new_data.length;i++){
                     if(i==0) {
-                        tooltipArray[i] = that.new_data[i].tooltip || "<table class='PykCharts'><tr><th colspan='3'  class='tooltip-heading'>"+that.new_data[i].name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(that.new_data[i].weight)+"<td class='tooltip-right-content'>("+((that.new_data[i].weight*100)/that.sum).toFixed(2)+"%) </tr></table>";
+                        tooltipArray[i] = that.new_data[i].tooltip || "<table class='PykCharts'><tr><th colspan='3'  class='tooltip-heading'>"+that.new_data[i].name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(that.new_data[i].weight)+"<td class='tooltip-right-content'>("+((that.new_data[i].weight*100)/that.sum).toFixed(1)+"%) </tr></table>";
                     } else {
-                        tooltipArray[i] = that.new_data[k].tooltip || "<table class='PykCharts'><tr><th colspan='3'  class='tooltip-heading'>"+that.new_data[k].name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(that.new_data[k].weight)+"<td class='tooltip-right-content'>("+((that.new_data[k].weight*100)/that.sum).toFixed(2)+"%) </tr></table>";
+                        tooltipArray[i] = that.new_data[k].tooltip || "<table class='PykCharts'><tr><th colspan='3'  class='tooltip-heading'>"+that.new_data[k].name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(that.new_data[k].weight)+"<td class='tooltip-right-content'>("+((that.new_data[k].weight*100)/that.sum).toFixed(1)+"%) </tr></table>";
                         k--;
                     }
                 }
@@ -5808,7 +5793,7 @@ PykCharts.oneD.treemap = function (options){
                     })
                     .on('mouseover',function (d) {
                         if(!d.children && that.mode === "default") {
-                            d.tooltip = d.tooltip || "<table class='PykCharts'><tr><th colspan='2' class='tooltip-heading'>"+d.name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.weight)+"<td class='tooltip-right-content'>("+((d.weight*100)/that.sum).toFixed(2)+"%)</tr></table>";
+                            d.tooltip = d.tooltip || "<table class='PykCharts'><tr><th colspan='2' class='tooltip-heading'>"+d.name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.weight)+"<td class='tooltip-right-content'>("+((d.weight*100)/that.sum).toFixed(1)+"%)</tr></table>";
                             that.onHoverEffect.highlight(options.selector +" "+".treemap-rect", this);
                             that.mouseEvent.tooltipPosition(d);
                             that.mouseEvent.tooltipTextShow(d.tooltip);
