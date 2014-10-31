@@ -15,9 +15,25 @@ PykCharts.oneD.percentageBar = function (options) {
         that.height = options.chart_height ? options.chart_height : that.width/2;
         that.percent_row_rect_height = options.percent_row_rect_height ? options.percent_row_rect_height : theme.oneDimensionalCharts.percent_row_rect_height;
 
-        that.k.validator()
-            .validatingDataType(that.height,"chart_height")
-            .validatingDataType(that.percent_row_rect_height,"percent_row_rect_height");
+        try {
+            if(!_.isNumber(that.height)) {
+                that.height = that.width/2;
+                throw "chart_height"
+            }
+        } 
+        catch (err) {
+            that.k.warningHandling(err,"3");
+        }
+
+        try {
+            if(!_.isNumber(that.percent_row_rect_height)) {
+                that.percent_row_rect_height = theme.oneDimensionalCharts.percent_row_rect_height;
+                throw "percent_row_rect_height";
+            }
+        } 
+        catch (err) {
+            that.k.warningHandling(err,"3");
+        }
 
         if(that.stop) {
             return;

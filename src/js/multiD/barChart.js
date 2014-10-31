@@ -13,25 +13,27 @@ PykCharts.multiD.barChart = function(options){
         that.data_sort_enable = options.data_sort_enable ? options.data_sort_enable.toLowerCase() : multiDimensionalCharts.data_sort_enable;
         that.data_sort_type = PykCharts.boolean(that.data_sort_enable) && options.data_sort_type ? options.data_sort_type.toLowerCase() : multiDimensionalCharts.data_sort_type;
         that.data_sort_order = PykCharts.boolean(that.data_sort_enable) && options.data_sort_order ? options.data_sort_order.toLowerCase() : multiDimensionalCharts.data_sort_order;
-       
+
         try {
             if(that.data_sort_type === "alphabetically" || that.data_sort_type === "numerically") {                
             } else {
+                that.data_sort_type = multiDimensionalCharts.data_sort_type;
                 throw "data_sort_type";
             } 
         }
         catch(err) {
-            that.k.errorHandling(err,"#1");
+            that.k.warningHandling(err,"12");
         }
 
         try {
             if(that.data_sort_order === "ascending" || that.data_sort_order === "descending") {                
             } else {
+                that.data_sort_order = multiDimensionalCharts.data_sort_order;
                 throw "data_sort_order";
             } 
         }
         catch(err) {
-            that.k.errorHandling(err,"#1");
+            that.k.warningHandling(err,"13");
         }
 
         if(that.stop)

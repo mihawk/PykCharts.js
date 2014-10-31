@@ -1,12 +1,20 @@
 PykCharts.oneD.bubble = function (options) {
     var that = this;
-
+    var theme = new PykCharts.Configuration.Theme({});
     this.execute = function () {
         that = PykCharts.oneD.processInputs(that, options);
         that.height = options.chart_height ? options.chart_height : that.width;
 
-        that.k.validator()
-            .validatingDataType(that.height,"chart_height")
+        try {
+            if(!_.isNumber(that.height)) {
+                that.height = that.width;
+                throw "chart_height"
+            }
+        } 
+
+        catch (err) {
+            that.k.warningHandling(err,"3");
+        }
 
         if(that.stop) {
             return;

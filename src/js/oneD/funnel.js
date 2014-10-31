@@ -14,10 +14,37 @@ PykCharts.oneD.funnel = function (options) {
         that.rect_width =  options.funnel_rect_width   ? options.funnel_rect_width : functionality.funnel_rect_width;
         that.rect_height = options.funnel_rect_height  ? options.funnel_rect_height : functionality.funnel_rect_height;
 
-        that.k.validator()
-            .validatingDataType(that.height,"chart_height")
-            .validatingDataType(that.rect_width,"rect_width")
-            .validatingDataType(that.rect_height,"rect_height")
+            try {
+                if(!_.isNumber(that.height)) {
+                    that.height = that.width;
+                    throw "chart_height"
+                }
+            } 
+
+            catch (err) {
+                that.k.warningHandling(err,"3");
+            }
+
+            try {
+                if(!_.isNumber(that.rect_width)) {
+                    that.rect_width = functionality.funnel_rect_width;
+                    throw "funnel_rect_width"
+                }
+            } 
+            catch (err) {
+                that.k.warningHandling(err,"3");
+            }
+
+            try {
+            
+                if(!_.isNumber(that.rect_height)) {
+                    that.rect_height = functionality.funnel_rect_height;
+                    throw "funnel_rect_height"
+                }
+            } 
+            catch (err) {
+                that.k.warningHandling(err,"3");
+            }
 
         if(that.stop) {
             return;
