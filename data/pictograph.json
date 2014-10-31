@@ -2,7 +2,7 @@
     {
         "name": "current",
         "weight": 7,
-        "image": "../img/heart-red.png"
+        "image": "../img/heart-blue.png"
     },
     {
         "name": "total",
