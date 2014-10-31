@@ -45,11 +45,10 @@
                 mode: "DEFault",
                 transition_duration: 1,
                 clubdata_enable: "yes",
-                clubdata_always_include_data_points : ["North America"],
                 // clubdata_maximum_nodes : 5,
                 export_enable: "YES",
                 background_color: "transparent",
-                // chart_width: 300,
+                chart_width: 300,
                 // chart_height: 300,
                 title_text:"Air Pollution in New York </br>(23/12/2013 - 29/12/2013)",
                 subtitle_text:"Air Pollution in New York",
@@ -57,7 +56,8 @@
                 units_suffix: "/-",
                 mode: "DEFault",
                 clubdata_enable: "yes",
-                clubdata_always_include_data_points: ["Africa","South America"],            
+                clubdata_always_include_data_points: ["Africa","South America"]
+
             });
             k.execute();
 
@@ -65,7 +65,7 @@
           			selector: "#funnel",
           			data:"../data/pie.json",
 
-                    clubdata_enable: "yes",
+                clubdata_enable: "yes",
                 clubdata_always_include_data_points : "",
 
                 transition_duration: 1,
@@ -126,7 +126,11 @@
                 clubdata_enable: "yes",
                 clubdata_always_include_data_points: ["Africa","South America"],
                 units_prefix: "$",
-                units_suffix: "/-"
+                units_suffix: "/-",
+                "donut_show_total_at_center_size": 30,
+                "donut_show_total_at_center_color": "black",
+                "donut_show_total_at_center_weight": "bold",
+                "donut_show_total_at_center_family":"arial bold"
             });
            k.execute();
 
@@ -147,11 +151,14 @@
                 selector: "#electionDonutContainer",
                 data: "../data/pie.json",
                 background_color: "white",
-                transition_duration: 4,
+                transition_duration: 1,
                 mode: "DEFault",
                 clubdata_enable: "yes",
                 clubdata_always_include_data_points: ["Africa","South America"],
-
+                "donut_show_total_at_center_size": 30,
+                "donut_show_total_at_center_color": "red",
+                "donut_show_total_at_center_weight": "normal",
+                "donut_show_total_at_center_family":"sans-serif",
                 units_prefix: "$",
                 units_suffix: "/-"
            });

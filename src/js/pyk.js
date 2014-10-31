@@ -2244,6 +2244,10 @@ configuration.Theme = function(){
         "donut_radius_percent": 70,
         "donut_inner_radius_percent": 40,
         "donut_show_total_at_center": "yes",
+        "donut_show_total_at_center_size": 14,
+        "donut_show_total_at_center_color": "#1D1D1D",
+        "donut_show_total_at_center_weight": "bold",
+        "donut_show_total_at_center_family":"'Helvetica Neue',Helvetica,Arial,sans-serif",
 
         "funnel_rect_width": 100,
         "funnel_rect_height": 100,
