@@ -320,7 +320,7 @@ PykCharts.multiD.barChart = function(options){
                     .rangeBands([0,h]);
 
                 var x_domain = [0,d3.max(x_data)];
-                that.xScale = d3.scale.linear().domain(that.k._domainBandwidth(x_domain,1)).range([0, w]);
+                that.xScale = d3.scale.linear().domain(that.k.__proto__._domainBandwidth(x_domain,1)).range([0, w]);
 
                 // that.yScaleInvert = d3.scale.linear().domain([d3.max(yValues), 0]).range([0, h]).nice(); // For the yAxis
                 // var zScale = d3.scale.category10();

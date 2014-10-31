@@ -33,9 +33,9 @@ PykCharts.multiD.scatterPlot = function (options) {
         that.zoomed_out = true;
 
         if(PykCharts.boolean(that.panels_enable)) {
-            that.radius_range = [that.k._radiusCalculation(1.1)*2,that.k._radiusCalculation(2.6)*2];
+            that.radius_range = [that.k.__proto__._radiusCalculation(1.1)*2,that.k.__proto__._radiusCalculation(2.6)*2];
         } else {
-            that.radius_range = [that.k._radiusCalculation(4.5)*2,that.k._radiusCalculation(11)*2];
+            that.radius_range = [that.k.__proto__._radiusCalculation(4.5)*2,that.k.__proto__._radiusCalculation(11)*2];
         }
         d3.json(options.data, function (e, data) {
             that.data = data.groupBy("scatterplot");
@@ -79,7 +79,7 @@ PykCharts.multiD.pulse = function (options) {
         }
 
         that.zoomed_out = true;
-        that.radius_range = [that.k._radiusCalculation(1.1)*2,that.k._radiusCalculation(3.5)*2];
+        that.radius_range = [that.k.__proto__._radiusCalculation(1.1)*2,that.k.__proto__._radiusCalculation(3.5)*2];
 
         if(that.mode === "default") {
             that.k.loading();
@@ -428,7 +428,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
 
                     if(that.axis_y_data_format === "number") {
                         y_domain = d3.extent(that.data, function(d) { return d.y });
-                        y_data = that.k._domainBandwidth(y_domain,2,"number");
+                        y_data = that.k.__proto__._domainBandwidth(y_domain,2,"number");
                         y_range = [that.height - that.margin_top - that.margin_bottom - that.legendsGroup_height, 0];
                         that.yScale = that.k.scaleIdentification("linear",y_domain,y_range);
                         that.extra_top_margin = 0;
@@ -447,7 +447,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                     }
                     if(that.axis_x_data_format === "number") {
                         x_domain = d3.extent(that.data, function(d) { return d.x; });
-                        x_data = that.k._domainBandwidth(x_domain,2);
+                        x_data = that.k.__proto__._domainBandwidth(x_domain,2);
                         x_range = [0 ,that.w - that.margin_left - that.margin_right];
                         that.x = that.k.scaleIdentification("linear",x_data,x_range);
                         that.extra_left_margin = 0;
@@ -462,7 +462,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                         max = d3.max(that.data, function(k) { return new Date(k.x); });
                         min = d3.min(that.data, function(k) { return new Date(k.x); }); 
                         x_domain = [min.getTime(),max.getTime()];
-                        x_data = that.k._domainBandwidth(x_domain,2,"time");
+                        x_data = that.k.__proto__._domainBandwidth(x_domain,2,"time");
                         x_range = [0 ,that.w - that.margin_left - that.margin_right];
                         that.x = that.k.scaleIdentification("time",x_data,x_range);
                         that.data.forEach(function (d) {

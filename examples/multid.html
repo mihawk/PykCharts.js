@@ -67,14 +67,15 @@
                     subtitle_text:"this the analysis",
                     chart_height: 400,
                     chart_width : 630,
-                    chart_margin_top: 35,
-                    chart_margin_right: 40,
-                    chart_margin_bottom: 40,
-                    chart_margin_left:50,
-                    chart_grid_x_enable: "no",
+                    chart_margin_top: 100,
+                    chart_margin_right: 100,
+                    chart_margin_bottom: 80,
+                    chart_margin_left: 150,
+
+                    chart_grid_x_enable: "yes",
                     chart_grid_y_enable: "yes",
 
-                    transition_duration: 5,
+                    transition_duration: 1,
                     real_time_charts_refresh_frequency: 0,
                     axis_onhover_hightlight_enable: "yes",
                     axis_x_enable: "yes",
@@ -85,7 +86,7 @@
                     axis_x_pointer_size: 12,
                     axis_x_pointer_padding: 3,
                     axis_y_pointer_values: [2,6],
-                    axis_x_outer_pointer_size: 3,
+                    axis_x_outer_pointer_length: 5,
                     axis_x_time_value_datatype:"month",
                     axis_x_time_value_interval: 1,
                     axis_y_title:"testing",
@@ -95,20 +96,15 @@
                     axis_y_line_color: "#1D1D1D",
                     axis_y_pointer_size: 12,
                     axis_y_pointer_padding: 10,
-                    axis_y_outer_pointer_size: 3,
+                    axis_y_outer_pointer_length: 3,
                     curvy_lines_enable:"no",
                     tooltip_enable: "yes",
                     tooltip_mode : "moving",
                     crosshair_enable: "yes",
                     zoom_enable: "no",
-                    annotation_enable: "yes",
+                    annotation_enable: "no",
                     annotation_view_mode: "onload",
-                    "highlight_color": "#08306b",
-                    "background_color": "transparent",
-                    "chart_color": ["#255AEE"],
-                    "saturation_color": "#255AEE",
-            
-
+                    
                 });
                 k.execute();
 
@@ -146,7 +142,7 @@
                     axis_x_label_color: "#1D1D1D",
                     axis_x_pointer_size: 12,
                     axis_x_pointer_padding: 3,
-                    axis_x_outer_pointer_size: 3,
+                    axis_x_outer_pointer_length: 3,
 
                     axis_y_enable: "yes",
                     axis_y_title : "Air Quantity Index",
@@ -156,7 +152,7 @@
                     axis_y_label_color: "#1D1D1D",
                     axis_y_pointer_size: 12,
                     axis_y_pointer_padding: 10,
-                    axis_y_outer_pointer_size: 3,
+                    axis_y_outer_pointer_length: 3,
                     curvy_lines_enable:"yes",
                     tooltip_mode : "fixed",
                     tooltip_enable: "yes",
@@ -235,7 +231,7 @@
                     axis_x_label_color: "black",
                     axis_x_pointer_size: 12,
                     axis_x_pointer_padding: 3,
-                    axis_x_outer_pointer_size: 3,
+                    axis_x_outer_pointer_length: 3,
                     axis_y_enable: "yes",
                     axis_y_title : "Rating",
                     axis_y_position: "left",
@@ -245,7 +241,7 @@
                     axis_y_label_color: "#1D1D1D",
                     axis_y_pointer_size: 12,
                     axis_y_pointer_padding: 10,
-                    axis_y_outer_pointer_size: 3,
+                    axis_y_outer_pointer_length: 3,
 
                     legends_enable: "yes",
                     legends_display: "horizontal", //horizontal or vertical
@@ -297,7 +293,7 @@
                     axis_x_label_color: "black",
                     axis_x_pointer_size: 12,
                     axis_x_pointer_padding: 3,
-                    axis_x_outer_pointer_size: 3,
+                    axis_x_outer_pointer_length: 3,
 
                     axis_y_enable: "yes",
                     axis_y_title : "Rating",
@@ -308,7 +304,7 @@
                     axis_y_label_color: "#1D1D1D",
                     axis_y_pointer_size: 12,
                     axis_y_pointer_padding: 10,
-                    axis_y_outer_pointer_size: 3,
+                    axis_y_outer_pointer_length: 3,
 
                     legends_enable: "yes",
                     legends_display: "horizontal", //horizontal or vertical
@@ -362,7 +358,7 @@
                     axis_x_label_color: "#1D1D1D",
                     axis_x_pointer_size: 12,
                     axis_x_pointer_padding: 3,
-                    axis_x_outer_pointer_size: 3,
+                    axis_x_outer_pointer_length: 3,
                     axis_y_enable: "yes",
                     axis_y_title : "Growth rate",
                     axis_y_position: "left",
@@ -371,7 +367,7 @@
                     axis_y_label_color: "#1D1D1D",
                     axis_y_pointer_size: 12,
                     axis_y_pointer_padding: 10,
-                    axis_y_outer_pointer_size: 3,
+                    axis_y_outer_pointer_length: 3,
 
                     curvy_lines_enable:"yes",
                     tooltip_mode : "moving",
@@ -414,7 +410,7 @@
                     axis_x_label_color: "#1D1D1D",
                     axis_x_pointer_size: 12,
                     axis_x_pointer_padding: 3,
-                    axis_x_outer_pointer_size: 3,
+                    axis_x_outer_pointer_length: 3,
 
                     axis_y_enable: "yes",
                     axis_y_title : "Growth rate",
@@ -424,7 +420,7 @@
                     axis_y_label_color: "#1D1D1D",
                     axis_y_pointer_size: 12,
                     axis_y_pointer_padding: 10,
-                    axis_y_outer_pointer_size: 3,
+                    axis_y_outer_pointer_length: 3,
 
                     curvy_lines_enable:"yes",
                     tooltip_mode : "fixed",
@@ -470,7 +466,7 @@
                     axis_x_label_color: "#1D1D1D",
                     axis_x_pointer_size: 12,
                     axis_x_pointer_padding: 3,
-                    axis_x_outer_pointer_size: 3,
+                    axis_x_outer_pointer_length: 3,
 
                     axis_y_enable: "yes",
                     axis_y_title : "Growth rate",
@@ -480,7 +476,7 @@
                     axis_y_label_color: "#1D1D1D",
                     axis_y_pointer_size: 12,
                     axis_y_pointer_padding: 10,
-                    axis_y_outer_pointer_size: 3,
+                    axis_y_outer_pointer_length: 3,
 
                     curvy_lines_enable:"yes",
                     crosshair_enable: "yes",
@@ -530,7 +526,7 @@
                     axis_x_pointer_size: 12,
                     axis_x_pointer_padding: 3,
                     axis_x_pointer_values: [2002, 2004, 2006, 2008],
-                    axis_x_outer_pointer_size: 3,
+                    axis_x_outer_pointer_length: 3,
 
                     axis_y_enable: "yes",
                     axis_y_title : "Categories",
@@ -541,7 +537,7 @@
                     axis_y_pointer_size: 12,
                     axis_y_pointer_padding: 10,
                     axis_x_pointer_values: [],
-                    axis_y_outer_pointer_size: 3,
+                    axis_y_outer_pointer_length: 3,
 
                     tooltip_mode : "moving",
                     tooltip_enable : "yes",
@@ -587,20 +583,29 @@
                     axis_x_position: "bottom",
                     axis_x_pointer_position: "bottom",
                     axis_x_line_color: "#1D1D1D",
-                    axis_x_label_color: "#1D1D1D",
-                    axis_x_pointer_size: 12,
-                    axis_x_pointer_padding: 3,
-                    axis_x_outer_pointer_size: 3,
+
+                    "axis_x_pointer_size": 12,
+                    "axis_x_pointer_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
+                    "axis_x_pointer_weight": "normal",
+                    "axis_x_pointer_color": "blue",
+            
+                    // axis_x_pointer_padding: NA,
+                    // axis_x_outer_pointer_length: NA ,
+                    // "axis_x_no_of_axis_value": NA,
+                    // "axis_x_pointer_length": NA,
+                    // "axis_x_pointer_values": NA,
+
+                    "axis_x_time_value_datatype":"date",
 
                     axis_y_enable: "yes",
                     axis_y_title : "Rainfall",
                     axis_y_position: "left",
                     axis_y_pointer_position: "left",
                     axis_y_line_color: "#1D1D1D",
-                    axis_y_label_color: "#1D1D1D",
+                    axis_y_pointer_color: "red",
                     axis_y_pointer_size: 12,
                     axis_y_pointer_padding: 10,
-                    axis_y_outer_pointer_size: 3,
+                    axis_y_outer_pointer_length: 3,
 
                     highlight_color: "#013F73",
                     transition_duration: 0,
@@ -608,11 +613,6 @@
                     border_between_chart_elements_thickness: 1,
                     border_between_chart_elements_color: "white",
                     border_between_chart_elements_style: "solid",
-
-                    "axis_x_pointer_size": 12,
-                    "axis_x_pointer_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
-                    "axis_x_pointer_weight": "normal",
-                    "axis_x_pointer_color": "#1D1D1D",
 
                     highlight:"January"
                 });
@@ -648,7 +648,7 @@
                     axis_x_label_color: "#1D1D1D",
                     axis_x_pointer_size: 12,
                     axis_x_pointer_padding: 3,
-                    axis_x_outer_pointer_size: 3,
+                    axis_x_outer_pointer_length: 3,
                     axis_x_pointer_weight:"normal",
 
                     axis_y_enable: "yes",
@@ -659,7 +659,7 @@
                     axis_y_label_color: "#1D1D1D",
                     axis_y_pointer_size: 12,
                     axis_y_pointer_padding: 10,
-                    axis_y_outer_pointer_size: 3,
+                    axis_y_outer_pointer_length: 3,
 
                     highlight_color: "#013F73",
 
@@ -708,7 +708,7 @@
                     axis_x_label_color: "#1D1D1D",
                     axis_x_pointer_size: 12,
                     axis_x_pointer_padding: 3,
-                    axis_x_outer_pointer_size: 3,
+                    axis_x_outer_pointer_length: 3,
 
                     axis_y_enable: "yes",
                     axis_y_title : "Months",
@@ -718,7 +718,7 @@
                     axis_y_label_color: "#1D1D1D",
                     axis_y_pointer_size: 12,
                     axis_y_pointer_padding: 10,
-                    axis_y_outer_pointer_size: 3,
+                    axis_y_outer_pointer_length: 3,
 
                     highlight_color: "#013F73",
 
@@ -767,7 +767,7 @@
                     axis_x_label_color: "#1D1D1D",
                     axis_x_pointer_size: 12,
                     axis_x_pointer_padding: 3,
-                    axis_x_outer_pointer_size: 3,
+                    axis_x_outer_pointer_length: 3,
 
                     axis_y_enable: "yes",
                     axis_y_title : "Months",
@@ -777,7 +777,7 @@
                     axis_y_label_color: "#1D1D1D",
                     axis_y_pointer_size: 12,
                     axis_y_pointer_padding: 10,
-                    axis_y_outer_pointer_size: 3,
+                    axis_y_outer_pointer_length: 3,
 
                     highlight_color: "#013F73",
 

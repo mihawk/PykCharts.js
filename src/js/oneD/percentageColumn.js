@@ -42,7 +42,7 @@ PykCharts.oneD.percentageColumn = function (options) {
             that.percent_column_rect_width = 100;
         }
 
-        that.percent_column_rect_width = that.k._radiusCalculation(that.percent_column_rect_width,"percentageColumn") * 2;
+        that.percent_column_rect_width = that.k.__proto__._radiusCalculation(that.percent_column_rect_width,"percentageColumn") * 2;
 
         if(that.mode === "default") {
            that.k.loading();
@@ -178,7 +178,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                     .attr("stroke-dasharray", that.border.style())
                     .on("mouseover", function (d,i) {
                         if(that.mode === "default") {
-                            d.tooltip=d.tooltip||"<table class='PykCharts'><tr><th colspan='2' class='tooltip-heading'>"+d.name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.weight)+"<td class='tooltip-right-content'>("+d.percentValue.toFixed(2)+"%)</tr></table>"
+                            d.tooltip=d.tooltip||"<table class='PykCharts'><tr><th colspan='2' class='tooltip-heading'>"+d.name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.weight)+"<td class='tooltip-right-content'>("+d.percentValue.toFixed(1)+"%)</tr></table>"
                             that.onHoverEffect.highlight(options.selector+" "+".per-rect",this);
                             that.mouseEvent.tooltipPosition(d);
                             that.mouseEvent.tooltipTextShow(d.tooltip);

@@ -1,4 +1,5 @@
 var PykCharts = {};
+PykCharts.assets = "../pykih-charts/assets/";
 PykCharts.export_menu_status = 0;
 
 Array.prototype.groupBy = function (chart) {
@@ -122,7 +123,7 @@ Array.prototype.groupBy = function (chart) {
 };
 
 PykCharts.boolean = function(d) {
-    var false_values = ['0','f',"false",'n','no',''];
+    var false_values = ['0','f',"false",'n','no','',0,"0.00","0.0",0.0,0.00];
     var false_keywords = [undefined,null,NaN];
     if(_.contains(false_keywords, d)) {
         return false;
@@ -618,7 +619,7 @@ PykCharts.Configuration = function (options){
                     .append("input")
                         .attr("type","image")
                         .attr("id","btn-zoom")
-                        .attr("src",options.assets_location+"PykCharts/img/apple_fullscreen.jpg")
+                        .attr("src",PykCharts.assets+"PykCharts/img/apple_fullscreen.jpg")
                         .style("font-size","30px")
                         .style("left","800px")
                         .style("top","0px")
@@ -1126,9 +1127,9 @@ PykCharts.Configuration = function (options){
                 }
 
                 if ($(child1)[0].classList.contains("light")) {
-                    options.img = options.assets_location+"img/download.png";
+                    options.img = PykCharts.assets+"img/download.png";
                 } else {
-                    options.img = options.assets_location+"img/download-light.png";
+                    options.img = PykCharts.assets+"img/download-light.png";
                 }
 
             return this;
@@ -2018,7 +2019,7 @@ configuration.makeXAxis = function(options,xScale) {
     var xaxis = d3.svg.axis()
                     .scale(xScale)
                     .tickSize(options.axis_x_pointer_length)
-                    .outerTickSize(options.axis_x_outer_pointer_size)
+                    .outerTickSize(options.axis_x_outer_pointer_length)
                     .tickFormat(function (d,i) {
                         if(options.panels_enable === "yes" && options.axis_x_data_format === "string") {
                             return d.substr(0,2);
@@ -2069,7 +2070,7 @@ configuration.makeYAxis = function(options,yScale) {
                     .scale(yScale)
                     .orient(options.axis_y_pointer_position)
                     .tickSize(options.axis_y_pointer_length)
-                    .outerTickSize(options.axis_y_outer_pointer_size)
+                    .outerTickSize(options.axis_y_outer_pointer_length)
                     .tickPadding(options.axis_y_pointer_padding)
                     .tickFormat(function (d,i) {
                         return d;
@@ -2169,7 +2170,6 @@ configuration.transition = function (options) {
 configuration.Theme = function(){
     var that = this;
     that.stylesheet = {
-        "pykih_charts_assets_location": "../pykih-charts/assets/",
 
         "mode": "default",
         "selector": "",
@@ -2246,7 +2246,7 @@ configuration.Theme = function(){
         // "axis_x_value_format": "",
         "axis_x_pointer_padding": 6,
         "axis_x_pointer_values": [],
-        "axis_x_outer_pointer_size": 0,
+        "axis_x_outer_pointer_length": 0,
         "axis_x_time_value_datatype":"",
         "axis_x_time_value_interval":0,
         "axis_x_data_format": "string",
@@ -2262,7 +2262,7 @@ configuration.Theme = function(){
     };
 
     that.functionality = {
-        "real_time_charts_refresh_frequency": 0,
+        "real_time_charts_refresh_frequency": 1000,
         "real_time_charts_last_updated_at_enable": "yes",
         "transition_duration": 0
     };
@@ -2276,21 +2276,10 @@ configuration.Theme = function(){
         "donut_radius_percent": 70,
         "donut_inner_radius_percent": 40,
         "donut_show_total_at_center": "yes",
-
-        "pictograph_show_all_images": "yes",
-        "pictograph_total_count_enable": "yes",
-        "pictograph_current_count_enable": "yes",
-        "pictograph_image_per_line": 3,
-        "pictograph_image_width": 79,
-        "pictograph_image_height": 66,
-        "pictograph_current_count_size": 64,
-        "pictograph_current_count_color": "#255AEE",
-        "pictograph_current_count_weight": "normal",
-        "pictograph_current_count_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
-        "pictograph_total_count_size": 64,
-        "pictograph_total_count_color": "grey",
-        "pictograph_total_count_weight": "normal",
-        "pictograph_total_count_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
+        "donut_show_total_at_center_size": 14,
+        "donut_show_total_at_center_color": "#1D1D1D",
+        "donut_show_total_at_center_weight": "bold",
+        "donut_show_total_at_center_family":"'Helvetica Neue',Helvetica,Arial,sans-serif",
 
         "funnel_rect_width": 100,
         "funnel_rect_height": 100,
@@ -2344,7 +2333,7 @@ configuration.Theme = function(){
         // "axis_y_value_format": "",
         "axis_y_pointer_padding": 6,
         "axis_y_pointer_values": [],
-        "axis_y_outer_pointer_size": 0,
+        "axis_y_outer_pointer_length": 0,
         "axis_y_time_value_datatype":"",
         "axis_y_time_value_interval":0,
         "axis_y_data_format": "number",

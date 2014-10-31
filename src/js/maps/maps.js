@@ -26,8 +26,6 @@ PykCharts.maps.processInputs = function (chartObject, options) {
         , mapsTheme = theme.mapsTheme
         , optional = options.optional;
 
-    chartObject.assets_location = options.pykih_charts_assets_location ? options.pykih_charts_assets_location : stylesheet.pykih_charts_assets_location;
-
     chartObject.selector = options.selector ? options.selector : stylesheet.selector;
 
     chartObject.width = options.chart_width ? options.chart_width : stylesheet.chart_width;
@@ -72,7 +70,7 @@ PykCharts.maps.processInputs = function (chartObject, options) {
     chartObject.axis_x_pointer_length = "axis_x_pointer_length" in options && PykCharts.boolean(chartObject.axis_x_enable) ? options.axis_x_pointer_length : stylesheet.axis_x_pointer_length;
     // chartObject.axis_x_value_format = PykCharts.boolean(chartObject.axis_x_enable) && options.axis_x_value_format ? options.axis_x_value_format : stylesheet.axis_x_value_format;
     chartObject.axis_x_pointer_values = PykCharts.boolean(chartObject.axis_x_enable) && options.axis_x_pointer_values ? options.axis_x_pointer_values : stylesheet.axis_x_pointer_values;
-    chartObject.axis_x_outer_pointer_size = "axis_x_outer_pointer_size" in options && PykCharts.boolean(chartObject.axis_x_enable) ? options.axis_x_outer_pointer_size : stylesheet.axis_x_outer_pointer_size;
+    chartObject.axis_x_outer_pointer_length = "axis_x_outer_pointer_length" in options && PykCharts.boolean(chartObject.axis_x_enable) ? options.axis_x_outer_pointer_length : stylesheet.axis_x_outer_pointer_length;
 
     chartObject.axis_x_pointer_size = "axis_x_pointer_size" in options ? options.axis_x_pointer_size : stylesheet.axis_x_pointer_size;
     chartObject.axis_x_pointer_weight = options.axis_x_pointer_weight ? options.axis_x_pointer_weight.toLowerCase() : stylesheet.axis_x_pointer_weight;
@@ -150,6 +148,8 @@ PykCharts.maps.processInputs = function (chartObject, options) {
 
 
     chartObject.k.validator().validatingSelector(chartObject.selector.substring(1,chartObject.selector.length))
+                .isArray(chartObject.axis_x_pointer_values,"axis_x_pointer_values")
+                .isArray(chartObject.chart_color,"chart_color")
                 .validatingDataType(chartObject.width,"chart_width",stylesheet.chart_width,"width")
                 .validatingDataType(chartObject.height,"chart_height",stylesheet.chart_height,"height")
                 .validatingDataType(chartObject.margin_left,"timeline_margin_left",mapsTheme.timeline_margin_left,"margin_left")
@@ -170,8 +170,7 @@ PykCharts.maps.processInputs = function (chartObject, options) {
                 .validatingDataType(chartObject.tooltip_position_left,"tooltip_position_left",mapsTheme.tooltip_position_left)
                 .validatingColorMode(chartObject.color_mode,"color_mode",stylesheet.color_mode)
                 .validatingLegendsPosition(chartObject.legends_display,"legends_display",stylesheet.legends_display)            
-                .validatingTooltipMode(chartObject.tooltip_mode,"tooltip_mode",stylesheet.tooltip_mode)                .isArray(chartObject.axis_x_pointer_values,"axis_x_pointer_values")
-                .isArray(chartObject.chart_color,"chart_color")
+                .validatingTooltipMode(chartObject.tooltip_mode,"tooltip_mode",stylesheet.tooltip_mode)                
                 .validatingXAxisPointerPosition(chartObject.axis_x_pointer_position,"axis_x_pointer_position",stylesheet.axis_x_pointer_position)
                 .validatingFontWeight(chartObject.title_weight,"title_weight",stylesheet.title_weight)
                 .validatingFontWeight(chartObject.subtitle_weight,"subtitle_weight",stylesheet.subtitle_weight)

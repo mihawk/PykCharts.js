@@ -137,7 +137,10 @@ PykCharts.oneD.donut = function (options) {
 
         that.height_translate = that.height/2;
         that.show_total_at_center = options.donut_show_total_at_center ? options.donut_show_total_at_center.toLowerCase() : theme.oneDimensionalCharts.donut_show_total_at_center;
-
+        that.show_total_at_center_size = "donut_show_total_at_center_size" in options ? options.donut_show_total_at_center_size : theme.oneDimensionalCharts.donut_show_total_at_center_size;
+        that.show_total_at_center_color = options.donut_show_total_at_center_color ? options.donut_show_total_at_center_color : theme.oneDimensionalCharts.donut_show_total_at_center_color;
+        that.show_total_at_center_weight = options.donut_show_total_at_center_weight ? options.donut_show_total_at_center_weight : theme.oneDimensionalCharts.donut_show_total_at_center_weight;
+        that.show_total_at_center_family = options.donut_show_total_at_center_family ? options.donut_show_total_at_center_family : theme.oneDimensionalCharts.donut_show_total_at_center_family;
 
         // that.radiusPercent = options.optional && options.optional.donut && _.isNumber(options.optional.donut.radiusPercent) ? options.optional.donut.radiusPercent : theme.oneDimensionalCharts.donut.radiusPercent;
         // that.innerRadiusPercent = options.optional && options.optional.donut && _.isNumber(options.optional.donut.innerRadiusPercent) && options.optional.donut.innerRadiusPercent ? options.optional.donut.innerRadiusPercent : theme.oneDimensionalCharts.donut.innerRadiusPercent;
@@ -251,6 +254,10 @@ PykCharts.oneD.election_donut = function (options) {
         }
 
         that.show_total_at_center = options.donut_show_total_at_center ? options.donut_show_total_at_center.toLowerCase() : theme.oneDimensionalCharts.donut_show_total_at_center;
+        that.show_total_at_center_size = "donut_show_total_at_center_size" in options ? options.donut_show_total_at_center_size : theme.oneDimensionalCharts.donut_show_total_at_center_size;
+        that.show_total_at_center_color = options.donut_show_total_at_center_color ? options.donut_show_total_at_center_color : theme.oneDimensionalCharts.donut_show_total_at_center_color;
+        that.show_total_at_center_weight = options.donut_show_total_at_center_weight ? options.donut_show_total_at_center_weight : theme.oneDimensionalCharts.donut_show_total_at_center_weight;
+        that.show_total_at_center_family = options.donut_show_total_at_center_family ? options.donut_show_total_at_center_family : theme.oneDimensionalCharts.donut_show_total_at_center_family;
 
         d3.json(options.data, function (e, data) {
             that.data = data.groupBy("oned");
@@ -302,7 +309,6 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
         that.onHoverEffect = new PykCharts.oneD.mouseEvent(options);
         that.border = new PykCharts.Configuration.border(that);
         that.transitions = new PykCharts.Configuration.transition(that);
-        that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
 
         if(that.mode.toLowerCase() == "default") {
 
@@ -345,6 +351,8 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
 
             that.k.tooltip();
         }
+
+        that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
 
         $(document).ready(function () { return that.k.resize(that.svgContainer); })
         $(window).on("resize", function () { return that.k.resize(that.svgContainer); });
@@ -397,8 +405,8 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                 // var proportion =_.map(that.new_data,function (d,i) {
                 //     return d.weight*100/that.sum;
                 // });
-                that.inner_radius = that.k._radiusCalculation(that.innerRadiusPercent,that.calculation);
-                that.outer_radius = that.k._radiusCalculation(that.radiusPercent,that.calculation);
+                that.inner_radius = that.k.__proto__._radiusCalculation(that.innerRadiusPercent,that.calculation);
+                that.outer_radius = that.k.__proto__._radiusCalculation(that.radiusPercent,that.calculation);
 
                 that.arc = d3.svg.arc()
                     .innerRadius(that.inner_radius)
@@ -424,7 +432,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                     })
                     .on('mouseover',function (d) {
                         if(that.mode === "default") {
-                            d.data.tooltip = d.data.tooltip || "<table class='PykCharts'><tr><th colspan='3' class='tooltip-heading'>"+d.data.name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.data.weight)+"<td class='tooltip-right-content'>("+((d.data.weight*100)/that.sum).toFixed(2)+"%) </tr></table>";
+                            d.data.tooltip = d.data.tooltip || "<table class='PykCharts'><tr><th colspan='3' class='tooltip-heading'>"+d.data.name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.data.weight)+"<td class='tooltip-right-content'>("+((d.data.weight*100)/that.sum).toFixed(1)+"%) </tr></table>";
                             that.onHoverEffect.highlight(options.selector +" "+".pie", this);
                             that.mouseEvent.tooltipPosition(d);
                             that.mouseEvent.tooltipTextShow(d.data.tooltip);
@@ -838,8 +846,11 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                             .attr("font-size",function () {
                                 return (type == "donut") ? 0.32*that.inner_radius : 0.2*that.inner_radius;
                             })
-                            .style("font-family","'Helvetica Neue',Helvetica,Arial,sans-serif")
-                            .attr("fill","#484848");
+                            .style("font-family",that.show_total_at_center_family)
+                            .attr("fill",that.show_total_at_center_color)
+                            .style("font-weight", that.show_total_at_center_weight)
+                            .style("font-size", that.show_total_at_center_size);
+    
                     },that.transitions.duration());
 
                     label.exit().remove();
