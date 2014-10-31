@@ -1986,7 +1986,7 @@ configuration.makeXAxis = function(options,xScale) {
     var xaxis = d3.svg.axis()
                     .scale(xScale)
                     .tickSize(options.axis_x_pointer_length)
-                    .outerTickSize(options.axis_x_outer_pointer_size)
+                    .outerTickSize(options.axis_x_outer_pointer_length)
                     .tickFormat(function (d,i) {
                         if(options.panels_enable === "yes" && options.axis_x_data_format === "string") {
                             return d.substr(0,2);
@@ -2037,7 +2037,7 @@ configuration.makeYAxis = function(options,yScale) {
                     .scale(yScale)
                     .orient(options.axis_y_pointer_position)
                     .tickSize(options.axis_y_pointer_length)
-                    .outerTickSize(options.axis_y_outer_pointer_size)
+                    .outerTickSize(options.axis_y_outer_pointer_length)
                     .tickPadding(options.axis_y_pointer_padding)
                     .tickFormat(function (d,i) {
                         return d;
@@ -2214,7 +2214,7 @@ configuration.Theme = function(){
         // "axis_x_value_format": "",
         "axis_x_pointer_padding": 6,
         "axis_x_pointer_values": [],
-        "axis_x_outer_pointer_size": 0,
+        "axis_x_outer_pointer_length": 0,
         "axis_x_time_value_datatype":"",
         "axis_x_time_value_interval":0,
         "axis_x_data_format": "string",
@@ -2297,7 +2297,7 @@ configuration.Theme = function(){
         // "axis_y_value_format": "",
         "axis_y_pointer_padding": 6,
         "axis_y_pointer_values": [],
-        "axis_y_outer_pointer_size": 0,
+        "axis_y_outer_pointer_length": 0,
         "axis_y_time_value_datatype":"",
         "axis_y_time_value_interval":0,
         "axis_y_data_format": "number",
