@@ -26,8 +26,6 @@ PykCharts.maps.processInputs = function (chartObject, options) {
         , mapsTheme = theme.mapsTheme
         , optional = options.optional;
 
-    chartObject.assets_location = options.pykih_charts_assets_location ? options.pykih_charts_assets_location : stylesheet.pykih_charts_assets_location;
-
     chartObject.selector = options.selector ? options.selector : stylesheet.selector;
 
     chartObject.width = options.chart_width ? options.chart_width : stylesheet.chart_width;
@@ -94,6 +92,7 @@ PykCharts.maps.processInputs = function (chartObject, options) {
     }
     chartObject.onhover = options.onhover ? options.onhover : mapsTheme.onhover;
     chartObject.default_zoom_level = options.default_zoom_level ? options.default_zoom_level : 80;
+
     chartObject.loading = options.loading_gif_url ? options.loading_gif_url: stylesheet.loading_gif_url;
     chartObject.highlight = options.highlight ? options.highlight : stylesheet.highlight;
     chartObject.highlight_color = options.highlight_color ? options.highlight_color: stylesheet.highlight_color;
@@ -149,72 +148,85 @@ PykCharts.maps.processInputs = function (chartObject, options) {
 
 
     chartObject.k.validator().validatingSelector(chartObject.selector.substring(1,chartObject.selector.length))
-                .validatingDataType(chartObject.width,"chart_width")
-                .validatingDataType(chartObject.height,"chart_height")
-                .validatingDataType(chartObject.margin_left,"chart_margin_left")
-                .validatingDataType(chartObject.margin_right,"chart_margin_right")
-                .validatingDataType(chartObject.margin_top,"chart_margin_top")
-                .validatingDataType(chartObject.margin_bottom,"chart_margin_bottom")
-                .validatingDataType(chartObject.title_size,"title_size")
-                .validatingDataType(chartObject.subtitle_size,"subtitle_size")
-                .validatingDataType(chartObject.timeline_duration,"timeline_duration")
-                .validatingDataType(chartObject.real_time_charts_refresh_frequency,"real_time_charts_refresh_frequency")
-                .validatingDataType(chartObject.border_between_chart_elements_thickness,"border_between_chart_elements_thickness")
-                .validatingDataType(chartObject.legends_text_size ,"legends_text_size")
-                .validatingDataType(chartObject.axis_x_pointer_size,"axis_x_pointer_size")
-                .validatingDataType(chartObject.axis_x_pointer_length,"axis_x_pointer_length")
-                .validatingDataType(chartObject.axis_x_outer_pointer_length,"axis_x_outer_pointer_length")
-                .validatingDataType(chartObject.axis_x_pointer_padding,"axis_x_pointer_padding")
-                .validatingDataType(chartObject.default_zoom_level,"default_zoom_level")
-                .validatingDataType(chartObject.tooltip_position_top,"tooltip_position_top")
-                .validatingDataType(chartObject.tooltip_position_left,"tooltip_position_left")
-                .validatingColorMode(chartObject.color_mode,"color_mode")
-                .validatingTooltipMode(chartObject.tooltip_mode,"tooltip_mode")
-                .validatingLegendsPosition(chartObject.legends_display,"legends_display")
                 .isArray(chartObject.axis_x_pointer_values,"axis_x_pointer_values")
                 .isArray(chartObject.chart_color,"chart_color")
-                .validatingXAxisPointerPosition(chartObject.axis_x_pointer_position,"axis_x_pointer_position")
-                .validatingFontWeight(chartObject.title_weight,"title_weight")
-                .validatingFontWeight(chartObject.subtitle_weight,"subtitle_weight")
-                .validatingFontWeight(chartObject.axis_x_pointer_weight,"axis_x_pointer_weight")
-                .validatingFontWeight(chartObject.legends_text_weight,"legends_text_weight")
-                .validatingColor(chartObject.background_color,"background_color")
-                .validatingColor(chartObject.title_color,"title_color")
-                .validatingColor(chartObject.subtitle_color,"subtitle_color")
-                .validatingColor(chartObject.axis_x_line_color,"axis_x_line_color")
-                .validatingColor(chartObject.axis_x_pointer_color,"axis_x_pointer_color")
-                .validatingColor(chartObject.highlight_color,"highlight_color")
-                .validatingColor(chartObject.saturation_color,"saturation_color")
-                .validatingColor(chartObject.border_between_chart_elements_color,"border_between_chart_elements_color")
-                .validatingColor(chartObject.legends_text_color,"legends_text_color")
+                .validatingDataType(chartObject.width,"chart_width",stylesheet.chart_width,"width")
+                .validatingDataType(chartObject.height,"chart_height",stylesheet.chart_height,"height")
+                .validatingDataType(chartObject.margin_left,"timeline_margin_left",mapsTheme.timeline_margin_left,"margin_left")
+                .validatingDataType(chartObject.margin_right,"timeline_margin_right",mapsTheme.timeline_margin_right,"margin_right")
+                .validatingDataType(chartObject.margin_top,"timeline_margin_top",mapsTheme.timeline_margin_top,"margin_top")
+                .validatingDataType(chartObject.margin_bottom,"timeline_margin_bottom",mapsTheme.timeline_margin_bottom,"margin_bottom")
+                .validatingDataType(chartObject.title_size,"title_size",stylesheet.title_size)
+                .validatingDataType(chartObject.subtitle_size,"subtitle_size",stylesheet.subtitle_size)
+                .validatingDataType(chartObject.real_time_charts_refresh_frequency,"real_time_charts_refresh_frequency",functionality.real_time_charts_refresh_frequency)
+                .validatingDataType(chartObject.transition_duration,"transition_duration",functionality.transition_duration)
+                .validatingDataType(chartObject.border_between_chart_elements_thickness,"border_between_chart_elements_thickness",stylesheet.border_between_chart_elements_thickness)
+                .validatingDataType(chartObject.legends_text_size ,"legends_text_size",stylesheet.legends_text_size)
+                .validatingDataType(chartObject.axis_x_pointer_size,"axis_x_pointer_size",stylesheet.axis_x_pointer_size)
+                .validatingDataType(chartObject.axis_x_pointer_length,"axis_x_pointer_length",stylesheet.axis_x_pointer_length) 
+                .validatingDataType(chartObject.axis_x_outer_pointer_size,"axis_x_outer_pointer_size",stylesheet.axis_x_outer_pointer_size)
+                .validatingDataType(chartObject.axis_x_pointer_padding,"axis_x_pointer_padding",stylesheet.axis_x_pointer_padding)
+                .validatingDataType(chartObject.tooltip_position_top,"tooltip_position_top",mapsTheme.tooltip_position_top)
+                .validatingDataType(chartObject.tooltip_position_left,"tooltip_position_left",mapsTheme.tooltip_position_left)
+                .validatingColorMode(chartObject.color_mode,"color_mode",stylesheet.color_mode)
+                .validatingLegendsPosition(chartObject.legends_display,"legends_display",stylesheet.legends_display)            
+                .validatingTooltipMode(chartObject.tooltip_mode,"tooltip_mode",stylesheet.tooltip_mode)                
+                .validatingXAxisPointerPosition(chartObject.axis_x_pointer_position,"axis_x_pointer_position",stylesheet.axis_x_pointer_position)
+                .validatingFontWeight(chartObject.title_weight,"title_weight",stylesheet.title_weight)
+                .validatingFontWeight(chartObject.subtitle_weight,"subtitle_weight",stylesheet.subtitle_weight)
+                .validatingFontWeight(chartObject.axis_x_pointer_weight,"axis_x_pointer_weight",stylesheet.axis_x_pointer_weight)
+                .validatingFontWeight(chartObject.legends_text_weight,"legends_text_weight",stylesheet.legends_text_weight)
+                .validatingColor(chartObject.background_color,"background_color",stylesheet.background_color)
+                .validatingColor(chartObject.title_color,"title_color",stylesheet.title_color)
+                .validatingColor(chartObject.subtitle_color,"subtitle_color",stylesheet.subtitle_color)
+                .validatingColor(chartObject.axis_x_line_color,"axis_x_line_color",stylesheet.axis_x_line_color)
+                .validatingColor(chartObject.pointer_color,"pointer_color",stylesheet.pointer_color)
+                .validatingColor(chartObject.highlight_color,"highlight_color",stylesheet.highlight_color)
+                .validatingColor(chartObject.saturation_color,"saturation_color",stylesheet.saturation_color)
+                .validatingColor(chartObject.border_between_chart_elements_color,"border_between_chart_elements_color",stylesheet.border_between_chart_elements_color)
+                .validatingColor(chartObject.legends_text_color,"legends_text_color",stylesheet.legends_text_color);
 
             if($.isArray(chartObject.chart_color)) {
                 if(chartObject.chart_color[0]) {
                     chartObject.k.validator()
-                        .validatingColor(chartObject.chart_color[0],"chart_color");
+                        .validatingColor(chartObject.chart_color[0],"chart_color",stylesheet.chart_color);
                 }
             }
 
             if (chartObject.color_mode === "saturation") {
                 try {
                     if(chartObject.total_no_of_colors < 3 || chartObject.total_no_of_colors > 9) {
+                        chartObject.total_no_of_colors = mapsTheme.total_no_of_colors;
                         throw "total_no_of_colors";
                     }
                 }
                 catch (err) {
-                    chartObject.k.errorHandling(err,"#9");
+                    chartObject.k.warningHandling(err,"15");
                 }
             }
 
             try {
                 if(chartObject.onhover.toLowerCase() === "shadow" || chartObject.onhover.toLowerCase() === "none" || chartObject.onhover.toLowerCase() === "highlight_border" || chartObject.onhover.toLowerCase() === "color_saturation") {
                 } else {
-                    throw "";
+                    chartObject.onhover = mapsTheme.onhover;
+                    throw "onhover";
                 }
             }
             catch (err) {
-                chartObject.k.errorHandling(err,"#9");
+                chartObject.k.warningHandling(err,"17");
             }
+
+            try {
+                if(!_.isNumber(chartObject.default_zoom_level)) {
+                    chartObject.default_zoom_level = 80;
+                    throw "default_zoom_level"
+                }
+            } 
+
+            catch (err) {
+                chartObject.k.warningHandling(err,"3");
+            }
+
 
     chartObject.timeline_duration = (chartObject.timeline_duration * 1000);
 

@@ -14,21 +14,35 @@ PykCharts.oneD.percentageColumn = function (options) {
         that.height = options.chart_height ? options.chart_height : that.width;
         that.percent_column_rect_width = options.percent_column_rect_width ? options.percent_column_rect_width : theme.oneDimensionalCharts.percent_column_rect_width;
 
-        that.k.validator()
-            .validatingDataType(that.height,"chart_height")
-            .validatingDataType(that.percent_column_rect_width,"percent_column_rect_width")
+        try {
+            if(!_.isNumber(that.height)) {
+                that.height = that.width;
+                throw "chart_height"
+            }
+        } 
+        catch (err) {
+            that.k.warningHandling(err,"3");
+        }
 
+        try {
+            if(!_.isNumber(that.percent_column_rect_width)) {
+                that.percent_column_rect_width = theme.oneDimensionalCharts.percent_column_rect_width;
+                throw "percent_column_rect_width"
+            }
+        } 
+        catch (err) {
+            that.k.warningHandling(err,"3");
+        }
+        if(that.stop) {
+            return;
+        }
         // 1.2 Read Json File Get all the data and pass to render
 
         if(that.percent_column_rect_width > 100) {
             that.percent_column_rect_width = 100;
         }
 
-        that.percent_column_rect_width = that.k._radiusCalculation(that.percent_column_rect_width,"percentageColumn") * 2;
-
-        if(that.stop) {
-            return;
-        }
+        that.percent_column_rect_width = that.k.__proto__._radiusCalculation(that.percent_column_rect_width,"percentageColumn") * 2;
 
         if(that.mode === "default") {
            that.k.loading();

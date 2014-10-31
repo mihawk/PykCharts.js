@@ -2,9 +2,6 @@
 	<head>
         <title>Other Charts</title>
         <link rel="stylesheet" type="text/css" href="../dist/pykcharts.0.0.8.min.css">
-        <link rel="stylesheet" type="text/css" href="../lib/bootstrap.min.css">
-        <script src="../lib/paper-full.js"></script>
-        <script src="../lib/downloadDataURI.js"></script>
 	</head>
 	<body>
       <div id="pictograph"></div>
@@ -16,18 +13,17 @@
             var k = new PykCharts.other.pictograph({
                 selector: "#pictograph",
                 data:"../data/pictograph.json",
-                chart_width : 350,
+                chart_width : 500,
                 chart_height: 300,
                 background_color: "white",
                 transition_duration: 1,
                 pictograph_total_count_weight: "normal",
-
                 "pictograph_show_all_images": "yes",
                 "pictograph_total_count_enable": "yes",
                 "pictograph_current_count_enable": "yes",
                 "pictograph_image_per_line": 4,
-                "pictograph_image_width": 50,
-                "pictograph_image_height": 50,
+                "pictograph_image_width": "50",
+                "pictograph_image_height": "50",
                 "pictograph_current_count_size": 50,
                 "pictograph_current_count_color": "#255aee",
                 "pictograph_current_count_weight": "normal",
