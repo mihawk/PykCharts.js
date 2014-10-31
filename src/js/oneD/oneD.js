@@ -41,8 +41,6 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
         // , optional = options.optional;
     // console.log(options.mode,"options");
 
-    chartObject.assets_location = options.pykih_charts_assets_location ? options.pykih_charts_assets_location : stylesheet.pykih_charts_assets_location;
-
     chartObject.selector = options.selector ? options.selector : stylesheet.selector;
     // if(options.chart_width) {
     //     var targetWidth = $(options.selector).width();

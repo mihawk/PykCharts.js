@@ -268,7 +268,6 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
         that.onHoverEffect = new PykCharts.oneD.mouseEvent(options);
         that.border = new PykCharts.Configuration.border(that);
         that.transitions = new PykCharts.Configuration.transition(that);
-        that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
 
         if(that.mode.toLowerCase() == "default") {
 
@@ -311,6 +310,8 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
 
             that.k.tooltip();
         }
+
+        that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
 
         $(document).ready(function () { return that.k.resize(that.svgContainer); })
         $(window).on("resize", function () { return that.k.resize(that.svgContainer); });

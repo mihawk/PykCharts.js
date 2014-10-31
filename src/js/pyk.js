@@ -1,4 +1,5 @@
 var PykCharts = {};
+PykCharts.assets = "../pykih-charts/assets/";
 PykCharts.export_menu_status = 0;
 
 Array.prototype.groupBy = function (chart) {
@@ -618,7 +619,7 @@ PykCharts.Configuration = function (options){
                     .append("input")
                         .attr("type","image")
                         .attr("id","btn-zoom")
-                        .attr("src",options.assets_location+"PykCharts/img/apple_fullscreen.jpg")
+                        .attr("src",PykCharts.assets+"PykCharts/img/apple_fullscreen.jpg")
                         .style("font-size","30px")
                         .style("left","800px")
                         .style("top","0px")
@@ -1126,9 +1127,9 @@ PykCharts.Configuration = function (options){
                 }
 
                 if ($(child1)[0].classList.contains("light")) {
-                    options.img = options.assets_location+"img/download.png";
+                    options.img = PykCharts.assets+"img/download.png";
                 } else {
-                    options.img = options.assets_location+"img/download-light.png";
+                    options.img = PykCharts.assets+"img/download-light.png";
                 }
 
             return this;
@@ -2137,7 +2138,6 @@ configuration.transition = function (options) {
 configuration.Theme = function(){
     var that = this;
     that.stylesheet = {
-        "pykih_charts_assets_location": "../pykih-charts/assets/",
 
         "mode": "default",
         "selector": "",
@@ -2230,7 +2230,7 @@ configuration.Theme = function(){
     };
 
     that.functionality = {
-        "real_time_charts_refresh_frequency": 0,
+        "real_time_charts_refresh_frequency": 1000,
         "real_time_charts_last_updated_at_enable": "yes",
         "transition_duration": 0
     };

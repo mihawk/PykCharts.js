@@ -1,12 +1,15 @@
 (function () {
 
     var urls = [
-        'https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/js/jquery-1.11.1.min.js'
-      , 'https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/js/d3.min.js'
-      , '../pykih-charts/assets/lib/underscore.min.js'
-      , 'https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/js/topojson.js'
-      , 'https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/js/custom-hive.min.js'
-      , '../lib/jquery.colourbrightness.js'
+        PykCharts.assets+'lib/jquery-1.11.1.min.js'
+      , PykCharts.assets+'lib/d3.min.js'
+      , PykCharts.assets+'lib/underscore.min.js'
+      , PykCharts.assets+'lib/topojson.min.js'
+      , PykCharts.assets+'lib/custom-hive.min.js'
+      , PykCharts.assets+'lib/jquery.colourbrightness.min.js'
+      , PykCharts.assets+'lib/colors.min.js'
+      , PykCharts.assets+'lib/paper-full.min.js'
+      , PykCharts.assets+'lib/downloadDataURI.min.js'
     ];
 
     function importFiles (url) {
@@ -15,7 +18,7 @@
         include.async = false;
         include.onload = include.onreadystatechange = function () {
             try {
-                if (_ && d3 && ($ || jQuery) && d3.customHive && topojson && $("body").colourBrightness) {
+                if (_ && d3 && ($ || jQuery) && d3.customHive && topojson && $("body").colourBrightness && $c && paper && downloadDataURI) {
                     PykCharts.numberFormat = d3.format(",");
                     window.PykChartsInit();
                     $("body").click(function () {
@@ -36,7 +39,7 @@
     };
     for (var i = 0; i < urls.length; i++) {
         try {
-            if ((!$ && !jQuery) || !d3 || !_ || !d3.customHive || !topojson || !$("body").colourBrightness) {
+            if ((!$ && !jQuery) || !d3 || !_ || !d3.customHive || !topojson || !$("body").colourBrightness || !$c || !paper || !downloadDataURI) {
                 importFiles(urls[i]);
             }
         }

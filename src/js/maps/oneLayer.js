@@ -18,14 +18,14 @@ PykCharts.maps.oneLayer = function (options) {
                 .loading(that.loading)
                 .tooltip();
 
-            d3.json(that.assets_location+"ref/" + that.map_code + "-topo.json", function (data) {
+            d3.json(PykCharts.assets+"ref/" + that.map_code + "-topo.json", function (data) {
                 that.map_data = data;
                 _.each(that.map_data.objects.geometries, function (d) {
                   var a = d.properties.NAME_1.replace("'","&#39;");
                   d.properties.NAME_1 = a;
                   return d;
                 });
-                d3.json(that.assets_location+"ref/colorPalette.json", function (data) {
+                d3.json(PykCharts.assets+"ref/colorPalette.json", function (data) {
                     that.color_palette_data = data;
                     var validate = _.where(that.color_palette_data,{name:that.palette_color});
 
@@ -76,14 +76,14 @@ PykCharts.maps.timelineMap = function (options) {
                 .loading(that.loading)
                 .tooltip(that.tooltip_enable);
 
-            d3.json(that.assets_location+"ref/" + that.map_code + "-topo.json", function (data) {
+            d3.json(PykCharts.assets+"ref/" + that.map_code + "-topo.json", function (data) {
                 that.map_data = data;
                 _.each(that.map_data.objects.geometries, function (d) {
                   var a = d.properties.NAME_1.replace("'","&#39;");
                   d.properties.NAME_1 = a;
                   return d;
                 });
-                d3.json(that.assets_location+"ref/colorPalette.json", function (data) {
+                d3.json(PykCharts.assets+"ref/colorPalette.json", function (data) {
                     that.color_palette_data = data;
                     var validate = _.where(that.color_palette_data,{name:that.palette_color});
 
@@ -682,14 +682,14 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             }
                 }
         if ($(child1)[0].classList.contains("light")) {
-            that.play_image_url = that.assets_location+"img/play.png";
-            that.pause_image_url = that.assets_location+"img/pause.png";
-            that.marker_image_url = that.assets_location+"img/marker.png";
+            that.play_image_url = PykCharts.assets+"img/play.png";
+            that.pause_image_url = PykCharts.assets+"img/pause.png";
+            that.marker_image_url = PykCharts.assets+"img/marker.png";
         } else {
             // console.log("dark");
-            that.play_image_url = that.assets_location+"img/play-light.png";
-            that.pause_image_url = that.assets_location+"img/pause-light.png";
-            that.marker_image_url = that.assets_location+"img/marker-light.png";
+            that.play_image_url = PykCharts.assets+"img/play-light.png";
+            that.pause_image_url = PykCharts.assets+"img/pause-light.png";
+            that.marker_image_url = PykCharts.assets+"img/marker-light.png";
         }
 
     }
