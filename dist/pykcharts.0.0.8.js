@@ -1,4 +1,5 @@
 var PykCharts = {};
+PykCharts.assets = "../pykih-charts/assets/";
 PykCharts.export_menu_status = 0;
 
 Array.prototype.groupBy = function (chart) {
@@ -121,7 +122,7 @@ Array.prototype.groupBy = function (chart) {
     return gd;
 };
 
-PykCharts.boolean = function(d) {    
+PykCharts.boolean = function(d) {
     var false_values = ['0','f',"false",'n','no','',0,"0.00","0.0",0.0,0.00];
     var false_keywords = [undefined,null,NaN];
     if(_.contains(false_keywords, d)) {
@@ -158,8 +159,7 @@ PykCharts.Configuration = function (options){
     var configuration = {
         liveData : function (chart) {
             var frequency = options.real_time_charts_refresh_frequency;
-            // console.log
-            if(PykCharts.boolean(frequency,1)) {
+            if(PykCharts.boolean(frequency)) {
                 setInterval(chart.refresh,frequency*1000);
             }
             return this;
@@ -619,7 +619,7 @@ PykCharts.Configuration = function (options){
                     .append("input")
                         .attr("type","image")
                         .attr("id","btn-zoom")
-                        .attr("src",options.assets_location+"PykCharts/img/apple_fullscreen.jpg")
+                        .attr("src",PykCharts.assets+"PykCharts/img/apple_fullscreen.jpg")
                         .style("font-size","30px")
                         .style("left","800px")
                         .style("top","0px")
@@ -1127,9 +1127,9 @@ PykCharts.Configuration = function (options){
                 }
 
                 if ($(child1)[0].classList.contains("light")) {
-                    options.img = options.assets_location+"img/download.png";
+                    options.img = PykCharts.assets+"img/download.png";
                 } else {
-                    options.img = options.assets_location+"img/download-light.png";
+                    options.img = PykCharts.assets+"img/download-light.png";
                 }
 
             return this;
@@ -1226,6 +1226,7 @@ PykCharts.Configuration = function (options){
                     d3.select(options.selector + " .dropdown-multipleConatiner-export").style("visibility", "visible");
                 });
                 if(!PykCharts.boolean(panels_enable)) {
+                    console.log(chart_name,"chart_name")
                     $(chart.selector + " #span").click(function () {
                         console.log("exportttttttttttttttt");
                         d3.select(options.selector + " .dropdown-multipleConatiner-export").style("visibility", "hidden");
@@ -2137,7 +2138,6 @@ configuration.transition = function (options) {
 configuration.Theme = function(){
     var that = this;
     that.stylesheet = {
-        "pykih_charts_assets_location": "../pykih-charts/assets/",
 
         "mode": "default",
         "selector": "",
@@ -2230,7 +2230,7 @@ configuration.Theme = function(){
     };
 
     that.functionality = {
-        "real_time_charts_refresh_frequency": 0,
+        "real_time_charts_refresh_frequency": 1000,
         "real_time_charts_last_updated_at_enable": "yes",
         "transition_duration": 0
     };
@@ -2409,8 +2409,6 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
         // , optional = options.optional;
     // console.log(options.mode,"options");
 
-    chartObject.assets_location = options.pykih_charts_assets_location ? options.pykih_charts_assets_location : stylesheet.pykih_charts_assets_location;
-
     chartObject.selector = options.selector ? options.selector : stylesheet.selector;
     // if(options.chart_width) {
     //     var targetWidth = $(options.selector).width();
@@ -2566,6 +2564,7 @@ PykCharts.oneD.bubble = function (options) {
         }
 
         d3.json(options.data, function (e,data) {
+            console.log(options.data,"data");
             // that.data =options.data;
             // that.compare_data = options.data;
             that.data = data.groupBy("oned");
@@ -4563,7 +4562,6 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
         that.onHoverEffect = new PykCharts.oneD.mouseEvent(options);
         that.border = new PykCharts.Configuration.border(that);
         that.transitions = new PykCharts.Configuration.transition(that);
-        that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
 
         if(that.mode.toLowerCase() == "default") {
 
@@ -4606,6 +4604,8 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
 
             that.k.tooltip();
         }
+
+        that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
 
         $(document).ready(function () { return that.k.resize(that.svgContainer); })
         $(window).on("resize", function () { return that.k.resize(that.svgContainer); });
@@ -4658,7 +4658,6 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                 // var proportion =_.map(that.new_data,function (d,i) {
                 //     return d.weight*100/that.sum;
                 // });
-                console.log(that.k);
                 that.inner_radius = that.k.__proto__._radiusCalculation(that.innerRadiusPercent,that.calculation);
                 that.outer_radius = that.k.__proto__._radiusCalculation(that.radiusPercent,that.calculation);
 
@@ -6087,6 +6086,7 @@ PykCharts.other.processInputs = function (chartObject, options) {
 
     return chartObject;
 };
+
 PykCharts.other.pictograph = function (options) {
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
@@ -6601,8 +6601,6 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
         functionality = theme.functionality,
         multiDimensionalCharts = theme.multiDimensionalCharts,
         optional = options.optional;
-
-    chartObject.assets_location = options.pykih_charts_assets_location ? options.pykih_charts_assets_location : stylesheet.pykih_charts_assets_location;
 
     // chartObject.axis_y_data_format = options.axis_y_data_format ? options.axis_y_data_format : multiDimensionalCharts.axis_y_data_format;
     // chartObject.axis_x_data_format = options.axis_x_data_format ? options.axis_x_data_format : multiDimensionalCharts.axis_x_data_format;
@@ -12136,8 +12134,6 @@ PykCharts.maps.processInputs = function (chartObject, options) {
         , mapsTheme = theme.mapsTheme
         , optional = options.optional;
 
-    chartObject.assets_location = options.pykih_charts_assets_location ? options.pykih_charts_assets_location : stylesheet.pykih_charts_assets_location;
-
     chartObject.selector = options.selector ? options.selector : stylesheet.selector;
 
     chartObject.width = options.chart_width ? options.chart_width : stylesheet.chart_width;
@@ -12330,6 +12326,7 @@ PykCharts.maps.processInputs = function (chartObject, options) {
 
     return chartObject;
 };
+
 PykCharts.maps.oneLayer = function (options) {
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
@@ -12350,14 +12347,14 @@ PykCharts.maps.oneLayer = function (options) {
                 .loading(that.loading)
                 .tooltip();
 
-            d3.json(that.assets_location+"ref/" + that.map_code + "-topo.json", function (data) {
+            d3.json(PykCharts.assets+"ref/" + that.map_code + "-topo.json", function (data) {
                 that.map_data = data;
                 _.each(that.map_data.objects.geometries, function (d) {
                   var a = d.properties.NAME_1.replace("'","&#39;");
                   d.properties.NAME_1 = a;
                   return d;
                 });
-                d3.json(that.assets_location+"ref/colorPalette.json", function (data) {
+                d3.json(PykCharts.assets+"ref/colorPalette.json", function (data) {
                     that.color_palette_data = data;
                     var validate = _.where(that.color_palette_data,{name:that.palette_color});
 
@@ -12408,14 +12405,14 @@ PykCharts.maps.timelineMap = function (options) {
                 .loading(that.loading)
                 .tooltip(that.tooltip_enable);
 
-            d3.json(that.assets_location+"ref/" + that.map_code + "-topo.json", function (data) {
+            d3.json(PykCharts.assets+"ref/" + that.map_code + "-topo.json", function (data) {
                 that.map_data = data;
                 _.each(that.map_data.objects.geometries, function (d) {
                   var a = d.properties.NAME_1.replace("'","&#39;");
                   d.properties.NAME_1 = a;
                   return d;
                 });
-                d3.json(that.assets_location+"ref/colorPalette.json", function (data) {
+                d3.json(PykCharts.assets+"ref/colorPalette.json", function (data) {
                     that.color_palette_data = data;
                     var validate = _.where(that.color_palette_data,{name:that.palette_color});
 
@@ -13014,14 +13011,14 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             }
                 }
         if ($(child1)[0].classList.contains("light")) {
-            that.play_image_url = that.assets_location+"img/play.png";
-            that.pause_image_url = that.assets_location+"img/pause.png";
-            that.marker_image_url = that.assets_location+"img/marker.png";
+            that.play_image_url = PykCharts.assets+"img/play.png";
+            that.pause_image_url = PykCharts.assets+"img/pause.png";
+            that.marker_image_url = PykCharts.assets+"img/marker.png";
         } else {
             // console.log("dark");
-            that.play_image_url = that.assets_location+"img/play-light.png";
-            that.pause_image_url = that.assets_location+"img/pause-light.png";
-            that.marker_image_url = that.assets_location+"img/marker-light.png";
+            that.play_image_url = PykCharts.assets+"img/play-light.png";
+            that.pause_image_url = PykCharts.assets+"img/pause-light.png";
+            that.marker_image_url = PykCharts.assets+"img/marker-light.png";
         }
 
     }
@@ -13194,24 +13191,25 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
 (function () {
 
     var urls = [
-        '../pykih-charts/assets/lib/jquery-1.11.1.min.js'
-      , '../pykih-charts/assets/lib/d3.min.js'
-      , '../pykih-charts/assets/lib/underscore.min.js'
-      , '../pykih-charts/assets/lib/topojson.min.js'
-      , '../pykih-charts/assets/lib/custom-hive.min.js'
-      , '../pykih-charts/assets/lib/jquery.colourbrightness.min.js'
+        PykCharts.assets+'lib/jquery-1.11.1.min.js'
+      , PykCharts.assets+'lib/d3.min.js'
+      , PykCharts.assets+'lib/underscore.min.js'
+      , PykCharts.assets+'lib/topojson.min.js'
+      , PykCharts.assets+'lib/custom-hive.min.js'
+      , PykCharts.assets+'lib/jquery.colourbrightness.min.js'
+      , PykCharts.assets+'lib/colors.min.js'
+      , PykCharts.assets+'lib/paper-full.min.js'
+      , PykCharts.assets+'lib/downloadDataURI.min.js'
     ];
 
-    function importFiles (url,i) {
+    function importFiles (url) {
         var include = document.createElement('script');
         include.type = 'text/javascript';
         include.async = false;
-        include.onload = function () {
+        include.onload = include.onreadystatechange = function () {
             try {
-                 console.log("IMPORT----------------",i);
-                if (_ && d3 && ($ || jQuery) && d3.customHive && topojson && $("body").colourBrightness) {
+                if (_ && d3 && ($ || jQuery) && d3.customHive && topojson && $("body").colourBrightness && $c && paper && downloadDataURI) {
                     PykCharts.numberFormat = d3.format(",");
-                 console.log(urls[i],"----------------",i);
                     window.PykChartsInit();
                     $("body").click(function () {
                         if (PykCharts.export_menu_status === 0) {
@@ -13231,13 +13229,12 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
     };
     for (var i = 0; i < urls.length; i++) {
         try {
-            if ((!$ && !jQuery) || !d3 || !_ || !d3.customHive || !topojson || !$("body").colourBrightness) {
+            if ((!$ && !jQuery) || !d3 || !_ || !d3.customHive || !topojson || !$("body").colourBrightness || !$c || !paper || !downloadDataURI) {
                 importFiles(urls[i]);
             }
         }
         catch (e) {
-                console.log("TRY------------",i)
-           importFiles(urls[i],i);
+            importFiles(urls[i]);
         }
     }
 })();
