@@ -13206,7 +13206,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         var include = document.createElement('script');
         include.type = 'text/javascript';
         include.async = false;
-        include.onload = include.onreadystatechange = function () {
+        include.onload = function () {
             try {
                 if (_ && d3 && ($ || jQuery) && d3.customHive && topojson && $("body").colourBrightness && $c && paper && downloadDataURI) {
                     PykCharts.numberFormat = d3.format(",");
