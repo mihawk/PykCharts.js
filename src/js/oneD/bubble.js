@@ -314,7 +314,7 @@ PykCharts.oneD.bubble = function (options) {
                     }
                     var sum_others = 0;
                     for(j=k; j<that.data.length; j++) {
-                        for (i=0; i<new_data.length && i< that.data.length; i++) {
+                        for (i=0; i<new_data.length && j<that.data.length; i++) {
                             if(that.data[j].name.toUpperCase() === new_data[i].name.toUpperCase()) {
                                 sum_others+=0;
                                 j++;

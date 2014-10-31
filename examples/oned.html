@@ -52,21 +52,41 @@
                 // chart_width: 300,
                 // chart_height: 300,
                 title_text:"Air Pollution in New York </br>(23/12/2013 - 29/12/2013)",
-                subtitle_text:"Air Pollution in New York"
-            
+                subtitle_text:"Air Pollution in New York",
+                units_prefix: "$",
+                units_suffix: "/-",
+                mode: "DEFault",
+                clubdata_enable: "yes",
+                clubdata_always_include_data_points: ["Africa","South America"],            
             });
             k.execute();
 
       			var k = new PykCharts.oneD.funnel({
           			selector: "#funnel",
           			data:"../data/pie.json",
+<<<<<<< HEAD
                     clubdata_enable: "yes",
                 clubdata_always_include_data_points : "",
+=======
+                clubdata_enable: "yes",
+                clubData_always_include_data_points : "",
+>>>>>>> 67a0902136880c2bbb310ee87442989aefed8be8
                 transition_duration: 1,
                 units_suffix: "rs",
                 pointer_weight: "normal",
                 "funnel_rect_width": 100,
-                "funnel_rect_height": 100
+                "funnel_rect_height": 100,
+                units_prefix: "$",
+                units_suffix: "/-",
+                "pointer_overflow_enable": "yes",
+                "pointer_thickness": 1,
+                "pointer_weight": "bold",
+                "pointer_size": 12,
+                "pointer_color": "orange",
+                "pointer_family": "Papyrus",
+                mode: "DEFault",
+                clubdata_enable: "yes",
+                clubdata_always_include_data_points: ["Africa","South America"],
         		});
       			k.execute();
 
@@ -76,8 +96,17 @@
                 transition_duration: 1,
                 background_color: "white",
                 mode:"infographics",
-
+                chart_color: ["cyan"],
                 pointer_overflow_enable: "no",
+                units_prefix: "$",
+                units_suffix: "/-",
+                "pointer_overflow_enable": "yes",
+                "pointer_thickness": 1,
+                "pointer_weight": "bold",
+                "pointer_size": 10,
+                "pointer_color": "orange",
+                "pointer_family": "Courier New",
+                label_color: "black"
             });
            k.execute();
 
@@ -87,13 +116,20 @@
                 transition_duration: 0,
                 background_color: "white",
                 mode:"infographics",
+                units_prefix: "$",
+                units_suffix: "/-"
             });
            k.execute();
 
             var k = new PykCharts.oneD.donut({
                 selector: "#donutContainer",
-                data: "../data/pie.json",
+                data: "../data/screenshot.json",
                 transition_duration: 1,
+                mode: "DEFault",
+                clubdata_enable: "yes",
+                clubdata_always_include_data_points: ["Africa","South America"],
+                units_prefix: "$",
+                units_suffix: "/-"
             });
            k.execute();
 
@@ -101,7 +137,12 @@
                 selector: "#electionPieContainer",
                 data: "../data/pie.json",
                 transition_duration: 4,
-                background_color: "white"
+                background_color: "white",
+                mode: "DEFault",
+                clubdata_enable: "yes",
+                clubdata_always_include_data_points: ["Africa","South America"],
+                units_prefix: "$",
+                units_suffix: "/-"
             });
            k.execute();
 
@@ -110,6 +151,12 @@
                 data: "../data/pie.json",
                 background_color: "white",
                 transition_duration: 4,
+                mode: "DEFault",
+                clubdata_enable: "yes",
+                clubdata_always_include_data_points: ["Africa","South America"],
+
+                units_prefix: "$",
+                units_suffix: "/-"
            });
            k.execute();
 
@@ -119,7 +166,12 @@
                 background_color: "white",
                 selector: "#pieContainer",
                 data: "../data/screenshot.json",
-                // transition_duration: 4
+                // transition_duration: 4,
+                mode: "DEFault",
+                clubdata_enable: "yes",
+                clubdata_always_include_data_points: ["Africa","South America"],
+                units_prefix: "$",
+                units_suffix: "/-"
             });
            k.execute();
 
@@ -128,7 +180,12 @@
                 chart_height: 300,
                 selector: "#percentageColumn",
                 data:"../data/pie.json",
-                transition_duration: 1
+                transition_duration: 1,
+                mode: "DEFault",
+                clubdata_enable: "yes",
+                clubdata_always_include_data_points: ["Africa","South America"],
+                units_prefix: "$",
+                units_suffix: "/-"
             });
            k.execute();
 
@@ -139,7 +196,12 @@
                 transition_duration: 1,
                 // "chart_height": 200,
                 chart_width: 600,
-                // clubdata_enable: "yes"
+                // clubdata_enable: "yes",
+                mode: "DEFault",
+                clubdata_enable: "yes",
+                clubdata_always_include_data_points: ["Africa","South America"],
+                units_prefix: "$",
+                units_suffix: "/-"
             });
            k.execute();
 
@@ -147,7 +209,12 @@
                 selector: "#pie2Container",
                 background_color: "white",
                 data: "../data/pie2.json",
-                transition_duration: 1
+                transition_duration: 1,
+                mode: "DEFault",
+                clubdata_enable: "yes",
+                clubdata_always_include_data_points: ["Africa","South America"],
+                units_prefix: "$",
+                units_suffix: "/-"
             });
            k.execute();
 		    }
