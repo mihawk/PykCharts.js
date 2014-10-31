@@ -31,12 +31,12 @@ PykCharts.maps.oneLayer = function (options) {
 
                     try {
                         if (!validate.length) {
+                            that.palette_color = theme.mapsTheme.palette_color;
                             throw "palette_color";
                         }
                     }
                     catch (err) {
-                        that.k.errorHandling(err,"#9");
-                        return;
+                        that.k.warningHandling(err,"16");
                     }
 
                     $(that.selector).html("");
@@ -89,12 +89,12 @@ PykCharts.maps.timelineMap = function (options) {
 
                     try {
                         if (!validate.length) {
+                            that.palette_color = theme.mapsTheme.palette_color;
                             throw "palette_color";
                         }
                     }
                     catch (err) {
-                        that.k.errorHandling(err,"#9");
-                        return;
+                        that.k.warningHandling(err,"16");
                     }
 
                     var x_extent = d3.extent(that.timeline_data, function (d) { return d.timestamp; })
