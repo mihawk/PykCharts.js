@@ -8,10 +8,27 @@ PykCharts.multiD.spiderWeb = function (options) {
         that.bubbleRadius = options.spiderweb_radius  ? options.spiderweb_radius : (0.6 * multiDimensionalCharts.scatterplot_radius);
         that.outerRadius = options.spiderweb_outer_radius_percent  ? options.spiderweb_outer_radius_percent : multiDimensionalCharts.spiderweb_outer_radius_percent;
 
-        that.k.validator()
-            .validatingDataType(that.bubbleRadius,"spiderweb_radius") 
-            .validatingDataType(that.outerRadius,"spiderweb_outer_radius_percent"); 
+        try {
+            if(!_.isNumber(that.bubbleRadius)) {
+                that.bubbleRadius = (0.6 * multiDimensionalCharts.scatterplot_radius);
+                throw "spiderweb_radius"
+            }
+        } 
 
+        catch (err) {
+            that.k.warningHandling(err,"3");
+        }
+
+        try {
+            if(!_.isNumber(that.outerRadius)) {
+                that.bubbleRadius = multiDimensionalCharts.spiderweb_outer_radius_percent;
+                throw "spiderweb_outer_radius_percent"
+            }
+        } 
+
+        catch (err) {
+            that.k.warningHandling(err,"3");
+        }
 
         if(that.stop) 
             return;
