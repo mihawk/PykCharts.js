@@ -121,8 +121,8 @@ Array.prototype.groupBy = function (chart) {
     return gd;
 };
 
-PykCharts.boolean = function(d) {
-    var false_values = ['0','f',"false",'n','no',''];
+PykCharts.boolean = function(d) {    
+    var false_values = ['0','f',"false",'n','no','',0,"0.00","0.0",0.0,0.00];
     var false_keywords = [undefined,null,NaN];
     if(_.contains(false_keywords, d)) {
         return false;
@@ -158,7 +158,8 @@ PykCharts.Configuration = function (options){
     var configuration = {
         liveData : function (chart) {
             var frequency = options.real_time_charts_refresh_frequency;
-            if(PykCharts.boolean(frequency)) {
+            // console.log
+            if(PykCharts.boolean(frequency,1)) {
                 setInterval(chart.refresh,frequency*1000);
             }
             return this;
@@ -2229,7 +2230,7 @@ configuration.Theme = function(){
     };
 
     that.functionality = {
-        "real_time_charts_refresh_frequency": 10,
+        "real_time_charts_refresh_frequency": 0,
         "real_time_charts_last_updated_at_enable": "yes",
         "transition_duration": 0
     };

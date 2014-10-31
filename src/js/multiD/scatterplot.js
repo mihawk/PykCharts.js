@@ -25,9 +25,9 @@ PykCharts.multiD.scatterPlot = function (options) {
         that.zoomed_out = true;
 
         if(PykCharts.boolean(that.panels_enable)) {
-            that.radius_range = [that.k.__proto__._radiusCalculation(1.1)*2,that.__proto__.k._radiusCalculation(2.6)*2];
+            that.radius_range = [that.k.__proto__._radiusCalculation(1.1)*2,that.k.__proto__._radiusCalculation(2.6)*2];
         } else {
-            that.radius_range = [that.k.__proto__._radiusCalculation(4.5)*2,that.__proto__.k._radiusCalculation(11)*2];
+            that.radius_range = [that.k.__proto__._radiusCalculation(4.5)*2,that.k.__proto__._radiusCalculation(11)*2];
         }
         d3.json(options.data, function (e, data) {
             that.data = data.groupBy("scatterplot");

@@ -122,7 +122,7 @@ Array.prototype.groupBy = function (chart) {
 };
 
 PykCharts.boolean = function(d) {
-    var false_values = ['0','f',"false",'n','no',''];
+    var false_values = ['0','f',"false",'n','no','',0,"0.00","0.0",0.0,0.00];
     var false_keywords = [undefined,null,NaN];
     if(_.contains(false_keywords, d)) {
         return false;
