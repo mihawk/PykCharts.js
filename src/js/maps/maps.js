@@ -163,14 +163,13 @@ PykCharts.maps.processInputs = function (chartObject, options) {
                 .validatingDataType(chartObject.border_between_chart_elements_thickness,"border_between_chart_elements_thickness",stylesheet.border_between_chart_elements_thickness)
                 .validatingDataType(chartObject.legends_text_size ,"legends_text_size",stylesheet.legends_text_size)
                 .validatingDataType(chartObject.axis_x_pointer_size,"axis_x_pointer_size",stylesheet.axis_x_pointer_size)
-                .validatingDataType(chartObject.axis_x_pointer_length,"axis_x_pointer_length",stylesheet.axis_x_pointer_length) 
-                .validatingDataType(chartObject.axis_x_outer_pointer_size,"axis_x_outer_pointer_size",stylesheet.axis_x_outer_pointer_size)
+                .validatingDataType(chartObject.axis_x_pointer_length,"axis_x_pointer_length",stylesheet.axis_x_pointer_length)
                 .validatingDataType(chartObject.axis_x_pointer_padding,"axis_x_pointer_padding",stylesheet.axis_x_pointer_padding)
                 .validatingDataType(chartObject.tooltip_position_top,"tooltip_position_top",mapsTheme.tooltip_position_top)
                 .validatingDataType(chartObject.tooltip_position_left,"tooltip_position_left",mapsTheme.tooltip_position_left)
                 .validatingColorMode(chartObject.color_mode,"color_mode",stylesheet.color_mode)
-                .validatingLegendsPosition(chartObject.legends_display,"legends_display",stylesheet.legends_display)            
-                .validatingTooltipMode(chartObject.tooltip_mode,"tooltip_mode",stylesheet.tooltip_mode)                
+                .validatingLegendsPosition(chartObject.legends_display,"legends_display",stylesheet.legends_display)
+                .validatingTooltipMode(chartObject.tooltip_mode,"tooltip_mode",stylesheet.tooltip_mode)
                 .validatingXAxisPointerPosition(chartObject.axis_x_pointer_position,"axis_x_pointer_position",stylesheet.axis_x_pointer_position)
                 .validatingFontWeight(chartObject.title_weight,"title_weight",stylesheet.title_weight)
                 .validatingFontWeight(chartObject.subtitle_weight,"subtitle_weight",stylesheet.subtitle_weight)
@@ -221,7 +220,7 @@ PykCharts.maps.processInputs = function (chartObject, options) {
                     chartObject.default_zoom_level = 80;
                     throw "default_zoom_level"
                 }
-            } 
+            }
 
             catch (err) {
                 chartObject.k.warningHandling(err,"3");
