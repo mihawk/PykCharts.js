@@ -121,8 +121,8 @@ Array.prototype.groupBy = function (chart) {
     return gd;
 };
 
-PykCharts.boolean = function(d) {
-    var false_values = ['0','f',"false",'n','no',''];
+PykCharts.boolean = function(d) {    
+    var false_values = ['0','f',"false",'n','no','',0,"0.00","0.0",0.0,0.00];
     var false_keywords = [undefined,null,NaN];
     if(_.contains(false_keywords, d)) {
         return false;
@@ -158,7 +158,8 @@ PykCharts.Configuration = function (options){
     var configuration = {
         liveData : function (chart) {
             var frequency = options.real_time_charts_refresh_frequency;
-            if(PykCharts.boolean(frequency)) {
+            // console.log
+            if(PykCharts.boolean(frequency,1)) {
                 setInterval(chart.refresh,frequency*1000);
             }
             return this;
@@ -1225,7 +1226,6 @@ PykCharts.Configuration = function (options){
                     d3.select(options.selector + " .dropdown-multipleConatiner-export").style("visibility", "visible");
                 });
                 if(!PykCharts.boolean(panels_enable)) {
-                    console.log(chart_name,"chart_name")
                     $(chart.selector + " #span").click(function () {
                         console.log("exportttttttttttttttt");
                         d3.select(options.selector + " .dropdown-multipleConatiner-export").style("visibility", "hidden");
@@ -2566,7 +2566,6 @@ PykCharts.oneD.bubble = function (options) {
         }
 
         d3.json(options.data, function (e,data) {
-            console.log(options.data,"data");
             // that.data =options.data;
             // that.compare_data = options.data;
             that.data = data.groupBy("oned");
@@ -3468,7 +3467,7 @@ PykCharts.oneD.percentageColumn = function (options) {
             that.percent_column_rect_width = 100;
         }
 
-        that.percent_column_rect_width = that.k._radiusCalculation(that.percent_column_rect_width,"percentageColumn") * 2;
+        that.percent_column_rect_width = that.k.__proto__._radiusCalculation(that.percent_column_rect_width,"percentageColumn") * 2;
 
         if(that.stop) {
             return;
@@ -3898,7 +3897,7 @@ PykCharts.oneD.percentageBar = function (options) {
             that.percent_row_rect_height = 100;
         }
 
-        that.percent_row_rect_height = that.k._radiusCalculation(that.percent_row_rect_height,"percentageBar") * 2;
+        that.percent_row_rect_height = that.k.__proto__._radiusCalculation(that.percent_row_rect_height,"percentageBar") * 2;
 
         if(that.mode === "default") {
            that.k.loading();
@@ -4659,8 +4658,9 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                 // var proportion =_.map(that.new_data,function (d,i) {
                 //     return d.weight*100/that.sum;
                 // });
-                that.inner_radius = that.k._radiusCalculation(that.innerRadiusPercent,that.calculation);
-                that.outer_radius = that.k._radiusCalculation(that.radiusPercent,that.calculation);
+                console.log(that.k);
+                that.inner_radius = that.k.__proto__._radiusCalculation(that.innerRadiusPercent,that.calculation);
+                that.outer_radius = that.k.__proto__._radiusCalculation(that.radiusPercent,that.calculation);
 
                 that.arc = d3.svg.arc()
                     .innerRadius(that.inner_radius)
@@ -7253,7 +7253,7 @@ PykCharts.multiD.lineChart = function (options){
 					max = d3.max(that.new_data, function(d) { return d3.max(d.data, function(k) { return k.y; }); });
 					min = d3.min(that.new_data, function(d) { return d3.min(d.data, function(k) { return k.y; }); });
 		         	y_domain = [min,max];
-			        y_data = that.k._domainBandwidth(y_domain,2);
+			        y_data = that.k.__proto__._domainBandwidth(y_domain,2);
 			        y_range = [that.reducedHeight, 0];
 			        that.yScale = that.k.scaleIdentification("linear",y_data,y_range);
 
@@ -7274,7 +7274,7 @@ PykCharts.multiD.lineChart = function (options){
 			      	max = d3.max(that.new_data, function(d) { return d3.max(d.data, function(k) { return k.x; }); });
 					min = d3.min(that.new_data, function(d) { return d3.min(d.data, function(k) { return k.x; }); });
 		         	x_domain = [min,max];
-		        	x_data = that.k._domainBandwidth(x_domain,2);
+		        	x_data = that.k.__proto__._domainBandwidth(x_domain,2);
 		          	x_range = [0 ,that.reducedWidth];
 		          	that.xScale = that.k.scaleIdentification("linear",x_data,x_range);
 		          	that.extra_left_margin = 0;
@@ -8166,7 +8166,7 @@ PykCharts.multiD.areaChart = function (options){
 					max = d3.max(that.layers, function(d) { return d3.max(d.data, function(k) { return k.y0 + k.y; }); });
 					min = 0;
          			y_domain = [min,max];
-		          	y_data = that.k._domainBandwidth(y_domain,1);
+		          	y_data = that.k.__proto__._domainBandwidth(y_domain,1);
 		          	y_range = [that.h - that.legendsGroup_height, 0];
 		          	that.yScale = that.k.scaleIdentification("linear",y_data,y_range);
 
@@ -8193,7 +8193,7 @@ PykCharts.multiD.areaChart = function (options){
         			max = d3.max(that.new_data, function(d) { return d3.max(d.data, function(k) { return k.x; }); });
 					min = d3.min(that.new_data, function(d) { return d3.min(d.data, function(k) { return k.x; }); });
          			x_domain = [min,max];
-			        x_data = that.k._domainBandwidth(x_domain,2);
+			        x_data = that.k.__proto__._domainBandwidth(x_domain,2);
 			        x_range = [0 ,that.w];
 			        that.xScale = that.k.scaleIdentification("linear",x_data,x_range);
 			        that.extra_left_margin = 0;
@@ -9046,7 +9046,7 @@ PykCharts.multiD.barChart = function(options){
                     .rangeBands([0,h]);
 
                 var x_domain = [0,d3.max(x_data)];
-                that.xScale = d3.scale.linear().domain(that.k._domainBandwidth(x_domain,1)).range([0, w]);
+                that.xScale = d3.scale.linear().domain(that.k.__proto__._domainBandwidth(x_domain,1)).range([0, w]);
 
                 // that.yScaleInvert = d3.scale.linear().domain([d3.max(yValues), 0]).range([0, h]).nice(); // For the yAxis
                 // var zScale = d3.scale.category10();
@@ -10020,7 +10020,7 @@ PykCharts.multiD.columnChart = function(options){
                 that.highlight_y_positions = [];
                 that.highlight_x_positions = [];
                 y_domain = [0,d3.max(y_data)]
-                y_domain = that.k._domainBandwidth(y_domain,1);
+                y_domain = that.k.__proto__._domainBandwidth(y_domain,1);
                 that.yScale = d3.scale.linear().domain(y_domain).range([0, h]);
                 that.yScaleInvert = d3.scale.linear().domain([y_domain[1],y_domain[0]]).range([0, h]); // For the yAxis
                 var zScale = d3.scale.category10();
@@ -10623,9 +10623,9 @@ PykCharts.multiD.scatterPlot = function (options) {
         that.zoomed_out = true;
 
         if(PykCharts.boolean(that.panels_enable)) {
-            that.radius_range = [that.k._radiusCalculation(1.1)*2,that.k._radiusCalculation(2.6)*2];
+            that.radius_range = [that.k.__proto__._radiusCalculation(1.1)*2,that.k.__proto__._radiusCalculation(2.6)*2];
         } else {
-            that.radius_range = [that.k._radiusCalculation(4.5)*2,that.k._radiusCalculation(11)*2];
+            that.radius_range = [that.k.__proto__._radiusCalculation(4.5)*2,that.k.__proto__._radiusCalculation(11)*2];
         }
         d3.json(options.data, function (e, data) {
             that.data = data.groupBy("scatterplot");
@@ -10661,7 +10661,7 @@ PykCharts.multiD.pulse = function (options) {
         }
 
         that.zoomed_out = true;
-        that.radius_range = [that.k._radiusCalculation(1.1)*2,that.k._radiusCalculation(3.5)*2];
+        that.radius_range = [that.k.__proto__._radiusCalculation(1.1)*2,that.k.__proto__._radiusCalculation(3.5)*2];
 
         if(that.mode === "default") {
             that.k.loading();
@@ -11010,7 +11010,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
 
                     if(that.axis_y_data_format === "number") {
                         y_domain = d3.extent(that.data, function(d) { return d.y });
-                        y_data = that.k._domainBandwidth(y_domain,2,"number");
+                        y_data = that.k.__proto__._domainBandwidth(y_domain,2,"number");
                         y_range = [that.height - that.margin_top - that.margin_bottom - that.legendsGroup_height, 0];
                         that.yScale = that.k.scaleIdentification("linear",y_domain,y_range);
                         that.extra_top_margin = 0;
@@ -11029,7 +11029,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                     }
                     if(that.axis_x_data_format === "number") {
                         x_domain = d3.extent(that.data, function(d) { return d.x; });
-                        x_data = that.k._domainBandwidth(x_domain,2);
+                        x_data = that.k.__proto__._domainBandwidth(x_domain,2);
                         x_range = [0 ,that.w - that.margin_left - that.margin_right];
                         that.x = that.k.scaleIdentification("linear",x_data,x_range);
                         that.extra_left_margin = 0;
@@ -11044,7 +11044,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                         max = d3.max(that.data, function(k) { return new Date(k.x); });
                         min = d3.min(that.data, function(k) { return new Date(k.x); }); 
                         x_domain = [min.getTime(),max.getTime()];
-                        x_data = that.k._domainBandwidth(x_domain,2,"time");
+                        x_data = that.k.__proto__._domainBandwidth(x_domain,2,"time");
                         x_range = [0 ,that.w - that.margin_left - that.margin_right];
                         that.x = that.k.scaleIdentification("time",x_data,x_range);
                         that.data.forEach(function (d) {
@@ -11553,7 +11553,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                 .legends()
                 .createGroups();
             // that.height = that.height - that.legendsGroup_height - 20;
-            that.outerRadius = that.k._radiusCalculation(that.outerRadius,"spiderweb");
+            that.outerRadius = that.k.__proto__._radiusCalculation(that.outerRadius,"spiderweb");
             that.radius_range = [(3*that.outerRadius)/100,(0.09*that.outerRadius)];
             that.sizes = new PykCharts.multiD.bubbleSizeCalculation(that,that.data,that.radius_range);
             
@@ -11576,7 +11576,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                 .legendsContainer()
                 .createGroups();
             // that.height = that.height - that.legendsGroup_height - 20;
-            that.outerRadius = that.k._radiusCalculation(that.outerRadius,"spiderweb");
+            that.outerRadius = that.k.__proto__._radiusCalculation(that.outerRadius,"spiderweb");
             that.radius_range = [(3*that.outerRadius)/100,(0.09*that.outerRadius)];
             that.sizes = new PykCharts.multiD.bubbleSizeCalculation(that,that.data,that.radius_range);
             that.optionalFeatures()
@@ -13194,22 +13194,24 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
 (function () {
 
     var urls = [
-        'https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/js/jquery-1.11.1.min.js'
-      , 'https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/js/d3.min.js'
+        '../pykih-charts/assets/lib/jquery-1.11.1.min.js'
+      , '../pykih-charts/assets/lib/d3.min.js'
       , '../pykih-charts/assets/lib/underscore.min.js'
-      , 'https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/js/topojson.js'
-      , 'https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/js/custom-hive.min.js'
-      , '../lib/jquery.colourbrightness.js'
+      , '../pykih-charts/assets/lib/topojson.min.js'
+      , '../pykih-charts/assets/lib/custom-hive.min.js'
+      , '../pykih-charts/assets/lib/jquery.colourbrightness.min.js'
     ];
 
-    function importFiles (url) {
+    function importFiles (url,i) {
         var include = document.createElement('script');
         include.type = 'text/javascript';
         include.async = false;
-        include.onload = include.onreadystatechange = function () {
+        include.onload = function () {
             try {
+                 console.log("IMPORT----------------",i);
                 if (_ && d3 && ($ || jQuery) && d3.customHive && topojson && $("body").colourBrightness) {
                     PykCharts.numberFormat = d3.format(",");
+                 console.log(urls[i],"----------------",i);
                     window.PykChartsInit();
                     $("body").click(function () {
                         if (PykCharts.export_menu_status === 0) {
@@ -13234,7 +13236,8 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             }
         }
         catch (e) {
-            importFiles(urls[i]);
+                console.log("TRY------------",i)
+           importFiles(urls[i],i);
         }
     }
 })();

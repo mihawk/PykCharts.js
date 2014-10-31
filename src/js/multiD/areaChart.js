@@ -276,7 +276,7 @@ PykCharts.multiD.areaChart = function (options){
 					max = d3.max(that.layers, function(d) { return d3.max(d.data, function(k) { return k.y0 + k.y; }); });
 					min = 0;
          			y_domain = [min,max];
-		          	y_data = that.k._domainBandwidth(y_domain,1);
+		          	y_data = that.k.__proto__._domainBandwidth(y_domain,1);
 		          	y_range = [that.h - that.legendsGroup_height, 0];
 		          	that.yScale = that.k.scaleIdentification("linear",y_data,y_range);
 
@@ -303,7 +303,7 @@ PykCharts.multiD.areaChart = function (options){
         			max = d3.max(that.new_data, function(d) { return d3.max(d.data, function(k) { return k.x; }); });
 					min = d3.min(that.new_data, function(d) { return d3.min(d.data, function(k) { return k.x; }); });
          			x_domain = [min,max];
-			        x_data = that.k._domainBandwidth(x_domain,2);
+			        x_data = that.k.__proto__._domainBandwidth(x_domain,2);
 			        x_range = [0 ,that.w];
 			        that.xScale = that.k.scaleIdentification("linear",x_data,x_range);
 			        that.extra_left_margin = 0;
