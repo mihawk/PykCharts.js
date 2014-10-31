@@ -453,8 +453,8 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
                         break;
         case "dashed" : chartObject.border_between_chart_elements_style = "5,5";
                        break;
-        case "solid" : chartObject.border_between_chart_elements_style = "0";
-                       break;
+        default : chartObject.border_between_chart_elements_style = "0";
+                  break;
     }
 
     chartObject.pointer_thickness = "pointer_thickness" in options ? options.pointer_thickness : stylesheet.pointer_thickness;
@@ -561,7 +561,6 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
                 .validatingColor(chartObject.axis_y_pointer_color,"axis_y_pointer_color")
                 .validatingColor(chartObject.highlight_color,"highlight_color")
                 .validatingColor(chartObject.saturation_color,"saturation_color")
-                .validatingColor(chartObject.border_between_chart_elements_color,"border_between_chart_elements_color")
                 .validatingColor(chartObject.pointer_color,"pointer_color")
                 .validatingColor(chartObject.label_color,"label_color")
                 .validatingColor(chartObject.annotation_border_color,"annotation_border_color")
