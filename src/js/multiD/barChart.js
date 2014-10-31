@@ -204,7 +204,7 @@ PykCharts.multiD.barChart = function(options){
                 return this;
             },
             axisContainer : function () {
-                if(that.axis_y_enable) {
+                if(PykCharts.boolean(that.axis_y_enable)) {
 
                     var axis_line = that.group.selectAll(".axis-line")
                         .data(["line"]);
@@ -352,8 +352,8 @@ PykCharts.multiD.barChart = function(options){
 
                 var group_arr = [];
 
-                // for(var i in groups){
-                for(var i=0;i<groups.length;i++) {
+                for(var i in groups){
+                // for(var i=0;i<groups.length;i++) {
                     var g = groups[i];
                     var y = that.yScale(g[0]);
                     var totalHeight = that.yScale.rangeBand() * g.length;
@@ -470,64 +470,66 @@ PykCharts.multiD.barChart = function(options){
 
                 that.bars.exit()
                     .remove();
-                var yAxis_label = that.group.selectAll("text.axis-text")
-                    .data(group_arr);
+                if(PykCharts.boolean(that.axis_y_enable)) {
+                    var yAxis_label = that.group.selectAll("text.axis-text")
+                        .data(group_arr);
 
-                yAxis_label.enter()
-                        .append("text")
+                    yAxis_label.enter()
+                            .append("text")
 
-                yAxis_label.attr("class", "axis-text")
-                        .attr("y", function(d){
-                            return d.y;
-                        })
-                        .attr("x", function(d){
-                            return -10;
-                        })
-                        .style("fill",that.axis_y_pointer_color)
-                        .style("font-weight",that.axis_y_pointer_weight)
-                        .style("font-family",that.axis_y_pointer_family)
-                        .style("font-size",that.axis_y_pointer_size)
-                        .text(function(d){
-                            return d.name;
-                        })
-                        .text(function (d) {
-                            if(this.getBBox().width > (0.8*that.margin_left)) {
-                                return d.name.substr(0,2) + "..";
-                            } else {
+                    yAxis_label.attr("class", "axis-text")
+                            .attr("y", function(d){
+                                return d.y;
+                            })
+                            .attr("x", function(d){
+                                return -10;
+                            })
+                            .style("fill",that.axis_y_pointer_color)
+                            .style("font-weight",that.axis_y_pointer_weight)
+                            .style("font-family",that.axis_y_pointer_family)
+                            .style("font-size",that.axis_y_pointer_size)
+                            .text(function(d){
                                 return d.name;
-                            }
-                        })
-                        .on('mouseover',function (d) {
-                            that.mouseEvent.tooltipPosition(d);
-                            that.mouseEvent.tooltipTextShow(d.name);
-                        })
-                        .on('mouseout',function (d) {
-                            that.mouseEvent.tooltipHide(d);
-                        })
-                        .on('mousemove', function (d) {
-                            that.mouseEvent.tooltipPosition(d);
+                            })
+                            .text(function (d) {
+                                if(this.getBBox().width > (0.8*that.margin_left)) {
+                                    return d.name.substr(0,2) + "..";
+                                } else {
+                                    return d.name;
+                                }
+                            })
+                            .on('mouseover',function (d) {
+                                that.mouseEvent.tooltipPosition(d);
+                                that.mouseEvent.tooltipTextShow(d.name);
+                            })
+                            .on('mouseout',function (d) {
+                                that.mouseEvent.tooltipHide(d);
+                            })
+                            .on('mousemove', function (d) {
+                                that.mouseEvent.tooltipPosition(d);
+                            });
+                    if(that.axis_y_position === "right") {
+                        yAxis_label.attr("x", function () {
+                            return (that.width-that.margin_left-that.margin_right) + 10;
                         });
-                if(that.axis_y_position === "right") {
-                    yAxis_label.attr("x", function () {
-                        return (that.width-that.margin_left-that.margin_right) + 10;
-                    });
+                    }
+                    if(that.axis_y_position === "left" && that.axis_y_pointer_position === "right") {
+                        yAxis_label.attr("x", function (d) {
+                            return 10;
+                        });
+                    }
+                    if(that.axis_y_position === "right" && that.axis_y_pointer_position === "left") {
+                        yAxis_label.attr("x", function (d) {
+                            return (that.width-that.margin_left-that.margin_right) - 10;
+                        });
+                    }
+                    if(that.axis_y_pointer_position === "right") {
+                        yAxis_label.attr("text-anchor","start");
+                    } else if(that.axis_y_pointer_position === "left") {
+                        yAxis_label.attr("text-anchor","end");
+                    }
+                    yAxis_label.exit().remove();
                 }
-                if(that.axis_y_position === "left" && that.axis_y_pointer_position === "right") {
-                    yAxis_label.attr("x", function (d) {
-                        return 10;
-                    });
-                }
-                if(that.axis_y_position === "right" && that.axis_y_pointer_position === "left") {
-                    yAxis_label.attr("x", function (d) {
-                        return (that.width-that.margin_left-that.margin_right) - 10;
-                    });
-                }
-                if(that.axis_y_pointer_position === "right") {
-                    yAxis_label.attr("text-anchor","start");
-                } else if(that.axis_y_pointer_position === "left") {
-                    yAxis_label.attr("text-anchor","end");
-                }
-                yAxis_label.exit().remove();
                 return this;
             },
             ticks: function () {
@@ -626,7 +628,7 @@ PykCharts.multiD.barChart = function(options){
             legends: function () {
                 if(PykCharts.boolean(that.legends_enable)) {
                     var params = that.getParameters(),color;
-                    console.log(params);
+                    // console.log(params);
                     color = params.map(function (d) {
                         return d.color;
                     });
@@ -635,7 +637,7 @@ PykCharts.multiD.barChart = function(options){
                     });
 
                     params = _.uniq(params);
-                    console.log(params)
+                    // console.log(params)
                     // color = _.uniq(color);
                     var j = 0,k = 0;
                     j = params.length;
@@ -684,7 +686,7 @@ PykCharts.multiD.barChart = function(options){
                         .attr(rect_parameter3, rect_parameter3value)
                         .attr(rect_parameter4, rect_parameter4value)
                         .attr("fill", function (d,i) {
-                            console.log(color[i])
+                            // console.log(color[i])
                             if(that.color_mode === "color")
                                 return color[i];
                             else return color[0];
@@ -814,7 +816,7 @@ PykCharts.multiD.barChart = function(options){
         for(var i=0; i<that.data.length; i++) {
             var d = that.data[i];
             for(var cat_name in d){
-                console.log(d[cat_name], "cat_name");
+                // console.log(d[cat_name], "cat_name");
                 // for(var j in d[cat_name]){
                 for(var j = 0; j < d[cat_name].length; j++) {    
                     var id = "i" + i + "j" + j;
