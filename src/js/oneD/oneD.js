@@ -41,6 +41,8 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
         // , optional = options.optional;
     // console.log(options.mode,"options");
 
+    chartObject.assets_location = options.pykih_charts_assets_location ? options.pykih_charts_assets_location : stylesheet.pykih_charts_assets_location;
+
     chartObject.selector = options.selector ? options.selector : stylesheet.selector;
     // if(options.chart_width) {
     //     var targetWidth = $(options.selector).width();
@@ -92,20 +94,20 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
     // chartObject.credit_my_site_url = options.credit_my_site_url ? options.credit_my_site_url : stylesheet.credit_my_site_url;
     chartObject.data_source_name = options.data_source_name ? options.data_source_name : "";
     chartObject.data_source_url = options.data_source_url ? options.data_source_url : "";
-    
+
     chartObject.clubdata_enable = options.clubdata_enable ? options.clubdata_enable.toLowerCase() : oneDimensionalCharts.clubdata_enable;
     chartObject.clubdata_text = PykCharts.boolean(options.clubdata_enable) && options.clubdata_text ? options.clubdata_text : oneDimensionalCharts.clubdata_text;
     chartObject.clubdata_maximum_nodes = PykCharts.boolean(options.clubdata_maximum_nodes) && options.clubdata_maximum_nodes ? options.clubdata_maximum_nodes : oneDimensionalCharts.clubdata_maximum_nodes;
     chartObject.clubdata_always_include_data_points = PykCharts.boolean(options.clubdata_enable) && options.clubdata_always_include_data_points ? options.clubdata_always_include_data_points : [];
-    
+
     chartObject.transition_duration = options.transition_duration ? options.transition_duration : functionality.transition_duration;
     chartObject.pointer_overflow_enable = options.pointer_overflow_enable ? options.pointer_overflow_enable.toLowerCase() : stylesheet.pointer_overflow_enable;
-    
+
     chartObject.background_color = options.background_color ? options.background_color : stylesheet.background_color;
 
     chartObject.chart_color = options.chart_color  ? options.chart_color : stylesheet.chart_color;
     chartObject.highlight_color = options.highlight_color ? options.highlight_color : stylesheet.highlight_color;
-   
+
     chartObject.fullscreen_enable = options.fullscreen_enable ? options.fullscreen_enable : stylesheet.fullscreen_enable;
     chartObject.loading = options.loading_gif_url ? options.loading_gif_url: stylesheet.loading_gif_url;
     chartObject.tooltip_enable = options.tooltip_enable ? options.tooltip_enable.toLowerCase() : stylesheet.tooltip_enable;
@@ -135,9 +137,9 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
 
     chartObject.units_prefix = options.units_prefix ? options.units_prefix : false;
     chartObject.units_suffix = options.units_suffix ? options.units_suffix : false;
-    
+
     chartObject.export_enable = options.export_enable ? options.export_enable.toLowerCase() : stylesheet.export_enable;
-    // chartObject.export_image_url = options.export_image_url ? options.export_image_url : stylesheet.export_image_url; 
+    // chartObject.export_image_url = options.export_image_url ? options.export_image_url : stylesheet.export_image_url;
     chartObject.k = new PykCharts.Configuration(chartObject);
 
     chartObject.k.validator().validatingSelector(chartObject.selector.substring(1,chartObject.selector.length))
@@ -150,7 +152,7 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
                 .validatingDataType(chartObject.border_between_chart_elements_thickness,"border_between_chart_elements_thickness")
                 .validatingDataType(chartObject.label_size,"label_size")
                 .validatingDataType(chartObject.pointer_thickness,"pointer_thickness")
-                .validatingDataType(chartObject.pointer_size,"pointer_size")                                
+                .validatingDataType(chartObject.pointer_size,"pointer_size")
                 .validatingDataType(chartObject.clubdata_maximum_nodes,"clubdata_maximum_nodes")
                 .validatingBorderBetweenChartElementsStyle(chartObject.border_between_chart_elements_style,"border_between_chart_elements_style")
                 .isArray(chartObject.chart_color,"chart_color")
@@ -162,15 +164,15 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
                 .validatingColor(chartObject.background_color,"background_color")
                 .validatingColor(chartObject.title_color,"title_color")
                 .validatingColor(chartObject.subtitle_color,"subtitle_color")
-                .validatingColor(chartObject.highlight_color,"highlight_color")                
-                .validatingColor(chartObject.label_color,"label_color")                                                                
-                .validatingColor(chartObject.pointer_color,"pointer_color")                                                
-                .validatingColor(chartObject.border_between_chart_elements_color,"border_between_chart_elements_color")                
+                .validatingColor(chartObject.highlight_color,"highlight_color")
+                .validatingColor(chartObject.label_color,"label_color")
+                .validatingColor(chartObject.pointer_color,"pointer_color")
+                .validatingColor(chartObject.border_between_chart_elements_color,"border_between_chart_elements_color")
 
         if($.isArray(chartObject.chart_color)) {
             if(chartObject.chart_color[0]) {
                 chartObject.k.validator()
-                    .validatingColor(chartObject.chart_color[0],"chart_color");                
+                    .validatingColor(chartObject.chart_color[0],"chart_color");
             }
         }
 

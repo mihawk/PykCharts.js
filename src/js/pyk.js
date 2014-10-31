@@ -618,7 +618,7 @@ PykCharts.Configuration = function (options){
                     .append("input")
                         .attr("type","image")
                         .attr("id","btn-zoom")
-                        .attr("src","../../PykCharts/img/apple_fullscreen.jpg")
+                        .attr("src",options.assets_location+"PykCharts/img/apple_fullscreen.jpg")
                         .style("font-size","30px")
                         .style("left","800px")
                         .style("top","0px")
@@ -692,16 +692,16 @@ PykCharts.Configuration = function (options){
                 var length = options.axis_x_pointer_values.length;
 
                 var values = [];
-                if(length) {            
+                if(length) {
                     for(var i = 0 ; i < length ; i++) {
                         if(options.axis_x_data_format === "number") {
                             if(_.isNumber(options.axis_x_pointer_values[i]) || !(isNaN(options.axis_x_pointer_values[i]))){
                                 values.push(options.axis_x_pointer_values[i])
-                            } 
+                            }
                         } else if(options.axis_x_data_format === "time") {
                             if(!(isNaN(new Date(data[0].x).getTime()))) {
                                 values.push(options.axis_x_pointer_values[i])
-                            } 
+                            }
                         }
                     }
                 }
@@ -750,16 +750,16 @@ PykCharts.Configuration = function (options){
                 }
                 d3.selectAll(options.selector + " .y.axis").attr("fill",function () { return options.axis_y_pointer_color; });
                 var yaxis = PykCharts.Configuration.makeYAxis(options,yScale);
-                
-                var length = options.axis_y_pointer_values.length;                
+
+                var length = options.axis_y_pointer_values.length;
                 var values = [];
                 if(length) {
                     for(var i = 0 ; i < length ; i++) {
                         if(options.axis_y_data_format === "number") {
                             if(_.isNumber(options.axis_y_pointer_values[i]) || !(isNaN(options.axis_y_pointer_values[i]))){
                                 values.push(options.axis_y_pointer_values[i])
-                            } 
-                        } 
+                            }
+                        }
                     }
                 }
 
@@ -1126,9 +1126,9 @@ PykCharts.Configuration = function (options){
                 }
 
                 if ($(child1)[0].classList.contains("light")) {
-                    options.img = "../img/download.png";
+                    options.img = options.assets_location+"img/download.png";
                 } else {
-                    options.img = "../img/download-light.png";
+                    options.img = options.assets_location+"img/download-light.png";
                 }
 
             return this;
@@ -2137,6 +2137,8 @@ configuration.transition = function (options) {
 configuration.Theme = function(){
     var that = this;
     that.stylesheet = {
+        "pykih_charts_assets_location": "../pykih-charts/assets/",
+
         "mode": "default",
         "selector": "",
 
