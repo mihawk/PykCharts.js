@@ -72,7 +72,7 @@ PykCharts.maps.processInputs = function (chartObject, options) {
     chartObject.axis_x_pointer_length = "axis_x_pointer_length" in options && PykCharts.boolean(chartObject.axis_x_enable) ? options.axis_x_pointer_length : stylesheet.axis_x_pointer_length;
     // chartObject.axis_x_value_format = PykCharts.boolean(chartObject.axis_x_enable) && options.axis_x_value_format ? options.axis_x_value_format : stylesheet.axis_x_value_format;
     chartObject.axis_x_pointer_values = PykCharts.boolean(chartObject.axis_x_enable) && options.axis_x_pointer_values ? options.axis_x_pointer_values : stylesheet.axis_x_pointer_values;
-    chartObject.axis_x_outer_pointer_size = "axis_x_outer_pointer_size" in options && PykCharts.boolean(chartObject.axis_x_enable) ? options.axis_x_outer_pointer_size : stylesheet.axis_x_outer_pointer_size;
+    chartObject.axis_x_outer_pointer_length = "axis_x_outer_pointer_length" in options && PykCharts.boolean(chartObject.axis_x_enable) ? options.axis_x_outer_pointer_length : stylesheet.axis_x_outer_pointer_length;
 
     chartObject.axis_x_pointer_size = "axis_x_pointer_size" in options ? options.axis_x_pointer_size : stylesheet.axis_x_pointer_size;
     chartObject.axis_x_pointer_weight = options.axis_x_pointer_weight ? options.axis_x_pointer_weight.toLowerCase() : stylesheet.axis_x_pointer_weight;
@@ -163,7 +163,7 @@ PykCharts.maps.processInputs = function (chartObject, options) {
                 .validatingDataType(chartObject.legends_text_size ,"legends_text_size")
                 .validatingDataType(chartObject.axis_x_pointer_size,"axis_x_pointer_size")
                 .validatingDataType(chartObject.axis_x_pointer_length,"axis_x_pointer_length")
-                .validatingDataType(chartObject.axis_x_outer_pointer_size,"axis_x_outer_pointer_size")
+                .validatingDataType(chartObject.axis_x_outer_pointer_length,"axis_x_outer_pointer_length")
                 .validatingDataType(chartObject.axis_x_pointer_padding,"axis_x_pointer_padding")
                 .validatingDataType(chartObject.default_zoom_level,"default_zoom_level")
                 .validatingDataType(chartObject.tooltip_position_top,"tooltip_position_top")

@@ -1986,7 +1986,7 @@ configuration.makeXAxis = function(options,xScale) {
     var xaxis = d3.svg.axis()
                     .scale(xScale)
                     .tickSize(options.axis_x_pointer_length)
-                    .outerTickSize(options.axis_x_outer_pointer_size)
+                    .outerTickSize(options.axis_x_outer_pointer_length)
                     .tickFormat(function (d,i) {
                         if(options.panels_enable === "yes" && options.axis_x_data_format === "string") {
                             return d.substr(0,2);
@@ -2037,7 +2037,7 @@ configuration.makeYAxis = function(options,yScale) {
                     .scale(yScale)
                     .orient(options.axis_y_pointer_position)
                     .tickSize(options.axis_y_pointer_length)
-                    .outerTickSize(options.axis_y_outer_pointer_size)
+                    .outerTickSize(options.axis_y_outer_pointer_length)
                     .tickPadding(options.axis_y_pointer_padding)
                     .tickFormat(function (d,i) {
                         return d;
@@ -2214,7 +2214,7 @@ configuration.Theme = function(){
         // "axis_x_value_format": "",
         "axis_x_pointer_padding": 6,
         "axis_x_pointer_values": [],
-        "axis_x_outer_pointer_size": 0,
+        "axis_x_outer_pointer_length": 0,
         "axis_x_time_value_datatype":"",
         "axis_x_time_value_interval":0,
         "axis_x_data_format": "string",
@@ -2297,7 +2297,7 @@ configuration.Theme = function(){
         // "axis_y_value_format": "",
         "axis_y_pointer_padding": 6,
         "axis_y_pointer_values": [],
-        "axis_y_outer_pointer_size": 0,
+        "axis_y_outer_pointer_length": 0,
         "axis_y_time_value_datatype":"",
         "axis_y_time_value_interval":0,
         "axis_y_data_format": "number",
@@ -6653,7 +6653,7 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     chartObject.axis_x_value_format = PykCharts.boolean(chartObject.axis_x_enable) && options.axis_x_value_format ? options.axis_x_value_format : stylesheet.axis_x_value_format;
 
     chartObject.axis_x_pointer_values = PykCharts.boolean(chartObject.axis_x_enable) && options.axis_x_pointer_values ? options.axis_x_pointer_values : stylesheet.axis_x_pointer_values;
-    chartObject.axis_x_outer_pointer_size = "axis_x_outer_pointer_size" in options && PykCharts.boolean(chartObject.axis_x_enable) ? options.axis_x_outer_pointer_size : stylesheet.axis_x_outer_pointer_size;
+    chartObject.axis_x_outer_pointer_length = "axis_x_outer_pointer_length" in options && PykCharts.boolean(chartObject.axis_x_enable) ? options.axis_x_outer_pointer_length : stylesheet.axis_x_outer_pointer_length;
     chartObject.axis_x_time_value_datatype = PykCharts.boolean(chartObject.axis_x_enable) && options.axis_x_time_value_datatype ? options.axis_x_time_value_datatype.toLowerCase() : stylesheet.axis_x_time_value_datatype;
     chartObject.axis_x_time_value_interval = PykCharts.boolean(chartObject.axis_x_enable) && options.axis_x_time_value_interval ? options.axis_x_time_value_interval : stylesheet.axis_x_time_value_interval;
 
@@ -6680,7 +6680,7 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     chartObject.axis_y_pointer_length = "axis_y_pointer_length" in options && PykCharts.boolean(chartObject.axis_y_enable) ? options.axis_y_pointer_length : multiDimensionalCharts.axis_y_pointer_length;
     chartObject.axis_y_value_format = PykCharts.boolean(chartObject.axis_y_enable) && options.axis_y_value_format ? options.axis_y_value_format : multiDimensionalCharts.axis_y_value_format;
     chartObject.axis_y_pointer_values = PykCharts.boolean(chartObject.axis_y_enable) && options.axis_y_pointer_values ? options.axis_y_pointer_values : multiDimensionalCharts.axis_y_pointer_values;
-    chartObject.axis_y_outer_pointer_size = "axis_y_outer_pointer_size" in options && PykCharts.boolean(chartObject.axis_y_enable) ? options.axis_y_outer_pointer_size : multiDimensionalCharts.axis_y_outer_pointer_size;
+    chartObject.axis_y_outer_pointer_length = "axis_y_outer_pointer_length" in options && PykCharts.boolean(chartObject.axis_y_enable) ? options.axis_y_outer_pointer_length : multiDimensionalCharts.axis_y_outer_pointer_length;
     chartObject.axis_y_time_value_datatype = PykCharts.boolean(chartObject.axis_y_enable) && options.axis_y_time_value_datatype ? options.axis_y_time_value_datatype.toLowerCase(): multiDimensionalCharts.axis_y_time_value_datatype;
     chartObject.axis_y_time_value_interval = PykCharts.boolean(chartObject.axis_y_enable) && options.axis_y_time_value_interval ? options.axis_y_time_value_interval : multiDimensionalCharts.axis_y_time_value_interval;
 
@@ -6793,8 +6793,8 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
                 .validatingDataType(chartObject.zoom_level,"zoom_level")
                 .validatingDataType(chartObject.pointer_thickness,"pointer_thickness")
                 .validatingDataType(chartObject.pointer_size,"pointer_size")
-                .validatingDataType(chartObject.axis_x_outer_pointer_size,"axis_x_outer_pointer_size")
-                .validatingDataType(chartObject.axis_y_outer_pointer_size,"axis_y_outer_pointer_size")
+                .validatingDataType(chartObject.axis_x_outer_pointer_length,"axis_x_outer_pointer_length")
+                .validatingDataType(chartObject.axis_y_outer_pointer_length,"axis_y_outer_pointer_length")
                 .validatingDataType(chartObject.axis_x_pointer_padding,"axis_x_pointer_padding")
                 .validatingDataType(chartObject.axis_y_pointer_padding,"axis_y_pointer_padding")
                 .validatingDataType(chartObject.axis_x_no_of_axis_value,"axis_x_no_of_axis_value")
@@ -12168,7 +12168,7 @@ PykCharts.maps.processInputs = function (chartObject, options) {
     chartObject.axis_x_pointer_length = "axis_x_pointer_length" in options && PykCharts.boolean(chartObject.axis_x_enable) ? options.axis_x_pointer_length : stylesheet.axis_x_pointer_length;
     // chartObject.axis_x_value_format = PykCharts.boolean(chartObject.axis_x_enable) && options.axis_x_value_format ? options.axis_x_value_format : stylesheet.axis_x_value_format;
     chartObject.axis_x_pointer_values = PykCharts.boolean(chartObject.axis_x_enable) && options.axis_x_pointer_values ? options.axis_x_pointer_values : stylesheet.axis_x_pointer_values;
-    chartObject.axis_x_outer_pointer_size = "axis_x_outer_pointer_size" in options && PykCharts.boolean(chartObject.axis_x_enable) ? options.axis_x_outer_pointer_size : stylesheet.axis_x_outer_pointer_size;
+    chartObject.axis_x_outer_pointer_length = "axis_x_outer_pointer_length" in options && PykCharts.boolean(chartObject.axis_x_enable) ? options.axis_x_outer_pointer_length : stylesheet.axis_x_outer_pointer_length;
 
     chartObject.axis_x_pointer_size = "axis_x_pointer_size" in options ? options.axis_x_pointer_size : stylesheet.axis_x_pointer_size;
     chartObject.axis_x_pointer_weight = options.axis_x_pointer_weight ? options.axis_x_pointer_weight.toLowerCase() : stylesheet.axis_x_pointer_weight;
@@ -12259,7 +12259,7 @@ PykCharts.maps.processInputs = function (chartObject, options) {
                 .validatingDataType(chartObject.legends_text_size ,"legends_text_size")
                 .validatingDataType(chartObject.axis_x_pointer_size,"axis_x_pointer_size")
                 .validatingDataType(chartObject.axis_x_pointer_length,"axis_x_pointer_length")
-                .validatingDataType(chartObject.axis_x_outer_pointer_size,"axis_x_outer_pointer_size")
+                .validatingDataType(chartObject.axis_x_outer_pointer_length,"axis_x_outer_pointer_length")
                 .validatingDataType(chartObject.axis_x_pointer_padding,"axis_x_pointer_padding")
                 .validatingDataType(chartObject.default_zoom_level,"default_zoom_level")
                 .validatingDataType(chartObject.tooltip_position_top,"tooltip_position_top")
