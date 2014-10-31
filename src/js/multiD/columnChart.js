@@ -9,7 +9,7 @@ PykCharts.multiD.columnChart = function(options){
             return;
         
         // that.grid_y_enable = options.chart_grid_y_enable ? options.chart_grid_y_enable : theme.stylesheet.chart_grid_y_enable;
-        that.grid_color = options.chart_grid_color ? options.chart_grid_color.toLowerCase() : theme.stylesheet.chart_grid_color;
+        that.grid_color = options.chart_grid_color ? options.chart_grid_color : theme.stylesheet.chart_grid_color;
 
         if(that.mode === "default") {
            that.k.loading();
@@ -186,7 +186,9 @@ PykCharts.multiD.columnChart = function(options){
                 return this;
             },
             axisContainer : function () {
-                if(PykCharts.boolean(that.x_axis_enable)) {
+                // console.log(that.x_axis_enable);
+                if(PykCharts.boolean(that.axis_x_enable)) {
+                    // console.log("hey");
                     var axis_line = that.group.selectAll(".axis-line")
                         .data(["line"]);
 
@@ -292,8 +294,7 @@ PykCharts.multiD.columnChart = function(options){
                     width_factor = (that.xScale.rangeBand()/(2*that.no_of_groups));
                 };
 
-                // for(i in that.groups){
-                for(i=0;i<that.groups.length;i++) {
+                for(i in that.groups){
                     g = that.groups[i];
                     x = that.xScale(g[0]);
                     totalWidth = that.xScale.rangeBand() * g.length;
@@ -389,93 +390,97 @@ PykCharts.multiD.columnChart = function(options){
 
                 bars.exit()
                     .remove();
-
-                var xAxis_label = that.group.selectAll("text.axis-text")
-                    .data(group_arr);
                 var flag, length = group_arr.length,
                     largest = 0, rangeband = len;
 
-                xAxis_label.enter()
-                        .append("text")
+                if(PykCharts.boolean(that.axis_x_enable)) {
+                    var xAxis_label = that.group.selectAll("text.axis-text")
+                        .data(group_arr);
 
-                xAxis_label.attr("class", "axis-text")
-                        .attr("x", function(d){
-                            return d.x;
-                        })
-                        .attr("text-anchor", "middle")
-                        .attr("fill",that.axis_x_pointer_color)
-                        .attr("font-size",that.axis_x_pointer_size)
-                        .style("font-weight",that.axis_x_pointer_weight)
-                        .style("font-family",that.axis_x_pointer_family)
-                        .text(function(d){
-                            return d.name;
-                        })
-                        .text(function (d) {
-                            largest = (this.getBBox().width > largest) ? this.getBBox().width : largest;
-                        });
-                if (rangeband >= largest) { flag = 1; }
-                else if (rangeband >= (largest*0.75) && rangeband < largest) { flag = 2; }
-                else if (rangeband >= (largest*0.65) && rangeband < (largest*0.75)) { flag = 3; }
-                else if (rangeband >= (largest*0.55) && rangeband < (largest*0.65)) { flag = 4; }
-                else if (rangeband >= (largest*0.35) && rangeband < (largest*0.55)) { flag = 5; }
-                else if (rangeband <= 20 || rangeband < (largest*0.35)) { flag = 0; }
+                    xAxis_label.enter()
+                            .append("text")
 
-                xAxis_label.text(function (d) {
-                            if (flag === 0) {
-                                return "";
-                            }
-                            else if (rangeband >= this.getBBox().width && flag === 1) {
+                    xAxis_label.attr("class", "axis-text")
+                            .attr("x", function(d){
+                                // console.log(d.x,"d.x");
+                                return d.x;
+                            })
+                            .attr("text-anchor", "middle")
+                            .attr("fill",that.axis_x_pointer_color)
+                            .attr("font-size",that.axis_x_pointer_size)
+                            .style("font-weight",that.axis_x_pointer_weight)
+                            .style("font-family",that.axis_x_pointer_family)
+                            .text(function(d){
+                                // console.log(d.name,"name");
                                 return d.name;
-                            }
-                            else if (rangeband >= (this.getBBox().width*0.75) && rangeband < this.getBBox().width && flag === 2){
-                                return d.name.substr(0,5) + "..";
-                            }
-                            else if (rangeband >= (this.getBBox().width*0.65) && rangeband < (this.getBBox().width*0.75) && flag === 3){
-                                return d.name.substr(0,4) + "..";
-                            }
-                            else if (flag === 4){
-                                return d.name.substr(0,3);
-                            }
-                            else if (flag === 5){
-                                return d.name.substr(0,2);
-                            }
-                            else {
-                                return d.name;
-                            }
-                        })
-                        .on('mouseover',function (d) {
-                            that.mouseEvent.tooltipPosition(d);
-                            that.mouseEvent.tooltipTextShow(d.name);
-                        })
-                        .on('mouseout',function (d) {
-                            that.mouseEvent.tooltipHide(d);
-                        })
-                        .on('mousemove', function (d) {
-                            that.mouseEvent.tooltipPosition(d);
-                        });
+                            })
+                            .text(function (d) {
+                                largest = (this.getBBox().width > largest) ? this.getBBox().width : largest;
+                            });
+                    if (rangeband >= largest) { flag = 1; }
+                    else if (rangeband >= (largest*0.75) && rangeband < largest) { flag = 2; }
+                    else if (rangeband >= (largest*0.65) && rangeband < (largest*0.75)) { flag = 3; }
+                    else if (rangeband >= (largest*0.55) && rangeband < (largest*0.65)) { flag = 4; }
+                    else if (rangeband >= (largest*0.35) && rangeband < (largest*0.55)) { flag = 5; }
+                    else if (rangeband <= 20 || rangeband < (largest*0.35)) { flag = 0; }
 
-                xAxis_label.exit().remove();
-                if(that.axis_x_position==="top") {
-                    if(that.axis_x_pointer_position === "top") {
-                        xAxis_label.attr("y", function () {
-                            return -15;
-                        });
-                    } else if(that.axis_x_pointer_position === "bottom") {
-                        xAxis_label.attr("y", function () {
-                            return 15;
-                        });
+                    xAxis_label.text(function (d) {
+                                if (flag === 0) {
+                                    return "";
+                                }
+                                else if (rangeband >= this.getBBox().width && flag === 1) {
+                                    return d.name;
+                                }
+                                else if (rangeband >= (this.getBBox().width*0.75) && rangeband < this.getBBox().width && flag === 2){
+                                    return d.name.substr(0,5) + "..";
+                                }
+                                else if (rangeband >= (this.getBBox().width*0.65) && rangeband < (this.getBBox().width*0.75) && flag === 3){
+                                    return d.name.substr(0,4) + "..";
+                                }
+                                else if (flag === 4){
+                                    return d.name.substr(0,3);
+                                }
+                                else if (flag === 5){
+                                    return d.name.substr(0,2);
+                                }
+                                else {
+                                    return d.name;
+                                }
+                            })
+                            .on('mouseover',function (d) {
+                                that.mouseEvent.tooltipPosition(d);
+                                that.mouseEvent.tooltipTextShow(d.name);
+                            })
+                            .on('mouseout',function (d) {
+                                that.mouseEvent.tooltipHide(d);
+                            })
+                            .on('mousemove', function (d) {
+                                that.mouseEvent.tooltipPosition(d);
+                            });
+
+                    xAxis_label.exit().remove();
+                    if(that.axis_x_position==="top") {
+                        if(that.axis_x_pointer_position === "top") {
+                            xAxis_label.attr("y", function () {
+                                return -15;
+                            });
+                        } else if(that.axis_x_pointer_position === "bottom") {
+                            xAxis_label.attr("y", function () {
+                                return 15;
+                            });
+                        }
+                    }else {
+                        if(that.axis_x_pointer_position === "top") {
+                            xAxis_label.attr("y", function () {
+                                return h-15;
+                            });
+                        } else if(that.axis_x_pointer_position === "bottom") {
+                            xAxis_label.attr("y", function () {
+                                return h+15;
+                            });
+                        }
                     }
-                }else {
-                    if(that.axis_x_pointer_position === "top") {
-                        xAxis_label.attr("y", function () {
-                            return h-15;
-                        });
-                    } else if(that.axis_x_pointer_position === "bottom") {
-                        xAxis_label.attr("y", function () {
-                            return h+15;
-                        });
-                    }
-                }
+                }   
                 return this;
             },
             highlightRect : function () {
@@ -759,6 +764,10 @@ PykCharts.multiD.columnChart = function(options){
             return _.keys(d)[0];
         });
 
+        that.unique_color = _.map(that.group_data, function (d,i) {
+            return d[_.keys(d)][0].color;
+        });
+
         for(var i = 0;i<data.length;i++) {
             var value = _.values(data[i]);
             var group = value[0];
@@ -768,7 +777,7 @@ PykCharts.multiD.columnChart = function(options){
                     var value = _.values(data[i]);
                     var group = value[0];
                     if(_.keys(group[k])[0] != that.get_unique_group[k]) {                        
-                        var stack = { "name": "stack", "tooltip": "null", "color": "white", "val": 0, /*highlight: false*/ };
+                        var stack = { "name": "stack", "tooltip": "null", "color": that.unique_color[k], "val": 0, /*highlight: false*/ };
                         var missing_group = that.get_unique_group[k];
                         _.values(data[i])[0].splice(k, 0, {});
                         _.values(data[i])[0][k][missing_group] = [stack];

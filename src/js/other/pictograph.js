@@ -22,6 +22,19 @@ PykCharts.other.pictograph = function (options) {
         that.imageHeight = options.pictograph_image_height ? options.pictograph_image_height : otherCharts.pictograph_image_height;
         that.height = options.chart_height ? options.chart_height : that.width;
 
+        that.k.validator()
+            .validatingDataType(that.height,"chart_height")
+            .validatingDataType(that.imgperline,"pictograph_image_per_line")
+            .validatingDataType(that.imageWidth,"pictograph_image_width")
+            .validatingDataType(that.imageHeight,"pictograph_image_height")
+            .validatingDataType(that.current_count_size,"pictograph_current_count_size")
+            .validatingColor(that.total_count_color,"pictograph_total_count_color")                                                              
+            .validatingColor(that.current_count_color,"pictograph_current_count_color")           
+
+        if(that.stop) {
+            return;
+        }
+        
         if(that.mode === "default") {
            that.k.loading();
         }

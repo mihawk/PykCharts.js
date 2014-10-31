@@ -154,7 +154,6 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
                 .validatingDataType(chartObject.pointer_thickness,"pointer_thickness")
                 .validatingDataType(chartObject.pointer_size,"pointer_size")
                 .validatingDataType(chartObject.clubdata_maximum_nodes,"clubdata_maximum_nodes")
-                .validatingBorderBetweenChartElementsStyle(chartObject.border_between_chart_elements_style,"border_between_chart_elements_style")
                 .isArray(chartObject.chart_color,"chart_color")
                 .isArray(chartObject.clubdata_always_include_data_points,"clubdata_always_include_data_points")
                 .validatingFontWeight(chartObject.title_weight,"title_weight")
