@@ -1494,10 +1494,10 @@ PykCharts.Configuration = function (options){
                 validatingJSON : function (data) {
                     if(!data) {
                         try {
+                            options.stop = true;
                             throw "json format not valid";
                         }
                         catch (err) {
-                            options.stop = true;
                             options.k.errorHandling(err);
                         }
                     }
