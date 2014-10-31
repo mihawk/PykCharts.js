@@ -89,7 +89,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                 .legends()
                 .createGroups();
             // that.height = that.height - that.legendsGroup_height - 20;
-            that.outerRadius = that.k._radiusCalculation(that.outerRadius,"spiderweb");
+            that.outerRadius = that.k.__proto__._radiusCalculation(that.outerRadius,"spiderweb");
             that.radius_range = [(3*that.outerRadius)/100,(0.09*that.outerRadius)];
             that.sizes = new PykCharts.multiD.bubbleSizeCalculation(that,that.data,that.radius_range);
             
@@ -112,7 +112,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                 .legendsContainer()
                 .createGroups();
             // that.height = that.height - that.legendsGroup_height - 20;
-            that.outerRadius = that.k._radiusCalculation(that.outerRadius,"spiderweb");
+            that.outerRadius = that.k.__proto__._radiusCalculation(that.outerRadius,"spiderweb");
             that.radius_range = [(3*that.outerRadius)/100,(0.09*that.outerRadius)];
             that.sizes = new PykCharts.multiD.bubbleSizeCalculation(that,that.data,that.radius_range);
             that.optionalFeatures()

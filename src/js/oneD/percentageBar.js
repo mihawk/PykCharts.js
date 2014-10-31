@@ -27,7 +27,7 @@ PykCharts.oneD.percentageBar = function (options) {
             that.percent_row_rect_height = 100;
         }
 
-        that.percent_row_rect_height = that.k._radiusCalculation(that.percent_row_rect_height,"percentageBar") * 2;
+        that.percent_row_rect_height = that.k.__proto__._radiusCalculation(that.percent_row_rect_height,"percentageBar") * 2;
 
         if(that.mode === "default") {
            that.k.loading();
