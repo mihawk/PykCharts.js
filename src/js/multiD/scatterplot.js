@@ -4,10 +4,18 @@ PykCharts.multiD.scatterPlot = function (options) {
 
     this.execute = function() {
         that = new PykCharts.multiD.processInputs(that, options, "scatterplot");
-        that.bubbleRadius = options.scatterplot_radius ? options.scatterplot_radius : multiDimensionalCharts.scatterplot_radius;
+        that.bubbleRadius = options.scatterplot_radius ? options.scatterplot_radius : theme.multiDimensionalCharts.scatterplot_radius;
 
-        that.k.validator()
-            .validatingDataType(that.bubbleRadius,"scatterplot_radius");  
+        try {
+            if(!_.isNumber(that.bubbleRadius)) {
+                that.bubbleRadius = theme.multiDimensionalCharts.scatterplot_radius;
+                throw "scatterplot_radius"
+            }
+        } 
+
+        catch (err) {
+            that.k.warningHandling(err,"3");
+        }
 
         if(that.stop) 
             return;
@@ -55,8 +63,16 @@ PykCharts.multiD.pulse = function (options) {
         that.bubbleRadius = options.scatterplot_radius ? options.scatterplot_radius : (0.6 * multiDimensionalCharts.scatterplot_radius);
         that.panels_enable = options.panels_enable && options.panels_enable.toLowerCase() ? options.panels_enable : multiDimensionalCharts.panels_enable;
 
-        that.k.validator()
-            .validatingDataType(that.bubbleRadius,"scatterplot_radius")    
+        try {
+            if(!_.isNumber(that.bubbleRadius)) {
+                that.bubbleRadius = (0.6 * multiDimensionalCharts.scatterplot_radius);
+                throw "scatterplot_radius"
+            }
+        } 
+
+        catch (err) {
+            that.k.warningHandling(err,"3");
+        }
 
         if(that.stop) {
             return;
