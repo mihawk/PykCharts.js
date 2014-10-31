@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<html>
 	<head>
         <title>One-Dimensional Charts</title>
         <link rel="stylesheet" type="text/css" href="../dist/pykcharts.0.0.8.min.css">
@@ -46,47 +45,30 @@
                 mode: "DEFault",
                 transition_duration: 1,
                 clubdata_enable: "yes",
-                clubdata_always_include_data_points : ["North America"],
+                // clubData_always_include_data_points : ["18-24","25-44"],
                 // clubdata_maximum_nodes : 5,
                 export_enable: "YES",
                 background_color: "transparent",
                 // chart_width: 300,
                 // chart_height: 300,
                 title_text:"Air Pollution in New York </br>(23/12/2013 - 29/12/2013)",
-                subtitle_text:"Air Pollution in New York",
-                units_prefix: "$",
-                units_suffix: "/-",
-                mode: "DEFault",
-                clubdata_enable: "yes",
-                clubdata_always_include_data_points: ["Africa","South America"],            
+                subtitle_text:"Air Pollution in New York"
+            
             });
             k.execute();
 
       			var k = new PykCharts.oneD.funnel({
           			selector: "#funnel",
           			data:"../data/pie.json",
-
                     clubdata_enable: "yes",
-                clubdata_always_include_data_points : "",
-
+                clubData_always_include_data_points : "",
                 transition_duration: 1,
                 units_suffix: "rs",
                 pointer_weight: "normal",
                 "funnel_rect_width": 100,
-                "funnel_rect_height": 100,
-                units_prefix: "$",
-                units_suffix: "/-",
-                "pointer_overflow_enable": "yes",
-                "pointer_thickness": 1,
-                "pointer_weight": "bold",
-                "pointer_size": 12,
-                "pointer_color": "orange",
-                "pointer_family": "Papyrus",
-                mode: "DEFault",
-                clubdata_enable: "yes",
-                clubdata_always_include_data_points: ["Africa","South America"],
+                "funnel_rect_height": 100
         		});
-      			// k.execute();
+      			k.execute();
 
             var k = new PykCharts.oneD.pyramid ({
                 selector: "#pyramid",
@@ -94,19 +76,10 @@
                 transition_duration: 1,
                 background_color: "white",
                 mode:"infographics",
-                chart_color: ["cyan"],
+
                 pointer_overflow_enable: "no",
-                units_prefix: "$",
-                units_suffix: "/-",
-                "pointer_overflow_enable": "yes",
-                "pointer_thickness": 1,
-                "pointer_weight": "bold",
-                "pointer_size": 10,
-                "pointer_color": "orange",
-                "pointer_family": "Courier New",
-                label_color: "black"
             });
-           // k.execute();
+           k.execute();
 
             var k = new PykCharts.oneD.treemap({
                 selector: "#treemap",
@@ -114,49 +87,31 @@
                 transition_duration: 0,
                 background_color: "white",
                 mode:"infographics",
-                units_prefix: "$",
-                units_suffix: "/-"
             });
-           // k.execute();
+           k.execute();
 
             var k = new PykCharts.oneD.donut({
                 selector: "#donutContainer",
-                data: "../data/screenshot.json",
+                data: "../data/pie.json",
                 transition_duration: 1,
-                mode: "DEFault",
-                clubdata_enable: "yes",
-                clubdata_always_include_data_points: ["Africa","South America"],
-                units_prefix: "$",
-                units_suffix: "/-"
             });
-           // k.execute();
+           k.execute();
 
             var k = new PykCharts.oneD.election_pie({
                 selector: "#electionPieContainer",
                 data: "../data/pie.json",
                 transition_duration: 4,
-                background_color: "white",
-                mode: "DEFault",
-                clubdata_enable: "yes",
-                clubdata_always_include_data_points: ["Africa","South America"],
-                units_prefix: "$",
-                units_suffix: "/-"
+                background_color: "white"
             });
-           // k.execute();
+           k.execute();
 
             var k = new PykCharts.oneD.election_donut({
                 selector: "#electionDonutContainer",
                 data: "../data/pie.json",
                 background_color: "white",
                 transition_duration: 4,
-                mode: "DEFault",
-                clubdata_enable: "yes",
-                clubdata_always_include_data_points: ["Africa","South America"],
-
-                units_prefix: "$",
-                units_suffix: "/-"
            });
-           // k.execute();
+           k.execute();
 
             var k = new PykCharts.oneD.pie({
                 chart_width: 400,
@@ -164,28 +119,18 @@
                 background_color: "white",
                 selector: "#pieContainer",
                 data: "../data/screenshot.json",
-                // transition_duration: 4,
-                mode: "DEFault",
-                clubdata_enable: "yes",
-                clubdata_always_include_data_points: ["Africa","South America"],
-                units_prefix: "$",
-                units_suffix: "/-"
+                // transition_duration: 4
             });
-           // k.execute();
+           k.execute();
 
             var k = new PykCharts.oneD.percentageColumn({
                 chart_width: 600,
                 chart_height: 300,
                 selector: "#percentageColumn",
                 data:"../data/pie.json",
-                transition_duration: 1,
-                mode: "DEFault",
-                clubdata_enable: "yes",
-                clubdata_always_include_data_points: ["Africa","South America"],
-                units_prefix: "$",
-                units_suffix: "/-"
+                transition_duration: 1
             });
-           // k.execute();
+           k.execute();
 
             var k = new PykCharts.oneD.percentageBar({
                 selector: "#percentageBar",
@@ -194,27 +139,17 @@
                 transition_duration: 1,
                 // "chart_height": 200,
                 chart_width: 600,
-                // clubdata_enable: "yes",
-                mode: "DEFault",
-                clubdata_enable: "yes",
-                clubdata_always_include_data_points: ["Africa","South America"],
-                units_prefix: "$",
-                units_suffix: "/-"
+                // clubdata_enable: "yes"
             });
-           // k.execute();
+           k.execute();
 
             var k = new PykCharts.oneD.pie({
                 selector: "#pie2Container",
                 background_color: "white",
                 data: "../data/pie2.json",
-                transition_duration: 1,
-                mode: "DEFault",
-                clubdata_enable: "yes",
-                clubdata_always_include_data_points: ["Africa","South America"],
-                units_prefix: "$",
-                units_suffix: "/-"
+                transition_duration: 1
             });
-           // k.execute();
+           k.execute();
 		    }
 		</script>
     <script src="../dist/pykcharts.0.0.8.js"></script>

@@ -137,7 +137,7 @@ PykCharts.boolean = function(d) {
 };
 
 PykCharts.getEvent = function () {
-  function getSourceEvent() {
+  var getSourceEvent = function () {
     if (d3.event && d3.event.sourceEvent) {
       return d3.event.sourceEvent;
     }
@@ -145,8 +145,9 @@ PykCharts.getEvent = function () {
       return d3.event;
     }
   }
+
   try {
-    return event || getSourceEvent();
+    return getSourceEvent() || event;
   } catch (e) {
     return getSourceEvent();
   }
@@ -4647,7 +4648,6 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                 // var proportion =_.map(that.new_data,function (d,i) {
                 //     return d.weight*100/that.sum;
                 // });
-                console.log(that.k);
                 that.inner_radius = that.k.__proto__._radiusCalculation(that.innerRadiusPercent,that.calculation);
                 that.outer_radius = that.k.__proto__._radiusCalculation(that.radiusPercent,that.calculation);
 
@@ -13194,10 +13194,8 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         include.async = false;
         include.onload = function () {
             try {
-                 console.log("IMPORT----------------",i);
                 if (_ && d3 && ($ || jQuery) && d3.customHive && topojson && $("body").colourBrightness) {
                     PykCharts.numberFormat = d3.format(",");
-                 console.log(urls[i],"----------------",i);
                     window.PykChartsInit();
                     $("body").click(function () {
                         if (PykCharts.export_menu_status === 0) {
@@ -13222,7 +13220,6 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             }
         }
         catch (e) {
-                console.log("TRY------------",i)
            importFiles(urls[i],i);
         }
     }
