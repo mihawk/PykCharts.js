@@ -406,7 +406,10 @@ PykCharts.multiD.lineChart = function (options){
 		          	x_range = [0 ,that.reducedWidth];
 		          	that.xScale = that.k.scaleIdentification("linear",x_data,x_range);
 		          	that.extra_left_margin = 0;
-		          	that.ydomain = that.yScale.domain();
+		          	that.new_data[0].data.forEach(function (d) {
+		          		that.xdomain.push(d.x);
+		          	})
+		          	
 
 		        } else if(that.axis_x_data_format === "string") {
 		          	that.new_data[0].data.forEach(function(d) { x_data.push(d.x); });

@@ -1225,9 +1225,9 @@ PykCharts.Configuration = function (options){
                     d3.select(options.selector + " .dropdown-multipleConatiner-export").style("visibility", "visible");
                 });
                 if(!PykCharts.boolean(panels_enable)) {
-                    console.log(chart_name,"chart_name")
+                    // console.log(chart_name,"chart_name")
                     $(chart.selector + " #span").click(function () {
-                        console.log("exportttttttttttttttt");
+                        // console.log("exportttttttttttttttt");
                         d3.select(options.selector + " .dropdown-multipleConatiner-export").style("visibility", "hidden");
                         chart.k.processSVG(document.querySelector(options.selector +" "+svgId),chart_name);
                         project.importSVG(document.querySelector(options.selector +" "+svgId));
@@ -1583,6 +1583,7 @@ configuration.mouseEvent = function (options) {
 
                                 if(left_diff >= right_diff) {
                                     active_x_tick = data[j].x;
+                                    // console.log(active_x_tick,"active_x_tick")
                                     active_y_tick.push(data[j].y);
                                     tooltipText = data[j].tooltip || data[j].y;
                                     pos_line_cursor_x = (xScale(active_x_tick) + lineMargin + left);
@@ -1590,6 +1591,7 @@ configuration.mouseEvent = function (options) {
                                 }
                                 else {
                                     active_x_tick = data[j+1].x;
+                                    // console.log(active_x_tick,"active_x_tick")
                                     active_y_tick.push(data[j+1].y);
                                     tooltipText = data[j+1].tooltip || data[j+1].y; // Line Chart ONLY!
                                     pos_line_cursor_x = (xScale(active_x_tick) + lineMargin + left);
@@ -1817,7 +1819,9 @@ configuration.mouseEvent = function (options) {
                         // .style("font-size","12px")
                         .style("font-weight","normal");
                     for(var b=0;b < axis_data_length;b++) {
+                        // console.log(b,"it goessssssssssssssssssssss");
                         for(var a=0;a < active_tick.length;a++) {
+                            // console.log(active_tick[a],a,"heyyyyyyyyyy")
                             if(d3.selectAll(selection)[0][b].innerHTML == active_tick[a]) {
                                 d3.select(d3.selectAll(selection)[0][b])
                                     .style("fill",abc)
@@ -1843,10 +1847,21 @@ configuration.mouseEvent = function (options) {
                             .style("fill",abc)
                             .style("font-weight","normal");
                     }
+                    axis_data_length = d3.selectAll(selection)[0].length;
                     var len = domain.length;
-                    for(curr_tick = 0;curr_tick < len;curr_tick++){
-                        if(domain[curr_tick] === active_tick) {
-                            break;
+                    if(options.axis_x_data_format === "number" && a === undefined) {
+                        for(var curr_tick=0;curr_tick< axis_data_length;curr_tick++) {
+                            if(d3.selectAll(selection)[0][curr_tick].innerHTML == active_tick) {
+                                break;
+                            }
+                        }
+                    }
+                    else{
+                        for(curr_tick = 0;curr_tick < len;curr_tick++){
+                            // console.log("inside");
+                            if(domain[curr_tick] === active_tick) {
+                                break;
+                            }
                         }
                     }
                     prev_tick = curr_tick;
