@@ -226,7 +226,6 @@ PykCharts.maps.processInputs = function (chartObject, options) {
                 chartObject.k.warningHandling(err,"3");
             }
 
-
     chartObject.timeline_duration = (chartObject.timeline_duration * 1000);
 
     return chartObject;
