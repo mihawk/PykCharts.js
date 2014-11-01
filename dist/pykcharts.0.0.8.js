@@ -2667,12 +2667,13 @@ PykCharts.oneD.bubble = function (options) {
         that.fillChart = new PykCharts.Configuration.fillChart(that);
         that.onHoverEffect = new PykCharts.oneD.mouseEvent(that);
         that.transitions = new PykCharts.Configuration.transition(that);
-
+        var l = $(".svgcontainer").length;
+        that.container_id = "svgcontainer" + l;
         if (that.mode ==="default") {
 
             that.k.title()
                 .backgroundColor(that)
-                .export(that,"#svgcontainer","bubble")
+                .export(that,"#" + that.container_id,"bubble")
                 .emptyDiv()
                 .subtitle();
 
@@ -2690,7 +2691,7 @@ PykCharts.oneD.bubble = function (options) {
         }
         else if (that.mode ==="infographics") {
             that.k.backgroundColor(that)
-                .export(that,"#svgcontainer","bubble")
+                .export(that,"#" + that.container_id,"bubble")
                 .emptyDiv();
 
             that.new_data = {"children" : that.data};
@@ -2711,10 +2712,10 @@ PykCharts.oneD.bubble = function (options) {
         var optional = {
             svgContainer: function () {
                 // $(that.selector).css("background-color",that.background_color);
-
+                
                 that.svgContainer = d3.select(that.selector).append("svg")
                     .attr("class","svgcontainer")
-                    .attr("id","svgcontainer")
+                    .attr("id",that.container_id)
                     .attr("preserveAspectRatio", "xMinYMin")
                     .attr("viewBox", "0 0 " + that.width + " " + that.height)
                     .attr("width",that.width)
@@ -3070,6 +3071,8 @@ PykCharts.oneD.funnel = function (options) {
 
     this.render = function () {
         var that = this;
+        var l = $(".svgcontainer").length;
+        that.container_id = "svgcontainer" + l;
         //that.fillChart = new PykCharts.oneD.fillChart(that);
         that.fillChart = new PykCharts.Configuration.fillChart(that);
         that.onHoverEffect = new PykCharts.oneD.mouseEvent(that);
@@ -3080,7 +3083,7 @@ PykCharts.oneD.funnel = function (options) {
         if(that.mode === "default") {
             that.k.title()
                 .backgroundColor(that)
-                .export(that,"#svgcontainer","funnel")
+                .export(that,"#"+that.container_id,"funnel")
                 .emptyDiv()
                 .subtitle();
         }
@@ -3088,7 +3091,7 @@ PykCharts.oneD.funnel = function (options) {
         that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
         if(that.mode === "infographics") {
             that.k.backgroundColor(that)
-                .export(that,"#svgcontainer","funnel")
+                .export(that,"#" + container_id,"funnel")
                 .emptyDiv();
 
             that.new_data = that.data;
@@ -3245,7 +3248,7 @@ PykCharts.oneD.funnel = function (options) {
                     .attr("height",that.height + "px")
                     .attr("preserveAspectRatio", "xMinYMin")
                     .attr("viewBox", "0 0 " + that.width + " " + that.height)
-                    .attr("id","svgcontainer")
+                    .attr("id",that.container_id)
                     .attr("class","svgcontainer");
 
                     that.group = that.svgContainer.append("g")
@@ -3626,7 +3629,8 @@ PykCharts.oneD.percentageColumn = function (options) {
 
     this.render = function () {
         var that = this;
-
+        var l = $(".svgcontainer").length;
+        that.container_id = "svgcontainer" + l;
         that.fillChart = new PykCharts.Configuration.fillChart(that);
         that.onHoverEffect = new PykCharts.oneD.mouseEvent(options);
         that.transitions = new PykCharts.Configuration.transition(that);
@@ -3635,14 +3639,14 @@ PykCharts.oneD.percentageColumn = function (options) {
         if(that.mode === "default") {
             that.k.title()
                     .backgroundColor(that)
-                    .export(that,"#svgcontainer","percentageColumn")
+                    .export(that,"#"+that.container_id,"percentageColumn")
                     .emptyDiv()
                     .subtitle();
                 // [that.fullscreen]().fullScreen(that);
         }
         if(that.mode === "infographics") {
             that.k.backgroundColor(that)
-                .export(that,"#svgcontainer","percentageColumn")
+                .export(that,"#"+that.container_id,"percentageColumn")
                     .emptyDiv();
 
             that.new_data = that.data;
@@ -3761,7 +3765,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                     .attr("height",that.height)
                     .attr("preserveAspectRatio", "xMinYMin")
                     .attr("viewBox", "0 0 " + that.width + " " + that.height)
-                    .attr("id","svgcontainer")
+                    .attr("id",that.container_id)
                     .attr("class","svgcontainer");
 
                     that.group = that.svgContainer.append("g")
@@ -4074,6 +4078,8 @@ PykCharts.oneD.percentageBar = function (options) {
 
     this.render = function () {
         var that = this;
+        var l = $(".svgcontainer").length;
+        that.container_id = "svgcontainer" + l;
     //    that.fillChart = new PykCharts.oneD.fillChart(that);
         that.fillChart = new PykCharts.Configuration.fillChart(that);
         that.onHoverEffect = new PykCharts.oneD.mouseEvent(options);
@@ -4084,13 +4090,13 @@ PykCharts.oneD.percentageBar = function (options) {
 
             that.k.title()
                     .backgroundColor(that)
-                    .export(that,"#svgcontainer","percentageBar")
+                    .export(that,"#"+that.container_id,"percentageBar")
                     .emptyDiv()
                     .subtitle();
         }
         if(that.mode === "infographics") {
             that.k.backgroundColor(that)
-            .export(that,"#svgcontainer","percentageBar").emptyDiv();
+            .export(that,"#"+that.container_id,"percentageBar").emptyDiv();
             that.new_data = that.data;
         }
 
@@ -4211,7 +4217,7 @@ PykCharts.oneD.percentageBar = function (options) {
                     .attr("height",that.height)
                     .attr("preserveAspectRatio", "xMinYMin")
                     .attr("viewBox", "0 0 " + that.width + " " + that.height)
-                    .attr("id","svgcontainer")
+                    .attr("id",that.container_id)
                     .attr("class","svgcontainer");
 
                     that.group = that.svgContainer.append("g")
@@ -4813,8 +4819,10 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
     //----------------------------------------------------------------------------------------
 
     this.render = function() {
-
+        var l = $(".svgcontainer").length;
+        that.container_id = "svgcontainer" + l;
         that.count = 1;
+        console.log(l,"l");
 
         //that.fillChart = new PykCharts.oneD.fillChart(that);
         that.fillChart = new PykCharts.Configuration.fillChart(that);
@@ -4826,7 +4834,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
 
             that.k.title()
                 .backgroundColor(that)
-                .export(that,"#svgcontainer",type)
+                .export(that,"#" + that.container_id,type)
                 .emptyDiv()
                 .subtitle();
 
@@ -4852,7 +4860,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
         } else if(that.mode.toLowerCase() == "infographics") {
             that.new_data = that.data;
             that.k.backgroundColor(that)
-                .export(that,"#svgcontainer",type)
+                .export(that,"#" + that.container_id,type)
                     .emptyDiv();
             that.optionalFeatures().svgContainer()
                     .set_start_end_angle()
@@ -4886,7 +4894,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                     })
                     .attr("preserveAspectRatio", "xMinYMin")
                     .attr("viewBox", "0 0 " + that.width + " " + that.height)
-                    .attr("id","svgcontainer")
+                    .attr("id",that.container_id)
                     .attr("class","svgcontainer");
                 that.group = that.svgContainer.append("g")
                     .attr("transform","translate("+(that.width/2)+","+that.height_translate+")")
@@ -5443,6 +5451,8 @@ PykCharts.oneD.pyramid = function (options) {
     };
 
 	this.render = function () {
+        var l = $(".svgcontainer").length;
+        that.container_id = "svgcontainer" + l;
 //		that.fillChart = new PykCharts.oneD.fillChart(that);
         that.fillChart = new PykCharts.Configuration.fillChart(that);
         that.onHoverEffect = new PykCharts.oneD.mouseEvent(options);
@@ -5452,7 +5462,7 @@ PykCharts.oneD.pyramid = function (options) {
         if (that.mode === "default") {
             that.k.title()
                 .backgroundColor(that)
-                .export(that,"#svgcontainer","pyramid")
+                .export(that,"#"+that.container_id,"pyramid")
                 .emptyDiv()
                 .subtitle();
             that.new_data = that.optionalFeatures().clubData();
@@ -5474,7 +5484,7 @@ PykCharts.oneD.pyramid = function (options) {
         } else if (that.mode === "infographics") {
             that.new_data = that.data;
             that.k.backgroundColor(that)
-                .export(that,"#svgcontainer","pyramid")
+                .export(that,"#" + that.container_id,"pyramid")
                 .emptyDiv();
             that.optionalFeatures().svgContainer()
                 .createChart()
@@ -5567,7 +5577,7 @@ PykCharts.oneD.pyramid = function (options) {
                     .attr("height",that.height)
                     .attr("preserveAspectRatio", "xMinYMin")
                     .attr("viewBox", "0 0 " + that.width + " " + that.height)
-                    .attr("id","svgcontainer")
+                    .attr("id",that.container_id)
                     .attr("class","svgcontainer");
 
                 that.group = that.svgContainer.append("g")
@@ -5991,7 +6001,8 @@ PykCharts.oneD.treemap = function (options){
     };
 
     this.render = function (){
-
+        var l = $(".svgcontainer").length;
+        that.container_id = "svgcontainer" + l;
 //        that.fillChart = new PykCharts.oneD.fillChart(that);
         that.fillChart = new PykCharts.Configuration.fillChart(that);
         that.onHoverEffect = new PykCharts.oneD.mouseEvent(options);
@@ -6001,7 +6012,7 @@ PykCharts.oneD.treemap = function (options){
         if(that.mode === "default") {
             that.k.title()
                 .backgroundColor(that)
-                .export(that,"#svgcontainer","treemap")
+                .export(that,"#"+that.container_id,"treemap")
                 .emptyDiv()
                 .subtitle();
         }
@@ -6010,7 +6021,7 @@ PykCharts.oneD.treemap = function (options){
         that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
         if(that.mode === "infographics"){
             that.k.backgroundColor(that)
-                .export(that,"#svgcontainer","treemap")
+                .export(that,"#"+that.container_id,"treemap")
                 .emptyDiv();
             that.new_data = {"children" : that.data};
         }
@@ -6044,7 +6055,7 @@ PykCharts.oneD.treemap = function (options){
                     .attr("height",that.height)
                     .attr("preserveAspectRatio", "xMinYMin")
                     .attr("viewBox", "0 0 " + that.width + " " + that.height)
-                    .attr("id","svgcontainer")
+                    .attr("id",that.container_id)
                     .attr("class","svgcontainer");
 
                 that.group = that.svgContainer.append("g")
@@ -6494,18 +6505,19 @@ PykCharts.other.pictograph = function (options) {
     };
 
     this.render = function () {
-
+        var l = $(".svgcontainer").length;
+        that.container_id = "svgcontainer" + l;
         that.transitions = new PykCharts.Configuration.transition(that);
 
         if(that.mode==="default") {
             that.k.title()
                 .backgroundColor(that)
-                .export(that,"#svgcontainer","pictograph")
+                .export(that,"#"+that.container_id,"pictograph")
                 .emptyDiv()
                 .subtitle();
         } else {
             that.k.backgroundColor(that)
-                .export(that,"#svgcontainer","pictograph")
+                .export(that,"#"+that.container_id,"pictograph")
                 .emptyDiv();
         }
            
@@ -6533,7 +6545,8 @@ PykCharts.other.pictograph = function (options) {
                 that.svgContainer = d3.select(options.selector).append('svg')
                     .attr("width",that.width)
                     .attr("height",that.height)
-                    .attr("id","svgcontainer")
+                    .attr("id",that.container_id)
+                    .attr("class","svgcontainer")
                     .attr("preserveAspectRatio", "xMinYMin")
                     .attr("viewBox", "0 0 " + that.width + " " + that.height);
 
@@ -9184,6 +9197,8 @@ PykCharts.multiD.barChart = function(options){
     //----------------------------------------------------------------------------------------
     this.render = function(){
         var that = this;
+        var l = $(".svgcontainer").length;
+        that.container_id = "svgcontainer" + l;
         that.map_group_data = that.multiD.mapGroup(that.data);
         that.data = that.dataTransformation();
         that.data = that.emptygroups(that.data);
@@ -9228,7 +9243,7 @@ PykCharts.multiD.barChart = function(options){
 
             that.k.title()
                 .backgroundColor(that)
-                .export(that,"#svgcontainer","barChart")
+                .export(that,"#"+that.container_id,"barChart")
                 .emptyDiv()
                 .subtitle()
                 .makeMainDiv(that.selector,1);
@@ -9255,7 +9270,7 @@ PykCharts.multiD.barChart = function(options){
 
         } else if(that.mode === "infographics") {
             that.k.backgroundColor(that)
-                .export(that,"#svgcontainer","barChart")
+                .export(that,"#"+that.container_id,"barChart")
                 .emptyDiv()
                 .makeMainDiv(that.selector,1);
 
@@ -9292,7 +9307,7 @@ PykCharts.multiD.barChart = function(options){
                     .append("svg:svg")
                     .attr("width",that.width )
                     .attr("height",that.height)
-                    .attr("id","svgcontainer")
+                    .attr("id",that.container_id)
                     .attr("class","svgcontainer")
                     // .style("background-color",that.background_color)
                     .attr("preserveAspectRatio", "xMinYMin")
@@ -10196,6 +10211,8 @@ PykCharts.multiD.columnChart = function(options){
     //----------------------------------------------------------------------------------------
     this.render = function() {
         var that = this;
+        var l = $(".svgcontainer").length;
+        that.container_id = "svgcontainer" + l;
         that.map_group_data = that.multiD.mapGroup(that.data);
         that.data = that.dataTransformation();
         that.data = that.emptygroups(that.data);
@@ -10215,7 +10232,7 @@ PykCharts.multiD.columnChart = function(options){
         if(that.mode === "default") {
             that.k.title()
                 .backgroundColor(that)
-                .export(that,"#svgcontainer","columnChart")
+                .export(that,"#"+that.container_id,"columnChart")
                 .emptyDiv()
                 .subtitle()
                 .makeMainDiv(that.selector,1);
@@ -10248,7 +10265,7 @@ PykCharts.multiD.columnChart = function(options){
 
         } else if(that.mode === "infographics") {
             that.k.backgroundColor(that)
-                .export(that,"#svgcontainer","columnChart")
+                .export(that,"#"+that.container_id,"columnChart")
                 .emptyDiv()
                 .makeMainDiv(that.selector,1);
                 
@@ -10283,7 +10300,7 @@ PykCharts.multiD.columnChart = function(options){
                     .append("svg:svg")
                     .attr("width",that.width )
                     .attr("height",that.height)
-                    .attr("id","svgcontainer")
+                    .attr("id",that.container_id)
                     .attr("class","svgcontainer")
                     // .style("background-color",that.background_color)
                     .attr("preserveAspectRatio", "xMinYMin")
@@ -11973,14 +11990,15 @@ PykCharts.multiD.spiderWeb = function (options) {
 
     this.render = function () {
         that.fillChart = new PykCharts.Configuration.fillChart(that);
-        
+        var l = $(".svgcontainer").length;
+        that.container_id = "svgcontainer" + l;
         that.border = new PykCharts.Configuration.border(that);
         that.map_group_data = that.multiD.mapGroup(that.data);
 
         if(that.mode === "default") {
             that.k.title()
                 .backgroundColor(that)
-                .export(that,"#svgcontainer","spiderweb")
+                .export(that,"#"+that.container_id,"spiderweb")
                 .emptyDiv()
                 .subtitle()
                 .makeMainDiv(that.selector,1);
@@ -12014,7 +12032,7 @@ PykCharts.multiD.spiderWeb = function (options) {
 
         } else if (that.mode==="infographics") {
             that.k.backgroundColor(that)
-                .export(that,"#svgcontainer","spiderweb")
+                .export(that,"#"+container_id,"spiderweb")
                 .emptyDiv();
             that.k.makeMainDiv(that.selector,1);
             that.h = that.height;
@@ -12057,7 +12075,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                 that.svgContainer = d3.select(that.selector + " #tooltip-svg-container-" + i)
                     .append("svg")
                     .attr("class","svgcontainer")
-                    .attr("id","svgcontainer")
+                    .attr("id",that.container_id)
                     .attr("width", that.width)
                     .attr("height", that.height)
                     // .style("background-color",that.background_color)

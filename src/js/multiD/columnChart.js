@@ -69,6 +69,8 @@ PykCharts.multiD.columnChart = function(options){
     //----------------------------------------------------------------------------------------
     this.render = function() {
         var that = this;
+        var l = $(".svgcontainer").length;
+        that.container_id = "svgcontainer" + l;
         that.map_group_data = that.multiD.mapGroup(that.data);
         that.data = that.dataTransformation();
         that.data = that.emptygroups(that.data);
@@ -88,7 +90,7 @@ PykCharts.multiD.columnChart = function(options){
         if(that.mode === "default") {
             that.k.title()
                 .backgroundColor(that)
-                .export(that,"#svgcontainer","columnChart")
+                .export(that,"#"+that.container_id,"columnChart")
                 .emptyDiv()
                 .subtitle()
                 .makeMainDiv(that.selector,1);
@@ -121,7 +123,7 @@ PykCharts.multiD.columnChart = function(options){
 
         } else if(that.mode === "infographics") {
             that.k.backgroundColor(that)
-                .export(that,"#svgcontainer","columnChart")
+                .export(that,"#"+that.container_id,"columnChart")
                 .emptyDiv()
                 .makeMainDiv(that.selector,1);
                 
@@ -156,7 +158,7 @@ PykCharts.multiD.columnChart = function(options){
                     .append("svg:svg")
                     .attr("width",that.width )
                     .attr("height",that.height)
-                    .attr("id","svgcontainer")
+                    .attr("id",that.container_id)
                     .attr("class","svgcontainer")
                     // .style("background-color",that.background_color)
                     .attr("preserveAspectRatio", "xMinYMin")
