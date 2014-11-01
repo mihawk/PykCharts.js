@@ -321,6 +321,7 @@ PykCharts.multiD.lineChart = function (options){
 					.attr("id","svg-" + i)
 					.attr("width",that.w)
 					.attr("height",that.height)
+					.attr("class","svgcontainer")
 					.attr("preserveAspectRatio", "xMinYMin")
                     .attr("viewBox", "0 0 " + that.w + " " + that.height);
                 // console.log(that.svgContainer);
