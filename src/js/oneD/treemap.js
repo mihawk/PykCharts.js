@@ -15,7 +15,7 @@ PykCharts.oneD.treemap = function (options){
             }
         } 
         catch (err) {
-            that.k.warningHandling(err,"3");
+            that.k.warningHandling(err,"1");
         }
 
         if(that.stop) {
@@ -62,7 +62,8 @@ PykCharts.oneD.treemap = function (options){
     };
 
     this.render = function (){
-
+        var l = $(".svgcontainer").length;
+        that.container_id = "svgcontainer" + l;
 //        that.fillChart = new PykCharts.oneD.fillChart(that);
         that.fillChart = new PykCharts.Configuration.fillChart(that);
         that.onHoverEffect = new PykCharts.oneD.mouseEvent(options);
@@ -72,7 +73,7 @@ PykCharts.oneD.treemap = function (options){
         if(that.mode === "default") {
             that.k.title()
                 .backgroundColor(that)
-                .export(that,"#svgcontainer","treemap")
+                .export(that,"#"+that.container_id,"treemap")
                 .emptyDiv()
                 .subtitle();
         }
@@ -81,7 +82,7 @@ PykCharts.oneD.treemap = function (options){
         that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
         if(that.mode === "infographics"){
             that.k.backgroundColor(that)
-                .export(that,"#svgcontainer","treemap")
+                .export(that,"#"+that.container_id,"treemap")
                 .emptyDiv();
             that.new_data = {"children" : that.data};
         }
@@ -115,7 +116,7 @@ PykCharts.oneD.treemap = function (options){
                     .attr("height",that.height)
                     .attr("preserveAspectRatio", "xMinYMin")
                     .attr("viewBox", "0 0 " + that.width + " " + that.height)
-                    .attr("id","svgcontainer")
+                    .attr("id",that.container_id)
                     .attr("class","svgcontainer");
 
                 that.group = that.svgContainer.append("g")
