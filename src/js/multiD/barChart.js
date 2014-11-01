@@ -23,7 +23,7 @@ PykCharts.multiD.barChart = function(options){
             } 
         }
         catch(err) {
-            that.k.warningHandling(err,"13");
+            that.k.warningHandling(err,"9");
         }
 
         if(that.stop)
@@ -96,7 +96,7 @@ PykCharts.multiD.barChart = function(options){
                     } 
             }
             catch(err) {
-                that.k.warningHandling(err,"12");
+                that.k.warningHandling(err,"8");
             }
         } else {
             try {
@@ -107,7 +107,7 @@ PykCharts.multiD.barChart = function(options){
                     } 
             }
             catch(err) {
-                that.k.warningHandling(err,"12");
+                that.k.warningHandling(err,"8");
             }
         }
 

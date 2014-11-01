@@ -1,4 +1,4 @@
-PykCharts.multiD.lineChart = function (options){
+PykCharts.multiD.lineChart = function (options) {
 	var that = this;
 	var theme = new PykCharts.Configuration.Theme({});
 
@@ -12,6 +12,7 @@ PykCharts.multiD.lineChart = function (options){
 		if(that.mode === "default") {
 			that.k.loading();
 		}
+
 		var multiDimensionalCharts = theme.multiDimensionalCharts,
 			stylesheet = theme.stylesheet,
 			optional = options.optional;
@@ -257,8 +258,7 @@ PykCharts.multiD.lineChart = function (options){
 			that.compare_data = compare[0];
 			var data_changed = compare[1];
 			that.dataTransformation();
-
-			if(data_changed) {
+			if(data_changed || (PykCharts.boolean(that.zoom_enable) && that.count > 1 && that.count <= that.zoom_level) || that.transition_duration) {
 				that.k.lastUpdatedAt("liveData");
 				that.mouseEvent.tooltipHide(null,that.panels_enable,that.type);
 				that.mouseEvent.crossHairHide(that.type);

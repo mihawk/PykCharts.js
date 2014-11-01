@@ -24,7 +24,7 @@ PykCharts.maps.oneLayer = function (options) {
                 d3.json(PykCharts.assets+"ref/" + that.map_code + "-topo.json", function (e,data) {
 
                         if(e && e.status === 404) {
-                            that.k.errorHandling("map_code","1"); 
+                            that.k.errorHandling("map_code","3"); 
                             $(options.selector+" #chart-loader").remove();                           
                             return;
                         }
@@ -49,7 +49,7 @@ PykCharts.maps.oneLayer = function (options) {
                         }
                         catch (e) {
 
-                            that.k.warningHandling(err,"16");
+                            that.k.warningHandling(err,"11");
                         }
 
                         $(that.selector).html("");
@@ -110,7 +110,7 @@ PykCharts.maps.timelineMap = function (options) {
                         }
                     }
                     catch (err) {
-                        that.k.warningHandling(err,"16");
+                        that.k.warningHandling(err,"11");
                     }
 
                     var x_extent = d3.extent(that.timeline_data, function (d) { return d.timestamp; })

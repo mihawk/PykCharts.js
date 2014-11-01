@@ -30,7 +30,7 @@ PykCharts.other.pictograph = function (options) {
         } 
 
         catch (err) {
-            that.k.warningHandling(err,"3");
+            that.k.warningHandling(err,"1");
         }
 
         try {
@@ -41,7 +41,7 @@ PykCharts.other.pictograph = function (options) {
         } 
 
         catch (err) {
-            that.k.warningHandling(err,"3");
+            that.k.warningHandling(err,"1");
         }
 
         try {
@@ -52,7 +52,7 @@ PykCharts.other.pictograph = function (options) {
         } 
 
         catch (err) {
-            that.k.warningHandling(err,"3");
+            that.k.warningHandling(err,"1");
         }
 
         try {
@@ -63,7 +63,7 @@ PykCharts.other.pictograph = function (options) {
         } 
 
         catch (err) {
-            that.k.warningHandling(err,"3");
+            that.k.warningHandling(err,"1");
         }
 
         try {
@@ -74,19 +74,19 @@ PykCharts.other.pictograph = function (options) {
         } 
 
         catch (err) {
-            that.k.warningHandling(err,"3");
+            that.k.warningHandling(err,"1");
         }
 
-        // try {
-        //     if(!_.isNumber(that.total_count_color)) {
-        //         that.total_count_color = otherCharts.pictograph_total_count_color;
-        //         throw "pictograph_total_count_color"
-        //     }
-        // } 
+        try {
+            if(!_.isNumber(that.total_count_size)) {
+                that.total_count_size = otherCharts.pictograph_total_count_size;
+                throw "pictograph_total_count_size"
+            }
+        } 
 
-        // catch (err) {
-        //     that.k.warningHandling(err,"3");
-        // }
+        catch (err) {
+            that.k.warningHandling(err,"1");
+        }
 
         // try {
         //     if(!_.isNumber(that.current_count_color)) {
@@ -112,7 +112,7 @@ PykCharts.other.pictograph = function (options) {
                 $(options.selector+" #chart-loader").remove();
                 return;
             }
-            
+
             that.data = data.sort(function(a,b) {
                 return b.weight - a.weight;
             });

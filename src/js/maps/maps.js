@@ -200,7 +200,7 @@ PykCharts.maps.processInputs = function (chartObject, options) {
                     }
                 }
                 catch (err) {
-                    chartObject.k.warningHandling(err,"15");
+                    chartObject.k.warningHandling(err,"10");
                 }
             }
 
@@ -212,7 +212,7 @@ PykCharts.maps.processInputs = function (chartObject, options) {
                 }
             }
             catch (err) {
-                chartObject.k.warningHandling(err,"17");
+                chartObject.k.warningHandling(err,"12");
             }
 
             try {
@@ -223,7 +223,7 @@ PykCharts.maps.processInputs = function (chartObject, options) {
             }
 
             catch (err) {
-                chartObject.k.warningHandling(err,"3");
+                chartObject.k.warningHandling(err,"1");
             }
 
     chartObject.timeline_duration = (chartObject.timeline_duration * 1000);

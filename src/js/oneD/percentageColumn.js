@@ -21,7 +21,7 @@ PykCharts.oneD.percentageColumn = function (options) {
             }
         } 
         catch (err) {
-            that.k.warningHandling(err,"3");
+            that.k.warningHandling(err,"1");
         }
 
         try {
@@ -31,7 +31,7 @@ PykCharts.oneD.percentageColumn = function (options) {
             }
         } 
         catch (err) {
-            that.k.warningHandling(err,"3");
+            that.k.warningHandling(err,"1");
         }
         if(that.stop) {
             return;

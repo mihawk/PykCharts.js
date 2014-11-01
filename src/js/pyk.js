@@ -1275,14 +1275,13 @@ PykCharts.Configuration = function (options){
             return this;
         },
         errorHandling: function(error_msg,error_code,err_url) {
-            console.error('%c[Error - Pykih Charts] ', 'color: red;font-weight:bold;font-size:14px', " at "+options.selector+".(Invalid value for attribute \""+error_msg+"\")  Visit www.chartstore.io/docs#"/*+error_code*/);
+            console.error('%c[Error - Pykih Charts] ', 'color: red;font-weight:bold;font-size:14px', " at "+options.selector+".(Invalid value for attribute \""+error_msg+"\")  Visit www.chartstore.io/docs#error_"+error_code);
             return;
         },
         warningHandling: function(error_msg,error_code,err_url) {
-            console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+options.selector+".(Invalid value for attribute \""+error_msg+"\")  Visit www.chartstore.io/docs#"/*+error_code*/);
+            console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+options.selector+".(Invalid value for attribute \""+error_msg+"\")  Visit www.chartstore.io/docs#warning_"+error_code);
             return;
         },
-
         validator: function () {
             var validator = {
                 validatingSelector : function (selector) {
@@ -1311,7 +1310,7 @@ PykCharts.Configuration = function (options){
                         }
                     }
                     catch (err) {
-                        options.k.warningHandling(err,"3");
+                        options.k.warningHandling(err,"1");
                     }
                     return this;
                 },
@@ -1354,7 +1353,7 @@ PykCharts.Configuration = function (options){
                             }
                         }
                         catch (err) {
-                            options.k.warningHandling(err,"4");
+                            options.k.warningHandling(err,"3");
                         }
                     }
                     return this;
@@ -1368,7 +1367,7 @@ PykCharts.Configuration = function (options){
                             }
                         }
                         catch (err) {
-                            options.k.warningHandling(err,"10");
+                            options.k.warningHandling(err,"7");
                         }
                     return this;
                 },
@@ -1381,7 +1380,7 @@ PykCharts.Configuration = function (options){
                             }
                         }
                         catch (err) {
-                            options.k.warningHandling(err,"10");
+                            options.k.warningHandling(err,"7");
                         }
                     return this;
                 },
@@ -1406,7 +1405,7 @@ PykCharts.Configuration = function (options){
                             }
                         }
                         catch (err) {
-                            options.k.warningHandling(err,"#8");
+                            options.k.warningHandling(err,"13");
                         }
                     return this;
                 },
@@ -1418,7 +1417,7 @@ PykCharts.Configuration = function (options){
                         }
                         catch (err) {
                             options.stop = true;
-                            options.k.errorHandling(err,"7");
+                            options.k.errorHandling(err,"4");
                         }
                     return this;
                 },
@@ -1432,7 +1431,7 @@ PykCharts.Configuration = function (options){
                             }
                         }
                         catch (err) {
-                            options.k.errorHandling(err,"11");
+                            options.k.errorHandling(err,"5");
                         }
                     }
                     return this;
@@ -1447,7 +1446,7 @@ PykCharts.Configuration = function (options){
                             }
                         }
                         catch (err) {
-                            options.k.warningHandling(err,"#9");
+                            options.k.warningHandling(err,"14");
                         }
                     }
                     return this;
@@ -1461,7 +1460,7 @@ PykCharts.Configuration = function (options){
                         }
                     }
                     catch (err) {
-                        options.k.warningHandling(err,"6");
+                        options.k.warningHandling(err,"5");
                     }
                     return this;
                 },
@@ -1489,7 +1488,7 @@ PykCharts.Configuration = function (options){
                         }
                         catch (err) {
                             options[config_name] = default_value;
-                            options.k.warningHandling(err,"5");
+                            options.k.warningHandling(err,"4");
                         }
                     }
                     return this;
@@ -1498,10 +1497,10 @@ PykCharts.Configuration = function (options){
                     if(!data) {
                         try {
                             options.stop = true;
-                            throw "json format not valid";
+                            throw "Data is not in the valid JSON format";
                         }
                         catch (err) {
-                            console.error('%c[Error - Pykih Charts] ', 'color: red;font-weight:bold;font-size:14px', " at "+ options.selector+".(\""+err+"\")  Visit www.chartstore.io/docs#error1");
+                            console.error('%c[Error - Pykih Charts] ', 'color: red;font-weight:bold;font-size:14px', " at "+ options.selector+".(\""+err+"\")  Visit www.chartstore.io/docs#error_2");
                         }
                     }
                     if(options.stop) {

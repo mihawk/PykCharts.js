@@ -67,8 +67,8 @@
                     chart_grid_x_enable: "yes",
                     chart_grid_y_enable: "yes",
 
-                    transition_duration: 1,
-                    real_time_charts_refresh_frequency: 0,
+                    transition_duration: 0,
+                    real_time_charts_refresh_frequency: 5,
                     axis_onhover_hightlight_enable: "yes",
                     axis_x_enable: "yes",
                     axis_x_title : "Month",
@@ -76,7 +76,7 @@
                     axis_x_pointer_position: "bottom",
                     axis_x_line_color: "#1D1D1D",
                     axis_x_pointer_size: 12,
-                    axis_x_pointer_padding: 3,
+                    axis_x_pointer_padding: 2,
                     axis_y_pointer_values: [2,6],
                     axis_x_outer_pointer_length: 5,
                     axis_x_time_value_datatype:"month",
@@ -98,7 +98,7 @@
                     annotation_view_mode: "onload"
 
                 });
-                k.execute();
+               k.execute();
 
                 var k = new PykCharts.multiD.areaChart ({
                     selector: "#area",
@@ -153,7 +153,7 @@
                     annotation_enable: "yes",
                     annotation_view_mode: "onclick"
                 });
-                k.execute();
+//                k.execute();
 
                 var k = new PykCharts.multiD.spiderWeb ({
                     selector: "#spiderWeb",
@@ -189,7 +189,7 @@
                     legends_text_weight: "normal",
                     legends_text_family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
                 });
-                k.execute();
+//                k.execute();
 
                 var k = new PykCharts.multiD.scatterPlot ({
                     selector: "#scatterPlot",
@@ -258,7 +258,7 @@
                     chart_margin_bottom: 125,
                     chart_margin_left: 160,
                 });
-                k.execute();
+//                k.execute();
 
                 var k = new PykCharts.multiD.scatterPlot ({
                     selector: "#multiple-scatterplots",
@@ -317,7 +317,7 @@
                     border_between_chart_elements_thickness:0,
                     border_between_chart_elements_color:"blue"
                 });
-                k.execute();
+ //               k.execute();
 
                 var k = new PykCharts.multiD.lineChart ({
                     selector: "#multiLine",
@@ -370,7 +370,7 @@
                     zoom_enable: "yes",
                     annotation_enable:"yes"
                 });
-                k.execute();
+//                k.execute();
 
                 var k = new PykCharts.multiD.lineChart ({
                     selector: "#multiple-multiLine",
@@ -425,7 +425,7 @@
                     annotation_enable: "yes",
                     annotation_view_mode: "onload"
                 });
-                k.execute();
+//                k.execute();
 
                 var k = new PykCharts.multiD.areaChart ({
 
@@ -486,7 +486,7 @@
                     annotation_view_mode: "onclick",
                     annotation_border_color:"black"
                 });
-                k.execute();
+//                k.execute();
 
                 var k = new PykCharts.multiD.pulse({
                     selector: "#pulse",
@@ -550,7 +550,7 @@
                     border_between_chart_elements_style: "solid"
 
                 });
-                k.execute();
+//                k.execute();
 
                 var k = new PykCharts.multiD.columnChart({
                     data: "../data/ultimateColumn.json",
@@ -609,7 +609,7 @@
 
                     highlight:"January"
                 });
-                k.execute();
+//                k.execute();
 
                 var k = new PykCharts.multiD.columnChart({
                     data: "../data/ultimateGroupColumn.json",
@@ -672,7 +672,7 @@
 
                     highlight:"april"
                 });
-                k.execute();
+//                k.execute();
 
                 var k = new PykCharts.multiD.barChart({
                     data: "../data/ultimatebar_date.json",
@@ -728,7 +728,7 @@
                     pointer_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
                     highlight: "12-12-2014"
                 });
-                k.execute();
+//                k.execute();
 
                 var k = new PykCharts.multiD.barChart({
                     data: "../data/ultimateGroupBar.json",
@@ -799,7 +799,7 @@
                     "data_sort_order": "ascending" // sort order --- "descending" / "ascending"
 
                 });
-                k.execute();
+//                k.execute();
             };
         </script>
     </body>

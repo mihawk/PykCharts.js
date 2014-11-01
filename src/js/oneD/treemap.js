@@ -15,7 +15,7 @@ PykCharts.oneD.treemap = function (options){
             }
         } 
         catch (err) {
-            that.k.warningHandling(err,"3");
+            that.k.warningHandling(err,"1");
         }
 
         if(that.stop) {

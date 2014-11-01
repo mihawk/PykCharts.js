@@ -21,7 +21,7 @@ PykCharts.oneD.pie = function (options) {
             }
         } 
         catch (err) {
-            that.k.warningHandling(err,"3");
+            that.k.warningHandling(err,"1");
         }
 
         try {
@@ -31,7 +31,7 @@ PykCharts.oneD.pie = function (options) {
             }
         } 
         catch (err) {
-            that.k.warningHandling(err,"3");
+            that.k.warningHandling(err,"1");
         }
 
         if(that.stop) {
@@ -93,7 +93,7 @@ PykCharts.oneD.donut = function (options) {
             }
         } 
         catch (err) {
-            that.k.warningHandling(err,"3");
+            that.k.warningHandling(err,"1");
         }
 
         try {
@@ -103,7 +103,7 @@ PykCharts.oneD.donut = function (options) {
             }
         } 
         catch (err) {
-            that.k.warningHandling(err,"3");
+            that.k.warningHandling(err,"1");
         }
 
         try {
@@ -113,7 +113,7 @@ PykCharts.oneD.donut = function (options) {
             }
         } 
         catch (err) {
-            that.k.warningHandling(err,"3");
+            that.k.warningHandling(err,"1");
         }
 
 
@@ -131,11 +131,12 @@ PykCharts.oneD.donut = function (options) {
 
         try {
             if(that.innerRadiusPercent >= that.radiusPercent) {
+                that.innerRadiusPercent = theme.oneDimensionalCharts.donut_inner_radius_percent;
                 throw "donut_inner_radius_percent";
             }
         }
         catch(err) {
-            that.k.errorHandling(err,"8");
+            that.k.warningHandling(err,"6");
         }
 
         if(that.stop) {
@@ -186,7 +187,7 @@ PykCharts.oneD.election_pie = function (options) {
                 }
             }
             catch (err) {
-                that.k.warningHandling(err);
+                that.k.warningHandling(err,"1");
             }
         }
         if(that.x) {
@@ -210,7 +211,7 @@ PykCharts.oneD.election_pie = function (options) {
         } 
 
         catch (err) {
-            that.k.warningHandling(err,"3");
+            that.k.warningHandling(err,"1");
         }
 
         if(that.stop) {
@@ -311,12 +312,13 @@ PykCharts.oneD.election_donut = function (options) {
 
         try {
             if(that.innerRadiusPercent >= that.radiusPercent) {
+                that.innerRadiusPercent = theme.oneDimensionalCharts.donut_inner_radius_percent;
                 throw "donut_inner_radius_percent";
             }
         }
         catch(err) {
 
-            that.k.errorHandling(err,"8");
+            that.k.warningHandling(err,"6");
         }
 
         if(that.stop) {
