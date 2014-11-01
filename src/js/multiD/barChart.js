@@ -378,7 +378,6 @@ PykCharts.multiD.barChart = function(options){
                 that.highlight_y_positions = [];
                 that.highlight_x_positions = [];
 
-                // console.log(that.layers,"layers")
 
                 that.bars = that.group.selectAll(".bars")
                     .data(that.layers);
@@ -635,8 +634,6 @@ PykCharts.multiD.barChart = function(options){
                     });
 
                     params = _.uniq(params);
-                    // console.log(params)
-                    // color = _.uniq(color);
                     var j = 0,k = 0;
                     j = params.length;
                     k = params.length;
