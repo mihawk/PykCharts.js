@@ -946,6 +946,7 @@ PykCharts.Configuration = function (options){
             for(i=0; i<len; i++) {
                 comp = a[i].innerHTML;
                 if(a[i].getBBox().width > (options.margin_left * 0.7)) {
+                    console.log(comp);
                     comp = comp.substr(0,3) + "..";
                 }
                 a[i].innerHTML = comp;
