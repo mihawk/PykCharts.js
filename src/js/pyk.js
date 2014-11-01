@@ -2019,7 +2019,7 @@ configuration.border = function (options) {
     var that = this;
     var border = {
         width: function () {
-            return options.border_between_chart_elements_thickness;
+            return options.border_between_chart_elements_thickness +"px";
         },
         color: function () {
             return options.border_between_chart_elements_color;

@@ -431,7 +431,7 @@ PykCharts.oneD.pyramid = function (options) {
                             return (d.values[0].y + that.coordinates[that.coordinates.length-1].values[1].y)/2;
                         }
                     })
-                    .attr("stroke-width", that.pointer_thickness)
+                    .attr("stroke-width", that.pointer_thickness + "px")
                     .attr("stroke",that.pointer_color)
 
                     setTimeout(function() {
