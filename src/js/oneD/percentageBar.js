@@ -22,7 +22,7 @@ PykCharts.oneD.percentageBar = function (options) {
             }
         } 
         catch (err) {
-            that.k.warningHandling(err,"3");
+            that.k.warningHandling(err,"1");
         }
 
         try {
@@ -32,7 +32,7 @@ PykCharts.oneD.percentageBar = function (options) {
             }
         } 
         catch (err) {
-            that.k.warningHandling(err,"3");
+            that.k.warningHandling(err,"1");
         }
 
         if(that.stop) {
@@ -49,6 +49,12 @@ PykCharts.oneD.percentageBar = function (options) {
            that.k.loading();
         }
         d3.json(options.data, function (e, data) {
+            var validate = that.k.validator().validatingJSON(data);
+            if(that.stop || validate === false) {
+                $(options.selector+" #chart-loader").remove();
+                return;
+            }
+            
             that.data = data.groupBy("oned");
             that.compare_data = data.groupBy("oned");
             $(options.selector+" #chart-loader").remove();
@@ -80,6 +86,8 @@ PykCharts.oneD.percentageBar = function (options) {
 
     this.render = function () {
         var that = this;
+        var l = $(".svgcontainer").length;
+        that.container_id = "svgcontainer" + l;
     //    that.fillChart = new PykCharts.oneD.fillChart(that);
         that.fillChart = new PykCharts.Configuration.fillChart(that);
         that.onHoverEffect = new PykCharts.oneD.mouseEvent(options);
@@ -90,13 +98,13 @@ PykCharts.oneD.percentageBar = function (options) {
 
             that.k.title()
                     .backgroundColor(that)
-                    .export(that,"#svgcontainer","percentageBar")
+                    .export(that,"#"+that.container_id,"percentageBar")
                     .emptyDiv()
                     .subtitle();
         }
         if(that.mode === "infographics") {
             that.k.backgroundColor(that)
-            .export(that,"#svgcontainer","percentageBar").emptyDiv();
+            .export(that,"#"+that.container_id,"percentageBar").emptyDiv();
             that.new_data = that.data;
         }
 
@@ -217,7 +225,7 @@ PykCharts.oneD.percentageBar = function (options) {
                     .attr("height",that.height)
                     .attr("preserveAspectRatio", "xMinYMin")
                     .attr("viewBox", "0 0 " + that.width + " " + that.height)
-                    .attr("id","svgcontainer")
+                    .attr("id",that.container_id)
                     .attr("class","svgcontainer");
 
                     that.group = that.svgContainer.append("g")
@@ -352,7 +360,7 @@ PykCharts.oneD.percentageBar = function (options) {
                                         return (((sum1 - d.percentValue) * that.width/100)+(sum1 * that.width / 100))/2;
                                     }
                                 })
-                                .attr("stroke-width", that.pointer_thickness)
+                                .attr("stroke-width", that.pointer_thickness + "px")
                                 .attr("stroke", that.pointer_color)
                                 // .transition()
                                 // .duration(that.transitions.duration())

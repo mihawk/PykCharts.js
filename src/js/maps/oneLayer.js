@@ -1,15 +1,18 @@
 PykCharts.maps.oneLayer = function (options) {
-    var that = this;
+    var that = this;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
     var theme = new PykCharts.Configuration.Theme({});
     this.execute = function () {
         that = PykCharts.maps.processInputs(that, options);
         //$(that.selector).css("height",that.height);
 
-        if(that.stop) {
-            return
-        }
-
         d3.json(options.data, function (data) {
+            
+            var validate = that.k.validator().validatingJSON(data);
+            if(that.stop || validate === false) {
+                $(options.selector+" #chart-loader").remove();
+                return;
+            }
+
             that.data = data;
             that.compare_data = data;
             that.k
@@ -18,32 +21,42 @@ PykCharts.maps.oneLayer = function (options) {
                 .loading(that.loading)
                 .tooltip();
 
-            d3.json(PykCharts.assets+"ref/" + that.map_code + "-topo.json", function (data) {
-                that.map_data = data;
-                _.each(that.map_data.objects.geometries, function (d) {
-                  var a = d.properties.NAME_1.replace("'","&#39;");
-                  d.properties.NAME_1 = a;
-                  return d;
-                });
-                d3.json(PykCharts.assets+"ref/colorPalette.json", function (data) {
-                    that.color_palette_data = data;
-                    var validate = _.where(that.color_palette_data,{name:that.palette_color});
+                d3.json(PykCharts.assets+"ref/" + that.map_code + "-topo.json", function (e,data) {
 
-                    try {
-                        if (!validate.length) {
-                            that.palette_color = theme.mapsTheme.palette_color;
-                            throw "palette_color";
+                        if(e && e.status === 404) {
+                            that.k.errorHandling("map_code","3"); 
+                            $(options.selector+" #chart-loader").remove();                           
+                            return;
                         }
-                    }
-                    catch (err) {
-                        that.k.warningHandling(err,"16");
-                    }
+                
+                    that.map_data = data;
 
-                    $(that.selector).html("");
-                    var oneLayer = new PykCharts.maps.mapFunctions(options,that,"oneLayer");
-                    oneLayer.render();
+                    _.each(that.map_data.objects.geometries, function (d) {
+                      var a = d.properties.NAME_1.replace("'","&#39;");
+                      d.properties.NAME_1 = a;
+                      return d;
+                    });
+
+                    d3.json(PykCharts.assets+"ref/colorPalette.json", function (data) {
+                        that.color_palette_data = data;
+                        var validate = _.where(that.color_palette_data,{name:that.palette_color});
+
+                        try {
+                            if (!validate.length) {
+                                that.palette_color = theme.mapsTheme.palette_color;
+                                throw "palette_color";
+                            }
+                        }
+                        catch (e) {
+
+                            that.k.warningHandling(err,"11");
+                        }
+
+                        $(that.selector).html("");
+                        var oneLayer = new PykCharts.maps.mapFunctions(options,that,"oneLayer");
+                        oneLayer.render();
+                    });
                 });
-            });
             that.extent_size = d3.extent(that.data, function (d) { return parseInt(d.size, 10); });
             that.difference = that.extent_size[1] - that.extent_size[0];
         });
@@ -56,17 +69,14 @@ PykCharts.maps.timelineMap = function (options) {
     this.execute = function () {
         that = PykCharts.maps.processInputs(that, options);
 
-        // that.k.validator().validatingDataType(that.margin_left,"timeline_margin_left",mapsTheme.timeline_margin_left,"margin_left")
-        //         .validatingDataType(that.margin_right,"timeline_margin_right",mapsTheme.timeline_margin_right,"margin_right")
-        //         .validatingDataType(that.margin_top,"timeline_margin_top",mapsTheme.timeline_margin_top,"margin_top")
-        //         .validatingDataType(that.margin_bottom,"timeline_margin_bottom",mapsTheme.timeline_margin_bottom,"margin_bottom")
-
-
-        if(that.stop) {
-            return;
-        }
         //$(that.selector).css("height",that.height);
         d3.json(options.data, function (data) {
+            var validate = that.k.validator().validatingJSON(data);
+            if(that.stop || validate === false) {
+                $(options.selector+" #chart-loader").remove();
+                return;
+            }
+
             that.timeline_data = data;
             that.compare_data = data;
             var x_extent = d3.extent(data, function (d) { return d.timestamp; });
@@ -100,7 +110,7 @@ PykCharts.maps.timelineMap = function (options) {
                         }
                     }
                     catch (err) {
-                        that.k.warningHandling(err,"16");
+                        that.k.warningHandling(err,"11");
                     }
 
                     var x_extent = d3.extent(that.timeline_data, function (d) { return d.timestamp; })

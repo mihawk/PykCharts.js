@@ -14,7 +14,7 @@ PykCharts.multiD.scatterPlot = function (options) {
         } 
 
         catch (err) {
-            that.k.warningHandling(err,"3");
+            that.k.warningHandling(err,"1");
         }
 
         if(that.stop) 
@@ -38,6 +38,13 @@ PykCharts.multiD.scatterPlot = function (options) {
             that.radius_range = [that.k.__proto__._radiusCalculation(4.5)*2,that.k.__proto__._radiusCalculation(11)*2];
         }
         d3.json(options.data, function (e, data) {
+            
+            var validate = that.k.validator().validatingJSON(data);
+            if(that.stop || validate === false) {
+                $(that.selector+" #chart-loader").remove();
+                return;
+            }
+
             that.data = data.groupBy("scatterplot");
             that.axis_y_data_format = options.axis_y_data_format ? options.axis_y_data_format.toLowerCase() : that.k.yAxisDataFormatIdentification(that.data);
             that.axis_x_data_format = options.axis_x_data_format ? options.axis_x_data_format.toLowerCase() : that.k.xAxisDataFormatIdentification(that.data);
@@ -71,7 +78,7 @@ PykCharts.multiD.pulse = function (options) {
         } 
 
         catch (err) {
-            that.k.warningHandling(err,"3");
+            that.k.warningHandling(err,"1");
         }
 
         if(that.stop) {

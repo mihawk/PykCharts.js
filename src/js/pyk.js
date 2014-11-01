@@ -504,7 +504,7 @@ PykCharts.Configuration = function (options){
                         .attr("cy", function (d,i) {
                             return (parseInt(yScale(d.y))-20+options.margin_top+legendsGroup_height);
                         })
-                        .attr("r", 8)
+                        .attr("r", "8")
                         .style("cursor","pointer")
                         .on("click",function (d,i) {
                             options.mouseEvent.tooltipPosition(d);
@@ -608,7 +608,7 @@ PykCharts.Configuration = function (options){
                             return fill.colorPieMS(data[j]);
                         })
                         .attr("id","focus-circle"+j)
-                        .attr("r",6);
+                        .attr("r","6");
                 }
             }
             return this;
@@ -1010,7 +1010,7 @@ PykCharts.Configuration = function (options){
             }
             if(PykCharts.boolean(svg)) {
                 svg.attr("width", targetWidth);
-                svg.attr("height", targetWidth / aspect);
+                svg.attr("height", (targetWidth / aspect));
             }
             var title_div_width;
             if(PykCharts.boolean(options.title_text)) {
@@ -1039,9 +1039,6 @@ PykCharts.Configuration = function (options){
                 $(options.selector + " .dropdown-multipleConatiner-export")
                         .css("left",(targetWidth - 80)+"px");
 
-            }
-            if(lsvg !== undefined) {
-                lsvg.attr("width",targetWidth);
             }
             var a = $(options.selector + " #footer");
             if(a) {
@@ -1263,8 +1260,14 @@ PykCharts.Configuration = function (options){
                     var attr_value = x[i].getAttribute("dy");
                     var attr_length = attr_value.length;
                     if(attr_value.substring(attr_length-2,attr_length) == "em") {
-                        var font_size = x[i].getAttribute('font-size');
-                        var value = font_size*parseFloat(attr_value);
+                        var font_size, value;
+                        if(x[i].hasAttribute('font-size')) {
+                            font_size = x[i].getAttribute('font-size');
+                            value = parseFloat(font_size)*parseFloat(attr_value);
+                            
+                        } else {
+                            value = 12*parseFloat(attr_value);
+                        }
                         x[i].setAttribute("dy", value);
                     }
                 }
@@ -1272,14 +1275,13 @@ PykCharts.Configuration = function (options){
             return this;
         },
         errorHandling: function(error_msg,error_code,err_url) {
-            console.error('%c[Error - Pykih Charts] ', 'color: red;font-weight:bold;font-size:14px', " at "+options.selector+".(Invalid value for attribute \""+error_msg+"\")  Visit www.chartstore.io/docs#"/*+error_code*/);
+            console.error('%c[Error - Pykih Charts] ', 'color: red;font-weight:bold;font-size:14px', " at "+options.selector+".(Invalid value for attribute \""+error_msg+"\")  Visit www.chartstore.io/docs#error_"+error_code);
             return;
         },
         warningHandling: function(error_msg,error_code,err_url) {
-            console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+options.selector+".(Invalid value for attribute \""+error_msg+"\")  Visit www.chartstore.io/docs#"/*+error_code*/);
+            console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+options.selector+".(Invalid value for attribute \""+error_msg+"\")  Visit www.chartstore.io/docs#warning_"+error_code);
             return;
         },
-
         validator: function () {
             var validator = {
                 validatingSelector : function (selector) {
@@ -1298,17 +1300,15 @@ PykCharts.Configuration = function (options){
                     try {
                         if(!_.isNumber(attr_value)) {
                             if(name) {
-                                console.log(options[config_name],default_value,config_name)
                                 options[name] = default_value;
                             } else {
-                                console.log(options[config_name],default_value,config_name)
                                 options[config_name] = default_value;
                             }
                             throw config_name;
                         }
                     }
                     catch (err) {
-                        options.k.warningHandling(err,"3");
+                        options.k.warningHandling(err,"1");
                     }
                     return this;
                 },
@@ -1351,7 +1351,7 @@ PykCharts.Configuration = function (options){
                             }
                         }
                         catch (err) {
-                            options.k.warningHandling(err,"4");
+                            options.k.warningHandling(err,"3");
                         }
                     }
                     return this;
@@ -1365,7 +1365,7 @@ PykCharts.Configuration = function (options){
                             }
                         }
                         catch (err) {
-                            options.k.warningHandling(err,"10");
+                            options.k.warningHandling(err,"7");
                         }
                     return this;
                 },
@@ -1378,7 +1378,7 @@ PykCharts.Configuration = function (options){
                             }
                         }
                         catch (err) {
-                            options.k.warningHandling(err,"10");
+                            options.k.warningHandling(err,"7");
                         }
                     return this;
                 },
@@ -1403,7 +1403,7 @@ PykCharts.Configuration = function (options){
                             }
                         }
                         catch (err) {
-                            options.k.warningHandling(err,"#8");
+                            options.k.warningHandling(err,"13");
                         }
                     return this;
                 },
@@ -1415,7 +1415,7 @@ PykCharts.Configuration = function (options){
                         }
                         catch (err) {
                             options.stop = true;
-                            options.k.errorHandling(err,"7");
+                            options.k.errorHandling(err,"4");
                         }
                     return this;
                 },
@@ -1429,7 +1429,7 @@ PykCharts.Configuration = function (options){
                             }
                         }
                         catch (err) {
-                            options.k.errorHandling(err,"11");
+                            options.k.errorHandling(err,"5");
                         }
                     }
                     return this;
@@ -1444,7 +1444,7 @@ PykCharts.Configuration = function (options){
                             }
                         }
                         catch (err) {
-                            options.k.warningHandling(err,"#9");
+                            options.k.warningHandling(err,"14");
                         }
                     }
                     return this;
@@ -1458,7 +1458,7 @@ PykCharts.Configuration = function (options){
                         }
                     }
                     catch (err) {
-                        options.k.warningHandling(err,"6");
+                        options.k.warningHandling(err,"5");
                     }
                     return this;
                 },
@@ -1486,22 +1486,26 @@ PykCharts.Configuration = function (options){
                         }
                         catch (err) {
                             options[config_name] = default_value;
-                            options.k.warningHandling(err,"5");
+                            options.k.warningHandling(err,"4");
                         }
                     }
                     return this;
                 },
-                validatingJSON : function (data) {
+                validatingJSON : function (data) { // note: this method method cannot be used for chaining as it return fasle and not this;
                     if(!data) {
                         try {
                             options.stop = true;
-                            throw "json format not valid";
+                            throw "Data is not in the valid JSON format";
                         }
                         catch (err) {
-                            options.k.errorHandling(err);
+                            console.error('%c[Error - Pykih Charts] ', 'color: red;font-weight:bold;font-size:14px', " at "+ options.selector+".(\""+err+"\")  Visit www.chartstore.io/docs#error_2");
                         }
                     }
-                    return this;
+                    if(options.stop) {
+                        return false;
+                    } else {
+                        return true;
+                    }
                 }
             };
             return validator;
@@ -1752,7 +1756,7 @@ configuration.mouseEvent = function (options) {
                                             }
                                             this.tooltipTextShow(tooltipText);
                                         }
-                                        (options.crosshair_enable) ? this.crossHairShow(pos_line_cursor_x,top,pos_line_cursor_x,(h - bottom),pos_line_cursor_x,test,type,active_y_tick.length,panels_enable,new_data) : null;
+                                        (options.crosshair_enable) ? this.crossHairShow(pos_line_cursor_x,top+legendsGroup_height,pos_line_cursor_x,(h - bottom),pos_line_cursor_x,test,type,active_y_tick.length,panels_enable,new_data) : null;
                                         this.axisHighlightShow(active_y_tick,options.selector+" .y.axis",domain);
                                         this.axisHighlightShow(active_x_tick,options.selector+" .x.axis",domain);
                                     }
@@ -2019,7 +2023,7 @@ configuration.border = function (options) {
     var that = this;
     var border = {
         width: function () {
-            return options.border_between_chart_elements_thickness;
+            return options.border_between_chart_elements_thickness +"px";
         },
         color: function () {
             return options.border_between_chart_elements_color;

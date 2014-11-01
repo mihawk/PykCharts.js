@@ -13,19 +13,20 @@ PykCharts.oneD.bubble = function (options) {
         } 
 
         catch (err) {
-            that.k.warningHandling(err,"3");
-        }
-
-        if(that.stop) {
-            return;
+            that.k.warningHandling(err,"1");
         }
 
         if(that.mode === "default") {
-           that.k.loading();
+            that.k.loading();
         }
 
         d3.json(options.data, function (e,data) {
-            console.log(options.data,"data");
+
+            var validate = that.k.validator().validatingJSON(data);
+            if(that.stop || validate === false) {
+                $(options.selector+" #chart-loader").remove();
+                return;
+            }
             // that.data =options.data;
             // that.compare_data = options.data;
             that.data = data.groupBy("oned");
@@ -56,6 +57,8 @@ PykCharts.oneD.bubble = function (options) {
 
     this.render = function () {
         // that.fillChart = new PykCharts.oneD.fillChart(that);
+        var l = $(".svgcontainer").length;
+        that.container_id = "svgcontainer" + l;
         that.fillChart = new PykCharts.Configuration.fillChart(that);
         that.onHoverEffect = new PykCharts.oneD.mouseEvent(that);
         that.transitions = new PykCharts.Configuration.transition(that);
@@ -64,7 +67,7 @@ PykCharts.oneD.bubble = function (options) {
 
             that.k.title()
                 .backgroundColor(that)
-                .export(that,"#svgcontainer","bubble")
+                .export(that,"#"+that.container_id,"bubble")
                 .emptyDiv()
                 .subtitle();
 
@@ -82,7 +85,7 @@ PykCharts.oneD.bubble = function (options) {
         }
         else if (that.mode ==="infographics") {
             that.k.backgroundColor(that)
-                .export(that,"#svgcontainer","bubble")
+                .export(that,"#" + that.container_id,"bubble")
                 .emptyDiv();
 
             that.new_data = {"children" : that.data};
@@ -102,11 +105,9 @@ PykCharts.oneD.bubble = function (options) {
 
         var optional = {
             svgContainer: function () {
-                // $(that.selector).css("background-color",that.background_color);
-
                 that.svgContainer = d3.select(that.selector).append("svg")
                     .attr("class","svgcontainer")
-                    .attr("id","svgcontainer")
+                    .attr("id",that.container_id)
                     .attr("preserveAspectRatio", "xMinYMin")
                     .attr("viewBox", "0 0 " + that.width + " " + that.height)
                     .attr("width",that.width)

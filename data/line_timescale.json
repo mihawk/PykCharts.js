@@ -2,21 +2,21 @@
 	{
 		"name":"India",
 		"color": "#4682b4",
-		"x":"January",
+		"x":"2014-01-01",
 		"y":30,
 		"tooltip":30
 	},
 	{
 		"name":"India",
 		"color": "#4682b4",
-		"x":"February",
+		"x":"2014-02-01",
 		"y":20,
 		"tooltip":20
 	},	
 	{
 		"name":"India",
 		"color": "#4682b4",
-		"x":"March",
+		"x":"2014-03-01",
 		"y":40,
 		"annotation":"New Product Launch",
 		"tooltip":40
@@ -24,28 +24,28 @@
 	{
 		"name":"India",
 		"color": "#4682b4",
-		"x":"April",
+		"x":"2014-04-01",
 		"y":5,
 		"tooltip":5
 	},
 	{
 		"name":"India",
 		"color": "#4682b4",
-		"x":"May",
+		"x":"2014-05-01",
 		"y":60,
 		"tooltip":60
 	},
 	{
 		"name":"India",
 		"color": "#4682b4",
-		"x":"June",
+		"x":"2014-06-01",
 		"y":40,
 		"tooltip":40
 	},
 	{
 		"name":"India",
 		"color": "#4682b4",
-		"x":"July",
+		"x":"2014-07-01",
 		"y":30,
 		"tooltip":30
 	}

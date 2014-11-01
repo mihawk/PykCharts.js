@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html>
     <head>
         <title>Multi-Dimensional Charts</title>
@@ -59,6 +58,7 @@
                     subtitle_text:"this the analysis",
                     chart_height: 400,
                     chart_width : 630,
+
                     chart_margin_top: 30,
                     chart_margin_right: 50,
                     chart_margin_bottom: 30,
@@ -67,8 +67,8 @@
                     chart_grid_x_enable: "yes",
                     chart_grid_y_enable: "yes",
 
-                    transition_duration: 1,
-                    real_time_charts_refresh_frequency: 0,
+                    transition_duration: 0,
+                    real_time_charts_refresh_frequency: 5,
                     axis_onhover_hightlight_enable: "yes",
                     axis_x_enable: "yes",
                     axis_x_title : "Month",
@@ -76,8 +76,8 @@
                     axis_x_pointer_position: "bottom",
                     axis_x_line_color: "#1D1D1D",
                     axis_x_pointer_size: 12,
-                    axis_x_pointer_padding: 5,
-                    axis_y_pointer_values: [],
+                    axis_x_pointer_padding: 2,
+                    axis_y_pointer_values: [2,6],
                     axis_x_outer_pointer_length: 5,
                     "axis_x_no_of_axis_value": 10,
                     axis_x_time_value_datatype:"month",
@@ -99,7 +99,7 @@
                     annotation_view_mode: "onload"
 
                 });
-                k.execute();
+               k.execute();
 
                 var k = new PykCharts.multiD.areaChart ({
                     selector: "#area",
@@ -147,14 +147,14 @@
                     axis_y_pointer_padding: 10,
                     axis_y_outer_pointer_length: 3,
                     curvy_lines_enable:"yes",
-                    tooltip_mode : "moving",
+                    tooltip_mode : "fixed",
                     tooltip_enable: "yes",
                     crosshair_enable: "yes",
                     zoom_enable: "yes",
                     annotation_enable: "yes",
                     annotation_view_mode: "onclick"
                 });
-                k.execute();
+               k.execute();
 
                 var k = new PykCharts.multiD.spiderWeb ({
                     selector: "#spiderWeb",
@@ -190,7 +190,7 @@
                     legends_text_weight: "normal",
                     legends_text_family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
                 });
-                k.execute();
+               k.execute();
 
                 var k = new PykCharts.multiD.scatterPlot ({
                     selector: "#scatterPlot",
@@ -235,7 +235,7 @@
                     axis_y_pointer_size: 12,
                     axis_y_pointer_padding: 10,
                     axis_y_outer_pointer_length: 3,
-
+                    zoom_enable : "yes",
                     legends_enable: "yes",
                     legends_display: "horizontal", //horizontal or vertical
                     // legends_text_size: 12,
@@ -259,7 +259,7 @@
                     chart_margin_bottom: 125,
                     chart_margin_left: 160,
                 });
-                k.execute();
+               k.execute();
 
                 var k = new PykCharts.multiD.scatterPlot ({
                     selector: "#multiple-scatterplots",
@@ -318,7 +318,7 @@
                     border_between_chart_elements_thickness:0,
                     border_between_chart_elements_color:"blue"
                 });
-                k.execute();
+               k.execute();
 
                 var k = new PykCharts.multiD.lineChart ({
                     selector: "#multiLine",
@@ -371,7 +371,7 @@
                     zoom_enable: "yes",
                     annotation_enable:"yes"
                 });
-                k.execute();
+               k.execute();
 
                 var k = new PykCharts.multiD.lineChart ({
                     selector: "#multiple-multiLine",
@@ -426,7 +426,7 @@
                     annotation_enable: "yes",
                     annotation_view_mode: "onload"
                 });
-                k.execute();
+               k.execute();
 
                 var k = new PykCharts.multiD.areaChart ({
 
@@ -487,7 +487,7 @@
                     annotation_view_mode: "onclick",
                     annotation_border_color:"black"
                 });
-                k.execute();
+               k.execute();
 
                 var k = new PykCharts.multiD.pulse({
                     selector: "#pulse",
@@ -551,7 +551,7 @@
                     border_between_chart_elements_style: "solid"
 
                 });
-                k.execute();
+               k.execute();
 
                 var k = new PykCharts.multiD.columnChart({
                     data: "../data/ultimateColumn.json",
@@ -568,7 +568,7 @@
                     chart_margin_left: 45,
                     chart_grid_y_enable: "yes",
 
-                    real_time_charts_refresh_frequency: 3,
+                    real_time_charts_refresh_frequency: 0 ,
 
                     axis_onhover_hightlight_enable: "yes",
 
@@ -610,7 +610,7 @@
 
                     highlight:"January"
                 });
-                k.execute();
+               k.execute();
 
                 var k = new PykCharts.multiD.columnChart({
                     data: "../data/ultimateGroupColumn.json",
@@ -623,7 +623,7 @@
                     chart_color:["orange","red","steelblue","gray"],
 
                     chart_height: 430,
-                    chart_width : 700,
+                    chart_width : 400,
                     chart_margin_top: 25,
                     chart_margin_right: 45,
                     chart_margin_bottom: 45,
@@ -671,12 +671,13 @@
                     border_between_chart_elements_style: "solid",
                    // saturation_enable: "yes",
 
-                    highlight:"april"
+                    highlight:"april",
+
                 });
-                k.execute();
+               k.execute();
 
                 var k = new PykCharts.multiD.barChart({
-                    data: "../data/ultimatebar.json",
+                    data: "../data/ultimatebar_date.json",
                     mode: "default",
                     selector: "#bar",
                     color_mode: "saturation",
@@ -690,7 +691,7 @@
                     chart_margin_bottom: 35,
                     chart_margin_left: 130,
 
-                    real_time_charts_refresh_frequency: 5 ,
+                    real_time_charts_refresh_frequency: 0 ,
 
                     axis_onhover_hightlight_enable: "yes",
 
@@ -727,13 +728,12 @@
                     pointer_size: 10,
                     pointer_color: "#1D1D1D",
                     pointer_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
-
                     highlight: "12-12-2014",
-                    "data_sort_enable": "yes",
-                    "data_sort_type": "date", // sort type --- "alphabetically" / "numerically" / "date"
-                    "data_sort_order": "descending" // sort order --- "descending" / "ascending"
+
+                    data_sort_type: "date",
+                    data_sort_order: "ascending"
                 });
-                k.execute();
+    //           k.execute();
 
                 var k = new PykCharts.multiD.barChart({
                     data: "../data/ultimateGroupBar.json",
@@ -745,7 +745,7 @@
                     chart_margin_top: 25,
                     chart_margin_right: 45,
                     chart_margin_bottom: 35,
-                    chart_margin_left: 60,
+                    chart_margin_left: 40,
 
                     color_mode:"saturation",
 
@@ -792,7 +792,7 @@
                     saturation_enable: "no",
                     axis_x_pointer_weight: "normal",
                     data_sort_enable: "yes",
-                    highlight: "april",
+                    highlight: "April",
                     legends_enable: "yes",
                     legends_display: "horizontal",
                     legends_text_size: 12,
@@ -800,11 +800,11 @@
                     legends_text_weight: "normal",
                     legends_text_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
                     "data_sort_enable": "yes",
-                    "data_sort_type": "albetically", // sort type --- "alphabetically" / "numerically" / "date"
-                    "data_sort_order": "asending" // sort order --- "descending" / "ascending"
+                    "data_sort_type": "numerically", // sort type --- "alphabetically" / "date" 
+                    "data_sort_order": "ascending" // sort order --- "descending" / "ascending"
 
                 });
-                k.execute();
+               k.execute();
             };
         </script>
     </body>

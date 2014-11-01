@@ -1,4 +1,4 @@
-PykCharts.multiD.lineChart = function (options){
+PykCharts.multiD.lineChart = function (options) {
 	var that = this;
 	var theme = new PykCharts.Configuration.Theme({});
 
@@ -12,6 +12,7 @@ PykCharts.multiD.lineChart = function (options){
 		if(that.mode === "default") {
 			that.k.loading();
 		}
+
 		var multiDimensionalCharts = theme.multiDimensionalCharts,
 			stylesheet = theme.stylesheet,
 			optional = options.optional;
@@ -20,6 +21,11 @@ PykCharts.multiD.lineChart = function (options){
 		that.interpolate = PykCharts.boolean(that.curvy_lines) ? "cardinal" : "linear";
 
 	    d3.json(options.data, function (e, data) {
+            var validate = that.k.validator().validatingJSON(data);
+            if(that.stop || validate === false) {
+                $(that.selector+" #chart-loader").remove();
+                return;
+            }
 			that.data = data.groupBy("line");
 			that.axis_y_data_format = "number";
     		that.axis_x_data_format = options.axis_x_data_format ? options.axis_x_data_format.toLowerCase() : that.k.xAxisDataFormatIdentification(that.data);
@@ -252,8 +258,7 @@ PykCharts.multiD.lineChart = function (options){
 			that.compare_data = compare[0];
 			var data_changed = compare[1];
 			that.dataTransformation();
-
-			if(data_changed) {
+			if(data_changed || (PykCharts.boolean(that.zoom_enable) && that.count > 1 && that.count <= that.zoom_level) || that.transition_duration) {
 				that.k.lastUpdatedAt("liveData");
 				that.mouseEvent.tooltipHide(null,that.panels_enable,that.type);
 				that.mouseEvent.crossHairHide(that.type);
@@ -321,6 +326,7 @@ PykCharts.multiD.lineChart = function (options){
 					.attr("id","svg-" + i)
 					.attr("width",that.w)
 					.attr("height",that.height)
+					.attr("class","svgcontainer")
 					.attr("preserveAspectRatio", "xMinYMin")
                     .attr("viewBox", "0 0 " + that.w + " " + that.height);
                 // console.log(that.svgContainer);

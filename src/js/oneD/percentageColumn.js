@@ -21,7 +21,7 @@ PykCharts.oneD.percentageColumn = function (options) {
             }
         } 
         catch (err) {
-            that.k.warningHandling(err,"3");
+            that.k.warningHandling(err,"1");
         }
 
         try {
@@ -31,7 +31,7 @@ PykCharts.oneD.percentageColumn = function (options) {
             }
         } 
         catch (err) {
-            that.k.warningHandling(err,"3");
+            that.k.warningHandling(err,"1");
         }
         if(that.stop) {
             return;
@@ -48,7 +48,11 @@ PykCharts.oneD.percentageColumn = function (options) {
            that.k.loading();
         }
         d3.json(options.data, function (e, data) {
-            that.data = data.groupBy("oned");
+            var validate = that.k.validator().validatingJSON(data);
+            if(that.stop || validate === false) {
+                $(options.selector+" #chart-loader").remove();
+                return;
+            }            that.data = data.groupBy("oned");
             that.compare_data = data.groupBy("oned");
             $(options.selector+" #chart-loader").remove();
             that.clubdata_enable = that.data.length>that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
@@ -79,7 +83,8 @@ PykCharts.oneD.percentageColumn = function (options) {
 
     this.render = function () {
         var that = this;
-
+        var l = $(".svgcontainer").length;
+        that.container_id = "svgcontainer" + l;
         that.fillChart = new PykCharts.Configuration.fillChart(that);
         that.onHoverEffect = new PykCharts.oneD.mouseEvent(options);
         that.transitions = new PykCharts.Configuration.transition(that);
@@ -88,14 +93,14 @@ PykCharts.oneD.percentageColumn = function (options) {
         if(that.mode === "default") {
             that.k.title()
                     .backgroundColor(that)
-                    .export(that,"#svgcontainer","percentageColumn")
+                    .export(that,"#"+that.container_id,"percentageColumn")
                     .emptyDiv()
                     .subtitle();
                 // [that.fullscreen]().fullScreen(that);
         }
         if(that.mode === "infographics") {
             that.k.backgroundColor(that)
-                .export(that,"#svgcontainer","percentageColumn")
+                .export(that,"#"+container_id,"percentageColumn")
                     .emptyDiv();
 
             that.new_data = that.data;
@@ -214,7 +219,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                     .attr("height",that.height)
                     .attr("preserveAspectRatio", "xMinYMin")
                     .attr("viewBox", "0 0 " + that.width + " " + that.height)
-                    .attr("id","svgcontainer")
+                    .attr("id",that.container_id)
                     .attr("class","svgcontainer");
 
                     that.group = that.svgContainer.append("g")
@@ -352,7 +357,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                                         return (((sum1 - d.percentValue) * that.height/100)+(sum1 * that.height / 100))/2;
                                     }
                                 })
-                                .attr("stroke-width", that.pointer_thickness)
+                                .attr("stroke-width", that.pointer_thickness + "px")
                                 .attr("stroke", that.pointer_color)
                                 // .transition()
                                 // .duration(that.transitions.duration())

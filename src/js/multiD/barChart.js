@@ -1,9 +1,10 @@
 PykCharts.multiD.barChart = function(options){
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
+    var multiDimensionalCharts = theme.multiDimensionalCharts;
     this.execute = function () {
         that = new PykCharts.multiD.processInputs(that, options, "column");
-        var multiDimensionalCharts = theme.multiDimensionalCharts;
+
         // console.log(that.stop);
         
         // console.log("barChart");        
@@ -15,17 +16,6 @@ PykCharts.multiD.barChart = function(options){
         that.data_sort_order = PykCharts.boolean(that.data_sort_enable) && options.data_sort_order ? options.data_sort_order.toLowerCase() : multiDimensionalCharts.data_sort_order;
 
         try {
-            if(that.data_sort_type === "alphabetically" || that.data_sort_type === "numerically" || that.data_sort_type === "date") {
-            } else {
-                that.data_sort_type = multiDimensionalCharts.data_sort_type;
-                throw "data_sort_type";
-            } 
-        }
-        catch(err) {
-            that.k.warningHandling(err,"12");
-        }
-
-        try {
             if(that.data_sort_order === "ascending" || that.data_sort_order === "descending") {                
             } else {
                 that.data_sort_order = multiDimensionalCharts.data_sort_order;
@@ -33,17 +23,24 @@ PykCharts.multiD.barChart = function(options){
             } 
         }
         catch(err) {
-            that.k.warningHandling(err,"13");
+            that.k.warningHandling(err,"9");
         }
 
         if(that.stop)
             return;
 
-            if(that.mode === "default") {
+        if(that.mode === "default") {
            that.k.loading();
         }
         that.multiD = new PykCharts.multiD.configuration(that);
         d3.json(options.data, function(e, data){
+            
+            var validate = that.k.validator().validatingJSON(data);
+            if(that.stop || validate === false) {
+                $(that.selector+" #chart-loader").remove();
+                return;
+            }
+
             that.data = data.groupBy("bar");
             that.compare_data = data.groupBy("bar");
             that.axis_x_data_format = that.k.xAxisDataFormatIdentification(that.data);
@@ -86,9 +83,14 @@ PykCharts.multiD.barChart = function(options){
     //----------------------------------------------------------------------------------------
     this.render = function(){
         var that = this;
+        var l = $(".svgcontainer").length;
+        that.container_id = "svgcontainer" + l;
         that.map_group_data = that.multiD.mapGroup(that.data);
         that.data = that.dataTransformation();
         that.data = that.emptygroups(that.data);
+
+
+        console.log(that.data_sort_type,"that.data_sort_type");
 
         var fD = that.flattenData();
         that.the_bars = fD[0];
@@ -106,7 +108,7 @@ PykCharts.multiD.barChart = function(options){
 
             that.k.title()
                 .backgroundColor(that)
-                .export(that,"#svgcontainer","barChart")
+                .export(that,"#"+that.container_id,"barChart")
                 .emptyDiv()
                 .subtitle()
                 .makeMainDiv(that.selector,1);
@@ -133,7 +135,7 @@ PykCharts.multiD.barChart = function(options){
 
         } else if(that.mode === "infographics") {
             that.k.backgroundColor(that)
-                .export(that,"#svgcontainer","barChart")
+                .export(that,"#"+that.container_id,"barChart")
                 .emptyDiv()
                 .makeMainDiv(that.selector,1);
 
@@ -170,7 +172,7 @@ PykCharts.multiD.barChart = function(options){
                     .append("svg:svg")
                     .attr("width",that.width )
                     .attr("height",that.height)
-                    .attr("id","svgcontainer")
+                    .attr("id",that.container_id)
                     .attr("class","svgcontainer")
                     // .style("background-color",that.background_color)
                     .attr("preserveAspectRatio", "xMinYMin")
@@ -616,7 +618,7 @@ PykCharts.multiD.barChart = function(options){
                             .attr("height", height)
                             .attr("fill","none")
                             .attr("stroke", that.highlight_color)
-                            .attr("stroke-width", "1.5")
+                            .attr("stroke-width", "1.5px")
                             .attr("stroke-dasharray", "5,5")
                             .attr("stroke-opacity",1);
                     }, that.transitions.duration());
@@ -657,25 +659,63 @@ PykCharts.multiD.barChart = function(options){
                     }
                     else if(that.legends_display === "horizontal") {
                         that.legendsGroup_height = 50;
+                        temp_i = j;
+                        final_rect_x = 0;
+                        final_text_x = 0;
+                        legend_text_widths = [];
+                        sum_text_widths = 0;
+                        temp_text = temp_rect = 0;
                         text_parameter1 = "x";
                         text_parameter2 = "y";
                         rect_parameter1 = "width";
                         rect_parameter2 = "height";
                         rect_parameter3 = "x";
                         rect_parameter4 = "y";
-                        var text_parameter1value = function (d,i) { j--;return that.width - (j*100 + 75); };
+                        var text_parameter1value = function (d,i) {
+                            legend_text_widths[i] = this.getBBox().width;
+                            legend_start_x = that.width - sum_text_widths;
+                            final_text_x = (legend_start_x + temp_text + 25);
+                            temp_text = temp_text + this.getBBox().width + 35;
+                            return final_text_x;
+                        };
                         text_parameter2value = 30;
                         rect_parameter1value = 13;
                         rect_parameter2value = 13;
-                        var rect_parameter3value = function (d,i) { k--;return that.width - (k*100 + 100); };
+                        var rect_parameter3value = function (d,i) {
+                            legend_start_x = that.width - sum_text_widths;
+                            final_rect_x = (legend_start_x + temp_rect + 7);
+                            temp_rect = temp_rect + legend_text_widths[i] + 35;
+                            return final_rect_x;
+                        };
                         rect_parameter4value = 18;
                     }
 
                     var legend = that.legendsGroup.selectAll("rect")
                                     .data(params);
 
+                    that.legends_text = that.legendsGroup.selectAll(".legends_text")
+                        .data(params);
+
+                    that.legends_text.enter()
+                        .append('text');
+
+                    that.legends_text.attr("class","legends_text")
+                        .attr("pointer-events","none")
+                        .text(function (d) { return d; })
+                        .text(function (d) { sum_text_widths = sum_text_widths + this.getBBox().width + 22;return d; })
+                        .attr("fill", that.legends_text_color)
+                        .attr("font-family", that.legends_text_family)
+                        .attr("font-size",that.legends_text_size +"px")
+                        .attr("font-weight", that.legends_text_weight)
+                        .attr("fill","black")
+                        .attr(text_parameter1, text_parameter1value)
+                        .attr(text_parameter2, text_parameter2value);
+
+                    that.legends_text.exit()
+                                    .remove();
+
                     legend.enter()
-                            .append("rect");
+                        .append("rect");
 
                     legend.attr(rect_parameter1, rect_parameter1value)
                         .attr(rect_parameter2, rect_parameter2value)
@@ -695,27 +735,6 @@ PykCharts.multiD.barChart = function(options){
                         });
 
                     legend.exit().remove();
-
-                    that.legends_text = that.legendsGroup.selectAll(".legends_text")
-                        .data(params);
-
-                    that.legends_text
-                        .enter()
-                        .append('text')
-                        .attr("class","legends_text")
-                        .attr("pointer-events","none")
-                        .attr("fill", that.legends_text_color)
-                        .attr("font-family", that.legends_text_family)
-                        .attr("font-size",that.legends_text_size +"px")
-                        .attr("font-weight", that.legends_text_weight);
-
-                    that.legends_text.attr("class","legends_text")
-                    .attr(text_parameter1, text_parameter1value)
-                    .attr(text_parameter2, text_parameter2value)
-                    .text(function (d) { return d; });
-
-                    that.legends_text.exit()
-                                    .remove();
                 }
                 return this;
             }
@@ -911,6 +930,30 @@ PykCharts.multiD.barChart = function(options){
             return d.group;
         });
 
+        if(that.unique_group.length === 1) {
+            try {
+                    if(that.data_sort_type === "alphabetically" || that.data_sort_type === "numerically" || that.data_sort_type === "date") {
+                    } else {
+                        that.data_sort_type = multiDimensionalCharts.data_sort_type;
+                        throw "data_sort_type";
+                    } 
+            }
+            catch(err) {
+                that.k.warningHandling(err,"8");
+            }
+        } else {
+            try {
+                if(that.data_sort_type === "alphabetically" || that.data_sort_type === "date") {
+                } else {
+                    that.data_sort_type = multiDimensionalCharts.data_sort_type;
+                    throw "data_sort_type";
+                } 
+            }
+            catch(err) {
+                that.k.warningHandling(err,"8");
+            }
+        }
+
         if (PykCharts.boolean(that.data_sort_enable)) {
             switch (that.data_sort_type) {
                 case "numerically":
@@ -922,6 +965,7 @@ PykCharts.multiD.barChart = function(options){
                     break;
                 case "alphabetically":
                     that.data.sort(function (a,b) {
+                        console.log("inside")
                         if (a.y < b.y) {
                             return (that.data_sort_order === "descending") ? 1 : -1;
                         }
@@ -939,12 +983,11 @@ PykCharts.multiD.barChart = function(options){
                     break;
                 case "date":
                     that.data.sort(function (a,b) {
-                        return ((that.data_sort_order === "descending") ? (new Date(b.y) - new Date(a.y)) : (new Date(a.y) - new Date(b.y)));
+                        return ((that.data_sort_order === "descending") ? (new Date(b.y) > new Date(a.y)) : (new Date(a.y) > new Date(b.y)));
                     });
                     break;
             }
         }
-        // console.log(that.data,"that.data")
 
         for(var i=0; i < data_length; i++) {
             var group = {},
