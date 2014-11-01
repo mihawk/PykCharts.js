@@ -87,14 +87,15 @@ PykCharts.multiD.spiderWeb = function (options) {
 
     this.render = function () {
         that.fillChart = new PykCharts.Configuration.fillChart(that);
-        
+        var l = $(".svgcontainer").length;
+        that.container_id = "svgcontainer" + l;
         that.border = new PykCharts.Configuration.border(that);
         that.map_group_data = that.multiD.mapGroup(that.data);
 
         if(that.mode === "default") {
             that.k.title()
                 .backgroundColor(that)
-                .export(that,"#svgcontainer","spiderweb")
+                .export(that,"#"+that.container_id,"spiderweb")
                 .emptyDiv()
                 .subtitle()
                 .makeMainDiv(that.selector,1);
@@ -128,7 +129,7 @@ PykCharts.multiD.spiderWeb = function (options) {
 
         } else if (that.mode==="infographics") {
             that.k.backgroundColor(that)
-                .export(that,"#svgcontainer","spiderweb")
+                .export(that,"#"+that.container_id,"spiderweb")
                 .emptyDiv();
             that.k.makeMainDiv(that.selector,1);
             that.h = that.height;
@@ -171,7 +172,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                 that.svgContainer = d3.select(that.selector + " #tooltip-svg-container-" + i)
                     .append("svg")
                     .attr("class","svgcontainer")
-                    .attr("id","svgcontainer")
+                    .attr("id",that.container_id)
                     .attr("width", that.width)
                     .attr("height", that.height)
                     // .style("background-color",that.background_color)

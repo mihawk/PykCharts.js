@@ -83,7 +83,8 @@ PykCharts.oneD.percentageColumn = function (options) {
 
     this.render = function () {
         var that = this;
-
+        var l = $(".svgcontainer").length;
+        that.container_id = "svgcontainer" + l;
         that.fillChart = new PykCharts.Configuration.fillChart(that);
         that.onHoverEffect = new PykCharts.oneD.mouseEvent(options);
         that.transitions = new PykCharts.Configuration.transition(that);
@@ -92,14 +93,14 @@ PykCharts.oneD.percentageColumn = function (options) {
         if(that.mode === "default") {
             that.k.title()
                     .backgroundColor(that)
-                    .export(that,"#svgcontainer","percentageColumn")
+                    .export(that,"#"+that.container_id,"percentageColumn")
                     .emptyDiv()
                     .subtitle();
                 // [that.fullscreen]().fullScreen(that);
         }
         if(that.mode === "infographics") {
             that.k.backgroundColor(that)
-                .export(that,"#svgcontainer","percentageColumn")
+                .export(that,"#"+container_id,"percentageColumn")
                     .emptyDiv();
 
             that.new_data = that.data;
@@ -218,7 +219,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                     .attr("height",that.height)
                     .attr("preserveAspectRatio", "xMinYMin")
                     .attr("viewBox", "0 0 " + that.width + " " + that.height)
-                    .attr("id","svgcontainer")
+                    .attr("id",that.container_id)
                     .attr("class","svgcontainer");
 
                     that.group = that.svgContainer.append("g")

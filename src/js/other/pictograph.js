@@ -122,18 +122,19 @@ PykCharts.other.pictograph = function (options) {
     };
 
     this.render = function () {
-
+        var l = $(".svgcontainer").length;
+        that.container_id = "svgcontainer" + l;
         that.transitions = new PykCharts.Configuration.transition(that);
 
         if(that.mode==="default") {
             that.k.title()
                 .backgroundColor(that)
-                .export(that,"#svgcontainer","pictograph")
+                .export(that,"#"+that.container_id,"pictograph")
                 .emptyDiv()
                 .subtitle();
         } else {
             that.k.backgroundColor(that)
-                .export(that,"#svgcontainer","pictograph")
+                .export(that,"#"+that.container_id,"pictograph")
                 .emptyDiv();
         }
            
@@ -161,7 +162,8 @@ PykCharts.other.pictograph = function (options) {
                 that.svgContainer = d3.select(options.selector).append('svg')
                     .attr("width",that.width)
                     .attr("height",that.height)
-                    .attr("id","svgcontainer")
+                    .attr("id",that.container_id)
+                    .attr("class","svgcontainer")
                     .attr("preserveAspectRatio", "xMinYMin")
                     .attr("viewBox", "0 0 " + that.width + " " + that.height);
 

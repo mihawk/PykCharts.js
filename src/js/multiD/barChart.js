@@ -83,6 +83,8 @@ PykCharts.multiD.barChart = function(options){
     //----------------------------------------------------------------------------------------
     this.render = function(){
         var that = this;
+        var l = $(".svgcontainer").length;
+        that.container_id = "svgcontainer" + l;
         that.map_group_data = that.multiD.mapGroup(that.data);
         that.data = that.dataTransformation();
         that.data = that.emptygroups(that.data);
@@ -127,7 +129,7 @@ PykCharts.multiD.barChart = function(options){
 
             that.k.title()
                 .backgroundColor(that)
-                .export(that,"#svgcontainer","barChart")
+                .export(that,"#"+that.container_id,"barChart")
                 .emptyDiv()
                 .subtitle()
                 .makeMainDiv(that.selector,1);
@@ -154,7 +156,7 @@ PykCharts.multiD.barChart = function(options){
 
         } else if(that.mode === "infographics") {
             that.k.backgroundColor(that)
-                .export(that,"#svgcontainer","barChart")
+                .export(that,"#"+that.container_id,"barChart")
                 .emptyDiv()
                 .makeMainDiv(that.selector,1);
 
@@ -191,7 +193,7 @@ PykCharts.multiD.barChart = function(options){
                     .append("svg:svg")
                     .attr("width",that.width )
                     .attr("height",that.height)
-                    .attr("id","svgcontainer")
+                    .attr("id",that.container_id)
                     .attr("class","svgcontainer")
                     // .style("background-color",that.background_color)
                     .attr("preserveAspectRatio", "xMinYMin")
@@ -678,25 +680,59 @@ PykCharts.multiD.barChart = function(options){
                     }
                     else if(that.legends_display === "horizontal") {
                         that.legendsGroup_height = 50;
+                        temp_i = j;
+                        final_rect_x = 0;
+                        final_text_x = 0;
+                        legend_text_widths = 0;
                         text_parameter1 = "x";
                         text_parameter2 = "y";
                         rect_parameter1 = "width";
                         rect_parameter2 = "height";
                         rect_parameter3 = "x";
                         rect_parameter4 = "y";
-                        var text_parameter1value = function (d,i) { j--;return that.width - (j*100 + 75); };
+                        var text_parameter1value = function (d,i) {
+                            j--;
+                            curr_text_x = this.getBBox().width;
+                            final_text_x = (i === (temp_i-1)) ? (that.width - legend_text_widths) : (that.width - ((j+1)*legend_text_widths));
+                            return final_text_x;
+                        };
                         text_parameter2value = 30;
                         rect_parameter1value = 13;
                         rect_parameter2value = 13;
-                        var rect_parameter3value = function (d,i) { k--;return that.width - (k*100 + 100); };
+                        var rect_parameter3value = function (d,i) {
+                            k--;
+                            final_rect_x = (i === (temp_i-1)) ? (that.width - legend_text_widths) : (that.width - ((k+1)*legend_text_widths));
+                            return (final_rect_x - 18);
+                        };
                         rect_parameter4value = 18;
                     }
 
                     var legend = that.legendsGroup.selectAll("rect")
                                     .data(params);
 
+                    that.legends_text = that.legendsGroup.selectAll(".legends_text")
+                        .data(params);
+
+                    that.legends_text.enter()
+                        .append('text');
+
+                    that.legends_text.attr("class","legends_text")
+                        .attr("pointer-events","none")
+                        .text(function (d) { return d; })
+                        .text(function (d) { legend_text_widths=(this.getBBox().width > legend_text_widths) ? this.getBBox().width : legend_text_widths;return d; })
+                        .attr("fill", that.legends_text_color)
+                        .attr("font-family", that.legends_text_family)
+                        .attr("font-size",that.legends_text_size +"px")
+                        .attr("font-weight", that.legends_text_weight)
+                        .attr("fill","black")
+                        .attr(text_parameter1, text_parameter1value)
+                        .attr(text_parameter2, text_parameter2value);
+
+                    that.legends_text.exit()
+                                    .remove();
+
                     legend.enter()
-                            .append("rect");
+                        .append("rect");
 
                     legend.attr(rect_parameter1, rect_parameter1value)
                         .attr(rect_parameter2, rect_parameter2value)
@@ -715,29 +751,7 @@ PykCharts.multiD.barChart = function(options){
                             }
                         });
 
-                    legend.exit().remove();
-
-                    that.legends_text = that.legendsGroup.selectAll(".legends_text")
-                        .data(params);
-
-                    that.legends_text
-                        .enter()
-                        .append('text')
-                        .attr("class","legends_text")
-                        .attr("pointer-events","none")
-                        .attr("fill", that.legends_text_color)
-                        .attr("font-family", that.legends_text_family)
-                        .attr("font-size",that.legends_text_size +"px")
-                        .attr("font-weight", that.legends_text_weight);
-
-                    that.legends_text.attr("class","legends_text")
-                    .attr("fill","black")
-                    .attr(text_parameter1, text_parameter1value)
-                    .attr(text_parameter2, text_parameter2value)
-                    .text(function (d) { return d; });
-
-                    that.legends_text.exit()
-                                    .remove();
+                    legend.exit().remove();                   
                 }
                 return this;
             }
@@ -961,7 +975,7 @@ PykCharts.multiD.barChart = function(options){
                     break;
                 case "date":
                     that.data.sort(function (a,b) {
-                        return ((that.data_sort_order === "descending") ? (new Date(b.y) > new Date(a.y)) : (new Date(a.y) < new Date(b.y)));
+                        return ((that.data_sort_order === "descending") ? (new Date(b.y) > new Date(a.y)) : (new Date(a.y) > new Date(b.y)));
                     });
                     break;
             }

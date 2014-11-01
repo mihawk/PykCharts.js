@@ -94,6 +94,8 @@ PykCharts.oneD.funnel = function (options) {
 
     this.render = function () {
         var that = this;
+        var l = $(".svgcontainer").length;
+        that.container_id = "svgcontainer" + l;
         //that.fillChart = new PykCharts.oneD.fillChart(that);
         that.fillChart = new PykCharts.Configuration.fillChart(that);
         that.onHoverEffect = new PykCharts.oneD.mouseEvent(that);
@@ -104,7 +106,7 @@ PykCharts.oneD.funnel = function (options) {
         if(that.mode === "default") {
             that.k.title()
                 .backgroundColor(that)
-                .export(that,"#svgcontainer","funnel")
+                .export(that,"#"that.container_id,"funnel")
                 .emptyDiv()
                 .subtitle();
         }
@@ -112,7 +114,7 @@ PykCharts.oneD.funnel = function (options) {
         that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
         if(that.mode === "infographics") {
             that.k.backgroundColor(that)
-                .export(that,"#svgcontainer","funnel")
+                .export(that,"#"+that.container_id,"funnel")
                 .emptyDiv();
 
             that.new_data = that.data;
@@ -269,7 +271,7 @@ PykCharts.oneD.funnel = function (options) {
                     .attr("height",that.height + "px")
                     .attr("preserveAspectRatio", "xMinYMin")
                     .attr("viewBox", "0 0 " + that.width + " " + that.height)
-                    .attr("id","svgcontainer")
+                    .attr("id",that.container_id)
                     .attr("class","svgcontainer");
 
                     that.group = that.svgContainer.append("g")
