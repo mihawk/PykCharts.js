@@ -727,7 +727,7 @@ PykCharts.Configuration = function (options){
                 }
 
                 d3.selectAll(options.selector + " .x.axis .tick text")
-                        .attr("font-size",options.axis_x_pointer_size)
+                        .attr("font-size",options.axis_x_pointer_size + "px")
                         .style("font-weight",options.axis_x_pointer_weight)
                         .style("font-family",options.axis_x_pointer_family);
             }
@@ -775,7 +775,7 @@ PykCharts.Configuration = function (options){
                     k.ordinalYAxisTickFormat(domain);
                 }
                 d3.selectAll(options.selector + " .y.axis .tick text")
-                        .attr("font-size",options.axis_y_pointer_size)
+                        .attr("font-size",options.axis_y_pointer_size + "px")
                         .style("font-weight",options.axis_y_pointer_weight)
                         .style("font-family",options.axis_y_pointer_family);
 
@@ -804,8 +804,8 @@ PykCharts.Configuration = function (options){
                     // console.log(axis_x_pointer_weight,"weird")
                     gsvg.append("text")
                         .attr("class","x-axis-title")
-                        .attr("x", (w- options.margin_left - options.margin_right)/2)
-                        .attr("y", options.margin_bottom)
+                        .attr("x", (w- options.margin_left - options.margin_right)/2 + "px")
+                        .attr("y", options.margin_bottom + "px")
                         .style("text-anchor", "middle")
                         .style("fill",options.axis_x_title_color)
                         .style("font-weight",options.axis_x_title_weight)
@@ -816,8 +816,8 @@ PykCharts.Configuration = function (options){
                 } else if (options.axis_x_position === "top") {
                     gsvg.append("text")
                         .attr("class","x-axis-title")
-                        .attr("x", (w - options.margin_left - options.margin_right)/2)
-                        .attr("y", - options.margin_top + 10)
+                        .attr("x", (w - options.margin_left - options.margin_right)/2 + "px")
+                        .attr("y", - options.margin_top + 10 + "px")
                         .style("text-anchor", "middle")
                         .style("fill",options.axis_x_title_color)
                         .style("font-weight",options.axis_x_title_weight)
@@ -839,9 +839,9 @@ PykCharts.Configuration = function (options){
                 if(options.axis_y_position === "left"){
                     gsvg.append("text")
                         .attr("class","y-axis-title")
-                        .attr("x",-(options.height)/2)
+                        .attr("x",-(options.height)/2 + "px")
                         .attr("transform", "rotate(-90)")
-                        .attr("y", -(options.margin_left - 12))
+                        .attr("y", -(options.margin_left - 12) + "px")
                         .style("fill",options.axis_y_title_color)
                         .style("font-weight",options.axis_y_title_weight)
                         .style("font-family",options.axis_y_title_family)
@@ -850,7 +850,7 @@ PykCharts.Configuration = function (options){
                 } else if (options.axis_y_position === "right") {
                     gsvg.append("text")
                         .attr("class","y-axis-title")
-                        .attr("x",-(options.height)/2)
+                        .attr("x",-(options.height)/2 +"px")
                         .attr("transform", "rotate(-90)")
                         .attr("dy", ".71em")
                         .style("fill",options.axis_y_title_color)
@@ -1009,8 +1009,8 @@ PykCharts.Configuration = function (options){
                 targetWidth = options.width;
             }
             if(PykCharts.boolean(svg)) {
-                svg.attr("width", targetWidth);
-                svg.attr("height", targetWidth / aspect);
+                svg.attr("width", targetWidth + "px");
+                svg.attr("height", (targetWidth / aspect) + "px");
             }
             var title_div_width;
             if(PykCharts.boolean(options.title_text)) {
@@ -1040,12 +1040,9 @@ PykCharts.Configuration = function (options){
                         .css("left",(targetWidth - 80)+"px");
 
             }
-            if(lsvg !== undefined) {
-                lsvg.attr("width",targetWidth);
-            }
             var a = $(options.selector + " #footer");
             if(a) {
-                a.attr("width",targetWidth);
+                a.attr("width",targetWidth + "px");
             }
             var b = $(options.selector + " .main-div");
             if(b && !(PykCharts.boolean(options.panels_enable))) {

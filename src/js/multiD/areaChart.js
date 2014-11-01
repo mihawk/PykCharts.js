@@ -208,6 +208,7 @@ PykCharts.multiD.areaChart = function (options){
 					.attr("id","svg-"+i)
 					.attr("width",that.width)
 					.attr("height",that.height)
+					.attr("class","svgcontainer")
 					.attr("preserveAspectRatio", "xMinYMin")
                     .attr("viewBox", "0 0 " + that.width + " " + that.height);
                     
