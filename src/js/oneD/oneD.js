@@ -57,7 +57,7 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
         chartObject.title_text = options.title_text;
         chartObject.title_size = "title_size" in options ? options.title_size : stylesheet.title_size;
         chartObject.title_color = options.title_color ? options.title_color : stylesheet.title_color;
-        chartObject.title_weight = options.title_weight ? options.title_weight : stylesheet.title_weight;
+        chartObject.title_weight = options.title_weight ? options.title_weight.toLowerCase() : stylesheet.title_weight;
         chartObject.title_family = options.title_family ? options.title_family.toLowerCase() : stylesheet.title_family;
     } else {
         chartObject.title_size = stylesheet.title_size;
@@ -70,7 +70,7 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
         chartObject.subtitle_text = options.subtitle_text;
         chartObject.subtitle_size = "subtitle_size" in options ? options.subtitle_size : stylesheet.subtitle_size;
         chartObject.subtitle_color = options.subtitle_color ? options.subtitle_color : stylesheet.subtitle_color;
-        chartObject.subtitle_weight = options.subtitle_weight ? options.subtitle_weight : stylesheet.subtitle_weight;
+        chartObject.subtitle_weight = options.subtitle_weight ? options.subtitle_weight.toLowerCase() : stylesheet.subtitle_weight;
         chartObject.subtitle_family = options.subtitle_family ? options.subtitle_family.toLowerCase() : stylesheet.subtitle_family;
     } else {
         chartObject.subtitle_size = stylesheet.subtitle_size;
@@ -110,7 +110,7 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
     chartObject.loading = options.loading_gif_url ? options.loading_gif_url: stylesheet.loading_gif_url;
     chartObject.tooltip_enable = options.tooltip_enable ? options.tooltip_enable.toLowerCase() : stylesheet.tooltip_enable;
     chartObject.border_between_chart_elements_thickness = "border_between_chart_elements_thickness" in options ? options.border_between_chart_elements_thickness : stylesheet.border_between_chart_elements_thickness;
-    chartObject.border_between_chart_elements_color = options.border_between_chart_elements_color ? options.border_between_chart_elements_color.toLowerCase() : stylesheet.border_between_chart_elements_color;
+    chartObject.border_between_chart_elements_color = options.border_between_chart_elements_color ? options.border_between_chart_elements_color : stylesheet.border_between_chart_elements_color;
     chartObject.border_between_chart_elements_style = options.border_between_chart_elements_style ? options.border_between_chart_elements_style.toLowerCase() : stylesheet.border_between_chart_elements_style;
     switch(chartObject.border_between_chart_elements_style) {
         case "dotted" : chartObject.border_between_chart_elements_style = "1,3";
@@ -124,14 +124,14 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
 
     chartObject.label_size = "label_size" in options ? options.label_size : stylesheet.label_size;
     chartObject.label_color = options.label_color ? options.label_color : stylesheet.label_color;
-    chartObject.label_weight = options.label_weight ? options.label_weight : stylesheet.label_weight;
+    chartObject.label_weight = options.label_weight ? options.label_weight.toLowerCase() : stylesheet.label_weight;
     chartObject.label_family = options.label_family ? options.label_family.toLowerCase() : stylesheet.label_family;
 
     chartObject.pointer_thickness = "pointer_thickness" in options ? options.pointer_thickness : stylesheet.pointer_thickness;
     chartObject.pointer_size = "pointer_size" in options ? options.pointer_size : stylesheet.pointer_size;
     chartObject.pointer_color = options.pointer_color ? options.pointer_color : stylesheet.pointer_color;
     chartObject.pointer_family = options.pointer_family ? options.pointer_family.toLowerCase() : stylesheet.pointer_family;
-    chartObject.pointer_weight = options.pointer_weight ? options.pointer_weight : stylesheet.pointer_weight;
+    chartObject.pointer_weight = options.pointer_weight ? options.pointer_weight.toLowerCase() : stylesheet.pointer_weight;
 
     chartObject.units_prefix = options.units_prefix ? options.units_prefix : false;
     chartObject.units_suffix = options.units_suffix ? options.units_suffix : false;
