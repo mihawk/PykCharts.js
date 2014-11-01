@@ -164,7 +164,6 @@ PykCharts.maps.processInputs = function (chartObject, options) {
                 .validatingDataType(chartObject.legends_text_size ,"legends_text_size",stylesheet.legends_text_size)
                 .validatingDataType(chartObject.axis_x_pointer_size,"axis_x_pointer_size",stylesheet.axis_x_pointer_size)
                 .validatingDataType(chartObject.axis_x_pointer_length,"axis_x_pointer_length",stylesheet.axis_x_pointer_length) 
-                .validatingDataType(chartObject.axis_x_outer_pointer_size,"axis_x_outer_pointer_size",stylesheet.axis_x_outer_pointer_size)
                 .validatingDataType(chartObject.axis_x_pointer_padding,"axis_x_pointer_padding",stylesheet.axis_x_pointer_padding)
                 .validatingDataType(chartObject.tooltip_position_top,"tooltip_position_top",mapsTheme.tooltip_position_top)
                 .validatingDataType(chartObject.tooltip_position_left,"tooltip_position_left",mapsTheme.tooltip_position_left)
