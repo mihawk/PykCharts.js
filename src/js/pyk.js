@@ -138,18 +138,10 @@ PykCharts.boolean = function(d) {
 };
 
 PykCharts.getEvent = function () {
-  function getSourceEvent() {
-    if (d3.event && d3.event.sourceEvent) {
-      return d3.event.sourceEvent;
-    }
-    else {
-      return d3.event;
-    }
-  }
   try {
-    return getSourceEvent() || event;
+    return d3.event || event;
   } catch (e) {
-    return getSourceEvent();
+    return event;
   }
 }
 
@@ -1264,7 +1256,7 @@ PykCharts.Configuration = function (options){
                         if(x[i].hasAttribute('font-size')) {
                             font_size = x[i].getAttribute('font-size');
                             value = parseFloat(font_size)*parseFloat(attr_value);
-                            
+
                         } else {
                             value = 12*parseFloat(attr_value);
                         }

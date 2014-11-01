@@ -1,12 +1,12 @@
 PykCharts.maps.oneLayer = function (options) {
-    var that = this;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+    var that = this;
     var theme = new PykCharts.Configuration.Theme({});
     this.execute = function () {
         that = PykCharts.maps.processInputs(that, options);
         //$(that.selector).css("height",that.height);
 
         d3.json(options.data, function (data) {
-            
+
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
                 $(options.selector+" #chart-loader").remove();
@@ -24,11 +24,11 @@ PykCharts.maps.oneLayer = function (options) {
                 d3.json(PykCharts.assets+"ref/" + that.map_code + "-topo.json", function (e,data) {
 
                         if(e && e.status === 404) {
-                            that.k.errorHandling("map_code","3"); 
-                            $(options.selector+" #chart-loader").remove();                           
+                            that.k.errorHandling("map_code","3");
+                            $(options.selector+" #chart-loader").remove();
                             return;
                         }
-                
+
                     that.map_data = data;
 
                     _.each(that.map_data.objects.geometries, function (d) {
@@ -810,7 +810,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         function dragmove (d) {
             $("body").css("cursor","pointer");
             if (that.timeline_status !== "playing") {
-                var x = PykCharts.getEvent().pageX - (that.margin_left),
+                var x = PykCharts.getEvent().sourceEvent.pageX - (that.margin_left),
                     x_range = [],
                     temp = that.xScale.range(),
                     len = that.unique.length,
