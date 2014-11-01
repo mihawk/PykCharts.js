@@ -265,8 +265,8 @@ PykCharts.oneD.funnel = function (options) {
 
                 that.svgContainer = d3.select(options.selector)
                     .append('svg')
-                    .attr("width",that.width) //+100 removed
-                    .attr("height",that.height)
+                    .attr("width",that.width + "px") //+100 removed
+                    .attr("height",that.height + "px")
                     .attr("preserveAspectRatio", "xMinYMin")
                     .attr("viewBox", "0 0 " + that.width + " " + that.height)
                     .attr("id","svgcontainer")
@@ -473,7 +473,7 @@ PykCharts.oneD.funnel = function (options) {
                                 return (d.values[4].y);
                            }
                         })
-                        .attr("stroke-width", that.pointer_thickness)
+                        .attr("stroke-width", that.pointer_thickness + "px")
                         .attr("stroke", that.pointer_color)
                         // .transition()
                         // .duration(that.transitions.duration())

@@ -28,7 +28,7 @@ PykCharts.multiD.scatterPlot = function (options) {
             optional = options.optional;
 
         that.multiD = new PykCharts.multiD.configuration(that);
-        that.panels_enable =options.panels_enable && options.panels_enable.toLowerCase() ? options.panels_enable.toLowerCase() : multiDimensionalCharts.panels_enable;
+        // that.panels_enable =options.panels_enable && options.panels_enable ? options.panels_enable : multiDimensionalCharts.panels_enable;
         that.enableTicks =  options.scatterplot_pointer_enable ? options.scatterplot_pointer_enable.toLowerCase() : multiDimensionalCharts.scatterplot_pointer_enable;
         that.zoomed_out = true;
 
@@ -68,7 +68,7 @@ PykCharts.multiD.pulse = function (options) {
         // that.enableCrossHair = optional && optional.enableCrossHair ? optional.enableCrossHair : multiDimensionalCharts.enableCrossHair;
         that.multiD = new PykCharts.multiD.configuration(that);
         that.bubbleRadius = options.scatterplot_radius ? options.scatterplot_radius : (0.6 * multiDimensionalCharts.scatterplot_radius);
-        that.panels_enable = options.panels_enable && options.panels_enable.toLowerCase() ? options.panels_enable : multiDimensionalCharts.panels_enable;
+        // that.panels_enable = options.panels_enable && options.panels_enable ? options.panels_enable : multiDimensionalCharts.panels_enable;
 
         try {
             if(!_.isNumber(that.bubbleRadius)) {

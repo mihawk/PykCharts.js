@@ -358,7 +358,7 @@ PykCharts.oneD.percentageBar = function (options) {
                                         return (((sum1 - d.percentValue) * that.width/100)+(sum1 * that.width / 100))/2;
                                     }
                                 })
-                                .attr("stroke-width", that.pointer_thickness)
+                                .attr("stroke-width", that.pointer_thickness + "px")
                                 .attr("stroke", that.pointer_color)
                                 // .transition()
                                 // .duration(that.transitions.duration())

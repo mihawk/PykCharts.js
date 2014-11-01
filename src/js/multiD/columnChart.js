@@ -516,7 +516,7 @@ PykCharts.multiD.columnChart = function(options){
                             .attr("height", height)
                             .attr("fill","none")
                             .attr("stroke", that.highlight_color)
-                            .attr("stroke-width", "1.5")
+                            .attr("stroke-width", "1.5px")
                             .attr("stroke-dasharray", "5,5")
                             .attr("stroke-opacity",1);
                     }, that.transitions.duration());
