@@ -568,7 +568,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                             })
                             .attr("dy",5)
                             .style("font-weight", that.label_weight)
-                            .style("font-size", that.label_size)
+                            .style("font-size", that.label_size + "px")
                             .attr("fill", that.label_color)
                             .style("font-family", that.label_family);
                         that.chart_text.exit().remove();
@@ -748,7 +748,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                             .attr("dy",5)
                             .attr("pointer-events","none")
                             .style("fill",that.pointer_color)
-                            .style("font-size",that.pointer_size)
+                            .style("font-size",that.pointer_size + "px")
                             .style("font-weight",that.pointer_weight)
                             .style("font-family", that.pointer_family);
 
@@ -891,13 +891,10 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                             .attr("y",function () {
                                 return (type == "donut") ? h/2 : (-0.25*that.inner_radius);
                             })
-                            .attr("font-size",function () {
-                                return (type == "donut") ? 0.32*that.inner_radius : 0.2*that.inner_radius;
-                            })
                             .style("font-family",that.show_total_at_center_family)
                             .attr("fill",that.show_total_at_center_color)
                             .style("font-weight", that.show_total_at_center_weight)
-                            .style("font-size", that.show_total_at_center_size);
+                            .style("font-size", that.show_total_at_center_size + "px");
     
                     },that.transitions.duration());
 

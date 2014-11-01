@@ -556,7 +556,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                         .attr("y", function (d, i){
                             return that.outerRadius*(1-0.60*Math.cos(i*2*Math.PI/that.length))-(that.outerRadius * 0.47)*Math.cos(i*2*Math.PI/that.length);
                         })
-                        .style("font-size",that.axis_x_pointer_size)
+                        .style("font-size",that.axis_x_pointer_size + "px")
                         .style("font-family",that.axis_x_pointer_family)
                         .style("font-weight",that.axis_x_pointer_weight)
                         .style("fill",that.axis_x_pointer_color)
@@ -601,7 +601,7 @@ PykCharts.multiD.spiderWeb = function (options) {
 
                     tick_label               
                         .text(function (d,i) { return d; })
-                        .style("font-size",that.axis_y_pointer_size)
+                        .style("font-size",that.axis_y_pointer_size + "px")
                         .style("font-family",that.axis_y_pointer_family)
                         .style("font-weight",that.axis_y_pointer_weight)
                         .style("fill",that.axis_y_pointer_color);

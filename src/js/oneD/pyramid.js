@@ -283,7 +283,7 @@ PykCharts.oneD.pyramid = function (options) {
                         .attr("text-anchor","middle")
                         .attr("pointer-events","none")
                         .style("font-weight", that.label_weight)
-                        .style("font-size", that.label_size)
+                        .style("font-size", that.label_size + "px")
                         .attr("fill", that.label_color)
                         .style("font-family", that.label_family);
 
@@ -387,7 +387,7 @@ PykCharts.oneD.pyramid = function (options) {
                             }
                     })
                     .style("fill",that.pointer_color)
-                    .style("font-size",that.pointer_size)
+                    .style("font-size",that.pointer_size + "px")
                     .style("font-family", that.pointer_family)
                     .style("font-weight",that.pointer_weight)
                     .attr("text-anchor","start");

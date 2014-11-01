@@ -668,7 +668,7 @@ PykCharts.multiD.areaChart = function (options){
                         .attr("fill",that.legends_text_color)
                         .attr("pointer-events","none")
                         .style("font-family", that.legends_text_family)
-                        .attr("font-size",that.legends_text_size)
+                        .attr("font-size",that.legends_text_size + "px")
                         .style("font-weight", that.legends_text_weight);
 
                     that.legends_text.attr("class","legends_text")

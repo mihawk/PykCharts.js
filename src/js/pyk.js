@@ -2035,7 +2035,7 @@ configuration.makeXAxis = function(options,xScale) {
                     .orient(options.axis_x_pointer_position);
 
     d3.selectAll(options.selector + " .x.axis .tick text")
-            .attr("font-size",options.axis_x_pointer_size)
+            .attr("font-size",options.axis_x_pointer_size +"px")
             .style("font-weight",options.axis_x_pointer_weight)
             .style("font-family",options.axis_x_pointer_family);
 
@@ -2080,7 +2080,7 @@ configuration.makeYAxis = function(options,yScale) {
                     });
 
     d3.selectAll(options.selector + " .y.axis .tick text")
-                .attr("font-size",options.axis_y_pointer_size)
+                .attr("font-size",options.axis_y_pointer_size +"px")
                 .style("font-weight",options.axis_y_pointer_weight)
                 .style("font-family",options.axis_y_pointer_family);
 
@@ -2125,7 +2125,7 @@ configuration.makeXGrid = function(options,xScale) {
                     .outerTickSize(0);
 
     d3.selectAll(options.selector + " .x.axis .tick text")
-                    .attr("font-size",options.axis_x_pointer_size)
+                    .attr("font-size",options.axis_x_pointer_size + "px")
                     .style("font-weight",options.axis_x_pointer_weight)
                     .style("font-family",options.axis_x_pointer_family);
 
@@ -2148,7 +2148,7 @@ configuration.makeYGrid = function(options,yScale) {
                     .outerTickSize(0);
 
     d3.selectAll(options.selector + " .y.axis .tick text")
-                    .attr("font-size",options.axis_y_pointer_size)
+                    .attr("font-size",options.axis_y_pointer_size + "px")
                     .style("font-weight",options.axis_y_pointer_weight)
                     .style("font-family",options.axis_y_pointer_family);
 

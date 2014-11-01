@@ -244,7 +244,7 @@ PykCharts.oneD.percentageColumn = function (options) {
 
                     that.chart_text.text("")
                         .attr("fill", that.label_color)
-                        .style("font-size", that.label_size)
+                        .style("font-size", that.label_size + "px")
                         .attr("text-anchor","middle")
                         .attr("pointer-events","none")
                         .style("font-weight", that.label_weight)
