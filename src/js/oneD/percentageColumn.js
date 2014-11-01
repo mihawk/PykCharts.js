@@ -48,7 +48,11 @@ PykCharts.oneD.percentageColumn = function (options) {
            that.k.loading();
         }
         d3.json(options.data, function (e, data) {
-            that.data = data.groupBy("oned");
+            var validate = that.k.validator().validatingJSON(data);
+            if(that.stop || validate === false) {
+                $(options.selector+" #chart-loader").remove();
+                return;
+            }            that.data = data.groupBy("oned");
             that.compare_data = data.groupBy("oned");
             $(options.selector+" #chart-loader").remove();
             that.clubdata_enable = that.data.length>that.clubdata_maximum_nodes ? that.clubdata_enable : "no";

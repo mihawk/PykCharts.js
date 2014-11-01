@@ -11,6 +11,7 @@ PykCharts.multiD.areaChart = function (options){
 		if(that.mode === "default") {
 			that.k.loading();
 		}
+
 		var multiDimensionalCharts = theme.multiDimensionalCharts,
 			stylesheet = theme.stylesheet,
 			optional = options.optional;
@@ -23,6 +24,13 @@ PykCharts.multiD.areaChart = function (options){
 		that.h = that.height - that.margin_top - that.margin_bottom;
 
 		d3.json(options.data, function (e, data) {
+
+            var validate = that.k.validator().validatingJSON(data);
+            if(that.stop || validate === false) {
+                $(that.selector+" #chart-loader").remove();
+                return;
+            }
+
 			that.data = data.groupBy("area");
 			that.axis_y_data_format = "number";
     		that.axis_x_data_format = options.axis_x_data_format ? options.axis_x_data_format.toLowerCase() : that.k.xAxisDataFormatIdentification(that.data);
@@ -200,6 +208,7 @@ PykCharts.multiD.areaChart = function (options){
 					.attr("id","svg-"+i)
 					.attr("width",that.width)
 					.attr("height",that.height)
+					.attr("class","svgcontainer")
 					.attr("preserveAspectRatio", "xMinYMin")
                     .attr("viewBox", "0 0 " + that.width + " " + that.height);
                     

@@ -50,6 +50,13 @@ PykCharts.multiD.spiderWeb = function (options) {
         
         
         d3.json(options.data, function (e, data) {
+            
+            var validate = that.k.validator().validatingJSON(data);
+            if(that.stop || validate === false) {
+                $(that.selector+" #chart-loader").remove();
+                return;
+            }
+
             that.data = data.groupBy("spiderweb");
             that.compare_data = data.groupBy("spiderweb");
             $(that.selector+" #chart-loader").remove();

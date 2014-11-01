@@ -49,6 +49,12 @@ PykCharts.oneD.percentageBar = function (options) {
            that.k.loading();
         }
         d3.json(options.data, function (e, data) {
+            var validate = that.k.validator().validatingJSON(data);
+            if(that.stop || validate === false) {
+                $(options.selector+" #chart-loader").remove();
+                return;
+            }
+            
             that.data = data.groupBy("oned");
             that.compare_data = data.groupBy("oned");
             $(options.selector+" #chart-loader").remove();

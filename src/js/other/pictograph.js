@@ -106,6 +106,13 @@ PykCharts.other.pictograph = function (options) {
            that.k.loading();
         }
         d3.json(options.data, function (e,data) {
+
+            var validate = that.k.validator().validatingJSON(data);
+            if(that.stop || validate === false) {
+                $(options.selector+" #chart-loader").remove();
+                return;
+            }
+            
             that.data = data.sort(function(a,b) {
                 return b.weight - a.weight;
             });

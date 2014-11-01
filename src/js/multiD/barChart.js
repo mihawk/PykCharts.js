@@ -1,9 +1,10 @@
 PykCharts.multiD.barChart = function(options){
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
+    var multiDimensionalCharts = theme.multiDimensionalCharts;
     this.execute = function () {
         that = new PykCharts.multiD.processInputs(that, options, "column");
-        var multiDimensionalCharts = theme.multiDimensionalCharts;
+
         // console.log(that.stop);
         
         // console.log("barChart");        
@@ -13,17 +14,6 @@ PykCharts.multiD.barChart = function(options){
         that.data_sort_enable = options.data_sort_enable ? options.data_sort_enable.toLowerCase() : multiDimensionalCharts.data_sort_enable;
         that.data_sort_type = PykCharts.boolean(that.data_sort_enable) && options.data_sort_type ? options.data_sort_type.toLowerCase() : multiDimensionalCharts.data_sort_type;
         that.data_sort_order = PykCharts.boolean(that.data_sort_enable) && options.data_sort_order ? options.data_sort_order.toLowerCase() : multiDimensionalCharts.data_sort_order;
-
-        try {
-            if(that.data_sort_type === "alphabetically" || that.data_sort_type === "numerically" || that.data_sort_type === "date") {
-            } else {
-                that.data_sort_type = multiDimensionalCharts.data_sort_type;
-                throw "data_sort_type";
-            } 
-        }
-        catch(err) {
-            that.k.warningHandling(err,"12");
-        }
 
         try {
             if(that.data_sort_order === "ascending" || that.data_sort_order === "descending") {                
@@ -44,6 +34,13 @@ PykCharts.multiD.barChart = function(options){
         }
         that.multiD = new PykCharts.multiD.configuration(that);
         d3.json(options.data, function(e, data){
+            
+            var validate = that.k.validator().validatingJSON(data);
+            if(that.stop || validate === false) {
+                $(that.selector+" #chart-loader").remove();
+                return;
+            }
+
             that.data = data.groupBy("bar");
             that.compare_data = data.groupBy("bar");
             that.axis_x_data_format = that.k.xAxisDataFormatIdentification(that.data);
@@ -89,6 +86,30 @@ PykCharts.multiD.barChart = function(options){
         that.map_group_data = that.multiD.mapGroup(that.data);
         that.data = that.dataTransformation();
         that.data = that.emptygroups(that.data);
+
+        if(that.no_of_groups === 1) {
+            try {
+                    if(that.data_sort_type === "alphabetically" || that.data_sort_type === "numerically" || that.data_sort_type === "date") {
+                    } else {
+                        that.data_sort_type = multiDimensionalCharts.data_sort_type;
+                        throw "data_sort_type";
+                    } 
+            }
+            catch(err) {
+                that.k.warningHandling(err,"12");
+            }
+        } else {
+            try {
+                    if(that.data_sort_type === "alphabetically" || that.data_sort_type === "date") {
+                    } else {
+                        that.data_sort_type = multiDimensionalCharts.data_sort_type;
+                        throw "data_sort_type";
+                    } 
+            }
+            catch(err) {
+                that.k.warningHandling(err,"12");
+            }
+        }
 
         var fD = that.flattenData();
         that.the_bars = fD[0];
