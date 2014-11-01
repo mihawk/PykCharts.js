@@ -48,21 +48,43 @@
                 subtitle_text:"Air Pollution in New York",
                 units_prefix: "$",
                 units_suffix: "/-",
+                "credit_my_site_name": "Firstpost",
+                "credit_my_site_url":  "http://www.firstpost.com",
+                "data_source_name": "World Bank",
+                "data_source_url": "http://www.worldbank.org/"
             });
             k.execute();
 
-      			var k = new PykCharts.oneD.funnel({
-          			selector: "#funnel",
-          			data:"../data/pie.json",
+  			var k = new PykCharts.oneD.funnel({
+      			selector: "#funnel",
+      			data:"../data/pie.json",
                 clubdata_enable: "yes",
                 clubdata_always_include_data_points : "",
                 transition_duration: 1,
                 units_suffix: "rs",
                 pointer_weight: "normal",
                 "funnel_rect_width": 100,
-                "funnel_rect_height": 100
-        		});
-      			k.execute();
+                "funnel_rect_height": 100,
+                units_prefix: "$",
+                units_suffix: "/-",
+                "pointer_overflow_enable": "yes",
+                "pointer_thickness": 1,
+                "pointer_weight": "bold",
+                "pointer_size": 12,
+                "pointer_color": "orange",
+                "pointer_family": "Papyrus",
+                mode: "DEFault",
+                clubdata_enable: "yes",
+                clubdata_always_include_data_points: ["Africa","South America"],
+                "border_between_chart_elements_thickness": 2,
+                "border_between_chart_elements_color": "black",
+                "border_between_chart_elements_style": "dotted",
+                "credit_my_site_name": "Firstpost",
+                "credit_my_site_url":  "http://www.firstpost.com",
+                "data_source_name": "World Bank",
+                "data_source_url": "http://www.worldbank.org/"
+    		});
+  			k.execute();
 
             var k = new PykCharts.oneD.pyramid ({
                 selector: "#pyramid",
@@ -70,11 +92,28 @@
                 chart_height : 400,
                 transition_duration: 1,
                 background_color: "white",
-                mode:"infographics",
-
+                mode:"DEFault",
+                chart_color: ["cyan"],
                 pointer_overflow_enable: "no",
+                units_prefix: "$",
+                units_suffix: "/-",
+                "pointer_overflow_enable": "yes",
+                "pointer_thickness": 1,
+                "pointer_weight": "bold",
+                "pointer_size": 10,
+                "pointer_color": "orange",
+                "pointer_family": "Courier New",
+                label_color: "black",
+
+                "border_between_chart_elements_thickness": 2,
+                "border_between_chart_elements_color": "black",
+                "border_between_chart_elements_style": "dotted",
+                "credit_my_site_name": "Firstpost",
+                "credit_my_site_url":  "http://www.firstpost.com",
+                "data_source_name": "World Bank",
+                "data_source_url": "http://www.worldbank.org/"
             });
-           k.execute();
+            k.execute();
 
             var k = new PykCharts.oneD.treemap({
                 selector: "#treemap",
@@ -82,14 +121,41 @@
                 chart_height : 300,
                 transition_duration: 0,
                 background_color: "white",
-                mode:"infographics",
+                mode:"DEFault",
+                units_prefix: "$",
+                units_suffix: "/-",
+                "credit_my_site_name": "Firstpost",
+                "credit_my_site_url":  "http://www.firstpost.com",
+                "data_source_name": "World Bank",
+                "data_source_url": "http://www.worldbank.org/",
+                "credit_my_site_name": "Firstpost",
+                "credit_my_site_url":  "http://www.firstpost.com",
+                "data_source_name": "World Bank",
+                "data_source_url": "http://www.worldbank.org/"
             });
-           k.execute();
+            k.execute();
 
             var k = new PykCharts.oneD.donut({
                 selector: "#donutContainer",
                 data: "../data/pie.json",
                 transition_duration: 1,
+                mode: "DEFault",
+                clubdata_enable: "yes",
+                clubdata_always_include_data_points: ["Africa","South America"],
+                units_prefix: "$",
+                units_suffix: "/-",
+
+
+                "border_between_chart_elements_thickness": 2,
+                "border_between_chart_elements_color": "black",
+                "border_between_chart_elements_style": "dotted",
+                "credit_my_site_name": "Firstpost",
+                "credit_my_site_url":  "http://www.firstpost.com",
+                "data_source_name": "World Bank",
+                "data_source_url": "http://www.worldbank.org/",
+                "donut_radius_percent": 40,
+                "donut_inner_radius_percent": 20,
+                "donut_show_total_at_center": "yes"
             });
            k.execute();
 
@@ -104,6 +170,14 @@
                 clubdata_always_include_data_points: ["Africa","South America"],
                 units_prefix: "$",
                 units_suffix: "/-",
+
+                "border_between_chart_elements_thickness": 2,
+                "border_between_chart_elements_color": "black",
+                "border_between_chart_elements_style": "dotted",
+                "credit_my_site_name": "Firstpost",
+                "credit_my_site_url":  "http://www.firstpost.com",
+                "data_source_name": "World Bank",
+                "data_source_url": "http://www.worldbank.org/"
             });
            k.execute();
 
@@ -122,7 +196,17 @@
                 "donut_show_total_at_center_family":"sans-serif",
                 units_prefix: "$",
                 units_suffix: "/-",
-                chart_height :"hjh"
+
+                "border_between_chart_elements_thickness": 2,
+                "border_between_chart_elements_color": "black",
+                "border_between_chart_elements_style": "dotted",
+                "credit_my_site_name": "Firstpost",
+                "credit_my_site_url":  "http://www.firstpost.com",
+                "data_source_name": "World Bank",
+                "data_source_url": "http://www.worldbank.org/",
+                "donut_radius_percent": 40,
+                "donut_inner_radius_percent": 20,
+                "donut_show_total_at_center": "yes"
            });
            k.execute();
 
@@ -132,7 +216,21 @@
                 background_color: "white",
                 selector: "#pieContainer",
                 data: "../data/screenshot.json",
-                // transition_duration: 4
+                // transition_duration: 4,
+                mode: "DEFault",
+                clubdata_enable: "yes",
+                clubdata_always_include_data_points: ["Africa","South America"],
+                units_prefix: "$",
+                units_suffix: "/-",
+
+                "border_between_chart_elements_thickness": 2,
+                "border_between_chart_elements_color": "black",
+                "border_between_chart_elements_style": "dotted",
+                "credit_my_site_name": "Firstpost",
+                "credit_my_site_url":  "http://www.firstpost.com",
+                "data_source_name": "World Bank",
+                "data_source_url": "http://www.worldbank.org/",
+                "pointer_overflow_enable": "no"
             });
            k.execute();
 
@@ -141,7 +239,20 @@
                 chart_height: 300,
                 selector: "#percentageColumn",
                 data:"../data/pie.json",
-                transition_duration: 1
+                transition_duration: 1,
+                mode: "DEFault",
+                clubdata_enable: "yes",
+                clubdata_always_include_data_points: ["Africa","South America"],
+                units_prefix: "$",
+                units_suffix: "/-",
+
+                "border_between_chart_elements_thickness": 2,
+                "border_between_chart_elements_color": "black",
+                "border_between_chart_elements_style": "dotted",
+                "credit_my_site_name": "Firstpost",
+                "credit_my_site_url":  "http://www.firstpost.com",
+                "data_source_name": "World Bank",
+                "data_source_url": "http://www.worldbank.org/"
             });
            k.execute();
 
@@ -160,7 +271,15 @@
                 clubdata_enable: "yes",
                 clubdata_always_include_data_points: ["Africa","South America"],
                 units_prefix: "$",
-                units_suffix: "/-"
+                units_suffix: "/-",
+
+                "border_between_chart_elements_thickness": 2,
+                "border_between_chart_elements_color": "black",
+                "border_between_chart_elements_style": "dotted",
+                "credit_my_site_name": "Firstpost",
+                "credit_my_site_url":  "http://www.firstpost.com",
+                "data_source_name": "World Bank",
+                "data_source_url": "http://www.worldbank.org/"
             });
            k.execute();
 
@@ -174,7 +293,16 @@
                 clubdata_enable: "yes",
                 clubdata_always_include_data_points: ["Africa","South America"],
                 units_prefix: "$",
-                units_suffix: "/-"
+                units_suffix: "/-",
+
+                "border_between_chart_elements_thickness": 2,
+                "border_between_chart_elements_color": "black",
+                "border_between_chart_elements_style": "dotted",
+                "credit_my_site_name": "Firstpost",
+                "credit_my_site_url":  "http://www.firstpost.com",
+                "data_source_name": "World Bank",
+                "data_source_url": "http://www.worldbank.org/",
+                "pointer_overflow_enable": "no"
             });
            k.execute();
 		    }
