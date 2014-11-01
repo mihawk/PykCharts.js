@@ -15,7 +15,7 @@ PykCharts.multiD.barChart = function(options){
         that.data_sort_order = PykCharts.boolean(that.data_sort_enable) && options.data_sort_order ? options.data_sort_order.toLowerCase() : multiDimensionalCharts.data_sort_order;
 
         try {
-            if(that.data_sort_type === "alphabetically" || that.data_sort_type === "numerically") {                
+            if(that.data_sort_type === "alphabetically" || that.data_sort_type === "numerically" || that.data_sort_type === "date") {
             } else {
                 that.data_sort_type = multiDimensionalCharts.data_sort_type;
                 throw "data_sort_type";
