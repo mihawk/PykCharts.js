@@ -729,7 +729,7 @@ PykCharts.multiD.lineChart = function (options){
 								.attr("x", that.margin_left)
 								.attr("y", that.margin_top)
 								.attr("dy",-5)
-								.style("font-size", that.pointer_size)
+								.style("font-size", that.pointer_size + "px")
 								.style("font-weight", that.pointer_weight)
 								.style("font-family", that.pointer_family)
 								.html(that.new_data1.name)
@@ -743,7 +743,7 @@ PykCharts.multiD.lineChart = function (options){
 								.attr("y", that.height-that.margin_bottom)
 								.attr("dy",10)
 								.attr("text-anchor","end")
-								.style("font-size", that.pointer_size)
+								.style("font-size", that.pointer_size + "px")
 								.style("font-weight", that.pointer_weight)
 								.style("font-family", that.pointer_family)
 								.html(that.new_data1.name)
@@ -796,7 +796,7 @@ PykCharts.multiD.lineChart = function (options){
 									that.tick_w = this.getBBox().width + 5;
 									return d.name;
 								})
-								.style("font-size", that.pointer_size)
+								.style("font-size", that.pointer_size + "px")
 								.style("font-weight", function(d){
 									if(d.highlight) {
 										return "bold";

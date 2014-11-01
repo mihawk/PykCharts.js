@@ -227,7 +227,7 @@ PykCharts.multiD.columnChart = function(options){
                                 .style("fill",that.axis_x_title_color)
                                 .style("font-weight",that.axis_x_title_weight)
                                 .style("font-family",that.axis_x_title_family)
-                                .style("font-size",that.axis_x_title_size)
+                                .style("font-size",that.axis_x_title_size + "px")
                                 .text(that.axis_x_title);
 
                     } else if(that.axis_x_position === "top") {
@@ -247,7 +247,7 @@ PykCharts.multiD.columnChart = function(options){
                                 .style("fill",that.axis_x_title_color)
                                 .style("font-weight",that.axis_x_title_weight)
                                 .style("font-family",that.axis_x_title_family)
-                                .style("font-size",that.axis_x_title_size)
+                                .style("font-size",that.axis_x_title_size +"px")
                                 .text(that.axis_x_title);
                     }                    
                 }
@@ -410,7 +410,7 @@ PykCharts.multiD.columnChart = function(options){
                             })
                             .attr("text-anchor", "middle")
                             .attr("fill",that.axis_x_pointer_color)
-                            .attr("font-size",that.axis_x_pointer_size)
+                            .attr("font-size",that.axis_x_pointer_size + "px")
                             .style("font-weight",that.axis_x_pointer_weight)
                             .style("font-family",that.axis_x_pointer_family)
                             .text(function(d){
@@ -600,7 +600,7 @@ PykCharts.multiD.columnChart = function(options){
                         .attr("pointer-events","none")
                         .attr("fill", that.legends_text_color)
                         .attr("font-family", that.legends_text_family)
-                        .attr("font-size",that.legends_text_size)
+                        .attr("font-size",that.legends_text_size+"px")
                         .attr("font-weight", that.legends_text_weight);
 
                     that.legends_text.attr("class","legends_text")
