@@ -56,6 +56,12 @@ PykCharts.maps.timelineMap = function (options) {
     this.execute = function () {
         that = PykCharts.maps.processInputs(that, options);
 
+        // that.k.validator().validatingDataType(that.margin_left,"timeline_margin_left",mapsTheme.timeline_margin_left,"margin_left")
+        //         .validatingDataType(that.margin_right,"timeline_margin_right",mapsTheme.timeline_margin_right,"margin_right")
+        //         .validatingDataType(that.margin_top,"timeline_margin_top",mapsTheme.timeline_margin_top,"margin_top")
+        //         .validatingDataType(that.margin_bottom,"timeline_margin_bottom",mapsTheme.timeline_margin_bottom,"margin_bottom")
+
+
         if(that.stop) {
             return;
         }

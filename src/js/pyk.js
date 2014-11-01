@@ -1285,7 +1285,7 @@ PykCharts.Configuration = function (options){
                 validatingSelector : function (selector) {
                     try {
                         if(!document.getElementById(selector)) {
-                            options.stop = true;    
+                            options.stop = true;
                             throw "selector";
                         }
                     }
@@ -1296,9 +1296,9 @@ PykCharts.Configuration = function (options){
                 },
                 validatingDataType : function (attr_value,config_name,default_value,name) {
                     try {
-                        if(!_.isNumber(attr_value)) { 
+                        if(!_.isNumber(attr_value)) {
                             if(name) {
-                                console.log(options[config_name],default_value,config_name)    
+                                console.log(options[config_name],default_value,config_name)
                                 options[name] = default_value;
                             } else {
                                 console.log(options[config_name],default_value,config_name)
@@ -1316,7 +1316,7 @@ PykCharts.Configuration = function (options){
                     try {
                         if(mode.toLowerCase() === "default" || mode.toLowerCase()=== "infographics") {
                         } else {
-                            options[config_name] = default_value;                            
+                            options[config_name] = default_value;
                             throw "mode";
                         }
                     }
@@ -1335,7 +1335,7 @@ PykCharts.Configuration = function (options){
                             }
                         }
                         catch (err) {
-                            
+
                             options.k.errorHandling(err,"9");
                         }
                     }
@@ -1360,7 +1360,7 @@ PykCharts.Configuration = function (options){
                         try {
                             if(axis_pointer_position.toLowerCase() === "left" || axis_pointer_position.toLowerCase()=== "right" ) {
                             } else {
-                                options[config_name] = default_value;                            
+                                options[config_name] = default_value;
                                 throw config_name;
                             }
                         }
@@ -1373,7 +1373,7 @@ PykCharts.Configuration = function (options){
                         try {
                             if(axis_pointer_position.toLowerCase()=== "top" || axis_pointer_position.toLowerCase()=== "bottom") {
                             } else {
-                                options[config_name] = default_value;                            
+                                options[config_name] = default_value;
                                 throw config_name;
                             }
                         }
@@ -1398,7 +1398,7 @@ PykCharts.Configuration = function (options){
                         try {
                             if(legends_display.toLowerCase() === "horizontal" || legends_display.toLowerCase()=== "vertical") {
                             } else {
-                                options[config_name] = default_value;                            
+                                options[config_name] = default_value;
                                 throw config_name;
                             }
                         }
@@ -1439,7 +1439,7 @@ PykCharts.Configuration = function (options){
                         try {
                             if(tooltip_mode.toLowerCase() === "fixed" || tooltip_mode.toLowerCase()=== "moving") {
                             } else {
-                                options[config_name] = default_value;                            
+                                options[config_name] = default_value;
                                 throw config_name;
                             }
                         }
@@ -1617,6 +1617,7 @@ configuration.mouseEvent = function (options) {
 
                                 if(left_diff >= right_diff) {
                                     active_x_tick = data[j].x;
+                                    // console.log(active_x_tick,"active_x_tick")
                                     active_y_tick.push(data[j].y);
                                     tooltipText = data[j].tooltip || data[j].y;
                                     pos_line_cursor_x = (xScale(active_x_tick) + lineMargin + left);
@@ -1624,6 +1625,7 @@ configuration.mouseEvent = function (options) {
                                 }
                                 else {
                                     active_x_tick = data[j+1].x;
+                                    // console.log(active_x_tick,"active_x_tick")
                                     active_y_tick.push(data[j+1].y);
                                     tooltipText = data[j+1].tooltip || data[j+1].y; // Line Chart ONLY!
                                     pos_line_cursor_x = (xScale(active_x_tick) + lineMargin + left);
@@ -1698,7 +1700,7 @@ configuration.mouseEvent = function (options) {
                                                 }
                                             }
                                         }
-                                    }                                
+                                    }
                                     if(type === "lineChart" || type === "areaChart") {
                                         if(PykCharts.boolean(options.tooltip_enable)) {
                                             if((options.tooltip_mode).toLowerCase() === "fixed") {
@@ -1853,7 +1855,9 @@ configuration.mouseEvent = function (options) {
                         // .style("font-size","12px")
                         .style("font-weight","normal");
                     for(var b=0;b < axis_data_length;b++) {
+                        // console.log(b,"it goessssssssssssssssssssss");
                         for(var a=0;a < active_tick.length;a++) {
+                            // console.log(active_tick[a],a,"heyyyyyyyyyy")
                             if(d3.selectAll(selection)[0][b].innerHTML == active_tick[a]) {
                                 d3.select(d3.selectAll(selection)[0][b])
                                     .style("fill",abc)
@@ -1879,10 +1883,21 @@ configuration.mouseEvent = function (options) {
                             .style("fill",abc)
                             .style("font-weight","normal");
                     }
+                    axis_data_length = d3.selectAll(selection)[0].length;
                     var len = domain.length;
-                    for(curr_tick = 0;curr_tick < len;curr_tick++){
-                        if(domain[curr_tick] === active_tick) {
-                            break;
+                    if(options.axis_x_data_format === "number" && a === undefined) {
+                        for(var curr_tick=0;curr_tick< axis_data_length;curr_tick++) {
+                            if(d3.selectAll(selection)[0][curr_tick].innerHTML == active_tick) {
+                                break;
+                            }
+                        }
+                    }
+                    else{
+                        for(curr_tick = 0;curr_tick < len;curr_tick++){
+                            // console.log("inside");
+                            if(domain[curr_tick] === active_tick) {
+                                break;
+                            }
                         }
                     }
                     prev_tick = curr_tick;

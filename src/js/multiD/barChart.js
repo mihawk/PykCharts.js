@@ -15,7 +15,7 @@ PykCharts.multiD.barChart = function(options){
         that.data_sort_order = PykCharts.boolean(that.data_sort_enable) && options.data_sort_order ? options.data_sort_order.toLowerCase() : multiDimensionalCharts.data_sort_order;
 
         try {
-            if(that.data_sort_type === "alphabetically" || that.data_sort_type === "numerically") {                
+            if(that.data_sort_type === "alphabetically" || that.data_sort_type === "numerically" || that.data_sort_type === "date") {
             } else {
                 that.data_sort_type = multiDimensionalCharts.data_sort_type;
                 throw "data_sort_type";
@@ -44,10 +44,8 @@ PykCharts.multiD.barChart = function(options){
         }
         that.multiD = new PykCharts.multiD.configuration(that);
         d3.json(options.data, function(e, data){
-            // console.log("data",data);
             that.data = data.groupBy("bar");
             that.compare_data = data.groupBy("bar");
-            //console.log(data);
             that.axis_x_data_format = that.k.xAxisDataFormatIdentification(that.data);
             $(that.selector+" #chart-loader").remove();
             that.render();
@@ -64,6 +62,7 @@ PykCharts.multiD.barChart = function(options){
             if(data_changed) {
                 that.k.lastUpdatedAt("liveData");
             }
+            that.map_group_data = that.multiD.mapGroup(that.data);
             that.data = that.dataTransformation();
             that.data = that.emptygroups(that.data);
             var fD = that.flattenData();
@@ -73,7 +72,7 @@ PykCharts.multiD.barChart = function(options){
             if(that.no_of_groups === 1) {
                 that.legends_enable = "no";
             }
-            that.map_group_data = that.multiD.mapGroup(that.data);
+
             that.optionalFeatures()
                     .createChart()
                     .legends()
@@ -86,15 +85,12 @@ PykCharts.multiD.barChart = function(options){
     //4. Render function to create the chart
     //----------------------------------------------------------------------------------------
     this.render = function(){
-        // console.log("barChart")
         var that = this;
         that.map_group_data = that.multiD.mapGroup(that.data);
         that.data = that.dataTransformation();
         that.data = that.emptygroups(that.data);
 
-        // console.log(that.data,"that.data");
         var fD = that.flattenData();
-        // console.log(fD);
         that.the_bars = fD[0];
         that.the_keys = fD[1];
         that.the_layers = that.buildLayers(that.the_bars);
@@ -304,7 +300,7 @@ PykCharts.multiD.barChart = function(options){
                         })
                     };
                 })
-                // console.log(layers);
+
                 var x_data = [];
                 that.layers.map(function(e, i){ // Get all values to create scale
                     for(i=0;i < e.values.length;i++){
@@ -382,7 +378,6 @@ PykCharts.multiD.barChart = function(options){
                 that.highlight_y_positions = [];
                 that.highlight_x_positions = [];
 
-                // console.log(that.layers,"layers")
 
                 that.bars = that.group.selectAll(".bars")
                     .data(that.layers);
@@ -640,8 +635,6 @@ PykCharts.multiD.barChart = function(options){
                     });
 
                     params = _.uniq(params);
-                    // console.log(params)
-                    // color = _.uniq(color);
                     var j = 0,k = 0;
                     j = params.length;
                     k = params.length;
