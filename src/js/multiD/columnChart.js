@@ -28,12 +28,14 @@ PykCharts.multiD.columnChart = function(options){
         d3.json(options.data, function (e, data) {
             that.data = data.groupBy("column");
             that.refresh_data = data.groupBy("column");
+
             var compare = that.k.checkChangeInData(that.refresh_data,that.compare_data);
             that.compare_data = compare[0];
             var data_changed = compare[1];
             if(data_changed) {
                 that.k.lastUpdatedAt("liveData");
             }      
+            that.map_group_data = that.multiD.mapGroup(that.data);
             that.data = that.dataTransformation();
             that.data = that.emptygroups(that.data);
 
@@ -44,7 +46,7 @@ PykCharts.multiD.columnChart = function(options){
             if(that.no_of_groups === 1) {
                 that.legends_enable = "no";
             }
-            that.map_group_data = that.multiD.mapGroup(that.data);
+
             that.optionalFeatures()
                     .createChart()
                     .legends();
@@ -58,7 +60,7 @@ PykCharts.multiD.columnChart = function(options){
     //----------------------------------------------------------------------------------------
     //4. Render function to create the chart
     //----------------------------------------------------------------------------------------
-    this.render = function(){
+    this.render = function() {
         var that = this;
         that.map_group_data = that.multiD.mapGroup(that.data);
         that.data = that.dataTransformation();
@@ -225,7 +227,7 @@ PykCharts.multiD.columnChart = function(options){
                                 .style("fill",that.axis_x_title_color)
                                 .style("font-weight",that.axis_x_title_weight)
                                 .style("font-family",that.axis_x_title_family)
-                                .style("font-size",that.axis_x_title_size)
+                                .style("font-size",that.axis_x_title_size + "px")
                                 .text(that.axis_x_title);
 
                     } else if(that.axis_x_position === "top") {
@@ -245,7 +247,7 @@ PykCharts.multiD.columnChart = function(options){
                                 .style("fill",that.axis_x_title_color)
                                 .style("font-weight",that.axis_x_title_weight)
                                 .style("font-family",that.axis_x_title_family)
-                                .style("font-size",that.axis_x_title_size)
+                                .style("font-size",that.axis_x_title_size +"px")
                                 .text(that.axis_x_title);
                     }                    
                 }
@@ -322,8 +324,9 @@ PykCharts.multiD.columnChart = function(options){
                     .attr("class","rect");
 
                 rect.attr("height", 0).attr("y", h)
-                    .attr("fill", function(d){
+                    .attr("fill", function(d) {
                         if(that.no_of_groups === 1) {
+//                            console.log(that.fillColor.colorPieMS(d),d,"color")
                             return that.fillColor.colorPieMS(d);
                         } else {
                             return that.fillColor.colorGroup(d);
@@ -407,7 +410,7 @@ PykCharts.multiD.columnChart = function(options){
                             })
                             .attr("text-anchor", "middle")
                             .attr("fill",that.axis_x_pointer_color)
-                            .attr("font-size",that.axis_x_pointer_size)
+                            .attr("font-size",that.axis_x_pointer_size + "px")
                             .style("font-weight",that.axis_x_pointer_weight)
                             .style("font-family",that.axis_x_pointer_family)
                             .text(function(d){
@@ -597,7 +600,7 @@ PykCharts.multiD.columnChart = function(options){
                         .attr("pointer-events","none")
                         .attr("fill", that.legends_text_color)
                         .attr("font-family", that.legends_text_family)
-                        .attr("font-size",that.legends_text_size)
+                        .attr("font-size",that.legends_text_size+"px")
                         .attr("font-weight", that.legends_text_weight);
 
                     that.legends_text.attr("class","legends_text")

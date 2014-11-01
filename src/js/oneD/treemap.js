@@ -200,7 +200,7 @@ PykCharts.oneD.treemap = function (options){
 
                     that.chart_text.attr("text-anchor","middle")
                         .style("font-weight", that.label_weight)
-                        .style("font-size", that.label_size)
+                        .style("font-size", that.label_size + "px")
                         .attr("fill", that.label_color)
                         .style("font-family", that.label_family)
 
@@ -224,7 +224,7 @@ PykCharts.oneD.treemap = function (options){
 
                     that.chart_text1.attr("text-anchor","middle")
                         .style("font-weight", that.label_weight)
-                        .style("font-size", that.label_size)
+                        .style("font-size", that.label_size + "px")
                         .attr("fill", that.label_color)
                         .style("font-family", that.label_family)
                         .text("")
