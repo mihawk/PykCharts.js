@@ -604,7 +604,6 @@ PykCharts.multiD.columnChart = function(options){
                         .attr("font-weight", that.legends_text_weight);
 
                     that.legends_text.attr("class","legends_text")
-                    .attr("fill","black")
                     .attr(text_parameter1, text_parameter1value)
                     .attr(text_parameter2, text_parameter2value)
                     .text(function (d) { return d; });
