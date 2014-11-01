@@ -552,27 +552,61 @@ PykCharts.multiD.columnChart = function(options){
                     }
                     else if(that.legends_display === "horizontal") {
                         that.legendsGroup_height = 50;
+                        temp_i = j;
+                        final_rect_x = 0;
+                        final_text_x = 0;
+                        legend_text_widths = 0;
                         text_parameter1 = "x";
                         text_parameter2 = "y";
                         rect_parameter1 = "width";
                         rect_parameter2 = "height";
                         rect_parameter3 = "x";
                         rect_parameter4 = "y";
-                        var text_parameter1value = function (d,i) { j--;return that.width - (j*100 + 75); };
+                        var text_parameter1value = function (d,i) {
+                            j--;
+                            curr_text_x = this.getBBox().width;
+                            final_text_x = (i === (temp_i-1)) ? (that.width - legend_text_widths) : (that.width - ((j+1)*legend_text_widths));
+                            return final_text_x;
+                        };
                         text_parameter2value = 30;
                         rect_parameter1value = 13;
                         rect_parameter2value = 13;
-                        var rect_parameter3value = function (d,i) { k--;return that.width - (k*100 + 100); };
+                        var rect_parameter3value = function (d,i) {
+                            k--;
+                            final_rect_x = (i === (temp_i-1)) ? (that.width - legend_text_widths) : (that.width - ((k+1)*legend_text_widths));
+                            return (final_rect_x - 18);
+                        };
                         rect_parameter4value = 18;
                     }
 
                     var legend = that.legendsGroup.selectAll("rect")
                                     .data(params);
 
-                    legend.enter()
-                            .append("rect");
+                    that.legends_text = that.legendsGroup.selectAll(".legends_text")
+                        .data(params);
 
-                    legend.attr(rect_parameter1, rect_parameter1value)
+                    that.legends_text.enter()
+                        .append('text');
+
+                    that.legends_text.attr("class","legends_text")
+                        .attr("pointer-events","none")
+                        .text(function (d) { return d; })
+                        .text(function (d) { legend_text_widths=(this.getBBox().width > legend_text_widths) ? this.getBBox().width : legend_text_widths;return d; })
+                        .attr("fill", that.legends_text_color)
+                        .attr("font-family", that.legends_text_family)
+                        .attr("font-size",that.legends_text_size+"px")
+                        .attr("font-weight", that.legends_text_weight)
+                        .attr(text_parameter1, text_parameter1value)
+                        .attr(text_parameter2, text_parameter2value);                        
+
+                    that.legends_text.exit()
+                        .remove();
+
+                    legend.enter()
+                        .append("rect");
+
+                    legend.attr("class","rect")
+                        .attr(rect_parameter1, rect_parameter1value)
                         .attr(rect_parameter2, rect_parameter2value)
                         .attr(rect_parameter3, rect_parameter3value)
                         .attr(rect_parameter4, rect_parameter4value)
@@ -589,28 +623,6 @@ PykCharts.multiD.columnChart = function(options){
                         });
 
                     legend.exit().remove();
-
-                    that.legends_text = that.legendsGroup.selectAll(".legends_text")
-                        .data(params);
-
-                    that.legends_text
-                        .enter()
-                        .append('text')
-                        .attr("class","legends_text")
-                        .attr("pointer-events","none")
-                        .attr("fill", that.legends_text_color)
-                        .attr("font-family", that.legends_text_family)
-                        .attr("font-size",that.legends_text_size+"px")
-                        .attr("font-weight", that.legends_text_weight);
-
-                    that.legends_text.attr("class","legends_text")
-                    .attr("fill","black")
-                    .attr(text_parameter1, text_parameter1value)
-                    .attr(text_parameter2, text_parameter2value)
-                    .text(function (d) { return d; });
-
-                    that.legends_text.exit()
-                                    .remove();
                 }
                 return this;
             }
