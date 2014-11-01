@@ -39,7 +39,7 @@ PykCharts.multiD.barChart = function(options){
         if(that.stop)
             return;
 
-            if(that.mode === "default") {
+        if(that.mode === "default") {
            that.k.loading();
         }
         that.multiD = new PykCharts.multiD.configuration(that);
@@ -946,12 +946,11 @@ PykCharts.multiD.barChart = function(options){
                     break;
                 case "date":
                     that.data.sort(function (a,b) {
-                        return ((that.data_sort_order === "descending") ? (new Date(b.y) - new Date(a.y)) : (new Date(a.y) - new Date(b.y)));
+                        return ((that.data_sort_order === "descending") ? (new Date(b.y) > new Date(a.y)) : (new Date(a.y) < new Date(b.y)));
                     });
                     break;
             }
         }
-        // console.log(that.data,"that.data")
 
         for(var i=0; i < data_length; i++) {
             var group = {},

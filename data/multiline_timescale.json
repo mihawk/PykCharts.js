@@ -2,147 +2,147 @@
 	{
 		"name":"China",
 		"color": "#013f73",
-		"x":"1-jan-14",
+		"x":"2014-01-01",
 		"y":120,
 		"tooltip":120
 	},
 	{
 		"name":"China",
 		"color": "#013f73",
-		"x":"2-jan-14",
+		"x":"2014-01-02",
 		"y":100,
 		"tooltip":100
 	},	
 	{
 		"name":"China",
 		"color": "#013f73",
-		"x":"3-jan-14",
+		"x":"2014-01-03",
 		"y":30,
 		"tooltip":30
 	},
 	{
 		"name":"China",
 		"color": "#013f73",
-		"x":"4-jan-14",
+		"x":"2014-01-04",
 		"y":40,
 		"tooltip":40
 	},
 	{
 		"name":"China",
 		"color": "#013f73",
-		"x":"5-jan-14",
+		"x":"2014-01-05",
 		"y":60,
 		"tooltip":60
 	},
 	{
 		"name":"China",
 		"color": "#013f73",
-		"x":"6-jan-14",
+		"x":"2014-01-06",
 		"y":70,
 		"tooltip":70
 	},
 	{
 		"name":"China",
 		"color": "#013f73",
-		"x":"7-jan-14",
+		"x":"2014-01-07",
 		"y":30,
 		"tooltip":30
 	},
 	{
 		"name":"U.S.A.",
 		"color": "#4682b4",
-		"x":"1-jan-14",
+		"x":"2014-01-01",
 		"y":70,
 		"tooltip":70
 	},
 	{
 		"name":"U.S.A.",
 		"color": "#4682b4",
-		"x":"2-jan-14",
+		"x":"2014-01-02",
 		"y":100,
 		"tooltip":100
 	},	
 	{
 		"name":"U.S.A.",
 		"color": "#4682b4",
-		"x":"3-jan-14",
+		"x":"2014-01-03",
 		"y":50,
 		"tooltip":50
 	},
 	{
 		"name":"U.S.A.",
 		"color": "#4682b4",
-		"x":"4-jan-14",
+		"x":"2014-01-04",
 		"y":60,
 		"tooltip":60
 	},
 	{
 		"name":"U.S.A.",
 		"color": "#4682b4",
-		"x":"5-jan-14",
+		"x":"2014-01-05",
 		"y":30,
 		"tooltip":30
 	},
 	{
 		"name":"U.S.A.",
 		"color": "#4682b4",
-		"x":"6-jan-14",
+		"x":"2014-01-06",
 		"y":40,
 		"tooltip":40
 	},
 	{
 		"name":"U.S.A.",
 		"color": "#4682b4",
-		"x":"7-jan-14",
+		"x":"2014-01-07",
 		"y":90,
 		"tooltip":90
 	},
 	{
 		"name":"India",
 		"color": "#75b0e1",
-		"x":"1-jan-14",
+		"x":"2014-01-01",
 		"y":50,		
 		"tooltip":50
 	},
 	{
 		"name":"India",
 		"color": "#75b0e1",
-		"x":"2-jan-14",
+		"x":"2014-01-02",
 		"y":30,
 		"tooltip":30
 	},	
 	{
 		"name":"India",
 		"color": "#75b0e1",
-		"x":"3-jan-14",
+		"x":"2014-01-03",
 		"y":80,
 		"tooltip":80
 	},
 	{
 		"name":"India",
 		"color": "#75b0e1",
-		"x":"4-jan-14",
+		"x":"2014-01-04",
 		"y":40,
 		"tooltip":40
 	},
 	{
 		"name":"India",
 		"color": "#75b0e1",
-		"x":"5-jan-14",
+		"x":"2014-01-05",
 		"y":50,
 		"tooltip":50
 	},
 	{
 		"name":"India",
 		"color": "#75b0e1",
-		"x":"6-jan-14",
+		"x":"2014-01-06",
 		"y":40,
 		"tooltip":40
 	},
 	{
 		"name":"India",
 		"color": "#75b0e1",
-		"x":"7-jan-14",
+		"x":"2014-01-07",
 		"y":70,
 		"tooltip":70
 	}
