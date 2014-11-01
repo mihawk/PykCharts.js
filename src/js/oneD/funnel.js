@@ -359,7 +359,7 @@ PykCharts.oneD.funnel = function (options) {
                             .attr("text-anchor","middle")
                             .attr("pointer-events","none")
                             .style("font-weight", that.label_weight)
-                            .style("font-size", that.label_size)
+                            .style("font-size", that.label_size + "px")
                             .attr("fill", that.label_color)
                             .style("font-family", that.label_family)
                             .text(function (d,i) {
@@ -421,7 +421,7 @@ PykCharts.oneD.funnel = function (options) {
                                     return "";
                                 }
                             })
-                            .attr("font-size", that.pointer_size)
+                            .attr("font-size", that.pointer_size + "px")
                             .attr("text-anchor","start")
                             .attr("fill", that.pointer_color)
                             .attr("pointer-events","none")

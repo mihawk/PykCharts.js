@@ -1285,7 +1285,7 @@ PykCharts.Configuration = function (options){
                 validatingSelector : function (selector) {
                     try {
                         if(!document.getElementById(selector)) {
-                            options.stop = true;    
+                            options.stop = true;
                             throw "selector";
                         }
                     }
@@ -1296,9 +1296,9 @@ PykCharts.Configuration = function (options){
                 },
                 validatingDataType : function (attr_value,config_name,default_value,name) {
                     try {
-                        if(!_.isNumber(attr_value)) { 
+                        if(!_.isNumber(attr_value)) {
                             if(name) {
-                                console.log(options[config_name],default_value,config_name)    
+                                console.log(options[config_name],default_value,config_name)
                                 options[name] = default_value;
                             } else {
                                 console.log(options[config_name],default_value,config_name)
@@ -1316,7 +1316,7 @@ PykCharts.Configuration = function (options){
                     try {
                         if(mode.toLowerCase() === "default" || mode.toLowerCase()=== "infographics") {
                         } else {
-                            options[config_name] = default_value;                            
+                            options[config_name] = default_value;
                             throw "mode";
                         }
                     }
@@ -1335,7 +1335,7 @@ PykCharts.Configuration = function (options){
                             }
                         }
                         catch (err) {
-                            
+
                             options.k.errorHandling(err,"9");
                         }
                     }
@@ -1360,7 +1360,7 @@ PykCharts.Configuration = function (options){
                         try {
                             if(axis_pointer_position.toLowerCase() === "left" || axis_pointer_position.toLowerCase()=== "right" ) {
                             } else {
-                                options[config_name] = default_value;                            
+                                options[config_name] = default_value;
                                 throw config_name;
                             }
                         }
@@ -1373,7 +1373,7 @@ PykCharts.Configuration = function (options){
                         try {
                             if(axis_pointer_position.toLowerCase()=== "top" || axis_pointer_position.toLowerCase()=== "bottom") {
                             } else {
-                                options[config_name] = default_value;                            
+                                options[config_name] = default_value;
                                 throw config_name;
                             }
                         }
@@ -1398,7 +1398,7 @@ PykCharts.Configuration = function (options){
                         try {
                             if(legends_display.toLowerCase() === "horizontal" || legends_display.toLowerCase()=== "vertical") {
                             } else {
-                                options[config_name] = default_value;                            
+                                options[config_name] = default_value;
                                 throw config_name;
                             }
                         }
@@ -1439,7 +1439,7 @@ PykCharts.Configuration = function (options){
                         try {
                             if(tooltip_mode.toLowerCase() === "fixed" || tooltip_mode.toLowerCase()=== "moving") {
                             } else {
-                                options[config_name] = default_value;                            
+                                options[config_name] = default_value;
                                 throw config_name;
                             }
                         }
@@ -1700,7 +1700,7 @@ configuration.mouseEvent = function (options) {
                                                 }
                                             }
                                         }
-                                    }                                
+                                    }
                                     if(type === "lineChart" || type === "areaChart") {
                                         if(PykCharts.boolean(options.tooltip_enable)) {
                                             if((options.tooltip_mode).toLowerCase() === "fixed") {
@@ -2050,7 +2050,7 @@ configuration.makeXAxis = function(options,xScale) {
                     .orient(options.axis_x_pointer_position);
 
     d3.selectAll(options.selector + " .x.axis .tick text")
-            .attr("font-size",options.axis_x_pointer_size)
+            .attr("font-size",options.axis_x_pointer_size +"px")
             .style("font-weight",options.axis_x_pointer_weight)
             .style("font-family",options.axis_x_pointer_family);
 
@@ -2095,7 +2095,7 @@ configuration.makeYAxis = function(options,yScale) {
                     });
 
     d3.selectAll(options.selector + " .y.axis .tick text")
-                .attr("font-size",options.axis_y_pointer_size)
+                .attr("font-size",options.axis_y_pointer_size +"px")
                 .style("font-weight",options.axis_y_pointer_weight)
                 .style("font-family",options.axis_y_pointer_family);
 
@@ -2140,7 +2140,7 @@ configuration.makeXGrid = function(options,xScale) {
                     .outerTickSize(0);
 
     d3.selectAll(options.selector + " .x.axis .tick text")
-                    .attr("font-size",options.axis_x_pointer_size)
+                    .attr("font-size",options.axis_x_pointer_size + "px")
                     .style("font-weight",options.axis_x_pointer_weight)
                     .style("font-family",options.axis_x_pointer_family);
 
@@ -2163,7 +2163,7 @@ configuration.makeYGrid = function(options,yScale) {
                     .outerTickSize(0);
 
     d3.selectAll(options.selector + " .y.axis .tick text")
-                    .attr("font-size",options.axis_y_pointer_size)
+                    .attr("font-size",options.axis_y_pointer_size + "px")
                     .style("font-weight",options.axis_y_pointer_weight)
                     .style("font-family",options.axis_y_pointer_family);
 
