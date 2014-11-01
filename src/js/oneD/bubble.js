@@ -16,16 +16,17 @@ PykCharts.oneD.bubble = function (options) {
             that.k.warningHandling(err,"3");
         }
 
-        if(that.stop) {
-            return;
-        }
-
         if(that.mode === "default") {
-           that.k.loading();
+            that.k.loading();
         }
 
         d3.json(options.data, function (e,data) {
-            console.log(options.data,"data");
+
+            var validate = that.k.validator().validatingJSON(data);
+            if(that.stop || validate === false) {
+                $(options.selector+" #chart-loader").remove();
+                return;
+            }
             // that.data =options.data;
             // that.compare_data = options.data;
             that.data = data.groupBy("oned");

@@ -20,6 +20,11 @@ PykCharts.multiD.lineChart = function (options){
 		that.interpolate = PykCharts.boolean(that.curvy_lines) ? "cardinal" : "linear";
 
 	    d3.json(options.data, function (e, data) {
+            var validate = that.k.validator().validatingJSON(data);
+            if(that.stop || validate === false) {
+                $(that.selector+" #chart-loader").remove();
+                return;
+            }
 			that.data = data.groupBy("line");
 			that.axis_y_data_format = "number";
     		that.axis_x_data_format = options.axis_x_data_format ? options.axis_x_data_format.toLowerCase() : that.k.xAxisDataFormatIdentification(that.data);
