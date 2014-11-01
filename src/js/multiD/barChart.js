@@ -8,7 +8,7 @@ PykCharts.multiD.barChart = function(options){
         
         // console.log("barChart");        
         that.grid_y_enable =  options.chart_grid_y_enable ? options.chart_grid_y_enable.toLowerCase() : theme.stylesheet.chart_grid_y_enable;
-        that.grid_color = options.chart_grid_color ? options.chart_grid_color.toLowerCase() : theme.stylesheet.chart_grid_color;
+        that.grid_color = options.chart_grid_color ? options.chart_grid_color : theme.stylesheet.chart_grid_color;
         
         that.data_sort_enable = options.data_sort_enable ? options.data_sort_enable.toLowerCase() : multiDimensionalCharts.data_sort_enable;
         that.data_sort_type = PykCharts.boolean(that.data_sort_enable) && options.data_sort_type ? options.data_sort_type.toLowerCase() : multiDimensionalCharts.data_sort_type;
@@ -39,7 +39,7 @@ PykCharts.multiD.barChart = function(options){
         if(that.stop)
             return;
 
-            if(that.mode === "default") {
+        if(that.mode === "default") {
            that.k.loading();
         }
         that.multiD = new PykCharts.multiD.configuration(that);
@@ -215,7 +215,7 @@ PykCharts.multiD.barChart = function(options){
                             .attr("y1",0)
                             .attr("x2",0)
                             .attr("y2",that.height-that.margin_top-that.margin_bottom - that.legendsGroup_height)
-                            .attr("stroke",that.axis_x_line_color)
+                            .attr("stroke",that.axis_y_line_color)
                             .attr("stroke-width","1px");
 
                     axis_line.exit().remove();
@@ -940,12 +940,11 @@ PykCharts.multiD.barChart = function(options){
                     break;
                 case "date":
                     that.data.sort(function (a,b) {
-                        return ((that.data_sort_order === "descending") ? (new Date(b.y) - new Date(a.y)) : (new Date(a.y) - new Date(b.y)));
+                        return ((that.data_sort_order === "descending") ? (new Date(b.y) > new Date(a.y)) : (new Date(a.y) < new Date(b.y)));
                     });
                     break;
             }
         }
-        // console.log(that.data,"that.data")
 
         for(var i=0; i < data_length; i++) {
             var group = {},

@@ -37,9 +37,7 @@ PykCharts.multiD.columnChart = function(options){
             }      
             that.map_group_data = that.multiD.mapGroup(that.data);
             that.data = that.dataTransformation();
-            // that.data = that.emptygroups(that.data);
-
-            console.log(that.data,"that.data");
+            that.data = that.emptygroups(that.data);
 
             var fD = that.flattenData();
             that.the_bars = fD[0];
@@ -53,7 +51,6 @@ PykCharts.multiD.columnChart = function(options){
                     .createChart()
                     .legends();
 
-            console.log(that.the_bars,"bars",that.the_layers);
             that.k.yAxis(that.svgContainer,that.yGroup,that.yScaleInvert)
                 .yGrid(that.svgContainer,that.group,that.yScaleInvert);
                 // console.log("inside liveData");
@@ -63,12 +60,11 @@ PykCharts.multiD.columnChart = function(options){
     //----------------------------------------------------------------------------------------
     //4. Render function to create the chart
     //----------------------------------------------------------------------------------------
-    this.render = function(){
+    this.render = function() {
         var that = this;
         that.map_group_data = that.multiD.mapGroup(that.data);
         that.data = that.dataTransformation();
         that.data = that.emptygroups(that.data);
-        console.log(that.data,"that.data");
         var fD = that.flattenData();
         that.the_bars = fD[0];
         that.the_keys = fD[1];
@@ -262,11 +258,9 @@ PykCharts.multiD.columnChart = function(options){
                 var h = that.height - that.margin_top - that.margin_bottom - that.legendsGroup_height,j=that.no_of_groups+1;
 
                 var the_bars = that.the_bars;
-                // console.log(that.the_bars,"bars",that.data)
                 var keys = that.the_keys;
                 that.groups= that.getGroups();
                 var layers = that.the_layers;
-                // console.log(that.the_layers,"layers")
                 
                 that.stack_layout = d3.layout.stack() // Create default stack
                     .values(function(d){ // The values are present deep in the array, need to tell d3 where to find it
