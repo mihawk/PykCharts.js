@@ -1300,10 +1300,8 @@ PykCharts.Configuration = function (options){
                     try {
                         if(!_.isNumber(attr_value)) {
                             if(name) {
-                                console.log(options[config_name],default_value,config_name)
                                 options[name] = default_value;
                             } else {
-                                console.log(options[config_name],default_value,config_name)
                                 options[config_name] = default_value;
                             }
                             throw config_name;

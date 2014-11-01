@@ -89,29 +89,8 @@ PykCharts.multiD.barChart = function(options){
         that.data = that.dataTransformation();
         that.data = that.emptygroups(that.data);
 
-        if(that.no_of_groups === 1) {
-            try {
-                    if(that.data_sort_type === "alphabetically" || that.data_sort_type === "numerically" || that.data_sort_type === "date") {
-                    } else {
-                        that.data_sort_type = multiDimensionalCharts.data_sort_type;
-                        throw "data_sort_type";
-                    } 
-            }
-            catch(err) {
-                that.k.warningHandling(err,"8");
-            }
-        } else {
-            try {
-                    if(that.data_sort_type === "alphabetically" || that.data_sort_type === "date") {
-                    } else {
-                        that.data_sort_type = multiDimensionalCharts.data_sort_type;
-                        throw "data_sort_type";
-                    } 
-            }
-            catch(err) {
-                that.k.warningHandling(err,"8");
-            }
-        }
+
+        console.log(that.data_sort_type,"that.data_sort_type");
 
         var fD = that.flattenData();
         that.the_bars = fD[0];
@@ -947,6 +926,30 @@ PykCharts.multiD.barChart = function(options){
             return d.group;
         });
 
+        if(that.unique_group.length === 1) {
+            try {
+                    if(that.data_sort_type === "alphabetically" || that.data_sort_type === "numerically" || that.data_sort_type === "date") {
+                    } else {
+                        that.data_sort_type = multiDimensionalCharts.data_sort_type;
+                        throw "data_sort_type";
+                    } 
+            }
+            catch(err) {
+                that.k.warningHandling(err,"8");
+            }
+        } else {
+            try {
+                if(that.data_sort_type === "alphabetically" || that.data_sort_type === "date") {
+                } else {
+                    that.data_sort_type = multiDimensionalCharts.data_sort_type;
+                    throw "data_sort_type";
+                } 
+            }
+            catch(err) {
+                that.k.warningHandling(err,"8");
+            }
+        }
+
         if (PykCharts.boolean(that.data_sort_enable)) {
             switch (that.data_sort_type) {
                 case "numerically":
@@ -958,6 +961,7 @@ PykCharts.multiD.barChart = function(options){
                     break;
                 case "alphabetically":
                     that.data.sort(function (a,b) {
+                        console.log("inside")
                         if (a.y < b.y) {
                             return (that.data_sort_order === "descending") ? 1 : -1;
                         }
