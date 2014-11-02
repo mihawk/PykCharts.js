@@ -140,9 +140,9 @@ PykCharts.other.pictograph = function (options) {
            
         that.optionalFeatures()
                 .svgContainer()
-                .createChart()
                 .labelText()
-                .enableLabel();
+                .enableLabel()
+                .createChart();
         if(that.mode==="default") {
             that.k.createFooter()
                 .credits()
@@ -169,7 +169,7 @@ PykCharts.other.pictograph = function (options) {
 
                 that.group = that.svgContainer.append("g")
                     // .attr("transform", "translate(100,0)")
-                    .attr("transform", "translate(" + that.imageWidth + ",0)");
+                    // .attr("transform", "translate(" + that.imageWidth + ",0)");
 
                 that.group1 = that.svgContainer.append("g")
                     .attr("transform","translate(0,0)");
@@ -177,10 +177,13 @@ PykCharts.other.pictograph = function (options) {
                 return this;
             },
             createChart: function () {
-                var a = 0,b=1;
+                var a = 0,b=0;
 
                 that.optionalFeatures().showTotal();
                 var counter = 0;
+
+                that.group.attr("transform", "translate(" + (that.textWidth + that.totalTxtWeight + 25) + ",0)")
+
                 for(var j=1; j<=that.weight; j++) {
                     if(j <= that.data[1].weight ) {
                         that.group.append("image")
@@ -190,12 +193,11 @@ PykCharts.other.pictograph = function (options) {
                             .attr("x", b *(that.imageWidth + 1))
                             .attr("y", a *(that.imageHeight + 10))
                             .attr("width",0)
-                            // .attr("height",100)
                             .attr("height", that.imageHeight + "px")
                             .transition()
                             .duration(that.transitions.duration())
                             .attr("width", that.imageWidth + "px");
-                    }else {
+                    } else {
                         that.group.append("image")
                             .attr("xlink:href",that.data[0]["image"])
                             .attr("x", b *(that.imageWidth + 1))
@@ -211,12 +213,16 @@ PykCharts.other.pictograph = function (options) {
                     }
                     counter++;
                     b++;
+
                     if (counter >= that.imgperline) {
                         a++;
-                        b=1;
+                        b=0;
                         counter=0;
                         that.group.append("text").html("<br><br>");
                     }
+                }
+                if(((that.imageWidth * that.imgperline) + that.textWidth + that.totalTxtWeight + 25) > that.width) {
+                    console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px',"Your Lable text size and image width exceeds the chart conatiner width")
                 }
                 return this;
             },
@@ -233,7 +239,7 @@ PykCharts.other.pictograph = function (options) {
                 if (PykCharts.boolean(that.enableTotal)) {
                     var y_pos =  ((that.data[0].weight)/(that.imgperline));
                     var textHeight;
-                     this.labelText();
+
                      that.group1.append("text")
                         .attr("font-family",that.total_count_family)
                         .attr("font-size",that.total_count_size)
@@ -242,6 +248,7 @@ PykCharts.other.pictograph = function (options) {
                         .text("/"+that.data[0].weight)
                         .text(function () {
                             textHeight =this.getBBox().height;
+                            that.totalTxtWeight = this.getBBox().width;
                             return "/"+that.data[0].weight;
                         })
                         .attr("x", (that.textWidth+5))

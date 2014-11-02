@@ -48,6 +48,12 @@ PykCharts.multiD.scatterPlot = function (options) {
             that.data = data.groupBy("scatterplot");
             that.axis_y_data_format = that.k.yAxisDataFormatIdentification(that.data);
             that.axis_x_data_format = that.k.xAxisDataFormatIdentification(that.data);
+            if(that.axis_x_data_format === "time" && that.axis_x_time_value_datatype === "") {
+                console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+that.selector+".(\""+"You seem to have passed Date data so please pass the value for axis_x_time_value_datatype"+"\")  Visit www.chartstore.io/docs#warning_"+"15");
+            } 
+            if(that.axis_y_data_format === "time" && that.axis_y_time_value_datatype === "") {
+                console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+that.selector+".(\""+"You seem to have passed Date data so please pass the value for axis_x_time_value_datatype"+"\")  Visit www.chartstore.io/docs#warning_"+"15");
+            }
             that.compare_data = data.groupBy("scatterplot");
             $(that.selector+" #chart-loader").remove();
             var a = new PykCharts.multiD.scatterplotFunction(options,that,"scatterplot");
@@ -96,6 +102,12 @@ PykCharts.multiD.pulse = function (options) {
             that.data = data.groupBy("pulse");
             that.axis_y_data_format = that.k.yAxisDataFormatIdentification(that.data);
             that.axis_x_data_format = that.k.xAxisDataFormatIdentification(that.data);
+            if(that.axis_x_data_format === "date" && that.axis_x_time_value_datatype === "") {
+                console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+that.selector+".(\""+"You seem to pass Date data so please pass axis_x_time_value_datatype"+"\")  Visit www.chartstore.io/docs#warning_"+"15");
+            } 
+            if(that.axis_y_data_format === "date" && that.axis_y_time_value_datatype === "") {
+                console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+that.selector+".(\""+"You seem to pass Date data so please pass axis_y_time_value_datatype"+"\")  Visit www.chartstore.io/docs#warning_"+"15");
+            }
             that.compare_data = data.groupBy("pulse");
             $(that.selector+" #chart-loader").remove();
             var a = new PykCharts.multiD.scatterplotFunction(options,that,"pulse");
@@ -694,7 +706,6 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
 
                     tick_label.attr("class","ticks-text")    
                         .attr("x",function (d) {
-                            console.log(that.x(d.x));
                             return that.x(d.x);
                         })
                         .attr("y",function (d) {
@@ -846,7 +857,6 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
              d3.select(that.selector+" #"+containerId +i)
                 .selectAll(".ticks-text")
                         .attr("x",function (d) {
-                            console.log(that.x(d.x));
                             return that.x(d.x);
                         })
                         .attr("y",function (d) {

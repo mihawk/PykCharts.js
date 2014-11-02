@@ -29,6 +29,9 @@ PykCharts.multiD.lineChart = function (options) {
 			that.data = data.groupBy("line");
 			that.axis_y_data_format = "number";
     		that.axis_x_data_format = that.k.xAxisDataFormatIdentification(that.data);
+			if(that.axis_x_data_format === "time" && that.axis_x_time_value_datatype === "") {
+    			console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+that.selector+".(\""+"You seem to have passed Date data so please pass the value for axis_x_time_value_datatype"+"\")  Visit www.chartstore.io/docs#warning_"+"15");
+    		}
 			that.compare_data = that.data;
 			that.data_length = that.data.length;
 			that.dataTransformation();
@@ -122,7 +125,7 @@ PykCharts.multiD.lineChart = function (options) {
 							// .chartType()
 							.svgContainer(i)
 							.createGroups(i);
-					that.k.crossHair(that.svgContainer,1,that.fill_data,that.fillColor);
+					that.k.crossHair(that.svgContainer,1,that.fill_data,that.fillColor,that.type);
 					that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
 
 					that.optionalFeature()
@@ -161,7 +164,7 @@ PykCharts.multiD.lineChart = function (options) {
 						.createGroups(1)
 						.hightLightOnload();
 
-				that.k.crossHair(that.svgContainer,that.new_data_length,that.new_data,that.fillColor);
+				that.k.crossHair(that.svgContainer,that.new_data_length,that.new_data,that.fillColor,that.type);
 				that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
 
 				that.optionalFeature()
@@ -331,7 +334,7 @@ PykCharts.multiD.lineChart = function (options) {
 				}
 
 				// $(that.selector).css({"background-color":that.bg,"position":"relative"});
-
+				// console.log("that.w >>>> ",that.w,that.width);
 				that.svgContainer = d3.select(that.selector+" #tooltip-svg-container-"+i)
 					.append("svg:svg")
 					.attr("id","svg-" + i)

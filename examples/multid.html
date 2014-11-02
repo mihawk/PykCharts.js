@@ -51,7 +51,7 @@
                     selector: "#line",
                     data: "../data/linechart_linear.json",
                     mode : "default",
-                    color_mode: "color",  //color or saturation
+                    color_mode: "color", //color or saturation
                     chart_color:["#00008B"],
                     title_text:"Air Pollution in New York </br>(23/12/2013 - 29/12/2013)",
                     title_family:"sans-serif",
@@ -78,7 +78,7 @@
                     axis_x_line_color: "#1D1D1D",
                     axis_x_pointer_size: 12,
                     axis_x_pointer_padding: 2,
-                    axis_y_pointer_values: [2,6],
+                    axis_x_no_of_axis_value: 8,
                     axis_x_outer_pointer_length: 5,
                     "axis_x_no_of_axis_value": 10,
                     axis_x_time_value_datatype:"month",
@@ -98,9 +98,8 @@
                     zoom_enable: "yes",
                     annotation_enable: "yes",
                     annotation_view_mode: "onload",
-                    annotation_background_color : "#C2CBCF",
-                    // annotation_font_color : ""
-
+                    highlight_color : "red",
+                    highlight : "NEw York"
                 });
                k.execute();
 
@@ -118,9 +117,9 @@
                     chart_height: 400,
                     chart_width : 630,
                     chart_margin_top: 5,
-                    chart_margin_right: 25,
+                    chart_margin_right: 70,
                     chart_margin_bottom: 35,
-                    chart_margin_left: 70,
+                    chart_margin_left: 50,
 
                     chart_grid_x_enable: "no",
                     chart_grid_y_enable: "yes",
@@ -142,8 +141,8 @@
 
                     axis_y_enable: "yes",
                     axis_y_title : "Air Quantity Index",
-                    axis_y_position: "left",
-                    axis_y_pointer_position: "left",
+                    axis_y_position: "right",
+                    axis_y_pointer_position: "right",
                     axis_y_line_color: "red",
                     axis_y_label_color: "#1D1D1D",
                     axis_y_pointer_size: 12,
@@ -157,6 +156,7 @@
                     panels_enable: "yes",
                     annotation_enable: "yes",
                     annotation_view_mode: "onclick",
+
                     annotation_background_color:"#FF6666",
                     border_between_chart_elements_thickness: 2
                 });
@@ -177,6 +177,10 @@
                     chart_color: ["","green"],
                     chart_height: 430,
                     chart_width : 430,
+                    chart_margin_top: 25,
+                    chart_margin_right: 25,
+                    chart_margin_bottom: 25,
+                    chart_margin_left: 55,
 
                     panels_enable:"yes",
 
@@ -379,8 +383,7 @@
                     panels_enable: "yes",
                     zoom_enable: "yes",
                     annotation_enable:"yes",
-                    annotation_view_mode:"onclick",
-                    annotation_background_color:"#FF6666"
+                    annotation_view_mode:"onclick"
                 });
                k.execute();
 
@@ -402,7 +405,7 @@
                     chart_grid_x_enable: "no",
                     chart_grid_y_enable: "yes",
 
-                    transition_duration: 0,
+                    transition_duration: 5,
                     real_time_charts_refresh_frequency: 0,
 
                     axis_onhover_highlight_enable: "yes",
@@ -435,10 +438,7 @@
                     highlight: "India",
                     highlight_color: "red",
                     annotation_enable: "yes",
-                    annotation_view_mode: "onclick",
-                    // annotation_background_color:"#B22222"
-                    annotation_background_color:"#FF6666"
-                    // annotation_background_color:"#F75448"
+                    annotation_view_mode: "onclick"
                 });
                k.execute();
 
@@ -491,6 +491,7 @@
                     curvy_lines_enable:"yes",
                     crosshair_enable: "yes",
                     tooltip_enable : "yes",
+                    tooltip_mode: "fixed",
                     zoom_enable: "yes",
                     panels_enable:"yes",
 
@@ -501,9 +502,8 @@
                     // legends_text_weight: "normal",
                     // legends_text_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
                     annotation_enable: "yes",
-                    annotation_view_mode: "onload",
-                    annotation_border_color:"black",
-                    annotation_background_color:"#FF6666"
+                    annotation_view_mode: "onclick",
+                    annotation_border_color:"black"
                 });
                k.execute();
 
@@ -642,7 +642,7 @@
                     chart_color:["orange","red","steelblue","gray"],
 
                     chart_height: 430,
-                    chart_width : 400,
+                    chart_width : 1000,
                     chart_margin_top: 25,
                     chart_margin_right: 45,
                     chart_margin_bottom: 45,
@@ -691,8 +691,7 @@
                     border_between_chart_elements_style: "solid",
                    // saturation_enable: "yes",
 
-                    highlight:"april",
-
+                    highlight:"april"
                 });
                k.execute();
 
@@ -766,7 +765,7 @@
                     chart_margin_top: 25,
                     chart_margin_right: 45,
                     chart_margin_bottom: 35,
-                    chart_margin_left: 40,
+                    chart_margin_left: 140,
 
                     color_mode:"saturation",
 
@@ -814,7 +813,7 @@
                     saturation_enable: "no",
                     axis_x_pointer_weight: "normal",
                     data_sort_enable: "yes",
-                    highlight: "April",
+                    highlight: "2014-02-01",
                     legends_enable: "yes",
                     legends_display: "horizontal",
                     legends_text_size: 12,
@@ -822,8 +821,11 @@
                     legends_text_weight: "normal",
                     legends_text_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
                     "data_sort_enable": "yes",
-                    "data_sort_type": "numerically", // sort type --- "alphabetically" / "date" 
-                    "data_sort_order": "ascending" // sort order --- "descending" / "ascending"
+                    "data_sort_type": "date", // sort type --- "alphabetically" / "date" 
+                    "data_sort_order": "ascending", // sort order --- "descending" / "ascending",
+                    legends_text_family: "Papyrus",
+                    legends_text_weight: "bold",
+                    legends_text_size: 28
 
                 });
                k.execute();

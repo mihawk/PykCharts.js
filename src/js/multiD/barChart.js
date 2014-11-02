@@ -198,6 +198,7 @@
                     that.legendsGroup = that.svgContainer.append("g")
                         .attr("id","legends")
                         .attr("class","legends")
+                        .style("visibility","hidden")
                         .attr("transform","translate(0,10)");
 
                 } else {
@@ -676,18 +677,17 @@
                         rect_parameter4 = "y";
                         var text_parameter1value = function (d,i) {
                             legend_text_widths[i] = this.getBBox().width;
-                            legend_start_x = that.width - sum_text_widths;
-                            final_text_x = (legend_start_x + temp_text + 25);
-                            temp_text = temp_text + this.getBBox().width + 35;
+                            legend_start_x = 16;
+                            final_text_x = (i === 0) ? legend_start_x : (legend_start_x + temp_text);
+                            temp_text = temp_text + legend_text_widths[i] + 30;
                             return final_text_x;
                         };
                         text_parameter2value = 30;
                         rect_parameter1value = 13;
                         rect_parameter2value = 13;
                         var rect_parameter3value = function (d,i) {
-                            legend_start_x = that.width - sum_text_widths;
-                            final_rect_x = (legend_start_x + temp_rect + 7);
-                            temp_rect = temp_rect + legend_text_widths[i] + 35;
+                            final_rect_x = (i === 0) ? 0 : temp_rect;
+                            temp_rect = temp_rect + legend_text_widths[i] + 30;
                             return final_rect_x;
                         };
                         rect_parameter4value = 18;
@@ -705,17 +705,12 @@
                     that.legends_text.attr("class","legends_text")
                         .attr("pointer-events","none")
                         .text(function (d) { return d; })
-                        .text(function (d) { sum_text_widths = sum_text_widths + this.getBBox().width + 22;return d; })
                         .attr("fill", that.legends_text_color)
                         .attr("font-family", that.legends_text_family)
                         .attr("font-size",that.legends_text_size +"px")
                         .attr("font-weight", that.legends_text_weight)
-                        .attr("fill","black")
                         .attr(text_parameter1, text_parameter1value)
                         .attr(text_parameter2, text_parameter2value);
-
-                    that.legends_text.exit()
-                                    .remove();
 
                     legend.enter()
                         .append("rect");
@@ -725,7 +720,6 @@
                         .attr(rect_parameter3, rect_parameter3value)
                         .attr(rect_parameter4, rect_parameter4value)
                         .attr("fill", function (d,i) {
-                            // console.log(color[i])
                             if(that.color_mode === "color")
                                 return color[i];
                             else return color[0];
@@ -737,6 +731,13 @@
                             }
                         });
 
+                    var legend_container_width = that.legendsGroup.node().getBBox().width;
+                        translate_x = that.width - legend_container_width;
+                    
+                    if (legend_container_width < that.width) { that.legendsGroup.attr("transform","translate("+(translate_x-20)+",10)"); }
+                    that.legendsGroup.style("visibility","visible");
+                    
+                    that.legends_text.exit().remove();
                     legend.exit().remove();
                 }
                 return this;
@@ -800,7 +801,7 @@
             if(!bar.id) continue;
             var id = bar.id;
             for(var k in bar){
-                // console.log(bar,"bar");
+                //  .log(bar,"bar");
                 if(k === "id") continue;
                 var icings = bar[k];
                 // console.log(icings,"icings");
@@ -875,7 +876,7 @@
         return p;
     };
     this.emptygroups = function (data) {
-
+        console.log(data,"data")
         that.no_of_groups = that.unique_group.length;
 
         that.group_data;
@@ -883,36 +884,31 @@
         for(var i =0; i<that.no_of_groups;i++) {
             if(_.values(data[i])[0].length === that.no_of_groups) {
                 that.group_data = _.values(data[i])[0];
+                console.log(that.group_data,"group_data")
                 break;
             }            
         }
 
-        that.get_unique_group = _.map(that.group_data,function(d,i) {
-            
+        that.get_unique_group = _.map(that.group_data,function(d,i) {            
             return _.keys(d)[0];
         });
-        
-        // console.log(that.get_unique_group);
+
         that.unique_color = _.map(that.group_data, function (d,i) {
             return d[_.keys(d)][0].color;
         });
-        // console.log(data);
+
         for(var i = 0;i<data.length;i++) {
             var value = _.values(data[i]);
             var group = value[0];
-            // console.log(value);
             if(value[0].length < that.no_of_groups) {
                 for(var k=0; k<that.no_of_groups;k++) {         
-                // console.log(group[k],"hello",group,k,data[i][0])       
                     var value = _.values(data[i]);
                     var group = value[0];
                     if(_.keys(group[k])[0] != that.get_unique_group[k]) {                        
                         var stack = { "name": "stack", "tooltip": "null", "color": that.unique_color[k], "val": 0, /*highlight: false*/ };
                         var missing_group = that.get_unique_group[k];
                         _.values(data[i])[0].splice(k, 0, {});
-                        // _.values(data[i])[0][k] = {};
                         _.values(data[i])[0][k][missing_group] = [stack];
-                        // console.log(_.values(data[i])[0],data[i],"jhol",[stack])
                     }
                 }
             }
@@ -954,6 +950,16 @@
                 that.k.warningHandling(err,"8");
             }
         }
+        if(!PykCharts.boolean(that.data_sort_enable)) {
+            that.data.sort(function(a,b) {
+                if (a.group < b.group) {
+                    return -1;
+                }
+                else if (a.group > b.group) {
+                    return 1;
+                }
+            });
+        }
 
         if (PykCharts.boolean(that.data_sort_enable)) {
             switch (that.data_sort_type) {
@@ -982,12 +988,27 @@
                     });
                     break;
                 case "date":
-                    that.data.sort(function (a,b) {
-                        return ((that.data_sort_order === "descending") ? (new Date(b.y) > new Date(a.y)) : (new Date(a.y) > new Date(b.y)));
+                    that.data.sort(function (a,b) {                        
+                        if (new Date(a.y) < new Date(b.y)) {
+                            return (that.data_sort_order === "descending") ? 1 : -1;
+                        }
+                        else if (new Date(a.y) > new Date(b.y)) {
+                            return (that.data_sort_order === "descending") ? -1 : 1;
+                        }
+                        else if (a.group < b.group) {
+                            return (that.data_sort_order === "descending") ? 1 : -1;
+                        }
+                        else if (a.group > b.group) {
+                            return (that.data_sort_order === "descending") ? -1 : 1;
+                        }
+                        return 0;
+
+                        //return ((that.data_sort_order === "descending") ? (new Date(b.y) > new Date(a.y)) : (new Date(a.y) > new Date(b.y)));
                     });
                     break;
             }
         }
+        console.log(that.data_sort_enable,that.data_sort_type,that.data_sort_order);
 
         for(var i=0; i < data_length; i++) {
             var group = {},
@@ -1040,7 +1061,9 @@
                 }
             }
         }
+//        console.log(data_tranform.length)
         that.barName = _.unique(that.barName);
+       console.log(data_tranform,"data_tranform")
         return data_tranform;
     };
     return this;
