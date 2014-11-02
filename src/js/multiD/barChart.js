@@ -1,4 +1,4 @@
-PykCharts.multiD.barChart = function(options){
+    PykCharts.multiD.barChart = function(options){
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
     var multiDimensionalCharts = theme.multiDimensionalCharts;
@@ -61,7 +61,11 @@ PykCharts.multiD.barChart = function(options){
             }
             that.map_group_data = that.multiD.mapGroup(that.data);
             that.data = that.dataTransformation();
+
+            // console.log(that.data,"that.data");
+
             that.data = that.emptygroups(that.data);
+
             var fD = that.flattenData();
             that.the_bars = fD[0];
             that.the_keys = fD[1];
@@ -88,6 +92,8 @@ PykCharts.multiD.barChart = function(options){
         that.map_group_data = that.multiD.mapGroup(that.data);
         that.data = that.dataTransformation();
         that.data = that.emptygroups(that.data);
+
+        // console.log(that.data,"that.data");
 
         var fD = that.flattenData();
         that.the_bars = fD[0];
@@ -725,14 +731,14 @@ PykCharts.multiD.barChart = function(options){
                             }
                         });
 
-                    var legend_container_width = d3.select(that.selector+" #legends").node().getBBox().width;
+                    var legend_container_width = that.legendsGroup.node().getBBox().width;
                         translate_x = that.width - legend_container_width;
                     
-                    if (legend_container_width < that.width) { $(that.selector+" #legends").attr("transform","translate("+(translate_x-20)+",10)"); }
+                    if (legend_container_width < that.width) { that.legendsGroup.attr("transform","translate("+(translate_x-20)+",10)"); }
                     that.legendsGroup.style("visibility","visible");
                     
                     that.legends_text.exit().remove();
-                    legend.exit().remove();                   
+                    legend.exit().remove();
                 }
                 return this;
             }
@@ -795,7 +801,7 @@ PykCharts.multiD.barChart = function(options){
             if(!bar.id) continue;
             var id = bar.id;
             for(var k in bar){
-                // console.log(bar,"bar");
+                //  .log(bar,"bar");
                 if(k === "id") continue;
                 var icings = bar[k];
                 // console.log(icings,"icings");
@@ -870,46 +876,39 @@ PykCharts.multiD.barChart = function(options){
         return p;
     };
     this.emptygroups = function (data) {
-
-        that.no_of_groups = d3.max(data,function (d){
-            var value = _.values(d);
-            return value[0].length;
-        });
+        console.log(data,"data")
+        that.no_of_groups = that.unique_group.length;
 
         that.group_data;
 
         for(var i =0; i<that.no_of_groups;i++) {
             if(_.values(data[i])[0].length === that.no_of_groups) {
                 that.group_data = _.values(data[i])[0];
+                console.log(that.group_data,"group_data")
                 break;
             }            
         }
-        // console.log(that.group_data,"group");
-        that.get_unique_group = _.map(that.group_data,function(d,i) {
-            
+
+        that.get_unique_group = _.map(that.group_data,function(d,i) {            
             return _.keys(d)[0];
         });
-        // console.log(that.get_unique_group);
+
         that.unique_color = _.map(that.group_data, function (d,i) {
             return d[_.keys(d)][0].color;
         });
-        // console.log(data);
+
         for(var i = 0;i<data.length;i++) {
             var value = _.values(data[i]);
             var group = value[0];
-            // console.log(value);
             if(value[0].length < that.no_of_groups) {
                 for(var k=0; k<that.no_of_groups;k++) {         
-                // console.log(group[k],"hello",group,k,data[i][0])       
                     var value = _.values(data[i]);
                     var group = value[0];
                     if(_.keys(group[k])[0] != that.get_unique_group[k]) {                        
                         var stack = { "name": "stack", "tooltip": "null", "color": that.unique_color[k], "val": 0, /*highlight: false*/ };
                         var missing_group = that.get_unique_group[k];
                         _.values(data[i])[0].splice(k, 0, {});
-                        // _.values(data[i])[0][k] = {};
                         _.values(data[i])[0][k][missing_group] = [stack];
-                        // console.log(_.values(data[i])[0],data[i],"jhol",[stack])
                     }
                 }
             }
@@ -951,6 +950,16 @@ PykCharts.multiD.barChart = function(options){
                 that.k.warningHandling(err,"8");
             }
         }
+        if(!PykCharts.boolean(that.data_sort_enable)) {
+            that.data.sort(function(a,b) {
+                if (a.group < b.group) {
+                    return -1;
+                }
+                else if (a.group > b.group) {
+                    return 1;
+                }
+            });
+        }
 
         if (PykCharts.boolean(that.data_sort_enable)) {
             switch (that.data_sort_type) {
@@ -963,7 +972,6 @@ PykCharts.multiD.barChart = function(options){
                     break;
                 case "alphabetically":
                     that.data.sort(function (a,b) {
-                        console.log("inside")
                         if (a.y < b.y) {
                             return (that.data_sort_order === "descending") ? 1 : -1;
                         }
@@ -980,8 +988,22 @@ PykCharts.multiD.barChart = function(options){
                     });
                     break;
                 case "date":
-                    that.data.sort(function (a,b) {
-                        return ((that.data_sort_order === "descending") ? (new Date(b.y) > new Date(a.y)) : (new Date(b.y) < new Date(a.y)));
+                    that.data.sort(function (a,b) {                        
+                        if (new Date(a.y) < new Date(b.y)) {
+                            return (that.data_sort_order === "descending") ? 1 : -1;
+                        }
+                        else if (new Date(a.y) > new Date(b.y)) {
+                            return (that.data_sort_order === "descending") ? -1 : 1;
+                        }
+                        else if (a.group < b.group) {
+                            return (that.data_sort_order === "descending") ? 1 : -1;
+                        }
+                        else if (a.group > b.group) {
+                            return (that.data_sort_order === "descending") ? -1 : 1;
+                        }
+                        return 0;
+
+                        //return ((that.data_sort_order === "descending") ? (new Date(b.y) > new Date(a.y)) : (new Date(a.y) > new Date(b.y)));
                     });
                     break;
             }
@@ -1039,7 +1061,9 @@ PykCharts.multiD.barChart = function(options){
                 }
             }
         }
+//        console.log(data_tranform.length)
         that.barName = _.unique(that.barName);
+       console.log(data_tranform,"data_tranform")
         return data_tranform;
     };
     return this;

@@ -56,12 +56,13 @@
                     title_text:"Air Pollution in New York </br>(23/12/2013 - 29/12/2013)",
                     title_family:"sans-serif",
                     subtitle_text:"this the analysis",
-                    chart_height: 750,
-                    chart_width : 750,
-                    chart_margin_top: 0,
-                    chart_margin_right: 0,
-                    chart_margin_bottom: 0,
-                    chart_margin_left: 0,
+                    chart_height: 400,
+                    chart_width : 630,
+
+                    chart_margin_top: 30,
+                    chart_margin_right: 50,
+                    chart_margin_bottom: 30,
+                    chart_margin_left: 80,
 
                     chart_grid_x_enable: "yes",
                     chart_grid_y_enable: "yes",
@@ -78,23 +79,26 @@
                     axis_x_pointer_padding: 2,
                     axis_x_no_of_axis_value: 8,
                     axis_x_outer_pointer_length: 5,
-                    // axis_x_time_value_datatype:"month",
-                    // axis_x_time_value_interval: 1,
+                    "axis_x_no_of_axis_value": 10,
+                    axis_x_time_value_datatype:"month",
+                    axis_x_time_value_interval: 1,
                     axis_y_title:"testing",
                     axis_y_enable: "yes",
                     axis_y_position: "left",
                     axis_y_pointer_position: "left",
                     axis_y_line_color: "red",
                     axis_y_pointer_size: 12,
-                    axis_y_pointer_padding: 10,
-                    axis_y_outer_pointer_length: 3,
+                    axis_y_pointer_padding: 50,
+                    axis_y_outer_pointer_length: 10,
                     curvy_lines_enable:"no",
                     tooltip_enable: "yes",
                     tooltip_mode : "moving",
                     crosshair_enable: "yes",
                     zoom_enable: "yes",
                     annotation_enable: "yes",
-                    annotation_view_mode: "onload"
+                    annotation_view_mode: "onload",
+                    highlight_color : "red",
+                    highlight : "NEw York"
                 });
                k.execute();
 
@@ -112,9 +116,9 @@
                     chart_height: 400,
                     chart_width : 630,
                     chart_margin_top: 5,
-                    chart_margin_right: 25,
+                    chart_margin_right: 70,
                     chart_margin_bottom: 35,
-                    chart_margin_left: 70,
+                    chart_margin_left: 50,
 
                     chart_grid_x_enable: "no",
                     chart_grid_y_enable: "yes",
@@ -136,8 +140,8 @@
 
                     axis_y_enable: "yes",
                     axis_y_title : "Air Quantity Index",
-                    axis_y_position: "left",
-                    axis_y_pointer_position: "left",
+                    axis_y_position: "right",
+                    axis_y_pointer_position: "right",
                     axis_y_line_color: "red",
                     axis_y_label_color: "#1D1D1D",
                     axis_y_pointer_size: 12,
@@ -149,14 +153,17 @@
                     crosshair_enable: "yes",
                     zoom_enable: "yes",
                     annotation_enable: "yes",
-                    annotation_view_mode: "onclick"
+                    annotation_view_mode: "onclick",
+                    highlight_color : "red",
+                    highlight : "NEw York"
+
                 });
                k.execute();
 
                 var k = new PykCharts.multiD.spiderWeb ({
                     selector: "#spiderWeb",
                     data: "../data/spiderWeb.json",
-                    mode : "infographics",
+                    mode : "default",
 
                     spiderweb_radius : "5",
                     spiderweb_outer_radius_percent: "100",
@@ -195,15 +202,16 @@
                     mode : "default",
 
                     // chart_color: ["#07365e","#0e5ea1","#4682b4","#75b0e1","#a0ccf1"],
-                    chart_color:["red","green","blue","grey","yellow"],
+                    chart_color:["red"],
                     background_color: "transparent",
 
                     chart_height: 450,
                     chart_width : 700,
-                    chart_margin_top: 25,
-                    chart_margin_right: 75,
-                    chart_margin_bottom: 25,
-                    chart_margin_left: 60,
+                    chart_margin_top: 15,
+                    chart_margin_right: 15,
+                    chart_margin_bottom: 30,
+                    chart_margin_left: 50,
+
                     saturation_color:"red",
                     scatterplot_radius : "20",
                     scatterplot_pointer: "no",
@@ -211,24 +219,27 @@
                     subtitle_text : "",
                     panels_enable: "no",
                     variable_circle_size_enable: "no",
-
+                    scatterplot_pointer_enable : "yes",
                     axis_x_enable: "yes",
                     axis_x_title : "Price",
                     axis_x_position: "bottom",
                     axis_x_pointer_position: "bottom",
                     axis_x_line_color: "#1D1D1D",
                     axis_x_no_of_axis_value: 5,
-                    axis_x_label_color: "black",
+                    axis_x_pointer_color: "blue",
+                    axis_x_pointer_weight: "bold",
                     axis_x_pointer_size: 12,
                     axis_x_pointer_padding: 3,
                     axis_x_outer_pointer_length: 3,
+
                     axis_y_enable: "yes",
                     axis_y_title : "Rating",
                     axis_y_position: "left",
                     axis_y_pointer_position: "left",
                     axis_y_line_color: "red",
                     axis_y_no_of_axis_value: 5,
-                    axis_y_label_color: "#1D1D1D",
+                    axis_y_pointer_color: "blue",
+                    axis_y_pointer_weight: "bold",
                     axis_y_pointer_size: 12,
                     axis_y_pointer_padding: 10,
                     axis_y_outer_pointer_length: 3,
@@ -249,12 +260,12 @@
                     label_color: "black",
                     label_weight: "bold",
                     label_family:"'Helvetica Ne#scatterue',Helvetica,Arial,sans-serif",
-                    chart_height: 450,
-                    chart_width : 700,
-                    chart_margin_top: 125,
-                    chart_margin_right: 175,
-                    chart_margin_bottom: 125,
-                    chart_margin_left: 160,
+                    // chart_height: 450,
+                    // chart_width : 700,
+                    // chart_margin_top: 125,
+                    // chart_margin_right: 175,
+                    // chart_margin_bottom: 125,
+                    // chart_margin_left: 160,
                 });
                k.execute();
 
@@ -271,8 +282,8 @@
                     chart_width : 700,
                     chart_margin_top: 25,
                     chart_margin_right: 15,
-                    chart_margin_bottom: 40,
-                    chart_margin_left: 60,
+                    chart_margin_bottom: 20,
+                    chart_margin_left: 30,
 
                     scatterplot_radius : 9,
                     scatterplot_pointer: "no",
@@ -286,8 +297,8 @@
                     axis_x_pointer_position: "bottom",
                     axis_x_line_color: "#1D1D1D",
                     axis_x_no_of_axis_value: 5,
-                    axis_x_label_color: "black",
-                    axis_x_pointer_size: 12,
+                    axis_x_pointer_color: "blue",
+                    axis_x_pointer_size: 15,
                     axis_x_pointer_padding: 3,
                     axis_x_outer_pointer_length: 3,
 
@@ -297,8 +308,8 @@
                     axis_y_pointer_position: "left",
                     axis_y_line_color: "red",
                     axis_y_no_of_axis_value: 5,
-                    axis_y_label_color: "#1D1D1D",
-                    axis_y_pointer_size: 12,
+                    axis_y_pointer_color: "red",
+                    axis_y_pointer_size: 15,
                     axis_y_pointer_padding: 10,
                     axis_y_outer_pointer_length: 3,
 
@@ -366,7 +377,8 @@
                     crosshair_enable: "yes",
                     panels_enable: "yes",
                     zoom_enable: "yes",
-                    annotation_enable:"yes"
+                    annotation_enable:"yes",
+                    annotation_view_mode:"onclick"
                 });
                k.execute();
 
@@ -376,7 +388,7 @@
                     mode : "default",
 
                     color_mode: "saturation",  //color or saturation
-                    chart_color:["lightgray","steelblue","red"],
+                    chart_color:["green","yellow","red"],
                     background_color:"white",
 
                     chart_height: 400,
@@ -418,10 +430,10 @@
                     tooltip_enable : "yes",
                     crosshair_enable: "yes",
                     zoom_enable: "yes",
-                    highlight: "India",
-                    highlight_color: "red",
+                    // highlight: "India",
+                    // highlight_color: "red",
                     annotation_enable: "yes",
-                    annotation_view_mode: "onload"
+                    annotation_view_mode: "onclick"
                 });
                k.execute();
 
@@ -513,9 +525,9 @@
                     axis_x_title : "Years",
                     axis_x_position: "bottom",
                     axis_x_pointer_position: "bottom",
-                    axis_x_line_color: "#1D1D1D",
-                    axis_x_label_color: "#1D1D1D",
-                    axis_x_pointer_size: 12,
+                    axis_x_line_color: "red",
+                    axis_x_pointer_color: "blue",
+                    axis_x_pointer_size: 15,
                     axis_x_pointer_padding: 3,
                     axis_x_pointer_values: [2002, 2004, 2006, 2008],
                     axis_x_outer_pointer_length: 3,
@@ -525,8 +537,8 @@
                     axis_y_position: "left",
                     axis_y_pointer_position: "left",
                     axis_y_line_color: "red",
-                    axis_y_label_color: "#1D1D1D",
-                    axis_y_pointer_size: 12,
+                    axis_y_pointer_color: "blue",
+                    axis_y_pointer_size: 15,
                     axis_y_pointer_padding: 10,
                     axis_x_pointer_values: [],
                     axis_y_outer_pointer_length: 3,
@@ -534,7 +546,7 @@
                     tooltip_mode : "moving",
                     tooltip_enable : "yes",
                     crosshair_enable: "yes",
-                    panels_enable: "no",
+                    panels_enable: "yes",
                     variable_circle_size_enable : "no",
 
                     legends_enable: "yes",
@@ -566,8 +578,8 @@
                     chart_margin_left: 45,
                     chart_grid_y_enable: "yes",
 
-                    real_time_charts_refresh_frequency: 0 ,
-
+                    real_time_charts_refresh_frequency: 0,
+                    transition_duration: 0,
                     axis_onhover_hightlight_enable: "yes",
 
                     axis_x_enable: "yes",
@@ -600,7 +612,7 @@
                     axis_y_outer_pointer_length: 3,
 
                     highlight_color: "#013F73",
-                    transition_duration: 0,
+
 
                     border_between_chart_elements_thickness: 1,
                     border_between_chart_elements_color: "white",
@@ -657,8 +669,8 @@
 
                     legends_enable: "yes",
                     legends_display: "horizontal",
-                    legends_text_size: 12,
-                    legends_text_color: "black",
+                    legends_text_size: 13,
+                    legends_text_color: "blue",
                     legends_text_weight: "normal",
                     legends_text_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
 
@@ -793,7 +805,7 @@
                     legends_enable: "yes",
                     legends_display: "horizontal",
                     legends_text_size: 12,
-                    legends_text_color: "black",
+                    legends_text_color: "red",
                     legends_text_weight: "normal",
                     legends_text_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
                     "data_sort_enable": "yes",

@@ -19,7 +19,7 @@ PykCharts.oneD.funnel = function (options) {
                     that.height = that.width;
                     throw "chart_height"
                 }
-            } 
+            }
 
             catch (err) {
                 that.k.warningHandling(err,"1");
@@ -30,18 +30,18 @@ PykCharts.oneD.funnel = function (options) {
                     that.rect_width = functionality.funnel_rect_width;
                     throw "funnel_rect_width"
                 }
-            } 
+            }
             catch (err) {
                 that.k.warningHandling(err,"1");
             }
 
             try {
-            
+
                 if(!_.isNumber(that.rect_height)) {
                     that.rect_height = functionality.funnel_rect_height;
                     throw "funnel_rect_height"
                 }
-            } 
+            }
             catch (err) {
                 that.k.warningHandling(err,"1");
             }
@@ -77,6 +77,7 @@ PykCharts.oneD.funnel = function (options) {
     this.refresh = function () {
         d3.json (options.data, function (e,data) {
             that.data = data.groupBy("oned");
+            that.clubdata_enable = that.data.length>that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
             that.refresh_data = data.groupBy("oned");
             var compare = that.k.checkChangeInData(that.refresh_data,that.compare_data);
             that.compare_data = compare[0];
@@ -106,7 +107,7 @@ PykCharts.oneD.funnel = function (options) {
         if(that.mode === "default") {
             that.k.title()
                 .backgroundColor(that)
-                .export(that,"#"that.container_id,"funnel")
+                .export(that,"#"+that.container_id,"funnel")
                 .emptyDiv()
                 .subtitle();
         }
