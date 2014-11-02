@@ -28,7 +28,7 @@ PykCharts.multiD.lineChart = function (options) {
             }
 			that.data = data.groupBy("line");
 			that.axis_y_data_format = "number";
-    		that.axis_x_data_format = options.axis_x_data_format ? options.axis_x_data_format.toLowerCase() : that.k.xAxisDataFormatIdentification(that.data);
+    		that.axis_x_data_format = that.k.xAxisDataFormatIdentification(that.data);
 			that.compare_data = that.data;
 			that.data_length = that.data.length;
 			that.dataTransformation();
@@ -89,6 +89,8 @@ PykCharts.multiD.lineChart = function (options) {
 		that.multid = new PykCharts.multiD.configuration(that);
 		that.fillColor = new PykCharts.Configuration.fillChart(that,null,options);
 		that.transitions = new PykCharts.Configuration.transition(that);
+		// (d3.selectAll(options.selector + ".y.axis"));
+
 		if(that.mode === "default") {
 
 			that.k.title();
@@ -169,6 +171,8 @@ PykCharts.multiD.lineChart = function (options) {
 						.xGrid(that.svgContainer,that.group,that.xScale)
 						.xAxisTitle(that.xGroup)
 						.yAxisTitle(that.yGroup);
+
+				// console.log(d3.selectAll(options.selector + " .y.axis text")[0][0].__data__,"selector")
 			}
 			that.k.createFooter()
                 .lastUpdatedAt()

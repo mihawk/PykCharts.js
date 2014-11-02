@@ -33,7 +33,7 @@ PykCharts.multiD.areaChart = function (options){
 
 			that.data = data.groupBy("area");
 			that.axis_y_data_format = "number";
-    		that.axis_x_data_format = options.axis_x_data_format ? options.axis_x_data_format.toLowerCase() : that.k.xAxisDataFormatIdentification(that.data);
+    		that.axis_x_data_format = that.k.xAxisDataFormatIdentification(that.data);
 			that.compare_data = that.data;
 			that.data_length = that.data.length;
 			that.dataTransformation();
