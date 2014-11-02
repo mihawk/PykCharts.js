@@ -159,7 +159,7 @@
                 var k = new PykCharts.multiD.spiderWeb ({
                     selector: "#spiderWeb",
                     data: "../data/spiderWeb.json",
-                    mode : "infographics",
+                    mode : "default",
 
                     spiderweb_radius : "5",
                     spiderweb_outer_radius_percent: "100",
@@ -205,8 +205,9 @@
                     chart_width : 700,
                     chart_margin_top: 15,
                     chart_margin_right: 15,
-                    chart_margin_bottom: 15,
-                    chart_margin_left: 15,
+                    chart_margin_bottom: 30,
+                    chart_margin_left: 50,
+
                     saturation_color:"red",
                     scatterplot_radius : "20",
                     scatterplot_pointer: "no",
@@ -214,24 +215,27 @@
                     subtitle_text : "",
                     panels_enable: "no",
                     variable_circle_size_enable: "no",
-
+                    scatterplot_pointer_enable : "yes",
                     axis_x_enable: "yes",
                     axis_x_title : "Price",
                     axis_x_position: "bottom",
                     axis_x_pointer_position: "bottom",
                     axis_x_line_color: "#1D1D1D",
                     axis_x_no_of_axis_value: 5,
-                    axis_x_label_color: "black",
+                    axis_x_pointer_color: "blue",
+                    axis_x_pointer_weight: "bold",
                     axis_x_pointer_size: 12,
                     axis_x_pointer_padding: 3,
                     axis_x_outer_pointer_length: 3,
+
                     axis_y_enable: "yes",
                     axis_y_title : "Rating",
                     axis_y_position: "left",
                     axis_y_pointer_position: "left",
                     axis_y_line_color: "red",
                     axis_y_no_of_axis_value: 5,
-                    axis_y_label_color: "#1D1D1D",
+                    axis_y_pointer_color: "blue",
+                    axis_y_pointer_weight: "bold",
                     axis_y_pointer_size: 12,
                     axis_y_pointer_padding: 10,
                     axis_y_outer_pointer_length: 3,
@@ -275,7 +279,7 @@
                     chart_margin_top: 25,
                     chart_margin_right: 15,
                     chart_margin_bottom: 20,
-                    chart_margin_left: 15,
+                    chart_margin_left: 30,
 
                     scatterplot_radius : 9,
                     scatterplot_pointer: "no",
@@ -289,8 +293,8 @@
                     axis_x_pointer_position: "bottom",
                     axis_x_line_color: "#1D1D1D",
                     axis_x_no_of_axis_value: 5,
-                    axis_x_label_color: "black",
-                    axis_x_pointer_size: 12,
+                    axis_x_pointer_color: "blue",
+                    axis_x_pointer_size: 15,
                     axis_x_pointer_padding: 3,
                     axis_x_outer_pointer_length: 3,
 
@@ -300,8 +304,8 @@
                     axis_y_pointer_position: "left",
                     axis_y_line_color: "red",
                     axis_y_no_of_axis_value: 5,
-                    axis_y_label_color: "#1D1D1D",
-                    axis_y_pointer_size: 12,
+                    axis_y_pointer_color: "red",
+                    axis_y_pointer_size: 15,
                     axis_y_pointer_padding: 10,
                     axis_y_outer_pointer_length: 3,
 
@@ -369,7 +373,8 @@
                     crosshair_enable: "yes",
                     panels_enable: "yes",
                     zoom_enable: "yes",
-                    annotation_enable:"yes"
+                    annotation_enable:"yes",
+                    annotation_view_mode:"onclick"
                 });
                k.execute();
 
@@ -424,7 +429,7 @@
                     // highlight: "India",
                     // highlight_color: "red",
                     annotation_enable: "yes",
-                    annotation_view_mode: "onload"
+                    annotation_view_mode: "onclick"
                 });
                k.execute();
 
@@ -515,9 +520,9 @@
                     axis_x_title : "Years",
                     axis_x_position: "bottom",
                     axis_x_pointer_position: "bottom",
-                    axis_x_line_color: "#1D1D1D",
-                    axis_x_label_color: "#1D1D1D",
-                    axis_x_pointer_size: 12,
+                    axis_x_line_color: "red",
+                    axis_x_pointer_color: "blue",
+                    axis_x_pointer_size: 15,
                     axis_x_pointer_padding: 3,
                     axis_x_pointer_values: [2002, 2004, 2006, 2008],
                     axis_x_outer_pointer_length: 3,
@@ -527,8 +532,8 @@
                     axis_y_position: "left",
                     axis_y_pointer_position: "left",
                     axis_y_line_color: "red",
-                    axis_y_label_color: "#1D1D1D",
-                    axis_y_pointer_size: 12,
+                    axis_y_pointer_color: "blue",
+                    axis_y_pointer_size: 15,
                     axis_y_pointer_padding: 10,
                     axis_x_pointer_values: [],
                     axis_y_outer_pointer_length: 3,
@@ -536,7 +541,7 @@
                     tooltip_mode : "moving",
                     tooltip_enable : "yes",
                     crosshair_enable: "yes",
-                    panels_enable: "no",
+                    panels_enable: "yes",
                     variable_circle_size_enable : "no",
 
                     legends_enable: "yes",
@@ -733,7 +738,7 @@
                     data_sort_type: "date",
                     data_sort_order: "ascending"
                 });
-    //           k.execute();
+              k.execute();
 
                 var k = new PykCharts.multiD.barChart({
                     data: "../data/ultimateGroupBar.json",

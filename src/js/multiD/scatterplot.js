@@ -68,7 +68,7 @@ PykCharts.multiD.pulse = function (options) {
         // that.enableCrossHair = optional && optional.enableCrossHair ? optional.enableCrossHair : multiDimensionalCharts.enableCrossHair;
         that.multiD = new PykCharts.multiD.configuration(that);
         that.bubbleRadius = options.scatterplot_radius ? options.scatterplot_radius : (0.6 * multiDimensionalCharts.scatterplot_radius);
-        // that.panels_enable = options.panels_enable && options.panels_enable ? options.panels_enable : multiDimensionalCharts.panels_enable;
+        that.panels_enable = "no";
 
         try {
             if(!_.isNumber(that.bubbleRadius)) {
@@ -367,7 +367,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                     .attr("id","main");
 
                 that.ticksElement = that.svgContainer.append("g")
-                    .attr("transform","translate("+(that.margin_left)+","+(that.margin_top)+")")
+                    .attr("transform","translate("+(that.margin_left)+","+(that.margin_top + that.legendsGroup_height)+")")
                     .attr("id","main2");
 
                 if(PykCharts.boolean(that.axis_x_enable) || that.axis_x_title) {
