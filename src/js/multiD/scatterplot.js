@@ -68,7 +68,7 @@ PykCharts.multiD.pulse = function (options) {
         // that.enableCrossHair = optional && optional.enableCrossHair ? optional.enableCrossHair : multiDimensionalCharts.enableCrossHair;
         that.multiD = new PykCharts.multiD.configuration(that);
         that.bubbleRadius = options.scatterplot_radius ? options.scatterplot_radius : (0.6 * multiDimensionalCharts.scatterplot_radius);
-        // that.panels_enable = options.panels_enable && options.panels_enable ? options.panels_enable : multiDimensionalCharts.panels_enable;
+        that.panels_enable = "no";
 
         try {
             if(!_.isNumber(that.bubbleRadius)) {
