@@ -45,9 +45,9 @@ PykCharts.multiD.lineChart = function (options) {
 		for(j = 0;j < that.data_length;j++) {
 			that.group_arr[j] = that.data[j].name;
 		}
-		that.uniq_group_arr = that.group_arr.slice();
+		that.uniq_group_arr = _.unique(that.group_arr);
 		that.uniq_color_arr = [];
-		$.unique(that.uniq_group_arr);
+		// $.unique(that.uniq_group_arr);
 		var len = that.uniq_group_arr.length;
 		for (k = 0;k < len;k++) {
 			if(that.chart_color[k]) {
@@ -89,8 +89,6 @@ PykCharts.multiD.lineChart = function (options) {
 		that.multid = new PykCharts.multiD.configuration(that);
 		that.fillColor = new PykCharts.Configuration.fillChart(that,null,options);
 		that.transitions = new PykCharts.Configuration.transition(that);
-		// (d3.selectAll(options.selector + ".y.axis"));
-
 		if(that.mode === "default") {
 
 			that.k.title();
@@ -171,8 +169,6 @@ PykCharts.multiD.lineChart = function (options) {
 						.xGrid(that.svgContainer,that.group,that.xScale)
 						.xAxisTitle(that.xGroup)
 						.yAxisTitle(that.yGroup);
-
-				// console.log(d3.selectAll(options.selector + " .y.axis text")[0][0].__data__,"selector")
 			}
 			that.k.createFooter()
                 .lastUpdatedAt()
@@ -859,7 +855,7 @@ PykCharts.multiD.lineChart = function (options) {
 
 		    }
 		}
-	    if(PykCharts.getEvent().type === "dblclick") {
+	    if(PykCharts.getEvent().sourceEvent.type === "dblclick") {
 	    	that.count++;
 	    }
 	    that.mouseEvent.tooltipHide();

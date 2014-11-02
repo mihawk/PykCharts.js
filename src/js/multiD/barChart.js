@@ -1,4 +1,4 @@
-PykCharts.multiD.barChart = function(options){
+    PykCharts.multiD.barChart = function(options){
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
     var multiDimensionalCharts = theme.multiDimensionalCharts;
@@ -61,7 +61,11 @@ PykCharts.multiD.barChart = function(options){
             }
             that.map_group_data = that.multiD.mapGroup(that.data);
             that.data = that.dataTransformation();
+
+            // console.log(that.data,"that.data");
+
             that.data = that.emptygroups(that.data);
+
             var fD = that.flattenData();
             that.the_bars = fD[0];
             that.the_keys = fD[1];
@@ -89,8 +93,7 @@ PykCharts.multiD.barChart = function(options){
         that.data = that.dataTransformation();
         that.data = that.emptygroups(that.data);
 
-
-        console.log(that.data_sort_type,"that.data_sort_type");
+        // console.log(that.data,"that.data");
 
         var fD = that.flattenData();
         that.the_bars = fD[0];
@@ -873,10 +876,7 @@ PykCharts.multiD.barChart = function(options){
     };
     this.emptygroups = function (data) {
 
-        that.no_of_groups = d3.max(data,function (d){
-            var value = _.values(d);
-            return value[0].length;
-        });
+        that.no_of_groups = that.unique_group.length;
 
         that.group_data;
 
@@ -886,11 +886,12 @@ PykCharts.multiD.barChart = function(options){
                 break;
             }            
         }
-        // console.log(that.group_data,"group");
+
         that.get_unique_group = _.map(that.group_data,function(d,i) {
             
             return _.keys(d)[0];
         });
+        
         // console.log(that.get_unique_group);
         that.unique_color = _.map(that.group_data, function (d,i) {
             return d[_.keys(d)][0].color;
@@ -965,7 +966,6 @@ PykCharts.multiD.barChart = function(options){
                     break;
                 case "alphabetically":
                     that.data.sort(function (a,b) {
-                        console.log("inside")
                         if (a.y < b.y) {
                             return (that.data_sort_order === "descending") ? 1 : -1;
                         }
