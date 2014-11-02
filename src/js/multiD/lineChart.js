@@ -914,11 +914,12 @@ PykCharts.multiD.lineChart = function (options) {
 
 	this.annotation = function () {
 		that.line = d3.svg.line()
+				.interpolate('linear-closed')
                 .x(function(d,i) { return d.x; })
                 .y(function(d,i) { return d.y; });
 
     	if(!PykCharts.boolean(that.panels_enable)) {
-			var line_size = 15,annotation = [];
+			var arrow_size = 12/*line_size = 15*/,annotation = [];
 
 			for(i=0;i<that.new_data_length;i++){
 				that.new_data[i].data.map(function (d) {
@@ -940,11 +941,11 @@ PykCharts.multiD.lineChart = function (options) {
                 	var a = [
                 		{
                 			x:parseInt(that.xScale(d.x))+that.extra_left_margin+that.margin_left,
-                			y:parseInt(that.yScale(d.y)-(line_size)+that.margin_top)
+                			y:parseInt(that.yScale(d.y)-(arrow_size)+that.margin_top)
                 		},
                 		{
                 			x:parseInt(that.xScale(d.x))+that.extra_left_margin+that.margin_left,
-                			y:parseInt(that.yScale(d.y)-(line_size)+that.margin_top)
+                			y:parseInt(that.yScale(d.y)-(arrow_size)+that.margin_top)
                 		}
                 	];
                 	return that.line(a);
@@ -953,18 +954,33 @@ PykCharts.multiD.lineChart = function (options) {
 	        	anno.attr("class", "PykCharts-annotation-line")
 	                .attr("d", function (d,i) {
 	                	var a = [
-	                		{
-	                			x:parseInt(that.xScale(d.x))+that.extra_left_margin+that.margin_left,
-	                			y:parseInt(that.yScale(d.y)-(line_size)+that.margin_top)
-	                		},
-	                		{
-	                			x:parseInt(that.xScale(d.x))+that.extra_left_margin+that.margin_left,
-	                			y:parseInt(that.yScale(d.y)+that.margin_top),
-	                		}
-	                	];
+                		{
+                			x:parseInt(that.xScale(d.x)-(arrow_size*0.5))+that.extra_left_margin+that.margin_left,
+                			y:parseInt(that.yScale(d.y)-(arrow_size)+that.margin_top)
+                		},
+                		{
+                			x:parseInt(that.xScale(d.x)+(arrow_size*0.5))+that.extra_left_margin+that.margin_left,
+                			y:parseInt(that.yScale(d.y)-(arrow_size)+that.margin_top)
+                		},
+                		{
+                			x:parseInt(that.xScale(d.x))+that.extra_left_margin+that.margin_left,
+                			y:parseInt(that.yScale(d.y)+that.margin_top),
+                		}
+                		];
+	                	// var a = [
+	                	// 	{
+	                	// 		x:parseInt(that.xScale(d.x))+that.extra_left_margin+that.margin_left,
+	                	// 		y:parseInt(that.yScale(d.y)-(line_size)+that.margin_top)
+	                	// 	},
+	                	// 	{
+	                	// 		x:parseInt(that.xScale(d.x))+that.extra_left_margin+that.margin_left,
+	                	// 		y:parseInt(that.yScale(d.y)+that.margin_top),
+	                	// 	}
+	                	// ];
 	                	return that.line(a);
 	                })
-	                .attr("stroke",that.annotation_border_color);
+	                // .attr("stroke",that.annotation_border_color)
+	                .attr("fill",that.annotation_background_color);
            	},that.transitions.duration());
 
             anno.exit()
@@ -974,7 +990,7 @@ PykCharts.multiD.lineChart = function (options) {
 		}
 		else if(PykCharts.boolean(that.panels_enable)) {
 			for(i=0;i<that.new_data_length;i++){
-				var annotation = [], line_size = 15;
+				var annotation = [], arrow_size = 15;
 				that.new_data[i].data.map(function (d) {
 					if(d.annotation) {
 						annotation.push({
@@ -992,11 +1008,11 @@ PykCharts.multiD.lineChart = function (options) {
                     	var a = [
                     		{
                     			x:parseInt(that.xScale(d.x))+that.extra_left_margin+that.margin_left,
-                    			y:parseInt(that.yScale(d.y)-(line_size)+that.margin_top)
+                    			y:parseInt(that.yScale(d.y)-(arrow_size)+that.margin_top)
                     		},
                     		{
                     			x:parseInt(that.xScale(d.x))+that.extra_left_margin+that.margin_left,
-                    			y:parseInt(that.yScale(d.y)-(line_size)+that.margin_top)
+                    			y:parseInt(that.yScale(d.y)-(arrow_size)+that.margin_top)
                     		}
                     	];
                     	return that.line(a);
@@ -1007,17 +1023,32 @@ PykCharts.multiD.lineChart = function (options) {
 		                    .attr("d", function (d,i) {
 		                    	var a = [
 		                    		{
-		                    			x:parseInt(that.xScale(d.x))+that.extra_left_margin+that.margin_left,
-		                    			y:parseInt(that.yScale(d.y)-(line_size)+that.margin_top)
+		                    			x:parseInt(that.xScale(d.x)-(arrow_size*0.5))+that.extra_left_margin+that.margin_left,
+		                    			y:parseInt(that.yScale(d.y)-(arrow_size)+that.margin_top)
+		                    		},
+		                    		{
+		                    			x:parseInt(that.xScale(d.x)+(arrow_size*0.5))+that.extra_left_margin+that.margin_left,
+		                    			y:parseInt(that.yScale(d.y)-(arrow_size)+that.margin_top)
 		                    		},
 		                    		{
 		                    			x:parseInt(that.xScale(d.x))+that.extra_left_margin+that.margin_left,
 		                    			y:parseInt(that.yScale(d.y)+that.margin_top),
 		                    		}
 		                    	];
+		                    	// var a = [
+		                    	// 	{
+		                    	// 		x:parseInt(that.xScale(d.x))+that.extra_left_margin+that.margin_left,
+		                    	// 		y:parseInt(that.yScale(d.y)-(line_size)+that.margin_top)
+		                    	// 	},
+		                    	// 	{
+		                    	// 		x:parseInt(that.xScale(d.x))+that.extra_left_margin+that.margin_left,
+		                    	// 		y:parseInt(that.yScale(d.y)+that.margin_top),
+		                    	// 	}
+		                    	// ];
 		                    	return that.line(a);
 		                    })
-		                	.attr("stroke",that.annotation_border_color);
+		                	// .attr("stroke",that.annotation_border_color)
+		                	.attr("fill",that.annotation_background_color);
 		            },that.transitions.duration());
 	            }
 	            annotationAnimation(anno);
