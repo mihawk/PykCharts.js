@@ -855,7 +855,7 @@ PykCharts.multiD.lineChart = function (options) {
 
 		    }
 		}
-	    if(PykCharts.getEvent().type === "dblclick") {
+	    if(PykCharts.getEvent().sourceEvent.type === "dblclick") {
 	    	that.count++;
 	    }
 	    that.mouseEvent.tooltipHide();
