@@ -1676,7 +1676,7 @@ configuration.mouseEvent = function (options) {
                                             pos_line_cursor_x += 5;
                                             var len_data = new_data[0].data.length;
                                             for(var a=0;a < number_of_lines;a++) {
-                                                var left_offset = $(options.selector + " #svg-"+a).offset().left;
+                                                var left_offset = $(options.selector + " #svg-"+a).offset().left - $(options.selector).offset().left;
                                                 var top_offset = $(options.selector + " #svg-"+a).offset().top - $(options.selector).offset().top;
                                                 for(var b=0;b < len_data;b++) {
                                                     if(options.axis_x_data_format === "time") {
