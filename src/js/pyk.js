@@ -2276,7 +2276,7 @@ configuration.Theme = function(){
     };
 
     that.functionality = {
-        "real_time_charts_refresh_frequency": 1000,
+        "real_time_charts_refresh_frequency": 0,
         "real_time_charts_last_updated_at_enable": "yes",
         "transition_duration": 0
     };

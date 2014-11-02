@@ -367,7 +367,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                     .attr("id","main");
 
                 that.ticksElement = that.svgContainer.append("g")
-                    .attr("transform","translate("+(that.margin_left)+","+(that.margin_top)+")")
+                    .attr("transform","translate("+(that.margin_left)+","+(that.margin_top + that.legendsGroup_height)+")")
                     .attr("id","main2");
 
                 if(PykCharts.boolean(that.axis_x_enable) || that.axis_x_title) {
