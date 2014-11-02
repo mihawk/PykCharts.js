@@ -51,13 +51,14 @@
                     selector: "#line",
                     data: "../data/linechart_linear.json",
                     mode : "default",
-                    color_mode: "color",  //color or saturation
+                    color_mode: "color", //color or saturation
                     chart_color:["#00008B"],
                     title_text:"Air Pollution in New York </br>(23/12/2013 - 29/12/2013)",
                     title_family:"sans-serif",
                     subtitle_text:"this the analysis",
                     chart_height: 400,
                     chart_width : 630,
+                    // background_color: "pink",
 
                     chart_margin_top: 30,
                     chart_margin_right: 50,
@@ -68,8 +69,8 @@
                     chart_grid_y_enable: "yes",
 
                     transition_duration: 0,
-                    real_time_charts_refresh_frequency: 5,
-                    axis_onhover_hightlight_enable: "yes",
+                    real_time_charts_refresh_frequency: 0,
+                    axis_onhover_highlight_enable: "yes",
                     axis_x_enable: "yes",
                     axis_x_title : "Month",
                     axis_x_position: "bottom",
@@ -77,7 +78,7 @@
                     axis_x_line_color: "#1D1D1D",
                     axis_x_pointer_size: 12,
                     axis_x_pointer_padding: 2,
-                    axis_y_pointer_values: [2,6],
+                    axis_x_no_of_axis_value: 8,
                     axis_x_outer_pointer_length: 5,
                     "axis_x_no_of_axis_value": 10,
                     axis_x_time_value_datatype:"month",
@@ -99,7 +100,6 @@
                     annotation_view_mode: "onload",
                     highlight_color : "red",
                     highlight : "NEw York"
-
                 });
                k.execute();
 
@@ -127,7 +127,7 @@
                     transition_duration: 5,
                     real_time_charts_refresh_frequency: 0,
 
-                    axis_onhover_hightlight_enable: "yes",
+                    axis_onhover_highlight_enable: "yes",
                     title_text: "",
                     axis_x_enable: "yes",
                     axis_x_title : "Air Pollution in New York",
@@ -153,11 +153,12 @@
                     tooltip_enable: "yes",
                     crosshair_enable: "yes",
                     zoom_enable: "yes",
+                    panels_enable: "yes",
                     annotation_enable: "yes",
                     annotation_view_mode: "onclick",
-                    highlight_color : "red",
-                    highlight : "NEw York"
 
+                    annotation_background_color:"#FF6666",
+                    border_between_chart_elements_thickness: 2
                 });
                k.execute();
 
@@ -180,6 +181,8 @@
                     chart_margin_right: 25,
                     chart_margin_bottom: 25,
                     chart_margin_left: 55,
+
+                    panels_enable:"yes",
 
                     real_time_charts_refresh_frequency: 0,
                     variable_circle_size_enable: "yes",
@@ -253,6 +256,7 @@
                     // legends_text_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
 
                     zoom_enable: "yes",
+                    // panels_enable:"yes",
 
                     border_between_chart_elements_thickness:0,
                     border_between_chart_elements_color:"blue",
@@ -351,7 +355,7 @@
                     transition_duration: 5,
                     real_time_charts_refresh_frequency: 0,
 
-                    axis_onhover_hightlight_enable: "yes",
+                    axis_onhover_highlight_enable: "yes",
 
                     axis_x_enable: "yes",
                     axis_x_title : "Industries",
@@ -404,7 +408,7 @@
                     transition_duration: 5,
                     real_time_charts_refresh_frequency: 0,
 
-                    axis_onhover_hightlight_enable: "yes",
+                    axis_onhover_highlight_enable: "yes",
 
                     axis_x_enable: "yes",
                     axis_x_title : "Industries",
@@ -431,8 +435,8 @@
                     tooltip_enable : "yes",
                     crosshair_enable: "yes",
                     zoom_enable: "yes",
-                    // highlight: "India",
-                    // highlight_color: "red",
+                    highlight: "India",
+                    highlight_color: "red",
                     annotation_enable: "yes",
                     annotation_view_mode: "onclick"
                 });
@@ -447,6 +451,8 @@
                     color_mode: "saturation",  //color or saturation
                     chart_color:["steelblue"],
                     background_color: "white",
+                    // highlight:"China",
+                    // highlight_color: "yellow",
 
                     chart_height: 400,
                     chart_width : 630,
@@ -460,7 +466,7 @@
                     transition_duration: 5,
                     real_time_charts_refresh_frequency: 0,
 
-                    axis_onhover_hightlight_enable: "yes",
+                    axis_onhover_highlight_enable: "yes",
 
                     axis_x_enable: "yes",
                     axis_x_title : "Industries",
@@ -485,7 +491,9 @@
                     curvy_lines_enable:"yes",
                     crosshair_enable: "yes",
                     tooltip_enable : "yes",
+                    tooltip_mode: "fixed",
                     zoom_enable: "yes",
+                    panels_enable:"yes",
 
                     legends_enable: "yes",
                     legends_display: "horizontal", //horizontal or vertical
@@ -519,7 +527,7 @@
                     transition_duration: 0,
                     real_time_charts_refresh_frequency: 0,
 
-                    axis_onhover_hightlight_enable: "yes",
+                    axis_onhover_highlight_enable: "yes",
 
                     axis_x_enable: "yes",
                     axis_x_title : "Years",
@@ -580,7 +588,7 @@
 
                     real_time_charts_refresh_frequency: 0,
                     transition_duration: 0,
-                    axis_onhover_hightlight_enable: "yes",
+                    axis_onhover_highlight_enable: "yes",
 
                     axis_x_enable: "yes",
                     axis_x_title : "Months",
@@ -612,6 +620,7 @@
                     axis_y_outer_pointer_length: 3,
 
                     highlight_color: "#013F73",
+                    // panels_enable:"yes",
 
 
                     border_between_chart_elements_thickness: 1,
@@ -633,7 +642,7 @@
                     chart_color:["orange","red","steelblue","gray"],
 
                     chart_height: 430,
-                    chart_width : 400,
+                    chart_width : 1000,
                     chart_margin_top: 25,
                     chart_margin_right: 45,
                     chart_margin_bottom: 45,
@@ -642,7 +651,8 @@
 
                     real_time_charts_refresh_frequency: 0,
 
-                    axis_onhover_hightlight_enable: "yes",
+                    axis_onhover_highlight_enable: "yes",
+                     // panels_enable:"yes",
 
                     axis_x_enable: "yes",
                     axis_x_title : "Months",
@@ -681,8 +691,7 @@
                     border_between_chart_elements_style: "solid",
                    // saturation_enable: "yes",
 
-                    highlight:"april",
-
+                    highlight:"april"
                 });
                k.execute();
 
@@ -703,7 +712,7 @@
 
                     real_time_charts_refresh_frequency: 0 ,
 
-                    axis_onhover_hightlight_enable: "yes",
+                    axis_onhover_highlight_enable: "yes",
 
                     axis_x_enable: "yes",
                     axis_x_title : "Rainfall",
@@ -739,6 +748,7 @@
                     pointer_color: "#1D1D1D",
                     pointer_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
                     highlight: "12-12-2014",
+                     panels_enable: "yes",
 
                     data_sort_type: "date",
                     data_sort_order: "ascending"
@@ -755,7 +765,7 @@
                     chart_margin_top: 25,
                     chart_margin_right: 45,
                     chart_margin_bottom: 35,
-                    chart_margin_left: 40,
+                    chart_margin_left: 140,
 
                     color_mode:"saturation",
 
@@ -764,7 +774,7 @@
 
                     real_time_charts_refresh_frequency: 0,
 
-                    axis_onhover_hightlight_enable: "yes",
+                    axis_onhover_highlight_enable: "yes",
 
                     axis_x_enable: "yes",
                     axis_x_title : "Rainfall",
@@ -787,6 +797,7 @@
                     axis_y_outer_pointer_length: 3,
 
                     highlight_color: "#013F73",
+                    panels_enable: "yes",
 
                     transition_duration: 0,
 
@@ -801,8 +812,8 @@
                     pointer_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
                     saturation_enable: "no",
                     axis_x_pointer_weight: "normal",
-                    data_sort_enable: "no",
-                    highlight: "April",
+                    data_sort_enable: "yes",
+                    highlight: "2014-02-01",
                     legends_enable: "yes",
                     legends_display: "horizontal",
                     legends_text_size: 12,
@@ -811,7 +822,10 @@
                     legends_text_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
                     "data_sort_enable": "yes",
                     "data_sort_type": "date", // sort type --- "alphabetically" / "date" 
-                    "data_sort_order": "ascending" // sort order --- "descending" / "ascending"
+                    "data_sort_order": "ascending", // sort order --- "descending" / "ascending",
+                    legends_text_family: "Papyrus",
+                    legends_text_weight: "bold",
+                    legends_text_size: 28
 
                 });
                k.execute();
