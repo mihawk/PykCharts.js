@@ -12,9 +12,8 @@
                 selector: "#pictograph",
                 data:"../data/pictograph.json",
                 chart_width : 500,
-                chart_height: 300,
+                chart_height: 500,
                 background_color: "white",
-                transition_duration: 1,
                 pictograph_total_count_weight: "normal",
                 "pictograph_show_all_images": "yes",
                 "pictograph_total_count_enable": "yes",
@@ -22,22 +21,26 @@
                 "pictograph_image_per_line": 4,
                 "pictograph_image_width": "50",
                 "pictograph_image_height": "50",
-                "pictograph_current_count_size": 120,
+                "pictograph_current_count_size": 60,
                 "pictograph_current_count_color": "#255aee",
                 "pictograph_current_count_weight": "normal",
                 "pictograph_current_count_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
-                "pictograph_total_count_size": 120,
+                "pictograph_total_count_size": 60,
                 "pictograph_total_count_color": "grey",
                 "pictograph_total_count_weight": "normal",
                 "pictograph_total_count_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
 
-                transition_duration: 3,
-                real_time_charts_refresh_frequency: 5
+                transition_duration: 1,
+                real_time_charts_refresh_frequency: 3
             });
             k.execute();
 		    }
 		</script>
-    <script src="../dist/pykcharts.0.0.8.js"></script>
+    <!--<script src="../dist/pykcharts.0.0.8.js"></script>-->
+    <script src="../src/js/pyk.js"></script>
+    <script src="../src/js/other/other.js"></script>
+    <script src="../src/js/other/pictograph.js"></script>
+    <script src="../src/js/init.js"></script>
 
 	</body>
 </html>
