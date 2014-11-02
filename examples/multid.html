@@ -68,7 +68,7 @@
                     chart_grid_y_enable: "yes",
 
                     transition_duration: 0,
-                    real_time_charts_refresh_frequency: 5,
+                    real_time_charts_refresh_frequency: 0,
                     axis_onhover_hightlight_enable: "yes",
                     axis_x_enable: "yes",
                     axis_x_title : "Month",
@@ -96,7 +96,9 @@
                     crosshair_enable: "yes",
                     zoom_enable: "yes",
                     annotation_enable: "yes",
-                    annotation_view_mode: "onload"
+                    annotation_view_mode: "onload",
+                    annotation_background_color : "#C2CBCF",
+                    // annotation_font_color : ""
 
                 });
                k.execute();
@@ -152,7 +154,8 @@
                     crosshair_enable: "yes",
                     zoom_enable: "yes",
                     annotation_enable: "yes",
-                    annotation_view_mode: "onclick"
+                    annotation_view_mode: "onclick",
+                    annotation_background_color:"#FF6666"
                 });
                k.execute();
 
@@ -171,10 +174,6 @@
                     chart_color: ["","green"],
                     chart_height: 430,
                     chart_width : 430,
-                    chart_margin_top: 25,
-                    chart_margin_right: 25,
-                    chart_margin_bottom: 25,
-                    chart_margin_left: 55,
 
                     real_time_charts_refresh_frequency: 0,
                     variable_circle_size_enable: "yes",
@@ -374,7 +373,8 @@
                     panels_enable: "yes",
                     zoom_enable: "yes",
                     annotation_enable:"yes",
-                    annotation_view_mode:"onclick"
+                    annotation_view_mode:"onclick",
+                    annotation_background_color:"#FF6666"
                 });
                k.execute();
 
@@ -396,7 +396,7 @@
                     chart_grid_x_enable: "no",
                     chart_grid_y_enable: "yes",
 
-                    transition_duration: 5,
+                    transition_duration: 0,
                     real_time_charts_refresh_frequency: 0,
 
                     axis_onhover_hightlight_enable: "yes",
@@ -429,7 +429,10 @@
                     // highlight: "India",
                     // highlight_color: "red",
                     annotation_enable: "yes",
-                    annotation_view_mode: "onclick"
+                    annotation_view_mode: "onclick",
+                    // annotation_background_color:"#B22222"
+                    annotation_background_color:"#FF6666"
+                    // annotation_background_color:"#F75448"
                 });
                k.execute();
 
@@ -489,8 +492,9 @@
                     // legends_text_weight: "normal",
                     // legends_text_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
                     annotation_enable: "yes",
-                    annotation_view_mode: "onclick",
-                    annotation_border_color:"black"
+                    annotation_view_mode: "onload",
+                    annotation_border_color:"black",
+                    annotation_background_color:"#FF6666"
                 });
                k.execute();
 
