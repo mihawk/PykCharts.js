@@ -46,8 +46,8 @@ PykCharts.multiD.scatterPlot = function (options) {
             }
 
             that.data = data.groupBy("scatterplot");
-            that.axis_y_data_format = options.axis_y_data_format ? options.axis_y_data_format.toLowerCase() : that.k.yAxisDataFormatIdentification(that.data);
-            that.axis_x_data_format = options.axis_x_data_format ? options.axis_x_data_format.toLowerCase() : that.k.xAxisDataFormatIdentification(that.data);
+            that.axis_y_data_format = that.k.yAxisDataFormatIdentification(that.data);
+            that.axis_x_data_format = that.k.xAxisDataFormatIdentification(that.data);
             that.compare_data = data.groupBy("scatterplot");
             $(that.selector+" #chart-loader").remove();
             var a = new PykCharts.multiD.scatterplotFunction(options,that,"scatterplot");
@@ -94,8 +94,8 @@ PykCharts.multiD.pulse = function (options) {
 
         d3.json(options.data, function (e, data) {
             that.data = data.groupBy("pulse");
-            that.axis_y_data_format = options.axis_y_data_format ? options.axis_y_data_format.toLowerCase() : that.k.yAxisDataFormatIdentification(that.data);
-            that.axis_x_data_format = options.axis_x_data_format ? options.axis_x_data_format.toLowerCase() : that.k.xAxisDataFormatIdentification(that.data);
+            that.axis_y_data_format = that.k.yAxisDataFormatIdentification(that.data);
+            that.axis_x_data_format = that.k.xAxisDataFormatIdentification(that.data);
             that.compare_data = data.groupBy("pulse");
             $(that.selector+" #chart-loader").remove();
             var a = new PykCharts.multiD.scatterplotFunction(options,that,"pulse");
@@ -121,8 +121,10 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                     .createChart()
                     .legends()
                     .plotCircle()
-                    .label()
                     .ticks();
+            if(type === "scatterplot") {
+                that.optionalFeatures().label();
+            }
             that.k.xAxis(that.svgContainer,that.xGroup,that.x,that.extra_left_margin,that.xdomain,that.legendsGroup_height)
                     .yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain)
         });
@@ -484,10 +486,10 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                     that.count = 1;
                     if(type!== "pulse") {
                         var zoom = d3.behavior.zoom()
+                                .scale(that.count)
                                 .x(that.x)
                                 .y(that.yScale)
                                 // .scaleExtent()
-                                .scale(that.count)
                                 .on("zoom",zoomed);
                     }
                     // console.log($("#svgcontainer0 .dot"));
