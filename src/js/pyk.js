@@ -151,6 +151,7 @@ PykCharts.Configuration = function (options){
     var configuration = {
         liveData : function (chart) {
             var frequency = options.real_time_charts_refresh_frequency;
+            console.log("liveData");
             if(PykCharts.boolean(frequency)) {
                 setInterval(chart.refresh,frequency*1000);
             }

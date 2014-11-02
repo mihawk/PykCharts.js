@@ -116,11 +116,32 @@ PykCharts.other.pictograph = function (options) {
             that.data = data.sort(function(a,b) {
                 return b.weight - a.weight;
             });
+            that.compare_data = that.data;
             $(options.selector+" #chart-loader").remove();
             that.render();
         })
     };
+    this.refresh = function () {
+        d3.json(options.data, function (e,data) {
+            var validate = that.k.validator().validatingJSON(data);
+            if(that.stop || validate === false) {
+                $(options.selector+" #chart-loader").remove();
+                return;
+            }
 
+            that.data = data.sort(function(a,b) {
+                return b.weight - a.weight;
+            });
+            that.refresh_data = that.data;
+            var compare = that.k.checkChangeInData(that.refresh_data,that.compare_data);
+            that.compare_data = compare[0];
+            var data_changed = compare[1];
+            if(data_changed) {
+                that.k.lastUpdatedAt("liveData");
+            }
+
+        })
+    }
     this.render = function () {
         var l = $(".svgcontainer").length;
         that.container_id = "svgcontainer" + l;
@@ -131,7 +152,8 @@ PykCharts.other.pictograph = function (options) {
                 .backgroundColor(that)
                 .export(that,"#"+that.container_id,"pictograph")
                 .emptyDiv()
-                .subtitle();
+                .subtitle()
+                .liveData(that);
         } else {
             that.k.backgroundColor(that)
                 .export(that,"#"+that.container_id,"pictograph")
@@ -145,6 +167,7 @@ PykCharts.other.pictograph = function (options) {
                 .createChart();
         if(that.mode==="default") {
             that.k.createFooter()
+                .lastUpdatedAt()
                 .credits()
                 .dataSource();
         }

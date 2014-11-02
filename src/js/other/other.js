@@ -89,7 +89,9 @@ PykCharts.other.processInputs = function (chartObject, options) {
     chartObject.transition_duration = options.transition_duration ? options.transition_duration : functionality.transition_duration;
     
     chartObject.background_color = options.background_color ? options.background_color.toLowerCase() : stylesheet.background_color;
-    
+    chartObject.real_time_charts_refresh_frequency = options.real_time_charts_refresh_frequency ? options.real_time_charts_refresh_frequency : functionality.real_time_charts_refresh_frequency;
+    chartObject.real_time_charts_last_updated_at_enable = options.real_time_charts_last_updated_at_enable ? options.real_time_charts_last_updated_at_enable.toLowerCase() : functionality.real_time_charts_last_updated_at_enable;
+
     chartObject.fullscreen_enable = options.fullscreen_enable ? options.fullscreen_enable : stylesheet.fullscreen_enable;
     chartObject.loading = options.loading_gif_url ? options.loading_gif_url: stylesheet.loading_gif_url;
     
@@ -101,6 +103,7 @@ PykCharts.other.processInputs = function (chartObject, options) {
                 .validatingChartMode(chartObject.mode,"mode",stylesheet.mode)
                 .validatingDataType(chartObject.width,"chart_width",stylesheet.chart_width,"width")
                 .validatingDataType(chartObject.title_size,"title_size",stylesheet.title_size)
+                .validatingDataType(chartObject.real_time_charts_refresh_frequency,"real_time_charts_refresh_frequency",functionality.real_time_charts_refresh_frequency)
                 .validatingDataType(chartObject.subtitle_size,"subtitle_size",stylesheet.subtitle_size)
                 .validatingDataType(chartObject.transition_duration,"transition_duration",functionality.transition_duration)
                 .validatingFontWeight(chartObject.title_weight,"title_weight",stylesheet.title_weight)
