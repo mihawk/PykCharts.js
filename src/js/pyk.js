@@ -2375,7 +2375,7 @@ configuration.Theme = function(){
         "annotation_enable": "no",
         "annotation_view_mode": "onload", // "onload" / "onclick"
         // "annotation_border_color" : "black",
-        "annotation_background_color" : "#EEEEEE",
+        "annotation_background_color" : "#C2CBCF", /*"#EEEEEE"*/
         "annotation_font_color" : "black",
 
         "data_sort_enable": "yes",
