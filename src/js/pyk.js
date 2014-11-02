@@ -383,7 +383,8 @@ PykCharts.Configuration = function (options){
                         .style("min-width","30px")
                         .style("z-index","10")
                         .style("visibility", "hidden")
-                        .style("box-shadow","0 5px 10px rgba(0,0,0,.2)");
+                        .style("box-shadow","0 5px 10px rgba(0,0,0,.2)")
+                        .style("pointer-events","none");
                 } else {
                     PykCharts.Configuration.tooltipp = d3.select("body")
                         .append("div")
