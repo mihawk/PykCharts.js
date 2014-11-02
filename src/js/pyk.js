@@ -1573,7 +1573,7 @@ configuration.mouseEvent = function (options) {
         crossHairPosition: function(data,new_data,xScale,yScale,dataLineGroup,lineMargin,domain,type,tooltipMode,color_from_data,panels_enable){
             if((PykCharts.boolean(options.crosshair_enable) || PykCharts.boolean(options.tooltip_enable) || PykCharts.boolean(options.axis_onhover_hightlight_enable))  && options.mode === "default") {
                 var legendsGroup_height = options.legendsGroup_height ? options.legendsGroup_height : 0;
-                var offsetLeft = options.margin_left + lineMargin +  $(options.selector + " #"+dataLineGroup[0][0][0].parentNode.parentNode.id).offset().left;
+                var offsetLeft = lineMargin - options.margin_left + $(options.selector + " #"+dataLineGroup[0][0][0].parentNode.parentNode.id).offset().left;
                 var offsetTop = $(options.selector + " #"+dataLineGroup[0][0][0].parentNode.parentNode.id).offset().top;
                 var number_of_lines = new_data.length;
                 var left = options.margin_left;
@@ -1584,8 +1584,12 @@ configuration.mouseEvent = function (options) {
                 var h = options.height;
                 var group_index = parseInt(PykCharts.getEvent().target.id.substr((PykCharts.getEvent().target.id.length-1),1));
                 var c = b - a;
-                var x = PykCharts.getEvent().pageX - offsetLeft;
-                var y = PykCharts.getEvent().pageY - offsetTop - top ;
+                // var curr_w = parseFloat(d3.select(options.selector+" #svg-1").attr("width"));
+                // var scale_responsive_x = 0.005 * w;
+                // offsetLeft = scale_responsive_x * offsetLeft; // Scaling in percentage wrt 'X'
+                // console.log("scale percentage >> ",scale_responsive_x,typeof(scale_responsive_x));
+                var x = PykCharts.getEvent().pageX - 5/* - offsetLeft*/;
+                var y = PykCharts.getEvent().pageY/* - offsetTop - top*/;
                 var x_range = [];
                 if(options.axis_x_data_format==="string") {
                     x_range = xScale.range();
@@ -1676,7 +1680,7 @@ configuration.mouseEvent = function (options) {
                                                 this.tooltipTextShow(tooltipText);
                                             }
                                             (options.crosshair_enable) ? this.crossHairShow(pos_line_cursor_x,top,pos_line_cursor_x,(h - bottom),pos_line_cursor_x,test,type,active_y_tick.length,panels_enable,new_data) : null;
-                                            // (options.colspanrosshair_enable) ? this.crossHairShow(pos_line_cursor_x,top,pos_line_cursor_x,(h - bottom),pos_line_cursor_x,pos_line_cursor_y,type,active_y_tick.length,panels_enable) : null;
+                                            (options.colspanrosshair_enable) ? this.crossHairShow(pos_line_cursor_x,top,pos_line_cursor_x,(h - bottom),pos_line_cursor_x,pos_line_cursor_y,type,active_y_tick.length,panels_enable) : null;
                                             this.axisHighlightShow(active_y_tick,options.selector+" .y.axis",domain);
                                             this.axisHighlightShow(active_x_tick,options.selector+" .x.axis",domain);
                                         }
@@ -1710,7 +1714,7 @@ configuration.mouseEvent = function (options) {
                                             if((options.tooltip_mode).toLowerCase() === "fixed") {
                                                 this.tooltipPosition(tooltipText,0,pos_line_cursor_y,-14,23,group_index);
                                             } else if((options.tooltip_mode).toLowerCase() === "moving"){
-                                                this.tooltipPosition(tooltipText,pos_line_cursor_x,pos_line_cursor_y,5,-45,group_index);
+                                                this.tooltipPosition(tooltipText,pos_line_cursor_x,pos_line_cursor_y,0,0,group_index);
                                             }
                                             this.tooltipTextShow(tooltipText);
                                         }

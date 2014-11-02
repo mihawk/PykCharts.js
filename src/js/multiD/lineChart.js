@@ -320,7 +320,7 @@ PykCharts.multiD.lineChart = function (options) {
 				}
 
 				// $(that.selector).css({"background-color":that.bg,"position":"relative"});
-
+				// console.log("that.w >>>> ",that.w,that.width);
 				that.svgContainer = d3.select(that.selector+" #tooltip-svg-container-"+i)
 					.append("svg:svg")
 					.attr("id","svg-" + i)
