@@ -2071,7 +2071,8 @@ configuration.makeXAxis = function(options,xScale) {
             .tickFormat(d3.time.format(b))
 
     } else if(options.axis_x_data_format === "number") {
-        xaxis.ticks(options.axis_x_no_of_axis_value);
+        xaxis.ticks(options.axis_x_no_of_axis_value)
+            .tickFormat(d3.format("s"));
     }
     return xaxis;
 };
