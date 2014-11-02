@@ -892,7 +892,7 @@ PykCharts.Configuration = function (options){
             else if (rangeband <= 20 || rangeband < (largest*0.35)) { flag = 0; }
 
             for(i=0; i<len; i++) {
-                comp = a[i].innerHTML;
+                comp = a[i].__data__;
                 if (flag === 0) {
                     comp = "";
                 }
@@ -909,7 +909,7 @@ PykCharts.Configuration = function (options){
                 else if (flag === 5){
                     comp = comp.substr(0,2);
                 }
-                a[i].innerHTML = comp;
+                d3.select(a[i]).text(comp);
             }
             xaxistooltip = d3.selectAll(options.selector + " g.x.axis text")
                 .data(domain);
@@ -936,11 +936,11 @@ PykCharts.Configuration = function (options){
             var len = a.length,comp;
 
             for(i=0; i<len; i++) {
-                comp = a[i].innerHTML;
+                comp = a[i].__data__;
                 if(a[i].getBBox().width > (options.margin_left * 0.7)) {
                     comp = comp.substr(0,3) + "..";
                 }
-                a[i].innerHTML = comp;
+                d3.select(a[i]).text(comp);
             }
             yaxistooltip = d3.selectAll(options.selector + " g.y.axis text")
                 .data(domain);
@@ -1854,7 +1854,7 @@ configuration.mouseEvent = function (options) {
                         // console.log(b,"it goessssssssssssssssssssss");
                         for(var a=0;a < active_tick.length;a++) {
                             // console.log(active_tick[a],a,"heyyyyyyyyyy")
-                            if(d3.selectAll(selection)[0][b].innerHTML == active_tick[a]) {
+                            if(d3.selectAll(selection)[0][b].__data__ == active_tick[a]) {
                                 d3.select(d3.selectAll(selection)[0][b])
                                     .style("fill",abc)
                                     // .style("font-size","13px")
@@ -1883,7 +1883,7 @@ configuration.mouseEvent = function (options) {
                     var len = domain.length;
                     if(options.axis_x_data_format === "number" && a === undefined) {
                         for(var curr_tick=0;curr_tick< axis_data_length;curr_tick++) {
-                            if(d3.selectAll(selection)[0][curr_tick].innerHTML == active_tick) {
+                            if(d3.selectAll(selection)[0][curr_tick].__data__ == active_tick) {
                                 break;
                             }
                         }
