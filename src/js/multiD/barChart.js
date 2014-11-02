@@ -192,7 +192,7 @@ PykCharts.multiD.barChart = function(options){
                     that.legendsGroup = that.svgContainer.append("g")
                         .attr("id","legends")
                         .attr("class","legends")
-                        // .style("visibility","hidden")
+                        .style("visibility","hidden")
                         .attr("transform","translate(0,10)");
 
                 } else {
