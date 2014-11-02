@@ -1802,7 +1802,7 @@ configuration.mouseEvent = function (options) {
                             d3.select(options.selector+" #svg-"+group_index+" .cross-hair-h")
                                 .attr("x1",options.margin_left)
                                 .attr("y1",cy)
-                                .attr("x2",(options.width - options.margin_right))
+                                .attr("x2",(options.w - options.margin_right))
                                 .attr("y2",cy);
                             d3.select(options.selector+" #svg-"+group_index+" .focus").style("display","block")
                                 .attr("transform", "translate(" + (cx - 5) + "," + cy + ")");
