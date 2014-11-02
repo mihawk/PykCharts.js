@@ -573,7 +573,7 @@ PykCharts.Configuration = function (options){
 
             return this;
         },
-        crossHair : function (svg,len,data,fill) {
+        crossHair : function (svg,len,data,fill,type) {
 
             if(PykCharts.boolean(options.crosshair_enable) && options.mode === "default") {
                 PykCharts.Configuration.cross_hair_v = svg.append("g")
@@ -597,7 +597,7 @@ PykCharts.Configuration = function (options){
 
                     PykCharts.Configuration.focus_circle.append("circle")
                         .attr("fill",function (d) {
-                            return fill.colorPieMS(data[j]);
+                            return fill.colorPieMS(data[j],type);
                         })
                         .attr("id","focus-circle"+j)
                         .attr("r","6");

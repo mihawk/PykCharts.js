@@ -119,7 +119,7 @@ PykCharts.multiD.lineChart = function (options) {
 							.chartType()
 							.svgContainer(i)
 							.createGroups(i);
-					that.k.crossHair(that.svgContainer,1,that.fill_data,that.fillColor);
+					that.k.crossHair(that.svgContainer,1,that.fill_data,that.fillColor,that.type);
 					that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
 
 					that.optionalFeature()
@@ -158,7 +158,7 @@ PykCharts.multiD.lineChart = function (options) {
 						.createGroups(1)
 						.hightLightOnload();
 
-				that.k.crossHair(that.svgContainer,that.new_data_length,that.new_data,that.fillColor);
+				that.k.crossHair(that.svgContainer,that.new_data_length,that.new_data,that.fillColor,that.type);
 				that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
 
 				that.optionalFeature()
