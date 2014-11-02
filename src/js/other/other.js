@@ -40,6 +40,7 @@ PykCharts.other.processInputs = function (chartObject, options) {
         , otherCharts = theme.otherCharts;
 
     chartObject.selector = options.selector ? options.selector : stylesheet.selector;
+    
     chartObject.width = options.chart_width  ? options.chart_width : stylesheet.chart_width;
     // chartObject.height = options.chart_height && _.isNumber(options.chart_height) ? options.chart_height : stylesheet.chart_height;
     // chartObject.width = optional && optional.chart && _.isNumber(optional.chart.width) ? optional.chart.width : stylesheet.chart.width;
