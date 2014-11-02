@@ -206,7 +206,7 @@
                     chart_margin_top: 15,
                     chart_margin_right: 15,
                     chart_margin_bottom: 15,
-                    chart_margin_left: 15,
+                    chart_margin_left: 20,
                     saturation_color:"red",
                     scatterplot_radius : "20",
                     scatterplot_pointer: "no",
@@ -214,7 +214,7 @@
                     subtitle_text : "",
                     panels_enable: "no",
                     variable_circle_size_enable: "no",
-
+                    scatterplot_pointer_enable : "yes",
                     axis_x_enable: "yes",
                     axis_x_title : "Price",
                     axis_x_position: "bottom",
@@ -733,7 +733,7 @@
                     data_sort_type: "date",
                     data_sort_order: "ascending"
                 });
-    //           k.execute();
+              k.execute();
 
                 var k = new PykCharts.multiD.barChart({
                     data: "../data/ultimateGroupBar.json",
