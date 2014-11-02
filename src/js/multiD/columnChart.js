@@ -10,6 +10,7 @@ PykCharts.multiD.columnChart = function(options){
         
         // that.grid_y_enable = options.chart_grid_y_enable ? options.chart_grid_y_enable : theme.stylesheet.chart_grid_y_enable;
         that.grid_color = options.chart_grid_color ? options.chart_grid_color : theme.stylesheet.chart_grid_color;
+         that.panels_enable = "no";
 
         if(that.mode === "default") {
            that.k.loading();

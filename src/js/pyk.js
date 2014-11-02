@@ -354,11 +354,11 @@ PykCharts.Configuration = function (options){
             var d = d3.select(selection).append("div")
                 .attr("id","tooltip-svg-container-"+i)
                 .attr("class","main-div")
-                .style("width",options.width);
-            if(PykCharts.boolean(options.panels_enable)){
-                d.style("float","left")
-                    .style("width","auto");
-            }
+                .style("width",options.width);           
+                if(PykCharts.boolean(options.panels_enable)){
+                    d.style("float","left")
+                        .style("width","auto");
+                }
             return this;
         },
         tooltip : function (d,selection,i,flag ) {
@@ -1563,7 +1563,7 @@ configuration.mouseEvent = function (options) {
             }
         },
         crossHairPosition: function(data,new_data,xScale,yScale,dataLineGroup,lineMargin,domain,type,tooltipMode,color_from_data,panels_enable){
-            if((PykCharts.boolean(options.crosshair_enable) || PykCharts.boolean(options.tooltip_enable) || PykCharts.boolean(options.axis_onhover_hightlight_enable))  && options.mode === "default") {
+            if((PykCharts.boolean(options.crosshair_enable) || PykCharts.boolean(options.tooltip_enable) || PykCharts.boolean(options.axis_onhover_highlight_enable))  && options.mode === "default") {
                 var legendsGroup_height = options.legendsGroup_height ? options.legendsGroup_height : 0;
                 var offsetLeft = options.margin_left + lineMargin +  $(options.selector + " #"+dataLineGroup[0][0][0].parentNode.parentNode.id).offset().left;
                 var offsetTop = $(options.selector + " #"+dataLineGroup[0][0][0].parentNode.parentNode.id).offset().top;
@@ -1840,7 +1840,7 @@ configuration.mouseEvent = function (options) {
         },
         axisHighlightShow : function (active_tick,axisHighlight,domain,a) {
             var curr_tick,prev_tick,abc,selection,axis_data_length;
-            if(PykCharts.boolean(options.axis_onhover_hightlight_enable)/* && options.mode === "default"*/){
+            if(PykCharts.boolean(options.axis_onhover_highlight_enable)/* && options.mode === "default"*/){
                 if(axisHighlight === options.selector + " .y.axis"){
                     selection = axisHighlight+" .tick text";
                     abc = options.axis_y_pointer_color;
@@ -1912,7 +1912,7 @@ configuration.mouseEvent = function (options) {
         },
         axisHighlightHide : function (axisHighlight,a) {
             var fill_color,selection,font_weight;
-            if(PykCharts.boolean(options.axis_onhover_hightlight_enable)/* && options.mode === "default"*/){
+            if(PykCharts.boolean(options.axis_onhover_highlight_enable)/* && options.mode === "default"*/){
                 if(axisHighlight === options.selector + " .y.axis") {
                     selection = axisHighlight+" .tick text";
                     fill_color = options.axis_y_pointer_color;
@@ -2325,7 +2325,7 @@ configuration.Theme = function(){
         "chart_grid_y_enable": "yes",
         "chart_grid_color":"#ddd",
 
-        "axis_onhover_hightlight_enable": "no",
+        "axis_onhover_highlight_enable": "no",
 
         "axis_y_pointer_size": 12,
         "axis_y_pointer_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",

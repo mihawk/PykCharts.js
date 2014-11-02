@@ -361,7 +361,7 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     }
 
     chartObject.axis_x_enable = options.axis_x_enable ? options.axis_x_enable.toLowerCase() : stylesheet.axis_x_enable;
-    chartObject.axis_onhover_hightlight_enable = PykCharts.boolean(chartObject.axis_x_enable) && options.axis_onhover_hightlight_enable ? options.axis_onhover_hightlight_enable.toLowerCase() : multiDimensionalCharts.axis_onhover_hightlight_enable;
+    chartObject.axis_onhover_highlight_enable = PykCharts.boolean(chartObject.axis_x_enable) && options.axis_onhover_highlight_enable ? options.axis_onhover_highlight_enable.toLowerCase() : multiDimensionalCharts.axis_onhover_highlight_enable;
     chartObject.axis_x_title = options.axis_x_title ? options.axis_x_title : stylesheet.axis_x_title;
     chartObject.axis_x_pointer_position = PykCharts.boolean(chartObject.axis_x_enable) && options.axis_x_pointer_position ? options.axis_x_pointer_position.toLowerCase(): stylesheet.axis_x_pointer_position;
     chartObject.axis_x_position = PykCharts.boolean(chartObject.axis_x_enable) && options.axis_x_position ? options.axis_x_position.toLowerCase() : stylesheet.axis_x_position;
