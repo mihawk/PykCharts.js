@@ -205,27 +205,6 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                 that.optionalFeatures()
                     .legends(that.legends_enable)
                     .createMap();
-                // that.k.lastUpdatedAt("liveData");
-            });
-        } else {
-            d3.json(options.data, function (data) {
-                that.timeline_data = data;
-                that.refresh_data = data;
-                var compare = that.k.checkChangeInData(that.refresh_data,that.compare_data);
-                that.compare_data = compare[0];
-                var data_changed = compare[1];
-                var x_extent = d3.extent(data, function (d) { return d.timestamp; });
-                that.data = _.where(data, {timestamp: x_extent[0]});
-                that.optionalFeatures()
-                    .legends(that.legends_enable)
-                    .createMap();
-                that.renderDataForTimescale();
-                that.renderTimeline();
-
-                if(data_changed) {
-                    that.k.lastUpdatedAt("liveData");
-                }
-
             });
         }
     };
