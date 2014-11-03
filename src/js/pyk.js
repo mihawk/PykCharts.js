@@ -2054,7 +2054,7 @@ configuration.border = function (options) {
 };
 
 configuration.makeXAxis = function(options,xScale) {
-    console.log(xScale.domain(),"domain");
+    // console.log(xScale.domain(),"domain");
     var that = this;
     var k = PykCharts.Configuration(options);
     var xaxis = d3.svg.axis()
