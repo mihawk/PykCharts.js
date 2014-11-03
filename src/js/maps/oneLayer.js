@@ -136,7 +136,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
     this.render = function () {
 
         that.border = new PykCharts.Configuration.border(that);
-
+        that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
         that.k.title()
             .backgroundColor(that)
             // .subtitle();
@@ -344,6 +344,9 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                         return d3.select(this).attr("fill");
                     })
                     .attr("fill-opacity", that.renderOpacity)
+                    .attr("data-fill-opacity",function () {
+                        return $(this).attr("fill-opacity");
+                    })
                     .style("stroke", that.border.color())
                     .style("stroke-width", that.border.width())
                     .style("stroke-dasharray", that.border.style())
@@ -364,13 +367,18 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                                     .style("left", (that.tooltip_position_left) + "px");
                             }
                         }
-                        that.bodColor(d);
+                        if(that.onhover1 === "color_saturation") {
+                            that.mouseEvent.highlight(options.selector + " .area", this);
+                        }else {
+                            that.bodColor(d);
+                        }
                     })
                     .on("mouseout", function (d) {
                         if (PykCharts.boolean(that.tooltip_enable)) {
                             ttp.style("visibility", "hidden");
                         }
                         that.bodUncolor(d);
+                        that.mouseEvent.highlightHide(options.selector + " .area");
                     });
                 that.group.exit()
                     .remove();
@@ -632,15 +640,15 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                         return 0.5;
                     });
             } else if (that.onhover1 === "color_saturation") {
-                d3.select("path[area_name='" + d.properties.NAME_1 + "']")
-                    .attr("fill-opacity", function () {
-                        if (that.saturation_color !== "" && that.color_mode === "saturation") {
-                            that.oneninth_dim = +(d3.format(".2f")(that.difference / 10));
-                            that.opacity_dim = (that.extent_size[0] + (obj[0]).size + that.oneninth_dim) / that.difference;
-                            return that.opacity_dim/2;
-                        }
-                        return 0.5;
-                    });
+                // d3.select("path[area_name='" + d.properties.NAME_1 + "']")
+                //     .attr("fill-opacity", function () {
+                //         if (that.saturation_color !== "" && that.color_mode === "saturation") {
+                //             that.oneninth_dim = +(d3.format(".2f")(that.difference / 10));
+                //             that.opacity_dim = (that.extent_size[0] + (obj[0]).size + that.oneninth_dim) / that.difference;
+                //             return that.opacity_dim/2;
+                //         }
+                //         return 0.5;
+                //     });
             }
         } else {
             that.bodUncolor(d);
