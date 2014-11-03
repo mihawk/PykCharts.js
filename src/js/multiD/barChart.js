@@ -415,7 +415,6 @@
                 rect.enter()
                     .append("svg:rect")
                     .attr("class","rect")
-
                 rect.attr("width", 0).attr("x", 0)
                     .attr("fill", function(d,i){
                         if(that.no_of_groups === 1) {
@@ -426,11 +425,6 @@
                     })
                     .attr("fill-opacity", function (d,i) {
                         if (that.color_mode === "saturation"){
-                        // if(PykCharts.boolean(that.saturationEnable)){
-                            // if(that.highlight === d.name) {
-                            //     j--;
-                            //     return 1;
-                            // }
                             if(j>1){
                                 j--;
                                 return j/that.no_of_groups;
@@ -439,7 +433,12 @@
                                 j--;
                                 return j/that.no_of_groups;
                             }
+                        } else {
+                            return 1;
                         }
+                    })
+                    .attr("data-fill-opacity",function () {
+                        return $(this).attr("fill-opacity");
                     })
                     .attr("stroke",that.border.color())
                     .attr("stroke-width",that.border.width())
@@ -450,12 +449,14 @@
                             that.mouseEvent.tooltipPosition(d);
                             that.mouseEvent.tooltipTextShow(d.tooltip ? d.tooltip : d.y);
                             that.mouseEvent.axisHighlightShow(d.name,options.selector + " .axis-text",that.domain,"bar");
+                            that.mouseEvent.highlight(options.selector + " .rect", this);
                         }
                     })
                     .on('mouseout',function (d) {
                         if(that.mode === "default") {
                             that.mouseEvent.tooltipHide(d);
                             that.mouseEvent.axisHighlightHide(options.selector + " .axis-text","bar");
+                            that.mouseEvent.highlightHide(options.selector + " .rect")
                         }
                     })
                     .on('mousemove', function (d) {
@@ -488,6 +489,7 @@
 
                 that.bars.exit()
                     .remove();
+                console.log(that.previuos_color);
                 if(PykCharts.boolean(that.axis_y_enable)) {
                     var yAxis_label = that.group.selectAll("text.axis-text")
                         .data(group_arr);
