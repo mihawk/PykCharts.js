@@ -397,7 +397,6 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                 } else if (obj.length > 0 && PykCharts.boolean(obj[0].color)) {
                     return obj[0].color;
                 }
-                console.log(that.default_color[0]);
                 return that.default_color[0];
             }
             if (that.color_mode === "saturation") {
@@ -733,11 +732,11 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         that.timeline_status = "";
 
         var startTimeline = function () {
-            clearInterval(that.play_interval);
             if (that.timeline_status==="playing") {
                 that.play.attr("xlink:href",that.play_image_url);
                 that.timeline_status = "paused";
                 that.interval_index = interval;
+                clearInterval(that.play_interval);
             } else {
                 that.timeline_status = "playing";
                 that.play.attr("xlink:href",that.pause_image_url);
@@ -769,12 +768,12 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     startInterval();
                     if (interval===1) {
                         that.play.attr("xlink:href",that.play_image_url);
+                        that.interval_index = 1;
                         that.timeline_status = "";
                         clearInterval(that.play_interval);
                     };
                 }, that.timeline_duration);
                 startInterval();
-
             }
         }
     };
