@@ -696,7 +696,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                         });
 
                     var legend_container_width = that.legendsGroup.node().getBBox().width, translate_x = 0;
-                    translate_x = (!PykCharts.boolean(that.panels_enable)) ? (that.width - legend_container_width - 20) : that.margin_left;
+                        translate_x = (that.legends_display === "vertical") ? 0 : ((!PykCharts.boolean(that.panels_enable)) ? (that.width - legend_container_width - 20) : that.margin_left);
                     
                     if (legend_container_width < that.w) { that.legendsGroup.attr("transform","translate("+translate_x+",20)"); }
                     that.legendsGroup.style("visibility","visible");
