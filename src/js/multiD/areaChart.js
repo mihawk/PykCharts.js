@@ -809,7 +809,7 @@ PykCharts.multiD.areaChart = function (options){
             that.k.annotation(that.selector + " #svg-1",annotation, that.xScale,that.yScale);
 
 		} else if(that.type === "stackedAreaChart" && that.mode === "default") {
-			var arrow_size = 15,annotation = [];
+			var arrow_size = 12,annotation = [];
 			for(i=0;i<that.new_data_length;i++) {
 				that.new_data[i].data.map(function (d) {
 					if(d.annotation) {

@@ -1000,7 +1000,7 @@ PykCharts.multiD.lineChart = function (options) {
 		}
 		else if(PykCharts.boolean(that.panels_enable)) {
 			for(i=0;i<that.new_data_length;i++){
-				var annotation = [], arrow_size = 15;
+				var annotation = [], arrow_size = 12;
 				that.new_data[i].data.map(function (d) {
 					if(d.annotation) {
 						annotation.push({
