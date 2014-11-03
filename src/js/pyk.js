@@ -151,6 +151,7 @@ PykCharts.Configuration = function (options){
     var configuration = {
         liveData : function (chart) {
             var frequency = options.real_time_charts_refresh_frequency;
+            console.log("liveData");
             if(PykCharts.boolean(frequency)) {
                 setInterval(chart.refresh,frequency*1000);
             }
@@ -354,7 +355,7 @@ PykCharts.Configuration = function (options){
             var d = d3.select(selection).append("div")
                 .attr("id","tooltip-svg-container-"+i)
                 .attr("class","main-div")
-                .style("width",options.width);           
+                .style("width",options.width);
                 if(PykCharts.boolean(options.panels_enable)){
                     d.style("float","left")
                         .style("width","auto");
