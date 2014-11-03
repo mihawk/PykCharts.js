@@ -78,7 +78,7 @@
                     .createChart()
                     .legends()
                     .ticks();
-            that.k.xAxis(that.svgContainer,that.xGroup,that.xScale,undefined,undefined,that.legendsGroup_height);
+            that.k.xAxis(that.svgContainer,that.xGroup,that.xScale,undefined,undefined,that.x_tick_values,that.legendsGroup_height);
         });
     };
 
@@ -154,7 +154,7 @@
             that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
 
         }
-        that.k.xAxis(that.svgContainer,that.xGroup,that.xScale,undefined,undefined,that.legendsGroup_height)
+        that.k.xAxis(that.svgContainer,that.xGroup,that.xScale,undefined,undefined,that.x_tick_values,that.legendsGroup_height)
                 .xAxisTitle(that.xGroup,that.legendsGroup_height);
 
         if(PykCharts.boolean(that.legends_enable)) {
@@ -321,8 +321,23 @@
                     }))
                     .rangeBands([0,h]);
 
+                that.x_tick_values = that.k.processXAxisTickValues();        
+                var min_x_tick_value,max_x_tick_value;
+
                 var x_domain = [0,d3.max(x_data)];
-                that.xScale = d3.scale.linear().domain(that.k.__proto__._domainBandwidth(x_domain,1)).range([0, w]);
+                x_domain = that.k.__proto__._domainBandwidth(x_domain,1);
+
+                min_x_tick_value = d3.min(that.x_tick_values);
+                max_x_tick_value = d3.max(that.x_tick_values);
+
+                if(x_domain[0] > min_x_tick_value) {
+                    x_domain[0] = min_x_tick_value;
+                } 
+                if(x_domain[1] < max_x_tick_value) {
+                    x_domain[1] = max_x_tick_value;
+                }
+
+                that.xScale = d3.scale.linear().domain(x_domain).range([0, w]);
 
                 // that.yScaleInvert = d3.scale.linear().domain([d3.max(yValues), 0]).range([0, h]).nice(); // For the yAxis
                 // var zScale = d3.scale.category10();
@@ -474,7 +489,7 @@
 
                 that.bars.exit()
                     .remove();
-                console.log(that.previuos_color);
+
                 if(PykCharts.boolean(that.axis_y_enable)) {
                     var yAxis_label = that.group.selectAll("text.axis-text")
                         .data(group_arr);
@@ -665,7 +680,6 @@
                     }
                     else if(that.legends_display === "horizontal") {
                         that.legendsGroup_height = 50;
-                        temp_i = j;
                         final_rect_x = 0;
                         final_text_x = 0;
                         legend_text_widths = [];
@@ -733,7 +747,7 @@
                             }
                         });
 
-                    var legend_container_width = that.legendsGroup.node().getBBox().width;
+                    var legend_container_width = that.legendsGroup.node().getBBox().width,
                         translate_x = that.width - legend_container_width;
                     
                     if (legend_container_width < that.width) { that.legendsGroup.attr("transform","translate("+(translate_x-20)+",10)"); }
