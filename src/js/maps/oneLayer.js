@@ -704,6 +704,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         that.k.xAxis(that.svgContainer,that.gxaxis,that.xScale);
     }
     that.renderTimeline = function () {
+      window.intervalList = [];
         var x_extent
         , x_range
         , duration
@@ -716,20 +717,19 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         that.timeline_status = "";
 
         var startTimeline = function () {
+            clearInterval(that.play_interval);
             if (that.timeline_status==="playing") {
                 that.play.attr("xlink:href",that.play_image_url);
-                // that.play.attr("xlink:href","https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/play.gif");
-                clearInterval(that.play_interval);
                 that.timeline_status = "paused";
                 that.interval_index = interval;
             } else {
                 that.timeline_status = "playing";
                 that.play.attr("xlink:href",that.pause_image_url);
-                // that.play.attr("xlink:href","https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/pause.gif");
                 interval = that.interval_index;
-                interval1 = that.interval_index;
-
-                that.play_interval = setInterval(function () {
+                var startInterval = function () {
+                    if (interval===that.unique.length) {
+                        interval = 0;
+                    }
                     that.marker
                         // .transition()
                         // .duration(that.timeline.duration/2)
@@ -746,49 +746,20 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                             // .duration(that.timeline.duration/4)
                             .attr("fill", that.renderColor);
                     });
-
                     interval++;
-
-                    if (interval===that.unique.length) {
+                }
+                that.play_interval = setInterval(function () {
+                    startInterval();
+                    if (interval===1) {
+                        that.play.attr("xlink:href",that.play_image_url);
+                        that.timeline_status = "";
                         clearInterval(that.play_interval);
                     };
                 }, that.timeline_duration);
+                startInterval();
 
-                var time_lag = setTimeout(function () {
-                    var undo_heatmap = setInterval(function () {
-                        interval1++;
-                        var play1;
-                        if (interval1 === interval) {
-                            clearInterval(undo_heatmap);
-                            clearTimeout(time_lag);
-                        }
-
-                        if (interval1 === that.unique.length) {
-                            clearInterval(undo_heatmap);
-                            that.play.attr("xlink:href",that.play_image_url);
-                            that.marker.attr("x",  (that.margin_left*2) + that.xScale(that.unique[0]) - 7);
-                            interval = interval1 = that.interval_index = 1;
-                            that.timeline_status = "";
-
-                    that.data = _.where(that.timeline_data, {timestamp:that.unique[0]});
-                    that.data.sort(function (a,b) {
-                        return a.timestamp - b.timestamp;
-                    });
-                    that.extent_size = d3.extent(that.data, function (d) { return parseInt(d.size, 10); });
-                    that.difference = that.extent_size[1] - that.extent_size[0];
-                    _.each(that.data, function (d) {
-                        d3.select("path[iso2='"+d.iso2+"']")
-                            // .transition()
-                            // .duration(that.timeline.duration/4)
-                            .attr("fill", that.renderColor);
-                    });
-
-                        };
-                    }, that.timeline_duration);
-                },that.timeline_duration);
             }
         }
-        // duration = unique.length * 1000;
     };
 
     that.renderButtons = function () {
