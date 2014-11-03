@@ -959,7 +959,7 @@ PykCharts.Configuration = function (options){
                     }
                 }
             }
-            
+
             if(values.length) {
                 if(options.axis_x_data_format === "time") {
                     _.each(values, function (d) {
@@ -1945,7 +1945,7 @@ configuration.mouseEvent = function (options) {
                     .style("fill",fill_color)
                     .style("font-weight",font_weight);
             }
-            
+
             return this;
         },
         highlight: function (selectedclass, that) {
@@ -2054,7 +2054,6 @@ configuration.border = function (options) {
 };
 
 configuration.makeXAxis = function(options,xScale) {
-    // console.log(xScale.domain(),"domain");
     var that = this;
     var k = PykCharts.Configuration(options);
     var xaxis = d3.svg.axis()
@@ -2295,7 +2294,7 @@ configuration.Theme = function(){
         "axis_x_time_value_interval":0,
         "axis_x_data_format": "string",
 
-        "loading_gif_url": "https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/img/loader.gif",
+        "loading_gif_url": PykCharts.assets+"img/preloader.gif",
         // "fullscreen_enable": "no",
 
         "tooltip_enable": "yes",
