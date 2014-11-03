@@ -1934,6 +1934,21 @@ configuration.mouseEvent = function (options) {
                     .style("fill",fill_color)
                     .style("font-weight",font_weight);
             }
+            
+            return this;
+        },
+        highlight: function (selectedclass, that) {
+            var t = d3.select(that);
+            d3.selectAll(selectedclass)
+                .attr("fill-opacity",.5)
+            t.attr("fill-opacity",1);
+            return this;
+        },
+        highlightHide : function (selectedclass) {
+            d3.selectAll(selectedclass)
+                .attr("fill-opacity",function (d,i) {
+                    return $(this).attr("data-fill-opacity");
+                });
             return this;
         }
     };

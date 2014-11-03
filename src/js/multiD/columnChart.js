@@ -357,6 +357,9 @@ PykCharts.multiD.columnChart = function(options){
                             }
                         }
                     })
+                    .attr("data-fill-opacity",function () {
+                        return $(this).attr("fill-opacity");
+                    })
                     .attr("stroke",that.border.color())
                     .attr("stroke-width",that.border.width())
                     .attr("stroke-dasharray", that.border.style())
@@ -366,12 +369,14 @@ PykCharts.multiD.columnChart = function(options){
                             that.mouseEvent.tooltipPosition(d);
                             that.mouseEvent.tooltipTextShow(d.tooltip ? d.tooltip : d.y);
                             that.mouseEvent.axisHighlightShow(d.name,options.selector + " " + ".axis-text",that.domain,"column");
+                            that.mouseEvent.highlight(options.selector + " .rect", this);
                         }
                     })
                     .on('mouseout',function (d) {
                         if(that.mode === "default") {
                             that.mouseEvent.tooltipHide(d);
                             that.mouseEvent.axisHighlightHide(options.selector + " " + ".axis-text","column");
+                            that.mouseEvent.highlightHide(options.selector + " .rect");
                         }
                      })
                     .on('mousemove', function (d) {
