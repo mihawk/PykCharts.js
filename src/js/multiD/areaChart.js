@@ -19,6 +19,7 @@ PykCharts.multiD.areaChart = function (options){
 	    that.crosshair_enable = options.crosshair_enable ? options.crosshair_enable.toLowerCase() : multiDimensionalCharts.crosshair_enable;
 		that.curvy_lines = options.curvy_lines_enable ? options.curvy_lines_enable.toLowerCase() : multiDimensionalCharts.curvy_lines_enable;
 		// that.color_from_data = options.line_color_from_data ? options.line_color_from_data : multiDimensionalCharts.line_color_from_data;
+	  	that.panels_enable = "no";
 	  	that.interpolate = PykCharts.boolean(that.curvy_lines) ? "cardinal" : "linear";
 		that.w = that.width - that.margin_left - that.margin_right;
 		that.h = that.height - that.margin_top - that.margin_bottom;
@@ -35,7 +36,7 @@ PykCharts.multiD.areaChart = function (options){
 			that.axis_y_data_format = "number";
     		that.axis_x_data_format = that.k.xAxisDataFormatIdentification(that.data);
     		if(that.axis_x_data_format === "time" && that.axis_x_time_value_datatype === "") {
-    			console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+that.selector+".(\""+"You seem to pass Date data so please pass axis_x_time_value_datatype"+"\")  Visit www.chartstore.io/docs#warning_"+"15");
+    			console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+that.selector+".(\""+"You seem to have passed Date data so please pass the value for axis_x_time_value_datatype"+"\")  Visit www.chartstore.io/docs#warning_"+"15");
     		}
 			that.compare_data = that.data;
 			that.data_length = that.data.length;
@@ -808,7 +809,7 @@ PykCharts.multiD.areaChart = function (options){
             that.k.annotation(that.selector + " #svg-1",annotation, that.xScale,that.yScale);
 
 		} else if(that.type === "stackedAreaChart" && that.mode === "default") {
-			var arrow_size = 15,annotation = [];
+			var arrow_size = 12,annotation = [];
 			for(i=0;i<that.new_data_length;i++) {
 				that.new_data[i].data.map(function (d) {
 					if(d.annotation) {

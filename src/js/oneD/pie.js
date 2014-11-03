@@ -456,7 +456,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                     .attr("preserveAspectRatio", "xMinYMin")
                     .attr("viewBox", "0 0 " + that.width + " " + that.height)
                     .attr("id",that.container_id)
-                    .attr("class","svgcontainer");
+                    .attr("class","svgcontainer PykCharts-oneD");
                 that.group = that.svgContainer.append("g")
                     .attr("transform","translate("+(that.width/2)+","+that.height_translate+")")
                     .attr("id","pieGroup");
