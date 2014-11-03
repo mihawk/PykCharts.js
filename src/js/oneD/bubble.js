@@ -10,7 +10,7 @@ PykCharts.oneD.bubble = function (options) {
                 that.height = that.width;
                 throw "chart_height"
             }
-        } 
+        }
 
         catch (err) {
             that.k.warningHandling(err,"1");
@@ -107,7 +107,7 @@ PykCharts.oneD.bubble = function (options) {
         var optional = {
             svgContainer: function () {
                 that.svgContainer = d3.select(that.selector).append("svg")
-                    .attr("class","svgcontainer")
+                    .attr("class","svgcontainer PykCharts-oneD")
                     .attr("id",that.container_id)
                     .attr("preserveAspectRatio", "xMinYMin")
                     .attr("viewBox", "0 0 " + that.width + " " + that.height)

@@ -19,7 +19,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                 that.height = that.width;
                 throw "chart_height"
             }
-        } 
+        }
         catch (err) {
             that.k.warningHandling(err,"1");
         }
@@ -29,7 +29,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                 that.percent_column_rect_width = theme.oneDimensionalCharts.percent_column_rect_width;
                 throw "percent_column_rect_width"
             }
-        } 
+        }
         catch (err) {
             that.k.warningHandling(err,"1");
         }
@@ -221,7 +221,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                     .attr("preserveAspectRatio", "xMinYMin")
                     .attr("viewBox", "0 0 " + that.width + " " + that.height)
                     .attr("id",that.container_id)
-                    .attr("class","svgcontainer");
+                    .attr("class","svgcontainer PykCharts-oneD");
 
                     that.group = that.svgContainer.append("g")
                         .attr("id","funnel");
