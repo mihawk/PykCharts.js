@@ -123,7 +123,7 @@ PykCharts.multiD.areaChart = function (options){
 			that.k.xAxis(that.svgContainer,that.xGroup,that.xScale,that.extra_left_margin,that.xdomain,that.legendsGroup_height,that.data)
 					.yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain)
 					.yGrid(that.svgContainer,that.group,that.yScale)
-					.xGrid(that.svgContainer,that.group,that.xScale)
+					.xGrid(that.svgContainer,that.group,that.xScale,that.legendsGroup_height)
 					.xAxisTitle(that.xGroup)
 					.yAxisTitle(that.yGroup)
 					.createFooter()
@@ -183,7 +183,7 @@ PykCharts.multiD.areaChart = function (options){
 			that.k.xAxis(that.svgContainer,that.xGroup,that.xScale,that.extra_left_margin,that.xdomain,that.legendsGroup_height)
 					.yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain)
 					.yGrid(that.svgContainer,that.group,that.yScale)
-					.xGrid(that.svgContainer,that.group,that.xScale)
+					.xGrid(that.svgContainer,that.group,that.xScale,that.legendsGroup_height)
 					.tooltip(true,options.selector);
 
 			if(PykCharts.boolean(that.annotation_enable)) {

@@ -13,7 +13,7 @@ PykCharts.oneD.treemap = function (options){
                 that.height = that.width;
                 throw "chart_height"
             }
-        } 
+        }
         catch (err) {
             that.k.warningHandling(err,"1");
         }
@@ -27,7 +27,7 @@ PykCharts.oneD.treemap = function (options){
         }
 
         d3.json(options.data, function (e,data) {
-            
+
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
                 $(options.selector+" #chart-loader").remove();
@@ -118,7 +118,7 @@ PykCharts.oneD.treemap = function (options){
                     .attr("preserveAspectRatio", "xMinYMin")
                     .attr("viewBox", "0 0 " + that.width + " " + that.height)
                     .attr("id",that.container_id)
-                    .attr("class","svgcontainer");
+                    .attr("class","svgcontainer PykCharts-oneD");
 
                 that.group = that.svgContainer.append("g")
                     .attr("id","treemap");

@@ -628,10 +628,10 @@ PykCharts.multiD.lineChart = function (options) {
 						      			if(that.type === "multilineChart") {
 
 						      				that.clicked = true;
+
 						      				console.log("upper function",that.clicked)
 						      				// that.prev_opacity = d3.select(this).style("stroke-opacity");
 						      				that.highlightLine(PykCharts.getEvent().target,that.clicked,that.previous_color);
-
 										}
 									})
 									.on("mouseover",function (d) {

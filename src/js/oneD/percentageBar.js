@@ -20,7 +20,7 @@ PykCharts.oneD.percentageBar = function (options) {
                 that.height = that.width/2;
                 throw "chart_height"
             }
-        } 
+        }
         catch (err) {
             that.k.warningHandling(err,"1");
         }
@@ -30,7 +30,7 @@ PykCharts.oneD.percentageBar = function (options) {
                 that.percent_row_rect_height = theme.oneDimensionalCharts.percent_row_rect_height;
                 throw "percent_row_rect_height";
             }
-        } 
+        }
         catch (err) {
             that.k.warningHandling(err,"1");
         }
@@ -54,7 +54,7 @@ PykCharts.oneD.percentageBar = function (options) {
                 $(options.selector+" #chart-loader").remove();
                 return;
             }
-            
+
             that.data = data.groupBy("oned");
             that.compare_data = data.groupBy("oned");
             $(options.selector+" #chart-loader").remove();
@@ -227,7 +227,7 @@ PykCharts.oneD.percentageBar = function (options) {
                     .attr("preserveAspectRatio", "xMinYMin")
                     .attr("viewBox", "0 0 " + that.width + " " + that.height)
                     .attr("id",that.container_id)
-                    .attr("class","svgcontainer");
+                    .attr("class","svgcontainer PykCharts-oneD");
 
                     that.group = that.svgContainer.append("g")
                         .attr("id","percentageBar");
