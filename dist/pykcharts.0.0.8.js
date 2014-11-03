@@ -2611,7 +2611,7 @@ PykCharts.oneD.bubble = function (options) {
                 that.height = that.width;
                 throw "chart_height"
             }
-        } 
+        }
 
         catch (err) {
             that.k.warningHandling(err,"1");
@@ -2708,7 +2708,7 @@ PykCharts.oneD.bubble = function (options) {
         var optional = {
             svgContainer: function () {
                 that.svgContainer = d3.select(that.selector).append("svg")
-                    .attr("class","svgcontainer")
+                    .attr("class","svgcontainer PykCharts-oneD")
                     .attr("id",that.container_id)
                     .attr("preserveAspectRatio", "xMinYMin")
                     .attr("viewBox", "0 0 " + that.width + " " + that.height)
@@ -3244,7 +3244,7 @@ PykCharts.oneD.funnel = function (options) {
                     .attr("preserveAspectRatio", "xMinYMin")
                     .attr("viewBox", "0 0 " + that.width + " " + that.height)
                     .attr("id",that.container_id)
-                    .attr("class","svgcontainer");
+                    .attr("class","svgcontainer PykCharts-oneD");
 
                     that.group = that.svgContainer.append("g")
                         .attr("id","funnel");
@@ -3560,7 +3560,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                 that.height = that.width;
                 throw "chart_height"
             }
-        } 
+        }
         catch (err) {
             that.k.warningHandling(err,"1");
         }
@@ -3570,7 +3570,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                 that.percent_column_rect_width = theme.oneDimensionalCharts.percent_column_rect_width;
                 throw "percent_column_rect_width"
             }
-        } 
+        }
         catch (err) {
             that.k.warningHandling(err,"1");
         }
@@ -3762,7 +3762,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                     .attr("preserveAspectRatio", "xMinYMin")
                     .attr("viewBox", "0 0 " + that.width + " " + that.height)
                     .attr("id",that.container_id)
-                    .attr("class","svgcontainer");
+                    .attr("class","svgcontainer PykCharts-oneD");
 
                     that.group = that.svgContainer.append("g")
                         .attr("id","funnel");
@@ -4008,7 +4008,7 @@ PykCharts.oneD.percentageBar = function (options) {
                 that.height = that.width/2;
                 throw "chart_height"
             }
-        } 
+        }
         catch (err) {
             that.k.warningHandling(err,"1");
         }
@@ -4018,7 +4018,7 @@ PykCharts.oneD.percentageBar = function (options) {
                 that.percent_row_rect_height = theme.oneDimensionalCharts.percent_row_rect_height;
                 throw "percent_row_rect_height";
             }
-        } 
+        }
         catch (err) {
             that.k.warningHandling(err,"1");
         }
@@ -4042,7 +4042,7 @@ PykCharts.oneD.percentageBar = function (options) {
                 $(options.selector+" #chart-loader").remove();
                 return;
             }
-            
+
             that.data = data.groupBy("oned");
             that.compare_data = data.groupBy("oned");
             $(options.selector+" #chart-loader").remove();
@@ -4215,7 +4215,7 @@ PykCharts.oneD.percentageBar = function (options) {
                     .attr("preserveAspectRatio", "xMinYMin")
                     .attr("viewBox", "0 0 " + that.width + " " + that.height)
                     .attr("id",that.container_id)
-                    .attr("class","svgcontainer");
+                    .attr("class","svgcontainer PykCharts-oneD");
 
                     that.group = that.svgContainer.append("g")
                         .attr("id","percentageBar");
@@ -4894,7 +4894,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                     .attr("preserveAspectRatio", "xMinYMin")
                     .attr("viewBox", "0 0 " + that.width + " " + that.height)
                     .attr("id",that.container_id)
-                    .attr("class","svgcontainer");
+                    .attr("class","svgcontainer PykCharts-oneD");
                 that.group = that.svgContainer.append("g")
                     .attr("transform","translate("+(that.width/2)+","+that.height_translate+")")
                     .attr("id","pieGroup");
@@ -5401,7 +5401,7 @@ PykCharts.oneD.pyramid = function (options) {
                 that.height = that.width;
                 throw "chart_height"
             }
-        } 
+        }
         catch (err) {
             that.k.warningHandling(err,"1");
         }
@@ -5415,7 +5415,7 @@ PykCharts.oneD.pyramid = function (options) {
         }
 
         d3.json(options.data, function (e,data) {
-            
+
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
                 $(options.selector+" #chart-loader").remove();
@@ -5578,7 +5578,7 @@ PykCharts.oneD.pyramid = function (options) {
                     .attr("preserveAspectRatio", "xMinYMin")
                     .attr("viewBox", "0 0 " + that.width + " " + that.height)
                     .attr("id",that.container_id)
-                    .attr("class","svgcontainer");
+                    .attr("class","svgcontainer PykCharts-oneD");
 
                 that.group = that.svgContainer.append("g")
                     .attr("id","pyrgrp");
@@ -5952,7 +5952,7 @@ PykCharts.oneD.treemap = function (options){
                 that.height = that.width;
                 throw "chart_height"
             }
-        } 
+        }
         catch (err) {
             that.k.warningHandling(err,"1");
         }
@@ -5966,7 +5966,7 @@ PykCharts.oneD.treemap = function (options){
         }
 
         d3.json(options.data, function (e,data) {
-            
+
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
                 $(options.selector+" #chart-loader").remove();
@@ -6057,7 +6057,7 @@ PykCharts.oneD.treemap = function (options){
                     .attr("preserveAspectRatio", "xMinYMin")
                     .attr("viewBox", "0 0 " + that.width + " " + that.height)
                     .attr("id",that.container_id)
-                    .attr("class","svgcontainer");
+                    .attr("class","svgcontainer PykCharts-oneD");
 
                 that.group = that.svgContainer.append("g")
                     .attr("id","treemap");
