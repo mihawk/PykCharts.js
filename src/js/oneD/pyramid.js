@@ -65,7 +65,7 @@ PykCharts.oneD.pyramid = function (options) {
         var l = $(".svgcontainer").length;
         that.container_id = "svgcontainer" + l;
         that.fillChart = new PykCharts.Configuration.fillChart(that);
-        that.onHoverEffect = new PykCharts.oneD.mouseEvent(options);
+        // that.onHoverEffect = new PykCharts.oneD.mouseEvent(options);
         that.transitions = new PykCharts.Configuration.transition(that);
         that.border = new PykCharts.Configuration.border(that);
 
@@ -246,16 +246,20 @@ PykCharts.oneD.pyramid = function (options) {
                         }
                         return that.fillChart.selectColor(b);
                     })
+                    .attr("fill-opacity",1)
+                    .attr("data-fill-opacity",function () {
+                        return $(this).attr("fill-opacity");
+                    })
         			.on("mouseover", function (d,i) {
                         if(that.mode === "default") {
-                            that.onHoverEffect.highlight(options.selector +" "+".pyr-path",this);
+                            that.mouseEvent.highlight(options.selector +" "+".pyr-path",this);
                             that.mouseEvent.tooltipPosition(d);
                             that.mouseEvent.tooltipTextShow(tooltipArray[i]);
                         }
         			})
         			.on("mouseout", function (d) {
                         if(that.mode === "default") {
-                            that.onHoverEffect.highlightHide(options.selector +" "+".pyr-path")
+                            that.mouseEvent.highlightHide(options.selector +" "+".pyr-path")
                 			that.mouseEvent.tooltipHide(d);
                         }
         			})

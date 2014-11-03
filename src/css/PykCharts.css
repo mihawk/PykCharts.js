@@ -62,13 +62,13 @@ body {
 }
 
 .PykCharts-multi-series2D .stacked-area {
-  opacity: .7;
-  shape-rendering: auto;
+/*  opacity: .7;
+*/  shape-rendering: auto;
 }
 
-.PykCharts-multi-series2D path.stacked-area:hover {
+/*.PykCharts-multi-series2D path.stacked-area:hover {
   opacity: 1;
-}
+}*/
 
 .PykCharts-multi-series2D .area-border {
   fill: none;
