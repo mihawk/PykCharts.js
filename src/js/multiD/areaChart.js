@@ -120,8 +120,8 @@ PykCharts.multiD.areaChart = function (options){
 		    that.k.crossHair(that.svgContainer,that.new_data_length,that.new_data,that.fillColor,that.type);
 
 
-			that.k.xAxis(that.svgContainer,that.xGroup,that.xScale,that.extra_left_margin,that.xdomain,that.legendsGroup_height,that.data)
-					.yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain)
+			that.k.xAxis(that.svgContainer,that.xGroup,that.xScale,that.extra_left_margin,that.xdomain,that.x_tick_values,that.legendsGroup_height,that.data)
+					.yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain,that.y_tick_values)
 					.yGrid(that.svgContainer,that.group,that.yScale)
 					.xGrid(that.svgContainer,that.group,that.xScale,that.legendsGroup_height)
 					.xAxisTitle(that.xGroup)
@@ -149,8 +149,8 @@ PykCharts.multiD.areaChart = function (options){
 						.createChart()
 			    		.axisContainer();
 
-		    that.k.xAxis(that.svgContainer,that.xGroup,that.xScale,that.extra_left_margin,that.xdomain,that.legendsGroup_height)
-					.yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain)
+		    that.k.xAxis(that.svgContainer,that.xGroup,that.xScale,that.extra_left_margin,that.xdomain,that.x_tick_values,that.legendsGroup_height)
+					.yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain,that.y_tick_values)
 					.xAxisTitle(that.xGroup)
 					.yAxisTitle(that.yGroup);
   		}
@@ -180,8 +180,8 @@ PykCharts.multiD.areaChart = function (options){
 
 			that.optional_feature().createChart("liveData");
 
-			that.k.xAxis(that.svgContainer,that.xGroup,that.xScale,that.extra_left_margin,that.xdomain,that.legendsGroup_height)
-					.yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain)
+			that.k.xAxis(that.svgContainer,that.xGroup,that.xScale,that.extra_left_margin,that.xdomain,that.x_tick_values,that.legendsGroup_height)
+					.yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain,that.y_tick_values)
 					.yGrid(that.svgContainer,that.group,that.yScale)
 					.xGrid(that.svgContainer,that.group,that.xScale,that.legendsGroup_height)
 					.tooltip(true,options.selector);
@@ -282,23 +282,35 @@ PykCharts.multiD.areaChart = function (options){
 
 				that.layers = that.stack_layout(that.new_data);
 
-        		var x_domain,x_data = [],y_data,y_range,x_range,y_domain;
+        		var x_domain,x_data = [],y_data,y_range,x_range,y_domain, min_x_tick_value,max_x_tick_value, min_y_tick_value,max_y_tick_value;
         		that.count = 1;
+
+        		that.x_tick_values = that.k.processXAxisTickValues();
+                that.y_tick_values = that.k.processYAxisTickValues();
 
 				if(that.axis_y_data_format === "number") {
 					max = d3.max(that.layers, function(d) { return d3.max(d.data, function(k) { return k.y0 + k.y; }); });
 					min = 0;
          			y_domain = [min,max];
 		          	y_data = that.k.__proto__._domainBandwidth(y_domain,1);
-		          	y_range = [that.h - that.legendsGroup_height, 0];
-		          	that.yScale = that.k.scaleIdentification("linear",y_data,y_range);
+					y_range = [that.h - that.legendsGroup_height, 0];
 
+					min_y_tick_value = d3.min(that.y_tick_values);
+                    max_y_tick_value = d3.max(that.y_tick_values);
+
+                    if(y_data[0] > min_y_tick_value) {
+                        y_data[0] = min_y_tick_value;
+                    } 
+                    if(y_data[1] < max_y_tick_value) {
+                        y_data[1] = max_y_tick_value;
+                    }
+
+		          	that.yScale = that.k.scaleIdentification("linear",y_data,y_range);
 		        }
 		        else if(that.axis_y_data_format === "string") {
 		          	that.new_data[0].data.forEach(function(d) { y_data.push(d.y); });
 		          	y_range = [0,that.h];
 		          	that.yScale = that.k.scaleIdentification("ordinal",y_data,y_range,0);
-
 		        }
 		        else if (that.axis_y_data_format === "time") {
 		          	that.layers.data.forEach(function (k) {
@@ -309,6 +321,22 @@ PykCharts.multiD.areaChart = function (options){
 					min = 0;
 		         	y_data = [min,max];
 		          	y_range = [that.h, 0];
+
+	          	    min_y_tick_value = d3.min(that.y_tick_values, function (d) {
+                        return new Date(d);
+                    });
+
+                    max_y_tick_value = d3.max(that.y_tick_values, function (d) {
+                        return new Date(d);
+                    });
+
+                    if(new Date(y_data[0]) > new Date(min_y_tick_value)) {
+                        y_data[0] = min_y_tick_value;
+                    } 
+                    if(new Date(y_data[1]) < new Date(max_y_tick_value)) {
+                        y_data[1] = max_y_tick_value;
+                    }
+
 		          	that.yScale = that.k.scaleIdentification("time",y_data,y_range);
 
 		        }
@@ -318,6 +346,17 @@ PykCharts.multiD.areaChart = function (options){
          			x_domain = [min,max];
 			        x_data = that.k.__proto__._domainBandwidth(x_domain,2);
 			        x_range = [0 ,that.w];
+
+		            min_x_tick_value = d3.min(that.x_tick_values);
+                    max_x_tick_value = d3.max(that.x_tick_values);
+
+                    if(x_data[0] > min_x_tick_value) {
+                        x_data[0] = min_x_tick_value;
+                    } 
+                    if(x_data[1] < max_x_tick_value) {
+                        x_data[1] = max_x_tick_value;
+                    }
+
 			        that.xScale = that.k.scaleIdentification("linear",x_data,x_range);
 			        that.extra_left_margin = 0;
 
@@ -334,6 +373,22 @@ PykCharts.multiD.areaChart = function (options){
 					min = d3.min(that.new_data, function(d) { return d3.min(d.data, function(k) { return new Date(k.x); }); });
 		         	x_data = [min,max];
 		          	x_range = [0 ,that.w];
+
+	          	    min_x_tick_value = d3.min(that.x_tick_values, function (d) {
+                        return new Date(d);
+                    });
+
+                    max_x_tick_value = d3.max(that.x_tick_values, function (d) {
+                        return new Date(d);
+                    });
+
+                    if(new Date(x_data[0]) > new Date(min_x_tick_value)) {
+                        x_data[0] = min_x_tick_value;
+                    } 
+                    if(new Date(x_data[1]) < new Date(max_x_tick_value)) {
+                        x_data[1] = max_x_tick_value;
+                    }
+
 		          	that.xScale = that.k.scaleIdentification("time",x_data,x_range);
 		          	for(i=0;i<that.new_data_length;i++) {
 			          	that.new_data[i].data.forEach(function (d) {
@@ -348,6 +403,7 @@ PykCharts.multiD.areaChart = function (options){
 		        that.xdomain = that.xScale.domain();
 		        that.ydomain = that.yScale.domain();
 				that.zoom_event = d3.behavior.zoom();
+
 		      	if(!(that.axis_y_data_format==="string" || that.axis_x_data_format==="string")) {
 		      		that.zoom_event.x(that.xScale)
 					    .y(that.yScale)
