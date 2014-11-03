@@ -411,7 +411,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                         for (i = 0; i < that.current_palette.colors.length; i++) {
                             if (col_shade >= that.extent_size[0] + i * (that.difference / that.current_palette.colors.length) && col_shade <= that.extent_size[0] + (i + 1) * (that.difference / that.current_palette.colors.length)) {
                                 if (that.data.length===1) {
-                                    return(that.current_palette.colors[that.current_palette.colors.length-1]);
+                                    return that.current_palette.colors[that.current_palette.colors.length-1];
                                 }
                                 else{
                                     return that.current_palette.colors[i];
@@ -755,6 +755,8 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     that.data.sort(function (a,b) {
                         return a.timestamp - b.timestamp;
                     });
+                    that.extent_size = d3.extent(that.data, function (d) { return parseInt(d.size, 10); });
+                    that.difference = that.extent_size[1] - that.extent_size[0];
                     _.each(that.data, function (d) {
                         d3.select("path[iso2='"+d.iso2+"']")
                             // .transition()
@@ -824,6 +826,8 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                             that.data.sort(function (a,b) {
                                 return a.timestamp - b.timestamp;
                             });
+                            that.extent_size = d3.extent(that.data, function (d) { return parseInt(d.size, 10); });
+                            that.difference = that.extent_size[1] - that.extent_size[0];
                             _.each(that.data, function (d) {
                                 d3.select("path[iso2='"+d.iso2+"']")
                                     .attr("fill", that.renderColor);
