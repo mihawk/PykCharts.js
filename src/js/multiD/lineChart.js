@@ -505,7 +505,7 @@ PykCharts.multiD.lineChart = function (options) {
 				      				if(that.new_data[i].highlight && that.type === "multilineChart" && !that.clicked) {
 				      					that.highlightLine(this,null);
 				      				} else if(that.clicked) {
-				      					that.highlightLine(that.selected,null);
+				      					that.highlightLine(that.selected,null,that.previous_color);
 				      				}
 				      				else {
 				      					d3.select(this).classed({'multi-line-selected':false,'multi-line':true,'multi-line-hover':false});
@@ -588,6 +588,7 @@ PykCharts.multiD.lineChart = function (options) {
 					}
 				}
 				else { // Static Viz
+
 					if(!PykCharts.boolean(that.panels_enable)) {
 						var i;
 						for (i = 0;i < that.new_data_length;i++) {
@@ -603,7 +604,7 @@ PykCharts.multiD.lineChart = function (options) {
 					      			.style("fill", function() {
 					      				return that.fillColor.colorPieMS(that.new_data[i],that.type);
 						      		});
-
+					      	that.clk = true;
 							that.dataLineGroup[i]
 									.datum(that.new_data[i].data)
 								    .attr("class", that.chartPathClass)
@@ -611,7 +612,7 @@ PykCharts.multiD.lineChart = function (options) {
 								    .attr("transform","translate("+ that.extra_left_margin +",0)")
 							      	.style("stroke", function() {
 							      		if(that.new_data[i].highlight && that.type === "multilineChart") {
-					      					that.highlightLine(this,null,that.new_data[i].highlight);
+					      					that.highlightLine(this,null);
 					      				}
 					      				return that.fillColor.colorPieMS(that.new_data[i],that.type);
 					      			})
@@ -623,9 +624,14 @@ PykCharts.multiD.lineChart = function (options) {
 					      				}
 					      			})
 						      		.on("click",function (d) {
+						      			console.log("ddddddddddddddddddd");
 						      			if(that.type === "multilineChart") {
+
 						      				that.clicked = true;
-						      				that.highlightLine(PykCharts.getEvent().target,that.clicked);
+						      				console.log("upper function",that.clicked)
+						      				// that.prev_opacity = d3.select(this).style("stroke-opacity");
+						      				that.highlightLine(PykCharts.getEvent().target,that.clicked,that.previous_color);
+
 										}
 									})
 									.on("mouseover",function (d) {
@@ -643,7 +649,7 @@ PykCharts.multiD.lineChart = function (options) {
 												.classed({'multi-line-hover':false,'multi-line':true})
 												.style("stroke", function() {
 													if(that.new_data[i].highlight && that.type === "multilineChart") {
-								      					that.highlightLine(this,null,that.new_data[i].highlight);
+								      					that.highlightLine(this,null,that.previous_color/*that.new_data[i].highlight*/);
 								      				}
 								      				return that.click_color;
 								      			})
@@ -893,12 +899,14 @@ PykCharts.multiD.lineChart = function (options) {
 	    that.k.isOrdinal(that.svgContainer,".y.axis",that.yScale,that.ydomain);
 	    that.k.isOrdinal(that.svgContainer,".y.grid",that.yScale);
 	}
-	this.highlightLine = function(linePath,clicked) {
+	this.highlightLine = function(linePath,clicked,prev_opacity) {
+			console.log(clicked,"clicked");
 
 			that.selected_line = linePath;
 			that.selected_line_data = that.selected_line.__data__;
 			that.selected_line_data_len = that.selected_line_data.length;
 			that.deselected = that.selected;
+
 
 			d3.select(that.deselected)
 					.classed({'multi-line-selected':false,'multi-line':true,'multi-line-hover':false})
@@ -907,19 +915,43 @@ PykCharts.multiD.lineChart = function (options) {
 
 			d3.select(that.selected)
 					.classed({'multi-line-selected':true,'multi-line':false,'multi-line-hover':false})
+
 			if(that.type === "multilineChart" && (that.color_mode === "saturation" || that.hover))
 				d3.select(that.selected)
 					.style("stroke", function (d,i) {
 	      				return that.click_color;
 	      			});
 
+			console.log("outside click", that.clk);
+
 			if(clicked) {
-				d3.selectAll(options.selector+" path.multi-line").style("stroke-opacity",0.3);
-				d3.selectAll(options.selector+ " .legend-heading").style("opacity",0.3);
-				d3.select(that.selector+" text#"+that.selected.id).style("opacity",1).style
-				("font-weight","bold");
-				d3.select(that.selected).style("stroke-opacity",1);
+				 if (that.clk) {
+				 	if (that.color_mode === "color") {
+						d3.selectAll(options.selector+" path.multi-line").style("stroke-opacity",0.3);
+					}
+					if (that.color_mode === "color") {
+						d3.selectAll(options.selector+ " .legend-heading").style("opacity",0.3);
+					}								
+					d3.select(that.selector+" text#"+that.selected.id).style("opacity",1).style
+					("font-weight","bold");
+					d3.select(that.selected).style("stroke-opacity",1);
+					that.clk = false;
+				 } else {
+			// d3.select(that.selected).on("click", function () {
+					d3.select(that.selected)
+						.classed({'multi-line-selected':false,'multi-line':true,'multi-line-hover':false})
+					if (that.color_mode === "color") {
+						d3.selectAll(options.selector+" path.multi-line").style("stroke-opacity",prev_opacity);
+					}					
+					d3.selectAll(options.selector+ " .legend-heading").style("opacity",1);
+					d3.select(that.selector+" text#"+that.selected.id).style("opacity",1).style
+					("font-weight","normal");
+					d3.select(that.selected).style("stroke-opacity",prev_opacity);
+					that.clk = true;				
+				// });
+				}
 			}
+			
 	};
 
 	this.annotation = function () {
