@@ -614,6 +614,7 @@ PykCharts.multiD.lineChart = function (options) {
 						      		.on("click",function (d) {
 						      			if(that.type === "multilineChart") {
 						      				that.clicked = true;
+						      				// console.log(this)
 						      				that.highlightLine(PykCharts.getEvent().target,that.clicked);
 										}
 									})

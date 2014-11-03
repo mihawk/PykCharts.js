@@ -345,7 +345,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     })
                     .attr("opacity", that.renderOpacity)
                     .style("stroke", that.border.color())
-                    .style("stroke-width", that.border.width() + "px")
+                    .style("stroke-width", that.border.width())
                     .style("stroke-dasharray", that.border.style())
                     .on("mouseover", function (d) {
                         if (PykCharts.boolean(that.tooltip_enable)) {
@@ -618,7 +618,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             if (that.onhover1 === "highlight_border") {
                 d3.select("path[area_name='" + d.properties.NAME_1 + "']")
                     .style("stroke", that.border.color())
-                    .style("stroke-width", parseInt(that.border.width()) + 1.5 + "px")
+                    .style("stroke-width", parseFloat(that.border.width()) + 1.5 + "px")
                     .style("stroke-dasharray", that.border.style());
             } else if (that.onhover1 === "shadow") {
                 d3.select("path[area_name='" + d.properties.NAME_1 + "']")

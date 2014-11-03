@@ -1527,7 +1527,7 @@ configuration.mouseEvent = function (options) {
                     offset = $(options.selector).offset();
                     tooltip
                         .css("visibility", "visible")
-                        .css("top", (yPos + yDiff+offset.top) + "px")
+                        .css("top", (yPos + yDiff + offset.top) + "px")
                         .css("left", (xPos + options.margin_left + xDiff - width_tooltip + offset.left) + "px");
                 }
                 else {
