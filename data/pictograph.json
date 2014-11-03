@@ -1,12 +1,12 @@
  [
     {
         "name": "current",
-        "weight": 7,
+        "weight": 8,
         "image": "../img/heart-blue.png"
     },
     {
         "name": "total",
-        "weight": 9,
+        "weight": 13,
         "image": "../img/heart-grey.png"
     }
 ]
