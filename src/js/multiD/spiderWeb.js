@@ -339,18 +339,21 @@ PykCharts.multiD.spiderWeb = function (options) {
                         .data(that.nodes[m])
 
                     spiderNode.enter().append("circle")
-                        .attr("class", "node"+m)
+                        .attr("class", "dot node"+m)
                         .attr("transform", function(d) { return "rotate(" + that.degrees(that.angle(d.x)) + ")"; })
 
 
-                    spiderNode.attr("class","node"+m)
+                    spiderNode.attr("class","dot node"+m)
                         .attr("cx", function (d) { return that.radius(d.y); })
                         .attr("r", function (d,i) { return that.sizes(that.new_data[m].data[i].weight); })
                         .style("fill", function (d,i) {
                             return that.fillChart.colorPieW(that.new_data[m].data[i]);
                         })
-                        .style("fill-opacity", function (d,i) {
+                        .attr("fill-opacity", function (d,i) {
                             return that.multiD.opacity(that.new_data[m].data[i].weight,that.weight,that.data);
+                        })
+                        .attr("data-fill-opacity",function () {
+                            return $(this).attr("fill-opacity");
                         })
                         .attr("stroke",that.border.color())
                         .attr("stroke-width",that.border.width())
@@ -359,11 +362,13 @@ PykCharts.multiD.spiderWeb = function (options) {
                             if(that.mode === "default") {
                                 that.mouseEvent.tooltipPosition(d);
                                 that.mouseEvent.tooltipTextShow(d.tooltip);
+                                that.mouseEvent.highlight(options.selector + " .dot", this);
                             }
                         })
                         .on('mouseout',function (d) {
                             if(that.mode === "default") {
                                 that.mouseEvent.tooltipHide(d);
+                                that.mouseEvent.highlightHide(options.selector + " .dot");
                             }
                         })
                         .on('mousemove', function (d) {
