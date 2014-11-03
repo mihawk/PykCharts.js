@@ -2054,7 +2054,7 @@ configuration.border = function (options) {
 };
 
 configuration.makeXAxis = function(options,xScale) {
-    console.log(xScale.domain(),"domain");
+    // console.log(xScale.domain(),"domain");
     var that = this;
     var k = PykCharts.Configuration(options);
     var xaxis = d3.svg.axis()
@@ -2347,11 +2347,10 @@ configuration.Theme = function(){
         "pictograph_total_count_color": "grey",
         "pictograph_total_count_weight": "normal",
         "pictograph_total_count_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
-        "pictograph_unit_text_size": 24,
-        "pictograph_unit_text_color": "grey",
-        "pictograph_unit_text_weight": "normal",
-        "pictograph_unit_text_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
-        "pictograph_unit_per_image" : ""
+        "pictograph_units_per_image_text_size": 24,
+        "pictograph_units_per_image_text_color": "grey",
+        "pictograph_units_per_image_text_weight": "normal",
+        "pictograph_units_per_image_text_family": "'Helvetica Neue',Helvetica,Arial,sans-serif"
     };
 
     that.multiDimensionalCharts = {
