@@ -11,7 +11,7 @@
             var k = new PykCharts.other.pictograph({
                 selector: "#pictograph",
                 data:"../data/pictograph.json",
-                chart_width : 500,
+                chart_width : 550,
                 chart_height: 500,
                 background_color: "white",
                 pictograph_total_count_weight: "normal",
@@ -29,18 +29,19 @@
                 "pictograph_total_count_color": "grey",
                 "pictograph_total_count_weight": "normal",
                 "pictograph_total_count_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
+                "pictograph_unit_text_size": 24,
+                "pictograph_unit_text_color": "grey",
+                "pictograph_unit_text_weight": "normal",
+                "pictograph_unit_text_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
+                "pictograph_unit_per_image" : "1000 Tweets",
 
                 transition_duration: 1,
-                real_time_charts_refresh_frequency: 3
+                real_time_charts_refresh_frequency: 0
             });
             k.execute();
 		    }
 		</script>
-    <!--<script src="../dist/pykcharts.0.0.8.js"></script>-->
-    <script src="../src/js/pyk.js"></script>
-    <script src="../src/js/other/other.js"></script>
-    <script src="../src/js/other/pictograph.js"></script>
-    <script src="../src/js/init.js"></script>
+    <script src="../dist/pykcharts.0.0.8.js"></script>
 
 	</body>
 </html>

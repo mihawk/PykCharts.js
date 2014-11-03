@@ -2078,8 +2078,7 @@ configuration.makeXAxis = function(options,xScale) {
             .tickFormat(d3.time.format(b))
 
     } else if(options.axis_x_data_format === "number") {
-        xaxis.ticks(options.axis_x_no_of_axis_value)
-            .tickFormat(d3.format("s"));
+        xaxis.ticks(options.axis_x_no_of_axis_value);
     }
     return xaxis;
 };
@@ -2324,7 +2323,12 @@ configuration.Theme = function(){
         "pictograph_total_count_size": 64,
         "pictograph_total_count_color": "grey",
         "pictograph_total_count_weight": "normal",
-        "pictograph_total_count_family": "'Helvetica Neue',Helvetica,Arial,sans-serif"
+        "pictograph_total_count_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
+        "pictograph_unit_text_size": 24,
+        "pictograph_unit_text_color": "grey",
+        "pictograph_unit_text_weight": "normal",
+        "pictograph_unit_text_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
+        "pictograph_unit_per_image" : ""
     };
 
     that.multiDimensionalCharts = {
@@ -6404,6 +6408,11 @@ PykCharts.other.pictograph = function (options) {
         that.total_count_family = options.pictograph_total_count_family ? options.pictograph_total_count_family.toLowerCase() : otherCharts.pictograph_total_count_family;
         that.imageWidth =  options.pictograph_image_width ? options.pictograph_image_width : otherCharts.pictograph_image_width;
         that.imageHeight = options.pictograph_image_height ? options.pictograph_image_height : otherCharts.pictograph_image_height;
+        that.pictograph_unit_per_image = options.pictograph_unit_per_image ? options.pictograph_unit_per_image : otherCharts.pictograph_unit_per_image;
+        that.pictograph_unit_text_family = options.pictograph_unit_text_family ? options.pictograph_unit_text_family : otherCharts.pictograph_unit_text_family;
+        that.pictograph_unit_text_size = options.pictograph_unit_text_size ? options.pictograph_unit_text_size : otherCharts.pictograph_unit_text_size;
+        that.pictograph_unit_text_color = options.pictograph_unit_text_color ? options.pictograph_unit_text_color : otherCharts.pictograph_unit_text_color;
+        that.pictograph_unit_text_weight = options.pictograph_unit_text_weight ? options.pictograph_unit_text_weight : otherCharts.pictograph_unit_text_weight;
         that.height = options.chart_height ? options.chart_height : that.width;
 
         try {
@@ -6556,7 +6565,10 @@ PykCharts.other.pictograph = function (options) {
                 .svgContainer()
                 .labelText()
                 .enableLabel()
-                .createChart();
+        if(PykCharts.boolean(that.pictograph_unit_per_image)) {
+            that.optionalFeatures().appendUnits()
+        }
+        that.optionalFeatures().createChart();
         if(that.mode==="default") {
             that.k.createFooter()
                 .lastUpdatedAt()
@@ -6590,6 +6602,11 @@ PykCharts.other.pictograph = function (options) {
                 that.group1 = that.svgContainer.append("g")
                     .attr("transform","translate(0,0)");
 
+                if(PykCharts.boolean(that.pictograph_unit_per_image)) {
+                    that.group2 = that.svgContainer.append("g")
+                        .attr("id","units-per-image");
+                }
+
                 return this;
             },
             createChart: function () {
@@ -6597,8 +6614,11 @@ PykCharts.other.pictograph = function (options) {
 
                 that.optionalFeatures().showTotal();
                 var counter = 0;
-
-                that.group.attr("transform", "translate(" + (that.textWidth + that.totalTxtWeight + 25) + ",0)")
+                var width = that.textWidth + that.totalTxtWeight + 25;
+                if(that.total_unit_width > width) {
+                    width = that.total_unit_width + 10
+                }
+                that.group.attr("transform", "translate(" + (width) + ",0)")
                 for(var j=1; j<=that.weight; j++) {
                     if(j <= that.data[1].weight) {
                         if (!that.old_data || (that.old_data && j > that.old_data[1].weight)) {
@@ -6644,11 +6664,11 @@ PykCharts.other.pictograph = function (options) {
                         a++;
                         b=0;
                         counter=0;
-                        // that.group.append("text").html("<br><br>");
                     }
 
                     if (j===that.weight) {
                       var group_bbox_height = that.group.node().getBBox().height;
+                      that.height = group_bbox_height;
                       that.svgContainer
                           .attr("height",group_bbox_height)
                           .attr("viewBox", "0 0 " + that.width + " " + group_bbox_height);
@@ -6672,7 +6692,7 @@ PykCharts.other.pictograph = function (options) {
                     }
                 },that.transitions.duration());
 
-                if(((that.imageWidth * that.imgperline) + that.textWidth + that.totalTxtWeight + 25) > that.width) {
+                if(((that.imageWidth * that.imgperline) + width) > that.width) {
                     console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px',"Your Lable text size and image width exceeds the chart conatiner width")
                 }
                 return this;
@@ -6708,7 +6728,7 @@ PykCharts.other.pictograph = function (options) {
                             return "/"+that.data[0].weight;
                         })
                         .attr("x", (that.textWidth+5))
-                        .attr("y", function () { return (((that.imageHeight * y_pos)/2) + (textHeight/2)); });
+                        .attr("y", function () { return ((textHeight)-10); });
                 }
                 return this;
             },
@@ -6729,15 +6749,66 @@ PykCharts.other.pictograph = function (options) {
                         .attr("fill",that.current_count_color)
                         .text(that.data[1].weight)
                         .text(function () {
-                            textHeight = this.getBBox().height;
+                            that.textHeight = this.getBBox().height;
                             that.textWidth = this.getBBox().width;
                             return that.data[1].weight;
                         })
-                        .attr("y", function () { return (((that.imageHeight * y_pos)/2)+ (textHeight/2)); });
+                        .attr("y", function () { return ((that.textHeight)-10); });
 
                 }
                 return this;
+            },
+            appendUnits: function () {
+                var unit_text_width, image_width,unit_text_width1,unit_text_height;
+                that.group2.attr("transform","translate(0," + (that.textHeight + 15)+")");
+                that.group2.append("text")
+                        .attr("x", 0)
+                        .attr("class","PykCharts-unit-text")
+                        .attr("font-family",that.pictograph_unit_text_family)
+                        .attr("font-size",that.pictograph_unit_text_size)
+                        .attr("font-weight",that.pictograph_unit_text_weight)
+                        .attr("fill",that.pictograph_unit_text_color)
+                        .text(function () {
+                            return "1 ";
+                        })
+                        .text(function () {
+                            unit_text_height = this.getBBox().height;
+                            unit_text_width = this.getBBox().width;
+                            console.log(unit_text_height);
+                            return "1 ";
+                        })
+                        .attr("dy",0)
+                        .attr("y",unit_text_height - 5);
+                console.log(unit_text_width);
+                that.group2.append("image")
+                        .attr("xlink:href",that.data[1]["image"])
+                        .attr("id","unit-image")
+                        .attr("x", unit_text_width + 2 + "px")
+                        .attr("y", 0)
+                        .attr("height", unit_text_height + "px")
+                        .attr("width", unit_text_height + "px");
+                image_width = d3.select(options.selector +" #unit-image").attr("width");
+                that.group2.append("text")
+                        .attr("x", function () {
+                            return parseFloat(image_width) + unit_text_width + 4;
+                        })
+                        .attr("class","PykCharts-unit-text")
+                        .attr("font-family",that.pictograph_unit_text_family)
+                        .attr("font-size",that.pictograph_unit_text_size)
+                        .attr("font-weight",that.pictograph_unit_text_weight)
+                        .attr("fill",that.pictograph_unit_text_color)
+                        .text(function () {
+                            return "= " + that.pictograph_unit_per_image;
+                        })
+                        .text(function () {
+                            unit_text_width1 = this.getBBox().width;
+                            return "= " + that.pictograph_unit_per_image;
+                        })
+                        .attr("y", function () { return (unit_text_height - 5); });
+                that.total_unit_width = unit_text_width + parseFloat(image_width) + unit_text_width1+4;
+                return this;
             }
+
         }
         return optional;
     }
@@ -8326,7 +8397,7 @@ PykCharts.multiD.lineChart = function (options) {
 		}
 		else if(PykCharts.boolean(that.panels_enable)) {
 			for(i=0;i<that.new_data_length;i++){
-				var annotation = [], arrow_size = 15;
+				var annotation = [], arrow_size = 12;
 				that.new_data[i].data.map(function (d) {
 					if(d.annotation) {
 						annotation.push({
@@ -9207,7 +9278,7 @@ PykCharts.multiD.areaChart = function (options){
             that.k.annotation(that.selector + " #svg-1",annotation, that.xScale,that.yScale);
 
 		} else if(that.type === "stackedAreaChart" && that.mode === "default") {
-			var arrow_size = 15,annotation = [];
+			var arrow_size = 12,annotation = [];
 			for(i=0;i<that.new_data_length;i++) {
 				that.new_data[i].data.map(function (d) {
 					if(d.annotation) {

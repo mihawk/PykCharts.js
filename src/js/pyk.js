@@ -2323,7 +2323,12 @@ configuration.Theme = function(){
         "pictograph_total_count_size": 64,
         "pictograph_total_count_color": "grey",
         "pictograph_total_count_weight": "normal",
-        "pictograph_total_count_family": "'Helvetica Neue',Helvetica,Arial,sans-serif"
+        "pictograph_total_count_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
+        "pictograph_unit_text_size": 24,
+        "pictograph_unit_text_color": "grey",
+        "pictograph_unit_text_weight": "normal",
+        "pictograph_unit_text_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
+        "pictograph_unit_per_image" : ""
     };
 
     that.multiDimensionalCharts = {
