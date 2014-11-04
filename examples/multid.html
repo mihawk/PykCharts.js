@@ -34,7 +34,7 @@
         <div id="groupBar">
         </div>
         <hr/>
-   
+
         <script src="../src/js/pyk.js"></script>
         <script src="../src/js/multiD/multiD.js"></script>
         <script src="../src/js/multiD/columnChart.js"></script>
@@ -48,7 +48,7 @@
 
             // $(document).ready(function (e) {
             window.PykChartsInit = function (e) {
-                var k = new PykCharts.multiD.lineChart ({
+                var k = new PykCharts.multiD.line ({
                     selector: "#line",
                     data: "../data/linechart_linear.json",
                     mode : "default",
@@ -342,7 +342,7 @@
                 });
                k.execute();
 
-                var k = new PykCharts.multiD.lineChart ({
+                var k = new PykCharts.multiD.panelsOfLine ({
                     selector: "#multiLine",
                     data: "../data/multipleContainerLine.json",
                     mode : "default",
@@ -401,7 +401,7 @@
                 });
                k.execute();
 
-                var k = new PykCharts.multiD.lineChart ({
+                var k = new PykCharts.multiD.multiSeriesLine ({
                     selector: "#multiple-multiLine",
                     data: "../data/multipleContainerLine.json",
                     mode : "default",
@@ -646,7 +646,7 @@
 
                     highlight:"January"
                 });
-               k.execute();
+               // k.execute();
 
                 var k = new PykCharts.multiD.columnChart({
                     data: "../data/ultimateGroupColumn.json",
@@ -771,7 +771,7 @@
                     data_sort_type: "date",
                     data_sort_order: "ascending"
                 });
-              k.execute();
+              // k.execute();
 
                 var k = new PykCharts.multiD.barChart({
                     data: "../data/ultimateGroupBar.json",
@@ -840,7 +840,7 @@
                     legends_text_weight: "normal",
                     legends_text_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
                     "data_sort_enable": "yes",
-                    "data_sort_type": "date", // sort type --- "alphabetically" / "date" 
+                    "data_sort_type": "date", // sort type --- "alphabetically" / "date"
                     "data_sort_order": "ascending", // sort order --- "descending" / "ascending",
                     legends_text_family: "Papyrus",
                     legends_text_weight: "bold",
