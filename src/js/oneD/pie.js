@@ -434,7 +434,19 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
         }
 
         that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
-        that.k.exportSVG(that,"#"+that.container_id,type)
+        
+        var add_extra_width = 0;
+        var add_extra_height = 0;         
+        setTimeout(function () {
+            if(that.ticks_text_width.length) {
+                add_extra_width = _.max(that.ticks_text_width,function(d) {
+                        return d;
+                    });
+                add_extra_height = that.ticks_text_height;
+            }
+            that.k.exportSVG(that,"#"+that.container_id,type,undefined,undefined,(add_extra_width+20),(add_extra_height+20))
+        },that.transitions.duration());
+
         $(document).ready(function () { return that.k.resize(that.svgContainer); })
         $(window).on("resize", function () { return that.k.resize(that.svgContainer); });
     };
@@ -693,6 +705,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                     that.svgContainer.style("overflow","visible");
                 }
                 var w = [];
+                that.ticks_text_width = [];
                 //if(PykCharts.boolean(that.enableTicks)) {
                     var tick_label = that.group.selectAll(".ticks_label")
                                     .data(that.pie(that.new_data));
@@ -767,6 +780,10 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
 
                     setTimeout(function() {
                         tick_label.text(function(d) { return d.data.name; })
+                            .text(function(d,i) { 
+                                that.ticks_text_width[i] = this.getBBox().width;
+                                that.ticks_text_height = this.getBBox().height;
+                                return d.data.name; })
                             .attr("text-anchor",function(d) {
                                 var rads = ((d.endAngle - d.startAngle) / 2) + d.startAngle;
                                 if (rads>0 && rads<1.5) {

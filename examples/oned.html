@@ -207,7 +207,9 @@
                 "data_source_url": "http://www.worldbank.org/",
                 "donut_radius_percent": 40,
                 "donut_inner_radius_percent": 20,
-                "donut_show_total_at_center": "yes"
+                "donut_show_total_at_center": "yes",
+                pointer_size : 0,
+                pointer_thickness:0
            });
            k.execute();
 
@@ -246,8 +248,8 @@
                 clubdata_always_include_data_points: ["Africa","South America"],
                 units_prefix: "$",
                 units_suffix: "/-",
-                percent_column_rect_width : 80,
-                pointer_overflow_enable: "yes",
+                percent_column_rect_width : 90,
+                pointer_overflow_enable: "no",
                 "border_between_chart_elements_thickness": 2,
                 "border_between_chart_elements_color": "black",
                 "border_between_chart_elements_style": "dotted",
@@ -291,7 +293,7 @@
                 background_color: "white",
                 data: "../data/pie2.json",
                 transition_duration: 1,
-                pie_radius_percent : 90,
+                pie_radius_percent : 100,
                 mode: "DEFault",
                 clubdata_enable: "yes",
                 clubdata_always_include_data_points: ["Africa","South America"],

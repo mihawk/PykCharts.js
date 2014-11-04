@@ -134,8 +134,10 @@ PykCharts.oneD.percentageBar = function (options) {
         var add_extra_height = 0;
 
         setTimeout(function () {
-            add_extra_height = that.ticks_text_height + 10;
-            console.log(that.ticks_text_height,"that.ticks_text_height")
+            if(that.ticks_text_height) {
+                add_extra_height = that.ticks_text_height + 10;
+            }
+
             that.k.exportSVG(that,"#"+that.container_id,"percentageBar",undefined,undefined,0,add_extra_height);
         },that.transitions.duration());
 

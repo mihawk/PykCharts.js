@@ -60,7 +60,8 @@
                     chart_height: 400,
                     chart_width : 400,
                     // background_color: "pink",
-                    pointer_overflow_enable :"no", 
+                    pointer_overflow_enable :"no",
+
                     chart_margin_top: 30,
                     chart_margin_right: 10,
                     chart_margin_bottom: 30,
@@ -103,11 +104,12 @@
                     annotation_enable: "yes",
                     annotation_view_mode: "onload",
                     highlight_color : "red",
-                    highlight : "NEw York"
+                    highlight : "NEw York",
+                    pointer_size : 0
                 });
                k.execute();
 
-                var k = new PykCharts.multiD.areaChart ({
+                var k = new PykCharts.multiD.area ({
                     selector: "#area",
                     data: "../data/linechart_linear.json",
                     mode : "default",
@@ -419,8 +421,8 @@
                     chart_grid_x_enable: "no",
                     chart_grid_y_enable: "yes",
 
-                    transition_duration: 0,
-                    real_time_charts_refresh_frequency: 0,
+                    transition_duration: 2,
+                    real_time_charts_refresh_frequency: 4,
 
                     axis_onhover_highlight_enable: "yes",
 
@@ -458,7 +460,7 @@
                 });
                k.execute();
 
-                var k = new PykCharts.multiD.stackedAreaChart ({
+                var k = new PykCharts.multiD.stackedArea ({
 
                     selector: "#multiArea",
                     data: "../data/multipleContainerLine.json",
