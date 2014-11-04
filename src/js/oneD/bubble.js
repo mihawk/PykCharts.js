@@ -125,9 +125,11 @@ PykCharts.oneD.bubble = function (options) {
                     .size([that.width, that.height])
                     .value(function (d) { return d.weight; })
                     .padding(20);
+
                 that.sum = d3.sum(that.new_data.children, function (d) {
                     return d.weight;
                 })
+                
                 var l = that.new_data.children.length;
                 // that.max = that.new_data.children[l-1].weight;
                 that.node = that.bubble.nodes(that.new_data);
@@ -143,6 +145,9 @@ PykCharts.oneD.bubble = function (options) {
                 that.chart_data.attr("class","bubble-node")
                     .select("circle")
                     .attr("class","bubble")
+                    .attr("id",function (d,i) {
+                        return "bubble"+i;
+                    })
                     .attr("x",function (d) { return d.x; })
                     .attr("y",function (d) { return d.y; })
                     .attr("r",0)

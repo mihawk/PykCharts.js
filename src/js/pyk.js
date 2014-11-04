@@ -1230,6 +1230,7 @@ PykCharts.Configuration = function (options){
                         d3.select(options.selector + " .dropdown-multipleConatiner-export").style("visibility", "hidden");
                         chart.k.processSVG(document.querySelector(options.selector +" "+svgId),chart_name);
                         project.importSVG(document.querySelector(options.selector +" "+svgId));
+                        project.importSVG(document.querySelector(options.selector +" "+svgId));                            
                         var svg = project.exportSVG({ asString: true });
                         downloadDataURI({
                             data: 'data:image/svg+xml;base64,' + btoa(svg),
@@ -1244,7 +1245,8 @@ PykCharts.Configuration = function (options){
                             var id = this.id.substring(this.id.length-1,this.id.length);
                             chart.k.processSVG(document.querySelector(options.selector + " #" +svgId + id),chart_name);
                             project.importSVG(document.querySelector(options.selector + " #" +svgId + id));
-                            var svg = project.exportSVG({ asString: true });
+                            var svg = project.exportSVG({ asString: true });;
+                            console.log(options.selector +" "+svgId)
                             downloadDataURI({
                                 data: 'data:image/svg+xml;base64,' + btoa(svg),
                                 filename: name
