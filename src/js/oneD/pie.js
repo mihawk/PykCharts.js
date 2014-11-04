@@ -434,7 +434,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
         }
 
         that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
-
+        that.k.exportSVG(that,"#"+that.container_id,type)
         $(document).ready(function () { return that.k.resize(that.svgContainer); })
         $(window).on("resize", function () { return that.k.resize(that.svgContainer); });
     };

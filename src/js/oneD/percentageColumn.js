@@ -101,7 +101,7 @@ PykCharts.oneD.percentageColumn = function (options) {
         }
         if(that.mode === "infographics") {
             that.k.backgroundColor(that)
-                .export(that,"#"+container_id,"percentageColumn")
+                .export(that,"#"+that.container_id,"percentageColumn")
                     .emptyDiv();
 
             that.new_data = that.data;
@@ -126,7 +126,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                 .credits()
                 .dataSource();
         }
-
+        that.k.exportSVG(that,"#"+that.container_id,"percentageColumn")
         $(document).ready(function () { return that.k.resize(that.svgContainer); })
         $(window).on("resize", function () { return that.k.resize(that.svgContainer); });
     };

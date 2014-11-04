@@ -136,6 +136,8 @@ PykCharts.oneD.funnel = function (options) {
                 .credits()
                 .dataSource();
         }
+        
+        that.k.exportSVG(that,"#"+that.container_id,"funnel")
         $(document).ready(function () { return that.k.resize(that.svgContainer); })
         $(window).on("resize", function () { return that.k.resize(that.svgContainer); });
     };
@@ -390,7 +392,6 @@ PykCharts.oneD.funnel = function (options) {
                 return this;
             },
             ticks : function () {
-                // console.log("ticks");
                 if(PykCharts.boolean(that.pointer_overflow_enable)) {
                     that.svgContainer.style("overflow","visible");
                 }

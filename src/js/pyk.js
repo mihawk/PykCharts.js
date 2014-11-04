@@ -1187,12 +1187,6 @@ PykCharts.Configuration = function (options){
                         .html("Export as SVG" + "<br>");
                 }
 
-                var canvas_id = chart_name+"canvas";
-                var canvas = document.createElement("canvas");
-                canvas.setAttribute('id', canvas_id);
-                canvas.setAttribute('width',500);
-                canvas.setAttribute('height',500);
-
                 var id = "export",
                 div_size = options.width
                 div_float ="none"
@@ -1213,6 +1207,17 @@ PykCharts.Configuration = function (options){
                                 .style("text-align","right")
                                 .html("<img title='Export to SVG' src='"+options.img+"' style='left:"+div_left+"px;margin-bottom:3px;cursor:pointer;'/>");
 
+            }
+            return this;
+        },
+        exportSVG: function (chart,svgId,chart_name,panels_enable,containers) {
+            if(PykCharts.boolean(options.export_enable)) {
+                var id = "export";
+                var canvas_id = chart_name+"canvas";
+                var canvas = document.createElement("canvas");
+                canvas.setAttribute('id', canvas_id);
+                canvas.setAttribute('width',500);
+                canvas.setAttribute('height',500);
                 var get_canvas = document.getElementById(canvas_id);
                 paper.setup(get_canvas);
                 var project = new paper.Project();
@@ -1225,6 +1230,7 @@ PykCharts.Configuration = function (options){
                   PykCharts.export_menu_status = 1;
                     d3.select(options.selector + " .dropdown-multipleConatiner-export").style("visibility", "visible");
                 });
+                
                 if(!PykCharts.boolean(panels_enable)) {
                     $(chart.selector + " #span").click(function () {
                         d3.select(options.selector + " .dropdown-multipleConatiner-export").style("visibility", "hidden");
@@ -1244,7 +1250,8 @@ PykCharts.Configuration = function (options){
                             var id = this.id.substring(this.id.length-1,this.id.length);
                             chart.k.processSVG(document.querySelector(options.selector + " #" +svgId + id),chart_name);
                             project.importSVG(document.querySelector(options.selector + " #" +svgId + id));
-                            var svg = project.exportSVG({ asString: true });
+                            var svg = project.exportSVG({ asString: true });;
+                            console.log(options.selector +" "+svgId)
                             downloadDataURI({
                                 data: 'data:image/svg+xml;base64,' + btoa(svg),
                                 filename: name
@@ -1254,7 +1261,7 @@ PykCharts.Configuration = function (options){
                     }
                 }
             }
-            return this;
+            return this;    
         },
         processSVG: function (svg,svgId) {
             var x = svg.querySelectorAll("text");
@@ -1576,7 +1583,7 @@ configuration.mouseEvent = function (options) {
         crossHairPosition: function(data,new_data,xScale,yScale,dataLineGroup,lineMargin,domain,type,tooltipMode,color_from_data,panels_enable){
             if((PykCharts.boolean(options.crosshair_enable) || PykCharts.boolean(options.tooltip_enable) || PykCharts.boolean(options.axis_onhover_highlight_enable))  && options.mode === "default") {
                 var legendsGroup_height = options.legendsGroup_height ? options.legendsGroup_height : 0;
-                var offsetLeft = lineMargin - options.margin_left + $(options.selector + " #"+dataLineGroup[0][0][0].parentNode.parentNode.id).offset().left;
+                var offsetLeft = options.margin_left + lineMargin + $(options.selector + " #"+dataLineGroup[0][0][0].parentNode.parentNode.id).offset().left;
                 var offsetTop = $(options.selector + " #"+dataLineGroup[0][0][0].parentNode.parentNode.id).offset().top;
                 var number_of_lines = new_data.length;
                 var left = options.margin_left;
@@ -1590,6 +1597,7 @@ configuration.mouseEvent = function (options) {
                 var x = PykCharts.getEvent().pageX - offsetLeft;
                 var y = PykCharts.getEvent().pageY - offsetTop - top;
                 var x_range = [];
+
                 if(options.axis_x_data_format==="string") {
                     x_range = xScale.range();
                 } else {
@@ -1598,8 +1606,8 @@ configuration.mouseEvent = function (options) {
                     len = new_data[0].data.length;
                     strt = 0;
                     for(i = 0;i<len;i++){
-                        strt = strt + pad;
                         x_range[i] = strt;
+                        strt = strt + pad;
                     }
 
                 }
@@ -1616,7 +1624,7 @@ configuration.mouseEvent = function (options) {
                             if((right_tick === x_range[j] && left_tick === x_range[j+1]) && (top_tick === y_range[k])) {
                                 return false;
                             }
-                            else if((x >= x_range[j] && x <= x_range[j+1]) && (y <= (y_range[k]))) {
+                            else if((x >= x_range[j] && x <= x_range[j+1]) && (y <= (y_range[k] + legendsGroup_height))) {
                                 left_tick = x_range[j], right_tick = x_range[j+1];
                                 bottom_tick = y_range[k+1];
                                 top_tick = y_range[k];

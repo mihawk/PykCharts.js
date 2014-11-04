@@ -130,6 +130,7 @@ PykCharts.oneD.percentageBar = function (options) {
                 .credits()
                 .dataSource();
         }
+        that.k.exportSVG(that,"#"+that.container_id,"percentageBar")
         $(document).ready(function () { return that.k.resize(that.svgContainer); })
         $(window).on("resize", function () { return that.k.resize(that.svgContainer); });
     };

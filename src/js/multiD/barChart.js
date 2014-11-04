@@ -157,6 +157,7 @@
         that.k.xAxis(that.svgContainer,that.xGroup,that.xScale,undefined,undefined,that.x_tick_values,that.legendsGroup_height)
                 .xAxisTitle(that.xGroup,that.legendsGroup_height);
 
+        that.k.exportSVG(that,"#"+that.container_id,"barChart")
         if(PykCharts.boolean(that.legends_enable)) {
             $(document).ready(function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); })
             $(window).on("resize", function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); });

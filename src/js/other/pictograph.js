@@ -187,7 +187,7 @@ PykCharts.other.pictograph = function (options) {
                 .credits()
                 .dataSource();
         }
-
+        that.k.exportSVG(that,"#"+that.container_id,"pictograph")
         $(document).ready(function () { return that.k.resize(that.svgContainer); })
         $(window).on("resize", function () { return that.k.resize(that.svgContainer); });
     };

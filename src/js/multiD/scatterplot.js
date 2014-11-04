@@ -204,6 +204,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                         that.k.emptyDiv();
                     }
                 }
+                that.k.exportSVG(that,"svgcontainer",type,that.panels_enable,that.uniq_group_arr);
                 that.k.emptyDiv();
             } else {
                 that.k.title()
@@ -243,6 +244,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                     .yAxisTitle(that.yGroup);
                     // .yGrid(that.svgContainer,that.group,that.yScale)
                     // .xGrid(that.svgContainer,that.group,that.x);
+                that.k.exportSVG(that,"#svgcontainer0",type)
             }
 
             that.k.createFooter()
@@ -300,6 +302,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                         that.k.emptyDiv();
                     }
                 }
+                that.k.exportSVG(that,"svgcontainer",type,that.panels_enable,that.uniq_group_arr)
                 that.k.emptyDiv();
             } else {
                 
@@ -336,6 +339,8 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                     .yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain,that.y_tick_values)
                     .xAxisTitle(that.xGroup,that.legendsGroup_height)
                     .yAxisTitle(that.yGroup);
+
+                that.k.exportSVG(that,"#svgcontainer0",type);
             }
 
         }

@@ -144,7 +144,8 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             that.k
             .export(that,"#svgcontainer",type)
             .emptyDiv()
-            .subtitle();
+            .subtitle()
+            .exportSVG(that,"#svgcontainer",type)
         }
         // console.log(that.color_palette_data,"color_palette_data",that.palette_color);
         that.current_palette = _.where(that.color_palette_data, {name:that.palette_color, number:that.total_no_of_colors})[0];

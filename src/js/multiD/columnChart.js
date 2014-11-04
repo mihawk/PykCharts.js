@@ -141,6 +141,7 @@ PykCharts.multiD.columnChart = function(options){
                  .yAxisTitle(that.yGroup);
         }
 
+        that.k.exportSVG(that,"#"+that.container_id,"columnChart")
         if(PykCharts.boolean(that.legends_enable)) {
             $(document).ready(function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); })
             $(window).on("resize", function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); });

@@ -104,7 +104,7 @@ PykCharts.oneD.pyramid = function (options) {
             that.k.tooltip();
             that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
         }
-
+        that.k.exportSVG(that,"#"+that.container_id,"pyramid")
         $(document).ready(function () { return that.k.resize(that.svgContainer); })
         $(window).on("resize", function () { return that.k.resize(that.svgContainer); });
 	};
