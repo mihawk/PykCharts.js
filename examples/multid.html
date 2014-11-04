@@ -34,7 +34,7 @@
         <div id="groupBar">
         </div>
         <hr/>
-   
+
         <script src="../src/js/pyk.js"></script>
         <script src="../src/js/multiD/multiD.js"></script>
         <script src="../src/js/multiD/columnChart.js"></script>
@@ -48,7 +48,7 @@
 
             // $(document).ready(function (e) {
             window.PykChartsInit = function (e) {
-                var k = new PykCharts.multiD.lineChart ({
+                var k = new PykCharts.multiD.line ({
                     selector: "#line",
                     data: "../data/linechart_linear.json",
                     mode : "default",
@@ -166,7 +166,7 @@
                     annotation_background_color:"red",
                     border_between_chart_elements_thickness: 2
                 });
-               k.execute();
+               // k.execute();
 
                 var k = new PykCharts.multiD.spiderWeb ({
                     selector: "#spiderWeb",
@@ -204,7 +204,7 @@
                     legends_text_weight: "normal",
                     legends_text_family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
                 });
-               k.execute();
+               // k.execute();
 
                 var k = new PykCharts.multiD.scatterPlot ({
                     selector: "#scatterPlot",
@@ -280,7 +280,7 @@
                     // chart_margin_bottom: 125,
                     // chart_margin_left: 160,
                 });
-               k.execute();
+               // k.execute();
 
                 var k = new PykCharts.multiD.scatterPlot ({
                     selector: "#multiple-scatterplots",
@@ -340,7 +340,7 @@
                     border_between_chart_elements_thickness:0,
                     border_between_chart_elements_color:"blue"
                 });
-               k.execute();
+               // k.execute();
 
                 var k = new PykCharts.multiD.lineChart ({
                     selector: "#multiLine",
@@ -399,7 +399,7 @@
                     annotation_view_mode:"onclick",
                     annotation_background_color:"#ff4c4c"
                 });
-               k.execute();
+               // k.execute();
 
                 var k = new PykCharts.multiD.lineChart ({
                     selector: "#multiple-multiLine",
@@ -456,7 +456,7 @@
                     annotation_view_mode: "onclick",
                     annotation_background_color:"#ff4c4c"
                 });
-               k.execute();
+               // k.execute();
 
                 var k = new PykCharts.multiD.areaChart ({
 
@@ -521,7 +521,7 @@
                     annotation_view_mode: "onclick",
                     annotation_background_color:"#ff4c4c"
                 });
-               k.execute();
+               // k.execute();
 
                 var k = new PykCharts.multiD.pulse({
                     selector: "#pulse",
@@ -586,7 +586,7 @@
                     border_between_chart_elements_style: "solid"
 
                 });
-               k.execute();
+               // k.execute();
 
                 var k = new PykCharts.multiD.columnChart({
                     data: "../data/ultimateColumn.json",
@@ -646,7 +646,7 @@
 
                     highlight:"January"
                 });
-               k.execute();
+               // k.execute();
 
                 var k = new PykCharts.multiD.columnChart({
                     data: "../data/ultimateGroupColumn.json",
@@ -711,7 +711,7 @@
 
                     highlight:"april"
                 });
-               k.execute();
+               // k.execute();
 
                 var k = new PykCharts.multiD.barChart({
                     data: "../data/ultimatebar_date.json",
@@ -771,7 +771,7 @@
                     data_sort_type: "date",
                     data_sort_order: "ascending"
                 });
-              k.execute();
+              // k.execute();
 
                 var k = new PykCharts.multiD.barChart({
                     data: "../data/ultimateGroupBar.json",
@@ -840,13 +840,13 @@
                     legends_text_weight: "normal",
                     legends_text_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
                     "data_sort_enable": "yes",
-                    "data_sort_type": "date", // sort type --- "alphabetically" / "date" 
+                    "data_sort_type": "date", // sort type --- "alphabetically" / "date"
                     "data_sort_order": "ascending", // sort order --- "descending" / "ascending",
                     legends_text_family: "Papyrus",
                     legends_text_weight: "bold",
                     legends_text_size: 28
                 });
-               k.execute();
+               // k.execute();
             };
         </script>
     </body>
