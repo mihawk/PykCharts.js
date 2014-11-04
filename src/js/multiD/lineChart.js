@@ -38,7 +38,7 @@ PykCharts.multiD.line = function (options) {
 			PykCharts.multiD.lineFunctions(options,that,"line");
 		});
 	};
-}
+};
 
 PykCharts.multiD.multiSeriesLine = function (options) {
 	var that = this;
@@ -77,10 +77,10 @@ PykCharts.multiD.multiSeriesLine = function (options) {
 			if(that.axis_x_data_format === "time" && that.axis_x_time_value_datatype === "") {
     			console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+that.selector+".(\""+"You seem to have passed Date data so please pass the value for axis_x_time_value_datatype"+"\")  Visit www.chartstore.io/docs#warning_"+"15");
     		}
-			PykCharts.multiD.lineFunctions(options,that,"multi series line");
+			PykCharts.multiD.lineFunctions(options,that,"line");
 		});
 	};
-}
+};
 
 PykCharts.multiD.panelsOfLine = function (options) {
 	var that = this;
@@ -105,7 +105,7 @@ PykCharts.multiD.panelsOfLine = function (options) {
 		that.crosshair_enable = options.crosshair_enable ? options.crosshair_enable.toLowerCase() : multiDimensionalCharts.crosshair_enable;
 		that.curvy_lines = options.curvy_lines_enable ? options.curvy_lines_enable.toLowerCase() : multiDimensionalCharts.curvy_lines_enable;
 		that.interpolate = PykCharts.boolean(that.curvy_lines) ? "cardinal" : "linear";
-		that.panels_enable = "no";
+		that.panels_enable = "yes";
 
 	    d3.json(options.data, function (e, data) {
             var validate = that.k.validator().validatingJSON(data);
@@ -119,10 +119,10 @@ PykCharts.multiD.panelsOfLine = function (options) {
 			if(that.axis_x_data_format === "time" && that.axis_x_time_value_datatype === "") {
     			console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+that.selector+".(\""+"You seem to have passed Date data so please pass the value for axis_x_time_value_datatype"+"\")  Visit www.chartstore.io/docs#warning_"+"15");
     		}
-			PykCharts.multiD.lineFunctions(options,that,"panels of line");
+			PykCharts.multiD.lineFunctions(options,that,"line");
 		});
 	};
-}
+};
 
 PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
 	var that = chartObject;
@@ -209,7 +209,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
 							.makeMainDiv(that.selector,i)
 							.tooltip(true,that.selector,i);
 
-					console.log(that.type,"type");
+					// console.log(that.type,"type");
 					that.new_data1 = that.new_data[i];
 					that.fill_data[0] = that.new_data1;
 					that.optionalFeature()

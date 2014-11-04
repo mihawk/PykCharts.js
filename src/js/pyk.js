@@ -984,7 +984,7 @@ PykCharts.Configuration = function (options){
                     }
                 }
             }
-            console.log(options.axis_y_pointer_values.length,values);
+            // console.log(options.axis_y_pointer_values.length,values);
             return values;
         },
         xAxisDataFormatIdentification : function (data){
@@ -2403,7 +2403,7 @@ configuration.Theme = function(){
         "axis_y_time_value_interval":0,
         "axis_y_data_format": "number",
 
-        "panels_enable": "no",
+        // "panels_enable": "no",
         "variable_circle_size_enable" : "yes",
 
         "crosshair_enable": "yes",
