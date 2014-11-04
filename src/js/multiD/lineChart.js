@@ -17,10 +17,11 @@ PykCharts.multiD.line = function (options) {
 			stylesheet = theme.stylesheet,
 			optional = options.optional;
 
-		that.pointer_overflow_enable = options.pointer_overflow_enable ? options.pointer_overflow_enable.toLowerCase() : stylesheet.pointer_overflow_enable;	
+		that.pointer_overflow_enable = options.pointer_overflow_enable ? options.pointer_overflow_enable.toLowerCase() : stylesheet.pointer_overflow_enable;
 		that.crosshair_enable = options.crosshair_enable ? options.crosshair_enable.toLowerCase() : multiDimensionalCharts.crosshair_enable;
 		that.curvy_lines = options.curvy_lines_enable ? options.curvy_lines_enable.toLowerCase() : multiDimensionalCharts.curvy_lines_enable;
 		that.interpolate = PykCharts.boolean(that.curvy_lines) ? "cardinal" : "linear";
+		that.panels_enable = "no";
 
 	    d3.json(options.data, function (e, data) {
             var validate = that.k.validator().validatingJSON(data);
@@ -34,17 +35,102 @@ PykCharts.multiD.line = function (options) {
 			if(that.axis_x_data_format === "time" && that.axis_x_time_value_datatype === "") {
     			console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+that.selector+".(\""+"You seem to have passed Date data so please pass the value for axis_x_time_value_datatype"+"\")  Visit www.chartstore.io/docs#warning_"+"15");
     		}
-			that.compare_data = that.data;
-			that.data_length = that.data.length;
-			$(that.selector+" #chart-loader").remove();
-			var lineFunction = new PykCharts.multiD.lineFunctions(options,that,"line")
-			that.dataTransformation();
-			that.render();
+			PykCharts.multiD.lineFunctions(options,that,"line");
 		});
 	};
 }
+
+PykCharts.multiD.multiSeriesLine = function (options) {
+	var that = this;
+	var theme = new PykCharts.Configuration.Theme({});
+
+	this.execute = function (){
+
+		that = new PykCharts.multiD.processInputs(that, options, "line");
+
+		if(that.stop)
+			return;
+
+		if(that.mode === "default") {
+			that.k.loading();
+		}
+
+		var multiDimensionalCharts = theme.multiDimensionalCharts,
+			stylesheet = theme.stylesheet,
+			optional = options.optional;
+
+		that.pointer_overflow_enable = options.pointer_overflow_enable ? options.pointer_overflow_enable.toLowerCase() : stylesheet.pointer_overflow_enable;
+		that.crosshair_enable = options.crosshair_enable ? options.crosshair_enable.toLowerCase() : multiDimensionalCharts.crosshair_enable;
+		that.curvy_lines = options.curvy_lines_enable ? options.curvy_lines_enable.toLowerCase() : multiDimensionalCharts.curvy_lines_enable;
+		that.interpolate = PykCharts.boolean(that.curvy_lines) ? "cardinal" : "linear";
+		that.panels_enable = "no";
+
+	    d3.json(options.data, function (e, data) {
+            var validate = that.k.validator().validatingJSON(data);
+            if(that.stop || validate === false) {
+                $(that.selector+" #chart-loader").remove();
+                return;
+            }
+			that.data = data.groupBy("line");
+			that.axis_y_data_format = "number";
+    		that.axis_x_data_format = that.k.xAxisDataFormatIdentification(that.data);
+			if(that.axis_x_data_format === "time" && that.axis_x_time_value_datatype === "") {
+    			console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+that.selector+".(\""+"You seem to have passed Date data so please pass the value for axis_x_time_value_datatype"+"\")  Visit www.chartstore.io/docs#warning_"+"15");
+    		}
+			PykCharts.multiD.lineFunctions(options,that,"multi series line");
+		});
+	};
+}
+
+PykCharts.multiD.panelsOfLine = function (options) {
+	var that = this;
+	var theme = new PykCharts.Configuration.Theme({});
+
+	this.execute = function (){
+
+		that = new PykCharts.multiD.processInputs(that, options, "line");
+
+		if(that.stop)
+			return;
+
+		if(that.mode === "default") {
+			that.k.loading();
+		}
+
+		var multiDimensionalCharts = theme.multiDimensionalCharts,
+			stylesheet = theme.stylesheet,
+			optional = options.optional;
+
+		that.pointer_overflow_enable = options.pointer_overflow_enable ? options.pointer_overflow_enable.toLowerCase() : stylesheet.pointer_overflow_enable;
+		that.crosshair_enable = options.crosshair_enable ? options.crosshair_enable.toLowerCase() : multiDimensionalCharts.crosshair_enable;
+		that.curvy_lines = options.curvy_lines_enable ? options.curvy_lines_enable.toLowerCase() : multiDimensionalCharts.curvy_lines_enable;
+		that.interpolate = PykCharts.boolean(that.curvy_lines) ? "cardinal" : "linear";
+		that.panels_enable = "no";
+
+	    d3.json(options.data, function (e, data) {
+            var validate = that.k.validator().validatingJSON(data);
+            if(that.stop || validate === false) {
+                $(that.selector+" #chart-loader").remove();
+                return;
+            }
+			that.data = data.groupBy("line");
+			that.axis_y_data_format = "number";
+    		that.axis_x_data_format = that.k.xAxisDataFormatIdentification(that.data);
+			if(that.axis_x_data_format === "time" && that.axis_x_time_value_datatype === "") {
+    			console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+that.selector+".(\""+"You seem to have passed Date data so please pass the value for axis_x_time_value_datatype"+"\")  Visit www.chartstore.io/docs#warning_"+"15");
+    		}
+			PykCharts.multiD.lineFunctions(options,that,"panels of line");
+		});
+	};
+}
+
 PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
 	var that = chartObject;
+
+	that.compare_data = that.data;
+	that.data_length = that.data.length;
+	$(that.selector+" #chart-loader").remove();
+
 	that.dataTransformation = function () {
 		that.group_arr = [], that.color_arr = [], that.new_data = []/*, that.dataLineGroup = []*/,
 
@@ -184,7 +270,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
 						.xGrid(that.svgContainer,that.group,that.xScale)
 						.xAxisTitle(that.xGroup)
 						.yAxisTitle(that.yGroup);
-				
+
 				that.k.exportSVG(that,"#svg-1","lineChart")
 				// console.log(d3.selectAll(options.selector + " .y.axis text")[0][0].__data__,"selector")
 			}
@@ -258,7 +344,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
 						.yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain,that.y_tick_values)
 						.xAxisTitle(that.xGroup)
 						.yAxisTitle(that.yGroup);
-						
+
 				that.k.exportSVG(that,"#svg-0","lineChart")
 
 			}
@@ -1199,4 +1285,6 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
 		}
 
 	}
+	that.dataTransformation();
+	that.render();
 };
