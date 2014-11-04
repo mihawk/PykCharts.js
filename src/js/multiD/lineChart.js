@@ -209,7 +209,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
 							.makeMainDiv(that.selector,i)
 							.tooltip(true,that.selector,i);
 
-					console.log(that.type,"type");
+					// console.log(that.type,"type");
 					that.new_data1 = that.new_data[i];
 					that.fill_data[0] = that.new_data1;
 					that.optionalFeature()
@@ -1141,19 +1141,25 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
 
 			if(clicked) {
 				 if (that.clk) {
-				 	if (that.color_mode === "color") {
-						d3.selectAll(options.selector+" path.multi-line").attr("stroke-opacity",0.3);
-					} else {
-						console.log("hey")
-						d3.selectAll(options.selector+" path.multi-line").attr("stroke-opacity",0.3);
-					}
-					if (that.color_mode === "color") {
-						d3.selectAll(options.selector+ " .legend-heading").style("opacity",0.3);
-					}
-					d3.select(that.selector+" text#"+that.selected.id).style("opacity",1).style
-					("font-weight","bold");
-					d3.select(that.selected).attr("stroke-opacity",1);
-					that.clk = false;
+				 	// console.log(that.selected,"that.selected");
+				 	// if (that.deselected) {
+				 		if (that.color_mode === "color") {
+							d3.selectAll(options.selector+" path.multi-line").attr("stroke-opacity",0.3);
+						} else {
+							// console.log("hey")
+							d3.selectAll(options.selector+" path.multi-line").attr("stroke-opacity",0.3);
+						}
+						if (that.color_mode === "color") {
+							d3.selectAll(options.selector+ " .legend-heading").style("opacity",0.3);
+						}
+						d3.select(that.selector+" text#"+that.selected.id).style("opacity",1).style
+						("font-weight","bold");
+						d3.select(that.selected).attr("stroke-opacity",1);
+						that.clk = false;
+				 	// } else {
+				 	// 	console.log("dharaa");
+				 	// }
+				 	
 				 } else {
 					d3.select(that.selected)
 						.classed({'multi-line-selected':false,'multi-line':true,'multi-line-hover':false})
