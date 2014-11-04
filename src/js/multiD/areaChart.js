@@ -536,6 +536,7 @@ PykCharts.multiD.areaChart = function (options){
 							.style("stroke",that.border.color())
 		                    .style("stroke-width",that.border.width())
 		                    .style("stroke-dasharray", that.border.style())
+		                    .style("pointer-events","none")
 							.attr("transform", "translate("+ that.extra_left_margin +",0)")
 
 
