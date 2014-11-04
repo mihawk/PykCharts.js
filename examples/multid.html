@@ -206,7 +206,7 @@
                 });
                k.execute();
 
-                var k = new PykCharts.multiD.scatterPlot ({
+                var k = new PykCharts.multiD.scatter ({
                     selector: "#scatterPlot",
                     data: "../data/scatterplot.json",
                     mode : "default",
@@ -282,7 +282,7 @@
                 });
                k.execute();
 
-                var k = new PykCharts.multiD.scatterPlot ({
+                var k = new PykCharts.multiD.panelsOfScatter ({
                     selector: "#multiple-scatterplots",
                     data: "../data/scatterplot.json",
                     mode : "default",
@@ -458,7 +458,7 @@
                 });
                k.execute();
 
-                var k = new PykCharts.multiD.areaChart ({
+                var k = new PykCharts.multiD.stackedAreaChart ({
 
                     selector: "#multiArea",
                     data: "../data/multipleContainerLine.json",
@@ -646,9 +646,9 @@
 
                     highlight:"January"
                 });
-               // k.execute();
+               k.execute();
 
-                var k = new PykCharts.multiD.columnChart({
+                var k = new PykCharts.multiD.groupedColumnChart({
                     data: "../data/ultimateGroupColumn.json",
                     mode: "default",
                     selector: "#groupColumn",
@@ -771,9 +771,9 @@
                     data_sort_type: "date",
                     data_sort_order: "ascending"
                 });
-              // k.execute();
+              k.execute();
 
-                var k = new PykCharts.multiD.barChart({
+                var k = new PykCharts.multiD.groupedBarChart({
                     data: "../data/ultimateGroupBar.json",
                     mode: "default",
                     selector: "#groupBar",
