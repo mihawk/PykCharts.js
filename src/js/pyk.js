@@ -984,7 +984,7 @@ PykCharts.Configuration = function (options){
                     }
                 }
             }
-            console.log(options.axis_y_pointer_values.length,values);
+            // console.log(options.axis_y_pointer_values.length,values);
             return values;
         },
         xAxisDataFormatIdentification : function (data){
