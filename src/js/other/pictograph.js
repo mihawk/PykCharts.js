@@ -20,11 +20,11 @@ PykCharts.other.pictograph = function (options) {
         that.total_count_family = options.pictograph_total_count_family ? options.pictograph_total_count_family.toLowerCase() : otherCharts.pictograph_total_count_family;
         that.imageWidth =  options.pictograph_image_width ? options.pictograph_image_width : otherCharts.pictograph_image_width;
         that.imageHeight = options.pictograph_image_height ? options.pictograph_image_height : otherCharts.pictograph_image_height;
-        that.pictograph_unit_per_image = options.pictograph_unit_per_image ? options.pictograph_unit_per_image : otherCharts.pictograph_unit_per_image;
-        that.pictograph_unit_text_family = options.pictograph_unit_text_family ? options.pictograph_unit_text_family : otherCharts.pictograph_unit_text_family;
-        that.pictograph_unit_text_size = options.pictograph_unit_text_size ? options.pictograph_unit_text_size : otherCharts.pictograph_unit_text_size;
-        that.pictograph_unit_text_color = options.pictograph_unit_text_color ? options.pictograph_unit_text_color : otherCharts.pictograph_unit_text_color;
-        that.pictograph_unit_text_weight = options.pictograph_unit_text_weight ? options.pictograph_unit_text_weight : otherCharts.pictograph_unit_text_weight;
+        that.pictograph_units_per_image = options.pictograph_units_per_image ? options.pictograph_units_per_image : "";
+        that.pictograph_units_per_image_text_family = options.pictograph_units_per_image_text_family ? options.pictograph_units_per_image_text_family : otherCharts.pictograph_units_per_image_text_family;
+        that.pictograph_units_per_image_text_size = options.pictograph_units_per_image_text_size ? options.pictograph_units_per_image_text_size : otherCharts.pictograph_units_per_image_text_size;
+        that.pictograph_units_per_image_text_color = options.pictograph_units_per_image_text_color ? options.pictograph_units_per_image_text_color : otherCharts.pictograph_units_per_image_text_color;
+        that.pictograph_units_per_image_text_weight = options.pictograph_units_per_image_text_weight ? options.pictograph_units_per_image_text_weight : otherCharts.pictograph_units_per_image_text_weight;
         that.height = options.chart_height ? options.chart_height : that.width;
 
         try {
@@ -177,7 +177,7 @@ PykCharts.other.pictograph = function (options) {
                 .svgContainer()
                 .labelText()
                 .enableLabel()
-        if(PykCharts.boolean(that.pictograph_unit_per_image)) {
+        if(PykCharts.boolean(that.pictograph_units_per_image)) {
             that.optionalFeatures().appendUnits()
         }
         that.optionalFeatures().createChart();
@@ -214,7 +214,7 @@ PykCharts.other.pictograph = function (options) {
                 that.group1 = that.svgContainer.append("g")
                     .attr("transform","translate(0,0)");
 
-                if(PykCharts.boolean(that.pictograph_unit_per_image)) {
+                if(PykCharts.boolean(that.pictograph_units_per_image)) {
                     that.group2 = that.svgContainer.append("g")
                         .attr("id","units-per-image");
                 }
@@ -376,22 +376,20 @@ PykCharts.other.pictograph = function (options) {
                 that.group2.append("text")
                         .attr("x", 0)
                         .attr("class","PykCharts-unit-text")
-                        .attr("font-family",that.pictograph_unit_text_family)
-                        .attr("font-size",that.pictograph_unit_text_size)
-                        .attr("font-weight",that.pictograph_unit_text_weight)
-                        .attr("fill",that.pictograph_unit_text_color)
+                        .attr("font-family",that.pictograph_units_per_image_text_family)
+                        .attr("font-size",that.pictograph_units_per_image_text_size)
+                        .attr("font-weight",that.pictograph_units_per_image_text_weight)
+                        .attr("fill",that.pictograph_units_per_image_text_color)
                         .text(function () {
                             return "1 ";
                         })
                         .text(function () {
                             unit_text_height = this.getBBox().height;
                             unit_text_width = this.getBBox().width;
-                            console.log(unit_text_height);
                             return "1 ";
                         })
                         .attr("dy",0)
                         .attr("y",unit_text_height - 5);
-                console.log(unit_text_width);
                 that.group2.append("image")
                         .attr("xlink:href",that.data[1]["image"])
                         .attr("id","unit-image")
@@ -405,16 +403,16 @@ PykCharts.other.pictograph = function (options) {
                             return parseFloat(image_width) + unit_text_width + 4;
                         })
                         .attr("class","PykCharts-unit-text")
-                        .attr("font-family",that.pictograph_unit_text_family)
-                        .attr("font-size",that.pictograph_unit_text_size)
-                        .attr("font-weight",that.pictograph_unit_text_weight)
-                        .attr("fill",that.pictograph_unit_text_color)
+                        .attr("font-family",that.pictograph_units_per_image_text_family)
+                        .attr("font-size",that.pictograph_units_per_image_text_size)
+                        .attr("font-weight",that.pictograph_units_per_image_text_weight)
+                        .attr("fill",that.pictograph_units_per_image_text_color)
                         .text(function () {
-                            return "= " + that.pictograph_unit_per_image;
+                            return "= " + that.pictograph_units_per_image;
                         })
                         .text(function () {
                             unit_text_width1 = this.getBBox().width;
-                            return "= " + that.pictograph_unit_per_image;
+                            return "= " + that.pictograph_units_per_image;
                         })
                         .attr("y", function () { return (unit_text_height - 5); });
                 that.total_unit_width = unit_text_width + parseFloat(image_width) + unit_text_width1+4;
