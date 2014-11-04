@@ -205,27 +205,6 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                 that.optionalFeatures()
                     .legends(that.legends_enable)
                     .createMap();
-                // that.k.lastUpdatedAt("liveData");
-            });
-        } else {
-            d3.json(options.data, function (data) {
-                that.timeline_data = data;
-                that.refresh_data = data;
-                var compare = that.k.checkChangeInData(that.refresh_data,that.compare_data);
-                that.compare_data = compare[0];
-                var data_changed = compare[1];
-                var x_extent = d3.extent(data, function (d) { return d.timestamp; });
-                that.data = _.where(data, {timestamp: x_extent[0]});
-                that.optionalFeatures()
-                    .legends(that.legends_enable)
-                    .createMap();
-                that.renderDataForTimescale();
-                that.renderTimeline();
-
-                if(data_changed) {
-                    that.k.lastUpdatedAt("liveData");
-                }
-
             });
         }
     };
@@ -418,7 +397,6 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                 } else if (obj.length > 0 && PykCharts.boolean(obj[0].color)) {
                     return obj[0].color;
                 }
-                console.log(that.default_color[0]);
                 return that.default_color[0];
             }
             if (that.color_mode === "saturation") {
@@ -432,7 +410,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                         for (i = 0; i < that.current_palette.colors.length; i++) {
                             if (col_shade >= that.extent_size[0] + i * (that.difference / that.current_palette.colors.length) && col_shade <= that.extent_size[0] + (i + 1) * (that.difference / that.current_palette.colors.length)) {
                                 if (that.data.length===1) {
-                                    return(that.current_palette.colors[that.current_palette.colors.length-1]);
+                                    return that.current_palette.colors[that.current_palette.colors.length-1];
                                 }
                                 else{
                                     return that.current_palette.colors[i];
@@ -562,7 +540,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
 
                 var legend_container_width = that.legendsContainer.node().getBBox().width,
                     translate_x = (that.legends_display === "vertical") ? 0 : (that.width - legend_container_width - 20);
-                    
+
                 if (legend_container_width < that.width) { that.legendsContainer.attr("transform","translate("+(translate_x-20)+",10)"); }
                 that.legendsContainer.style("visibility","visible");
 
@@ -571,7 +549,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                 legend.exit()
                     .remove();
 
-            } else {            
+            } else {
                 that.leg = function (d,i) { return  "<" + d3.round(that.extent_size[0] + (i+1) * (that.difference / that.current_palette.number)); };
                 var legend = that.legendsContainer.selectAll(".rect")
                     .data(that.current_palette.colors);
@@ -602,8 +580,8 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
 
                 var legend_container_width = that.legendsContainer.node().getBBox().width,
                     translate_x = (that.legends_display === "vertical") ? 0 : (that.width - legend_container_width - 20);
-                    
-                if (legend_container_width < that.width) { that.legendsContainer.attr("transform","translate("+translate_x+",10)"); }                
+
+                if (legend_container_width < that.width) { that.legendsContainer.attr("transform","translate("+translate_x+",10)"); }
                 that.legendsContainer.style("visibility","visible");
 
                 that.legends_text.exit()
@@ -742,7 +720,6 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         that.k.xAxis(that.svgContainer,that.gxaxis,that.xScale);
     }
     that.renderTimeline = function () {
-        console.log("heyy");
         var x_extent
         , x_range
         , duration
@@ -757,18 +734,17 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         var startTimeline = function () {
             if (that.timeline_status==="playing") {
                 that.play.attr("xlink:href",that.play_image_url);
-                // that.play.attr("xlink:href","https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/play.gif");
-                clearInterval(that.play_interval);
                 that.timeline_status = "paused";
                 that.interval_index = interval;
+                clearInterval(that.play_interval);
             } else {
                 that.timeline_status = "playing";
                 that.play.attr("xlink:href",that.pause_image_url);
-                // that.play.attr("xlink:href","https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/pause.gif");
                 interval = that.interval_index;
-                interval1 = that.interval_index;
-
-                that.play_interval = setInterval(function () {
+                var startInterval = function () {
+                    if (interval===that.unique.length) {
+                        interval = 0;
+                    }
                     that.marker
                         // .transition()
                         // .duration(that.timeline.duration/2)
@@ -778,54 +754,28 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     that.data.sort(function (a,b) {
                         return a.timestamp - b.timestamp;
                     });
+                    that.extent_size = d3.extent(that.data, function (d) { return parseInt(d.size, 10); });
+                    that.difference = that.extent_size[1] - that.extent_size[0];
                     _.each(that.data, function (d) {
                         d3.select("path[iso2='"+d.iso2+"']")
                             // .transition()
                             // .duration(that.timeline.duration/4)
                             .attr("fill", that.renderColor);
                     });
-
                     interval++;
-
-                    if (interval===that.unique.length) {
+                }
+                that.play_interval = setInterval(function () {
+                    startInterval();
+                    if (interval===1) {
+                        that.play.attr("xlink:href",that.play_image_url);
+                        that.interval_index = 1;
+                        that.timeline_status = "";
                         clearInterval(that.play_interval);
                     };
                 }, that.timeline_duration);
-
-                var time_lag = setTimeout(function () {
-                    var undo_heatmap = setInterval(function () {
-                        interval1++;
-                        var play1;
-                        if (interval1 === interval) {
-                            clearInterval(undo_heatmap);
-                            clearTimeout(time_lag);
-                        }
-
-                        if (interval1 === that.unique.length) {
-                            clearInterval(undo_heatmap);
-                            that.play.attr("xlink:href",that.play_image_url);
-                            that.marker.attr("x",  (that.margin_left*2) + that.xScale(that.unique[0]) - 7);
-                            interval = interval1 = that.interval_index = 1;
-                            that.timeline_status = "";
-
-                            that.data = _.where(that.timeline_data, {timestamp:that.unique[0]});
-                            that.data.sort(function (a,b) {
-                                return a.timestamp - b.timestamp;
-                            });
-                            that.extent_size = d3.extent(that.data, function (d) { return parseInt(d.size, 10); });
-                            that.difference = that.extent_size[1] - that.extent_size[0];
-                            _.each(that.data, function (d) {
-                                d3.select("path[iso2='"+d.iso2+"']")
-                                    // .transition()
-                                    // .duration(that.timeline.duration/4)
-                                    .attr("fill", that.renderColor);
-                            });
-                        };
-                    }, that.timeline_duration);
-                },that.timeline_duration);
+                startInterval();
             }
         }
-        // duration = unique.length * 1000;
     };
 
     that.renderButtons = function () {
@@ -862,6 +812,8 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                             that.data.sort(function (a,b) {
                                 return a.timestamp - b.timestamp;
                             });
+                            that.extent_size = d3.extent(that.data, function (d) { return parseInt(d.size, 10); });
+                            that.difference = that.extent_size[1] - that.extent_size[0];
                             _.each(that.data, function (d) {
                                 d3.select("path[iso2='"+d.iso2+"']")
                                     .attr("fill", that.renderColor);
@@ -875,6 +827,8 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                             that.data.sort(function (a,b) {
                                 return a.timestamp - b.timestamp;
                             });
+                            that.extent_size = d3.extent(that.data, function (d) { return parseInt(d.size, 10); });
+                            that.difference = that.extent_size[1] - that.extent_size[0];
                             _.each(that.data, function (d) {
                                 d3.select("path[iso2='"+d.iso2+"']")
                                     .attr("fill", that.renderColor);
