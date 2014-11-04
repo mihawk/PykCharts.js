@@ -98,7 +98,6 @@
                 background_color: "white",
                 mode:"DEFault",
                 chart_color: ["cyan"],
-                pointer_overflow_enable: "no",
                 units_prefix: "$",
                 units_suffix: "/-",
                 "pointer_overflow_enable": "yes",
@@ -237,7 +236,7 @@
            k.execute();
 
             var k = new PykCharts.oneD.percentageColumn({
-                chart_width: 600,
+                chart_width: 200,
                 chart_height: 300,
                 selector: "#percentageColumn",
                 data:"../data/pie.json",
@@ -247,7 +246,8 @@
                 clubdata_always_include_data_points: ["Africa","South America"],
                 units_prefix: "$",
                 units_suffix: "/-",
-
+                percent_column_rect_width : 80,
+                pointer_overflow_enable: "yes",
                 "border_between_chart_elements_thickness": 2,
                 "border_between_chart_elements_color": "black",
                 "border_between_chart_elements_style": "dotted",
@@ -265,8 +265,8 @@
                 transition_duration: 1,
                 // "chart_height": 200,
                 chart_width: 600,
-                chart_height: 800,
-                percent_row_rect_height : "899",
+                chart_height: 00,
+                percent_row_rect_height : 100,
 
                 // clubdata_enable: "yes"
                 mode: "DEFault",
@@ -281,7 +281,8 @@
                 "credit_my_site_name": "Firstpost",
                 "credit_my_site_url":  "http://www.firstpost.com",
                 "data_source_name": "World Bank",
-                "data_source_url": "http://www.worldbank.org/"
+                "data_source_url": "http://www.worldbank.org/",
+                pointer_overflow_enable: "yes"
             });
            k.execute();
 

@@ -38,7 +38,7 @@ PykCharts.multiD.line = function (options) {
 			PykCharts.multiD.lineFunctions(options,that,"line");
 		});
 	};
-}
+};
 
 PykCharts.multiD.multiSeriesLine = function (options) {
 	var that = this;
@@ -77,10 +77,10 @@ PykCharts.multiD.multiSeriesLine = function (options) {
 			if(that.axis_x_data_format === "time" && that.axis_x_time_value_datatype === "") {
     			console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+that.selector+".(\""+"You seem to have passed Date data so please pass the value for axis_x_time_value_datatype"+"\")  Visit www.chartstore.io/docs#warning_"+"15");
     		}
-			PykCharts.multiD.lineFunctions(options,that,"multi series line");
+			PykCharts.multiD.lineFunctions(options,that,"line");
 		});
 	};
-}
+};
 
 PykCharts.multiD.panelsOfLine = function (options) {
 	var that = this;
@@ -119,10 +119,10 @@ PykCharts.multiD.panelsOfLine = function (options) {
 			if(that.axis_x_data_format === "time" && that.axis_x_time_value_datatype === "") {
     			console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+that.selector+".(\""+"You seem to have passed Date data so please pass the value for axis_x_time_value_datatype"+"\")  Visit www.chartstore.io/docs#warning_"+"15");
     		}
-			PykCharts.multiD.lineFunctions(options,that,"panels of line");
+			PykCharts.multiD.lineFunctions(options,that,"line");
 		});
 	};
-}
+};
 
 PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
 	var that = chartObject;
@@ -270,8 +270,15 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
 						.xGrid(that.svgContainer,that.group,that.xScale)
 						.xAxisTitle(that.xGroup)
 						.yAxisTitle(that.yGroup);
+				
+			    var add_extra_width = 0;
+			    setTimeout(function () {
+			        add_extra_width = _.max(that.ticks_text_width,function(d){
+			                return d;
+			            });
+			        that.k.exportSVG(that,"#svg-1","lineChart",undefined,undefined,add_extra_width);
+			    },that.transitions.duration());
 
-				that.k.exportSVG(that,"#svg-1","lineChart")
 				// console.log(d3.selectAll(options.selector + " .y.axis text")[0][0].__data__,"selector")
 			}
 			that.k.createFooter()
@@ -344,9 +351,14 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
 						.yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain,that.y_tick_values)
 						.xAxisTitle(that.xGroup)
 						.yAxisTitle(that.yGroup);
-
-				that.k.exportSVG(that,"#svg-0","lineChart")
-
+						
+				var add_extra_width = 0;
+			    setTimeout(function () {
+			        add_extra_width = _.max(that.ticks_text_width,function(d){
+			                return d;
+			            });
+			        that.k.exportSVG(that,"#svg-0","lineChart",undefined,undefined,add_extra_width);
+			    },that.transitions.duration());
 			}
 		}
 		if(!PykCharts.boolean(that.panels_enable)) {
@@ -981,7 +993,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
 						if(PykCharts.boolean(that.pointer_overflow_enable)) {
                     		that.svgContainer.style("overflow","visible");
                 		}
-
+                		that.ticks_text_width = [];
 						tickPosition = function (d,i) {
 							var end_x_circle, end_y_circle;
 							if(that.axis_y_position === "left") {
@@ -1022,7 +1034,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
 									return d.name;
 								})
 								.text(function (d,i) {
-									that.tick_w = this.getBBox().width + 5;
+									that.ticks_text_width[i] = this.getBBox().width;
 									return d.name;
 								})
 								.style("font-size", that.pointer_size + "px")

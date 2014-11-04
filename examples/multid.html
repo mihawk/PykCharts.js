@@ -60,11 +60,11 @@
                     chart_height: 400,
                     chart_width : 400,
                     // background_color: "pink",
-                    pointer_overflow_enable :"yes",
+                    pointer_overflow_enable :"no", 
                     chart_margin_top: 30,
                     chart_margin_right: 10,
                     chart_margin_bottom: 30,
-                    chart_margin_left: 80,
+                    chart_margin_left: 0,
 
                     chart_grid_x_enable: "yes",
                     chart_grid_y_enable: "yes",
@@ -206,7 +206,7 @@
                 });
                k.execute();
 
-                var k = new PykCharts.multiD.scatterPlot ({
+                var k = new PykCharts.multiD.scatter ({
                     selector: "#scatterPlot",
                     data: "../data/scatterplot.json",
                     mode : "default",
@@ -282,7 +282,7 @@
                 });
                k.execute();
 
-                var k = new PykCharts.multiD.scatterPlot ({
+                var k = new PykCharts.multiD.panelsOfScatter ({
                     selector: "#multiple-scatterplots",
                     data: "../data/scatterplot.json",
                     mode : "default",
@@ -458,7 +458,7 @@
                 });
                k.execute();
 
-                var k = new PykCharts.multiD.areaChart ({
+                var k = new PykCharts.multiD.stackedAreaChart ({
 
                     selector: "#multiArea",
                     data: "../data/multipleContainerLine.json",
@@ -648,7 +648,7 @@
                 });
                k.execute();
 
-                var k = new PykCharts.multiD.columnChart({
+                var k = new PykCharts.multiD.groupedColumnChart({
                     data: "../data/ultimateGroupColumn.json",
                     mode: "default",
                     selector: "#groupColumn",
@@ -773,7 +773,7 @@
                 });
               k.execute();
 
-                var k = new PykCharts.multiD.barChart({
+                var k = new PykCharts.multiD.groupedBarChart({
                     data: "../data/ultimateGroupBar.json",
                     mode: "default",
                     selector: "#groupBar",

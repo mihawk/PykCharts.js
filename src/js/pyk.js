@@ -1210,8 +1210,14 @@ PykCharts.Configuration = function (options){
             }
             return this;
         },
-        exportSVG: function (chart,svgId,chart_name,panels_enable,containers) {
+        exportSVG: function (chart,svgId,chart_name,panels_enable,containers,add_extra_width,add_extra_height) {
             if(PykCharts.boolean(options.export_enable)) {
+                if(!add_extra_width) {
+                    add_extra_width = 0;
+                }
+                if(!add_extra_height) {
+                    add_extra_height = 0;
+                }
                 var id = "export";
                 var canvas_id = chart_name+"canvas";
                 var canvas = document.createElement("canvas");
@@ -1221,8 +1227,8 @@ PykCharts.Configuration = function (options){
                 var get_canvas = document.getElementById(canvas_id);
                 paper.setup(get_canvas);
                 var project = new paper.Project();
-                project._view._viewSize.width = chart.width;
-                project._view._viewSize.height = chart.height;
+                project._view._viewSize.width = chart.width + add_extra_width;
+                project._view._viewSize.height = chart.height +  add_extra_height;
 
                 var name = chart_name + ".svg";
 

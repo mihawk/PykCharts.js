@@ -97,9 +97,8 @@ PykCharts.oneD.funnel = function (options) {
         var that = this;
         var l = $(".svgcontainer").length;
         that.container_id = "svgcontainer" + l;
-        //that.fillChart = new PykCharts.oneD.fillChart(that);
+        
         that.fillChart = new PykCharts.Configuration.fillChart(that);
-        // that.onHoverEffect = new PykCharts.oneD.mouseEvent(that);
         that.transitions = new PykCharts.Configuration.transition(that);
 //        theme.stylesheet.borderBetweenChartElements;
         that.border = new PykCharts.Configuration.border(that);
@@ -136,8 +135,15 @@ PykCharts.oneD.funnel = function (options) {
                 .credits()
                 .dataSource();
         }
-        
-        that.k.exportSVG(that,"#"+that.container_id,"funnel")
+
+        var add_extra_width = 0;
+            setTimeout(function () {
+                add_extra_width = _.max(that.ticks_text_width,function(d){
+                        return d;
+                    });
+                that.k.exportSVG(that,"#"+that.container_id,"funnel",undefined,undefined,add_extra_width)
+            },that.transitions.duration());
+
         $(document).ready(function () { return that.k.resize(that.svgContainer); })
         $(window).on("resize", function () { return that.k.resize(that.svgContainer); });
     };
@@ -397,6 +403,7 @@ PykCharts.oneD.funnel = function (options) {
                 }
 
                 var w =[];
+                that.ticks_text_width = [];
                     var tick_label = that.group.selectAll(".ticks_label")
                                         .data(that.coordinates);
 
@@ -427,6 +434,7 @@ PykCharts.oneD.funnel = function (options) {
                         tick_label.text(function (d,i) { return that.new_data[i].name; })
                             .text(function (d,i) {
                                 w[i] = this.getBBox().height;
+                                that.ticks_text_width.push(this.getBBox().width);
                                 if (this.getBBox().height < (d.values[2].y - d.values[0].y)) {
                                     return that.new_data[i].name;
                                 }

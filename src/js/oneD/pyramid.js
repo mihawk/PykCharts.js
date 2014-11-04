@@ -104,7 +104,15 @@ PykCharts.oneD.pyramid = function (options) {
             that.k.tooltip();
             that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
         }
-        that.k.exportSVG(that,"#"+that.container_id,"pyramid")
+
+        var add_extra_width = 0;
+        setTimeout(function () {
+            add_extra_width = _.max(that.ticks_text_width,function(d){
+                    return d;
+                });
+            that.k.exportSVG(that,"#"+that.container_id,"pyramid",undefined,undefined,add_extra_width)
+        },that.transitions.duration());
+        
         $(document).ready(function () { return that.k.resize(that.svgContainer); })
         $(window).on("resize", function () { return that.k.resize(that.svgContainer); });
 	};
@@ -349,6 +357,7 @@ PykCharts.oneD.pyramid = function (options) {
                     .attr("class","ticks_label");
 
                 var x,y,w = [];
+                that.ticks_text_width = [];
                 var j = that.new_data.length;
                 var n = that.new_data.length;
                 tick_label.attr("transform",function (d) {
@@ -382,6 +391,7 @@ PykCharts.oneD.pyramid = function (options) {
                         .text(function (d,i) {
                             if(i===0) {
                                 w[i] = this.getBBox().height;
+                                that.ticks_text_width[i] = this.getBBox().width;
                                 if (this.getBBox().height < (d.values[1].y - d.values[0].y)) {
                                     return that.new_data[i].name;
 
