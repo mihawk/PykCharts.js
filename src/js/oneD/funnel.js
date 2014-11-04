@@ -386,7 +386,6 @@ PykCharts.oneD.funnel = function (options) {
                 return this;
             },
             ticks : function () {
-                // console.log("ticks");
                 if(PykCharts.boolean(that.pointer_overflow_enable)) {
                     that.svgContainer.style("overflow","visible");
                 }

@@ -344,8 +344,8 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                         return d3.select(this).attr("fill");
                     })
                     .attr("fill-opacity", that.renderOpacity)
-                    .style("stroke", that.border.color())
-                    .style("stroke-width", that.border.width())
+                    .attr("stroke", that.border.color())
+                    .attr("stroke-width", that.border.width())
                     .style("stroke-dasharray", that.border.style())
                     .on("mouseover", function (d) {
                         if (PykCharts.boolean(that.tooltip_enable)) {
