@@ -16,6 +16,8 @@ PykCharts.multiD.lineChart = function (options) {
 		var multiDimensionalCharts = theme.multiDimensionalCharts,
 			stylesheet = theme.stylesheet,
 			optional = options.optional;
+
+		that.pointer_overflow_enable = options.pointer_overflow_enable ? options.pointer_overflow_enable.toLowerCase() : stylesheet.pointer_overflow_enable;	
 		that.crosshair_enable = options.crosshair_enable ? options.crosshair_enable.toLowerCase() : multiDimensionalCharts.crosshair_enable;
 		that.curvy_lines = options.curvy_lines_enable ? options.curvy_lines_enable.toLowerCase() : multiDimensionalCharts.curvy_lines_enable;
 		that.interpolate = PykCharts.boolean(that.curvy_lines) ? "cardinal" : "linear";
@@ -144,6 +146,7 @@ PykCharts.multiD.lineChart = function (options) {
                         that.k.emptyDiv();
                     }
 				}
+				that.k.exportSVG(that,"svg-","lineChart",that.panels_enable,that.new_data)
 				that.k.emptyDiv();
 			} else {
 				that.k.backgroundColor(that)
@@ -178,7 +181,8 @@ PykCharts.multiD.lineChart = function (options) {
 						.xGrid(that.svgContainer,that.group,that.xScale)
 						.xAxisTitle(that.xGroup)
 						.yAxisTitle(that.yGroup);
-
+				
+				that.k.exportSVG(that,"#svg-1","lineChart")
 				// console.log(d3.selectAll(options.selector + " .y.axis text")[0][0].__data__,"selector")
 			}
 			that.k.createFooter()
@@ -225,6 +229,7 @@ PykCharts.multiD.lineChart = function (options) {
                         that.k.emptyDiv();
                     }
 				}
+				that.k.exportSVG(that,"#svg-","lineChart",that.panels_enable,that.new_data)
 				that.k.emptyDiv();
 			} else {
 
@@ -250,7 +255,8 @@ PykCharts.multiD.lineChart = function (options) {
 						.yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain,that.y_tick_values)
 						.xAxisTitle(that.xGroup)
 						.yAxisTitle(that.yGroup);
-
+						
+				that.k.exportSVG(that,"#svg-0","lineChart")
 
 			}
 		}
@@ -333,8 +339,6 @@ PykCharts.multiD.lineChart = function (options) {
 					$(that.selector).attr("class","PykCharts-twoD PykCharts-line-chart");
 				}
 
-				// $(that.selector).css({"background-color":that.bg,"position":"relative"});
-				// console.log("that.w >>>> ",that.w,that.width);
 				that.svgContainer = d3.select(that.selector+" #tooltip-svg-container-"+i)
 					.append("svg:svg")
 					.attr("id","svg-" + i)
@@ -851,6 +855,7 @@ PykCharts.multiD.lineChart = function (options) {
 				return this;
 			},
 			ticks: function (index) {
+
 				if(PykCharts.boolean(that.pointer_size)) {
 					if(PykCharts.boolean(that.panels_enable)) {
 						type = that.type + that.svgContainer.attr("id");
@@ -884,6 +889,10 @@ PykCharts.multiD.lineChart = function (options) {
 						}
 
 					} else {
+						if(PykCharts.boolean(that.pointer_overflow_enable)) {
+                    		that.svgContainer.style("overflow","visible");
+                		}
+
 						tickPosition = function (d,i) {
 							var end_x_circle, end_y_circle;
 							if(that.axis_y_position === "left") {

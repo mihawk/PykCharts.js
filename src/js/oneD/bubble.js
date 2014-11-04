@@ -97,6 +97,7 @@ PykCharts.oneD.bubble = function (options) {
             that.k.tooltip();
 
         }
+        that.k.exportSVG(that,"#"+that.container_id,"bubble")
         that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
         $(document).ready(function () { return that.k.resize(that.svgContainer); })
         $(window).on("resize", function () { return that.k.resize(that.svgContainer); });

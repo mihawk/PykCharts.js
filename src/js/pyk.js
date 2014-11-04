@@ -1187,12 +1187,6 @@ PykCharts.Configuration = function (options){
                         .html("Export as SVG" + "<br>");
                 }
 
-                var canvas_id = chart_name+"canvas";
-                var canvas = document.createElement("canvas");
-                canvas.setAttribute('id', canvas_id);
-                canvas.setAttribute('width',500);
-                canvas.setAttribute('height',500);
-
                 var id = "export",
                 div_size = options.width
                 div_float ="none"
@@ -1213,6 +1207,17 @@ PykCharts.Configuration = function (options){
                                 .style("text-align","right")
                                 .html("<img title='Export to SVG' src='"+options.img+"' style='left:"+div_left+"px;margin-bottom:3px;cursor:pointer;'/>");
 
+            }
+            return this;
+        },
+        exportSVG: function (chart,svgId,chart_name,panels_enable,containers) {
+            if(PykCharts.boolean(options.export_enable)) {
+                var id = "export";
+                var canvas_id = chart_name+"canvas";
+                var canvas = document.createElement("canvas");
+                canvas.setAttribute('id', canvas_id);
+                canvas.setAttribute('width',500);
+                canvas.setAttribute('height',500);
                 var get_canvas = document.getElementById(canvas_id);
                 paper.setup(get_canvas);
                 var project = new paper.Project();
@@ -1225,12 +1230,12 @@ PykCharts.Configuration = function (options){
                   PykCharts.export_menu_status = 1;
                     d3.select(options.selector + " .dropdown-multipleConatiner-export").style("visibility", "visible");
                 });
+                
                 if(!PykCharts.boolean(panels_enable)) {
                     $(chart.selector + " #span").click(function () {
                         d3.select(options.selector + " .dropdown-multipleConatiner-export").style("visibility", "hidden");
                         chart.k.processSVG(document.querySelector(options.selector +" "+svgId),chart_name);
                         project.importSVG(document.querySelector(options.selector +" "+svgId));
-                        project.importSVG(document.querySelector(options.selector +" "+svgId));                            
                         var svg = project.exportSVG({ asString: true });
                         downloadDataURI({
                             data: 'data:image/svg+xml;base64,' + btoa(svg),
@@ -1256,7 +1261,7 @@ PykCharts.Configuration = function (options){
                     }
                 }
             }
-            return this;
+            return this;    
         },
         processSVG: function (svg,svgId) {
             var x = svg.querySelectorAll("text");

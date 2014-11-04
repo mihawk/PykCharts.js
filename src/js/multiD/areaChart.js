@@ -154,7 +154,7 @@ PykCharts.multiD.areaChart = function (options){
 					.xAxisTitle(that.xGroup)
 					.yAxisTitle(that.yGroup);
   		}
-
+		that.k.exportSVG(that,"#svg-1","areaChart")
   		that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
   		$(document).ready(function () { return that.k.resize(that.svgContainer,"yes"); })
         $(window).on("resize", function () { return that.k.resize(that.svgContainer,"yes"); });
