@@ -959,7 +959,7 @@ PykCharts.Configuration = function (options){
                     }
                 }
             }
-            
+
             if(values.length) {
                 if(options.axis_x_data_format === "time") {
                     _.each(values, function (d) {
@@ -1947,7 +1947,7 @@ configuration.mouseEvent = function (options) {
                     .style("fill",fill_color)
                     .style("font-weight",font_weight);
             }
-            
+
             return this;
         },
         highlight: function (selectedclass, that) {
@@ -2056,7 +2056,6 @@ configuration.border = function (options) {
 };
 
 configuration.makeXAxis = function(options,xScale) {
-    console.log(xScale.domain(),"domain");
     var that = this;
     var k = PykCharts.Configuration(options);
     var xaxis = d3.svg.axis()
@@ -2297,7 +2296,7 @@ configuration.Theme = function(){
         "axis_x_time_value_interval":0,
         "axis_x_data_format": "string",
 
-        "loading_gif_url": "https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/img/loader.gif",
+        "loading_gif_url": PykCharts.assets+"img/preloader.gif",
         // "fullscreen_enable": "no",
 
         "tooltip_enable": "yes",
@@ -2349,11 +2348,10 @@ configuration.Theme = function(){
         "pictograph_total_count_color": "grey",
         "pictograph_total_count_weight": "normal",
         "pictograph_total_count_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
-        "pictograph_unit_text_size": 24,
-        "pictograph_unit_text_color": "grey",
-        "pictograph_unit_text_weight": "normal",
-        "pictograph_unit_text_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
-        "pictograph_unit_per_image" : ""
+        "pictograph_units_per_image_text_size": 24,
+        "pictograph_units_per_image_text_color": "grey",
+        "pictograph_units_per_image_text_weight": "normal",
+        "pictograph_units_per_image_text_family": "'Helvetica Neue',Helvetica,Arial,sans-serif"
     };
 
     that.multiDimensionalCharts = {

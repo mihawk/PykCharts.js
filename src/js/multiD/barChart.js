@@ -683,7 +683,6 @@
                         final_rect_x = 0;
                         final_text_x = 0;
                         legend_text_widths = [];
-                        sum_text_widths = 0;
                         temp_text = temp_rect = 0;
                         text_parameter1 = "x";
                         text_parameter2 = "y";
@@ -748,9 +747,9 @@
                         });
 
                     var legend_container_width = that.legendsGroup.node().getBBox().width,
-                        translate_x = that.width - legend_container_width;
+                        translate_x = (that.legends_display === "vertical") ? 0 : (that.width - legend_container_width - 20);
                     
-                    if (legend_container_width < that.width) { that.legendsGroup.attr("transform","translate("+(translate_x-20)+",10)"); }
+                    if (legend_container_width < that.width) { that.legendsGroup.attr("transform","translate("+translate_x+",10)"); }
                     that.legendsGroup.style("visibility","visible");
                     
                     that.legends_text.exit().remove();

@@ -197,7 +197,7 @@
                     border_between_chart_elements_color: "blue",
 
                     legends_enable: "yes",
-                    legends_display: "horizontal",//horizontal or vertical
+                    legends_display: "vertical",//horizontal or vertical
 
                     legends_text_size: 13,
                     legends_text_color: "black",
@@ -347,10 +347,12 @@
                     data: "../data/multipleContainerLine.json",
                     mode : "default",
 
-                    color_mode: "color",  //color or saturation
+                    color_mode: "saturation",  //color or saturation
                     background_color: "white",
 
-                    chart_color:["#013f73","#4682b4","#75b0e1"],
+                    chart_color:["red","green","yellow"],
+
+                    // chart_color:["#013f73","#4682b4","#75b0e1"],
 
                     chart_height: 400, //400
                     chart_width : 630, //630
@@ -360,6 +362,8 @@
                     chart_margin_left: 50,
                     chart_grid_x_enable: "no",
                     chart_grid_y_enable: "yes",
+
+                    highlight_color: "red",
 
                     transition_duration: 5,
                     real_time_charts_refresh_frequency: 0,
@@ -649,7 +653,7 @@
                     mode: "default",
                     selector: "#groupColumn",
 
-                    color_mode: "saturation",
+                    color_mode: "color",
                     background_color:"white",
 
                     chart_color:["orange","red","steelblue","gray"],

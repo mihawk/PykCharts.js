@@ -99,7 +99,7 @@ PykCharts.oneD.funnel = function (options) {
         that.container_id = "svgcontainer" + l;
         //that.fillChart = new PykCharts.oneD.fillChart(that);
         that.fillChart = new PykCharts.Configuration.fillChart(that);
-        that.onHoverEffect = new PykCharts.oneD.mouseEvent(that);
+        // that.onHoverEffect = new PykCharts.oneD.mouseEvent(that);
         that.transitions = new PykCharts.Configuration.transition(that);
 //        theme.stylesheet.borderBetweenChartElements;
         that.border = new PykCharts.Configuration.border(that);
@@ -307,13 +307,17 @@ PykCharts.oneD.funnel = function (options) {
                    	.attr("fill",function (d,i) {
                         return that.fillChart.selectColor(that.new_data[i]);
         			})
+                    .attr("fill-opacity",1)
+                    .attr("data-fill-opacity",function () {
+                        return $(this).attr("fill-opacity");
+                    })
                     .attr("stroke",that.border.color())
                     .attr("stroke-width",that.border.width())
                     .attr("stroke-dasharray", that.border.style())
                     .attr("stroke-opacity",1)
         			.on("mouseover", function (d,i) {
                         if(that.mode === "default") {
-                            that.onHoverEffect.highlight(options.selector +" "+".fun-path",this);
+                            that.mouseEvent.highlight(options.selector +" "+".fun-path",this);
                             tooltip = that.new_data[i].tooltip || "<table class='PykCharts'><tr><th colspan='3' class='tooltip-heading'>"+that.new_data[i].name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(that.new_data[i].weight)+"<td class='tooltip-right-content'>("+that.per_values[i].toFixed(1)+"%) </tr></table>";
                 			that.mouseEvent.tooltipPosition(d);
                             that.mouseEvent.tooltipTextShow(tooltip);
@@ -321,7 +325,7 @@ PykCharts.oneD.funnel = function (options) {
         			})
         			.on("mouseout", function (d) {
                         if(that.mode === "default") {
-                            that.onHoverEffect.highlightHide(options.selector +" "+".fun-path");
+                            that.mouseEvent.highlightHide(options.selector +" "+".fun-path");
                 			that.mouseEvent.tooltipHide(d);
                         }
         			})

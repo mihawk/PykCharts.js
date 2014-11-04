@@ -696,7 +696,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                         });
 
                     var legend_container_width = that.legendsGroup.node().getBBox().width, translate_x = 0;
-                    translate_x = (!PykCharts.boolean(that.panels_enable)) ? (that.width - legend_container_width - 20) : that.margin_left;
+                        translate_x = (that.legends_display === "vertical") ? 0 : ((!PykCharts.boolean(that.panels_enable)) ? (that.width - legend_container_width - 20) : that.margin_left);
                     
                     if (legend_container_width < that.w) { that.legendsGroup.attr("transform","translate("+translate_x+",20)"); }
                     that.legendsGroup.style("visibility","visible");
@@ -873,30 +873,29 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                     .attr("cy", function (d) { return (that.yScale(d.y)+that.extra_top_margin); })
                     .attr("fill", function (d) { return that.fillChart.colorPieW(d); })
                     .attr("fill-opacity", function (d) { return that.multiD.opacity(d.weight,that.weight,that.data); })
+                    .attr("data-fill-opacity",function () {
+                        return $(this).attr("fill-opacity");
+                    })
                     .attr("stroke", that.border.color())
                     .attr("stroke-width",that.border.width())
                     .attr("stroke-dasharray", that.border.style())
                     .attr("stroke-opacity",1)
                     .on('mouseover',function (d) {
-                        if(that.mode === "default" && PykCharts.boolean(that.tooltip_enable)) {
+                        if(that.mode === "default") {
                             tooltipText = d.tooltip ? d.tooltip : "<table><thead><th colspan='2'><b>"+d.name+"</b></th></thead><tr><td>X</td><td><b>"+d.x+"</b></td></tr><tr><td>Y</td><td><b>"+d.y+"<b></td></tr><tr><td>Weight</td><td><b>"+d.weight+"</b></td></tr></table>";
                             that.mouseEvent.tooltipPosition(d);
                             that.mouseEvent.tooltipTextShow(tooltipText);
-                            if(PykCharts.boolean(that.variable_circle_size_enable)){
-                                d3.select(this).style("fill-opacity",1);
-                            }
+                            that.mouseEvent.highlight(options.selector + " .dot", this);
                         }
                     })
                     .on('mouseout',function (d) {
-                        if(that.mode === "default" && PykCharts.boolean(that.tooltip_enable)) {
+                        if(that.mode === "default") {
                             that.mouseEvent.tooltipHide(d);
-                            if(PykCharts.boolean(that.variable_circle_size_enable)) {
-                                d3.selectAll(".dot").style("fill-opacity",0.5);
-                            }
+                            that.mouseEvent.highlightHide(options.selector + " .dot");
                         }
                     })
                     .on('mousemove', function (d) {
-                        if(that.mode === "default" && PykCharts.boolean(that.tooltip_enable)) {
+                        if(that.mode === "default") {
                             that.mouseEvent.tooltipPosition(d);
                         }
                     })

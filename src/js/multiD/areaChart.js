@@ -504,11 +504,14 @@ PykCharts.multiD.areaChart = function (options){
 							.style("fill", function(d) {
 								return that.fillColor.colorPieMS(that.new_data[i],that.type);
 							})
-							.style("fill-opacity",function() {
+							.attr("fill-opacity",function() {
 								if(that.type === "stackedAreaChart" && that.color_mode === "saturation") {
 									return (i+1)/that.new_data.length;
 								}
 							})
+							.attr("data-fill-opacity",function () {
+		                        return $(this).attr("fill-opacity");
+		                    })
 							.attr("transform", "translate("+ that.extra_left_margin +",0)");
 
 						function transition (i) {
@@ -533,7 +536,9 @@ PykCharts.multiD.areaChart = function (options){
 							.style("stroke",that.border.color())
 		                    .style("stroke-width",that.border.width())
 		                    .style("stroke-dasharray", that.border.style())
-							.attr("transform", "translate("+ that.extra_left_margin +",0)");
+		                    .style("pointer-events","none")
+							.attr("transform", "translate("+ that.extra_left_margin +",0)")
+
 
 						function borderTransition (i) {
 						    that.dataLineGroupBorder[i].transition()
@@ -548,7 +553,7 @@ PykCharts.multiD.areaChart = function (options){
 							    });
 						}
 						borderTransition(i);
-
+						
 						// Legend ---- Pending!
 					  // that.legend_text[i] = that.svgContainer.append("text")
 					  // 		.attr("id",that.chartPathClass+"-"+that.new_data[i].name)
@@ -596,6 +601,17 @@ PykCharts.multiD.areaChart = function (options){
 						});
 
 				}
+				d3.selectAll(options.selector + " ." +that.chartPathClass)
+					.on("mouseover", function () {
+						if(that.mode === "default") {
+							that.mouseEvent.highlight(options.selector + " ."+that.chartPathClass,this);
+						}
+					})
+					.on("mouseout", function () {
+						if(that.mode === "default") {
+							that.mouseEvent.highlightHide(options.selector + " ."+that.chartPathClass);
+						}
+					});
 				return this;
 			},
 			legends : function (index) {
@@ -690,9 +706,9 @@ PykCharts.multiD.areaChart = function (options){
                         });
 
                     var legend_container_width = that.legendsGroup.node().getBBox().width,
-                        translate_x = that.width - legend_container_width;
+                        translate_x = (that.legends_display === "vertical") ? 0 : (that.width - legend_container_width - 20);
                     
-                    if (legend_container_width < that.width) { that.legendsGroup.attr("transform","translate("+(translate_x-20)+",10)"); }
+                    if (legend_container_width < that.width) { that.legendsGroup.attr("transform","translate("+translate_x+",10)"); }
                     that.legendsGroup.style("visibility","visible");
                     
                     that.legends_text.exit().remove();
