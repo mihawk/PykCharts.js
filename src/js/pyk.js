@@ -1204,8 +1204,11 @@ PykCharts.Configuration = function (options){
                                 .style("width",div_size + "px")
                                 .style("left",div_left+"px")
                                 .style("float",div_float)
-                                .style("text-align","right")
-                                .html("<img title='Export to SVG' src='"+options.img+"' style='left:"+div_left+"px;margin-bottom:3px;cursor:pointer;'/>");
+                                .style("text-align","right");
+
+                setTimeout(function () {                
+                    export_div.html("<img title='Export to SVG' src='"+options.img+"' style='left:"+div_left+"px;margin-bottom:3px;cursor:pointer;'/>");
+                },options.transition_duration*1000);                    
 
             }
             return this;
@@ -1218,6 +1221,7 @@ PykCharts.Configuration = function (options){
                 if(!add_extra_height) {
                     add_extra_height = 0;
                 }
+                console.log("export",add_extra_width)
                 var id = "export";
                 var canvas_id = chart_name+"canvas";
                 var canvas = document.createElement("canvas");
