@@ -429,7 +429,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
     that.renderOpacity = function (d) {
 
         if (that.saturation_color !=="" && that.color_mode === "saturation") {
-            that.oneninth = +(d3.format(".2f")(that.difference / 10));
+            that.oneninth = +(d3.format(".2f")(that.difference / that.total_no_of_colors));
             that.opacity = (that.extent_size[0] + (_.where(that.data, {iso2: d.properties.iso_a2})[0]).size + that.oneninth) / that.difference;
             return that.opacity;
         }
@@ -442,7 +442,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             onetenth;
         if (that.color_mode === "saturation") {
             if(that.legends_display === "vertical" ) {
-                var j = 0, i = 0;
+                var m = 0, n = 0;
                 if(that.palette_color === "") {
                     that.legendsContainer.attr("height", (9 * 30)+20);
                     that.legendsGroup_height = (9 * 30)+20;
@@ -459,10 +459,10 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                 rect_parameter4 = "y";
                 rect_parameter1value = 13;
                 rect_parameter2value = 13;
-                text_parameter1value = function (d,i) { return that.width - (that.width/12) + 18; };
-                rect_parameter3value = function (d,i) { return that.width - (that.width/12); };
-                var rect_parameter4value = function (d) {j++; return j * 24 + 12;};
-                var text_parameter2value = function (d) {i++; return i * 24 + 23;};
+                text_parameter1value = function (d,k) { return that.width - (that.width/12) + 18; };
+                rect_parameter3value = function (d,k) { return that.width - (that.width/12); };
+                var rect_parameter4value = function (d) {n++; return n * 24 + 12;};
+                var text_parameter2value = function (d) {m++; return m * 24 + 23;};
 
             } else if(that.legends_display === "horizontal") {
                 var j = 0, i = 0;
@@ -476,7 +476,6 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                 }
                 that.legendsContainer.attr("height", 50);
                 that.legendsGroup_height = 50;
-                temp_i = i;
                 final_rect_x = 0;
                 final_text_x = 0;
                 legend_text_widths = [];
@@ -506,9 +505,11 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
 
             }
             if (that.saturation_color !== "") {
-                var leg_data = [1,2,3,4,5,6,7,8,9],
-                    onetenth = d3.format(".1f")(that.extent_size[1] / 9);
+                var leg_data = [], onetenth;
+                for(var i=1 ; i<=that.total_no_of_colors ; i++) { leg_data.push(i); }
+                onetenth = d3.format(".1f")(that.extent_size[1] / that.total_no_of_colors);
                 that.leg = function (d,i) { return "<" + d3.round(onetenth * (i+1)); };
+                
                 var legend = that.legendsContainer.selectAll(".rect")
                     .data(leg_data);
 
@@ -536,7 +537,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     .attr("width", rect_parameter1value)
                     .attr("height", rect_parameter2value)
                     .attr("fill", that.saturation_color)
-                    .attr("fill-opacity", function(d,i) { return (i+1)/9; });
+                    .attr("fill-opacity", function(d,i) { return (i+1)/that.total_no_of_colors; });
 
                 var legend_container_width = that.legendsContainer.node().getBBox().width,
                     translate_x = (that.legends_display === "vertical") ? 0 : (that.width - legend_container_width - 20);
@@ -619,7 +620,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     .attr('filter', 'url(#dropshadow)')
                     .attr("fill-opacity", function () {
                         if (that.palette_color === "" && that.color_mode === "saturation") {
-                            that.oneninth_dim = +(d3.format(".2f")(that.difference / 10));
+                            that.oneninth_dim = +(d3.format(".2f")(that.difference / that.total_no_of_colors));
                             that.opacity_dim = (that.extent_size[0] + (obj[0]).size + that.oneninth_dim) / that.difference;
                             return that.opacity_dim/2;
                         }
@@ -648,7 +649,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             .attr('filter', null)
             .attr("fill-opacity", function () {
                 if (that.saturation_color !== "" && that.color_mode === "saturation") {
-                    that.oneninth_high = +(d3.format(".2f")(that.difference / 10));
+                    that.oneninth_high = +(d3.format(".2f")(that.difference / that.total_no_of_colors));
                     that.opacity_high = (that.extent_size[0] + (_.where(that.data, {iso2: d.properties.iso_a2})[0]).size + that.oneninth_high) / that.difference;
                     return that.opacity_high;
                 }
