@@ -1,4 +1,4 @@
-PykCharts.multiD.areaChart = function (options){
+PykCharts.multiD.area = function (options){
 	var that = this;
 	var theme = new PykCharts.Configuration.Theme({});
 
@@ -48,7 +48,7 @@ PykCharts.multiD.areaChart = function (options){
 	};
 };
 
-PykCharts.multiD.stackedAreaChart = function (options){
+PykCharts.multiD.stackedArea = function (options){
 	var that = this;
 	var theme = new PykCharts.Configuration.Theme({});
 
