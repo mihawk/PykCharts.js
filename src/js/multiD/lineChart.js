@@ -644,7 +644,7 @@ PykCharts.multiD.lineChart = function (options) {
 					}
 				}
 				else { // Static Viz
-
+					that.clk = true;
 					if(!PykCharts.boolean(that.panels_enable)) {
 						var i;
 						for (i = 0;i < that.new_data_length;i++) {
@@ -660,7 +660,7 @@ PykCharts.multiD.lineChart = function (options) {
 					      			.style("fill", function() {
 					      				return that.fillColor.colorPieMS(that.new_data[i],that.type);
 						      		});
-					      	that.clk = true;
+					      	
 							that.dataLineGroup[i]
 									.datum(that.new_data[i].data)
 								    .attr("class", "lines-hover " + that.chartPathClass)
