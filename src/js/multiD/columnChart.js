@@ -59,7 +59,7 @@ PykCharts.multiD.columnChart = function(options){
                     .createChart()
                     .legends();
 
-            that.k.yAxis(that.svgContainer,that.yGroup,that.yScaleInvert)
+            that.k.yAxis(that.svgContainer,that.yGroup,that.yScaleInvert,undefined,that.y_tick_values)
                 .yGrid(that.svgContainer,that.group,that.yScaleInvert);
                 // console.log("inside liveData");
         });
@@ -117,7 +117,7 @@ PykCharts.multiD.columnChart = function(options){
                 .axisContainer()
                 .highlightRect();
 
-            that.k.yAxis(that.svgContainer,that.yGroup,that.yScaleInvert)
+            that.k.yAxis(that.svgContainer,that.yGroup,that.yScaleInvert,undefined,that.y_tick_values)
                  .yAxisTitle(that.yGroup)
                 // .xAxis(that.svgContainer,that.xGroup,that.xScale)
                 .yGrid(that.svgContainer,that.group,that.yScaleInvert);
@@ -137,7 +137,7 @@ PykCharts.multiD.columnChart = function(options){
 
             that.k.tooltip();
             that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
-            that.k.yAxis(that.svgContainer,that.yGroup,that.yScaleInvert)
+            that.k.yAxis(that.svgContainer,that.yGroup,that.yScaleInvert,undefined,that.y_tick_values)
                  .yAxisTitle(that.yGroup);
         }
 
@@ -294,8 +294,23 @@ PykCharts.multiD.columnChart = function(options){
                     .rangeBands([0,w],0.1);
                 that.highlight_y_positions = [];
                 that.highlight_x_positions = [];
+                that.y_tick_values = that.k.processYAxisTickValues();
+
+                var min_y_tick_value,max_y_tick_value;
+
                 y_domain = [0,d3.max(y_data)]
                 y_domain = that.k.__proto__._domainBandwidth(y_domain,1);
+
+                min_y_tick_value = d3.min(that.y_tick_values);
+                max_y_tick_value = d3.max(that.y_tick_values);
+
+                if(y_domain[0] > min_y_tick_value) {
+                    y_domain[0] = min_y_tick_value;
+                } 
+                if(y_domain[1] < max_y_tick_value) {
+                    y_domain[1] = max_y_tick_value;
+                }
+
                 that.yScale = d3.scale.linear().domain(y_domain).range([0, h]);
                 that.yScaleInvert = d3.scale.linear().domain([y_domain[1],y_domain[0]]).range([0, h]); // For the yAxis
                 var zScale = d3.scale.category10();
@@ -357,6 +372,9 @@ PykCharts.multiD.columnChart = function(options){
                             }
                         }
                     })
+                    .attr("data-fill-opacity",function () {
+                        return $(this).attr("fill-opacity");
+                    })
                     .attr("stroke",that.border.color())
                     .attr("stroke-width",that.border.width())
                     .attr("stroke-dasharray", that.border.style())
@@ -366,12 +384,14 @@ PykCharts.multiD.columnChart = function(options){
                             that.mouseEvent.tooltipPosition(d);
                             that.mouseEvent.tooltipTextShow(d.tooltip ? d.tooltip : d.y);
                             that.mouseEvent.axisHighlightShow(d.name,options.selector + " " + ".axis-text",that.domain,"column");
+                            that.mouseEvent.highlight(options.selector + " .rect", this);
                         }
                     })
                     .on('mouseout',function (d) {
                         if(that.mode === "default") {
                             that.mouseEvent.tooltipHide(d);
                             that.mouseEvent.axisHighlightHide(options.selector + " " + ".axis-text","column");
+                            that.mouseEvent.highlightHide(options.selector + " .rect");
                         }
                      })
                     .on('mousemove', function (d) {
@@ -633,9 +653,9 @@ PykCharts.multiD.columnChart = function(options){
                         });
 
                     var legend_container_width = that.legendsGroup.node().getBBox().width;
-                        translate_x = that.width - legend_container_width;
+                        translate_x = (that.legends_display === "vertical") ? 0 : (that.width - legend_container_width - 20);
                     
-                    if (legend_container_width < that.width) { that.legendsGroup.attr("transform","translate("+(translate_x-20)+",10)"); }
+                    if (legend_container_width < that.width) { that.legendsGroup.attr("transform","translate("+translate_x+",10)"); }
                     that.legendsGroup.style("visibility","visible");
 
                     that.legends_text.exit().remove();

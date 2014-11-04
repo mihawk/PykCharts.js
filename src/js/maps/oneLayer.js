@@ -48,8 +48,7 @@ PykCharts.maps.oneLayer = function (options) {
                             }
                         }
                         catch (e) {
-
-                            that.k.warningHandling(err,"11");
+                            that.k.warningHandling(e,"11");
                         }
 
                         $(that.selector).html("");
@@ -136,7 +135,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
     this.render = function () {
 
         that.border = new PykCharts.Configuration.border(that);
-
+        that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
         that.k.title()
             .backgroundColor(that)
             // .subtitle();
@@ -149,7 +148,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         }
         // console.log(that.color_palette_data,"color_palette_data",that.palette_color);
         that.current_palette = _.where(that.color_palette_data, {name:that.palette_color, number:that.total_no_of_colors})[0];
-
+        // console.log(that.current_palette);
         if (type === "timeline"){
              that.k.subtitle();
         }
@@ -322,7 +321,10 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     .attr("prev_fill", function (d) {
                         return d3.select(this).attr("fill");
                     })
-                    .attr("opacity", that.renderOpacity)
+                    .attr("fill-opacity", that.renderOpacity)
+                    .attr("data-fill-opacity",function () {
+                        return $(this).attr("fill-opacity");
+                    })
                     .style("stroke", that.border.color())
                     .style("stroke-width", that.border.width())
                     .style("stroke-dasharray", that.border.style())
@@ -343,13 +345,18 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                                     .style("left", (that.tooltip_position_left) + "px");
                             }
                         }
-                        that.bodColor(d);
+                        if(that.onhover1 === "color_saturation") {
+                            that.mouseEvent.highlight(options.selector + " .area", this);
+                        }else {
+                            that.bodColor(d);
+                        }
                     })
                     .on("mouseout", function (d) {
                         if (PykCharts.boolean(that.tooltip_enable)) {
                             ttp.style("visibility", "hidden");
                         }
                         that.bodUncolor(d);
+                        that.mouseEvent.highlightHide(options.selector + " .area");
                     });
                 that.group.exit()
                     .remove();
@@ -414,7 +421,6 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     }
                 }
             }
-            // console.log(obj,d,i,that.default_color[0]);
             return that.default_color[0];
         }
         return that.default_color[0];
@@ -435,7 +441,6 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             var k,
             onetenth;
         if (that.color_mode === "saturation") {
-
             if(that.legends_display === "vertical" ) {
                 var j = 0, i = 0;
                 if(that.palette_color === "") {
@@ -475,42 +480,43 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                 final_rect_x = 0;
                 final_text_x = 0;
                 legend_text_widths = [];
+                temp_text = temp_rect = 0;
                 text_parameter1 = "x";
                 text_parameter2 = "y";
                 rect_parameter1 = "width";
                 rect_parameter2 = "height";
                 rect_parameter3 = "x";
                 rect_parameter4 = "y";
-                var text_parameter1value = function () {
-                    i--;
-                    legend_text_widths[i]=this.getBBox().width;
-                    final_text_x = (i === 0) ? (that.width - (legend_text_widths[i])) : (that.width - ((i*(legend_text_widths[i]+25))+legend_text_widths[i])-3);
+                var text_parameter1value = function (d,i) {
+                    legend_text_widths[i] = this.getBBox().width;
+                    legend_start_x = 16;
+                    final_text_x = (i === 0) ? legend_start_x : (legend_start_x + temp_text);
+                    temp_text = temp_text + legend_text_widths[i] + 30;
                     return final_text_x;
                 };
                 text_parameter2value = 30;
                 rect_parameter1value = 13;
                 rect_parameter2value = 13;
-                var rect_parameter3value = function () {
-                    j--;
-                    final_rect_x = (j === 0) ? (that.width - (legend_text_widths[j]+this.getBBox().width+2)) : (that.width - ((j*(legend_text_widths[j]+25))+legend_text_widths[j]+this.getBBox().width+5));
+                var rect_parameter3value = function (d,i) {
+                    final_rect_x = (i === 0) ? 0 : temp_rect;
+                    temp_rect = temp_rect + legend_text_widths[i] + 30;
                     return final_rect_x;
                 };
                 rect_parameter4value = 18;
 
-            };
+            }
             if (that.saturation_color !== "") {
                 var leg_data = [1,2,3,4,5,6,7,8,9],
                     onetenth = d3.format(".1f")(that.extent_size[1] / 9);
                 that.leg = function (d,i) { return "<" + d3.round(onetenth * (i+1)); };
                 var legend = that.legendsContainer.selectAll(".rect")
-                    .data(leg_data)
+                    .data(leg_data);
 
                 that.legends_text = that.legendsContainer.selectAll(".text")
                     .data(leg_data);
 
                 that.legends_text.enter()
                     .append("text");
-
                 that.legends_text.attr("class","text")
                     .attr("pointer-events","none")
                     .text(that.leg)
@@ -521,21 +527,28 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     .attr("x", text_parameter1value)
                     .attr("y", text_parameter2value);
 
-                that.legends_text.exit()
-                    .remove();
-
                 legend.enter()
                     .append("rect")
+
                 legend.attr("class","rect")
                     .attr("x", rect_parameter3value)
                     .attr("y", rect_parameter4value)
                     .attr("width", rect_parameter1value)
                     .attr("height", rect_parameter2value)
                     .attr("fill", that.saturation_color)
-                    .attr("opacity", function(d,i) { return (i+1)/9; });
+                    .attr("fill-opacity", function(d,i) { return (i+1)/9; });
 
+                var legend_container_width = that.legendsContainer.node().getBBox().width,
+                    translate_x = (that.legends_display === "vertical") ? 0 : (that.width - legend_container_width - 20);
+
+                if (legend_container_width < that.width) { that.legendsContainer.attr("transform","translate("+(translate_x-20)+",10)"); }
+                that.legendsContainer.style("visibility","visible");
+
+                that.legends_text.exit()
+                    .remove();
                 legend.exit()
                     .remove();
+
             } else {
                 that.leg = function (d,i) { return  "<" + d3.round(that.extent_size[0] + (i+1) * (that.difference / that.current_palette.number)); };
                 var legend = that.legendsContainer.selectAll(".rect")
@@ -546,23 +559,18 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
 
                 that.legends_text.enter()
                     .append("text");
-
                 that.legends_text.attr("class","text")
                     .attr("pointer-events","none")
-                    .attr("fill", that.legends_text_color)
                     .text(that.leg)
+                    .attr("fill", that.legends_text_color)
                     .attr("font-family", that.legends_text_family)
                     .attr("font-size",that.legends_text_size)
                     .attr("font-weight", that.legends_text_weight)
                     .attr("x", text_parameter1value)
                     .attr("y",text_parameter2value);
 
-                that.legends_text.exit()
-                    .remove();
-
                 legend.enter()
-                    .append("rect")
-
+                    .append("rect");
                 legend.attr("class","rect")
                     .attr("width", rect_parameter1value)
                     .attr("height", rect_parameter2value)
@@ -570,6 +578,14 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     .attr("x",rect_parameter3value)
                     .attr("y", rect_parameter4value);
 
+                var legend_container_width = that.legendsContainer.node().getBBox().width,
+                    translate_x = (that.legends_display === "vertical") ? 0 : (that.width - legend_container_width - 20);
+
+                if (legend_container_width < that.width) { that.legendsContainer.attr("transform","translate("+translate_x+",10)"); }
+                that.legendsContainer.style("visibility","visible");
+
+                that.legends_text.exit()
+                    .remove();
                 legend.exit()
                     .remove();
             }
@@ -601,7 +617,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             } else if (that.onhover1 === "shadow") {
                 d3.select("path[area_name='" + d.properties.NAME_1 + "']")
                     .attr('filter', 'url(#dropshadow)')
-                    .attr("opacity", function () {
+                    .attr("fill-opacity", function () {
                         if (that.palette_color === "" && that.color_mode === "saturation") {
                             that.oneninth_dim = +(d3.format(".2f")(that.difference / 10));
                             that.opacity_dim = (that.extent_size[0] + (obj[0]).size + that.oneninth_dim) / that.difference;
@@ -610,15 +626,15 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                         return 0.5;
                     });
             } else if (that.onhover1 === "color_saturation") {
-                d3.select("path[area_name='" + d.properties.NAME_1 + "']")
-                    .attr("opacity", function () {
-                        if (that.saturation_color !== "" && that.color_mode === "saturation") {
-                            that.oneninth_dim = +(d3.format(".2f")(that.difference / 10));
-                            that.opacity_dim = (that.extent_size[0] + (obj[0]).size + that.oneninth_dim) / that.difference;
-                            return that.opacity_dim/2;
-                        }
-                        return 0.5;
-                    });
+                // d3.select("path[area_name='" + d.properties.NAME_1 + "']")
+                //     .attr("fill-opacity", function () {
+                //         if (that.saturation_color !== "" && that.color_mode === "saturation") {
+                //             that.oneninth_dim = +(d3.format(".2f")(that.difference / 10));
+                //             that.opacity_dim = (that.extent_size[0] + (obj[0]).size + that.oneninth_dim) / that.difference;
+                //             return that.opacity_dim/2;
+                //         }
+                //         return 0.5;
+                //     });
             }
         } else {
             that.bodUncolor(d);
@@ -630,7 +646,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             .style("stroke-width", that.border.width())
             .style("stroke-dasharray", that.border.style())
             .attr('filter', null)
-            .attr("opacity", function () {
+            .attr("fill-opacity", function () {
                 if (that.saturation_color !== "" && that.color_mode === "saturation") {
                     that.oneninth_high = +(d3.format(".2f")(that.difference / 10));
                     that.opacity_high = (that.extent_size[0] + (_.where(that.data, {iso2: d.properties.iso_a2})[0]).size + that.oneninth_high) / that.difference;
@@ -718,22 +734,22 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         var startTimeline = function () {
             if (that.timeline_status==="playing") {
                 that.play.attr("xlink:href",that.play_image_url);
-                // that.play.attr("xlink:href","https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/play.gif");
-                clearInterval(that.play_interval);
                 that.timeline_status = "paused";
                 that.interval_index = interval;
+                clearInterval(that.play_interval);
             } else {
                 that.timeline_status = "playing";
                 that.play.attr("xlink:href",that.pause_image_url);
-                // that.play.attr("xlink:href","https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/pause.gif");
                 interval = that.interval_index;
-                interval1 = that.interval_index;
-
-                that.play_interval = setInterval(function () {
+                var startInterval = function () {
+                    if (interval===that.unique.length) {
+                        interval = 0;
+                    }
                     that.marker
                         // .transition()
                         // .duration(that.timeline.duration/2)
                         .attr("x",  (that.margin_left*2) + that.xScale(that.unique[interval]) - 7);
+
                     that.data = _.where(that.timeline_data, {timestamp:that.unique[interval]});
                     that.data.sort(function (a,b) {
                         return a.timestamp - b.timestamp;
@@ -744,51 +760,26 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                         d3.select("path[iso2='"+d.iso2+"']")
                             // .transition()
                             // .duration(that.timeline.duration/4)
-                            .attr("fill", that.renderColor);
+                            .attr("fill", that.renderColor)
+                            .attr("fill-opacity", that.renderOpacity)
+                            .attr("data-fill-opacity",function () {
+                                return $(this).attr("fill-opacity");
+                            });
                     });
-
                     interval++;
-
-                    if (interval===that.unique.length) {
+                }
+                that.play_interval = setInterval(function () {
+                    startInterval();
+                    if (interval===1) {
+                        that.play.attr("xlink:href",that.play_image_url);
+                        that.interval_index = 1;
+                        that.timeline_status = "";
                         clearInterval(that.play_interval);
                     };
                 }, that.timeline_duration);
-
-                var time_lag = setTimeout(function () {
-                    var undo_heatmap = setInterval(function () {
-                        interval1++;
-                        var play1;
-                        if (interval1 === interval) {
-                            clearInterval(undo_heatmap);
-                            clearTimeout(time_lag);
-                        }
-
-                        if (interval1 === that.unique.length) {
-                            clearInterval(undo_heatmap);
-                            that.play.attr("xlink:href",that.play_image_url);
-                            that.marker.attr("x",  (that.margin_left*2) + that.xScale(that.unique[0]) - 7);
-                            interval = interval1 = that.interval_index = 1;
-                            that.timeline_status = "";
-
-                    that.data = _.where(that.timeline_data, {timestamp:that.unique[0]});
-                    that.data.sort(function (a,b) {
-                        return a.timestamp - b.timestamp;
-                    });
-                    that.extent_size = d3.extent(that.data, function (d) { return parseInt(d.size, 10); });
-                    that.difference = that.extent_size[1] - that.extent_size[0];
-                    _.each(that.data, function (d) {
-                        d3.select("path[iso2='"+d.iso2+"']")
-                            // .transition()
-                            // .duration(that.timeline.duration/4)
-                            .attr("fill", that.renderColor);
-                    });
-
-                        };
-                    }, that.timeline_duration);
-                },that.timeline_duration);
+                startInterval();
             }
         }
-        // duration = unique.length * 1000;
     };
 
     that.renderButtons = function () {
@@ -829,7 +820,11 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                             that.difference = that.extent_size[1] - that.extent_size[0];
                             _.each(that.data, function (d) {
                                 d3.select("path[iso2='"+d.iso2+"']")
-                                    .attr("fill", that.renderColor);
+                                    .attr("fill", that.renderColor)
+                                    .attr("fill-opacity", that.renderOpacity)
+                                    .attr("data-fill-opacity",function () {
+                                        return $(this).attr("fill-opacity");
+                                    });
                             });
                             that.interval_index = i;
                         }
@@ -840,9 +835,15 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                             that.data.sort(function (a,b) {
                                 return a.timestamp - b.timestamp;
                             });
+                            that.extent_size = d3.extent(that.data, function (d) { return parseInt(d.size, 10); });
+                            that.difference = that.extent_size[1] - that.extent_size[0];
                             _.each(that.data, function (d) {
                                 d3.select("path[iso2='"+d.iso2+"']")
-                                    .attr("fill", that.renderColor);
+                                    .attr("fill", that.renderColor)
+                                    .attr("fill-opacity", that.renderOpacity)
+                                    .attr("data-fill-opacity",function () {
+                                        return $(this).attr("fill-opacity");
+                                    });
                             });
                             that.interval_index = i;
                     }

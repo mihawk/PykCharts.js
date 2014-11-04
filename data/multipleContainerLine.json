@@ -147,5 +147,205 @@
 		"y":70,
 		"color": "#75b0e1",
 		"tooltip":70
+	},
+	{
+		"name":"Japan",
+		"x":"January",
+		"y":120,
+		"color": "",
+		"tooltip":120
+	},
+	{
+		"name":"Japan",
+		"x":"February",
+		"y":100,
+		"color": "",
+		"tooltip":100
+	},
+	{
+		"name":"Japan",
+		"x":"March",
+		"y":30,
+		"color": "",
+		"tooltip":30,
+		"annotation" : "product launch"
+	},
+	{
+		"name":"Japan",
+		"x":"April",
+		"y":40,
+		"color": "",
+		"tooltip":40
+	},
+	{
+		"name":"Japan",
+		"x":"May",
+		"y":60,
+		"color": "",
+		"tooltip":60
+	},
+	{
+		"name":"Japan",
+		"x":"June",
+		"y":70,
+		"color": "",
+		"tooltip":70
+	},
+	{
+		"name":"Japan",
+		"x":"July",
+		"y":30,
+		"color": "",
+		"tooltip":30
+	},
+	{
+		"name":"U.K.",
+		"x":"January",
+		"y":120,
+		"color": "",
+		"tooltip":120
+	},
+	{
+		"name":"U.K.",
+		"x":"February",
+		"y":100,
+		"color": "",
+		"tooltip":100
+	},
+	{
+		"name":"U.K.",
+		"x":"March",
+		"y":30,
+		"color": "",
+		"tooltip":30,
+		"annotation" : "product launch"
+	},
+	{
+		"name":"U.K.",
+		"x":"April",
+		"y":40,
+		"color": "",
+		"tooltip":40
+	},
+	{
+		"name":"U.K.",
+		"x":"May",
+		"y":60,
+		"color": "",
+		"tooltip":60
+	},
+	{
+		"name":"U.K.",
+		"x":"June",
+		"y":70,
+		"color": "",
+		"tooltip":70
+	},
+	{
+		"name":"U.K.",
+		"x":"July",
+		"y":30,
+		"color": "",
+		"tooltip":30
+	},
+	{
+		"name":"Australia",
+		"x":"January",
+		"y":120,
+		"color": "",
+		"tooltip":120
+	},
+	{
+		"name":"Australia",
+		"x":"February",
+		"y":100,
+		"color": "",
+		"tooltip":100
+	},
+	{
+		"name":"Australia",
+		"x":"March",
+		"y":30,
+		"color": "",
+		"tooltip":30,
+		"annotation" : "product launch"
+	},
+	{
+		"name":"Australia",
+		"x":"April",
+		"y":40,
+		"color": "",
+		"tooltip":40
+	},
+	{
+		"name":"Australia",
+		"x":"May",
+		"y":60,
+		"color": "",
+		"tooltip":60
+	},
+	{
+		"name":"Australia",
+		"x":"June",
+		"y":70,
+		"color": "",
+		"tooltip":70
+	},
+	{
+		"name":"Australia",
+		"x":"July",
+		"y":30,
+		"color": "",
+		"tooltip":30
+	},
+	{
+		"name":"Pak",
+		"x":"January",
+		"y":120,
+		"color": "",
+		"tooltip":120
+	},
+	{
+		"name":"Pak",
+		"x":"February",
+		"y":100,
+		"color": "",
+		"tooltip":100
+	},
+	{
+		"name":"Pak",
+		"x":"March",
+		"y":30,
+		"color": "",
+		"tooltip":30,
+		"annotation" : "product launch"
+	},
+	{
+		"name":"Pak",
+		"x":"April",
+		"y":40,
+		"color": "",
+		"tooltip":40
+	},
+	{
+		"name":"Pak",
+		"x":"May",
+		"y":60,
+		"color": "",
+		"tooltip":60
+	},
+	{
+		"name":"Pak",
+		"x":"June",
+		"y":70,
+		"color": "",
+		"tooltip":70
+	},
+	{
+		"name":"Pak",
+		"x":"July",
+		"y":30,
+		"color": "",
+		"tooltip":30
 	}
 ]

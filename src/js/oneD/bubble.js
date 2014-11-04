@@ -61,7 +61,7 @@ PykCharts.oneD.bubble = function (options) {
         var l = $(".svgcontainer").length;
         that.container_id = "svgcontainer" + l;
         that.fillChart = new PykCharts.Configuration.fillChart(that);
-        that.onHoverEffect = new PykCharts.oneD.mouseEvent(that);
+        // that.onHoverEffect = new PykCharts.oneD.mouseEvent(that);
         that.transitions = new PykCharts.Configuration.transition(that);
 
         if (that.mode ==="default") {
@@ -150,9 +150,13 @@ PykCharts.oneD.bubble = function (options) {
                     .attr("fill",function (d) {
                         return d.children ? that.background_color : that.fillChart.selectColor(d);
                     })
+                    .attr("fill-opacity",1)
+                    .attr("data-fill-opacity",function () {
+                        return $(this).attr("fill-opacity");
+                    })
                     .on("mouseover", function (d) {
                         if(!d.children && that.mode==="default") {
-                            that.onHoverEffect.highlight(options.selector+" "+".bubble", this);
+                            that.mouseEvent.highlight(options.selector+" "+".bubble", this);
                             d.tooltip = d.tooltip ||"<table><thead><th colspan='2' class='tooltip-heading'>"+d.name+"</th></thead><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.weight)+"  <td class='tooltip-right-content'>("+((d.weight*100)/that.sum).toFixed(1)+"%)</tr></table>";
                             that.mouseEvent.tooltipPosition(d);
                             that.mouseEvent.tooltipTextShow(d.tooltip);
@@ -161,7 +165,7 @@ PykCharts.oneD.bubble = function (options) {
                     .on("mouseout", function (d) {
                         if(that.mode==="default") {
                             that.mouseEvent.tooltipHide(d)
-                            that.onHoverEffect.highlightHide(options.selector+" "+".bubble");
+                            that.mouseEvent.highlightHide(options.selector+" "+".bubble");
                         }
 
                     })
