@@ -126,7 +126,16 @@ PykCharts.oneD.percentageColumn = function (options) {
                 .credits()
                 .dataSource();
         }
-        that.k.exportSVG(that,"#"+that.container_id,"percentageColumn")
+        
+        var add_extra_width = 0;
+        
+        setTimeout(function () {
+            add_extra_width = _.max(that.ticks_text_width,function(d){
+                    return d;
+                });
+            that.k.exportSVG(that,"#"+that.container_id,"percentageColumn",undefined,undefined,add_extra_width)
+        },that.transitions.duration());
+
         $(document).ready(function () { return that.k.resize(that.svgContainer); })
         $(window).on("resize", function () { return that.k.resize(that.svgContainer); });
     };
@@ -290,6 +299,7 @@ PykCharts.oneD.percentageColumn = function (options) {
 
                     var x, y, w = [];
                     sum = 0;
+                    that.ticks_text_width = [];
 
                     var tick_line = that.group.selectAll(".per-ticks")
                         .data(that.new_data);
@@ -330,6 +340,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                             })
                             .text(function (d,i) {
                                 w[i] = this.getBBox().height;
+                                ticks_text_width = this.getBBox().width;
                                 if (this.getBBox().height < (d.percentValue * that.height / 100)) {
                                     return d.name;
                                 }

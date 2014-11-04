@@ -182,7 +182,14 @@ PykCharts.multiD.lineChart = function (options) {
 						.xAxisTitle(that.xGroup)
 						.yAxisTitle(that.yGroup);
 				
-				that.k.exportSVG(that,"#svg-1","lineChart")
+			    var add_extra_width = 0;
+			    setTimeout(function () {
+			        add_extra_width = _.max(that.ticks_text_width,function(d){
+			                return d;
+			            });
+			        that.k.exportSVG(that,"#svg-1","lineChart",undefined,undefined,add_extra_width);
+			    },that.transitions.duration());
+
 				// console.log(d3.selectAll(options.selector + " .y.axis text")[0][0].__data__,"selector")
 			}
 			that.k.createFooter()
@@ -256,8 +263,14 @@ PykCharts.multiD.lineChart = function (options) {
 						.xAxisTitle(that.xGroup)
 						.yAxisTitle(that.yGroup);
 						
-				that.k.exportSVG(that,"#svg-0","lineChart")
-
+				var add_extra_width = 0;
+			    setTimeout(function () {
+			        add_extra_width = _.max(that.ticks_text_width,function(d){
+			                return d;
+			            });
+			        that.k.exportSVG(that,"#svg-0","lineChart",undefined,undefined,add_extra_width);
+			    },that.transitions.duration());
+						
 			}
 		}
 		if(!PykCharts.boolean(that.panels_enable)) {
@@ -892,7 +905,7 @@ PykCharts.multiD.lineChart = function (options) {
 						if(PykCharts.boolean(that.pointer_overflow_enable)) {
                     		that.svgContainer.style("overflow","visible");
                 		}
-
+                		that.ticks_text_width = [];
 						tickPosition = function (d,i) {
 							var end_x_circle, end_y_circle;
 							if(that.axis_y_position === "left") {
@@ -933,7 +946,7 @@ PykCharts.multiD.lineChart = function (options) {
 									return d.name;
 								})
 								.text(function (d,i) {
-									that.tick_w = this.getBBox().width + 5;
+									that.ticks_text_width[i] = this.getBBox().width;
 									return d.name;
 								})
 								.style("font-size", that.pointer_size + "px")
