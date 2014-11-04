@@ -782,7 +782,11 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                         d3.select("path[iso2='"+d.iso2+"']")
                             // .transition()
                             // .duration(that.timeline.duration/4)
-                            .attr("fill", that.renderColor);
+                            .attr("fill", that.renderColor)
+                            .attr("fill-opacity", that.renderOpacity)
+                            .attr("data-fill-opacity",function () {
+                                return $(this).attr("fill-opacity");
+                            });
                     });
 
                     interval++;
@@ -818,7 +822,11 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                                 d3.select("path[iso2='"+d.iso2+"']")
                                     // .transition()
                                     // .duration(that.timeline.duration/4)
-                                    .attr("fill", that.renderColor);
+                                    .attr("fill", that.renderColor)                                    
+                                    .attr("fill-opacity", that.renderOpacity)
+                                    .attr("data-fill-opacity",function () {
+                                        return $(this).attr("fill-opacity");
+                                    });
                             });
                         };
                     }, that.timeline_duration);
@@ -864,7 +872,11 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                             });
                             _.each(that.data, function (d) {
                                 d3.select("path[iso2='"+d.iso2+"']")
-                                    .attr("fill", that.renderColor);
+                                    .attr("fill", that.renderColor)
+                                    .attr("fill-opacity", that.renderOpacity)
+                                    .attr("data-fill-opacity",function () {
+                                        return $(this).attr("fill-opacity");
+                                    });
                             });
                             that.interval_index = i;
                         }
@@ -877,7 +889,11 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                             });
                             _.each(that.data, function (d) {
                                 d3.select("path[iso2='"+d.iso2+"']")
-                                    .attr("fill", that.renderColor);
+                                    .attr("fill", that.renderColor)
+                                    .attr("fill-opacity", that.renderOpacity)
+                                    .attr("data-fill-opacity",function () {
+                                        return $(this).attr("fill-opacity");
+                                    });
                             });
                             that.interval_index = i;
                     }
