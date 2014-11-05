@@ -2673,6 +2673,7 @@ PykCharts.oneD.bubble = function (options) {
             that.compare_data = data.groupBy("oned");
             $(options.selector+" #chart-loader").remove();
             that.clubdata_enable = that.data.length>that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
+            console.log(that.clubdata_enable);
             that.render();
         });
     };
@@ -2682,6 +2683,7 @@ PykCharts.oneD.bubble = function (options) {
         d3.json (options.data, function (e,data) {
             that.data = data.groupBy("oned");
             that.clubdata_enable = that.data.length>that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
+            console.log(that.clubdata_enable)
             that.refresh_data = data.groupBy("oned");
             var compare = that.k.checkChangeInData(that.refresh_data,that.compare_data);
             that.compare_data = compare[0];
@@ -2964,6 +2966,7 @@ PykCharts.oneD.bubble = function (options) {
 
                     that.data.sort (function (a,b) { return b.weight - a.weight;});
                     while (new_data.length < that.clubdata_maximum_nodes-1) {
+                        console.log("hey");
                         for(i=0;i<clubdata_content.length;i++) {
                             if(that.data[k].name.toUpperCase() === clubdata_content[i].toUpperCase()) {
                                 k++;
@@ -3011,6 +3014,7 @@ PykCharts.oneD.bubble = function (options) {
                     })
                     new_data1 = { "children" : that.data };
                 }
+                console.log(new_data1,that.clubdata_maximum_nodes);
                 return new_data1;
             }
         };
