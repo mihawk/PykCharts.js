@@ -220,7 +220,7 @@
                     chart_height: 450,
                     chart_width : 700,
                     chart_margin_top: 15,
-                    chart_margin_right: 15,
+                    chart_margin_right: 30,
                     chart_margin_bottom: 30,
                     chart_margin_left: 50,
 
@@ -247,8 +247,8 @@
 
                     axis_y_enable: "yes",
                     axis_y_title : "Rating",
-                    axis_y_position: "left",
-                    axis_y_pointer_position: "left",
+                    axis_y_position: "right",
+                    axis_y_pointer_position: "right",
                     axis_y_line_color: "red",
                     axis_y_no_of_axis_value: 5,
                     axis_y_pointer_color: "blue",
@@ -259,7 +259,7 @@
                     axis_y_outer_pointer_length: 3,
                     zoom_enable : "yes",
                     legends_enable: "yes",
-                    legends_display: "horizontal", //horizontal or vertical
+                    legends_display: "vertical", //horizontal or vertical
                     // legends_text_size: 12,
                     // legends_text_color: "black",
                     // legends_text_weight: "bold",
@@ -294,11 +294,11 @@
                     // chart_color: ["#07365e","#0e5ea1","#4682b4","#75b0e1","#a0ccf1"],
                     // chart_color:["red","green","","grey","yellow"],
                     chart_height: 450,
-                    chart_width : 700,
+                    chart_width : 800,
                     chart_margin_top: 25,
                     chart_margin_right: 15,
-                    chart_margin_bottom: 20,
-                    chart_margin_left: 30,
+                    chart_margin_bottom: 30,
+                    chart_margin_left: 50,
 
                     scatterplot_radius : 9,
                     scatterplot_pointer: "no",
@@ -342,7 +342,7 @@
                     border_between_chart_elements_thickness:0,
                     border_between_chart_elements_color:"blue"
                 });
-               k.execute();
+              k.execute();
 
                 var k = new PykCharts.multiD.panelsOfLine ({
                     selector: "#multiLine",
@@ -421,8 +421,8 @@
                     chart_grid_x_enable: "no",
                     chart_grid_y_enable: "yes",
 
-                    transition_duration: 2,
-                    real_time_charts_refresh_frequency: 4,
+                    transition_duration: 1,
+                    real_time_charts_refresh_frequency: 0,
 
                     axis_onhover_highlight_enable: "yes",
 
@@ -514,7 +514,7 @@
                     panels_enable:"yes",
                     // axis_y_pointer_values : [30,60],
                     legends_enable: "yes",
-                    legends_display: "horizontal", //horizontal or vertical
+                    legends_display: "vertical", //horizontal or vertical
                     legends_text_size: 12,
                     // legends_text_color: "black",
                     // legends_text_weight: "normal",
@@ -588,7 +588,7 @@
                     border_between_chart_elements_style: "solid"
 
                 });
-               k.execute();
+              k.execute();
 
                 var k = new PykCharts.multiD.columnChart({
                     data: "../data/ultimateColumn.json",
@@ -698,7 +698,7 @@
                     highlight_color: "#013F73",
 
                     legends_enable: "yes",
-                    legends_display: "horizontal",
+                    legends_display: "vertical",
                     legends_text_size: 13,
                     legends_text_color: "blue",
                     legends_text_weight: "normal",
@@ -844,9 +844,9 @@
                     "data_sort_enable": "yes",
                     "data_sort_type": "date", // sort type --- "alphabetically" / "date"
                     "data_sort_order": "ascending", // sort order --- "descending" / "ascending",
-                    legends_text_family: "Papyrus",
-                    legends_text_weight: "bold",
-                    legends_text_size: 28
+                    // legends_text_family: "Papyrus",
+                    // legends_text_weight: "bold",
+                    // legends_text_size: 28
                 });
                k.execute();
             };
