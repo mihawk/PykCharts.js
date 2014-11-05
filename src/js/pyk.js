@@ -644,11 +644,11 @@ PykCharts.Configuration = function (options){
             }
             return this;
         },
-        yGrid: function (svg, gsvg, yScale) {
+        yGrid: function (svg, gsvg, yScale,legendsGroup_width) {
             var width = options.width,
                 height = options.height;
             if(PykCharts.boolean(options.grid_y_enable)) {
-                var ygrid = PykCharts.Configuration.makeYGrid(options,yScale);
+                var ygrid = PykCharts.Configuration.makeYGrid(options,yScale,legendsGroup_width);
                 gsvg.selectAll(options.selector + " g.y.grid-line")
                     .style("stroke",function () { return options.grid_color; })
                     .call(ygrid);
@@ -702,11 +702,16 @@ PykCharts.Configuration = function (options){
 
             return this;
         },
-        yAxis: function (svg, gsvg, yScale,domain,tick_values) {
+        yAxis: function (svg, gsvg, yScale,domain,tick_values,legendsGroup_width) {
+            
+            if(!legendsGroup_width) {
+                legendsGroup_width = 0;
+            }
+
             var width = options.width,
                 height = options.height;
             var k = new PykCharts.Configuration(options);
-             var w;
+            var w;
                     if(PykCharts.boolean(options.panels_enable)) {
                         w = options.w;
                     } else {
@@ -715,10 +720,10 @@ PykCharts.Configuration = function (options){
 
             if(PykCharts.boolean(options.axis_y_enable)){
                 if(options.axis_y_position === "right") {
-                    gsvg.attr("transform", "translate(" + (w - options.margin_left - options.margin_right) + ",0)");
+                    gsvg.attr("transform", "translate(" + (w - options.margin_left - options.margin_right - legendsGroup_width) + ",0)");
                 }
                 d3.selectAll(options.selector + " .y.axis").attr("fill",function () { return options.axis_y_pointer_color; });
-                var yaxis = PykCharts.Configuration.makeYAxis(options,yScale);
+                var yaxis = PykCharts.Configuration.makeYAxis(options,yScale,legendsGroup_width);
 
                 if(tick_values && tick_values.length) {
                     yaxis.tickValues(tick_values);
@@ -740,7 +745,7 @@ PykCharts.Configuration = function (options){
             }
             return this;
         },
-        xAxisTitle : function (gsvg,legendsGroup_height) {
+        xAxisTitle : function (gsvg,legendsGroup_height,legendsGroup_width) {
             var w;
             if(PykCharts.boolean(options.panels_enable)) {
                 w = options.w;
@@ -750,6 +755,10 @@ PykCharts.Configuration = function (options){
 
             if(!legendsGroup_height) {
                 legendsGroup_height = 0;
+            }
+
+            if(!legendsGroup_width) {
+                legendsGroup_width = 0;
             }
 
             if(options.axis_x_title) {
@@ -762,7 +771,7 @@ PykCharts.Configuration = function (options){
                     // console.log(axis_x_pointer_weight,"weird")
                     gsvg.append("text")
                         .attr("class","x-axis-title")
-                        .attr("x", (w- options.margin_left - options.margin_right)/2)
+                        .attr("x", (w- options.margin_left - options.margin_right - legendsGroup_width)/2)
                         .attr("y", options.margin_bottom)
                         .style("text-anchor", "middle")
                         .style("fill",options.axis_x_title_color)
@@ -774,7 +783,7 @@ PykCharts.Configuration = function (options){
                 } else if (options.axis_x_position === "top") {
                     gsvg.append("text")
                         .attr("class","x-axis-title")
-                        .attr("x", (w - options.margin_left - options.margin_right)/2)
+                        .attr("x", (w - options.margin_left - options.margin_right -legendsGroup_width)/2)
                         .attr("y", - options.margin_top + options.axis_x_title_size)
                         .style("text-anchor", "middle")
                         .style("fill",options.axis_x_title_color)
@@ -1221,7 +1230,7 @@ PykCharts.Configuration = function (options){
                 if(!add_extra_height) {
                     add_extra_height = 0;
                 }
-                console.log("export",add_extra_width)
+
                 var id = "export";
                 var canvas_id = chart_name+"canvas";
                 var canvas = document.createElement("canvas");
@@ -2199,12 +2208,16 @@ configuration.makeXGrid = function(options,xScale,legendsGroup_height) {
     return xgrid;
 };
 
-configuration.makeYGrid = function(options,yScale) {
+configuration.makeYGrid = function(options,yScale,legendsGroup_width) {
     var that = this, size;
+    if(!legendsGroup_width) {
+        legendsGroup_width = 0;
+    }
+
     if(PykCharts.boolean(options.panels_enable)) {
-        size = options.w - options.margin_left - options.margin_right
+        size = options.w - options.margin_left - options.margin_right - legendsGroup_width;
     } else {
-        size = options.width - options.margin_left - options.margin_right
+        size = options.width - options.margin_left - options.margin_right - legendsGroup_width;
     }
     var ygrid = d3.svg.axis()
                     .scale(yScale)
