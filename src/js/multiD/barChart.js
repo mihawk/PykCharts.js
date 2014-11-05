@@ -956,7 +956,7 @@ PykCharts.multiD.barFunctions = function (options,chartObject,type) {
         return p;
     };
     that.emptygroups = function (data) {
-     //   console.log(data,"data")
+
         that.no_of_groups = that.unique_group.length;
 
         that.group_data;
@@ -964,7 +964,6 @@ PykCharts.multiD.barFunctions = function (options,chartObject,type) {
         for(var i =0; i<that.no_of_groups;i++) {
             if(_.values(data[i])[0].length === that.no_of_groups) {
                 that.group_data = _.values(data[i])[0];
-      //          console.log(that.group_data,"group_data")
                 break;
             }
         }
@@ -1088,7 +1087,6 @@ PykCharts.multiD.barFunctions = function (options,chartObject,type) {
                     break;
             }
         }
-        //console.log(that.data_sort_enable,that.data_sort_type,that.data_sort_order);
 
         for(var i=0; i < data_length; i++) {
             var group = {},
@@ -1143,7 +1141,6 @@ PykCharts.multiD.barFunctions = function (options,chartObject,type) {
         }
 //        console.log(data_tranform.length)
         that.barName = _.unique(that.barName);
-    //   console.log(data_tranform,"data_tranform")
         return data_tranform;
     };
     return this;

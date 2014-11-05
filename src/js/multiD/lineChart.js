@@ -246,7 +246,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
 				that.w = that.width;
 				that.reducedWidth = that.w - that.margin_left - that.margin_right;
 				that.reducedHeight = that.height - that.margin_top - that.margin_bottom;
-				console.log(that);
+				// console.log(that);
 				that.k.liveData(that)
 						.makeMainDiv(that.selector,1)
 						.tooltip(true,that.selector,1,that.flag);
@@ -794,12 +794,8 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
 					      				return $(this).attr("stroke-opacity");
 					      			})
 						      		.on("click",function (d) {
-						      			console.log("ddddddddddddddddddd");
 						      			if(that.type === "multilineChart") {
-
 						      				that.clicked = true;
-
-						      				console.log("upper function",that.clicked)
 						      				// that.prev_opacity = d3.select(this).style("stroke-opacity");
 						      				that.highlightLine(PykCharts.getEvent().target,that.clicked,that.previous_color);
 										}
@@ -874,8 +870,6 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
 				      			})
 					      		.on("click",function (d) {
 					      				that.clicked = true;
-					      				console.log("upper function",that.clicked)
-					      				// that.prev_opacity = d3.select(this).style("stroke-opacity");
 					      				that.highlightLine(PykCharts.getEvent().target,that.clicked,that.previous_color);
 								})
 								.on("mouseover",function (d) {
@@ -1126,21 +1120,13 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
 	    that.k.isOrdinal(that.svgContainer,".y.grid",that.yScale);
 	}
 	that.highlightLine = function(linePath,clicked,prev_opacity) {
-			console.log(clicked,"clicked");
 
 			that.selected_line = linePath;
 			that.selected_line_data = that.selected_line.__data__;
 			that.selected_line_data_len = that.selected_line_data.length;
 			that.deselected = that.selected;
 
-
-			d3.select(that.deselected)
-					.classed({'multi-line-selected':false,'multi-line':true,'multi-line-hover':false})
-
 			that.selected = linePath;
-
-			d3.select(that.selected)
-					.classed({'multi-line-selected':true,'multi-line':false,'multi-line-hover':false})
 
 			if(that.type === "multilineChart" && (that.color_mode === "saturation" || that.hover))
 				d3.select(that.selected)
@@ -1149,22 +1135,23 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
 	      			});
 
 			if(clicked) {
-				 if (that.clk) {
-				 	if (that.color_mode === "color") {
+				console.log(d3.select(that.selected).classed("multi-line-selected"),"that.clk");
+				 if (d3.select(that.selected).classed("multi-line")) {
 						d3.selectAll(options.selector+" path.multi-line").attr("stroke-opacity",0.3);
-					} else {
-						d3.selectAll(options.selector+" path.multi-line").attr("stroke-opacity",0.3);
-					}
-					if (that.color_mode === "color") {
-						d3.selectAll(options.selector+ " .legend-heading").style("opacity",0.3);
-					}
-					d3.select(that.selector+" text#"+that.selected.id).style("opacity",1).style
-					("font-weight","bold");
-					d3.select(that.selected).attr("stroke-opacity",1);
-					that.clk = false;
+						if (that.color_mode === "color") {
+							d3.selectAll(options.selector+ " .legend-heading").style("opacity",0.3);
+						}
+						d3.select(that.selector+" text#"+that.selected.id).style("opacity",1).style
+						("font-weight","bold");
+						d3.selectAll(".lines-hover")
+							.attr("stroke-opacity",0.3)
+							.classed("multi-line-selected",false)
+							.classed("multi-line",true);
+						d3.select(that.selected)
+							.attr("stroke-opacity",1)
+							.classed("multi-line-selected",true)
+							.classed("multi-line",false);
 				 } else {
-					d3.select(that.selected)
-						.classed({'multi-line-selected':false,'multi-line':true,'multi-line-hover':false})
 					if (that.color_mode === "color") {
 						d3.selectAll(options.selector+" path.multi-line").attr("stroke-opacity",prev_opacity);
 					} else {
@@ -1175,8 +1162,10 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
 					d3.selectAll(options.selector+ " .legend-heading").style("opacity",1);
 					d3.select(that.selector+" text#"+that.selected.id).style("opacity",1).style
 					("font-weight","normal");
-					d3.select(that.selected).attr("stroke-opacity",prev_opacity);
-					that.clk = true;
+					d3.select(that.selected)
+						.attr("stroke-opacity",prev_opacity)
+						.classed("multi-line-selected",false)
+						.classed("multi-line",true);
 				}
 			}
 
