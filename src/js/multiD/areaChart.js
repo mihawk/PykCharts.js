@@ -91,7 +91,7 @@ PykCharts.multiD.stackedArea = function (options){
 			that.compare_data = that.data;
 			that.data_length = that.data.length;
 			$(that.selector+" #chart-loader").remove();
-			PykCharts.multiD.areaFunctions(options,that,"area");
+			PykCharts.multiD.areaFunctions(options,that,"stacked_area");
 			that.dataTransformation();
 			that.render();
 		});
@@ -150,6 +150,20 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 		that.transitions = new PykCharts.Configuration.transition(that);
 		that.border = new PykCharts.Configuration.border(that);
 
+		that.optional_feature()
+		    .chartType();
+
+		try {
+			if(that.type === "stackedAreaChart" && type === "area" ) {
+				throw "Invalid data in the JSON";
+			}
+
+		}
+		catch (err) {
+            console.error('%c[Error - Pykih Charts] ', 'color: red;font-weight:bold;font-size:14px', " at "+options.selector+".\""+err+"\"  Visit www.chartstore.io/docs#error_");					
+         	return;   
+		}
+
 //		that.k.export(that,"#svg-1","areaChart");
 		if(that.mode === "default") {
 
@@ -164,7 +178,6 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 
 
 			that.optional_feature()
-		    		.chartType()
 					.svgContainer(1)
 					.legendsContainer()
 					.legends()
@@ -197,7 +210,6 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 						.makeMainDiv(options.selector,1);
 
 			  that.optional_feaure()
-			    		.chartType()
 						.svgContainer(1)
 						.legendsContainer()
 						.createGroups(1)

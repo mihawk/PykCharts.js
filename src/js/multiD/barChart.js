@@ -5,9 +5,9 @@ PykCharts.multiD.barChart = function(options){
     this.execute = function () {
         that = new PykCharts.multiD.processInputs(that, options, "column");
 
-        // console.log(that.stop);
+        console.log(that.stop);
 
-        // console.log("barChart");
+        console.log("barChart");
         that.grid_y_enable =  options.chart_grid_y_enable ? options.chart_grid_y_enable.toLowerCase() : theme.stylesheet.chart_grid_y_enable;
         that.grid_color = options.chart_grid_color ? options.chart_grid_color : theme.stylesheet.chart_grid_color;
         that.panels_enable = "no";
@@ -98,7 +98,7 @@ PykCharts.multiD.groupedBarChart = function(options){
             that.compare_data = data.groupBy("bar");
             that.axis_x_data_format = that.k.xAxisDataFormatIdentification(that.data);
             $(that.selector+" #chart-loader").remove();
-            PykCharts.multiD.barFunctions(options,that,"bar");
+            PykCharts.multiD.barFunctions(options,that,"group_bar");
             that.render();
         });
     };
@@ -150,7 +150,15 @@ PykCharts.multiD.barFunctions = function (options,chartObject,type) {
         that.data = that.dataTransformation();
         that.data = that.emptygroups(that.data);
 
-        // console.log(that.data,"that.data");
+        try {
+            if(that.no_of_groups > 1 && type === "bar") {
+                throw "";
+            }
+        }
+        catch (err) {
+            console.error('%c[Error - Pykih Charts] ', 'color: red;font-weight:bold;font-size:14px', " at "+options.selector+". \"Invalid data in the JSON\"  Visit www.chartstore.io/docs#error_");
+            return;            
+        }
 
         var fD = that.flattenData();
         that.the_bars = fD[0];

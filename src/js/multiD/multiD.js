@@ -575,6 +575,6 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
                 }
             }
         }
-                                // .validatingDataType(,"");
+
     return chartObject;
 };
