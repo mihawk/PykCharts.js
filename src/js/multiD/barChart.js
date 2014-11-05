@@ -775,7 +775,7 @@ PykCharts.multiD.barFunctions = function (options,chartObject,type) {
                         rect_parameter4value = 18;
                     }
 
-                    var legend = that.legendsGroup.selectAll("rect")
+                    var legend = that.legendsGroup.selectAll(".legends-rect")
                                     .data(params);
 
                     that.legends_text = that.legendsGroup.selectAll(".legends_text")
@@ -797,7 +797,8 @@ PykCharts.multiD.barFunctions = function (options,chartObject,type) {
                     legend.enter()
                         .append("rect");
 
-                    legend.attr(rect_parameter1, rect_parameter1value)
+                    legend.attr("class","legends-rect")
+                        .attr(rect_parameter1, rect_parameter1value)
                         .attr(rect_parameter2, rect_parameter2value)
                         .attr(rect_parameter3, rect_parameter3value)
                         .attr(rect_parameter4, rect_parameter4value)

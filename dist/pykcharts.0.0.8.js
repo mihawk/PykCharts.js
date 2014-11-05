@@ -703,7 +703,7 @@ PykCharts.Configuration = function (options){
             return this;
         },
         yAxis: function (svg, gsvg, yScale,domain,tick_values,legendsGroup_width) {
-            
+
             if(!legendsGroup_width) {
                 legendsGroup_width = 0;
             }
@@ -1215,9 +1215,9 @@ PykCharts.Configuration = function (options){
                                 .style("float",div_float)
                                 .style("text-align","right");
 
-                setTimeout(function () {                
+                setTimeout(function () {
                     export_div.html("<img title='Export to SVG' src='"+options.img+"' style='left:"+div_left+"px;margin-bottom:3px;cursor:pointer;'/>");
-                },options.transition_duration*1000);                    
+                },options.transition_duration*1000);
 
             }
             return this;
@@ -1249,7 +1249,7 @@ PykCharts.Configuration = function (options){
                   PykCharts.export_menu_status = 1;
                     d3.select(options.selector + " .dropdown-multipleConatiner-export").style("visibility", "visible");
                 });
-                
+
                 if(!PykCharts.boolean(panels_enable)) {
                     $(chart.selector + " #span").click(function () {
                         d3.select(options.selector + " .dropdown-multipleConatiner-export").style("visibility", "hidden");
@@ -1280,7 +1280,7 @@ PykCharts.Configuration = function (options){
                     }
                 }
             }
-            return this;    
+            return this;
         },
         processSVG: function (svg,svgId) {
             var x = svg.querySelectorAll("text");
@@ -1601,9 +1601,19 @@ configuration.mouseEvent = function (options) {
         },
         crossHairPosition: function(data,new_data,xScale,yScale,dataLineGroup,lineMargin,domain,type,tooltipMode,color_from_data,panels_enable){
             if((PykCharts.boolean(options.crosshair_enable) || PykCharts.boolean(options.tooltip_enable) || PykCharts.boolean(options.axis_onhover_highlight_enable))  && options.mode === "default") {
+                var selectSVG = $(options.selector + " #"+dataLineGroup[0][0][0].parentNode.parentNode.id)
+                    var width_percentage = 0;
+                // console.log($(options.selector + " #"+dataLineGroup[0][0][0].parentNode.parentNode.id).width(),"WIDTH");
+                if (panels_enable === "no") {
+                    width_percentage = selectSVG.width() / options.width;
+                } else {
+                    width_percentage = 1
+                }
+
+                // console.log($(options.selector + " #"+dataLineGroup[0][0][0].parentNode.parentNode.id).offset().left,"OFFSET");
                 var legendsGroup_height = options.legendsGroup_height ? options.legendsGroup_height : 0;
-                var offsetLeft = options.margin_left + lineMargin + $(options.selector + " #"+dataLineGroup[0][0][0].parentNode.parentNode.id).offset().left;
-                var offsetTop = $(options.selector + " #"+dataLineGroup[0][0][0].parentNode.parentNode.id).offset().top;
+                var offsetLeft =  (options.margin_left + lineMargin + selectSVG.offset().left) * width_percentage;
+                var offsetTop = selectSVG.offset().top;
                 var number_of_lines = new_data.length;
                 var left = options.margin_left;
                 var right = options.margin_right;
@@ -1619,6 +1629,7 @@ configuration.mouseEvent = function (options) {
 
                 if(options.axis_x_data_format==="string") {
                     x_range = xScale.range();
+                    console.log(x_range,xScale)
                 } else {
                     temp = xScale.range();
                     pad = (temp[1]-temp[0])/new_data[0].data.length;
@@ -1640,11 +1651,12 @@ configuration.mouseEvent = function (options) {
                             return false;
                         }
                         else {
+                            console.log(x ,">=", x_range[j] ,"&&", x ,"<=", x_range[j+1] ,"&&", y ,"<=", y_range[k] + legendsGroup_height);
                             if((right_tick === x_range[j] && left_tick === x_range[j+1]) && (top_tick === y_range[k])) {
                                 return false;
                             }
-                            else if((x >= x_range[j] && x <= x_range[j+1]) && (y <= (y_range[k] + legendsGroup_height))) {
-                                left_tick = x_range[j], right_tick = x_range[j+1];
+                            else if((x >= (width_percentage*x_range[j]) && x <= width_percentage*x_range[j+1]) && (y <= (y_range[k] + legendsGroup_height))) {
+                                left_tick = width_percentage*x_range[j], right_tick = width_percentage*x_range[j+1];
                                 bottom_tick = y_range[k+1];
                                 top_tick = y_range[k];
                                 left_diff = (left_tick - x), right_diff = (x - right_tick);
@@ -1664,6 +1676,7 @@ configuration.mouseEvent = function (options) {
                                     tooltipText = data[j+1].tooltip || data[j+1].y; // Line Chart ONLY!
                                     pos_line_cursor_x = (xScale(active_x_tick) + lineMargin + left);
                                     pos_line_cursor_y = (yScale(data[j+1].y) + top);
+                                    console.log(active_x_tick,"-----",lineMargin, "--------",left, "--------",pos_line_cursor_x, "--------");
                                 }
                                 if((pos_line_cursor_y > top && pos_line_cursor_y < (h-bottom)) && (pos_line_cursor_x > left && pos_line_cursor_x < (w-right))) {
                                     if(type === "multilineChart" /*|| type === "stackedAreaChart"*/) {
@@ -1697,14 +1710,10 @@ configuration.mouseEvent = function (options) {
                                             pos_line_cursor_x += 6;
                                             tooltipText = "<table><thead><th colspan='"+colspan+"'>"+active_x_tick+"</th></thead><tbody>"+tt_row+"</tbody></table>";
                                             if(PykCharts.boolean(options.tooltip_enable)) {
-                                                if(type === "stackedAreaChart") {
-                                                    group_index = 1;
-                                                    this.tooltipPosition(tooltipText,pos_line_cursor_x,y,60,70,group_index);
-                                                } else {
-                                                    this.tooltipPosition(tooltipText,pos_line_cursor_x,y,60,-15,group_index);
-                                                }
+                                                this.tooltipPosition(tooltipText,pos_line_cursor_x,y,60,-15,group_index);
                                                 this.tooltipTextShow(tooltipText);
                                             }
+                                            console.log(pos_line_cursor_x);
                                             (options.crosshair_enable) ? this.crossHairShow(pos_line_cursor_x,top,pos_line_cursor_x,(h - bottom),pos_line_cursor_x,test,type,active_y_tick.length,panels_enable,new_data) : null;
                                             (options.colspanrosshair_enable) ? this.crossHairShow(pos_line_cursor_x,top,pos_line_cursor_x,(h - bottom),pos_line_cursor_x,pos_line_cursor_y,type,active_y_tick.length,panels_enable) : null;
                                             this.axisHighlightShow(active_y_tick,options.selector+" .y.axis",domain);
@@ -1778,12 +1787,8 @@ configuration.mouseEvent = function (options) {
                                         pos_line_cursor_x += 6;
                                         tooltipText = "<table><thead><th colspan='"+colspan+"'>"+active_x_tick+"</th></thead><tbody>"+tt_row+"</tbody></table>";
                                         if(PykCharts.boolean(options.tooltip_enable)) {
-                                            if(type === "stackedAreaChart") {
-                                                group_index = 1;
-                                                this.tooltipPosition(tooltipText,pos_line_cursor_x,y,60,70,group_index);
-                                            } else {
-                                                this.tooltipPosition(tooltipText,pos_line_cursor_x,y,60,-15,group_index);
-                                            }
+                                            group_index = 1;
+                                            this.tooltipPosition(tooltipText,pos_line_cursor_x,y,60,70,group_index);
                                             this.tooltipTextShow(tooltipText);
                                         }
                                         (options.crosshair_enable) ? this.crossHairShow(pos_line_cursor_x,top+legendsGroup_height,pos_line_cursor_x,(h - bottom),pos_line_cursor_x,test,type,active_y_tick.length,panels_enable,new_data) : null;
@@ -2573,7 +2578,7 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
 
     chartObject.clubdata_enable = options.clubdata_enable ? options.clubdata_enable.toLowerCase() : oneDimensionalCharts.clubdata_enable;
     chartObject.clubdata_text = PykCharts.boolean(chartObject.clubdata_enable) && options.clubdata_text ? options.clubdata_text : oneDimensionalCharts.clubdata_text;
-    chartObject.clubdata_maximum_nodes = PykCharts.boolean(chartObject.clubdata_maximum_nodes) && options.clubdata_maximum_nodes ? options.clubdata_maximum_nodes : oneDimensionalCharts.clubdata_maximum_nodes;
+    chartObject.clubdata_maximum_nodes = PykCharts.boolean(chartObject.clubdata_enable) && options.clubdata_maximum_nodes ? options.clubdata_maximum_nodes : oneDimensionalCharts.clubdata_maximum_nodes;
     chartObject.clubdata_always_include_data_points = PykCharts.boolean(chartObject.clubdata_enable) && options.clubdata_always_include_data_points ? options.clubdata_always_include_data_points : [];
 
     chartObject.transition_duration = options.transition_duration ? options.transition_duration : functionality.transition_duration;
@@ -10767,7 +10772,7 @@ PykCharts.multiD.barFunctions = function (options,chartObject,type) {
                         rect_parameter4value = 18;
                     }
 
-                    var legend = that.legendsGroup.selectAll("rect")
+                    var legend = that.legendsGroup.selectAll(".legends-rect")
                                     .data(params);
 
                     that.legends_text = that.legendsGroup.selectAll(".legends_text")
@@ -10789,7 +10794,8 @@ PykCharts.multiD.barFunctions = function (options,chartObject,type) {
                     legend.enter()
                         .append("rect");
 
-                    legend.attr(rect_parameter1, rect_parameter1value)
+                    legend.attr("class","legends-rect")
+                        .attr(rect_parameter1, rect_parameter1value)
                         .attr(rect_parameter2, rect_parameter2value)
                         .attr(rect_parameter3, rect_parameter3value)
                         .attr(rect_parameter4, rect_parameter4value)
@@ -11814,7 +11820,7 @@ PykCharts.multiD.columnFunctions = function (options,chartObject,type) {
                         rect_parameter4value = 18;
                     }
 
-                    var legend = that.legendsGroup.selectAll("rect")
+                    var legend = that.legendsGroup.selectAll(".legends-rect")
                                     .data(params);
 
                     that.legends_text = that.legendsGroup.selectAll(".legends_text")
@@ -11836,7 +11842,7 @@ PykCharts.multiD.columnFunctions = function (options,chartObject,type) {
                     legend.enter()
                         .append("rect");
 
-                    legend.attr("class","rect")
+                    legend.attr("class","legends-rect")
                         .attr(rect_parameter1, rect_parameter1value)
                         .attr(rect_parameter2, rect_parameter2value)
                         .attr(rect_parameter3, rect_parameter3value)
