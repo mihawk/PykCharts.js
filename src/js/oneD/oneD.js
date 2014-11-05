@@ -95,7 +95,7 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
 
     chartObject.clubdata_enable = options.clubdata_enable ? options.clubdata_enable.toLowerCase() : oneDimensionalCharts.clubdata_enable;
     chartObject.clubdata_text = PykCharts.boolean(chartObject.clubdata_enable) && options.clubdata_text ? options.clubdata_text : oneDimensionalCharts.clubdata_text;
-    chartObject.clubdata_maximum_nodes = PykCharts.boolean(chartObject.clubdata_maximum_nodes) && options.clubdata_maximum_nodes ? options.clubdata_maximum_nodes : oneDimensionalCharts.clubdata_maximum_nodes;
+    chartObject.clubdata_maximum_nodes = PykCharts.boolean(chartObject.clubdata_enable) && options.clubdata_maximum_nodes ? options.clubdata_maximum_nodes : oneDimensionalCharts.clubdata_maximum_nodes;
     chartObject.clubdata_always_include_data_points = PykCharts.boolean(chartObject.clubdata_enable) && options.clubdata_always_include_data_points ? options.clubdata_always_include_data_points : [];
 
     chartObject.transition_duration = options.transition_duration ? options.transition_duration : functionality.transition_duration;

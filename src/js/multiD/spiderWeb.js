@@ -187,10 +187,10 @@ PykCharts.multiD.spiderWeb = function (options) {
             createGroups: function () {
                 that.group = that.svgContainer.append("g")
                     .attr("id","spidergrp")
-                    .attr("transform", "translate(" + that.width / 2 + "," + ((that.h+that.legendsGroup_height+20)/2) + ")");
+                    .attr("transform", "translate(" + (that.width - that.legendsGroup_width) / 2 + "," + ((that.h+that.legendsGroup_height+20)/2) + ")");
 
                 that.ticksElement = that.svgContainer.append("g")
-                        .attr("transform", "translate(" + that.width / 2 + "," + ((that.h+that.legendsGroup_height+20)/2) + ")");
+                        .attr("transform", "translate(" + (that.width - that.legendsGroup_width)/ 2 + "," + ((that.h+that.legendsGroup_height+20)/2) + ")");
                 return this;
             },
             legendsContainer : function (i) {
@@ -199,6 +199,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                         .attr("class","legendgrp")
                         .attr("id","legendgrp");
                 } else {
+                    that.legendsGroup_width = 0;
                     that.legendsGroup_height = 0;
                 }
                 return this;
@@ -408,7 +409,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                     var l = 0;
                     if(that.legends_display === "vertical" ) {
                         that.legendsGroup.attr("height", (that.map_group_data[0].length * 30)+20);
-                        that.legendsGroup_height = (that.map_group_data[0].length * 30)+20;
+                        that.legendsGroup_height = 0;
                         text_parameter1 = "x";
                         text_parameter2 = "y";
                         rect_parameter1 = "width";
@@ -417,8 +418,8 @@ PykCharts.multiD.spiderWeb = function (options) {
                         rect_parameter4 = "y";
                         rect_parameter1value = 13;
                         rect_parameter2value = 13;
-                        text_parameter1value = function (d,i) { return that.width - that.width/4 + 16; };
-                        rect_parameter3value = function (d,i) { return that.width - that.width/4; };
+                        text_parameter1value = function (d,i) { return 36; };
+                        rect_parameter3value = function (d,i) { return 20; };
                         var rect_parameter4value = function (d,i) { return i * 24 + 12;};
                         var text_parameter2value = function (d,i) { return i * 24 + 23;};
 
@@ -459,12 +460,13 @@ PykCharts.multiD.spiderWeb = function (options) {
 
                     var legend = that.legendsGroup.selectAll("rect")
                             .data(that.map_group_data[0]);
+
                     that.legends_text = that.legendsGroup.selectAll(".legends_text")
                         .data(that.map_group_data[0]);
 
                     that.legends_text.enter()
                         .append('text');
-                    console.log(that.legends_text_size);
+
                     that.legends_text.attr("class","legends_text")
                         .attr("pointer-events","none")
                         .text(function (d) { return d.group; })
@@ -489,8 +491,15 @@ PykCharts.multiD.spiderWeb = function (options) {
                             return 0.6;
                         });
 
-                    var legend_container_width = that.legendsGroup.node().getBBox().width,
-                        translate_x = (that.legends_display === "vertical") ? 0 : (that.width - legend_container_width - 20);
+                    var legend_container_width = that.legendsGroup.node().getBBox().width, translate_x;
+
+                    if(that.legends_display === "vertical") {
+                        that.legendsGroup_width = legend_container_width + 20;
+                    } else  {
+                        that.legendsGroup_width = 0;
+                    }
+      
+                    translate_x = (that.legends_display === "vertical") ? (that.width - that.legendsGroup_width) : (that.width - legend_container_width - 20);
                     
                     if (legend_container_width < that.width) { that.legendsGroup.attr("transform","translate("+translate_x+",10)"); }
                     that.legendsGroup.style("visibility","visible");

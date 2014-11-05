@@ -644,11 +644,11 @@ PykCharts.Configuration = function (options){
             }
             return this;
         },
-        yGrid: function (svg, gsvg, yScale) {
+        yGrid: function (svg, gsvg, yScale,legendsGroup_width) {
             var width = options.width,
                 height = options.height;
             if(PykCharts.boolean(options.grid_y_enable)) {
-                var ygrid = PykCharts.Configuration.makeYGrid(options,yScale);
+                var ygrid = PykCharts.Configuration.makeYGrid(options,yScale,legendsGroup_width);
                 gsvg.selectAll(options.selector + " g.y.grid-line")
                     .style("stroke",function () { return options.grid_color; })
                     .call(ygrid);
@@ -702,11 +702,16 @@ PykCharts.Configuration = function (options){
 
             return this;
         },
-        yAxis: function (svg, gsvg, yScale,domain,tick_values) {
+        yAxis: function (svg, gsvg, yScale,domain,tick_values,legendsGroup_width) {
+
+            if(!legendsGroup_width) {
+                legendsGroup_width = 0;
+            }
+
             var width = options.width,
                 height = options.height;
             var k = new PykCharts.Configuration(options);
-             var w;
+            var w;
                     if(PykCharts.boolean(options.panels_enable)) {
                         w = options.w;
                     } else {
@@ -715,10 +720,10 @@ PykCharts.Configuration = function (options){
 
             if(PykCharts.boolean(options.axis_y_enable)){
                 if(options.axis_y_position === "right") {
-                    gsvg.attr("transform", "translate(" + (w - options.margin_left - options.margin_right) + ",0)");
+                    gsvg.attr("transform", "translate(" + (w - options.margin_left - options.margin_right - legendsGroup_width) + ",0)");
                 }
                 d3.selectAll(options.selector + " .y.axis").attr("fill",function () { return options.axis_y_pointer_color; });
-                var yaxis = PykCharts.Configuration.makeYAxis(options,yScale);
+                var yaxis = PykCharts.Configuration.makeYAxis(options,yScale,legendsGroup_width);
 
                 if(tick_values && tick_values.length) {
                     yaxis.tickValues(tick_values);
@@ -740,7 +745,7 @@ PykCharts.Configuration = function (options){
             }
             return this;
         },
-        xAxisTitle : function (gsvg,legendsGroup_height) {
+        xAxisTitle : function (gsvg,legendsGroup_height,legendsGroup_width) {
             var w;
             if(PykCharts.boolean(options.panels_enable)) {
                 w = options.w;
@@ -750,6 +755,10 @@ PykCharts.Configuration = function (options){
 
             if(!legendsGroup_height) {
                 legendsGroup_height = 0;
+            }
+
+            if(!legendsGroup_width) {
+                legendsGroup_width = 0;
             }
 
             if(options.axis_x_title) {
@@ -762,7 +771,7 @@ PykCharts.Configuration = function (options){
                     // console.log(axis_x_pointer_weight,"weird")
                     gsvg.append("text")
                         .attr("class","x-axis-title")
-                        .attr("x", (w- options.margin_left - options.margin_right)/2)
+                        .attr("x", (w- options.margin_left - options.margin_right - legendsGroup_width)/2)
                         .attr("y", options.margin_bottom)
                         .style("text-anchor", "middle")
                         .style("fill",options.axis_x_title_color)
@@ -774,7 +783,7 @@ PykCharts.Configuration = function (options){
                 } else if (options.axis_x_position === "top") {
                     gsvg.append("text")
                         .attr("class","x-axis-title")
-                        .attr("x", (w - options.margin_left - options.margin_right)/2)
+                        .attr("x", (w - options.margin_left - options.margin_right -legendsGroup_width)/2)
                         .attr("y", - options.margin_top + options.axis_x_title_size)
                         .style("text-anchor", "middle")
                         .style("fill",options.axis_x_title_color)
@@ -984,7 +993,7 @@ PykCharts.Configuration = function (options){
                     }
                 }
             }
-            console.log(options.axis_y_pointer_values.length,values);
+            // console.log(options.axis_y_pointer_values.length,values);
             return values;
         },
         xAxisDataFormatIdentification : function (data){
@@ -1204,8 +1213,11 @@ PykCharts.Configuration = function (options){
                                 .style("width",div_size + "px")
                                 .style("left",div_left+"px")
                                 .style("float",div_float)
-                                .style("text-align","right")
-                                .html("<img title='Export to SVG' src='"+options.img+"' style='left:"+div_left+"px;margin-bottom:3px;cursor:pointer;'/>");
+                                .style("text-align","right");
+
+                setTimeout(function () {
+                    export_div.html("<img title='Export to SVG' src='"+options.img+"' style='left:"+div_left+"px;margin-bottom:3px;cursor:pointer;'/>");
+                },options.transition_duration*1000);
 
             }
             return this;
@@ -1218,6 +1230,7 @@ PykCharts.Configuration = function (options){
                 if(!add_extra_height) {
                     add_extra_height = 0;
                 }
+
                 var id = "export";
                 var canvas_id = chart_name+"canvas";
                 var canvas = document.createElement("canvas");
@@ -1236,7 +1249,7 @@ PykCharts.Configuration = function (options){
                   PykCharts.export_menu_status = 1;
                     d3.select(options.selector + " .dropdown-multipleConatiner-export").style("visibility", "visible");
                 });
-                
+
                 if(!PykCharts.boolean(panels_enable)) {
                     $(chart.selector + " #span").click(function () {
                         d3.select(options.selector + " .dropdown-multipleConatiner-export").style("visibility", "hidden");
@@ -1267,7 +1280,7 @@ PykCharts.Configuration = function (options){
                     }
                 }
             }
-            return this;    
+            return this;
         },
         processSVG: function (svg,svgId) {
             var x = svg.querySelectorAll("text");
@@ -1588,9 +1601,19 @@ configuration.mouseEvent = function (options) {
         },
         crossHairPosition: function(data,new_data,xScale,yScale,dataLineGroup,lineMargin,domain,type,tooltipMode,color_from_data,panels_enable){
             if((PykCharts.boolean(options.crosshair_enable) || PykCharts.boolean(options.tooltip_enable) || PykCharts.boolean(options.axis_onhover_highlight_enable))  && options.mode === "default") {
+                var selectSVG = $(options.selector + " #"+dataLineGroup[0][0][0].parentNode.parentNode.id)
+                    var width_percentage = 0;
+                // console.log($(options.selector + " #"+dataLineGroup[0][0][0].parentNode.parentNode.id).width(),"WIDTH");
+                if (panels_enable === "no") {
+                    width_percentage = selectSVG.width() / options.width;
+                } else {
+                    width_percentage = 1
+                }
+
+                // console.log($(options.selector + " #"+dataLineGroup[0][0][0].parentNode.parentNode.id).offset().left,"OFFSET");
                 var legendsGroup_height = options.legendsGroup_height ? options.legendsGroup_height : 0;
-                var offsetLeft = options.margin_left + lineMargin + $(options.selector + " #"+dataLineGroup[0][0][0].parentNode.parentNode.id).offset().left;
-                var offsetTop = $(options.selector + " #"+dataLineGroup[0][0][0].parentNode.parentNode.id).offset().top;
+                var offsetLeft =  (options.margin_left + lineMargin + selectSVG.offset().left) * width_percentage;
+                var offsetTop = selectSVG.offset().top;
                 var number_of_lines = new_data.length;
                 var left = options.margin_left;
                 var right = options.margin_right;
@@ -1606,6 +1629,7 @@ configuration.mouseEvent = function (options) {
 
                 if(options.axis_x_data_format==="string") {
                     x_range = xScale.range();
+                    console.log(x_range,xScale)
                 } else {
                     temp = xScale.range();
                     pad = (temp[1]-temp[0])/new_data[0].data.length;
@@ -1627,11 +1651,12 @@ configuration.mouseEvent = function (options) {
                             return false;
                         }
                         else {
+                            console.log(x ,">=", x_range[j] ,"&&", x ,"<=", x_range[j+1] ,"&&", y ,"<=", y_range[k] + legendsGroup_height);
                             if((right_tick === x_range[j] && left_tick === x_range[j+1]) && (top_tick === y_range[k])) {
                                 return false;
                             }
-                            else if((x >= x_range[j] && x <= x_range[j+1]) && (y <= (y_range[k] + legendsGroup_height))) {
-                                left_tick = x_range[j], right_tick = x_range[j+1];
+                            else if((x >= (width_percentage*x_range[j]) && x <= width_percentage*x_range[j+1]) && (y <= (y_range[k] + legendsGroup_height))) {
+                                left_tick = width_percentage*x_range[j], right_tick = width_percentage*x_range[j+1];
                                 bottom_tick = y_range[k+1];
                                 top_tick = y_range[k];
                                 left_diff = (left_tick - x), right_diff = (x - right_tick);
@@ -1651,6 +1676,7 @@ configuration.mouseEvent = function (options) {
                                     tooltipText = data[j+1].tooltip || data[j+1].y; // Line Chart ONLY!
                                     pos_line_cursor_x = (xScale(active_x_tick) + lineMargin + left);
                                     pos_line_cursor_y = (yScale(data[j+1].y) + top);
+                                    console.log(active_x_tick,"-----",lineMargin, "--------",left, "--------",pos_line_cursor_x, "--------");
                                 }
                                 if((pos_line_cursor_y > top && pos_line_cursor_y < (h-bottom)) && (pos_line_cursor_x > left && pos_line_cursor_x < (w-right))) {
                                     if(type === "multilineChart" /*|| type === "stackedAreaChart"*/) {
@@ -1684,14 +1710,10 @@ configuration.mouseEvent = function (options) {
                                             pos_line_cursor_x += 6;
                                             tooltipText = "<table><thead><th colspan='"+colspan+"'>"+active_x_tick+"</th></thead><tbody>"+tt_row+"</tbody></table>";
                                             if(PykCharts.boolean(options.tooltip_enable)) {
-                                                if(type === "stackedAreaChart") {
-                                                    group_index = 1;
-                                                    this.tooltipPosition(tooltipText,pos_line_cursor_x,y,60,70,group_index);
-                                                } else {
-                                                    this.tooltipPosition(tooltipText,pos_line_cursor_x,y,60,-15,group_index);
-                                                }
+                                                this.tooltipPosition(tooltipText,pos_line_cursor_x,y,60,-15,group_index);
                                                 this.tooltipTextShow(tooltipText);
                                             }
+                                            console.log(pos_line_cursor_x);
                                             (options.crosshair_enable) ? this.crossHairShow(pos_line_cursor_x,top,pos_line_cursor_x,(h - bottom),pos_line_cursor_x,test,type,active_y_tick.length,panels_enable,new_data) : null;
                                             (options.colspanrosshair_enable) ? this.crossHairShow(pos_line_cursor_x,top,pos_line_cursor_x,(h - bottom),pos_line_cursor_x,pos_line_cursor_y,type,active_y_tick.length,panels_enable) : null;
                                             this.axisHighlightShow(active_y_tick,options.selector+" .y.axis",domain);
@@ -1765,12 +1787,8 @@ configuration.mouseEvent = function (options) {
                                         pos_line_cursor_x += 6;
                                         tooltipText = "<table><thead><th colspan='"+colspan+"'>"+active_x_tick+"</th></thead><tbody>"+tt_row+"</tbody></table>";
                                         if(PykCharts.boolean(options.tooltip_enable)) {
-                                            if(type === "stackedAreaChart") {
-                                                group_index = 1;
-                                                this.tooltipPosition(tooltipText,pos_line_cursor_x,y,60,70,group_index);
-                                            } else {
-                                                this.tooltipPosition(tooltipText,pos_line_cursor_x,y,60,-15,group_index);
-                                            }
+                                            group_index = 1;
+                                            this.tooltipPosition(tooltipText,pos_line_cursor_x,y,60,70,group_index);
                                             this.tooltipTextShow(tooltipText);
                                         }
                                         (options.crosshair_enable) ? this.crossHairShow(pos_line_cursor_x,top+legendsGroup_height,pos_line_cursor_x,(h - bottom),pos_line_cursor_x,test,type,active_y_tick.length,panels_enable,new_data) : null;
@@ -2186,12 +2204,16 @@ configuration.makeXGrid = function(options,xScale,legendsGroup_height) {
     return xgrid;
 };
 
-configuration.makeYGrid = function(options,yScale) {
+configuration.makeYGrid = function(options,yScale,legendsGroup_width) {
     var that = this, size;
+    if(!legendsGroup_width) {
+        legendsGroup_width = 0;
+    }
+
     if(PykCharts.boolean(options.panels_enable)) {
-        size = options.w - options.margin_left - options.margin_right
+        size = options.w - options.margin_left - options.margin_right - legendsGroup_width;
     } else {
-        size = options.width - options.margin_left - options.margin_right
+        size = options.width - options.margin_left - options.margin_right - legendsGroup_width;
     }
     var ygrid = d3.svg.axis()
                     .scale(yScale)
@@ -2399,7 +2421,7 @@ configuration.Theme = function(){
         "axis_y_time_value_interval":0,
         "axis_y_data_format": "number",
 
-        "panels_enable": "no",
+        // "panels_enable": "no",
         "variable_circle_size_enable" : "yes",
 
         "crosshair_enable": "yes",
