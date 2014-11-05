@@ -703,7 +703,7 @@ PykCharts.Configuration = function (options){
             return this;
         },
         yAxis: function (svg, gsvg, yScale,domain,tick_values,legendsGroup_width) {
-            
+
             if(!legendsGroup_width) {
                 legendsGroup_width = 0;
             }
@@ -1601,9 +1601,14 @@ configuration.mouseEvent = function (options) {
         },
         crossHairPosition: function(data,new_data,xScale,yScale,dataLineGroup,lineMargin,domain,type,tooltipMode,color_from_data,panels_enable){
             if((PykCharts.boolean(options.crosshair_enable) || PykCharts.boolean(options.tooltip_enable) || PykCharts.boolean(options.axis_onhover_highlight_enable))  && options.mode === "default") {
-                var selectSVG = $(options.selector + " #"+dataLineGroup[0][0][0].parentNode.parentNode.id);
+                var selectSVG = $(options.selector + " #"+dataLineGroup[0][0][0].parentNode.parentNode.id)
+                    var width_percentage = 0;
                 // console.log($(options.selector + " #"+dataLineGroup[0][0][0].parentNode.parentNode.id).width(),"WIDTH");
-                var width_percentage = selectSVG.width() / options.width;
+                if (panels_enable === "no") {
+                    width_percentage = selectSVG.width() / options.width;
+                } else {
+                    width_percentage = 1
+                }
 
                 // console.log($(options.selector + " #"+dataLineGroup[0][0][0].parentNode.parentNode.id).offset().left,"OFFSET");
                 var legendsGroup_height = options.legendsGroup_height ? options.legendsGroup_height : 0;
