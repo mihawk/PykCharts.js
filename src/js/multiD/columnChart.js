@@ -64,7 +64,7 @@ PykCharts.multiD.groupedColumnChart = function(options){
             that.compare_data = data.groupBy("column");
             that.axis_y_data_format = that.k.yAxisDataFormatIdentification(that.data);
             $(that.selector+" #chart-loader").remove();
-            PykCharts.multiD.columnFunctions(options,that,"column");
+            PykCharts.multiD.columnFunctions(options,that,"group_column");
             that.render();
         });
     };
@@ -115,6 +115,17 @@ PykCharts.multiD.columnFunctions = function (options,chartObject,type) {
         that.map_group_data = that.multiD.mapGroup(that.data);
         that.data = that.dataTransformation();
         that.data = that.emptygroups(that.data);
+
+        try {
+            if(that.no_of_groups > 1 && type === "column") {
+                throw "Invalid data in the JSON";
+            }
+        }
+        catch (err) {
+            console.error('%c[Error - Pykih Charts] ', 'color: red;font-weight:bold;font-size:14px', " at "+options.selector+". \""+err+"\"  Visit www.chartstore.io/docs#error_");
+            return;            
+        }
+
         var fD = that.flattenData();
         that.the_bars = fD[0];
         that.the_keys = fD[1];
