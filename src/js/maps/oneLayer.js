@@ -351,7 +351,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                                     .style("left", (that.tooltip_position_left) + "px");
                             }
                         }
-                        if(that.onhover1 === "color_saturation") {
+                        if(that.onhover1 === "color_saturation" && PykCharts.boolean(that.onhover_enable)) {
                             that.mouseEvent.highlight(options.selector + " .area", this);
                         }else {
                             that.bodColor(d);
@@ -373,7 +373,9 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     that.chart_data.on("click", that.clicked);
                     // that.onhover = "color_saturation";
                     that.onhover1 = that.onhover;
-                };
+                } else {
+                    that.onhover1 = that.onhover;
+                }
                 return this;
             },
             axisContainer : function (ae) {
@@ -629,7 +631,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
     that.bodColor = function (d) {
         // console.log(that.onhover1);
         var obj = _.where(that.data, {iso2: d.properties.iso_a2});
-        if(that.onhover1 !== "none") {
+        if(PykCharts.boolean(that.onhover_enable)) {
             if (that.onhover1 === "highlight_border") {
                 d3.select("path[area_name='" + d.properties.NAME_1 + "']")
                     .style("stroke", that.border.color())
@@ -646,16 +648,6 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                         }
                         return 0.5;
                     });
-            } else if (that.onhover1 === "color_saturation") {
-                // d3.select("path[area_name='" + d.properties.NAME_1 + "']")
-                //     .attr("fill-opacity", function () {
-                //         if (that.saturation_color !== "" && that.color_mode === "saturation") {
-                //             that.oneninth_dim = +(d3.format(".2f")(that.difference / 10));
-                //             that.opacity_dim = (that.extent_size[0] + (obj[0]).size + that.oneninth_dim) / that.difference;
-                //             return that.opacity_dim/2;
-                //         }
-                //         return 0.5;
-                //     });
             }
         } else {
             that.bodUncolor(d);

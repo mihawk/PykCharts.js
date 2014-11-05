@@ -659,12 +659,12 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 				}
 				d3.selectAll(options.selector + " ." +that.chartPathClass)
 					.on("mouseover", function () {
-						if(that.mode === "default") {
+						if(that.mode === "default" && PykCharts.boolean(that.onhover_enable)) {
 							that.mouseEvent.highlight(options.selector + " ."+that.chartPathClass,this);
 						}
 					})
 					.on("mouseout", function () {
-						if(that.mode === "default") {
+						if(that.mode === "default" && PykCharts.boolean(that.onhover_enable)) {
 							that.mouseEvent.highlightHide(options.selector + " ."+that.chartPathClass);
 						}
 					});

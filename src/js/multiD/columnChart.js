@@ -426,14 +426,18 @@ PykCharts.multiD.columnFunctions = function (options,chartObject,type) {
                             that.mouseEvent.tooltipPosition(d);
                             that.mouseEvent.tooltipTextShow(d.tooltip ? d.tooltip : d.y);
                             that.mouseEvent.axisHighlightShow(d.name,options.selector + " " + ".axis-text",that.domain,"column");
-                            that.mouseEvent.highlight(options.selector + " .rect", this);
+                            if(PykCharts.boolean(that.onhover_enable)) {
+                                that.mouseEvent.highlight(options.selector + " .rect", this);
+                            }
                         }
                     })
                     .on('mouseout',function (d) {
                         if(that.mode === "default") {
                             that.mouseEvent.tooltipHide(d);
                             that.mouseEvent.axisHighlightHide(options.selector + " " + ".axis-text","column");
-                            that.mouseEvent.highlightHide(options.selector + " .rect");
+                            if(PykCharts.boolean(that.onhover_enable)) {
+                                that.mouseEvent.highlightHide(options.selector + " .rect");
+                            }
                         }
                      })
                     .on('mousemove', function (d) {

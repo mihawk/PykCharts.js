@@ -363,13 +363,17 @@ PykCharts.multiD.spiderWeb = function (options) {
                             if(that.mode === "default") {
                                 that.mouseEvent.tooltipPosition(d);
                                 that.mouseEvent.tooltipTextShow(d.tooltip);
-                                that.mouseEvent.highlight(options.selector + " .dot", this);
+                                if(PykCharts.boolean(that.onhover_enable)) {
+                                    that.mouseEvent.highlight(options.selector + " .dot", this);
+                                }
                             }
                         })
                         .on('mouseout',function (d) {
                             if(that.mode === "default") {
                                 that.mouseEvent.tooltipHide(d);
-                                that.mouseEvent.highlightHide(options.selector + " .dot");
+                                if(PykCharts.boolean(that.onhover_enable)) {
+                                    that.mouseEvent.highlightHide(options.selector + " .dot");
+                                }
                             }
                         })
                         .on('mousemove', function (d) {

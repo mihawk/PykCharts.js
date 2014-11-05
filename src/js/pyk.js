@@ -1629,7 +1629,6 @@ configuration.mouseEvent = function (options) {
 
                 if(options.axis_x_data_format==="string") {
                     x_range = xScale.range();
-                    console.log(x_range,xScale)
                 } else {
                     temp = xScale.range();
                     pad = (temp[1]-temp[0])/new_data[0].data.length;
@@ -1651,7 +1650,6 @@ configuration.mouseEvent = function (options) {
                             return false;
                         }
                         else {
-                            console.log(x ,">=", x_range[j] ,"&&", x ,"<=", x_range[j+1] ,"&&", y ,"<=", y_range[k] + legendsGroup_height);
                             if((right_tick === x_range[j] && left_tick === x_range[j+1]) && (top_tick === y_range[k])) {
                                 return false;
                             }
@@ -1676,7 +1674,6 @@ configuration.mouseEvent = function (options) {
                                     tooltipText = data[j+1].tooltip || data[j+1].y; // Line Chart ONLY!
                                     pos_line_cursor_x = (xScale(active_x_tick) + lineMargin + left);
                                     pos_line_cursor_y = (yScale(data[j+1].y) + top);
-                                    console.log(active_x_tick,"-----",lineMargin, "--------",left, "--------",pos_line_cursor_x, "--------");
                                 }
                                 if((pos_line_cursor_y > top && pos_line_cursor_y < (h-bottom)) && (pos_line_cursor_x > left && pos_line_cursor_x < (w-right))) {
                                     if(type === "multilineChart" /*|| type === "stackedAreaChart"*/) {
@@ -2337,7 +2334,9 @@ configuration.Theme = function(){
         "tooltip_mode": "moving",
 
         "credit_my_site_name": "Pykih",
-        "credit_my_site_url": "http://www.pykih.com"
+        "credit_my_site_url": "http://www.pykih.com",
+        "chart_onhover_highlight_enable": "yes",
+        
     };
 
     that.functionality = {
@@ -2476,7 +2475,7 @@ configuration.Theme = function(){
         "label_enable": "no",
         "click_enable": "yes",
 
-        "onhover": "shadow"
+        "chart_onhover_effect" : "shadow"
     };
     return that;
 }

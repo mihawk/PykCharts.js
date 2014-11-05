@@ -168,7 +168,9 @@ PykCharts.oneD.treemap = function (options){
                     .on('mouseover',function (d) {
                         if(!d.children && that.mode === "default") {
                             d.tooltip = d.tooltip || "<table class='PykCharts'><tr><th colspan='2' class='tooltip-heading'>"+d.name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.weight)+"<td class='tooltip-right-content'>("+((d.weight*100)/that.sum).toFixed(1)+"%)</tr></table>";
-                            that.mouseEvent.highlight(options.selector +" "+".treemap-rect", this);
+                            if(PykCharts.boolean(that.onhover_enable)) {
+                                that.mouseEvent.highlight(options.selector +" "+".treemap-rect", this);
+                            }
                             that.mouseEvent.tooltipPosition(d);
                             that.mouseEvent.tooltipTextShow(d.tooltip);
                         }
@@ -176,7 +178,9 @@ PykCharts.oneD.treemap = function (options){
                     .on('mouseout',function (d) {
                         if(that.mode === "default") {
                             that.mouseEvent.tooltipHide(d);
-                            that.mouseEvent.highlightHide(options.selector +" "+".treemap-rect");
+                            if(PykCharts.boolean(that.onhover_enable)) {    
+                                that.mouseEvent.highlightHide(options.selector +" "+".treemap-rect");
+                            }
                         }
                     })
                     .on('mousemove', function (d) {
