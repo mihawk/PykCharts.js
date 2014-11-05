@@ -697,7 +697,7 @@ PykCharts.multiD.columnFunctions = function (options,chartObject,type) {
                     var legend_container_width = that.legendsGroup.node().getBBox().width,translate_x;
 
                     if(that.legends_display === "vertical") {
-                        that.legendsGroup_width = legend_container_width < 80 ? legend_container_width + 20 : 100;
+                        that.legendsGroup_width = legend_container_width + 20;
                     } else  {
                         that.legendsGroup_width = 0;
                     }
