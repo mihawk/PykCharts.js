@@ -1710,12 +1710,7 @@ configuration.mouseEvent = function (options) {
                                             pos_line_cursor_x += 6;
                                             tooltipText = "<table><thead><th colspan='"+colspan+"'>"+active_x_tick+"</th></thead><tbody>"+tt_row+"</tbody></table>";
                                             if(PykCharts.boolean(options.tooltip_enable)) {
-                                                if(type === "stackedAreaChart") {
-                                                    group_index = 1;
-                                                    this.tooltipPosition(tooltipText,pos_line_cursor_x,y,60,70,group_index);
-                                                } else {
-                                                    this.tooltipPosition(tooltipText,pos_line_cursor_x,y,60,-15,group_index);
-                                                }
+                                                this.tooltipPosition(tooltipText,pos_line_cursor_x,y,60,-15,group_index);
                                                 this.tooltipTextShow(tooltipText);
                                             }
                                             console.log(pos_line_cursor_x);
@@ -1792,12 +1787,8 @@ configuration.mouseEvent = function (options) {
                                         pos_line_cursor_x += 6;
                                         tooltipText = "<table><thead><th colspan='"+colspan+"'>"+active_x_tick+"</th></thead><tbody>"+tt_row+"</tbody></table>";
                                         if(PykCharts.boolean(options.tooltip_enable)) {
-                                            if(type === "stackedAreaChart") {
-                                                group_index = 1;
-                                                this.tooltipPosition(tooltipText,pos_line_cursor_x,y,60,70,group_index);
-                                            } else {
-                                                this.tooltipPosition(tooltipText,pos_line_cursor_x,y,60,-15,group_index);
-                                            }
+                                            group_index = 1;
+                                            this.tooltipPosition(tooltipText,pos_line_cursor_x,y,60,70,group_index);
                                             this.tooltipTextShow(tooltipText);
                                         }
                                         (options.crosshair_enable) ? this.crossHairShow(pos_line_cursor_x,top+legendsGroup_height,pos_line_cursor_x,(h - bottom),pos_line_cursor_x,test,type,active_y_tick.length,panels_enable,new_data) : null;
