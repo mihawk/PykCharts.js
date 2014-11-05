@@ -225,6 +225,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                         .attr("id", "legend-container");
                 } else {
                     that.legendsGroup_height = 0;
+                    that.legendsGroup_width = 0;
                 }
                 return this;
             },
@@ -275,8 +276,10 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                 return this;
             },
             createMap : function () {
+
+                var new_width =  that.width - that.legendsGroup_width;
                 var scale = 150
-                , offset = [that.width / 2, that.height / 2]
+                , offset = [new_width / 2, that.height / 2]
                 , i;
                 $(options.selector).css("background-color",that.background_color);
 
@@ -298,13 +301,15 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                 that.path = d3.geo.path().projection(projection);
 
                 var bounds = that.path.bounds(topojson.feature(that.map_data, that.map_data.objects)),
-                    hscale = scale * (that.width) / (bounds[1][0] - bounds[0][0]),
+                    hscale = scale * (new_width) / (bounds[1][0] - bounds[0][0]),
                     vscale = scale * (that.height) / (bounds[1][1] - bounds[0][1]),
                     scale = (hscale < vscale) ? hscale : vscale,
-                    offset = [that.width - (bounds[0][0] + bounds[1][0]) / 2, that.height - (bounds[0][1] + bounds[1][1]) / 2];
+                    offset = [new_width - (bounds[0][0] + bounds[1][0]) / 2, that.height - (bounds[0][1] + bounds[1][1]) / 2];
 
+                console.log(new_width - (bounds[0][0] + bounds[1][0]) / 2, that.height - (bounds[0][1] + bounds[1][1]) / 2)
                 projection = d3.geo.mercator().center(center)
                    .scale((that.default_zoom_level / 100) * scale).translate(offset);
+
                 that.path = that.path.projection(projection);
                 var ttp = d3.select("#pyk-tooltip");
 
@@ -446,11 +451,11 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                 var m = 0, n = 0;
                 if(that.palette_color === "") {
                     that.legendsContainer.attr("height", (9 * 30)+20);
-                    that.legendsGroup_height = (9 * 30)+20;
+                    that.legendsGroup_height = 0;
                 }
                 else {
                     that.legendsContainer.attr("height", (that.current_palette.number * 30)+20);
-                    that.legendsGroup_height = (that.current_palette.number * 30)+20;
+                    that.legendsGroup_height = 0;
                 }
                 text_parameter1 = "x";
                 text_parameter2 = "y";
@@ -460,8 +465,8 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                 rect_parameter4 = "y";
                 rect_parameter1value = 13;
                 rect_parameter2value = 13;
-                text_parameter1value = function (d,k) { return that.width - (that.width/12) + 18; };
-                rect_parameter3value = function (d,k) { return that.width - (that.width/12); };
+                text_parameter1value = function (d,k) { return 38; };
+                rect_parameter3value = function (d,k) { return 20; };
                 var rect_parameter4value = function (d) {n++; return n * 24 + 12;};
                 var text_parameter2value = function (d) {m++; return m * 24 + 23;};
 
@@ -540,8 +545,15 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     .attr("fill", that.saturation_color)
                     .attr("fill-opacity", function(d,i) { return (i+1)/that.total_no_of_colors; });
 
-                var legend_container_width = that.legendsContainer.node().getBBox().width,
-                    translate_x = (that.legends_display === "vertical") ? 0 : (that.width - legend_container_width - 20);
+                var legend_container_width = that.legendsContainer.node().getBBox().width, translate_x;
+
+                    if(that.legends_display === "vertical") {
+                        that.legendsGroup_width = legend_container_width + 20;
+                    } else  {
+                        that.legendsGroup_width = 0;
+                    }
+
+                    translate_x = (that.legends_display === "vertical") ? (that.width - that.legendsGroup_width) : (that.width - legend_container_width - 20);
 
                 if (legend_container_width < that.width) { that.legendsContainer.attr("transform","translate("+(translate_x-20)+",10)"); }
                 that.legendsContainer.style("visibility","visible");
@@ -580,7 +592,14 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     .attr("x",rect_parameter3value)
                     .attr("y", rect_parameter4value);
 
-                var legend_container_width = that.legendsContainer.node().getBBox().width,
+                var legend_container_width = that.legendsContainer.node().getBBox().width,translate_x;
+
+                    if(that.legends_display === "vertical") {
+                        that.legendsGroup_width = legend_container_width + 20;
+                    } else  {
+                        that.legendsGroup_width = 0;
+                    }
+
                     translate_x = (that.legends_display === "vertical") ? 0 : (that.width - legend_container_width - 20);
 
                 if (legend_container_width < that.width) { that.legendsContainer.attr("transform","translate("+translate_x+",10)"); }

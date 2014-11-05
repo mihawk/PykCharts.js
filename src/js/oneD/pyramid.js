@@ -107,9 +107,11 @@ PykCharts.oneD.pyramid = function (options) {
 
         var add_extra_width = 0;
         setTimeout(function () {
-            add_extra_width = _.max(that.ticks_text_width,function(d){
-                    return d;
-                });
+            if(that.ticks_text_width.length) { 
+                add_extra_width = _.max(that.ticks_text_width,function(d){
+                        return d;
+                    });
+            }
             that.k.exportSVG(that,"#"+that.container_id,"pyramid",undefined,undefined,add_extra_width)
         },that.transitions.duration());
         
