@@ -10321,6 +10321,10 @@ PykCharts.multiD.barFunctions = function (options,chartObject,type) {
                             .attr("stroke-width","1px");
 
                     axis_line.exit().remove();
+                    if(that.axis_y_position === "right") {
+                        axis_line.attr("x1",(that.width-that.margin_left-that.margin_right-that.legendsGroup_width))
+                            .attr("x2",(that.width-that.margin_left-that.margin_right - that.legendsGroup_width));
+                    }
                 }
                 if(that.axis_y_title) {
                     if(that.axis_y_position === "left") {
@@ -10340,9 +10344,7 @@ PykCharts.multiD.barFunctions = function (options,chartObject,type) {
                             .text(that.axis_y_title);
 
                     } else if(that.axis_y_position === "right") {
-                        axis_line.attr("x1",(that.width-that.margin_left-that.margin_right-that.legendsGroup_width))
-                            .attr("x2",(that.width-that.margin_left-that.margin_right - that.legendsGroup_width));
-
+                        
                         that.yGroup = that.group.append("g")
                             .attr("id","yaxis")
                             .attr("class", "y axis")
@@ -11459,6 +11461,10 @@ PykCharts.multiD.columnFunctions = function (options,chartObject,type) {
                             .attr("stroke",that.axis_x_line_color);
 
                     axis_line.exit().remove();
+                    if(that.axis_x_position === "top") {
+                        axis_line.attr("y1",0)
+                            .attr("y2",0);
+                    }
                 }
 
                 if(PykCharts.boolean(that.axis_y_enable) || that.axis_y_enable) {
@@ -11485,9 +11491,7 @@ PykCharts.multiD.columnFunctions = function (options,chartObject,type) {
                                 .text(that.axis_x_title);
 
                     } else if(that.axis_x_position === "top") {
-                        axis_line.attr("y1",0)
-                            .attr("y2",0);
-
+                        
                         that.xGroup = that.group.append("g")
                             .attr("id","xaxis")
                             .attr("class", "x axis")

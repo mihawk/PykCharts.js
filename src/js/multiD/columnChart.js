@@ -269,6 +269,10 @@ PykCharts.multiD.columnFunctions = function (options,chartObject,type) {
                             .attr("stroke",that.axis_x_line_color);
 
                     axis_line.exit().remove();
+                    if(that.axis_x_position === "top") {
+                        axis_line.attr("y1",0)
+                            .attr("y2",0);
+                    }
                 }
 
                 if(PykCharts.boolean(that.axis_y_enable) || that.axis_y_enable) {
@@ -295,9 +299,7 @@ PykCharts.multiD.columnFunctions = function (options,chartObject,type) {
                                 .text(that.axis_x_title);
 
                     } else if(that.axis_x_position === "top") {
-                        axis_line.attr("y1",0)
-                            .attr("y2",0);
-
+                        
                         that.xGroup = that.group.append("g")
                             .attr("id","xaxis")
                             .attr("class", "x axis")
