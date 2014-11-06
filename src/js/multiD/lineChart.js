@@ -190,6 +190,10 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
 			that.k.title();
 
 			if(PykCharts.boolean(that.panels_enable)) {
+		        that.w = that.width/4;
+		        that.height = that.height/2;
+		        that.margin_left = that.margin_left;
+		        that.margin_right = that.margin_right;
 
 				that.k.backgroundColor(that)
 					.export(that,"svg-","lineChart",that.panels_enable,that.new_data)
