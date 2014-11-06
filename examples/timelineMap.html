@@ -23,10 +23,11 @@
             window.PykChartsInit = function (e) {
                 k = new PykCharts.maps.timelineMap({
                     selector: "#map-container",
-                    map_code: "india",
-                    data: "../data/india_data_timeline.json",
+                    map_code: "world_without_antarctica",
+                    data: "../data/world_without_antarctica_data_timeline.json",
                     chart_height: 500,
                     chart_width: 500,
+                    palette_color: "Blue-1",
                     // default_color:["pink"],,
                     background_color: "white",
                     tooltip_enable : "yes",
@@ -34,7 +35,7 @@
                     tooltip_position_top: 10,
                     tooltip_position_left:10,
                     border_between_chart_elements_color: "#666666",
-                    border_between_chart_elements_thickness: 2,
+                    border_between_chart_elements_thickness: 1,
                     border_between_chart_elements_style: "dotted",
                     timeline_duration: 0.5,
                     timeline_margin_top: 10,
@@ -65,7 +66,7 @@
                     legends_text_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
                     // highlight: "NG",
                     // highlight_color: "yellow"
-                    "palette_color": "Red",
+                    // "palette_color": "Red",
                     color_mode:"saturation",
                     // saturation_color: "pink",
                     total_no_of_colors: 5
