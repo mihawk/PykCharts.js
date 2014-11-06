@@ -11587,6 +11587,7 @@ PykCharts.multiD.columnFunctions = function (options,chartObject,type) {
                 that.domain = group_arr.map(function (d) {
                     return d.name;
                 });
+                var text_height;
                 var rect = bars.selectAll("rect")
                     .data(function(d,i){
                         return d.values;
@@ -11699,7 +11700,8 @@ PykCharts.multiD.columnFunctions = function (options,chartObject,type) {
                                 // console.log(d.name,"name");
                                 return d.name;
                             })
-                            .text(function (d) {
+                            .text(function (d,i) {
+                                text_height = this.getBBox().height;
                                 largest = (this.getBBox().width > largest) ? this.getBBox().width : largest;
                             });
                     if (rangeband >= largest) { flag = 1; }
@@ -11751,17 +11753,17 @@ PykCharts.multiD.columnFunctions = function (options,chartObject,type) {
                             });
                         } else if(that.axis_x_pointer_position === "bottom") {
                             xAxis_label.attr("y", function () {
-                                return 15;
+                                return text_height;
                             });
                         }
                     }else {
                         if(that.axis_x_pointer_position === "top") {
                             xAxis_label.attr("y", function () {
-                                return h-15;
+                                return h - text_height;
                             });
                         } else if(that.axis_x_pointer_position === "bottom") {
                             xAxis_label.attr("y", function () {
-                                return h+15;
+                                return h + text_height;
                             });
                         }
                     }
@@ -14586,7 +14588,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     .attr("class","map_group")
                     .append("path");
 
-                if (that.map_code==="world" || that.map_code==="world_without_antarctica") {
+                if (that.map_code==="world" || that.map_code==="world_with_antarctica") {
                     var center = [0,0];
                 } else {
                     var center = d3.geo.centroid(topojson.feature(that.map_data, that.map_data.objects));
