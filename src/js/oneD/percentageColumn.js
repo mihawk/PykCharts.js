@@ -200,14 +200,18 @@ PykCharts.oneD.percentageColumn = function (options) {
                     .on("mouseover", function (d,i) {
                         if(that.mode === "default") {
                             d.tooltip=d.tooltip||"<table class='PykCharts'><tr><th colspan='2' class='tooltip-heading'>"+d.name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.weight)+"<td class='tooltip-right-content'>("+d.percentValue.toFixed(1)+"%)</tr></table>"
-                            that.mouseEvent.highlight(options.selector+" "+".per-rect",this);
+                            if(PykCharts.boolean(that.onhover_enable)) {
+                                that.mouseEvent.highlight(options.selector+" "+".per-rect",this);
+                            }
                             that.mouseEvent.tooltipPosition(d);
                             that.mouseEvent.tooltipTextShow(d.tooltip);
                         }
                     })
                     .on("mouseout", function (d) {
                         if(that.mode === "default") {
-                            that.mouseEvent.highlightHide(options.selector+" "+".per-rect");
+                            if(PykCharts.boolean(that.onhover_enable)) {
+                                that.mouseEvent.highlightHide(options.selector+" "+".per-rect");
+                            }
                             that.mouseEvent.tooltipHide(d);
                         }
                     })

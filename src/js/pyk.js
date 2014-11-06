@@ -2348,7 +2348,9 @@ configuration.Theme = function(){
         "tooltip_mode": "moving",
 
         "credit_my_site_name": "Pykih",
-        "credit_my_site_url": "http://www.pykih.com"
+        "credit_my_site_url": "http://www.pykih.com",
+        "chart_onhover_highlight_enable": "yes",
+        
     };
 
     that.functionality = {
@@ -2487,7 +2489,7 @@ configuration.Theme = function(){
         "label_enable": "no",
         "click_enable": "yes",
 
-        "onhover": "shadow"
+        "chart_onhover_effect" : "shadow"
     };
     return that;
 }

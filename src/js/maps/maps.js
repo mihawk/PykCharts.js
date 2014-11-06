@@ -90,7 +90,9 @@ PykCharts.maps.processInputs = function (chartObject, options) {
         default : chartObject.border_between_chart_elements_style = "0";
                   break;
     }
-    chartObject.onhover = options.onhover ? options.onhover : mapsTheme.onhover;
+    
+    chartObject.onhover_enable = options.chart_onhover_highlight_enable ? options.chart_onhover_highlight_enable : stylesheet.chart_onhover_highlight_enable;
+    chartObject.onhover = options.chart_onhover_effect ? options.chart_onhover_effect : mapsTheme.chart_onhover_effect;
     chartObject.default_zoom_level = options.default_zoom_level ? options.default_zoom_level : 80;
 
     chartObject.loading = options.loading_gif_url ? options.loading_gif_url: stylesheet.loading_gif_url;

@@ -262,15 +262,19 @@ PykCharts.oneD.pyramid = function (options) {
                     })
         			.on("mouseover", function (d,i) {
                         if(that.mode === "default") {
-                            that.mouseEvent.highlight(options.selector +" "+".pyr-path",this);
+                            if(PykCharts.boolean(that.onhover_enable)) {
+                                that.mouseEvent.highlight(options.selector +" "+".pyr-path",this);
+                            }
                             that.mouseEvent.tooltipPosition(d);
                             that.mouseEvent.tooltipTextShow(tooltipArray[i]);
                         }
         			})
         			.on("mouseout", function (d) {
                         if(that.mode === "default") {
-                            that.mouseEvent.highlightHide(options.selector +" "+".pyr-path")
-                			that.mouseEvent.tooltipHide(d);
+                            if(PykCharts.boolean(that.onhover_enable)) {
+                                that.mouseEvent.highlightHide(options.selector +" "+".pyr-path")
+                			}
+                            that.mouseEvent.tooltipHide(d);
                         }
         			})
         			.on("mousemove", function (d,i) {

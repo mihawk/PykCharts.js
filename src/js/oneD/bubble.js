@@ -162,7 +162,9 @@ PykCharts.oneD.bubble = function (options) {
                     })
                     .on("mouseover", function (d) {
                         if(!d.children && that.mode==="default") {
-                            that.mouseEvent.highlight(options.selector+" "+".bubble", this);
+                            if(PykCharts.boolean(that.onhover_enable)) {
+                                that.mouseEvent.highlight(options.selector+" "+".bubble", this);
+                            }
                             d.tooltip = d.tooltip ||"<table><thead><th colspan='2' class='tooltip-heading'>"+d.name+"</th></thead><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.weight)+"  <td class='tooltip-right-content'>("+((d.weight*100)/that.sum).toFixed(1)+"%)</tr></table>";
                             that.mouseEvent.tooltipPosition(d);
                             that.mouseEvent.tooltipTextShow(d.tooltip);
@@ -171,7 +173,9 @@ PykCharts.oneD.bubble = function (options) {
                     .on("mouseout", function (d) {
                         if(that.mode==="default") {
                             that.mouseEvent.tooltipHide(d)
-                            that.mouseEvent.highlightHide(options.selector+" "+".bubble");
+                            if(PykCharts.boolean(that.onhover_enable)) {
+                                that.mouseEvent.highlightHide(options.selector+" "+".bubble");
+                            }
                         }
 
                     })

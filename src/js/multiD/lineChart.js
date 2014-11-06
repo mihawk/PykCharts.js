@@ -142,7 +142,6 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
 		}
 		that.uniq_group_arr = _.unique(that.group_arr);
 		that.uniq_color_arr = [];
-		// $.unique(that.uniq_group_arr);
 		var len = that.uniq_group_arr.length;
 		for (k = 0;k < len;k++) {
 			if(that.chart_color[k]) {

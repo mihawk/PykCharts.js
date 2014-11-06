@@ -327,7 +327,9 @@ PykCharts.oneD.funnel = function (options) {
                     .attr("stroke-opacity",1)
         			.on("mouseover", function (d,i) {
                         if(that.mode === "default") {
-                            that.mouseEvent.highlight(options.selector +" "+".fun-path",this);
+                            if(PykCharts.boolean(that.onhover_enable)) {
+                                that.mouseEvent.highlight(options.selector +" "+".fun-path",this);
+                            }
                             tooltip = that.new_data[i].tooltip || "<table class='PykCharts'><tr><th colspan='3' class='tooltip-heading'>"+that.new_data[i].name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(that.new_data[i].weight)+"<td class='tooltip-right-content'>("+that.per_values[i].toFixed(1)+"%) </tr></table>";
                 			that.mouseEvent.tooltipPosition(d);
                             that.mouseEvent.tooltipTextShow(tooltip);
@@ -335,8 +337,10 @@ PykCharts.oneD.funnel = function (options) {
         			})
         			.on("mouseout", function (d) {
                         if(that.mode === "default") {
-                            that.mouseEvent.highlightHide(options.selector +" "+".fun-path");
-                			that.mouseEvent.tooltipHide(d);
+                            if(PykCharts.boolean(that.onhover_enable)) {
+                                that.mouseEvent.highlightHide(options.selector +" "+".fun-path");
+                			}
+                            that.mouseEvent.tooltipHide(d);
                         }
         			})
         			.on("mousemove", function (d,i) {

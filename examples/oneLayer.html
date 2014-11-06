@@ -19,6 +19,7 @@
                     // console.log($("#d3").val(),$("#d4").val());
                     k = new PykCharts.maps.oneLayer({
                         selector: "#map-container",
+
                         map_code: "india",
                         mode: "default",
                         data: "../data/india_data.json",
@@ -26,8 +27,9 @@
                         chart_width: 500,
                         // chart_color : ["#636363"],
                         color_mode: "saturation",
-                        saturation_color : "green",
+                        //saturation_color : "green",
                         palette_color: "Purple",
+
                         total_no_of_colors: 5,
                         background_color: "white",
                         tooltip_enable : "yes",
@@ -39,7 +41,7 @@
                         border_between_chart_elements_style: "solid",
                         click_enable: "yes",
                         real_time_charts_refresh_frequency : 5,
-                        onhover: "shadow",
+                        chart_onhover_highlight_enable : "yes",
                         label_enable: "no",
                         default_zoom_level: 80,
                         highlight: "NG",
