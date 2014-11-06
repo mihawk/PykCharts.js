@@ -71,7 +71,7 @@ PykCharts.multiD.panelsOfScatter = function (options) {
         that = new PykCharts.multiD.processInputs(that, options, "scatterplot");
         that.bubbleRadius = options.scatterplot_radius ? options.scatterplot_radius : theme.multiDimensionalCharts.scatterplot_radius;
         that.panels_enable = "yes";
-
+        that.legends_display = "horizontal";
         try {
             if(!_.isNumber(that.bubbleRadius)) {
                 that.bubbleRadius = theme.multiDimensionalCharts.scatterplot_radius;
@@ -205,7 +205,7 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
                 that.optionalFeatures().label();
             }
             that.k.xAxis(that.svgContainer,that.xGroup,that.x,that.extra_left_margin,that.xdomain,that.x_tick_values,that.legendsGroup_height)
-                    .yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain,that.y_tick_values)
+                    .yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain,that.y_tick_values,that.legendsGroup_width)
         });
     };
 
@@ -263,8 +263,8 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
                         .ticks();
 
                     that.k.xAxis(that.svgContainer,that.xGroup,that.x,that.extra_left_margin,that.xdomain,that.x_tick_values,that.legendsGroup_height)
-                        .yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain,that.y_tick_values)
-                        .xAxisTitle(that.xGroup,that.legendsGroup_height)
+                        .yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain,that.y_tick_values,that.legendsGroup_width)
+                        .xAxisTitle(that.xGroup,that.legendsGroup_height,that.legendsGroup_width)
                         .yAxisTitle(that.yGroup);
 
                     if((i+1)%4 === 0 && i !== 0) {
@@ -306,8 +306,8 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
                 }
 
                 that.k.xAxis(that.svgContainer,that.xGroup,that.x,that.extra_left_margin,that.xdomain,that.x_tick_values,that.legendsGroup_height)
-                    .yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain,that.y_tick_values)
-                    .xAxisTitle(that.xGroup,that.legendsGroup_height)
+                    .yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain,that.y_tick_values,that.legendsGroup_width)
+                    .xAxisTitle(that.xGroup,that.legendsGroup_height,that.legendsGroup_width)
                     .yAxisTitle(that.yGroup);
                     // .yGrid(that.svgContainer,that.group,that.yScale)
                     // .xGrid(that.svgContainer,that.group,that.x);
@@ -361,8 +361,8 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
                         .ticks();
 
                     that.k.xAxis(that.svgContainer,that.xGroup,that.x,that.extra_left_margin,that.xdomain,that.x_tick_values,that.legendsGroup_height)
-                        .yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain,that.y_tick_values)
-                        .xAxisTitle(that.xGroup,that.legendsGroup_height)
+                        .yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain,that.y_tick_values,that.legendsGroup_width)
+                        .xAxisTitle(that.xGroup,that.legendsGroup_height,that.legendsGroup_width)
                         .yAxisTitle(that.yGroup);
 
                     if((i+1)%4 === 0 && i !== 0) {
@@ -403,8 +403,8 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
                 }
 
                 that.k.xAxis(that.svgContainer,that.xGroup,that.x,that.extra_left_margin,that.xdomain,that.x_tick_values,that.legendsGroup_height)
-                    .yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain,that.y_tick_values)
-                    .xAxisTitle(that.xGroup,that.legendsGroup_height)
+                    .yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain,that.y_tick_values,that.legendsGroup_width)
+                    .xAxisTitle(that.xGroup,that.legendsGroup_height,that.legendsGroup_width)
                     .yAxisTitle(that.yGroup);
 
                 that.k.exportSVG(that,"#svgcontainer0",type);
@@ -446,6 +446,7 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
                 return this;
             },
             createGroups : function (i) {
+                console.log(that.legendsGroup_width,that.panels_enable,"heyyyyyyyy")
                 that.group = that.svgContainer.append("g")
                     .attr("transform","translate("+(that.margin_left)+","+(that.margin_top+that.legendsGroup_height)+")")
                     .attr("id","main");
@@ -471,7 +472,7 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
                 that.clip = that.group.append("svg:clipPath")
                             .attr("id", "clip" + i + that.selector)
                             .append("svg:rect")
-                            .attr("width",(that.w-that.margin_left-that.margin_right))
+                            .attr("width",(that.w-that.margin_left-that.margin_right-that.legendsGroup_width))
                             .attr("height", that.height-that.margin_top-that.margin_bottom - that.legendsGroup_height);
 
                 that.chartBody = that.group.append("g")
@@ -481,14 +482,16 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
                 return this;
             },
             legendsContainer : function (i) {
+
                 if (PykCharts.boolean(that.legends_enable) && that.map_group_data[1] && that.mode === "default") {
-                    that.legendsGroup = that.svgContainer.append("g")
-                                .attr('id',"legends")
-                                .style("visibility","visible")
-                                .attr("transform","translate(0,20)");
+                        that.legendsGroup = that.svgContainer.append("g")
+                                    .attr('id',"legends")
+                                    .style("visibility","visible");
                 } else {
+                    that.legendsGroup_width = 0;
                     that.legendsGroup_height = 0;
                 }
+
                 return this;
             },
             createChart : function (index) {
@@ -583,13 +586,13 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
                             x_data[1] = max_x_tick_value;
                         }
 
-                        x_range = [0 ,that.w - that.margin_left - that.margin_right];
+                        x_range = [0 ,that.w - that.margin_left - that.margin_right - that.legendsGroup_width];
                         that.x = that.k.scaleIdentification("linear",x_data,x_range);
                         that.extra_left_margin = 0;
 
                     } else if(that.axis_x_data_format === "string") {
                         that.data.forEach(function(d) { x_data.push(d.x); });
-                        x_range = [0 ,that.w - that.margin_left - that.margin_right];
+                        x_range = [0 ,that.w - that.margin_left - that.margin_right - that.legendsGroup_width];
                         that.x = that.k.scaleIdentification("ordinal",x_data,x_range,0);
                         that.extra_left_margin = (that.x.rangeBand()/2);
 
@@ -677,7 +680,7 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
 
                     if(that.legends_display === "vertical" ) {
                         that.legendsGroup.attr("height", (that.map_group_data[0].length * 30)+20);
-                        that.legendsGroup_height = (that.map_group_data[0].length * 30)+20;
+                        that.legendsGroup_height = 0;
 
                         text_parameter1 = "x";
                         text_parameter2 = "y";
@@ -687,8 +690,8 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
                         rect_parameter4 = "y";
                         rect_parameter1value = 13;
                         rect_parameter2value = 13;
-                        text_parameter1value = function (d,i) { return that.w - that.w/4 + 16; };
-                        rect_parameter3value = function (d,i) { return that.w - that.w/4; };
+                        text_parameter1value = function (d,i) { return 36; };
+                        rect_parameter3value = function (d,i) { return 20; };
                         var rect_parameter4value = function (d,i) { return i * 24 + 12;};
                         var text_parameter2value = function (d,i) { return i * 24 + 23;};
 
@@ -768,7 +771,14 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
                         });
 
                     var legend_container_width = that.legendsGroup.node().getBBox().width, translate_x = 0;
-                        translate_x = (that.legends_display === "vertical") ? 0 : ((!PykCharts.boolean(that.panels_enable)) ? (that.width - legend_container_width - 20) : that.margin_left);
+
+                    if(that.legends_display === "vertical" && !PykCharts.boolean(that.panels_enable)) {
+                        that.legendsGroup_width = legend_container_width + 20 ;
+                    } else {
+                        that.legendsGroup_width = 0;
+                    }
+
+                        translate_x = (that.legends_display === "vertical") ? (that.w - that.legendsGroup_width) : ((!PykCharts.boolean(that.panels_enable)) ? (that.width - legend_container_width - 20) : that.margin_left);
 
                     if (legend_container_width < that.w) { that.legendsGroup.attr("transform","translate("+translate_x+",20)"); }
                     that.legendsGroup.style("visibility","visible");
@@ -957,13 +967,17 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
                             tooltipText = d.tooltip ? d.tooltip : "<table><thead><th colspan='2'><b>"+d.name+"</b></th></thead><tr><td>X</td><td><b>"+d.x+"</b></td></tr><tr><td>Y</td><td><b>"+d.y+"<b></td></tr><tr><td>Weight</td><td><b>"+d.weight+"</b></td></tr></table>";
                             that.mouseEvent.tooltipPosition(d);
                             that.mouseEvent.tooltipTextShow(tooltipText);
-                            that.mouseEvent.highlight(options.selector + " .dot", this);
+                            if(PykCharts.boolean(that.onhover_enable)) {
+                                that.mouseEvent.highlight(options.selector + " .dot", this);
+                            }
                         }
                     })
                     .on('mouseout',function (d) {
                         if(that.mode === "default") {
                             that.mouseEvent.tooltipHide(d);
-                            that.mouseEvent.highlightHide(options.selector + " .dot");
+                            if(PykCharts.boolean(that.onhover_enable)) {
+                                that.mouseEvent.highlightHide(options.selector + " .dot");
+                            }
                         }
                     })
                     .on('mousemove', function (d) {
@@ -1103,7 +1117,7 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
         var current_x_axis = currentSvg.select("#xaxis");
         var current_y_axis = currentSvg.select("#yaxis");
         that.k.xAxis(currentSvg,current_x_axis,that.x,that.extra_left_margin,that.xdomain,that.x_tick_values,that.legendsGroup_height)
-            .yAxis(currentSvg,current_y_axis,that.yScale,that.ydomain,that.y_tick_values);
+            .yAxis(currentSvg,current_y_axis,that.yScale,that.ydomain,that.y_tick_values,that.legendsGroup_width);
 
         d3.select(that.selector+" #svgcontainer" +i)
             .selectAll(".dot")

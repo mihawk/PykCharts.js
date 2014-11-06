@@ -2,7 +2,8 @@ PykCharts.multiD.line = function (options) {
 	var that = this;
 	var theme = new PykCharts.Configuration.Theme({});
 
-	this.execute = function (){
+	this.execute = function () {
+
 
 		that = new PykCharts.multiD.processInputs(that, options, "line");
 
@@ -77,7 +78,7 @@ PykCharts.multiD.multiSeriesLine = function (options) {
 			if(that.axis_x_data_format === "time" && that.axis_x_time_value_datatype === "") {
     			console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+that.selector+".(\""+"You seem to have passed Date data so please pass the value for axis_x_time_value_datatype"+"\")  Visit www.chartstore.io/docs#warning_"+"15");
     		}
-			PykCharts.multiD.lineFunctions(options,that,"line");
+			PykCharts.multiD.lineFunctions(options,that,"multi_series_line");
 		});
 	};
 };
@@ -119,7 +120,7 @@ PykCharts.multiD.panelsOfLine = function (options) {
 			if(that.axis_x_data_format === "time" && that.axis_x_time_value_datatype === "") {
     			console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+that.selector+".(\""+"You seem to have passed Date data so please pass the value for axis_x_time_value_datatype"+"\")  Visit www.chartstore.io/docs#warning_"+"15");
     		}
-			PykCharts.multiD.lineFunctions(options,that,"line");
+			PykCharts.multiD.lineFunctions(options,that,"panels_of_line");
 		});
 	};
 };
@@ -141,7 +142,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
 		}
 		that.uniq_group_arr = that.group_arr.slice();
 		that.uniq_color_arr = [];
-		$.unique(that.uniq_group_arr);
+		that.uniq_group_arr = _.unique(that.uniq_group_arr);
 		var len = that.uniq_group_arr.length;
 		for (k = 0;k < len;k++) {
 			if(that.chart_color[k]) {
@@ -252,9 +253,21 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
 						.tooltip(true,that.selector,1,that.flag);
 				that.optionalFeature()
 						.chartType()
-						.svgContainer(1)
-						.createGroups(1)
-						.hightLightOnload();
+
+				try {
+					if(that.type === "multilineChart" && type === "line" ) {
+						throw "Invalid data in the JSON";
+					}
+
+				}
+				catch (err) {
+		            console.error('%c[Error - Pykih Charts] ', 'color: red;font-weight:bold;font-size:14px', " at "+options.selector+".\""+err+"\"  Visit www.chartstore.io/docs#error_");					
+		            return;
+				}
+
+				that.optionalFeature().svgContainer(1)
+					.createGroups(1)
+					.hightLightOnload();
 
 				that.k.crossHair(that.svgContainer,that.new_data_length,that.new_data,that.fillColor,that.type);
 				that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
@@ -342,7 +355,19 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
 				that.k.makeMainDiv(that.selector,1)
 				that.optionalFeature()
 						.chartType()
-						.svgContainer(1)
+
+				try {
+					if(that.type === "multilineChart" && type === "line" ) {
+						throw "Invalid data in the JSON";
+					}
+
+				}
+				catch (err) {
+		            console.error('%c[Error - Pykih Charts] ', 'color: red;font-weight:bold;font-size:14px', " at "+options.selector+".\""+err+"\"  Visit www.chartstore.io/docs#error_");					
+					return;		            
+				}
+
+				that.optionalFeature().svgContainer(1)
 						.createGroups(1)
 						.hightLightOnload()
 						.createChart()

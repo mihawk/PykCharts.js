@@ -16,7 +16,7 @@ PykCharts.multiD.columnChart = function(options){
            that.k.loading();
         }
         that.multiD = new PykCharts.multiD.configuration(that);
-        d3.json(options.data, function(e, data){
+        d3.json(options.data, function(e, data) {
 
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
@@ -64,7 +64,7 @@ PykCharts.multiD.groupedColumnChart = function(options){
             that.compare_data = data.groupBy("column");
             that.axis_y_data_format = that.k.yAxisDataFormatIdentification(that.data);
             $(that.selector+" #chart-loader").remove();
-            PykCharts.multiD.columnFunctions(options,that,"column");
+            PykCharts.multiD.columnFunctions(options,that,"group_column");
             that.render();
         });
     };
@@ -99,8 +99,8 @@ PykCharts.multiD.columnFunctions = function (options,chartObject,type) {
                     .createChart()
                     .legends();
 
-            that.k.yAxis(that.svgContainer,that.yGroup,that.yScaleInvert,undefined,that.y_tick_values)
-                .yGrid(that.svgContainer,that.group,that.yScaleInvert);
+            that.k.yAxis(that.svgContainer,that.yGroup,that.yScaleInvert,undefined,that.y_tick_values,that.legendsGroup_width)
+                .yGrid(that.svgContainer,that.group,that.yScaleInvert,that.legendsGroup_width);
                 // console.log("inside liveData");
         });
     };
@@ -115,6 +115,17 @@ PykCharts.multiD.columnFunctions = function (options,chartObject,type) {
         that.map_group_data = that.multiD.mapGroup(that.data);
         that.data = that.dataTransformation();
         that.data = that.emptygroups(that.data);
+
+        try {
+            if(that.no_of_groups > 1 && type === "column") {
+                throw "Invalid data in the JSON";
+            }
+        }
+        catch (err) {
+            console.error('%c[Error - Pykih Charts] ', 'color: red;font-weight:bold;font-size:14px', " at "+options.selector+". \""+err+"\"  Visit www.chartstore.io/docs#error_");
+            return;            
+        }
+
         var fD = that.flattenData();
         that.the_bars = fD[0];
         that.the_keys = fD[1];
@@ -157,10 +168,10 @@ PykCharts.multiD.columnFunctions = function (options,chartObject,type) {
                 .axisContainer()
                 .highlightRect();
 
-            that.k.yAxis(that.svgContainer,that.yGroup,that.yScaleInvert,undefined,that.y_tick_values)
+            that.k.yAxis(that.svgContainer,that.yGroup,that.yScaleInvert,undefined,that.y_tick_values,that.legendsGroup_width)
                  .yAxisTitle(that.yGroup)
                 // .xAxis(that.svgContainer,that.xGroup,that.xScale)
-                .yGrid(that.svgContainer,that.group,that.yScaleInvert);
+                .yGrid(that.svgContainer,that.group,that.yScaleInvert,that.legendsGroup_width);
 
         } else if(that.mode === "infographics") {
             that.k.backgroundColor(that)
@@ -177,8 +188,8 @@ PykCharts.multiD.columnFunctions = function (options,chartObject,type) {
 
             that.k.tooltip();
             that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
-            that.k.yAxis(that.svgContainer,that.yGroup,that.yScaleInvert,undefined,that.y_tick_values)
-                 .yAxisTitle(that.yGroup);
+            that.k.yAxis(that.svgContainer,that.yGroup,that.yScaleInvert,undefined,that.y_tick_values,that.legendsGroup_width)
+                 .yAxisTitle(that.yGroup,that.legendsGroup_width);
         }
 
         that.k.exportSVG(that,"#"+that.container_id,"columnChart")
@@ -236,6 +247,7 @@ PykCharts.multiD.columnFunctions = function (options,chartObject,type) {
 
                 } else {
                     that.legendsGroup_height = 0;
+                    that.legendsGroup_width = 0;
                 }
                 return this;
             },
@@ -251,8 +263,8 @@ PykCharts.multiD.columnFunctions = function (options,chartObject,type) {
 
                     axis_line.attr("class","axis-line")
                             .attr("x1",0)
-                            .attr("y1",that.height-that.margin_top-that.margin_bottom-that.legendsGroup_height )
-                            .attr("x2",that.width-that.margin_left-that.margin_right)
+                            .attr("y1",that.height-that.margin_top-that.margin_bottom-that.legendsGroup_height)
+                            .attr("x2",that.width-that.margin_left-that.margin_right - that.legendsGroup_width)
                             .attr("y2",that.height-that.margin_top-that.margin_bottom-that.legendsGroup_height)
                             .attr("stroke",that.axis_x_line_color);
 
@@ -271,7 +283,7 @@ PykCharts.multiD.columnFunctions = function (options,chartObject,type) {
                             .attr("class", "x axis")
                             .style("stroke","none")
                             .append("text")
-                                .attr("x", (that.width - that.margin_left - that.margin_right)/2)
+                                .attr("x", (that.width - that.margin_left - that.margin_right - that.legendsGroup_width)/2)
                                 .attr("y", that.height -that.margin_bottom - that.margin_top - that.legendsGroup_height)
                                 // .attr("dy", -8)
                                 .attr("dy", that.margin_top + 10)
@@ -291,7 +303,7 @@ PykCharts.multiD.columnFunctions = function (options,chartObject,type) {
                             .attr("class", "x axis")
                             .style("stroke","none")
                             .append("text")
-                                .attr("x", (that.width - that.margin_left - that.margin_right)/2)
+                                .attr("x", (that.width - that.margin_left - that.margin_right -that.legendsGroup_width)/2)
                                 .attr("y", -40)
                                 // .attr("dy", -8)
                                 .attr("dy", that.margin_top + that.legendsGroup_height + 10)
@@ -306,7 +318,7 @@ PykCharts.multiD.columnFunctions = function (options,chartObject,type) {
                 return this;
             },
             createChart: function() {
-                var w = that.width - that.margin_left - that.margin_right;
+                var w = that.width - that.margin_left - that.margin_right - that.legendsGroup_width;
                 var h = that.height - that.margin_top - that.margin_bottom - that.legendsGroup_height,j=that.no_of_groups+1;
 
                 var the_bars = that.the_bars;
@@ -425,14 +437,18 @@ PykCharts.multiD.columnFunctions = function (options,chartObject,type) {
                             that.mouseEvent.tooltipPosition(d);
                             that.mouseEvent.tooltipTextShow(d.tooltip ? d.tooltip : d.y);
                             that.mouseEvent.axisHighlightShow(d.name,options.selector + " " + ".axis-text",that.domain,"column");
-                            that.mouseEvent.highlight(options.selector + " .rect", this);
+                            if(PykCharts.boolean(that.onhover_enable)) {
+                                that.mouseEvent.highlight(options.selector + " .rect", this);
+                            }
                         }
                     })
                     .on('mouseout',function (d) {
                         if(that.mode === "default") {
                             that.mouseEvent.tooltipHide(d);
                             that.mouseEvent.axisHighlightHide(options.selector + " " + ".axis-text","column");
-                            that.mouseEvent.highlightHide(options.selector + " .rect");
+                            if(PykCharts.boolean(that.onhover_enable)) {
+                                that.mouseEvent.highlightHide(options.selector + " .rect");
+                            }
                         }
                      })
                     .on('mousemove', function (d) {
@@ -607,7 +623,7 @@ PykCharts.multiD.columnFunctions = function (options,chartObject,type) {
 
                     if(that.legends_display === "vertical" ) {
                         that.legendsGroup.attr("height", (params.length * 30)+20);
-                        that.legendsGroup_height = (params.length * 30)+20;
+                        that.legendsGroup_height = 0;
 
                         text_parameter1 = "x";
                         text_parameter2 = "y";
@@ -617,8 +633,8 @@ PykCharts.multiD.columnFunctions = function (options,chartObject,type) {
                         rect_parameter4 = "y";
                         rect_parameter1value = 13;
                         rect_parameter2value = 13;
-                        text_parameter1value = function (d,i) { return that.width - that.width/4 + 16; };
-                        rect_parameter3value = function (d,i) { return that.width - that.width/4; };
+                        text_parameter1value = function (d,i) { return 36; };
+                        rect_parameter3value = function (d,i) { return 20; };
                         var rect_parameter4value = function (d,i) { return i * 24 + 12;};
                         var text_parameter2value = function (d,i) { return i * 24 + 23;};
                     }
@@ -654,7 +670,7 @@ PykCharts.multiD.columnFunctions = function (options,chartObject,type) {
                         rect_parameter4value = 18;
                     }
 
-                    var legend = that.legendsGroup.selectAll("rect")
+                    var legend = that.legendsGroup.selectAll(".legends-rect")
                                     .data(params);
 
                     that.legends_text = that.legendsGroup.selectAll(".legends_text")
@@ -676,7 +692,7 @@ PykCharts.multiD.columnFunctions = function (options,chartObject,type) {
                     legend.enter()
                         .append("rect");
 
-                    legend.attr("class","rect")
+                    legend.attr("class","legends-rect")
                         .attr(rect_parameter1, rect_parameter1value)
                         .attr(rect_parameter2, rect_parameter2value)
                         .attr(rect_parameter3, rect_parameter3value)
@@ -693,8 +709,15 @@ PykCharts.multiD.columnFunctions = function (options,chartObject,type) {
                             }
                         });
 
-                    var legend_container_width = that.legendsGroup.node().getBBox().width;
-                        translate_x = (that.legends_display === "vertical") ? 0 : (that.width - legend_container_width - 20);
+                    var legend_container_width = that.legendsGroup.node().getBBox().width,translate_x;
+
+                    if(that.legends_display === "vertical") {
+                        that.legendsGroup_width = legend_container_width + 20;
+                    } else  {
+                        that.legendsGroup_width = 0;
+                    }
+
+                    translate_x = (that.legends_display === "vertical") ? (that.width - that.legendsGroup_width) : (that.width - legend_container_width - 20);
 
                     if (legend_container_width < that.width) { that.legendsGroup.attr("transform","translate("+translate_x+",10)"); }
                     that.legendsGroup.style("visibility","visible");

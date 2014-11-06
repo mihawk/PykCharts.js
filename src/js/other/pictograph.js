@@ -226,10 +226,21 @@ PykCharts.other.pictograph = function (options) {
 
                 that.optionalFeatures().showTotal();
                 var counter = 0;
+                
+                if(!that.textWidth) {
+                    that.textWidth = 0;    
+                }
+
+                if(!that.totalTxtWeight) {
+                    that.totalTxtWeight = 0;
+                }
+
                 var width = that.textWidth + that.totalTxtWeight + 25;
+
                 if(that.total_unit_width > width) {
                     width = that.total_unit_width + 10
                 }
+
                 that.group.attr("transform", "translate(" + (width) + ",0)")
                 for(var j=1; j<=that.weight; j++) {
                     if(j <= that.data[1].weight) {
@@ -324,6 +335,11 @@ PykCharts.other.pictograph = function (options) {
                     if (current_text.length > 0) {
                         current_text.remove();
                     };
+                    
+                    if(!that.textWidth) {
+                        that.textWidth = 0;    
+                    }
+
                     var y_pos =  ((that.data[0].weight)/(that.imgperline));
                     var textHeight;
 
@@ -335,12 +351,12 @@ PykCharts.other.pictograph = function (options) {
                         .attr("fill",that.total_count_color)
                         .text("/"+that.data[0].weight)
                         .text(function () {
-                            textHeight =this.getBBox().height;
+                            that.textHeight =this.getBBox().height;
                             that.totalTxtWeight = this.getBBox().width;
                             return "/"+that.data[0].weight;
                         })
                         .attr("x", (that.textWidth+5))
-                        .attr("y", function () { return ((textHeight)-10); });
+                        .attr("y", function () { return ((that.textHeight)-10); });
                 }
                 return this;
             },
@@ -371,8 +387,15 @@ PykCharts.other.pictograph = function (options) {
                 return this;
             },
             appendUnits: function () {
+
+                if(!that.textHeight) {
+                    that.textHeight = 0;
+                }
+                
+
                 var unit_text_width, image_width,unit_text_width1,unit_text_height;
                 that.group2.attr("transform","translate(0," + (that.textHeight + 15)+")");
+
                 that.group2.append("text")
                         .attr("x", 0)
                         .attr("class","PykCharts-unit-text")
@@ -390,6 +413,7 @@ PykCharts.other.pictograph = function (options) {
                         })
                         .attr("dy",0)
                         .attr("y",unit_text_height - 5);
+
                 that.group2.append("image")
                         .attr("xlink:href",that.data[1]["image"])
                         .attr("id","unit-image")
@@ -398,6 +422,7 @@ PykCharts.other.pictograph = function (options) {
                         .attr("height", unit_text_height + "px")
                         .attr("width", unit_text_height + "px");
                 image_width = d3.select(options.selector +" #unit-image").attr("width");
+
                 that.group2.append("text")
                         .attr("x", function () {
                             return parseFloat(image_width) + unit_text_width + 4;
