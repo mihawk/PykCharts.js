@@ -351,7 +351,6 @@ PykCharts.Configuration = function (options){
             return this;
         },
         makeMainDiv : function (selection,i) {
-            console.log(selection,"selection")
             var d = d3.select(selection).append("div")
                 .attr("id","tooltip-svg-container-"+i)
                 .attr("class","main-div")
@@ -856,7 +855,7 @@ PykCharts.Configuration = function (options){
         },
         ordinalXAxisTickFormat :function (domain,extra) {
             // var mouseEvent = new PykCharts.Configuration.mouseEvent(options),
-                var a = $(options.selector + " g.x.axis text"),
+                var a = $(options.selector + " g.x.axis .tick text"),
                 len = a.length, comp, flag, largest = 0, rangeband = (extra*2);
 
             _.each(a, function (d) {
