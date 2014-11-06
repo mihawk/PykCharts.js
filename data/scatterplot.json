@@ -1,4 +1,3 @@
-
 [
     {
         "name": "Dairy Milk",
@@ -12,6 +11,22 @@
         "x": 42,
         "y": 5,
         "weight": 530,
+        "tooltip": "",
+        "group": "Nestle"
+    },
+    {
+        "name": "Galaxy",
+        "x": 50,
+        "y": 2.5,
+        "weight": 480,
+        "tooltip": "",
+        "group": "Nestle"
+    },
+    {
+        "name": "Kit-Kat",
+        "x": 51,
+        "y": 2.5,
+        "weight": 350,
         "tooltip": "",
         "group": "Nestle"
     },
@@ -78,22 +93,6 @@
         "weight": 400,
         "tooltip": "",
         "group": "Cadbury"
-    },
-    {
-        "name": "Galaxy",
-        "x": 50,
-        "y": 2.5,
-        "weight": 480,
-        "tooltip": "",
-        "group": "Nestle"
-    },
-    {
-        "name": "Kit-Kat",
-        "x": 51,
-        "y": 2.5,
-        "weight": 350,
-        "tooltip": "",
-        "group": "Nestle"
     },
     {
         "name": "Lindt",
