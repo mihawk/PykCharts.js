@@ -23,6 +23,6 @@
     {slug: "pulse",initializer: "PykCharts.multiD.pulse",data: "../data/pulse.json"},
     {slug: "spider",initializer: "PykCharts.multiD.spiderWeb",data: "../data/spiderWeb.json"},
     {slug: "pictograph",initializer: "PykCharts.other.pictograph",data: "../data/pictograph.json"},
-    {slug: "oneLayer",initializer: "PykCharts.maps.oneLayer",data: "../data/screenshot.json"},
-    {slug: "timelineMap",initializer: "PykCharts.maps.timelineMap",data: "../data/screenshot.json"}
+    {slug: "oneLayer",initializer: "PykCharts.maps.oneLayer",data: "../data/_data.json"},
+    {slug: "timelineMap",initializer: "PykCharts.maps.timelineMap",data: "../data/_data_timeline.json"}
 ]
