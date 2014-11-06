@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<title>Test</title>
+
+
+<!-- CSS -->
+<link rel="stylesheet" href="/dist/pykcharts.0.0.8.css"/>
+</head>
+<body>
+
+<div id="my_chart"></div>
+
+
+<!-- <script src="PykCharts/lib/downloadDataURI.js"></script> -->
+<!-- <script src="PykCharts/lib/paper-full.js"></script> -->
+<!-- <script src="PykCharts/lib/colors.js"></script> -->
+<script src="/dist/pykcharts.0.0.8.js"></script>
+<!-- pie
+oneD.donut 					done
+oneD.election_pie 			done
+oneD.election_donut 		done
+oneD.bubble 				done
+oneD.funnel 				done
+oneD.pyramid 				done
+oneD.percentageBar 			done
+oneD.percentageColumn 		done
+oneD.treemap 				done
+
+multiD.barChart 			done
+multiD.columnChart 			done
+multiD.scatterPlot 			done
+multiD.pulse 				done
+multiD.lineChart
+multiD.areaChart
+multiD.spiderWeb
+other.pictograph
+-->
+
+<script>
+	window.PykChartsInit = function (e) {
+            var k = new PykCharts.oneD.donut({
+                "pykih_charts_assets_location": "/pykih-charts/assets/",
+
+                "selector": "#my_chart",
+
+
+              	// "data":"/data/pie.json", //All OneD
+
+              	// "data":"/data/ultimatebar.json", //Bar
+              	// "data":"/data/ultimateGroupBar.json", //Group Bar
+
+              	// "data":"/data/ultimateColumn.json", //Column
+              	// "data":"/data/ultimateGroupColumn.json", // Group Column
+
+              	// "data":"/data/scatterplot.json", //Scatter
+              	// "data":"/data/pulse.json", //Pulse
+
+              	// "data":"/data/linechart_linear.json", //Line, Area
+              	// "data":"/data/multipleContainerLine.json", // Group of lines, Stacked Area
+              	// "data":"/data/spiderWeb.json", //spider
+              	"data":"/data/pie.json", //picto
+
+
+
+// Chart Mode Default v/s Infographic
+				// "mode":"infographics",
+
+	//Map modes
+				// "onhover": "shadow", //for maps shadow, none, highlight_border, color_saturation
+				// "click_enable": "yes", //onClick for maps JS function PykMapsOnClick() needs to be written
+				//"default_zoom_level": 80, //Map zoom
+
+
+// Color param
+                // "color_mode": "saturation",
+                "color_mode": "color",
+
+                // "saturation_color": "red",
+                // "saturation_color":"black",
+                // "saturation_color":"#5959AB",
+            	// "palette_color": "purple", //only for saturation mode and maps
+				// "total_no_of_colors": 9,  //only for saturation mode and maps
+
+              	"chart_color": ["#0276FD"],
+              	// "chart_color": ["#5959AB"],
+              	// "chart_color": ["#5959AB","#5959AB","#5959AB","#5959AB","#5959AB"],
+
+              	// "chart_color": ["#9D1309"],
+              	// "chart_color": ["red","red","red","red","red"],
+              	// "chart_color": ["#0276FD","red","green","yellow", "orange"],
+				// "background_color": "#FFCC99",
+				// "background_color":"#FFE4B5",
+				// "background_color":"#E5FFE5",
+				// "background_color":"#D9D9F3",
+				// "background_color":"#E0EEEE",
+				// "background_color":"#EDEDED", //color goes well with #9D1309
+
+
+// Chart grid param
+				"chart_grid_x_enable": "yes",
+			    "chart_grid_y_enable": "yes",
+			    "chart_grid_color":"#302B54",
+
+// Title param
+
+               	"title_text": "Growth across Asia",
+				"title_color": "#8B0000",
+				"title_size": 30,
+				"title_weight": "normal",
+				"title_family": "Times New Roman",
+
+// Subtitle param
+
+				"subtitle_text": "Comparison of growing economies in Asia",
+				"subtitle_color": "#302B54",
+				"subtitle_size": 15,
+				"subtitle_weight": "normal",
+				"subtitle_family": "sans-serif",
+
+// Chart dim param
+
+				"chart_width": 700,
+				"chart_height": 500, //use 150 for testing pointer_overflow_enable
+
+
+// Ticks & Labels param
+				"label_enable": "no",
+				// "label_size": 15,
+				// "label_color": "#FFCC99",
+			 // 	"label_weight": "bold",
+    // 			"label_family": "Garamond",
+
+    			"pointer_overflow_enable": "yes",
+			    // "pointer_thickness": 20,
+			    // "pointer_weight": "bold",
+			    // "pointer_size": 15,
+			    // "pointer_color": "red",
+			    // "pointer_family": "Garamond",
+
+
+// Tooltip param
+
+				// "tooltip_enable": "no",
+
+	//Mode for Line, Panel of Line and Area Charts
+
+				// "tooltip_mode": "fixed",
+
+    // tooltip param for maps
+    		// 	"tooltip_enable": "yes",
+			   //  "tooltip_mode": "fixed",
+			   // "tooltip_position_top": 50,
+			   // "tooltip_position_left": 30,
+
+// Highlighting param except scatter and pulse and spider
+				"highlight": "March",
+    			"highlight_color": "#7F00FF",
+	 			// "highlight": "2016",
+    			// "highlight_color":"green",
+
+    //highlight for maps
+    			// "highlight_area_enable": "yes",
+    			//"highlight": "IN_GJ",
+
+// chart border param
+
+				// "border_between_chart_elements_thickness": 10,
+				// "border_between_chart_elements_color": "purple",
+				// "border_between_chart_elements_style": "dotted",
+
+// Credit param
+				"credit_my_site_name": "Firstpost",
+				"credit_my_site_url":  "http://www.firstpost.com",
+				"data_source_name": "World Bank",
+				"data_source_url": "http://www.worldbank.org/",
+
+
+// Real Time Data param
+				// "real_time_charts_refresh_frequency": 1,
+				// "real_time_charts_last_updated_at_enable": "yes",
+
+
+//Loading Animation param
+				//"loading_gif_url": "https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/distribution/img/loader.gif",
+
+//Export param
+				// "export_enable": "no",
+
+//Transition param
+				// "transition_duration": 0.6,
+
+
+//Club Data param only OneD
+				// "clubdata_enable": "no",
+			    // "clubdata_text": "HaHa",
+			    //"clubdata_maximum_nodes": 5,
+			    // "clubdata_always_include_data_points": ["<5"],
+
+// Units param only for OneD
+				// "units_prefix": "$",
+				// "units_suffix": "/-",
+
+
+// Chart Configurations param
+
+	//Pie param
+				// "pie_radius_percent": 80,
+
+	//Donut param
+				// "donut_radius_percent": 60,
+			 //    "donut_inner_radius_percent": 30,
+			 //    "donut_show_total_at_center": "yes",
+	//Funnel param
+				// "funnel_rect_height": 50,
+				// "funnel_rect_width": 50,
+
+	//Per-column param
+				// "percent_column_rect_width": 10,
+
+	//per-bar param
+				// "percent_row_rect_height": 10,
+	//spider param
+				// "spiderweb_radius": 5,
+    			// "spiderweb_outer_radius_percent" : 180,
+
+    //scatter param
+    			// "scatterplot_radius" : 20,
+    			// "scatterplot_pointer_enable": "yes",
+
+    //timeline param
+				//"timeline_duration": 1,
+		    	//"timeline_margin_top": 5,
+		    	//"timeline_margin_right": 25,
+		    	//"timeline_margin_bottom": 25,
+		    	//"timeline_margin_left": 45,
+
+	//pictograph param
+				// "pictograph_show_all_images": "yes",
+				// "pictograph_image_per_line": 4,
+				// "pictograph_image_width": 50,
+				// "pictograph_image_height": 50,
+
+    // 			"pictograph_current_count_enable": "yes",
+			 //    "pictograph_current_count_size": 50,
+			 //    "pictograph_current_count_color": "red",
+			 //    "pictograph_current_count_weight": "normal",
+			 //    "pictograph_current_count_family": "Helvetica",
+			 //    "pictograph_total_count_enable": "yes",
+			 //    "pictograph_total_count_size": 50,
+			 //    "pictograph_total_count_color": "grey",
+			 //    "pictograph_total_count_weight": "normal",
+			 //    "pictograph_total_count_family": "Helvetica",
+
+// Margin param
+				// "chart_margin_top": 200,
+			    // "chart_margin_right": 100,
+			    // "chart_margin_bottom": 100,
+			    "chart_margin_left": 100,
+
+// Data sort param scope: Bar and Column Charts.
+
+				// "data_sort_enable": "yes",
+			 //    "data_sort_type": "date", //alphabetically, numerically and date
+			 //    "data_sort_order": "ascending", //ascending / descending
+
+
+// Misc
+				// "crosshair_enable": "no", // Scope: Line, Multi-series Line, Panel of Line, Area, Stacked Area Charts.
+				// "curvy_lines_enable": "yes",// Scope: Line, Multi-series Line, Panel of Line, Area, Stacked Area Charts.
+				// "variable_circle_size_enable" : "no", //Scope: Spider, Scatter and Pulse Chart.
+				// "panels_enable" : "yes", //Scope: Line and Scatter Chart
+				// "zoom_enable" : "yes", //Scope: Line, Multi-series Line, Panel of Lines, Area, Stacked Area and Scatter Charts
+
+
+//Annotation Scope: Line, Multi-series Line, Panel of Line, Area, Stacked Area Charts.
+				// "annotation_enable": "yes",
+			 //    "annotation_view_mode": "onload", //onclick or onload
+			    // "annotation_border_color" : "green",// Deprecated
+			    // "annotation_background_color" : "white",
+			    // "annotation_font_color" : "red", //Deprecated
+
+// Map and Chart Legends
+				// "legends_enable": "yes",
+			 //    "legends_display": "vertical", //horizontal or vertical
+			 //    "legends_text_size": 25,
+			 //    "legends_text_color": "red",
+			 //    "legends_text_weight": "normal",
+			 //    "legends_text_family": "Times New Roman",
+
+
+
+
+// Axis highlight
+				// "axis_onhover_hightlight_enable": "yes",
+
+// Axis param
+
+				// "axis_x_enable": "no",
+			 //    "axis_y_enable" : "no",
+
+			    // "axis_x_title": "X Axis",
+			    // "axis_y_title": "Y Axis",
+
+			    // "axis_x_position": "top",
+			   	// "axis_y_position": "right",
+
+				"axis_x_pointer_position": "bottom",
+			 //   	"axis_y_pointer_position": "right",
+
+			   	// "axis_x_line_color": "red",
+			   	// "axis_y_line_color": "blue",
+
+
+				// "axis_x_no_of_axis_value": 4,
+			 //    "axis_y_no_of_axis_value": 7,
+
+			    // "axis_x_pointer_length": 15,
+			    // "axis_y_pointer_length": 15,
+
+			 	// "axis_x_pointer_size": 20,
+			  //   "axis_y_pointer_size": 20,
+
+			    // "axis_x_pointer_family": "Garamond",
+			    // "axis_y_pointer_family": "Times New Roman",
+
+			    // "axis_x_pointer_weight": "bold",
+			    // "axis_y_pointer_weight": "bold",
+
+			    // "axis_x_pointer_color": "blue",
+			    // "axis_y_pointer_color": "red",
+
+			    // "axis_x_pointer_padding": 10,
+			    // "axis_y_pointer_padding": 50,
+
+			   //  "axis_x_pointer_values": ["Temp","Congress Party"],
+			   // "axis_x_pointer_values": ["20","50","70"],
+			   // "axis_y_pointer_values": ["10","30"],
+
+			    // "axis_x_outer_pointer_length": 10,
+			    // "axis_y_outer_pointer_length": 10,
+
+
+			    // "axis_x_time_value_datatype":"year", //timescale charts
+			    // "axis_y_time_value_datatype":"date", //timescale charts
+
+			    // "axis_x_time_value_interval":15, //timescale charts
+			    // "axis_y_time_value_interval":1, //timescale charts
+
+});
+
+
+
+            k.execute();
+}
+</script>
+
+</body>
+</html>
