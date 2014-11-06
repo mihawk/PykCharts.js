@@ -8,6 +8,7 @@
             <div id = "map-container">
 
             </div>
+        </div>
         <script src="../src/js/pyk.js"></script>
         <script src = "../src/js/maps/maps.js"></script>
         <script src = "../src/js/maps/oneLayer.js"></script>
@@ -18,27 +19,29 @@
                     // console.log($("#d3").val(),$("#d4").val());
                     k = new PykCharts.maps.oneLayer({
                         selector: "#map-container",
-                        map_code: "world_with_antarctica",
+
+                        map_code: "india",
                         mode: "default",
-                        data: "../data/world_with_antarctica_data.json",
-                        chart_height: 500,
+                        data: "../data/india_data.json",
+                        chart_height: "500",
                         chart_width: 500,
-                        //chart_color : ["red"],
+                        // chart_color : ["#636363"],
                         color_mode: "saturation",
-                        //saturation_color : "yellow",
-                        palette_color: "Green-1",
+                        //saturation_color : "green",
+                        palette_color: "Purple",
+
                         total_no_of_colors: 5,
                         background_color: "white",
                         tooltip_enable : "yes",
                         tooltip_mode: "moving",
                         tooltip_position_top: 10,
                         tooltip_position_left:10,
-                        border_between_chart_elements_color: "black",
+                        border_between_chart_elements_color: "grey",
                         border_between_chart_elements_thickness: 1,
                         border_between_chart_elements_style: "solid",
                         click_enable: "yes",
                         real_time_charts_refresh_frequency : 5,
-                        onhover: "shadow",
+                        chart_onhover_highlight_enable : "yes",
                         label_enable: "no",
                         default_zoom_level: 80,
                         highlight: "NG",
@@ -52,8 +55,8 @@
                         units_prefix: "",
                         units_suffix: "",
                         legends_enable: "yes",
-                        legends_display: "horizontal",
-                        legends_text_size: 12,
+                        legends_display: "vertical",
+                        legends_text_size: 10,
                         legends_text_color: "black",
                         legends_text_weight: "normal",
                         legends_text_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
@@ -61,7 +64,6 @@
                     });
                     k.execute();
             }
-
         </script>
     </body>
 </html>

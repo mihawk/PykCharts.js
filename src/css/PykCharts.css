@@ -57,25 +57,21 @@ body {
 
 .PykCharts-multi-series2D .bullets {
   display: block;
-  fill: steelblue;
   stroke: white;
 
 }
 
 .PykCharts-multi-series2D .stacked-area {
-  opacity: .7;
-  fill: steelblue;
-  shape-rendering: auto;
+/*  opacity: .7;
+*/  shape-rendering: auto;
 }
 
-.PykCharts-multi-series2D path.stacked-area:hover {
+/*.PykCharts-multi-series2D path.stacked-area:hover {
   opacity: 1;
-}
+}*/
 
 .PykCharts-multi-series2D .area-border {
   fill: none;
-  stroke-width: 1px;
-  stroke: #1D1D1D;
   shape-rendering: auto;
 }
 
@@ -88,7 +84,6 @@ body {
 }
 
 .PykCharts-line-chart .area {
-  fill: #013f73;
   opacity: .7;
   shape-rendering: auto;
   pointer-events: none;
@@ -275,10 +270,10 @@ body .pyk-tooltip .tooltip-left-content{
 }
 
 .PykCharts-weighted .axis text {
-  font: 12px "Helvetica Neue",Helvetica,Arial,sans-serif;
-  font-style: normal;
-  font-weight: normal;
-  fill: #1D1D1D;
+  /*font: 12px "Helvetica Neue",Helvetica,Arial,sans-serif;*/
+  /*font-style: normal;*/
+  /*font-weight: normal;*/
+  /*fill: #1D1D1D;*/
   stroke: none;
   z-index: 10;
 }
@@ -396,3 +391,7 @@ body .pyk-tooltip .tooltip-left-content{
 .PykCharts-annotation-circle {
   fill: #EEEEEE;
 }*/
+
+.PykCharts-oneD {
+  margin-top:3px;
+}

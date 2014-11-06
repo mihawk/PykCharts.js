@@ -10,7 +10,7 @@ PykCharts.oneD.bubble = function (options) {
                 that.height = that.width;
                 throw "chart_height"
             }
-        } 
+        }
 
         catch (err) {
             that.k.warningHandling(err,"1");
@@ -41,6 +41,7 @@ PykCharts.oneD.bubble = function (options) {
 
         d3.json (options.data, function (e,data) {
             that.data = data.groupBy("oned");
+            that.clubdata_enable = that.data.length>that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
             that.refresh_data = data.groupBy("oned");
             var compare = that.k.checkChangeInData(that.refresh_data,that.compare_data);
             that.compare_data = compare[0];
@@ -60,7 +61,7 @@ PykCharts.oneD.bubble = function (options) {
         var l = $(".svgcontainer").length;
         that.container_id = "svgcontainer" + l;
         that.fillChart = new PykCharts.Configuration.fillChart(that);
-        that.onHoverEffect = new PykCharts.oneD.mouseEvent(that);
+        // that.onHoverEffect = new PykCharts.oneD.mouseEvent(that);
         that.transitions = new PykCharts.Configuration.transition(that);
 
         if (that.mode ==="default") {
@@ -96,6 +97,7 @@ PykCharts.oneD.bubble = function (options) {
             that.k.tooltip();
 
         }
+        that.k.exportSVG(that,"#"+that.container_id,"bubble")
         that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
         $(document).ready(function () { return that.k.resize(that.svgContainer); })
         $(window).on("resize", function () { return that.k.resize(that.svgContainer); });
@@ -106,7 +108,7 @@ PykCharts.oneD.bubble = function (options) {
         var optional = {
             svgContainer: function () {
                 that.svgContainer = d3.select(that.selector).append("svg")
-                    .attr("class","svgcontainer")
+                    .attr("class","svgcontainer PykCharts-oneD")
                     .attr("id",that.container_id)
                     .attr("preserveAspectRatio", "xMinYMin")
                     .attr("viewBox", "0 0 " + that.width + " " + that.height)
@@ -124,9 +126,11 @@ PykCharts.oneD.bubble = function (options) {
                     .size([that.width, that.height])
                     .value(function (d) { return d.weight; })
                     .padding(20);
+
                 that.sum = d3.sum(that.new_data.children, function (d) {
                     return d.weight;
                 })
+                
                 var l = that.new_data.children.length;
                 // that.max = that.new_data.children[l-1].weight;
                 that.node = that.bubble.nodes(that.new_data);
@@ -142,6 +146,9 @@ PykCharts.oneD.bubble = function (options) {
                 that.chart_data.attr("class","bubble-node")
                     .select("circle")
                     .attr("class","bubble")
+                    .attr("id",function (d,i) {
+                        return "bubble"+i;
+                    })
                     .attr("x",function (d) { return d.x; })
                     .attr("y",function (d) { return d.y; })
                     .attr("r",0)
@@ -149,9 +156,15 @@ PykCharts.oneD.bubble = function (options) {
                     .attr("fill",function (d) {
                         return d.children ? that.background_color : that.fillChart.selectColor(d);
                     })
+                    .attr("fill-opacity",1)
+                    .attr("data-fill-opacity",function () {
+                        return $(this).attr("fill-opacity");
+                    })
                     .on("mouseover", function (d) {
                         if(!d.children && that.mode==="default") {
-                            that.onHoverEffect.highlight(options.selector+" "+".bubble", this);
+                            if(PykCharts.boolean(that.onhover_enable)) {
+                                that.mouseEvent.highlight(options.selector+" "+".bubble", this);
+                            }
                             d.tooltip = d.tooltip ||"<table><thead><th colspan='2' class='tooltip-heading'>"+d.name+"</th></thead><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.weight)+"  <td class='tooltip-right-content'>("+((d.weight*100)/that.sum).toFixed(1)+"%)</tr></table>";
                             that.mouseEvent.tooltipPosition(d);
                             that.mouseEvent.tooltipTextShow(d.tooltip);
@@ -160,7 +173,9 @@ PykCharts.oneD.bubble = function (options) {
                     .on("mouseout", function (d) {
                         if(that.mode==="default") {
                             that.mouseEvent.tooltipHide(d)
-                            that.onHoverEffect.highlightHide(options.selector+" "+".bubble");
+                            if(PykCharts.boolean(that.onhover_enable)) {
+                                that.mouseEvent.highlightHide(options.selector+" "+".bubble");
+                            }
                         }
 
                     })
