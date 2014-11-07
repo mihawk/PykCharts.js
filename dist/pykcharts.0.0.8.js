@@ -4759,7 +4759,7 @@ PykCharts.oneD.donut = function (options) {
     };
 };
 
-PykCharts.oneD.election_pie = function (options) {
+PykCharts.oneD.electionPie = function (options) {
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
 
@@ -4831,7 +4831,7 @@ PykCharts.oneD.election_pie = function (options) {
     };
 };
 
-PykCharts.oneD.election_donut = function (options) {
+PykCharts.oneD.electionDonut = function (options) {
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
 
@@ -5022,9 +5022,9 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
         }
 
         that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
-        
+
         var add_extra_width = 0;
-        var add_extra_height = 0;         
+        var add_extra_height = 0;
         setTimeout(function () {
             if(that.ticks_text_width.length) {
                 add_extra_width = _.max(that.ticks_text_width,function(d) {
@@ -5372,7 +5372,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
 
                     setTimeout(function() {
                         tick_label.text(function(d) { return d.data.name; })
-                            .text(function(d,i) { 
+                            .text(function(d,i) {
                                 that.ticks_text_width[i] = this.getBBox().width;
                                 that.ticks_text_height = this.getBBox().height;
                                 return d.data.name; })
@@ -5562,6 +5562,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
         return optional;
     };
 };
+
 PykCharts.oneD.pyramid = function (options) {
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
@@ -9887,7 +9888,7 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 	    that.k.crossHair(that.svgContainer,that.new_data_length,that.new_data,that.fillColor,that.type);
 	};
 };
-PykCharts.multiD.barChart = function(options){
+PykCharts.multiD.bar = function(options){
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
     var multiDimensionalCharts = theme.multiDimensionalCharts;
@@ -9937,7 +9938,7 @@ PykCharts.multiD.barChart = function(options){
     };
 }
 
-PykCharts.multiD.groupedBarChart = function(options){
+PykCharts.multiD.groupedBar = function(options){
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
     var multiDimensionalCharts = theme.multiDimensionalCharts;
@@ -10043,7 +10044,7 @@ PykCharts.multiD.barFunctions = function (options,chartObject,type) {
         }
         catch (err) {
             console.error('%c[Error - Pykih Charts] ', 'color: red;font-weight:bold;font-size:14px', " at "+options.selector+". \"Invalid data in the JSON\"  Visit www.chartstore.io/docs#error_");
-            return;            
+            return;
         }
 
         var fD = that.flattenData();
@@ -10201,7 +10202,7 @@ PykCharts.multiD.barFunctions = function (options,chartObject,type) {
                             .text(that.axis_y_title);
 
                     } else if(that.axis_y_position === "right") {
-                        
+
                         that.yGroup = that.group.append("g")
                             .attr("id","yaxis")
                             .attr("class", "y axis")
@@ -11047,7 +11048,7 @@ PykCharts.multiD.barFunctions = function (options,chartObject,type) {
     return this;
 };
 
-PykCharts.multiD.columnChart = function(options){
+PykCharts.multiD.column = function(options){
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
 
@@ -11083,7 +11084,7 @@ PykCharts.multiD.columnChart = function(options){
     };
 };
 
-PykCharts.multiD.groupedColumnChart = function(options){
+PykCharts.multiD.groupedColumn = function(options){
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
 
@@ -11172,7 +11173,7 @@ PykCharts.multiD.columnFunctions = function (options,chartObject,type) {
         }
         catch (err) {
             console.error('%c[Error - Pykih Charts] ', 'color: red;font-weight:bold;font-size:14px', " at "+options.selector+". \""+err+"\"  Visit www.chartstore.io/docs#error_");
-            return;            
+            return;
         }
 
         var fD = that.flattenData();
@@ -11348,7 +11349,7 @@ PykCharts.multiD.columnFunctions = function (options,chartObject,type) {
                                 .text(that.axis_x_title);
 
                     } else if(that.axis_x_position === "top") {
-                        
+
                         that.xGroup = that.group.append("g")
                             .attr("id","xaxis")
                             .attr("class", "x axis")
