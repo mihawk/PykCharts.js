@@ -211,7 +211,7 @@ PykCharts.maps.processInputs = function (chartObject, options) {
                 if(chartObject.onhover.toLowerCase() === "shadow" || chartObject.onhover.toLowerCase() === "none" || chartObject.onhover.toLowerCase() === "highlight_border" || chartObject.onhover.toLowerCase() === "color_saturation") {
                 } else {
                     chartObject.onhover = mapsTheme.onhover;
-                    throw "onhover";
+                    throw "chart_onhover_effect";
                 }
             }
             catch (err) {

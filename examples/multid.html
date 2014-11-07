@@ -283,11 +283,11 @@
                     // chart_margin_bottom: 125,
                     // chart_margin_left: 160,
                 });
-              k.execute();
+              // k.execute();
 
                 var k = new PykCharts.multiD.panelsOfScatter ({
                     selector: "#multiple-scatterplots",
-                    data: "../data/scatterplot.json",
+                    data: "../data/scatterplot_timescale.json",
                     mode : "default",
                     background_color: "transparent",
                     // chart_color: ["#07365e","#0e5ea1","#4682b4","#75b0e1","#a0ccf1"],
@@ -327,6 +327,7 @@
                     axis_y_pointer_padding: 10,
                     axis_y_outer_pointer_length: 3,
                     // axis_y_pointer_values : [3,6],
+                    axis_x_time_value_datatype: "",
 
                     legends_enable: "yes",
                     legends_text_size: 10,
@@ -340,7 +341,7 @@
                     border_between_chart_elements_thickness:0,
                     border_between_chart_elements_color:"blue"
                 });
-             // k.execute();
+             k.execute();
 
                 var k = new PykCharts.multiD.panelsOfLine ({
                     selector: "#multiLine",
@@ -400,7 +401,7 @@
                     annotation_background_color:"#ff4c4c"
                 });
 
-             // k.execute();
+             k.execute();
 
                 var k = new PykCharts.multiD.multiSeriesLine ({
                     selector: "#multiple-multiLine",
@@ -457,7 +458,7 @@
                     annotation_view_mode: "onclick",
                     annotation_background_color:"#ff4c4c"
                 });
-              // k.execute();
+              k.execute();
 
                 var k = new PykCharts.multiD.stackedArea ({
 
@@ -625,7 +626,7 @@
                     // "axis_x_pointer_length": NA,
                     // "axis_x_pointer_values": NA,
 
-                    "axis_x_time_value_datatype":"date",
+                    "axis_x_time_value_datatype":"",
 
                     axis_y_enable: "yes",
                     axis_y_title : "Rainfall",
