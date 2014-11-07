@@ -34,7 +34,7 @@
 	        "border_between_chart_elements_color": "white",
 	        "border_between_chart_elements_style": "solid",
 
-	        "legends_enable": "yes",
+	        "legends_enable": "no",
 	        "legends_display": "horizontal",
 	        "legends_text_size": 13,
 	        "legends_text_color": "#1D1D1D",
@@ -234,7 +234,7 @@
 	        "border_between_chart_elements_color": "white",
 	        "border_between_chart_elements_style": "solid",
 
-	        "legends_enable": "yes",
+	        "legends_enable": "no",
 	        "legends_display": "horizontal",
 	        "legends_text_size": 13,
 	        "legends_text_color": "#333B42",
@@ -440,7 +440,7 @@
 	        "border_between_chart_elements_color": "white",
 	        "border_between_chart_elements_style": "solid",
 
-	        "legends_enable": "yes",
+	        "legends_enable": "no",
 	        "legends_display": "horizontal",
 	        "legends_text_size": 13,
             "legends_text_color": "#333B42",
@@ -646,7 +646,7 @@
             "border_between_chart_elements_color": "white",
             "border_between_chart_elements_style": "solid",
 
-            "legends_enable": "yes",
+            "legends_enable": "no",
             "legends_display": "horizontal",
             "legends_text_size": 13,
             "legends_text_color": "#333B42",
@@ -852,7 +852,7 @@
                 "border_between_chart_elements_color": "white",
                 "border_between_chart_elements_style": "solid",
 
-                "legends_enable": "yes",
+                "legends_enable": "no",
                 "legends_display": "horizontal",
                 "legends_text_size": 13,
                 "legends_text_color": "#333B42",
@@ -1058,7 +1058,7 @@
                 "border_between_chart_elements_color": "white",
                 "border_between_chart_elements_style": "solid",
 
-                "legends_enable": "yes",
+                "legends_enable": "no",
                 "legends_display": "horizontal",
                 "legends_text_size": 13,
                 "legends_text_color": "#333B42",
@@ -1264,7 +1264,7 @@
                 "border_between_chart_elements_color": "white",
                 "border_between_chart_elements_style": "solid",
 
-                "legends_enable": "yes",
+                "legends_enable": "no",
                 "legends_display": "horizontal",
                 "legends_text_size": 13,
                 "legends_text_color": "#333B42",
@@ -1470,7 +1470,7 @@
                 "border_between_chart_elements_color": "white",
                 "border_between_chart_elements_style": "solid",
 
-                "legends_enable": "yes",
+                "legends_enable": "no",
                 "legends_display": "horizontal",
                 "legends_text_size": 13,
                 "legends_text_color": "#333B42",
@@ -1676,7 +1676,7 @@
                 "border_between_chart_elements_color": "white",
                 "border_between_chart_elements_style": "solid",
 
-                "legends_enable": "yes",
+                "legends_enable": "no",
                 "legends_display": "horizontal",
                 "legends_text_size": 13,
                 "legends_text_color": "#333B42",
@@ -1882,7 +1882,7 @@
                 "border_between_chart_elements_color": "white",
                 "border_between_chart_elements_style": "solid",
 
-                "legends_enable": "yes",
+                "legends_enable": "no",
                 "legends_display": "horizontal",
                 "legends_text_size": 13,
                 "legends_text_color": "#333B42",
@@ -2088,7 +2088,7 @@
                 "border_between_chart_elements_color": "white",
                 "border_between_chart_elements_style": "solid",
 
-                "legends_enable": "yes",
+                "legends_enable": "no",
                 "legends_display": "horizontal",
                 "legends_text_size": 13,
                 "legends_text_color": "#333B42",
