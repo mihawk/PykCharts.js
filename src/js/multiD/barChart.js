@@ -1,13 +1,10 @@
-PykCharts.multiD.barChart = function(options){
+PykCharts.multiD.bar = function(options){
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
     var multiDimensionalCharts = theme.multiDimensionalCharts;
     this.execute = function () {
         that = new PykCharts.multiD.processInputs(that, options, "column");
 
-        // console.log(that.stop);
-
-        // console.log("barChart");
         that.grid_y_enable =  options.chart_grid_y_enable ? options.chart_grid_y_enable.toLowerCase() : theme.stylesheet.chart_grid_y_enable;
         that.grid_color = options.chart_grid_color ? options.chart_grid_color : theme.stylesheet.chart_grid_color;
         that.panels_enable = "no";
@@ -51,7 +48,7 @@ PykCharts.multiD.barChart = function(options){
     };
 }
 
-PykCharts.multiD.groupedBarChart = function(options){
+PykCharts.multiD.groupedBar = function(options){
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
     var multiDimensionalCharts = theme.multiDimensionalCharts;
@@ -157,7 +154,7 @@ PykCharts.multiD.barFunctions = function (options,chartObject,type) {
         }
         catch (err) {
             console.error('%c[Error - Pykih Charts] ', 'color: red;font-weight:bold;font-size:14px', " at "+options.selector+". \"Invalid data in the JSON\"  Visit www.chartstore.io/docs#error_");
-            return;            
+            return;
         }
 
         var fD = that.flattenData();
@@ -292,6 +289,10 @@ PykCharts.multiD.barFunctions = function (options,chartObject,type) {
                             .attr("stroke-width","1px");
 
                     axis_line.exit().remove();
+                    if(that.axis_y_position === "right") {
+                        axis_line.attr("x1",(that.width-that.margin_left-that.margin_right-that.legendsGroup_width))
+                            .attr("x2",(that.width-that.margin_left-that.margin_right - that.legendsGroup_width));
+                    }
                 }
                 if(that.axis_y_title) {
                     if(that.axis_y_position === "left") {
@@ -311,8 +312,6 @@ PykCharts.multiD.barFunctions = function (options,chartObject,type) {
                             .text(that.axis_y_title);
 
                     } else if(that.axis_y_position === "right") {
-                        axis_line.attr("x1",(that.width-that.margin_left-that.margin_right-that.legendsGroup_width))
-                            .attr("x2",(that.width-that.margin_left-that.margin_right - that.legendsGroup_width));
 
                         that.yGroup = that.group.append("g")
                             .attr("id","yaxis")

@@ -27,81 +27,20 @@ PykCharts.other.pictograph = function (options) {
         that.pictograph_units_per_image_text_weight = options.pictograph_units_per_image_text_weight ? options.pictograph_units_per_image_text_weight : otherCharts.pictograph_units_per_image_text_weight;
         that.height = options.chart_height ? options.chart_height : that.width;
 
-        try {
-            if(!_.isNumber(that.height)) {
-                that.height = that.width;
-                throw "chart_height"
-            }
-        }
-
-        catch (err) {
-            that.k.warningHandling(err,"1");
-        }
-
-        try {
-            if(!_.isNumber(that.imgperline)) {
-                that.imgperline = otherCharts.pictograph_image_per_line;
-                throw "pictograph_image_per_line"
-            }
-        }
-
-        catch (err) {
-            that.k.warningHandling(err,"1");
-        }
-
-        try {
-            if(!_.isNumber(that.imageWidth)) {
-                that.imageWidth = otherCharts.pictograph_image_width;
-                throw "pictograph_image_width"
-            }
-        }
-
-        catch (err) {
-            that.k.warningHandling(err,"1");
-        }
-
-        try {
-            if(!_.isNumber(that.imageHeight)) {
-                that.imageHeight = otherCharts.pictograph_image_height;
-                throw "pictograph_image_height"
-            }
-        }
-
-        catch (err) {
-            that.k.warningHandling(err,"1");
-        }
-
-        try {
-            if(!_.isNumber(that.current_count_size)) {
-                that.current_count_size = otherCharts.pictograph_current_count_size;
-                throw "pictograph_current_count_size"
-            }
-        }
-
-        catch (err) {
-            that.k.warningHandling(err,"1");
-        }
-
-        try {
-            if(!_.isNumber(that.total_count_size)) {
-                that.total_count_size = otherCharts.pictograph_total_count_size;
-                throw "pictograph_total_count_size"
-            }
-        }
-
-        catch (err) {
-            that.k.warningHandling(err,"1");
-        }
-
-        // try {
-        //     if(!_.isNumber(that.current_count_color)) {
-        //         that.current_count_color = otherCharts.pictograph_current_count_color;
-        //         throw "pictograph_current_count_color"
-        //     }
-        // }
-        // catch (err) {
-        //     that.k.warningHandling(err,"3");
-        // }
+        that.k.validator()
+            .validatingDataType(that.height,"chart_height",that.width,"height")
+            .validatingDataType(that.pictograph_units_per_image_text_size,"pictograph_units_per_image_text_size",otherCharts.pictograph_units_per_image_text_size)            
+            .validatingDataType(that.current_count_size,"pictograph_current_count_size",otherCharts.pictograph_current_count_size,"current_count_size")
+            .validatingDataType(that.total_count_size,"pictograph_total_count_size",otherCharts.pictograph_total_count_size,"total_count_size")
+            .validatingDataType(that.imageWidth,"pictograph_image_width",otherCharts.pictograph_image_width,"imageWidth")
+            .validatingDataType(that.imageHeight,"pictograph_image_height",otherCharts.pictograph_image_height,"imageHeight")
+            .validatingDataType(that.imgperline,"pictograph_image_per_line",otherCharts.pictograph_image_per_line,"imgperline")
+            .validatingFontWeight(that.current_count_weight,"pictograph_current_count_weight",otherCharts.pictograph_current_count_weight,"current_count_weight")           
+            .validatingFontWeight(that.total_count_weight,"pictograph_total_count_weight",otherCharts.pictograph_total_count_weight,"total_count_weight")                       
+            .validatingFontWeight(that.pictograph_units_per_image_text_weight,"pictograph_units_per_image_text_weight",otherCharts.pictograph_units_per_image_text_weight)
+            .validatingColor(that.current_count_color,"pictograph_current_count_color",otherCharts.pictograph_current_count_color,"current_count_color")
+            .validatingColor(that.total_count_color,"pictograph_total_count_color",otherCharts.pictograph_total_count_color,"total_count_color")
+            .validatingColor(that.pictograph_units_per_image_text_color,"pictograph_units_per_image_text_color",otherCharts.pictograph_units_per_image_text_color,"pictograph_units_per_image_text_color"); 
 
         if(that.stop) {
             return;

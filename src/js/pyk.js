@@ -590,6 +590,7 @@ PykCharts.Configuration = function (options){
                 PykCharts.Configuration.cross_hair_h.append("line")
                     .attr("class","cross-hair-h")
                     .attr("id","cross-hair-h");
+
                 for (j=0; j<len; j++) {
                     PykCharts.Configuration.focus_circle = svg.append("g")
                         .attr("class","focus")
@@ -854,7 +855,7 @@ PykCharts.Configuration = function (options){
         },
         ordinalXAxisTickFormat :function (domain,extra) {
             // var mouseEvent = new PykCharts.Configuration.mouseEvent(options),
-                var a = $(options.selector + " g.x.axis text"),
+                var a = $(options.selector + " g.x.axis .tick text"),
                 len = a.length, comp, flag, largest = 0, rangeband = (extra*2);
 
             _.each(a, function (d) {
@@ -1101,7 +1102,8 @@ PykCharts.Configuration = function (options){
                 if(type === "percentageBar") {
                     min_value = options.height;
                 } else if(type === "spiderweb") {
-                    min_value = d3.min([options.width,(options.height-options.legendsGroup_height-20)])
+//                    console.log()
+                    min_value = d3.min([(options.width - options.legendsGroup_width),(options.height-options.legendsGroup_height-20)])
                 } else if(type !== undefined) {
                     min_value = options.width;
                 } else {
@@ -1326,6 +1328,7 @@ PykCharts.Configuration = function (options){
                     return this;
                 },
                 validatingDataType : function (attr_value,config_name,default_value,name) {
+                    //console.log(config_name,"config_name")
                     try {
                         if(!_.isNumber(attr_value)) {
                             if(name) {
@@ -1478,11 +1481,17 @@ PykCharts.Configuration = function (options){
                     }
                     return this;
                 },
-                validatingFontWeight: function (font_weight,config_name,default_value) {
+                validatingFontWeight: function (font_weight,config_name,default_value,name) {
                     try {
                         if(font_weight.toLowerCase() === "bold" || font_weight.toLowerCase() === "normal") {
                         } else {
-                            options[config_name] = default_value;
+                            console.log(name,options[name],"font_weight");
+                            if(name) {
+                                options[name] = default_value;
+                            } else {
+                                options[config_name] = default_value;
+                            }
+
                             throw config_name;
                         }
                     }
@@ -1491,7 +1500,7 @@ PykCharts.Configuration = function (options){
                     }
                     return this;
                 },
-                validatingColor: function (color,config_name,default_value) {
+                validatingColor: function (color,config_name,default_value,name) {
                     if(color) {
                         try {
                             var checked;
@@ -1514,7 +1523,11 @@ PykCharts.Configuration = function (options){
                             }
                         }
                         catch (err) {
-                            options[config_name] = default_value;
+                            if(name) {
+                                options[name] = default_value;
+                            } else {
+                                options[config_name] = default_value; 
+                            }
                             options.k.warningHandling(err,"4");
                         }
                     }
@@ -1710,7 +1723,7 @@ configuration.mouseEvent = function (options) {
                                                 this.tooltipPosition(tooltipText,pos_line_cursor_x,y,60,-15,group_index);
                                                 this.tooltipTextShow(tooltipText);
                                             }
-                                            console.log(pos_line_cursor_x);
+                                            // console.log(pos_line_cursor_x);
                                             (options.crosshair_enable) ? this.crossHairShow(pos_line_cursor_x,top,pos_line_cursor_x,(h - bottom),pos_line_cursor_x,test,type,active_y_tick.length,panels_enable,new_data) : null;
                                             (options.colspanrosshair_enable) ? this.crossHairShow(pos_line_cursor_x,top,pos_line_cursor_x,(h - bottom),pos_line_cursor_x,pos_line_cursor_y,type,active_y_tick.length,panels_enable) : null;
                                             this.axisHighlightShow(active_y_tick,options.selector+" .y.axis",domain);
@@ -2374,7 +2387,7 @@ configuration.Theme = function(){
         "pictograph_image_width": 79,
         "pictograph_image_height": 66,
         "pictograph_current_count_size": 64,
-        "pictograph_current_count_color": "#255AEE",
+        "pictograph_current_count_color": "#255aee",
         "pictograph_current_count_weight": "normal",
         "pictograph_current_count_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
         "pictograph_total_count_size": 64,
