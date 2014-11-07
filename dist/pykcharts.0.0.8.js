@@ -1272,7 +1272,7 @@ PykCharts.Configuration = function (options){
                             chart.k.processSVG(document.querySelector(options.selector + " #" +svgId + id),chart_name);
                             project.importSVG(document.querySelector(options.selector + " #" +svgId + id));
                             var svg = project.exportSVG({ asString: true });;
-                            console.log(options.selector +" "+svgId)
+                            // console.log(options.selector +" "+svgId)
                             downloadDataURI({
                                 data: 'data:image/svg+xml;base64,' + btoa(svg),
                                 filename: name
@@ -1485,7 +1485,7 @@ PykCharts.Configuration = function (options){
                     try {
                         if(font_weight.toLowerCase() === "bold" || font_weight.toLowerCase() === "normal") {
                         } else {
-                            console.log(name,options[name],"font_weight");
+                            // console.log(name,options[name],"font_weight");
                             if(name) {
                                 options[name] = default_value;
                             } else {
@@ -1512,7 +1512,7 @@ PykCharts.Configuration = function (options){
                             if(color.charAt(0)!= "#" && color.substring(0,3).toLowerCase() !="rgb" && color.toLowerCase()!= "transparent") {
                                 checked = $c.name2hex(color) ;
                                 if(checked === "Invalid Color Name") {
-                                    console.log(color,"color")
+                                    // console.log(color,"color")
                                     throw config_name;
                                 }
                             } else if (color.charAt(0) === "#") {
@@ -8563,7 +8563,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
 	      			});
 
 			if(clicked) {
-				console.log(d3.select(that.selected).classed("multi-line-selected"),"that.clk");
+				// console.log(d3.select(that.selected).classed("multi-line-selected"),"that.clk");
 				 if (d3.select(that.selected).classed("multi-line")) {
 						d3.selectAll(options.selector+" path.multi-line").attr("stroke-opacity",0.3);
 						if (that.color_mode === "color") {
@@ -13646,7 +13646,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                         rect_parameter4 = "y";
 
                         var text_parameter1value = function (d,i) {
-                            console.log(d,i);
+                            // console.log(d,i);
                             legend_text_widths[i] = this.getBBox().width;
                             legend_start_x = 16;
                             final_text_x = (i === 0) ? legend_start_x : (legend_start_x + temp_text);
@@ -14035,6 +14035,7 @@ PykCharts.maps.processInputs = function (chartObject, options) {
     chartObject.axis_x_pointer_color = options.axis_x_pointer_color ? options.axis_x_pointer_color : stylesheet.axis_x_pointer_color;
 
     chartObject.label_enable = options.label_enable ? options.label_enable.toLowerCase() : mapsTheme.label_enable;
+    chartObject.label_color = options.label_color ? options.label_color : stylesheet.label_color;
 
     chartObject.border_between_chart_elements_thickness = "border_between_chart_elements_thickness" in options ? options.border_between_chart_elements_thickness : stylesheet.border_between_chart_elements_thickness;
     chartObject.border_between_chart_elements_color = options.border_between_chart_elements_color ? options.border_between_chart_elements_color : stylesheet.border_between_chart_elements_color;
@@ -14134,6 +14135,7 @@ PykCharts.maps.processInputs = function (chartObject, options) {
                 .validatingFontWeight(chartObject.axis_x_pointer_weight,"axis_x_pointer_weight",stylesheet.axis_x_pointer_weight)
                 .validatingFontWeight(chartObject.legends_text_weight,"legends_text_weight",stylesheet.legends_text_weight)
                 .validatingColor(chartObject.background_color,"background_color",stylesheet.background_color)
+                .validatingColor(chartObject.label_color,"label_color",stylesheet.label_color)
                 .validatingColor(chartObject.title_color,"title_color",stylesheet.title_color)
                 .validatingColor(chartObject.subtitle_color,"subtitle_color",stylesheet.subtitle_color)
                 .validatingColor(chartObject.axis_x_line_color,"axis_x_line_color",stylesheet.axis_x_line_color)
@@ -14496,7 +14498,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     scale = (hscale < vscale) ? hscale : vscale,
                     offset = [new_width - (bounds[0][0] + bounds[1][0]) / 2, that.height - (bounds[0][1] + bounds[1][1]) / 2];
 
-                console.log(new_width - (bounds[0][0] + bounds[1][0]) / 2, that.height - (bounds[0][1] + bounds[1][1]) / 2)
+                // console.log(new_width - (bounds[0][0] + bounds[1][0]) / 2, that.height - (bounds[0][1] + bounds[1][1]) / 2)
                 projection = d3.geo.mercator().center(center)
                    .scale((that.default_zoom_level / 100) * scale).translate(offset);
 
@@ -14814,6 +14816,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             .attr("y", function (d) { return that.path.centroid(d)[1]; })
             .attr("text-anchor", "middle")
             .attr("font-size", "10px")
+            .attr("fill",that.label_color)
             .attr("pointer-events", "none")
             .text(function (d) { return d.properties.NAME_1.replace("&#39;","'"); });
     };
