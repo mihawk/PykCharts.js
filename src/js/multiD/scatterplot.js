@@ -446,7 +446,7 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
                 return this;
             },
             createGroups : function (i) {
-                console.log(that.legendsGroup_width,that.panels_enable,"heyyyyyyyy")
+                // console.log(that.legendsGroup_width,that.panels_enable,"heyyyyyyyy")
                 that.group = that.svgContainer.append("g")
                     .attr("transform","translate("+(that.margin_left)+","+(that.margin_top+that.legendsGroup_height)+")")
                     .attr("id","main");
