@@ -23,8 +23,8 @@
             window.PykChartsInit = function (e) {
                 k = new PykCharts.maps.timelineMap({
                     selector: "#map-container",
-                    map_code: "world_without_antarctica",
-                    data: "../data/world_without_antarctica_data_timeline.json",
+                    map_code: "india",
+                    data: "../data/india_data_timeline.json",
                     chart_height: 500,
                     chart_width: 500,
                     palette_color: "Blue-1",
@@ -49,7 +49,8 @@
                     // marker_image_url:"https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/marker.png",
                     click_enable: "yes",
                     onhover: "shadow",
-                    label_enable: "no",
+                    label_enable: "yes",
+                    label_color: "green",
                     default_zoom_level: 80,
                     credit_my_site_name: "Pykih",
                     credit_my_site_url: "http://pykih.com",
