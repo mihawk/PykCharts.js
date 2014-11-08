@@ -1113,7 +1113,7 @@ PykCharts.Configuration = function (options){
             }
         },
         backgroundColor: function (options) {
-             $(options.selector).css({"background-color":options.background_color,"position":"relative"})
+             $(options.selector).css({"background-color":options.background_color})
                 var bg,child1;
                 bgColor(options.selector);
 
@@ -1526,7 +1526,7 @@ PykCharts.Configuration = function (options){
                             if(name) {
                                 options[name] = default_value;
                             } else {
-                                options[config_name] = default_value; 
+                                options[config_name] = default_value;
                             }
                             options.k.warningHandling(err,"4");
                         }
@@ -2349,7 +2349,7 @@ configuration.Theme = function(){
         "credit_my_site_name": "Pykih",
         "credit_my_site_url": "http://www.pykih.com",
         "chart_onhover_highlight_enable": "yes",
-        
+
     };
 
     that.functionality = {
