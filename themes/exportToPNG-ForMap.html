@@ -1,0 +1,79 @@
+<html>
+	<head>
+        <title>One-Dimensional Charts</title>
+        <link rel="stylesheet" type="text/css" href="../dist/pykcharts.0.0.8.min.css">
+    </head>
+	<body>
+      <div id="chart_container0"></div>
+      <hr/>
+      <div id="chart_container1"></div>
+      <hr/>
+      <div id="chart_container2"></div>
+      <hr/>
+      <div id="chart_container3"></div>
+      <hr/>
+      <div id="chart_container4"></div>
+      <hr/>
+      <div id="chart_container5"></div>
+      <hr/>
+      <div id="chart_container6"></div>
+      <hr/>
+      <div id="chart_container7"></div>
+      <hr/>
+      <div id="chart_container8"></div>
+      <hr/>
+      <div id="chart_container9"></div>
+      <hr/>
+      <div id="chart_container10"></div>
+      <hr/>
+
+      <script>
+
+		    window.PykChartsInit = function (e) {
+                var slugs = [
+                    {slug: "pie",initializer: PykCharts.oneD.pie,data: "../data/screenshot.json"},
+                    {slug: "donut",initializer: PykCharts.oneD.donut,data: "../data/screenshot.json"},
+                    {slug: "electionPie",initializer: PykCharts.oneD.election_pie,data: "../data/screenshot.json"},
+                    {slug: "electionDonut",initializer: PykCharts.oneD.election_donut,data: "../data/screenshot.json"},
+                    {slug: "bubble",initializer: PykCharts.oneD.bubble,data: "../data/screenshot.json"},
+                    {slug: "treemap",initializer: PykCharts.oneD.treemap,data: "../data/screenshot.json"},
+                    {slug: "pyramid",initializer: PykCharts.oneD.pyramid,data: "../data/screenshot.json"},
+                    {slug: "funnel",initializer: PykCharts.oneD.funnel,data: "../data/screenshot.json"},
+                    {slug: "percentageColumn",initializer: PykCharts.oneD.percentageColumn,data: "../data/screenshot.json"},
+                    {slug: "percentageBar",initializer: PykCharts.oneD.percentageBar,data: "../data/screenshot.json"},
+                    {slug: "line",initializer: PykCharts.multiD.line,data: "../data/linechart_linear.json"},
+                    {slug: "multiSeriesLine",initializer: PykCharts.multiD.multiSeriesLine,data: "../data/multipleContainerLine.json"},
+                    {slug: "panelsOfLine",initializer: PykCharts.multiD.panelsOfLine,data: "../data/multipleContainerLine.json"},
+                    {slug: "bar",initializer: PykCharts.multiD.barChart,data: "../data/ultimatebar_date.json"},
+                    {slug: "groupedBar",initializer: PykCharts.multiD.groupedBarChart,data: "../data/ultimateGroupBar.json"},
+                    {slug: "column",initializer: PykCharts.multiD.columnChart,data: "../data/ultimateColumn.json"},
+                    {slug: "groupedColumn",initializer: PykCharts.multiD.groupedColumnChart,data: "../data/ultimateGroupColumn.json"},
+                    {slug: "area",initializer: PykCharts.multiD.area,data: "../data/linechart_linear.json"},
+                    {slug: "stackedArea",initializer: PykCharts.multiD.stackedArea,data: "../data/multipleContainerLine.json"},
+                    {slug: "scatter",initializer: PykCharts.multiD.scatter,data: "../data/scatterplot.json"},
+                    {slug: "panelsOfScatter",initializer: PykCharts.multiD.panelsOfScatter,data: "../data/scatterplot.json"},
+                    {slug: "pulse",initializer: PykCharts.multiD.pulse,data: "../data/pulse.json"},
+                    {slug: "spider",initializer: PykCharts.multiD.spiderWeb,data: "../data/spiderWeb.json"},
+                    {slug: "pictograph",initializer: PykCharts.other.pictograph,data: "../data/pictograph.json"},
+                    {slug: "oneLayer",initializer: PykCharts.maps.oneLayer,data: "../data/_data.json"},
+                    {slug: "timelineMap",initializer: PykCharts.maps.timelineMap,data: "../data/_data_timeline.json"}
+                ];
+                d3.json("theme.json", function (data) {
+                    for (var i = 0; i<data.length; i++) {
+                        var query_string = window.location.search.split("&");
+                        console.log(query_string);
+                        var chart_slug = query_string[0].replace("?slug=","");
+                        data[i].config.data = query_string[1].replace("data=","");
+                        data[i].config.map_code = query_string[2].replace("map_code=","");
+                        var chart_obj = _.where(slugs, {slug:chart_slug})[0];
+                        var k = new chart_obj.initializer(data[i].config);
+                        k.execute();
+                    }
+                });
+		    }
+
+		</script>
+    <script src="../dist/pykcharts.0.0.8.js"></script>
+
+	</body>
+</html>
