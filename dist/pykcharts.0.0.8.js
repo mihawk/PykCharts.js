@@ -1113,7 +1113,7 @@ PykCharts.Configuration = function (options){
             }
         },
         backgroundColor: function (options) {
-             $(options.selector).css({"background-color":options.background_color,"position":"relative"})
+             $(options.selector).css({"background-color":options.background_color})
                 var bg,child1;
                 bgColor(options.selector);
 
@@ -1526,7 +1526,7 @@ PykCharts.Configuration = function (options){
                             if(name) {
                                 options[name] = default_value;
                             } else {
-                                options[config_name] = default_value; 
+                                options[config_name] = default_value;
                             }
                             options.k.warningHandling(err,"4");
                         }
@@ -2016,7 +2016,8 @@ configuration.fillChart = function (options,theme,config) {
             if(d.name === options.highlight) {
                 return options.highlight_color;
             } else if (options.chart_color.length && options.chart_color[0]){
-                return options.chart_color;
+              console.log(options.chart_color)
+                return options.chart_color[0];
             } else {
                 return theme.stylesheet.chart_color
             }
@@ -2349,7 +2350,7 @@ configuration.Theme = function(){
         "credit_my_site_name": "Pykih",
         "credit_my_site_url": "http://www.pykih.com",
         "chart_onhover_highlight_enable": "yes",
-        
+
     };
 
     that.functionality = {
@@ -7800,7 +7801,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
 					}
 				}
 				catch (err) {
-		            console.error('%c[Error - Pykih Charts] ', 'color: red;font-weight:bold;font-size:14px', " at "+options.selector+".\""+err+"\"  Visit www.chartstore.io/docs#error_");					
+		            console.error('%c[Error - Pykih Charts] ', 'color: red;font-weight:bold;font-size:14px', " at "+options.selector+".\""+err+"\"  Visit www.chartstore.io/docs#error_6");					
 		            return;
 				}
 
@@ -8962,7 +8963,7 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 
 		}
 		catch (err) {
-            console.error('%c[Error - Pykih Charts] ', 'color: red;font-weight:bold;font-size:14px', " at "+options.selector+".\""+err+"\"  Visit www.chartstore.io/docs#error_");					
+            console.error('%c[Error - Pykih Charts] ', 'color: red;font-weight:bold;font-size:14px', " at "+options.selector+".\""+err+"\"  Visit www.chartstore.io/docs#error_7");					
          	return;   
 		}
 
@@ -10043,7 +10044,7 @@ PykCharts.multiD.barFunctions = function (options,chartObject,type) {
             }
         }
         catch (err) {
-            console.error('%c[Error - Pykih Charts] ', 'color: red;font-weight:bold;font-size:14px', " at "+options.selector+". \"Invalid data in the JSON\"  Visit www.chartstore.io/docs#error_");
+            console.error('%c[Error - Pykih Charts] ', 'color: red;font-weight:bold;font-size:14px', " at "+options.selector+". \"Invalid data in the JSON\"  Visit www.chartstore.io/docs#error_9");
             return;
         }
 
@@ -11172,7 +11173,7 @@ PykCharts.multiD.columnFunctions = function (options,chartObject,type) {
             }
         }
         catch (err) {
-            console.error('%c[Error - Pykih Charts] ', 'color: red;font-weight:bold;font-size:14px', " at "+options.selector+". \""+err+"\"  Visit www.chartstore.io/docs#error_");
+            console.error('%c[Error - Pykih Charts] ', 'color: red;font-weight:bold;font-size:14px', " at "+options.selector+". \""+err+"\"  Visit www.chartstore.io/docs#error_8");
             return;
         }
 
@@ -14168,7 +14169,7 @@ PykCharts.maps.processInputs = function (chartObject, options) {
                 if(chartObject.onhover.toLowerCase() === "shadow" || chartObject.onhover.toLowerCase() === "none" || chartObject.onhover.toLowerCase() === "highlight_border" || chartObject.onhover.toLowerCase() === "color_saturation") {
                 } else {
                     chartObject.onhover = mapsTheme.onhover;
-                    throw "onhover";
+                    throw "chart_onhover_effect";
                 }
             }
             catch (err) {

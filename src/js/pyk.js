@@ -2016,7 +2016,7 @@ configuration.fillChart = function (options,theme,config) {
             if(d.name === options.highlight) {
                 return options.highlight_color;
             } else if (options.chart_color.length && options.chart_color[0]){
-                return options.chart_color;
+                return options.chart_color[0];
             } else {
                 return theme.stylesheet.chart_color
             }
