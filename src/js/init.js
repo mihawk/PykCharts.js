@@ -1,4 +1,4 @@
-(function () {
+var anonymousFunc = function () {
 
     var urls = [
         PykCharts.assets+'lib/jquery-1.11.1.min.js'
@@ -47,4 +47,6 @@
             importFiles(urls[i]);
         }
     }
-})();
+};
+
+window.onload = anonymousFunc;

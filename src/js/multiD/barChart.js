@@ -1,4 +1,4 @@
-PykCharts.multiD.barChart = function(options){
+PykCharts.multiD.bar = function(options){
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
     var multiDimensionalCharts = theme.multiDimensionalCharts;
@@ -49,7 +49,7 @@ PykCharts.multiD.barChart = function(options){
     };
 }
 
-PykCharts.multiD.groupedBarChart = function(options){
+PykCharts.multiD.groupedBar = function(options){
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
     var multiDimensionalCharts = theme.multiDimensionalCharts;
@@ -154,8 +154,8 @@ PykCharts.multiD.barFunctions = function (options,chartObject,type) {
             }
         }
         catch (err) {
-            console.error('%c[Error - Pykih Charts] ', 'color: red;font-weight:bold;font-size:14px', " at "+options.selector+". \"Invalid data in the JSON\"  Visit www.chartstore.io/docs#error_");
-            return;            
+            console.error('%c[Error - Pykih Charts] ', 'color: red;font-weight:bold;font-size:14px', " at "+options.selector+". \"Invalid data in the JSON\"  Visit www.chartstore.io/docs#error_9");
+            return;
         }
 
         var fD = that.flattenData();
@@ -313,7 +313,7 @@ PykCharts.multiD.barFunctions = function (options,chartObject,type) {
                             .text(that.axis_y_title);
 
                     } else if(that.axis_y_position === "right") {
-                        
+
                         that.yGroup = that.group.append("g")
                             .attr("id","yaxis")
                             .attr("class", "y axis")

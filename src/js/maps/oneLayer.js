@@ -306,7 +306,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     scale = (hscale < vscale) ? hscale : vscale,
                     offset = [new_width - (bounds[0][0] + bounds[1][0]) / 2, that.height - (bounds[0][1] + bounds[1][1]) / 2];
 
-                console.log(new_width - (bounds[0][0] + bounds[1][0]) / 2, that.height - (bounds[0][1] + bounds[1][1]) / 2)
+                // console.log(new_width - (bounds[0][0] + bounds[1][0]) / 2, that.height - (bounds[0][1] + bounds[1][1]) / 2)
                 projection = d3.geo.mercator().center(center)
                    .scale((that.default_zoom_level / 100) * scale).translate(offset);
 
@@ -624,6 +624,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             .attr("y", function (d) { return that.path.centroid(d)[1]; })
             .attr("text-anchor", "middle")
             .attr("font-size", "10px")
+            .attr("fill",that.label_color)
             .attr("pointer-events", "none")
             .text(function (d) { return d.properties.NAME_1.replace("&#39;","'"); });
     };

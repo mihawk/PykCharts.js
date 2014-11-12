@@ -171,7 +171,7 @@ PykCharts.oneD.donut = function (options) {
     };
 };
 
-PykCharts.oneD.election_pie = function (options) {
+PykCharts.oneD.electionPie = function (options) {
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
 
@@ -243,7 +243,7 @@ PykCharts.oneD.election_pie = function (options) {
     };
 };
 
-PykCharts.oneD.election_donut = function (options) {
+PykCharts.oneD.electionDonut = function (options) {
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
 
@@ -434,9 +434,9 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
         }
 
         that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
-        
+
         var add_extra_width = 0;
-        var add_extra_height = 0;         
+        var add_extra_height = 0;
         setTimeout(function () {
             if(that.ticks_text_width.length) {
                 add_extra_width = _.max(that.ticks_text_width,function(d) {
@@ -784,7 +784,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
 
                     setTimeout(function() {
                         tick_label.text(function(d) { return d.data.name; })
-                            .text(function(d,i) { 
+                            .text(function(d,i) {
                                 that.ticks_text_width[i] = this.getBBox().width;
                                 that.ticks_text_height = this.getBBox().height;
                                 return d.data.name; })

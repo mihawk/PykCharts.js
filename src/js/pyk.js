@@ -1112,7 +1112,7 @@ PykCharts.Configuration = function (options){
             }
         },
         backgroundColor: function (options) {
-             $(options.selector).css({"background-color":options.background_color,"position":"relative"})
+             $(options.selector).css({"background-color":options.background_color})
                 var bg,child1;
                 bgColor(options.selector);
 
@@ -1271,7 +1271,7 @@ PykCharts.Configuration = function (options){
                             chart.k.processSVG(document.querySelector(options.selector + " #" +svgId + id),chart_name);
                             project.importSVG(document.querySelector(options.selector + " #" +svgId + id));
                             var svg = project.exportSVG({ asString: true });;
-                            console.log(options.selector +" "+svgId)
+                            // console.log(options.selector +" "+svgId)
                             downloadDataURI({
                                 data: 'data:image/svg+xml;base64,' + btoa(svg),
                                 filename: name
@@ -1484,7 +1484,7 @@ PykCharts.Configuration = function (options){
                     try {
                         if(font_weight.toLowerCase() === "bold" || font_weight.toLowerCase() === "normal") {
                         } else {
-                            console.log(name,options[name],"font_weight");
+                            // console.log(name,options[name],"font_weight");
                             if(name) {
                                 options[name] = default_value;
                             } else {
@@ -1511,7 +1511,7 @@ PykCharts.Configuration = function (options){
                             if(color.charAt(0)!= "#" && color.substring(0,3).toLowerCase() !="rgb" && color.toLowerCase()!= "transparent") {
                                 checked = $c.name2hex(color) ;
                                 if(checked === "Invalid Color Name") {
-                                    console.log(color,"color")
+                                    // console.log(color,"color")
                                     throw config_name;
                                 }
                             } else if (color.charAt(0) === "#") {
@@ -1525,7 +1525,7 @@ PykCharts.Configuration = function (options){
                             if(name) {
                                 options[name] = default_value;
                             } else {
-                                options[config_name] = default_value; 
+                                options[config_name] = default_value;
                             }
                             options.k.warningHandling(err,"4");
                         }
@@ -2015,7 +2015,7 @@ configuration.fillChart = function (options,theme,config) {
             if(d.name === options.highlight) {
                 return options.highlight_color;
             } else if (options.chart_color.length && options.chart_color[0]){
-                return options.chart_color;
+                return options.chart_color[0];
             } else {
                 return theme.stylesheet.chart_color
             }
@@ -2348,7 +2348,7 @@ configuration.Theme = function(){
         "credit_my_site_name": "Pykih",
         "credit_my_site_url": "http://www.pykih.com",
         "chart_onhover_highlight_enable": "yes",
-        
+
     };
 
     that.functionality = {

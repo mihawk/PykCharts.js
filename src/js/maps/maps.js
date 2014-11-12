@@ -78,6 +78,7 @@ PykCharts.maps.processInputs = function (chartObject, options) {
     chartObject.axis_x_pointer_color = options.axis_x_pointer_color ? options.axis_x_pointer_color : stylesheet.axis_x_pointer_color;
 
     chartObject.label_enable = options.label_enable ? options.label_enable.toLowerCase() : mapsTheme.label_enable;
+    chartObject.label_color = options.label_color ? options.label_color : stylesheet.label_color;
 
     chartObject.border_between_chart_elements_thickness = "border_between_chart_elements_thickness" in options ? options.border_between_chart_elements_thickness : stylesheet.border_between_chart_elements_thickness;
     chartObject.border_between_chart_elements_color = options.border_between_chart_elements_color ? options.border_between_chart_elements_color : stylesheet.border_between_chart_elements_color;
@@ -177,6 +178,7 @@ PykCharts.maps.processInputs = function (chartObject, options) {
                 .validatingFontWeight(chartObject.axis_x_pointer_weight,"axis_x_pointer_weight",stylesheet.axis_x_pointer_weight)
                 .validatingFontWeight(chartObject.legends_text_weight,"legends_text_weight",stylesheet.legends_text_weight)
                 .validatingColor(chartObject.background_color,"background_color",stylesheet.background_color)
+                .validatingColor(chartObject.label_color,"label_color",stylesheet.label_color)
                 .validatingColor(chartObject.title_color,"title_color",stylesheet.title_color)
                 .validatingColor(chartObject.subtitle_color,"subtitle_color",stylesheet.subtitle_color)
                 .validatingColor(chartObject.axis_x_line_color,"axis_x_line_color",stylesheet.axis_x_line_color)
@@ -209,7 +211,7 @@ PykCharts.maps.processInputs = function (chartObject, options) {
                 if(chartObject.onhover.toLowerCase() === "shadow" || chartObject.onhover.toLowerCase() === "none" || chartObject.onhover.toLowerCase() === "highlight_border" || chartObject.onhover.toLowerCase() === "color_saturation") {
                 } else {
                     chartObject.onhover = mapsTheme.onhover;
-                    throw "onhover";
+                    throw "chart_onhover_effect";
                 }
             }
             catch (err) {

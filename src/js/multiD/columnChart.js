@@ -1,4 +1,4 @@
-PykCharts.multiD.columnChart = function(options){
+PykCharts.multiD.column = function(options){
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
 
@@ -34,7 +34,7 @@ PykCharts.multiD.columnChart = function(options){
     };
 };
 
-PykCharts.multiD.groupedColumnChart = function(options){
+PykCharts.multiD.groupedColumn = function(options){
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
 
@@ -122,8 +122,8 @@ PykCharts.multiD.columnFunctions = function (options,chartObject,type) {
             }
         }
         catch (err) {
-            console.error('%c[Error - Pykih Charts] ', 'color: red;font-weight:bold;font-size:14px', " at "+options.selector+". \""+err+"\"  Visit www.chartstore.io/docs#error_");
-            return;            
+            console.error('%c[Error - Pykih Charts] ', 'color: red;font-weight:bold;font-size:14px', " at "+options.selector+". \""+err+"\"  Visit www.chartstore.io/docs#error_8");
+            return;
         }
 
         var fD = that.flattenData();
@@ -299,7 +299,7 @@ PykCharts.multiD.columnFunctions = function (options,chartObject,type) {
                                 .text(that.axis_x_title);
 
                     } else if(that.axis_x_position === "top") {
-                        
+
                         that.xGroup = that.group.append("g")
                             .attr("id","xaxis")
                             .attr("class", "x axis")

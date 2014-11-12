@@ -37,7 +37,7 @@
                 //     {"name": "World","weight": 612463,"tooltip":"<h1>HTML tooltip, huh?</h1>But I am optional."}
                 //     ],
                 data:"../data/screenshot.json",
-                mode: "DEeFault",
+                mode: "Default",
                 transition_duration: 1,
                 clubdata_enable: "yes",
                 clubdata_always_include_data_points: ["North America"],
@@ -155,20 +155,20 @@
                 "credit_my_site_url":  "http://www.firstpost.com",
                 "data_source_name": "World Bank",
                 "data_source_url": "http://www.worldbank.org/",
-                donut_radius_percent : 80,
-                donut_inner_radius_percent: 100,
+                donut_radius_percent : 100,
+                donut_inner_radius_percent: 80,
                 "donut_show_total_at_center": "yes"
             });
            k.execute();
 
-            var k = new PykCharts.oneD.election_pie({
+            var k = new PykCharts.oneD.electionPie({
                 selector: "#electionPieContainer",
                 data: "../data/pie.json",
                 transition_duration: 4,
                 background_color: "white",
                 mode: "DEFault",
                 clubdata_enable: "yes",
-                chart_height : "600",
+                chart_height : 600,
                 clubdata_always_include_data_points: ["Africa","South America"],
                 units_prefix: "$",
                 units_suffix: "/-",
@@ -183,7 +183,7 @@
             });
            k.execute();
 
-            var k = new PykCharts.oneD.election_donut({
+            var k = new PykCharts.oneD.electionDonut({
                 selector: "#electionDonutContainer",
                 data: "../data/pie.json",
                 background_color: "white",
@@ -222,6 +222,7 @@
                 data: "../data/screenshot.json",
                 // transition_duration: 4,
                 mode: "DEFault",
+                chart_color: ["green","blue"],
                 clubdata_enable: "yes",
                 clubdata_always_include_data_points: ["Africa","South America"],
                 units_prefix: "$",
