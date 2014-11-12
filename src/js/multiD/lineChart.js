@@ -30,7 +30,7 @@ PykCharts.multiD.line = function (options) {
                 $(that.selector+" #chart-loader").remove();
                 return;
             }
-			that.data = data.groupBy("line");
+			that.data = that.k.__proto__._groupBy("line",data);
 			that.axis_y_data_format = "number";
     		that.axis_x_data_format = that.k.xAxisDataFormatIdentification(that.data);
 			if(that.axis_x_data_format === "time" && that.axis_x_time_value_datatype === "") {
@@ -72,7 +72,7 @@ PykCharts.multiD.multiSeriesLine = function (options) {
                 $(that.selector+" #chart-loader").remove();
                 return;
             }
-			that.data = data.groupBy("line");
+			that.data = that.k.__proto__._groupBy("line",data);
 			that.axis_y_data_format = "number";
     		that.axis_x_data_format = that.k.xAxisDataFormatIdentification(that.data);
 			if(that.axis_x_data_format === "time" && that.axis_x_time_value_datatype === "") {
@@ -114,7 +114,7 @@ PykCharts.multiD.panelsOfLine = function (options) {
                 $(that.selector+" #chart-loader").remove();
                 return;
             }
-			that.data = data.groupBy("line");
+			that.data = that.k.__proto__._groupBy("line",data);
 			that.axis_y_data_format = "number";
     		that.axis_x_data_format = that.k.xAxisDataFormatIdentification(that.data);
 			if(that.axis_x_data_format === "time" && that.axis_x_time_value_datatype === "") {
@@ -305,10 +305,10 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
 
 	that.refresh = function () {
 		d3.json(options.data, function (e,data) {
-			that.data = data.groupBy("line");
+			that.data = that.k.__proto__._groupBy("line",data);
 			that.data_length = that.data.length;
 			// that.transition_duration = 0;
-			var compare = that.multid.checkChangeInData(that.data,that.compare_data);
+			var compare = that.k.checkChangeInData(that.data,that.compare_data);
 			that.compare_data = compare[0];
 			var data_changed = compare[1];
 			that.dataTransformation();

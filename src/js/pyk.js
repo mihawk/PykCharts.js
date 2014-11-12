@@ -2,126 +2,6 @@ var PykCharts = {};
 PykCharts.assets = "../pykih-charts/assets/";
 PykCharts.export_menu_status = 0;
 
-Array.prototype.groupBy = function (chart) {
-    var gd = []
-    , i
-    , obj
-    , dimensions = {
-        "oned": ["name"],
-        "line": ["x","name"],
-        "area": ["x","name"],
-        "bar": ["y","group"],
-        "column": ["x","group"],
-        "scatterplot": ["x","y","name","group"],
-        "pulse": ["x","y","name","group"],
-        "spiderweb": ["x","y","group"],
-    }
-    , charts = {
-        "oned": {
-            "dimension": "name",
-            "fact": "weight"
-        },
-        "line": {
-          "dimension": "x",
-          "fact": "y",
-          "name": "name"
-        },
-        "area": {
-          "dimension": "x",
-          "fact": "y",
-          "name": "name"
-        },
-        "bar": {
-          "dimension": "y",
-          "fact": "x",
-          "name": "group"
-        },
-        "column": {
-          "dimension": "x",
-          "fact": "y",
-          "name": "group"
-        },
-        "scatterplot": {
-          "dimension": "x",
-          "fact": "y",
-          "weight": "weight",
-          "name": "name",
-          "group": "group"
-        },
-        "pulse": {
-          "dimension": "y",
-          "fact": "x",
-          "weight": "weight",
-          "name": "name",
-          "group": "group"
-        },
-        "spiderweb": {
-          "dimension": "x",
-          "fact": "y",
-          "name": "name",
-          "weight": "weight"
-        }
-    };
-
-    var properties = dimensions[chart];
-    var arr = this;
-    var groups = [];
-    for(var i = 0, len = arr.length; i<len; i+=1){
-        var obj = arr[i];
-        if(groups.length == 0){
-            groups.push([obj]);
-        }
-        else{
-            var equalGroup = false;
-            for(var a = 0, glen = groups.length; a<glen;a+=1){
-                var group = groups[a];
-                var equal = true;
-                var firstElement = group[0];
-                properties.forEach(function(property){
-
-                    if(firstElement[property] !== obj[property]){
-                        equal = false;
-                    }
-
-                });
-                if(equal){
-                    equalGroup = group;
-                }
-            }
-            if(equalGroup){
-                equalGroup.push(obj);
-            }
-            else {
-                groups.push([obj]);
-            }
-        }
-    }
-
-    for(i in groups) {
-        if ($.isArray(groups[i])) {
-            obj = {};
-            var grp = groups[i]
-            var chart_name = charts[chart];
-            obj[chart_name.dimension] = grp[0][chart_name.dimension];
-            if (chart_name.name) {
-                obj[chart_name.name] = grp[0][chart_name.name];
-            }
-            if (chart_name.weight) {
-                obj[chart_name.weight] = d3.sum(grp, function (d) { return d[charts[chart].weight]; });
-                obj[chart_name.fact] = grp[0][chart_name.fact];
-            } else {
-                obj[chart_name.fact] = d3.sum(grp, function (d) { return d[charts[chart].fact]; });
-            }
-            if (chart_name.group) {
-                obj[chart_name.group] = grp[0][chart_name.group];
-            }
-            var f = _.extend(obj,_.omit(grp[0], _.values(charts[chart])));
-            gd.push(f);
-        }
-    };
-    return gd;
-};
-
 PykCharts.boolean = function(d) {
     var false_values = ['0','f',"false",'n','no','',0,"0.00","0.0",0.0,0.00];
     var false_keywords = [undefined,null,NaN];
@@ -1110,6 +990,125 @@ PykCharts.Configuration = function (options){
                     min_value = d3.min([options.width,options.height]);
                 }
                 return (min_value*radius_percent)/200;
+            },
+            _groupBy: function (chart,arr) {
+                var gd = []
+                , i
+                , obj
+                , dimensions = {
+                    "oned": ["name"],
+                    "line": ["x","name"],
+                    "area": ["x","name"],
+                    "bar": ["y","group"],
+                    "column": ["x","group"],
+                    "scatterplot": ["x","y","name","group"],
+                    "pulse": ["x","y","name","group"],
+                    "spiderweb": ["x","y","group"],
+                }
+                , charts = {
+                    "oned": {
+                        "dimension": "name",
+                        "fact": "weight"
+                    },
+                    "line": {
+                      "dimension": "x",
+                      "fact": "y",
+                      "name": "name"
+                    },
+                    "area": {
+                      "dimension": "x",
+                      "fact": "y",
+                      "name": "name"
+                    },
+                    "bar": {
+                      "dimension": "y",
+                      "fact": "x",
+                      "name": "group"
+                    },
+                    "column": {
+                      "dimension": "x",
+                      "fact": "y",
+                      "name": "group"
+                    },
+                    "scatterplot": {
+                      "dimension": "x",
+                      "fact": "y",
+                      "weight": "weight",
+                      "name": "name",
+                      "group": "group"
+                    },
+                    "pulse": {
+                      "dimension": "y",
+                      "fact": "x",
+                      "weight": "weight",
+                      "name": "name",
+                      "group": "group"
+                    },
+                    "spiderweb": {
+                      "dimension": "x",
+                      "fact": "y",
+                      "name": "name",
+                      "weight": "weight"
+                    }
+                };
+
+                var properties = dimensions[chart];
+               // var arr = this;
+                var groups = [];
+                for(var i = 0, len = arr.length; i<len; i+=1){
+                    var obj = arr[i];
+                    if(groups.length == 0){
+                        groups.push([obj]);
+                    }
+                    else{
+                        var equalGroup = false;
+                        for(var a = 0, glen = groups.length; a<glen;a+=1){
+                            var group = groups[a];
+                            var equal = true;
+                            var firstElement = group[0];
+                            properties.forEach(function(property){
+
+                                if(firstElement[property] !== obj[property]){
+                                    equal = false;
+                                }
+
+                            });
+                            if(equal){
+                                equalGroup = group;
+                            }
+                        }
+                        if(equalGroup){
+                            equalGroup.push(obj);
+                        }
+                        else {
+                            groups.push([obj]);
+                        }
+                    }
+                }
+
+                for(i in groups) {
+                    if ($.isArray(groups[i])) {
+                        obj = {};
+                        var grp = groups[i]
+                        var chart_name = charts[chart];
+                        obj[chart_name.dimension] = grp[0][chart_name.dimension];
+                        if (chart_name.name) {
+                            obj[chart_name.name] = grp[0][chart_name.name];
+                        }
+                        if (chart_name.weight) {
+                            obj[chart_name.weight] = d3.sum(grp, function (d) { return d[charts[chart].weight]; });
+                            obj[chart_name.fact] = grp[0][chart_name.fact];
+                        } else {
+                            obj[chart_name.fact] = d3.sum(grp, function (d) { return d[charts[chart].fact]; });
+                        }
+                        if (chart_name.group) {
+                            obj[chart_name.group] = grp[0][chart_name.group];
+                        }
+                        var f = _.extend(obj,_.omit(grp[0], _.values(charts[chart])));
+                        gd.push(f);
+                    }
+                };
+                return gd;
             }
         },
         backgroundColor: function (options) {

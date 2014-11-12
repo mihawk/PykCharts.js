@@ -32,7 +32,7 @@ PykCharts.multiD.area = function (options){
                 return;
             }
 
-			that.data = data.groupBy("area");
+			that.data = that.k.__proto__._groupBy("area",data);
 			that.axis_y_data_format = "number";
     		that.axis_x_data_format = that.k.xAxisDataFormatIdentification(that.data);
     		if(that.axis_x_data_format === "time" && that.axis_x_time_value_datatype === "") {
@@ -82,7 +82,7 @@ PykCharts.multiD.stackedArea = function (options){
                 return;
             }
 
-			that.data = data.groupBy("area");
+			that.data = that.k.__proto__._groupBy("area",data);
 			that.axis_y_data_format = "number";
     		that.axis_x_data_format = that.k.xAxisDataFormatIdentification(that.data);
     		if(that.axis_x_data_format === "time" && that.axis_x_time_value_datatype === "") {
@@ -219,7 +219,7 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 
 	that.refresh = function () {
 		d3.json(options.data, function (e,data) {
-			that.data = data.groupBy("area");
+			that.data = that.k.__proto__._groupBy("area",data);
 			that.data_length = that.data.length;
 			// that.transition_duration = 0;
 			that.dataTransformation();

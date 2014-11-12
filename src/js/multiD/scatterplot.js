@@ -46,7 +46,7 @@ PykCharts.multiD.scatter = function (options) {
                 return;
             }
 
-            that.data = data.groupBy("scatterplot");
+            that.data = that.k.__proto__._groupBy("scatterplot",data);
             that.axis_y_data_format = that.k.yAxisDataFormatIdentification(that.data);
             that.axis_x_data_format = that.k.xAxisDataFormatIdentification(that.data);
             if(that.axis_x_data_format === "time" && that.axis_x_time_value_datatype === "") {
@@ -55,7 +55,7 @@ PykCharts.multiD.scatter = function (options) {
             if(that.axis_y_data_format === "time" && that.axis_y_time_value_datatype === "") {
                 console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+that.selector+".(\""+"You seem to have passed Date data so please pass the value for axis_x_time_value_datatype"+"\")  Visit www.chartstore.io/docs#warning_"+"15");
             }
-            that.compare_data = data.groupBy("scatterplot");
+            that.compare_data = that.k.__proto__._groupBy("scatterplot",data);
             $(that.selector+" #chart-loader").remove();
             var a = new PykCharts.multiD.scatterplotFunctions(options,that,"scatterplot");
             a.render();
@@ -111,7 +111,7 @@ PykCharts.multiD.panelsOfScatter = function (options) {
                 return;
             }
 
-            that.data = data.groupBy("scatterplot");
+            that.data = that.k.__proto__._groupBy("scatterplot",data);
             that.axis_y_data_format = that.k.yAxisDataFormatIdentification(that.data);
             that.axis_x_data_format = that.k.xAxisDataFormatIdentification(that.data);
             if(that.axis_x_data_format === "time" && that.axis_x_time_value_datatype === "") {
@@ -120,7 +120,7 @@ PykCharts.multiD.panelsOfScatter = function (options) {
             if(that.axis_y_data_format === "time" && that.axis_y_time_value_datatype === "") {
                 console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+that.selector+".(\""+"You seem to have passed Date data so please pass the value for axis_x_time_value_datatype"+"\")  Visit www.chartstore.io/docs#warning_"+"15");
             }
-            that.compare_data = data.groupBy("scatterplot");
+            that.compare_data = that.k.__proto__._groupBy("scatterplot",data);
             $(that.selector+" #chart-loader").remove();
             var a = new PykCharts.multiD.scatterplotFunctions(options,that,"scatterplot");
             a.render();
@@ -165,7 +165,7 @@ PykCharts.multiD.pulse = function (options) {
         }
 
         d3.json(options.data, function (e, data) {
-            that.data = data.groupBy("pulse");
+            that.data = that.k.__proto__._groupBy("pulse",data);
             that.axis_y_data_format = that.k.yAxisDataFormatIdentification(that.data);
             that.axis_x_data_format = that.k.xAxisDataFormatIdentification(that.data);
             if(that.axis_x_data_format === "date" && that.axis_x_time_value_datatype === "") {
@@ -174,7 +174,7 @@ PykCharts.multiD.pulse = function (options) {
             if(that.axis_y_data_format === "date" && that.axis_y_time_value_datatype === "") {
                 console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+that.selector+".(\""+"You seem to pass Date data so please pass axis_y_time_value_datatype"+"\")  Visit www.chartstore.io/docs#warning_"+"15");
             }
-            that.compare_data = data.groupBy("pulse");
+            that.compare_data = that.k.__proto__._groupBy("pulse",data);
             $(that.selector+" #chart-loader").remove();
             var a = new PykCharts.multiD.scatterplotFunctions(options,that,"pulse");
             a.render();
@@ -186,8 +186,8 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
     var that = chartObject;
     that.refresh = function () {
         d3.json(options.data, function (e, data) {
-            that.data = data.groupBy("scatterplot");
-            that.refresh_data = data.groupBy("scatterplot");
+            that.data = that.k.__proto__._groupBy("scatterplot",data);
+            that.refresh_data = that.k.__proto__._groupBy("scatterplot",data);
             var compare = that.k.checkChangeInData(that.refresh_data,that.compare_data);
             that.compare_data = compare[0];
             var data_changed = compare[1];

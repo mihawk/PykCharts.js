@@ -38,8 +38,9 @@ PykCharts.multiD.barChart = function(options){
                 return;
             }
 
-            that.data = data.groupBy("bar");
-            that.compare_data = data.groupBy("bar");
+            that.data = that.k.__proto__._groupBy("bar",data);
+            that.compare_data = that.k.__proto__._groupBy("bar",data);
+            console.log(that.data,"data")
             that.axis_x_data_format = that.k.xAxisDataFormatIdentification(that.data);
             $(that.selector+" #chart-loader").remove();
             PykCharts.multiD.barFunctions(options,that,"bar");
@@ -91,8 +92,8 @@ PykCharts.multiD.groupedBarChart = function(options){
                 return;
             }
 
-            that.data = data.groupBy("bar");
-            that.compare_data = data.groupBy("bar");
+            that.data = that.k.__proto__._groupBy("bar",data);
+            that.compare_data = that.k.__proto__._groupBy("bar",data);
             that.axis_x_data_format = that.k.xAxisDataFormatIdentification(that.data);
             $(that.selector+" #chart-loader").remove();
             PykCharts.multiD.barFunctions(options,that,"group_bar");
@@ -105,8 +106,8 @@ PykCharts.multiD.barFunctions = function (options,chartObject,type) {
     var that = chartObject;
     that.refresh = function () {
         d3.json(options.data, function (e, data) {
-            that.data = data.groupBy("bar");
-            that.refresh_data = data.groupBy("bar");
+            that.data = that.k.__proto__._groupBy("bar",data);
+            that.refresh_data = that.k.__proto__._groupBy("bar",data);
             var compare = that.k.checkChangeInData(that.refresh_data,that.compare_data);
             that.compare_data = compare[0];
             var data_changed = compare[1];

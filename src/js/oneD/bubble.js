@@ -29,8 +29,10 @@ PykCharts.oneD.bubble = function (options) {
             }
             // that.data =options.data;
             // that.compare_data = options.data;
-            that.data = data.groupBy("oned");
-            that.compare_data = data.groupBy("oned");
+
+            that.data = that.k.__proto__._groupBy("oned",data);
+            that.compare_data = that.k.__proto__._groupBy("oned",data);
+
             $(options.selector+" #chart-loader").remove();
             that.clubdata_enable = that.data.length>that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
             that.render();
@@ -40,9 +42,9 @@ PykCharts.oneD.bubble = function (options) {
     this.refresh = function () {
 
         d3.json (options.data, function (e,data) {
-            that.data = data.groupBy("oned");
+            that.data = that.k.__proto__._groupBy("oned",data);
             that.clubdata_enable = that.data.length>that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
-            that.refresh_data = data.groupBy("oned");
+            that.refresh_data = that.k.__proto__._groupBy("oned",data);
             var compare = that.k.checkChangeInData(that.refresh_data,that.compare_data);
             that.compare_data = compare[0];
             var data_changed = compare[1];
@@ -57,6 +59,7 @@ PykCharts.oneD.bubble = function (options) {
     };
 
     this.render = function () {
+
         // that.fillChart = new PykCharts.oneD.fillChart(that);
         var l = $(".svgcontainer").length;
         that.container_id = "svgcontainer" + l;

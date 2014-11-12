@@ -24,8 +24,8 @@ PykCharts.multiD.columnChart = function(options){
                 return;
             }
 
-            that.data = data.groupBy("column");
-            that.compare_data = data.groupBy("column");
+            that.data = that.k.__proto__._groupBy("column",data);
+            that.compare_data = that.k.__proto__._groupBy("column",data);
             that.axis_y_data_format = that.k.yAxisDataFormatIdentification(that.data);
             $(that.selector+" #chart-loader").remove();
             PykCharts.multiD.columnFunctions(options,that,"column");
@@ -60,8 +60,8 @@ PykCharts.multiD.groupedColumnChart = function(options){
                 return;
             }
 
-            that.data = data.groupBy("column");
-            that.compare_data = data.groupBy("column");
+            that.data = that.k.__proto__._groupBy("column",data);
+            that.compare_data = that.k.__proto__._groupBy("column",data);
             that.axis_y_data_format = that.k.yAxisDataFormatIdentification(that.data);
             $(that.selector+" #chart-loader").remove();
             PykCharts.multiD.columnFunctions(options,that,"group_column");
@@ -74,8 +74,8 @@ PykCharts.multiD.columnFunctions = function (options,chartObject,type) {
     var that = chartObject;
     that.refresh = function () {
         d3.json(options.data, function (e, data) {
-            that.data = data.groupBy("column");
-            that.refresh_data = data.groupBy("column");
+            that.data = that.k.__proto__._groupBy("column",data);
+            that.refresh_data = that.k.__proto__._groupBy("column",data);
 
             var compare = that.k.checkChangeInData(that.refresh_data,that.compare_data);
             that.compare_data = compare[0];

@@ -2,126 +2,6 @@ var PykCharts = {};
 PykCharts.assets = "../pykih-charts/assets/";
 PykCharts.export_menu_status = 0;
 
-Array.prototype.groupBy = function (chart) {
-    var gd = []
-    , i
-    , obj
-    , dimensions = {
-        "oned": ["name"],
-        "line": ["x","name"],
-        "area": ["x","name"],
-        "bar": ["y","group"],
-        "column": ["x","group"],
-        "scatterplot": ["x","y","name","group"],
-        "pulse": ["x","y","name","group"],
-        "spiderweb": ["x","y","group"],
-    }
-    , charts = {
-        "oned": {
-            "dimension": "name",
-            "fact": "weight"
-        },
-        "line": {
-          "dimension": "x",
-          "fact": "y",
-          "name": "name"
-        },
-        "area": {
-          "dimension": "x",
-          "fact": "y",
-          "name": "name"
-        },
-        "bar": {
-          "dimension": "y",
-          "fact": "x",
-          "name": "group"
-        },
-        "column": {
-          "dimension": "x",
-          "fact": "y",
-          "name": "group"
-        },
-        "scatterplot": {
-          "dimension": "x",
-          "fact": "y",
-          "weight": "weight",
-          "name": "name",
-          "group": "group"
-        },
-        "pulse": {
-          "dimension": "y",
-          "fact": "x",
-          "weight": "weight",
-          "name": "name",
-          "group": "group"
-        },
-        "spiderweb": {
-          "dimension": "x",
-          "fact": "y",
-          "name": "name",
-          "weight": "weight"
-        }
-    };
-
-    var properties = dimensions[chart];
-    var arr = this;
-    var groups = [];
-    for(var i = 0, len = arr.length; i<len; i+=1){
-        var obj = arr[i];
-        if(groups.length == 0){
-            groups.push([obj]);
-        }
-        else{
-            var equalGroup = false;
-            for(var a = 0, glen = groups.length; a<glen;a+=1){
-                var group = groups[a];
-                var equal = true;
-                var firstElement = group[0];
-                properties.forEach(function(property){
-
-                    if(firstElement[property] !== obj[property]){
-                        equal = false;
-                    }
-
-                });
-                if(equal){
-                    equalGroup = group;
-                }
-            }
-            if(equalGroup){
-                equalGroup.push(obj);
-            }
-            else {
-                groups.push([obj]);
-            }
-        }
-    }
-
-    for(i in groups) {
-        if ($.isArray(groups[i])) {
-            obj = {};
-            var grp = groups[i]
-            var chart_name = charts[chart];
-            obj[chart_name.dimension] = grp[0][chart_name.dimension];
-            if (chart_name.name) {
-                obj[chart_name.name] = grp[0][chart_name.name];
-            }
-            if (chart_name.weight) {
-                obj[chart_name.weight] = d3.sum(grp, function (d) { return d[charts[chart].weight]; });
-                obj[chart_name.fact] = grp[0][chart_name.fact];
-            } else {
-                obj[chart_name.fact] = d3.sum(grp, function (d) { return d[charts[chart].fact]; });
-            }
-            if (chart_name.group) {
-                obj[chart_name.group] = grp[0][chart_name.group];
-            }
-            var f = _.extend(obj,_.omit(grp[0], _.values(charts[chart])));
-            gd.push(f);
-        }
-    };
-    return gd;
-};
-
 PykCharts.boolean = function(d) {
     var false_values = ['0','f',"false",'n','no','',0,"0.00","0.0",0.0,0.00];
     var false_keywords = [undefined,null,NaN];
@@ -1110,6 +990,125 @@ PykCharts.Configuration = function (options){
                     min_value = d3.min([options.width,options.height]);
                 }
                 return (min_value*radius_percent)/200;
+            },
+            _groupBy: function (chart,arr) {
+                var gd = []
+                , i
+                , obj
+                , dimensions = {
+                    "oned": ["name"],
+                    "line": ["x","name"],
+                    "area": ["x","name"],
+                    "bar": ["y","group"],
+                    "column": ["x","group"],
+                    "scatterplot": ["x","y","name","group"],
+                    "pulse": ["x","y","name","group"],
+                    "spiderweb": ["x","y","group"],
+                }
+                , charts = {
+                    "oned": {
+                        "dimension": "name",
+                        "fact": "weight"
+                    },
+                    "line": {
+                      "dimension": "x",
+                      "fact": "y",
+                      "name": "name"
+                    },
+                    "area": {
+                      "dimension": "x",
+                      "fact": "y",
+                      "name": "name"
+                    },
+                    "bar": {
+                      "dimension": "y",
+                      "fact": "x",
+                      "name": "group"
+                    },
+                    "column": {
+                      "dimension": "x",
+                      "fact": "y",
+                      "name": "group"
+                    },
+                    "scatterplot": {
+                      "dimension": "x",
+                      "fact": "y",
+                      "weight": "weight",
+                      "name": "name",
+                      "group": "group"
+                    },
+                    "pulse": {
+                      "dimension": "y",
+                      "fact": "x",
+                      "weight": "weight",
+                      "name": "name",
+                      "group": "group"
+                    },
+                    "spiderweb": {
+                      "dimension": "x",
+                      "fact": "y",
+                      "name": "name",
+                      "weight": "weight"
+                    }
+                };
+
+                var properties = dimensions[chart];
+               // var arr = this;
+                var groups = [];
+                for(var i = 0, len = arr.length; i<len; i+=1){
+                    var obj = arr[i];
+                    if(groups.length == 0){
+                        groups.push([obj]);
+                    }
+                    else{
+                        var equalGroup = false;
+                        for(var a = 0, glen = groups.length; a<glen;a+=1){
+                            var group = groups[a];
+                            var equal = true;
+                            var firstElement = group[0];
+                            properties.forEach(function(property){
+
+                                if(firstElement[property] !== obj[property]){
+                                    equal = false;
+                                }
+
+                            });
+                            if(equal){
+                                equalGroup = group;
+                            }
+                        }
+                        if(equalGroup){
+                            equalGroup.push(obj);
+                        }
+                        else {
+                            groups.push([obj]);
+                        }
+                    }
+                }
+
+                for(i in groups) {
+                    if ($.isArray(groups[i])) {
+                        obj = {};
+                        var grp = groups[i]
+                        var chart_name = charts[chart];
+                        obj[chart_name.dimension] = grp[0][chart_name.dimension];
+                        if (chart_name.name) {
+                            obj[chart_name.name] = grp[0][chart_name.name];
+                        }
+                        if (chart_name.weight) {
+                            obj[chart_name.weight] = d3.sum(grp, function (d) { return d[charts[chart].weight]; });
+                            obj[chart_name.fact] = grp[0][chart_name.fact];
+                        } else {
+                            obj[chart_name.fact] = d3.sum(grp, function (d) { return d[charts[chart].fact]; });
+                        }
+                        if (chart_name.group) {
+                            obj[chart_name.group] = grp[0][chart_name.group];
+                        }
+                        var f = _.extend(obj,_.omit(grp[0], _.values(charts[chart])));
+                        gd.push(f);
+                    }
+                };
+                return gd;
             }
         },
         backgroundColor: function (options) {
@@ -2705,8 +2704,10 @@ PykCharts.oneD.bubble = function (options) {
             }
             // that.data =options.data;
             // that.compare_data = options.data;
-            that.data = data.groupBy("oned");
-            that.compare_data = data.groupBy("oned");
+
+            that.data = that.k.__proto__._groupBy("oned",data);
+            that.compare_data = that.k.__proto__._groupBy("oned",data);
+
             $(options.selector+" #chart-loader").remove();
             that.clubdata_enable = that.data.length>that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
             that.render();
@@ -2716,9 +2717,9 @@ PykCharts.oneD.bubble = function (options) {
     this.refresh = function () {
 
         d3.json (options.data, function (e,data) {
-            that.data = data.groupBy("oned");
+            that.data = that.k.__proto__._groupBy("oned",data);
             that.clubdata_enable = that.data.length>that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
-            that.refresh_data = data.groupBy("oned");
+            that.refresh_data = that.k.__proto__._groupBy("oned",data);
             var compare = that.k.checkChangeInData(that.refresh_data,that.compare_data);
             that.compare_data = compare[0];
             var data_changed = compare[1];
@@ -2733,6 +2734,7 @@ PykCharts.oneD.bubble = function (options) {
     };
 
     this.render = function () {
+
         // that.fillChart = new PykCharts.oneD.fillChart(that);
         var l = $(".svgcontainer").length;
         that.container_id = "svgcontainer" + l;
@@ -3120,8 +3122,8 @@ PykCharts.oneD.funnel = function (options) {
                 $(options.selector+" #chart-loader").remove();
                 return;
             }
-            that.data = data.groupBy("oned");
-            that.compare_data = data.groupBy("oned");
+            that.data = that.k.__proto__._groupBy("oned",data);
+            that.compare_data = that.k.__proto__._groupBy("oned",data);
             $(options.selector+" #chart-loader").remove();
             that.clubdata_enable = that.data.length>that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
             that.render();
@@ -3136,9 +3138,9 @@ PykCharts.oneD.funnel = function (options) {
     //----------------------------------------------------------------------------------------
     this.refresh = function () {
         d3.json (options.data, function (e,data) {
-            that.data = data.groupBy("oned");
+            that.data = that.k.__proto__._groupBy("oned",data);
             that.clubdata_enable = that.data.length>that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
-            that.refresh_data = data.groupBy("oned");
+            that.refresh_data = that.k.__proto__._groupBy("oned",data);
             var compare = that.k.checkChangeInData(that.refresh_data,that.compare_data);
             that.compare_data = compare[0];
             var data_changed = compare[1];
@@ -3701,8 +3703,9 @@ PykCharts.oneD.percentageColumn = function (options) {
             if(that.stop || validate === false) {
                 $(options.selector+" #chart-loader").remove();
                 return;
-            }            that.data = data.groupBy("oned");
-            that.compare_data = data.groupBy("oned");
+            }            
+            that.data = that.k.__proto__._groupBy("oned",data);
+            that.compare_data = that.k.__proto__._groupBy("oned",data);
             $(options.selector+" #chart-loader").remove();
             that.clubdata_enable = that.data.length>that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
             that.render();
@@ -3714,9 +3717,9 @@ PykCharts.oneD.percentageColumn = function (options) {
     //----------------------------------------------------------------------------------------
     this.refresh = function () {
         d3.json (options.data, function (e,data) {
-            that.data = data.groupBy("oned");
+            that.data = that.k.__proto__._groupBy("oned",data);
             that.clubdata_enable = that.data.length>that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
-            that.refresh_data = data.groupBy("oned");
+            that.refresh_data = that.k.__proto__._groupBy("oned",data);
             var compare = that.k.checkChangeInData(that.refresh_data,that.compare_data);
             that.compare_data = compare[0];
             var data_changed = compare[1];
@@ -4172,8 +4175,8 @@ PykCharts.oneD.percentageBar = function (options) {
                 return;
             }
 
-            that.data = data.groupBy("oned");
-            that.compare_data = data.groupBy("oned");
+            that.data = that.k.__proto__._groupBy("oned",data);
+            that.compare_data = that.k.__proto__._groupBy("oned",data);
             $(options.selector+" #chart-loader").remove();
             that.clubdata_enable = that.data.length>that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
             that.render();
@@ -4185,9 +4188,9 @@ PykCharts.oneD.percentageBar = function (options) {
     //----------------------------------------------------------------------------------------
     this.refresh = function () {
         d3.json (options.data, function (e,data) {
-            that.data = data.groupBy("oned");
+            that.data = that.k.__proto__._groupBy("oned",data);
             that.clubdata_enable = that.data.length>that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
-            that.refresh_data = data.groupBy("oned");
+            that.refresh_data = that.k.__proto__._groupBy("oned",data);
             var compare = that.k.checkChangeInData(that.refresh_data,that.compare_data);
             that.compare_data = compare[0];
             var data_changed = compare[1];
@@ -4645,8 +4648,8 @@ PykCharts.oneD.pie = function (options) {
                 return;
             }
 
-            that.data = data.groupBy("oned");
-            that.compare_data = data.groupBy("oned");
+            that.data = that.k.__proto__._groupBy("oned",data);
+            that.compare_data = that.k.__proto__._groupBy("oned",data);
             $(options.selector+" #chart-loader").remove();
             var pieFunctions = new PykCharts.oneD.pieFunctions(options,that,"pie");
             that.clubdata_enable = that.data.length > that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
@@ -4749,8 +4752,8 @@ PykCharts.oneD.donut = function (options) {
                 return;
             }
 
-            that.data = data.groupBy("oned");
-            that.compare_data = data.groupBy("oned");
+            that.data = that.k.__proto__._groupBy("oned",data);
+            that.compare_data = that.k.__proto__._groupBy("oned",data);
             $(options.selector+" #chart-loader").remove();
             var pieFunctions = new PykCharts.oneD.pieFunctions(options,that,"donut");
             that.clubdata_enable = that.data.length > that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
@@ -4820,8 +4823,8 @@ PykCharts.oneD.election_pie = function (options) {
                 return;
             }
 
-            that.data = data.groupBy("oned");
-            that.compare_data = data.groupBy("oned");
+            that.data = that.k.__proto__._groupBy("oned",data);
+            that.compare_data = that.k.__proto__._groupBy("oned",data);
             $(options.selector+" #chart-loader").remove();
             var pieFunctions = new PykCharts.oneD.pieFunctions(options,that,"election pie");
             that.clubdata_enable = that.data.length > that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
@@ -4927,8 +4930,8 @@ PykCharts.oneD.election_donut = function (options) {
                 return;
             }
 
-            that.data = data.groupBy("oned");
-            that.compare_data = data.groupBy("oned");
+            that.data = that.k.__proto__._groupBy("oned",data);
+            that.compare_data = that.k.__proto__._groupBy("oned",data);
             $(options.selector+" #chart-loader").remove();
             var pieFunctions = new PykCharts.oneD.pieFunctions(options,that,"election donut");
             that.clubdata_enable = that.data.length> that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
@@ -4946,9 +4949,9 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
     var that = chartObject;
        that.refresh = function () {
         d3.json(options.data, function (e, data) {
-            that.data = data.groupBy("oned");
+            that.data = that.k.__proto__._groupBy("oned",data);
             that.clubdata_enable = that.data.length>that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
-            that.refresh_data = data.groupBy("oned");
+            that.refresh_data = that.k.__proto__._groupBy("oned",data);
             var compare = that.k.checkChangeInData(that.refresh_data,that.compare_data);
             that.compare_data = compare[0];
             var data_changed = compare[1];
@@ -5596,8 +5599,8 @@ PykCharts.oneD.pyramid = function (options) {
                 return;
             }
 
-			that.data = data.groupBy("oned");
-            that.compare_data = data.groupBy("oned");
+			that.data = that.k.__proto__._groupBy("oned",data);
+            that.compare_data = that.k.__proto__._groupBy("oned",data);
             $(options.selector+" #chart-loader").remove();
 			that.clubdata_enable = that.data.length > that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
             that.render();
@@ -5607,9 +5610,9 @@ PykCharts.oneD.pyramid = function (options) {
 
     this.refresh = function () {
         d3.json (options.data, function (e,data) {
-            that.data = data.groupBy("oned");
+            that.data = that.k.__proto__._groupBy("oned",data);
             that.clubdata_enable = that.data.length>that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
-            that.refresh_data = data.groupBy("oned");
+            that.refresh_data = that.k.__proto__._groupBy("oned",data);
             var compare = that.k.checkChangeInData(that.refresh_data,that.compare_data);
             that.compare_data = compare[0];
             var data_changed = compare[1];
@@ -6167,8 +6170,8 @@ PykCharts.oneD.treemap = function (options){
                 return;
             }
 
-            that.data = data.groupBy("oned");
-            that.compare_data = data.groupBy("oned");
+            that.data = that.k.__proto__._groupBy("oned",data);
+            that.compare_data = that.k.__proto__._groupBy("oned",data);
             $(options.selector+" #chart-loader").remove();
             that.clubdata_enable = that.data.length>that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
             that.render();
@@ -6178,9 +6181,9 @@ PykCharts.oneD.treemap = function (options){
 
     this.refresh = function (){
         d3.json(options.data, function (e,data) {
-            that.data = data.groupBy("oned");
+            that.data = that.k.__proto__._groupBy("oned",data);
             that.clubdata_enable = that.data.length>that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
-            that.refresh_data = data.groupBy("oned");
+            that.refresh_data = that.k.__proto__._groupBy("oned",data);
             var compare = that.k.checkChangeInData(that.refresh_data,that.compare_data);
             that.compare_data = compare[0];
             var data_changed = compare[1];
@@ -6992,26 +6995,26 @@ PykCharts.multiD.configuration = function (options){
                 .attr("width", function(d) {return xScale.rangeBand(d.x);});
             });
         },
-        checkChangeInData: function (data, compare_data) { // this function checks if the data in json has been changed
-            var key1 = Object.keys(compare_data[0]);
-            var key2 = Object.keys(data[0]);
-            var changed = false;
-            that.data = data.groupBy("oned");
-            if(key1.length === key2.length && compare_data.length === data.length) {
-                for(i=0;i<data.length;i++) {
-                    for(j=0;j<key1.length;j++){
-                        if(data[i][key2[j]] !== compare_data[i][key1[j]] || key1[j] !== key2[j]) {
-                            changed = true;
-                            break;
-                        }
-                    }
-                }
-            } else {
-                changed = true;
-            }
-            that.compare_data = data;
-            return [that.compare_data, changed];
-        },
+        // checkChangeInData: function (data, compare_data) { // this function checks if the data in json has been changed
+        //     var key1 = Object.keys(compare_data[0]);
+        //     var key2 = Object.keys(data[0]);
+        //     var changed = false;
+        //     that.data = data.groupBy("oned");
+        //     if(key1.length === key2.length && compare_data.length === data.length) {
+        //         for(i=0;i<data.length;i++) {
+        //             for(j=0;j<key1.length;j++){
+        //                 if(data[i][key2[j]] !== compare_data[i][key1[j]] || key1[j] !== key2[j]) {
+        //                     changed = true;
+        //                     break;
+        //                 }
+        //             }
+        //         }
+        //     } else {
+        //         changed = true;
+        //     }
+        //     that.compare_data = data;
+        //     return [that.compare_data, changed];
+        // },
         opacity : function (d,weight,data) {
             if(!(PykCharts.boolean(options.variable_circle_size_enable))) {
                 var z = d3.scale.linear()
@@ -7591,7 +7594,7 @@ PykCharts.multiD.line = function (options) {
                 $(that.selector+" #chart-loader").remove();
                 return;
             }
-			that.data = data.groupBy("line");
+			that.data = that.k.__proto__._groupBy("line",data);
 			that.axis_y_data_format = "number";
     		that.axis_x_data_format = that.k.xAxisDataFormatIdentification(that.data);
 			if(that.axis_x_data_format === "time" && that.axis_x_time_value_datatype === "") {
@@ -7633,7 +7636,7 @@ PykCharts.multiD.multiSeriesLine = function (options) {
                 $(that.selector+" #chart-loader").remove();
                 return;
             }
-			that.data = data.groupBy("line");
+			that.data = that.k.__proto__._groupBy("line",data);
 			that.axis_y_data_format = "number";
     		that.axis_x_data_format = that.k.xAxisDataFormatIdentification(that.data);
 			if(that.axis_x_data_format === "time" && that.axis_x_time_value_datatype === "") {
@@ -7675,7 +7678,7 @@ PykCharts.multiD.panelsOfLine = function (options) {
                 $(that.selector+" #chart-loader").remove();
                 return;
             }
-			that.data = data.groupBy("line");
+			that.data = that.k.__proto__._groupBy("line",data);
 			that.axis_y_data_format = "number";
     		that.axis_x_data_format = that.k.xAxisDataFormatIdentification(that.data);
 			if(that.axis_x_data_format === "time" && that.axis_x_time_value_datatype === "") {
@@ -7866,10 +7869,10 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
 
 	that.refresh = function () {
 		d3.json(options.data, function (e,data) {
-			that.data = data.groupBy("line");
+			that.data = that.k.__proto__._groupBy("line",data);
 			that.data_length = that.data.length;
 			// that.transition_duration = 0;
-			var compare = that.multid.checkChangeInData(that.data,that.compare_data);
+			var compare = that.k.checkChangeInData(that.data,that.compare_data);
 			that.compare_data = compare[0];
 			var data_changed = compare[1];
 			that.dataTransformation();
@@ -8833,7 +8836,7 @@ PykCharts.multiD.area = function (options){
                 return;
             }
 
-			that.data = data.groupBy("area");
+			that.data = that.k.__proto__._groupBy("area",data);
 			that.axis_y_data_format = "number";
     		that.axis_x_data_format = that.k.xAxisDataFormatIdentification(that.data);
     		if(that.axis_x_data_format === "time" && that.axis_x_time_value_datatype === "") {
@@ -8883,7 +8886,7 @@ PykCharts.multiD.stackedArea = function (options){
                 return;
             }
 
-			that.data = data.groupBy("area");
+			that.data = that.k.__proto__._groupBy("area",data);
 			that.axis_y_data_format = "number";
     		that.axis_x_data_format = that.k.xAxisDataFormatIdentification(that.data);
     		if(that.axis_x_data_format === "time" && that.axis_x_time_value_datatype === "") {
@@ -9020,7 +9023,7 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 
 	that.refresh = function () {
 		d3.json(options.data, function (e,data) {
-			that.data = data.groupBy("area");
+			that.data = that.k.__proto__._groupBy("area",data);
 			that.data_length = that.data.length;
 			// that.transition_duration = 0;
 			that.dataTransformation();
@@ -9927,8 +9930,9 @@ PykCharts.multiD.barChart = function(options){
                 return;
             }
 
-            that.data = data.groupBy("bar");
-            that.compare_data = data.groupBy("bar");
+            that.data = that.k.__proto__._groupBy("bar",data);
+            that.compare_data = that.k.__proto__._groupBy("bar",data);
+            console.log(that.data,"data")
             that.axis_x_data_format = that.k.xAxisDataFormatIdentification(that.data);
             $(that.selector+" #chart-loader").remove();
             PykCharts.multiD.barFunctions(options,that,"bar");
@@ -9980,8 +9984,8 @@ PykCharts.multiD.groupedBarChart = function(options){
                 return;
             }
 
-            that.data = data.groupBy("bar");
-            that.compare_data = data.groupBy("bar");
+            that.data = that.k.__proto__._groupBy("bar",data);
+            that.compare_data = that.k.__proto__._groupBy("bar",data);
             that.axis_x_data_format = that.k.xAxisDataFormatIdentification(that.data);
             $(that.selector+" #chart-loader").remove();
             PykCharts.multiD.barFunctions(options,that,"group_bar");
@@ -9994,8 +9998,8 @@ PykCharts.multiD.barFunctions = function (options,chartObject,type) {
     var that = chartObject;
     that.refresh = function () {
         d3.json(options.data, function (e, data) {
-            that.data = data.groupBy("bar");
-            that.refresh_data = data.groupBy("bar");
+            that.data = that.k.__proto__._groupBy("bar",data);
+            that.refresh_data = that.k.__proto__._groupBy("bar",data);
             var compare = that.k.checkChangeInData(that.refresh_data,that.compare_data);
             that.compare_data = compare[0];
             var data_changed = compare[1];
@@ -11073,8 +11077,8 @@ PykCharts.multiD.columnChart = function(options){
                 return;
             }
 
-            that.data = data.groupBy("column");
-            that.compare_data = data.groupBy("column");
+            that.data = that.k.__proto__._groupBy("column",data);
+            that.compare_data = that.k.__proto__._groupBy("column",data);
             that.axis_y_data_format = that.k.yAxisDataFormatIdentification(that.data);
             $(that.selector+" #chart-loader").remove();
             PykCharts.multiD.columnFunctions(options,that,"column");
@@ -11109,8 +11113,8 @@ PykCharts.multiD.groupedColumnChart = function(options){
                 return;
             }
 
-            that.data = data.groupBy("column");
-            that.compare_data = data.groupBy("column");
+            that.data = that.k.__proto__._groupBy("column",data);
+            that.compare_data = that.k.__proto__._groupBy("column",data);
             that.axis_y_data_format = that.k.yAxisDataFormatIdentification(that.data);
             $(that.selector+" #chart-loader").remove();
             PykCharts.multiD.columnFunctions(options,that,"group_column");
@@ -11123,8 +11127,8 @@ PykCharts.multiD.columnFunctions = function (options,chartObject,type) {
     var that = chartObject;
     that.refresh = function () {
         d3.json(options.data, function (e, data) {
-            that.data = data.groupBy("column");
-            that.refresh_data = data.groupBy("column");
+            that.data = that.k.__proto__._groupBy("column",data);
+            that.refresh_data = that.k.__proto__._groupBy("column",data);
 
             var compare = that.k.checkChangeInData(that.refresh_data,that.compare_data);
             that.compare_data = compare[0];
@@ -12075,7 +12079,7 @@ PykCharts.multiD.scatter = function (options) {
                 return;
             }
 
-            that.data = data.groupBy("scatterplot");
+            that.data = that.k.__proto__._groupBy("scatterplot",data);
             that.axis_y_data_format = that.k.yAxisDataFormatIdentification(that.data);
             that.axis_x_data_format = that.k.xAxisDataFormatIdentification(that.data);
             if(that.axis_x_data_format === "time" && that.axis_x_time_value_datatype === "") {
@@ -12084,7 +12088,7 @@ PykCharts.multiD.scatter = function (options) {
             if(that.axis_y_data_format === "time" && that.axis_y_time_value_datatype === "") {
                 console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+that.selector+".(\""+"You seem to have passed Date data so please pass the value for axis_x_time_value_datatype"+"\")  Visit www.chartstore.io/docs#warning_"+"15");
             }
-            that.compare_data = data.groupBy("scatterplot");
+            that.compare_data = that.k.__proto__._groupBy("scatterplot",data);
             $(that.selector+" #chart-loader").remove();
             var a = new PykCharts.multiD.scatterplotFunctions(options,that,"scatterplot");
             a.render();
@@ -12140,7 +12144,7 @@ PykCharts.multiD.panelsOfScatter = function (options) {
                 return;
             }
 
-            that.data = data.groupBy("scatterplot");
+            that.data = that.k.__proto__._groupBy("scatterplot",data);
             that.axis_y_data_format = that.k.yAxisDataFormatIdentification(that.data);
             that.axis_x_data_format = that.k.xAxisDataFormatIdentification(that.data);
             if(that.axis_x_data_format === "time" && that.axis_x_time_value_datatype === "") {
@@ -12149,7 +12153,7 @@ PykCharts.multiD.panelsOfScatter = function (options) {
             if(that.axis_y_data_format === "time" && that.axis_y_time_value_datatype === "") {
                 console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+that.selector+".(\""+"You seem to have passed Date data so please pass the value for axis_x_time_value_datatype"+"\")  Visit www.chartstore.io/docs#warning_"+"15");
             }
-            that.compare_data = data.groupBy("scatterplot");
+            that.compare_data = that.k.__proto__._groupBy("scatterplot",data);
             $(that.selector+" #chart-loader").remove();
             var a = new PykCharts.multiD.scatterplotFunctions(options,that,"scatterplot");
             a.render();
@@ -12194,7 +12198,7 @@ PykCharts.multiD.pulse = function (options) {
         }
 
         d3.json(options.data, function (e, data) {
-            that.data = data.groupBy("pulse");
+            that.data = that.k.__proto__._groupBy("pulse",data);
             that.axis_y_data_format = that.k.yAxisDataFormatIdentification(that.data);
             that.axis_x_data_format = that.k.xAxisDataFormatIdentification(that.data);
             if(that.axis_x_data_format === "date" && that.axis_x_time_value_datatype === "") {
@@ -12203,7 +12207,7 @@ PykCharts.multiD.pulse = function (options) {
             if(that.axis_y_data_format === "date" && that.axis_y_time_value_datatype === "") {
                 console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+that.selector+".(\""+"You seem to pass Date data so please pass axis_y_time_value_datatype"+"\")  Visit www.chartstore.io/docs#warning_"+"15");
             }
-            that.compare_data = data.groupBy("pulse");
+            that.compare_data = that.k.__proto__._groupBy("pulse",data);
             $(that.selector+" #chart-loader").remove();
             var a = new PykCharts.multiD.scatterplotFunctions(options,that,"pulse");
             a.render();
@@ -12215,8 +12219,8 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
     var that = chartObject;
     that.refresh = function () {
         d3.json(options.data, function (e, data) {
-            that.data = data.groupBy("scatterplot");
-            that.refresh_data = data.groupBy("scatterplot");
+            that.data = that.k.__proto__._groupBy("scatterplot",data);
+            that.refresh_data = that.k.__proto__._groupBy("scatterplot",data);
             var compare = that.k.checkChangeInData(that.refresh_data,that.compare_data);
             that.compare_data = compare[0];
             var data_changed = compare[1];
@@ -13259,8 +13263,8 @@ PykCharts.multiD.spiderWeb = function (options) {
                 return;
             }
 
-            that.data = data.groupBy("spiderweb");
-            that.compare_data = data.groupBy("spiderweb");
+            that.data = that.k.__proto__._groupBy("spiderweb",data);
+            that.compare_data = that.k.__proto__._groupBy("spiderweb",data);
             $(that.selector+" #chart-loader").remove();
             that.render();
         });
@@ -13268,8 +13272,8 @@ PykCharts.multiD.spiderWeb = function (options) {
 
     that.refresh = function () {
         d3.json(options.data, function (e, data) {
-            that.data = data.groupBy("spiderweb");
-            that.refresh_data = data.groupBy("spiderweb");
+            that.data = that.k.__proto__._groupBy("spiderweb",data);
+            that.refresh_data = that.k.__proto__._groupBy("spiderweb",data);
             var compare = that.k.checkChangeInData(that.refresh_data,that.compare_data);
             that.compare_data = compare[0];
             var data_changed = compare[1];
