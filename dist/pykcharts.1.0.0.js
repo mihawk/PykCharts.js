@@ -536,12 +536,12 @@ PykCharts.Configuration = function (options){
             }
             return this;
         },
-        xGrid: function (svg, gsvg, xScale) {
+        xGrid: function (svg, gsvg, xScale,legendsGroup_height) {
              var width = options.width,
                 height = options.height;
 
             if(PykCharts.boolean(options.grid_x_enable)) {
-                var xgrid = PykCharts.Configuration.makeXGrid(options,xScale);
+                var xgrid = PykCharts.Configuration.makeXGrid(options,xScale,legendsGroup_height);
                 gsvg.selectAll(options.selector + " g.x.grid-line")
                     .style("stroke",function () { return options.grid_color; })
                     .call(xgrid);
@@ -7773,8 +7773,8 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
 					that.k.liveData(that);
 					that.optionalFeature().chartType();
 
-					that.w = that.width/3;
-			        that.height = that.height/2;
+					// that.w = that.width/3;
+			        // that.height = that.height/2;
 			        that.reducedWidth = that.w - that.margin_left - that.margin_right;
 					that.reducedHeight = that.height - that.margin_top - that.margin_bottom;
 					that.fill_data = [];
@@ -14915,8 +14915,10 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
     }
     that.renderDataForTimescale = function () {
         that.unique = [];
-        x_extent = d3.extent(that.timeline_data, function(d) { return d.timestamp; });
+        // console.log(that.timeline_data,"timeline_data");
+        x_extent = d3.extent(that.timeline_data, function(d) {return d.timestamp; });
         x_range = [0 ,that.redeced_width];
+        // console.log(x_extent,x_range,"extend","range");
         that.xScale = that.k.scaleIdentification("linear",x_extent,x_range);
         _.each(that.timeline_data, function (d) {
             if (that.unique.indexOf(d.timestamp) === -1) {
@@ -15069,6 +15071,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             .attr("height","21px")
             .style("cursor","pointer");
 
+        console.log(that.xScale(that.unique[0]),"======")
         that.marker = that.svgContainer.append("image")
             .attr("xlink:href",that.marker_image_url)
             .attr("x", (that.margin_left*2) + that.xScale(that.unique[0]) - 7)

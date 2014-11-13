@@ -536,12 +536,12 @@ PykCharts.Configuration = function (options){
             }
             return this;
         },
-        xGrid: function (svg, gsvg, xScale) {
+        xGrid: function (svg, gsvg, xScale,legendsGroup_height) {
              var width = options.width,
                 height = options.height;
 
             if(PykCharts.boolean(options.grid_x_enable)) {
-                var xgrid = PykCharts.Configuration.makeXGrid(options,xScale);
+                var xgrid = PykCharts.Configuration.makeXGrid(options,xScale,legendsGroup_height);
                 gsvg.selectAll(options.selector + " g.x.grid-line")
                     .style("stroke",function () { return options.grid_color; })
                     .call(xgrid);
