@@ -208,8 +208,8 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
 					that.k.liveData(that);
 					that.optionalFeature().chartType();
 
-					that.w = that.width/3;
-			        that.height = that.height/2;
+					// that.w = that.width/3;
+			        // that.height = that.height/2;
 			        that.reducedWidth = that.w - that.margin_left - that.margin_right;
 					that.reducedHeight = that.height - that.margin_top - that.margin_bottom;
 					that.fill_data = [];
