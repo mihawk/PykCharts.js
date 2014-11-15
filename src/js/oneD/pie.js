@@ -599,10 +599,12 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                         that.chart_text.text(function (d) { return that.k.appendUnits(d.data.weight); })
                             .attr("text-anchor","middle")
                             .attr("pointer-events","none")
+                            .style("font-weight", that.label_weight)
+                            .style("font-size", that.label_size + "px")
                             .text(function (d,i) {
                                 if(type.toLowerCase() === "pie" || type.toLowerCase() === "election pie") {
                                     console.log(this.getBBox().width,"outside");
-                                   console.log((d.endAngle-d.startAngle)*((that.outer_radius/2)*0.9),"angle1111111");
+                                    console.log((d.endAngle-d.startAngle)*((that.outer_radius/2)*0.9),"angle1111111");
                                     if(this.getBBox().width<((d.endAngle-d.startAngle)*((that.outer_radius/2)*0.9))) {
                                         console.log(this.getBBox().width,"b box width");
                                         console.log((d.endAngle-d.startAngle)*((that.outer_radius/2)*0.9),"angle");
