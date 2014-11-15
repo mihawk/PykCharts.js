@@ -2029,6 +2029,7 @@ configuration.fillChart = function (options,theme,config) {
         },
         colorPieW : function (d) {
             if(d.color) {
+                console.log(d,d.color,"d.color");
                 return d.color;
             } else if(options.chart_color.length) {
                 return options.color;
@@ -2058,8 +2059,10 @@ configuration.fillChart = function (options,theme,config) {
             if(options.color_mode === "saturation") {
                 return options.saturation_color;
             } else if(options.color_mode === "color") {
+                // console.log(options.selector,d,d.color,"ddddd");
                 return d.color;
             } else if(options.color_mode === "color"){
+                // console.log(options.chart_color[0]);
                 return options.chart_color[0];
             }
         },

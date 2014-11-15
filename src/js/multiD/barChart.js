@@ -148,6 +148,7 @@ PykCharts.multiD.barFunctions = function (options,chartObject,type) {
         that.data = that.dataTransformation();
         that.data = that.emptygroups(that.data);
 
+console.log(that.data,"data nehal",options.selector)
         try {
             if(that.no_of_groups > 1 && type === "bar") {
                 throw "";

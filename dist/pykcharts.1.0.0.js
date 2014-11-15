@@ -2029,6 +2029,7 @@ configuration.fillChart = function (options,theme,config) {
         },
         colorPieW : function (d) {
             if(d.color) {
+                console.log(d,d.color,"d.color");
                 return d.color;
             } else if(options.chart_color.length) {
                 return options.color;
@@ -2058,8 +2059,10 @@ configuration.fillChart = function (options,theme,config) {
             if(options.color_mode === "saturation") {
                 return options.saturation_color;
             } else if(options.color_mode === "color") {
+                // console.log(options.selector,d,d.color,"ddddd");
                 return d.color;
             } else if(options.color_mode === "color"){
+                // console.log(options.chart_color[0]);
                 return options.chart_color[0];
             }
         },
@@ -5192,7 +5195,11 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                             .attr("pointer-events","none")
                             .text(function (d,i) {
                                 if(type.toLowerCase() === "pie" || type.toLowerCase() === "election pie") {
+                                    console.log(this.getBBox().width,"outside");
+                                   console.log((d.endAngle-d.startAngle)*((that.outer_radius/2)*0.9),"angle1111111");
                                     if(this.getBBox().width<((d.endAngle-d.startAngle)*((that.outer_radius/2)*0.9))) {
+                                        console.log(this.getBBox().width,"b box width");
+                                        console.log((d.endAngle-d.startAngle)*((that.outer_radius/2)*0.9),"angle");
                                         return ((d.data.weight*100)/that.sum).toFixed(1)+"%";
                                         // return that.k.appendUnits(d.data.weight);
                                     }
@@ -10041,6 +10048,7 @@ PykCharts.multiD.barFunctions = function (options,chartObject,type) {
         that.data = that.dataTransformation();
         that.data = that.emptygroups(that.data);
 
+console.log(that.data,"data nehal",options.selector)
         try {
             if(that.no_of_groups > 1 && type === "bar") {
                 throw "";

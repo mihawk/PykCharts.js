@@ -278,8 +278,9 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             createMap : function () {
 
                 var new_width =  that.width - that.legendsGroup_width;
+                var new_height = that.height-that.legendsGroup_height;
                 var scale = 150
-                , offset = [new_width / 2, that.height / 2]
+                , offset = [new_width / 2, new_height / 2]
                 , i;
                 $(options.selector).css("background-color",that.background_color);
 
@@ -302,9 +303,9 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
 
                 var bounds = that.path.bounds(topojson.feature(that.map_data, that.map_data.objects)),
                     hscale = scale * (new_width) / (bounds[1][0] - bounds[0][0]),
-                    vscale = scale * (that.height) / (bounds[1][1] - bounds[0][1]),
+                    vscale = scale * (new_height) / (bounds[1][1] - bounds[0][1]),
                     scale = (hscale < vscale) ? hscale : vscale,
-                    offset = [new_width - (bounds[0][0] + bounds[1][0]) / 2, that.height - (bounds[0][1] + bounds[1][1]) / 2];
+                    offset = [new_width - (bounds[0][0] + bounds[1][0]) / 2, new_height - (bounds[0][1] + bounds[1][1]) / 2];
 
                 // console.log(new_width - (bounds[0][0] + bounds[1][0]) / 2, that.height - (bounds[0][1] + bounds[1][1]) / 2)
                 projection = d3.geo.mercator().center(center)

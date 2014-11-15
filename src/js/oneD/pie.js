@@ -601,7 +601,11 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                             .attr("pointer-events","none")
                             .text(function (d,i) {
                                 if(type.toLowerCase() === "pie" || type.toLowerCase() === "election pie") {
+                                    console.log(this.getBBox().width,"outside");
+                                   console.log((d.endAngle-d.startAngle)*((that.outer_radius/2)*0.9),"angle1111111");
                                     if(this.getBBox().width<((d.endAngle-d.startAngle)*((that.outer_radius/2)*0.9))) {
+                                        console.log(this.getBBox().width,"b box width");
+                                        console.log((d.endAngle-d.startAngle)*((that.outer_radius/2)*0.9),"angle");
                                         return ((d.data.weight*100)/that.sum).toFixed(1)+"%";
                                         // return that.k.appendUnits(d.data.weight);
                                     }
