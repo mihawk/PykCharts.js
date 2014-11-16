@@ -278,8 +278,9 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             createMap : function () {
 
                 var new_width =  that.width - that.legendsGroup_width;
+                var new_height = that.height-that.legendsGroup_height;
                 var scale = 150
-                , offset = [new_width / 2, that.height / 2]
+                , offset = [new_width / 2, new_height / 2]
                 , i;
                 $(options.selector).css("background-color",that.background_color);
 
@@ -302,11 +303,11 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
 
                 var bounds = that.path.bounds(topojson.feature(that.map_data, that.map_data.objects)),
                     hscale = scale * (new_width) / (bounds[1][0] - bounds[0][0]),
-                    vscale = scale * (that.height) / (bounds[1][1] - bounds[0][1]),
+                    vscale = scale * (new_height) / (bounds[1][1] - bounds[0][1]),
                     scale = (hscale < vscale) ? hscale : vscale,
-                    offset = [new_width - (bounds[0][0] + bounds[1][0]) / 2, that.height - (bounds[0][1] + bounds[1][1]) / 2];
+                    offset = [new_width - (bounds[0][0] + bounds[1][0]) / 2, new_height - (bounds[0][1] + bounds[1][1]) / 2];
 
-                console.log(new_width - (bounds[0][0] + bounds[1][0]) / 2, that.height - (bounds[0][1] + bounds[1][1]) / 2)
+                // console.log(new_width - (bounds[0][0] + bounds[1][0]) / 2, that.height - (bounds[0][1] + bounds[1][1]) / 2)
                 projection = d3.geo.mercator().center(center)
                    .scale((that.default_zoom_level / 100) * scale).translate(offset);
 
@@ -624,6 +625,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             .attr("y", function (d) { return that.path.centroid(d)[1]; })
             .attr("text-anchor", "middle")
             .attr("font-size", "10px")
+            .attr("fill",that.label_color)
             .attr("pointer-events", "none")
             .text(function (d) { return d.properties.NAME_1.replace("&#39;","'"); });
     };
@@ -718,8 +720,10 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
     }
     that.renderDataForTimescale = function () {
         that.unique = [];
-        x_extent = d3.extent(that.timeline_data, function(d) { return d.timestamp; });
+        // console.log(that.timeline_data,"timeline_data");
+        x_extent = d3.extent(that.timeline_data, function(d) {return d.timestamp; });
         x_range = [0 ,that.redeced_width];
+        // console.log(x_extent,x_range,"extend","range");
         that.xScale = that.k.scaleIdentification("linear",x_extent,x_range);
         _.each(that.timeline_data, function (d) {
             if (that.unique.indexOf(d.timestamp) === -1) {
@@ -872,6 +876,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             .attr("height","21px")
             .style("cursor","pointer");
 
+        console.log(that.xScale(that.unique[0]),"======")
         that.marker = that.svgContainer.append("image")
             .attr("xlink:href",that.marker_image_url)
             .attr("x", (that.margin_left*2) + that.xScale(that.unique[0]) - 7)

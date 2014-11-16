@@ -2,126 +2,6 @@ var PykCharts = {};
 PykCharts.assets = "../pykih-charts/assets/";
 PykCharts.export_menu_status = 0;
 
-Array.prototype.groupBy = function (chart) {
-    var gd = []
-    , i
-    , obj
-    , dimensions = {
-        "oned": ["name"],
-        "line": ["x","name"],
-        "area": ["x","name"],
-        "bar": ["y","group"],
-        "column": ["x","group"],
-        "scatterplot": ["x","y","name","group"],
-        "pulse": ["x","y","name","group"],
-        "spiderweb": ["x","y","group"],
-    }
-    , charts = {
-        "oned": {
-            "dimension": "name",
-            "fact": "weight"
-        },
-        "line": {
-          "dimension": "x",
-          "fact": "y",
-          "name": "name"
-        },
-        "area": {
-          "dimension": "x",
-          "fact": "y",
-          "name": "name"
-        },
-        "bar": {
-          "dimension": "y",
-          "fact": "x",
-          "name": "group"
-        },
-        "column": {
-          "dimension": "x",
-          "fact": "y",
-          "name": "group"
-        },
-        "scatterplot": {
-          "dimension": "x",
-          "fact": "y",
-          "weight": "weight",
-          "name": "name",
-          "group": "group"
-        },
-        "pulse": {
-          "dimension": "y",
-          "fact": "x",
-          "weight": "weight",
-          "name": "name",
-          "group": "group"
-        },
-        "spiderweb": {
-          "dimension": "x",
-          "fact": "y",
-          "name": "name",
-          "weight": "weight"
-        }
-    };
-
-    var properties = dimensions[chart];
-    var arr = this;
-    var groups = [];
-    for(var i = 0, len = arr.length; i<len; i+=1){
-        var obj = arr[i];
-        if(groups.length == 0){
-            groups.push([obj]);
-        }
-        else{
-            var equalGroup = false;
-            for(var a = 0, glen = groups.length; a<glen;a+=1){
-                var group = groups[a];
-                var equal = true;
-                var firstElement = group[0];
-                properties.forEach(function(property){
-
-                    if(firstElement[property] !== obj[property]){
-                        equal = false;
-                    }
-
-                });
-                if(equal){
-                    equalGroup = group;
-                }
-            }
-            if(equalGroup){
-                equalGroup.push(obj);
-            }
-            else {
-                groups.push([obj]);
-            }
-        }
-    }
-
-    for(i in groups) {
-        if ($.isArray(groups[i])) {
-            obj = {};
-            var grp = groups[i]
-            var chart_name = charts[chart];
-            obj[chart_name.dimension] = grp[0][chart_name.dimension];
-            if (chart_name.name) {
-                obj[chart_name.name] = grp[0][chart_name.name];
-            }
-            if (chart_name.weight) {
-                obj[chart_name.weight] = d3.sum(grp, function (d) { return d[charts[chart].weight]; });
-                obj[chart_name.fact] = grp[0][chart_name.fact];
-            } else {
-                obj[chart_name.fact] = d3.sum(grp, function (d) { return d[charts[chart].fact]; });
-            }
-            if (chart_name.group) {
-                obj[chart_name.group] = grp[0][chart_name.group];
-            }
-            var f = _.extend(obj,_.omit(grp[0], _.values(charts[chart])));
-            gd.push(f);
-        }
-    };
-    return gd;
-};
-
 PykCharts.boolean = function(d) {
     var false_values = ['0','f',"false",'n','no','',0,"0.00","0.0",0.0,0.00];
     var false_keywords = [undefined,null,NaN];
@@ -590,6 +470,7 @@ PykCharts.Configuration = function (options){
                 PykCharts.Configuration.cross_hair_h.append("line")
                     .attr("class","cross-hair-h")
                     .attr("id","cross-hair-h");
+
                 for (j=0; j<len; j++) {
                     PykCharts.Configuration.focus_circle = svg.append("g")
                         .attr("class","focus")
@@ -655,12 +536,12 @@ PykCharts.Configuration = function (options){
             }
             return this;
         },
-        xGrid: function (svg, gsvg, xScale) {
+        xGrid: function (svg, gsvg, xScale,legendsGroup_height) {
              var width = options.width,
                 height = options.height;
 
             if(PykCharts.boolean(options.grid_x_enable)) {
-                var xgrid = PykCharts.Configuration.makeXGrid(options,xScale);
+                var xgrid = PykCharts.Configuration.makeXGrid(options,xScale,legendsGroup_height);
                 gsvg.selectAll(options.selector + " g.x.grid-line")
                     .style("stroke",function () { return options.grid_color; })
                     .call(xgrid);
@@ -854,7 +735,7 @@ PykCharts.Configuration = function (options){
         },
         ordinalXAxisTickFormat :function (domain,extra) {
             // var mouseEvent = new PykCharts.Configuration.mouseEvent(options),
-                var a = $(options.selector + " g.x.axis text"),
+                var a = $(options.selector + " g.x.axis .tick text"),
                 len = a.length, comp, flag, largest = 0, rangeband = (extra*2);
 
             _.each(a, function (d) {
@@ -1101,17 +982,137 @@ PykCharts.Configuration = function (options){
                 if(type === "percentageBar") {
                     min_value = options.height;
                 } else if(type === "spiderweb") {
-                    min_value = d3.min([options.width,(options.height-options.legendsGroup_height-20)])
+//                    console.log()
+                    min_value = d3.min([(options.width - options.legendsGroup_width),(options.height-options.legendsGroup_height-20)])
                 } else if(type !== undefined) {
                     min_value = options.width;
                 } else {
                     min_value = d3.min([options.width,options.height]);
                 }
                 return (min_value*radius_percent)/200;
+            },
+            _groupBy: function (chart,arr) {
+                var gd = []
+                , i
+                , obj
+                , dimensions = {
+                    "oned": ["name"],
+                    "line": ["x","name"],
+                    "area": ["x","name"],
+                    "bar": ["y","group"],
+                    "column": ["x","group"],
+                    "scatterplot": ["x","y","name","group"],
+                    "pulse": ["x","y","name","group"],
+                    "spiderweb": ["x","y","group"],
+                }
+                , charts = {
+                    "oned": {
+                        "dimension": "name",
+                        "fact": "weight"
+                    },
+                    "line": {
+                      "dimension": "x",
+                      "fact": "y",
+                      "name": "name"
+                    },
+                    "area": {
+                      "dimension": "x",
+                      "fact": "y",
+                      "name": "name"
+                    },
+                    "bar": {
+                      "dimension": "y",
+                      "fact": "x",
+                      "name": "group"
+                    },
+                    "column": {
+                      "dimension": "x",
+                      "fact": "y",
+                      "name": "group"
+                    },
+                    "scatterplot": {
+                      "dimension": "x",
+                      "fact": "y",
+                      "weight": "weight",
+                      "name": "name",
+                      "group": "group"
+                    },
+                    "pulse": {
+                      "dimension": "y",
+                      "fact": "x",
+                      "weight": "weight",
+                      "name": "name",
+                      "group": "group"
+                    },
+                    "spiderweb": {
+                      "dimension": "x",
+                      "fact": "y",
+                      "name": "name",
+                      "weight": "weight"
+                    }
+                };
+
+                var properties = dimensions[chart];
+               // var arr = this;
+                var groups = [];
+                for(var i = 0, len = arr.length; i<len; i+=1){
+                    var obj = arr[i];
+                    if(groups.length == 0){
+                        groups.push([obj]);
+                    }
+                    else{
+                        var equalGroup = false;
+                        for(var a = 0, glen = groups.length; a<glen;a+=1){
+                            var group = groups[a];
+                            var equal = true;
+                            var firstElement = group[0];
+                            properties.forEach(function(property){
+
+                                if(firstElement[property] !== obj[property]){
+                                    equal = false;
+                                }
+
+                            });
+                            if(equal){
+                                equalGroup = group;
+                            }
+                        }
+                        if(equalGroup){
+                            equalGroup.push(obj);
+                        }
+                        else {
+                            groups.push([obj]);
+                        }
+                    }
+                }
+
+                for(i in groups) {
+                    if ($.isArray(groups[i])) {
+                        obj = {};
+                        var grp = groups[i]
+                        var chart_name = charts[chart];
+                        obj[chart_name.dimension] = grp[0][chart_name.dimension];
+                        if (chart_name.name) {
+                            obj[chart_name.name] = grp[0][chart_name.name];
+                        }
+                        if (chart_name.weight) {
+                            obj[chart_name.weight] = d3.sum(grp, function (d) { return d[charts[chart].weight]; });
+                            obj[chart_name.fact] = grp[0][chart_name.fact];
+                        } else {
+                            obj[chart_name.fact] = d3.sum(grp, function (d) { return d[charts[chart].fact]; });
+                        }
+                        if (chart_name.group) {
+                            obj[chart_name.group] = grp[0][chart_name.group];
+                        }
+                        var f = _.extend(obj,_.omit(grp[0], _.values(charts[chart])));
+                        gd.push(f);
+                    }
+                };
+                return gd;
             }
         },
         backgroundColor: function (options) {
-             $(options.selector).css({"background-color":options.background_color,"position":"relative"})
+             $(options.selector).css({"background-color":options.background_color})
                 var bg,child1;
                 bgColor(options.selector);
 
@@ -1270,7 +1271,7 @@ PykCharts.Configuration = function (options){
                             chart.k.processSVG(document.querySelector(options.selector + " #" +svgId + id),chart_name);
                             project.importSVG(document.querySelector(options.selector + " #" +svgId + id));
                             var svg = project.exportSVG({ asString: true });;
-                            console.log(options.selector +" "+svgId)
+                            // console.log(options.selector +" "+svgId)
                             downloadDataURI({
                                 data: 'data:image/svg+xml;base64,' + btoa(svg),
                                 filename: name
@@ -1326,6 +1327,7 @@ PykCharts.Configuration = function (options){
                     return this;
                 },
                 validatingDataType : function (attr_value,config_name,default_value,name) {
+                    //console.log(config_name,"config_name")
                     try {
                         if(!_.isNumber(attr_value)) {
                             if(name) {
@@ -1478,11 +1480,17 @@ PykCharts.Configuration = function (options){
                     }
                     return this;
                 },
-                validatingFontWeight: function (font_weight,config_name,default_value) {
+                validatingFontWeight: function (font_weight,config_name,default_value,name) {
                     try {
                         if(font_weight.toLowerCase() === "bold" || font_weight.toLowerCase() === "normal") {
                         } else {
-                            options[config_name] = default_value;
+                            // console.log(name,options[name],"font_weight");
+                            if(name) {
+                                options[name] = default_value;
+                            } else {
+                                options[config_name] = default_value;
+                            }
+
                             throw config_name;
                         }
                     }
@@ -1491,7 +1499,7 @@ PykCharts.Configuration = function (options){
                     }
                     return this;
                 },
-                validatingColor: function (color,config_name,default_value) {
+                validatingColor: function (color,config_name,default_value,name) {
                     if(color) {
                         try {
                             var checked;
@@ -1503,7 +1511,7 @@ PykCharts.Configuration = function (options){
                             if(color.charAt(0)!= "#" && color.substring(0,3).toLowerCase() !="rgb" && color.toLowerCase()!= "transparent") {
                                 checked = $c.name2hex(color) ;
                                 if(checked === "Invalid Color Name") {
-                                    console.log(color,"color")
+                                    // console.log(color,"color")
                                     throw config_name;
                                 }
                             } else if (color.charAt(0) === "#") {
@@ -1514,7 +1522,11 @@ PykCharts.Configuration = function (options){
                             }
                         }
                         catch (err) {
-                            options[config_name] = default_value;
+                            if(name) {
+                                options[name] = default_value;
+                            } else {
+                                options[config_name] = default_value;
+                            }
                             options.k.warningHandling(err,"4");
                         }
                     }
@@ -1710,7 +1722,7 @@ configuration.mouseEvent = function (options) {
                                                 this.tooltipPosition(tooltipText,pos_line_cursor_x,y,60,-15,group_index);
                                                 this.tooltipTextShow(tooltipText);
                                             }
-                                            console.log(pos_line_cursor_x);
+                                            // console.log(pos_line_cursor_x);
                                             (options.crosshair_enable) ? this.crossHairShow(pos_line_cursor_x,top,pos_line_cursor_x,(h - bottom),pos_line_cursor_x,test,type,active_y_tick.length,panels_enable,new_data) : null;
                                             (options.colspanrosshair_enable) ? this.crossHairShow(pos_line_cursor_x,top,pos_line_cursor_x,(h - bottom),pos_line_cursor_x,pos_line_cursor_y,type,active_y_tick.length,panels_enable) : null;
                                             this.axisHighlightShow(active_y_tick,options.selector+" .y.axis",domain);
@@ -2003,7 +2015,7 @@ configuration.fillChart = function (options,theme,config) {
             if(d.name === options.highlight) {
                 return options.highlight_color;
             } else if (options.chart_color.length && options.chart_color[0]){
-                return options.chart_color;
+                return options.chart_color[0];
             } else {
                 return theme.stylesheet.chart_color
             }
@@ -2017,6 +2029,7 @@ configuration.fillChart = function (options,theme,config) {
         },
         colorPieW : function (d) {
             if(d.color) {
+                console.log(d,d.color,"d.color");
                 return d.color;
             } else if(options.chart_color.length) {
                 return options.color;
@@ -2046,8 +2059,10 @@ configuration.fillChart = function (options,theme,config) {
             if(options.color_mode === "saturation") {
                 return options.saturation_color;
             } else if(options.color_mode === "color") {
+                // console.log(options.selector,d,d.color,"ddddd");
                 return d.color;
             } else if(options.color_mode === "color"){
+                // console.log(options.chart_color[0]);
                 return options.chart_color[0];
             }
         },
@@ -2336,7 +2351,7 @@ configuration.Theme = function(){
         "credit_my_site_name": "Pykih",
         "credit_my_site_url": "http://www.pykih.com",
         "chart_onhover_highlight_enable": "yes",
-        
+
     };
 
     that.functionality = {
@@ -2374,7 +2389,7 @@ configuration.Theme = function(){
         "pictograph_image_width": 79,
         "pictograph_image_height": 66,
         "pictograph_current_count_size": 64,
-        "pictograph_current_count_color": "#255AEE",
+        "pictograph_current_count_color": "#255aee",
         "pictograph_current_count_weight": "normal",
         "pictograph_current_count_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
         "pictograph_total_count_size": 64,

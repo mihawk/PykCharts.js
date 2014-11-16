@@ -58,8 +58,8 @@ PykCharts.multiD.spiderWeb = function (options) {
                 return;
             }
 
-            that.data = data.groupBy("spiderweb");
-            that.compare_data = data.groupBy("spiderweb");
+            that.data = that.k.__proto__._groupBy("spiderweb",data);
+            that.compare_data = that.k.__proto__._groupBy("spiderweb",data);
             $(that.selector+" #chart-loader").remove();
             that.render();
         });
@@ -67,8 +67,8 @@ PykCharts.multiD.spiderWeb = function (options) {
 
     that.refresh = function () {
         d3.json(options.data, function (e, data) {
-            that.data = data.groupBy("spiderweb");
-            that.refresh_data = data.groupBy("spiderweb");
+            that.data = that.k.__proto__._groupBy("spiderweb",data);
+            that.refresh_data = that.k.__proto__._groupBy("spiderweb",data);
             var compare = that.k.checkChangeInData(that.refresh_data,that.compare_data);
             that.compare_data = compare[0];
             var data_changed = compare[1];
@@ -444,7 +444,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                         rect_parameter4 = "y";
 
                         var text_parameter1value = function (d,i) {
-                            console.log(d,i);
+                            // console.log(d,i);
                             legend_text_widths[i] = this.getBBox().width;
                             legend_start_x = 16;
                             final_text_x = (i === 0) ? legend_start_x : (legend_start_x + temp_text);
