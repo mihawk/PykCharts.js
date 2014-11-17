@@ -45,6 +45,23 @@ PykCharts.oneD.pie = function (options) {
             that.radiusPercent = 100;
         }
 
+        that.pykquery_configs = options.pykquery;
+        // !----- PykQuery Object --------!
+        // if(PykCharts.boolean()) { pykquery_global = new PykQuery.init("select","global",that.pykquery_configs.id); }
+        pykquery_global = new PykQuery.init("select","global",that.pykquery_configs.id);
+        pykquery_local = new PykQuery.init("select","local",that.selector);
+
+        pykquery_global.storeObjectInMemory("pykquery_global");
+        pykquery_local.storeObjectInMemory("pykquery_local");
+
+        filter_pykquery = pykquery_local.filter();
+        filters_selected = pykquery_local.filters;
+        
+        // !----- Mapping of Locals & Globals -----------!
+        pykquery_local.addGlobal(that.pykquery_configs);
+        console.log("Begin ---- PIE");
+        console.log(pykquery_configs,'>>>>>',pykquery_local,filter_pykquery,filters_selected,query_mapping);
+
         if(that.mode === "default") {
            that.k.loading();
         }

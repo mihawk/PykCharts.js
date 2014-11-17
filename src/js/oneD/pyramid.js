@@ -20,6 +20,19 @@ PykCharts.oneD.pyramid = function (options) {
             return;
         }
 
+        that.pykquery_configs = options.pykquery;
+        // !----- PykQuery Object --------!
+        pykquery_global1 = new PykQuery.init("select","global",that.pykquery_configs.id);
+        pykquery_local1 = new PykQuery.init("select","local",that.selector);
+        pykquery_global1.storeObjectInMemory("pykquery_global1");
+        pykquery_local1.storeObjectInMemory("pykquery_local1");
+        filter_pykquery = pykquery_local1.filter();
+        filters_selected = pykquery_local1.filters;
+        // !----- Mapping of Locals & Globals -----------!
+        pykquery_local1.addGlobal(that.pykquery_configs);
+        console.log("Begin --- Pyramid");
+        // console.log(pykquery_configs,'>>>>>',pykquery_local1,filter_pykquery,filters_selected);
+
         if(that.mode === "default") {
            that.k.loading();
         }
