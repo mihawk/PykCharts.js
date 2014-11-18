@@ -1,36 +1,30 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<title>Intersection Tooltip venn.js example</title>
-<style>
-body {
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-    font-size: 14px;
-}
-</style>
-</head>
+<html>
+	<head>
+        <title>Other Charts</title>
+        <link rel="stylesheet" type="text/css" href="../dist/pykcharts.1.0.0.min.css">
+	</head>
+	<body>
+      <div id="venn"></div>
+      <hr/>
+      <script>
+		    window.PykChartsInit = function (e) {
+            var k = new PykCharts.other.venn({
+                selector: "#venn",
+                data:["../data/venn_sets.json","../data/venn_overlaps.json"],
+                chart_width : 550,
+                chart_height: 500,
+                background_color: "white",
 
-<body>
-    <div class="venn"></div>
-</body>
-
-<style>
-.venntooltip {
-  position: absolute;
-  text-align: center;
-  width: 128px;
-  height: 16px;
-  background: #333;
-  color: #ddd;
-  padding: 2px;
-  border: 0px;
-  border-radius: 8px;
-  opacity: 0;
-}
-</style>
-
-<script src="http://d3js.org/d3.v2.min.js"></script>
-<script src="../venn.js"></script>
-<script src="./lastfm.jsonp"></script>
+                transition_duration: 1,
+                real_time_charts_refresh_frequency: 0
+            });
+            k.execute();
+		    }
+		</script>
+    <script src="../lib/venn.js"></script>
+    <script src="../src/js/pyk.js"></script>
+    <script src="../src/js/other/other.js"></script>
+    <script src="../src/js/other/venn.js"></script>
+    <script src="../src/js/init.js"></script>
+	</body>
 </html>
