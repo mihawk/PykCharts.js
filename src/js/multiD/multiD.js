@@ -1,4 +1,5 @@
 PykCharts.multiD = {};
+console.log("hey");
 var theme = new PykCharts.Configuration.Theme({});
 
 PykCharts.multiD.configuration = function (options){

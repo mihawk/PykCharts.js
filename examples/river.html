@@ -4,31 +4,28 @@
       <meta charset="utf-8">
       <title>PykCharts</title>
       <link rel="shortcut icon" href="http://s3-ap-southeast-1.amazonaws.com/pykih-public-docs/logos/pykcharts.png" type="image/ico">
-      <script src="../lib/d3.js" type="text/javascript"></script>
-      <script src="../lib/jquery.js" type="text/javascript"></script>
-      <script src="res/lib/bootstrap.js" type="text/javascript"></script>
-      <link href="res/lib/bootstrap.css" rel="stylesheet" type="text/css">
-      <link href="../src/css/pyk.css" rel="stylesheet" type="text/css">
+      <script src="../pykih-charts/assets/lib/d3.min.js" type="text/javascript"></script>
+      <script src="../pykih-charts/assets/lib/jquery-1.11.1.min.js" type="text/javascript"></script>
+      <script type="text/javascript" src='../pykih-charts/assets/lib/underscore.min.js'></script>
       <script src="../src/js/pyk.js" type="text/javascript" charset="utf-8"></script>
-      <link href="res/lib/pykui.min.css" rel="stylesheet" type="text/css">
-      <link href="../src/css/pyk.river.css" rel="stylesheet" type="text/css">
-      <script src="../src/js/multiD/pyk.river.js" type="text/javascript" charset="utf-8"></script>
+      <link href="../src/css/PykCharts.css" rel="stylesheet" type="text/css">
+      <script type="text/javascript" src="../src/js/multiD/multiD.js"></script>
+      <script src="../src/js/multiD/river1.js" type="text/javascript" charset="utf-8"></script>
+   
    </head>
    <body>
       <div id="river-container"></div>
+      <script>
+      $(document).ready(function(e){
+          var k = new PykCharts.multiD.river({
+            chart_height: 400,
+            chart_width: 1080,
+            data: "../data/river-data.json",
+            selector: "#river-container",
+            background_color:"#ffffff"
+          });
+          k.execute();
+      });
+</script>
    </body>
 </html>
-
-<script>
-$(document).ready(function(e){
-    var k = new PykCharts.River({
-    height: 400,
-    width: 1080,
-    data: "../data/river-data.json",
-    selection: "#river-container",
-    sourceName: "",
-    sourceLink: ""
-    });
-    k.execute();
-});
-</script>
