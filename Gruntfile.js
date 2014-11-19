@@ -144,7 +144,7 @@ module.exports = function(grunt) {
     grunt.registerTask('hookmeup', ['clean:hooks', 'shell:hooks']);
 
     //build task
-    grunt.registerTask('build', ['stripcomments', 'concat', 'removelogging', 'uglify', 'cssmin', 'hookmeup']);
+    grunt.registerTask('build', ['comments', 'concat', 'removelogging', 'uglify', 'cssmin', 'hookmeup']);
 
     grunt.event.on('watch', function(action, filepath) {
         grunt.log.writeln(filepath + ' has ' + action);
