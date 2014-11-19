@@ -20,29 +20,39 @@ PykCharts.oneD.pyramid = function (options) {
             return;
         }
 
-        that.pykquery_configs = options.pykquery;
-        // !----- PykQuery Object --------!
-        pykquery_global1 = new PykQuery.init("select","global",that.pykquery_configs.id);
-        pykquery_local1 = new PykQuery.init("select","local",that.selector);
-        pykquery_global1.storeObjectInMemory("pykquery_global1");
-        pykquery_local1.storeObjectInMemory("pykquery_local1");
-        filter_pykquery = pykquery_local1.filter();
-        filters_selected = pykquery_local1.filters;
-        // !----- Mapping of Locals & Globals -----------!
-        pykquery_local1.addGlobal(that.pykquery_configs);
-        console.log("Begin --- Pyramid");
-        // console.log(pykquery_configs,'>>>>>',pykquery_local1,filter_pykquery,filters_selected);
+        if (options.pykquery != undefined && !PykCharts.boolean(_.isEmpty(options.pykquery))) { 
+            that.filter_enable = true;
+
+            that.pykquery_configs = options.pykquery;
+            // !----- PykQuery Object --------!
+            pyramid_global = new PykQuery.init("select","global",that.pykquery_configs.id);
+            pyramid_local = new PykQuery.init("select","local",that.selector);
+            
+            if (_.isEmpty(pyramid_global) == false) {
+                pyramid_global.storeObjectInMemory("pyramid_global");
+            }
+            if (_.isEmpty(pyramid_local) == false) {
+                pyramid_local.storeObjectInMemory("pyramid_local");
+            }        
+            
+            filter_pykquery = pyramid_local.filter();
+            filters_selected = pyramid_local.filters;
+
+            // !----- Mapping of Locals & Globals -----------!
+            pyramid_local.addGlobal(that.pykquery_configs);
+            // console.log("Begin --- Pyramid");
+            // console.log(that.pykquery_configs,'>>>>>',pyramid_local,filter_pykquery,filters_selected);
+        }
 
         if(that.mode === "default") {
            that.k.loading();
         }
 
         d3.json(options.data, function (e,data) {
-
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
                 $(options.selector+" #chart-loader").remove();
-                return;
+                pyramid_local
             }
 
 			that.data = that.k.__proto__._groupBy("oned",data);
@@ -54,11 +64,29 @@ PykCharts.oneD.pyramid = function (options) {
         // that.clubData.enable = that.data.length>that.clubData.maximumNodes ? that.clubData.enable : "no";
 	};
 
-    this.refresh = function () {
-        d3.json (options.data, function (e,data) {
-            that.data = that.k.__proto__._groupBy("oned",data);
+    this.refresh = function (new_data) {
+        if (new_data == undefined && that.filter_enable == false) {
+            d3.json (options.data, function (e,data) {
+                that.data = that.k.__proto__._groupBy("oned",data);
+                that.clubdata_enable = that.data.length>that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
+                that.refresh_data = that.k.__proto__._groupBy("oned",data);
+                var compare = that.k.checkChangeInData(that.refresh_data,that.compare_data);
+                that.compare_data = compare[0];
+                var data_changed = compare[1];
+                if(data_changed) {
+                    that.k.lastUpdatedAt("liveData");
+                }
+                that.new_data = that.optionalFeatures().clubData();
+                that.optionalFeatures()
+                        .createChart()
+                        .label()
+                        .ticks();
+            });
+        }
+        else {
+            that.data = that.k.__proto__._groupBy("oned",new_data);
             that.clubdata_enable = that.data.length>that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
-            that.refresh_data = that.k.__proto__._groupBy("oned",data);
+            that.refresh_data = that.k.__proto__._groupBy("oned",new_data);
             var compare = that.k.checkChangeInData(that.refresh_data,that.compare_data);
             that.compare_data = compare[0];
             var data_changed = compare[1];
@@ -70,7 +98,8 @@ PykCharts.oneD.pyramid = function (options) {
                     .createChart()
                     .label()
                     .ticks();
-        });
+        }
+        
     };
 
 	this.render = function () {

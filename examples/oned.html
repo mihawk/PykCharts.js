@@ -4,60 +4,55 @@
         <link rel="stylesheet" type="text/css" href="../dist/pykcharts.1.0.0.min.css">
     </head>
     <body>
-      <div id="bubble"></div>
-      <hr/>
-      <div id="funnel"></div>
-      <hr/>
-
-      <div id="g1">
-        <div id="pieContainer"></div>
+        <div id="bubble"></div>
         <hr/>
-        <div id="pyramid"></div>
+        <div id="funnel"></div>
         <hr/>
-      </div>
 
-      <div id="pictograph"></div>
-      <hr/>
-      
-      <div id="treemap"></div>
-      <hr/>
-      <div id="donutContainer"></div>
-      <hr/>
-      <div id="electionPieContainer"></div>
-      <hr/>
-      <div id="electionDonutContainer"></div>
-      <hr/>
-      <div id="pie2Container"></div>
-      <hr/>
-      <div id="percentageColumn"></div>
-      <hr/>
+        <div id="g1">
+            <div id="pieContainer"></div>
+            <hr/>
+            <div id="pyramid"></div>
+            <hr/>
+        </div>
 
+        
+        <div id="treemap"></div>
+        <hr/>
+        <div id="donutContainer"></div>
+        <hr/>
+        <div id="electionPieContainer"></div>
+        <hr/>
+        <div id="electionDonutContainer"></div>
+        <hr/>
+        <div id="pie2Container"></div>
+        <hr/>
+        <div id="percentageColumn"></div>
+        <hr/>
 
-      <!--<script src="../lib/crossfilter.min.js"></script>
-      <script src="../lib/d3.min.js"></script>
-      <script src="../lib/jquery-1.11.1.min.js"></script>
-      <script src="../lib/underscore-min.js"></script>-->
-      <script src="../../rumi.io/app/assets/javascripts/pyk/PykQuery.js"></script>
-      <!--<script src="../src/js/pyk.js"></script>
-      <script src="../src/js/oneD/oneD.js"></script>
-      <script src="../src/js/oneD/bubble.js"></script>
-      <script src="../src/js/oneD/funnel.js"></script>
-      <script src="../src/js/oneD/percentageColumn.js"></script>
-      <script src="../src/js/oneD/pictograph.js"></script>
-      <script src="../src/js/oneD/pie.js"></script>
-      <script src="../src/js/oneD/pyramid.js"></script>
-      <script src="../src/js/oneD/treemap.js"></script>
-      <script src="../src/js/init.js"></script>-->
-      <script>
+        <script src="../lib/d3.min.js"></script>
+        <script src="../lib/jquery-1.11.1.min.js"></script>
+        <script src="../lib/underscore.min.js"></script>
+        <script src="../src/js/pyk.js"></script>
+        <script src="../../rumi.io/app/assets/javascripts/pyk/PykQuery.js"></script>
+        <script src="../src/js/oneD/oneD.js"></script>
+        <script src="../src/js/oneD/bubble.js"></script>
+        <script src="../src/js/oneD/funnel.js"></script>
+        <script src="../src/js/oneD/percentageColumn.js"></script>
+        <script src="../src/js/oneD/pie.js"></script>
+        <script src="../src/js/oneD/pyramid.js"></script>
+        <script src="../src/js/oneD/treemap.js"></script>
+        <script src="../src/js/init.js"></script>
+        <script>
 
-    window.PykChartsInit = function (e) {
-          // PykCharts.charts = [];
-          // PykCharts.filters = [];
-          // PykCharts.chart_filters = [];
+        window.PykChartsInit = function (e) {
+            PykCharts.charts = [];
+            // PykCharts.filters = [];
+            // PykCharts.chart_filters = [];
 
-          // d3.json("../data/pie.json", function(e, data){
-          //   PykCharts.cf_obj = new PykCharts.Configuration.crossfilter(null);
-          //   PykCharts.cf_obj.crossfilteredData(data);
+            // d3.json("../data/pie.json", function(e, data){
+            //   PykCharts.cf_obj = new PykCharts.Configuration.crossfilter(null);
+            //   PykCharts.cf_obj.crossfilteredData(data);
 
             // var bubble_chart = new PykCharts.oneD.bubble({
             //     selector: "#bubble",
@@ -66,12 +61,12 @@
             // });
             // PykCharts.charts.push(bubble_chart);
 
-                // var funnel_chart = new PykCharts.oneD.funnel({
-            //          selector: "#funnel",
-         //        chart_group: "chartGroup1",
-         //        transition_duration: 1000
-                // });
-         //    PykCharts.charts.push(funnel_chart);
+            // var funnel_chart = new PykCharts.oneD.funnel({
+            //     selector: "#funnel",
+            //     chart_group: "chartGroup1",
+            //     transition_duration: 1000
+            // });
+            // PykCharts.charts.push(funnel_chart);
 
             // var pictograph = new PykCharts.oneD.pictograph({
             //     selector: "#pictograph",
@@ -112,6 +107,7 @@
             // election_donut.execute();
             // PykCharts.charts.push(election_donut);
 
+            // console.log("Ishaaaa>>>>"); 
             var pie_chart1 = new PykCharts.oneD.pie({
                 selector: "#pieContainer",
                 data: "../data/pie.json",
@@ -125,7 +121,7 @@
                   impacted_by: false
                 }
             });
-            // PykCharts.charts.push(pie_chart1);
+            PykCharts.charts.push(pie_chart1);
 
             var pyramid_chart = new PykCharts.oneD.pyramid ({
                 selector: "#pyramid",
@@ -142,7 +138,7 @@
                   impacted_by: false
                 }
              });
-            // PykCharts.charts.push(pyramid_chart);
+            PykCharts.charts.push(pyramid_chart);
 
             // var percentage_column = new PykCharts.oneD.percentageColumn({
             //     selector: "#percentageColumn",
@@ -161,10 +157,9 @@
 
             pie_chart1.execute();
             pyramid_chart.execute();
-          // });
-            }
+        }
 
         </script>
-    <script src="../dist/pykcharts.1.0.0.js"></script>
+    <!-- <script src="../dist/pykcharts.1.0.0.js"></script> -->
     </body>
 </html>

@@ -4639,12 +4639,30 @@ PykCharts.oneD.pie = function (options) {
             that.radiusPercent = 100;
         }
 
+        that.pykquery_configs = options.pykquery;
+        // !----- PykQuery Object --------!
+        // if(PykCharts.boolean()) { pykquery_global = new PykQuery.init("select","global",that.pykquery_configs.id); }
+        pykquery_global = new PykQuery.init("select","global",that.pykquery_configs.id);
+        pykquery_local = new PykQuery.init("select","local",that.selector);
+
+        pykquery_global.storeObjectInMemory("pykquery_global");
+        pykquery_local.storeObjectInMemory("pykquery_local");
+
+        filter_pykquery = pykquery_local.filter();
+        filters_selected = pykquery_local.filters;
+        
+        // !----- Mapping of Locals & Globals -----------!
+        pykquery_local.addGlobal(that.pykquery_configs);
+        console.log("Begin ---- PIE");
+        console.log("before d3.json --");
+        console.log(that.pykquery_configs,'>>>>>',pykquery_local,filter_pykquery,filters_selected,query_mapping);
+        console.log("inside d3.json --");
+
         if(that.mode === "default") {
            that.k.loading();
         }
 
         d3.json(options.data, function (e, data) {
-
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
                 $(options.selector+" #chart-loader").remove();
@@ -4653,6 +4671,7 @@ PykCharts.oneD.pie = function (options) {
 
             that.data = that.k.__proto__._groupBy("oned",data);
             that.compare_data = that.k.__proto__._groupBy("oned",data);
+            console.log(that.data,"*************");
             $(options.selector+" #chart-loader").remove();
             var pieFunctions = new PykCharts.oneD.pieFunctions(options,that,"pie");
             that.clubdata_enable = that.data.length > that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
@@ -5197,11 +5216,11 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                             .style("font-size", that.label_size + "px")
                             .text(function (d,i) {
                                 if(type.toLowerCase() === "pie" || type.toLowerCase() === "election pie") {
-                                    console.log(this.getBBox().width,"outside");
-                                    console.log((d.endAngle-d.startAngle)*((that.outer_radius/2)*0.9),"angle1111111");
+                                    // console.log(this.getBBox().width,"outside");
+                                    // console.log((d.endAngle-d.startAngle)*((that.outer_radius/2)*0.9),"angle1111111");
                                     if(this.getBBox().width<((d.endAngle-d.startAngle)*((that.outer_radius/2)*0.9))) {
-                                        console.log(this.getBBox().width,"b box width");
-                                        console.log((d.endAngle-d.startAngle)*((that.outer_radius/2)*0.9),"angle");
+                                        // console.log(this.getBBox().width,"b box width");
+                                        // console.log((d.endAngle-d.startAngle)*((that.outer_radius/2)*0.9),"angle");
                                         return ((d.data.weight*100)/that.sum).toFixed(1)+"%";
                                         // return that.k.appendUnits(d.data.weight);
                                     }
@@ -5596,6 +5615,19 @@ PykCharts.oneD.pyramid = function (options) {
         if(that.stop) {
             return;
         }
+
+        that.pykquery_configs = options.pykquery;
+        // !----- PykQuery Object --------!
+        pykquery_global1 = new PykQuery.init("select","global",that.pykquery_configs.id);
+        pykquery_local1 = new PykQuery.init("select","local",that.selector);
+        pykquery_global1.storeObjectInMemory("pykquery_global1");
+        pykquery_local1.storeObjectInMemory("pykquery_local1");
+        filter_pykquery = pykquery_local1.filter();
+        filters_selected = pykquery_local1.filters;
+        // !----- Mapping of Locals & Globals -----------!
+        pykquery_local1.addGlobal(that.pykquery_configs);
+        console.log("Begin --- Pyramid");
+        console.log(that.pykquery_configs,'>>>>>',pykquery_local1,filter_pykquery,filters_selected);
 
         if(that.mode === "default") {
            that.k.loading();

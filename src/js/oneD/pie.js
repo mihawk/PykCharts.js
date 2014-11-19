@@ -45,29 +45,39 @@ PykCharts.oneD.pie = function (options) {
             that.radiusPercent = 100;
         }
 
-        that.pykquery_configs = options.pykquery;
-        // !----- PykQuery Object --------!
-        // if(PykCharts.boolean()) { pykquery_global = new PykQuery.init("select","global",that.pykquery_configs.id); }
-        pykquery_global = new PykQuery.init("select","global",that.pykquery_configs.id);
-        pykquery_local = new PykQuery.init("select","local",that.selector);
+        // console.log(options.pykquery != undefined && !PykCharts.boolean(_.isEmpty(options.pykquery)));
+        if (options.pykquery != undefined && !PykCharts.boolean(_.isEmpty(options.pykquery))) { 
+            that.filter_enable = true;
 
-        pykquery_global.storeObjectInMemory("pykquery_global");
-        pykquery_local.storeObjectInMemory("pykquery_local");
+            that.pykquery_configs = options.pykquery;
+            // !----- PykQuery Object --------!
+            pie_global = new PykQuery.init("select","global",that.pykquery_configs.id);
+            pie_local = new PykQuery.init("select","local",that.selector);
 
-        filter_pykquery = pykquery_local.filter();
-        filters_selected = pykquery_local.filters;
+            if (_.isEmpty(pie_global) == false) {
+                pie_global.storeObjectInMemory("pie_global");    
+            }
+            if (_.isEmpty(pie_local) == false) {
+                pie_local.storeObjectInMemory("pie_local");
+            }
+
+            filter_pykquery = pie_local.filter();
+            filters_selected = pie_local.filters;
+
+            // !----- Mapping of Locals & Globals -----------!
+            pie_local.addGlobal(that.pykquery_configs);
+            // console.log("Begin ---- PIE");
+            // console.log("before d3.json --");
+            // console.log(that.pykquery_configs,'>>>>>',pie_local,filter_pykquery,filters_selected);
+            // console.log("inside d3.json --");
+        }        
         
-        // !----- Mapping of Locals & Globals -----------!
-        pykquery_local.addGlobal(that.pykquery_configs);
-        console.log("Begin ---- PIE");
-        console.log(pykquery_configs,'>>>>>',pykquery_local,filter_pykquery,filters_selected,query_mapping);
 
         if(that.mode === "default") {
            that.k.loading();
         }
 
         d3.json(options.data, function (e, data) {
-
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
                 $(options.selector+" #chart-loader").remove();
@@ -76,6 +86,7 @@ PykCharts.oneD.pie = function (options) {
 
             that.data = that.k.__proto__._groupBy("oned",data);
             that.compare_data = that.k.__proto__._groupBy("oned",data);
+            // console.log(that.data,"*************");
             $(options.selector+" #chart-loader").remove();
             var pieFunctions = new PykCharts.oneD.pieFunctions(options,that,"pie");
             that.clubdata_enable = that.data.length > that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
@@ -373,11 +384,30 @@ PykCharts.oneD.electionDonut = function (options) {
 
 PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
     var that = chartObject;
-       that.refresh = function () {
-        d3.json(options.data, function (e, data) {
-            that.data = that.k.__proto__._groupBy("oned",data);
+    that.refresh = function (new_data) {
+        if (new_data == undefined && that.filter_enable == false) {
+            d3.json(options.data, function (e, data) {
+                that.data = that.k.__proto__._groupBy("oned",data);
+                that.clubdata_enable = that.data.length>that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
+                that.refresh_data = that.k.__proto__._groupBy("oned",data);
+                var compare = that.k.checkChangeInData(that.refresh_data,that.compare_data);
+                that.compare_data = compare[0];
+                var data_changed = compare[1];
+                if(data_changed) {
+                    that.k.lastUpdatedAt("liveData");
+                }
+                that.new_data = that.optionalFeatures().clubData();
+                that.optionalFeatures()
+                        .createChart()
+                        .label()
+                        .ticks()
+                        .centerLabel();
+            });
+        }
+        else {
+            that.data = that.k.__proto__._groupBy("oned",new_data);
             that.clubdata_enable = that.data.length>that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
-            that.refresh_data = that.k.__proto__._groupBy("oned",data);
+            that.refresh_data = that.k.__proto__._groupBy("oned",new_data);
             var compare = that.k.checkChangeInData(that.refresh_data,that.compare_data);
             that.compare_data = compare[0];
             var data_changed = compare[1];
@@ -390,7 +420,8 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                     .label()
                     .ticks()
                     .centerLabel();
-        });
+        }
+        
     };
 
     //----------------------------------------------------------------------------------------
@@ -620,11 +651,11 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                             .style("font-size", that.label_size + "px")
                             .text(function (d,i) {
                                 if(type.toLowerCase() === "pie" || type.toLowerCase() === "election pie") {
-                                    console.log(this.getBBox().width,"outside");
-                                    console.log((d.endAngle-d.startAngle)*((that.outer_radius/2)*0.9),"angle1111111");
+                                    // console.log(this.getBBox().width,"outside");
+                                    // console.log((d.endAngle-d.startAngle)*((that.outer_radius/2)*0.9),"angle1111111");
                                     if(this.getBBox().width<((d.endAngle-d.startAngle)*((that.outer_radius/2)*0.9))) {
-                                        console.log(this.getBBox().width,"b box width");
-                                        console.log((d.endAngle-d.startAngle)*((that.outer_radius/2)*0.9),"angle");
+                                        // console.log(this.getBBox().width,"b box width");
+                                        // console.log((d.endAngle-d.startAngle)*((that.outer_radius/2)*0.9),"angle");
                                         return ((d.data.weight*100)/that.sum).toFixed(1)+"%";
                                         // return that.k.appendUnits(d.data.weight);
                                     }
