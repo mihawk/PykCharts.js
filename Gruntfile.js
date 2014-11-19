@@ -93,7 +93,7 @@ module.exports = function(grunt) {
         // Remove consolelogs
         removelogging: {
             dist: {
-                src: "src/js/*.js",
+                src: "**/*.js",
                 options: {}
             }
         },
@@ -128,14 +128,11 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-connect');
     grunt.loadNpmTasks('grunt-remove-logging');
 
-    // Remove all consolelogs
-    grunt.registerTask( "default", ["removelogging"] );
-
     // Clean the .git/hooks/pre-commit file then copy in the latest version
     grunt.registerTask('hookmeup', ['clean:hooks', 'shell:hooks']);
 
     //build task
-    grunt.registerTask('build', ['removelogging', 'concat', 'uglify', 'cssmin', 'hookmeup']);
+    grunt.registerTask('build', ['concat', 'removelogging', 'uglify', 'cssmin', 'hookmeup']);
 
     grunt.event.on('watch', function(action, filepath) {
         grunt.log.writeln(filepath + ' has ' + action);
