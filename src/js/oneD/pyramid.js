@@ -41,7 +41,7 @@ PykCharts.oneD.pyramid = function (options) {
             // !----- Mapping of Locals & Globals -----------!
             pyramid_local.addGlobal(that.pykquery_configs);
             // console.log("Begin --- Pyramid");
-            // console.log(that.pykquery_configs,'>>>>>',pyramid_local,filter_pykquery,filters_selected);
+            console.log(that.pykquery_configs,'>>>>>',pyramid_local,filter_pykquery,filters_selected);
         }
 
         if(that.mode === "default") {

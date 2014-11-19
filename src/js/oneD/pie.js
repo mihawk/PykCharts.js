@@ -68,7 +68,7 @@ PykCharts.oneD.pie = function (options) {
             pie_local.addGlobal(that.pykquery_configs);
             // console.log("Begin ---- PIE");
             // console.log("before d3.json --");
-            // console.log(that.pykquery_configs,'>>>>>',pie_local,filter_pykquery,filters_selected);
+            console.log(that.pykquery_configs,'>>>>>',pie_local,filter_pykquery,filters_selected);
             // console.log("inside d3.json --");
         }        
         
@@ -91,6 +91,8 @@ PykCharts.oneD.pie = function (options) {
             var pieFunctions = new PykCharts.oneD.pieFunctions(options,that,"pie");
             that.clubdata_enable = that.data.length > that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
             pieFunctions.render();
+            
+        console.log("ISHAAAAAAAAAAAAAAA");
         });
         // that.clubData.enable = that.data.length>that.clubData.maximumNodes ? that.clubData.enable : "no";
     };
