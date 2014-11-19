@@ -90,6 +90,17 @@ module.exports = function(grunt) {
             }
         },
 
+        comments: {
+            js: {
+                // Target-specific file lists and/or options go here.
+                options: {
+                    singleline: true,
+                    multiline: true
+                },
+                src: [ '**/*.js'] // files to remove comments from
+            }
+        },
+
         // Remove consolelogs
         removelogging: {
             dist: {
@@ -127,12 +138,13 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-qunit');
     grunt.loadNpmTasks('grunt-contrib-connect');
     grunt.loadNpmTasks('grunt-remove-logging');
+    grunt.loadNpmTasks('grunt-stripcomments');
 
     // Clean the .git/hooks/pre-commit file then copy in the latest version
     grunt.registerTask('hookmeup', ['clean:hooks', 'shell:hooks']);
 
     //build task
-    grunt.registerTask('build', ['concat', 'removelogging', 'uglify', 'cssmin', 'hookmeup']);
+    grunt.registerTask('build', ['stripcomments', 'concat', 'removelogging', 'uglify', 'cssmin', 'hookmeup']);
 
     grunt.event.on('watch', function(action, filepath) {
         grunt.log.writeln(filepath + ' has ' + action);
