@@ -22,7 +22,7 @@ module.exports = function(grunt) {
                     , '<%= js_src_path %>/oneD/pie.js'
                     , '<%= js_src_path %>/oneD/pyramid.js'
                     , '<%= js_src_path %>/oneD/treemap.js'
-                    , '<%= js_src_path %>/other/other.js'                    
+                    , '<%= js_src_path %>/other/other.js'
                     , '<%= js_src_path %>/other/pictograph.js'
                     , '<%= js_src_path %>/multiD/multiD.js'
                     , '<%= js_src_path %>/multiD/lineChart.js'
@@ -90,6 +90,14 @@ module.exports = function(grunt) {
             }
         },
 
+        // Remove consolelogs
+        removelogging: {
+            dist: {
+                src: "src/js/*.js",
+                options: {}
+            }
+        },
+
         // Run QUnit Test
         qunit: {
             all: {
@@ -118,15 +126,16 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-qunit');
     grunt.loadNpmTasks('grunt-contrib-connect');
+    grunt.loadNpmTasks('grunt-remove-logging');
 
-    // Remove all console.logs
-    grunt.registerTask('rmconsolelogs', ['shell:rmclogs']);
+    // Remove all consolelogs
+    grunt.registerTask( "default", ["removelogging"] );
 
     // Clean the .git/hooks/pre-commit file then copy in the latest version
     grunt.registerTask('hookmeup', ['clean:hooks', 'shell:hooks']);
 
     //build task
-    grunt.registerTask('build', ['concat', 'uglify', 'cssmin', 'rmconsolelogs', 'hookmeup']);
+    grunt.registerTask('build', ['removelogging', 'concat', 'uglify', 'cssmin', 'hookmeup']);
 
     grunt.event.on('watch', function(action, filepath) {
         grunt.log.writeln(filepath + ' has ' + action);
