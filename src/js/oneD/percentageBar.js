@@ -1,16 +1,10 @@
 PykCharts.oneD.percentageBar = function (options) {
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
-
-    //----------------------------------------------------------------------------------------
-    //1. This is the method that executes the various JS functions in the proper sequence to generate the chart
-    //----------------------------------------------------------------------------------------
     this.execute = function () {
-        //1.3 Assign Global variable var that to access function and variable throughout
         var that = this;
 
         that = new PykCharts.oneD.processInputs(that, options, "percentageBar");
-        // 1.2 Read Json File Get all the data and pass to render
 
         that.height = options.chart_height ? options.chart_height : that.width/2;
         that.percent_row_rect_height = options.percent_row_rect_height ? options.percent_row_rect_height : theme.oneDimensionalCharts.percent_row_rect_height;
@@ -61,11 +55,7 @@ PykCharts.oneD.percentageBar = function (options) {
             that.clubdata_enable = that.data.length>that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
             that.render();
         });
-        // that.clubData.enable = that.data.length>that.clubData.maximumNodes ? that.clubData.enable : "no";
     };
-    //----------------------------------------------------------------------------------------
-    //2. Render function to create the chart
-    //----------------------------------------------------------------------------------------
     this.refresh = function () {
         d3.json (options.data, function (e,data) {
             that.data = that.k.__proto__._groupBy("oned",data);
@@ -89,9 +79,7 @@ PykCharts.oneD.percentageBar = function (options) {
         var that = this;
         var l = $(".svgcontainer").length;
         that.container_id = "svgcontainer" + l;
-    //    that.fillChart = new PykCharts.oneD.fillChart(that);
         that.fillChart = new PykCharts.Configuration.fillChart(that);
-        // that.onHoverEffect = new PykCharts.oneD.mouseEvent(options);
         that.transitions = new PykCharts.Configuration.transition(that);
         that.border = new PykCharts.Configuration.border(that);
 
@@ -122,8 +110,6 @@ PykCharts.oneD.percentageBar = function (options) {
             .label()
             .ticks();
         if(that.mode === "default") {
-
-            // that.optionalFeatures().ticks()
             that.k.liveData(that)
                 .createFooter()
                 .lastUpdatedAt()
@@ -163,9 +149,6 @@ PykCharts.oneD.percentageBar = function (options) {
                     this[i].percentValue= d.weight * 100 / sum;
                 }, that.new_data);
                 that.new_data.sort(function (a,b) { return b.weight - a.weight; })
-                // that.map1 = _.map(that.new_data,function (d,i) {
-                //     return d.percentValue;
-                // });
                 that.chart_data = that.group.selectAll('.per-rect')
                     .data(that.new_data)
 
@@ -237,7 +220,6 @@ PykCharts.oneD.percentageBar = function (options) {
                 return this;
             },
             svgContainer :function () {
-                // $(options.selector).css("background-color",that.bg);
 
                 that.svgContainer = d3.select(options.selector)
                     .append('svg')
@@ -280,15 +262,12 @@ PykCharts.oneD.percentageBar = function (options) {
                         .attr("pointer-events","none")
                         .style("font-weight", that.label_weight)
                         .style("font-family", that.label_family);
-                        // .transition()
-                        // .delay(that.transitions.duration())
 
                         setTimeout(function(){
                             that.chart_text.text(function (d) { return d.percentValue.toFixed(1)+"%"; })
                                 .text(function (d) {
                                     if(this.getBBox().width < (d.percentValue * that.width / 100) && this.getBBox().height < that.percent_row_rect_height) {
                                         return d.percentValue.toFixed(1)+"%"
-                                        // return that.k.appendUnits(d.weight);
                                     }else {
                                         return "";
                                     }
@@ -384,8 +363,6 @@ PykCharts.oneD.percentageBar = function (options) {
                                 })
                                 .attr("stroke-width", that.pointer_thickness + "px")
                                 .attr("stroke", that.pointer_color)
-                                // .transition()
-                                // .duration(that.transitions.duration())
                                 .attr("y2", function (d, i) {
                                     if((d.percentValue * that.width / 100) > w[i]) {
                                         return (that.percent_row_rect_height) + 5;

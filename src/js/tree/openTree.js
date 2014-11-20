@@ -18,7 +18,7 @@ PykCharts.tree.openTree = function (options) {
 
     this.refresh = function () {
         d3.json(options.data, function (e, data) {
-            console.log("liveData");
+            
             that.data = data;  
             that.tree_data = that.k1.dataTransfer(that.data);
             that.optionalFeatures()
@@ -32,8 +32,6 @@ PykCharts.tree.openTree = function (options) {
     this.render = function () {
         that.border = new PykCharts.Configuration.border(that);
         that.transitions = new PykCharts.Configuration.transition(that);
-        // that.mouseEvent1 = new PykCharts.twoD.mouseEvent(that);
-        // that.fillColor = new PykCharts.multi_series_2D.fillChart(that,options);
         
         if(that.mode === "default") {
 
@@ -108,7 +106,7 @@ PykCharts.tree.openTree = function (options) {
                  
                     .attr("class", "link")
                     .attr("d", function(d) {
-                        console.log("abc");
+                        
                         var o = {x: that.root.x0, y: that.root.y0};
                         return diagonal({source: o, target: o});
                     });

@@ -3,7 +3,6 @@ PykCharts.maps.oneLayer = function (options) {
     var theme = new PykCharts.Configuration.Theme({});
     this.execute = function () {
         that = PykCharts.maps.processInputs(that, options);
-        //$(that.selector).css("height",that.height);
 
         d3.json(options.data, function (data) {
 
@@ -67,8 +66,6 @@ PykCharts.maps.timelineMap = function (options) {
     var theme = new PykCharts.Configuration.Theme({});
     this.execute = function () {
         that = PykCharts.maps.processInputs(that, options);
-
-        //$(that.selector).css("height",that.height);
         d3.json(options.data, function (data) {
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
@@ -80,8 +77,6 @@ PykCharts.maps.timelineMap = function (options) {
             that.compare_data = data;
             var x_extent = d3.extent(data, function (d) { return d.timestamp; });
             that.data = _.where(data, {timestamp: x_extent[0]});
-
-            // that.margin = {top:10, right:30, bottom:10, left:30};
 
             that.redeced_width = that.width - (that.margin_left * 2) - that.margin_right;
 
@@ -138,7 +133,6 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
         that.k.title()
             .backgroundColor(that)
-            // .subtitle();
 
         if(type === "oneLayer") {
             that.k
@@ -147,9 +141,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             .subtitle()
             .exportSVG(that,"#svgcontainer",type)
         }
-        // console.log(that.color_palette_data,"color_palette_data",that.palette_color);
         that.current_palette = _.where(that.color_palette_data, {name:that.palette_color, number:that.total_no_of_colors})[0];
-        // console.log(that.current_palette);
         if (type === "timeline"){
              that.k.subtitle();
         }
@@ -249,7 +241,6 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
 
                 that.map_cont = that.svgContainer.append("g")
                     .attr("id", "map_group")
-                //    .attr("transform","translate(0,"+that.legendsGroup_height+")");
 
                 var defs = that.map_cont.append('defs');
                 var filter = defs.append('filter')
@@ -306,8 +297,6 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     vscale = scale * (new_height) / (bounds[1][1] - bounds[0][1]),
                     scale = (hscale < vscale) ? hscale : vscale,
                     offset = [new_width - (bounds[0][0] + bounds[1][0]) / 2, new_height - (bounds[0][1] + bounds[1][1]) / 2];
-
-                // console.log(new_width - (bounds[0][0] + bounds[1][0]) / 2, that.height - (bounds[0][1] + bounds[1][1]) / 2)
                 projection = d3.geo.mercator().center(center)
                    .scale((that.default_zoom_level / 100) * scale).translate(offset);
 
@@ -323,7 +312,6 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     .attr("area_name", function (d) {
                         return d.properties.NAME_1;
                     })
-                    //.attr("prev-fill",that.renderPreColor)
                     .attr("fill", that.renderColor)
                     .attr("prev_fill", function (d) {
                         return d3.select(this).attr("fill");
@@ -372,7 +360,6 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             enableClick: function (ec) {
                 if (PykCharts.boolean(ec)) {
                     that.chart_data.on("click", that.clicked);
-                    // that.onhover = "color_saturation";
                     that.onhover1 = that.onhover;
                 } else {
                     that.onhover1 = that.onhover;
@@ -446,7 +433,6 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
     };
 
     that.renderLegend = function () {
-        // var that = this,
             var k,
             onetenth;
         if (that.color_mode === "saturation") {
@@ -613,7 +599,6 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                 legend.exit()
                     .remove();
             }
-            // $("#legend-container").after("</br>");
         } else {
             $("#legend-container").remove();
         }
@@ -631,7 +616,6 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
     };
 
     that.bodColor = function (d) {
-        // console.log(that.onhover1);
         var obj = _.where(that.data, {iso2: d.properties.iso_a2});
         if(PykCharts.boolean(that.onhover_enable)) {
             if (that.onhover1 === "highlight_border") {
@@ -679,7 +663,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         try {
             customFunction(obj);
         } catch (ignore) {
-            /*console.log(e);*/
+            /**/
         }
     };
 
@@ -690,19 +674,13 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         function bgColor(child) {
             child1 = child;
             bg = $(child).css("background-color");
-            // console.log("what is bg", child,bg);
             if (bg === "transparent" || bg === "rgba(0, 0, 0, 0)") {
-                // console.log($(child)[0].parentNode.tagName,"is parent node body");
                 if($(child)[0].parentNode.tagName === undefined || $(child)[0].parentNode.tagName.toLowerCase() === "body") {
-                // if (document.getElementsByTagName("body").parentNode === null){
-                    // console.log("is it going");
                     $(child).colourBrightness("rgb(255,255,255)");
                 } else {
-                    // console.log($(child)[0].parentNode,"child");
                     return bgColor($(child)[0].parentNode);
                 }
             } else {
-                // console.log("bg",bg);
                return $(child).colourBrightness(bg);
             }
                 }
@@ -711,7 +689,6 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             that.pause_image_url = PykCharts.assets+"img/pause.png";
             that.marker_image_url = PykCharts.assets+"img/marker.png";
         } else {
-            // console.log("dark");
             that.play_image_url = PykCharts.assets+"img/play-light.png";
             that.pause_image_url = PykCharts.assets+"img/pause-light.png";
             that.marker_image_url = PykCharts.assets+"img/marker-light.png";
@@ -720,10 +697,8 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
     }
     that.renderDataForTimescale = function () {
         that.unique = [];
-        // console.log(that.timeline_data,"timeline_data");
         x_extent = d3.extent(that.timeline_data, function(d) {return d.timestamp; });
         x_range = [0 ,that.redeced_width];
-        // console.log(x_extent,x_range,"extend","range");
         that.xScale = that.k.scaleIdentification("linear",x_extent,x_range);
         _.each(that.timeline_data, function (d) {
             if (that.unique.indexOf(d.timestamp) === -1) {
@@ -763,8 +738,6 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                         interval = 0;
                     }
                     that.marker
-                        // .transition()
-                        // .duration(that.timeline.duration/2)
                         .attr("x",  (that.margin_left*2) + that.xScale(that.unique[interval]) - 7);
 
                     that.data = _.where(that.timeline_data, {timestamp:that.unique[interval]});
@@ -775,8 +748,6 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     that.difference = that.extent_size[1] - that.extent_size[0];
                     _.each(that.data, function (d) {
                         d3.select("path[iso2='"+d.iso2+"']")
-                            // .transition()
-                            // .duration(that.timeline.duration/4)
                             .attr("fill", that.renderColor)
                             .attr("fill-opacity", that.renderOpacity)
                             .attr("data-fill-opacity",function () {
@@ -876,14 +847,6 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             .attr("height","21px")
             .style("cursor","pointer");
 
-        console.log(that.xScale(that.unique[0]),"======")
-        that.marker = that.svgContainer.append("image")
-            .attr("xlink:href",that.marker_image_url)
-            .attr("x", (that.margin_left*2) + that.xScale(that.unique[0]) - 7)
-            .attr("y", that.redeced_height)
-            .attr("width","14px")
-            .attr("height","12px")
-            .style("cursor","pointer")
-            .call(drag);
+        
     }
 };

@@ -97,14 +97,14 @@ module.exports = function(grunt) {
                     singleline: true,
                     multiline: true
                 },
-                src: [ '**/*.js'] // files to remove comments from
+                src: ['lib/*.js', 'src/**/*.js', 'pykih-charts/**/*.js'] // files to remove comments from
             }
         },
 
         // Remove consolelogs
         removelogging: {
             dist: {
-                src: "**/*.js",
+                src: ['lib/*.js', 'src/**/*.js', 'pykih-charts/**/*.js'],
                 options: {}
             }
         },

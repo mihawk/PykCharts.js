@@ -61,7 +61,6 @@ PykCharts.other.pictograph = function (options) {
                 return b.weight - a.weight;
             });
             that.old_weight = 0;
-            // that.old_data = that.data;
 
             that.compare_data = that.data;
             $(options.selector+" #chart-loader").remove();
@@ -135,11 +134,9 @@ PykCharts.other.pictograph = function (options) {
 
         var optional = {
             svgContainer: function () {
-                // $(options.selector).css("background-color",that.background_color);
 
                 that.svgContainer = d3.select(options.selector).append('svg')
                     .attr("width",that.width)
-                    // .attr("height",that.height)
                     .attr("id",that.container_id)
                     .attr("class","svgcontainer")
                     .attr("preserveAspectRatio", "xMinYMin")
@@ -147,8 +144,6 @@ PykCharts.other.pictograph = function (options) {
 
                 that.group = that.svgContainer.append("g")
                     .attr("id", "pictograph_image_group")
-                    // .attr("transform", "translate(100,0)")
-                    // .attr("transform", "translate(" + that.imageWidth + ",0)");
 
                 that.group1 = that.svgContainer.append("g")
                     .attr("transform","translate(0,0)");
@@ -186,8 +181,6 @@ PykCharts.other.pictograph = function (options) {
                         if (!that.old_data || (that.old_data && j > that.old_data[1].weight)) {
                             that.group.append("image")
                                 .attr("xlink:href",that.data[1]["image"])
-                                // .attr("x", b *(50 + 1))
-                                // .attr("y", a *(100 + 10))
                                 .attr("id","current_image"+j)
                                 .attr("x", b *(that.imageWidth + 1))
                                 .attr("y", a *(that.imageHeight + 10))
@@ -209,15 +202,11 @@ PykCharts.other.pictograph = function (options) {
                                 .attr("id","total_image"+j)
                                 .attr("x", b *(that.imageWidth + 1))
                                 .attr("y", a *(that.imageHeight+ 10))
-                                // .attr("x", b *(50 + 1))
-                                // .attr("y", a *(100 + 10))
                                 .attr("width",0)
-                                // .attr("height",100)
                                 .attr("height", that.imageHeight + "px")
                                 .transition()
                                 .duration(that.transitions.duration())
                                 .attr("width", that.imageWidth + "px");
-                        // }
                     }
                     counter++;
                     b++;

@@ -38,7 +38,6 @@ PykCharts.oneD.pyramid = function (options) {
 			that.clubdata_enable = that.data.length > that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
             that.render();
 		});
-        // that.clubData.enable = that.data.length>that.clubData.maximumNodes ? that.clubData.enable : "no";
 	};
 
     this.refresh = function () {
@@ -61,11 +60,9 @@ PykCharts.oneD.pyramid = function (options) {
     };
 
 	this.render = function () {
-//		that.fillChart = new PykCharts.oneD.fillChart(that);
         var l = $(".svgcontainer").length;
         that.container_id = "svgcontainer" + l;
         that.fillChart = new PykCharts.Configuration.fillChart(that);
-        // that.onHoverEffect = new PykCharts.oneD.mouseEvent(options);
         that.transitions = new PykCharts.Configuration.transition(that);
         that.border = new PykCharts.Configuration.border(that);
 
@@ -87,7 +84,6 @@ PykCharts.oneD.pyramid = function (options) {
                 .dataSource()
                 .tooltip()
                 .liveData(that);
-                // [that.fullscreen]().fullScreen(that)
 
             that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
 
@@ -189,7 +185,6 @@ PykCharts.oneD.pyramid = function (options) {
 
     	var optional = {
             svgContainer :function () {
-                // $(options.selector).css("background-color",that.background_color);
 
                 that.svgContainer = d3.select(options.selector)
                     .append('svg')
@@ -207,15 +202,9 @@ PykCharts.oneD.pyramid = function (options) {
             },
         	createChart : function () {
 
-
-        		// that.perValues = that.percentageValues(that.new_data);
-
         		that.pyramid = that.pyramidLayout()
                     .data(that.new_data)
                     .size([that.width,that.height]);
-                // var total = d3.sum(that.new_data, function (d){
-                //     return d.weight;
-                // });
 		        that.coordinates = that.pyramid.coordinates();
                 that.coordinates[0].values[1] = that.coordinates[that.coordinates.length-1].values[1];
                 that.coordinates[0].values[2] = that.coordinates[that.coordinates.length-1].values[2];
@@ -483,8 +472,6 @@ PykCharts.oneD.pyramid = function (options) {
                     }, that.transitions.duration());
 
                 tick_line.exit().remove();
-
-                // }
                 return this;
             },
             clubData: function () {
