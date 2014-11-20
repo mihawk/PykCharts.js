@@ -136,8 +136,8 @@ PykCharts.multiD.barFunctions = function (options,chartObject,type) {
         that.map_group_data = that.multiD.mapGroup(that.data);
         that.data = that.dataTransformation();
         that.data = that.emptygroups(that.data);
-
-{
+        try {
+            if(that.no_of_groups > 1 && type === "bar") {
                 throw "";
             }
         }

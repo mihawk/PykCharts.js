@@ -1612,7 +1612,7 @@ configuration.mouseEvent = function (options) {
                     x_range = xScale.range();
                 } else {
                     temp = xScale.range();
-                    pad = (temp[1]-temp[0])/new_data[0].data.length;
+                    pad = (temp[1]-temp[0])/(new_data[0].data.length-1);
                     len = new_data[0].data.length;
                     strt = 0;
                     for(i = 0;i<len;i++){
