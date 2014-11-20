@@ -4,7 +4,6 @@ PykCharts.oneD.treemap = function (options){
     this.execute = function (){
         that = new PykCharts.oneD.processInputs(that, options);
         optional = options.optional;
-        // that.enableText = optional && PykCharts.boolean(optional.enableText) ? optional.enableText : false;
         that.selector = options.selector;
         that.height = options.chart_height ? options.chart_height : that.width;
 
@@ -40,7 +39,6 @@ PykCharts.oneD.treemap = function (options){
             that.clubdata_enable = that.data.length>that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
             that.render();
         });
-        // that.clubData.enable = that.data.length > that.clubData.maximumNodes ? that.clubData.enable : "no";
     };
 
     this.refresh = function (){
@@ -65,9 +63,7 @@ PykCharts.oneD.treemap = function (options){
     this.render = function (){
         var l = $(".svgcontainer").length;
         that.container_id = "svgcontainer" + l;
-//        that.fillChart = new PykCharts.oneD.fillChart(that);
         that.fillChart = new PykCharts.Configuration.fillChart(that);
-        // that.onHoverEffect = new PykCharts.oneD.mouseEvent(options);
         that.transitions = new PykCharts.Configuration.transition(that);
         that.border = new PykCharts.Configuration.border(that);
 
@@ -112,7 +108,6 @@ PykCharts.oneD.treemap = function (options){
     this.optionalFeatures = function (){
         var optional = {
             svgContainer: function () {
-                // $(options.selector).css("background-color",that.background_color);
 
                 that.svgContainer = d3.select(that.selector).append("svg:svg")
                     .attr("width",that.width)
@@ -139,9 +134,6 @@ PykCharts.oneD.treemap = function (options){
 
                 that.node = that.treemap.nodes(that.new_data);
                 l = that.new_data.children.length;
-                // that.max = that.new_data.children[l-1].weight;
-                // that.map1 = that.new_data.children.map(function (d) { return d.weight; });
-                // that.map1 = jQuery.unique(that.map1);
                 that.chart_data = that.group.selectAll(".cell")
                                     .data(that.node);
                 that.chart_data.enter()
@@ -224,8 +216,6 @@ PykCharts.oneD.treemap = function (options){
                         .style("font-family", that.label_family)
 
                         .text("")
-                        // .transition()
-                        // .delay(that.transitions.duration())
 
                     setTimeout(function() {
                         that.chart_text.text(function (d) { return d.children ? " " :  d.name; })
@@ -248,8 +238,6 @@ PykCharts.oneD.treemap = function (options){
                         .style("font-family", that.label_family)
                         .text("")
                         .attr("pointer-events","none")
-                        // .transition()
-                        // .delay(that.transitions.duration())
 
                     setTimeout(function () {
                         that.chart_text1.text(function (d) { return d.children ? " " :  that.k.appendUnits(d.weight); })

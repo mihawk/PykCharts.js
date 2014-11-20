@@ -10,7 +10,7 @@ PykCharts.tree.collapsibleTree = function (options) {
             
             that.data = data;
             that.tree_data = that.k1.dataTransfer(that.data);
-            console.log(that.tree_data);
+            
             $(that.selector+" #chart-loader").remove();
             that.render();
 
@@ -18,7 +18,7 @@ PykCharts.tree.collapsibleTree = function (options) {
     };
     this.refresh = function () {
         d3.json(options.data, function (e, data) {
-            console.log("liveData");
+            
             that.data = data;  
             that.tree_data = that.k1.dataTransfer(that.data);
             that.optionalFeatures()
@@ -29,8 +29,6 @@ PykCharts.tree.collapsibleTree = function (options) {
     this.render = function () {
         that.border = new PykCharts.Configuration.border(that);
         that.transitions = new PykCharts.Configuration.transition(that);
-        // that.mouseEvent1 = new PykCharts.twoD.mouseEvent(that);
-        // that.fillColor = new PykCharts.multi_series_2D.fillChart(that,options);
         
         if(that.mode === "default") {
 
@@ -102,7 +100,6 @@ PykCharts.tree.collapsibleTree = function (options) {
 
                 that.root.values.forEach(collapse);
                 this.update(that.root).chartLabel();
-                // d3.select(self.frameElement).style("height", that.h).style("width",that.w);
                 return this;
             },
 
@@ -165,7 +162,6 @@ PykCharts.tree.collapsibleTree = function (options) {
                 that.nodeUpdate.select("circle")
                     .attr("r", that.nodeRadius)
                     .style("fill", function(d) { return d._values ? that.chartColor : "#fff"; })
-                    // .on("click", that.click);
 
                 that.nodeExit = node.exit().transition()
                     .duration(that.transitions.duration())
@@ -196,8 +192,6 @@ PykCharts.tree.collapsibleTree = function (options) {
                         return that.diagonal({source: o, target: o});
                     })
                     .remove();
-
-                // Stash the old positions for transition.
                 nodes.forEach(function(d) {
                     d.x0 = d.x;
                     d.y0 = d.y;
@@ -232,25 +226,4 @@ PykCharts.tree.collapsibleTree = function (options) {
             .chartLabel()
             .centerNode(d);
     };
-    // this.execute = function () {
-        
-
-        
-        
-
-    //     d3.json(options.data, function (error, data) {
-    //         var tree_data = 
-
-            
-    //     });
-
-    //     d3.select(self.frameElement).style("height", "800px");
-
-    //     function update(source) {
-
-            
-    //     }
-
-        
-    // }
 }

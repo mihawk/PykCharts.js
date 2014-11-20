@@ -1,19 +1,5 @@
 PykCharts.oneD = {};
 
-// PykCharts.oneD.fillChart = function (options) {
-
-//     var colorPie = {
-//         chart_color: function (d) {
-//             if(d.highlight === true) {
-//                 return options.highlight_color;
-//             } else{
-//                 return options.chart_color;
-//             }
-//         }
-//     };
-//     return colorPie;
-// };
-
 PykCharts.oneD.mouseEvent = function (options) {
     var highlight_selected = {
         highlight: function (selectedclass, that) {
@@ -38,18 +24,9 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
         , stylesheet = theme.stylesheet
         , functionality = theme.functionality
         , oneDimensionalCharts = theme.oneDimensionalCharts;
-        // , optional = options.optional;
-    // console.log(options.mode,"options");
 
     chartObject.selector = options.selector ? options.selector : stylesheet.selector;
-    // if(options.chart_width) {
-    //     var targetWidth = $(options.selector).width();
-    //     options.chart_width = targetWidth < options.chart_width ? targetWidth : options.chart_width;
-    // }
     chartObject.width = options.chart_width  ? options.chart_width : stylesheet.chart_width;
-    // chartObject.height = options.chart_height && _.isNumber(options.chart_height) ? options.chart_height : stylesheet.chart_height;
-    // chartObject.width = optional && optional.chart && _.isNumber(optional.chart.width) ? optional.chart.width : stylesheet.chart.width;
-    // chartObject.height = optional && optional.chart &&_.isNumber(optional.chart.height) ? optional.chart.height : stylesheet.chart.height;
 
     chartObject.mode = options.mode ? options.mode.toLowerCase(): stylesheet.mode;
 
@@ -88,8 +65,6 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
         chartObject.credit_my_site_name = stylesheet.credit_my_site_name;
         chartObject.credit_my_site_url = stylesheet.credit_my_site_url;
     }
-    // chartObject.credit_my_site_name = options.credit_my_site_name ? options.credit_my_site_name : stylesheet.credit_my_site_name;
-    // chartObject.credit_my_site_url = options.credit_my_site_url ? options.credit_my_site_url : stylesheet.credit_my_site_url;
     chartObject.data_source_name = options.data_source_name ? options.data_source_name : "";
     chartObject.data_source_url = options.data_source_url ? options.data_source_url : "";
 
@@ -139,7 +114,6 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
     chartObject.onhover_enable = options.chart_onhover_highlight_enable ? options.chart_onhover_highlight_enable : stylesheet.chart_onhover_highlight_enable;
     
     chartObject.export_enable = options.export_enable ? options.export_enable.toLowerCase() : stylesheet.export_enable;
-    // chartObject.export_image_url = options.export_image_url ? options.export_image_url : stylesheet.export_image_url;
     chartObject.k = new PykCharts.Configuration(chartObject);
 
     chartObject.k.validator().validatingSelector(chartObject.selector.substring(1,chartObject.selector.length))

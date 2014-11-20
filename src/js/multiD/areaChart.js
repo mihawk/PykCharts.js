@@ -18,7 +18,6 @@ PykCharts.multiD.area = function (options){
 
 	    that.crosshair_enable = options.crosshair_enable ? options.crosshair_enable.toLowerCase() : multiDimensionalCharts.crosshair_enable;
 		that.curvy_lines = options.curvy_lines_enable ? options.curvy_lines_enable.toLowerCase() : multiDimensionalCharts.curvy_lines_enable;
-		// that.color_from_data = options.line_color_from_data ? options.line_color_from_data : multiDimensionalCharts.line_color_from_data;
 	  	that.panels_enable = "no";
 	  	that.interpolate = PykCharts.boolean(that.curvy_lines) ? "cardinal" : "linear";
 		that.w = that.width - that.margin_left - that.margin_right;
@@ -68,7 +67,6 @@ PykCharts.multiD.stackedArea = function (options){
 
 	    that.crosshair_enable = options.crosshair_enable ? options.crosshair_enable.toLowerCase() : multiDimensionalCharts.crosshair_enable;
 		that.curvy_lines = options.curvy_lines_enable ? options.curvy_lines_enable.toLowerCase() : multiDimensionalCharts.curvy_lines_enable;
-		// that.color_from_data = options.line_color_from_data ? options.line_color_from_data : multiDimensionalCharts.line_color_from_data;
 	  	that.panels_enable = "no";
 	  	that.interpolate = PykCharts.boolean(that.curvy_lines) ? "cardinal" : "linear";
 		that.w = that.width - that.margin_left - that.margin_right;
@@ -107,7 +105,6 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 		}
 		that.uniq_group_arr = _.unique(that.group_arr);
 		that.uniq_color_arr = [];
-		// $.unique(that.uniq_group_arr);
 		var len = that.uniq_group_arr.length;
 		for (k = 0;k < len;k++) {
 			if(that.chart_color[k]) {
@@ -221,7 +218,6 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 		d3.json(options.data, function (e,data) {
 			that.data = that.k.__proto__._groupBy("area",data);
 			that.data_length = that.data.length;
-			// that.transition_duration = 0;
 			that.dataTransformation();
 			var compare = that.multid.checkChangeInData(that.data,that.compare_data);
 			that.compare_data = compare[0];
@@ -270,7 +266,6 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 			},
 			svgContainer: function (i){
 				$(that.selector).attr("class","PykCharts-twoD PykCharts-multi-series2D PykCharts-line-chart");
-				// $(options.selector).css({"background-color":that.background_color,"position":"relative"});
 
 				that.svgContainer = d3.select(options.selector+" "+"#tooltip-svg-container-"+i).append("svg:svg")
 					.attr("id","svg-"+i)
@@ -279,8 +274,6 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 					.attr("class","svgcontainer")
 					.attr("preserveAspectRatio", "xMinYMin")
                     .attr("viewBox", "0 0 " + that.width + " " + that.height);
-
-                // $(options.selector).colourBrightness();
     			return this;
 			},
 			createGroups : function (i) {
@@ -579,8 +572,6 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 		                    })
 							.attr("transform", "translate("+ that.extra_left_margin +",0)");
 
-						// console.log(i,"area")
-
 						function transition (i) {
 						    that.dataLineGroup[i].transition()
 							    .duration(that.transitions.duration())
@@ -771,121 +762,6 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 
 
                     /* !!!!! DO NOT TOUCH THE BELOW COMMENTED CODE, PREVIOUSLY WRITTEN FOR DISPLAYING LEGENDS ON THE NEXT LINE !!!!!*/
-       //                  var text_parameter1value = function (d,i) {
-       //                      if( i === 0) {
-       //                          l = 0;
-       //                      }
-       //                      if((that.width - (i*100 + 75)) > 0) {
-       //                          return that.width - (i*100 + 75);
-       //                      } else if ((that.width - (l*100 + 75)) < that.width) {
-       //                          l++;
-       //                          return that.width - ((l-1)*100 + 75);
-       //                      } else {
-       //                          l = 0;
-       //                          l++;
-       //                          return that.width - ((l-1)*100 + 75);
-       //                      }
-       //                  };
-
-       //                  text_parameter2value = function (d,i) {
-       //                      if(i === 0) {
-       //                          k = 0, l = 0;
-       //                      }
-       //                      if((that.width - (i*100 + 75)) > 0) {
-       //                      } else if ((that.width - (l*100 + 75)) < that.width) {
-       //                          if(l === 0) {
-       //                              k++;
-       //                          }
-       //                          l++;
-       //                      } else {
-       //                          l = 0;
-       //                          l++;
-       //                          k++;
-       //                      }
-       //                  return k * 24 + 23;
-       //                  };
-       //                  rect_parameter1value = 13;
-       //                  rect_parameter2value = 13;
-       //                  var rect_parameter3value = function (d,i) {
-       //                      if( i === 0) {
-       //                          k = 0, l = 0;
-       //                      }
-       //                      if((that.width - (i*100 + 100)) >= 0) {
-       //                          return that.width - (i*100 + 100);
-       //                      } else if ((that.width - (i*100 + 100)) < that.width) {
-       //                          k++;
-       //                          if(l === 0) {
-       //                              // that.legendsContainer.attr("height", (k+1)*50);
-       //                              that.legendsGroup.attr("height", (k+1)*50);
-       //                          }
-       //                          l++;
-       //                          return that.width - ((l-1)*100 + 100);
-       //                      } else {
-       //                          l = 0;
-       //                          l++;
-       //                          k++;
-       //                          return that.width - ((l-1)*100 + 100);
-       //                      }
-       //                  };
-       //                  rect_parameter4value = function (d,i) {
-       //                      if(i === 0) {
-       //                          k = 0, l = 0;
-       //                      }
-       //                      if((that.width - (i*100 + 75)) > 0) {
-       //                      } else if ((that.width - (l*100 + 75)) < that.width) {
-       //                          if( l == 0) {
-       //                              k++;
-       //                          }
-       //                          l++;
-       //                      } else {
-       //                          l = 0;
-       //                          l++;
-       //                          k++;
-       //                      }
-       //                      // console.log(k*24+12, "k", d.group);
-       //                  return k * 24 + 12;;
-       //                  }
-       //              };
-       //              var legend;
-       //              legend = that.legendsGroup.selectAll("rect")
-       //                      .data(that.new_data);
-       //              that.legends_text = that.legendsGroup.selectAll(".legends_text")
-       //                  .data(that.new_data);
-       //              legend.enter()
-       //                      .append("rect");
-
-       //              legend.attr(rect_parameter1, rect_parameter1value)
-       //                  .attr(rect_parameter2, rect_parameter2value)
-       //                  .attr(rect_parameter3, rect_parameter3value)
-       //                  .attr(rect_parameter4, rect_parameter4value)
-       //                  .attr("fill", function (d) {
-       //                      return that.fillColor.colorPieMS(d,that.type);
-       //                  })
-       //                  .attr("fill-opacity", function (d,i) {
-       //                      if(that.type === "stackedAreaChart" && that.color_mode === "saturation") {
-							// 	return (i+1)/that.new_data.length;
-							// }
-       //                  });
-
-       //              legend.exit().remove();
-
-       //              that.legends_text
-       //                  .enter()
-       //                  .append('text')
-       //                  .attr("class","legends_text")
-       //                  .attr("fill",that.legends_text_color)
-       //                  .attr("pointer-events","none")
-       //                  .style("font-family", that.legends_text_family)
-       //                  .attr("font-size",that.legends_text_size + "px")
-       //                  .style("font-weight", that.legends_text_weight);
-
-       //              that.legends_text.attr("class","legends_text")
-       //                  .attr(text_parameter1, text_parameter1value)
-       //                  .attr(text_parameter2, text_parameter2value)
-       //                  .text(function (d) { return d.name; });
-
-       //              that.legends_text.exit()
-       //                              .remove();
                 }
                 return this;
             }
@@ -983,20 +859,8 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 	                			y:parseInt(that.yScale(d.y)+that.margin_top),
 	                		}
                 		];
-	                	// var a = [
-	                	// 	{
-	                	// 		x:parseInt(that.xScale(d.x))+that.extra_left_margin+that.margin_left,
-	                	// 		y:parseInt(that.yScale(d.y)+that.margin_top - line_size)
-	                	// 	},
-	                	// 	{
-	                	// 		x:parseInt(that.xScale(d.x))+that.extra_left_margin+that.margin_left,
-	                	// 		y:parseInt(that.yScale(d.y)+that.margin_top),
-	                	// 	}
-	                	// ];
 	                	return that.line(a);
 	                })
-	                // .attr("stroke-width",0.5)
-	                // .attr("stroke",that.annotation_border_color)
 	                .attr("fill",that.annotation_background_color);
             }, that.transitions.duration());
 
@@ -1012,7 +876,6 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 							annotation : d.annotation,
 							x : d.x,
 							y : d.y + d.y0
-							// y0 : d.y0
 						});
 					}
 				});
@@ -1053,20 +916,9 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 	                			y:parseInt(that.yScale(d.y)+that.margin_top+that.legendsGroup_height),
 	                		}
                 		];
-		            	// var a = [
-		            	// 	{
-		            	// 		x:parseInt(that.xScale(d.x))+that.extra_left_margin+that.margin_left,
-		            	// 		y:parseInt(that.yScale(d.y)-(line_size)+that.margin_top+that.legendsGroup_height)
-		            	// 	},
-		            	// 	{
-		            	// 		x:parseInt(that.xScale(d.x))+that.extra_left_margin+that.margin_left,
-		            	// 		y:parseInt(that.yScale(d.y)+that.margin_top+that.legendsGroup_height),
-		            	// 	}
-		            	// ];
 		            	return that.line(a);
 		            })
 					.attr("fill",that.annotation_background_color);
-		            // .attr("stroke",that.annotation_border_color);
             }, that.transitions.duration());
 
             anno.exit().remove();
