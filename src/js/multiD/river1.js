@@ -56,7 +56,7 @@ PykCharts.multiD.river = function (options){
 			that.optional_feature()
 				.svgContainer(1)
 				.legendsContainer()
-				// .legends()
+				.legends()
 				.createGroups(1)
 				.createChart()
 	    		// .axisContainer();
@@ -92,7 +92,7 @@ PykCharts.multiD.river = function (options){
         //6.1 call render legends to display legends
         // this.renderLegends();
         //6.2 call render legends to display charts
-        that.optional_feature().createChart();
+        that.optional_feature().legends().createChart();
     };
 	that.optional_feature = function (){
 		var optional = {
@@ -104,7 +104,7 @@ PykCharts.multiD.river = function (options){
 					.attr("id","svg-"+i)
 					.attr("width",that.width)
 					.attr("height",that.height)
-					.attr("class","svgcontainer")
+					.attr("class","svgcontainer pyk-river")
 					.attr("preserveAspectRatio", "xMinYMin")
                     .attr("viewBox", "0 0 " + that.width + " " + that.height);
 
@@ -112,38 +112,34 @@ PykCharts.multiD.river = function (options){
     			return this;
 			},
 			createGroups : function (i) {
-
+				that.legendsGroup_height = 40;
 				that.group = that.svgContainer.append("g")
 					.attr("id","chartsvg")
-					.attr("transform","translate("+ that.margin_left +","+ (that.margin_top + that.legendsGroup_height)+")");
+					.attr("transform","translate("+ 0 +","+ (that.legendsGroup_height)+")");
 
 
     			return this;
 			},
 			legendsContainer : function (i) {
-                if (PykCharts.boolean(that.legends_enable) && that.type === "stackedAreaChart" && that.mode === "default") {
-                    that.legendsGroup = that.svgContainer.append("g")
-                                .attr('id',"legends")
-                                .style("visibility","visible")
-                                .attr("transform","translate(0,10)");
-                } else {
-                    that.legendsGroup_height = 0;
-                    that.legendsGroup_width = 0;
-                }
+                that.legendsGroup = that.svgContainer.append("g")
+                    .attr('id',"legends")
+                    .style("visibility","visible")
+                    .attr("class", "legend-holder")
+                    .attr("transform","translate(0,10)");
                 return this;
             },
 			createChart : function (evt) {
 				var tData = jQuery.extend(true, [], that.data);
 		        var legendHeight = 40;
 		        //8.1 Filtering & Parsing Data
-		        // tData = that.filter(tData);
+		        tData = that.filter(tData);
 		        tData = that.parseData(tData);
 		        var maxTotalVal = that.maxTotal(tData);
 		        //8.2 Sizes & Scales
-		        var width = that.width;
+		        var width = that.width - that.legendsGroup_width;
 		        var height = that.height;
 		        var xScale = d3.scale.linear().domain([0, maxTotalVal]).range([0, width - 200]);
-		        var yScale = d3.scale.linear().domain([0, height]).range([0, height]);
+		        var yScale = d3.scale.linear().domain([0, height]).range([0, height-that.legendsGroup_height]);
 		        var barHeight = (height) / (tData.length * 2);
 		        var barMargin = barHeight * 2;
 
@@ -254,7 +250,7 @@ PykCharts.multiD.river = function (options){
 		                    that.onlyFilter(d.name);
 		                });
 
-		            rects.exit().transition().duration(1000).attr("width", 0).remove();
+		            rects.exit().transition().duration(1000	).attr("width", 0).remove();
 		        }
 
 		        //8.9 Display Name labels
@@ -296,6 +292,7 @@ PykCharts.multiD.river = function (options){
 		                return yScale((i * barMargin) + (barHeight * 1.5) + 5);
 		            })
 		            .attr("x", width)
+		            .attr("text-anchor","start")
 		            .text(function(d,i){
 		                if(tData[i+1] === undefined){
 		                    return "";
@@ -305,8 +302,8 @@ PykCharts.multiD.river = function (options){
 
 
 
-		        if(this.extended) {
-		            $("line.left_line").fadeOut();
+		        if(that.extended) {
+		        	$("line.left_line").fadeOut();
 		            $("line.right_line").fadeOut();
 		            return;
 		        } //No need for angle lines if its extended
@@ -370,6 +367,119 @@ PykCharts.multiD.river = function (options){
 		                if(!tData[i+1]) return 0;
 		                return xScale(((maxTotalVal - tData[i+1].breakupTotal) / 2) + tData[i+1].breakupTotal) + 100;
 		            });
+			},
+			legends : function () {
+		        var k = 0;
+                var l = 0;
+
+                if(that.legends_display === "vertical" ) {
+                    that.legendsGroup.attr("height", (that.new_data_length * 30)+20);
+                    that.legendsGroup_height = 0;
+
+                    text_parameter1 = "x";
+                    text_parameter2 = "y";
+                    rect_parameter1 = "width";
+                    rect_parameter2 = "height";
+                    rect_parameter3 = "x";
+                    rect_parameter4 = "y";
+                    rect_parameter1value = 13;
+                    rect_parameter2value = 13;
+                    text_parameter1value = function (d,i) { return 36; };
+                    rect_parameter3value = function (d,i) { return 20; };
+                    var rect_parameter4value = function (d,i) { return i * 24 + 12;};
+                    var text_parameter2value = function (d,i) { return i * 24 + 23;};
+
+                } else if(that.legends_display === "horizontal") {
+                    that.legendsGroup_height = 50;
+                    final_rect_x = 0;
+                    final_text_x = 0;
+                    legend_text_widths = [];
+                    sum_text_widths = 0;
+                    temp_text = temp_rect = 0;
+                    text_parameter1 = "x";
+                    text_parameter2 = "y";
+                    rect_parameter1 = "width";
+                    rect_parameter2 = "height";
+                    rect_parameter3 = "x";
+                    rect_parameter4 = "y";
+
+                    var text_parameter1value = function (d,i) {
+                        legend_text_widths[i] = this.getBBox().width;
+                        legend_start_x = 16;
+                        final_text_x = (i === 0) ? legend_start_x : (legend_start_x + temp_text);
+                        temp_text = temp_text + legend_text_widths[i] + 30;
+                        return final_text_x;
+                    };
+                    text_parameter2value = 30;
+                    rect_parameter1value = 13;
+                    rect_parameter2value = 13;
+                    var rect_parameter3value = function (d,i) {
+                        final_rect_x = (i === 0) ? 0 : temp_rect;
+                        temp_rect = temp_rect + legend_text_widths[i] + 30;
+                        return final_rect_x;
+                    };
+                    rect_parameter4value = 18;
+                }
+
+                var legend = that.legendsGroup.selectAll(".circ")
+                                .data(that.data[0].breakup);
+
+                that.legends_text = that.legendsGroup.selectAll(".legends_text")
+                    .data(that.data[0].breakup);
+
+                that.legends_text.enter()
+                    .append('text')
+                    .text(function (d) { 
+                    	that.filterList.push(d.name);
+	                    that.fullList.push(d.name);
+	                })
+
+                that.legends_text.attr("class","legends_text")
+                    .text(function (d) { 
+	                    return d.name;
+                    })
+                    .on("click", function(d){
+		                that.toggleFilter(d.name);
+		            })
+                    .attr("fill", that.legends_text_color)
+                    .attr("font-family", that.legends_text_family)
+                    .attr("font-size",that.legends_text_size +"px")
+                    .attr("font-weight", that.legends_text_weight)
+                    .attr(text_parameter1, text_parameter1value)
+                    .attr(text_parameter2, text_parameter2value);
+
+                legend.enter()
+                    .append("circle");
+
+                legend.attr("cx", rect_parameter3value)
+                	.attr("class","circ")
+                    .attr("cy", rect_parameter4value)
+                    .attr("r", 7.5)
+                    .on("click", function(d){
+		                that.toggleFilter(d.name);
+		            })
+                    .attr("style", function(d){
+	                    var fill = (that.filterList.indexOf(d.name) === -1) ? "#fff" : d.color;
+	                    if(that.filterList.length === 0) fill = d.color;
+	                    return "fill: "+ fill +"; stroke-width: 3px; stroke:" + d.color;
+	                });
+
+
+                var legend_container_width = that.legendsGroup.node().getBBox().width, translate_x;
+                if(that.legends_display === "vertical") {
+                	that.legendsGroup_width = legend_container_width + 20;
+                } else  {
+                	that.legendsGroup_width = 0;
+                }
+                
+                translate_x = (that.legends_display === "vertical") ? (that.width - that.legendsGroup_width)  : (that.width - legend_container_width - 20);
+
+                if (legend_container_width < that.width) { that.legendsGroup.attr("transform","translate("+translate_x+",0)"); }
+                that.legendsGroup.style("visibility","visible");
+
+                that.legends_text.exit().remove();
+                legend.exit().remove();
+		        return this;
 			}
 		};
 		return optional;
@@ -404,15 +514,14 @@ PykCharts.multiD.river = function (options){
     };
 
     that.toggleFilter = function(f){
-        var index = that.filterList.indexOf(f);
+    	var index = that.filterList.indexOf(f);
         if(index === -1){
-            that.filterList.push(f);
+        	that.filterList.push(f);
         }else{
             that.filterList.splice(index, 1);
         }
-        this.draw();
+        that.draw();
     };
-
     that.totalInBreakup = function(breakup){
         var total = 0;
         for(var i in breakup) total += breakup[i].count; // Add all the counts in breakup to total
