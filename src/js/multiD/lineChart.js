@@ -531,36 +531,44 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
 		          	that.xdomain = that.xScale.domain();
 
 		        } else if (that.axis_x_data_format === "time") {
-		        	max = d3.max(that.new_data, function(d) { return d3.max(d.data, function(k) { return new Date(k.x); }); });
-					min = d3.min(that.new_data, function(d) { return d3.min(d.data, function(k) { return new Date(k.x); }); });
+		        	for(i = 0;i<that.new_data_length;i++) {
+			          	that.new_data[i].data.forEach(function (d) {
+				          	d.x = new Date(d.x);
+				          	var time_zone = d.x.getTimezoneOffset();
+				          	// console.log(time_zone)
+				          	d.x = new Date(d.x.getTime() + (time_zone * 60 * 1000));
+				          	// console.log(d.x);
+			          	});
+			          	that.data.forEach(function (d) {
+				          	d.x = new Date(d.x);
+				          	var time_zone = d.x.getTimezoneOffset();
+				          	d.x = new Date(d.x.getTime() + (time_zone * 60 * 1000));
+				          	that.xdomain.push(d.x);
+		          		});
+			        }
+		        	max = d3.max(that.new_data, function(d) { return d3.max(d.data, function(k) { return k.x; }); });
+					min = d3.min(that.new_data, function(d) { return d3.min(d.data, function(k) { return k.x; }); });
 		         	x_data = [min,max];
 		          	x_range = [0 ,that.reducedWidth];
 
 	          	    min_x_tick_value = d3.min(that.x_tick_values, function (d) {
-                        return new Date(d);
+                        return new Date(d).toUTCString().getTime();
                     });
 
                     max_x_tick_value = d3.max(that.x_tick_values, function (d) {
-                        return new Date(d);
+                        return new Date(d).toUTCString().getTime();
                     });
 
-                    if(new Date(x_data[0]) > new Date(min_x_tick_value)) {
+                    if((x_data[0]) > (min_x_tick_value)) {
                         x_data[0] = min_x_tick_value;
                     }
-                    if(new Date(x_data[1]) < new Date(max_x_tick_value)) {
+                    if((x_data[1]) < (max_x_tick_value)) {
                         x_data[1] = max_x_tick_value;
                     }
-
+                    console.log(x_data);
 		          	that.xScale = that.k.scaleIdentification("time",x_data,x_range);
-		          	for(i = 0;i<that.new_data_length;i++) {
-			          	that.new_data[i].data.forEach(function (d) {
-				          	d.x = new Date(d.x);
-			          	});
-			          	that.data.forEach(function (d) {
-				          	d.x = new Date(d.x);
-				          	that.xdomain.push(d.x);
-		          		});
-			        }
+		          	console.log(that.xScale.domain());
+		          	
 		          	that.extra_left_margin = 0;
 		      	}
 		      	that.count = 1;
@@ -844,6 +852,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
 						tickPosition = function (d,i) {
 							var end_x_circle, end_y_circle;
 							if(that.axis_y_position === "left") {
+								console.log(that.xScale(new Date(that.new_data[i].data[(that.new_data[i].data.length - 1)].x)));
 								end_x_circle = (that.xScale(that.new_data[i].data[(that.new_data[i].data.length - 1)].x) + that.extra_left_margin + that.margin_left);
 								end_y_circle = (that.yScale(that.new_data[i].data[(that.new_data[i].data.length - 1)].y) + that.margin_top);
 							} else if(that.axis_y_position === "right") {
@@ -962,9 +971,18 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
 		if(PykCharts.boolean(that.pointer_overflow_enable) && !PykCharts.boolean(that.panels_enable)) {
             that.svgContainer.style("overflow","visible");
         }
+        if(PykCharts.boolean(that.panels_enable)) {
+			for (var i = 0;i < that.previous_length;i++) {
+				$(that.selector + " #panels_of_line_main_div #tooltip-svg-container-"+i).remove();
+	    	}				
+	    	that.renderPanelOfLines();
+		}
 
-		that.optionalFeature().createChart("liveData");
-    	that.k.isOrdinal(that.svgContainer,".x.axis",that.xScale,that.xdomain,that.extra_left_margin);
+		if(that.type === "multilineChart" && !PykCharts.boolean(that.panels_enable)) {
+			$(that.selector + " #tooltip-svg-container-1").empty();
+			that.renderLineChart();
+		}
+		that.k.isOrdinal(that.svgContainer,".x.axis",that.xScale,that.xdomain,that.extra_left_margin);
 	    that.k.isOrdinal(that.svgContainer,".x.grid",that.xScale);
 	    that.k.isOrdinal(that.svgContainer,".y.axis",that.yScale,that.ydomain);
 	    that.k.isOrdinal(that.svgContainer,".y.grid",that.yScale);
