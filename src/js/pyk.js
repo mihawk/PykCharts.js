@@ -445,6 +445,12 @@ PykCharts.Configuration = function (options){
 
             return this;
         },
+        dateConversion : function (d) {
+            d = new Date(d);
+            var time_zone = d.getTimezoneOffset();
+            d = new Date(d.getTime() + (time_zone * 60 * 1000));
+            return d;
+        },
         crossHair : function (svg,len,data,fill,type) {
 
             if(PykCharts.boolean(options.crosshair_enable) && options.mode === "default") {
@@ -842,7 +848,7 @@ PykCharts.Configuration = function (options){
             if(values.length) {
                 if(options.axis_x_data_format === "time") {
                     _.each(values, function (d) {
-                        newVal.push(new Date(d));
+                        newVal.push(options.k.dateConversion(d));
                     });
                 } else {
                     newVal = values;
@@ -947,7 +953,7 @@ PykCharts.Configuration = function (options){
                         new_array[0] = a - (padding + addFactor);
                         new_array[1] = b + (padding + addFactor);
                     }
-                    return [new Date(new_array[0]),new Date(new_array[1])];
+                    return [options.k.dateConversion(new_array[0]),options.k.dateConversion(new_array[1])];
                 }else {
                     padding = (domain_array[1] - domain_array[0]) * 0.1;
                     if (count === 0) {
