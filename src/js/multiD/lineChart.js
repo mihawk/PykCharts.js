@@ -24,7 +24,8 @@ PykCharts.multiD.line = function (options) {
         that.interpolate = PykCharts.boolean(that.curvy_lines) ? "cardinal" : "linear";
         that.panels_enable = "no";
 
-        d3.json(options.data, function (e, data) {
+        that.format = that.k.dataSourceFormatIdentification(options.data);
+        d3[that.format](options.data, function (e, data) {
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
                 $(that.selector+" #chart-loader").remove();
@@ -66,7 +67,8 @@ PykCharts.multiD.multiSeriesLine = function (options) {
         that.interpolate = PykCharts.boolean(that.curvy_lines) ? "cardinal" : "linear";
         that.panels_enable = "no";
 
-        d3.json(options.data, function (e, data) {
+        that.format = that.k.dataSourceFormatIdentification(options.data);
+        d3[that.format](options.data, function (e, data) {
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
                 $(that.selector+" #chart-loader").remove();
@@ -108,7 +110,8 @@ PykCharts.multiD.panelsOfLine = function (options) {
         that.interpolate = PykCharts.boolean(that.curvy_lines) ? "cardinal" : "linear";
         that.panels_enable = "yes";
 
-        d3.json(options.data, function (e, data) {
+        that.format = that.k.dataSourceFormatIdentification(options.data);
+        d3[that.format](options.data, function (e, data) {
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
                 $(that.selector+" #chart-loader").remove();
@@ -355,7 +358,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
     };
 
     that.refresh = function () {
-        d3.json(options.data, function (e,data) {
+        d3[that.format](options.data, function (e,data) {
             that.data = that.k.__proto__._groupBy("line",data);
             that.data_length = that.data.length;
             var compare = that.k.checkChangeInData(that.data,that.compare_data);

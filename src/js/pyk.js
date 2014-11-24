@@ -1126,6 +1126,12 @@ PykCharts.Configuration = function (options){
 
             return this;
         },
+        dataSourceFormatIdentification : function (data,chart) {
+            var dot_index = data.lastIndexOf('.'),
+                len = data.length - dot_index;
+            format = data.substr(dot_index+1,len);
+            return format;
+        },
         export : function(chart,svgId,chart_name,panels_enable,containers) {
             if(PykCharts.boolean(options.export_enable)) {
                 d3.select(options.selector)

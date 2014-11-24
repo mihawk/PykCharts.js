@@ -23,7 +23,8 @@ PykCharts.multiD.area = function (options){
 		that.w = that.width - that.margin_left - that.margin_right;
 		that.h = that.height - that.margin_top - that.margin_bottom;
 
-		d3.json(options.data, function (e, data) {
+		that.format = that.k.dataSourceFormatIdentification(options.data);
+		d3[that.format](options.data, function (e, data) {
 
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
@@ -71,8 +72,8 @@ PykCharts.multiD.stackedArea = function (options){
 	  	that.interpolate = PykCharts.boolean(that.curvy_lines) ? "cardinal" : "linear";
 		that.w = that.width - that.margin_left - that.margin_right;
 		that.h = that.height - that.margin_top - that.margin_bottom;
-
-		d3.json(options.data, function (e, data) {
+		that.format = that.k.dataSourceFormatIdentification(options.data);
+		d3[that.format](options.data, function (e, data) {
 
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
@@ -227,7 +228,7 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 
 	that.refresh = function () {
 		that.xdomain = [];
-		d3.json(options.data, function (e,data) {
+		d3[that.format](options.data, function (e,data) {
 			that.data = that.k.__proto__._groupBy("area",data);
 			that.data_length = that.data.length;
 			that.dataTransformation();

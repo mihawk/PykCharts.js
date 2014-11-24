@@ -46,8 +46,8 @@ PykCharts.multiD.spiderWeb = function (options) {
         
         that.inner_radius = 0;
         
-        
-        d3.json(options.data, function (e, data) {
+        that.format = that.k.dataSourceFormatIdentification(options.data);
+        d3[that.format](options.data, function (e, data) {
             
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
@@ -63,7 +63,7 @@ PykCharts.multiD.spiderWeb = function (options) {
     };
 
     that.refresh = function () {
-        d3.json(options.data, function (e, data) {
+        d3[that.format](options.data, function (e, data) {
             that.data = that.k.__proto__._groupBy("spiderweb",data);
             that.refresh_data = that.k.__proto__._groupBy("spiderweb",data);
             var compare = that.k.checkChangeInData(that.refresh_data,that.compare_data);
