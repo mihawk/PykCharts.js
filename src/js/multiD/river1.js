@@ -15,13 +15,15 @@ PykCharts.multiD.river = function (options){
 		var multiDimensionalCharts = theme.multiDimensionalCharts,
 			stylesheet = theme.stylesheet,
 			optional = options.optional;
-
+		that.chart_mode = options.river_chart_mode ? options.river_chart_mode.toLowerCase() : multiDimensionalCharts.river_chart_mode;
 		that.w = that.width - that.margin_left - that.margin_right;
 		that.h = that.height - that.margin_top - that.margin_bottom;
 		that.filterList = [];
 		that.fullList = [];
-		that.extended = false;
-		d3.json(options.data, function (e, data) {
+		that.extended = that.chart_mode === "percentage" ? false : true;
+		console.log(that.extended);
+		that.format = that.k.dataSourceFormatIdentification(options.data);
+        d3[that.format](options.data, function (e, data) {
 
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
@@ -56,8 +58,10 @@ PykCharts.multiD.river = function (options){
 			that.optional_feature()
 				.svgContainer(1)
 				.legendsContainer()
+
 				.legends()
 				.createGroups(1)
+				.chartMode()
 				.createChart()
 	    		// .axisContainer();
 
@@ -92,7 +96,7 @@ PykCharts.multiD.river = function (options){
         //6.1 call render legends to display legends
         // this.renderLegends();
         //6.2 call render legends to display charts
-        that.optional_feature().legends().createChart();
+        that.optional_feature().legends().chartMode().createChart();
     };
 	that.optional_feature = function (){
 		var optional = {
@@ -116,8 +120,8 @@ PykCharts.multiD.river = function (options){
 				that.group = that.svgContainer.append("g")
 					.attr("id","chartsvg")
 					.attr("transform","translate("+ 0 +","+ (that.legendsGroup_height)+")");
-
-
+				that.chart_mode_group = that.svgContainer.append("g")
+					.attr("translate","transform(0,0)")
     			return this;
 			},
 			legendsContainer : function (i) {
@@ -367,6 +371,7 @@ PykCharts.multiD.river = function (options){
 		                if(!tData[i+1]) return 0;
 		                return xScale(((maxTotalVal - tData[i+1].breakupTotal) / 2) + tData[i+1].breakupTotal) + 100;
 		            });
+		        return this;
 			},
 			legends : function () {
 		        var k = 0;
@@ -378,15 +383,9 @@ PykCharts.multiD.river = function (options){
 
                     text_parameter1 = "x";
                     text_parameter2 = "y";
-                    rect_parameter1 = "width";
-                    rect_parameter2 = "height";
-                    rect_parameter3 = "x";
-                    rect_parameter4 = "y";
-                    rect_parameter1value = 13;
-                    rect_parameter2value = 13;
                     text_parameter1value = function (d,i) { return 36; };
                     rect_parameter3value = function (d,i) { return 20; };
-                    var rect_parameter4value = function (d,i) { return i * 24 + 12;};
+                    var rect_parameter4value = function (d,i) { return (i * 24 + 12) + 7.5;};
                     var text_parameter2value = function (d,i) { return i * 24 + 23;};
 
                 } else if(that.legends_display === "horizontal") {
@@ -398,11 +397,7 @@ PykCharts.multiD.river = function (options){
                     temp_text = temp_rect = 0;
                     text_parameter1 = "x";
                     text_parameter2 = "y";
-                    rect_parameter1 = "width";
-                    rect_parameter2 = "height";
-                    rect_parameter3 = "x";
-                    rect_parameter4 = "y";
-
+                    
                     var text_parameter1value = function (d,i) {
                         legend_text_widths[i] = this.getBBox().width;
                         legend_start_x = 16;
@@ -411,14 +406,12 @@ PykCharts.multiD.river = function (options){
                         return final_text_x;
                     };
                     text_parameter2value = 30;
-                    rect_parameter1value = 13;
-                    rect_parameter2value = 13;
                     var rect_parameter3value = function (d,i) {
                         final_rect_x = (i === 0) ? 0 : temp_rect;
                         temp_rect = temp_rect + legend_text_widths[i] + 30;
                         return final_rect_x;
                     };
-                    rect_parameter4value = 18;
+                    rect_parameter4value = 18 + 7.5;
                 }
 
                 var legend = that.legendsGroup.selectAll(".circ")
@@ -480,6 +473,59 @@ PykCharts.multiD.river = function (options){
                 that.legends_text.exit().remove();
                 legend.exit().remove();
 		        return this;
+			},
+			chartMode : function () {
+				var options = [
+		            {
+		                "name": "Percentage",
+		                "on": that.extended
+		            },
+		            {
+		                "name": "Absolute",
+		                "on": !that.extended
+		            }
+		        ];
+
+		        //7.2 Append text data to legend holder
+		        var texts = that.chart_mode_group.selectAll(".mode-text").data(options);
+		        texts.enter().append("text")
+
+		        texts.attr("class","mode-text")
+		        	.attr("fill", that.legends_text_color)
+                    .attr("font-family", that.legends_text_family)
+                    .attr("font-size",that.legends_text_size +"px")
+                    .attr("font-weight", that.legends_text_weight)
+		            .text(function(d,i){
+		                return d.name;
+		            })
+		            .attr("transform", function(d, i){
+		                return "translate(" + ((i*100) + 20) + ",30)";
+		            })
+		            .on("click", function(d,i){
+		                that.extended = !that.extended;
+		                that.draw();
+		            });
+
+
+		        //7.3 Append circle to legend holder
+		        var circles = that.chart_mode_group.selectAll(".mode-circ").data(options);
+		        circles.enter().append("circle");
+
+		        circles.attr("class","mode-circ")
+		            .attr("cx", function(d,i){
+		                return (i*100)+10;
+		            })
+		            .attr("cy",(18 + 7.5)).attr("r", 6)
+		            .attr("style", function(d){
+		            	console.log(d.on);
+		                var fill = d.on ? "#000" : "#fff";
+		                return "fill: "+ fill +"; stroke-width: 3px; stroke:#000";
+		            })
+		            .on("click", function(d,i){
+		                that.extended = !that.extended;
+		                that.draw();
+		            });
+				return this;
 			}
 		};
 		return optional;

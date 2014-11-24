@@ -2404,7 +2404,7 @@ configuration.Theme = function(){
         "annotation_view_mode": "onload", // "onload" / "onclick"
         "annotation_background_color" : "#C2CBCF", /*"#EEEEEE"*/
         "annotation_font_color" : "black",
-
+        "river_chart_mode" : "percentage",
         "data_sort_enable": "yes",
         "data_sort_type": "alphabetically", // sort type --- "alphabetically" / "numerically" / "date"
         "data_sort_order": "ascending" // sort order --- "descending" / "ascending"
