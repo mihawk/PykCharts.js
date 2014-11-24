@@ -14,7 +14,8 @@ PykCharts.multiD.column = function(options){
            that.k.loading();
         }
         that.multiD = new PykCharts.multiD.configuration(that);
-        d3.json(options.data, function(e, data) {
+        that.format = that.k.dataSourceFormatIdentification(options.data);
+        d3[that.format](options.data, function(e, data) {
 
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
@@ -48,7 +49,8 @@ PykCharts.multiD.groupedColumn = function(options){
            that.k.loading();
         }
         that.multiD = new PykCharts.multiD.configuration(that);
-        d3.json(options.data, function(e, data){
+        that.format = that.k.dataSourceFormatIdentification(options.data);
+        d3[that.format](options.data, function(e, data){
 
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
@@ -69,7 +71,7 @@ PykCharts.multiD.groupedColumn = function(options){
 PykCharts.multiD.columnFunctions = function (options,chartObject,type) {
     var that = chartObject;
     that.refresh = function () {
-        d3.json(options.data, function (e, data) {
+        d3[that.format](options.data, function (e, data) {
             that.data = that.k.__proto__._groupBy("column",data);
             that.refresh_data = that.k.__proto__._groupBy("column",data);
 

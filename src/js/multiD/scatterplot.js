@@ -37,7 +37,8 @@ PykCharts.multiD.scatter = function (options) {
         } else {
             that.radius_range = [that.k.__proto__._radiusCalculation(4.5)*2,that.k.__proto__._radiusCalculation(11)*2];
         }
-        d3.json(options.data, function (e, data) {
+        that.format = that.k.dataSourceFormatIdentification(options.data);
+        d3[that.format](options.data, function (e, data) {
 
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
@@ -101,7 +102,8 @@ PykCharts.multiD.panelsOfScatter = function (options) {
         } else {
             that.radius_range = [that.k.__proto__._radiusCalculation(4.5)*2,that.k.__proto__._radiusCalculation(11)*2];
         }
-        d3.json(options.data, function (e, data) {
+        that.format = that.k.dataSourceFormatIdentification(options.data);
+        d3[that.format](options.data, function (e, data) {
 
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
@@ -161,7 +163,8 @@ PykCharts.multiD.pulse = function (options) {
             that.k.loading();
         }
 
-        d3.json(options.data, function (e, data) {
+        that.format = that.k.dataSourceFormatIdentification(options.data);
+        d3[that.format](options.data, function (e, data) {
             that.data = that.k.__proto__._groupBy("pulse",data);
             that.axis_y_data_format = that.k.yAxisDataFormatIdentification(that.data);
             that.axis_x_data_format = that.k.xAxisDataFormatIdentification(that.data);
@@ -182,7 +185,7 @@ PykCharts.multiD.pulse = function (options) {
 PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
     var that = chartObject;
     that.refresh = function () {
-        d3.json(options.data, function (e, data) {
+        d3[that.format](options.data, function (e, data) {
             that.data = that.k.__proto__._groupBy("scatterplot",data);
             that.refresh_data = that.k.__proto__._groupBy("scatterplot",data);
             var compare = that.k.checkChangeInData(that.refresh_data,that.compare_data);
@@ -197,6 +200,11 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
                 that.k.lastUpdatedAt("liveData");
             }
             that.map_group_data = that.multiD.mapGroup(that.data);
+            if(that.axis_x_data_format === "time") {
+                that.data.forEach(function (d) {
+                    d.x = that.k.dateConversion(d.x);
+                });
+            }
             if(!PykCharts.boolean(that.panels_enable)) {
                  that.optionalFeatures()
                         .createChart()
@@ -225,7 +233,11 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
             return d.group;
         }));
         that.no_of_groups = 1;
-
+        if(that.axis_x_data_format === "time") {
+            that.data.forEach(function (d) {
+                d.x = that.k.dateConversion(d.x);
+            });
+        }
         if(that.mode === "default") {
             if(PykCharts.boolean(that.panels_enable) && type === "scatterplot") {
                     that.w = that.width/4;
@@ -306,6 +318,7 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
                 that.height = that.height/2;
                 that.margin_left = that.margin_left;
                 that.margin_right = that.margin_right;
+                
                 for(i=0;i<that.no_of_groups;i++){
                     that.new_data = [];
                     for(j=0;j<that.data.length;j++) {
@@ -554,31 +567,30 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
                         that.extra_left_margin = (that.x.rangeBand()/2);
 
                     } else if (that.axis_x_data_format === "time") {
-                        max = d3.max(that.data, function(k) { return new Date(k.x); });
-                        min = d3.min(that.data, function(k) { return new Date(k.x); });
+                        
+                        max = d3.max(that.data, function(k) { return k.x; });
+                        min = d3.min(that.data, function(k) { return k.x; });
                         x_domain = [min.getTime(),max.getTime()];
                         x_data = that.k.__proto__._domainBandwidth(x_domain,2,"time");
 
                         min_x_tick_value = d3.min(that.x_tick_values, function (d) {
-                            return new Date(d);
+                            return that.k.dateConversion(d);
                         });
 
                         max_x_tick_value = d3.max(that.x_tick_values, function (d) {
-                            return new Date(d);
+                            return that.k.dateConversion(d);
                         });
 
-                        if(new Date(x_data[0]) > new Date(min_x_tick_value)) {
+                        if(x_data[0] > min_x_tick_value) {
                             x_data[0] = min_x_tick_value;
                         }
-                        if(new Date(x_data[1]) < new Date(max_x_tick_value)) {
+                        if(x_data[1] < max_x_tick_value) {
                             x_data[1] = max_x_tick_value;
                         }
 
                         x_range = [0 ,that.w - that.margin_left - that.margin_right];
                         that.x = that.k.scaleIdentification("time",x_data,x_range);
-                        that.data.forEach(function (d) {
-                            d.x = new Date(d.x);
-                        });
+                        
                         that.extra_left_margin = 0;
                     }
 

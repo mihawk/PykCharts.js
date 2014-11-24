@@ -30,7 +30,8 @@ PykCharts.multiD.bar = function(options){
            that.k.loading();
         }
         that.multiD = new PykCharts.multiD.configuration(that);
-        d3.json(options.data, function(e, data){
+        that.format = that.k.dataSourceFormatIdentification(options.data);
+        d3[that.format](options.data, function(e, data){
 
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
@@ -79,7 +80,8 @@ PykCharts.multiD.groupedBar = function(options){
            that.k.loading();
         }
         that.multiD = new PykCharts.multiD.configuration(that);
-        d3.json(options.data, function(e, data){
+        that.format = that.k.dataSourceFormatIdentification(options.data);
+        d3[that.format](options.data, function(e, data){
 
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
@@ -100,7 +102,7 @@ PykCharts.multiD.groupedBar = function(options){
 PykCharts.multiD.barFunctions = function (options,chartObject,type) {
     var that = chartObject;
     that.refresh = function () {
-        d3.json(options.data, function (e, data) {
+        d3[that.format](options.data, function (e, data) {
             that.data = that.k.__proto__._groupBy("bar",data);
             that.refresh_data = that.k.__proto__._groupBy("bar",data);
             var compare = that.k.checkChangeInData(that.refresh_data,that.compare_data);
@@ -136,8 +138,8 @@ PykCharts.multiD.barFunctions = function (options,chartObject,type) {
         that.map_group_data = that.multiD.mapGroup(that.data);
         that.data = that.dataTransformation();
         that.data = that.emptygroups(that.data);
-
-{
+        try {
+            if(that.no_of_groups > 1 && type === "bar") {
                 throw "";
             }
         }

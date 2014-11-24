@@ -23,7 +23,8 @@ PykCharts.multiD.area = function (options){
 		that.w = that.width - that.margin_left - that.margin_right;
 		that.h = that.height - that.margin_top - that.margin_bottom;
 
-		d3.json(options.data, function (e, data) {
+		that.format = that.k.dataSourceFormatIdentification(options.data);
+		d3[that.format](options.data, function (e, data) {
 
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
@@ -71,8 +72,8 @@ PykCharts.multiD.stackedArea = function (options){
 	  	that.interpolate = PykCharts.boolean(that.curvy_lines) ? "cardinal" : "linear";
 		that.w = that.width - that.margin_left - that.margin_right;
 		that.h = that.height - that.margin_top - that.margin_bottom;
-
-		d3.json(options.data, function (e, data) {
+		that.format = that.k.dataSourceFormatIdentification(options.data);
+		d3[that.format](options.data, function (e, data) {
 
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
@@ -146,7 +147,7 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 		that.fillColor = new PykCharts.Configuration.fillChart(that,null,options);
 		that.transitions = new PykCharts.Configuration.transition(that);
 		that.border = new PykCharts.Configuration.border(that);
-
+		that.xdomain = [];
 		that.optional_feature()
 		    .chartType();
 
@@ -160,6 +161,17 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
             console.error('%c[Error - Pykih Charts] ', 'color: red;font-weight:bold;font-size:14px', " at "+options.selector+".\""+err+"\"  Visit www.chartstore.io/docs#error_7");					
          	return;   
 		}
+		if(that.axis_x_data_format === "time") {
+			for(i = 0;i<that.new_data_length;i++) {
+	          	that.new_data[i].data.forEach(function (d) {
+		          	d.x = that.k.dateConversion(d.x);
+		          	that.xdomain.push(d.x);
+	          	});
+	          	that.data.forEach(function (d) {
+		          	d.x =that.k.dateConversion(d.x);
+          		});
+	        }
+	    }
 
 		if(that.mode === "default") {
 
@@ -215,7 +227,8 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 	};
 
 	that.refresh = function () {
-		d3.json(options.data, function (e,data) {
+		that.xdomain = [];
+		d3[that.format](options.data, function (e,data) {
 			that.data = that.k.__proto__._groupBy("area",data);
 			that.data_length = that.data.length;
 			that.dataTransformation();
@@ -230,7 +243,17 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 				that.mouseEvent.axisHighlightHide(that.selector + " .x.axis");
 				that.mouseEvent.axisHighlightHide(that.selector + " .y.axis");
 			}
-
+			if(that.axis_x_data_format === "time") {
+				for(i = 0;i<that.new_data_length;i++) {
+		          	that.new_data[i].data.forEach(function (d) {
+			          	d.x = that.k.dateConversion(d.x);
+			          	that.xdomain.push(d.x);
+		          	});
+		          	that.data.forEach(function (d) {
+			          	d.x =that.k.dateConversion(d.x);
+	          		});
+		        }
+		    }
 			if(that.type === "stackedAreaChart") {
 				that.dataTransformation();
 				$(that.selector + " #tooltip-svg-container-1").empty();
@@ -427,17 +450,17 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 
 		        }
 		        else if (that.axis_x_data_format === "time") {
-		        	max = d3.max(that.new_data, function(d) { return d3.max(d.data, function(k) { return new Date(k.x); }); });
-					min = d3.min(that.new_data, function(d) { return d3.min(d.data, function(k) { return new Date(k.x); }); });
+		        	max = d3.max(that.new_data, function(d) { return d3.max(d.data, function(k) { return k.x; }); });
+					min = d3.min(that.new_data, function(d) { return d3.min(d.data, function(k) { return k.x; }); });
 		         	x_data = [min,max];
 		          	x_range = [0 ,that.w - that.legendsGroup_width];
 
 	          	    min_x_tick_value = d3.min(that.x_tick_values, function (d) {
-                        return new Date(d);
+                        return that.k.dateConversion(d);
                     });
 
                     max_x_tick_value = d3.max(that.x_tick_values, function (d) {
-                        return new Date(d);
+                        return that.k.dateConversion(d);
                     });
 
                     if(new Date(x_data[0]) > new Date(min_x_tick_value)) {
@@ -448,17 +471,9 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
                     }
 
 		          	that.xScale = that.k.scaleIdentification("time",x_data,x_range);
-		          	for(i=0;i<that.new_data_length;i++) {
-			          	that.new_data[i].data.forEach(function (d) {
-			          		d.x = new Date(d.x);
-			          	});
-			        }
-		          	that.data.forEach(function (d) {
-		          		d.x = new Date(d.x);
-		          	});
+		          	
 		          	that.extra_left_margin = 0;
 		        }
-		        that.xdomain = that.xScale.domain();
 		        that.ydomain = that.yScale.domain();
 				that.zoom_event = d3.behavior.zoom();
 

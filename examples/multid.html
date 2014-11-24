@@ -208,11 +208,11 @@
                     legends_text_weight: "normal",
                     legends_text_family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
                 });
-              // k.execute();
+              k.execute();
 
                 var k = new PykCharts.multiD.scatter ({
                     selector: "#scatterPlot",
-                    data: "../data/scatterplot.json",
+                    data: "../data/scatterplot_timescale.json",
                     mode : "default",
 
                     chart_color: ["#07365e","#0e5ea1","#4682b4","#75b0e1","#a0ccf1"],
@@ -246,11 +246,13 @@
                     axis_x_pointer_size: 12,
                     axis_x_pointer_padding: 3,
                     axis_x_outer_pointer_length: 3,
+                    axis_x_time_value_datatype:"month",
+                    axis_x_time_value_interval: 1,
 
                     axis_y_enable: "yes",
                     axis_y_title : "Rating",
-                    axis_y_position: "right",
-                    axis_y_pointer_position: "right",
+                    axis_y_position: "left",
+                    axis_y_pointer_position: "left",
                     axis_y_line_color: "red",
                     axis_y_no_of_axis_value: 5,
                     axis_y_pointer_color: "blue",
@@ -261,7 +263,7 @@
                     axis_y_outer_pointer_length: 3,
                     zoom_enable : "yes",
                     legends_enable: "yes",
-                    legends_display: "vertical", //horizontal or vertical
+                    legends_display: "horizontal", //horizontal or vertical
                     // legends_text_size: 12,
                     // legends_text_color: "black",
                     // legends_text_weight: "bold",
@@ -316,6 +318,8 @@
                     axis_x_pointer_size: 15,
                     axis_x_pointer_padding: 3,
                     axis_x_outer_pointer_length: 3,
+                    axis_x_time_value_datatype:"month",
+                    axis_x_time_value_interval: 1,
 
                     axis_y_enable: "yes",
                     axis_y_title : "Rating",
@@ -328,7 +332,7 @@
                     axis_y_pointer_padding: 10,
                     axis_y_outer_pointer_length: 3,
                     // axis_y_pointer_values : [3,6],
-                    axis_x_time_value_datatype: "",
+                    // axis_x_time_value_datatype: "",
 
                     legends_enable: "yes",
                     legends_text_size: 10,
@@ -423,9 +427,9 @@
                     chart_grid_y_enable: "yes",
 
                     transition_duration: 1,
-                    real_time_charts_refresh_frequency: 10,
+                    real_time_charts_refresh_frequency: 0,
 
-                    axis_onhover_highlight_enable: "yes",
+                    axis_onhover_highlight_enable: "no",
 
                     axis_x_enable: "yes",
                     axis_x_title : "Industries",
@@ -436,6 +440,8 @@
                     axis_x_pointer_size: 12,
                     axis_x_pointer_padding: 3,
                     axis_x_outer_pointer_length: 3,
+                    axis_x_time_value_datatype:"date",
+                    axis_x_time_value_interval: 1, 
 
                     axis_y_enable: "yes",
                     axis_y_title : "Growth rate",
@@ -464,7 +470,7 @@
                 var k = new PykCharts.multiD.stackedArea ({
 
                     selector: "#multiArea",
-                    data: "../data/multipleContainerLine.json",
+                    data: "../data/multiline_timescale.json",
                     mode : "default",
 
                     color_mode: "saturation",  //color or saturation
@@ -497,6 +503,8 @@
                     axis_x_pointer_size: 12,
                     axis_x_pointer_padding: 3,
                     axis_x_outer_pointer_length: 3,
+                    axis_x_time_value_datatype:"date",
+                    axis_x_time_value_interval: 1,  
 
                     axis_y_enable: "yes",
                     axis_y_title : "Growth rate",
@@ -670,7 +678,7 @@
                     chart_margin_left: 50,
                     chart_grid_y_enable: "yes",
 
-                    real_time_charts_refresh_frequency: 0,
+                    real_time_charts_refresh_frequency: 10,
 
                     axis_onhover_highlight_enable: "yes",
                      // panels_enable:"yes",

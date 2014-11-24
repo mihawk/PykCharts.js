@@ -41,7 +41,8 @@ PykCharts.oneD.percentageColumn = function (options) {
         if(that.mode === "default") {
            that.k.loading();
         }
-        d3.json(options.data, function (e, data) {
+        that.format = that.k.dataSourceFormatIdentification(options.data);
+        d3[that.format](options.data, function (e, data) {
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
                 $(options.selector+" #chart-loader").remove();
@@ -55,7 +56,7 @@ PykCharts.oneD.percentageColumn = function (options) {
         });
     };
     this.refresh = function () {
-        d3.json (options.data, function (e,data) {
+        d3[that.format] (options.data, function (e,data) {
             that.data = that.k.__proto__._groupBy("oned",data);
             that.clubdata_enable = that.data.length>that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
             that.refresh_data = that.k.__proto__._groupBy("oned",data);
