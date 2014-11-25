@@ -1,28 +1,27 @@
 PykCharts.multiD.river = function (options){
-	var that = this;
-	var theme = new PykCharts.Configuration.Theme({});
+    var that = this;
+    var theme = new PykCharts.Configuration.Theme({});
 
-	this.execute = function (){
-		that = new PykCharts.multiD.processInputs(that, options, "area");
+    this.execute = function (){
+        that = new PykCharts.multiD.processInputs(that, options, "area");
 
-		if(that.stop)
-			return;
+        if(that.stop)
+            return;
 
-		if(that.mode === "default") {
-			that.k.loading();
-		}
+        if(that.mode === "default") {
+            that.k.loading();
+        }
 
-		var multiDimensionalCharts = theme.multiDimensionalCharts,
-			stylesheet = theme.stylesheet,
-			optional = options.optional;
-		that.chart_mode = options.river_chart_mode ? options.river_chart_mode.toLowerCase() : multiDimensionalCharts.river_chart_mode;
-		that.w = that.width - that.margin_left - that.margin_right;
-		that.h = that.height - that.margin_top - that.margin_bottom;
-		that.filterList = [];
-		that.fullList = [];
-		that.extended = that.chart_mode === "percentage" ? false : true;
-		console.log(that.extended);
-		that.format = that.k.dataSourceFormatIdentification(options.data);
+        var multiDimensionalCharts = theme.multiDimensionalCharts,
+            stylesheet = theme.stylesheet,
+            optional = options.optional;
+        that.chart_mode = options.river_chart_mode ? options.river_chart_mode.toLowerCase() : multiDimensionalCharts.river_chart_mode;
+        that.w = that.width - that.margin_left - that.margin_right;
+        that.h = that.height - that.margin_top - that.margin_bottom;
+        that.filterList = [];
+        that.fullList = [];
+        that.extended = that.chart_mode === "percentage" ? false : true;
+        that.format = that.k.dataSourceFormatIdentification(options.data);
         d3[that.format](options.data, function (e, data) {
 
             var validate = that.k.validator().validatingJSON(data);
@@ -31,100 +30,99 @@ PykCharts.multiD.river = function (options){
                 return;
             }
 
-			that.data = data;
-			that.axis_y_data_format = "number";
-    		that.axis_x_data_format = "number"
-			that.compare_data = that.data;
-			that.data_length = that.data.length;
-			$(that.selector+" #chart-loader").remove();
-			// that.dataTransformation();
-			that.render();
-		});
-	};
-	this.render = function () {
-		that.multid = new PykCharts.multiD.configuration(that);
-		that.fillColor = new PykCharts.Configuration.fillChart(that,null,options);
-		that.transitions = new PykCharts.Configuration.transition(that);
-		that.border = new PykCharts.Configuration.border(that);
-		if(that.mode === "default") {
+            that.data = data;
+            that.axis_y_data_format = "number";
+            that.axis_x_data_format = "number"
+            that.compare_data = that.data;
+            that.data_length = that.data.length;
+            $(that.selector+" #chart-loader").remove();
+            // that.dataTransformation();
+            that.render();
+        });
+    };
+    this.render = function () {
+        that.multid = new PykCharts.multiD.configuration(that);
+        that.fillColor = new PykCharts.Configuration.fillChart(that,null,options);
+        that.transitions = new PykCharts.Configuration.transition(that);
+        that.border = new PykCharts.Configuration.border(that);
+        if(that.mode === "default") {
+            that.k.title()
+                    .backgroundColor(that)
+                    .export(that,"#svg-1","areaChart")
+                    .liveData(that)
+                    .emptyDiv()
+                    .subtitle()
+                    .tooltip();
+            that.optional_feature()
+                .svgContainer(1)
+                .legendsContainer()
 
-			that.k.title()
-					// .backgroundColor(that)
-					// .export(that,"#svg-1","areaChart")
-					.liveData(that)
-					.emptyDiv()
-					.subtitle()
-					.tooltip();
-			that.optional_feature()
-				.svgContainer(1)
-				.legendsContainer()
+                .legends()
+                .createGroups(1)
+                .chartMode()
+                .createChart()
+                // .axisContainer();
 
-				.legends()
-				.createGroups(1)
-				.chartMode()
-				.createChart()
-	    		// .axisContainer();
+            that.k.createFooter()
+                    .lastUpdatedAt()
+                    .credits()
+                    .dataSource();
+        }
+        else if(that.mode === "infographics") {
+              that.k/*.liveData(that)*/
+                        .backgroundColor(that)
+                        .export(that,"#svg-1","areaChart")
+                        .emptyDiv()
+                        .makeMainDiv(options.selector,1);
 
-			that.k.createFooter()
-	                .lastUpdatedAt()
-	                .credits()
-	                .dataSource();
-		}
-		else if(that.mode === "infographics") {
-			  that.k/*.liveData(that)*/
-			  			// .backgroundColor(that)
-			  			// .export(that,"#svg-1","areaChart")
-			  			.emptyDiv()
-						.makeMainDiv(options.selector,1);
+              that.optional_feaure()
+                        .svgContainer(1)
+                        .legendsContainer()
+                        .createGroups(1)
+                        .createChart()
+                        .axisContainer();
 
-			  that.optional_feaure()
-						.svgContainer(1)
-						.legendsContainer()
-						.createGroups(1)
-						.createChart()
-			    		.axisContainer();
-
-  		}
-		// that.k.exportSVG(that,"#svg-1","areaChart")
-  		that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
-  		$(document).ready(function () { return that.k.resize(that.svgContainer); })
+        }
+        that.k.exportSVG(that,"#svg-1","areaChart")
+        that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
+        $(document).ready(function () { return that.k.resize(that.svgContainer); })
         $(window).on("resize", function () { return that.k.resize(that.svgContainer); });
 
-	};
-	this.draw = function(){
+    };
+    this.draw = function(){
 
         //6.1 call render legends to display legends
         // this.renderLegends();
         //6.2 call render legends to display charts
         that.optional_feature().legends().chartMode().createChart();
     };
-	that.optional_feature = function (){
-		var optional = {
-			svgContainer: function (i){
-				$(that.selector).attr("class","PykCharts-twoD PykCharts-multi-series2D PykCharts-line-chart");
-				// $(options.selector).css({"background-color":that.background_color,"position":"relative"});
+    that.optional_feature = function (){
+        var optional = {
+            svgContainer: function (i){
+                $(that.selector).attr("class","PykCharts-twoD PykCharts-multi-series2D PykCharts-line-chart");
+                // $(options.selector).css({"background-color":that.background_color,"position":"relative"});
 
-				that.svgContainer = d3.select(options.selector).append("svg:svg")
-					.attr("id","svg-"+i)
-					.attr("width",that.width)
-					.attr("height",that.height)
-					.attr("class","svgcontainer pyk-river")
-					.attr("preserveAspectRatio", "xMinYMin")
+                that.svgContainer = d3.select(options.selector).append("svg:svg")
+                    .attr("id","svg-"+i)
+                    .attr("width",that.width)
+                    .attr("height",that.height)
+                    .attr("class","svgcontainer pyk-river")
+                    .attr("preserveAspectRatio", "xMinYMin")
                     .attr("viewBox", "0 0 " + that.width + " " + that.height);
 
                 // $(options.selector).colourBrightness();
-    			return this;
-			},
-			createGroups : function (i) {
-				that.legendsGroup_height = 40;
-				that.group = that.svgContainer.append("g")
-					.attr("id","chartsvg")
-					.attr("transform","translate("+ 0 +","+ (that.legendsGroup_height)+")");
-				that.chart_mode_group = that.svgContainer.append("g")
-					.attr("translate","transform(0,0)")
-    			return this;
-			},
-			legendsContainer : function (i) {
+                return this;
+            },
+            createGroups : function (i) {
+                that.legendsGroup_height = 40;
+                that.group = that.svgContainer.append("g")
+                    .attr("id","chartsvg")
+                    .attr("transform","translate("+ 0 +","+ (that.legendsGroup_height)+")");
+                that.chart_mode_group = that.svgContainer.append("g")
+                    .attr("translate","transform(0,0)")
+                return this;
+            },
+            legendsContainer : function (i) {
                 that.legendsGroup = that.svgContainer.append("g")
                     .attr('id',"legends")
                     .style("visibility","visible")
@@ -132,249 +130,252 @@ PykCharts.multiD.river = function (options){
                     .attr("transform","translate(0,10)");
                 return this;
             },
-			createChart : function (evt) {
-				var tData = jQuery.extend(true, [], that.data);
-		        var legendHeight = 40;
-		        //8.1 Filtering & Parsing Data
-		        tData = that.filter(tData);
-		        tData = that.parseData(tData);
-		        var maxTotalVal = that.maxTotal(tData);
-		        //8.2 Sizes & Scales
-		        var width = that.width - that.legendsGroup_width;
-		        var height = that.height;
-		        var xScale = d3.scale.linear().domain([0, maxTotalVal]).range([0, width - 200]);
-		        var yScale = d3.scale.linear().domain([0, height]).range([0, height-that.legendsGroup_height]);
-		        var barHeight = (height) / (tData.length * 2);
-		        var barMargin = barHeight * 2;
+            createChart : function (evt) {
+                var tData = jQuery.extend(true, [], that.data);
+                var legendHeight = 40;
+                //8.1 Filtering & Parsing Data
+                tData = that.filter(tData);
+                tData = that.parseData(tData);
+                var maxTotalVal = that.maxTotal(tData);
+                //8.2 Sizes & Scales
+                var width = that.width - that.legendsGroup_width;
+                var height = that.height;
+                if(!that.extended) {
+                    var xScale = d3.scale.linear().domain([0, maxTotalVal]).range([0, width - 200]);
+                    var yScale = d3.scale.linear().domain([0, height]).range([0, height-that.legendsGroup_height]);
+                } else {
+                    var xScale = d3.scale.linear().range([0, width - 200]);
+                    var yScale = d3.scale.linear().domain([0, height]).range([0, height-that.legendsGroup_height]);
+                }
+                var barHeight = (height) / (tData.length * 2);
+                var barMargin = barHeight * 2;
 
-		        var svg = that.group;
+                var svg = that.group;
 
-		        //8.3 Setting up Top: Graph Lines
-		        svg.selectAll("line.top_line").data(tData).enter()
-		            .append("line").attr("class", "top_line")
-		            .attr("x1", 0).attr("x2", width)
-		            .attr("y1", function(d, i){
-		                return yScale(i * barMargin);
-		            })
-		            .attr("y2", function(d, i){
-		                return yScale(i * barMargin);
-		            });
-
-
-		        //8.4 Setting up Bottom: Graph Lines
-		        svg.selectAll("line.bottom_line").data(tData).enter()
-		            .append("line").attr("class", "bottom_line")
-		            .attr("x1", 0).attr("x2", width)
-		            .attr("y1", function(d, i){
-		                return yScale((i * barMargin) + barHeight);
-		            })
-		            .attr("y2", function(d, i){
-		                return yScale((i * barMargin) + barHeight);
-		            });
-
-		        //8.5 SVG Groups for holding the bars
-		        var groups = svg.selectAll("g.bar-holder").data(tData);
-
-		        groups.enter().append("g").attr("class", "bar-holder")
-		            .attr("transform", function(d, i){
-		                var y = yScale(i * barMargin);
-		                var x = xScale((maxTotalVal - d.breakupTotal) / 2) + 100;
-		                return "translate("+x+","+y+")";
-		            });
+                //8.3 Setting up Top: Graph Lines
+                svg.selectAll("line.top_line").data(tData).enter()
+                    .append("line").attr("class", "top_line")
+                    .attr("x1", 0).attr("x2", width)
+                    .attr("y1", function(d, i){
+                        return yScale(i * barMargin);
+                    })
+                    .attr("y2", function(d, i){
+                        return yScale(i * barMargin);
+                    });
 
 
-		        groups.transition().duration(1000)
-		            .attr("height", yScale(barHeight))
-		            .attr("width", function(d){
-		                return xScale(d.breakupTotal);
-		            })
-		            .attr("transform", function(d, i){
-		                var y = yScale(i * barMargin);
-		                var x = xScale((maxTotalVal - d.breakupTotal) / 2) + 100;
-		                var scalex = 1;
-		                var scaley = 1;
+                //8.4 Setting up Bottom: Graph Lines
+                svg.selectAll("line.bottom_line").data(tData).enter()
+                    .append("line").attr("class", "bottom_line")
+                    .attr("x1", 0).attr("x2", width)
+                    .attr("y1", function(d, i){
+                        return yScale((i * barMargin) + barHeight);
+                    })
+                    .attr("y2", function(d, i){
+                        return yScale((i * barMargin) + barHeight);
+                    });
 
-		                if(that.extended){
-		                    var barWidth = xScale(d.breakupTotal);
-		                    scalex = (width - 200) / barWidth;
-		                    scaley = 2;
-		                    x = yScale(100);
-		                }
+                //8.5 SVG Groups for holding the bars
+                var groups = svg.selectAll("g.bar-holder").data(tData);
 
-		                return "translate("+x+","+y+") scale("+ scalex +", "+ scaley  +")";
-		            });
-
-		        groups.exit().remove();
-
-		        //8.6 SVG Groups for holding the bars
-		        var bar_holder = svg.selectAll("g.bar-holder")[0];
-		        for(var i in tData){
-		            var group = bar_holder[i];
-		            var breakup = tData[i].breakup;
+                groups.enter().append("g").attr("class", "bar-holder")
+                    .attr("transform", function(d, i){
+                        var y = yScale(i * barMargin);
+                        var x = xScale((maxTotalVal - d.breakupTotal) / 2) + 100;
+                        if(that.extended) {
+                            var x = 100;
+                        }
+                        
+                        return "translate("+x+","+y+")";
+                    });
 
 
-		            //8.7 Append Rectangles elements to  bar holder
-		            var rects = d3.select(group).selectAll("rect").data(breakup);
+                groups.transition().duration(1000)
+                    .attr("transform", function(d, i){
+                        var y = yScale(i * barMargin);
+                        var x = xScale((maxTotalVal - d.breakupTotal) / 2) + 100;
+                        if(that.extended){
+                            x = yScale(100);
+                        }
 
-		            rects.enter().append("rect").attr("width", 0);
+                        return "translate("+x+","+y+");
+                    });
 
-		            rects.transition().duration(1000)
-		                .attr("x", function(d, i){
-		                    if (i === 0) return 0;
-		                    var shift = 0;
-		                    for(var j = 0; j < i; j++){
-		                        shift += breakup[j].count;
-		                    }
-		                    return xScale(shift);
-		                })
-		                .attr("y", 0)
-		                .attr("height", function(d, i){
-		                    //8.8 Scale the height according to the available height
-		                    return (barHeight * (height - legendHeight)) / height;
+                groups.exit().remove();
+                //8.6 SVG Groups for holding the bars
+                var bar_holder = svg.selectAll("g.bar-holder")[0];
+                for(var i in tData){
+                    var group = bar_holder[i];
+                    var breakup = tData[i].breakup;
+                    if(that.extended) {
+                        xScale.domain([0,tData[i].breakupTotal]);
+                    }
 
-		                })
-		                .attr("width", function(d,i){
-		                    return xScale(d.count);
-		                });
+                    //8.7 Append Rectangles elements to  bar holder
+                    var rects = d3.select(group).selectAll("rect").data(breakup);
 
-		            rects.attr("style", function(d,i){
-		                return "fill: " + d.color;
-		            })
-		                .on("mouseover", function(d, i){
-		                    that.mouseEvent.tooltipPosition(d);
+                    rects.enter().append("rect").attr("width", 0);
+
+                    rects.transition().duration(1000)
+                        .attr("x", function(d, i){
+                            if (i === 0) return 0;
+                            var shift = 0;
+                            for(var j = 0; j < i; j++){
+                                shift += breakup[j].count;
+                            }
+                            return xScale(shift);
+                        })
+                        .attr("y", 0)
+                        .attr("height", function(d, i){
+                            //8.8 Scale the height according to the available height
+                            return (barHeight * (height - legendHeight)) / height;
+
+                        })
+                        .attr("width", function(d,i){
+                            return xScale(d.count);
+                        });
+
+                    rects.attr("style", function(d,i){
+                            return "fill: " + d.color;
+                        })
+                        .attr("stroke",that.border.color())
+                        .attr("stroke-width",that.border.width())
+                        .attr("stroke-dasharray", that.border.style())
+                        .on("mouseover", function(d, i){
+                            that.mouseEvent.tooltipPosition(d);
                             that.mouseEvent.tooltipTextShow(d.tooltip ? d.tooltip : d.y);
-		                })
-		                .on("mousemove", function(d){
-		                    that.mouseEvent.tooltipPosition(d);
-		                })
-		                .on("mouseout", function(d){
-		                   	that.mouseEvent.tooltipHide(d);
-		                })
-		                .on("click", function(d, i){
-		                    that.onlyFilter(d.name);
-		                });
+                        })
+                        .on("mousemove", function(d){
+                            that.mouseEvent.tooltipPosition(d);
+                        })
+                        .on("mouseout", function(d){
+                            that.mouseEvent.tooltipHide(d);
+                        })
+                        .on("click", function(d, i){
+                            that.onlyFilter(d.name);
+                        });
 
-		            rects.exit().transition().duration(1000	).attr("width", 0).remove();
-		        }
+                    rects.exit().transition().duration(1000 ).attr("width", 0).remove();
+                }
 
-		        //8.9 Display Name labels
-		        var display_name = svg.selectAll("text.cool_label").data(tData);
+                //8.9 Display Name labels
+                var display_name = svg.selectAll("text.cool_label").data(tData);
 
-		        display_name.enter().append("text").attr("class", "cool_label");
+                display_name.enter().append("text").attr("class", "cool_label");
 
-		        display_name.attr("x", width)
-		            .attr("y", function(d, i){
-		                return yScale((i * barMargin) + (barHeight/2) + 5);
-		            })
-		            .text(function(d, i){
-		                return d.breakupTotal + " " + d.technical_name;
-		            });
-
-
-		        //8.10 Left side labels with totals
-		        var left_labels = svg.selectAll("text.left_label").data(tData);
-
-		        left_labels.enter().append("svg:text").attr("class", "left_label");
-
-		        left_labels
-		            .attr("y", function(d, i){
-		                return yScale((i * barMargin) + (barHeight/2) + 5);
-		            })
-		            .attr("x", 0)
-		            .text(function(d,i){
-		                return d.display_name;
-		            });
+                display_name.attr("x", width)
+                    .attr("y", function(d, i){
+                        return yScale((i * barMargin) + (barHeight/2) + 5);
+                    })
+                    .text(function(d, i){
+                        return d.breakupTotal + " " + d.technical_name;
+                    });
 
 
-		        //8.11 Right side labels with time duration
-		        var right_labels = svg.selectAll("text.right_label").data(tData);
+                //8.10 Left side labels with totals
+                var left_labels = svg.selectAll("text.left_label").data(tData);
 
-		        right_labels.enter().append("svg:text").attr("class", "right_label");
+                left_labels.enter().append("svg:text").attr("class", "left_label");
 
-		        right_labels
-		            .attr("y", function(d, i){
-		                return yScale((i * barMargin) + (barHeight * 1.5) + 5);
-		            })
-		            .attr("x", width)
-		            .attr("text-anchor","start")
-		            .text(function(d,i){
-		                if(tData[i+1] === undefined){
-		                    return "";
-		                }
-		                return d.duration;
-		            });
+                left_labels
+                    .attr("y", function(d, i){
+                        return yScale((i * barMargin) + (barHeight/2) + 5);
+                    })
+                    .attr("x", 0)
+                    .text(function(d,i){
+                        return d.display_name;
+                    });
 
 
+                //8.11 Right side labels with time duration
+                var right_labels = svg.selectAll("text.right_label").data(tData);
 
-		        if(that.extended) {
-		        	$("line.left_line").fadeOut();
-		            $("line.right_line").fadeOut();
-		            return;
-		        } //No need for angle lines if its extended
+                right_labels.enter().append("svg:text").attr("class", "right_label");
 
-		        //8.12 Setting up Left side angle lines
-		        var left_angles = svg.selectAll("line.left_line").data(tData);
-
-		        left_angles.enter().append("line").attr("class", "left_line")
-		            .attr("y2", function(d,i){
-		                return yScale((i * barMargin) + barHeight);
-		            })
-		            .attr("x2", function(d,i){
-		                return xScale((maxTotalVal - d.breakupTotal) / 2) + 100;
-		            });
-
-		        left_angles.transition().duration(1000)
-		            .attr("style", function(d,i){
-		                if(!tData[i+1]) return "stroke-width: 0";
-		            })
-		            .attr("y1", function(d,i){
-		                return yScale((i * barMargin) + barHeight);
-		            })
-		            .attr("x1", function(d,i){
-		                return xScale((maxTotalVal - d.breakupTotal) / 2) + 100;
-		            })
-		            .attr("y2", function(d,i){
-		                return yScale(((i+1) * barMargin));
-		            })
-		            .attr("x2", function(d,i){
-		                if(!tData[i+1]) return 0;
-		                return xScale((maxTotalVal - tData[i+1].breakupTotal) / 2) + 100;
-
-		            });
+                right_labels
+                    .attr("y", function(d, i){
+                        return yScale((i * barMargin) + (barHeight * 1.5) + 5);
+                    })
+                    .attr("x", width)
+                    .attr("text-anchor","start")
+                    .text(function(d,i){
+                        if(tData[i+1] === undefined){
+                            return "";
+                        }
+                        return d.duration;
+                    });
 
 
-		        //8.13 Calibrating Right side angle lines
-		        var right_angles = svg.selectAll("line.right_line").data(tData);
 
-		        right_angles.enter().append("line").attr("class", "right_line")
-		            .attr("y2", function(d,i){
-		                return yScale((i * barMargin) + barHeight);
-		            })
-		            .attr("x2", function(d,i){
-		                return xScale(((maxTotalVal - d.breakupTotal) / 2) + d.breakupTotal) + 100;
-		            });
+                if(that.extended) {
+                    $("line.left_line").fadeOut();
+                    $("line.right_line").fadeOut();
+                    return;
+                } //No need for angle lines if its extended
 
-		        right_angles.transition().duration(1000)
-		            .attr("style", function(d,i){
-		                if(!tData[i+1]) return "stroke-width: 0";
-		            })
-		            .attr("y1", function(d,i){
-		                return yScale((i * barMargin) + barHeight);
-		            })
-		            .attr("x1", function(d,i){
-		                return xScale(((maxTotalVal - d.breakupTotal) / 2) + d.breakupTotal) + 100;
-		            })
-		            .attr("y2", function(d,i){
-		                return yScale(((i+1) * barMargin));
-		            })
-		            .attr("x2", function(d,i){
-		                if(!tData[i+1]) return 0;
-		                return xScale(((maxTotalVal - tData[i+1].breakupTotal) / 2) + tData[i+1].breakupTotal) + 100;
-		            });
-		        return this;
-			},
-			legends : function () {
-		        var k = 0;
+                //8.12 Setting up Left side angle lines
+                var left_angles = svg.selectAll("line.left_line").data(tData);
+
+                left_angles.enter().append("line").attr("class", "left_line")
+                    .attr("y2", function(d,i){
+                        return yScale((i * barMargin) + barHeight);
+                    })
+                    .attr("x2", function(d,i){
+                        return xScale((maxTotalVal - d.breakupTotal) / 2) + 100;
+                    });
+
+                left_angles.transition().duration(1000)
+                    .attr("style", function(d,i){
+                        if(!tData[i+1]) return "stroke-width: 0";
+                    })
+                    .attr("y1", function(d,i){
+                        return yScale((i * barMargin) + barHeight);
+                    })
+                    .attr("x1", function(d,i){
+                        return xScale((maxTotalVal - d.breakupTotal) / 2) + 100;
+                    })
+                    .attr("y2", function(d,i){
+                        return yScale(((i+1) * barMargin));
+                    })
+                    .attr("x2", function(d,i){
+                        if(!tData[i+1]) return 0;
+                        return xScale((maxTotalVal - tData[i+1].breakupTotal) / 2) + 100;
+
+                    });
+
+
+                //8.13 Calibrating Right side angle lines
+                var right_angles = svg.selectAll("line.right_line").data(tData);
+
+                right_angles.enter().append("line").attr("class", "right_line")
+                    .attr("y2", function(d,i){
+                        return yScale((i * barMargin) + barHeight);
+                    })
+                    .attr("x2", function(d,i){
+                        return xScale(((maxTotalVal - d.breakupTotal) / 2) + d.breakupTotal) + 100;
+                    });
+
+                right_angles.transition().duration(1000)
+                    .attr("style", function(d,i){
+                        if(!tData[i+1]) return "stroke-width: 0";
+                    })
+                    .attr("y1", function(d,i){
+                        return yScale((i * barMargin) + barHeight);
+                    })
+                    .attr("x1", function(d,i){
+                        return xScale(((maxTotalVal - d.breakupTotal) / 2) + d.breakupTotal) + 100;
+                    })
+                    .attr("y2", function(d,i){
+                        return yScale(((i+1) * barMargin));
+                    })
+                    .attr("x2", function(d,i){
+                        if(!tData[i+1]) return 0;
+                        return xScale(((maxTotalVal - tData[i+1].breakupTotal) / 2) + tData[i+1].breakupTotal) + 100;
+                    });
+                return this;
+            },
+            legends : function () {
+                var k = 0;
                 var l = 0;
 
                 if(that.legends_display === "vertical" ) {
@@ -423,17 +424,17 @@ PykCharts.multiD.river = function (options){
                 that.legends_text.enter()
                     .append('text')
                     .text(function (d) { 
-                    	that.filterList.push(d.name);
-	                    that.fullList.push(d.name);
-	                })
+                        that.filterList.push(d.name);
+                        that.fullList.push(d.name);
+                    })
 
                 that.legends_text.attr("class","legends_text")
                     .text(function (d) { 
-	                    return d.name;
+                        return d.name;
                     })
                     .on("click", function(d){
-		                that.toggleFilter(d.name);
-		            })
+                        that.toggleFilter(d.name);
+                    })
                     .attr("fill", that.legends_text_color)
                     .attr("font-family", that.legends_text_family)
                     .attr("font-size",that.legends_text_size +"px")
@@ -445,24 +446,24 @@ PykCharts.multiD.river = function (options){
                     .append("circle");
 
                 legend.attr("cx", rect_parameter3value)
-                	.attr("class","circ")
+                    .attr("class","circ")
                     .attr("cy", rect_parameter4value)
                     .attr("r", 7.5)
                     .on("click", function(d){
-		                that.toggleFilter(d.name);
-		            })
+                        that.toggleFilter(d.name);
+                    })
                     .attr("style", function(d){
-	                    var fill = (that.filterList.indexOf(d.name) === -1) ? "#fff" : d.color;
-	                    if(that.filterList.length === 0) fill = d.color;
-	                    return "fill: "+ fill +"; stroke-width: 3px; stroke:" + d.color;
-	                });
+                        var fill = (that.filterList.indexOf(d.name) === -1) ? "#fff" : d.color;
+                        if(that.filterList.length === 0) fill = d.color;
+                        return "fill: "+ fill +"; stroke-width: 3px; stroke:" + d.color;
+                    });
 
 
                 var legend_container_width = that.legendsGroup.node().getBBox().width, translate_x;
                 if(that.legends_display === "vertical") {
-                	that.legendsGroup_width = legend_container_width + 20;
+                    that.legendsGroup_width = legend_container_width + 20;
                 } else  {
-                	that.legendsGroup_width = 0;
+                    that.legendsGroup_width = 0;
                 }
                 
                 translate_x = (that.legends_display === "vertical") ? (that.width - that.legendsGroup_width)  : (that.width - legend_container_width - 20);
@@ -472,65 +473,64 @@ PykCharts.multiD.river = function (options){
 
                 that.legends_text.exit().remove();
                 legend.exit().remove();
-		        return this;
-			},
-			chartMode : function () {
-				var options = [
-		            {
-		                "name": "Percentage",
-		                "on": that.extended
-		            },
-		            {
-		                "name": "Absolute",
-		                "on": !that.extended
-		            }
-		        ];
+                return this;
+            },
+            chartMode : function () {
+                var options = [
+                    {
+                        "name": "Percentage",
+                        "on": that.extended
+                    },
+                    {
+                        "name": "Absolute",
+                        "on": !that.extended
+                    }
+                ];
+                that.legendsGroup_height = 50;
+                //7.2 Append text data to legend holder
+                var texts = that.chart_mode_group.selectAll(".mode-text").data(options);
+                texts.enter().append("text")
 
-		        //7.2 Append text data to legend holder
-		        var texts = that.chart_mode_group.selectAll(".mode-text").data(options);
-		        texts.enter().append("text")
-
-		        texts.attr("class","mode-text")
-		        	.attr("fill", that.legends_text_color)
+                texts.attr("class","mode-text")
+                    .attr("fill", that.legends_text_color)
                     .attr("font-family", that.legends_text_family)
                     .attr("font-size",that.legends_text_size +"px")
                     .attr("font-weight", that.legends_text_weight)
-		            .text(function(d,i){
-		                return d.name;
-		            })
-		            .attr("transform", function(d, i){
-		                return "translate(" + ((i*100) + 20) + ",30)";
-		            })
-		            .on("click", function(d,i){
-		                that.extended = !that.extended;
-		                that.draw();
-		            });
+                    .text(function(d,i){
+                        return d.name;
+                    })
+                    .attr("transform", function(d, i){
+                        return "translate(" + ((i*100) + 20) + ",30)";
+                    })
+                    .on("click", function(d,i){
+                        that.extended = !that.extended;
+                        that.draw();
+                    });
 
 
-		        //7.3 Append circle to legend holder
-		        var circles = that.chart_mode_group.selectAll(".mode-circ").data(options);
-		        circles.enter().append("circle");
+                //7.3 Append circle to legend holder
+                var circles = that.chart_mode_group.selectAll(".mode-circ").data(options);
+                circles.enter().append("circle");
 
-		        circles.attr("class","mode-circ")
-		            .attr("cx", function(d,i){
-		                return (i*100)+10;
-		            })
-		            .attr("cy",(18 + 7.5)).attr("r", 6)
-		            .attr("style", function(d){
-		            	console.log(d.on);
-		                var fill = d.on ? "#000" : "#fff";
-		                return "fill: "+ fill +"; stroke-width: 3px; stroke:#000";
-		            })
-		            .on("click", function(d,i){
-		                that.extended = !that.extended;
-		                that.draw();
-		            });
-				return this;
-			}
-		};
-		return optional;
-	};
-	that.filter = function(d){
+                circles.attr("class","mode-circ")
+                    .attr("cx", function(d,i){
+                        return (i*100)+10;
+                    })
+                    .attr("cy",(18 + 7.5)).attr("r", 6)
+                    .attr("style", function(d){
+                        var fill = d.on ? "#000" : "#fff";
+                        return "fill: "+ fill +"; stroke-width: 3px; stroke:#000";
+                    })
+                    .on("click", function(d,i){
+                        that.extended = !that.extended;
+                        that.draw();
+                    });
+                return this;
+            }
+        };
+        return optional;
+    };
+    that.filter = function(d){
         if(that.filterList.length < 1){
             that.filterList = jQuery.extend(true, [], that.fullList);
         }
@@ -560,9 +560,9 @@ PykCharts.multiD.river = function (options){
     };
 
     that.toggleFilter = function(f){
-    	var index = that.filterList.indexOf(f);
+        var index = that.filterList.indexOf(f);
         if(index === -1){
-        	that.filterList.push(f);
+            that.filterList.push(f);
         }else{
             that.filterList.splice(index, 1);
         }
@@ -582,7 +582,7 @@ PykCharts.multiD.river = function (options){
     };
 
     that.parseData = function(d){
-    	for(var i in d) d[i].breakupTotal = this.totalInBreakup(d[i].breakup); // Calculate all breakup totals and add to the hash
+        for(var i in d) d[i].breakupTotal = this.totalInBreakup(d[i].breakup); // Calculate all breakup totals and add to the hash
         return d;
     };
 };
