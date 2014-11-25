@@ -1,0 +1,43 @@
+[
+    {
+    	"y": "Job",
+    	"x": 270,
+    	"group": "Expenses",
+    	"tooltip": 270
+    },
+    {
+    	"y": "Groceries",
+    	"x": -30,
+    	"group": "Expenses",
+    	"tooltip": -30
+    },
+    {
+    	"y": "Allowance",
+    	"x": 220,
+    	"group": "Expenses",
+    	"tooltip": 220
+    },
+    {
+    	"y": "Subtotal",
+    	"x": 50,
+    	"group": "Expenses",
+    	"tooltip": 50
+    },
+    {
+    	"y": "Videos",
+    	"x": -220,
+    	"group": "Expenses",
+    	"tooltip": -220
+    },
+    {
+    	"y": "Coffee",
+    	"x": -40,
+    	"group": "Expenses",
+    	"tooltip": -40  },
+    {
+    	"y": "Total",
+    	"x": 50,
+    	"group": "Expenses",
+    	"tooltip": 50
+    }
+]
