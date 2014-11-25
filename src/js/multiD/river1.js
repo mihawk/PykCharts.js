@@ -69,7 +69,7 @@ PykCharts.multiD.river = function (options){
                     .dataSource();
         }
         else if(that.mode === "infographics") {
-              that.k/*.liveData(that)*/
+              that.k.liveData(that)
                         .backgroundColor(that)
                         .export(that,"#svg-1","areaChart")
                         .emptyDiv()
@@ -89,6 +89,12 @@ PykCharts.multiD.river = function (options){
         $(window).on("resize", function () { return that.k.resize(that.svgContainer); });
 
     };
+    that.refresh = function() {
+        d3[that.format](options.data, function (e, data) {
+            that.data = data;
+            that.draw();
+        });
+    }
     this.draw = function(){
 
         //6.1 call render legends to display legends

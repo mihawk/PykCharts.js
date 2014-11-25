@@ -2,135 +2,361 @@
 	{
 		"x":500,
 		"y":"Awareness",
-		"stack":"",
+		"stack":"Scans",
 		"alias" : "Scans",
 		"duration": "3 mins",
-		"tooltip" : "",
-		"color": ""
+		"tooltip" : "<h4>Scans</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>500</td></tr><tr><td>Overall Rank</td><td>:</td><td>6</td></tr><tr><td>Percentage</td><td>:</td><td>100%</td></tr></table>",
+		"color": "#1F77B4"
 	},
 	{
 		"x":0,
 		"y":"Awareness",
-		"stack":"",
+		"stack":"Facebook",
 		"alias" : "Scans",
 		"duration": "3 mins",
-		"tooltip" : "",
-		"color": ""
+		"tooltip" : "<h4>Facebook</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>0</td></tr><tr><td>Overall Rank</td><td>:</td><td>1</td></tr></table>",
+		"color": "#AEC7E8"
 	},
 	{
 		"x":0,
 		"y":"Awareness",
-		"stack":"",
+		"stack":"Twitter",
 		"alias" : "Scans",
 		"duration": "3 mins",
-		"tooltip" : "",
-		"color": ""
+		"tooltip" : "<h4>Twitter</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>0</td></tr><tr><td>Overall Rank</td><td>:</td><td>3</td></tr></table>",
+		"color": "#FF7F0E"
 	},
 	{
 		"x":0,
 		"y":"Awareness",
-		"stack":"",
+		"stack":"GooglePlus",
 		"alias" : "Scans",
 		"duration": "3 mins",
-		"tooltip" : "",
-		"color": ""
+		"tooltip" : "<h4>GooglePlus</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>0</td></tr><tr><td>Overall Rank</td><td>:</td><td>5</td></tr></table>",
+		"color": "#2CA02C"
 	},
 	{
 		"x":0,
 		"y":"Awareness",
-		"stack":"",
+		"stack":"Pinterest",
 		"alias" : "Scans",
 		"duration": "3 mins",
-		"tooltip" : "",
-		"color": ""
+		"tooltip" : "<h4>Pinterest</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>0</td></tr><tr><td>Overall Rank</td><td>:</td><td>7</td></tr></table>",
+		"color": "#98DF8A"
 	},
 	{
 		"x":0,
 		"y":"Awareness",
-		"stack":"",
+		"stack":"Email",
 		"alias" : "Scans",
 		"duration": "3 mins",
-		"tooltip" : "",
-		"color": ""
+		"tooltip" : "<h4>Email</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>0</td></tr><tr><td>Overall Rank</td><td>:</td><td>2</td></tr></table>",
+		"color": "#D62728"
 	},
 	{
-		"x":,
-		"y":"",
-		"stack":"",
-		"alias" : "",
-		"tooltip" : "",
-		"color": ""
+		"x":450,
+		"y":"Outreach",
+		"stack":"Scans",
+		"alias" : "Outreach",
+		"duration": "3 mins",
+		"tooltip" : "<h4>Scans</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>450</td></tr><tr><td>Overall Rank</td><td>:</td><td>6</td></tr><tr><td>Percentage</td><td>:</td><td>40.91%</td></tr></table>",
+		"color": "#1F77B4"
 	},
 	{
-		"x":,
-		"y":"",
-		"stack":"",
-		"alias" : "",
-		"tooltip" : "",
-		"color": ""
+		"x":150,
+		"y":"Outreach",
+		"stack":"Facebook",
+		"alias" : "Outreach",
+		"duration": "3 mins",
+		"tooltip" : "<h4>Facebook</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>150</td></tr><tr><td>Overall Rank</td><td>:</td><td>1</td></tr><tr><td>Percentage</td><td>:</td><td>13.64%</td></tr></table>",
+		"color": "#AEC7E8"
 	},
 	{
-		"x":,
-		"y":"",
-		"stack":"",
-		"alias" : "",
-		"tooltip" : "",
-		"color": ""
+		"x":80,
+		"y":"Outreach",
+		"stack":"Twitter",
+		"alias" : "Outreach",
+		"duration": "3 mins",
+		"tooltip" : "<h4>Twitter</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>80</td></tr><tr><td>Overall Rank</td><td>:</td><td>3</td></tr><tr><td>Percentage</td><td>:</td><td>07.27%</td></tr></table>",
+		"color": "#FF7F0E"
 	},
 	{
-		"x":,
-		"y":"",
-		"stack":"",
-		"alias" : "",
-		"tooltip" : "",
-		"color": ""
+		"x":100,
+		"y":"Outreach",
+		"stack":"GooglePlus",
+		"alias" : "Outreach",
+		"duration": "3 mins",
+		"tooltip" : "<h4>GooglePlus</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>100</td></tr><tr><td>Overall Rank</td><td>:</td><td>5</td></tr><tr><td>Percentage</td><td>:</td><td>09.10%</td></tr></table>",
+		"color": "#2CA02C"
 	},
 	{
-		"x":,
-		"y":"",
-		"stack":"",
-		"alias" : "",
-		"tooltip" : "",
-		"color": ""
+		"x":40,
+		"y":"Outreach",
+		"stack":"Pinterest",
+		"alias" : "Outreach",
+		"duration": "3 mins",
+		"tooltip" : "<h4>Pinterest</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>40</td></tr><tr><td>Overall Rank</td><td>:</td><td>7</td></tr><tr><td>Percentage</td><td>:</td><td>03.63%</td></tr></table>",
+		"color": "#98DF8A"
 	},
 	{
-		"x":,
-		"y":"",
-		"stack":"",
-		"alias" : "",
-		"tooltip" : "",
-		"color": ""
+		"x":160,
+		"y":"Outreach",
+		"stack":"Email",
+		"alias" : "Outreach",
+		"duration": "3 mins",
+		"tooltip" : "<h4>Email</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>160</td></tr><tr><td>Overall Rank</td><td>:</td><td>2</td></tr><tr><td>Percentage</td><td>:</td><td>14.54%</td></tr></table>",
+		"color": "#D62728"
 	},
 	{
-		"x":,
-		"y":"",
-		"stack":"",
-		"alias" : "",
-		"tooltip" : "",
-		"color": ""
+		"x":100,
+		"y":"Interest",
+		"stack":"Scans",
+		"alias" : "Views",
+		"duration": "2 mins",
+		"tooltip" : "<h4>Scans</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>100</td></tr><tr><td>Overall Rank</td><td>:</td><td>6</td></tr><tr><td>Percentage</td><td>:</td><td>25.00%</td></tr></table>",
+		"color": "#1F77B4"
 	},
 	{
-		"x":,
-		"y":"",
-		"stack":"",
-		"alias" : "",
-		"tooltip" : "",
-		"color": ""
+		"x":80,
+		"y":"Interest",
+		"stack":"Facebook",
+		"alias" : "Views",
+		"duration": "2 mins",
+		"tooltip" : "<h4>Facebook</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>80</td></tr><tr><td>Overall Rank</td><td>:</td><td>1</td></tr><tr><td>Percentage</td><td>:</td><td>20.00%</td></tr></table>",
+		"color": "#AEC7E8"
 	},
 	{
-		"x":,
-		"y":"",
-		"stack":"",
-		"alias" : "",
-		"tooltip" : "",
-		"color": ""
+		"x":20,
+		"y":"Interest",
+		"stack":"Twitter",
+		"alias" : "Views",
+		"duration": "2 mins",
+		"tooltip" : "<h4>Twitter</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>20</td></tr><tr><td>Overall Rank</td><td>:</td><td>3</td></tr><tr><td>Percentage</td><td>:</td><td>05.00%</td></tr></table>",
+		"color": "#FF7F0E"
 	},
 	{
-		"x":,
+		"x":55,
+		"y":"Interest",
+		"stack":"GooglePlus",
+		"alias" : "Views",
+		"duration": "2 mins",
+		"tooltip" : "<h4>GooglePlus</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>55</td></tr><tr><td>Overall Rank</td><td>:</td><td>5</td></tr><tr><td>Percentage</td><td>:</td><td>13.75%</td></tr></table>",
+		"color": "#2CA02C"
+	},
+	{
+		"x":35,
+		"y":"Interest",
+		"stack":"Pinterest",
+		"alias" : "Views",
+		"duration": "2 mins",
+		"tooltip" : "<h4>Pinterest</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>35</td></tr><tr><td>Overall Rank</td><td>:</td><td>7</td></tr><tr><td>Percentage</td><td>:</td><td>08.75%</td></tr></table>",
+		"color": "#98DF8A"
+	},
+	{
+		"x":65,
+		"y":"Interest",
+		"stack":"Email",
+		"alias" : "Views",
+		"duration": "2 mins",
+		"tooltip" : "<h4>Email</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>65</td></tr><tr><td>Overall Rank</td><td>:</td><td>2</td></tr><tr><td>Percentage</td><td>:</td><td>16.25%</td></tr></table>",
+		"color": "#D62728"
+	},
+	{
+		"x":50,
+		"y":"Desire",
+		"stack":"Scans",
+		"alias" : "Add-to-Carts",
+		"duration": "2 mins",
+		"tooltip" : "<h4>Scans</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>50</td></tr><tr><td>Overall Rank</td><td>:</td><td>6</td></tr><tr><td>Percentage</td><td>:</td><td>16.67%</td></tr></table>",
+		"color": "#1F77B4"
+	},
+	{
+		"x":30,
+		"y":"Desire",
+		"stack":"Facebook",
+		"alias" : "Add-to-Carts",
+		"duration": "2 mins",
+		"tooltip" : "<h4>Facebook</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>30</td></tr><tr><td>Overall Rank</td><td>:</td><td>1</td></tr><tr><td>Percentage</td><td>:</td><td>10.00%</td></tr></table>",
+		"color": "#AEC7E8"
+	},
+	{
+		"x":55,
+		"y":"Desire",
+		"stack":"Twitter",
+		"alias" : "Add-to-Carts",
+		"duration": "2 mins",
+		"tooltip" : "<h4>Twitter</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>55</td></tr><tr><td>Overall Rank</td><td>:</td><td>3</td></tr><tr><td>Percentage</td><td>:</td><td>18.33%</td></tr></table>",
+		"color": "#FF7F0E"
+	},
+	{
+		"x":80,
+		"y":"Desire",
+		"stack":"GooglePlus",
+		"alias" : "Add-to-Carts",
+		"duration": "2 mins",
+		"tooltip" : "<h4>GooglePlus</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>80</td></tr><tr><td>Overall Rank</td><td>:</td><td>5</td></tr><tr><td>Percentage</td><td>:</td><td>26.66%</td></tr></table>",
+		"color": "#2CA02C"
+	},
+	{
+		"x":20,
+		"y":"Desire",
+		"stack":"Pinterest",
+		"alias" : "Add-to-Carts",
+		"duration": "2 mins",
+		"tooltip" : "<h4>Pinterest</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>20</td></tr><tr><td>Overall Rank</td><td>:</td><td>7</td></tr><tr><td>Percentage</td><td>:</td><td>06.67%</td></tr></table>",
+		"color": "#98DF8A"
+	},
+	{
+		"x":20,
+		"y":"Desire",
+		"stack":"Email",
+		"alias" : "Add-to-Carts",
+		"duration": "2 mins",
+		"tooltip" : "<h4>Email</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>20</td></tr><tr><td>Overall Rank</td><td>:</td><td>2</td></tr><tr><td>Percentage</td><td>:</td><td>06.67%</td></tr></table>",
+		"color": "#D62728"
+	},
+	{
+		"x":50,
+		"y":"Action",
+		"stack":"Scans",
+		"alias" : "Purchases",
+		"tooltip" : "<h4>Scans</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>50</td></tr><tr><td>Overall Rank</td><td>:</td><td>6</td></tr><tr><td>Percentage</td><td>:</td><td>33.33%</td></tr></table>",
+		"color": "#1F77B4"
+	},
+	{
+		"x":16,
+		"y":"Action",
+		"stack":"Facebook",
+		"alias" : "Purchases",
+		"tooltip" : "<h4>Facebook</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>16</td></tr><tr><td>Overall Rank</td><td>:</td><td>1</td></tr><tr><td>Percentage</td><td>:</td><td>10.66%</td></tr></table>",
+		"color": "#AEC7E8"
+	},
+	{
+		"x":10,
+		"y":"Action",
+		"stack":"Twitter",
+		"alias" : "Purchases",
+		"tooltip" : "<h4>Twitter</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>10</td></tr><tr><td>Overall Rank</td><td>:</td><td>3</td></tr><tr><td>Percentage</td><td>:</td><td>06.67%</td></tr></table>",
+		"color": "#FF7F0E"
+	},
+	{
+		"x":2,
+		"y":"Action",
+		"stack":"GooglePlus",
+		"alias" : "Purchases",
+		"tooltip" : "<h4>GooglePlus</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>2</td></tr><tr><td>Overall Rank</td><td>:</td><td>5</td></tr><tr><td>Percentage</td><td>:</td><td>01.34%</td></tr></table>",
+		"color": "#2CA02C"
+	},
+	{
+		"x":4,
+		"y":"Action",
+		"stack":"Pinterest",
+		"alias" : "Purchases",
+		"tooltip" : "<h4>Pinterest</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>4</td></tr><tr><td>Overall Rank</td><td>:</td><td>7</td></tr><tr><td>Percentage</td><td>:</td><td>02.66%</td></tr></table>",
+		"color": "#98DF8A"
+	},
+	{
+		"x":60,
+		"y":"Action",
+		"stack":"Email",
+		"alias" : "Purchases",
+		"tooltip" : "<h4>Email</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>60</td></tr><tr><td>Overall Rank</td><td>:</td><td>2</td></tr><tr><td>Percentage</td><td>:</td><td>40.00%</td></tr></table>",
+		"color": "#D62728"
+	},
+	{
+		"x":50,
 		"y":"",
-		"stack":"",
-		"alias" : "",
-		"tooltip" : "",
-		"color": ""
+		"stack":"Scans",
+		"alias" : "Units",
+		"tooltip" : "<h4>Scans</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>50</td></tr><tr><td>Overall Rank</td><td>:</td><td>6</td></tr><tr><td>Percentage</td><td>:</td><td>11.11%</td></tr></table>",
+		"color": "#1F77B4"
+	},
+	{
+		"x":100,
+		"y":"",
+		"stack":"Facebook",
+		"alias" : "Units",
+		"tooltip" : "<h4>Facebook</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>100</td></tr><tr><td>Overall Rank</td><td>:</td><td>1</td></tr><tr><td>Percentage</td><td>:</td><td>22.22%</td></tr></table>",
+		"color": "#AEC7E8"
+	},
+	{
+		"x":50,
+		"y":"",
+		"stack":"Twitter",
+		"alias" : "Units",
+		"tooltip" : "<h4>Twitter</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>50</td></tr><tr><td>Overall Rank</td><td>:</td><td>3</td></tr><tr><td>Percentage</td><td>:</td><td>11.11%</td></tr></table>",
+		"color": "#FF7F0E"
+	},
+	{
+		"x":40,
+		"y":"",
+		"stack":"GooglePlus",
+		"alias" : "Units",
+		"tooltip" : "<h4>GooglePlus</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>40</td></tr><tr><td>Overall Rank</td><td>:</td><td>5</td></tr><tr><td>Percentage</td><td>:</td><td>08.90%</td></tr></table>",
+		"color": "#2CA02C"
+	},
+	{
+		"x":60,
+		"y":"",
+		"stack":"Pinterest",
+		"alias" : "Units",
+		"tooltip" : "<h4>Pinterest</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>60</td></tr><tr><td>Overall Rank</td><td>:</td><td>7</td></tr><tr><td>Percentage</td><td>:</td><td>13.33%</td></tr></table>",
+		"color": "#98DF8A"
+	},
+	{
+		"x":100,
+		"y":"",
+		"stack":"Email",
+		"alias" : "Units",
+		"tooltip" : "<h4>Email</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>100</td></tr><tr><td>Overall Rank</td><td>:</td><td>2</td></tr><tr><td>Percentage</td><td>:</td><td>22.22%</td></tr></table>",
+		"color": "#D62728"
+	},
+	{
+		"x":2120,
+		"y":"Revenue",
+		"stack":"Scans",
+		"alias" : "$",
+		"tooltip" : "<h4>Scans</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>2120</td></tr><tr><td>Overall Rank</td><td>:</td><td>6</td></tr><tr><td>Percentage</td><td>:</td><td>47.11%</td></tr></table>",
+		"color": "#1F77B4"
+	},
+	{
+		"x":670,
+		"y":"Revenue",
+		"stack":"Facebook",
+		"alias" : "$",
+		"tooltip" : "<h4>Facebook</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>670</td></tr><tr><td>Overall Rank</td><td>:</td><td>1</td></tr><tr><td>Percentage</td><td>:</td><td>14.89%</td></tr></table>",
+		"color": "#AEC7E8"
+	},
+	{
+		"x":360,
+		"y":"Revenue",
+		"stack":"Twitter",
+		"alias" : "$",
+		"tooltip" : "<h4>Twitter</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>360</td></tr><tr><td>Overall Rank</td><td>:</td><td>3</td></tr><tr><td>Percentage</td><td>:</td><td>08.00%</td></tr></table>",
+		"color": "#FF7F0E"
+	},
+	{
+		"x":350,
+		"y":"Revenue",
+		"stack":"GooglePlus",
+		"alias" : "$",
+		"tooltip" : "<h4>GooglePlus</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>350</td></tr><tr><td>Overall Rank</td><td>:</td><td>5</td></tr><tr><td>Percentage</td><td>:</td><td>07.78%</td></tr></table>",
+		"color": "#2CA02C"
+	},
+	{
+		"x":290,
+		"y":"Revenue",
+		"stack":"Pinterest",
+		"alias" : "$",
+		"tooltip" : "<h4>Pinterest</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>290</td></tr><tr><td>Overall Rank</td><td>:</td><td>7</td></tr><tr><td>Percentage</td><td>:</td><td>06.44%</td></tr></table>",
+		"color": "#98DF8A"
+	},
+	{
+		"x":260,
+		"y":"Revenue",
+		"stack":"Email",
+		"alias" : "$",
+		"tooltip" : "<h4>Email</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>260</td></tr><tr><td>Overall Rank</td><td>:</td><td>2</td></tr><tr><td>Percentage</td><td>:</td><td>05.78%</td></tr></table>",
+		"color": "#D62728"
 	}
 ]
