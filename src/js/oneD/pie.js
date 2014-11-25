@@ -47,12 +47,13 @@ PykCharts.oneD.pie = function (options) {
 
         // console.log(options.pykquery != undefined && !PykCharts.boolean(_.isEmpty(options.pykquery)));
         if (options.pykquery != undefined && !PykCharts.boolean(_.isEmpty(options.pykquery))) { 
+            var pykquery_data;
             that.filter_enable = true;
-
             that.pykquery_configs = options.pykquery;
+
             // !----- PykQuery Object --------!
-            pie_global = new PykQuery.init("select","global",that.pykquery_configs.id);
-            pie_local = new PykQuery.init("select","local",that.selector);
+            pie_global = new PykQuery.init("aggregation","global",that.pykquery_configs.id);
+            pie_local = new PykQuery.init("aggregation","local",that.selector);
 
             if (_.isEmpty(pie_global) == false) {
                 pie_global.storeObjectInMemory("pie_global");    
@@ -61,39 +62,62 @@ PykCharts.oneD.pie = function (options) {
                 pie_local.storeObjectInMemory("pie_local");
             }
 
-            filter_pykquery = pie_local.filter();
-            filters_selected = pie_local.filters;
+            // !------ Initializing filters ---------!
+            /*filter_pykquery = */pie_local.filter();
+            // filters_selected = pie_local.filters;
 
             // !----- Mapping of Locals & Globals -----------!
             pie_local.addGlobal(that.pykquery_configs);
             // console.log("Begin ---- PIE");
             // console.log("before d3.json --");
-            console.log(that.pykquery_configs,'>>>>>',pie_local,filter_pykquery,filters_selected);
+            // console.log(that.pykquery_configs,'>>>>>',pie_local,filter_pykquery,filters_selected);
             // console.log("inside d3.json --");
-        }        
+
+            // !----- Dims & Metrics ------------!
+            pie_local.dimensions = that.pykquery_configs.dim_column_name;
+            pie_local.metrics = that.pykquery_configs.metric_column_name;
+            console.log(pie_local.getConfig());
+
+            // !----- Fetching onload data ------!
+            pykquery_data = pie_local.getConfig("browser");
+        }
         
 
         if(that.mode === "default") {
            that.k.loading();
         }
 
-        d3.json(options.data, function (e, data) {
-            var validate = that.k.validator().validatingJSON(data);
-            if(that.stop || validate === false) {
-                $(options.selector+" #chart-loader").remove();
-                return;
-            }
-
-            that.data = that.k.__proto__._groupBy("oned",data);
-            that.compare_data = that.k.__proto__._groupBy("oned",data);
-            // console.log(that.data,"*************");
+        var validate = that.k.validator().validatingJSON(pykquery_data);
+        if(that.stop || validate === false) {
             $(options.selector+" #chart-loader").remove();
-            var pieFunctions = new PykCharts.oneD.pieFunctions(options,that,"pie");
-            that.clubdata_enable = that.data.length > that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
-            pieFunctions.render();
+            return;
+        }
+
+        that.data = that.k.__proto__._groupBy("oned",pykquery_data);
+        that.compare_data = that.k.__proto__._groupBy("oned",pykquery_data);
+        // console.log(that.data,"*************");
+        $(options.selector+" #chart-loader").remove();
+        var pieFunctions = new PykCharts.oneD.pieFunctions(options,that,"pie");
+        that.clubdata_enable = that.data.length > that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
+        pieFunctions.render();
+
+        // d3.json(options.data, function (e, data) {
+            // var validate = that.k.validator().validatingJSON(data);
+            // if(that.stop || validate === false) {
+            //     $(options.selector+" #chart-loader").remove();
+            //     return;
+            // }
+
+            // that.data = that.k.__proto__._groupBy("oned",data);
+            // that.compare_data = that.k.__proto__._groupBy("oned",data);
+            // // console.log(that.data,"*************");
+            // $(options.selector+" #chart-loader").remove();
+            // var pieFunctions = new PykCharts.oneD.pieFunctions(options,that,"pie");
+            // that.clubdata_enable = that.data.length > that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
+            // pieFunctions.render();
             
-        console.log("ISHAAAAAAAAAAAAAAA");
-        });
+            // console.log("GET JSON");
+        // });
         // that.clubData.enable = that.data.length>that.clubData.maximumNodes ? that.clubData.enable : "no";
     };
 };
@@ -601,7 +625,14 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                     })
                     .attr("stroke",that.border.color())
                     .attr("stroke-width",that.border.width())
-                    .attr("stroke-dasharray", that.border.style());
+                    .attr("stroke-dasharray", that.border.style())
+                    .attr("cursor","pointer")
+                    .on('click', function (d,i) {
+                        var selected_node = this,
+                            group_by_value = d.data.name;
+
+                        
+                    });
 //                    .attr("d",that.arc); // comment this if u want to enable transition
 
                 that.chart_data.transition()

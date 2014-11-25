@@ -110,35 +110,42 @@
             // console.log("Ishaaaa>>>>"); 
             var pie_chart1 = new PykCharts.oneD.pie({
                 selector: "#pieContainer",
-                data: "../data/pie.json",
+                data: "../data/pie3.json",
                 transition_duration: 1,
-                // fact_column_name: "weight",
-                // fact_type: "sum",
-                // dim_column_name: "name"
                 pykquery: {
-                  id: "g1",
-                  impacts: true,
-                  impacted_by: false
+                    id: "g1",
+                    impacts: true,
+                    dimensions: ["type"],
+                    metrics: {"price":["sum","avg"]},
+                    data_mapping: {
+                        "type": "name",
+                        "price": {
+                            "sum": "weight"
+                        }
+                    }
+                    
                 }
             });
             PykCharts.charts.push(pie_chart1);
 
-            var pyramid_chart = new PykCharts.oneD.pyramid ({
-                selector: "#pyramid",
-                data: "../data/pie.json",
-                chart_margin_right: 100,
-                transition_duration: 1,
-                // fact_column_name: "weight2",
-                // fact_type: "sum",
-                // dim_column_name: "city",
-                // highlight: "Delhi"
-                pykquery: {
-                  id: "g1",
-                  impacts: true,
-                  impacted_by: false
-                }
-             });
-            PykCharts.charts.push(pyramid_chart);
+            // var pyramid_chart = new PykCharts.oneD.pyramid ({
+            //     selector: "#pyramid",
+            //     data: "../data/pie.json",
+            //     chart_margin_right: 100,
+            //     transition_duration: 1,
+            //     dim_column_name: "city",
+            //     metric_column_name: "weight2",
+            //     // fact_type: "sum",
+            //     // highlight: "Delhi"
+            //     pykquery: {
+            //         id: "g1",
+            //         impacts: true,
+            //         impacted_by: false,                  
+            //         dim_column_name: "city",
+            //         metric_column_name: {"city":["count"]},
+            //     }
+            //  });
+            // PykCharts.charts.push(pyramid_chart);
 
             // var percentage_column = new PykCharts.oneD.percentageColumn({
             //     selector: "#percentageColumn",
@@ -156,7 +163,7 @@
             // PykCharts.charts.push(pie_chart2);
 
             pie_chart1.execute();
-            pyramid_chart.execute();
+            // pyramid_chart.execute();
         }
 
         </script>
