@@ -24,7 +24,6 @@ PykCharts.oneD.pyramid = function (options) {
             that.filter_enable = true;
 
             that.pykquery_configs = options.pykquery;
-            // !----- PykQuery Object --------!
             pyramid_global = new PykQuery.init("select","global",that.pykquery_configs.id);
             pyramid_local = new PykQuery.init("select","local",that.selector);
             
@@ -37,18 +36,17 @@ PykCharts.oneD.pyramid = function (options) {
             
             filter_pykquery = pyramid_local.filter();
             filters_selected = pyramid_local.filters;
-
-            // !----- Mapping of Locals & Globals -----------!
             pyramid_local.addGlobal(that.pykquery_configs);
-            // console.log("Begin --- Pyramid");
-            console.log(that.pykquery_configs,'>>>>>',pyramid_local,filter_pykquery,filters_selected);
+            
         }
 
         if(that.mode === "default") {
            that.k.loading();
         }
 
-        d3.json(options.data, function (e,data) {
+        that.format = that.k.dataSourceFormatIdentification(options.data);
+        d3[that.format](options.data, function (e,data) {
+
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
                 $(options.selector+" #chart-loader").remove();
@@ -61,12 +59,11 @@ PykCharts.oneD.pyramid = function (options) {
 			that.clubdata_enable = that.data.length > that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
             that.render();
 		});
-        // that.clubData.enable = that.data.length>that.clubData.maximumNodes ? that.clubData.enable : "no";
 	};
 
     this.refresh = function (new_data) {
         if (new_data == undefined && that.filter_enable == false) {
-            d3.json (options.data, function (e,data) {
+            d3[that.format] (options.data, function (e,data) {
                 that.data = that.k.__proto__._groupBy("oned",data);
                 that.clubdata_enable = that.data.length>that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
                 that.refresh_data = that.k.__proto__._groupBy("oned",data);
@@ -103,11 +100,9 @@ PykCharts.oneD.pyramid = function (options) {
     };
 
 	this.render = function () {
-//		that.fillChart = new PykCharts.oneD.fillChart(that);
         var l = $(".svgcontainer").length;
         that.container_id = "svgcontainer" + l;
         that.fillChart = new PykCharts.Configuration.fillChart(that);
-        // that.onHoverEffect = new PykCharts.oneD.mouseEvent(options);
         that.transitions = new PykCharts.Configuration.transition(that);
         that.border = new PykCharts.Configuration.border(that);
 
@@ -129,7 +124,6 @@ PykCharts.oneD.pyramid = function (options) {
                 .dataSource()
                 .tooltip()
                 .liveData(that);
-                // [that.fullscreen]().fullScreen(that)
 
             that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
 
@@ -231,7 +225,6 @@ PykCharts.oneD.pyramid = function (options) {
 
     	var optional = {
             svgContainer :function () {
-                // $(options.selector).css("background-color",that.background_color);
 
                 that.svgContainer = d3.select(options.selector)
                     .append('svg')
@@ -249,15 +242,9 @@ PykCharts.oneD.pyramid = function (options) {
             },
         	createChart : function () {
 
-
-        		// that.perValues = that.percentageValues(that.new_data);
-
         		that.pyramid = that.pyramidLayout()
                     .data(that.new_data)
                     .size([that.width,that.height]);
-                // var total = d3.sum(that.new_data, function (d){
-                //     return d.weight;
-                // });
 		        that.coordinates = that.pyramid.coordinates();
                 that.coordinates[0].values[1] = that.coordinates[that.coordinates.length-1].values[1];
                 that.coordinates[0].values[2] = that.coordinates[that.coordinates.length-1].values[2];
@@ -525,8 +512,6 @@ PykCharts.oneD.pyramid = function (options) {
                     }, that.transitions.duration());
 
                 tick_line.exit().remove();
-
-                // }
                 return this;
             },
             clubData: function () {

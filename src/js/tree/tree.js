@@ -66,13 +66,6 @@ PykCharts.tree.processInputs = function (chartObject, options) {
     chartObject.margin.right = optional.chart && optional.chart.margin && _.isNumber(optional.chart.margin.right) ? optional.chart.margin.right : stylesheet.chart.margin.right;
     chartObject.margin.top = optional.chart && optional.chart.margin && _.isNumber(optional.chart.margin.top) ? optional.chart.margin.top : stylesheet.chart.margin.top;
     chartObject.margin.bottom = optional.chart && optional.chart.margin && _.isNumber(optional.chart.margin.bottom) ? optional.chart.margin.bottom : stylesheet.chart.margin.bottom;
-    // chartObject.width = options.chart && _.isNumber(options.chart.width) ? options.chart.width : stylesheet.chart.width;
-    // chartObject.height = options.chart && _.isNumber(options.chart.height) ? options.chart.height : stylesheet.chart.height;
-    // chartObject.margin = options.chart && options.chart.margin ? options.chart.margin : stylesheet.chart.margin;
-    // chartObject.margin.left = options.chart && options.chart.margin && _.isNumber(options.chart.margin.left) ? options.chart.margin.left : stylesheet.chart.margin.left;
-    // chartObject.margin.right = options.chart && options.chart.margin && _.isNumber(options.chart.margin.right) ? options.chart.margin.right : stylesheet.chart.margin.right;
-    // chartObject.margin.top = options.chart && options.chart.margin && _.isNumber(options.chart.margin.top) ? options.chart.margin.top : stylesheet.chart.margin.top;
-    // chartObject.margin.bottom = options.chart && options.chart.margin && _.isNumber(options.chart.margin.bottom) ? options.chart.margin.bottom : stylesheet.chart.margin.bottom;
     chartObject.mode = options.mode ? options.mode : stylesheet.mode;
     if (optional && optional.title) {
         chartObject.title = optional.title;

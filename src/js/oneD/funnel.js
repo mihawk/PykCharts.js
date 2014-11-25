@@ -1,12 +1,7 @@
 PykCharts.oneD.funnel = function (options) {
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
-
-    //----------------------------------------------------------------------------------------
-    //1. This is the method that executes the various JS functions in the proper sequence to generate the chart
-    //----------------------------------------------------------------------------------------
     this.execute = function () {
-        //1.3 Assign Global variable var that to access function and variable throughout
         that = new PykCharts.oneD.processInputs(that, options);
         that.height = options.chart_height ? options.chart_height : that.width;
         var optional = options.optional
@@ -54,7 +49,8 @@ PykCharts.oneD.funnel = function (options) {
            that.k.loading();
         }
 
-        d3.json(options.data, function (e,data) {
+        that.format = that.k.dataSourceFormatIdentification(options.data);
+        d3[that.format](options.data, function (e,data) {
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
                 $(options.selector+" #chart-loader").remove();
@@ -66,16 +62,10 @@ PykCharts.oneD.funnel = function (options) {
             that.clubdata_enable = that.data.length>that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
             that.render();
         });
-        // that.clubData.enable = that.data.length>that.clubData.maximumNodes ? that.clubData.enable : "no";
 
     };
-
-
-    //----------------------------------------------------------------------------------------
-    //2. Render function to create the chart
-    //----------------------------------------------------------------------------------------
     this.refresh = function () {
-        d3.json (options.data, function (e,data) {
+        d3[that.format] (options.data, function (e,data) {
             that.data = that.k.__proto__._groupBy("oned",data);
             that.clubdata_enable = that.data.length>that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
             that.refresh_data = that.k.__proto__._groupBy("oned",data);
@@ -100,7 +90,6 @@ PykCharts.oneD.funnel = function (options) {
         
         that.fillChart = new PykCharts.Configuration.fillChart(that);
         that.transitions = new PykCharts.Configuration.transition(that);
-//        theme.stylesheet.borderBetweenChartElements;
         that.border = new PykCharts.Configuration.border(that);
 
         if(that.mode === "default") {
@@ -128,7 +117,6 @@ PykCharts.oneD.funnel = function (options) {
             .label()
             .ticks();
         if(that.mode === "default") {
-            // that.optionalFeatures().ticks();
             that.k.liveData(that)
                 .createFooter()
                 .lastUpdatedAt()
@@ -224,7 +212,6 @@ PykCharts.oneD.funnel = function (options) {
                         }else{
                             area_of_element = selectedPercentValues/100 * area_of_trapezium;
                         }
-                        //quadratic equation = (-b +- root(pow(b)-4ac))/2a;
                         var a = 2 * ratio;
                         var b = 2 * rw;
                         var c = 2 * area_of_element;
@@ -274,7 +261,6 @@ PykCharts.oneD.funnel = function (options) {
 
         var optional = {
             svgContainer :function () {
-                // $(options.selector).css("background-color",that.background_color);
 
                 that.svgContainer = d3.select(options.selector)
                     .append('svg')
@@ -380,7 +366,6 @@ PykCharts.oneD.funnel = function (options) {
                     setTimeout(function(){
                         that.chart_text.text(function (d,i) {
                                 return that.per_values[i].toFixed(1) + "%";
-                                // return that.k.appendUnits(that.new_data[i].weight);
                              })
                             .attr("text-anchor","middle")
                             .attr("pointer-events","none")
@@ -391,7 +376,6 @@ PykCharts.oneD.funnel = function (options) {
                             .text(function (d,i) {
                                 if(this.getBBox().width<(d.values[3].x - d.values[1].x) && this.getBBox().height < (d.values[2].y - d.values[0].y)) {
                                     return that.per_values[i].toFixed(1) + "%";
-                                    // return that.k.appendUnits(that.new_data[i].weight);
                                 }
                                 else {
                                     return "";
@@ -433,8 +417,6 @@ PykCharts.oneD.funnel = function (options) {
                         return "translate(" + x + "," + y + ")";});
 
                     tick_label.text("");
-                        // .transition()
-                        // .delay(that.transitions.duration())
 
                     setTimeout(function() {
                         tick_label.text(function (d,i) { return that.new_data[i].name; })
@@ -497,8 +479,6 @@ PykCharts.oneD.funnel = function (options) {
                         })
                         .attr("stroke-width", that.pointer_thickness + "px")
                         .attr("stroke", that.pointer_color)
-                        // .transition()
-                        // .duration(that.transitions.duration())
 
                         setTimeout(function(){
                             tick_line.attr("x2", function (d, i) {

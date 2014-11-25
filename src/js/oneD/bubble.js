@@ -20,15 +20,14 @@ PykCharts.oneD.bubble = function (options) {
             that.k.loading();
         }
 
-        d3.json(options.data, function (e,data) {
+        that.format = that.k.dataSourceFormatIdentification(options.data);
+        d3[that.format](options.data, function (e,data) {
 
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
                 $(options.selector+" #chart-loader").remove();
                 return;
             }
-            // that.data =options.data;
-            // that.compare_data = options.data;
 
             that.data = that.k.__proto__._groupBy("oned",data);
             that.compare_data = that.k.__proto__._groupBy("oned",data);
@@ -41,7 +40,7 @@ PykCharts.oneD.bubble = function (options) {
 
     this.refresh = function () {
 
-        d3.json (options.data, function (e,data) {
+        d3[that.format](options.data, function (e,data) {
             that.data = that.k.__proto__._groupBy("oned",data);
             that.clubdata_enable = that.data.length>that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
             that.refresh_data = that.k.__proto__._groupBy("oned",data);
@@ -59,12 +58,9 @@ PykCharts.oneD.bubble = function (options) {
     };
 
     this.render = function () {
-
-        // that.fillChart = new PykCharts.oneD.fillChart(that);
         var l = $(".svgcontainer").length;
         that.container_id = "svgcontainer" + l;
         that.fillChart = new PykCharts.Configuration.fillChart(that);
-        // that.onHoverEffect = new PykCharts.oneD.mouseEvent(that);
         that.transitions = new PykCharts.Configuration.transition(that);
 
         if (that.mode ==="default") {
@@ -135,7 +131,6 @@ PykCharts.oneD.bubble = function (options) {
                 })
                 
                 var l = that.new_data.children.length;
-                // that.max = that.new_data.children[l-1].weight;
                 that.node = that.bubble.nodes(that.new_data);
 
                 that.chart_data = that.group.selectAll(".bubble-node")
@@ -195,46 +190,6 @@ PykCharts.oneD.bubble = function (options) {
                 return this;
             },
             label : function () {
-
-                //     that.chart_text = that.group.selectAll("text")
-                //         .data(that.node);
-
-                //     that.chart_text.enter()
-                //     .append("text")
-                //     .style("pointer-events","none");
-
-                //     that.chart_text.attr("text-anchor","middle")
-                //         .attr("transform",function (d) {return "translate(" + d.x + "," + (d.y + 5) +")";})
-                //         .text("")
-                //         // .transition()
-                //         // .delay(that.transitions.duration());
-
-                //     setTimeout(function() {
-                //         that.chart_text
-                //             .text(function (d) { return d.children ? " " :  d.name; })
-                //             .attr("pointer-events","none")
-                //             .text(function (d) {
-                //                 if(this.getBBox().width< 2*d.r && this.getBBox().height<2*d.r) {
-                //                     return d.children ? " " :  d.name;
-                //                 }
-                //                 else {
-                //                      return "";
-                //                     }
-                //             })
-                //             .style("font-weight", that.label_weight)
-                //             .style("font-size",function (d,i) {
-                //                 if (d.r > 24) {
-                //                     return that.label_size;
-                //                 } else {
-                //                     return "10px";
-                //                 }
-                //             })
-                //             .attr("fill", that.label_color)
-                //             .style("font-family", that.label_family);
-                //     },that.transitions.duration());
-
-                //     that.chart_text.exit().remove;
-                // return this;
                  that.chart_text = that.group.selectAll(".name")
                         .data(that.node);
                     that.chart_text1 = that.group.selectAll(".weight")
@@ -261,8 +216,6 @@ PykCharts.oneD.bubble = function (options) {
                         .attr("fill", that.label_color)
                         .style("font-family", that.label_family)
                         .text("")
-                        // .transition()
-                        // .delay(that.transitions.duration())
 
                   setTimeout(function() {
                         that.chart_text
@@ -285,8 +238,6 @@ PykCharts.oneD.bubble = function (options) {
                         .style("font-family", that.label_family)
                         .text("")
                         .attr("pointer-events","none")
-                        // .transition()
-                        // .delay(that.transitions.duration())
 
                     setTimeout(function () {
                         that.chart_text1.text(function (d) { return d.children ? " " :  that.k.appendUnits(d.weight); })
@@ -372,7 +323,6 @@ PykCharts.oneD.bubble = function (options) {
                     that.map1 = new_data1.children.map(function (d) { return d.weight;});
                 }
                 else {
-                    // console.log(that.data.data,"what is this");
                     that.data.sort(function (a,b) {
                         return a.weight - b.weight;
                     })

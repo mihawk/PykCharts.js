@@ -22,7 +22,7 @@ module.exports = function(grunt) {
                     , '<%= js_src_path %>/oneD/pie.js'
                     , '<%= js_src_path %>/oneD/pyramid.js'
                     , '<%= js_src_path %>/oneD/treemap.js'
-                    , '<%= js_src_path %>/other/other.js'                    
+                    , '<%= js_src_path %>/other/other.js'
                     , '<%= js_src_path %>/other/pictograph.js'
                     , '<%= js_src_path %>/multiD/multiD.js'
                     , '<%= js_src_path %>/multiD/lineChart.js'
@@ -90,6 +90,25 @@ module.exports = function(grunt) {
             }
         },
 
+        comments: {
+            js: {
+                // Target-specific file lists and/or options go here.
+                options: {
+                    singleline: true,
+                    multiline: true
+                },
+                src: ['lib/*.js', 'src/**/*.js', 'pykih-charts/**/*.js'] // files to remove comments from
+            }
+        },
+
+        // Remove consolelogs
+        removelogging: {
+            dist: {
+                src: ['lib/*.js', 'src/**/*.js', 'pykih-charts/**/*.js'],
+                options: {}
+            }
+        },
+
         // Run QUnit Test
         qunit: {
             all: {
@@ -118,15 +137,14 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-qunit');
     grunt.loadNpmTasks('grunt-contrib-connect');
-
-    // Remove all console.logs
-    grunt.registerTask('rmconsolelogs', ['shell:rmclogs']);
+    grunt.loadNpmTasks('grunt-remove-logging');
+    grunt.loadNpmTasks('grunt-stripcomments');
 
     // Clean the .git/hooks/pre-commit file then copy in the latest version
     grunt.registerTask('hookmeup', ['clean:hooks', 'shell:hooks']);
 
     //build task
-    grunt.registerTask('build', ['concat', 'uglify', 'cssmin', 'rmconsolelogs', 'hookmeup']);
+    grunt.registerTask('build', ['comments', 'concat', 'removelogging', 'uglify', 'cssmin', 'hookmeup']);
 
     grunt.event.on('watch', function(action, filepath) {
         grunt.log.writeln(filepath + ' has ' + action);
