@@ -1551,17 +1551,18 @@ configuration.mouseEvent = function (options) {
     var status;
 
     var action = {
-        tooltipPosition : function (d,xPos,yPos,xDiff,yDiff,group_index,width_percentage) {
+        tooltipPosition : function (d,xPos,yPos,xDiff,yDiff,group_index,width_percentage,height_percentge) {
             if(PykCharts.boolean(options.tooltip_enable) || PykCharts.boolean(options.annotation_enable) || options.axis_x_data_format === "string" || options.axis_y_data_format === "string") {
                 if(xPos !== undefined){
                     var selector = options.selector.substr(1,options.selector.length)
                     var width_tooltip = parseFloat($("#tooltip-svg-container-"+group_index +"-pyk-tooltip"+selector).css("width"));
+                    var height_tooltip = parseFloat($("#tooltip-svg-container-"+group_index +"-pyk-tooltip"+selector).css("height"));
                     tooltip = $("#tooltip-svg-container-"+group_index +"-pyk-tooltip"+selector);
                     offset = $(options.selector).offset();
                     tooltip
                         .css("visibility", "visible")
-                        .css("top", (yPos + yDiff + offset.top) + "px")
-                        .css("left", ((xPos + options.margin_left + xDiff - width_tooltip + offset.left) * width_percentage) + "px");
+                        .css("top", (yPos - ((height_tooltip)/2) * height_percentge) + "px")
+                        .css("left", ((xPos + options.margin_left + offset.left) * width_percentage) + "px");
                 }
                 else {
                     that.tooltip
@@ -1601,6 +1602,7 @@ configuration.mouseEvent = function (options) {
                     var width_percentage = 0;
                 if (!PykCharts.boolean(panels_enable)) {
                     width_percentage = selectSVG.width() / options.width;
+                    height_percentge = selectSVG.height() / options.height;
                 } else {
                     width_percentage = 1
                 }
@@ -1697,7 +1699,7 @@ configuration.mouseEvent = function (options) {
                                             pos_line_cursor_x += 6;
                                             tooltipText = "<table><thead><th colspan='"+colspan+"'>"+active_x_tick+"</th></thead><tbody>"+tt_row+"</tbody></table>";
                                             if(PykCharts.boolean(options.tooltip_enable)) {
-                                                this.tooltipPosition(tooltipText,pos_line_cursor_x,y,60,-15,group_index,width_percentage);
+                                                this.tooltipPosition(tooltipText,pos_line_cursor_x,(y+offsetTop),60,-15,group_index,width_percentage,height_percentge);
                                                 this.tooltipTextShow(tooltipText);
                                             }
                                             (options.crosshair_enable) ? this.crossHairShow(pos_line_cursor_x,top,pos_line_cursor_x,(h - bottom),pos_line_cursor_x,test,type,active_y_tick.length,panels_enable,new_data) : null;
@@ -1721,7 +1723,7 @@ configuration.mouseEvent = function (options) {
                                                         active_y_tick.push(new_data[a].data[b].y);
                                                         tooltipText = new_data[a].data[b].tooltip;
                                                         pos_line_cursor_y = (yScale(new_data[a].data[b].y) + top);
-                                                        this.tooltipPosition(tooltipText,(pos_line_cursor_x+left_offset),(pos_line_cursor_y+top_offset),-15,-15,a,width_percentage);
+                                                        this.tooltipPosition(tooltipText,(pos_line_cursor_x+left_offset-15-30),(pos_line_cursor_y+ offsetTop),-15,-15,a,width_percentage,height_percentge);
 
                                                         this.tooltipTextShow(tooltipText,panels_enable,type,a);
                                                         (options.crosshair_enable) ? this.crossHairShow(pos_line_cursor_x,top,pos_line_cursor_x,(h - bottom),pos_line_cursor_x,pos_line_cursor_y,type,active_y_tick.length,panels_enable,new_data[a],a) : null;
@@ -1733,9 +1735,9 @@ configuration.mouseEvent = function (options) {
                                     if(type === "lineChart" || type === "areaChart") {
                                         if(PykCharts.boolean(options.tooltip_enable)) {
                                             if((options.tooltip_mode).toLowerCase() === "fixed") {
-                                                this.tooltipPosition(tooltipText,0,pos_line_cursor_y,-14,23,group_index,width_percentage);
+                                                this.tooltipPosition(tooltipText,-options.margin_left,(pos_line_cursor_y + offsetTop),-14,23,group_index,width_percentage,height_percentge);
                                             } else if((options.tooltip_mode).toLowerCase() === "moving") {
-                                                this.tooltipPosition(tooltipText,pos_line_cursor_x,pos_line_cursor_y,5,-45,group_index,width_percentage);
+                                                this.tooltipPosition(tooltipText,(pos_line_cursor_x-options.margin_left + 10),(pos_line_cursor_y+offsetTop-5),0,-45,group_index,width_percentage,height_percentge);
                                             }
                                             this.tooltipTextShow(tooltipText);
                                         }
@@ -1774,7 +1776,7 @@ configuration.mouseEvent = function (options) {
                                         tooltipText = "<table><thead><th colspan='"+colspan+"'>"+active_x_tick+"</th></thead><tbody>"+tt_row+"</tbody></table>";
                                         if(PykCharts.boolean(options.tooltip_enable)) {
                                             group_index = 1;
-                                            this.tooltipPosition(tooltipText,pos_line_cursor_x,y,60,70,group_index,width_percentage);
+                                            this.tooltipPosition(tooltipText,pos_line_cursor_x,(y+offsetTop),60,70,group_index,width_percentage,height_percentge);
                                             this.tooltipTextShow(tooltipText);
                                         }
                                         (options.crosshair_enable) ? this.crossHairShow(pos_line_cursor_x,top+legendsGroup_height,pos_line_cursor_x,(h - bottom),pos_line_cursor_x,test,type,active_y_tick.length,panels_enable,new_data) : null;
