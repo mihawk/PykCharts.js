@@ -4,7 +4,8 @@ PykCharts.maps.oneLayer = function (options) {
     this.execute = function () {
         that = PykCharts.maps.processInputs(that, options);
 
-        d3.json(options.data, function (data) {
+        that.format = that.k.dataSourceFormatIdentification(options.data);
+        d3[that.format](options.data, function (data) {
 
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
@@ -66,7 +67,8 @@ PykCharts.maps.timelineMap = function (options) {
     var theme = new PykCharts.Configuration.Theme({});
     this.execute = function () {
         that = PykCharts.maps.processInputs(that, options);
-        d3.json(options.data, function (data) {
+        that.format = that.k.dataSourceFormatIdentification(options.data);
+        d3[that.format](options.data, function (data) {
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
                 $(options.selector+" #chart-loader").remove();
@@ -184,7 +186,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
     that.refresh = function () {
 
         if(type === "oneLayer") {
-            d3.json(options.data, function (data) {
+            d3[that.format](options.data, function (data) {
                 that.data = data;
                 that.refresh_data = data;
                 var compare = that.k.checkChangeInData(that.refresh_data,that.compare_data);
