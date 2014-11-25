@@ -1599,7 +1599,7 @@ configuration.mouseEvent = function (options) {
             if((PykCharts.boolean(options.crosshair_enable) || PykCharts.boolean(options.tooltip_enable) || PykCharts.boolean(options.axis_onhover_highlight_enable))  && options.mode === "default") {
                 var selectSVG = $(options.selector + " #"+dataLineGroup[0][0][0].parentNode.parentNode.id)
                     var width_percentage = 0;
-                if (panels_enable === "no") {
+                if (!PykCharts.boolean(panels_enable)) {
                     width_percentage = selectSVG.width() / options.width;
                 } else {
                     width_percentage = 1
