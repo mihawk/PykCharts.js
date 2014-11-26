@@ -989,6 +989,7 @@ PykCharts.Configuration = function (options){
                     "line": ["x","name"],
                     "area": ["x","name"],
                     "bar": ["y","group"],
+                    // "waterfall": ["y","group"],
                     "column": ["x","group"],
                     "scatterplot": ["x","y","name","group"],
                     "pulse": ["x","y","name","group"],
