@@ -112,18 +112,18 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
 		        		.data(that.data)
 		        	.enter().append("g")
 		        		.attr("class", function(d) { return d.class+"-bar"; })
-		        		.attr("transform", function(d) { console.log(y(d.y),d.y);return "translate(0, " + y(d.y) + ")"; });
+		        		.attr("transform", function(d) { return "translate(0, " + y(d.y) + ")"; });
 
 		       	bar.append("rect")
-		       		.attr("x", function(d) { return x( Math.max(d.start, d.end) ); })
+		       		.attr("x", function(d) { return x((d.class == "negative") ? d.end : d.start); })
 		       		.attr("height", y.rangeBand())
-		       		.attr("width", function(d) { return Math.abs( x(d.start) - x(d.end) ); });
+		       		.attr("width", function(d) { return Math.abs(x(d.end) - x(d.start)); });
 
 		       	bar.append("text")
 		       		.attr("y", y.rangeBand()/2)
-		       		.attr("x", function(d) { return x(d.end) + 5; })
+		       		.attr("x", function(d) { return x(d.start) + 5; })
 		       		.attr("dx", function(d) { return ((d.class == "negative") ? "-" : "") + ".75em"; })
-		       		.attr("fill","pink")
+		       		.attr("fill","green")
 		       		.text(function(d) { return (d.end - d.start); })
 
 		       	return this;
@@ -144,11 +144,11 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
     		that.data[i].class = (that.data[i].x > 0) ? "positive" : "negative";
     		// console.log("^^^",that.data[i].end);
     	}
-    	that.data.push({
-    		y: "Total",
-    		end: cumulative,
-    		start: 0,
-    		class: "total"
-    	});
+    	// that.data.push({
+    	// 	y: "Total",
+    	// 	end: cumulative,
+    	// 	start: 0,
+    	// 	class: "total"
+    	// });
     };
 };
