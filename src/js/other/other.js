@@ -13,6 +13,7 @@ PykCharts.other.processInputs = function (chartObject, options) {
 
     chartObject.mode = options.mode ? options.mode.toLowerCase(): stylesheet.mode;
 
+    chartObject.tooltip_enable = options.tooltip_enable ? options.tooltip_enable.toLowerCase() : stylesheet.tooltip_enable;
     if (options &&  PykCharts.boolean (options.title_text)) {
         chartObject.title_text = options.title_text;
         chartObject.title_size = "title_size" in options ? options.title_size : stylesheet.title_size;
