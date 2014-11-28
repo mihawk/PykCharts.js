@@ -98,7 +98,6 @@ PykCharts.multiD.river = function (options){
                 .connectingLines()
                 
                 .highlight();
-                // .axisContainer();
 
             that.k.createFooter()
                     .lastUpdatedAt()
@@ -186,9 +185,6 @@ PykCharts.multiD.river = function (options){
         });
     }
     this.draw = function(){
-
-        //6.1 call render legends to display legends
-        //6.2 call render legends to display charts
         that.optional_feature().legends().dataMode().preProcessing().createChart().grids();    
         that.optional_feature().connectingLines().ticks().highlight();
     };
@@ -234,12 +230,10 @@ PykCharts.multiD.river = function (options){
             preProcessing: function () {
                 that.new_data1 = jQuery.extend(true, [], that.new_data);
                 that.highlightdata = [],highlight_index = -1;
-                //8.1 Filtering & Parsing Data
                 that.new_data1 = that.filter(that.new_data1);
                 that.new_data1 = that.parseData(that.new_data1);
                 that.maxTotalVal = that.maxTotal(that.new_data1);
                 that.highlight_enable = false;
-                //8.2 Sizes & Scales
                 
                 that.yScale = d3.scale.linear().domain([0, that.height]).range([0, that.height-that.legendsGroup_height]);
                 that.barHeight = (that.height) / (that.new_data1.length * 2);
@@ -258,8 +252,6 @@ PykCharts.multiD.river = function (options){
                     that.xScale = d3.scale.linear().range([0, width]);
                 }
                 var svg = that.group;
-
-                //8.5 SVG Groups for holding the bars
                 var groups = svg.selectAll("g.bar-holder").data(that.new_data1);
 
                 groups.enter().append("g").attr("class", "bar-holder")
@@ -290,8 +282,6 @@ PykCharts.multiD.river = function (options){
 
                 groups.exit().remove();
                 
-                //8.6 SVG Groups for holding the bars
-                
                 var bar_holder = svg.selectAll("g.bar-holder")[0];
                 for(var i = 0; i<that.new_data1.length; i++){
                     var group = bar_holder[i];
@@ -300,8 +290,6 @@ PykCharts.multiD.river = function (options){
                     if(that.extended) {
                         that.xScale.domain([0,that.new_data1[i].breakupTotal]);
                     }
-
-                    //8.7 Append Rectangles elements to  bar holder
                     
                     var rects = d3.select(group).selectAll("rect").data(breakup);
 
@@ -318,8 +306,6 @@ PykCharts.multiD.river = function (options){
                         })
                         .attr("y", 0)
                         .attr("height", function(d, i){
-                            
-                            //8.8 Scale the height according to the available height
                             
                             return (that.barHeight * (height - that.legendsGroup_height)) / height;
 
@@ -387,8 +373,6 @@ PykCharts.multiD.river = function (options){
                         })
                         .attr("stroke",that.grid_color);
                     top_grid.exit().remove();
-
-                    //8.4 Setting up Bottom: Graph Lines
                     
                     var bottom_grid = that.grid_group.selectAll("line.bottom_line")
                         .data(that.new_data1);
@@ -444,8 +428,6 @@ PykCharts.multiD.river = function (options){
 
                         });
                     left_angles.exit().remove();
-
-                    //8.13 Calibrating Right side angle lines
                     var right_angles = that.group.selectAll("line.right_line").data(that.new_data1);
 
                     right_angles.enter().append("line").attr("class", "right_line")
@@ -509,7 +491,7 @@ PykCharts.multiD.river = function (options){
                         .attr("fill", that.pointer_color)
                         .style("font-family", that.pointer_family);
                     that.max_tick = d3.max(tick_text_width,function (d) { return d; })
-                    console.log(that.max_tick);
+                    
                     display_name.exit().remove();
                 }
                 return this;
@@ -602,7 +584,7 @@ PykCharts.multiD.river = function (options){
                         .style("font-family", that.time_between_steps_text_family);
                     }
                 that.max_duration = d3.max(duration_text_width,function (d) { return d; });
-                console.log(that.max_duration);
+                
                 right_labels.exit().remove();
                 return this;
             },
@@ -734,7 +716,6 @@ PykCharts.multiD.river = function (options){
                         }
                     ];
                     that.legendsGroup_height = 50;
-                    //7.2 Append text data to legend holder
                     var texts = that.chart_mode_group.selectAll(".mode-text").data(options);
                     texts.enter().append("text")
 
@@ -753,9 +734,6 @@ PykCharts.multiD.river = function (options){
                             that.extended = !that.extended;
                             that.draw();
                         });
-
-
-                    //7.3 Append circle to legend holder
                     var circles = that.chart_mode_group.selectAll(".mode-circ").data(options);
                     circles.enter().append("circle");
 
@@ -797,10 +775,8 @@ PykCharts.multiD.river = function (options){
     that.onlyFilter = function(f){
         var index = that.filterList.indexOf(f);
         if(that.filterList.length === 1 && index != -1){
-            // if its the only item on the list, get rid of it
             that.filterList = [];
         }else{
-            // otherwise empty the list and add this one to it
             that.filterList = [];
             that.filterList.push(f);
         }

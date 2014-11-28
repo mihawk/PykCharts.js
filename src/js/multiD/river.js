@@ -1,18 +1,8 @@
 /* jshint -W083 */
 PykCharts.River = function(options){
-
-    //----------------------------------------------------------------------------------------
-    //1. This is the method that executes the various JS functions in the proper sequence to generate the chart
-    //----------------------------------------------------------------------------------------
     this.execute = function(){
-
-        //1.1 Validate the options passed
         if(!this.validate_options()) return false;
-
-        // 1.2 Preload animation
         $(this.options.selection).html("<img src='https://s3.amazonaws.com/PykCharts/spinner.gif'> Loading... Please wait");
-
-        //1.3 Assign Global variable var that to access function and variable throughout
         var that = this;
 
         that.source_name = this.options.sourceName;
@@ -20,27 +10,17 @@ PykCharts.River = function(options){
         
 
         var opt = this.options;
-
-        // 1.4 Read Json File Get all the data and pass to render
         d3.json(opt.data, function(e, data){
             that.data = data;
             that.render();
         });
     };
-
-    //----------------------------------------------------------------------------------------
-    //2. Validate Options
-    //----------------------------------------------------------------------------------------
     this.validate_options = function(){
         if(this.options.selection === undefined) return false;
         if(this.options.data === undefined) return false;
         if(this.options.width < 300) return false;
         return true;
     };
-
-    //----------------------------------------------------------------------------------------
-    //3. Assigning Attributes
-    //----------------------------------------------------------------------------------------
     this.options = jQuery.extend({
         width: 960,
         height: 200,
@@ -48,44 +28,25 @@ PykCharts.River = function(options){
         fullList: [],
         extended: false
     }, options);
-
-    //----------------------------------------------------------------------------------------
-    //4. Render function to create the chart
-    //----------------------------------------------------------------------------------------
     this.render = function(){
         var that = this;
-        //4.1 Clear existing HTML inside Selection DIV ID
         $(this.options.selection).html("");
-
-        //4.2 Assign height and width to a local variable
         var h = this.options.height;
         var w = this.options.width;
-
-        //4.3 Create SVG holder for the chart and the legends
         this.svg = d3.select(this.options.selection)
             .append("svg")
             .attr("class", "pyk-river")
             .attr("height", h+20)
             .attr("width", w);
-
-        //4.3 Create legends holder
         this.legends_group = this.svg.append("g")
             .attr("class", "legend-holder")
             .attr("transform", "translate(0,15)");
-
-        //4.3 Create map holder
         this.map_group = this.svg.append("g")
             .attr("class", "map-holder");
-
-        //4.4 Render elements
         this.renderTooltip();
         this.draw();
         renderCredits("pyk-river",$(".pyk-river").width(),$(".pyk-river").height(),that.source_name,that.source_link);
     };
-
-    //----------------------------------------------------------------------------------------
-    //5. Render Tooltip
-    //----------------------------------------------------------------------------------------
     this.renderTooltip = function(){
         $("#river-tooltip").remove();
         this.tooltip = d3.select("body")
@@ -99,25 +60,12 @@ PykCharts.River = function(options){
             .style("border-radius", "5px")
             .text("a simple tooltip");
     };
-
-    //----------------------------------------------------------------------------------------
-    //6. Draw function to render legends & charts
-    //----------------------------------------------------------------------------------------
     this.draw = function(){
-
-        //6.1 call render legends to display legends
         this.renderLegends();
-        //6.2 call render legends to display charts
         this.renderChart();
     };
-
-    //----------------------------------------------------------------------------------------
-    //7. Draw function to render legends & charts
-    //----------------------------------------------------------------------------------------
     this.renderLegends = function(){
         var that = this;
-
-        //7.1 Extended & Stream Options
         var optionHolder = this.legends_group.append("g")
             .attr("class", "option-holder")
             .attr("transform", "translate(0,15)");
@@ -132,8 +80,6 @@ PykCharts.River = function(options){
                 "on": !this.extended
             }
         ];
-
-        //7.2 Append text data to legend holder
         var texts = this.legends_group.select("g.option-holder").selectAll("text").data(options);
         texts.enter().append("text")
             .text(function(d,i){
@@ -146,9 +92,6 @@ PykCharts.River = function(options){
                 that.extended = !that.extended;
                 that.draw();
             });
-
-
-        //7.3 Append circle to legend holder
         var circles = this.legends_group.select("g.option-holder").selectAll("circles").data(options);
         circles.enter().append("circle")
             .attr("cx", function(d,i){
@@ -163,8 +106,6 @@ PykCharts.River = function(options){
                 that.extended = !that.extended;
                 that.draw();
             });
-
-        //7.4  Legends for different datasets
         var legends = this.data[0].breakup;
         var lWidth = (this.options.width-250) / legends.length;
 
@@ -208,23 +149,13 @@ PykCharts.River = function(options){
                 });
         }
     };
-
-
-    //----------------------------------------------------------------------------------------
-    //8. Draw function to render legends & charts
-    //----------------------------------------------------------------------------------------
     this.renderChart = function(){
         var tData = jQuery.extend(true, [], this.data);
         var legendHeight = 40;
         var that = this;
-
-
-        //8.1 Filtering & Parsing Data
         tData = this.filter(tData);
         tData = this.parseData(tData);
         var maxTotalVal = this.maxTotal(tData);
-
-        //8.2 Sizes & Scales
         var width = this.options.width;
         var height = this.options.height;
         var xScale = d3.scale.linear().domain([0, maxTotalVal]).range([0, width - 200]);
@@ -233,8 +164,6 @@ PykCharts.River = function(options){
         var barMargin = barHeight * 2;
 
         var svg = this.map_group;
-
-        //8.3 Setting up Top: Graph Lines
         svg.selectAll("line.top_line").data(tData).enter()
             .append("line").attr("class", "top_line")
             .attr("x1", 0).attr("x2", width)
@@ -244,9 +173,6 @@ PykCharts.River = function(options){
             .attr("y2", function(d, i){
                 return yScale(i * barMargin);
             });
-
-
-        //8.4 Setting up Bottom: Graph Lines
         svg.selectAll("line.bottom_line").data(tData).enter()
             .append("line").attr("class", "bottom_line")
             .attr("x1", 0).attr("x2", width)
@@ -256,8 +182,6 @@ PykCharts.River = function(options){
             .attr("y2", function(d, i){
                 return yScale((i * barMargin) + barHeight);
             });
-
-        //8.5 SVG Groups for holding the bars
         var groups = svg.selectAll("g.bar-holder").data(tData);
 
         groups.enter().append("g").attr("class", "bar-holder")
@@ -290,15 +214,10 @@ PykCharts.River = function(options){
             });
 
         groups.exit().remove();
-
-        //8.6 SVG Groups for holding the bars
         var bar_holder = svg.selectAll("g.bar-holder")[0];
         for(var i in tData){
             var group = bar_holder[i];
             var breakup = tData[i].breakup;
-
-
-            //8.7 Append Rectangles elements to  bar holder
             var rects = d3.select(group).selectAll("rect").data(breakup);
 
             rects.enter().append("rect").attr("width", 0);
@@ -314,7 +233,6 @@ PykCharts.River = function(options){
                 })
                 .attr("y", 0)
                 .attr("height", function(d, i){
-                    //8.8 Scale the height according to the available height
                     return (barHeight * (height - legendHeight)) / height;
 
                 })
@@ -346,8 +264,6 @@ PykCharts.River = function(options){
 
             rects.exit().transition().duration(1000).attr("width", 0).remove();
         }
-
-        //8.9 Display Name labels
         var display_name = svg.selectAll("text.cool_label").data(tData);
 
         display_name.enter().append("text").attr("class", "cool_label");
@@ -359,9 +275,6 @@ PykCharts.River = function(options){
             .text(function(d, i){
                 return d.breakupTotal + " " + d.technical_name;
             });
-
-
-        //8.10 Left side labels with totals
         var left_labels = svg.selectAll("text.left_label").data(tData);
 
         left_labels.enter().append("svg:text").attr("class", "left_label");
@@ -374,9 +287,6 @@ PykCharts.River = function(options){
             .text(function(d,i){
                 return d.display_name;
             });
-
-
-        //8.11 Right side labels with time duration
         var right_labels = svg.selectAll("text.right_label").data(tData);
 
         right_labels.enter().append("svg:text").attr("class", "right_label");
@@ -400,8 +310,6 @@ PykCharts.River = function(options){
             $("line.right_line").fadeOut();
             return;
         } //No need for angle lines if its extended
-
-        //8.12 Setting up Left side angle lines
         var left_angles = svg.selectAll("line.left_line").data(tData);
 
         left_angles.enter().append("line").attr("class", "left_line")
@@ -430,9 +338,6 @@ PykCharts.River = function(options){
                 return xScale((maxTotalVal - tData[i+1].breakupTotal) / 2) + 100;
 
             });
-
-
-        //8.13 Calibrating Right side angle lines
         var right_angles = svg.selectAll("line.right_line").data(tData);
 
         right_angles.enter().append("line").attr("class", "right_line")
@@ -463,11 +368,6 @@ PykCharts.River = function(options){
 
 
     };
-
-    //----------------------------------------------------------------------------------------
-    //9. Data Manuplation
-    //----------------------------------------------------------------------------------------
-    // Data Helpers
     this.filter = function(d){
         if(this.options.filterList.length < 1){
             this.options.filterList = jQuery.extend(true, [], this.options.fullList);
@@ -487,10 +387,8 @@ PykCharts.River = function(options){
     this.onlyFilter = function(f){
         var index = this.options.filterList.indexOf(f);
         if(this.options.filterList.length === 1 && index != -1){
-            // if its the only item on the list, get rid of it
             this.options.filterList = [];
         }else{
-            // otherwise empty the list and add this one to it
             this.options.filterList = [];
             this.options.filterList.push(f);
         }
