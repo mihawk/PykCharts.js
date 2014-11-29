@@ -83,7 +83,11 @@ PykCharts.other.venn = function (options) {
         var optional = {
             svgContainer: function () {
                 that.sets_data = venn.venn(that.sets, that.overlaps);
+                // that.svgContainer = d3.select(options.selector).append("svg")
+                //         .attr("width", that.width)
+                //         .attr("height", that.height);
 
+                
                 // draw the diagram in the 'venn' div
                 that.diagram = venn.drawD3Diagram(d3.select(options.selector), that.sets_data, that.width, that.height);
                 that.svgContainer = that.diagram.svg
@@ -91,59 +95,82 @@ PykCharts.other.venn = function (options) {
                     .attr("class","svgcontainer")
                     .attr("preserveAspectRatio", "xMinYMin")
                     .attr("viewBox", "0 0 " + that.width + " " + that.height);
+                // that.group = that.svgContainer.append( "g" );
+                // that.group1 = that.svgContainer.append("g");
                 return this;
             },
             createChart : function () {
                 
                 // add a tooltip showing the size of each set/intersection
-                // var tooltip = d3.select("body").append("div")
-                //     .style  ("position","absolute")
-                //     .attr("class", "venntooltip");
-
                 d3.selection.prototype.moveParentToFront = function() {
                   return this.each(function(){
                     this.parentNode.parentNode.appendChild(this.parentNode);
                   });
                 };
+                // parameters = parameters || {};
+
+                // var colours = d3.scale.category10(),
+                //     padding = 6;
+
+                // dataset = venn.scaleSolution(that.sets_data, that.width, that.height, padding);
+                // venn.computeTextCenters(dataset, that.width, that.height);
+
+                
+
+                // var nodes = that.group.selectAll("circle")
+                //     .data(dataset);
+
+                // that.node_group = nodes.enter()
+                //     .append("g")
+                //     .attr("class","venn-group")
+                //     .append("circle")
+                //     .attr("class","venn-nodes");
+
+                // nodes.select("circle")
+                //     .attr("r",  function(d) { return d.radius; })
+                //     .style("fill-opacity", 0.3)
+                //     .attr("cx", function(d) { return d.x; })
+                //     .attr("cy", function(d) { return d.y; })
+                //     .style("fill", function(d, i) { return colours(i); })
+                //     .on("mousemove", function(d) {
+                //         if(that.mode==="default") {
+                //             that.mouseEvent.tooltipPosition(d);
+                //         }
+                //     })
+                //     .on("mouseover", function(d, i) {
+                //         if(that.mode==="default") {
+                //             that.mouseEvent.tooltipPosition(d);
+                //             that.mouseEvent.tooltipTextShow(d.weight + " users");
+                //         }
+                //         var selection = d3.select(this);
+                //         selection.moveParentToFront()
+                //             .transition()
+                //             .style("fill-opacity", .5)
+                //             .style("stroke-opacity", 1);
+                //     })
+                //     .on("mouseout", function(d, i) {
+                //         if(that.mode==="default") {
+                //             that.mouseEvent.tooltipHide(d)
+                //         }
+                //         d3.select(this).transition()
+                //             .style("fill-opacity", .3)
+                //             .style("stroke-opacity", 0);
+                //     })
+                //     .style("stroke-opacity", 0)
+                //     .style("stroke", "white")
+                //     .style("stroke-width", "2");
+                // nodes.exit().remove();
+
+                // var text = nodes.append("text")
+                //        .attr("dy", ".35em")
+                //        .attr("x", function(d) { return Math.floor(d.textCenter.x); })
+                //        .attr("y", function(d) { return Math.floor(d.textCenter.y); })
+                //        .attr("text-anchor", "middle")
+                //        .style("fill", function(d, i) { return colours(i); })
+                //        .call(function (text) { text.each(wrapText); });
 
                 // hover on all the circles
-                that.diagram.circles
-                    .style("stroke-opacity", 0)
-                    .style("stroke", "white")
-                    .style("stroke-width", "2");
-
-                that.diagram.nodes
-                    .on("mousemove", function(d) {
-                        if(that.mode==="default") {
-                            that.mouseEvent.tooltipPosition(d);
-                        }
-                        // tooltip.style("left", (d3.event.pageX) + "px")
-                        //        .style("top", (d3.event.pageY - 28) + "px");
-                    })
-                    .on("mouseover", function(d, i) {
-                        if(that.mode==="default") {
-                            that.mouseEvent.tooltipPosition(d);
-                            that.mouseEvent.tooltipTextShow(d.weight + " users");
-                        }
-                        var selection = d3.select(this).select("circle");
-                        selection.moveParentToFront()
-                            .transition()
-                            .style("fill-opacity", .5)
-                            .style("stroke-opacity", 1);
-
-                        // tooltip.transition().style("opacity", .9);
-                        // tooltip.text(d.weight + " users");
-                    })
-                    .on("mouseout", function(d, i) {
-                        if(that.mode==="default") {
-                            that.mouseEvent.tooltipHide(d)
-                        }
-                        d3.select(this).select("circle").transition()
-                            .style("fill-opacity", .3)
-                            .style("stroke-opacity", 0);
-                        // tooltip.transition().style("opacity", 0);
-                    });
-
+                   
                 // draw a path around each intersection area, add hover there as well
                 that.svgContainer.selectAll("path")
                     .data(that.overlaps)
@@ -165,8 +192,6 @@ PykCharts.other.venn = function (options) {
                         d3.select(this).transition()
                             .style("fill-opacity", .1)
                             .style("stroke-opacity", 1);
-                        // tooltip.transition().style("opacity", .9);
-                        // tooltip.text(d.weight + " users");
                     })
                     .on("mouseout", function(d, i) {
                         if(that.mode==="default") {
@@ -175,37 +200,19 @@ PykCharts.other.venn = function (options) {
                         d3.select(this).transition()
                             .style("fill-opacity", 0)
                             .style("stroke-opacity", 0);
-                        // tooltip.transition().style("opacity", 0);
                     })
                     .on("mousemove", function(d) {
                         if(that.mode==="default") {
                             that.mouseEvent.tooltipPosition(d);
                         }
-                        // tooltip.style("left", (d3.event.pageX) + "px")
-                        //        .style("top", (d3.event.pageY - 28) + "px");
                     });
+                return this;
+            },
+            label : function () {
+
                 return this;
             }
         }
         return optional;
     }
 };
-// PykCharts.other.venn = function (options) {
-//     var that = this;
-
-//     this.execute = function () {
-//       d3.json(options.data[0], function (data) {
-//           that.sets = data;
-//           d3.json(options.data[1], function (data) {
-//               that.overlaps = data;
-//               that.render();
-//           })
-//       })
-//     }
-//     this.render = function () {
-//         // get positions for each set
-        
-
-        
-//     }
-// }
