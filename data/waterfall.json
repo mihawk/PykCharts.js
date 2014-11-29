@@ -1,43 +1,43 @@
 [
     {
     	"y": "Job",
-    	"x": 270,
+    	"x": 470,
     	"group": "Expenses",
-    	"tooltip": 270
+    	"tooltip": 470
     },
     {
     	"y": "Groceries",
-    	"x": -30,
+    	"x": -330,
     	"group": "Expenses",
-    	"tooltip": -30
+    	"tooltip": -330
     },
     {
     	"y": "Allowance",
-    	"x": 220,
+    	"x": 200,
     	"group": "Expenses",
-    	"tooltip": 220
+    	"tooltip": 200
     },
     {
-    	"y": "Subtotal",
-    	"x": 50,
+    	"y": "Travel",
+    	"x": 530,
     	"group": "Expenses",
-    	"tooltip": 50
+    	"tooltip": 530
     },
     {
     	"y": "Videos",
-    	"x": -220,
+    	"x": -190,
     	"group": "Expenses",
-    	"tooltip": -220
+    	"tooltip": -190
     },
     {
     	"y": "Coffee",
-    	"x": -40,
+    	"x": -400,
     	"group": "Expenses",
-    	"tooltip": -40  },
+    	"tooltip": -400  },
     {
-    	"y": "Total",
-    	"x": 50,
+    	"y": "Food",
+    	"x": 750,
     	"group": "Expenses",
-    	"tooltip": 50
+    	"tooltip": 750
     }
 ]

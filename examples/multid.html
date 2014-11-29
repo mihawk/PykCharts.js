@@ -4,43 +4,21 @@
         <link rel="stylesheet" type="text/css" href="../src/css/PykCharts.css">
         <style>
 
-        .bar.total rect {
-          fill: "steelblue";
-        }
-
-        .bar.positive rect {
-          fill: "darkolivegreen";
-        }
-        .bar.negative rect {
-          fill: "crimson";
-        }
-
-        .bar line.connector {
+        .bar line.waterfall-connector {
           stroke: "grey";
           stroke-dasharray: 3;
         }
 
         .bar text {
           fill: white;
-          font: 12px sans-serif;
+          font: 11px sans-serif;
           text-anchor: middle;
         }
-
-        /*.axis text {
-          font: 10px sans-serif;
-        }
-
-        .axis path,
-        .axis line {
-          fill: none;
-          stroke: #000;
-          shape-rendering: crispEdges;
-        }*/
 
         </style>
     </head>
     <body>
-        <!-- <div id="line"></div>
+         <!-- <div id="line"></div>
         <hr/>
         <div id="area"></div>
         <hr/>
@@ -63,10 +41,10 @@
         <div id="groupColumn"></div>
         <hr/>
         <div id="bar"></div>
-        <hr/>
+        <hr/> -->
         <div id="groupBar">
         </div>
-        <hr/>-->
+        <hr/>
         <div id="waterfall-chart">
         </div>
         <hr/>
@@ -89,8 +67,10 @@
                     selector: "#waterfall-chart",
                     data: "../data/waterfall.json",
                     mode: "default",
-                    chart_height: 430,
-                    chart_width: 400
+                    chart_height: 370,
+                    chart_width: 600,
+
+                    chart_color: ["#3B7080", "rgb(46, 204, 113)", "grey"] // ["negative-color", "positive-color"]
                 });
                 k.execute();
                 // var k = new PykCharts.multiD.line ({
@@ -827,82 +807,82 @@
                 //     data_sort_type: "alphabetically",
                 //     data_sort_order: "ascending"
                 // });
-                // // k.execute();
+                // k.execute();
 
-                // var k = new PykCharts.multiD.groupedBar({
-                //     data: "../data/ultimateGroupBar.json",
-                //     mode: "default",
-                //     selector: "#groupBar",
+                var k = new PykCharts.multiD.groupedBar({
+                    data: "../data/ultimateGroupBar.json",
+                    mode: "default",
+                    selector: "#groupBar",
 
-                //     chart_height: 430,
-                //     chart_width : 700,
-                //     chart_margin_top: 25,
-                //     chart_margin_right: 45,
-                //     chart_margin_bottom: 35,
-                //     chart_margin_left: 140,
+                    chart_height: 430,
+                    chart_width : 700,
+                    chart_margin_top: 25,
+                    chart_margin_right: 45,
+                    chart_margin_bottom: 35,
+                    chart_margin_left: 140,
 
-                //     color_mode:"color",
+                    color_mode:"color",
 
-                //     background_color:"white",
-                //     chart_color:["orange","red","yellow","purple"],
+                    background_color:"white",
+                    chart_color:["orange","red","yellow","purple"],
 
-                //     real_time_charts_refresh_frequency: 0,
+                    real_time_charts_refresh_frequency: 0,
 
-                //     axis_onhover_highlight_enable: "yes",
+                    axis_onhover_highlight_enable: "yes",
 
-                //     axis_x_enable: "yes",
-                //     axis_x_title : "Rainfall",
-                //     axis_x_position: "bottom",
-                //     axis_x_pointer_position: "bottom",
-                //     axis_x_line_color: "#1D1D1D",
-                //     axis_x_label_color: "#1D1D1D",
-                //     axis_x_pointer_size: 12,
-                //     axis_x_pointer_padding: 3,
-                //     axis_x_outer_pointer_length: 3,
+                    axis_x_enable: "yes",
+                    axis_x_title : "Rainfall",
+                    axis_x_position: "bottom",
+                    axis_x_pointer_position: "bottom",
+                    axis_x_line_color: "#1D1D1D",
+                    axis_x_label_color: "#1D1D1D",
+                    axis_x_pointer_size: 12,
+                    axis_x_pointer_padding: 3,
+                    axis_x_outer_pointer_length: 3,
 
-                //     axis_y_enable: "yes",
-                //     axis_y_title : "Months",
-                //     axis_y_position: "left",
-                //     axis_y_pointer_position: "left",
-                //     axis_y_line_color: "red",
-                //     axis_y_label_color: "#1D1D1D",
-                //     axis_y_pointer_size: 12,
-                //     axis_y_pointer_padding: 10,
-                //     axis_y_outer_pointer_length: 3,
+                    axis_y_enable: "yes",
+                    axis_y_title : "Months",
+                    axis_y_position: "left",
+                    axis_y_pointer_position: "left",
+                    axis_y_line_color: "red",
+                    axis_y_label_color: "#1D1D1D",
+                    axis_y_pointer_size: 12,
+                    axis_y_pointer_padding: 10,
+                    axis_y_outer_pointer_length: 3,
 
-                //     highlight_color: "#013F73",
-                //     panels_enable: "yes",
+                    highlight_color: "#013F73",
+                    panels_enable: "yes",
 
-                //     transition_duration: 0,
+                    transition_duration: 0,
 
-                //     border_between_chart_elements_thickness: 1,
-                //     border_between_chart_elements_color: "white",
-                //     border_between_chart_elements_style: "solid",
+                    border_between_chart_elements_thickness: 1,
+                    border_between_chart_elements_color: "white",
+                    border_between_chart_elements_style: "solid",
 
-                //     pointer_thickness: 1,
-                //     pointer_weight: "normal",
-                //     pointer_size: 10,
-                //     pointer_color: "#1D1D1D",
-                //     pointer_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
-                //     saturation_enable: "no",
-                //     axis_x_pointer_weight: "normal",
-                //     // axis_x_pointer_values: [20,10],
-                //     data_sort_enable: "yes",
-                //     highlight: "2014-02-01",
-                //     legends_enable: "yes",
-                //     legends_display: "horizontal",
-                //     legends_text_size: 12,
-                //     legends_text_color: "red",
-                //     legends_text_weight: "normal",
-                //     legends_text_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
-                //     "data_sort_enable": "yes",
-                //     "data_sort_type": "date", // sort type --- "alphabetically" / "date"
-                //     "data_sort_order": "ascending", // sort order --- "descending" / "ascending",
-                //     // legends_text_family: "Papyrus",
-                //     // legends_text_weight: "bold",
-                //     // legends_text_size: 28
-                // });
-                // // k.execute();
+                    pointer_thickness: 1,
+                    pointer_weight: "normal",
+                    pointer_size: 10,
+                    pointer_color: "#1D1D1D",
+                    pointer_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
+                    saturation_enable: "no",
+                    axis_x_pointer_weight: "normal",
+                    // axis_x_pointer_values: [20,10],
+                    data_sort_enable: "yes",
+                    highlight: "2014-02-01",
+                    legends_enable: "yes",
+                    legends_display: "horizontal",
+                    legends_text_size: 12,
+                    legends_text_color: "red",
+                    legends_text_weight: "normal",
+                    legends_text_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
+                    "data_sort_enable": "yes",
+                    "data_sort_type": "date", // sort type --- "alphabetically" / "date"
+                    "data_sort_order": "ascending", // sort order --- "descending" / "ascending",
+                    // legends_text_family: "Papyrus",
+                    // legends_text_weight: "bold",
+                    // legends_text_size: 28
+                });
+                // k.execute();
             };
         </script>
     </body>
