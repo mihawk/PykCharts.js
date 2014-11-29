@@ -501,11 +501,17 @@ PykCharts.Configuration = function (options){
             return this;
         },
         loading: function () {
-            if(PykCharts.boolean(options.loading)) {
-                $(options.selector).html("<div id='chart-loader'><img src="+options.loading+"></div>");
-                var initial_height_div = $(options.selector).height();
-                $(options.selector + " #chart-loader").css({"visibility":"visible","padding-left":(options.width/2) +"px","padding-top":(initial_height_div/2) + "px"});
+            var loading_content;
+            
+            if(options.loading_type === "image") {
+                loading_content = "<img src=" + options.loading_source + ">"
+            } else {
+                loading_content = options.loading_source;
             }
+            
+            $(options.selector).html("<div id='chart-loader'>" + loading_content + "</div>");
+            var initial_height_div = $(options.selector).height();
+            $(options.selector + " #chart-loader").css({"visibility":"visible","padding-left":(options.width/2) +"px","padding-top":(initial_height_div/2) + "px"});
             return this;
         },
         positionContainers : function (position, chart) {
@@ -2299,7 +2305,8 @@ configuration.Theme = function(){
         "axis_x_time_value_interval":0,
         "axisHighlight_x_data_format": "string",
 
-        "loading_gif_url": PykCharts.assets+"img/preloader.gif",
+        "loading_source": "<div class='PykCharts-loading'><div></div><div></div><div></div></div>",
+        "loading_type" : "css",
 
         "tooltip_enable": "yes",
         "tooltip_mode": "moving",
@@ -2522,7 +2529,8 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
     chartObject.highlight_color = options.highlight_color ? options.highlight_color : stylesheet.highlight_color;
 
     chartObject.fullscreen_enable = options.fullscreen_enable ? options.fullscreen_enable : stylesheet.fullscreen_enable;
-    chartObject.loading = options.loading_gif_url ? options.loading_gif_url: stylesheet.loading_gif_url;
+    chartObject.loading_type = options.loading_type ? options.loading_type : stylesheet.loading_type;
+    chartObject.loading_source = options.loading_source ? options.loading_source : stylesheet.loading_source;
     chartObject.tooltip_enable = options.tooltip_enable ? options.tooltip_enable.toLowerCase() : stylesheet.tooltip_enable;
     chartObject.border_between_chart_elements_thickness = "border_between_chart_elements_thickness" in options ? options.border_between_chart_elements_thickness : stylesheet.border_between_chart_elements_thickness;
     chartObject.border_between_chart_elements_color = options.border_between_chart_elements_color ? options.border_between_chart_elements_color : stylesheet.border_between_chart_elements_color;
@@ -4458,7 +4466,7 @@ PykCharts.oneD.pie = function (options) {
             pie_local.addGlobal(that.pykquery_configs);
             pie_local.dimensions = that.pykquery_configs.dim_column_name;
             pie_local.metrics = that.pykquery_configs.metric_column_name;
-            console.log(pie_local.getConfig());
+            
             pykquery_data = pie_local.getConfig("browser");
         }
         
@@ -4556,7 +4564,9 @@ PykCharts.oneD.donut = function (options) {
         if(that.stop) {
             return;
         }
-
+        if(that.mode === "default") {
+           that.k.loading();
+        }
         that.height_translate = that.height/2;
         that.show_total_at_center = options.donut_show_total_at_center ? options.donut_show_total_at_center.toLowerCase() : theme.oneDimensionalCharts.donut_show_total_at_center;
         that.show_total_at_center_size = "donut_show_total_at_center_size" in options ? options.donut_show_total_at_center_size : theme.oneDimensionalCharts.donut_show_total_at_center_size;
@@ -4633,7 +4643,9 @@ PykCharts.oneD.electionPie = function (options) {
         if(that.radiusPercent > 100) {
             that.radiusPercent = 100;
         }
-
+        if(that.mode === "default") {
+           that.k.loading();
+        }
         that.innerRadiusPercent = 0;
 
         that.format = that.k.dataSourceFormatIdentification(options.data);
@@ -4737,7 +4749,9 @@ PykCharts.oneD.electionDonut = function (options) {
         if(that.stop) {
             return;
         }
-
+        if(that.mode === "default") {
+           that.k.loading();
+        }
         that.show_total_at_center = options.donut_show_total_at_center ? options.donut_show_total_at_center.toLowerCase() : theme.oneDimensionalCharts.donut_show_total_at_center;
         that.show_total_at_center_size = "donut_show_total_at_center_size" in options ? options.donut_show_total_at_center_size : theme.oneDimensionalCharts.donut_show_total_at_center_size;
         that.show_total_at_center_color = options.donut_show_total_at_center_color ? options.donut_show_total_at_center_color : theme.oneDimensionalCharts.donut_show_total_at_center_color;
@@ -5292,7 +5306,7 @@ PykCharts.oneD.pyramid = function (options) {
             filter_pykquery = pyramid_local.filter();
             filters_selected = pyramid_local.filters;
             pyramid_local.addGlobal(that.pykquery_configs);
-            console.log(that.pykquery_configs,'>>>>>',pyramid_local,filter_pykquery,filters_selected);
+            
         }
 
         if(that.mode === "default") {
@@ -6236,8 +6250,8 @@ PykCharts.other.processInputs = function (chartObject, options) {
     chartObject.real_time_charts_last_updated_at_enable = options.real_time_charts_last_updated_at_enable ? options.real_time_charts_last_updated_at_enable.toLowerCase() : functionality.real_time_charts_last_updated_at_enable;
 
     chartObject.fullscreen_enable = options.fullscreen_enable ? options.fullscreen_enable : stylesheet.fullscreen_enable;
-    chartObject.loading = options.loading_gif_url ? options.loading_gif_url: stylesheet.loading_gif_url;
-    
+    chartObject.loading_type = options.loading_type ? options.loading_type : stylesheet.loading_type;
+    chartObject.loading_source = options.loading_source ? options.loading_source : stylesheet.loading_source;
     chartObject.export_enable = options.export_enable ? options.export_enable.toLowerCase() : stylesheet.export_enable;
     chartObject.k = new PykCharts.Configuration(chartObject);
 
@@ -7037,7 +7051,8 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     chartObject.saturation_color = options.saturation_color ? options.saturation_color : stylesheet.saturation_color;
 
     chartObject.fullscreen_enable = options.fullscreen_enable ? options.fullscreen_enable : stylesheet.fullscreen_enable;
-    chartObject.loading = options.loading_gif_url ? options.loading_gif_url: stylesheet.loading_gif_url;
+    chartObject.loading_type = options.loading_type ? options.loading_type : stylesheet.loading_type;
+    chartObject.loading_source = options.loading_source ? options.loading_source : stylesheet.loading_source;
     chartObject.real_time_charts_refresh_frequency = options.real_time_charts_refresh_frequency ? options.real_time_charts_refresh_frequency : functionality.real_time_charts_refresh_frequency;
     chartObject.real_time_charts_last_updated_at_enable = options.real_time_charts_last_updated_at_enable ? options.real_time_charts_last_updated_at_enable.toLowerCase() : functionality.real_time_charts_last_updated_at_enable;
 
@@ -13093,7 +13108,8 @@ PykCharts.maps.processInputs = function (chartObject, options) {
     chartObject.onhover = options.chart_onhover_effect ? options.chart_onhover_effect : mapsTheme.chart_onhover_effect;
     chartObject.default_zoom_level = options.default_zoom_level ? options.default_zoom_level : 80;
 
-    chartObject.loading = options.loading_gif_url ? options.loading_gif_url: stylesheet.loading_gif_url;
+    chartObject.loading_type = options.loading_type ? options.loading_type : stylesheet.loading_type;
+    chartObject.loading_source = options.loading_source ? options.loading_source : stylesheet.loading_source;
     chartObject.highlight = options.highlight ? options.highlight : stylesheet.highlight;
     chartObject.highlight_color = options.highlight_color ? options.highlight_color: stylesheet.highlight_color;
     if (options &&  PykCharts.boolean (options.title_text)) {

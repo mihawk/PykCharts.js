@@ -1,3 +1,36 @@
+.PykCharts-loading {
+  margin: 0;
+  width: 200px;
+  height: 50px;
+}
+.PykCharts-loading > div {
+  background-color: #96c900;
+  height: 100%;
+  width: 10%;
+  display: inline-block;
+  -webkit-animation: wave 1.2s infinite ease-in-out;
+  animation: wave 1.2s infinite ease-in-out;
+}
+.PykCharts-loading div:nth-child(2) {
+  -webkit-animation-delay: -1.1s;
+  animation-delay: -1.1s;
+  background-color: #fb8500;
+  margin-left: 3px;
+}
+.PykCharts-loading div:nth-child(3) {
+  -webkit-animation-delay: -1.0s;
+  animation-delay: -1.0s;
+  background-color: #a764c9;
+  margin-left: 3px;
+}
+@-webkit-keyframes wave {
+  0%, 40%, 100% { -webkit-transform: scaleY(0.4) }
+  20% { -webkit-transform: scaleY(1.0) }
+}
+@keyframes wave {
+  0%, 40%, 100% { transform: scaleY(0.4); }
+  20% { transform: scaleY(1.0); }
+}
 body {
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }

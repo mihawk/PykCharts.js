@@ -501,11 +501,17 @@ PykCharts.Configuration = function (options){
             return this;
         },
         loading: function () {
-            if(PykCharts.boolean(options.loading)) {
-                $(options.selector).html("<div id='chart-loader'><img src="+options.loading+"></div>");
-                var initial_height_div = $(options.selector).height();
-                $(options.selector + " #chart-loader").css({"visibility":"visible","padding-left":(options.width/2) +"px","padding-top":(initial_height_div/2) + "px"});
+            var loading_content;
+            
+            if(options.loading_type === "image") {
+                loading_content = "<img src=" + options.loading_source + ">"
+            } else {
+                loading_content = options.loading_source;
             }
+            
+            $(options.selector).html("<div id='chart-loader'>" + loading_content + "</div>");
+            var initial_height_div = $(options.selector).height();
+            $(options.selector + " #chart-loader").css({"visibility":"visible","padding-left":(options.width/2) +"px","padding-top":(initial_height_div/2) + "px"});
             return this;
         },
         positionContainers : function (position, chart) {
@@ -989,7 +995,6 @@ PykCharts.Configuration = function (options){
                     "line": ["x","name"],
                     "area": ["x","name"],
                     "bar": ["y","group"],
-                    // "waterfall": ["y","group"],
                     "column": ["x","group"],
                     "scatterplot": ["x","y","name","group"],
                     "pulse": ["x","y","name","group"],
@@ -2300,7 +2305,8 @@ configuration.Theme = function(){
         "axis_x_time_value_interval":0,
         "axisHighlight_x_data_format": "string",
 
-        "loading_gif_url": PykCharts.assets+"img/preloader.gif",
+        "loading_source": "<div class='PykCharts-loading'><div></div><div></div><div></div></div>",
+        "loading_type" : "css",
 
         "tooltip_enable": "yes",
         "tooltip_mode": "moving",

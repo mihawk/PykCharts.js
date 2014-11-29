@@ -28,7 +28,6 @@ PykCharts.multiD.waterfall = function(options){
 
             that.data = that.k.__proto__._groupBy("bar",data);
             that.compare_data = that.k.__proto__._groupBy("bar",data);
-            // console.log(that.data,"*******",options);
 
             $(that.selector+" #chart-loader").remove();
             PykCharts.multiD.waterfallFunctions(options,that,"waterfall");
@@ -118,14 +117,6 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
 		        var y = d3.scale.ordinal()
 		        	.rangeRoundBands([h, 0], padding);
 
-		        // var xAxis = d3.svg.axis()
-		        // 	.scale(x)
-		        // 	.orient("bottom");
-
-		        // var yAxis = d3.svg.axis()
-		        // 	.scale(y)
-		        // 	.orient("left");
-
 		        x.domain([0, d3.max(that.data, function(d) { return d.end; })]);
 		        y.domain(that.data.map(function(d) { return d.y; }));
 
@@ -176,8 +167,6 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
 
     that.dataTransformation = function () {
     	var cumulative = 0;
-    		
-    	// console.log(that.data);
     	for (var i=0 ; i<that.data.length ; i++) {
     		that.data[i].start = cumulative;
     		cumulative += that.data[i].x;
