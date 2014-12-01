@@ -41,10 +41,10 @@
         <div id="groupColumn"></div>
         <hr/>
         <div id="bar"></div>
-        <hr/> -->
+        <hr/>
         <div id="groupBar">
         </div>
-        <hr/>
+        <hr/> -->
         <div id="waterfall-chart">
         </div>
         <hr/>
@@ -65,12 +65,13 @@
             window.PykChartsInit = function (e) {
                 var k = new PykCharts.multiD.waterfall({
                     selector: "#waterfall-chart",
-                    data: "../data/waterfall.json",
+                    data: "../data/german_erp_waterfall8.json",
                     mode: "default",
-                    chart_height: 370,
-                    chart_width: 600,
+                    chart_height: 330,
+                    chart_width: 400,
+                    chart_margin_left: 30,
 
-                    chart_color: ["#3B7080", "rgb(46, 204, 113)", "grey"] // ["negative-color", "positive-color"]
+                    chart_color: ["rgb(255, 60, 131)", "rgb(0, 185, 250)", "grey"] // ["negative-color", "positive-color"]
                 });
                 k.execute();
                 // var k = new PykCharts.multiD.line ({

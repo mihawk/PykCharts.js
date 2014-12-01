@@ -999,6 +999,7 @@ PykCharts.Configuration = function (options){
                     "scatterplot": ["x","y","name","group"],
                     "pulse": ["x","y","name","group"],
                     "spiderweb": ["x","y","group"],
+                    "waterfall": ["y","group"]
                 }
                 , charts = {
                     "oned": {
@@ -1044,6 +1045,11 @@ PykCharts.Configuration = function (options){
                       "fact": "y",
                       "name": "name",
                       "weight": "weight"
+                    },
+                    "waterfall": {
+                        "dimension": "name",
+                        "fact": "weight",
+                        "name": "group"
                     }
                 };
 

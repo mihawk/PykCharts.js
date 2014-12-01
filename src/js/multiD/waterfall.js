@@ -26,8 +26,9 @@ PykCharts.multiD.waterfall = function(options){
                 return;
             }
 
-            that.data = that.k.__proto__._groupBy("bar",data);
-            that.compare_data = that.k.__proto__._groupBy("bar",data);
+            that.data = that.k.__proto__._groupBy("oned",data);
+            that.compare_data = that.k.__proto__._groupBy("oned",data);
+            console.log(that.data,that.data.length);
 
             $(that.selector+" #chart-loader").remove();
             PykCharts.multiD.waterfallFunctions(options,that,"waterfall");
@@ -45,6 +46,7 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
         that.container_id = "svgcontainer" + l;
 
         that.dataTransformation();
+        console.log(that.data," *****");
         
         that.transitions = new PykCharts.Configuration.transition(that);
         that.mouseEvent1 = new PykCharts.multiD.mouseEvent(that);
@@ -100,7 +102,7 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
                         .attr("class", "x axis");
                 }
                 if(PykCharts.boolean(that.axis_y_enable) || that.axis_y_title) {
-                    that.yGroup = that.group.append("g")
+                    that.nameGroup = that.group.append("g")
                         .attr("id","yaxis")
                         .attr("class","y axis");
                 }
@@ -109,7 +111,7 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
             createChart: function () {
 				var w = that.width - that.margin_left - that.margin_right,
 		            h = that.height - that.margin_top - that.margin_bottom,
-		            padding = 	0.3;
+		            padding = 	0.2;
 
 		        var x = d3.scale.linear()
 		        	.range([0, w]);
@@ -118,13 +120,13 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
 		        	.rangeRoundBands([h, 0], padding);
 
 		        x.domain([0, d3.max(that.data, function(d) { return d.end; })]);
-		        y.domain(that.data.map(function(d) { return d.y; }));
+		        y.domain(that.data.map(function(d) { return d.name; }));
 
 		        var bar = that.svgContainer.selectAll(".bar")
 		        		.data(that.data)
 		        	.enter().append("g")
 		        		.attr("class", function(d) { return "bar "+d.group; })
-		        		.attr("transform", function(d) { return "translate(0, " + y(d.y) + ")"; });
+		        		.attr("transform", function(d) { return "translate(0, " + y(d.name) + ")"; });
 
 		       	bar.append("rect")
 		       		.attr("x", function(d) { return x((d.group == "negative") ? d.end : d.start); })
@@ -142,22 +144,22 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
 		       			}
 		       		});
 
-		       	bar.append("text")
-		       		.attr("class","ticks-text")
-		       		.text(function(d) { return (d.end - d.start); })
-		       		.style("visibility","hidden")
-		       		.attr("y", function(d) { return (y.rangeBand()/2 + this.getBBox().height/3); })
-		       		.attr("x", function(d) { return (d.group == "negative") ? (x(d.start) - this.getBBox().width) : (x(d.end) - this.getBBox().width); })
-		       		.attr("dx", function(d) { return "-.5em"; })
-		       		.attr("fill", "white")
-		       		.style("visibility","visible");
+		       	// bar.append("text")
+		       	// 	.attr("class","ticks-text")
+		       	// 	.text(function(d) { return (d.end - d.start); })
+		       	// 	.style("visibility","hidden")
+		       	// 	.attr("y", function(d) { return (y.rangeBand()/2 + this.getBBox().height/3); })
+		       	// 	.attr("x", function(d) { return (d.group == "negative") ? (x(d.start) - this.getBBox().width) : (x(d.end) - this.getBBox().width); })
+		       	// 	.attr("dx", function(d) { return "-.5em"; })
+		       	// 	.attr("fill", "white")
+		       	// 	.style("visibility","visible");
 
-		       	bar.filter(function(d) { return d.group != "total" }).append("line")
-				      .attr("class", "waterfall-connector")
-				      .attr("x1", function(d) { return x(d.end); })
-				      .attr("y1", y.rangeBand())
-				      .attr("x2", function(d) { return x(d.end); })
-				      .attr("y2", y.rangeBand() + 5 );
+		       	// bar.filter(function(d) { return d.group != "total" }).append("line")
+				      // .attr("class", "waterfall-connector")
+				      // .attr("x1", function(d) { return x(d.end); })
+				      // .attr("y1", y.rangeBand())
+				      // .attr("x2", function(d) { return x(d.end); })
+				      // .attr("y2", y.rangeBand() + 5 );
 
 		       	return this;
             }
@@ -166,20 +168,39 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
     };
 
     that.dataTransformation = function () {
-    	var cumulative = 0;
+    	var cumulative = 0,
+    		temp_cumulative = 0,
+    		max_cumulative = 0/*,
+    		total_start = 0,
+    		total_end = 0*/;
+
+    	_.each(that.data, function (d) {
+    		temp_cumulative += d.weight;
+    		if (temp_cumulative < cumulative) { cumulative = temp_cumulative; }
+    		else if (temp_cumulative > max_cumulative) { max_cumulative = temp_cumulative; }
+    	});
+
+    	if (cumulative<0) {cumulative = Math.abs(cumulative); }
+    	else { cumulative = 0; }
+
+    	max_cumulative += cumulative;
+    	total_start = cumulative;
+
     	for (var i=0 ; i<that.data.length ; i++) {
     		that.data[i].start = cumulative;
-    		cumulative += that.data[i].x;
+    		cumulative += that.data[i].weight;
     		that.data[i].end = cumulative;
-    		that.data[i].group = (that.data[i].x > 0) ? "positive" : "negative";
+    		that.data[i].group = (that.data[i].weight > 0) ? "positive" : "negative";
     	}
-    	that.data.push({
-    		y: "Total",
-    		x: cumulative,
-    		end: cumulative,
-    		start: 0,
-    		group: "total"
-    	});
+
+    	// that.data.push({
+    	// 	name: "Grand Total",
+    	// 	weight: max_cumulative,
+    	// 	end: max_cumulative,
+    	// 	start: cumulative,
+    	// 	group: "total"
+    	// });
     	that.data.reverse();
+    	// console.log(cumulative," <<< cumulative",that.data,that.data.length);
     };
 };

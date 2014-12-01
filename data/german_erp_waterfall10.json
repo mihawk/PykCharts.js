@@ -1,0 +1,43 @@
+[
+    {
+        "name": "Umsatz",
+        "weight": 1000,
+        "tooltip": "This actually didn't take any conceptualization"
+    },
+    {
+        "name": "Rabatt",
+        "weight": -1000,
+        "tooltip": "No sketching either, really"
+    },
+    {
+        "name": "Erlosschmalerungen",
+        "weight": -1000
+    },
+    {
+        "name": "Lohnkosten",
+        "weight": -1000,
+        "tooltip": "all three lines of it"
+    },
+    {
+        "name": "Materialkosten",
+        "weight": -1000
+    },
+    {
+        "name": "Deckungsberitrag",
+        "weight": -1000,
+        "tooltip": "This counts, right?"
+    },
+    {
+        "name": "Vertrieb",
+        "weight": -1000
+    },
+    {
+        "name": "Kauf",
+        "weight": -1000,
+        "tooltip": "All the things"
+    },
+    {
+        "name": "Einkommen",
+        "weight": -1000
+    }
+]
