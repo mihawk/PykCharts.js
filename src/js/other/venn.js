@@ -80,10 +80,6 @@ PykCharts.other.venn = function (options) {
                 that.svgContainer = d3.select(options.selector).append("svg")
                         .attr("width", that.width)
                         .attr("height", that.height);
-
-                
-                // draw the diagram in the 'venn' div
-                // that.diagram = venn.drawD3Diagram(d3.select(options.selector), that.sets_data, that.width, that.height);
                 that.svgContainer = that.svgContainer
                     .attr("id",that.container_id)
                     .attr("class","svgcontainer")
@@ -99,7 +95,6 @@ PykCharts.other.venn = function (options) {
                     this.parentNode.parentNode.appendChild(this.parentNode);
                   });
                 };
-                 // parameters = parameters || {};
 
                 var colours = d3.scale.category10(),
                     padding = 6;
@@ -155,15 +150,11 @@ PykCharts.other.venn = function (options) {
 
                 var text = that.node_group.append("text")
                        .attr("dy", ".35em")
-                       .attr("x", function(d) { console.log(d);return Math.floor(d.textCenter.x); })
+                       .attr("x", function(d) { return Math.floor(d.textCenter.x); })
                        .attr("y", function(d) { return Math.floor(d.textCenter.y); })
                        .attr("text-anchor", "middle")
                        .style("fill", function(d, i) { return colours(i); })
-                       .call(function (text) { console.log(text);text.each(venn.wrapText); });
-
-                // hover on all the circles
-                   
-                // draw a path around each intersection area, add hover there as well
+                       .call(function (text) { text.each(venn.wrapText); });
                 that.group1.selectAll("path")
                     .data(that.overlaps)
                     .enter()

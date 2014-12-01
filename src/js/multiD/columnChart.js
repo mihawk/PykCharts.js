@@ -14,9 +14,8 @@ PykCharts.multiD.column = function(options){
            that.k.loading();
         }
         that.multiD = new PykCharts.multiD.configuration(that);
-        that.format = that.k.dataSourceFormatIdentification(options.data);
-        d3[that.format](options.data, function(e, data) {
 
+        that.executeData = function (data) {
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
                 $(that.selector+" #chart-loader").remove();
@@ -29,7 +28,8 @@ PykCharts.multiD.column = function(options){
             $(that.selector+" #chart-loader").remove();
             PykCharts.multiD.columnFunctions(options,that,"column");
             that.render();
-        });
+        };
+        that.format = that.k.dataSourceFormatIdentification(options.data,that,"executeData");
     };
 };
 
@@ -49,9 +49,8 @@ PykCharts.multiD.groupedColumn = function(options){
            that.k.loading();
         }
         that.multiD = new PykCharts.multiD.configuration(that);
-        that.format = that.k.dataSourceFormatIdentification(options.data);
-        d3[that.format](options.data, function(e, data){
 
+        that.executeData = function (data) {
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
                 $(that.selector+" #chart-loader").remove();
@@ -64,14 +63,15 @@ PykCharts.multiD.groupedColumn = function(options){
             $(that.selector+" #chart-loader").remove();
             PykCharts.multiD.columnFunctions(options,that,"group_column");
             that.render();
-        });
+        };
+        that.k.dataSourceFormatIdentification(options.data,that,"executeData");
     };
 };
 
 PykCharts.multiD.columnFunctions = function (options,chartObject,type) {
     var that = chartObject;
     that.refresh = function () {
-        d3[that.format](options.data, function (e, data) {
+        that.executeRefresh = function (data) {
             that.data = that.k.__proto__._groupBy("column",data);
             that.refresh_data = that.k.__proto__._groupBy("column",data);
 
@@ -99,7 +99,8 @@ PykCharts.multiD.columnFunctions = function (options,chartObject,type) {
 
             that.k.yAxis(that.svgContainer,that.yGroup,that.yScaleInvert,undefined,that.y_tick_values,that.legendsGroup_width)
                 .yGrid(that.svgContainer,that.group,that.yScaleInvert,that.legendsGroup_width);
-        });
+        };
+        that.k.dataSourceFormatIdentification(options.data,that,"executeRefresh");
     };
     that.render = function() {
         var that = this;
