@@ -142,7 +142,9 @@ PykCharts.oneD.donut = function (options) {
         if(that.stop) {
             return;
         }
-
+        if(that.mode === "default") {
+           that.k.loading();
+        }
         that.height_translate = that.height/2;
         that.show_total_at_center = options.donut_show_total_at_center ? options.donut_show_total_at_center.toLowerCase() : theme.oneDimensionalCharts.donut_show_total_at_center;
         that.show_total_at_center_size = "donut_show_total_at_center_size" in options ? options.donut_show_total_at_center_size : theme.oneDimensionalCharts.donut_show_total_at_center_size;
@@ -219,7 +221,9 @@ PykCharts.oneD.electionPie = function (options) {
         if(that.radiusPercent > 100) {
             that.radiusPercent = 100;
         }
-
+        if(that.mode === "default") {
+           that.k.loading();
+        }
         that.innerRadiusPercent = 0;
 
         that.format = that.k.dataSourceFormatIdentification(options.data);
@@ -323,7 +327,9 @@ PykCharts.oneD.electionDonut = function (options) {
         if(that.stop) {
             return;
         }
-
+        if(that.mode === "default") {
+           that.k.loading();
+        }
         that.show_total_at_center = options.donut_show_total_at_center ? options.donut_show_total_at_center.toLowerCase() : theme.oneDimensionalCharts.donut_show_total_at_center;
         that.show_total_at_center_size = "donut_show_total_at_center_size" in options ? options.donut_show_total_at_center_size : theme.oneDimensionalCharts.donut_show_total_at_center_size;
         that.show_total_at_center_color = options.donut_show_total_at_center_color ? options.donut_show_total_at_center_color : theme.oneDimensionalCharts.donut_show_total_at_center_color;

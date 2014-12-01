@@ -50,7 +50,6 @@ PykCharts.other.venn = function (options) {
                 .emptyDiv()
                 .subtitle()
                 .tooltip();
-                // .liveData(that);
         } else {
             that.k.backgroundColor(that)
                 .export(that,"#"+that.container_id,"pictograph")
@@ -59,11 +58,6 @@ PykCharts.other.venn = function (options) {
 
         that.optionalFeatures()
                 .svgContainer()
-                // .labelText()
-                // .enableLabel()
-        // if(PykCharts.boolean(that.pictograph_units_per_image)) {
-        //     that.optionalFeatures().appendUnits()
-        // }
         that.optionalFeatures().createChart();
         if(that.mode==="default") {
             that.k.createFooter()
@@ -72,7 +66,7 @@ PykCharts.other.venn = function (options) {
                 .dataSource();
         }
         that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
-        console.log(that.mouseEvent);
+        
         that.k.exportSVG(that,"#"+that.container_id,"pictograph")
         $(document).ready(function () { return that.k.resize(that.svgContainer); })
         $(window).on("resize", function () { return that.k.resize(that.svgContainer); });
@@ -83,96 +77,94 @@ PykCharts.other.venn = function (options) {
         var optional = {
             svgContainer: function () {
                 that.sets_data = venn.venn(that.sets, that.overlaps);
-                // that.svgContainer = d3.select(options.selector).append("svg")
-                //         .attr("width", that.width)
-                //         .attr("height", that.height);
+                that.svgContainer = d3.select(options.selector).append("svg")
+                        .attr("width", that.width)
+                        .attr("height", that.height);
 
                 
                 // draw the diagram in the 'venn' div
-                that.diagram = venn.drawD3Diagram(d3.select(options.selector), that.sets_data, that.width, that.height);
-                that.svgContainer = that.diagram.svg
+                // that.diagram = venn.drawD3Diagram(d3.select(options.selector), that.sets_data, that.width, that.height);
+                that.svgContainer = that.svgContainer
                     .attr("id",that.container_id)
                     .attr("class","svgcontainer")
                     .attr("preserveAspectRatio", "xMinYMin")
                     .attr("viewBox", "0 0 " + that.width + " " + that.height);
-                // that.group = that.svgContainer.append( "g" );
-                // that.group1 = that.svgContainer.append("g");
+                that.group = that.svgContainer.append( "g" );
+                that.group1 = that.svgContainer.append("g");
                 return this;
             },
             createChart : function () {
-                
-                // add a tooltip showing the size of each set/intersection
                 d3.selection.prototype.moveParentToFront = function() {
                   return this.each(function(){
                     this.parentNode.parentNode.appendChild(this.parentNode);
                   });
                 };
-                // parameters = parameters || {};
+                 // parameters = parameters || {};
 
-                // var colours = d3.scale.category10(),
-                //     padding = 6;
+                var colours = d3.scale.category10(),
+                    padding = 6;
 
-                // dataset = venn.scaleSolution(that.sets_data, that.width, that.height, padding);
-                // venn.computeTextCenters(dataset, that.width, that.height);
+                dataset = venn.scaleSolution(that.sets_data, that.width, that.height, padding);
+                venn.computeTextCenters(dataset, that.width, that.height);
 
                 
 
-                // var nodes = that.group.selectAll("circle")
-                //     .data(dataset);
+                var nodes = that.group.selectAll("circle")
+                    .data(dataset);
 
-                // that.node_group = nodes.enter()
-                //     .append("g")
-                //     .attr("class","venn-group")
-                //     .append("circle")
-                //     .attr("class","venn-nodes");
+                that.node_group = nodes.enter()
+                    .append("g")
+                    .attr("class","venn-group")
+                    .append("circle")
+                    .attr("class","venn-nodes");
 
-                // nodes.select("circle")
-                //     .attr("r",  function(d) { return d.radius; })
-                //     .style("fill-opacity", 0.3)
-                //     .attr("cx", function(d) { return d.x; })
-                //     .attr("cy", function(d) { return d.y; })
-                //     .style("fill", function(d, i) { return colours(i); })
-                //     .on("mousemove", function(d) {
-                //         if(that.mode==="default") {
-                //             that.mouseEvent.tooltipPosition(d);
-                //         }
-                //     })
-                //     .on("mouseover", function(d, i) {
-                //         if(that.mode==="default") {
-                //             that.mouseEvent.tooltipPosition(d);
-                //             that.mouseEvent.tooltipTextShow(d.weight + " users");
-                //         }
-                //         var selection = d3.select(this);
-                //         selection.moveParentToFront()
-                //             .transition()
-                //             .style("fill-opacity", .5)
-                //             .style("stroke-opacity", 1);
-                //     })
-                //     .on("mouseout", function(d, i) {
-                //         if(that.mode==="default") {
-                //             that.mouseEvent.tooltipHide(d)
-                //         }
-                //         d3.select(this).transition()
-                //             .style("fill-opacity", .3)
-                //             .style("stroke-opacity", 0);
-                //     })
-                //     .style("stroke-opacity", 0)
-                //     .style("stroke", "white")
-                //     .style("stroke-width", "2");
-                // nodes.exit().remove();
+                nodes.select("circle")
+                    .attr("r",  function(d) { return d.radius; })
+                    .style("fill-opacity", 0.3)
+                    .attr("cx", function(d) { return d.x; })
+                    .attr("cy", function(d) { return d.y; })
+                    .style("fill", function(d, i) { return colours(i); })
+                    .on("mousemove", function(d) {
+                        if(that.mode==="default") {
+                            that.mouseEvent.tooltipPosition(d);
+                        }
+                    })
+                    .on("mouseover", function(d, i) {
+                        if(that.mode==="default") {
+                            that.mouseEvent.tooltipPosition(d);
+                            that.mouseEvent.tooltipTextShow(d.weight + " users");
+                        }
+                        var selection = d3.select(this);
+                        selection.moveParentToFront()
+                            .transition()
+                            .style("fill-opacity", .5)
+                            .style("stroke-opacity", 1);
+                    })
+                    .on("mouseout", function(d, i) {
+                        if(that.mode==="default") {
+                            that.mouseEvent.tooltipHide(d)
+                        }
+                        d3.select(this).transition()
+                            .style("fill-opacity", .3)
+                            .style("stroke-opacity", 0);
+                    })
+                    .style("stroke-opacity", 0)
+                    .style("stroke", "white")
+                    .style("stroke-width", "2");
+                nodes.exit().remove();
 
-                // var text = nodes.append("text")
-                //        .attr("dy", ".35em")
-                //        .attr("x", function(d) { return Math.floor(d.textCenter.x); })
-                //        .attr("y", function(d) { return Math.floor(d.textCenter.y); })
-                //        .attr("text-anchor", "middle")
-                //        .style("fill", function(d, i) { return colours(i); })
-                //        .call(function (text) { text.each(wrapText); });
+                var text = that.node_group.append("text")
+                       .attr("dy", ".35em")
+                       .attr("x", function(d) { console.log(d);return Math.floor(d.textCenter.x); })
+                       .attr("y", function(d) { return Math.floor(d.textCenter.y); })
+                       .attr("text-anchor", "middle")
+                       .style("fill", function(d, i) { return colours(i); })
+                       .call(function (text) { console.log(text);text.each(venn.wrapText); });
 
                 // hover on all the circles
                    
                 // draw a path around each intersection area, add hover there as well
-                that.svgContainer.selectAll("path")
+                that.group1.selectAll("path")
                     .data(that.overlaps)
                     .enter()
                     .append("path")
