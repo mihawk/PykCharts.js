@@ -1133,7 +1133,6 @@ PykCharts.Configuration = function (options){
             return this;
         },
         dataSourceFormatIdentification : function (data,chart,executeFunction) {
-
             var dot_index = data.lastIndexOf('.'),
             len = data.length - dot_index;
             format = data.substr(dot_index+1,len);

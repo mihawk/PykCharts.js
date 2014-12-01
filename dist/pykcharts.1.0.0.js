@@ -789,7 +789,7 @@ PykCharts.Configuration = function (options){
             return this;
         },
         ordinalYAxisTickFormat : function (domain) {
-            var a = $(options.selector + " g.y.axis text");
+            var a = $(options.selector + " g.y.axis .tick text");
 
             var len = a.length,comp;
 
@@ -1133,7 +1133,6 @@ PykCharts.Configuration = function (options){
             return this;
         },
         dataSourceFormatIdentification : function (data,chart,executeFunction) {
-
             var dot_index = data.lastIndexOf('.'),
             len = data.length - dot_index;
             format = data.substr(dot_index+1,len);
@@ -13203,8 +13202,8 @@ PykCharts.maps.oneLayer = function (options) {
         that = PykCharts.maps.processInputs(that, options);
 
         that.format = that.k.dataSourceFormatIdentification(options.data);
-        d3[that.format](options.data, function (data) {
 
+        that.executeData = function (data) {
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
                 $(options.selector+" #chart-loader").remove();
@@ -13256,7 +13255,8 @@ PykCharts.maps.oneLayer = function (options) {
                 });
             that.extent_size = d3.extent(that.data, function (d) { return parseInt(d.size, 10); });
             that.difference = that.extent_size[1] - that.extent_size[0];
-        });
+        };
+        that.k.dataSourceFormatIdentification(options.data,that,"executeData")
     };
 };
 
@@ -13266,7 +13266,7 @@ PykCharts.maps.timelineMap = function (options) {
     this.execute = function () {
         that = PykCharts.maps.processInputs(that, options);
         that.format = that.k.dataSourceFormatIdentification(options.data);
-        d3[that.format](options.data, function (data) {
+        that.executeData = function (data) {
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
                 $(options.selector+" #chart-loader").remove();
@@ -13321,7 +13321,8 @@ PykCharts.maps.timelineMap = function (options) {
 
             that.extent_size = d3.extent(that.data, function (d) { return parseInt(d.size, 10); });
             that.difference = that.extent_size[1] - that.extent_size[0];
-        });
+        };
+        that.k.dataSourceFormatIdentification(options.data,that,"executeData")
     };
 };
 
@@ -13382,23 +13383,24 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
     };
 
     that.refresh = function () {
+        that.executeRefresh = function (data) {
+            that.data = data;
+            that.refresh_data = data;
+            var compare = that.k.checkChangeInData(that.refresh_data,that.compare_data);
+            that.compare_data = compare[0];
+            var data_changed = compare[1];
+            if(data_changed) {
+                that.k.lastUpdatedAt("liveData");
+            }
+            that.extent_size = d3.extent(that.data, function (d) { return parseInt(d.size, 10); });
+            that.difference = that.extent_size[1] - that.extent_size[0];
+            that.optionalFeatures()
+                .legends(that.legends_enable)
+                .createMap();
+        }
 
         if(type === "oneLayer") {
-            d3[that.format](options.data, function (data) {
-                that.data = data;
-                that.refresh_data = data;
-                var compare = that.k.checkChangeInData(that.refresh_data,that.compare_data);
-                that.compare_data = compare[0];
-                var data_changed = compare[1];
-                if(data_changed) {
-                    that.k.lastUpdatedAt("liveData");
-                }
-                that.extent_size = d3.extent(that.data, function (d) { return parseInt(d.size, 10); });
-                that.difference = that.extent_size[1] - that.extent_size[0];
-                that.optionalFeatures()
-                    .legends(that.legends_enable)
-                    .createMap();
-            });
+            that.k.dataSourceFormatIdentification(options.data,that,"executeRefresh")
         }
     };
 
