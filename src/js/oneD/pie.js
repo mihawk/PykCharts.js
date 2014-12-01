@@ -70,18 +70,22 @@ PykCharts.oneD.pie = function (options) {
            that.k.loading();
         }
 
-        var validate = that.k.validator().validatingJSON(pykquery_data);
-        if(that.stop || validate === false) {
-            $(options.selector+" #chart-loader").remove();
-            return;
-        }
+        that.executeData = function (data) {
+            var validate = that.k.validator().validatingJSON(data);
+            if(that.stop || validate === false) {
+                $(options.selector+" #chart-loader").remove();
+                return;
+            }
 
-        that.data = that.k.__proto__._groupBy("oned",pykquery_data);
-        that.compare_data = that.k.__proto__._groupBy("oned",pykquery_data);
-        $(options.selector+" #chart-loader").remove();
-        var pieFunctions = new PykCharts.oneD.pieFunctions(options,that,"pie");
-        that.clubdata_enable = that.data.length > that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
-        pieFunctions.render();
+            that.data = that.k.__proto__._groupBy("oned",data);
+            that.compare_data = that.k.__proto__._groupBy("oned",data);
+            $(options.selector+" #chart-loader").remove();
+            var pieFunctions = new PykCharts.oneD.pieFunctions(options,that,"pie");
+            that.clubdata_enable = that.data.length > that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
+            pieFunctions.render();
+        };
+        that.k.dataSourceFormatIdentification(options.data,that,"executeData");
+
     };
 };
 
@@ -169,9 +173,7 @@ PykCharts.oneD.donut = function (options) {
         that.show_total_at_center_weight = options.donut_show_total_at_center_weight ? options.donut_show_total_at_center_weight : theme.oneDimensionalCharts.donut_show_total_at_center_weight;
         that.show_total_at_center_family = options.donut_show_total_at_center_family ? options.donut_show_total_at_center_family : theme.oneDimensionalCharts.donut_show_total_at_center_family;
 
-        that.format = that.k.dataSourceFormatIdentification(options.data);
-        d3[that.format](options.data, function (e, data) {
-
+        that.executeData = function (data) {
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
                 $(options.selector+" #chart-loader").remove();
@@ -184,7 +186,8 @@ PykCharts.oneD.donut = function (options) {
             var pieFunctions = new PykCharts.oneD.pieFunctions(options,that,"donut");
             that.clubdata_enable = that.data.length > that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
             pieFunctions.render();
-        });
+        };
+        that.k.dataSourceFormatIdentification(options.data,that,"executeData");
     };
 };
 
@@ -243,9 +246,7 @@ PykCharts.oneD.electionPie = function (options) {
         }
         that.innerRadiusPercent = 0;
 
-        that.format = that.k.dataSourceFormatIdentification(options.data);
-        d3[that.format](options.data, function (e, data) {
-
+        that.executeData = function (data) {
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
                 $(options.selector+" #chart-loader").remove();
@@ -259,7 +260,8 @@ PykCharts.oneD.electionPie = function (options) {
             that.clubdata_enable = that.data.length > that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
             pieFunctions.render();
 
-        });
+        };
+        that.k.dataSourceFormatIdentification(options.data,that,"executeData");
     };
 };
 
@@ -353,9 +355,7 @@ PykCharts.oneD.electionDonut = function (options) {
         that.show_total_at_center_weight = options.donut_show_total_at_center_weight ? options.donut_show_total_at_center_weight : theme.oneDimensionalCharts.donut_show_total_at_center_weight;
         that.show_total_at_center_family = options.donut_show_total_at_center_family ? options.donut_show_total_at_center_family : theme.oneDimensionalCharts.donut_show_total_at_center_family;
 
-        that.format = that.k.dataSourceFormatIdentification(options.data);
-        d3[that.format](options.data, function (e, data) {
-
+        that.executeData = function (data) {
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
                 $(options.selector+" #chart-loader").remove();
@@ -368,18 +368,18 @@ PykCharts.oneD.electionDonut = function (options) {
             var pieFunctions = new PykCharts.oneD.pieFunctions(options,that,"election donut");
             that.clubdata_enable = that.data.length> that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
             pieFunctions.render();
-        });
+        };
+        that.k.dataSourceFormatIdentification(options.data,that,"executeData");
     };
 };
 
 PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
     var that = chartObject;
-    that.refresh = function (new_data) {
-        if (new_data == undefined && that.filter_enable == false) {
-            d3[that.format](options.data, function (e, data) {
+    that.refresh = function () {
+        that.executeRefresh = function (data) {
                 that.data = that.k.__proto__._groupBy("oned",data);
                 that.clubdata_enable = that.data.length>that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
-                that.refresh_data = that.k.__proto__._groupBy("oned",data);
+                that.refresh_data = that.k.__proto__._groupBy("oned",new_data);
                 var compare = that.k.checkChangeInData(that.refresh_data,that.compare_data);
                 that.compare_data = compare[0];
                 var data_changed = compare[1];
@@ -392,26 +392,9 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                         .label()
                         .ticks()
                         .centerLabel();
-            });
-        }
-        else {
-            that.data = that.k.__proto__._groupBy("oned",new_data);
-            that.clubdata_enable = that.data.length>that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
-            that.refresh_data = that.k.__proto__._groupBy("oned",new_data);
-            var compare = that.k.checkChangeInData(that.refresh_data,that.compare_data);
-            that.compare_data = compare[0];
-            var data_changed = compare[1];
-            if(data_changed) {
-                that.k.lastUpdatedAt("liveData");
-            }
-            that.new_data = that.optionalFeatures().clubData();
-            that.optionalFeatures()
-                    .createChart()
-                    .label()
-                    .ticks()
-                    .centerLabel();
-        }
-        
+
+        };
+        that.k.dataSourceFormatIdentification(options.data,that,"executeRefresh");
     };
 
     this.render = function() {

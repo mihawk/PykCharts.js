@@ -2,171 +2,333 @@
     <head>
         <title>One-Dimensional Charts</title>
         <link rel="stylesheet" type="text/css" href="../dist/pykcharts.1.0.0.min.css">
-    </head>
-    <body>
-        <div id="bubble"></div>
-        <hr/>
-        <div id="funnel"></div>
-        <hr/>
+	</head>
+	<body>
+      <div id="bubble"></div>
+      <hr/>
+      <div id="funnel"></div>
+      <hr/>
+      <div id="pieContainer"></div>
+      <hr/>
+      <div id="pyramid"></div>
+      <hr/>
+      <div id="treemap"></div>
+      <hr/>
+      <div id="donutContainer"></div>
+      <hr/>
+      <div id="electionPieContainer"></div>
+      <hr/>
+      <div id="electionDonutContainer"></div>
+      <hr/>
+      <div id="pie2Container"></div>
+      <hr/>
+      <div id="percentageColumn"></div>
+      <hr/>
+      <div id="percentageBar"></div>
+      <hr/>
 
-        <div id="g1">
-            <div id="pieContainer"></div>
-            <hr/>
-            <div id="pyramid"></div>
-            <hr/>
-        </div>
+      <script>
 
-        
-        <div id="treemap"></div>
-        <hr/>
-        <div id="donutContainer"></div>
-        <hr/>
-        <div id="electionPieContainer"></div>
-        <hr/>
-        <div id="electionDonutContainer"></div>
-        <hr/>
-        <div id="pie2Container"></div>
-        <hr/>
-        <div id="percentageColumn"></div>
-        <hr/>
-
-        <script src="../lib/d3.min.js"></script>
-        <script src="../lib/jquery-1.11.1.min.js"></script>
-        <script src="../lib/underscore.min.js"></script>
-        <script src="../src/js/pyk.js"></script>
-        <script src="../../rumi.io/app/assets/javascripts/pyk/PykQuery.js"></script>
-        <script src="../src/js/oneD/oneD.js"></script>
-        <script src="../src/js/oneD/bubble.js"></script>
-        <script src="../src/js/oneD/funnel.js"></script>
-        <script src="../src/js/oneD/percentageColumn.js"></script>
-        <script src="../src/js/oneD/pie.js"></script>
-        <script src="../src/js/oneD/pyramid.js"></script>
-        <script src="../src/js/oneD/treemap.js"></script>
-        <script src="../src/js/init.js"></script>
-        <script>
-
-        window.PykChartsInit = function (e) {
-            PykCharts.charts = [];
-            // PykCharts.filters = [];
-            // PykCharts.chart_filters = [];
-
-            // d3.json("../data/pie.json", function(e, data){
-            //   PykCharts.cf_obj = new PykCharts.Configuration.crossfilter(null);
-            //   PykCharts.cf_obj.crossfilteredData(data);
-
-            // var bubble_chart = new PykCharts.oneD.bubble({
-            //     selector: "#bubble",
-            //     chart_group: "chartGroup1",
-            //     transition_duration: 1000
-            // });
-            // PykCharts.charts.push(bubble_chart);
-
-            // var funnel_chart = new PykCharts.oneD.funnel({
-            //     selector: "#funnel",
-            //     chart_group: "chartGroup1",
-            //     transition_duration: 1000
-            // });
-            // PykCharts.charts.push(funnel_chart);
-
-            // var pictograph = new PykCharts.oneD.pictograph({
-            //     selector: "#pictograph",
-            //     transition_duration: 1000
-            // });
-            // pictograph.execute();
-            // PykCharts.charts.push(pictograph);
-
-            // var treemap = new PykCharts.oneD.treemap({
-            //     selector: "#treemap",
-            //     chart_group: "chartGroup1",
-            //     transition_duration: 1000
-            // });
-            // treemap.execute();
-            // PykCharts.charts.push(treemap);
-
-            // var donut_chart = new PykCharts.oneD.donut({
-            //     selector: "#donutContainer",
-            //     chart_group: "chartGroup1",
-            //     transition_duration: 1000
-            // });
-            // donut_chart.execute();
-            // PykCharts.charts.push(donut_chart);
-
-            // var election_pie = new PykCharts.oneD.election_pie({
-            //     selector: "#electionPieContainer",
-            //     chart_group: "chartGroup1",
-            //     transition_duration: 4000
-            // });
-            // election_pie.execute();
-            // PykCharts.charts.push(election_pie);
-
-            // var election_donut = new PykCharts.oneD.election_donut({
-            //     selector: "#electionDonutContainer",
-            //     chart_group: "chartGroup1",
-            //     transition_duration: 4000
-            // });
-            // election_donut.execute();
-            // PykCharts.charts.push(election_donut);
-
-            // console.log("Ishaaaa>>>>"); 
-            var pie_chart1 = new PykCharts.oneD.pie({
-                selector: "#pieContainer",
-                data: "../data/pie3.json",
+		    window.PykChartsInit = function (e) {
+            var k = new PykCharts.oneD.bubble({
+                selector: "#bubble",
+                // data:[
+                //     {"name": "Hello","weight": 8819342},
+                //     {"name": "World","weight": 612463,"tooltip":"<h1>HTML tooltip, huh?</h1>But I am optional."}
+                //     ],
+                data:"../data/pie.csv",
+                mode: "Default",
                 transition_duration: 1,
-                pykquery: {
-                    id: "g1",
-                    impacts: true,
-                    dimensions: ["type"],
-                    metrics: {"price":["sum","avg"]},
-                    data_mapping: {
-                        "type": "name",
-                        "price": {
-                            "sum": "weight"
-                        }
-                    }
-                    
-                }
+                clubdata_enable: "yes",
+                clubdata_always_include_data_points: ["North America"],
+                export_enable: "YES",
+                background_color: "transparent",
+                chart_width: 500,
+                chart_onhover_highlight_enable:"yes",
+                // chart_height: 300,
+                title_text:"Air Pollution in New York </br>(23/12/2013 - 29/12/2013)",
+                subtitle_text:"Air Pollution in New York",
+                units_prefix: "$",
+                units_suffix: "/-",
+                "credit_my_site_name": "Firstpost",
+                "credit_my_site_url":  "http://www.firstpost.com",
+                "data_source_name": "World Bank",
+                "data_source_url": "http://www.worldbank.org/",
+                background_color :"rgb(255,255,255)",
+                label_size:12,
+                real_time_charts_refresh_frequency: 2,
+
             });
-            PykCharts.charts.push(pie_chart1);
+           k.execute();
 
-            // var pyramid_chart = new PykCharts.oneD.pyramid ({
-            //     selector: "#pyramid",
-            //     data: "../data/pie.json",
-            //     chart_margin_right: 100,
-            //     transition_duration: 1,
-            //     dim_column_name: "city",
-            //     metric_column_name: "weight2",
-            //     // fact_type: "sum",
-            //     // highlight: "Delhi"
-            //     pykquery: {
-            //         id: "g1",
-            //         impacts: true,
-            //         impacted_by: false,                  
-            //         dim_column_name: "city",
-            //         metric_column_name: {"city":["count"]},
-            //     }
-            //  });
-            // PykCharts.charts.push(pyramid_chart);
+  			var k = new PykCharts.oneD.funnel({
+      			selector: "#funnel",
+      			data:"../data/pie.json",
+                clubdata_enable: "yes",
+                clubdata_always_include_data_points : "",
+                transition_duration: 1,
+                units_suffix: "rs",
+                pointer_weight: "normal",
+                "funnel_rect_width": 100,
+                "funnel_rect_height": 100,
+                units_prefix: "$",
+                units_suffix: "/-",
+                "pointer_overflow_enable": "yes",
+                "pointer_thickness": 1,
+                "pointer_weight": "bold",
+                "pointer_size": 12,
+                "pointer_color": "orange",
+                "pointer_family": "Papyrus",
+                mode: "DEFault",
+                clubdata_enable: "yes",
+                clubdata_always_include_data_points: ["Africa","South America"],
+                // "border_between_chart_elements_thickness": 2,
+                // "border_between_chart_elements_color": "black",
+                // "border_between_chart_elements_style": "dotted",
+                "credit_my_site_name": "Firstpost",
+                "credit_my_site_url":  "http://www.firstpost.com",
+                "data_source_name": "World Bank",
+                "data_source_url": "http://www.worldbank.org/",
+				title_text: "Population distribution by Age in US",
+				subtitle_text: "The data is generated by US Census Dept.",
+                real_time_charts_refresh_frequency:2
+    		});
+  			k.execute();
 
-            // var percentage_column = new PykCharts.oneD.percentageColumn({
-            //     selector: "#percentageColumn",
-            //     chart_group: "chartGroup1",
-            //     transition_duration: 1000
-            // });
-            // PykCharts.charts.push(percentage_column);
+            var k = new PykCharts.oneD.pyramid ({
+                selector: "#pyramid",
+                data:"../data/pie.json",
+                chart_height : 400,
+                transition_duration: 1,
+                background_color: "white",
+                mode:"DEFault",
+                chart_color: ["cyan"],
+                units_prefix: "$",
+                units_suffix: "/-",
+                "pointer_overflow_enable": "yes",
+                "pointer_thickness": 1,
+                "pointer_weight": "bold",
+                "pointer_size": 10,
+                "pointer_color": "orange",
+                "pointer_family": "Courier New",
+                label_color: "black",
 
-            // var pie_chart2 = new PykCharts.oneD.pie({
-            //     selector: "#pie2Container",
-            //     chart_group: "chartGroup1",
-            //     transition_duration: 1000
-            // });
-            // pie_chart2.execute();
-            // PykCharts.charts.push(pie_chart2);
+                "border_between_chart_elements_thickness": 2,
+                "border_between_chart_elements_color": "black",
+                "border_between_chart_elements_style": "dotted",
+                "credit_my_site_name": "Firstpost",
+                "credit_my_site_url":  "http://www.firstpost.com",
+                "data_source_name": "World Bank",
+                "data_source_url": "http://www.worldbank.org/",
+                real_time_charts_refresh_frequency:2
+            });
+            k.execute();
 
-            pie_chart1.execute();
-            // pyramid_chart.execute();
-        }
+            var k = new PykCharts.oneD.treemap({
+                selector: "#treemap",
+                data: "../data/pie.json",
+                chart_height : 300,
+                transition_duration: 0,
+                background_color: "white",
+                mode:"DEFault",
+                units_prefix: "$",
+                units_suffix: "/-",
+                "credit_my_site_name": "Firstpost",
+                "credit_my_site_url":  "http://www.firstpost.com",
+                "data_source_name": "World Bank",
+                "data_source_url": "http://www.worldbank.org/",
+                "credit_my_site_name": "Firstpost",
+                "credit_my_site_url":  "http://www.firstpost.com",
+                "data_source_name": "World Bank",
+                "data_source_url": "http://www.worldbank.org/",
+                real_time_charts_refresh_frequency:2
+            });
+            k.execute();
 
-        </script>
-    <!-- <script src="../dist/pykcharts.1.0.0.js"></script> -->
-    </body>
+            var k = new PykCharts.oneD.donut({
+                selector: "#donutContainer",
+                data: "../data/pie.csv",
+                transition_duration: 1,
+                mode: "DEFault",
+                clubdata_enable: "yes",
+                clubdata_always_include_data_points: ["Africa","South America"],
+                units_prefix: "$",
+                units_suffix: "/-",
+                "border_between_chart_elements_thickness": 2,
+                "border_between_chart_elements_color": "black",
+                "border_between_chart_elements_style": "dotted",
+                "credit_my_site_name": "Firstpost",
+                "credit_my_site_url":  "http://www.firstpost.com",
+                "data_source_name": "World Bank",
+                "data_source_url": "http://www.worldbank.org/",
+                "donut_show_total_at_center": "yes",
+                real_time_charts_refresh_frequency:2
+            });
+           k.execute();
+
+            var k = new PykCharts.oneD.electionPie({
+                selector: "#electionPieContainer",
+                data: "../data/pie.json",
+                transition_duration: 4,
+                background_color: "white",
+                mode: "DEFault",
+                clubdata_enable: "yes",
+                chart_height : 600,
+                clubdata_always_include_data_points: ["Africa","South America"],
+                units_prefix: "$",
+                units_suffix: "/-",
+
+                "border_between_chart_elements_thickness": 2,
+                "border_between_chart_elements_color": "black",
+                "border_between_chart_elements_style": "dotted",
+                "credit_my_site_name": "Firstpost",
+                "credit_my_site_url":  "http://www.firstpost.com",
+                "data_source_name": "World Bank",
+                "data_source_url": "http://www.worldbank.org/",
+                real_time_charts_refresh_frequency:2
+            });
+           k.execute();
+
+            var k = new PykCharts.oneD.electionDonut({
+                selector: "#electionDonutContainer",
+                data: "../data/pie.json",
+                background_color: "white",
+                chart_height : 400,
+                transition_duration: 1,
+                mode: "DEFault",
+                clubdata_enable: "yes",
+                clubdata_always_include_data_points: ["Africa","South America"],
+                "donut_show_total_at_center_size": 30,
+                "donut_show_total_at_center_color": "red",
+                "donut_show_total_at_center_weight": "normal",
+                "donut_show_total_at_center_family":"sans-serif",
+                units_prefix: "$",
+                units_suffix: "/-",
+
+                "border_between_chart_elements_thickness": 2,
+                "border_between_chart_elements_color": "black",
+                "border_between_chart_elements_style": "dotted",
+                "credit_my_site_name": "Firstpost",
+                "credit_my_site_url":  "http://www.firstpost.com",
+                "data_source_name": "World Bank",
+                "data_source_url": "http://www.worldbank.org/",
+                "donut_radius_percent": 40,
+                "donut_inner_radius_percent": 20,
+                "donut_show_total_at_center": "yes",
+                pointer_size : 0,
+                pointer_thickness:0,
+                real_time_charts_refresh_frequency:2
+           });
+           k.execute();
+
+            var k = new PykCharts.oneD.pie({
+                chart_width: 400,
+                chart_height:400,
+                background_color: "white",
+                selector: "#pieContainer",
+                data: "../data/screenshot.json",
+                // transition_duration: 4,
+                mode: "DEFault",
+                chart_color: ["green","blue"],
+                clubdata_enable: "yes",
+                clubdata_always_include_data_points: ["Africa","South America"],
+                units_prefix: "$",
+                units_suffix: "/-",
+                // label_size:6,
+                "border_between_chart_elements_thickness": 2,
+                "border_between_chart_elements_color": "black",
+                "border_between_chart_elements_style": "dotted",
+                "credit_my_site_name": "Firstpost",
+                "credit_my_site_url":  "http://www.firstpost.com",
+                "data_source_name": "World Bank",
+                "data_source_url": "http://www.worldbank.org/",
+                "pointer_overflow_enable": "no",
+                 label_size:6,
+                 real_time_charts_refresh_frequency:2
+            });
+           k.execute();
+
+            var k = new PykCharts.oneD.percentageColumn({
+                chart_width: 200,
+                chart_height: 300,
+                selector: "#percentageColumn",
+                data:"../data/pie.json",
+                transition_duration: 1,
+                mode: "DEFault",
+                clubdata_enable: "yes",
+                clubdata_always_include_data_points: ["Africa","South America"],
+                units_prefix: "$",
+                units_suffix: "/-",
+                percent_column_rect_width : 90,
+                pointer_overflow_enable: "no",
+                "border_between_chart_elements_thickness": 2,
+                "border_between_chart_elements_color": "black",
+                "border_between_chart_elements_style": "dotted",
+                "credit_my_site_name": "Firstpost",
+                "credit_my_site_url":  "http://www.firstpost.com",
+                "data_source_name": "World Bank",
+                "data_source_url": "http://www.worldbank.org/",
+                                real_time_charts_refresh_frequency:2
+            });
+           k.execute();
+
+            var k = new PykCharts.oneD.percentageBar({
+                selector: "#percentageBar",
+                data:"../data/screenshot.json",
+                background_color: "white",
+                transition_duration: 1,
+                // "chart_height": 200,
+                chart_width: 600,
+                chart_height: 00,
+                percent_row_rect_height : 100,
+
+                // clubdata_enable: "yes"
+                mode: "DEFault",
+                clubdata_enable: "yes",
+                clubdata_always_include_data_points: ["Africa","South America"],
+                units_prefix: "$",
+                units_suffix: "/-",
+
+                "border_between_chart_elements_thickness": 2,
+                "border_between_chart_elements_color": "black",
+                "border_between_chart_elements_style": "dotted",
+                "credit_my_site_name": "Firstpost",
+                "credit_my_site_url":  "http://www.firstpost.com",
+                "data_source_name": "World Bank",
+                "data_source_url": "http://www.worldbank.org/",
+                pointer_overflow_enable: "yes",
+                real_time_charts_refresh_frequency: 2
+
+            });
+           k.execute();
+
+            var k = new PykCharts.oneD.pie({
+                selector: "#pie2Container",
+                background_color: "white",
+                data: "../data/pie2.json",
+                transition_duration: 1,
+                pie_radius_percent : 100,
+                mode: "DEFault",
+                clubdata_enable: "yes",
+                clubdata_always_include_data_points: ["Africa","South America"],
+                units_prefix: "$",
+                units_suffix: "/-",
+
+                "border_between_chart_elements_thickness": 2,
+                "border_between_chart_elements_color": "black",
+                "border_between_chart_elements_style": "dotted",
+                "credit_my_site_name": "Firstpost",
+                "credit_my_site_url":  "http://www.firstpost.com",
+                "data_source_name": "World Bank",
+                "data_source_url": "http://www.worldbank.org/",
+                "pointer_overflow_enable": "yes",
+                real_time_charts_refresh_frequency:2
+            });
+           k.execute();
+		    }
+
+		</script>
+    <script src="../dist/pykcharts.1.0.0.js"></script>
+
+	</body>
 </html>

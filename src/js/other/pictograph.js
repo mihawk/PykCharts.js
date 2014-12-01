@@ -49,8 +49,8 @@ PykCharts.other.pictograph = function (options) {
         if(that.mode === "default") {
            that.k.loading();
         }
-        d3.json(options.data, function (e,data) {
 
+        that.executeData = function (data) {
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
                 $(options.selector+" #chart-loader").remove();
@@ -65,10 +65,12 @@ PykCharts.other.pictograph = function (options) {
             that.compare_data = that.data;
             $(options.selector+" #chart-loader").remove();
             that.render();
-        })
+        };
+        that.k.dataSourceFormatIdentification(options.data,that,"executeData");
+
     };
     this.refresh = function () {
-        d3.json(options.data, function (e,data) {
+        that.executeRefresh = function (data) {
             that.old_data = that.data;
             that.old_weight = that.weight;
             var validate = that.k.validator().validatingJSON(data);
@@ -91,7 +93,8 @@ PykCharts.other.pictograph = function (options) {
                 .labelText()
                 .enableLabel()
                 .createChart();
-        })
+        }
+        that.k.dataSourceFormatIdentification(options.data,that,"executeRefresh");
     }
     this.render = function () {
         var l = $(".svgcontainer").length;

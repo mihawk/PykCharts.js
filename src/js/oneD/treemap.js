@@ -25,9 +25,7 @@ PykCharts.oneD.treemap = function (options){
            that.k.loading();
         }
 
-        that.format = that.k.dataSourceFormatIdentification(options.data);
-        d3[that.format](options.data, function (e,data) {
-
+        that.executeData = function (data) {
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
                 $(options.selector+" #chart-loader").remove();
@@ -39,11 +37,13 @@ PykCharts.oneD.treemap = function (options){
             $(options.selector+" #chart-loader").remove();
             that.clubdata_enable = that.data.length>that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
             that.render();
-        });
+        };
+
+        that.k.dataSourceFormatIdentification(options.data,that,"executeData");
     };
 
     this.refresh = function (){
-        d3[that.format](options.data, function (e,data) {
+        that.executeRefresh = function (data) {
             that.data = that.k.__proto__._groupBy("oned",data);
             that.clubdata_enable = that.data.length>that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
             that.refresh_data = that.k.__proto__._groupBy("oned",data);
@@ -58,7 +58,8 @@ PykCharts.oneD.treemap = function (options){
                 .createChart()
                 .label();
 
-        });
+        };
+        that.k.dataSourceFormatIdentification(options.data,that,"executeRefresh");
     };
 
     this.render = function (){

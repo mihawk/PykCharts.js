@@ -17,9 +17,8 @@ PykCharts.multiD.waterfall = function(options){
            that.k.loading();
         }
         that.multiD = new PykCharts.multiD.configuration(that);
-        that.format = that.k.dataSourceFormatIdentification(options.data);
-        d3[that.format](options.data, function(e, data){
-			
+
+        that.executeData = function (data) {			
 			var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
                 $(that.selector+" #chart-loader").remove();
@@ -28,12 +27,12 @@ PykCharts.multiD.waterfall = function(options){
 
             that.data = that.k.__proto__._groupBy("oned",data);
             that.compare_data = that.k.__proto__._groupBy("oned",data);
-            console.log(that.data,that.data.length);
 
             $(that.selector+" #chart-loader").remove();
             PykCharts.multiD.waterfallFunctions(options,that,"waterfall");
             that.render();
-		});
+		};
+		that.k.dataSourceFormatIdentification(options.data,that,"executeData");
 	};
 };
 
@@ -46,7 +45,7 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
         that.container_id = "svgcontainer" + l;
 
         that.dataTransformation();
-        console.log(that.data," *****");
+        
         
         that.transitions = new PykCharts.Configuration.transition(that);
         that.mouseEvent1 = new PykCharts.multiD.mouseEvent(that);
@@ -111,7 +110,7 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
             createChart: function () {
 				var w = that.width - that.margin_left - that.margin_right,
 		            h = that.height - that.margin_top - that.margin_bottom,
-		            padding = 	0.2;
+		            padding = 0.2;
 
 		        var x = d3.scale.linear()
 		        	.range([0, w]);
@@ -144,23 +143,6 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
 		       			}
 		       		});
 
-		       	// bar.append("text")
-		       	// 	.attr("class","ticks-text")
-		       	// 	.text(function(d) { return (d.end - d.start); })
-		       	// 	.style("visibility","hidden")
-		       	// 	.attr("y", function(d) { return (y.rangeBand()/2 + this.getBBox().height/3); })
-		       	// 	.attr("x", function(d) { return (d.group == "negative") ? (x(d.start) - this.getBBox().width) : (x(d.end) - this.getBBox().width); })
-		       	// 	.attr("dx", function(d) { return "-.5em"; })
-		       	// 	.attr("fill", "white")
-		       	// 	.style("visibility","visible");
-
-		       	// bar.filter(function(d) { return d.group != "total" }).append("line")
-				      // .attr("class", "waterfall-connector")
-				      // .attr("x1", function(d) { return x(d.end); })
-				      // .attr("y1", y.rangeBand())
-				      // .attr("x2", function(d) { return x(d.end); })
-				      // .attr("y2", y.rangeBand() + 5 );
-
 		       	return this;
             }
     	};
@@ -192,15 +174,6 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
     		that.data[i].end = cumulative;
     		that.data[i].group = (that.data[i].weight > 0) ? "positive" : "negative";
     	}
-
-    	// that.data.push({
-    	// 	name: "Grand Total",
-    	// 	weight: max_cumulative,
-    	// 	end: max_cumulative,
-    	// 	start: cumulative,
-    	// 	group: "total"
-    	// });
     	that.data.reverse();
-    	// console.log(cumulative," <<< cumulative",that.data,that.data.length);
     };
 };
