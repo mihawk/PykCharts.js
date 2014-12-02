@@ -13200,9 +13200,6 @@ PykCharts.maps.oneLayer = function (options) {
     var theme = new PykCharts.Configuration.Theme({});
     this.execute = function () {
         that = PykCharts.maps.processInputs(that, options);
-
-        that.format = that.k.dataSourceFormatIdentification(options.data);
-
         that.executeData = function (data) {
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
@@ -13256,8 +13253,8 @@ PykCharts.maps.oneLayer = function (options) {
             that.extent_size = d3.extent(that.data, function (d) { return parseInt(d.size, 10); });
             that.difference = that.extent_size[1] - that.extent_size[0];
         };
-        that.k.dataSourceFormatIdentification(options.data,that,"executeData")
-    };
+
+        };
 };
 
 PykCharts.maps.timelineMap = function (options) {
@@ -13265,7 +13262,6 @@ PykCharts.maps.timelineMap = function (options) {
     var theme = new PykCharts.Configuration.Theme({});
     this.execute = function () {
         that = PykCharts.maps.processInputs(that, options);
-        that.format = that.k.dataSourceFormatIdentification(options.data);
         that.executeData = function (data) {
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
@@ -13329,7 +13325,6 @@ PykCharts.maps.timelineMap = function (options) {
 PykCharts.maps.mapFunctions = function (options,chartObject,type) {
     var that = chartObject;
     this.render = function () {
-
         that.border = new PykCharts.Configuration.border(that);
         that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
         that.k.title()
@@ -13398,7 +13393,6 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                 .legends(that.legends_enable)
                 .createMap();
         }
-
         if(type === "oneLayer") {
             that.k.dataSourceFormatIdentification(options.data,that,"executeRefresh")
         }
@@ -13897,6 +13891,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         }
 
     }
+
     that.renderDataForTimescale = function () {
         that.unique = [];
         x_extent = d3.extent(that.timeline_data, function(d) {return d.timestamp; });
@@ -13939,6 +13934,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     if (interval===that.unique.length) {
                         interval = 0;
                     }
+                    
                     that.marker
                         .attr("x",  (that.margin_left*2) + that.xScale(that.unique[interval]) - 7);
 
@@ -14049,7 +14045,14 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             .attr("height","21px")
             .style("cursor","pointer");
 
-        
+        that.marker = that.svgContainer.append("image")
+            .attr("xlink:href",that.marker_image_url)
+            .attr("x", (that.margin_left*2) + that.xScale(that.unique[0]) - 7)
+            .attr("y", that.redeced_height)
+            .attr("width","14px")
+            .attr("height","12px")
+            .style("cursor","pointer")
+            .call(drag);
     }
 };
 
