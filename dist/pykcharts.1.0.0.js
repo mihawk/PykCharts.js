@@ -13253,8 +13253,8 @@ PykCharts.maps.oneLayer = function (options) {
             that.extent_size = d3.extent(that.data, function (d) { return parseInt(d.size, 10); });
             that.difference = that.extent_size[1] - that.extent_size[0];
         };
-
-        };
+        that.k.dataSourceFormatIdentification(options.data,that,"executeData")
+    };
 };
 
 PykCharts.maps.timelineMap = function (options) {
