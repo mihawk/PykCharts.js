@@ -66,13 +66,20 @@
 
                 var k = new PykCharts.multiD.waterfall({
                     selector: "#waterfall-chart",
-                    data: "../data/waterfall.json",
+                    data: "../data/german_erp_waterfall1.json",
                     mode: "default",
                     chart_height: 330,
                     chart_width: 400,
-                    chart_margin_left: 30,
+                    chart_margin_left: 70,
+                    chart_margin_top: 50,
 
-                    chart_color: ["rgb(255, 60, 131)", "rgb(0, 185, 250)", "grey"] // ["negative-color", "positive-color"]
+                    chart_color: ["rgb(255, 60, 131)", "rgb(0, 185, 250)", "grey"], // ["negative-color", "positive-color"]
+
+                    "axis_y_pointer_length": 0,
+                    "axis_y_line_color": "#fff",
+                    "axis_y_pointer_size" : 10,
+                    "axis_y_pointer_color" : "#1D1D1D",
+                    "axis_y_pointer_weight": "normal",
                 });
                 k.execute();
 
