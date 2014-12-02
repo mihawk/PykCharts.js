@@ -1,0 +1,42 @@
+[
+	{
+		"x": "2014-01-01",
+		"y":  18,
+		"tooltip": "<table class='PykCharts'><tr><th>India</th></tr><tr><td>8</td></tr></table>"
+	},
+	{
+		"x": "2014-02-02",
+		"y":  56,
+		"tooltip": "<table class='PykCharts'><tr><th>India</th></tr><tr><td>10</td></tr></table>"
+	},
+	{
+		"x": "2014-03-03",
+		"y":  30,
+		"tooltip": "<table class='PykCharts'><tr><th>India</th></tr><tr><td>12</td></tr></table>"
+	},
+	{
+		"x": "2014-04-04",
+		"y":  41,
+		"tooltip": "<table class='PykCharts'><tr><th>India</th></tr><tr><td>14</td></tr></table>"
+	},
+	{
+		"x": "2014-05-05",
+		"y":  16,
+		"tooltip": "<table class='PykCharts'><tr><th>India</th></tr><tr><td>16</td></tr></table>"
+	},
+	{
+		"x": "2014-06-06",
+		"y":  87,
+		"tooltip": "<table class='PykCharts'><tr><th>India</th></tr><tr><td>18</td></tr></table>"
+	},
+	{
+		"x": "2014-07-07",
+		"y":  22,
+		"tooltip": "<table class='PykCharts'><tr><th>India</th></tr><tr><td>20</td></tr></table>"
+	},
+	{
+		"x": "2014-08-08",
+		"y":  24,
+		"tooltip": "<table class='PykCharts'><tr><th>India</th></tr><tr><td>22</td></tr></table>"
+	}
+]

@@ -34,16 +34,16 @@
         <div id="groupBar">
         </div>
         <hr/>
-
+        <script src="../src/js/init.js"></script>
         <script src="../src/js/pyk.js"></script>
         <script src="../src/js/multiD/multiD.js"></script>
-        <script src="../src/js/multiD/columnChart.js"></script>
+        <script src="../src/js/multiD/column.js"></script>
         <script src="../src/js/multiD/areaChart.js"></script>
         <script src="../src/js/multiD/lineChart.js"></script>
         <script src="../src/js/multiD/spiderWeb.js"></script>
         <script src="../src/js/multiD/scatterplot.js"></script>
         <script src="../src/js/multiD/barChart.js"></script>
-        <script src="../src/js/init.js"></script>
+
         <script>
 
             // $(document).ready(function (e) {
@@ -347,7 +347,7 @@
                     border_between_chart_elements_thickness:0,
                     border_between_chart_elements_color:"blue"
                 });
-            // k.execute();
+            k.execute();
 
                 var k = new PykCharts.multiD.panelsOfLine ({
                     selector: "#multiLine",
@@ -609,14 +609,14 @@
                     chart_color:["steelblue"],
                     background_color:"white",
                     chart_height: 430,
-                    chart_width : 400,
+                    chart_width : 600,
                     chart_margin_top: 25,
                     chart_margin_right: 25,
                     chart_margin_bottom: 45,
                     chart_margin_left: 45,
                     chart_grid_y_enable: "yes",
 
-                    real_time_charts_refresh_frequency: 5,
+                    real_time_charts_refresh_frequency: 0,
                     transition_duration: 0,
                     axis_onhover_highlight_enable: "yes",
 
@@ -660,73 +660,7 @@
                     highlight:"January"
                 });
              k.execute();
-
-                var k = new PykCharts.multiD.groupedColumn({
-                    data: "../data/ultimateGroupColumn.json",
-                    mode: "default",
-                    selector: "#groupColumn",
-
-                    color_mode: "color",
-                    background_color:"white",
-
-                    chart_color:["orange","red","steelblue","gray"],
-
-                    chart_height: 430,
-                    chart_width : 1000,
-                    chart_margin_top: 25,
-                    chart_margin_right: 45,
-                    chart_margin_bottom: 45,
-                    chart_margin_left: 50,
-                    chart_grid_y_enable: "yes",
-
-                    real_time_charts_refresh_frequency: 10,
-
-                    axis_onhover_highlight_enable: "yes",
-                     // panels_enable:"yes",
-
-                    axis_x_enable: "yes",
-                    axis_x_title : "Months",
-                    axis_x_position: "bottom",
-                    axis_x_pointer_position: "bottom",
-                    axis_x_line_color: "#1D1D1D",
-                    axis_x_label_color: "#1D1D1D",
-                    axis_x_pointer_size: 12,
-                    axis_x_pointer_padding: 3,
-                    axis_x_outer_pointer_length: 3,
-                    axis_x_pointer_weight:"normal",
-
-                    axis_y_enable: "yes",
-                    axis_y_title : "Rainfall",
-                    axis_y_position: "left",
-                    axis_y_pointer_position: "left",
-                    axis_y_line_color: "red",
-                    axis_y_label_color: "#1D1D1D",
-                    axis_y_pointer_size: 12,
-                    axis_y_pointer_padding: 10,
-                    // axis_y_pointer_values : [5,30],
-                    axis_y_outer_pointer_length: 3,
-
-                    highlight_color: "#013F73",
-
-                    legends_enable: "yes",
-                    legends_display: "vertical",
-                    legends_text_size: 13,
-                    legends_text_color: "blue",
-                    legends_text_weight: "normal",
-                    legends_text_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
-
-                    transition_duration:0,
-
-                    border_between_chart_elements_thickness: 1,
-                    border_between_chart_elements_color: "white",
-                    border_between_chart_elements_style: "solid",
-                   // saturation_enable: "yes",
-
-                    highlight:"april"
-                });
-            k.execute();
-
-                var k = new PykCharts.multiD.bar({
+                             var k = new PykCharts.multiD.bar({
                     data: "../data/ultimatebar_date.json",
                     mode: "default",
                     selector: "#bar",
@@ -785,6 +719,7 @@
                     data_sort_order: "ascending"
                 });
            k.execute();
+
 
                 var k = new PykCharts.multiD.groupedBar({
                     data: "../data/ultimateGroupBar.json",
@@ -860,6 +795,72 @@
                     // legends_text_size: 28
                 });
             k.execute();
+                var k = new PykCharts.multiD.groupedColumn({
+                    data: "../data/ultimateGroupColumn.json",
+                    mode: "default",
+                    selector: "#groupColumn",
+
+                    color_mode: "color",
+                    background_color:"white",
+
+                    chart_color:["orange","red","steelblue","gray"],
+
+                    chart_height: 430,
+                    chart_width : 1000,
+                    chart_margin_top: 25,
+                    chart_margin_right: 45,
+                    chart_margin_bottom: 45,
+                    chart_margin_left: 50,
+                    chart_grid_y_enable: "yes",
+
+                    real_time_charts_refresh_frequency: 10,
+
+                    axis_onhover_highlight_enable: "yes",
+                     // panels_enable:"yes",
+
+                    axis_x_enable: "yes",
+                    axis_x_title : "Months",
+                    axis_x_position: "bottom",
+                    axis_x_pointer_position: "bottom",
+                    axis_x_line_color: "#1D1D1D",
+                    axis_x_label_color: "#1D1D1D",
+                    axis_x_pointer_size: 12,
+                    axis_x_pointer_padding: 3,
+                    axis_x_outer_pointer_length: 3,
+                    axis_x_pointer_weight:"normal",
+
+                    axis_y_enable: "yes",
+                    axis_y_title : "Rainfall",
+                    axis_y_position: "left",
+                    axis_y_pointer_position: "left",
+                    axis_y_line_color: "red",
+                    axis_y_label_color: "#1D1D1D",
+                    axis_y_pointer_size: 12,
+                    axis_y_pointer_padding: 10,
+                    // axis_y_pointer_values : [5,30],
+                    axis_y_outer_pointer_length: 3,
+
+                    highlight_color: "#013F73",
+
+                    legends_enable: "yes",
+                    legends_display: "vertical",
+                    legends_text_size: 13,
+                    legends_text_color: "blue",
+                    legends_text_weight: "normal",
+                    legends_text_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
+
+                    transition_duration:0,
+
+                    border_between_chart_elements_thickness: 1,
+                    border_between_chart_elements_color: "white",
+                    border_between_chart_elements_style: "solid",
+                   // saturation_enable: "yes",
+
+                    highlight:"april"
+                });
+            // k.execute();
+
+
             };
         </script>
     </body>
