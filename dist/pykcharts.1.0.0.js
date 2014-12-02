@@ -13261,9 +13261,7 @@ PykCharts.maps.oneLayer = function (options) {
             that.difference = that.extent_size[1] - that.extent_size[0];
         };
 
-        console.log(that,"hellooooooooooooo")
-        that.k.dataSourceFormatIdentification(options.data,that,"executeData")
-    };
+        };
 };
 
 PykCharts.maps.timelineMap = function (options) {

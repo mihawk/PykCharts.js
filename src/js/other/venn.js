@@ -19,7 +19,9 @@ PykCharts.other.venn = function (options) {
            that.k.loading();
         }
         d3.json(options.data[0], function (data) {
+            that.compare_data = data;
             that.sets = data;
+            
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
                 $(options.selector+" #chart-loader").remove();
@@ -33,6 +35,7 @@ PykCharts.other.venn = function (options) {
                 }
 
                 that.overlaps = data;
+                that.compare_data1 = data;
                 $(options.selector+" #chart-loader").remove();
                 that.render();
             })
@@ -42,23 +45,29 @@ PykCharts.other.venn = function (options) {
         var l = $(".svgcontainer").length;
         that.container_id = "svgcontainer" + l;
         that.transitions = new PykCharts.Configuration.transition(that);
+        var padding = 6;
 
+        that.sets_data = venn.venn(that.sets, that.overlaps);
+        that.dataset = venn.scaleSolution(that.sets_data, that.width, that.height, padding);
+        venn.computeTextCenters(that.dataset, that.width, that.height);
         if(that.mode==="default") {
             that.k.title()
                 .backgroundColor(that)
-                .export(that,"#"+that.container_id,"pictograph")
+                .export(that,"#"+that.container_id,"venn")
                 .emptyDiv()
                 .subtitle()
-                .tooltip();
+                .tooltip()
+                .liveData(that);
         } else {
             that.k.backgroundColor(that)
-                .export(that,"#"+that.container_id,"pictograph")
+                .export(that,"#"+that.container_id,"venn")
                 .emptyDiv();
         }
 
         that.optionalFeatures()
                 .svgContainer()
-        that.optionalFeatures().createChart();
+        that.optionalFeatures().createChart()
+            .label();
         if(that.mode==="default") {
             that.k.createFooter()
                 .lastUpdatedAt()
@@ -71,12 +80,35 @@ PykCharts.other.venn = function (options) {
         $(document).ready(function () { return that.k.resize(that.svgContainer); })
         $(window).on("resize", function () { return that.k.resize(that.svgContainer); });
     };
+    that.refresh = function () {
+        d3.json(options.data[0], function (data) {
+            that.refresh_data = data;
+            that.sets = data;
+            
+            d3.json(options.data[1], function (data) {
+                that.refresh_data1 = data;
+                that.overlaps = data;
+                that.sets_data = venn.venn(that.sets, that.overlaps);
+                var padding = 6;
 
+                that.dataset = venn.scaleSolution(that.sets_data, that.width, that.height, padding);
+                venn.computeTextCenters(that.dataset, that.width, that.height);
+                var compare1 = that.k.checkChangeInData(that.refresh_data,that.compare_data);
+                that.compare_data = compare1[0];
+                var data_changed1 = compare1[1];
+                if(data_changed1) {
+                    that.k.lastUpdatedAt("liveData");
+                }
+                
+                that.optionalFeatures().createChart().label();
+            })
+        })
+    }
     this.optionalFeatures = function () {
 
         var optional = {
             svgContainer: function () {
-                that.sets_data = venn.venn(that.sets, that.overlaps);
+                
                 that.svgContainer = d3.select(options.selector).append("svg")
                         .attr("width", that.width)
                         .attr("height", that.height);
@@ -96,29 +128,25 @@ PykCharts.other.venn = function (options) {
                   });
                 };
 
-                var colours = d3.scale.category10(),
-                    padding = 6;
-
-                dataset = venn.scaleSolution(that.sets_data, that.width, that.height, padding);
-                venn.computeTextCenters(dataset, that.width, that.height);
-
+                that.colours = d3.scale.category10();
                 
+                that.nodes = that.group.selectAll(".venn-group")
+                    .data(that.dataset);
 
-                var nodes = that.group.selectAll("circle")
-                    .data(dataset);
-
-                that.node_group = nodes.enter()
+                that.node_group = that.nodes.enter()
                     .append("g")
-                    .attr("class","venn-group")
+                that.node_group.attr("class","venn-group")
                     .append("circle")
                     .attr("class","venn-nodes");
-
-                nodes.select("circle")
+                
+                that.nodes.select("circle")
                     .attr("r",  function(d) { return d.radius; })
                     .style("fill-opacity", 0.3)
                     .attr("cx", function(d) { return d.x; })
                     .attr("cy", function(d) { return d.y; })
-                    .style("fill", function(d, i) { return colours(i); })
+                    .style("fill", function(d, i) { 
+                        return that.chart_color[i] || d.color || that.default_color[0]; 
+                    })
                     .on("mousemove", function(d) {
                         if(that.mode==="default") {
                             that.mouseEvent.tooltipPosition(d);
@@ -146,20 +174,13 @@ PykCharts.other.venn = function (options) {
                     .style("stroke-opacity", 0)
                     .style("stroke", "white")
                     .style("stroke-width", "2");
-                nodes.exit().remove();
+                that.nodes.exit().remove();
 
-                var text = that.node_group.append("text")
-                       .attr("dy", ".35em")
-                       .attr("x", function(d) { return Math.floor(d.textCenter.x); })
-                       .attr("y", function(d) { return Math.floor(d.textCenter.y); })
-                       .attr("text-anchor", "middle")
-                       .style("fill", function(d, i) { return colours(i); })
-                       .call(function (text) { text.each(venn.wrapText); });
-                that.group1.selectAll("path")
+                that.path = that.group1.selectAll("path")
                     .data(that.overlaps)
-                    .enter()
+                that.path.enter()
                     .append("path")
-                    .attr("d", function(d) {
+                that.path.attr("d", function(d) {
                         return venn.intersectionAreaPath(d.sets.map(function(j) { return that.sets_data[j]; }));
                     })
                     .style("fill-opacity","0")
@@ -189,10 +210,23 @@ PykCharts.other.venn = function (options) {
                             that.mouseEvent.tooltipPosition(d);
                         }
                     });
+                that.path.exit().remove();
                 return this;
             },
             label : function () {
+                that.node_group.append("text");
 
+                that.nodes.select("text")
+                   .attr("dy", ".35em")
+                   .attr("x", function(d) { return Math.floor(d.textCenter.x); })
+                   .attr("y", function(d) { return Math.floor(d.textCenter.y); })
+                   .attr("text-anchor", "middle")
+                   .style("fill", that.label_color)
+                   .style("font-size",that.label_size)
+                   .style("font-family",that.label_family)
+                   .style("font-weight",that.label_weight)
+                   .style("pointer-events","none")
+                   .call(function (text) { text.each(venn.wrapText); });
                 return this;
             }
         }
