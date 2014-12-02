@@ -132,14 +132,14 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
 		       		.attr("height", y.rangeBand())
 		       		.attr("width", function(d) { return Math.abs(x(d.end) - x(d.start)); })
 		       		.attr("fill", function(d,i) {
-		       			if (d.group == "negative") {
+		       			if (d.name.toLowerCase() == "total") {
+		       				return that.chart_color[2];
+		       			}
+		       			else if (d.group == "negative") {
 		       				return that.chart_color[0];
 		       			}
 		       			else if (d.group == "positive") {
 		       				return that.chart_color[1];
-		       			}
-		       			else if (d.group == "total") {
-		       				return that.chart_color[2];
 		       			}
 		       		});
 
@@ -152,28 +152,42 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
     that.dataTransformation = function () {
     	var cumulative = 0,
     		temp_cumulative = 0,
-    		max_cumulative = 0/*,
+    		max_cumulative = 0,
     		total_start = 0,
-    		total_end = 0*/;
+    		total_end = 0,
+    		total_weight = 0,
+    		totol_group = 'positive',
+    		data_length = that.data.length;
 
     	_.each(that.data, function (d) {
     		temp_cumulative += d.weight;
     		if (temp_cumulative < cumulative) { cumulative = temp_cumulative; }
-    		else if (temp_cumulative > max_cumulative) { max_cumulative = temp_cumulative; }
+    		// else if (temp_cumulative > max_cumulative) { max_cumulative = temp_cumulative; }
     	});
 
     	if (cumulative<0) {cumulative = Math.abs(cumulative); }
     	else { cumulative = 0; }
 
-    	max_cumulative += cumulative;
-    	total_start = cumulative;
+    	// max_cumulative += cumulative;
 
-    	for (var i=0 ; i<that.data.length ; i++) {
+    	for (var i=0 ; i<data_length ; i++) {
     		that.data[i].start = cumulative;
     		cumulative += that.data[i].weight;
     		that.data[i].end = cumulative;
     		that.data[i].group = (that.data[i].weight > 0) ? "positive" : "negative";
     	}
+    	total_start = that.data[0].start;
+    	total_end = that.data[data_length-1].end/*temp_cumulative*/;
+    	total_weight = total_end - total_start;
+    	totol_group = (total_weight < 0) ? 'negative' : 'positive';
+
+    	that.data.push({
+    		name: 'Total',
+    		weight: total_weight,
+		    end: total_end,
+		    start: total_start,
+		    group: totol_group
+    	});
     	that.data.reverse();
     };
 };
