@@ -2239,6 +2239,7 @@ configuration.Theme = function(){
 
         "mode": "default",
         "selector": "",
+        "is_interactive": "yes",
 
         "chart_height": 400,
         "chart_width": 600,
