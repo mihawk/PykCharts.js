@@ -6190,12 +6190,19 @@ PykCharts.other.processInputs = function (chartObject, options) {
     chartObject.data_source_name = options.data_source_name ? options.data_source_name : "";
     chartObject.data_source_url = options.data_source_url ? options.data_source_url : "";
     
+    chartObject.label_size = "label_size" in options ? options.label_size : stylesheet.label_size;
+    chartObject.label_color = options.label_color ? options.label_color : stylesheet.label_color;
+    chartObject.label_weight = options.label_weight ? options.label_weight.toLowerCase() : stylesheet.label_weight;
+    chartObject.label_family = options.label_family ? options.label_family.toLowerCase() : stylesheet.label_family;
+
     chartObject.transition_duration = options.transition_duration ? options.transition_duration : functionality.transition_duration;
     
     chartObject.background_color = options.background_color ? options.background_color.toLowerCase() : stylesheet.background_color;
     chartObject.real_time_charts_refresh_frequency = options.real_time_charts_refresh_frequency ? options.real_time_charts_refresh_frequency : functionality.real_time_charts_refresh_frequency;
     chartObject.real_time_charts_last_updated_at_enable = options.real_time_charts_last_updated_at_enable ? options.real_time_charts_last_updated_at_enable.toLowerCase() : functionality.real_time_charts_last_updated_at_enable;
 
+    chartObject.chart_color = options.chart_color ? options.chart_color : [];
+    chartObject.default_color = stylesheet.chart_color;
     chartObject.fullscreen_enable = options.fullscreen_enable ? options.fullscreen_enable : stylesheet.fullscreen_enable;
     chartObject.loading_type = options.loading_type ? options.loading_type : stylesheet.loading_type;
     chartObject.loading_source = options.loading_source ? options.loading_source : stylesheet.loading_source;
@@ -6207,12 +6214,20 @@ PykCharts.other.processInputs = function (chartObject, options) {
                 .validatingDataType(chartObject.width,"chart_width",stylesheet.chart_width,"width")
                 .validatingDataType(chartObject.title_size,"title_size",stylesheet.title_size)
                 .validatingDataType(chartObject.real_time_charts_refresh_frequency,"real_time_charts_refresh_frequency",functionality.real_time_charts_refresh_frequency)
+                .validatingDataType(chartObject.label_size,"label_size",stylesheet.label_size)
                 .validatingDataType(chartObject.subtitle_size,"subtitle_size",stylesheet.subtitle_size)
                 .validatingDataType(chartObject.transition_duration,"transition_duration",functionality.transition_duration)
                 .validatingFontWeight(chartObject.title_weight,"title_weight",stylesheet.title_weight)
                 .validatingFontWeight(chartObject.subtitle_weight,"subtitle_weight",stylesheet.subtitle_weight)
                 .validatingColor(chartObject.background_color,"background_color",stylesheet.background_color)
-
+    if($.isArray(chartObject.chart_color)) {
+        for(var i = 0;i < chartObject.chart_color.length;i++) {
+            if(chartObject.chart_color[i]) {
+                chartObject.k.validator()
+                    .validatingColor(chartObject.chart_color[i],"chart_color",stylesheet.chart_color);
+            }
+        }
+    }
     return chartObject;
 };
 
@@ -13260,8 +13275,8 @@ PykCharts.maps.oneLayer = function (options) {
             that.extent_size = d3.extent(that.data, function (d) { return parseInt(d.size, 10); });
             that.difference = that.extent_size[1] - that.extent_size[0];
         };
-
-        };
+        that.k.dataSourceFormatIdentification(options.data,that,"executeData")
+    };
 };
 
 PykCharts.maps.timelineMap = function (options) {
