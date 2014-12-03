@@ -501,11 +501,17 @@ PykCharts.Configuration = function (options){
             return this;
         },
         loading: function () {
-            if(PykCharts.boolean(options.loading)) {
-                $(options.selector).html("<div id='chart-loader'><img src="+options.loading+"></div>");
-                var initial_height_div = $(options.selector).height();
-                $(options.selector + " #chart-loader").css({"visibility":"visible","padding-left":(options.width/2) +"px","padding-top":(initial_height_div/2) + "px"});
+            var loading_content;
+            
+            if(options.loading_type === "image") {
+                loading_content = "<img src=" + options.loading_source + ">"
+            } else {
+                loading_content = options.loading_source;
             }
+            
+            $(options.selector).html("<div id='chart-loader'>" + loading_content + "</div>");
+            var initial_height_div = $(options.selector).height();
+            $(options.selector + " #chart-loader").css({"visibility":"visible","padding-left":(options.width/2) +"px","padding-top":(initial_height_div/2) + "px"});
             return this;
         },
         positionContainers : function (position, chart) {
@@ -783,7 +789,7 @@ PykCharts.Configuration = function (options){
             return this;
         },
         ordinalYAxisTickFormat : function (domain) {
-            var a = $(options.selector + " g.y.axis text");
+            var a = $(options.selector + " g.y.axis .tick text");
 
             var len = a.length,comp;
 
@@ -1126,11 +1132,21 @@ PykCharts.Configuration = function (options){
 
             return this;
         },
-        dataSourceFormatIdentification : function (data,chart) {
+        dataSourceFormatIdentification : function (data,chart,executeFunction) {
             var dot_index = data.lastIndexOf('.'),
-                len = data.length - dot_index;
+            len = data.length - dot_index;
             format = data.substr(dot_index+1,len);
-            return format;
+            if(data.indexOf("{")!= -1) {
+                chart.data = JSON.parse(data);    
+                chart[executeFunction](chart.data);
+            } else if (data.indexOf(",")!= -1) {
+                chart.data = d3.csv.parse(data);                                
+                chart[executeFunction](chart.data);
+            } else if (format === "json") {
+                d3.json(data,chart[executeFunction]);
+            } else if(format === "csv") {
+                d3.csv(data,chart[executeFunction]);
+            }
         },
         export : function(chart,svgId,chart_name,panels_enable,containers) {
             if(PykCharts.boolean(options.export_enable)) {
@@ -2223,6 +2239,7 @@ configuration.Theme = function(){
 
         "mode": "default",
         "selector": "",
+        "is_interactive": "yes",
 
         "chart_height": 400,
         "chart_width": 600,
@@ -2299,7 +2316,8 @@ configuration.Theme = function(){
         "axis_x_time_value_interval":0,
         "axisHighlight_x_data_format": "string",
 
-        "loading_gif_url": PykCharts.assets+"img/preloader.gif",
+        "loading_source": "<div class='PykCharts-loading'><div></div><div></div><div></div></div>",
+        "loading_type" : "css",
 
         "tooltip_enable": "yes",
         "tooltip_mode": "moving",

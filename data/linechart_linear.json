@@ -12,42 +12,5 @@
 		"y":4,
 		"color":"steelblue",
 		"tooltip":4
-	},
-	{
-		"name":"New York",
-		"x":"3",
-		"y":6,
-		"tooltip":30,
-		"color":"steelblue",
-		"tooltip":6
-	},
-	{
-		"name":"New York",
-		"x":"4",
-		"y":7,
-		"color":"steelblue",
-		"annotation":"New York",
-		"tooltip":7
-	},
-	{
-		"name":"New York",
-		"x":"5",
-		"y":6,
-		"color":"steelblue",
-		"tooltip":6
-	},
-	{
-		"name":"New York",
-		"x":"6",
-		"y":4,
-		"color":"steelblue",
-		"tooltip":4
-	},
-	{
-		"name":"New York",
-		"x":"7",
-		"y":3,
-		"color":"steelblue",
-		"tooltip":3
 	}
 ]

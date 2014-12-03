@@ -30,9 +30,7 @@ PykCharts.multiD.bar = function(options){
            that.k.loading();
         }
         that.multiD = new PykCharts.multiD.configuration(that);
-        that.format = that.k.dataSourceFormatIdentification(options.data);
-        d3[that.format](options.data, function(e, data){
-
+        that.executeData = function (data) {
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
                 $(that.selector+" #chart-loader").remove();
@@ -44,8 +42,9 @@ PykCharts.multiD.bar = function(options){
             
             $(that.selector+" #chart-loader").remove();
             PykCharts.multiD.barFunctions(options,that,"bar");
-            that.render();
-        });
+            that.render();            
+        }
+        that.k.dataSourceFormatIdentification(options.data,that,"executeData");
     };
 }
 
@@ -80,9 +79,8 @@ PykCharts.multiD.groupedBar = function(options){
            that.k.loading();
         }
         that.multiD = new PykCharts.multiD.configuration(that);
-        that.format = that.k.dataSourceFormatIdentification(options.data);
-        d3[that.format](options.data, function(e, data){
-
+        
+        that.executeData = function (data) {
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
                 $(that.selector+" #chart-loader").remove();
@@ -95,14 +93,15 @@ PykCharts.multiD.groupedBar = function(options){
             $(that.selector+" #chart-loader").remove();
             PykCharts.multiD.barFunctions(options,that,"group_bar");
             that.render();
-        });
+        };
+        that.k.dataSourceFormatIdentification(options.data,that,"executeData");
     };
 };
 
 PykCharts.multiD.barFunctions = function (options,chartObject,type) {
     var that = chartObject;
     that.refresh = function () {
-        d3[that.format](options.data, function (e, data) {
+        that.executeRefresh = function (data) {
             that.data = that.k.__proto__._groupBy("bar",data);
             that.refresh_data = that.k.__proto__._groupBy("bar",data);
             var compare = that.k.checkChangeInData(that.refresh_data,that.compare_data);
@@ -129,7 +128,9 @@ PykCharts.multiD.barFunctions = function (options,chartObject,type) {
                     .legends()
                     .ticks();
             that.k.xAxis(that.svgContainer,that.xGroup,that.xScale,undefined,undefined,that.x_tick_values,that.legendsGroup_height);
-        });
+        };
+
+        that.k.dataSourceFormatIdentification(options.data,that,"executeRefresh");
     };
     that.render = function(){
         var that = this;

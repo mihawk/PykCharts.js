@@ -27,6 +27,7 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
 
     chartObject.selector = options.selector ? options.selector : stylesheet.selector;
     chartObject.width = options.chart_width  ? options.chart_width : stylesheet.chart_width;
+    chartObject.is_interactive = options.is_interactive ? options.is_interactive.toLowerCase(): oneDimensionalCharts.is_interactive;
 
     chartObject.mode = options.mode ? options.mode.toLowerCase(): stylesheet.mode;
 
@@ -82,7 +83,8 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
     chartObject.highlight_color = options.highlight_color ? options.highlight_color : stylesheet.highlight_color;
 
     chartObject.fullscreen_enable = options.fullscreen_enable ? options.fullscreen_enable : stylesheet.fullscreen_enable;
-    chartObject.loading = options.loading_gif_url ? options.loading_gif_url: stylesheet.loading_gif_url;
+    chartObject.loading_type = options.loading_type ? options.loading_type : stylesheet.loading_type;
+    chartObject.loading_source = options.loading_source ? options.loading_source : stylesheet.loading_source;
     chartObject.tooltip_enable = options.tooltip_enable ? options.tooltip_enable.toLowerCase() : stylesheet.tooltip_enable;
     chartObject.border_between_chart_elements_thickness = "border_between_chart_elements_thickness" in options ? options.border_between_chart_elements_thickness : stylesheet.border_between_chart_elements_thickness;
     chartObject.border_between_chart_elements_color = options.border_between_chart_elements_color ? options.border_between_chart_elements_color : stylesheet.border_between_chart_elements_color;
