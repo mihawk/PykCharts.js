@@ -171,7 +171,6 @@ PykCharts.other.venn = function (options) {
                             if (PykCharts.boolean(that.onhover_enable)) {
                                 var selection = d3.select(this);
                                 selection.moveParentToFront()
-                                    // .transition()
                                     .style("fill-opacity", .5);
                             }
                         }
@@ -241,8 +240,6 @@ PykCharts.other.venn = function (options) {
                             that.mouseEvent.tooltipPosition(d);
                         }
                     })
-                    // .transition()
-                    // .delay(that.transitions.duration())
                 that.path.exit().remove();
                 return this;
             },
