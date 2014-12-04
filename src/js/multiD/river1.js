@@ -4,17 +4,6 @@ PykCharts.multiD.river = function (options){
 
     this.execute = function (){
         that = new PykCharts.multiD.processInputs(that, options, "area");
-
-        if(that.stop)
-            return;
-
-        if(that.mode === "default") {
-            that.k.loading();
-        }
-
-        var multiDimensionalCharts = theme.multiDimensionalCharts,
-            stylesheet = theme.stylesheet,
-            optional = options.optional;
         that.data_mode_enable = options.data_mode_enable ? options.data_mode_enable.toLowerCase() : multiDimensionalCharts.data_mode_enable;
         if(PykCharts.boolean(that.data_mode_enable) && that.mode === "default") {
             that.chart_mode = options.data_mode_default ? options.data_mode_default.toLowerCase() : multiDimensionalCharts.data_mode_default;
@@ -35,12 +24,28 @@ PykCharts.multiD.river = function (options){
         }
         that.legends_mode = options.legends_mode ? options.legends_mode : multiDimensionalCharts.legends_mode;
         that.expand_group = options.expand_group ? options.expand_group : multiDimensionalCharts.expand_group;
-        that.time_between_steps_text_
         that.time_between_steps_text_color = options.time_between_steps_text_color ? options.time_between_steps_text_color : multiDimensionalCharts.time_between_steps_text_color;
         that.time_between_steps_text_weight = options.time_between_steps_text_weight ? options.time_between_steps_text_weight.toLowerCase() : multiDimensionalCharts.time_between_steps_text_weight;
         that.time_between_steps_text_family = options.time_between_steps_text_family ? options.time_between_steps_text_family.toLowerCase() : multiDimensionalCharts.time_between_steps_text_family;
         that.time_between_steps_text_size = "time_between_steps_text_size" in options ? options.time_between_steps_text_size : multiDimensionalCharts.time_between_steps_text_size;
 
+        that.k.validator()
+            .validatingDataType(that.time_between_steps_text_size,"time_between_steps_text_size",multiDimensionalCharts.time_between_steps_text_size,"time_between_steps_text_size")
+            .validatingFontWeight(that.time_between_steps_text_weight,"time_between_steps_text_weight",multiDimensionalCharts.time_between_steps_text_weight,"time_between_steps_text_weight")           
+            .validatingColor(that.time_between_steps_text_color,"time_between_steps_text_color",multiDimensionalCharts.time_between_steps_text_color,"time_between_steps_text_color")
+            .validatingColor(that.connecting_lines_color,"connecting_lines_color",multiDimensionalCharts.connecting_lines_color,"connecting_lines_color")
+            .validatingColor(that.data_mode_legends_color,"data_mode_legends_color",multiDimensionalCharts.data_mode_legends_color,"data_mode_legends_color");
+        if(that.stop)
+            return;
+
+        if(that.mode === "default") {
+            that.k.loading();
+        }
+
+        var multiDimensionalCharts = theme.multiDimensionalCharts,
+            stylesheet = theme.stylesheet,
+            optional = options.optional;
+        
         that.w = that.width - that.margin_left - that.margin_right;
         that.h = that.height - that.margin_top - that.margin_bottom;
         that.multiD = new PykCharts.multiD.configuration(that);
@@ -391,6 +396,9 @@ PykCharts.multiD.river = function (options){
                         });
 
                     rects.exit().transition().duration(that.transitions.duration()).attr("width", 0).remove();
+                    if(PykCharts.boolean(that.expand_group)) {
+                        rects.style("cursor","pointer");
+                    }
                 }
                 return this;
             },
@@ -802,6 +810,8 @@ PykCharts.multiD.river = function (options){
                                 that.draw();
                             }
                         });
+                        texts.style("cursor","pointer");
+                        circles.style("cursor","pointer");
                 }
                 return this;
             }
