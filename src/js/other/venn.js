@@ -133,12 +133,6 @@ PykCharts.other.venn = function (options) {
                 return this;
             },
             createChart : function () {
-                d3.selection.prototype.moveParentToFront = function() {
-                  return this.each(function(){
-                    this.parentNode.parentNode.appendChild(this.parentNode);
-                  });
-                };
-
                 that.colours = d3.scale.category10();
                 
                 that.nodes = that.group.selectAll(".venn-group")
@@ -151,38 +145,15 @@ PykCharts.other.venn = function (options) {
                     .attr("class","venn-nodes");
                 
                 that.nodes.select("circle")
+                    .attr("id", function (d,i) {
+                        return "venn-nodes-" + i;
+                    })
                     .attr("r",0)
                     .style("fill-opacity", 0.3)
                     .attr("cx", function(d) { return d.x; })
                     .attr("cy", function(d) { return d.y; })
                     .style("fill", function(d, i) { 
                         return that.highlight === d.name ? that.highlight_color : (that.chart_color[i] || d.color || that.default_color[0]); 
-                    })
-                    .on("mousemove", function(d) {
-                        if(that.mode==="default") {
-                            that.mouseEvent.tooltipPosition(d);
-                        }
-                    })
-                    .on("mouseover", function(d, i) {
-                        if(that.mode==="default") {
-                            tooltip = d.tooltip || d.weight + " users";
-                            that.mouseEvent.tooltipPosition(d);
-                            that.mouseEvent.tooltipTextShow(tooltip);
-                            if (PykCharts.boolean(that.onhover_enable)) {
-                                var selection = d3.select(this);
-                                selection.moveParentToFront()
-                                    .style("fill-opacity", .5);
-                            }
-                        }
-                    })
-                    .on("mouseout", function(d, i) {
-                        if(that.mode==="default") {
-                            that.mouseEvent.tooltipHide(d);
-                            if (PykCharts.boolean(that.onhover_enable)) {
-                                d3.select(this)/*.transition()*/
-                                    .style("fill-opacity", .3);
-                            }
-                        }
                     })
                     .attr("stroke",that.border.color())
                     .attr("stroke-width",that.border.width())
@@ -192,6 +163,46 @@ PykCharts.other.venn = function (options) {
                     .duration(that.transitions.duration())
                     .attr("r",  function(d) { return d.radius; })
                     .attr("stroke-opacity",1);
+                that.nodes.select("circle")
+                    .on("mouseover", function(d, i) {
+                        if(that.mode==="default") {
+                            tooltip = d.tooltip || d.weight + " users";
+                            that.mouseEvent.tooltipPosition(d);
+                            that.mouseEvent.tooltipTextShow(tooltip);
+                            if (PykCharts.boolean(that.onhover_enable)) {
+                                that.nodes.selectAll('.venn-nodes')
+                                    .sort(function(a, b) {
+                                        if (a.id === d.id) {
+                                            return 1;
+                                        } else {
+                                            if (b.id === d.id) {
+                                                return -1;
+                                            } else {
+                                                return 0;
+                                            }
+                                        }
+                                    });
+                                var selection = d3.select(this);
+                                selection
+                                    .style("fill-opacity", .5);
+                            }
+                        }
+                    })
+                    .on("mouseout", function(d, i) {
+                        if(that.mode==="default") {
+                            that.mouseEvent.tooltipHide(d)
+                            if(PykCharts.boolean(that.onhover_enable)) {
+                                d3.select(this)
+                                    .style("fill-opacity", 0.3);
+                            }
+                        }
+                            
+                    })
+                    .on("mousemove", function(d) {
+                        if(that.mode==="default") {
+                            that.mouseEvent.tooltipPosition(d);
+                        }
+                    })
                 that.nodes.exit().remove();
 
                 that.path = that.group1.selectAll("path")
