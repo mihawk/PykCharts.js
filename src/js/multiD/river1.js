@@ -4,6 +4,9 @@ PykCharts.multiD.river = function (options){
 
     this.execute = function (){
         that = new PykCharts.multiD.processInputs(that, options, "area");
+        var multiDimensionalCharts = theme.multiDimensionalCharts,
+            stylesheet = theme.stylesheet,
+            optional = options.optional;
         that.data_mode_enable = options.data_mode_enable ? options.data_mode_enable.toLowerCase() : multiDimensionalCharts.data_mode_enable;
         if(PykCharts.boolean(that.data_mode_enable) && that.mode === "default") {
             that.chart_mode = options.data_mode_default ? options.data_mode_default.toLowerCase() : multiDimensionalCharts.data_mode_default;
@@ -28,7 +31,6 @@ PykCharts.multiD.river = function (options){
         that.time_between_steps_text_weight = options.time_between_steps_text_weight ? options.time_between_steps_text_weight.toLowerCase() : multiDimensionalCharts.time_between_steps_text_weight;
         that.time_between_steps_text_family = options.time_between_steps_text_family ? options.time_between_steps_text_family.toLowerCase() : multiDimensionalCharts.time_between_steps_text_family;
         that.time_between_steps_text_size = "time_between_steps_text_size" in options ? options.time_between_steps_text_size : multiDimensionalCharts.time_between_steps_text_size;
-
         that.k.validator()
             .validatingDataType(that.time_between_steps_text_size,"time_between_steps_text_size",multiDimensionalCharts.time_between_steps_text_size,"time_between_steps_text_size")
             .validatingFontWeight(that.time_between_steps_text_weight,"time_between_steps_text_weight",multiDimensionalCharts.time_between_steps_text_weight,"time_between_steps_text_weight")           
@@ -42,9 +44,7 @@ PykCharts.multiD.river = function (options){
             that.k.loading();
         }
 
-        var multiDimensionalCharts = theme.multiDimensionalCharts,
-            stylesheet = theme.stylesheet,
-            optional = options.optional;
+        
         
         that.w = that.width - that.margin_left - that.margin_right;
         that.h = that.height - that.margin_top - that.margin_bottom;

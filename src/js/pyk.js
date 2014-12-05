@@ -2433,11 +2433,17 @@ configuration.Theme = function(){
         "annotation_view_mode": "onload", // "onload" / "onclick"
         "annotation_background_color" : "#C2CBCF", /*"#EEEEEE"*/
         "annotation_font_color" : "black",
+        "legends_mode":"default", // or interactive
+        "expand_group": "yes",
         "data_mode_enable" : "no",
         "data_mode_legends_color" : "black",
         "data_mode_default" : "percentage",
         "connecting_lines_color" : "#ddd",
         "connecting_lines_style": "solid",
+        "time_between_steps_text_color": "#aaa",
+        "time_between_steps_text_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
+        "time_between_steps_text_size": 10,
+        "time_between_steps_text_weight" : "normal",
         "data_sort_enable": "yes",
         "data_sort_type": "alphabetically", // sort type --- "alphabetically" / "numerically" / "date"
         "data_sort_order": "ascending" // sort order --- "descending" / "ascending"
