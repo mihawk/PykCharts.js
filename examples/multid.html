@@ -38,6 +38,7 @@
         <script src="../src/js/pyk.js"></script>
         <script src="../src/js/multiD/multiD.js"></script>
         <script src="../src/js/multiD/column.js"></script>
+        <script src="../src/js/multiD/groupColumnChart.js"></script>
         <script src="../src/js/multiD/areaChart.js"></script>
         <script src="../src/js/multiD/lineChart.js"></script>
         <script src="../src/js/multiD/spiderWeb.js"></script>
@@ -133,7 +134,7 @@
                     chart_grid_color: "black",
 
                     transition_duration: 5,
-                    real_time_charts_refresh_frequency: 5,
+                    real_time_charts_refresh_frequency: 0,
 
                     axis_onhover_highlight_enable: "yes",
                     title_text: "",
@@ -305,7 +306,7 @@
 
                     scatterplot_radius : 9,
                     scatterplot_pointer: "no",
-                    real_time_charts_refresh_frequency: 20,
+                    real_time_charts_refresh_frequency: 0,
                     panels_enable: "yes",
                     variable_circle_size_enable: "no",
 
@@ -813,7 +814,7 @@
                     chart_margin_left: 50,
                     chart_grid_y_enable: "yes",
 
-                    real_time_charts_refresh_frequency: 10,
+                    real_time_charts_refresh_frequency: 0,
 
                     axis_onhover_highlight_enable: "yes",
                      // panels_enable:"yes",
@@ -858,7 +859,7 @@
 
                     highlight:"april"
                 });
-            // k.execute();
+            k.execute();
 
 
             };
