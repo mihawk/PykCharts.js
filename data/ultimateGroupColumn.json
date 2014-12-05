@@ -1,26 +1,6 @@
 [
 	{
 		"x": "January",
-		"y":  8,
-		"group": "India",
-		"tooltip": "<table class='PykCharts'><tr><th>India</th></tr><tr><td>8</td></tr></table>"
-	},
-	{
-		"x": "January",
-		"y":  12,
-		"color":"grey",
-		"group": "China",
-		"tooltip": "<table class='PykCharts'><tr><th>China</th></tr><tr><td>12</td></tr></table>"
-	},
-	{
-		"x": "January",
-		"y":  16,
-		"group": "Japan",
-		"color":"blue",
-		"tooltip": "<table class='PykCharts'><tr><th>Japan</th></tr><tr><td>16</td></tr></table>"
-	},
-	{
-		"x": "January",
 		"y":  20,
 		"group": "United States",
 		"tooltip": "<table class='PykCharts'><tr><th>United States</th></tr><tr><td>20</td></tr></table>"
@@ -62,6 +42,32 @@
 		"tooltip": "<table class='PykCharts'><tr><th>Japan</th></tr><tr><td>12</td></tr></table>"
 	},
 	{
+		"x": "April",
+		"y":  16,
+		"group": "United States",
+		"tooltip": "<table class='PykCharts'><tr><th>United States</th></tr><tr><td>16</td></tr></table>"
+	},
+		{
+		"x": "January",
+		"y":  8,
+		"group": "India",
+		"tooltip": "<table class='PykCharts'><tr><th>India</th></tr><tr><td>8</td></tr></table>"
+	},
+	{
+		"x": "January",
+		"y":  12,
+		"color":"grey",
+		"group": "China",
+		"tooltip": "<table class='PykCharts'><tr><th>China</th></tr><tr><td>12</td></tr></table>"
+	},
+	{
+		"x": "January",
+		"y":  16,
+		"group": "Japan",
+		"color":"blue",
+		"tooltip": "<table class='PykCharts'><tr><th>Japan</th></tr><tr><td>16</td></tr></table>"
+	},	
+	{
 		"x": "March",
 		"y":  16,
 		"group": "United States",
@@ -78,11 +84,5 @@
 		"y":  12,
 		"group": "Japan",
 		"tooltip": "<table class='PykCharts'><tr><th>Japan</th></tr><tr><td>12</td></tr></table>"
-	},
-	{
-		"x": "April",
-		"y":  16,
-		"group": "United States",
-		"tooltip": "<table class='PykCharts'><tr><th>United States</th></tr><tr><td>16</td></tr></table>"
 	}
 ]
