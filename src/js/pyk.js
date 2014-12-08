@@ -1541,6 +1541,33 @@ PykCharts.Configuration = function (options){
                     }
                     return this;
                 },
+                validatingDataMode : function (mode,config_name,default_value,name) {
+                    try {
+
+                        if(mode.toLowerCase() === "absolute" || mode.toLowerCase()=== "percentage") {
+                        } else {
+                            options[config_name] = default_value;
+                            throw config_name;
+                        }
+                    }
+                    catch (err) {
+                        options.k.warningHandling(err,"16");
+                    }
+                    return this;
+                },
+                validatingLegendsMode : function (mode,config_name,default_value,name) {
+                    try {
+                        if(mode.toLowerCase() === "default" || mode.toLowerCase()=== "interactive") {
+                        } else {
+                            options[config_name] = default_value;
+                            throw config_name;
+                        }
+                    }
+                    catch (err) {
+                        options.k.warningHandling(err,"17");
+                    }
+                    return this;
+                },
                 validatingJSON : function (data) { // note: this method method cannot be used for chaining as it return fasle and not this;
                     if(!data) {
                         try {

@@ -36,7 +36,10 @@ PykCharts.multiD.river = function (options){
             .validatingFontWeight(that.time_between_steps_text_weight,"time_between_steps_text_weight",multiDimensionalCharts.time_between_steps_text_weight,"time_between_steps_text_weight")           
             .validatingColor(that.time_between_steps_text_color,"time_between_steps_text_color",multiDimensionalCharts.time_between_steps_text_color,"time_between_steps_text_color")
             .validatingColor(that.connecting_lines_color,"connecting_lines_color",multiDimensionalCharts.connecting_lines_color,"connecting_lines_color")
-            .validatingColor(that.data_mode_legends_color,"data_mode_legends_color",multiDimensionalCharts.data_mode_legends_color,"data_mode_legends_color");
+            .validatingColor(that.data_mode_legends_color,"data_mode_legends_color",multiDimensionalCharts.data_mode_legends_color,"data_mode_legends_color")
+            .validatingDataMode(that.chart_mode,"data_mode_default",multiDimensionalCharts.data_mode_default,"chart_mode")
+            .validatingLegendsMode(that.legends_mode,"legends_mode",multiDimensionalCharts.legends_mode,"legends_mode");
+        
         if(that.stop)
             return;
 
@@ -44,8 +47,6 @@ PykCharts.multiD.river = function (options){
             that.k.loading();
         }
 
-        
-        
         that.w = that.width - that.margin_left - that.margin_right;
         that.h = that.height - that.margin_top - that.margin_bottom;
         that.multiD = new PykCharts.multiD.configuration(that);
