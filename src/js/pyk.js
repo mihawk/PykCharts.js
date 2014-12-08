@@ -1939,7 +1939,6 @@ configuration.mouseEvent = function (options) {
                         }
                     }
                     prev_tick = curr_tick;
-
                     d3.selectAll(selection)
                         .style("fill","#bbb")
                     d3.select(d3.selectAll(selection)[0][curr_tick])
@@ -1985,6 +1984,25 @@ configuration.mouseEvent = function (options) {
         },
         highlightHide : function (selectedclass) {
             d3.selectAll(selectedclass)
+                .attr("fill-opacity",function (d,i) {
+                    return $(this).attr("data-fill-opacity");
+                });
+            return this;
+        },
+        highlightGroup: function (selectedclass, that, element) {
+            var t = d3.select(that);
+
+            var group = d3.selectAll(selectedclass);
+
+                group.selectAll(element)
+                    .attr("fill-opacity",.5)
+
+            t.selectAll(element).attr("fill-opacity",1);
+
+            return this;
+        },
+        highlightGroupHide : function (selectedclass,element) {
+            d3.selectAll(selectedclass+" "+element)
                 .attr("fill-opacity",function (d,i) {
                     return $(this).attr("data-fill-opacity");
                 });
@@ -2036,6 +2054,7 @@ configuration.fillChart = function (options,theme,config) {
         },
         colorGroup : function (d) {
             if(options.color_mode === "saturation") {
+                console.log("is_interactive",options.saturation_color)
                 return options.saturation_color;
             } else if(options.color_mode === "color") {
                 return d.color;

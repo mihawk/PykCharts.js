@@ -4,7 +4,7 @@
         "x" : 2001,
         "y" : "Rice",
         "weight" : 4834,
-        "color": "",
+        "color": "yellow",
         "tooltip" : "",
         "group": "Cereals"
 	},
@@ -13,7 +13,7 @@
         "x" : 2002,
         "y" : "Rice",
         "weight" : 10402,
-        "color": "",
+        "color": "yellow",
         "tooltip" : "",
         "group": "Cereals"
 	},
@@ -22,7 +22,7 @@
         "x" : 2003,
         "y" : "Rice",
         "weight" : 5964,
-        "color": "",
+        "color": "yellow",
         "tooltip" : "",
         "group": "Cereals"
 	},
@@ -31,7 +31,7 @@
         "x" : 2004,
         "y" : "Rice",
         "weight" : 13385,
-        "color": "",
+        "color": "yellow",
         "tooltip" : "",
         "group": "Cereals"
 	},
@@ -40,7 +40,7 @@
         "x" : 2005,
         "y" : "Rice",
         "weight" : 11966,
-        "color": "",
+        "color": "yellow",
         "tooltip" : "",
         "group": "Cereals"
 	},
@@ -49,7 +49,7 @@
         "x" : 2006,
         "y" : "Rice",
         "weight" : 12836,
-        "color": "",
+        "color": "yellow",
         "tooltip" : "",
         "group": "Cereals"
 	},
@@ -58,7 +58,7 @@
         "x" : 2007,
         "y" : "Rice",
         "weight" : 11412,
-        "color": "",
+        "color": "yellow",
         "tooltip" : "",
         "group": "Cereals"
 	},
@@ -67,7 +67,7 @@
         "x" : 2008,
         "y" : "Rice",
         "weight" : 14742,
-        "color": "",
+        "color": "yellow",
         "tooltip" : "",
         "group": "Cereals"
 	},
@@ -76,7 +76,7 @@
         "x" : 2009,
         "y" : "Rice",
         "weight" : 13029,
-        "color": "",
+        "color": "yellow",
         "tooltip" : "",
         "group": "Cereals"
 	},
@@ -85,7 +85,7 @@
         "x" : 2010,
         "y" : "Rice",
         "weight" : 12930,
-        "color": "",
+        "color": "yellow",
         "tooltip" : "",
         "group": "Cereals"
 	},
@@ -94,7 +94,7 @@
         "x" : 2011,
         "y" : "Rice",
         "weight" : 16658,
-        "color": "",
+        "color": "yellow",
         "tooltip" : "",
         "group": "Cereals"
 	},
@@ -103,7 +103,7 @@
         "x" : 2012,
         "y" : "Rice",
         "weight" : 17897,
-        "color": "",
+        "color": "yellow",
         "tooltip" : "",
         "group": "Cereals"
 	},
@@ -112,7 +112,7 @@
         "x" : 2001,
         "y" : "Wheat",
         "weight" : 4834,
-        "color": "",
+        "color": "yellow",
         "tooltip" : "",
         "group": "Cereals"
 	},
@@ -121,7 +121,7 @@
         "x" : 2002,
         "y" : "Wheat",
         "weight" : 10402,
-        "color": "",
+        "color": "yellow",
         "tooltip" : "",
         "group": "Cereals"
 	},
@@ -130,7 +130,7 @@
         "x" : 2003,
         "y" : "Wheat",
         "weight" : 5964,
-        "color": "",
+        "color": "yellow",
         "tooltip" : "",
         "group": "Cereals"
 	},
@@ -139,7 +139,7 @@
         "x" : 2004,
         "y" : "Wheat",
         "weight" : 13385,
-        "color": "",
+        "color": "yellow",
         "tooltip" : "",
         "group": "Cereals"
 	},
@@ -148,7 +148,7 @@
         "x" : 2005,
         "y" : "Wheat",
         "weight" : 11966,
-        "color": "",
+        "color": "yellow",
         "tooltip" : "",
         "group": "Cereals"
 	},
@@ -157,7 +157,7 @@
         "x" : 2006,
         "y" : "Wheat",
         "weight" : 12836,
-        "color": "",
+        "color": "yellow",
         "tooltip" : "",
         "group": "Cereals"
 	},
@@ -166,7 +166,7 @@
         "x" : 2007,
         "y" : "Wheat",
         "weight" : 11412,
-        "color": "",
+        "color": "yellow",
         "tooltip" : "",
         "group": "Cereals"
 	},
@@ -175,7 +175,7 @@
         "x" : 2008,
         "y" : "Wheat",
         "weight" : 14742,
-        "color": "",
+        "color": "yellow",
         "tooltip" : "",
         "group": "Cereals"
 	},
@@ -184,7 +184,7 @@
         "x" : 2009,
         "y" : "Wheat",
         "weight" : 13029,
-        "color": "",
+        "color": "yellow",
         "tooltip" : "",
         "group": "Cereals"
 	},
@@ -193,7 +193,7 @@
         "x" : 2010,
         "y" : "Wheat",
         "weight" : 12930,
-        "color": "",
+        "color": "yellow",
         "tooltip" : "",
         "group": "Cereals"
 	},
@@ -202,7 +202,7 @@
         "x" : 2011,
         "y" : "Wheat",
         "weight" : 16658,
-        "color": "",
+        "color": "yellow",
         "tooltip" : "",
         "group": "Cereals"
 	},
@@ -211,7 +211,7 @@
         "x" : 2012,
         "y" : "Wheat",
         "weight" : 17897,
-        "color": "",
+        "color": "yellow",
         "tooltip" : "",
         "group": "Cereals"
 	},
@@ -220,7 +220,7 @@
         "x" : 2001,
         "y" : "Jowar",
         "weight" : 17800,
-        "color": "",
+        "color": "yellow",
         "tooltip" : "",
         "group": "Cereals"
 	},
@@ -229,7 +229,7 @@
         "x" : 2002,
         "y" : "Jowar",
         "weight" : 16930,
-        "color": "",
+        "color": "yellow",
         "tooltip" : "",
         "group": "Cereals"
 	},
@@ -238,7 +238,7 @@
         "x" : 2003,
         "y" : "Jowar",
         "weight" : 12170,
-        "color": "",
+        "color": "yellow",
         "tooltip" : "",
         "group": "Cereals"
 	},
@@ -247,7 +247,7 @@
         "x" : 2004,
         "y" : "Jowar",
         "weight" : 19680,
-        "color": "",
+        "color": "yellow",
         "tooltip" : "",
         "group": "Cereals"
 	},
@@ -256,7 +256,7 @@
         "x" : 2005,
         "y" : "Jowar",
         "weight" : 13440,
-        "color": "",
+        "color": "yellow",
         "tooltip" : "",
         "group": "Cereals"
 	},
@@ -265,7 +265,7 @@
         "x" : 2006,
         "y" : "Jowar",
         "weight" : 15700,
-        "color": "",
+        "color": "yellow",
         "tooltip" : "",
         "group": "Cereals"
 	},
@@ -274,7 +274,7 @@
         "x" : 2007,
         "y" : "Jowar",
         "weight" : 14930,
-        "color": "",
+        "color": "yellow",
         "tooltip" : "",
         "group": "Cereals"
 	},
@@ -283,7 +283,7 @@
         "x" : 2008,
         "y" : "Jowar",
         "weight" : 15640,
-        "color": "",
+        "color": "yellow",
         "tooltip" : "",
         "group": "Cereals"
 	},
@@ -292,7 +292,7 @@
         "x" : 2009,
         "y" : "Jowar",
         "weight" : 20820,
-        "color": "",
+        "color": "yellow",
         "tooltip" : "",
         "group": "Cereals"
 	},
@@ -301,7 +301,7 @@
         "x" : 2010,
         "y" : "Jowar",
         "weight" : 17130,
-        "color": "",
+        "color": "yellow",
         "tooltip" : "",
         "group": "Cereals"
 	},
@@ -310,7 +310,7 @@
         "x" : 2011,
         "y" : "Jowar",
         "weight" : 13900,
-        "color": "",
+        "color": "yellow",
         "tooltip" : "",
         "group": "Cereals"
 	},
@@ -319,7 +319,7 @@
         "x" : 2012,
         "y" : "Jowar",
         "weight" : 4834,
-        "color": "",
+        "color": "yellow",
         "tooltip" : "",
         "group": "Cereals"
 	},

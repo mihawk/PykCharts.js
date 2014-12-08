@@ -160,7 +160,7 @@ PykCharts.multiD.configuration = function (options){
             var k = 0;
             var checkGroup = true;
             var checkColor = true;
-
+            data = new PykCharts.multiD.sortDataByGroup(data);
             data.forEach(function (item) {
                 if(item.group) {
                     checkGroup = true;
@@ -169,7 +169,7 @@ PykCharts.multiD.configuration = function (options){
                     if(options.chart_color) {
                         checkGroup = false;
                         item.color = options.chart_color[0];
-                    }else if(item.color) {
+                    } else if(item.color) {
                         checkColor = false;
                         item.color = item.color;
                     } else{
@@ -185,17 +185,18 @@ PykCharts.multiD.configuration = function (options){
                         unique[item.group] = item;
                         if(options.chart_color.length !== 0 && PykCharts.boolean(options.chart_color[k])) {
                             item.color = options.chart_color[k];
-                        }else if(item.color) {
+                        } else if(item.color) {
                             item.color = item.color;
                         } else {
                             item.color = options.default_color;
                         }
-                        if(i<data.length-2 &&item.group !== data[i+1].group) {
+                        if(i<data.length-2 && item.group !== data[i+1].group) {
                             k++;
                         }
                         newarr.push(item);
                     } else {
-                        if(i<data.length-2 &&item.group !== data[i+1].group) {
+                        if(i < data.length-2 && item.group !== data[i+1].group) {
+                            console.log(data[i+1].group,item.group,i)
                             k++;
                         }
                     }
@@ -204,6 +205,7 @@ PykCharts.multiD.configuration = function (options){
                 k=0;i=0;
                 data.forEach(function(item) {
                     if(!unique[item.group]) {
+//                        console.log(options.selector,item.group,k);
                         unique[item.group] = item;
                         if(options.chart_color.length !== 0 && PykCharts.boolean(options.chart_color[k])) {
                             item.color = options.chart_color[k];
@@ -250,15 +252,15 @@ PykCharts.multiD.configuration = function (options){
 PykCharts.multiD.mouseEvent = function (options) {
     var highlight_selected = {
         highlight: function (selectedclass, that) {
-                var t = d3.select(that);
-                d3.selectAll(selectedclass)
-                    .attr("opacity",.5)
-                t.attr("opacity",1);
-                return this;
+            var t = d3.select(that);
+            d3.selectAll(selectedclass)
+                .attr("opacity",.5)
+            t.attr("opacity",1);
+            return this;
         },
         highlightHide : function (selectedclass) {
-                d3.selectAll(selectedclass)
-                    .attr("opacity",1);
+            d3.selectAll(selectedclass)
+                .attr("opacity",1);
             return this;
         }
     }
@@ -280,6 +282,18 @@ PykCharts.multiD.bubbleSizeCalculation = function (options,data,rad_range) {
     };
     return size;
 };
+
+PykCharts.multiD.sortDataByGroup = function (data) {
+    data.sort(function(a,b) {
+        if (a.group < b.group) {
+            return -1;
+        }
+        else if (a.group > b.group) {
+            return 1;
+        }
+    });
+    return data;
+}
 
 PykCharts.multiD.processInputs = function (chartObject, options) {
 
