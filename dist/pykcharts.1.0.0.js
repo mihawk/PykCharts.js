@@ -6287,6 +6287,7 @@ PykCharts.other.pictograph = function (options) {
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
                 $(options.selector+" #chart-loader").remove();
+                $(that.selector).css("height","auto")
                 return;
             }
 
@@ -6297,6 +6298,7 @@ PykCharts.other.pictograph = function (options) {
 
             that.compare_data = that.data;
             $(options.selector+" #chart-loader").remove();
+            $(that.selector).css("height","auto")
             that.render();
         };
         that.k.dataSourceFormatIdentification(options.data,that,"executeData");
@@ -13519,7 +13521,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             createMap : function () {
 
                 var new_width =  that.width - that.legendsGroup_width;
-                var new_height = that.height-that.legendsGroup_height;
+                var new_height = that.height - that.legendsGroup_height - that.margin_bottom -that.margin_top;
                 var scale = 150
                 , offset = [new_width / 2, new_height / 2]
                 , i;
@@ -13793,7 +13795,6 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     }
 
                     translate_x = (that.legends_display === "vertical") ? (that.width - that.legendsGroup_width) : (that.width - legend_container_width - 20);
-
                 if (legend_container_width < that.width) { that.legendsContainer.attr("transform","translate("+(translate_x-20)+",10)"); }
                 that.legendsContainer.style("visibility","visible");
 
@@ -13840,7 +13841,6 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     }
 
                     translate_x = (that.legends_display === "vertical") ? 0 : (that.width - legend_container_width - 20);
-
                 if (legend_container_width < that.width) { that.legendsContainer.attr("transform","translate("+translate_x+",10)"); }
                 that.legendsContainer.style("visibility","visible");
 
