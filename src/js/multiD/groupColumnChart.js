@@ -71,6 +71,17 @@ PykCharts.multiD.groupedColumn = function(options) {
             that.refresh_data = that.k.__proto__._groupBy("column",data);
             that.map_group_data = that.multiD.mapGroup(that.data);
             that.dataTransformation();
+            that.optionalFeatures().mapColors();
+
+            if(that.axis_x_data_format === "time") {
+                    that.new_data.forEach(function (d) {
+                        d.name = that.k.dateConversion(d.name);
+                        // that.xdomain.push(d.x);
+                    });
+                    that.data.forEach(function (d) {
+                        d.x =that.k.dateConversion(d.x);
+                    });
+            }
             var compare = that.k.checkChangeInData(that.refresh_data,that.compare_data);
             that.compare_data = compare[0];
             var data_changed = compare[1];
@@ -82,8 +93,9 @@ PykCharts.multiD.groupedColumn = function(options) {
                     .createChart()
                     .legends();
 
-            that.k.yAxis(that.svgContainer,that.yGroup,that.yScale,undefined,that.y_tick_values,that.legendsGroup_width)
-                .yGrid(that.svgContainer,that.group,that.yScale,that.legendsGroup_width);
+            that.k.xAxis(that.svgContainer,that.xGroup,that.xScale,that.extra_left_margin,that.xdomain,that.x_tick_values,that.legendsGroup_height)
+            .yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain,that.y_tick_values,that.legendsGroup_width)
+            .yGrid(that.svgContainer,that.group,that.yScale,that.legendsGroup_width);
         };
         that.k.dataSourceFormatIdentification(options.data,that,"executeRefresh");
     };
@@ -125,7 +137,6 @@ PykCharts.multiD.groupedColumn = function(options) {
                 .svgContainer(1)
                 .legendsContainer(1);
 
-
             that.k.liveData(that)
                 .tooltip()
                 .createFooter()
@@ -145,12 +156,13 @@ PykCharts.multiD.groupedColumn = function(options) {
             // console.log(that.x_tick_values)
             that.k.xAxis(that.svgContainer,that.xGroup,that.xScale,that.extra_left_margin,that.xdomain,that.x_tick_values,that.legendsGroup_height)
             .yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain,that.y_tick_values,that.legendsGroup_width)
+            .yGrid(that.svgContainer,that.group,that.yScale,that.legendsGroup_width)
             .xAxisTitle(that.xGroup)
             .yAxisTitle(that.yGroup);
 
         } else if(that.mode === "infographics") {
             that.k.backgroundColor(that)
-                .export(that,"#"+that.container_id,"columnChart")
+                .export(that,"#"+that.container_id,"groupColumnChart")
                 .emptyDiv()
                 .makeMainDiv(that.selector,1);
 
@@ -159,7 +171,7 @@ PykCharts.multiD.groupedColumn = function(options) {
                 .createGroups(1)
                 .createChart()
                 .axisContainer()
-                // .highlightRect();
+                .highlightRect();
 
             that.k.tooltip();
             that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
@@ -370,16 +382,20 @@ PykCharts.multiD.groupedColumn = function(options) {
                         return "translate(" + that.xScale(d.name) + ",0)"; 
                     })
                     .on('mouseout',function (d) {
-                        if(PykCharts.boolean(that.onhover_enable)) {
-                            that.mouseEvent.highlightGroupHide(that.selector+" "+".column-group","rect");
+                        if(that.mode === "default") {
+                            if(PykCharts.boolean(that.onhover_enable)) {
+                                that.mouseEvent.highlightGroupHide(that.selector+" "+".column-group","rect");
+                            }
+                            that.mouseEvent.axisHighlightHide(that.selector+" "+".x.axis")
                         }
-                        that.mouseEvent.axisHighlightHide(that.selector+" "+".x.axis")
                     })
                     .on('mousemove', function (d) {
-                        if(PykCharts.boolean(that.onhover_enable)) {
-                            that.mouseEvent.highlightGroup(that.selector+" "+".column-group", this, "rect");
+                        if(that.mode === "default") {
+                            if(PykCharts.boolean(that.onhover_enable)) {
+                                that.mouseEvent.highlightGroup(that.selector+" "+".column-group", this, "rect");
+                            }
+                            that.mouseEvent.axisHighlightShow(d.name,that.selector+" "+".x.axis",that.xdomain);
                         }
-                        that.mouseEvent.axisHighlightShow(d.name,that.selector+" "+".x.axis",that.xdomain);
                     });
 
                 var bar = chart.selectAll("rect")
@@ -391,7 +407,7 @@ PykCharts.multiD.groupedColumn = function(options) {
                 bar.attr("height", 0)
                     .attr("x", function (d) {return that.x1(d.name); })
                     .attr("y", that.height)
-                    .attr("width", function (d){ return that.x1.rangeBand(); })
+                    .attr("width", function (d){ return 0.98*that.x1.rangeBand(); })
                     .attr("fill", function (d,i) {
                         return that.fillColor.colorGroup(d);
                     })
@@ -408,14 +424,21 @@ PykCharts.multiD.groupedColumn = function(options) {
                         return $(this).attr("fill-opacity");
                     })
                     .on('mouseover',function (d) {
-                        that.mouseEvent.tooltipPosition(d);
-                        that.mouseEvent.tooltipTextShow(d.tooltip);
+                        if(that.mode === "default") {
+                            that.mouseEvent.tooltipPosition(d);
+                            that.mouseEvent.tooltipTextShow(d.tooltip);
+                        }
                     })
                     .on('mouseout',function (d) {
-                        that.mouseEvent.tooltipHide(d);
+                        if(that.mode === "default") {
+                            that.mouseEvent.tooltipHide(d);
+                        }
                     })
                     .on('mousemove', function (d) {
-                        that.mouseEvent.tooltipPosition(d);
+                        if(that.mode === "default") {
+                            that.mouseEvent.tooltipPosition(d);
+                        }
+
                     })
                     .transition()
                     .duration(that.transitions.duration())
@@ -427,7 +450,7 @@ PykCharts.multiD.groupedColumn = function(options) {
                         return that.yScale(d.y); 
                     });
 
-                // chart.exit().remove(); 
+                chart.exit().remove(); 
 
                 return this;
             },
@@ -443,7 +466,6 @@ PykCharts.multiD.groupedColumn = function(options) {
                     }
                 }
 
-                console.log(that.group_data)
                 that.new_data.forEach(function(d){
                     d.data.forEach(function(data){
                         data.color = _.find(that.group_data,function(d) {

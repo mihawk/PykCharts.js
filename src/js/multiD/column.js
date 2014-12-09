@@ -90,21 +90,27 @@ PykCharts.multiD.column = function (options) {
                 .xAxisTitle(that.xgroup)
                 .yAxisTitle(that.ygroup);
 
-        } else if(that.mode === "infographic") {
+        } else if(that.mode === "infographics") {
             that.k.backgroundColor(that)
                 .export(that,"#"+that.container_id,"columnChart")
                 .emptyDiv()
                 .makeMainDiv(that.selector,1);
 
-            that.optionalFeatures().svgContainer()
-                .createColumn();
+            that.optionalFeatures()
+                .svgContainer(1)
+                .createGroups();
 
-            that.k.tooltip();
+            that.k.liveData(that)
+                .tooltip();
 
             that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
 
-            that.k.yAxis(that.svgContainer,that.ygroup,that.yScale)
-                .xAxis(that.svgContainer,that.xgroup,that.xScale)
+            that.optionalFeatures()
+                .createColumn()
+                .axisContainer();
+
+            that.k.yAxis(that.svgContainer,that.ygroup,that.yScale,that.y_domain,that.y_tick_values)
+                .xAxis(that.svgContainer,that.xgroup,that.xScale,that.extra_left_margin,that.x_domain,that.x_tick_values)
                 .xAxisTitle(that.xgroup)
                 .yAxisTitle(that.ygroup);
 
@@ -313,22 +319,28 @@ PykCharts.multiD.column = function (options) {
                     .attr("stroke", that.border.color())
                     .attr("stroke-width",that.border.width())
                     .on('mouseover',function (d) {
-                        if(PykCharts.boolean(that.onhover_enable)) {
-                            that.mouseEvent1.highlight(that.selector+" "+".hbar", this);
+                        if(that.mode === "default") {
+                            if(PykCharts.boolean(that.onhover_enable)) {
+                                that.mouseEvent1.highlight(that.selector+" "+".hbar", this);
+                            }
+                            that.mouseEvent.tooltipPosition(d);
+                            that.mouseEvent.tooltipTextShow(d.tooltip ? d.tooltip : d.y);
                         }
-                        that.mouseEvent.tooltipPosition(d);
-                        that.mouseEvent.tooltipTextShow(d.tooltip ? d.tooltip : d.y);
                     })
                     .on('mouseout',function (d) {
-                        if(PykCharts.boolean(that.onhover_enable)) {
-                            that.mouseEvent1.highlightHide(that.selector+" "+".hbar");
+                        if(that.mode === "default") {
+                            if(PykCharts.boolean(that.onhover_enable)) {
+                                that.mouseEvent1.highlightHide(that.selector+" "+".hbar");
+                            }
+                            that.mouseEvent.tooltipHide(d);
+                            that.mouseEvent.axisHighlightHide(that.selector+" "+".x.axis")
                         }
-                        that.mouseEvent.tooltipHide(d);
-                        that.mouseEvent.axisHighlightHide(that.selector+" "+".x.axis")
                     })
                     .on('mousemove', function (d) {
-                        that.mouseEvent.tooltipPosition(d);
-                        that.mouseEvent.axisHighlightShow(d.x,that.selector+" "+".x.axis",that.x_domain);                       
+                        if(that.mode === "default") {
+                            that.mouseEvent.tooltipPosition(d);
+                            that.mouseEvent.axisHighlightShow(d.x,that.selector+" "+".x.axis",that.x_domain);
+                        }                       
                     })
                     .transition()
                     .duration(that.transitions.duration())
