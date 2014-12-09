@@ -502,7 +502,7 @@ PykCharts.Configuration = function (options){
         },
         loading: function () {
             var loading_content;
-            
+            $(options.selector).css("height",options.height);
             if(options.loading_type === "image") {
                 loading_content = "<img src=" + options.loading_source + ">"
             } else {

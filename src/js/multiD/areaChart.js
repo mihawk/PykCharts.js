@@ -27,6 +27,7 @@ PykCharts.multiD.area = function (options){
 			var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
                 $(that.selector+" #chart-loader").remove();
+                $(that.selector).css("height","auto")
                 return;
             }
 
@@ -39,6 +40,7 @@ PykCharts.multiD.area = function (options){
 			that.compare_data = that.data;
 			that.data_length = that.data.length;
 			$(that.selector+" #chart-loader").remove();
+			$(that.selector).css("height","auto")
 			PykCharts.multiD.areaFunctions(options,that,"area");
 			that.dataTransformation();
 			that.render();
@@ -78,6 +80,7 @@ PykCharts.multiD.stackedArea = function (options){
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
                 $(that.selector+" #chart-loader").remove();
+                $(that.selector).css("height","auto")
                 return;
             }
 
@@ -90,6 +93,7 @@ PykCharts.multiD.stackedArea = function (options){
 			that.compare_data = that.data;
 			that.data_length = that.data.length;
 			$(that.selector+" #chart-loader").remove();
+			
 			PykCharts.multiD.areaFunctions(options,that,"stacked_area");
 			that.dataTransformation();
 			that.render();
@@ -159,7 +163,7 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 
 		}
 		catch (err) {
-            console.error('%c[Error - Pykih Charts] ', 'color: red;font-weight:bold;font-size:14px', " at "+options.selector+".\""+err+"\"  Visit www.chartstore.io/docs#error_7");					
+            console.error('%c[Error - Pykih Charts] ', 'color: red;font-weight:bold;font-size:14px', " at "+that.selector+".\""+err+"\"  Visit www.chartstore.io/docs#error_7");					
          	return;   
 		}
 		if(that.axis_x_data_format === "time") {
@@ -182,8 +186,8 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 					.liveData(that)
 					.emptyDiv()
 					.subtitle()
-					.makeMainDiv(options.selector,1)
-					.tooltip(true,options.selector,1);
+					.makeMainDiv(that.selector,1)
+					.tooltip(true,that.selector,1);
 
 			that.renderChart();
 
@@ -207,7 +211,7 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 			  			.backgroundColor(that)
 			  			.export(that,"#svg-1","areaChart")
 			  			.emptyDiv()
-						.makeMainDiv(options.selector,1);
+						.makeMainDiv(that.selector,1);
 
 			  that.optional_feaure()
 						.svgContainer(1)
@@ -268,7 +272,7 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 					.yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain,that.y_tick_values,that.legendsGroup_width)
 					.yGrid(that.svgContainer,that.group,that.yScale,that.legendsGroup_width)
 					.xGrid(that.svgContainer,that.group,that.xScale,that.legendsGroup_height)
-					.tooltip(true,options.selector);
+					.tooltip(true,that.selector);
 
 			if(PykCharts.boolean(that.annotation_enable)) {
 	        	that.annotation();
@@ -292,7 +296,7 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 			svgContainer: function (i){
 				$(that.selector).attr("class","PykCharts-twoD PykCharts-multi-series2D PykCharts-line-chart");
 
-				that.svgContainer = d3.select(options.selector+" "+"#tooltip-svg-container-"+i).append("svg:svg")
+				that.svgContainer = d3.select(that.selector+" "+"#tooltip-svg-container-"+i).append("svg:svg")
 					.attr("id","svg-"+i)
 					.attr("width",that.width)
 					.attr("height",that.height)
@@ -559,8 +563,8 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 							.on('mouseout',function (d) {
 			          			that.mouseEvent.tooltipHide();
 			          			that.mouseEvent.crossHairHide(that.type);
-								that.mouseEvent.axisHighlightHide(options.selector + " .x.axis");
-								that.mouseEvent.axisHighlightHide(options.selector + " .y.axis");
+								that.mouseEvent.axisHighlightHide(that.selector + " .x.axis");
+								that.mouseEvent.axisHighlightHide(that.selector + " .y.axis");
 		          			})
 							.on("mousemove", function(){
 								that.mouseEvent.crossHairPosition(that.data,that.new_data,that.xScale,that.yScale,that.dataLineGroup,that.extra_left_margin,that.xdomain,that.type,that.tooltip_mode);
@@ -640,7 +644,7 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 
 							if(that.type === "stackedAreaChart") {
 								for(var a=0;a < that.new_data_length;a++) {
-									$(options.selector+" #svg-"+a).trigger("mouseout");
+									$(that.selector+" #svg-"+a).trigger("mouseout");
 								}
 							}
 						})
@@ -649,24 +653,24 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 								that.mouseEvent.crossHairPosition(that.data,that.new_data,that.xScale,that.yScale,that.dataLineGroup,that.extra_left_margin,that.xdomain,that.type,that.tooltip_mode);
 							} else if(that.type === "stackedAreaChart") {
 								var line = [];
-								line[0] = d3.select(options.selector+" #"+this.id+" .stacked-area");
+								line[0] = d3.select(that.selector+" #"+this.id+" .stacked-area");
 								that.mouseEvent.crossHairPosition(that.data,that.new_data,that.xScale,that.yScale,line,that.extra_left_margin,that.xdomain,that.type,that.tooltipMode,that.color_from_data,"no");
 								for(var a=0;a < that.new_data_length;a++) {
-									$(options.selector+" #svg-"+a).trigger("mousemove");
+									$(that.selector+" #svg-"+a).trigger("mousemove");
 								}
 							}
 						});
 
 				}
-				d3.selectAll(options.selector + " ." +that.chartPathClass)
+				d3.selectAll(that.selector + " ." +that.chartPathClass)
 					.on("mouseover", function () {
 						if(that.mode === "default") {
-							that.mouseEvent.highlight(options.selector + " ."+that.chartPathClass,this);
+							that.mouseEvent.highlight(that.selector + " ."+that.chartPathClass,this);
 						}
 					})
 					.on("mouseout", function () {
 						if(that.mode === "default") {
-							that.mouseEvent.highlightHide(options.selector + " ."+that.chartPathClass);
+							that.mouseEvent.highlightHide(that.selector + " ."+that.chartPathClass);
 						}
 					});
 				return this;

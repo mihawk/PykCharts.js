@@ -34,6 +34,7 @@ PykCharts.multiD.bar = function(options){
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
                 $(that.selector+" #chart-loader").remove();
+                $(that.selector).css("height","auto")
                 return;
             }
 
@@ -41,6 +42,7 @@ PykCharts.multiD.bar = function(options){
             that.compare_data = that.k.__proto__._groupBy("bar",data);
             
             $(that.selector+" #chart-loader").remove();
+            $(that.selector).css("height","auto")
             PykCharts.multiD.barFunctions(options,that,"bar");
             that.render();            
         }
@@ -84,6 +86,7 @@ PykCharts.multiD.groupedBar = function(options){
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
                 $(that.selector+" #chart-loader").remove();
+                $(that.selector).css("height","auto")
                 return;
             }
 
@@ -91,6 +94,7 @@ PykCharts.multiD.groupedBar = function(options){
             that.compare_data = that.k.__proto__._groupBy("bar",data);
             that.axis_x_data_format = that.k.xAxisDataFormatIdentification(that.data);
             $(that.selector+" #chart-loader").remove();
+            $(that.selector).css("height","auto")
             PykCharts.multiD.barFunctions(options,that,"group_bar");
             that.render();
         };
@@ -145,7 +149,7 @@ PykCharts.multiD.barFunctions = function (options,chartObject,type) {
             }
         }
         catch (err) {
-            console.error('%c[Error - Pykih Charts] ', 'color: red;font-weight:bold;font-size:14px', " at "+options.selector+". \"Invalid data in the JSON\"  Visit www.chartstore.io/docs#error_9");
+            console.error('%c[Error - Pykih Charts] ', 'color: red;font-weight:bold;font-size:14px', " at "+that.selector+". \"Invalid data in the JSON\"  Visit www.chartstore.io/docs#error_9");
             return;
         }
 
@@ -225,7 +229,7 @@ PykCharts.multiD.barFunctions = function (options,chartObject,type) {
         var optional = {
             svgContainer: function (i) {
                 $(that.selector).attr("class","PykCharts-twoD");
-                that.svgContainer = d3.select(options.selector + " #tooltip-svg-container-" + i)
+                that.svgContainer = d3.select(that.selector + " #tooltip-svg-container-" + i)
                     .append("svg:svg")
                     .attr("width",that.width )
                     .attr("height",that.height)
@@ -465,18 +469,18 @@ PykCharts.multiD.barFunctions = function (options,chartObject,type) {
                         if(that.mode === "default") {
                             that.mouseEvent.tooltipPosition(d);
                             that.mouseEvent.tooltipTextShow(d.tooltip ? d.tooltip : d.y);
-                            that.mouseEvent.axisHighlightShow(d.name,options.selector + " .axis-text",that.domain,"bar");
+                            that.mouseEvent.axisHighlightShow(d.name,that.selector + " .axis-text",that.domain,"bar");
                             if(PykCharts.boolean(that.onhover_enable)) {
-                                that.mouseEvent.highlight(options.selector + " .rect", this);
+                                that.mouseEvent.highlight(that.selector + " .rect", this);
                             }
                         }
                     })
                     .on('mouseout',function (d) {
                         if(that.mode === "default") {
                             that.mouseEvent.tooltipHide(d);
-                            that.mouseEvent.axisHighlightHide(options.selector + " .axis-text","bar");
+                            that.mouseEvent.axisHighlightHide(that.selector + " .axis-text","bar");
                             if(PykCharts.boolean(that.onhover_enable)) {
-                                that.mouseEvent.highlightHide(options.selector + " .rect")
+                                that.mouseEvent.highlightHide(that.selector + " .rect")
                             }
                         }
                     })
