@@ -44,6 +44,7 @@ PykCharts.multiD.scatter = function (options) {
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
                 $(that.selector+" #chart-loader").remove();
+                $(that.selector).css("height","auto")
                 return;
             }
 
@@ -58,6 +59,7 @@ PykCharts.multiD.scatter = function (options) {
             }
             that.compare_data = that.k.__proto__._groupBy("scatterplot",data);
             $(that.selector+" #chart-loader").remove();
+            $(that.selector).css("height","auto")
             var a = new PykCharts.multiD.scatterplotFunctions(options,that,"scatterplot");
             a.render();
         };
@@ -109,6 +111,7 @@ PykCharts.multiD.panelsOfScatter = function (options) {
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
                 $(that.selector+" #chart-loader").remove();
+                $(that.selector).css("height","auto")
                 return;
             }
 
@@ -123,6 +126,7 @@ PykCharts.multiD.panelsOfScatter = function (options) {
             }
             that.compare_data = that.k.__proto__._groupBy("scatterplot",data);
             $(that.selector+" #chart-loader").remove();
+            $(that.selector).css("height","auto")
             var a = new PykCharts.multiD.scatterplotFunctions(options,that,"scatterplot");
             a.render();
         };
@@ -167,6 +171,12 @@ PykCharts.multiD.pulse = function (options) {
         }
 
         that.executeData = function (data) {
+            var validate = that.k.validator().validatingJSON(data);
+            if(that.stop || validate === false) {
+                $(that.selector+" #chart-loader").remove();
+                $(that.selector).css("height","auto")
+                return;
+            }
             that.data = that.k.__proto__._groupBy("pulse",data);
             that.axis_y_data_format = that.k.yAxisDataFormatIdentification(that.data);
             that.axis_x_data_format = that.k.xAxisDataFormatIdentification(that.data);
@@ -178,6 +188,7 @@ PykCharts.multiD.pulse = function (options) {
             }
             that.compare_data = that.k.__proto__._groupBy("pulse",data);
             $(that.selector+" #chart-loader").remove();
+            $(that.selector).css("height","auto")
             var a = new PykCharts.multiD.scatterplotFunctions(options,that,"pulse");
             a.render();
         };
@@ -415,10 +426,10 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
     that.optionalFeatures = function () {
         var optional = {
             svgContainer :function (i) {
-                $(options.selector + " #tooltip-svg-container-" + i).css("width",that.w);
-                $(options.selector).attr("class","PykCharts-weighted")
+                $(that.selector + " #tooltip-svg-container-" + i).css("width",that.w);
+                $(that.selector).attr("class","PykCharts-weighted")
 
-                that.svgContainer = d3.select(options.selector + " #tooltip-svg-container-" + i)
+                that.svgContainer = d3.select(that.selector + " #tooltip-svg-container-" + i)
                     .append('svg')
                     .attr("width",that.w)
                     .attr("height",that.height)
@@ -810,7 +821,7 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
                             that.mouseEvent.tooltipPosition(d);
                             that.mouseEvent.tooltipTextShow(tooltipText);
                             if(PykCharts.boolean(that.onhover_enable)) {
-                                that.mouseEvent.highlight(options.selector + " .dot", this);
+                                that.mouseEvent.highlight(that.selector + " .dot", this);
                             }
                         }
                     })
@@ -818,7 +829,7 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
                         if(that.mode === "default") {
                             that.mouseEvent.tooltipHide(d);
                             if(PykCharts.boolean(that.onhover_enable)) {
-                                that.mouseEvent.highlightHide(options.selector + " .dot");
+                                that.mouseEvent.highlightHide(that.selector + " .dot");
                             }
                         }
                     })
@@ -961,7 +972,7 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
         that.optionalFeatures().createChart(i)
             .label()
             .ticks();
-        var currentSvg = d3.select(options.selector + " #svgcontainer" + i)
+        var currentSvg = d3.select(that.selector + " #svgcontainer" + i)
         var current_x_axis = currentSvg.select("#xaxis");
         var current_y_axis = currentSvg.select("#yaxis");
         that.k.xAxis(currentSvg,current_x_axis,that.x,that.extra_left_margin,that.xdomain,that.x_tick_values,that.legendsGroup_height)
