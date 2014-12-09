@@ -6,6 +6,7 @@ PykCharts.maps.oneLayer = function (options) {
         that.executeData = function (data) {
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
+                $(options.selector).css("height","auto")
                 $(options.selector+" #chart-loader").remove();
                 return;
             }
@@ -23,6 +24,7 @@ PykCharts.maps.oneLayer = function (options) {
                         if(e && e.status === 404) {
                             that.k.errorHandling("map_code","3");
                             $(options.selector+" #chart-loader").remove();
+                            $(options.selector).css("height","auto")
                             return;
                         }
 
@@ -49,6 +51,7 @@ PykCharts.maps.oneLayer = function (options) {
                         }
 
                         $(that.selector).html("");
+                        $(options.selector).css("height","auto")
                         var oneLayer = new PykCharts.maps.mapFunctions(options,that,"oneLayer");
                         oneLayer.render();
                     });
