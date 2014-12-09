@@ -25,18 +25,21 @@ PykCharts.other.venn = function (options) {
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
                 $(options.selector+" #chart-loader").remove();
+                $(options.selector).css("height","auto")
                 return;
             }
             that.executeDataOvelap = function (data) {
                 var validate = that.k.validator().validatingJSON(data);
                 if(that.stop || validate === false) {
                     $(options.selector+" #chart-loader").remove();
+                    $(options.selector).css("height","auto")
                     return;
                 }
 
                 that.overlaps = data;
                 that.compare_data_overlap = data;
                 $(options.selector+" #chart-loader").remove();
+                $(options.selector).css("height","auto")
                 that.render();
             }
             that.k.dataSourceFormatIdentification(options.data[1],that,"executeDataOvelap");
