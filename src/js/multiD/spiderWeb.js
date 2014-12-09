@@ -50,12 +50,14 @@ PykCharts.multiD.spiderWeb = function (options) {
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
                 $(that.selector+" #chart-loader").remove();
+                $(that.selector).css("height","auto")
                 return;
             }
 
             that.data = that.k.__proto__._groupBy("spiderweb",data);
             that.compare_data = that.k.__proto__._groupBy("spiderweb",data);
             $(that.selector+" #chart-loader").remove();
+            $(that.selector).css("height","auto")
             that.render();
         };
         that.k.dataSourceFormatIdentification(options.data,that,"executeData");
@@ -351,7 +353,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                                 that.mouseEvent.tooltipPosition(d);
                                 that.mouseEvent.tooltipTextShow(d.tooltip);
                                 if(PykCharts.boolean(that.onhover_enable)) {
-                                    that.mouseEvent.highlight(options.selector + " .dot", this);
+                                    that.mouseEvent.highlight(that.selector + " .dot", this);
                                 }
                             }
                         })
@@ -359,7 +361,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                             if(that.mode === "default") {
                                 that.mouseEvent.tooltipHide(d);
                                 if(PykCharts.boolean(that.onhover_enable)) {
-                                    that.mouseEvent.highlightHide(options.selector + " .dot");
+                                    that.mouseEvent.highlightHide(that.selector + " .dot");
                                 }
                             }
                         })

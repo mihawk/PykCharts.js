@@ -54,6 +54,7 @@ PykCharts.other.pictograph = function (options) {
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
                 $(options.selector+" #chart-loader").remove();
+                $(that.selector).css("height","auto")
                 return;
             }
 
@@ -64,6 +65,7 @@ PykCharts.other.pictograph = function (options) {
 
             that.compare_data = that.data;
             $(options.selector+" #chart-loader").remove();
+            $(that.selector).css("height","auto")
             that.render();
         };
         that.k.dataSourceFormatIdentification(options.data,that,"executeData");

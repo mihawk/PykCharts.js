@@ -28,6 +28,7 @@ PykCharts.multiD.line = function (options) {
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
                 $(that.selector+" #chart-loader").remove();
+                $(that.selector).css("height","auto")
                 return;
             }
             that.data = that.k.__proto__._groupBy("line",data);
@@ -72,6 +73,7 @@ PykCharts.multiD.multiSeriesLine = function (options) {
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
                 $(that.selector+" #chart-loader").remove();
+                $(that.selector).css("height","auto")
                 return;
             }
             that.data = that.k.__proto__._groupBy("line",data);
@@ -116,6 +118,7 @@ PykCharts.multiD.panelsOfLine = function (options) {
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
                 $(that.selector+" #chart-loader").remove();
+                $(that.selector).css("height","auto")
                 return;
             }
             that.data = that.k.__proto__._groupBy("line",data);
@@ -138,6 +141,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
     that.compare_data = that.data;
     that.data_length = that.data.length;
     $(that.selector+" #chart-loader").remove();
+    $(that.selector).css("height","auto")
 
     that.dataTransformation = function () {
         that.group_arr = [], that.color_arr = [], that.new_data = []/*, that.dataLineGroup = []*/,
@@ -269,7 +273,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                     }
                 }
                 catch (err) {
-                    console.error('%c[Error - Pykih Charts] ', 'color: red;font-weight:bold;font-size:14px', " at "+options.selector+".\""+err+"\"  Visit www.chartstore.io/docs#error_6");                 
+                    console.error('%c[Error - Pykih Charts] ', 'color: red;font-weight:bold;font-size:14px', " at "+that.selector+".\""+err+"\"  Visit www.chartstore.io/docs#error_6");                 
                     return;
                 }
 
@@ -346,7 +350,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                     }
                 }
                 catch (err) {
-                    console.error('%c[Error - Pykih Charts] ', 'color: red;font-weight:bold;font-size:14px', " at "+options.selector+".\""+err+"\"  Visit www.chartstore.io/docs#error_");                  
+                    console.error('%c[Error - Pykih Charts] ', 'color: red;font-weight:bold;font-size:14px', " at "+that.selector+".\""+err+"\"  Visit www.chartstore.io/docs#error_");                  
                     return;
                 }
 
@@ -846,15 +850,15 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                                 that.mouseEvent.axisHighlightHide(that.selector + " .x.axis");
                                 that.mouseEvent.axisHighlightHide(that.selector + " .y.axis");
                                 for(var a=0;a < that.new_data_length;a++) {
-                                    $(options.selector+" #svg-"+a).trigger("mouseout");
+                                    $(that.selector+" #svg-"+a).trigger("mouseout");
                                 }
                             })
                             .on("mousemove", function(){
                                 var line = [];
-                                line[0] = d3.select(options.selector+" #"+this.id+" .lines-hover");
+                                line[0] = d3.select(that.selector+" #"+this.id+" .lines-hover");
                                 that.mouseEvent.crossHairPosition(that.data,that.new_data,that.xScale,that.yScale,line,that.extra_left_margin,that.xdomain,that.type,that.tooltipMode,that.color_from_data,that.panels_enable);
                                 for(var a=0;a < that.new_data_length;a++) {
-                                    $(options.selector+" #svg-"+a).trigger("mousemove");
+                                    $(that.selector+" #svg-"+a).trigger("mousemove");
                                 }
                             });
                     }
@@ -1051,9 +1055,9 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
 
             if(clicked) {
                  if (d3.select(that.selected).classed("multi-line")) {
-                        d3.selectAll(options.selector+" path.multi-line").attr("stroke-opacity",0.3);
+                        d3.selectAll(that.selector+" path.multi-line").attr("stroke-opacity",0.3);
                         if (that.color_mode === "color") {
-                            d3.selectAll(options.selector+ " .legend-heading").style("opacity",0.3);
+                            d3.selectAll(that.selector+ " .legend-heading").style("opacity",0.3);
                         }
                         d3.select(that.selector+" text#"+that.selected.id).style("opacity",1).style
                         ("font-weight","bold");
@@ -1067,13 +1071,13 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                             .classed("multi-line",false);
                  } else {
                     if (that.color_mode === "color") {
-                        d3.selectAll(options.selector+" path.multi-line").attr("stroke-opacity",prev_opacity);
+                        d3.selectAll(that.selector+" path.multi-line").attr("stroke-opacity",prev_opacity);
                     } else {
-                        d3.selectAll(options.selector+" path.multi-line").attr("stroke-opacity",function () {
+                        d3.selectAll(that.selector+" path.multi-line").attr("stroke-opacity",function () {
                             return $(this).attr("path-stroke-opacity");
                         });
                     }
-                    d3.selectAll(options.selector+ " .legend-heading").style("opacity",1);
+                    d3.selectAll(that.selector+ " .legend-heading").style("opacity",1);
                     d3.select(that.selector+" text#"+that.selected.id).style("opacity",1).style
                     ("font-weight","normal");
                     d3.select(that.selected)

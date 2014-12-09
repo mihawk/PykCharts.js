@@ -12,6 +12,7 @@ PykCharts.tree.collapsibleTree = function (options) {
             that.tree_data = that.k1.dataTransfer(that.data);
             
             $(that.selector+" #chart-loader").remove();
+            $(that.selector).css("height","auto");
             that.render();
 
         });
