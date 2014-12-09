@@ -28,6 +28,7 @@ PykCharts.multiD.column = function (options) {
                 console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+that.selector+".(\""+"You seem to have passed Date data so please pass the value for axis_x_time_value_datatype"+"\")  Visit www.chartstore.io/docs#warning_"+"15");
             }
             $(that.selector+" #chart-loader").remove();
+            $(options.selector).css("height","auto");
             that.render();
         };
         that.format = that.k.dataSourceFormatIdentification(options.data,that,"executeData");
@@ -48,6 +49,7 @@ PykCharts.multiD.column = function (options) {
         that.mouseEvent1 = new PykCharts.multiD.mouseEvent(options);
         that.fillColor = new PykCharts.Configuration.fillChart(that,null,options);
         that.transformData();
+
         if(that.axis_x_data_format === "time") {
             that.data.forEach(function (d) {
                 d.x =that.k.dateConversion(d.x);
@@ -102,7 +104,10 @@ PykCharts.multiD.column = function (options) {
             that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
 
             that.k.yAxis(that.svgContainer,that.ygroup,that.yScale)
-                .xAxis(that.svgContainer,that.xgroup,that.xScale);
+                .xAxis(that.svgContainer,that.xgroup,that.xScale)
+                .xAxisTitle(that.xgroup)
+                .yAxisTitle(that.ygroup);
+
         }
         that.k.exportSVG(that,"#"+that.container_id,"columnChart")
         $(document).ready(function () { return that.k.resize(that.svgContainer,""); })
