@@ -48,12 +48,14 @@ PykCharts.oneD.pyramid = function (options) {
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
                 $(options.selector+" #chart-loader").remove();
-                pyramid_local
+                $(that.selector).css("height","auto")
+                return;
             }
 
 			that.data = that.k.__proto__._groupBy("oned",data);
             that.compare_data = that.k.__proto__._groupBy("oned",data);
             $(options.selector+" #chart-loader").remove();
+            $(that.selector).css("height","auto")
 			that.clubdata_enable = that.data.length > that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
             that.render();
 		};

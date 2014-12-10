@@ -166,7 +166,7 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
             	// var axis_ticks_array = d3.selectAll(that.selector+" .y.axis .tick");
 
             	// _.each(axis_ticks_array, function(d) {
-            	// 	console.log(d,"*****");
+            	// 	
             	// });
 
             	that.ticksElement = that.group.selectAll(".ticks-text")

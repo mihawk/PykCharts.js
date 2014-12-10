@@ -6,6 +6,7 @@ PykCharts.maps.oneLayer = function (options) {
         that.executeData = function (data) {
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
+                $(options.selector).css("height","auto")
                 $(options.selector+" #chart-loader").remove();
                 return;
             }
@@ -23,6 +24,7 @@ PykCharts.maps.oneLayer = function (options) {
                         if(e && e.status === 404) {
                             that.k.errorHandling("map_code","3");
                             $(options.selector+" #chart-loader").remove();
+                            $(options.selector).css("height","auto")
                             return;
                         }
 
@@ -49,6 +51,7 @@ PykCharts.maps.oneLayer = function (options) {
                         }
 
                         $(that.selector).html("");
+                        $(options.selector).css("height","auto")
                         var oneLayer = new PykCharts.maps.mapFunctions(options,that,"oneLayer");
                         oneLayer.render();
                     });
@@ -56,8 +59,8 @@ PykCharts.maps.oneLayer = function (options) {
             that.extent_size = d3.extent(that.data, function (d) { return parseInt(d.size, 10); });
             that.difference = that.extent_size[1] - that.extent_size[0];
         };
-
-        };
+        that.k.dataSourceFormatIdentification(options.data,that,"executeData")
+    };
 };
 
 PykCharts.maps.timelineMap = function (options) {
@@ -268,7 +271,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             createMap : function () {
 
                 var new_width =  that.width - that.legendsGroup_width;
-                var new_height = that.height-that.legendsGroup_height;
+                var new_height = that.height - that.legendsGroup_height - that.margin_bottom -that.margin_top - 10;
                 var scale = 150
                 , offset = [new_width / 2, new_height / 2]
                 , i;
@@ -503,7 +506,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                 for(var i=1 ; i<=that.total_no_of_colors ; i++) { leg_data.push(i); }
                 onetenth = d3.format(".1f")(that.extent_size[1] / that.total_no_of_colors);
                 that.leg = function (d,i) { return "<" + d3.round(onetenth * (i+1)); };
-                
+
                 var legend = that.legendsContainer.selectAll(".rect")
                     .data(leg_data);
 
@@ -542,7 +545,6 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     }
 
                     translate_x = (that.legends_display === "vertical") ? (that.width - that.legendsGroup_width) : (that.width - legend_container_width - 20);
-
                 if (legend_container_width < that.width) { that.legendsContainer.attr("transform","translate("+(translate_x-20)+",10)"); }
                 that.legendsContainer.style("visibility","visible");
 
@@ -589,7 +591,6 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     }
 
                     translate_x = (that.legends_display === "vertical") ? 0 : (that.width - legend_container_width - 20);
-
                 if (legend_container_width < that.width) { that.legendsContainer.attr("transform","translate("+translate_x+",10)"); }
                 that.legendsContainer.style("visibility","visible");
 
@@ -737,7 +738,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     if (interval===that.unique.length) {
                         interval = 0;
                     }
-                    
+
                     that.marker
                         .attr("x",  (that.margin_left*2) + that.xScale(that.unique[interval]) - 7);
 

@@ -1,3 +1,23 @@
+/*! ====================================================
+* This file is part of PykCharts v1.0.0
+* Copyright 2014 Pykih Software LLP
+* Contact: charts@pykih.com
+* ======================================================
+*
+* Licensees holding valid commercial licenses may use
+* this file in accordance with the Commercial Software
+* License Agreement provided with the Software or,
+* alternatively, in accordance with the terms contained
+* in a written agreement between you and Pykih.
+*
+* https://chartstore.io/license
+*
+* If you are unsure which license is appropriate for
+* your use, please contact the sales department at
+* charts@pykih.com
+*
+* ====================================================== */
+
 var PykCharts = {};
 PykCharts.assets = "../pykih-charts/assets/";
 PykCharts.export_menu_status = 0;
@@ -502,13 +522,13 @@ PykCharts.Configuration = function (options){
         },
         loading: function () {
             var loading_content;
-            
+            $(options.selector).css("height",options.height);
             if(options.loading_type === "image") {
                 loading_content = "<img src=" + options.loading_source + ">"
             } else {
                 loading_content = options.loading_source;
             }
-            
+
             $(options.selector).html("<div id='chart-loader'>" + loading_content + "</div>");
             var initial_height_div = $(options.selector).height();
             $(options.selector + " #chart-loader").css({"visibility":"visible","padding-left":(options.width/2) +"px","padding-top":(initial_height_div/2) + "px"});
@@ -1143,10 +1163,10 @@ PykCharts.Configuration = function (options){
             len = data.length - dot_index;
             format = data.substr(dot_index+1,len);
             if(data.indexOf("{")!= -1) {
-                chart.data = JSON.parse(data);    
+                chart.data = JSON.parse(data);
                 chart[executeFunction](chart.data);
             } else if (data.indexOf(",")!= -1) {
-                chart.data = d3.csv.parse(data);                                
+                chart.data = d3.csv.parse(data);
                 chart[executeFunction](chart.data);
             } else if (format === "json") {
                 d3.json(data,chart[executeFunction]);
@@ -2022,7 +2042,7 @@ configuration.fillChart = function (options,theme,config) {
         },
         colorPieW : function (d) {
             if(d.color) {
-                
+
                 return d.color;
             } else if(options.chart_color.length) {
                 return options.color;
@@ -2245,6 +2265,7 @@ configuration.Theme = function(){
 
         "mode": "default",
         "selector": "",
+        "is_interactive": "yes",
 
         "chart_height": 400,
         "chart_width": 600,
