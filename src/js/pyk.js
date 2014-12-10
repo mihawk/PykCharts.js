@@ -795,7 +795,7 @@ PykCharts.Configuration = function (options){
 
             for(i=0; i<len; i++) {
                 comp = a[i].__data__;
-                if(a[i].getBBox().width > (options.margin_left * 0.7)) {
+                if(a[i].getBBox().width > (options.margin_left * 0.9)) {
                     comp = comp.substr(0,3) + "..";
                 }
                 d3.select(a[i]).text(comp);
@@ -811,7 +811,7 @@ PykCharts.Configuration = function (options){
                 .on('mousemove', function (d) {
                     options.mouseEvent.tooltipPosition(d);
                     options.mouseEvent.tooltipTextShow(d);
-                })
+                }) 
                 .on('mouseout', function (d) {
                     options.mouseEvent.tooltipHide(d);
                 });

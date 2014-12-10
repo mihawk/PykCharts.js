@@ -40,11 +40,11 @@
         <hr/>
         <div id="groupColumn"></div>
         <hr/>
-        <div id="bar"></div>
-        <hr/>
         <div id="groupBar">
         </div>
         <hr/> -->
+        <div id="bar"></div>
+        <hr/>
         <div id="waterfall-chart">
         </div>
         <hr/>
@@ -70,7 +70,7 @@
                     mode: "default",
                     chart_height: 330,
                     chart_width: 400,
-                    chart_margin_left: 70,
+                    chart_margin_left: 130,
                     chart_margin_top: 50,
 
                     chart_color: ["rgb(255, 60, 131)", "rgb(0, 185, 250)", "grey"], // ["negative-color", "positive-color"]
@@ -80,6 +80,10 @@
                     "axis_y_pointer_size" : 10,
                     "axis_y_pointer_color" : "#1D1D1D",
                     "axis_y_pointer_weight": "normal",
+
+                    pointer_size: 10,
+                    // pointer_color: "#1D1D1D",
+                    pointer_weight: "normal"
                 });
                 k.execute();
 
@@ -759,64 +763,64 @@
                 // });
                 // // k.execute();
 
-                // var k = new PykCharts.multiD.bar({
-                //     data: "../data/ultimatebar_date.json",
-                //     mode: "default",
-                //     selector: "#bar",
-                //     color_mode: "saturation",
-                //     chart_color:["steelblue"],
-                //     background_color:"white",
+                var k = new PykCharts.multiD.bar({
+                    data: "../data/ultimatebar_date.json",
+                    mode: "default",
+                    selector: "#bar",
+                    color_mode: "saturation",
+                    chart_color:["steelblue"],
+                    background_color:"white",
 
-                //     chart_height: 430,
-                //     chart_width : 400,
-                //     chart_margin_top: 25,
-                //     chart_margin_right: 25,
-                //     chart_margin_bottom: 35,
-                //     chart_margin_left: 130,
+                    chart_height: 430,
+                    chart_width : 400,
+                    chart_margin_top: 25,
+                    chart_margin_right: 25,
+                    chart_margin_bottom: 35,
+                    chart_margin_left: 130,
 
-                //     real_time_charts_refresh_frequency: 0 ,
+                    real_time_charts_refresh_frequency: 0 ,
 
-                //     axis_onhover_highlight_enable: "yes",
+                    axis_onhover_highlight_enable: "yes",
 
-                //     axis_x_enable: "yes",
-                //     axis_x_title : "Rainfall",
-                //     axis_x_position: "bottom",
-                //     // axis_x_pointer_position: "bottom",
-                //     axis_x_line_color: "#1D1D1D",
-                //     axis_x_pointer_color: "#1D1D1D",
-                //     axis_x_pointer_size: 12,
-                //     axis_x_pointer_padding: 3,
-                //     axis_x_outer_pointer_length: 3,
+                    axis_x_enable: "yes",
+                    axis_x_title : "Rainfall",
+                    axis_x_position: "bottom",
+                    // axis_x_pointer_position: "bottom",
+                    axis_x_line_color: "#1D1D1D",
+                    axis_x_pointer_color: "#1D1D1D",
+                    axis_x_pointer_size: 12,
+                    axis_x_pointer_padding: 3,
+                    axis_x_outer_pointer_length: 3,
 
-                //     axis_y_enable: "yes",
-                //     axis_y_title : "Months",
-                //     axis_y_position: "left",
-                //     // axis_y_pointer_position: "left",
-                //     axis_y_line_color: "red",
-                //     axis_y_pointer_color: "green",
-                //     axis_y_pointer_size: 12,
-                //     axis_y_pointer_padding: 10,
-                //     axis_y_outer_pointer_length: 3,
+                    axis_y_enable: "yes",
+                    axis_y_title : "Months",
+                    axis_y_position: "left",
+                    // axis_y_pointer_position: "left",
+                    axis_y_line_color: "red",
+                    axis_y_pointer_color: "green",
+                    axis_y_pointer_size: 12,
+                    axis_y_pointer_padding: 10,
+                    axis_y_outer_pointer_length: 3,
 
-                //     highlight_color: "#013F73",
+                    highlight_color: "#013F73",
 
-                //     transition_duration: 0,
+                    transition_duration: 0,
 
-                //     border_between_chart_elements_thickness: 1,
-                //     border_between_chart_elements_color: "white",
-                //     border_between_chart_elements_style: "solid",
+                    border_between_chart_elements_thickness: 1,
+                    border_between_chart_elements_color: "white",
+                    border_between_chart_elements_style: "solid",
 
-                //     pointer_thickness: 1,
-                //     pointer_weight: "normal",
-                //     pointer_size: 10,
-                //     pointer_color: "#1D1D1D",
-                //     pointer_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
-                //     highlight: "12-12-2014",
-                //      panels_enable: "yes",
+                    pointer_thickness: 1,
+                    pointer_weight: "normal",
+                    pointer_size: 10,
+                    pointer_color: "#1D1D1D",
+                    pointer_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
+                    highlight: "12-12-2014",
+                     panels_enable: "yes",
 
-                //     data_sort_type: "alphabetically",
-                //     data_sort_order: "ascending"
-                // });
+                    data_sort_type: "alphabetically",
+                    data_sort_order: "ascending"
+                });
                 // k.execute();
 
                 // var k = new PykCharts.multiD.groupedBar({

@@ -583,8 +583,10 @@ PykCharts.multiD.barFunctions = function (options,chartObject,type) {
 
                     var tick_label = that.bars.selectAll(".ticksText")
                                 .data(function(d) {
+                                    console.log(d);
                                         return d.values;
                                 });
+                    console.log(tick_label);
                     tick_label.enter()
                         .append("text")
                         .attr("class","ticksText");
