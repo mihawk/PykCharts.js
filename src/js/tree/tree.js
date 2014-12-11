@@ -38,7 +38,7 @@ PykCharts.tree.configuration = function (options){
             zoomListener = d3.behavior.zoom().scaleExtent([0.1, 3]).on("zoom", function () {
                 group.attr("transform", "translate(" + PykCharts.getEvent().translate + ")scale(" + PykCharts.getEvent().scale + ")");
             });
-            if(PykCharts.boolean(options.zoom.enable))
+            if(PykCharts['boolean'](options.zoom.enable))
             {
                 svg.call(zoomListener);
                 svg.style("overflow","hidden");

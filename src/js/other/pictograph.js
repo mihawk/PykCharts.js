@@ -120,7 +120,7 @@ PykCharts.other.pictograph = function (options) {
                 .svgContainer()
                 .labelText()
                 .enableLabel()
-        if(PykCharts.boolean(that.pictograph_units_per_image)) {
+        if(PykCharts['boolean'](that.pictograph_units_per_image)) {
             that.optionalFeatures().appendUnits()
         }
         that.optionalFeatures().createChart();
@@ -153,7 +153,7 @@ PykCharts.other.pictograph = function (options) {
                 that.group1 = that.svgContainer.append("g")
                     .attr("transform","translate(0,0)");
 
-                if(PykCharts.boolean(that.pictograph_units_per_image)) {
+                if(PykCharts['boolean'](that.pictograph_units_per_image)) {
                     that.group2 = that.svgContainer.append("g")
                         .attr("id","units-per-image");
                 }
@@ -254,7 +254,7 @@ PykCharts.other.pictograph = function (options) {
                 return this;
             },
             showTotal: function () {
-                 if (PykCharts.boolean(that.showTotal)) {
+                 if (PykCharts['boolean'](that.showTotal)) {
                     that.weight = that.data[0].weight;
                 }
                 else {
@@ -263,7 +263,7 @@ PykCharts.other.pictograph = function (options) {
                 return this ;
             },
             enableLabel: function () {
-                if (PykCharts.boolean(that.enableTotal)) {
+                if (PykCharts['boolean'](that.enableTotal)) {
                     var current_text = $(options.selector+" .PykCharts-current-text");
                     if (current_text.length > 0) {
                         current_text.remove();
@@ -294,7 +294,7 @@ PykCharts.other.pictograph = function (options) {
                 return this;
             },
             labelText: function () {
-                if (PykCharts.boolean(that.enableCurrent)) {
+                if (PykCharts['boolean'](that.enableCurrent)) {
                     var total_text = $(options.selector+" .PykCharts-total-text");
                     if (total_text.length > 0) {
                         total_text.remove();

@@ -146,7 +146,7 @@ PykCharts.multiD.spiderWeb = function (options) {
             that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
         }
         that.k.exportSVG(that,"#"+that.container_id,"spiderweb")
-        if(PykCharts.boolean(that.legends_enable)) {
+        if(PykCharts['boolean'](that.legends_enable)) {
             $(document).ready(function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); })
             $(window).on("resize", function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); });
         } else {
@@ -186,7 +186,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                 return this;
             },
             legendsContainer : function (i) {
-                if (PykCharts.boolean(that.legends_enable) && that.map_group_data[1] && that.mode === "default") {
+                if (PykCharts['boolean'](that.legends_enable) && that.map_group_data[1] && that.mode === "default") {
                     that.legendsGroup = that.svgContainer.append("g")
                         .attr("class","legendgrp")
                         .attr("id","legendgrp");
@@ -352,7 +352,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                             if(that.mode === "default") {
                                 that.mouseEvent.tooltipPosition(d);
                                 that.mouseEvent.tooltipTextShow(d.tooltip);
-                                if(PykCharts.boolean(that.onhover_enable)) {
+                                if(PykCharts['boolean'](that.onhover_enable)) {
                                     that.mouseEvent.highlight(that.selector + " .dot", this);
                                 }
                             }
@@ -360,7 +360,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                         .on('mouseout',function (d) {
                             if(that.mode === "default") {
                                 that.mouseEvent.tooltipHide(d);
-                                if(PykCharts.boolean(that.onhover_enable)) {
+                                if(PykCharts['boolean'](that.onhover_enable)) {
                                     that.mouseEvent.highlightHide(that.selector + " .dot");
                                 }
                             }
@@ -393,7 +393,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                 return this;
             },
             legends : function () {
-                if (PykCharts.boolean(that.legends_enable) && that.map_group_data[1] && that.mode==="default") {
+                if (PykCharts['boolean'](that.legends_enable) && that.map_group_data[1] && that.mode==="default") {
                     var unique = _.uniq(that.sorted_weight);
                     var k = 0;
                     var l = 0;

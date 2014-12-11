@@ -49,6 +49,9 @@ module.exports = function(grunt) {
                 '<%= js_distro_path %>/pykcharts.<%= pkg.version %>.min.js': // destination
                 ['<%= js_distro_path %>/pykcharts.<%= pkg.version %>.js'] // source
                 }
+            },
+            'options': {
+              'preserveComments': 'some'
             }
         },
 
@@ -90,16 +93,16 @@ module.exports = function(grunt) {
             }
         },
 
-        comments: {
-            js: {
-                // Target-specific file lists and/or options go here.
-                options: {
-                    singleline: true,
-                    multiline: true
-                },
-                src: ['lib/*.js', 'src/**/*.js', 'pykih-charts/**/*.js'] // files to remove comments from
-            }
-        },
+        // comments: {
+        //     js: {
+        //         // Target-specific file lists and/or options go here.
+        //         options: {
+        //             singleline: true,
+        //             multiline: true
+        //         },
+        //         src: ['lib/*.js', 'src/**/*.js', 'pykih-charts/**/*.js'] // files to remove comments from
+        //     }
+        // },
 
         // Remove consolelogs
         removelogging: {
@@ -138,13 +141,14 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-qunit');
     grunt.loadNpmTasks('grunt-contrib-connect');
     grunt.loadNpmTasks('grunt-remove-logging');
-    grunt.loadNpmTasks('grunt-stripcomments');
+    // grunt.loadNpmTasks('grunt-stripcomments');
 
     // Clean the .git/hooks/pre-commit file then copy in the latest version
     grunt.registerTask('hookmeup', ['clean:hooks', 'shell:hooks']);
 
     //build task
-    grunt.registerTask('build', ['comments', 'concat', 'removelogging', 'uglify', 'cssmin', 'hookmeup']);
+    // grunt.registerTask('build', ['comments', 'concat', 'removelogging', 'uglify', 'cssmin', 'hookmeup']);
+    grunt.registerTask('build', ['concat', 'removelogging', 'uglify', 'cssmin', 'hookmeup']);
 
     grunt.event.on('watch', function(action, filepath) {
         grunt.log.writeln(filepath + ' has ' + action);

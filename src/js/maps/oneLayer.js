@@ -173,7 +173,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             that.renderTimeline();
         }
 
-        if(PykCharts.boolean(that.legends_enable) && that.color_mode === "saturation") {
+        if(PykCharts['boolean'](that.legends_enable) && that.color_mode === "saturation") {
             $(document).ready(function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); });
             $(window).on("resize", function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); });
         } else {
@@ -207,13 +207,13 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
     that.optionalFeatures = function () {
         var config = {
             legends: function (el) {
-                if (PykCharts.boolean(el)) {
+                if (PykCharts['boolean'](el)) {
                     that.renderLegend();
                 };
                 return this;
             },
             legendsContainer : function (el) {
-                if (PykCharts.boolean(el) && that.color_mode === "saturation") {
+                if (PykCharts['boolean'](el) && that.color_mode === "saturation") {
                     that.legendsContainer = that.svgContainer
                         .append("g")
                         .attr("id", "legend-container");
@@ -224,7 +224,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                 return this;
             },
             label: function (el) {
-                if (PykCharts.boolean(el)) {
+                if (PykCharts['boolean'](el)) {
                     that.renderLabel();
                 };
                 return this;
@@ -271,7 +271,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             createMap : function () {
 
                 var new_width =  that.width - that.legendsGroup_width;
-                var new_height = that.height-that.legendsGroup_height;
+                var new_height = that.height - that.legendsGroup_height - that.margin_bottom -that.margin_top - 10;
                 var scale = 150
                 , offset = [new_width / 2, new_height / 2]
                 , i;
@@ -326,7 +326,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     .style("stroke-width", that.border.width())
                     .style("stroke-dasharray", that.border.style())
                     .on("mouseover", function (d) {
-                        if (PykCharts.boolean(that.tooltip_enable)) {
+                        if (PykCharts['boolean'](that.tooltip_enable)) {
                             var tooltip_text = ((_.where(that.data, {iso2: d.properties.iso_a2})[0]).tooltip) ? ((_.where(that.data, {iso2: d.properties.iso_a2})[0]).tooltip) : ("<table><thead><th colspan='2'><b>"+d.properties.NAME_1+"</b></th></thead><tr><td>Size</td><td><b>"+((_.where(that.data, {iso2: d.properties.iso_a2})[0]).size)+"</b></td></tr></table>");
                             ttp.style("visibility", "visible");
                             ttp.html(tooltip_text);
@@ -342,14 +342,14 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                                     .style("left", (that.tooltip_position_left) + "px");
                             }
                         }
-                        if(that.onhover1 === "color_saturation" && PykCharts.boolean(that.onhover_enable)) {
+                        if(that.onhover1 === "color_saturation" && PykCharts['boolean'](that.onhover_enable)) {
                             that.mouseEvent.highlight(options.selector + " .area", this);
                         }else {
                             that.bodColor(d);
                         }
                     })
                     .on("mouseout", function (d) {
-                        if (PykCharts.boolean(that.tooltip_enable)) {
+                        if (PykCharts['boolean'](that.tooltip_enable)) {
                             ttp.style("visibility", "hidden");
                         }
                         that.bodUncolor(d);
@@ -360,7 +360,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                 return this;
             },
             enableClick: function (ec) {
-                if (PykCharts.boolean(ec)) {
+                if (PykCharts['boolean'](ec)) {
                     that.chart_data.on("click", that.clicked);
                     that.onhover1 = that.onhover;
                 } else {
@@ -369,7 +369,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                 return this;
             },
             axisContainer : function (ae) {
-                if(PykCharts.boolean(ae)){
+                if(PykCharts['boolean'](ae)){
                     that.gxaxis = that.svgContainer.append("g")
                         .attr("id","xaxis")
                         .attr("class", "x axis")
@@ -383,7 +383,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
 
 
     that.renderColor = function (d, i) {
-        if (!PykCharts.boolean(d)) {
+        if (!PykCharts['boolean'](d)) {
             return false;
         }
         var col_shade,
@@ -392,7 +392,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             if (that.color_mode === "color") {
                 if(that.chart_color[0]) {
                     return that.chart_color[0];
-                } else if (obj.length > 0 && PykCharts.boolean(obj[0].color)) {
+                } else if (obj.length > 0 && PykCharts['boolean'](obj[0].color)) {
                     return obj[0].color;
                 }
                 return that.default_color[0];
@@ -506,7 +506,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                 for(var i=1 ; i<=that.total_no_of_colors ; i++) { leg_data.push(i); }
                 onetenth = d3.format(".1f")(that.extent_size[1] / that.total_no_of_colors);
                 that.leg = function (d,i) { return "<" + d3.round(onetenth * (i+1)); };
-                
+
                 var legend = that.legendsContainer.selectAll(".rect")
                     .data(leg_data);
 
@@ -545,7 +545,6 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     }
 
                     translate_x = (that.legends_display === "vertical") ? (that.width - that.legendsGroup_width) : (that.width - legend_container_width - 20);
-
                 if (legend_container_width < that.width) { that.legendsContainer.attr("transform","translate("+(translate_x-20)+",10)"); }
                 that.legendsContainer.style("visibility","visible");
 
@@ -592,7 +591,6 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     }
 
                     translate_x = (that.legends_display === "vertical") ? 0 : (that.width - legend_container_width - 20);
-
                 if (legend_container_width < that.width) { that.legendsContainer.attr("transform","translate("+translate_x+",10)"); }
                 that.legendsContainer.style("visibility","visible");
 
@@ -619,7 +617,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
 
     that.bodColor = function (d) {
         var obj = _.where(that.data, {iso2: d.properties.iso_a2});
-        if(PykCharts.boolean(that.onhover_enable)) {
+        if(PykCharts['boolean'](that.onhover_enable)) {
             if (that.onhover1 === "highlight_border") {
                 d3.select("path[area_name='" + d.properties.NAME_1 + "']")
                     .style("stroke", that.border.color())
@@ -740,7 +738,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     if (interval===that.unique.length) {
                         interval = 0;
                     }
-                    
+
                     that.marker
                         .attr("x",  (that.margin_left*2) + that.xScale(that.unique[interval]) - 7);
 

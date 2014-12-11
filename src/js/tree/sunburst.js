@@ -62,7 +62,7 @@ PykCharts.tree.sunburst = function (options) {
     };
 
     this.click = function (d) {
-        if(PykCharts.boolean(that.zoom.enable)) {
+        if(PykCharts['boolean'](that.zoom.enable)) {
              that.path.transition()
             .duration(that.transitions.duration())
             .attrTween("d", that.arcTween(d));

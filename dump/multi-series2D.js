@@ -211,7 +211,7 @@ PykCharts.multi_series_2D.configuration = function (options){
 PykCharts.multi_series_2D.fillChart = function (options,config) {
     var that = this;
     var colorPie = function (d) {
-        if(PykCharts.boolean(d.highlight)) {
+        if(PykCharts['boolean'](d.highlight)) {
             return options.highlightColor;
         } else if(config.optional && config.optional.colors && config.optional.colors.chartColor) {
             return options.chartColor;
