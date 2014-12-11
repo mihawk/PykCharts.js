@@ -18,7 +18,7 @@ PykCharts.multiD.scatterPlot = function (options) {
         that.zoomed_out = true;
         that.size_enable = options.size_enable ? options.size_enable : multiDimensionalCharts.size_enable;
 
-        if(PykCharts.boolean(that.multiple_containers_enable)) {
+        if(PykCharts['boolean'](that.multiple_containers_enable)) {
             that.radius_range = [that.k._radiusCalculation(1.1)*2,that.k._radiusCalculation(2.6)*2];
         } else {
             that.radius_range = [that.k._radiusCalculation(4.5)*2,that.k._radiusCalculation(11)*2];
@@ -104,7 +104,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
 
             that.no_of_groups = 1;
 
-            if(PykCharts.boolean(that.multiple_containers_enable) && type === "scatterplot") {
+            if(PykCharts['boolean'](that.multiple_containers_enable) && type === "scatterplot") {
                 that.no_of_groups = that.uniq_group_arr.length;
                 that.w = that.width/4;
                 that.height = that.height/2;
@@ -239,13 +239,13 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                     .attr("transform","translate("+(that.margin_left)+","+(that.margin_top)+")")
                     .attr("id","main2");
 
-                if(PykCharts.boolean(that.axis_x_enable)) {
+                if(PykCharts['boolean'](that.axis_x_enable)) {
                     that.xGroup = that.group.append("g")
                         .attr("class", "x axis")
                         .style("stroke","black");
                 }
                 
-                if(PykCharts.boolean(that.axis_y_enable)){
+                if(PykCharts['boolean'](that.axis_y_enable)){
                     that.yGroup = that.group.append("g")
                         .attr("class", "y axis")
                         .style("stroke","blue");
@@ -264,7 +264,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
             },
             legendsContainer : function (i) {
                     // console.log(type,"inside");
-                if (PykCharts.boolean(that.legends_enable) && PykCharts.boolean(that.size_enable) && that.map_group_data[1]) {
+                if (PykCharts['boolean'](that.legends_enable) && PykCharts['boolean'](that.size_enable) && that.map_group_data[1]) {
                     // console.log(type,"inside");
                     that.legendsGroup = that.svgContainer
                         .append("g")
@@ -365,10 +365,10 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
 //        $("#svgcontainer0 .dot").off("dblclick");
     
 
-                    if(PykCharts.boolean(that.zoom_enable) && !(that.yAxisDataFormat==="string" || that.xAxisDataFormat==="string") && (that.mode === "default") ) {                                           
+                    if(PykCharts['boolean'](that.zoom_enable) && !(that.yAxisDataFormat==="string" || that.xAxisDataFormat==="string") && (that.mode === "default") ) {                                           
                             // console.log("hey hello m in zoom",that.x.domain(),that.yScale.domain(),i);
                         var n;
-                        if(PykCharts.boolean(that.multiple_containers_enable)) {
+                        if(PykCharts['boolean'](that.multiple_containers_enable)) {
                             n = that.no_of_groups;
                         } else {
                             n = 1;
@@ -385,7 +385,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
             },
             legends : function (index) {
 
-                if (PykCharts.boolean(that.legends_enable) && PykCharts.boolean(that.size_enable) && that.map_group_data[1]) {
+                if (PykCharts['boolean'](that.legends_enable) && PykCharts['boolean'](that.size_enable) && that.map_group_data[1]) {
                     var unique = _.uniq(that.sorted_weight);
                     var k = 0;
                     var l = 0;
@@ -493,7 +493,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                         }
                     };
                     var legend;
-                    if(PykCharts.boolean(that.multiple_containers_enable)){
+                    if(PykCharts['boolean'](that.multiple_containers_enable)){
                         var abc =[];
                         abc.push(that.map_group_data[0][index]);
                         legend = that.legendsGroup.selectAll("rect")
@@ -543,7 +543,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                 return this;
             },
             ticks : function () {
-                if(PykCharts.boolean(that.enableTicks)) {
+                if(PykCharts['boolean'](that.enableTicks)) {
                     var tick_label = that.ticksElement.selectAll("text")
                         .data(that.new_data);
 
@@ -590,13 +590,13 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                         tooltipText = d.tooltip ? d.tooltip : "<table class='PykCharts'><tr><th colspan='2'>"+d.name+"</th></tr><tr><td>X</td><td>"+d.x+"</td></tr><tr><td>Y</td><td>"+d.y+"</td></tr><tr><td>Weight</td><td>"+d.weight+"</td></tr></table>";
                         that.mouseEvent.tooltipPosition(d);
                         that.mouseEvent.tooltipTextShow(tooltipText);
-                        if(PykCharts.boolean(that.size_enable)){
+                        if(PykCharts['boolean'](that.size_enable)){
                             d3.select(this).style("fill-opacity",1);
                         }
                     })
                     .on('mouseout',function (d) {
                         that.mouseEvent.tooltipHide(d);
-                        if(PykCharts.boolean(that.size_enable)) {
+                        if(PykCharts['boolean'](that.size_enable)) {
                             d3.selectAll(".dot").style("fill-opacity",0.5);
                         }
                     })
@@ -608,7 +608,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
                 return this;
             },
             label : function () {
-                if(PykCharts.boolean(that.label_size)) {
+                if(PykCharts['boolean'](that.label_size)) {
                     that.circleLabel = that.chartBody.selectAll(".text")
                         .data(that.new_data);
 
@@ -652,7 +652,7 @@ PykCharts.multiD.scatterplotFunction = function (options,chartObject,type) {
         idLength = id.length,
         n;
 
-        if(PykCharts.boolean(that.multiple_containers_enable)) {
+        if(PykCharts['boolean'](that.multiple_containers_enable)) {
             n = that.no_of_groups;
         } else {
             n = 1;

@@ -54,7 +54,7 @@ PykCharts.weighted.scatterplot = function (options) {
                 return d.group;
             }))
             that.no_of_groups = 1;
-            if(PykCharts.boolean(that.multiple_containers)) {
+            if(PykCharts['boolean'](that.multiple_containers)) {
                 that.radius_range = [3,7];
                 that.no_of_groups = that.data_group.length;
                 that.width = that.width/that.no_of_groups;
@@ -184,13 +184,13 @@ PykCharts.weighted.scatterplot = function (options) {
                     .attr("class", "y axis")
                     .style("stroke","blue");
 
-                if(PykCharts.boolean(that.grid.xEnabled)) {
+                if(PykCharts['boolean'](that.grid.xEnabled)) {
                     that.group.append("g")
                         .attr("id","xgrid")
                         .attr("class","x grid-line")
                 }
 
-                if(PykCharts.boolean(that.grid.yEnabled)) {
+                if(PykCharts['boolean'](that.grid.yEnabled)) {
                     that.group.append("g")
                         .attr("id","ygrid")
                         .attr("class","y grid-line");
@@ -306,7 +306,7 @@ PykCharts.weighted.scatterplot = function (options) {
                         that.left_margin = 0;
                     }
 
-                    if(PykCharts.boolean(that.zoom.enable)) {
+                    if(PykCharts['boolean'](that.zoom.enable)) {
                         that.svgContainer
                             .call(d3.behavior.zoom()
                             .x(that.x)
@@ -319,7 +319,7 @@ PykCharts.weighted.scatterplot = function (options) {
                 return this;
             },
             legends : function () {
-                if (PykCharts.boolean(that.legends) && !(PykCharts.boolean(that.size.enable))) {
+                if (PykCharts['boolean'](that.legends) && !(PykCharts['boolean'](that.size.enable))) {
                     console.log("legends");
                      var unique = _.uniq(that.sorted_weight);
 
@@ -397,7 +397,7 @@ PykCharts.weighted.scatterplot = function (options) {
                 return this;
             },
             // legends : function (position) {
-            //     if(PykCharts.boolean(that.legends) && !(PykCharts.boolean(that.size.enable))) {
+            //     if(PykCharts['boolean'](that.legends) && !(PykCharts['boolean'](that.size.enable))) {
             //         var xPosition, textXPosition, roundOff, opacity;
             //         var unique = _.uniq(that.sorted_weight);
             //         var x, y, k;
@@ -465,7 +465,7 @@ PykCharts.weighted.scatterplot = function (options) {
             //     return this;
             // },
             ticks : function () {
-                if(PykCharts.boolean(that.enableTicks)) {
+                if(PykCharts['boolean'](that.enableTicks)) {
                     var scattrText = that.group1.selectAll("text")
                         .data(that.new_data);
 
@@ -490,7 +490,7 @@ PykCharts.weighted.scatterplot = function (options) {
                 return this;
             },
             zoom : function () {
-                if(PykCharts.boolean(that.zoom)) {
+                if(PykCharts['boolean'](that.zoom)) {
                     that.zoomOutButton = d3.select(options.selector)
                         .append("input")
                             .attr("type","button")
@@ -548,7 +548,7 @@ PykCharts.weighted.scatterplot = function (options) {
                 return this;
             },
             crossHair : function () {
-                if(PykCharts.boolean(that.enableCrossHair)) {
+                if(PykCharts['boolean'](that.enableCrossHair)) {
                     var horizontalLine = that.svgContainer.append("line")
                         .attr("x1", that.margin.left)
                         .attr("y1", that.margin.top)

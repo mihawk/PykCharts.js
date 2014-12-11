@@ -16,7 +16,7 @@ PykCharts.twoD.line = function (options){
     that.grid.yEnabled = options.chart && options.chart.grid && options.chart.grid.yEnabled ? options.chart.grid.yEnabled : stylesheet.chart.grid.yEnabled;
     that.grid.xEnabled = options.chart && options.chart.grid && options.chart.grid.xEnabled ? options.chart.grid.xEnabled : stylesheet.chart.grid.xEnabled;
     that.multiple_containers = optional && optional.multiple_containers && optional.multiple_containers.enable ? optional.multiple_containers.enable : twoDimensionalCharts.multiple_containers.enable;
-    that.interpolate = PykCharts.boolean(that.curvy_lines) ? "cardinal" : "linear";
+    that.interpolate = PykCharts['boolean'](that.curvy_lines) ? "cardinal" : "linear";
 		that.zoom_count = 0;
 
 		d3.json(options.data, function (e, data) {
@@ -33,7 +33,7 @@ PykCharts.twoD.line = function (options){
 			$.unique(that.uniq_group_arr);
 			$.unique(that.uniq_color_arr);
 			var len = that.uniq_group_arr.length;
-			if(!PykCharts.boolean(that.group_arr[0])){
+			if(!PykCharts['boolean'](that.group_arr[0])){
 				that.new_data[0] = {
 						name: (that.data[0].name || ""),
 						data: []
@@ -76,7 +76,7 @@ PykCharts.twoD.line = function (options){
 			that.k.title()
 						.subtitle();
 
-			if(PykCharts.boolean(that.multiple_containers)) {
+			if(PykCharts['boolean'](that.multiple_containers)) {
 				that.w = that.width/that.new_data_length;
 				that.reducedWidth = that.w - that.margin.left - that.margin.right;
 				that.reducedHeight = that.height - that.margin.top - that.margin.bottom;
@@ -189,12 +189,12 @@ PykCharts.twoD.line = function (options){
 					.attr("id","chartsvg")
 					.attr("transform","translate("+ that.margin.left +","+ that.margin.top +")");
 
-				if(PykCharts.boolean(that.grid.yEnabled)){
+				if(PykCharts['boolean'](that.grid.yEnabled)){
 					that.group.append("g")
 						.attr("id","ygrid")
 						.attr("class","y grid-line");
 				}
-				if(PykCharts.boolean(that.grid.xEnabled)){
+				if(PykCharts['boolean'](that.grid.xEnabled)){
 					that.group.append("g")
 						.attr("id","xgrid")
 						.attr("class","x grid-line");
@@ -214,13 +214,13 @@ PykCharts.twoD.line = function (options){
 			return this;
 			},
 			axisContainer : function () {
-				if(PykCharts.boolean(that.axis.x.enable)){
+				if(PykCharts['boolean'](that.axis.x.enable)){
 					that.gxaxis = that.group.append("g")
 							.attr("id","xaxis")
 							.attr("class", "x axis")
 							.attr("transform", "translate(0," + that.reducedHeight + ")");
 				}
-				if(PykCharts.boolean(that.axis.y.enable)){
+				if(PykCharts['boolean'](that.axis.y.enable)){
 					that.gyaxis = that.group.append("g")
 							.attr("id","yaxis")
 							.attr("class","y axis");
@@ -297,7 +297,7 @@ PykCharts.twoD.line = function (options){
 					.scaleExtent([1,10])
 					.on("zoom",that.zoomed);
 
-				if(PykCharts.boolean(that.zoom.enable)) {
+				if(PykCharts['boolean'](that.zoom.enable)) {
 					that.svg.call(that.zoom_event);
 				}
 
@@ -325,7 +325,7 @@ PykCharts.twoD.line = function (options){
 							// 			.attr("transform", "translate("+ that.lineMargin +",0)")
 							//       .attr("d", that.chart_path_border);
 							// }
-					if(!PykCharts.boolean(that.multiple_containers)) {
+					if(!PykCharts['boolean'](that.multiple_containers)) {
 						for (var i = 0;i < that.new_data_length;i++) {
 				    		type = that.type + "svg" +i;
 				    		that.svg.select("#"+type)
@@ -412,7 +412,7 @@ PykCharts.twoD.line = function (options){
 					}
 				}
 				else {
-					if(!PykCharts.boolean(that.multiple_containers)) {
+					if(!PykCharts['boolean'](that.multiple_containers)) {
 						for (var i = 0;i < that.new_data_length;i++) {
 							type = that.type + "svg" + i;
 							that.dataLineGroup[i] = that.chartBody.append("path");
@@ -509,7 +509,7 @@ PykCharts.twoD.line = function (options){
 								that.mouseEvent.axisHighlightHide(options.selector + " " +".x.axis");
 							})
 							.on("mousemove", function(){
-								if(!PykCharts.boolean(that.multiple_containers))
+								if(!PykCharts['boolean'](that.multiple_containers))
 									that.mouseEvent.crossHairPosition(that.data,that.xScale,that.dataLineGroup[0],that.lineMargin);
 								else
 									that.mouseEvent.crossHairPosition(that.data,that.xScale,that.dataLineGroup,that.lineMargin);
@@ -551,7 +551,7 @@ PykCharts.twoD.line = function (options){
 		start = that.type.length;
 		end = lineid.length;
 		svgid = lineid.substring(start,end);
-		if(!PykCharts.boolean(that.multiple_containers)){
+		if(!PykCharts['boolean'](that.multiple_containers)){
 			that.pt_circle.attr("id","pt-line"+svgid);
 			that.start_pt_circle = $("#"+that.pt_circle.attr("id")).clone().appendTo("#svg1");
 			that.start_pt_circle

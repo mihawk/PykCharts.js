@@ -283,7 +283,7 @@ PykCharts.weighted.spiderWeb = function (options) {
              
             },
             legends : function () {
-                if (PykCharts.boolean(that.legends) && !(PykCharts.boolean(that.size.enable))) {
+                if (PykCharts['boolean'](that.legends) && !(PykCharts['boolean'](that.size.enable))) {
                     console.log("legends");
                      var unique = _.uniq(that.sorted_weight);
 
@@ -361,7 +361,7 @@ PykCharts.weighted.spiderWeb = function (options) {
                 return this;
             },
             // legends : function (position) {
-            //     if(PykCharts.boolean(that.legends) && !(PykCharts.boolean(that.size.enable))) {
+            //     if(PykCharts['boolean'](that.legends) && !(PykCharts['boolean'](that.size.enable))) {
             //         var xPosition, textXPosition, roundOff, opacity;
             //         var unique = _.uniq(that.sorted_weight);
             //         var x, y, k; 
@@ -428,7 +428,7 @@ PykCharts.weighted.spiderWeb = function (options) {
             //     return this;
             // },
             axisTitle : function () {
-                if(PykCharts.boolean(that.axisTitle)) {
+                if(PykCharts['boolean'](that.axisTitle)) {
                     that.length = that.new_data[0].data.length;
                     // that.length = that.data.length;
                     var spider_text = that.group.selectAll("text.axisTitle")
@@ -458,7 +458,7 @@ PykCharts.weighted.spiderWeb = function (options) {
                 return this;
             },
             axisTicks: function () {
-                if (PykCharts.boolean(that.enableTicks)) {
+                if (PykCharts['boolean'](that.enableTicks)) {
                     var a = that.yScale.domain();
                     var t = a[1]/4;
                     var b=[];
