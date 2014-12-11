@@ -52,7 +52,7 @@ PykCharts.multiD.river = function (options){
         that.multiD = new PykCharts.multiD.configuration(that);
         that.filterList = [];
         that.fullList = [];
-        that.extended = that.chart_mode === "percentage" ? false : true;
+        that.extended = that.chart_mode === "absolute" ? false : true;
         
         that.executeData = function (data) {
 
