@@ -17,7 +17,7 @@ PykCharts.twoD.area = function (options){
 		that.grid = options.chart && options.chart.grid ? options.chart.grid : stylesheet.chart.grid;
   	that.grid.yEnabled = options.chart && options.chart.grid && options.chart.grid.yEnabled ? options.chart.grid.yEnabled : stylesheet.chart.grid.yEnabled;
   	that.grid.xEnabled = options.chart && options.chart.grid && options.chart.grid.xEnabled ? options.chart.grid.xEnabled : stylesheet.chart.grid.xEnabled;
-  	that.interpolate = PykCharts.boolean(that.curvy_lines) ? "cardinal" : "linear";
+  	that.interpolate = PykCharts['boolean'](that.curvy_lines) ? "cardinal" : "linear";
 		that.reducedWidth = that.width - that.margin.left - that.margin.right;
 		that.reducedHeight = that.height - that.margin.top - that.margin.bottom;
 
@@ -112,12 +112,12 @@ PykCharts.twoD.area = function (options){
 					.attr("id","chartsvg")
 					.attr("transform","translate("+ that.margin.left +","+ that.margin.top +")");
 
-				if(PykCharts.boolean(that.grid.yEnabled)){
+				if(PykCharts['boolean'](that.grid.yEnabled)){
 					that.group.append("g")
 						.attr("id","ygrid")
 						.attr("class","y grid-line");
 				}
-				if(PykCharts.boolean(that.grid.xEnabled)){
+				if(PykCharts['boolean'](that.grid.xEnabled)){
 					that.group.append("g")
 						.attr("id","xgrid")
 						.attr("class","x grid-line");
@@ -139,13 +139,13 @@ PykCharts.twoD.area = function (options){
     			return this;
 			},
 			axisContainer : function () {
-        if(PykCharts.boolean(that.axis.x.enable)){
+        if(PykCharts['boolean'](that.axis.x.enable)){
 					that.gxaxis = that.group.append("g")
 						.attr("id","xaxis")
 						.attr("class", "x axis")
 						.attr("transform", "translate(0," + that.reducedHeight + ")");
 				}
-				if(PykCharts.boolean(that.axis.y.enable)){
+				if(PykCharts['boolean'](that.axis.y.enable)){
 					that.gyaxis = that.group.append("g")
 						.attr("id","yaxis")
 						.attr("class","y axis");
@@ -268,7 +268,7 @@ PykCharts.twoD.area = function (options){
 				    .y(that.yScale)
 				    .scaleExtent([1,8])
 				    .on("zoom", that.zoomed);
-				if(PykCharts.boolean(that.zoom.enable)) {
+				if(PykCharts['boolean'](that.zoom.enable)) {
 					that.svg.call(that.zoom_event);
 				}
 

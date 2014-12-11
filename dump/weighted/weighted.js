@@ -5,7 +5,7 @@ PykCharts.weighted.configuration = function (options){
 
 	var weightedConfig = {
         opacity : function (d,weight,data) {
-        	if(!(PykCharts.boolean(options.size.enable))) {
+        	if(!(PykCharts['boolean'](options.size.enable))) {
         		var z = d3.scale.linear()
 							.domain(d3.extent(data,function (d) {
 							    return d.weight;
@@ -24,7 +24,7 @@ PykCharts.weighted.configuration = function (options){
 
 PykCharts.weighted.bubbleSizeCalculation = function (options,data,range) {
     var size = function (d) {
-        if(d && PykCharts.boolean(options.size.enable)) {
+        if(d && PykCharts['boolean'](options.size.enable)) {
             var z = d3.scale.linear()
 						.domain(d3.extent(data,function (d) {
 						    return d.weight;
@@ -58,9 +58,9 @@ PykCharts.weighted.pulseBubbleSize = function (options,data) {
 PykCharts.weighted.fillChart = function (options) {
     var that = this;
     var colorPie = function (d) {
-        if(!(PykCharts.boolean(options.size.enable))) {
+        if(!(PykCharts['boolean'](options.size.enable))) {
     		return options.saturationColor;
-    	} else if(PykCharts.boolean(options.size.enable)) {
+    	} else if(PykCharts['boolean'](options.size.enable)) {
             if(d.color) {
                 return d.color;
             }
