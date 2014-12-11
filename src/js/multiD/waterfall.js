@@ -9,6 +9,7 @@ PykCharts.multiD.waterfall = function(options){
 		that.grid_y_enable =  options.chart_grid_y_enable ? options.chart_grid_y_enable.toLowerCase() : theme.stylesheet.chart_grid_y_enable;
         that.grid_color = options.chart_grid_color ? options.chart_grid_color : theme.stylesheet.chart_grid_color;
         that.panels_enable = "no";
+        that.longest_tick_width = 0;
         
         if(that.stop)
             return;
@@ -80,12 +81,12 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
             that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
 
            	that.optionalFeatures()
-                .createChart()
                 .axisContainer()
-                .ticks();
+                .ticks()
+                .createChart();
 
             that.k.yAxis(that.svgContainer,that.yGroup,that.yScale,that.yDomain,that.y_tick_values);
-    	}
+        }
     };
 
     that.optionalFeatures = function () {
@@ -123,12 +124,8 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
                         .attr("id","yaxis")
                         .attr("class","y axis");
                 }
-                return this;
-            },
-            createChart: function () {
-            	that.y_tick_values = that.k.processYAxisTickValues();
 
-		        that.xScale = d3.scale.linear()
+                that.xScale = d3.scale.linear()
 		        	.domain([0, d3.max(that.data, function(d) { return d.end; })])
 		        	.range([0, that.reducedWidth]);
 
@@ -141,10 +138,15 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
 		        		.data(that.data)
 		        	.enter().append("g")
 		        		.attr("class", function(d) { return "bar "+d.group; })
-		        		.attr("transform", function(d) { return "translate(50, " + that.yScale(d.name) + ")"; });
+		        		.attr("transform", function(d) { return "translate(0, " + that.yScale(d.name) + ")"; });
 
-		       	that.bars.append("rect")
-		       		.attr("x", function(d) { return that.xScale((d.group == "negative") ? d.end : d.start); })
+                return this;
+            },
+            createChart: function () {
+            	that.y_tick_values = that.k.processYAxisTickValues();
+
+		        that.bars.append("rect")
+		       		.attr("x", function(d) { return (that.xScale((d.group == "negative") ? d.end : d.start)) + that.longest_tick_width + 20; })
 		       		.attr("height", that.yScale.rangeBand())
 		       		.attr("width", function(d) { return Math.abs(that.xScale(d.end) - that.xScale(d.start)); })
 		       		.attr("fill", function(d,i) {
@@ -163,37 +165,29 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
             },
             ticks: function() {
             	var ticks_formatter = d3.format("s");
-            	// var axis_ticks_array = d3.selectAll(that.selector+" .y.axis .tick");
 
-            	// _.each(axis_ticks_array, function(d) {
-            	// 	
-            	// });
-
-            	that.ticksElement = that.group.selectAll(".ticks-text")
-            		.data(that.data);
-
-            	that.ticksElement.enter()
-            		.append("text")
-            		.attr("class","ticks-text")
-            		.text("");
-
-            	that.ticksElement
-            		.text(function(d) {
-                    	return ticks_formatter(d.weight);
-                    })
-            		.attr("x", 0)
-            		.attr("y", function(d) {
-            			return that.yScale(d.name) + this.getBBox().height/*/3 + that.yScale.rangeBand()/2*/;
-            		})/*
-            		.attr("dy", function(d) {
-            			return that.yScale.rangeBand();
-            		})*/
-            		.style("font-weight", that.pointer_weight)
+            	that.bars.append("text")
+		       		.attr("class","ticks-text")
+		       		.text(function(d) {
+		       			return ticks_formatter(d.weight);
+		       		})
+		       		.style("visibility","hidden")
+		       		.attr("y", function(d) { return (that.yScale.rangeBand()/2 + this.getBBox().height/3); })
+		       		.attr("dx", ".25em")
+		       		.style("font-weight", that.pointer_weight)
                     .style("font-size", that.pointer_size + "px")
-                    .attr("fill", that.pointer_color)
-                    .style("font-family", that.pointer_family);
+                    .attr("fill", function(d) {
+                    	that.longest_tick_width = (that.longest_tick_width < this.getBBox().width) ? this.getBBox().width : that.longest_tick_width;
 
-                that.ticksElement.exit().remove();
+                    	if (d.group == "negative") {
+		       				return that.chart_color[0];
+		       			}
+		       			else if (d.group == "positive") {
+		       				return that.chart_color[1];
+		       			}
+                    })
+                    .style("font-family", that.pointer_family)
+		       		.style("visibility","visible");
 
             	return this;
             }
