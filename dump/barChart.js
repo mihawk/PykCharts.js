@@ -121,13 +121,13 @@ PykCharts.twoD.bar = function (options) {
                 return this;
             },
             axisContainer: function () {
-                if(PykCharts.boolean(that.axis.x.enable)) {
+                if(PykCharts['boolean'](that.axis.x.enable)) {
                     that.xgroup = that.group.append("g")
                         .attr("id","xaxis")
                         .attr("class", "x axis")
                 }
 
-                if(PykCharts.boolean(that.axis.y.enable)) {
+                if(PykCharts['boolean'](that.axis.y.enable)) {
                     that.ygroup = that.group.append("g")
                         .attr("id","yaxis")
                         .attr("class","y axis");
@@ -214,7 +214,7 @@ PykCharts.twoD.bar = function (options) {
 
             },
             ticks : function () {
-                if(PykCharts.boolean(that.ticks)) {
+                if(PykCharts['boolean'](that.ticks)) {
                     var tick_label = that.group.selectAll(".tickLabel")
                         .data(that.data);
 

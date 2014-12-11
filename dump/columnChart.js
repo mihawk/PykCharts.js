@@ -117,7 +117,7 @@ PykCharts.twoD.column = function (option) {
                     .attr("class","svggroup")
                     .attr("transform","translate(" + that.margin.left + "," + that.margin.top +")");
 
-                if(PykCharts.boolean(that.grid.yEnabled)) {
+                if(PykCharts['boolean'](that.grid.yEnabled)) {
                     that.group.append("g")
                         .attr("id","ygrid")
                         .style("stroke",that.grid.color)
@@ -126,7 +126,7 @@ PykCharts.twoD.column = function (option) {
                 return this;
             },
             axisContainer : function () {
-                if(PykCharts.boolean(that.axis.x.enable)) {
+                if(PykCharts['boolean'](that.axis.x.enable)) {
                     that.xgroup = that.group.append("g")
                         .attr("id","xaxis")
                         .attr("class", "x axis")
@@ -134,7 +134,7 @@ PykCharts.twoD.column = function (option) {
                         .style("stroke","none");
                 }
 
-                if(PykCharts.boolean(that.axis.y.enable)) {
+                if(PykCharts['boolean'](that.axis.y.enable)) {
                     that.ygroup = that.group.append("g")
                         .attr("id","yaxis")
                         .attr("class","y axis");

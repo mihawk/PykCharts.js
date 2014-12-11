@@ -105,7 +105,7 @@ PykCharts.tree.collapsibleTree = function (options) {
             },
 
             chartLabel : function () {
-                if(PykCharts.boolean(that.label.size)) {
+                if(PykCharts['boolean'](that.label.size)) {
                     that.nodeEnter.append("text")
                         .attr("x", function(d) { return d.values || d._values ? -10 : 10; })
                         .attr("dy", ".35em")
