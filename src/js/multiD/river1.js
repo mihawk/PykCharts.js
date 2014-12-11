@@ -529,7 +529,8 @@ PykCharts.multiD.river = function (options){
                         .style("font-weight", that.pointer_weight)
                         .style("font-size", that.pointer_size + "px")
                         .attr("fill", that.pointer_color)
-                        .style("font-family", that.pointer_family);
+                        .style("font-family", that.pointer_family)
+                        .attr("text-anchor","end");
                     that.max_tick = d3.max(tick_text_width,function (d) { return d; })
                     display_name.exit().remove();
                 }
@@ -620,7 +621,8 @@ PykCharts.multiD.river = function (options){
                         .style("font-weight", that.time_between_steps_text_weight)
                         .style("font-size", that.time_between_steps_text_size + "px")
                         .attr("fill", that.time_between_steps_text_color)
-                        .style("font-family", that.time_between_steps_text_family);
+                        .style("font-family", that.time_between_steps_text_family)
+                        .attr("text-anchor","end");
                     }
                 that.max_duration = d3.max(duration_text_width,function (d) { return d; });
                 right_labels.exit().remove();
