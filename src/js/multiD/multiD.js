@@ -196,7 +196,6 @@ PykCharts.multiD.configuration = function (options){
                         newarr.push(item);
                     } else {
                         if(i < data.length-2 && item.group !== data[i+1].group) {
-                            console.log(data[i+1].group,item.group,i)
                             k++;
                         }
                     }
@@ -205,7 +204,6 @@ PykCharts.multiD.configuration = function (options){
                 k=0;i=0;
                 data.forEach(function(item) {
                     if(!unique[item.group]) {
-//                        console.log(options.selector,item.group,k);
                         unique[item.group] = item;
                         if(options.chart_color.length !== 0 && PykCharts.boolean(options.chart_color[k])) {
                             item.color = options.chart_color[k];
@@ -351,7 +349,7 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     chartObject.axis_x_line_color = PykCharts.boolean(chartObject.axis_x_enable) && options.axis_x_line_color ? options.axis_x_line_color : stylesheet.axis_x_line_color;
 
     chartObject.onhover_enable = options.chart_onhover_highlight_enable ? options.chart_onhover_highlight_enable : stylesheet.chart_onhover_highlight_enable;
-    
+
     chartObject.axis_x_no_of_axis_value = PykCharts.boolean(chartObject.axis_x_enable) && options.axis_x_no_of_axis_value ? options.axis_x_no_of_axis_value : stylesheet.axis_x_no_of_axis_value;
     chartObject.axis_x_pointer_padding = PykCharts.boolean(chartObject.axis_x_enable) && options.axis_x_pointer_padding ? options.axis_x_pointer_padding : stylesheet.axis_x_pointer_padding;
 
@@ -511,7 +509,7 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
                 .validatingXAxisPointerPosition(chartObject.axis_x_position,"axis_x_position",stylesheet.axis_x_position)
                 .validatingYAxisPointerPosition(chartObject.axis_y_position,"axis_y_position",multiDimensionalCharts.axis_y_position)
                 .validatingBorderBetweenChartElementsStyle(chartObject.border_between_chart_elements_style,"border_between_chart_elements_style")
-                .validatingLegendsPosition(chartObject.legends_display,"legends_display",stylesheet.legends_display)            
+                .validatingLegendsPosition(chartObject.legends_display,"legends_display",stylesheet.legends_display)
                 .validatingTooltipMode(chartObject.tooltip_mode,"tooltip_mode",stylesheet.tooltip_mode)
                 .validatingFontWeight(chartObject.title_weight,"title_weight",stylesheet.title_weight)
                 .validatingFontWeight(chartObject.subtitle_weight,"subtitle_weight",stylesheet.subtitle_weight)

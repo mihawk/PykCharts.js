@@ -288,7 +288,7 @@
                     // chart_margin_bottom: 125,
                     // chart_margin_left: 160,
                 });
-            k.execute();
+            // k.execute();
 
                 var k = new PykCharts.multiD.panelsOfScatter ({
                     selector: "#multiple-scatterplots",
@@ -443,7 +443,7 @@
                     axis_x_pointer_padding: 3,
                     axis_x_outer_pointer_length: 3,
                     axis_x_time_value_datatype:"date",
-                    axis_x_time_value_interval: 1, 
+                    axis_x_time_value_interval: 1,
 
                     axis_y_enable: "yes",
                     axis_y_title : "Growth rate",
@@ -506,7 +506,7 @@
                     axis_x_pointer_padding: 3,
                     axis_x_outer_pointer_length: 3,
                     axis_x_time_value_datatype:"date",
-                    axis_x_time_value_interval: 1,  
+                    axis_x_time_value_interval: 1,
 
                     axis_y_enable: "yes",
                     axis_y_title : "Growth rate",
@@ -600,7 +600,7 @@
                     border_between_chart_elements_style: "solid"
 
                 });
-            k.execute();
+            //k.execute();
 
                 var k = new PykCharts.multiD.column({
                     data: "../data/ultimateColumn.json",
@@ -625,12 +625,12 @@
                     axis_x_title : "Months",
                     axis_x_position: "bottom",
                     axis_x_pointer_position: "bottom",
-                    axis_x_line_color: "#1D1D1D",
+                    axis_x_line_color: "red",
 
                     "axis_x_pointer_size": 12,
                     "axis_x_pointer_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
                     "axis_x_pointer_weight": "normal",
-                    "axis_x_pointer_color": "blue",
+                    "axis_x_pointer_color": "red",
 
                     // axis_x_pointer_padding: NA,
                     // axis_x_outer_pointer_length: NA ,
@@ -801,9 +801,9 @@
                     selector: "#groupColumn",
 
                     color_mode: "color",
-                    background_color:"pink",
+                    background_color:"white",
 
-                    chart_color:["orange","red","steelblue","gray"],
+                    chart_color:["orange","red","steelblue","grey"],
 
                     chart_height: 430,
                     chart_width : 1000,

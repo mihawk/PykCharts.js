@@ -864,7 +864,7 @@ PykCharts.Configuration = function (options){
                             values.push(parseFloat(options.axis_x_pointer_values[i]))
                         }
                     } else if(options.axis_x_data_format === "time") {
-                        if(!(isNaN(new Date(data[0].x).getTime()))) {
+                        if(!(isNaN(new Date(options.axis_x_pointer_values[i]).getTime()))) {
                             values.push(options.axis_x_pointer_values[i])
                         }
                     }
@@ -1959,7 +1959,6 @@ configuration.mouseEvent = function (options) {
                         }
                     }
                     prev_tick = curr_tick;
-
                     d3.selectAll(selection)
                         .style("fill","#bbb")
                     d3.select(d3.selectAll(selection)[0][curr_tick])
@@ -2005,6 +2004,25 @@ configuration.mouseEvent = function (options) {
         },
         highlightHide : function (selectedclass) {
             d3.selectAll(selectedclass)
+                .attr("fill-opacity",function (d,i) {
+                    return $(this).attr("data-fill-opacity");
+                });
+            return this;
+        },
+        highlightGroup: function (selectedclass, that, element) {
+            var t = d3.select(that);
+
+            var group = d3.selectAll(selectedclass);
+
+                group.selectAll(element)
+                    .attr("fill-opacity",.5)
+
+            t.selectAll(element).attr("fill-opacity",1);
+
+            return this;
+        },
+        highlightGroupHide : function (selectedclass,element) {
+            d3.selectAll(selectedclass+" "+element)
                 .attr("fill-opacity",function (d,i) {
                     return $(this).attr("data-fill-opacity");
                 });
@@ -2056,6 +2074,7 @@ configuration.fillChart = function (options,theme,config) {
         },
         colorGroup : function (d) {
             if(options.color_mode === "saturation") {
+                console.log("is_interactive",options.saturation_color)
                 return options.saturation_color;
             } else if(options.color_mode === "color") {
                 return d.color;
@@ -6797,7 +6816,7 @@ PykCharts.multiD.configuration = function (options){
             var k = 0;
             var checkGroup = true;
             var checkColor = true;
-
+            data = new PykCharts.multiD.sortDataByGroup(data);
             data.forEach(function (item) {
                 if(item.group) {
                     checkGroup = true;
@@ -6806,7 +6825,7 @@ PykCharts.multiD.configuration = function (options){
                     if(options.chart_color) {
                         checkGroup = false;
                         item.color = options.chart_color[0];
-                    }else if(item.color) {
+                    } else if(item.color) {
                         checkColor = false;
                         item.color = item.color;
                     } else{
@@ -6822,17 +6841,18 @@ PykCharts.multiD.configuration = function (options){
                         unique[item.group] = item;
                         if(options.chart_color.length !== 0 && PykCharts.boolean(options.chart_color[k])) {
                             item.color = options.chart_color[k];
-                        }else if(item.color) {
+                        } else if(item.color) {
                             item.color = item.color;
                         } else {
                             item.color = options.default_color;
                         }
-                        if(i<data.length-2 &&item.group !== data[i+1].group) {
+                        if(i<data.length-2 && item.group !== data[i+1].group) {
                             k++;
                         }
                         newarr.push(item);
                     } else {
-                        if(i<data.length-2 &&item.group !== data[i+1].group) {
+                        if(i < data.length-2 && item.group !== data[i+1].group) {
+                            console.log(data[i+1].group,item.group,i)
                             k++;
                         }
                     }
@@ -6887,15 +6907,15 @@ PykCharts.multiD.configuration = function (options){
 PykCharts.multiD.mouseEvent = function (options) {
     var highlight_selected = {
         highlight: function (selectedclass, that) {
-                var t = d3.select(that);
-                d3.selectAll(selectedclass)
-                    .attr("opacity",.5)
-                t.attr("opacity",1);
-                return this;
+            var t = d3.select(that);
+            d3.selectAll(selectedclass)
+                .attr("opacity",.5)
+            t.attr("opacity",1);
+            return this;
         },
         highlightHide : function (selectedclass) {
-                d3.selectAll(selectedclass)
-                    .attr("opacity",1);
+            d3.selectAll(selectedclass)
+                .attr("opacity",1);
             return this;
         }
     }
@@ -6917,6 +6937,18 @@ PykCharts.multiD.bubbleSizeCalculation = function (options,data,rad_range) {
     };
     return size;
 };
+
+PykCharts.multiD.sortDataByGroup = function (data) {
+    data.sort(function(a,b) {
+        if (a.group < b.group) {
+            return -1;
+        }
+        else if (a.group > b.group) {
+            return 1;
+        }
+    });
+    return data;
+}
 
 PykCharts.multiD.processInputs = function (chartObject, options) {
 
@@ -6974,7 +7006,7 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     chartObject.axis_x_line_color = PykCharts.boolean(chartObject.axis_x_enable) && options.axis_x_line_color ? options.axis_x_line_color : stylesheet.axis_x_line_color;
 
     chartObject.onhover_enable = options.chart_onhover_highlight_enable ? options.chart_onhover_highlight_enable : stylesheet.chart_onhover_highlight_enable;
-    
+
     chartObject.axis_x_no_of_axis_value = PykCharts.boolean(chartObject.axis_x_enable) && options.axis_x_no_of_axis_value ? options.axis_x_no_of_axis_value : stylesheet.axis_x_no_of_axis_value;
     chartObject.axis_x_pointer_padding = PykCharts.boolean(chartObject.axis_x_enable) && options.axis_x_pointer_padding ? options.axis_x_pointer_padding : stylesheet.axis_x_pointer_padding;
 
@@ -7134,7 +7166,7 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
                 .validatingXAxisPointerPosition(chartObject.axis_x_position,"axis_x_position",stylesheet.axis_x_position)
                 .validatingYAxisPointerPosition(chartObject.axis_y_position,"axis_y_position",multiDimensionalCharts.axis_y_position)
                 .validatingBorderBetweenChartElementsStyle(chartObject.border_between_chart_elements_style,"border_between_chart_elements_style")
-                .validatingLegendsPosition(chartObject.legends_display,"legends_display",stylesheet.legends_display)            
+                .validatingLegendsPosition(chartObject.legends_display,"legends_display",stylesheet.legends_display)
                 .validatingTooltipMode(chartObject.tooltip_mode,"tooltip_mode",stylesheet.tooltip_mode)
                 .validatingFontWeight(chartObject.title_weight,"title_weight",stylesheet.title_weight)
                 .validatingFontWeight(chartObject.subtitle_weight,"subtitle_weight",stylesheet.subtitle_weight)
@@ -7400,6 +7432,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                 that.reducedHeight = that.height - that.margin_top - that.margin_bottom;
                 that.fill_data = [];
                 that.xdomain = [];
+                console.log(that.new_data)
                 if(that.axis_x_data_format === "time") {
                     for(i = 0;i<that.new_data_length;i++) {
 
@@ -9432,6 +9465,7 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 PykCharts.multiD.bar = function(options){
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
+
     var multiDimensionalCharts = theme.multiDimensionalCharts;
     this.execute = function () {
         that = new PykCharts.multiD.processInputs(that, options, "column");
@@ -9461,6 +9495,7 @@ PykCharts.multiD.bar = function(options){
            that.k.loading();
         }
         that.multiD = new PykCharts.multiD.configuration(that);
+
         that.executeData = function (data) {
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
