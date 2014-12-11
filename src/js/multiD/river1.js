@@ -392,7 +392,7 @@ PykCharts.multiD.river = function (options){
                 return this;
             },
             grids: function () {
-                if(PykCharts.boolean(that.grid_x_enable)) {
+                if(PykCharts.boolean(that.grid_y_enable)) {
                     
                     var width = that.width - that.legendsGroup_width;
                     var top_grid = that.grid_group.selectAll("line.top_line")
