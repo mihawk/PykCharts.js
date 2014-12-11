@@ -448,9 +448,6 @@ body .pyk-tooltip .tooltip-left-content{
 .PykCharts-oneD {
   margin-top:3px;
 }
-.PykCharts-river .cool_label, .PykCharts-river .right_label{
-    text-anchor: end;
-}
 
 .PykCharts-river .bottom_line, .PykCharts-river .top_line{
     stroke-width: 1;
