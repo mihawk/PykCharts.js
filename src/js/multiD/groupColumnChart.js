@@ -31,6 +31,7 @@ PykCharts.multiD.groupedColumn = function(options) {
             }
 
             $(that.selector+" #chart-loader").remove();
+            $(options.selector).css("height","auto");
             // PykCharts.multiD.columnFunctions(options,that,"group_column");
             that.render();
         };
@@ -181,7 +182,7 @@ PykCharts.multiD.groupedColumn = function(options) {
             .yAxisTitle(that.yGroup);
         }
 
-        that.k.exportSVG(that,"#"+that.container_id,"columnChart")
+        that.k.exportSVG(that,"#"+that.container_id,"groupColumnChart")
         if(PykCharts.boolean(that.legends_enable)) {
             $(document).ready(function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); })
             $(window).on("resize", function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); });
