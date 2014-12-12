@@ -12,17 +12,16 @@
         </style>
     </head>
     <body>
-         <!-- <div id="line"></div>
-        <hr/>
+         <!-- 
         <div id="area"></div>
+        <hr/>
+        <div id="line"></div>
         <hr/>
         <div id="multiLine"></div>
         <hr/>
-        <div id="multiple-multiLine"></div>
-        <hr/>
         <div id="multiArea"></div>
         <hr/>
-        <div id="pulse"></div>
+        <div id="multiple-multiLine"></div>
         <hr/>
         <div id="scatterPlot"></div>
         <hr/>
@@ -37,10 +36,11 @@
         <div id="groupBar">
         </div>
         <hr/> -->
-        <div id="bar"></div>
+        <div id="pulse"></div>
         <hr/>
-        <div id="waterfall-chart">
-        </div>
+        <!--<div id="bar"></div>
+        <hr/>-->
+        <div id="waterfall-chart"></div>
         <hr/>
 
         <script src="../src/js/pyk.js"></script>
@@ -60,24 +60,41 @@
 
                 var k = new PykCharts.multiD.waterfall({
                     selector: "#waterfall-chart",
-                    data: "../data/german_erp_waterfall2.json",
-                    mode: "default",
+                    data: "../data/german_erp_waterfall5.json",
+                    mode: "infographics",
                     chart_height: 330,
-                    chart_width: 400,
-                    chart_margin_left: 130,
+                    chart_width: 800,
+                    chart_margin_left: 100,
                     chart_margin_top: 50,
 
+                    // title_text:"Air Pollution in New York </br>(23/12/2013 - 29/12/2013)",
+                    // title_family:"sans-serif",
+                    // title_weight: "normal",
+                    // subtitle_text:"this the testing",
+
                     chart_color: ["rgb(255, 60, 131)", "rgb(0, 185, 250)", "grey"], // ["negative-color", "positive-color"]
+
+                    real_time_charts_refresh_frequency: 0,
+
+                    // border_between_chart_elements_thickness: 3,
+                    // border_between_chart_elements_color: "black",
+                    // border_between_chart_elements_style: "solid",
 
                     "axis_y_pointer_length": 0,
                     "axis_y_line_color": "#fff",
                     "axis_y_pointer_size" : 10,
                     "axis_y_pointer_color" : "#1D1D1D",
                     "axis_y_pointer_weight": "normal",
+                    axis_y_title : "Buchhaltung",
 
                     pointer_size: 10,
                     // pointer_color: "#1D1D1D",
-                    pointer_weight: "normal"
+                    pointer_weight: "normal",
+                    axis_onhover_highlight_enable: "yes",
+                    tooltip_enable: "no",
+
+                    // background_color: "red",
+                    export_enable: "yes"
                 });
                 k.execute();
 
@@ -141,7 +158,7 @@
                 //     highlight : "NEw York",
                 //     pointer_size : 12
                 // });
-                // // k.execute();
+                // k.execute();
 
                 // var k = new PykCharts.multiD.area ({
                 //     selector: "#area",
@@ -245,7 +262,7 @@
 
                 // var k = new PykCharts.multiD.scatter ({
                 //     selector: "#scatterPlot",
-                //     data: "../data/scatterplot_timescale.json",
+                //     data: "../data/scatterplot.json",
                 //     mode : "default",
 
                 //     chart_color: ["#07365e","#0e5ea1","#4682b4","#75b0e1","#a0ccf1"],
@@ -258,7 +275,7 @@
                 //     chart_margin_right: 30,
                 //     chart_margin_bottom: 30,
                 //     chart_margin_left: 50,
-                //     transition_duration : 10,
+                //     transition_duration : 1,
                 //     saturation_color:"red",
                 //     scatterplot_radius : 20,
                 //     scatterplot_pointer: "no",
@@ -318,8 +335,9 @@
                 //     // chart_margin_right: 175,
                 //     // chart_margin_bottom: 125,
                 //     // chart_margin_left: 160,
+                //     tooltip_enable: "no"
                 // });
-                // // k.execute();
+                // k.execute();
 
                 // var k = new PykCharts.multiD.panelsOfScatter ({
                 //     selector: "#multiple-scatterplots",
@@ -488,7 +506,7 @@
 
                 //     curvy_lines_enable:"yes",
                 //     tooltip_mode : "fixed",
-                //     tooltip_enable : "yes",
+                //     tooltip_enable : "no",
                 //     crosshair_enable: "yes",
                 //     zoom_enable: "yes",
                 //     // highlight: "India",
@@ -497,7 +515,7 @@
                 //     annotation_view_mode: "onclick",
                 //     annotation_background_color:"#ff4c4c"
                 // });
-                // // k.execute();
+                // k.execute();
 
                 // var k = new PykCharts.multiD.stackedArea ({
 
@@ -571,6 +589,7 @@
                 //     selector: "#pulse",
                 //     data: "../data/pulse.json",
                 //     mode : "default", //  default or infographics
+                //     title_text: "Lorem Ipsum",
 
                 //     // chart_color: ["#75b0e1","#4682b4","#013f73"],
                 //     chart_color:["red","green","blue"],
@@ -613,7 +632,7 @@
                 //     // axis_x_pointer_values : [3000],
 
                 //     tooltip_mode : "moving",
-                //     tooltip_enable : "yes",
+                //     tooltip_enable : "no",
                 //     crosshair_enable: "yes",
                 //     panels_enable: "yes",
                 //     variable_circle_size_enable : "no",
@@ -630,7 +649,7 @@
                 //     border_between_chart_elements_style: "solid"
 
                 // });
-                // // k.execute();
+                // k.execute();
 
                 // var k = new PykCharts.multiD.column({
                 //     data: "../data/ultimateColumn.json",
@@ -690,7 +709,7 @@
 
                 //     highlight:"January"
                 // });
-                // // k.execute();
+                // k.execute();
 
                 // var k = new PykCharts.multiD.groupedColumn({
                 //     data: "../data/ultimateGroupColumn.json",
@@ -810,10 +829,12 @@
                     pointer_color: "#1D1D1D",
                     pointer_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
                     highlight: "12-12-2014",
-                     panels_enable: "yes",
+                    panels_enable: "yes",
 
                     data_sort_type: "alphabetically",
-                    data_sort_order: "ascending"
+                    data_sort_order: "ascending",
+                    axis_onhover_highlight_enable: "yes",
+                    tooltip_enable: "no"
                 });
                 // k.execute();
 

@@ -259,8 +259,10 @@ PykCharts.Configuration = function (options){
             }
             return this;
         },
-        tooltip: function (d,selection,i,flag ) {
+        tooltip: function (d,selection,i,flag) {
+            // console.log("tooltip ",options.selector, " *********", options.tooltip_enable,options.axis_x_data_format,options.axis_y_data_format,PykCharts['boolean'](options.annotation_enable));
             if((PykCharts['boolean'](options.tooltip_enable) || options.axis_x_data_format === "string" || options.axis_y_data_format === "string" || PykCharts['boolean'](options.annotation_enable)) && options.mode === "default") {
+                // console.log("tooltip ",options.selector, " *********", options.tooltip_enable,options.axis_x_data_format,options.axis_y_data_format);
                 if(selection !== undefined){
                     var selector = options.selector.substr(1,options.selector.length)
                     PykCharts.Configuration.tooltipp = d3.select("body").append("div")
@@ -1594,7 +1596,9 @@ configuration.mouseEvent = function (options) {
 
     var action = {
         tooltipPosition: function (d,xPos,yPos,xDiff,yDiff,group_index,width_percentage,height_percentge) {
+            // console.log(options.tooltip_enable,PykCharts['boolean'](options.annotation_enable),options.axis_x_data_format === "string",options.axis_y_data_format === "string",options.selector,"**** ON!!!");
             if(PykCharts['boolean'](options.tooltip_enable) || PykCharts['boolean'](options.annotation_enable) || options.axis_x_data_format === "string" || options.axis_y_data_format === "string") {
+                // console.log(options.tooltip_enable,options.axis_y_data_format === "string",options.selector,"**** ON!!!");
                 if(xPos !== undefined){
                     var selector = options.selector.substr(1,options.selector.length)
                     var width_tooltip = parseFloat($("#tooltip-svg-container-"+group_index +"-pyk-tooltip"+selector).css("width"));
@@ -1914,7 +1918,7 @@ configuration.mouseEvent = function (options) {
         axisHighlightShow: function (active_tick,axisHighlight,domain,a) {
             var curr_tick,prev_tick,abc,selection,axis_data_length;
             if(PykCharts['boolean'](options.axis_onhover_highlight_enable)/* && options.mode === "default"*/){
-                if(axisHighlight === options.selector + " .y.axis"){
+                if(axisHighlight === options.selector + " .y.axis" && a == undefined){
                     selection = axisHighlight+" .tick text";
                     abc = options.axis_y_pointer_color;
                     axis_data_length = d3.selectAll(selection)[0].length;
@@ -1941,6 +1945,9 @@ configuration.mouseEvent = function (options) {
                         abc = options.axis_x_pointer_color;
                     } else if(axisHighlight === options.selector + " .axis-text" && a === "bar") {
                         selection = axisHighlight;
+                        abc = options.axis_y_pointer_color;
+                    } else if(axisHighlight === options.selector + " .y.axis" && a == "waterfall") {
+                        selection = axisHighlight+" .tick text";
                         abc = options.axis_y_pointer_color;
                     }
                     if(prev_tick !== undefined) {
