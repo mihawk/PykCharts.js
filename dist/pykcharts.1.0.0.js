@@ -13634,7 +13634,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                         if((_.where(that.data, {iso2: d.properties.iso_a2})[0])) {
                             if (PykCharts['boolean'](that.tooltip_enable)) {
                                 var tooltip_text = ((_.where(that.data, {iso2: d.properties.iso_a2})[0]).tooltip) ? ((_.where(that.data, {iso2: d.properties.iso_a2})[0]).tooltip) : ("<table><thead><th colspan='2'><b>"+d.properties.NAME_1+"</b></th></thead><tr><td>Size</td><td><b>"+((_.where(that.data, {iso2: d.properties.iso_a2})[0]).size)+"</b></td></tr></table>");
-                                
+
                                 ttp.style("visibility", "visible");
                                 ttp.html(tooltip_text);
                                 if (that.tooltip_mode === "moving") {
@@ -13992,7 +13992,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                return $(child).colourBrightness(bg);
             }
                 }
-        if ($(child1)[0].classList.contains("light")) {
+        if ($(child1)[0].classList.contains("light") || window.location.pathname === "/overview") {
             that.play_image_url = PykCharts.assets+"img/play.png";
             that.pause_image_url = PykCharts.assets+"img/pause.png";
             that.marker_image_url = PykCharts.assets+"img/marker.png";
