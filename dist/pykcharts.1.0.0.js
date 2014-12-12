@@ -14171,15 +14171,15 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
 var anonymousFunc = function () {
 
     var urls = [
-        PykCharts.assets+'lib/jquery-1.11.1.min.js'
-      , PykCharts.assets+'lib/d3.min.js'
-      , PykCharts.assets+'lib/underscore.min.js'
-      , PykCharts.assets+'lib/topojson.min.js'
-      , PykCharts.assets+'lib/custom-hive.min.js'
-      , PykCharts.assets+'lib/jquery.colourbrightness.min.js'
-      , PykCharts.assets+'lib/colors.min.js'
-      , PykCharts.assets+'lib/paper-full.min.js'
-      , PykCharts.assets+'lib/downloadDataURI.min.js'
+      PykCharts.assets+'lib/jquery-1.11.1.min.js'
+    , PykCharts.assets+'lib/d3.min.js'
+    , PykCharts.assets+'lib/underscore.min.js'
+    , PykCharts.assets+'lib/topojson.min.js'
+    , PykCharts.assets+'lib/custom-hive.min.js'
+    , PykCharts.assets+'lib/jquery.colourbrightness.min.js'
+    , PykCharts.assets+'lib/colors.min.js'
+    , PykCharts.assets+'lib/paper-full.min.js'
+    , PykCharts.assets+'lib/downloadDataURI.min.js'
     ];
 
     function importFiles (url) {
@@ -14207,16 +14207,83 @@ var anonymousFunc = function () {
         var s = document.getElementsByTagName('link')[0];
         s.parentNode.insertBefore(include, s);
     };
-    for (var i = 0; i < urls.length; i++) {
-        try {
-            if ((!$ && !jQuery) || !d3 || !_ || !d3.customHive || !topojson || !$("body").colourBrightness || !$c || !paper || !downloadDataURI) {
-                importFiles(urls[i]);
-            }
+    try {
+        if (!$ && !jQuery) {
+            importFiles(urls[0]);
         }
-        catch (e) {
-            importFiles(urls[i]);
-        }
+    } catch (e) {
+        importFiles(urls[0]);
     }
+    try {
+        if(!d3) {
+            importFiles(urls[1]);
+        }
+    } catch (e) {
+        importFiles(urls[1])
+    }
+    try {
+        if(!_) {
+            importFiles(urls[2]);
+        }
+    } catch (e) {
+        importFiles(urls[2]);
+    }
+    try {
+        if(!d3.customHive) {
+            importFiles(urls[3]);
+        }
+    } catch (e) {
+        importFiles(urls[3]);
+    }
+    try {
+        if(!topojson) {
+            importFiles(urls[4]);
+        }
+    } catch (e) {
+        importFiles(urls[4]);
+    }
+    try {
+        if(!$("body").colourBrightness) {
+            importFiles(urls[5]);
+        }
+    } catch (e) {
+        importFiles(urls[5]);
+    }
+    try {
+        if(!$c) {
+            importFiles(urls[6]);
+        }
+    } catch (e) {
+        importFiles(urls[6]);
+    }
+    try {
+        if(!paper) {
+            importFiles(urls[7]);
+        }
+    } catch (e) {
+        importFiles(urls[7]);
+    }
+    try {
+        if(!downloadDataURI) {
+            importFiles(urls[8]);
+        }
+    } catch (e) {
+        importFiles(urls[8]);
+    }
+    // for (var i = 0; i < urls.length; i++) {
+    //     try {
+    //         if ((!$ && !jQuery) || !d3 || !_ || !d3.customHive || !topojson || !$("body").colourBrightness || !$c || !paper || !downloadDataURI) {
+    //             console.log(urls[i])
+    //             importFiles(urls[i]);
+    //         } else {
+    //             console.log("%%%%%%%%%%%%%5",urls[i])
+    //         }
+    //     }
+    //     catch (e) {
+    //             console.log(urls[i],"ROnak",_)
+    //         importFiles(urls[i]);
+    //     }
+    // }
 };
 
 window.onload = anonymousFunc;
