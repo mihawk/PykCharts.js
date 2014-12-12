@@ -526,7 +526,7 @@ PykCharts.Configuration = function (options){
             var loading_content;
             $(options.selector).css("height",options.height);
             if(options.loading_type === "image") {
-                loading_content = "<img src=" + options.loading_source + ">"
+                loading_content = "<img src=" + options.loading_source + ">";
             } else {
                 loading_content = options.loading_source;
             }
