@@ -190,7 +190,7 @@ PykCharts.multiD.columnFunctions = function (options,chartObject,type) {
         }
 
         that.k.exportSVG(that,"#"+that.container_id,"columnChart")
-        if(PykCharts.boolean(that.legends_enable)) {
+        if(PykCharts['boolean'](that.legends_enable)) {
             $(document).ready(function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); })
             $(window).on("resize", function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); });
         } else {
@@ -220,7 +220,7 @@ PykCharts.multiD.columnFunctions = function (options,chartObject,type) {
                     .attr("class","svggroup")
                     .attr("transform","translate(" + that.margin_left + "," + (that.margin_top + that.legendsGroup_height) +")");
 
-                if(PykCharts.boolean(that.grid_y_enable)) {
+                if(PykCharts['boolean'](that.grid_y_enable)) {
                     that.group.append("g")
                         .attr("id","ygrid")
                         .style("stroke",that.grid_color)
@@ -230,7 +230,7 @@ PykCharts.multiD.columnFunctions = function (options,chartObject,type) {
             },
             legendsContainer: function (i) {
 
-                if(PykCharts.boolean(that.legends_enable) && that.mode === "default") {
+                if(PykCharts['boolean'](that.legends_enable) && that.mode === "default") {
 
                     that.legendsGroup = that.svgContainer.append("g")
                         .attr("id","legends")
@@ -245,7 +245,7 @@ PykCharts.multiD.columnFunctions = function (options,chartObject,type) {
                 return this;
             },
             axisContainer : function () {
-                if(PykCharts.boolean(that.axis_x_enable)) {
+                if(PykCharts['boolean'](that.axis_x_enable)) {
                     var axis_line = that.group.selectAll(".axis-line")
                         .data(["line"]);
 
@@ -266,7 +266,7 @@ PykCharts.multiD.columnFunctions = function (options,chartObject,type) {
                     }
                 }
 
-                if(PykCharts.boolean(that.axis_y_enable) || that.axis_y_enable) {
+                if(PykCharts['boolean'](that.axis_y_enable) || that.axis_y_enable) {
                     that.yGroup = that.group.append("g")
                         .attr("id","yaxis")
                         .attr("class","y axis");
@@ -426,7 +426,7 @@ PykCharts.multiD.columnFunctions = function (options,chartObject,type) {
                             that.mouseEvent.tooltipPosition(d);
                             that.mouseEvent.tooltipTextShow(d.tooltip ? d.tooltip : d.y);
                             that.mouseEvent.axisHighlightShow(d.name,that.selector + " " + ".axis-text",that.domain,"column");
-                            if(PykCharts.boolean(that.onhover_enable)) {
+                            if(PykCharts['boolean'](that.onhover_enable)) {
                                 that.mouseEvent.highlight(that.selector + " .rect", this);
                             }
                         }
@@ -435,7 +435,7 @@ PykCharts.multiD.columnFunctions = function (options,chartObject,type) {
                         if(that.mode === "default") {
                             that.mouseEvent.tooltipHide(d);
                             that.mouseEvent.axisHighlightHide(that.selector + " " + ".axis-text","column");
-                            if(PykCharts.boolean(that.onhover_enable)) {
+                            if(PykCharts['boolean'](that.onhover_enable)) {
                                 that.mouseEvent.highlightHide(that.selector + " .rect");
                             }
                         }
@@ -473,7 +473,7 @@ PykCharts.multiD.columnFunctions = function (options,chartObject,type) {
                 var flag, length = group_arr.length,
                     largest = 0, rangeband = len;
 
-                if(PykCharts.boolean(that.axis_x_enable)) {
+                if(PykCharts['boolean'](that.axis_x_enable)) {
                     var xAxis_label = that.group.selectAll("text.axis-text")
                         .data(group_arr);
 
@@ -563,7 +563,7 @@ PykCharts.multiD.columnFunctions = function (options,chartObject,type) {
                 return this;
             },
             highlightRect : function () {
-                if(that.no_of_groups > 1 && PykCharts.boolean(that.highlight)) {
+                if(that.no_of_groups > 1 && PykCharts['boolean'](that.highlight)) {
                     setTimeout(function() {
                         function ascending( a, b ) {
                             return a - b;
@@ -593,7 +593,7 @@ PykCharts.multiD.columnFunctions = function (options,chartObject,type) {
                 return this;
             },
             legends: function () {
-                if(PykCharts.boolean(that.legends_enable)) {
+                if(PykCharts['boolean'](that.legends_enable)) {
                     var params = that.getParameters(),color;
                     color = params.map(function (d) {
                         return d.color;

@@ -13,7 +13,7 @@ PykCharts.other.processInputs = function (chartObject, options) {
 
     chartObject.mode = options.mode ? options.mode.toLowerCase(): stylesheet.mode;
 
-    if (options &&  PykCharts.boolean (options.title_text)) {
+    if (options &&  PykCharts['boolean'] (options.title_text)) {
         chartObject.title_text = options.title_text;
         chartObject.title_size = "title_size" in options ? options.title_size : stylesheet.title_size;
         chartObject.title_color = options.title_color ? options.title_color.toLowerCase()  : stylesheet.title_color;
@@ -26,7 +26,7 @@ PykCharts.other.processInputs = function (chartObject, options) {
         chartObject.title_family = stylesheet.title_family;
     }
 
-    if (options && PykCharts.boolean(options.subtitle_text)) {
+    if (options && PykCharts['boolean'](options.subtitle_text)) {
         chartObject.subtitle_text = options.subtitle_text;
         chartObject.subtitle_size = "subtitle_size" in options ? options.subtitle_size : stylesheet.subtitle_size;
         chartObject.subtitle_color = options.subtitle_color ? options.subtitle_color : stylesheet.subtitle_color;

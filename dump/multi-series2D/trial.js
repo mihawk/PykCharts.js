@@ -117,7 +117,7 @@ PykCharts.multi_series_2D.ultimate = function(options){
                     .attr("class","svggroup")
                     .attr("transform","translate(" + that.margin.left + "," + that.margin.top +")");
                
-                if(PykCharts.boolean(that.grid.yEnabled)) {
+                if(PykCharts['boolean'](that.grid.yEnabled)) {
                     that.group.append("g")
                         .attr("id","ygrid")
                         .style("stroke",that.grid.color)
@@ -127,7 +127,7 @@ PykCharts.multi_series_2D.ultimate = function(options){
                 return this;
             },
             legendsContainer: function () {
-                if(PykCharts.boolean(that.legends)) {
+                if(PykCharts['boolean'](that.legends)) {
                     that.legend_svg = d3.select(that.selector).append("svg:svg")
                         .attr("width",that.width)
                         .attr("height",50)
@@ -143,7 +143,7 @@ PykCharts.multi_series_2D.ultimate = function(options){
                 return this;
             },
             axisContainer : function () {
-                if(PykCharts.boolean(that.axis.x.enable)) {
+                if(PykCharts['boolean'](that.axis.x.enable)) {
                     that.xgroup = that.group.append("g")
                         .attr("id","xaxis")
                         .attr("class", "x axis")
@@ -151,7 +151,7 @@ PykCharts.multi_series_2D.ultimate = function(options){
                         .style("stroke","none"); 
                 }
                 
-                if(PykCharts.boolean(that.axis.y.enable)) {
+                if(PykCharts['boolean'](that.axis.y.enable)) {
                     that.ygroup = that.group.append("g")
                         .attr("id","yaxis")
                         .attr("class","y axis");
@@ -287,7 +287,7 @@ PykCharts.multi_series_2D.ultimate = function(options){
             return this;
             },
             legends: function () {
-                if(PykCharts.boolean(that.legends)) {
+                if(PykCharts['boolean'](that.legends)) {
                     var params = that.getParameters();
                     var j = 0,k = 0;
                     j = params.length;
