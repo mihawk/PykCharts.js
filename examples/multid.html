@@ -2,6 +2,12 @@
     <head>
         <title>Multi-Dimensional Charts</title>
         <link rel="stylesheet" type="text/css" href="../src/css/PykCharts.css">
+        <style>
+            .bar line.connector {
+                stroke: grey;
+                stroke-dasharray: 3;
+            }
+        </style>
     </head>
     <body>
          <!-- 
@@ -52,7 +58,7 @@
 
                 var k = new PykCharts.multiD.waterfall({
                     selector: "#waterfall-chart",
-                    data: "../data/german_erp_waterfall5.json",
+                    data: "../data/german_erp_waterfall1.json",
                     mode: "default",
                     chart_height: 330,
                     chart_width: 400,
@@ -66,7 +72,7 @@
 
                     chart_color: ["rgb(255, 60, 131)", "rgb(0, 185, 250)", "grey"], // ["negative-color", "positive-color"]
 
-                    real_time_charts_refresh_frequency: 0,
+                    real_time_charts_refresh_frequency: 1,
 
                     // border_between_chart_elements_thickness: 3,
                     // border_between_chart_elements_color: "black",
@@ -86,7 +92,8 @@
                     tooltip_enable: "no",
 
                     // background_color: "red",
-                    export_enable: "yes"
+                    export_enable: "yes",
+                    waterfall_connectors_enable: "Years"
                 });
                 k.execute();
 
@@ -150,7 +157,7 @@
                     highlight : "NEw York",
                     pointer_size : 12
                 });
-                k.execute();
+                // k.execute();
 
                 // var k = new PykCharts.multiD.area ({
                 //     selector: "#area",
@@ -641,7 +648,7 @@
                     border_between_chart_elements_style: "solid"
 
                 });
-                k.execute();
+                // k.execute();
 
                 // var k = new PykCharts.multiD.column({
                 //     data: "../data/ultimateColumn.json",

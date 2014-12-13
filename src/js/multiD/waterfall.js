@@ -11,6 +11,7 @@ PykCharts.multiD.waterfall = function(options){
         that.panels_enable = "no";
         that.longest_tick_width = 0;
         that.ticks_formatter = d3.format("s");
+        that.waterfall_connectors_enable = options.waterfall_connectors_enable ? options.waterfall_connectors_enable.toLowerCase() : multiDimensionalCharts.waterfall_connectors_enable;
         
         if(that.stop)
             return;
@@ -64,7 +65,8 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
             that.optionalFeatures()
                 .createScales()
                 .ticks()
-                .createChart();
+                .createChart()/*
+                .connectors()*/;
 
             that.k.yAxis(that.svgContainer,that.yGroup,that.yScale,that.yDomain,that.y_tick_values);
         };
@@ -112,8 +114,9 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
            	that.optionalFeatures()
                 .axisContainer()
                 .createScales()
-                .ticks()
-                .createChart();
+               	.ticks()
+                .createChart()/*
+                .connectors()*/;
 
         } else if(that.mode === "infographics") {
             that.k.backgroundColor(that)
@@ -127,7 +130,8 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
             	.axisContainer()
                 .createScales()
                 .ticks()
-                .createChart();
+                .createChart()
+                .connectors();
 
             that.k.tooltip();
             
@@ -170,7 +174,7 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
 		        	.domain(that.data.map(function(d) { return d.name; }))
 		        	.rangeRoundBands([that.reducedHeight, 0], that.padding);		        
 		        that.yDomain = that.yScale.domain();
-		        
+
 		        that.bars = that.group.selectAll(".bar")
 		        		.data(that.data);
 
@@ -195,11 +199,21 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
 
             	that.xScale = d3.scale.linear()
 		        	.domain([0, d3.max(that.data, function(d) { return d.end; })])
-		        	.range([0, (that.reducedWidth - that.longest_tick_width - 5 + that.margin_right)]);
+		        	.range([0, (that.reducedWidth - that.longest_tick_width + that.margin_right)]);
 
-		        that.bars.append("rect")
-		        	.attr("class", "rect")
-		       		.attr("x", function(d) { return (that.xScale((d.group == "negative") ? d.end : d.start)) + that.longest_tick_width; })
+		    	var rect = that.bars.selectAll(".rect")
+	    				.data(function(d){
+	    					return [d];
+	    				});
+
+	    		rect.enter().append("rect")
+    				.attr("class","rect")
+		       		.attr("stroke",that.border.color())
+                    .attr("stroke-width",that.border.width())
+                    .attr("stroke-dasharray", that.border.style())
+                    .attr("stroke-opacity",1);
+
+		        rect.attr("x", function(d) { return (that.xScale((d.group == "negative") ? d.end : d.start)) + that.longest_tick_width + 15; })
 		       		.attr("height", that.yScale.rangeBand())
 		       		.attr("width", function(d) { return Math.abs(that.xScale(d.end) - that.xScale(d.start)); })
 		       		.attr("fill", function(d,i) {
@@ -213,10 +227,6 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
 		       				return that.chart_color[1];
 		       			}
 		       		})
-		       		.attr("stroke",that.border.color())
-                    .attr("stroke-width",that.border.width())
-                    .attr("stroke-dasharray", that.border.style())
-                    .attr("stroke-opacity",1)
 		       		.on('mouseover',function (d) {
                         if(that.mode === "default") {
                         	var tooltipText = d.tooltip ? d.tooltip : "<table><thead><th colspan='2'><b>"+d.name+"</b></th></thead><tr><td>Start</td><td><b>"+that.ticks_formatter(d.start)+"</b></td></tr><tr><td>Weight</td><td><b>"+that.ticks_formatter(d.weight)+"</b></td></tr></table>";
@@ -243,17 +253,26 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
                         }
                     });
 
-                that.bars.exit()
+                rect.exit()
                 	.remove();
 
 		       	return this;
             },
             ticks: function() {
-            	if(that.pointer_size) {	            	
+            	if(that.pointer_size) {
 
-	            	that.bars.append("text")
-			       		.attr("class","ticks-text")
-			       		.text(function(d) {
+            		var ticks = that.bars.selectAll(".ticks-text")
+		    				.data(function(d){
+		    					return [d];
+		    				});
+
+		    		ticks.enter().append("text")
+	    				.attr("class","ticks-text")
+	                    .style("font-weight", that.pointer_weight)
+	                    .style("font-size", that.pointer_size + "px")
+	                    .style("font-family", that.pointer_family);
+
+	            	ticks.text(function(d) {
 			       			return that.ticks_formatter(d.weight);
 			       		})
 			       		.style("visibility","hidden")
@@ -269,11 +288,30 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
 			       				return that.chart_color[1];
 			       			}
 	                    })
-	                    .style("font-weight", that.pointer_weight)
-	                    .style("font-size", that.pointer_size + "px")
-	                    .style("font-family", that.pointer_family)
 			       		.style("visibility","visible");
+
+			       	ticks.exit()
+			       		.remove();
 			    }
+
+            	return this;
+            },
+            connectors: function() {
+            	if(PykCharts['boolean'](that.waterfall_connectors_enable)) {
+            		that.bars.filter(function(d) { return d.name.toLowerCase() != "total" }).append("line")
+					    .attr("class", "connector")
+					    .attr("x1", function(d) { return that.xScale(d.end) + that.longest_tick_width; } )
+					    // .attr("x1", that.xScale.rangeBand() + 5 )
+					    .attr("y1", that.yScale.rangeBand() + 5 )
+					    // .attr("y1", function(d) { return that.yScale(d.end); } )
+					    .attr("x2", function(d) { return that.xScale(d.end) + that.longest_tick_width; } )
+					    // .attr("x2", that.xScale.rangeBand() / (1 - padding) - 5 )
+					    .attr("y2", that.yScale.rangeBand() / (1 - that.padding) - that.data.length )
+					    // .attr("y2", function(d) { return that.yScale(d.end); } );
+            	}
+
+                that.bars.exit()
+                	.remove();
 
             	return this;
             }

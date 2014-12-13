@@ -2458,7 +2458,9 @@ configuration.Theme = function(){
 
         "data_sort_enable": "yes",
         "data_sort_type": "alphabetically", // sort type --- "alphabetically" / "numerically" / "date"
-        "data_sort_order": "ascending" // sort order --- "descending" / "ascending"
+        "data_sort_order": "ascending", // sort order --- "descending" / "ascending"
+
+        "waterfall_connectors_enable": "yes"
     };
 
     that.treeCharts = {
