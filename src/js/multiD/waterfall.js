@@ -24,6 +24,7 @@ PykCharts.multiD.waterfall = function(options){
 			var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
                 $(that.selector+" #chart-loader").remove();
+                $(that.selector).css("height","auto");
                 return;
             }
 
@@ -36,6 +37,7 @@ PykCharts.multiD.waterfall = function(options){
             that.axis_x_data_format = "number";
 
             $(that.selector+" #chart-loader").remove();
+            $(that.selector).css("height","auto");
             PykCharts.multiD.waterfallFunctions(options,that,"waterfall");
             that.render();
 		};
