@@ -326,26 +326,29 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     .style("stroke-width", that.border.width())
                     .style("stroke-dasharray", that.border.style())
                     .on("mouseover", function (d) {
-                        if (PykCharts['boolean'](that.tooltip_enable)) {
-                            var tooltip_text = ((_.where(that.data, {iso2: d.properties.iso_a2})[0]).tooltip) ? ((_.where(that.data, {iso2: d.properties.iso_a2})[0]).tooltip) : ("<table><thead><th colspan='2'><b>"+d.properties.NAME_1+"</b></th></thead><tr><td>Size</td><td><b>"+((_.where(that.data, {iso2: d.properties.iso_a2})[0]).size)+"</b></td></tr></table>");
-                            ttp.style("visibility", "visible");
-                            ttp.html(tooltip_text);
-                            if (that.tooltip_mode === "moving") {
-                                ttp.style("top", function () {
-                                        return (PykCharts.getEvent().pageY - 20 ) + "px";
-                                    })
-                                    .style("left", function () {
-                                        return (PykCharts.getEvent().pageX + 20 ) + "px";
-                                    });
-                            } else if (that.tooltip_mode === "fixed") {
-                                ttp.style("top", (that.tooltip_position_top) + "px")
-                                    .style("left", (that.tooltip_position_left) + "px");
+                        if((_.where(that.data, {iso2: d.properties.iso_a2})[0])) {
+                            if (PykCharts['boolean'](that.tooltip_enable)) {
+                                var tooltip_text = ((_.where(that.data, {iso2: d.properties.iso_a2})[0]).tooltip) ? ((_.where(that.data, {iso2: d.properties.iso_a2})[0]).tooltip) : ("<table><thead><th colspan='2'><b>"+d.properties.NAME_1+"</b></th></thead><tr><td>Size</td><td><b>"+((_.where(that.data, {iso2: d.properties.iso_a2})[0]).size)+"</b></td></tr></table>");
+                                
+                                ttp.style("visibility", "visible");
+                                ttp.html(tooltip_text);
+                                if (that.tooltip_mode === "moving") {
+                                    ttp.style("top", function () {
+                                            return (PykCharts.getEvent().pageY - 20 ) + "px";
+                                        })
+                                        .style("left", function () {
+                                            return (PykCharts.getEvent().pageX + 20 ) + "px";
+                                        });
+                                } else if (that.tooltip_mode === "fixed") {
+                                    ttp.style("top", (that.tooltip_position_top) + "px")
+                                        .style("left", (that.tooltip_position_left) + "px");
+                                }
                             }
-                        }
-                        if(that.onhover1 === "color_saturation" && PykCharts['boolean'](that.onhover_enable)) {
-                            that.mouseEvent.highlight(options.selector + " .area", this);
-                        }else {
-                            that.bodColor(d);
+                            if(that.onhover1 === "color_saturation" && PykCharts['boolean'](that.onhover_enable)) {
+                                that.mouseEvent.highlight(options.selector + " .area", this);
+                            }else {
+                                that.bodColor(d);
+                            }
                         }
                     })
                     .on("mouseout", function (d) {

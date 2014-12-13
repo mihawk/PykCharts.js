@@ -220,11 +220,12 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
                 });
             }
             if(!PykCharts['boolean'](that.panels_enable)) {
-                 that.optionalFeatures()
-                        .createChart()
-                        .legends()
-                        .plotCircle()
-                        .ticks();
+                that.new_data = that.data;
+                that.optionalFeatures()
+                    .createChart()
+                    .legends()
+                    .plotCircle()
+                    .ticks();
                 if(type === "scatterplot") {
                     that.optionalFeatures().label();
                 }
