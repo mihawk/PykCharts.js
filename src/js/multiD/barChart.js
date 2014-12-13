@@ -34,7 +34,7 @@ PykCharts.multiD.bar = function(options){
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
                 $(that.selector+" #chart-loader").remove();
-                $(that.selector).css("height","auto")
+                $(that.selector).css("height","auto");
                 return;
             }
 
@@ -42,7 +42,7 @@ PykCharts.multiD.bar = function(options){
             that.compare_data = that.k.__proto__._groupBy("bar",data);
             
             $(that.selector+" #chart-loader").remove();
-            $(that.selector).css("height","auto")
+            $(that.selector).css("height","auto");
             PykCharts.multiD.barFunctions(options,that,"bar");
             that.render();            
         }

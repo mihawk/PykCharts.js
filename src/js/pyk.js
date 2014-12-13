@@ -796,15 +796,15 @@ PykCharts.Configuration = function (options){
 
             if(options.mode === "default") {
                 xaxistooltip.on('mouseover',function (d) {
-                    options.mouseEvent.tooltipPosition(d);
-                    options.mouseEvent.tooltipTextShow(d);
+                    options.mouseEvent.tooltipPosition(d,undefined,undefined,undefined,undefined,undefined,undefined,undefined,1);
+                    options.mouseEvent.tooltipTextShow(d,undefined,undefined,undefined,1);
                 })
                 .on('mousemove', function (d) {
-                    options.mouseEvent.tooltipPosition(d);
-                    options.mouseEvent.tooltipTextShow(d);
+                    options.mouseEvent.tooltipPosition(d,undefined,undefined,undefined,undefined,undefined,undefined,undefined,1);
+                    options.mouseEvent.tooltipTextShow(d,undefined,undefined,undefined,1);
                 })
-                .on('mouseout', function (d) {
-                    options.mouseEvent.tooltipHide(d);
+                .on('mouseout', function (d) {                    
+                    options.mouseEvent.tooltipHide(d,undefined,undefined,1);
                 });
             }
 
@@ -827,15 +827,15 @@ PykCharts.Configuration = function (options){
 
             if (options.mode === "default") {
                 yaxistooltip.on('mouseover',function (d) {
-                    options.mouseEvent.tooltipPosition(d);
-                    options.mouseEvent.tooltipTextShow(d);
+                    options.mouseEvent.tooltipPosition(d,undefined,undefined,undefined,undefined,undefined,undefined,undefined,1);
+                    options.mouseEvent.tooltipTextShow(d,undefined,undefined,undefined,1);
                 })
                 .on('mousemove', function (d) {
-                    options.mouseEvent.tooltipPosition(d);
-                    options.mouseEvent.tooltipTextShow(d);
+                    options.mouseEvent.tooltipPosition(d,undefined,undefined,undefined,undefined,undefined,undefined,undefined,1);
+                    options.mouseEvent.tooltipTextShow(d,undefined,undefined,undefined,1);
                 }) 
                 .on('mouseout', function (d) {
-                    options.mouseEvent.tooltipHide(d);
+                    options.mouseEvent.tooltipHide(d,undefined,undefined,1);
                 });
             }
             return this;
@@ -1595,10 +1595,8 @@ configuration.mouseEvent = function (options) {
     var status;
 
     var action = {
-        tooltipPosition: function (d,xPos,yPos,xDiff,yDiff,group_index,width_percentage,height_percentge) {
-            // console.log(options.tooltip_enable,PykCharts['boolean'](options.annotation_enable),options.axis_x_data_format === "string",options.axis_y_data_format === "string",options.selector,"**** ON!!!");
-            if(PykCharts['boolean'](options.tooltip_enable) || PykCharts['boolean'](options.annotation_enable) || options.axis_x_data_format === "string" || options.axis_y_data_format === "string") {
-                // console.log(options.tooltip_enable,options.axis_y_data_format === "string",options.selector,"**** ON!!!");
+        tooltipPosition: function (d,xPos,yPos,xDiff,yDiff,group_index,width_percentage,height_percentge,axis_tooltip) {
+            if(PykCharts['boolean'](options.tooltip_enable) || PykCharts['boolean'](options.annotation_enable) || (axis_tooltip == 1 && (options.axis_x_data_format === "string" || options.axis_y_data_format === "string"))) {
                 if(xPos !== undefined){
                     var selector = options.selector.substr(1,options.selector.length)
                     var width_tooltip = parseFloat($("#tooltip-svg-container-"+group_index +"-pyk-tooltip"+selector).css("width"));
@@ -1620,9 +1618,9 @@ configuration.mouseEvent = function (options) {
             }
 
         },
-        tooltipTextShow: function (d,panels_enable,type,group_index) {
+        tooltipTextShow: function (d,panels_enable,type,group_index,axis_tooltip) {
             var selector = options.selector.substr(1,options.selector.length)
-            if(PykCharts['boolean'](options.tooltip_enable) || PykCharts['boolean'](options.annotation_enable) || options.axis_x_data_format === "string" || options.axis_y_data_format === "string") {
+            if(PykCharts['boolean'](options.tooltip_enable) || PykCharts['boolean'](options.annotation_enable) || (axis_tooltip == 1 && (options.axis_x_data_format === "string" || options.axis_y_data_format === "string"))) {
                 if(panels_enable === "yes" && type === "multilineChart") {
                     $("#tooltip-svg-container-"+group_index +"-pyk-tooltip"+selector).html(d);
                 }
@@ -1632,8 +1630,8 @@ configuration.mouseEvent = function (options) {
                 return this;
             }
         },
-        tooltipHide: function (d,panels_enable,type) {
-            if(PykCharts['boolean'](options.tooltip_enable) || PykCharts['boolean'](options.annotation_enable) || options.axis_x_data_format === "string" || options.axis_y_data_format === "string") {
+        tooltipHide: function (d,panels_enable,type,axis_tooltip) {
+            if(PykCharts['boolean'](options.tooltip_enable) || PykCharts['boolean'](options.annotation_enable) || (axis_tooltip == 1 && (options.axis_x_data_format === "string" || options.axis_y_data_format === "string"))) {
                 if(panels_enable === "yes" && type === "multilineChart") {
                     return d3.selectAll(".pyk-tooltip").style("visibility","hidden");
                 }
