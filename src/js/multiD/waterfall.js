@@ -94,7 +94,7 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
 
     		that.k.title()
     			.backgroundColor(that)
-    			.export(that, "#"+that.container_id,"waterfall")
+    			.export(that, "#"+that.container_id,"waterfallChart")
     			.subtitle()
     			.makeMainDiv(that.selector,1);
     		
@@ -120,7 +120,7 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
 
         } else if(that.mode === "infographics") {
             that.k.backgroundColor(that)
-                .export(that,"#"+that.container_id,"waterfall")
+                .export(that,"#"+that.container_id,"waterfallChart")
                 .emptyDiv()
                 .makeMainDiv(that.selector,1);
 
@@ -140,7 +140,7 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
         that.k.yAxis(that.svgContainer,that.yGroup,that.yScale,that.yDomain,that.y_tick_values)
                   .yAxisTitle(that.yGroup,undefined);
 
-        that.k.exportSVG(that,"#"+that.container_id,"barChart");
+        that.k.exportSVG(that,"#"+that.container_id,"waterfallChart");
 
         $(document).ready(function () { return that.k.resize(that.svgContainer,""); })
         $(window).on("resize", function () { return that.k.resize(that.svgContainer,""); });
