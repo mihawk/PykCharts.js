@@ -10,8 +10,7 @@
         </style>
     </head>
     <body>
-         <!-- 
-        <div id="area"></div>
+        <!--<div id="area"></div>
         <hr/>
         <div id="multiLine"></div>
         <hr/>
@@ -31,12 +30,12 @@
         <hr/>
         <div id="groupBar">
         </div>
-        <hr/>-->
+        <hr/>
         <div id="line"></div>
         <hr/>
         <div id="pulse"></div>
         <hr/>
-        <!--<div id="bar"></div>
+        <div id="bar"></div>
         <hr/>-->
         <div id="waterfall-chart"></div>
         <hr/>
@@ -59,7 +58,7 @@
                 var k = new PykCharts.multiD.waterfall({
                     selector: "#waterfall-chart",
                     data: "../data/german_erp_waterfall1.json",
-                    mode: "default",
+                    mode: "infographics",
                     chart_height: 330,
                     chart_width: 400,
                     chart_margin_left: 100,
@@ -72,7 +71,7 @@
 
                     chart_color: ["rgb(255, 60, 131)", "rgb(0, 185, 250)", "grey"], // ["negative-color", "positive-color"]
 
-                    real_time_charts_refresh_frequency: 1,
+                    // real_time_charts_refresh_frequency: 2,
 
                     // border_between_chart_elements_thickness: 3,
                     // border_between_chart_elements_color: "black",
@@ -80,83 +79,82 @@
 
                     "axis_y_pointer_length": 0,
                     "axis_y_line_color": "#fff",
-                    "axis_y_pointer_size" : 10,
-                    "axis_y_pointer_color" : "#1D1D1D",
+                    "axis_y_pointer_size" : 14,
+                    "axis_y_pointer_color" : "red",
                     "axis_y_pointer_weight": "normal",
+                    "axis_y_pointer_family": "Papyrus",
                     axis_y_title : "Buchhaltung",
 
-                    pointer_size: 10,
-                    // pointer_color: "#1D1D1D",
-                    pointer_weight: "normal",
+                    pointer_weight: "bold",
                     axis_onhover_highlight_enable: "yes",
-                    tooltip_enable: "no",
+                    // tooltip_enable: "no",
 
                     // background_color: "red",
                     export_enable: "yes",
-                    waterfall_connectors_enable: "Years"
+                    waterfall_connectors_enable: "Yes"
                 });
                 k.execute();
 
-                var k = new PykCharts.multiD.line ({
-                    selector: "#line",
-                    data: "../data/linechart_linear.json",
-                    mode : "default",
-                    color_mode: "color", //color or saturation
-                    chart_color:["#00008B"],
-                    title_text:"Air Pollution in New York </br>(23/12/2013 - 29/12/2013)",
-                    title_family:"sans-serif",
-                    title_weight: "normal",
-                    subtitle_text:"this the analysis",
-                    chart_height: 400,
-                    chart_width : 500,
-                    // background_color: "pink",
-                    pointer_overflow_enable :"yes",
+                // var k = new PykCharts.multiD.line ({
+                //     selector: "#line",
+                //     data: "../data/linechart_linear.json",
+                //     mode : "default",
+                //     color_mode: "color", //color or saturation
+                //     chart_color:["#00008B"],
+                //     title_text:"Air Pollution in New York </br>(23/12/2013 - 29/12/2013)",
+                //     title_family:"sans-serif",
+                //     title_weight: "normal",
+                //     subtitle_text:"this the analysis",
+                //     chart_height: 400,
+                //     chart_width : 500,
+                //     // background_color: "pink",
+                //     pointer_overflow_enable :"yes",
 
-                    chart_margin_top: 30,
-                    chart_margin_right: 10,
-                    chart_margin_bottom: 30,
-                    chart_margin_left: 0,
+                //     chart_margin_top: 30,
+                //     chart_margin_right: 10,
+                //     chart_margin_bottom: 30,
+                //     chart_margin_left: 0,
 
-                    chart_grid_x_enable: "yes",
-                    chart_grid_y_enable: "yes",
+                //     chart_grid_x_enable: "yes",
+                //     chart_grid_y_enable: "yes",
 
-                    transition_duration: 0,
+                //     transition_duration: 0,
 
-                    real_time_charts_refresh_frequency: 0,
-                    axis_onhover_highlight_enable: "yes",
-                    axis_x_enable: "yes",
-                    axis_x_title : "Month",
-                    axis_x_position: "bottom",
-                    axis_x_pointer_position: "bottom",
-                    axis_x_line_color: "#1D1D1D",
-                    axis_x_pointer_size: 12,
-                    axis_x_pointer_padding: 2,
-                    axis_x_no_of_axis_value: 8,
-                    axis_x_outer_pointer_length: 5,
-                    "axis_x_no_of_axis_value": 10,
-                    // axis_x_pointer_values : [3,6],
-                    axis_x_time_value_datatype:"month",
-                    axis_x_time_value_interval: 1,
-                    axis_y_title:"testing",
-                    axis_y_enable: "yes",
-                    axis_y_position: "left",
-                    axis_y_pointer_position: "left",
-                    axis_y_line_color: "red",
-                    axis_y_pointer_size: 12,
-                    axis_y_pointer_padding: 5,
-                    // axis_y_pointer_values : [3,6],
-                    axis_y_outer_pointer_length: 10,
-                    curvy_lines_enable:"no",
-                    tooltip_enable: "no",
-                    tooltip_mode : "moving",
-                    crosshair_enable: "yes",
-                    zoom_enable: "yes",
-                    annotation_enable: "yes",
-                    annotation_view_mode: "onload",
-                    highlight_color : "red",
-                    highlight : "NEw York",
-                    pointer_size : 12
-                });
+                //     real_time_charts_refresh_frequency: 0,
+                //     axis_onhover_highlight_enable: "yes",
+                //     axis_x_enable: "yes",
+                //     axis_x_title : "Month",
+                //     axis_x_position: "bottom",
+                //     axis_x_pointer_position: "bottom",
+                //     axis_x_line_color: "#1D1D1D",
+                //     axis_x_pointer_size: 12,
+                //     axis_x_pointer_padding: 2,
+                //     axis_x_no_of_axis_value: 8,
+                //     axis_x_outer_pointer_length: 5,
+                //     "axis_x_no_of_axis_value": 10,
+                //     // axis_x_pointer_values : [3,6],
+                //     axis_x_time_value_datatype:"month",
+                //     axis_x_time_value_interval: 1,
+                //     axis_y_title:"testing",
+                //     axis_y_enable: "yes",
+                //     axis_y_position: "left",
+                //     axis_y_pointer_position: "left",
+                //     axis_y_line_color: "red",
+                //     axis_y_pointer_size: 12,
+                //     axis_y_pointer_padding: 5,
+                //     // axis_y_pointer_values : [3,6],
+                //     axis_y_outer_pointer_length: 10,
+                //     curvy_lines_enable:"no",
+                //     tooltip_enable: "no",
+                //     tooltip_mode : "moving",
+                //     crosshair_enable: "yes",
+                //     zoom_enable: "yes",
+                //     annotation_enable: "yes",
+                //     annotation_view_mode: "onload",
+                //     highlight_color : "red",
+                //     highlight : "NEw York",
+                //     pointer_size : 12
+                // });
                 // k.execute();
 
                 // var k = new PykCharts.multiD.area ({
@@ -584,70 +582,70 @@
                 // });
                 // // k.execute();
 
-                var k = new PykCharts.multiD.pulse({
-                    selector: "#pulse",
-                    data: "../data/pulse.json",
-                    mode : "default", //  default or infographics
-                    title_text: "Lorem Ipsum",
+                // var k = new PykCharts.multiD.pulse({
+                //     selector: "#pulse",
+                //     data: "../data/pulse.json",
+                //     mode : "default", //  default or infographics
+                //     title_text: "Lorem Ipsum",
 
-                    // chart_color: ["#75b0e1","#4682b4","#013f73"],
-                    chart_color:["red","green","blue"],
+                //     // chart_color: ["#75b0e1","#4682b4","#013f73"],
+                //     chart_color:["red","green","blue"],
 
-                    background_color:"white",
+                //     background_color:"white",
 
-                    chart_height: 350,
-                    chart_width : 650,
-                    chart_margin_top: 5,
-                    chart_margin_right: 25,
-                    chart_margin_bottom: 35,
-                    chart_margin_left: 65,
+                //     chart_height: 350,
+                //     chart_width : 650,
+                //     chart_margin_top: 5,
+                //     chart_margin_right: 25,
+                //     chart_margin_bottom: 35,
+                //     chart_margin_left: 65,
 
-                    transition_duration: 0,
-                    real_time_charts_refresh_frequency: 0,
+                //     transition_duration: 0,
+                //     real_time_charts_refresh_frequency: 0,
 
-                    axis_onhover_highlight_enable: "yes",
+                //     axis_onhover_highlight_enable: "yes",
 
-                    axis_x_enable: "yes",
-                    axis_x_title : "Years",
-                    axis_x_position: "bottom",
-                    axis_x_pointer_position: "bottom",
-                    axis_x_line_color: "red",
-                    axis_x_pointer_color: "blue",
-                    axis_x_pointer_size: 15,
-                    axis_x_pointer_padding: 3,
-                    axis_x_pointer_values: [2002, 2004, 2006, 2008],
-                    axis_x_outer_pointer_length: 3,
+                //     axis_x_enable: "yes",
+                //     axis_x_title : "Years",
+                //     axis_x_position: "bottom",
+                //     axis_x_pointer_position: "bottom",
+                //     axis_x_line_color: "red",
+                //     axis_x_pointer_color: "blue",
+                //     axis_x_pointer_size: 15,
+                //     axis_x_pointer_padding: 3,
+                //     axis_x_pointer_values: [2002, 2004, 2006, 2008],
+                //     axis_x_outer_pointer_length: 3,
 
-                    axis_y_enable: "yes",
-                    axis_y_title : "Categories",
-                    axis_y_position: "left",
-                    axis_y_pointer_position: "left",
-                    axis_y_line_color: "red",
-                    axis_y_pointer_color: "blue",
-                    axis_y_pointer_size: 15,
-                    axis_y_pointer_padding: 10,
-                    axis_x_pointer_values: [],
-                    axis_y_outer_pointer_length: 3,
-                    // axis_x_pointer_values : [3000],
+                //     axis_y_enable: "yes",
+                //     axis_y_title : "Categories",
+                //     axis_y_position: "left",
+                //     axis_y_pointer_position: "left",
+                //     axis_y_line_color: "red",
+                //     axis_y_pointer_color: "blue",
+                //     axis_y_pointer_size: 15,
+                //     axis_y_pointer_padding: 10,
+                //     axis_x_pointer_values: [],
+                //     axis_y_outer_pointer_length: 3,
+                //     // axis_x_pointer_values : [3000],
 
-                    tooltip_mode : "moving",
-                    tooltip_enable : "yes",
-                    crosshair_enable: "yes",
-                    panels_enable: "yes",
-                    variable_circle_size_enable : "no",
+                //     tooltip_mode : "moving",
+                //     tooltip_enable : "yes",
+                //     crosshair_enable: "yes",
+                //     panels_enable: "yes",
+                //     variable_circle_size_enable : "no",
 
-                    legends_enable: "yes",
-                    legends_display: "horizontal",
-                    legends_text_size: 13,
-                    legends_text_color: "black",
-                    legends_text_weight: "normal",
-                    legends_text_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
+                //     legends_enable: "yes",
+                //     legends_display: "horizontal",
+                //     legends_text_size: 13,
+                //     legends_text_color: "black",
+                //     legends_text_weight: "normal",
+                //     legends_text_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
 
-                    border_between_chart_elements_thickness: 0,
-                    border_between_chart_elements_color: "white",
-                    border_between_chart_elements_style: "solid"
+                //     border_between_chart_elements_thickness: 0,
+                //     border_between_chart_elements_color: "white",
+                //     border_between_chart_elements_style: "solid"
 
-                });
+                // });
                 // k.execute();
 
                 // var k = new PykCharts.multiD.column({

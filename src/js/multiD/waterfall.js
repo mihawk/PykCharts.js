@@ -130,8 +130,8 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
             	.axisContainer()
                 .createScales()
                 .ticks()
-                .createChart()
-                .connectors();
+                .createChart()/*
+                .connectors()*/;
 
             that.k.tooltip();
             
@@ -256,6 +256,9 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
                 rect.exit()
                 	.remove();
 
+                that.bars.exit()
+                	.remove();
+
 		       	return this;
             },
             ticks: function() {
@@ -269,8 +272,8 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
 		    		ticks.enter().append("text")
 	    				.attr("class","ticks-text")
 	                    .style("font-weight", that.pointer_weight)
-	                    .style("font-size", that.pointer_size + "px")
-	                    .style("font-family", that.pointer_family);
+	                    .style("font-size", that.axis_y_pointer_size + "px")
+	                    .style("font-family", that.axis_y_pointer_family);
 
 	            	ticks.text(function(d) {
 			       			return that.ticks_formatter(d.weight);
@@ -295,7 +298,7 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
 			    }
 
             	return this;
-            },
+            }/*,
             connectors: function() {
             	if(PykCharts['boolean'](that.waterfall_connectors_enable)) {
             		that.bars.filter(function(d) { return d.name.toLowerCase() != "total" }).append("line")
@@ -310,11 +313,8 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
 					    // .attr("y2", function(d) { return that.yScale(d.end); } );
             	}
 
-                that.bars.exit()
-                	.remove();
-
             	return this;
-            }
+            }*/
     	};
     	return optional;
     };
