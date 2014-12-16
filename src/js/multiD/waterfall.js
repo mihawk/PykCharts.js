@@ -11,15 +11,24 @@ PykCharts.multiD.waterfall = function(options){
         that.panels_enable = "no";
         that.longest_tick_width = 0;
         that.ticks_formatter = d3.format("s");
-        that.waterfall_connectors_enable = options.waterfall_connectors_enable ? options.waterfall_connectors_enable.toLowerCase() : multiDimensionalCharts.waterfall_connectors_enable;
-        if (that.chart_color.length == 0) {
-        	that.chart_color = ["rgb(255, 60, 131)", "rgb(0, 185, 250)", "grey"];
+        // that.waterfall_connectors_enable = options.waterfall_connectors_enable ? options.waterfall_connectors_enable.toLowerCase() : multiDimensionalCharts.waterfall_connectors_enable;
+        
+        try {
+        	if (that.chart_color.length == 0) {
+	        	that.chart_color = ["rgb(255, 60, 131)", "rgb(0, 185, 250)", "grey"];
+	        	throw "chart_color";
+	        }
+	        else if (that.chart_color.length == 1) {
+	        	that.chart_color.push("rgb(0, 185, 250)", "grey");
+	        	throw "chart_color";
+	        }
+	        else if (that.chart_color.length == 2) {
+	        	that.chart_color.push("grey");
+	        	throw "chart_color";
+	        }
         }
-        else if (that.chart_color.length == 1) {
-        	that.chart_color.push("rgb(0, 185, 250)", "grey");
-        }
-        else if (that.chart_color.length == 2) {
-        	that.chart_color.push("grey");
+        catch(err) {
+        	console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+that.selector+".(\""+"You seem to have passed less than three colors for '"+err+"', in a waterfall chart."+"\")  Visit www.chartstore.io/docs#warning_"+"16");
         }
         
         if(that.stop)
@@ -40,8 +49,6 @@ PykCharts.multiD.waterfall = function(options){
 
             that.data = that.k.__proto__._groupBy("oned",data);
             that.compare_data = that.k.__proto__._groupBy("oned",data);
-
-            // 
 
             that.axis_y_data_format = that.k.yAxisDataFormatIdentification(that.data);
             that.axis_x_data_format = "number";
