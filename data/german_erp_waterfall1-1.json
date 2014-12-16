@@ -1,0 +1,43 @@
+[
+    {
+        "name": "Sales",
+        "weight": 385470,
+        "tooltip": "This actually didn't take any conceptualization"
+    },
+    {
+        "name": "Discounts",
+        "weight": 225480,
+        "tooltip": "No sketching either, really"
+    },
+    {
+        "name": "Deductions",
+        "weight": -1243150
+    },
+    {
+        "name": "Labor Costs",
+        "weight": 205440,
+        "tooltip": "all three lines of it"
+    },
+    {
+        "name": "Material Costs",
+        "weight": 295490
+    },
+    {
+        "name": "Contribution Margin",
+        "weight": 225110,
+        "tooltip": "This counts, right?"
+    },
+    {
+        "name": "Marketing",
+        "weight": -448450
+    },
+    {
+        "name": "Purchase",
+        "weight": -225110,
+        "tooltip": "All the things"
+    },
+    {
+        "name": "Income",
+        "weight": 325480
+    }
+]
