@@ -208,7 +208,7 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
 
             	that.xScale = d3.scale.linear()
 		        	.domain([0, d3.max(that.data, function(d) { return d.end; })])
-		        	.range([0, (that.reducedWidth - that.longest_tick_width + that.margin_right)]);
+		        	.range([0, (that.reducedWidth - that.longest_tick_width - 15 + that.margin_right)]);
 
 		    	var rect = that.bars.selectAll(".rect")
 	    				.data(function(d){
