@@ -13,8 +13,7 @@ module.exports = function(grunt) {
         concat: {
             'js': {
                 'src': [
-                      'src/licence.js'
-                    , '<%= js_src_path %>/pyk.js'
+                      '<%= js_src_path %>/pyk.js'
                     , '<%= js_src_path %>/oneD/oneD.js'
                     , '<%= js_src_path %>/oneD/bubble.js'
                     , '<%= js_src_path %>/oneD/funnel.js'

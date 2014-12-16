@@ -31,20 +31,20 @@ PykCharts.maps.oneLayer = function (options) {
     this.optionalFeatures = function () {
         var config = {
             enableLegend: function (el) {
-                if (PykCharts.boolean(el)) {
+                if (PykCharts['boolean'](el)) {
                     that.renderLegend();
                 };
                 return this;
             },
             enableLabel: function (el) {
-                if (PykCharts.boolean(el)) {
+                if (PykCharts['boolean'](el)) {
                     that.renderLabel();
                 };
                 return this;
             },
             enableClick: function (ec) {
                 console.log(ec);
-                if (PykCharts.boolean(ec)) {
+                if (PykCharts['boolean'](ec)) {
                     that.areas.on("click", that.clicked);
                     // that.onhover = "color_saturation";
                     that.onhover1 = that.onhover;
@@ -133,14 +133,14 @@ PykCharts.maps.oneLayer = function (options) {
             .attr("stroke-width", that.border.thickness + "px")
             .on("mouseover", function (d,i) {
                 // console.log(d.properties,"^^^^^^");
-                if (PykCharts.boolean(that.tooltip.enable)) {
+                if (PykCharts['boolean'](that.tooltip.enable)) {
                     ttp.style("visibility", "visible");
                     ttp.html((_.where(that.data, {iso2: d.properties.iso_a2})[0]).tooltip);
                 }
                 that.bodColor(d);
             })
             .on("mousemove", function () {
-                if (PykCharts.boolean(that.tooltip.enable)) {
+                if (PykCharts['boolean'](that.tooltip.enable)) {
                     if (that.tooltip.mode === "moving") {
                         ttp.style("top", function () {
 
@@ -158,7 +158,7 @@ PykCharts.maps.oneLayer = function (options) {
                 }
             })
             .on("mouseout", function (d) {
-                if (PykCharts.boolean(that.tooltip.enable)) {
+                if (PykCharts['boolean'](that.tooltip.enable)) {
                     ttp.style("visibility", "hidden");
                 }
                 that.bodUncolor(d);
@@ -167,10 +167,10 @@ PykCharts.maps.oneLayer = function (options) {
             .enableLabel(that.label.enable)
             .enableClick(that.enableClick);
 
-        if (PykCharts.boolean(that.creditMySite.enable)) {
+        if (PykCharts['boolean'](that.creditMySite.enable)) {
             that.k.credits();
         }
-        if (PykCharts.boolean(that.dataSource.enable)) {
+        if (PykCharts['boolean'](that.dataSource.enable)) {
             console.log("dataSource");
              that.k.dataSource();
         }

@@ -115,7 +115,7 @@ PykCharts.multiD.ultimate = function(options){
                     .attr("class","svggroup")
                     .attr("transform","translate(" + that.margin.left + "," + that.margin.top +")");
 
-                if(PykCharts.boolean(that.grid.yEnabled)) {
+                if(PykCharts['boolean'](that.grid.yEnabled)) {
                     that.group.append("g")
                         .attr("id","ygrid")
                         .style("stroke",that.grid.color)
@@ -124,7 +124,7 @@ PykCharts.multiD.ultimate = function(options){
                 return this;
             },
             legendsContainer: function (i) {
-                if(PykCharts.boolean(that.legends.enable)) {
+                if(PykCharts['boolean'](that.legends.enable)) {
                     that.legend_svg = d3.select(options.selector + " #tooltip-svg-container-" + i)
                         .append("svg:svg")
                         .attr("width",that.width)
@@ -140,7 +140,7 @@ PykCharts.multiD.ultimate = function(options){
                 return this;
             },
             axisContainer : function () {
-                if(PykCharts.boolean(that.axis.x.enable)) {
+                if(PykCharts['boolean'](that.axis.x.enable)) {
                     var axis_line = that.group.selectAll(".axis-line")
                         .data(["line"]);
 
@@ -165,7 +165,7 @@ PykCharts.multiD.ultimate = function(options){
                         .style("stroke","none");
                 }
 
-                if(PykCharts.boolean(that.axis.y.enable)) {
+                if(PykCharts['boolean'](that.axis.y.enable)) {
                     that.ygroup = that.group.append("g")
                         .attr("id","yaxis")
                         .attr("class","y axis");
@@ -261,7 +261,7 @@ PykCharts.multiD.ultimate = function(options){
                         return that.fillColor.colorPieMS(d);
                     })
                     .attr("fill-opacity", function (d,i) {
-                        if(PykCharts.boolean(that.saturationEnable))     {
+                        if(PykCharts['boolean'](that.saturationEnable))     {
                             if(d.highlight) {
                                 j--;
                                 return 1;
@@ -350,7 +350,7 @@ PykCharts.multiD.ultimate = function(options){
                 return this;
             },
             legends: function () {
-                if(PykCharts.boolean(that.legends.enable)) {
+                if(PykCharts['boolean'](that.legends.enable)) {
                     var params = that.getParameters(),color;
                     // console.log(params);
                     color = params[0].color;
@@ -407,7 +407,7 @@ PykCharts.multiD.ultimate = function(options){
                             return that.fillColor.colorPieMS(color);
                         })
                         .attr("fill-opacity", function (d,i) {
-                            if(PykCharts.boolean(that.saturationEnable)){
+                            if(PykCharts['boolean'](that.saturationEnable)){
                                 return (that.max_length-i)/that.max_length;
                             }
                         });
@@ -548,7 +548,7 @@ PykCharts.multiD.ultimate = function(options){
             // console.log(that.the_layers[i]);
             if(!that.the_layers[i].name) continue;
             for(var j in that.the_layers[i].values) {
-                if(!PykCharts.boolean(that.the_layers[i].values[j].y)) continue;
+                if(!PykCharts['boolean'](that.the_layers[i].values[j].y)) continue;
                 var name = that.the_layers[i].values[j].group, color;
                 if(options.optional && options.optional.colors) {
                     if(options.optional.colors.chartColor) {
