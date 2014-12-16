@@ -485,7 +485,7 @@ PykCharts.multiD.columnFunctions = function (options,chartObject,type) {
                                 return d.x;
                             })
                             .attr("text-anchor", "middle")
-                            .attr("fill",that.axis_x_pointer_color)
+                            .style("fill",that.axis_x_pointer_color)
                             .attr("font-size",that.axis_x_pointer_size + "px")
                             .style("font-weight",that.axis_x_pointer_weight)
                             .style("font-family",that.axis_x_pointer_family)

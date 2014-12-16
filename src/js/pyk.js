@@ -582,7 +582,7 @@ PykCharts.Configuration = function (options){
             var k = new PykCharts.Configuration(options);
             var e = extra;
             if(PykCharts['boolean'](options.axis_x_enable)) {
-                d3.selectAll(options.selector + " .x.axis").attr("fill",function () {return options.axis_x_pointer_color;});
+                // d3.selectAll(options.selector + " .x.axis").attr("fill",function () {return options.axis_x_pointer_color;});
                 if(options.axis_x_position === "bottom") {
                     gsvg.attr("transform", "translate(0," + (options.height - options.margin_top - options.margin_bottom - legendsGroup_height) + ")");
                 }
@@ -599,6 +599,7 @@ PykCharts.Configuration = function (options){
                 }
 
                 d3.selectAll(options.selector + " .x.axis .tick text")
+                        .style("fill", options.axis_x_pointer_color)
                         .attr("font-size",options.axis_x_pointer_size)
                         .style("font-weight",options.axis_x_pointer_weight)
                         .style("font-family",options.axis_x_pointer_family);
@@ -626,7 +627,7 @@ PykCharts.Configuration = function (options){
                 if(options.axis_y_position === "right") {
                     gsvg.attr("transform", "translate(" + (w - options.margin_left - options.margin_right - legendsGroup_width) + ",0)");
                 }
-                d3.selectAll(options.selector + " .y.axis").attr("fill",function () { return options.axis_y_pointer_color; });
+                // d3.selectAll(options.selector + " .y.axis").style("fill",function () { return options.axis_y_pointer_color; });
                 var yaxis = PykCharts.Configuration.makeYAxis(options,yScale,legendsGroup_width);
 
                 if(tick_values && tick_values.length) {
@@ -642,9 +643,10 @@ PykCharts.Configuration = function (options){
                 }
 
                 d3.selectAll(options.selector + " .y.axis .tick text")
-                        .attr("font-size",options.axis_y_pointer_size)
-                        .style("font-weight",options.axis_y_pointer_weight)
-                        .style("font-family",options.axis_y_pointer_family);
+                    .style("fill",options.axis_y_pointer_color)
+                    .attr("font-size",options.axis_y_pointer_size)
+                    .style("font-weight",options.axis_y_pointer_weight)
+                    .style("font-family",options.axis_y_pointer_family);
 
             }
             return this;
@@ -1912,7 +1914,12 @@ configuration.mouseEvent = function (options) {
             return this;
         },
         axisHighlightShow: function (active_tick,axisHighlight,domain,a) {
-            var curr_tick,prev_tick,abc,selection,axis_data_length;
+            var curr_tick = '',
+                prev_tick = '',
+                abc = '',
+                selection = '',
+                axis_data_length = 0;
+
             if(PykCharts['boolean'](options.axis_onhover_highlight_enable)/* && options.mode === "default"*/){
                 if(axisHighlight === options.selector + " .y.axis" && a == undefined){
                     selection = axisHighlight+" .tick text";
@@ -1946,6 +1953,7 @@ configuration.mouseEvent = function (options) {
                         selection = axisHighlight+" .tick text";
                         abc = options.axis_y_pointer_color;
                     }
+                    
                     if(prev_tick !== undefined) {
                         d3.select(d3.selectAll(selection)[0][prev_tick])
                             .style("fill",abc)
@@ -1968,9 +1976,8 @@ configuration.mouseEvent = function (options) {
                         }
                     }
                     prev_tick = curr_tick;
-
                     d3.selectAll(selection)
-                        .style("fill","#bbb")
+                        .style("fill","#bbb");
                     d3.select(d3.selectAll(selection)[0][curr_tick])
                         .style("fill",abc)
                         .style("font-weight","bold");
