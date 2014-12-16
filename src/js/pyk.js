@@ -872,7 +872,7 @@ PykCharts.Configuration = function (options){
                             values.push(parseFloat(options.axis_x_pointer_values[i]))
                         }
                     } else if(options.axis_x_data_format === "time") {
-                        if(!(isNaN(new Date(data[0].x).getTime()))) {
+                        if(!(isNaN(new Date(options.axis_x_pointer_values[i]).getTime()))) {
                             values.push(options.axis_x_pointer_values[i])
                         }
                     }
@@ -1994,7 +1994,6 @@ configuration.mouseEvent = function (options) {
                         }
                     }
                     prev_tick = curr_tick;
-
                     d3.selectAll(selection)
                         .style("fill","#bbb")
                     d3.select(d3.selectAll(selection)[0][curr_tick])
@@ -2040,6 +2039,25 @@ configuration.mouseEvent = function (options) {
         },
         highlightHide: function (selectedclass) {
             d3.selectAll(selectedclass)
+                .attr("fill-opacity",function (d,i) {
+                    return $(this).attr("data-fill-opacity");
+                });
+            return this;
+        },
+        highlightGroup: function (selectedclass, that, element) {
+            var t = d3.select(that);
+
+            var group = d3.selectAll(selectedclass);
+
+                group.selectAll(element)
+                    .attr("fill-opacity",.5)
+
+            t.selectAll(element).attr("fill-opacity",1);
+
+            return this;
+        },
+        highlightGroupHide : function (selectedclass,element) {
+            d3.selectAll(selectedclass+" "+element)
                 .attr("fill-opacity",function (d,i) {
                     return $(this).attr("data-fill-opacity");
                 });

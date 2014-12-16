@@ -247,6 +247,8 @@ PykCharts.multi_series_2D.groupedColumn = function (options) {
                 }
                 
                 that.max = d3.max(that.series, function(d) { return d3.max(d.series, function(d) { return d.weight; }); });
+
+                
                 that.min = d3.min(that.series, function(d) { return d3.min(d.series, function(d) { return d.weight; }); }); 
 
                 that.yScale = d3.scale.linear()

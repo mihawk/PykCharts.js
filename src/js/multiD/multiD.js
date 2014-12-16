@@ -160,7 +160,7 @@ PykCharts.multiD.configuration = function (options){
             var k = 0;
             var checkGroup = true;
             var checkColor = true;
-
+            data = new PykCharts.multiD.sortDataByGroup(data);
             data.forEach(function (item) {
                 if(item.group) {
                     checkGroup = true;
@@ -169,7 +169,7 @@ PykCharts.multiD.configuration = function (options){
                     if(options.chart_color) {
                         checkGroup = false;
                         item.color = options.chart_color[0];
-                    }else if(item.color) {
+                    } else if(item.color) {
                         checkColor = false;
                         item.color = item.color;
                     } else{
@@ -185,17 +185,17 @@ PykCharts.multiD.configuration = function (options){
                         unique[item.group] = item;
                         if(options.chart_color.length !== 0 && PykCharts['boolean'](options.chart_color[k])) {
                             item.color = options.chart_color[k];
-                        }else if(item.color) {
+                        } else if(item.color) {
                             item.color = item.color;
                         } else {
                             item.color = options.default_color;
                         }
-                        if(i<data.length-2 &&item.group !== data[i+1].group) {
+                        if(i<data.length-2 && item.group !== data[i+1].group) {
                             k++;
                         }
                         newarr.push(item);
                     } else {
-                        if(i<data.length-2 &&item.group !== data[i+1].group) {
+                        if(i < data.length-2 && item.group !== data[i+1].group) {
                             k++;
                         }
                     }
@@ -250,15 +250,15 @@ PykCharts.multiD.configuration = function (options){
 PykCharts.multiD.mouseEvent = function (options) {
     var highlight_selected = {
         highlight: function (selectedclass, that) {
-                var t = d3.select(that);
-                d3.selectAll(selectedclass)
-                    .attr("opacity",.5)
-                t.attr("opacity",1);
-                return this;
+            var t = d3.select(that);
+            d3.selectAll(selectedclass)
+                .attr("opacity",.5)
+            t.attr("opacity",1);
+            return this;
         },
         highlightHide : function (selectedclass) {
-                d3.selectAll(selectedclass)
-                    .attr("opacity",1);
+            d3.selectAll(selectedclass)
+                .attr("opacity",1);
             return this;
         }
     }
@@ -280,6 +280,18 @@ PykCharts.multiD.bubbleSizeCalculation = function (options,data,rad_range) {
     };
     return size;
 };
+
+PykCharts.multiD.sortDataByGroup = function (data) {
+    data.sort(function(a,b) {
+        if (a.group < b.group) {
+            return -1;
+        }
+        else if (a.group > b.group) {
+            return 1;
+        }
+    });
+    return data;
+}
 
 PykCharts.multiD.processInputs = function (chartObject, options) {
 
@@ -337,6 +349,9 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     chartObject.axis_x_line_color = PykCharts['boolean'](chartObject.axis_x_enable) && options.axis_x_line_color ? options.axis_x_line_color : stylesheet.axis_x_line_color;
 
     chartObject.onhover_enable = options.chart_onhover_highlight_enable ? options.chart_onhover_highlight_enable : stylesheet.chart_onhover_highlight_enable;
+
+    chartObject.axis_x_no_of_axis_value = PykCharts.boolean(chartObject.axis_x_enable) && options.axis_x_no_of_axis_value ? options.axis_x_no_of_axis_value : stylesheet.axis_x_no_of_axis_value;
+    chartObject.axis_x_pointer_padding = PykCharts.boolean(chartObject.axis_x_enable) && options.axis_x_pointer_padding ? options.axis_x_pointer_padding : stylesheet.axis_x_pointer_padding;
 
     chartObject.axis_x_no_of_axis_value = PykCharts['boolean'](chartObject.axis_x_enable) && options.axis_x_no_of_axis_value ? options.axis_x_no_of_axis_value : stylesheet.axis_x_no_of_axis_value;
     chartObject.axis_x_pointer_padding = PykCharts['boolean'](chartObject.axis_x_enable) && options.axis_x_pointer_padding ? options.axis_x_pointer_padding : stylesheet.axis_x_pointer_padding;
