@@ -43,7 +43,7 @@
         <script src="../src/js/multiD/lineChart.js"></script>
         <script src="../src/js/multiD/spiderWeb.js"></script>
         <script src="../src/js/multiD/scatterplot.js"></script>
-        <script src="../src/js/multiD/barChart.js"></script>
+        <script src="../src/js/multiD/bar.js"></script>
 
         <script>
 
@@ -109,7 +109,7 @@
                     highlight : "NEw York",
                     pointer_size : 12
                 });
-//            k.execute();
+           k.execute();
 
                 var k = new PykCharts.multiD.area ({
                     selector: "#area",
@@ -171,7 +171,7 @@
                     annotation_background_color:"red",
                     border_between_chart_elements_thickness: 2
                 });
-    //         k.execute();
+            k.execute();
 
                 var k = new PykCharts.multiD.spiderWeb ({
                     selector: "#spiderWeb",
@@ -209,7 +209,7 @@
                     legends_text_weight: "normal",
                     legends_text_family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
                 });
-   //             k.execute();
+               k.execute();
 
                 var k = new PykCharts.multiD.scatter ({
                     selector: "#scatterPlot",
@@ -348,7 +348,7 @@
                     border_between_chart_elements_thickness:0,
                     border_between_chart_elements_color:"blue"
                 });
-     //       k.execute();
+           k.execute();
 
                 var k = new PykCharts.multiD.panelsOfLine ({
                     selector: "#multiLine",
@@ -431,7 +431,7 @@
                     transition_duration: 1,
                     real_time_charts_refresh_frequency: 0,
 
-                    axis_onhover_highlight_enable: "no",
+                    axis_onhover_highlight_enable: "yes",
 
                     axis_x_enable: "yes",
                     axis_x_title : "Industries",
@@ -467,7 +467,7 @@
                     annotation_view_mode: "onclick",
                     annotation_background_color:"#ff4c4c"
                 });
-     //        k.execute();
+            k.execute();
 
                 var k = new PykCharts.multiD.stackedArea ({
 
@@ -661,6 +661,7 @@
                     highlight:"January"
                 });
             k.execute();
+
                 var k = new PykCharts.multiD.bar({
                     data: "../data/ultimatebar_date.json",
                     mode: "default",
@@ -683,7 +684,7 @@
                     axis_x_enable: "yes",
                     axis_x_title : "Rainfall",
                     axis_x_position: "bottom",
-                    // axis_x_pointer_position: "bottom",
+                    axis_x_pointer_position: "bottom",
                     axis_x_line_color: "#1D1D1D",
                     axis_x_pointer_color: "#1D1D1D",
                     axis_x_pointer_size: 12,
@@ -713,13 +714,13 @@
                     pointer_size: 10,
                     pointer_color: "#1D1D1D",
                     pointer_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
-                    highlight: "12-12-2014",
+                    highlight: "2014-12-12",
                      panels_enable: "yes",
 
                     data_sort_type: "alphabetically",
                     data_sort_order: "ascending"
                 });
-          // k.execute();
+          k.execute();
 
 
                 var k = new PykCharts.multiD.groupedBar({
@@ -794,7 +795,8 @@
                     // legends_text_weight: "bold",
                     // legends_text_size: 28
                 });
-      //      k.execute();
+           // k.execute();
+
                 var k = new PykCharts.multiD.groupedColumn({
                     data: "../data/ultimateGroupColumn.json",
                     mode: "default",

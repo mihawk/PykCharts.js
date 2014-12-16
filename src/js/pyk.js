@@ -907,6 +907,7 @@ PykCharts.Configuration = function (options){
             }
         },
         yAxisDataFormatIdentification : function (data) {
+            console.log(data[0].y)
             if(_.isNumber(data[0].y) || !(isNaN(data[0].y))){
                 return "number";
             } else if(!(isNaN(new Date(data[0].y).getTime()))) {
@@ -1912,7 +1913,6 @@ configuration.mouseEvent = function (options) {
                     selection = axisHighlight+" .tick text";
                     abc = options.axis_y_pointer_color;
                     axis_data_length = d3.selectAll(selection)[0].length;
-
                     d3.selectAll(selection)
                         .style("fill","#bbb")
                         .style("font-weight","normal");
