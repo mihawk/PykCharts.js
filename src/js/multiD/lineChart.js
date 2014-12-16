@@ -221,7 +221,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                 that.reducedHeight = that.height - that.margin_top - that.margin_bottom;
                 that.fill_data = [];
                 that.xdomain = [];
-                if(that.axis_x_data_format === "time") {
+                {
                     for(i = 0;i<that.new_data_length;i++) {
 
                         that.new_data[i].data.forEach(function (d) {

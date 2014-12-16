@@ -41,7 +41,7 @@ PykCharts.multiD.waterfall = function(options){
             that.data = that.k.__proto__._groupBy("oned",data);
             that.compare_data = that.k.__proto__._groupBy("oned",data);
 
-            // console.log("On load data >>> ", that.data, data);
+            // 
 
             that.axis_y_data_format = that.k.yAxisDataFormatIdentification(that.data);
             that.axis_x_data_format = "number";

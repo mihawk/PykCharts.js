@@ -38,10 +38,11 @@
         <hr/> -->
         <div id="waterfall-chart"></div>
         <hr/>
-
+        <script src="../src/js/init.js"></script>
         <script src="../src/js/pyk.js"></script>
         <script src="../src/js/multiD/multiD.js"></script>
-        <script src="../src/js/multiD/columnChart.js"></script>
+        <script src="../src/js/multiD/column.js"></script>
+        <script src="../src/js/multiD/groupColumnChart.js"></script>
         <script src="../src/js/multiD/areaChart.js"></script>
         <script src="../src/js/multiD/lineChart.js"></script>
         <script src="../src/js/multiD/spiderWeb.js"></script>
@@ -655,13 +656,12 @@
                     chart_color:["steelblue"],
                     background_color:"white",
                     chart_height: 430,
-                    chart_width : 400,
+                    chart_width : 600,
                     chart_margin_top: 25,
                     chart_margin_right: 25,
                     chart_margin_bottom: 45,
                     chart_margin_left: 45,
                     chart_grid_y_enable: "yes",
-
                     real_time_charts_refresh_frequency: 2,
                     transition_duration: 0,
                     axis_onhover_highlight_enable: "yes",
@@ -670,12 +670,12 @@
                     axis_x_title : "Months",
                     axis_x_position: "bottom",
                     axis_x_pointer_position: "bottom",
-                    axis_x_line_color: "#1D1D1D",
+                    axis_x_line_color: "red",
 
                     "axis_x_pointer_size": 12,
                     "axis_x_pointer_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
                     "axis_x_pointer_weight": "normal",
-                    "axis_x_pointer_color": "blue",
+                    "axis_x_pointer_color": "red",
 
                     // axis_x_pointer_padding: NA,
                     // axis_x_outer_pointer_length: NA ,
@@ -787,7 +787,7 @@
                     chart_margin_bottom: 35,
                     chart_margin_left: 130,
 
-                    real_time_charts_refresh_frequency: 2,
+                    real_time_charts_refresh_frequency: 0,
 
                     axis_onhover_highlight_enable: "yes",
 
@@ -828,9 +828,7 @@
                     panels_enable: "yes",
 
                     data_sort_type: "alphabetically",
-                    data_sort_order: "ascending",
-                    axis_onhover_highlight_enable: "yes",
-                    tooltip_enable: "no"
+                    data_sort_order: "ascending"
                 });
                 // k.execute();
 
