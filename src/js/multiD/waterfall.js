@@ -196,7 +196,7 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
 		        that.yScale.rangeRoundBands([that.reducedHeight, 0], that.padding);
 
 		        that.bars = that.group.selectAll(".bar")
-		        		.data(that.data);
+		        		.data(that.rect_data);
 
 		        that.bars.attr("transform", function(d) { return "translate(0, " + that.yScale(d.name) + ")"; });
 
@@ -359,6 +359,7 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
     		total_weight = 0,
     		totol_group = 'positive';
     	that.data_length = that.data.length;
+    	that.rect_data = [];
 
     	_.each(that.data, function (d) {
     		temp_cumulative += d.weight;
@@ -388,5 +389,10 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
     	});
     	that.data.reverse();
     	that.data_length = that.data.length;
+
+    	for (var i=0 ; i<that.data_length ; i++) {
+    		that.rect_data[i] = that.data[i];
+    	}
+    	that.rect_data.reverse();
     };
 };
