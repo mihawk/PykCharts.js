@@ -51,11 +51,11 @@ PykCharts.multiD.bar = function (options) {
         that.fillColor = new PykCharts.Configuration.fillChart(that,null,options);
         that.transformData();
 
-        if(that.axis_x_data_format === "time") {
-            that.data.forEach(function (d) {
-                d.x =that.k.dateConversion(d.x);
-            });
-        }
+        // if(that.axis_x_data_format === "time") {
+        //     that.data.forEach(function (d) {
+        //         d.x =that.k.dateConversion(d.x);
+        //     });
+        // }
 
         that.map_group_data = that.multiD.mapGroup(that.data);
 
@@ -83,7 +83,8 @@ PykCharts.multiD.bar = function (options) {
 
             that.optionalFeatures()
                 .createColumn()
-                .axisContainer();
+                .axisContainer()
+                .ticks();
 
             that.k.yAxis(that.svgContainer,that.ygroup,that.yScale,that.y_domain,that.y_tick_values)
                 .xAxis(that.svgContainer,that.xgroup,that.xScale,that.extra_left_margin,that.x_domain,that.x_tick_values)
@@ -107,7 +108,8 @@ PykCharts.multiD.bar = function (options) {
 
             that.optionalFeatures()
                 .createColumn()
-                .axisContainer();
+                .axisContainer()
+                .ticks();
 
             that.k.yAxis(that.svgContainer,that.ygroup,that.yScale,that.y_domain,that.y_tick_values)
                 .xAxis(that.svgContainer,that.xgroup,that.xScale,that.extra_left_margin,that.x_domain,that.x_tick_values)
@@ -143,7 +145,8 @@ PykCharts.multiD.bar = function (options) {
             }
 
             that.optionalFeatures()
-                .createColumn();
+                .createColumn()
+                .ticks();
 
             that.k.yAxis(that.svgContainer,that.ygroup,that.yScale,that.y_domain,that.y_tick_values)
                 .xAxis(that.svgContainer,that.xgroup,that.xScale,that.extra_left_margin,that.x_domain,that.x_tick_values);
@@ -301,6 +304,39 @@ PykCharts.multiD.bar = function (options) {
                 that.bar.exit()
                     .remove();
 
+                return this;
+            },
+            ticks: function() {
+                if(that.pointer_size) {
+                    var tick_label = that.group.selectAll(".tickLabel")
+                        .data(that.data);
+
+                    tick_label.enter()
+                        .append("text")
+
+                    tick_label.attr("class","tickLabel");
+
+                    setTimeout(function () {
+                        tick_label.attr("x", function (d) { return that.xScale(d.x); })
+                            .attr("y",function (d) { return that.yScale(d.name) + ((that.reducedHeight/(that.data.length))-(0.03*that.reducedHeight))/2; })
+                            .attr("dx",4)
+                            .attr("dy",4)
+                            .style("font-weight", that.pointer_weight)
+                            .style("font-size", that.pointer_size + "px")
+                            .attr("fill", that.pointer_color)
+                            .style("font-family", that.pointer_family)
+                            .text(function (d) { 
+                                if(d.x) {
+                                    that.txt_width = this.getBBox().width;
+                                    that.txt_height = this.getBBox().height;
+                                    if(d.x && (that.txt_width< that.xScale(d.x)) && (that.txt_height < ((that.reducedHeight/(that.data.length))-(0.03*that.reducedHeight)))) {
+                                        return d.x;
+                                    }
+                                }
+                                return (d.x).toFixed(); 
+                            });
+                    }, that.transitions.duration());
+                }
                 return this;
             }
         };

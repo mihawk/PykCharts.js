@@ -634,6 +634,7 @@ PykCharts.Configuration = function (options){
                 }
 
                 var mouseEvent = new PykCharts.Configuration.mouseEvent(options);
+
                 gsvg.style("stroke",function () { return options.axis_y_line_color; })
                     .call(yaxis)
 
@@ -645,6 +646,7 @@ PykCharts.Configuration = function (options){
                         .attr("font-size",options.axis_y_pointer_size)
                         .style("font-weight",options.axis_y_pointer_weight)
                         .style("font-family",options.axis_y_pointer_family);
+                 d3.selectAll(options.selector + " .y.axis .domain").remove();
 
             }
             return this;
