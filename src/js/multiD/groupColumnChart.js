@@ -46,7 +46,7 @@ PykCharts.multiD.groupedColumn = function(options) {
         }
         that.uniq_group_arr = _.unique(that.group_arr);
         var len = that.uniq_group_arr.length;
-        
+
         for (k = 0;k < len;k++) {
             that.new_data[k] = {
                     name: that.uniq_group_arr[k],
@@ -154,7 +154,6 @@ PykCharts.multiD.groupedColumn = function(options) {
                 .axisContainer()
                .highlightRect();
 
-            // console.log(that.x_tick_values)
             that.k.xAxis(that.svgContainer,that.xGroup,that.xScale,that.extra_left_margin,that.xdomain,that.x_tick_values,that.legendsGroup_height)
             .yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain,that.y_tick_values,that.legendsGroup_width)
             .yGrid(that.svgContainer,that.group,that.yScale,that.legendsGroup_width)
@@ -251,7 +250,7 @@ PykCharts.multiD.groupedColumn = function(options) {
                         .style("stroke","blue");
                 }
                 return this;
-            },  
+            },
             createChart: function() {
                 that.reduced_width = that.width - that.margin_left - that.margin_right - that.legendsGroup_width;
 
@@ -282,7 +281,6 @@ PykCharts.multiD.groupedColumn = function(options) {
                     if(y_data[1] < max_y_tick_value) {
                         y_data[1] = max_y_tick_value;
                     }
-                    // console.log(that)
                     y_range = [that.reduced_height, 0];
                     that.yScale = that.k.scaleIdentification("linear",y_data,y_range);
 
@@ -368,19 +366,19 @@ PykCharts.multiD.groupedColumn = function(options) {
                 that.highlight_y_positions =  [];
                 var chart = that.group.selectAll(".column-group")
                     .data(that.new_data);
-                
+
                 chart.enter()
                     .append("g")
                     .attr("class", "column-group")
-                    
+
                 chart
                     .attr("transform", function (d) {
-                        that.optionalFeatures().checkIfHighLightDataExists(d.name); 
+                        that.optionalFeatures().checkIfHighLightDataExists(d.name);
                         if(that.highlight_group_exits) {
                             that.flag = true;
                             that.highlight_x_positions = that.xScale(d.name);
                         }
-                        return "translate(" + that.xScale(d.name) + ",0)"; 
+                        return "translate(" + that.xScale(d.name) + ",0)";
                     })
                     .on('mouseout',function (d) {
                         if(that.mode === "default") {
@@ -404,7 +402,7 @@ PykCharts.multiD.groupedColumn = function(options) {
 
                 bar.enter()
                     .append("rect")
-                      
+
                 bar.attr("height", 0)
                     .attr("x", function (d) {return that.x1(d.name); })
                     .attr("y", that.height)
@@ -444,14 +442,14 @@ PykCharts.multiD.groupedColumn = function(options) {
                     .transition()
                     .duration(that.transitions.duration())
                     .attr("height", function (d) { return that.reduced_height - that.yScale(d.y); })
-                    .attr("y",function (d) { 
+                    .attr("y",function (d) {
                         if(that.flag) {
                             that.highlight_y_positions.push(that.yScale(d.y));
                         }
-                        return that.yScale(d.y); 
+                        return that.yScale(d.y);
                     });
 
-                chart.exit().remove(); 
+                chart.exit().remove();
 
                 return this;
             },
@@ -470,7 +468,6 @@ PykCharts.multiD.groupedColumn = function(options) {
                 that.new_data.forEach(function(d){
                     d.data.forEach(function(data){
                         data.color = _.find(that.group_data,function(d) {
-                            console.log(d.name,data.name)
                             return d.name === data.name;
                         }).color;
                     })
@@ -604,9 +601,7 @@ PykCharts.multiD.groupedColumn = function(options) {
                         that.highlight_group_exits = (that.highlight === name);
                     } else if (that.axis_x_data_format === "string") {
                         that.highlight_group_exits = (that.highlight.toLowerCase() === name.toLowerCase());
-                        console.log(that.highlight_group_exits)
-                    } else if (that.axis_x_data_format === "time") {
-                        that.highlight_group_exits = (that.k.dateConversion(that.highlight) === that.k.dateConversion(name));
+                        
                     }
                 }
                 return this;
@@ -614,17 +609,17 @@ PykCharts.multiD.groupedColumn = function(options) {
             highlightRect : function () {
                 if(that.highlight) {
                     setTimeout(function() {
-                        x = that.highlight_x_positions - 5;                    
+                        x = that.highlight_x_positions - 5;
                         // y = d3.select(that.highlight_y_positions).node();
                         // var highlight_group = y.querySelectorAll("rect");
                         // var min = _.min(that.highlight_y_positions);
-  
+
                     that.group.append("rect")
                         .attr("class","highlight-rect")
                         .attr("x", x)
                         .attr("y", 0)
                         .attr("width", (that.x1.rangeBand()* that.group_data.length)+10)
-                        .attr("height", that.height - that.margin_top - that.margin_bottom - that.legendsGroup_height + 5) 
+                        .attr("height", that.height - that.margin_top - that.margin_bottom - that.legendsGroup_height + 5)
                         .attr("fill","none")
                         .attr("stroke", that.highlight_color)
                         .attr("stroke-width", "1.5px")
