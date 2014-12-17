@@ -33,9 +33,9 @@
         <div id="groupBar"></div>
         <hr/>
         <div id="pulse"></div>
-        <hr/>
-        <div id="bar"></div>
         <hr/> -->
+        <div id="bar"></div>
+        <hr/>
         <div id="waterfall-chart"></div>
         <hr/>
         <script src="../src/js/init.js"></script>
@@ -57,21 +57,23 @@
 
                 var k = new PykCharts.multiD.waterfall({
                     selector: "#waterfall-chart",
-                    data: "../data/german_erp_waterfall1.json",
+                    data: "../data/german_erp_waterfall1-1.json",
                     mode: "default",
                     chart_height: 300,
                     chart_width: 550,
-                    chart_margin_left:170,
+                    chart_margin_left: 170,
                     chart_margin_top: 50,
+                    chart_margin_right: 0,
+                    chart_onhover_highlight_enable: "no",
 
-                    title_text:"Accountancy of the German ERPs",
-                    title_family:"sans-serif",
-                    title_weight: "normal",
-                    subtitle_text:"this the testing",
+                    // title_text:"Accountancy of the German ERPs",
+                    // title_family:"sans-serif",
+                    // title_weight: "normal",
+                    // subtitle_text:"this the testing",
 
                     // chart_color: [/*"rgb(255, 60, 131)", "rgb(0, 185, 250)", "grey"*/], // ["negative-color", "positive-color"]
 
-                    real_time_charts_refresh_frequency: 0,
+                    // real_time_charts_refresh_frequency: 0,
 
                     // border_between_chart_elements_thickness: 3,
                     // border_between_chart_elements_color: "black",
@@ -85,8 +87,10 @@
                     // "axis_y_pointer_family": "Papyrus",
                     // axis_y_title : "Buchhaltung",
 
-                    pointer_weight: "bold",
-                    axis_onhover_highlight_enable: "yes",
+                    // pointer_weight: "bold",
+                    pointer_size: 11,
+                    // pointer_family: "Papyrus",
+                    // axis_onhover_highlight_enable: "yes",
                     // tooltip_enable: "no",
 
                     // background_color: "red",
@@ -783,7 +787,7 @@
                     chart_height: 630,
                     chart_width : 400,
                     chart_margin_top: 25,
-                    chart_margin_right: 25,
+                    chart_margin_right: 125,
                     chart_margin_bottom: 35,
                     chart_margin_left: 130,
 
@@ -830,7 +834,7 @@
                     data_sort_type: "alphabetically",
                     data_sort_order: "ascending"
                 });
-                // k.execute();
+                k.execute();
 
                 // var k = new PykCharts.multiD.groupedBar({
                 //     data: "../data/ultimateGroupBar.json",

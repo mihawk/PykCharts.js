@@ -11,7 +11,16 @@ PykCharts.multiD.waterfall = function(options){
         that.panels_enable = "no";
         that.longest_tick_width = 0;
         that.ticks_formatter = d3.format("s");
-        // that.waterfall_connectors_enable = options.waterfall_connectors_enable ? options.waterfall_connectors_enable.toLowerCase() : multiDimensionalCharts.waterfall_connectors_enable;
+        // that.connecting_lines_color = options.connecting_lines_color ? options.connecting_lines_color : multiDimensionalCharts.connecting_lines_color;
+        // that.connecting_lines_style = options.connecting_lines_style ? options.connecting_lines_style : multiDimensionalCharts.connecting_lines_style;
+        // switch(that.connecting_lines_style) {
+        //     case "dotted" : that.connecting_lines_style = "1,3";
+        //                     break;
+        //     case "dashed" : that.connecting_lines_style = "5,5";
+        //                    break;
+        //     default : that.connecting_lines_style = "0";
+        //               break;
+        // }
         
         try {
         	if (that.chart_color.length == 0) {
@@ -28,7 +37,7 @@ PykCharts.multiD.waterfall = function(options){
 	        }
         }
         catch(err) {
-        	console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+that.selector+".(\""+"You seem to have passed less than three colors for '"+err+"', in a waterfall chart."+"\")  Visit www.chartstore.io/docs#warning_"+"16");
+        	console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+that.selector+".(\""+"You seem to have passed less than three colors for '"+err+"', in a waterfall chart."+"\")  Visit www.chartstore.io/docs#warning_"+"18");
         }
         
         if(that.stop)
@@ -192,7 +201,7 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
 		        that.data_length = that.data.length;
 
 		        var padding_temp = that.reducedHeight - (that.data_length * that.yScale.rangeBand());
-		        that.padding = (padding_temp / (that.data_length - 1)) * 0.2;
+		        that.padding = (padding_temp / (that.data_length - 1)) * 0.3;
 
 		        that.yScale.rangeRoundBands([that.reducedHeight, 0], that.padding);
 
@@ -222,7 +231,7 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
 
             	that.xScale = d3.scale.linear()
 		        	.domain([0, d3.max(that.data, function(d) { return d.end; })])
-		        	.range([0, (that.reducedWidth - that.longest_tick_width - 15  + that.margin_right)]);
+		        	.range([0, (that.reducedWidth - that.longest_tick_width - 15)]);
 
 		    	var rect = that.bars.selectAll(".rect")
 	    				.data(function(d){
@@ -296,8 +305,8 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
 		    		ticks.enter().append("text")
 	    				.attr("class","ticks-text")
 	                    .style("font-weight", that.pointer_weight)
-	                    .style("font-size", that.axis_y_pointer_size + "px")
-	                    .style("font-family", that.axis_y_pointer_family);
+	                    .style("font-size", that.pointer_size + "px")
+	                    .style("font-family", that.pointer_family);
 
 	            	ticks.text(function(d) {
 			       			return that.ticks_formatter(d.weight);
