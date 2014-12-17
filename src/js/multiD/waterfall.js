@@ -11,17 +11,7 @@ PykCharts.multiD.waterfall = function(options){
         that.panels_enable = "no";
         that.longest_tick_width = 0;
         that.ticks_formatter = d3.format("s");
-        // that.connecting_lines_color = options.connecting_lines_color ? options.connecting_lines_color : multiDimensionalCharts.connecting_lines_color;
-        // that.connecting_lines_style = options.connecting_lines_style ? options.connecting_lines_style : multiDimensionalCharts.connecting_lines_style;
-        // switch(that.connecting_lines_style) {
-        //     case "dotted" : that.connecting_lines_style = "1,3";
-        //                     break;
-        //     case "dashed" : that.connecting_lines_style = "5,5";
-        //                    break;
-        //     default : that.connecting_lines_style = "0";
-        //               break;
-        // }
-        
+
         try {
         	if (that.chart_color.length == 0) {
 	        	that.chart_color = ["rgb(255, 60, 131)", "rgb(0, 185, 250)", "grey"];
@@ -91,7 +81,7 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
                 .createScales()
                 .ticks()
                 .createChart()/*
-                .connectors()*/;
+                .connectingLines()*/;
 
             that.k.yAxis(that.svgContainer,that.yGroup,that.yScale,that.yDomain,that.y_tick_values);
         };
@@ -140,7 +130,7 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
                 .createScales()
                	.ticks()
                 .createChart()/*
-                .connectors()*/;
+                .connectingLines()*/;
 
         } else if(that.mode === "infographics") {
             that.k.backgroundColor(that)
@@ -155,7 +145,7 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
                 .createScales()
                 .ticks()
                 .createChart()/*
-                .connectors()*/;
+                .connectingLines()*/;
 
             that.k.tooltip();
             
@@ -244,10 +234,11 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
                     .attr("stroke-width",that.border.width())
                     .attr("stroke-dasharray", that.border.style())
                     .attr("stroke-opacity",1);
-
-		        rect.attr("x", function(d) { return (that.xScale((d.group == "negative") ? d.end : d.start)) + that.longest_tick_width + 15; })
+                var count_rect = 0;
+		        
+		        rect.attr("x", function(d) { return that.xScale(d.start) + that.longest_tick_width + 15; })
 		       		.attr("height", that.yScale.rangeBand())
-		       		.attr("width", function(d) { return Math.abs(that.xScale(d.end) - that.xScale(d.start)); })
+		       		.attr("width", 0)
 		       		.attr("fill", function(d,i) {
 		       			if (d.name.toLowerCase() == "total") {
 		       				return that.chart_color[2];
@@ -284,7 +275,12 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
                         if(that.mode === "default") {
                             that.mouseEvent.tooltipPosition(d);
                         }
-                    });
+                    })
+                    .transition()
+               		.duration(that.transitions.duration())
+               		.delay(function(d) { count_rect++; return (count_rect / that.data_length) * that.transitions.duration(); })
+               		.attr("x", function(d) { return (that.xScale((d.group == "negative") ? d.end : d.start)) + that.longest_tick_width + 15; })
+		       		.attr("width", function(d) { return Math.abs(that.xScale(d.weight)); });
 
                 rect.exit()
                 	.remove();
@@ -332,15 +328,18 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
 
             	return this;
             }/*,
-            connectors: function() {
-            	if(PykCharts['boolean'](that.waterfall_connectors_enable)) {
+            connectingLines: function() {
+            	if(PykCharts['boolean'](that.connecting_lines_enable)) {
             		that.bars.filter(function(d) { return d.name.toLowerCase() != "total" }).append("line")
-					    .attr("class", "connector")
-					    .attr("x1", function(d) { return that.xScale(d.end) + that.longest_tick_width; } )
+            			.style("stroke-width", 1)
+					    .style("stroke", that.connecting_lines_color)
+					    .style("stroke-dasharray", that.connecting_lines_style)
+					    .style("shape-rendering", "auto")
+					    .attr("x1", function(d) { return that.xScale(d.end) + that.longest_tick_width + 15; } )
 					    // .attr("x1", that.xScale.rangeBand() + 5 )
-					    .attr("y1", that.yScale.rangeBand() + 5 )
+					    .attr("y1", that.yScale.rangeBand() )
 					    // .attr("y1", function(d) { return that.yScale(d.end); } )
-					    .attr("x2", function(d) { return that.xScale(d.end) + that.longest_tick_width; } )
+					    .attr("x2", function(d) { return that.xScale(d.end) + that.longest_tick_width + 15; } )
 					    // .attr("x2", that.xScale.rangeBand() / (1 - padding) - 5 )
 					    .attr("y2", that.yScale.rangeBand() / (1 - that.padding) - that.data_length )
 					    // .attr("y2", function(d) { return that.yScale(d.end); } );
