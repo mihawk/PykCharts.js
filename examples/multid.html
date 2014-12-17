@@ -33,9 +33,9 @@
         <div id="groupBar"></div>
         <hr/>
         <div id="pulse"></div>
-        <hr/> -->
+        <hr/> 
         <div id="bar"></div>
-        <hr/>
+        <hr/> -->
         <div id="waterfall-chart"></div>
         <hr/>
         <script src="../src/js/init.js"></script>
@@ -57,7 +57,7 @@
 
                 var k = new PykCharts.multiD.waterfall({
                     selector: "#waterfall-chart",
-                    data: "../data/german_erp_waterfall1-1.json",
+                    data: "../data/german_erp_waterfall1.json",
                     mode: "default",
                     chart_height: 300,
                     chart_width: 550,
@@ -66,9 +66,9 @@
                     chart_margin_right: 0,
                     chart_onhover_highlight_enable: "no",
 
-                    // title_text:"Accountancy of the German ERPs",
-                    // title_family:"sans-serif",
-                    // title_weight: "normal",
+                    title_text:"Accountancy of the German ERPs",
+                    title_family:"sans-serif",
+                    title_weight: "normal",
                     // subtitle_text:"this the testing",
 
                     // chart_color: [/*"rgb(255, 60, 131)", "rgb(0, 185, 250)", "grey"*/], // ["negative-color", "positive-color"]
@@ -85,7 +85,7 @@
                     "axis_y_pointer_color" : "#1D1D1D",
                     // "axis_y_pointer_weight": "normal",
                     // "axis_y_pointer_family": "Papyrus",
-                    // axis_y_title : "Buchhaltung",
+                    axis_y_title : "Buchhaltung",
 
                     // pointer_weight: "bold",
                     pointer_size: 11,
@@ -94,8 +94,7 @@
                     // tooltip_enable: "no",
 
                     // background_color: "red",
-                    // export_enable: "yes",
-                    // waterfall_connectors_enable: "Yes"
+                    // export_enable: "yes"
                 });
                 k.execute();
 
@@ -834,7 +833,7 @@
                     data_sort_type: "alphabetically",
                     data_sort_order: "ascending"
                 });
-                k.execute();
+                // k.execute();
 
                 // var k = new PykCharts.multiD.groupedBar({
                 //     data: "../data/ultimateGroupBar.json",
