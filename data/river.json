@@ -29,15 +29,6 @@
     {
         "x":0,
         "y":"Awareness",
-        "stack":"GooglePlus",
-        "alias" : "Scans",
-        "text_between_steps": "3 mins",
-        "tooltip" : "<h4>GooglePlus</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>0</td></tr><tr><td>Overall Rank</td><td>:</td><td>5</td></tr></table>",
-        "color": "#2CA02C"
-    },
-    {
-        "x":0,
-        "y":"Awareness",
         "stack":"Pinterest",
         "alias" : "Scans",
         "text_between_steps": "3 mins",
@@ -79,15 +70,6 @@
         "text_between_steps": "3 mins",
         "tooltip" : "<h4>Twitter</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>80</td></tr><tr><td>Overall Rank</td><td>:</td><td>3</td></tr><tr><td>Percentage</td><td>:</td><td>07.27%</td></tr></table>",
         "color": "#FF7F0E"
-    },
-    {
-        "x":100,
-        "y":"Outreach",
-        "stack":"GooglePlus",
-        "alias" : "Outreach",
-        "text_between_steps": "3 mins",
-        "tooltip" : "<h4>GooglePlus</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>100</td></tr><tr><td>Overall Rank</td><td>:</td><td>5</td></tr><tr><td>Percentage</td><td>:</td><td>09.10%</td></tr></table>",
-        "color": "#2CA02C"
     },
     {
         "x":40,
@@ -135,15 +117,6 @@
         "color": "#FF7F0E"
     },
     {
-        "x":55,
-        "y":"Interest",
-        "stack":"GooglePlus",
-        "alias" : "Views",
-        "text_between_steps": "2 mins",
-        "tooltip" : "<h4>GooglePlus</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>55</td></tr><tr><td>Overall Rank</td><td>:</td><td>5</td></tr><tr><td>Percentage</td><td>:</td><td>13.75%</td></tr></table>",
-        "color": "#2CA02C"
-    },
-    {
         "x":35,
         "y":"Interest",
         "stack":"Pinterest",
@@ -189,15 +162,6 @@
         "color": "#FF7F0E"
     },
     {
-        "x":80,
-        "y":"Desire",
-        "stack":"GooglePlus",
-        "alias" : "Add-to-Carts",
-        "text_between_steps": "2 mins",
-        "tooltip" : "<h4>GooglePlus</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>80</td></tr><tr><td>Overall Rank</td><td>:</td><td>5</td></tr><tr><td>Percentage</td><td>:</td><td>26.66%</td></tr></table>",
-        "color": "#2CA02C"
-    },
-    {
         "x":20,
         "y":"Desire",
         "stack":"Pinterest",
@@ -240,14 +204,6 @@
         "color": "#FF7F0E"
     },
     {
-        "x":2,
-        "y":"Action",
-        "stack":"GooglePlus",
-        "alias" : "Purchases",
-        "tooltip" : "<h4>GooglePlus</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>2</td></tr><tr><td>Overall Rank</td><td>:</td><td>5</td></tr><tr><td>Percentage</td><td>:</td><td>01.34%</td></tr></table>",
-        "color": "#2CA02C"
-    },
-    {
         "x":4,
         "y":"Action",
         "stack":"Pinterest",
@@ -288,14 +244,6 @@
         "color": "#FF7F0E"
     },
     {
-        "x":40,
-        "y":"Stock",
-        "stack":"GooglePlus",
-        "alias" : "Units",
-        "tooltip" : "<h4>GooglePlus</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>40</td></tr><tr><td>Overall Rank</td><td>:</td><td>5</td></tr><tr><td>Percentage</td><td>:</td><td>08.90%</td></tr></table>",
-        "color": "#2CA02C"
-    },
-    {
         "x":60,
         "y":"Stock",
         "stack":"Pinterest",
@@ -334,14 +282,6 @@
         "alias" : "$",
         "tooltip" : "<h4>Twitter</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>360</td></tr><tr><td>Overall Rank</td><td>:</td><td>3</td></tr><tr><td>Percentage</td><td>:</td><td>08.00%</td></tr></table>",
         "color": "#FF7F0E"
-    },
-    {
-        "x":350,
-        "y":"Revenue",
-        "stack":"GooglePlus",
-        "alias" : "$",
-        "tooltip" : "<h4>GooglePlus</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>350</td></tr><tr><td>Overall Rank</td><td>:</td><td>5</td></tr><tr><td>Percentage</td><td>:</td><td>07.78%</td></tr></table>",
-        "color": "#2CA02C"
     },
     {
         "x":290,

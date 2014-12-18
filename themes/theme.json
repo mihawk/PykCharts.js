@@ -6,7 +6,7 @@
 			"selector": "#chart_container0",
 
 			"chart_height": 400,
-			"chart_width": 820,
+			"chart_width": 620,
 			"chart_margin_top": 35,
 			"chart_margin_right": 25,
 			"chart_margin_bottom": 35,
@@ -44,14 +44,14 @@
 
 			"data_mode_enable": "yes",
 			"data_mode_default": "absolute",
-			"data_mode_legends_color": "green",
+			"data_mode_legends_color": "black",
 
 			"expand_group": "yes",
 
-			"time_between_steps_text_color": "#aaa",
-			"time_between_steps_text_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
-			"time_between_steps_text_size": 10,
-			"time_between_steps_text_weight" : "normal",
+			"text_between_steps_color": "#aaa",
+			"text_between_steps_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
+			"text_between_steps_size": 10,
+			"text_between_steps_weight" : "normal",
 
 			"label_size": 13,
 			"label_color": "white",
@@ -218,7 +218,7 @@
 			"selector": "#chart_container1",
 
 			"chart_height": 400,
-			"chart_width": 820,
+			"chart_width": 620,
 			"chart_margin_top": 35,
 			"chart_margin_right": 25,
 			"chart_margin_bottom": 35,
@@ -256,14 +256,14 @@
 
 			"data_mode_enable": "yes",
 			"data_mode_default": "absolute",
-			"data_mode_legends_color": "green",
+			"data_mode_legends_color": "#302B54",
 
 			"expand_group": "yes",
 
-			"time_between_steps_text_color": "#aaa",
-			"time_between_steps_text_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
-			"time_between_steps_text_size": 10,
-			"time_between_steps_text_weight" : "normal",
+			"text_between_steps_color": "#aaa",
+			"text_between_steps_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
+			"text_between_steps_size": 10,
+			"text_between_steps_weight" : "normal",
 
 			"label_size": 13,
 			"label_color": "white",
@@ -436,7 +436,7 @@
 			"selector": "#chart_container2",
 
 			"chart_height": 400,
-			"chart_width": 820,
+			"chart_width": 620,
 			"chart_margin_top": 35,
 			"chart_margin_right": 25,
 			"chart_margin_bottom": 35,
@@ -474,14 +474,14 @@
 
 			"data_mode_enable": "yes",
 			"data_mode_default": "absolute",
-			"data_mode_legends_color": "green",
+			"data_mode_legends_color": "#8B0000",
 
 			"expand_group": "yes",
 
-			"time_between_steps_text_color": "#aaa",
-			"time_between_steps_text_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
-			"time_between_steps_text_size": 10,
-			"time_between_steps_text_weight" : "normal",
+			"text_between_steps_color": "#aaa",
+			"text_between_steps_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
+			"text_between_steps_size": 10,
+			"text_between_steps_weight" : "normal",
 
 			"label_size": 13,
 			"label_color": "white",
@@ -654,7 +654,7 @@
 			"selector": "#chart_container3",
 
 			"chart_height": 400,
-			"chart_width": 820,
+			"chart_width": 620,
 			"chart_margin_top": 35,
 			"chart_margin_right": 25,
 			"chart_margin_bottom": 35,
@@ -692,14 +692,14 @@
 
 			"data_mode_enable": "yes",
 			"data_mode_default": "absolute",
-			"data_mode_legends_color": "green",
+			"data_mode_legends_color": "#4049FC",
 
 			"expand_group": "yes",
 
-			"time_between_steps_text_color": "#aaa",
-			"time_between_steps_text_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
-			"time_between_steps_text_size": 10,
-			"time_between_steps_text_weight" : "normal",
+			"text_between_steps_color": "#aaa",
+			"text_between_steps_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
+			"text_between_steps_size": 10,
+			"text_between_steps_weight" : "normal",
 
 			"label_size": 13,
 			"label_color": "white",
@@ -872,7 +872,7 @@
 			"selector": "#chart_container4",
 
 			"chart_height": 400,
-			"chart_width": 820,
+			"chart_width": 620,
 			"chart_margin_top": 35,
 			"chart_margin_right": 25,
 			"chart_margin_bottom": 35,
@@ -910,14 +910,14 @@
 
 			"data_mode_enable": "yes",
 			"data_mode_default": "absolute",
-			"data_mode_legends_color": "green",
+			"data_mode_legends_color": "#575757",
 
 			"expand_group": "yes",
 
-			"time_between_steps_text_color": "#aaa",
-			"time_between_steps_text_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
-			"time_between_steps_text_size": 10,
-			"time_between_steps_text_weight" : "normal",
+			"text_between_steps_color": "#aaa",
+			"text_between_steps_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
+			"text_between_steps_size": 10,
+			"text_between_steps_weight" : "normal",
 
 			"label_size": 13,
 			"label_color": "white",
@@ -1090,7 +1090,7 @@
 			"selector": "#chart_container5",
 
 			"chart_height": 400,
-			"chart_width": 820,
+			"chart_width": 620,
 			"chart_margin_top": 35,
 			"chart_margin_right": 25,
 			"chart_margin_bottom": 35,
@@ -1128,14 +1128,14 @@
 
 			"data_mode_enable": "yes",
 			"data_mode_default": "absolute",
-			"data_mode_legends_color": "green",
+			"data_mode_legends_color": "#0D6570",
 
 			"expand_group": "yes",
 
-			"time_between_steps_text_color": "#aaa",
-			"time_between_steps_text_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
-			"time_between_steps_text_size": 10,
-			"time_between_steps_text_weight" : "normal",
+			"text_between_steps_color": "#aaa",
+			"text_between_steps_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
+			"text_between_steps_size": 10,
+			"text_between_steps_weight" : "normal",
 
 			"label_size": 13,
 			"label_color": "white",
@@ -1308,7 +1308,7 @@
 			"selector": "#chart_container6",
 
 			"chart_height": 400,
-			"chart_width": 820,
+			"chart_width": 620,
 			"chart_margin_top": 35,
 			"chart_margin_right": 25,
 			"chart_margin_bottom": 35,
@@ -1346,14 +1346,14 @@
 
 			"data_mode_enable": "yes",
 			"data_mode_default": "absolute",
-			"data_mode_legends_color": "green",
+			"data_mode_legends_color": "#267E8B",
 
 			"expand_group": "yes",
 
-			"time_between_steps_text_color": "#aaa",
-			"time_between_steps_text_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
-			"time_between_steps_text_size": 10,
-			"time_between_steps_text_weight" : "normal",
+			"text_between_steps_color": "#aaa",
+			"text_between_steps_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
+			"text_between_steps_size": 10,
+			"text_between_steps_weight" : "normal",
 
 			"label_size": 13,
 			"label_color": "white",
@@ -1526,7 +1526,7 @@
 			"selector": "#chart_container7",
 
 			"chart_height": 400,
-			"chart_width": 820,
+			"chart_width": 620,
 			"chart_margin_top": 35,
 			"chart_margin_right": 25,
 			"chart_margin_bottom": 35,
@@ -1564,14 +1564,14 @@
 
 			"data_mode_enable": "yes",
 			"data_mode_default": "absolute",
-			"data_mode_legends_color": "green",
+			"data_mode_legends_color": "#096975",
 
 			"expand_group": "yes",
 
-			"time_between_steps_text_color": "#aaa",
-			"time_between_steps_text_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
-			"time_between_steps_text_size": 10,
-			"time_between_steps_text_weight" : "normal",
+			"text_between_steps_color": "#aaa",
+			"text_between_steps_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
+			"text_between_steps_size": 10,
+			"text_between_steps_weight" : "normal",
 
 			"label_size": 13,
 			"label_color": "white",
@@ -1744,7 +1744,7 @@
 			"selector": "#chart_container8",
 
 			"chart_height": 400,
-			"chart_width": 820,
+			"chart_width": 620,
 			"chart_margin_top": 35,
 			"chart_margin_right": 25,
 			"chart_margin_bottom": 35,
@@ -1782,14 +1782,14 @@
 
 			"data_mode_enable": "yes",
 			"data_mode_default": "absolute",
-			"data_mode_legends_color": "green",
+			"data_mode_legends_color": "#D73C39",
 
 			"expand_group": "yes",
 
-			"time_between_steps_text_color": "#aaa",
-			"time_between_steps_text_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
-			"time_between_steps_text_size": 10,
-			"time_between_steps_text_weight" : "normal",
+			"text_between_steps_color": "#aaa",
+			"text_between_steps_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
+			"text_between_steps_size": 10,
+			"text_between_steps_weight" : "normal",
 
 			"label_size": 13,
 			"label_color": "white",
@@ -1962,7 +1962,7 @@
 			"selector": "#chart_container9",
 
 			"chart_height": 400,
-			"chart_width": 820,
+			"chart_width": 620,
 			"chart_margin_top": 35,
 			"chart_margin_right": 25,
 			"chart_margin_bottom": 35,
@@ -2000,14 +2000,14 @@
 
 			"data_mode_enable": "yes",
 			"data_mode_default": "absolute",
-			"data_mode_legends_color": "green",
+			"data_mode_legends_color": "#990000",
 
 			"expand_group": "yes",
 
-			"time_between_steps_text_color": "#aaa",
-			"time_between_steps_text_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
-			"time_between_steps_text_size": 10,
-			"time_between_steps_text_weight" : "normal",
+			"text_between_steps_color": "#aaa",
+			"text_between_steps_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
+			"text_between_steps_size": 10,
+			"text_between_steps_weight" : "normal",
 
 			"label_size": 13,
 			"label_color": "white",
@@ -2180,7 +2180,7 @@
 			"selector": "#chart_container10",
 
 			"chart_height": 400,
-			"chart_width": 820,
+			"chart_width": 620,
 			"chart_margin_top": 35,
 			"chart_margin_right": 25,
 			"chart_margin_bottom": 35,
@@ -2218,14 +2218,14 @@
 
 			"data_mode_enable": "yes",
 			"data_mode_default": "absolute",
-			"data_mode_legends_color": "green",
+			"data_mode_legends_color": "#222222",
 
 			"expand_group": "yes",
 
-			"time_between_steps_text_color": "#aaa",
-			"time_between_steps_text_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
-			"time_between_steps_text_size": 10,
-			"time_between_steps_text_weight" : "normal",
+			"text_between_steps_color": "#aaa",
+			"text_between_steps_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
+			"text_between_steps_size": 10,
+			"text_between_steps_weight" : "normal",
 
 			"label_size": 13,
 			"label_color": "white",
