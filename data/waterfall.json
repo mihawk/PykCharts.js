@@ -1,37 +1,37 @@
 [
     {
-    	"name": "Job",
-    	"weight": 470,
+    	"y": "Job",
+    	"x": 470,
     	"tooltip": 470
     },
     {
-    	"name": "Groceries",
-    	"weight": -330,
+    	"y": "Groceries",
+    	"x": -330,
     	"tooltip": -330
     },
     {
-    	"name": "Allowance",
-    	"weight": 200,
+    	"y": "Allowance",
+    	"x": 200,
     	"tooltip": 200
     },
     {
-    	"name": "Travel",
-    	"weight": 530,
+    	"y": "Travel",
+    	"x": 530,
     	"tooltip": 530
     },
     {
-    	"name": "Videos",
-    	"weight": -190,
+    	"y": "Videos",
+    	"x": -190,
     	"tooltip": -190
     },
     {
-    	"name": "Coffee",
-    	"weight": -400,
+    	"y": "Coffee",
+    	"x": -400,
     	"tooltip": -400
     },
     {
-    	"name": "Food",
-    	"weight": 750,
+    	"y": "Food",
+    	"x": 750,
     	"tooltip": 750
     }
 ]

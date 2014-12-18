@@ -1,43 +1,43 @@
 [
     {
-        "name": "Umsatz",
-        "weight": 85470,
+        "y": "Umsatz",
+        "x": 85470,
         "tooltip": "This actually didn't take any conceptualization"
     },
     {
-        "name": "Rabatt",
-        "weight": 25480,
+        "y": "Rabatt",
+        "x": 25480,
         "tooltip": "No sketching either, really"
     },
     {
-        "name": "Erlosschmalerungen",
-        "weight": -1243150
+        "y": "Erlosschmalerungen",
+        "x": -1243150
     },
     {
-        "name": "Lohnkosten",
-        "weight": 205440,
+        "y": "Lohnkosten",
+        "x": 205440,
         "tooltip": "all three lines of it"
     },
     {
-        "name": "Materialkosten",
-        "weight": 25490
+        "y": "Materialkosten",
+        "x": 25490
     },
     {
-        "name": "Deckungsberitrag",
-        "weight": 1500000,
+        "y": "Deckungsberitrag",
+        "x": 1500000,
         "tooltip": "This counts, right?"
     },
     {
-        "name": "Vertrieb",
-        "weight": -448450
+        "y": "Vertrieb",
+        "x": -448450
     },
     {
-        "name": "Kauf",
-        "weight": -25110,
+        "y": "Kauf",
+        "x": -25110,
         "tooltip": "All the things"
     },
     {
-        "name": "Einkommen",
-        "weight": 35480
+        "y": "Einkommen",
+        "x": 35480
     }
 ]
