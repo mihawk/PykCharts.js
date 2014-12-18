@@ -614,7 +614,6 @@ PykCharts.Configuration = function (options){
             if(!legendsGroup_width) {
                 legendsGroup_width = 0;
             }
-
             var width = options.width,
                 height = options.height;
             var k = new PykCharts.Configuration(options);
@@ -637,7 +636,6 @@ PykCharts.Configuration = function (options){
                 }
 
                 var mouseEvent = new PykCharts.Configuration.mouseEvent(options);
-
                 gsvg.style("stroke",function () { return options.axis_y_line_color; })
                     .call(yaxis)
                 if((options.axis_y_data_format === "string") && options.panels_enable === "no") {
@@ -796,6 +794,7 @@ PykCharts.Configuration = function (options){
                 }
                 d3.select(a[i]).text(comp);
             }
+            console.log(d3.selectAll(options.selector + " g.x.axis .tick text"));
             xaxistooltip = d3.selectAll(options.selector + " g.x.axis .tick text")
                 .data(domain);
 

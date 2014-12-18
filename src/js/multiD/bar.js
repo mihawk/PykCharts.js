@@ -1,7 +1,7 @@
 PykCharts.multiD.bar = function (options) {
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
-
+    var multiDimensionalCharts = theme.multiDimensionalCharts;
     this.execute = function () {
         that = new PykCharts.multiD.processInputs(that, options, "column");
         that.data_sort_enable = options.data_sort_enable ? options.data_sort_enable.toLowerCase() : multiDimensionalCharts.data_sort_enable;
@@ -99,15 +99,9 @@ PykCharts.multiD.bar = function (options) {
                 .ticks();
 
             that.k.xAxis(that.svgContainer,that.xgroup,that.xScale,that.extra_left_margin,that.x_domain,that.x_tick_values)
+                .yAxis(that.svgContainer,that.ygroup,that.yScale,that.y_domain,that.y_tick_values)
                 .xAxisTitle(that.xgroup)
                 .yAxisTitle(that.ygroup);
-            if(that.axis_y_data_format !== "string") {
-                that.k.yAxis(that.svgContainer,that.yGroup,that.yScale1,that.ydomain,that.y_tick_values,null,"bar");
-                that.optionalFeatures().newYAxis();
-            } else {
-                that.k.yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain,that.y_tick_values);
-            }
-
         } else if(that.mode === "infographics") {
             that.k.backgroundColor(that)
                 .export(that,"#"+that.container_id,"barChart")
@@ -127,17 +121,11 @@ PykCharts.multiD.bar = function (options) {
                 .createColumn()
                 .axisContainer()
                 .ticks();
-
+            
             that.k.xAxis(that.svgContainer,that.xgroup,that.xScale,that.extra_left_margin,that.x_domain,that.x_tick_values)
                 .xAxisTitle(that.xgroup)
-                .yAxisTitle(that.ygroup);
-            if(that.axis_y_data_format !== "string") {
-                that.k.yAxis(that.svgContainer,that.yGroup,that.yScale1,that.ydomain,that.y_tick_values,null,"bar");
-                that.optionalFeatures().newYAxis();
-            } else {
-                that.k.yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain,that.y_tick_values);
-            }
-
+                .yAxisTitle(that.ygroup)
+                .yAxis(that.svgContainer,that.ygroup,that.yScale,that.y_domain,that.y_tick_values);
         }
         that.k.exportSVG(that,"#"+that.container_id,"barChart")
         $(document).ready(function () { return that.k.resize(that.svgContainer,""); })
@@ -203,24 +191,7 @@ PykCharts.multiD.bar = function (options) {
                         .attr("id","ygrid")
                         .style("stroke",that.grid_color)
                         .attr("class","y grid-line");
-                    that.new_yAxisgroup = that.group.append("g")
-                        .attr("class", "y new-axis")
-                        .attr("id","new-yaxis")
-                        .style("stroke","blue");
                 }
-                return this;
-            },
-            newYAxis : function () {
-                var yaxis = d3.svg.axis()
-                    .scale(that.yScale)
-                    .orient(options.axis_y_pointer_position)
-                    .tickSize(0)
-                    .outerTickSize(that.axis_y_outer_pointer_length);
-                that.new_yAxisgroup.style("stroke",function () { return options.axis_y_line_color; })
-                    .call(yaxis);
-                d3.selectAll(options.selector + " .y.new-axis text").attr("fill",function () { return "none"; })
-                    .style("stroke","none");
-                
                 return this;
             },
             axisContainer : function () {
@@ -260,12 +231,7 @@ PykCharts.multiD.bar = function (options) {
                         y_data[1] = max_y_tick_value;
                     }
 
-                    that.yScale1 = that.k.scaleIdentification("linear",y_data,y_range);
-                    y_data1 = that.data.map(function (d) { return d.y; });
-                    y_range1 = [0,that.height - that.margin_top - that.margin_bottom];
-                    that.yScale = that.k.scaleIdentification("ordinal",y_data1,y_range1,0.3);
-                    that.extra_top_margin = (that.yScale.rangeBand() / 2);
-
+                    that.yScale = that.k.scaleIdentification("linear",y_data,y_range);
                 } else if(that.axis_y_data_format === "string") {
                     y_data = that.data.map(function (d) { return d.y; });
                     y_range = [0,that.height - that.margin_top - that.margin_bottom];
@@ -294,7 +260,7 @@ PykCharts.multiD.bar = function (options) {
 
                 that.x_domain = that.xScale.domain();
                 that.y_domain = that.yScale.domain();
-
+                
                 that.bar = that.group.selectAll(".bar")
                     .data(that.data)
 
