@@ -33,13 +33,13 @@ PykCharts.multiD.river = function (options){
         that.time_between_steps_text_size = "time_between_steps_text_size" in options ? options.time_between_steps_text_size : multiDimensionalCharts.time_between_steps_text_size;
         that.k.validator()
             .validatingDataType(that.time_between_steps_text_size,"time_between_steps_text_size",multiDimensionalCharts.time_between_steps_text_size,"time_between_steps_text_size")
-            .validatingFontWeight(that.time_between_steps_text_weight,"time_between_steps_text_weight",multiDimensionalCharts.time_between_steps_text_weight,"time_between_steps_text_weight")           
+            .validatingFontWeight(that.time_between_steps_text_weight,"time_between_steps_text_weight",multiDimensionalCharts.time_between_steps_text_weight,"time_between_steps_text_weight")
             .validatingColor(that.time_between_steps_text_color,"time_between_steps_text_color",multiDimensionalCharts.time_between_steps_text_color,"time_between_steps_text_color")
             .validatingColor(that.connecting_lines_color,"connecting_lines_color",multiDimensionalCharts.connecting_lines_color,"connecting_lines_color")
             .validatingColor(that.data_mode_legends_color,"data_mode_legends_color",multiDimensionalCharts.data_mode_legends_color,"data_mode_legends_color")
             .validatingDataMode(that.chart_mode,"data_mode_default",multiDimensionalCharts.data_mode_default,"chart_mode")
             .validatingLegendsMode(that.legends_mode,"legends_mode",multiDimensionalCharts.legends_mode,"legends_mode");
-        
+
         if(that.stop)
             return;
 
@@ -53,7 +53,7 @@ PykCharts.multiD.river = function (options){
         that.filterList = [];
         that.fullList = [];
         that.extended = that.chart_mode === "absolute" ? false : true;
-        
+
         that.executeData = function (data) {
 
             var validate = that.k.validator().validatingJSON(data);
@@ -106,7 +106,7 @@ PykCharts.multiD.river = function (options){
                 .durationLabel()
                 .createChart()
                 .connectingLines()
-                
+
                 .highlight();
 
             that.k.createFooter()
@@ -159,12 +159,12 @@ PykCharts.multiD.river = function (options){
                 }
             }
         }
-        
+
         for (k = 0;k < len;k++) {
             that.new_data[k] = {
                     display_name: that.uniq_group_arr[k],
                     breakup: [],
-                    technical_name: that.uniq_alias_arr[k], 
+                    technical_name: that.uniq_alias_arr[k],
                     duration: that.uniq_duration_arr[k]
             };
             for (l = 0;l < that.data_length;l++) {
@@ -203,14 +203,14 @@ PykCharts.multiD.river = function (options){
         that.k.dataSourceFormatIdentification(options.data,that,"executeRefresh");
     }
     this.draw = function(){
-        that.optional_feature().legends().dataMode().preProcessing().createChart().grids();    
+        that.optional_feature().legends().dataMode().preProcessing().createChart().grids();
         that.optional_feature().connectingLines().ticks().highlight();
     };
     that.optional_feature = function (){
         var optional = {
             svgContainer: function (i){
                 $(that.selector).attr("class","PykCharts-twoD PykCharts-multi-series2D PykCharts-line-chart");
-                
+
                 that.svgContainer = d3.select(options.selector).append("svg:svg")
                     .attr("id","svg-"+i)
                     .attr("width",that.width)
@@ -235,7 +235,7 @@ PykCharts.multiD.river = function (options){
             dataModeContainer : function () {
                 that.chart_mode_group = that.svgContainer.append("g")
                     .attr("translate","transform(0,0)");
-                return this;    
+                return this;
             },
             legendsContainer : function (i) {
                 if(PykCharts.boolean(that.legends_enable) && that.mode === "default") {
@@ -288,7 +288,7 @@ PykCharts.multiD.river = function (options){
                         if(that.extended) {
                             var x = 0;
                         }
-                        
+
                         return "translate("+x+","+y+")";
                     });
 
@@ -308,7 +308,7 @@ PykCharts.multiD.river = function (options){
                     });
 
                 groups.exit().remove();
-                
+
                 var bar_holder = svg.selectAll("g.bar-holder")[0];
                 for(var i = 0; i<that.new_data1.length; i++){
                     var group = bar_holder[i];
@@ -317,7 +317,7 @@ PykCharts.multiD.river = function (options){
                     if(that.extended) {
                         that.xScale.domain([0,that.new_data1[i].breakupTotal]);
                     }
-                    
+
                     var rects = d3.select(group).selectAll("rect").data(breakup);
 
                     rects.enter().append("rect").attr("width", 0).attr("class","rect");
@@ -333,7 +333,7 @@ PykCharts.multiD.river = function (options){
                         })
                         .attr("y", 0)
                         .attr("height", function(d, i){
-                            
+
                             return (that.barHeight * (height - that.legendsGroup_height)) / height;
 
                         })
@@ -380,7 +380,7 @@ PykCharts.multiD.river = function (options){
                         })
                         .on("click", function(d, i){
                             if(PykCharts.boolean(that.expand_group) && that.mode === "default") {
-                                that.onlyFilter(d.name); 
+                                that.onlyFilter(d.name);
                             }
                         });
 
@@ -393,7 +393,7 @@ PykCharts.multiD.river = function (options){
             },
             grids: function () {
                 if(PykCharts.boolean(that.grid_y_enable)) {
-                    
+
                     var width = that.width - that.legendsGroup_width;
                     var top_grid = that.grid_group.selectAll("line.top_line")
                         .data(that.new_data1)
@@ -409,7 +409,7 @@ PykCharts.multiD.river = function (options){
                         })
                         .attr("stroke",that.grid_color);
                     top_grid.exit().remove();
-                    
+
                     var bottom_grid = that.grid_group.selectAll("line.bottom_line")
                         .data(that.new_data1);
                     bottom_grid.enter()
@@ -503,7 +503,7 @@ PykCharts.multiD.river = function (options){
                 } else if(that.extended) {
                     $("line.left_line").fadeOut();
                     $("line.right_line").fadeOut();
-                } 
+                }
                 return this;
             },
             ticks: function () {
@@ -557,7 +557,7 @@ PykCharts.multiD.river = function (options){
                     .style("font-size",that.axis_y_pointer_size + "px")
                     .style("fill",that.axis_y_pointer_color)
                     .style("font-weight",that.axis_y_pointer_weight)
-                    .style("font-family",that.axis_y_pointer_family); 
+                    .style("font-family",that.axis_y_pointer_family);
                 that.max_label = d3.max(label_text_width,function (d) { return d; })
                 left_labels.exit().remove();
                 return this;
@@ -653,7 +653,7 @@ PykCharts.multiD.river = function (options){
                         temp_text = temp_rect = 0;
                         text_parameter1 = "x";
                         text_parameter2 = "y";
-                        
+
                         var text_parameter1value = function (d,i) {
                             legend_text_widths[i] = this.getBBox().width;
                             legend_start_x = 16;
@@ -678,13 +678,13 @@ PykCharts.multiD.river = function (options){
 
                     that.legends_text.enter()
                         .append('text')
-                        .text(function (d) { 
+                        .text(function (d) {
                             that.filterList.push(d.name);
                             that.fullList.push(d.name);
                         })
 
                     that.legends_text.attr("class","legends_text")
-                        .text(function (d) { 
+                        .text(function (d) {
                             return d.name;
                         })
                         .on("click", function(d){
@@ -712,7 +712,7 @@ PykCharts.multiD.river = function (options){
                             }
                         })
                         .attr("style", function(d){
-                            var fill = (that.filterList.indexOf(d.name) === -1) ? "#fff" : that.fillColor.colorPieMS(d);
+                            var fill = (that.filterList.indexOf(d.name) === -1) ? "transparent" : that.fillColor.colorPieMS(d);
                             if(that.filterList.length === 0) fill = that.fillColor.colorPieMS(d);
                             return "fill: "+ fill +"; stroke-width: 3px; stroke:" + that.fillColor.colorPieMS(d);
                         })
@@ -732,7 +732,7 @@ PykCharts.multiD.river = function (options){
                     } else  {
                         that.legendsGroup_width = 0;
                     }
-                    
+
                     translate_x = (that.legends_display === "vertical") ? (that.width - that.legendsGroup_width)  : (that.width - legend_container_width - 20);
 
                     if (legend_container_width < that.width) { that.legendsGroup.attr("transform","translate("+translate_x+",0)"); }
@@ -783,7 +783,7 @@ PykCharts.multiD.river = function (options){
                         })
                         .attr("cy",(18 + 7.5)).attr("r", 6)
                         .attr("style", function(d){
-                            var fill = !d.on ? "#fff" : that.data_mode_legends_color;
+                            var fill = !d.on ? "transparent" : that.data_mode_legends_color;
                             return "fill: "+ fill +"; stroke-width: 3px; stroke:" + that.data_mode_legends_color;
                         })
                         .on("click", function(d,i){
