@@ -291,7 +291,7 @@ PykCharts.Configuration = function (options){
                         .style("box-shadow","0 5px 10px rgba(0,0,0,.2)")
                         .style("pointer-events","none");
                 } else {
-                
+
                     PykCharts.Configuration.tooltipp = d3.select("body")
                         .append("div")
                         .attr("id", "pyk-tooltip")
@@ -2505,10 +2505,10 @@ configuration.Theme = function(){
         "data_mode_default" : "percentage",
         "connecting_lines_color" : "#ddd",
         "connecting_lines_style": "solid",
-        "time_between_steps_text_color": "#aaa",
-        "time_between_steps_text_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
-        "time_between_steps_text_size": 10,
-        "time_between_steps_text_weight" : "normal",
+        "text_between_steps_color": "#aaa",
+        "text_between_steps_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
+        "text_between_steps_size": 10,
+        "text_between_steps_weight" : "normal",
 
         "data_sort_enable": "yes",
         "data_sort_type": "alphabetically", // sort type --- "alphabetically" / "numerically" / "date"
@@ -13256,14 +13256,14 @@ PykCharts.multiD.river = function (options){
         }
         that.legends_mode = options.legends_mode ? options.legends_mode : multiDimensionalCharts.legends_mode;
         that.expand_group = options.expand_group ? options.expand_group : multiDimensionalCharts.expand_group;
-        that.time_between_steps_text_color = options.time_between_steps_text_color ? options.time_between_steps_text_color : multiDimensionalCharts.time_between_steps_text_color;
-        that.time_between_steps_text_weight = options.time_between_steps_text_weight ? options.time_between_steps_text_weight.toLowerCase() : multiDimensionalCharts.time_between_steps_text_weight;
-        that.time_between_steps_text_family = options.time_between_steps_text_family ? options.time_between_steps_text_family.toLowerCase() : multiDimensionalCharts.time_between_steps_text_family;
-        that.time_between_steps_text_size = "time_between_steps_text_size" in options ? options.time_between_steps_text_size : multiDimensionalCharts.time_between_steps_text_size;
+        that.text_between_steps_color = options.text_between_steps_color ? options.text_between_steps_color : multiDimensionalCharts.text_between_steps_color;
+        that.text_between_steps_weight = options.text_between_steps_weight ? options.text_between_steps_weight.toLowerCase() : multiDimensionalCharts.text_between_steps_weight;
+        that.text_between_steps_family = options.text_between_steps_family ? options.text_between_steps_family.toLowerCase() : multiDimensionalCharts.text_between_steps_family;
+        that.text_between_steps_size = "text_between_steps_size" in options ? options.text_between_steps_size : multiDimensionalCharts.text_between_steps_size;
         that.k.validator()
-            .validatingDataType(that.time_between_steps_text_size,"time_between_steps_text_size",multiDimensionalCharts.time_between_steps_text_size,"time_between_steps_text_size")
-            .validatingFontWeight(that.time_between_steps_text_weight,"time_between_steps_text_weight",multiDimensionalCharts.time_between_steps_text_weight,"time_between_steps_text_weight")
-            .validatingColor(that.time_between_steps_text_color,"time_between_steps_text_color",multiDimensionalCharts.time_between_steps_text_color,"time_between_steps_text_color")
+            .validatingDataType(that.text_between_steps_size,"text_between_steps_size",multiDimensionalCharts.text_between_steps_size,"text_between_steps_size")
+            .validatingFontWeight(that.text_between_steps_weight,"text_between_steps_weight",multiDimensionalCharts.text_between_steps_weight,"text_between_steps_weight")
+            .validatingColor(that.text_between_steps_color,"text_between_steps_color",multiDimensionalCharts.text_between_steps_color,"text_between_steps_color")
             .validatingColor(that.connecting_lines_color,"connecting_lines_color",multiDimensionalCharts.connecting_lines_color,"connecting_lines_color")
             .validatingColor(that.data_mode_legends_color,"data_mode_legends_color",multiDimensionalCharts.data_mode_legends_color,"data_mode_legends_color")
             .validatingDataMode(that.chart_mode,"data_mode_default",multiDimensionalCharts.data_mode_default,"chart_mode")
@@ -13823,7 +13823,7 @@ PykCharts.multiD.river = function (options){
                 return this;
             },
             durationLabel: function () {
-                if(PykCharts.boolean(that.time_between_steps_text_size)) {
+                if(PykCharts.boolean(that.text_between_steps_size)) {
                     var duration_text_width = [];
                     var width = that.width - that.legendsGroup_width;
                     var right_labels = that.ticks_group.selectAll("text.right_label").data(that.new_data1);
@@ -13847,10 +13847,10 @@ PykCharts.multiD.river = function (options){
                             duration_text_width.push(x);
                             return d.duration;
                         })
-                        .style("font-weight", that.time_between_steps_text_weight)
-                        .style("font-size", that.time_between_steps_text_size + "px")
-                        .attr("fill", that.time_between_steps_text_color)
-                        .style("font-family", that.time_between_steps_text_family)
+                        .style("font-weight", that.text_between_steps_weight)
+                        .style("font-size", that.text_between_steps_size + "px")
+                        .attr("fill", that.text_between_steps_color)
+                        .style("font-family", that.text_between_steps_family)
                         .attr("text-anchor","end");
                     }
                 that.max_duration = d3.max(duration_text_width,function (d) { return d; });

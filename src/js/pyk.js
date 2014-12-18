@@ -291,7 +291,7 @@ PykCharts.Configuration = function (options){
                         .style("box-shadow","0 5px 10px rgba(0,0,0,.2)")
                         .style("pointer-events","none");
                 } else {
-                
+
                     PykCharts.Configuration.tooltipp = d3.select("body")
                         .append("div")
                         .attr("id", "pyk-tooltip")
@@ -2505,10 +2505,10 @@ configuration.Theme = function(){
         "data_mode_default" : "percentage",
         "connecting_lines_color" : "#ddd",
         "connecting_lines_style": "solid",
-        "time_between_steps_text_color": "#aaa",
-        "time_between_steps_text_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
-        "time_between_steps_text_size": 10,
-        "time_between_steps_text_weight" : "normal",
+        "text_between_steps_color": "#aaa",
+        "text_between_steps_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
+        "text_between_steps_size": 10,
+        "text_between_steps_weight" : "normal",
 
         "data_sort_enable": "yes",
         "data_sort_type": "alphabetically", // sort type --- "alphabetically" / "numerically" / "date"
