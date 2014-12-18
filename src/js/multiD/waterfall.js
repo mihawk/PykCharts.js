@@ -303,25 +303,23 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
 	                    .style("font-family", that.pointer_family)
 	                    .text("");
 
-	                // setTimeout(function() {
-		            	ticks.text(function(d) {
-				       			return that.ticks_formatter(d.x);
-				       		})
-				       		.style("visibility","hidden")
-				       		.attr("y", function(d) { return (that.yScale.rangeBand()/2 + this.getBBox().height/3); })
-				       		.attr("dx", ".25em")
-				       		.attr("fill", function(d) {
-		                    	that.longest_tick_width = (that.longest_tick_width < this.getBBox().width) ? this.getBBox().width : that.longest_tick_width;
+	            	ticks.text(function(d) {
+			       			return that.ticks_formatter(d.x);
+			       		})
+			       		.style("visibility","hidden")
+			       		.attr("y", function(d) { return (that.yScale.rangeBand()/2 + this.getBBox().height/3); })
+			       		.attr("dx", ".25em")
+			       		.attr("fill", function(d) {
+	                    	that.longest_tick_width = (that.longest_tick_width < this.getBBox().width) ? this.getBBox().width : that.longest_tick_width;
 
-		                    	if (d.group == "negative") {
-				       				return that.chart_color[0];
-				       			}
-				       			else if (d.group == "positive") {
-				       				return that.chart_color[1];
-				       			}
-		                    })
-				       		.style("visibility","visible");
-                    // }, that.transitions.duration());
+	                    	if (d.group == "negative") {
+			       				return that.chart_color[0];
+			       			}
+			       			else if (d.group == "positive") {
+			       				return that.chart_color[1];
+			       			}
+	                    })
+			       		.style("visibility","visible");
 
 			       	ticks.exit()
 			       		.remove();
