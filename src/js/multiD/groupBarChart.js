@@ -667,16 +667,20 @@ PykCharts.multiD.groupedBar = function(options){
                 return this;
             },
             newYAxis : function () {
-                var yaxis = d3.svg.axis()
-                    .scale(that.yScale)
-                    .orient(options.axis_y_pointer_position)
-                    .tickSize(0)
-                    .outerTickSize(that.axis_y_outer_pointer_length);
-                that.new_yAxisgroup.style("stroke",function () { return options.axis_y_line_color; })
-                    .call(yaxis);
-                d3.selectAll(options.selector + " .y.new-axis text").attr("fill",function () { return "none"; })
-                    .style("stroke","none");
-                
+                if(PykCharts["boolean"](that.axis_y_enable)) {
+                    if(that.axis_y_position === "right") {
+                        gsvg.attr("transform", "translate(" + (that.width - that.margin_left - that.margin_right - that.legendsGroup_width) + ",0)");
+                    }
+                    var yaxis = d3.svg.axis()
+                        .scale(that.yScale)
+                        .orient(that.axis_y_pointer_position)
+                        .tickSize(0)
+                        .outerTickSize(that.axis_y_outer_pointer_length);
+                    that.new_yAxisgroup.style("stroke",function () { return that.axis_y_line_color; })
+                        .call(yaxis);
+                    d3.selectAll(that.selector + " .y.new-axis text").attr("fill",function () { return "none"; })
+                        .style("stroke","none");
+                }
                 return this;
             },
             sort : function() {
