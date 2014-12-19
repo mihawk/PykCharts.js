@@ -330,7 +330,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                             if (PykCharts['boolean'](that.tooltip_enable)) {
                                 var tooltip_text = ((_.where(that.data, {iso2: d.properties.iso_a2})[0]).tooltip) ? ((_.where(that.data, {iso2: d.properties.iso_a2})[0]).tooltip) : ("<table><thead><th colspan='2'><b>"+d.properties.NAME_1+"</b></th></thead><tr><td>Size</td><td><b>"+((_.where(that.data, {iso2: d.properties.iso_a2})[0]).size)+"</b></td></tr></table>");
 
-                                ttp.style("visibility", "visible");
+                                ttp.style("display", "block");
                                 ttp.html(tooltip_text);
                                 if (that.tooltip_mode === "moving") {
                                     ttp.style("top", function () {
@@ -353,7 +353,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     })
                     .on("mouseout", function (d) {
                         if (PykCharts['boolean'](that.tooltip_enable)) {
-                            ttp.style("visibility", "hidden");
+                            ttp.style("display", "none");
                         }
                         that.bodUncolor(d);
                         that.mouseEvent.highlightHide(options.selector + " .area");
