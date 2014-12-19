@@ -85,10 +85,15 @@ PykCharts.multiD.column = function (options) {
                 .axisContainer();
 
             that.k.yAxis(that.svgContainer,that.ygroup,that.yScale,that.y_domain,that.y_tick_values)
-                .xAxis(that.svgContainer,that.xgroup,that.xScale,that.extra_left_margin,that.x_domain,that.x_tick_values)
                 .yGrid(that.svgContainer,that.group,that.yScale)
                 .xAxisTitle(that.xgroup)
                 .yAxisTitle(that.ygroup);
+            if(that.axis_x_data_format !== "string") {
+                that.k.xAxis(that.svgContainer,that.xgroup,that.xScale,that.extra_left_margin,that.x_domain,that.x_tick_values,null,"bar")
+                that.optionalFeatures().newXAxis();
+            } else {
+                that.k.xAxis(that.svgContainer,that.xgroup,that.xScale,that.extra_left_margin,that.x_domain,that.x_tick_values)
+            }
 
         } else if(that.mode === "infographics") {
             that.k.backgroundColor(that)
@@ -110,10 +115,14 @@ PykCharts.multiD.column = function (options) {
                 .axisContainer();
 
             that.k.yAxis(that.svgContainer,that.ygroup,that.yScale,that.y_domain,that.y_tick_values)
-                .xAxis(that.svgContainer,that.xgroup,that.xScale,that.extra_left_margin,that.x_domain,that.x_tick_values)
                 .xAxisTitle(that.xgroup)
                 .yAxisTitle(that.ygroup);
-
+            if(that.axis_x_data_format !== "string") {
+                that.k.xAxis(that.svgContainer,that.xgroup,that.xScale,that.extra_left_margin,that.x_domain,that.x_tick_values,null,"bar")
+                that.optionalFeatures().newXAxis();
+            } else {
+                that.k.xAxis(that.svgContainer,that.xgroup,that.xScale,that.extra_left_margin,that.x_domain,that.x_tick_values)
+            }
         }
         that.k.exportSVG(that,"#"+that.container_id,"columnChart")
         $(document).ready(function () { return that.k.resize(that.svgContainer,""); })
@@ -145,8 +154,13 @@ PykCharts.multiD.column = function (options) {
                 .createColumn();
 
             that.k.yAxis(that.svgContainer,that.ygroup,that.yScale,that.y_domain,that.y_tick_values)
-                .xAxis(that.svgContainer,that.xgroup,that.xScale,that.extra_left_margin,that.x_domain,that.x_tick_values)
-                .yGrid(that.svgContainer,that.group,that.yScale)                    
+                .yGrid(that.svgContainer,that.group,that.yScale);
+            if(that.axis_x_data_format !== "string") {
+                that.k.xAxis(that.svgContainer,that.xgroup,that.xScale,that.extra_left_margin,that.x_domain,that.x_tick_values,null,"bar")
+                that.optionalFeatures().newXAxis();
+            } else {
+                that.k.xAxis(that.svgContainer,that.xgroup,that.xScale,that.extra_left_margin,that.x_domain,that.x_tick_values)
+            }
         };
         
         that.k.dataSourceFormatIdentification(options.data,that,"executeRefresh");
@@ -193,6 +207,10 @@ PykCharts.multiD.column = function (options) {
                     that.ygroup = that.group.append("g")
                         .attr("id","yaxis")
                         .attr("class","y axis");
+                    that.new_xAxisgroup = that.group.append("g")
+                        .attr("class", "x new-axis")
+                        .attr("id","new-xaxis")
+                        .style("stroke","blue");
                 }
                 return this;
             },
@@ -220,6 +238,7 @@ PykCharts.multiD.column = function (options) {
 
                     that.yScale = that.k.scaleIdentification("linear",y_data,y_range);
                     that.extra_top_margin = 0;
+
 
                 } else if(that.axis_y_data_format === "string") {
                     y_data = that.data.map(function (d) { return d.y; });
@@ -264,9 +283,15 @@ PykCharts.multiD.column = function (options) {
                     if(x_data[1] < max_x_tick_value) {
                         x_data[1] = max_x_tick_value;
                     }
+                    that.data.sort(function (a,b) {
+                        return a.x - b.x;
+                    })
+                    that.xScale1 = that.k.scaleIdentification("linear",x_data,x_range);
+                    x_data1 = that.data.map(function (d) { return d.x; });
+                    x_range1 = [0 ,that.reducedWidth];
+                    that.xScale = that.k.scaleIdentification("ordinal",x_data1,x_range1,0.3);
+                    that.extra_left_margin = (that.xScale.rangeBand()/2);
 
-                    that.xScale = that.k.scaleIdentification("linear",x_data,x_range);
-                    that.extra_left_margin = 0;
                 } else if(that.axis_x_data_format === "string") {
                     x_data = that.data.map(function (d) { return d.x; });
                     x_range = [0 ,that.reducedWidth];
@@ -294,7 +319,20 @@ PykCharts.multiD.column = function (options) {
 
                     x_range = [0 ,that.reducedWidth];
                     that.xScale = that.k.scaleIdentification("time",x_domain,x_range);
-                    that.extra_left_margin = 0;
+                    that.data.sort(function (a,b) {
+                        if ((a.x) < (b.x)) {
+                            return -1 ;
+                        }
+                        else if ((a.x) > (b.x)) {
+                            return 1;
+                        }
+                    })
+                    that.xScale1 = that.k.scaleIdentification("linear",x_data,x_range);
+                    x_data1 = that.data.map(function (d) { return d.x; });
+                    x_range1 = [0 ,that.reducedWidth];
+                    that.xScale = that.k.scaleIdentification("ordinal",x_data1,x_range1,0.3);
+                    that.extra_left_margin = (that.xScale.rangeBand()/2);
+
                 }
 
                 that.x_domain = that.xScale.domain();
@@ -349,9 +387,30 @@ PykCharts.multiD.column = function (options) {
 
                 that.bar.exit()
                     .remove();
-
+                var t = d3.transform(d3.select(d3.selectAll(options.selector + ' .bar')[0][(that.data.length-1)]).attr("transform")),
+                    x = t.translate[0],
+                    y = t.translate[1];
+                x_range = [(x + (that.xScale.rangeBand()/2)),(that.reducedWidth - x - (that.xScale.rangeBand()/2))];
+                that.xScale1 = that.k.scaleIdentification("linear",x_data,x_range);
                 return this;
-            }
+            },
+            newXAxis : function () {
+                if(PykCharts["boolean"](that.axis_x_enable)) {
+                    if(that.axis_x_position === "bottom") {
+                        that.new_xAxisgroup.attr("transform", "translate(0," + (that.height - that.margin_top - that.margin_bottom) + ")");
+                    }
+                    var xaxis = d3.svg.axis()
+                        .scale(that.xScale)
+                        .orient(that.axis_x_pointer_position)
+                        .tickSize(0)
+                        .outerTickSize(that.axis_x_outer_pointer_length);
+                    that.new_xAxisgroup.style("stroke",function () { return that.axis_x_line_color; })
+                        .call(xaxis);
+                    d3.selectAll(that.selector + " .x.new-axis text").attr("fill",function () { return "none"; })
+                        .style("stroke","none");
+                }
+                return this;
+            },
         };
         return optional;
     };

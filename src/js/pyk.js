@@ -579,7 +579,7 @@ PykCharts.Configuration = function (options){
             }
             return this;
         },
-        xAxis: function (svg, gsvg, xScale,extra,domain,tick_values,legendsGroup_height) {
+        xAxis: function (svg, gsvg, xScale,extra,domain,tick_values,legendsGroup_height,type) {
             var width = options.width,
                 height = options.height;
 
@@ -610,16 +610,18 @@ PykCharts.Configuration = function (options){
                         .attr("font-size",options.axis_x_pointer_size)
                         .style("font-weight",options.axis_x_pointer_weight)
                         .style("font-family",options.axis_x_pointer_family);
+                if(type && options.axis_x_data_format !== "string") {
+                    d3.selectAll(options.selector + " .x.axis .domain").remove();
+                }
             }
 
             return this;
         },
-        yAxis: function (svg, gsvg, yScale,domain,tick_values,legendsGroup_width) {
+        yAxis: function (svg, gsvg, yScale,domain,tick_values,legendsGroup_width, type) {
 
             if(!legendsGroup_width) {
                 legendsGroup_width = 0;
             }
-
             var width = options.width,
                 height = options.height;
             var k = new PykCharts.Configuration(options);
@@ -644,7 +646,6 @@ PykCharts.Configuration = function (options){
                 var mouseEvent = new PykCharts.Configuration.mouseEvent(options);
                 gsvg.style("stroke",function () { return options.axis_y_line_color; })
                     .call(yaxis)
-
                 if((options.axis_y_data_format === "string") && options.panels_enable === "no") {
                     k.ordinalYAxisTickFormat(domain);
                 }
@@ -653,6 +654,10 @@ PykCharts.Configuration = function (options){
                         .attr("font-size",options.axis_y_pointer_size)
                         .style("font-weight",options.axis_y_pointer_weight)
                         .style("font-family",options.axis_y_pointer_family);
+
+                if(type && options.axis_y_data_format !== "string") {
+                    d3.selectAll(options.selector + " .y.axis .domain").remove();
+                }
 
             }
             return this;
@@ -797,7 +802,8 @@ PykCharts.Configuration = function (options){
                 }
                 d3.select(a[i]).text(comp);
             }
-            xaxistooltip = d3.selectAll(options.selector + " g.x.axis text")
+            console.log(d3.selectAll(options.selector + " g.x.axis .tick text"));
+            xaxistooltip = d3.selectAll(options.selector + " g.x.axis .tick text")
                 .data(domain);
 
             if(options.mode === "default") {
@@ -818,7 +824,6 @@ PykCharts.Configuration = function (options){
         },
         ordinalYAxisTickFormat: function (domain) {
             var a = $(options.selector + " g.y.axis .tick text");
-
             var len = a.length,comp;
 
             for(i=0; i<len; i++) {
@@ -826,11 +831,11 @@ PykCharts.Configuration = function (options){
                 if(a[i].getBBox().width > (options.margin_left * 0.7)) {
                     comp = comp.substr(0,3) + "..";
                 }
+
                 d3.select(a[i]).text(comp);
             }
-            yaxistooltip = d3.selectAll(options.selector + " g.y.axis text")
+            yaxistooltip = d3.selectAll(options.selector + " g.y.axis .tick text")
                 .data(domain);
-
             if (options.mode === "default") {
                 yaxistooltip.on('mouseover',function (d) {
                     options.mouseEvent.tooltipPosition(d);
@@ -843,7 +848,7 @@ PykCharts.Configuration = function (options){
                 .on('mouseout', function (d) {
                     options.mouseEvent.tooltipHide(d);
                 });
-            }
+           }
             return this;
         },
         totalColors: function (tc) {
@@ -1947,7 +1952,6 @@ configuration.mouseEvent = function (options) {
                     selection = axisHighlight+" .tick text";
                     abc = options.axis_y_pointer_color;
                     axis_data_length = d3.selectAll(selection)[0].length;
-
                     d3.selectAll(selection)
                         .style("fill","#bbb")
                         .style("font-weight","normal");
