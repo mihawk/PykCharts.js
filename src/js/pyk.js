@@ -287,7 +287,7 @@ PykCharts.Configuration = function (options){
                         .style("text-align","center")
                         .style("min-width","30px")
                         .style("z-index","10")
-                        .style("visibility", "hidden")
+                        .style("display", "none")
                         .style("box-shadow","0 5px 10px rgba(0,0,0,.2)")
                         .style("pointer-events","none");
                 } else {
@@ -310,7 +310,7 @@ PykCharts.Configuration = function (options){
                         .style("text-align","center")
                         .style("min-width","30px")
                         .style("z-index","10")
-                        .style("visibility", "hidden")
+                        .style("display", "none")
                         .style("box-shadow","0 5px 10px rgba(0,0,0,.2)");
                 }
             } else if (PykCharts['boolean'](options.tooltip_enable)) {
@@ -333,7 +333,7 @@ PykCharts.Configuration = function (options){
                         .style("text-align","center")
                         .style("min-width","30px")
                         .style("z-index","10")
-                        .style("visibility", "hidden")
+                        .style("display", "none")
                         .style("box-shadow","0 5px 10px rgba(0,0,0,.2)");
                 } else {
                     PykCharts.Configuration.tooltipp = d3.select("body")
@@ -354,7 +354,7 @@ PykCharts.Configuration = function (options){
                         .style("text-align","center")
                         .style("min-width","30px")
                         .style("z-index","10")
-                        .style("visibility", "hidden")
+                        .style("display", "none")
                         .style("box-shadow","0 5px 10px rgba(0,0,0,.2)");
                 }
             }
@@ -802,7 +802,7 @@ PykCharts.Configuration = function (options){
                 }
                 d3.select(a[i]).text(comp);
             }
-            console.log(d3.selectAll(options.selector + " g.x.axis .tick text"));
+            
             xaxistooltip = d3.selectAll(options.selector + " g.x.axis .tick text")
                 .data(domain);
 
@@ -1636,13 +1636,13 @@ configuration.mouseEvent = function (options) {
                     tooltip = $("#tooltip-svg-container-"+group_index +"-pyk-tooltip"+selector);
                     offset = $(options.selector).offset();
                     tooltip
-                        .css("visibility", "visible")
+                        .css("display", "block")
                         .css("top", (yPos - ((height_tooltip)/2) * height_percentge) + "px")
                         .css("left", ((xPos + options.margin_left + offset.left) * width_percentage) + "px");
                 }
                 else {
                     that.tooltip
-                        .style("visibility", "visible")
+                        .style("display", "block")
                         .style("top", (PykCharts.getEvent().pageY - 20) + "px")
                         .style("left", (PykCharts.getEvent().pageX + 30) + "px");
                 }
@@ -1665,10 +1665,10 @@ configuration.mouseEvent = function (options) {
         tooltipHide: function (d,panels_enable,type) {
             if(PykCharts['boolean'](options.tooltip_enable) || PykCharts['boolean'](options.annotation_enable) || options.axis_x_data_format === "string" || options.axis_y_data_format === "string") {
                 if(panels_enable === "yes" && type === "multilineChart") {
-                    return d3.selectAll(".pyk-tooltip").style("visibility","hidden");
+                    return d3.selectAll(".pyk-tooltip").style("display","none");
                 }
                 else {
-                    return that.tooltip.style("visibility", "hidden");
+                    return that.tooltip.style("display", "none");
                 }
             }
         },

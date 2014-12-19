@@ -501,8 +501,8 @@ PykCharts.multiD.river = function (options){
                         });
                     right_angles.exit().remove();
                 } else if(that.extended) {
-                    $("line.left_line").fadeOut();
-                    $("line.right_line").fadeOut();
+                    $("line.left_line").remove();
+                    $("line.right_line").remove();
                 }
                 return this;
             },
