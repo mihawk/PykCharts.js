@@ -21,7 +21,7 @@
 		"tooltip": "<table class='PykCharts'><tr><th>Rice</th></tr><tr><td>12</td></tr></table>"
 	},
 	{
-		"x": "Pakisthan",
+		"x": "Pakistan",
 		"y":  12,
 		"group": "Rice",
 		"stack": "Stack", 

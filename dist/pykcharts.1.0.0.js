@@ -7384,6 +7384,7 @@ PykCharts.multiD.panelsOfLine = function (options) {
                 $(that.selector).css("height","auto")
                 return;
             }
+
             that.data = that.k.__proto__._groupBy("line",data);
             that.axis_y_data_format = "number";
             that.axis_x_data_format = that.k.xAxisDataFormatIdentification(that.data);
@@ -7484,7 +7485,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                 that.reducedHeight = that.height - that.margin_top - that.margin_bottom;
                 that.fill_data = [];
                 that.xdomain = [];
-                {
+                if(that.axis_x_data_format === "time") {
                     for(i = 0;i<that.new_data_length;i++) {
 
                         that.new_data[i].data.forEach(function (d) {
@@ -7594,7 +7595,6 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                 that.xdomain = [];
                 if(that.axis_x_data_format === "time") {
                     for(i = 0;i<that.new_data_length;i++) {
-
                         that.new_data[i].data.forEach(function (d) {
                             d.x = that.k.dateConversion(d.x);
                         });
@@ -7859,7 +7859,6 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                     that.xScale = that.k.scaleIdentification("ordinal",x_data,x_range,0);
                     that.extra_left_margin = (that.xScale.rangeBand() / 2);
                     that.xdomain = that.xScale.domain();
-
                 } else if (that.axis_x_data_format === "time") {
                     max = d3.max(that.new_data, function(d) { return d3.max(d.data, function(k) { return k.x; }); });
                     min = d3.min(that.new_data, function(d) { return d3.min(d.data, function(k) { return k.x; }); });
