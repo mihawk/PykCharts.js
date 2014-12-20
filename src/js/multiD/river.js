@@ -154,7 +154,7 @@ PykCharts.multiD.river = function (options){
             for (l = 0;l < that.data_length;l++) {
                 if (that.uniq_group_arr[k] === that.data[l].y) {
                     that.uniq_alias_arr[k] = that.data[l].alias;
-                    that.uniq_duration_arr[k] = that.data[l].time_between_steps || "";
+                    that.uniq_duration_arr[k] = that.data[l].text_between_steps || "";
                     break;
                 }
             }

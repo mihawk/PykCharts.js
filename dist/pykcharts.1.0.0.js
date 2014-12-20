@@ -7423,6 +7423,7 @@ PykCharts.multiD.panelsOfLine = function (options) {
                 $(that.selector).css("height","auto")
                 return;
             }
+
             that.data = that.k.__proto__._groupBy("line",data);
             that.axis_y_data_format = "number";
             that.axis_x_data_format = that.k.xAxisDataFormatIdentification(that.data);
@@ -7523,7 +7524,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                 that.reducedHeight = that.height - that.margin_top - that.margin_bottom;
                 that.fill_data = [];
                 that.xdomain = [];
-                {
+                if(that.axis_x_data_format === "time") {
                     for(i = 0;i<that.new_data_length;i++) {
 
                         that.new_data[i].data.forEach(function (d) {
@@ -7633,7 +7634,6 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                 that.xdomain = [];
                 if(that.axis_x_data_format === "time") {
                     for(i = 0;i<that.new_data_length;i++) {
-
                         that.new_data[i].data.forEach(function (d) {
                             d.x = that.k.dateConversion(d.x);
                         });
@@ -7898,7 +7898,6 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                     that.xScale = that.k.scaleIdentification("ordinal",x_data,x_range,0);
                     that.extra_left_margin = (that.xScale.rangeBand() / 2);
                     that.xdomain = that.xScale.domain();
-
                 } else if (that.axis_x_data_format === "time") {
                     max = d3.max(that.new_data, function(d) { return d3.max(d.data, function(k) { return k.x; }); });
                     min = d3.min(that.new_data, function(d) { return d3.min(d.data, function(k) { return k.x; }); });
@@ -13521,7 +13520,7 @@ PykCharts.multiD.river = function (options){
             for (l = 0;l < that.data_length;l++) {
                 if (that.uniq_group_arr[k] === that.data[l].y) {
                     that.uniq_alias_arr[k] = that.data[l].alias;
-                    that.uniq_duration_arr[k] = that.data[l].time_between_steps || "";
+                    that.uniq_duration_arr[k] = that.data[l].text_between_steps || "";
                     break;
                 }
             }
@@ -13978,6 +13977,7 @@ PykCharts.multiD.river = function (options){
                             if(that.new_data1[i+1] === undefined){
                                 return "";
                             }
+                            console.log(d)
                             return d.duration;
                         })
                         .text(function(d,i){
@@ -14781,7 +14781,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                             if (PykCharts['boolean'](that.tooltip_enable)) {
                                 var tooltip_text = ((_.where(that.data, {iso2: d.properties.iso_a2})[0]).tooltip) ? ((_.where(that.data, {iso2: d.properties.iso_a2})[0]).tooltip) : ("<table><thead><th colspan='2'><b>"+d.properties.NAME_1+"</b></th></thead><tr><td>Size</td><td><b>"+((_.where(that.data, {iso2: d.properties.iso_a2})[0]).size)+"</b></td></tr></table>");
 
-                                ttp.style("visibility", "visible");
+                                ttp.style("display", "block");
                                 ttp.html(tooltip_text);
                                 if (that.tooltip_mode === "moving") {
                                     ttp.style("top", function () {
@@ -14804,7 +14804,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     })
                     .on("mouseout", function (d) {
                         if (PykCharts['boolean'](that.tooltip_enable)) {
-                            ttp.style("visibility", "hidden");
+                            ttp.style("display", "none");
                         }
                         that.bodUncolor(d);
                         that.mouseEvent.highlightHide(options.selector + " .area");
