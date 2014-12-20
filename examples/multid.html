@@ -34,16 +34,17 @@
         <div id="groupBar">
         </div>
         <hr/>
-
+        <script src="../src/js/init.js"></script>
         <script src="../src/js/pyk.js"></script>
         <script src="../src/js/multiD/multiD.js"></script>
-        <script src="../src/js/multiD/columnChart.js"></script>
+        <script src="../src/js/multiD/column.js"></script>
+        <script src="../src/js/multiD/groupColumnChart.js"></script>
         <script src="../src/js/multiD/areaChart.js"></script>
         <script src="../src/js/multiD/lineChart.js"></script>
         <script src="../src/js/multiD/spiderWeb.js"></script>
         <script src="../src/js/multiD/scatterplot.js"></script>
         <script src="../src/js/multiD/barChart.js"></script>
-        <script src="../src/js/init.js"></script>
+
         <script>
 
             // $(document).ready(function (e) {
@@ -108,7 +109,7 @@
                     highlight : "NEw York",
                     pointer_size : 12
                 });
-            k.execute();
+           k.execute();
 
                 var k = new PykCharts.multiD.area ({
                     selector: "#area",
@@ -133,7 +134,7 @@
                     chart_grid_color: "black",
 
                     transition_duration: 5,
-                    real_time_charts_refresh_frequency: 5,
+                    real_time_charts_refresh_frequency: 0,
 
                     axis_onhover_highlight_enable: "yes",
                     title_text: "",
@@ -170,7 +171,7 @@
                     annotation_background_color:"red",
                     border_between_chart_elements_thickness: 2
                 });
-             k.execute();
+            k.execute();
 
                 var k = new PykCharts.multiD.spiderWeb ({
                     selector: "#spiderWeb",
@@ -208,7 +209,7 @@
                     legends_text_weight: "normal",
                     legends_text_family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
                 });
-                k.execute();
+               k.execute();
 
                 var k = new PykCharts.multiD.scatter ({
                     selector: "#scatterPlot",
@@ -225,7 +226,7 @@
                     chart_margin_right: 30,
                     chart_margin_bottom: 30,
                     chart_margin_left: 50,
-                    transition_duration : 10,
+                    // transition_duration : 10,
                     saturation_color:"red",
                     scatterplot_radius : 20,
                     scatterplot_pointer: "no",
@@ -248,7 +249,7 @@
                     axis_x_outer_pointer_length: 3,
                     axis_x_time_value_datatype:"month",
                     axis_x_time_value_interval: 1,
-
+                    // real_time_charts_refresh_frequency:
                     axis_y_enable: "yes",
                     axis_y_title : "Rating",
                     axis_y_position: "left",
@@ -279,7 +280,7 @@
                     label_color: "black",
                     label_weight: "bold",
                     label_family:"'Helvetica Ne#scatterue',Helvetica,Arial,sans-serif",
-                    real_time_charts_refresh_frequency:0
+                    real_time_charts_refresh_frequency:10
                     // chart_height: 450,
                     // chart_width : 700,
                     // chart_margin_top: 125,
@@ -287,7 +288,7 @@
                     // chart_margin_bottom: 125,
                     // chart_margin_left: 160,
                 });
-             k.execute();
+            k.execute();
 
                 var k = new PykCharts.multiD.panelsOfScatter ({
                     selector: "#multiple-scatterplots",
@@ -305,7 +306,7 @@
 
                     scatterplot_radius : 9,
                     scatterplot_pointer: "no",
-                    real_time_charts_refresh_frequency: 20,
+                    real_time_charts_refresh_frequency: 0,
                     panels_enable: "yes",
                     variable_circle_size_enable: "no",
 
@@ -347,7 +348,7 @@
                     border_between_chart_elements_thickness:0,
                     border_between_chart_elements_color:"blue"
                 });
-            // k.execute();
+           k.execute();
 
                 var k = new PykCharts.multiD.panelsOfLine ({
                     selector: "#multiLine",
@@ -371,6 +372,7 @@
                     chart_grid_y_enable: "yes",
 
                     highlight_color: "red",
+                    highlight : "india",
 
                     transition_duration: 5,
                     real_time_charts_refresh_frequency: 0,
@@ -407,7 +409,7 @@
                     annotation_background_color:"#ff4c4c"
                 });
 
-            k.execute();
+           k.execute();
 
                 var k = new PykCharts.multiD.multiSeriesLine ({
                     selector: "#multiple-multiLine",
@@ -442,7 +444,7 @@
                     axis_x_pointer_padding: 3,
                     axis_x_outer_pointer_length: 3,
                     axis_x_time_value_datatype:"date",
-                    axis_x_time_value_interval: 1, 
+                    axis_x_time_value_interval: 1,
 
                     axis_y_enable: "yes",
                     axis_y_title : "Growth rate",
@@ -460,13 +462,13 @@
                     tooltip_enable : "yes",
                     crosshair_enable: "yes",
                     zoom_enable: "yes",
-                    // highlight: "India",
+                    highlight: "India",
                     // highlight_color: "purple",
                     annotation_enable: "yes",
                     annotation_view_mode: "onclick",
                     annotation_background_color:"#ff4c4c"
                 });
-             k.execute();
+            k.execute();
 
                 var k = new PykCharts.multiD.stackedArea ({
 
@@ -477,7 +479,7 @@
                     color_mode: "saturation",  //color or saturation
                     chart_color:["steelblue"],
                     background_color: "white",
-                    // highlight:"China",
+                    highlight:"india",
                     // highlight_color: "yellow",
 
                     chart_height: 400,
@@ -505,7 +507,7 @@
                     axis_x_pointer_padding: 3,
                     axis_x_outer_pointer_length: 3,
                     axis_x_time_value_datatype:"date",
-                    axis_x_time_value_interval: 1,  
+                    axis_x_time_value_interval: 1,
 
                     axis_y_enable: "yes",
                     axis_y_title : "Growth rate",
@@ -534,7 +536,7 @@
                     annotation_view_mode: "onclick",
                     annotation_background_color:"#ff4c4c"
                 });
-             k.execute();
+            k.execute();
 
                 var k = new PykCharts.multiD.pulse({
                     selector: "#pulse",
@@ -609,14 +611,14 @@
                     chart_color:["steelblue"],
                     background_color:"white",
                     chart_height: 430,
-                    chart_width : 400,
+                    chart_width : 600,
                     chart_margin_top: 25,
                     chart_margin_right: 25,
                     chart_margin_bottom: 45,
                     chart_margin_left: 45,
                     chart_grid_y_enable: "yes",
 
-                    real_time_charts_refresh_frequency: 5,
+                    real_time_charts_refresh_frequency: 0,
                     transition_duration: 0,
                     axis_onhover_highlight_enable: "yes",
 
@@ -624,12 +626,12 @@
                     axis_x_title : "Months",
                     axis_x_position: "bottom",
                     axis_x_pointer_position: "bottom",
-                    axis_x_line_color: "#1D1D1D",
-
+                    axis_x_line_color: "red",
+                    highlight:"india",
                     "axis_x_pointer_size": 12,
                     "axis_x_pointer_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
                     "axis_x_pointer_weight": "normal",
-                    "axis_x_pointer_color": "blue",
+                    "axis_x_pointer_color": "red",
 
                     // axis_x_pointer_padding: NA,
                     // axis_x_outer_pointer_length: NA ,
@@ -656,76 +658,8 @@
                     border_between_chart_elements_thickness: 1,
                     border_between_chart_elements_color: "white",
                     border_between_chart_elements_style: "solid",
-
-                    highlight:"January"
-                });
-             k.execute();
-
-                var k = new PykCharts.multiD.groupedColumn({
-                    data: "../data/ultimateGroupColumn.json",
-                    mode: "default",
-                    selector: "#groupColumn",
-
-                    color_mode: "color",
-                    background_color:"white",
-
-                    chart_color:["orange","red","steelblue","gray"],
-
-                    chart_height: 430,
-                    chart_width : 1000,
-                    chart_margin_top: 25,
-                    chart_margin_right: 45,
-                    chart_margin_bottom: 45,
-                    chart_margin_left: 50,
-                    chart_grid_y_enable: "yes",
-
-                    real_time_charts_refresh_frequency: 10,
-
-                    axis_onhover_highlight_enable: "yes",
-                     // panels_enable:"yes",
-
-                    axis_x_enable: "yes",
-                    axis_x_title : "Months",
-                    axis_x_position: "bottom",
-                    axis_x_pointer_position: "bottom",
-                    axis_x_line_color: "#1D1D1D",
-                    axis_x_label_color: "#1D1D1D",
-                    axis_x_pointer_size: 12,
-                    axis_x_pointer_padding: 3,
-                    axis_x_outer_pointer_length: 3,
-                    axis_x_pointer_weight:"normal",
-
-                    axis_y_enable: "yes",
-                    axis_y_title : "Rainfall",
-                    axis_y_position: "left",
-                    axis_y_pointer_position: "left",
-                    axis_y_line_color: "red",
-                    axis_y_label_color: "#1D1D1D",
-                    axis_y_pointer_size: 12,
-                    axis_y_pointer_padding: 10,
-                    // axis_y_pointer_values : [5,30],
-                    axis_y_outer_pointer_length: 3,
-
-                    highlight_color: "#013F73",
-
-                    legends_enable: "yes",
-                    legends_display: "vertical",
-                    legends_text_size: 13,
-                    legends_text_color: "blue",
-                    legends_text_weight: "normal",
-                    legends_text_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
-
-                    transition_duration:0,
-
-                    border_between_chart_elements_thickness: 1,
-                    border_between_chart_elements_color: "white",
-                    border_between_chart_elements_style: "solid",
-                   // saturation_enable: "yes",
-
-                    highlight:"april"
                 });
             k.execute();
-
                 var k = new PykCharts.multiD.bar({
                     data: "../data/ultimatebar_date.json",
                     mode: "default",
@@ -741,7 +675,7 @@
                     chart_margin_bottom: 35,
                     chart_margin_left: 130,
 
-                    real_time_charts_refresh_frequency: 0 ,
+                    real_time_charts_refresh_frequency: 0,
 
                     axis_onhover_highlight_enable: "yes",
 
@@ -778,19 +712,19 @@
                     pointer_size: 10,
                     pointer_color: "#1D1D1D",
                     pointer_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
-                    highlight: "12-12-2014",
+                    highlight:"india",
                      panels_enable: "yes",
 
                     data_sort_type: "alphabetically",
                     data_sort_order: "ascending"
                 });
-           k.execute();
+          k.execute();
+
 
                 var k = new PykCharts.multiD.groupedBar({
                     data: "../data/ultimateGroupBar.json",
                     mode: "default",
                     selector: "#groupBar",
-
                     chart_height: 430,
                     chart_width : 700,
                     chart_margin_top: 25,
@@ -855,11 +789,80 @@
                     "data_sort_enable": "yes",
                     "data_sort_type": "date", // sort type --- "alphabetically" / "date"
                     "data_sort_order": "ascending", // sort order --- "descending" / "ascending",
+                    highlight:"india"
                     // legends_text_family: "Papyrus",
                     // legends_text_weight: "bold",
                     // legends_text_size: 28
                 });
+           k.execute();
+                var k = new PykCharts.multiD.groupedColumn({
+                    data: "../data/ultimateGroupColumn.json",
+                    mode: "default",
+                    selector: "#groupColumn",
+
+                    color_mode: "color",
+                    background_color:"white",
+
+                    chart_color:["orange","red","steelblue","grey"],
+
+                    chart_height: 430,
+                    chart_width : 1000,
+                    chart_margin_top: 25,
+                    chart_margin_right: 45,
+                    chart_margin_bottom: 45,
+                    chart_margin_left: 50,
+                    chart_grid_y_enable: "yes",
+
+                    real_time_charts_refresh_frequency: 0,
+
+                    axis_onhover_highlight_enable: "yes",
+                    chart_onhover_highlight_enable: "yes",
+                     // panels_enable:"yes",
+                    axis_x_pointer_values : ["nehal"],
+                    axis_x_enable: "yes",
+                    axis_x_title : "Countries",
+                    axis_x_position: "bottom",
+                    axis_x_pointer_position: "bottom",
+                    axis_x_line_color: "#1D1D1D",
+                    axis_x_pointer_color: "green",
+                    axis_x_pointer_size: 12,
+                    axis_x_pointer_padding: 3,
+                    axis_x_outer_pointer_length: 3,
+                    axis_x_pointer_weight:"bold",
+                    axis_x_time_value_datatype: "month",
+                    axis_y_enable: "yes",
+                    axis_y_title : "Production",
+                    axis_y_position: "left",
+                    axis_y_pointer_position: "left",
+                    axis_y_line_color: "green",
+                    axis_y_pointer_color: "green",
+                    axis_y_pointer_size: 12,
+                    axis_y_pointer_padding: 10,
+                    // axis_y_pointer_values : [5,30],
+                    axis_y_outer_pointer_length: 10,
+
+                    highlight_color: "#013F73",
+
+                    legends_enable: "yes",
+                    legends_display: "vertical",
+                    legends_text_size: 13,
+                    legends_text_color: "black",
+                    legends_text_weight: "normal",
+                    legends_text_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
+
+                    transition_duration:0,
+
+                    border_between_chart_elements_thickness: 2,
+                    border_between_chart_elements_color: "black",
+                    border_between_chart_elements_style: "solid",
+                   // saturation_enable: "yes",
+
+                    highlight:"india",
+                    chart_grid_y_enable: "no",
+                });
             k.execute();
+
+
             };
         </script>
     </body>
