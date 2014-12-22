@@ -24,6 +24,7 @@ module.exports = function(grunt) {
                     , '<%= js_src_path %>/oneD/treemap.js'
                     , '<%= js_src_path %>/other/other.js'
                     , '<%= js_src_path %>/other/pictograph.js'
+                    , '<%= js_src_path %>/other/venn.js'
                     , '<%= js_src_path %>/multiD/multiD.js'
                     , '<%= js_src_path %>/multiD/lineChart.js'
                     , '<%= js_src_path %>/multiD/areaChart.js'

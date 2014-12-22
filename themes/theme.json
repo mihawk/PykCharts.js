@@ -24,7 +24,7 @@
 			"subtitle_weight": "normal",
 			"subtitle_family": "Helvetica Neue,Helvetica,Arial,sans-serif",
 
-			"highlight": "Asia",
+			"highlight": "India",
 			"highlight_color": "#08306b",
 			"background_color": "#FFFFFF",
 			"chart_color": ["#255AEE"],
@@ -53,7 +53,7 @@
 			"text_between_steps_size": 10,
 			"text_between_steps_weight" : "normal",
 
-			"label_size": 13,
+			"label_size": 0,
 			"label_color": "white",
 			"label_weight": "normal",
 			"label_family": "Helvetica Neue,Helvetica,Arial,sans-serif",
@@ -236,10 +236,10 @@
 			"subtitle_weight": "normal",
 			"subtitle_family": "Helvetica Neue,Helvetica,Arial,sans-serif",
 
-			"highlight": "Asia",
+			"highlight": "India",
 			"highlight_color": "#7F00FF",
 			"background_color": "#D9D9F3",
-			"chart_color": ["#5959AB"],
+			"chart_color": ["#5959AB","#5959AB","#5959AB"],
 			"saturation_color": "#5959AB",
 
 			"border_between_chart_elements_thickness": 1,
@@ -265,7 +265,7 @@
 			"text_between_steps_size": 10,
 			"text_between_steps_weight" : "normal",
 
-			"label_size": 13,
+			"label_size": 0,
 			"label_color": "white",
 			"label_weight": "normal",
 			"label_family": "Helvetica Neue,Helvetica,Arial,sans-serif",
@@ -454,10 +454,10 @@
 			"subtitle_weight": "normal",
 			"subtitle_family": "Helvetica Neue,Helvetica,Arial,sans-serif",
 
-			"highlight": "Asia",
+			"highlight": "India",
 			"highlight_color": "#2E37FE",
 			"background_color": "#E0EEEE",
-			"chart_color": ["#0276FD"],
+			"chart_color": ["#0276FD","#0276FD","#0276FD"],
 			"saturation_color": "#0276FD",
 
 			"border_between_chart_elements_thickness": 1,
@@ -483,7 +483,7 @@
 			"text_between_steps_size": 10,
 			"text_between_steps_weight" : "normal",
 
-			"label_size": 13,
+			"label_size": 0,
 			"label_color": "white",
 			"label_weight": "normal",
 			"label_family": "Helvetica Neue,Helvetica,Arial,sans-serif",
@@ -672,10 +672,10 @@
 			"subtitle_weight": "normal",
 			"subtitle_family": "Helvetica Neue,Helvetica,Arial,sans-serif",
 
-			"highlight": "Asia",
+			"highlight": "India",
 			"highlight_color": "#595263",
 			"background_color": "#EFE1FF",
-			"chart_color": ["#9F93AF"],
+			"chart_color": ["#9F93AF","#9F93AF","#9F93AF"],
 			"saturation_color": "#9F93AF",
 
 			"border_between_chart_elements_thickness": 1,
@@ -701,7 +701,7 @@
 			"text_between_steps_size": 10,
 			"text_between_steps_weight" : "normal",
 
-			"label_size": 13,
+			"label_size": 0,
 			"label_color": "white",
 			"label_weight": "normal",
 			"label_family": "Helvetica Neue,Helvetica,Arial,sans-serif",
@@ -890,10 +890,10 @@
 			"subtitle_weight": "normal",
 			"subtitle_family": "Helvetica Neue,Helvetica,Arial,sans-serif",
 
-			"highlight": "Asia",
+			"highlight": "India",
 			"highlight_color": "#003EFF",
 			"background_color": "#F5F5F5",
-			"chart_color": ["#292929"],
+			"chart_color": ["#292929","#292929","#292929"],
 			"saturation_color": "#292929",
 
 			"border_between_chart_elements_thickness": 1,
@@ -919,7 +919,7 @@
 			"text_between_steps_size": 10,
 			"text_between_steps_weight" : "normal",
 
-			"label_size": 13,
+			"label_size": 0,
 			"label_color": "white",
 			"label_weight": "normal",
 			"label_family": "Helvetica Neue,Helvetica,Arial,sans-serif",
@@ -1108,10 +1108,10 @@
 			"subtitle_weight": "normal",
 			"subtitle_family": "Helvetica Neue,Helvetica,Arial,sans-serif",
 
-			"highlight": "Asia",
+			"highlight": "India",
 			"highlight_color": "#A20814",
 			"background_color": "#ECD49E",
-			"chart_color": ["#FC4134"],
+			"chart_color": ["#FC4134","#FC4134","#FC4134"],
 			"saturation_color": "#FC4134",
 
 			"border_between_chart_elements_thickness": 1,
@@ -1137,7 +1137,7 @@
 			"text_between_steps_size": 10,
 			"text_between_steps_weight" : "normal",
 
-			"label_size": 13,
+			"label_size": 0,
 			"label_color": "white",
 			"label_weight": "normal",
 			"label_family": "Helvetica Neue,Helvetica,Arial,sans-serif",
@@ -1326,10 +1326,10 @@
 			"subtitle_weight": "normal",
 			"subtitle_family": "Helvetica Neue,Helvetica,Arial,sans-serif",
 
-			"highlight": "Asia",
+			"highlight": "India",
 			"highlight_color": "#20BCA8",
 			"background_color": "#B5D4CE",
-			"chart_color": ["#7DA70C"],
+			"chart_color": ["#7DA70C","#7DA70C","#7DA70C"],
 			"saturation_color": "#7DA70C",
 
 			"border_between_chart_elements_thickness": 1,
@@ -1355,7 +1355,7 @@
 			"text_between_steps_size": 10,
 			"text_between_steps_weight" : "normal",
 
-			"label_size": 13,
+			"label_size": 0,
 			"label_color": "white",
 			"label_weight": "normal",
 			"label_family": "Helvetica Neue,Helvetica,Arial,sans-serif",
@@ -1544,10 +1544,10 @@
 			"subtitle_weight": "normal",
 			"subtitle_family": "Helvetica Neue,Helvetica,Arial,sans-serif",
 
-			"highlight": "Asia",
+			"highlight": "India",
 			"highlight_color": "#DD5529",
 			"background_color": "#FFF8D3",
-			"chart_color": ["#03A89E"],
+			"chart_color": ["#03A89E","#03A89E","#03A89E"],
 			"saturation_color": "#03A89E",
 
 			"border_between_chart_elements_thickness": 1,
@@ -1573,7 +1573,7 @@
 			"text_between_steps_size": 10,
 			"text_between_steps_weight" : "normal",
 
-			"label_size": 13,
+			"label_size": 0,
 			"label_color": "white",
 			"label_weight": "normal",
 			"label_family": "Helvetica Neue,Helvetica,Arial,sans-serif",
@@ -1762,10 +1762,10 @@
 			"subtitle_weight": "normal",
 			"subtitle_family": "Helvetica Neue,Helvetica,Arial,sans-serif",
 
-			"highlight": "Asia",
+			"highlight": "India",
 			"highlight_color": "#D73C39",
 			"background_color": "#BFD8FF",
-			"chart_color": ["#1D7CF2"],
+			"chart_color": ["#1D7CF2","#1D7CF2","#1D7CF2"],
 			"saturation_color": "#1D7CF2",
 
 			"border_between_chart_elements_thickness": 1,
@@ -1791,7 +1791,7 @@
 			"text_between_steps_size": 10,
 			"text_between_steps_weight" : "normal",
 
-			"label_size": 13,
+			"label_size": 0,
 			"label_color": "white",
 			"label_weight": "normal",
 			"label_family": "Helvetica Neue,Helvetica,Arial,sans-serif",
@@ -1980,10 +1980,10 @@
 			"subtitle_weight": "normal",
 			"subtitle_family": "Helvetica Neue,Helvetica,Arial,sans-serif",
 
-			"highlight": "Asia",
+			"highlight": "India",
 			"highlight_color": "#990000",
 			"background_color": "#FFF1E0",
-			"chart_color": ["#819E9A"],
+			"chart_color": ["#819E9A","#819E9A","#819E9A"],
 			"saturation_color": "#819E9A",
 
 			"border_between_chart_elements_thickness": 1,
@@ -2009,7 +2009,7 @@
 			"text_between_steps_size": 10,
 			"text_between_steps_weight" : "normal",
 
-			"label_size": 13,
+			"label_size": 0,
 			"label_color": "white",
 			"label_weight": "normal",
 			"label_family": "Helvetica Neue,Helvetica,Arial,sans-serif",
@@ -2198,10 +2198,10 @@
 			"subtitle_weight": "normal",
 			"subtitle_family": "Helvetica Neue,Helvetica,Arial,sans-serif",
 
-			"highlight": "Asia",
+			"highlight": "India",
 			"highlight_color": "#111111",
 			"background_color": "#EEEEEE",
-			"chart_color": ["#444444"],
+			"chart_color": ["#444444","#444444","#444444"],
 			"saturation_color": "#444444",
 
 			"border_between_chart_elements_thickness": 1,
@@ -2227,7 +2227,7 @@
 			"text_between_steps_size": 10,
 			"text_between_steps_weight" : "normal",
 
-			"label_size": 13,
+			"label_size": 0,
 			"label_color": "white",
 			"label_weight": "normal",
 			"label_family": "Helvetica Neue,Helvetica,Arial,sans-serif",

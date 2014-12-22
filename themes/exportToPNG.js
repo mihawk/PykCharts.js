@@ -13,6 +13,9 @@ if (chart_name==="oneLayer") {
     data = "../data/"+chart_data+"_data.json";
 } else if (chart_name==="timelineMap") {
     data = "../data/"+chart_data+"_data_timeline.json";
+} else if (chart_name==="venn") {
+    chart_data = chart_data.split(",");
+    data = ["../data/" + chart_data[0], "../data/" + chart_data[1]]
 } else {
     data = "../data/"+chart_data;
 }
