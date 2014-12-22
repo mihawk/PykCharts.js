@@ -665,7 +665,7 @@ PykCharts.multiD.groupedColumn = function(options) {
                         .outerTickSize(that.axis_x_outer_pointer_length);
                     that.new_xAxisgroup.style("stroke",function () { return that.axis_x_line_color; })
                         .call(xaxis);
-                    d3.selectAll(that.selector + " .x.new-axis text").attr("fill",function () { return "none"; })
+                    d3.selectAll(that.selector + " .x.new-axis text").style("display",function () { return "none"; })
                         .style("stroke","none");
                 }
                 
