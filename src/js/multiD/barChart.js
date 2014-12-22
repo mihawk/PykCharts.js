@@ -591,6 +591,7 @@ PykCharts.multiD.barFunctions = function (options,chartObject,type) {
                                 .data(function(d) {
                                         return d.values;
                                 });
+                                
                     tick_label.enter()
                         .append("text")
                         .attr("class","ticksText");

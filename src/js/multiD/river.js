@@ -178,7 +178,11 @@ PykCharts.multiD.river = function (options){
                 }
             }
         }
+        that.opacity_array = [];
         that.new_data_length = that.new_data.length;
+        for(i = 0; i<that.new_data_length;i++) {
+            that.opacity_array.push(((that.new_data_length-i)/that.new_data_length)) 
+        }
     };
     that.refresh = function() {
         that.executeRefresh = function (e, data) {
