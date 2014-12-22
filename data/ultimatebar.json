@@ -1,42 +1,58 @@
 [
 	{
-		"y": "1",
-		"x":  18,
-		"tooltip": "<table class='PykCharts'><tr><th>India</th></tr><tr><td>8</td></tr></table>"
+		"y": "India",
+		"x":  25,
+		"group": "Rice",
+		"stack": "Stack", 
+		"tooltip": "<table class='PykCharts'><tr><th>Rice</th></tr><tr><td>8</td></tr></table>"
 	},
 	{
-		"y": "2",
-		"x":  56,
-		"tooltip": "<table class='PykCharts'><tr><th>India</th></tr><tr><td>10</td></tr></table>"
+		"y": "China",
+		"x":  10,
+		"group": "Rice",
+		"stack": "Stack", 
+		"tooltip": "<table class='PykCharts'><tr><th>Rice</th></tr><tr><td>10</td></tr></table>"
 	},
 	{
-		"y": "3",
-		"x":  30,
-		"tooltip": "<table class='PykCharts'><tr><th>India</th></tr><tr><td>12</td></tr></table>"
+		"y": "Japan",
+		"x":  20,
+		"group": "Rice",
+		"stack": "Stack", 
+		"tooltip": "<table class='PykCharts'><tr><th>Rice</th></tr><tr><td>12</td></tr></table>"
 	},
 	{
-		"y": "4",
-		"x":  41,
-		"tooltip": "<table class='PykCharts'><tr><th>India</th></tr><tr><td>14</td></tr></table>"
+		"y": "Pakistan",
+		"x":  12,
+		"group": "Rice",
+		"stack": "Stack", 
+		"tooltip": "<table class='PykCharts'><tr><th>Rice</th></tr><tr><td>14</td></tr></table>"
 	},
 	{
-		"y": "5",
+		"y": "United States",
 		"x":  16,
-		"tooltip": "<table class='PykCharts'><tr><th>India</th></tr><tr><td>16</td></tr></table>"
+		"group": "Rice",
+		"stack": "Stack", 
+		"tooltip": "<table class='PykCharts'><tr><th>Rice</th></tr><tr><td>16</td></tr></table>"
 	},
 	{
-		"y": "6",
-		"x":  87,
-		"tooltip": "<table class='PykCharts'><tr><th>India</th></tr><tr><td>18</td></tr></table>"
+		"y": "UK",
+		"x":  18,
+		"group": "Rice",
+		"stack": "Stack", 
+		"tooltip": "<table class='PykCharts'><tr><th>Rice</th></tr><tr><td>18</td></tr></table>"
 	},
 	{
-		"y": "7",
+		"y": "Australia",
 		"x":  22,
-		"tooltip": "<table class='PykCharts'><tr><th>India</th></tr><tr><td>20</td></tr></table>"
+		"group": "Rice",
+		"stack": "Stack", 
+		"tooltip": "<table class='PykCharts'><tr><th>Rice</th></tr><tr><td>20</td></tr></table>"
 	},
 	{
-		"y": "8",
-		"x":  24,
-		"tooltip": "<table class='PykCharts'><tr><th>India</th></tr><tr><td>22</td></tr></table>"
+		"y": "Canada",
+		"x":  12,
+		"group": "Rice",
+		"stack": "Stack", 
+		"tooltip": "<table class='PykCharts'><tr><th>Rice</th></tr><tr><td>22</td></tr></table>"
 	}
 ]

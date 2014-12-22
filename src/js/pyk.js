@@ -185,9 +185,16 @@ PykCharts.Configuration = function (options){
             if(key1.length === key2.length && compare_data.length === data.length) {
                 for(i=0;i<data.length;i++) {
                     for(j=0;j<key1.length;j++){
-                        if(data[i][key2[j]] !== compare_data[i][key1[j]] || key1[j] !== key2[j]) {
-                            changed = true;
-                            break;
+                        if(typeof data[i][key2[j]] !== "object" && typeof compare_data[i][key1[j]] !== "object") {
+                            if(data[i][key2[j]] !== compare_data[i][key1[j]] || key1[j] !== key2[j]) {
+                                changed = true;
+                                break;
+                            }
+                        } else {
+                            if(!(_.isEqual(data[i][key2[j]],compare_data[i][key1[j]])) || key1[j] !== key2[j]) {
+                                changed = true;
+                                break;
+                            }
                         }
                     }
                 }
@@ -280,10 +287,11 @@ PykCharts.Configuration = function (options){
                         .style("text-align","center")
                         .style("min-width","30px")
                         .style("z-index","10")
-                        .style("visibility", "hidden")
+                        .style("display", "none")
                         .style("box-shadow","0 5px 10px rgba(0,0,0,.2)")
                         .style("pointer-events","none");
                 } else {
+
                     PykCharts.Configuration.tooltipp = d3.select("body")
                         .append("div")
                         .attr("id", "pyk-tooltip")
@@ -302,7 +310,7 @@ PykCharts.Configuration = function (options){
                         .style("text-align","center")
                         .style("min-width","30px")
                         .style("z-index","10")
-                        .style("visibility", "hidden")
+                        .style("display", "none")
                         .style("box-shadow","0 5px 10px rgba(0,0,0,.2)");
                 }
             } else if (PykCharts['boolean'](options.tooltip_enable)) {
@@ -325,7 +333,7 @@ PykCharts.Configuration = function (options){
                         .style("text-align","center")
                         .style("min-width","30px")
                         .style("z-index","10")
-                        .style("visibility", "hidden")
+                        .style("display", "none")
                         .style("box-shadow","0 5px 10px rgba(0,0,0,.2)");
                 } else {
                     PykCharts.Configuration.tooltipp = d3.select("body")
@@ -346,7 +354,7 @@ PykCharts.Configuration = function (options){
                         .style("text-align","center")
                         .style("min-width","30px")
                         .style("z-index","10")
-                        .style("visibility", "hidden")
+                        .style("display", "none")
                         .style("box-shadow","0 5px 10px rgba(0,0,0,.2)");
                 }
             }
@@ -794,7 +802,7 @@ PykCharts.Configuration = function (options){
                 }
                 d3.select(a[i]).text(comp);
             }
-            console.log(d3.selectAll(options.selector + " g.x.axis .tick text"));
+            
             xaxistooltip = d3.selectAll(options.selector + " g.x.axis .tick text")
                 .data(domain);
 
@@ -1131,7 +1139,7 @@ PykCharts.Configuration = function (options){
             }
         },
         backgroundColor: function (options) {
-             $(options.selector).css({"background-color":options.background_color,"position":"relative"})
+             $(options.selector).css({"background-color":options.background_color})
                 var bg,child1;
                 bgColor(options.selector);
 
@@ -1557,7 +1565,34 @@ PykCharts.Configuration = function (options){
                     }
                     return this;
                 },
-                validatingJSON: function (data) { // note: this method method cannot be used for chaining as it return fasle and not this;
+                validatingDataMode : function (mode,config_name,default_value,name) {
+                    try {
+
+                        if(mode.toLowerCase() === "absolute" || mode.toLowerCase()=== "percentage") {
+                        } else {
+                            options[config_name] = default_value;
+                            throw config_name;
+                        }
+                    }
+                    catch (err) {
+                        options.k.warningHandling(err,"16");
+                    }
+                    return this;
+                },
+                validatingLegendsMode : function (mode,config_name,default_value,name) {
+                    try {
+                        if(mode.toLowerCase() === "default" || mode.toLowerCase()=== "interactive") {
+                        } else {
+                            options[config_name] = default_value;
+                            throw config_name;
+                        }
+                    }
+                    catch (err) {
+                        options.k.warningHandling(err,"17");
+                    }
+                    return this;
+                },
+                validatingJSON : function (data) { // note: this method method cannot be used for chaining as it return fasle and not this;
                     if(!data) {
                         try {
                             options.stop = true;
@@ -1601,13 +1636,13 @@ configuration.mouseEvent = function (options) {
                     tooltip = $("#tooltip-svg-container-"+group_index +"-pyk-tooltip"+selector);
                     offset = $(options.selector).offset();
                     tooltip
-                        .css("visibility", "visible")
+                        .css("display", "block")
                         .css("top", (yPos - ((height_tooltip)/2) * height_percentge) + "px")
                         .css("left", ((xPos + options.margin_left + offset.left) * width_percentage) + "px");
                 }
                 else {
                     that.tooltip
-                        .style("visibility", "visible")
+                        .style("display", "block")
                         .style("top", (PykCharts.getEvent().pageY - 20) + "px")
                         .style("left", (PykCharts.getEvent().pageX + 30) + "px");
                 }
@@ -1630,10 +1665,10 @@ configuration.mouseEvent = function (options) {
         tooltipHide: function (d,panels_enable,type) {
             if(PykCharts['boolean'](options.tooltip_enable) || PykCharts['boolean'](options.annotation_enable) || options.axis_x_data_format === "string" || options.axis_y_data_format === "string") {
                 if(panels_enable === "yes" && type === "multilineChart") {
-                    return d3.selectAll(".pyk-tooltip").style("visibility","hidden");
+                    return d3.selectAll(".pyk-tooltip").style("display","none");
                 }
                 else {
-                    return that.tooltip.style("visibility", "hidden");
+                    return that.tooltip.style("display", "none");
                 }
             }
         },
@@ -2464,8 +2499,20 @@ configuration.Theme = function(){
 
         "annotation_enable": "no",
         "annotation_view_mode": "onload", // "onload" / "onclick"
-        "annotation_background_color": "#C2CBCF", /*"#EEEEEE"*/
-        "annotation_font_color": "black",
+
+        "annotation_background_color" : "#C2CBCF", /*"#EEEEEE"*/
+        "annotation_font_color" : "black",
+        "legends_mode":"default", // or interactive
+        "expand_group": "yes",
+        "data_mode_enable" : "no",
+        "data_mode_legends_color" : "black",
+        "data_mode_default" : "percentage",
+        "connecting_lines_color" : "#ddd",
+        "connecting_lines_style": "solid",
+        "text_between_steps_color": "#aaa",
+        "text_between_steps_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
+        "text_between_steps_size": 10,
+        "text_between_steps_weight" : "normal",
 
         "data_sort_enable": "yes",
         "data_sort_type": "alphabetically", // sort type --- "alphabetically" / "numerically" / "date"

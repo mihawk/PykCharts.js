@@ -395,19 +395,20 @@ PykCharts.multiD.column = function (options) {
                 return this;
             },
             newXAxis : function () {
-                if(options.axis_x_position === "bottom") {
-                    that.new_xAxisgroup.attr("transform", "translate(0," + (that.height - that.margin_top - that.margin_bottom) + ")");
+                if(PykCharts["boolean"](that.axis_x_enable)) {
+                    if(that.axis_x_position === "bottom") {
+                        that.new_xAxisgroup.attr("transform", "translate(0," + (that.height - that.margin_top - that.margin_bottom) + ")");
+                    }
+                    var xaxis = d3.svg.axis()
+                        .scale(that.xScale)
+                        .orient(that.axis_x_pointer_position)
+                        .tickSize(0)
+                        .outerTickSize(that.axis_x_outer_pointer_length);
+                    that.new_xAxisgroup.style("stroke",function () { return that.axis_x_line_color; })
+                        .call(xaxis);
+                    d3.selectAll(that.selector + " .x.new-axis text").attr("fill",function () { return "none"; })
+                        .style("stroke","none");
                 }
-                var xaxis = d3.svg.axis()
-                    .scale(that.xScale)
-                    .orient(options.axis_x_pointer_position)
-                    .tickSize(0)
-                    .outerTickSize(that.axis_x_outer_pointer_length);
-                that.new_xAxisgroup.style("stroke",function () { return that.axis_x_line_color; })
-                    .call(xaxis);
-                d3.selectAll(options.selector + " .x.new-axis text").attr("fill",function () { return "none"; })
-                    .style("stroke","none");
-                
                 return this;
             },
         };

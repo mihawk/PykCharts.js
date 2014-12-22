@@ -1,72 +1,100 @@
 [
     {
-        "y": "January",
-        "x": 18,
-        "group": "India",
-        "stack": "stack",
-        "tooltip": "<table class='PykCharts'><tr><th>India</th></tr><tr><td>8</td></tr></table>"
+        "y": "India",
+        "x":  8,
+        "group": "Cotton",
+        "tooltip": "<table class='PykCharts'><tr><th>Cotton</th></tr><tr><td>8</td></tr></table>"
     },
     {
-        "y": "January",
-        "x": 12,
-        "group": "China",
-        "stack": "stack",
-        "tooltip": "<table class='PykCharts'><tr><th>China</th></tr><tr><td>12</td></tr></table>"
+        "y": "India",
+        "x":  12,
+        "group": "Rice",
+        "tooltip": "<table class='PykCharts'><tr><th>Rice</th></tr><tr><td>12</td></tr></table>"
     },
     {
-        "y": "January",
-        "x": 23,
-        "group": "Japan",
-        "stack": "stack",
-        "tooltip": "<table class='PykCharts'><tr><th>Japan</th></tr><tr><td>16</td></tr></table>"
+        "y": "India",
+        "x":  8,
+        "group": "others",
+        "tooltip": "<table class='PykCharts'><tr><th>others</th></tr><tr><td>8</td></tr></table>"
     },
     {
-        "y": "January",
-        "x": 35,
-        "group": "United States",
-        "stack": "stack",
-        "tooltip": "<table class='PykCharts'><tr><th>United States</th></tr><tr><td>20</td></tr></table>"
+        "y": "India",
+        "x":  12,
+        "group": "Chillies",
+        "tooltip": "<table class='PykCharts'><tr><th>Chillies</th></tr><tr><td>12</td></tr></table>"
     },
     {
-        "y": "March",
-        "x": 30,
-        "group": "India",
-        "stack": "stack",
-        "tooltip": "<table class='PykCharts'><tr><th>India</th></tr><tr><td>8</td></tr></table>"
+        "y": "India",
+        "x":  16,
+        "group": "others",
+        "tooltip": "<table class='PykCharts'><tr><th>others</th></tr><tr><td>16</td></tr></table>"
     },
     {
-        "y": "March",
-        "x": 41,
-        "group": "Japan",
-        "stack": "stack",
-        "tooltip": "<table class='PykCharts'><tr><th>Japan</th></tr><tr><td>12</td></tr></table>"
+        "y": "United States",
+        "x":  20,
+        "group": "others",
+        "tooltip": "<table class='PykCharts'><tr><th>others</th></tr><tr><td>20</td></tr></table>"
     },
     {
-        "y": "March",
-        "x": 29,
-        "group": "United States",
-        "stack": "stack",
-        "tooltip": "<table class='PykCharts'><tr><th>United States</th></tr><tr><td>16</td></tr></table>"
+        "y": "United States",
+        "x":  8,
+        "group": "Chillies",
+        "tooltip": "<table class='PykCharts'><tr><th>Chillies</th></tr><tr><td>8</td></tr></table>"
     },
     {
-        "y": "April",
-        "x": 41,
-        "group": "India",
-        "stack": "stack",
-        "tooltip": "<table class='PykCharts'><tr><th>India</th></tr><tr><td>8</td></tr></table>"
+        "y": "United States",
+        "x":  12,
+        "color":"grey",
+        "group": "Cotton",
+        "tooltip": "<table class='PykCharts'><tr><th>Cotton</th></tr><tr><td>12</td></tr></table>"
     },
     {
-        "y": "April",
-        "x": 52,
-        "group": "Japan",
-        "stack": "stack",
-        "tooltip": "<table class='PykCharts'><tr><th>Japan</th></tr><tr><td>12</td></tr></table>"
+        "y": "United States",
+        "x":  16,
+        "group": "Rice",
+        "color":"blue",
+        "tooltip": "<table class='PykCharts'><tr><th>Rice</th></tr><tr><td>16</td></tr></table>"
     },
     {
-        "y": "April",
-        "x": 46,
-        "group": "United States",
-        "stack": "stack",
-        "tooltip": "<table class='PykCharts'><tr><th>United States</th></tr><tr><td>16</td></tr></table>"
+        "y": "China",
+        "x":  20,
+        "group": "Chillies",
+        "tooltip": "<table class='PykCharts'><tr><th>Chillies</th></tr><tr><td>20</td></tr></table>"
+    },
+    {
+        "y": "China",
+        "x":  22,
+        "group": "Cotton",
+        "tooltip": "<table class='PykCharts'><tr><th>Cotton</th></tr><tr><td>22</td></tr></table>"
+    },
+    {
+        "y": "China",
+        "x":  24,
+        "group": "Rice",
+        "tooltip": "<table class='PykCharts'><tr><th>Rice</th></tr><tr><td>24</td></tr></table>"
+    },
+    {
+        "y": "China",
+        "x":  28,
+        "group": "others",
+        "tooltip": "<table class='PykCharts'><tr><th>others</th></tr><tr><td>28</td></tr></table>"
+    },
+    {
+        "y": "Japan",
+        "x":  16,
+        "group": "others",
+        "tooltip": "<table class='PykCharts'><tr><th>others</th></tr><tr><td>16</td></tr></table>"
+    },
+    {
+        "y": "Japan",
+        "x":  8,
+        "group": "Chillies",
+        "tooltip": "<table class='PykCharts'><tr><th>Chillies</th></tr><tr><td>8</td></tr></table>"
+    },
+    {
+        "y": "Japan",
+        "x":  12,
+        "group": "Rice",
+        "tooltip": "<table class='PykCharts'><tr><th>Rice</th></tr><tr><td>12</td></tr></table>"
     }
 ]
