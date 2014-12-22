@@ -160,10 +160,7 @@ PykCharts.multiD.groupedBar = function(options){
                .highlightRect()
                .ticks();
 
-            // console.log(that.x_tick_values)
-            that.k.xAxis(that.svgContainer,that.xGroup,that.xScale,that.extra_left_margin,that.xdomain,that.x_tick_values,that.legendsGroup_height)
-                .xAxisTitle(that.xGroup)
-                .yAxisTitle(that.yGroup);
+            // 
             if(that.axis_y_data_format !== "string") {
                 that.k.yAxis(that.svgContainer,that.yGroup,that.yScale1,that.ydomain,that.y_tick_values,that.legendsGroup_width,"groupbar");
                 that.optionalFeatures().newYAxis();

@@ -256,6 +256,12 @@ PykCharts.multiD.river = function (options){
                         that.fullList.push(d.name);
                     })
                 }
+                var opacity_array =  that.new_data[0].breakup.map(function(d) {
+                    return d.name
+                })
+                that.color_opacity = d3.scale.ordinal()
+                        .domain(opacity_array)
+                        .rangeBands([1,0.1]);
                 return this;
             },
             preProcessing: function () {
@@ -268,10 +274,11 @@ PykCharts.multiD.river = function (options){
                 that.yScale = d3.scale.linear().domain([0, that.height]).range([0, that.height-that.legendsGroup_height]);
                 that.barHeight = (that.height) / (that.new_data1.length * 2);
                 that.barMargin = that.barHeight * 2;
+
                 return this;
             },
             createChart : function () {
-
+                
                 that.margin_left = that.max_label + 10;
                 that.margin_right = that.max_duration > that.max_tick ? (that.max_duration + 10) : (that.max_tick + 10);
                 var height = that.height;
@@ -303,7 +310,7 @@ PykCharts.multiD.river = function (options){
                         if(that.extended){
                             x = that.yScale(0);
                         }
-                        if(d.display_name.toLowerCase() === that.highlight) {
+                        if(d.display_name.toLowerCase() === that.highlight.toLowerCase()) {
                             that.highlightdata.push(d);
                             that.highlight_index = i;
                             that.highlight_enable = true;
@@ -353,7 +360,7 @@ PykCharts.multiD.river = function (options){
                         .attr("stroke-dasharray", that.border.style())
                         .attr("fill-opacity", function (d,i) {
                             if(that.color_mode === "saturation") {
-                                return (len-i)/len;
+                                return that.color_opacity(d.name);
                             }
                             return 1;
                         })
@@ -722,7 +729,7 @@ PykCharts.multiD.river = function (options){
                         })
                         .attr("opacity", function (d,i) {
                             if(that.color_mode === "saturation") {
-                                return (len-i)/len;
+                                return that.color_opacity(d.name);
                             }
                             return 1;
                         });
@@ -738,8 +745,10 @@ PykCharts.multiD.river = function (options){
                     }
 
                     translate_x = (that.legends_display === "vertical") ? (that.width - that.legendsGroup_width)  : (that.width - legend_container_width - 20);
-
-                    if (legend_container_width < that.width) { that.legendsGroup.attr("transform","translate("+translate_x+",0)"); }
+                    if(PykCharts.boolean(that.data_mode_enable)) { 
+                        that.legendsGroup_height = 40;
+                    }
+                    if (legend_container_width < that.width) { that.legendsGroup.attr("transform","translate("+translate_x+"," + that.legendsGroup_height + ")"); }
                     that.legendsGroup.style("visibility","visible");
 
                     that.legends_text.exit().remove();
