@@ -678,7 +678,7 @@ PykCharts.multiD.groupedBar = function(options){
                         .outerTickSize(that.axis_y_outer_pointer_length);
                     that.new_yAxisgroup.style("stroke",function () { return that.axis_y_line_color; })
                         .call(yaxis);
-                    d3.selectAll(that.selector + " .y.new-axis text").attr("fill",function () { return "none"; })
+                    d3.selectAll(that.selector + " .y.new-axis text").style("display",function () { return "none"; })
                         .style("stroke","none");
                 }
                 return this;
