@@ -453,3 +453,9 @@ body .pyk-tooltip .tooltip-left-content{
 .PykCharts-oneD {
   margin-top:3px;
 }
+
+.PykCharts-river .bottom_line, .PykCharts-river .top_line{
+    stroke-width: 1;
+    stroke-dasharray: 5,5;
+    shape-rendering: crispEdge;
+}

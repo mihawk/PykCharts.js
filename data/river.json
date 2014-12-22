@@ -1,0 +1,262 @@
+[
+    {
+        "x":500,
+        "y":"United States",
+        "stack":"Rice",
+        "alias" : "Units",
+        "text_between_steps": "3 mins",
+        "tooltip" : "<h4>Rice</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>500</td></tr><tr><td>Overall Rank</td><td>:</td><td>6</td></tr><tr><td>Percentage</td><td>:</td><td>100%</td></tr></table>",
+        "color": "#1F77B4"
+    },
+    {
+        "x":0,
+        "y":"United States",
+        "stack":"Cotton",
+        "alias" : "Units",
+        "text_between_steps": "3 mins",
+        "tooltip" : "<h4>Cotton</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>0</td></tr><tr><td>Overall Rank</td><td>:</td><td>1</td></tr></table>",
+        "color": "#AEC7E8"
+    },
+    {
+        "x":0,
+        "y":"United States",
+        "stack":"Chillies",
+        "alias" : "Units",
+        "text_between_steps": "3 mins",
+        "tooltip" : "<h4>Chillies</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>0</td></tr><tr><td>Overall Rank</td><td>:</td><td>3</td></tr></table>",
+        "color": "#FF7F0E"
+    },
+    {
+        "x":0,
+        "y":"United States",
+        "stack":"Jowar",
+        "alias" : "Units",
+        "text_between_steps": "3 mins",
+        "tooltip" : "<h4>Jowar</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>0</td></tr><tr><td>Overall Rank</td><td>:</td><td>7</td></tr></table>",
+        "color": "#98DF8A"
+    },
+    {
+        "x":0,
+        "y":"United States",
+        "stack":"Other",
+        "alias" : "Units",
+        "text_between_steps": "3 mins",
+        "tooltip" : "<h4>Other</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>0</td></tr><tr><td>Overall Rank</td><td>:</td><td>2</td></tr></table>",
+        "color": "#D62728"
+    },
+    {
+        "x":450,
+        "y":"China",
+        "stack":"Rice",
+        "alias" : "Units",
+        "text_between_steps": "3 mins",
+        "tooltip" : "<h4>Rice</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>450</td></tr><tr><td>Overall Rank</td><td>:</td><td>6</td></tr><tr><td>Percentage</td><td>:</td><td>40.91%</td></tr></table>",
+        "color": "#1F77B4"
+    },
+    {
+        "x":150,
+        "y":"China",
+        "stack":"Cotton",
+        "alias" : "Units",
+        "text_between_steps": "3 mins",
+        "tooltip" : "<h4>Cotton</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>150</td></tr><tr><td>Overall Rank</td><td>:</td><td>1</td></tr><tr><td>Percentage</td><td>:</td><td>13.64%</td></tr></table>",
+        "color": "#AEC7E8"
+    },
+    {
+        "x":80,
+        "y":"China",
+        "stack":"Chillies",
+        "alias" : "Units",
+        "text_between_steps": "3 mins",
+        "tooltip" : "<h4>Chillies</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>80</td></tr><tr><td>Overall Rank</td><td>:</td><td>3</td></tr><tr><td>Percentage</td><td>:</td><td>07.27%</td></tr></table>",
+        "color": "#FF7F0E"
+    },
+    {
+        "x":40,
+        "y":"China",
+        "stack":"Jowar",
+        "alias" : "Units",
+        "text_between_steps": "3 mins",
+        "tooltip" : "<h4>Jowar</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>40</td></tr><tr><td>Overall Rank</td><td>:</td><td>7</td></tr><tr><td>Percentage</td><td>:</td><td>03.63%</td></tr></table>",
+        "color": "#98DF8A"
+    },
+    {
+        "x":160,
+        "y":"China",
+        "stack":"Other",
+        "alias" : "Units",
+        "text_between_steps": "3 mins",
+        "tooltip" : "<h4>Other</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>160</td></tr><tr><td>Overall Rank</td><td>:</td><td>2</td></tr><tr><td>Percentage</td><td>:</td><td>14.54%</td></tr></table>",
+        "color": "#D62728"
+    },
+    {
+        "x":100,
+        "y":"Russia",
+        "stack":"Rice",
+        "alias" : "Units",
+        "text_between_steps": "2 mins",
+        "tooltip" : "<h4>Rice</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>100</td></tr><tr><td>Overall Rank</td><td>:</td><td>6</td></tr><tr><td>Percentage</td><td>:</td><td>25.00%</td></tr></table>",
+        "color": "#1F77B4"
+    },
+    {
+        "x":80,
+        "y":"Russia",
+        "stack":"Cotton",
+        "alias" : "Units",
+        "text_between_steps": "2 mins",
+        "tooltip" : "<h4>Cotton</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>80</td></tr><tr><td>Overall Rank</td><td>:</td><td>1</td></tr><tr><td>Percentage</td><td>:</td><td>20.00%</td></tr></table>",
+        "color": "#AEC7E8"
+    },
+    {
+        "x":20,
+        "y":"Russia",
+        "stack":"Chillies",
+        "alias" : "Units",
+        "text_between_steps": "2 mins",
+        "tooltip" : "<h4>Chillies</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>20</td></tr><tr><td>Overall Rank</td><td>:</td><td>3</td></tr><tr><td>Percentage</td><td>:</td><td>05.00%</td></tr></table>",
+        "color": "#FF7F0E"
+    },
+    {
+        "x":35,
+        "y":"Russia",
+        "stack":"Jowar",
+        "alias" : "Units",
+        "text_between_steps": "2 mins",
+        "tooltip" : "<h4>Jowar</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>35</td></tr><tr><td>Overall Rank</td><td>:</td><td>7</td></tr><tr><td>Percentage</td><td>:</td><td>08.75%</td></tr></table>",
+        "color": "#98DF8A"
+    },
+    {
+        "x":65,
+        "y":"Russia",
+        "stack":"Other",
+        "alias" : "Units",
+        "text_between_steps": "2 mins",
+        "tooltip" : "<h4>Other</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>65</td></tr><tr><td>Overall Rank</td><td>:</td><td>2</td></tr><tr><td>Percentage</td><td>:</td><td>16.25%</td></tr></table>",
+        "color": "#D62728"
+    },
+    {
+        "x":50,
+        "y":"Desire",
+        "stack":"Rice",
+        "alias" : "Units",
+        "text_between_steps": "2 mins",
+        "tooltip" : "<h4>Rice</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>50</td></tr><tr><td>Overall Rank</td><td>:</td><td>6</td></tr><tr><td>Percentage</td><td>:</td><td>16.67%</td></tr></table>",
+        "color": "#1F77B4"
+    },
+    {
+        "x":30,
+        "y":"Japan",
+        "stack":"Cotton",
+        "alias" : "Units",
+        "text_between_steps": "2 mins",
+        "tooltip" : "<h4>Cotton</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>30</td></tr><tr><td>Overall Rank</td><td>:</td><td>1</td></tr><tr><td>Percentage</td><td>:</td><td>10.00%</td></tr></table>",
+        "color": "#AEC7E8"
+    },
+    {
+        "x":55,
+        "y":"Japan",
+        "stack":"Chillies",
+        "alias" : "Units",
+        "text_between_steps": "2 mins",
+        "tooltip" : "<h4>Chillies</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>55</td></tr><tr><td>Overall Rank</td><td>:</td><td>3</td></tr><tr><td>Percentage</td><td>:</td><td>18.33%</td></tr></table>",
+        "color": "#FF7F0E"
+    },
+    {
+        "x":20,
+        "y":"Japan",
+        "stack":"Jowar",
+        "alias" : "Units",
+        "text_between_steps": "2 mins",
+        "tooltip" : "<h4>Jowar</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>20</td></tr><tr><td>Overall Rank</td><td>:</td><td>7</td></tr><tr><td>Percentage</td><td>:</td><td>06.67%</td></tr></table>",
+        "color": "#98DF8A"
+    },
+    {
+        "x":20,
+        "y":"Japan",
+        "stack":"Other",
+        "alias" : "Units",
+        "text_between_steps": "2 mins",
+        "tooltip" : "<h4>Other</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>20</td></tr><tr><td>Overall Rank</td><td>:</td><td>2</td></tr><tr><td>Percentage</td><td>:</td><td>06.67%</td></tr></table>",
+        "color": "#D62728"
+    },
+    {
+        "x":50,
+        "y":"UK",
+        "stack":"Rice",
+        "alias" : "Units",
+        "tooltip" : "<h4>Rice</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>50</td></tr><tr><td>Overall Rank</td><td>:</td><td>6</td></tr><tr><td>Percentage</td><td>:</td><td>33.33%</td></tr></table>",
+        "color": "#1F77B4"
+    },
+    {
+        "x":16,
+        "y":"UK",
+        "stack":"Cotton",
+        "alias" : "Units",
+        "tooltip" : "<h4>Cotton</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>16</td></tr><tr><td>Overall Rank</td><td>:</td><td>1</td></tr><tr><td>Percentage</td><td>:</td><td>10.66%</td></tr></table>",
+        "color": "#AEC7E8"
+    },
+    {
+        "x":10,
+        "y":"UK",
+        "stack":"Chillies",
+        "alias" : "Units",
+        "tooltip" : "<h4>Chillies</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>10</td></tr><tr><td>Overall Rank</td><td>:</td><td>3</td></tr><tr><td>Percentage</td><td>:</td><td>06.67%</td></tr></table>",
+        "color": "#FF7F0E"
+    },
+    {
+        "x":4,
+        "y":"UK",
+        "stack":"Jowar",
+        "alias" : "Units",
+        "tooltip" : "<h4>Jowar</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>4</td></tr><tr><td>Overall Rank</td><td>:</td><td>7</td></tr><tr><td>Percentage</td><td>:</td><td>02.66%</td></tr></table>",
+        "color": "#98DF8A"
+    },
+    {
+        "x":60,
+        "y":"UK",
+        "stack":"Other",
+        "alias" : "Units",
+        "tooltip" : "<h4>Other</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>60</td></tr><tr><td>Overall Rank</td><td>:</td><td>2</td></tr><tr><td>Percentage</td><td>:</td><td>40.00%</td></tr></table>",
+        "color": "#D62728"
+    },
+    {
+        "x":2120,
+        "y":"India",
+        "stack":"Rice",
+        "alias" : "Units",
+        "tooltip" : "<h4>Rice</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>2120</td></tr><tr><td>Overall Rank</td><td>:</td><td>6</td></tr><tr><td>Percentage</td><td>:</td><td>47.11%</td></tr></table>",
+        "color": "#1F77B4"
+    },
+    {
+        "x":670,
+        "y":"India",
+        "stack":"Cotton",
+        "alias" : "Units",
+        "tooltip" : "<h4>Cotton</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>670</td></tr><tr><td>Overall Rank</td><td>:</td><td>1</td></tr><tr><td>Percentage</td><td>:</td><td>14.89%</td></tr></table>",
+        "color": "#AEC7E8"
+    },
+    {
+        "x":360,
+        "y":"India",
+        "stack":"Chillies",
+        "alias" : "Units",
+        "tooltip" : "<h4>Chillies</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>360</td></tr><tr><td>Overall Rank</td><td>:</td><td>3</td></tr><tr><td>Percentage</td><td>:</td><td>08.00%</td></tr></table>",
+        "color": "#FF7F0E"
+    },
+    {
+        "x":290,
+        "y":"India",
+        "stack":"Jowar",
+        "alias" : "Units",
+        "tooltip" : "<h4>Jowar</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>290</td></tr><tr><td>Overall Rank</td><td>:</td><td>7</td></tr><tr><td>Percentage</td><td>:</td><td>06.44%</td></tr></table>",
+        "color": "#98DF8A"
+    },
+    {
+        "x":260,
+        "y":"India",
+        "stack":"Other",
+        "alias" : "Units",
+        "tooltip" : "<h4>Other</h4><table class='table table-condensed table-striped'><tr><td>Count</td><td>:</td><td>260</td></tr><tr><td>Overall Rank</td><td>:</td><td>2</td></tr><tr><td>Percentage</td><td>:</td><td>05.78%</td></tr></table>",
+        "color": "#D62728"
+    }
+]

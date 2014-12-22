@@ -2512,14 +2512,12 @@ configuration.Theme = function(){
         "text_between_steps_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
         "text_between_steps_size": 10,
         "text_between_steps_weight" : "normal",
-
-        "annotation_background_color" : "#C2CBCF", /*"#EEEEEE"*/
-        "annotation_font_color" : "black",
         "data_mode_enable" : "no",
         "data_mode_legends_color" : "black",
         "data_mode_default" : "percentage",
         "connecting_lines_color" : "#ddd",
         "connecting_lines_style": "solid",
+
         "data_sort_enable": "yes",
         "data_sort_type": "alphabetically", // sort type --- "alphabetically" / "numerically" / "date"
         "data_sort_order": "ascending" // sort order --- "descending" / "ascending"

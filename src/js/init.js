@@ -10,6 +10,7 @@ var anonymousFunc = function () {
     , PykCharts.assets+'lib/colors.min.js'
     , PykCharts.assets+'lib/paper-full.min.js'
     , PykCharts.assets+'lib/downloadDataURI.min.js'
+    , PykCharts.assets+'lib/venn.js'
     ];
 
     function importFiles (url) {
@@ -18,7 +19,7 @@ var anonymousFunc = function () {
         include.async = false;
         include.onload = function () {
             try {
-                if (_ && d3 && ($ || jQuery) && d3.customHive && topojson && $("body").colourBrightness && $c && paper && downloadDataURI) {
+                if (_ && d3 && ($ || jQuery) && d3.customHive && topojson && $("body").colourBrightness && $c && paper && downloadDataURI && venn) {
                     PykCharts.numberFormat = d3.format(",");
                     window.PykChartsInit();
                     $("body").click(function () {
@@ -99,6 +100,13 @@ var anonymousFunc = function () {
         }
     } catch (e) {
         importFiles(urls[8]);
+    }
+    try {
+        if(!venn) {
+            importFiles(urls[9]);
+        }
+    } catch (e) {
+        importFiles(urls[9]);
     }
     // for (var i = 0; i < urls.length; i++) {
     //     try {
