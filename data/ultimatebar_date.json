@@ -1,58 +1,34 @@
 [
 	{
 		"y": "2014-12-12",
-		"x":  18,
-		"group": "India",
-		"stack": "Stack", 
-		"tooltip": "<table class='PykCharts'><tr><th>India</th></tr><tr><td>8</td></tr></table>"
+		"x":  18
 	},
 	{
 		"y": "2014-05-04",
-		"x":  56,
-		"group": "India",
-		"stack": "Stack", 
-		"tooltip": "<table class='PykCharts'><tr><th>India</th></tr><tr><td>10</td></tr></table>"
+		"x":  56
 	},
 	{
 		"y": "2014-04-06",
-		"x":  30,
-		"group": "India",
-		"stack": "Stack", 
-		"tooltip": "<table class='PykCharts'><tr><th>India</th></tr><tr><td>12</td></tr></table>"
+		"x":  30
 	},
 	{
 		"y": "2014-06-05",
-		"x":  41,
-		"group": "India",
-		"stack": "Stack", 
-		"tooltip": "<table class='PykCharts'><tr><th>India</th></tr><tr><td>14</td></tr></table>"
+		"x":  41
 	},
 	{
 		"y": "2014-05-07",
-		"x":  16,
-		"group": "India",
-		"stack": "Stack",
-		"tooltip": "<table class='PykCharts'><tr><th>India</th></tr><tr><td>16</td></tr></table>"
+		"x":  16
 	},
 	{
 		"y": "2014-08-03",
-		"x":  87,
-		"group": "India",
-		"stack": "Stack", 
-		"tooltip": "<table class='PykCharts'><tr><th>India</th></tr><tr><td>18</td></tr></table>"
+		"x":  87
 	},
 	{
 		"y": "2014-03-04",
-		"x":  22,
-		"group": "India",
-		"stack": "Stack", 
-		"tooltip": "<table class='PykCharts'><tr><th>India</th></tr><tr><td>20</td></tr></table>"
+		"x":  22
 	},
 	{
 		"y": "2014-07-02",
-		"x":  24,
-		"group": "India",
-		"stack": "Stack", 
-		"tooltip": "<table class='PykCharts'><tr><th>India</th></tr><tr><td>22</td></tr></table>"
+		"x":  24
 	}
 ]

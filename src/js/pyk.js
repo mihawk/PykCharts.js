@@ -1138,7 +1138,7 @@ PykCharts.Configuration = function (options){
             }
         },
         backgroundColor: function (options) {
-             $(options.selector).css({"background-color":options.background_color})
+             $(options.selector).css({"background-color":options.background_color,"position":"relative"})
                 var bg,child1;
                 bgColor(options.selector);
 
