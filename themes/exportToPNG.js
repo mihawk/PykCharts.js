@@ -19,6 +19,7 @@ if (chart_name==="oneLayer") {
 
 casper.echo(chart_name);
 casper.start('http://localhost/PykCharts/themes/exportToPNG.html?slug='+chart_name+'&data='+data, function() {
+      // casper.echo(chart_name+"-"+theme_list[0]+"---"+this.getCurrentUrl());
     this.waitForSelector("#chart_container0", (function() {
         for (var i = 0; i < 11; i++) {
             this.captureSelector(chart_name+"-"+theme_list[i]+'.png', '#chart_container'+i);
