@@ -1,6 +1,7 @@
 PykCharts.multiD.bar = function(options){
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
+
     var multiDimensionalCharts = theme.multiDimensionalCharts;
     this.execute = function () {
         that = new PykCharts.multiD.processInputs(that, options, "column");
@@ -9,8 +10,8 @@ PykCharts.multiD.bar = function(options){
         that.grid_color = options.chart_grid_color ? options.chart_grid_color : theme.stylesheet.chart_grid_color;
         that.panels_enable = "no";
         that.data_sort_enable = options.data_sort_enable ? options.data_sort_enable.toLowerCase() : multiDimensionalCharts.data_sort_enable;
-        that.data_sort_type = PykCharts.boolean(that.data_sort_enable) && options.data_sort_type ? options.data_sort_type.toLowerCase() : multiDimensionalCharts.data_sort_type;
-        that.data_sort_order = PykCharts.boolean(that.data_sort_enable) && options.data_sort_order ? options.data_sort_order.toLowerCase() : multiDimensionalCharts.data_sort_order;
+        that.data_sort_type = PykCharts['boolean'](that.data_sort_enable) && options.data_sort_type ? options.data_sort_type.toLowerCase() : multiDimensionalCharts.data_sort_type;
+        that.data_sort_order = PykCharts['boolean'](that.data_sort_enable) && options.data_sort_order ? options.data_sort_order.toLowerCase() : multiDimensionalCharts.data_sort_order;
 
         try {
             if(that.data_sort_order === "ascending" || that.data_sort_order === "descending") {
@@ -30,22 +31,24 @@ PykCharts.multiD.bar = function(options){
            that.k.loading();
         }
         that.multiD = new PykCharts.multiD.configuration(that);
-        d3.json(options.data, function(e, data){
 
+        that.executeData = function (data) {
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
                 $(that.selector+" #chart-loader").remove();
+                $(that.selector).css("height","auto")
                 return;
             }
 
             that.data = that.k.__proto__._groupBy("bar",data);
             that.compare_data = that.k.__proto__._groupBy("bar",data);
-            console.log(that.data,"data")
-            that.axis_x_data_format = that.k.xAxisDataFormatIdentification(that.data);
+            
             $(that.selector+" #chart-loader").remove();
+            $(that.selector).css("height","auto")
             PykCharts.multiD.barFunctions(options,that,"bar");
-            that.render();
-        });
+            that.render();            
+        }
+        that.k.dataSourceFormatIdentification(options.data,that,"executeData");
     };
 }
 
@@ -55,16 +58,12 @@ PykCharts.multiD.groupedBar = function(options){
     var multiDimensionalCharts = theme.multiDimensionalCharts;
     this.execute = function () {
         that = new PykCharts.multiD.processInputs(that, options, "column");
-
-        // console.log(that.stop);
-
-        // console.log("barChart");
         that.grid_y_enable =  options.chart_grid_y_enable ? options.chart_grid_y_enable.toLowerCase() : theme.stylesheet.chart_grid_y_enable;
         that.grid_color = options.chart_grid_color ? options.chart_grid_color : theme.stylesheet.chart_grid_color;
         that.panels_enable = "no";
         that.data_sort_enable = options.data_sort_enable ? options.data_sort_enable.toLowerCase() : multiDimensionalCharts.data_sort_enable;
-        that.data_sort_type = PykCharts.boolean(that.data_sort_enable) && options.data_sort_type ? options.data_sort_type.toLowerCase() : multiDimensionalCharts.data_sort_type;
-        that.data_sort_order = PykCharts.boolean(that.data_sort_enable) && options.data_sort_order ? options.data_sort_order.toLowerCase() : multiDimensionalCharts.data_sort_order;
+        that.data_sort_type = PykCharts['boolean'](that.data_sort_enable) && options.data_sort_type ? options.data_sort_type.toLowerCase() : multiDimensionalCharts.data_sort_type;
+        that.data_sort_order = PykCharts['boolean'](that.data_sort_enable) && options.data_sort_order ? options.data_sort_order.toLowerCase() : multiDimensionalCharts.data_sort_order;
 
         try {
             if(that.data_sort_order === "ascending" || that.data_sort_order === "descending") {
@@ -84,11 +83,12 @@ PykCharts.multiD.groupedBar = function(options){
            that.k.loading();
         }
         that.multiD = new PykCharts.multiD.configuration(that);
-        d3.json(options.data, function(e, data){
-
+        
+        that.executeData = function (data) {
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
                 $(that.selector+" #chart-loader").remove();
+                $(that.selector).css("height","auto")
                 return;
             }
 
@@ -96,16 +96,18 @@ PykCharts.multiD.groupedBar = function(options){
             that.compare_data = that.k.__proto__._groupBy("bar",data);
             that.axis_x_data_format = that.k.xAxisDataFormatIdentification(that.data);
             $(that.selector+" #chart-loader").remove();
+            $(that.selector).css("height","auto")
             PykCharts.multiD.barFunctions(options,that,"group_bar");
             that.render();
-        });
+        };
+        that.k.dataSourceFormatIdentification(options.data,that,"executeData");
     };
 };
 
 PykCharts.multiD.barFunctions = function (options,chartObject,type) {
     var that = chartObject;
     that.refresh = function () {
-        d3.json(options.data, function (e, data) {
+        that.executeRefresh = function (data) {
             that.data = that.k.__proto__._groupBy("bar",data);
             that.refresh_data = that.k.__proto__._groupBy("bar",data);
             var compare = that.k.checkChangeInData(that.refresh_data,that.compare_data);
@@ -116,8 +118,6 @@ PykCharts.multiD.barFunctions = function (options,chartObject,type) {
             }
             that.map_group_data = that.multiD.mapGroup(that.data);
             that.data = that.dataTransformation();
-
-            // console.log(that.data,"that.data");
 
             that.data = that.emptygroups(that.data);
 
@@ -134,12 +134,10 @@ PykCharts.multiD.barFunctions = function (options,chartObject,type) {
                     .legends()
                     .ticks();
             that.k.xAxis(that.svgContainer,that.xGroup,that.xScale,undefined,undefined,that.x_tick_values,that.legendsGroup_height);
-        });
-    };
+        };
 
-    //----------------------------------------------------------------------------------------
-    //4. Render function to create the chart
-    //----------------------------------------------------------------------------------------
+        that.k.dataSourceFormatIdentification(options.data,that,"executeRefresh");
+    };
     that.render = function(){
         var that = this;
         var l = $(".svgcontainer").length;
@@ -147,15 +145,13 @@ PykCharts.multiD.barFunctions = function (options,chartObject,type) {
         that.map_group_data = that.multiD.mapGroup(that.data);
         that.data = that.dataTransformation();
         that.data = that.emptygroups(that.data);
-
-console.log(that.data,"data nehal",options.selector)
         try {
             if(that.no_of_groups > 1 && type === "bar") {
                 throw "";
             }
         }
         catch (err) {
-            console.error('%c[Error - Pykih Charts] ', 'color: red;font-weight:bold;font-size:14px', " at "+options.selector+". \"Invalid data in the JSON\"  Visit www.chartstore.io/docs#error_9");
+            console.error('%c[Error - Pykih Charts] ', 'color: red;font-weight:bold;font-size:14px', " at "+that.selector+". \"Invalid data in the JSON\"  Visit www.chartstore.io/docs#error_9");
             return;
         }
 
@@ -163,7 +159,6 @@ console.log(that.data,"data nehal",options.selector)
         that.the_bars = fD[0];
         that.the_keys = fD[1];
         that.the_layers = that.buildLayers(that.the_bars);
-        // console.log(that.the_bars);
         that.transitions = new PykCharts.Configuration.transition(that);
         that.mouseEvent1 = new PykCharts.multiD.mouseEvent(that);
         that.fillColor = new PykCharts.Configuration.fillChart(that,null,options);
@@ -222,7 +217,7 @@ console.log(that.data,"data nehal",options.selector)
                 .xAxisTitle(that.xGroup,that.legendsGroup_height,that.legendsGroup_width);
 
         that.k.exportSVG(that,"#"+that.container_id,"barChart")
-        if(PykCharts.boolean(that.legends_enable)) {
+        if(PykCharts['boolean'](that.legends_enable)) {
             $(document).ready(function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); })
             $(window).on("resize", function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); });
         } else {
@@ -236,17 +231,14 @@ console.log(that.data,"data nehal",options.selector)
         var optional = {
             svgContainer: function (i) {
                 $(that.selector).attr("class","PykCharts-twoD");
-                that.svgContainer = d3.select(options.selector + " #tooltip-svg-container-" + i)
+                that.svgContainer = d3.select(that.selector + " #tooltip-svg-container-" + i)
                     .append("svg:svg")
                     .attr("width",that.width )
                     .attr("height",that.height)
                     .attr("id",that.container_id)
                     .attr("class","svgcontainer")
-                    // .style("background-color",that.background_color)
                     .attr("preserveAspectRatio", "xMinYMin")
                     .attr("viewBox", "0 0 " + that.width + " " + that.height);
-
-                // $(options.selector).colourBrightness();
 
                 return this;
             },
@@ -259,7 +251,7 @@ console.log(that.data,"data nehal",options.selector)
                 return this;
             },
             legendsContainer: function (i) {
-                if(PykCharts.boolean(that.legends_enable)&&that.mode === "default") {
+                if(PykCharts['boolean'](that.legends_enable)&&that.mode === "default") {
                     that.legendsGroup = that.svgContainer.append("g")
                         .attr("id","legends")
                         .attr("class","legends")
@@ -274,7 +266,7 @@ console.log(that.data,"data nehal",options.selector)
                 return this;
             },
             axisContainer : function () {
-                if(PykCharts.boolean(that.axis_y_enable)) {
+                if(PykCharts['boolean'](that.axis_y_enable)) {
 
                     var axis_line = that.group.selectAll(".axis-line")
                         .data(["line"]);
@@ -329,12 +321,9 @@ console.log(that.data,"data nehal",options.selector)
                             .style("font-family",that.axis_y_title_family)
                             .style("font-size",that.axis_y_title_size+"px")
                             .text(that.axis_y_title);
-                        // that.xGroup.attr("transform","translate(0,"+(that.width-that.margin.left-that.margin.right)+")");
                     }
-                        // .style("stroke","none");
                 }
-                // console.log(PykCharts.boolean(that.axis_x_enable),"is boolean");
-                if(PykCharts.boolean(that.axis_x_enable) || that.axis_x_title) {
+                if(PykCharts['boolean'](that.axis_x_enable) || that.axis_x_title) {
                     that.xGroup = that.group.append("g")
                         .attr("id","xaxis")
                         .attr("class","x axis");
@@ -355,12 +344,10 @@ console.log(that.data,"data nehal",options.selector)
                     .values(function(d){ // The values are present deep in the array, need to tell d3 where to find it
                         return d.values;
                     })(that.layers);
-                // console.log(stack);
                 that.layers = that.layers.map(function (group) {
                     return {
                         name : group.name,
                         values : group.values.map(function (d) {
-                            // Invert the x and y values, and y0 becomes x0
                             return {
                                 x: d.y,
                                 y: d.x,
@@ -369,7 +356,6 @@ console.log(that.data,"data nehal",options.selector)
                                 color: d.color,
                                 group: d.group,
                                 name:d.name
-                                // highlight:d.highlight
                             };
                         })
                     };
@@ -407,40 +393,9 @@ console.log(that.data,"data nehal",options.selector)
 
                 that.xScale = d3.scale.linear().domain(x_domain).range([0, w]);
 
-                // that.yScaleInvert = d3.scale.linear().domain([d3.max(yValues), 0]).range([0, h]).nice(); // For the yAxis
-                // var zScale = d3.scale.category10();
-
-                // if(that.axis_x_data_format === "number") {
-                //     max = d3.max(that.new_data, function(d) { return d3.max(d.data, function(k) { return k.x; }); });
-                //     min = d3.min(that.new_data, function(d) { return d3.min(d.data, function(k) { return k.x; }); });
-                //     x_domain = [min,max];
-                //     x_data = that.k._domainBandwidth(x_domain,2);
-                //     x_range = [0 ,that.reducedWidth];
-                //     that.xScale = that.k.scaleIdentification("linear",x_data,x_range);
-                //     that.extra_left_margin = 0;
-
-                // } else if(that.axis_x_data_format === "string") {
-                //     that.new_data[0].data.forEach(function(d) { x_data.push(d.x); });
-                //     x_range = [0 ,that.reducedWidth];
-                //     that.xScale = that.k.scaleIdentification("ordinal",x_data,x_range,0);
-                //     that.extra_left_margin = (that.xScale.rangeBand() / 2);
-
-                // } else if (that.axis_x_data_format === "time") {
-                //     max = d3.max(that.new_data, function(d) { return d3.max(d.data, function(k) { return new Date(k.x); }); });
-                //     min = d3.min(that.new_data, function(d) { return d3.min(d.data, function(k) { return new Date(k.x); }); });
-                //     x_data = [min,max];
-                //     x_range = [0 ,that.reducedWidth];
-                //     that.xScale = that.k.scaleIdentification("time",x_data,x_range);
-                //     that.new_data[0].data.forEach(function (d) {
-                //         d.x = new Date(d.x);
-                //     });
-                //     that.extra_left_margin = 0;
-                // }
-
                 var group_arr = [];
 
                 for(var i in groups){
-                // for(var i=0;i<groups.length;i++) {
                     var g = groups[i];
                     var y = that.yScale(g[0]);
                     var totalHeight = that.yScale.rangeBand() * g.length;
@@ -516,18 +471,18 @@ console.log(that.data,"data nehal",options.selector)
                         if(that.mode === "default") {
                             that.mouseEvent.tooltipPosition(d);
                             that.mouseEvent.tooltipTextShow(d.tooltip ? d.tooltip : d.y);
-                            that.mouseEvent.axisHighlightShow(d.name,options.selector + " .axis-text",that.domain,"bar");
-                            if(PykCharts.boolean(that.onhover_enable)) {
-                                that.mouseEvent.highlight(options.selector + " .rect", this);
+                            that.mouseEvent.axisHighlightShow(d.name,that.selector + " .axis-text",that.domain,"bar");
+                            if(PykCharts['boolean'](that.onhover_enable)) {
+                                that.mouseEvent.highlight(that.selector + " .rect", this);
                             }
                         }
                     })
                     .on('mouseout',function (d) {
                         if(that.mode === "default") {
                             that.mouseEvent.tooltipHide(d);
-                            that.mouseEvent.axisHighlightHide(options.selector + " .axis-text","bar");
-                            if(PykCharts.boolean(that.onhover_enable)) {
-                                that.mouseEvent.highlightHide(options.selector + " .rect")
+                            that.mouseEvent.axisHighlightHide(that.selector + " .axis-text","bar");
+                            if(PykCharts['boolean'](that.onhover_enable)) {
+                                that.mouseEvent.highlightHide(that.selector + " .rect")
                             }
                         }
                     })
@@ -562,7 +517,7 @@ console.log(that.data,"data nehal",options.selector)
                 that.bars.exit()
                     .remove();
 
-                if(PykCharts.boolean(that.axis_y_enable)) {
+                if(PykCharts['boolean'](that.axis_y_enable)) {
                     var yAxis_label = that.group.selectAll("text.axis-text")
                         .data(group_arr);
 
@@ -634,9 +589,9 @@ console.log(that.data,"data nehal",options.selector)
 
                     var tick_label = that.bars.selectAll(".ticksText")
                                 .data(function(d) {
-                                        // console.log(d.values);
                                         return d.values;
                                 });
+                                
                     tick_label.enter()
                         .append("text")
                         .attr("class","ticksText");
@@ -647,7 +602,6 @@ console.log(that.data,"data nehal",options.selector)
                     setTimeout(function() {
                         tick_label.text(function(d) {
                                 if(d.x) {
-                                    // console.log(d.x);
                                     return d.x;
                                 }
                             })
@@ -679,7 +633,6 @@ console.log(that.data,"data nehal",options.selector)
                                 }
                             })
                             .style("font-size",function(d) {
-                                // console.log(that.label.size);
                                 return that.pointer_size + "px";
                             });
                     }, that.transitions.duration());
@@ -689,7 +642,7 @@ console.log(that.data,"data nehal",options.selector)
                 return this;
             },
             highlightRect : function () {
-                if(that.no_of_groups > 1 && PykCharts.boolean(that.highlight)) {
+                if(that.no_of_groups > 1 && PykCharts['boolean'](that.highlight)) {
                     setTimeout(function() {
                         function ascending( a, b ) {
                             return a - b;
@@ -719,9 +672,8 @@ console.log(that.data,"data nehal",options.selector)
                 return this;
             },
             legends: function () {
-                if(PykCharts.boolean(that.legends_enable)) {
+                if(PykCharts['boolean'](that.legends_enable)) {
                     var params = that.getParameters(),color;
-                    // console.log(params);
                     color = params.map(function (d) {
                         return d.color;
                     });
@@ -735,7 +687,6 @@ console.log(that.data,"data nehal",options.selector)
                     k = params.length;
 
                     if(that.legends_display === "vertical" ) {
-                        // that.legendsContainer.attr("height", (params.length * 30)+20);
                         that.legendsGroup_height = 0;
                         text_parameter1 = "x";
                         text_parameter2 = "y";
@@ -813,7 +764,6 @@ console.log(that.data,"data nehal",options.selector)
                             else return color[0];
                         })
                         .attr("fill-opacity", function (d,i) {
-                            // if(PykCharts.boolean(that.saturationEnable)){
                                 if(that.color_mode === "saturation"){
                                 return (that.no_of_groups-i)/that.no_of_groups;
                             }
@@ -840,13 +790,8 @@ console.log(that.data,"data nehal",options.selector)
         return optional;
     };
 
-    //----------------------------------------------------------------------------------------
-    // 6. Rendering groups:
-    //----------------------------------------------------------------------------------------
-
     that.getGroups = function(){
         var groups = {};
-        // for(var i in that.the_bars){
         for(var i=0;i<that.the_bars.length;i++) {
             var bar = that.the_bars[i];
             if(!bar.id) continue;
@@ -858,16 +803,6 @@ console.log(that.data,"data nehal",options.selector)
         }
         return groups;
     };
-
-    //----------------------------------------------------------------------------------------
-    // 10.Data Manuplation:
-    //----------------------------------------------------------------------------------------
-
-    // Data Helpers
-    // Takes the flattened data and returns layers
-    // Each layer is a separate category
-    // The structure of the layer is made so that is plays well with d3.stack.layout()
-    // Docs - https://github.com/mbostock/d3/wiki/Stack-Layout#wiki-values
 
     that.buildLayers = function(the_bars){
         var layers = [];
@@ -888,18 +823,13 @@ console.log(that.data,"data nehal",options.selector)
             layers.push(new_layer);
             return new_layer;
         }
-
-        // for(var i in the_bars){
         for(var i=0;i<the_bars.length;i++) {
             var bar = the_bars[i];
             if(!bar.id) continue;
             var id = bar.id;
             for(var k in bar){
-                //  .log(bar,"bar");
                 if(k === "id") continue;
                 var icings = bar[k];
-                // console.log(icings,"icings");
-                // for(var j in icings){
                 for(var j=0;j<icings.length;j++) {
                     var icing = icings[j];
                     if(!icing.name) continue;
@@ -916,20 +846,14 @@ console.log(that.data,"data nehal",options.selector)
                 }
             }
         }
-        // console.log(layers,"layers");
         return layers;
     };
-
-    // Traverses the JSON and returns an array of the 'bars' that are to be rendered
     that.flattenData = function(){
         var the_bars = [-1];
         that.keys = {};
-        // for(var i in that.data){
         for(var i=0; i<that.data.length; i++) {
             var d = that.data[i];
             for(var cat_name in d){
-                // console.log(d[cat_name], "cat_name");
-                // for(var j in d[cat_name]){
                 for(var j = 0; j < d[cat_name].length; j++) {
                     var id = "i" + i + "j" + j;
                     if(typeof d[cat_name][j] !== "object"){
@@ -966,7 +890,6 @@ console.log(that.data,"data nehal",options.selector)
                 });
             }
         }
-        // console.log(p,"p");
         return p;
     };
     that.emptygroups = function (data) {
@@ -1006,7 +929,6 @@ console.log(that.data,"data nehal",options.selector)
                 }
             }
         }
-        // console.log(data,"data")
         return data;
     };
 
@@ -1043,7 +965,7 @@ console.log(that.data,"data nehal",options.selector)
                 that.k.warningHandling(err,"8");
             }
         }
-        if(!PykCharts.boolean(that.data_sort_enable)) {
+        if(!PykCharts['boolean'](that.data_sort_enable)) {
             that.data.sort(function(a,b) {
                 if (a.group < b.group) {
                     return -1;
@@ -1054,7 +976,7 @@ console.log(that.data,"data nehal",options.selector)
             });
         }
 
-        if (PykCharts.boolean(that.data_sort_enable)) {
+        if (PykCharts['boolean'](that.data_sort_enable)) {
             switch (that.data_sort_type) {
                 case "numerically":
                     if (that.unique_group.length === 1) {
@@ -1095,8 +1017,6 @@ console.log(that.data,"data nehal",options.selector)
                             return (that.data_sort_order === "descending") ? -1 : 1;
                         }
                         return 0;
-
-                        //return ((that.data_sort_order === "descending") ? (new Date(b.y) > new Date(a.y)) : (new Date(a.y) > new Date(b.y)));
                     });
                     break;
             }
@@ -1153,7 +1073,6 @@ console.log(that.data,"data nehal",options.selector)
                 }
             }
         }
-//        console.log(data_tranform.length)
         that.barName = _.unique(that.barName);
         return data_tranform;
     };

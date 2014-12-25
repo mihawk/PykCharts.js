@@ -43,30 +43,28 @@ PykCharts.multiD.spiderWeb = function (options) {
         }
 
         that.multiD = new PykCharts.multiD.configuration(that);
-        // that.axisTitle = options.spiderweb_axis_title ? options.spiderweb_axis_title : theme.multiDimensionalCharts.spiderweb_axis_title;
         
         that.inner_radius = 0;
-        // that.enableTicks =  options.spiderweb_pointer ? options.spiderweb_pointer : multiDimensionalCharts.spiderweb_pointer;
-        // that.variable_circle_size_enable = options.variable_circle_size_enable ? options.variable_circle_size_enable : multiDimensionalCharts.variable_circle_size_enable;
         
-        
-        d3.json(options.data, function (e, data) {
-            
+        that.executeData = function (data) {
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
                 $(that.selector+" #chart-loader").remove();
+                $(that.selector).css("height","auto")
                 return;
             }
 
             that.data = that.k.__proto__._groupBy("spiderweb",data);
             that.compare_data = that.k.__proto__._groupBy("spiderweb",data);
             $(that.selector+" #chart-loader").remove();
+            $(that.selector).css("height","auto")
             that.render();
-        });
+        };
+        that.k.dataSourceFormatIdentification(options.data,that,"executeData");
     };
 
     that.refresh = function () {
-        d3.json(options.data, function (e, data) {
+        that.executeRefresh = function (data) {
             that.data = that.k.__proto__._groupBy("spiderweb",data);
             that.refresh_data = that.k.__proto__._groupBy("spiderweb",data);
             var compare = that.k.checkChangeInData(that.refresh_data,that.compare_data);
@@ -81,9 +79,8 @@ PykCharts.multiD.spiderWeb = function (options) {
                 .legends()
                 .xAxis()
                 .yAxis();
-                // .axisTicks()
-                // .axisTitle();
-        });
+        };
+        that.k.dataSourceFormatIdentification(options.data,that,"executeRefresh");
     };
 
     this.render = function () {
@@ -114,7 +111,6 @@ PykCharts.multiD.spiderWeb = function (options) {
             that.optionalFeatures()
                 .legends()
                 .createGroups();
-            // that.height = that.height - that.legendsGroup_height - 20;
             that.outerRadius = that.k.__proto__._radiusCalculation(that.outerRadius,"spiderweb");
             that.radius_range = [(3*that.outerRadius)/100,(0.09*that.outerRadius)];
             that.sizes = new PykCharts.multiD.bubbleSizeCalculation(that,that.data,that.radius_range);
@@ -137,7 +133,6 @@ PykCharts.multiD.spiderWeb = function (options) {
             that.optionalFeatures().svgContainer(1)
                 .legendsContainer()
                 .createGroups();
-            // that.height = that.height - that.legendsGroup_height - 20;
             that.outerRadius = that.k.__proto__._radiusCalculation(that.outerRadius,"spiderweb");
             that.radius_range = [(3*that.outerRadius)/100,(0.09*that.outerRadius)];
             that.sizes = new PykCharts.multiD.bubbleSizeCalculation(that,that.data,that.radius_range);
@@ -151,7 +146,7 @@ PykCharts.multiD.spiderWeb = function (options) {
             that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
         }
         that.k.exportSVG(that,"#"+that.container_id,"spiderweb")
-        if(PykCharts.boolean(that.legends_enable)) {
+        if(PykCharts['boolean'](that.legends_enable)) {
             $(document).ready(function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); })
             $(window).on("resize", function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); });
         } else {
@@ -176,11 +171,8 @@ PykCharts.multiD.spiderWeb = function (options) {
                     .attr("id",that.container_id)
                     .attr("width", that.width)
                     .attr("height", that.height)
-                    // .style("background-color",that.background_color)
                     .attr("preserveAspectRatio", "xMinYMin")
                     .attr("viewBox", "0 0 " + that.width + " " + that.height);
-
-                // $(options.selector).colourBrightness();
 
                 return this;
             },
@@ -194,7 +186,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                 return this;
             },
             legendsContainer : function (i) {
-                if (PykCharts.boolean(that.legends_enable) && that.map_group_data[1] && that.mode === "default") {
+                if (PykCharts['boolean'](that.legends_enable) && that.map_group_data[1] && that.mode === "default") {
                     that.legendsGroup = that.svgContainer.append("g")
                         .attr("class","legendgrp")
                         .attr("id","legendgrp");
@@ -205,7 +197,6 @@ PykCharts.multiD.spiderWeb = function (options) {
                 return this;
             },
             createChart: function () {
-                // console.log(that.height,that.outerRadius);
                 var i, min, max;
                 that.group_arr = [];
                 that.uniq_group_arr = [];
@@ -241,7 +232,6 @@ PykCharts.multiD.spiderWeb = function (options) {
                 that.yScale = d3.scale.linear()
                     .domain([min,max])
                     .range([that.inner_radius, that.outerRadius]);
-                // console.log(that.yScale.range());
                 that.y_domain = [], that.nodes = [];
 
                 for (i=0;i<that.new_data.length;i++){
@@ -251,7 +241,6 @@ PykCharts.multiD.spiderWeb = function (options) {
                     }
                     that.y_domain[i] = t;
                 }
-                // console.log(that.y_domain[1], that.radius_range);
                 for (i=0;i<that.new_data.length;i++){
                     that.y = d3.scale.linear()
                         .domain(d3.extent(that.y_domain[i], function(d) { return d; }))
@@ -320,7 +309,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                         .attr("stroke-opacity",1)
                         .attr("id","link"+m)
                         .attr("d", d3.customHive.link()
-                            .angle(function(d) { /*console.log(d,"d");*/ return that.angle(d.x); })
+                            .angle(function(d) { /**/ return that.angle(d.x); })
                             .radius(function(d) { return that.radius(d.y); })
                         );
                     spider.exit().remove();
@@ -363,16 +352,16 @@ PykCharts.multiD.spiderWeb = function (options) {
                             if(that.mode === "default") {
                                 that.mouseEvent.tooltipPosition(d);
                                 that.mouseEvent.tooltipTextShow(d.tooltip);
-                                if(PykCharts.boolean(that.onhover_enable)) {
-                                    that.mouseEvent.highlight(options.selector + " .dot", this);
+                                if(PykCharts['boolean'](that.onhover_enable)) {
+                                    that.mouseEvent.highlight(that.selector + " .dot", this);
                                 }
                             }
                         })
                         .on('mouseout',function (d) {
                             if(that.mode === "default") {
                                 that.mouseEvent.tooltipHide(d);
-                                if(PykCharts.boolean(that.onhover_enable)) {
-                                    that.mouseEvent.highlightHide(options.selector + " .dot");
+                                if(PykCharts['boolean'](that.onhover_enable)) {
+                                    that.mouseEvent.highlightHide(that.selector + " .dot");
                                 }
                             }
                         })
@@ -391,7 +380,6 @@ PykCharts.multiD.spiderWeb = function (options) {
                     .attr("transform", function(d) { return "rotate(" + that.degrees(that.angle(d)) + ")"; })
                     .attr("x1", that.radius.range()[0])
                     .attr("x2", that.radius.range()[1]);
-                  //  .attr("fill","blue");
 
                 that.group.selectAll(".grid")
                     .data(grids)
@@ -405,9 +393,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                 return this;
             },
             legends : function () {
-                 // console.log("heyy",PykCharts.boolean(that.variable_circle_size_enable));
-                if (PykCharts.boolean(that.legends_enable) && that.map_group_data[1] && that.mode==="default") {
-                    // console.log("goes inside");
+                if (PykCharts['boolean'](that.legends_enable) && that.map_group_data[1] && that.mode==="default") {
                     var unique = _.uniq(that.sorted_weight);
                     var k = 0;
                     var l = 0;
@@ -429,7 +415,6 @@ PykCharts.multiD.spiderWeb = function (options) {
 
 
                     } else if(that.legends_display === "horizontal") {
-                        // that.legendsContainer.attr("height", (k+1)*70);
                         that.legendsGroup_height = 50;
                         final_rect_x = 0;
                         final_text_x = 0;
@@ -444,7 +429,6 @@ PykCharts.multiD.spiderWeb = function (options) {
                         rect_parameter4 = "y";
 
                         var text_parameter1value = function (d,i) {
-                            // console.log(d,i);
                             legend_text_widths[i] = this.getBBox().width;
                             legend_start_x = 16;
                             final_text_x = (i === 0) ? legend_start_x : (legend_start_x + temp_text);
@@ -512,125 +496,10 @@ PykCharts.multiD.spiderWeb = function (options) {
                     legend.exit().remove();
 
                     /* !!!!! DO NOT TOUCH THE BELOW COMMENTED CODE, PREVIOUSLY WRITTEN FOR DISPLAYING LEGENDS ON THE NEXT LINE !!!!!*/
-                    //     var text_parameter1value = function (d,i) {
-                    //         if( i === 0) {
-                    //             l = 0;
-                    //         }
-                    //         if((that.w - (i*100 + 75)) > 0) {
-                    //             return that.width - (i*100 + 75);
-                    //         } else if ((that.width - (l*100 + 75)) < that.width) {
-                    //             l++;
-                    //             return that.width - ((l-1)*100 + 75);
-                    //         } else {
-                    //             l = 0;
-                    //             l++;
-                    //             return that.width - ((l-1)*100 + 75);
-                    //         }
-                    //     };
-
-                    //     text_parameter2value = function (d,i) {
-                    //         if(i === 0) {
-                    //             k = 0, l = 0;
-                    //         }
-                    //         if((that.width - (i*100 + 75)) > 0) {
-                    //         } else if ((that.width - (l*100 + 75)) < that.width) {
-                    //             if(l === 0) {
-                    //                 k++;
-                    //             }
-                    //             l++;
-                    //         } else {
-                    //             l = 0;
-                    //             l++;
-                    //             k++;
-                    //         }
-                    //         return k * 24 + 23;
-                    //     };
-                    //     rect_parameter1value = 13;
-                    //     rect_parameter2value = 13;
-                    //     var rect_parameter3value = function (d,i) {
-                    //         if( i === 0) {
-                    //             k = 0, l = 0;
-                    //         }
-                    //         if((that.w - (i*100 + 100)) >= 0) {
-                    //             return that.width - (i*100 + 100);
-                    //         } else if ((that.width - (i*100 + 100)) < that.width) {
-                    //             k++;
-                    //             if(l === 0) {
-                    //                 that.legendsGroup.attr("height", (l+1)*50);
-                    //                 that.legendsGroup_height = (l+1)*50;
-                    //             }
-                    //             l++;
-                    //             return that.width - ((l-1)*100 + 100);
-                    //         } else {
-                    //             l = 0;
-                    //             l++;
-                    //             k++;
-                    //             return that.width - ((l-1)*100 + 100);
-                    //         }
-                    //     };
-                    //     rect_parameter4value = function (d,i) {
-                    //         if(i === 0) {
-                    //             k = 0, l = 0;
-                    //         }
-                    //         if((that.width - (i*100 + 75)) > 0) {
-                    //         } else if ((that.width - (l*100 + 75)) < that.width) {
-                    //             if( l == 0) {
-                    //                 k++;
-                    //             }
-                    //             l++;
-                    //         } else {
-                    //             l = 0;
-                    //             l++;
-                    //             k++;
-                    //         }
-                    //         return k * 24 + 12;
-                    //     }
-                    // };
-
-                    // var legend = that.legendsGroup.selectAll("rect")
-                    //         .data(that.map_group_data[0]);
-
-                    // legend.enter()
-                    //         .append("rect");
-
-                    // legend.attr(rect_parameter1, rect_parameter1value)
-                    //     .attr(rect_parameter2, rect_parameter2value)
-                    //     .attr(rect_parameter3, rect_parameter3value)
-                    //     .attr(rect_parameter4, rect_parameter4value)
-                    //     .attr("fill", function (d) {
-                    //         return that.fillChart.colorPieW(d);
-                    //     })
-                    //     .attr("fill-opacity", function (d) {
-                    //         return 0.6;
-                    //     });
-
-                    // legend.exit().remove();
-
-                    // that.legends_text = that.legendsGroup.selectAll(".legends_text")
-                    //     .data(that.map_group_data[0]);
-
-                    // that.legends_text
-                    //     .enter()
-                    //     .append('text')
-                    //     .attr("class","legends_text")
-                    //     .attr("pointer-events","none")
-                    //     .attr("fill",that.legends_text_color)
-                    //     .attr("font-family", that.legends_text_family)
-                    //     .attr("font-size",that.legends_text_size)
-                    //     .attr("font-weight",that.legends_text_weight);
-
-                    // that.legends_text.attr("class","legends_text")
-                    //     .attr(text_parameter1, text_parameter1value)
-                    //     .attr(text_parameter2, text_parameter2value)
-                    //     .text(function (d) { return d.group });
-
-                    // that.legends_text.exit()
-                    //                 .remove();
                 }
                 return this;
             },
             xAxis : function () {
-                // if(PykCharts.boolean(that.axisTitle)) {
                     that.length = that.new_data[0].data.length;
 
                     var spiderAxisTitle = that.group.selectAll("text.axisTitle")
@@ -657,11 +526,9 @@ PykCharts.multiD.spiderWeb = function (options) {
                         .text(function (d,i) { return that.new_data[0].data[i].x; });
 
                     spiderAxisTitle.exit().remove();
-                // }
                 return this;
             },
             yAxis: function () {
-                // if (PykCharts.boolean(that.enableTicks)) {
                     var a = that.yScale.domain();
                     var t = a[1]/4;
                     var b = [];
@@ -674,22 +541,12 @@ PykCharts.multiD.spiderWeb = function (options) {
                     tick_label.enter()
                         .append("text")
                         .attr("class","ticks"); 
-
-                        //var levelFactor =   that.outerRadius*((i+1)/4));
                     tick_label
                         .style("text-anchor","start")
                         .attr("transform", "translate(5,"+(-that.outerRadius)+")") 
                         .attr("x",0)
                         .attr("y", function (d,i) { return (i*(that.outerRadius/4)); })
                         .attr("dy",-2);
-                        // .attr("dy",function(d,i) {
-                        //     if(i === 0) 2
-                        //         return -20;
-                        //     } else {
-                        //         console.log(i,-20/(4*(5-(i))),(4*(5-(i))));
-                        //         return -4;
-                        //     }
-                        // });
 
                     tick_label               
                         .text(function (d,i) { return d; })
@@ -699,57 +556,9 @@ PykCharts.multiD.spiderWeb = function (options) {
                         .style("fill",that.axis_y_pointer_color);
 
                     tick_label.exit().remove();
-                // }
                 return this;
             },
         }
         return optional;
     };
-
-    // this.fullScreen = function () {
-    //     var modalDiv = d3.select(options.selector).append("div")
-    //         .attr("id","abc")
-    //         .attr("align","center")
-    //         .attr("visibility","hidden")
-    //         .attr("class","clone")
-    //         .style("align","center")
-    //         .append("a")
-    //         .attr("class","b-close")
-    //             .style("cursor","pointer")
-    //             .style("position","absolute")
-    //             .style("right","10px")
-    //             .style("top","5px")
-    //             .style("font-size","20px")
-    //             .html("Close");
-
-    //     var scaleFactor = 1.5;
-    //     var w = that.w;
-    //     var h = that.h;
-    //     if(h>=500 || w>900){
-    //         scaleFactor = 1;
-    //     }
-    //     if(that.legends.position == "top" || that.legends.position == "left") {
-    //         $(".legendsvg").clone().appendTo("#abc");
-    //         $(".svgcontainer").clone().appendTo("#abc");
-    //     }
-    //     else {
-    //         $(".svgcontainer").clone().appendTo("#abc");
-    //         $(".legendsvg").clone().appendTo("#abc");
-    //     }
-    //     if(that.legends.position == "top" || that.legends.position == "bottom") {
-    //         d3.select(".clone #legendscontainer").attr("width",screen.width-200);
-    //         d3.select(".clone #legendgrp").attr("transform","scale("+scaleFactor+")");
-    //         d3.select(".clone #svgcontainer").attr("width",screen.width-200).attr("height",screen.height-200).style("display","block");
-    //     }
-    //     else if(that.legends.position == "left" || that.legends.position == "right") {
-    //         d3.select(".clone #legendscontainer").attr("width",100).attr("height",screen.height-100);
-    //         d3.select(".clone svg #legendgrp").attr("transform","scale("+scaleFactor+")");
-    //         d3.select(".clone #svgcontainer").attr("width",screen.width-200).attr("height",screen.height-200);
-    //     }
-    //     d3.select(".clone svg #spidergrp")
-    //         .attr("transform","scale("+scaleFactor+")")
-    //         .attr("transform", "translate(" + that.w / 2 + "," + that.h / 2 + ")");
-    //     $(".clone").css({"background-color":"#fff","border-radius":"15px","color":"#000","display":"none","padding":"20px","min-width":screen.availWidth-100,"min-height":screen.availHeight-150,"visibility":"visible","align":"center"});
-    //     $("#abc").bPopup({position: [30, 10],transition: 'fadeIn',onClose: function(){ $('.clone').remove(); }});
-    // };
 };

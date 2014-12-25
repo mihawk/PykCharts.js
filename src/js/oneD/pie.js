@@ -49,22 +49,24 @@ PykCharts.oneD.pie = function (options) {
            that.k.loading();
         }
 
-        d3.json(options.data, function (e, data) {
-
+        that.executeData = function (data) {
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
                 $(options.selector+" #chart-loader").remove();
+                $(that.selector).css("height","auto")
                 return;
             }
 
             that.data = that.k.__proto__._groupBy("oned",data);
             that.compare_data = that.k.__proto__._groupBy("oned",data);
             $(options.selector+" #chart-loader").remove();
+            $(that.selector).css("height","auto")
             var pieFunctions = new PykCharts.oneD.pieFunctions(options,that,"pie");
             that.clubdata_enable = that.data.length > that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
             pieFunctions.render();
-        });
-        // that.clubData.enable = that.data.length>that.clubData.maximumNodes ? that.clubData.enable : "no";
+        };
+        that.k.dataSourceFormatIdentification(options.data,that,"executeData");
+
     };
 };
 
@@ -142,7 +144,9 @@ PykCharts.oneD.donut = function (options) {
         if(that.stop) {
             return;
         }
-
+        if(that.mode === "default") {
+           that.k.loading();
+        }
         that.height_translate = that.height/2;
         that.show_total_at_center = options.donut_show_total_at_center ? options.donut_show_total_at_center.toLowerCase() : theme.oneDimensionalCharts.donut_show_total_at_center;
         that.show_total_at_center_size = "donut_show_total_at_center_size" in options ? options.donut_show_total_at_center_size : theme.oneDimensionalCharts.donut_show_total_at_center_size;
@@ -150,24 +154,23 @@ PykCharts.oneD.donut = function (options) {
         that.show_total_at_center_weight = options.donut_show_total_at_center_weight ? options.donut_show_total_at_center_weight : theme.oneDimensionalCharts.donut_show_total_at_center_weight;
         that.show_total_at_center_family = options.donut_show_total_at_center_family ? options.donut_show_total_at_center_family : theme.oneDimensionalCharts.donut_show_total_at_center_family;
 
-        // that.radiusPercent = options.optional && options.optional.donut && _.isNumber(options.optional.donut.radiusPercent) ? options.optional.donut.radiusPercent : theme.oneDimensionalCharts.donut.radiusPercent;
-        // that.innerRadiusPercent = options.optional && options.optional.donut && _.isNumber(options.optional.donut.innerRadiusPercent) && options.optional.donut.innerRadiusPercent ? options.optional.donut.innerRadiusPercent : theme.oneDimensionalCharts.donut.innerRadiusPercent;
-
-        d3.json(options.data, function (e, data) {
-
+        that.executeData = function (data) {
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
                 $(options.selector+" #chart-loader").remove();
+                $(that.selector).css("height","auto")
                 return;
             }
 
             that.data = that.k.__proto__._groupBy("oned",data);
             that.compare_data = that.k.__proto__._groupBy("oned",data);
             $(options.selector+" #chart-loader").remove();
+            $(that.selector).css("height","auto")
             var pieFunctions = new PykCharts.oneD.pieFunctions(options,that,"donut");
             that.clubdata_enable = that.data.length > that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
             pieFunctions.render();
-        });
+        };
+        that.k.dataSourceFormatIdentification(options.data,that,"executeData");
     };
 };
 
@@ -221,25 +224,29 @@ PykCharts.oneD.electionPie = function (options) {
         if(that.radiusPercent > 100) {
             that.radiusPercent = 100;
         }
-
+        if(that.mode === "default") {
+           that.k.loading();
+        }
         that.innerRadiusPercent = 0;
 
-        d3.json(options.data, function (e, data) {
-
+        that.executeData = function (data) {
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
                 $(options.selector+" #chart-loader").remove();
+                $(that.selector).css("height","auto")
                 return;
             }
 
             that.data = that.k.__proto__._groupBy("oned",data);
             that.compare_data = that.k.__proto__._groupBy("oned",data);
             $(options.selector+" #chart-loader").remove();
+            $(that.selector).css("height","auto")
             var pieFunctions = new PykCharts.oneD.pieFunctions(options,that,"election pie");
             that.clubdata_enable = that.data.length > that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
             pieFunctions.render();
 
-        });
+        };
+        that.k.dataSourceFormatIdentification(options.data,that,"executeData");
     };
 };
 
@@ -324,40 +331,39 @@ PykCharts.oneD.electionDonut = function (options) {
         if(that.stop) {
             return;
         }
-
+        if(that.mode === "default") {
+           that.k.loading();
+        }
         that.show_total_at_center = options.donut_show_total_at_center ? options.donut_show_total_at_center.toLowerCase() : theme.oneDimensionalCharts.donut_show_total_at_center;
         that.show_total_at_center_size = "donut_show_total_at_center_size" in options ? options.donut_show_total_at_center_size : theme.oneDimensionalCharts.donut_show_total_at_center_size;
         that.show_total_at_center_color = options.donut_show_total_at_center_color ? options.donut_show_total_at_center_color : theme.oneDimensionalCharts.donut_show_total_at_center_color;
         that.show_total_at_center_weight = options.donut_show_total_at_center_weight ? options.donut_show_total_at_center_weight : theme.oneDimensionalCharts.donut_show_total_at_center_weight;
         that.show_total_at_center_family = options.donut_show_total_at_center_family ? options.donut_show_total_at_center_family : theme.oneDimensionalCharts.donut_show_total_at_center_family;
 
-        d3.json(options.data, function (e, data) {
-
+        that.executeData = function (data) {
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
                 $(options.selector+" #chart-loader").remove();
+                $(that.selector).css("height","auto")
                 return;
             }
 
             that.data = that.k.__proto__._groupBy("oned",data);
             that.compare_data = that.k.__proto__._groupBy("oned",data);
             $(options.selector+" #chart-loader").remove();
+            $(that.selector).css("height","auto")
             var pieFunctions = new PykCharts.oneD.pieFunctions(options,that,"election donut");
             that.clubdata_enable = that.data.length> that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
             pieFunctions.render();
-        });
+        };
+        that.k.dataSourceFormatIdentification(options.data,that,"executeData");
     };
 };
-
-
-    //----------------------------------------------------------------------------------------
-    // Function to handle live data
-    //----------------------------------------------------------------------------------------
 
 PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
     var that = chartObject;
        that.refresh = function () {
-        d3.json(options.data, function (e, data) {
+        that.executeRefresh = function (data) {
             that.data = that.k.__proto__._groupBy("oned",data);
             that.clubdata_enable = that.data.length>that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
             that.refresh_data = that.k.__proto__._groupBy("oned",data);
@@ -373,21 +379,16 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                     .label()
                     .ticks()
                     .centerLabel();
-        });
+        };
+        that.k.dataSourceFormatIdentification(options.data,that,"executeRefresh");
     };
-
-    //----------------------------------------------------------------------------------------
-    // Function to render the chart
-    //----------------------------------------------------------------------------------------
 
     this.render = function() {
 
         that.count = 1;
         var l = $(".svgcontainer").length;
         that.container_id = "svgcontainer" + l;
-        //that.fillChart = new PykCharts.oneD.fillChart(that);
         that.fillChart = new PykCharts.Configuration.fillChart(that);
-        // that.onHoverEffect = new PykCharts.oneD.mouseEvent(options);
         that.border = new PykCharts.Configuration.border(that);
         that.transitions = new PykCharts.Configuration.transition(that);
 
@@ -451,14 +452,9 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
         $(window).on("resize", function () { return that.k.resize(that.svgContainer); });
     };
 
-    //----------------------------------------------------------------------------------------
-    // Function to render configuration parameters
-    //----------------------------------------------------------------------------------------
-
     that.optionalFeatures = function () {
         var optional = {
             svgContainer :function () {
-                // $(options.selector).css("background-color",that.background_color);
                 that.svgContainer = d3.select(that.selector)
                     .append('svg')
                     .attr("width",that.width)
@@ -487,16 +483,6 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                     that.new_data.sort(function (a,b) { return b.weight - a.weight;});
                 }
                 that.sum = _.reduce(that.data,function (start,num) { return start+num.weight; },0);
-
-                // that.sorted_weight = _.map(that.new_data,function (d,i) {
-                //     return d.weight*100/that.sum;
-                // });
-
-                // that.sorted_weight.sort(function (a,b){return a-b;});
-
-                // var proportion =_.map(that.new_data,function (d,i) {
-                //     return d.weight*100/that.sum;
-                // });
                 that.inner_radius = that.k.__proto__._radiusCalculation(that.innerRadiusPercent,that.calculation);
                 that.outer_radius = that.k.__proto__._radiusCalculation(that.radiusPercent,that.calculation);
 
@@ -529,7 +515,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                     .on('mouseover',function (d) {
                         if(that.mode === "default") {
                             d.data.tooltip = d.data.tooltip || "<table class='PykCharts'><tr><th colspan='3' class='tooltip-heading'>"+d.data.name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.data.weight)+"<td class='tooltip-right-content'>("+((d.data.weight*100)/that.sum).toFixed(1)+"%) </tr></table>";
-                            if(PykCharts.boolean(that.onhover_enable)) {
+                            if(PykCharts['boolean'](that.onhover_enable)) {
                                 that.mouseEvent.highlight(options.selector +" "+".pie", this);
                             }
                             that.mouseEvent.tooltipPosition(d);
@@ -538,7 +524,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                     })
                     .on('mouseout',function (d) {
                         if(that.mode === "default") {
-                            if(PykCharts.boolean(that.onhover_enable)) {
+                            if(PykCharts['boolean'](that.onhover_enable)) {
                                 that.mouseEvent.highlightHide(options.selector +" "+".pie");
                             }
                             that.mouseEvent.tooltipHide(d);
@@ -552,7 +538,6 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                     .attr("stroke",that.border.color())
                     .attr("stroke-width",that.border.width())
                     .attr("stroke-dasharray", that.border.style());
-//                    .attr("d",that.arc); // comment this if u want to enable transition
 
                 that.chart_data.transition()
                     .delay(function(d, i) {
@@ -587,14 +572,6 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                     that.chart_text.text("")
                         .attr("fill", "red");
 
-
-                    //     .transition()
-                    //     .delay(function(d, i) {
-                        //     if(PykCharts.boolean(that.transition.duration)) {
-                        //         return (i * that.transition.duration)/that.new_data.length;
-                        //     } else return 0;
-                        // });
-
                     setTimeout(function () {
                         that.chart_text.text(function (d) { return that.k.appendUnits(d.data.weight); })
                             .attr("text-anchor","middle")
@@ -603,13 +580,12 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                             .style("font-size", that.label_size + "px")
                             .text(function (d,i) {
                                 if(type.toLowerCase() === "pie" || type.toLowerCase() === "election pie") {
-                                    console.log(this.getBBox().width,"outside");
-                                    console.log((d.endAngle-d.startAngle)*((that.outer_radius/2)*0.9),"angle1111111");
+                                    
+                                    
                                     if(this.getBBox().width<((d.endAngle-d.startAngle)*((that.outer_radius/2)*0.9))) {
-                                        console.log(this.getBBox().width,"b box width");
-                                        console.log((d.endAngle-d.startAngle)*((that.outer_radius/2)*0.9),"angle");
+                                        
+                                        
                                         return ((d.data.weight*100)/that.sum).toFixed(1)+"%";
-                                        // return that.k.appendUnits(d.data.weight);
                                     }
                                     else {
                                         return "";
@@ -617,7 +593,6 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                                 } else {
                                     if((this.getBBox().width < (Math.abs(d.endAngle - d.startAngle)*that.outer_radius*0.9))  && (this.getBBox().height < (((that.outer_radius-that.inner_radius)*0.75)))) {
                                         return ((d.data.weight*100)/that.sum).toFixed(1)+"%";
-                                        // return that.k.appendUnits(d.data.weight);
                                     }
                                     else {
                                         return "";
@@ -635,7 +610,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                 return this;
             },
             clubData: function () {
-                if(PykCharts.boolean(that.clubdata_enable)) {
+                if(PykCharts['boolean'](that.clubdata_enable)) {
                     that.displayData = [];
                     that.sorted_weight = _.map(that.data,function(num){ return num.weight; });
                     that.sorted_weight.sort(function(a,b){ return b-a; });
@@ -711,12 +686,11 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                 return that.displayData;
             },
             ticks : function () {
-                if(PykCharts.boolean(that.pointer_overflow_enable)) {
+                if(PykCharts['boolean'](that.pointer_overflow_enable)) {
                     that.svgContainer.style("overflow","visible");
                 }
                 var w = [];
                 that.ticks_text_width = [];
-                //if(PykCharts.boolean(that.enableTicks)) {
                     var tick_label = that.group.selectAll(".ticks_label")
                                     .data(that.pie(that.new_data));
 
@@ -739,54 +713,6 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                         return "translate(" + x + "," + y + ")";});
 
                     tick_label.text("")
-                        //.style("visibility","hidden");
-                        // .transition()
-                        // .delay(function(d, i) {
-                        //     if(PykCharts.boolean(that.transition.duration)) {
-                        //         return ((i+1) * that.transition.duration)/that.new_data.length;
-                        //     } else return 0;
-                        // })
-                        // .text(function (d,i) {
-                        //     if(type.toLowerCase() === "pie" || type.toLowerCase() === "election pie") {
-                        //         if(type.toLowerCase() === "pie") {
-                        //             w[i] = this.getBBox().height;
-                        //             console.log(w[i],((d.endAngle-d.startAngle)*((that.outer_radius/2)*0.9)),d.startAngle,d.data.name);
-                        //             if(this.getBBox().height < ((d.endAngle-d.startAngle)*((that.outer_radius/2)*0.9))) {
-                        //                 return d.data.name;
-                        //             }
-                        //             else {
-                        //                 return "";
-                        //             }
-                        //         } else {
-                        //             w[i] =this.getBBox().height;
-                        //             if(this.getBBox().height < ((d.endAngle-d.startAngle)*((that.outer_radius/2)*0.9))) {
-                        //                 return d.data.name;
-                        //             }
-                        //             else {
-                        //                 return "";
-                        //             }
-                        //         }
-                        //     } else {
-                        //         if(type.toLowerCase() === "donut") {
-                        //             w[i] = this.getBBox().width;
-                        //             if(this.getBBox().width < ((d.endAngle-d.startAngle)*((that.outer_radius/2)*0.9))) {
-                        //                 return d.data.name;
-                        //             }
-                        //             else {
-                        //                 return "";
-                        //             }
-                        //         } else {
-                        //             w[i] = this.getBBox().height;
-                        //             if(this.getBBox().height < ((d.endAngle-d.startAngle)*((that.outer_radius/2)*0.9))) {
-                        //                 return d.data.name;
-                        //             }
-                        //             else {
-                        //                 return "";
-                        //             }
-                        //         }
-                        //     }
-                        // })
-                        // .style("visibility","visible")
 
                     setTimeout(function() {
                         tick_label.text(function(d) { return d.data.name; })
@@ -827,104 +753,33 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
 
                     tick_line.attr("x1", function (d,i) {
                         return (that.outer_radius) * (1)* Math.cos((d.startAngle + d.endAngle)/2);
-                            // if(w[i] >= ((d.endAngle-d.startAngle)*((that.outer_radius/2)*0.9))) {
-                            //     return 0;
-                            // }
-                            // else {
-                            //        return (that.outer_radius) * (1)* Math.cos((d.startAngle + d.endAngle)/2);
-                            // }
                         })
                         .attr("y1", function (d,i) {
                             return (that.outer_radius) * (1) *Math.sin((d.endAngle + d.startAngle )/2);
-                            // if(w[i] >= ((d.endAngle-d.startAngle)*((that.outer_radius/2)*0.9))) {
-                            //     return 0;
-                            // }
-                            // else {
-                            //     return (that.outer_radius) * (1) *Math.sin((d.endAngle + d.startAngle )/2);
-                            // }
                         })
                         .attr("x2", function (d,i) {
                             return (that.outer_radius) * (1)* Math.cos((d.startAngle + d.endAngle)/2);
-                            // if(w[i] >= ((d.endAngle-d.startAngle)*((that.outer_radius/2)*0.9))) {
-                            //     return 0;
-                            // }
-                            // else {
-                            //     return (that.outer_radius) * (1)* Math.cos((d.startAngle + d.endAngle)/2);
-                            // }
                         })
                         .attr("y2", function (d,i) {
                             return (that.outer_radius) * (1) *Math.sin((d.endAngle + d.startAngle )/2);
-                            // if(w[i] >= ((d.endAngle-d.startAngle)*((that.outer_radius/2)*0.9))) {
-                            //     return 0;
-                            // }
-                            // else {
-                            //     return (that.outer_radius) * (1) *Math.sin((d.endAngle + d.startAngle )/2);
-                            // }
                         })
-                        // .transition()
-                        // .delay(function(d, i) {
-                        //     if(PykCharts.boolean(that.transition.duration)) {
-                        //         return ((i) * that.transition.duration)/that.new_data.length;
-                        //     } else return 0;
-                        // })
-                        // .duration(that.transitions.duration()/that.new_data.length)
 
                     setTimeout(function () {
                         tick_line.attr("x2", function (d, i) {
                                 return (that.outer_radius/1+12)* (1) * Math.cos((d.startAngle + d.endAngle)/2);
-                                // if(w[i] >= ((d.endAngle-d.startAngle)*((that.outer_radius/2)*0.9))) {
-                                //     return 0;
-                                // }
-                                // else {
-                                //     return (that.outer_radius/1+12)* (1) * Math.cos((d.startAngle + d.endAngle)/2);
-                                // }
                             })
                             .attr("y2", function (d, i) {
                                 return (that.outer_radius/1+12)* (1) * Math.sin((d.startAngle + d.endAngle)/2);
-                                // if(w[i] >= ((d.endAngle-d.startAngle)*((that.outer_radius/2)*0.9))) {
-                                //     return 0;
-                                // }
-                                // else {
-                                //     return (that.outer_radius/1+12)* (1) * Math.sin((d.startAngle + d.endAngle)/2);
-                                // }
                             })
                             .attr("transform","rotate(-90)")
                             .attr("stroke-width", that.pointer_thickness + "px")
                             .attr("stroke",that.pointer_color);
                         tick_line.exit().remove();
                     },that.transitions.duration());
-                // }
                 return this;
             },
             centerLabel: function () {
-                if(PykCharts.boolean(that.show_total_at_center) && (type == "donut" || type == "election donut")) {
-
-                    // var displaySum = that.group.selectAll(".total")
-                    //             .data(["sum"]);
-
-                    // displaySum.enter()
-                    //             .append("text");
-
-                    // displaySum.attr("class","total")
-                    //     .text("")
-                    //     .transition()
-                    //     .delay(function(d) {
-                    //        return that.transitions.duration();
-                    //     })
-                    //     .text("Total")
-                    //     .attr('font-size',"0.5em")
-                    //     .attr("pointer-events","none")
-                    //     .attr("text-anchor","middle")
-                    //     .attr("y",function () {
-                    //         return (type == "donut") ? (-0.1*that.inner_radius) : (-0.5*that.inner_radius);
-                    //     })
-                    //     .attr("font-size",function () {
-                    //         return (type == "donut") ? 0.1*that.inner_radius : 0.1*that.inner_radius;
-                    //     })
-                    //     .style("font-family","'Helvetica Neue',Helvetica,Arial,sans-serif")
-                    //     .attr("fill","gray");
-
-                    // displaySum.exit().remove();
+                if(PykCharts['boolean'](that.show_total_at_center) && (type == "donut" || type == "election donut")) {
 
                     var h;
                     var label = that.group.selectAll(options.selector +" "+".centerLabel")
@@ -935,12 +790,6 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
 
                     label.attr("class","centerLabel")
                         .text("")
-                        // .transition()
-                        // .delay( function(d) {
-                        //     if(PykCharts.boolean(that.transitions.duration())) {
-                        //         return that.transitions.duration();
-                        //     }
-                        // })
                     setTimeout(function () {
                         label.text( function(d) {
                                 return that.k.appendUnits(that.sum);

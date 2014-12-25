@@ -1,3 +1,56 @@
+/*! ====================================================
+* This file is part of PykCharts v1.0.0
+* Copyright 2014 Pykih Software LLP
+* Contact: charts@pykih.com
+* ======================================================
+*
+* Licensees holding valid commercial licenses may use
+* this file in accordance with the Commercial Software
+* License Agreement provided with the Software or,
+* alternatively, in accordance with the terms contained
+* in a written agreement between you and Pykih.
+*
+* https://chartstore.io/license
+*
+* If you are unsure which license is appropriate for
+* your use, please contact the sales department at
+* charts@pykih.com
+*
+* ====================================================== */
+
+.PykCharts-loading {
+  margin: 0;
+  width: 200px;
+  height: 50px;
+}
+.PykCharts-loading > div {
+  background-color: #96c900;
+  height: 100%;
+  width: 10%;
+  display: inline-block;
+  -webkit-animation: wave 1.2s infinite ease-in-out;
+  animation: wave 1.2s infinite ease-in-out;
+}
+.PykCharts-loading div:nth-child(2) {
+  -webkit-animation-delay: -1.1s;
+  animation-delay: -1.1s;
+  background-color: #fb8500;
+  margin-left: 3px;
+}
+.PykCharts-loading div:nth-child(3) {
+  -webkit-animation-delay: -1.0s;
+  animation-delay: -1.0s;
+  background-color: #a764c9;
+  margin-left: 3px;
+}
+@-webkit-keyframes wave {
+  0%, 40%, 100% { -webkit-transform: scaleY(0.4) }
+  20% { -webkit-transform: scaleY(1.0) }
+}
+@keyframes wave {
+  0%, 40%, 100% { transform: scaleY(0.4); }
+  20% { transform: scaleY(1.0); }
+}
 body {
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
@@ -217,7 +270,17 @@ body .pyk-tooltip .tooltip-left-content{
   shape-rendering: crispEdges;
 }
 
+.PykCharts-twoD .new-axis path,.PykCharts-twoD .new-axis line {
+  fill: none;
+  shape-rendering: crispEdges;
+}
+
 .PykCharts-twoD .axis-line {
+  fill: none;
+  shape-rendering: crispEdges;
+}
+
+.PykCharts-twoD .new-axis {
   fill: none;
   shape-rendering: crispEdges;
 }
@@ -394,4 +457,10 @@ body .pyk-tooltip .tooltip-left-content{
 
 .PykCharts-oneD {
   margin-top:3px;
+}
+
+.PykCharts-river .bottom_line, .PykCharts-river .top_line{
+    stroke-width: 1;
+    stroke-dasharray: 5,5;
+    shape-rendering: crispEdge;
 }

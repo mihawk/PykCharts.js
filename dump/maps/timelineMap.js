@@ -46,19 +46,19 @@ PykCharts.maps.timelineMap = function (options) {
     this.optionalFeatures = function () {
         var config = {
             enableLegend: function (el) {
-                if (PykCharts.boolean(el)) {
+                if (PykCharts['boolean'](el)) {
                     that.renderLegend();
                 };
                 return this;
             },
             enableLabel: function (el) {
-                if (PykCharts.boolean(el)) {
+                if (PykCharts['boolean'](el)) {
                     that.renderLabel();
                 };
                 return this;
             },
             enableClick: function (ec) {
-                if (PykCharts.boolean(ec)) {
+                if (PykCharts['boolean'](ec)) {
                     that.areas.on("click", that.clicked);
                     // that.onhover = "color_saturation";
                     that.onhover1 = that.onhover;
@@ -66,7 +66,7 @@ PykCharts.maps.timelineMap = function (options) {
                 return this;
             },
             axisContainer : function (ae) {
-                if(PykCharts.boolean(ae)){
+                if(PykCharts['boolean'](ae)){
                     that.gxaxis = that.svg.append("g")
                         .attr("id","xaxis")
                         .attr("class", "x axis")
@@ -166,14 +166,14 @@ PykCharts.maps.timelineMap = function (options) {
             .attr("stroke-width", that.border.thickness + "px")
             .on("mouseover", function (d) {
                 // console.log((_.where(that.data, {iso2: d.properties.iso_a2})[0]).tooltip)
-                if (PykCharts.boolean(that.tooltip.enable)) {
+                if (PykCharts['boolean'](that.tooltip.enable)) {
                     ttp.style("visibility", "visible");
                     ttp.html((_.where(that.data, {iso2: d.properties.iso_a2})[0]).tooltip);
                 }
                 that.bodColor(d);
             })
             .on("mousemove", function () {
-                if (PykCharts.boolean(that.tooltip.enable)) {
+                if (PykCharts['boolean'](that.tooltip.enable)) {
                     if (that.tooltip.mode === "moving") {
                         ttp.style("top", function () {
 
@@ -191,7 +191,7 @@ PykCharts.maps.timelineMap = function (options) {
                 }
             })
             .on("mouseout", function (d) {
-                if (PykCharts.boolean(that.tooltip.enable)) {
+                if (PykCharts['boolean'](that.tooltip.enable)) {
                     ttp.style("visibility", "hidden");
                 }
                 that.bodUncolor(d);
@@ -208,7 +208,7 @@ PykCharts.maps.timelineMap = function (options) {
     };
 
     this.renderColor = function (d, i) {
-        if (!PykCharts.boolean(d)) {
+        if (!PykCharts['boolean'](d)) {
             return false;
         }
         var col_shade,

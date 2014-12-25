@@ -22,15 +22,18 @@ module.exports = function(grunt) {
                     , '<%= js_src_path %>/oneD/pie.js'
                     , '<%= js_src_path %>/oneD/pyramid.js'
                     , '<%= js_src_path %>/oneD/treemap.js'
-                    , '<%= js_src_path %>/other/other.js'                    
+                    , '<%= js_src_path %>/other/other.js'
                     , '<%= js_src_path %>/other/pictograph.js'
+                    , '<%= js_src_path %>/other/venn.js'
                     , '<%= js_src_path %>/multiD/multiD.js'
                     , '<%= js_src_path %>/multiD/lineChart.js'
                     , '<%= js_src_path %>/multiD/areaChart.js'
                     , '<%= js_src_path %>/multiD/barChart.js'
-                    , '<%= js_src_path %>/multiD/columnChart.js'
+                    , '<%= js_src_path %>/multiD/column.js'
+                    , '<%= js_src_path %>/multiD/groupColumnChart.js'
                     , '<%= js_src_path %>/multiD/scatterplot.js'
                     , '<%= js_src_path %>/multiD/spiderWeb.js'
+                    , '<%= js_src_path %>/multiD/river.js'
                     , '<%= js_src_path %>/maps/maps.js'
                     , '<%= js_src_path %>/maps/oneLayer.js'
                     , '<%= js_src_path %>/init.js'
@@ -49,6 +52,9 @@ module.exports = function(grunt) {
                 '<%= js_distro_path %>/pykcharts.<%= pkg.version %>.min.js': // destination
                 ['<%= js_distro_path %>/pykcharts.<%= pkg.version %>.js'] // source
                 }
+            },
+            'options': {
+              'preserveComments': 'some'
             }
         },
 
@@ -90,6 +96,25 @@ module.exports = function(grunt) {
             }
         },
 
+        // comments: {
+        //     js: {
+        //         // Target-specific file lists and/or options go here.
+        //         options: {
+        //             singleline: true,
+        //             multiline: true
+        //         },
+        //         src: ['lib/*.js', 'src/**/*.js', 'pykih-charts/**/*.js'] // files to remove comments from
+        //     }
+        // },
+
+        // Remove consolelogs
+        removelogging: {
+            dist: {
+                src: ['lib/*.js', 'src/**/*.js', 'pykih-charts/**/*.js'],
+                options: {}
+            }
+        },
+
         // Run QUnit Test
         qunit: {
             all: {
@@ -118,15 +143,15 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-qunit');
     grunt.loadNpmTasks('grunt-contrib-connect');
-
-    // Remove all console.logs
-    grunt.registerTask('rmconsolelogs', ['shell:rmclogs']);
+    grunt.loadNpmTasks('grunt-remove-logging');
+    // grunt.loadNpmTasks('grunt-stripcomments');
 
     // Clean the .git/hooks/pre-commit file then copy in the latest version
     grunt.registerTask('hookmeup', ['clean:hooks', 'shell:hooks']);
 
     //build task
-    grunt.registerTask('build', ['concat', 'uglify', 'cssmin', 'rmconsolelogs', 'hookmeup']);
+    // grunt.registerTask('build', ['comments', 'concat', 'removelogging', 'uglify', 'cssmin', 'hookmeup']);
+    grunt.registerTask('build', ['concat', 'removelogging', 'uglify', 'cssmin', 'hookmeup']);
 
     grunt.event.on('watch', function(action, filepath) {
         grunt.log.writeln(filepath + ' has ' + action);

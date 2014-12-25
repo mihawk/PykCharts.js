@@ -1,19 +1,5 @@
 PykCharts.oneD = {};
 
-// PykCharts.oneD.fillChart = function (options) {
-
-//     var colorPie = {
-//         chart_color: function (d) {
-//             if(d.highlight === true) {
-//                 return options.highlight_color;
-//             } else{
-//                 return options.chart_color;
-//             }
-//         }
-//     };
-//     return colorPie;
-// };
-
 PykCharts.oneD.mouseEvent = function (options) {
     var highlight_selected = {
         highlight: function (selectedclass, that) {
@@ -38,22 +24,14 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
         , stylesheet = theme.stylesheet
         , functionality = theme.functionality
         , oneDimensionalCharts = theme.oneDimensionalCharts;
-        // , optional = options.optional;
-    // console.log(options.mode,"options");
 
     chartObject.selector = options.selector ? options.selector : stylesheet.selector;
-    // if(options.chart_width) {
-    //     var targetWidth = $(options.selector).width();
-    //     options.chart_width = targetWidth < options.chart_width ? targetWidth : options.chart_width;
-    // }
     chartObject.width = options.chart_width  ? options.chart_width : stylesheet.chart_width;
-    // chartObject.height = options.chart_height && _.isNumber(options.chart_height) ? options.chart_height : stylesheet.chart_height;
-    // chartObject.width = optional && optional.chart && _.isNumber(optional.chart.width) ? optional.chart.width : stylesheet.chart.width;
-    // chartObject.height = optional && optional.chart &&_.isNumber(optional.chart.height) ? optional.chart.height : stylesheet.chart.height;
+    chartObject.is_interactive = options.is_interactive ? options.is_interactive.toLowerCase(): oneDimensionalCharts.is_interactive;
 
     chartObject.mode = options.mode ? options.mode.toLowerCase(): stylesheet.mode;
 
-    if (options &&  PykCharts.boolean (options.title_text)) {
+    if (options &&  PykCharts['boolean'] (options.title_text)) {
         chartObject.title_text = options.title_text;
         chartObject.title_size = "title_size" in options ? options.title_size : stylesheet.title_size;
         chartObject.title_color = options.title_color ? options.title_color : stylesheet.title_color;
@@ -66,7 +44,7 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
         chartObject.title_family = stylesheet.title_family;
     }
 
-    if (options && PykCharts.boolean(options.subtitle_text)) {
+    if (options && PykCharts['boolean'](options.subtitle_text)) {
         chartObject.subtitle_text = options.subtitle_text;
         chartObject.subtitle_size = "subtitle_size" in options ? options.subtitle_size : stylesheet.subtitle_size;
         chartObject.subtitle_color = options.subtitle_color ? options.subtitle_color : stylesheet.subtitle_color;
@@ -88,15 +66,13 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
         chartObject.credit_my_site_name = stylesheet.credit_my_site_name;
         chartObject.credit_my_site_url = stylesheet.credit_my_site_url;
     }
-    // chartObject.credit_my_site_name = options.credit_my_site_name ? options.credit_my_site_name : stylesheet.credit_my_site_name;
-    // chartObject.credit_my_site_url = options.credit_my_site_url ? options.credit_my_site_url : stylesheet.credit_my_site_url;
     chartObject.data_source_name = options.data_source_name ? options.data_source_name : "";
     chartObject.data_source_url = options.data_source_url ? options.data_source_url : "";
 
     chartObject.clubdata_enable = options.clubdata_enable ? options.clubdata_enable.toLowerCase() : oneDimensionalCharts.clubdata_enable;
-    chartObject.clubdata_text = PykCharts.boolean(chartObject.clubdata_enable) && options.clubdata_text ? options.clubdata_text : oneDimensionalCharts.clubdata_text;
-    chartObject.clubdata_maximum_nodes = PykCharts.boolean(chartObject.clubdata_enable) && options.clubdata_maximum_nodes ? options.clubdata_maximum_nodes : oneDimensionalCharts.clubdata_maximum_nodes;
-    chartObject.clubdata_always_include_data_points = PykCharts.boolean(chartObject.clubdata_enable) && options.clubdata_always_include_data_points ? options.clubdata_always_include_data_points : [];
+    chartObject.clubdata_text = PykCharts['boolean'](chartObject.clubdata_enable) && options.clubdata_text ? options.clubdata_text : oneDimensionalCharts.clubdata_text;
+    chartObject.clubdata_maximum_nodes = PykCharts['boolean'](chartObject.clubdata_enable) && options.clubdata_maximum_nodes ? options.clubdata_maximum_nodes : oneDimensionalCharts.clubdata_maximum_nodes;
+    chartObject.clubdata_always_include_data_points = PykCharts['boolean'](chartObject.clubdata_enable) && options.clubdata_always_include_data_points ? options.clubdata_always_include_data_points : [];
 
     chartObject.transition_duration = options.transition_duration ? options.transition_duration : functionality.transition_duration;
     chartObject.pointer_overflow_enable = options.pointer_overflow_enable ? options.pointer_overflow_enable.toLowerCase() : stylesheet.pointer_overflow_enable;
@@ -107,7 +83,8 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
     chartObject.highlight_color = options.highlight_color ? options.highlight_color : stylesheet.highlight_color;
 
     chartObject.fullscreen_enable = options.fullscreen_enable ? options.fullscreen_enable : stylesheet.fullscreen_enable;
-    chartObject.loading = options.loading_gif_url ? options.loading_gif_url: stylesheet.loading_gif_url;
+    chartObject.loading_type = options.loading_type ? options.loading_type : stylesheet.loading_type;
+    chartObject.loading_source = options.loading_source ? options.loading_source : stylesheet.loading_source;
     chartObject.tooltip_enable = options.tooltip_enable ? options.tooltip_enable.toLowerCase() : stylesheet.tooltip_enable;
     chartObject.border_between_chart_elements_thickness = "border_between_chart_elements_thickness" in options ? options.border_between_chart_elements_thickness : stylesheet.border_between_chart_elements_thickness;
     chartObject.border_between_chart_elements_color = options.border_between_chart_elements_color ? options.border_between_chart_elements_color : stylesheet.border_between_chart_elements_color;
@@ -139,7 +116,6 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
     chartObject.onhover_enable = options.chart_onhover_highlight_enable ? options.chart_onhover_highlight_enable : stylesheet.chart_onhover_highlight_enable;
     
     chartObject.export_enable = options.export_enable ? options.export_enable.toLowerCase() : stylesheet.export_enable;
-    // chartObject.export_image_url = options.export_image_url ? options.export_image_url : stylesheet.export_image_url;
     chartObject.k = new PykCharts.Configuration(chartObject);
 
     chartObject.k.validator().validatingSelector(chartObject.selector.substring(1,chartObject.selector.length))

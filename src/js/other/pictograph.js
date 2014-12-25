@@ -49,11 +49,12 @@ PykCharts.other.pictograph = function (options) {
         if(that.mode === "default") {
            that.k.loading();
         }
-        d3.json(options.data, function (e,data) {
 
+        that.executeData = function (data) {
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
                 $(options.selector+" #chart-loader").remove();
+                $(that.selector).css("height","auto")
                 return;
             }
 
@@ -61,15 +62,17 @@ PykCharts.other.pictograph = function (options) {
                 return b.weight - a.weight;
             });
             that.old_weight = 0;
-            // that.old_data = that.data;
 
             that.compare_data = that.data;
             $(options.selector+" #chart-loader").remove();
+            $(that.selector).css("height","auto")
             that.render();
-        })
+        };
+        that.k.dataSourceFormatIdentification(options.data,that,"executeData");
+
     };
     this.refresh = function () {
-        d3.json(options.data, function (e,data) {
+        that.executeRefresh = function (data) {
             that.old_data = that.data;
             that.old_weight = that.weight;
             var validate = that.k.validator().validatingJSON(data);
@@ -92,7 +95,8 @@ PykCharts.other.pictograph = function (options) {
                 .labelText()
                 .enableLabel()
                 .createChart();
-        })
+        }
+        that.k.dataSourceFormatIdentification(options.data,that,"executeRefresh");
     }
     this.render = function () {
         var l = $(".svgcontainer").length;
@@ -116,7 +120,7 @@ PykCharts.other.pictograph = function (options) {
                 .svgContainer()
                 .labelText()
                 .enableLabel()
-        if(PykCharts.boolean(that.pictograph_units_per_image)) {
+        if(PykCharts['boolean'](that.pictograph_units_per_image)) {
             that.optionalFeatures().appendUnits()
         }
         that.optionalFeatures().createChart();
@@ -135,11 +139,9 @@ PykCharts.other.pictograph = function (options) {
 
         var optional = {
             svgContainer: function () {
-                // $(options.selector).css("background-color",that.background_color);
 
                 that.svgContainer = d3.select(options.selector).append('svg')
                     .attr("width",that.width)
-                    // .attr("height",that.height)
                     .attr("id",that.container_id)
                     .attr("class","svgcontainer")
                     .attr("preserveAspectRatio", "xMinYMin")
@@ -147,13 +149,11 @@ PykCharts.other.pictograph = function (options) {
 
                 that.group = that.svgContainer.append("g")
                     .attr("id", "pictograph_image_group")
-                    // .attr("transform", "translate(100,0)")
-                    // .attr("transform", "translate(" + that.imageWidth + ",0)");
 
                 that.group1 = that.svgContainer.append("g")
                     .attr("transform","translate(0,0)");
 
-                if(PykCharts.boolean(that.pictograph_units_per_image)) {
+                if(PykCharts['boolean'](that.pictograph_units_per_image)) {
                     that.group2 = that.svgContainer.append("g")
                         .attr("id","units-per-image");
                 }
@@ -186,8 +186,6 @@ PykCharts.other.pictograph = function (options) {
                         if (!that.old_data || (that.old_data && j > that.old_data[1].weight)) {
                             that.group.append("image")
                                 .attr("xlink:href",that.data[1]["image"])
-                                // .attr("x", b *(50 + 1))
-                                // .attr("y", a *(100 + 10))
                                 .attr("id","current_image"+j)
                                 .attr("x", b *(that.imageWidth + 1))
                                 .attr("y", a *(that.imageHeight + 10))
@@ -209,15 +207,11 @@ PykCharts.other.pictograph = function (options) {
                                 .attr("id","total_image"+j)
                                 .attr("x", b *(that.imageWidth + 1))
                                 .attr("y", a *(that.imageHeight+ 10))
-                                // .attr("x", b *(50 + 1))
-                                // .attr("y", a *(100 + 10))
                                 .attr("width",0)
-                                // .attr("height",100)
                                 .attr("height", that.imageHeight + "px")
                                 .transition()
                                 .duration(that.transitions.duration())
                                 .attr("width", that.imageWidth + "px");
-                        // }
                     }
                     counter++;
                     b++;
@@ -266,7 +260,7 @@ PykCharts.other.pictograph = function (options) {
                 return this;
             },
             showTotal: function () {
-                 if (PykCharts.boolean(that.showTotal)) {
+                 if (PykCharts['boolean'](that.showTotal)) {
                     that.weight = that.data[0].weight;
                 }
                 else {
@@ -275,7 +269,7 @@ PykCharts.other.pictograph = function (options) {
                 return this ;
             },
             enableLabel: function () {
-                if (PykCharts.boolean(that.enableTotal)) {
+                if (PykCharts['boolean'](that.enableTotal)) {
                     var current_text = $(options.selector+" .PykCharts-current-text");
                     if (current_text.length > 0) {
                         current_text.remove();
@@ -306,7 +300,7 @@ PykCharts.other.pictograph = function (options) {
                 return this;
             },
             labelText: function () {
-                if (PykCharts.boolean(that.enableCurrent)) {
+                if (PykCharts['boolean'](that.enableCurrent)) {
                     var total_text = $(options.selector+" .PykCharts-total-text");
                     if (total_text.length > 0) {
                         total_text.remove();

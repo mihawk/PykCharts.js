@@ -4,7 +4,6 @@ PykCharts.oneD.treemap = function (options){
     this.execute = function (){
         that = new PykCharts.oneD.processInputs(that, options);
         optional = options.optional;
-        // that.enableText = optional && PykCharts.boolean(optional.enableText) ? optional.enableText : false;
         that.selector = options.selector;
         that.height = options.chart_height ? options.chart_height : that.width;
 
@@ -26,25 +25,27 @@ PykCharts.oneD.treemap = function (options){
            that.k.loading();
         }
 
-        d3.json(options.data, function (e,data) {
-
+        that.executeData = function (data) {
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
                 $(options.selector+" #chart-loader").remove();
+                $(that.selector).css("height","auto")
                 return;
             }
 
             that.data = that.k.__proto__._groupBy("oned",data);
             that.compare_data = that.k.__proto__._groupBy("oned",data);
             $(options.selector+" #chart-loader").remove();
+            $(that.selector).css("height","auto")
             that.clubdata_enable = that.data.length>that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
             that.render();
-        });
-        // that.clubData.enable = that.data.length > that.clubData.maximumNodes ? that.clubData.enable : "no";
+        };
+
+        that.k.dataSourceFormatIdentification(options.data,that,"executeData");
     };
 
     this.refresh = function (){
-        d3.json(options.data, function (e,data) {
+        that.executeRefresh = function (data) {
             that.data = that.k.__proto__._groupBy("oned",data);
             that.clubdata_enable = that.data.length>that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
             that.refresh_data = that.k.__proto__._groupBy("oned",data);
@@ -59,15 +60,14 @@ PykCharts.oneD.treemap = function (options){
                 .createChart()
                 .label();
 
-        });
+        };
+        that.k.dataSourceFormatIdentification(options.data,that,"executeRefresh");
     };
 
     this.render = function (){
         var l = $(".svgcontainer").length;
         that.container_id = "svgcontainer" + l;
-//        that.fillChart = new PykCharts.oneD.fillChart(that);
         that.fillChart = new PykCharts.Configuration.fillChart(that);
-        // that.onHoverEffect = new PykCharts.oneD.mouseEvent(options);
         that.transitions = new PykCharts.Configuration.transition(that);
         that.border = new PykCharts.Configuration.border(that);
 
@@ -112,7 +112,6 @@ PykCharts.oneD.treemap = function (options){
     this.optionalFeatures = function (){
         var optional = {
             svgContainer: function () {
-                // $(options.selector).css("background-color",that.background_color);
 
                 that.svgContainer = d3.select(that.selector).append("svg:svg")
                     .attr("width",that.width)
@@ -139,9 +138,6 @@ PykCharts.oneD.treemap = function (options){
 
                 that.node = that.treemap.nodes(that.new_data);
                 l = that.new_data.children.length;
-                // that.max = that.new_data.children[l-1].weight;
-                // that.map1 = that.new_data.children.map(function (d) { return d.weight; });
-                // that.map1 = jQuery.unique(that.map1);
                 that.chart_data = that.group.selectAll(".cell")
                                     .data(that.node);
                 that.chart_data.enter()
@@ -168,7 +164,7 @@ PykCharts.oneD.treemap = function (options){
                     .on('mouseover',function (d) {
                         if(!d.children && that.mode === "default") {
                             d.tooltip = d.tooltip || "<table class='PykCharts'><tr><th colspan='2' class='tooltip-heading'>"+d.name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.weight)+"<td class='tooltip-right-content'>("+((d.weight*100)/that.sum).toFixed(1)+"%)</tr></table>";
-                            if(PykCharts.boolean(that.onhover_enable)) {
+                            if(PykCharts['boolean'](that.onhover_enable)) {
                                 that.mouseEvent.highlight(options.selector +" "+".treemap-rect", this);
                             }
                             that.mouseEvent.tooltipPosition(d);
@@ -178,7 +174,7 @@ PykCharts.oneD.treemap = function (options){
                     .on('mouseout',function (d) {
                         if(that.mode === "default") {
                             that.mouseEvent.tooltipHide(d);
-                            if(PykCharts.boolean(that.onhover_enable)) {    
+                            if(PykCharts['boolean'](that.onhover_enable)) {    
                                 that.mouseEvent.highlightHide(options.selector +" "+".treemap-rect");
                             }
                         }
@@ -224,8 +220,6 @@ PykCharts.oneD.treemap = function (options){
                         .style("font-family", that.label_family)
 
                         .text("")
-                        // .transition()
-                        // .delay(that.transitions.duration())
 
                     setTimeout(function() {
                         that.chart_text.text(function (d) { return d.children ? " " :  d.name; })
@@ -248,8 +242,6 @@ PykCharts.oneD.treemap = function (options){
                         .style("font-family", that.label_family)
                         .text("")
                         .attr("pointer-events","none")
-                        // .transition()
-                        // .delay(that.transitions.duration())
 
                     setTimeout(function () {
                         that.chart_text1.text(function (d) { return d.children ? " " :  that.k.appendUnits(d.weight); })
@@ -272,7 +264,7 @@ PykCharts.oneD.treemap = function (options){
             },
             clubData : function () {
 
-                if(PykCharts.boolean(that.clubdata_enable)){
+                if(PykCharts['boolean'](that.clubdata_enable)){
                     var clubdata_content = [],sum_others = 0,k=0;
                     if(that.data.length <= that.clubdata_maximum_nodes) {
                         that.new_data = { "children" : that.data };

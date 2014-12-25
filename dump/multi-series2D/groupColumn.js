@@ -209,7 +209,7 @@ PykCharts.multi_series_2D.groupedColumn = function (options) {
                 return this;
             },
             axisContainer: function () {
-                if(PykCharts.boolean(that.axis.x.enable)) {
+                if(PykCharts['boolean'](that.axis.x.enable)) {
                     that.xgroup = that.group.append("g")
                         .attr("id","xaxis")
                         .attr("class", "x axis")
@@ -217,7 +217,7 @@ PykCharts.multi_series_2D.groupedColumn = function (options) {
                         .style("stroke","none");
                 }
                 
-                if(PykCharts.boolean(that.axis.y.enable)) {
+                if(PykCharts['boolean'](that.axis.y.enable)) {
                     that.ygroup = that.group.append("g")
                         .attr("id","yaxis")
                         .attr("class","y axis");
@@ -247,6 +247,8 @@ PykCharts.multi_series_2D.groupedColumn = function (options) {
                 }
                 
                 that.max = d3.max(that.series, function(d) { return d3.max(d.series, function(d) { return d.weight; }); });
+
+                
                 that.min = d3.min(that.series, function(d) { return d3.min(d.series, function(d) { return d.weight; }); }); 
 
                 that.yScale = d3.scale.linear()
