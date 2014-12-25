@@ -6829,13 +6829,19 @@ PykCharts.other.pictograph = function (options) {
                         counter=0;
                     }
 
-                    if (j===that.weight) {
-                      var group_bbox_height = that.group.node().getBBox().height;
-                      that.height = group_bbox_height;
-                      that.svgContainer
-                          .attr("height",group_bbox_height)
-                          .attr("viewBox", "0 0 " + that.width + " " + group_bbox_height);
+                    var group_bbox_height = that.group.node().getBBox().height;
+                    if (j===that.weight && group_bbox_height != 0) {
+                        that.height = group_bbox_height;
+                        that.svgContainer
+                            .attr("height",group_bbox_height)
+                            .attr("viewBox", "0 0 " + that.width + " " + group_bbox_height);
                     }
+                    else {
+                        that.svgContainer
+                            .attr("height",group_bbox_height)
+                            .attr("viewBox", "0 0 " + that.width + " " + that.height);
+                    }
+                    
                 }
 
                 setTimeout(function () {
