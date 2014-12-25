@@ -191,7 +191,7 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 
 			that.renderChart();
 
-			that.k.xAxis(that.svgContainer,that.xGroup,that.xScale,that.extra_left_margin,that.xdomain,that.x_tick_values,that.legendsGroup_height,that.data)
+			that.k.xAxis(that.svgContainer,that.xGroup,that.xScale,that.extra_left_margin,that.xdomain,that.x_tick_values,that.legendsGroup_height)
 					.yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain,that.y_tick_values,that.legendsGroup_width)
 					.yGrid(that.svgContainer,that.group,that.yScale,that.legendsGroup_width)
 					.xGrid(that.svgContainer,that.group,that.xScale,that.legendsGroup_height)
