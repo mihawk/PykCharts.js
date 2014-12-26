@@ -1043,8 +1043,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
     that.highlightLine = function(linePath,clicked,prev_opacity) {
 
             that.selected_line = linePath;
-            that.selected_line_data = that.selected_line.__data__;
-            console.log(that.selected_line_data," >>>>");
+            that.selected_line_data = that.selected_line.__data__;            
             that.selected_line_data_len = that.selected_line_data.length;
             that.deselected = that.selected;
 

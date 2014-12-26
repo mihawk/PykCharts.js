@@ -8319,23 +8319,27 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                             that.dataLineGroup[i] = that.chartBody.append("path");
                             var data = that.new_data[i].data;
 
-                            that.ticks[i] = that.svgContainer.append("text")
-                                    .attr("id",type)
-                                    .attr("class","legend-heading")
-                                    .html(that.new_data[i].name)
-                                    .style("fill", function() {
-                                        return that.fillColor.colorPieMS(that.new_data[i],that.type);
-                                    });
-
                             that.dataLineGroup[i]
                                     .datum(that.new_data[i].data)
                                     .attr("class", "lines-hover " + that.chartPathClass)
                                     .attr("id", type)
                                     .attr("transform","translate("+ that.extra_left_margin +",0)")
                                     .style("stroke", function() {
+                                        if(that.new_data[i].highlight) {
+                                            that.highlightLine(this,null);
+                                        }
                                         return that.fillColor.colorPieMS(that.new_data[i],that.type);
                                     })
-                                    .attr("stroke-opacity", 1);
+                                    .attr("stroke-opacity", function () {
+                                        if(that.color_mode === "saturation") {
+                                            return (i+1)/that.new_data.length;
+                                        } else {
+                                            return 1;
+                                        }
+                                    })
+                                    .attr("path-stroke-opacity", function () {
+                                        return $(this).attr("stroke-opacity");
+                                    });
 
                                 function transition (i) {
                                     that.dataLineGroup[i].transition()
@@ -8638,7 +8642,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
     that.highlightLine = function(linePath,clicked,prev_opacity) {
 
             that.selected_line = linePath;
-            that.selected_line_data = that.selected_line.__data__;
+            that.selected_line_data = that.selected_line.__data__;            
             that.selected_line_data_len = that.selected_line_data.length;
             that.deselected = that.selected;
 
