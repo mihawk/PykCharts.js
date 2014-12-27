@@ -2102,7 +2102,7 @@ configuration.fillChart = function (options,theme,config) {
             else return options.chart_color[0];
         },
         colorPieMS: function (d,chart_type) {
-            if(d.name.toLowerCase() === options.highlight.toLowerCase() && chart_type !== "lineChart" && chart_type !== "areaChart") {
+            if( chart_type !== "lineChart" && chart_type !== "areaChart" && d.name.toLowerCase() === options.highlight.toLowerCase()) {
                 return options.highlight_color;
             } else if(options.color_mode === "saturation") {
                 return options.saturation_color;
