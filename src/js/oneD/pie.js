@@ -182,9 +182,12 @@ PykCharts.oneD.electionPie = function (options) {
 
         that = new PykCharts.oneD.processInputs(that, options, "pie");
         that.x = true;
-        if(options.chart_height) {
+        if(options.chart_height || options.chart_height == undefined) {
             try {
-                if(!_.isNumber(options.chart_height)) {
+                if (options.chart_height == undefined) {                    
+                    options.chart_height = theme.stylesheet.chart_height;
+                }
+                else if (!_.isNumber(options.chart_height)) {
                     that.x = false;
                     throw "chart_height"
                 }
@@ -258,9 +261,12 @@ PykCharts.oneD.electionDonut = function (options) {
         that = new PykCharts.oneD.processInputs(that, options, "pie");
 
         that.x = true;
-        if(options.chart_height) {
+        if(options.chart_height || options.chart_height == undefined) {
             try {
-                if(!_.isNumber(options.chart_height)) {
+                if (options.chart_height == undefined) {                    
+                    options.chart_height = theme.stylesheet.chart_height;
+                }
+                else if (!_.isNumber(options.chart_height)) {
                     that.x = false;
                     throw "chart_height"
                 }

@@ -2102,7 +2102,7 @@ configuration.fillChart = function (options,theme,config) {
             else return options.chart_color[0];
         },
         colorPieMS: function (d,chart_type) {
-            if(d.name.toLowerCase() === options.highlight.toLowerCase() && chart_type !== "lineChart" && chart_type !== "areaChart") {
+            if( chart_type !== "lineChart" && chart_type !== "areaChart" && d.name.toLowerCase() === options.highlight.toLowerCase()) {
                 return options.highlight_color;
             } else if(options.color_mode === "saturation") {
                 return options.saturation_color;
@@ -4709,9 +4709,12 @@ PykCharts.oneD.electionPie = function (options) {
 
         that = new PykCharts.oneD.processInputs(that, options, "pie");
         that.x = true;
-        if(options.chart_height) {
+        if(options.chart_height || options.chart_height == undefined) {
             try {
-                if(!_.isNumber(options.chart_height)) {
+                if (options.chart_height == undefined) {                    
+                    options.chart_height = theme.stylesheet.chart_height;
+                }
+                else if (!_.isNumber(options.chart_height)) {
                     that.x = false;
                     throw "chart_height"
                 }
@@ -4785,9 +4788,12 @@ PykCharts.oneD.electionDonut = function (options) {
         that = new PykCharts.oneD.processInputs(that, options, "pie");
 
         that.x = true;
-        if(options.chart_height) {
+        if(options.chart_height || options.chart_height == undefined) {
             try {
-                if(!_.isNumber(options.chart_height)) {
+                if (options.chart_height == undefined) {                    
+                    options.chart_height = theme.stylesheet.chart_height;
+                }
+                else if (!_.isNumber(options.chart_height)) {
                     that.x = false;
                     throw "chart_height"
                 }
@@ -8973,7 +8979,7 @@ PykCharts.multiD.stackedArea = function (options){
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
                 $(that.selector+" #chart-loader").remove();
-                $(that.selector).css("height","auto")
+                $(that.selector).css("height","auto");
                 return;
             }
 
@@ -8986,6 +8992,7 @@ PykCharts.multiD.stackedArea = function (options){
 			that.compare_data = that.data;
 			that.data_length = that.data.length;
 			$(that.selector+" #chart-loader").remove();
+            $(that.selector).css("height","auto");
 			
 			PykCharts.multiD.areaFunctions(options,that,"stacked_area");
 			that.dataTransformation();
