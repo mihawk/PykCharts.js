@@ -66,24 +66,44 @@ PykCharts.Configuration = function (options){
         },
         scaleIdentification: function (type,data,range,x) {
             var scale;
-            if(type === "ordinal") {
-               scale = d3.scale.ordinal()
-                    .domain(data)
-                    .rangeRoundBands(range, x);
-                return scale;
+            switch (type) {
+                case "ordinal" :
+                    scale = d3.scale.ordinal()
+                        .domain(data)
+                        .rangeRoundBands(range, x);
+                    return scale;
 
-            } else if(type === "linear") {
-                scale = d3.scale.linear()
-                    .domain(data)
-                    .range(range);
-                return scale;
+                case "linear" :
+                    scale = d3.scale.linear()
+                        .domain(data)
+                        .range(range);
+                    return scale; 
 
-            } else if(type === "time") {
-                scale = d3.time.scale()
-                    .domain(data)
-                    .range(range);
-                return scale;
+                case "time" :
+                    scale = d3.time.scale()
+                        .domain(data)
+                        .range(range);
+                    return scale;
+
             }
+            // if(type === "ordinal") {
+            //    scale = d3.scale.ordinal()
+            //         .domain(data)
+            //         .rangeRoundBands(range, x);
+            //     return scale;
+
+            // } else if(type === "linear") {
+            //     scale = d3.scale.linear()
+            //         .domain(data)
+            //         .range(range);
+            //     return scale;
+
+            // } else if(type === "time") {
+            //     scale = d3.time.scale()
+            //         .domain(data)
+            //         .range(range);
+            //     return scale;
+            // }
         },
         appendUnits: function (text) {
             text = PykCharts.numberFormat(text);
