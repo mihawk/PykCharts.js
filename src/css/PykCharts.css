@@ -67,6 +67,26 @@ body {
   font-size: 16px;
 }
 
+.pyk-tooltip {
+  height: auto;
+  width: auto;
+  padding: 5px 6px;
+  color: #4F4F4F;
+  background: #fff;
+  text-decoration: none;
+  position: absolute;
+  border-radius: 5px;
+  border: 1px solid #CCCCCC;
+  font-size: 12px;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  min-width: 30px;
+  text-align: center;
+  z-index: 10;
+  display: none;
+  box-shadow: 0 5px 10px rgba(0,0,0,.2);
+  pointer-events: none;
+}
+
 .PykCharts-multi-series2D .legend-content {
   text-align: left;
   font-size: 12px;

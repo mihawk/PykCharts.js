@@ -270,93 +270,19 @@ PykCharts.Configuration = function (options){
             if((PykCharts['boolean'](options.tooltip_enable) || options.axis_x_data_format === "string" || options.axis_y_data_format === "string" || PykCharts['boolean'](options.annotation_enable)) && options.mode === "default") {
                 if(selection !== undefined){
                     var selector = options.selector.substr(1,options.selector.length)
-                    PykCharts.Configuration.tooltipp = d3.select("body").append("div")
-                        .attr("id", "tooltip-svg-container-" + i + "-pyk-tooltip"+selector)
-                        .attr("class","pyk-tooltip")
-                        .style("height","auto")
-                        .style("weight","auto")
-                        .style("padding", "5px 6px")
-                        .style("color","#4F4F4F")
-                        .style("background","#fff")
-                        .style("text-decoration","none")
-                        .style("position", "absolute")
-                        .style("border-radius", "5px")
-                        .style("border","1px solid #CCCCCC")
-                        .style("font-family","'Helvetica Neue', Helvetica, Arial, sans-serif")
-                        .style("font-size","12px")
-                        .style("text-align","center")
-                        .style("min-width","30px")
-                        .style("z-index","10")
-                        .style("display", "none")
-                        .style("box-shadow","0 5px 10px rgba(0,0,0,.2)")
-                        .style("pointer-events","none");
+                    id = "tooltip-svg-container-" + i + "-pyk-tooltip"+selector;
                 } else {
-                    PykCharts.Configuration.tooltipp = d3.select("body")
-                        .append("div")
-                        .attr("id", "pyk-tooltip")
-                        .attr("class","pyk-tooltip")
-                        .style("height","auto")
-                        .style("weight","auto")
-                        .style("padding", "5px 6px")
-                        .style("color","#4F4F4F")
-                        .style("background","#fff")
-                        .style("text-decoration","none")
-                        .style("position", "absolute")
-                        .style("border-radius", "5px")
-                        .style("border","1px solid #CCCCCC")
-                        .style("font-family","'Helvetica Neue', Helvetica, Arial, sans-serif")
-                        .style("font-size","12px")
-                        .style("text-align","center")
-                        .style("min-width","30px")
-                        .style("z-index","10")
-                        .style("display", "none")
-                        .style("box-shadow","0 5px 10px rgba(0,0,0,.2)");
+                   id = "pyk-tooltip";
                 }
+                PykCharts.Configuration.tooltipp = d3.select("body")
+                        .append("div")
+                        .attr("id", id)
+                        .attr("class","pyk-tooltip");
             } else if (PykCharts['boolean'](options.tooltip_enable)) {
-                if (options.tooltip_mode === "fixed") {
                     PykCharts.Configuration.tooltipp = d3.select("body")
                         .append("div")
                         .attr("id", "pyk-tooltip")
-                        .attr("class","pyk-tooltip")
-                        .style("height","auto")
-                        .style("weight","auto")
-                        .style("padding", "5px 6px")
-                        .style("color","#4F4F4F")
-                        .style("background","#fff")
-                        .style("text-decoration","none")
-                        .style("position", "absolute")
-                        .style("border-radius", "5px")
-                        .style("border","1px solid #CCCCCC")
-                        .style("font-family","'Helvetica Neue', Helvetica, Arial, sans-serif")
-                        .style("font-size","12px")
-                        .style("text-align","center")
-                        .style("min-width","30px")
-                        .style("z-index","10")
-                        .style("display", "none")
-                        .style("box-shadow","0 5px 10px rgba(0,0,0,.2)");
-                } else {
-                       console.log("tooltipp")
-                    PykCharts.Configuration.tooltipp = d3.select("body")
-                        .append("div")
-                        .attr("id", "pyk-tooltip")
-                        .attr("class","pyk-tooltip")
-                        .style("height","auto")
-                        .style("weight","auto")
-                        .style("padding", "5px 6px")
-                        .style("color","#4F4F4F")
-                        .style("background","#fff")
-                        .style("text-decoration","none")
-                        .style("position", "absolute")
-                        .style("border-radius", "5px")
-                        .style("border","1px solid #CCCCCC")
-                        .style("font-family","'Helvetica Neue', Helvetica, Arial, sans-serif")
-                        .style("font-size","12px")
-                        .style("text-align","center")
-                        .style("min-width","30px")
-                        .style("z-index","10")
-                        .style("display", "none")
-                        .style("box-shadow","0 5px 10px rgba(0,0,0,.2)");
-                }
+                        .attr("class","pyk-tooltip");
             }
             return this;
         },
@@ -665,13 +591,8 @@ PykCharts.Configuration = function (options){
             return this;
         },
         xAxisTitle: function (gsvg,legendsGroup_height,legendsGroup_width) {
-            var w;
-            if(PykCharts['boolean'](options.panels_enable)) {
-                w = options.w;
-            } else {
-                w = options.width;
-            }
-
+            var w = PykCharts['boolean'](options.panels_enable) ? options.w : options.width;
+            var position;
             if(!legendsGroup_height) {
                 legendsGroup_height = 0;
             }
@@ -681,70 +602,53 @@ PykCharts.Configuration = function (options){
             }
 
             if(options.axis_x_title) {
-
                 if(!PykCharts['boolean'](options.axis_x_enable)) {
                     gsvg.attr("transform", "translate(0," + (options.height - options.margin_top - options.margin_bottom - legendsGroup_height) + ")");
                 }
 
                 if(options.axis_x_position === "bottom") {
-                    gsvg.append("text")
-                        .attr("class","x-axis-title")
-                        .attr("x", (w- options.margin_left - options.margin_right - legendsGroup_width)/2)
-                        .attr("y", options.margin_bottom)
-                        .style("text-anchor", "middle")
-                        .style("fill",options.axis_x_title_color)
-                        .style("font-weight",options.axis_x_title_weight)
-                        .style("font-family",options.axis_x_title_family)
-                        .style("font-size",options.axis_x_title_size)
-                        .text(options.axis_x_title);
-
+                    position = options.margin_bottom;
                 } else if (options.axis_x_position === "top") {
-                    gsvg.append("text")
+                    position = - options.margin_top + options.axis_x_title_size;
+                }
+                 gsvg.append("text")
                         .attr("class","x-axis-title")
                         .attr("x", (w - options.margin_left - options.margin_right -legendsGroup_width)/2)
-                        .attr("y", - options.margin_top + options.axis_x_title_size)
-                        .style("text-anchor", "middle")
-                        .style("fill",options.axis_x_title_color)
-                        .style("font-weight",options.axis_x_title_weight)
-                        .style("font-family",options.axis_x_title_family)
-                        .style("font-size",options.axis_x_title_size)
+                        .attr("y", position)
+                        .style({
+                            'text-anchor':'middle',"fill":options.axis_x_title_color,
+                            'font-weight':options.axis_x_title_weight,
+                            'font-size':options.axis_x_title_size
+                        })
                         .text(options.axis_x_title);
-                }
             }
             return this;
         },
         yAxisTitle: function (gsvg) {
-             var w;
-                if(PykCharts['boolean'](options.panels_enable)) {
-                    w = options.w;
-                } else {
-                    w = options.width;
-                }
+            var w = PykCharts['boolean'](options.panels_enable) ? options.w : options.width;
+        
             if(options.axis_y_title) {
+                var position,dy;
                 if(options.axis_y_position === "left"){
-                    gsvg.append("text")
-                        .attr("class","y-axis-title")
-                        .attr("x",-(options.height)/2)
-                        .attr("transform", "rotate(-90)")
-                        .attr("y", -(options.margin_left - options.axis_y_title_size))
-                        .style("fill",options.axis_y_title_color)
-                        .style("font-weight",options.axis_y_title_weight)
-                        .style("font-family",options.axis_y_title_family)
-                        .style("font-size",options.axis_y_title_size)
-                        .text(options.axis_y_title);
+                    position = -(options.margin_left - options.axis_y_title_size);
+                    dy = 0;
                 } else if (options.axis_y_position === "right") {
-                    gsvg.append("text")
-                        .attr("class","y-axis-title")
-                        .attr("x",-(options.height)/2)
-                        .attr("transform", "rotate(-90)")
-                        .attr("y", (options.margin_right - options.axis_y_title_size))
-                        .attr("dy", ".71em")
-                        .style("fill",options.axis_y_title_color)
-                        .style("font-weight",options.axis_y_title_weight)
-                        .style("font-family",options.axis_y_title_family)
-                        .style("font-size",options.axis_y_title_size)
-                        .text(options.axis_y_title);
+                    position = (options.margin_right - options.axis_y_title_size);
+                    dy = "0.71em";
                 }
+                gsvg.append("text")
+                    .attr("class","y-axis-title")
+                    .attr("x",-(options.height)/2)
+                    .attr("transform", "rotate(-90)")
+                    .attr("y", position)
+                    .attr("dy", dy)
+                    .style({
+                        "fill":options.axis_y_title_color,
+                        "font-weight":options.axis_y_title_weight,
+                        "font-family":options.axis_y_title_family,
+                        "font-size":options.axis_y_title_size
+                    })
+                    .text(options.axis_y_title);
             }
             return this;
         },
