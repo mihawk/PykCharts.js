@@ -30,9 +30,11 @@ PykCharts['boolean'] = function(d) {
     }
     value = d.toLocaleString();
     value = value.toLowerCase();
+    // false_values.indexOf(value) > -1 ? return false : return true;
     if (false_values.indexOf(value) > -1) {
         return false;
-    } else {
+    }
+    else {
         return true;
     }
 };
@@ -46,7 +48,8 @@ PykCharts.getEvent = function () {
 }
 
 PykCharts.Configuration = function (options){
-    var that = this;
+    var that = this,
+        options_selector = options.selector;
 
     var configuration = {
         liveData: function (chart) {
@@ -64,23 +67,24 @@ PykCharts.Configuration = function (options){
         },
         scaleIdentification: function (type,data,range,x) {
             var scale;
-            if(type === "ordinal") {
-               scale = d3.scale.ordinal()
-                    .domain(data)
-                    .rangeRoundBands(range, x);
-                return scale;
+            switch (type) {
+                case "ordinal" :
+                    scale = d3.scale.ordinal()
+                        .domain(data)
+                        .rangeRoundBands(range, x);
+                    return scale;
 
-            } else if(type === "linear") {
-                scale = d3.scale.linear()
-                    .domain(data)
-                    .range(range);
-                return scale;
+                case "linear" :
+                    scale = d3.scale.linear()
+                        .domain(data)
+                        .range(range);
+                    return scale; 
 
-            } else if(type === "time") {
-                scale = d3.time.scale()
-                    .domain(data)
-                    .range(range);
-                return scale;
+                case "time" :
+                    scale = d3.time.scale()
+                        .domain(data)
+                        .range(range);
+                    return scale;
             }
         },
         appendUnits: function (text) {
@@ -103,13 +107,7 @@ PykCharts.Configuration = function (options){
         },
         title: function () {
             if(PykCharts['boolean'](options.title_text) && options.title_size) {
-                var div_width;
-
-                if(PykCharts['boolean'](options.export_enable)) {
-                    div_width = 0.9*options.width;
-                } else {
-                    div_width = options.width;
-                }
+            var div_width = PykCharts['boolean'](options.export_enable) ? 0.9*options.width : options.width; 
 
                 that.titleDiv = d3.select(options.selector)
                     .append("div")
@@ -440,48 +438,12 @@ PykCharts.Configuration = function (options){
             }
             return this;
         },
-        fullScreen: function (chart) {
-            if(PykCharts['boolean'](options.fullScreen)) {
-                that.fullScreenButton = d3.select(options.selector)
-                    .append("input")
-                        .attr("type","image")
-                        .attr("id","btn-zoom")
-                        .attr("src",PykCharts.assets+"PykCharts/img/apple_fullscreen.jpg")
-                        .style("font-size","30px")
-                        .style("left","800px")
-                        .style("top","0px")
-                        .style("position","absolute")
-                        .style("height","4%")
-                        .on("click",chart.fullScreen);
-            }
-            return this;
-        },
         loading: function () {
-            var loading_content;
             $(options.selector).css("height",options.height);
-            if(options.loading_type === "image") {
-                loading_content = "<img src=" + options.loading_source + ">"
-            } else {
-                loading_content = options.loading_source;
-            }
-
+            var loading_content = options.loading_type === "image" ? "<img src=" + options.loading_source + ">" : options.loading_source;
             $(options.selector).html("<div id='chart-loader'>" + loading_content + "</div>");
             var initial_height_div = $(options.selector).height();
             $(options.selector + " #chart-loader").css({"visibility":"visible","padding-left":(options.width/2) +"px","padding-top":(initial_height_div/2) + "px"});
-            return this;
-        },
-        positionContainers: function (position, chart) {
-            if(PykCharts['boolean'](options.legends_enable) && !(PykCharts['boolean'](options.variable_circle_size_enable))) {
-                if(position == "top" || position == "left") {
-                    chart.optionalFeatures().legendsContainer().svgContainer();
-                }
-                if(position == "bottom" || position == "right") {
-                    chart.optionalFeatures().svgContainer().legendsContainer();
-                }
-            }
-            else {
-                chart.optionalFeatures().svgContainer();
-            }
             return this;
         },
         yGrid: function (svg, gsvg, yScale,legendsGroup_width) {
@@ -551,14 +513,9 @@ PykCharts.Configuration = function (options){
                 legendsGroup_width = 0;
             }
             var width = options.width,
-                height = options.height;
-            var k = new PykCharts.Configuration(options);
-            var w;
-                    if(PykCharts['boolean'](options.panels_enable)) {
-                        w = options.w;
-                    } else {
-                        w = options.width;
-                    }
+                height = options.height,
+                k = new PykCharts.Configuration(options),
+                w = PykCharts['boolean'](options.panels_enable) ? options.w : options.width;
 
             if(PykCharts['boolean'](options.axis_y_enable)){
                 if(options.axis_y_position === "right") {

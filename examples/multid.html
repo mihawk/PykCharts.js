@@ -109,8 +109,19 @@
                     highlight : "NEw York",
                     pointer_size : 12
                 });
-           k.execute();
-
+            var date = new Date();
+                var i,avg =0;
+                var a = [];
+                for(i = 0;i<100;i++) {
+                    // console.log(i);
+                    var start = new Date().getTime();
+                         k.execute();
+                    var end = new Date().getTime();
+                        a[i] = end - start;
+                        avg += a[i]                     
+                }
+            //     console.log("Performance",a,avg/100);
+             
                 var k = new PykCharts.multiD.area ({
                     selector: "#area",
                     data: "../data/line_timescale.json",
@@ -171,7 +182,18 @@
                     annotation_background_color:"red",
                     border_between_chart_elements_thickness: 2
                 });
-            k.execute();
+            // var date = new Date();
+            //     var i,avg =0;
+            //     var a = [];
+            //     for(i = 0;i<100;i++) {
+            //         // console.log(i);
+            //         var start = new Date().getTime();
+                         // k.execute();
+                //     var end = new Date().getTime();
+                //         a[i] = end - start;
+                //         avg += a[i]                     
+                // }
+                // console.log("Performance",a,avg/100);
 
                 var k = new PykCharts.multiD.spiderWeb ({
                     selector: "#spiderWeb",
@@ -209,7 +231,19 @@
                     legends_text_weight: "normal",
                     legends_text_family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
                 });
-               k.execute();
+                // var date = new Date();
+                // var i,avg =0;
+                // var a = [];
+                // for(i = 0;i<100;i++) {
+                //     // console.log(i);
+                //     var start = new Date().getTime();
+                //          k.execute();
+                //     var end = new Date().getTime();
+                //         a[i] = end - start;
+                //         avg += a[i]                     
+                // }
+                // console.log("Performance",a,avg/100);
+              
 
                 var k = new PykCharts.multiD.scatter ({
                     selector: "#scatterPlot",
@@ -288,7 +322,18 @@
                     // chart_margin_bottom: 125,
                     // chart_margin_left: 160,
                 });
-            k.execute();
+            // var date = new Date();
+            //     var i,avg =0;
+            //     var a = [];
+            //     for(i = 0;i<100;i++) {
+            //         // console.log(i);
+            //         var start = new Date().getTime();
+            //              k.execute();
+            //         var end = new Date().getTime();
+            //             a[i] = end - start;
+            //             avg += a[i]                     
+            //     }
+            //     console.log("Performance",a,avg/100);
 
                 var k = new PykCharts.multiD.panelsOfScatter ({
                     selector: "#multiple-scatterplots",
@@ -348,7 +393,18 @@
                     border_between_chart_elements_thickness:0,
                     border_between_chart_elements_color:"blue"
                 });
-           k.execute();
+            // var date = new Date();
+            //     var i,avg =0;
+            //     var a = [];
+            //     for(i = 0;i<100;i++) {
+            // //         // console.log(i);
+            //         var start = new Date().getTime();
+            //              k.execute();
+            //         var end = new Date().getTime();
+            //             a[i] = end - start;
+            //             avg += a[i]                     
+            //     }
+            //     console.log("Performance",a,avg/100);
 
                 var k = new PykCharts.multiD.panelsOfLine ({
                     selector: "#multiLine",
@@ -408,8 +464,19 @@
                     annotation_view_mode:"onclick",
                     annotation_background_color:"#ff4c4c"
                 });
-
-           k.execute();
+            //     var date = new Date();
+            //     var i,avg =0;
+            //     var a = [];
+            //     for(i = 0;i<10;i++) {
+            // //         // console.log(i);
+            //         var start = new Date().getTime();
+                         // k.execute();
+                //     var end = new Date().getTime();
+                //         a[i] = end - start;
+                //         avg += a[i]                     
+                // }
+                // console.log("Performance",a,avg/10);
+           
 
                 var k = new PykCharts.multiD.multiSeriesLine ({
                     selector: "#multiple-multiLine",
@@ -469,7 +536,18 @@
                     annotation_view_mode: "onclick",
                     annotation_background_color:"#ff4c4c"
                 });
-            k.execute();
+            //  var date = new Date();
+            //     var i,avg =0;
+            //     var a = [];
+            //     for(i = 0;i<100;i++) {
+            // //         // console.log(i);
+            //         var start = new Date().getTime();
+            //              k.execute();
+            //         var end = new Date().getTime();
+            //             a[i] = end - start;
+            //             avg += a[i]                     
+            //     }
+            //     console.log("Performance",a,avg/100);
 
                 var k = new PykCharts.multiD.stackedArea ({
 
@@ -537,7 +615,18 @@
                     annotation_view_mode: "onclick",
                     annotation_background_color:"#ff4c4c"
                 });
-            k.execute();
+            // var date = new Date();
+            //     var i,avg =0;
+            //     var a = [];
+            //     for(i = 0;i<100;i++) {
+            // //         // console.log(i);
+            //         var start = new Date().getTime();
+            //              k.execute();
+            //         var end = new Date().getTime();
+            //             a[i] = end - start;
+            //             avg += a[i]                     
+            //     }
+            //     console.log("Performance",a,avg/100);
 
                 var k = new PykCharts.multiD.pulse({
                     selector: "#pulse",
@@ -602,7 +691,18 @@
                     border_between_chart_elements_style: "solid"
 
                 });
-            k.execute();
+            // var date = new Date();
+            //     var i,avg =0;
+            //     var a = [];
+            //     for(i = 0;i<100;i++) {
+            // //         // console.log(i);
+            //         var start = new Date().getTime();
+            //              k.execute();
+            //         var end = new Date().getTime();
+            //             a[i] = end - start;
+            //             avg += a[i]                     
+            //     }
+            //     console.log("Performance",a,avg/100);
 
                 var k = new PykCharts.multiD.column({
                     data: "../data/ultimateColumn.json",
@@ -660,7 +760,19 @@
                     border_between_chart_elements_color: "white",
                     border_between_chart_elements_style: "solid",
                 });
-            k.execute();
+            // var date = new Date();
+            //     var i,avg =0;
+            //     var a = [];
+            //     for(i = 0;i<100;i++) {
+            // //         // console.log(i);
+            //         var start = new Date().getTime();
+            //              k.execute();
+            //         var end = new Date().getTime();
+            //             a[i] = end - start;
+            //             avg += a[i]                     
+            //     }
+            //     console.log("Performance",a,avg/100);
+           
                 var k = new PykCharts.multiD.bar({
                     data: "../data/ultimatebar_date.json",
                     mode: "default",
@@ -719,8 +831,18 @@
                     data_sort_type: "alphabetically",
                     data_sort_order: "ascending"
                 });
-          k.execute();
-
+            //     var date = new Date();
+            //     var i,avg =0;
+            //     var a = [];
+            //     for(i = 0;i<100;i++) {
+            // //         // console.log(i);
+            //         var start = new Date().getTime();
+            //              k.execute();
+            //         var end = new Date().getTime();
+            //             a[i] = end - start;
+            //             avg += a[i]                     
+            //     }
+            //     console.log("Performance",a,avg/100);
 
                 var k = new PykCharts.multiD.groupedBar({
                     data: "../data/ultimateGroupBar.json",
@@ -795,7 +917,19 @@
                     // legends_text_weight: "bold",
                     // legends_text_size: 28
                 });
-           k.execute();
+            // var date = new Date();
+            //     var i,avg =0;
+            //     var a = [];
+            //     for(i = 0;i<100;i++) {
+            // //         // console.log(i);
+            //         var start = new Date().getTime();
+            //              k.execute();
+            //         var end = new Date().getTime();
+            //             a[i] = end - start;
+            //             avg += a[i]                     
+            //     }
+            //     console.log("Performance",a,avg/100);
+           
                 var k = new PykCharts.multiD.groupedColumn({
                     data: "../data/ultimateGroupColumn.json",
                     mode: "default",
@@ -861,7 +995,18 @@
                     highlight:"india",
                     chart_grid_y_enable: "no",
                 });
-            k.execute();
+            // var date = new Date();
+            //     var i,avg =0;
+            //     var a = [];
+            //     for(i = 0;i<100;i++) {
+            // //         // console.log(i);
+            //         var start = new Date().getTime();
+            //              k.execute();
+            //         var end = new Date().getTime();
+            //             a[i] = end - start;
+            //             avg += a[i]                     
+            //     }
+            //     console.log("Performance",a,avg/100);
 
 
             };
