@@ -80,7 +80,7 @@ PykCharts.multiD.stackedArea = function (options){
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
                 $(that.selector+" #chart-loader").remove();
-                $(that.selector).css("height","auto")
+                $(that.selector).css("height","auto");
                 return;
             }
 
@@ -93,6 +93,7 @@ PykCharts.multiD.stackedArea = function (options){
 			that.compare_data = that.data;
 			that.data_length = that.data.length;
 			$(that.selector+" #chart-loader").remove();
+            $(that.selector).css("height","auto");
 			
 			PykCharts.multiD.areaFunctions(options,that,"stacked_area");
 			that.dataTransformation();
@@ -191,7 +192,7 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 
 			that.renderChart();
 
-			that.k.xAxis(that.svgContainer,that.xGroup,that.xScale,that.extra_left_margin,that.xdomain,that.x_tick_values,that.legendsGroup_height,that.data)
+			that.k.xAxis(that.svgContainer,that.xGroup,that.xScale,that.extra_left_margin,that.xdomain,that.x_tick_values,that.legendsGroup_height)
 					.yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain,that.y_tick_values,that.legendsGroup_width)
 					.yGrid(that.svgContainer,that.group,that.yScale,that.legendsGroup_width)
 					.xGrid(that.svgContainer,that.group,that.xScale,that.legendsGroup_height)

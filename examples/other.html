@@ -1,46 +1,46 @@
 <html>
 	<head>
         <title>Other Charts</title>
-        <link rel="stylesheet" type="text/css" href="../dist/pykcharts.0.0.8.min.css">
+        <link rel="stylesheet" type="text/css" href="../dist/pykcharts.1.0.0.min.css">
 	</head>
 	<body>
       <div id="pictograph"></div>
       <hr/>
       <script>
 		    window.PykChartsInit = function (e) {
-            var k = new PykCharts.other.pictograph({
-                selector: "#pictograph",
-                data:"../data/pictograph.json",
-                chart_width : 550,
-                chart_height: 500,
-                background_color: "white",
-                // pictograph_total_count_weight: "normal",
-                "pictograph_show_all_images": "yes",
-                "pictograph_total_count_enable": "yes",
-                "pictograph_current_count_enable": "yes",
-                "pictograph_image_per_line": 4,
-                "pictograph_image_width": 50,
-                "pictograph_image_height": 50,
-                "pictograph_current_count_size": 60,
-                "pictograph_current_count_color": "#255aee",
-                "pictograph_current_count_weight": "normal",
-                "pictograph_current_count_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
-                "pictograph_total_count_size": 60,
-                "pictograph_total_count_color": "grey",
-                "pictograph_total_count_weight": "normal",
-                "pictograph_total_count_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
-                "pictograph_units_per_image_text_size": 24,
-                "pictograph_units_per_image_text_color": "grey",
-                "pictograph_units_per_image_text_weight": "normal",
-                "pictograph_units_per_image_text_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
-                "pictograph_units_per_image" : "1000 Tweets",
+                var k = new PykCharts.other.pictograph({
+                    selector: "#pictograph",
+                    data:"../data/pictograph.json",
+                    chart_width : 550,
+                    chart_height: 500,
+                    background_color: "white",
+                    // pictograph_total_count_weight: "normal",
+                    "pictograph_show_all_images": "yes",
+                    "pictograph_total_count_enable": "yes",
+                    "pictograph_current_count_enable": "yes",
+                    "pictograph_image_per_line": 4,
+                    "pictograph_image_width": 50,
+                    "pictograph_image_height": 50,
+                    "pictograph_current_count_size": 60,
+                    "pictograph_current_count_color": "#255aee",
+                    "pictograph_current_count_weight": "normal",
+                    "pictograph_current_count_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
+                    "pictograph_total_count_size": 60,
+                    "pictograph_total_count_color": "grey",
+                    "pictograph_total_count_weight": "normal",
+                    "pictograph_total_count_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
+                    "pictograph_units_per_image_text_size": 24,
+                    "pictograph_units_per_image_text_color": "grey",
+                    "pictograph_units_per_image_text_weight": "normal",
+                    "pictograph_units_per_image_text_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
+                    "pictograph_units_per_image" : "1000 Tweets",
 
-                transition_duration: 1,
-                real_time_charts_refresh_frequency: 5
-            });
-            k.execute();
+                    transition_duration: 1,
+                    real_time_charts_refresh_frequency: 0
+                });
+                k.execute();
 		    }
 		</script>
-    <script src="../dist/pykcharts.1.0.0.js"></script>
+    <script src="../dist/pykcharts.1.0.0.min.js"></script>
 	</body>
 </html>
