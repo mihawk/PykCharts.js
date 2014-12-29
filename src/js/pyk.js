@@ -335,6 +335,7 @@ PykCharts.Configuration = function (options){
                         .style("display", "none")
                         .style("box-shadow","0 5px 10px rgba(0,0,0,.2)");
                 } else {
+                       console.log("tooltipp")
                     PykCharts.Configuration.tooltipp = d3.select("body")
                         .append("div")
                         .attr("id", "pyk-tooltip")
@@ -371,6 +372,7 @@ PykCharts.Configuration = function (options){
                 annotation_circle.enter()
                     .append("circle")
                     .attr("class","PykCharts-annotation-circle");
+
                 annotation_text.enter()
                     .append("text")
                     .attr("class","PykCharts-annotation-text");
@@ -484,6 +486,7 @@ PykCharts.Configuration = function (options){
                 PykCharts.Configuration.cross_hair_v = svg.append("g")
                     .attr("class","line-cursor")
                     .style("display","none");
+
                 PykCharts.Configuration.cross_hair_v.append("line")
                     .attr("class","cross-hair-v")
                     .attr("id","cross-hair-v");
@@ -2094,7 +2097,6 @@ configuration.fillChart = function (options,theme,config) {
         },
         colorPieW: function (d) {
             if(d.color) {
-
                 return d.color;
             } else if(options.chart_color.length) {
                 return options.color;
