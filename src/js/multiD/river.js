@@ -737,18 +737,21 @@ PykCharts.multiD.river = function (options){
                         legend.style("cursor","pointer");
                         that.legends_text.style("cursor","pointer");
                     }
-                    var legend_container_width = that.legendsGroup.node().getBBox().width, translate_x;
+                    var legend_container_width = that.legendsGroup.node().getBBox().width, translate_x,translate_y;
                     if(that.legends_display === "vertical") {
+                        translate_y = 0;
+                        if(PykCharts.boolean(that.data_mode_enable)) { 
+                            translate_y = 40;
+                        }
                         that.legendsGroup_width = legend_container_width + 20;
                     } else  {
+                        translate_y = 0;
                         that.legendsGroup_width = 0;
                     }
 
                     translate_x = (that.legends_display === "vertical") ? (that.width - that.legendsGroup_width)  : (that.width - legend_container_width - 20);
-                    if(PykCharts.boolean(that.data_mode_enable)) { 
-                        that.legendsGroup_height = 40;
-                    }
-                    if (legend_container_width < that.width) { that.legendsGroup.attr("transform","translate("+translate_x+"," + that.legendsGroup_height + ")"); }
+                    
+                    if (legend_container_width < that.width) { that.legendsGroup.attr("transform","translate("+translate_x+"," + translate_y + ")"); }
                     that.legendsGroup.style("visibility","visible");
 
                     that.legends_text.exit().remove();
