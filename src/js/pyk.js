@@ -48,7 +48,8 @@ PykCharts.getEvent = function () {
 }
 
 PykCharts.Configuration = function (options){
-    var that = this;
+    var that = this,
+        options_selector = options.selector;
 
     var configuration = {
         liveData: function (chart) {
@@ -586,14 +587,9 @@ PykCharts.Configuration = function (options){
                 legendsGroup_width = 0;
             }
             var width = options.width,
-                height = options.height;
-            var k = new PykCharts.Configuration(options);
-            var w;
-                    if(PykCharts['boolean'](options.panels_enable)) {
-                        w = options.w;
-                    } else {
-                        w = options.width;
-                    }
+                height = options.height,
+                k = new PykCharts.Configuration(options),
+                w = PykCharts['boolean'](options.panels_enable) ? options.w : options.width;
 
             if(PykCharts['boolean'](options.axis_y_enable)){
                 if(options.axis_y_position === "right") {
