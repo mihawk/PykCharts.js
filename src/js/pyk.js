@@ -512,14 +512,8 @@ PykCharts.Configuration = function (options){
             return this;
         },
         loading: function () {
-            var loading_content;
             $(options.selector).css("height",options.height);
-            if(options.loading_type === "image") {
-                loading_content = "<img src=" + options.loading_source + ">"
-            } else {
-                loading_content = options.loading_source;
-            }
-
+            var loading_content = options.loading_type === "image" ? "<img src=" + options.loading_source + ">" : options.loading_source;
             $(options.selector).html("<div id='chart-loader'>" + loading_content + "</div>");
             var initial_height_div = $(options.selector).height();
             $(options.selector + " #chart-loader").css({"visibility":"visible","padding-left":(options.width/2) +"px","padding-top":(initial_height_div/2) + "px"});
