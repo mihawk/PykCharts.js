@@ -177,12 +177,15 @@ PykCharts.Configuration = function (options){
             return this;
         },
         checkChangeInData: function (data, compare_data) { // this function checks if the data in json has been changed
-            var key1 = Object.keys(compare_data[0]);
-            var key2 = Object.keys(data[0]);
-            var changed = false;
+            var key1 = Object.keys(compare_data[0]),
+                key2 = Object.keys(data[0]),
+                changed = false,
+                data_length = data.length,
+                key1_length = key1.length;
+
             if(key1.length === key2.length && compare_data.length === data.length) {
-                for(i=0;i<data.length;i++) {
-                    for(j=0;j<key1.length;j++){
+                for(var i=0;i<data_length;i++) {
+                    for(var j=0;j<key1_length;j++){
                         if(typeof data[i][key2[j]] !== "object" && typeof compare_data[i][key1[j]] !== "object") {
                             if(data[i][key2[j]] !== compare_data[i][key1[j]] || key1[j] !== key2[j]) {
                                 changed = true;
