@@ -1160,6 +1160,7 @@ PykCharts.Configuration = function (options){
 
                 $(chart.selector + " #"+id).click(function () {
                   PykCharts.export_menu_status = 1;
+                    console.log(PykCharts.export_menu_status)
                     d3.select(options.selector + " .dropdown-multipleConatiner-export").style("visibility", "visible");
                 });
 
