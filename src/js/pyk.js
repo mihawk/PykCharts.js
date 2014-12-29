@@ -30,9 +30,11 @@ PykCharts['boolean'] = function(d) {
     }
     value = d.toLocaleString();
     value = value.toLowerCase();
+    // false_values.indexOf(value) > -1 ? return false : return true;
     if (false_values.indexOf(value) > -1) {
         return false;
-    } else {
+    }
+    else {
         return true;
     }
 };
@@ -103,13 +105,7 @@ PykCharts.Configuration = function (options){
         },
         title: function () {
             if(PykCharts['boolean'](options.title_text) && options.title_size) {
-                var div_width;
-
-                if(PykCharts['boolean'](options.export_enable)) {
-                    div_width = 0.9*options.width;
-                } else {
-                    div_width = options.width;
-                }
+            var div_width = PykCharts['boolean'](options.export_enable) ? 0.9*options.width : options.width; 
 
                 that.titleDiv = d3.select(options.selector)
                     .append("div")
