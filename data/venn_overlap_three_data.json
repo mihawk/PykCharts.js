@@ -1,6 +1,6 @@
 [
-    {"sets": [0, 1], "weight": 832},
-    {"sets": [0, 2], "weight": 602},
-    {"sets": [1, 2], "weight": 462},
-    {"sets": [0, 1, 2], "weight": 480}
+    {"sets": [0, 1], "weight": 30},
+    {"sets": [0, 2], "weight": 20},
+    {"sets": [1, 2], "weight": 0},
+    {"sets": [0, 1, 2], "weight": 0}
 ]
