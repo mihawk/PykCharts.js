@@ -84,26 +84,7 @@ PykCharts.Configuration = function (options){
                         .domain(data)
                         .range(range);
                     return scale;
-
             }
-            // if(type === "ordinal") {
-            //    scale = d3.scale.ordinal()
-            //         .domain(data)
-            //         .rangeRoundBands(range, x);
-            //     return scale;
-
-            // } else if(type === "linear") {
-            //     scale = d3.scale.linear()
-            //         .domain(data)
-            //         .range(range);
-            //     return scale;
-
-            // } else if(type === "time") {
-            //     scale = d3.time.scale()
-            //         .domain(data)
-            //         .range(range);
-            //     return scale;
-            // }
         },
         appendUnits: function (text) {
             text = PykCharts.numberFormat(text);
@@ -527,22 +508,6 @@ PykCharts.Configuration = function (options){
                         .attr("id","focus-circle"+j)
                         .attr("r","6");
                 }
-            }
-            return this;
-        },
-        fullScreen: function (chart) {
-            if(PykCharts['boolean'](options.fullScreen)) {
-                that.fullScreenButton = d3.select(options.selector)
-                    .append("input")
-                        .attr("type","image")
-                        .attr("id","btn-zoom")
-                        .attr("src",PykCharts.assets+"PykCharts/img/apple_fullscreen.jpg")
-                        .style("font-size","30px")
-                        .style("left","800px")
-                        .style("top","0px")
-                        .style("position","absolute")
-                        .style("height","4%")
-                        .on("click",chart.fullScreen);
             }
             return this;
         },
