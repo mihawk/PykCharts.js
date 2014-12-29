@@ -525,20 +525,6 @@ PykCharts.Configuration = function (options){
             $(options.selector + " #chart-loader").css({"visibility":"visible","padding-left":(options.width/2) +"px","padding-top":(initial_height_div/2) + "px"});
             return this;
         },
-        positionContainers: function (position, chart) {
-            if(PykCharts['boolean'](options.legends_enable) && !(PykCharts['boolean'](options.variable_circle_size_enable))) {
-                if(position == "top" || position == "left") {
-                    chart.optionalFeatures().legendsContainer().svgContainer();
-                }
-                if(position == "bottom" || position == "right") {
-                    chart.optionalFeatures().svgContainer().legendsContainer();
-                }
-            }
-            else {
-                chart.optionalFeatures().svgContainer();
-            }
-            return this;
-        },
         yGrid: function (svg, gsvg, yScale,legendsGroup_width) {
             var width = options.width,
                 height = options.height;
