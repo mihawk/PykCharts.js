@@ -1136,6 +1136,65 @@ PykCharts.Configuration = function (options){
                     }
                 };
                 return gd;
+            },
+            _sortData: function (data, unique_group, column_to_be_sorted, group_column_name, options) {
+                if(!PykCharts['boolean'](options.data_sort_enable)) {
+                    data.sort(function(a,b) {
+                        if (a[group_column_name] < b[group_column_name]) {
+                            return -1;
+                        }
+                        else if (a[group_column_name] > b[group_column_name]) {
+                            return 1;
+                        }
+                    });
+
+                } else if (PykCharts['boolean'](options.data_sort_enable)) {
+                    switch (options.data_sort_type) {
+                        case "numerically":
+                            // if (unique_group.length === 1) {
+                                data.sort(function (a,b) {
+                                                                
+                                    return ((options.data_sort_order === "descending") ? (b[column_to_be_sorted] - a[column_to_be_sorted]) : (a[column_to_be_sorted] - b[column_to_be_sorted]));
+                                });
+                            // }
+                            break;
+                        case "alphabetically":
+                            data.sort(function (a,b) {
+                                if (a[column_to_be_sorted] < b[column_to_be_sorted]) {
+                                    return (options.data_sort_order === "descending") ? 1 : -1;
+                                }
+                                else if (a[column_to_be_sorted] > b[column_to_be_sorted]) {
+                                    return (options.data_sort_order === "descending") ? -1 : 1;
+                                }
+                                else if (a[group_column_name] < b[group_column_name]) {
+                                    return (options.data_sort_order === "descending") ? 1 : -1;
+                                }
+                                else if (a[group_column_name] > b[group_column_name]) {
+                                    return (options.data_sort_order === "descending") ? -1 : 1;
+                                }
+                                return 0;
+                            });
+                            break;
+                        case "date":
+                            data.sort(function (a,b) {
+                                if (new Date(a[column_to_be_sorted]) < new Date(b[column_to_be_sorted])) {
+                                    return (options.data_sort_order === "descending") ? 1 : -1;
+                                }
+                                else if (new Date(a[column_to_be_sorted]) > new Date(b[column_to_be_sorted])) {
+                                    return (options.data_sort_order === "descending") ? -1 : 1;
+                                }
+                                else if (a[group_column_name] < b[group_column_name]) {
+                                    return (options.data_sort_order === "descending") ? 1 : -1;
+                                }
+                                else if (a[group_column_name] > b[group_column_name]) {
+                                    return (options.data_sort_order === "descending") ? -1 : 1;
+                                }
+                                return 0;
+                            });
+                            break;
+                    }
+                }
+                return data;
             }
         },
         backgroundColor: function (options) {
@@ -1167,8 +1226,10 @@ PykCharts.Configuration = function (options){
         },
         dataSourceFormatIdentification: function (data,chart,executeFunction) {
             var dot_index = data.lastIndexOf('.'),
-            len = data.length - dot_index;
-            format = data.substr(dot_index+1,len);
+                len = data.length - dot_index,
+                format = data.substr(dot_index+1,len),
+                cache_avoidance_value = Math.floor((Math.random() * 100) + 1);
+
             if(data.indexOf("{")!= -1) {
                 chart.data = JSON.parse(data);
                 chart[executeFunction](chart.data);
@@ -1176,9 +1237,9 @@ PykCharts.Configuration = function (options){
                 chart.data = d3.csv.parse(data);
                 chart[executeFunction](chart.data);
             } else if (format === "json") {
-                d3.json(data,chart[executeFunction]);
+                d3.json(data+"?"+cache_avoidance_value,chart[executeFunction]);
             } else if(format === "csv") {
-                d3.csv(data,chart[executeFunction]);
+                d3.csv(data+"?"+cache_avoidance_value,chart[executeFunction]);
             }
         },
         export: function(chart,svgId,chart_name,panels_enable,containers) {
@@ -1698,7 +1759,6 @@ configuration.mouseEvent = function (options) {
                 var x = PykCharts.getEvent().pageX - offsetLeft;
                 var y = PykCharts.getEvent().pageY - offsetTop - top;
                 var x_range = [];
-
                 if(options.axis_x_data_format==="string") {
                     x_range = xScale.range();
                 } else {
@@ -1732,17 +1792,21 @@ configuration.mouseEvent = function (options) {
                                 left_diff = (left_tick - x), right_diff = (x - right_tick);
                                 if(left_diff >= right_diff) {
                                     active_x_tick = new_data[0].data[j].x;
-                                    active_y_tick.push(data[j].y);
-                                    tooltipText = data[j].tooltip || data[j].y;
+                                    active_y_tick.push(new_data[0].data[j].y);
+                                    
+                                    // tooltipText = data[j].tooltip || data[j].y;
+                                    tooltipText = new_data[0].data[j].tooltip || new_data[0].data[j].y;
                                     pos_line_cursor_x = (xScale(active_x_tick) + lineMargin + left);
-                                    pos_line_cursor_y = (yScale(data[j].y) + top);
+                                    pos_line_cursor_y = (yScale(tooltipText) + top);
                                 }
                                 else {
                                     active_x_tick = new_data[0].data[j+1].x;
-                                    active_y_tick.push(data[j+1].y);
-                                    tooltipText = data[j+1].tooltip || data[j+1].y; // Line Chart ONLY!
+                                    active_y_tick.push(new_data[0].data[j+1].y);
+                                    
+                                    // tooltipText = data[j+1].tooltip || data[j+1].y; // Line Chart ONLY!
+                                    tooltipText = new_data[0].data[j+1].tooltip || new_data[0].data[j+1].y; // Line Chart ONLY!
                                     pos_line_cursor_x = (xScale(active_x_tick) + lineMargin + left);
-                                    pos_line_cursor_y = (yScale(data[j+1].y) + top);
+                                    pos_line_cursor_y = (yScale(tooltipText) + top);
                                 }
                                 if((pos_line_cursor_y > top && pos_line_cursor_y < (h-bottom)) && (pos_line_cursor_x >= left && pos_line_cursor_x <= (w-right))) {
                                     if(type === "multilineChart" /*|| type === "stackedAreaChart"*/) {
@@ -2102,7 +2166,7 @@ configuration.fillChart = function (options,theme,config) {
             else return options.chart_color[0];
         },
         colorPieMS: function (d,chart_type) {
-            if(d.name.toLowerCase() === options.highlight.toLowerCase() && chart_type !== "lineChart" && chart_type !== "areaChart") {
+            if( chart_type !== "lineChart" && chart_type !== "areaChart" && d.name.toLowerCase() === options.highlight.toLowerCase()) {
                 return options.highlight_color;
             } else if(options.color_mode === "saturation") {
                 return options.saturation_color;

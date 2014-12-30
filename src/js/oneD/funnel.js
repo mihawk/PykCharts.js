@@ -59,8 +59,7 @@ PykCharts.oneD.funnel = function (options) {
             that.data = that.k.__proto__._groupBy("oned",data);
             that.compare_data = that.k.__proto__._groupBy("oned",data);
             $(options.selector+" #chart-loader").remove();
-            $(that.selector).css("height","auto")
-            that.clubdata_enable = that.data.length>that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
+            $(that.selector).css("height","auto");
             that.render();
         };
         that.k.dataSourceFormatIdentification(options.data,that,"executeData");
@@ -69,7 +68,6 @@ PykCharts.oneD.funnel = function (options) {
     this.refresh = function () {
         that.executeRefresh = function (data) {
             that.data = that.k.__proto__._groupBy("oned",data);
-            that.clubdata_enable = that.data.length>that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
             that.refresh_data = that.k.__proto__._groupBy("oned",data);
             var compare = that.k.checkChangeInData(that.refresh_data,that.compare_data);
             that.compare_data = compare[0];
@@ -78,7 +76,6 @@ PykCharts.oneD.funnel = function (options) {
                 that.k.lastUpdatedAt("liveData");
             }
             that.optionalFeatures()
-                    .clubData()
                     .createChart()
                     .label()
                     .ticks();
@@ -112,8 +109,7 @@ PykCharts.oneD.funnel = function (options) {
             that.new_data = that.data;
         }
         if(that.mode === "default") {
-            that.optionalFeatures()
-                .clubData();
+            that.optionalFeatures();
         }
         that.optionalFeatures().svgContainer()
             .createChart()
@@ -149,7 +145,8 @@ PykCharts.oneD.funnel = function (options) {
             coordinates;
 
         var funnel = {
-            data: function(d){
+            data: function(d){  
+                         
                 if (d.length===0){
 
                 } else {
@@ -280,9 +277,9 @@ PykCharts.oneD.funnel = function (options) {
                 return this;
             },
             createChart: function () {
-                that.per_values = that.percentageValues(that.new_data);
+                that.per_values = that.percentageValues(that.data);
                 that.funnel = that.funnelLayout()
-                                .data(that.new_data)
+                                .data(that.data)
                                 .size([that.width,that.height])
                                 .mouth([that.rect_width,that.rect_height]);
 
@@ -304,7 +301,7 @@ PykCharts.oneD.funnel = function (options) {
                     .attr('d',function(d){ return line(a); })
 
                    	.attr("fill",function (d,i) {
-                        return that.fillChart.selectColor(that.new_data[i]);
+                        return that.fillChart.selectColor(that.data[i]);
         			})
                     .attr("fill-opacity",1)
                     .attr("data-fill-opacity",function () {
@@ -319,7 +316,7 @@ PykCharts.oneD.funnel = function (options) {
                             if(PykCharts['boolean'](that.onhover_enable)) {
                                 that.mouseEvent.highlight(options.selector +" "+".fun-path",this);
                             }
-                            tooltip = that.new_data[i].tooltip || "<table class='PykCharts'><tr><th colspan='3' class='tooltip-heading'>"+that.new_data[i].name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(that.new_data[i].weight)+"<td class='tooltip-right-content'>("+that.per_values[i].toFixed(1)+"%) </tr></table>";
+                            tooltip = that.data[i].tooltip || "<table class='PykCharts'><tr><th colspan='3' class='tooltip-heading'>"+that.data[i].name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(that.data[i].weight)+"<td class='tooltip-right-content'>("+that.per_values[i].toFixed(1)+"%) </tr></table>";
                 			that.mouseEvent.tooltipPosition(d);
                             that.mouseEvent.tooltipTextShow(tooltip);
                         }
@@ -422,12 +419,12 @@ PykCharts.oneD.funnel = function (options) {
                     tick_label.text("");
 
                     setTimeout(function() {
-                        tick_label.text(function (d,i) { return that.new_data[i].name; })
+                        tick_label.text(function (d,i) { return that.data[i].name; })
                             .text(function (d,i) {
                                 w[i] = this.getBBox().height;
                                 that.ticks_text_width.push(this.getBBox().width);
                                 if (this.getBBox().height < (d.values[2].y - d.values[0].y)) {
-                                    return that.new_data[i].name;
+                                    return that.data[i].name;
                                 }
                                 else {
                                     return "";
@@ -503,66 +500,6 @@ PykCharts.oneD.funnel = function (options) {
 
                     tick_line.exit().remove();
 
-                return this;
-            },
-            clubData : function () {
-                if(PykCharts['boolean'](that.clubdata_enable)) {
-                    var clubdata_content = [];
-                    if(that.clubdata_always_include_data_points.length!== 0){
-                        var l = that.clubdata_always_include_data_points.length;
-                        for(i=0; i < l; i++){
-                            clubdata_content[i] = that.clubdata_always_include_data_points[i];
-                        }
-                    }
-                    var newData = [];
-                    for(i=0;i<clubdata_content.length;i++){
-                        for(j=0;j<that.data.length;j++){
-                            if(clubdata_content[i].toUpperCase() === that.data[j].name.toUpperCase()){
-                                newData.push(that.data[j]);
-                            }
-                        }
-                    }
-                    that.data.sort(function (a,b) { return b.weight - a.weight; });
-                    var k = 0;
-                    while(newData.length<that.clubdata_maximum_nodes-1){
-                        for(i=0;i<clubdata_content.length;i++){
-                            if(that.data[k].name.toUpperCase() === clubdata_content[i].toUpperCase()){
-                                k++;
-                            }
-                        }
-                        newData.push(that.data[k]);
-                        k++;
-                    }
-                    var sum_others = 0;
-                    for(j=k; j < that.data.length; j++){
-                        for(i=0; i<newData.length && j<that.data.length; i++){
-                            if(that.data[j].name.toUpperCase() === newData[i].name.toUpperCase()){
-                                sum_others +=0;
-                                j++;
-                                i = -1;
-                            }
-                        }
-                        if(j < that.data.length){
-                            sum_others += that.data[j].weight;
-                        }
-                    }
-                    var sortfunc = function (a,b) { return b.weight - a.weight; };
-                    while(newData.length > that.clubdata_maximum_nodes){
-                        newData.sort(sortfunc);
-                        var a=newData.pop();
-                    }
-
-                    var others_Slice = { "name":that.clubdata_text, "weight": sum_others, "color": that.clubData_color, "tooltip": (that.clubData_tooltip)};
-                    if(newData.length < that.clubdata_maximum_nodes){
-                        newData.push(others_Slice);
-                    }
-                    newData.sort(function (a,b) { return b.weight - a.weight; });
-                    that.new_data = newData;
-                }
-                else {
-                    that.data.sort(function (a,b) { return b.weight - a.weight; });
-                    that.new_data = that.data;
-                }
                 return this;
             }
         };
