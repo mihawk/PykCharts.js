@@ -593,6 +593,7 @@ PykCharts.Configuration = function (options){
                 if(options.axis_x_position === "bottom") {
                     gsvg.attr("transform", "translate(0," + (options.height - options.margin_top - options.margin_bottom - legendsGroup_height) + ")");
                 }
+
                 var xaxis = PykCharts.Configuration.makeXAxis(options,xScale);
 
                 if(tick_values && tick_values.length) {
@@ -1136,7 +1137,7 @@ PykCharts.Configuration = function (options){
                 };
                 return gd;
             },
-            _sortData: function (data, unique_group, column_to_be_sorted, group_column_name, options) {
+            _sortData: function (data, column_to_be_sorted, group_column_name, options) {
                 if(!PykCharts['boolean'](options.data_sort_enable)) {
                     data.sort(function(a,b) {
                         if (a[group_column_name] < b[group_column_name]) {
@@ -1150,12 +1151,9 @@ PykCharts.Configuration = function (options){
                 } else if (PykCharts['boolean'](options.data_sort_enable)) {
                     switch (options.data_sort_type) {
                         case "numerically":
-                            // if (unique_group.length === 1) {
-                                data.sort(function (a,b) {
-                                                                
-                                    return ((options.data_sort_order === "descending") ? (b[column_to_be_sorted] - a[column_to_be_sorted]) : (a[column_to_be_sorted] - b[column_to_be_sorted]));
-                                });
-                            // }
+                            data.sort(function (a,b) {                                                                
+                                return ((options.data_sort_order === "descending") ? (b[column_to_be_sorted] - a[column_to_be_sorted]) : (a[column_to_be_sorted] - b[column_to_be_sorted]));
+                            });
                             break;
                         case "alphabetically":
                             data.sort(function (a,b) {
@@ -1732,7 +1730,7 @@ configuration.mouseEvent = function (options) {
                 }
             }
         },
-        crossHairPosition: function(data,new_data,xScale,yScale,dataLineGroup,lineMargin,domain,type,tooltipMode,color_from_data,panels_enable){
+        crossHairPosition: function(new_data,xScale,yScale,dataLineGroup,lineMargin,domain,type,tooltipMode,color_from_data,panels_enable){
             if((PykCharts['boolean'](options.crosshair_enable) || PykCharts['boolean'](options.tooltip_enable) || PykCharts['boolean'](options.axis_onhover_highlight_enable))  && options.mode === "default") {
                 var selectSVG = $(options.selector + " #"+dataLineGroup[0][0][0].parentNode.parentNode.id)
                     var width_percentage = 0;
@@ -2261,6 +2259,7 @@ configuration.makeXAxis = function(options,xScale) {
     } else if(options.axis_x_data_format === "number") {
         xaxis.ticks(options.axis_x_no_of_axis_value);
     }
+    
     return xaxis;
 };
 
