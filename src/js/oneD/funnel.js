@@ -142,6 +142,7 @@ PykCharts.oneD.funnel = function (options) {
         var data,
             size,
             mouth,
+            sort_data,
             coordinates;
 
         var funnel = {
@@ -151,6 +152,13 @@ PykCharts.oneD.funnel = function (options) {
 
                 } else {
                     data = d;
+                    // sort_data = d.map(function (d){
+                    //     return d.weight;
+                    // })
+                    // data = sort_data.sort(function (a,b){
+                    //     return b-a;
+                    // });
+                    // console.log(data,"dataaa")
                 }
                 return this;
             },
@@ -182,23 +190,47 @@ PykCharts.oneD.funnel = function (options) {
                 var height3=0;
                 var merge = 0;
                 var coordinates = [];
-                var percentValues = that.percentageValues(data);
+                // var percentValues = that.percentageValues(data);
+
+                // console.log(w,h,"width height");
+                // console.log(rw,rh,"rect width, rect height");
+                // console.log(tw,th,"tri width, tri height");
                 var ratio = tw/th;
                 var area_of_trapezium = (w + rw) / 2 * th;
+                // console.log(area_of_trapezium,"area_of_trapezium");
                 var area_of_rectangle = rw * rh;
                 var total_area = area_of_trapezium + area_of_rectangle;
                 var percent_of_rectangle = area_of_rectangle / total_area * 100;
-                function d3Sum (i) {
-                    return d3.sum(percentValues,function (d, j){
-                        if (j>=i) {
-                            return d;
-                        }
+                // function d3Sum (i) {
+                //     return d3.sum(percentValues,function (d, j){
+                //         if (j>=i) {
+                //             return d;
+                //         }
+                //     });
+                // }
+                function perValue (data) {
+                    // console.log(data,"dataaaaaaaaaaaaaaaaaaaaaa");
+                    var per_value = data.map(function (d){
+                        var weight_max = d3.max(data, function (d) {
+                            return d.weight;
+                        })
+                        return d.weight/weight_max*100;
+                    })
+                    per_value.sort(function(a,b){
+                        return b-a;
                     });
+                    return per_value;
                 }
                 for (var i=data.length-1; i>=0; i--){
-                    var selectedPercentValues = d3Sum(i);
+                    // var selectedPercentValues = d3Sum(i);
+                    console.log(data,"data in coordinates");
+                    // var selectedPercentValues = that.percentageValues(data)[i];
+                    var selectedPercentValues = perValue(data)[i];
+                    console.log(selectedPercentValues,"selectedPercentValues");
+                    // console.log(percent_of_rectangle,"percent_of_rectangle");
                     if (percent_of_rectangle>=selectedPercentValues){
                         height3 = selectedPercentValues / percent_of_rectangle * rh;
+                        // console.log(height3,"height3");
                         height1 = h - height3;
                         if (i===data.length-1){
                             coordinates[i] = {"values":[{"x":(w-rw)/2,"y":height1},{"x":(w-rw)/2,"y":h},{"x":((w-rw)/2)+rw,"y":h},{"x":((w-rw)/2)+rw,"y":height1}]};
@@ -209,8 +241,10 @@ PykCharts.oneD.funnel = function (options) {
                         var area_of_element;
                         if(merge===0){
                             area_of_element = (selectedPercentValues - percent_of_rectangle)/100 * area_of_trapezium;
+                            console.log(area_of_element,"area_of_element");
                         }else{
                             area_of_element = selectedPercentValues/100 * area_of_trapezium;
+                            console.log(area_of_element,"area_of_element");
                         }
                         var a = 2 * ratio;
                         var b = 2 * rw;
@@ -227,17 +261,18 @@ PykCharts.oneD.funnel = function (options) {
                             }
                         }
                         else{
-                                var coindex;
-                                if(coordinates[i+1].values.length===6){
-                                    coindex = 5;
-                                }else{
-                                    coindex = 3;
-                                }
-                                coordinates[i] = {"values":[{"x":xwidth,"y":height1},coordinates[i+1].values[0],coordinates[i+1].values[coindex],{"x":base+xwidth,"y":height1}]};
+                            var coindex;
+                            if(coordinates[i+1].values.length===6){
+                                coindex = 5;
+                            }else{
+                                coindex = 3;
+                            }
+                            coordinates[i] = {"values":[{"x":xwidth,"y":height1},coordinates[i+1].values[0],coordinates[i+1].values[coindex],{"x":base+xwidth,"y":height1}]};
                         }
                         merge = 1;
                     }
                 }
+                console.log(coordinates,"coordinates");
                 return coordinates;
             }
         };
@@ -246,17 +281,25 @@ PykCharts.oneD.funnel = function (options) {
 
     this.percentageValues = function (data){
         var that = this;
-        that.sum = d3.sum(data, function (d){
-            return d.weight;
-        });
+        // that.sum = d3.sum(data, function (d){
+        //     return d.weight;
+        // });
+        console.log(data,"percentageValues data")
         var percentValues = data.map(function (d){
-            return d.weight/that.sum*100;
+            console.log(d,"its ddddd")
+            var weight_max = d3.max(data, function (d) {
+                return d.weight;
+            })
+            return d.weight/weight_max*100;
+            // return d.weight/that.sum*100;
         });
         percentValues.sort(function(a,b){
             return b-a;
         });
+        console.log(percentValues,"percentValues");
         return percentValues;
     };
+
     this.optionalFeatures = function () {
 
         var optional = {
@@ -277,6 +320,8 @@ PykCharts.oneD.funnel = function (options) {
                 return this;
             },
             createChart: function () {
+                
+                console.log(that.data,"createChart")
                 that.per_values = that.percentageValues(that.data);
                 that.funnel = that.funnelLayout()
                                 .data(that.data)

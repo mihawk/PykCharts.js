@@ -110,7 +110,7 @@ module.exports = function(grunt) {
         // Remove consolelogs
         removelogging: {
             dist: {
-                src: ['lib/*.js', 'src/**/*.js', 'pykih-charts/**/*.js'],
+                src: ['lib/*.js', 'pykih-charts/**/*.js'],
                 options: {}
             }
         },
