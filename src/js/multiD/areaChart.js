@@ -200,7 +200,7 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
         }
 
         for (var k = 0;k < that.new_data_length;k++) {
-            that.new_data[k].data = that.k.__proto__._sortData(that.new_data[k].data, that.uniq_group_arr, "x", "name", that);
+            that.new_data[k].data = that.k.__proto__._sortData(that.new_data[k].data, "x", "name", that);
         }
     };
 	

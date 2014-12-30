@@ -1,0 +1,19 @@
+name,x,y,weight,group
+Dairy Milk,80,1.5,500,Cadbury
+Galaxy,42,5,530,Nestle
+Kit-Kat,55,4,580,Nestle
+Lindt,80,4,590,ABC
+5 Star,65,2.5,570,Hershey
+Munch,65,3.5,200,Hershey
+Hershey,61,4,560,Hershey
+Dolfin,60,4,250,Lindt
+Bournville,70,2,500,Cadbury
+Dairy Milk,100,3,400,Cadbury
+Galaxy,50,2.5,480,Nestle
+Kit-Kat,51,2.5,350,Nestle
+Lindt,80,5,270,ABC
+5 Star,45,2.5,470,Hershey
+Munch,85,3.5,360,Hershey
+Hershey,40,5,270,Hershey
+Dolfin,60,3,350,Lindt
+Bournville,30,5,400,Cadbury
