@@ -765,10 +765,10 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                             })
                             .on("mousemove", function(){
                                 if(!PykCharts['boolean'](that.panels_enable)) {
-                                    that.mouseEvent.crossHairPosition(that.data,that.new_data,that.xScale,that.yScale,that.dataLineGroup,that.extra_left_margin,that.xdomain,that.type,that.tooltipMode,that.color_from_data,null);
+                                    that.mouseEvent.crossHairPosition(that.new_data,that.xScale,that.yScale,that.dataLineGroup,that.extra_left_margin,that.xdomain,that.type,that.tooltipMode,that.color_from_data,null);
                                 }
                                 else {
-                                    that.mouseEvent.crossHairPosition(that.data,that.new_data,that.xScale,that.yScale,that.dataLineGroup,that.extra_left_margin,that.xdomain);
+                                    that.mouseEvent.crossHairPosition(that.new_data,that.xScale,that.yScale,that.dataLineGroup,that.extra_left_margin,that.xdomain);
                                 }
                             });
                     }
@@ -902,7 +902,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                                 that.mouseEvent.axisHighlightHide(that.selector + " .y.axis");
                             })
                             .on("mousemove", function(){
-                                that.mouseEvent.crossHairPosition(that.data,that.new_data,that.xScale,that.yScale,that.dataLineGroup,that.extra_left_margin,that.xdomain,that.type,that.tooltipMode,that.color_from_data,null);
+                                that.mouseEvent.crossHairPosition(that.new_data,that.xScale,that.yScale,that.dataLineGroup,that.extra_left_margin,that.xdomain,that.type,that.tooltipMode,that.color_from_data,null);
                             });
 
                     }
@@ -920,7 +920,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                             .on("mousemove", function(){
                                 var line = [];
                                 line[0] = d3.select(that.selector+" #"+this.id+" .lines-hover");
-                                that.mouseEvent.crossHairPosition(that.data,that.new_data,that.xScale,that.yScale,line,that.extra_left_margin,that.xdomain,that.type,that.tooltipMode,that.color_from_data,that.panels_enable);
+                                that.mouseEvent.crossHairPosition(that.new_data,that.xScale,that.yScale,line,that.extra_left_margin,that.xdomain,that.type,that.tooltipMode,that.color_from_data,that.panels_enable);
                                 for(var a=0;a < that.new_data_length;a++) {
                                     $(that.selector+" #svg-"+a).trigger("mousemove");
                                 }

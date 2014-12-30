@@ -625,7 +625,7 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 								that.mouseEvent.axisHighlightHide(that.selector + " .y.axis");
 		          			})
 							.on("mousemove", function(){
-								that.mouseEvent.crossHairPosition(that.data,that.new_data,that.xScale,that.yScale,that.dataLineGroup,that.extra_left_margin,that.xdomain,that.type,that.tooltip_mode);
+								that.mouseEvent.crossHairPosition(that.new_data,that.xScale,that.yScale,that.dataLineGroup,that.extra_left_margin,that.xdomain,that.type,that.tooltip_mode);
 					  		});
 					}
 				}
@@ -708,11 +708,11 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 						})
 						.on("mousemove", function() {
 							if(that.type === "areaChart") {
-								that.mouseEvent.crossHairPosition(that.data,that.new_data,that.xScale,that.yScale,that.dataLineGroup,that.extra_left_margin,that.xdomain,that.type,that.tooltip_mode);
+								that.mouseEvent.crossHairPosition(that.new_data,that.xScale,that.yScale,that.dataLineGroup,that.extra_left_margin,that.xdomain,that.type,that.tooltip_mode);
 							} else if(that.type === "stackedAreaChart") {
 								var line = [];
 								line[0] = d3.select(that.selector+" #"+this.id+" .stacked-area");
-								that.mouseEvent.crossHairPosition(that.data,that.new_data,that.xScale,that.yScale,line,that.extra_left_margin,that.xdomain,that.type,that.tooltipMode,that.color_from_data,"no");
+								that.mouseEvent.crossHairPosition(that.new_data,that.xScale,that.yScale,line,that.extra_left_margin,that.xdomain,that.type,that.tooltipMode,that.color_from_data,"no");
 								for(var a=0;a < that.new_data_length;a++) {
 									$(that.selector+" #svg-"+a).trigger("mousemove");
 								}
