@@ -593,6 +593,7 @@ PykCharts.Configuration = function (options){
                 if(options.axis_x_position === "bottom") {
                     gsvg.attr("transform", "translate(0," + (options.height - options.margin_top - options.margin_bottom - legendsGroup_height) + ")");
                 }
+
                 var xaxis = PykCharts.Configuration.makeXAxis(options,xScale);
 
                 if(tick_values && tick_values.length) {
@@ -1679,7 +1680,8 @@ configuration.mouseEvent = function (options) {
                     width_percentage = selectSVG.width() / options.width;
                     height_percentge = selectSVG.height() / options.height;
                 } else {
-                    width_percentage = 1
+                    width_percentage = 1;
+                    height_percentge = 1;
                 }
                 var legendsGroup_height = options.legendsGroup_height ? options.legendsGroup_height: 0;
                 var offsetLeft =  (options.margin_left + lineMargin + selectSVG.offset().left) * width_percentage;

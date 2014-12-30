@@ -336,6 +336,7 @@ PykCharts.multiD.groupedColumn = function(options) {
                     that.x1 = d3.scale.ordinal()
                         .domain(that.getuniqueGroups)
                         .rangeRoundBands([0, that.xScale.rangeBand()]) ;
+                    
 
                 } else if(that.axis_x_data_format === "string") {
                     x_data = that.new_data.map(function (d) { return d.name; });

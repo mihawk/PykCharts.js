@@ -43,7 +43,8 @@
         <script src="../src/js/multiD/lineChart.js"></script>
         <script src="../src/js/multiD/spiderWeb.js"></script>
         <script src="../src/js/multiD/scatterplot.js"></script>
-        <script src="../src/js/multiD/barChart.js"></script>
+        <script src="../src/js/multiD/bar.js"></script>
+        <script src="../src/js/multiD/groupBarChart.js"></script>
 
         <script>
 
@@ -51,7 +52,8 @@
             window.PykChartsInit = function (e) {
                 var k = new PykCharts.multiD.line ({
                     selector: "#line",
-                    data: "name,x,y,color,tooltip\nNew York,1,2,steelblue,2\nNew York,2,4,steelblue,4",
+              //      data: "name,x,y,color,tooltip\nNew York,1,2,steelblue,2\nNew York,2,4,steelblue,4",
+                    data: "../data/line.csv",
                     mode : "default",
                     color_mode: "color", //color or saturation
                     chart_color:["#00008B"],
@@ -113,7 +115,7 @@
 
                 var k = new PykCharts.multiD.area ({
                     selector: "#area",
-                    data: "../data/line_timescale.json",
+                    data: "../data/area.csv",
                     mode : "default",
 
                     color_mode: "color",  //color or saturation
@@ -175,7 +177,7 @@
 
                 var k = new PykCharts.multiD.spiderWeb ({
                     selector: "#spiderWeb",
-                    data: "../data/spiderWeb.json",
+                    data: "../data/spider.csv",
                     mode : "default",
 
                     spiderweb_radius : "5",
@@ -213,7 +215,7 @@
 
                 var k = new PykCharts.multiD.scatter ({
                     selector: "#scatterPlot",
-                    data: "../data/scatterplot_timescale.json",
+                    data: "../data/scatter.csv",
                     mode : "default",
 
                     chart_color: ["#07365e","#0e5ea1","#4682b4","#75b0e1","#a0ccf1"],
@@ -292,7 +294,7 @@
 
                 var k = new PykCharts.multiD.panelsOfScatter ({
                     selector: "#multiple-scatterplots",
-                    data: "../data/scatterplot_timescale.json",
+                    data: "../data/panel-of-scatters.csv",
                     mode : "default",
                     background_color: "transparent",
                     // chart_color: ["#07365e","#0e5ea1","#4682b4","#75b0e1","#a0ccf1"],
@@ -413,7 +415,7 @@
 
                 var k = new PykCharts.multiD.multiSeriesLine ({
                     selector: "#multiple-multiLine",
-                    data: "../data/multipleContainerLine.json",
+                    data: "../data/multi-series-line.csv",
                     mode : "default",
 
                     color_mode: "color",  //color or saturation
@@ -604,7 +606,7 @@
             k.execute();
 
                 var k = new PykCharts.multiD.column({
-                    data: "../data/ultimateColumn.json",
+                    data: "../data/column.csv",
                     mode: "default",
                     selector: "#column",
                     color_mode: "color",
@@ -661,7 +663,7 @@
                 });
             k.execute();
                 var k = new PykCharts.multiD.bar({
-                    data: "../data/ultimatebar_date.json",
+                    data: "../data/bar.csv",
                     mode: "default",
                     selector: "#bar",
                     color_mode: "saturation",
@@ -669,7 +671,7 @@
                     background_color:"white",
 
                     chart_height: 430,
-                    chart_width : 400,
+                    chart_width : 700,
                     chart_margin_top: 25,
                     chart_margin_right: 25,
                     chart_margin_bottom: 35,
@@ -682,7 +684,7 @@
                     axis_x_enable: "yes",
                     axis_x_title : "Rainfall",
                     axis_x_position: "bottom",
-                    // axis_x_pointer_position: "bottom",
+                    axis_x_pointer_position: "bottom",
                     axis_x_line_color: "#1D1D1D",
                     axis_x_pointer_color: "#1D1D1D",
                     axis_x_pointer_size: 12,
@@ -720,12 +722,11 @@
                 });
           k.execute();
 
-
                 var k = new PykCharts.multiD.groupedBar({
-                    data: "../data/ultimateGroupBar.json",
+                    data: "../data/grouped-bar.csv",
                     mode: "default",
                     selector: "#groupBar",
-                    chart_height: 430,
+                    chart_height: 630,
                     chart_width : 700,
                     chart_margin_top: 25,
                     chart_margin_right: 45,
@@ -733,7 +734,6 @@
                     chart_margin_left: 140,
 
                     color_mode:"color",
-
                     background_color:"white",
                     chart_color:["orange","red","yellow","purple"],
 
@@ -760,7 +760,7 @@
                     axis_y_pointer_size: 12,
                     axis_y_pointer_padding: 10,
                     axis_y_outer_pointer_length: 3,
-
+                    axis_x_time_value_interval:2,
                     highlight_color: "#013F73",
                     panels_enable: "yes",
 
@@ -777,17 +777,17 @@
                     pointer_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
                     saturation_enable: "no",
                     axis_x_pointer_weight: "normal",
-                    // axis_x_pointer_values: [20,10],
+                    axis_y_pointer_values: [2000,2004,2008,2012],
                     data_sort_enable: "yes",
                     highlight: "2014-02-01",
                     legends_enable: "yes",
-                    legends_display: "horizontal",
+                    legends_display: "vertical",
                     legends_text_size: 12,
-                    legends_text_color: "red",
+                    legends_text_color: "black",
                     legends_text_weight: "normal",
                     legends_text_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
                     "data_sort_enable": "yes",
-                    "data_sort_type": "date", // sort type --- "alphabetically" / "date"
+                    "data_sort_type": "alphabetically", // sort type --- "alphabetically" / "date"
                     "data_sort_order": "ascending", // sort order --- "descending" / "ascending",
                     highlight:"india"
                     // legends_text_family: "Papyrus",
@@ -796,7 +796,7 @@
                 });
            k.execute();
                 var k = new PykCharts.multiD.groupedColumn({
-                    data: "../data/ultimateGroupColumn.json",
+                    data: "../data/grouped-column.csv",
                     mode: "default",
                     selector: "#groupColumn",
 
@@ -830,6 +830,7 @@
                     axis_x_outer_pointer_length: 3,
                     axis_x_pointer_weight:"bold",
                     axis_x_time_value_datatype: "month",
+                    // axis_x_pointer_values : [],
                     axis_y_enable: "yes",
                     axis_y_title : "Production",
                     axis_y_position: "left",

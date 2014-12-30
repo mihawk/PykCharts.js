@@ -1,0 +1,10 @@
+x,y,group,stack,tooltip
+January,48.9,Rainfall(mm),Stack,<table class='PykCharts'><tr><th>Rainfall(mm)</th></tr><tr><td>48.9</td></tr></table>
+Feb,38.8,Rainfall(mm),Stack,<table class='PykCharts'><tr><th>Rainfall(mm)</th></tr><tr><td>38.8</td></tr></table>
+March,39.3,Rainfall(mm),Stack,<table class='PykCharts'><tr><th>Rainfall(mm)</th></tr><tr><td>39.3</td></tr></table>
+April,41.4,Rainfall(mm),Stack,<table class='PykCharts'><tr><th>Rainfall(mm)</th></tr><tr><td>41.4</td></tr></table>
+June,47,Rainfall(mm),Stack,<table class='PykCharts'><tr><th>Rainfall(mm)</th></tr><tr><td>47</td></tr></table>
+July,48.3,Rainfall(mm),Stack,<table class='PykCharts'><tr><th>Rainfall(mm)</th></tr><tr><td>48.3</td></tr></table>
+August,59,Rainfall(mm),Stack,<table class='PykCharts'><tr><th>Rainfall(mm)</th></tr><tr><td>59</td></tr></table>
+September,59.6,Rainfall(mm),Stack,<table class='PykCharts'><tr><th>Rainfall(mm)</th></tr><tr><td>59.6</td></tr></table>
+October,52.4,Rainfall(mm),Stack,<table class='PykCharts'><tr><th>Rainfall(mm)</th></tr><tr><td>52.4</td></tr></table>

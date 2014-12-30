@@ -125,7 +125,6 @@ PykCharts.multiD.groupedBar = function(options){
         that.dataTransformation();
         that.optionalFeatures().mapColors();
 
-        
         that.border = new PykCharts.Configuration.border(that);
         that.transitions = new PykCharts.Configuration.transition(that);
         that.mouseEvent1 = new PykCharts.multiD.mouseEvent(that);
@@ -160,7 +159,10 @@ PykCharts.multiD.groupedBar = function(options){
                .highlightRect()
                .ticks();
 
-            // 
+        
+            that.k.xAxis(that.svgContainer,that.xGroup,that.xScale,that.extra_left_margin,that.xdomain,that.x_tick_values,that.legendsGroup_height)
+                .xAxisTitle(that.xGroup)
+                .yAxisTitle(that.yGroup);
             if(that.axis_y_data_format !== "string") {
                 that.k.yAxis(that.svgContainer,that.yGroup,that.yScale1,that.ydomain,that.y_tick_values,that.legendsGroup_width,"groupbar");
                 that.optionalFeatures().newYAxis();
@@ -289,8 +291,7 @@ PykCharts.multiD.groupedBar = function(options){
                     if(y_data[1] < max_y_tick_value) {
                         y_data[1] = max_y_tick_value;
                     }
-
-                    
+   
                     that.new_data.sort(function (a,b) {
                         return a.name - b.name;
                     })
@@ -302,7 +303,6 @@ PykCharts.multiD.groupedBar = function(options){
                         .domain(that.getuniqueGroups)
                         .rangeRoundBands([that.yScale.rangeBand(),0]) ;
                     that.extra_top_margin = 0;
-                    
                 } else if(that.axis_y_data_format === "string") {
                     y_data = that.new_data.map(function (d) { return d.name; });
                     y_range = [0,that.reduced_height];
@@ -666,7 +666,7 @@ PykCharts.multiD.groupedBar = function(options){
             newYAxis : function () {
                 if(PykCharts["boolean"](that.axis_y_enable)) {
                     if(that.axis_y_position === "right") {
-                        gsvg.attr("transform", "translate(" + (that.width - that.margin_left - that.margin_right - that.legendsGroup_width) + ",0)");
+                        that.new_yAxisgroup.attr("transform", "translate(" + (that.width - that.margin_left - that.margin_right - that.legendsGroup_width) + ",0)");
                     }
                     var yaxis = d3.svg.axis()
                         .scale(that.yScale)
