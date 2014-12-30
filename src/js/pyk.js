@@ -1060,7 +1060,7 @@ PykCharts.Configuration = function (options){
             if(PykCharts['boolean'](options.export_enable)) {
                 d3.select(options.selector)
                         .append("div")
-                        .attr("class","pyk-tooltip dropdown-multipleConatiner-export")
+                        .attr("class","dropdown-multipleConatiner-export")
                         .style("left",options.width - 80 + "px")
                         .style("top","10px")
                         .style("height","auto")
@@ -1160,12 +1160,13 @@ PykCharts.Configuration = function (options){
 
                 $(chart.selector + " #"+id).click(function () {
                   PykCharts.export_menu_status = 1;
-                    console.log(PykCharts.export_menu_status)
+                    console.log(PykCharts.export_menu_status, d3.select(options.selector + " .dropdown-multipleConatiner-export"))
                     d3.select(options.selector + " .dropdown-multipleConatiner-export").style("visibility", "visible");
                 });
 
                 if(!PykCharts['boolean'](panels_enable)) {
                     $(chart.selector + " #span").click(function () {
+                        console.log("export")
                         d3.select(options.selector + " .dropdown-multipleConatiner-export").style("visibility", "hidden");
                         chart.k.processSVG(document.querySelector(options.selector +" "+svgId),chart_name);
                         project.importSVG(document.querySelector(options.selector +" "+svgId));
@@ -1556,7 +1557,8 @@ configuration.mouseEvent = function (options) {
                     width_percentage = selectSVG.width() / options.width;
                     height_percentge = selectSVG.height() / options.height;
                 } else {
-                    width_percentage = 1
+                    width_percentage = 1;
+                    height_percentge = 1;
                 }
                 var legendsGroup_height = options.legendsGroup_height ? options.legendsGroup_height: 0;
                 var offsetLeft =  (options.margin_left + lineMargin + selectSVG.offset().left) * width_percentage;
@@ -1672,6 +1674,7 @@ configuration.mouseEvent = function (options) {
                                                         cond = new_data[a].data[b].x === active_x_tick;
                                                     }
                                                     if(cond) {
+                                                      //  console.log(height_percentge,"height_percentge")
                                                         active_y_tick.push(new_data[a].data[b].y);
                                                         tooltipText = new_data[a].data[b].tooltip;
                                                         pos_line_cursor_y = (yScale(new_data[a].data[b].y) + top);

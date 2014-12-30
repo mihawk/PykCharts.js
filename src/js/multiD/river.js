@@ -247,7 +247,7 @@ PykCharts.multiD.river = function (options){
                         .attr('id',"legends")
                         .style("visibility","visible")
                         .attr("class", "legend-holder")
-                        .attr("transform","translate(0,10)");
+                        // .attr("transform","translate(0,10)");
                 } else {
                     that.legendsGroup_height = 0;
                     that.legendsGroup_width = 0;
@@ -750,7 +750,7 @@ PykCharts.multiD.river = function (options){
                     }
 
                     translate_x = (that.legends_display === "vertical") ? (that.width - that.legendsGroup_width)  : (that.width - legend_container_width - 20);
-                    
+                    console.log(translate_y, legend_container_width < that.width)                   
                     if (legend_container_width < that.width) { that.legendsGroup.attr("transform","translate("+translate_x+"," + translate_y + ")"); }
                     that.legendsGroup.style("visibility","visible");
 
