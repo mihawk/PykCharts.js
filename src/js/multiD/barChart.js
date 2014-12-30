@@ -934,7 +934,7 @@ PykCharts.multiD.barFunctions = function (options,chartObject,type) {
 
     that.dataTransformation = function () {
 
-        var data_tranform = [];
+        var data_tranform = [], column_to_be_sorted = "";
         that.barName = [];
 
         var data_length = that.data.length;
@@ -965,62 +965,15 @@ PykCharts.multiD.barFunctions = function (options,chartObject,type) {
                 that.k.warningHandling(err,"8");
             }
         }
-        if(!PykCharts['boolean'](that.data_sort_enable)) {
-            that.data.sort(function(a,b) {
-                if (a.group < b.group) {
-                    return -1;
-                }
-                else if (a.group > b.group) {
-                    return 1;
-                }
-            });
-        }
 
-        if (PykCharts['boolean'](that.data_sort_enable)) {
-            switch (that.data_sort_type) {
-                case "numerically":
-                    if (that.unique_group.length === 1) {
-                        that.data.sort(function (a,b) {
-                            return ((that.data_sort_order === "descending") ? (b.x - a.x) : (a.x - b.x));
-                        });
-                    }
-                    break;
-                case "alphabetically":
-                    that.data.sort(function (a,b) {
-                        if (a.y < b.y) {
-                            return (that.data_sort_order === "descending") ? 1 : -1;
-                        }
-                        else if (a.y > b.y) {
-                            return (that.data_sort_order === "descending") ? -1 : 1;
-                        }
-                        else if (a.group < b.group) {
-                            return (that.data_sort_order === "descending") ? 1 : -1;
-                        }
-                        else if (a.group > b.group) {
-                            return (that.data_sort_order === "descending") ? -1 : 1;
-                        }
-                        return 0;
-                    });
-                    break;
-                case "date":
-                    that.data.sort(function (a,b) {
-                        if (new Date(a.y) < new Date(b.y)) {
-                            return (that.data_sort_order === "descending") ? 1 : -1;
-                        }
-                        else if (new Date(a.y) > new Date(b.y)) {
-                            return (that.data_sort_order === "descending") ? -1 : 1;
-                        }
-                        else if (a.group < b.group) {
-                            return (that.data_sort_order === "descending") ? 1 : -1;
-                        }
-                        else if (a.group > b.group) {
-                            return (that.data_sort_order === "descending") ? -1 : 1;
-                        }
-                        return 0;
-                    });
-                    break;
-            }
+        switch (that.data_sort_type) {
+            case "alphabetically":
+            case "date":            column_to_be_sorted = "y";
+                                    break;
+            case "numerically":     column_to_be_sorted = "x";
+                                    break;
         }
+        that.data = that.k.__proto__._sortData(that.data,that.unique_group,column_to_be_sorted,"group",that); // data_sort
 
         for(var i=0; i < data_length; i++) {
             var group = {},

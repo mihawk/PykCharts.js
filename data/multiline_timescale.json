@@ -28,6 +28,34 @@
 		"tooltip":40
 	},
 	{
+		"name":"India",
+		"color": "#75b0e1",
+		"x":"2014-01-04",
+		"y":40,
+		"tooltip":40
+	},
+	{
+		"name":"India",
+		"color": "#75b0e1",
+		"x":"2014-01-05",
+		"y":50,
+		"tooltip":50
+	},
+	{
+		"name":"India",
+		"color": "#75b0e1",
+		"x":"2014-01-07",
+		"y":40,
+		"tooltip":40
+	},
+	{
+		"name":"India",
+		"color": "#75b0e1",
+		"x":"2014-01-08",
+		"y":70,
+		"tooltip":70
+	},
+	{
 		"name":"China",
 		"color": "#013f73",
 		"x":"2014-01-05",
@@ -117,33 +145,5 @@
 		"x":"2014-01-03",
 		"y":80,
 		"tooltip":80
-	},
-	{
-		"name":"India",
-		"color": "#75b0e1",
-		"x":"2014-01-04",
-		"y":40,
-		"tooltip":40
-	},
-	{
-		"name":"India",
-		"color": "#75b0e1",
-		"x":"2014-01-05",
-		"y":50,
-		"tooltip":50
-	},
-	{
-		"name":"India",
-		"color": "#75b0e1",
-		"x":"2014-01-07",
-		"y":40,
-		"tooltip":40
-	},
-	{
-		"name":"India",
-		"color": "#75b0e1",
-		"x":"2014-01-08",
-		"y":70,
-		"tooltip":70
 	}
 ]

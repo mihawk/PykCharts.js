@@ -1135,6 +1135,65 @@ PykCharts.Configuration = function (options){
                     }
                 };
                 return gd;
+            },
+            _sortData: function (data, unique_group, column_to_be_sorted, group_column_name, options) {
+                if(!PykCharts['boolean'](options.data_sort_enable)) {
+                    data.sort(function(a,b) {
+                        if (a[group_column_name] < b[group_column_name]) {
+                            return -1;
+                        }
+                        else if (a[group_column_name] > b[group_column_name]) {
+                            return 1;
+                        }
+                    });
+
+                } else if (PykCharts['boolean'](options.data_sort_enable)) {
+                    switch (options.data_sort_type) {
+                        case "numerically":
+                            // if (unique_group.length === 1) {
+                                data.sort(function (a,b) {
+                                    console.log((a[column_to_be_sorted] - b[column_to_be_sorted]));                            
+                                    return ((options.data_sort_order === "descending") ? (b[column_to_be_sorted] - a[column_to_be_sorted]) : (a[column_to_be_sorted] - b[column_to_be_sorted]));
+                                });
+                            // }
+                            break;
+                        case "alphabetically":
+                            data.sort(function (a,b) {
+                                if (a[column_to_be_sorted] < b[column_to_be_sorted]) {
+                                    return (options.data_sort_order === "descending") ? 1 : -1;
+                                }
+                                else if (a[column_to_be_sorted] > b[column_to_be_sorted]) {
+                                    return (options.data_sort_order === "descending") ? -1 : 1;
+                                }
+                                else if (a[group_column_name] < b[group_column_name]) {
+                                    return (options.data_sort_order === "descending") ? 1 : -1;
+                                }
+                                else if (a[group_column_name] > b[group_column_name]) {
+                                    return (options.data_sort_order === "descending") ? -1 : 1;
+                                }
+                                return 0;
+                            });
+                            break;
+                        case "date":
+                            data.sort(function (a,b) {
+                                if (new Date(a[column_to_be_sorted]) < new Date(b[column_to_be_sorted])) {
+                                    return (options.data_sort_order === "descending") ? 1 : -1;
+                                }
+                                else if (new Date(a[column_to_be_sorted]) > new Date(b[column_to_be_sorted])) {
+                                    return (options.data_sort_order === "descending") ? -1 : 1;
+                                }
+                                else if (a[group_column_name] < b[group_column_name]) {
+                                    return (options.data_sort_order === "descending") ? 1 : -1;
+                                }
+                                else if (a[group_column_name] > b[group_column_name]) {
+                                    return (options.data_sort_order === "descending") ? -1 : 1;
+                                }
+                                return 0;
+                            });
+                            break;
+                    }
+                }
+                return data;
             }
         },
         backgroundColor: function (options) {
@@ -1681,7 +1740,8 @@ configuration.mouseEvent = function (options) {
                     width_percentage = selectSVG.width() / options.width;
                     height_percentge = selectSVG.height() / options.height;
                 } else {
-                    width_percentage = 1
+                    width_percentage = 1;
+                    height_percentge = 1;
                 }
                 var legendsGroup_height = options.legendsGroup_height ? options.legendsGroup_height: 0;
                 var offsetLeft =  (options.margin_left + lineMargin + selectSVG.offset().left) * width_percentage;
@@ -1698,7 +1758,6 @@ configuration.mouseEvent = function (options) {
                 var x = PykCharts.getEvent().pageX - offsetLeft;
                 var y = PykCharts.getEvent().pageY - offsetTop - top;
                 var x_range = [];
-
                 if(options.axis_x_data_format==="string") {
                     x_range = xScale.range();
                 } else {
@@ -1732,17 +1791,21 @@ configuration.mouseEvent = function (options) {
                                 left_diff = (left_tick - x), right_diff = (x - right_tick);
                                 if(left_diff >= right_diff) {
                                     active_x_tick = new_data[0].data[j].x;
-                                    active_y_tick.push(data[j].y);
-                                    tooltipText = data[j].tooltip || data[j].y;
+                                    active_y_tick.push(new_data[0].data[j].y);
+                                    console.log(new_data[0].data[j].x, " === ", (new_data[0].data[j].tooltip || new_data[0].data[j].y));
+                                    // tooltipText = data[j].tooltip || data[j].y;
+                                    tooltipText = new_data[0].data[j].tooltip || new_data[0].data[j].y;
                                     pos_line_cursor_x = (xScale(active_x_tick) + lineMargin + left);
-                                    pos_line_cursor_y = (yScale(data[j].y) + top);
+                                    pos_line_cursor_y = (yScale(tooltipText) + top);
                                 }
                                 else {
                                     active_x_tick = new_data[0].data[j+1].x;
-                                    active_y_tick.push(data[j+1].y);
-                                    tooltipText = data[j+1].tooltip || data[j+1].y; // Line Chart ONLY!
+                                    active_y_tick.push(new_data[0].data[j+1].y);
+                                    console.log(new_data[0].data[j+1].x, " === ", (new_data[0].data[j+1].tooltip || new_data[0].data[j+1].y));
+                                    // tooltipText = data[j+1].tooltip || data[j+1].y; // Line Chart ONLY!
+                                    tooltipText = new_data[0].data[j+1].tooltip || new_data[0].data[j+1].y; // Line Chart ONLY!
                                     pos_line_cursor_x = (xScale(active_x_tick) + lineMargin + left);
-                                    pos_line_cursor_y = (yScale(data[j+1].y) + top);
+                                    pos_line_cursor_y = (yScale(tooltipText) + top);
                                 }
                                 if((pos_line_cursor_y > top && pos_line_cursor_y < (h-bottom)) && (pos_line_cursor_x >= left && pos_line_cursor_x <= (w-right))) {
                                     if(type === "multilineChart" /*|| type === "stackedAreaChart"*/) {

@@ -41,6 +41,15 @@ PykCharts.multiD.area = function (options){
 			that.data_length = that.data.length;
 			$(that.selector+" #chart-loader").remove();
 			$(that.selector).css("height","auto")
+
+			if (that.axis_x_data_format === "string") {
+                that.data_sort_enable = "no";                
+            }
+            else {
+                that.data_sort_enable = "yes";
+                that.data_sort_type = (that.axis_x_data_format === "time") ? "date" : "numerically";
+                that.data_sort_order = "ascending";
+            }
 			PykCharts.multiD.areaFunctions(options,that,"area");
 			that.dataTransformation();
 			that.render();
@@ -95,6 +104,14 @@ PykCharts.multiD.stackedArea = function (options){
 			$(that.selector+" #chart-loader").remove();
             $(that.selector).css("height","auto");
 			
+			if (that.axis_x_data_format === "string") {
+                that.data_sort_enable = "no";                
+            }
+            else {
+                that.data_sort_enable = "yes";
+                that.data_sort_type = (that.axis_x_data_format === "time") ? "date" : "numerically";
+                that.data_sort_order = "ascending";
+            }
 			PykCharts.multiD.areaFunctions(options,that,"stacked_area");
 			that.dataTransformation();
 			that.render();
@@ -180,6 +197,10 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
                     that.new_data[a].data.splice(i, 0, temp_obj_to_insert_in_new_data);
                 }
             });
+        }
+
+        for (var k = 0;k < that.new_data_length;k++) {
+            that.new_data[k].data = that.k.__proto__._sortData(that.new_data[k].data, that.uniq_group_arr, "x", "name", that);
         }
     };
 	

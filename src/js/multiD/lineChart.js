@@ -4,7 +4,6 @@ PykCharts.multiD.line = function (options) {
 
     this.execute = function () {
 
-
         that = new PykCharts.multiD.processInputs(that, options, "line");
 
         if(that.stop)
@@ -37,6 +36,15 @@ PykCharts.multiD.line = function (options) {
             that.axis_x_data_format = that.k.xAxisDataFormatIdentification(that.data);
             if(that.axis_x_data_format === "time" && that.axis_x_time_value_datatype === "") {
                 console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+that.selector+".(\""+"You seem to have passed Date data so please pass the value for axis_x_time_value_datatype"+"\")  Visit www.chartstore.io/docs#warning_"+"15");
+            }
+
+            if (that.axis_x_data_format === "string") {
+                that.data_sort_enable = "no";                
+            }
+            else {
+                that.data_sort_enable = "yes";
+                that.data_sort_type = (that.axis_x_data_format === "time") ? "date" : "numerically";
+                that.data_sort_order = "ascending";
             }
             PykCharts.multiD.lineFunctions(options,that,"line");
         }
@@ -81,6 +89,15 @@ PykCharts.multiD.multiSeriesLine = function (options) {
             that.axis_x_data_format = that.k.xAxisDataFormatIdentification(that.data);
             if(that.axis_x_data_format === "time" && that.axis_x_time_value_datatype === "") {
                 console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+that.selector+".(\""+"You seem to have passed Date data so please pass the value for axis_x_time_value_datatype"+"\")  Visit www.chartstore.io/docs#warning_"+"15");
+            }
+
+            if (that.axis_x_data_format === "string") {
+                that.data_sort_enable = "no";                
+            }
+            else {
+                that.data_sort_enable = "yes";
+                that.data_sort_type = (that.axis_x_data_format === "time") ? "date" : "numerically";
+                that.data_sort_order = "ascending";
             }
             PykCharts.multiD.lineFunctions(options,that,"multi_series_line");
         };
@@ -127,6 +144,15 @@ PykCharts.multiD.panelsOfLine = function (options) {
             that.axis_x_data_format = that.k.xAxisDataFormatIdentification(that.data);
             if(that.axis_x_data_format === "time" && that.axis_x_time_value_datatype === "") {
                 console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+that.selector+".(\""+"You seem to have passed Date data so please pass the value for axis_x_time_value_datatype"+"\")  Visit www.chartstore.io/docs#warning_"+"15");
+            }
+
+            if (that.axis_x_data_format === "string") {
+                that.data_sort_enable = "no";                
+            }
+            else {
+                that.data_sort_enable = "yes";
+                that.data_sort_type = (that.axis_x_data_format === "time") ? "date" : "numerically";
+                that.data_sort_order = "ascending";
             }
             PykCharts.multiD.lineFunctions(options,that,"panels_of_line");
 
@@ -196,10 +222,10 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
 
         that.new_data_length = that.new_data.length;
         var uniq_x_arr_length = that.uniq_x_arr.length;
-
+        
         for (var a = 0;a < that.new_data_length;a++) {
             that.uniq_x_arr_copy = _.unique(that.x_arr);
-            for(var b = 0;b < that.new_data[a].data.length;b++) {                
+            for(var b = 0;b < that.new_data[a].data.length;b++) {
                 for(var k = 0;k < uniq_x_arr_length;k++) {
                     if(that.new_data[a].data[b].x == that.uniq_x_arr_copy[k]) {
                         that.uniq_x_arr_copy[k] = undefined;
@@ -218,6 +244,10 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                     that.new_data[a].data.splice(i, 0, temp_obj_to_insert_in_new_data);
                 }
             });
+        }
+
+        for (var k = 0;k < that.new_data_length;k++) {
+            that.new_data[k].data = that.k.__proto__._sortData(that.new_data[k].data, that.uniq_group_arr,"x", "name", that);
         }
     };
 

@@ -8,9 +8,30 @@
 	},
 	{
 		"name":"New York",
-		"x":"2",
-		"y":4,
+		"x":"5",
+		"y":1.8,
 		"color":"steelblue",
-		"tooltip":4
+		"tooltip":1.8
+	},
+	{
+		"name":"New York",
+		"x":"3",
+		"y":3.2,
+		"color":"steelblue",
+		"tooltip":3.2
+	},
+	{
+		"name":"New York",
+		"x":"2",
+		"y":4.8,
+		"color":"steelblue",
+		"tooltip":4.8
+	},
+	{
+		"name":"New York",
+		"x":"4",
+		"y":6,
+		"color":"steelblue",
+		"tooltip":6
 	}
 ]
