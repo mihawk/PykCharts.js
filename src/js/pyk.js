@@ -1152,7 +1152,7 @@ PykCharts.Configuration = function (options){
                         case "numerically":
                             // if (unique_group.length === 1) {
                                 data.sort(function (a,b) {
-                                    console.log((a[column_to_be_sorted] - b[column_to_be_sorted]));                            
+                                                                
                                     return ((options.data_sort_order === "descending") ? (b[column_to_be_sorted] - a[column_to_be_sorted]) : (a[column_to_be_sorted] - b[column_to_be_sorted]));
                                 });
                             // }
@@ -1792,7 +1792,7 @@ configuration.mouseEvent = function (options) {
                                 if(left_diff >= right_diff) {
                                     active_x_tick = new_data[0].data[j].x;
                                     active_y_tick.push(new_data[0].data[j].y);
-                                    console.log(new_data[0].data[j].x, " === ", (new_data[0].data[j].tooltip || new_data[0].data[j].y));
+                                    
                                     // tooltipText = data[j].tooltip || data[j].y;
                                     tooltipText = new_data[0].data[j].tooltip || new_data[0].data[j].y;
                                     pos_line_cursor_x = (xScale(active_x_tick) + lineMargin + left);
@@ -1801,7 +1801,7 @@ configuration.mouseEvent = function (options) {
                                 else {
                                     active_x_tick = new_data[0].data[j+1].x;
                                     active_y_tick.push(new_data[0].data[j+1].y);
-                                    console.log(new_data[0].data[j+1].x, " === ", (new_data[0].data[j+1].tooltip || new_data[0].data[j+1].y));
+                                    
                                     // tooltipText = data[j+1].tooltip || data[j+1].y; // Line Chart ONLY!
                                     tooltipText = new_data[0].data[j+1].tooltip || new_data[0].data[j+1].y; // Line Chart ONLY!
                                     pos_line_cursor_x = (xScale(active_x_tick) + lineMargin + left);
