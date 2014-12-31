@@ -15640,4 +15640,4 @@ var anonymousFunc = function () {
     // }
 };
 
-window.onload = anonymousFunc();
+window.onload = anonymousFunc;
