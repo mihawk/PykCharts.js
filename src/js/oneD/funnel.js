@@ -87,7 +87,7 @@ PykCharts.oneD.funnel = function (options) {
         var that = this;
         var l = $(".svgcontainer").length;
         that.container_id = "svgcontainer" + l;
-        
+
         that.fillChart = new PykCharts.Configuration.fillChart(that);
         that.transitions = new PykCharts.Configuration.transition(that);
         that.border = new PykCharts.Configuration.border(that);
@@ -146,8 +146,8 @@ PykCharts.oneD.funnel = function (options) {
             coordinates;
 
         var funnel = {
-            data: function(d){  
-                         
+            data: function(d){
+
                 if (d.length===0){
 
                 } else {
@@ -184,49 +184,15 @@ PykCharts.oneD.funnel = function (options) {
                 var height3=0;
                 var merge = 0;
                 var coordinates = [];
-                var percentValues = that.percentageValues(data);
-
-                
-                
-                
                 var ratio = tw/th;
                 var area_of_trapezium = (w + rw) / 2 * th;
-                
                 var area_of_rectangle = rw * rh;
                 var total_area = area_of_trapezium + area_of_rectangle;
                 var percent_of_rectangle = area_of_rectangle / total_area * 100;
-                
-
-                // function d3Sum (i) {
-                //     return d3.sum(percentValues,function (d, j){
-                //         if (j>=i) {
-                //             return d;
-                //         }
-                //     });
-                // }
-                function perValue (data) {
-                    // 
-                    var per_value = data.map(function (d){
-                        var weight_max = d3.max(data, function (d) {
-                            return d.weight;
-                        })
-                        return d.weight/weight_max*100;
-                    })
-                    per_value.sort(function(a,b){
-                        return b-a;
-                    });
-                    return per_value;
-                }
                 for (var i=data.length-1; i>=0; i--){
-                    // var selectedPercentValues = d3Sum(i);
-                    
                     var selectedPercentValues = that.percentageValues(data)[i];
-                    // var selectedPercentValues = perValue(data)[i];
-                    
-                    // 
                     if (percent_of_rectangle>=selectedPercentValues){
                         height3 = selectedPercentValues / percent_of_rectangle * rh;
-                        // 
                         height1 = h - height3;
                         if (i===data.length-1){
                             coordinates[i] = {"values":[{"x":(w-rw)/2,"y":height1},{"x":(w-rw)/2,"y":h},{"x":((w-rw)/2)+rw,"y":h},{"x":((w-rw)/2)+rw,"y":height1}]};
@@ -234,14 +200,7 @@ PykCharts.oneD.funnel = function (options) {
                             coordinates[i] = {"values":[{"x":(w-rw)/2,"y":height1},coordinates[i+1].values[0],coordinates[i+1].values[3],{"x":((w-rw)/2)+rw,"y":height1}]};
                         }
                     }else{
-                        var area_of_element;
-                        if(merge===0){
-                            area_of_element = (selectedPercentValues - percent_of_rectangle)/100 * area_of_trapezium;
-                            
-                        }else{
-                            area_of_element = selectedPercentValues/100 * area_of_trapezium;
-                            
-                        }
+                        var area_of_element = ((selectedPercentValues)/100 * total_area) - area_of_rectangle;
                         var a = 2 * ratio;
                         var b = 2 * rw;
                         var c = 2 * area_of_element;
@@ -249,6 +208,7 @@ PykCharts.oneD.funnel = function (options) {
                         height1 = h - height2 - rh;
                         var base = 2*(ratio * height2)+rw;
                         var xwidth = (w-base)/2;
+                        
                         if(merge===0){
                             if (i===data.length-1){
                                 coordinates[i] = {"values":[{"x":xwidth,"y":height1},{"x":(w-rw)/2,"y":th},{"x":(w-rw)/2,"y":h},{"x":((w-rw)/2)+rw,"y":h},{"x":((w-rw)/2)+rw,"y":th},{"x":base+xwidth,"y":height1}]};
@@ -268,7 +228,7 @@ PykCharts.oneD.funnel = function (options) {
                         merge = 1;
                     }
                 }
-                
+
                 return coordinates;
             }
         };
@@ -309,11 +269,11 @@ PykCharts.oneD.funnel = function (options) {
                 return this;
             },
             createChart: function () {
-                
+
                 that.new_data = that.data.sort(function(a,b) {
                     return b.weight-a.weight;
                 })
-                
+
                 that.per_values = that.percentageValues(that.new_data);
                 that.funnel = that.funnelLayout()
                                 .data(that.new_data)
