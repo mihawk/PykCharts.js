@@ -1729,9 +1729,9 @@ configuration.mouseEvent = function (options) {
                                     }
                                     if(type === "lineChart" || type === "areaChart") {
                                         if(PykCharts['boolean'](options.tooltip_enable)) {
-                                            if((options.tooltip_mode).toLowerCase() === "fixed") {
+                                            if((options.tooltip_mode) === "fixed") {
                                                 this.tooltipPosition(tooltipText,-options.margin_left,(pos_line_cursor_y + offsetTop),-14,23,group_index,width_percentage,height_percentage,type);
-                                            } else if((options.tooltip_mode).toLowerCase() === "moving") {
+                                            } else if((options.tooltip_mode) === "moving") {
                                                 this.tooltipPosition(tooltipText,(pos_line_cursor_x-options.margin_left + 10),(pos_line_cursor_y+offsetTop-5),0,-45,group_index,width_percentage,height_percentage,type);
                                             }
                                             this.tooltipTextShow(tooltipText);
