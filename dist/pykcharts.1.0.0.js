@@ -1625,12 +1625,13 @@ configuration.mouseEvent = function (options) {
                     }
 
                 }
-                var y_range = yScale.range();
+                var y_range = yScale.range(),
+                    y_range_length = y_range.length;
                 var j,tooltpText,active_x_tick,active_y_tick = [],left_diff,right_diff,
                     pos_line_cursor_x,pos_line_cursor_y = [],right_tick,left_tick,
                     range_length = x_range.length,colspan,bottom_tick,top_tick;
                 for(j = 0;j < range_length;j++) {
-                    for(k = 0; k<y_range.length;k++) {
+                    for(k = 0; k<y_range_length;k++) {
                         if((j+1) >= range_length) {
                             return false;
                         }
@@ -1728,9 +1729,9 @@ configuration.mouseEvent = function (options) {
                                     }
                                     if(type === "lineChart" || type === "areaChart") {
                                         if(PykCharts['boolean'](options.tooltip_enable)) {
-                                            if((options.tooltip_mode).toLowerCase() === "fixed") {
+                                            if((options.tooltip_mode) === "fixed") {
                                                 this.tooltipPosition(tooltipText,-options.margin_left,(pos_line_cursor_y + offsetTop),-14,23,group_index,width_percentage,height_percentage,type);
-                                            } else if((options.tooltip_mode).toLowerCase() === "moving") {
+                                            } else if((options.tooltip_mode) === "moving") {
                                                 this.tooltipPosition(tooltipText,(pos_line_cursor_x-options.margin_left + 10),(pos_line_cursor_y+offsetTop-5),0,-45,group_index,width_percentage,height_percentage,type);
                                             }
                                             this.tooltipTextShow(tooltipText);
@@ -1864,11 +1865,11 @@ configuration.mouseEvent = function (options) {
             return this;
         },
         axisHighlightShow: function (active_tick,axisHighlight,domain,a) {
-            var curr_tick,prev_tick,abc,selection,axis_data_length;
+            var curr_tick,prev_tick,axis_pointer_color,selection,axis_data_length;
             if(PykCharts['boolean'](options.axis_onhover_highlight_enable)/* && options.mode === "default"*/){
                 if(axisHighlight === options.selector + " .y.axis"){
                     selection = axisHighlight+" .tick text";
-                    abc = options.axis_y_pointer_color;
+                    axis_pointer_color = options.axis_y_pointer_color;
                     axis_data_length = d3.selectAll(selection)[0].length;
                     d3.selectAll(selection)
                         .style("fill","#bbb")
@@ -1877,7 +1878,7 @@ configuration.mouseEvent = function (options) {
                         for(var a=0;a < active_tick.length;a++) {
                             if(d3.selectAll(selection)[0][b].__data__ == active_tick[a]) {
                                 d3.select(d3.selectAll(selection)[0][b])
-                                    .style("fill",abc)
+                                    .style("fill",axis_pointer_color)
                                     .style("font-weight","bold");
                             }
                         }
@@ -1886,17 +1887,17 @@ configuration.mouseEvent = function (options) {
                 else {
                     if(axisHighlight === options.selector + " .x.axis") {
                         selection = axisHighlight+" .tick text";
-                        abc = options.axis_x_pointer_color;
+                        axis_pointer_color = options.axis_x_pointer_color;
                     } else if(axisHighlight === options.selector + " .axis-text" && a === "column") {
                         selection = axisHighlight;
-                        abc = options.axis_x_pointer_color;
+                        axis_pointer_color = options.axis_x_pointer_color;
                     } else if(axisHighlight === options.selector + " .axis-text" && a === "bar") {
                         selection = axisHighlight;
-                        abc = options.axis_y_pointer_color;
+                        axis_pointer_color = options.axis_y_pointer_color;
                     }
                     if(prev_tick !== undefined) {
                         d3.select(d3.selectAll(selection)[0][prev_tick])
-                            .style("fill",abc)
+                            .style("fill",axis_pointer_color)
                             .style("font-weight","normal");
                     }
                     axis_data_length = d3.selectAll(selection)[0].length;
@@ -1919,7 +1920,7 @@ configuration.mouseEvent = function (options) {
                     d3.selectAll(selection)
                         .style("fill","#bbb")
                     d3.select(d3.selectAll(selection)[0][curr_tick])
-                        .style("fill",abc)
+                        .style("fill",axis_pointer_color)
                         .style("font-weight","bold");
                 }
             }
@@ -2092,22 +2093,49 @@ configuration.makeXAxis = function(options,xScale) {
             .style("font-family",options.axis_x_pointer_family);
 
     if(options.axis_x_data_format=== "time" && PykCharts['boolean'](options.axis_x_time_value_datatype)) {
-        if(options.axis_x_time_value_datatype === "month") {
-            a = d3.time.month;
-            b = "%b";
-        }else if(options.axis_x_time_value_datatype === "date") {
-            a = d3.time.day;
-            b = "%d";
-        } else if(options.axis_x_time_value_datatype === "year") {
-            a = d3.time.year;
-            b = "%Y";
-        } else if(options.axis_x_time_value_datatype === "hours") {
-            a = d3.time.hour;
-            b = "%H";
-        } else if(options.axis_x_time_value_datatype === "minutes") {
-            a = d3.time.minute;
-            b = "%M";
+        switch (options.axis_x_time_value_datatype) {
+            case "month" :
+                console.log("month");
+                a = d3.time.month;
+                b = "%b";
+                break;
+
+            case "date" :
+                a = d3.time.day;
+                b = "%d";
+                break;
+
+            case "year" :
+                a = d3.time.year;
+                b = "%Y";
+                break;
+
+            case "hours" :
+                a = d3.time.hour;
+                b = "%H";
+                break;
+
+            case "minutes" :
+                a = d3.time.minute;
+                b = "%M";
+                break;
         }
+       // if(options.axis_x_time_value_datatype === "month") {
+        //     a = d3.time.month;
+        //     b = "%b";
+        // }else if(options.axis_x_time_value_datatype === "date") {
+        //     a = d3.time.day;
+        //     b = "%d";
+        // } else if(options.axis_x_time_value_datatype === "year") {
+        //     a = d3.time.year;
+        //     b = "%Y";
+        // } else if(options.axis_x_time_value_datatype === "hours") {
+        //     a = d3.time.hour;
+        //     b = "%H";
+        // } else if(options.axis_x_time_value_datatype === "minutes") {
+        //     a = d3.time.minute;
+        //     b = "%M";
+        // }
         xaxis.ticks(a,options.axis_x_time_value_interval)
             .tickFormat(d3.time.format(b));
 
