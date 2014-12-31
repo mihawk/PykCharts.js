@@ -30,13 +30,7 @@ PykCharts['boolean'] = function(d) {
     }
     value = d.toLocaleString();
     value = value.toLowerCase();
-    // false_values.indexOf(value) > -1 ? return false : return true;
-    if (false_values.indexOf(value) > -1) {
-        return false;
-    }
-    else {
-        return true;
-    }
+    return (false_values.indexOf(value) > -1)? false : true;
 };
 
 PykCharts.getEvent = function () {
@@ -1464,11 +1458,7 @@ PykCharts.Configuration = function (options){
                             console.error('%c[Error - Pykih Charts] ', 'color: red;font-weight:bold;font-size:14px', " at "+ options.selector+".(\""+err+"\")  Visit www.chartstore.io/docs#error_2");
                         }
                     }
-                    if(options.stop) {
-                        return false;
-                    } else {
-                        return true;
-                    }
+                    return (options.stop) ? false : true;
                 }
             };
             return validator;
