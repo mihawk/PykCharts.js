@@ -87,7 +87,7 @@ PykCharts.oneD.funnel = function (options) {
         var that = this;
         var l = $(".svgcontainer").length;
         that.container_id = "svgcontainer" + l;
-        
+
         that.fillChart = new PykCharts.Configuration.fillChart(that);
         that.transitions = new PykCharts.Configuration.transition(that);
         that.border = new PykCharts.Configuration.border(that);
@@ -142,15 +142,17 @@ PykCharts.oneD.funnel = function (options) {
         var data,
             size,
             mouth,
+            sort_data,
             coordinates;
 
         var funnel = {
-            data: function(d){  
-                         
+            data: function(d){
+
                 if (d.length===0){
 
                 } else {
                     data = d;
+
                 }
                 return this;
             },
@@ -182,21 +184,13 @@ PykCharts.oneD.funnel = function (options) {
                 var height3=0;
                 var merge = 0;
                 var coordinates = [];
-                var percentValues = that.percentageValues(data);
                 var ratio = tw/th;
                 var area_of_trapezium = (w + rw) / 2 * th;
                 var area_of_rectangle = rw * rh;
                 var total_area = area_of_trapezium + area_of_rectangle;
                 var percent_of_rectangle = area_of_rectangle / total_area * 100;
-                function d3Sum (i) {
-                    return d3.sum(percentValues,function (d, j){
-                        if (j>=i) {
-                            return d;
-                        }
-                    });
-                }
                 for (var i=data.length-1; i>=0; i--){
-                    var selectedPercentValues = d3Sum(i);
+                    var selectedPercentValues = that.percentageValues(data)[i];
                     if (percent_of_rectangle>=selectedPercentValues){
                         height3 = selectedPercentValues / percent_of_rectangle * rh;
                         height1 = h - height3;
@@ -206,12 +200,7 @@ PykCharts.oneD.funnel = function (options) {
                             coordinates[i] = {"values":[{"x":(w-rw)/2,"y":height1},coordinates[i+1].values[0],coordinates[i+1].values[3],{"x":((w-rw)/2)+rw,"y":height1}]};
                         }
                     }else{
-                        var area_of_element;
-                        if(merge===0){
-                            area_of_element = (selectedPercentValues - percent_of_rectangle)/100 * area_of_trapezium;
-                        }else{
-                            area_of_element = selectedPercentValues/100 * area_of_trapezium;
-                        }
+                        var area_of_element = ((selectedPercentValues)/100 * total_area) - area_of_rectangle;
                         var a = 2 * ratio;
                         var b = 2 * rw;
                         var c = 2 * area_of_element;
@@ -219,6 +208,7 @@ PykCharts.oneD.funnel = function (options) {
                         height1 = h - height2 - rh;
                         var base = 2*(ratio * height2)+rw;
                         var xwidth = (w-base)/2;
+                        
                         if(merge===0){
                             if (i===data.length-1){
                                 coordinates[i] = {"values":[{"x":xwidth,"y":height1},{"x":(w-rw)/2,"y":th},{"x":(w-rw)/2,"y":h},{"x":((w-rw)/2)+rw,"y":h},{"x":((w-rw)/2)+rw,"y":th},{"x":base+xwidth,"y":height1}]};
@@ -227,36 +217,38 @@ PykCharts.oneD.funnel = function (options) {
                             }
                         }
                         else{
-                                var coindex;
-                                if(coordinates[i+1].values.length===6){
-                                    coindex = 5;
-                                }else{
-                                    coindex = 3;
-                                }
-                                coordinates[i] = {"values":[{"x":xwidth,"y":height1},coordinates[i+1].values[0],coordinates[i+1].values[coindex],{"x":base+xwidth,"y":height1}]};
+                            var coindex;
+                            if(coordinates[i+1].values.length===6){
+                                coindex = 5;
+                            }else{
+                                coindex = 3;
+                            }
+                            coordinates[i] = {"values":[{"x":xwidth,"y":height1},coordinates[i+1].values[0],coordinates[i+1].values[coindex],{"x":base+xwidth,"y":height1}]};
                         }
                         merge = 1;
                     }
                 }
+
                 return coordinates;
             }
         };
         return funnel;
     };
 
-    this.percentageValues = function (data){
+   this.percentageValues = function (data){
         var that = this;
-        that.sum = d3.sum(data, function (d){
-            return d.weight;
-        });
         var percentValues = data.map(function (d){
-            return d.weight/that.sum*100;
+            var weight_max = d3.max(data, function (d) {
+                return d.weight;
+            })
+            return d.weight/weight_max*100;
         });
         percentValues.sort(function(a,b){
             return b-a;
         });
         return percentValues;
     };
+
     this.optionalFeatures = function () {
 
         var optional = {
@@ -277,9 +269,14 @@ PykCharts.oneD.funnel = function (options) {
                 return this;
             },
             createChart: function () {
-                that.per_values = that.percentageValues(that.data);
+
+                that.new_data = that.data.sort(function(a,b) {
+                    return b.weight-a.weight;
+                })
+
+                that.per_values = that.percentageValues(that.new_data);
                 that.funnel = that.funnelLayout()
-                                .data(that.data)
+                                .data(that.new_data)
                                 .size([that.width,that.height])
                                 .mouth([that.rect_width,that.rect_height]);
 
@@ -300,9 +297,9 @@ PykCharts.oneD.funnel = function (options) {
                     .attr("class","fun-path")
                     .attr('d',function(d){ return line(a); })
 
-                   	.attr("fill",function (d,i) {
-                        return that.fillChart.selectColor(that.data[i]);
-        			})
+                    .attr("fill",function (d,i) {
+                        return that.fillChart.selectColor(that.new_data[i]);
+                    })
                     .attr("fill-opacity",1)
                     .attr("data-fill-opacity",function () {
                         return $(this).attr("fill-opacity");
@@ -311,29 +308,29 @@ PykCharts.oneD.funnel = function (options) {
                     .attr("stroke-width",that.border.width())
                     .attr("stroke-dasharray", that.border.style())
                     .attr("stroke-opacity",1)
-        			.on("mouseover", function (d,i) {
+                    .on("mouseover", function (d,i) {
                         if(that.mode === "default") {
                             if(PykCharts['boolean'](that.onhover_enable)) {
                                 that.mouseEvent.highlight(options.selector +" "+".fun-path",this);
                             }
-                            tooltip = that.data[i].tooltip || "<table class='PykCharts'><tr><th colspan='3' class='tooltip-heading'>"+that.data[i].name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(that.data[i].weight)+"<td class='tooltip-right-content'>("+that.per_values[i].toFixed(1)+"%) </tr></table>";
-                			that.mouseEvent.tooltipPosition(d);
+                            tooltip = that.data[i].tooltip || "<table class='PykCharts'><tr><th colspan='3' class='tooltip-heading'>"+that.new_data[i].name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(that.new_data[i].weight)+"<td class='tooltip-right-content'>("+that.per_values[i].toFixed(1)+"%) </tr></table>";
+                            that.mouseEvent.tooltipPosition(d);
                             that.mouseEvent.tooltipTextShow(tooltip);
                         }
-        			})
-        			.on("mouseout", function (d) {
+                    })
+                    .on("mouseout", function (d) {
                         if(that.mode === "default") {
                             if(PykCharts['boolean'](that.onhover_enable)) {
                                 that.mouseEvent.highlightHide(options.selector +" "+".fun-path");
-                			}
+                            }
                             that.mouseEvent.tooltipHide(d);
                         }
-        			})
-        			.on("mousemove", function (d,i) {
+                    })
+                    .on("mousemove", function (d,i) {
                         if(that.mode === "default") {
                             that.mouseEvent.tooltipPosition(d);
                         }
-        			})
+                    })
                     .transition()
                     .duration(that.transitions.duration())
                     .attr('d',function(d){ return line(d.values); });

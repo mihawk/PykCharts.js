@@ -28,7 +28,7 @@
       <hr/>
 
       <script>
-
+         
 		    window.PykChartsInit = function (e) {
             var k = new PykCharts.oneD.bubble({
                 selector: "#bubble",
@@ -63,11 +63,13 @@
 
   			var k = new PykCharts.oneD.funnel({
       			selector: "#funnel",
-      			data:"../data/pie.json",
+      			data:"../data/funnel.csv",
                 transition_duration: 0,
                 units_suffix: "rs",
                 clubdata_enable: "no",
                 pointer_weight: "normal",
+                chart_width: 600,
+                chart_height: 400,
                 "funnel_rect_width": 100,
                 "funnel_rect_height": 100,
                 units_prefix: "$",
@@ -241,6 +243,7 @@
                 "data_source_url": "http://www.worldbank.org/",
                 "pointer_overflow_enable": "no",
                  label_size:6,
+                 highlight: "Toyota",
                  real_time_charts_refresh_frequency:2
             });
            k.execute();
@@ -322,8 +325,8 @@
                 real_time_charts_refresh_frequency:2
             });
            k.execute();
-		    }
-
+		}
+        console.log(document.getElementById("bubble"))
 		</script>
     <script src="../dist/pykcharts.1.0.0.js"></script>
 
