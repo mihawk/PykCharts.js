@@ -110,7 +110,7 @@
                     highlight : "NEw York",
                     pointer_size : 12,
                 });
-                // k.execute();
+                k.execute();
 
                 var k = new PykCharts.multiD.area ({
                     selector: "#area",
@@ -173,7 +173,7 @@
                     annotation_background_color:"red",
                     border_between_chart_elements_thickness: 2
                 });
-                // k.execute();
+                k.execute();
 
                 var k = new PykCharts.multiD.spiderWeb ({
                     selector: "#spiderWeb",
@@ -211,7 +211,7 @@
                     legends_text_weight: "normal",
                     legends_text_family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
                 });
-                // k.execute();
+                k.execute();
 
                 var k = new PykCharts.multiD.scatter ({
                     selector: "#scatterPlot",
@@ -290,7 +290,7 @@
                     // chart_margin_bottom: 125,
                     // chart_margin_left: 160,
                 });
-                // k.execute();
+                k.execute();
 
                 var k = new PykCharts.multiD.panelsOfScatter ({
                     selector: "#multiple-scatterplots",
@@ -350,7 +350,7 @@
                     border_between_chart_elements_thickness:0,
                     border_between_chart_elements_color:"blue"
                 });
-                // k.execute();
+                k.execute();
 
                 var k = new PykCharts.multiD.panelsOfLine ({
                     selector: "#multiLine",
@@ -414,7 +414,7 @@
 
                 var k = new PykCharts.multiD.multiSeriesLine ({
                     selector: "#multiple-multiLine",
-                    data: "../data/multi-series-line.csv",
+                    data: "../data/multiline_timescale.json",
                     mode : "default",
 
                     color_mode: "saturation",  //color or saturation
@@ -538,7 +538,7 @@
                     annotation_view_mode: "onclick",
                     annotation_background_color:"#ff4c4c"
                 });
-                // k.execute();
+                k.execute();
 
                 var k = new PykCharts.multiD.pulse({
                     selector: "#pulse",
@@ -603,7 +603,7 @@
                     border_between_chart_elements_style: "solid"
 
                 });
-                // k.execute();
+                k.execute();
 
                 var k = new PykCharts.multiD.column({
                     data: "../data/column.csv",
@@ -661,7 +661,7 @@
                     border_between_chart_elements_color: "white",
                     border_between_chart_elements_style: "solid",
                 });
-                // k.execute();
+                k.execute();
 
                 var k = new PykCharts.multiD.bar({
                     data: "../data/bar.csv",
@@ -716,16 +716,16 @@
                     pointer_color: "#1D1D1D",
                     pointer_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
                     highlight:"india",
-                     panels_enable: "yes",
+                    panels_enable: "yes",
 
                     data_sort_enable: "yes",
                     data_sort_type: "alphabetically",
-                    data_sort_order: "descending"
+                    data_sort_order: "ascending"
                 });
-          k.execute();
+                k.execute();
 
                 var k = new PykCharts.multiD.groupedBar({
-                    data: "../data/grouped-bar.csv",
+                    data: "../data/ultimateGroupBar.json",
                     mode: "default",
                     selector: "#groupBar",
                     chart_height: 630,
@@ -790,8 +790,8 @@
                     legends_text_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
                     "data_sort_enable": "yes",
                     "data_sort_type": "alphabetically", // sort type --- "alphabetically" / "date"
-                    "data_sort_order": "ascending", // sort order --- "descending" / "ascending",
-                    // highlight:"2014-08-03",
+                    "data_sort_order": "descending", // sort order --- "descending" / "ascending",
+                    highlight:"2000",
                     // legends_text_family: "Papyrus",
                     // legends_text_weight: "bold",
                     // legends_text_size: 28
@@ -864,7 +864,7 @@
                     highlight:"india",
                     chart_grid_y_enable: "no",
                 });
-                // k.execute();
+                k.execute();
             };
         </script>
     </body>

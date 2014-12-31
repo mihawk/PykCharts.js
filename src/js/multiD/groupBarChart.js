@@ -684,7 +684,7 @@ PykCharts.multiD.groupedBar = function(options){
                 if(that.axis_y_data_format === "string") {
                     try {
                         if(that.data_sort_type === "alphabetically") {
-
+                            that.data = that.k.__proto__._sortData(that.data, "y", "group", that);
                         } else {
                             that.data_sort_type = multiDimensionalCharts.data_sort_type;
                             throw "data_sort_type";
@@ -692,39 +692,6 @@ PykCharts.multiD.groupedBar = function(options){
                     }
                     catch(err) {
                         that.k.warningHandling(err,"8");
-                    }
-
-                    if(!PykCharts['boolean'](that.data_sort_enable)) {
-                        that.data.sort(function(a,b) {
-                            if (a.group < b.group) {
-                                return -1;
-                            }
-                            else if (a.group > b.group) {
-                                return 1;
-                            }
-                        });
-                    }
-
-                    if (PykCharts['boolean'](that.data_sort_enable)) {
-                        switch (that.data_sort_type) {
-                            case "alphabetically":
-                                that.data.sort(function (a,b) {
-                                    if (a.y < b.y) {
-                                        return (that.data_sort_order === "descending") ? 1 : -1;
-                                    }
-                                    else if (a.y > b.y) {
-                                        return (that.data_sort_order === "descending") ? -1 : 1;
-                                    }
-                                    else if (a.group < b.group) {
-                                        return (that.data_sort_order === "descending") ? 1 : -1;
-                                    }
-                                    else if (a.group > b.group) {
-                                        return (that.data_sort_order === "descending") ? -1 : 1;
-                                    }
-                                    return 0;
-                                });
-                                break;
-                        }
                     }
                 }
                 return this;
