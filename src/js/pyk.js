@@ -2093,21 +2093,31 @@ configuration.makeXAxis = function(options,xScale) {
             .style("font-family",options.axis_x_pointer_family);
 
     if(options.axis_x_data_format=== "time" && PykCharts['boolean'](options.axis_x_time_value_datatype)) {
-        if(options.axis_x_time_value_datatype === "month") {
-            a = d3.time.month;
-            b = "%b";
-        }else if(options.axis_x_time_value_datatype === "date") {
-            a = d3.time.day;
-            b = "%d";
-        } else if(options.axis_x_time_value_datatype === "year") {
-            a = d3.time.year;
-            b = "%Y";
-        } else if(options.axis_x_time_value_datatype === "hours") {
-            a = d3.time.hour;
-            b = "%H";
-        } else if(options.axis_x_time_value_datatype === "minutes") {
-            a = d3.time.minute;
-            b = "%M";
+        switch (options.axis_x_time_value_datatype) {
+            case "month" :
+                a = d3.time.month;
+                b = "%b";
+                break;
+
+            case "date" :
+                a = d3.time.day;
+                b = "%d";
+                break;
+
+            case "year" :
+                a = d3.time.year;
+                b = "%Y";
+                break;
+
+            case "hours" :
+                a = d3.time.hour;
+                b = "%H";
+                break;
+
+            case "minutes" :
+                a = d3.time.minute;
+                b = "%M";
+                break;
         }
         xaxis.ticks(a,options.axis_x_time_value_interval)
             .tickFormat(d3.time.format(b));
@@ -2140,21 +2150,31 @@ configuration.makeYAxis = function(options,yScale) {
 
 
     if(options.axis_y_data_format=== "time" && PykCharts['boolean'](options.axis_y_time_value_type)) {
-        if(options.axis_y_time_value_type === "month") {
-            a = d3.time.month;
-            b = "%b";
-        }else if(options.axis_y_time_value_type === "date") {
-            a = d3.time.day;
-            b = "%d";
-        } else if(options.axis_y_time_value_type === "year") {
-            a = d3.time.year;
-            b = "%Y";
-        } else if(options.axis_y_time_value_type === "hours") {
-            a = d3.time.hour;
-            b = "%H";
-        } else if(options.axis_y_time_value_type === "minutes") {
-            a = d3.time.minute;
-            b = "%M";
+        switch (options.axis_y_time_value_datatype) {
+            case "month" :
+                a = d3.time.month;
+                b = "%b";
+                break;
+
+            case "date" :
+                a = d3.time.day;
+                b = "%d";
+                break;
+
+            case "year" :
+                a = d3.time.year;
+                b = "%Y";
+                break;
+
+            case "hours" :
+                a = d3.time.hour;
+                b = "%H";
+                break;
+
+            case "minutes" :
+                a = d3.time.minute;
+                b = "%M";
+                break;
         }
         xaxis.ticks(a,options.axis_y_time_value_unit)
             .tickFormat(d3.time.format(b));
