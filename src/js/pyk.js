@@ -1058,27 +1058,16 @@ PykCharts.Configuration = function (options){
         },
         export: function(chart,svgId,chart_name,panels_enable,containers) {
             if(PykCharts['boolean'](options.export_enable)) {
+                var id = "export",
+                div_size = options.width
+                div_float ="none"
+                div_left = options.width-16;
+
                 d3.select(options.selector)
                         .append("div")
-                        .attr("class","dropdown-multipleConatiner-export")
                         .style("left",options.width - 80 + "px")
-                        .style("top","10px")
-                        .style("height","auto")
-                        .style("width","auto")
-                        .style("padding", "8px 8px")
-                        .style("color","#4F4F4F")
-                        .style("background","#fff")
-                        .style("text-decoration","none")
-                        .style("position", "absolute")
-                        .style("border-radius", "3px")
-                        .style("border","1px solid #CCCCCC")
-                        .style("font-family","'Helvetica Neue', Helvetica, Arial, sans-serif")
-                        .style("font-size","12px")
-                        .style("text-align","center")
-                        .style("z-index","10")
-                        .style("visibility", "hidden")
-                        .style("box-shadow","0 5px 10px rgba(0,0,0,.2)");
-
+                        .attr("class","dropdown-multipleConatiner-export")
+                
                 if(PykCharts['boolean'](panels_enable)) {
                     for(var i = 0; i < containers.length; i++) {
                         d3.select(options.selector + " .dropdown-multipleConatiner-export")
@@ -1109,11 +1098,6 @@ PykCharts.Configuration = function (options){
                         .html("Export as SVG" + "<br>");
                 }
 
-                var id = "export",
-                div_size = options.width
-                div_float ="none"
-                div_left = options.width-16;
-
                 if(PykCharts['boolean'](options.title_text) && options.title_size  && options.mode === "default") {
                     div_size = 0.1*options.width;
                     div_float ="left";
@@ -1123,11 +1107,13 @@ PykCharts.Configuration = function (options){
                 var export_div = d3.select(chart.selector)
                                 .append("div")
                                 .attr("id",id)
-                                .style("width",div_size + "px")
-                                .style("left",div_left+"px")
-                                .style("float",div_float)
-                                .style("text-align","right");
-
+                                .style({
+                                    "width":div_size + "px",
+                                    "left":div_left+"px",
+                                    "float":div_float,
+                                    'text-align':'right'
+                                })
+                               
                 setTimeout(function () {
                     export_div.html("<img title='Export to SVG' src='"+options.img+"' style='left:"+div_left+"px;margin-bottom:3px;cursor:pointer;'/>");
                 },options.transition_duration*1000);
@@ -1166,7 +1152,6 @@ PykCharts.Configuration = function (options){
 
                 if(!PykCharts['boolean'](panels_enable)) {
                     $(chart.selector + " #span").click(function () {
-                        console.log("export")
                         d3.select(options.selector + " .dropdown-multipleConatiner-export").style("visibility", "hidden");
                         chart.k.processSVG(document.querySelector(options.selector +" "+svgId),chart_name);
                         project.importSVG(document.querySelector(options.selector +" "+svgId));
@@ -1352,7 +1337,7 @@ PykCharts.Configuration = function (options){
                 },
                 isArray: function (value,config_name) {
                         try {
-                            if(!$.isArray(value)) {
+                            if(!(value.constructor === Array)) {
                                 throw config_name;
                             }
                         }
