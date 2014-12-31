@@ -536,7 +536,7 @@ PykCharts.oneD.pyramid = function (options) {
                     if(count>0)
                     {   that.displayData.push(others_Slice);
                         for (i=0;i<count-1;i++) {
-                                index = that.getIndexByWeight(that.sorted_weight[i]);
+                            index = that.getIndexByWeight(that.sorted_weight[i]);
                             that.displayData.push(that.data[index]);
                         }
                     }
@@ -544,7 +544,7 @@ PykCharts.oneD.pyramid = function (options) {
                             if(i>=count-1)
                                 return d;
                         });
-
+                    
                     others_Slice.weight = sum_others;
                 }
                 else {

@@ -38,7 +38,7 @@
                 //     ],
                 data:"../data/bubble.csv",
                 mode: "Default",
-                transition_duration: 1,
+                transition_duration: 0,
                 clubdata_enable: "yes",
                 clubdata_always_include_data_points: ["North America"],
                 export_enable: "YES",
@@ -81,6 +81,7 @@
                 "pointer_color": "orange",
                 "pointer_family": "Papyrus",
                 mode: "DEFault",
+
                 // "border_between_chart_elements_thickness": 2,
                 // "border_between_chart_elements_color": "black",
                 // "border_between_chart_elements_style": "dotted",
@@ -98,7 +99,7 @@
                 selector: "#pyramid",
                 data:"../data/percentage-triangle.csv",
                 chart_height : 400,
-                transition_duration: 1,
+                transition_duration: 0,
                 background_color: "white",
                 mode:"DEFault",
                 chart_color: ["cyan"],
@@ -111,7 +112,8 @@
                 "pointer_color": "orange",
                 "pointer_family": "Courier New",
                 label_color: "black",
-
+                clubdata_enable:"yes",
+                "clubdata_maximum_nodes": 3,
                 "border_between_chart_elements_thickness": 2,
                 "border_between_chart_elements_color": "black",
                 "border_between_chart_elements_style": "dotted",
@@ -147,7 +149,7 @@
             var k = new PykCharts.oneD.donut({
                 selector: "#donutContainer",
                 data: "../data/donut.csv",
-                transition_duration: 1,
+                transition_duration: 0,
                 mode: "DEFault",
                 clubdata_enable: "yes",
                 clubdata_always_include_data_points: ["Africa","South America"],
@@ -168,7 +170,7 @@
             var k = new PykCharts.oneD.electionPie({
                 selector: "#electionPieContainer",
                 data: "../data/election-pie.csv",
-                transition_duration: 4,
+                transition_duration: 0,
                 background_color: "white",
                 mode: "DEFault",
                 clubdata_enable: "yes",
@@ -193,7 +195,7 @@
                 data: "../data/election-donut.csv",
                 background_color: "white",
                 chart_height : 400,
-                transition_duration: 1,
+                transition_duration: 0,
                 mode: "DEFault",
                 clubdata_enable: "yes",
                 clubdata_always_include_data_points: ["Africa","South America"],
@@ -216,7 +218,7 @@
                 "donut_show_total_at_center": "yes",
                 pointer_size : 0,
                 pointer_thickness:0,
-                real_time_charts_refresh_frequency:2
+                real_time_charts_refresh_frequency:0
            });
            k.execute();
 
@@ -244,7 +246,7 @@
                 "pointer_overflow_enable": "no",
                  label_size:6,
                  highlight: "Toyota",
-                 real_time_charts_refresh_frequency:2
+                 real_time_charts_refresh_frequency:0
             });
            k.execute();
 
@@ -253,10 +255,9 @@
                 chart_height: 300,
                 selector: "#percentageColumn",
                 data:"../data/percentage-column.csv",
-                transition_duration: 1,
+                transition_duration: 0,
                 mode: "DEFault",
                 clubdata_enable: "yes",
-                clubdata_always_include_data_points: ["Africa","South America"],
                 units_prefix: "$",
                 units_suffix: "/-",
                 percent_column_rect_width : 90,
@@ -268,7 +269,7 @@
                 "credit_my_site_url":  "http://www.firstpost.com",
                 "data_source_name": "World Bank",
                 "data_source_url": "http://www.worldbank.org/",
-                                real_time_charts_refresh_frequency:2
+                                real_time_charts_refresh_frequency:0
             });
            k.execute();
 
@@ -276,7 +277,7 @@
                 selector: "#percentageBar",
                 data:"../data/percentage-bar.csv",
                 background_color: "white",
-                transition_duration: 1,
+                transition_duration: 0,
                 // "chart_height": 200,
                 chart_width: 600,
                 chart_height: 00,
@@ -297,7 +298,7 @@
                 "data_source_name": "World Bank",
                 "data_source_url": "http://www.worldbank.org/",
                 pointer_overflow_enable: "yes",
-                real_time_charts_refresh_frequency: 2
+                real_time_charts_refresh_frequency: 0
 
             });
            k.execute();
@@ -306,7 +307,7 @@
                 selector: "#pie2Container",
                 background_color: "white",
                 data: "../data/pie2.json",
-                transition_duration: 1,
+                transition_duration: 0,
                 pie_radius_percent : 100,
                 mode: "DEFault",
                 clubdata_enable: "yes",
@@ -322,11 +323,10 @@
                 "data_source_name": "World Bank",
                 "data_source_url": "http://www.worldbank.org/",
                 "pointer_overflow_enable": "yes",
-                real_time_charts_refresh_frequency:2
+                real_time_charts_refresh_frequency:0
             });
            k.execute();
 		}
-        console.log(document.getElementById("bubble"))
 		</script>
     <script src="../dist/pykcharts.1.0.0.js"></script>
 

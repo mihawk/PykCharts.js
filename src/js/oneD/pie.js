@@ -484,8 +484,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                     that.new_data.sort(function (a,b) { return a.weight - b.weight;});
                     var temp = that.new_data.pop();
                     that.new_data.unshift(temp);
-                }
-                else if(type.toLowerCase() == "election pie" || type.toLowerCase() == "election donut") {
+                } else if(type.toLowerCase() == "election pie" || type.toLowerCase() == "election donut") {
                     that.new_data.sort(function (a,b) { return b.weight - a.weight;});
                 }
                 that.sum = _.reduce(that.data,function (start,num) { return start+num.weight; },0);
@@ -495,6 +494,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                 that.arc = d3.svg.arc()
                     .innerRadius(that.inner_radius)
                     .outerRadius(that.outer_radius);
+
                 that.pie = d3.layout.pie()
                     .value(function (d) { return d.weight; })
                     .sort(null)
