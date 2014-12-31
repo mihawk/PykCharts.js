@@ -1185,8 +1185,6 @@ PykCharts.Configuration = function (options){
                 var canvas_id = chart_name+"canvas";
                 var canvas = document.createElement("canvas");
                 canvas.setAttribute('id', canvas_id);
-                canvas.setAttribute('width',500);
-                canvas.setAttribute('height',500);
                 var get_canvas = document.getElementById(canvas_id);
                 paper.setup(get_canvas);
                 var project = new paper.Project();
@@ -1196,8 +1194,8 @@ PykCharts.Configuration = function (options){
                 var name = chart_name + ".svg";
 
                 $(chart.selector + " #"+id).click(function () {
-                  PykCharts.export_menu_status = 1;
-                    
+                    PykCharts.export_menu_status = 1;
+                    d3.select(options.selector + " .dropdown-multipleConatiner-export").style("visibility", "visible");
                 });
 
                 if(!PykCharts['boolean'](panels_enable)) {
