@@ -22,7 +22,6 @@ PykCharts.multiD.line = function (options) {
         that.curvy_lines = options.curvy_lines_enable ? options.curvy_lines_enable.toLowerCase() : multiDimensionalCharts.curvy_lines_enable;
         that.interpolate = PykCharts['boolean'](that.curvy_lines) ? "cardinal" : "linear";
         that.panels_enable = "no";
-        that.type = "";
 
         that.executeData = function (data) {
             var validate = that.k.validator().validatingJSON(data);
@@ -77,7 +76,6 @@ PykCharts.multiD.multiSeriesLine = function (options) {
         that.curvy_lines = options.curvy_lines_enable ? options.curvy_lines_enable.toLowerCase() : multiDimensionalCharts.curvy_lines_enable;
         that.interpolate = PykCharts['boolean'](that.curvy_lines) ? "cardinal" : "linear";
         that.panels_enable = "no";
-        that.type = "";
 
         that.executeData = function (data) {
             var validate = that.k.validator().validatingJSON(data);
@@ -132,7 +130,6 @@ PykCharts.multiD.panelsOfLine = function (options) {
         that.curvy_lines = options.curvy_lines_enable ? options.curvy_lines_enable.toLowerCase() : multiDimensionalCharts.curvy_lines_enable;
         that.interpolate = PykCharts['boolean'](that.curvy_lines) ? "cardinal" : "linear";
         that.panels_enable = "yes";
-        that.type = "";
 
         that.executeData = function (data) {
             var validate = that.k.validator().validatingJSON(data);
@@ -482,8 +479,15 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
     that.optionalFeature = function (){
         var optional = {
             chartType: function () {
-                if (that.new_data_length == 1) { that.type = "lineChart"; }
-                else if (that.new_data_length > 1) { that.type = "multilineChart"; }
+                for(j = 0;j < that.data_length;j++) {
+                    for(k = (j+1);k < that.data_length;k++) {
+                        if(that.data[j].x === that.data[k].x) {
+                            that.type = "multilineChart";
+                            break;
+                        }
+                    }
+                }
+                that.type = that.type || "lineChart";
                 return this;
             },
             hightLightOnload: function () {
