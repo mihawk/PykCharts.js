@@ -19,8 +19,8 @@ var anonymousFunc = function () {
         include.async = false;
         include.onload = function () {
             try {
+                PykCharts.numberFormat = d3.format(",");
                 if (_ && d3 && ($ || jQuery) && d3.customHive && topojson && $("body").colourBrightness && $c && paper && downloadDataURI && venn) {
-                    PykCharts.numberFormat = d3.format(",");
                     window.PykChartsInit();
                     $("body").click(function () {
                         if (PykCharts.export_menu_status === 0) {
@@ -118,4 +118,4 @@ var anonymousFunc = function () {
     // }
 };
 
-window.onload = anonymousFunc;
+window.onload = anonymousFunc();
