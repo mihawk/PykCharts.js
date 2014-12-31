@@ -7377,6 +7377,7 @@ PykCharts.multiD.line = function (options) {
         that.curvy_lines = options.curvy_lines_enable ? options.curvy_lines_enable.toLowerCase() : multiDimensionalCharts.curvy_lines_enable;
         that.interpolate = PykCharts['boolean'](that.curvy_lines) ? "cardinal" : "linear";
         that.panels_enable = "no";
+        that.type = "";
 
         that.executeData = function (data) {
             var validate = that.k.validator().validatingJSON(data);
@@ -7431,6 +7432,7 @@ PykCharts.multiD.multiSeriesLine = function (options) {
         that.curvy_lines = options.curvy_lines_enable ? options.curvy_lines_enable.toLowerCase() : multiDimensionalCharts.curvy_lines_enable;
         that.interpolate = PykCharts['boolean'](that.curvy_lines) ? "cardinal" : "linear";
         that.panels_enable = "no";
+        that.type = "";
 
         that.executeData = function (data) {
             var validate = that.k.validator().validatingJSON(data);
@@ -7485,6 +7487,7 @@ PykCharts.multiD.panelsOfLine = function (options) {
         that.curvy_lines = options.curvy_lines_enable ? options.curvy_lines_enable.toLowerCase() : multiDimensionalCharts.curvy_lines_enable;
         that.interpolate = PykCharts['boolean'](that.curvy_lines) ? "cardinal" : "linear";
         that.panels_enable = "yes";
+        that.type = "";
 
         that.executeData = function (data) {
             var validate = that.k.validator().validatingJSON(data);
@@ -7834,15 +7837,8 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
     that.optionalFeature = function (){
         var optional = {
             chartType: function () {
-                for(j = 0;j < that.data_length;j++) {
-                    for(k = (j+1);k < that.data_length;k++) {
-                        if(that.data[j].x === that.data[k].x) {
-                            that.type = "multilineChart";
-                            break;
-                        }
-                    }
-                }
-                that.type = that.type || "lineChart";
+                if (that.new_data_length == 1) { that.type = "lineChart"; }
+                else if (that.new_data_length > 1) { that.type = "multilineChart"; }
                 return this;
             },
             hightLightOnload: function () {
@@ -15566,7 +15562,6 @@ var anonymousFunc = function () {
     , PykCharts.assets+'lib/colors.min.js'
     , PykCharts.assets+'lib/paper-full.min.js'
     , PykCharts.assets+'lib/downloadDataURI.min.js'
-    , PykCharts.assets+'lib/venn.js'
     ];
 
     function importFiles (url) {
@@ -15575,8 +15570,8 @@ var anonymousFunc = function () {
         include.async = false;
         include.onload = function () {
             try {
-                if (_ && d3 && ($ || jQuery) && d3.customHive && topojson && $("body").colourBrightness && $c && paper && downloadDataURI && venn) {
-                    PykCharts.numberFormat = d3.format(",");
+                PykCharts.numberFormat = d3.format(",");
+                if (_ && d3 && ($ || jQuery) && d3.customHive && topojson && $("body").colourBrightness && $c && paper && downloadDataURI) {
                     window.PykChartsInit();
                     $("body").click(function () {
                         if (PykCharts.export_menu_status === 0) {
@@ -15657,21 +15652,6 @@ var anonymousFunc = function () {
     } catch (e) {
         importFiles(urls[8]);
     }
-    try {
-        if(!venn) {
-            importFiles(urls[9]);
-        }
-    } catch (e) {
-        importFiles(urls[9]);
-    }
-    // for (var i = 0; i < urls.length; i++) {
-    //     try {
-    //         if ((!$ && !jQuery) || !d3 || !_ || !d3.customHive || !topojson || !$("body").colourBrightness || !$c || !paper || !downloadDataURI) {
-    //             
-    //         } else {
-    //             
-    //     }
-    // }
 };
 
 window.onload = anonymousFunc;
