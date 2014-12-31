@@ -1625,12 +1625,13 @@ configuration.mouseEvent = function (options) {
                     }
 
                 }
-                var y_range = yScale.range();
+                var y_range = yScale.range(),
+                    y_range_length = y_range.length;
                 var j,tooltpText,active_x_tick,active_y_tick = [],left_diff,right_diff,
                     pos_line_cursor_x,pos_line_cursor_y = [],right_tick,left_tick,
                     range_length = x_range.length,colspan,bottom_tick,top_tick;
                 for(j = 0;j < range_length;j++) {
-                    for(k = 0; k<y_range.length;k++) {
+                    for(k = 0; k<y_range_length;k++) {
                         if((j+1) >= range_length) {
                             return false;
                         }
