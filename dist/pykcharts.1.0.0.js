@@ -3775,7 +3775,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                 that.new_data.forEach(function (d, i) {
                     this[i].percentValue= d.weight * 100 / sum;
                 }, that.new_data);
-                that.new_data.sort(function (a,b) { return b.weight - a.weight; })
+               // that.new_data.sort(function (a,b) { return b.weight - a.weight; })
                 that.chart_data = that.group.selectAll('.per-rect')
                     .data(that.new_data)
 
@@ -4055,7 +4055,9 @@ PykCharts.oneD.percentageColumn = function (options) {
                         var a=new_data1.pop();
                     }
                     var others_Slice = { "name":that.clubdata_text, "weight": sum_others, /*"color": that.clubData_color,*/ "tooltip": that.clubdata_tooltip };
-
+                    new_data1.sort(function(a,b){
+                        return b.weight - a.weight;
+                    })
                     if(new_data1.length < that.clubdata_maximum_nodes){
                         new_data1.push(others_Slice);
                     }
@@ -4229,7 +4231,8 @@ PykCharts.oneD.percentageBar = function (options) {
                 that.new_data.forEach(function (d, i) {
                     this[i].percentValue= d.weight * 100 / sum;
                 }, that.new_data);
-                that.new_data.sort(function (a,b) { return b.weight - a.weight; })
+
+               // that.new_data.sort(function (a,b) { return b.weight - a.weight; })
                 that.chart_data = that.group.selectAll('.per-rect')
                     .data(that.new_data)
 
@@ -4510,7 +4513,9 @@ PykCharts.oneD.percentageBar = function (options) {
                         var a=new_data1.pop();
                     }
                     var others_Slice = { "name":that.clubdata_text, "weight": sum_others,/* "color": that.clubdata_color,*/ "tooltip": that.clubdata_tooltip };
-
+                    new_data1.sort(function(a,b){
+                        return b.weight - a.weight;
+                    })
                     if(new_data1.length < that.clubdata_maximum_nodes){
                         new_data1.push(others_Slice);
                     }
@@ -5013,8 +5018,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                     that.new_data.sort(function (a,b) { return a.weight - b.weight;});
                     var temp = that.new_data.pop();
                     that.new_data.unshift(temp);
-                }
-                else if(type.toLowerCase() == "election pie" || type.toLowerCase() == "election donut") {
+                } else if(type.toLowerCase() == "election pie" || type.toLowerCase() == "election donut") {
                     that.new_data.sort(function (a,b) { return b.weight - a.weight;});
                 }
                 that.sum = _.reduce(that.data,function (start,num) { return start+num.weight; },0);
@@ -5024,6 +5028,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                 that.arc = d3.svg.arc()
                     .innerRadius(that.inner_radius)
                     .outerRadius(that.outer_radius);
+
                 that.pie = d3.layout.pie()
                     .value(function (d) { return d.weight; })
                     .sort(null)
@@ -5903,7 +5908,7 @@ PykCharts.oneD.pyramid = function (options) {
                     if(count>0)
                     {   that.displayData.push(others_Slice);
                         for (i=0;i<count-1;i++) {
-                                index = that.getIndexByWeight(that.sorted_weight[i]);
+                            index = that.getIndexByWeight(that.sorted_weight[i]);
                             that.displayData.push(that.data[index]);
                         }
                     }
@@ -5911,7 +5916,7 @@ PykCharts.oneD.pyramid = function (options) {
                             if(i>=count-1)
                                 return d;
                         });
-
+                    
                     others_Slice.weight = sum_others;
                 }
                 else {
