@@ -748,9 +748,7 @@ PykCharts.multiD.river = function (options){
                         translate_y = 0;
                         that.legendsGroup_width = 0;
                     }
-
                     translate_x = (that.legends_display === "vertical") ? (that.width - that.legendsGroup_width)  : (that.width - legend_container_width - 20);
-                    console.log(translate_y, legend_container_width < that.width)                   
                     if (legend_container_width < that.width) { that.legendsGroup.attr("transform","translate("+translate_x+"," + translate_y + ")"); }
                     that.legendsGroup.style("visibility","visible");
 

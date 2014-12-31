@@ -1,0 +1,100 @@
+[
+    {
+        "y": "2014-12-12",
+        "x":  8,
+        "group": "Cotton",
+        "tooltip": "<table class='PykCharts'><tr><th>Cotton</th></tr><tr><td>8</td></tr></table>"
+    },
+    {
+        "y": "2014-12-12",
+        "x":  12,
+        "group": "Rice",
+        "tooltip": "<table class='PykCharts'><tr><th>Rice</th></tr><tr><td>12</td></tr></table>"
+    },
+    {
+        "y": "2014-12-12",
+        "x":  8,
+        "group": "others",
+        "tooltip": "<table class='PykCharts'><tr><th>others</th></tr><tr><td>8</td></tr></table>"
+    },
+    {
+        "y": "2014-12-12",
+        "x":  12,
+        "group": "Chillies",
+        "tooltip": "<table class='PykCharts'><tr><th>Chillies</th></tr><tr><td>12</td></tr></table>"
+    },
+    {
+        "y": "2014-12-12",
+        "x":  16,
+        "group": "others",
+        "tooltip": "<table class='PykCharts'><tr><th>others</th></tr><tr><td>16</td></tr></table>"
+    },
+    {
+        "y": "2014-07-02",
+        "x":  20,
+        "group": "others",
+        "tooltip": "<table class='PykCharts'><tr><th>others</th></tr><tr><td>20</td></tr></table>"
+    },
+    {
+        "y": "2014-07-02",
+        "x":  8,
+        "group": "Chillies",
+        "tooltip": "<table class='PykCharts'><tr><th>Chillies</th></tr><tr><td>8</td></tr></table>"
+    },
+    {
+        "y": "2014-07-02",
+        "x":  12,
+        "color":"grey",
+        "group": "Cotton",
+        "tooltip": "<table class='PykCharts'><tr><th>Cotton</th></tr><tr><td>12</td></tr></table>"
+    },
+    {
+        "y": "2014-07-02",
+        "x":  16,
+        "group": "Rice",
+        "color":"blue",
+        "tooltip": "<table class='PykCharts'><tr><th>Rice</th></tr><tr><td>16</td></tr></table>"
+    },
+    {
+        "y": "2014-05-07",
+        "x":  20,
+        "group": "Chillies",
+        "tooltip": "<table class='PykCharts'><tr><th>Chillies</th></tr><tr><td>20</td></tr></table>"
+    },
+    {
+        "y": "2014-05-07",
+        "x":  22,
+        "group": "Cotton",
+        "tooltip": "<table class='PykCharts'><tr><th>Cotton</th></tr><tr><td>22</td></tr></table>"
+    },
+    {
+        "y": "2014-05-07",
+        "x":  24,
+        "group": "Rice",
+        "tooltip": "<table class='PykCharts'><tr><th>Rice</th></tr><tr><td>24</td></tr></table>"
+    },
+    {
+        "y": "2014-05-07",
+        "x":  28,
+        "group": "others",
+        "tooltip": "<table class='PykCharts'><tr><th>others</th></tr><tr><td>28</td></tr></table>"
+    },
+    {
+        "y": "2014-08-03",
+        "x":  16,
+        "group": "others",
+        "tooltip": "<table class='PykCharts'><tr><th>others</th></tr><tr><td>16</td></tr></table>"
+    },
+    {
+        "y": "2014-08-03",
+        "x":  8,
+        "group": "Chillies",
+        "tooltip": "<table class='PykCharts'><tr><th>Chillies</th></tr><tr><td>8</td></tr></table>"
+    },
+    {
+        "y": "2014-08-03",
+        "x":  12,
+        "group": "Rice",
+        "tooltip": "<table class='PykCharts'><tr><th>Rice</th></tr><tr><td>12</td></tr></table>"
+    }
+]
