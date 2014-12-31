@@ -1527,7 +1527,7 @@ configuration.mouseEvent = function (options) {
         crossHairPosition: function(data,new_data,xScale,yScale,dataLineGroup,lineMargin,domain,type,tooltipMode,color_from_data,panels_enable){
             if((PykCharts['boolean'](options.crosshair_enable) || PykCharts['boolean'](options.tooltip_enable) || PykCharts['boolean'](options.axis_onhover_highlight_enable))  && options.mode === "default") {
                 var selectSVG = $(options.selector + " #"+dataLineGroup[0][0][0].parentNode.parentNode.id)
-                    var width_percentage = 0;
+                var width_percentage = 0;
                 if (!PykCharts['boolean'](panels_enable)) {
                     width_percentage = selectSVG.width() / options.width;
                     height_percentge = selectSVG.height() / options.height;
@@ -1535,21 +1535,21 @@ configuration.mouseEvent = function (options) {
                     width_percentage = 1;
                     height_percentge = 1;
                 }
-                var legendsGroup_height = options.legendsGroup_height ? options.legendsGroup_height: 0;
-                var offsetLeft =  (options.margin_left + lineMargin + selectSVG.offset().left) * width_percentage;
-                var offsetTop = selectSVG.offset().top;
-                var number_of_lines = new_data.length;
-                var left = options.margin_left;
-                var right = options.margin_right;
-                var top = options.margin_top;
-                var bottom = options.margin_bottom;
-                var w = options.width;
-                var h = options.height;
-                var group_index = parseInt(PykCharts.getEvent().target.id.substr((PykCharts.getEvent().target.id.length-1),1));
-                var c = b - a;
-                var x = PykCharts.getEvent().pageX - offsetLeft;
-                var y = PykCharts.getEvent().pageY - offsetTop - top;
-                var x_range = [];
+                var legendsGroup_height = options.legendsGroup_height ? options.legendsGroup_height: 0,
+                    offsetLeft =  (options.margin_left + lineMargin + selectSVG.offset().left) * width_percentage,
+                    offsetTop = selectSVG.offset().top,
+                    number_of_lines = new_data.length,
+                    left = options.margin_left,
+                    right = options.margin_right,
+                    top = options.margin_top,
+                    bottom = options.margin_bottom,
+                    w = options.width,
+                    h = options.height,
+                    group_index = parseInt(PykCharts.getEvent().target.id.substr((PykCharts.getEvent().target.id.length-1),1)),
+                    c = b - a,
+                    x = PykCharts.getEvent().pageX - offsetLeft,
+                    y = PykCharts.getEvent().pageY - offsetTop - top,
+                    x_range = [];
 
                 if(options.axis_x_data_format==="string") {
                     x_range = xScale.range();
