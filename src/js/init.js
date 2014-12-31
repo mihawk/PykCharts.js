@@ -108,14 +108,8 @@ var anonymousFunc = function () {
     } catch (e) {
         importFiles(urls[9]);
     }
-    // for (var i = 0; i < urls.length; i++) {
-    //     try {
-    //         if ((!$ && !jQuery) || !d3 || !_ || !d3.customHive || !topojson || !$("body").colourBrightness || !$c || !paper || !downloadDataURI) {
-    //             
-    //         } else {
-    //             
-    //     }
-    // }
 };
 
-window.onload = anonymousFunc;
+window.onload = function () {
+  anonymousFunc();
+}
