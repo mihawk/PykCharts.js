@@ -28,7 +28,7 @@
       <hr/>
 
       <script>
-
+         
 		    window.PykChartsInit = function (e) {
             var k = new PykCharts.oneD.bubble({
                 selector: "#bubble",
@@ -241,6 +241,7 @@
                 "data_source_url": "http://www.worldbank.org/",
                 "pointer_overflow_enable": "no",
                  label_size:6,
+                 highlight: "Toyota",
                  real_time_charts_refresh_frequency:2
             });
            k.execute();
@@ -322,8 +323,8 @@
                 real_time_charts_refresh_frequency:2
             });
            k.execute();
-		    }
-
+		}
+        console.log(document.getElementById("bubble"))
 		</script>
     <script src="../dist/pykcharts.1.0.0.js"></script>
 
