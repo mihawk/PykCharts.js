@@ -1865,11 +1865,11 @@ configuration.mouseEvent = function (options) {
             return this;
         },
         axisHighlightShow: function (active_tick,axisHighlight,domain,a) {
-            var curr_tick,prev_tick,abc,selection,axis_data_length;
+            var curr_tick,prev_tick,axis_pointer_color,selection,axis_data_length;
             if(PykCharts['boolean'](options.axis_onhover_highlight_enable)/* && options.mode === "default"*/){
                 if(axisHighlight === options.selector + " .y.axis"){
                     selection = axisHighlight+" .tick text";
-                    abc = options.axis_y_pointer_color;
+                    axis_pointer_color = options.axis_y_pointer_color;
                     axis_data_length = d3.selectAll(selection)[0].length;
                     d3.selectAll(selection)
                         .style("fill","#bbb")
@@ -1878,7 +1878,7 @@ configuration.mouseEvent = function (options) {
                         for(var a=0;a < active_tick.length;a++) {
                             if(d3.selectAll(selection)[0][b].__data__ == active_tick[a]) {
                                 d3.select(d3.selectAll(selection)[0][b])
-                                    .style("fill",abc)
+                                    .style("fill",axis_pointer_color)
                                     .style("font-weight","bold");
                             }
                         }
@@ -1887,17 +1887,17 @@ configuration.mouseEvent = function (options) {
                 else {
                     if(axisHighlight === options.selector + " .x.axis") {
                         selection = axisHighlight+" .tick text";
-                        abc = options.axis_x_pointer_color;
+                        axis_pointer_color = options.axis_x_pointer_color;
                     } else if(axisHighlight === options.selector + " .axis-text" && a === "column") {
                         selection = axisHighlight;
-                        abc = options.axis_x_pointer_color;
+                        axis_pointer_color = options.axis_x_pointer_color;
                     } else if(axisHighlight === options.selector + " .axis-text" && a === "bar") {
                         selection = axisHighlight;
-                        abc = options.axis_y_pointer_color;
+                        axis_pointer_color = options.axis_y_pointer_color;
                     }
                     if(prev_tick !== undefined) {
                         d3.select(d3.selectAll(selection)[0][prev_tick])
-                            .style("fill",abc)
+                            .style("fill",axis_pointer_color)
                             .style("font-weight","normal");
                     }
                     axis_data_length = d3.selectAll(selection)[0].length;
@@ -1920,7 +1920,7 @@ configuration.mouseEvent = function (options) {
                     d3.selectAll(selection)
                         .style("fill","#bbb")
                     d3.select(d3.selectAll(selection)[0][curr_tick])
-                        .style("fill",abc)
+                        .style("fill",axis_pointer_color)
                         .style("font-weight","bold");
                 }
             }
