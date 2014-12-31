@@ -170,7 +170,7 @@ PykCharts.multiD.river = function (options){
             for (l = 0;l < that.data_length;l++) {
                 if (that.uniq_group_arr[k] === that.data[l].y) {
                     that.new_data[k].breakup.push({
-                        count: that.data[l].x,
+                        count: +that.data[l].x,
                         name: that.data[l].stack,
                         tooltip: that.data[l].tooltip,
                         color: that.data[l].color

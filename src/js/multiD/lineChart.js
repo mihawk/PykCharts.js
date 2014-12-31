@@ -1287,7 +1287,8 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
             that.fill_data[0] = that.new_data1;
             that.optionalFeature()
                     .svgContainer(i)
-                    .createGroups(i);
+                    .createGroups(i)
+                    .hightLightOnload();
     
             that.k.crossHair(that.svgContainer,1,that.fill_data,that.fillColor,that.type);
             that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
