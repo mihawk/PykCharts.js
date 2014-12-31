@@ -243,7 +243,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                 }
                 for (i=0;i<that.new_data.length;i++){
                     that.y = d3.scale.linear()
-                        .domain(d3.extent(that.y_domain[i], function(d) { return d; }))
+                        .domain(d3.extent(that.y_domain[i], function(d) { return parseFloat(d); }))
                         .range([0.1,0.9]);
                     var xyz = [];
                     for (j=0;j<uniq.length;j++) {

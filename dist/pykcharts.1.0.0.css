@@ -484,3 +484,23 @@ body .pyk-tooltip .tooltip-left-content{
     stroke-dasharray: 5,5;
     shape-rendering: crispEdge;
 }
+
+.dropdown-multipleConatiner-export {
+  top: 10px;
+  height: auto;
+  width: auto;
+  padding: 5px 6px;
+  color: #4F4F4F;
+  background: #fff;
+  text-decoration: none;
+  position: absolute;
+  border-radius: 5px;
+  border: 1px solid #CCCCCC;
+  font-size: 12px;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  min-width: 30px;
+  text-align: center;
+  z-index: 10;
+  box-shadow: 0 5px 10px rgba(0,0,0,.2);
+  visibility: hidden;
+}

@@ -1,0 +1,22 @@
+name,x,y,color,tooltip
+Previously Hired,2000,0,,0
+Previously Hired,2001,100,,100
+Previously Hired,2002,200,,200
+Previously Hired,2003,300,,300
+Previously Hired,2004,400,,400
+Previously Hired,2005,500,,500
+Previously Hired,2006,600,,600
+Total Employees,2000,100,#4682b4,100
+Total Employees,2001,300,#4682b4,300
+Total Employees,2002,400,#4682b4,400
+Total Employees,2003,500,#4682b4,500
+Total Employees,2004,600,#4682b4,600
+Total Employees,2005,700,#4682b4,700
+Total Employees,2006,700,#4682b4,700
+New Hires,2000,100,#75b0e1,100
+New Hires,2001,200,#75b0e1,200
+New Hires,2002,200,#75b0e1,200
+New Hires,2003,200,#75b0e1,200
+New Hires,2004,200,#75b0e1,200
+New Hires,2005,200,#75b0e1,200
+New Hires,2006,100,#75b0e1,100
