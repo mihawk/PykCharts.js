@@ -1,4 +1,4 @@
-/*! ====================================================
+/* ====================================================
 * This file is part of PykCharts v1.0.0
 * Copyright 2014 Pykih Software LLP
 * Contact: charts@pykih.com
@@ -250,8 +250,10 @@ PykCharts.Configuration = function (options){
                 .attr("class","main-div")
                 .style("width",options.width);
             if(PykCharts['boolean'](options.panels_enable)){
-                d.style("float","left")
-                    .style("width","auto");
+                d.style({
+                    "float": "left",
+                    "width":"auto"
+                });
             }
             return this;
         },
@@ -474,16 +476,15 @@ PykCharts.Configuration = function (options){
             return this;
         },
         xAxis: function (svg, gsvg, xScale,extra,domain,tick_values,legendsGroup_height,type) {
-            var width = options.width,
-                height = options.height;
-
-            if(legendsGroup_height === undefined) {
-                legendsGroup_height = 0;
-            }
-
-            var k = new PykCharts.Configuration(options);
-            var e = extra;
             if(PykCharts['boolean'](options.axis_x_enable)) {
+                var width = options.width,
+                height = options.height,
+                k = new PykCharts.Configuration(options),
+                e = extra;
+
+                if(legendsGroup_height === undefined) {
+                    legendsGroup_height = 0;
+                }
                 d3.selectAll(options.selector + " .x.axis").attr("fill",function () {return options.axis_x_pointer_color;});
                 if(options.axis_x_position === "bottom") {
                     gsvg.attr("transform", "translate(0," + (options.height - options.margin_top - options.margin_bottom - legendsGroup_height) + ")");
@@ -502,9 +503,10 @@ PykCharts.Configuration = function (options){
                 }
 
                 d3.selectAll(options.selector + " .x.axis .tick text")
-                        .attr("font-size",options.axis_x_pointer_size)
-                        .style("font-weight",options.axis_x_pointer_weight)
-                        .style("font-family",options.axis_x_pointer_family);
+                    .attr("font-size",options.axis_x_pointer_size)
+                    .style("font-weight",options.axis_x_pointer_weight)
+                    .style("font-family",options.axis_x_pointer_family);
+
                 if(type && options.axis_x_data_format !== "string") {
                     d3.selectAll(options.selector + " .x.axis .domain").remove();
                 }
@@ -513,16 +515,15 @@ PykCharts.Configuration = function (options){
             return this;
         },
         yAxis: function (svg, gsvg, yScale,domain,tick_values,legendsGroup_width, type) {
-
-            if(!legendsGroup_width) {
-                legendsGroup_width = 0;
-            }
-            var width = options.width,
-                height = options.height,
-                k = new PykCharts.Configuration(options),
-                w = PykCharts['boolean'](options.panels_enable) ? options.w : options.width;
-
             if(PykCharts['boolean'](options.axis_y_enable)){
+                if(!legendsGroup_width) {
+                    legendsGroup_width = 0;
+                }
+                var width = options.width,
+                    height = options.height,
+                    k = new PykCharts.Configuration(options),
+                    w = PykCharts['boolean'](options.panels_enable) ? options.w : options.width;
+
                 if(options.axis_y_position === "right") {
                     gsvg.attr("transform", "translate(" + (w - options.margin_left - options.margin_right - legendsGroup_width) + ",0)");
                 }
@@ -553,17 +554,16 @@ PykCharts.Configuration = function (options){
             return this;
         },
         xAxisTitle: function (gsvg,legendsGroup_height,legendsGroup_width) {
-            var w = PykCharts['boolean'](options.panels_enable) ? options.w : options.width;
-            var position;
-            if(!legendsGroup_height) {
-                legendsGroup_height = 0;
-            }
-
-            if(!legendsGroup_width) {
-                legendsGroup_width = 0;
-            }
-
             if(options.axis_x_title) {
+                var w = PykCharts['boolean'](options.panels_enable) ? options.w : options.width,
+                position;
+                if(!legendsGroup_height) {
+                    legendsGroup_height = 0;
+                }
+                if(!legendsGroup_width) {
+                    legendsGroup_width = 0;
+                }
+
                 if(!PykCharts['boolean'](options.axis_x_enable)) {
                     gsvg.attr("transform", "translate(0," + (options.height - options.margin_top - options.margin_bottom - legendsGroup_height) + ")");
                 }
@@ -586,11 +586,10 @@ PykCharts.Configuration = function (options){
             }
             return this;
         },
-        yAxisTitle: function (gsvg) {
-            var w = PykCharts['boolean'](options.panels_enable) ? options.w : options.width;
-        
+        yAxisTitle: function (gsvg) {        
             if(options.axis_y_title) {
-                var position,dy;
+                var w = PykCharts['boolean'](options.panels_enable) ? options.w : options.width,
+                position,dy;
                 if(options.axis_y_position === "left"){
                     position = -(options.margin_left - options.axis_y_title_size);
                     dy = 0;
@@ -808,7 +807,6 @@ PykCharts.Configuration = function (options){
                 svg.attr("width", targetWidth);
                 svg.attr("height", (targetWidth / aspect));
             }
-            
             if(PykCharts['boolean'](options.title_text)) {
                 if(PykCharts['boolean'](options.export_enable)) {
                     title_div_width = 0.9*targetWidth;
@@ -955,8 +953,9 @@ PykCharts.Configuration = function (options){
                     }
                 },
                 properties = dimensions[chart],
-                groups = [];
-                for(var i = 0, len = arr.length; i<len; i+=1){
+                groups = [],
+                arr_length = arr.length;
+                for(var i = 0, len = arr_length; i<len; i+=1){
                     var obj = arr[i];
                     if(groups.length == 0){
                         groups.push([obj]);
@@ -1993,7 +1992,7 @@ configuration.fillChart = function (options,theme,config) {
     var fillchart = {
         selectColor: function (d) {
         theme = new PykCharts.Configuration.Theme({});
-            if(d.name === options.highlight) {
+            if(d.name.toLowerCase() === options.highlight.toLowerCase()) {
                 return options.highlight_color;
             } else if (options.chart_color.length && options.chart_color[0]){
                 return options.chart_color[0];
@@ -2023,18 +2022,14 @@ configuration.fillChart = function (options,theme,config) {
                 return options.saturation_color;
             } else if(options.color_mode === "color") {
                 return d.color;
-            } /*else if(options.color_mode === "color"){
-                return options.chart_color;
-            }*/ return options.chart_color[0];
+            }
         },
         colorGroup: function (d) {
             if(options.color_mode === "saturation") {
                 return options.saturation_color;
             } else if(options.color_mode === "color") {
                 return d.color;
-            } /*else if(options.color_mode === "color"){
-                return options.chart_color[0];
-            }*/
+            }
         },
         colorLegends: function (d) {
             if(options.color_mode === "saturation") {
