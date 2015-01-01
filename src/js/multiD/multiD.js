@@ -452,7 +452,7 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     chartObject.tooltip_mode = options.tooltip_mode ? options.tooltip_mode.toLowerCase() : stylesheet.tooltip_mode;
 
     chartObject.annotation_enable = options.annotation_enable ? options.annotation_enable.toLowerCase() : multiDimensionalCharts.annotation_enable;
-    chartObject.annotation_view_mode = options.annotation_view_mode ? options.annotation_view_mode : multiDimensionalCharts.annotation_view_mode;
+    chartObject.annotation_view_mode = options.annotation_view_mode ? options.annotation_view_mode.toLowerCase() : multiDimensionalCharts.annotation_view_mode;
     chartObject.annotation_background_color = options.annotation_background_color ? options.annotation_background_color : multiDimensionalCharts.annotation_background_color;
     chartObject.annotation_font_color = options.annotation_font_color ? options.annotation_font_color : multiDimensionalCharts.annotation_font_color;
 

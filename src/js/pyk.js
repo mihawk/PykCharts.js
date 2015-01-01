@@ -278,7 +278,7 @@ PykCharts.Configuration = function (options){
         annotation: function (svg,data,xScale,yScale) {
             var legendsGroup_height = (options.legendsGroup_height) ? options.legendsGroup_height: 0;
 
-            if(options.annotation_view_mode.toLowerCase() === "onclick") {
+            if(options.annotation_view_mode === "onclick") {
                 var annotation_circle = d3.select(svg).selectAll(".PykCharts-annotation-circle")
                     .data(data);
                 var annotation_text = d3.select(svg).selectAll(".PykCharts-annotation-text")
@@ -328,7 +328,7 @@ PykCharts.Configuration = function (options){
 
                 annotation_text.exit().remove();
                 annotation_circle.exit().remove();
-            } else if(options.annotation_view_mode.toLowerCase() === "onload") {
+            } else if(options.annotation_view_mode === "onload") {
                 var w = [],h=[];
                 var annotation_rect = d3.select(svg).selectAll(".annotation-rect")
                     .data(data)
@@ -1290,7 +1290,7 @@ PykCharts.Configuration = function (options){
                 },
                 validatingChartMode: function (mode,config_name,default_value) {
                     try {
-                        if(mode.toLowerCase() === "default" || mode.toLowerCase()=== "infographics") {
+                        if(mode === "default" || mode === "infographics") {
                         } else {
                             options[config_name] = default_value;
                             throw "mode";
@@ -1304,7 +1304,7 @@ PykCharts.Configuration = function (options){
                 validatingAxisDataFormat: function (axis_data_format,config_name) {
                     if(axis_data_format) {
                         try {
-                            if(axis_data_format.toLowerCase() === "number" || axis_data_format.toLowerCase()=== "string" || axis_data_format.toLowerCase() === "time") {
+                            if(axis_data_format === "number" || axis_data_format === "string" || axis_data_format === "time") {
                             } else {
                                 options.stop = true;
                                 throw config_name;
@@ -1320,7 +1320,7 @@ PykCharts.Configuration = function (options){
                 validatingColorMode: function (color_mode,config_name,default_value) {
                     if(color_mode) {
                         try {
-                            if(color_mode.toLowerCase() === "color" || color_mode.toLowerCase()=== "saturation") {
+                            if(color_mode === "color" || color_mode === "saturation") {
                             } else {
                                 options[config_name] = default_value;
                                 throw "color_mode";
@@ -1334,7 +1334,7 @@ PykCharts.Configuration = function (options){
                 },
                 validatingYAxisPointerPosition: function (axis_pointer_position,config_name,default_value) {
                         try {
-                            if(axis_pointer_position.toLowerCase() === "left" || axis_pointer_position.toLowerCase()=== "right" ) {
+                            if(axis_pointer_position === "left" || axis_pointer_position === "right" ) {
                             } else {
                                 options[config_name] = default_value;
                                 throw config_name;
@@ -1347,7 +1347,7 @@ PykCharts.Configuration = function (options){
                 },
                 validatingXAxisPointerPosition: function (axis_pointer_position,config_name,default_value) {
                         try {
-                            if(axis_pointer_position.toLowerCase()=== "top" || axis_pointer_position.toLowerCase()=== "bottom") {
+                            if(axis_pointer_position === "top" || axis_pointer_position === "bottom") {
                             } else {
                                 options[config_name] = default_value;
                                 throw config_name;
@@ -1360,7 +1360,7 @@ PykCharts.Configuration = function (options){
                 },
                 validatingBorderBetweenChartElementsStyle: function (border_between_chart_elements_style,config_name) {
                         try {
-                            if(border_between_chart_elements_style.toLowerCase() === "1,3" || border_between_chart_elements_style.toLowerCase()=== "5,5" || border_between_chart_elements_style.toLowerCase() === "0") {
+                            if(border_between_chart_elements_style === "1,3" || border_between_chart_elements_style === "5,5" || border_between_chart_elements_style === "0") {
                             } else {
                                 throw config_name;
                             }
@@ -1372,7 +1372,7 @@ PykCharts.Configuration = function (options){
                 },
                 validatingLegendsPosition: function (legends_display,config_name,default_value) {
                         try {
-                            if(legends_display.toLowerCase() === "horizontal" || legends_display.toLowerCase()=== "vertical") {
+                            if(legends_display === "horizontal" || legends_display === "vertical") {
                             } else {
                                 options[config_name] = default_value;
                                 throw config_name;
@@ -1398,7 +1398,7 @@ PykCharts.Configuration = function (options){
                 validatingTimeScaleDataType: function (axis_time_value_datatype,config_name) {
                     if(axis_time_value_datatype) {
                         try {
-                            if(axis_time_value_datatype.toLowerCase() === "date" || axis_time_value_datatype.toLowerCase()=== "year" || axis_time_value_datatype.toLowerCase() === "month" || axis_time_value_datatype === "hours" || axis_time_value_datatype === "minutes") {
+                            if(axis_time_value_datatype === "date" || axis_time_value_datatype === "year" || axis_time_value_datatype === "month" || axis_time_value_datatype === "hours" || axis_time_value_datatype === "minutes") {
                             } else {
                                 options.stop = true;
                                 throw config_name;
@@ -1413,7 +1413,7 @@ PykCharts.Configuration = function (options){
                 validatingTooltipMode: function (tooltip_mode,config_name,default_value) {
                     if(tooltip_mode) {
                         try {
-                            if(tooltip_mode.toLowerCase() === "fixed" || tooltip_mode.toLowerCase()=== "moving") {
+                            if(tooltip_mode === "fixed" || tooltip_mode === "moving") {
                             } else {
                                 options[config_name] = default_value;
                                 throw config_name;
@@ -1427,7 +1427,7 @@ PykCharts.Configuration = function (options){
                 },
                 validatingFontWeight: function (font_weight,config_name,default_value,name) {
                     try {
-                        if(font_weight.toLowerCase() === "bold" || font_weight.toLowerCase() === "normal") {
+                        if(font_weight === "bold" || font_weight === "normal") {
                         } else {
                             if(name) {
                                 options[name] = default_value;
@@ -1478,7 +1478,7 @@ PykCharts.Configuration = function (options){
                 validatingDataMode : function (mode,config_name,default_value,name) {
                     try {
 
-                        if(mode.toLowerCase() === "absolute" || mode.toLowerCase()=== "percentage") {
+                        if(mode === "absolute" || mode === "percentage") {
                         } else {
                             options[config_name] = default_value;
                             throw config_name;
@@ -1491,7 +1491,7 @@ PykCharts.Configuration = function (options){
                 },
                 validatingLegendsMode : function (mode,config_name,default_value,name) {
                     try {
-                        if(mode.toLowerCase() === "default" || mode.toLowerCase()=== "interactive") {
+                        if(mode === "default" || mode === "interactive") {
                         } else {
                             options[config_name] = default_value;
                             throw config_name;
@@ -2017,24 +2017,24 @@ configuration.fillChart = function (options,theme,config) {
             else return options.chart_color[0];
         },
         colorPieMS: function (d,chart_type) {
-            if( chart_type !== "lineChart" && chart_type !== "areaChart" && d.name.toLowerCase() === options.highlight.toLowerCase()) {
+            if(chart_type !== "lineChart" && chart_type !== "areaChart" && d.name.toLowerCase() === options.highlight.toLowerCase()) {
                 return options.highlight_color;
             } else if(options.color_mode === "saturation") {
                 return options.saturation_color;
             } else if(options.color_mode === "color") {
                 return d.color;
-            } else if(options.color_mode === "color"){
+            } /*else if(options.color_mode === "color"){
                 return options.chart_color;
-            } return options.chart_color[0];
+            }*/ return options.chart_color[0];
         },
         colorGroup: function (d) {
             if(options.color_mode === "saturation") {
                 return options.saturation_color;
             } else if(options.color_mode === "color") {
                 return d.color;
-            } else if(options.color_mode === "color"){
+            } /*else if(options.color_mode === "color"){
                 return options.chart_color[0];
-            }
+            }*/
         },
         colorLegends: function (d) {
             if(options.color_mode === "saturation") {
@@ -2147,7 +2147,7 @@ configuration.makeYAxis = function(options,yScale) {
                 .style("font-family",options.axis_y_pointer_family);
 
 
-    if(options.axis_y_data_format=== "time" && PykCharts['boolean'](options.axis_y_time_value_type)) {
+    /*if(options.axis_y_data_format=== "time" && PykCharts['boolean'](options.axis_y_time_value_type)) {
         switch (options.axis_y_time_value_datatype) {
             case "month" :
                 a = d3.time.month;
@@ -2177,7 +2177,7 @@ configuration.makeYAxis = function(options,yScale) {
         xaxis.ticks(a,options.axis_y_time_value_unit)
             .tickFormat(d3.time.format(b));
 
-    }else if(options.axis_y_data_format === "number"){
+    }else */if(options.axis_y_data_format === "number"){
         yaxis.ticks(options.axis_y_no_of_axis_value);
     }
     return yaxis;

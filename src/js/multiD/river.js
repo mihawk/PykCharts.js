@@ -25,7 +25,7 @@ PykCharts.multiD.river = function (options){
             default : that.connecting_lines_style = "0";
                       break;
         }
-        that.legends_mode = options.legends_mode ? options.legends_mode : multiDimensionalCharts.legends_mode;
+        that.legends_mode = options.legends_mode ? options.legends_mode.toLowerCase() : multiDimensionalCharts.legends_mode;
         that.expand_group = options.expand_group ? options.expand_group : multiDimensionalCharts.expand_group;
         that.text_between_steps_color = options.text_between_steps_color ? options.text_between_steps_color : multiDimensionalCharts.text_between_steps_color;
         that.text_between_steps_weight = options.text_between_steps_weight ? options.text_between_steps_weight.toLowerCase() : multiDimensionalCharts.text_between_steps_weight;
