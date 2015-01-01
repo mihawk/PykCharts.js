@@ -751,8 +751,9 @@ PykCharts.Configuration = function (options){
                 }
             }
             if(values.length) {
+                var len = values.length
                 if(options.axis_x_data_format === "time") {
-                    for(var i=0,len = values.length; i<len; i++) {
+                    for(var i=0 ; i<len; i++) {
                         newVal.push(options.k.dateConversion(values[i]));            
                     }
                 } else {
@@ -956,14 +957,16 @@ PykCharts.Configuration = function (options){
                 },
                 properties = dimensions[chart],
                 groups = [];
-                for(var i = 0, len = arr.length; i<len; i+=1){
+                var len = arr.length;
+                for(var i = 0; i<len; i+=1){
                     var obj = arr[i];
                     if(groups.length == 0){
                         groups.push([obj]);
                     }
                     else{
-                        var equalGroup = false;
-                        for(var a = 0, glen = groups.length; a<glen;a+=1){
+                        var equalGroup = false,
+                            glen = groups.length;
+                        for(var a = 0;a<glen;a+=1){
                             var group = groups[a],
                             equal = true,
                             firstElement = group[0];
@@ -1801,9 +1804,9 @@ configuration.mouseEvent = function (options) {
                             .attr("y2",cy);
                         that.focus_circle.style("display","block")
                             .attr("transform", "translate(" + cx + "," + cy + ")");
-
                     }
                     else if(type === "multilineChart" /*|| type === "stackedAreaChart"*/) {
+                        var new_data_length = new_data.length;
                         if(panels_enable === "no") {
                             that.cross_hair_v.style("display","block");
                             that.cross_hair_v.select(options.selector + " #cross-hair-v")
@@ -1811,10 +1814,10 @@ configuration.mouseEvent = function (options) {
                                 .attr("y1",y1)
                                 .attr("x2",(x2 - 5))
                                 .attr("y2",y2);
-                                for(j=0; j<new_data.length; j++) {
-                                    d3.select(options.selector+" #f_circle"+j).style("display","block")
-                                        .attr("transform", "translate(" + (cx-3) + "," + cy[j] + ")");
-                                }
+                            for(var j=0; j<new_data.length; j++) {
+                                d3.select(options.selector+" #f_circle"+j).style("display","block")
+                                    .attr("transform", "translate(" + (cx-3) + "," + cy[j] + ")");
+                            }
                         }
                         else if(panels_enable === "yes") {
                             d3.selectAll(options.selector+" .line-cursor").style("display","block");
@@ -1839,7 +1842,7 @@ configuration.mouseEvent = function (options) {
                             .attr("y1",y1)
                             .attr("x2",(x2 - 5))
                             .attr("y2",y2);
-                        for(j=0; j<new_data.length; j++) {
+                        for(var j=0; j<new_data.length; j++) {
                             d3.select(options.selector+" #f_circle"+j).style("display","block")
                                 .attr("transform", "translate(" + (cx-3) + "," + cy[j] + ")");
                         }
@@ -1863,17 +1866,19 @@ configuration.mouseEvent = function (options) {
             return this;
         },
         axisHighlightShow: function (active_tick,axisHighlight,domain,a) {
-            var curr_tick,prev_tick,axis_pointer_color,selection,axis_data_length;
+            var curr_tick,prev_tick,axis_pointer_color,selection,axis_data_length,active_tick_length;
             if(PykCharts['boolean'](options.axis_onhover_highlight_enable)/* && options.mode === "default"*/){
                 if(axisHighlight === options.selector + " .y.axis"){
                     selection = axisHighlight+" .tick text";
                     axis_pointer_color = options.axis_y_pointer_color;
                     axis_data_length = d3.selectAll(selection)[0].length;
+                    active_tick_length = active_tick.length;
+                    // console.log(active_tick,"active_tick");
                     d3.selectAll(selection)
                         .style("fill","#bbb")
                         .style("font-weight","normal");
                     for(var b=0;b < axis_data_length;b++) {
-                        for(var a=0;a < active_tick.length;a++) {
+                        for(var a=0;a < active_tick_length;a++) {
                             if(d3.selectAll(selection)[0][b].__data__ == active_tick[a]) {
                                 d3.select(d3.selectAll(selection)[0][b])
                                     .style("fill",axis_pointer_color)
