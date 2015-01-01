@@ -131,19 +131,19 @@ PykCharts.oneD.pyramid = function (options) {
 
         var pyramid = {
             data: function(d){
-                if (d.length===0){
-
-                } else {
-                    data = d;
+                if(!(d.length===0)) {
+                     data = d;                                
                 }
                 return this;
             },
             size: function(s){
-                if (s.length!==2){
-
-                } else {
-                    size = s;
+                if(s.length === 2) {
+                    size = s;                    
                 }
+                // if (s.length!==2){
+                // } else {
+                //     size = s;
+                // }
                 return this;
             },
             coordinates: function(c){

@@ -38,7 +38,7 @@
                 //     ],
                 data:"../data/bubble.csv",
                 mode: "Default",
-                transition_duration: 1,
+                transition_duration: 0,
                 clubdata_enable: "yes",
                 clubdata_always_include_data_points: ["North America"],
                 export_enable: "YES",
@@ -99,7 +99,7 @@
                 selector: "#pyramid",
                 data:"../data/percentage-triangle.csv",
                 chart_height : 400,
-                transition_duration: 1,
+                transition_duration: 0,
                 background_color: "white",
                 mode:"DEFault",
                 chart_color: ["cyan"],
@@ -148,7 +148,7 @@
             var k = new PykCharts.oneD.donut({
                 selector: "#donutContainer",
                 data: "../data/donut.csv",
-                transition_duration: 1,
+                transition_duration: 0,
                 mode: "DEFault",
                 clubdata_enable: "yes",
                 clubdata_always_include_data_points: ["Africa","South America"],
@@ -171,7 +171,7 @@
             var k = new PykCharts.oneD.electionPie({
                 selector: "#electionPieContainer",
                 data: "../data/election-pie.csv",
-                transition_duration: 4,
+                transition_duration: 0,
                 background_color: "white",
                 mode: "DEFault",
                 clubdata_enable: "yes",
@@ -196,7 +196,7 @@
                 data: "../data/election-donut.csv",
                 background_color: "white",
                 chart_height : 400,
-                transition_duration: 1,
+                transition_duration: 0,
                 mode: "DEFault",
                 clubdata_enable: "yes",
                 clubdata_always_include_data_points: ["Africa","South America"],
@@ -219,7 +219,7 @@
                 "donut_show_total_at_center": "yes",
                 pointer_size : 0,
                 pointer_thickness:0,
-                real_time_charts_refresh_frequency:2
+                real_time_charts_refresh_frequency:0
            });
            k.execute();
 
@@ -256,7 +256,7 @@
                 chart_height: 300,
                 selector: "#percentageColumn",
                 data:"../data/percentage-column.csv",
-                transition_duration: 1,
+                transition_duration: 0,
                 mode: "DEFault",
                 clubdata_enable: "yes",
                 clubdata_always_include_data_points: ["Africa","South America"],
@@ -271,7 +271,7 @@
                 "credit_my_site_url":  "http://www.firstpost.com",
                 "data_source_name": "World Bank",
                 "data_source_url": "http://www.worldbank.org/",
-                real_time_charts_refresh_frequency:2
+                real_time_charts_refresh_frequency:0
             });
            k.execute();
 
@@ -279,7 +279,7 @@
                 selector: "#percentageBar",
                 data:"../data/percentage-bar.csv",
                 background_color: "white",
-                transition_duration: 1,
+                transition_duration: 0,
                 // "chart_height": 200,
                 chart_width: 600,
                 chart_height: 200,
@@ -300,7 +300,7 @@
                 "data_source_name": "World Bank",
                 "data_source_url": "http://www.worldbank.org/",
                 pointer_overflow_enable: "yes",
-                real_time_charts_refresh_frequency: 2
+                real_time_charts_refresh_frequency: 0
 
             });
            k.execute();
@@ -309,7 +309,7 @@
                 selector: "#pie2Container",
                 background_color: "white",
                 data: "../data/pie2.json",
-                transition_duration: 1,
+                transition_duration: 0,
                 pie_radius_percent : 100,
                 mode: "DEFault",
                 clubdata_enable: "yes",
@@ -324,7 +324,7 @@
                 "data_source_name": "World Bank",
                 "data_source_url": "http://www.worldbank.org/",
                 "pointer_overflow_enable": "yes",
-                real_time_charts_refresh_frequency:2
+                real_time_charts_refresh_frequency:0
             });
            k.execute();
 		}
