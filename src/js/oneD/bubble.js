@@ -5,16 +5,8 @@ PykCharts.oneD.bubble = function (options) {
         that = PykCharts.oneD.processInputs(that, options);
         that.height = options.chart_height ? options.chart_height : that.width;
 
-        try {
-            if(!_.isNumber(that.height)) {
-                that.height = that.width;
-                throw "chart_height"
-            }
-        }
-
-        catch (err) {
-            that.k.warningHandling(err,"1");
-        }
+        that.k.validator()
+            .validatingDataType(that.height,"chart_height",that.width,"height");
 
         if(that.mode === "default") {
             that.k.loading();
@@ -60,13 +52,12 @@ PykCharts.oneD.bubble = function (options) {
     };
 
     this.render = function () {
-        var l = $(".svgcontainer").length;
+        var l = document.getElementsByClassName("svgcontainer").length;
         that.container_id = "svgcontainer" + l;
         that.fillChart = new PykCharts.Configuration.fillChart(that);
         that.transitions = new PykCharts.Configuration.transition(that);
 
         if (that.mode ==="default") {
-
             that.k.title()
                 .backgroundColor(that)
                 .export(that,"#"+that.container_id,"bubble")
@@ -105,17 +96,17 @@ PykCharts.oneD.bubble = function (options) {
     };
 
     this.optionalFeatures = function () {
-
         var optional = {
             svgContainer: function () {
                 that.svgContainer = d3.select(that.selector).append("svg")
-                    .attr("class","svgcontainer PykCharts-oneD")
-                    .attr("id",that.container_id)
-                    .attr("preserveAspectRatio", "xMinYMin")
-                    .attr("viewBox", "0 0 " + that.width + " " + that.height)
-                    .attr("width",that.width)
-                    .attr("height",that.height);
-
+                    .attr({
+                        "class": "svgcontainer PykCharts-oneD",
+                        "id": that.container_id,
+                        "preserveAspectRatio": "xMinYMin",
+                        "viewBox": "0 0 " + that.width + " " + that.height,
+                        "width": that.width,
+                        "height": that.height
+                    });
                 that.group = that.svgContainer.append("g")
                     .attr("id","bubgrp");
                 return this;
@@ -145,20 +136,22 @@ PykCharts.oneD.bubble = function (options) {
 
                 that.chart_data.attr("class","bubble-node")
                     .select("circle")
-                    .attr("class","bubble")
-                    .attr("id",function (d,i) {
-                        return "bubble"+i;
-                    })
-                    .attr("x",function (d) { return d.x; })
-                    .attr("y",function (d) { return d.y; })
-                    .attr("r",0)
-                    .attr("transform",function (d) { return "translate(" + d.x + "," + d.y +")"; })
-                    .attr("fill",function (d) {
-                        return d.children ? that.background_color : that.fillChart.selectColor(d);
-                    })
-                    .attr("fill-opacity",1)
-                    .attr("data-fill-opacity",function () {
-                        return $(this).attr("fill-opacity");
+                    .attr({
+                        "class": "bubble",
+                        "id":function (d,i) {
+                            return "bubble"+i;
+                        },
+                        "x":function (d) { return d.x; },
+                        "y":function (d) { return d.y; },
+                        "r": 0,
+                        "transform": function (d) { return "translate(" + d.x + "," + d.y +")"; },
+                        "fill": function (d) {
+                            return d.children ? that.background_color : that.fillChart.selectColor(d);
+                        },
+                        "fill-opacity": 1,
+                        "data-fill-opacity": function () {
+                            return $(this).attr("fill-opacity");
+                        }
                     })
                     .on("mouseover", function (d) {
                         if(!d.children && that.mode==="default") {
@@ -213,10 +206,12 @@ PykCharts.oneD.bubble = function (options) {
                         .attr("y", function (d) { return d.y + 10; });
 
                     that.chart_text.attr("text-anchor","middle")
-                        .style("font-weight", that.label_weight)
-                        .style("font-size", that.label_size + "px")
                         .attr("fill", that.label_color)
-                        .style("font-family", that.label_family)
+                        .style({
+                            "font-weight": that.label_weight,
+                            "font-size": that.label_size + "px",
+                            "font-family": that.label_family
+                        })
                         .text("")
 
                   setTimeout(function() {

@@ -127,8 +127,10 @@ PykCharts.Configuration = function (options){
                 that.subtitleDiv = d3.select(options.selector)
                     .append("div")
                         .attr("id","sub-title")
-                        .style("width", options.width + "px")
-                        .style("text-align","left")
+                        .style({
+                            "width": options.width + "px",
+                            "text-align": "left"                            
+                        })
                         .html("<span style='pointer-events:none;font-size:" +
                         options.subtitle_size+"px;color:" +
                         options.subtitle_color +
@@ -431,8 +433,8 @@ PykCharts.Configuration = function (options){
                 for (j=0; j<len; j++) {
                     PykCharts.Configuration.focus_circle = svg.append("g")
                         .attr("class","focus")
-                        .style("display","none")
-                        .attr("id","f_circle"+j);
+                        .attr("id","f_circle"+j)
+                        .style("display","none");
 
                     PykCharts.Configuration.focus_circle.append("circle")
                         .attr("fill",function (d) {

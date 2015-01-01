@@ -1,25 +1,6 @@
 PykCharts.oneD = {};
 
-PykCharts.oneD.mouseEvent = function (options) {
-    var highlight_selected = {
-        highlight: function (selectedclass, that) {
-                var t = d3.select(that);
-                d3.selectAll(selectedclass)
-                    .attr("opacity",.5)
-                t.attr("opacity",1);
-                return this;
-        },
-        highlightHide : function (selectedclass) {
-                d3.selectAll(selectedclass)
-                    .attr("opacity",1);
-            return this;
-        }
-    }
-    return highlight_selected;
-}
-
 PykCharts.oneD.processInputs = function (chartObject, options) {
-
     var theme = new PykCharts.Configuration.Theme({})
         , stylesheet = theme.stylesheet
         , functionality = theme.functionality
