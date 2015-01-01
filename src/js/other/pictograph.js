@@ -29,7 +29,7 @@ PykCharts.other.pictograph = function (options) {
 
         that.k.validator()
             .validatingDataType(that.height,"chart_height",that.width,"height")
-            .validatingDataType(that.pictograph_units_per_image_text_size,"pictograph_units_per_image_text_size",otherCharts.pictograph_units_per_image_text_size)            
+            .validatingDataType(that.pictograph_units_per_image_text_size,"pictograph_units_per_image_text_size",otherCharts.pictograph_units_per_image_text_size) 
             .validatingDataType(that.current_count_size,"pictograph_current_count_size",otherCharts.pictograph_current_count_size,"current_count_size")
             .validatingDataType(that.total_count_size,"pictograph_total_count_size",otherCharts.pictograph_total_count_size,"total_count_size")
             .validatingDataType(that.imageWidth,"pictograph_image_width",otherCharts.pictograph_image_width,"imageWidth")

@@ -129,7 +129,7 @@ PykCharts.Configuration = function (options){
                         .attr("id","sub-title")
                         .style({
                             "width": options.width + "px",
-                            "text-align":"left"                         
+                            "text-align": "left"                            
                         })
                         .html("<span style='pointer-events:none;font-size:" +
                         options.subtitle_size+"px;color:" +

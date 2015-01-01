@@ -8,38 +8,10 @@ PykCharts.oneD.funnel = function (options) {
         , functionality = theme.oneDimensionalCharts;
         that.rect_width =  options.funnel_rect_width   ? options.funnel_rect_width : functionality.funnel_rect_width;
         that.rect_height = options.funnel_rect_height  ? options.funnel_rect_height : functionality.funnel_rect_height;
-
-            try {
-                if(!_.isNumber(that.height)) {
-                    that.height = that.width;
-                    throw "chart_height"
-                }
-            }
-
-            catch (err) {
-                that.k.warningHandling(err,"1");
-            }
-
-            try {
-                if(!_.isNumber(that.rect_width)) {
-                    that.rect_width = functionality.funnel_rect_width;
-                    throw "funnel_rect_width"
-                }
-            }
-            catch (err) {
-                that.k.warningHandling(err,"1");
-            }
-
-            try {
-
-                if(!_.isNumber(that.rect_height)) {
-                    that.rect_height = functionality.funnel_rect_height;
-                    throw "funnel_rect_height"
-                }
-            }
-            catch (err) {
-                that.k.warningHandling(err,"1");
-            }
+        that.k.validator()
+            .validatingDataType(that.height,"chart_height",that.width,"height")
+            .validatingDataType(that.rect_width,"funnel_rect_width",functionality.funnel_rect_width,"rect_width")
+            .validatingDataType(that.rect_height,"funnel_rect_height",functionality.funnel_rect_height,"rect_height");
 
         if(that.stop) {
             return;
@@ -85,7 +57,7 @@ PykCharts.oneD.funnel = function (options) {
 
     this.render = function () {
         var that = this;
-        var l = $(".svgcontainer").length;
+        var l = document.getElementsByClassName("svgcontainer").length;
         that.container_id = "svgcontainer" + l;
 
         that.fillChart = new PykCharts.Configuration.fillChart(that);
@@ -147,18 +119,14 @@ PykCharts.oneD.funnel = function (options) {
 
         var funnel = {
             data: function(d){
-
                 if (d.length===0){
-
                 } else {
                     data = d;
-
                 }
                 return this;
             },
             size: function(s){
                 if (s.length!==2){
-
                 } else {
                     size = s;
                 }
@@ -166,29 +134,28 @@ PykCharts.oneD.funnel = function (options) {
             },
             mouth: function(m){
                 if (m.length!==2){
-
                 } else {
                     mouth = m;
                 }
                 return this;
             },
             coordinates: function(){
-                var w = size[0];
-                var h = size[1];
-                var rw = mouth[0]; //rect width
-                var rh = mouth[1]; //rect height
-                var tw = (w - rw)/2; //triangle width
-                var th = h - rh; //triangle height
-                var height1=0;
-                var height2=0;
-                var height3=0;
-                var merge = 0;
-                var coordinates = [];
-                var ratio = tw/th;
-                var area_of_trapezium = (w + rw) / 2 * th;
-                var area_of_rectangle = rw * rh;
-                var total_area = area_of_trapezium + area_of_rectangle;
-                var percent_of_rectangle = area_of_rectangle / total_area * 100;
+                var w = size[0],
+                    h = size[1],
+                    rw = mouth[0], //rect width
+                    rh = mouth[1], //rect height
+                    tw = (w - rw)/2, //triangle width
+                    th = h - rh, //triangle height
+                    height1=0,
+                    height2=0,
+                    height3=0,
+                    merge = 0,
+                    coordinates = [],
+                    ratio = tw/th,
+                    area_of_trapezium = (w + rw) / 2 * th,
+                    area_of_rectangle = rw * rh,
+                    total_area = area_of_trapezium + area_of_rectangle,
+                    percent_of_rectangle = area_of_rectangle / total_area * 100;
                 for (var i=data.length-1; i>=0; i--){
                     var selectedPercentValues = that.percentageValues(data)[i];
                     if (percent_of_rectangle>=selectedPercentValues){
@@ -200,14 +167,14 @@ PykCharts.oneD.funnel = function (options) {
                             coordinates[i] = {"values":[{"x":(w-rw)/2,"y":height1},coordinates[i+1].values[0],coordinates[i+1].values[3],{"x":((w-rw)/2)+rw,"y":height1}]};
                         }
                     }else{
-                        var area_of_element = ((selectedPercentValues)/100 * total_area) - area_of_rectangle;
-                        var a = 2 * ratio;
-                        var b = 2 * rw;
-                        var c = 2 * area_of_element;
+                        var area_of_element = ((selectedPercentValues)/100 * total_area) - area_of_rectangle,
+                            a = 2 * ratio,
+                            b = 2 * rw,
+                            c = 2 * area_of_element;
                         height2 = (-b + Math.sqrt(Math.pow(b,2) - (4 * a * -c))) / (2 * a);
                         height1 = h - height2 - rh;
-                        var base = 2*(ratio * height2)+rw;
-                        var xwidth = (w-base)/2;
+                        var base = 2*(ratio * height2)+rw,
+                        xwidth = (w-base)/2;
                         
                         if(merge===0){
                             if (i===data.length-1){

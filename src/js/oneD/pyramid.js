@@ -6,16 +6,9 @@ PykCharts.oneD.pyramid = function (options) {
         that = new PykCharts.oneD.processInputs(that, options, "pyramid");
         that.height = options.chart_height ? options.chart_height : that.width;
 
-        try {
-            if(!_.isNumber(that.height)) {
-                that.height = that.width;
-                throw "chart_height"
-            }
-        }
-        catch (err) {
-            that.k.warningHandling(err,"1");
-        }
-
+        that.k.validator()
+            .validatingDataType(that.height,"chart_height",that.width,"height");
+            
         if(that.stop) {
             return;
         }
@@ -64,7 +57,7 @@ PykCharts.oneD.pyramid = function (options) {
     };
 
 	this.render = function () {
-        var l = $(".svgcontainer").length;
+        var l = document.getElementsByClassName("svgcontainer").length;
         that.container_id = "svgcontainer" + l;
         that.fillChart = new PykCharts.Configuration.fillChart(that);
         that.transitions = new PykCharts.Configuration.transition(that);
@@ -491,7 +484,7 @@ PykCharts.oneD.pyramid = function (options) {
                     that.getIndexByName = function(name){
                         for(i=0;i<that.data.length;i++)
                         {
-                            if(that.data[i].name == name)
+                            if(that.data[i].name === name)
                                 return i;
                         }
                     };
@@ -499,7 +492,7 @@ PykCharts.oneD.pyramid = function (options) {
                     var reject = function (index) {
                         var result = _.reject(that.sorted_weight,function(num)
                             {
-                                return num==that.data[index].weight;
+                                return num === that.data[index].weight;
                             });
                         return result;
                     } ;
@@ -519,7 +512,7 @@ PykCharts.oneD.pyramid = function (options) {
                     that.getIndexByWeight = function (weight) {
                         for(var i=0;i<that.data.length;i++)
                         {
-                            if(that.data[i].weight == weight) {
+                            if(that.data[i].weight === weight) {
                                 if((_.contains(that.checkDuplicate, i))===false) {
                                    that.checkDuplicate.push(i);
                                     return i;

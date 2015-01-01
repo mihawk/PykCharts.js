@@ -9,25 +9,9 @@ PykCharts.oneD.percentageBar = function (options) {
         that.height = options.chart_height ? options.chart_height : that.width/2;
         that.percent_row_rect_height = options.percent_row_rect_height ? options.percent_row_rect_height : theme.oneDimensionalCharts.percent_row_rect_height;
 
-        try {
-            if(!_.isNumber(that.height)) {
-                that.height = that.width/2;
-                throw "chart_height"
-            }
-        }
-        catch (err) {
-            that.k.warningHandling(err,"1");
-        }
-
-        try {
-            if(!_.isNumber(that.percent_row_rect_height)) {
-                that.percent_row_rect_height = theme.oneDimensionalCharts.percent_row_rect_height;
-                throw "percent_row_rect_height";
-            }
-        }
-        catch (err) {
-            that.k.warningHandling(err,"1");
-        }
+        that.k.validator()
+            .validatingDataType(that.height,"chart_height",that.width/2,"height")
+            .validatingDataType(that.percent_row_rect_height,"percent_row_rect_height",theme.oneDimensionalCharts.percent_row_rect_height);
 
         if(that.stop) {
             return;
@@ -84,7 +68,7 @@ PykCharts.oneD.percentageBar = function (options) {
 
     this.render = function () {
         var that = this;
-        var l = $(".svgcontainer").length;
+        var l = document.getElementsByClassName("svgcontainer").length;
         that.container_id = "svgcontainer" + l;
         that.fillChart = new PykCharts.Configuration.fillChart(that);
         that.transitions = new PykCharts.Configuration.transition(that);
@@ -387,7 +371,6 @@ PykCharts.oneD.percentageBar = function (options) {
                 return this;
             },
             clubData : function () {
-
                 if(PykCharts['boolean'](that.clubdata_enable)) {
                     var clubdata_content = [];
                     if(that.clubdata_always_include_data_points.length!== 0){

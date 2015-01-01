@@ -7,15 +7,8 @@ PykCharts.oneD.treemap = function (options){
         that.selector = options.selector;
         that.height = options.chart_height ? options.chart_height : that.width;
 
-        try {
-            if(!_.isNumber(that.height)) {
-                that.height = that.width;
-                throw "chart_height"
-            }
-        }
-        catch (err) {
-            that.k.warningHandling(err,"1");
-        }
+        that.k.validator()
+            .validatingDataType(that.height,"chart_height",that.width,"height");
 
         if(that.stop) {
             return;
@@ -65,7 +58,7 @@ PykCharts.oneD.treemap = function (options){
     };
 
     this.render = function (){
-        var l = $(".svgcontainer").length;
+        var l = document.getElementsByClassName("svgcontainer").length;
         that.container_id = "svgcontainer" + l;
         that.fillChart = new PykCharts.Configuration.fillChart(that);
         that.transitions = new PykCharts.Configuration.transition(that);
