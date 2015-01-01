@@ -1631,8 +1631,10 @@ configuration.mouseEvent = function (options) {
         },
         crossHairPosition: function(new_data,xScale,yScale,dataLineGroup,lineMargin,domain,type,tooltipMode,color_from_data,panels_enable){
             if((PykCharts['boolean'](options.crosshair_enable) || PykCharts['boolean'](options.tooltip_enable) || PykCharts['boolean'](options.axis_onhover_highlight_enable))  && options.mode === "default") {
-                var selectSVG = $(options.selector + " #"+dataLineGroup[0][0][0].parentNode.parentNode.id)
-                var width_percentage = 0;
+                var selectSVG = $(options.selector + " #"+dataLineGroup[0][0][0].parentNode.parentNode.id),
+                    width_percentage = 0,
+                    height_percentage = 0,
+                    top_shift_from_first_panel = $("svg#svg-0").offset().top;
                 if (!PykCharts['boolean'](panels_enable)) {
                     width_percentage = selectSVG.width() / options.width;
                     height_percentage = selectSVG.height() / options.height;
@@ -1690,8 +1692,6 @@ configuration.mouseEvent = function (options) {
                                 if(left_diff >= right_diff) {
                                     active_x_tick = new_data[0].data[j].x;
                                     active_y_tick.push(new_data[0].data[j].y);
-
-                                    // tooltipText = data[j].tooltip || data[j].y;
                                     tooltipText = new_data[0].data[j].tooltip || new_data[0].data[j].y;
                                     pos_line_cursor_x = (xScale(active_x_tick) + lineMargin + left);
                                     pos_line_cursor_y = (yScale(tooltipText) + top);
@@ -1699,8 +1699,6 @@ configuration.mouseEvent = function (options) {
                                 else {
                                     active_x_tick = new_data[0].data[j+1].x;
                                     active_y_tick.push(new_data[0].data[j+1].y);
-
-                                    // tooltipText = data[j+1].tooltip || data[j+1].y; // Line Chart ONLY!
                                     tooltipText = new_data[0].data[j+1].tooltip || new_data[0].data[j+1].y; // Line Chart ONLY!
                                     pos_line_cursor_x = (xScale(active_x_tick) + lineMargin + left);
                                     pos_line_cursor_y = (yScale(tooltipText) + top);
@@ -1723,11 +1721,11 @@ configuration.mouseEvent = function (options) {
                                                         active_y_tick.push(new_data[a].data[b].y);
                                                         test.push(yScale(new_data[a].data[b].y) + top);
                                                         if(!PykCharts['boolean'](color_from_data)) {
-                                                            tt_row += "<tr><td>"+new_data[a].name+"</td><td><b>"+new_data[a].data[b].tooltip+"</b></td></tr>";
+                                                            tt_row += "<tr><td>"+new_data[a].name+"</td><td><b>"+ (new_data[a].data[b].tooltip || new_data[a].data[b].y) +"</b></td></tr>";
                                                             colspan = 2;
                                                         }
                                                         else if (PykCharts['boolean'](color_from_data)) {
-                                                            tt_row += "<tr><td><div style='padding:2px;width:5px;height:5px;background-color:"+new_data[a].color+"'></div></td><td>"+new_data[a].name+"</td><td><b>"+new_data[a].data[b].tooltip+"</b></td></tr>";
+                                                            tt_row += "<tr><td><div style='padding:2px;width:5px;height:5px;background-color:"+new_data[a].color+"'></div></td><td>"+new_data[a].name+"</td><td><b>"+ (new_data[a].data[b].tooltip || new_data[a].data[b].y) +"</b></td></tr>";
                                                             colspan = 3;
                                                         }
                                                     }
@@ -1747,7 +1745,10 @@ configuration.mouseEvent = function (options) {
                                         }
                                         else if(panels_enable === "yes") {
                                             pos_line_cursor_x += 5;
-                                            var len_data = new_data[0].data.length;
+                                            var len_data = new_data[0].data.length,
+                                                multiply_value = 200,
+                                                multiply_by = 0,
+                                                final_displacement = 0;
                                             for(var a=0;a < number_of_lines;a++) {
                                                 var left_offset = $(options.selector + " #svg-"+a).offset().left - $(options.selector).offset().left;
                                                 var top_offset = $(options.selector + " #svg-"+a).offset().top - $(options.selector).offset().top;
@@ -1798,11 +1799,11 @@ configuration.mouseEvent = function (options) {
                                                     active_y_tick.push(new_data[a].data[b].y);
                                                     test.push(yScale(new_data[a].data[b].y+new_data[a].data[b].y0) + top + options.legendsGroup_height);
                                                     if(!PykCharts['boolean'](color_from_data)) {
-                                                        tt_row += "<tr><td>"+new_data[a].name+"</td><td><b>"+new_data[a].data[b].tooltip+"</b></td></tr>";
+                                                        tt_row += "<tr><td>"+new_data[a].name+"</td><td><b>"+ (new_data[a].data[b].tooltip || new_data[a].data[b].y) +"</b></td></tr>";
                                                         colspan = 2;
                                                     }
                                                     else if (PykCharts['boolean'](color_from_data)) {
-                                                        tt_row += "<tr><td><div style='padding:2px;width:5px;height:5px;background-color:"+new_data[a].color+"'></div></td><td>"+new_data[a].name+"</td><td><b>"+new_data[a].data[b].tooltip+"</b></td></tr>";
+                                                        tt_row += "<tr><td><div style='padding:2px;width:5px;height:5px;background-color:"+new_data[a].color+"'></div></td><td>"+new_data[a].name+"</td><td><b>"+ (new_data[a].data[b].tooltip || new_data[a].data[b].y) +"</b></td></tr>";
                                                         colspan = 3;
                                                     }
                                                 }

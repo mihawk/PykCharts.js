@@ -1,0 +1,22 @@
+name,x,y,color,tooltip
+Full-time employed,January,100380,,100380
+Full-time employed,February,108030,,108030
+Full-time employed,March,109920,,109920
+Full-time employed,April,119208,,119208
+Full-time employed,May,110389,,110389
+Full-time employed,June,128301,,128301
+Full-time employed,July,129083,,129083
+Part-time employed,January,158030,#4682b4,158030
+Part-time employed,February,158030,#4682b4,158030
+Part-time employed,March,159081,#4682b4,159081
+Part-time employed,April,157420,#4682b4,157420
+Part-time employed,May,163901,#4682b4,163901
+Part-time employed,June,163981,#4682b4,163981
+Part-time employed,July,158992,#4682b4,158992
+Unemployed,January,168473,#75b0e1,168473
+Unemployed,February,163981,#75b0e1,163981
+Unemployed,March,172981,#75b0e1,172981
+Unemployed,April,198362,#75b0e1,198362
+Unemployed,May,183902,#75b0e1,183902
+Unemployed,June,186382,#75b0e1,186382
+Unemployed,July,186638,#75b0e1,186638

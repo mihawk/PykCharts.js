@@ -428,6 +428,18 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                 }
                 else if(type.toLowerCase() === "election pie" || type.toLowerCase() === "election donut") {
                     that.new_data.sort(function (a,b) { return b.weight - a.weight;});
+                    if(PykCharts['boolean'](that.clubdata_enable)) {
+                        var index,data;
+                        for(var i = 0;i<that.new_data.length;i++) {
+                            if(that.new_data[i].name === that.clubdata_text) {
+                                index = i;
+                                data = that.new_data[i];
+                                break;
+                            }
+                        }
+                        that.new_data.splice(index,1);
+                        that.new_data.push(data);
+                    }
                 }
                 that.sum = _.reduce(that.data,function (start,num) { return start+num.weight; },0);
                 that.inner_radius = that.k.__proto__._radiusCalculation(that.innerRadiusPercent,that.calculation);
@@ -436,6 +448,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                 that.arc = d3.svg.arc()
                     .innerRadius(that.inner_radius)
                     .outerRadius(that.outer_radius);
+
                 that.pie = d3.layout.pie()
                     .value(function (d) { return d.weight; })
                     .sort(null)
@@ -562,7 +575,6 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                     that.sorted_weight = _.map(that.data,function(num){ return num.weight; });
                     that.sorted_weight.sort(function(a,b){ return b-a; });
                     that.checkDuplicate = [];
-
                     var others_Slice = {"name":that.clubdata_text,"color":that.clubData_color,"tooltip":that.clubData_tooltipText,"highlight":false};
                     var index;
                     var i;

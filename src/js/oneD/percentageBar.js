@@ -139,7 +139,8 @@ PykCharts.oneD.percentageBar = function (options) {
                 that.new_data.forEach(function (d, i) {
                     this[i].percentValue= d.weight * 100 / sum;
                 }, that.new_data);
-                that.new_data.sort(function (a,b) { return b.weight - a.weight; })
+
+               // that.new_data.sort(function (a,b) { return b.weight - a.weight; })
                 that.chart_data = that.group.selectAll('.per-rect')
                     .data(that.new_data)
 
@@ -419,7 +420,9 @@ PykCharts.oneD.percentageBar = function (options) {
                         var a=new_data1.pop();
                     }
                     var others_Slice = { "name":that.clubdata_text, "weight": sum_others,/* "color": that.clubdata_color,*/ "tooltip": that.clubdata_tooltip };
-
+                    new_data1.sort(function(a,b){
+                        return b.weight - a.weight;
+                    })
                     if(new_data1.length < that.clubdata_maximum_nodes){
                         new_data1.push(others_Slice);
                     }
