@@ -484,7 +484,7 @@ PykCharts.oneD.pyramid = function (options) {
                     that.getIndexByName = function(name){
                         for(i=0;i<that.data.length;i++)
                         {
-                            if(that.data[i].name == name)
+                            if(that.data[i].name === name)
                                 return i;
                         }
                     };
@@ -492,7 +492,7 @@ PykCharts.oneD.pyramid = function (options) {
                     var reject = function (index) {
                         var result = _.reject(that.sorted_weight,function(num)
                             {
-                                return num==that.data[index].weight;
+                                return num === that.data[index].weight;
                             });
                         return result;
                     } ;
@@ -512,7 +512,7 @@ PykCharts.oneD.pyramid = function (options) {
                     that.getIndexByWeight = function (weight) {
                         for(var i=0;i<that.data.length;i++)
                         {
-                            if(that.data[i].weight == weight) {
+                            if(that.data[i].weight === weight) {
                                 if((_.contains(that.checkDuplicate, i))===false) {
                                    that.checkDuplicate.push(i);
                                     return i;

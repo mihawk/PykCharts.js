@@ -140,9 +140,9 @@ PykCharts.oneD.electionPie = function (options) {
 
         that = new PykCharts.oneD.processInputs(that, options, "pie");
         that.x = true;
-        if(options.chart_height || options.chart_height == undefined) {
+        if(options.chart_height || options.chart_height === undefined) {
             try {
-                if (options.chart_height == undefined) {                    
+                if (options.chart_height === undefined) {                    
                     options.chart_height = theme.stylesheet.chart_height;
                 }
                 else if (!_.isNumber(options.chart_height)) {
@@ -219,9 +219,9 @@ PykCharts.oneD.electionDonut = function (options) {
         that = new PykCharts.oneD.processInputs(that, options, "pie");
 
         that.x = true;
-        if(options.chart_height || options.chart_height == undefined) {
+        if(options.chart_height || options.chart_height === undefined) {
             try {
-                if (options.chart_height == undefined) {                    
+                if (options.chart_height === undefined) {                    
                     options.chart_height = theme.stylesheet.chart_height;
                 }
                 else if (!_.isNumber(options.chart_height)) {
@@ -339,7 +339,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
         that.border = new PykCharts.Configuration.border(that);
         that.transitions = new PykCharts.Configuration.transition(that);
 
-        if(that.mode.toLowerCase() == "default") {
+        if(that.mode.toLowerCase() === "default") {
 
             that.k.title()
                 .backgroundColor(that)
@@ -366,7 +366,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
 
             that.k.liveData(that);
 
-        } else if(that.mode.toLowerCase() == "infographics") {
+        } else if(that.mode.toLowerCase() === "infographics") {
             that.new_data = that.data;
             that.k.backgroundColor(that)
                 .export(that,"#"+that.container_id,type)
@@ -421,12 +421,12 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
             createChart : function () {
                 $(that.selector +" #pieGroup").empty();
 
-                if(type.toLowerCase() == "pie" || type.toLowerCase() == "donut") {
+                if(type.toLowerCase() === "pie" || type.toLowerCase() === "donut") {
                     that.new_data.sort(function (a,b) { return a.weight - b.weight;});
                     var temp = that.new_data.pop();
                     that.new_data.unshift(temp);
                 }
-                else if(type.toLowerCase() == "election pie" || type.toLowerCase() == "election donut") {
+                else if(type.toLowerCase() === "election pie" || type.toLowerCase() === "election donut") {
                     that.new_data.sort(function (a,b) { return b.weight - a.weight;});
                 }
                 that.sum = _.reduce(that.data,function (start,num) { return start+num.weight; },0);
@@ -488,7 +488,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
 
                 that.chart_data.transition()
                     .delay(function(d, i) {
-                        if(that.transition_duration && that.mode == "default") {
+                        if(that.transition_duration && that.mode === "default") {
                             return (i * that.transition_duration * 1000)/that.new_data.length;
                         } else return 0;
                     })
@@ -569,7 +569,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                     that.getIndexByName = function(name) {
                         for(i=0;i<that.data.length;i++)
                         {
-                            if(that.data[i].name == name) {
+                            if(that.data[i].name === name) {
                                 return i;
                             }
                         }
@@ -578,7 +578,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                     var reject = function (index) {
                         var result = _.reject(that.sorted_weight,function(num)
                             {
-                                return num == that.data[index].weight;
+                                return num === that.data[index].weight;
                             });
                         return result;
                     } ;
@@ -599,7 +599,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                         for(var i=0;i<that.data.length;i++)
                         {
 
-                            if(that.data[i].weight == weight) {
+                            if(that.data[i].weight === weight) {
                                 if((_.contains(that.checkDuplicate, i))===false) {
                                    that.checkDuplicate.push(i);
                                     return i;
@@ -726,7 +726,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                 return this;
             },
             centerLabel: function () {
-                if(PykCharts['boolean'](that.show_total_at_center) && (type == "donut" || type == "election donut")) {
+                if(PykCharts['boolean'](that.show_total_at_center) && (type === "donut" || type === "election donut")) {
 
                     var h;
                     var label = that.group.selectAll(options.selector +" "+".centerLabel")
@@ -748,7 +748,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                             .attr("pointer-events","none")
                             .attr("text-anchor","middle")
                             .attr("y",function () {
-                                return (type == "donut") ? h/2 : (-0.25*that.inner_radius);
+                                return (type === "donut") ? h/2 : (-0.25*that.inner_radius);
                             })
                             .style("font-family",that.show_total_at_center_family)
                             .attr("fill",that.show_total_at_center_color)
@@ -763,10 +763,10 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
             },
             set_start_end_angle: function () {
                 that.startAngle, that.endAngle;
-                if(type == "pie" || type == "donut") {
+                if(type === "pie" || type === "donut") {
                     that.start_angle = (0 * (Math.PI/180));
                     that.end_angle = (360 * (Math.PI/180));
-                } else if(type == "election pie" || type == "election donut") {
+                } else if(type === "election pie" || type === "election donut") {
                     that.start_angle = (-90 * (Math.PI/180));
                     that.end_angle = (90 * (Math.PI/180));
                 }
