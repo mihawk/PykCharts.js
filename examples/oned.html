@@ -162,7 +162,9 @@
                 "data_source_name": "World Bank",
                 "data_source_url": "http://www.worldbank.org/",
                 "donut_show_total_at_center": "yes",
-                real_time_charts_refresh_frequency:2
+                real_time_charts_refresh_frequency:2,
+                "donut_radius_percent": 70,
+                "donut_inner_radius_percent": 40,
             });
            k.execute();
 
@@ -212,8 +214,8 @@
                 "credit_my_site_url":  "http://www.firstpost.com",
                 "data_source_name": "World Bank",
                 "data_source_url": "http://www.worldbank.org/",
-                "donut_radius_percent": 40,
-                "donut_inner_radius_percent": 20,
+                "donut_radius_percent": "40",
+                "donut_inner_radius_percent": "20",
                 "donut_show_total_at_center": "yes",
                 pointer_size : 0,
                 pointer_thickness:0,
@@ -269,7 +271,7 @@
                 "credit_my_site_url":  "http://www.firstpost.com",
                 "data_source_name": "World Bank",
                 "data_source_url": "http://www.worldbank.org/",
-                                real_time_charts_refresh_frequency:2
+                real_time_charts_refresh_frequency:2
             });
            k.execute();
 
@@ -280,8 +282,8 @@
                 transition_duration: 1,
                 // "chart_height": 200,
                 chart_width: 600,
-                chart_height: 00,
-                percent_row_rect_height : 100,
+                chart_height: 200,
+                percent_row_rect_height : 90,
 
                 // clubdata_enable: "yes"
                 mode: "DEFault",
@@ -314,7 +316,6 @@
                 clubdata_always_include_data_points: ["Africa","South America"],
                 units_prefix: "$",
                 units_suffix: "/-",
-
                 "border_between_chart_elements_thickness": 2,
                 "border_between_chart_elements_color": "black",
                 "border_between_chart_elements_style": "dotted",

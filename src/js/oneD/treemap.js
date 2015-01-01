@@ -65,7 +65,7 @@ PykCharts.oneD.treemap = function (options){
     };
 
     this.render = function (){
-        var l = $(".svgcontainer").length;
+        var l = document.getElementsByClassName("svgcontainer").length;
         that.container_id = "svgcontainer" + l;
         that.fillChart = new PykCharts.Configuration.fillChart(that);
         that.transitions = new PykCharts.Configuration.transition(that);

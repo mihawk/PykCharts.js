@@ -9,25 +9,10 @@ PykCharts.oneD.percentageColumn = function (options) {
         that.height = options.chart_height ? options.chart_height : that.width;
         that.percent_column_rect_width = options.percent_column_rect_width ? options.percent_column_rect_width : theme.oneDimensionalCharts.percent_column_rect_width;
 
-        try {
-            if(!_.isNumber(that.height)) {
-                that.height = that.width;
-                throw "chart_height"
-            }
-        }
-        catch (err) {
-            that.k.warningHandling(err,"1");
-        }
+        that.k.validator()
+            .validatingDataType(that.height,"chart_height",that.width,"height")
+            .validatingDataType(that.percent_column_rect_width,"percent_column_rect_width",theme.oneDimensionalCharts.percent_column_rect_width);
 
-        try {
-            if(!_.isNumber(that.percent_column_rect_width)) {
-                that.percent_column_rect_width = theme.oneDimensionalCharts.percent_column_rect_width;
-                throw "percent_column_rect_width"
-            }
-        }
-        catch (err) {
-            that.k.warningHandling(err,"1");
-        }
         if(that.stop) {
             return;
         }
@@ -80,7 +65,7 @@ PykCharts.oneD.percentageColumn = function (options) {
 
     this.render = function () {
         var that = this;
-        var l = $(".svgcontainer").length;
+        var l = document.getElementsByClassName("svgcontainer").length;
         that.container_id = "svgcontainer" + l;
         that.fillChart = new PykCharts.Configuration.fillChart(that);
         that.transitions = new PykCharts.Configuration.transition(that);
