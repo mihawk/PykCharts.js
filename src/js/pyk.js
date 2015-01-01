@@ -1111,17 +1111,18 @@ PykCharts.Configuration = function (options){
         export: function(chart,svgId,chart_name,panels_enable,containers) {
             if(PykCharts['boolean'](options.export_enable)) {
                 var id = "export",
-                div_size = options.width
-                div_float ="none"
+                div_size = options.width,
+                div_float ="none",
                 div_left = options.width-16;
-
+                
                 d3.select(options.selector)
                         .append("div")
                         .style("left",options.width - 80 + "px")
                         .attr("class","dropdown-multipleConatiner-export")
                 
                 if(PykCharts['boolean'](panels_enable)) {
-                    for(var i = 0; i < containers.length; i++) {
+                    var containers_length = containers.length;
+                    for(var i = 0; i < containers_length; i++) {
                         d3.select(options.selector + " .dropdown-multipleConatiner-export")
                             .append("span")
                             .attr("id",chart_name + i)
@@ -1212,7 +1213,8 @@ PykCharts.Configuration = function (options){
                         project.clear();
                     });
                 } else {
-                    for(var i = 0; i<containers.length; i++) {
+                    var containers_length = containers.length;
+                    for(var i = 0; i<containers_length; i++) {
                         $(chart.selector + " #"+chart_name + i).click(function () {
                             d3.select(options.selector + " .dropdown-multipleConatiner-export").style("visibility", "hidden");
                             var id = this.id.substring(this.id.length-1,this.id.length);
@@ -1231,8 +1233,9 @@ PykCharts.Configuration = function (options){
             return this;
         },
         processSVG: function (svg,svgId) {
-            var x = svg.querySelectorAll("text");
-            for (var i = 0; i < x.length; i++) {
+            var x = svg.querySelectorAll("text"),
+                x_length = x.length;
+            for (var i = 0; i < x_length; i++) {
                 if(x[i].hasAttribute("dy")) {
                     var attr_value = x[i].getAttribute("dy");
                     var attr_length = attr_value.length;
@@ -1804,7 +1807,6 @@ configuration.mouseEvent = function (options) {
                             .attr("transform", "translate(" + cx + "," + cy + ")");
                     }
                     else if(type === "multilineChart" /*|| type === "stackedAreaChart"*/) {
-                        var new_data_length = new_data.length;
                         if(panels_enable === "no") {
                             that.cross_hair_v.style("display","block");
                             that.cross_hair_v.select(options.selector + " #cross-hair-v")
