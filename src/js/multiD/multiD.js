@@ -5,15 +5,6 @@ PykCharts.multiD.configuration = function (options){
     var that = this;
     var fillColor = new PykCharts.Configuration.fillChart(options);
     var multiDConfig = {
-        magnify: function(rect,gsvg,xScale){
-            gsvg.on("mousemove", function() {
-                var mouse = d3.mouse(this);
-                xScale.focus(mouse[0]);
-                rect
-                .attr("x", function(d) { return xScale(d.x); })
-                .attr("width", function(d) {return xScale.rangeBand(d.x);});
-            });
-        },
         opacity : function (d,weight,data) {
             if(!(PykCharts['boolean'](options.variable_circle_size_enable))) {
                 var z = d3.scale.linear()
@@ -298,8 +289,8 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     var theme = new PykCharts.Configuration.Theme({}),
         stylesheet = theme.stylesheet,
         functionality = theme.functionality,
-        multiDimensionalCharts = theme.multiDimensionalCharts,
-        optional = options.optional;
+        multiDimensionalCharts = theme.multiDimensionalCharts;
+
     chartObject.selector = options.selector ? options.selector : "body";
     chartObject.width = options.chart_width ? options.chart_width : stylesheet.chart_width;
     chartObject.height = options.chart_height ? options.chart_height : stylesheet.chart_height;
