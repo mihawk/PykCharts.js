@@ -65,22 +65,21 @@ PykCharts.oneD.percentageColumn = function (options) {
 
     this.render = function () {
         var that = this;
-        var l = document.getElementsByClassName("svgcontainer").length;
-        that.container_id = "svgcontainer" + l;
+        var id = that.selector.substring(1,that.selector.length);
+        var container_id = id + "_svg";
         that.fillChart = new PykCharts.Configuration.fillChart(that);
         that.transitions = new PykCharts.Configuration.transition(that);
-        that.border = new PykCharts.Configuration.border(that);
 
         if(that.mode === "default") {
             that.k.title()
                     .backgroundColor(that)
-                    .export(that,"#"+that.container_id,"percentageColumn")
+                    .export(that,"#"+container_id,"percentageColumn")
                     .emptyDiv()
                     .subtitle();
         }
         if(that.mode === "infographics") {
             that.k.backgroundColor(that)
-                .export(that,"#"+that.container_id,"percentageColumn")
+                .export(that,"#"+container_id,"percentageColumn")
                     .emptyDiv();
 
             that.new_data = that.data;
@@ -93,7 +92,7 @@ PykCharts.oneD.percentageColumn = function (options) {
             percent_column = that.optionalFeatures()
                             .clubData();
         }
-        that.optionalFeatures().svgContainer()
+        that.optionalFeatures().svgContainer(container_id)
             .createChart()
             .label()
             .ticks();
@@ -109,11 +108,11 @@ PykCharts.oneD.percentageColumn = function (options) {
 
         setTimeout(function () {
             if(that.ticks_text_width.length) {
-                add_extra_width = _.max(that.ticks_text_width,function(d){
-                        return d;
-                    });
+                add_extra_width = d3.max(that.ticks_text_width,function(d){
+                    return d;
+                });
             }
-            that.k.exportSVG(that,"#"+that.container_id,"percentageColumn",undefined,undefined,(add_extra_width+15))
+            that.k.exportSVG(that,"#"+container_id,"percentageColumn",undefined,undefined,(add_extra_width+15))
         },that.transitions.duration());
 
         $(document).ready(function () { return that.k.resize(that.svgContainer); })
@@ -122,6 +121,7 @@ PykCharts.oneD.percentageColumn = function (options) {
     this.optionalFeatures = function () {
         var optional = {
             createChart: function () {
+                var border = new PykCharts.Configuration.border(that);
                 var arr = that.new_data.map(function (d) {
                     return d.weight;
                 });
@@ -169,9 +169,9 @@ PykCharts.oneD.percentageColumn = function (options) {
                     .attr("data-fill-opacity",function () {
                         return $(this).attr("fill-opacity");
                     })
-                    .attr("stroke",that.border.color())
-                    .attr("stroke-width",that.border.width())
-                    .attr("stroke-dasharray", that.border.style())
+                    .attr("stroke",border.color())
+                    .attr("stroke-width",border.width())
+                    .attr("stroke-dasharray",border.style())
                     .on("mouseover", function (d,i) {
                         if(that.mode === "default") {
                             d.tooltip=d.tooltip||"<table class='PykCharts'><tr><th colspan='2' class='tooltip-heading'>"+d.name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.weight)+"<td class='tooltip-right-content'>("+d.percentValue.toFixed(1)+"%)</tr></table>"
@@ -205,7 +205,7 @@ PykCharts.oneD.percentageColumn = function (options) {
 
                 return this;
             },
-            svgContainer :function () {
+            svgContainer :function (container_id) {
 
                 that.svgContainer = d3.select(options.selector)
                     .append('svg')
@@ -213,7 +213,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                     .attr("height",that.height)
                     .attr("preserveAspectRatio", "xMinYMin")
                     .attr("viewBox", "0 0 " + that.width + " " + that.height)
-                    .attr("id",that.container_id)
+                    .attr("id",container_id)
                     .attr("class","svgcontainer PykCharts-oneD");
 
                     that.group = that.svgContainer.append("g")

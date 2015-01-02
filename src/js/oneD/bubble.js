@@ -22,7 +22,6 @@ PykCharts.oneD.bubble = function (options) {
 
             that.data = that.k.__proto__._groupBy("oned",data);
             that.compare_data = that.k.__proto__._groupBy("oned",data);
-
             $(options.selector+" #chart-loader").remove();
             $(that.selector).css("height","auto")
             that.clubdata_enable = that.data.length>that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
@@ -32,7 +31,6 @@ PykCharts.oneD.bubble = function (options) {
     };
 
     this.refresh = function () {
-
         that.executeRefresh = function (data) {
             that.data = that.k.__proto__._groupBy("oned",data);
             that.clubdata_enable = that.data.length>that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
@@ -52,20 +50,20 @@ PykCharts.oneD.bubble = function (options) {
     };
 
     this.render = function () {
-        var l = document.getElementsByClassName("svgcontainer").length;
-        that.container_id = "svgcontainer" + l;
+        var id = that.selector.substring(1,that.selector.length);
+        var container_id = id + "_svg";
         that.fillChart = new PykCharts.Configuration.fillChart(that);
         that.transitions = new PykCharts.Configuration.transition(that);
 
         if (that.mode ==="default") {
             that.k.title()
                 .backgroundColor(that)
-                .export(that,"#"+that.container_id,"bubble")
+                .export(that,"#"+container_id,"bubble")
                 .emptyDiv()
                 .subtitle();
 
             that.new_data = that.optionalFeatures().clubData();
-            that.optionalFeatures().svgContainer()
+            that.optionalFeatures().svgContainer(container_id)
                 .createChart()
                 .label();
 
@@ -78,18 +76,18 @@ PykCharts.oneD.bubble = function (options) {
         }
         else if (that.mode ==="infographics") {
             that.k.backgroundColor(that)
-                .export(that,"#" + that.container_id,"bubble")
+                .export(that,"#" + container_id,"bubble")
                 .emptyDiv();
 
             that.new_data = {"children" : that.data};
-            that.optionalFeatures().svgContainer()
+            that.optionalFeatures().svgContainer(container_id)
                 .createChart()
                 .label();
 
             that.k.tooltip();
 
         }
-        that.k.exportSVG(that,"#"+that.container_id,"bubble")
+        that.k.exportSVG(that,"#"+container_id,"bubble")
         that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
         $(document).ready(function () { return that.k.resize(that.svgContainer); })
         $(window).on("resize", function () { return that.k.resize(that.svgContainer); });
@@ -97,11 +95,11 @@ PykCharts.oneD.bubble = function (options) {
 
     this.optionalFeatures = function () {
         var optional = {
-            svgContainer: function () {
+            svgContainer: function (container_id) {
                 that.svgContainer = d3.select(that.selector).append("svg")
                     .attr({
                         "class": "svgcontainer PykCharts-oneD",
-                        "id": that.container_id,
+                        "id": container_id,
                         "preserveAspectRatio": "xMinYMin",
                         "viewBox": "0 0 " + that.width + " " + that.height,
                         "width": that.width,
@@ -198,12 +196,16 @@ PykCharts.oneD.bubble = function (options) {
                         .attr("class","weight");
 
                     that.chart_text.attr("class","name")
-                        .attr("x", function (d) { return d.x })
-                        .attr("y", function (d) { return d.y -5 });
+                        .attr({
+                            "x": function (d) { return d.x },
+                            "y": function (d) { return d.y -5 }
+                        });
 
                     that.chart_text1.attr("class","weight")
-                        .attr("x", function (d) { return d.x })
-                        .attr("y", function (d) { return d.y + 10; });
+                        .attr({
+                            "x": function (d) { return d.x },
+                            "y": function (d) { return d.y + 10; }
+                        });
 
                     that.chart_text.attr("text-anchor","middle")
                         .attr("fill", that.label_color)
@@ -228,13 +230,19 @@ PykCharts.oneD.bubble = function (options) {
                             });
                     },that.transitions.duration());
 
-                    that.chart_text1.attr("text-anchor","middle")
-                        .style("font-weight", that.label_weight)
-                        .style("font-size", that.label_size + "px")
-                        .attr("fill", that.label_color)
-                        .style("font-family", that.label_family)
+                    that.chart_text1
+                        .attr({
+                            "text-anchor":"middle",
+                            "fill": that.label_color,
+                            "pointer-events": "none"
+                        })
+                        .style({
+                            "font-family": that.label_family,
+                            "font-weight": that.label_weight,
+                            "font-size": that.label_size + "px"
+                        })
                         .text("")
-                        .attr("pointer-events","none")
+
 
                     setTimeout(function () {
                         that.chart_text1.text(function (d) { return d.children ? " " :  that.k.appendUnits(d.weight); })

@@ -4,7 +4,6 @@ PykCharts.oneD.treemap = function (options){
     this.execute = function (){
         that = new PykCharts.oneD.processInputs(that, options);
         optional = options.optional;
-        that.selector = options.selector;
         that.height = options.chart_height ? options.chart_height : that.width;
 
         that.k.validator()
@@ -58,16 +57,15 @@ PykCharts.oneD.treemap = function (options){
     };
 
     this.render = function (){
-        var l = document.getElementsByClassName("svgcontainer").length;
-        that.container_id = "svgcontainer" + l;
+        var id = that.selector.substring(1,that.selector.length);
+        var container_id = id + "_svg";
         that.fillChart = new PykCharts.Configuration.fillChart(that);
         that.transitions = new PykCharts.Configuration.transition(that);
-        that.border = new PykCharts.Configuration.border(that);
 
         if(that.mode === "default") {
             that.k.title()
                 .backgroundColor(that)
-                .export(that,"#"+that.container_id,"treemap")
+                .export(that,"#"+container_id,"treemap")
                 .emptyDiv()
                 .subtitle();
         }
@@ -76,7 +74,7 @@ PykCharts.oneD.treemap = function (options){
         that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
         if(that.mode === "infographics"){
             that.k.backgroundColor(that)
-                .export(that,"#"+that.container_id,"treemap")
+                .export(that,"#"+container_id,"treemap")
                 .emptyDiv();
             that.new_data = {"children" : that.data};
         }
@@ -85,7 +83,7 @@ PykCharts.oneD.treemap = function (options){
             that.optionalFeatures()
                 .clubData()
         }
-        that.optionalFeatures().svgContainer()
+        that.optionalFeatures().svgContainer(container_id)
             .createChart()
             .label();
         if(that.mode === "default") {
@@ -96,7 +94,7 @@ PykCharts.oneD.treemap = function (options){
                 .dataSource();
         }
 
-        that.k.exportSVG(that,"#"+that.container_id,"treemap")
+        that.k.exportSVG(that,"#"+container_id,"treemap")
         
         $(document).ready(function () { return that.k.resize(that.svgContainer); })
         $(window).on("resize", function () { return that.k.resize(that.svgContainer); });
@@ -104,14 +102,14 @@ PykCharts.oneD.treemap = function (options){
 
     this.optionalFeatures = function (){
         var optional = {
-            svgContainer: function () {
+            svgContainer: function (container_id) {
 
                 that.svgContainer = d3.select(that.selector).append("svg:svg")
                     .attr("width",that.width)
                     .attr("height",that.height)
                     .attr("preserveAspectRatio", "xMinYMin")
                     .attr("viewBox", "0 0 " + that.width + " " + that.height)
-                    .attr("id",that.container_id)
+                    .attr("id",container_id)
                     .attr("class","svgcontainer PykCharts-oneD");
 
                 that.group = that.svgContainer.append("g")
@@ -256,7 +254,6 @@ PykCharts.oneD.treemap = function (options){
                 return this;
             },
             clubData : function () {
-
                 if(PykCharts['boolean'](that.clubdata_enable)){
                     var clubdata_content = [],sum_others = 0,k=0;
                     if(that.data.length <= that.clubdata_maximum_nodes) {

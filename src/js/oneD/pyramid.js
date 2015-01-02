@@ -57,20 +57,19 @@ PykCharts.oneD.pyramid = function (options) {
     };
 
 	this.render = function () {
-        var l = document.getElementsByClassName("svgcontainer").length;
-        that.container_id = "svgcontainer" + l;
+        var id = that.selector.substring(1,that.selector.length);
+        var container_id = id + "_svg";
         that.fillChart = new PykCharts.Configuration.fillChart(that);
         that.transitions = new PykCharts.Configuration.transition(that);
-        that.border = new PykCharts.Configuration.border(that);
 
         if (that.mode === "default") {
             that.k.title()
                 .backgroundColor(that)
-                .export(that,"#"+that.container_id,"pyramid")
+                .export(that,"#"+container_id,"pyramid")
                 .emptyDiv()
                 .subtitle();
             that.new_data = that.optionalFeatures().clubData();
-            that.optionalFeatures().svgContainer()
+            that.optionalFeatures().svgContainer(container_id)
                 .createChart()
                 .label()
                 .ticks();
@@ -87,9 +86,9 @@ PykCharts.oneD.pyramid = function (options) {
         } else if (that.mode === "infographics") {
             that.new_data = that.data;
             that.k.backgroundColor(that)
-                .export(that,"#"+that.container_id,"pyramid")
+                .export(that,"#"+container_id,"pyramid")
                 .emptyDiv();
-            that.optionalFeatures().svgContainer()
+            that.optionalFeatures().svgContainer(container_id)
                 .createChart()
                 .label()
                 .ticks();
@@ -101,11 +100,11 @@ PykCharts.oneD.pyramid = function (options) {
         var add_extra_width = 0;
         setTimeout(function () {
             if(that.ticks_text_width.length) { 
-                add_extra_width = _.max(that.ticks_text_width,function(d){
+                add_extra_width = d3.max(that.ticks_text_width,function(d){
                         return d;
                     });
             }
-            that.k.exportSVG(that,"#"+that.container_id,"pyramid",undefined,undefined,add_extra_width)
+            that.k.exportSVG(that,"#"+container_id,"pyramid",undefined,undefined,add_extra_width)
         },that.transitions.duration());
         
         $(document).ready(function () { return that.k.resize(that.svgContainer); })
@@ -181,7 +180,7 @@ PykCharts.oneD.pyramid = function (options) {
     this.optionalFeatures = function () {
 
     	var optional = {
-            svgContainer :function () {
+            svgContainer :function (container_id) {
 
                 that.svgContainer = d3.select(options.selector)
                     .append('svg')
@@ -189,7 +188,7 @@ PykCharts.oneD.pyramid = function (options) {
                     .attr("height",that.height)
                     .attr("preserveAspectRatio", "xMinYMin")
                     .attr("viewBox", "0 0 " + that.width + " " + that.height)
-                    .attr("id",that.container_id)
+                    .attr("id",container_id)
                     .attr("class","svgcontainer PykCharts-oneD");
 
                 that.group = that.svgContainer.append("g")
@@ -198,7 +197,7 @@ PykCharts.oneD.pyramid = function (options) {
                 return this;
             },
         	createChart : function () {
-
+                var border = new PykCharts.Configuration.border(that);
         		that.pyramid = that.pyramidLayout()
                     .data(that.new_data)
                     .size([that.width,that.height]);
@@ -229,9 +228,9 @@ PykCharts.oneD.pyramid = function (options) {
 
                 that.chart_data.attr("class","pyr-path")
                     .attr('d',function(d) {return line(a);})
-                    .attr("stroke",that.border.color())
-                    .attr("stroke-width",that.border.width())
-                    .attr("stroke-dasharray", that.border.style())
+                    .attr("stroke",border.color())
+                    .attr("stroke-width",border.width())
+                    .attr("stroke-dasharray",border.style())
                    	.attr("fill",function (d,i) {
                         if(i===0) {
                             b = that.new_data[i];
