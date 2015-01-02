@@ -282,7 +282,6 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                 that.reducedWidth = that.w - that.margin_left - that.margin_right;
                 that.reducedHeight = that.height - that.margin_top - that.margin_bottom;
                 that.fill_data = [];
-                that.xdomain = [];
                 if(that.axis_x_data_format === "time") {
                     for(i = 0;i<that.new_data_length;i++) {
 
@@ -292,8 +291,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                         
                     }
                     that.data.forEach(function (d) {
-                        d.x =that.k.dateConversion(d.x);;
-                        that.xdomain.push(d.x);
+                        d.x =that.k.dateConversion(d.x);
                     });
                 }
 
@@ -314,7 +312,6 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                 
                 that.optionalFeature()
                         .chartType();
-                that.xdomain = [];
                 if(that.axis_x_data_format === "time") {
                     for(i = 0;i<that.new_data_length;i++) {
 
@@ -324,8 +321,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                         
                     }
                     that.data.forEach(function (d) {
-                        d.x =that.k.dateConversion(d.x);;
-                        that.xdomain.push(d.x);
+                        d.x =that.k.dateConversion(d.x);
                     });
                 }
                 try {
@@ -357,7 +353,6 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
 
                 that.w = that.width/3;
                 that.height = that.height/2;
-                that.xdomain = [];
                 if(that.axis_x_data_format === "time") {
                     for(i = 0;i<that.new_data_length;i++) {
 
@@ -367,8 +362,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                         
                     }
                     that.data.forEach(function (d) {
-                        d.x =that.k.dateConversion(d.x);;
-                        that.xdomain.push(d.x);
+                        d.x =that.k.dateConversion(d.x);
                     });
                 }
                 that.reducedWidth = that.w - that.margin_left - that.margin_right;
@@ -390,7 +384,6 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
 
                 that.optionalFeature()
                         .chartType();
-                that.xdomain = [];
                 if(that.axis_x_data_format === "time") {
                     for(i = 0;i<that.new_data_length;i++) {
                         that.new_data[i].data.forEach(function (d) {
@@ -399,8 +392,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                         
                     }
                     that.data.forEach(function (d) {
-                        d.x =that.k.dateConversion(d.x);;
-                        that.xdomain.push(d.x);
+                        d.x =that.k.dateConversion(d.x);
                     });
                 }
 
@@ -443,7 +435,18 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                 that.mouseEvent.axisHighlightHide(that.selector + " .y.axis");
             }
             that.optionalFeature().hightLightOnload();
+            if(that.axis_x_data_format === "time") {
+                for(i = 0;i<that.new_data_length;i++) {
 
+                    that.new_data[i].data.forEach(function (d) {
+                        d.x = that.k.dateConversion(d.x);
+                    });
+                    
+                }
+                that.data.forEach(function (d) {
+                    d.x =that.k.dateConversion(d.x);
+                });
+            }
             if(PykCharts['boolean'](that.panels_enable)) {
                 for (var i = 0;i < that.previous_length;i++) {
                     $(that.selector + " #panels_of_line_main_div #tooltip-svg-container-"+i).remove();
