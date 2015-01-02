@@ -764,9 +764,11 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                                     return "end";
                                 } else if (rads>=6) {
                                     return "middle";
+                                } else if(type ==="election pie" || type === "election donut" && rads < -1) {
+                                    return "end";
                                 } else if(rads<0) {
                                     return "middle";
-                                }
+                                } 
                             })
                             .attr("dy",5)
                             .attr("pointer-events","none")
@@ -777,6 +779,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
 
                         tick_label.exit().remove();
                     },that.transitions.duration());
+
 
                     var tick_line = that.group.selectAll("line")
                         .data(that.pie(that.new_data));

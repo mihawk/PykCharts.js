@@ -52,7 +52,7 @@ PykCharts.Configuration = function (options){
         liveData: function (chart) {
             var frequency = options.real_time_charts_refresh_frequency;
             if(PykCharts['boolean'](frequency)) {
-                setInterval(chart.refresh,frequency*1000);
+                PykCharts.interval = setInterval(chart.refresh,frequency*1000);
             }
             return this;
         },
@@ -1741,11 +1741,12 @@ configuration.mouseEvent = function (options) {
                 var selectSVG = $(options.selector + " #"+dataLineGroup[0][0][0].parentNode.parentNode.id),
                     width_percentage = 0,
                     height_percentage = 0,
-                    top_shift_from_first_panel = $("svg#svg-0").offset().top;
+                    top_shift_from_first_panel;
                 if (!PykCharts['boolean'](panels_enable)) {
                     width_percentage = selectSVG.width() / options.width;
                     height_percentage = selectSVG.height() / options.height;
                 } else {
+                    top_shift_from_first_panel = $("svg#svg-0").offset().top;
                     width_percentage = 1;
                     height_percentage = 1;
                 }
@@ -5302,9 +5303,11 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                                     return "end";
                                 } else if (rads>=6) {
                                     return "middle";
+                                } else if(type ==="election pie" || type === "election donut" && rads < -1) {
+                                    return "end";
                                 } else if(rads<0) {
                                     return "middle";
-                                }
+                                } 
                             })
                             .attr("dy",5)
                             .attr("pointer-events","none")
@@ -5315,6 +5318,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
 
                         tick_label.exit().remove();
                     },that.transitions.duration());
+
 
                     var tick_line = that.group.selectAll("line")
                         .data(that.pie(that.new_data));
@@ -7641,7 +7645,6 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                 that.reducedWidth = that.w - that.margin_left - that.margin_right;
                 that.reducedHeight = that.height - that.margin_top - that.margin_bottom;
                 that.fill_data = [];
-                that.xdomain = [];
                 if(that.axis_x_data_format === "time") {
                     for(i = 0;i<that.new_data_length;i++) {
 
@@ -7651,8 +7654,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                         
                     }
                     that.data.forEach(function (d) {
-                        d.x =that.k.dateConversion(d.x);;
-                        that.xdomain.push(d.x);
+                        d.x =that.k.dateConversion(d.x);
                     });
                 }
 
@@ -7673,7 +7675,6 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                 
                 that.optionalFeature()
                         .chartType();
-                that.xdomain = [];
                 if(that.axis_x_data_format === "time") {
                     for(i = 0;i<that.new_data_length;i++) {
 
@@ -7683,8 +7684,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                         
                     }
                     that.data.forEach(function (d) {
-                        d.x =that.k.dateConversion(d.x);;
-                        that.xdomain.push(d.x);
+                        d.x =that.k.dateConversion(d.x);
                     });
                 }
                 try {
@@ -7716,7 +7716,6 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
 
                 that.w = that.width/3;
                 that.height = that.height/2;
-                that.xdomain = [];
                 if(that.axis_x_data_format === "time") {
                     for(i = 0;i<that.new_data_length;i++) {
 
@@ -7726,8 +7725,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                         
                     }
                     that.data.forEach(function (d) {
-                        d.x =that.k.dateConversion(d.x);;
-                        that.xdomain.push(d.x);
+                        d.x =that.k.dateConversion(d.x);
                     });
                 }
                 that.reducedWidth = that.w - that.margin_left - that.margin_right;
@@ -7749,7 +7747,6 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
 
                 that.optionalFeature()
                         .chartType();
-                that.xdomain = [];
                 if(that.axis_x_data_format === "time") {
                     for(i = 0;i<that.new_data_length;i++) {
                         that.new_data[i].data.forEach(function (d) {
@@ -7758,8 +7755,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                         
                     }
                     that.data.forEach(function (d) {
-                        d.x =that.k.dateConversion(d.x);;
-                        that.xdomain.push(d.x);
+                        d.x =that.k.dateConversion(d.x);
                     });
                 }
 
@@ -7802,7 +7798,18 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                 that.mouseEvent.axisHighlightHide(that.selector + " .y.axis");
             }
             that.optionalFeature().hightLightOnload();
+            if(that.axis_x_data_format === "time") {
+                for(i = 0;i<that.new_data_length;i++) {
 
+                    that.new_data[i].data.forEach(function (d) {
+                        d.x = that.k.dateConversion(d.x);
+                    });
+                    
+                }
+                that.data.forEach(function (d) {
+                    d.x =that.k.dateConversion(d.x);
+                });
+            }
             if(PykCharts['boolean'](that.panels_enable)) {
                 for (var i = 0;i < that.previous_length;i++) {
                     $(that.selector + " #panels_of_line_main_div #tooltip-svg-container-"+i).remove();
@@ -8041,6 +8048,9 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                     }
                     that.xScale = that.k.scaleIdentification("time",x_data,x_range);
                     that.extra_left_margin = 0;
+                    that.new_data[0].data.forEach(function (d) {
+                        that.xdomain.push(d.x);
+                    })
                 }
                 that.count = 1;
                 that.zoom_event = d3.behavior.zoom();
@@ -9219,14 +9229,16 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 
 			        that.xScale = that.k.scaleIdentification("linear",x_data,x_range);
 			        that.extra_left_margin = 0;
-
+			        that.new_data[0].data.forEach(function (d) {
+                        that.xdomain.push(d.x);
+                    })
 		        }
 		        else if(that.axis_x_data_format === "string") {
 		          	that.new_data[0].data.forEach(function(d) { x_data.push(d.x); });
 		          	x_range = [0 ,that.w - that.legendsGroup_width];
 		          	that.xScale = that.k.scaleIdentification("ordinal",x_data,x_range,0);
 		          	that.extra_left_margin = (that.xScale.rangeBand() / 2);
-
+		          	that.xdomain = that.xScale.domain()
 		        }
 		        else if (that.axis_x_data_format === "time") {
 		        	max = d3.max(that.new_data, function(d) { return d3.max(d.data, function(k) { return k.x; }); });
@@ -9252,6 +9264,9 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 		          	that.xScale = that.k.scaleIdentification("time",x_data,x_range);
 		          	
 		          	that.extra_left_margin = 0;
+		          	that.new_data[0].data.forEach(function (d) {
+                        that.xdomain.push(d.x);
+                    })
 		        }
 		        that.ydomain = that.yScale.domain();
 				that.zoom_event = d3.behavior.zoom();
@@ -10558,8 +10573,9 @@ PykCharts.multiD.groupedBar = function(options){
                     })
                     .on('mouseover',function (d) {
                         if(that.mode === "default") {
+                            var tooltip = d.tooltip ? d.tooltip : d.x;
                             that.mouseEvent.tooltipPosition(d);
-                            that.mouseEvent.tooltipTextShow(d.tooltip);
+                            that.mouseEvent.tooltipTextShow(tooltip);
                         }
                     })
                     .on('mouseout',function (d) {
@@ -11744,8 +11760,9 @@ PykCharts.multiD.groupedColumn = function(options) {
                     })
                     .on('mouseover',function (d) {
                         if(that.mode === "default") {
+                            var tooltip = d.tooltip ? d.tooltip : d.y
                             that.mouseEvent.tooltipPosition(d);
-                            that.mouseEvent.tooltipTextShow(d.tooltip);
+                            that.mouseEvent.tooltipTextShow(tooltip);
                         }
                     })
                     .on('mouseout',function (d) {
