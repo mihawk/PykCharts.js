@@ -5061,6 +5061,9 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                                 return d.data.name; })
                             .attr("text-anchor",function(d) {
                                 var rads = ((d.endAngle - d.startAngle) / 2) + d.startAngle;
+                                if(type === "election donut") {
+                                    console.log(d.data.name,rads)
+                                }
                                 if (rads>0 && rads<1.5) {
                                     return "start";
                                 } else if (rads>=1.5 && rads<3.5) {
@@ -5069,9 +5072,12 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                                     return "end";
                                 } else if (rads>=6) {
                                     return "middle";
+                                } else if(type ==="election pie" || type === "election donut" && rads < -1) {
+                                    return "end";
                                 } else if(rads<0) {
                                     return "middle";
-                                }
+                                } 
+
                             })
                             .attr("dy",5)
                             .attr("pointer-events","none")
@@ -6578,124 +6584,6 @@ PykCharts.multiD.configuration = function (options){
                 chart.optionalFeatures().legendsContainer().svgContainer();
             }else {
                 chart.optionalFeatures().svgContainer();
-            }
-            return this;
-        },
-        legends: function (series,group1,data,svg) {
-            if(status) {
-                var j = 0,k = 0;
-                j = series.length;
-                k = series.length;
-
-                if(options.legends_display === "vertical") {
-                    svg.attr("height", (series.length * 30)+20)
-                    text_parameter1 = "x";
-                    text_parameter2 = "y";
-                    rect_parameter1 = "width";
-                    rect_parameter2 = "height";
-                    rect_parameter3 = "x";
-                    rect_parameter4 = "y";
-                    rect_parameter1value = 13;
-                    rect_parameter2value = 13;
-                    text_parameter1value = function (d,i) { return options.chart_width - 75; };
-                    rect_parameter3value = function (d,i) { return options.chart_width - 100; };
-                    var rect_parameter4value = function (d,i) { return i * 24 + 12;};
-                    var text_parameter2value = function (d,i) { return i * 24 + 26;};
-                }
-                if(options.legends_display === "horizontal"){
-                    svg.attr("height",70);
-                    text_parameter1 = "x";
-                    text_parameter2 = "y";
-                    rect_parameter1 = "width";
-                    rect_parameter2 = "height";
-                    rect_parameter3 = "x";
-                    rect_parameter4 = "y";
-                    var text_parameter1value = function (d,i) { j--;return options.chart_width - (j*100 + 75); };
-                    text_parameter2value = 30;
-                    rect_parameter1value = 13;
-                    rect_parameter2value = 13;
-                    var rect_parameter3value = function (d,i) { k--;return options.chart_width - (k*100 + 100); };
-                    rect_parameter4value = 18;
-                }
-
-                that.legends_text = group1.selectAll(".legends_text")
-                    .data(series);
-                that.legends_text.enter()
-                    .append('text')
-                    .attr("class","legends_text")
-                    .attr("fill","#1D1D1D")
-                    .attr("pointer-events","none")
-                    .style("font-family", "'Helvetica Neue',Helvetica,Arial,sans-serif");
-
-                that.legends_text.attr("class","legends_text")
-                    .attr("fill","black")
-                    .attr(text_parameter1, text_parameter1value)
-                    .attr(text_parameter2, text_parameter2value)
-                    .text(function (d) { return d; });
-
-                that.legends_text.exit()
-                    .remove();
-
-                that.legends_rect = group1.selectAll(".legends_rect")
-                    .data(series);
-
-                that.legends_rect.enter()
-                    .append("rect")
-                    .attr("class","legends_rect");
-
-                that.legends_rect.attr("class","legends_rect")
-                    .attr('fill',function (d,i) { return fillColor(data[i]); })
-                    .attr("fill-opacity", function (d,i) { return options.saturation_enable === "yes" ? (i+1)/series.length : 1; })
-                        .attr(rect_parameter1, rect_parameter1value)
-                        .attr(rect_parameter2, rect_parameter2value)
-                        .attr(rect_parameter3, rect_parameter3value)
-                        .attr(rect_parameter4, rect_parameter4value);
-
-                that.legends_rect.exit()
-                    .remove();
-            }
-            return this;
-        },
-        legendsGroupStacked : function (legendsContainer,legendsGroup,names,color) {
-            if(status) {
-                var p = 0,a=[],k,jc,ic;
-                for(i=0;i<names.length;i++) {
-                    for(j=0;j<names[i].length;j++) {
-                        a[p] = names[i][j];
-                        p++;
-                    }
-                }
-                jc = a.length;
-                k = a.length;
-                ic = -1;
-                legendsContainer.attr("height",90);
-                var abc = legendsGroup.selectAll(".legends_g")
-                    .data(names)
-                    .enter()
-                    .append("g")
-                    .attr("class","legends_g")
-                    .attr("fill",function (d) {ic++;return color[ic];})
-                abc.selectAll(".legends_rect")
-                        .data(names[ic])
-                        .enter()
-                            .append("rect")
-                            .attr("class","legends_rect")
-                            .attr("x",function (d) { k--;return options.chart_width - (k*80 + 75); })
-                            .attr("y", 20)
-                            .attr("height",13)
-                            .attr("width",13)
-                            .attr("fill-opacity",function (d,i) { return options.saturation_enable === "yes" ? (names[i].length - i)/names[i].length : 1 ;});
-                legendsGroup.selectAll(".legends_text")
-                    .data(a)
-                    .enter()
-                        .append("text")
-                        .attr("class","legends_text")
-                        .attr("pointer-events","none")
-                        .attr("x", function (d,i) {jc--;return options.chart_width - (jc*80 + 55); })
-                        .attr("y",32)
-                        .attr("fill","#1D1D1D")
-                        .attr("font-family","'Helvetica Neue',Helvetica,Arial,sans-serif")
-                        .text(function (d) { return d; });
             }
             return this;
         },
