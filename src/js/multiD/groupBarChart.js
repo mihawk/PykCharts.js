@@ -399,7 +399,7 @@ PykCharts.multiD.groupedBar = function(options){
                     })
                     .on('mouseover',function (d) {
                         if(that.mode === "default") {
-                            var tooltip = d.tooltip ? d.tooltip || d.x;
+                            var tooltip = d.tooltip ? d.tooltip : d.x;
                             that.mouseEvent.tooltipPosition(d);
                             that.mouseEvent.tooltipTextShow(tooltip);
                         }
