@@ -4,9 +4,8 @@ PykCharts.multiD.column = function (options) {
 
     this.execute = function () {
         that = new PykCharts.multiD.processInputs(that, options, "column");
-        if(that.stop){
+        if(that.stop)
             return;
-        }
         that.grid_color = options.chart_grid_color ? options.chart_grid_color : theme.stylesheet.chart_grid_color;
          that.panels_enable = "no";
 
@@ -174,56 +173,43 @@ PykCharts.multiD.column = function (options) {
                $(that.selector).attr("class","PykCharts-twoD");
                 that.svgContainer = d3.select(options.selector + " #tooltip-svg-container-" + i)
                     .append("svg:svg")
-                    .attr({
-                        "width" : that.width,
-                        "height" : that.height,
-                        "id" : that.container_id,
-                        "class" : "svgcontainer",
-                        "preserveAspectRatio" : "xMinYMin",
-                        "viewBox" : "0 0 " + that.width + " " + that.height
-                    });
+                    .attr("width",that.width )
+                    .attr("height",that.height)
+                    .attr("id",that.container_id)
+                    .attr("class","svgcontainer")
+                    .attr("preserveAspectRatio", "xMinYMin")
+                    .attr("viewBox", "0 0 " + that.width + " " + that.height);
                 return this;
             },
             createGroups: function (i) {
                 that.group = that.svgContainer.append("g")
-                    .attr({
-                        "id" : "svggroup",
-                        "class" : "svggroup",
-                        "transform" : "translate(" + that.margin_left + "," + (that.margin_top/* + that.legendsGroup_height*/) +")"
-                    });
+                    .attr("id","svggroup")
+                    .attr("class","svggroup")
+                    .attr("transform","translate(" + that.margin_left + "," + (that.margin_top/* + that.legendsGroup_height*/) +")");
 
                 if(PykCharts.boolean(that.grid_y_enable)) {
                     that.group.append("g")
-                        .attr({
-                            "id" : "ygrid",
-                            "class" : "y grid-line"
-                        })
-                        .style("stroke",that.grid_color);
+                        .attr("id","ygrid")
+                        .style("stroke",that.grid_color)
+                        .attr("class","y grid-line");
                 }
                 return this;
             },
             axisContainer : function () {
                 if(PykCharts.boolean(that.axis_x_enable)  || that.axis_x_title) {
                     that.xgroup = that.group.append("g")
-                        .attr({
-                            "id" : "xaxis",
-                            "class": "x axis"
-                        })
+                        .attr("id","xaxis")
+                        .attr("class", "x axis")
                         .style("stroke","none");
                 }
 
                 if(PykCharts.boolean(that.axis_y_enable)  || that.axis_y_title) {
                     that.ygroup = that.group.append("g")
-                        .attr({
-                            "id" : "yaxis",
-                            "class" : "y axis"
-                        });
-
+                        .attr("id","yaxis")
+                        .attr("class","y axis");
                     that.new_xAxisgroup = that.group.append("g")
-                        .attr({
-                            "class" : "x new-axis",
-                            "id" : "new-xaxis"
-                        })
+                        .attr("class", "x new-axis")
+                        .attr("id","new-xaxis")
                         .style("stroke","blue");
                 }
                 return this;
@@ -267,18 +253,18 @@ PykCharts.multiD.column = function (options) {
 
                     min_y_tick_value = d3.min(that.y_tick_values, function (d) {
                             return new Date(d);
-                    });
+                        });
 
-                    max_y_tick_value = d3.max(that.y_tick_values, function (d) {
-                        return new Date(d);
-                    });
+                        max_y_tick_value = d3.max(that.y_tick_values, function (d) {
+                            return new Date(d);
+                        });
 
-                    if(new Date(y_data[0]) > new Date(min_y_tick_value)) {
-                        y_data[0] = min_y_tick_value;
-                    }
-                    if(new Date(y_data[1]) < new Date(max_y_tick_value)) {
-                        y_data[1] = max__tick_value;
-                    }
+                        if(new Date(y_data[0]) > new Date(min_y_tick_value)) {
+                            y_data[0] = min_y_tick_value;
+                        }
+                        if(new Date(y_data[1]) < new Date(max_y_tick_value)) {
+                            y_data[1] = max__tick_value;
+                        }
 
                     y_range = [that.height - that.margin_top - that.margin_bottom, 0];
                     that.yScale = that.k.scaleIdentification("time",y_data,y_range);
@@ -362,15 +348,14 @@ PykCharts.multiD.column = function (options) {
 
                 that.bar.attr("class","bar")
                     .select("rect")
-                    .attr({
-                        "class" : "hbar",
-                        "x" :  function (d) { return that.xScale(d.x); },
-                        "y" : height,
-                        "width" : function (d) { return (that.reducedWidth/(that.data.length))-(0.03*that.reducedWidth); },
-                        "fill" : function (d) { return that.fillColor.colorPieMS(d); },
-                        "stroke" : that.border.color(),
-                        "stroke-width" : that.border.width()
-                    })
+                    .attr("class","hbar")
+                    .attr("x", function (d) { return that.xScale(d.x); })
+                    .attr("y", height)
+                    .attr("height", 0)
+                    .attr("width", function (d) { return (that.reducedWidth/(that.data.length))-(0.03*that.reducedWidth); })
+                    .attr("fill", function (d) { return that.fillColor.colorPieMS(d); })
+                    .attr("stroke", that.border.color())
+                    .attr("stroke-width",that.border.width())
                     .on('mouseover',function (d) {
                         if(that.mode === "default") {
                             if(PykCharts.boolean(that.onhover_enable)) {
@@ -397,14 +382,11 @@ PykCharts.multiD.column = function (options) {
                     })
                     .transition()
                     .duration(that.transitions.duration())
-                    .attr({
-                        "y" : function (d) { return that.yScale(d.y); },
-                        "height" : function (d) { return height - that.yScale(d.y); }
-                    });
+                    .attr("y", function (d) { return that.yScale(d.y); })
+                    .attr("height", function (d) { return height - that.yScale(d.y); });
 
                 that.bar.exit()
                     .remove();
-
                 var t = d3.transform(d3.select(d3.selectAll(options.selector + ' .bar')[0][(that.data.length-1)]).attr("transform")),
                     x = t.translate[0],
                     y = t.translate[1];
@@ -424,11 +406,8 @@ PykCharts.multiD.column = function (options) {
                         .outerTickSize(that.axis_x_outer_pointer_length);
                     that.new_xAxisgroup.style("stroke",function () { return that.axis_x_line_color; })
                         .call(xaxis);
-                    d3.selectAll(that.selector + " .x.new-axis text")
-                        .style({
-                            "display" : function () { return "none"; },
-                            "stroke" : "none"
-                        });
+                    d3.selectAll(that.selector + " .x.new-axis text").style("display",function () { return "none"; })
+                        .style("stroke","none");
                 }
                 return this;
             },
