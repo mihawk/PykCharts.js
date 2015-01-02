@@ -194,7 +194,7 @@
                     spiderweb_radius : "5",
                     spiderweb_outer_radius_percent: "100",
                     spiderweb_pointer: "yes",
-                    spiderweb_axis_title : "yes",
+                      spiderweb_axis_title : "yes",
                     background_color:"transparent",
 
                     // chart_color: ["#75b0e1","#0e5ea1"],
@@ -746,7 +746,6 @@
                     highlight_color: "#013F73",
                     // panels_enable:"yes",
 
-
                     border_between_chart_elements_thickness: 1,
                     border_between_chart_elements_color: "white",
                     border_between_chart_elements_style: "solid",
@@ -838,7 +837,7 @@
             //     console.log("Performance",a,avg/100);
 
                 var k = new PykCharts.multiD.groupedBar({
-                    data: "../data/ultimateGroupBar.json",
+                    data: "../data/grouped-bar.csv",
                     mode: "default",
                     selector: "#groupBar",
                     chart_height: 630,
@@ -892,7 +891,7 @@
                     pointer_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
                     saturation_enable: "no",
                     axis_x_pointer_weight: "normal",
-                    axis_y_pointer_values: [2000,2004,2008,2012],
+                    // axis_y_pointer_values: [2000,2004,2008,2012],
                     data_sort_enable: "yes",
                     highlight: "2014-07-02",
                     legends_enable: "yes",
@@ -1001,6 +1000,7 @@
             //             avg += a[i]                     
             //     }
             //     console.log("Performance",a,avg/100);
+
             };
         </script>
     </body>

@@ -82,6 +82,7 @@
                 "pointer_color": "orange",
                 "pointer_family": "Papyrus",
                 mode: "DEFault",
+
                 // "border_between_chart_elements_thickness": 2,
                 // "border_between_chart_elements_color": "black",
                 // "border_between_chart_elements_style": "dotted",
@@ -112,7 +113,8 @@
                 "pointer_color": "orange",
                 "pointer_family": "Courier New",
                 label_color: "black",
-
+                clubdata_enable:"yes",
+                "clubdata_maximum_nodes": 3,
                 "border_between_chart_elements_thickness": 2,
                 "border_between_chart_elements_color": "black",
                 "border_between_chart_elements_style": "dotted",
@@ -233,6 +235,7 @@
                 mode: "DEFault",
                 chart_color: ["green","blue"],
                 clubdata_enable: "yes",
+                // clubdata_maximum_nodes:3,
                 clubdata_always_include_data_points: ["Africa","South America"],
                 units_prefix: "$",
                 units_suffix: "/-",
@@ -259,7 +262,6 @@
                 transition_duration: 0,
                 mode: "DEFault",
                 clubdata_enable: "yes",
-                clubdata_always_include_data_points: ["Africa","South America"],
                 units_prefix: "$",
                 units_suffix: "/-",
                 percent_column_rect_width : 90,
@@ -328,7 +330,6 @@
             });
            k.execute();
 		}
-        console.log(document.getElementById("bubble"))
 		</script>
     <script src="../dist/pykcharts.1.0.0.js"></script>
 
