@@ -682,6 +682,9 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                     }
                     that.xScale = that.k.scaleIdentification("time",x_data,x_range);
                     that.extra_left_margin = 0;
+                    that.new_data[0].data.forEach(function (d) {
+                        that.xdomain.push(d.x);
+                    })
                 }
                 that.count = 1;
                 that.zoom_event = d3.behavior.zoom();

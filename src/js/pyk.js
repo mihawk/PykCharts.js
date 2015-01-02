@@ -52,7 +52,7 @@ PykCharts.Configuration = function (options){
         liveData: function (chart) {
             var frequency = options.real_time_charts_refresh_frequency;
             if(PykCharts['boolean'](frequency)) {
-                setInterval(chart.refresh,frequency*1000);
+                PykCharts.interval = setInterval(chart.refresh,frequency*1000);
             }
             return this;
         },
@@ -1741,11 +1741,12 @@ configuration.mouseEvent = function (options) {
                 var selectSVG = $(options.selector + " #"+dataLineGroup[0][0][0].parentNode.parentNode.id),
                     width_percentage = 0,
                     height_percentage = 0,
-                    top_shift_from_first_panel = $("svg#svg-0").offset().top;
+                    top_shift_from_first_panel;
                 if (!PykCharts['boolean'](panels_enable)) {
                     width_percentage = selectSVG.width() / options.width;
                     height_percentage = selectSVG.height() / options.height;
                 } else {
+                    top_shift_from_first_panel = $("svg#svg-0").offset().top;
                     width_percentage = 1;
                     height_percentage = 1;
                 }
