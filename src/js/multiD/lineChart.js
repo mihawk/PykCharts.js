@@ -39,7 +39,7 @@ PykCharts.multiD.line = function (options) {
             }
 
             if (that.axis_x_data_format === "string") {
-                that.data_sort_enable = "no";                
+                that.data_sort_enable = "no";
             }
             else {
                 that.data_sort_enable = "yes";
@@ -184,7 +184,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
         for(var k = 0;k < that.data_length;k++) {
             that.x_arr[k] = that.data[k].x;
         }
-        that.uniq_x_arr = _.unique(that.x_arr);
+        var uniq_x_arr = _.unique(that.x_arr);
 
         for (k = 0;k < uniq_group_arr_length;k++) {
             if(that.chart_color[k]) {
@@ -221,19 +221,19 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
         }
 
         that.new_data_length = that.new_data.length;
-        var uniq_x_arr_length = that.uniq_x_arr.length;
+        var uniq_x_arr_length = uniq_x_arr.length;
         
         for (var a = 0;a < that.new_data_length;a++) {
-            that.uniq_x_arr_copy = _.unique(that.x_arr);
+            var uniq_x_arr_copy = _.unique(that.x_arr);
             for(var b = 0;b < that.new_data[a].data.length;b++) {
                 for(var k = 0;k < uniq_x_arr_length;k++) {
-                    if(that.new_data[a].data[b].x == that.uniq_x_arr_copy[k]) {
-                        that.uniq_x_arr_copy[k] = undefined;
+                    if(that.new_data[a].data[b].x == uniq_x_arr_copy[k]) {
+                        uniq_x_arr_copy[k] = undefined;
                         break;
                     }
                 }
             }
-            _.each(that.uniq_x_arr_copy, function(d,i) {
+            _.each(uniq_x_arr_copy, function(d,i) {
                 if (d != undefined) {
                     var temp_obj_to_insert_in_new_data = {
                         x: d,

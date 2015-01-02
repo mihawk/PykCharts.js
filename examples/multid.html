@@ -211,7 +211,7 @@
                     legends_text_weight: "normal",
                     legends_text_family: "'Helvetica Neue',Helvetica,Arial,sans-serif"
                 });
-                // k.execute();
+                k.execute();
 
                 var k = new PykCharts.multiD.scatter ({
                     selector: "#scatterPlot",
@@ -290,7 +290,7 @@
                     // chart_margin_bottom: 125,
                     // chart_margin_left: 160,
                 });
-                // k.execute();
+                k.execute();
 
                 var k = new PykCharts.multiD.panelsOfScatter ({
                     selector: "#multiple-scatterplots",
@@ -350,7 +350,7 @@
                     border_between_chart_elements_thickness:0,
                     border_between_chart_elements_color:"blue"
                 });
-                // k.execute();
+                k.execute();
 
                 var k = new PykCharts.multiD.panelsOfLine ({
                     selector: "#multiLine",
@@ -377,7 +377,7 @@
                     highlight : "india",
 
                     transition_duration: 5,
-                    real_time_charts_refresh_frequency: 10,
+                    real_time_charts_refresh_frequency: 0,
 
                     axis_onhover_highlight_enable: "yes",
 
@@ -414,7 +414,7 @@
 
                 var k = new PykCharts.multiD.multiSeriesLine ({
                     selector: "#multiple-multiLine",
-                    data: "../data/multiline_timescale.json",
+                    data: "../data/multiLineChart.json",
                     mode : "default",
 
                     color_mode: "saturation",  //color or saturation
@@ -432,7 +432,7 @@
                     chart_grid_y_enable: "yes",
 
                     transition_duration: 1,
-                    real_time_charts_refresh_frequency: 10,
+                    real_time_charts_refresh_frequency: 0,
 
                     axis_onhover_highlight_enable: "yes",
 
@@ -795,7 +795,7 @@
                     // legends_text_weight: "bold",
                     // legends_text_size: 28
                 });
-                // k.execute();
+                k.execute();
 
                 var k = new PykCharts.multiD.groupedColumn({
                     data: "../data/grouped-column.csv",
@@ -863,7 +863,7 @@
                     highlight:"india",
                     chart_grid_y_enable: "no",
                 });
-                // k.execute();
+                k.execute();
             };
         </script>
     </body>

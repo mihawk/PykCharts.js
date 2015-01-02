@@ -8,6 +8,9 @@ PykCharts.multiD.spiderWeb = function (options) {
         that.bubbleRadius = options.spiderweb_radius  ? options.spiderweb_radius : (0.6 * multiDimensionalCharts.scatterplot_radius);
         that.outerRadius = options.spiderweb_outer_radius_percent  ? options.spiderweb_outer_radius_percent : multiDimensionalCharts.spiderweb_outer_radius_percent;
         that.panels_enable = "no";
+        that.data_sort_enable = "yes";
+        that.data_sort_type = "alphabetically";
+        that.data_sort_order = "ascending";
         
         try {
             if(!_.isNumber(that.bubbleRadius)) {
@@ -63,17 +66,56 @@ PykCharts.multiD.spiderWeb = function (options) {
         that.k.dataSourceFormatIdentification(options.data,that,"executeData");
     };
 
+    that.dataTransformation = function () {
+        that.group_arr = [];
+        that.uniq_group_arr = [];
+        that.x_arr = [];
+        that.uniq_x_arr = [];
+        that.data = that.k.__proto__._sortData(that.data, "x", "group", that);
+        for(j=0; j<that.data.length; j++) {
+            that.group_arr[j] = that.data[j].group;
+        }
+        that.uniq_group_arr = _.uniq(that.group_arr);
+        var len = that.uniq_group_arr.length;
+
+        for(var k=0; k<that.data_length; k++) {
+            that.x_arr[k] = that.data[k].x;
+        }
+        var uniq_x_arr = _.unique(that.x_arr);
+
+        that.new_data = [];
+        for (k=0; k<len; k++) {
+            that.new_data[k] = {
+                name: that.uniq_group_arr[k],
+                data: []
+            };
+            for (l=0; l<that.data.length; l++) {
+                if (that.uniq_group_arr[k] === that.data[l].group) {
+                    that.new_data[k].data.push({
+                        x: that.data[l].x,
+                        y: that.data[l].y,
+                        weight: that.data[l].weight,
+                        color: that.data[l].color,
+                        tooltip: that.data[l].tooltip
+                    });
+                }
+            }
+        }
+        that.new_data_length = that.new_data.length;
+    }
+
     that.refresh = function () {
         that.executeRefresh = function (data) {
             that.data = that.k.__proto__._groupBy("spiderweb",data);
             that.refresh_data = that.k.__proto__._groupBy("spiderweb",data);
+            that.map_group_data = that.multiD.mapGroup(that.data);
+            that.dataTransformation();
             var compare = that.k.checkChangeInData(that.refresh_data,that.compare_data);
             that.compare_data = compare[0];
             var data_changed = compare[1];
             if(data_changed) {
                 that.k.lastUpdatedAt("liveData");
             }
-            that.map_group_data = that.multiD.mapGroup(that.data);
             that.optionalFeatures()
                 .createChart()
                 .legends()
@@ -89,7 +131,8 @@ PykCharts.multiD.spiderWeb = function (options) {
         that.container_id = "svgcontainer" + l;
         that.border = new PykCharts.Configuration.border(that);
         that.map_group_data = that.multiD.mapGroup(that.data);
-
+        that.dataTransformation();
+        
         if(that.mode === "default") {
             that.k.title()
                 .backgroundColor(that)
@@ -198,32 +241,6 @@ PykCharts.multiD.spiderWeb = function (options) {
             },
             createChart: function () {
                 var i, min, max;
-                that.group_arr = [];
-                that.uniq_group_arr = [];
-                for(j=0; j<that.data.length; j++) {
-                    that.group_arr[j] = that.data[j].group;
-                }
-                that.uniq_group_arr = _.uniq(that.group_arr);
-                var len = that.uniq_group_arr.length;
-                that.new_data = [];
-
-                for (k=0; k<len; k++) {
-                    that.new_data[k] = {
-                        name: that.uniq_group_arr[k],
-                        data: []
-                    };
-                    for (l=0; l<that.data.length; l++) {
-                        if (that.uniq_group_arr[k] === that.data[l].group) {
-                            that.new_data[k].data.push({
-                                x: that.data[l].x,
-                                y: that.data[l].y,
-                                weight: that.data[l].weight,
-                                color: that.data[l].color,
-                                tooltip: that.data[l].tooltip
-                            });
-                        }
-                    }
-                }
                 var uniq = that.new_data[0].data;
 
                 max = d3.max(that.new_data, function (d,i) { return d3.max(d.data, function (k) { return k.y; })});
@@ -558,6 +575,22 @@ PykCharts.multiD.spiderWeb = function (options) {
                     tick_label.exit().remove();
                 return this;
             },
+            sort : function() {
+                if(that.axis_y_data_format === "string") {
+                    try {
+                        if(that.data_sort_type === "alphabetically") {
+                            that.data = that.k.__proto__._sortData(that.data, "y", "group", that);
+                        } else {
+                            that.data_sort_type = multiDimensionalCharts.data_sort_type;
+                            throw "data_sort_type";
+                        }
+                    }
+                    catch(err) {
+                        that.k.warningHandling(err,"8");
+                    }
+                }
+                return this;
+            }
         }
         return optional;
     };

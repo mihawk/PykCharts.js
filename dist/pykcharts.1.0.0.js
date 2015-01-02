@@ -10573,8 +10573,9 @@ PykCharts.multiD.groupedBar = function(options){
                     })
                     .on('mouseover',function (d) {
                         if(that.mode === "default") {
+                            var tooltip = d.tooltip ? d.tooltip : d.x;
                             that.mouseEvent.tooltipPosition(d);
-                            that.mouseEvent.tooltipTextShow(d.tooltip);
+                            that.mouseEvent.tooltipTextShow(tooltip);
                         }
                     })
                     .on('mouseout',function (d) {
@@ -11759,8 +11760,9 @@ PykCharts.multiD.groupedColumn = function(options) {
                     })
                     .on('mouseover',function (d) {
                         if(that.mode === "default") {
+                            var tooltip = d.tooltip ? d.tooltip : d.y
                             that.mouseEvent.tooltipPosition(d);
-                            that.mouseEvent.tooltipTextShow(d.tooltip);
+                            that.mouseEvent.tooltipTextShow(tooltip);
                         }
                     })
                     .on('mouseout',function (d) {
