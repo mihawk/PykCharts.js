@@ -5,8 +5,9 @@ PykCharts.multiD.area = function (options){
 	this.execute = function (){
 		that = new PykCharts.multiD.processInputs(that, options, "area");
 
-		if(that.stop)
+		if(that.stop) {
 			return;
+		}
 
 		if(that.mode === "default") {
 			that.k.loading();
@@ -67,8 +68,9 @@ PykCharts.multiD.stackedArea = function (options){
 	this.execute = function (){
 		that = new PykCharts.multiD.processInputs(that, options, "area");
 
-		if(that.stop)
+		if(that.stop) {
 			return;
+		}
 
 		if(that.mode === "default") {
 			that.k.loading();
@@ -127,7 +129,7 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
         that.group_arr = [], that.new_data = [];
         that.ticks = [], that.x_arr = [];
 
-        for(j = 0;j < that.data_length;j++) {
+        for(var j = 0;j < that.data_length;j++) {
             that.group_arr[j] = that.data[j].name;
         }
         that.uniq_group_arr = _.unique(that.group_arr);
@@ -139,11 +141,11 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
         }
         that.uniq_x_arr = _.unique(that.x_arr);
 
-        for (k = 0;k < uniq_group_arr_length;k++) {
+        for (var k = 0;k < uniq_group_arr_length;k++) {
             if(that.chart_color[k]) {
                 that.uniq_color_arr[k] = that.chart_color[k];
             } else {
-                for (l = 0;l < that.data_length;l++) {
+                for (var l = 0;l < that.data_length;l++) {
                     if (that.uniq_group_arr[k] === that.data[l].name && that.data[l].color) {
                         that.uniq_color_arr[k] = that.data[l].color;
                         break;
@@ -155,13 +157,13 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
         }
 
         that.flag = 0;
-        for (k = 0;k < uniq_group_arr_length;k++) {
+        for (var k = 0;k < uniq_group_arr_length;k++) {
             that.new_data[k] = {
                     name: that.uniq_group_arr[k],
                     data: [],
                     color: that.uniq_color_arr[k]
             };
-            for (l = 0;l < that.data_length;l++) {
+            for (var l = 0;l < that.data_length;l++) {
                 if (that.uniq_group_arr[k] === that.data[l].name) {
                     that.new_data[k].data.push({
                         x: that.data[l].x,
@@ -225,7 +227,7 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
          	return;   
 		}
 		if(that.axis_x_data_format === "time") {
-			for(i = 0;i<that.new_data_length;i++) {
+			for(var i = 0;i<that.new_data_length;i++) {
 	          	that.new_data[i].data.forEach(function (d) {
 		          	d.x = that.k.dateConversion(d.x);
 		          	that.xdomain.push(d.x);
@@ -307,7 +309,7 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 				that.mouseEvent.axisHighlightHide(that.selector + " .y.axis");
 			}
 			if(that.axis_x_data_format === "time") {
-				for(i = 0;i<that.new_data_length;i++) {
+				for(var i = 0;i<that.new_data_length;i++) {
 		          	that.new_data[i].data.forEach(function (d) {
 			          	d.x = that.k.dateConversion(d.x);
 			          	that.xdomain.push(d.x);
@@ -342,7 +344,7 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 	that.optional_feature = function (){
 		var optional = {
 			chartType: function () {
-				for(j = 1;j < that.data_length;j++) {
+				for(var j = 1;j < that.data_length;j++) {
 					if(that.data[0].x === that.data[j].x) {
 						that.type = "stackedAreaChart";
 						break;
