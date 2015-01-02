@@ -52,7 +52,7 @@ PykCharts.Configuration = function (options){
         liveData: function (chart) {
             var frequency = options.real_time_charts_refresh_frequency;
             if(PykCharts['boolean'](frequency)) {
-                setInterval(chart.refresh,frequency*1000);
+                PykCharts.interval = setInterval(chart.refresh,frequency*1000);
             }
             return this;
         },
@@ -1741,11 +1741,12 @@ configuration.mouseEvent = function (options) {
                 var selectSVG = $(options.selector + " #"+dataLineGroup[0][0][0].parentNode.parentNode.id),
                     width_percentage = 0,
                     height_percentage = 0,
-                    top_shift_from_first_panel = $("svg#svg-0").offset().top;
+                    top_shift_from_first_panel;
                 if (!PykCharts['boolean'](panels_enable)) {
                     width_percentage = selectSVG.width() / options.width;
                     height_percentage = selectSVG.height() / options.height;
                 } else {
+                    top_shift_from_first_panel = $("svg#svg-0").offset().top;
                     width_percentage = 1;
                     height_percentage = 1;
                 }
@@ -8041,6 +8042,9 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                     }
                     that.xScale = that.k.scaleIdentification("time",x_data,x_range);
                     that.extra_left_margin = 0;
+                    that.new_data[0].data.forEach(function (d) {
+                        that.xdomain.push(d.x);
+                    })
                 }
                 that.count = 1;
                 that.zoom_event = d3.behavior.zoom();
@@ -9219,14 +9223,16 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 
 			        that.xScale = that.k.scaleIdentification("linear",x_data,x_range);
 			        that.extra_left_margin = 0;
-
+			        that.new_data[0].data.forEach(function (d) {
+                        that.xdomain.push(d.x);
+                    })
 		        }
 		        else if(that.axis_x_data_format === "string") {
 		          	that.new_data[0].data.forEach(function(d) { x_data.push(d.x); });
 		          	x_range = [0 ,that.w - that.legendsGroup_width];
 		          	that.xScale = that.k.scaleIdentification("ordinal",x_data,x_range,0);
 		          	that.extra_left_margin = (that.xScale.rangeBand() / 2);
-
+		          	that.xdomain = that.xScale.domain()
 		        }
 		        else if (that.axis_x_data_format === "time") {
 		        	max = d3.max(that.new_data, function(d) { return d3.max(d.data, function(k) { return k.x; }); });
@@ -9252,6 +9258,9 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 		          	that.xScale = that.k.scaleIdentification("time",x_data,x_range);
 		          	
 		          	that.extra_left_margin = 0;
+		          	that.new_data[0].data.forEach(function (d) {
+                        that.xdomain.push(d.x);
+                    })
 		        }
 		        that.ydomain = that.yScale.domain();
 				that.zoom_event = d3.behavior.zoom();
