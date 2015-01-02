@@ -700,7 +700,6 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                                 } else if(rads<0) {
                                     return "middle";
                                 } 
-
                             })
                             .attr("dy",5)
                             .attr("pointer-events","none")
@@ -711,6 +710,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
 
                         tick_label.exit().remove();
                     },that.transitions.duration());
+
 
                     var tick_line = that.group.selectAll("line")
                         .data(that.pie(that.new_data));
