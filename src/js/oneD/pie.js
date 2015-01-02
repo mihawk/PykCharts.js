@@ -669,6 +669,9 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                                 return d.data.name; })
                             .attr("text-anchor",function(d) {
                                 var rads = ((d.endAngle - d.startAngle) / 2) + d.startAngle;
+                                if(type === "election donut") {
+                                    console.log(d.data.name,rads)
+                                }
                                 if (rads>0 && rads<1.5) {
                                     return "start";
                                 } else if (rads>=1.5 && rads<3.5) {
@@ -677,9 +680,12 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                                     return "end";
                                 } else if (rads>=6) {
                                     return "middle";
+                                } else if(type ==="election pie" || type === "election donut" && rads < -1) {
+                                    return "end";
                                 } else if(rads<0) {
                                     return "middle";
-                                }
+                                } 
+
                             })
                             .attr("dy",5)
                             .attr("pointer-events","none")
