@@ -756,7 +756,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                                 return d.data.name; })
                             .attr("text-anchor",function(d) {
                                 var rads = ((d.endAngle - d.startAngle) / 2) + d.startAngle;
-                                if (rads>0 && rads<1.5) {
+                                if (rads>0 && rads<2) {
                                     return "start";
                                 } else if (rads>=1.5 && rads<3.5) {
                                     return "middle";
