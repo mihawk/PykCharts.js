@@ -828,7 +828,7 @@ PykCharts.Configuration = function (options){
 
             for(i=0; i<len; i++) {
                 comp = a[i].__data__;
-                if(a[i].getBBox().width > (options.margin_left * 0.7)) {
+                if(a[i].getBBox().width > (options.margin_left * 0.9)) {
                     comp = comp.substr(0,3) + "..";
                 }
 
@@ -5295,7 +5295,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                                 return d.data.name; })
                             .attr("text-anchor",function(d) {
                                 var rads = ((d.endAngle - d.startAngle) / 2) + d.startAngle;
-                                if (rads>0 && rads<1.5) {
+                                if (rads>0 && rads<2) {
                                     return "start";
                                 } else if (rads>=1.5 && rads<3.5) {
                                     return "middle";
@@ -7625,7 +7625,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
             that.k.title();
 
             if(PykCharts['boolean'](that.panels_enable)) {
-                that.w = that.width/4;
+                that.w = that.width/3;
                 that.height = that.height/2;
                 that.margin_left = that.margin_left;
                 that.margin_right = that.margin_right;
@@ -8676,7 +8676,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                     .xGrid(that.svgContainer,that.group,that.xScale)
             }
 
-            if((i+1)%4 === 0 && i !== 0) {
+            if((i+1)%3 === 0 && i !== 0) {
                 that.k.emptyDiv();
             }
         }
@@ -11993,8 +11993,7 @@ PykCharts.multiD.groupedColumn = function(options) {
                         if(PykCharts["boolean"](that.highlight_x_positions)) {
                             highlight_array = that.highlight;
                         } else {
-                            highlight_rect
-                                .remove()
+                            highlight_rect.remove()
                         }
                     }, that.transitions.duration());
                 }
