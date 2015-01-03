@@ -5,10 +5,11 @@ PykCharts.multiD.groupedColumn = function(options) {
     this.execute = function () {
         that = new PykCharts.multiD.processInputs(that, options, "column");
 
-        if(that.stop)
+        if(that.stop){
             return;
+        }
         that.grid_color = options.chart_grid_color ? options.chart_grid_color : theme.stylesheet.chart_grid_color;
-         that.panels_enable = "no";
+        that.panels_enable = "no";
 
         if(that.mode === "default") {
            that.k.loading();
@@ -41,18 +42,18 @@ PykCharts.multiD.groupedColumn = function(options) {
     that.dataTransformation = function () {
         that.group_arr = [], that.new_data = [];
         that.data_length = that.data.length;
-        for(j = 0;j < that.data_length;j++) {
+        for(var j = 0;j < that.data_length;j++) {
             that.group_arr[j] = that.data[j].x;
         }
         that.uniq_group_arr = _.unique(that.group_arr);
         var len = that.uniq_group_arr.length;
 
-        for (k = 0;k < len;k++) {
+        for (var k = 0;k < len;k++) {
             that.new_data[k] = {
                     name: that.uniq_group_arr[k],
                     data: []
             };
-            for (l = 0;l < that.data_length;l++) {
+            for (var l = 0;l < that.data_length;l++) {
                 if (that.uniq_group_arr[k] === that.data[l].x) {
                     that.new_data[k].data.push({
                         y: that.data[l].y,
@@ -277,9 +278,13 @@ PykCharts.multiD.groupedColumn = function(options) {
 
                 that.reduced_height = that.height - that.margin_top - that.margin_bottom - that.legendsGroup_height;
 
-                that.getuniqueGroups = _.map(that.data,function(d) {
+                // console.log(that.data,"data");
+                that.getuniqueGroups = that.data.map(function (d) {
                     return d.group;
                 })
+                // that.getuniqueGroups = _.map(that.data,function (d) {
+                //     return d.group;
+                // })
 
                 that.getuniqueGroups = _.unique(that.getuniqueGroups)
 
@@ -507,7 +512,7 @@ PykCharts.multiD.groupedColumn = function(options) {
                     return d.data.length;
                 });
 
-                for(var i = 0;that.new_data.length;i++) {
+                for(var i = 0;i<that.new_data_length;i++) {
                     if(that.new_data[i].data.length === that.no_of_groups) {
                         that.group_data = that.new_data[i].data;
                         break;
@@ -628,15 +633,13 @@ PykCharts.multiD.groupedColumn = function(options) {
 
                     var legend_container_width = that.legendsGroup.node().getBBox().width,translate_x;
 
-                    if(that.legends_display === "vertical") {
-                        that.legendsGroup_width = legend_container_width + 20;
-                    } else  {
-                        that.legendsGroup_width = 0;
-                    }
+                    that.legendsGroup_width = (that.legends_display === "vertical") ? legend_container_width + 20 : 0;
 
                     translate_x = (that.legends_display === "vertical") ? (that.width - that.legendsGroup_width) : (that.width - legend_container_width - 20);
 
-                    if (legend_container_width < that.width) { that.legendsGroup.attr("transform","translate("+translate_x+",10)"); }
+                    if (legend_container_width < that.width) { 
+                        that.legendsGroup.attr("transform","translate("+translate_x+",10)"); 
+                    }
                     that.legendsGroup.style("visibility","visible");
 
                     that.legends_text.exit().remove();
@@ -675,7 +678,8 @@ PykCharts.multiD.groupedColumn = function(options) {
             },
             highlightRect : function () {
                 if(that.flag) {
-                    setTimeout(function() {
+
+                    function setTimeOut() {
                         x = that.highlight_x_positions - 5;                    
                     
                         var highlight_rect = that.group.selectAll(".highlight-rect")
@@ -702,7 +706,8 @@ PykCharts.multiD.groupedColumn = function(options) {
                             highlight_rect
                                 .remove()
                         }
-                    }, that.transitions.duration());
+                    }
+                    setTimeout(setTimeOut, that.transitions.duration());
                 }
                 return this;
             },

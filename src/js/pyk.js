@@ -1760,10 +1760,16 @@ configuration.mouseEvent = function (options) {
                                                         cond = new_data[a].data[b].x === active_x_tick;
                                                     }
                                                     if(cond) {
-                                                      //  
-                                                        tooltipText = new_data[a].data[b].tooltip;
-                                                        pos_line_cursor_y = (yScale(new_data[a].data[b].y) + top);
-                                                        this.tooltipPosition(tooltipText,(pos_line_cursor_x+left_offset-15-30),(pos_line_cursor_y+ offsetTop),-15,-15,a,width_percentage,height_percentage,type);
+                                                        active_y_tick.push(new_data[a].data[b].y);
+                                                        tooltipText = (new_data[a].data[b].tooltip || new_data[a].data[b].y);
+                                                        if (a%4 == 0 && a != 0) {
+                                                        ++multiply_by;
+                                                        final_displacement = multiply_value * multiply_by;
+                                                        }
+                                                        // tooltipText = new_data[a].data[b].tooltip;
+                                                        // pos_line_cursor_y = (yScale(new_data[a].data[b].y) + top);
+                                                        this.tooltipPosition(tooltipText,(pos_line_cursor_x+left_offset-15-30),(pos_line_cursor_y+top_shift_from_first_panel+final_displacement),-15,-15,a,width_percentage,height_percentage,type);
+                                                        // this.tooltipPosition(tooltipText,(pos_line_cursor_x+left_offset-15-30),(pos_line_cursor_y+ offsetTop),-15,-15,a,width_percentage,height_percentage,type);
                                                         this.tooltipTextShow(tooltipText,panels_enable,type,a);
                                                         (options.crosshair_enable) ? this.crossHairShow(pos_line_cursor_x,top,pos_line_cursor_x,(h - bottom),pos_line_cursor_x,pos_line_cursor_y,type,active_y_tick.length,panels_enable,new_data[a],a): null;
                                                     }
