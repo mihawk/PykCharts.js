@@ -1097,6 +1097,19 @@ PykCharts.Configuration = function (options){
                     }
                 }
                 return data;
+            },
+            _unique : function (data) {
+                var n = {},r=[];
+                    for(var i = 0; i < data.length; i++) 
+                    {   
+                        // console.log(n,"nnn")
+                        if (!n[data[i]]) 
+                        {
+                            n[data[i]] = true; 
+                            r.push(data[i]); 
+                        }
+                    }
+                    return r;
             }
         },
         backgroundColor: function (options) {

@@ -4,10 +4,11 @@ PykCharts.multiD.column = function (options) {
 
     this.execute = function () {
         that = new PykCharts.multiD.processInputs(that, options, "column");
-        if(that.stop)
+        if(that.stop){
             return;
+        }
         that.grid_color = options.chart_grid_color ? options.chart_grid_color : theme.stylesheet.chart_grid_color;
-         that.panels_enable = "no";
+        that.panels_enable = "no";
 
         if(that.mode === "default") {
            that.k.loading();
@@ -252,19 +253,19 @@ PykCharts.multiD.column = function (options) {
                     });
 
                     min_y_tick_value = d3.min(that.y_tick_values, function (d) {
-                            return new Date(d);
-                        });
+                        return new Date(d);
+                    });
 
-                        max_y_tick_value = d3.max(that.y_tick_values, function (d) {
-                            return new Date(d);
-                        });
+                    max_y_tick_value = d3.max(that.y_tick_values, function (d) {
+                        return new Date(d);
+                    });
 
-                        if(new Date(y_data[0]) > new Date(min_y_tick_value)) {
-                            y_data[0] = min_y_tick_value;
-                        }
-                        if(new Date(y_data[1]) < new Date(max_y_tick_value)) {
-                            y_data[1] = max__tick_value;
-                        }
+                    if(new Date(y_data[0]) > new Date(min_y_tick_value)) {
+                        y_data[0] = min_y_tick_value;
+                    }
+                    if(new Date(y_data[1]) < new Date(max_y_tick_value)) {
+                        y_data[1] = max__tick_value;
+                    }
 
                     y_range = [that.height - that.margin_top - that.margin_bottom, 0];
                     that.yScale = that.k.scaleIdentification("time",y_data,y_range);

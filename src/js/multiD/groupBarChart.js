@@ -21,10 +21,11 @@ PykCharts.multiD.groupedBar = function(options){
             that.k.warningHandling(err,"9");
         }
         
-        if(that.stop)
+        if(that.stop){
             return;
+        }
         that.grid_color = options.chart_grid_color ? options.chart_grid_color : theme.stylesheet.chart_grid_color;
-         that.panels_enable = "no";
+        that.panels_enable = "no";
 
         if(that.mode === "default") {
            that.k.loading();
@@ -66,8 +67,8 @@ PykCharts.multiD.groupedBar = function(options){
         
         for (var k = 0;k < len;k++) {
             that.new_data[k] = {
-                    name: that.uniq_group_arr[k],
-                    data: []
+                name: that.uniq_group_arr[k],
+                data: []
             };
             for (var l = 0;l < that.data_length;l++) {
                 if (that.uniq_group_arr[k] === that.data[l].y) {
@@ -99,10 +100,10 @@ PykCharts.multiD.groupedBar = function(options){
             }
 
             that.optionalFeatures()
-                    .createChart()
-                    .legends()
-                    .ticks()
-                    .highlightRect();
+                .createChart()
+                .legends()
+                .ticks()
+                .highlightRect();
 
             that.k.xAxis(that.svgContainer,that.xGroup,that.xScale,that.extra_left_margin,that.xdomain,that.x_tick_values,that.legendsGroup_height)
             .yGrid(that.svgContainer,that.group,that.yScale,that.legendsGroup_width);
@@ -156,10 +157,9 @@ PykCharts.multiD.groupedBar = function(options){
                 .createGroups(1)
                 .createChart()
                 .axisContainer()
-               .highlightRect()
-               .ticks();
+                .highlightRect()
+                .ticks();
 
-        
             that.k.xAxis(that.svgContainer,that.xGroup,that.xScale,that.extra_left_margin,that.xdomain,that.x_tick_values,that.legendsGroup_height)
                 .xAxisTitle(that.xGroup)
                 .yAxisTitle(that.yGroup);
@@ -229,7 +229,6 @@ PykCharts.multiD.groupedBar = function(options){
             },
             legendsContainer: function (i) {
                 if(PykCharts.boolean(that.legends_enable) && that.mode === "default") {
-
                     that.legendsGroup = that.svgContainer.append("g")
                         .attr({
                             "id" : "legends",
@@ -237,7 +236,6 @@ PykCharts.multiD.groupedBar = function(options){
                             "transform" : "translate(0,10)"
                         })
                         .style("visibility","hidden");
-
                 } else {
                     that.legendsGroup_height = 0;
                     that.legendsGroup_width = 0;
@@ -276,7 +274,7 @@ PykCharts.multiD.groupedBar = function(options){
 
                 that.reduced_height = that.height - that.margin_top - that.margin_bottom - that.legendsGroup_height;
 
-                that.getuniqueGroups = _.map(that.data,function(d) {
+                that.getuniqueGroups = that.data.map(function (d) {
                     return d.group;
                 })
 
@@ -384,7 +382,7 @@ PykCharts.multiD.groupedBar = function(options){
                     });
 
                 var bar = chart.selectAll("rect")
-                            .data(function (d) { return d.data; });
+                    .data(function (d) { return d.data; });
 
                 bar.enter()
                     .append("rect")
@@ -427,7 +425,6 @@ PykCharts.multiD.groupedBar = function(options){
                         if(that.mode === "default") {
                             that.mouseEvent.tooltipPosition(d);
                         }
-
                     })
                     .transition()
                     .duration(that.transitions.duration())
@@ -510,7 +507,7 @@ PykCharts.multiD.groupedBar = function(options){
                     return d.data.length;
                 });
 
-                for(var i = 0;that.new_data.length;i++) {
+                for(var i = 0;i<that.new_data_length;i++) {
                     if(that.new_data[i].data.length === that.no_of_groups) {
                         that.group_data = that.new_data[i].data;
                         break;
@@ -636,9 +633,10 @@ PykCharts.multiD.groupedBar = function(options){
 
                     translate_x = (that.legends_display === "vertical") ? (that.width - that.legendsGroup_width) : (that.width - legend_container_width - 20);
 
-                    if (legend_container_width < that.width) { that.legendsGroup.attr("transform","translate("+translate_x+",10)"); }
+                    if (legend_container_width < that.width) { 
+                        that.legendsGroup.attr("transform","translate("+translate_x+",10)"); 
+                    }
                     that.legendsGroup.style("visibility","visible");
-
                     that.legends_text.exit().remove();
                     legend.exit().remove();
                 }
@@ -656,7 +654,7 @@ PykCharts.multiD.groupedBar = function(options){
             },
             highlightRect : function () {
                 if(that.flag) {
-                    setTimeout(function() {
+                    function setTimeOut() {
                         y = that.highlight_y_positions - 5;                    
                     
                         var highlight_rect = that.group.selectAll(".highlight-rect")
@@ -685,7 +683,8 @@ PykCharts.multiD.groupedBar = function(options){
                             highlight_rect
                                 .remove()
                         }
-                    }, that.transitions.duration());
+                    }
+                    setTimeout(setTimeOut, that.transitions.duration());
                 }
                 return this;
             },
@@ -701,7 +700,8 @@ PykCharts.multiD.groupedBar = function(options){
                         .outerTickSize(that.axis_y_outer_pointer_length);
                     that.new_yAxisgroup.style("stroke",function () { return that.axis_y_line_color; })
                         .call(yaxis);
-                    d3.selectAll(that.selector + " .y.new-axis text").style("display",function () { return "none"; })
+                    d3.selectAll(that.selector + " .y.new-axis text")
+                        .style("display",function () { return "none"; })
                         .style("stroke","none");
                 }
                 return this;
