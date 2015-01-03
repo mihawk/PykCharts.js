@@ -287,7 +287,7 @@ PykCharts.multiD.groupedColumn = function(options) {
                 //     return d.group;
                 // })
 
-                that.getuniqueGroups = _.unique(that.getuniqueGroups)
+                that.getuniqueGroups = that.k.__proto__._unique(that.getuniqueGroups)
 
                 that.x_tick_values = that.k.processXAxisTickValues();
                 that.y_tick_values = that.k.processYAxisTickValues();
