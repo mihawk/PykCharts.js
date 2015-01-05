@@ -10140,20 +10140,8 @@ PykCharts.multiD.bar = function (options) {
                             .attr("y",function (d) { return that.yScale(d.name) + ((that.reducedHeight/(that.data.length))-(0.03*that.reducedHeight))/2; })
                             .attr("dx",4)
                             .attr("dy",4)
-                            .text(function (d) {
-                                if(d.x) {
-                                    return (d.x).toFixed(); 
-                                }
-                            })
                             .text(function (d) { 
-                                if(d.x) {
-                                    that.txt_width = this.getBBox().width;
-                                    that.txt_height = this.getBBox().height;
-                                    if(d.x && (that.txt_width< that.xScale(d.x)) && (that.txt_height < ((that.reducedHeight/(that.data.length))-(0.03*that.reducedHeight)))) {
-                                        return d.x;
-                                    }
-                                }
-                                return (d.x).toFixed(); 
+                                return d.x; 
                             });
                     }, that.transitions.duration());
                 }
@@ -10645,20 +10633,10 @@ PykCharts.multiD.groupedBar = function(options){
                             .attr("y",function(d) { return (that.y1(d.name))+(that.y1.rangeBand()/2); })
                             .attr("dx",4)
                             .attr("dy",2)
-                            .transition()
-                            .text(function (d) { 
-                                if(d.x) {
-                                    return (d.x).toFixed(); 
-                                }
-                            })
                             .attr("pointer-events","none")
                             .text(function (d) { 
                                 if(d.x) {
-                                    that.txt_width = this.getBBox().width;
-                                    that.txt_height = this.getBBox().height;
-                                    if(d.x && (that.txt_width< that.xScale(d.x)) && (that.txt_height < (that.y1.rangeBand() ))) {
-                                        return d.x;
-                                    }
+                                    return d.x;
                                 } 
                             });
                     },that.transitions.duration());
