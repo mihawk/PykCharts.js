@@ -786,6 +786,7 @@ PykCharts.Configuration = function (options){
                 comp = a[i].__data__;
                 if (flag === 0) {
                     comp = "";
+                    d3.selectAll(options.selector + " .x.axis .tick").remove();
                 }
                 else if (rangeband >= (a[i].getBBox().width+10) && flag === 1) {}
                 else if (rangeband >= (a[i].getBBox().width*0.75) && rangeband < a[i].getBBox().width && flag === 2){
@@ -8457,8 +8458,9 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
             }               
             that.renderPanelOfLines();
         }
-
-        if(that.type === "multilineChart" && !PykCharts['boolean'](that.panels_enable)) {
+        if(that.type === "lineChart") {
+            that.optionalFeature().createChart("liveData");
+        } else if(that.type === "multilineChart" && !PykCharts['boolean'](that.panels_enable)) {
             $(that.selector + " #tooltip-svg-container-1").empty();
             that.renderLineChart();
         }

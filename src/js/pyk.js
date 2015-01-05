@@ -603,7 +603,7 @@ PykCharts.Configuration = function (options){
                 gsvg.style("stroke",function () { return options.axis_x_line_color; })
                     .call(xaxis)
                 if((options.axis_x_data_format === "string") && options.panels_enable === "no") {
-                    k.ordinalXAxisTickFormat(domain,extra,xaxis);
+                    k.ordinalXAxisTickFormat(domain,extra);
                 }
 
                 d3.selectAll(options.selector + " .x.axis .tick text")
@@ -768,7 +768,7 @@ PykCharts.Configuration = function (options){
             }
             return this;
         },
-        ordinalXAxisTickFormat :function (domain,extra,xAxis) {
+        ordinalXAxisTickFormat :function (domain,extra) {
                 var a = $(options.selector + " g.x.axis .tick text"),
                 len = a.length, comp, flag, largest = 0, rangeband = (extra*2);
 
