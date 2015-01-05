@@ -513,6 +513,7 @@ PykCharts.multiD.groupedBar = function(options){
                         break;
                     }
                 }
+//                console.log()
                 that.new_data.forEach(function(d){
                     d.data.forEach(function(data){
                         data.color = _.find(that.group_data,function(d) {

@@ -27,7 +27,7 @@ PykCharts.multiD.configuration = function (options){
             }
             return this;
         },
-        mapGroup : function (data) {
+        mapGroup : function (data,type) {
             var newarr = [];
             var unique = {};
             var k = 0;

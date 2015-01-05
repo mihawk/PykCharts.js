@@ -1100,9 +1100,8 @@ PykCharts.Configuration = function (options){
             },
             _unique : function (data) {
                 var n = {},r=[];
-                    for(var i = 0; i < data.length; i++) 
+                    for(var i = 0,len=data.length; i < len; i++) 
                     {   
-                        // console.log(n,"nnn")
                         if (!n[data[i]]) 
                         {
                             n[data[i]] = true; 
