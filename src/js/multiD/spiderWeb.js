@@ -215,7 +215,6 @@ PykCharts.multiD.spiderWeb = function (options) {
                     .attr("height", that.height)
                     .attr("preserveAspectRatio", "xMinYMin")
                     .attr("viewBox", "0 0 " + that.width + " " + that.height);
-
                 return this;
             },
             createGroups: function () {
@@ -293,11 +292,12 @@ PykCharts.multiD.spiderWeb = function (options) {
 
                     var target;
                     var grids = [];
-                    for (var i=0;i<that.yAxis.length;i++) {
-                        if (i<(that.yAxis.length-4)) {
+                        that.yAxis_length =  that.yAxis.length;
+                    for (var i=0;i<that.yAxis_length;i++) {
+                        if (i<(that.yAxis_length-4)) {
                             target = that.yAxis[i+4];
                         } else {
-                            target = that.yAxis[i - that.yAxis.length + 4];
+                            target = that.yAxis[i - that.yAxis_length + 4];
                         }
                         grids.push({source: that.yAxis[i], target: target});
                     }
@@ -327,7 +327,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                         .attr("stroke-opacity",1)
                         .attr("id","link"+m)
                         .attr("d", d3.customHive.link()
-                            .angle(function(d) { /**/ return that.angle(d.x); })
+                            .angle(function(d) { return that.angle(d.x); })
                             .radius(function(d) { return that.radius(d.y); })
                         );
                     spider.exit().remove();
