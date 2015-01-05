@@ -267,7 +267,6 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
                     .emptyDiv()
                     .subtitle();
 
-
                     d3.select(that.selector).append("div")
                         .style("width",that.width + "px")
                         .style("height",that.height + "px")
@@ -855,9 +854,10 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
             },
             label : function () {
                 if(PykCharts['boolean'](that.label_size)) {
+                 
                     that.circleLabel = that.chartBody.selectAll(".text")
                         .data(that.new_data);
-
+   
                     that.circleLabel.enter()
                         .append("text")
 
@@ -870,9 +870,9 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
                         .attr("y", function (d) { return (that.yScale(d.y)+that.extra_top_margin + 5); })
                         .attr("text-anchor","middle")
                         .attr("pointer-events","none")
+                        .attr("fill", that.label_color)
                         .style("font-weight", that.label_weight)
                         .style("font-size", that.label_size + "px")
-                        .attr("fill", that.label_color)
                         .style("font-family", that.label_family)
                         .text(function (d) {
                             return d.weight;
@@ -890,6 +890,7 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
                     that.circleLabel.exit()
                         .remove();
                 }
+                test();
                 return this;
             },
         };
@@ -1021,7 +1022,6 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
 
             that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
             that.sizes = new PykCharts.multiD.bubbleSizeCalculation(that,that.data,that.radius_range);
-
             that.optionalFeatures()
                 .legends(i)
                 .createGroups(i)
@@ -1038,6 +1038,7 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
                 .yAxisTitle(that.yGroup);
 
         }
+        // console.log(that.data)
         that.k.exportSVG(that,"svgcontainer",type,that.panels_enable,that.uniq_group_arr);
         that.k.emptyDiv();
     };

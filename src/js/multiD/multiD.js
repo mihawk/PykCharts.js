@@ -27,13 +27,15 @@ PykCharts.multiD.configuration = function (options){
             }
             return this;
         },
-        mapGroup : function (data) {
+        mapGroup : function (data,type) {
             var newarr = [];
             var unique = {};
             var k = 0;
             var checkGroup = true;
             var checkColor = true;
-            data = new PykCharts.multiD.sortDataByGroup(data);
+            // data = new PykCharts.multiD.sortDataByGroup(data);
+            data = _.groupBy(data,'group');
+            data = _.flatten(_.values(data));
             data.forEach(function (item) {
                 if(item.group) {
                     checkGroup = true;

@@ -55,7 +55,6 @@ PykCharts.multiD.river = function (options){
         that.extended = that.chart_mode === "absolute" ? false : true;
 
         that.executeData = function (data) {
-
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
                 $(that.selector+" #chart-loader").remove();
@@ -66,14 +65,15 @@ PykCharts.multiD.river = function (options){
             that.data = data;
             that.data.forEach(function (d) {
                 d.group = d.stack;
-            })
+            });
+            // console.log(that.data)
             that.axis_y_data_format = "number";
             that.axis_x_data_format = "number"
             that.compare_data = that.data;
             that.data_length = that.data.length;
             $(that.selector+" #chart-loader").remove();
             $(options.selector).css("height","auto")
-            that.map_group_data = that.multiD.mapGroup(that.data);
+            that.map_group_data = that.multiD.mapGroup(that.data,"river");
             that.dataTransformation();
             that.render();
         };
@@ -106,7 +106,6 @@ PykCharts.multiD.river = function (options){
                 .durationLabel()
                 .createChart()
                 .connectingLines()
-
                 .highlight();
 
             that.k.createFooter()
