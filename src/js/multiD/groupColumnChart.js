@@ -447,7 +447,7 @@ PykCharts.multiD.groupedColumn = function(options) {
 
                 bar.attr("height", 0)
                     .attr("x", function (d) {return that.x1(d.name); })
-                    .attr("y", that.height)
+                    .attr("y", that.height - that.margin_top - that.margin_bottom)
                     .attr("width", function (d){ return 0.98*that.x1.rangeBand(); })
                     .attr("fill", function (d,i) {
                         return that.fillColor.colorGroup(d);
@@ -699,8 +699,7 @@ PykCharts.multiD.groupedColumn = function(options) {
                         if(PykCharts["boolean"](that.highlight_x_positions)) {
                             highlight_array = that.highlight;
                         } else {
-                            highlight_rect
-                                .remove()
+                            highlight_rect.remove()
                         }
                     }, that.transitions.duration());
                 }

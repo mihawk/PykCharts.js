@@ -262,7 +262,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
             that.k.title();
 
             if(PykCharts['boolean'](that.panels_enable)) {
-                that.w = that.width/4;
+                that.w = that.width/3;
                 that.height = that.height/2;
                 that.margin_left = that.margin_left;
                 that.margin_right = that.margin_right;
@@ -1313,7 +1313,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                     .xGrid(that.svgContainer,that.group,that.xScale)
             }
 
-            if((i+1)%4 === 0 && i !== 0) {
+            if((i+1)%3 === 0 && i !== 0) {
                 that.k.emptyDiv();
             }
         }
