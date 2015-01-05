@@ -432,7 +432,7 @@ PykCharts.multiD.groupedBar = function(options){
             ticks : function(){
                 if(that.pointer_size) {
                     var ticks = that.group.selectAll(".g")
-                                                .data(that.new_data);
+                                    .data(that.new_data);
                     ticks.enter()
                         .append("g")
                         .attr("class","g");
@@ -446,7 +446,11 @@ PykCharts.multiD.groupedBar = function(options){
                                 .append("text")
                           
                     tick_label.attr("class","tickLabel")
-                        .text("");
+                        .text("")
+                        .style("font-weight", that.pointer_weight)
+                        .style("font-size", that.pointer_size + "px")
+                        .attr("fill", that.pointer_color)
+                        .style("font-family", that.pointer_family);
 
                     setTimeout(function () {
                         tick_label.attr("x", function (d) { return that.xScale(d.x); })
@@ -460,10 +464,6 @@ PykCharts.multiD.groupedBar = function(options){
                                 }
                             })
                             .attr("pointer-events","none")
-                            .style("font-weight", that.pointer_weight)
-                            .style("font-size", that.pointer_size + "px")
-                            .attr("fill", that.pointer_color)
-                            .style("font-family", that.pointer_family)
                             .text(function (d) { 
                                 if(d.x) {
                                     that.txt_width = this.getBBox().width;
