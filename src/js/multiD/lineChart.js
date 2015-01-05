@@ -24,10 +24,10 @@ PykCharts.multiD.line = function (options) {
         that.panels_enable = "no";
 
         that.executeData = function (data) {
-            var validate = that.k.validator().validatingJSON(data);
+            var validate = that.k.validator().validatingJSON(data),
+                id = that.selector.substring(1,that.selector.length);
             if(that.stop || validate === false) {
-                $(that.selector+" #chart-loader").remove();
-                $(that.selector).css("height","auto")
+                that.k.remove_loading_bar(id);
                 return;
             }
             that.data = that.k.__proto__._groupBy("line",data);

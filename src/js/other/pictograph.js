@@ -51,10 +51,10 @@ PykCharts.other.pictograph = function (options) {
         }
 
         that.executeData = function (data) {
-            var validate = that.k.validator().validatingJSON(data);
+            var validate = that.k.validator().validatingJSON(data),
+                id = that.selector.substring(1,that.selector.length);
             if(that.stop || validate === false) {
-                $(options.selector+" #chart-loader").remove();
-                $(that.selector).css("height","auto")
+                that.k.remove_loading_bar(id);
                 return;
             }
 
@@ -64,8 +64,7 @@ PykCharts.other.pictograph = function (options) {
             that.old_weight = 0;
 
             that.compare_data = that.data;
-            $(options.selector+" #chart-loader").remove();
-            $(that.selector).css("height","auto")
+            that.k.remove_loading_bar(id);
             that.render();
         };
         that.k.dataSourceFormatIdentification(options.data,that,"executeData");

@@ -34,17 +34,17 @@ PykCharts.oneD.pie = function (options) {
         }
 
         that.executeData = function (data) {
-            var validate = that.k.validator().validatingJSON(data);
+            var validate = that.k.validator().validatingJSON(data),
+                id = that.selector.substring(1,that.selector.length);
+
             if(that.stop || validate === false) {
-                $(options.selector+" #chart-loader").remove();
-                $(that.selector).css("height","auto")
+                that.k.remove_loading_bar(id);
                 return;
             }
 
             that.data = that.k.__proto__._groupBy("oned",data);
             that.compare_data = that.k.__proto__._groupBy("oned",data);
-            $(options.selector+" #chart-loader").remove();
-            $(that.selector).css("height","auto")
+            that.k.remove_loading_bar(id);
             var pieFunctions = new PykCharts.oneD.pieFunctions(options,that,"pie");
             that.clubdata_enable = that.data.length > that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
             pieFunctions.render();
@@ -113,17 +113,16 @@ PykCharts.oneD.donut = function (options) {
         that.show_total_at_center_family = options.donut_show_total_at_center_family ? options.donut_show_total_at_center_family : theme.oneDimensionalCharts.donut_show_total_at_center_family;
 
         that.executeData = function (data) {
-            var validate = that.k.validator().validatingJSON(data);
+            var validate = that.k.validator().validatingJSON(data),
+                id = that.selector.substring(1,that.selector.length);
             if(that.stop || validate === false) {
-                $(options.selector+" #chart-loader").remove();
-                $(that.selector).css("height","auto")
+                that.k.remove_loading_bar(id);
                 return;
             }
 
             that.data = that.k.__proto__._groupBy("oned",data);
             that.compare_data = that.k.__proto__._groupBy("oned",data);
-            $(options.selector+" #chart-loader").remove();
-            $(that.selector).css("height","auto")
+            that.k.remove_loading_bar(id);
             var pieFunctions = new PykCharts.oneD.pieFunctions(options,that,"donut");
             that.clubdata_enable = that.data.length > that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
             pieFunctions.render();
@@ -191,17 +190,16 @@ PykCharts.oneD.electionPie = function (options) {
         that.innerRadiusPercent = 0;
 
         that.executeData = function (data) {
-            var validate = that.k.validator().validatingJSON(data);
+            var validate = that.k.validator().validatingJSON(data),
+                id = that.selector.substring(1,that.selector.length);
             if(that.stop || validate === false) {
-                $(options.selector+" #chart-loader").remove();
-                $(that.selector).css("height","auto")
+                that.k.remove_loading_bar(id);
                 return;
             }
 
             that.data = that.k.__proto__._groupBy("oned",data);
             that.compare_data = that.k.__proto__._groupBy("oned",data);
-            $(options.selector+" #chart-loader").remove();
-            $(that.selector).css("height","auto")
+            that.k.remove_loading_bar(id);
             var pieFunctions = new PykCharts.oneD.pieFunctions(options,that,"election pie");
             that.clubdata_enable = that.data.length > that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
             pieFunctions.render();
@@ -288,17 +286,16 @@ PykCharts.oneD.electionDonut = function (options) {
         that.show_total_at_center_family = options.donut_show_total_at_center_family ? options.donut_show_total_at_center_family : theme.oneDimensionalCharts.donut_show_total_at_center_family;
 
         that.executeData = function (data) {
-            var validate = that.k.validator().validatingJSON(data);
+            var validate = that.k.validator().validatingJSON(data),
+                id = that.selector.substring(1,that.selector.length);
             if(that.stop || validate === false) {
-                $(options.selector+" #chart-loader").remove();
-                $(that.selector).css("height","auto")
+                that.k.remove_loading_bar(id);
                 return;
             }
 
             that.data = that.k.__proto__._groupBy("oned",data);
             that.compare_data = that.k.__proto__._groupBy("oned",data);
-            $(options.selector+" #chart-loader").remove();
-            $(that.selector).css("height","auto")
+            that.k.remove_loading_bar(id);
             var pieFunctions = new PykCharts.oneD.pieFunctions(options,that,"election donut");
             that.clubdata_enable = that.data.length> that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
             pieFunctions.render();
@@ -571,6 +568,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                 return this;
             },
             clubData: function () {
+                console.log(PykCharts['boolean'](that.clubdata_enable),that.clubdata_enable)
                 if(PykCharts['boolean'](that.clubdata_enable)) {
                     that.displayData = [];
                     that.sorted_weight = [];
@@ -598,11 +596,11 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                             });
                         return result;
                     } ;
+
                     var k = 0;
                     if(that.clubdata_always_include_data_points.length!== 0) {
                         for (var l=0;l<that.clubdata_always_include_data_points.length;l++)
                         {
-
                             index = that.getIndexByName(that.clubdata_always_include_data_points[l]);
                             if(index!= undefined) {
                                 that.displayData.push(that.data[index]);
@@ -613,7 +611,6 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                     that.getIndexByWeight = function (weight) {
                         for(var i=0;i<that.data.length;i++)
                         {
-
                             if(that.data[i].weight === weight) {
                                 if((_.contains(that.checkDuplicate, i))===false) {
                                    that.checkDuplicate.push(i);
