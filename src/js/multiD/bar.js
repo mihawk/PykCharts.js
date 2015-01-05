@@ -331,8 +331,10 @@ PykCharts.multiD.bar = function (options) {
                             if(PykCharts.boolean(that.onhover_enable)) {
                                 that.mouseEvent1.highlight(that.selector+" "+".hbar", this);
                             }
-                            that.mouseEvent.tooltipPosition(d);
-                            that.mouseEvent.tooltipTextShow(d.tooltip ? d.tooltip : d.x);
+                            if (PykCharts['boolean'](options.tooltip_enable)) {
+                                that.mouseEvent.tooltipPosition(d);
+                                that.mouseEvent.tooltipTextShow(d.tooltip ? d.tooltip : d.x);
+                            }
                         }
                     })
                     .on('mouseout',function (d) {
@@ -340,13 +342,17 @@ PykCharts.multiD.bar = function (options) {
                             if(PykCharts.boolean(that.onhover_enable)) {
                                 that.mouseEvent1.highlightHide(that.selector+" "+".hbar");
                             }
-                            that.mouseEvent.tooltipHide(d);
+                            if (PykCharts['boolean'](options.tooltip_enable)) {
+                                that.mouseEvent.tooltipHide(d);
+                            }
                             that.mouseEvent.axisHighlightHide(that.selector+" "+".y.axis")
                         }
                     })
                     .on('mousemove', function (d) {
                         if(that.mode === "default") {
-                            that.mouseEvent.tooltipPosition(d);
+                            if (PykCharts['boolean'](options.tooltip_enable)) {
+                                that.mouseEvent.tooltipPosition(d);
+                            }
                             that.mouseEvent.axisHighlightShow([d.y],that.selector+" "+".y.axis",that.y_domain);
                         }                       
                     })
@@ -371,17 +377,23 @@ PykCharts.multiD.bar = function (options) {
                     tick_label.enter()
                         .append("text")
 
-                    tick_label.attr("class","tickLabel");
+                    tick_label.attr("class","tickLabel")
+                        .style("font-weight", that.pointer_weight)
+                        .style("font-size", that.pointer_size + "px")
+                        .attr("fill", that.pointer_color)
+                        .style("font-family", that.pointer_family)
+                        .text("");
 
                     setTimeout(function () {
                         tick_label.attr("x", function (d) { return that.xScale(d.x); })
                             .attr("y",function (d) { return that.yScale(d.name) + ((that.reducedHeight/(that.data.length))-(0.03*that.reducedHeight))/2; })
                             .attr("dx",4)
                             .attr("dy",4)
-                            .style("font-weight", that.pointer_weight)
-                            .style("font-size", that.pointer_size + "px")
-                            .attr("fill", that.pointer_color)
-                            .style("font-family", that.pointer_family)
+                            .text(function (d) {
+                                if(d.x) {
+                                    return (d.x).toFixed(); 
+                                }
+                            })
                             .text(function (d) { 
                                 if(d.x) {
                                     that.txt_width = this.getBBox().width;

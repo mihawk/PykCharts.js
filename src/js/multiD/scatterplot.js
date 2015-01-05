@@ -818,24 +818,28 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
                     .attr("stroke-opacity",1)
                     .on('mouseover',function (d) {
                         if(that.mode === "default") {
-                            tooltipText = d.tooltip ? d.tooltip : "<table><thead><th colspan='2'><b>"+d.name+"</b></th></thead><tr><td>X</td><td><b>"+d.x+"</b></td></tr><tr><td>Y</td><td><b>"+d.y+"<b></td></tr><tr><td>Weight</td><td><b>"+d.weight+"</b></td></tr></table>";
-                            that.mouseEvent.tooltipPosition(d);
-                            that.mouseEvent.tooltipTextShow(tooltipText);
-                            if(PykCharts['boolean'](that.onhover_enable)) {
+                            if (PykCharts['boolean'](options.tooltip_enable)) {
+                                tooltipText = d.tooltip ? d.tooltip : "<table><thead><th colspan='2'><b>"+d.name+"</b></th></thead><tr><td>X</td><td><b>"+d.x+"</b></td></tr><tr><td>Y</td><td><b>"+d.y+"<b></td></tr><tr><td>Weight</td><td><b>"+d.weight+"</b></td></tr></table>";
+                                that.mouseEvent.tooltipPosition(d);
+                                that.mouseEvent.tooltipTextShow(tooltipText);
+                            }
+                            if (PykCharts['boolean'](that.onhover_enable)) {
                                 that.mouseEvent.highlight(that.selector + " .dot", this);
                             }
                         }
                     })
                     .on('mouseout',function (d) {
-                        if(that.mode === "default") {
-                            that.mouseEvent.tooltipHide(d);
-                            if(PykCharts['boolean'](that.onhover_enable)) {
+                        if (that.mode === "default") {
+                            if (PykCharts['boolean'](options.tooltip_enable)) {
+                                that.mouseEvent.tooltipHide(d);
+                            }
+                            if (PykCharts['boolean'](that.onhover_enable)) {
                                 that.mouseEvent.highlightHide(that.selector + " .dot");
                             }
                         }
                     })
                     .on('mousemove', function (d) {
-                        if(that.mode === "default") {
+                        if (that.mode === "default" && PykCharts['boolean'](options.tooltip_enable)) {
                             that.mouseEvent.tooltipPosition(d);
                         }
                     })

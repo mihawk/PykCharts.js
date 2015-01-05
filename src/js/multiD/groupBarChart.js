@@ -398,19 +398,19 @@ PykCharts.multiD.groupedBar = function(options){
                         return $(this).attr("fill-opacity");
                     })
                     .on('mouseover',function (d) {
-                        if(that.mode === "default") {
+                        if(that.mode === "default" && PykCharts['boolean'](options.tooltip_enable)) {
                             var tooltip = d.tooltip ? d.tooltip : d.x;
                             that.mouseEvent.tooltipPosition(d);
                             that.mouseEvent.tooltipTextShow(tooltip);
                         }
                     })
                     .on('mouseout',function (d) {
-                        if(that.mode === "default") {
+                        if(that.mode === "default" && PykCharts['boolean'](options.tooltip_enable)) {
                             that.mouseEvent.tooltipHide(d);
                         }
                     })
                     .on('mousemove', function (d) {
-                        if(that.mode === "default") {
+                        if(that.mode === "default" && PykCharts['boolean'](options.tooltip_enable)) {
                             that.mouseEvent.tooltipPosition(d);
                         }
 
@@ -446,11 +446,11 @@ PykCharts.multiD.groupedBar = function(options){
                                 .append("text")
                           
                     tick_label.attr("class","tickLabel")
-                        .text("")
                         .style("font-weight", that.pointer_weight)
                         .style("font-size", that.pointer_size + "px")
                         .attr("fill", that.pointer_color)
-                        .style("font-family", that.pointer_family);
+                        .style("font-family", that.pointer_family)
+                        .text("");
 
                     setTimeout(function () {
                         tick_label.attr("x", function (d) { return that.xScale(d.x); })
