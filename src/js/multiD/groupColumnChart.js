@@ -283,9 +283,6 @@ PykCharts.multiD.groupedColumn = function(options) {
                 that.getuniqueGroups = that.data.map(function (d) {
                     return d.group;
                 })
-                // that.getuniqueGroups = _.map(that.data,function (d) {
-                //     return d.group;
-                // })
 
                 that.getuniqueGroups = that.k.__proto__._unique(that.getuniqueGroups)
 
@@ -519,7 +516,7 @@ PykCharts.multiD.groupedColumn = function(options) {
                         break;
                     }
                 }
-
+                
                 that.new_data.forEach(function(d){
                     d.data.forEach(function(data){
                         data.color = _.find(that.group_data,function(d) {

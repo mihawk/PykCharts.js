@@ -10,15 +10,13 @@ PykCharts.multiD.spiderWeb = function (options) {
         that.panels_enable = "no";
         that.data_sort_enable = "yes";
         that.data_sort_type = "alphabetically";
-        that.data_sort_order = "ascending";
-        
+        that.data_sort_order = "ascending";        
         try {
             if(!_.isNumber(that.bubbleRadius)) {
                 that.bubbleRadius = (0.6 * multiDimensionalCharts.scatterplot_radius);
                 throw "spiderweb_radius"
             }
         } 
-
         catch (err) {
             that.k.warningHandling(err,"1");
         }
@@ -34,8 +32,9 @@ PykCharts.multiD.spiderWeb = function (options) {
             that.k.warningHandling(err,"1");
         }
 
-        if(that.stop) 
+        if(that.stop) {
             return;
+        }
         
         if(that.mode === "default") {
             that.k.loading();
@@ -56,7 +55,6 @@ PykCharts.multiD.spiderWeb = function (options) {
                 $(that.selector).css("height","auto")
                 return;
             }
-
             that.data = that.k.__proto__._groupBy("spiderweb",data);
             that.compare_data = that.k.__proto__._groupBy("spiderweb",data);
             $(that.selector+" #chart-loader").remove();
@@ -72,24 +70,25 @@ PykCharts.multiD.spiderWeb = function (options) {
         that.x_arr = [];
         that.uniq_x_arr = [];
         that.data = that.k.__proto__._sortData(that.data, "x", "group", that);
-        for(j=0; j<that.data.length; j++) {
+        that.data_length = that.data.length;
+        for(var j=0; j<that.data_length; j++) {
             that.group_arr[j] = that.data[j].group;
         }
-        that.uniq_group_arr = _.uniq(that.group_arr);
+        that.uniq_group_arr = that.k.__proto__._unique(that.group_arr);
         var len = that.uniq_group_arr.length;
 
         for(var k=0; k<that.data_length; k++) {
             that.x_arr[k] = that.data[k].x;
         }
-        var uniq_x_arr = _.unique(that.x_arr);
+        var uniq_x_arr = that.k.__proto__._unique(that.x_arr);
 
         that.new_data = [];
-        for (k=0; k<len; k++) {
+        for (var k=0; k<len; k++) {
             that.new_data[k] = {
                 name: that.uniq_group_arr[k],
                 data: []
             };
-            for (l=0; l<that.data.length; l++) {
+            for (var l=0; l<that.data_length; l++) {
                 if (that.uniq_group_arr[k] === that.data[l].group) {
                     that.new_data[k].data.push({
                         x: that.data[l].x,
@@ -240,8 +239,10 @@ PykCharts.multiD.spiderWeb = function (options) {
                 return this;
             },
             createChart: function () {
-                var i, min, max;
-                var uniq = that.new_data[0].data;
+                var i, min, max,
+                    uniq = that.new_data[0].data,
+                    uniq_length = uniq.length;
+
 
                 max = d3.max(that.new_data, function (d,i) { return d3.max(d.data, function (k) { return k.y; })});
                 min = d3.min(that.new_data, function (d,i) { return d3.min(d.data, function (k) { return k.y; })});
@@ -251,19 +252,19 @@ PykCharts.multiD.spiderWeb = function (options) {
                     .range([that.inner_radius, that.outerRadius]);
                 that.y_domain = [], that.nodes = [];
 
-                for (i=0;i<that.new_data.length;i++){
+                for (var i=0;i<that.new_data_length;i++){
                     var t = [];
-                    for (j=0;j<that.new_data[i].data.length;j++) {
+                    for (var j=0;j<that.new_data[i].data.length;j++) {
                         t[j] = that.yScale(that.new_data[i].data[j].y);
                     }
                     that.y_domain[i] = t;
                 }
-                for (i=0;i<that.new_data.length;i++){
+                for (var i=0;i<that.new_data_length;i++){
                     that.y = d3.scale.linear()
                         .domain(d3.extent(that.y_domain[i], function(d) { return parseFloat(d); }))
                         .range([0.1,0.9]);
                     var xyz = [];
-                    for (j=0;j<uniq.length;j++) {
+                    for (var j=0;j<uniq_length;j++) {
                         xyz[j] = {
                             x: j,
                             y: that.y(that.y_domain[i][j]),
@@ -272,7 +273,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                     }
                     that.nodes[i] = xyz;
                 }
-                for (m =0; m<that.new_data.length; m++) {
+                for (var m =0; m<that.new_data_length; m++) {
                     var toolTip = [];
                     for (j=0; j<that.new_data[m].data.length;j++) {
                         toolTip[j] = that.new_data[m].data[j].tooltip;
@@ -281,7 +282,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                     that.radius = d3.scale.linear().range([that.inner_radius, that.outerRadius]);
 
                     that.yAxis = [];
-                    for (i=0;i<that.new_data[m].data.length;i++){
+                    for (var i=0;i<that.new_data[m].data.length;i++){
                         that.yAxis.push(
                             {x: i, y: 0.25},
                             {x: i, y: 0.5},
@@ -292,7 +293,7 @@ PykCharts.multiD.spiderWeb = function (options) {
 
                     var target;
                     var grids = [];
-                    for (i=0;i<that.yAxis.length;i++) {
+                    for (var i=0;i<that.yAxis.length;i++) {
                         if (i<(that.yAxis.length-4)) {
                             target = that.yAxis[i+4];
                         } else {
@@ -302,7 +303,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                     }
 
                     var links = [], color;
-                    for (i=0;i<that.nodes[m].length;i++) {
+                    for (var i=0;i<that.nodes[m].length;i++) {
                         if (i<(that.nodes[m].length-1)) {
                             target = that.nodes[m][i+1];
                             color = that.fillChart.colorPieW(that.new_data[m].data[i]);
@@ -331,8 +332,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                         );
                     spider.exit().remove();
 
-
-                    that.weight = _.map(that.new_data[m].data, function (d) {
+                    that.weight = that.new_data[m].data.map(function (d) {
                         return d.weight;
                     });
 
@@ -411,7 +411,7 @@ PykCharts.multiD.spiderWeb = function (options) {
             },
             legends : function () {
                 if (PykCharts['boolean'](that.legends_enable) && that.map_group_data[1] && that.mode==="default") {
-                    var unique = _.uniq(that.sorted_weight);
+                    // var unique = that.k.__proto__._unique(that.sorted_weight);
                     var k = 0;
                     var l = 0;
                     if(that.legends_display === "vertical" ) {
@@ -429,8 +429,6 @@ PykCharts.multiD.spiderWeb = function (options) {
                         rect_parameter3value = function (d,i) { return 20; };
                         var rect_parameter4value = function (d,i) { return i * 24 + 12;};
                         var text_parameter2value = function (d,i) { return i * 24 + 23;};
-
-
                     } else if(that.legends_display === "horizontal") {
                         that.legendsGroup_height = 50;
                         final_rect_x = 0;
@@ -497,13 +495,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                         });
 
                     var legend_container_width = that.legendsGroup.node().getBBox().width, translate_x;
-
-                    if(that.legends_display === "vertical") {
-                        that.legendsGroup_width = legend_container_width + 20;
-                    } else  {
-                        that.legendsGroup_width = 0;
-                    }
-      
+                    that.legendsGroup_width = (that.legends_display === "vertical") ? legend_container_width + 20 : 0;
                     translate_x = (that.legends_display === "vertical") ? (that.width - that.legendsGroup_width) : (that.width - legend_container_width - 20);
                     
                     if (legend_container_width < that.width) { that.legendsGroup.attr("transform","translate("+translate_x+",10)"); }
@@ -511,8 +503,6 @@ PykCharts.multiD.spiderWeb = function (options) {
                     
                     that.legends_text.exit().remove();
                     legend.exit().remove();
-
-                    /* !!!!! DO NOT TOUCH THE BELOW COMMENTED CODE, PREVIOUSLY WRITTEN FOR DISPLAYING LEGENDS ON THE NEXT LINE !!!!!*/
                 }
                 return this;
             },
@@ -546,10 +536,10 @@ PykCharts.multiD.spiderWeb = function (options) {
                 return this;
             },
             yAxis: function () {
-                    var a = that.yScale.domain();
-                    var t = a[1]/4;
-                    var b = [];
-                    for(i=4,j=0; i>=0 ;i--,j++){
+                    var a = that.yScale.domain(),
+                        t = a[1]/4,
+                        b = [];
+                    for(var i=4,j=0; i>=0 ;i--,j++){
                         b[j]=i*t;
                     }
                     var tick_label = that.ticksElement.selectAll("text.ticks")
