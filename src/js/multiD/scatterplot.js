@@ -771,7 +771,7 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
                         .data(that.new_data);
 
                     tick_label.enter()
-                        .append("text");
+                        .append("text")
 
                     tick_label.attr("class","ticks-text")
                         .attr("x",function (d) {
@@ -785,7 +785,8 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
                         .style("font-size",that.label_size + "px")
                         .attr("pointer-events","none")
                         .attr("dx",-1)
-                        .attr("dy",function (d) { return -that.sizes(d.weight)-4; });
+                        .attr("dy",function (d) { return -that.sizes(d.weight)-4; })
+                        .text("")
 
                 setTimeout(function () {
                     tick_label.text(function (d) {return d.name; });
@@ -859,10 +860,12 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
 
                     that.circleLabel.enter()
                         .append("text")
-                        .attr("class","text");
 
-                setTimeout(function () {
-                    that.circleLabel
+                    that.circleLabel.attr("class","text")
+                        .text("");
+
+                    function setTimeOut() {
+                        that.circleLabel
                         .attr("x", function (d) { return (that.x(d.x)+that.extra_left_margin); })
                         .attr("y", function (d) { return (that.yScale(d.y)+that.extra_top_margin + 5); })
                         .attr("text-anchor","middle")
@@ -881,14 +884,14 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
                                 return "";
                             }
                         });
-                    },that.transitions.duration());
+                    }
+                    setTimeout(setTimeOut,that.transitions.duration());
 
                     that.circleLabel.exit()
                         .remove();
                 }
                 return this;
             },
-
         };
         return optional;
     };
