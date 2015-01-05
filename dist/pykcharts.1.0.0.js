@@ -1701,8 +1701,8 @@ configuration.mouseEvent = function (options) {
                     
                     tooltip
                         .css("display", "block")
-                        .css("top", place_tooltip_from_top + "px")
-                        .css("left", ((xPos + options.margin_left + offset.left) * width_percentage) + "px");
+                        .css("top", place_tooltip_from_top + offset.top + "px")
+                        .css("left", ((xPos + options.margin_left) * width_percentage) + offset.left + "px");
                 }
                 else {
                     that.tooltip
@@ -1741,7 +1741,8 @@ configuration.mouseEvent = function (options) {
                 var selectSVG = $(options.selector + " #"+dataLineGroup[0][0][0].parentNode.parentNode.id),
                     width_percentage = 0,
                     height_percentage = 0,
-                    top_shift_from_first_panel;
+                    top_shift_from_first_panel
+                    containerOffsetTop = $(options.selector).offset().top;
                 if (!PykCharts['boolean'](panels_enable)) {
                     width_percentage = selectSVG.width() / options.width;
                     height_percentage = selectSVG.height() / options.height;
@@ -1751,7 +1752,7 @@ configuration.mouseEvent = function (options) {
                     height_percentage = 1;
                 }
                 var legendsGroup_height = options.legendsGroup_height ? options.legendsGroup_height: 0;
-                var offsetLeft =  (options.margin_left + lineMargin + selectSVG.offset().left) * width_percentage;
+                var offsetLeft =  ((options.margin_left + lineMargin) * width_percentage) + selectSVG.offset().left;
                 var offsetTop = selectSVG.offset().top;
                 var number_of_lines = new_data.length;
                 var left = options.margin_left;
@@ -1842,7 +1843,7 @@ configuration.mouseEvent = function (options) {
                                             pos_line_cursor_x += 6;
                                             tooltipText = "<table><thead><th colspan='"+colspan+"'>"+active_x_tick+"</th></thead><tbody>"+tt_row+"</tbody></table>";
                                             if(PykCharts['boolean'](options.tooltip_enable)) {
-                                                this.tooltipPosition(tooltipText,pos_line_cursor_x,(y+offsetTop),60,-15,group_index,width_percentage,height_percentage,type);
+                                                this.tooltipPosition(tooltipText,pos_line_cursor_x,(y),60,-15,group_index,width_percentage,height_percentage,type);
                                                 this.tooltipTextShow(tooltipText);
                                             }
                                             (options.crosshair_enable) ? this.crossHairShow(pos_line_cursor_x,top,pos_line_cursor_x,(h - bottom),pos_line_cursor_x,test,type,active_y_tick.length,panels_enable,new_data): null;
@@ -1873,7 +1874,7 @@ configuration.mouseEvent = function (options) {
                                                             final_displacement = multiply_value * multiply_by;
                                                         }
                                                         pos_line_cursor_y = (yScale(new_data[a].data[b].y) + top);
-                                                        this.tooltipPosition(tooltipText,(pos_line_cursor_x+left_offset-15-30),(pos_line_cursor_y+top_shift_from_first_panel+final_displacement),-15,-15,a,width_percentage,height_percentage,type);
+                                                        this.tooltipPosition(tooltipText,(pos_line_cursor_x+left_offset-15-30),(pos_line_cursor_y+top_shift_from_first_panel+final_displacement-containerOffsetTop),-15,-15,a,width_percentage,height_percentage,type);
                                                         this.tooltipTextShow(tooltipText,panels_enable,type,a);
                                                         (options.crosshair_enable) ? this.crossHairShow(pos_line_cursor_x,top,pos_line_cursor_x,(h - bottom),pos_line_cursor_x,pos_line_cursor_y,type,active_y_tick.length,panels_enable,new_data[a],a): null;
                                                     }
@@ -1884,9 +1885,9 @@ configuration.mouseEvent = function (options) {
                                     if(type === "lineChart" || type === "areaChart") {
                                         if(PykCharts['boolean'](options.tooltip_enable)) {
                                             if((options.tooltip_mode).toLowerCase() === "fixed") {
-                                                this.tooltipPosition(tooltipText,-options.margin_left,(pos_line_cursor_y + offsetTop),-14,23,group_index,width_percentage,height_percentage,type);
+                                                this.tooltipPosition(tooltipText,-options.margin_left,(pos_line_cursor_y),-14,23,group_index,width_percentage,height_percentage,type);
                                             } else if((options.tooltip_mode).toLowerCase() === "moving") {
-                                                this.tooltipPosition(tooltipText,(pos_line_cursor_x-options.margin_left + 10),(pos_line_cursor_y+offsetTop-5),0,-45,group_index,width_percentage,height_percentage,type);
+                                                this.tooltipPosition(tooltipText,(pos_line_cursor_x-options.margin_left + 10),(pos_line_cursor_y-5),0,-45,group_index,width_percentage,height_percentage,type);
                                             }
                                             this.tooltipTextShow(tooltipText);
                                         }
@@ -1925,7 +1926,7 @@ configuration.mouseEvent = function (options) {
                                         tooltipText = "<table><thead><th colspan='"+colspan+"'>"+active_x_tick+"</th></thead><tbody>"+tt_row+"</tbody></table>";
                                         if(PykCharts['boolean'](options.tooltip_enable)) {
                                             group_index = 1;
-                                            this.tooltipPosition(tooltipText,pos_line_cursor_x,(y+offsetTop),60,70,group_index,width_percentage,height_percentage);
+                                            this.tooltipPosition(tooltipText,pos_line_cursor_x,(y),60,70,group_index,width_percentage,height_percentage);
                                             this.tooltipTextShow(tooltipText,type);
                                         }
                                         (options.crosshair_enable) ? this.crossHairShow(pos_line_cursor_x,top+legendsGroup_height,pos_line_cursor_x,(h - bottom),pos_line_cursor_x,test,type,active_y_tick.length,panels_enable,new_data): null;
@@ -1958,8 +1959,7 @@ configuration.mouseEvent = function (options) {
                         that.focus_circle.style("display","block")
                             .attr("transform", "translate(" + cx + "," + cy + ")");
 
-                    }
-                    else if(type === "multilineChart" /*|| type === "stackedAreaChart"*/) {
+                    } else if(type === "multilineChart" /*|| type === "stackedAreaChart"*/) {
                         if(panels_enable === "no") {
                             that.cross_hair_v.style("display","block");
                             that.cross_hair_v.select(options.selector + " #cross-hair-v")
@@ -1971,8 +1971,7 @@ configuration.mouseEvent = function (options) {
                                     d3.select(options.selector+" #f_circle"+j).style("display","block")
                                         .attr("transform", "translate(" + (cx-3) + "," + cy[j] + ")");
                                 }
-                        }
-                        else if(panels_enable === "yes") {
+                        } else if(panels_enable === "yes") {
                             d3.selectAll(options.selector+" .line-cursor").style("display","block");
                             d3.selectAll(options.selector+" .cross-hair-v")
                                 .attr("x1",(x1 - 5))
@@ -1987,8 +1986,7 @@ configuration.mouseEvent = function (options) {
                             d3.select(options.selector+" #svg-"+group_index+" .focus").style("display","block")
                                 .attr("transform", "translate(" + (cx - 5) + "," + cy + ")");
                         }
-                    }
-                    else if (type === "stackedAreaChart") {
+                    } else if (type === "stackedAreaChart") {
                         that.cross_hair_v.style("display","block");
                         that.cross_hair_v.select(options.selector + " #cross-hair-v")
                             .attr("x1",(x1 - 5))
@@ -2010,8 +2008,7 @@ configuration.mouseEvent = function (options) {
                 if(type === "lineChart" || type === "areaChart") {
                     that.cross_hair_h.style("display","none");
                     that.focus_circle.style("display","none");
-                }
-                else if(type === "multilineChart" || type === "stackedAreaChart") {
+                } else if(type === "multilineChart" || type === "stackedAreaChart") {
                     d3.selectAll(options.selector+" .line-cursor").style("display","none");
                     d3.selectAll(options.selector+" .focus").style("display","none");
                 }
@@ -2062,8 +2059,7 @@ configuration.mouseEvent = function (options) {
                                 break;
                             }
                         }
-                    }
-                    else{
+                    } else{
                         for(curr_tick = 0;curr_tick < len;curr_tick++){
                             if(domain[curr_tick] === active_tick) {
                                 break;
