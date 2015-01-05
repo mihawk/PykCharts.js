@@ -47,7 +47,8 @@ PykCharts.multiD.column = function (options) {
 
         that.border = new PykCharts.Configuration.border(that);
         that.transitions = new PykCharts.Configuration.transition(that);
-        that.mouseEvent1 = new PykCharts.multiD.mouseEvent(options);
+        // that.mouseEvent1 = new PykCharts.multiD.mouseEvent(options);
+        that.mouseEvent1 = new PykCharts.Configuration.mouseEvent(options);
         that.fillColor = new PykCharts.Configuration.fillChart(that,null,options);
         that.transformData();
 

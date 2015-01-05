@@ -131,7 +131,8 @@ PykCharts.multiD.groupedColumn = function(options) {
 
         that.border = new PykCharts.Configuration.border(that);
         that.transitions = new PykCharts.Configuration.transition(that);
-        that.mouseEvent1 = new PykCharts.multiD.mouseEvent(that);
+        // that.mouseEvent1 = new PykCharts.multiD.mouseEvent(that);
+        that.mouseEvent1 = new PykCharts.Configuration.mouseEvent(that);
         that.fillColor = new PykCharts.Configuration.fillChart(that,null,options);
 
         if(that.mode === "default") {
@@ -283,9 +284,6 @@ PykCharts.multiD.groupedColumn = function(options) {
                 that.getuniqueGroups = that.data.map(function (d) {
                     return d.group;
                 })
-                // that.getuniqueGroups = _.map(that.data,function (d) {
-                //     return d.group;
-                // })
 
                 that.getuniqueGroups = that.k.__proto__._unique(that.getuniqueGroups)
 
@@ -519,7 +517,7 @@ PykCharts.multiD.groupedColumn = function(options) {
                         break;
                     }
                 }
-
+                
                 that.new_data.forEach(function(d){
                     d.data.forEach(function(data){
                         data.color = _.find(that.group_data,function(d) {

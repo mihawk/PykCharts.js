@@ -62,7 +62,7 @@ PykCharts.multiD.groupedBar = function(options){
         for(var j = 0;j < that.data_length;j++) {
             that.group_arr[j] = that.data[j].y;
         }
-        that.uniq_group_arr = _.unique(that.group_arr);
+        that.uniq_group_arr = that.k.__proto__._unique(that.group_arr);
         var len = that.uniq_group_arr.length;
         
         for (var k = 0;k < len;k++) {
@@ -128,7 +128,8 @@ PykCharts.multiD.groupedBar = function(options){
 
         that.border = new PykCharts.Configuration.border(that);
         that.transitions = new PykCharts.Configuration.transition(that);
-        that.mouseEvent1 = new PykCharts.multiD.mouseEvent(that);
+        // that.mouseEvent1 = new PykCharts.multiD.mouseEvent(that);
+        that.mouseEvent1 = new PykCharts.Configuration.mouseEvent(that);
         that.fillColor = new PykCharts.Configuration.fillChart(that,null,options);
 
         if(that.mode === "default") {
@@ -278,7 +279,7 @@ PykCharts.multiD.groupedBar = function(options){
                     return d.group;
                 })
 
-                that.getuniqueGroups = _.unique(that.getuniqueGroups)
+                that.getuniqueGroups = that.k.__proto__._unique(that.getuniqueGroups)
 
                 that.x_tick_values = that.k.processXAxisTickValues();
                 that.y_tick_values = that.k.processYAxisTickValues();
@@ -534,7 +535,7 @@ PykCharts.multiD.groupedBar = function(options){
                         return d.name;
                     });
 
-                    params = _.uniq(params);
+                    params = that.k.__proto__._unique(params);
                     var j = 0,k = 0;
                     j = params.length;
                     k = params.length;
