@@ -160,7 +160,8 @@ PykCharts.multiD.configuration = function (options){
             var k = 0;
             var checkGroup = true;
             var checkColor = true;
-            data = new PykCharts.multiD.sortDataByGroup(data);
+            data = _.groupBy(data,'group');
+            data = _.flatten(_.values(data));
             data.forEach(function (item) {
                 if(item.group) {
                     checkGroup = true;
