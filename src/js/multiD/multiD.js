@@ -120,24 +120,6 @@ PykCharts.multiD.configuration = function (options){
     return multiDConfig;
 };
 
-PykCharts.multiD.mouseEvent = function (options) {
-    var highlight_selected = {
-        highlight: function (selectedclass, that) {
-            var t = d3.select(that);
-            d3.selectAll(selectedclass)
-                .attr("opacity",.5)
-            t.attr("opacity",1);
-            return this;
-        },
-        highlightHide : function (selectedclass) {
-            d3.selectAll(selectedclass)
-                .attr("opacity",1);
-            return this;
-        }
-    }
-    return highlight_selected;
-};
-
 PykCharts.multiD.bubbleSizeCalculation = function (options,data,rad_range) {
     var size = function (d) {
         if(d && PykCharts['boolean'](options.variable_circle_size_enable)) {
