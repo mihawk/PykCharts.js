@@ -701,8 +701,7 @@ PykCharts.multiD.groupedColumn = function(options) {
                         if(PykCharts["boolean"](that.highlight_x_positions)) {
                             highlight_array = that.highlight;
                         } else {
-                            highlight_rect
-                                .remove()
+                            highlight_rect.remove()
                         }
                     }
                     setTimeout(setTimeOut, that.transitions.duration());
