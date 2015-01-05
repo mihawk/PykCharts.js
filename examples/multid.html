@@ -178,7 +178,7 @@
             //     for(i = 0;i<100;i++) {
             //         // console.log(i);
             //         var start = new Date().getTime();
-                         k.execute();
+                          k.execute();
                 //     var end = new Date().getTime();
                 //         a[i] = end - start;
                 //         avg += a[i]                     
@@ -190,8 +190,8 @@
                     data: "../data/spider.csv",
                     mode : "default",
 
-                    spiderweb_radius : "5",
-                    spiderweb_outer_radius_percent: "100",
+                    spiderweb_radius : 10,
+                    spiderweb_outer_radius_percent: 100,
                     spiderweb_pointer: "yes",
                       spiderweb_axis_title : "yes",
                     background_color:"transparent",
@@ -208,13 +208,13 @@
                     panels_enable:"yes",
 
                     real_time_charts_refresh_frequency: 0,
-                    variable_circle_size_enable: "yes",
+                    variable_circle_size_enable: "no",
 
                     border_between_chart_elements_thickness: 0,
                     border_between_chart_elements_color: "blue",
 
                     legends_enable: "yes",
-                    legends_display: "vertical",//horizontal or vertical
+                    legends_display: "horizontal",//horizontal or vertical
 
                     legends_text_size: 13,
                     legends_text_color: "black",
@@ -250,7 +250,7 @@
                     chart_margin_right: 30,
                     chart_margin_bottom: 30,
                     chart_margin_left: 50,
-                    // transition_duration : 10,
+                    transition_duration : 1,
                     saturation_color:"red",
                     scatterplot_radius : 20,
                     scatterplot_pointer: "no",
@@ -304,7 +304,7 @@
                     label_color: "black",
                     label_weight: "bold",
                     label_family:"'Helvetica Ne#scatterue',Helvetica,Arial,sans-serif",
-                    real_time_charts_refresh_frequency:0
+                    real_time_charts_refresh_frequency:2
                     // chart_height: 450,
                     // chart_width : 700,
                     // chart_margin_top: 125,
@@ -319,7 +319,7 @@
             //     for(i = 0;i<100;i++) {
             //         // console.log(i);
             //         var start = new Date().getTime();
-                         k.execute();
+                        k.execute();
             //         var end = new Date().getTime();
             //             a[i] = end - start;
             //             avg += a[i]                     
