@@ -1098,8 +1098,9 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
             }               
             that.renderPanelOfLines();
         }
-
-        if(that.type === "multilineChart" && !PykCharts['boolean'](that.panels_enable)) {
+        if(that.type === "lineChart") {
+            that.optionalFeature().createChart("liveData");
+        } else if(that.type === "multilineChart" && !PykCharts['boolean'](that.panels_enable)) {
             $(that.selector + " #tooltip-svg-container-1").empty();
             that.renderLineChart();
         }
