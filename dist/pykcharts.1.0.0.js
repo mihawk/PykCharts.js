@@ -6610,7 +6610,9 @@ PykCharts.multiD.configuration = function (options){
             var k = 0;
             var checkGroup = true;
             var checkColor = true;
-            data = new PykCharts.multiD.sortDataByGroup(data);
+            // data = new PykCharts.multiD.sortDataByGroup(data);
+            data = _.groupBy(data,'group');
+            data = _.flatten(_.values(data));
             data.forEach(function (item) {
                 if(item.group) {
                     checkGroup = true;
@@ -12555,13 +12557,13 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
                         .append("text")
                         .attr("class","text");
 
-                    console.log(that.chartBody.selectAll(".text"));
+                    // console.log(that.chartBody.selectAll(".text"));
             function test () {        
                 // console.log("hello")
                 setTimeout(function () {
                     // console.log("inside");
                     that.circleLabel
-                        .attr("x", function (d) {console.log(d.group,that.new_data); return (that.x(d.x)+that.extra_left_margin); })
+                        .attr("x", function (d) {return (that.x(d.x)+that.extra_left_margin); })
                         .attr("y", function (d) { return (that.yScale(d.y)+that.extra_top_margin + 5); })
                         .attr("text-anchor","middle")
                         .attr("pointer-events","none")
@@ -12718,7 +12720,6 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
 
             that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
             that.sizes = new PykCharts.multiD.bubbleSizeCalculation(that,that.data,that.radius_range);
-            console.log("heyyyyyyyyyy",that.new_data)
             that.optionalFeatures()
                 .legends(i)
                 .createGroups(i)
@@ -13384,7 +13385,6 @@ PykCharts.multiD.river = function (options){
         that.extended = that.chart_mode === "absolute" ? false : true;
 
         that.executeData = function (data) {
-            console.log(data,"data")
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
                 $(that.selector+" #chart-loader").remove();
@@ -13512,7 +13512,6 @@ PykCharts.multiD.river = function (options){
         for(i = 0; i<that.new_data_length;i++) {
             that.opacity_array.push(((that.new_data_length-i)/that.new_data_length)) 
         }
-        console.log(that.new_data,"new_data")
     };
     that.refresh = function() {
         that.executeRefresh = function (e, data) {

@@ -55,7 +55,6 @@ PykCharts.multiD.river = function (options){
         that.extended = that.chart_mode === "absolute" ? false : true;
 
         that.executeData = function (data) {
-            console.log(data,"data")
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
                 $(that.selector+" #chart-loader").remove();
@@ -183,7 +182,6 @@ PykCharts.multiD.river = function (options){
         for(i = 0; i<that.new_data_length;i++) {
             that.opacity_array.push(((that.new_data_length-i)/that.new_data_length)) 
         }
-        console.log(that.new_data,"new_data")
     };
     that.refresh = function() {
         that.executeRefresh = function (e, data) {
