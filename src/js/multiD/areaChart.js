@@ -87,10 +87,11 @@ PykCharts.multiD.stackedArea = function (options){
 		that.h = that.height - that.margin_top - that.margin_bottom;
 
 		that.executeData = function (data) {
-            var validate = that.k.validator().validatingJSON(data);
+            var validate = that.k.validator().validatingJSON(data),
+                id = that.selector.substring(1,that.selector.length);
+                
             if(that.stop || validate === false) {
-                $(that.selector+" #chart-loader").remove();
-                $(that.selector).css("height","auto");
+                that.k.remove_loading_bar(id);
                 return;
             }
 
@@ -102,9 +103,7 @@ PykCharts.multiD.stackedArea = function (options){
     		}
 			that.compare_data = that.data;
 			that.data_length = that.data.length;
-			$(that.selector+" #chart-loader").remove();
-            $(that.selector).css("height","auto");
-			
+            that.k.remove_loading_bar(id);			
 			if (that.axis_x_data_format === "string") {
                 that.data_sort_enable = "no";                
             }

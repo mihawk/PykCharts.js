@@ -12,7 +12,6 @@ PykCharts.multiD.configuration = function (options){
                         return d.weight;
                     }))
                     .range([0.1,1]);
-
                 return d ? z(d) : z(_.min(weight));
             }
             else {

@@ -1115,7 +1115,27 @@ PykCharts.Configuration = function (options){
                         }
                     }
                     return r;
-            }
+            },
+            _ready: function (fn) {
+                function completed() {
+                    document.removeEventListener( "DOMContentLoaded", completed, false );
+                    window.removeEventListener( "load", completed, false );
+                }
+
+                if ( document.addEventListener ) {
+                    document.addEventListener( "DOMContentLoaded", completed, false );
+                    window.addEventListener( "load", completed, false );
+                    fn;
+                } else if ( document.attachEvent ) { // if IE event model is used
+                  document.attachEvent("onreadystatechange", function(){
+                    if ( document.readyState === "complete" ) {
+                        document.detachEvent( "onreadystatechange", arguments.callee );
+                        fn;
+                    }
+                  });
+                }
+            return this;
+        }
         },
         backgroundColor: function (options) {
              $(options.selector).css({"background-color":options.background_color,"position":"relative"})
@@ -2339,7 +2359,6 @@ configuration.transition = function (options) {
 configuration.Theme = function(){
     var that = this;
     that.stylesheet = {
-
         "mode": "default",
         "selector": "",
         "is_interactive": "yes",

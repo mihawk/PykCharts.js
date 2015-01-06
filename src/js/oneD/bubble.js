@@ -74,7 +74,7 @@ PykCharts.oneD.bubble = function (options) {
                 .liveData(that)
                 .tooltip();
         }
-        else if (that.mode ==="infographics") {
+        else if (that.mode === "infographics") {
             that.k.backgroundColor(that)
                 .export(that,"#" + container_id,"bubble")
                 .emptyDiv();
@@ -89,8 +89,11 @@ PykCharts.oneD.bubble = function (options) {
         }
         that.k.exportSVG(that,"#"+container_id,"bubble")
         that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
-        $(document).ready(function () { return that.k.resize(that.svgContainer); })
-        $(window).on("resize", function () { return that.k.resize(that.svgContainer); });
+        var resize = that.k.resize(that.svgContainer);
+        that.k.__proto__._ready(resize);
+        window.onresize = function () {
+            return that.k.resize(that.svgContainer);
+        };
     };
 
     this.optionalFeatures = function () {
@@ -263,11 +266,12 @@ PykCharts.oneD.bubble = function (options) {
                 return this;
             },
             clubData : function () {
-                var new_data1;
+                var new_data1,data_length = that.data.length;
+
                 if (PykCharts['boolean'](that.clubdata_enable)) {
                     var clubdata_content = [];
                     var k = 0, j, i, new_data = [];
-                    if(that.data.length <= that.clubdata_maximum_nodes) {
+                    if(data_length <= that.clubdata_maximum_nodes) {
                         new_data1 = { "children" : that.data };
                         return new_data1;
                     }
@@ -278,7 +282,7 @@ PykCharts.oneD.bubble = function (options) {
                         }
                     }
                     for (i=0; i<clubdata_content.length; i++) {
-                        for (j=0; j< that.data.length; j++) {
+                        for (j=0; j<data_length; j++) {
                             if (clubdata_content[i].toUpperCase() === that.data[j].name.toUpperCase()) {
                                 new_data.push(that.data[j]);
                             }
@@ -296,7 +300,7 @@ PykCharts.oneD.bubble = function (options) {
                         k++;
                     }
                     var sum_others = 0;
-                    for(j=k; j<that.data.length; j++) {
+                    for(j=k; j<data_length; j++) {
                         for (i=0; i<new_data.length && j<that.data.length; i++) {
                             if(that.data[j].name.toUpperCase() === new_data[i].name.toUpperCase()) {
                                 sum_others+=0;
