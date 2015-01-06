@@ -390,8 +390,11 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
             that.k.exportSVG(that,"#"+container_id,type,undefined,undefined,(add_extra_width+20),(add_extra_height+20))
         },that.transitions.duration());
 
-        $(document).ready(function () { return that.k.resize(that.svgContainer); })
-        $(window).on("resize", function () { return that.k.resize(that.svgContainer); });
+        var resize = that.k.resize(that.svgContainer);
+        that.k.__proto__._ready(resize);
+        window.onresize = function () {
+            return that.k.resize(that.svgContainer);
+        };
     };
 
     that.optionalFeatures = function () {
@@ -414,7 +417,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                 return this;
             },
             createChart : function () {
-                $(that.selector +" #pieGroup").empty();
+                document.querySelector(that.selector +" #pieGroup").innerHTML = null;
                 var border = new PykCharts.Configuration.border(that);
                 if(type.toLowerCase() === "pie" || type.toLowerCase() === "donut") {
                     that.new_data.sort(function (a,b) { return a.weight - b.weight;});
@@ -487,7 +490,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                     })
                     .attr("fill-opacity",1)
                     .attr("data-fill-opacity",function () {
-                        return $(this).attr("fill-opacity");
+                        return d3.select(this).attr("fill-opacity");
                     })
                     .on('mouseover',function (d) {
                         if(that.mode === "default") {

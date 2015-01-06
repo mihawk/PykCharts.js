@@ -116,8 +116,11 @@ PykCharts.oneD.percentageBar = function (options) {
             that.k.exportSVG(that,"#"+container_id,"percentageBar",undefined,undefined,0,add_extra_height);
         },that.transitions.duration());
 
-        $(document).ready(function () { return that.k.resize(that.svgContainer); })
-        $(window).on("resize", function () { return that.k.resize(that.svgContainer); });
+        var resize = that.k.resize(that.svgContainer);
+        that.k.__proto__._ready(resize);
+        window.onresize = function () {
+            return that.k.resize(that.svgContainer);
+        };
     };
     this.optionalFeatures = function () {
         var optional = {
@@ -171,7 +174,7 @@ PykCharts.oneD.percentageBar = function (options) {
                     })
                     .attr("fill-opacity",1)
                     .attr("data-fill-opacity",function () {
-                        return $(this).attr("fill-opacity");
+                        return d3.select(this).attr("fill-opacity");
                     })
                     .attr("stroke",border.color())
                     .attr("stroke-width",border.width())

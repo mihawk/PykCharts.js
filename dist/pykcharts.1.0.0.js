@@ -2883,7 +2883,7 @@ PykCharts.oneD.bubble = function (options) {
                         },
                         "fill-opacity": 1,
                         "data-fill-opacity": function () {
-                            return $(this).attr("fill-opacity");
+                            return d3.select(this).attr("fill-opacity");
                         }
                     })
                     .on("mouseover", function (d) {
@@ -3180,8 +3180,11 @@ PykCharts.oneD.funnel = function (options) {
                 that.k.exportSVG(that,"#"+container_id,"funnel",undefined,undefined,add_extra_width)
             },that.transitions.duration());
 
-        $(document).ready(function () { return that.k.resize(that.svgContainer); })
-        $(window).on("resize", function () { return that.k.resize(that.svgContainer); });
+        var resize = that.k.resize(that.svgContainer);
+        that.k.__proto__._ready(resize);
+        window.onresize = function () {
+            return that.k.resize(that.svgContainer);
+        };
     };
 
     this.funnelLayout = function (){
@@ -3342,7 +3345,7 @@ PykCharts.oneD.funnel = function (options) {
                         },
                         "fill-opacity": 1,
                         "data-fill-opacity":function () {
-                            return $(this).attr("fill-opacity");
+                            return d3.select(this).attr("fill-opacity");
                         },
                         "stroke": border.color(),
                         "stroke-width": border.width(),
@@ -3665,8 +3668,12 @@ PykCharts.oneD.percentageColumn = function (options) {
             that.k.exportSVG(that,"#"+container_id,"percentageColumn",undefined,undefined,(add_extra_width+15))
         },that.transitions.duration());
 
-        $(document).ready(function () { return that.k.resize(that.svgContainer); })
-        $(window).on("resize", function () { return that.k.resize(that.svgContainer); });
+        var resize = that.k.resize(that.svgContainer);
+        that.k.__proto__._ready(resize);
+        window.onresize = function () {
+            return that.k.resize(that.svgContainer);
+        };
+
     };
     this.optionalFeatures = function () {
         var optional = {
@@ -3717,7 +3724,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                     })
                     .attr("fill-opacity",1)
                     .attr("data-fill-opacity",function () {
-                        return $(this).attr("fill-opacity");
+                        return d3.select(this).attr("fill-opacity");
                     })
                     .attr("stroke",border.color())
                     .attr("stroke-width",border.width())
@@ -4104,8 +4111,11 @@ PykCharts.oneD.percentageBar = function (options) {
             that.k.exportSVG(that,"#"+container_id,"percentageBar",undefined,undefined,0,add_extra_height);
         },that.transitions.duration());
 
-        $(document).ready(function () { return that.k.resize(that.svgContainer); })
-        $(window).on("resize", function () { return that.k.resize(that.svgContainer); });
+        var resize = that.k.resize(that.svgContainer);
+        that.k.__proto__._ready(resize);
+        window.onresize = function () {
+            return that.k.resize(that.svgContainer);
+        };
     };
     this.optionalFeatures = function () {
         var optional = {
@@ -4159,7 +4169,7 @@ PykCharts.oneD.percentageBar = function (options) {
                     })
                     .attr("fill-opacity",1)
                     .attr("data-fill-opacity",function () {
-                        return $(this).attr("fill-opacity");
+                        return d3.select(this).attr("fill-opacity");
                     })
                     .attr("stroke",border.color())
                     .attr("stroke-width",border.width())
@@ -4817,8 +4827,11 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
             that.k.exportSVG(that,"#"+container_id,type,undefined,undefined,(add_extra_width+20),(add_extra_height+20))
         },that.transitions.duration());
 
-        $(document).ready(function () { return that.k.resize(that.svgContainer); })
-        $(window).on("resize", function () { return that.k.resize(that.svgContainer); });
+        var resize = that.k.resize(that.svgContainer);
+        that.k.__proto__._ready(resize);
+        window.onresize = function () {
+            return that.k.resize(that.svgContainer);
+        };
     };
 
     that.optionalFeatures = function () {
@@ -4841,7 +4854,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                 return this;
             },
             createChart : function () {
-                $(that.selector +" #pieGroup").empty();
+                document.querySelector(that.selector +" #pieGroup").innerHTML = null;
                 var border = new PykCharts.Configuration.border(that);
                 if(type.toLowerCase() === "pie" || type.toLowerCase() === "donut") {
                     that.new_data.sort(function (a,b) { return a.weight - b.weight;});
@@ -4914,7 +4927,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                     })
                     .attr("fill-opacity",1)
                     .attr("data-fill-opacity",function () {
-                        return $(this).attr("fill-opacity");
+                        return d3.select(this).attr("fill-opacity");
                     })
                     .on('mouseover',function (d) {
                         if(that.mode === "default") {
@@ -5346,8 +5359,11 @@ PykCharts.oneD.pyramid = function (options) {
             that.k.exportSVG(that,"#"+container_id,"pyramid",undefined,undefined,add_extra_width)
         },that.transitions.duration());
         
-        $(document).ready(function () { return that.k.resize(that.svgContainer); })
-        $(window).on("resize", function () { return that.k.resize(that.svgContainer); });
+        var resize = that.k.resize(that.svgContainer);
+        that.k.__proto__._ready(resize);
+        window.onresize = function () {
+            return that.k.resize(that.svgContainer);
+        };
 	};
 
 	this.percentageValues = function (data){
@@ -5482,7 +5498,7 @@ PykCharts.oneD.pyramid = function (options) {
                     })
                     .attr("fill-opacity",1)
                     .attr("data-fill-opacity",function () {
-                        return $(this).attr("fill-opacity");
+                        return d3.select(this).attr("fill-opacity");
                     })
         			.on("mouseover", function (d,i) {
                         if(that.mode === "default") {
@@ -5885,8 +5901,11 @@ PykCharts.oneD.treemap = function (options){
 
         that.k.exportSVG(that,"#"+container_id,"treemap")
         
-        $(document).ready(function () { return that.k.resize(that.svgContainer); })
-        $(window).on("resize", function () { return that.k.resize(that.svgContainer); });
+        var resize = that.k.resize(that.svgContainer);
+        that.k.__proto__._ready(resize);
+        window.onresize = function () {
+            return that.k.resize(that.svgContainer);
+        };
     };
 
     this.optionalFeatures = function (){
@@ -5939,7 +5958,7 @@ PykCharts.oneD.treemap = function (options){
                     })
                     .attr("fill-opacity",1)
                     .attr("data-fill-opacity",function () {
-                        return $(this).attr("fill-opacity");
+                        return d3.select(this).attr("fill-opacity");
                     })
                     .on('mouseover',function (d) {
                         if(!d.children && that.mode === "default") {
