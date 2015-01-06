@@ -39,7 +39,8 @@
 		"color": "#75b0e1",
 		"x":"2014-01-05",
 		"y":50,
-		"tooltip":50
+		"tooltip":50,
+		"annotation" : "India"
 	},
 	{
 		"name":"India",
