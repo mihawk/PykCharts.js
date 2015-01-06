@@ -394,6 +394,10 @@ PykCharts.multiD.bar = function (options) {
                         .append("text")
 
                     tick_label.attr("class","tickLabel")
+                        .style("font-weight", that.pointer_weight)
+                        .style("font-size", that.pointer_size + "px")
+                        .attr("fill", that.pointer_color)
+                        .style("font-family", that.pointer_family)
                         .text("");
 
                     function setTimeOut () {
@@ -403,12 +407,6 @@ PykCharts.multiD.bar = function (options) {
                                 "y" : function (d) { return that.yScale(d.name) + ((that.reducedHeight/(that.data.length))-(0.03*that.reducedHeight))/2; },
                                 "dx" : 4,
                                 "dy" : 4,
-                                "fill" : that.pointer_color
-                            })
-                            .style({
-                                "font-weight" : that.pointer_weight,
-                                "font-size" : that.pointer_size + "px",
-                                "font-family" :  that.pointer_family
                             })
                             .text(function (d) { 
                                 return d.x; 

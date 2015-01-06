@@ -19,7 +19,7 @@ PykCharts.multiD.configuration = function (options){
                 return 0.6;
             }
         },
-        legendsPosition : function (options,type,params,legendsGroup,color,index) {
+        legendsPosition : function (options,type,params,color,index) {
             var j=0,legend,translate_x = 0;
              if(options.legends_display === "vertical" ) {
                 options.legendsGroup.attr("height", (params.length * 30)+20);

@@ -741,7 +741,7 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 			},
 			legends: function () {
                 if (PykCharts['boolean'](that.legends_enable) && that.type === "stackedAreaChart" && that.mode==="default") {
-        			that.multid.legendsPosition(that,"stackedArea",that.new_data,that.legendsGroup);
+        			that.multid.legendsPosition(that,"stackedArea",that.new_data);
                 }
                 return this;
             }

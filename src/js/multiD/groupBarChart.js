@@ -445,7 +445,7 @@ PykCharts.multiD.groupedBar = function(options){
                     var ticks = that.group.selectAll(".g")
                         .data(that.new_data);
 
-                    ticks.enter()
+                        ticks.enter()
                         .append("g")
                         .attr("class","g");
 
@@ -474,11 +474,6 @@ PykCharts.multiD.groupedBar = function(options){
                             "dy" : 2
                         })
                         .transition()
-                        .style({
-                            "font-weight" : that.pointer_weight,
-                            "font-size" : that.pointer_size + "px",
-                            "font-family" : that.pointer_family
-                        })
                         .text(function (d) { 
                             if(d.x) {
                                 return (d.x).toFixed(); 
@@ -486,7 +481,6 @@ PykCharts.multiD.groupedBar = function(options){
                         })
                         .attr({
                             "pointer-events" : "none",
-                            "fill" : that.pointer_color
                         })
                         .text(function (d) { 
                             if(d.x) {
@@ -516,7 +510,6 @@ PykCharts.multiD.groupedBar = function(options){
                         break;
                     }
                 }
-//                console.log()
                 that.new_data.forEach(function(d){
                     d.data.forEach(function(data){
                         data.color = _.find(that.group_data,function(d) {
@@ -535,7 +528,7 @@ PykCharts.multiD.groupedBar = function(options){
                         return d.name;
                     });
                     params = that.k.__proto__._unique(params);
-                    that.multiD.legendsPosition(that,"groupBar",params,that.legendsGroup,color);
+                    that.multiD.legendsPosition(that,"groupBar",params,color);
                 }
                 return this;
             },
