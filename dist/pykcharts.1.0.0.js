@@ -4826,10 +4826,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                     that.new_data.sort(function (a,b) { return a.weight - b.weight;});
                     var temp = that.new_data.pop();
                     that.new_data.unshift(temp);
-                }
-                else if(type.toLowerCase() === "election pie" || type.toLowerCase() === "election donut") {
-                    that.new_data.sort(function (a,b) { return b.weight - a.weight;});
-                    if(PykCharts['boolean'](that.clubdata_enable)) {
+                    if(PykCharts['boolean'](that.clubdata_enable) && that.mode === "default") {
                         var index,data;
                         for(var i = 0;i<that.new_data.length;i++) {
                             if(that.new_data[i].name === that.clubdata_text) {
@@ -4838,8 +4835,30 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                                 break;
                             }
                         }
-                        that.new_data.splice(index,1);
-                        that.new_data.push(data);
+                        if(index) {
+                            that.new_data.splice(index,1);
+                            if(i===0) {
+                                var temp = that.new_data.pop();
+                                that.new_data.splice(0,0,temp);
+                            }
+                            that.new_data.splice(1,0,data);
+                        }
+                    }
+                } else if(type.toLowerCase() == "election pie" || type.toLowerCase() == "election donut") {
+                    that.new_data.sort(function (a,b) { return b.weight - a.weight;});
+                    if(PykCharts['boolean'](that.clubdata_enable) && that.mode === "default") {
+                        var index,data;
+                        for(var i = 0;i<that.new_data.length;i++) {
+                            if(that.new_data[i].name === that.clubdata_text) {
+                                index = i;
+                                data = that.new_data[i];
+                                break;
+                            }
+                        }
+                        if(index) {
+                            that.new_data.splice(index,1);
+                            that.new_data.push(data);
+                        }
                     }
                 }
                 that.sum = 0;
@@ -6584,10 +6603,10 @@ PykCharts.multiD.configuration = function (options){
         opacity : function (d,weight,data) {
             if(!(PykCharts['boolean'](options.variable_circle_size_enable))) {
                 var z = d3.scale.linear()
-                            .domain(d3.extent(data,function (d) {
-                                return d.weight;
-                            }))
-                            .range([0.1,1]);
+                    .domain(d3.extent(data,function (d) {
+                        return d.weight;
+                    }))
+                    .range([0.1,1]);
 
                 return d ? z(d) : z(_.min(weight));
             }
@@ -6595,13 +6614,151 @@ PykCharts.multiD.configuration = function (options){
                 return 0.6;
             }
         },
-        legendsPosition : function (chart) {
-            if(status) {
-                chart.optionalFeatures().legendsContainer().svgContainer();
-            }else {
-                chart.optionalFeatures().svgContainer();
+        legendsPosition : function (options,type,params,legendsGroup,color,index) {
+            var j=0,legend,translate_x = 0;
+             if(options.legends_display === "vertical" ) {
+                options.legendsGroup.attr("height", (params.length * 30)+20);
+                options.legendsGroup_height = 0;
+                text_parameter1 = "x";
+                text_parameter2 = "y";
+                rect_parameter1 = "width";
+                rect_parameter2 = "height";
+                rect_parameter3 = "x";
+                rect_parameter4 = "y";
+                rect_parameter1value = 13;
+                rect_parameter2value = 13;
+                text_parameter1value = function (d,i) { return 36; };
+                rect_parameter3value = function (d,i) { return 20; };
+                var rect_parameter4value = function (d,i) { return i * 24 + 12;};
+                var text_parameter2value = function (d,i) { return i * 24 + 23;};
+            } else if(options.legends_display === "horizontal") {
+                options.legendsGroup_height = 50;
+                temp_i = j;
+                final_rect_x = 0;
+                final_text_x = 0;
+                legend_text_widths = [];
+                sum_text_widths = 0;
+                temp_text = temp_rect = 0;
+                text_parameter1 = "x";
+                text_parameter2 = "y";
+                rect_parameter1 = "width";
+                rect_parameter2 = "height";
+                rect_parameter3 = "x";
+                rect_parameter4 = "y";
+                var text_parameter1value = function (d,i) {
+                    legend_text_widths[i] = this.getBBox().width;
+                    legend_start_x = 16;
+                    final_text_x = (i === 0) ? legend_start_x : (legend_start_x + temp_text);
+                    temp_text = temp_text + legend_text_widths[i] + 30;
+                    return final_text_x;
+                };
+                text_parameter2value = 30;
+                rect_parameter1value = 13;
+                rect_parameter2value = 13;
+                var rect_parameter3value = function (d,i) {
+                    final_rect_x = (i === 0) ? 0 : temp_rect;
+                    temp_rect = temp_rect + legend_text_widths[i] + 30;
+                    return final_rect_x;
+                };
+                rect_parameter4value = 18;
             }
-            return this;
+            if (type === "scatter") {
+                if(options.panels_enable === "yes"){
+                    var legend_data =[];
+                    legend_data.push(options.map_group_data[0][index]);
+                    legend = options.legendsGroup.selectAll("rect")
+                        .data(legend_data);
+                    options.legends_text = options.legendsGroup.selectAll(".legends_text")
+                        .data(legend_data);
+                } else {
+                    legend = options.legendsGroup.selectAll("rect")
+                        .data(options.map_group_data[0]);
+                    options.legends_text = options.legendsGroup.selectAll(".legends_text")
+                        .data(options.map_group_data[0]);
+                }
+            } else {
+                legend = options.legendsGroup.selectAll(".legends-rect")
+                    .data(params);
+                options.legends_text = options.legendsGroup.selectAll(".legends_text")
+                    .data(params);
+            }
+
+            options.legends_text.enter()
+                .append('text');
+            options.legends_text.attr("class","legends_text")
+                .attr("pointer-events","none")
+                .text(function (d) {
+                    switch (type) {
+                        case "groupColumn" :
+                        case "groupBar" :
+                            return d;
+                        case "spiderWeb" :                           
+                        case "scatter" :
+                            return d.group;
+                        case "stackedArea" :
+                            return d.name;
+                    } 
+                })
+                .attr("fill", options.legends_text_color)
+                .attr("font-family", options.legends_text_family)
+                .style("font-size",options.legends_text_size+"px")
+                .attr("font-weight", options.legends_text_weight)
+                .attr(text_parameter1, text_parameter1value)
+                .attr(text_parameter2, text_parameter2value);
+
+            legend.enter()
+                .append("rect");
+
+            legend.attr("class","legends-rect")
+                .attr(rect_parameter1, rect_parameter1value)
+                .attr(rect_parameter2, rect_parameter2value)
+                .attr(rect_parameter3, rect_parameter3value)
+                .attr(rect_parameter4, rect_parameter4value)
+                .attr("fill", function (d,i) {
+                    switch(type) {
+                        case "groupColumn" :
+                        case "groupBar" :
+                            if(options.color_mode === "color")
+                                return color[i];
+                            else return options.saturation_color;
+                        case "spiderWeb" :
+                        case "scatter" : 
+                            return options.fillChart.colorPieW(d);
+                        case "stackedArea" :
+                            return options.fillColor.colorPieMS(d,options.type);
+                    }                    
+                })
+                .attr("fill-opacity", function (d,i) {
+                    switch(type) {
+                        case "groupColumn" :
+                        case "groupBar" :
+                            if (options.color_mode === "saturation") {
+                                return (i+1)/options.no_of_groups;
+                            }
+                            break;
+                        case "spiderWeb" :
+                        case "scatter" : 
+                            return 0.6;
+                        case "stackedArea" :
+                            if(options.color_mode === "saturation") {
+                             return (i+1)/options.new_data.length;
+                            }
+                    }
+                });
+
+            var legend_container_width = options.legendsGroup.node().getBBox().width,translate_x;
+            options.legendsGroup_width = (options.legends_display === "vertical") ? legend_container_width + 20 : 0;
+            if (type === "scatter") {
+                translate_x = (options.legends_display === "vertical") ? (options.w - options.legendsGroup_width) : ((!PykCharts['boolean'](options.panels_enable)) ? (options.width - legend_container_width - 20) : options.margin_left); 
+            } else {
+                translate_x = (options.legends_display === "vertical") ? (options.width - options.legendsGroup_width) : (options.width - legend_container_width - 20);
+            }          
+            if (legend_container_width < options.width) { 
+                options.legendsGroup.attr("transform","translate("+translate_x+",10)"); 
+            }
+            options.legendsGroup.style("visibility","visible");
+            options.legends_text.exit().remove();
+            legend.exit().remove();
         },
         mapGroup : function (data,type) {
             var newarr = [];
@@ -6609,7 +6766,6 @@ PykCharts.multiD.configuration = function (options){
             var k = 0;
             var checkGroup = true;
             var checkColor = true;
-            // data = new PykCharts.multiD.sortDataByGroup(data);
             data = _.groupBy(data,'group');
             data = _.flatten(_.values(data));
             data.forEach(function (item) {
@@ -9092,114 +9248,9 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 					});
 				return this;
 			},
-			legends : function (index) {
-
+			legends: function () {
                 if (PykCharts['boolean'](that.legends_enable) && that.type === "stackedAreaChart" && that.mode==="default") {
-                    var k = 0;
-                    var l = 0;
-
-                    if(that.legends_display === "vertical" ) {
-                        that.legendsGroup.attr("height", (that.new_data_length * 30)+20);
-                        that.legendsGroup_height = 0;
-
-                        text_parameter1 = "x";
-                        text_parameter2 = "y";
-                        rect_parameter1 = "width";
-                        rect_parameter2 = "height";
-                        rect_parameter3 = "x";
-                        rect_parameter4 = "y";
-                        rect_parameter1value = 13;
-                        rect_parameter2value = 13;
-                        text_parameter1value = function (d,i) { return 36; };
-                        rect_parameter3value = function (d,i) { return 20; };
-                        var rect_parameter4value = function (d,i) { return i * 24 + 12;};
-                        var text_parameter2value = function (d,i) { return i * 24 + 23;};
-
-                    } else if(that.legends_display === "horizontal") {
-                        that.legendsGroup_height = 50;
-                        final_rect_x = 0;
-                        final_text_x = 0;
-                        legend_text_widths = [];
-                        sum_text_widths = 0;
-                        temp_text = temp_rect = 0;
-                        text_parameter1 = "x";
-                        text_parameter2 = "y";
-                        rect_parameter1 = "width";
-                        rect_parameter2 = "height";
-                        rect_parameter3 = "x";
-                        rect_parameter4 = "y";
-
-                        var text_parameter1value = function (d,i) {
-                            legend_text_widths[i] = this.getBBox().width;
-                            legend_start_x = 16;
-                            final_text_x = (i === 0) ? legend_start_x : (legend_start_x + temp_text);
-                            temp_text = temp_text + legend_text_widths[i] + 30;
-                            return final_text_x;
-                        };
-                        text_parameter2value = 30;
-                        rect_parameter1value = 13;
-                        rect_parameter2value = 13;
-                        var rect_parameter3value = function (d,i) {
-                            final_rect_x = (i === 0) ? 0 : temp_rect;
-                            temp_rect = temp_rect + legend_text_widths[i] + 30;
-                            return final_rect_x;
-                        };
-                        rect_parameter4value = 18;
-                    }
-
-                    var legend = that.legendsGroup.selectAll("rect")
-                                    .data(that.new_data);
-
-                    that.legends_text = that.legendsGroup.selectAll(".legends_text")
-                        .data(that.new_data);
-
-                    that.legends_text.enter()
-                        .append('text');
-
-                    that.legends_text.attr("class","legends_text")
-                        .attr("pointer-events","none")
-                        .text(function (d) { return d.name; })
-                        .attr("fill", that.legends_text_color)
-                        .attr("font-family", that.legends_text_family)
-                        .attr("font-size",that.legends_text_size +"px")
-                        .attr("font-weight", that.legends_text_weight)
-                        .attr(text_parameter1, text_parameter1value)
-                        .attr(text_parameter2, text_parameter2value);
-
-                    legend.enter()
-                        .append("rect");
-
-                    legend.attr(rect_parameter1, rect_parameter1value)
-                        .attr(rect_parameter2, rect_parameter2value)
-                        .attr(rect_parameter3, rect_parameter3value)
-                        .attr(rect_parameter4, rect_parameter4value)
-                        .attr("fill", function (d) {
-                            return that.fillColor.colorPieMS(d,that.type);
-                        })
-                        .attr("fill-opacity", function (d,i) {
-                            if(that.type === "stackedAreaChart" && that.color_mode === "saturation") {
-								return (i+1)/that.new_data.length;
-							}
-                        });
-
-
-                    var legend_container_width = that.legendsGroup.node().getBBox().width, translate_x;
-                    if(that.legends_display === "vertical") {
-                    	that.legendsGroup_width = legend_container_width + 20;
-                    } else  {
-                    	that.legendsGroup_width = 0;
-                    }
-                    
-                    translate_x = (that.legends_display === "vertical") ? (that.width - that.legendsGroup_width)  : (that.width - legend_container_width - 20);
-
-                    if (legend_container_width < that.width) { that.legendsGroup.attr("transform","translate("+translate_x+",10)"); }
-                    that.legendsGroup.style("visibility","visible");
-
-                    that.legends_text.exit().remove();
-                    legend.exit().remove();
-
-
-                    /* !!!!! DO NOT TOUCH THE BELOW COMMENTED CODE, PREVIOUSLY WRITTEN FOR DISPLAYING LEGENDS ON THE NEXT LINE !!!!!*/
+        			that.multid.legendsPosition(that,"stackedArea",that.new_data,that.legendsGroup);
                 }
                 return this;
             }
@@ -9724,8 +9775,10 @@ PykCharts.multiD.bar = function (options) {
                             if(PykCharts.boolean(that.onhover_enable)) {
                                 that.mouseEvent1.highlight(that.selector+" "+".hbar", this);
                             }
-                            that.mouseEvent.tooltipPosition(d);
-                            that.mouseEvent.tooltipTextShow(d.tooltip ? d.tooltip : d.x);
+                            if (PykCharts['boolean'](options.tooltip_enable)) {
+                                that.mouseEvent.tooltipPosition(d);
+                                that.mouseEvent.tooltipTextShow(d.tooltip ? d.tooltip : d.x);
+                            }
                         }
                     })
                     .on('mouseout',function (d) {
@@ -9733,13 +9786,17 @@ PykCharts.multiD.bar = function (options) {
                             if(PykCharts.boolean(that.onhover_enable)) {
                                 that.mouseEvent1.highlightHide(that.selector+" "+".hbar");
                             }
-                            that.mouseEvent.tooltipHide(d);
+                            if (PykCharts['boolean'](options.tooltip_enable)) {
+                                that.mouseEvent.tooltipHide(d);
+                            }
                             that.mouseEvent.axisHighlightHide(that.selector+" "+".y.axis")
                         }
                     })
                     .on('mousemove', function (d) {
                         if(that.mode === "default") {
-                            that.mouseEvent.tooltipPosition(d);
+                            if (PykCharts['boolean'](options.tooltip_enable)) {
+                                that.mouseEvent.tooltipPosition(d);
+                            }
                             that.mouseEvent.axisHighlightShow([d.y],that.selector+" "+".y.axis",that.y_domain);
                         }                       
                     })
@@ -9783,14 +9840,7 @@ PykCharts.multiD.bar = function (options) {
                                 "font-family" :  that.pointer_family
                             })
                             .text(function (d) { 
-                                if(d.x) {
-                                    that.txt_width = this.getBBox().width;
-                                    that.txt_height = this.getBBox().height;
-                                    if(d.x && (that.txt_width< that.xScale(d.x)) && (that.txt_height < ((that.reducedHeight/(that.data.length))-(0.03*that.reducedHeight)))) {
-                                        return d.x;
-                                    }
-                                }
-                                return (d.x).toFixed(); 
+                                return d.x; 
                             });
                     }
                     setTimeout(setTimeOut ,that.transitions.duration());
@@ -10238,19 +10288,19 @@ PykCharts.multiD.groupedBar = function(options){
                     }
                     })
                     .on('mouseover',function (d) {
-                        if(that.mode === "default") {
+                        if(that.mode === "default" && PykCharts['boolean'](options.tooltip_enable)) {
                             var tooltip = d.tooltip ? d.tooltip : d.x;
                             that.mouseEvent.tooltipPosition(d);
                             that.mouseEvent.tooltipTextShow(tooltip);
                         }
                     })
                     .on('mouseout',function (d) {
-                        if(that.mode === "default") {
+                        if(that.mode === "default" && PykCharts['boolean'](options.tooltip_enable)) {
                             that.mouseEvent.tooltipHide(d);
                         }
                     })
                     .on('mousemove', function (d) {
-                        if(that.mode === "default") {
+                        if(that.mode === "default" && PykCharts['boolean'](options.tooltip_enable)) {
                             that.mouseEvent.tooltipPosition(d);
                         }
                     })
@@ -10289,6 +10339,10 @@ PykCharts.multiD.groupedBar = function(options){
                         .append("text")
 
                     tick_label.attr("class","tickLabel")
+                        .style("font-weight", that.pointer_weight)
+                        .style("font-size", that.pointer_size + "px")
+                        .attr("fill", that.pointer_color)
+                        .style("font-family", that.pointer_family)
                         .text("");
 
                     function setTimeOut() {
@@ -10353,121 +10407,14 @@ PykCharts.multiD.groupedBar = function(options){
             legends: function () {
                 if(PykCharts.boolean(that.legends_enable)) {
                     var params = that.group_data,color;
-
                     color = params.map(function (d) {
                         return d.color;
                     });
-
                     params = params.map(function (d) {
                         return d.name;
                     });
-
                     params = that.k.__proto__._unique(params);
-                    var j = 0,k = 0;
-                    j = params.length;
-                    k = params.length;
-
-                    if(that.legends_display === "vertical" ) {
-                        that.legendsGroup.attr("height", (params.length * 30)+20);
-                        that.legendsGroup_height = 0;
-
-                        text_parameter1 = "x";
-                        text_parameter2 = "y";
-                        rect_parameter1 = "width";
-                        rect_parameter2 = "height";
-                        rect_parameter3 = "x";
-                        rect_parameter4 = "y";
-                        rect_parameter1value = 13;
-                        rect_parameter2value = 13;
-                        text_parameter1value = function (d,i) { return 36; };
-                        rect_parameter3value = function (d,i) { return 20; };
-                        var rect_parameter4value = function (d,i) { return i * 24 + 12;};
-                        var text_parameter2value = function (d,i) { return i * 24 + 23;};
-                    }
-                    else if(that.legends_display === "horizontal") {
-                        that.legendsGroup_height = 50;
-                        temp_i = j;
-                        final_rect_x = 0;
-                        final_text_x = 0;
-                        legend_text_widths = [];
-                        sum_text_widths = 0;
-                        temp_text = temp_rect = 0;
-                        text_parameter1 = "x";
-                        text_parameter2 = "y";
-                        rect_parameter1 = "width";
-                        rect_parameter2 = "height";
-                        rect_parameter3 = "x";
-                        rect_parameter4 = "y";
-                        var text_parameter1value = function (d,i) {
-                            legend_text_widths[i] = this.getBBox().width;
-                            legend_start_x = 16;
-                            final_text_x = (i === 0) ? legend_start_x : (legend_start_x + temp_text);
-                            temp_text = temp_text + legend_text_widths[i] + 30;
-                            return final_text_x;
-                        };
-                        text_parameter2value = 30;
-                        rect_parameter1value = 13;
-                        rect_parameter2value = 13;
-                        var rect_parameter3value = function (d,i) {
-                            final_rect_x = (i === 0) ? 0 : temp_rect;
-                            temp_rect = temp_rect + legend_text_widths[i] + 30;
-                            return final_rect_x;
-                        };
-                        rect_parameter4value = 18;
-                    }
-
-                    var legend = that.legendsGroup.selectAll(".legends-rect")
-                        .data(params);
-
-                    that.legends_text = that.legendsGroup.selectAll(".legends_text")
-                        .data(params);
-
-                    that.legends_text.enter()
-                        .append('text');
-
-                    that.legends_text.attr("class","legends_text")
-                        .attr("pointer-events","none")
-                        .text(function (d) { return d; })
-                        .attr({
-                            "fill" : that.legends_text_color,
-                            "font-family" : that.legends_text_family,
-                            "font-size" : that.legends_text_size+"px",
-                            "font-weight" : that.legends_text_weight
-                        })
-                        .attr(text_parameter1, text_parameter1value)
-                        .attr(text_parameter2, text_parameter2value);
-
-                    legend.enter()
-                        .append("rect");
-
-                    legend.attr("class","legends-rect")
-                        .attr(rect_parameter1, rect_parameter1value)
-                        .attr(rect_parameter2, rect_parameter2value)
-                        .attr(rect_parameter3, rect_parameter3value)
-                        .attr(rect_parameter4, rect_parameter4value)
-                        .attr("fill", function (d,i) {
-                            if(that.color_mode === "color")
-                                return color[i];
-                            else return that.saturation_color
-                        })
-                        .attr("fill-opacity", function (d,i) {
-                            if (that.color_mode === "saturation") {
-                                return (i+1)/that.no_of_groups;
-                            }
-                        });
-
-                    var legend_container_width = that.legendsGroup.node().getBBox().width,translate_x;
-
-                    that.legendsGroup_width = (that.legends_display === "vertical") ? legend_container_width + 20 : 0;
-
-                    translate_x = (that.legends_display === "vertical") ? (that.width - that.legendsGroup_width) : (that.width - legend_container_width - 20);
-
-                    if (legend_container_width < that.width) { 
-                        that.legendsGroup.attr("transform","translate("+translate_x+",10)"); 
-                    }
-                    that.legendsGroup.style("visibility","visible");
-                    that.legends_text.exit().remove();
-                    legend.exit().remove();
+                    that.multiD.legendsPosition(that,"groupBar",params,that.legendsGroup,color);
                 }
                 return this;
             },
@@ -10920,8 +10867,10 @@ PykCharts.multiD.column = function (options) {
                             if(PykCharts.boolean(that.onhover_enable)) {
                                 that.mouseEvent1.highlight(that.selector+" "+".hbar", this);
                             }
-                            that.mouseEvent.tooltipPosition(d);
-                            that.mouseEvent.tooltipTextShow(d.tooltip ? d.tooltip : d.y);
+                            if (PykCharts['boolean'](options.tooltip_enable)) {
+                                that.mouseEvent.tooltipPosition(d);
+                                that.mouseEvent.tooltipTextShow(d.tooltip ? d.tooltip : d.y);
+                            }
                         }
                     })
                     .on('mouseout',function (d) {
@@ -10929,13 +10878,17 @@ PykCharts.multiD.column = function (options) {
                             if(PykCharts.boolean(that.onhover_enable)) {
                                 that.mouseEvent1.highlightHide(that.selector+" "+".hbar");
                             }
-                            that.mouseEvent.tooltipHide(d);
+                            if (PykCharts['boolean'](options.tooltip_enable)) {
+                                that.mouseEvent.tooltipHide(d);
+                            }
                             that.mouseEvent.axisHighlightHide(that.selector+" "+".x.axis")
                         }
                     })
                     .on('mousemove', function (d) {
                         if(that.mode === "default") {
-                            that.mouseEvent.tooltipPosition(d);
+                            if (PykCharts['boolean'](options.tooltip_enable)) {
+                                that.mouseEvent.tooltipPosition(d);
+                            }
                             that.mouseEvent.axisHighlightShow(d.x,that.selector+" "+".x.axis",that.x_domain);
                         }                       
                     })
@@ -11444,19 +11397,19 @@ PykCharts.multiD.groupedColumn = function(options) {
                         return $(this).attr("fill-opacity");
                     })
                     .on('mouseover',function (d) {
-                        if(that.mode === "default") {
+                        if(that.mode === "default" && PykCharts['boolean'](options.tooltip_enable)) {
                             var tooltip = d.tooltip ? d.tooltip : d.y
                             that.mouseEvent.tooltipPosition(d);
                             that.mouseEvent.tooltipTextShow(tooltip);
                         }
                     })
                     .on('mouseout',function (d) {
-                        if(that.mode === "default") {
+                        if(that.mode === "default" && PykCharts['boolean'](options.tooltip_enable)) {
                             that.mouseEvent.tooltipHide(d);
                         }
                     })
                     .on('mousemove', function (d) {
-                        if(that.mode === "default") {
+                        if(that.mode === "default" && PykCharts['boolean'](options.tooltip_enable)) {
                             that.mouseEvent.tooltipPosition(d);
                         }
 
@@ -11504,120 +11457,14 @@ PykCharts.multiD.groupedColumn = function(options) {
             legends: function () {
                 if(PykCharts.boolean(that.legends_enable)) {
                     var params = that.group_data,color;
-
                     color = params.map(function (d) {
                         return d.color;
                     });
-
                     params = params.map(function (d) {
                         return d.name;
                     });
-
-                    params = _.uniq(params);
-                    var j = 0,k = 0;
-                    j = params.length;
-                    k = params.length;
-
-                    if(that.legends_display === "vertical" ) {
-                        that.legendsGroup.attr("height", (params.length * 30)+20);
-                        that.legendsGroup_height = 0;
-
-                        text_parameter1 = "x";
-                        text_parameter2 = "y";
-                        rect_parameter1 = "width";
-                        rect_parameter2 = "height";
-                        rect_parameter3 = "x";
-                        rect_parameter4 = "y";
-                        rect_parameter1value = 13;
-                        rect_parameter2value = 13;
-                        text_parameter1value = function (d,i) { return 36; };
-                        rect_parameter3value = function (d,i) { return 20; };
-                        var rect_parameter4value = function (d,i) { return i * 24 + 12;};
-                        var text_parameter2value = function (d,i) { return i * 24 + 23;};
-                    }
-                    else if(that.legends_display === "horizontal") {
-                        that.legendsGroup_height = 50;
-                        temp_i = j;
-                        final_rect_x = 0;
-                        final_text_x = 0;
-                        legend_text_widths = [];
-                        sum_text_widths = 0;
-                        temp_text = temp_rect = 0;
-                        text_parameter1 = "x";
-                        text_parameter2 = "y";
-                        rect_parameter1 = "width";
-                        rect_parameter2 = "height";
-                        rect_parameter3 = "x";
-                        rect_parameter4 = "y";
-                        var text_parameter1value = function (d,i) {
-                            legend_text_widths[i] = this.getBBox().width;
-                            legend_start_x = 16;
-                            final_text_x = (i === 0) ? legend_start_x : (legend_start_x + temp_text);
-                            temp_text = temp_text + legend_text_widths[i] + 30;
-                            return final_text_x;
-                        };
-                        text_parameter2value = 30;
-                        rect_parameter1value = 13;
-                        rect_parameter2value = 13;
-                        var rect_parameter3value = function (d,i) {
-                            final_rect_x = (i === 0) ? 0 : temp_rect;
-                            temp_rect = temp_rect + legend_text_widths[i] + 30;
-                            return final_rect_x;
-                        };
-                        rect_parameter4value = 18;
-                    }
-
-                    var legend = that.legendsGroup.selectAll(".legends-rect")
-                                    .data(params);
-
-                    that.legends_text = that.legendsGroup.selectAll(".legends_text")
-                        .data(params);
-
-                    that.legends_text.enter()
-                        .append('text');
-
-                    that.legends_text.attr("class","legends_text")
-                        .attr("pointer-events","none")
-                        .text(function (d) { return d; })
-                        .attr("fill", that.legends_text_color)
-                        .attr("font-family", that.legends_text_family)
-                        .attr("font-size",that.legends_text_size+"px")
-                        .attr("font-weight", that.legends_text_weight)
-                        .attr(text_parameter1, text_parameter1value)
-                        .attr(text_parameter2, text_parameter2value);
-
-                    legend.enter()
-                        .append("rect");
-
-                    legend.attr("class","legends-rect")
-                        .attr(rect_parameter1, rect_parameter1value)
-                        .attr(rect_parameter2, rect_parameter2value)
-                        .attr(rect_parameter3, rect_parameter3value)
-                        .attr(rect_parameter4, rect_parameter4value)
-                        .attr("fill", function (d,i) {
-                            if(that.color_mode === "color")
-                                return color[i];
-                            else return that.saturation_color
-                        })
-                        .attr("fill-opacity", function (d,i) {
-                            if (that.color_mode === "saturation") {
-                                return (i+1)/that.no_of_groups;
-                            }
-                        });
-
-                    var legend_container_width = that.legendsGroup.node().getBBox().width,translate_x;
-
-                    that.legendsGroup_width = (that.legends_display === "vertical") ? legend_container_width + 20 : 0;
-
-                    translate_x = (that.legends_display === "vertical") ? (that.width - that.legendsGroup_width) : (that.width - legend_container_width - 20);
-
-                    if (legend_container_width < that.width) { 
-                        that.legendsGroup.attr("transform","translate("+translate_x+",10)"); 
-                    }
-                    that.legendsGroup.style("visibility","visible");
-
-                    that.legends_text.exit().remove();
-                    legend.exit().remove();
+                    params = that.k.__proto__._unique(params);
+                    that.multiD.legendsPosition(that,"groupColumn",params,that.legendsGroup,color);
                 }
                 return this;
             },
@@ -11709,16 +11556,16 @@ PykCharts.multiD.scatter = function (options) {
             that.k.warningHandling(err,"1");
         }
 
-        if(that.stop)
+        if(that.stop){
             return;
+        }
 
         if(that.mode === "default") {
             that.k.loading();
         }
 
         var multiDimensionalCharts = theme.multiDimensionalCharts,
-            stylesheet = theme.stylesheet,
-            optional = options.optional;
+            stylesheet = theme.stylesheet;
 
         that.multiD = new PykCharts.multiD.configuration(that);
         that.enableTicks =  options.scatterplot_pointer_enable ? options.scatterplot_pointer_enable.toLowerCase() : multiDimensionalCharts.scatterplot_pointer_enable;
@@ -11776,16 +11623,16 @@ PykCharts.multiD.panelsOfScatter = function (options) {
             that.k.warningHandling(err,"1");
         }
 
-        if(that.stop)
+        if(that.stop){
             return;
+        }
 
         if(that.mode === "default") {
             that.k.loading();
         }
         
         var multiDimensionalCharts = theme.multiDimensionalCharts,
-            stylesheet = theme.stylesheet,
-            optional = options.optional;
+            stylesheet = theme.stylesheet;
 
         that.multiD = new PykCharts.multiD.configuration(that);
         that.enableTicks =  options.scatterplot_pointer_enable ? options.scatterplot_pointer_enable.toLowerCase() : multiDimensionalCharts.scatterplot_pointer_enable;
@@ -11820,7 +11667,6 @@ PykCharts.multiD.panelsOfScatter = function (options) {
             var a = new PykCharts.multiD.scatterplotFunctions(options,that,"scatterplot");
             a.render();
         };
-
         that.k.dataSourceFormatIdentification(options.data,that,"executeData");
     };
 };
@@ -11832,8 +11678,8 @@ PykCharts.multiD.pulse = function (options) {
     this.execute = function() {
         that = new PykCharts.multiD.processInputs(that, options, "pulse");
         var multiDimensionalCharts = theme.multiDimensionalCharts,
-            stylesheet = theme.stylesheet,
-            optional = options.optional;
+            stylesheet = theme.stylesheet;
+        
         that.multiD = new PykCharts.multiD.configuration(that);
         that.bubbleRadius = options.scatterplot_radius ? options.scatterplot_radius : (0.6 * multiDimensionalCharts.scatterplot_radius);
         that.panels_enable = "no";
@@ -11896,7 +11742,7 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
             that.compare_data = compare[0];
             var data_changed = compare[1];
 
-            that.uniq_group_arr = _.uniq(that.data.map(function (d) {
+            that.uniq_group_arr = that.k.__proto__._unique(that.data.map(function (d) {
                 return d.group;
             }));
 
@@ -11924,7 +11770,7 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
                 that.renderChart();
             }
             that.k.xAxis(that.svgContainer,that.xGroup,that.x,that.extra_left_margin,that.xdomain,that.x_tick_values,that.legendsGroup_height)
-                    .yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain,that.y_tick_values,that.legendsGroup_width)
+                .yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain,that.y_tick_values,that.legendsGroup_width)
         };
         that.k.dataSourceFormatIdentification(options.data,that,"executeRefresh")
     };
@@ -11935,7 +11781,7 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
         that.transitions = new PykCharts.Configuration.transition(that);
 
         that.border = new PykCharts.Configuration.border(that);
-        that.uniq_group_arr = _.uniq(that.data.map(function (d) {
+        that.uniq_group_arr = that.k.__proto__._unique(that.data.map(function (d) {
             return d.group;
         }));
         that.no_of_groups = 1;
@@ -11946,10 +11792,10 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
         }
         if(that.mode === "default") {
             if(PykCharts['boolean'](that.panels_enable) && type === "scatterplot") {
-                    that.w = that.width/4;
-                    that.height = that.height/2;
-                    that.margin_left = that.margin_left;
-                    that.margin_right = that.margin_right;
+                that.w = that.width/4;
+                that.height = that.height/2;
+                that.margin_left = that.margin_left;
+                that.margin_right = that.margin_right;
 
                 that.k.title()
                     .backgroundColor(that)
@@ -11957,17 +11803,17 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
                     .emptyDiv()
                     .subtitle();
 
-                    d3.select(that.selector).append("div")
-                        .style("width",that.width + "px")
-                        .style("height",that.height + "px")
-                        .attr("id","panels_of_scatter_main_div");
+                d3.select(that.selector).append("div")
+                    .style("width",that.width + "px")
+                    .style("height",that.height + "px")
+                    .attr("id","panels_of_scatter_main_div");
 
-                    that.renderChart();
+                that.renderChart();
 
-                    that.k.xAxis(that.svgContainer,that.xGroup,that.x,that.extra_left_margin,that.xdomain,that.x_tick_values,that.legendsGroup_height)
-                        .yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain,that.y_tick_values,that.legendsGroup_width)
-                        .xAxisTitle(that.xGroup,that.legendsGroup_height,that.legendsGroup_width)
-                        .yAxisTitle(that.yGroup);
+                that.k.xAxis(that.svgContainer,that.xGroup,that.x,that.extra_left_margin,that.xdomain,that.x_tick_values,that.legendsGroup_height)
+                    .yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain,that.y_tick_values,that.legendsGroup_width)
+                    .xAxisTitle(that.xGroup,that.legendsGroup_height,that.legendsGroup_width)
+                    .yAxisTitle(that.yGroup);
 
             } else {
                 that.k.title()
@@ -12012,7 +11858,6 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
                 .dataSource();
 
         } else if (that.mode === "infographics") {
-
             if(PykCharts['boolean'](that.panels_enable) && type === "scatterplot") {
                 that.k.backgroundColor(that)
                     .export(that,"svgcontainer",type,that.panels_enable,that.uniq_group_arr)
@@ -12024,9 +11869,9 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
                 that.margin_left = that.margin_left;
                 that.margin_right = that.margin_right;
                 
-                for(i=0;i<that.no_of_groups;i++){
+                for(var i=0;i<that.no_of_groups;i++){
                     that.new_data = [];
-                    for(j=0;j<that.data.length;j++) {
+                    for(var j=0;j<that.data_length;j++) {
                         if(that.data[j].group === that.uniq_group_arr[i]) {
                             that.new_data.push(that.data[j]);
                         }
@@ -12179,7 +12024,7 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
                 return this;
             },
             createChart : function (index) {
-                that.weight = _.map(that.new_data, function (d) {
+                that.weight = that.new_data.map(function (d) {
                     return d.weight;
                 });
                 that.weight = _.reject(that.weight,function (num) {
@@ -12247,7 +12092,6 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
                         that.extra_top_margin = 0;
                     }
                     if(that.axis_x_data_format === "number") {
-
                         x_domain = d3.extent(that.data, function(d) { return parseFloat(d.x); });
                         x_data = that.k.__proto__._domainBandwidth(x_domain,2);
 
@@ -12335,122 +12179,8 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
                 return this ;
             },
             legends : function (index) {
-
                 if (PykCharts['boolean'](that.legends_enable) && that.map_group_data[1] && that.mode==="default") {
-                    var unique = _.uniq(that.sorted_weight);
-                    var k = 0,
-                        l = 0,
-                        translate_x = 0;
-
-
-                    if(that.legends_display === "vertical" ) {
-                        that.legendsGroup.attr("height", (that.map_group_data[0].length * 30)+20);
-                        that.legendsGroup_height = 0;
-
-                        text_parameter1 = "x";
-                        text_parameter2 = "y";
-                        rect_parameter1 = "width";
-                        rect_parameter2 = "height";
-                        rect_parameter3 = "x";
-                        rect_parameter4 = "y";
-                        rect_parameter1value = 13;
-                        rect_parameter2value = 13;
-                        text_parameter1value = function (d,i) { return 36; };
-                        rect_parameter3value = function (d,i) { return 20; };
-                        var rect_parameter4value = function (d,i) { return i * 24 + 12;};
-                        var text_parameter2value = function (d,i) { return i * 24 + 23;};
-
-                    } else if(that.legends_display === "horizontal") {
-                        that.legendsGroup_height = 50;
-                        final_rect_x = 0;
-                        final_text_x = 0;
-                        legend_text_widths = [];
-                        sum_text_widths = 0;
-                        temp_text = temp_rect = 0;
-                        text_parameter1 = "x";
-                        text_parameter2 = "y";
-                        rect_parameter1 = "width";
-                        rect_parameter2 = "height";
-                        rect_parameter3 = "x";
-                        rect_parameter4 = "y";
-
-                        var text_parameter1value = function (d,i) {
-                            legend_text_widths[i] = this.getBBox().width;
-                            legend_start_x = 16;
-                            final_text_x = (i === 0) ? legend_start_x : (legend_start_x + temp_text);
-                            temp_text = temp_text + legend_text_widths[i] + 30;
-                            return final_text_x;
-                        };
-                        text_parameter2value = 30;
-                        rect_parameter1value = 13;
-                        rect_parameter2value = 13;
-                        var rect_parameter3value = function (d,i) {
-                            final_rect_x = (i === 0) ? 0 : temp_rect;
-                            temp_rect = temp_rect + legend_text_widths[i] + 30;
-                            return final_rect_x;
-                        };
-                        rect_parameter4value = 18;
-                    }
-
-                    var legend;
-                    if(PykCharts['boolean'](that.panels_enable)){
-                        var abc =[];
-                        abc.push(that.map_group_data[0][index]);
-                        legend = that.legendsGroup.selectAll("rect")
-                            .data(abc);
-                        that.legends_text = that.legendsGroup.selectAll(".legends_text")
-                            .data(abc);
-                    } else {
-                        legend = that.legendsGroup.selectAll("rect")
-                                .data(that.map_group_data[0]);
-                        that.legends_text = that.legendsGroup.selectAll(".legends_text")
-                            .data(that.map_group_data[0]);
-                    }
-
-                    that.legends_text.enter()
-                        .append('text');
-
-                    that.legends_text.attr("class","legends_text")
-                        .attr("pointer-events","none")
-                        .text(function (d) { return d.group; })
-                        .attr("fill", that.legends_text_color)
-                        .attr("font-family", that.legends_text_family)
-                        .attr("font-size",that.legends_text_size +"px")
-                        .attr("font-weight", that.legends_text_weight)
-                        .attr(text_parameter1, text_parameter1value)
-                        .attr(text_parameter2, text_parameter2value);
-
-                    legend.enter()
-                        .append("rect");
-
-                    legend.attr(rect_parameter1, rect_parameter1value)
-                        .attr(rect_parameter2, rect_parameter2value)
-                        .attr(rect_parameter3, rect_parameter3value)
-                        .attr(rect_parameter4, rect_parameter4value)
-                        .attr("fill", function (d) {
-                            return that.fillChart.colorPieW(d);
-                        })
-                        .attr("fill-opacity", function (d) {
-                            return 0.6;
-                        });
-
-                    var legend_container_width = that.legendsGroup.node().getBBox().width, translate_x = 0;
-
-                    if(that.legends_display === "vertical" && !PykCharts['boolean'](that.panels_enable)) {
-                        that.legendsGroup_width = legend_container_width + 20 ;
-                    } else {
-                        that.legendsGroup_width = 0;
-                    }
-
-                        translate_x = (that.legends_display === "vertical") ? (that.w - that.legendsGroup_width) : ((!PykCharts['boolean'](that.panels_enable)) ? (that.width - legend_container_width - 20) : that.margin_left);
-
-                    if (legend_container_width < that.w) { that.legendsGroup.attr("transform","translate("+translate_x+",20)"); }
-                    that.legendsGroup.style("visibility","visible");
-
-                    that.legends_text.exit().remove();
-                    legend.exit().remove();
-
-                        /* !!!!! DO NOT TOUCH THE BELOW COMMENTED CODE, PREVIOUSLY WRITTEN FOR DISPLAYING LEGENDS ON THE NEXT LINE !!!!!*/
+                    that.multiD.legendsPosition(that,"scatter",that.map_group_data[0],that.legendsGroup,undefined,index);
                 }
                 return this;
             },
@@ -12460,7 +12190,7 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
                         .data(that.new_data);
 
                     tick_label.enter()
-                        .append("text");
+                        .append("text")
 
                     tick_label.attr("class","ticks-text")
                         .attr("x",function (d) {
@@ -12474,7 +12204,8 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
                         .style("font-size",that.label_size + "px")
                         .attr("pointer-events","none")
                         .attr("dx",-1)
-                        .attr("dy",function (d) { return -that.sizes(d.weight)-4; });
+                        .attr("dy",function (d) { return -that.sizes(d.weight)-4; })
+                        .text("")
 
                 setTimeout(function () {
                     tick_label.text(function (d) {return d.name; });
@@ -12507,24 +12238,28 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
                     .attr("stroke-opacity",1)
                     .on('mouseover',function (d) {
                         if(that.mode === "default") {
-                            tooltipText = d.tooltip ? d.tooltip : "<table><thead><th colspan='2'><b>"+d.name+"</b></th></thead><tr><td>X</td><td><b>"+d.x+"</b></td></tr><tr><td>Y</td><td><b>"+d.y+"<b></td></tr><tr><td>Weight</td><td><b>"+d.weight+"</b></td></tr></table>";
-                            that.mouseEvent.tooltipPosition(d);
-                            that.mouseEvent.tooltipTextShow(tooltipText);
-                            if(PykCharts['boolean'](that.onhover_enable)) {
+                            if (PykCharts['boolean'](options.tooltip_enable)) {
+                                tooltipText = d.tooltip ? d.tooltip : "<table><thead><th colspan='2'><b>"+d.name+"</b></th></thead><tr><td>X</td><td><b>"+d.x+"</b></td></tr><tr><td>Y</td><td><b>"+d.y+"<b></td></tr><tr><td>Weight</td><td><b>"+d.weight+"</b></td></tr></table>";
+                                that.mouseEvent.tooltipPosition(d);
+                                that.mouseEvent.tooltipTextShow(tooltipText);
+                            }
+                            if (PykCharts['boolean'](that.onhover_enable)) {
                                 that.mouseEvent.highlight(that.selector + " .dot", this);
                             }
                         }
                     })
                     .on('mouseout',function (d) {
-                        if(that.mode === "default") {
-                            that.mouseEvent.tooltipHide(d);
-                            if(PykCharts['boolean'](that.onhover_enable)) {
+                        if (that.mode === "default") {
+                            if (PykCharts['boolean'](options.tooltip_enable)) {
+                                that.mouseEvent.tooltipHide(d);
+                            }
+                            if (PykCharts['boolean'](that.onhover_enable)) {
                                 that.mouseEvent.highlightHide(that.selector + " .dot");
                             }
                         }
                     })
                     .on('mousemove', function (d) {
-                        if(that.mode === "default") {
+                        if (that.mode === "default" && PykCharts['boolean'](options.tooltip_enable)) {
                             that.mouseEvent.tooltipPosition(d);
                         }
                     })
@@ -12549,15 +12284,13 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
    
                     that.circleLabel.enter()
                         .append("text")
-                        .attr("class","text");
 
-                    // console.log(that.chartBody.selectAll(".text"));
-            function test () {        
-                // console.log("hello")
-                setTimeout(function () {
-                    // console.log("inside");
-                    that.circleLabel
-                        .attr("x", function (d) {return (that.x(d.x)+that.extra_left_margin); })
+                    that.circleLabel.attr("class","text")
+                        .text("");
+
+                    function setTimeOut() {
+                        that.circleLabel
+                        .attr("x", function (d) { return (that.x(d.x)+that.extra_left_margin); })
                         .attr("y", function (d) { return (that.yScale(d.y)+that.extra_top_margin + 5); })
                         .attr("text-anchor","middle")
                         .attr("pointer-events","none")
@@ -12575,16 +12308,14 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
                                 return "";
                             }
                         });
-                    },that.transitions.duration());
-                   that.circleLabel.exit()
-                                        .remove();
+                    }
+                    setTimeout(setTimeOut,that.transitions.duration());
+
+                    that.circleLabel.exit()
+                        .remove();
                 }
-                 
-                }
-                test();
                 return this;
             },
-
         };
         return optional;
     };
@@ -12593,26 +12324,19 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
         that.zoomed_out = false;
 
         var id = this.id,
-        idLength = id.length,
-        n;
+            idLength = id.length,
+            radius;
 
-        if(PykCharts['boolean'](that.panels_enable)) {
-            n = that.no_of_groups;
-        } else {
-            n = 1;
-        }
+        var n = (PykCharts['boolean'](that.panels_enable)) ? that.no_of_groups : 1;
         for(var i = 0; i < n; i++) {
             var containerId = id.substring(0,idLength-1);
             current_container = d3.select(that.selector+" #"+containerId +i)
-
-
             that.k.isOrdinal(current_container,".x.axis",that.x);
             that.k.isOrdinal(current_container,".y.axis",that.yScale);
 
             that.optionalFeatures().plotCircle()
-                                    .label()
-                                    .ticks();
-            var radius;
+                .label()
+                .ticks();
             d3.select(that.selector+" #"+containerId +i)
                 .selectAll(".dot")
                 .attr("r", function (d) {
@@ -12643,7 +12367,7 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
             for(var i = 0; i < n; i++) {
                 if(that.panels_enable==="yes"){
                     that.new_data = [];
-                    for(j=0;j<that.data.length;j++) {
+                    for(var j=0;j<that.data_length;j++) {
                         if(that.data[j].group === that.uniq_group_arr[i]) {
                             that.new_data.push(that.data[j]);
                         }
@@ -12692,11 +12416,11 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
     }
 
     that.renderChart =  function () {
-
         that.no_of_groups = that.uniq_group_arr.length;
-        for(i=0;i<that.no_of_groups;i++){
+        that.data_length = that.data.length;
+        for(var i=0;i<that.no_of_groups;i++){
             that.new_data = [];
-            for(j=0;j<that.data.length;j++) {
+            for(var j=0;j<that.data_length;j++) {
                 if(that.data[j].group === that.uniq_group_arr[i]) {
                     that.new_data.push(that.data[j]);
                 }
@@ -13147,98 +12871,7 @@ PykCharts.multiD.spiderWeb = function (options) {
             },
             legends : function () {
                 if (PykCharts['boolean'](that.legends_enable) && that.map_group_data[1] && that.mode==="default") {
-                    // var unique = that.k.__proto__._unique(that.sorted_weight);
-                    var k = 0;
-                    var l = 0;
-                    if(that.legends_display === "vertical" ) {
-                        that.legendsGroup.attr("height", (that.map_group_data[0].length * 30)+20);
-                        that.legendsGroup_height = 0;
-                        text_parameter1 = "x";
-                        text_parameter2 = "y";
-                        rect_parameter1 = "width";
-                        rect_parameter2 = "height";
-                        rect_parameter3 = "x";
-                        rect_parameter4 = "y";
-                        rect_parameter1value = 13;
-                        rect_parameter2value = 13;
-                        text_parameter1value = function (d,i) { return 36; };
-                        rect_parameter3value = function (d,i) { return 20; };
-                        var rect_parameter4value = function (d,i) { return i * 24 + 12;};
-                        var text_parameter2value = function (d,i) { return i * 24 + 23;};
-                    } else if(that.legends_display === "horizontal") {
-                        that.legendsGroup_height = 50;
-                        final_rect_x = 0;
-                        final_text_x = 0;
-                        legend_text_widths = [];
-                        sum_text_widths = 0;
-                        temp_text = temp_rect = 0;
-                        text_parameter1 = "x";
-                        text_parameter2 = "y";
-                        rect_parameter1 = "width";
-                        rect_parameter2 = "height";
-                        rect_parameter3 = "x";
-                        rect_parameter4 = "y";
-
-                        var text_parameter1value = function (d,i) {
-                            legend_text_widths[i] = this.getBBox().width;
-                            legend_start_x = 16;
-                            final_text_x = (i === 0) ? legend_start_x : (legend_start_x + temp_text);
-                            temp_text = temp_text + legend_text_widths[i] + 30;
-                            return final_text_x;
-                        };
-                        text_parameter2value = 30;
-                        rect_parameter1value = 13;
-                        rect_parameter2value = 13;
-                        var rect_parameter3value = function (d,i) {
-                            final_rect_x = (i === 0) ? 0 : temp_rect;
-                            temp_rect = temp_rect + legend_text_widths[i] + 30;
-                            return final_rect_x;
-                        };
-                        rect_parameter4value = 18;
-                    }
-
-                    var legend = that.legendsGroup.selectAll("rect")
-                            .data(that.map_group_data[0]);
-
-                    that.legends_text = that.legendsGroup.selectAll(".legends_text")
-                        .data(that.map_group_data[0]);
-
-                    that.legends_text.enter()
-                        .append('text');
-
-                    that.legends_text.attr("class","legends_text")
-                        .attr("pointer-events","none")
-                        .text(function (d) { return d.group; })
-                        .attr("fill", that.legends_text_color)
-                        .attr("font-family", that.legends_text_family)
-                        .attr("font-size",that.legends_text_size +"px")
-                        .attr("font-weight", that.legends_text_weight)
-                        .attr(text_parameter1, text_parameter1value)
-                        .attr(text_parameter2, text_parameter2value);
-
-                    legend.enter()
-                        .append("rect");
-
-                    legend.attr(rect_parameter1, rect_parameter1value)
-                        .attr(rect_parameter2, rect_parameter2value)
-                        .attr(rect_parameter3, rect_parameter3value)
-                        .attr(rect_parameter4, rect_parameter4value)
-                            .attr("fill", function (d) {
-                            return that.fillChart.colorPieW(d);
-                        })
-                        .attr("fill-opacity", function (d) {
-                            return 0.6;
-                        });
-
-                    var legend_container_width = that.legendsGroup.node().getBBox().width, translate_x;
-                    that.legendsGroup_width = (that.legends_display === "vertical") ? legend_container_width + 20 : 0;
-                    translate_x = (that.legends_display === "vertical") ? (that.width - that.legendsGroup_width) : (that.width - legend_container_width - 20);
-                    
-                    if (legend_container_width < that.width) { that.legendsGroup.attr("transform","translate("+translate_x+",10)"); }
-                    that.legendsGroup.style("visibility","visible");
-                    
-                    that.legends_text.exit().remove();
-                    legend.exit().remove();
+                    that.multiD.legendsPosition(that,"spiderWeb",that.map_group_data[0],that.legendsGroup);
                 }
                 return this;
             },

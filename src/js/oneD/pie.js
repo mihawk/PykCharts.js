@@ -420,10 +420,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                     that.new_data.sort(function (a,b) { return a.weight - b.weight;});
                     var temp = that.new_data.pop();
                     that.new_data.unshift(temp);
-                }
-                else if(type.toLowerCase() === "election pie" || type.toLowerCase() === "election donut") {
-                    that.new_data.sort(function (a,b) { return b.weight - a.weight;});
-                    if(PykCharts['boolean'](that.clubdata_enable)) {
+                    if(PykCharts['boolean'](that.clubdata_enable) && that.mode === "default") {
                         var index,data;
                         for(var i = 0;i<that.new_data.length;i++) {
                             if(that.new_data[i].name === that.clubdata_text) {
@@ -432,8 +429,30 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                                 break;
                             }
                         }
-                        that.new_data.splice(index,1);
-                        that.new_data.push(data);
+                        if(index) {
+                            that.new_data.splice(index,1);
+                            if(i===0) {
+                                var temp = that.new_data.pop();
+                                that.new_data.splice(0,0,temp);
+                            }
+                            that.new_data.splice(1,0,data);
+                        }
+                    }
+                } else if(type.toLowerCase() == "election pie" || type.toLowerCase() == "election donut") {
+                    that.new_data.sort(function (a,b) { return b.weight - a.weight;});
+                    if(PykCharts['boolean'](that.clubdata_enable) && that.mode === "default") {
+                        var index,data;
+                        for(var i = 0;i<that.new_data.length;i++) {
+                            if(that.new_data[i].name === that.clubdata_text) {
+                                index = i;
+                                data = that.new_data[i];
+                                break;
+                            }
+                        }
+                        if(index) {
+                            that.new_data.splice(index,1);
+                            that.new_data.push(data);
+                        }
                     }
                 }
                 that.sum = 0;
