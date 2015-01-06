@@ -104,7 +104,7 @@ PykCharts.multiD.groupedBar = function(options){
                 .highlightRect();
 
             that.k.xAxis(that.svgContainer,that.xGroup,that.xScale,that.extra_left_margin,that.xdomain,that.x_tick_values,that.legendsGroup_height)
-            .yGrid(that.svgContainer,that.group,that.yScale,that.legendsGroup_width);
+                .yGrid(that.svgContainer,that.group,that.yScale,that.legendsGroup_width);
             if(that.axis_y_data_format !== "string") {
                 that.k.yAxis(that.svgContainer,that.yGroup,that.yScale1,that.ydomain,that.y_tick_values,that.legendsGroup_width,"groupbar");
                 that.optionalFeatures().newYAxis();
@@ -363,20 +363,22 @@ PykCharts.multiD.groupedBar = function(options){
                         }
                         return "translate(" + 0 + "," + that.yScale(d.name) + ")"; 
                     })
-                    .on('mouseout',function (d) {
-                        if(that.mode === "default") {
-                            if(PykCharts.boolean(that.onhover_enable)) {
-                                that.mouseEvent.highlightGroupHide(that.selector+" "+".bar-group","rect");
+                    .on({
+                        'mouseout': function (d) {
+                            if(that.mode === "default") {
+                                if(PykCharts.boolean(that.onhover_enable)) {
+                                    that.mouseEvent.highlightGroupHide(that.selector+" "+".bar-group","rect");
+                                }
+                                that.mouseEvent.axisHighlightHide(that.selector+" "+".y.axis")
                             }
-                            that.mouseEvent.axisHighlightHide(that.selector+" "+".y.axis")
-                        }
-                    })
-                    .on('mousemove', function (d) {
-                        if(that.mode === "default") {
-                            if(PykCharts.boolean(that.onhover_enable)) {
-                                that.mouseEvent.highlightGroup(that.selector+" "+".bar-group", this, "rect");
+                        },
+                        'mousemove': function (d) {
+                            if(that.mode === "default") {
+                                if(PykCharts.boolean(that.onhover_enable)) {
+                                    that.mouseEvent.highlightGroup(that.selector+" "+".bar-group", this, "rect");
+                                }
+                                that.mouseEvent.axisHighlightShow([d.name],that.selector+" "+".y.axis",that.xdomain,"bar");
                             }
-                            that.mouseEvent.axisHighlightShow([d.name],that.selector+" "+".y.axis",that.xdomain,"bar");
                         }
                     });
 
@@ -407,27 +409,29 @@ PykCharts.multiD.groupedBar = function(options){
                     "data-fill-opacity" : function () {
                         return $(this).attr("fill-opacity");
                     }
-                    })
-                    .on('mouseover',function (d) {
+                })
+                .on({
+                    'mouseover': function (d) {
                         if(that.mode === "default" && PykCharts['boolean'](options.tooltip_enable)) {
                             var tooltip = d.tooltip ? d.tooltip : d.x;
                             that.mouseEvent.tooltipPosition(d);
                             that.mouseEvent.tooltipTextShow(tooltip);
                         }
-                    })
-                    .on('mouseout',function (d) {
+                    },
+                    'mouseout': function (d) {
                         if(that.mode === "default" && PykCharts['boolean'](options.tooltip_enable)) {
                             that.mouseEvent.tooltipHide(d);
                         }
-                    })
-                    .on('mousemove', function (d) {
+                    },
+                    'mousemove': function (d) {
                         if(that.mode === "default" && PykCharts['boolean'](options.tooltip_enable)) {
                             that.mouseEvent.tooltipPosition(d);
                         }
-                    })
-                    .transition()
-                    .duration(that.transitions.duration())
-                    .attr("width", function (d) { return that.xScale(d.x); })
+                    }
+                })
+                .transition()
+                .duration(that.transitions.duration())
+                .attr("width", function (d) { return that.xScale(d.x); })
 
                 bar.exit().remove();
                 chart.exit().remove(); 
@@ -591,8 +595,10 @@ PykCharts.multiD.groupedBar = function(options){
                     that.new_yAxisgroup.style("stroke",function () { return that.axis_y_line_color; })
                         .call(yaxis);
                     d3.selectAll(that.selector + " .y.new-axis text")
-                        .style("display",function () { return "none"; })
-                        .style("stroke","none");
+                        .style({
+                            "display": function () { return "none"; },
+                            "stroke": "none"
+                        });
                 }
                 return this;
             },

@@ -208,28 +208,34 @@ PykCharts.multiD.spiderWeb = function (options) {
                 $(that.selector).attr("class","PykCharts-spider-web");
                 that.svgContainer = d3.select(that.selector + " #tooltip-svg-container-" + i)
                     .append("svg")
-                    .attr("class","svgcontainer")
-                    .attr("id",that.container_id)
-                    .attr("width", that.width)
-                    .attr("height", that.height)
-                    .attr("preserveAspectRatio", "xMinYMin")
-                    .attr("viewBox", "0 0 " + that.width + " " + that.height);
+                    .attr({
+                        "class": "svgcontainer",
+                        "id": that.container_id,
+                        "width": that.width,
+                        "height": that.height,
+                        "preserveAspectRatio": "xMinYMin",
+                        "viewBox": "0 0 " + that.width + " " + that.height
+                    });
                 return this;
             },
             createGroups: function () {
                 that.group = that.svgContainer.append("g")
-                    .attr("id","spidergrp")
-                    .attr("transform", "translate(" + (that.width - that.legendsGroup_width) / 2 + "," + ((that.h+that.legendsGroup_height+20)/2) + ")");
+                    .attr({
+                        "id": "spidergrp",
+                        "transform": "translate(" + (that.width - that.legendsGroup_width) / 2 + "," + ((that.h+that.legendsGroup_height+20)/2) + ")"
+                    });
 
                 that.ticksElement = that.svgContainer.append("g")
-                        .attr("transform", "translate(" + (that.width - that.legendsGroup_width)/ 2 + "," + ((that.h+that.legendsGroup_height+20)/2) + ")");
+                    .attr("transform", "translate(" + (that.width - that.legendsGroup_width)/ 2 + "," + ((that.h+that.legendsGroup_height+20)/2) + ")");
                 return this;
             },
             legendsContainer : function (i) {
                 if (PykCharts['boolean'](that.legends_enable) && that.map_group_data[1] && that.mode === "default") {
                     that.legendsGroup = that.svgContainer.append("g")
-                        .attr("class","legendgrp")
-                        .attr("id","legendgrp");
+                        .attr({
+                            "class": "legendgrp",
+                            "id": "legendgrp"
+                        });
                 } else {
                     that.legendsGroup_width = 0;
                     that.legendsGroup_height = 0;
@@ -319,16 +325,17 @@ PykCharts.multiD.spiderWeb = function (options) {
                     spider.enter().append("path")
                         .attr("class", "link")
 
-                    spider.attr("class","link")
-                        .attr("stroke",function (d) {
+                    spider.attr({
+                        "class": "link",
+                        "stroke": function (d) {
                             return d.color;
-                        })
-                        .attr("stroke-opacity",1)
-                        .attr("id","link"+m)
-                        .attr("d", d3.customHive.link()
-                            .angle(function(d) { return that.angle(d.x); })
-                            .radius(function(d) { return that.radius(d.y); })
-                        );
+                        },
+                        "stroke-opacity": 1,
+                        "id": "link"+m,
+                        "d": d3.customHive.link()
+                                .angle(function(d) { return that.angle(d.x); })
+                                .radius(function(d) { return that.radius(d.y); })                          
+                    });
                     spider.exit().remove();
 
                     that.weight = that.new_data[m].data.map(function (d) {
@@ -345,26 +352,30 @@ PykCharts.multiD.spiderWeb = function (options) {
                         .data(that.nodes[m])
 
                     spiderNode.enter().append("circle")
-                        .attr("class", "dot node"+m)
-                        .attr("transform", function(d) { return "rotate(" + that.degrees(that.angle(d.x)) + ")"; })
+                        .attr({
+                            "class": "dot node"+m,
+                            "transform": function(d) { return "rotate(" + that.degrees(that.angle(d.x)) + ")"; }
+                        });
 
-
-                    spiderNode.attr("class","dot node"+m)
-                        .attr("cx", function (d) { return that.radius(d.y); })
-                        .attr("r", function (d,i) { return that.sizes(that.new_data[m].data[i].weight); })
-                        .style("fill", function (d,i) {
-                            return that.fillChart.colorPieW(that.new_data[m].data[i]);
-                        })
-                        .attr("fill-opacity", function (d,i) {
+                    spiderNode.attr({
+                        "class": "dot node"+m,
+                        "cx": function (d) { return that.radius(d.y); },
+                        "r": function (d,i) { return that.sizes(that.new_data[m].data[i].weight); },
+                        "fill-opacity": function (d,i) {
                             return that.multiD.opacity(that.new_data[m].data[i].weight,that.weight,that.data);
-                        })
-                        .attr("data-fill-opacity",function () {
+                        },
+                        "data-fill-opacity": function () {
                             return $(this).attr("fill-opacity");
-                        })
-                        .attr("stroke",that.border.color())
-                        .attr("stroke-width",that.border.width())
-                        .attr("stroke-dasharray", that.border.style())
-                        .on('mouseover',function (d,i) {
+                        },
+                        "stroke": that.border.color(),
+                        "stroke-width": that.border.width(),
+                        "stroke-dasharray": that.border.style()
+                    })
+                    .style("fill", function (d,i) {
+                        return that.fillChart.colorPieW(that.new_data[m].data[i]);
+                    })
+                    .on({
+                        'mouseover': function (d,i) {
                             if(that.mode === "default") {
                                 that.mouseEvent.tooltipPosition(d);
                                 that.mouseEvent.tooltipTextShow(d.tooltip);
@@ -372,39 +383,43 @@ PykCharts.multiD.spiderWeb = function (options) {
                                     that.mouseEvent.highlight(that.selector + " .dot", this);
                                 }
                             }
-                        })
-                        .on('mouseout',function (d) {
+                        },
+                        'mouseout': function (d) {
                             if(that.mode === "default") {
                                 that.mouseEvent.tooltipHide(d);
                                 if(PykCharts['boolean'](that.onhover_enable)) {
                                     that.mouseEvent.highlightHide(that.selector + " .dot");
                                 }
                             }
-                        })
-                        .on('mousemove', function (d) {
+                        },
+                        'mousemove': function (d) {
                             if(that.mode === "default") {
                                 that.mouseEvent.tooltipPosition(d);
                             }
-                        });
+                        }
+                    });
                     spiderNode.exit().remove();
                 }
 
                 that.group.selectAll(".axis")
                     .data(d3.range(that.new_data[0].data.length))
                     .enter().append("line")
-                    .attr("class", "axis")
-                    .attr("transform", function(d) { return "rotate(" + that.degrees(that.angle(d)) + ")"; })
-                    .attr("x1", that.radius.range()[0])
-                    .attr("x2", that.radius.range()[1]);
+                    .attr({
+                        "class": "axis",
+                        "transform": function(d) { return "rotate(" + that.degrees(that.angle(d)) + ")"; },
+                        "x1": that.radius.range()[0],
+                        "x2": that.radius.range()[1]
+                    });
 
                 that.group.selectAll(".grid")
                     .data(grids)
                     .enter().append("path")
-                    .attr("class", "grid")
-                    .attr("d", d3.customHive.link()
-                        .angle(function(d) { return that.angle(d.x); })
-                        .radius(function(d) { return that.radius(d.y); })
-                    );
+                    .attr({
+                        "class": "grid",
+                        "d": d3.customHive.link()
+                                .angle(function(d) { return that.angle(d.x); })
+                                .radius(function(d) { return that.radius(d.y); })
+                    });
 
                 return this;
             },
@@ -424,19 +439,22 @@ PykCharts.multiD.spiderWeb = function (options) {
                     .append("text")
                     .attr("class","axisTitle");
 
-                spiderAxisTitle
-                    .attr("transform", function(d, i){
+                spiderAxisTitle.attr({
+                    "transform": function(d, i){
                         return "translate(" + (-that.outerRadius) + "," + (-that.outerRadius) + ")";
-                    })
-                    .style("text-anchor","middle")
-                    .attr("x", function (d, i){ return that.outerRadius*(1-0.2*Math.sin(i*2*Math.PI/that.length))+(that.outerRadius * 1.25)*Math.sin(i*2*Math.PI/that.length);})
-                    .attr("y", function (d, i){
+                    },
+                    "x": function (d, i){ return that.outerRadius*(1-0.2*Math.sin(i*2*Math.PI/that.length))+(that.outerRadius * 1.25)*Math.sin(i*2*Math.PI/that.length); },
+                    "y": function (d, i){
                         return that.outerRadius*(1-0.60*Math.cos(i*2*Math.PI/that.length))-(that.outerRadius * 0.47)*Math.cos(i*2*Math.PI/that.length);
-                    })
-                    .style("font-size",that.axis_x_pointer_size + "px")
-                    .style("font-family",that.axis_x_pointer_family)
-                    .style("font-weight",that.axis_x_pointer_weight)
-                    .style("fill",that.axis_x_pointer_color)
+                    }
+                })
+                .style({
+                    "text-anchor": "middle",
+                    "font-size": that.axis_x_pointer_size + "px",
+                    "font-family": that.axis_x_pointer_family,
+                    "font-weight": that.axis_x_pointer_weight,
+                    "fill": that.axis_x_pointer_color
+                });
 
                 spiderAxisTitle
                     .text(function (d,i) { return that.new_data[0].data[i].x; });
@@ -459,17 +477,21 @@ PykCharts.multiD.spiderWeb = function (options) {
                     .attr("class","ticks"); 
                 tick_label
                     .style("text-anchor","start")
-                    .attr("transform", "translate(5,"+(-that.outerRadius)+")") 
-                    .attr("x",0)
-                    .attr("y", function (d,i) { return (i*(that.outerRadius/4)); })
-                    .attr("dy",-2);
+                    .attr({
+                        "transform": "translate(5,"+(-that.outerRadius)+")",
+                        "x": 0,
+                        "y": function (d,i) { return (i*(that.outerRadius/4)); },
+                        "dy": -2
+                    });
 
                 tick_label               
                     .text(function (d,i) { return d; })
-                    .style("font-size",that.axis_y_pointer_size + "px")
-                    .style("font-family",that.axis_y_pointer_family)
-                    .style("font-weight",that.axis_y_pointer_weight)
-                    .style("fill",that.axis_y_pointer_color);
+                    .style({
+                        "font-size": that.axis_y_pointer_size + "px",
+                        "font-family": that.axis_y_pointer_family,
+                        "font-weight": that.axis_y_pointer_weight,
+                        "fill": that.axis_y_pointer_color
+                    });
 
                 tick_label.exit().remove();
                 return this;

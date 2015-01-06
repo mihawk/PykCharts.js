@@ -1802,7 +1802,7 @@ configuration.mouseEvent = function (options) {
                                                     if(cond) {
                                                         active_y_tick.push(new_data[a].data[b].y);
                                                         tooltipText = (new_data[a].data[b].tooltip || new_data[a].data[b].y);
-                                                        if (a%4 == 0 && a != 0) {
+                                                        if (a%3 == 0 && a != 0) {
                                                         ++multiply_by;
                                                         final_displacement = multiply_value * multiply_by;
                                                         }

@@ -341,35 +341,37 @@ PykCharts.multiD.bar = function (options) {
                         "stroke" : that.border.color(),
                         "stroke-width" : that.border.width()
                     })
-                    .on('mouseover',function (d) {
-                        if(that.mode === "default") {
-                            if(PykCharts.boolean(that.onhover_enable)) {
-                                that.mouseEvent1.highlight(that.selector+" "+".hbar", this);
+                    .on({
+                        'mouseover': function (d) {
+                            if(that.mode === "default") {
+                                if(PykCharts.boolean(that.onhover_enable)) {
+                                    that.mouseEvent1.highlight(that.selector+" "+".hbar", this);
+                                }
+                                if (PykCharts['boolean'](options.tooltip_enable)) {
+                                    that.mouseEvent.tooltipPosition(d);
+                                    that.mouseEvent.tooltipTextShow(d.tooltip ? d.tooltip : d.x);
+                                }
                             }
-                            if (PykCharts['boolean'](options.tooltip_enable)) {
-                                that.mouseEvent.tooltipPosition(d);
-                                that.mouseEvent.tooltipTextShow(d.tooltip ? d.tooltip : d.x);
+                        },
+                        'mouseout': function (d) {
+                            if(that.mode === "default") {
+                                if(PykCharts.boolean(that.onhover_enable)) {
+                                    that.mouseEvent1.highlightHide(that.selector+" "+".hbar");
+                                }
+                                if (PykCharts['boolean'](options.tooltip_enable)) {
+                                    that.mouseEvent.tooltipHide(d);
+                                }
+                                that.mouseEvent.axisHighlightHide(that.selector+" "+".y.axis")
+                            }
+                        },
+                        'mousemove': function (d) {
+                            if(that.mode === "default") {
+                                if (PykCharts['boolean'](options.tooltip_enable)) {
+                                    that.mouseEvent.tooltipPosition(d);
+                                }
+                                that.mouseEvent.axisHighlightShow([d.y],that.selector+" "+".y.axis",that.y_domain);
                             }
                         }
-                    })
-                    .on('mouseout',function (d) {
-                        if(that.mode === "default") {
-                            if(PykCharts.boolean(that.onhover_enable)) {
-                                that.mouseEvent1.highlightHide(that.selector+" "+".hbar");
-                            }
-                            if (PykCharts['boolean'](options.tooltip_enable)) {
-                                that.mouseEvent.tooltipHide(d);
-                            }
-                            that.mouseEvent.axisHighlightHide(that.selector+" "+".y.axis")
-                        }
-                    })
-                    .on('mousemove', function (d) {
-                        if(that.mode === "default") {
-                            if (PykCharts['boolean'](options.tooltip_enable)) {
-                                that.mouseEvent.tooltipPosition(d);
-                            }
-                            that.mouseEvent.axisHighlightShow([d.y],that.selector+" "+".y.axis",that.y_domain);
-                        }                       
                     })
                     .transition()
                     .duration(that.transitions.duration())
@@ -394,10 +396,12 @@ PykCharts.multiD.bar = function (options) {
                         .append("text")
 
                     tick_label.attr("class","tickLabel")
-                        .style("font-weight", that.pointer_weight)
-                        .style("font-size", that.pointer_size + "px")
                         .attr("fill", that.pointer_color)
-                        .style("font-family", that.pointer_family)
+                        .style({
+                            "font-weight": that.pointer_weight,
+                            "font-size": that.pointer_size + "px",
+                            "font-family": that.pointer_family
+                        })
                         .text("");
 
                     function setTimeOut () {
@@ -435,7 +439,7 @@ PykCharts.multiD.bar = function (options) {
                         case "date":
                             column_to_be_sorted = "y";
                             break;
-                        case "numerically":     
+                        case "numerically":
                             column_to_be_sorted = "x";
                             break;
                     }
