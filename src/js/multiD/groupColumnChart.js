@@ -217,25 +217,31 @@ PykCharts.multiD.groupedColumn = function(options) {
                $(that.selector).attr("class","PykCharts-twoD");
                 that.svgContainer = d3.select(options.selector + " #tooltip-svg-container-" + i)
                     .append("svg:svg")
-                    .attr("width",that.width )
-                    .attr("height",that.height)
-                    .attr("id",that.container_id)
-                    .attr("class","svgcontainer")
-                    .attr("preserveAspectRatio", "xMinYMin")
-                    .attr("viewBox", "0 0 " + that.width + " " + that.height);
+                    .attr({
+                        "width": that.width,
+                        "height": that.height,
+                        "id": that.container_id,
+                        "class": "svgcontainer",
+                        "preserveAspectRatio": "xMinYMin",
+                        "viewBox": "0 0 " + that.width + " " + that.height
+                    });
                 return this;
             },
             createGroups: function (i) {
                 that.group = that.svgContainer.append("g")
-                    .attr("id","svggroup")
-                    .attr("class","svggroup")
-                    .attr("transform","translate(" + that.margin_left + "," + (that.margin_top + that.legendsGroup_height) +")");
+                    .attr({
+                        "id": "svggroup",
+                        "class": "svggroup",
+                        "transform": "translate(" + that.margin_left + "," + (that.margin_top + that.legendsGroup_height) +")"
+                    });
 
                 if(PykCharts.boolean(that.grid_y_enable)) {
                     that.group.append("g")
-                        .attr("id","ygrid")
-                        .style("stroke",that.grid_color)
-                        .attr("class","y grid-line");
+                        .attr({
+                            "id": "ygrid",
+                            "class": "y grid-line"
+                        })
+                        .style("stroke",that.grid_color);
                 }
                 return this;
             },
@@ -243,10 +249,12 @@ PykCharts.multiD.groupedColumn = function(options) {
                 if(PykCharts.boolean(that.legends_enable) && that.mode === "default") {
 
                     that.legendsGroup = that.svgContainer.append("g")
-                        .attr("id","legends")
-                        .attr("class","legends")
-                        .style("visibility","hidden")
-                        .attr("transform","translate(0,10)");
+                        .attr({
+                            "id": "legends",
+                            "class": "legends",
+                            "transform": "translate(0,10)"
+                        })
+                        .style("visibility","hidden");
 
                 } else {
                     that.legendsGroup_height = 0;
@@ -257,19 +265,25 @@ PykCharts.multiD.groupedColumn = function(options) {
             axisContainer : function () {
                 if(PykCharts.boolean(that.axis_x_enable) || that.axis_x_title) {
                     that.xGroup = that.group.append("g")
-                        .attr("class", "x axis")
-                        .attr("id","xaxis")
+                        .attr({
+                            "class": "x axis",
+                            "id": "xaxis"
+                        })
                         .style("stroke","black");
                     that.new_xAxisgroup = that.group.append("g")
-                        .attr("class", "x new-axis")
-                        .attr("id","new-xaxis")
+                        .attr({
+                            "class": "x new-axis",
+                            "id": "new-xaxis"
+                        })
                         .style("stroke","blue");
                 }
 
                 if(PykCharts.boolean(that.axis_y_enable) || that.axis_y_title) {
                     that.yGroup = that.group.append("g")
-                        .attr("class", "y axis")
-                        .attr("id","yaxis")
+                        .attr({
+                            "class": "y axis",
+                            "id": "yaxis"
+                        })
                         .style("stroke","blue");
                 }
                 return this;
@@ -425,20 +439,22 @@ PykCharts.multiD.groupedColumn = function(options) {
                         }
                         return "translate(" + that.xScale(d.name) + ",0)";
                     })
-                    .on('mouseout',function (d) {
-                        if(that.mode === "default") {
-                            if(PykCharts.boolean(that.onhover_enable)) {
-                                that.mouseEvent.highlightGroupHide(that.selector+" "+".column-group","rect");
+                    .on({
+                        'mouseout': function (d) {
+                            if(that.mode === "default") {
+                                if(PykCharts.boolean(that.onhover_enable)) {
+                                    that.mouseEvent.highlightGroupHide(that.selector+" "+".column-group","rect");
+                                }
+                                that.mouseEvent.axisHighlightHide(that.selector+" "+".x.axis")
                             }
-                            that.mouseEvent.axisHighlightHide(that.selector+" "+".x.axis")
-                        }
-                    })
-                    .on('mousemove', function (d) {
-                        if(that.mode === "default") {
-                            if(PykCharts.boolean(that.onhover_enable)) {
-                                that.mouseEvent.highlightGroup(that.selector+" "+".column-group", this, "rect");
+                        },
+                        'mousemove': function (d) {
+                            if(that.mode === "default") {
+                                if(PykCharts.boolean(that.onhover_enable)) {
+                                    that.mouseEvent.highlightGroup(that.selector+" "+".column-group", this, "rect");
+                                }
+                                that.mouseEvent.axisHighlightShow(d.name,that.selector+" "+".x.axis",that.xdomain);
                             }
-                            that.mouseEvent.axisHighlightShow(d.name,that.selector+" "+".x.axis",that.xdomain);
                         }
                     });
 
@@ -449,50 +465,55 @@ PykCharts.multiD.groupedColumn = function(options) {
                     .append("rect")
 
                 bar.attr("height", 0)
-                    .attr("x", function (d) {return that.x1(d.name); })
-                    .attr("y", that.height - that.margin_top - that.margin_bottom)
-                    .attr("width", function (d){ return 0.98*that.x1.rangeBand(); })
-                    .attr("fill", function (d,i) {
-                        return that.fillColor.colorGroup(d);
-                    })
-                    .attr("fill-opacity", function (d,i) {
-                        if (that.color_mode === "saturation") {
-                            return (i+1)/that.no_of_groups;
-                        } else {
-                            return 1;
+                    .attr({
+                        "x": function (d) {return that.x1(d.name); },
+                        "y": that.height - that.margin_top - that.margin_bottom,
+                        "width": function (d){ return 0.98*that.x1.rangeBand(); },
+                        "fill": function (d,i) {
+                            return that.fillColor.colorGroup(d);
+                        },
+                        "fill-opacity": function (d,i) {
+                            if (that.color_mode === "saturation") {
+                                return (i+1)/that.no_of_groups;
+                            } else {
+                                return 1;
+                            }
+                        },
+                        "stroke": that.border.color(),
+                        "stroke-width": that.border.width(),
+                        "data-fill-opacity": function () {
+                            return $(this).attr("fill-opacity");
                         }
                     })
-                    .attr("stroke",that.border.color())
-                    .attr("stroke-width",that.border.width())
-                    .attr("data-fill-opacity",function () {
-                        return $(this).attr("fill-opacity");
-                    })
-                    .on('mouseover',function (d) {
-                        if(that.mode === "default" && PykCharts['boolean'](options.tooltip_enable)) {
-                            var tooltip = d.tooltip ? d.tooltip : d.y
-                            that.mouseEvent.tooltipPosition(d);
-                            that.mouseEvent.tooltipTextShow(tooltip);
+                    .on({
+                        'mouseover': function (d) {
+                            if(that.mode === "default" && PykCharts['boolean'](options.tooltip_enable)) {
+                                var tooltip = d.tooltip ? d.tooltip : d.y
+                                that.mouseEvent.tooltipPosition(d);
+                                that.mouseEvent.tooltipTextShow(tooltip);
+                            }
+                        },
+                        'mouseout': function (d) {
+                            if(that.mode === "default" && PykCharts['boolean'](options.tooltip_enable)) {
+                                that.mouseEvent.tooltipHide(d);
+                            }
+                        },
+                        'mousemove': function (d) {
+                            if(that.mode === "default" && PykCharts['boolean'](options.tooltip_enable)) {
+                                that.mouseEvent.tooltipPosition(d);
+                            }
                         }
-                    })
-                    .on('mouseout',function (d) {
-                        if(that.mode === "default" && PykCharts['boolean'](options.tooltip_enable)) {
-                            that.mouseEvent.tooltipHide(d);
-                        }
-                    })
-                    .on('mousemove', function (d) {
-                        if(that.mode === "default" && PykCharts['boolean'](options.tooltip_enable)) {
-                            that.mouseEvent.tooltipPosition(d);
-                        }
-
                     })
                     .transition()
                     .duration(that.transitions.duration())
-                    .attr("height", function (d) { return that.reduced_height - that.yScale(d.y); })
-                    .attr("y",function (d) {
-                        if(that.flag) {
-                            that.highlight_y_positions.push(that.yScale(d.y));
+                    .attr({
+                        "height": function (d) { return that.reduced_height - that.yScale(d.y); },
+                        "y": function (d) {
+                            if(that.flag) {
+                                that.highlight_y_positions.push(that.yScale(d.y));
+                            }
+                            return that.yScale(d.y);
                         }
-                        return that.yScale(d.y);
                     });
 
                 chart.exit().remove();
@@ -544,8 +565,7 @@ PykCharts.multiD.groupedColumn = function(options) {
                     if(that.axis_x_data_format === "number") {
                         that.highlight_group_exits = (that.highlight === name);
                     } else if (that.axis_x_data_format === "string") {
-                        that.highlight_group_exits = (that.highlight.toLowerCase() === name.toLowerCase());
-                        
+                        that.highlight_group_exits = (that.highlight.toLowerCase() === name.toLowerCase());                        
                     }
                 }
                 return this;
@@ -562,8 +582,10 @@ PykCharts.multiD.groupedColumn = function(options) {
                         .outerTickSize(that.axis_x_outer_pointer_length);
                     that.new_xAxisgroup.style("stroke",function () { return that.axis_x_line_color; })
                         .call(xaxis);
-                    d3.selectAll(that.selector + " .x.new-axis text").style("display",function () { return "none"; })
-                        .style("stroke","none");
+                    d3.selectAll(that.selector + " .x.new-axis text").style({
+                        "display": function () { return "none"; },
+                        "stroke": "none"
+                    });
                 }
                 
                 return this;
@@ -580,16 +602,18 @@ PykCharts.multiD.groupedColumn = function(options) {
                         highlight_rect.enter()
                             .append("rect")
 
-                        highlight_rect.attr("class","highlight-rect")
-                            .attr("x", x)
-                            .attr("y", 0)
-                            .attr("width", (that.x1.rangeBand()* that.group_data.length)+10)
-                            .attr("height", that.reduced_height+ 5) 
-                            .attr("fill","none")
-                            .attr("stroke", that.highlight_color)
-                            .attr("stroke-width", "1.5px")
-                            .attr("stroke-dasharray", "5,5")
-                            .attr("stroke-opacity",1);
+                        highlight_rect.attr({
+                            "class": "highlight-rect",
+                            "x": x,
+                            "y": 0,
+                            "width": (that.x1.rangeBand()* that.group_data.length)+10,
+                            "height": that.reduced_height+ 5,
+                            "fill": "none",
+                            "stroke": that.highlight_color,
+                            "stroke-width": "1.5px",
+                            "stroke-dasharray": "5,5",
+                            "stroke-opacity": 1
+                        });
                         highlight_rect.exit()
                             .remove();
                         if(PykCharts["boolean"](that.highlight_x_positions)) {
