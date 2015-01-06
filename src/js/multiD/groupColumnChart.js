@@ -536,7 +536,7 @@ PykCharts.multiD.groupedColumn = function(options) {
                         return d.name;
                     });
                     params = that.k.__proto__._unique(params);
-                    that.multiD.legendsPosition(that,"groupColumn",params,that.legendsGroup,color);
+                    that.multiD.legendsPosition(that,"groupColumn",params,color);
                 }
                 return this;
             },

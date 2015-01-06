@@ -643,7 +643,7 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
             },
             legends : function (index) {
                 if (PykCharts['boolean'](that.legends_enable) && that.map_group_data[1] && that.mode==="default") {
-                    that.multiD.legendsPosition(that,"scatter",that.map_group_data[0],that.legendsGroup,undefined,index);
+                    that.multiD.legendsPosition(that,"scatter",that.map_group_data[0],undefined,index);
                 }
                 return this;
             },
