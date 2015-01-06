@@ -409,19 +409,19 @@ PykCharts.multiD.groupedBar = function(options){
                     }
                     })
                     .on('mouseover',function (d) {
-                        if(that.mode === "default") {
+                        if(that.mode === "default" && PykCharts['boolean'](options.tooltip_enable)) {
                             var tooltip = d.tooltip ? d.tooltip : d.x;
                             that.mouseEvent.tooltipPosition(d);
                             that.mouseEvent.tooltipTextShow(tooltip);
                         }
                     })
                     .on('mouseout',function (d) {
-                        if(that.mode === "default") {
+                        if(that.mode === "default" && PykCharts['boolean'](options.tooltip_enable)) {
                             that.mouseEvent.tooltipHide(d);
                         }
                     })
                     .on('mousemove', function (d) {
-                        if(that.mode === "default") {
+                        if(that.mode === "default" && PykCharts['boolean'](options.tooltip_enable)) {
                             that.mouseEvent.tooltipPosition(d);
                         }
                     })
@@ -444,7 +444,6 @@ PykCharts.multiD.groupedBar = function(options){
                 if(that.pointer_size) {
                     var ticks = that.group.selectAll(".g")
                         .data(that.new_data);
-
                     ticks.enter()
                         .append("g")
                         .attr("class","g");
@@ -460,6 +459,10 @@ PykCharts.multiD.groupedBar = function(options){
                         .append("text")
 
                     tick_label.attr("class","tickLabel")
+                        .style("font-weight", that.pointer_weight)
+                        .style("font-size", that.pointer_size + "px")
+                        .attr("fill", that.pointer_color)
+                        .style("font-family", that.pointer_family)
                         .text("");
 
                     function setTimeOut() {
@@ -470,11 +473,6 @@ PykCharts.multiD.groupedBar = function(options){
                             "dy" : 2
                         })
                         .transition()
-                        .style({
-                            "font-weight" : that.pointer_weight,
-                            "font-size" : that.pointer_size + "px",
-                            "font-family" : that.pointer_family
-                        })
                         .text(function (d) { 
                             if(d.x) {
                                 return (d.x).toFixed(); 
@@ -482,7 +480,6 @@ PykCharts.multiD.groupedBar = function(options){
                         })
                         .attr({
                             "pointer-events" : "none",
-                            "fill" : that.pointer_color
                         })
                         .text(function (d) { 
                             if(d.x) {

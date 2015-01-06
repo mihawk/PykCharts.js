@@ -468,19 +468,19 @@ PykCharts.multiD.groupedColumn = function(options) {
                         return $(this).attr("fill-opacity");
                     })
                     .on('mouseover',function (d) {
-                        if(that.mode === "default") {
+                        if(that.mode === "default" && PykCharts['boolean'](options.tooltip_enable)) {
                             var tooltip = d.tooltip ? d.tooltip : d.y
                             that.mouseEvent.tooltipPosition(d);
                             that.mouseEvent.tooltipTextShow(tooltip);
                         }
                     })
                     .on('mouseout',function (d) {
-                        if(that.mode === "default") {
+                        if(that.mode === "default" && PykCharts['boolean'](options.tooltip_enable)) {
                             that.mouseEvent.tooltipHide(d);
                         }
                     })
                     .on('mousemove', function (d) {
-                        if(that.mode === "default") {
+                        if(that.mode === "default" && PykCharts['boolean'](options.tooltip_enable)) {
                             that.mouseEvent.tooltipPosition(d);
                         }
 
