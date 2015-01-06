@@ -481,6 +481,11 @@ PykCharts.Configuration = function (options){
             $(options.selector + " #chart-loader").css({"visibility":"visible","padding-left":(options.width/2) +"px","padding-top":(initial_height_div/2) + "px"});
             return this;
         },
+        remove_loading_bar: function (id) {
+            var loading = document.querySelector(options.selector+" #chart-loader");
+            loading.parentNode.removeChild(loading);
+            document.getElementById(id).style.height = "auto";
+        },
         yGrid: function (svg, gsvg, yScale,legendsGroup_width) {
             var width = options.width,
                 height = options.height;

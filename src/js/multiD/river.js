@@ -55,10 +55,10 @@ PykCharts.multiD.river = function (options){
         that.extended = that.chart_mode === "absolute" ? false : true;
 
         that.executeData = function (data) {
-            var validate = that.k.validator().validatingJSON(data);
+            var validate = that.k.validator().validatingJSON(data),
+                id = that.selector.substring(1,that.selector.length);
             if(that.stop || validate === false) {
-                $(that.selector+" #chart-loader").remove();
-                $(options.selector).css("height","auto")
+                that.k.remove_loading_bar(id);
                 return;
             }
 
@@ -71,8 +71,7 @@ PykCharts.multiD.river = function (options){
             that.axis_x_data_format = "number"
             that.compare_data = that.data;
             that.data_length = that.data.length;
-            $(that.selector+" #chart-loader").remove();
-            $(options.selector).css("height","auto")
+            that.k.remove_loading_bar(id);
             that.map_group_data = that.multiD.mapGroup(that.data,"river");
             that.dataTransformation();
             that.render();
