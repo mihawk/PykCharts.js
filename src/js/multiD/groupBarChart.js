@@ -509,7 +509,6 @@ PykCharts.multiD.groupedBar = function(options){
                         break;
                     }
                 }
-//                console.log()
                 that.new_data.forEach(function(d){
                     d.data.forEach(function(data){
                         data.color = _.find(that.group_data,function(d) {
@@ -528,7 +527,7 @@ PykCharts.multiD.groupedBar = function(options){
                         return d.name;
                     });
                     params = that.k.__proto__._unique(params);
-                    that.multiD.legendsPosition(that,"groupBar",params,that.legendsGroup,color);
+                    that.multiD.legendsPosition(that,"groupBar",params,color);
                 }
                 return this;
             },
