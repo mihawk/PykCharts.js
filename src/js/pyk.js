@@ -489,10 +489,10 @@ PykCharts.Configuration = function (options){
         yGrid: function (svg, gsvg, yScale,legendsGroup_width) {
             var width = options.chart_width,
                 height = options.chart_height;
-            if(PykCharts['boolean'](options.grid_y_enable)) {
+            if(PykCharts['boolean'](options.chart_grid_y_enable)) {
                 var ygrid = PykCharts.Configuration.makeYGrid(options,yScale,legendsGroup_width);
                 gsvg.selectAll(options.selector + " g.y.grid-line")
-                    .style("stroke",function () { return options.grid_color; })
+                    .style("stroke",function () { return options.chart_grid_color; })
                     .call(ygrid);
             }
             return this;
@@ -501,10 +501,10 @@ PykCharts.Configuration = function (options){
             var width = options.chart_width,
                 height = options.chart_height;
 
-            if(PykCharts['boolean'](options.grid_x_enable)) {
+            if(PykCharts['boolean'](options.chart_grid_x_enable)) {
                 var xgrid = PykCharts.Configuration.makeXGrid(options,xScale,legendsGroup_height);
                 gsvg.selectAll(options.selector + " g.x.grid-line")
-                    .style("stroke",function () { return options.grid_color; })
+                    .style("stroke",function () { return options.chart_grid_color; })
                     .call(xgrid);
             }
             return this;
@@ -1115,7 +1115,27 @@ PykCharts.Configuration = function (options){
                         }
                     }
                     return r;
-            }
+            },
+            _ready: function (fn) {
+                function completed() {
+                    document.removeEventListener( "DOMContentLoaded", completed, false );
+                    window.removeEventListener( "load", completed, false );
+                }
+
+                if ( document.addEventListener ) {
+                    document.addEventListener( "DOMContentLoaded", completed, false );
+                    window.addEventListener( "load", completed, false );
+                    fn;
+                } else if ( document.attachEvent ) { // if IE event model is used
+                  document.attachEvent("onreadystatechange", function(){
+                    if ( document.readyState === "complete" ) {
+                        document.detachEvent( "onreadystatechange", arguments.callee );
+                        fn;
+                    }
+                  });
+                }
+            return this;
+        }
         },
         backgroundColor: function (options) {
              $(options.selector).css({"background-color":options.background_color,"position":"relative"})
@@ -2339,7 +2359,6 @@ configuration.transition = function (options) {
 configuration.Theme = function(){
     var that = this;
     that.stylesheet = {
-
         "mode": "default",
         "selector": "",
         "is_interactive": "yes",

@@ -109,7 +109,7 @@
                     pointer_size : 12,
                     "axis_x_no_of_axis_value": 5,
                 });
-                k.execute();
+                // k.execute();
 
                 var k = new PykCharts.multiD.area ({
                     selector: "#area",
@@ -180,7 +180,7 @@
                 // for(i = 0;i<100;i++) {
                 //     console.log(i);
                 //     var start = new Date().getTime();
-                    k.execute();
+                    // k.execute();
                 //     var end = new Date().getTime();
                 //     a[i] = end - start;
                 //     avg += a[i];
@@ -230,7 +230,7 @@
                 // for(i = 0;i<100;i++) {
                 //     // console.log(i);
                 //     var start = new Date().getTime();
-                         k.execute();
+                         // k.execute();
                 //     var end = new Date().getTime();
                 //         a[i] = end - start;
                 //         avg += a[i]                     
@@ -322,7 +322,7 @@
             //     for(i = 0;i<100;i++) {
             //         // console.log(i);
             //         var start = new Date().getTime();
-                        k.execute();
+                        // k.execute();
             //         var end = new Date().getTime();
             //             a[i] = end - start;
             //             avg += a[i]                     
@@ -349,17 +349,17 @@
                     variable_circle_size_enable: "no",
 
                     axis_x_enable: "yes",
-                    axis_x_title : "Price",
-                    axis_x_position: "bottom",
-                    axis_x_pointer_position: "bottom",
-                    axis_x_line_color: "#1D1D1D",
-                    axis_x_no_of_axis_value: 5,
-                    axis_x_pointer_color: "blue",
-                    axis_x_pointer_size: 15,
-                    axis_x_pointer_padding: 3,
-                    axis_x_outer_pointer_length: 3,
-                    axis_x_time_value_datatype:"month",
-                    axis_x_time_value_interval: 1,
+                    // axis_x_title : "Price",
+                    // axis_x_position: "bottom",
+                    // axis_x_pointer_position: "bottom",
+                    // axis_x_line_color: "#1D1D1D",
+                    // axis_x_no_of_axis_value: 5,
+                    // axis_x_pointer_color: "blue",
+                    // axis_x_pointer_size: 15,
+                    // axis_x_pointer_padding: 3,
+                    // axis_x_outer_pointer_length: 3,
+                    // axis_x_time_value_datatype:"month",
+                    // axis_x_time_value_interval: 1,
 
                     axis_y_enable: "yes",
                     axis_y_title : "Rating",
@@ -387,8 +387,9 @@
                     border_between_chart_elements_color:"blue",
                     label_size:5,
                     variable_circle_size_enable:"yes",
-                    transition_duration:0,
-                    tooltip_enable: "yes"
+                    transition_duration:1,
+                    tooltip_enable: "yes",
+                    chart_onhover_highlight_enable: "no"
                 });
             // var date = new Date();
             //     var i,avg =0;
@@ -468,7 +469,7 @@
             //     for(i = 0;i<10;i++) {
             // //         // console.log(i);
             //         var start = new Date().getTime();
-                         k.execute();
+                         // k.execute();
                 //     var end = new Date().getTime();
                 //         a[i] = end - start;
                 //         avg += a[i]                     
@@ -539,7 +540,7 @@
             //     for(i = 0;i<100;i++) {
             // //         // console.log(i);
             //         var start = new Date().getTime();
-                         k.execute();
+                         // k.execute();
             //         var end = new Date().getTime();
             //             a[i] = end - start;
             //             avg += a[i]                     
@@ -619,7 +620,7 @@
             //     for(i = 0;i<100;i++) {
             // //         // console.log(i);
             //         var start = new Date().getTime();
-                         k.execute();
+                         // k.execute();
             //         var end = new Date().getTime();
             //             a[i] = end - start;
             //             avg += a[i]                     
@@ -696,7 +697,7 @@
             //     for(i = 0;i<100;i++) {
             // //         // console.log(i);
             //         var start = new Date().getTime();
-                         k.execute();
+                         // k.execute();
             //         var end = new Date().getTime();
             //             a[i] = end - start;
             //             avg += a[i]                     
@@ -719,7 +720,7 @@
                     chart_grid_y_enable: "yes",
 
                     real_time_charts_refresh_frequency: 0,
-                    transition_duration: 0,
+                    transition_duration: 1,
                     axis_onhover_highlight_enable: "yes",
 
                     axis_x_enable: "yes",
@@ -757,6 +758,8 @@
                     border_between_chart_elements_thickness: 1,
                     border_between_chart_elements_color: "white",
                     border_between_chart_elements_style: "solid",
+                    chart_onhover_highlight_enable: "yes",
+                    tooltip_enable: 'yes'
                 });
             // var date = new Date();
             //     var i,avg =0;
@@ -764,7 +767,7 @@
             //     for(i = 0;i<100;i++) {
             // //         // console.log(i);
             //         var start = new Date().getTime();
-                         k.execute();
+                         // k.execute();
             //         var end = new Date().getTime();
             //             a[i] = end - start;
             //             avg += a[i]                     
@@ -829,7 +832,8 @@
                     data_sort_enable: "yes",
                     data_sort_type: "alphabetically",
                     data_sort_order: "ascending",
-                    tooltip_enable: "yes"
+                    tooltip_enable: "yes",
+                    chart_onhover_highlight_enable: "no"
                 });
 
             //     var date = new Date();
@@ -838,7 +842,7 @@
             //     for(i = 0;i<100;i++) {
             //         // console.log(i);
             //         var start = new Date().getTime();
-                       k.execute();
+                       // k.execute();
             //         var end = new Date().getTime();
             //             a[i] = end - start;
             //             avg += a[i]                     
@@ -859,7 +863,7 @@
                     color_mode:"color",
                     background_color:"white",
                     chart_color:["orange","red","yellow","purple"],
-                    real_time_charts_refresh_frequency: 0,
+                    real_time_charts_refresh_frequency: 3,
 
                     axis_onhover_highlight_enable: "yes",
 
@@ -912,10 +916,11 @@
                     "data_sort_type": "alphabetically", // sort type --- "alphabetically" / "date"
                     "data_sort_order": "descending", // sort order --- "descending" / "ascending",
                     highlight:"2000",
-                    tooltip_enable: "yes"
+                    tooltip_enable: "yes",
                     // legends_text_family: "Papyrus",
                     // legends_text_weight: "bold",
                     // legends_text_size: 28
+                    chart_onhover_highlight_enable: "yes"
                 });
             // var date = new Date();
             //     var i,avg =0;
@@ -923,7 +928,7 @@
             //     for(i = 0;i<100;i++) {
             // //         // console.log(i);
             //         var start = new Date().getTime();
-                         k.execute();
+                         // k.execute();
             //         var end = new Date().getTime();
             //             a[i] = end - start;
             //             avg += a[i]                     
@@ -948,7 +953,7 @@
                     chart_margin_left: 50,
                     chart_grid_y_enable: "yes",
 
-                    real_time_charts_refresh_frequency: 0,
+                    real_time_charts_refresh_frequency: 3,
 
                     axis_onhover_highlight_enable: "yes",
                     chart_onhover_highlight_enable: "yes",
@@ -994,7 +999,8 @@
                    // saturation_enable: "yes",
                     highlight:"2004",
                     chart_grid_y_enable: "no",
-                    tooltip_enable: "yes"
+                    tooltip_enable: "yes",
+                    chart_onhover_highlight_enable: "yes"
                 });
 
 
@@ -1004,7 +1010,7 @@
             //     for(i = 0;i<100;i++) {
             // //         // console.log(i);
             //         var start = new Date().getTime();
-                         k.execute();
+                         // k.execute();
             //         var end = new Date().getTime();
             //             a[i] = end - start;
             //             avg += a[i]                     

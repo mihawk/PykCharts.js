@@ -102,8 +102,11 @@ PykCharts.oneD.funnel = function (options) {
                 that.k.exportSVG(that,"#"+container_id,"funnel",undefined,undefined,add_extra_width)
             },that.transitions.duration());
 
-        $(document).ready(function () { return that.k.resize(that.svgContainer); })
-        $(window).on("resize", function () { return that.k.resize(that.svgContainer); });
+        var resize = that.k.resize(that.svgContainer);
+        that.k.__proto__._ready(resize);
+        window.onresize = function () {
+            return that.k.resize(that.svgContainer);
+        };
     };
 
     this.funnelLayout = function (){
@@ -264,7 +267,7 @@ PykCharts.oneD.funnel = function (options) {
                         },
                         "fill-opacity": 1,
                         "data-fill-opacity":function () {
-                            return $(this).attr("fill-opacity");
+                            return d3.select(this).attr("fill-opacity");
                         },
                         "stroke": border.color(),
                         "stroke-width": border.width(),

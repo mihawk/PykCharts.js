@@ -185,12 +185,12 @@ PykCharts.multiD.bar = function (options) {
                 that.svgContainer = d3.select(options.selector + " #tooltip-svg-container-" + i)
                     .append("svg:svg")
                     .attr({
-                        "width" : that.width,
-                        "height" : that.height,
+                        "width" : that.chart_width,
+                        "height" : that.chart_height,
                         "id" : that.container_id,
                         "class" : "svgcontainer",
                         "preserveAspectRatio" : "xMinYMin",
-                        "viewBox" : "0 0 " + that.width + " " + that.height
+                        "viewBox" : "0 0 " + that.chart_width + " " + that.chart_height
                     });
                 return this;
             },
@@ -216,7 +216,7 @@ PykCharts.multiD.bar = function (options) {
             newYAxis : function () {
                 if(PykCharts["boolean"](that.axis_y_enable)) {
                     if(that.axis_y_position === "right") {
-                        gsvg.attr("transform", "translate(" + (that.width - that.margin_left - that.margin_right) + ",0)");
+                        gsvg.attr("transform", "translate(" + (that.chart_width - that.margin_left - that.margin_right) + ",0)");
                     }
                     var yaxis = d3.svg.axis()
                         .scale(that.yScale)
@@ -265,15 +265,15 @@ PykCharts.multiD.bar = function (options) {
             createColumn: function () {
                 that.x_tick_values = that.k.processXAxisTickValues();
                 that.y_tick_values = that.k.processYAxisTickValues();
-                that.reducedWidth = that.width - that.margin_left - that.margin_right;
-                that.reducedHeight = that.height - that.margin_top - that.margin_bottom;
-                var height = that.height - that.margin_top - that.margin_bottom;
+                that.reducedWidth = that.chart_width - that.margin_left - that.margin_right;
+                that.reducedHeight = that.chart_height - that.margin_top - that.margin_bottom;
+                var height = that.chart_height - that.margin_top - that.margin_bottom;
                 var x_domain,x_data = [],y_data = [],y_range,x_range,y_domain, min_x_tick_value,max_x_tick_value, min_y_tick_value,max_y_tick_value;
 
                 if(that.axis_y_data_format === "number") {
                     y_domain = [0,d3.max(that.data,function (d) { return d.y; })];
                     y_data = that.k._domainBandwidth(y_domain,1);
-                    y_range = [that.height - that.margin_top - that.margin_bottom, 0];
+                    y_range = [that.chart_height - that.margin_top - that.margin_bottom, 0];
                     min_y_tick_value = d3.min(that.y_tick_values);
                     max_y_tick_value = d3.max(that.y_tick_values);
 
@@ -288,13 +288,13 @@ PykCharts.multiD.bar = function (options) {
                     })
                     that.yScale1 = that.k.scaleIdentification("linear",y_data,y_range);
                     y_data1 = that.data.map(function (d) { return d.y; });
-                    y_range1 = [0,that.height - that.margin_top - that.margin_bottom];
+                    y_range1 = [0,that.chart_height - that.margin_top - that.margin_bottom];
                     that.yScale = that.k.scaleIdentification("ordinal",y_data1,y_range1,0.3);
                     that.extra_top_margin = (that.yScale.rangeBand() / 2);
 
                 } else if(that.axis_y_data_format === "string") {
                     y_data = that.data.map(function (d) { return d.y; });
-                    y_range = [0,that.height - that.margin_top - that.margin_bottom];
+                    y_range = [0,that.chart_height - that.margin_top - that.margin_bottom];
                     that.yScale = that.k.scaleIdentification("ordinal",y_data,y_range,0.3);
                     that.extra_top_margin = (that.yScale.rangeBand() / 2);
 
@@ -344,7 +344,7 @@ PykCharts.multiD.bar = function (options) {
                     .on({
                         'mouseover': function (d) {
                             if(that.mode === "default") {
-                                if(PykCharts.boolean(that.onhover_enable)) {
+                                if(PykCharts.boolean(that.chart_onhover_highlight_enable)) {
                                     that.mouseEvent1.highlight(that.selector+" "+".hbar", this);
                                 }
                                 if (PykCharts['boolean'](options.tooltip_enable)) {
@@ -355,7 +355,7 @@ PykCharts.multiD.bar = function (options) {
                         },
                         'mouseout': function (d) {
                             if(that.mode === "default") {
-                                if(PykCharts.boolean(that.onhover_enable)) {
+                                if(PykCharts.boolean(that.chart_onhover_highlight_enable)) {
                                     that.mouseEvent1.highlightHide(that.selector+" "+".hbar");
                                 }
                                 if (PykCharts['boolean'](options.tooltip_enable)) {
