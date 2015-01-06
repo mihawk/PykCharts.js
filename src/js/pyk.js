@@ -1115,7 +1115,27 @@ PykCharts.Configuration = function (options){
                         }
                     }
                     return r;
-            }
+            },
+            _ready: function (fn) {
+                function completed() {
+                    document.removeEventListener( "DOMContentLoaded", completed, false );
+                    window.removeEventListener( "load", completed, false );
+                }
+
+                if ( document.addEventListener ) {
+                    document.addEventListener( "DOMContentLoaded", completed, false );
+                    window.addEventListener( "load", completed, false );
+                    fn;
+                } else if ( document.attachEvent ) { // if IE event model is used
+                  document.attachEvent("onreadystatechange", function(){
+                    if ( document.readyState === "complete" ) {
+                        document.detachEvent( "onreadystatechange", arguments.callee );
+                        fn;
+                    }
+                  });
+                }
+            return this;
+        }
         },
         backgroundColor: function (options) {
              $(options.selector).css({"background-color":options.background_color,"position":"relative"})
@@ -1782,7 +1802,7 @@ configuration.mouseEvent = function (options) {
                                                     if(cond) {
                                                         active_y_tick.push(new_data[a].data[b].y);
                                                         tooltipText = (new_data[a].data[b].tooltip || new_data[a].data[b].y);
-                                                        if (a%4 == 0 && a != 0) {
+                                                        if (a%3 == 0 && a != 0) {
                                                         ++multiply_by;
                                                         final_displacement = multiply_value * multiply_by;
                                                         }
@@ -2339,7 +2359,6 @@ configuration.transition = function (options) {
 configuration.Theme = function(){
     var that = this;
     that.stylesheet = {
-
         "mode": "default",
         "selector": "",
         "is_interactive": "yes",

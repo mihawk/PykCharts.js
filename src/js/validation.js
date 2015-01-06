@@ -1,11 +1,53 @@
-PykCharts.oneD = {};
-PykCharts.oneD.processInputs = function (chartObject, options) {
+PykCharts.validation = {};
+PykCharts.validation = function (chartObject, options) {
     var theme = new PykCharts.Configuration.Theme({})
-        , stylesheet = theme.stylesheet
-        , functionality = theme.functionality
-        , oneDimensionalCharts = theme.oneDimensionalCharts;
+	    , stylesheet = theme.stylesheet
+	    , functionality = theme.functionality
+	    , oneDimensionalCharts = theme.oneDimensionalCharts        
+	    , multiDimensionalCharts = theme.multiDimensionalCharts;
 
-    chartObject.selector = options.selector ? options.selector : stylesheet.selector;
+var config_param_info = [
+	{	
+		'config_name': 'selector',
+		'default_value': stylesheet,
+		'validation_type': 'validatingSelector'
+	},	
+	{
+		'config_name': 'selector',
+		'default_value': stylesheet,
+		'validation_type': 'validatingSelector'		
+	},
+	{
+		'config_name': ,
+		'default_value': stylesheet,
+		'validation_type': 
+
+	},
+	{
+		'config_name': ,
+		'default_value': stylesheet,
+		'validation_type': 
+
+	},
+	{
+		'config_name': ,
+		'default_value': stylesheet,
+		'validation_type': 
+
+	},
+	{
+		'config_name': ,
+		'default_value': stylesheet,
+		'validation_type': 
+	}
+
+
+]
+
+
+
+
+    chartObject.selector = options.selector ? options.selector;
     chartObject.width = options.chart_width  ? options.chart_width : stylesheet.chart_width;
     chartObject.is_interactive = options.is_interactive ? options.is_interactive.toLowerCase(): oneDimensionalCharts.is_interactive;
 
@@ -17,11 +59,6 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
         chartObject.title_color = options.title_color ? options.title_color : stylesheet.title_color;
         chartObject.title_weight = options.title_weight ? options.title_weight.toLowerCase() : stylesheet.title_weight;
         chartObject.title_family = options.title_family ? options.title_family.toLowerCase() : stylesheet.title_family;
-    } else {
-        chartObject.title_size = stylesheet.title_size;
-        chartObject.title_color = stylesheet.title_color;
-        chartObject.title_weight = stylesheet.title_weight;
-        chartObject.title_family = stylesheet.title_family;
     }
 
     if (options && PykCharts['boolean'](options.subtitle_text)) {
@@ -30,12 +67,8 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
         chartObject.subtitle_color = options.subtitle_color ? options.subtitle_color : stylesheet.subtitle_color;
         chartObject.subtitle_weight = options.subtitle_weight ? options.subtitle_weight.toLowerCase() : stylesheet.subtitle_weight;
         chartObject.subtitle_family = options.subtitle_family ? options.subtitle_family.toLowerCase() : stylesheet.subtitle_family;
-    } else {
-        chartObject.subtitle_size = stylesheet.subtitle_size;
-        chartObject.subtitle_color = stylesheet.subtitle_color;
-        chartObject.subtitle_weight = stylesheet.subtitle_weight;
-        chartObject.subtitle_family = stylesheet.subtitle_family;
     }
+
     chartObject.real_time_charts_refresh_frequency = options.real_time_charts_refresh_frequency ? options.real_time_charts_refresh_frequency : functionality.real_time_charts_refresh_frequency;
     chartObject.real_time_charts_last_updated_at_enable = options.real_time_charts_last_updated_at_enable ? options.real_time_charts_last_updated_at_enable.toLowerCase() : functionality.real_time_charts_last_updated_at_enable;
 
@@ -131,4 +164,5 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
             }
         }
     return chartObject;
-};
+
+}

@@ -106,8 +106,11 @@ PykCharts.oneD.pyramid = function (options) {
             that.k.exportSVG(that,"#"+container_id,"pyramid",undefined,undefined,add_extra_width)
         },that.transitions.duration());
         
-        $(document).ready(function () { return that.k.resize(that.svgContainer); })
-        $(window).on("resize", function () { return that.k.resize(that.svgContainer); });
+        var resize = that.k.resize(that.svgContainer);
+        that.k.__proto__._ready(resize);
+        window.onresize = function () {
+            return that.k.resize(that.svgContainer);
+        };
 	};
 
 	this.percentageValues = function (data){
@@ -242,7 +245,7 @@ PykCharts.oneD.pyramid = function (options) {
                     })
                     .attr("fill-opacity",1)
                     .attr("data-fill-opacity",function () {
-                        return $(this).attr("fill-opacity");
+                        return d3.select(this).attr("fill-opacity");
                     })
         			.on("mouseover", function (d,i) {
                         if(that.mode === "default") {

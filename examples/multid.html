@@ -73,7 +73,7 @@
                     chart_grid_x_enable: "yes",
                     chart_grid_y_enable: "yes",
 
-                    transition_duration: 0,
+                    transition_duration: 1,
 
                     real_time_charts_refresh_frequency: 0,
                     axis_onhover_highlight_enable: "yes",
@@ -133,7 +133,7 @@
                     chart_grid_y_enable: "yes",
                     chart_grid_color: "black",
 
-                    transition_duration: 5,
+                    transition_duration: 1,
                     real_time_charts_refresh_frequency: 0,
 
                     axis_onhover_highlight_enable: "yes",
@@ -170,18 +170,20 @@
                     annotation_view_mode: "onclick",
 
                     annotation_background_color:"red",
-                    border_between_chart_elements_thickness: 2
+                    border_between_chart_elements_thickness: 2,
+                    border_between_chart_elements_color: "red",
+                    border_between_chart_elements_style: "dotted"
                 });
-            // var date = new Date();
-            //     var i,avg =0;
-            //     var a = [];
-            //     for(i = 0;i<100;i++) {
-            //         // console.log(i);
-            //         var start = new Date().getTime();
-                          k.execute();
+                // var date = new Date();
+                // var i,avg = 0;
+                // var a = [];
+                // for(i = 0;i<100;i++) {
+                //     console.log(i);
+                //     var start = new Date().getTime();
+                    k.execute();
                 //     var end = new Date().getTime();
-                //         a[i] = end - start;
-                //         avg += a[i]                     
+                //     a[i] = end - start;
+                //     avg += a[i];
                 // }
                 // console.log("Performance",a,avg/100);
 
@@ -273,7 +275,7 @@
                     axis_x_outer_pointer_length: 3,
                     axis_x_time_value_datatype:"month",
                     axis_x_time_value_interval: 1,
-                    // real_time_charts_refresh_frequency:
+                    // real_time_charts_refresh_frequency: 0
                     axis_y_enable: "yes",
                     axis_y_title : "Rating",
                     axis_y_position: "left",
@@ -304,7 +306,8 @@
                     label_color: "black",
                     label_weight: "bold",
                     label_family:"'Helvetica Ne#scatterue',Helvetica,Arial,sans-serif",
-                    real_time_charts_refresh_frequency:2
+                    real_time_charts_refresh_frequency: 0,
+                    tooltip_enable: 'yes'
                     // chart_height: 450,
                     // chart_width : 700,
                     // chart_margin_top: 125,
@@ -384,7 +387,8 @@
                     border_between_chart_elements_color:"blue",
                     label_size:5,
                     variable_circle_size_enable:"yes",
-                    transition_duration:0
+                    transition_duration:0,
+                    tooltip_enable: "yes"
                 });
             // var date = new Date();
             //     var i,avg =0;
@@ -423,7 +427,7 @@
                     highlight_color: "red",
                     highlight : "india",
 
-                    transition_duration: 5,
+                    transition_duration: 1,
                     real_time_charts_refresh_frequency: 0,
 
                     axis_onhover_highlight_enable: "yes",
@@ -564,7 +568,7 @@
                     chart_grid_y_enable: "yes",
                     chart_grid_color:"black",
 
-                    transition_duration: 5,
+                    transition_duration: 1,
                     real_time_charts_refresh_frequency: 0,
 
                     axis_onhover_highlight_enable: "yes",
@@ -808,7 +812,7 @@
 
                     highlight_color: "#013F73",
 
-                    transition_duration: 0,
+                    transition_duration: 1,
 
                     border_between_chart_elements_thickness: 1,
                     border_between_chart_elements_color: "white",
@@ -824,7 +828,8 @@
 
                     data_sort_enable: "yes",
                     data_sort_type: "alphabetically",
-                    data_sort_order: "ascending"
+                    data_sort_order: "ascending",
+                    tooltip_enable: "yes"
                 });
 
             //     var date = new Date();
@@ -881,7 +886,7 @@
                     highlight_color: "#013F73",
                     panels_enable: "yes",
 
-                    transition_duration: 0,
+                    transition_duration: 1,
 
                     border_between_chart_elements_thickness: 1,
                     border_between_chart_elements_color: "white",
@@ -907,6 +912,7 @@
                     "data_sort_type": "alphabetically", // sort type --- "alphabetically" / "date"
                     "data_sort_order": "descending", // sort order --- "descending" / "ascending",
                     highlight:"2000",
+                    tooltip_enable: "yes"
                     // legends_text_family: "Papyrus",
                     // legends_text_weight: "bold",
                     // legends_text_size: 28
@@ -980,7 +986,7 @@
                     legends_text_weight: "normal",
                     legends_text_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
 
-                    transition_duration: 0,
+                    transition_duration: 1,
 
                     border_between_chart_elements_thickness: 2,
                     border_between_chart_elements_color: "black",
@@ -988,6 +994,7 @@
                    // saturation_enable: "yes",
                     highlight:"2004",
                     chart_grid_y_enable: "no",
+                    tooltip_enable: "yes"
                 });
 
 
