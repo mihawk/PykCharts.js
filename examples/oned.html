@@ -44,7 +44,7 @@
                 export_enable: "YES",
                 background_color: "transparent",
                 chart_width: 500,
-                chart_height:"500",
+                chart_height: 500,
                 chart_onhover_highlight_enable:"yes",
                 // chart_height: 300,
                 title_text:"Air Pollution in New York </br>(23/12/2013 - 29/12/2013)",
@@ -58,21 +58,21 @@
                 background_color :"rgb(255,255,255)",
                 label_size:12,
                 real_time_charts_refresh_frequency: 0,
-
+                chart_onhover_highlight_enable: "yes"
             });
-           k.execute();
+            k.execute();
 
   			var k = new PykCharts.oneD.funnel({
       			selector: "#funnel",
       			data:"../data/funnel.csv",
-                transition_duration: 10,
+                transition_duration: 1,
                 units_suffix: "rs",
                 clubdata_enable: "no",
                 pointer_weight: "normal",
                 chart_width: 600,
                 chart_height: 400,
                 "funnel_rect_width": 100,
-                "funnel_rect_height": "100",
+                "funnel_rect_height": 100,
                 units_prefix: "$",
                 units_suffix: "/-",
                 "pointer_overflow_enable": "yes",
@@ -100,7 +100,7 @@
                 selector: "#pyramid",
                 data:"../data/percentage-triangle.csv",
                 chart_height : 400,
-                transition_duration: 0,
+                transition_duration: 1,
                 background_color: "white",
                 mode:"DEFault",
                 chart_color: ["cyan"],
@@ -122,7 +122,8 @@
                 "credit_my_site_url":  "http://www.firstpost.com",
                 "data_source_name": "World Bank",
                 "data_source_url": "http://www.worldbank.org/",
-                real_time_charts_refresh_frequency:0
+                real_time_charts_refresh_frequency:0,
+                chart_onhover_highlight_enable: "yes"
             });
             k.execute();
 
@@ -130,7 +131,7 @@
                 selector: "#treemap",
                 data: "../data/percentage-rectangle.csv",
                 chart_height : 300,
-                transition_duration: 0,
+                transition_duration: 1,
                 background_color: "white",
                 mode:"DEFault",
                 units_prefix: "$",
@@ -143,7 +144,8 @@
                 "credit_my_site_url":  "http://www.firstpost.com",
                 "data_source_name": "World Bank",
                 "data_source_url": "http://www.worldbank.org/",
-                real_time_charts_refresh_frequency:0
+                real_time_charts_refresh_frequency: 0,
+                chart_onhover_highlight_enable: "yes"
             });
             k.execute();
 
@@ -168,7 +170,7 @@
                 "donut_radius_percent": 70,
                 "donut_inner_radius_percent": 40,
             });
-//           k.execute();
+            k.execute();
 
             var k = new PykCharts.oneD.electionPie({
                 selector: "#electionPieContainer",
@@ -191,7 +193,7 @@
                 "data_source_url": "http://www.worldbank.org/",
                 real_time_charts_refresh_frequency:0
             });
-          k.execute();
+            k.execute();
 
             var k = new PykCharts.oneD.electionDonut({
                 selector: "#electionDonutContainer",
@@ -222,8 +224,8 @@
                 pointer_size : 12,
                 pointer_thickness:3,
                 real_time_charts_refresh_frequency:0
-           });
-   //        k.execute();
+            });
+            k.execute();
 
             var k = new PykCharts.oneD.pie({
                 chart_width: 700,
@@ -231,7 +233,7 @@
                 background_color: "white",
                 selector: "#pieContainer",
                 data: "../data/new-pie.csv",
-                // transition_duration: 4,
+                transition_duration: 1,
                 mode: "DEFault",
                 chart_color: ["green","blue"],
                 clubdata_enable: "yes",
@@ -250,22 +252,23 @@
                 "pointer_overflow_enable": "no",
                  // label_size:6,
                  highlight: "Toyota",
-                 real_time_charts_refresh_frequency:0
+                 real_time_charts_refresh_frequency:3,
+                 chart_onhover_highlight_enable: "no"
             });
-     //      k.execute();
+            k.execute();
 
             var k = new PykCharts.oneD.percentageColumn({
                 chart_width: 200,
                 chart_height: 300,
                 selector: "#percentageColumn",
                 data:"../data/percentage-column.csv",
-                transition_duration: 0,
+                transition_duration: 1,
                 mode: "DEFault",
                 clubdata_enable: "yes",
                 units_prefix: "$",
                 units_suffix: "/-",
                 percent_column_rect_width : 90,
-                pointer_overflow_enable: "no",
+                pointer_overflow_enable: "yes",
                 "border_between_chart_elements_thickness": 2,
                 "border_between_chart_elements_color": "black",
                 "border_between_chart_elements_style": "dotted",
@@ -273,15 +276,16 @@
                 "credit_my_site_url":  "http://www.firstpost.com",
                 "data_source_name": "World Bank",
                 "data_source_url": "http://www.worldbank.org/",
-                real_time_charts_refresh_frequency:0
+                real_time_charts_refresh_frequency:0,
+                chart_onhover_highlight_enable: "yes"
             });
-           k.execute();
+            k.execute();
 
             var k = new PykCharts.oneD.percentageBar({
                 selector: "#percentageBar",
                 data:"../data/percentage-bar.csv",
                 background_color: "white",
-                transition_duration: 0,
+                transition_duration: 1,
                 // "chart_height": 200,
                 chart_width: 600,
                 chart_height: 200,
@@ -302,16 +306,16 @@
                 "data_source_name": "World Bank",
                 "data_source_url": "http://www.worldbank.org/",
                 pointer_overflow_enable: "yes",
-                real_time_charts_refresh_frequency: 0
-
+                real_time_charts_refresh_frequency: 0,
+                chart_onhover_highlight_enable: "yes"
             });
-           k.execute();
+            k.execute();
 
             var k = new PykCharts.oneD.pie({
                 selector: "#pie2Container",
                 background_color: "white",
                 data: "../data/new-pie.csv",
-                transition_duration: 0,
+                transition_duration: 1,
                 pie_radius_percent : 100,
                 mode: "DEFault",
                 clubdata_enable: "yes",
@@ -329,7 +333,7 @@
                 "pointer_overflow_enable": "yes",
                 real_time_charts_refresh_frequency:0
             });
-           // k.execute();
+            k.execute();
 		}
 		</script>
     <script src="../dist/pykcharts.1.0.0.js"></script>
