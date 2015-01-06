@@ -403,6 +403,7 @@ PykCharts.multiD.bar = function (options) {
                             "font-family": that.pointer_family
                         })
                         .text("");
+
                     function setTimeOut () {
                         tick_label
                             .attr({

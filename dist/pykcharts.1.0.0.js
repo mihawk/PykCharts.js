@@ -4826,8 +4826,25 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                     that.new_data.sort(function (a,b) { return a.weight - b.weight;});
                     var temp = that.new_data.pop();
                     that.new_data.unshift(temp);
-                }
-                else if(type.toLowerCase() === "election pie" || type.toLowerCase() === "election donut") {
+                    if(PykCharts['boolean'](that.clubdata_enable) && that.mode === "default") {
+                        var index,data;
+                        for(var i = 0;i<that.new_data.length;i++) {
+                            if(that.new_data[i].name === that.clubdata_text) {
+                                index = i;
+                                data = that.new_data[i];
+                                break;
+                            }
+                        }
+                        if(index) {
+                            that.new_data.splice(index,1);
+                            if(i===0) {
+                                var temp = that.new_data.pop();
+                                that.new_data.splice(0,0,temp);
+                            }
+                            that.new_data.splice(1,0,data);
+                        }
+                    }
+                } else if(type.toLowerCase() == "election pie" || type.toLowerCase() == "election donut") {
                     that.new_data.sort(function (a,b) { return b.weight - a.weight;});
                     if(PykCharts['boolean'](that.clubdata_enable) && that.mode === "default") {
                         var index,data;
@@ -6597,7 +6614,7 @@ PykCharts.multiD.configuration = function (options){
                 return 0.6;
             }
         },
-        legendsPosition : function (options,type,params,legendsGroup,color,index) {
+        legendsPosition : function (options,type,params,color,index) {
             var j=0,legend,translate_x = 0;
              if(options.legends_display === "vertical" ) {
                 options.legendsGroup.attr("height", (params.length * 30)+20);
@@ -9233,7 +9250,7 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 			},
 			legends: function () {
                 if (PykCharts['boolean'](that.legends_enable) && that.type === "stackedAreaChart" && that.mode==="default") {
-        			that.multid.legendsPosition(that,"stackedArea",that.new_data,that.legendsGroup);
+        			that.multid.legendsPosition(that,"stackedArea",that.new_data);
                 }
                 return this;
             }
@@ -9811,6 +9828,7 @@ PykCharts.multiD.bar = function (options) {
                         .attr("fill", that.pointer_color)
                         .style("font-family", that.pointer_family)
                         .text("");
+
                     function setTimeOut () {
                         tick_label
                             .attr({
@@ -10303,7 +10321,8 @@ PykCharts.multiD.groupedBar = function(options){
                 if(that.pointer_size) {
                     var ticks = that.group.selectAll(".g")
                         .data(that.new_data);
-                    ticks.enter()
+
+                        ticks.enter()
                         .append("g")
                         .attr("class","g");
 
@@ -10368,7 +10387,6 @@ PykCharts.multiD.groupedBar = function(options){
                         break;
                     }
                 }
-//                console.log()
                 that.new_data.forEach(function(d){
                     d.data.forEach(function(data){
                         data.color = _.find(that.group_data,function(d) {
@@ -10387,7 +10405,7 @@ PykCharts.multiD.groupedBar = function(options){
                         return d.name;
                     });
                     params = that.k.__proto__._unique(params);
-                    that.multiD.legendsPosition(that,"groupBar",params,that.legendsGroup,color);
+                    that.multiD.legendsPosition(that,"groupBar",params,color);
                 }
                 return this;
             },
@@ -11437,7 +11455,7 @@ PykCharts.multiD.groupedColumn = function(options) {
                         return d.name;
                     });
                     params = that.k.__proto__._unique(params);
-                    that.multiD.legendsPosition(that,"groupColumn",params,that.legendsGroup,color);
+                    that.multiD.legendsPosition(that,"groupColumn",params,color);
                 }
                 return this;
             },
@@ -12153,7 +12171,7 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
             },
             legends : function (index) {
                 if (PykCharts['boolean'](that.legends_enable) && that.map_group_data[1] && that.mode==="default") {
-                    that.multiD.legendsPosition(that,"scatter",that.map_group_data[0],that.legendsGroup,undefined,index);
+                    that.multiD.legendsPosition(that,"scatter",that.map_group_data[0],undefined,index);
                 }
                 return this;
             },
@@ -12844,67 +12862,68 @@ PykCharts.multiD.spiderWeb = function (options) {
             },
             legends : function () {
                 if (PykCharts['boolean'](that.legends_enable) && that.map_group_data[1] && that.mode==="default") {
-                    that.multiD.legendsPosition(that,"spiderWeb",that.map_group_data[0],that.legendsGroup);
+                    that.multiD.legendsPosition(that,"spiderWeb",that.map_group_data[0]);
                 }
                 return this;
             },
             xAxis : function () {
-                    that.length = that.new_data[0].data.length;
+                that.length = that.new_data[0].data.length;
 
-                    var spiderAxisTitle = that.group.selectAll("text.axisTitle")
-                        .data(that.nodes[0]);
-                    spiderAxisTitle.enter()
-                        .append("text")
-                        .attr("class","axisTitle");
+                var spiderAxisTitle = that.group.selectAll("text.axisTitle")
+                    .data(that.nodes[0]);
+                    
+                spiderAxisTitle.enter()
+                    .append("text")
+                    .attr("class","axisTitle");
 
-                    spiderAxisTitle
-                        .attr("transform", function(d, i){
-                            return "translate(" + (-that.outerRadius) + "," + (-that.outerRadius) + ")";
-                        })
-                        .style("text-anchor","middle")
-                        .attr("x", function (d, i){ return that.outerRadius*(1-0.2*Math.sin(i*2*Math.PI/that.length))+(that.outerRadius * 1.25)*Math.sin(i*2*Math.PI/that.length);})
-                        .attr("y", function (d, i){
-                            return that.outerRadius*(1-0.60*Math.cos(i*2*Math.PI/that.length))-(that.outerRadius * 0.47)*Math.cos(i*2*Math.PI/that.length);
-                        })
-                        .style("font-size",that.axis_x_pointer_size + "px")
-                        .style("font-family",that.axis_x_pointer_family)
-                        .style("font-weight",that.axis_x_pointer_weight)
-                        .style("fill",that.axis_x_pointer_color)
+                spiderAxisTitle
+                    .attr("transform", function(d, i){
+                        return "translate(" + (-that.outerRadius) + "," + (-that.outerRadius) + ")";
+                    })
+                    .style("text-anchor","middle")
+                    .attr("x", function (d, i){ return that.outerRadius*(1-0.2*Math.sin(i*2*Math.PI/that.length))+(that.outerRadius * 1.25)*Math.sin(i*2*Math.PI/that.length);})
+                    .attr("y", function (d, i){
+                        return that.outerRadius*(1-0.60*Math.cos(i*2*Math.PI/that.length))-(that.outerRadius * 0.47)*Math.cos(i*2*Math.PI/that.length);
+                    })
+                    .style("font-size",that.axis_x_pointer_size + "px")
+                    .style("font-family",that.axis_x_pointer_family)
+                    .style("font-weight",that.axis_x_pointer_weight)
+                    .style("fill",that.axis_x_pointer_color)
 
-                    spiderAxisTitle
-                        .text(function (d,i) { return that.new_data[0].data[i].x; });
+                spiderAxisTitle
+                    .text(function (d,i) { return that.new_data[0].data[i].x; });
 
-                    spiderAxisTitle.exit().remove();
+                spiderAxisTitle.exit().remove();
                 return this;
             },
             yAxis: function () {
-                    var a = that.yScale.domain(),
-                        t = a[1]/4,
-                        b = [];
-                    for(var i=4,j=0; i>=0 ;i--,j++){
-                        b[j]=i*t;
-                    }
-                    var tick_label = that.ticksElement.selectAll("text.ticks")
-                        .data(b);
+                var a = that.yScale.domain(),
+                    t = a[1]/4,
+                    b = [];
+                for(var i=4,j=0; i>=0 ;i--,j++){
+                    b[j]=i*t;
+                }
+                var tick_label = that.ticksElement.selectAll("text.ticks")
+                    .data(b);
 
-                    tick_label.enter()
-                        .append("text")
-                        .attr("class","ticks"); 
-                    tick_label
-                        .style("text-anchor","start")
-                        .attr("transform", "translate(5,"+(-that.outerRadius)+")") 
-                        .attr("x",0)
-                        .attr("y", function (d,i) { return (i*(that.outerRadius/4)); })
-                        .attr("dy",-2);
+                tick_label.enter()
+                    .append("text")
+                    .attr("class","ticks"); 
+                tick_label
+                    .style("text-anchor","start")
+                    .attr("transform", "translate(5,"+(-that.outerRadius)+")") 
+                    .attr("x",0)
+                    .attr("y", function (d,i) { return (i*(that.outerRadius/4)); })
+                    .attr("dy",-2);
 
-                    tick_label               
-                        .text(function (d,i) { return d; })
-                        .style("font-size",that.axis_y_pointer_size + "px")
-                        .style("font-family",that.axis_y_pointer_family)
-                        .style("font-weight",that.axis_y_pointer_weight)
-                        .style("fill",that.axis_y_pointer_color);
+                tick_label               
+                    .text(function (d,i) { return d; })
+                    .style("font-size",that.axis_y_pointer_size + "px")
+                    .style("font-family",that.axis_y_pointer_family)
+                    .style("font-weight",that.axis_y_pointer_weight)
+                    .style("fill",that.axis_y_pointer_color);
 
-                    tick_label.exit().remove();
+                tick_label.exit().remove();
                 return this;
             },
             sort : function() {

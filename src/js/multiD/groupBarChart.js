@@ -448,7 +448,8 @@ PykCharts.multiD.groupedBar = function(options){
                 if(that.pointer_size) {
                     var ticks = that.group.selectAll(".g")
                         .data(that.new_data);
-                    ticks.enter()
+
+                        ticks.enter()
                         .append("g")
                         .attr("class","g");
 
