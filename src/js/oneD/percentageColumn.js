@@ -10,7 +10,7 @@ PykCharts.oneD.percentageColumn = function (options) {
         that.percent_column_rect_width = options.percent_column_rect_width ? options.percent_column_rect_width : theme.oneDimensionalCharts.percent_column_rect_width;
 
         that.k.validator()
-            .validatingDataType(that.chart_height,"chart_height",that.chart_width,"chart_height")
+            .validatingDataType(that.chart_height,"chart_height",that.chart_width)
             .validatingDataType(that.percent_column_rect_width,"percent_column_rect_width",theme.oneDimensionalCharts.percent_column_rect_width);
 
         if(that.stop) {

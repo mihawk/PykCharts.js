@@ -272,7 +272,7 @@ PykCharts.Configuration = function (options){
             }
             return this;
         },
-        tooltip: function (d,selection,i,flag ) {
+        tooltip: function (d,selection,i,flag) {
             if((PykCharts['boolean'](options.tooltip_enable) || options.axis_x_data_format === "string" || options.axis_y_data_format === "string" || PykCharts['boolean'](options.annotation_enable)) && options.mode === "default") {
                 if(selection !== undefined){
                     var selector = options.selector.substr(1,options.selector.length),
@@ -1914,6 +1914,7 @@ configuration.mouseEvent = function (options) {
                                 .attr("transform", "translate(" + (cx - 5) + "," + cy + ")");
                         }
                     } else if (type === "stackedAreaChart") {
+                        console.log("test",that.cross_hair_v.node());
                         that.cross_hair_v.style("display","block");
                         that.cross_hair_v.select(options.selector + " #cross-hair-v")
                             .attr({
