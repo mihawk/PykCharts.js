@@ -831,26 +831,32 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
                 .ticks();
             d3.select(that.selector+" #"+containerId +i)
                 .selectAll(".dot")
-                .attr("r", function (d) {
-                    radius = that.sizes(d.weight)*PykCharts.getEvent().scale;
-                    return radius;
-                })
-                .attr("cx", function (d) { return (that.x(d.x)+that.extra_left_margin); })
-                .attr("cy", function (d) { return (that.yScale(d.y)+that.extra_top_margin); });
+                .attr({
+                    "r": function (d) {
+                        radius = that.sizes(d.weight)*PykCharts.getEvent().scale;
+                        return radius;
+                    },
+                    "cx": function (d) { return (that.x(d.x)+that.extra_left_margin); },
+                    "cy": function (d) { return (that.yScale(d.y)+that.extra_top_margin); }
+                });
 
             d3.select(that.selector+" #"+containerId +i)
                 .selectAll(".text")
-                .style("font-size", that.label_size +"px")
-                .attr("x", function (d) { return (that.x(d.x)+that.extra_left_margin); })
-                .attr("y", function (d) { return (that.yScale(d.y)+that.extra_top_margin + 5); });
+                .attr({
+                    "x": function (d) { return (that.x(d.x)+that.extra_left_margin); },
+                    "y": function (d) { return (that.yScale(d.y)+that.extra_top_margin + 5); }
+                })
+                .style("font-size", that.label_size +"px");
              d3.select(that.selector+" #"+containerId +i)
                 .selectAll(".ticks-text")
-                        .attr("x",function (d) {
-                            return that.x(d.x);
-                        })
-                        .attr("y",function (d) {
-                            return that.yScale(d.y) - radius;
-                        })
+                        .attr({
+                            "x": function (d) {
+                                return that.x(d.x);
+                            },
+                            "y": function (d) {
+                                return that.yScale(d.y) - radius;
+                            }
+                        });
         }
         if(PykCharts.getEvent().sourceEvent.type === "dblclick") {
             that.count++;
@@ -893,18 +899,21 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
 
         d3.select(that.selector+" #svgcontainer" +i)
             .selectAll(".dot")
-            .attr("r", function (d) {
-                return that.sizes(d.weight);
-            })
-            .attr("cx", function (d) { return (that.x(d.x)+that.extra_left_margin); })
-            .attr("cy", function (d) { return (that.yScale(d.y)+that.extra_top_margin); });
+            .attr({
+                "r": function (d) {
+                    return that.sizes(d.weight);
+                },
+                "cx": function (d) { return (that.x(d.x)+that.extra_left_margin); },
+                "cy": function (d) { return (that.yScale(d.y)+that.extra_top_margin); }
+            });
 
         d3.select(that.selector+" #svgcontainer" +i)
             .selectAll(".text")
             .style("font-size", that.label_size + "px")
-            .attr("x", function (d) { return (that.x(d.x)+that.extra_left_margin); })
-            .attr("y", function (d) { return (that.yScale(d.y)+that.extra_top_margin + 5); });
-
+            .attr({
+                "x": function (d) { return (that.x(d.x)+that.extra_left_margin); },
+                "y": function (d) { return (that.yScale(d.y)+that.extra_top_margin + 5); }
+            });
     }
 
     that.renderChart =  function () {
