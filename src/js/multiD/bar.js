@@ -206,13 +206,12 @@ PykCharts.multiD.bar = function (options) {
                        "transform" : "translate(" + that.margin_left + "," + (that.margin_top) +")"
                     });
 
-                if(PykCharts.boolean(that.grid_y_enable)) {
+                if(PykCharts.boolean(that.chart_grid_y_enable)) {
                     that.group.append("g")
                         .attr({
                             "id" : "ygrid",
                             "class" : "y grid-line"
-                        })
-                        .style("stroke",that.grid_color);
+                        });
 
                 }
                 return this;

@@ -376,14 +376,14 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 						"transform": "translate("+ that.margin_left +","+ (that.margin_top + that.legendsGroup_height)+")"
 					});
 
-				if(PykCharts['boolean'](that.grid_y_enable)){
+				if(PykCharts['boolean'](that.chart_grid_y_enable)){
 					that.group.append("g")
 						.attr({
 							"id": "ygrid",
 							"class": "y grid-line"
 						});
 				}
-				if(PykCharts['boolean'](that.grid_x_enable)){
+				if(PykCharts['boolean'](that.chart_grid_x_enable)){
 					that.group.append("g")
 						.attr({
 							"id": "xgrid",

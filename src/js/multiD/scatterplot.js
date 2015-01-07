@@ -4,13 +4,13 @@ PykCharts.multiD.scatter = function (options) {
 
     this.execute = function() {
         that = new PykCharts.multiD.processInputs(that, options, "scatterplot");
-        that.scatterplot_radius = options.scatterplot_radius ? options.scatterplot_radius : theme.multiDimensionalCharts.scatterplot_radius;
+        that.bubbleRadius = options.scatterplot_radius ? options.scatterplot_radius : theme.multiDimensionalCharts.scatterplot_radius;
         that.panels_enable = "no";
 
         try {
-            if(!_.isNumber(that.scatterplot_radius)) {
-                that.scatterplot_radius = theme.multiDimensionalCharts.scatterplot_radius;
-                throw "scatterplot_radius"
+            if(!_.isNumber(that.bubbleRadius)) {
+                that.bubbleRadius = theme.multiDimensionalCharts.scatterplot_radius;
+                throw "bubbleRadius"
             }
         }
 
@@ -71,13 +71,13 @@ PykCharts.multiD.panelsOfScatter = function (options) {
 
     this.execute = function() {
         that = new PykCharts.multiD.processInputs(that, options, "scatterplot");
-        that.scatterplot_radius = options.scatterplot_radius ? options.scatterplot_radius : theme.multiDimensionalCharts.scatterplot_radius;
+        that.bubbleRadius = options.scatterplot_radius ? options.scatterplot_radius : theme.multiDimensionalCharts.scatterplot_radius;
         that.panels_enable = "yes";
         that.legends_display = "horizontal";
         try {
-            if(!_.isNumber(that.scatterplot_radius)) {
-                that.scatterplot_radius = theme.multiDimensionalCharts.scatterplot_radius;
-                throw "scatterplot_radius"
+            if(!_.isNumber(that.bubbleRadius)) {
+                that.bubbleRadius = theme.multiDimensionalCharts.scatterplot_radius;
+                throw "bubbleRadius"
             }
         }
 
@@ -142,13 +142,13 @@ PykCharts.multiD.pulse = function (options) {
             stylesheet = theme.stylesheet;
         
         that.multiD = new PykCharts.multiD.configuration(that);
-        that.scatterplot_radius = options.scatterplot_radius ? options.scatterplot_radius : (0.6 * multiDimensionalCharts.scatterplot_radius);
+        that.bubbleRadius = options.bubbleRadius ? options.scatterplot_radius : (0.6 * multiDimensionalCharts.scatterplot_radius);
         that.panels_enable = "no";
 
         try {
-            if(!_.isNumber(that.scatterplot_radius)) {
-                that.scatterplot_radius = (0.6 * multiDimensionalCharts.scatterplot_radius);
-                throw "scatterplot_radius"
+            if(!_.isNumber(that.bubbleRadius)) {
+                that.bubbleRadius = (0.6 * multiDimensionalCharts.scatterplot_radius);
+                throw "bubbleRadius"
             }
         }
 
@@ -837,26 +837,32 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
                 .ticks();
             d3.select(that.selector+" #"+containerId +i)
                 .selectAll(".dot")
-                .attr("r", function (d) {
-                    radius = that.sizes(d.weight)*PykCharts.getEvent().scale;
-                    return radius;
-                })
-                .attr("cx", function (d) { return (that.x(d.x)+that.extra_left_margin); })
-                .attr("cy", function (d) { return (that.yScale(d.y)+that.extra_top_margin); });
+                .attr({
+                    "r": function (d) {
+                        radius = that.sizes(d.weight)*PykCharts.getEvent().scale;
+                        return radius;
+                    },
+                    "cx": function (d) { return (that.x(d.x)+that.extra_left_margin); },
+                    "cy": function (d) { return (that.yScale(d.y)+that.extra_top_margin); }
+                });
 
             d3.select(that.selector+" #"+containerId +i)
                 .selectAll(".text")
-                .style("font-size", that.label_size +"px")
-                .attr("x", function (d) { return (that.x(d.x)+that.extra_left_margin); })
-                .attr("y", function (d) { return (that.yScale(d.y)+that.extra_top_margin + 5); });
+                .attr({
+                    "x": function (d) { return (that.x(d.x)+that.extra_left_margin); },
+                    "y": function (d) { return (that.yScale(d.y)+that.extra_top_margin + 5); }
+                })
+                .style("font-size", that.label_size +"px");
              d3.select(that.selector+" #"+containerId +i)
                 .selectAll(".ticks-text")
-                        .attr("x",function (d) {
-                            return that.x(d.x);
-                        })
-                        .attr("y",function (d) {
-                            return that.yScale(d.y) - radius;
-                        })
+                        .attr({
+                            "x": function (d) {
+                                return that.x(d.x);
+                            },
+                            "y": function (d) {
+                                return that.yScale(d.y) - radius;
+                            }
+                        });
         }
         if(PykCharts.getEvent().sourceEvent.type === "dblclick") {
             that.count++;
@@ -899,18 +905,21 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
 
         d3.select(that.selector+" #svgcontainer" +i)
             .selectAll(".dot")
-            .attr("r", function (d) {
-                return that.sizes(d.weight);
-            })
-            .attr("cx", function (d) { return (that.x(d.x)+that.extra_left_margin); })
-            .attr("cy", function (d) { return (that.yScale(d.y)+that.extra_top_margin); });
+            .attr({
+                "r": function (d) {
+                    return that.sizes(d.weight);
+                },
+                "cx": function (d) { return (that.x(d.x)+that.extra_left_margin); },
+                "cy": function (d) { return (that.yScale(d.y)+that.extra_top_margin); }
+            });
 
         d3.select(that.selector+" #svgcontainer" +i)
             .selectAll(".text")
             .style("font-size", that.label_size + "px")
-            .attr("x", function (d) { return (that.x(d.x)+that.extra_left_margin); })
-            .attr("y", function (d) { return (that.yScale(d.y)+that.extra_top_margin + 5); });
-
+            .attr({
+                "x": function (d) { return (that.x(d.x)+that.extra_left_margin); },
+                "y": function (d) { return (that.yScale(d.y)+that.extra_top_margin + 5); }
+            });
     }
 
     that.renderChart =  function () {
