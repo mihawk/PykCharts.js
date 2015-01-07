@@ -127,8 +127,8 @@ PykCharts.multiD.column = function (options) {
             }
         }
         that.k.exportSVG(that,"#"+that.container_id,"columnChart")
-        $(document).ready(function () { return that.k.resize(that.svgContainer,""); })
-        $(window).on("resize", function () { return that.k.resize(that.svgContainer,""); });
+        $(document).ready(function () { return that.k.resize(that.svgContainer); })
+        $(window).on("resize", function () { return that.k.resize(that.svgContainer); });
 
     };
 

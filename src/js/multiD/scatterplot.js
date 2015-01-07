@@ -408,13 +408,8 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
 
         }
         if(!PykCharts['boolean'](that.panels_enable)) {
-            if(type === "scatterplot" && PykCharts['boolean'](that.legends_enable) && PykCharts['boolean'](that.variable_circle_size_enable) && that.map_group_data[1]) {
-                $(document).ready(function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); })
-                $(window).on("resize", function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); });
-            } else {
-                $(document).ready(function () { return that.k.resize(that.svgContainer); })
-                $(window).on("resize", function () { return that.k.resize(that.svgContainer); });
-            }
+            $(document).ready(function () { return that.k.resize(that.svgContainer); })
+            $(window).on("resize", function () { return that.k.resize(that.svgContainer); });
         } else {
             $(document).ready(function () { return that.k.resize(); })
             $(window).on("resize", function () { return that.k.resize(); });

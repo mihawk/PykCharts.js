@@ -310,25 +310,9 @@ PykCharts.Configuration = function (options){
                     .append("circle")
                     .attr("class","PykCharts-annotation-circle");
 
-                annotation_text.enter()
-                    .append("text")
-                    .attr("class","PykCharts-annotation-text");
-                annotation_text
-                    .text(function (d) {
-                        return "";
-                    });
                 annotation_circle
                     .attr("r",0);
                 setTimeout(function () {
-                    annotation_text.attr("x",function (d) {
-                            return parseInt(xScale(d.x))+options.extra_left_margin+options.margin_left;
-                        })
-                        .attr("y", function (d) {
-                            return parseInt(yScale(d.y)-16+options.margin_top+legendsGroup_height);
-                        })
-                        .attr("text-anchor","middle")
-                        .style("font-size","12px")
-                        .style("pointer-events","none");
                     annotation_circle
                         .attr("cx",function (d,i) {
                             return (parseInt(xScale(d.x))+options.extra_left_margin+options.margin_left);
@@ -348,7 +332,6 @@ PykCharts.Configuration = function (options){
                         .attr("fill",options.annotation_background_color)
                 },options.transitions.duration());
 
-                annotation_text.exit().remove();
                 annotation_circle.exit().remove();
             } else if(options.annotation_view_mode === "onload") {
                 var w = [],h=[];
@@ -837,7 +820,7 @@ PykCharts.Configuration = function (options){
                 return "string";
             }
         },
-        resize: function (svg,anno,lsvg) {
+        resize: function (svg) {
             var aspect = (options.chart_width/options.chart_height),
                 targetWidth = $(options.selector).width(),
                 a = $(options.selector + " #footer"),

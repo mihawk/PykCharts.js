@@ -285,8 +285,8 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
   		}
 		that.k.exportSVG(that,"#svg-1","areaChart")
   		that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
-  		$(document).ready(function () { return that.k.resize(that.svgContainer,"yes"); })
-        $(window).on("resize", function () { return that.k.resize(that.svgContainer,"yes"); });
+  		$(document).ready(function () { return that.k.resize(that.svgContainer); })
+        $(window).on("resize", function () { return that.k.resize(that.svgContainer); });
 	};
 
 	that.refresh = function () {
