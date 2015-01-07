@@ -364,7 +364,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                             return that.multiD.opacity(that.new_data[m].data[i].weight,that.weight,that.data);
                         },
                         "data-fill-opacity": function () {
-                            return $(this).attr("fill-opacity");
+                            return d3.select(this).attr("fill-opacity");
                         },
                         "stroke": that.border.color(),
                         "stroke-width": that.border.width(),

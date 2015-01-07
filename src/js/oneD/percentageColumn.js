@@ -263,8 +263,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                             "font-weight": that.label_weight,
                             "font-family": that.label_family
                         });
-
-                        setTimeout(function(){
+                        function chart_text_timeout(){
                             that.chart_text.text(function (d) {
                                 return d.percentValue.toFixed(1)+"%";
                             })
@@ -275,7 +274,8 @@ PykCharts.oneD.percentageColumn = function (options) {
                                     return "";
                                 }
                             });
-                        }, that.transitions.duration());
+                        }
+                        setTimeout(chart_text_timeout, that.transitions.duration());
 
                     that.chart_text.exit()
                         .remove();
@@ -326,7 +326,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                             "pointer-events": "none"
                         });
 
-                        setTimeout(function() {
+                        function tick_label_timeout() {
                             tick_label.text(function (d) {
                                 return d.name;
                             })
@@ -376,7 +376,8 @@ PykCharts.oneD.percentageColumn = function (options) {
                                         }
                                     }
                                 });
-                        },that.transitions.duration());
+                        }
+                        setTimeout(tick_label_timeout,that.transitions.duration());
 
                     tick_label.exit().remove();
 

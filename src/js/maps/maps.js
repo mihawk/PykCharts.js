@@ -180,7 +180,7 @@ PykCharts.maps.processInputs = function (chartObject, options) {
                 .validatingColor(chartObject.border_between_chart_elements_color,"border_between_chart_elements_color",stylesheet.border_between_chart_elements_color)
                 .validatingColor(chartObject.legends_text_color,"legends_text_color",stylesheet.legends_text_color);
 
-            if($.isArray(chartObject.chart_color)) {
+            if(chartObject.chart_color.constructor === Array) {
                 if(chartObject.chart_color[0]) {
                     chartObject.k.validator()
                         .validatingColor(chartObject.chart_color[0],"chart_color",stylesheet.chart_color);
