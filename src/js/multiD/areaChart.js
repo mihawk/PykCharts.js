@@ -285,8 +285,11 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
   		}
 		that.k.exportSVG(that,"#svg-1","areaChart")
   		that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
-  		$(document).ready(function () { return that.k.resize(that.svgContainer,"yes"); })
-        $(window).on("resize", function () { return that.k.resize(that.svgContainer,"yes"); });
+  		var resize = that.k.resize(that.svgContainer,"yes");
+        that.k.__proto__._ready(resize);
+        window.addEventListener('resize', function(event){
+			return that.k.resize(that.svgContainer,"yes");
+        });
 	};
 
 	that.refresh = function () {

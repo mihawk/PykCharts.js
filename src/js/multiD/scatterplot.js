@@ -402,8 +402,14 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
 
                 that.k.exportSVG(that,"#svgcontainer0",type);
             }
-
         }
+
+        // var resize = that.k.resize(that.svgContainer);
+        // that.k.__proto__._ready(resize);
+        // window.onresize = function () {
+        //     return that.k.resize(that.svgContainer);
+        // };
+
         if(!PykCharts['boolean'](that.panels_enable)) {
             if(type === "scatterplot" && PykCharts['boolean'](that.legends_enable) && PykCharts['boolean'](that.variable_circle_size_enable) && that.map_group_data[1]) {
                 $(document).ready(function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); })
