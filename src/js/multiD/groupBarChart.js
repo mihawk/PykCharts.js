@@ -24,7 +24,6 @@ PykCharts.multiD.groupedBar = function(options){
         if(that.stop){
             return;
         }
-        that.grid_color = options.chart_grid_color ? options.chart_grid_color : theme.stylesheet.chart_grid_color;
         that.panels_enable = "no";
 
         if(that.mode === "default") {

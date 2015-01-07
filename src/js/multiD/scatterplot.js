@@ -4,13 +4,13 @@ PykCharts.multiD.scatter = function (options) {
 
     this.execute = function() {
         that = new PykCharts.multiD.processInputs(that, options, "scatterplot");
-        that.scatterplot_radius = options.scatterplot_radius ? options.scatterplot_radius : theme.multiDimensionalCharts.scatterplot_radius;
+        that.bubbleRadius = options.scatterplot_radius ? options.scatterplot_radius : theme.multiDimensionalCharts.scatterplot_radius;
         that.panels_enable = "no";
 
         try {
-            if(!_.isNumber(that.scatterplot_radius)) {
-                that.scatterplot_radius = theme.multiDimensionalCharts.scatterplot_radius;
-                throw "scatterplot_radius"
+            if(!_.isNumber(that.bubbleRadius)) {
+                that.bubbleRadius = theme.multiDimensionalCharts.scatterplot_radius;
+                throw "bubbleRadius"
             }
         }
 
@@ -71,13 +71,13 @@ PykCharts.multiD.panelsOfScatter = function (options) {
 
     this.execute = function() {
         that = new PykCharts.multiD.processInputs(that, options, "scatterplot");
-        that.scatterplot_radius = options.scatterplot_radius ? options.scatterplot_radius : theme.multiDimensionalCharts.scatterplot_radius;
+        that.bubbleRadius = options.scatterplot_radius ? options.scatterplot_radius : theme.multiDimensionalCharts.scatterplot_radius;
         that.panels_enable = "yes";
         that.legends_display = "horizontal";
         try {
-            if(!_.isNumber(that.scatterplot_radius)) {
-                that.scatterplot_radius = theme.multiDimensionalCharts.scatterplot_radius;
-                throw "scatterplot_radius"
+            if(!_.isNumber(that.bubbleRadius)) {
+                that.bubbleRadius = theme.multiDimensionalCharts.scatterplot_radius;
+                throw "bubbleRadius"
             }
         }
 
@@ -142,13 +142,13 @@ PykCharts.multiD.pulse = function (options) {
             stylesheet = theme.stylesheet;
         
         that.multiD = new PykCharts.multiD.configuration(that);
-        that.scatterplot_radius = options.scatterplot_radius ? options.scatterplot_radius : (0.6 * multiDimensionalCharts.scatterplot_radius);
+        that.bubbleRadius = options.bubbleRadius ? options.scatterplot_radius : (0.6 * multiDimensionalCharts.scatterplot_radius);
         that.panels_enable = "no";
 
         try {
-            if(!_.isNumber(that.scatterplot_radius)) {
-                that.scatterplot_radius = (0.6 * multiDimensionalCharts.scatterplot_radius);
-                throw "scatterplot_radius"
+            if(!_.isNumber(that.bubbleRadius)) {
+                that.bubbleRadius = (0.6 * multiDimensionalCharts.scatterplot_radius);
+                throw "bubbleRadius"
             }
         }
 

@@ -8,7 +8,6 @@ PykCharts.multiD.groupedColumn = function(options) {
         if(that.stop){
             return;
         }
-        that.chart_grid_color = options.chart_grid_color ? options.chart_grid_color : theme.stylesheet.chart_grid_color;
         that.panels_enable = "no";
 
         if(that.mode === "default") {
@@ -230,13 +229,12 @@ PykCharts.multiD.groupedColumn = function(options) {
                         "transform": "translate(" + that.margin_left + "," + (that.margin_top + that.legendsGroup_height) +")"
                     });
 
-                if(PykCharts.boolean(that.grid_y_enable)) {
+                if(PykCharts.boolean(that.chart_grid_y_enable)) {
                     that.group.append("g")
                         .attr({
                             "id": "ygrid",
                             "class": "y grid-line"
-                        })
-                        .style("stroke",that.chart_grid_color);
+                        });
                 }
                 return this;
             },

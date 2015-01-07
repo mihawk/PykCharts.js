@@ -416,7 +416,7 @@ PykCharts.multiD.river = function (options){
                 return this;
             },
             grids: function () {
-                if(PykCharts.boolean(that.grid_y_enable)) {
+                if(PykCharts.boolean(that.chart_grid_y_enable)) {
 
                     var width = that.chart_width - that.legendsGroup_width;
                     var top_grid = that.grid_group.selectAll("line.top_line")
@@ -433,7 +433,7 @@ PykCharts.multiD.river = function (options){
                             "y2": function(d, i){
                                 return that.yScale(i * that.barMargin);
                             },
-                            "stroke": that.grid_color
+                            "stroke": that.chart_grid_color
                         });
                     top_grid.exit().remove();
 
@@ -451,7 +451,7 @@ PykCharts.multiD.river = function (options){
                         "y2": function(d, i){
                             return that.yScale((i * that.barMargin) + that.barHeight);
                         },
-                        "stroke": that.grid_color
+                        "stroke": that.chart_grid_color
                     });
                     bottom_grid.exit().remove();
                 }
