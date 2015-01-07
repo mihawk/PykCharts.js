@@ -135,7 +135,7 @@ PykCharts.multiD.spiderWeb = function (options) {
             that.k.title()
                 .backgroundColor(that)
                 .export(that,"#"+that.container_id,"spiderweb")
-                .emptyDiv()
+                .emptyDiv(options.selector)
                 .subtitle()
                 .makeMainDiv(that.selector,1);
             that.h = that.chart_height;
@@ -168,7 +168,7 @@ PykCharts.multiD.spiderWeb = function (options) {
         } else if (that.mode==="infographics") {
             that.k.backgroundColor(that)
                 .export(that,"#"+that.container_id,"spiderweb")
-                .emptyDiv();
+                .emptyDiv(options.selector);
             that.k.makeMainDiv(that.selector,1);
             that.h = that.chart_height;
             that.optionalFeatures().svgContainer(1)

@@ -133,7 +133,7 @@ PykCharts.multiD.groupedBar = function(options){
             that.k.title()
                 .backgroundColor(that)
                 .export(that,"#"+that.container_id,"groupbarChart")
-                .emptyDiv()
+                .emptyDiv(options.selector)
                 .subtitle()
                 .makeMainDiv(that.selector,1);
 
@@ -170,7 +170,7 @@ PykCharts.multiD.groupedBar = function(options){
         } else if(that.mode === "infographics") {
             that.k.backgroundColor(that)
                 .export(that,"#"+that.container_id,"groupbarChart")
-                .emptyDiv()
+                .emptyDiv(options.selector)
                 .makeMainDiv(that.selector,1);
 
             that.optionalFeatures().svgContainer(1)
@@ -474,7 +474,7 @@ PykCharts.multiD.groupedBar = function(options){
                         .style("font-family", that.pointer_family)
                         .text("");
 
-                    function setTimeOut() {
+                    function setTimeoutTicks() {
                         tick_label.attr({
                             "x" : function (d) { return that.xScale(d.x); },
                             "y" : function(d) { return (that.y1(d.name))+(that.y1.rangeBand()/2); },
@@ -500,7 +500,7 @@ PykCharts.multiD.groupedBar = function(options){
                             } 
                         });
                     }
-                    setTimeout(setTimeOut,that.transitions.duration());
+                    setTimeout(setTimeoutTicks,that.transitions.duration());
 
                     tick_label.exit().remove();
                     ticks.exit().remove();
@@ -552,7 +552,7 @@ PykCharts.multiD.groupedBar = function(options){
             },
             highlightRect : function () {
                 if(that.flag) {
-                    function setTimeOut() {
+                    function setTimeoutHighlight() {
                         y = that.highlight_y_positions - 5;                    
                     
                         var highlight_rect = that.group.selectAll(".highlight-rect")
@@ -582,7 +582,7 @@ PykCharts.multiD.groupedBar = function(options){
                                 .remove()
                         }
                     }
-                    setTimeout(setTimeOut, that.transitions.duration());
+                    setTimeout(setTimeoutHighlight, that.transitions.duration());
                 }
                 return this;
             },

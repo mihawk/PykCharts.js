@@ -6,7 +6,7 @@ PykCharts.oneD.treemap = function (options){
         optional = options.optional;
         that.chart_height = options.chart_height ? options.chart_height : that.chart_width;
         that.k.validator()
-            .validatingDataType(that.chart_height,"chart_height",that.chart_width,"chart_height");
+            .validatingDataType(that.chart_height,"chart_height",that.chart_width);
 
         if(that.stop) {
             return;
@@ -64,7 +64,7 @@ PykCharts.oneD.treemap = function (options){
             that.k.title()
                 .backgroundColor(that)
                 .export(that,"#"+container_id,"treemap")
-                .emptyDiv()
+                .emptyDiv(that.selector)
                 .subtitle();
         }
 
@@ -73,7 +73,7 @@ PykCharts.oneD.treemap = function (options){
         if(that.mode === "infographics"){
             that.k.backgroundColor(that)
                 .export(that,"#"+container_id,"treemap")
-                .emptyDiv();
+                .emptyDiv(that.selector);
             that.new_data = {"children" : that.data};
         }
 

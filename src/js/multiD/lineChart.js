@@ -270,14 +270,10 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
 
                 that.k.backgroundColor(that)
                     .export(that,"svg-","lineChart",that.panels_enable,that.new_data)
-                    .emptyDiv()
+                    .emptyDiv(options.selector)
                     .subtitle();
 
                 d3.select(that.selector).append("div")
-                        .style({
-                            "width": that.chart_width + "px",
-                            "height": that.chart_height + "px"
-                        })
                         .attr("id","panels_of_line_main_div")
 
                 that.k.liveData(that);
@@ -302,7 +298,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
             } else {
                 that.k.backgroundColor(that)
                     .export(that,"#svg-1","lineChart")
-                    .emptyDiv()
+                    .emptyDiv(options.selector)
                     .subtitle();
 
                 that.w = that.chart_width;
@@ -352,7 +348,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
 
                 that.k.backgroundColor(that)
                     .export(that,"#svg-","lineChart",that.panels_enable,that.new_data)
-                    .emptyDiv();
+                    .emptyDiv(options.selector);
 
                 that.w = that.chart_width/3;
                 that.chart_height = that.chart_height/2;
@@ -377,7 +373,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
 
                 that.k.backgroundColor(that)
                     .export(that,"#svg-0","lineChart")
-                    .emptyDiv();
+                    .emptyDiv(options.selector);
 
                 that.w = that.chart_width;
                 that.reducedWidth = that.w - that.margin_left - that.margin_right;
@@ -1291,6 +1287,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                         ];
                         return that.line(a);
                     })
+                    .attr("fill",that.annotation_background_color);
             }
             setTimeout(setTimeoutAnnotationPanelOfLine,that.transitions.duration());
             anno.exit().remove();
@@ -1328,11 +1325,15 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
             }
 
             if((i+1)%3 === 0 && i !== 0) {
-                that.k.emptyDiv();
+                if (that.mode === "default") {
+                    that.k.emptyDiv("#panels_of_line_main_div");
+                } else {
+                    that.k.emptyDiv(options.selector);
+                }
             }
         }
         that.k.exportSVG(that,"svg-","lineChart",that.panels_enable,that.new_data)
-        that.k.emptyDiv();      
+        that.k.emptyDiv(options.selector);      
     };
 
     that.renderLineChart = function () {

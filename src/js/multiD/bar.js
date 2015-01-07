@@ -73,7 +73,7 @@ PykCharts.multiD.bar = function (options) {
             that.k.title()
                 .backgroundColor(that)
                 .export(that,"#"+that.container_id,"barChart")
-                .emptyDiv()
+                .emptyDiv(options.selector)
                 .subtitle()
                 .makeMainDiv(that.selector,1);
 
@@ -107,7 +107,7 @@ PykCharts.multiD.bar = function (options) {
         } else if(that.mode === "infographics") {
             that.k.backgroundColor(that)
                 .export(that,"#"+that.container_id,"barChart")
-                .emptyDiv()
+                .emptyDiv(options.selector)
                 .makeMainDiv(that.selector,1);
 
             that.optionalFeatures()
@@ -407,7 +407,7 @@ PykCharts.multiD.bar = function (options) {
                         })
                         .text("");
 
-                    function setTimeOut () {
+                    function setTimeoutTicks () {
                         tick_label
                             .attr({
                                 "x" : function (d) { return that.xScale(d.x); },
@@ -419,7 +419,7 @@ PykCharts.multiD.bar = function (options) {
                                 return d.x; 
                             });
                     }
-                    setTimeout(setTimeOut ,that.transitions.duration());
+                    setTimeout(setTimeoutTicks ,that.transitions.duration());
 
                 }
                 return this;

@@ -6,7 +6,7 @@ PykCharts.oneD.bubble = function (options) {
         that.chart_height = options.chart_height ? options.chart_height : that.chart_width;
 
         that.k.validator()
-            .validatingDataType(that.chart_height,"chart_height",that.chart_width,"chart_height");
+            .validatingDataType(that.chart_height,"chart_height",that.chart_width);
 
         if(that.mode === "default") {
             that.k.loading();
@@ -27,7 +27,7 @@ PykCharts.oneD.bubble = function (options) {
             that.clubdata_enable = that.data.length>that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
             that.render();
         };
-        that.k.dataSourceFormatIdentification(options.data,that,"executeData")
+        that.k.dataSourceFormatIdentification(options.data,that,"executeData");
     };
 
     this.refresh = function () {
@@ -59,7 +59,7 @@ PykCharts.oneD.bubble = function (options) {
             that.k.title()
                 .backgroundColor(that)
                 .export(that,"#"+container_id,"bubble")
-                .emptyDiv()
+                .emptyDiv(options.selector)
                 .subtitle();
 
             that.new_data = that.optionalFeatures().clubData();
@@ -77,7 +77,7 @@ PykCharts.oneD.bubble = function (options) {
         else if (that.mode === "infographics") {
             that.k.backgroundColor(that)
                 .export(that,"#" + container_id,"bubble")
-                .emptyDiv();
+                .emptyDiv(options.selector);
 
             that.new_data = {"children" : that.data};
             that.optionalFeatures().svgContainer(container_id)

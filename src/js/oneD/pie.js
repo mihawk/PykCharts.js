@@ -12,11 +12,11 @@ PykCharts.oneD.pie = function (options) {
             that.chart_height = that.chart_width;
             that.calculation = "pie";
         }
-        that.radiusPercent = options.pie_radius_percent ? options.pie_radius_percent : theme.oneDimensionalCharts.pie_radius_percent;
+        that.pie_radius_percent = options.pie_radius_percent ? options.pie_radius_percent : theme.oneDimensionalCharts.pie_radius_percent;
 
         that.k.validator()
-            .validatingDataType(that.chart_height,"chart_height",that.chart_width,"chart_height")
-            .validatingDataType(that.radiusPercent,"pie_radius_percent",theme.oneDimensionalCharts.pie_radius_percent,"radiusPercent");
+            .validatingDataType(that.chart_height,"chart_height",that.chart_width)
+            .validatingDataType(that.pie_radius_percent,"pie_radius_percent",theme.oneDimensionalCharts.pie_radius_percent);
 
         if(that.stop) {
             return;
@@ -25,8 +25,8 @@ PykCharts.oneD.pie = function (options) {
         that.innerRadiusPercent = 0;
         that.height_translate = that.chart_height/2;
 
-        if(that.radiusPercent > 100) {
-            that.radiusPercent = 100;
+        if(that.pie_radius_percent > 100) {
+            that.pie_radius_percent = 100;
         }
 
         if(that.mode === "default") {
@@ -69,20 +69,20 @@ PykCharts.oneD.donut = function (options) {
             that.calculation = "pie";
         }
 
-        that.radiusPercent = options.donut_radius_percent  ? options.donut_radius_percent : theme.oneDimensionalCharts.donut_radius_percent;
+        that.pie_radius_percent = options.donut_radius_percent  ? options.donut_radius_percent : theme.oneDimensionalCharts.donut_radius_percent;
         that.innerRadiusPercent = options.donut_inner_radius_percent  ? options.donut_inner_radius_percent : theme.oneDimensionalCharts.donut_inner_radius_percent;
 
         that.k.validator()
-            .validatingDataType(that.chart_height,"chart_height",that.chart_width,"chart_height")
-            .validatingDataType(that.radiusPercent,"donut_radius_percent",theme.oneDimensionalCharts.donut_radius_percent,"radiusPercent")
-            .validatingDataType(that.innerRadiusPercent,"donut_inner_radius_percent",theme.oneDimensionalCharts.donut_inner_radius_percent,"innerRadiusPercent")
+            .validatingDataType(that.chart_height,"chart_height",that.chart_width)
+            .validatingDataType(that.pie_radius_percent,"donut_radius_percent",theme.oneDimensionalCharts.donut_radius_percent)
+            .validatingDataType(that.innerRadiusPercent,"donut_inner_radius_percent",theme.oneDimensionalCharts.donut_inner_radius_percent)
 
         if(that.stop) {
             return;
         }
 
-        if(that.radiusPercent > 100) {
-            that.radiusPercent = 100;
+        if(that.pie_radius_percent > 100) {
+            that.pie_radius_percent = 100;
         }
 
         if(that.innerRadiusPercent > 100) {
@@ -90,7 +90,7 @@ PykCharts.oneD.donut = function (options) {
         }
 
         try {
-            if(that.innerRadiusPercent >= that.radiusPercent) {
+            if(that.innerRadiusPercent >= that.pie_radius_percent) {
                 that.innerRadiusPercent = theme.oneDimensionalCharts.donut_inner_radius_percent;
                 throw "donut_inner_radius_percent";
             }
@@ -164,11 +164,11 @@ PykCharts.oneD.electionPie = function (options) {
             that.height_translate = that.chart_height;
         }
 
-        that.radiusPercent = options.pie_radius_percent ? options.pie_radius_percent : theme.oneDimensionalCharts.pie_radius_percent;
+        that.pie_radius_percent = options.pie_radius_percent ? options.pie_radius_percent : theme.oneDimensionalCharts.pie_radius_percent;
 
         try {
-            if(isNaN(that.radiusPercent)) {
-                that.radiusPercent = theme.oneDimensionalCharts.pie_radius_percent;
+            if(isNaN(that.pie_radius_percent)) {
+                that.pie_radius_percent = theme.oneDimensionalCharts.pie_radius_percent;
                 throw "pie_radius_percent"
             }
         }
@@ -181,8 +181,8 @@ PykCharts.oneD.electionPie = function (options) {
             return;
         }
 
-        if(that.radiusPercent > 100) {
-            that.radiusPercent = 100;
+        if(that.pie_radius_percent > 100) {
+            that.pie_radius_percent = 100;
         }
         if(that.mode === "default") {
            that.k.loading();
@@ -244,18 +244,18 @@ PykCharts.oneD.electionDonut = function (options) {
             that.height_translate = that.chart_height;
         }
 
-        that.radiusPercent = options.donut_radius_percent ? options.donut_radius_percent : theme.oneDimensionalCharts.donut_radius_percent;
+        that.pie_radius_percent = options.donut_radius_percent ? options.donut_radius_percent : theme.oneDimensionalCharts.donut_radius_percent;
         that.innerRadiusPercent = options.donut_inner_radius_percent  && options.donut_inner_radius_percent ? options.donut_inner_radius_percent : theme.oneDimensionalCharts.donut_inner_radius_percent;
 
-        that.k.validator().validatingDataType(that.radiusPercent,"donut_radius_percent",theme.oneDimensionalCharts.donut_radius_percent,"radiusPercent")
-            .validatingDataType(that.innerRadiusPercent,"donut_inner_radius_percent",theme.oneDimensionalCharts.donut_inner_radius_percent,"innerRadiusPercent");
+        that.k.validator().validatingDataType(that.pie_radius_percent,"donut_radius_percent",theme.oneDimensionalCharts.donut_radius_percent)
+            .validatingDataType(that.innerRadiusPercent,"donut_inner_radius_percent",theme.oneDimensionalCharts.donut_inner_radius_percent);
 
         if(that.stop) {
             return;
         }
 
-        if(that.radiusPercent > 100) {
-            that.radiusPercent = 100;
+        if(that.pie_radius_percent > 100) {
+            that.pie_radius_percent = 100;
         }
 
         if(that.innerRadiusPercent > 100) {
@@ -263,7 +263,7 @@ PykCharts.oneD.electionDonut = function (options) {
         }
 
         try {
-            if(that.innerRadiusPercent >= that.radiusPercent) {
+            if(that.innerRadiusPercent >= that.pie_radius_percent) {
                 that.innerRadiusPercent = theme.oneDimensionalCharts.donut_inner_radius_percent;
                 throw "donut_inner_radius_percent";
             }
@@ -339,7 +339,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
             that.k.title()
                 .backgroundColor(that)
                 .export(that,"#"+container_id,type)
-                .emptyDiv()
+                .emptyDiv(that.selector)
                 .subtitle();
 
             that.optionalFeatures().svgContainer(container_id);
@@ -365,7 +365,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
             that.new_data = that.data;
             that.k.backgroundColor(that)
                 .export(that,"#"+container_id,type)
-                    .emptyDiv();
+                    .emptyDiv(that.selector);
             that.optionalFeatures().svgContainer(container_id)
                     .set_start_end_angle()
                     .createChart()
@@ -467,7 +467,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                     that.sum+=that.data[i].weight;
                 }
                 that.inner_radius = that.k.__proto__._radiusCalculation(that.innerRadiusPercent,that.calculation);
-                that.outer_radius = that.k.__proto__._radiusCalculation(that.radiusPercent,that.calculation);
+                that.outer_radius = that.k.__proto__._radiusCalculation(that.pie_radius_percent,that.calculation);
 
                 that.arc = d3.svg.arc()
                     .innerRadius(that.inner_radius)

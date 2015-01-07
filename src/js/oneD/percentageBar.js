@@ -10,7 +10,7 @@ PykCharts.oneD.percentageBar = function (options) {
         that.percent_row_rect_height = options.percent_row_rect_height ? options.percent_row_rect_height : theme.oneDimensionalCharts.percent_row_rect_height;
 
         that.k.validator()
-            .validatingDataType(that.chart_height,"chart_height",that.chart_width/2,"chart_height")
+            .validatingDataType(that.chart_height,"chart_height",that.chart_width/2)
             .validatingDataType(that.percent_row_rect_height,"percent_row_rect_height",theme.oneDimensionalCharts.percent_row_rect_height);
 
         if(that.stop) {
@@ -77,12 +77,12 @@ PykCharts.oneD.percentageBar = function (options) {
             that.k.title()
                     .backgroundColor(that)
                     .export(that,"#"+container_id,"percentageBar")
-                    .emptyDiv()
+                    .emptyDiv(that.selector)
                     .subtitle();
         }
         if(that.mode === "infographics") {
             that.k.backgroundColor(that)
-            .export(that,"#"+container_id,"percentageBar").emptyDiv();
+            .export(that,"#"+container_id,"percentageBar").emptyDiv(that.selector);
             that.new_data = that.data;
         }
 

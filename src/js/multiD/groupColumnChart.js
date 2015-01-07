@@ -137,7 +137,7 @@ PykCharts.multiD.groupedColumn = function(options) {
             that.k.title()
                 .backgroundColor(that)
                 .export(that,"#"+that.container_id,"groupColumnChart")
-                .emptyDiv()
+                .emptyDiv(options.selector)
                 .subtitle()
                 .makeMainDiv(that.selector,1);
 
@@ -175,7 +175,7 @@ PykCharts.multiD.groupedColumn = function(options) {
         } else if(that.mode === "infographics") {
             that.k.backgroundColor(that)
                 .export(that,"#"+that.container_id,"groupColumnChart")
-                .emptyDiv()
+                .emptyDiv(options.selector)
                 .makeMainDiv(that.selector,1);
 
             that.optionalFeatures().svgContainer(1)
@@ -590,7 +590,7 @@ PykCharts.multiD.groupedColumn = function(options) {
             highlightRect : function () {
                 if(that.flag) {
 
-                    function setTimeOut() {
+                    function setTimeoutHighlight() {
                         x = that.highlight_x_positions - 5;                    
                     
                         var highlight_rect = that.group.selectAll(".highlight-rect")
@@ -619,7 +619,7 @@ PykCharts.multiD.groupedColumn = function(options) {
                             highlight_rect.remove()
                         }
                     }
-                    setTimeout(setTimeOut, that.transitions.duration());
+                    setTimeout(setTimeoutHighlight, that.transitions.duration());
                 }
                 return this;
             },

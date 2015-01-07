@@ -242,7 +242,7 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 					.backgroundColor(that)
 					.export(that,"#svg-1","areaChart")
 					.liveData(that)
-					.emptyDiv()
+					.emptyDiv(options.selector)
 					.subtitle()
 					.makeMainDiv(that.selector,1)
 					.tooltip(true,that.selector,1);
@@ -268,7 +268,7 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 			  that.k/*.liveData(that)*/
 			  			.backgroundColor(that)
 			  			.export(that,"#svg-1","areaChart")
-			  			.emptyDiv()
+			  			.emptyDiv(options.selector)
 						.makeMainDiv(that.selector,1);
 
 			  that.optional_feaure()

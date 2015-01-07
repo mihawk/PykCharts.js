@@ -260,14 +260,10 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
                 that.k.title()
                     .backgroundColor(that)
                     .export(that,"svgcontainer",type,that.panels_enable,that.uniq_group_arr)
-                    .emptyDiv()
+                    .emptyDiv(options.selector)
                     .subtitle();
 
                 d3.select(that.selector).append("div")
-                    .style({
-                        "width": that.chart_width + "px",
-                        "height": that.chart_height + "px"
-                    })
                     .attr("id","panels_of_scatter_main_div");
 
                 console.log("hey")
@@ -282,7 +278,7 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
                 that.k.title()
                     .backgroundColor(that)
                     .export(that,"#svgcontainer0",type)
-                    .emptyDiv()
+                    .emptyDiv(options.selector)
                     .subtitle();
 
                 that.w = that.chart_width;
@@ -325,7 +321,7 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
             if(PykCharts['boolean'](that.panels_enable) && type === "scatterplot") {
                 that.k.backgroundColor(that)
                     .export(that,"svgcontainer",type,that.panels_enable,that.uniq_group_arr)
-                    .emptyDiv();
+                    .emptyDiv(options.selector);
 
                 that.no_of_groups = that.uniq_group_arr.length;
                 that.w = that.chart_width/4;
@@ -364,16 +360,16 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
                         .yAxisTitle(that.yGroup);
 
                     if((i+1)%4 === 0 && i !== 0) {
-                        that.k.emptyDiv();
+                        that.k.emptyDiv(options.selector);
                     }
                 }
                 that.k.exportSVG(that,"svgcontainer",type,that.panels_enable,that.uniq_group_arr)
-                that.k.emptyDiv();
+                that.k.emptyDiv(options.selector);
             } else {
 
                 that.k.backgroundColor(that)
                     .export(that,"#svgcontainer0",type)
-                    .emptyDiv();
+                    .emptyDiv(options.selector);
 
                 that.w = that.chart_width;
                 that.new_data = that.data;
@@ -693,10 +689,10 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
                         "font-size": that.label_size + "px"
                     })
                     .text("");
-
-                setTimeout(function () {
+                function setTimeoutTicks() {
                     tick_label.text(function (d) {return d.name; });
-                },that.transitions.duration());
+                }
+                setTimeout(setTimeoutTicks,that.transitions.duration());
 
                     tick_label.exit().remove();
                 }
@@ -928,9 +924,7 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
                     that.new_data.push(that.data[j]);
                 }
             }
-
             that.k.makeMainDiv((that.selector + " #panels_of_scatter_main_div"),i);
-
             that.optionalFeatures()
                 .svgContainer(i)
                 .legendsContainer(i);
@@ -948,7 +942,7 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
                 .ticks();
 
             if((i+1)%4 === 0 && i !== 0) {
-                that.k.emptyDiv();
+                that.k.emptyDiv("#panels_of_scatter_main_div");
             }
             that.k.xAxis(that.svgContainer,that.xGroup,that.x,that.extra_left_margin,that.xdomain,that.x_tick_values,that.legendsGroup_height)
                 .yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain,that.y_tick_values,that.legendsGroup_width)
@@ -956,8 +950,7 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
                 .yAxisTitle(that.yGroup);
 
         }
-        // console.log(that.data)
         that.k.exportSVG(that,"svgcontainer",type,that.panels_enable,that.uniq_group_arr);
-        that.k.emptyDiv();
+        that.k.emptyDiv(options.selector);
     };
 };
