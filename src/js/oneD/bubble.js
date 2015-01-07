@@ -3,10 +3,10 @@ PykCharts.oneD.bubble = function (options) {
     var theme = new PykCharts.Configuration.Theme({});
     this.execute = function () {
         that = PykCharts.oneD.processInputs(that, options);
-        that.height = options.chart_height ? options.chart_height : that.width;
+        that.chart_height = options.chart_height ? options.chart_height : that.chart_width;
 
         that.k.validator()
-            .validatingDataType(that.height,"chart_height",that.width,"height");
+            .validatingDataType(that.chart_height,"chart_height",that.chart_width,"chart_height");
 
         if(that.mode === "default") {
             that.k.loading();
@@ -104,9 +104,9 @@ PykCharts.oneD.bubble = function (options) {
                         "class": "svgcontainer PykCharts-oneD",
                         "id": container_id,
                         "preserveAspectRatio": "xMinYMin",
-                        "viewBox": "0 0 " + that.width + " " + that.height,
-                        "width": that.width,
-                        "height": that.height
+                        "viewBox": "0 0 " + that.chart_width + " " + that.chart_height,
+                        "width": that.chart_width,
+                        "height": that.chart_height
                     });
                 that.group = that.svgContainer.append("g")
                     .attr("id","bubgrp");
@@ -116,7 +116,7 @@ PykCharts.oneD.bubble = function (options) {
 
                 that.bubble = d3.layout.pack()
                     .sort(function (a,b) { return b.weight - a.weight; })
-                    .size([that.width, that.height])
+                    .size([that.chart_width, that.chart_height])
                     .value(function (d) { return d.weight; })
                     .padding(20);
 
@@ -154,28 +154,29 @@ PykCharts.oneD.bubble = function (options) {
                             return d3.select(this).attr("fill-opacity");
                         }
                     })
-                    .on("mouseover", function (d) {
-                        if(!d.children && that.mode==="default") {
-                            if(PykCharts['boolean'](that.onhover_enable)) {
-                                that.mouseEvent.highlight(options.selector+" "+".bubble", this);
+                    .on({
+                        "mouseover": function (d) {
+                            if(!d.children && that.mode==="default") {
+                                if(PykCharts['boolean'](that.chart_onhover_highlight_enable)) {
+                                    that.mouseEvent.highlight(options.selector+" "+".bubble", this);
+                                }
+                                d.tooltip = d.tooltip ||"<table><thead><th colspan='2' class='tooltip-heading'>"+d.name+"</th></thead><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.weight)+"  <td class='tooltip-right-content'>("+((d.weight*100)/that.sum).toFixed(1)+"%)</tr></table>";
+                                that.mouseEvent.tooltipPosition(d);
+                                that.mouseEvent.tooltipTextShow(d.tooltip);
                             }
-                            d.tooltip = d.tooltip ||"<table><thead><th colspan='2' class='tooltip-heading'>"+d.name+"</th></thead><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.weight)+"  <td class='tooltip-right-content'>("+((d.weight*100)/that.sum).toFixed(1)+"%)</tr></table>";
-                            that.mouseEvent.tooltipPosition(d);
-                            that.mouseEvent.tooltipTextShow(d.tooltip);
-                        }
-                    })
-                    .on("mouseout", function (d) {
-                        if(that.mode==="default") {
-                            that.mouseEvent.tooltipHide(d)
-                            if(PykCharts['boolean'](that.onhover_enable)) {
-                                that.mouseEvent.highlightHide(options.selector+" "+".bubble");
+                        },
+                        "mouseout": function (d) {
+                            if(that.mode==="default") {
+                                that.mouseEvent.tooltipHide(d)
+                                if(PykCharts['boolean'](that.chart_onhover_highlight_enable)) {
+                                    that.mouseEvent.highlightHide(options.selector+" "+".bubble");
+                                }
                             }
-                        }
-
-                    })
-                    .on("mousemove", function (d) {
-                        if(!d.children && that.mode==="default") {
-                            that.mouseEvent.tooltipPosition(d);
+                        },
+                        "mousemove": function (d) {
+                            if(!d.children && that.mode==="default") {
+                                that.mouseEvent.tooltipPosition(d);
+                            }
                         }
                     })
                     .transition()

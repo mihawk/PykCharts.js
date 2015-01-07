@@ -268,7 +268,7 @@ PykCharts.multiD.bubbleSizeCalculation = function (options,data,rad_range) {
                         .range(rad_range);
             return z(d);
         } else {
-            return options.bubbleRadius;
+            return options.scatterplot_radius;
         }
     };
     return size;
@@ -294,17 +294,17 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
         multiDimensionalCharts = theme.multiDimensionalCharts;
 
     chartObject.selector = options.selector ? options.selector : "body";
-    chartObject.width = options.chart_width ? options.chart_width : stylesheet.chart_width;
-    chartObject.height = options.chart_height ? options.chart_height : stylesheet.chart_height;
+    chartObject.chart_width = options.chart_width ? options.chart_width : stylesheet.chart_width;
+    chartObject.chart_height = options.chart_height ? options.chart_height : stylesheet.chart_height;
 
     chartObject.margin_left = options.chart_margin_left  ? options.chart_margin_left : stylesheet.chart_margin_left;
     chartObject.margin_right = options.chart_margin_right  ? options.chart_margin_right : stylesheet.chart_margin_right;
     chartObject.margin_top = options.chart_margin_top  ? options.chart_margin_top : stylesheet.chart_margin_top;
     chartObject.margin_bottom = options.chart_margin_bottom  ? options.chart_margin_bottom : stylesheet.chart_margin_bottom;
 
-    chartObject.grid_x_enable = options.chart_grid_x_enable ? options.chart_grid_x_enable.toLowerCase() : multiDimensionalCharts.chart_grid_x_enable;
-    chartObject.grid_y_enable = options.chart_grid_y_enable ? options.chart_grid_y_enable.toLowerCase() : multiDimensionalCharts.chart_grid_y_enable;
-    chartObject.grid_color = options.chart_grid_color ? options.chart_grid_color : multiDimensionalCharts.chart_grid_color;
+    chartObject.chart_grid_x_enable = options.chart_grid_x_enable ? options.chart_grid_x_enable.toLowerCase() : multiDimensionalCharts.chart_grid_x_enable;
+    chartObject.chart_grid_y_enable = options.chart_grid_y_enable ? options.chart_grid_y_enable.toLowerCase() : multiDimensionalCharts.chart_grid_y_enable;
+    chartObject.chart_grid_color = options.chart_grid_color ? options.chart_grid_color : multiDimensionalCharts.chart_grid_color;
     chartObject.mode = options.mode ? options.mode.toLowerCase() : "default";
     chartObject.color_mode = options.color_mode ? options.color_mode.toLowerCase() : stylesheet.color_mode;
 
@@ -341,10 +341,7 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     chartObject.axis_x_position = PykCharts['boolean'](chartObject.axis_x_enable) && options.axis_x_position ? options.axis_x_position.toLowerCase() : stylesheet.axis_x_position;
     chartObject.axis_x_line_color = PykCharts['boolean'](chartObject.axis_x_enable) && options.axis_x_line_color ? options.axis_x_line_color : stylesheet.axis_x_line_color;
 
-    chartObject.onhover_enable = options.chart_onhover_highlight_enable ? options.chart_onhover_highlight_enable : stylesheet.chart_onhover_highlight_enable;
-
-    chartObject.axis_x_no_of_axis_value = PykCharts.boolean(chartObject.axis_x_enable) && options.axis_x_no_of_axis_value ? options.axis_x_no_of_axis_value : stylesheet.axis_x_no_of_axis_value;
-    chartObject.axis_x_pointer_padding = PykCharts.boolean(chartObject.axis_x_enable) && options.axis_x_pointer_padding ? options.axis_x_pointer_padding : stylesheet.axis_x_pointer_padding;
+    chartObject.chart_onhover_highlight_enable = options.chart_onhover_highlight_enable ? options.chart_onhover_highlight_enable : stylesheet.chart_onhover_highlight_enable;
 
     chartObject.axis_x_no_of_axis_value = PykCharts['boolean'](chartObject.axis_x_enable) && options.axis_x_no_of_axis_value ? options.axis_x_no_of_axis_value : stylesheet.axis_x_no_of_axis_value;
     chartObject.axis_x_pointer_padding = PykCharts['boolean'](chartObject.axis_x_enable) && options.axis_x_pointer_padding ? options.axis_x_pointer_padding : stylesheet.axis_x_pointer_padding;
@@ -469,8 +466,8 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
                 .validatingAxisDataFormat(options.axis_x_data_format,"axis_x_data_format",stylesheet.axis_x_data_format)
                 .validatingAxisDataFormat(options.axis_y_data_format,"axis_y_data_format",multiDimensionalCharts.axis_x_data_format)
                 .validatingChartMode(chartObject.mode,"mode",stylesheet.mode)
-                .validatingDataType(chartObject.width,"chart_width",stylesheet.chart_width,"width")
-                .validatingDataType(chartObject.height,"chart_height",stylesheet.chart_height,"height")
+                .validatingDataType(chartObject.chart_width,"chart_width",stylesheet.chart_width,"chart_width")
+                .validatingDataType(chartObject.chart_height,"chart_height",stylesheet.chart_height,"chart_height")
                 .validatingDataType(chartObject.margin_left,"chart_margin_left",stylesheet.chart_margin_left,"margin_left")
                 .validatingDataType(chartObject.margin_right,"chart_margin_right",stylesheet.chart_margin_right,"margin_right")
                 .validatingDataType(chartObject.margin_top,"chart_margin_top",stylesheet.chart_margin_top,"margin_top")
@@ -517,7 +514,7 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
                 .validatingFontWeight(chartObject.axis_x_title_weight,"axis_x_title_weight",stylesheet.axis_x_title_weight)
                 .validatingFontWeight(chartObject.axis_y_title_weight,"axis_y_title_weight",multiDimensionalCharts.axis_y_title_weight)
                 .validatingColor(chartObject.background_color,"background_color",stylesheet.background_color)
-                .validatingColor(chartObject.grid_color,"chart_grid_color",multiDimensionalCharts.chart_grid_color)
+                .validatingColor(chartObject.chart_grid_color,"chart_grid_color",multiDimensionalCharts.chart_grid_color)
                 .validatingColor(chartObject.title_color,"title_color",stylesheet.title_color)
                 .validatingColor(chartObject.subtitle_color,"subtitle_color",stylesheet.subtitle_color)
                 .validatingColor(chartObject.axis_x_line_color,"axis_x_line_color",stylesheet.axis_x_line_color)
@@ -536,7 +533,7 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
                 .validatingColor(chartObject.annotation_font_color,"annotation_font_color",multiDimensionalCharts.annotation_font_color)
                 .validatingColor(chartObject.legends_text_color,"legends_text_color",stylesheet.legends_text_color);
 
-        if($.isArray(chartObject.chart_color)) {
+        if(chartObject.chart_color.constructor === Array) {
             for(var i = 0;i < chartObject.chart_color.length;i++) {
                 if(chartObject.chart_color[i]) {
                     chartObject.k.validator()

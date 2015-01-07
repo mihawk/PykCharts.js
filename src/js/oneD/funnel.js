@@ -3,13 +3,13 @@ PykCharts.oneD.funnel = function (options) {
     var theme = new PykCharts.Configuration.Theme({});
     this.execute = function () {
         that = new PykCharts.oneD.processInputs(that, options);
-        that.height = options.chart_height ? options.chart_height : that.width;
+        that.chart_height = options.chart_height ? options.chart_height : that.chart_width;
         var optional = options.optional
         , functionality = theme.oneDimensionalCharts;
         that.rect_width =  options.funnel_rect_width   ? options.funnel_rect_width : functionality.funnel_rect_width;
         that.rect_height = options.funnel_rect_height  ? options.funnel_rect_height : functionality.funnel_rect_height;
         that.k.validator()
-            .validatingDataType(that.height,"chart_height",that.width,"height")
+            .validatingDataType(that.chart_height,"chart_height",that.chart_width,"chart_height")
             .validatingDataType(that.rect_width,"funnel_rect_width",functionality.funnel_rect_width,"rect_width")
             .validatingDataType(that.rect_height,"funnel_rect_height",functionality.funnel_rect_height,"rect_height");
 
@@ -222,10 +222,10 @@ PykCharts.oneD.funnel = function (options) {
             svgContainer :function (container_id) {
                 that.svgContainer = d3.select(options.selector)
                     .append('svg')
-                    .attr("width",that.width + "px") //+100 removed
-                    .attr("height",that.height + "px")
+                    .attr("width",that.chart_width + "px") //+100 removed
+                    .attr("height",that.chart_height + "px")
                     .attr("preserveAspectRatio", "xMinYMin")
-                    .attr("viewBox", "0 0 " + that.width + " " + that.height)
+                    .attr("viewBox", "0 0 " + that.chart_width + " " + that.chart_height)
                     .attr("id",container_id)
                     .attr("class","svgcontainer PykCharts-oneD");
 
@@ -243,7 +243,7 @@ PykCharts.oneD.funnel = function (options) {
                 that.per_values = that.percentageValues(that.new_data);
                 that.funnel = that.funnelLayout()
                                 .data(that.new_data)
-                                .size([that.width,that.height])
+                                .size([that.chart_width,that.chart_height])
                                 .mouth([that.rect_width,that.rect_height]);
 
                 that.coordinates = that.funnel.coordinates();
@@ -254,7 +254,7 @@ PykCharts.oneD.funnel = function (options) {
 
                 that.chart_data = that.group.selectAll('.fun-path')
                                 .data(that.coordinates);
-                var a = [{x:0,y:0},{x:that.width,y:0},{x:0,y:0},{x:that.width,y:0},{x:0,y:0},{x:that.width,y:0}];
+                var a = [{x:0,y:0},{x:that.chart_width,y:0},{x:0,y:0},{x:that.chart_width,y:0},{x:0,y:0},{x:that.chart_width,y:0}];
                 that.chart_data.enter()
                     .append('path')
                     .attr("class", "fun-path")
@@ -276,7 +276,7 @@ PykCharts.oneD.funnel = function (options) {
                     })
                     .on("mouseover", function (d,i) {
                         if(that.mode === "default") {
-                            if(PykCharts['boolean'](that.onhover_enable)) {
+                            if(PykCharts['boolean'](that.chart_onhover_highlight_enable)) {
                                 that.mouseEvent.highlight(options.selector +" "+".fun-path",this);
                             }
                             tooltip = that.data[i].tooltip || "<table class='PykCharts'><tr><th colspan='3' class='tooltip-heading'>"+that.new_data[i].name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(that.new_data[i].weight)+"<td class='tooltip-right-content'>("+that.per_values[i].toFixed(1)+"%) </tr></table>";
@@ -286,7 +286,7 @@ PykCharts.oneD.funnel = function (options) {
                     })
                     .on("mouseout", function (d) {
                         if(that.mode === "default") {
-                            if(PykCharts['boolean'](that.onhover_enable)) {
+                            if(PykCharts['boolean'](that.chart_onhover_highlight_enable)) {
                                 that.mouseEvent.highlightHide(options.selector +" "+".fun-path");
                             }
                             that.mouseEvent.tooltipHide(d);
@@ -320,7 +320,7 @@ PykCharts.oneD.funnel = function (options) {
                                 return (((d.values[0].y-d.values[2].y)/2)+d.values[2].y) + 5;
                             }
                         })
-                        .attr("x", function (d,i) { return that.width/2;})
+                        .attr("x", function (d,i) { return that.chart_width/2;})
 
                     that.chart_text.text("");
 

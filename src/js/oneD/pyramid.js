@@ -4,10 +4,9 @@ PykCharts.oneD.pyramid = function (options) {
 
 	this.execute = function () {
         that = new PykCharts.oneD.processInputs(that, options, "pyramid");
-        that.height = options.chart_height ? options.chart_height : that.width;
-
+        that.chart_height = options.chart_height ? options.chart_height : that.chart_width;
         that.k.validator()
-            .validatingDataType(that.height,"chart_height",that.width,"height");
+            .validatingDataType(that.chart_height,"chart_height",that.chart_width,"chart_height");
             
         if(that.stop) {
             return;
@@ -186,12 +185,14 @@ PykCharts.oneD.pyramid = function (options) {
 
                 that.svgContainer = d3.select(options.selector)
                     .append('svg')
-                    .attr("width", that.width) //+200 removed
-                    .attr("height",that.height)
-                    .attr("preserveAspectRatio", "xMinYMin")
-                    .attr("viewBox", "0 0 " + that.width + " " + that.height)
-                    .attr("id",container_id)
-                    .attr("class","svgcontainer PykCharts-oneD");
+                    .attr({
+                        "width": that.chart_width,
+                        "height": that.chart_height,
+                        "preserveAspectRatio": "xMinYMin",
+                        "viewBox": "0 0 " + that.chart_width + " " + that.chart_height,
+                        "id": container_id,
+                        "class": "svgcontainer PykCharts-oneD"
+                    });
 
                 that.group = that.svgContainer.append("g")
                     .attr("id","pyrgrp");
@@ -202,7 +203,7 @@ PykCharts.oneD.pyramid = function (options) {
                 var border = new PykCharts.Configuration.border(that);
         		that.pyramid = that.pyramidLayout()
                     .data(that.new_data)
-                    .size([that.width,that.height]);
+                    .size([that.chart_width,that.chart_height]);
 		        that.coordinates = that.pyramid.coordinates();
                 that.coordinates[0].values[1] = that.coordinates[that.coordinates.length-1].values[1];
                 that.coordinates[0].values[2] = that.coordinates[that.coordinates.length-1].values[2];
@@ -220,7 +221,7 @@ PykCharts.oneD.pyramid = function (options) {
                     .x(function(d,i) { return d.x; })
                     .y(function(d,i) { return d.y; });
 
-                var a = [{x:0,y:that.height},{x:that.width,y:that.height},{x:0,y:that.height},{x:that.width,y:that.height},{x:0,y:that.height},{x:that.width,y:that.height}]
+                var a = [{x:0,y:that.chart_height},{x:that.chart_width,y:that.chart_height},{x:0,y:that.chart_height},{x:that.chart_width,y:that.chart_height},{x:0,y:that.chart_height},{x:that.chart_width,y:that.chart_height}]
                 var k =that.new_data.length;
 
                 that.chart_data =that.group.selectAll('.pyr-path')
@@ -228,12 +229,13 @@ PykCharts.oneD.pyramid = function (options) {
                 that.chart_data.enter()
                     .append('path')
 
-                that.chart_data.attr("class","pyr-path")
-                    .attr('d',function(d) {return line(a);})
-                    .attr("stroke",border.color())
-                    .attr("stroke-width",border.width())
-                    .attr("stroke-dasharray",border.style())
-                   	.attr("fill",function (d,i) {
+                that.chart_data.attr({
+                    "class": "pyr-path",
+                    'd': function(d) {return line(a);},
+                    "stroke": border.color(),
+                    "stroke-width": border.width(),
+                    "stroke-dasharray": border.style(),
+                    "fill": function (d,i) {
                         if(i===0) {
                             b = that.new_data[i];
                         }
@@ -242,36 +244,39 @@ PykCharts.oneD.pyramid = function (options) {
                             b = that.new_data[k];
                         }
                         return that.fillChart.selectColor(b);
-                    })
-                    .attr("fill-opacity",1)
-                    .attr("data-fill-opacity",function () {
-                        return d3.select(this).attr("fill-opacity");
-                    })
-        			.on("mouseover", function (d,i) {
+                    },
+                    "fill-opacity": 1,
+                    "data-fill-opacity": function () {
+                        return $(this).attr("fill-opacity");
+                    }
+                })
+                .on({
+                    "mouseover": function (d,i) {
                         if(that.mode === "default") {
-                            if(PykCharts['boolean'](that.onhover_enable)) {
+                            if(PykCharts['boolean'](that.chart_onhover_highlight_enable)) {
                                 that.mouseEvent.highlight(options.selector +" "+".pyr-path",this);
                             }
                             that.mouseEvent.tooltipPosition(d);
                             that.mouseEvent.tooltipTextShow(tooltipArray[i]);
                         }
-        			})
-        			.on("mouseout", function (d) {
+                    },
+                    "mouseout": function (d) {
                         if(that.mode === "default") {
-                            if(PykCharts['boolean'](that.onhover_enable)) {
+                            if(PykCharts['boolean'](that.chart_onhover_highlight_enable)) {
                                 that.mouseEvent.highlightHide(options.selector +" "+".pyr-path")
-                			}
+                            }
                             that.mouseEvent.tooltipHide(d);
                         }
-        			})
-        			.on("mousemove", function (d,i) {
+                    },
+                    "mousemove": function (d,i) {
                         if(that.mode === "default") {
                             that.mouseEvent.tooltipPosition(d);
                         }
-        			})
-                    .transition()
-                    .duration(that.transitions.duration())
-                    .attr('d',function (d){ return line(d.values); });
+                    }
+                })
+                .transition()
+                .duration(that.transitions.duration())
+                .attr('d',function (d){ return line(d.values); });
 
                 that.chart_data.exit().remove();
 
@@ -286,22 +291,25 @@ PykCharts.oneD.pyramid = function (options) {
                     that.chart_text.enter()
                         .append("text")
 
-                    that.chart_text.attr("y",function (d,i) {
+                    that.chart_text.attr({
+                        "text-anchor": "middle",
+                        "pointer-events": "none",
+                        "fill": that.label_color,
+                        "y": function (d,i) {
                             if(d.values.length === 4) {
                                 return (((d.values[0].y-d.values[1].y)/2)+d.values[1].y) +2;
                             } else {
                                 return (d.values[0].y + that.coordinates[that.coordinates.length-1].values[1].y)/2 + 10;
                             }
-                        })
-                        .attr("x", function (d,i) { return that.width/2;})
-                        .text("")
-                        .attr("text-anchor","middle")
-                        .attr("pointer-events","none")
-                        .style("font-weight", that.label_weight)
-                        .style("font-size", that.label_size + "px")
-                        .attr("fill", that.label_color)
-                        .style("font-family", that.label_family);
-
+                        },
+                        "x": function (d,i) { return that.chart_width/2;}
+                    })
+                    .text("")
+                    .style({
+                        "font-weight": that.label_weight,
+                        "font-size": that.label_size + "px",
+                        "font-family": that.label_family
+                    });
 
                     setTimeout(function () {
                         that.chart_text.text(function (d,i) {
@@ -345,9 +353,11 @@ PykCharts.oneD.pyramid = function (options) {
 
                 tick_label.enter()
                     .append("text")
-                    .attr("x",0)
-                    .attr("y",0)
-                    .attr("class","ticks_label");
+                    .attr({
+                        "x": 0,
+                        "y": 0,
+                        "class": "ticks_label"
+                    });
 
                 var x,y,w = [];
                 that.ticks_text_width = [];
@@ -359,17 +369,16 @@ PykCharts.oneD.pyramid = function (options) {
                     } else {
                         x = ((d.values[2].x + d.values[3].x)/2 ) + 30;
                     }
-                     if(d.values.length === 4) {
-                            y= (((d.values[0].y-d.values[1].y)/2)+d.values[1].y) +2;
-                        } else {
-                            y =(d.values[0].y + that.coordinates[that.coordinates.length-1].values[1].y)/2;
-                        }
+                    if(d.values.length === 4) {
+                        y= (((d.values[0].y-d.values[1].y)/2)+d.values[1].y) +2;
+                    } else {
+                        y =(d.values[0].y + that.coordinates[that.coordinates.length-1].values[1].y)/2;
+                    }
 
                     return "translate(" + x + "," + (y + 5) + ")";
                 });
 
-                tick_label
-                .text("")
+                tick_label.text("");
 
                 setTimeout(function() {
                     tick_label.text(function (d,i) {
@@ -403,53 +412,57 @@ PykCharts.oneD.pyramid = function (options) {
                                 }
                             }
                     })
-                    .style("fill",that.pointer_color)
-                    .style("font-size",that.pointer_size + "px")
-                    .style("font-family", that.pointer_family)
-                    .style("font-weight",that.pointer_weight)
+                    .style({
+                        "fill": that.pointer_color,
+                        "font-size": that.pointer_size + "px",
+                        "font-family": that.pointer_family,
+                        "font-weight": that.pointer_weight
+                    })
                     .attr("text-anchor","start");
 
                 },that.transitions.duration());
 
                 tick_label.exit().remove();
                 var tick_line = that.group.selectAll(".pyr-ticks")
-
                     .data(that.coordinates);
 
                 tick_line.enter()
                     .append("line")
                     .attr("class", "pyr-ticks");
 
-                tick_line.attr("x1", function (d,i) {
-                        if (d.values.length === 3) {
-                            return (d.values[0].x + that.coordinates[that.coordinates.length-1].values[2].x)/2 ;
-                        } else {
-                            return ((d.values[2].x + d.values[3].x)/2 );
-                        }
-                    })
-                    .attr("y1", function (d,i) {
-                        if(d.values.length === 4) {
-                            return (((d.values[0].y-d.values[1].y)/2)+d.values[1].y) +2;
-                        } else {
-                            return (d.values[0].y + that.coordinates[that.coordinates.length-1].values[1].y)/2;
-                        }
-                    })
-                    .attr("x2", function (d, i) {
-                        if (d.values.length === 3) {
-                            return (d.values[0].x + that.coordinates[that.coordinates.length-1].values[2].x)/2  ;
-                        } else {
-                            return ((d.values[2].x + d.values[3].x)/2 )  ;
-                        }
-                    })
-                    .attr("y2", function (d, i) {
-                        if(d.values.length === 4) {
-                            return (((d.values[0].y-d.values[1].y)/2)+d.values[1].y) +2;
-                        } else {
-                            return (d.values[0].y + that.coordinates[that.coordinates.length-1].values[1].y)/2;
-                        }
-                    })
-                    .attr("stroke-width", that.pointer_thickness + "px")
-                    .attr("stroke",that.pointer_color)
+                tick_line
+                    .attr({
+                        "x1": function (d,i) {
+                            if (d.values.length === 3) {
+                                return (d.values[0].x + that.coordinates[that.coordinates.length-1].values[2].x)/2 ;
+                            } else {
+                                return ((d.values[2].x + d.values[3].x)/2 );
+                            }
+                        },
+                        "y1": function (d,i) {
+                            if(d.values.length === 4) {
+                                return (((d.values[0].y-d.values[1].y)/2)+d.values[1].y) +2;
+                            } else {
+                                return (d.values[0].y + that.coordinates[that.coordinates.length-1].values[1].y)/2;
+                            }
+                        },
+                        "x2": function (d, i) {
+                            if (d.values.length === 3) {
+                                return (d.values[0].x + that.coordinates[that.coordinates.length-1].values[2].x)/2  ;
+                            } else {
+                                return ((d.values[2].x + d.values[3].x)/2 )  ;
+                            }
+                        },
+                        "y2": function (d, i) {
+                            if(d.values.length === 4) {
+                                return (((d.values[0].y-d.values[1].y)/2)+d.values[1].y) +2;
+                            } else {
+                                return (d.values[0].y + that.coordinates[that.coordinates.length-1].values[1].y)/2;
+                            }
+                        },
+                        "stroke-width": that.pointer_thickness + "px",
+                        "stroke": that.pointer_color
+                    });
 
                     setTimeout(function() {
                         tick_line.attr("x2", function (d,i) {

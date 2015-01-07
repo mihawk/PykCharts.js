@@ -4,10 +4,9 @@ PykCharts.oneD.treemap = function (options){
     this.execute = function (){
         that = new PykCharts.oneD.processInputs(that, options);
         optional = options.optional;
-        that.height = options.chart_height ? options.chart_height : that.width;
-
+        that.chart_height = options.chart_height ? options.chart_height : that.chart_width;
         that.k.validator()
-            .validatingDataType(that.height,"chart_height",that.width,"height");
+            .validatingDataType(that.chart_height,"chart_height",that.chart_width,"chart_height");
 
         if(that.stop) {
             return;
@@ -107,12 +106,14 @@ PykCharts.oneD.treemap = function (options){
             svgContainer: function (container_id) {
 
                 that.svgContainer = d3.select(that.selector).append("svg:svg")
-                    .attr("width",that.width)
-                    .attr("height",that.height)
-                    .attr("preserveAspectRatio", "xMinYMin")
-                    .attr("viewBox", "0 0 " + that.width + " " + that.height)
-                    .attr("id",container_id)
-                    .attr("class","svgcontainer PykCharts-oneD");
+                    .attr({
+                        "width": that.chart_width,
+                        "height": that.chart_height,
+                        "preserveAspectRatio": "xMinYMin",
+                        "viewBox": "0 0 " + that.chart_width + " " + that.chart_height,
+                        "id": container_id,
+                        "class": "svgcontainer PykCharts-oneD"
+                    });
 
                 that.group = that.svgContainer.append("g")
                     .attr("id","treemap");
@@ -121,7 +122,7 @@ PykCharts.oneD.treemap = function (options){
             createChart: function () {
                 that.treemap = d3.layout.treemap()
                     .sort(function (a,b) { return a.weight - b.weight; })
-                    .size([that.width,that.height])
+                    .size([that.chart_width,that.chart_height])
                     .value(function (d) { return d.weight; })
                     .sticky(false);
                 that.sum = d3.sum(that.new_data.children, function (d){
@@ -141,40 +142,44 @@ PykCharts.oneD.treemap = function (options){
 
                 that.chart_data.attr("class","cell")
                     .select("rect")
-                    .attr("class","treemap-rect")
-                    .attr("id",function (d,i) { return "rect" + i; })
-                    .attr("x",function (d) { return d.x; })
-                    .attr("y", function (d) { return d.y; })
-                    .attr("width", function (d) { return d.dx-1; })
-                    .attr("height", 0)
-                    .attr("fill",function (d) {
-                        return d.children ? "white" : that.fillChart.selectColor(d);
-                    })
-                    .attr("fill-opacity",1)
-                    .attr("data-fill-opacity",function () {
-                        return d3.select(this).attr("fill-opacity");
-                    })
-                    .on('mouseover',function (d) {
-                        if(!d.children && that.mode === "default") {
-                            d.tooltip = d.tooltip || "<table class='PykCharts'><tr><th colspan='2' class='tooltip-heading'>"+d.name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.weight)+"<td class='tooltip-right-content'>("+((d.weight*100)/that.sum).toFixed(1)+"%)</tr></table>";
-                            if(PykCharts['boolean'](that.onhover_enable)) {
-                                that.mouseEvent.highlight(options.selector +" "+".treemap-rect", this);
-                            }
-                            that.mouseEvent.tooltipPosition(d);
-                            that.mouseEvent.tooltipTextShow(d.tooltip);
+                    .attr({
+                        "class": "treemap-rect",
+                        "id": function (d,i) { return "rect" + i; },
+                        "x": function (d) { return d.x; },
+                        "y": function (d) { return d.y; },
+                        "width": function (d) { return d.dx-1; },
+                        "height": 0,
+                        "fill": function (d) {
+                            return d.children ? "white" : that.fillChart.selectColor(d);
+                        },
+                        "fill-opacity": 1,
+                        "data-fill-opacity": function () {
+                            return $(this).attr("fill-opacity");
                         }
                     })
-                    .on('mouseout',function (d) {
-                        if(that.mode === "default") {
-                            that.mouseEvent.tooltipHide(d);
-                            if(PykCharts['boolean'](that.onhover_enable)) {    
-                                that.mouseEvent.highlightHide(options.selector +" "+".treemap-rect");
+                    .on({
+                        'mouseover': function (d) {
+                            if(!d.children && that.mode === "default") {
+                                d.tooltip = d.tooltip || "<table class='PykCharts'><tr><th colspan='2' class='tooltip-heading'>"+d.name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.weight)+"<td class='tooltip-right-content'>("+((d.weight*100)/that.sum).toFixed(1)+"%)</tr></table>";
+                                if(PykCharts['boolean'](that.chart_onhover_highlight_enable)) {
+                                    that.mouseEvent.highlight(options.selector +" "+".treemap-rect", this);
+                                }
+                                that.mouseEvent.tooltipPosition(d);
+                                that.mouseEvent.tooltipTextShow(d.tooltip);
                             }
-                        }
-                    })
-                    .on('mousemove', function (d) {
-                        if(!d.children && that.mode === "default") {
-                            that.mouseEvent.tooltipPosition(d);
+                        },
+                        'mouseout': function (d) {
+                            if(that.mode === "default") {
+                                that.mouseEvent.tooltipHide(d);
+                                if(PykCharts['boolean'](that.chart_onhover_highlight_enable)) {    
+                                    that.mouseEvent.highlightHide(options.selector +" "+".treemap-rect");
+                                }
+                            }
+                        },
+                        'mousemove': function (d) {
+                            if(!d.children && that.mode === "default") {
+                                that.mouseEvent.tooltipPosition(d);
+                            }
                         }
                     })
                     .transition()
@@ -198,21 +203,29 @@ PykCharts.oneD.treemap = function (options){
                         .append("svg:text")
                         .attr("class","weight");
 
-                    that.chart_text.attr("class","name")
-                        .attr("x", function (d) { return d.x + d.dx / 2; })
-                        .attr("y", function (d) { return d.y + d.dy / 2; });
+                    that.chart_text.attr({
+                        "class": "name",
+                        "x": function (d) { return d.x + d.dx / 2; },
+                        "y": function (d) { return d.y + d.dy / 2; }
+                    });
 
-                    that.chart_text1.attr("class","weight")
-                        .attr("x", function (d) { return d.x + d.dx / 2; })
-                        .attr("y", function (d) { return d.y + d.dy / 2 + 15; });
+                    that.chart_text1.attr({
+                        "class": "weight",
+                        "x": function (d) { return d.x + d.dx / 2; },
+                        "y": function (d) { return d.y + d.dy / 2 + 15; }
+                    });
 
-                    that.chart_text.attr("text-anchor","middle")
-                        .style("font-weight", that.label_weight)
-                        .style("font-size", that.label_size + "px")
-                        .attr("fill", that.label_color)
-                        .style("font-family", that.label_family)
-
-                        .text("")
+                    that.chart_text
+                        .attr({
+                            "text-anchor": "middle",
+                            "fill": that.label_color
+                        })
+                        .style({
+                            "font-weight": that.label_weight,
+                            "font-size": that.label_size + "px",
+                            "font-family": that.label_family
+                        })
+                        .text("");
 
                     setTimeout(function() {
                         that.chart_text.text(function (d) { return d.children ? " " :  d.name; })
@@ -228,13 +241,18 @@ PykCharts.oneD.treemap = function (options){
                             });
                     },that.transitions.duration());
 
-                    that.chart_text1.attr("text-anchor","middle")
-                        .style("font-weight", that.label_weight)
-                        .style("font-size", that.label_size + "px")
-                        .attr("fill", that.label_color)
-                        .style("font-family", that.label_family)
-                        .text("")
-                        .attr("pointer-events","none")
+                    that.chart_text1
+                        .attr({
+                            "text-anchor": "middle",
+                            "fill": that.label_color,
+                            "pointer-events": "none"
+                        })
+                        .style({
+                            "font-weight": that.label_weight,
+                            "font-size": that.label_size + "px",
+                            "font-family": that.label_family
+                        })
+                        .text("");
 
                     setTimeout(function () {
                         that.chart_text1.text(function (d) { return d.children ? " " :  that.k.appendUnits(d.weight); })

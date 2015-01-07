@@ -8,7 +8,7 @@ PykCharts.multiD.groupedColumn = function(options) {
         if(that.stop){
             return;
         }
-        that.grid_color = options.chart_grid_color ? options.chart_grid_color : theme.stylesheet.chart_grid_color;
+        that.chart_grid_color = options.chart_grid_color ? options.chart_grid_color : theme.stylesheet.chart_grid_color;
         that.panels_enable = "no";
 
         if(that.mode === "default") {
@@ -201,36 +201,28 @@ PykCharts.multiD.groupedColumn = function(options) {
         }
 
         that.k.exportSVG(that,"#"+that.container_id,"groupColumnChart");
-
-        if(PykCharts.boolean(that.legends_enable)) {
-            var resize = that.k.resize(that.svgContainer,"",that.legendsContainer);
+            var resize = that.k.resize(that.svgContainer);
             that.k.__proto__._ready(resize);
             window.addEventListener('resize', function(event){
-                return that.k.resize(that.svgContainer,"",that.legendsContainer);
+                return that.k.resize(that.svgContainer);
             });
-        } else {
-            var resize = that.k.resize(that.svgContainer,"");
-            that.k.__proto__._ready(resize);
-            window.addEventListener('resize', function(event){
-                return that.k.resize(that.svgContainer,"");
-            });
-        }
     };
 
     that.optionalFeatures = function() {
         var that = this;
+        var id = that.selector.substring(1,that.selector.length);
         var optional = {
             svgContainer: function (i) {
-               $(that.selector).attr("class","PykCharts-twoD");
+                document.getElementById(id).className = "PykCharts-twoD";
                 that.svgContainer = d3.select(options.selector + " #tooltip-svg-container-" + i)
                     .append("svg:svg")
                     .attr({
-                        "width": that.width,
-                        "height": that.height,
+                        "width": that.chart_width,
+                        "height": that.chart_height,
                         "id": that.container_id,
                         "class": "svgcontainer",
                         "preserveAspectRatio": "xMinYMin",
-                        "viewBox": "0 0 " + that.width + " " + that.height
+                        "viewBox": "0 0 " + that.chart_width + " " + that.chart_height
                     });
                 return this;
             },
@@ -248,7 +240,7 @@ PykCharts.multiD.groupedColumn = function(options) {
                             "id": "ygrid",
                             "class": "y grid-line"
                         })
-                        .style("stroke",that.grid_color);
+                        .style("stroke",that.chart_grid_color);
                 }
                 return this;
             },
@@ -296,9 +288,9 @@ PykCharts.multiD.groupedColumn = function(options) {
                 return this;
             },
             createChart: function() {
-                that.reduced_width = that.width - that.margin_left - that.margin_right - that.legendsGroup_width;
+                that.reduced_width = that.chart_width - that.margin_left - that.margin_right - that.legendsGroup_width;
 
-                that.reduced_height = that.height - that.margin_top - that.margin_bottom - that.legendsGroup_height;
+                that.reduced_height = that.chart_height - that.margin_top - that.margin_bottom - that.legendsGroup_height;
 
                 // console.log(that.data,"data");
                 that.getuniqueGroups = that.data.map(function (d) {
@@ -449,7 +441,7 @@ PykCharts.multiD.groupedColumn = function(options) {
                     .on({
                         'mouseout': function (d) {
                             if(that.mode === "default") {
-                                if(PykCharts.boolean(that.onhover_enable)) {
+                                if(PykCharts.boolean(that.chart_onhover_highlight_enable)) {
                                     that.mouseEvent.highlightGroupHide(that.selector+" "+".column-group","rect");
                                 }
                                 that.mouseEvent.axisHighlightHide(that.selector+" "+".x.axis")
@@ -457,7 +449,7 @@ PykCharts.multiD.groupedColumn = function(options) {
                         },
                         'mousemove': function (d) {
                             if(that.mode === "default") {
-                                if(PykCharts.boolean(that.onhover_enable)) {
+                                if(PykCharts.boolean(that.chart_onhover_highlight_enable)) {
                                     that.mouseEvent.highlightGroup(that.selector+" "+".column-group", this, "rect");
                                 }
                                 that.mouseEvent.axisHighlightShow(d.name,that.selector+" "+".x.axis",that.xdomain);
@@ -474,7 +466,7 @@ PykCharts.multiD.groupedColumn = function(options) {
                 bar.attr("height", 0)
                     .attr({
                         "x": function (d) {return that.x1(d.name); },
-                        "y": that.height - that.margin_top - that.margin_bottom,
+                        "y": that.chart_height - that.margin_top - that.margin_bottom,
                         "width": function (d){ return 0.98*that.x1.rangeBand(); },
                         "fill": function (d,i) {
                             return that.fillColor.colorGroup(d);
@@ -489,7 +481,7 @@ PykCharts.multiD.groupedColumn = function(options) {
                         "stroke": that.border.color(),
                         "stroke-width": that.border.width(),
                         "data-fill-opacity": function () {
-                            return $(this).attr("fill-opacity");
+                            return d3.select(this).attr("fill-opacity");
                         }
                     })
                     .on({
@@ -580,7 +572,7 @@ PykCharts.multiD.groupedColumn = function(options) {
             newXAxis : function () {
                 if(PykCharts["boolean"](that.axis_x_enable)) {
                     if(that.axis_x_position === "bottom") {
-                        that.new_xAxisgroup.attr("transform", "translate(0," + (that.height - that.margin_top - that.margin_bottom - that.legendsGroup_height) + ")");
+                        that.new_xAxisgroup.attr("transform", "translate(0," + (that.chart_height - that.margin_top - that.margin_bottom - that.legendsGroup_height) + ")");
                     }
                     var xaxis = d3.svg.axis()
                         .scale(that.xScale)
