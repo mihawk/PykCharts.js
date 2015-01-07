@@ -48,7 +48,7 @@ var config_param_info = [
 
 
     chartObject.selector = options.selector ? options.selector;
-    chartObject.width = options.chart_width  ? options.chart_width : stylesheet.chart_width;
+    chartObject.chart_width = options.chart_width  ? options.chart_width : stylesheet.chart_width;
     chartObject.is_interactive = options.is_interactive ? options.is_interactive.toLowerCase(): oneDimensionalCharts.is_interactive;
 
     chartObject.mode = options.mode ? options.mode.toLowerCase(): stylesheet.mode;
@@ -126,7 +126,7 @@ var config_param_info = [
     chartObject.units_prefix = options.units_prefix ? options.units_prefix : false;
     chartObject.units_suffix = options.units_suffix ? options.units_suffix : false;
 
-    chartObject.onhover_enable = options.chart_onhover_highlight_enable ? options.chart_onhover_highlight_enable : stylesheet.chart_onhover_highlight_enable;
+    chartObject.chart_onhover_highlight_enable = options.chart_onhover_highlight_enable ? options.chart_onhover_highlight_enable : stylesheet.chart_onhover_highlight_enable;
     
     chartObject.export_enable = options.export_enable ? options.export_enable.toLowerCase() : stylesheet.export_enable;
     chartObject.k = new PykCharts.Configuration(chartObject);
@@ -135,7 +135,7 @@ var config_param_info = [
         .isArray(chartObject.chart_color,"chart_color")
         .isArray(chartObject.clubdata_always_include_data_points,"clubdata_always_include_data_points")
         .validatingChartMode(chartObject.mode,"mode",stylesheet.mode)
-        .validatingDataType(chartObject.width,"chart_width",stylesheet.chart_width,"width")
+        .validatingDataType(chartObject.chart_width,"chart_width",stylesheet.chart_width,"chart_width")
         .validatingDataType(chartObject.title_size,"title_size",stylesheet.title_size)
         .validatingDataType(chartObject.subtitle_size,"subtitle_size",stylesheet.subtitle_size)
         .validatingDataType(chartObject.real_time_charts_refresh_frequency,"real_time_charts_refresh_frequency",functionality.real_time_charts_refresh_frequency)

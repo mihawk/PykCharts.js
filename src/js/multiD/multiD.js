@@ -270,7 +270,7 @@ PykCharts.multiD.bubbleSizeCalculation = function (options,data,rad_range) {
             console.log(z(d))
             return z(d);
         } else {
-            return options.scatterplot_radius;
+            return options.bubbleRadius;
         }
     };
     return size;
