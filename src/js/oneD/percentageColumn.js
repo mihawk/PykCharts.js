@@ -73,13 +73,13 @@ PykCharts.oneD.percentageColumn = function (options) {
             that.k.title()
                     .backgroundColor(that)
                     .export(that,"#"+container_id,"percentageColumn")
-                    .emptyDiv()
+                    .emptyDiv(that.selector)
                     .subtitle();
         }
         if(that.mode === "infographics") {
             that.k.backgroundColor(that)
                 .export(that,"#"+container_id,"percentageColumn")
-                    .emptyDiv();
+                    .emptyDiv(that.selector);
 
             that.new_data = that.data;
         }

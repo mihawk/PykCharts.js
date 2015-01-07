@@ -73,7 +73,7 @@ PykCharts.multiD.bar = function (options) {
             that.k.title()
                 .backgroundColor(that)
                 .export(that,"#"+that.container_id,"barChart")
-                .emptyDiv()
+                .emptyDiv(options.selector)
                 .subtitle()
                 .makeMainDiv(that.selector,1);
 
@@ -107,7 +107,7 @@ PykCharts.multiD.bar = function (options) {
         } else if(that.mode === "infographics") {
             that.k.backgroundColor(that)
                 .export(that,"#"+that.container_id,"barChart")
-                .emptyDiv()
+                .emptyDiv(options.selector)
                 .makeMainDiv(that.selector,1);
 
             that.optionalFeatures()
@@ -135,9 +135,12 @@ PykCharts.multiD.bar = function (options) {
             }
         }
         that.k.exportSVG(that,"#"+that.container_id,"barChart")
-        $(document).ready(function () { return that.k.resize(that.svgContainer); })
-        $(window).on("resize", function () { return that.k.resize(that.svgContainer); });
 
+        var resize = that.k.resize(that.svgContainer);
+        that.k.__proto__._ready(resize);
+        window.addEventListener('resize', function(event){
+            return that.k.resize(that.svgContainer,"");
+        });
     };
 
     this.refresh = function () {
@@ -178,10 +181,11 @@ PykCharts.multiD.bar = function (options) {
     };
 
     this.optionalFeatures = function () {
+        var id = that.selector.substring(1,that.selector.length);
         var status;
         var optional = {
             svgContainer: function (i) {
-               $(that.selector).attr("class","PykCharts-twoD");
+                document.getElementById(id).className = "PykCharts-twoD";
                 that.svgContainer = d3.select(options.selector + " #tooltip-svg-container-" + i)
                     .append("svg:svg")
                     .attr({
@@ -403,7 +407,7 @@ PykCharts.multiD.bar = function (options) {
                         })
                         .text("");
 
-                    function setTimeOut () {
+                    function setTimeoutTicks () {
                         tick_label
                             .attr({
                                 "x" : function (d) { return that.xScale(d.x); },
@@ -415,7 +419,7 @@ PykCharts.multiD.bar = function (options) {
                                 return d.x; 
                             });
                     }
-                    setTimeout(setTimeOut ,that.transitions.duration());
+                    setTimeout(setTimeoutTicks ,that.transitions.duration());
 
                 }
                 return this;

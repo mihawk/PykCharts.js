@@ -242,7 +242,7 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 					.backgroundColor(that)
 					.export(that,"#svg-1","areaChart")
 					.liveData(that)
-					.emptyDiv()
+					.emptyDiv(options.selector)
 					.subtitle()
 					.makeMainDiv(that.selector,1)
 					.tooltip(true,that.selector,1);
@@ -268,7 +268,7 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 			  that.k/*.liveData(that)*/
 			  			.backgroundColor(that)
 			  			.export(that,"#svg-1","areaChart")
-			  			.emptyDiv()
+			  			.emptyDiv(options.selector)
 						.makeMainDiv(that.selector,1);
 
 			  that.optional_feaure()
@@ -285,8 +285,12 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
   		}
 		that.k.exportSVG(that,"#svg-1","areaChart")
   		that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
-  		$(document).ready(function () { return that.k.resize(that.svgContainer); })
-        $(window).on("resize", function () { return that.k.resize(that.svgContainer); });
+
+  		var resize = that.k.resize(that.svgContainer);
+        that.k.__proto__._ready(resize);
+        window.addEventListener('resize', function(event){
+			return that.k.resize(that.svgContainer);
+        });
 	};
 
 	that.refresh = function () {
@@ -318,7 +322,7 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 		        }
 		    }
 			if(that.type === "stackedAreaChart") {
-				$(that.selector + " #tooltip-svg-container-1").empty();
+				document.querySelector(that.selector +" #tooltip-svg-container-1").innerHTML = null;
 				that.renderChart();
 			}
 			else {
@@ -339,6 +343,7 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 	};
 
 	that.optional_feature = function (){
+		var id = that.selector.substring(1,that.selector.length);
 		var optional = {
 			chartType: function () {
 				for(var j = 1;j < that.data_length;j++) {
@@ -351,7 +356,7 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 				return this;
 			},
 			svgContainer: function (i){
-				$(that.selector).attr("class","PykCharts-twoD PykCharts-multi-series2D PykCharts-line-chart");
+				document.getElementById(id).className = "PykCharts-twoD PykCharts-multi-series2D PykCharts-line-chart";
 
 				that.svgContainer = d3.select(that.selector+" "+"#tooltip-svg-container-"+i).append("svg:svg")
 					.attr({
@@ -365,7 +370,6 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
     			return this;
 			},
 			createGroups : function (i) {
-
 				that.group = that.svgContainer.append("g")
 					.attr({
 						"id": "chartsvg",
@@ -669,7 +673,7 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 									}
 								},
 								"data-fill-opacity": function () {
-			                        return $(this).attr("fill-opacity");
+			                        return d3.select(this).attr("fill-opacity");
 			                    },
 								"transform": "translate("+ that.extra_left_margin +",0)"
 							})

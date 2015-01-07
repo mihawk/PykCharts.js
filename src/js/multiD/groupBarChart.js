@@ -133,7 +133,7 @@ PykCharts.multiD.groupedBar = function(options){
             that.k.title()
                 .backgroundColor(that)
                 .export(that,"#"+that.container_id,"groupbarChart")
-                .emptyDiv()
+                .emptyDiv(options.selector)
                 .subtitle()
                 .makeMainDiv(that.selector,1);
 
@@ -170,7 +170,7 @@ PykCharts.multiD.groupedBar = function(options){
         } else if(that.mode === "infographics") {
             that.k.backgroundColor(that)
                 .export(that,"#"+that.container_id,"groupbarChart")
-                .emptyDiv()
+                .emptyDiv(options.selector)
                 .makeMainDiv(that.selector,1);
 
             that.optionalFeatures().svgContainer(1)
@@ -194,15 +194,20 @@ PykCharts.multiD.groupedBar = function(options){
         }
 
         that.k.exportSVG(that,"#"+that.container_id,"groupbarChart")
-        $(document).ready(function () { return that.k.resize(that.svgContainer); })
-        $(window).on("resize", function () { return that.k.resize(that.svgContainer); });
+
+        var resize = that.k.resize(that.svgContainer);
+        that.k.__proto__._ready(resize);
+        window.addEventListener('resize', function(event){
+            return that.k.resize(that.svgContainer);
+        });
     };
 
     that.optionalFeatures = function() {
         var that = this;
+        var id = that.selector.substring(1,that.selector.length);
         var optional = {
             svgContainer: function (i) {
-               $(that.selector).attr("class","PykCharts-twoD");
+                document.getElementById(id).className = "PykCharts-twoD";
                 that.svgContainer = d3.select(options.selector + " #tooltip-svg-container-" + i)
                     .append("svg:svg")
                     .attr({
@@ -406,7 +411,7 @@ PykCharts.multiD.groupedBar = function(options){
                     "stroke" : that.border.color(),
                     "stroke-width" : that.border.width(),
                     "data-fill-opacity" : function () {
-                        return $(this).attr("fill-opacity");
+                        return d3.select(this).attr("fill-opacity");
                     }
                 })
                 .on({
@@ -469,7 +474,7 @@ PykCharts.multiD.groupedBar = function(options){
                         .style("font-family", that.pointer_family)
                         .text("");
 
-                    function setTimeOut() {
+                    function setTimeoutTicks() {
                         tick_label.attr({
                             "x" : function (d) { return that.xScale(d.x); },
                             "y" : function(d) { return (that.y1(d.name))+(that.y1.rangeBand()/2); },
@@ -495,7 +500,7 @@ PykCharts.multiD.groupedBar = function(options){
                             } 
                         });
                     }
-                    setTimeout(setTimeOut,that.transitions.duration());
+                    setTimeout(setTimeoutTicks,that.transitions.duration());
 
                     tick_label.exit().remove();
                     ticks.exit().remove();
@@ -547,7 +552,7 @@ PykCharts.multiD.groupedBar = function(options){
             },
             highlightRect : function () {
                 if(that.flag) {
-                    function setTimeOut() {
+                    function setTimeoutHighlight() {
                         y = that.highlight_y_positions - 5;                    
                     
                         var highlight_rect = that.group.selectAll(".highlight-rect")
@@ -577,7 +582,7 @@ PykCharts.multiD.groupedBar = function(options){
                                 .remove()
                         }
                     }
-                    setTimeout(setTimeOut, that.transitions.duration());
+                    setTimeout(setTimeoutHighlight, that.transitions.duration());
                 }
                 return this;
             },

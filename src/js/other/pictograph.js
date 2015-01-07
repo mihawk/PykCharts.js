@@ -129,9 +129,12 @@ PykCharts.other.pictograph = function (options) {
                 .credits()
                 .dataSource();
         }
-        that.k.exportSVG(that,"#"+that.container_id,"pictograph")
-        $(document).ready(function () { return that.k.resize(that.svgContainer); })
-        $(window).on("resize", function () { return that.k.resize(that.svgContainer); });
+        that.k.exportSVG(that,"#"+that.container_id,"pictograph");
+        var resize = that.k.resize(that.svgContainer);
+        that.k.__proto__._ready(resize);
+        window.onresize = function () {
+            return that.k.resize(that.svgContainer);
+        };
     };
 
     this.optionalFeatures = function () {

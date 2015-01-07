@@ -59,7 +59,7 @@ PykCharts.oneD.bubble = function (options) {
             that.k.title()
                 .backgroundColor(that)
                 .export(that,"#"+container_id,"bubble")
-                .emptyDiv()
+                .emptyDiv(options.selector)
                 .subtitle();
 
             that.new_data = that.optionalFeatures().clubData();
@@ -77,7 +77,7 @@ PykCharts.oneD.bubble = function (options) {
         else if (that.mode === "infographics") {
             that.k.backgroundColor(that)
                 .export(that,"#" + container_id,"bubble")
-                .emptyDiv();
+                .emptyDiv(options.selector);
 
             that.new_data = {"children" : that.data};
             that.optionalFeatures().svgContainer(container_id)

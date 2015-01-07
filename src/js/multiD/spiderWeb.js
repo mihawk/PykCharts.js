@@ -135,7 +135,7 @@ PykCharts.multiD.spiderWeb = function (options) {
             that.k.title()
                 .backgroundColor(that)
                 .export(that,"#"+that.container_id,"spiderweb")
-                .emptyDiv()
+                .emptyDiv(options.selector)
                 .subtitle()
                 .makeMainDiv(that.selector,1);
             that.h = that.chart_height;
@@ -168,7 +168,7 @@ PykCharts.multiD.spiderWeb = function (options) {
         } else if (that.mode==="infographics") {
             that.k.backgroundColor(that)
                 .export(that,"#"+that.container_id,"spiderweb")
-                .emptyDiv();
+                .emptyDiv(options.selector);
             that.k.makeMainDiv(that.selector,1);
             that.h = that.chart_height;
             that.optionalFeatures().svgContainer(1)
@@ -187,8 +187,11 @@ PykCharts.multiD.spiderWeb = function (options) {
             that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
         }
         that.k.exportSVG(that,"#"+that.container_id,"spiderweb")
-        $(document).ready(function () { return that.k.resize(that.svgContainer,""); })
-        $(window).on("resize", function () { return that.k.resize(that.svgContainer,""); });
+        var resize = that.k.resize(that.svgContainer);
+        that.k.__proto__._ready(resize);
+        window.addEventListener('resize', function(event){
+            return that.k.resize(that.svgContainer);
+        });
     };
 
     this.degrees = function (radians) {
@@ -196,11 +199,12 @@ PykCharts.multiD.spiderWeb = function (options) {
     };
 
     this.optionalFeatures = function () {
-        var that =this;
-        var status;
+        var that =this,
+            id = that.selector.substring(1,that.selector.length),
+            status;
         var optional = {
             svgContainer: function (i) {
-                $(that.selector).attr("class","PykCharts-spider-web");
+                document.getElementById(id).className = "PykCharts-spider-web";
                 that.svgContainer = d3.select(that.selector + " #tooltip-svg-container-" + i)
                     .append("svg")
                     .attr({

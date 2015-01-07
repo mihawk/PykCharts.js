@@ -88,7 +88,7 @@ PykCharts.multiD.river = function (options){
                     .backgroundColor(that)
                     .export(that,"#svg-1","river")
                     .liveData(that)
-                    .emptyDiv()
+                    .emptyDiv(options.selector)
                     .subtitle()
                     .tooltip();
             that.optional_feature()
@@ -116,7 +116,7 @@ PykCharts.multiD.river = function (options){
               that.k.liveData(that)
                         .backgroundColor(that)
                         .export(that,"#svg-1","river")
-                        .emptyDiv()
+                        .emptyDiv(options.selector)
                         .makeMainDiv(options.selector,1);
 
               that.optional_feature()
@@ -136,9 +136,11 @@ PykCharts.multiD.river = function (options){
         }
         that.k.exportSVG(that,"#svg-1","river")
         that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
-        $(document).ready(function () { return that.k.resize(that.svgContainer); })
-        $(window).on("resize", function () { return that.k.resize(that.svgContainer); });
-
+        var resize = that.k.resize(that.svgContainer);
+        that.k.__proto__._ready(resize);
+        window.onresize = function () {
+            return that.k.resize(that.svgContainer);
+        };
     };
     that.dataTransformation = function () {
         that.group_arr = [], that.new_data = [],that.uniq_alias_arr = [],that.uniq_duration_arr = [];
@@ -209,6 +211,7 @@ PykCharts.multiD.river = function (options){
         that.optional_feature().connectingLines().ticks().highlight();
     };
     that.optional_feature = function (){
+        var id = that.selector.substring(1,that.selector.length);
         var optional = {
             svgContainer: function (i){
                 $(that.selector).attr("class","PykCharts-twoD PykCharts-multi-series2D PykCharts-line-chart");

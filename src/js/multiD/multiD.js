@@ -533,7 +533,7 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
                 .validatingColor(chartObject.annotation_font_color,"annotation_font_color",multiDimensionalCharts.annotation_font_color)
                 .validatingColor(chartObject.legends_text_color,"legends_text_color",stylesheet.legends_text_color);
 
-        if($.isArray(chartObject.chart_color)) {
+        if(chartObject.chart_color.constructor === Array) {
             for(var i = 0;i < chartObject.chart_color.length;i++) {
                 if(chartObject.chart_color[i]) {
                     chartObject.k.validator()
