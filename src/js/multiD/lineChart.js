@@ -555,14 +555,14 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                         "transform": "translate("+ that.margin_left +","+ that.margin_top +")"
                     });
 
-                if(PykCharts['boolean'](that.chart_grid_y_enable)){
+                if(PykCharts['boolean'](that.grid_y_enable)){
                     that.group.append("g")
                         .attr({
                             "id": "ygrid",
                             "class": "y grid-line"
                         });
                 }
-                if(PykCharts['boolean'](that.chart_grid_x_enable)){
+                if(PykCharts['boolean'](that.grid_x_enable)){
                     that.group.append("g")
                         .attr({
                             "id": "xgrid",
@@ -955,17 +955,11 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                                 that.mouseEvent.crossHairHide(that.type);
                                 that.mouseEvent.axisHighlightHide(that.selector + " .x.axis");
                                 that.mouseEvent.axisHighlightHide(that.selector + " .y.axis");
-                                for(var a=0;a < that.new_data_length;a++) {
-                                    $(that.selector+" #svg-"+a).trigger("mouseout");
-                                }
                             })
                             .on("mousemove", function(){
                                 var line = [];
                                 line[0] = d3.select(that.selector+" #"+this.id+" .lines-hover");
                                 that.mouseEvent.crossHairPosition(that.new_data,that.xScale,that.yScale,line,that.extra_left_margin,that.xdomain,that.type,that.tooltipMode,that.color_from_data,that.panels_enable);
-                                for(var a=0;a < that.new_data_length;a++) {
-                                    $(that.selector+" #svg-"+a).trigger("mousemove");
-                                }
                             });
                     }
                 }

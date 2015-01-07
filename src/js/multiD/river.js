@@ -214,7 +214,7 @@ PykCharts.multiD.river = function (options){
         var id = that.selector.substring(1,that.selector.length);
         var optional = {
             svgContainer: function (i){
-                $(that.selector).attr("class","PykCharts-twoD PykCharts-multi-series2D PykCharts-line-chart");
+                document.getElementById(id).className = "PykCharts-twoD PykCharts-multi-series2D PykCharts-line-chart";
 
                 that.svgContainer = d3.select(options.selector).append("svg:svg")
                     .attr({
@@ -378,7 +378,7 @@ PykCharts.multiD.river = function (options){
                             return 1;
                         },
                         "data-fill-opacity": function () {
-                            return $(this).attr("fill-opacity");
+                            return d3.select(this).attr("fill-opacity");
                         }
                     })
                     .on({
@@ -462,8 +462,6 @@ PykCharts.multiD.river = function (options){
             },
             connectingLines: function () {
                 if(!that.extended) {
-                    $("line.left_line").fadeIn();
-                    $("line.right_line").fadeIn();
                     var left_angles = that.group.selectAll("line.left_line").data(that.new_data1);
 
                     left_angles.enter().append("line")
@@ -548,8 +546,8 @@ PykCharts.multiD.river = function (options){
                         });
                     right_angles.exit().remove();
                 } else if(that.extended) {
-                    $("line.left_line").remove();
-                    $("line.right_line").remove();
+                    d3.selectAll("line.left_line").remove();
+                    d3.selectAll("line.right_line").remove();
                 }
                 return this;
             },

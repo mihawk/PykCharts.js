@@ -4,10 +4,10 @@ PykCharts.maps.oneLayer = function (options) {
     this.execute = function () {
         that = PykCharts.maps.processInputs(that, options);
         that.executeData = function (data) {
-            var validate = that.k.validator().validatingJSON(data);
+            var validate = that.k.validator().validatingJSON(data),
+                id = that.selector.substring(1,that.selector.length);
             if(that.stop || validate === false) {
-                $(options.selector).css("height","auto")
-                $(options.selector+" #chart-loader").remove();
+                that.k.remove_loading_bar(id);
                 return;
             }
 
@@ -20,11 +20,9 @@ PykCharts.maps.oneLayer = function (options) {
                 .tooltip();
 
                 d3.json(PykCharts.assets+"ref/" + that.map_code + "-topo.json", function (e,data) {
-
                         if(e && e.status === 404) {
                             that.k.errorHandling("map_code","3");
-                            $(options.selector+" #chart-loader").remove();
-                            $(options.selector).css("height","auto")
+                            that.k.remove_loading_bar(id);
                             return;
                         }
 
@@ -320,7 +318,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     })
                     .attr("fill-opacity", that.renderOpacity)
                     .attr("data-fill-opacity",function () {
-                        return $(this).attr("fill-opacity");
+                        return d3.select(this).attr("fill-opacity");
                     })
                     .style("stroke", that.border.color())
                     .style("stroke-width", that.border.width())
