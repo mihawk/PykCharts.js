@@ -65,7 +65,7 @@ PykCharts.multiD.column = function (options) {
             that.k.title()
                 .backgroundColor(that)
                 .export(that,"#"+that.container_id,"columnChart")
-                .emptyDiv()
+                .emptyDiv(options.selector)
                 .subtitle()
                 .makeMainDiv(that.selector,1);
 
@@ -100,7 +100,7 @@ PykCharts.multiD.column = function (options) {
         } else if(that.mode === "infographics") {
             that.k.backgroundColor(that)
                 .export(that,"#"+that.container_id,"columnChart")
-                .emptyDiv()
+                .emptyDiv(options.selector)
                 .makeMainDiv(that.selector,1);
 
             that.optionalFeatures()

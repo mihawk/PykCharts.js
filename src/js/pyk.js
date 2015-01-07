@@ -53,8 +53,8 @@ PykCharts.Configuration = function (options){
             }
             return this;
         },
-        emptyDiv: function () {
-            d3.select(options.selector).append("div")
+        emptyDiv: function (id) {
+            d3.select(id).append("div")
                 .style("clear","both");
 
             return this;

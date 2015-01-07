@@ -88,7 +88,7 @@ PykCharts.multiD.river = function (options){
                     .backgroundColor(that)
                     .export(that,"#svg-1","river")
                     .liveData(that)
-                    .emptyDiv()
+                    .emptyDiv(options.selector)
                     .subtitle()
                     .tooltip();
             that.optional_feature()
@@ -116,7 +116,7 @@ PykCharts.multiD.river = function (options){
               that.k.liveData(that)
                         .backgroundColor(that)
                         .export(that,"#svg-1","river")
-                        .emptyDiv()
+                        .emptyDiv(options.selector)
                         .makeMainDiv(options.selector,1);
 
               that.optional_feature()
