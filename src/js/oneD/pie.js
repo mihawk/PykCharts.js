@@ -339,7 +339,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
             that.k.title()
                 .backgroundColor(that)
                 .export(that,"#"+container_id,type)
-                .emptyDiv()
+                .emptyDiv(that.selector)
                 .subtitle();
 
             that.optionalFeatures().svgContainer(container_id);
@@ -365,7 +365,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
             that.new_data = that.data;
             that.k.backgroundColor(that)
                 .export(that,"#"+container_id,type)
-                    .emptyDiv();
+                    .emptyDiv(that.selector);
             that.optionalFeatures().svgContainer(container_id)
                     .set_start_end_angle()
                     .createChart()

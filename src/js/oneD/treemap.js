@@ -64,7 +64,7 @@ PykCharts.oneD.treemap = function (options){
             that.k.title()
                 .backgroundColor(that)
                 .export(that,"#"+container_id,"treemap")
-                .emptyDiv()
+                .emptyDiv(that.selector)
                 .subtitle();
         }
 
@@ -73,7 +73,7 @@ PykCharts.oneD.treemap = function (options){
         if(that.mode === "infographics"){
             that.k.backgroundColor(that)
                 .export(that,"#"+container_id,"treemap")
-                .emptyDiv();
+                .emptyDiv(that.selector);
             that.new_data = {"children" : that.data};
         }
 

@@ -65,7 +65,7 @@ PykCharts.oneD.funnel = function (options) {
             that.k.title()
                 .backgroundColor(that)
                 .export(that,"#"+container_id,"funnel")
-                .emptyDiv()
+                .emptyDiv(that.selector)
                 .subtitle();
         }
         that.k.tooltip();
@@ -73,7 +73,7 @@ PykCharts.oneD.funnel = function (options) {
         if(that.mode === "infographics") {
             that.k.backgroundColor(that)
                 .export(that,"#"+container_id,"funnel")
-                .emptyDiv();
+                .emptyDiv(that.selector);
 
             that.new_data = that.data;
         }

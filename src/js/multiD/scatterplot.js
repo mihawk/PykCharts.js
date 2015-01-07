@@ -917,8 +917,7 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
                     that.new_data.push(that.data[j]);
                 }
             }
-            that.k.positionContainers(that.legends_enable,that);
-
+            
             that.k.makeMainDiv((that.selector + " #panels_of_scatter_main_div"),i);
 
             that.optionalFeatures()

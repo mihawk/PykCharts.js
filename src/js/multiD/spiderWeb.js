@@ -355,7 +355,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                     spiderNode.attr({
                         "class": "dot node"+m,
                         "cx": function (d) { return that.radius(d.y); },
-                        "r": function (d,i) { console.log(that.sizes(that.new_data[m].data[i].weight));return that.sizes(that.new_data[m].data[i].weight); },
+                        "r": function (d,i) { return that.sizes(that.new_data[m].data[i].weight); },
                         "fill-opacity": function (d,i) {
                             return that.multiD.opacity(that.new_data[m].data[i].weight,that.weight,that.data);
                         },

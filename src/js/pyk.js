@@ -400,20 +400,6 @@ PykCharts.Configuration = function (options){
             d = new Date(d.getTime() + (time_zone * 60 * 1000));
             return d;
         },
-        positionContainers : function (position, chart) {
-            if(PykCharts.boolean(options.legends) && !(PykCharts.boolean(options.size.enable))) {
-                if(position == "top" || position == "left") {
-                    chart.optionalFeatures().legendsContainer().svgContainer();
-                }
-                if(position == "bottom" || position == "right") {
-                    chart.optionalFeatures().svgContainer().legendsContainer();
-                }
-            }
-            else {
-                chart.optionalFeatures().svgContainer();
-            }
-            return this;
-        },
         crossHair: function (svg,len,data,fill,type) {
             if(PykCharts['boolean'](options.crosshair_enable) && options.mode === "default") {
                 PykCharts.Configuration.cross_hair_v = svg.append("g")
