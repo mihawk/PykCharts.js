@@ -330,8 +330,7 @@ PykCharts.oneD.funnel = function (options) {
                     });
 
                     that.chart_text.text("");
-
-                    setTimeout(function(){
+                    function chart_text_timeout(){
                         that.chart_text.text(function (d,i) {
                                 return that.per_values[i].toFixed(1) + "%";
                             })
@@ -353,7 +352,8 @@ PykCharts.oneD.funnel = function (options) {
                                     return "";
                                 }
                             });
-                    },that.transitions.duration());
+                    }
+                    setTimeout(chart_text_timeout,that.transitions.duration());
 
                     that.chart_text.exit()
                          .remove();
@@ -391,8 +391,7 @@ PykCharts.oneD.funnel = function (options) {
                         return "translate(" + x + "," + y + ")";});
 
                     tick_label.text("");
-
-                    setTimeout(function() {
+                    function tick_timeout() {
                         tick_label.text(function (d,i) { return that.data[i].name; })
                             .text(function (d,i) {
                                 w[i] = this.getBBox().height;
@@ -412,8 +411,9 @@ PykCharts.oneD.funnel = function (options) {
                                 "font-family": that.pointer_family,
                                 "font-weight":that.pointer_weight                                
                             })
+                    }
 
-                    },that.transitions.duration());
+                    setTimeout(tick_timeout,that.transitions.duration());
 
                     tick_label.exit().remove();
                     var tick_line = that.group.selectAll(".funnel-ticks")
@@ -456,7 +456,7 @@ PykCharts.oneD.funnel = function (options) {
                         "stroke": that.pointer_color
                     });
 
-                    setTimeout(function(){
+                    function tick_line_timeout(){
                         tick_line.attr("x2", function (d, i) {
                             if(( d.values[2].y - d.values[0].y) > w[i]) {
                                 if (d.values.length === 4) {
@@ -472,7 +472,9 @@ PykCharts.oneD.funnel = function (options) {
                                 }
                             }
                         });
-                    },that.transitions.duration());
+                    }
+
+                    setTimeout(tick_line_timeout,that.transitions.duration());
 
                     tick_line.exit().remove();
 

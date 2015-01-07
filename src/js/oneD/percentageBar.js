@@ -268,7 +268,7 @@ PykCharts.oneD.percentageBar = function (options) {
                             "font-family": that.label_family
                         });
 
-                        setTimeout(function(){
+                        function chart_text_timeout(){
                             that.chart_text.text(function (d) { return d.percentValue.toFixed(1)+"%"; })
                                 .text(function (d) {
                                     if(this.getBBox().width < (d.percentValue * that.chart_width / 100) && this.getBBox().height < that.percent_row_rect_height) {
@@ -277,7 +277,8 @@ PykCharts.oneD.percentageBar = function (options) {
                                         return "";
                                     }
                                 });
-                        }, that.transitions.duration());
+                        }
+                        setTimeout(chart_text_timeout, that.transitions.duration());
 
 
                     that.chart_text.exit()
@@ -329,7 +330,7 @@ PykCharts.oneD.percentageBar = function (options) {
                             "pointer-events": "none"
                         });
 
-                        setTimeout(function() {
+                        function tick_label_timeout() {
                             tick_label.text(function (d) {
                                 return d.name;
                             })
@@ -378,7 +379,8 @@ PykCharts.oneD.percentageBar = function (options) {
                                     }
                                 }
                             });
-                        },that.transitions.duration());
+                        }
+                        setTimeout(tick_label_timeout,that.transitions.duration());
 
                     tick_label.exit().remove();
 

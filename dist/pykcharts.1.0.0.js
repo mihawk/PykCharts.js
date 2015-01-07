@@ -2920,8 +2920,8 @@ PykCharts.oneD.bubble = function (options) {
                             "font-family": that.label_family
                         })
                         .text("")
-
-                  setTimeout(function() {
+                        
+                    function chart_text_timeout() {
                         that.chart_text
                             .text(function (d) { return d.children ? " " :  d.name; })
                             .attr("pointer-events","none")
@@ -2932,8 +2932,9 @@ PykCharts.oneD.bubble = function (options) {
                                 else {
                                     return "";
                                 }
-                            });
-                    },that.transitions.duration());
+                            });                        
+                    }
+                    setTimeout(chart_text_timeout,that.transitions.duration());
 
                     that.chart_text1
                         .attr({
@@ -2948,8 +2949,7 @@ PykCharts.oneD.bubble = function (options) {
                         })
                         .text("")
 
-
-                    setTimeout(function () {
+                    function label_timeout() {
                         that.chart_text1.text(function (d) { return d.children ? " " :  that.k.appendUnits(d.weight); })
                             .text(function (d) {
                                 if(this.getBBox().width<2*d.r*0.55 && this.getBBox().height<2*d.r*0.55) {
@@ -2958,8 +2958,9 @@ PykCharts.oneD.bubble = function (options) {
                                 else {
                                     return "";
                                 }
-                            });
-                    },that.transitions.duration());
+                            });                        
+                    }
+                    setTimeout(label_timeout,that.transitions.duration());
 
                     that.chart_text.exit()
                         .remove();
@@ -3378,8 +3379,7 @@ PykCharts.oneD.funnel = function (options) {
                     });
 
                     that.chart_text.text("");
-
-                    setTimeout(function(){
+                    function chart_text_timeout(){
                         that.chart_text.text(function (d,i) {
                                 return that.per_values[i].toFixed(1) + "%";
                             })
@@ -3401,7 +3401,8 @@ PykCharts.oneD.funnel = function (options) {
                                     return "";
                                 }
                             });
-                    },that.transitions.duration());
+                    }
+                    setTimeout(chart_text_timeout,that.transitions.duration());
 
                     that.chart_text.exit()
                          .remove();
@@ -3439,8 +3440,7 @@ PykCharts.oneD.funnel = function (options) {
                         return "translate(" + x + "," + y + ")";});
 
                     tick_label.text("");
-
-                    setTimeout(function() {
+                    function tick_timeout() {
                         tick_label.text(function (d,i) { return that.data[i].name; })
                             .text(function (d,i) {
                                 w[i] = this.getBBox().height;
@@ -3460,8 +3460,9 @@ PykCharts.oneD.funnel = function (options) {
                                 "font-family": that.pointer_family,
                                 "font-weight":that.pointer_weight                                
                             })
+                    }
 
-                    },that.transitions.duration());
+                    setTimeout(tick_timeout,that.transitions.duration());
 
                     tick_label.exit().remove();
                     var tick_line = that.group.selectAll(".funnel-ticks")
@@ -3504,7 +3505,7 @@ PykCharts.oneD.funnel = function (options) {
                         "stroke": that.pointer_color
                     });
 
-                    setTimeout(function(){
+                    function tick_line_timeout(){
                         tick_line.attr("x2", function (d, i) {
                             if(( d.values[2].y - d.values[0].y) > w[i]) {
                                 if (d.values.length === 4) {
@@ -3520,7 +3521,9 @@ PykCharts.oneD.funnel = function (options) {
                                 }
                             }
                         });
-                    },that.transitions.duration());
+                    }
+
+                    setTimeout(tick_line_timeout,that.transitions.duration());
 
                     tick_line.exit().remove();
 
@@ -3796,8 +3799,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                             "font-weight": that.label_weight,
                             "font-family": that.label_family
                         });
-
-                        setTimeout(function(){
+                        function chart_text_timeout(){
                             that.chart_text.text(function (d) {
                                 return d.percentValue.toFixed(1)+"%";
                             })
@@ -3808,7 +3810,8 @@ PykCharts.oneD.percentageColumn = function (options) {
                                     return "";
                                 }
                             });
-                        }, that.transitions.duration());
+                        }
+                        setTimeout(chart_text_timeout, that.transitions.duration());
 
                     that.chart_text.exit()
                         .remove();
@@ -3859,7 +3862,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                             "pointer-events": "none"
                         });
 
-                        setTimeout(function() {
+                        function tick_label_timeout() {
                             tick_label.text(function (d) {
                                 return d.name;
                             })
@@ -3909,7 +3912,8 @@ PykCharts.oneD.percentageColumn = function (options) {
                                         }
                                     }
                                 });
-                        },that.transitions.duration());
+                        }
+                        setTimeout(tick_label_timeout,that.transitions.duration());
 
                     tick_label.exit().remove();
 
@@ -4256,7 +4260,7 @@ PykCharts.oneD.percentageBar = function (options) {
                             "font-family": that.label_family
                         });
 
-                        setTimeout(function(){
+                        function chart_text_timeout(){
                             that.chart_text.text(function (d) { return d.percentValue.toFixed(1)+"%"; })
                                 .text(function (d) {
                                     if(this.getBBox().width < (d.percentValue * that.chart_width / 100) && this.getBBox().height < that.percent_row_rect_height) {
@@ -4265,7 +4269,8 @@ PykCharts.oneD.percentageBar = function (options) {
                                         return "";
                                     }
                                 });
-                        }, that.transitions.duration());
+                        }
+                        setTimeout(chart_text_timeout, that.transitions.duration());
 
 
                     that.chart_text.exit()
@@ -4317,7 +4322,7 @@ PykCharts.oneD.percentageBar = function (options) {
                             "pointer-events": "none"
                         });
 
-                        setTimeout(function() {
+                        function tick_label_timeout() {
                             tick_label.text(function (d) {
                                 return d.name;
                             })
@@ -4366,7 +4371,8 @@ PykCharts.oneD.percentageBar = function (options) {
                                     }
                                 }
                             });
-                        },that.transitions.duration());
+                        }
+                        setTimeout(tick_label_timeout,that.transitions.duration());
 
                     tick_label.exit().remove();
 
@@ -5006,7 +5012,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                     that.chart_text.text("")
                         .attr("fill", "red");
 
-                    setTimeout(function () {
+                    function chart_text_timeout() {
                         that.chart_text.text(function (d) { return that.k.appendUnits(d.data.weight); })
                             .attr({
                                 "text-anchor": "middle",
@@ -5037,7 +5043,8 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                                 }
                             });
                         that.chart_text.exit().remove();
-                    },that.transitions.duration());
+                    }
+                    setTimeout(chart_text_timeout,that.transitions.duration());
 
                 return this;
             },
@@ -5147,8 +5154,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                         return "translate(" + x + "," + y + ")";});
 
                     tick_label.text("")
-
-                    setTimeout(function() {
+                    function tick_label_timeout() {
                         tick_label.text(function(d) { return d.data.name; })
                             .text(function(d,i) {
                                 that.ticks_text_width[i] = this.getBBox().width;
@@ -5183,7 +5189,8 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                             });
 
                         tick_label.exit().remove();
-                    },that.transitions.duration());
+                    }
+                    setTimeout(tick_label_timeout,that.transitions.duration());
 
 
                     var tick_line = that.group.selectAll("line")
@@ -5207,8 +5214,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                             return (that.outer_radius) * (1) *Math.sin((d.endAngle + d.startAngle )/2);
                         }
                     });
-
-                    setTimeout(function () {
+                    function tick_line_timeout() {
                         tick_line.attr({
                             "x2": function (d, i) {
                                 return (that.outer_radius/1+12)* (1) * Math.cos((d.startAngle + d.endAngle)/2);
@@ -5221,7 +5227,9 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                             "stroke": that.pointer_color
                         });
                         tick_line.exit().remove();
-                    },that.transitions.duration());
+                    }
+
+                    setTimeout(tick_line_timeout,that.transitions.duration());
                 return this;
             },
             centerLabel: function () {
@@ -5235,8 +5243,9 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                         .append("text");
 
                     label.attr("class","centerLabel")
-                        .text("")
-                    setTimeout(function () {
+                        .text("");
+
+                    function label_timeout() {
                         label.text( function(d) {
                                 return that.k.appendUnits(that.sum);
                             })
@@ -5258,7 +5267,8 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                                 "font-size": that.show_total_at_center_size + "px"
                             });
 
-                    },that.transitions.duration());
+                    }
+                    setTimeout(label_timeout,that.transitions.duration());
 
                     label.exit().remove();
                 }
@@ -5592,8 +5602,7 @@ PykCharts.oneD.pyramid = function (options) {
                         "font-size": that.label_size + "px",
                         "font-family": that.label_family
                     });
-
-                    setTimeout(function () {
+                    function chart_text_timeout() {
                         that.chart_text.text(function (d,i) {
                                 if(i===0) {
                                     return ((that.new_data[i].weight*100)/that.sum).toFixed(1)+"%";
@@ -5619,7 +5628,8 @@ PykCharts.oneD.pyramid = function (options) {
                                     return "";
                                 }
                             });
-                    },that.transitions.duration());
+                    }
+                    setTimeout(chart_text_timeout,that.transitions.duration());
 
                     that.chart_text.exit().remove();
 
@@ -5662,7 +5672,7 @@ PykCharts.oneD.pyramid = function (options) {
 
                 tick_label.text("");
 
-                setTimeout(function() {
+                function tick_label_timeout() {
                     tick_label.text(function (d,i) {
                             if(i===0) {
                                 return that.new_data[i].name;
@@ -5702,7 +5712,8 @@ PykCharts.oneD.pyramid = function (options) {
                     })
                     .attr("text-anchor","start");
 
-                },that.transitions.duration());
+                }
+                setTimeout(tick_label_timeout,that.transitions.duration());
 
                 tick_label.exit().remove();
                 var tick_line = that.group.selectAll(".pyr-ticks")
@@ -5745,8 +5756,7 @@ PykCharts.oneD.pyramid = function (options) {
                         "stroke-width": that.pointer_thickness + "px",
                         "stroke": that.pointer_color
                     });
-
-                    setTimeout(function() {
+                    function tick_line_timeout() {
                         tick_line.attr("x2", function (d,i) {
                             if(Math.abs(d.values[0].y - d.values[1].y) > w[i]) {
                                 if (d.values.length === 3) {
@@ -5762,7 +5772,8 @@ PykCharts.oneD.pyramid = function (options) {
                                 }
                             }
                         });
-                    }, that.transitions.duration());
+                    }
+                    setTimeout(tick_line_timeout, that.transitions.duration());
 
                 tick_line.exit().remove();
                 return this;
@@ -6074,8 +6085,7 @@ PykCharts.oneD.treemap = function (options){
                             "font-family": that.label_family
                         })
                         .text("");
-
-                    setTimeout(function() {
+                    function chart_text1_timeout() {
                         that.chart_text.text(function (d) { return d.children ? " " :  d.name; })
                             .attr("pointer-events","none")
                             .text(function (d) {
@@ -6087,7 +6097,8 @@ PykCharts.oneD.treemap = function (options){
                                     return "";
                                 }
                             });
-                    },that.transitions.duration());
+                    }
+                    setTimeout(chart_text1_timeout,that.transitions.duration());
 
                     that.chart_text1
                         .attr({
@@ -6102,7 +6113,7 @@ PykCharts.oneD.treemap = function (options){
                         })
                         .text("");
 
-                    setTimeout(function () {
+                    function timeout() {
                         that.chart_text1.text(function (d) { return d.children ? " " :  that.k.appendUnits(d.weight); })
                             .text(function (d) {
                                 if(this.getBBox().width < d.dx && this.getBBox().height < d.dy-15) {
@@ -6113,7 +6124,9 @@ PykCharts.oneD.treemap = function (options){
                                     return "";
                                 }
                             });
-                    },that.transitions.duration());
+                    }
+
+                    setTimeout(timeout,that.transitions.duration());
 
                     that.chart_text.exit()
                         .remove();
@@ -14486,7 +14499,6 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             $(document).ready(function () { return that.k.resize(that.svgContainer,""); });
             $(window).on("resize", function () { return that.k.resize(that.svgContainer,""); });
         }
-
     };
 
     that.refresh = function () {

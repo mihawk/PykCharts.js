@@ -219,8 +219,8 @@ PykCharts.oneD.bubble = function (options) {
                             "font-family": that.label_family
                         })
                         .text("")
-
-                  setTimeout(function() {
+                        
+                    function chart_text_timeout() {
                         that.chart_text
                             .text(function (d) { return d.children ? " " :  d.name; })
                             .attr("pointer-events","none")
@@ -231,8 +231,9 @@ PykCharts.oneD.bubble = function (options) {
                                 else {
                                     return "";
                                 }
-                            });
-                    },that.transitions.duration());
+                            });                        
+                    }
+                    setTimeout(chart_text_timeout,that.transitions.duration());
 
                     that.chart_text1
                         .attr({
@@ -247,8 +248,7 @@ PykCharts.oneD.bubble = function (options) {
                         })
                         .text("")
 
-
-                    setTimeout(function () {
+                    function label_timeout() {
                         that.chart_text1.text(function (d) { return d.children ? " " :  that.k.appendUnits(d.weight); })
                             .text(function (d) {
                                 if(this.getBBox().width<2*d.r*0.55 && this.getBBox().height<2*d.r*0.55) {
@@ -257,8 +257,9 @@ PykCharts.oneD.bubble = function (options) {
                                 else {
                                     return "";
                                 }
-                            });
-                    },that.transitions.duration());
+                            });                        
+                    }
+                    setTimeout(label_timeout,that.transitions.duration());
 
                     that.chart_text.exit()
                         .remove();

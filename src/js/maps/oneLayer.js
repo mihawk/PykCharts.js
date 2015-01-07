@@ -178,7 +178,6 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             $(document).ready(function () { return that.k.resize(that.svgContainer,""); });
             $(window).on("resize", function () { return that.k.resize(that.svgContainer,""); });
         }
-
     };
 
     that.refresh = function () {
