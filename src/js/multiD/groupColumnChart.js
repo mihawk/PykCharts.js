@@ -108,9 +108,9 @@ PykCharts.multiD.groupedColumn = function(options) {
     };
 
     that.render = function() {
-        var that = this;
-        var l = $(".svgcontainer").length;
-        that.container_id = "svgcontainer" + l;
+        var that = this,
+            id = that.selector.substring(1,that.selector.length),
+            container_id = id + "_svg";
 
         that.map_group_data = that.multiD.mapGroup(that.data);
         that.dataTransformation();
@@ -136,13 +136,13 @@ PykCharts.multiD.groupedColumn = function(options) {
         if(that.mode === "default") {
             that.k.title()
                 .backgroundColor(that)
-                .export(that,"#"+that.container_id,"groupColumnChart")
+                .export(that,"#"+container_id,"groupColumnChart")
                 .emptyDiv(options.selector)
                 .subtitle()
                 .makeMainDiv(that.selector,1);
 
             that.optionalFeatures()
-                .svgContainer(1)
+                .svgContainer(container_id,1)
                 .legendsContainer(1);
 
             that.k.liveData(that)
@@ -174,11 +174,11 @@ PykCharts.multiD.groupedColumn = function(options) {
 
         } else if(that.mode === "infographics") {
             that.k.backgroundColor(that)
-                .export(that,"#"+that.container_id,"groupColumnChart")
+                .export(that,"#"+container_id,"groupColumnChart")
                 .emptyDiv(options.selector)
                 .makeMainDiv(that.selector,1);
 
-            that.optionalFeatures().svgContainer(1)
+            that.optionalFeatures().svgContainer(container_id,1)
                 .legendsContainer(1)
                 .createGroups(1)
                 .createChart()
@@ -199,7 +199,7 @@ PykCharts.multiD.groupedColumn = function(options) {
             }
         }
 
-        that.k.exportSVG(that,"#"+that.container_id,"groupColumnChart");
+        that.k.exportSVG(that,"#"+container_id,"groupColumnChart");
             var resize = that.k.resize(that.svgContainer);
             that.k.__proto__._ready(resize);
             window.addEventListener('resize', function(event){
@@ -211,14 +211,14 @@ PykCharts.multiD.groupedColumn = function(options) {
         var that = this;
         var id = that.selector.substring(1,that.selector.length);
         var optional = {
-            svgContainer: function (i) {
+            svgContainer: function (container_id,i) {
                 document.getElementById(id).className = "PykCharts-twoD";
                 that.svgContainer = d3.select(options.selector + " #tooltip-svg-container-" + i)
                     .append("svg:svg")
                     .attr({
                         "width": that.chart_width,
                         "height": that.chart_height,
-                        "id": that.container_id,
+                        "id": container_id,
                         "class": "svgcontainer",
                         "preserveAspectRatio": "xMinYMin",
                         "viewBox": "0 0 " + that.chart_width + " " + that.chart_height
@@ -228,8 +228,7 @@ PykCharts.multiD.groupedColumn = function(options) {
             createGroups: function (i) {
                 that.group = that.svgContainer.append("g")
                     .attr({
-                        "id": "svggroup",
-                        "class": "svggroup",
+                        "id": "groupedColumn-group",
                         "transform": "translate(" + that.margin_left + "," + (that.margin_top + that.legendsGroup_height) +")"
                     });
 
@@ -247,7 +246,7 @@ PykCharts.multiD.groupedColumn = function(options) {
 
                     that.legendsGroup = that.svgContainer.append("g")
                         .attr({
-                            "id": "legends",
+                            "id": "groupedColumn-legends",
                             "class": "legends",
                             "transform": "translate(0,10)"
                         })
@@ -318,7 +317,6 @@ PykCharts.multiD.groupedColumn = function(options) {
                     }
                     y_range = [that.reduced_height, 0];
                     that.yScale = that.k.scaleIdentification("linear",y_data,y_range);
-
 
                 }
 
@@ -420,15 +418,14 @@ PykCharts.multiD.groupedColumn = function(options) {
                 that.xdomain = that.xScale.domain();
                 that.ydomain = that.yScale.domain();
                 that.highlight_y_positions =  [];
-                var chart = that.group.selectAll(".column-group")
+                var chart = that.group.selectAll(".groupedColumn-rect")
                     .data(that.new_data);
 
                 chart.enter()
                     .append("g")
-                    .attr("class", "column-group")
+                    .attr("class", "groupedColumn-rect");
 
-                chart
-                    .attr("transform", function (d) {
+                chart.attr("transform", function (d) {
                         that.optionalFeatures().checkIfHighLightDataExists(d.name);
                         if(that.highlight_group_exits) {
                             that.flag = true;
@@ -440,7 +437,7 @@ PykCharts.multiD.groupedColumn = function(options) {
                         'mouseout': function (d) {
                             if(that.mode === "default") {
                                 if(PykCharts.boolean(that.chart_onhover_highlight_enable)) {
-                                    that.mouseEvent.highlightGroupHide(that.selector+" "+".column-group","rect");
+                                    that.mouseEvent.highlightGroupHide(that.selector+" "+".groupedColumn-rect","rect");
                                 }
                                 that.mouseEvent.axisHighlightHide(that.selector+" "+".x.axis")
                             }
@@ -448,7 +445,7 @@ PykCharts.multiD.groupedColumn = function(options) {
                         'mousemove': function (d) {
                             if(that.mode === "default") {
                                 if(PykCharts.boolean(that.chart_onhover_highlight_enable)) {
-                                    that.mouseEvent.highlightGroup(that.selector+" "+".column-group", this, "rect");
+                                    that.mouseEvent.highlightGroup(that.selector+" "+".groupedColumn-rect", this, "rect");
                                 }
                                 that.mouseEvent.axisHighlightShow(d.name,that.selector+" "+".x.axis",that.xdomain);
                             }
@@ -515,7 +512,7 @@ PykCharts.multiD.groupedColumn = function(options) {
 
                 chart.exit().remove();
                 bar.exit().remove();
-                var t = d3.transform(d3.select(d3.selectAll('.column-group')[0][(that.new_data.length-1)]).attr("transform")),
+                var t = d3.transform(d3.select(d3.selectAll('.groupedColumn-rect')[0][(that.new_data.length-1)]).attr("transform")),
                     x = t.translate[0],
                     y = t.translate[1];
                 x_range = [(that.reduced_height-x - (that.x1.rangeBand()*2)),(x + (that.x1.rangeBand()*2))];
@@ -593,14 +590,14 @@ PykCharts.multiD.groupedColumn = function(options) {
                     function setTimeoutHighlight() {
                         x = that.highlight_x_positions - 5;                    
                     
-                        var highlight_rect = that.group.selectAll(".highlight-rect")
+                        var highlight_rect = that.group.selectAll(".highlight-groupedColumn-rect")
                             .data([that.highlight])
 
                         highlight_rect.enter()
                             .append("rect")
 
                         highlight_rect.attr({
-                            "class": "highlight-rect",
+                            "class": "highlight-groupedColumn-rect",
                             "x": x,
                             "y": 0,
                             "width": (that.x1.rangeBand()* that.group_data.length)+10,
@@ -626,4 +623,4 @@ PykCharts.multiD.groupedColumn = function(options) {
         }
         return optional;
     };
-};;
+};

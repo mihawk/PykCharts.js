@@ -79,6 +79,8 @@ PykCharts.multiD.river = function (options){
         that.k.dataSourceFormatIdentification(options.data,that,"executeData");
     };
     this.render = function () {
+        var id = that.selector.substring(1,that.selector.length),
+            container_id = id + "_svg";
         that.multid = new PykCharts.multiD.configuration(that);
         that.fillColor = new PykCharts.Configuration.fillChart(that,null,options);
         that.transitions = new PykCharts.Configuration.transition(that);
@@ -86,13 +88,13 @@ PykCharts.multiD.river = function (options){
         if(that.mode === "default") {
             that.k.title()
                     .backgroundColor(that)
-                    .export(that,"#svg-1","river")
+                    .export(that,"#"+container_id,"river")
                     .liveData(that)
                     .emptyDiv(options.selector)
                     .subtitle()
                     .tooltip();
             that.optional_feature()
-                .svgContainer(1)
+                .svgContainer(container_id,1)
                 .legendsContainer()
                 .legends()
                 .dataModeContainer()
@@ -115,12 +117,12 @@ PykCharts.multiD.river = function (options){
         else if(that.mode === "infographics") {
               that.k.liveData(that)
                         .backgroundColor(that)
-                        .export(that,"#svg-1","river")
+                        .export(that,"#"+container_id,"river")
                         .emptyDiv(options.selector)
                         .makeMainDiv(options.selector,1);
 
               that.optional_feature()
-                        .svgContainer(1)
+                        .svgContainer(container_id,1)
                         .legendsContainer()
                         .dataModeContainer()
                         .dataMode()
@@ -134,7 +136,7 @@ PykCharts.multiD.river = function (options){
                         .connectingLines();
 
         }
-        that.k.exportSVG(that,"#svg-1","river")
+        that.k.exportSVG(that,"#"+container_id,"river")
         that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
         var resize = that.k.resize(that.svgContainer);
         that.k.__proto__._ready(resize);
@@ -213,12 +215,12 @@ PykCharts.multiD.river = function (options){
     that.optional_feature = function (){
         var id = that.selector.substring(1,that.selector.length);
         var optional = {
-            svgContainer: function (i){
+            svgContainer: function (container_id,i){
                 $(that.selector).attr("class","PykCharts-twoD PykCharts-multi-series2D PykCharts-line-chart");
 
                 that.svgContainer = d3.select(options.selector).append("svg:svg")
                     .attr({
-                        "id": "svg-"+i,
+                        "id": container_id+"-"+i,
                         "width": that.chart_width,
                         "height": that.chart_height,
                         "class": "svgcontainer PykCharts-river",
@@ -230,7 +232,7 @@ PykCharts.multiD.river = function (options){
             createGroups : function (i) {
                 that.group = that.svgContainer.append("g")
                     .attr({
-                        "id": "chartsvg",
+                        "id": "river-group",
                         "transform": "translate("+ that.margin_left +","+ (that.legendsGroup_height)+")"
                     });
                 that.ygroup = that.svgContainer.append("g")
@@ -251,8 +253,8 @@ PykCharts.multiD.river = function (options){
                     that.legendsGroup = that.svgContainer.append("g")
                         .style("visibility","visible")
                         .attr({
-                            'id': "legends",
-                            "class": "legend-holder"
+                            'id': "river-legends",
+                            "class": "legends"
                         });
                         // .attr("transform","translate(0,10)");
                 } else {
@@ -297,9 +299,9 @@ PykCharts.multiD.river = function (options){
                     that.xScale = d3.scale.linear().range([0, width]);
                 }
                 var svg = that.group;
-                var groups = svg.selectAll("g.bar-holder").data(that.new_data1);
+                var groups = svg.selectAll("g.river-bar-holder").data(that.new_data1);
 
-                groups.enter().append("g").attr("class", "bar-holder")
+                groups.enter().append("g").attr("class", "river-bar-holder")
                     .attr("transform", function(d, i){
                         var y = that.yScale(i * that.barMargin);
                         var x = that.xScale((that.maxTotalVal - d.breakupTotal) / 2);
@@ -327,7 +329,7 @@ PykCharts.multiD.river = function (options){
 
                 groups.exit().remove();
 
-                var bar_holder = svg.selectAll("g.bar-holder")[0];
+                var bar_holder = svg.selectAll("g.river-bar-holder")[0];
                 for(var i = 0; i<that.new_data1.length; i++){
                     var group = bar_holder[i];
                     var breakup = that.new_data1[i].breakup;
@@ -340,7 +342,7 @@ PykCharts.multiD.river = function (options){
 
                     rects.enter().append("rect").attr({
                         "width": 0,
-                        "class": "rect"
+                        "class": "river-rect"
                     });
 
                     rects.transition().duration(that.transitions.duration())
@@ -387,7 +389,7 @@ PykCharts.multiD.river = function (options){
                                 that.mouseEvent.tooltipPosition(d);
                                 that.mouseEvent.tooltipTextShow(d.tooltip ? d.tooltip : d.y);
                                 if(PykCharts.boolean(that.chart_onhover_highlight_enable)) {
-                                    that.mouseEvent.highlight(options.selector + " .rect", this);
+                                    that.mouseEvent.highlight(options.selector + " .river-rect", this);
                                 }
                             }
                         },
@@ -400,7 +402,7 @@ PykCharts.multiD.river = function (options){
                             if(that.mode === "default") {
                                 that.mouseEvent.tooltipHide(d);
                                 if(PykCharts.boolean(that.chart_onhover_highlight_enable)) {
-                                    that.mouseEvent.highlightHide(options.selector + " .rect")
+                                    that.mouseEvent.highlightHide(options.selector + " .river-rect")
                                 }
                             }
                         },
@@ -422,11 +424,11 @@ PykCharts.multiD.river = function (options){
                 if(PykCharts.boolean(that.chart_grid_y_enable)) {
 
                     var width = that.chart_width - that.legendsGroup_width;
-                    var top_grid = that.grid_group.selectAll("line.top_line")
+                    var top_grid = that.grid_group.selectAll("line.grid_top_line")
                         .data(that.new_data1)
                     top_grid.enter()
                         .append("line")
-                    top_grid.attr("class", "top_line")
+                    top_grid.attr("class", "grid_top_line")
                         .attr({
                             "x1": 0,
                             "x2": width,
@@ -440,12 +442,12 @@ PykCharts.multiD.river = function (options){
                         });
                     top_grid.exit().remove();
 
-                    var bottom_grid = that.grid_group.selectAll("line.bottom_line")
+                    var bottom_grid = that.grid_group.selectAll("line.grid_bottom_line")
                         .data(that.new_data1);
                     bottom_grid.enter()
                         .append("line")
                     bottom_grid.attr({
-                        "class": "bottom_line",
+                        "class": "grid_bottom_line",
                         "x1": 0,
                         "x2": width,
                         "y1": function(d, i){
@@ -462,13 +464,13 @@ PykCharts.multiD.river = function (options){
             },
             connectingLines: function () {
                 if(!that.extended) {
-                    $("line.left_line").fadeIn();
-                    $("line.right_line").fadeIn();
-                    var left_angles = that.group.selectAll("line.left_line").data(that.new_data1);
+                    $("line.grid_left_line").fadeIn();
+                    $("line.grid_right_line").fadeIn();
+                    var left_angles = that.group.selectAll("line.grid_left_line").data(that.new_data1);
 
                     left_angles.enter().append("line")
                         .attr({
-                            "class": "left_line",
+                            "class": "grid_left_line",
                             "y2": function(d,i){
                                 return that.yScale((i * that.barMargin) + that.barHeight);
                             },
@@ -506,11 +508,11 @@ PykCharts.multiD.river = function (options){
                             }
                         });
                     left_angles.exit().remove();
-                    var right_angles = that.group.selectAll("line.right_line").data(that.new_data1);
+                    var right_angles = that.group.selectAll("line.grid_right_line").data(that.new_data1);
 
                     right_angles.enter().append("line")
                         .attr({
-                            "class": "right_line",
+                            "class": "grid_right_line",
                             "y2": function(d,i){
                                 return that.yScale((i * that.barMargin) + that.barHeight);
                             },
@@ -548,8 +550,8 @@ PykCharts.multiD.river = function (options){
                         });
                     right_angles.exit().remove();
                 } else if(that.extended) {
-                    $("line.left_line").remove();
-                    $("line.right_line").remove();
+                    $("line.grid_left_line").remove();
+                    $("line.grid_right_line").remove();
                 }
                 return this;
             },
@@ -557,9 +559,9 @@ PykCharts.multiD.river = function (options){
                 if(PykCharts.boolean(that.pointer_size)) {
                     var tick_text_width = [];
                     var width = that.chart_width - that.legendsGroup_width;
-                    var display_name = that.ticks_group.selectAll("text.cool_label").data(that.new_data1);
+                    var display_name = that.ticks_group.selectAll("text.ticks_label").data(that.new_data1);
 
-                    display_name.enter().append("text").attr("class", "cool_label");
+                    display_name.enter().append("text").attr("class", "ticks_label");
 
                     display_name.attr("x", width)
                         .attr("y", function(d, i){
@@ -588,9 +590,9 @@ PykCharts.multiD.river = function (options){
                 return this;
             },
             yAxisLabel : function () {
-                var left_labels = that.ygroup.selectAll("text.left_label").data(that.new_data1);
+                var left_labels = that.ygroup.selectAll("text.y_axis_left_label").data(that.new_data1);
                 var label_text_width = [];
-                left_labels.enter().append("svg:text").attr("class", "left_label");
+                left_labels.enter().append("svg:text").attr("class", "y_axis_left_label");
 
                 left_labels
                     .attr({
@@ -619,11 +621,11 @@ PykCharts.multiD.river = function (options){
             },
             highlight : function () {
                 if(that.highlight_enable) {
-                    var highlight_rect = that.group.selectAll(".highlight-rect")
+                    var highlight_rect = that.group.selectAll(".highlight-river-rect")
                         .data(that.highlightdata)
                     highlight_rect.enter()
                         .append("rect")
-                        .attr("class","highlight-rect");
+                        .attr("class","highlight-river-rect");
 
                     highlight_rect.attr({
                         "y": function(d){
@@ -653,9 +655,9 @@ PykCharts.multiD.river = function (options){
                 if(PykCharts.boolean(that.text_between_steps_size)) {
                     var duration_text_width = [];
                     var width = that.chart_width - that.legendsGroup_width;
-                    var right_labels = that.ticks_group.selectAll("text.right_label").data(that.new_data1);
+                    var right_labels = that.ticks_group.selectAll("text.duration_right_label").data(that.new_data1);
 
-                    right_labels.enter().append("svg:text").attr("class", "right_label");
+                    right_labels.enter().append("svg:text").attr("class", "duration_right_label");
 
                     right_labels
                         .attr({
@@ -730,10 +732,10 @@ PykCharts.multiD.river = function (options){
                         rect_parameter4value = 18 + 7.5;
                     }
                     var len = that.new_data[0].breakup.length;
-                    var legend = that.legendsGroup.selectAll(".circ")
+                    var legend = that.legendsGroup.selectAll(".river-legends-circles")
                                     .data(that.new_data[0].breakup);
 
-                    that.legends_text = that.legendsGroup.selectAll(".legends_text")
+                    that.legends_text = that.legendsGroup.selectAll(".river-legends-text")
                         .data(that.new_data[0].breakup);
 
                     that.legends_text.enter()
@@ -743,7 +745,7 @@ PykCharts.multiD.river = function (options){
                             that.fullList.push(d.name);
                         })
 
-                    that.legends_text.attr("class","legends_text")
+                    that.legends_text.attr("class","river-legends-text")
                         .text(function (d) {
                             return d.name;
                         })
@@ -766,7 +768,7 @@ PykCharts.multiD.river = function (options){
 
                     legend.attr({
                         "cx": rect_parameter3value,
-                        "class": "circ",
+                        "class": "river-legends-circles",
                         "cy": rect_parameter4value,
                         "r": 7.5,
                         "style": function(d){
@@ -823,11 +825,11 @@ PykCharts.multiD.river = function (options){
                         }
                     ];
                     that.legendsGroup_height = 50;
-                    var texts = that.chart_mode_group.selectAll(".mode-text").data(options);
+                    var texts = that.chart_mode_group.selectAll(".data-mode-text").data(options);
                     texts.enter().append("text")
 
                     texts.attr({
-                        "class": "mode-text",
+                        "class": "data-mode-text",
                         "fill": that.legends_text_color,
                         "font-family": that.legends_text_family,
                         "font-size": that.legends_text_size +"px",
@@ -843,10 +845,10 @@ PykCharts.multiD.river = function (options){
                         that.extended = !that.extended;
                         that.draw();
                     });
-                    var circles = that.chart_mode_group.selectAll(".mode-circ").data(options);
+                    var circles = that.chart_mode_group.selectAll(".data-mode-circles").data(options);
                     circles.enter().append("circle");
 
-                    circles.attr("class","mode-circ")
+                    circles.attr("class","data-mode-circles")
                         .attr("cx", function(d,i){
                             return (i*100)+10;
                         })

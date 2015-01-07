@@ -125,8 +125,8 @@ PykCharts.multiD.spiderWeb = function (options) {
 
     this.render = function () {
         that.fillChart = new PykCharts.Configuration.fillChart(that);
-        var l = $(".svgcontainer").length;
-        that.container_id = "svgcontainer" + l;
+        var id = that.selector.substring(1,that.selector.length),
+            container_id = id + "_svg";
         that.border = new PykCharts.Configuration.border(that);
         that.map_group_data = that.multiD.mapGroup(that.data);
         that.dataTransformation();
@@ -134,13 +134,13 @@ PykCharts.multiD.spiderWeb = function (options) {
         if(that.mode === "default") {
             that.k.title()
                 .backgroundColor(that)
-                .export(that,"#"+that.container_id,"spiderweb")
+                .export(that,"#"+container_id,"spiderweb")
                 .emptyDiv(options.selector)
                 .subtitle()
                 .makeMainDiv(that.selector,1);
             that.h = that.chart_height;
             that.optionalFeatures()
-                .svgContainer(1)
+                .svgContainer(container_id,1)
                 .legendsContainer(1);
             
             that.k
@@ -167,11 +167,11 @@ PykCharts.multiD.spiderWeb = function (options) {
 
         } else if (that.mode==="infographics") {
             that.k.backgroundColor(that)
-                .export(that,"#"+that.container_id,"spiderweb")
+                .export(that,"#"+container_id,"spiderweb")
                 .emptyDiv(options.selector);
             that.k.makeMainDiv(that.selector,1);
             that.h = that.chart_height;
-            that.optionalFeatures().svgContainer(1)
+            that.optionalFeatures().svgContainer(container_id,1)
                 .legendsContainer()
                 .createGroups();
             that.spiderweb_outer_radius_percent = that.k.__proto__._radiusCalculation(that.spiderweb_outer_radius_percent,"spiderweb");
@@ -186,7 +186,7 @@ PykCharts.multiD.spiderWeb = function (options) {
 
             that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
         }
-        that.k.exportSVG(that,"#"+that.container_id,"spiderweb")
+        that.k.exportSVG(that,"#"+container_id,"spiderweb")
         var resize = that.k.resize(that.svgContainer);
         that.k.__proto__._ready(resize);
         window.addEventListener('resize', function(event){
@@ -203,13 +203,13 @@ PykCharts.multiD.spiderWeb = function (options) {
             id = that.selector.substring(1,that.selector.length),
             status;
         var optional = {
-            svgContainer: function (i) {
+            svgContainer: function (container_id,i) {
                 document.getElementById(id).className = "PykCharts-spider-web";
                 that.svgContainer = d3.select(that.selector + " #tooltip-svg-container-" + i)
                     .append("svg")
                     .attr({
                         "class": "svgcontainer",
-                        "id": that.container_id,
+                        "id": container_id,
                         "width": that.chart_width,
                         "height": that.chart_height,
                         "preserveAspectRatio": "xMinYMin",
@@ -220,7 +220,7 @@ PykCharts.multiD.spiderWeb = function (options) {
             createGroups: function () {
                 that.group = that.svgContainer.append("g")
                     .attr({
-                        "id": "spidergrp",
+                        "id": "spider-group",
                         "transform": "translate(" + (that.chart_width - that.legendsGroup_width) / 2 + "," + ((that.h+that.legendsGroup_height+20)/2) + ")"
                     });
 
@@ -232,8 +232,8 @@ PykCharts.multiD.spiderWeb = function (options) {
                 if (PykCharts['boolean'](that.legends_enable) && that.map_group_data[1] && that.mode === "default") {
                     that.legendsGroup = that.svgContainer.append("g")
                         .attr({
-                            "class": "legendgrp",
-                            "id": "legendgrp"
+                            "class": "spiderweb-legends",
+                            "id": "legends"
                         });
                 } else {
                     that.legendsGroup_width = 0;
@@ -431,12 +431,12 @@ PykCharts.multiD.spiderWeb = function (options) {
             xAxis : function () {
                 that.length = that.new_data[0].data.length;
 
-                var spiderAxisTitle = that.group.selectAll("text.axisTitle")
+                var spiderAxisTitle = that.group.selectAll("text.x-axis-title")
                     .data(that.nodes[0]);
                     
                 spiderAxisTitle.enter()
                     .append("text")
-                    .attr("class","axisTitle");
+                    .attr("class","x-axis-title");
 
                 spiderAxisTitle.attr({
                     "transform": function(d, i){
@@ -468,12 +468,12 @@ PykCharts.multiD.spiderWeb = function (options) {
                 for(var i=4,j=0; i>=0 ;i--,j++){
                     b[j]=i*t;
                 }
-                var tick_label = that.ticksElement.selectAll("text.ticks")
+                var tick_label = that.ticksElement.selectAll("text.y-axis-ticks")
                     .data(b);
 
                 tick_label.enter()
                     .append("text")
-                    .attr("class","ticks"); 
+                    .attr("class","y-axis-ticks");
                 tick_label
                     .style("text-anchor","start")
                     .attr({

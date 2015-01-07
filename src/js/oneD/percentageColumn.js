@@ -226,7 +226,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                     });
 
                     that.group = that.svgContainer.append("g")
-                        .attr("id","funnel");
+                        .attr("id","percentageColumn");
 
                 return this;
             },

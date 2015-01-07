@@ -41,8 +41,8 @@ PykCharts.multiD.column = function (options) {
     }
 
     this.render = function () {
-        var l = $(".svgcontainer").length;
-        that.container_id = "svgcontainer" + l;
+        var id = that.selector.substring(1,that.selector.length),
+            container_id = id + "_svg";
 
         that.border = new PykCharts.Configuration.border(that);
         that.transitions = new PykCharts.Configuration.transition(that);
@@ -63,13 +63,13 @@ PykCharts.multiD.column = function (options) {
 
             that.k.title()
                 .backgroundColor(that)
-                .export(that,"#"+that.container_id,"columnChart")
+                .export(that,"#"+container_id,"columnChart")
                 .emptyDiv(options.selector)
                 .subtitle()
                 .makeMainDiv(that.selector,1);
 
             that.optionalFeatures()
-                .svgContainer(1)
+                .svgContainer(container_id,1)
                 .createGroups();
 
             that.k.liveData(that)
@@ -98,12 +98,12 @@ PykCharts.multiD.column = function (options) {
 
         } else if(that.mode === "infographics") {
             that.k.backgroundColor(that)
-                .export(that,"#"+that.container_id,"columnChart")
+                .export(that,"#"+container_id,"columnChart")
                 .emptyDiv(options.selector)
                 .makeMainDiv(that.selector,1);
 
             that.optionalFeatures()
-                .svgContainer(1)
+                .svgContainer(container_id,1)
                 .createGroups();
 
             that.k.liveData(that)
@@ -125,7 +125,7 @@ PykCharts.multiD.column = function (options) {
                 that.k.xAxis(that.svgContainer,that.xgroup,that.xScale,that.extra_left_margin,that.x_domain,that.x_tick_values)
             }
         }
-        that.k.exportSVG(that,"#"+that.container_id,"columnChart")
+        that.k.exportSVG(that,"#"+container_id,"columnChart")
 
         var resize = that.k.resize(that.svgContainer);
         that.k.__proto__._ready(resize);
@@ -174,14 +174,14 @@ PykCharts.multiD.column = function (options) {
         var id = that.selector.substring(1,that.selector.length);
         var status;
         var optional = {
-            svgContainer: function (i) {
+            svgContainer: function (container_id,i) {
                 document.getElementById(id).className = "PykCharts-twoD";
                 that.svgContainer = d3.select(options.selector + " #tooltip-svg-container-" + i)
                     .append("svg:svg")
                     .attr({
                         "width": that.chart_width,
                         "height": that.chart_height,
-                        "id": that.container_id,
+                        "id": container_id,
                         "class": "svgcontainer",
                         "preserveAspectRatio": "xMinYMin",
                         "viewBox": "0 0 " + that.chart_width + " " + that.chart_height
@@ -191,8 +191,7 @@ PykCharts.multiD.column = function (options) {
             createGroups: function (i) {
                 that.group = that.svgContainer.append("g")
                     .attr({
-                        "id": "svggroup",
-                        "class": "svggroup",
+                        "id": "column-group",
                         "transform": "translate(" + that.margin_left + "," + (that.margin_top/* + that.legendsGroup_height*/) +")"
                     });
 
@@ -354,18 +353,18 @@ PykCharts.multiD.column = function (options) {
                 that.x_domain = that.xScale.domain();
                 that.y_domain = that.yScale.domain();
 
-                that.bar = that.group.selectAll(".bar")
+                that.bar = that.group.selectAll(".column-rect")
                     .data(that.data)
 
                 that.bar.enter()
                     .append("g")
-                    .attr("class","bar")
+                    .attr("class","column-rect")
                     .append("svg:rect");
 
-                that.bar.attr("class","bar")
+                that.bar.attr("class","column-rect")
                     .select("rect")
                     .attr({
-                        "class": "hbar",
+                        "class": "vcolumn",
                         "x": function (d) { return that.xScale(d.x); },
                         "y": height,
                         "height": 0,
@@ -378,7 +377,7 @@ PykCharts.multiD.column = function (options) {
                         'mouseover': function (d) {
                             if(that.mode === "default") {
                                 if(PykCharts.boolean(that.chart_onhover_highlight_enable)) {
-                                    that.mouseEvent1.highlight(that.selector+" "+".hbar", this);
+                                    that.mouseEvent1.highlight(that.selector+" "+".vcolumn", this);
                                 }
                                 if (PykCharts['boolean'](options.tooltip_enable)) {
                                     that.mouseEvent.tooltipPosition(d);
@@ -389,7 +388,7 @@ PykCharts.multiD.column = function (options) {
                         'mouseout': function (d) {
                             if(that.mode === "default") {
                                 if(PykCharts.boolean(that.chart_onhover_highlight_enable)) {
-                                    that.mouseEvent1.highlightHide(that.selector+" "+".hbar");
+                                    that.mouseEvent1.highlightHide(that.selector+" "+".vcolumn");
                                 }
                                 if (PykCharts['boolean'](options.tooltip_enable)) {
                                     that.mouseEvent.tooltipHide(d);
@@ -415,7 +414,7 @@ PykCharts.multiD.column = function (options) {
 
                 that.bar.exit()
                     .remove();
-                var t = d3.transform(d3.select(d3.selectAll(options.selector + ' .bar')[0][(that.data.length-1)]).attr("transform")),
+                var t = d3.transform(d3.select(d3.selectAll(options.selector + ' .column-rect')[0][(that.data.length-1)]).attr("transform")),
                     x = t.translate[0],
                     y = t.translate[1];
                 x_range = [(x + (that.xScale.rangeBand()/2)),(that.reducedWidth - x - (that.xScale.rangeBand()/2))];
