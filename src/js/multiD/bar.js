@@ -135,8 +135,8 @@ PykCharts.multiD.bar = function (options) {
             }
         }
         that.k.exportSVG(that,"#"+that.container_id,"barChart")
-        $(document).ready(function () { return that.k.resize(that.svgContainer,""); })
-        $(window).on("resize", function () { return that.k.resize(that.svgContainer,""); });
+        $(document).ready(function () { return that.k.resize(that.svgContainer); })
+        $(window).on("resize", function () { return that.k.resize(that.svgContainer); });
 
     };
 

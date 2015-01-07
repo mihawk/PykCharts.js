@@ -200,14 +200,9 @@ PykCharts.multiD.groupedColumn = function(options) {
             }
         }
 
-        that.k.exportSVG(that,"#"+that.container_id,"groupColumnChart")
-        if(PykCharts.boolean(that.legends_enable)) {
-            $(document).ready(function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); })
-            $(window).on("resize", function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); });
-        } else {
-            $(document).ready(function () { return that.k.resize(that.svgContainer,""); })
-            $(window).on("resize", function () { return that.k.resize(that.svgContainer,""); });
-        }
+        that.k.exportSVG(that,"#"+that.container_id,"groupColumnChart");
+        $(document).ready(function () { return that.k.resize(that.svgContainer); })
+        $(window).on("resize", function () { return that.k.resize(that.svgContainer); });
     };
 
     that.optionalFeatures = function() {

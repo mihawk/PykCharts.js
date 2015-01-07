@@ -195,8 +195,8 @@ PykCharts.multiD.groupedBar = function(options){
         }
 
         that.k.exportSVG(that,"#"+that.container_id,"groupbarChart")
-        $(document).ready(function () { return that.k.resize(that.svgContainer,""); })
-        $(window).on("resize", function () { return that.k.resize(that.svgContainer,""); });
+        $(document).ready(function () { return that.k.resize(that.svgContainer); })
+        $(window).on("resize", function () { return that.k.resize(that.svgContainer); });
     };
 
     that.optionalFeatures = function() {

@@ -187,13 +187,8 @@ PykCharts.multiD.spiderWeb = function (options) {
             that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
         }
         that.k.exportSVG(that,"#"+that.container_id,"spiderweb")
-        if(PykCharts['boolean'](that.legends_enable)) {
-            $(document).ready(function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); })
-            $(window).on("resize", function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); });
-        } else {
-            $(document).ready(function () { return that.k.resize(that.svgContainer,""); })
-            $(window).on("resize", function () { return that.k.resize(that.svgContainer,""); });
-        }
+        $(document).ready(function () { return that.k.resize(that.svgContainer,""); })
+        $(window).on("resize", function () { return that.k.resize(that.svgContainer,""); });
     };
 
     this.degrees = function (radians) {

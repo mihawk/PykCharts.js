@@ -413,8 +413,8 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
             }
         }
         if(!PykCharts['boolean'](that.panels_enable)) {
-            $(document).ready(function () { return that.k.resize(that.svgContainer,"yes"); })
-            $(window).on("resize", function () { return that.k.resize(that.svgContainer,"yes"); });
+            $(document).ready(function () { return that.k.resize(that.svgContainer); })
+            $(window).on("resize", function () { return that.k.resize(that.svgContainer); });
         } else {
             $(document).ready(function () { return that.k.resize(null); })
             $(window).on("resize", function () { return that.k.resize(null); });
