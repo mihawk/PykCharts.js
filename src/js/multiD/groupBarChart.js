@@ -5,7 +5,7 @@ PykCharts.multiD.groupedBar = function(options){
     var multiDimensionalCharts = theme.multiDimensionalCharts;
     this.execute = function () {
         that = new PykCharts.multiD.processInputs(that, options, "bar");
-
+        PykCharts.scaleFunction(that);
         that.data_sort_enable = options.data_sort_enable ? options.data_sort_enable.toLowerCase() : multiDimensionalCharts.data_sort_enable;
         that.data_sort_type = PykCharts['boolean'](that.data_sort_enable) && options.data_sort_type ? options.data_sort_type.toLowerCase() : multiDimensionalCharts.data_sort_type;
         that.data_sort_order = PykCharts['boolean'](that.data_sort_enable) && options.data_sort_order ? options.data_sort_order.toLowerCase() : multiDimensionalCharts.data_sort_order;
@@ -370,7 +370,7 @@ PykCharts.multiD.groupedBar = function(options){
                         'mouseout': function (d) {
                             if(that.mode === "default") {
                                 if(PykCharts.boolean(that.chart_onhover_highlight_enable)) {
-                                    that.mouseEvent.highlightGroupHide(that.selector+" "+".bar-group","rect");
+                                    that.mouseEvent.highlightGroupHide(that.selector+" "+".groupedBar-rect","rect");
                                 }
                                 that.mouseEvent.axisHighlightHide(that.selector+" "+".y.axis")
                             }
@@ -378,7 +378,7 @@ PykCharts.multiD.groupedBar = function(options){
                         'mousemove': function (d) {
                             if(that.mode === "default") {
                                 if(PykCharts.boolean(that.chart_onhover_highlight_enable)) {
-                                    that.mouseEvent.highlightGroup(that.selector+" "+".bar-group", this, "rect");
+                                    that.mouseEvent.highlightGroup(that.selector+" "+".groupedBar-rect", this, "rect");
                                 }
                                 that.mouseEvent.axisHighlightShow([d.name],that.selector+" "+".y.axis",that.xdomain,"bar");
                             }

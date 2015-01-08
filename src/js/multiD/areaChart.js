@@ -4,7 +4,9 @@ PykCharts.multiD.area = function (options){
 
 	this.execute = function (){
 		that = new PykCharts.multiD.processInputs(that, options, "area");
-
+		PykCharts.crossHair(that);
+        PykCharts.annotation(that);
+        PykCharts.scaleFunction(that);
 		if(that.stop) {
 			return;
 		}
@@ -66,7 +68,9 @@ PykCharts.multiD.stackedArea = function (options){
 
 	this.execute = function (){
 		that = new PykCharts.multiD.processInputs(that, options, "area");
-
+		PykCharts.crossHair(that);
+        PykCharts.annotation(that);
+        PykCharts.scaleFunction(that);
 		if(that.stop) {
 			return;
 		}

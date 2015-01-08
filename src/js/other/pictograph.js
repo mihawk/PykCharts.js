@@ -231,6 +231,7 @@ PykCharts.other.pictograph = function (options) {
                     var group_bbox_height = that.group.node().getBBox().height;
                     if (j===+that.weight && group_bbox_height != 0) {
                         that.chart_height = group_bbox_height;
+
                         that.svgContainer
                             .attr({
                                 "height": group_bbox_height,

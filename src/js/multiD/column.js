@@ -4,6 +4,7 @@ PykCharts.multiD.column = function (options) {
 
     this.execute = function () {
         that = new PykCharts.multiD.processInputs(that, options, "column");
+        PykCharts.scaleFunction(that);
         if(that.stop){
             return;
         }
