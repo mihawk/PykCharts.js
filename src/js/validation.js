@@ -13,14 +13,15 @@ var config_param_info = [
 		'validation_type': 'validatingSelector'
 	},	
 	{
-		'config_name': 'selector',
-		'default_value': stylesheet,
-		'validation_type': 'validatingSelector'		
+		'config_name': 'is_interactive',
+		'default_value': oneDimensionalCharts,
+		'validation_type': 'validatingSelector',
+        'lower_case': 'yes'		
 	},
 	{
-		'config_name': ,
+		'config_name': 'mode',
 		'default_value': stylesheet,
-		'validation_type': 
+		'validation_type': 'validatingChartMode',
 
 	},
 	{
