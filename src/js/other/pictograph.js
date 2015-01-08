@@ -6,41 +6,41 @@ PykCharts.other.pictograph = function (options) {
         that = new PykCharts.other.processInputs(that, options);
         var optional = options.optional,
             otherCharts = theme.otherCharts;
-        that.showTotal = options.pictograph_show_all_images ? options.pictograph_show_all_images.toLowerCase() : otherCharts.pictograph_show_all_images;
-        that.enableTotal = options.pictograph_total_count_enable ? options.pictograph_total_count_enable.toLowerCase() : otherCharts.pictograph_total_count_enable;
-        that.enableCurrent = options.pictograph_current_count_enable ? options.pictograph_current_count_enable.toLowerCase() : otherCharts.pictograph_current_count_enable;
-        that.imgperline = options.pictograph_image_per_line ?  options.pictograph_image_per_line : otherCharts.pictograph_image_per_line;
-        that.current_count_size = options.pictograph_current_count_size ? options.pictograph_current_count_size : otherCharts.pictograph_current_count_size;
-        that.current_count_color = options.pictograph_current_count_color ? options.pictograph_current_count_color : otherCharts.pictograph_current_count_color;
-        that.current_count_weight = options.pictograph_current_count_weight ? options.pictograph_current_count_weight.toLowerCase() : otherCharts.pictograph_current_count_weight;
-        that.current_count_family = options.pictograph_current_count_family ? options.pictograph_current_count_family.toLowerCase() : otherCharts.pictograph_current_count_family;
-        that.total_count_size = options.pictograph_total_count_size ? options.pictograph_total_count_size : otherCharts.pictograph_total_count_size;
-        that.total_count_color = options.pictograph_total_count_color ? options.pictograph_total_count_color : otherCharts.pictograph_total_count_color;
-        that.total_count_weight = options.pictograph_total_count_weight ? options.pictograph_total_count_weight.toLowerCase() : otherCharts.pictograph_total_count_weight;
-        that.total_count_family = options.pictograph_total_count_family ? options.pictograph_total_count_family.toLowerCase() : otherCharts.pictograph_total_count_family;
-        that.imageWidth =  options.pictograph_image_width ? options.pictograph_image_width : otherCharts.pictograph_image_width;
-        that.imageHeight = options.pictograph_image_height ? options.pictograph_image_height : otherCharts.pictograph_image_height;
+        that.pictograph_show_all_images = options.pictograph_show_all_images ? options.pictograph_show_all_images.toLowerCase() : otherCharts.pictograph_show_all_images;
+        that.pictograph_total_count_enable = options.pictograph_total_count_enable ? options.pictograph_total_count_enable.toLowerCase() : otherCharts.pictograph_total_count_enable;
+        that.pictograph_current_count_enable = options.pictograph_current_count_enable ? options.pictograph_current_count_enable.toLowerCase() : otherCharts.pictograph_current_count_enable;
+        that.pictograph_image_per_line = options.pictograph_image_per_line ?  options.pictograph_image_per_line : otherCharts.pictograph_image_per_line;
+        that.pictograph_current_count_size = options.pictograph_current_count_size ? options.pictograph_current_count_size : otherCharts.pictograph_current_count_size;
+        that.pictograph_current_count_color = options.pictograph_current_count_color ? options.pictograph_current_count_color : otherCharts.pictograph_current_count_color;
+        that.pictograph_current_count_weight = options.pictograph_current_count_weight ? options.pictograph_current_count_weight.toLowerCase() : otherCharts.pictograph_current_count_weight;
+        that.pictograph_current_count_family = options.pictograph_current_count_family ? options.pictograph_current_count_family.toLowerCase() : otherCharts.pictograph_current_count_family;
+        that.pictograph_total_count_size = options.pictograph_total_count_size ? options.pictograph_total_count_size : otherCharts.pictograph_total_count_size;
+        that.pictograph_total_count_color = options.pictograph_total_count_color ? options.pictograph_total_count_color : otherCharts.pictograph_total_count_color;
+        that.pictograph_total_count_weight = options.pictograph_total_count_weight ? options.pictograph_total_count_weight.toLowerCase() : otherCharts.pictograph_total_count_weight;
+        that.pictograph_total_count_family = options.pictograph_total_count_family ? options.pictograph_total_count_family.toLowerCase() : otherCharts.pictograph_total_count_family;
+        that.pictograph_image_width =  options.pictograph_image_width ? options.pictograph_image_width : otherCharts.pictograph_image_width;
+        that.pictograph_image_height = options.pictograph_image_height ? options.pictograph_image_height : otherCharts.pictograph_image_height;
         that.pictograph_units_per_image = options.pictograph_units_per_image ? options.pictograph_units_per_image : "";
         that.pictograph_units_per_image_text_family = options.pictograph_units_per_image_text_family ? options.pictograph_units_per_image_text_family.toLowerCase(): otherCharts.pictograph_units_per_image_text_family;
         that.pictograph_units_per_image_text_size = options.pictograph_units_per_image_text_size ? options.pictograph_units_per_image_text_size : otherCharts.pictograph_units_per_image_text_size;
         that.pictograph_units_per_image_text_color = options.pictograph_units_per_image_text_color ? options.pictograph_units_per_image_text_color : otherCharts.pictograph_units_per_image_text_color;
         that.pictograph_units_per_image_text_weight = options.pictograph_units_per_image_text_weight ? options.pictograph_units_per_image_text_weight.toLowerCase() : otherCharts.pictograph_units_per_image_text_weight;
-        that.height = options.chart_height ? options.chart_height : that.width;
+        that.chart_height = options.chart_height ? options.chart_height : that.chart_width;
 
         that.k.validator()
-            .validatingDataType(that.height,"chart_height",that.width,"height")
+            .validatingDataType(that.chart_height,"chart_height",that.chart_width)
             .validatingDataType(that.pictograph_units_per_image_text_size,"pictograph_units_per_image_text_size",otherCharts.pictograph_units_per_image_text_size) 
-            .validatingDataType(that.current_count_size,"pictograph_current_count_size",otherCharts.pictograph_current_count_size,"current_count_size")
-            .validatingDataType(that.total_count_size,"pictograph_total_count_size",otherCharts.pictograph_total_count_size,"total_count_size")
-            .validatingDataType(that.imageWidth,"pictograph_image_width",otherCharts.pictograph_image_width,"imageWidth")
-            .validatingDataType(that.imageHeight,"pictograph_image_height",otherCharts.pictograph_image_height,"imageHeight")
-            .validatingDataType(that.imgperline,"pictograph_image_per_line",otherCharts.pictograph_image_per_line,"imgperline")
-            .validatingFontWeight(that.current_count_weight,"pictograph_current_count_weight",otherCharts.pictograph_current_count_weight,"current_count_weight")           
-            .validatingFontWeight(that.total_count_weight,"pictograph_total_count_weight",otherCharts.pictograph_total_count_weight,"total_count_weight")                       
+            .validatingDataType(that.pictograph_current_count_size,"pictograph_current_count_size",otherCharts.pictograph_current_count_size)
+            .validatingDataType(that.pictograph_total_count_size,"pictograph_total_count_size",otherCharts.pictograph_total_count_size)
+            .validatingDataType(that.pictograph_image_width,"pictograph_image_width",otherCharts.pictograph_image_width)
+            .validatingDataType(that.pictograph_image_height,"pictograph_image_height",otherCharts.pictograph_image_height)
+            .validatingDataType(that.pictograph_image_per_line,"pictograph_image_per_line",otherCharts.pictograph_image_per_line)
+            .validatingFontWeight(that.pictograph_current_count_weight,"pictograph_current_count_weight",otherCharts.pictograph_current_count_weight)
+            .validatingFontWeight(that.pictograph_total_count_weight,"pictograph_total_count_weight",otherCharts.pictograph_total_count_weight)
             .validatingFontWeight(that.pictograph_units_per_image_text_weight,"pictograph_units_per_image_text_weight",otherCharts.pictograph_units_per_image_text_weight)
-            .validatingColor(that.current_count_color,"pictograph_current_count_color",otherCharts.pictograph_current_count_color,"current_count_color")
-            .validatingColor(that.total_count_color,"pictograph_total_count_color",otherCharts.pictograph_total_count_color,"total_count_color")
-            .validatingColor(that.pictograph_units_per_image_text_color,"pictograph_units_per_image_text_color",otherCharts.pictograph_units_per_image_text_color,"pictograph_units_per_image_text_color"); 
+            .validatingColor(that.pictograph_current_count_color,"pictograph_current_count_color",otherCharts.pictograph_current_count_color)
+            .validatingColor(that.pictograph_total_count_color,"pictograph_total_count_color",otherCharts.pictograph_total_count_color)
+            .validatingColor(that.pictograph_units_per_image_text_color,"pictograph_units_per_image_text_color",otherCharts.pictograph_units_per_image_text_color);
         if(that.stop) {
             return;
         }
@@ -96,25 +96,25 @@ PykCharts.other.pictograph = function (options) {
         that.k.dataSourceFormatIdentification(options.data,that,"executeRefresh");
     }
     this.render = function () {
-        var l = $(".svgcontainer").length;
-        that.container_id = "svgcontainer" + l;
+        var id = that.selector.substring(1,that.selector.length),
+            container_id = id + "_svg";
         that.transitions = new PykCharts.Configuration.transition(that);
 
         if(that.mode==="default") {
             that.k.title()
                 .backgroundColor(that)
-                .export(that,"#"+that.container_id,"pictograph")
+                .export(that,"#"+container_id,"pictograph")
                 .emptyDiv()
                 .subtitle()
                 .liveData(that);
         } else {
             that.k.backgroundColor(that)
-                .export(that,"#"+that.container_id,"pictograph")
+                .export(that,"#"+container_id,"pictograph")
                 .emptyDiv();
         }
 
         that.optionalFeatures()
-                .svgContainer()
+                .svgContainer(container_id)
                 .labelText()
                 .enableLabel()
         if(PykCharts['boolean'](that.pictograph_units_per_image)) {
@@ -127,7 +127,7 @@ PykCharts.other.pictograph = function (options) {
                 .credits()
                 .dataSource();
         }
-        that.k.exportSVG(that,"#"+that.container_id,"pictograph");
+        that.k.exportSVG(that,"#"+container_id,"pictograph");
         var resize = that.k.resize(that.svgContainer);
         that.k.__proto__._ready(resize);
         window.onresize = function () {
@@ -138,14 +138,15 @@ PykCharts.other.pictograph = function (options) {
     this.optionalFeatures = function () {
 
         var optional = {
-            svgContainer: function () {
-
+            svgContainer: function (container_id) {
                 that.svgContainer = d3.select(options.selector).append('svg')
-                    .attr("width",that.width)
-                    .attr("id",that.container_id)
-                    .attr("class","svgcontainer")
-                    .attr("preserveAspectRatio", "xMinYMin")
-                    .attr("viewBox", "0 0 " + that.width + " " + that.height);
+                    .attr({
+                        "width": that.chart_width,
+                        "id": container_id,
+                        "class": "svgcontainer",
+                        "preserveAspectRatio": "xMinYMin",
+                        "viewBox": "0 0 " + that.chart_width + " " + that.chart_height
+                    });
 
                 that.group = that.svgContainer.append("g")
                     .attr("id", "pictograph_image_group")
@@ -185,15 +186,17 @@ PykCharts.other.pictograph = function (options) {
                     if(j <= that.data[1].weight) {
                         if (!that.old_data || (that.old_data && j > that.old_data[1].weight)) {
                             that.group.append("image")
-                                .attr("xlink:href",that.data[1]["image"])
-                                .attr("id","current_image"+j)
-                                .attr("x", b *(that.imageWidth + 1))
-                                .attr("y", a *(that.imageHeight + 10))
-                                .attr("width",0)
-                                .attr("height", that.imageHeight + "px")
+                                .attr({
+                                    "xlink:href": that.data[1]["image"],
+                                    "id": "current_image"+j,
+                                    "x": b *(that.pictograph_image_width + 1),
+                                    "y": a *(that.pictograph_image_height + 10),
+                                    "width": 0,
+                                    "height": that.pictograph_image_height + "px"
+                                })
                                 .transition()
                                 .duration(that.transitions.duration())
-                                .attr("width", that.imageWidth + "px");
+                                .attr("width", that.pictograph_image_width + "px");
 
                             setTimeout(function () {
                                 var total_image_element = d3.selectAll("#total_image"+j);
@@ -204,20 +207,22 @@ PykCharts.other.pictograph = function (options) {
                         }
                     } else if ((j > that.old_weight && that.weight > that.old_weight) || (that.old_data && j <= that.old_data[1].weight)) {
                             that.group.append("image")
-                                .attr("xlink:href",that.data[0]["image"])
-                                .attr("id","total_image"+j)
-                                .attr("x", b *(that.imageWidth + 1))
-                                .attr("y", a *(that.imageHeight+ 10))
-                                .attr("width",0)
-                                .attr("height", that.imageHeight + "px")
+                                .attr({
+                                    "xlink:href": that.data[0]["image"],
+                                    "id": "total_image"+j,
+                                    "x": b *(that.pictograph_image_width + 1),
+                                    "y": a *(that.pictograph_image_height+ 10),
+                                    "width": 0,
+                                    "height": that.pictograph_image_height + "px"
+                                })
                                 .transition()
                                 .duration(that.transitions.duration())
-                                .attr("width", that.imageWidth + "px");
+                                .attr("width", that.pictograph_image_width + "px");
                     }
                     counter++;
                     b++;
 
-                    if (counter >= that.imgperline) {
+                    if (counter >= that.pictograph_image_per_line) {
                         a++;
                         b=0;
                         counter=0;
@@ -225,17 +230,20 @@ PykCharts.other.pictograph = function (options) {
 
                     var group_bbox_height = that.group.node().getBBox().height;
                     if (j===+that.weight && group_bbox_height != 0) {
-                        that.height = group_bbox_height;
+                        that.chart_height = group_bbox_height;
                         that.svgContainer
-                            .attr("height",group_bbox_height)
-                            .attr("viewBox", "0 0 " + that.width + " " + group_bbox_height);
+                            .attr({
+                                "height": group_bbox_height,
+                                "viewBox": "0 0 " + that.chart_width + " " + group_bbox_height
+                            });
                     }
                     else {
                         that.svgContainer
-                            .attr("height",group_bbox_height)
-                            .attr("viewBox", "0 0 " + that.width + " " + that.height);
-                    }
-                    
+                            .attr({
+                                "height": group_bbox_height,
+                                "viewBox": "0 0 " + that.chart_width + " " + that.chart_height
+                            });
+                    }                    
                 }
 
                 setTimeout(function () {
@@ -257,13 +265,13 @@ PykCharts.other.pictograph = function (options) {
                     }
                 },that.transitions.duration());
 
-                if(((that.imageWidth * that.imgperline) + width) > that.width) {
+                if(((that.pictograph_image_width * that.pictograph_image_per_line) + width) > that.chart_width) {
                     console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px',"Your Lable text size and image width exceeds the chart conatiner width")
                 }
                 return this;
             },
             showTotal: function () {
-                 if (PykCharts['boolean'](that.showTotal)) {
+                 if (PykCharts['boolean'](that.pictograph_show_all_images)) {
                     that.weight = that.data[0].weight;
                 }
                 else {
@@ -272,7 +280,7 @@ PykCharts.other.pictograph = function (options) {
                 return this ;
             },
             enableLabel: function () {
-                if (PykCharts['boolean'](that.enableTotal)) {
+                if (PykCharts['boolean'](that.pictograph_total_count_enable)) {
                     var current_text = d3.selectAll(options.selector+" .PykCharts-current-text");
                     if (current_text.length > 0) {
                         current_text.remove();
@@ -282,41 +290,47 @@ PykCharts.other.pictograph = function (options) {
                         that.textWidth = 0;    
                     }
 
-                    var y_pos =  ((that.data[0].weight)/(that.imgperline));
+                    var y_pos =  ((that.data[0].weight)/(that.pictograph_image_per_line));
                     var textHeight;
 
-                     that.group1.append("text")
-                        .attr("class","PykCharts-current-text")
-                        .attr("font-family",that.total_count_family)
-                        .attr("font-size",that.total_count_size)
-                        .attr("font-weight",that.total_count_weight)
-                        .attr("fill",that.total_count_color)
+                    that.group1.append("text")
+                        .attr({
+                            "class": "PykCharts-current-text",
+                            "font-family": that.pictograph_total_count_family,
+                            "font-size": that.pictograph_total_count_size,
+                            "font-weight": that.pictograph_total_count_weight,
+                            "fill": that.pictograph_total_count_color
+                        })
                         .text("/"+that.data[0].weight)
                         .text(function () {
                             that.textHeight =this.getBBox().height;
                             that.totalTxtWeight = this.getBBox().width;
                             return "/"+that.data[0].weight;
                         })
-                        .attr("x", (that.textWidth+5))
-                        .attr("y", function () { return ((that.textHeight)-10); });
+                        .attr({
+                            "x": (that.textWidth+5),
+                            "y": function () { return ((that.textHeight)-10); }
+                        });
                 }
                 return this;
             },
             labelText: function () {
-                if (PykCharts['boolean'](that.enableCurrent)) {
+                if (PykCharts['boolean'](that.pictograph_current_count_enable)) {
                     var total_text = d3.selectAll(options.selector+" .PykCharts-total-text");
                     if (total_text.length > 0) {
                         total_text.remove();
                     };
-                    var y_pos =  ((that.data[0].weight)/(that.imgperline));
+                    var y_pos =  ((that.data[0].weight)/(that.pictograph_image_per_line));
                     var textHeight;
                     that.group1.append("text")
-                        .attr("x", 0)
-                        .attr("class","PykCharts-total-text")
-                        .attr("font-family",that.current_count_family)
-                        .attr("font-size",that.current_count_size)
-                        .attr("font-weight",that.current_count_weight)
-                        .attr("fill",that.current_count_color)
+                        .attr({
+                            "x": 0,
+                            "class": "PykCharts-total-text",
+                            "font-family": that.pictograph_current_count_family,
+                            "font-size": that.pictograph_current_count_size,
+                            "font-weight": that.pictograph_current_count_weight,
+                            "fill": that.pictograph_current_count_color
+                        })
                         .text(that.data[1].weight)
                         .text(function () {
                             that.textHeight = this.getBBox().height;
@@ -324,7 +338,6 @@ PykCharts.other.pictograph = function (options) {
                             return that.data[1].weight;
                         })
                         .attr("y", function () { return ((that.textHeight)-10); });
-
                 }
                 return this;
             },
@@ -332,19 +345,20 @@ PykCharts.other.pictograph = function (options) {
 
                 if(!that.textHeight) {
                     that.textHeight = 0;
-                }
-                
+                }                
 
                 var unit_text_width, image_width,unit_text_width1,unit_text_height;
                 that.group2.attr("transform","translate(0," + (that.textHeight + 15)+")");
 
                 that.group2.append("text")
-                        .attr("x", 0)
-                        .attr("class","PykCharts-unit-text")
-                        .attr("font-family",that.pictograph_units_per_image_text_family)
-                        .attr("font-size",that.pictograph_units_per_image_text_size)
-                        .attr("font-weight",that.pictograph_units_per_image_text_weight)
-                        .attr("fill",that.pictograph_units_per_image_text_color)
+                        .attr({
+                            "x": 0,
+                            "class": "PykCharts-unit-text",
+                            "font-family": that.pictograph_units_per_image_text_family,
+                            "font-size": that.pictograph_units_per_image_text_size,
+                            "font-weight": that.pictograph_units_per_image_text_weight,
+                            "fill": that.pictograph_units_per_image_text_color
+                        })
                         .text(function () {
                             return "1 ";
                         })
@@ -353,27 +367,33 @@ PykCharts.other.pictograph = function (options) {
                             unit_text_width = this.getBBox().width;
                             return "1 ";
                         })
-                        .attr("dy",0)
-                        .attr("y",unit_text_height - 5);
+                        .attr({
+                            "dy": 0,
+                            "y": unit_text_height - 5
+                        });
 
                 that.group2.append("image")
-                        .attr("xlink:href",that.data[1]["image"])
-                        .attr("id","unit-image")
-                        .attr("x", unit_text_width + 2 + "px")
-                        .attr("y", 0)
-                        .attr("height", unit_text_height + "px")
-                        .attr("width", unit_text_height + "px");
+                        .attr({
+                            "xlink:href": that.data[1]["image"],
+                            "id": "unit-image",
+                            "x": unit_text_width + 2 + "px",
+                            "y": 0,
+                            "height": unit_text_height + "px",
+                            "width": unit_text_height + "px"
+                        });
                 image_width = d3.select(options.selector +" #unit-image").attr("width");
 
                 that.group2.append("text")
-                        .attr("x", function () {
-                            return parseFloat(image_width) + unit_text_width + 4;
+                        .attr({
+                            "x": function () {
+                                return parseFloat(image_width) + unit_text_width + 4;
+                            },
+                            "class": "PykCharts-unit-text",
+                            "font-family": that.pictograph_units_per_image_text_family,
+                            "font-size": that.pictograph_units_per_image_text_size,
+                            "font-weight": that.pictograph_units_per_image_text_weight,
+                            "fill": that.pictograph_units_per_image_text_color
                         })
-                        .attr("class","PykCharts-unit-text")
-                        .attr("font-family",that.pictograph_units_per_image_text_family)
-                        .attr("font-size",that.pictograph_units_per_image_text_size)
-                        .attr("font-weight",that.pictograph_units_per_image_text_weight)
-                        .attr("fill",that.pictograph_units_per_image_text_color)
                         .text(function () {
                             return "= " + that.pictograph_units_per_image;
                         })
@@ -385,7 +405,6 @@ PykCharts.other.pictograph = function (options) {
                 that.total_unit_width = unit_text_width + parseFloat(image_width) + unit_text_width1+4;
                 return this;
             }
-
         }
         return optional;
     }

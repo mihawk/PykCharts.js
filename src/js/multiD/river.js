@@ -47,8 +47,8 @@ PykCharts.multiD.river = function (options){
             that.k.loading();
         }
 
-        that.w = that.chart_width - that.margin_left - that.margin_right;
-        that.h = that.chart_height - that.margin_top - that.margin_bottom;
+        that.w = that.chart_width - that.chart_margin_left - that.chart_margin_right;
+        that.h = that.chart_height - that.chart_margin_top - that.chart_margin_bottom;
         that.multiD = new PykCharts.multiD.configuration(that);
         that.filterList = [];
         that.fullList = [];
@@ -233,7 +233,7 @@ PykCharts.multiD.river = function (options){
                 that.group = that.svgContainer.append("g")
                     .attr({
                         "id": "river-group",
-                        "transform": "translate("+ that.margin_left +","+ (that.legendsGroup_height)+")"
+                        "transform": "translate("+ that.chart_margin_left +","+ (that.legendsGroup_height)+")"
                     });
                 that.ygroup = that.svgContainer.append("g")
                     .attr("transform","translate("+ 0 +","+ (that.legendsGroup_height)+")");
@@ -288,11 +288,11 @@ PykCharts.multiD.river = function (options){
             },
             createChart : function () {
                 
-                that.margin_left = that.max_label + 10;
-                that.margin_right = that.max_duration > that.max_tick ? (that.max_duration + 10) : (that.max_tick + 10);
+                that.chart_margin_left = that.max_label + 10;
+                that.chart_margin_right = that.max_duration > that.max_tick ? (that.max_duration + 10) : (that.max_tick + 10);
                 var height = that.chart_height;
-                var width = that.chart_width - that.legendsGroup_width - that.margin_right - that.margin_left;
-                that.group.attr("transform","translate("+ that.margin_left +","+ (that.legendsGroup_height)+")");
+                var width = that.chart_width - that.legendsGroup_width - that.chart_margin_right - that.chart_margin_left;
+                that.group.attr("transform","translate("+ that.chart_margin_left +","+ (that.legendsGroup_height)+")");
                 if(!that.extended) {
                     that.xScale = d3.scale.linear().domain([0, that.maxTotalVal]).range([0, width]);
                 } else {
@@ -644,7 +644,7 @@ PykCharts.multiD.river = function (options){
                     });
                     if(that.extended) {
                         highlight_rect.attr("x",-5)
-                            .attr("width", (that.chart_width- that.legendsGroup_width - that.margin_right - that.margin_left + 10))
+                            .attr("width", (that.chart_width- that.legendsGroup_width - that.chart_margin_right - that.chart_margin_left + 10))
                     }
                 }
                 return this;

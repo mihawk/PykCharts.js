@@ -21,8 +21,8 @@ PykCharts.multiD.area = function (options){
 		that.curvy_lines_enable = options.curvy_lines_enable ? options.curvy_lines_enable.toLowerCase() : multiDimensionalCharts.curvy_lines_enable;
 	  	that.panels_enable = "no";
 	  	that.interpolate = PykCharts['boolean'](that.curvy_lines_enable) ? "cardinal" : "linear";
-		that.w = that.chart_width - that.margin_left - that.margin_right;
-		that.h = that.chart_height - that.margin_top - that.margin_bottom;
+		that.w = that.chart_width - that.chart_margin_left - that.chart_margin_right;
+		that.h = that.chart_height - that.chart_margin_top - that.chart_margin_bottom;
 
 		that.executeData = function (data) {
 			var validate = that.k.validator().validatingJSON(data),
@@ -83,8 +83,8 @@ PykCharts.multiD.stackedArea = function (options){
 		that.curvy_lines_enable = options.curvy_lines_enable ? options.curvy_lines_enable.toLowerCase() : multiDimensionalCharts.curvy_lines_enable;
 	  	that.panels_enable = "no";
 	  	that.interpolate = PykCharts['boolean'](that.curvy_lines_enable) ? "cardinal" : "linear";
-		that.w = that.chart_width - that.margin_left - that.margin_right;
-		that.h = that.chart_height - that.margin_top - that.margin_bottom;
+		that.w = that.chart_width - that.chart_margin_left - that.chart_margin_right;
+		that.h = that.chart_height - that.chart_margin_top - that.chart_margin_bottom;
 
 		that.executeData = function (data) {
             var validate = that.k.validator().validatingJSON(data),
@@ -373,7 +373,7 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 				that.group = that.svgContainer.append("g")
 					.attr({
 						"id": "chartsvg",
-						"transform": "translate("+ that.margin_left +","+ (that.margin_top + that.legendsGroup_height)+")"
+						"transform": "translate("+ that.chart_margin_left +","+ (that.chart_margin_top + that.legendsGroup_height)+")"
 					});
 
 				if(PykCharts['boolean'](that.chart_grid_y_enable)){
@@ -403,7 +403,7 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 					.attr({
 						"id": "clipPath",
 						"clip-path": "url(#clip" + i + that.selector + " )",
-						"transform": "translate("+ that.margin_left +","+ (that.margin_top+that.legendsGroup_height) +")"
+						"transform": "translate("+ that.chart_margin_left +","+ (that.chart_margin_top+that.legendsGroup_height) +")"
 					});
 
 				that.stack_layout = d3.layout.stack()
@@ -604,45 +604,45 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 
 	        			that.svgContainer.select("#"+type)
 							.datum(that.layers[i].data)
-							.attr("transform", "translate("+ that.extra_left_margin +",0)");/*
+							.attr("transform", "translate("+ that.extra_left_margin +",0)")
 							.style({
 								"stroke": that.border.color(),
 			                    "stroke-width": that.border.width(),
 			                    "stroke-dasharray": that.border.style()
-							});*/
+							});
 
-						// function transition1 (i) {
-						//     that.dataLineGroup[i].transition()
-						// 	    .duration(that.transitions.duration())
-						// 	    .attrTween("d", function (d) {
-						// 	    	var interpolate = d3.scale.quantile()
-						//                 .domain([0,1])
-						//                 .range(d3.range(1, data.length + 1));
-						// 	        return function(t) {
-						// 	            return that.chart_path(that.new_data[i].data.slice(0, interpolate(t)));
-						// 	        };
-						// 	    });
-						// }
+						function transition1 (i) {
+						    that.dataLineGroup[i].transition()
+							    .duration(that.transitions.duration())
+							    .attrTween("d", function (d) {
+							    	var interpolate = d3.scale.quantile()
+						                .domain([0,1])
+						                .range(d3.range(1, data.length + 1));
+							        return function(t) {
+							            return that.chart_path(that.new_data[i].data.slice(0, interpolate(t)));
+							        };
+							    });
+						}
 
-						// transition1(i);
+						transition1(i);
 
-						// that.svgContainer.select("#border-stacked-area"+i)
-						// 	.datum(that.layers[i].data)
-						// 	.attr("transform", "translate("+ that.extra_left_margin +",0)");
+						that.svgContainer.select("#border-stacked-area"+i)
+							.datum(that.layers[i].data)
+							.attr("transform", "translate("+ that.extra_left_margin +",0)");
 
-					 //    function borderTransition1 (i) {
-						//     that.dataLineGroupBorder[i].transition()
-						// 	    .duration(that.transitions.duration())
-						// 	    .attrTween("d", function (d) {
-						// 	    	var interpolate = d3.scale.quantile()
-						//                 .domain([0,1])
-						//                 .range(d3.range(1, that.layers[i].data.length + 1));
-						// 	        return function(t) {
-						// 	            return that.chart_path_border(that.layers[i].data.slice(0, interpolate(t)));
-						// 	        };
-						// 	    })
-						// }
-						// borderTransition1(i);
+					    function borderTransition1 (i) {
+						    that.dataLineGroupBorder[i].transition()
+							    .duration(that.transitions.duration())
+							    .attrTween("d", function (d) {
+							    	var interpolate = d3.scale.quantile()
+						                .domain([0,1])
+						                .range(d3.range(1, that.layers[i].data.length + 1));
+							        return function(t) {
+							            return that.chart_path_border(that.layers[i].data.slice(0, interpolate(t)));
+							        };
+							    })
+						}
+						borderTransition1(i);
 					}
 					if(that.type === "areaChart") {
 						that.svgContainer
@@ -849,12 +849,12 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
         anno.attr("d", function (d,i) {
             	var a = [
             		{
-            			x:parseInt(that.xScale(d.x))+that.extra_left_margin+that.margin_left,
-            			y:parseInt(that.yScale(d.y)-(arrow_size)+that.margin_top+that.legendsGroup_height)
+            			x:parseInt(that.xScale(d.x))+that.extra_left_margin+that.chart_margin_left,
+            			y:parseInt(that.yScale(d.y)-(arrow_size)+that.chart_margin_top+that.legendsGroup_height)
             		},
             		{
-            			x:parseInt(that.xScale(d.x))+that.extra_left_margin+that.margin_left,
-            			y:parseInt(that.yScale(d.y)-(arrow_size)+that.margin_top+that.legendsGroup_height)
+            			x:parseInt(that.xScale(d.x))+that.extra_left_margin+that.chart_margin_left,
+            			y:parseInt(that.yScale(d.y)-(arrow_size)+that.chart_margin_top+that.legendsGroup_height)
             		}
             	];
             	return that.line(a);
@@ -864,16 +864,16 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 	            .attr("d", function (d,i) {
 	            	var a = [
                 		{
-                			x:parseInt(that.xScale(d.x)-(arrow_size*0.5))+that.extra_left_margin+that.margin_left,
-                			y:parseInt(that.yScale(d.y)-(arrow_size)+that.margin_top+that.legendsGroup_height)
+                			x:parseInt(that.xScale(d.x)-(arrow_size*0.5))+that.extra_left_margin+that.chart_margin_left,
+                			y:parseInt(that.yScale(d.y)-(arrow_size)+that.chart_margin_top+that.legendsGroup_height)
                 		},
                 		{
-                			x:parseInt(that.xScale(d.x)+(arrow_size*0.5))+that.extra_left_margin+that.margin_left,
-                			y:parseInt(that.yScale(d.y)-(arrow_size)+that.margin_top+that.legendsGroup_height)
+                			x:parseInt(that.xScale(d.x)+(arrow_size*0.5))+that.extra_left_margin+that.chart_margin_left,
+                			y:parseInt(that.yScale(d.y)-(arrow_size)+that.chart_margin_top+that.legendsGroup_height)
                 		},
                 		{
-                			x:parseInt(that.xScale(d.x))+that.extra_left_margin+that.margin_left,
-                			y:parseInt(that.yScale(d.y)+that.margin_top+that.legendsGroup_height),
+                			x:parseInt(that.xScale(d.x))+that.extra_left_margin+that.chart_margin_left,
+                			y:parseInt(that.yScale(d.y)+that.chart_margin_top+that.legendsGroup_height),
                 		}
             		];
 	            	return that.line(a);
