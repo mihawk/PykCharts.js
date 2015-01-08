@@ -22,7 +22,7 @@ PykCharts.scaleFunction = function (options) {
         }
     }
     options.k.ordinalXAxisTickFormat = function (domain,extra) {
-        var a = $(options.selector + " g.x.axis .tick text"),
+        var a = d3.selectAll(options.selector + " g.x.axis .tick text")[0],
             len = a.length, comp, flag, largest = 0, rangeband = (extra*2);
         for(var i = 0; i < len; i++) {
             largest = (a[i].getBBox().width > largest) ? a[i].getBBox().width: largest;
@@ -76,7 +76,7 @@ PykCharts.scaleFunction = function (options) {
         return this;
     }
     options.k.ordinalYAxisTickFormat = function (domain) {
-        var a = $(options.selector + " g.y.axis .tick text");
+        var a = d3.selectAll(options.selector + " g.y.axis .tick text")[0];
         var len = a.length,comp;
 
         for(i=0; i<len; i++) {

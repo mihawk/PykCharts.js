@@ -465,14 +465,12 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                 for (var i = 0;i < that.previous_length;i++) {
                     var element = document.querySelector(that.selector + " #panels_of_line_main_div #tooltip-svg-container-"+i);
                     element.parentNode.removeChild(element);
-                    // $(that.selector + " #panels_of_line_main_div #tooltip-svg-container-"+i).remove();
                 }               
                 that.renderPanelOfLines();
             }
 
             if(that.type === "multilineChart" && !PykCharts['boolean'](that.panels_enable)) {
                 document.querySelector(that.selector +" #tooltip-svg-container-1").innerHTML = null;
-                // $(that.selector + " #tooltip-svg-container-1").empty();
                 that.renderLineChart();
             }
 
