@@ -400,48 +400,7 @@ PykCharts.Configuration = function (options){
             d = new Date(d.getTime() + (time_zone * 60 * 1000));
             return d;
         },
-        crossHair: function (svg,len,data,fill,type) {
-            if(PykCharts['boolean'](options.crosshair_enable) && options.mode === "default") {
-                PykCharts.Configuration.cross_hair_v = svg.append("g")
-                    .attr("class","line-cursor")
-                    .style("display","none");
-
-                PykCharts.Configuration.cross_hair_v.append("line")
-                    .attr({
-                        "class" : "cross-hair-v",
-                        "id" : "cross-hair-v"
-                    });
-
-                PykCharts.Configuration.cross_hair_h = svg.append("g")
-                    .attr("class","line-cursor")
-                    .style("display","none");
-
-                PykCharts.Configuration.cross_hair_h.append("line")
-                    .attr({
-                        "class" : "cross-hair-h",
-                        "id" : "cross-hair-h"
-                    });
-
-                for (j=0; j<len; j++) {
-                    PykCharts.Configuration.focus_circle = svg.append("g")
-                        .attr({
-                            "class" : "focus",
-                            "id" : "f_circle"+j
-                        })
-                        .style("display","none");
-
-                    PykCharts.Configuration.focus_circle.append("circle")
-                        .attr({
-                            "fill" : function (d) {
-                                return fill.colorPieMS(data[j],type);
-                            },
-                            "id" : "focus-circle"+j,
-                            "r" : "6"
-                        });
-                }
-            }
-            return this;
-        },
+        
         loading: function () {
             $(options.selector).css("height",options.chart_height);
             var loading_content = options.loading_type === "image" ? "<img src=" + options.loading_source + ">" : options.loading_source;
@@ -6427,11 +6386,11 @@ PykCharts.other.pictograph = function (options) {
                 .dataSource();
         }
         that.k.exportSVG(that,"#"+that.container_id,"pictograph");
-        var resize = that.k.resize(that.svgContainer);
-        that.k.__proto__._ready(resize);
-        window.onresize = function () {
-            return that.k.resize(that.svgContainer);
-        };
+        // var resize = that.k.resize(that.svgContainer);
+        // that.k.__proto__._ready(resize);
+        // window.onresize = function () {
+        //     return that.k.resize(that.svgContainer);
+        // };
     };
 
     this.optionalFeatures = function () {
@@ -6522,7 +6481,9 @@ PykCharts.other.pictograph = function (options) {
                     }
 
                     var group_bbox_height = that.group.node().getBBox().height;
-                    if (j===that.weight && group_bbox_height != 0) {
+                    console.log(j===that.weight && group_bbox_height != 0,j,that.weight);
+                    if (j=== +that.weight && group_bbox_height != 0) {
+                        console.log("hey");
                         that.height = group_bbox_height;
                         that.svgContainer
                             .attr("height",group_bbox_height)
@@ -13173,79 +13134,80 @@ PykCharts.multiD.river = function (options){
 
     this.execute = function (){
         that = new PykCharts.multiD.processInputs(that, options, "area");
-        var multiDimensionalCharts = theme.multiDimensionalCharts,
-            stylesheet = theme.stylesheet,
-            optional = options.optional;
-        that.data_mode_enable = options.data_mode_enable ? options.data_mode_enable.toLowerCase() : multiDimensionalCharts.data_mode_enable;
-        if(PykCharts.boolean(that.data_mode_enable) && that.mode === "default") {
-            that.chart_mode = options.data_mode_default ? options.data_mode_default.toLowerCase() : multiDimensionalCharts.data_mode_default;
-            that.data_mode_legends_color = options.data_mode_legends_color ? options.data_mode_legends_color : multiDimensionalCharts.data_mode_legends_color;
-        } else {
-            that.data_mode_enable = "no";
-            that.chart_mode = "absolute";
-        }
-        that.connecting_lines_color = options.connecting_lines_color ? options.connecting_lines_color : multiDimensionalCharts.connecting_lines_color;
-        that.connecting_lines_style = options.connecting_lines_style ? options.connecting_lines_style : multiDimensionalCharts.connecting_lines_style;
-        switch(that.connecting_lines_style) {
-            case "dotted" : that.connecting_lines_style = "1,3";
-                            break;
-            case "dashed" : that.connecting_lines_style = "5,5";
-                           break;
-            default : that.connecting_lines_style = "0";
-                      break;
-        }
-        that.legends_mode = options.legends_mode ? options.legends_mode.toLowerCase() : multiDimensionalCharts.legends_mode;
-        that.expand_group = options.expand_group ? options.expand_group : multiDimensionalCharts.expand_group;
-        that.text_between_steps_color = options.text_between_steps_color ? options.text_between_steps_color : multiDimensionalCharts.text_between_steps_color;
-        that.text_between_steps_weight = options.text_between_steps_weight ? options.text_between_steps_weight.toLowerCase() : multiDimensionalCharts.text_between_steps_weight;
-        that.text_between_steps_family = options.text_between_steps_family ? options.text_between_steps_family.toLowerCase() : multiDimensionalCharts.text_between_steps_family;
-        that.text_between_steps_size = "text_between_steps_size" in options ? options.text_between_steps_size : multiDimensionalCharts.text_between_steps_size;
-        that.k.validator()
-            .validatingDataType(that.text_between_steps_size,"text_between_steps_size",multiDimensionalCharts.text_between_steps_size,"text_between_steps_size")
-            .validatingFontWeight(that.text_between_steps_weight,"text_between_steps_weight",multiDimensionalCharts.text_between_steps_weight,"text_between_steps_weight")
-            .validatingColor(that.text_between_steps_color,"text_between_steps_color",multiDimensionalCharts.text_between_steps_color,"text_between_steps_color")
-            .validatingColor(that.connecting_lines_color,"connecting_lines_color",multiDimensionalCharts.connecting_lines_color,"connecting_lines_color")
-            .validatingColor(that.data_mode_legends_color,"data_mode_legends_color",multiDimensionalCharts.data_mode_legends_color,"data_mode_legends_color")
-            .validatingDataMode(that.chart_mode,"data_mode_default",multiDimensionalCharts.data_mode_default,"chart_mode")
-            .validatingLegendsMode(that.legends_mode,"legends_mode",multiDimensionalCharts.legends_mode,"legends_mode");
+        console.log(that.k)
+        // var multiDimensionalCharts = theme.multiDimensionalCharts,
+        //     stylesheet = theme.stylesheet,
+        //     optional = options.optional;
+        // that.data_mode_enable = options.data_mode_enable ? options.data_mode_enable.toLowerCase() : multiDimensionalCharts.data_mode_enable;
+        // if(PykCharts.boolean(that.data_mode_enable) && that.mode === "default") {
+        //     that.chart_mode = options.data_mode_default ? options.data_mode_default.toLowerCase() : multiDimensionalCharts.data_mode_default;
+        //     that.data_mode_legends_color = options.data_mode_legends_color ? options.data_mode_legends_color : multiDimensionalCharts.data_mode_legends_color;
+        // } else {
+        //     that.data_mode_enable = "no";
+        //     that.chart_mode = "absolute";
+        // }
+        // that.connecting_lines_color = options.connecting_lines_color ? options.connecting_lines_color : multiDimensionalCharts.connecting_lines_color;
+        // that.connecting_lines_style = options.connecting_lines_style ? options.connecting_lines_style : multiDimensionalCharts.connecting_lines_style;
+        // switch(that.connecting_lines_style) {
+        //     case "dotted" : that.connecting_lines_style = "1,3";
+        //                     break;
+        //     case "dashed" : that.connecting_lines_style = "5,5";
+        //                    break;
+        //     default : that.connecting_lines_style = "0";
+        //               break;
+        // }
+        // that.legends_mode = options.legends_mode ? options.legends_mode.toLowerCase() : multiDimensionalCharts.legends_mode;
+        // that.expand_group = options.expand_group ? options.expand_group : multiDimensionalCharts.expand_group;
+        // that.text_between_steps_color = options.text_between_steps_color ? options.text_between_steps_color : multiDimensionalCharts.text_between_steps_color;
+        // that.text_between_steps_weight = options.text_between_steps_weight ? options.text_between_steps_weight.toLowerCase() : multiDimensionalCharts.text_between_steps_weight;
+        // that.text_between_steps_family = options.text_between_steps_family ? options.text_between_steps_family.toLowerCase() : multiDimensionalCharts.text_between_steps_family;
+        // that.text_between_steps_size = "text_between_steps_size" in options ? options.text_between_steps_size : multiDimensionalCharts.text_between_steps_size;
+        // that.k.validator()
+        //     .validatingDataType(that.text_between_steps_size,"text_between_steps_size",multiDimensionalCharts.text_between_steps_size,"text_between_steps_size")
+        //     .validatingFontWeight(that.text_between_steps_weight,"text_between_steps_weight",multiDimensionalCharts.text_between_steps_weight,"text_between_steps_weight")
+        //     .validatingColor(that.text_between_steps_color,"text_between_steps_color",multiDimensionalCharts.text_between_steps_color,"text_between_steps_color")
+        //     .validatingColor(that.connecting_lines_color,"connecting_lines_color",multiDimensionalCharts.connecting_lines_color,"connecting_lines_color")
+        //     .validatingColor(that.data_mode_legends_color,"data_mode_legends_color",multiDimensionalCharts.data_mode_legends_color,"data_mode_legends_color")
+        //     .validatingDataMode(that.chart_mode,"data_mode_default",multiDimensionalCharts.data_mode_default,"chart_mode")
+        //     .validatingLegendsMode(that.legends_mode,"legends_mode",multiDimensionalCharts.legends_mode,"legends_mode");
 
-        if(that.stop)
-            return;
+        // if(that.stop)
+        //     return;
 
-        if(that.mode === "default") {
-            that.k.loading();
-        }
+        // if(that.mode === "default") {
+        //     that.k.loading();
+        // }
 
-        that.w = that.chart_width - that.margin_left - that.margin_right;
-        that.h = that.chart_height - that.margin_top - that.margin_bottom;
-        that.multiD = new PykCharts.multiD.configuration(that);
-        that.filterList = [];
-        that.fullList = [];
-        that.extended = that.chart_mode === "absolute" ? false : true;
+        // that.w = that.chart_width - that.margin_left - that.margin_right;
+        // that.h = that.chart_height - that.margin_top - that.margin_bottom;
+        // that.multiD = new PykCharts.multiD.configuration(that);
+        // that.filterList = [];
+        // that.fullList = [];
+        // that.extended = that.chart_mode === "absolute" ? false : true;
 
-        that.executeData = function (data) {
-            var validate = that.k.validator().validatingJSON(data),
-                id = that.selector.substring(1,that.selector.length);
-            if(that.stop || validate === false) {
-                that.k.remove_loading_bar(id);
-                return;
-            }
+        // that.executeData = function (data) {
+        //     var validate = that.k.validator().validatingJSON(data),
+        //         id = that.selector.substring(1,that.selector.length);
+        //     if(that.stop || validate === false) {
+        //         that.k.remove_loading_bar(id);
+        //         return;
+        //     }
 
-            that.data = data;
-            that.data.forEach(function (d) {
-                d.group = d.stack;
-            });
-            // console.log(that.data)
-            that.axis_y_data_format = "number";
-            that.axis_x_data_format = "number"
-            that.compare_data = that.data;
-            that.data_length = that.data.length;
-            that.k.remove_loading_bar(id);
-            that.map_group_data = that.multiD.mapGroup(that.data,"river");
-            that.dataTransformation();
-            that.render();
-        };
-        that.k.dataSourceFormatIdentification(options.data,that,"executeData");
+        //     that.data = data;
+        //     that.data.forEach(function (d) {
+        //         d.group = d.stack;
+        //     });
+        //     // console.log(that.data)
+        //     that.axis_y_data_format = "number";
+        //     that.axis_x_data_format = "number"
+        //     that.compare_data = that.data;
+        //     that.data_length = that.data.length;
+        //     that.k.remove_loading_bar(id);
+        //     that.map_group_data = that.multiD.mapGroup(that.data,"river");
+        //     that.dataTransformation();
+        //     that.render();
+        // };
+        // that.k.dataSourceFormatIdentification(options.data,that,"executeData");
     };
     this.render = function () {
         that.multid = new PykCharts.multiD.configuration(that);

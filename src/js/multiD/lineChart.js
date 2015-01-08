@@ -5,7 +5,9 @@ PykCharts.multiD.line = function (options) {
     this.execute = function () {
 
         that = new PykCharts.multiD.processInputs(that, options, "line");
-
+        PykCharts.crossHair(that);
+        PykCharts.annotation(that);
+        PykCharts.scaleFunction(that);
         if(that.stop)
             return;
 
@@ -60,6 +62,9 @@ PykCharts.multiD.multiSeriesLine = function (options) {
     this.execute = function (){
 
         that = new PykCharts.multiD.processInputs(that, options, "line");
+        PykCharts.crossHair(that);
+        PykCharts.annotation(that);
+        PykCharts.scaleFunction(that);
         if(that.stop)
             return;
 
@@ -114,6 +119,9 @@ PykCharts.multiD.panelsOfLine = function (options) {
 
         that = new PykCharts.multiD.processInputs(that, options, "line");
 
+        PykCharts.crossHair(that);
+        PykCharts.annotation(that);
+        PykCharts.scaleFunction(that);
         if(that.stop)
             return;
 

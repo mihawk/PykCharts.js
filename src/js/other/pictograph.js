@@ -130,11 +130,11 @@ PykCharts.other.pictograph = function (options) {
                 .dataSource();
         }
         that.k.exportSVG(that,"#"+that.container_id,"pictograph");
-        var resize = that.k.resize(that.svgContainer);
-        that.k.__proto__._ready(resize);
-        window.onresize = function () {
-            return that.k.resize(that.svgContainer);
-        };
+        // var resize = that.k.resize(that.svgContainer);
+        // that.k.__proto__._ready(resize);
+        // window.onresize = function () {
+        //     return that.k.resize(that.svgContainer);
+        // };
     };
 
     this.optionalFeatures = function () {
@@ -225,7 +225,7 @@ PykCharts.other.pictograph = function (options) {
                     }
 
                     var group_bbox_height = that.group.node().getBBox().height;
-                    if (j===that.weight && group_bbox_height != 0) {
+                    if (j=== +that.weight && group_bbox_height != 0) {
                         that.height = group_bbox_height;
                         that.svgContainer
                             .attr("height",group_bbox_height)
