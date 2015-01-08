@@ -1497,13 +1497,13 @@ configuration.mouseEvent = function (options) {
                                 .attr("transform", "translate(" + (cx - 5) + "," + cy + ")");
                         }
                     } else if (type === "stackedAreaChart") {
-                        that.cross_hair_v.style("display","block");
-                        that.cross_hair_v.select(options.selector + " #cross-hair-v")
+                        d3.selectAll(options.selector+" .line-cursor").style("display","block");
+                        d3.selectAll(options.selector+" .cross-hair-v")
                             .attr({
-                                    "x1" : (x1 - 5),
-                                    "y1" : y1,
-                                    "x2" : (x2 - 5),
-                                    "y2" : y2
+                                "x1" : (x1 - 5),
+                                "y1" : y1,
+                                "x2" : (x2 - 5),
+                                "y2" : y2
                             });
                         for(var j=0; j<new_data.length; j++) {
                             d3.select(options.selector+" #f_circle"+j).style("display","block")
