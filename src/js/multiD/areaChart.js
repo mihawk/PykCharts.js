@@ -209,6 +209,9 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
     };
 	
 	that.render = function () {
+        var id = that.selector.substring(1,that.selector.length);
+		that.container_id = id + "_svg";
+
 		that.dataLineGroup = [], that.dataLineGroupBorder = [];
 		that.multid = new PykCharts.multiD.configuration(that);
 		that.fillColor = new PykCharts.Configuration.fillChart(that,null,options);
@@ -244,7 +247,7 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 
 			that.k.title()
 					.backgroundColor(that)
-					.export(that,"#svg-1","areaChart")
+					.export(that,"#"+that.container_id+"-1","areaChart")
 					.liveData(that)
 					.emptyDiv(options.selector)
 					.subtitle()
@@ -271,7 +274,7 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 		else if(that.mode === "infographics") {
 			  that.k/*.liveData(that)*/
 			  			.backgroundColor(that)
-			  			.export(that,"#svg-1","areaChart")
+			  			.export(that,"#"+that.container_id+"-1","areaChart")
 			  			.emptyDiv(options.selector)
 						.makeMainDiv(that.selector,1);
 
@@ -287,7 +290,7 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 					.xAxisTitle(that.xGroup,that.legendsGroup_height,that.legendsGroup_width)
 					.yAxisTitle(that.yGroup);
   		}
-		that.k.exportSVG(that,"#svg-1","areaChart")
+		that.k.exportSVG(that,"#"+that.container_id+"-1","areaChart")
   		that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
 
   		var resize = that.k.resize(that.svgContainer);
@@ -364,7 +367,7 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 
 				that.svgContainer = d3.select(that.selector+" "+"#tooltip-svg-container-"+i).append("svg:svg")
 					.attr({
-						"id": "svg-"+i,
+						"id": that.container_id+"-"+i,
 						"width": that.chart_width,
 						"height": that.chart_height,
 						"class": "svgcontainer",
@@ -418,7 +421,7 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 			legendsContainer : function (i) {
                 if (PykCharts['boolean'](that.legends_enable) && that.type === "stackedAreaChart" && that.mode === "default") {
                     that.legendsGroup = that.svgContainer.append("g")
-                                .attr('id',"legends")
+                                .attr('id',"stackedArea-legends")
                                 .style("visibility","visible")
                                 .attr("transform","translate(0,10)");
                 } else {
@@ -887,7 +890,7 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
         setTimeout(setTimeoutAnnotation, that.transitions.duration());
 
         anno.exit().remove();
-        that.k.annotation(that.selector + " #svg-1",annotation,that.xScale,that.yScale)
+        that.k.annotation(that.selector + " #"+that.container_id+"-1",annotation,that.xScale,that.yScale)
 	};
 
 	that.renderChart =  function () {
