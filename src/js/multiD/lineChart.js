@@ -8,6 +8,7 @@ PykCharts.multiD.line = function (options) {
         PykCharts.crossHair(that);
         PykCharts.annotation(that);
         PykCharts.scaleFunction(that);
+        PykCharts.grid(that);
         if(that.stop)
             return;
 
@@ -65,6 +66,7 @@ PykCharts.multiD.multiSeriesLine = function (options) {
         PykCharts.crossHair(that);
         PykCharts.annotation(that);
         PykCharts.scaleFunction(that);
+        PykCharts.grid(that);
         if(that.stop)
             return;
 
@@ -122,6 +124,7 @@ PykCharts.multiD.panelsOfLine = function (options) {
         PykCharts.crossHair(that);
         PykCharts.annotation(that);
         PykCharts.scaleFunction(that);
+        PykCharts.grid(that);
         if(that.stop)
             return;
 
@@ -1315,7 +1318,8 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                     .createGroups(i);
     
             that.k.crossHair(that.svgContainer,1,that.fill_data,that.fillColor,that.type);
-            that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
+            that.mouseEvent = new PykCharts.crossHairMovement(that);
+            console.log(that.mouseEvent);
 
             that.optionalFeature()
                     .createChart(null,i)
@@ -1351,7 +1355,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
             .hightLightOnload();
 
         that.k.crossHair(that.svgContainer,that.new_data_length,that.new_data,that.fillColor,that.type);
-        that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
+        that.mouseEvent = new PykCharts.crossHairMovement(that);
 
         that.optionalFeature()
                 .createChart()
