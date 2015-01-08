@@ -267,9 +267,7 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
 
                 d3.select(that.selector).append("div")
                     .attr("id","panels_of_scatter_main_div");
-
                 that.renderChart();
-
                 that.k.xAxis(that.svgContainer,that.xGroup,that.x,that.extra_left_margin,that.xdomain,that.x_tick_values,that.legendsGroup_height)
                     .yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain,that.y_tick_values,that.legendsGroup_width)
                     .xAxisTitle(that.xGroup,that.legendsGroup_height,that.legendsGroup_width)
@@ -424,13 +422,8 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
         var id = that.selector.substring(1,that.selector.length);
         var optional = {
             svgContainer :function (i) {
-                    $(that.selector + " #tooltip-svg-container-" + i).css("width",that.w);
-               console.log(document.querySelector(that.selector + " #tooltip-svg-container-" + i),i,(that.selector + " #tooltip-svg-container-" + i));
-//                document.querySelector(that.selector + " #tooltip-svg-container-" + i).style.width = that.w;
+                document.querySelector(that.selector + " #tooltip-svg-container-" + i).style.width = that.w;
                 document.getElementById(id).className = "PykCharts-weighted";
-            
-                // $(that.selector).attr("class","PykCharts-weighted")
-
                 that.svgContainer = d3.select(that.selector + " #tooltip-svg-container-" + i)
                     .append('svg')
                     .attr({
@@ -930,9 +923,7 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
                     that.new_data.push(that.data[j]);
                 }
             }
-            
             that.k.makeMainDiv((that.selector + " #panels_of_scatter_main_div"),i);
-            console.log(i,"i");
             that.optionalFeatures()
                 .svgContainer(i)
                 .legendsContainer(i);
@@ -958,7 +949,6 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
                 .yAxisTitle(that.yGroup);
 
         }
-        // console.log(that.data)
         that.k.exportSVG(that,"svgcontainer",type,that.panels_enable,that.uniq_group_arr);
         that.k.emptyDiv(options.selector);
     };

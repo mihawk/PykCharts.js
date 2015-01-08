@@ -58,8 +58,8 @@ PykCharts.multiD.bar = function (options) {
     }
 
     this.render = function () {
-        var l = $(".svgcontainer").length;
-        that.container_id = "svgcontainer" + l;
+        var id = that.selector.substring(1,that.selector.length),
+            container_id = id + "_svg";
 
         that.border = new PykCharts.Configuration.border(that);
         that.transitions = new PykCharts.Configuration.transition(that);
@@ -73,13 +73,13 @@ PykCharts.multiD.bar = function (options) {
 
             that.k.title()
                 .backgroundColor(that)
-                .export(that,"#"+that.container_id,"barChart")
+                .export(that,"#"+container_id,"barChart")
                 .emptyDiv(options.selector)
                 .subtitle()
                 .makeMainDiv(that.selector,1);
 
             that.optionalFeatures()
-                .svgContainer(1)
+                .svgContainer(container_id,1)
                 .createGroups();
 
             that.k.liveData(that)
@@ -107,12 +107,12 @@ PykCharts.multiD.bar = function (options) {
             }
         } else if(that.mode === "infographics") {
             that.k.backgroundColor(that)
-                .export(that,"#"+that.container_id,"barChart")
+                .export(that,"#"+container_id,"barChart")
                 .emptyDiv(options.selector)
                 .makeMainDiv(that.selector,1);
 
             that.optionalFeatures()
-                .svgContainer(1)
+                .svgContainer(container_id,1)
                 .createGroups();
 
             that.k.liveData(that)
@@ -135,7 +135,7 @@ PykCharts.multiD.bar = function (options) {
                 that.k.yAxis(that.svgContainer,that.ygroup,that.yScale,that.y_domain,that.y_tick_values);
             }
         }
-        that.k.exportSVG(that,"#"+that.container_id,"barChart")
+        that.k.exportSVG(that,"#"+container_id,"barChart")
 
         var resize = that.k.resize(that.svgContainer);
         that.k.__proto__._ready(resize);
@@ -159,7 +159,7 @@ PykCharts.multiD.bar = function (options) {
                 });
             }
 
-        that.map_group_data = that.multiD.mapGroup(that.data);
+            that.map_group_data = that.multiD.mapGroup(that.data);
 
             if(data_changed) {
                 that.k.lastUpdatedAt("liveData");
@@ -185,14 +185,14 @@ PykCharts.multiD.bar = function (options) {
         var id = that.selector.substring(1,that.selector.length);
         var status;
         var optional = {
-            svgContainer: function (i) {
+            svgContainer: function (container_id,i) {
                 document.getElementById(id).className = "PykCharts-twoD";
                 that.svgContainer = d3.select(options.selector + " #tooltip-svg-container-" + i)
                     .append("svg:svg")
                     .attr({
                         "width" : that.chart_width,
                         "height" : that.chart_height,
-                        "id" : that.container_id,
+                        "id" : container_id,
                         "class" : "svgcontainer",
                         "preserveAspectRatio" : "xMinYMin",
                         "viewBox" : "0 0 " + that.chart_width + " " + that.chart_height
@@ -202,8 +202,7 @@ PykCharts.multiD.bar = function (options) {
             createGroups: function (i) {
                 that.group = that.svgContainer.append("g")
                     .attr({
-                       "id" : "svggroup",
-                       "class" : "svggroup",
+                       "id" : "bar-group",
                        "transform" : "translate(" + that.margin_left + "," + (that.margin_top) +")"
                     });
 
@@ -213,7 +212,6 @@ PykCharts.multiD.bar = function (options) {
                             "id" : "ygrid",
                             "class" : "y grid-line"
                         });
-
                 }
                 return this;
             },
@@ -255,14 +253,13 @@ PykCharts.multiD.bar = function (options) {
                             "id" : "yaxis",
                             "class" : "y axis"
                         });
-            
+
                     that.new_yAxisgroup = that.group.append("g")
                         .attr({
                             "id" : "new-yaxis",
                             "class" : "y new-axis"
                         })
-                        .style("stroke","blue");
-                    
+                        .style("stroke","blue");                    
                 }
                 return this;
             },
@@ -325,15 +322,15 @@ PykCharts.multiD.bar = function (options) {
                 that.x_domain = that.xScale.domain();
                 that.y_domain = that.yScale.domain();
                 
-                that.bar = that.group.selectAll(".bar")
-                    .data(that.data)
+                that.bar = that.group.selectAll(".bar-rect")
+                    .data(that.data);
 
                 that.bar.enter()
                     .append("g")
-                    .attr("class","bar")
+                    .attr("class","bar-rect")
                     .append("svg:rect");
 
-                that.bar.attr("class","bar")
+                that.bar.attr("class","bar-rect")
                     .select("rect")
                     .attr({
                         "class" : "hbar",
@@ -384,7 +381,7 @@ PykCharts.multiD.bar = function (options) {
                 that.bar.exit()
                     .remove();
 
-                var t = d3.transform(d3.select(d3.selectAll(options.selector + ' .bar')[0][(that.data.length-1)]).attr("transform")),
+                var t = d3.transform(d3.select(d3.selectAll(options.selector + ' .bar-rect')[0][(that.data.length-1)]).attr("transform")),
                     x = t.translate[0],
                     y = t.translate[1];
                 y_range = [(that.reducedHeight - y - (that.yScale.rangeBand()/2)),(y + (that.yScale.rangeBand()/2))];
@@ -393,13 +390,13 @@ PykCharts.multiD.bar = function (options) {
             },
             ticks: function() {
                 if(that.pointer_size) {
-                    var tick_label = that.group.selectAll(".tickLabel")
+                    var tick_label = that.group.selectAll(".ticks_label")
                         .data(that.data);
 
                     tick_label.enter()
                         .append("text")
 
-                    tick_label.attr("class","tickLabel")
+                    tick_label.attr("class","ticks_label")
                         .attr("fill", that.pointer_color)
                         .style({
                             "font-weight": that.pointer_weight,

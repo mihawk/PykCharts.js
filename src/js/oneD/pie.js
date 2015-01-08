@@ -12,11 +12,11 @@ PykCharts.oneD.pie = function (options) {
             that.chart_height = that.chart_width;
             that.calculation = "pie";
         }
-        that.radiusPercent = options.pie_radius_percent ? options.pie_radius_percent : theme.oneDimensionalCharts.pie_radius_percent;
+        that.pie_radius_percent = options.pie_radius_percent ? options.pie_radius_percent : theme.oneDimensionalCharts.pie_radius_percent;
 
         that.k.validator()
-            .validatingDataType(that.chart_height,"chart_height",that.chart_width,"chart_height")
-            .validatingDataType(that.radiusPercent,"pie_radius_percent",theme.oneDimensionalCharts.pie_radius_percent,"radiusPercent");
+            .validatingDataType(that.chart_height,"chart_height",that.chart_width)
+            .validatingDataType(that.pie_radius_percent,"pie_radius_percent",theme.oneDimensionalCharts.pie_radius_percent);
 
         if(that.stop) {
             return;
@@ -25,8 +25,8 @@ PykCharts.oneD.pie = function (options) {
         that.innerRadiusPercent = 0;
         that.height_translate = that.chart_height/2;
 
-        if(that.radiusPercent > 100) {
-            that.radiusPercent = 100;
+        if(that.pie_radius_percent > 100) {
+            that.pie_radius_percent = 100;
         }
 
         if(that.mode === "default") {
@@ -69,20 +69,20 @@ PykCharts.oneD.donut = function (options) {
             that.calculation = "pie";
         }
 
-        that.radiusPercent = options.donut_radius_percent  ? options.donut_radius_percent : theme.oneDimensionalCharts.donut_radius_percent;
+        that.pie_radius_percent = options.donut_radius_percent  ? options.donut_radius_percent : theme.oneDimensionalCharts.donut_radius_percent;
         that.innerRadiusPercent = options.donut_inner_radius_percent  ? options.donut_inner_radius_percent : theme.oneDimensionalCharts.donut_inner_radius_percent;
 
         that.k.validator()
-            .validatingDataType(that.chart_height,"chart_height",that.chart_width,"chart_height")
-            .validatingDataType(that.radiusPercent,"donut_radius_percent",theme.oneDimensionalCharts.donut_radius_percent,"radiusPercent")
-            .validatingDataType(that.innerRadiusPercent,"donut_inner_radius_percent",theme.oneDimensionalCharts.donut_inner_radius_percent,"innerRadiusPercent")
+            .validatingDataType(that.chart_height,"chart_height",that.chart_width)
+            .validatingDataType(that.pie_radius_percent,"donut_radius_percent",theme.oneDimensionalCharts.donut_radius_percent)
+            .validatingDataType(that.innerRadiusPercent,"donut_inner_radius_percent",theme.oneDimensionalCharts.donut_inner_radius_percent)
 
         if(that.stop) {
             return;
         }
 
-        if(that.radiusPercent > 100) {
-            that.radiusPercent = 100;
+        if(that.pie_radius_percent > 100) {
+            that.pie_radius_percent = 100;
         }
 
         if(that.innerRadiusPercent > 100) {
@@ -90,7 +90,7 @@ PykCharts.oneD.donut = function (options) {
         }
 
         try {
-            if(that.innerRadiusPercent >= that.radiusPercent) {
+            if(that.innerRadiusPercent >= that.pie_radius_percent) {
                 that.innerRadiusPercent = theme.oneDimensionalCharts.donut_inner_radius_percent;
                 throw "donut_inner_radius_percent";
             }
@@ -164,11 +164,11 @@ PykCharts.oneD.electionPie = function (options) {
             that.height_translate = that.chart_height;
         }
 
-        that.radiusPercent = options.pie_radius_percent ? options.pie_radius_percent : theme.oneDimensionalCharts.pie_radius_percent;
+        that.pie_radius_percent = options.pie_radius_percent ? options.pie_radius_percent : theme.oneDimensionalCharts.pie_radius_percent;
 
         try {
-            if(isNaN(that.radiusPercent)) {
-                that.radiusPercent = theme.oneDimensionalCharts.pie_radius_percent;
+            if(isNaN(that.pie_radius_percent)) {
+                that.pie_radius_percent = theme.oneDimensionalCharts.pie_radius_percent;
                 throw "pie_radius_percent"
             }
         }
@@ -181,8 +181,8 @@ PykCharts.oneD.electionPie = function (options) {
             return;
         }
 
-        if(that.radiusPercent > 100) {
-            that.radiusPercent = 100;
+        if(that.pie_radius_percent > 100) {
+            that.pie_radius_percent = 100;
         }
         if(that.mode === "default") {
            that.k.loading();
@@ -244,18 +244,18 @@ PykCharts.oneD.electionDonut = function (options) {
             that.height_translate = that.chart_height;
         }
 
-        that.radiusPercent = options.donut_radius_percent ? options.donut_radius_percent : theme.oneDimensionalCharts.donut_radius_percent;
+        that.pie_radius_percent = options.donut_radius_percent ? options.donut_radius_percent : theme.oneDimensionalCharts.donut_radius_percent;
         that.innerRadiusPercent = options.donut_inner_radius_percent  && options.donut_inner_radius_percent ? options.donut_inner_radius_percent : theme.oneDimensionalCharts.donut_inner_radius_percent;
 
-        that.k.validator().validatingDataType(that.radiusPercent,"donut_radius_percent",theme.oneDimensionalCharts.donut_radius_percent,"radiusPercent")
-            .validatingDataType(that.innerRadiusPercent,"donut_inner_radius_percent",theme.oneDimensionalCharts.donut_inner_radius_percent,"innerRadiusPercent");
+        that.k.validator().validatingDataType(that.pie_radius_percent,"donut_radius_percent",theme.oneDimensionalCharts.donut_radius_percent)
+            .validatingDataType(that.innerRadiusPercent,"donut_inner_radius_percent",theme.oneDimensionalCharts.donut_inner_radius_percent);
 
         if(that.stop) {
             return;
         }
 
-        if(that.radiusPercent > 100) {
-            that.radiusPercent = 100;
+        if(that.pie_radius_percent > 100) {
+            that.pie_radius_percent = 100;
         }
 
         if(that.innerRadiusPercent > 100) {
@@ -263,7 +263,7 @@ PykCharts.oneD.electionDonut = function (options) {
         }
 
         try {
-            if(that.innerRadiusPercent >= that.radiusPercent) {
+            if(that.innerRadiusPercent >= that.pie_radius_percent) {
                 that.innerRadiusPercent = theme.oneDimensionalCharts.donut_inner_radius_percent;
                 throw "donut_inner_radius_percent";
             }
@@ -467,7 +467,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                     that.sum+=that.data[i].weight;
                 }
                 that.inner_radius = that.k.__proto__._radiusCalculation(that.innerRadiusPercent,that.calculation);
-                that.outer_radius = that.k.__proto__._radiusCalculation(that.radiusPercent,that.calculation);
+                that.outer_radius = that.k.__proto__._radiusCalculation(that.pie_radius_percent,that.calculation);
 
                 that.arc = d3.svg.arc()
                     .innerRadius(that.inner_radius)
@@ -562,7 +562,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                     that.chart_text.text("")
                         .attr("fill", "red");
 
-                    setTimeout(function () {
+                    function chart_text_timeout() {
                         that.chart_text.text(function (d) { return that.k.appendUnits(d.data.weight); })
                             .attr({
                                 "text-anchor": "middle",
@@ -593,7 +593,8 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                                 }
                             });
                         that.chart_text.exit().remove();
-                    },that.transitions.duration());
+                    }
+                    setTimeout(chart_text_timeout,that.transitions.duration());
 
                 return this;
             },
@@ -703,8 +704,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                         return "translate(" + x + "," + y + ")";});
 
                     tick_label.text("")
-
-                    setTimeout(function() {
+                    function tick_label_timeout() {
                         tick_label.text(function(d) { return d.data.name; })
                             .text(function(d,i) {
                                 that.ticks_text_width[i] = this.getBBox().width;
@@ -739,7 +739,8 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                             });
 
                         tick_label.exit().remove();
-                    },that.transitions.duration());
+                    }
+                    setTimeout(tick_label_timeout,that.transitions.duration());
 
 
                     var tick_line = that.group.selectAll("line")
@@ -763,8 +764,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                             return (that.outer_radius) * (1) *Math.sin((d.endAngle + d.startAngle )/2);
                         }
                     });
-
-                    setTimeout(function () {
+                    function tick_line_timeout() {
                         tick_line.attr({
                             "x2": function (d, i) {
                                 return (that.outer_radius/1+12)* (1) * Math.cos((d.startAngle + d.endAngle)/2);
@@ -777,7 +777,9 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                             "stroke": that.pointer_color
                         });
                         tick_line.exit().remove();
-                    },that.transitions.duration());
+                    }
+
+                    setTimeout(tick_line_timeout,that.transitions.duration());
                 return this;
             },
             centerLabel: function () {
@@ -791,8 +793,9 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                         .append("text");
 
                     label.attr("class","centerLabel")
-                        .text("")
-                    setTimeout(function () {
+                        .text("");
+
+                    function label_timeout() {
                         label.text( function(d) {
                                 return that.k.appendUnits(that.sum);
                             })
@@ -814,7 +817,8 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                                 "font-size": that.show_total_at_center_size + "px"
                             });
 
-                    },that.transitions.duration());
+                    }
+                    setTimeout(label_timeout,that.transitions.duration());
 
                     label.exit().remove();
                 }

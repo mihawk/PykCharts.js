@@ -41,7 +41,6 @@ PykCharts.other.pictograph = function (options) {
             .validatingColor(that.current_count_color,"pictograph_current_count_color",otherCharts.pictograph_current_count_color,"current_count_color")
             .validatingColor(that.total_count_color,"pictograph_total_count_color",otherCharts.pictograph_total_count_color,"total_count_color")
             .validatingColor(that.pictograph_units_per_image_text_color,"pictograph_units_per_image_text_color",otherCharts.pictograph_units_per_image_text_color,"pictograph_units_per_image_text_color"); 
-
         if(that.stop) {
             return;
         }
@@ -76,7 +75,6 @@ PykCharts.other.pictograph = function (options) {
             that.old_weight = that.weight;
             var validate = that.k.validator().validatingJSON(data);
             if(that.stop || validate === false) {
-                $(options.selector+" #chart-loader").remove();
                 return;
             }
 
@@ -198,8 +196,9 @@ PykCharts.other.pictograph = function (options) {
                                 .attr("width", that.imageWidth + "px");
 
                             setTimeout(function () {
-                                if ($("#total_image"+j)) {
-                                    $("#total_image"+j).remove();
+                                var total_image_element = d3.selectAll("#total_image"+j);
+                                if (total_image_element) {
+                                    total_image_element.remove();
                                 }
                             },that.transitions.duration());
                         }
@@ -242,16 +241,18 @@ PykCharts.other.pictograph = function (options) {
                 setTimeout(function () {
                     if (that.old_data && that.old_data[1].weight > that.data[1].weight) {
                         for (var i = that.old_data[1].weight; i > that.data[1].weight; i--) {
-                            if ($("#current_image"+i)) {
-                                $("#current_image"+i).remove();
+                            var current_image_elements = d3.selectAll("#current_image"+i);
+                            if (current_image_elements) {
+                                current_image_elements.remove();
                             }
                         }
                     }
                     if (that.old_data && that.old_data[0].weight > that.data[0].weight) {
                         for (var i = that.old_data[0].weight; i > that.data[0].weight; i--) {
-                            if ($("#total_image"+i)) {
-                                $("#total_image"+i).remove();
-                            }
+                            var total_image_element = d3.selectAll("#total_image"+i);
+                                if (total_image_element) {
+                                    total_image_element.remove();
+                                }
                         }
                     }
                 },that.transitions.duration());
@@ -272,7 +273,7 @@ PykCharts.other.pictograph = function (options) {
             },
             enableLabel: function () {
                 if (PykCharts['boolean'](that.enableTotal)) {
-                    var current_text = $(options.selector+" .PykCharts-current-text");
+                    var current_text = d3.selectAll(options.selector+" .PykCharts-current-text");
                     if (current_text.length > 0) {
                         current_text.remove();
                     };
@@ -303,7 +304,7 @@ PykCharts.other.pictograph = function (options) {
             },
             labelText: function () {
                 if (PykCharts['boolean'](that.enableCurrent)) {
-                    var total_text = $(options.selector+" .PykCharts-total-text");
+                    var total_text = d3.selectAll(options.selector+" .PykCharts-total-text");
                     if (total_text.length > 0) {
                         total_text.remove();
                     };

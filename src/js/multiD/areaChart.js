@@ -736,12 +736,6 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 							that.mouseEvent.crossHairHide(that.type);
 							that.mouseEvent.axisHighlightHide(that.selector + " .x.axis");
 							that.mouseEvent.axisHighlightHide(that.selector + " .y.axis");
-
-							if(that.type === "stackedAreaChart") {
-								for(var a=0;a < that.new_data_length;a++) {
-									$(that.selector+" #svg-"+a).trigger("mouseout");
-								}
-							}
 						})
 						.on("mousemove", function() {
 							if(that.type === "areaChart") {
@@ -750,9 +744,6 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 								var line = [];
 								line[0] = d3.select(that.selector+" #"+this.id+" .stacked-area");
 								that.mouseEvent.crossHairPosition(that.new_data,that.xScale,that.yScale,line,that.extra_left_margin,that.xdomain,that.type,that.tooltipMode,that.color_from_data,"no");
-								for(var a=0;a < that.new_data_length;a++) {
-									$(that.selector+" #svg-"+a).trigger("mousemove");
-								}
 							}
 						});
 

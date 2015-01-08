@@ -6,7 +6,7 @@ PykCharts.oneD.pyramid = function (options) {
         that = new PykCharts.oneD.processInputs(that, options, "pyramid");
         that.chart_height = options.chart_height ? options.chart_height : that.chart_width;
         that.k.validator()
-            .validatingDataType(that.chart_height,"chart_height",that.chart_width,"chart_height");
+            .validatingDataType(that.chart_height,"chart_height",that.chart_width);
             
         if(that.stop) {
             return;
@@ -310,8 +310,7 @@ PykCharts.oneD.pyramid = function (options) {
                         "font-size": that.label_size + "px",
                         "font-family": that.label_family
                     });
-
-                    setTimeout(function () {
+                    function chart_text_timeout() {
                         that.chart_text.text(function (d,i) {
                                 if(i===0) {
                                     return ((that.new_data[i].weight*100)/that.sum).toFixed(1)+"%";
@@ -337,7 +336,8 @@ PykCharts.oneD.pyramid = function (options) {
                                     return "";
                                 }
                             });
-                    },that.transitions.duration());
+                    }
+                    setTimeout(chart_text_timeout,that.transitions.duration());
 
                     that.chart_text.exit().remove();
 
@@ -380,7 +380,7 @@ PykCharts.oneD.pyramid = function (options) {
 
                 tick_label.text("");
 
-                setTimeout(function() {
+                function tick_label_timeout() {
                     tick_label.text(function (d,i) {
                             if(i===0) {
                                 return that.new_data[i].name;
@@ -420,7 +420,8 @@ PykCharts.oneD.pyramid = function (options) {
                     })
                     .attr("text-anchor","start");
 
-                },that.transitions.duration());
+                }
+                setTimeout(tick_label_timeout,that.transitions.duration());
 
                 tick_label.exit().remove();
                 var tick_line = that.group.selectAll(".pyr-ticks")
@@ -463,8 +464,7 @@ PykCharts.oneD.pyramid = function (options) {
                         "stroke-width": that.pointer_thickness + "px",
                         "stroke": that.pointer_color
                     });
-
-                    setTimeout(function() {
+                    function tick_line_timeout() {
                         tick_line.attr("x2", function (d,i) {
                             if(Math.abs(d.values[0].y - d.values[1].y) > w[i]) {
                                 if (d.values.length === 3) {
@@ -480,7 +480,8 @@ PykCharts.oneD.pyramid = function (options) {
                                 }
                             }
                         });
-                    }, that.transitions.duration());
+                    }
+                    setTimeout(tick_line_timeout, that.transitions.duration());
 
                 tick_line.exit().remove();
                 return this;

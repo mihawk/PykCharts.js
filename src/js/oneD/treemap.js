@@ -6,7 +6,7 @@ PykCharts.oneD.treemap = function (options){
         optional = options.optional;
         that.chart_height = options.chart_height ? options.chart_height : that.chart_width;
         that.k.validator()
-            .validatingDataType(that.chart_height,"chart_height",that.chart_width,"chart_height");
+            .validatingDataType(that.chart_height,"chart_height",that.chart_width);
 
         if(that.stop) {
             return;
@@ -226,8 +226,7 @@ PykCharts.oneD.treemap = function (options){
                             "font-family": that.label_family
                         })
                         .text("");
-
-                    setTimeout(function() {
+                    function chart_text1_timeout() {
                         that.chart_text.text(function (d) { return d.children ? " " :  d.name; })
                             .attr("pointer-events","none")
                             .text(function (d) {
@@ -239,7 +238,8 @@ PykCharts.oneD.treemap = function (options){
                                     return "";
                                 }
                             });
-                    },that.transitions.duration());
+                    }
+                    setTimeout(chart_text1_timeout,that.transitions.duration());
 
                     that.chart_text1
                         .attr({
@@ -254,7 +254,7 @@ PykCharts.oneD.treemap = function (options){
                         })
                         .text("");
 
-                    setTimeout(function () {
+                    function timeout() {
                         that.chart_text1.text(function (d) { return d.children ? " " :  that.k.appendUnits(d.weight); })
                             .text(function (d) {
                                 if(this.getBBox().width < d.dx && this.getBBox().height < d.dy-15) {
@@ -265,7 +265,9 @@ PykCharts.oneD.treemap = function (options){
                                     return "";
                                 }
                             });
-                    },that.transitions.duration());
+                    }
+
+                    setTimeout(timeout,that.transitions.duration());
 
                     that.chart_text.exit()
                         .remove();
