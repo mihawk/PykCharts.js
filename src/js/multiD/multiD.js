@@ -260,6 +260,7 @@ PykCharts.multiD.configuration = function (options){
 
 PykCharts.multiD.bubbleSizeCalculation = function (options,data,rad_range) {
     var size = function (d) {
+        // console.log(options.variable_circle_size_enable," ******",options.selector);
         if(d && PykCharts['boolean'](options.variable_circle_size_enable)) {
             var z = d3.scale.linear()
                         .domain(d3.extent(data,function (d) {
