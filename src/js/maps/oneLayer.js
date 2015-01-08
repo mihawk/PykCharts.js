@@ -48,8 +48,8 @@ PykCharts.maps.oneLayer = function (options) {
                             that.k.warningHandling(e,"11");
                         }
 
-                        $(that.selector).html("");
-                        $(options.selector).css("height","auto")
+                        d3.select(that.selector).html("");
+                        d3.select(options.selector).style("height","auto");
                         var oneLayer = new PykCharts.maps.mapFunctions(options,that,"oneLayer");
                         oneLayer.render();
                     });
@@ -113,7 +113,7 @@ PykCharts.maps.timelineMap = function (options) {
                     that.data.sort(function (a,b) {
                         return a.timestamp - b.timestamp;
                     });
-                    $(that.selector).html("");
+                    d3.select(that.selector).html("");
                     var timeline = new PykCharts.maps.mapFunctions(options,that,"timeline");
                     timeline.render();
                 });
@@ -170,14 +170,13 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             that.renderButtons();
             that.renderTimeline();
         }
-
-        if(PykCharts['boolean'](that.legends_enable) && that.color_mode === "saturation") {
-            $(document).ready(function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); });
-            $(window).on("resize", function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); });
-        } else {
-            $(document).ready(function () { return that.k.resize(that.svgContainer,""); });
-            $(window).on("resize", function () { return that.k.resize(that.svgContainer,""); });
-        }
+        // var resize = that.k.resize(that.svgContainer);
+        // that.k.__proto__._ready(resize);
+        // window.onresize = function () {
+        //     return that.k.resize(that.svgContainer);
+        // };
+        // $(document).ready(function () { return that.k.resize(that.svgContainer,""); });
+        // $(window).on("resize", function () { return that.k.resize(that.svgContainer,""); });
     };
 
     that.refresh = function () {
