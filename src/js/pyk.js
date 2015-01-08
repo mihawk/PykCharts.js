@@ -125,7 +125,7 @@ PykCharts.Configuration = function (options){
                     "id" : "footer", 
                     "width": options.chart_width + "px"                                            
                 })
-                .style("background", options.bg)                ;
+                .style("background", options.bg);
             return this;
         },
         lastUpdatedAt: function (a) {
@@ -136,7 +136,7 @@ PykCharts.Configuration = function (options){
                         + currentdate.getHours() + ":"
                         + currentdate.getMinutes() + ":" + currentdate.getSeconds();
                 if(a === "liveData"){
-                    $(options.selector+" #lastUpdatedAt").html("<span style='pointer-events:none;'>Last Updated At: </span><span style='pointer-events:none;'>"+ date +"</span>");
+                    document.querySelectorAll(options.selector+" #lastUpdatedAt").innerHTML = "<span style='pointer-events:none;'>Last Updated At: </span><span style='pointer-events:none;'>"+ date +"</span>";
                 } else {
                     d3.select(options.selector+" #footer")
                         .append("tr")
@@ -207,7 +207,7 @@ PykCharts.Configuration = function (options){
                 if(options.data_source_url === "") {
                     enable = false;
                 }
-                if($(options.selector+" #footer").length) {
+                if(d3.selectAll(options.selector+" #footer").length) {
                     d3.select(options.selector+" table #credit-datasource")
                         .style({
                             "background" : options.bg,
@@ -283,10 +283,10 @@ PykCharts.Configuration = function (options){
         },
         
         loading: function () {
-            $(options.selector).css("height",options.chart_height);
+            d3.select(options.selector).style("height",options.chart_height);
             var loading_content = options.loading_type === "image" ? "<img src=" + options.loading_source + ">" : options.loading_source;
-            $(options.selector).html("<div id='chart-loader'>" + loading_content + "</div>");
-            var initial_height_div = $(options.selector).height();
+            d3.select(options.selector).html("<div id='chart-loader'>" + loading_content + "</div>");
+            var initial_height_div = document.querySelector(options.selector).offsetHeight;
             $(options.selector + " #chart-loader").css({"visibility":"visible","padding-left":(options.chart_width/2) +"px","padding-top":(initial_height_div/2) + "px"});
             return this;
         },
@@ -396,9 +396,9 @@ PykCharts.Configuration = function (options){
         },
         resize: function (svg) {
             var aspect = (options.chart_width/options.chart_height),
-                targetWidth = $(options.selector).width(),
-                a = $(options.selector + " #footer"),
-                b = $(options.selector + " .main-div"),
+                targetWidth = document.querySelector(options.selector).offsetWidth,
+                a = d3.selectAll(options.selector + " #footer"),
+                b = d3.selectAll(options.selector + " .main-div"),
                 title_div_width;
 
             if(targetWidth > options.chart_width) {
@@ -413,12 +413,12 @@ PykCharts.Configuration = function (options){
             if(PykCharts['boolean'](options.title_text)) {
                 if(PykCharts['boolean'](options.export_enable)) {
                     title_div_width = 0.9*targetWidth;
-                    $(options.selector + " #title").css("width",title_div_width);
+                    d3.select(options.selector + " #title").style("width",title_div_width);
                 }
             }
             if(PykCharts['boolean'](options.subtitle_text)) {
                 title_div_width = 0.9*targetWidth;
-                $(options.selector + " #sub-title").css("width", title_div_width);
+                d3.select(options.selector + " #sub-title").style("width", title_div_width);
             }
             if(PykCharts['boolean'](options.export_enable)) {
                 div_size = targetWidth
@@ -695,7 +695,7 @@ PykCharts.Configuration = function (options){
         }
         },
         backgroundColor: function (options) {
-             $(options.selector).css({"background-color":options.background_color,"position":"relative"})
+            d3.select(options.selector).style({"background-color":options.background_color,"position":"relative"})
                 var bg,child1;
                 bgColor(options.selector);
 
