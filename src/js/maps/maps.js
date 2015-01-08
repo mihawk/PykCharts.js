@@ -28,18 +28,18 @@ PykCharts.maps.processInputs = function (chartObject, options) {
 
     chartObject.selector = options.selector ? options.selector : stylesheet.selector;
 
-    chartObject.width = options.chart_width ? options.chart_width : stylesheet.chart_width;
-    chartObject.height = options.chart_height ? options.chart_height : stylesheet.chart_height;
+    chartObject.chart_width = options.chart_width ? options.chart_width : stylesheet.chart_width;
+    chartObject.chart_height = options.chart_height ? options.chart_height : stylesheet.chart_height;
     chartObject.map_code = options.map_code ? options.map_code : mapsTheme.map_code;
     chartObject.click_enable = options.click_enable ? options.click_enable.toLowerCase() : mapsTheme.click_enable;
     chartObject.background_color = options.background_color ? options.background_color : stylesheet.background_color;
 
     chartObject.timeline_duration = "timeline_duration" in options ? options.timeline_duration :mapsTheme.timeline_duration;
 
-    chartObject.margin_left = options.timeline_margin_left ? options.timeline_margin_left : mapsTheme.timeline_margin_left;
-    chartObject.margin_right = options.timeline_margin_right ? options.timeline_margin_right : mapsTheme.timeline_margin_right;
-    chartObject.margin_top = options.timeline_margin_top ? options.timeline_margin_top : mapsTheme.timeline_margin_top;
-    chartObject.margin_bottom = options.timeline_margin_bottom ? options.timeline_margin_bottom : mapsTheme.timeline_margin_bottom;
+    chartObject.timeline_margin_left = options.timeline_margin_left ? options.timeline_margin_left : mapsTheme.timeline_margin_left;
+    chartObject.timeline_margin_right = options.timeline_margin_right ? options.timeline_margin_right : mapsTheme.timeline_margin_right;
+    chartObject.timeline_margin_top = options.timeline_margin_top ? options.timeline_margin_top : mapsTheme.timeline_margin_top;
+    chartObject.timeline_margin_bottom = options.timeline_margin_bottom ? options.timeline_margin_bottom : mapsTheme.timeline_margin_bottom;
 
     chartObject.tooltip_enable = options.tooltip_enable ? options.tooltip_enable.toLowerCase() : stylesheet.tooltip_enable;
     chartObject.tooltip_mode = options.tooltip_mode ? options.tooltip_mode.toLowerCase() : stylesheet.tooltip_mode;
@@ -90,8 +90,8 @@ PykCharts.maps.processInputs = function (chartObject, options) {
                   break;
     }
     
-    chartObject.onhover_enable = options.chart_onhover_highlight_enable ? options.chart_onhover_highlight_enable : stylesheet.chart_onhover_highlight_enable;
-    chartObject.onhover = options.chart_onhover_effect ? options.chart_onhover_effect : mapsTheme.chart_onhover_effect;
+    chartObject.chart_onhover_highlight_enable = options.chart_onhover_highlight_enable ? options.chart_onhover_highlight_enable : stylesheet.chart_onhover_highlight_enable;
+    chartObject.chart_onhover_effect = options.chart_onhover_effect ? options.chart_onhover_effect : mapsTheme.chart_onhover_effect;
     chartObject.default_zoom_level = options.default_zoom_level ? options.default_zoom_level : 80;
 
     chartObject.loading_type = options.loading_type ? options.loading_type : stylesheet.loading_type;
@@ -144,12 +144,12 @@ PykCharts.maps.processInputs = function (chartObject, options) {
     chartObject.k.validator().validatingSelector(chartObject.selector.substring(1,chartObject.selector.length))
                 .isArray(chartObject.axis_x_pointer_values,"axis_x_pointer_values")
                 .isArray(chartObject.chart_color,"chart_color")
-                .validatingDataType(chartObject.width,"chart_width",stylesheet.chart_width,"width")
-                .validatingDataType(chartObject.height,"chart_height",stylesheet.chart_height,"height")
-                .validatingDataType(chartObject.margin_left,"timeline_margin_left",mapsTheme.timeline_margin_left,"margin_left")
-                .validatingDataType(chartObject.margin_right,"timeline_margin_right",mapsTheme.timeline_margin_right,"margin_right")
-                .validatingDataType(chartObject.margin_top,"timeline_margin_top",mapsTheme.timeline_margin_top,"margin_top")
-                .validatingDataType(chartObject.margin_bottom,"timeline_margin_bottom",mapsTheme.timeline_margin_bottom,"margin_bottom")
+                .validatingDataType(chartObject.chart_width,"chart_width",stylesheet.chart_width)
+                .validatingDataType(chartObject.chart_height,"chart_height",stylesheet.chart_height)
+                .validatingDataType(chartObject.timeline_margin_left,"timeline_margin_left",mapsTheme.timeline_margin_left)
+                .validatingDataType(chartObject.timeline_margin_right,"timeline_margin_right",mapsTheme.timeline_margin_right)
+                .validatingDataType(chartObject.timeline_margin_top,"timeline_margin_top",mapsTheme.timeline_margin_top)
+                .validatingDataType(chartObject.timeline_margin_bottom,"timeline_margin_bottom",mapsTheme.timeline_margin_bottom)
                 .validatingDataType(chartObject.title_size,"title_size",stylesheet.title_size)
                 .validatingDataType(chartObject.subtitle_size,"subtitle_size",stylesheet.subtitle_size)
                 .validatingDataType(chartObject.real_time_charts_refresh_frequency,"real_time_charts_refresh_frequency",functionality.real_time_charts_refresh_frequency)
@@ -200,9 +200,9 @@ PykCharts.maps.processInputs = function (chartObject, options) {
             }
 
             try {
-                if(chartObject.onhover.toLowerCase() === "shadow" || chartObject.onhover.toLowerCase() === "none" || chartObject.onhover.toLowerCase() === "highlight_border" || chartObject.onhover.toLowerCase() === "color_saturation") {
+                if(chartObject.chart_onhover_effect.toLowerCase() === "shadow" || chartObject.chart_onhover_effect.toLowerCase() === "none" || chartObject.chart_onhover_effect.toLowerCase() === "highlight_border" || chartObject.chart_onhover_effect.toLowerCase() === "color_saturation") {
                 } else {
-                    chartObject.onhover = mapsTheme.onhover;
+                    chartObject.chart_onhover_effect = mapsTheme.chart_onhover_effect;
                     throw "chart_onhover_effect";
                 }
             }
