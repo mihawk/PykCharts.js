@@ -134,9 +134,9 @@ var config_param_info = [
 
     chartObject.k.validator().validatingSelector(chartObject.selector.substring(1,chartObject.selector.length))
         .isArray(chartObject.chart_color,"chart_color")
-        .isArray(chartObject.clubdata_always_include_data_points,"clubdata_always_include_data_points")
+        .isArray(chartObject.clubdata_always_include_data_points)
         .validatingChartMode(chartObject.mode,"mode",stylesheet.mode)
-        .validatingDataType(chartObject.chart_width,"chart_width",stylesheet.chart_width,"chart_width")
+        .validatingDataType(chartObject.chart_width,"chart_width",stylesheet.chart_width)
         .validatingDataType(chartObject.title_size,"title_size",stylesheet.title_size)
         .validatingDataType(chartObject.subtitle_size,"subtitle_size",stylesheet.subtitle_size)
         .validatingDataType(chartObject.real_time_charts_refresh_frequency,"real_time_charts_refresh_frequency",functionality.real_time_charts_refresh_frequency)

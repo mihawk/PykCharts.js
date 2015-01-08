@@ -273,8 +273,8 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
             if(PykCharts['boolean'](that.panels_enable)) {
                 that.w = that.chart_width/3;
                 that.chart_height = that.chart_height/2;
-                that.margin_left = that.margin_left;
-                that.margin_right = that.margin_right;
+                that.chart_margin_left = that.chart_margin_left;
+                that.chart_margin_right = that.chart_margin_right;
 
                 that.k.backgroundColor(that)
                     .export(that,"svg-","lineChart",that.panels_enable,that.new_data)
@@ -286,8 +286,8 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
 
                 that.k.liveData(that);
                 that.optionalFeature().chartType();
-                that.reducedWidth = that.w - that.margin_left - that.margin_right;
-                that.reducedHeight = that.chart_height - that.margin_top - that.margin_bottom;
+                that.reducedWidth = that.w - that.chart_margin_left - that.chart_margin_right;
+                that.reducedHeight = that.chart_height - that.chart_margin_top - that.chart_margin_bottom;
                 that.fill_data = [];
                 if(that.axis_x_data_format === "time") {
                     for(i = 0;i<that.new_data_length;i++) {
@@ -310,8 +310,8 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                     .subtitle();
 
                 that.w = that.chart_width;
-                that.reducedWidth = that.w - that.margin_left - that.margin_right;
-                that.reducedHeight = that.chart_height - that.margin_top - that.margin_bottom;
+                that.reducedWidth = that.w - that.chart_margin_left - that.chart_margin_right;
+                that.reducedHeight = that.chart_height - that.chart_margin_top - that.chart_margin_bottom;
 
                 that.k.liveData(that)
                         .makeMainDiv(that.selector,1)
@@ -372,8 +372,8 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                         d.x =that.k.dateConversion(d.x);
                     });
                 }
-                that.reducedWidth = that.w - that.margin_left - that.margin_right;
-                that.reducedHeight = that.chart_height - that.margin_top - that.margin_bottom;
+                that.reducedWidth = that.w - that.chart_margin_left - that.chart_margin_right;
+                that.reducedHeight = that.chart_height - that.chart_margin_top - that.chart_margin_bottom;
                 that.fill_data = [];
 
                 that.renderPanelOfLines();
@@ -384,8 +384,8 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                     .emptyDiv(options.selector);
 
                 that.w = that.chart_width;
-                that.reducedWidth = that.w - that.margin_left - that.margin_right;
-                that.reducedHeight = that.chart_height - that.margin_top - that.margin_bottom;
+                that.reducedWidth = that.w - that.chart_margin_left - that.chart_margin_right;
+                that.reducedHeight = that.chart_height - that.chart_margin_top - that.chart_margin_bottom;
 
                 that.k.makeMainDiv(that.selector,1)
 
@@ -556,7 +556,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                 that.group = that.svgContainer.append("g")
                     .attr({
                         "id": "chartsvg",
-                        "transform": "translate("+ that.margin_left +","+ that.margin_top +")"
+                        "transform": "translate("+ that.chart_margin_left +","+ that.chart_margin_top +")"
                     });
 
                 if(PykCharts['boolean'](that.grid_y_enable)){
@@ -586,7 +586,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                     .attr({
                         "id": "clipPath",
                         "clip-path": "url(#clip" + i + that.selector + ")",
-                        "transform": "translate("+ that.margin_left +","+ that.margin_top +")"
+                        "transform": "translate("+ that.chart_margin_left +","+ that.chart_margin_top +")"
                     });
 
                 return this;
@@ -978,8 +978,8 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                             that.ticks[0] = that.svgContainer.append("text")
                                 .attr({
                                     "id": type,
-                                    "x": that.margin_left,
-                                    "y": that.margin_top,
+                                    "x": that.chart_margin_left,
+                                    "y": that.chart_margin_top,
                                     "dy": -5
                                 })
                                 .style({
@@ -995,8 +995,8 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                             that.ticks[0] = that.svgContainer.append("text")
                                 .attr({
                                     "id": type,
-                                    "x": that.w - that.margin_left,
-                                    "y": that.chart_height-that.margin_bottom,
+                                    "x": that.w - that.chart_margin_left,
+                                    "y": that.chart_height-that.chart_margin_bottom,
                                     "dy": 10,
                                     "text-anchor": "end"
                                 })
@@ -1016,11 +1016,11 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                         tickPosition = function (d,i) {
                             var end_x_circle, end_y_circle;
                             if(that.axis_y_position === "left") {
-                                end_x_circle = (that.xScale(that.new_data[i].data[(that.new_data[i].data.length - 1)].x) + that.extra_left_margin + that.margin_left);
-                                end_y_circle = (that.yScale(that.new_data[i].data[(that.new_data[i].data.length - 1)].y) + that.margin_top);
+                                end_x_circle = (that.xScale(that.new_data[i].data[(that.new_data[i].data.length - 1)].x) + that.extra_left_margin + that.chart_margin_left);
+                                end_y_circle = (that.yScale(that.new_data[i].data[(that.new_data[i].data.length - 1)].y) + that.chart_margin_top);
                             } else if(that.axis_y_position === "right") {
-                                end_x_circle = (that.xScale(that.new_data[i].data[0].x) + that.extra_left_margin + that.margin_left) - 10;
-                                end_y_circle = (that.yScale(that.new_data[i].data[0].y) + that.margin_top);
+                                end_x_circle = (that.xScale(that.new_data[i].data[0].x) + that.extra_left_margin + that.chart_margin_left) - 10;
+                                end_y_circle = (that.yScale(that.new_data[i].data[0].y) + that.chart_margin_top);
                             }
                             text_x = end_x_circle,
                             text_y = end_y_circle,
@@ -1266,12 +1266,12 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
             anno.attr("d", function (d,i) {
                     var a = [
                         {
-                            x:parseInt(that.xScale(d.x))+that.extra_left_margin+that.margin_left,
-                            y:parseInt(that.yScale(d.y)-(arrow_size)+that.margin_top)
+                            x:parseInt(that.xScale(d.x))+that.extra_left_margin+that.chart_margin_left,
+                            y:parseInt(that.yScale(d.y)-(arrow_size)+that.chart_margin_top)
                         },
                         {
-                            x:parseInt(that.xScale(d.x))+that.extra_left_margin+that.margin_left,
-                            y:parseInt(that.yScale(d.y)-(arrow_size)+that.margin_top)
+                            x:parseInt(that.xScale(d.x))+that.extra_left_margin+that.chart_margin_left,
+                            y:parseInt(that.yScale(d.y)-(arrow_size)+that.chart_margin_top)
                         }
                     ];
                     return that.line(a);
@@ -1281,16 +1281,16 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                     .attr("d", function (d,i) {
                         var a = [
                             {
-                                x:parseInt(that.xScale(d.x)-(arrow_size*0.5))+that.extra_left_margin+that.margin_left,
-                                y:parseInt(that.yScale(d.y)-(arrow_size)+that.margin_top)
+                                x:parseInt(that.xScale(d.x)-(arrow_size*0.5))+that.extra_left_margin+that.chart_margin_left,
+                                y:parseInt(that.yScale(d.y)-(arrow_size)+that.chart_margin_top)
                             },
                             {
-                                x:parseInt(that.xScale(d.x)+(arrow_size*0.5))+that.extra_left_margin+that.margin_left,
-                                y:parseInt(that.yScale(d.y)-(arrow_size)+that.margin_top)
+                                x:parseInt(that.xScale(d.x)+(arrow_size*0.5))+that.extra_left_margin+that.chart_margin_left,
+                                y:parseInt(that.yScale(d.y)-(arrow_size)+that.chart_margin_top)
                             },
                             {
-                                x:parseInt(that.xScale(d.x))+that.extra_left_margin+that.margin_left,
-                                y:parseInt(that.yScale(d.y)+that.margin_top),
+                                x:parseInt(that.xScale(d.x))+that.extra_left_margin+that.chart_margin_left,
+                                y:parseInt(that.yScale(d.y)+that.chart_margin_top),
                             }
                         ];
                         return that.line(a);
