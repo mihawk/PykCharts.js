@@ -1097,7 +1097,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
             that.k.isOrdinal(that.svgContainer,".y.axis",that.yScale,that.ydomain);
             that.k.isOrdinal(that.svgContainer,".y.grid",that.yScale);
             for (i = 0;i < that.new_data_length;i++) {
-                var type = that.container_id + "-" + i;
+                var type = that.type+"-svg-"+i;
                 that.svgContainer.select(that.selector+" #"+type)
                     .attr({
                         "class": "lines-hover " + that.chartPathClass,
