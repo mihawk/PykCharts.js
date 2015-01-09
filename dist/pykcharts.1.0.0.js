@@ -654,10 +654,10 @@ PykCharts.Configuration = function (options){
                     child1 = child;
                     bg  = d3.selectAll(child).style("background-color");
                     if (bg === "transparent" || bg === "rgba(0, 0, 0, 0)") {
-                        if(d3.selectAll(child)[0].parentNode.tagName === undefined || d3.selectAll(child)[0].parentNode.tagName.toLowerCase() === "body") {
+                        if(d3.selectAll(child)[0][0].parentNode.tagName === undefined || d3.selectAll(child)[0][0].parentNode.tagName.toLowerCase() === "body") {
                             options.k.__proto__._colourBrightness("rgb(255,255,255)",d3.selectAll(child)[0]);
                         } else {
-                            return bgColor(d3.selectAll(child)[0].parentNode);
+                            return bgColor(d3.selectAll(child)[0][0].parentNode);
                         }
                     } else {
                         return options.k.__proto__._colourBrightness(bg,d3.selectAll(child)[0]);
@@ -781,7 +781,7 @@ PykCharts.Configuration = function (options){
 
                 var name = chart_name + ".svg";
 
-                $(chart.selector + " #"+id).click(function () {
+                d3.selectAll(chart.selector + " #"+id).on("click",function () {
                     PykCharts.export_menu_status = 1;
                     d3.select(options.selector + " .dropdown-multipleConatiner-export").style("visibility", "visible");
                 });
@@ -5367,7 +5367,8 @@ PykCharts.other.processInputs = function (chartObject, options) {
                 .validatingColor(chartObject.label_color,"label_color",stylesheet.label_color)
                 .validatingColor(chartObject.border_between_chart_elements_color)
                 .validatingColor(chartObject.background_color,"background_color",stylesheet.background_color)
-    if($.isArray(chartObject.chart_color)) {
+                
+    if(chartObject.chart_color.constructor === Array) {
         for(var i = 0;i < chartObject.chart_color.length;i++) {
             if(chartObject.chart_color[i]) {
                 chartObject.k.validator()
@@ -14095,10 +14096,10 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             child1 = child;
             bg  = d3.selectAll(child).style("background-color");
             if (bg === "transparent" || bg === "rgba(0, 0, 0, 0)") {
-                if(d3.selectAll(child)[0].parentNode.tagName === undefined || d3.selectAll(child)[0].parentNode.tagName.toLowerCase() === "body") {
+                if(d3.selectAll(child)[0][0].parentNode.tagName === undefined || d3.selectAll(child)[0][0].parentNode.tagName.toLowerCase() === "body") {
                     that.k.__proto__._colourBrightness("rgb(255,255,255)",d3.selectAll(child)[0]);
                 } else {
-                    return bgColor(d3.selectAll(child)[0].parentNode);
+                    return bgColor(d3.selectAll(child)[0][0].parentNode);
                 }
             } else {
                 return that.k.__proto__._colourBrightness(bg,d3.selectAll(child)[0]);
