@@ -4094,7 +4094,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                             if(that.sorted_weight[i] !== that.data[index].weight) {
                                 result.push(that.sorted_weight[i]);
                             }
-                        }                        
+                        }
                         return result;
                     } ;
 
@@ -4339,9 +4339,10 @@ PykCharts.oneD.pyramid = function (options) {
             }
 
 			that.data = that.k.__proto__._groupBy("oned",data);
+            that.data_length = that.data.length;
             that.compare_data = that.k.__proto__._groupBy("oned",data);
             that.k.remove_loading_bar(id);
-			that.clubdata_enable = that.data.length > that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
+			that.clubdata_enable = that.data_length > that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
             that.render();
 		};
 
@@ -4351,7 +4352,8 @@ PykCharts.oneD.pyramid = function (options) {
     this.refresh = function () {
         that.executeRefresh = function (data) {
             that.data = that.k.__proto__._groupBy("oned",data);
-            that.clubdata_enable = that.data.length>that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
+            that.data_length = that.data.length;
+            that.clubdata_enable = that.data_length>that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
             that.refresh_data = that.k.__proto__._groupBy("oned",data);
             var compare = that.k.checkChangeInData(that.refresh_data,that.compare_data);
             that.compare_data = compare[0];
@@ -4803,32 +4805,36 @@ PykCharts.oneD.pyramid = function (options) {
             clubData: function () {
             	if (PykCharts['boolean'](that.clubdata_enable)) {
             		that.displayData = [];
-                    that.sorted_weight = _.map(that.data,function(num){ return num.weight; });
+                    that.sorted_weight = [];
+                    for(var i=0 ; i<that.data_length ; i++) {
+                        that.sorted_weight.push(that.data[i].weight);
+                    }
                     that.sorted_weight.sort(function(a,b){ return b-a; });
                     that.checkDuplicate = [];
                     var others_Slice = {"name":that.clubdata_text,"color":that.clubData_color,"tooltip":that.clubData_tooltipText,"highlight":false};
                     var index;
                     var i;
                     that.getIndexByName = function(name){
-                        for(i=0;i<that.data.length;i++)
-                        {
+                        for(i=0;i<that.data_length;i++) {
                             if(that.data[i].name === name)
                                 return i;
                         }
                     };
 
                     var reject = function (index) {
-                        var result = _.reject(that.sorted_weight,function(num)
-                            {
-                                return num === that.data[index].weight;
-                            });
+                        var list_length = that.sorted_weight.length,
+                            result = [];
+                        for(var i=0 ; i<list_length ; i++) {
+                            if(that.sorted_weight[i] !== that.data[index].weight) {
+                                result.push(that.sorted_weight[i]);
+                            }
+                        }
                         return result;
                     } ;
 
                     if(that.clubdata_always_include_data_points.length!== 0) {
                         for (var l=0;l<that.clubdata_always_include_data_points.length;l++)
                         {
-
                             index = that.getIndexByName(that.clubdata_always_include_data_points[l]);
                             if(index!= undefined) {
                                 that.displayData.push(that.data[index]);
@@ -4838,10 +4844,10 @@ PykCharts.oneD.pyramid = function (options) {
                     }
 
                     that.getIndexByWeight = function (weight) {
-                        for(var i=0;i<that.data.length;i++)
+                        for(var i=0;i<that.data_length;i++)
                         {
                             if(that.data[i].weight === weight) {
-                                if((_.contains(that.checkDuplicate, i))===false) {
+                                if(that.checkDuplicate.indexOf(i) === -1) {
                                    that.checkDuplicate.push(i);
                                     return i;
                                 }

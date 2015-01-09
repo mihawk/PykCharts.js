@@ -631,7 +631,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                             if(that.sorted_weight[i] !== that.data[index].weight) {
                                 result.push(that.sorted_weight[i]);
                             }
-                        }                        
+                        }
                         return result;
                     } ;
 
