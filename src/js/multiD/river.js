@@ -150,7 +150,7 @@ PykCharts.multiD.river = function (options){
         for(j = 0;j < that.data_length;j++) {
             that.group_arr[j] = that.data[j].y;
         }
-        that.uniq_group_arr = _.unique(that.group_arr);
+        that.uniq_group_arr = that.k.__proto__._unique(that.group_arr);
         var len = that.uniq_group_arr.length;
         for (k = 0;k < len;k++) {
             for (l = 0;l < that.data_length;l++) {

@@ -12,7 +12,7 @@ PykCharts.multiD.configuration = function (options){
                         return d.weight;
                     }))
                     .range([0.1,1]);
-                return d ? z(d) : z(_.min(weight));
+                return d ? z(d) : z(Math.min.apply(null, weight));
             }
             else {
                 return 0.6;
@@ -165,13 +165,35 @@ PykCharts.multiD.configuration = function (options){
             legend.exit().remove();
         },
         mapGroup : function (data,type) {
-            var newarr = [];
-            var unique = {};
-            var k = 0;
-            var checkGroup = true;
-            var checkColor = true;
-            data = _.groupBy(data,'group');
-            data = _.flatten(_.values(data));
+            var newarr = [],
+                unique = {},
+                group_arr = [],
+                uniq_group_arr = [],
+                uniq_group_obj = {},
+                new_arr = [],
+                k = 0,
+                checkGroup = true,
+                checkColor = true;
+            for (var i=0 ; i<data.length ; i++) {
+                group_arr[i] = data[i]['group'];
+            }
+            uniq_group_arr = options.k.__proto__._unique(group_arr);
+            for (var i=0 ; i<uniq_group_arr.length ; i++) {
+                uniq_group_obj[uniq_group_arr[i]] = [];
+            }
+            for (var key in uniq_group_obj) {
+                for (var j=0 ; j<data.length ; j++) {
+                    if (key === data[j]['group']) {
+                        uniq_group_obj[key].push(data[j]);
+                    }
+                }
+            }
+            for (var key in uniq_group_obj) {
+                for (var i=0 ; i<uniq_group_obj[key].length ; i++) {
+                    new_arr.push(uniq_group_obj[key][i]);
+                }
+            }
+            data = new_arr;
             data.forEach(function (item) {
                 if(item.group) {
                     checkGroup = true;

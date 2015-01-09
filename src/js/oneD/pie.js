@@ -620,11 +620,6 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                     };
 
                     var reject = function (index) {
-                        // var result = _.reject(that.sorted_weight,function(num)
-                        //     {
-                        //         return num === that.data[index].weight;
-                        //     });
-                        
                         var list_length = that.sorted_weight.length,
                             result = [];
                         for(var i=0 ; i<list_length ; i++) {
@@ -651,7 +646,6 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                         {
                             if(that.data[i].weight === weight) {
                                 if(that.checkDuplicate.indexOf(i) === -1) {
-                                // if((_.contains(that.checkDuplicate, i))===false) {
                                    that.checkDuplicate.push(i);
                                     return i;
                                 }

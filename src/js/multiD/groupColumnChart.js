@@ -44,7 +44,6 @@ PykCharts.multiD.groupedColumn = function(options) {
         for(var j = 0;j < that.data_length;j++) {
             that.group_arr[j] = that.data[j].x;
         }
-        // that.uniq_group_arr = _.unique(that.group_arr);
         that.uniq_group_arr = that.k.__proto__._unique(that.group_arr);
         var len = that.uniq_group_arr.length;
 

@@ -25,7 +25,7 @@ PykCharts.export_menu_status = 0;
 PykCharts['boolean'] = function(d) {
     var false_values = ['0','f',"false",'n','no','',0,"0.00","0.0",0.0,0.00];
     var false_keywords = [undefined,null,NaN];
-    if(_.contains(false_keywords, d)) {
+    if(false_keywords.indexOf(d) !== -1) {
         return false;
     }
     value = d.toLocaleString();
@@ -507,7 +507,10 @@ PykCharts.Configuration = function (options){
                     if (groups[i].constructor === Array) {
                         obj = {};
                         var grp = groups[i],
-                        chart_name = charts[chart];
+                            chart_name = charts[chart],
+                            values_charts_chart = [],
+                            obj_with_omitted_properties = {},
+                            f = {};
                         obj[chart_name.dimension] = grp[0][chart_name.dimension];
                         if (chart_name.name) {
                             obj[chart_name.name] = grp[0][chart_name.name];
@@ -521,7 +524,28 @@ PykCharts.Configuration = function (options){
                         if (chart_name.group) {
                             obj[chart_name.group] = grp[0][chart_name.group];
                         }
-                        var f = _.extend(obj,_.omit(grp[0], _.values(charts[chart])));
+                        
+                        for (var key in charts[chart]) {
+                            values_charts_chart.push(charts[chart][key]);
+                        }
+                        for (var key in grp[0]) {
+                            var flag = 0;
+                            for (var i=0 ; i<values_charts_chart.length ; i++) {
+                                if (key === values_charts_chart[i]) {
+                                    flag = 1;
+                                    break;
+                                }
+                            }
+                            if (flag === 0) {
+                                obj_with_omitted_properties[key] = grp[0][key];
+                            }
+                        }
+                        for (var key in obj) {
+                            f[key] = obj[key];
+                        }
+                        for (var key in obj_with_omitted_properties) {
+                            f[key] = obj_with_omitted_properties[key];
+                        }
                         gd.push(f);
                     }
                 };
@@ -866,7 +890,7 @@ PykCharts.Configuration = function (options){
                 },
                 validatingDataType: function (attr_value,config_name,default_value,name) {
                     try {
-                        if(!_.isNumber(attr_value)) {
+                        if(!options.k.__proto__._isNumber(attr_value)) {
                             if(name) {
                                 options[name] = default_value;
                             } else {
