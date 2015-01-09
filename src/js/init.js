@@ -6,7 +6,6 @@ var anonymousFunc = function () {
     , PykCharts.assets+'lib/underscore.min.js'
     , PykCharts.assets+'lib/topojson.min.js'
     , PykCharts.assets+'lib/custom-hive.min.js'
-    , PykCharts.assets+'lib/jquery.colourbrightness.min.js'
     , PykCharts.assets+'lib/colors.min.js'
     , PykCharts.assets+'lib/paper-full.min.js'
     , PykCharts.assets+'lib/downloadDataURI.min.js'
@@ -19,7 +18,7 @@ var anonymousFunc = function () {
         include.onload = function () {
             try {
                 PykCharts.numberFormat = d3.format(",");
-                if (_ && d3 && ($ || jQuery) && d3.customHive && topojson && $("body").colourBrightness && $c && paper && downloadDataURI) {
+                if (_ && d3 && ($ || jQuery) && d3.customHive && topojson && $c && paper && downloadDataURI) {
                     window.PykChartsInit();
                     $("body").click(function () {
                         if (PykCharts.export_menu_status === 0) {
@@ -72,33 +71,27 @@ var anonymousFunc = function () {
     } catch (e) {
         importFiles(urls[4]);
     }
+    
     try {
-        if(!$("body").colourBrightness) {
+        if(!$c) {
             importFiles(urls[5]);
         }
     } catch (e) {
         importFiles(urls[5]);
     }
     try {
-        if(!$c) {
+        if(!paper) {
             importFiles(urls[6]);
         }
     } catch (e) {
         importFiles(urls[6]);
     }
     try {
-        if(!paper) {
+        if(!downloadDataURI) {
             importFiles(urls[7]);
         }
     } catch (e) {
         importFiles(urls[7]);
-    }
-    try {
-        if(!downloadDataURI) {
-            importFiles(urls[8]);
-        }
-    } catch (e) {
-        importFiles(urls[8]);
     }
 };
 

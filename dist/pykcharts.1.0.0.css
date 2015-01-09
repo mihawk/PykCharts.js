@@ -92,12 +92,12 @@ body {
   font-size: 12px;
 }
 
-.PykCharts-multi-series2D .line-cursor line {
+.PykCharts-multi-series2D .line-cursor {
   fill: none;
   stroke-width: 1px;
   stroke: #cccccc;
   shape-rendering: auto;
-  pointer-events: none;
+  pointer-events: none;  
 }
 
 .PykCharts-multi-series2D path.multi-line {
@@ -162,7 +162,7 @@ body {
   pointer-events: none;
 }
 
-.PykCharts-line-chart .line-cursor path, .line-cursor line {
+.PykCharts-line-chart .line-cursor path, .line-cursor{
   fill: none;
   stroke-width: 1px;
   stroke: #cccccc;
