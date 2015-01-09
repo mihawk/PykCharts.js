@@ -1,8 +1,8 @@
 var anonymousFunc = function () {
 
     var urls = [
-      PykCharts.assets+'lib/jquery-1.11.1.min.js'
-    , PykCharts.assets+'lib/d3.min.js'
+/*      PykCharts.assets+'lib/jquery-1.11.1.min.js'
+    ,*/ PykCharts.assets+'lib/d3.min.js'
     , PykCharts.assets+'lib/underscore.min.js'
     , PykCharts.assets+'lib/topojson.min.js'
     , PykCharts.assets+'lib/custom-hive.min.js'
@@ -18,11 +18,11 @@ var anonymousFunc = function () {
         include.onload = function () {
             try {
                 PykCharts.numberFormat = d3.format(",");
-                if (_ && d3 && ($ || jQuery) && d3.customHive && topojson && $c && paper && downloadDataURI) {
+                if (_ && d3 /*&& ($ || jQuery)*/ && d3.customHive && topojson && $c && paper && downloadDataURI) {
                     window.PykChartsInit();
-                    $("body").click(function () {
+                    document.body.click(function () {
                         if (PykCharts.export_menu_status === 0) {
-                            $(".dropdown-multipleConatiner-export").css("visibility","hidden");
+                            document.querySelectorAll(".dropdown-multipleConatiner-export").style.visibility ="hidden";
                         }
                         PykCharts.export_menu_status = 0;
                     })
@@ -36,62 +36,62 @@ var anonymousFunc = function () {
         var s = document.getElementsByTagName('link')[0];
         s.parentNode.insertBefore(include, s);
     };
+    // try {
+    //     if (!$ && !jQuery) {
+    //         importFiles(urls[0]);
+    //     }
+    // } catch (e) {
+    //     importFiles(urls[0]);
+    // }
     try {
-        if (!$ && !jQuery) {
+        if(!d3) {
             importFiles(urls[0]);
         }
     } catch (e) {
-        importFiles(urls[0]);
-    }
-    try {
-        if(!d3) {
-            importFiles(urls[1]);
-        }
-    } catch (e) {
-        importFiles(urls[1])
+        importFiles(urls[0])
     }
     try {
         if(!_) {
+            importFiles(urls[1]);
+        }
+    } catch (e) {
+        importFiles(urls[1]);
+    }
+    try {
+        if(!d3.customHive) {
             importFiles(urls[2]);
         }
     } catch (e) {
         importFiles(urls[2]);
     }
     try {
-        if(!d3.customHive) {
+        if(!topojson) {
             importFiles(urls[3]);
         }
     } catch (e) {
         importFiles(urls[3]);
     }
+    
     try {
-        if(!topojson) {
+        if(!$c) {
             importFiles(urls[4]);
         }
     } catch (e) {
         importFiles(urls[4]);
     }
-    
     try {
-        if(!$c) {
+        if(!paper) {
             importFiles(urls[5]);
         }
     } catch (e) {
         importFiles(urls[5]);
     }
     try {
-        if(!paper) {
+        if(!downloadDataURI) {
             importFiles(urls[6]);
         }
     } catch (e) {
         importFiles(urls[6]);
-    }
-    try {
-        if(!downloadDataURI) {
-            importFiles(urls[7]);
-        }
-    } catch (e) {
-        importFiles(urls[7]);
     }
 };
 
