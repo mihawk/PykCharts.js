@@ -1,4 +1,5 @@
 PykCharts.scaleFunction = function (options) {
+    var isNumber = options.k.__proto__._isNumber;
     options.k.scaleIdentification = function (type,data,range,x) {
         var scale;
         switch (type) {
@@ -270,7 +271,7 @@ PykCharts.scaleFunction = function (options) {
         return this;
     }
     options.k.xAxisDataFormatIdentification = function (data){
-        if(_.isNumber(data[0].x) || !(isNaN(data[0].x))){
+        if(isNumber(data[0].x) || !(isNaN(data[0].x))){
             return "number";
         } else if(!(isNaN(new Date(data[0].x).getTime()))) {
             return "time";
@@ -279,7 +280,7 @@ PykCharts.scaleFunction = function (options) {
         }
     }
     options.k.yAxisDataFormatIdentification = function (data) {
-        if(_.isNumber(data[0].y) || !(isNaN(data[0].y))){
+        if(isNumber(data[0].y) || !(isNaN(data[0].y))){
             return "number";
         } else if(!(isNaN(new Date(data[0].y).getTime()))) {
             return "time";
@@ -293,7 +294,7 @@ PykCharts.scaleFunction = function (options) {
         if(length) {
             for(var i = 0 ; i < length ; i++) {
                 if(options.axis_x_data_format === "number") {
-                    if(_.isNumber(options.axis_x_pointer_values[i]) || !(isNaN(options.axis_x_pointer_values[i]))){
+                    if(isNumber(options.axis_x_pointer_values[i]) || !(isNaN(options.axis_x_pointer_values[i]))){
                         values.push(parseFloat(options.axis_x_pointer_values[i]))
                     }
                 } else if(options.axis_x_data_format === "time") {
@@ -322,7 +323,7 @@ PykCharts.scaleFunction = function (options) {
         if(length) {
             for(var i = 0 ; i < length ; i++) {
                 if(options.axis_y_data_format === "number") {
-                    if(_.isNumber(options.axis_y_pointer_values[i]) || !(isNaN(options.axis_y_pointer_values[i]))){
+                    if(isNumber(options.axis_y_pointer_values[i]) || !(isNaN(options.axis_y_pointer_values[i]))){
                         values.push(options.axis_y_pointer_values[i])
                     }
                 }

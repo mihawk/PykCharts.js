@@ -642,6 +642,9 @@ PykCharts.Configuration = function (options){
                 } else {
                     d3.selectAll(element).classed({'light': true, 'dark': false});
                 }
+            },
+            _isNumber: function (n) {
+                return (!isNaN(parseFloat(n)) && isFinite(n));
             }
         },
         backgroundColor: function (options) {
@@ -6558,6 +6561,7 @@ configuration.makeYGrid = function(options,yScale,legendsGroup_width) {
     return ygrid;
 };
 PykCharts.scaleFunction = function (options) {
+    var isNumber = options.k.__proto__._isNumber;
     options.k.scaleIdentification = function (type,data,range,x) {
         var scale;
         switch (type) {
@@ -6829,7 +6833,7 @@ PykCharts.scaleFunction = function (options) {
         return this;
     }
     options.k.xAxisDataFormatIdentification = function (data){
-        if(_.isNumber(data[0].x) || !(isNaN(data[0].x))){
+        if(isNumber(data[0].x) || !(isNaN(data[0].x))){
             return "number";
         } else if(!(isNaN(new Date(data[0].x).getTime()))) {
             return "time";
@@ -6838,7 +6842,7 @@ PykCharts.scaleFunction = function (options) {
         }
     }
     options.k.yAxisDataFormatIdentification = function (data) {
-        if(_.isNumber(data[0].y) || !(isNaN(data[0].y))){
+        if(isNumber(data[0].y) || !(isNaN(data[0].y))){
             return "number";
         } else if(!(isNaN(new Date(data[0].y).getTime()))) {
             return "time";
@@ -6852,7 +6856,7 @@ PykCharts.scaleFunction = function (options) {
         if(length) {
             for(var i = 0 ; i < length ; i++) {
                 if(options.axis_x_data_format === "number") {
-                    if(_.isNumber(options.axis_x_pointer_values[i]) || !(isNaN(options.axis_x_pointer_values[i]))){
+                    if(isNumber(options.axis_x_pointer_values[i]) || !(isNaN(options.axis_x_pointer_values[i]))){
                         values.push(parseFloat(options.axis_x_pointer_values[i]))
                     }
                 } else if(options.axis_x_data_format === "time") {
@@ -6881,7 +6885,7 @@ PykCharts.scaleFunction = function (options) {
         if(length) {
             for(var i = 0 ; i < length ; i++) {
                 if(options.axis_y_data_format === "number") {
-                    if(_.isNumber(options.axis_y_pointer_values[i]) || !(isNaN(options.axis_y_pointer_values[i]))){
+                    if(isNumber(options.axis_y_pointer_values[i]) || !(isNaN(options.axis_y_pointer_values[i]))){
                         values.push(options.axis_y_pointer_values[i])
                     }
                 }
@@ -11813,7 +11817,7 @@ PykCharts.multiD.scatter = function (options) {
         that.panels_enable = "no";
         PykCharts.scaleFunction(that);
         try {
-            if(!_.isNumber(that.bubbleRadius)) {
+            if(!that.k.__proto__._isNumber(that.bubbleRadius)) {
                 that.bubbleRadius = theme.multiDimensionalCharts.scatterplot_radius;
                 throw "bubbleRadius";
             }
@@ -11881,7 +11885,7 @@ PykCharts.multiD.panelsOfScatter = function (options) {
         that.panels_enable = "yes";
         that.legends_display = "horizontal";
         try {
-            if(!_.isNumber(that.bubbleRadius)) {
+            if(!that.k.__proto__._isNumber(that.bubbleRadius)) {
                 that.bubbleRadius = theme.multiDimensionalCharts.scatterplot_radius;
                 throw "bubbleRadius"
             }
@@ -11953,7 +11957,7 @@ PykCharts.multiD.pulse = function (options) {
         that.panels_enable = "no";
 
         try {
-            if(!_.isNumber(that.bubbleRadius)) {
+            if(!that.k.__proto__._isNumber(that.bubbleRadius)) {
                 that.bubbleRadius = (0.6 * multiDimensionalCharts.scatterplot_radius);
                 throw "bubbleRadius"
             }
@@ -12308,9 +12312,15 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
                 that.weight = that.new_data.map(function (d) {
                     return d.weight;
                 });
-                that.weight = _.reject(that.weight,function (num) {
-                    return num == 0;
-                });
+                var weight_length = that.weight.length,
+                    rejected_result = [];
+                for(var i=0 ; i<weight_length ; i++) {
+                    if(that.weight[i] !== 0) {
+                        rejected_result.push(that.weight[i]);
+                    }
+                }
+                that.weight = rejected_result;
+                
                 that.sorted_weight = that.weight.slice(0);
                 that.sorted_weight.sort(function(a,b) { return a-b; });
 
