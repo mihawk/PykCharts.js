@@ -203,16 +203,17 @@ PykCharts.crossHairMovement = function (options) {
     }
     mouseEvent.crossHairShowLineArea = function (x1,y1,x2,y2,cx,cy) {
         if(PykCharts['boolean'](options.crosshair_enable)) {
-            that.cross_hair_v.style("display","block");
-            that.cross_hair_v.select(options.selector + " #cross-hair-v")
+            d3.selectAll(options.selector+ " .line-cursor").style("display","block");
+            // that.cross_hair_v.style("display","block");
+            d3.select(options.selector + " #cross-hair-v")
                 .attr({
                     "x1" : x1,
                     "y1" : y1,
                     "x2" : x2,
                     "y2" : y2
                 });
-            that.cross_hair_h.style("display","block");
-            that.cross_hair_h.select(options.selector + " #cross-hair-h")
+            // that.cross_hair_h.style("display","block");
+            d3.select(options.selector + " #cross-hair-h")
                 .attr({
                     "x1" : options.chart_margin_left,
                     "y1" : cy,
@@ -227,7 +228,7 @@ PykCharts.crossHairMovement = function (options) {
     mouseEvent.crossHairShowMultipleline = function (x1,y1,x2,y2,cx,cy,new_data) {
         if(PykCharts['boolean'](options.crosshair_enable)) {
             that.cross_hair_v.style("display","block");
-            that.cross_hair_v.select(options.selector + " #cross-hair-v")
+            d3.select(options.selector + " #cross-hair-v")
                 .attr({
                     "x1" : (x1 - 5),
                     "y1" : y1,
@@ -244,14 +245,14 @@ PykCharts.crossHairMovement = function (options) {
     mouseEvent.crossHairShowPanelOfLine = function (x1,y1,x2,y2,cx,cy,group_index,container_id) {
         if(PykCharts['boolean'](options.crosshair_enable)) {
             d3.selectAll(options.selector+" .line-cursor").style("display","block");
-            d3.selectAll(options.selector+" .cross-hair-v")
+            d3.selectAll(options.selector+" #cross-hair-v")
                 .attr({
                     "x1" : (x1 - 5),
                     "y1" : y1,
                     "x2" : (x2 - 5),
                     "y2" : y2
                 });
-            d3.select(options.selector+" #"+container_id+"-"+group_index+" .cross-hair-h")
+            d3.select(options.selector+" #"+container_id+"-"+group_index+" #cross-hair-h")
                 .attr({
                     "x1" : options.chart_margin_left,
                     "y1" : cy,
@@ -266,7 +267,7 @@ PykCharts.crossHairMovement = function (options) {
     mouseEvent.crossHairShowStackedArea = function (x1,y1,x2,y2,cx,cy,new_data) {
         if(PykCharts['boolean'](options.crosshair_enable)) {
             d3.selectAll(options.selector+" .line-cursor").style("display","block");
-            d3.selectAll(options.selector+" .cross-hair-v")
+            d3.selectAll(options.selector+" #cross-hair-v")
                 .attr({
                     "x1" : (x1 - 5),
                     "y1" : y1,
