@@ -780,7 +780,7 @@ PykCharts.Configuration = function (options){
 
                 var name = chart_name + ".svg";
 
-                $(chart.selector + " #"+id).click(function () {
+                d3.selectAll(chart.selector + " #"+id).on("click",function () {
                     PykCharts.export_menu_status = 1;
                     d3.select(options.selector + " .dropdown-multipleConatiner-export").style("visibility", "visible");
                 });

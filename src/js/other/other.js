@@ -103,7 +103,8 @@ PykCharts.other.processInputs = function (chartObject, options) {
                 .validatingColor(chartObject.label_color,"label_color",stylesheet.label_color)
                 .validatingColor(chartObject.border_between_chart_elements_color)
                 .validatingColor(chartObject.background_color,"background_color",stylesheet.background_color)
-    if($.isArray(chartObject.chart_color)) {
+                
+    if(chartObject.chart_color.constructor === Array) {
         for(var i = 0;i < chartObject.chart_color.length;i++) {
             if(chartObject.chart_color[i]) {
                 chartObject.k.validator()
