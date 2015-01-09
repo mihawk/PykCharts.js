@@ -4666,10 +4666,18 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                     };
 
                     var reject = function (index) {
-                        var result = _.reject(that.sorted_weight,function(num)
-                            {
-                                return num === that.data[index].weight;
-                            });
+                        // var result = _.reject(that.sorted_weight,function(num)
+                        //     {
+                        //         return num === that.data[index].weight;
+                        //     });
+                        
+                        var list_length = that.sorted_weight.length,
+                            result = [];
+                        for(var i=0 ; i<list_length ; i++) {
+                            if(that.sorted_weight[i] !== that.data[index].weight) {
+                                result.push(that.sorted_weight[i]);
+                            }
+                        }                        
                         return result;
                     } ;
 
@@ -4680,7 +4688,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                             index = that.getIndexByName(that.clubdata_always_include_data_points[l]);
                             if(index!= undefined) {
                                 that.displayData.push(that.data[index]);
-                                that.sorted_weight = reject (index);
+                                that.sorted_weight = reject(index);
                             }
                         }
                     }
@@ -4688,7 +4696,8 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                         for(var i=0;i<that.data.length;i++)
                         {
                             if(that.data[i].weight === weight) {
-                                if((_.contains(that.checkDuplicate, i))===false) {
+                                if(that.checkDuplicate.indexOf(i) === -1) {
+                                // if((_.contains(that.checkDuplicate, i))===false) {
                                    that.checkDuplicate.push(i);
                                     return i;
                                 }
