@@ -7,6 +7,7 @@ PykCharts.multiD.area = function (options){
 		PykCharts.crossHair(that);
         PykCharts.annotation(that);
         PykCharts.scaleFunction(that);
+        PykCharts.grid(that);
 		if(that.stop) {
 			return;
 		}
@@ -71,6 +72,7 @@ PykCharts.multiD.stackedArea = function (options){
 		PykCharts.crossHair(that);
         PykCharts.annotation(that);
         PykCharts.scaleFunction(that);
+        PykCharts.grid(that);
 		if(that.stop) {
 			return;
 		}
@@ -291,7 +293,7 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 					.yAxisTitle(that.yGroup);
   		}
 		that.k.exportSVG(that,"#"+that.container_id+"-1","areaChart")
-  		that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
+  		that.mouseEvent = new PykCharts.crossHairMovement(that);
 
   		var resize = that.k.resize(that.svgContainer);
         that.k.__proto__._ready(resize);

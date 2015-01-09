@@ -269,5 +269,184 @@ PykCharts.scaleFunction = function (options) {
         }
         return this;
     }
-    
+    options.k.xAxisDataFormatIdentification = function (data){
+        if(_.isNumber(data[0].x) || !(isNaN(data[0].x))){
+            return "number";
+        } else if(!(isNaN(new Date(data[0].x).getTime()))) {
+            return "time";
+        } else {
+            return "string";
+        }
+    }
+    options.k.yAxisDataFormatIdentification = function (data) {
+        if(_.isNumber(data[0].y) || !(isNaN(data[0].y))){
+            return "number";
+        } else if(!(isNaN(new Date(data[0].y).getTime()))) {
+            return "time";
+        } else {
+            return "string";
+        }
+    }
+    options.k.processXAxisTickValues = function () {
+        var values = [], newVal = [];
+        var length = options.axis_x_pointer_values.length;
+        if(length) {
+            for(var i = 0 ; i < length ; i++) {
+                if(options.axis_x_data_format === "number") {
+                    if(_.isNumber(options.axis_x_pointer_values[i]) || !(isNaN(options.axis_x_pointer_values[i]))){
+                        values.push(parseFloat(options.axis_x_pointer_values[i]))
+                    }
+                } else if(options.axis_x_data_format === "time") {
+                    if(!(isNaN(new Date(options.axis_x_pointer_values[i]).getTime()))) {
+                        values.push(options.axis_x_pointer_values[i])
+                    }
+                }
+            }
+        }
+        if(values.length) {
+            var len = values.length
+            if(options.axis_x_data_format === "time") {
+                for(var i=0 ; i<len; i++) {
+                    newVal.push(options.k.dateConversion(values[i]));            
+                }
+            } else {
+                newVal = values;
+            }
+        }
+
+        return newVal;
+    }
+    options.k.processYAxisTickValues = function () {
+        var length = options.axis_y_pointer_values.length;
+        var values = [];
+        if(length) {
+            for(var i = 0 ; i < length ; i++) {
+                if(options.axis_y_data_format === "number") {
+                    if(_.isNumber(options.axis_y_pointer_values[i]) || !(isNaN(options.axis_y_pointer_values[i]))){
+                        values.push(options.axis_y_pointer_values[i])
+                    }
+                }
+            }
+        }
+        return values;
+    }
 }
+var configuration = PykCharts.Configuration;
+configuration.makeXAxis = function(options,xScale) {
+    var that = this;
+    var k = PykCharts.Configuration(options);
+    var xaxis = d3.svg.axis()
+                    .scale(xScale)
+                    .tickSize(options.axis_x_pointer_length)
+                    .outerTickSize(options.axis_x_outer_pointer_length)
+                    .tickFormat(function (d,i) {
+                        if(options.panels_enable === "yes" && options.axis_x_data_format === "string") {
+                            return d.substr(0,2);
+                        }
+                        else {
+                            return d;
+                        }
+                    })
+                    .tickPadding(options.axis_x_pointer_padding)
+                    .orient(options.axis_x_pointer_position);
+
+    d3.selectAll(options.selector + " .x.axis .tick text")
+            .attr("font-size",options.axis_x_pointer_size +"px")
+            .style({
+                "font-weight" : options.axis_x_pointer_weight,
+                "font-family" : options.axis_x_pointer_family
+            });
+
+    if(options.axis_x_data_format=== "time" && PykCharts['boolean'](options.axis_x_time_value_datatype)) {
+        switch (options.axis_x_time_value_datatype) {
+            case "month" :
+                a = d3.time.month;
+                b = "%b";
+                break;
+
+            case "date" :
+                a = d3.time.day;
+                b = "%d";
+                break;
+
+            case "year" :
+                a = d3.time.year;
+                b = "%Y";
+                break;
+
+            case "hours" :
+                a = d3.time.hour;
+                b = "%H";
+                break;
+
+            case "minutes" :
+                a = d3.time.minute;
+                b = "%M";
+                break;
+        }
+        xaxis.ticks(a,options.axis_x_time_value_interval)
+            .tickFormat(d3.time.format(b));
+
+    } else if(options.axis_x_data_format === "number") {
+        xaxis.ticks(options.axis_x_no_of_axis_value);
+    }
+
+    return xaxis;
+};
+
+configuration.makeYAxis = function(options,yScale) {
+    var that = this;
+    var k = PykCharts.Configuration(options);
+
+    var yaxis = d3.svg.axis()
+                    .scale(yScale)
+                    .orient(options.axis_y_pointer_position)
+                    .tickSize(options.axis_y_pointer_length)
+                    .outerTickSize(options.axis_y_outer_pointer_length)
+                    .tickPadding(options.axis_y_pointer_padding)
+                    .tickFormat(function (d,i) {
+                        return d;
+                    });
+
+    d3.selectAll(options.selector + " .y.axis .tick text")
+                .attr("font-size",options.axis_y_pointer_size +"px")
+                .style({
+                    "font-weight" : options.axis_y_pointer_weight,
+                    "font-family" : options.axis_y_pointer_family
+                });
+
+    /*if(options.axis_y_data_format=== "time" && PykCharts['boolean'](options.axis_y_time_value_type)) {
+        switch (options.axis_y_time_value_datatype) {
+            case "month" :
+                a = d3.time.month;
+                b = "%b";
+                break;
+
+            case "date" :
+                a = d3.time.day;
+                b = "%d";
+                break;
+
+            case "year" :
+                a = d3.time.year;
+                b = "%Y";
+                break;
+
+            case "hours" :
+                a = d3.time.hour;
+                b = "%H";
+                break;
+
+            case "minutes" :
+                a = d3.time.minute;
+                b = "%M";
+                break;
+        }
+        xaxis.ticks(a,options.axis_y_time_value_unit)
+            .tickFormat(d3.time.format(b));
+
+    }else */if(options.axis_y_data_format === "number"){
+        yaxis.ticks(options.axis_y_no_of_axis_value);
+    }
+    return yaxis;
+};

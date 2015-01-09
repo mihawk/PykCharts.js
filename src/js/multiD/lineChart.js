@@ -8,6 +8,7 @@ PykCharts.multiD.line = function (options) {
         PykCharts.crossHair(that);
         PykCharts.annotation(that);
         PykCharts.scaleFunction(that);
+        PykCharts.grid(that);
         if(that.stop)
             return;
 
@@ -65,6 +66,7 @@ PykCharts.multiD.multiSeriesLine = function (options) {
         PykCharts.crossHair(that);
         PykCharts.annotation(that);
         PykCharts.scaleFunction(that);
+        PykCharts.grid(that);
         if(that.stop)
             return;
 
@@ -122,6 +124,7 @@ PykCharts.multiD.panelsOfLine = function (options) {
         PykCharts.crossHair(that);
         PykCharts.annotation(that);
         PykCharts.scaleFunction(that);
+        PykCharts.grid(that);
         if(that.stop)
             return;
 
@@ -795,7 +798,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                                     return that.fillColor.colorPieMS(that.new_data[i],that.type);
                                 });
                         }
-                    if(that.type === "lineChart" && that.mode === "default") {
+                    if(that.mode === "default") {
                         that.svgContainer
                             .on('mouseout',function (d) {
                                 that.mouseEvent.tooltipHide();
@@ -804,12 +807,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                                 that.mouseEvent.axisHighlightHide(that.selector + " .y.axis");
                             })
                             .on("mousemove", function(){
-                                if(!PykCharts['boolean'](that.panels_enable)) {
-                                    that.mouseEvent.crossHairPosition(that.new_data,that.xScale,that.yScale,that.dataLineGroup,that.extra_left_margin,that.xdomain,that.type,that.tooltipMode,that.color_from_data,null,that.container_id);
-                                }
-                                else {
-                                    that.mouseEvent.crossHairPosition(that.new_data,that.xScale,that.yScale,that.dataLineGroup,that.extra_left_margin,that.xdomain,null,null,null,null,null,that.container_id);
-                                }
+                                that.mouseEvent.crossHairPosition(that.new_data,that.xScale,that.yScale,that.dataLineGroup,that.extra_left_margin,that.xdomain,that.type,that.tooltipMode,null,that.container_id);
                             });
                     }
                 }
@@ -948,7 +946,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                                 that.mouseEvent.axisHighlightHide(that.selector + " .y.axis");
                             })
                             .on("mousemove", function(){
-                                that.mouseEvent.crossHairPosition(that.new_data,that.xScale,that.yScale,that.dataLineGroup,that.extra_left_margin,that.xdomain,that.type,that.tooltipMode,that.color_from_data,null,that.container_id);
+                                that.mouseEvent.crossHairPosition(that.new_data,that.xScale,that.yScale,that.dataLineGroup,that.extra_left_margin,that.xdomain,that.type,that.tooltipMode,null,that.container_id);
                             });
 
                     }
@@ -963,7 +961,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                             .on("mousemove", function(){
                                 var line = [];
                                 line[0] = d3.select(that.selector+" #"+this.id+" .lines-hover");
-                                that.mouseEvent.crossHairPosition(that.new_data,that.xScale,that.yScale,line,that.extra_left_margin,that.xdomain,that.type,that.tooltipMode,that.color_from_data,that.panels_enable,that.container_id);
+                                that.mouseEvent.crossHairPosition(that.new_data,that.xScale,that.yScale,line,that.extra_left_margin,that.xdomain,that.type,that.tooltipMode,that.panels_enable,that.container_id);
                             });
                     }
                 }
@@ -1319,8 +1317,8 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                     .createGroups(i);
     
             that.k.crossHair(that.svgContainer,1,that.fill_data,that.fillColor,that.type);
-            that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
-
+            that.mouseEvent = new PykCharts.crossHairMovement(that);
+            
             that.optionalFeature()
                     .createChart(null,i)
                     .ticks(i)
@@ -1355,7 +1353,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
             .hightLightOnload();
 
         that.k.crossHair(that.svgContainer,that.new_data_length,that.new_data,that.fillColor,that.type);
-        that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
+        that.mouseEvent = new PykCharts.crossHairMovement(that);
 
         that.optionalFeature()
                 .createChart()
