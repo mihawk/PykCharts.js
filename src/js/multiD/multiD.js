@@ -153,11 +153,11 @@ PykCharts.multiD.configuration = function (options){
             var legend_container_width = options.legendsGroup.node().getBBox().width,translate_x;
             options.legendsGroup_width = (options.legends_display === "vertical") ? legend_container_width + 20 : 0;
             if (type === "scatter") {
-                translate_x = (options.legends_display === "vertical") ? (options.w - options.legendsGroup_width) : ((!PykCharts['boolean'](options.panels_enable)) ? (options.width - legend_container_width - 20) : options.chart_margin_left); 
+                translate_x = (options.legends_display === "vertical") ? (options.w - options.legendsGroup_width) : ((!PykCharts['boolean'](options.panels_enable)) ? (options.chart_width - legend_container_width - 20) : options.chart_margin_left); 
             } else {
-                translate_x = (options.legends_display === "vertical") ? (options.width - options.legendsGroup_width) : (options.width - legend_container_width - 20);
+                translate_x = (options.legends_display === "vertical") ? (options.chart_width - options.legendsGroup_width) : (options.chart_width - legend_container_width - 20);
             }          
-            if (legend_container_width < options.width) { 
+            if (legend_container_width < options.chart_width) { 
                 options.legendsGroup.attr("transform","translate("+translate_x+",10)"); 
             }
             options.legendsGroup.style("visibility","visible");
