@@ -114,7 +114,7 @@ PykCharts.oneD.bubble = function (options) {
             },
             createChart : function () {
 
-                that.bubble = d3.layout.pack()
+                var bubble = d3.layout.pack()
                     .sort(function (a,b) { return b.weight - a.weight; })
                     .size([that.chart_width, that.chart_height])
                     .value(function (d) { return d.weight; })
@@ -125,17 +125,17 @@ PykCharts.oneD.bubble = function (options) {
                 })
                 
                 var l = that.new_data.children.length;
-                that.node = that.bubble.nodes(that.new_data);
+                that.node = bubble.nodes(that.new_data);
 
-                that.chart_data = that.group.selectAll(".bubble-node")
+                var chart_data = that.group.selectAll(".bubble-node")
                     .data(that.node);
 
-                that.chart_data.enter()
+                chart_data.enter()
                     .append("g")
                     .attr("class","bubble-node")
                     .append("circle");
 
-                that.chart_data.attr("class","bubble-node")
+                chart_data.attr("class","bubble-node")
                     .select("circle")
                     .attr({
                         "class": "bubble",
@@ -182,46 +182,48 @@ PykCharts.oneD.bubble = function (options) {
                     .transition()
                     .duration(that.transitions.duration())
                     .attr("r",function (d) {return d.r; });
-                that.chart_data.exit().remove();
+                chart_data.exit().remove();
 
                 return this;
             },
             label : function () {
-                 that.chart_text = that.group.selectAll(".name")
+                var chart_text = that.group.selectAll(".name")
                         .data(that.node);
-                    that.chart_text1 = that.group.selectAll(".weight")
-                        .data(that.node);
-                    that.chart_text.enter()
-                        .append("svg:text")
-                        .attr("class","name");
 
-                    that.chart_text1.enter()
-                        .append("svg:text")
-                        .attr("class","weight");
+                var chart_text1 = that.group.selectAll(".weight")
+                    .data(that.node);
 
-                    that.chart_text.attr("class","name")
-                        .attr({
-                            "x": function (d) { return d.x },
-                            "y": function (d) { return d.y -5 }
-                        });
+                chart_text.enter()
+                    .append("svg:text")
+                    .attr("class","name");
 
-                    that.chart_text1.attr("class","weight")
-                        .attr({
-                            "x": function (d) { return d.x },
-                            "y": function (d) { return d.y + 10; }
-                        });
+                chart_text1.enter()
+                    .append("svg:text")
+                    .attr("class","weight");
 
-                    that.chart_text.attr("text-anchor","middle")
-                        .attr("fill", that.label_color)
-                        .style({
-                            "font-weight": that.label_weight,
-                            "font-size": that.label_size + "px",
-                            "font-family": that.label_family
-                        })
-                        .text("")
+                chart_text.attr("class","name")
+                    .attr({
+                        "x": function (d) { return d.x },
+                        "y": function (d) { return d.y -5 }
+                    });
+
+                chart_text1.attr("class","weight")
+                    .attr({
+                        "x": function (d) { return d.x },
+                        "y": function (d) { return d.y + 10; }
+                    });
+
+                chart_text.attr("text-anchor","middle")
+                    .attr("fill", that.label_color)
+                    .style({
+                        "font-weight": that.label_weight,
+                        "font-size": that.label_size + "px",
+                        "font-family": that.label_family
+                    })
+                    .text("")
                         
                     function chart_text_timeout() {
-                        that.chart_text
+                        chart_text
                             .text(function (d) { return d.children ? " " :  d.name; })
                             .attr("pointer-events","none")
                             .text(function (d) {
@@ -235,7 +237,7 @@ PykCharts.oneD.bubble = function (options) {
                     }
                     setTimeout(chart_text_timeout,that.transitions.duration());
 
-                    that.chart_text1
+                    chart_text1
                         .attr({
                             "text-anchor":"middle",
                             "fill": that.label_color,
@@ -249,7 +251,7 @@ PykCharts.oneD.bubble = function (options) {
                         .text("")
 
                     function label_timeout() {
-                        that.chart_text1.text(function (d) { return d.children ? " " :  that.k.appendUnits(d.weight); })
+                        chart_text1.text(function (d) { return d.children ? " " :  that.k.appendUnits(d.weight); })
                             .text(function (d) {
                                 if(this.getBBox().width<2*d.r*0.55 && this.getBBox().height<2*d.r*0.55) {
                                     return d.children ? " " :  ((d.weight*100)/that.sum).toFixed(1)+"%"; /*that.k.appendUnits(d.weight);*/
@@ -261,9 +263,9 @@ PykCharts.oneD.bubble = function (options) {
                     }
                     setTimeout(label_timeout,that.transitions.duration());
 
-                    that.chart_text.exit()
+                    chart_text.exit()
                         .remove();
-                    that.chart_text1.exit()
+                    chart_text1.exit()
                         .remove();
                 return this;
             },

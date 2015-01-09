@@ -10,7 +10,9 @@
    <!--  </div></div> -->
         <hr/>
         <div id="area"></div>
+        <div style="clear:both"></div>
         <hr/>
+
         <div id="multiLine"></div>
         <hr/>
         <div id="multiple-multiLine"></div>
@@ -104,7 +106,7 @@
                     axis_y_outer_pointer_length: 10,
                     curvy_lines_enable:"no",
                     tooltip_enable: "yes",
-                    tooltip_mode : "fixed",
+                    tooltip_mode : "moving",
                     crosshair_enable: "yes",
                     zoom_enable: "yes",
                     annotation_enable: "yes",
@@ -113,6 +115,7 @@
                     highlight : "NEw York",
                     pointer_size : 12,
                     "axis_x_no_of_axis_value": 5,
+                    background_color:"white"
                 });
                 k.execute();
 
@@ -128,7 +131,7 @@
                     export_enable: "yes",
 
                     chart_height: 400,
-                    chart_width : 800,
+                    chart_width : 500,
                     chart_margin_top: 5,
                     chart_margin_right: 70,
                     chart_margin_bottom: 35,
@@ -166,7 +169,7 @@
                     // axis_y_pointer_values : [3,6],
                     axis_y_outer_pointer_length: 3,
                     curvy_lines_enable:"yes",
-                    tooltip_mode : "fixed",
+                    tooltip_mode : "moving",
                     tooltip_enable: "yes",
                     crosshair_enable: "yes",
                     zoom_enable: "yes",

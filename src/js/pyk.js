@@ -72,7 +72,7 @@ PykCharts.Configuration = function (options){
                 } else if(suffix && suffix !== "") {
                     label = text + " " + suffix;
                 }
-                    label = text;
+                label = text;
             return label;
         },
         title: function () {
@@ -207,6 +207,8 @@ PykCharts.Configuration = function (options){
                 if(options.data_source_url === "") {
                     enable = false;
                 }
+                var data_source_content = "<span style='pointer-events:none;'>Source: </span><a href='" + options.data_source_url + "' target='_blank' onclick='return " + enable +"'>"+ options.data_source_name +"</a></tr>";
+
                 if(d3.selectAll(options.selector+" #footer").length) {
                     d3.select(options.selector+" table #credit-datasource")
                         .style({
@@ -214,7 +216,7 @@ PykCharts.Configuration = function (options){
                             "text-align" : "right"
                         })
                         .append("td")
-                        .html("<span style='pointer-events:none;'>Source: </span><a href='" + options.data_source_url + "' target='_blank' onclick='return " + enable +"'>"+ options.data_source_name +"</a></tr>");
+                        .html(data_source_content);
                 }
                 else {
                     d3.select(options.selector).append("table")
@@ -229,7 +231,7 @@ PykCharts.Configuration = function (options){
                         })
                         .append("tr")
                         .append("td")
-                        .html("<span style='pointer-events:none;'>Source: </span><a href='" + options.data_source_url + "' target='_blank' onclick='return " + enable +"'>"+ options.data_source_name +"</a></tr>");
+                        .html(data_source_content);
                 }
             }
             return this;
@@ -252,8 +254,9 @@ PykCharts.Configuration = function (options){
         },
         tooltip: function (d,selection,i,flag) {
             if((PykCharts['boolean'](options.tooltip_enable) || options.axis_x_data_format === "string" || options.axis_y_data_format === "string" || PykCharts['boolean'](options.annotation_enable)) && options.mode === "default") {
+                var id;
                 if(selection !== undefined){
-                    var selector = options.selector.substr(1,options.selector.length),
+                    var selector = options.selector.substr(1,options.selector.length);
                         id = "tooltip-svg-container-" + i + "-pyk-tooltip"+selector;
                 } else {
                     id = "pyk-tooltip";
@@ -603,41 +606,68 @@ PykCharts.Configuration = function (options){
                     window.addEventListener( "load", completed, false );
                     fn;
                 } else if ( document.attachEvent ) { // if IE event model is used
-                  document.attachEvent("onreadystatechange", function(){
-                    if ( document.readyState === "complete" ) {
-                        document.detachEvent( "onreadystatechange", arguments.callee );
-                        fn;
-                    }
-                  });
+                    document.attachEvent("onreadystatechange", function(){
+                        if ( document.readyState === "complete" ) {
+                            document.detachEvent( "onreadystatechange", arguments.callee );
+                            fn;
+                        }
+                    });
                 }
-            return this;
-        }
+                return this;
+            },
+            _colourBrightness: function (bg,element){
+                var r,g,b,brightness,
+                    colour = bg;
+                  
+                if (colour.match(/^rgb/)) {
+                    colour = colour.match(/rgb\(([^)]+)\)/)[1];
+                    colour = colour.split(/ *, */).map(Number);
+                    r = colour[0];
+                    g = colour[1];
+                    b = colour[2];
+                } else if ('#' == colour[0] && 7 == colour.length) {
+                    r = parseInt(colour.slice(1, 3), 16);
+                    g = parseInt(colour.slice(3, 5), 16);
+                    b = parseInt(colour.slice(5, 7), 16);
+                } else if ('#' == colour[0] && 4 == colour.length) {
+                    r = parseInt(colour[1] + colour[1], 16);
+                    g = parseInt(colour[2] + colour[2], 16);
+                    b = parseInt(colour[3] + colour[3], 16);
+                } else {
+                    
+                }
+                brightness = (r * 299 + g * 587 + b * 114) / 1000;
+                if (brightness < 125) {
+                    d3.selectAll(element).classed({'light': false, 'dark': true});
+                } else {
+                    d3.selectAll(element).classed({'light': true, 'dark': false});
+                }
+            }
         },
         backgroundColor: function (options) {
             d3.select(options.selector).style({"background-color":options.background_color,"position":"relative"})
-                var bg,child1;
-                bgColor(options.selector);
+            var bg,child1;
+            bgColor(options.selector);
 
-                function bgColor(child) {
-                    child1 = child;
-                    bg = $(child).css("background-color");
-                    // console.log(document.querySelector(child),$(child))
-                    if (bg === "transparent" || bg === "rgba(0, 0, 0, 0)") {
-                        if($(child)[0].parentNode.tagName === undefined || $(child)[0].parentNode.tagName.toLowerCase() === "body") {
-                            $(child).colourBrightness("rgb(255,255,255)");
-                        } else {
-                            return bgColor($(child)[0].parentNode);
-                        }
+            function bgColor(child) {
+                child1 = child;
+                bg  = d3.selectAll(child).style("background-color");
+                if (bg === "transparent" || bg === "rgba(0, 0, 0, 0)") {
+                    if(d3.selectAll(child)[0][0].parentNode.tagName === undefined || d3.selectAll(child)[0][0].parentNode.tagName.toLowerCase() === "body") {
+                        options.k.__proto__._colourBrightness("rgb(255,255,255)",d3.selectAll(child)[0]);
                     } else {
-                       return $(child).colourBrightness(bg);
+                        return bgColor(d3.selectAll(child)[0][0].parentNode);
                     }
-                }
-
-                if ($(child1)[0].classList.contains("light")) {
-                    options.img = PykCharts.assets+"img/download.png";
                 } else {
-                    options.img = PykCharts.assets+"img/download-light.png";
+                    return options.k.__proto__._colourBrightness(bg,d3.selectAll(child)[0]);
                 }
+            }
+
+            if (document.querySelectorAll(child1)[0].classList.contains("light")) {
+                options.img = PykCharts.assets+"img/download.png";
+            } else {
+                options.img = PykCharts.assets+"img/download-light.png";
+            }
 
             return this;
         },
@@ -750,7 +780,7 @@ PykCharts.Configuration = function (options){
 
                 var name = chart_name + ".svg";
 
-                $(chart.selector + " #"+id).click(function () {
+                d3.selectAll(chart.selector + " #"+id).on("click",function () {
                     PykCharts.export_menu_status = 1;
                     d3.select(options.selector + " .dropdown-multipleConatiner-export").style("visibility", "visible");
                 });

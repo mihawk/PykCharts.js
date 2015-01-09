@@ -270,7 +270,6 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
         that.multid = new PykCharts.multiD.configuration(that);
         that.fillColor = new PykCharts.Configuration.fillChart(that,null,options);
         that.transitions = new PykCharts.Configuration.transition(that);
-        
         if(that.mode === "default") {
 
             that.k.title();
@@ -757,13 +756,13 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                     .x(function(d) { return that.xScale(d.x); })
                     .y(function(d) { return that.yScale(d.y); })
                     .interpolate(that.interpolate);
-
+                var chartType = (that.type === "lineChart") ? "lineChart" : (that.panels_enable === "yes") ? "panels_of_line" : "multi_series_line";
                 that.chartPathClass = (that.type === "lineChart") ? "line" : "multi-line";
                 if(evt === "liveData" && that.type === "lineChart") {
 
                         for (var i = 0;i < that.new_data_length;i++) {
                             var data = that.new_data[i].data;
-                            type = that.type + "-svg-" +i;
+                            var type = that.type + "-svg-" +i;
 
                             that.svgContainer.select(that.selector + " #"+type)
                                 .datum(that.new_data[i].data)
@@ -807,7 +806,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                                 that.mouseEvent.axisHighlightHide(that.selector + " .y.axis");
                             })
                             .on("mousemove", function(){
-                                that.mouseEvent.crossHairPosition(that.new_data,that.xScale,that.yScale,that.dataLineGroup,that.extra_left_margin,that.xdomain,that.type,that.tooltipMode,null,that.container_id);
+                                that.mouseEvent.crossHairPosition(that.new_data,that.xScale,that.yScale,that.dataLineGroup,that.extra_left_margin,that.xdomain,chartType,that.tooltipMode,null,that.container_id);
                             });
                     }
                 }
@@ -946,9 +945,8 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                                 that.mouseEvent.axisHighlightHide(that.selector + " .y.axis");
                             })
                             .on("mousemove", function(){
-                                that.mouseEvent.crossHairPosition(that.new_data,that.xScale,that.yScale,that.dataLineGroup,that.extra_left_margin,that.xdomain,that.type,that.tooltipMode,null,that.container_id);
+                                that.mouseEvent.crossHairPosition(that.new_data,that.xScale,that.yScale,that.dataLineGroup,that.extra_left_margin,that.xdomain,chartType,that.tooltipMode,null,that.container_id);
                             });
-
                     }
                     else if (that.type === "multilineChart" && that.mode === "default") {
                         that.svgContainer
@@ -961,7 +959,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                             .on("mousemove", function(){
                                 var line = [];
                                 line[0] = d3.select(that.selector+" #"+this.id+" .lines-hover");
-                                that.mouseEvent.crossHairPosition(that.new_data,that.xScale,that.yScale,line,that.extra_left_margin,that.xdomain,that.type,that.tooltipMode,that.panels_enable,that.container_id);
+                                that.mouseEvent.crossHairPosition(that.new_data,that.xScale,that.yScale,line,that.extra_left_margin,that.xdomain,chartType,that.tooltipMode,that.panels_enable,that.container_id);
                             });
                     }
                 }
@@ -971,7 +969,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
 
                 if(PykCharts['boolean'](that.pointer_size)) {
                     if(PykCharts['boolean'](that.panels_enable)) {
-                        type = that.type + that.svgContainer.attr("id");
+                        var type = that.type + that.svgContainer.attr("id");
                         if (that.axis_x_position  === "bottom" && (that.axis_y_position === "left" || that.axis_y_position === "right")) {
                             that.ticks[0] = that.svgContainer.append("text")
                                 .attr({
@@ -1074,7 +1072,8 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                                     "visibility": "visible",
                                     "fill": function(d,i) {
                                         return that.fillColor.colorPieMS(that.new_data[i],that.type);
-                                    }
+                                    },
+                                    "pointer-events" : "none"
                                 });
                         }
                         setTimeout(setTimeoutTicks, that.transitions.duration());
@@ -1099,7 +1098,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
             that.k.isOrdinal(that.svgContainer,".y.axis",that.yScale,that.ydomain);
             that.k.isOrdinal(that.svgContainer,".y.grid",that.yScale);
             for (i = 0;i < that.new_data_length;i++) {
-                type = that.type + "-svg-" + i;
+                var type = that.type + "-svg-" + i;
                 that.svgContainer.select(that.selector+" #"+type)
                     .attr({
                         "class": "lines-hover " + that.chartPathClass,
@@ -1109,7 +1108,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
             }
         } else {
             for (i = 0;i < that.new_data_length;i++) {
-                type = that.type + "svg-" + i;
+                var type = that.type + "svg-" + i;
                 currentContainer = d3.selectAll(that.selector + " #svg-" + i);
                 that.k.isOrdinal(currentContainer,".x.axis",that.xScale,that.xdomain,that.extra_left_margin);
                 that.k.isOrdinal(currentContainer,".x.grid",that.xScale);

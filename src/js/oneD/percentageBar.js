@@ -175,7 +175,7 @@ PykCharts.oneD.percentageBar = function (options) {
                     },
                     "fill-opacity": 1,
                     "data-fill-opacity": function () {
-                        return $(this).attr("fill-opacity");
+                        return d3.select(this).attr("fill-opacity");
                     },
                     "stroke": border.color(),
                     "stroke-width": border.width(),
