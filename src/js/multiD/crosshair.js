@@ -1,15 +1,18 @@
 PykCharts.crossHair = function (options) {
     options.k.crossHair= function (svg,len,data,fill,type) {
             if(PykCharts['boolean'](options.crosshair_enable) && options.mode === "default") {
+
+
                 PykCharts.Configuration.cross_hair_v = svg.append("g")
                     .attr("class","line-cursor")
                     .style("display","none");
 
                 PykCharts.Configuration.cross_hair_v.append("line")
                     .attr({
-                        "class" : "cross-hair-v",
+                        "class" : "line-cursor",
                         "id" : "cross-hair-v"
-                    });
+                    })
+                    // .style("display","none");
 
                 PykCharts.Configuration.cross_hair_h = svg.append("g")
                     .attr("class","line-cursor")
@@ -19,7 +22,8 @@ PykCharts.crossHair = function (options) {
                     .attr({
                         "class" : "cross-hair-h",
                         "id" : "cross-hair-h"
-                    });
+                    })
+                    // .style("display","none");
 
                 for (j=0; j<len; j++) {
                     PykCharts.Configuration.focus_circle = svg.append("g")

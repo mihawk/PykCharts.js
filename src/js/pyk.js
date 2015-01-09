@@ -1479,7 +1479,7 @@ configuration.mouseEvent = function (options) {
                         }
                         else if(panels_enable === "yes") {
                             d3.selectAll(options.selector+" .line-cursor").style("display","block");
-                            d3.selectAll(options.selector+" .cross-hair-v")
+                            d3.selectAll(options.selector+" #cross-hair-v")
                                 .attr({
                                     "x1" : (x1 - 5),
                                     "y1" : y1,
@@ -1498,7 +1498,7 @@ configuration.mouseEvent = function (options) {
                         }
                     } else if (type === "stackedAreaChart") {
                         d3.selectAll(options.selector+" .line-cursor").style("display","block");
-                        d3.selectAll(options.selector+" .cross-hair-v")
+                        d3.selectAll(options.selector+" #cross-hair-v")
                             .attr({
                                 "x1" : (x1 - 5),
                                 "y1" : y1,
