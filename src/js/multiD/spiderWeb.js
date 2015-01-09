@@ -12,7 +12,7 @@ PykCharts.multiD.spiderWeb = function (options) {
         that.data_sort_type = "alphabetically";
         that.data_sort_order = "ascending";        
         try {
-            if(!_.isNumber(that.bubbleRadius)) {
+            if(!that.k.__proto__._isNumber(that.bubbleRadius)) {
                 that.bubbleRadius = (0.6 * multiDimensionalCharts.scatterplot_radius);
                 throw "spiderweb_radius";
             }
@@ -22,7 +22,7 @@ PykCharts.multiD.spiderWeb = function (options) {
         }
 
         try {
-            if(!_.isNumber(that.spiderweb_outer_radius_percent)) {
+            if(!that.k.__proto__._isNumber(that.spiderweb_outer_radius_percent)) {
                 that.bubbleRadius = multiDimensionalCharts.spiderweb_outer_radius_percent;
                 throw "spiderweb_outer_radius_percent";
             }
