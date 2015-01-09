@@ -603,15 +603,15 @@ PykCharts.Configuration = function (options){
                     window.addEventListener( "load", completed, false );
                     fn;
                 } else if ( document.attachEvent ) { // if IE event model is used
-                  document.attachEvent("onreadystatechange", function(){
-                    if ( document.readyState === "complete" ) {
-                        document.detachEvent( "onreadystatechange", arguments.callee );
-                        fn;
-                    }
-                  });
+                    document.attachEvent("onreadystatechange", function(){
+                        if ( document.readyState === "complete" ) {
+                            document.detachEvent( "onreadystatechange", arguments.callee );
+                            fn;
+                        }
+                    });
                 }
-            return this;
-        }
+                return this;
+            }
         },
         backgroundColor: function (options) {
             d3.select(options.selector).style({"background-color":options.background_color,"position":"relative"})
