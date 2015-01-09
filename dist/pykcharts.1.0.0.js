@@ -6905,14 +6905,14 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                         "transform": "translate("+ that.chart_margin_left +","+ that.chart_margin_top +")"
                     });
 
-                if(PykCharts['boolean'](that.grid_y_enable)){
+                if(PykCharts['boolean'](that.chart_grid_y_enable)){
                     that.group.append("g")
                         .attr({
                             "id": "ygrid",
                             "class": "y grid-line"
                         });
                 }
-                if(PykCharts['boolean'](that.grid_x_enable)){
+                if(PykCharts['boolean'](that.chart_grid_x_enable)){
                     that.group.append("g")
                         .attr({
                             "id": "xgrid",
@@ -7432,7 +7432,6 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
     };
     that.zoomed = function() {
         if(!PykCharts['boolean'](that.panels_enable)) {
-            
             if(PykCharts['boolean'](that.pointer_overflow_enable)) {
                 that.svgContainer.style("overflow","hidden");
             }
@@ -7442,7 +7441,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
             that.k.isOrdinal(that.svgContainer,".y.axis",that.yScale,that.ydomain);
             that.k.isOrdinal(that.svgContainer,".y.grid",that.yScale);
             for (i = 0;i < that.new_data_length;i++) {
-                var type = that.type + "-svg-" + i;
+                var type = that.container_id + "-" + i;
                 that.svgContainer.select(that.selector+" #"+type)
                     .attr({
                         "class": "lines-hover " + that.chartPathClass,
@@ -7451,15 +7450,14 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
 
             }
         } else {
-            for (i = 0;i < that.new_data_length;i++) {
-                var type = that.type + "svg-" + i;
-                currentContainer = d3.selectAll(that.selector + " #svg-" + i);
+            for (i = 0;i < that.new_data_length;i++) {                 
+                var type = that.type;
+                currentContainer = d3.selectAll("#"+that.container_id + "-" + i);
                 that.k.isOrdinal(currentContainer,".x.axis",that.xScale,that.xdomain,that.extra_left_margin);
                 that.k.isOrdinal(currentContainer,".x.grid",that.xScale);
                 that.k.isOrdinal(currentContainer,".y.axis",that.yScale,that.ydomain);
                 that.k.isOrdinal(currentContainer,".y.grid",that.yScale);
-
-                currentContainer.select(that.selector+" #"+type)
+                currentContainer.select("#"+type+that.container_id+"-"+i)
                     .attr({
                         "class": "lines-hover " + that.chartPathClass,
                         "d": that.chart_path
