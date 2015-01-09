@@ -642,6 +642,9 @@ PykCharts.Configuration = function (options){
                 } else {
                     d3.selectAll(element).classed({'light': true, 'dark': false});
                 }
+            },
+            _isNumber: function (n) {
+                return (!isNaN(parseFloat(n)) && isFinite(n));
             }
         },
         backgroundColor: function (options) {

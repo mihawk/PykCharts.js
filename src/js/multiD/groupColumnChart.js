@@ -232,7 +232,6 @@ PykCharts.multiD.groupedColumn = function(options) {
                         "id": "groupedColumn-group",
                         "transform": "translate(" + that.chart_margin_left + "," + (that.chart_margin_top + that.legendsGroup_height) +")"
                     });
-
                 if(PykCharts.boolean(that.chart_grid_y_enable)) {
                     that.group.append("g")
                         .attr({

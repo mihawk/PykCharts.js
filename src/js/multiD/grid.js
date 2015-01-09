@@ -5,7 +5,7 @@ PykCharts.grid = function (options) {
         if(PykCharts['boolean'](options.chart_grid_y_enable)) {
             var ygrid = PykCharts.Configuration.makeYGrid(options,yScale,legendsGroup_width);
             gsvg.selectAll(options.selector + " g.y.grid-line")
-                .style("stroke",function () { console.log(options.chart_grid_color,options.selector);return options.chart_grid_color; })
+                .style("stroke",function () { return options.chart_grid_color; })
                 .call(ygrid);
         }
         return this;
