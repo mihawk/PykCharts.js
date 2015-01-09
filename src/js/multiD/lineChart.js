@@ -561,14 +561,14 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                         "transform": "translate("+ that.chart_margin_left +","+ that.chart_margin_top +")"
                     });
 
-                if(PykCharts['boolean'](that.grid_y_enable)){
+                if(PykCharts['boolean'](that.chart_grid_y_enable)){
                     that.group.append("g")
                         .attr({
                             "id": "ygrid",
                             "class": "y grid-line"
                         });
                 }
-                if(PykCharts['boolean'](that.grid_x_enable)){
+                if(PykCharts['boolean'](that.chart_grid_x_enable)){
                     that.group.append("g")
                         .attr({
                             "id": "xgrid",
