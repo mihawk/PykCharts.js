@@ -247,7 +247,7 @@ PykCharts.oneD.pyramid = function (options) {
                     },
                     "fill-opacity": 1,
                     "data-fill-opacity": function () {
-                        return $(this).attr("fill-opacity");
+                        return d3.select(this).attr("fill-opacity");
                     }
                 })
                 .on({

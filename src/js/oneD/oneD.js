@@ -122,9 +122,9 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
         .validatingColor(chartObject.highlight_color,"highlight_color",stylesheet.highlight_color)
         .validatingColor(chartObject.label_color,"label_color",stylesheet.label_color)
         .validatingColor(chartObject.pointer_color,"pointer_color",stylesheet.pointer_color)
-        .validatingColor(chartObject.border_between_chart_elements_color,"border_between_chart_elements_color",stylesheet.border_between_chart_elements_color)
-
-        if($.isArray(chartObject.chart_color)) {
+        .validatingColor(chartObject.border_between_chart_elements_color,"border_between_chart_elements_color",stylesheet.border_between_chart_elements_color);
+        
+        if(chartObject.chart_color.constructor === Array) {
             if(chartObject.chart_color[0]) {
                 chartObject.k.validator()
                     .validatingColor(chartObject.chart_color[0],"chart_color",stylesheet.chart_color);
