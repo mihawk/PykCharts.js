@@ -529,15 +529,19 @@ PykCharts.multiD.groupedColumn = function(options) {
                 for(var i = 0;i<that.new_data_length;i++) {
                     if(that.new_data[i].data.length === that.no_of_groups) {
                         that.group_data = that.new_data[i].data;
+                        that.group_data_length = that.group_data.length;
                         break;
                     }
                 }
                 
                 that.new_data.forEach(function(d){
                     d.data.forEach(function(data){
-                        data.color = _.find(that.group_data,function(d) {
-                            return d.name === data.name;
-                        }).color;
+                        for (var i=0 ; i<that.group_data_length ; i++) {
+                            if (that.group_data[i].name === data.name) {
+                                data.color = that.group_data[i].color;
+                                break;
+                            }
+                        }
                     })
                 });
             },

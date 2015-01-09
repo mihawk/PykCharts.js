@@ -616,7 +616,6 @@ PykCharts.Configuration = function (options){
                 return this;
             },
             _colourBrightness: function (bg,element){
-                console.log("hey");
                 var r,g,b,brightness,
                     colour = bg;
                   
@@ -645,30 +644,30 @@ PykCharts.Configuration = function (options){
                 }
             }
         },
-            backgroundColor: function (options) {
-                d3.select(options.selector).style({"background-color":options.background_color,"position":"relative"})
-                var bg,child1;
-                bgColor(options.selector);
+        backgroundColor: function (options) {
+            d3.select(options.selector).style({"background-color":options.background_color,"position":"relative"})
+            var bg,child1;
+            bgColor(options.selector);
 
-                function bgColor(child) {
-                    child1 = child;
-                    bg  = d3.selectAll(child).style("background-color");
-                    if (bg === "transparent" || bg === "rgba(0, 0, 0, 0)") {
-                        if(d3.selectAll(child)[0][0].parentNode.tagName === undefined || d3.selectAll(child)[0][0].parentNode.tagName.toLowerCase() === "body") {
-                            options.k.__proto__._colourBrightness("rgb(255,255,255)",d3.selectAll(child)[0]);
-                        } else {
-                            return bgColor(d3.selectAll(child)[0][0].parentNode);
-                        }
+            function bgColor(child) {
+                child1 = child;
+                bg  = d3.selectAll(child).style("background-color");
+                if (bg === "transparent" || bg === "rgba(0, 0, 0, 0)") {
+                    if(d3.selectAll(child)[0][0].parentNode.tagName === undefined || d3.selectAll(child)[0][0].parentNode.tagName.toLowerCase() === "body") {
+                        options.k.__proto__._colourBrightness("rgb(255,255,255)",d3.selectAll(child)[0]);
                     } else {
-                        return options.k.__proto__._colourBrightness(bg,d3.selectAll(child)[0]);
+                        return bgColor(d3.selectAll(child)[0][0].parentNode);
                     }
-                }
-
-                if (document.querySelectorAll(child1)[0].classList.contains("light")) {
-                    options.img = PykCharts.assets+"img/download.png";
                 } else {
-                    options.img = PykCharts.assets+"img/download-light.png";
+                    return options.k.__proto__._colourBrightness(bg,d3.selectAll(child)[0]);
                 }
+            }
+
+            if (document.querySelectorAll(child1)[0].classList.contains("light")) {
+                options.img = PykCharts.assets+"img/download.png";
+            } else {
+                options.img = PykCharts.assets+"img/download-light.png";
+            }
 
             return this;
         },
