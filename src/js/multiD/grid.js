@@ -33,7 +33,7 @@ PykCharts.Configuration.makeXGrid = function(options,xScale,legendsGroup_height)
                     .orient("bottom")
                     .ticks(options.axis_x_no_of_axis_value)
                     .tickFormat("")
-                    .tickSize(options.chart_height - options.margin_top - options.margin_bottom - legendsGroup_height)
+                    .tickSize(options.chart_height - options.chart_margin_top - options.chart_margin_bottom - legendsGroup_height)
                     .outerTickSize(0);
 
     d3.selectAll(options.selector + " .x.axis .tick text")
@@ -46,16 +46,16 @@ PykCharts.Configuration.makeXGrid = function(options,xScale,legendsGroup_height)
     return xgrid;
 };
 
-PykCharts.Configuration.makeYGrid = function(options,yScale,legendsGroup_width) {
+configuration.makeYGrid = function(options,yScale,legendsGroup_width) {
     var that = this, size;
     if(!legendsGroup_width) {
         legendsGroup_width = 0;
     }
 
     if(PykCharts['boolean'](options.panels_enable)) {
-        size = options.w - options.margin_left - options.margin_right - legendsGroup_width;
+        size = options.w - options.chart_margin_left - options.chart_margin_right - legendsGroup_width;
     } else {
-        size = options.chart_width - options.margin_left - options.margin_right - legendsGroup_width;
+        size = options.chart_width - options.chart_margin_left - options.chart_margin_right - legendsGroup_width;
     }
     var ygrid = d3.svg.axis()
                     .scale(yScale)

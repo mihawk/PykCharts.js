@@ -224,7 +224,7 @@ PykCharts.multiD.groupedBar = function(options){
                 that.group = that.svgContainer.append("g")
                     .attr({
                         "id" : "groupedBar-group",
-                        "transform" : "translate(" + that.margin_left + "," + (that.margin_top + that.legendsGroup_height) +")"
+                        "transform" : "translate(" + that.chart_margin_left + "," + (that.chart_margin_top + that.legendsGroup_height) +")"
                     });
                 
                 return this;
@@ -272,9 +272,9 @@ PykCharts.multiD.groupedBar = function(options){
                 return this;
             },  
             createChart: function() {
-                that.reduced_width = that.chart_width - that.margin_left - that.margin_right - that.legendsGroup_width;
+                that.reduced_width = that.chart_width - that.chart_margin_left - that.chart_margin_right - that.legendsGroup_width;
 
-                that.reduced_height = that.chart_height - that.margin_top - that.margin_bottom - that.legendsGroup_height;
+                that.reduced_height = that.chart_height - that.chart_margin_top - that.chart_margin_bottom - that.legendsGroup_height;
 
                 that.getuniqueGroups = that.data.map(function (d) {
                     return d.group;
@@ -370,7 +370,7 @@ PykCharts.multiD.groupedBar = function(options){
                         'mouseout': function (d) {
                             if(that.mode === "default") {
                                 if(PykCharts.boolean(that.chart_onhover_highlight_enable)) {
-                                    that.mouseEvent.highlightGroupHide(that.selector+" "+".bar-group","rect");
+                                    that.mouseEvent.highlightGroupHide(that.selector+" "+".groupedBar-rect","rect");
                                 }
                                 that.mouseEvent.axisHighlightHide(that.selector+" "+".y.axis")
                             }
@@ -378,7 +378,7 @@ PykCharts.multiD.groupedBar = function(options){
                         'mousemove': function (d) {
                             if(that.mode === "default") {
                                 if(PykCharts.boolean(that.chart_onhover_highlight_enable)) {
-                                    that.mouseEvent.highlightGroup(that.selector+" "+".bar-group", this, "rect");
+                                    that.mouseEvent.highlightGroup(that.selector+" "+".groupedBar-rect", this, "rect");
                                 }
                                 that.mouseEvent.axisHighlightShow([d.name],that.selector+" "+".y.axis",that.xdomain,"bar");
                             }
@@ -588,7 +588,7 @@ PykCharts.multiD.groupedBar = function(options){
             newYAxis : function () {
                 if(PykCharts["boolean"](that.axis_y_enable)) {
                     if(that.axis_y_position === "right") {
-                        that.new_yAxisgroup.attr("transform", "translate(" + (that.chart_width - that.margin_left - that.margin_right - that.legendsGroup_width) + ",0)");
+                        that.new_yAxisgroup.attr("transform", "translate(" + (that.chart_width - that.chart_margin_left - that.chart_margin_right - that.legendsGroup_width) + ",0)");
                     }
                     var yaxis = d3.svg.axis()
                         .scale(that.yScale)

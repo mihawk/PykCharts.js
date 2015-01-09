@@ -9,7 +9,7 @@ PykCharts.other.processInputs = function (chartObject, options) {
 
     chartObject.selector = options.selector ? options.selector : stylesheet.selector;
     
-    chartObject.width = options.chart_width  ? options.chart_width : stylesheet.chart_width;
+    chartObject.chart_width = options.chart_width  ? options.chart_width : stylesheet.chart_width;
 
     chartObject.mode = options.mode ? options.mode.toLowerCase(): stylesheet.mode;
 
@@ -56,7 +56,7 @@ PykCharts.other.processInputs = function (chartObject, options) {
     chartObject.label_family = options.label_family ? options.label_family.toLowerCase() : stylesheet.label_family;
 
     chartObject.transition_duration = options.transition_duration ? options.transition_duration : functionality.transition_duration;
-    chartObject.onhover_enable = options.chart_onhover_highlight_enable ? options.chart_onhover_highlight_enable : stylesheet.chart_onhover_highlight_enable;
+    chartObject.chart_onhover_highlight_enable = options.chart_onhover_highlight_enable ? options.chart_onhover_highlight_enable : stylesheet.chart_onhover_highlight_enable;
     chartObject.highlight_color = options.highlight_color ? options.highlight_color : stylesheet.highlight_color;
     chartObject.highlight = options.highlight ? options.highlight : stylesheet.highlight;
     
@@ -86,14 +86,14 @@ PykCharts.other.processInputs = function (chartObject, options) {
 
     chartObject.k.validator().validatingSelector(chartObject.selector.substring(1,chartObject.selector.length))
                 .validatingChartMode(chartObject.mode,"mode",stylesheet.mode)
-                .validatingDataType(chartObject.width,"chart_width",stylesheet.chart_width,"width")
+                .validatingDataType(chartObject.chart_width,"chart_width",stylesheet.chart_width)
                 .validatingDataType(chartObject.title_size,"title_size",stylesheet.title_size)
                 .validatingDataType(chartObject.border_between_chart_elements_thickness,"border_between_chart_elements_thickness",stylesheet.border_between_chart_elements_thickness)
                 .validatingDataType(chartObject.real_time_charts_refresh_frequency,"real_time_charts_refresh_frequency",functionality.real_time_charts_refresh_frequency)
                 .validatingDataType(chartObject.label_size,"label_size",stylesheet.label_size)
                 .validatingDataType(chartObject.subtitle_size,"subtitle_size",stylesheet.subtitle_size)
                 .validatingDataType(chartObject.transition_duration,"transition_duration",functionality.transition_duration)
-                .validatingBorderBetweenChartElementsStyle(chartObject.border_between_chart_elements_style,"border_between_chart_elements_style")
+                .validatingBorderBetweenChartElementsStyle(chartObject.border_between_chart_elements_style)
                 .validatingFontWeight(chartObject.title_weight,"title_weight",stylesheet.title_weight)
                 .validatingFontWeight(chartObject.subtitle_weight,"subtitle_weight",stylesheet.subtitle_weight)
                 .validatingFontWeight(chartObject.label_weight,"label_weight",stylesheet.label_weight)
@@ -101,7 +101,7 @@ PykCharts.other.processInputs = function (chartObject, options) {
                 .validatingColor(chartObject.subtitle_color,"subtitle_color",stylesheet.subtitle_color)
                 .validatingColor(chartObject.highlight_color,"highlight_color",stylesheet.highlight_color)
                 .validatingColor(chartObject.label_color,"label_color",stylesheet.label_color)
-                .validatingColor(chartObject.border_between_chart_elements_color,"border_between_chart_elements_color")
+                .validatingColor(chartObject.border_between_chart_elements_color)
                 .validatingColor(chartObject.background_color,"background_color",stylesheet.background_color)
     if($.isArray(chartObject.chart_color)) {
         for(var i = 0;i < chartObject.chart_color.length;i++) {

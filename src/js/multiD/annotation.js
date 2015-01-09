@@ -17,10 +17,10 @@ PykCharts.annotation = function (options) {
             setTimeout(function () {
                 annotation_circle
                     .attr("cx",function (d,i) {
-                        return (parseInt(xScale(d.x))+options.extra_left_margin+options.margin_left);
+                        return (parseInt(xScale(d.x))+options.extra_left_margin+options.chart_margin_left);
                     })
                     .attr("cy", function (d,i) {
-                        return (parseInt(yScale(d.y))-15+options.margin_top+legendsGroup_height);
+                        return (parseInt(yScale(d.y))-15+options.chart_margin_top+legendsGroup_height);
                     })
                     .attr("r", "7")
                     .style("cursor","pointer")
@@ -59,10 +59,10 @@ PykCharts.annotation = function (options) {
                 .attr("height",0);
             setTimeout(function () {
                 annotation_text.attr("x",function (d) {
-                        return parseInt(xScale(d.x)-(5))+options.extra_left_margin+options.margin_left;
+                        return parseInt(xScale(d.x)-(5))+options.extra_left_margin+options.chart_margin_left;
                     })
                     .attr("y", function (d) {
-                        return parseInt(yScale(d.y)-18+options.margin_top+legendsGroup_height);
+                        return parseInt(yScale(d.y)-18+options.chart_margin_top+legendsGroup_height);
                     })
                     .attr("text-anchor","middle")
                     .style("font-size","12px")
@@ -78,10 +78,10 @@ PykCharts.annotation = function (options) {
                     .style("pointer-events","none");
 
                 annotation_rect.attr("x",function (d,i) {
-                        return (parseInt(xScale(d.x)-(5))+options.extra_left_margin+options.margin_left) - (w[i]/2);
+                        return (parseInt(xScale(d.x)-(5))+options.extra_left_margin+options.chart_margin_left) - (w[i]/2);
                     })
                     .attr("y", function (d,i) {
-                        return (parseInt(yScale(d.y)-10+options.margin_top)+legendsGroup_height) - h[i];
+                        return (parseInt(yScale(d.y)-10+options.chart_margin_top)+legendsGroup_height) - h[i];
                     })
                     .attr("width",function (d,i) { return w[i]; })
                     .attr("height",function (d,i) { return h[i]; })

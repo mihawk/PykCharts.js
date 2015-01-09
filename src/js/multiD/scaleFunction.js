@@ -22,7 +22,7 @@ PykCharts.scaleFunction = function (options) {
         }
     }
     options.k.ordinalXAxisTickFormat = function (domain,extra) {
-        var a = $(options.selector + " g.x.axis .tick text"),
+        var a = d3.selectAll(options.selector + " g.x.axis .tick text")[0],
             len = a.length, comp, flag, largest = 0, rangeband = (extra*2);
         for(var i = 0; i < len; i++) {
             largest = (a[i].getBBox().width > largest) ? a[i].getBBox().width: largest;
@@ -76,12 +76,12 @@ PykCharts.scaleFunction = function (options) {
         return this;
     }
     options.k.ordinalYAxisTickFormat = function (domain) {
-        var a = $(options.selector + " g.y.axis .tick text");
+        var a = d3.selectAll(options.selector + " g.y.axis .tick text")[0];
         var len = a.length,comp;
 
         for(i=0; i<len; i++) {
             comp = a[i].__data__;
-            if(a[i].getBBox().width > (options.margin_left * 0.9)) {
+            if(a[i].getBBox().width > (options.chart_margin_left * 0.9)) {
                 comp = comp.substr(0,3) + "..";
             }
 
@@ -115,7 +115,7 @@ PykCharts.scaleFunction = function (options) {
             }
             d3.selectAll(options.selector + " .x.axis").attr("fill",function () {return options.axis_x_pointer_color;});
             if(options.axis_x_position === "bottom") {
-                gsvg.attr("transform", "translate(0," + (options.chart_height - options.margin_top - options.margin_bottom - legendsGroup_height) + ")");
+                gsvg.attr("transform", "translate(0," + (options.chart_height - options.chart_margin_top - options.chart_margin_bottom - legendsGroup_height) + ")");
             }
 
             var xaxis = PykCharts.Configuration.makeXAxis(options,xScale);
@@ -154,7 +154,7 @@ PykCharts.scaleFunction = function (options) {
                 w = PykCharts['boolean'](options.panels_enable) ? options.w : options.chart_width;
 
             if(options.axis_y_position === "right") {
-                gsvg.attr("transform", "translate(" + (w - options.margin_left - options.margin_right - legendsGroup_width) + ",0)");
+                gsvg.attr("transform", "translate(" + (w - options.chart_margin_left - options.chart_margin_right - legendsGroup_width) + ",0)");
             }
             d3.selectAll(options.selector + " .y.axis").attr("fill",function () { return options.axis_y_pointer_color; });
             var yaxis = PykCharts.Configuration.makeYAxis(options,yScale,legendsGroup_width);
@@ -196,18 +196,18 @@ PykCharts.scaleFunction = function (options) {
             }
 
             if(!PykCharts['boolean'](options.axis_x_enable)) {
-                gsvg.attr("transform", "translate(0," + (options.chart_height - options.margin_top - options.margin_bottom - legendsGroup_height) + ")");
+                gsvg.attr("transform", "translate(0," + (options.chart_height - options.chart_margin_top - options.chart_margin_bottom - legendsGroup_height) + ")");
             }
 
             if(options.axis_x_position === "bottom") {
-                position = options.margin_bottom;
+                position = options.chart_margin_bottom;
             } else if (options.axis_x_position === "top") {
-                position = - options.margin_top + options.axis_x_title_size;
+                position = - options.chart_margin_top + options.axis_x_title_size;
             }
              gsvg.append("text")
                 .attr({
                     "class" : "x-axis-title",
-                    "x" : (w - options.margin_left - options.margin_right -legendsGroup_width)/2,
+                    "x" : (w - options.chart_margin_left - options.chart_margin_right -legendsGroup_width)/2,
                     "y" : position
                 })
                 .style({
@@ -224,10 +224,10 @@ PykCharts.scaleFunction = function (options) {
             var w = PykCharts['boolean'](options.panels_enable) ? options.w : options.chart_width,
             position,dy;
             if(options.axis_y_position === "left"){
-                position = -(options.margin_left - options.axis_y_title_size);
+                position = -(options.chart_margin_left - options.axis_y_title_size);
                 dy = 0;
             } else if (options.axis_y_position === "right") {
-                position = (options.margin_right - options.axis_y_title_size);
+                position = (options.chart_margin_right - options.axis_y_title_size);
                 dy = "0.71em";
             }
             gsvg.append("text")
@@ -286,6 +286,49 @@ PykCharts.scaleFunction = function (options) {
         } else {
             return "string";
         }
+    }
+    options.k.processXAxisTickValues = function () {
+        var values = [], newVal = [];
+        var length = options.axis_x_pointer_values.length;
+        if(length) {
+            for(var i = 0 ; i < length ; i++) {
+                if(options.axis_x_data_format === "number") {
+                    if(_.isNumber(options.axis_x_pointer_values[i]) || !(isNaN(options.axis_x_pointer_values[i]))){
+                        values.push(parseFloat(options.axis_x_pointer_values[i]))
+                    }
+                } else if(options.axis_x_data_format === "time") {
+                    if(!(isNaN(new Date(options.axis_x_pointer_values[i]).getTime()))) {
+                        values.push(options.axis_x_pointer_values[i])
+                    }
+                }
+            }
+        }
+        if(values.length) {
+            var len = values.length
+            if(options.axis_x_data_format === "time") {
+                for(var i=0 ; i<len; i++) {
+                    newVal.push(options.k.dateConversion(values[i]));            
+                }
+            } else {
+                newVal = values;
+            }
+        }
+
+        return newVal;
+    }
+    options.k.processYAxisTickValues = function () {
+        var length = options.axis_y_pointer_values.length;
+        var values = [];
+        if(length) {
+            for(var i = 0 ; i < length ; i++) {
+                if(options.axis_y_data_format === "number") {
+                    if(_.isNumber(options.axis_y_pointer_values[i]) || !(isNaN(options.axis_y_pointer_values[i]))){
+                        values.push(options.axis_y_pointer_values[i])
+                    }
+                }
+            }
+        }
+        return values;
     }
 }
 var configuration = PykCharts.Configuration;

@@ -230,7 +230,7 @@ PykCharts.multiD.groupedColumn = function(options) {
                 that.group = that.svgContainer.append("g")
                     .attr({
                         "id": "groupedColumn-group",
-                        "transform": "translate(" + that.margin_left + "," + (that.margin_top + that.legendsGroup_height) +")"
+                        "transform": "translate(" + that.chart_margin_left + "," + (that.chart_margin_top + that.legendsGroup_height) +")"
                     });
 
                 if(PykCharts.boolean(that.chart_grid_y_enable)) {
@@ -286,9 +286,9 @@ PykCharts.multiD.groupedColumn = function(options) {
                 return this;
             },
             createChart: function() {
-                that.reduced_width = that.chart_width - that.margin_left - that.margin_right - that.legendsGroup_width;
+                that.reduced_width = that.chart_width - that.chart_margin_left - that.chart_margin_right - that.legendsGroup_width;
 
-                that.reduced_height = that.chart_height - that.margin_top - that.margin_bottom - that.legendsGroup_height;
+                that.reduced_height = that.chart_height - that.chart_margin_top - that.chart_margin_bottom - that.legendsGroup_height;
 
                 // console.log(that.data,"data");
                 that.getuniqueGroups = that.data.map(function (d) {
@@ -462,7 +462,7 @@ PykCharts.multiD.groupedColumn = function(options) {
                 bar.attr("height", 0)
                     .attr({
                         "x": function (d) {return that.x1(d.name); },
-                        "y": that.chart_height - that.margin_top - that.margin_bottom,
+                        "y": that.chart_height - that.chart_margin_top - that.chart_margin_bottom,
                         "width": function (d){ return 0.98*that.x1.rangeBand(); },
                         "fill": function (d,i) {
                             return that.fillColor.colorGroup(d);
@@ -568,7 +568,7 @@ PykCharts.multiD.groupedColumn = function(options) {
             newXAxis : function () {
                 if(PykCharts["boolean"](that.axis_x_enable)) {
                     if(that.axis_x_position === "bottom") {
-                        that.new_xAxisgroup.attr("transform", "translate(0," + (that.chart_height - that.margin_top - that.margin_bottom - that.legendsGroup_height) + ")");
+                        that.new_xAxisgroup.attr("transform", "translate(0," + (that.chart_height - that.chart_margin_top - that.chart_margin_bottom - that.legendsGroup_height) + ")");
                     }
                     var xaxis = d3.svg.axis()
                         .scale(that.xScale)

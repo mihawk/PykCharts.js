@@ -153,7 +153,7 @@ PykCharts.multiD.configuration = function (options){
             var legend_container_width = options.legendsGroup.node().getBBox().width,translate_x;
             options.legendsGroup_width = (options.legends_display === "vertical") ? legend_container_width + 20 : 0;
             if (type === "scatter") {
-                translate_x = (options.legends_display === "vertical") ? (options.w - options.legendsGroup_width) : ((!PykCharts['boolean'](options.panels_enable)) ? (options.width - legend_container_width - 20) : options.margin_left); 
+                translate_x = (options.legends_display === "vertical") ? (options.w - options.legendsGroup_width) : ((!PykCharts['boolean'](options.panels_enable)) ? (options.width - legend_container_width - 20) : options.chart_margin_left); 
             } else {
                 translate_x = (options.legends_display === "vertical") ? (options.width - options.legendsGroup_width) : (options.width - legend_container_width - 20);
             }          
@@ -260,6 +260,7 @@ PykCharts.multiD.configuration = function (options){
 
 PykCharts.multiD.bubbleSizeCalculation = function (options,data,rad_range) {
     var size = function (d) {
+        // console.log(options.variable_circle_size_enable," ******",options.selector);
         if(d && PykCharts['boolean'](options.variable_circle_size_enable)) {
             var z = d3.scale.linear()
                         .domain(d3.extent(data,function (d) {
@@ -297,10 +298,10 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     chartObject.chart_width = options.chart_width ? options.chart_width : stylesheet.chart_width;
     chartObject.chart_height = options.chart_height ? options.chart_height : stylesheet.chart_height;
 
-    chartObject.margin_left = options.chart_margin_left  ? options.chart_margin_left : stylesheet.chart_margin_left;
-    chartObject.margin_right = options.chart_margin_right  ? options.chart_margin_right : stylesheet.chart_margin_right;
-    chartObject.margin_top = options.chart_margin_top  ? options.chart_margin_top : stylesheet.chart_margin_top;
-    chartObject.margin_bottom = options.chart_margin_bottom  ? options.chart_margin_bottom : stylesheet.chart_margin_bottom;
+    chartObject.chart_margin_left = options.chart_margin_left  ? options.chart_margin_left : stylesheet.chart_margin_left;
+    chartObject.chart_margin_right = options.chart_margin_right  ? options.chart_margin_right : stylesheet.chart_margin_right;
+    chartObject.chart_margin_top = options.chart_margin_top  ? options.chart_margin_top : stylesheet.chart_margin_top;
+    chartObject.chart_margin_bottom = options.chart_margin_bottom  ? options.chart_margin_bottom : stylesheet.chart_margin_bottom;
 
     chartObject.chart_grid_x_enable = options.chart_grid_x_enable ? options.chart_grid_x_enable.toLowerCase() : multiDimensionalCharts.chart_grid_x_enable;
     chartObject.chart_grid_y_enable = options.chart_grid_y_enable ? options.chart_grid_y_enable.toLowerCase() : multiDimensionalCharts.chart_grid_y_enable;
@@ -466,12 +467,12 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
                 .validatingAxisDataFormat(options.axis_x_data_format,"axis_x_data_format",stylesheet.axis_x_data_format)
                 .validatingAxisDataFormat(options.axis_y_data_format,"axis_y_data_format",multiDimensionalCharts.axis_x_data_format)
                 .validatingChartMode(chartObject.mode,"mode",stylesheet.mode)
-                .validatingDataType(chartObject.chart_width,"chart_width",stylesheet.chart_width,"chart_width")
-                .validatingDataType(chartObject.chart_height,"chart_height",stylesheet.chart_height,"chart_height")
-                .validatingDataType(chartObject.margin_left,"chart_margin_left",stylesheet.chart_margin_left,"margin_left")
-                .validatingDataType(chartObject.margin_right,"chart_margin_right",stylesheet.chart_margin_right,"margin_right")
-                .validatingDataType(chartObject.margin_top,"chart_margin_top",stylesheet.chart_margin_top,"margin_top")
-                .validatingDataType(chartObject.margin_bottom,"chart_margin_bottom",stylesheet.chart_margin_bottom,"margin_bottom")
+                .validatingDataType(chartObject.chart_width,"chart_width",stylesheet.chart_width)
+                .validatingDataType(chartObject.chart_height,"chart_height",stylesheet.chart_height)
+                .validatingDataType(chartObject.chart_margin_left,"chart_margin_left",stylesheet.chart_margin_left)
+                .validatingDataType(chartObject.chart_margin_right,"chart_margin_right",stylesheet.chart_margin_right)
+                .validatingDataType(chartObject.chart_margin_top,"chart_margin_top",stylesheet.chart_margin_top)
+                .validatingDataType(chartObject.chart_margin_bottom,"chart_margin_bottom",stylesheet.chart_margin_bottom)
                 .validatingDataType(chartObject.title_size,"title_size",stylesheet.title_size)
                 .validatingDataType(chartObject.subtitle_size,"subtitle_size",stylesheet.subtitle_size)
                 .validatingDataType(chartObject.real_time_charts_refresh_frequency,"real_time_charts_refresh_frequency",functionality.real_time_charts_refresh_frequency)
@@ -501,7 +502,7 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
                 .validatingXAxisPointerPosition(chartObject.axis_x_pointer_position,"axis_x_pointer_position",stylesheet.axis_x_pointer_position)
                 .validatingXAxisPointerPosition(chartObject.axis_x_position,"axis_x_position",stylesheet.axis_x_position)
                 .validatingYAxisPointerPosition(chartObject.axis_y_position,"axis_y_position",multiDimensionalCharts.axis_y_position)
-                .validatingBorderBetweenChartElementsStyle(chartObject.border_between_chart_elements_style,"border_between_chart_elements_style")
+                .validatingBorderBetweenChartElementsStyle(chartObject.border_between_chart_elements_style)
                 .validatingLegendsPosition(chartObject.legends_display,"legends_display",stylesheet.legends_display)
                 .validatingTooltipMode(chartObject.tooltip_mode,"tooltip_mode",stylesheet.tooltip_mode)
                 .validatingFontWeight(chartObject.title_weight,"title_weight",stylesheet.title_weight)
