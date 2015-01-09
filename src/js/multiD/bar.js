@@ -345,6 +345,7 @@ PykCharts.multiD.bar = function (options) {
                     .on({
                         'mouseover': function (d) {
                             if(that.mode === "default") {
+                                console.log(that.chart_onhover_highlight_enable);
                                 if(PykCharts.boolean(that.chart_onhover_highlight_enable)) {
                                     that.mouseEvent1.highlight(that.selector+" "+".hbar", this);
                                 }

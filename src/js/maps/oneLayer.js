@@ -48,8 +48,8 @@ PykCharts.maps.oneLayer = function (options) {
                             that.k.warningHandling(e,"11");
                         }
 
-                        $(that.selector).html("");
-                        $(options.selector).css("height","auto")
+                        d3.select(that.selector).html("");
+                        d3.select(options.selector).style("height","auto");
                         var oneLayer = new PykCharts.maps.mapFunctions(options,that,"oneLayer");
                         oneLayer.render();
                     });
@@ -66,10 +66,13 @@ PykCharts.maps.timelineMap = function (options) {
     var theme = new PykCharts.Configuration.Theme({});
     this.execute = function () {
         that = PykCharts.maps.processInputs(that, options);
+        PykCharts.scaleFunction(that);
         that.executeData = function (data) {
-            var validate = that.k.validator().validatingJSON(data);
+            var validate = that.k.validator().validatingJSON(data),
+                id = that.selector.substring(1,that.selector.length);
+
             if(that.stop || validate === false) {
-                $(options.selector+" #chart-loader").remove();
+                that.k.remove_loading_bar(id);
                 return;
             }
 
@@ -113,7 +116,7 @@ PykCharts.maps.timelineMap = function (options) {
                     that.data.sort(function (a,b) {
                         return a.timestamp - b.timestamp;
                     });
-                    $(that.selector).html("");
+                    d3.select(that.selector).html("");
                     var timeline = new PykCharts.maps.mapFunctions(options,that,"timeline");
                     timeline.render();
                 });
@@ -170,14 +173,11 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             that.renderButtons();
             that.renderTimeline();
         }
-
-        if(PykCharts['boolean'](that.legends_enable) && that.color_mode === "saturation") {
-            $(document).ready(function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); });
-            $(window).on("resize", function () { return that.k.resize(that.svgContainer,"",that.legendsContainer); });
-        } else {
-            $(document).ready(function () { return that.k.resize(that.svgContainer,""); });
-            $(window).on("resize", function () { return that.k.resize(that.svgContainer,""); });
-        }
+        var resize = that.k.resize(that.svgContainer);
+        that.k.__proto__._ready(resize);
+        window.onresize = function () {
+            return that.k.resize(that.svgContainer);
+        };
     };
 
     that.refresh = function () {
@@ -202,6 +202,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
     };
 
     that.optionalFeatures = function () {
+        var id = that.selector.substring(1,that.selector.length);
         var config = {
             legends: function (el) {
                 if (PykCharts['boolean'](el)) {
@@ -227,8 +228,8 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                 return this;
             },
             svgContainer : function () {
-                $(that.selector).css("width","100%");
-
+                document.getElementById(id).style.width = "100%";
+            
                 that.svgContainer = d3.select(that.selector)
                     .append("svg")
                     .attr("width", that.chart_width)
@@ -272,7 +273,8 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                 var scale = 150
                 , offset = [new_width / 2, new_height / 2]
                 , i;
-                $(options.selector).css("background-color",that.background_color);
+
+                document.getElementById(id).style.backgroundColor = that.background_color;
 
                 that.group = that.map_cont.selectAll(".map_group")
                     .data(topojson.feature(that.map_data, that.map_data.objects).features)
@@ -600,7 +602,8 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     .remove();
             }
         } else {
-            $("#legend-container").remove();
+            var c = document.getElementById("legend-container");
+            c.parentNode.removeChild(c);
         }
     };
 
@@ -753,7 +756,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                             .attr("fill", that.renderColor)
                             .attr("fill-opacity", that.renderOpacity)
                             .attr("data-fill-opacity",function () {
-                                return $(this).attr("fill-opacity");
+                                return d3.select(this).attr("fill-opacity");
                             });
                     });
                     interval++;
@@ -778,10 +781,10 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     .origin(Object)
                     .on("drag",dragmove)
                     .on("dragend", function () {
-                        $("body").css("cursor","default");
+                        document.getElementsByTagName('body')[0].style.cursor = "default";
                     });
         function dragmove (d) {
-            $("body").css("cursor","pointer");
+            document.getElementsByTagName('body')[0].style.cursor = "pointer";
             if (that.timeline_status !== "playing") {
                 var x = PykCharts.getEvent().sourceEvent.pageX - (that.timeline_margin_left),
                     x_range = [],
@@ -813,7 +816,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                                     .attr("fill", that.renderColor)
                                     .attr("fill-opacity", that.renderOpacity)
                                     .attr("data-fill-opacity",function () {
-                                        return $(this).attr("fill-opacity");
+                                        return d3.select(this).attr("fill-opacity");
                                     });
                             });
                             that.interval_index = i;
@@ -832,7 +835,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                                     .attr("fill", that.renderColor)
                                     .attr("fill-opacity", that.renderOpacity)
                                     .attr("data-fill-opacity",function () {
-                                        return $(this).attr("fill-opacity");
+                                        return d3.select(this).attr("fill-opacity");
                                     });
                             });
                             that.interval_index = i;
