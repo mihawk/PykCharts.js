@@ -170,11 +170,11 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             that.renderButtons();
             that.renderTimeline();
         }
-        // var resize = that.k.resize(that.svgContainer);
-        // that.k.__proto__._ready(resize);
-        // window.onresize = function () {
-        //     return that.k.resize(that.svgContainer);
-        // };
+        var resize = that.k.resize(that.svgContainer);
+        that.k.__proto__._ready(resize);
+        window.onresize = function () {
+            return that.k.resize(that.svgContainer);
+        };
         // $(document).ready(function () { return that.k.resize(that.svgContainer,""); });
         // $(window).on("resize", function () { return that.k.resize(that.svgContainer,""); });
     };
