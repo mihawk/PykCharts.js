@@ -310,7 +310,7 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 			that.compare_data = compare[0];
 			var data_changed = compare[1];
 
-			if(data_changed) {
+			if(data_changed || (PykCharts['boolean'](that.zoom_enable) && that.count > 1 && that.count <= that.zoom_level) || that.transition_duration) {
 				that.k.lastUpdatedAt("liveData");
 				that.mouseEvent.tooltipHide();
 				that.mouseEvent.crossHairHide(that.type);
@@ -339,8 +339,7 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 			that.k.xAxis(that.svgContainer,that.xGroup,that.xScale,that.extra_left_margin,that.xdomain,that.x_tick_values,that.legendsGroup_height)
 					.yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain,that.y_tick_values,that.legendsGroup_width)
 					.yGrid(that.svgContainer,that.group,that.yScale,that.legendsGroup_width)
-					.xGrid(that.svgContainer,that.group,that.xScale,that.legendsGroup_height)
-					.tooltip(true,that.selector);
+					.xGrid(that.svgContainer,that.group,that.xScale,that.legendsGroup_height);
 
 			if(PykCharts['boolean'](that.annotation_enable)) {
 	        	that.annotation();
@@ -379,7 +378,7 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 			createGroups : function (i) {
 				that.group = that.svgContainer.append("g")
 					.attr({
-						"id": "chartsvg",
+						"id": that.type+"-group",
 						"transform": "translate("+ that.chart_margin_left +","+ (that.chart_margin_top + that.legendsGroup_height)+")"
 					});
 

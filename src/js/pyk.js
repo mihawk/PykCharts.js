@@ -1232,7 +1232,7 @@ configuration.mouseEvent = function (options) {
                 }
             }
         },
-        crossHairPosition: function(new_data,xScale,yScale,dataLineGroup,lineMargin,domain,type,tooltipMode,color_from_data,panels_enable){
+        crossHairPosition: function(new_data,xScale,yScale,dataLineGroup,lineMargin,domain,type,tooltipMode,color_from_data,panels_enable,container_id){
             if((PykCharts['boolean'](options.crosshair_enable) || PykCharts['boolean'](options.tooltip_enable) || PykCharts['boolean'](options.axis_onhover_highlight_enable))  && options.mode === "default") {
                 var selectSVG = $(options.selector + " #"+dataLineGroup[0][0][0].parentNode.parentNode.id),
                     width_percentage = 0,
@@ -1244,7 +1244,7 @@ configuration.mouseEvent = function (options) {
                     width_percentage = selectSVG.width() / options.chart_width;
                     height_percentage = selectSVG.height() / options.chart_height;
                 } else {
-                    top_shift_from_first_panel = $("svg#svg-0").offset().top;
+                    top_shift_from_first_panel = $("svg#"+container_id+"-0").offset().top;
                     width_percentage = 1;
                     height_percentge = 1;
                 }
@@ -1357,8 +1357,8 @@ configuration.mouseEvent = function (options) {
                                                 multiply_by = 0,
                                                 final_displacement = 0;
                                             for(var a=0;a < number_of_lines;a++) {
-                                                var left_offset = $(options.selector + " #svg-"+a).offset().left - $(options.selector).offset().left;
-                                                var top_offset = $(options.selector + " #svg-"+a).offset().top - $(options.selector).offset().top;
+                                                var left_offset = $(options.selector + " #"+container_id+"-"+a).offset().left - $(options.selector).offset().left;
+                                                var top_offset = $(options.selector + " #"+container_id+"-"+a).offset().top - $(options.selector).offset().top;
                                                 for(var b=0;b < len_data;b++) {
                                                     if(options.axis_x_data_format === "time") {
                                                         cond = Date.parse(active_x_tick)===Date.parse(new_data[a].data[b].x);
@@ -1375,7 +1375,7 @@ configuration.mouseEvent = function (options) {
                                                         pos_line_cursor_y = (yScale(new_data[a].data[b].y) + top);
                                                         this.tooltipPosition(tooltipText,(pos_line_cursor_x+left_offset-15-30),(pos_line_cursor_y+top_shift_from_first_panel+final_displacement-containerOffsetTop),-15,-15,a,width_percentage,height_percentage,type);
                                                         this.tooltipTextShow(tooltipText,panels_enable,type,a);
-                                                        (options.crosshair_enable) ? this.crossHairShow(pos_line_cursor_x,top,pos_line_cursor_x,(h - bottom),pos_line_cursor_x,pos_line_cursor_y,type,active_y_tick.length,panels_enable,new_data[a],a): null;
+                                                        (options.crosshair_enable) ? this.crossHairShow(pos_line_cursor_x,top,pos_line_cursor_x,(h - bottom),pos_line_cursor_x,pos_line_cursor_y,type,active_y_tick.length,panels_enable,new_data[a],a,container_id): null;
                                                     }
                                                 }
                                             }
@@ -1439,7 +1439,7 @@ configuration.mouseEvent = function (options) {
                 }
             }
         },
-        crossHairShow: function (x1,y1,x2,y2,cx,cy,type,no_bullets,panels_enable,new_data,group_index) {
+        crossHairShow: function (x1,y1,x2,y2,cx,cy,type,no_bullets,panels_enable,new_data,group_index,container_id) {
             if(PykCharts['boolean'](options.crosshair_enable)) {
                 if(x1 !== undefined) {
                     if(type === "lineChart" || type === "areaChart") {
@@ -1486,24 +1486,24 @@ configuration.mouseEvent = function (options) {
                                     "x2" : (x2 - 5),
                                     "y2" : y2
                                 });
-                            d3.select(options.selector+" #svg-"+group_index+" .cross-hair-h")
+                            d3.select(options.selector+" #"+container_id+"-"+group_index+" .cross-hair-h")
                                 .attr({
                                     "x1" : options.chart_margin_left,
                                     "y1" : cy,
                                     "x2" : (options.w - options.chart_margin_right),
                                     "y2" : cy
                                 });
-                            d3.select(options.selector+" #svg-"+group_index+" .focus").style("display","block")
+                            d3.select(options.selector+" #"+container_id+"-"+group_index+" .focus").style("display","block")
                                 .attr("transform", "translate(" + (cx - 5) + "," + cy + ")");
                         }
                     } else if (type === "stackedAreaChart") {
-                        that.cross_hair_v.style("display","block");
-                        that.cross_hair_v.select(options.selector + " #cross-hair-v")
+                        d3.selectAll(options.selector+" .line-cursor").style("display","block");
+                        d3.selectAll(options.selector+" .cross-hair-v")
                             .attr({
-                                    "x1" : (x1 - 5),
-                                    "y1" : y1,
-                                    "x2" : (x2 - 5),
-                                    "y2" : y2
+                                "x1" : (x1 - 5),
+                                "y1" : y1,
+                                "x2" : (x2 - 5),
+                                "y2" : y2
                             });
                         for(var j=0; j<new_data.length; j++) {
                             d3.select(options.selector+" #f_circle"+j).style("display","block")
