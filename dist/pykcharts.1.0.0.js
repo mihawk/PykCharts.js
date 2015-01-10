@@ -294,7 +294,9 @@ PykCharts.Configuration = function (options){
         },
         remove_loading_bar: function (id) {
             var loading = document.querySelector(options.selector+" #chart-loader");
-            loading.parentNode.removeChild(loading);
+            if(loading) {
+                loading.parentNode.removeChild(loading);
+            }
             document.getElementById(id).style.height = "auto";
         },
         totalColors: function (tc) {
@@ -9120,7 +9122,7 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 			  			.emptyDiv(options.selector)
 						.makeMainDiv(that.selector,1);
 
-			  that.optional_feaure()
+			  that.optional_feature()
 						.svgContainer(1)
 						.legendsContainer()
 						.createGroups(1)
@@ -14365,7 +14367,6 @@ PykCharts.maps.processInputs = function (chartObject, options) {
     chartObject.tooltipLeftCorrection = d3.select(chartObject.selector).style("left");
     chartObject.chart_color = options.chart_color ? options.chart_color : [];
     chartObject.default_color = stylesheet.chart_color;
-    chartObject.total_no_of_colors = options.total_no_of_colors && _.isNumber(parseInt(options.total_no_of_colors,10))? parseInt(options.total_no_of_colors,10) : mapsTheme.total_no_of_colors;
     chartObject.color_mode = options.color_mode ? options.color_mode.toLowerCase() : stylesheet.color_mode;
     chartObject.saturation_color = options.saturation_color ? options.saturation_color : "";
     chartObject.palette_color = options.palette_color ? options.palette_color : mapsTheme.palette_color;
@@ -14456,6 +14457,7 @@ PykCharts.maps.processInputs = function (chartObject, options) {
     chartObject.export_enable = options.export_enable ? options.export_enable.toLowerCase() : stylesheet.export_enable;
 
     chartObject.k = new PykCharts.Configuration(chartObject);
+    chartObject.total_no_of_colors = options.total_no_of_colors && chartObject.k.__proto__._isNumber(parseInt(options.total_no_of_colors,10))? parseInt(options.total_no_of_colors,10) : mapsTheme.total_no_of_colors;
 
     chartObject.k.validator().validatingSelector(chartObject.selector.substring(1,chartObject.selector.length))
                 .isArray(chartObject.axis_x_pointer_values,"axis_x_pointer_values")
@@ -14527,7 +14529,7 @@ PykCharts.maps.processInputs = function (chartObject, options) {
             }
 
             try {
-                if(!_.isNumber(chartObject.default_zoom_level)) {
+                if(!chartObject.k.__proto__._isNumber(chartObject.default_zoom_level)) {
                     chartObject.default_zoom_level = 80;
                     throw "default_zoom_level"
                 }
