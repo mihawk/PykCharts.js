@@ -21,6 +21,7 @@ var anonymousFunc = function () {
                 if (_ && d3 /*&& ($ || jQuery)*/ && d3.customHive && topojson && $c && paper && downloadDataURI) {
                     window.PykChartsInit();
                     document.body.click(function () {
+                        console.log("hey");
                         if (PykCharts.export_menu_status === 0) {
                             document.querySelectorAll(".dropdown-multipleConatiner-export").style.visibility ="hidden";
                         }
