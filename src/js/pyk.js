@@ -294,7 +294,9 @@ PykCharts.Configuration = function (options){
         },
         remove_loading_bar: function (id) {
             var loading = document.querySelector(options.selector+" #chart-loader");
-            loading.parentNode.removeChild(loading);
+            if(loading) {
+                loading.parentNode.removeChild(loading);
+            }
             document.getElementById(id).style.height = "auto";
         },
         totalColors: function (tc) {
