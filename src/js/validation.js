@@ -139,17 +139,257 @@ PykCharts.validation = function (chartObject, options) {
             'validation_type': 'validatingColor'
         },
         {
-            'config_name': '',
-            'default_value': stylesheet,
-            'validation_type': ''
+            'config_name': 'axis_x_pointer_values',
+            'default_value': "",
+            'validation_type': 'isArray'
         },
         {
-            'config_name': '',
+            'config_name': 'axis_y_pointer_values',
+            'default_value': "",
+            'validation_type': 'isArray'
+        },
+        {
+            'config_name': 'axis_x_time_value_datatype',
             'default_value': stylesheet,
-            'validation_type': ''
+            'validation_type': 'validatingTimeScaleDataType'
+        },
+        {
+            'config_name': 'axis_y_time_value_datatype',
+            'default_value': multiDimensionalCharts,
+            'validation_type': 'validatingTimeScaleDataType'
+        },
+        {
+            'config_name': 'axis_x_data_format',
+            'default_value': stylesheet,
+            'validation_type': 'validatingAxisDataFormat'
+        },
+        {
+            'config_name': 'axis_y_data_format',
+            'default_value': multiDimensionalCharts,
+            'validation_type': 'validatingAxisDataFormat'
+        },
+        {
+            'config_name': 'chart_height',
+            'default_value': stylesheet,
+            'validation_type': 'validatingDataType'
+        },
+        {
+            'config_name': 'chart_margin_left',
+            'default_value': stylesheet,
+            'validation_type': 'validatingDataType'
+        },
+        {
+            'config_name': 'chart_margin_right',
+            'default_value': stylesheet,
+            'validation_type': 'validatingDataType'
+        },
+        {
+            'config_name': 'chart_margin_top',
+            'default_value': stylesheet,
+            'validation_type': 'validatingDataType'
+        },
+        {
+            'config_name': 'chart_margin_bottom',
+            'default_value': stylesheet,
+            'validation_type': 'validatingDataType'
+        },
+        {
+            'config_name': 'axis_x_pointer_size',
+            'default_value': stylesheet,
+            'validation_type': 'validatingDataType'
+        },
+        {
+            'config_name': 'axis_y_pointer_size',
+            'default_value': multiDimensionalCharts,
+            'validation_type': 'validatingDataType'
+        },
+        {
+            'config_name': 'axis_x_pointer_length',
+            'default_value': stylesheet,
+            'validation_type': 'validatingDataType'
+        },
+        {
+            'config_name': 'axis_y_pointer_length',
+            'default_value': multiDimensionalCharts,
+            'validation_type': 'validatingDataType'
+        },
+        {
+            'config_name': 'axis_x_title_size',
+            'default_value': stylesheet,
+            'validation_type': 'validatingDataType'
+        },
+        {
+            'config_name': 'axis_y_title_size',
+            'default_value': multiDimensionalCharts,
+            'validation_type': 'validatingDataType'
+        },
+        {
+            'config_name': 'legends_text_size',
+            'default_value': stylesheet,
+            'validation_type': 'validatingDataType'
+        },
+        {
+            'config_name': 'zoom_level',
+            'default_value': stylesheet,
+            'validation_type': 'validatingDataType'
+        },
+        {
+            'config_name': 'axis_x_outer_pointer_length',
+            'default_value': stylesheet,
+            'validation_type': 'validatingDataType'
+        },
+        {
+            'config_name': 'axis_y_outer_pointer_length',
+            'default_value': multiDimensionalCharts,
+            'validation_type': 'validatingDataType'
+        },
+        {
+            'config_name': 'axis_x_pointer_padding',
+            'default_value': stylesheet,
+            'validation_type': 'validatingDataType'
+        },
+        {
+            'config_name': 'axis_y_pointer_padding',
+            'default_value': multiDimensionalCharts,
+            'validation_type': 'validatingDataType'
+        },
+        {
+            'config_name': 'axis_x_no_of_axis_value',
+            'default_value': stylesheet,
+            'validation_type': 'validatingDataType'
+        },
+        {
+            'config_name': 'axis_y_no_of_axis_value',
+            'default_value': multiDimensionalCharts,
+            'validation_type': 'validatingDataType'
+        },
+        {
+            'config_name': 'axis_x_time_value_interval',
+            'default_value': stylesheet,
+            'validation_type': 'validatingDataType'
+        },
+        {
+            'config_name': 'axis_y_time_value_interval',
+            'default_value': multiDimensionalCharts,
+            'validation_type': 'validatingDataType'
+        },
+        {
+            'config_name': 'legends_text_color',
+            'default_value': stylesheet,
+            'validation_type': 'validatingColor'
+        },
+        {
+            'config_name': 'axis_x_pointer_color',
+            'default_value': stylesheet,
+            'validation_type': 'validatingColor'
+        },
+        {
+            'config_name': 'axis_y_pointer_color',
+            'default_value': multiDimensionalCharts,
+            'validation_type': 'validatingColor'
+        },
+        {
+            'config_name': 'axis_x_title_color',
+            'default_value': stylesheet,
+            'validation_type': 'validatingColor'
+        },
+        {
+            'config_name': 'axis_y_title_color',
+            'default_value': multiDimensionalCharts,
+            'validation_type': 'validatingColor'
+        },
+        {
+            'config_name': 'axis_x_line_color',
+            'default_value': stylesheet,
+            'validation_type': 'validatingColor'
+        },
+        {
+            'config_name': 'axis_x_line_color',
+            'default_value': multiDimensionalCharts,
+            'validation_type': 'validatingColor'
+        },
+        {
+            'config_name': 'annotation_font_color',
+            'default_value': multiDimensionalCharts,
+            'validation_type': 'validatingColor'
+        },
+        {
+            'config_name': 'annotation_background_color',
+            'default_value': multiDimensionalCharts,
+            'validation_type': 'validatingColor'
+        },
+        {
+            'config_name': 'annotation_border_color',
+            'default_value': multiDimensionalCharts,
+            'validation_type': 'validatingColor'
+        },
+        {
+            'config_name': 'chart_grid_color',
+            'default_value': multiDimensionalCharts,
+            'validation_type': 'validatingColor'
+        },
+        {
+            'config_name': 'legends_display',
+            'default_value': stylesheet,
+            'validation_type': 'validatingLegendsPosition'
+        },
+        {
+            'config_name': 'tooltip_mode',
+            'default_value': stylesheet,
+            'validation_type': 'validatingTooltipMode'
+        },
+        {
+            'config_name': 'legends_text_weight',
+            'default_value': stylesheet,
+            'validation_type': 'validatingFontWeight'
+        },
+        {
+            'config_name': 'axis_y_pointer_weight',
+            'default_value': multiDimensionalCharts,
+            'validation_type': 'validatingFontWeight'
+        },
+        {
+            'config_name': 'axis_x_pointer_weight',
+            'default_value': stylesheet,
+            'validation_type': 'validatingFontWeight'
+        },
+        {
+            'config_name': 'axis_y_title_weight',
+            'default_value': multiDimensionalCharts,
+            'validation_type': 'validatingFontWeight'
+        },
+        {
+            'config_name': 'axis_x_title_weight',
+            'default_value': stylesheet,
+            'validation_type': 'validatingFontWeight'
+        },
+        {
+            'config_name': 'axis_y_position',
+            'default_value': multiDimensionalCharts,
+            'validation_type': 'validatingYAxisPointerPosition'
+        },
+        {
+            'config_name': 'axis_x_position',
+            'default_value': stylesheet,
+            'validation_type': 'validatingxAxisPointerPosition'
+        },
+        {
+            'config_name': 'axis_y_pointer_position',
+            'default_value': multiDimensionalCharts,
+            'validation_type': 'validatingYAxisPointerPosition'
+        },
+        {
+            'config_name': 'axis_x_pointer_position',
+            'default_value': stylesheet,
+            'validation_type': 'validatingxAxisPointerPosition'
+        },
+        {
+            'config_name': 'color_mode',
+            'default_value': stylesheet,
+            'validation_type': 'validatingColorMode'
         }
     ]
-
+                
         if($.isArray(chartObject.chart_color)) {
             if(chartObject.chart_color[0]) {
                 chartObject.k.validator()
