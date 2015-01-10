@@ -2044,7 +2044,7 @@ PykCharts.oneD.bubble = function (options) {
                 chart_text1.attr("class","weight")
                     .attr({
                         "x": function (d) { return d.x },
-                        "y": function (d) { return d.y + 10; }
+                        "y": function (d) { return d.y + that.label_size; }
                     });
 
                 chart_text.attr("text-anchor","middle")
@@ -5215,7 +5215,7 @@ PykCharts.oneD.treemap = function (options){
                     that.chart_text1.attr({
                         "class": "weight",
                         "x": function (d) { return d.x + d.dx / 2; },
-                        "y": function (d) { return d.y + d.dy / 2 + 15; }
+                        "y": function (d) { return d.y + d.dy / 2 + that.label_size; }
                     });
 
                     that.chart_text

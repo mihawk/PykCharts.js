@@ -212,7 +212,7 @@ PykCharts.oneD.treemap = function (options){
                     that.chart_text1.attr({
                         "class": "weight",
                         "x": function (d) { return d.x + d.dx / 2; },
-                        "y": function (d) { return d.y + d.dy / 2 + 15; }
+                        "y": function (d) { return d.y + d.dy / 2 + that.label_size; }
                     });
 
                     that.chart_text
