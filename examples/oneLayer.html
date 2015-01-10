@@ -17,9 +17,9 @@
             window.PykChartsInit = function (e) {
                     k = new PykCharts.maps.oneLayer({
                         selector: "#map-container",
-                        map_code: "north_america",
+                        map_code: "united_states_of_america",
                         mode: "default",
-                        data: "../data/north_america_data.json",
+                        data: "../data/united_states_of_america_data.json",
                         chart_height: 500,
                         chart_width: 500,
                         // chart_color : ["#636363"],
@@ -40,8 +40,9 @@
                         chart_onhover_highlight_enable : "yes",
                         label_enable: "no",
                         label_color: "red",
-                        default_zoom_level: 80,
-                        highlight: "AC",
+                        // default_zoom_level: 100,
+                        highlight: "MO",
+                        highlight_color: "yellow",
                         title_text: "",
                         subtitle_text: "",
                         credit_my_site_name: "Pykih",

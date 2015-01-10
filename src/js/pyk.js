@@ -806,8 +806,7 @@ PykCharts.Configuration = function (options){
                 project._view._viewSize.height = chart.chart_height +  add_extra_height;
 
                 var name = chart_name + ".svg";
-
-                d3.selectAll(chart.selector + " #"+id).on("click",function () {
+                d3.select(chart.selector + " #"+id).on("click",function () {
                     PykCharts.export_menu_status = 1;
                     d3.select(options.selector + " .dropdown-multipleConatiner-export").style("visibility", "visible");
                 });
