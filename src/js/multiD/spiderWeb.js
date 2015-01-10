@@ -341,9 +341,14 @@ PykCharts.multiD.spiderWeb = function (options) {
                         return d.weight;
                     });
 
-                    that.weight = _.reject(that.weight,function (num) {
-                        return num == 0;
-                    });
+                    var weight_length = that.weight.length,
+                        rejected_result = [];
+                    for(var i=0 ; i<weight_length ; i++) {
+                        if(that.weight[i] !== 0) {
+                            rejected_result.push(that.weight[i]);
+                        }
+                    }
+                    that.weight = rejected_result;
 
                     that.sorted_weight = that.weight.slice(0);
                     that.sorted_weight.sort(function(a,b) { return a-b; });
