@@ -162,7 +162,7 @@ PykCharts.Configuration = function (options){
                                 break;
                             }
                         } else {
-                            if(!(_.isEqual(data[i][key2[j]],compare_data[i][key1[j]])) || key1[j] !== key2[j]) {
+                            if(!(option.k.__proto__._isEqual(data[i][key2[j]],compare_data[i][key1[j]])) || key1[j] !== key2[j]) {
                                 changed = true;
                                 break;
                             }
@@ -671,6 +671,68 @@ PykCharts.Configuration = function (options){
             },
             _isNumber: function (n) {
                 return (!isNaN(parseFloat(n)) && isFinite(n));
+            },
+            _isEqual : function(a, b) {
+                var eq = function(a, b, aStack, bStack) {
+                    if (a === b) return a !== 0 || 1 / a === 1 / b;
+                    if (a == null || b == null) return a === b;
+                    var className = toString.call(a);
+                    if (className !== toString.call(b)) return false;
+                    switch (className) {
+                      case '[object RegExp]':
+                      case '[object String]':
+                        return '' + a === '' + b;
+                      case '[object Number]':
+                        if (+a !== +a) return +b !== +b;
+                        return +a === 0 ? 1 / +a === 1 / b : +a === +b;
+                      case '[object Date]':
+                      case '[object Boolean]':
+                        return +a === +b;
+                    }
+                    if (typeof a != 'object' || typeof b != 'object') return false;
+                    var length = aStack.length;
+                    while (length--) {
+                      if (aStack[length] === a) return bStack[length] === b;
+                    }
+                    var aCtor = a.constructor, bCtor = b.constructor;
+                    if (
+                      aCtor !== bCtor &&
+                      'constructor' in a && 'constructor' in b &&
+                      !(isFunction(aCtor) && aCtor instanceof aCtor &&
+                        isFunction(bCtor) && bCtor instanceof bCtor)
+                    ) {
+                      return false;
+                    }
+                    aStack.push(a);
+                    bStack.push(b);
+                    var size, result;
+                    if (className === '[object Array]') {
+                      size = a.length;
+                      result = size === b.length;
+                      if (result) {
+                        while (size--) {
+                          if (!(result = eq(a[size], b[size], aStack, bStack))) break;
+                        }
+                      }
+                    } else {
+                      var keys = Object.getOwnPropertyNames(a), key;
+                      size = keys.length;
+                      result = Object.getOwnPropertyNames(b).length === size;
+                      if (result) {
+                        while (size--) {
+                          key = keys[size];
+                          if (!(result = hasOwnProperty.call(b, key) && eq(a[key], b[key], aStack, bStack))) break;
+                        }
+                      }
+                    }
+                    aStack.pop();
+                    bStack.pop();
+                    return result;
+                  };
+                var isFunction = function(obj) {
+                    return typeof obj == 'function' || false;
+                };    
+                return eq(a, b, [], []);
             }
         },
         backgroundColor: function (options) {

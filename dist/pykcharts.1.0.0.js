@@ -162,7 +162,7 @@ PykCharts.Configuration = function (options){
                                 break;
                             }
                         } else {
-                            if(!(_.isEqual(data[i][key2[j]],compare_data[i][key1[j]])) || key1[j] !== key2[j]) {
+                            if(!(option.k.__proto__._isEqual(data[i][key2[j]],compare_data[i][key1[j]])) || key1[j] !== key2[j]) {
                                 changed = true;
                                 break;
                             }
@@ -669,6 +669,68 @@ PykCharts.Configuration = function (options){
             },
             _isNumber: function (n) {
                 return (!isNaN(parseFloat(n)) && isFinite(n));
+            },
+            _isEqual : function(a, b) {
+                var eq = function(a, b, aStack, bStack) {
+                    if (a === b) return a !== 0 || 1 / a === 1 / b;
+                    if (a == null || b == null) return a === b;
+                    var className = toString.call(a);
+                    if (className !== toString.call(b)) return false;
+                    switch (className) {
+                      case '[object RegExp]':
+                      case '[object String]':
+                        return '' + a === '' + b;
+                      case '[object Number]':
+                        if (+a !== +a) return +b !== +b;
+                        return +a === 0 ? 1 / +a === 1 / b : +a === +b;
+                      case '[object Date]':
+                      case '[object Boolean]':
+                        return +a === +b;
+                    }
+                    if (typeof a != 'object' || typeof b != 'object') return false;
+                    var length = aStack.length;
+                    while (length--) {
+                      if (aStack[length] === a) return bStack[length] === b;
+                    }
+                    var aCtor = a.constructor, bCtor = b.constructor;
+                    if (
+                      aCtor !== bCtor &&
+                      'constructor' in a && 'constructor' in b &&
+                      !(isFunction(aCtor) && aCtor instanceof aCtor &&
+                        isFunction(bCtor) && bCtor instanceof bCtor)
+                    ) {
+                      return false;
+                    }
+                    aStack.push(a);
+                    bStack.push(b);
+                    var size, result;
+                    if (className === '[object Array]') {
+                      size = a.length;
+                      result = size === b.length;
+                      if (result) {
+                        while (size--) {
+                          if (!(result = eq(a[size], b[size], aStack, bStack))) break;
+                        }
+                      }
+                    } else {
+                      var keys = Object.getOwnPropertyNames(a), key;
+                      size = keys.length;
+                      result = Object.getOwnPropertyNames(b).length === size;
+                      if (result) {
+                        while (size--) {
+                          key = keys[size];
+                          if (!(result = hasOwnProperty.call(b, key) && eq(a[key], b[key], aStack, bStack))) break;
+                        }
+                      }
+                    }
+                    aStack.pop();
+                    bStack.pop();
+                    return result;
+                  };
+                var isFunction = function(obj) {
+                    return typeof obj == 'function' || false;
+                };    
+                return eq(a, b, [], []);
             }
         },
         backgroundColor: function (options) {
@@ -806,8 +868,7 @@ PykCharts.Configuration = function (options){
                 project._view._viewSize.height = chart.chart_height +  add_extra_height;
 
                 var name = chart_name + ".svg";
-
-                d3.selectAll(chart.selector + " #"+id).on("click",function () {
+                d3.select(chart.selector + " #"+id).on("click",function () {
                     PykCharts.export_menu_status = 1;
                     d3.select(options.selector + " .dropdown-multipleConatiner-export").style("visibility", "visible");
                 });
@@ -8491,7 +8552,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
             that.k.isOrdinal(that.svgContainer,".y.axis",that.yScale,that.ydomain);
             that.k.isOrdinal(that.svgContainer,".y.grid",that.yScale);
             for (i = 0;i < that.new_data_length;i++) {
-                var type = that.container_id + "-" + i;
+                var type = that.type+"-svg-"+i;
                 that.svgContainer.select(that.selector+" #"+type)
                     .attr({
                         "class": "lines-hover " + that.chartPathClass,
@@ -15350,7 +15411,7 @@ var anonymousFunc = function () {
     var urls = [
 /*      PykCharts.assets+'lib/jquery-1.11.1.min.js'
     ,*/ PykCharts.assets+'lib/d3.min.js'
-    // , PykCharts.assets+'lib/underscore.min.js'
+    , PykCharts.assets+'lib/underscore.min.js'
     , PykCharts.assets+'lib/topojson.min.js'
     , PykCharts.assets+'lib/custom-hive.min.js'
     , PykCharts.assets+'lib/colors.min.js'
@@ -15365,14 +15426,14 @@ var anonymousFunc = function () {
         include.onload = function () {
             try {
                 PykCharts.numberFormat = d3.format(",");
-                if (/*_ && */d3 /*&& ($ || jQuery)*/ && d3.customHive && topojson && $c && paper && downloadDataURI) {
+                if (_ && d3 /*&& ($ || jQuery)*/ && d3.customHive && topojson && $c && paper && downloadDataURI) {
                     window.PykChartsInit();
-                    document.body.click(function () {
+                    document.querySelector.onclick = function () {
                         if (PykCharts.export_menu_status === 0) {
-                            document.querySelectorAll(".dropdown-multipleConatiner-export").style.visibility ="hidden";
+                            d3.selectAll(".dropdown-multipleConatiner-export").style("visibility","hidden");
                         }
                         PykCharts.export_menu_status = 0;
-                    })
+                    };
                 };
             }
             catch (e) {
@@ -15397,48 +15458,48 @@ var anonymousFunc = function () {
     } catch (e) {
         importFiles(urls[0])
     }
-    // try {
-    //     if(!_) {
-    //         importFiles(urls[1]);
-    //     }
-    // } catch (e) {
-    //     importFiles(urls[1]);
-    // }
     try {
-        if(!d3.customHive) {
+        if(!_) {
             importFiles(urls[1]);
         }
     } catch (e) {
         importFiles(urls[1]);
     }
     try {
-        if(!topojson) {
+        if(!d3.customHive) {
             importFiles(urls[2]);
         }
     } catch (e) {
         importFiles(urls[2]);
     }
-    
     try {
-        if(!$c) {
+        if(!topojson) {
             importFiles(urls[3]);
         }
     } catch (e) {
         importFiles(urls[3]);
     }
+    
     try {
-        if(!paper) {
+        if(!$c) {
             importFiles(urls[4]);
         }
     } catch (e) {
         importFiles(urls[4]);
     }
     try {
-        if(!downloadDataURI) {
+        if(!paper) {
             importFiles(urls[5]);
         }
     } catch (e) {
         importFiles(urls[5]);
+    }
+    try {
+        if(!downloadDataURI) {
+            importFiles(urls[6]);
+        }
+    } catch (e) {
+        importFiles(urls[6]);
     }
 };
 
