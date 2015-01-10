@@ -12,6 +12,7 @@ PykCharts.maps.oneLayer = function (options) {
             }
 
             that.data = data;
+            that.data_length = that.data.length;
             that.compare_data = data;
             that.k
                 .totalColors(that.total_no_of_colors)
@@ -27,16 +28,15 @@ PykCharts.maps.oneLayer = function (options) {
                         }
 
                     that.map_data = data;
-
-                    _.each(that.map_data.objects.geometries, function (d) {
-                      var a = d.properties.NAME_1.replace("'","&#39;");
-                      d.properties.NAME_1 = a;
-                      return d;
-                    });
+                    var map_data_objects_geometries_length = that.map_data.objects.geometries.length;
+                    for (var i=0 ; i<map_data_objects_geometries_length ; i++) {
+                        var a = that.map_data.objects.geometries[i].properties.NAME_1.replace("'","&#39;");
+                        that.map_data.objects.geometries[i].properties.NAME_1 = a;
+                    }
 
                     d3.json(PykCharts.assets+"ref/colorPalette.json", function (data) {
                         that.color_palette_data = data;
-                        var validate = _.where(that.color_palette_data,{name:that.palette_color});
+                        var validate = that.k.__proto__._where(that.color_palette_data,{name:that.palette_color});
 
                         try {
                             if (!validate.length) {
@@ -78,8 +78,11 @@ PykCharts.maps.timelineMap = function (options) {
 
             that.timeline_data = data;
             that.compare_data = data;
-            var x_extent = d3.extent(data, function (d) { return d.timestamp; });
-            that.data = _.where(data, {timestamp: x_extent[0]});
+            var x_extent = d3.extent(data, function (d) { return d.timestamp; }),
+                data_length = data.length;
+
+            that.data = that.k.__proto__._where(data, {timestamp: x_extent[0]});
+            that.data_length = that.data.length;
 
             that.redeced_width = that.chart_width - (that.timeline_margin_left * 2) - that.timeline_margin_right;
 
@@ -91,14 +94,14 @@ PykCharts.maps.timelineMap = function (options) {
 
             d3.json(PykCharts.assets+"ref/" + that.map_code + "-topo.json", function (data) {
                 that.map_data = data;
-                _.each(that.map_data.objects.geometries, function (d) {
-                  var a = d.properties.NAME_1.replace("'","&#39;");
-                  d.properties.NAME_1 = a;
-                  return d;
-                });
+                var map_data_objects_geometries_length = that.map_data.objects.geometries.length;
+                for (var i=0 ; i<map_data_objects_geometries_length ; i++) {
+                    var a = that.map_data.objects.geometries[i].properties.NAME_1.replace("'","&#39;");
+                    that.map_data.objects.geometries[i].properties.NAME_1 = a;
+                }
                 d3.json(PykCharts.assets+"ref/colorPalette.json", function (data) {
                     that.color_palette_data = data;
-                    var validate = _.where(that.color_palette_data,{name:that.palette_color});
+                    var validate = that.k.__proto__._where(that.color_palette_data, {name:that.palette_color});
 
                     try {
                         if (!validate.length) {
@@ -111,7 +114,8 @@ PykCharts.maps.timelineMap = function (options) {
                     }
 
                     var x_extent = d3.extent(that.timeline_data, function (d) { return d.timestamp; })
-                    that.data = _.where(that.timeline_data, {timestamp: x_extent[0]});
+                    that.data = that.k.__proto__._where(that.timeline_data, {timestamp: x_extent[0]});
+                    that.data_length = that.data.length;
 
                     that.data.sort(function (a,b) {
                         return a.timestamp - b.timestamp;
@@ -144,7 +148,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             .subtitle()
             .exportSVG(that,"#svgcontainer",type)
         }
-        that.current_palette = _.where(that.color_palette_data, {name:that.palette_color, number:that.total_no_of_colors})[0];
+        that.current_palette = that.k.__proto__._where(that.color_palette_data, {name:that.palette_color, number:that.total_no_of_colors})[0];
         if (type === "timeline"){
              that.k.subtitle();
         }
@@ -183,6 +187,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
     that.refresh = function () {
         that.executeRefresh = function (data) {
             that.data = data;
+            that.data_length = that.data.length;
             that.refresh_data = data;
             var compare = that.k.checkChangeInData(that.refresh_data,that.compare_data);
             that.compare_data = compare[0];
@@ -325,9 +330,10 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     .style("stroke-width", that.border.width())
                     .style("stroke-dasharray", that.border.style())
                     .on("mouseover", function (d) {
-                        if((_.where(that.data, {iso2: d.properties.iso_a2})[0])) {
+                        var tooltip_data_found = that.k.__proto__._where(that.data, {iso2: d.properties.iso_a2})[0];
+                        if (tooltip_data_found) {
                             if (PykCharts['boolean'](that.tooltip_enable)) {
-                                var tooltip_text = ((_.where(that.data, {iso2: d.properties.iso_a2})[0]).tooltip) ? ((_.where(that.data, {iso2: d.properties.iso_a2})[0]).tooltip) : ("<table><thead><th colspan='2'><b>"+d.properties.NAME_1+"</b></th></thead><tr><td>Size</td><td><b>"+((_.where(that.data, {iso2: d.properties.iso_a2})[0]).size)+"</b></td></tr></table>");
+                                var tooltip_text = ((that.k.__proto__._where(that.data, {iso2: d.properties.iso_a2})[0]).tooltip) ? ((that.k.__proto__._where(that.data, {iso2: d.properties.iso_a2})[0]).tooltip) : ("<table><thead><th colspan='2'><b>"+d.properties.NAME_1+"</b></th></thead><tr><td>Size</td><td><b>"+((that.k.__proto__._where(that.data, {iso2: d.properties.iso_a2})[0]).size)+"</b></td></tr></table>");
 
                                 ttp.style("display", "block");
                                 ttp.html(tooltip_text);
@@ -389,7 +395,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             return false;
         }
         var col_shade,
-            obj = _.where(that.data, {iso2: d.properties.iso_a2});
+            obj = that.k.__proto__._where(that.data, {iso2: d.properties.iso_a2});
         if (obj.length > 0) {
             if (that.color_mode === "color") {
                 if(that.chart_color[0]) {
@@ -430,7 +436,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
 
         if (that.saturation_color !=="" && that.color_mode === "saturation") {
             that.oneninth = +(d3.format(".2f")(that.difference / that.total_no_of_colors));
-            that.opacity = (that.extent_size[0] + (_.where(that.data, {iso2: d.properties.iso_a2})[0]).size + that.oneninth) / that.difference;
+            that.opacity = (that.extent_size[0] + (that.k.__proto__._where(that.data, {iso2: d.properties.iso_a2})[0]).size + that.oneninth) / that.difference;
             return that.opacity;
         }
         return 1;
@@ -619,7 +625,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
     };
 
     that.bodColor = function (d) {
-        var obj = _.where(that.data, {iso2: d.properties.iso_a2});
+        var obj = that.k.__proto__._where(that.data, {iso2: d.properties.iso_a2});
         if(PykCharts['boolean'](that.chart_onhover_highlight_enable)) {
             if (that.onhover1 === "highlight_border") {
                 d3.select("path[area_name='" + d.properties.NAME_1 + "']")
@@ -651,7 +657,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             .attr("fill-opacity", function () {
                 if (that.saturation_color !== "" && that.color_mode === "saturation") {
                     that.oneninth_high = +(d3.format(".2f")(that.difference / that.total_no_of_colors));
-                    that.opacity_high = (that.extent_size[0] + (_.where(that.data, {iso2: d.properties.iso_a2})[0]).size + that.oneninth_high) / that.difference;
+                    that.opacity_high = (that.extent_size[0] + (that.k.__proto__._where(that.data, {iso2: d.properties.iso_a2})[0]).size + that.oneninth_high) / that.difference;
                     return that.opacity_high;
                 }
                 return 1;
@@ -662,7 +668,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         var obj = {};
         obj.container = PykCharts.getEvent().target.ownerSVGElement.parentNode.id;
         obj.area = d.properties;
-        obj.data = _.where(that.data, {iso2: d.properties.iso_a2})[0];
+        obj.data = that.k.__proto__._where(that.data, {iso2: d.properties.iso_a2})[0];
         try {
             customFunction(obj);
         } catch (ignore) {
@@ -704,12 +710,12 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         x_extent = d3.extent(that.timeline_data, function(d) {return d.timestamp; });
         x_range = [0 ,that.redeced_width];
         that.xScale = that.k.scaleIdentification("linear",x_extent,x_range);
-        _.each(that.timeline_data, function (d) {
-            if (that.unique.indexOf(d.timestamp) === -1) {
-                that.unique.push(d.timestamp);
+        var timeline_data_length = that.timeline_data.length;
+        for (var i=0 ; i<timeline_data_length ; i++) {
+            if (that.unique.indexOf(that.timeline_data[i].timestamp) === -1) {
+                that.unique.push(that.timeline_data[i].timestamp);
             }
-
-        })
+        }
         that.unique.sort(function (a,b) {
           return a - b;
         });
@@ -745,20 +751,21 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     that.marker
                         .attr("x",  (that.timeline_margin_left*2) + that.xScale(that.unique[interval]) - 7);
 
-                    that.data = _.where(that.timeline_data, {timestamp:that.unique[interval]});
+                    that.data = that.k.__proto__._where(that.timeline_data, {timestamp:that.unique[interval]});
+                    that.data_length = that.data.length;
                     that.data.sort(function (a,b) {
                         return a.timestamp - b.timestamp;
                     });
                     that.extent_size = d3.extent(that.data, function (d) { return parseInt(d.size, 10); });
                     that.difference = that.extent_size[1] - that.extent_size[0];
-                    _.each(that.data, function (d) {
-                        d3.select("path[iso2='"+d.iso2+"']")
+                    for (var i=0 ; i<that.data_length ; i++) {
+                        d3.select("path[iso2='"+that.data[i].iso2+"']")
                             .attr("fill", that.renderColor)
                             .attr("fill-opacity", that.renderOpacity)
                             .attr("data-fill-opacity",function () {
                                 return d3.select(this).attr("fill-opacity");
                             });
-                    });
+                    }
                     interval++;
                 }
                 that.play_interval = setInterval(function () {
@@ -805,39 +812,41 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
 
                         if ((left_diff >= right_diff) && (i <= (len-2))) {
                             that.marker.attr("x", (that.timeline_margin_left*2) + that.xScale(that.unique[i]) - 7);
-                            that.data = _.where(that.timeline_data, {timestamp:that.unique[i]});
+                            that.data = that.k.__proto__._where(that.timeline_data, {timestamp:that.unique[i]});
+                            that.data_length = that.data.length;
                             that.data.sort(function (a,b) {
                                 return a.timestamp - b.timestamp;
                             });
                             that.extent_size = d3.extent(that.data, function (d) { return parseInt(d.size, 10); });
                             that.difference = that.extent_size[1] - that.extent_size[0];
-                            _.each(that.data, function (d) {
-                                d3.select("path[iso2='"+d.iso2+"']")
+                            for (var k=0 ; k<that.data_length ; k++) {
+                                d3.select("path[iso2='"+that.data[k].iso2+"']")
                                     .attr("fill", that.renderColor)
                                     .attr("fill-opacity", that.renderOpacity)
                                     .attr("data-fill-opacity",function () {
                                         return d3.select(this).attr("fill-opacity");
                                     });
-                            });
+                            }
                             that.interval_index = i;
                         }
                     }
                     else if ((x > x_range[i]) && (i > (len-2))) {
                             that.marker.attr("x", (that.timeline_margin_left*2) + that.xScale(that.unique[i]) - 7);
-                            that.data = _.where(that.timeline_data, {timestamp:that.unique[i]});
+                            that.data = that.k.__proto__._where(that.timeline_data, {timestamp:that.unique[i]});
+                            that.data_length = that.data.length;
                             that.data.sort(function (a,b) {
                                 return a.timestamp - b.timestamp;
                             });
                             that.extent_size = d3.extent(that.data, function (d) { return parseInt(d.size, 10); });
                             that.difference = that.extent_size[1] - that.extent_size[0];
-                            _.each(that.data, function (d) {
-                                d3.select("path[iso2='"+d.iso2+"']")
+                            for (var k=0 ; k<that.data_length ; k++) {
+                                d3.select("path[iso2='"+that.data[k].iso2+"']")
                                     .attr("fill", that.renderColor)
                                     .attr("fill-opacity", that.renderOpacity)
                                     .attr("data-fill-opacity",function () {
                                         return d3.select(this).attr("fill-opacity");
                                     });
-                            });
+                            }
                             that.interval_index = i;
                     }
                 }
