@@ -16,7 +16,7 @@ PykCharts.multiD.column = function (options) {
         }
 
         that.multiD = new PykCharts.multiD.configuration(that);
-            that.executeData = function (data) {
+        that.executeData = function (data) {
             var validate = that.k.validator().validatingJSON(data),
                 id = that.selector.substring(1,that.selector.length);
             if(that.stop || validate === false) {
@@ -178,7 +178,7 @@ PykCharts.multiD.column = function (options) {
         var optional = {
             svgContainer: function (container_id,i) {
                 document.getElementById(id).className = "PykCharts-twoD";
-                that.svgContainer = d3.select(options.selector + " #tooltip-svg-container-" + i)
+                that.svgContainer = d3.select(that.selector + " #tooltip-svg-container-" + i)
                     .append("svg:svg")
                     .attr({
                         "width": that.chart_width,

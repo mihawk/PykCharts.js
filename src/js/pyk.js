@@ -430,6 +430,7 @@ PykCharts.Configuration = function (options){
                     "scatterplot": ["x","y","name","group"],
                     "pulse": ["x","y","name","group"],
                     "spiderweb": ["x","y","group"],
+                    "simple2x2": ["group"]
                 }
                 , charts = {
                     "oned": {
@@ -475,6 +476,10 @@ PykCharts.Configuration = function (options){
                       "fact": "y",
                       "name": "name",
                       "weight": "weight"
+                    },
+                    "simple2x2": {
+                        "dimension": "group",
+                        "fact": "weight"
                     }
                 },
                 properties = dimensions[chart],
