@@ -634,7 +634,9 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             }
         } else {
             var c = document.getElementById("legend-container");
-            c.parentNode.removeChild(c);
+            if(c) {
+                c.parentNode.removeChild(c);
+            }
         }
     };
 
