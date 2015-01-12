@@ -9,23 +9,20 @@ PykCharts.crossHairMovement = function (options) {
     that.start_pt_circle = configuration.start_pt_circle;
     mouseEvent.crossHairPosition = function(new_data,xScale,yScale,dataLineGroup,lineMargin,domain,type,tooltipMode,panels_enable,container_id){
         if((PykCharts['boolean'](options.crosshair_enable) || PykCharts['boolean'](options.tooltip_enable) || PykCharts['boolean'](options.axis_onhover_highlight_enable))  && options.mode === "default") {
+            var offset =  options.k.__proto__._offset;
             var selectSVG = document.querySelector(options.selector + " #"+dataLineGroup[0][0][0].parentNode.parentNode.id),
                 width_percentage = 0,
-                height_percentage = 0,
-                top_shift_from_first_panel
-                containerOffsetTop = document.querySelector(options.selector).offsetTop;
-                // console.log(selectSVG,document.querySelectorAll(options.selector + " #"+dataLineGroup[0][0][0].parentNode.parentNode.id))
+                height_percentage = 0;
             if (!PykCharts['boolean'](panels_enable)) {
-                width_percentage = selectSVG.offsetWidth / options.chart_width;
-                height_percentage = selectSVG.offsetHeight / options.chart_height;
+                width_percentage = parseFloat(d3.select(selectSVG).style("width")) / options.chart_width;
+                height_percentage = parseFloat(d3.select(selectSVG).style("height")) / options.chart_height;
             } else {
-                top_shift_from_first_panel = document.querySelector("svg#"+container_id+"-0").offsetTop;
                 width_percentage = 1;
                 height_percentge = 1;
             }
             var legendsGroup_height = options.legendsGroup_height ? options.legendsGroup_height: 0,
-                offsetLeft =  (options.chart_margin_left + lineMargin) * width_percentage,
-                offsetTop = selectSVG.offsetTop,
+                offsetLeft =  ((options.chart_margin_left + lineMargin) * width_percentage) + offset(selectSVG).left,
+                offsetTop = offset(selectSVG).top,
                 number_of_lines = new_data.length,
                 left = options.chart_margin_left,
                 right = options.chart_margin_right,
@@ -35,9 +32,17 @@ PykCharts.crossHairMovement = function (options) {
                 h = options.chart_height,
                 group_index = parseInt(PykCharts.getEvent().target.id.substr((PykCharts.getEvent().target.id.length-1),1)),
                 c = b - a,
-                x = PykCharts.getEvent().offsetX - offsetLeft,
-                y = PykCharts.getEvent().offsetY - top,
+                x = PykCharts.getEvent().pageX  - offsetLeft,
+                y = PykCharts.getEvent().pageY - offsetTop - top,
                 x_range = [];
+                // console.log(offsetTop,"offsetTop");
+                // console.log(PykCharts.getEvent());
+                // console.log(PykCharts.getEvent().pageY,PykCharts.getEvent().pageX,"pageY pageX");
+                // console.log(PykCharts.getEvent().offsetY,PykCharts.getEvent().offsetX,"offsetY","offsetX");
+                // console.log(PykCharts.getEvent().clientY,PykCharts.getEvent().clientX,"clinetY clientX");
+                // console.log(PykCharts.getEvent().layerY,PykCharts.getEvent().layerX,"layerY layerX");
+
+                // console.log(width_percentage,height_percentage,x,y,PykCharts.getEvent(),PykCharts.getEvent().pageY,PykCharts.getEvent().pageX)
             if(options.axis_x_data_format==="string") {
                 x_range = xScale.range();
             } else {
@@ -116,8 +121,11 @@ PykCharts.crossHairMovement = function (options) {
                                     multiply_by = 0,
                                     final_displacement = 0;
                                 for(var a=0;a < number_of_lines;a++) {
-                                    var left_offset = document.querySelector(options.selector + " #"+container_id+"-"+a).offsetLeft - document.querySelector(options.selector).offsetLeft;
-                                    var top_offset = document.querySelector(options.selector + " #"+container_id+"-"+a).offsetTop - document.querySelector(options.selector).offsetTop;
+                                    var div_offset = offset(document.querySelector(options.selector)),
+                                        svg_offset = offset(document.querySelector(options.selector + " #"+container_id+"-"+a));
+
+                                    var left_offset = svg_offset.left - div_offset.left;
+                                    var top_offset = svg_offset.top - div_offset.top;
                                     for(var b=0;b < len_data;b++) {
                                         if(options.axis_x_data_format === "time") {
                                             cond = Date.parse(active_x_tick)===Date.parse(new_data[a].data[b].x);
@@ -283,13 +291,14 @@ PykCharts.crossHairMovement = function (options) {
     mouseEvent.tooltipPosition = function (d,xPos,yPos,xDiff,yDiff,group_index,width_percentage,height_percentage,type) {
         if(PykCharts['boolean'](options.tooltip_enable) || PykCharts['boolean'](options.annotation_enable) || options.axis_x_data_format === "string" || options.axis_y_data_format === "string") {
             if(xPos !== undefined){
-                var selector = options.selector.substr(1,options.selector.length),
+                var offset = options.k.__proto__._offset,
+                    selector = options.selector.substr(1,options.selector.length),
                     selector_element = document.getElementById(selector),
-                    width_tooltip = document.querySelector("#tooltip-svg-container-"+group_index +"-pyk-tooltip"+selector) ? parseFloat(document.querySelector("#tooltip-svg-container-"+group_index +"-pyk-tooltip"+selector).offsetWidth) : 0,
-                    height_tooltip = document.querySelector("#tooltip-svg-container-"+group_index +"-pyk-tooltip"+selector) ? parseFloat(document.querySelector("#tooltip-svg-container-"+group_index +"-pyk-tooltip"+selector).offsetHeight) : 0,
+                    width_tooltip = document.querySelector("#tooltip-svg-container-"+group_index +"-pyk-tooltip"+selector) ? parseFloat(d3.select("#tooltip-svg-container-"+group_index +"-pyk-tooltip"+selector).style("width")) : 0,
+                    height_tooltip = document.querySelector("#tooltip-svg-container-"+group_index +"-pyk-tooltip"+selector) ? parseFloat(d3.select("#tooltip-svg-container-"+group_index +"-pyk-tooltip"+selector).style("height")) : 0,
                     tooltip = d3.select("#tooltip-svg-container-"+group_index +"-pyk-tooltip"+selector),
-                    offset_left = selector_element.offsetLeft,
-                    offset_top = selector_element.offsetTop;
+                    offset_left = offset(selector_element).left,
+                    offset_top = offset(selector_element).top;
 
                 if (type === "lineChart" || type === "areaChart") {
                     var place_tooltip_from_top = yPos * height_percentage;
