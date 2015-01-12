@@ -280,7 +280,7 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 			  			.emptyDiv(options.selector)
 						.makeMainDiv(that.selector,1);
 
-			  that.optional_feaure()
+			  that.optional_feature()
 						.svgContainer(1)
 						.legendsContainer()
 						.createGroups(1)

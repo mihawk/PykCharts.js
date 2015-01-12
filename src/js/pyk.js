@@ -294,7 +294,9 @@ PykCharts.Configuration = function (options){
         },
         remove_loading_bar: function (id) {
             var loading = document.querySelector(options.selector+" #chart-loader");
-            loading.parentNode.removeChild(loading);
+            if(loading) {
+                loading.parentNode.removeChild(loading);
+            }
             document.getElementById(id).style.height = "auto";
         },
         totalColors: function (tc) {
@@ -669,6 +671,27 @@ PykCharts.Configuration = function (options){
             },
             _isNumber: function (n) {
                 return (!isNaN(parseFloat(n)) && isFinite(n));
+            },
+            _where: function (list, key_value_pairs_to_be_searched) {
+                var list_length = list.length,
+                    data_result = [];
+                for (var z=0 ; z<list_length ; z++) {
+                    var flag = 0,
+                        no_of_keys = 0;
+                    for (var key in key_value_pairs_to_be_searched) {
+                        if (list[z].hasOwnProperty(key) && list[z][key] === key_value_pairs_to_be_searched[key]) {
+                            flag += 1;
+                        }
+                        else {
+                            flag = 0;
+                        }
+                        no_of_keys += 1;
+                    }
+                    if (flag === no_of_keys) {
+                        data_result.push(list[z]);
+                    }
+                }
+                return data_result;
             },
             _isEqual : function(a, b) {
                 var eq = function(a, b, aStack, bStack) {
