@@ -137,7 +137,7 @@ PykCharts.validation = function (chartObject, options) {
             'config_name': 'border_between_chart_elements_color',
             'default_value': stylesheet,
             'validation_type': 'validatingColor'
-        },
+        }/*,
         {
             'config_name': '',
             'default_value': stylesheet,
@@ -147,7 +147,7 @@ PykCharts.validation = function (chartObject, options) {
             'config_name': '',
             'default_value': stylesheet,
             'validation_type': ''
-        }
+        }*/
     ]
 
         if($.isArray(chartObject.chart_color)) {

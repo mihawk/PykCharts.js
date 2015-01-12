@@ -1,8 +1,8 @@
 PykCharts.crossHairMovement = function (options) {
-	var that = this;
-	var mouseEvent = PykCharts.Configuration.mouseEvent(options);
+    var that = this;
+    var mouseEvent = PykCharts.Configuration.mouseEvent(options);
     that.tooltip = configuration.tooltipp;
-	that.cross_hair_v = configuration.cross_hair_v;
+    that.cross_hair_v = configuration.cross_hair_v;
     that.cross_hair_h = configuration.cross_hair_h;
     that.focus_circle = configuration.focus_circle;
     that.pt_circle = configuration.pt_circle;

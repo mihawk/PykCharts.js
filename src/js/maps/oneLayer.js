@@ -130,7 +130,10 @@ PykCharts.maps.timelineMap = function (options) {
 };
 
 PykCharts.maps.mapFunctions = function (options,chartObject,type) {
-    var that = chartObject;
+    var that = chartObject,
+        id = that.selector.substring(1,that.selector.length),
+        container_id = id + "_svg";
+
     this.render = function () {
         that.border = new PykCharts.Configuration.border(that);
         that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
@@ -139,10 +142,10 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
 
         if(type === "oneLayer") {
             that.k
-            .export(that,"#svgcontainer",type)
+            .export(that,"#"+container_id,type)
             .emptyDiv()
             .subtitle()
-            .exportSVG(that,"#svgcontainer",type)
+            .exportSVG(that,"#"+container_id,type)
         }
         that.current_palette = _.where(that.color_palette_data, {name:that.palette_color, number:that.total_no_of_colors})[0];
         if (type === "timeline"){
@@ -234,7 +237,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     .append("svg")
                     .attr("width", that.chart_width)
                     .attr("height", that.chart_height)
-                    .attr("id","svgcontainer")
+                    .attr("id",container_id)
                     .attr("class",'PykCharts-map')
                     .attr("preserveAspectRatio", "xMinYMin")
                     .attr("viewBox", "0 0 " + that.chart_width + " " + that.chart_height);

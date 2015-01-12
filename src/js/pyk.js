@@ -731,6 +731,24 @@ PykCharts.Configuration = function (options){
                     return typeof obj == 'function' || false;
                 };    
                 return eq(a, b, [], []);
+            },
+            _offset:  function (elem) {
+                var strundefined = typeof undefined;
+                var docElem, win,
+                    box = { top: 0, left: 0 },
+                    doc = elem && elem.ownerDocument;
+                if ( !doc ) {
+                    return;
+                }
+                docElem = doc.documentElement;
+                if ( typeof elem.getBoundingClientRect !== strundefined ) {
+                    box = elem.getBoundingClientRect();
+                }
+                win=(doc != null && doc === doc.window) ? doc : doc.nodeType === 9 && doc.defaultView;
+                return {
+                    top: box.top + win.pageYOffset - docElem.clientTop,
+                    left: box.left + win.pageXOffset - docElem.clientLeft
+                };
             }
         },
         backgroundColor: function (options) {
@@ -1539,8 +1557,8 @@ configuration.Theme = function(){
         "axis_x_time_value_interval":0,
         "axisHighlight_x_data_format": "string",
 
-        "loading_source": "<div class='PykCharts-loading'><div></div><div></div><div></div></div>",
-        "loading_type": "css",
+        "loading_source": "../pykih-charts/assets/img/Preloader_64.gif",
+        "loading_type": "image",
 
         "tooltip_enable": "yes",
         "tooltip_mode": "moving",
