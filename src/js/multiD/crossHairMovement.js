@@ -35,14 +35,6 @@ PykCharts.crossHairMovement = function (options) {
                 x = PykCharts.getEvent().pageX  - offsetLeft,
                 y = PykCharts.getEvent().pageY - offsetTop - top,
                 x_range = [];
-                // console.log(offsetTop,"offsetTop");
-                // console.log(PykCharts.getEvent());
-                // console.log(PykCharts.getEvent().pageY,PykCharts.getEvent().pageX,"pageY pageX");
-                // console.log(PykCharts.getEvent().offsetY,PykCharts.getEvent().offsetX,"offsetY","offsetX");
-                // console.log(PykCharts.getEvent().clientY,PykCharts.getEvent().clientX,"clinetY clientX");
-                // console.log(PykCharts.getEvent().layerY,PykCharts.getEvent().layerX,"layerY layerX");
-
-                // console.log(width_percentage,height_percentage,x,y,PykCharts.getEvent(),PykCharts.getEvent().pageY,PykCharts.getEvent().pageX)
             if(options.axis_x_data_format==="string") {
                 x_range = xScale.range();
             } else {
@@ -54,7 +46,6 @@ PykCharts.crossHairMovement = function (options) {
                     x_range[i] = strt;
                     strt = strt + pad;
                 }
-
             }
             var y_range = yScale.range(),
                 y_range_length = y_range.length;

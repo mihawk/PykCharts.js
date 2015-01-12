@@ -781,19 +781,18 @@ PykCharts.Configuration = function (options){
 
             function bgColor(child) {
                 child1 = child;
-                bg  = d3.selectAll(child).style("background-color");
+                bg  = d3.select(child).style("background-color");
                 if (bg === "transparent" || bg === "rgba(0, 0, 0, 0)") {
-                    if(d3.selectAll(child)[0][0].parentNode.tagName === undefined || d3.selectAll(child)[0][0].parentNode.tagName.toLowerCase() === "body") {
-                        options.k.__proto__._colourBrightness("rgb(255,255,255)",d3.selectAll(child)[0]);
+                    if(d3.select(child)[0][0].parentNode.tagName === undefined || d3.select(child)[0][0].parentNode.tagName.toLowerCase() === "body") {
+                        options.k.__proto__._colourBrightness("rgb(255,255,255)",d3.select(child)[0]);
                     } else {
-                        return bgColor(d3.selectAll(child)[0][0].parentNode);
+                        return bgColor(d3.select(child)[0][0].parentNode);
                     }
                 } else {
                     return options.k.__proto__._colourBrightness(bg,d3.selectAll(child)[0]);
                 }
             }
-
-            if (document.querySelectorAll(child1)[0].classList.contains("light")) {
+            if (d3.select(child1)[0][0].classList.contains("light")) {
                 options.img = PykCharts.assets+"img/download.png";
             } else {
                 options.img = PykCharts.assets+"img/download-light.png";
