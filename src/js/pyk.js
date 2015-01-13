@@ -64,15 +64,17 @@ PykCharts.Configuration = function (options){
             var label,prefix,suffix;
                 prefix = options.units_prefix,
                 suffix = options.units_suffix;
-                if(prefix && prefix !== "") {
+                if(prefix) {
                     label = prefix + " " + text;
                     if(suffix) {
                         label += " " + suffix;
                     }
-                } else if(suffix && suffix !== "") {
+                } else if(suffix) {
                     label = text + " " + suffix;
                 }
-                label = text;
+                // console.log(text)
+                // console.log(text,"text")
+                // label = text;
             return label;
         },
         title: function () {
@@ -978,6 +980,7 @@ PykCharts.Configuration = function (options){
         validator: function () {
             var validator = {
                 validatingSelector: function (selector) {
+                    selector = selector.substring(1,selector.length);
                     try {
                         if(!document.getElementById(selector)) {
                             options.stop = true;
@@ -1503,7 +1506,6 @@ configuration.Theme = function(){
         "mode": "default",
         "selector": "",
         "is_interactive": "yes",
-
         "chart_height": 400,
         "chart_width": 600,
         "chart_margin_top": 35,
@@ -1511,6 +1513,7 @@ configuration.Theme = function(){
         "chart_margin_bottom": 35,
         "chart_margin_left": 50,
 
+        "title_text": "",
         "title_size": 15,
         "title_color": "#1D1D1D",
         "title_weight": "bold",
@@ -1588,7 +1591,8 @@ configuration.Theme = function(){
         "credit_my_site_name": "Pykih",
         "credit_my_site_url": "http://www.pykih.com",
         "chart_onhover_highlight_enable": "yes",
-
+        "units_prefix": false,
+        "units_suffix":false
     };
 
     that.functionality = {

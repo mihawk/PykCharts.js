@@ -3,7 +3,7 @@ PykCharts.oneD.pyramid = function (options) {
     var theme = new PykCharts.Configuration.Theme({});
 
 	this.execute = function () {
-        that = new PykCharts.oneD.processInputs(that, options, "pyramid");
+        that = new PykCharts.validation.processInputs(that, options, "pyramid",'oneDimensionalCharts');
         that.chart_height = options.chart_height ? options.chart_height : that.chart_width;
         that.k.validator()
             .validatingDataType(that.chart_height,"chart_height",that.chart_width);

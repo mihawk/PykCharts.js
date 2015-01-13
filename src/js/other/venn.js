@@ -3,7 +3,7 @@ PykCharts.other.venn = function (options) {
     var theme = new PykCharts.Configuration.Theme({});
 
     this.execute = function () {
-        that = new PykCharts.other.processInputs(that, options);
+        that = new PykCharts.validation.processInputs(that, options);
         var optional = options.optional,
             otherCharts = theme.otherCharts;
         that.height = options.chart_height ? options.chart_height : that.width;
