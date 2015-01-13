@@ -3,7 +3,7 @@ PykCharts.multiD.simple2x2 = function (options) {
     var theme = new PykCharts.Configuration.Theme({});
     this.execute = function () {
     	that = new PykCharts.multiD.processInputs(that, options);
-
+        PykCharts.scaleFunction(that);
         if(that.stop) {
             return;
         }
@@ -17,8 +17,10 @@ PykCharts.multiD.simple2x2 = function (options) {
             optional = options.optional;
         that.axis_x_enable = "yes";
         that.axis_x_data_format = "string";
+        that.axis_x_pointer_length = 0;
         that.axis_y_enable = "yes";
         that.axis_y_data_format = "string";
+        that.axis_y_pointer_length = 0;
 
         that.data_sort_enable = "yes";
         that.data_sort_type = "numerically";
@@ -90,6 +92,14 @@ PykCharts.multiD.simple2x2 = function (options) {
 
         }
 
+        that.k.xAxis(that.svgContainer,that.xGroup,that.xScale,that.extra_left_margin,that.x_domain,that.x_tick_values)
+            .yAxis(that.svgContainer,that.yGroup,that.yScale,that.y_domain,that.y_tick_values)
+            .xAxisTitle(that.xGroup)
+            .yAxisTitle(that.yGroup);
+
+        that.xGroup.attr("transform","translate("+that.chart_margin_left+"," + (that.chart_margin_top + that.reducedHeight/2) + ")");
+        that.yGroup.attr("transform","translate(" + (that.chart_margin_left + that.reducedWidth/2) + ","+ that.chart_margin_top +")");
+
         that.k.exportSVG(that,"#"+container_id,"simple2x2Chart");
 
         var resize = that.k.resize(that.svgContainer);
@@ -121,7 +131,6 @@ PykCharts.multiD.simple2x2 = function (options) {
 
                 that.group = that.svgContainer.append("g")
                     .attr("id","simple2x2-group");
-
                 return this;
             },
             axisContainer: function () {
@@ -142,10 +151,10 @@ PykCharts.multiD.simple2x2 = function (options) {
                 return this;
             },
             createChart: function () {
-                var x_domain,x_data = [],y_data = [],y_range,x_range,y_domain, min_x_tick_value,max_x_tick_value, min_y_tick_value,max_y_tick_value;
-
-                // that.x_tick_values = that.k.processXAxisTickValues();
-                // that.y_tick_values = that.k.processYAxisTickValues();
+                var x_data=[], y_data=[],
+                    y_range, x_range;
+                that.x_tick_values = that.k.processXAxisTickValues(); //--- NOT REQD ???
+                that.y_tick_values = that.k.processYAxisTickValues(); //--- NOT REQD ???
 
                 if(that.axis_y_data_format === "string") {
                     y_data = ["Low", "High"];
