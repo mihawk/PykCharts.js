@@ -777,7 +777,7 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
                         .data(that.new_data);
    
                     that.circleLabel.enter()
-                        .append("text")
+                        .append("text");
 
                     that.circleLabel.attr("class","scatterplot-label")
                         .text("");

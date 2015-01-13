@@ -18,6 +18,7 @@ PykCharts.multiD.simple2x2 = function (options) {
         that.axis_x_enable = "yes";
         that.axis_x_data_format = "string";
         that.axis_x_pointer_length = 0;
+        that.axis_x_pointer_position = "bottom";
         that.axis_y_enable = "yes";
         that.axis_y_data_format = "string";
         that.axis_y_pointer_length = 0;
@@ -29,7 +30,11 @@ PykCharts.multiD.simple2x2 = function (options) {
         that.chart_height = that.chart_width;
         that.reducedWidth = that.chart_width - that.chart_margin_left - that.chart_margin_right;
         that.reducedHeight = that.chart_height - that.chart_margin_top - that.chart_margin_bottom;
-
+        that.axis_x_pointer_padding = (that.reducedHeight/2) + 10;
+        that.axis_x_title_padding = that.axis_x_pointer_padding;
+        that.axis_y_pointer_padding = (that.reducedWidth/2) + 10;
+        that.axis_y_title_padding = that.axis_y_pointer_padding;
+        
         that.executeData = function (data) {
             var validate = that.k.validator().validatingJSON(data),
                 id = that.selector.substring(1,that.selector.length);
@@ -66,7 +71,8 @@ PykCharts.multiD.simple2x2 = function (options) {
             that.optionalFeatures()
                 .svgContainer(container_id)
                 .createChart()
-                .axisContainer();
+                .axisContainer()
+                .label();
 
             that.k/*.liveData(that)*/
                 .tooltip()
@@ -84,7 +90,8 @@ PykCharts.multiD.simple2x2 = function (options) {
             that.optionalFeatures()
                 .svgContainer(container_id)
                 .createChart()
-                .axisContainer();
+                .axisContainer()
+                .labels();
 
             that.k.createFooter()
                 .credits()
@@ -99,6 +106,7 @@ PykCharts.multiD.simple2x2 = function (options) {
 
         that.xGroup.attr("transform","translate("+that.chart_margin_left+"," + (that.chart_margin_top + that.reducedHeight/2) + ")");
         that.yGroup.attr("transform","translate(" + (that.chart_margin_left + that.reducedWidth/2) + ","+ that.chart_margin_top +")");
+        
 
         that.k.exportSVG(that,"#"+container_id,"simple2x2Chart");
 
@@ -158,7 +166,7 @@ PykCharts.multiD.simple2x2 = function (options) {
 
                 if(that.axis_y_data_format === "string") {
                     y_data = ["Low", "High"];
-                    y_range = [0,that.reducedHeight];
+                    y_range = [that.reducedHeight, 0];
                     that.yScale = that.k.scaleIdentification("ordinal",y_data,y_range,0.3);
                     that.extra_top_margin = (that.yScale.rangeBand() / 2);
                 }
@@ -172,6 +180,62 @@ PykCharts.multiD.simple2x2 = function (options) {
 
                 that.x_domain = that.xScale.domain();
                 that.y_domain = that.yScale.domain();
+
+                return this;
+            },
+            label: function () {
+                var x_position, y_position=300;
+                that.chart_label = that.group.selectAll(".simple2x2-label")
+                    .data(that.data);
+
+                that.chart_label.enter()
+                    .append("text");
+
+                that.chart_label.attr("class","simple2x2-label")
+                    .text("");
+
+                that.chart_label.text(function (d) {
+                    return d.tooltip;
+                })
+                .style("visibility","hidden")
+                .attr({
+                    "x": function (d) {
+                        switch (d.group) {
+                            case 1: x_position = that.chart_margin_left + (3*(that.reducedWidth/4)) - (this.getBBox().width/2);
+                                    break;
+                            case 2: x_position = that.chart_margin_left + (that.reducedWidth/4) - (this.getBBox().width/2);
+                                    break;
+                            case 3: x_position = that.chart_margin_left + (that.reducedWidth/4) - (this.getBBox().width/2);
+                                    break;
+                            case 4: x_position = that.chart_margin_left + (3*(that.reducedWidth/4)) - (this.getBBox().width/2);
+                                    break;
+                        }
+                        return x_position;
+                    },
+                    "y": function (d) {
+                        switch (d.group) {
+                            case 1: y_position = that.chart_margin_top + (that.reducedHeight/4) + (this.getBBox().height/3);
+                                    break;
+                            case 2: y_position = that.chart_margin_top + (that.reducedHeight/4) + (this.getBBox().height/3);
+                                    break;
+                            case 3: y_position = that.chart_margin_top + (3*(that.reducedHeight/4)) + (this.getBBox().height/3);
+                                    break;
+                            case 4: y_position = that.chart_margin_top + (3*(that.reducedHeight/4)) + (this.getBBox().height/3);
+                                    break;
+                        }
+                        return y_position;
+                    },
+                    "fill": that.label_color
+                })
+                .style({
+                    "font-weight": that.label_weight,
+                    "font-size": that.label_size + "px",
+                    "font-family": that.label_family,
+                    "visibility": "visible"                    
+                });
+
+                that.chart_label.exit()
+                    .remove();
 
                 return this;
             }
