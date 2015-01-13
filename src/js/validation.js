@@ -19,7 +19,7 @@ PykCharts.validation.processInputs = function (chartObject, options, chart_type)
         }
         chartObject.data_source_name = options.data_source_name ? options.data_source_name : "";
         chartObject.data_source_url = options.data_source_url ? options.data_source_url : "";
-
+        chartObject.default_color = stylesheet.chart_color;
     // console.log("heyyyyyyyyyyyyyyyyyyyyheyyyyyyyyyyyyyyyyyyyy")
     var config_param_info = [
     	{	
@@ -724,7 +724,7 @@ PykCharts.validation.processInputs = function (chartObject, options, chart_type)
     function findInObject(value) {
         return value in options;
     }
-    console.log(chartObject.chart_color)
+    // console.log(chartObject.chart_color)
     chartObject.k = new PykCharts.Configuration(chartObject);
     return chartObject;
 }
