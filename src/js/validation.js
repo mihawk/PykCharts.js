@@ -6,7 +6,8 @@ PykCharts.validation.processInputs = function (chartObject, options, chart_type)
 	    , stylesheet = theme.stylesheet
 	    , functionality = theme.functionality
 	    , oneDimensionalCharts = theme.oneDimensionalCharts        
-	    , multiDimensionalCharts = theme.multiDimensionalCharts;
+	    , multiDimensionalCharts = theme.multiDimensionalCharts
+        , mapsTheme = theme.mapsTheme;
 
         chartObject.title_text = options.title_text;
         chartObject.subtitle_text = options.subtitle_text;

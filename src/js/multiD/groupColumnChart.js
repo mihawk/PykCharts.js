@@ -4,7 +4,6 @@ PykCharts.multiD.groupedColumn = function(options) {
 
     this.execute = function () {
         that = new PykCharts.validation.processInputs(that, options, 'multiDimensionalCharts');
-        console.log(that.chart_color)
         PykCharts.scaleFunction(that);
         PykCharts.grid(that);
         if(that.stop){
