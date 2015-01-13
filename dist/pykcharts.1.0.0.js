@@ -64,15 +64,17 @@ PykCharts.Configuration = function (options){
             var label,prefix,suffix;
                 prefix = options.units_prefix,
                 suffix = options.units_suffix;
-                if(prefix && prefix !== "") {
+                if(prefix) {
                     label = prefix + " " + text;
                     if(suffix) {
                         label += " " + suffix;
                     }
-                } else if(suffix && suffix !== "") {
+                } else if(suffix) {
                     label = text + " " + suffix;
                 }
-                label = text;
+                // console.log(text)
+                // console.log(text,"text")
+                // label = text;
             return label;
         },
         title: function () {
@@ -978,6 +980,7 @@ PykCharts.Configuration = function (options){
         validator: function () {
             var validator = {
                 validatingSelector: function (selector) {
+                    selector = selector.substring(1,selector.length);
                     try {
                         if(!document.getElementById(selector)) {
                             options.stop = true;
@@ -1503,7 +1506,6 @@ configuration.Theme = function(){
         "mode": "default",
         "selector": "",
         "is_interactive": "yes",
-
         "chart_height": 400,
         "chart_width": 600,
         "chart_margin_top": 35,
@@ -1511,6 +1513,7 @@ configuration.Theme = function(){
         "chart_margin_bottom": 35,
         "chart_margin_left": 50,
 
+        "title_text": "",
         "title_size": 15,
         "title_color": "#1D1D1D",
         "title_weight": "bold",
@@ -1588,7 +1591,8 @@ configuration.Theme = function(){
         "credit_my_site_name": "Pykih",
         "credit_my_site_url": "http://www.pykih.com",
         "chart_onhover_highlight_enable": "yes",
-
+        "units_prefix": false,
+        "units_suffix":false
     };
 
     that.functionality = {
@@ -1735,77 +1739,584 @@ configuration.Theme = function(){
     };
     return that;
 }
+PykCharts.validation = {};
 PykCharts.oneD = {};
-PykCharts.oneD.processInputs = function (chartObject, options) {
+PykCharts.other = {};
+PykCharts.multiD = {};
+PykCharts.validation.processInputs = function (chartObject, options, chart_type) {
     var theme = new PykCharts.Configuration.Theme({})
-        , stylesheet = theme.stylesheet
-        , functionality = theme.functionality
-        , oneDimensionalCharts = theme.oneDimensionalCharts;
+	    , stylesheet = theme.stylesheet
+	    , functionality = theme.functionality
+	    , oneDimensionalCharts = theme.oneDimensionalCharts        
+	    , multiDimensionalCharts = theme.multiDimensionalCharts;
 
-    chartObject.selector = options.selector ? options.selector : stylesheet.selector;
-    chartObject.chart_width = options.chart_width  ? options.chart_width : stylesheet.chart_width;
-    chartObject.is_interactive = options.is_interactive ? options.is_interactive.toLowerCase(): oneDimensionalCharts.is_interactive;
-
-    chartObject.mode = options.mode ? options.mode.toLowerCase(): stylesheet.mode;
-
-    if (options &&  PykCharts['boolean'] (options.title_text)) {
         chartObject.title_text = options.title_text;
-        chartObject.title_size = "title_size" in options ? options.title_size : stylesheet.title_size;
-        chartObject.title_color = options.title_color ? options.title_color : stylesheet.title_color;
-        chartObject.title_weight = options.title_weight ? options.title_weight.toLowerCase() : stylesheet.title_weight;
-        chartObject.title_family = options.title_family ? options.title_family.toLowerCase() : stylesheet.title_family;
-    } else {
-        chartObject.title_size = stylesheet.title_size;
-        chartObject.title_color = stylesheet.title_color;
-        chartObject.title_weight = stylesheet.title_weight;
-        chartObject.title_family = stylesheet.title_family;
-    }
-
-    if (options && PykCharts['boolean'](options.subtitle_text)) {
         chartObject.subtitle_text = options.subtitle_text;
-        chartObject.subtitle_size = "subtitle_size" in options ? options.subtitle_size : stylesheet.subtitle_size;
-        chartObject.subtitle_color = options.subtitle_color ? options.subtitle_color : stylesheet.subtitle_color;
-        chartObject.subtitle_weight = options.subtitle_weight ? options.subtitle_weight.toLowerCase() : stylesheet.subtitle_weight;
-        chartObject.subtitle_family = options.subtitle_family ? options.subtitle_family.toLowerCase() : stylesheet.subtitle_family;
-    } else {
-        chartObject.subtitle_size = stylesheet.subtitle_size;
-        chartObject.subtitle_color = stylesheet.subtitle_color;
-        chartObject.subtitle_weight = stylesheet.subtitle_weight;
-        chartObject.subtitle_family = stylesheet.subtitle_family;
-    }
-    chartObject.real_time_charts_refresh_frequency = options.real_time_charts_refresh_frequency ? options.real_time_charts_refresh_frequency : functionality.real_time_charts_refresh_frequency;
-    chartObject.real_time_charts_last_updated_at_enable = options.real_time_charts_last_updated_at_enable ? options.real_time_charts_last_updated_at_enable.toLowerCase() : functionality.real_time_charts_last_updated_at_enable;
+        if(options.credit_my_site_name || options.credit_my_site_url) {
+            chartObject.credit_my_site_name = options.credit_my_site_name ? options.credit_my_site_name : "";
+            chartObject.credit_my_site_url = options.credit_my_site_url ? options.credit_my_site_url : "";
+        } else {
+            chartObject.credit_my_site_name = stylesheet.credit_my_site_name;
+            chartObject.credit_my_site_url = stylesheet.credit_my_site_url;
+        }
+        chartObject.data_source_name = options.data_source_name ? options.data_source_name : "";
+        chartObject.data_source_url = options.data_source_url ? options.data_source_url : "";
 
-    if(options.credit_my_site_name || options.credit_my_site_url) {
-        chartObject.credit_my_site_name = options.credit_my_site_name ? options.credit_my_site_name : "";
-        chartObject.credit_my_site_url = options.credit_my_site_url ? options.credit_my_site_url : "";
-    } else {
-        chartObject.credit_my_site_name = stylesheet.credit_my_site_name;
-        chartObject.credit_my_site_url = stylesheet.credit_my_site_url;
-    }
-    chartObject.data_source_name = options.data_source_name ? options.data_source_name : "";
-    chartObject.data_source_url = options.data_source_url ? options.data_source_url : "";
+    var config_param_info = [
+    	{	
+    		'config_name': 'selector',
+    		'default_value': stylesheet,
+    		'validation_type': 'validatingSelector',
+            'all': true
+    	},
+    	{
+    		'config_name': 'mode',
+    		'default_value': stylesheet,
+    		'validation_type': 'validatingChartMode',
+            'condition2': convertToLowerCase,
+            'oneDimensionalCharts': true,
+            'multiDimensionalCharts':true,
+            'other': true
+    	},
+    	{
+    		'config_name': 'chart_color',
+    		'default_value': stylesheet,
+    		'validation_type': 'isArray',
+            'all': true
+    	},
+    	{
+    		'config_name': 'chart_width',
+    		'default_value': stylesheet,
+    		'validation_type': 'validatingDataType',
+            'all_charts':true
+    	},
+        {
+            'config_name': 'title_size',
+            'default_value': stylesheet,
+            'validation_type': 'validatingDataType',
+            'all_charts':true
+            
+        },
+        {
+            'config_name': 'subtitle_size',
+            'default_value': stylesheet,
+            'validation_type': 'validatingDataType',
+            'condition1': findInObject,
+            'all_charts':true
+        },
+        {
+            'config_name': 'border_between_chart_elements_thickness',
+            'default_value': stylesheet,
+            'validation_type': 'validatingDataType',
+            'condition1': findInObject,
+            'all_charts':true
+        },
+        {
+            'config_name': 'label_size',
+            'default_value': stylesheet,
+            'validation_type': 'validatingDataType',
+            'condition1': findInObject
+        },
+        {
+            'config_name': 'pointer_thickness',
+            'default_value': stylesheet,
+            'validation_type': 'validatingDataType',
+            'condition1': findInObject
+        },
+        {
+            'config_name': 'pointer_size',
+            'default_value': stylesheet,
+            'validation_type': 'validatingDataType',
+            'condition1': findInObject
+        },
+        {
+            'config_name': 'axis_x_title_size',
+            'default_value': stylesheet,
+            'validation_type': 'validatingDataType',
+            'condition1': findInObject
+        },
+        {
+            'config_name': 'axis_y_title_size',
+            'default_value': multiDimensionalCharts,
+            'validation_type': 'validatingDataType',
+            'condition1': findInObject
+        },
+        {
+            'config_name': 'legends_text_size',
+            'default_value': stylesheet,
+            'validation_type': 'validatingDataType',
+            'condition1': findInObject
+        },
+        {
+            'config_name': 'axis_x_pointer_size',
+            'default_value': stylesheet,
+            'validation_type': 'validatingDataType',
+            'condition1': findInObject
+        },
+        {
+            'config_name': 'axis_y_pointer_size',
+            'default_value': multiDimensionalCharts,
+            'validation_type': 'validatingDataType',
+            'condition1': findInObject
+        },
+        {
+            'config_name': 'axis_x_pointer_length',
+            'default_value': stylesheet,
+            'validation_type': 'validatingDataType',
+            'condition1': findInObject
+        },
+        {
+            'config_name': 'axis_y_pointer_length',
+            'default_value': multiDimensionalCharts,
+            'validation_type': 'validatingDataType',
+            'condition1': findInObject
+        },
+        {
+            'config_name': 'axis_x_outer_pointer_length',
+            'default_value': stylesheet,
+            'validation_type': 'validatingDataType',
+            'condition1': findInObject
+        },
+        {
+            'config_name': 'axis_y_outer_pointer_length',
+            'default_value': multiDimensionalCharts,
+            'validation_type': 'validatingDataType',
+            'condition1': findInObject
+        },
+        {
+            'config_name': 'real_time_charts_refresh_frequency',
+            'default_value': functionality,
+            'validation_type': 'validatingDataType'
+        },
+        {
+            'config_name': 'transition_duration',
+            'default_value': functionality,
+            'validation_type': 'validatingDataType'
+        },
+        {
+            'config_name': 'clubdata_maximum_nodes',
+            'default_value': oneDimensionalCharts,
+            'validation_type': 'validatingDataType'
+        },
+        {
+            'config_name': 'title_weight',
+            'default_value': stylesheet,
+            'validation_type': 'validatingFontWeight',
+            'condition2' : convertToLowerCase
+        },
+        {
+            'config_name': 'subtitle_weight',
+            'default_value': stylesheet,
+            'validation_type': 'validatingFontWeight',
+            'condition2' : convertToLowerCase
+        },
+        {
+            'config_name': 'pointer_weight',
+            'default_value': stylesheet,
+            'validation_type': 'validatingFontWeight',
+            'condition2' : convertToLowerCase
+        },
+        {
+            'config_name': 'label_weight',
+            'default_value': stylesheet,
+            'validation_type': 'validatingFontWeight',
+            'condition2' : convertToLowerCase
+        },
+        {
+            'config_name': 'background_color',
+            'default_value': stylesheet,
+            'validation_type': 'validatingColor'
+        },
+        {
+            'config_name': 'title_color',
+            'default_value': stylesheet,
+            'validation_type': 'validatingColor'
+        },
+        {
+            'config_name': 'subtitle_color',
+            'default_value': stylesheet,
+            'validation_type': 'validatingColor'
+        },
+        {
+            'config_name': 'highlight_color',
+            'default_value': stylesheet,
+            'validation_type': 'validatingColor'
+        },
+        {
+            'config_name': 'label_color',
+            'default_value': stylesheet,
+            'validation_type': 'validatingColor'
+        },
+        {
+            'config_name': 'pointer_color',
+            'default_value': stylesheet,
+            'validation_type': 'validatingColor'
+        },
+        {
+            'config_name': 'border_between_chart_elements_color',
+            'default_value': stylesheet,
+            'validation_type': 'validatingColor'
+        },
+        {
+            'config_name': 'axis_x_pointer_values',
+            'default_value': stylesheet,
+            'validation_type': 'isArray'
+        },
+        {
+            'config_name': 'axis_y_pointer_values',
+            'default_value': multiDimensionalCharts,
+            'validation_type': 'isArray'
+        },
+        {
+            'config_name': 'axis_x_time_value_datatype',
+            'default_value': stylesheet,
+            'validation_type': 'validatingTimeScaleDataType'
+        },
+        {
+            'config_name': 'axis_y_time_value_datatype',
+            'default_value': multiDimensionalCharts,
+            'validation_type': 'validatingTimeScaleDataType'
+        },
+        {
+            'config_name': 'chart_height',
+            'default_value': stylesheet,
+            'validation_type': 'validatingDataType'
+        },
+        {
+            'config_name': 'chart_margin_left',
+            'default_value': stylesheet,
+            'validation_type': 'validatingDataType'
+        },
+        {
+            'config_name': 'chart_margin_right',
+            'default_value': stylesheet,
+            'validation_type': 'validatingDataType'
+        },
+        {
+            'config_name': 'chart_margin_top',
+            'default_value': stylesheet,
+            'validation_type': 'validatingDataType'
+        },
+        {
+            'config_name': 'chart_margin_bottom',
+            'default_value': stylesheet,
+            'validation_type': 'validatingDataType'
+        },
+        {
+            'config_name': 'zoom_level',
+            'default_value': multiDimensionalCharts,
+            'validation_type': 'validatingDataType'
+        },
+        {
+            'config_name': 'axis_x_pointer_padding',
+            'default_value': stylesheet,
+            'validation_type': 'validatingDataType'
+        },
+        {
+            'config_name': 'axis_y_pointer_padding',
+            'default_value': multiDimensionalCharts,
+            'validation_type': 'validatingDataType'
+        },
+        {
+            'config_name': 'axis_x_no_of_axis_value',
+            'default_value': stylesheet,
+            'validation_type': 'validatingDataType'
+        },
+        {
+            'config_name': 'axis_y_no_of_axis_value',
+            'default_value': multiDimensionalCharts,
+            'validation_type': 'validatingDataType'
+        },
+        {
+            'config_name': 'axis_x_time_value_interval',
+            'default_value': stylesheet,
+            'validation_type': 'validatingDataType'
+        },
+        {
+            'config_name': 'axis_y_time_value_interval',
+            'default_value': multiDimensionalCharts,
+            'validation_type': 'validatingDataType'
+        },
+        {
+            'config_name': 'legends_text_color',
+            'default_value': stylesheet,
+            'validation_type': 'validatingColor'
+        },
+        {
+            'config_name': 'axis_x_pointer_color',
+            'default_value': stylesheet,
+            'validation_type': 'validatingColor'
+        },
+        {
+            'config_name': 'axis_y_pointer_color',
+            'default_value': multiDimensionalCharts,
+            'validation_type': 'validatingColor'
+        },
+        {
+            'config_name': 'axis_x_title_color',
+            'default_value': stylesheet,
+            'validation_type': 'validatingColor'
+        },
+        {
+            'config_name': 'axis_y_title_color',
+            'default_value': multiDimensionalCharts,
+            'validation_type': 'validatingColor'
+        },
+        {
+            'config_name': 'axis_x_line_color',
+            'default_value': stylesheet,
+            'validation_type': 'validatingColor'
+        },
+        {
+            'config_name': 'axis_y_line_color',
+            'default_value': multiDimensionalCharts,
+            'validation_type': 'validatingColor'
+        },
+        {
+            'config_name': 'annotation_font_color',
+            'default_value': multiDimensionalCharts,
+            'validation_type': 'validatingColor'
+        },
+        {
+            'config_name': 'annotation_background_color',
+            'default_value': multiDimensionalCharts,
+            'validation_type': 'validatingColor'
+        },
+        {
+            'config_name': 'chart_grid_color',
+            'default_value': multiDimensionalCharts,
+            'validation_type': 'validatingColor'
+        },
+        {
+            'config_name': 'legends_display',
+            'default_value': stylesheet,
+            'validation_type': 'validatingLegendsPosition'
+        },
+        {
+            'config_name': 'tooltip_mode',
+            'default_value': stylesheet,
+            'validation_type': 'validatingTooltipMode'
+        },
+        {
+            'config_name': 'legends_text_weight',
+            'default_value': stylesheet,
+            'validation_type': 'validatingFontWeight',
+            'condition2' : convertToLowerCase
+        },
+        {
+            'config_name': 'axis_y_pointer_weight',
+            'default_value': multiDimensionalCharts,
+            'validation_type': 'validatingFontWeight',
+            'condition2' : convertToLowerCase
+        },
+        {
+            'config_name': 'axis_x_pointer_weight',
+            'default_value': stylesheet,
+            'validation_type': 'validatingFontWeight',
+            'condition2' : convertToLowerCase
+        },
+        {
+            'config_name': 'axis_y_title_weight',
+            'default_value': multiDimensionalCharts,
+            'validation_type': 'validatingFontWeight',
+            'condition2' : convertToLowerCase
+        },
+        {
+            'config_name': 'axis_x_title_weight',
+            'default_value': stylesheet,
+            'validation_type': 'validatingFontWeight',
+            'condition2' : convertToLowerCase
+        },
+        {
+            'config_name': 'axis_y_position',
+            'default_value': multiDimensionalCharts,
+            'validation_type': 'validatingYAxisPointerPosition'
+        },
+        {
+            'config_name': 'axis_x_position',
+            'default_value': stylesheet,
+            'validation_type': 'validatingXAxisPointerPosition',
+            'condition2': convertToLowerCase
+        },
+        {
+            'config_name': 'axis_y_pointer_position',
+            'default_value': multiDimensionalCharts,
+            'validation_type': 'validatingYAxisPointerPosition',
+            'condition2': convertToLowerCase
+        },
+        {
+            'config_name': 'axis_x_pointer_position',
+            'default_value': stylesheet,
+            'validation_type': 'validatingXAxisPointerPosition',
+            'condition2': convertToLowerCase
+        },
+        {
+            'config_name': 'color_mode',
+            'default_value': stylesheet,
+            'validation_type': 'validatingColorMode',
+            'condition2': convertToLowerCase
+        },
+        {
+            'config_name': 'border_between_chart_elements_style',
+            'default_value': stylesheet,
+            'condition2': convertToLowerCase
+        },
+        {
+            'config_name':'highlight',
+            'default_value': stylesheet
+        },
+        {
+            'config_name': 'clubdata_text',
+            'default_value':oneDimensionalCharts,
+            'oneDimensionalCharts': true
+        }
+    ];
+    chartObject.k = new PykCharts.Configuration(chartObject);
+    var validator = chartObject.k.validator();
 
-    chartObject.clubdata_enable = options.clubdata_enable ? options.clubdata_enable.toLowerCase() : oneDimensionalCharts.clubdata_enable;
-    chartObject.clubdata_text = PykCharts['boolean'](chartObject.clubdata_enable) && options.clubdata_text ? options.clubdata_text : oneDimensionalCharts.clubdata_text;
-    chartObject.clubdata_maximum_nodes = PykCharts['boolean'](chartObject.clubdata_enable) && options.clubdata_maximum_nodes ? options.clubdata_maximum_nodes : oneDimensionalCharts.clubdata_maximum_nodes;
+    for (var i=0,config_length=config_param_info.length; i<config_length; i++) {
+        var config = config_param_info[i];
+            var config_name = config.config_name
+            , default_value = config.default_value[config_name]
+            , condition1 = !config.condition1 ? options[config_name] : config.condition1(config_name);
+            // console.log(config_name,"config_name");
+            if(options[config_name]) {
+                var condition2  = !config.condition2 ? options[config_name] : config.condition2(options[config_name]);
+            }
+            chartObject[config_name] = condition1 ? condition2 : default_value;
+            if(config.validation_type) {
+                // console.log(validator[config.validation_type],"testing",config.validation_type)
+                validator[config.validation_type](chartObject[config_name],config_name,default_value);
+            }
+            // console.log(validator["validatingXAxisPointerPosition"])
+            // console.log(config_name,chartObject[config_name],config_length,i)
+    }
+    var enable_config_param = [
+        {   
+            'config_name': 'tooltip_enable',
+            'default_value': stylesheet,
+            'all_charts': true
+        },
+        {
+            'config_name': 'is_interactive',
+            'default_value': stylesheet,
+            'all_charts': true
+        },
+        {   
+            'config_name': 'export_enable',
+            'default_value': stylesheet,
+            'all_charts': true
+        },
+        {   
+            'config_name': 'real_time_charts_last_updated_at_enable',
+            'default_value': functionality,
+            'all_charts': true
+        },
+        {   
+            'config_name': 'clubdata_enable',
+            'default_value': oneDimensionalCharts,
+            'oneDimensionalCharts': true
+        },
+        {   
+            'config_name': 'pointer_overflow_enable',
+            'default_value': oneDimensionalCharts,
+            'oneDimensionalCharts': true
+        },
+        {
+            'config_name': 'chart_onhover_highlight_enable',
+            'default_value': stylesheet,
+            'all_charts': true
+        },
+        {
+            'config_name': 'chart_grid_x_enable',
+            'default_value': multiDimensionalCharts,
+            'multiDimensionalCharts': true
+        },
+        {
+            'config_name': 'chart_grid_y_enable',
+            'default_value': multiDimensionalCharts,
+            'multiDimensionalCharts': true
+        },
+        {
+            'config_name':'axis_x_enable',
+            'default_value': stylesheet
+        },
+        {
+            'config_name': 'axis_y_enable',
+            'default_value': multiDimensionalCharts
+        },
+        {
+            'config_name': 'axis_onhover_highlight_enable',
+            'default_value': multiDimensionalCharts,
+            'multiDimensionalCharts': true
+        },
+        {
+            'config_name': 'zoom_enable',
+            'default_value': multiDimensionalCharts
+        },
+        {
+            'config_name': 'annotation_enable',
+            'default_value': multiDimensionalCharts
+        },
+        {
+            'config_name': 'legends_enable',
+            'default_value': stylesheet
+        },
+        {
+            'config_name': 'variable_circle_size_enable',
+            'default_value': multiDimensionalCharts
+        },
+        {
+            'config_name': 'title_family',
+            'default_value':stylesheet,
+            'all_charts':true
+        },
+        {
+            'config_name': 'subtitle_family',
+            'default_value':stylesheet,
+            'all_charts':true
+        },
+        {
+            'config_name': 'pointer_family',
+            'default_value':stylesheet,
+            'oneDimensionalCharts':true,
+            'multiDimensionalCharts':true
+        },
+        {
+            'config_name': 'title_family',
+            'default_value':stylesheet,
+            'all_charts':true
+        },
+        {
+            'config_name': 'label_family',
+            'default_value':stylesheet,
+            'all_charts':true
+        },
+        {
+            'config_name': 'units_suffix',
+            'default_value':stylesheet,
+            'oneDimensionalCharts':true
+        },
+        {
+            'config_name': 'units_prefix',
+            'default_value':stylesheet,
+            'oneDimensionalCharts':true
+        }
+    ];
+
+
+    for (var i = 0, len = enable_config_param.length; i<len; i++) {
+        var config = enable_config_param[i];
+        if(config[chart_type] || config.all_charts) {
+            var config_name = config.config_name;
+            var default_value = config.default_value[config_name];
+            chartObject[config_name] = options[config_name] ? options[config_name] : default_value;
+            console.log(config_name,chartObject[config_name])
+        }
+    }
+
     chartObject.clubdata_always_include_data_points = PykCharts['boolean'](chartObject.clubdata_enable) && options.clubdata_always_include_data_points ? options.clubdata_always_include_data_points : [];
 
-    chartObject.transition_duration = options.transition_duration ? options.transition_duration : functionality.transition_duration;
-    chartObject.pointer_overflow_enable = options.pointer_overflow_enable ? options.pointer_overflow_enable.toLowerCase() : stylesheet.pointer_overflow_enable;
-
-    chartObject.background_color = options.background_color ? options.background_color : stylesheet.background_color;
-
-    chartObject.chart_color = options.chart_color  ? options.chart_color : stylesheet.chart_color;
-    chartObject.highlight_color = options.highlight_color ? options.highlight_color : stylesheet.highlight_color;
-
-    chartObject.fullscreen_enable = options.fullscreen_enable ? options.fullscreen_enable : stylesheet.fullscreen_enable;
-    chartObject.loading_type = options.loading_type ? options.loading_type : stylesheet.loading_type;
-    chartObject.loading_source = options.loading_source ? options.loading_source : stylesheet.loading_source;
-    chartObject.tooltip_enable = options.tooltip_enable ? options.tooltip_enable.toLowerCase() : stylesheet.tooltip_enable;
-    chartObject.border_between_chart_elements_thickness = "border_between_chart_elements_thickness" in options ? options.border_between_chart_elements_thickness : stylesheet.border_between_chart_elements_thickness;
-    chartObject.border_between_chart_elements_color = options.border_between_chart_elements_color ? options.border_between_chart_elements_color : stylesheet.border_between_chart_elements_color;
-    chartObject.border_between_chart_elements_style = options.border_between_chart_elements_style ? options.border_between_chart_elements_style.toLowerCase() : stylesheet.border_between_chart_elements_style;
     switch(chartObject.border_between_chart_elements_style) {
         case "dotted" : chartObject.border_between_chart_elements_style = "1,3";
                         break;
@@ -1814,67 +2325,30 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
         default : chartObject.border_between_chart_elements_style = "0";
                   break;
     }
-    chartObject.highlight = options.highlight ? options.highlight : stylesheet.highlight;
 
-    chartObject.label_size = "label_size" in options ? options.label_size : stylesheet.label_size;
-    chartObject.label_color = options.label_color ? options.label_color : stylesheet.label_color;
-    chartObject.label_weight = options.label_weight ? options.label_weight.toLowerCase() : stylesheet.label_weight;
-    chartObject.label_family = options.label_family ? options.label_family.toLowerCase() : stylesheet.label_family;
+    function convertToLowerCase(value) {
+        return value.toLowerCase();
+    }                  
 
-    chartObject.pointer_thickness = "pointer_thickness" in options ? options.pointer_thickness : stylesheet.pointer_thickness;
-    chartObject.pointer_size = "pointer_size" in options ? options.pointer_size : stylesheet.pointer_size;
-    chartObject.pointer_color = options.pointer_color ? options.pointer_color : stylesheet.pointer_color;
-    chartObject.pointer_family = options.pointer_family ? options.pointer_family.toLowerCase() : stylesheet.pointer_family;
-    chartObject.pointer_weight = options.pointer_weight ? options.pointer_weight.toLowerCase() : stylesheet.pointer_weight;
+    function findInObject(value) {
+        return value in options;
+    }
 
-    chartObject.units_prefix = options.units_prefix ? options.units_prefix : false;
-    chartObject.units_suffix = options.units_suffix ? options.units_suffix : false;
-
-    chartObject.chart_onhover_highlight_enable = options.chart_onhover_highlight_enable ? options.chart_onhover_highlight_enable : stylesheet.chart_onhover_highlight_enable;
-    
-    chartObject.export_enable = options.export_enable ? options.export_enable.toLowerCase() : stylesheet.export_enable;
     chartObject.k = new PykCharts.Configuration(chartObject);
 
-    chartObject.k.validator().validatingSelector(chartObject.selector.substring(1,chartObject.selector.length))
-        .isArray(chartObject.chart_color,"chart_color")
-        .isArray(chartObject.clubdata_always_include_data_points)
-        .validatingChartMode(chartObject.mode,"mode",stylesheet.mode)
-        .validatingDataType(chartObject.chart_width,"chart_width",stylesheet.chart_width)
-        .validatingDataType(chartObject.title_size,"title_size",stylesheet.title_size)
-        .validatingDataType(chartObject.subtitle_size,"subtitle_size",stylesheet.subtitle_size)
-        .validatingDataType(chartObject.real_time_charts_refresh_frequency,"real_time_charts_refresh_frequency",functionality.real_time_charts_refresh_frequency)
-        .validatingDataType(chartObject.transition_duration,"transition_duration",functionality.transition_duration)
-        .validatingDataType(chartObject.border_between_chart_elements_thickness,"border_between_chart_elements_thickness",stylesheet.border_between_chart_elements_thickness)
-        .validatingDataType(chartObject.label_size,"label_size",stylesheet.label_size)
-        .validatingDataType(chartObject.pointer_thickness,"pointer_thickness",stylesheet.pointer_thickness)
-        .validatingDataType(chartObject.pointer_size,"pointer_size",stylesheet.pointer_size)
-        .validatingDataType(chartObject.clubdata_maximum_nodes,"clubdata_maximum_nodes",oneDimensionalCharts.clubdata_maximum_nodes)
-        .validatingFontWeight(chartObject.title_weight,"title_weight",stylesheet.title_weight)
-        .validatingFontWeight(chartObject.subtitle_weight,"subtitle_weight",stylesheet.subtitle_weight)
-        .validatingFontWeight(chartObject.pointer_weight,"pointer_weight",stylesheet.pointer_weight)
-        .validatingFontWeight(chartObject.label_weight,"label_weight",stylesheet.label_weight)
-        .validatingColor(chartObject.background_color,"background_color",stylesheet.background_color)
-        .validatingColor(chartObject.title_color,"title_color",stylesheet.title_color)
-        .validatingColor(chartObject.subtitle_color,"subtitle_color",stylesheet.subtitle_color)
-        .validatingColor(chartObject.highlight_color,"highlight_color",stylesheet.highlight_color)
-        .validatingColor(chartObject.label_color,"label_color",stylesheet.label_color)
-        .validatingColor(chartObject.pointer_color,"pointer_color",stylesheet.pointer_color)
-        .validatingColor(chartObject.border_between_chart_elements_color,"border_between_chart_elements_color",stylesheet.border_between_chart_elements_color);
-        
-        if(chartObject.chart_color.constructor === Array) {
-            if(chartObject.chart_color[0]) {
-                chartObject.k.validator()
-                    .validatingColor(chartObject.chart_color[0],"chart_color",stylesheet.chart_color);
-            }
+    if(chartObject.chart_color.constructor === Array) {
+        if(chartObject.chart_color[0]) {
+            chartObject.k.validator()
+                .validatingColor(chartObject.chart_color[0],"chart_color",stylesheet.chart_color);
         }
+    }
     return chartObject;
-};
-
+}
 PykCharts.oneD.bubble = function (options) {
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
     this.execute = function () {
-        that = PykCharts.oneD.processInputs(that, options);
+        that = new PykCharts.validation.processInputs(that, options,'oneDimensionalCharts');
         that.chart_height = options.chart_height ? options.chart_height : that.chart_width;
 
         that.k.validator()
@@ -1922,12 +2396,15 @@ PykCharts.oneD.bubble = function (options) {
     };
 
     this.render = function () {
+
         var id = that.selector.substring(1,that.selector.length);
         var container_id = id + "_svg";
+
         that.fillChart = new PykCharts.Configuration.fillChart(that);
         that.transitions = new PykCharts.Configuration.transition(that);
-
+                        console.log("before",that.mode);   
         if (that.mode ==="default") {
+
             that.k.title()
                 .backgroundColor(that)
                 .export(that,"#"+container_id,"bubble")
@@ -1935,6 +2412,7 @@ PykCharts.oneD.bubble = function (options) {
                 .subtitle();
 
             that.new_data = that.optionalFeatures().clubData();
+
             that.optionalFeatures().svgContainer(container_id)
                 .createChart()
                 .label();
@@ -1985,7 +2463,6 @@ PykCharts.oneD.bubble = function (options) {
                 return this;
             },
             createChart : function () {
-
                 var bubble = d3.layout.pack()
                     .sort(function (a,b) { return b.weight - a.weight; })
                     .size([that.chart_width, that.chart_height])
@@ -2224,7 +2701,7 @@ PykCharts.oneD.funnel = function (options) {
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
     this.execute = function () {
-        that = new PykCharts.oneD.processInputs(that, options);
+        that = new PykCharts.validation.processInputs(that, options, 'oneDimensionalCharts');
         that.chart_height = options.chart_height ? options.chart_height : that.chart_width;
         var optional = options.optional,
             functionality = theme.oneDimensionalCharts;
@@ -2713,7 +3190,7 @@ PykCharts.oneD.percentageColumn = function (options) {
     this.execute = function () {
         var that = this;
 
-        that = new PykCharts.oneD.processInputs(that, options, "percentageColumn");
+        that = new PykCharts.validation.processInputs(that, options, 'oneDimensionalCharts');
 
         that.chart_height = options.chart_height ? options.chart_height : that.chart_width;
         that.percent_column_rect_width = options.percent_column_rect_width ? options.percent_column_rect_width : theme.oneDimensionalCharts.percent_column_rect_width;
@@ -3169,7 +3646,7 @@ PykCharts.oneD.percentageBar = function (options) {
     this.execute = function () {
         var that = this;
 
-        that = new PykCharts.oneD.processInputs(that, options, "percentageBar");
+        that = new PykCharts.validation.processInputs(that, options,'oneDimensionalCharts');
 
         that.chart_height = options.chart_height ? options.chart_height : that.chart_width/2;
         that.percent_row_rect_height = options.percent_row_rect_height ? options.percent_row_rect_height : theme.oneDimensionalCharts.percent_row_rect_height;
@@ -3626,7 +4103,7 @@ PykCharts.oneD.pie = function (options) {
     var theme = new PykCharts.Configuration.Theme({});
 
     this.execute = function() {
-        that = new PykCharts.oneD.processInputs(that, options, "pie");
+        that = new PykCharts.validation.processInputs(that, options, "pie", 'oneDimensionalCharts');
         if(options.chart_height) {
             that.chart_height = options.chart_height;
             that.calculation = undefined;
@@ -3682,7 +4159,7 @@ PykCharts.oneD.donut = function (options) {
     var theme = new PykCharts.Configuration.Theme({});
     this.execute = function() {
 
-        that = new PykCharts.oneD.processInputs(that, options, "pie");
+        that = new PykCharts.validation.processInputs(that, options, 'oneDimensionalCharts');
         if(options.chart_height) {
             that.chart_height = options.chart_height;
             that.calculation = undefined;
@@ -3760,7 +4237,7 @@ PykCharts.oneD.electionPie = function (options) {
 
     this.execute = function() {
 
-        that = new PykCharts.oneD.processInputs(that, options, "pie");
+        that = new PykCharts.validation.processInputs(that, options, 'oneDimensionalCharts');
         that.x = true;
         if(options.chart_height || options.chart_height === undefined) {
             try {
@@ -3837,7 +4314,7 @@ PykCharts.oneD.electionDonut = function (options) {
     var theme = new PykCharts.Configuration.Theme({});
 
     this.execute = function() {
-        that = new PykCharts.oneD.processInputs(that, options, "pie");
+        that = new PykCharts.validation.processInputs(that, options, 'oneDimensionalCharts');
 
         that.x = true;
         if(options.chart_height || options.chart_height === undefined) {
@@ -4471,7 +4948,7 @@ PykCharts.oneD.pyramid = function (options) {
     var theme = new PykCharts.Configuration.Theme({});
 
 	this.execute = function () {
-        that = new PykCharts.oneD.processInputs(that, options, "pyramid");
+        that = new PykCharts.validation.processInputs(that, options, "pyramid",'oneDimensionalCharts');
         that.chart_height = options.chart_height ? options.chart_height : that.chart_width;
         that.k.validator()
             .validatingDataType(that.chart_height,"chart_height",that.chart_width);
@@ -5043,7 +5520,7 @@ PykCharts.oneD.treemap = function (options){
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
     this.execute = function (){
-        that = new PykCharts.oneD.processInputs(that, options);
+        that = new PykCharts.validation.processInputs(that, options,'oneDimensionalCharts');
         optional = options.optional;
         that.chart_height = options.chart_height ? options.chart_height : that.chart_width;
         that.k.validator()
@@ -5383,129 +5860,12 @@ PykCharts.oneD.treemap = function (options){
     };
 };
 
-PykCharts.other = {};
-
-PykCharts.other.processInputs = function (chartObject, options) {
-
-    var theme = new PykCharts.Configuration.Theme({})
-        , stylesheet = theme.stylesheet
-        , functionality = theme.functionality
-        , otherCharts = theme.otherCharts;
-
-    chartObject.selector = options.selector ? options.selector : stylesheet.selector;
-    
-    chartObject.chart_width = options.chart_width  ? options.chart_width : stylesheet.chart_width;
-
-    chartObject.mode = options.mode ? options.mode.toLowerCase(): stylesheet.mode;
-
-    chartObject.tooltip_enable = options.tooltip_enable ? options.tooltip_enable.toLowerCase() : stylesheet.tooltip_enable;
-    if (options &&  PykCharts['boolean'] (options.title_text)) {
-        chartObject.title_text = options.title_text;
-        chartObject.title_size = "title_size" in options ? options.title_size : stylesheet.title_size;
-        chartObject.title_color = options.title_color ? options.title_color.toLowerCase()  : stylesheet.title_color;
-        chartObject.title_weight = options.title_weight ? options.title_weight.toLowerCase() : stylesheet.title_weight;
-        chartObject.title_family = options.title_family ? options.title_family.toLowerCase() : stylesheet.title_family;
-    } else {
-        chartObject.title_size = stylesheet.title_size;
-        chartObject.title_color = stylesheet.title_color;
-        chartObject.title_weight = stylesheet.title_weight;
-        chartObject.title_family = stylesheet.title_family;
-    }
-
-    if (options && PykCharts['boolean'](options.subtitle_text)) {
-        chartObject.subtitle_text = options.subtitle_text;
-        chartObject.subtitle_size = "subtitle_size" in options ? options.subtitle_size : stylesheet.subtitle_size;
-        chartObject.subtitle_color = options.subtitle_color ? options.subtitle_color : stylesheet.subtitle_color;
-        chartObject.subtitle_weight = options.subtitle_weight ? options.subtitle_weight.toLowerCase() : stylesheet.subtitle_weight;
-        chartObject.subtitle_family = options.subtitle_family ? options.subtitle_family.toLowerCase() : stylesheet.subtitle_family;
-    } else {
-        chartObject.subtitle_size = stylesheet.subtitle_size;
-        chartObject.subtitle_color = stylesheet.subtitle_color;
-        chartObject.subtitle_weight = stylesheet.subtitle_weight;
-        chartObject.subtitle_family = stylesheet.subtitle_family;
-    }
-
-    if(options.credit_my_site_name || options.credit_my_site_url) {
-        chartObject.credit_my_site_name = options.credit_my_site_name ? options.credit_my_site_name : "";
-        chartObject.credit_my_site_url = options.credit_my_site_url ? options.credit_my_site_url : "";
-    } else {
-        chartObject.credit_my_site_name = stylesheet.credit_my_site_name;
-        chartObject.credit_my_site_url = stylesheet.credit_my_site_url;
-    }
-    chartObject.data_source_name = options.data_source_name ? options.data_source_name : "";
-    chartObject.data_source_url = options.data_source_url ? options.data_source_url : "";
-    
-    chartObject.label_size = "label_size" in options ? options.label_size : stylesheet.label_size;
-    chartObject.label_color = options.label_color ? options.label_color : stylesheet.label_color;
-    chartObject.label_weight = options.label_weight ? options.label_weight.toLowerCase() : stylesheet.label_weight;
-    chartObject.label_family = options.label_family ? options.label_family.toLowerCase() : stylesheet.label_family;
-
-    chartObject.transition_duration = options.transition_duration ? options.transition_duration : functionality.transition_duration;
-    chartObject.chart_onhover_highlight_enable = options.chart_onhover_highlight_enable ? options.chart_onhover_highlight_enable : stylesheet.chart_onhover_highlight_enable;
-    chartObject.highlight_color = options.highlight_color ? options.highlight_color : stylesheet.highlight_color;
-    chartObject.highlight = options.highlight ? options.highlight : stylesheet.highlight;
-    
-    chartObject.background_color = options.background_color ? options.background_color.toLowerCase() : stylesheet.background_color;
-    chartObject.real_time_charts_refresh_frequency = options.real_time_charts_refresh_frequency ? options.real_time_charts_refresh_frequency : functionality.real_time_charts_refresh_frequency;
-    chartObject.real_time_charts_last_updated_at_enable = options.real_time_charts_last_updated_at_enable ? options.real_time_charts_last_updated_at_enable.toLowerCase() : functionality.real_time_charts_last_updated_at_enable;
-
-    chartObject.chart_color = options.chart_color ? options.chart_color : [];
-    chartObject.default_color = stylesheet.chart_color;
-    chartObject.fullscreen_enable = options.fullscreen_enable ? options.fullscreen_enable : stylesheet.fullscreen_enable;
-    chartObject.loading_type = options.loading_type ? options.loading_type : stylesheet.loading_type;
-    chartObject.loading_source = options.loading_source ? options.loading_source : stylesheet.loading_source;
-    chartObject.export_enable = options.export_enable ? options.export_enable.toLowerCase() : stylesheet.export_enable;
-    chartObject.border_between_chart_elements_thickness = "border_between_chart_elements_thickness" in options ? options.border_between_chart_elements_thickness : stylesheet.border_between_chart_elements_thickness;
-    chartObject.border_between_chart_elements_color = options.border_between_chart_elements_color ? options.border_between_chart_elements_color: stylesheet.border_between_chart_elements_color;
-    chartObject.border_between_chart_elements_style = options.border_between_chart_elements_style ? options.border_between_chart_elements_style.toLowerCase() : stylesheet.border_between_chart_elements_style;
-    switch(chartObject.border_between_chart_elements_style) {
-        case "dotted" : chartObject.border_between_chart_elements_style = "1,3";
-                        break;
-        case "dashed" : chartObject.border_between_chart_elements_style = "5,5";
-                       break;
-        default : chartObject.border_between_chart_elements_style = "0";
-                  break;
-    }
-
-    chartObject.k = new PykCharts.Configuration(chartObject);
-
-    chartObject.k.validator().validatingSelector(chartObject.selector.substring(1,chartObject.selector.length))
-                .validatingChartMode(chartObject.mode,"mode",stylesheet.mode)
-                .validatingDataType(chartObject.chart_width,"chart_width",stylesheet.chart_width)
-                .validatingDataType(chartObject.title_size,"title_size",stylesheet.title_size)
-                .validatingDataType(chartObject.border_between_chart_elements_thickness,"border_between_chart_elements_thickness",stylesheet.border_between_chart_elements_thickness)
-                .validatingDataType(chartObject.real_time_charts_refresh_frequency,"real_time_charts_refresh_frequency",functionality.real_time_charts_refresh_frequency)
-                .validatingDataType(chartObject.label_size,"label_size",stylesheet.label_size)
-                .validatingDataType(chartObject.subtitle_size,"subtitle_size",stylesheet.subtitle_size)
-                .validatingDataType(chartObject.transition_duration,"transition_duration",functionality.transition_duration)
-                .validatingBorderBetweenChartElementsStyle(chartObject.border_between_chart_elements_style)
-                .validatingFontWeight(chartObject.title_weight,"title_weight",stylesheet.title_weight)
-                .validatingFontWeight(chartObject.subtitle_weight,"subtitle_weight",stylesheet.subtitle_weight)
-                .validatingFontWeight(chartObject.label_weight,"label_weight",stylesheet.label_weight)
-                .validatingColor(chartObject.title_color,"title_color",stylesheet.title_color)
-                .validatingColor(chartObject.subtitle_color,"subtitle_color",stylesheet.subtitle_color)
-                .validatingColor(chartObject.highlight_color,"highlight_color",stylesheet.highlight_color)
-                .validatingColor(chartObject.label_color,"label_color",stylesheet.label_color)
-                .validatingColor(chartObject.border_between_chart_elements_color)
-                .validatingColor(chartObject.background_color,"background_color",stylesheet.background_color)
-                
-    if(chartObject.chart_color.constructor === Array) {
-        for(var i = 0;i < chartObject.chart_color.length;i++) {
-            if(chartObject.chart_color[i]) {
-                chartObject.k.validator()
-                    .validatingColor(chartObject.chart_color[i],"chart_color",stylesheet.chart_color);
-            }
-        }
-    }
-    return chartObject;
-};
-
 PykCharts.other.pictograph = function (options) {
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
 
     this.execute = function () {
-        that = new PykCharts.other.processInputs(that, options);
+        that = new PykCharts.validation.processInputs(that, options);
         var optional = options.optional,
             otherCharts = theme.otherCharts;
         that.pictograph_show_all_images = options.pictograph_show_all_images ? options.pictograph_show_all_images.toLowerCase() : otherCharts.pictograph_show_all_images;
@@ -5528,7 +5888,6 @@ PykCharts.other.pictograph = function (options) {
         that.pictograph_units_per_image_text_color = options.pictograph_units_per_image_text_color ? options.pictograph_units_per_image_text_color : otherCharts.pictograph_units_per_image_text_color;
         that.pictograph_units_per_image_text_weight = options.pictograph_units_per_image_text_weight ? options.pictograph_units_per_image_text_weight.toLowerCase() : otherCharts.pictograph_units_per_image_text_weight;
         that.chart_height = options.chart_height ? options.chart_height : that.chart_width;
-
         that.k.validator()
             .validatingDataType(that.chart_height,"chart_height",that.chart_width)
             .validatingDataType(that.pictograph_units_per_image_text_size,"pictograph_units_per_image_text_size",otherCharts.pictograph_units_per_image_text_size) 
@@ -6246,30 +6605,20 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     chartObject.mode = options.mode ? options.mode.toLowerCase() : "default";
     chartObject.color_mode = options.color_mode ? options.color_mode.toLowerCase() : stylesheet.color_mode;
 
-    if (options &&  PykCharts['boolean'] (options.title_text)) {
+    if (options.title_text) {
         chartObject.title_text = options.title_text;
         chartObject.title_size = "title_size" in options ? options.title_size : stylesheet.title_size;
         chartObject.title_color = options.title_color ? options.title_color : stylesheet.title_color;
         chartObject.title_weight = options.title_weight ? options.title_weight.toLowerCase() : stylesheet.title_weight;
         chartObject.title_family = options.title_family ? options.title_family.toLowerCase() : stylesheet.title_family;
-    } else {
-        chartObject.title_size = stylesheet.title_size;
-        chartObject.title_color = stylesheet.title_color;
-        chartObject.title_weight = stylesheet.title_weight;
-        chartObject.title_family = stylesheet.title_family;
     }
 
-    if (options && PykCharts['boolean'](options.subtitle_text)) {
+    if (options.subtitle_text) {
         chartObject.subtitle_text = options.subtitle_text;
         chartObject.subtitle_size = "subtitle_size" in options ? options.subtitle_size : stylesheet.subtitle_size;
         chartObject.subtitle_color = options.subtitle_color ? options.subtitle_color : stylesheet.subtitle_color;
         chartObject.subtitle_weight = options.subtitle_weight ? options.subtitle_weight.toLowerCase() : stylesheet.subtitle_weight;
         chartObject.subtitle_family = options.subtitle_family ? options.subtitle_family.toLowerCase() : stylesheet.subtitle_family;
-    } else {
-        chartObject.subtitle_size = stylesheet.subtitle_size;
-        chartObject.subtitle_color = stylesheet.subtitle_color;
-        chartObject.subtitle_weight = stylesheet.subtitle_weight;
-        chartObject.subtitle_family = stylesheet.subtitle_family;
     }
 
     chartObject.axis_x_enable = options.axis_x_enable ? options.axis_x_enable.toLowerCase() : stylesheet.axis_x_enable;
@@ -6396,80 +6745,80 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     chartObject.k = new PykCharts.Configuration(chartObject);
 
     chartObject.k.validator().validatingSelector(chartObject.selector.substring(1,chartObject.selector.length))
-                .isArray(chartObject.axis_x_pointer_values,"axis_x_pointer_values")
-                .isArray(chartObject.axis_y_pointer_values,"axis_y_pointer_values")
-                .isArray(chartObject.chart_color,"chart_color")
-                .validatingTimeScaleDataType(chartObject.axis_x_time_value_datatype,"axis_x_time_value_datatype",stylesheet.axis_x_time_value_datatype)
-                .validatingTimeScaleDataType(chartObject.axis_y_time_value_datatype,"axis_y_time_value_datatype",multiDimensionalCharts.axis_y_time_value_datatype)
-                .validatingAxisDataFormat(options.axis_x_data_format,"axis_x_data_format",stylesheet.axis_x_data_format)
-                .validatingAxisDataFormat(options.axis_y_data_format,"axis_y_data_format",multiDimensionalCharts.axis_x_data_format)
-                .validatingChartMode(chartObject.mode,"mode",stylesheet.mode)
-                .validatingDataType(chartObject.chart_width,"chart_width",stylesheet.chart_width)
-                .validatingDataType(chartObject.chart_height,"chart_height",stylesheet.chart_height)
-                .validatingDataType(chartObject.chart_margin_left,"chart_margin_left",stylesheet.chart_margin_left)
-                .validatingDataType(chartObject.chart_margin_right,"chart_margin_right",stylesheet.chart_margin_right)
-                .validatingDataType(chartObject.chart_margin_top,"chart_margin_top",stylesheet.chart_margin_top)
-                .validatingDataType(chartObject.chart_margin_bottom,"chart_margin_bottom",stylesheet.chart_margin_bottom)
-                .validatingDataType(chartObject.title_size,"title_size",stylesheet.title_size)
-                .validatingDataType(chartObject.subtitle_size,"subtitle_size",stylesheet.subtitle_size)
-                .validatingDataType(chartObject.real_time_charts_refresh_frequency,"real_time_charts_refresh_frequency",functionality.real_time_charts_refresh_frequency)
-                .validatingDataType(chartObject.transition_duration,"transition_duration",functionality.transition_duration)
-                .validatingDataType(chartObject.border_between_chart_elements_thickness,"border_between_chart_elements_thickness",stylesheet.border_between_chart_elements_thickness)
-                .validatingDataType(chartObject.axis_x_pointer_size,"axis_x_pointer_size",stylesheet.axis_x_pointer_size)
-                .validatingDataType(chartObject.axis_y_pointer_size,"axis_y_pointer_size",multiDimensionalCharts.axis_y_pointer_size)
-                .validatingDataType(chartObject.axis_x_pointer_length,"axis_x_pointer_length",stylesheet.axis_x_pointer_length)
-                .validatingDataType(chartObject.axis_y_pointer_length,"axis_y_pointer_length",multiDimensionalCharts.axis_y_pointer_length)
-                .validatingDataType(chartObject.axis_x_title_size,"axis_x_title_size",stylesheet.axis_x_title_size)
-                .validatingDataType(chartObject.axis_y_title_size,"axis_y_title_size",multiDimensionalCharts.axis_y_title_size)
-                .validatingDataType(chartObject.label_size,"label_size",stylesheet.label_size)
-                .validatingDataType(chartObject.legends_text_size ,"legends_text_size",stylesheet.legends_text_size)
-                .validatingDataType(chartObject.zoom_level,"zoom_level",stylesheet.zoom_level)
-                .validatingDataType(chartObject.pointer_thickness,"pointer_thickness",stylesheet.pointer_thickness)
-                .validatingDataType(chartObject.pointer_size,"pointer_size",stylesheet.pointer_size)
-                .validatingDataType(chartObject.axis_x_outer_pointer_length,"axis_x_outer_pointer_length",stylesheet.axis_x_outer_pointer_length)
-                .validatingDataType(chartObject.axis_y_outer_pointer_length,"axis_y_outer_pointer_length",multiDimensionalCharts.axis_y_outer_pointer_length)
-                .validatingDataType(chartObject.axis_x_pointer_padding,"axis_x_pointer_padding",stylesheet.axis_x_pointer_padding)
-                .validatingDataType(chartObject.axis_y_pointer_padding,"axis_y_pointer_padding",multiDimensionalCharts.axis_y_pointer_padding)
-                .validatingDataType(chartObject.axis_x_no_of_axis_value,"axis_x_no_of_axis_value",stylesheet.axis_x_no_of_axis_value)
-                .validatingDataType(chartObject.axis_y_no_of_axis_value,"axis_y_no_of_axis_value",multiDimensionalCharts.axis_y_no_of_axis_value)
-                .validatingDataType(chartObject.axis_x_time_value_interval,"axis_x_time_value_interval",stylesheet.axis_x_time_value_interval)
-                .validatingDataType(chartObject.axis_y_time_value_interval,"axis_y_time_value_interval",multiDimensionalCharts.axis_y_time_value_interval)
-                .validatingColorMode(chartObject.color_mode,"color_mode",stylesheet.color_mode)
-                .validatingYAxisPointerPosition(chartObject.axis_y_pointer_position,"axis_y_pointer_position",multiDimensionalCharts.axis_y_pointer_position)
-                .validatingXAxisPointerPosition(chartObject.axis_x_pointer_position,"axis_x_pointer_position",stylesheet.axis_x_pointer_position)
-                .validatingXAxisPointerPosition(chartObject.axis_x_position,"axis_x_position",stylesheet.axis_x_position)
-                .validatingYAxisPointerPosition(chartObject.axis_y_position,"axis_y_position",multiDimensionalCharts.axis_y_position)
-                .validatingBorderBetweenChartElementsStyle(chartObject.border_between_chart_elements_style)
-                .validatingLegendsPosition(chartObject.legends_display,"legends_display",stylesheet.legends_display)
-                .validatingTooltipMode(chartObject.tooltip_mode,"tooltip_mode",stylesheet.tooltip_mode)
-                .validatingFontWeight(chartObject.title_weight,"title_weight",stylesheet.title_weight)
-                .validatingFontWeight(chartObject.subtitle_weight,"subtitle_weight",stylesheet.subtitle_weight)
-                .validatingFontWeight(chartObject.pointer_weight,"pointer_weight",stylesheet.pointer_weight)
-                .validatingFontWeight(chartObject.label_weight,"label_weight",stylesheet.label_weight)
-                .validatingFontWeight(chartObject.legends_text_weight,"legends_text_weight",stylesheet.legends_text_weight)
-                .validatingFontWeight(chartObject.axis_x_pointer_weight,"axis_x_pointer_weight",stylesheet.axis_x_pointer_weight)
-                .validatingFontWeight(chartObject.axis_y_pointer_weight,"axis_y_pointer_weight",multiDimensionalCharts.axis_y_pointer_weight)
-                .validatingFontWeight(chartObject.axis_x_title_weight,"axis_x_title_weight",stylesheet.axis_x_title_weight)
-                .validatingFontWeight(chartObject.axis_y_title_weight,"axis_y_title_weight",multiDimensionalCharts.axis_y_title_weight)
-                .validatingColor(chartObject.background_color,"background_color",stylesheet.background_color)
-                .validatingColor(chartObject.chart_grid_color,"chart_grid_color",multiDimensionalCharts.chart_grid_color)
-                .validatingColor(chartObject.title_color,"title_color",stylesheet.title_color)
-                .validatingColor(chartObject.subtitle_color,"subtitle_color",stylesheet.subtitle_color)
-                .validatingColor(chartObject.axis_x_line_color,"axis_x_line_color",stylesheet.axis_x_line_color)
-                .validatingColor(chartObject.axis_y_line_color,"axis_y_line_color",multiDimensionalCharts.axis_y_line_color)
-                .validatingColor(chartObject.axis_x_title_color,"axis_x_title_color",stylesheet.axis_x_title_color)
-                .validatingColor(chartObject.axis_y_title_color,"axis_y_title_color",multiDimensionalCharts.axis_y_title_color)
-                .validatingColor(chartObject.axis_x_pointer_color,"axis_x_pointer_color",stylesheet.axis_x_pointer_color)
-                .validatingColor(chartObject.axis_y_pointer_color,"axis_y_pointer_color",multiDimensionalCharts.axis_y_pointer_color)
-                .validatingColor(chartObject.highlight_color,"highlight_color",stylesheet.highlight_color)
-                .validatingColor(chartObject.saturation_color,"saturation_color",stylesheet.saturation_color)
-                .validatingColor(chartObject.pointer_color,"pointer_color",stylesheet.pointer_color)
-                .validatingColor(chartObject.label_color,"label_color",stylesheet.label_color)
-                .validatingColor(chartObject.border_between_chart_elements_color,"border_between_chart_elements_color")
-                .validatingColor(chartObject.annotation_border_color,"annotation_border_color",multiDimensionalCharts.annotation_border_color)
-                .validatingColor(chartObject.annotation_background_color,"annotation_background_color",multiDimensionalCharts.annotation_background_color)
-                .validatingColor(chartObject.annotation_font_color,"annotation_font_color",multiDimensionalCharts.annotation_font_color)
-                .validatingColor(chartObject.legends_text_color,"legends_text_color",stylesheet.legends_text_color);
+        .isArray(chartObject.axis_x_pointer_values,"axis_x_pointer_values")
+        .isArray(chartObject.axis_y_pointer_values,"axis_y_pointer_values")
+        .isArray(chartObject.chart_color,"chart_color")
+        .validatingTimeScaleDataType(chartObject.axis_x_time_value_datatype,"axis_x_time_value_datatype",stylesheet.axis_x_time_value_datatype)
+        .validatingTimeScaleDataType(chartObject.axis_y_time_value_datatype,"axis_y_time_value_datatype",multiDimensionalCharts.axis_y_time_value_datatype)
+        // .validatingAxisDataFormat(options.axis_x_data_format,"axis_x_data_format",stylesheet.axis_x_data_format)
+        // .validatingAxisDataFormat(options.axis_y_data_format,"axis_y_data_format",multiDimensionalCharts.axis_x_data_format)
+        .validatingChartMode(chartObject.mode,"mode",stylesheet.mode)
+        .validatingDataType(chartObject.chart_width,"chart_width",stylesheet.chart_width)
+        .validatingDataType(chartObject.chart_height,"chart_height",stylesheet.chart_height)
+        .validatingDataType(chartObject.chart_margin_left,"chart_margin_left",stylesheet.chart_margin_left)
+        .validatingDataType(chartObject.chart_margin_right,"chart_margin_right",stylesheet.chart_margin_right)
+        .validatingDataType(chartObject.chart_margin_top,"chart_margin_top",stylesheet.chart_margin_top)
+        .validatingDataType(chartObject.chart_margin_bottom,"chart_margin_bottom",stylesheet.chart_margin_bottom)
+        .validatingDataType(chartObject.title_size,"title_size",stylesheet.title_size)
+        .validatingDataType(chartObject.subtitle_size,"subtitle_size",stylesheet.subtitle_size)
+        .validatingDataType(chartObject.real_time_charts_refresh_frequency,"real_time_charts_refresh_frequency",functionality.real_time_charts_refresh_frequency)
+        .validatingDataType(chartObject.transition_duration,"transition_duration",functionality.transition_duration)
+        .validatingDataType(chartObject.border_between_chart_elements_thickness,"border_between_chart_elements_thickness",stylesheet.border_between_chart_elements_thickness)
+        .validatingDataType(chartObject.axis_x_pointer_size,"axis_x_pointer_size",stylesheet.axis_x_pointer_size)
+        .validatingDataType(chartObject.axis_y_pointer_size,"axis_y_pointer_size",multiDimensionalCharts.axis_y_pointer_size)
+        .validatingDataType(chartObject.axis_x_pointer_length,"axis_x_pointer_length",stylesheet.axis_x_pointer_length)
+        .validatingDataType(chartObject.axis_y_pointer_length,"axis_y_pointer_length",multiDimensionalCharts.axis_y_pointer_length)
+        .validatingDataType(chartObject.axis_x_title_size,"axis_x_title_size",stylesheet.axis_x_title_size)
+        .validatingDataType(chartObject.axis_y_title_size,"axis_y_title_size",multiDimensionalCharts.axis_y_title_size)
+        .validatingDataType(chartObject.label_size,"label_size",stylesheet.label_size)
+        .validatingDataType(chartObject.legends_text_size ,"legends_text_size",stylesheet.legends_text_size)
+        .validatingDataType(chartObject.zoom_level,"zoom_level",stylesheet.zoom_level)
+        .validatingDataType(chartObject.pointer_thickness,"pointer_thickness",stylesheet.pointer_thickness)
+        .validatingDataType(chartObject.pointer_size,"pointer_size",stylesheet.pointer_size)
+        .validatingDataType(chartObject.axis_x_outer_pointer_length,"axis_x_outer_pointer_length",stylesheet.axis_x_outer_pointer_length)
+        .validatingDataType(chartObject.axis_y_outer_pointer_length,"axis_y_outer_pointer_length",multiDimensionalCharts.axis_y_outer_pointer_length)
+        .validatingDataType(chartObject.axis_x_pointer_padding,"axis_x_pointer_padding",stylesheet.axis_x_pointer_padding)
+        .validatingDataType(chartObject.axis_y_pointer_padding,"axis_y_pointer_padding",multiDimensionalCharts.axis_y_pointer_padding)
+        .validatingDataType(chartObject.axis_x_no_of_axis_value,"axis_x_no_of_axis_value",stylesheet.axis_x_no_of_axis_value)
+        .validatingDataType(chartObject.axis_y_no_of_axis_value,"axis_y_no_of_axis_value",multiDimensionalCharts.axis_y_no_of_axis_value)
+        .validatingDataType(chartObject.axis_x_time_value_interval,"axis_x_time_value_interval",stylesheet.axis_x_time_value_interval)
+        .validatingDataType(chartObject.axis_y_time_value_interval,"axis_y_time_value_interval",multiDimensionalCharts.axis_y_time_value_interval)
+        .validatingColorMode(chartObject.color_mode,"color_mode",stylesheet.color_mode)
+        .validatingYAxisPointerPosition(chartObject.axis_y_pointer_position,"axis_y_pointer_position",multiDimensionalCharts.axis_y_pointer_position)
+        .validatingXAxisPointerPosition(chartObject.axis_x_pointer_position,"axis_x_pointer_position",stylesheet.axis_x_pointer_position)
+        .validatingXAxisPointerPosition(chartObject.axis_x_position,"axis_x_position",stylesheet.axis_x_position)
+        .validatingYAxisPointerPosition(chartObject.axis_y_position,"axis_y_position",multiDimensionalCharts.axis_y_position)
+        .validatingBorderBetweenChartElementsStyle(chartObject.border_between_chart_elements_style)
+        .validatingLegendsPosition(chartObject.legends_display,"legends_display",stylesheet.legends_display)
+        .validatingTooltipMode(chartObject.tooltip_mode,"tooltip_mode",stylesheet.tooltip_mode)
+        .validatingFontWeight(chartObject.title_weight,"title_weight",stylesheet.title_weight)
+        .validatingFontWeight(chartObject.subtitle_weight,"subtitle_weight",stylesheet.subtitle_weight)
+        .validatingFontWeight(chartObject.pointer_weight,"pointer_weight",stylesheet.pointer_weight)
+        .validatingFontWeight(chartObject.label_weight,"label_weight",stylesheet.label_weight)
+        .validatingFontWeight(chartObject.legends_text_weight,"legends_text_weight",stylesheet.legends_text_weight)
+        .validatingFontWeight(chartObject.axis_x_pointer_weight,"axis_x_pointer_weight",stylesheet.axis_x_pointer_weight)
+        .validatingFontWeight(chartObject.axis_y_pointer_weight,"axis_y_pointer_weight",multiDimensionalCharts.axis_y_pointer_weight)
+        .validatingFontWeight(chartObject.axis_x_title_weight,"axis_x_title_weight",stylesheet.axis_x_title_weight)
+        .validatingFontWeight(chartObject.axis_y_title_weight,"axis_y_title_weight",multiDimensionalCharts.axis_y_title_weight)
+        .validatingColor(chartObject.background_color,"background_color",stylesheet.background_color)
+        .validatingColor(chartObject.chart_grid_color,"chart_grid_color",multiDimensionalCharts.chart_grid_color)
+        .validatingColor(chartObject.title_color,"title_color",stylesheet.title_color)
+        .validatingColor(chartObject.subtitle_color,"subtitle_color",stylesheet.subtitle_color)
+        .validatingColor(chartObject.axis_x_line_color,"axis_x_line_color",stylesheet.axis_x_line_color)
+        .validatingColor(chartObject.axis_y_line_color,"axis_y_line_color",multiDimensionalCharts.axis_y_line_color)
+        .validatingColor(chartObject.axis_x_title_color,"axis_x_title_color",stylesheet.axis_x_title_color)
+        .validatingColor(chartObject.axis_y_title_color,"axis_y_title_color",multiDimensionalCharts.axis_y_title_color)
+        .validatingColor(chartObject.axis_x_pointer_color,"axis_x_pointer_color",stylesheet.axis_x_pointer_color)
+        .validatingColor(chartObject.axis_y_pointer_color,"axis_y_pointer_color",multiDimensionalCharts.axis_y_pointer_color)
+        .validatingColor(chartObject.highlight_color,"highlight_color",stylesheet.highlight_color)
+        .validatingColor(chartObject.saturation_color,"saturation_color",stylesheet.saturation_color)
+        .validatingColor(chartObject.pointer_color,"pointer_color",stylesheet.pointer_color)
+        .validatingColor(chartObject.label_color,"label_color",stylesheet.label_color)
+        .validatingColor(chartObject.border_between_chart_elements_color,"border_between_chart_elements_color")
+        // .validatingColor(chartObject.annotation_border_color,"annotation_border_color",multiDimensionalCharts.annotation_border_color)
+        .validatingColor(chartObject.annotation_background_color,"annotation_background_color",multiDimensionalCharts.annotation_background_color)
+        .validatingColor(chartObject.annotation_font_color,"annotation_font_color",multiDimensionalCharts.annotation_font_color)
+        .validatingColor(chartObject.legends_text_color,"legends_text_color",stylesheet.legends_text_color);
 
         if(chartObject.chart_color.constructor === Array) {
             for(var i = 0;i < chartObject.chart_color.length;i++) {
@@ -14375,7 +14724,6 @@ PykCharts.maps.mouseEvent = function (options) {
 }
 
 PykCharts.maps.processInputs = function (chartObject, options) {
-
     var theme = new PykCharts.Configuration.Theme({})
         , stylesheet = theme.stylesheet
         , functionality = theme.functionality
@@ -14530,7 +14878,6 @@ PykCharts.maps.processInputs = function (chartObject, options) {
                 .validatingColor(chartObject.title_color,"title_color",stylesheet.title_color)
                 .validatingColor(chartObject.subtitle_color,"subtitle_color",stylesheet.subtitle_color)
                 .validatingColor(chartObject.axis_x_line_color,"axis_x_line_color",stylesheet.axis_x_line_color)
-                .validatingColor(chartObject.pointer_color,"pointer_color",stylesheet.pointer_color)
                 .validatingColor(chartObject.highlight_color,"highlight_color",stylesheet.highlight_color)
                 .validatingColor(chartObject.saturation_color,"saturation_color",stylesheet.saturation_color)
                 .validatingColor(chartObject.border_between_chart_elements_color,"border_between_chart_elements_color",stylesheet.border_between_chart_elements_color)

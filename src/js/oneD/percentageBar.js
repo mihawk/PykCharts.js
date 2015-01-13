@@ -4,7 +4,7 @@ PykCharts.oneD.percentageBar = function (options) {
     this.execute = function () {
         var that = this;
 
-        that = new PykCharts.oneD.processInputs(that, options, "percentageBar");
+        that = new PykCharts.validation.processInputs(that, options,'oneDimensionalCharts');
 
         that.chart_height = options.chart_height ? options.chart_height : that.chart_width/2;
         that.percent_row_rect_height = options.percent_row_rect_height ? options.percent_row_rect_height : theme.oneDimensionalCharts.percent_row_rect_height;

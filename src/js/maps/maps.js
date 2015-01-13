@@ -19,7 +19,6 @@ PykCharts.maps.mouseEvent = function (options) {
 }
 
 PykCharts.maps.processInputs = function (chartObject, options) {
-
     var theme = new PykCharts.Configuration.Theme({})
         , stylesheet = theme.stylesheet
         , functionality = theme.functionality
@@ -174,7 +173,6 @@ PykCharts.maps.processInputs = function (chartObject, options) {
                 .validatingColor(chartObject.title_color,"title_color",stylesheet.title_color)
                 .validatingColor(chartObject.subtitle_color,"subtitle_color",stylesheet.subtitle_color)
                 .validatingColor(chartObject.axis_x_line_color,"axis_x_line_color",stylesheet.axis_x_line_color)
-                .validatingColor(chartObject.pointer_color,"pointer_color",stylesheet.pointer_color)
                 .validatingColor(chartObject.highlight_color,"highlight_color",stylesheet.highlight_color)
                 .validatingColor(chartObject.saturation_color,"saturation_color",stylesheet.saturation_color)
                 .validatingColor(chartObject.border_between_chart_elements_color,"border_between_chart_elements_color",stylesheet.border_between_chart_elements_color)

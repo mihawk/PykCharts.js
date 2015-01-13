@@ -3,7 +3,7 @@ PykCharts.other.pictograph = function (options) {
     var theme = new PykCharts.Configuration.Theme({});
 
     this.execute = function () {
-        that = new PykCharts.other.processInputs(that, options);
+        that = new PykCharts.validation.processInputs(that, options);
         var optional = options.optional,
             otherCharts = theme.otherCharts;
         that.pictograph_show_all_images = options.pictograph_show_all_images ? options.pictograph_show_all_images.toLowerCase() : otherCharts.pictograph_show_all_images;
@@ -26,7 +26,6 @@ PykCharts.other.pictograph = function (options) {
         that.pictograph_units_per_image_text_color = options.pictograph_units_per_image_text_color ? options.pictograph_units_per_image_text_color : otherCharts.pictograph_units_per_image_text_color;
         that.pictograph_units_per_image_text_weight = options.pictograph_units_per_image_text_weight ? options.pictograph_units_per_image_text_weight.toLowerCase() : otherCharts.pictograph_units_per_image_text_weight;
         that.chart_height = options.chart_height ? options.chart_height : that.chart_width;
-
         that.k.validator()
             .validatingDataType(that.chart_height,"chart_height",that.chart_width)
             .validatingDataType(that.pictograph_units_per_image_text_size,"pictograph_units_per_image_text_size",otherCharts.pictograph_units_per_image_text_size) 

@@ -2,7 +2,7 @@ PykCharts.oneD.treemap = function (options){
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
     this.execute = function (){
-        that = new PykCharts.oneD.processInputs(that, options);
+        that = new PykCharts.validation.processInputs(that, options,'oneDimensionalCharts');
         optional = options.optional;
         that.chart_height = options.chart_height ? options.chart_height : that.chart_width;
         that.k.validator()

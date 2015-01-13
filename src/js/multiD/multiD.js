@@ -331,30 +331,20 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     chartObject.mode = options.mode ? options.mode.toLowerCase() : "default";
     chartObject.color_mode = options.color_mode ? options.color_mode.toLowerCase() : stylesheet.color_mode;
 
-    if (options &&  PykCharts['boolean'] (options.title_text)) {
+    if (options.title_text) {
         chartObject.title_text = options.title_text;
         chartObject.title_size = "title_size" in options ? options.title_size : stylesheet.title_size;
         chartObject.title_color = options.title_color ? options.title_color : stylesheet.title_color;
         chartObject.title_weight = options.title_weight ? options.title_weight.toLowerCase() : stylesheet.title_weight;
         chartObject.title_family = options.title_family ? options.title_family.toLowerCase() : stylesheet.title_family;
-    } else {
-        chartObject.title_size = stylesheet.title_size;
-        chartObject.title_color = stylesheet.title_color;
-        chartObject.title_weight = stylesheet.title_weight;
-        chartObject.title_family = stylesheet.title_family;
     }
 
-    if (options && PykCharts['boolean'](options.subtitle_text)) {
+    if (options.subtitle_text) {
         chartObject.subtitle_text = options.subtitle_text;
         chartObject.subtitle_size = "subtitle_size" in options ? options.subtitle_size : stylesheet.subtitle_size;
         chartObject.subtitle_color = options.subtitle_color ? options.subtitle_color : stylesheet.subtitle_color;
         chartObject.subtitle_weight = options.subtitle_weight ? options.subtitle_weight.toLowerCase() : stylesheet.subtitle_weight;
         chartObject.subtitle_family = options.subtitle_family ? options.subtitle_family.toLowerCase() : stylesheet.subtitle_family;
-    } else {
-        chartObject.subtitle_size = stylesheet.subtitle_size;
-        chartObject.subtitle_color = stylesheet.subtitle_color;
-        chartObject.subtitle_weight = stylesheet.subtitle_weight;
-        chartObject.subtitle_family = stylesheet.subtitle_family;
     }
 
     chartObject.axis_x_enable = options.axis_x_enable ? options.axis_x_enable.toLowerCase() : stylesheet.axis_x_enable;
@@ -481,80 +471,80 @@ PykCharts.multiD.processInputs = function (chartObject, options) {
     chartObject.k = new PykCharts.Configuration(chartObject);
 
     chartObject.k.validator().validatingSelector(chartObject.selector.substring(1,chartObject.selector.length))
-                .isArray(chartObject.axis_x_pointer_values,"axis_x_pointer_values")
-                .isArray(chartObject.axis_y_pointer_values,"axis_y_pointer_values")
-                .isArray(chartObject.chart_color,"chart_color")
-                .validatingTimeScaleDataType(chartObject.axis_x_time_value_datatype,"axis_x_time_value_datatype",stylesheet.axis_x_time_value_datatype)
-                .validatingTimeScaleDataType(chartObject.axis_y_time_value_datatype,"axis_y_time_value_datatype",multiDimensionalCharts.axis_y_time_value_datatype)
-                .validatingAxisDataFormat(options.axis_x_data_format,"axis_x_data_format",stylesheet.axis_x_data_format)
-                .validatingAxisDataFormat(options.axis_y_data_format,"axis_y_data_format",multiDimensionalCharts.axis_x_data_format)
-                .validatingChartMode(chartObject.mode,"mode",stylesheet.mode)
-                .validatingDataType(chartObject.chart_width,"chart_width",stylesheet.chart_width)
-                .validatingDataType(chartObject.chart_height,"chart_height",stylesheet.chart_height)
-                .validatingDataType(chartObject.chart_margin_left,"chart_margin_left",stylesheet.chart_margin_left)
-                .validatingDataType(chartObject.chart_margin_right,"chart_margin_right",stylesheet.chart_margin_right)
-                .validatingDataType(chartObject.chart_margin_top,"chart_margin_top",stylesheet.chart_margin_top)
-                .validatingDataType(chartObject.chart_margin_bottom,"chart_margin_bottom",stylesheet.chart_margin_bottom)
-                .validatingDataType(chartObject.title_size,"title_size",stylesheet.title_size)
-                .validatingDataType(chartObject.subtitle_size,"subtitle_size",stylesheet.subtitle_size)
-                .validatingDataType(chartObject.real_time_charts_refresh_frequency,"real_time_charts_refresh_frequency",functionality.real_time_charts_refresh_frequency)
-                .validatingDataType(chartObject.transition_duration,"transition_duration",functionality.transition_duration)
-                .validatingDataType(chartObject.border_between_chart_elements_thickness,"border_between_chart_elements_thickness",stylesheet.border_between_chart_elements_thickness)
-                .validatingDataType(chartObject.axis_x_pointer_size,"axis_x_pointer_size",stylesheet.axis_x_pointer_size)
-                .validatingDataType(chartObject.axis_y_pointer_size,"axis_y_pointer_size",multiDimensionalCharts.axis_y_pointer_size)
-                .validatingDataType(chartObject.axis_x_pointer_length,"axis_x_pointer_length",stylesheet.axis_x_pointer_length)
-                .validatingDataType(chartObject.axis_y_pointer_length,"axis_y_pointer_length",multiDimensionalCharts.axis_y_pointer_length)
-                .validatingDataType(chartObject.axis_x_title_size,"axis_x_title_size",stylesheet.axis_x_title_size)
-                .validatingDataType(chartObject.axis_y_title_size,"axis_y_title_size",multiDimensionalCharts.axis_y_title_size)
-                .validatingDataType(chartObject.label_size,"label_size",stylesheet.label_size)
-                .validatingDataType(chartObject.legends_text_size ,"legends_text_size",stylesheet.legends_text_size)
-                .validatingDataType(chartObject.zoom_level,"zoom_level",stylesheet.zoom_level)
-                .validatingDataType(chartObject.pointer_thickness,"pointer_thickness",stylesheet.pointer_thickness)
-                .validatingDataType(chartObject.pointer_size,"pointer_size",stylesheet.pointer_size)
-                .validatingDataType(chartObject.axis_x_outer_pointer_length,"axis_x_outer_pointer_length",stylesheet.axis_x_outer_pointer_length)
-                .validatingDataType(chartObject.axis_y_outer_pointer_length,"axis_y_outer_pointer_length",multiDimensionalCharts.axis_y_outer_pointer_length)
-                .validatingDataType(chartObject.axis_x_pointer_padding,"axis_x_pointer_padding",stylesheet.axis_x_pointer_padding)
-                .validatingDataType(chartObject.axis_y_pointer_padding,"axis_y_pointer_padding",multiDimensionalCharts.axis_y_pointer_padding)
-                .validatingDataType(chartObject.axis_x_no_of_axis_value,"axis_x_no_of_axis_value",stylesheet.axis_x_no_of_axis_value)
-                .validatingDataType(chartObject.axis_y_no_of_axis_value,"axis_y_no_of_axis_value",multiDimensionalCharts.axis_y_no_of_axis_value)
-                .validatingDataType(chartObject.axis_x_time_value_interval,"axis_x_time_value_interval",stylesheet.axis_x_time_value_interval)
-                .validatingDataType(chartObject.axis_y_time_value_interval,"axis_y_time_value_interval",multiDimensionalCharts.axis_y_time_value_interval)
-                .validatingColorMode(chartObject.color_mode,"color_mode",stylesheet.color_mode)
-                .validatingYAxisPointerPosition(chartObject.axis_y_pointer_position,"axis_y_pointer_position",multiDimensionalCharts.axis_y_pointer_position)
-                .validatingXAxisPointerPosition(chartObject.axis_x_pointer_position,"axis_x_pointer_position",stylesheet.axis_x_pointer_position)
-                .validatingXAxisPointerPosition(chartObject.axis_x_position,"axis_x_position",stylesheet.axis_x_position)
-                .validatingYAxisPointerPosition(chartObject.axis_y_position,"axis_y_position",multiDimensionalCharts.axis_y_position)
-                .validatingBorderBetweenChartElementsStyle(chartObject.border_between_chart_elements_style)
-                .validatingLegendsPosition(chartObject.legends_display,"legends_display",stylesheet.legends_display)
-                .validatingTooltipMode(chartObject.tooltip_mode,"tooltip_mode",stylesheet.tooltip_mode)
-                .validatingFontWeight(chartObject.title_weight,"title_weight",stylesheet.title_weight)
-                .validatingFontWeight(chartObject.subtitle_weight,"subtitle_weight",stylesheet.subtitle_weight)
-                .validatingFontWeight(chartObject.pointer_weight,"pointer_weight",stylesheet.pointer_weight)
-                .validatingFontWeight(chartObject.label_weight,"label_weight",stylesheet.label_weight)
-                .validatingFontWeight(chartObject.legends_text_weight,"legends_text_weight",stylesheet.legends_text_weight)
-                .validatingFontWeight(chartObject.axis_x_pointer_weight,"axis_x_pointer_weight",stylesheet.axis_x_pointer_weight)
-                .validatingFontWeight(chartObject.axis_y_pointer_weight,"axis_y_pointer_weight",multiDimensionalCharts.axis_y_pointer_weight)
-                .validatingFontWeight(chartObject.axis_x_title_weight,"axis_x_title_weight",stylesheet.axis_x_title_weight)
-                .validatingFontWeight(chartObject.axis_y_title_weight,"axis_y_title_weight",multiDimensionalCharts.axis_y_title_weight)
-                .validatingColor(chartObject.background_color,"background_color",stylesheet.background_color)
-                .validatingColor(chartObject.chart_grid_color,"chart_grid_color",multiDimensionalCharts.chart_grid_color)
-                .validatingColor(chartObject.title_color,"title_color",stylesheet.title_color)
-                .validatingColor(chartObject.subtitle_color,"subtitle_color",stylesheet.subtitle_color)
-                .validatingColor(chartObject.axis_x_line_color,"axis_x_line_color",stylesheet.axis_x_line_color)
-                .validatingColor(chartObject.axis_y_line_color,"axis_y_line_color",multiDimensionalCharts.axis_y_line_color)
-                .validatingColor(chartObject.axis_x_title_color,"axis_x_title_color",stylesheet.axis_x_title_color)
-                .validatingColor(chartObject.axis_y_title_color,"axis_y_title_color",multiDimensionalCharts.axis_y_title_color)
-                .validatingColor(chartObject.axis_x_pointer_color,"axis_x_pointer_color",stylesheet.axis_x_pointer_color)
-                .validatingColor(chartObject.axis_y_pointer_color,"axis_y_pointer_color",multiDimensionalCharts.axis_y_pointer_color)
-                .validatingColor(chartObject.highlight_color,"highlight_color",stylesheet.highlight_color)
-                .validatingColor(chartObject.saturation_color,"saturation_color",stylesheet.saturation_color)
-                .validatingColor(chartObject.pointer_color,"pointer_color",stylesheet.pointer_color)
-                .validatingColor(chartObject.label_color,"label_color",stylesheet.label_color)
-                .validatingColor(chartObject.border_between_chart_elements_color,"border_between_chart_elements_color")
-                .validatingColor(chartObject.annotation_border_color,"annotation_border_color",multiDimensionalCharts.annotation_border_color)
-                .validatingColor(chartObject.annotation_background_color,"annotation_background_color",multiDimensionalCharts.annotation_background_color)
-                .validatingColor(chartObject.annotation_font_color,"annotation_font_color",multiDimensionalCharts.annotation_font_color)
-                .validatingColor(chartObject.legends_text_color,"legends_text_color",stylesheet.legends_text_color);
+        .isArray(chartObject.axis_x_pointer_values,"axis_x_pointer_values")
+        .isArray(chartObject.axis_y_pointer_values,"axis_y_pointer_values")
+        .isArray(chartObject.chart_color,"chart_color")
+        .validatingTimeScaleDataType(chartObject.axis_x_time_value_datatype,"axis_x_time_value_datatype",stylesheet.axis_x_time_value_datatype)
+        .validatingTimeScaleDataType(chartObject.axis_y_time_value_datatype,"axis_y_time_value_datatype",multiDimensionalCharts.axis_y_time_value_datatype)
+        // .validatingAxisDataFormat(options.axis_x_data_format,"axis_x_data_format",stylesheet.axis_x_data_format)
+        // .validatingAxisDataFormat(options.axis_y_data_format,"axis_y_data_format",multiDimensionalCharts.axis_x_data_format)
+        .validatingChartMode(chartObject.mode,"mode",stylesheet.mode)
+        .validatingDataType(chartObject.chart_width,"chart_width",stylesheet.chart_width)
+        .validatingDataType(chartObject.chart_height,"chart_height",stylesheet.chart_height)
+        .validatingDataType(chartObject.chart_margin_left,"chart_margin_left",stylesheet.chart_margin_left)
+        .validatingDataType(chartObject.chart_margin_right,"chart_margin_right",stylesheet.chart_margin_right)
+        .validatingDataType(chartObject.chart_margin_top,"chart_margin_top",stylesheet.chart_margin_top)
+        .validatingDataType(chartObject.chart_margin_bottom,"chart_margin_bottom",stylesheet.chart_margin_bottom)
+        .validatingDataType(chartObject.title_size,"title_size",stylesheet.title_size)
+        .validatingDataType(chartObject.subtitle_size,"subtitle_size",stylesheet.subtitle_size)
+        .validatingDataType(chartObject.real_time_charts_refresh_frequency,"real_time_charts_refresh_frequency",functionality.real_time_charts_refresh_frequency)
+        .validatingDataType(chartObject.transition_duration,"transition_duration",functionality.transition_duration)
+        .validatingDataType(chartObject.border_between_chart_elements_thickness,"border_between_chart_elements_thickness",stylesheet.border_between_chart_elements_thickness)
+        .validatingDataType(chartObject.axis_x_pointer_size,"axis_x_pointer_size",stylesheet.axis_x_pointer_size)
+        .validatingDataType(chartObject.axis_y_pointer_size,"axis_y_pointer_size",multiDimensionalCharts.axis_y_pointer_size)
+        .validatingDataType(chartObject.axis_x_pointer_length,"axis_x_pointer_length",stylesheet.axis_x_pointer_length)
+        .validatingDataType(chartObject.axis_y_pointer_length,"axis_y_pointer_length",multiDimensionalCharts.axis_y_pointer_length)
+        .validatingDataType(chartObject.axis_x_title_size,"axis_x_title_size",stylesheet.axis_x_title_size)
+        .validatingDataType(chartObject.axis_y_title_size,"axis_y_title_size",multiDimensionalCharts.axis_y_title_size)
+        .validatingDataType(chartObject.label_size,"label_size",stylesheet.label_size)
+        .validatingDataType(chartObject.legends_text_size ,"legends_text_size",stylesheet.legends_text_size)
+        .validatingDataType(chartObject.zoom_level,"zoom_level",stylesheet.zoom_level)
+        .validatingDataType(chartObject.pointer_thickness,"pointer_thickness",stylesheet.pointer_thickness)
+        .validatingDataType(chartObject.pointer_size,"pointer_size",stylesheet.pointer_size)
+        .validatingDataType(chartObject.axis_x_outer_pointer_length,"axis_x_outer_pointer_length",stylesheet.axis_x_outer_pointer_length)
+        .validatingDataType(chartObject.axis_y_outer_pointer_length,"axis_y_outer_pointer_length",multiDimensionalCharts.axis_y_outer_pointer_length)
+        .validatingDataType(chartObject.axis_x_pointer_padding,"axis_x_pointer_padding",stylesheet.axis_x_pointer_padding)
+        .validatingDataType(chartObject.axis_y_pointer_padding,"axis_y_pointer_padding",multiDimensionalCharts.axis_y_pointer_padding)
+        .validatingDataType(chartObject.axis_x_no_of_axis_value,"axis_x_no_of_axis_value",stylesheet.axis_x_no_of_axis_value)
+        .validatingDataType(chartObject.axis_y_no_of_axis_value,"axis_y_no_of_axis_value",multiDimensionalCharts.axis_y_no_of_axis_value)
+        .validatingDataType(chartObject.axis_x_time_value_interval,"axis_x_time_value_interval",stylesheet.axis_x_time_value_interval)
+        .validatingDataType(chartObject.axis_y_time_value_interval,"axis_y_time_value_interval",multiDimensionalCharts.axis_y_time_value_interval)
+        .validatingColorMode(chartObject.color_mode,"color_mode",stylesheet.color_mode)
+        .validatingYAxisPointerPosition(chartObject.axis_y_pointer_position,"axis_y_pointer_position",multiDimensionalCharts.axis_y_pointer_position)
+        .validatingXAxisPointerPosition(chartObject.axis_x_pointer_position,"axis_x_pointer_position",stylesheet.axis_x_pointer_position)
+        .validatingXAxisPointerPosition(chartObject.axis_x_position,"axis_x_position",stylesheet.axis_x_position)
+        .validatingYAxisPointerPosition(chartObject.axis_y_position,"axis_y_position",multiDimensionalCharts.axis_y_position)
+        .validatingBorderBetweenChartElementsStyle(chartObject.border_between_chart_elements_style)
+        .validatingLegendsPosition(chartObject.legends_display,"legends_display",stylesheet.legends_display)
+        .validatingTooltipMode(chartObject.tooltip_mode,"tooltip_mode",stylesheet.tooltip_mode)
+        .validatingFontWeight(chartObject.title_weight,"title_weight",stylesheet.title_weight)
+        .validatingFontWeight(chartObject.subtitle_weight,"subtitle_weight",stylesheet.subtitle_weight)
+        .validatingFontWeight(chartObject.pointer_weight,"pointer_weight",stylesheet.pointer_weight)
+        .validatingFontWeight(chartObject.label_weight,"label_weight",stylesheet.label_weight)
+        .validatingFontWeight(chartObject.legends_text_weight,"legends_text_weight",stylesheet.legends_text_weight)
+        .validatingFontWeight(chartObject.axis_x_pointer_weight,"axis_x_pointer_weight",stylesheet.axis_x_pointer_weight)
+        .validatingFontWeight(chartObject.axis_y_pointer_weight,"axis_y_pointer_weight",multiDimensionalCharts.axis_y_pointer_weight)
+        .validatingFontWeight(chartObject.axis_x_title_weight,"axis_x_title_weight",stylesheet.axis_x_title_weight)
+        .validatingFontWeight(chartObject.axis_y_title_weight,"axis_y_title_weight",multiDimensionalCharts.axis_y_title_weight)
+        .validatingColor(chartObject.background_color,"background_color",stylesheet.background_color)
+        .validatingColor(chartObject.chart_grid_color,"chart_grid_color",multiDimensionalCharts.chart_grid_color)
+        .validatingColor(chartObject.title_color,"title_color",stylesheet.title_color)
+        .validatingColor(chartObject.subtitle_color,"subtitle_color",stylesheet.subtitle_color)
+        .validatingColor(chartObject.axis_x_line_color,"axis_x_line_color",stylesheet.axis_x_line_color)
+        .validatingColor(chartObject.axis_y_line_color,"axis_y_line_color",multiDimensionalCharts.axis_y_line_color)
+        .validatingColor(chartObject.axis_x_title_color,"axis_x_title_color",stylesheet.axis_x_title_color)
+        .validatingColor(chartObject.axis_y_title_color,"axis_y_title_color",multiDimensionalCharts.axis_y_title_color)
+        .validatingColor(chartObject.axis_x_pointer_color,"axis_x_pointer_color",stylesheet.axis_x_pointer_color)
+        .validatingColor(chartObject.axis_y_pointer_color,"axis_y_pointer_color",multiDimensionalCharts.axis_y_pointer_color)
+        .validatingColor(chartObject.highlight_color,"highlight_color",stylesheet.highlight_color)
+        .validatingColor(chartObject.saturation_color,"saturation_color",stylesheet.saturation_color)
+        .validatingColor(chartObject.pointer_color,"pointer_color",stylesheet.pointer_color)
+        .validatingColor(chartObject.label_color,"label_color",stylesheet.label_color)
+        .validatingColor(chartObject.border_between_chart_elements_color,"border_between_chart_elements_color")
+        // .validatingColor(chartObject.annotation_border_color,"annotation_border_color",multiDimensionalCharts.annotation_border_color)
+        .validatingColor(chartObject.annotation_background_color,"annotation_background_color",multiDimensionalCharts.annotation_background_color)
+        .validatingColor(chartObject.annotation_font_color,"annotation_font_color",multiDimensionalCharts.annotation_font_color)
+        .validatingColor(chartObject.legends_text_color,"legends_text_color",stylesheet.legends_text_color);
 
         if(chartObject.chart_color.constructor === Array) {
             for(var i = 0;i < chartObject.chart_color.length;i++) {

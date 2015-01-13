@@ -2,7 +2,7 @@ PykCharts.oneD.bubble = function (options) {
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
     this.execute = function () {
-        that = PykCharts.oneD.processInputs(that, options);
+        that = new PykCharts.validation.processInputs(that, options,'oneDimensionalCharts');
         that.chart_height = options.chart_height ? options.chart_height : that.chart_width;
 
         that.k.validator()
@@ -50,12 +50,15 @@ PykCharts.oneD.bubble = function (options) {
     };
 
     this.render = function () {
+
         var id = that.selector.substring(1,that.selector.length);
         var container_id = id + "_svg";
+
         that.fillChart = new PykCharts.Configuration.fillChart(that);
         that.transitions = new PykCharts.Configuration.transition(that);
-
+                        console.log("before",that.mode);   
         if (that.mode ==="default") {
+
             that.k.title()
                 .backgroundColor(that)
                 .export(that,"#"+container_id,"bubble")
@@ -63,6 +66,7 @@ PykCharts.oneD.bubble = function (options) {
                 .subtitle();
 
             that.new_data = that.optionalFeatures().clubData();
+
             that.optionalFeatures().svgContainer(container_id)
                 .createChart()
                 .label();
@@ -113,7 +117,6 @@ PykCharts.oneD.bubble = function (options) {
                 return this;
             },
             createChart : function () {
-
                 var bubble = d3.layout.pack()
                     .sort(function (a,b) { return b.weight - a.weight; })
                     .size([that.chart_width, that.chart_height])

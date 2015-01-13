@@ -3,7 +3,7 @@ PykCharts.oneD.pie = function (options) {
     var theme = new PykCharts.Configuration.Theme({});
 
     this.execute = function() {
-        that = new PykCharts.oneD.processInputs(that, options, "pie");
+        that = new PykCharts.validation.processInputs(that, options, "pie", 'oneDimensionalCharts');
         if(options.chart_height) {
             that.chart_height = options.chart_height;
             that.calculation = undefined;
@@ -59,7 +59,7 @@ PykCharts.oneD.donut = function (options) {
     var theme = new PykCharts.Configuration.Theme({});
     this.execute = function() {
 
-        that = new PykCharts.oneD.processInputs(that, options, "pie");
+        that = new PykCharts.validation.processInputs(that, options, 'oneDimensionalCharts');
         if(options.chart_height) {
             that.chart_height = options.chart_height;
             that.calculation = undefined;
@@ -137,7 +137,7 @@ PykCharts.oneD.electionPie = function (options) {
 
     this.execute = function() {
 
-        that = new PykCharts.oneD.processInputs(that, options, "pie");
+        that = new PykCharts.validation.processInputs(that, options, 'oneDimensionalCharts');
         that.x = true;
         if(options.chart_height || options.chart_height === undefined) {
             try {
@@ -214,7 +214,7 @@ PykCharts.oneD.electionDonut = function (options) {
     var theme = new PykCharts.Configuration.Theme({});
 
     this.execute = function() {
-        that = new PykCharts.oneD.processInputs(that, options, "pie");
+        that = new PykCharts.validation.processInputs(that, options, 'oneDimensionalCharts');
 
         that.x = true;
         if(options.chart_height || options.chart_height === undefined) {
