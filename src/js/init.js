@@ -1,9 +1,7 @@
 var anonymousFunc = function () {
 
     var urls = [
-/*      PykCharts.assets+'lib/jquery-1.11.1.min.js'
-    ,*/ PykCharts.assets+'lib/d3.min.js'
-    // , PykCharts.assets+'lib/underscore.min.js'
+      PykCharts.assets+'lib/d3.min.js'
     , PykCharts.assets+'lib/topojson.min.js'
     , PykCharts.assets+'lib/custom-hive.min.js'
     , PykCharts.assets+'lib/colors.min.js'

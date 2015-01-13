@@ -3,7 +3,7 @@ PykCharts.multiD.river = function (options){
     var theme = new PykCharts.Configuration.Theme({});
 
     this.execute = function (){
-        that = new PykCharts.multiD.processInputs(that, options, "area");
+        that = new PykCharts.validation.processInputs(that, options, 'multiDimensionalCharts');
         var multiDimensionalCharts = theme.multiDimensionalCharts,
             stylesheet = theme.stylesheet,
             optional = options.optional;

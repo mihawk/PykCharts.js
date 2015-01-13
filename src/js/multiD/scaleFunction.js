@@ -186,6 +186,7 @@ PykCharts.scaleFunction = function (options) {
         return this;
     }
     options.k.xAxisTitle = function (gsvg,legendsGroup_height,legendsGroup_width) {
+        console.log("test", options.axis_x_title)
         if(options.axis_x_title) {
             var w = PykCharts['boolean'](options.panels_enable) ? options.w : options.chart_width,
             position;
