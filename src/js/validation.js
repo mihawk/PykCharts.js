@@ -678,6 +678,16 @@ PykCharts.validation.processInputs = function (chartObject, options, chart_type)
             'default_value': stylesheet,
             'multiDimensionalCharts': true,
 
+        },
+        {
+            'config_name': 'axis_x_title',
+            'default_value': stylesheet,
+            'multiDimensionalCharts': true
+        },
+        {
+            'config_name': 'axis_y_title',
+            'default_value': stylesheet,
+            'multiDimensionalCharts': true
         }
     ];
 
@@ -702,8 +712,6 @@ PykCharts.validation.processInputs = function (chartObject, options, chart_type)
         default : chartObject.border_between_chart_elements_style = "0";
                   break;
     }
-
- 
 
     if(chart_type === 'oneDimensionalCharts' || chart_type === 'maps') {
         if(chartObject.chart_color[0]) {
