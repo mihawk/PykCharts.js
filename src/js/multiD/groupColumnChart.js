@@ -3,7 +3,8 @@ PykCharts.multiD.groupedColumn = function(options) {
     var theme = new PykCharts.Configuration.Theme({});
 
     this.execute = function () {
-        that = new PykCharts.multiD.processInputs(that, options, "column");
+        that = new PykCharts.validation.processInputs(that, options, 'multiDimensionalCharts');
+        console.log(that.chart_color)
         PykCharts.scaleFunction(that);
         PykCharts.grid(that);
         if(that.stop){

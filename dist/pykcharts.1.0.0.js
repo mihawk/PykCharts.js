@@ -980,7 +980,9 @@ PykCharts.Configuration = function (options){
         validator: function () {
             var validator = {
                 validatingSelector: function (selector) {
-                    selector = selector.substring(1,selector.length);
+                    if(selector.charAt(0) === "#") {
+                        selector = selector.substring(1,selector.length);
+                    }
                     try {
                         if(!document.getElementById(selector)) {
                             options.stop = true;
@@ -1742,7 +1744,6 @@ configuration.Theme = function(){
 PykCharts.validation = {};
 PykCharts.oneD = {};
 PykCharts.other = {};
-PykCharts.multiD = {};
 PykCharts.validation.processInputs = function (chartObject, options, chart_type) {
     var theme = new PykCharts.Configuration.Theme({})
 	    , stylesheet = theme.stylesheet
@@ -1795,7 +1796,7 @@ PykCharts.validation.processInputs = function (chartObject, options, chart_type)
             'default_value': stylesheet,
             'validation_type': 'validatingDataType',
             'all_charts':true
-            
+
         },
         {
             'config_name': 'subtitle_size',
@@ -1815,355 +1816,437 @@ PykCharts.validation.processInputs = function (chartObject, options, chart_type)
             'config_name': 'label_size',
             'default_value': stylesheet,
             'validation_type': 'validatingDataType',
-            'condition1': findInObject
+            'condition1': findInObject,
+            'all_charts':true
         },
         {
             'config_name': 'pointer_thickness',
             'default_value': stylesheet,
             'validation_type': 'validatingDataType',
-            'condition1': findInObject
+            'condition1': findInObject,
+            'oneDimensionalCharts':true,
+            'multiDimensionalCharts':true
         },
         {
             'config_name': 'pointer_size',
             'default_value': stylesheet,
             'validation_type': 'validatingDataType',
-            'condition1': findInObject
+            'condition1': findInObject,
+            'oneDimensionalCharts':true,
+            'multiDimensionalCharts':true
         },
         {
             'config_name': 'axis_x_title_size',
             'default_value': stylesheet,
             'validation_type': 'validatingDataType',
-            'condition1': findInObject
+            'condition1': findInObject,
+            'multiDimensionalCharts':true
         },
         {
             'config_name': 'axis_y_title_size',
             'default_value': multiDimensionalCharts,
             'validation_type': 'validatingDataType',
-            'condition1': findInObject
+            'condition1': findInObject,
+            'multiDimensionalCharts':true
         },
         {
             'config_name': 'legends_text_size',
             'default_value': stylesheet,
             'validation_type': 'validatingDataType',
-            'condition1': findInObject
+            'condition1': findInObject,
+            'maps':true,
+            'multiDimensionalCharts':true
         },
         {
             'config_name': 'axis_x_pointer_size',
             'default_value': stylesheet,
             'validation_type': 'validatingDataType',
-            'condition1': findInObject
+            'condition1': findInObject,
+            'maps':true,
+            'multiDimensionalCharts':true
         },
         {
             'config_name': 'axis_y_pointer_size',
             'default_value': multiDimensionalCharts,
             'validation_type': 'validatingDataType',
-            'condition1': findInObject
+            'condition1': findInObject,
+            'multiDimensionalCharts':true
         },
         {
             'config_name': 'axis_x_pointer_length',
             'default_value': stylesheet,
             'validation_type': 'validatingDataType',
-            'condition1': findInObject
+            'condition1': findInObject,
+            'maps':true,
+            'multiDimensionalCharts':true
         },
         {
             'config_name': 'axis_y_pointer_length',
             'default_value': multiDimensionalCharts,
             'validation_type': 'validatingDataType',
-            'condition1': findInObject
+            'condition1': findInObject,
+            'multiDimensionalCharts': true
         },
         {
             'config_name': 'axis_x_outer_pointer_length',
             'default_value': stylesheet,
             'validation_type': 'validatingDataType',
-            'condition1': findInObject
+            'condition1': findInObject,
+            'maps':true,
+            'multiDimensionalCharts':true
         },
         {
             'config_name': 'axis_y_outer_pointer_length',
             'default_value': multiDimensionalCharts,
             'validation_type': 'validatingDataType',
-            'condition1': findInObject
+            'condition1': findInObject,
+            'multiDimensionalCharts':true
         },
         {
             'config_name': 'real_time_charts_refresh_frequency',
             'default_value': functionality,
-            'validation_type': 'validatingDataType'
+            'validation_type': 'validatingDataType',
+            'all_charts':true
         },
         {
             'config_name': 'transition_duration',
             'default_value': functionality,
-            'validation_type': 'validatingDataType'
+            'validation_type': 'validatingDataType',
+            'oneDimensionalCharts': true,
+            'multiDimensionalCharts':true,
+            'other': true
         },
         {
             'config_name': 'clubdata_maximum_nodes',
             'default_value': oneDimensionalCharts,
-            'validation_type': 'validatingDataType'
+            'validation_type': 'validatingDataType',
+            'oneDimensionalCharts':true
         },
         {
             'config_name': 'title_weight',
             'default_value': stylesheet,
             'validation_type': 'validatingFontWeight',
-            'condition2' : convertToLowerCase
+            'condition2' : convertToLowerCase,
+            'all_charts': true
         },
         {
             'config_name': 'subtitle_weight',
             'default_value': stylesheet,
             'validation_type': 'validatingFontWeight',
-            'condition2' : convertToLowerCase
+            'condition2' : convertToLowerCase,
+            'all_charts': true
         },
         {
             'config_name': 'pointer_weight',
             'default_value': stylesheet,
             'validation_type': 'validatingFontWeight',
-            'condition2' : convertToLowerCase
+            'condition2' : convertToLowerCase,
+            'oneDimensionalCharts': true,
+            'multiDimensionalCharts':true
         },
         {
             'config_name': 'label_weight',
             'default_value': stylesheet,
             'validation_type': 'validatingFontWeight',
-            'condition2' : convertToLowerCase
+            'condition2' : convertToLowerCase,
+            'all_charts': true
         },
         {
             'config_name': 'background_color',
             'default_value': stylesheet,
-            'validation_type': 'validatingColor'
+            'validation_type': 'validatingColor',
+            'all_charts': true
         },
         {
             'config_name': 'title_color',
             'default_value': stylesheet,
-            'validation_type': 'validatingColor'
+            'validation_type': 'validatingColor',
+            'all_charts': true
         },
         {
             'config_name': 'subtitle_color',
             'default_value': stylesheet,
-            'validation_type': 'validatingColor'
+            'validation_type': 'validatingColor',
+            'all_charts': true
         },
         {
             'config_name': 'highlight_color',
             'default_value': stylesheet,
-            'validation_type': 'validatingColor'
+            'validation_type': 'validatingColor',
+            'all_charts': true
         },
         {
             'config_name': 'label_color',
             'default_value': stylesheet,
-            'validation_type': 'validatingColor'
+            'validation_type': 'validatingColor',
+            'all_charts': true
         },
         {
             'config_name': 'pointer_color',
             'default_value': stylesheet,
-            'validation_type': 'validatingColor'
+            'validation_type': 'validatingColor',
+            'oneDimensionalCharts': true,
+            'multiDimensionalCharts':true
         },
         {
             'config_name': 'border_between_chart_elements_color',
             'default_value': stylesheet,
-            'validation_type': 'validatingColor'
+            'validation_type': 'validatingColor',
+            'all_charts': true
         },
         {
             'config_name': 'axis_x_pointer_values',
             'default_value': stylesheet,
-            'validation_type': 'isArray'
+            'validation_type': 'isArray',
+            'maps':true,
+            'multiDimensionalCharts':true
         },
         {
             'config_name': 'axis_y_pointer_values',
             'default_value': multiDimensionalCharts,
-            'validation_type': 'isArray'
+            'validation_type': 'isArray',
+            'multiDimensionalCharts': true
         },
         {
             'config_name': 'axis_x_time_value_datatype',
             'default_value': stylesheet,
-            'validation_type': 'validatingTimeScaleDataType'
+            'validation_type': 'validatingTimeScaleDataType',
+            'multiDimensionalCharts': true
         },
         {
             'config_name': 'axis_y_time_value_datatype',
             'default_value': multiDimensionalCharts,
-            'validation_type': 'validatingTimeScaleDataType'
+            'validation_type': 'validatingTimeScaleDataType',
+            'multiDimensionalCharts': true
         },
         {
             'config_name': 'chart_height',
             'default_value': stylesheet,
-            'validation_type': 'validatingDataType'
+            'validation_type': 'validatingDataType',
+            'multiDimensionalCharts': true,
+            'maps': true
         },
         {
             'config_name': 'chart_margin_left',
             'default_value': stylesheet,
-            'validation_type': 'validatingDataType'
+            'validation_type': 'validatingDataType',
+            'multiDimensionalCharts': true
         },
         {
             'config_name': 'chart_margin_right',
             'default_value': stylesheet,
-            'validation_type': 'validatingDataType'
+            'validation_type': 'validatingDataType',
+            'multiDimensionalCharts': true
         },
         {
             'config_name': 'chart_margin_top',
             'default_value': stylesheet,
-            'validation_type': 'validatingDataType'
+            'validation_type': 'validatingDataType',
+            'multiDimensionalCharts': true
         },
         {
             'config_name': 'chart_margin_bottom',
             'default_value': stylesheet,
-            'validation_type': 'validatingDataType'
+            'validation_type': 'validatingDataType',
+            'multiDimensionalCharts': true
         },
         {
             'config_name': 'zoom_level',
             'default_value': multiDimensionalCharts,
-            'validation_type': 'validatingDataType'
+            'validation_type': 'validatingDataType',
+            'multiDimensionalCharts': true
         },
         {
             'config_name': 'axis_x_pointer_padding',
             'default_value': stylesheet,
-            'validation_type': 'validatingDataType'
+            'validation_type': 'validatingDataType',
+            'multiDimensionalCharts': true,
+            'maps': true
         },
         {
             'config_name': 'axis_y_pointer_padding',
             'default_value': multiDimensionalCharts,
-            'validation_type': 'validatingDataType'
+            'validation_type': 'validatingDataType',
+            'multiDimensionalCharts': true
         },
         {
             'config_name': 'axis_x_no_of_axis_value',
             'default_value': stylesheet,
-            'validation_type': 'validatingDataType'
+            'validation_type': 'validatingDataType',
+            'multiDimensionalCharts': true
         },
         {
             'config_name': 'axis_y_no_of_axis_value',
             'default_value': multiDimensionalCharts,
-            'validation_type': 'validatingDataType'
+            'validation_type': 'validatingDataType',
+            'multiDimensionalCharts': true
         },
         {
             'config_name': 'axis_x_time_value_interval',
             'default_value': stylesheet,
-            'validation_type': 'validatingDataType'
+            'validation_type': 'validatingDataType',
+            'multiDimensionalCharts': true
         },
         {
             'config_name': 'axis_y_time_value_interval',
             'default_value': multiDimensionalCharts,
-            'validation_type': 'validatingDataType'
+            'validation_type': 'validatingDataType',
+            'multiDimensionalCharts': true
         },
         {
             'config_name': 'legends_text_color',
             'default_value': stylesheet,
-            'validation_type': 'validatingColor'
+            'validation_type': 'validatingColor',
+            'multiDimensionalCharts': true,
+            'maps': true
         },
         {
             'config_name': 'axis_x_pointer_color',
             'default_value': stylesheet,
-            'validation_type': 'validatingColor'
+            'validation_type': 'validatingColor',
+            'multiDimensionalCharts': true,
+            'maps': true
         },
         {
             'config_name': 'axis_y_pointer_color',
             'default_value': multiDimensionalCharts,
-            'validation_type': 'validatingColor'
+            'validation_type': 'validatingColor',
+            'multiDimensionalCharts': true
         },
         {
             'config_name': 'axis_x_title_color',
             'default_value': stylesheet,
-            'validation_type': 'validatingColor'
+            'validation_type': 'validatingColor',
+            'multiDimensionalCharts': true
         },
         {
             'config_name': 'axis_y_title_color',
             'default_value': multiDimensionalCharts,
-            'validation_type': 'validatingColor'
+            'validation_type': 'validatingColor',
+            'multiDimensionalCharts': true
         },
         {
             'config_name': 'axis_x_line_color',
             'default_value': stylesheet,
-            'validation_type': 'validatingColor'
+            'validation_type': 'validatingColor',
+            'multiDimensionalCharts': true,
+            'maps': true
         },
         {
             'config_name': 'axis_y_line_color',
             'default_value': multiDimensionalCharts,
-            'validation_type': 'validatingColor'
+            'validation_type': 'validatingColor',
+            'multiDimensionalCharts': true
         },
         {
             'config_name': 'annotation_font_color',
             'default_value': multiDimensionalCharts,
-            'validation_type': 'validatingColor'
+            'validation_type': 'validatingColor',
+            'multiDimensionalCharts': true
         },
         {
             'config_name': 'annotation_background_color',
             'default_value': multiDimensionalCharts,
-            'validation_type': 'validatingColor'
+            'validation_type': 'validatingColor',
+            'multiDimensionalCharts': true
         },
         {
             'config_name': 'chart_grid_color',
             'default_value': multiDimensionalCharts,
-            'validation_type': 'validatingColor'
+            'validation_type': 'validatingColor',
+            'multiDimensionalCharts': true
         },
         {
             'config_name': 'legends_display',
             'default_value': stylesheet,
-            'validation_type': 'validatingLegendsPosition'
+            'validation_type': 'validatingLegendsPosition',
+            'multiDimensionalCharts': true,
+            'maps': true
         },
         {
             'config_name': 'tooltip_mode',
             'default_value': stylesheet,
-            'validation_type': 'validatingTooltipMode'
+            'validation_type': 'validatingTooltipMode',
+            'multiDimensionalCharts': true,
+            'maps': true
         },
         {
             'config_name': 'legends_text_weight',
             'default_value': stylesheet,
             'validation_type': 'validatingFontWeight',
-            'condition2' : convertToLowerCase
+            'condition2' : convertToLowerCase,
+            'multiDimensionalCharts': true,
+            'maps': true
         },
         {
             'config_name': 'axis_y_pointer_weight',
             'default_value': multiDimensionalCharts,
             'validation_type': 'validatingFontWeight',
-            'condition2' : convertToLowerCase
+            'condition2' : convertToLowerCase,
+            'multiDimensionalCharts': true
         },
         {
             'config_name': 'axis_x_pointer_weight',
             'default_value': stylesheet,
             'validation_type': 'validatingFontWeight',
-            'condition2' : convertToLowerCase
+            'condition2' : convertToLowerCase,
+            'multiDimensionalCharts': true,
+            'maps': true
         },
         {
             'config_name': 'axis_y_title_weight',
             'default_value': multiDimensionalCharts,
             'validation_type': 'validatingFontWeight',
-            'condition2' : convertToLowerCase
+            'condition2' : convertToLowerCase,
+            'multiDimensionalCharts': true
         },
         {
             'config_name': 'axis_x_title_weight',
             'default_value': stylesheet,
             'validation_type': 'validatingFontWeight',
-            'condition2' : convertToLowerCase
+            'condition2' : convertToLowerCase,
+            'multiDimensionalCharts': true
         },
         {
             'config_name': 'axis_y_position',
             'default_value': multiDimensionalCharts,
-            'validation_type': 'validatingYAxisPointerPosition'
+            'validation_type': 'validatingYAxisPointerPosition',
+            'multiDimensionalCharts': true
         },
         {
             'config_name': 'axis_x_position',
             'default_value': stylesheet,
             'validation_type': 'validatingXAxisPointerPosition',
-            'condition2': convertToLowerCase
+            'condition2': convertToLowerCase,
+            'multiDimensionalCharts': true
         },
         {
             'config_name': 'axis_y_pointer_position',
             'default_value': multiDimensionalCharts,
             'validation_type': 'validatingYAxisPointerPosition',
-            'condition2': convertToLowerCase
+            'condition2': convertToLowerCase,
+            'multiDimensionalCharts': true
         },
         {
             'config_name': 'axis_x_pointer_position',
             'default_value': stylesheet,
             'validation_type': 'validatingXAxisPointerPosition',
-            'condition2': convertToLowerCase
+            'condition2': convertToLowerCase,
+            'multiDimensionalCharts': true,
+            'maps': true
         },
         {
             'config_name': 'color_mode',
             'default_value': stylesheet,
             'validation_type': 'validatingColorMode',
-            'condition2': convertToLowerCase
+            'condition2': convertToLowerCase,
+            'all_charts': true
         },
         {
             'config_name': 'border_between_chart_elements_style',
             'default_value': stylesheet,
-            'condition2': convertToLowerCase
-        },
-        {
-            'config_name':'highlight',
-            'default_value': stylesheet
+            'condition2': convertToLowerCase,
+            'all_charts': true
         },
         {
             'config_name': 'clubdata_text',
@@ -2239,7 +2322,9 @@ PykCharts.validation.processInputs = function (chartObject, options, chart_type)
         },
         {
             'config_name':'axis_x_enable',
-            'default_value': stylesheet
+            'default_value': stylesheet,
+            'multiDimensionalCharts': true,
+            'maps': true
         },
         {
             'config_name': 'axis_y_enable',
@@ -2252,19 +2337,23 @@ PykCharts.validation.processInputs = function (chartObject, options, chart_type)
         },
         {
             'config_name': 'zoom_enable',
-            'default_value': multiDimensionalCharts
+            'default_value': multiDimensionalCharts,
+            'multiDimensionalCharts': true
         },
         {
             'config_name': 'annotation_enable',
-            'default_value': multiDimensionalCharts
+            'default_value': multiDimensionalCharts,
+            'multiDimensionalCharts': true
         },
         {
             'config_name': 'legends_enable',
-            'default_value': stylesheet
+            'default_value': stylesheet,
+            'multiDimensionalCharts': true
         },
         {
             'config_name': 'variable_circle_size_enable',
-            'default_value': multiDimensionalCharts
+            'default_value': multiDimensionalCharts,
+            'multiDimensionalCharts': true
         },
         {
             'config_name': 'title_family',
@@ -2301,6 +2390,27 @@ PykCharts.validation.processInputs = function (chartObject, options, chart_type)
             'config_name': 'units_prefix',
             'default_value':stylesheet,
             'oneDimensionalCharts':true
+        },
+        {
+            'config_name':'highlight',
+            'default_value': stylesheet,
+            'all_charts': true
+        },
+        {
+            'config_name': 'axis_x_title_family',
+            'default_value': stylesheet,
+            'multiDimensionalCharts': true
+        },
+        {
+            'config_name': 'axis_y_title_family',
+            'default_value': multiDimensionalCharts,
+            'multiDimensionalCharts': true
+        },
+        {
+            'config_name': 'legends_text_family',
+            'default_value': stylesheet,
+            'multiDimensionalCharts': true,
+
         }
     ];
 
@@ -2336,11 +2446,18 @@ PykCharts.validation.processInputs = function (chartObject, options, chart_type)
 
     chartObject.k = new PykCharts.Configuration(chartObject);
 
-    if(chartObject.chart_color.constructor === Array) {
+    if(chart_type === 'oneDimensionalCharts' || chart_type === 'maps') {
         if(chartObject.chart_color[0]) {
             chartObject.k.validator()
                 .validatingColor(chartObject.chart_color[0],"chart_color",stylesheet.chart_color);
         }
+    } else {
+        for(var i = 0;i < chartObject.chart_color.length;i++) {
+            if(chartObject.chart_color[i]) {
+                chartObject.k.validator()
+                    .validatingColor(chartObject.chart_color[i],"chart_color",stylesheet.chart_color);
+            }
+        }        
     }
     return chartObject;
 }
@@ -7847,8 +7964,7 @@ PykCharts.multiD.line = function (options) {
     var theme = new PykCharts.Configuration.Theme({});
 
     this.execute = function () {
-
-        that = new PykCharts.multiD.processInputs(that, options, "line");
+        that = new PykCharts.validation.processInputs(that, options, 'multiDimensionalCharts');
         PykCharts.crossHair(that);
         PykCharts.annotation(that);
         PykCharts.scaleFunction(that);
@@ -7905,8 +8021,7 @@ PykCharts.multiD.multiSeriesLine = function (options) {
     var theme = new PykCharts.Configuration.Theme({});
 
     this.execute = function (){
-
-        that = new PykCharts.multiD.processInputs(that, options, "line");
+        that = new PykCharts.validation.processInputs(that, options, 'multiDimensionalCharts');
         PykCharts.crossHair(that);
         PykCharts.annotation(that);
         PykCharts.scaleFunction(that);
@@ -7963,7 +8078,7 @@ PykCharts.multiD.panelsOfLine = function (options) {
 
     this.execute = function (){
 
-        that = new PykCharts.multiD.processInputs(that, options, "line");
+        that = new PykCharts.validation.processInputs(that, options, 'multiDimensionalCharts');
 
         PykCharts.crossHair(that);
         PykCharts.annotation(that);
@@ -9232,7 +9347,7 @@ PykCharts.multiD.area = function (options){
 	var theme = new PykCharts.Configuration.Theme({});
 
 	this.execute = function (){
-		that = new PykCharts.multiD.processInputs(that, options, "area");
+        that = new PykCharts.validation.processInputs(that, options, 'multiDimensionalCharts');
 		PykCharts.crossHair(that);
         PykCharts.annotation(that);
         PykCharts.scaleFunction(that);
@@ -9297,7 +9412,7 @@ PykCharts.multiD.stackedArea = function (options){
 	var theme = new PykCharts.Configuration.Theme({});
 
 	this.execute = function (){
-		that = new PykCharts.multiD.processInputs(that, options, "area");
+        that = new PykCharts.validation.processInputs(that, options, 'multiDimensionalCharts');
 		PykCharts.crossHair(that);
         PykCharts.annotation(that);
         PykCharts.scaleFunction(that);
@@ -10140,7 +10255,7 @@ PykCharts.multiD.bar = function (options) {
     var theme = new PykCharts.Configuration.Theme({});
     var multiDimensionalCharts = theme.multiDimensionalCharts;
     this.execute = function () {
-        that = new PykCharts.multiD.processInputs(that, options, "bar");
+        that = new PykCharts.validation.processInputs(that, options, 'multiDimensionalCharts');
         PykCharts.scaleFunction(that);
         that.data_sort_enable = options.data_sort_enable ? options.data_sort_enable.toLowerCase() : multiDimensionalCharts.data_sort_enable;
         that.data_sort_type = PykCharts['boolean'](that.data_sort_enable) && options.data_sort_type ? options.data_sort_type.toLowerCase() : multiDimensionalCharts.data_sort_type;
@@ -10594,7 +10709,7 @@ PykCharts.multiD.groupedBar = function(options){
 
     var multiDimensionalCharts = theme.multiDimensionalCharts;
     this.execute = function () {
-        that = new PykCharts.multiD.processInputs(that, options, "bar");
+        that = new PykCharts.validation.processInputs(that, options, 'multiDimensionalCharts');
         PykCharts.scaleFunction(that);
         that.data_sort_enable = options.data_sort_enable ? options.data_sort_enable.toLowerCase() : multiDimensionalCharts.data_sort_enable;
         that.data_sort_type = PykCharts['boolean'](that.data_sort_enable) && options.data_sort_type ? options.data_sort_type.toLowerCase() : multiDimensionalCharts.data_sort_type;
@@ -11223,7 +11338,7 @@ PykCharts.multiD.column = function (options) {
     var theme = new PykCharts.Configuration.Theme({});
 
     this.execute = function () {
-        that = new PykCharts.multiD.processInputs(that, options, "column");
+        that = new PykCharts.validation.processInputs(that, options, 'multiDimensionalCharts');
         PykCharts.scaleFunction(that);
         PykCharts.grid(that);
         if(that.stop){
@@ -11671,7 +11786,7 @@ PykCharts.multiD.groupedColumn = function(options) {
     var theme = new PykCharts.Configuration.Theme({});
 
     this.execute = function () {
-        that = new PykCharts.multiD.processInputs(that, options, "column");
+        that = new PykCharts.validation.processInputs(that, options, 'multiDimensionalCharts');
         PykCharts.scaleFunction(that);
         PykCharts.grid(that);
         if(that.stop){
@@ -12301,7 +12416,7 @@ PykCharts.multiD.scatter = function (options) {
     var theme = new PykCharts.Configuration.Theme({});
 
     this.execute = function() {
-        that = new PykCharts.multiD.processInputs(that, options, "scatterplot");
+        that = new PykCharts.validation.processInputs(that, options, 'multiDimensionalCharts');
         that.bubbleRadius = options.scatterplot_radius ? options.scatterplot_radius : theme.multiDimensionalCharts.scatterplot_radius;
         that.panels_enable = "no";
         PykCharts.scaleFunction(that);
@@ -12368,7 +12483,7 @@ PykCharts.multiD.panelsOfScatter = function (options) {
     var theme = new PykCharts.Configuration.Theme({});
 
     this.execute = function() {
-        that = new PykCharts.multiD.processInputs(that, options, "scatterplot");
+        that = new PykCharts.validation.processInputs(that, options, 'multiDimensionalCharts');
         PykCharts.scaleFunction(that);
         that.bubbleRadius = options.scatterplot_radius ? options.scatterplot_radius : theme.multiDimensionalCharts.scatterplot_radius;
         that.panels_enable = "yes";
@@ -12436,7 +12551,7 @@ PykCharts.multiD.pulse = function (options) {
     var theme = new PykCharts.Configuration.Theme({});
 
     this.execute = function() {
-        that = new PykCharts.multiD.processInputs(that, options, "pulse");
+        that = new PykCharts.validation.processInputs(that, options, 'multiDimensionalCharts');
         PykCharts.scaleFunction(that);
         var multiDimensionalCharts = theme.multiDimensionalCharts,
             stylesheet = theme.stylesheet;
@@ -13261,7 +13376,7 @@ PykCharts.multiD.spiderWeb = function (options) {
 
     this.execute = function () {
         var multiDimensionalCharts = theme.multiDimensionalCharts;
-        that = new PykCharts.multiD.processInputs(that, options, "spiderweb");
+        that = new PykCharts.validation.processInputs(that, options, 'multiDimensionalCharts');
         that.bubbleRadius = options.spiderweb_radius  ? options.spiderweb_radius : (0.6 * multiDimensionalCharts.scatterplot_radius);
         that.spiderweb_outer_radius_percent = options.spiderweb_outer_radius_percent  ? options.spiderweb_outer_radius_percent : multiDimensionalCharts.spiderweb_outer_radius_percent;
         that.panels_enable = "no";
@@ -13782,7 +13897,7 @@ PykCharts.multiD.river = function (options){
     var theme = new PykCharts.Configuration.Theme({});
 
     this.execute = function (){
-        that = new PykCharts.multiD.processInputs(that, options, "area");
+        that = new PykCharts.validation.processInputs(that, options, 'multiDimensionalCharts');
         var multiDimensionalCharts = theme.multiDimensionalCharts,
             stylesheet = theme.stylesheet,
             optional = options.optional;
@@ -15853,9 +15968,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
 var anonymousFunc = function () {
 
     var urls = [
-/*      PykCharts.assets+'lib/jquery-1.11.1.min.js'
-    ,*/ PykCharts.assets+'lib/d3.min.js'
-    // , PykCharts.assets+'lib/underscore.min.js'
+      PykCharts.assets+'lib/d3.min.js'
     , PykCharts.assets+'lib/topojson.min.js'
     , PykCharts.assets+'lib/custom-hive.min.js'
     , PykCharts.assets+'lib/colors.min.js'

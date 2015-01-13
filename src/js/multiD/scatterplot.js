@@ -3,7 +3,7 @@ PykCharts.multiD.scatter = function (options) {
     var theme = new PykCharts.Configuration.Theme({});
 
     this.execute = function() {
-        that = new PykCharts.multiD.processInputs(that, options, "scatterplot");
+        that = new PykCharts.validation.processInputs(that, options, 'multiDimensionalCharts');
         that.bubbleRadius = options.scatterplot_radius ? options.scatterplot_radius : theme.multiDimensionalCharts.scatterplot_radius;
         that.panels_enable = "no";
         PykCharts.scaleFunction(that);
@@ -70,7 +70,7 @@ PykCharts.multiD.panelsOfScatter = function (options) {
     var theme = new PykCharts.Configuration.Theme({});
 
     this.execute = function() {
-        that = new PykCharts.multiD.processInputs(that, options, "scatterplot");
+        that = new PykCharts.validation.processInputs(that, options, 'multiDimensionalCharts');
         PykCharts.scaleFunction(that);
         that.bubbleRadius = options.scatterplot_radius ? options.scatterplot_radius : theme.multiDimensionalCharts.scatterplot_radius;
         that.panels_enable = "yes";
@@ -138,7 +138,7 @@ PykCharts.multiD.pulse = function (options) {
     var theme = new PykCharts.Configuration.Theme({});
 
     this.execute = function() {
-        that = new PykCharts.multiD.processInputs(that, options, "pulse");
+        that = new PykCharts.validation.processInputs(that, options, 'multiDimensionalCharts');
         PykCharts.scaleFunction(that);
         var multiDimensionalCharts = theme.multiDimensionalCharts,
             stylesheet = theme.stylesheet;

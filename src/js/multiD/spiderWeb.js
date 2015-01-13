@@ -4,7 +4,7 @@ PykCharts.multiD.spiderWeb = function (options) {
 
     this.execute = function () {
         var multiDimensionalCharts = theme.multiDimensionalCharts;
-        that = new PykCharts.multiD.processInputs(that, options, "spiderweb");
+        that = new PykCharts.validation.processInputs(that, options, 'multiDimensionalCharts');
         that.bubbleRadius = options.spiderweb_radius  ? options.spiderweb_radius : (0.6 * multiDimensionalCharts.scatterplot_radius);
         that.spiderweb_outer_radius_percent = options.spiderweb_outer_radius_percent  ? options.spiderweb_outer_radius_percent : multiDimensionalCharts.spiderweb_outer_radius_percent;
         that.panels_enable = "no";
