@@ -985,7 +985,7 @@ PykCharts.Configuration = function (options){
         validator: function () {
             var validator = {
                 validatingSelector: function (selector) {
-                    selector = selector.substring(1,selector.length);
+                    // selector = selector.substring(1,selector.length);
                     try {
                         if(!document.getElementById(selector)) {
                             options.stop = true;
