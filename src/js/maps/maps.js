@@ -24,7 +24,8 @@ PykCharts.maps.processInputs = function (chartObject, options) {
     chartObject.palette_color = options.palette_color ? options.palette_color : mapsTheme.palette_color;
 
     chartObject.label_enable = options.label_enable ? options.label_enable.toLowerCase() : mapsTheme.label_enable;
-    chartObject.chart_onhover_effect = options.chart_onhover_effect ? options.chart_onhover_effect : mapsTheme.chart_onhover_effect;
+    chartObject.chart_onhover_effect = options.chart_onhover_effect ? options.chart_onhover_effect.toLowerCase() : mapsTheme.chart_onhover_effect;
+    // console.log(chartObject.chart_onhover_effect,options.chart_onhover_effect)
     chartObject.default_zoom_level = options.default_zoom_level ? options.default_zoom_level : 80;
     chartObject.loading_type = options.loading_type ? options.loading_type : stylesheet.loading_type;
     chartObject.loading_source = options.loading_source ? options.loading_source : stylesheet.loading_source;

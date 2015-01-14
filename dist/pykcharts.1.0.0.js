@@ -1745,6 +1745,7 @@ PykCharts.validation = {};
 PykCharts.oneD = {};
 PykCharts.other = {};
 PykCharts.validation.processInputs = function (chartObject, options, chart_type) {
+
     var theme = new PykCharts.Configuration.Theme({})
 	    , stylesheet = theme.stylesheet
 	    , functionality = theme.functionality
@@ -2280,15 +2281,12 @@ PykCharts.validation.processInputs = function (chartObject, options, chart_type)
 
             if(config_name in options) {
                 var condition2  = !config.condition2 ? options[config_name] : config.condition2(options[config_name]);
-                // console.log(options[config_name],config_name)
             }
             chartObject[config_name] = condition1 ? condition2 : default_value;
-            // console.log(chartObject[config_name],config_name,default_value)
             if(config.validation_type) {
-                // console.log(validator[config.validation_type],"testing",config.validation_type)
                 validator[config.validation_type](chartObject[config_name],config_name,default_value);
             }
-
+            // console.log(chartObject[config_name],config_name)
     }
     var enable_config_param = [
         {   
@@ -2365,7 +2363,8 @@ PykCharts.validation.processInputs = function (chartObject, options, chart_type)
         {
             'config_name': 'legends_enable',
             'default_value': stylesheet,
-            'multiDimensionalCharts': true
+            'multiDimensionalCharts': true,
+            'maps': true
         },
         {
             'config_name': 'variable_circle_size_enable',
@@ -2448,6 +2447,11 @@ PykCharts.validation.processInputs = function (chartObject, options, chart_type)
             'config_name': 'click_enable',
             'default_value': mapsTheme,
             'maps': true
+        },
+        {
+            'config_name': 'annotation_view_mode',
+            'default_value': multiDimensionalCharts,
+            'multiDimensionalCharts': true
         }
     ];
 
@@ -2594,9 +2598,9 @@ PykCharts.oneD.bubble = function (options) {
         that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
         var resize = that.k.resize(that.svgContainer);
         that.k.__proto__._ready(resize);
-        window.onresize = function () {
+        window.addEventListener('resize', function(event){
             return that.k.resize(that.svgContainer);
-        };
+        });
     };
 
     this.optionalFeatures = function () {
@@ -2956,9 +2960,9 @@ PykCharts.oneD.funnel = function (options) {
 
         var resize = that.k.resize(that.svgContainer);
         that.k.__proto__._ready(resize);
-        window.onresize = function () {
+        window.addEventListener('resize', function(event){
             return that.k.resize(that.svgContainer);
-        };
+        });
     };
 
     this.funnelLayout = function (){
@@ -3455,9 +3459,9 @@ PykCharts.oneD.percentageColumn = function (options) {
 
         var resize = that.k.resize(that.svgContainer);
         that.k.__proto__._ready(resize);
-        window.onresize = function () {
+        window.addEventListener('resize', function(event){
             return that.k.resize(that.svgContainer);
-        };
+        });
 
     };
     this.optionalFeatures = function () {
@@ -3913,9 +3917,9 @@ PykCharts.oneD.percentageBar = function (options) {
 
         var resize = that.k.resize(that.svgContainer);
         that.k.__proto__._ready(resize);
-        window.onresize = function () {
+        window.addEventListener('resize', function(event){
             return that.k.resize(that.svgContainer);
-        };
+        });
     };
     this.optionalFeatures = function () {
         var optional = {
@@ -4645,9 +4649,9 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
 
         var resize = that.k.resize(that.svgContainer);
         that.k.__proto__._ready(resize);
-        window.onresize = function () {
+        window.addEventListener('resize', function(event){
             return that.k.resize(that.svgContainer);
-        };
+        });
     };
 
     that.optionalFeatures = function () {
@@ -5207,9 +5211,9 @@ PykCharts.oneD.pyramid = function (options) {
         
         var resize = that.k.resize(that.svgContainer);
         that.k.__proto__._ready(resize);
-        window.onresize = function () {
+        window.addEventListener('resize', function(event){
             return that.k.resize(that.svgContainer);
-        };
+        });
 	};
 
 	this.percentageValues = function (data){
@@ -5767,9 +5771,9 @@ PykCharts.oneD.treemap = function (options){
         
         var resize = that.k.resize(that.svgContainer);
         that.k.__proto__._ready(resize);
-        window.onresize = function () {
+        window.addEventListener('resize', function(event){
             return that.k.resize(that.svgContainer);
-        };
+        });
     };
 
     this.optionalFeatures = function (){
@@ -6144,9 +6148,9 @@ PykCharts.other.pictograph = function (options) {
         that.k.exportSVG(that,"#"+container_id,"pictograph");
         var resize = that.k.resize(that.svgContainer);
         that.k.__proto__._ready(resize);
-        window.onresize = function () {
+        window.addEventListener('resize', function(event){
             return that.k.resize(that.svgContainer);
-        };
+        });
     };
 
     this.optionalFeatures = function () {
@@ -14632,7 +14636,8 @@ PykCharts.maps.processInputs = function (chartObject, options) {
     chartObject.palette_color = options.palette_color ? options.palette_color : mapsTheme.palette_color;
 
     chartObject.label_enable = options.label_enable ? options.label_enable.toLowerCase() : mapsTheme.label_enable;
-    chartObject.chart_onhover_effect = options.chart_onhover_effect ? options.chart_onhover_effect : mapsTheme.chart_onhover_effect;
+    chartObject.chart_onhover_effect = options.chart_onhover_effect ? options.chart_onhover_effect.toLowerCase() : mapsTheme.chart_onhover_effect;
+    // console.log(chartObject.chart_onhover_effect,options.chart_onhover_effect)
     chartObject.default_zoom_level = options.default_zoom_level ? options.default_zoom_level : 80;
     chartObject.loading_type = options.loading_type ? options.loading_type : stylesheet.loading_type;
     chartObject.loading_source = options.loading_source ? options.loading_source : stylesheet.loading_source;
@@ -14699,7 +14704,7 @@ PykCharts.maps.oneLayer = function (options) {
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
     this.execute = function () {
-        that = new PykCharts.validation.processInputs(that, options, 'multiDimensionalCharts');
+        that = new PykCharts.validation.processInputs(that, options, 'maps');
         that = PykCharts.maps.processInputs(that, options);
         that.executeData = function (data) {
             var validate = that.k.validator().validatingJSON(data),
@@ -14855,7 +14860,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         }
 
         that.optionalFeatures()
-            .svgContainer()
+            .svgContainer(container_id)
             .legendsContainer(that.legends_enable)
             .legends(that.legends_enable)
             .createMap()
@@ -14880,9 +14885,9 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         }
         var resize = that.k.resize(that.svgContainer);
         that.k.__proto__._ready(resize);
-        window.onresize = function () {
+        window.addEventListener('resize', function(event){
             return that.k.resize(that.svgContainer);
-        };
+        });
     };
 
     that.refresh = function () {
@@ -14933,7 +14938,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                 };
                 return this;
             },
-            svgContainer : function () {
+            svgContainer : function (container_id) {
                 document.getElementById(id).style.width = "100%";
             
                 that.svgContainer = d3.select(that.selector)
@@ -14941,7 +14946,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     .attr({
                         "width": that.chart_width,
                         "height": that.chart_height,
-                        "id": "svgcontainer",
+                        "id": container_id,
                         "class": 'PykCharts-map',
                         "preserveAspectRatio": "xMinYMin",
                         "viewBox": "0 0 " + that.chart_width + " " + that.chart_height

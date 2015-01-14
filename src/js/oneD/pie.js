@@ -392,9 +392,9 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
 
         var resize = that.k.resize(that.svgContainer);
         that.k.__proto__._ready(resize);
-        window.onresize = function () {
+        window.addEventListener('resize', function(event){
             return that.k.resize(that.svgContainer);
-        };
+        });
     };
 
     that.optionalFeatures = function () {

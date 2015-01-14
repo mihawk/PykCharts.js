@@ -1,7 +1,6 @@
 PykCharts.validation = {};
 PykCharts.oneD = {};
 PykCharts.other = {};
-                            console.log("heyyyyyyyyyyyyy")
 PykCharts.validation.processInputs = function (chartObject, options, chart_type) {
 
     var theme = new PykCharts.Configuration.Theme({})
@@ -621,7 +620,8 @@ PykCharts.validation.processInputs = function (chartObject, options, chart_type)
         {
             'config_name': 'legends_enable',
             'default_value': stylesheet,
-            'multiDimensionalCharts': true
+            'multiDimensionalCharts': true,
+            'maps': true
         },
         {
             'config_name': 'variable_circle_size_enable',

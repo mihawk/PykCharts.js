@@ -2,11 +2,8 @@ PykCharts.maps.oneLayer = function (options) {
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
     this.execute = function () {
-
         that = new PykCharts.validation.processInputs(that, options, 'maps');
-
         that = PykCharts.maps.processInputs(that, options);
-
         that.executeData = function (data) {
             var validate = that.k.validator().validatingJSON(data),
                 id = that.selector.substring(1,that.selector.length);
@@ -161,7 +158,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         }
 
         that.optionalFeatures()
-            .svgContainer()
+            .svgContainer(container_id)
             .legendsContainer(that.legends_enable)
             .legends(that.legends_enable)
             .createMap()
@@ -186,9 +183,9 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         }
         var resize = that.k.resize(that.svgContainer);
         that.k.__proto__._ready(resize);
-        window.onresize = function () {
+        window.addEventListener('resize', function(event){
             return that.k.resize(that.svgContainer);
-        };
+        });
     };
 
     that.refresh = function () {
@@ -239,7 +236,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                 };
                 return this;
             },
-            svgContainer : function () {
+            svgContainer : function (container_id) {
                 document.getElementById(id).style.width = "100%";
             
                 that.svgContainer = d3.select(that.selector)
@@ -247,7 +244,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     .attr({
                         "width": that.chart_width,
                         "height": that.chart_height,
-                        "id": "svgcontainer",
+                        "id": container_id,
                         "class": 'PykCharts-map',
                         "preserveAspectRatio": "xMinYMin",
                         "viewBox": "0 0 " + that.chart_width + " " + that.chart_height
