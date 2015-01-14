@@ -1761,6 +1761,9 @@ PykCharts.validation.processInputs = function (chartObject, options, chart_type)
         chartObject.data_source_name = options.data_source_name ? options.data_source_name : "";
         chartObject.data_source_url = options.data_source_url ? options.data_source_url : "";
         chartObject.default_color = stylesheet.chart_color;
+        chartObject.loading_type = options.loading_type ? options.loading_type : stylesheet.loading_type;
+        chartObject.loading_source = options.loading_source ? options.loading_source : stylesheet.loading_source;
+
 
     var config_param_info = [
     	{	
@@ -7069,6 +7072,7 @@ PykCharts.scaleFunction = function (options) {
             }
             d3.selectAll(options.selector + " .x.axis").attr("fill",function () {return options.axis_x_pointer_color;});
             if(options.axis_x_position === "bottom") {
+                console.log("hey")
                 gsvg.attr("transform", "translate(0," + (options.chart_height - options.chart_margin_top - options.chart_margin_bottom - legendsGroup_height) + ")");
             }
 
@@ -14630,8 +14634,6 @@ PykCharts.maps.processInputs = function (chartObject, options) {
     chartObject.chart_onhover_effect = options.chart_onhover_effect ? options.chart_onhover_effect.toLowerCase() : mapsTheme.chart_onhover_effect;
     // console.log(chartObject.chart_onhover_effect,options.chart_onhover_effect)
     chartObject.default_zoom_level = options.default_zoom_level ? options.default_zoom_level : 80;
-    chartObject.loading_type = options.loading_type ? options.loading_type : stylesheet.loading_type;
-    chartObject.loading_source = options.loading_source ? options.loading_source : stylesheet.loading_source;
     chartObject.k = new PykCharts.Configuration(chartObject);
     chartObject.total_no_of_colors = options.total_no_of_colors && chartObject.k.__proto__._isNumber(parseInt(options.total_no_of_colors,10))? parseInt(options.total_no_of_colors,10) : mapsTheme.total_no_of_colors;
 
@@ -15089,6 +15091,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             },
             axisContainer : function (ae) {
                 if(PykCharts['boolean'](ae)){
+                    console.log((that.margin_left*2),that.redeced_height)
                     that.gxaxis = that.svgContainer.append("g")
                         .attr({
                             "id": "xaxis",
@@ -15454,6 +15457,10 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
           return a - b;
         });
         that.k.xAxis(that.svgContainer,that.gxaxis,that.xScale);
+        if(that.gxaxis) {
+            that.gxaxis.attr("transform", "translate("+(that.margin_left*2)+"," + that.redeced_height + ")");
+        }
+        
     }
     that.renderTimeline = function () {
         var x_extent

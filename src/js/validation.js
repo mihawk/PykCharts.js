@@ -22,6 +22,9 @@ PykCharts.validation.processInputs = function (chartObject, options, chart_type)
         chartObject.data_source_name = options.data_source_name ? options.data_source_name : "";
         chartObject.data_source_url = options.data_source_url ? options.data_source_url : "";
         chartObject.default_color = stylesheet.chart_color;
+        chartObject.loading_type = options.loading_type ? options.loading_type : stylesheet.loading_type;
+        chartObject.loading_source = options.loading_source ? options.loading_source : stylesheet.loading_source;
+
 
     var config_param_info = [
     	{	
