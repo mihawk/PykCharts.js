@@ -9,10 +9,10 @@ PykCharts.maps.processInputs = function (chartObject, options) {
 
     chartObject.timeline_duration = "timeline_duration" in options ? options.timeline_duration :mapsTheme.timeline_duration;
 
-    chartObject.timeline_margin_left = options.timeline_margin_left ? options.timeline_margin_left : mapsTheme.timeline_margin_left;
-    chartObject.timeline_margin_right = options.timeline_margin_right ? options.timeline_margin_right : mapsTheme.timeline_margin_right;
-    chartObject.timeline_margin_top = options.timeline_margin_top ? options.timeline_margin_top : mapsTheme.timeline_margin_top;
-    chartObject.timeline_margin_bottom = options.timeline_margin_bottom ? options.timeline_margin_bottom : mapsTheme.timeline_margin_bottom;
+    chartObject.margin_left = options.timeline_margin_left ? options.timeline_margin_left : mapsTheme.timeline_margin_left;
+    chartObject.margin_right = options.timeline_margin_right ? options.timeline_margin_right : mapsTheme.timeline_margin_right;
+    chartObject.margin_top = options.timeline_margin_top ? options.timeline_margin_top : mapsTheme.timeline_margin_top;
+    chartObject.margin_bottom = options.timeline_margin_bottom ? options.timeline_margin_bottom : mapsTheme.timeline_margin_bottom;
 
     chartObject.tooltip_position_top = options.tooltip_position_top ? options.tooltip_position_top : mapsTheme.tooltip_position_top;
     chartObject.tooltip_position_left = options.tooltip_position_left ? options.tooltip_position_left : mapsTheme.tooltip_position_left;
@@ -34,10 +34,10 @@ PykCharts.maps.processInputs = function (chartObject, options) {
 
     chartObject.k.validator().validatingSelector(chartObject.selector.substring(1,chartObject.selector.length))
         .isArray(chartObject.chart_color,"chart_color")
-        .validatingDataType(chartObject.timeline_margin_left,"timeline_margin_left",mapsTheme.timeline_margin_left)
-        .validatingDataType(chartObject.timeline_margin_right,"timeline_margin_right",mapsTheme.timeline_margin_right)
-        .validatingDataType(chartObject.timeline_margin_top,"timeline_margin_top",mapsTheme.timeline_margin_top)
-        .validatingDataType(chartObject.timeline_margin_bottom,"timeline_margin_bottom",mapsTheme.timeline_margin_bottom)
+        .validatingDataType(chartObject.margin_left,"timeline_margin_left",mapsTheme.timeline_margin_left,"margin_left")
+        .validatingDataType(chartObject.margin_right,"timeline_margin_right",mapsTheme.timeline_margin_right,"margin_right")
+        .validatingDataType(chartObject.margin_top,"timeline_margin_top",mapsTheme.timeline_margin_top,"margin_top")
+        .validatingDataType(chartObject.margin_bottom,"timeline_margin_bottom",mapsTheme.timeline_margin_bottom,"margin_bottom")
         .validatingDataType(chartObject.tooltip_position_top,"tooltip_position_top",mapsTheme.tooltip_position_top)
         .validatingDataType(chartObject.tooltip_position_left,"tooltip_position_left",mapsTheme.tooltip_position_left)
         .validatingColor(chartObject.highlight_color,"highlight_color",stylesheet.highlight_color)

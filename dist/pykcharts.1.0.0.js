@@ -14612,10 +14612,10 @@ PykCharts.maps.processInputs = function (chartObject, options) {
 
     chartObject.timeline_duration = "timeline_duration" in options ? options.timeline_duration :mapsTheme.timeline_duration;
 
-    chartObject.timeline_margin_left = options.timeline_margin_left ? options.timeline_margin_left : mapsTheme.timeline_margin_left;
-    chartObject.timeline_margin_right = options.timeline_margin_right ? options.timeline_margin_right : mapsTheme.timeline_margin_right;
-    chartObject.timeline_margin_top = options.timeline_margin_top ? options.timeline_margin_top : mapsTheme.timeline_margin_top;
-    chartObject.timeline_margin_bottom = options.timeline_margin_bottom ? options.timeline_margin_bottom : mapsTheme.timeline_margin_bottom;
+    chartObject.margin_left = options.timeline_margin_left ? options.timeline_margin_left : mapsTheme.timeline_margin_left;
+    chartObject.margin_right = options.timeline_margin_right ? options.timeline_margin_right : mapsTheme.timeline_margin_right;
+    chartObject.margin_top = options.timeline_margin_top ? options.timeline_margin_top : mapsTheme.timeline_margin_top;
+    chartObject.margin_bottom = options.timeline_margin_bottom ? options.timeline_margin_bottom : mapsTheme.timeline_margin_bottom;
 
     chartObject.tooltip_position_top = options.tooltip_position_top ? options.tooltip_position_top : mapsTheme.tooltip_position_top;
     chartObject.tooltip_position_left = options.tooltip_position_left ? options.tooltip_position_left : mapsTheme.tooltip_position_left;
@@ -14637,10 +14637,10 @@ PykCharts.maps.processInputs = function (chartObject, options) {
 
     chartObject.k.validator().validatingSelector(chartObject.selector.substring(1,chartObject.selector.length))
         .isArray(chartObject.chart_color,"chart_color")
-        .validatingDataType(chartObject.timeline_margin_left,"timeline_margin_left",mapsTheme.timeline_margin_left)
-        .validatingDataType(chartObject.timeline_margin_right,"timeline_margin_right",mapsTheme.timeline_margin_right)
-        .validatingDataType(chartObject.timeline_margin_top,"timeline_margin_top",mapsTheme.timeline_margin_top)
-        .validatingDataType(chartObject.timeline_margin_bottom,"timeline_margin_bottom",mapsTheme.timeline_margin_bottom)
+        .validatingDataType(chartObject.margin_left,"timeline_margin_left",mapsTheme.timeline_margin_left,"margin_left")
+        .validatingDataType(chartObject.margin_right,"timeline_margin_right",mapsTheme.timeline_margin_right,"margin_right")
+        .validatingDataType(chartObject.margin_top,"timeline_margin_top",mapsTheme.timeline_margin_top,"margin_top")
+        .validatingDataType(chartObject.margin_bottom,"timeline_margin_bottom",mapsTheme.timeline_margin_bottom,"margin_bottom")
         .validatingDataType(chartObject.tooltip_position_top,"tooltip_position_top",mapsTheme.tooltip_position_top)
         .validatingDataType(chartObject.tooltip_position_left,"tooltip_position_left",mapsTheme.tooltip_position_left)
         .validatingColor(chartObject.highlight_color,"highlight_color",stylesheet.highlight_color)
@@ -14759,7 +14759,9 @@ PykCharts.maps.timelineMap = function (options) {
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
     this.execute = function () {
+        that = new PykCharts.validation.processInputs(that, options, 'maps');
         that = PykCharts.maps.processInputs(that, options);
+
         PykCharts.scaleFunction(that);
         that.executeData = function (data) {
             var validate = that.k.validator().validatingJSON(data),
@@ -14778,7 +14780,7 @@ PykCharts.maps.timelineMap = function (options) {
             that.data = that.k.__proto__._where(data, {timestamp: x_extent[0]});
             that.data_length = that.data.length;
 
-            that.redeced_width = that.chart_width - (that.timeline_margin_left * 2) - that.timeline_margin_right;
+            that.redeced_width = that.chart_width - (that.margin_left * 2) - that.margin_left;
 
             that.k
                 .totalColors(that.total_no_of_colors)
@@ -14858,7 +14860,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             .label(that.label_enable)
             .enableClick(that.click_enable);
 
-        that.redeced_height = that.chart_height - that.timeline_margin_top - that.timeline_margin_bottom;
+        that.redeced_height = that.chart_height - that.margin_top - that.margin_bottom;
 
         that.k
             .createFooter()
@@ -14977,7 +14979,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             createMap : function () {
 
                 var new_width =  that.chart_width - that.legendsGroup_width;
-                var new_height = that.chart_height - that.legendsGroup_height - that.timeline_margin_bottom -that.timeline_margin_top - 10;
+                var new_height = that.chart_height - that.legendsGroup_height - that.margin_bottom -that.margin_top - 10;
                 var scale = 150
                 , offset = [new_width / 2, new_height / 2]
                 , i;
@@ -15091,7 +15093,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                         .attr({
                             "id": "xaxis",
                             "class": "x axis",
-                            "transform": "translate("+(that.timeline_margin_left*2)+"," + that.redeced_height + ")"
+                            "transform": "translate("+(that.margin_left*2)+"," + that.redeced_height + ")"
                         });
                 }
                 return this;
@@ -15481,7 +15483,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     }
 
                     that.marker
-                        .attr("x",  (that.timeline_margin_left*2) + that.xScale(that.unique[interval]) - 7);
+                        .attr("x",  (that.margin_left*2) + that.xScale(that.unique[interval]) - 7);
 
                     that.data = that.k.__proto__._where(that.timeline_data, {timestamp:that.unique[interval]});
                     that.data_length = that.data.length;
@@ -15527,7 +15529,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         function dragmove (d) {
             document.getElementsByTagName('body')[0].style.cursor = "pointer";
             if (that.timeline_status !== "playing") {
-                var x = PykCharts.getEvent().sourceEvent.pageX - (that.timeline_margin_left),
+                var x = PykCharts.getEvent().sourceEvent.pageX - (that.margin_left),
                     x_range = [],
                     temp = that.xScale.range(),
                     len = that.unique.length,
@@ -15545,7 +15547,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                         left_diff = (x - left_tick), right_diff = (right_tick - x);
 
                         if ((left_diff >= right_diff) && (i <= (len-2))) {
-                            that.marker.attr("x", (that.timeline_margin_left*2) + that.xScale(that.unique[i]) - 7);
+                            that.marker.attr("x", (that.margin_left*2) + that.xScale(that.unique[i]) - 7);
                             that.data = that.k.__proto__._where(that.timeline_data, {timestamp:that.unique[i]});
                             that.data_length = that.data.length;
                             that.data.sort(function (a,b) {
@@ -15567,7 +15569,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                         }
                     }
                     else if ((x > x_range[i]) && (i > (len-2))) {
-                            that.marker.attr("x", (that.timeline_margin_left*2) + that.xScale(that.unique[i]) - 7);
+                            that.marker.attr("x", (that.margin_left*2) + that.xScale(that.unique[i]) - 7);
                             that.data = that.k.__proto__._where(that.timeline_data, {timestamp:that.unique[i]});
                             that.data_length = that.data.length;
                             that.data.sort(function (a,b) {
@@ -15594,8 +15596,8 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         that.play = that.svgContainer.append("image")
             .attr({
                 "xlink:href": that.play_image_url,
-                "x": that.timeline_margin_left / 2,
-                "y": that.redeced_height - that.timeline_margin_top - (bbox.height/2),
+                "x": that.margin_left / 2,
+                "y": that.redeced_height - that.margin_top - (bbox.height/2),
                 "width": "24px",
                 "height": "21px"
             })
@@ -15604,7 +15606,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         that.marker = that.svgContainer.append("image")
             .attr({
                 "xlink:href": that.marker_image_url,
-                "x": (that.timeline_margin_left*2) + that.xScale(that.unique[0]) - 7,
+                "x": (that.margin_left*2) + that.xScale(that.unique[0]) - 7,
                 "y": that.redeced_height,
                 "width": "14px",
                 "height": "12px"

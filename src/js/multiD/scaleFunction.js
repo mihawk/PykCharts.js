@@ -116,6 +116,7 @@ PykCharts.scaleFunction = function (options) {
             }
             d3.selectAll(options.selector + " .x.axis").attr("fill",function () {return options.axis_x_pointer_color;});
             if(options.axis_x_position === "bottom") {
+                console.log("hey")
                 gsvg.attr("transform", "translate(0," + (options.chart_height - options.chart_margin_top - options.chart_margin_bottom - legendsGroup_height) + ")");
             }
 
