@@ -1000,6 +1000,8 @@ PykCharts.Configuration = function (options){
                                 options[config_name] = default_value;
                             }
                             throw config_name;
+                        } else {
+                            options[config_name] = parseFloat(attr_value);
                         }
                     }
                     catch (err) {

@@ -1000,6 +1000,8 @@ PykCharts.Configuration = function (options){
                                 options[config_name] = default_value;
                             }
                             throw config_name;
+                        } else {
+                            options[config_name] = parseFloat(attr_value);
                         }
                     }
                     catch (err) {
@@ -1761,9 +1763,6 @@ PykCharts.validation.processInputs = function (chartObject, options, chart_type)
         chartObject.data_source_name = options.data_source_name ? options.data_source_name : "";
         chartObject.data_source_url = options.data_source_url ? options.data_source_url : "";
         chartObject.default_color = stylesheet.chart_color;
-        chartObject.loading_type = options.loading_type ? options.loading_type : stylesheet.loading_type;
-        chartObject.loading_source = options.loading_source ? options.loading_source : stylesheet.loading_source;
-
 
     var config_param_info = [
     	{	
@@ -2450,6 +2449,16 @@ PykCharts.validation.processInputs = function (chartObject, options, chart_type)
             'config_name': 'annotation_view_mode',
             'default_value': multiDimensionalCharts,
             'multiDimensionalCharts': true
+        },
+        {
+            'config_name': 'loading_type',
+            'default_value': stylesheet,
+            'all_charts': true
+        },
+        {
+            'config_name': 'loading_source',
+            'default_value': stylesheet,
+            'all_charts': true
         }
     ];
 
@@ -2712,7 +2721,7 @@ PykCharts.oneD.bubble = function (options) {
                 chart_text1.attr("class","weight")
                     .attr({
                         "x": function (d) { return d.x },
-                        "y": function (d) { return d.y + that.label_size; }
+                        "y": function (d) { console.log(d.y, that.label_size);return + d.y + that.label_size; }
                     });
 
                 chart_text.attr("text-anchor","middle")
@@ -7072,7 +7081,6 @@ PykCharts.scaleFunction = function (options) {
             }
             d3.selectAll(options.selector + " .x.axis").attr("fill",function () {return options.axis_x_pointer_color;});
             if(options.axis_x_position === "bottom") {
-                console.log("hey")
                 gsvg.attr("transform", "translate(0," + (options.chart_height - options.chart_margin_top - options.chart_margin_bottom - legendsGroup_height) + ")");
             }
 
@@ -14632,7 +14640,6 @@ PykCharts.maps.processInputs = function (chartObject, options) {
 
     chartObject.label_enable = options.label_enable ? options.label_enable.toLowerCase() : mapsTheme.label_enable;
     chartObject.chart_onhover_effect = options.chart_onhover_effect ? options.chart_onhover_effect.toLowerCase() : mapsTheme.chart_onhover_effect;
-    // console.log(chartObject.chart_onhover_effect,options.chart_onhover_effect)
     chartObject.default_zoom_level = options.default_zoom_level ? options.default_zoom_level : 80;
     chartObject.k = new PykCharts.Configuration(chartObject);
     chartObject.total_no_of_colors = options.total_no_of_colors && chartObject.k.__proto__._isNumber(parseInt(options.total_no_of_colors,10))? parseInt(options.total_no_of_colors,10) : mapsTheme.total_no_of_colors;
