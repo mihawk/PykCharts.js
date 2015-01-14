@@ -163,7 +163,7 @@ PykCharts.Configuration = function (options){
                                 break;
                             }
                         } else {
-                            if(!(option.k.__proto__._isEqual(data[i][key2[j]],compare_data[i][key1[j]])) || key1[j] !== key2[j]) {
+                            if(!(options.k.__proto__._isEqual(data[i][key2[j]],compare_data[i][key1[j]])) || key1[j] !== key2[j]) {
                                 changed = true;
                                 break;
                             }
@@ -2522,7 +2522,6 @@ PykCharts.validation.processInputs = function (chartObject, options, chart_type)
     function findInObject(value) {
         return value in options;
     }
-    console.log(chartObject.border_between_chart_elements_style)
     chartObject.k = new PykCharts.Configuration(chartObject);
     return chartObject;
 }
@@ -10103,7 +10102,6 @@ PykCharts.multiD.bar = function (options) {
         }
 
         that.panels_enable = "no";
-
         if(that.mode === "default") {
            that.k.loading();
         }

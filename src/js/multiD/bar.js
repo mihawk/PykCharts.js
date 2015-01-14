@@ -24,7 +24,6 @@ PykCharts.multiD.bar = function (options) {
         }
 
         that.panels_enable = "no";
-
         if(that.mode === "default") {
            that.k.loading();
         }
