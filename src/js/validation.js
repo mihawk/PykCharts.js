@@ -21,7 +21,7 @@ PykCharts.validation.processInputs = function (chartObject, options, chart_type)
         chartObject.data_source_name = options.data_source_name ? options.data_source_name : "";
         chartObject.data_source_url = options.data_source_url ? options.data_source_url : "";
         chartObject.default_color = stylesheet.chart_color;
-    // console.log("heyyyyyyyyyyyyyyyyyyyyheyyyyyyyyyyyyyyyyyyyy")
+
     var config_param_info = [
     	{	
     		'config_name': 'selector',
@@ -517,8 +517,18 @@ PykCharts.validation.processInputs = function (chartObject, options, chart_type)
             'default_value': stylesheet,
             'multiDimensionalCharts': true,
             'maps': true
-        }
+        },
+        {
+            'config_name': 'timeline_duration',
+            'default_value': mapsTheme,
+            'maps': true,
+            'condition1':findInObject
+        }/*,
+        {
+            'config_name': ''
+        }*/
     ];
+
     chartObject.k = new PykCharts.Configuration(chartObject);
     var validator = chartObject.k.validator();
 
@@ -688,6 +698,16 @@ PykCharts.validation.processInputs = function (chartObject, options, chart_type)
             'config_name': 'axis_y_title',
             'default_value': stylesheet,
             'multiDimensionalCharts': true
+        },
+        {
+            'config_name': 'map_code',
+            'default_value': mapsTheme,
+            'maps': true
+        },
+        {
+            'config_name': 'click_enable',
+            'default_value': mapsTheme,
+            'maps': true
         }
     ];
 
