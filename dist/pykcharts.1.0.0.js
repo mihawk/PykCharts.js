@@ -1582,7 +1582,7 @@ configuration.Theme = function(){
         "axis_x_time_value_interval":0,
         "axisHighlight_x_data_format": "string",
 
-        "loading_source": "../pykih-charts/assets/img/Preloader_64.gif",
+        "loading_source": "../pykih-charts/assets/img/loading.gif",
         "loading_type": "image",
 
         "tooltip_enable": "yes",
