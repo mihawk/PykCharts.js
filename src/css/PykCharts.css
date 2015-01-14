@@ -32,8 +32,8 @@
 .PykCharts-loading,
 .PykCharts-loading:after {
   border-radius: 50%;
-  width: 200px;
-  height: 50px;
+  width: 4em;
+  height: 4em;
 }
 @-webkit-keyframes load8 {
   0% {
