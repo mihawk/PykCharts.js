@@ -6,7 +6,6 @@ var anonymousFunc = function () {
     , PykCharts.assets+'lib/custom-hive.min.js'
     , PykCharts.assets+'lib/colors.min.js'
     , PykCharts.assets+'lib/paper-full.min.js'
-    , PykCharts.assets+'lib/downloadDataURI.min.js'
     ];
 
     function importFiles (url) {
@@ -16,11 +15,9 @@ var anonymousFunc = function () {
         include.onload = function () {
             try {
                 PykCharts.numberFormat = d3.format(",");
-                if (d3 && d3.customHive && topojson && $c && paper && downloadDataURI) {
+                if (d3 && d3.customHive && topojson && $c && paper) {
                     window.PykChartsInit();
-                    console.log(document.querySelector("body"));
                     document.querySelector("body").onclick = function () {
-                        console.log("heuuuuuuuu")
                         if (PykCharts.export_menu_status === 0) {
                             d3.selectAll(".dropdown-multipleConatiner-export").style("visibility","hidden");
                         }
@@ -71,13 +68,6 @@ var anonymousFunc = function () {
         }
     } catch (e) {
         importFiles(urls[4]);
-    }
-    try {
-        if(!downloadDataURI) {
-            importFiles(urls[5]);
-        }
-    } catch (e) {
-        importFiles(urls[5]);
     }
 };
 

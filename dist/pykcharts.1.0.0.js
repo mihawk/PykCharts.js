@@ -371,6 +371,18 @@ PykCharts.Configuration = function (options){
             }
         },
         __proto__: {
+            _downloadDataURI : function(t) {
+                function isPlainObject(t) {
+                   return "object" != typeof t || t.nodeType || null != t && t === t.window ? !1 : t.constructor && !t.constructor.prototype.hasOwnProperty("isPrototypeOf") ? !1 : !0
+                }
+                if (t) {
+                    isPlainObject(t) || (t = {
+                        data: t
+                    }), t.filename || (t.filename = "download." + t.data.split(",")[0].split(";")[0].substring(5).split("/")[1]), t.url || (t.url = "http://download-data-uri.appspot.com/");
+                    var e = (d3.select("body").append("form").attr("id", "export-form").attr("method", "post").attr("action", t.url).style("display", "none").html("<input type='hidden' name='filename' value='" + t.filename + "'/><input type='hidden' name='data' value='" + t.data + "'/>"), document.getElementById("export-form"));
+                    e.submit(), e.parentNode.removeChild(e)
+                }
+            },
             _domainBandwidth: function (domain_array, count, type) {
                 addFactor = 0;
                 if(type === "time") {
@@ -918,7 +930,7 @@ PykCharts.Configuration = function (options){
                         chart.k.processSVG(document.querySelector(options.selector +" "+svgId),chart_name);
                         project.importSVG(document.querySelector(options.selector +" "+svgId));
                         var svg = project.exportSVG({ asString: true });
-                        downloadDataURI({
+                        options.k.__proto__._downloadDataURI({
                             data: 'data:image/svg+xml;base64,' + btoa(svg),
                             filename: name
                         });
@@ -933,7 +945,7 @@ PykCharts.Configuration = function (options){
                             chart.k.processSVG(document.querySelector(options.selector + " #" +svgId + id),chart_name);
                             project.importSVG(document.querySelector(options.selector + " #" +svgId + id));
                             var svg = project.exportSVG({ asString: true });;
-                            downloadDataURI({
+                            options.k.__proto__._downloadDataURI({
                                 data: 'data:image/svg+xml;base64,' + btoa(svg),
                                 filename: name
                             });
@@ -15637,7 +15649,6 @@ var anonymousFunc = function () {
     , PykCharts.assets+'lib/custom-hive.min.js'
     , PykCharts.assets+'lib/colors.min.js'
     , PykCharts.assets+'lib/paper-full.min.js'
-    , PykCharts.assets+'lib/downloadDataURI.min.js'
     ];
 
     function importFiles (url) {
@@ -15647,11 +15658,9 @@ var anonymousFunc = function () {
         include.onload = function () {
             try {
                 PykCharts.numberFormat = d3.format(",");
-                if (d3 && d3.customHive && topojson && $c && paper && downloadDataURI) {
+                if (d3 && d3.customHive && topojson && $c && paper) {
                     window.PykChartsInit();
-                    console.log(document.querySelector("body"));
                     document.querySelector("body").onclick = function () {
-                        console.log("heuuuuuuuu")
                         if (PykCharts.export_menu_status === 0) {
                             d3.selectAll(".dropdown-multipleConatiner-export").style("visibility","hidden");
                         }
@@ -15702,13 +15711,6 @@ var anonymousFunc = function () {
         }
     } catch (e) {
         importFiles(urls[4]);
-    }
-    try {
-        if(!downloadDataURI) {
-            importFiles(urls[5]);
-        }
-    } catch (e) {
-        importFiles(urls[5]);
     }
 };
 
