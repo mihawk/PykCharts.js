@@ -764,7 +764,7 @@ PykCharts.validation.processInputs = function (chartObject, options, chart_type)
     function findInObject(value) {
         return value in options;
     }
- 
+    console.log(chartObject.border_between_chart_elements_style)
     chartObject.k = new PykCharts.Configuration(chartObject);
     return chartObject;
 }

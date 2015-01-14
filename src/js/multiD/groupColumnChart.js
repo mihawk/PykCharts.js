@@ -9,6 +9,7 @@ PykCharts.multiD.groupedColumn = function(options) {
         if(that.stop){
             return;
         }
+        // console.log(that.border_between_chart_elements_style)
         that.panels_enable = "no";
 
         if(that.mode === "default") {
@@ -284,6 +285,7 @@ PykCharts.multiD.groupedColumn = function(options) {
                 return this;
             },
             createChart: function() {
+
                 that.reduced_width = that.chart_width - that.chart_margin_left - that.chart_margin_right - that.legendsGroup_width;
 
                 that.reduced_height = that.chart_height - that.chart_margin_top - that.chart_margin_bottom - that.legendsGroup_height;
@@ -416,6 +418,7 @@ PykCharts.multiD.groupedColumn = function(options) {
                 that.xdomain = that.xScale.domain();
                 that.ydomain = that.yScale.domain();
                 that.highlight_y_positions =  [];
+
                 var chart = that.group.selectAll(".groupedColumn-rect")
                     .data(that.new_data);
 
@@ -473,6 +476,7 @@ PykCharts.multiD.groupedColumn = function(options) {
                         },
                         "stroke": that.border.color(),
                         "stroke-width": that.border.width(),
+                        "stroke-dasharray": that.border.style(),
                         "data-fill-opacity": function () {
                             return d3.select(this).attr("fill-opacity");
                         }

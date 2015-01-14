@@ -2522,7 +2522,7 @@ PykCharts.validation.processInputs = function (chartObject, options, chart_type)
     function findInObject(value) {
         return value in options;
     }
- 
+    console.log(chartObject.border_between_chart_elements_style)
     chartObject.k = new PykCharts.Configuration(chartObject);
     return chartObject;
 }
@@ -9623,7 +9623,6 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 			createChart : function (evt) {
 
 				that.legend_text = [];
-
 				that.layers = that.stack_layout(that.new_data);
 
         		var x_domain,x_data = [],y_data,y_range,x_range,y_domain, min_x_tick_value,max_x_tick_value, min_y_tick_value,max_y_tick_value;
@@ -10420,7 +10419,8 @@ PykCharts.multiD.bar = function (options) {
                         "width" : 0,
                         "fill" : function (d) { return that.fillColor.colorPieMS(d); },
                         "stroke" : that.border.color(),
-                        "stroke-width" : that.border.width()
+                        "stroke-width" : that.border.width(),
+                        "stroke-dasharray": that.border.style()
                     })
                     .on({
                         'mouseover': function (d) {
@@ -10941,6 +10941,7 @@ PykCharts.multiD.groupedBar = function(options){
                     },
                     "stroke" : that.border.color(),
                     "stroke-width" : that.border.width(),
+                    "stroke-dasharray": that.border.style(),
                     "data-fill-opacity" : function () {
                         return d3.select(this).attr("fill-opacity");
                     }
@@ -11536,7 +11537,8 @@ PykCharts.multiD.column = function (options) {
                         "width": function (d) { return (that.reducedWidth/(that.data.length))-(0.03*that.reducedWidth); },
                         "fill": function (d) { return that.fillColor.colorPieMS(d); },
                         "stroke": that.border.color(),
-                        "stroke-width": that.border.width()
+                        "stroke-width": that.border.width(),
+                        "stroke-dasharray": that.border.style()
                     })
                     .on({
                         'mouseover': function (d) {
@@ -11620,6 +11622,7 @@ PykCharts.multiD.groupedColumn = function(options) {
         if(that.stop){
             return;
         }
+        // console.log(that.border_between_chart_elements_style)
         that.panels_enable = "no";
 
         if(that.mode === "default") {
@@ -11895,6 +11898,7 @@ PykCharts.multiD.groupedColumn = function(options) {
                 return this;
             },
             createChart: function() {
+
                 that.reduced_width = that.chart_width - that.chart_margin_left - that.chart_margin_right - that.legendsGroup_width;
 
                 that.reduced_height = that.chart_height - that.chart_margin_top - that.chart_margin_bottom - that.legendsGroup_height;
@@ -12027,6 +12031,7 @@ PykCharts.multiD.groupedColumn = function(options) {
                 that.xdomain = that.xScale.domain();
                 that.ydomain = that.yScale.domain();
                 that.highlight_y_positions =  [];
+
                 var chart = that.group.selectAll(".groupedColumn-rect")
                     .data(that.new_data);
 
@@ -12084,6 +12089,7 @@ PykCharts.multiD.groupedColumn = function(options) {
                         },
                         "stroke": that.border.color(),
                         "stroke-width": that.border.width(),
+                        "stroke-dasharray": that.border.style(),
                         "data-fill-opacity": function () {
                             return d3.select(this).attr("fill-opacity");
                         }
