@@ -72,9 +72,6 @@ PykCharts.Configuration = function (options){
                 } else if(suffix) {
                     label = text + " " + suffix;
                 }
-                // console.log(text)
-                // console.log(text,"text")
-                // label = text;
             return label;
         },
         title: function () {
@@ -1287,7 +1284,6 @@ configuration.mouseEvent = function (options) {
                     axis_pointer_color = options.axis_y_pointer_color;
                     axis_data_length = d3.selectAll(selection)[0].length;
                     active_tick_length = active_tick.length;
-                    // console.log(active_tick,"active_tick");
                     d3.selectAll(selection)
                         .style("fill","#bbb")
                         .style("font-weight","normal");
@@ -2286,7 +2282,6 @@ PykCharts.validation.processInputs = function (chartObject, options, chart_type)
             if(config.validation_type) {
                 validator[config.validation_type](chartObject[config_name],config_name,default_value);
             }
-            // console.log(chartObject[config_name],config_name)
     }
     var enable_config_param = [
         {   
@@ -2462,7 +2457,6 @@ PykCharts.validation.processInputs = function (chartObject, options, chart_type)
             var config_name = config.config_name;
             var default_value = config.default_value[config_name];
             chartObject[config_name] = options[config_name] ? options[config_name] : default_value;
-            // console.log(config_name,chartObject[config_name])
         }
     }
 
@@ -2559,7 +2553,6 @@ PykCharts.oneD.bubble = function (options) {
 
         that.fillChart = new PykCharts.Configuration.fillChart(that);
         that.transitions = new PykCharts.Configuration.transition(that);
-                        console.log("before",that.mode);   
         if (that.mode ==="default") {
 
             that.k.title()
@@ -6713,7 +6706,6 @@ PykCharts.multiD.configuration = function (options){
 
 PykCharts.multiD.bubbleSizeCalculation = function (options,data,rad_range) {
     var size = function (d) {
-        // console.log(options.variable_circle_size_enable," ******",options.selector);
         if(d && PykCharts['boolean'](options.variable_circle_size_enable)) {
             var z = d3.scale.linear()
                         .domain(d3.extent(data,function (d) {
@@ -11863,7 +11855,6 @@ PykCharts.multiD.groupedColumn = function(options) {
 
                 that.reduced_height = that.chart_height - that.chart_margin_top - that.chart_margin_bottom - that.legendsGroup_height;
 
-                // console.log(that.data,"data");
                 that.getuniqueGroups = that.data.map(function (d) {
                     return d.group;
                 })

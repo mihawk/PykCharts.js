@@ -72,9 +72,6 @@ PykCharts.Configuration = function (options){
                 } else if(suffix) {
                     label = text + " " + suffix;
                 }
-                // console.log(text)
-                // console.log(text,"text")
-                // label = text;
             return label;
         },
         title: function () {
@@ -1287,7 +1284,6 @@ configuration.mouseEvent = function (options) {
                     axis_pointer_color = options.axis_y_pointer_color;
                     axis_data_length = d3.selectAll(selection)[0].length;
                     active_tick_length = active_tick.length;
-                    // console.log(active_tick,"active_tick");
                     d3.selectAll(selection)
                         .style("fill","#bbb")
                         .style("font-weight","normal");

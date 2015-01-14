@@ -288,7 +288,6 @@ PykCharts.multiD.groupedColumn = function(options) {
 
                 that.reduced_height = that.chart_height - that.chart_margin_top - that.chart_margin_bottom - that.legendsGroup_height;
 
-                // console.log(that.data,"data");
                 that.getuniqueGroups = that.data.map(function (d) {
                     return d.group;
                 })

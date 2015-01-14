@@ -56,7 +56,6 @@ PykCharts.oneD.bubble = function (options) {
 
         that.fillChart = new PykCharts.Configuration.fillChart(that);
         that.transitions = new PykCharts.Configuration.transition(that);
-                        console.log("before",that.mode);   
         if (that.mode ==="default") {
 
             that.k.title()

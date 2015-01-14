@@ -543,7 +543,6 @@ PykCharts.validation.processInputs = function (chartObject, options, chart_type)
             if(config.validation_type) {
                 validator[config.validation_type](chartObject[config_name],config_name,default_value);
             }
-            // console.log(chartObject[config_name],config_name)
     }
     var enable_config_param = [
         {   
@@ -719,7 +718,6 @@ PykCharts.validation.processInputs = function (chartObject, options, chart_type)
             var config_name = config.config_name;
             var default_value = config.default_value[config_name];
             chartObject[config_name] = options[config_name] ? options[config_name] : default_value;
-            // console.log(config_name,chartObject[config_name])
         }
     }
 
