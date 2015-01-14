@@ -15647,9 +15647,11 @@ var anonymousFunc = function () {
         include.onload = function () {
             try {
                 PykCharts.numberFormat = d3.format(",");
-                if (/*_ && */d3 /*&& ($ || jQuery)*/ && d3.customHive && topojson && $c && paper && downloadDataURI) {
+                if (d3 && d3.customHive && topojson && $c && paper && downloadDataURI) {
                     window.PykChartsInit();
-                    document.querySelector.onclick = function () {
+                    console.log(document.querySelector("body"));
+                    document.querySelector("body").onclick = function () {
+                        console.log("heuuuuuuuu")
                         if (PykCharts.export_menu_status === 0) {
                             d3.selectAll(".dropdown-multipleConatiner-export").style("visibility","hidden");
                         }
@@ -15665,13 +15667,7 @@ var anonymousFunc = function () {
         var s = document.getElementsByTagName('link')[0];
         s.parentNode.insertBefore(include, s);
     };
-    // try {
-    //     if (!$ && !jQuery) {
-    //         importFiles(urls[0]);
-    //     }
-    // } catch (e) {
-    //     importFiles(urls[0]);
-    // }
+
     try {
         if(!d3) {
             importFiles(urls[0]);
@@ -15679,13 +15675,6 @@ var anonymousFunc = function () {
     } catch (e) {
         importFiles(urls[0])
     }
-    // try {
-    //     if(!_) {
-    //         importFiles(urls[1]);
-    //     }
-    // } catch (e) {
-    //     importFiles(urls[1]);
-    // }
     try {
         if(!d3.customHive) {
             importFiles(urls[1]);

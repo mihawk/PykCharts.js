@@ -140,7 +140,7 @@
                 real_time_charts_refresh_frequency:0,
                 chart_onhover_highlight_enable: "yes"
             });
-        //   k.execute();
+           k.execute();
 
             var k = new PykCharts.oneD.treemap({
                 selector: "#treemap",
@@ -185,7 +185,7 @@
                 "donut_inner_radius_percent": 40,
                 chart_onhover_highlight_enable: "yes"
             });
-      //     k.execute();
+           k.execute();
 
             var k = new PykCharts.oneD.electionPie({
                 selector: "#electionPieContainer",
@@ -211,7 +211,7 @@
                 real_time_charts_refresh_frequency:0,
                 chart_onhover_highlight_enable: "yes"
             });
-      //    k.execute();
+           k.execute();
 
             var k = new PykCharts.oneD.electionDonut({
                 selector: "#electionDonutContainer",
@@ -244,7 +244,7 @@
                 pointer_thickness:3,
                 real_time_charts_refresh_frequency:0
             });
-    //       k.execute();
+           k.execute();
 
             var k = new PykCharts.oneD.pie({
                 chart_width: 700,
@@ -274,7 +274,7 @@
                  real_time_charts_refresh_frequency:0,
                  chart_onhover_highlight_enable: "yes"
             });
-           // k.execute();
+           k.execute();
 
             var k = new PykCharts.oneD.percentageColumn({
                 chart_width: 200,
@@ -334,12 +334,12 @@
                 selector: "#pie2Container",
                 background_color: "white",
                 data: "../data/new-pie.csv",
-                transition_duration: 0,
+                transition_duration: 1,
                 pie_radius_percent : 50,
                 mode: "DEFault",
                 chart_color: ["green","blue"],
-                clubdata_enable: "yes",
-                clubdata_maximum_nodes:5,
+                clubdata_enable: "no",
+                clubdata_maximum_nodes:3,
                 clubdata_always_include_data_points: ["Toyota","Audi"],
                 units_prefix: "$",
                 units_suffix: "/-",
