@@ -3,7 +3,7 @@ PykCharts.oneD.pie = function (options) {
     var theme = new PykCharts.Configuration.Theme({});
 
     this.execute = function() {
-        that = new PykCharts.validation.processInputs(that, options, "pie", 'oneDimensionalCharts');
+        that = new PykCharts.validation.processInputs(that, options, 'oneDimensionalCharts');
         if(options.chart_height) {
             that.chart_height = options.chart_height;
             that.calculation = undefined;
@@ -546,52 +546,51 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                 return this;
             },
             label : function () {
+                that.chart_text = that.group.selectAll("text")
+                                   .data(that.pie(that.new_data));
 
-                    that.chart_text = that.group.selectAll("text")
-                                       .data(that.pie(that.new_data));
+                that.chart_text.enter()
+                    .append("text")
+                    .attr({
+                        "class": "pie-label",
+                        "transform": function (d) { return "translate("+that.arc.centroid(d)+")"; }
+                    });
 
-                    that.chart_text.enter()
-                        .append("text")
+                that.chart_text.attr("transform",function (d) { return "translate("+that.arc.centroid(d)+")"; });
+
+                that.chart_text.text("")
+                    .attr("fill", "red");
+
+                function chart_text_timeout() {
+                    that.chart_text.text(function (d) { return that.k.appendUnits(d.data.weight); })
                         .attr({
-                            "class": "pie-label",
-                            "transform": function (d) { return "translate("+that.arc.centroid(d)+")"; }
-                        });
-
-                    that.chart_text.attr("transform",function (d) { return "translate("+that.arc.centroid(d)+")"; });
-
-                    that.chart_text.text("")
-                        .attr("fill", "red");
-
-                    function chart_text_timeout() {
-                        that.chart_text.text(function (d) { return that.k.appendUnits(d.data.weight); })
-                            .attr({
-                                "text-anchor": "middle",
-                                "pointer-events": "none",
-                                "dy": 5,
-                                "fill": that.label_color
-                            })
-                            .style({
-                                "font-weight": that.label_weight,
-                                "font-size": that.label_size + "px",
-                                "font-family": that.label_family
-                            })
-                            .text(function (d,i) {
-                                if(type.toLowerCase() === "pie" || type.toLowerCase() === "election pie") {
-                                    if(this.getBBox().width<((d.endAngle-d.startAngle)*((that.outer_radius/2)*0.9))) {
-                                        return ((d.data.weight*100)/that.sum).toFixed(1)+"%";
-                                    }
-                                    else {
-                                        return "";
-                                    }
-                                } else {
-                                    if((this.getBBox().width < (Math.abs(d.endAngle - d.startAngle)*that.outer_radius*0.9))  && (this.getBBox().height < (((that.outer_radius-that.inner_radius)*0.75)))) {
-                                        return ((d.data.weight*100)/that.sum).toFixed(1)+"%";
-                                    }
-                                    else {
-                                        return "";
-                                    }
+                            "text-anchor": "middle",
+                            "pointer-events": "none",
+                            "dy": 5,
+                            "fill": that.label_color
+                        })
+                        .style({
+                            "font-weight": that.label_weight,
+                            "font-size": that.label_size + "px",
+                            "font-family": that.label_family
+                        })
+                        .text(function (d,i) {
+                            if(type.toLowerCase() === "pie" || type.toLowerCase() === "election pie") {
+                                if(this.getBBox().width<((d.endAngle-d.startAngle)*((that.outer_radius/2)*0.9))) {
+                                    return ((d.data.weight*100)/that.sum).toFixed(1)+"%";
                                 }
-                            });
+                                else {
+                                    return "";
+                                }
+                            } else {
+                                if((this.getBBox().width < (Math.abs(d.endAngle - d.startAngle)*that.outer_radius*0.9))  && (this.getBBox().height < (((that.outer_radius-that.inner_radius)*0.75)))) {
+                                    return ((d.data.weight*100)/that.sum).toFixed(1)+"%";
+                                }
+                                else {
+                                    return "";
+                                }
+                            }
+                        });
                         that.chart_text.exit().remove();
                     }
                     setTimeout(chart_text_timeout,that.transitions.duration());

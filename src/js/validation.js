@@ -732,7 +732,7 @@ PykCharts.validation.processInputs = function (chartObject, options, chart_type)
     }
 
     chartObject.clubdata_always_include_data_points = PykCharts['boolean'](chartObject.clubdata_enable) && options.clubdata_always_include_data_points ? options.clubdata_always_include_data_points : [];
-
+    validator.isArray(chartObject.clubdata_always_include_data_points,"clubdata_always_include_data_points")
     switch(chartObject.border_between_chart_elements_style) {
         case "dotted" : chartObject.border_between_chart_elements_style = "1,3";
                         break;
