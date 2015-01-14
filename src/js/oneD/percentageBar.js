@@ -5,7 +5,6 @@ PykCharts.oneD.percentageBar = function (options) {
         var that = this;
 
         that = new PykCharts.validation.processInputs(that, options,'oneDimensionalCharts');
-
         that.chart_height = options.chart_height ? options.chart_height : that.chart_width/2;
         that.percent_row_rect_height = options.percent_row_rect_height ? options.percent_row_rect_height : theme.oneDimensionalCharts.percent_row_rect_height;
 
@@ -171,6 +170,8 @@ PykCharts.oneD.percentageBar = function (options) {
                         return that.percent_row_rect_height;
                     },
                     "fill": function (d) {
+                        console.log(d);
+                        console.log(that.highlight,"hi")
                         return that.fillChart.selectColor(d);
                     },
                     "fill-opacity": 1,

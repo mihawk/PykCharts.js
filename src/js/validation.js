@@ -28,13 +28,13 @@ PykCharts.validation.processInputs = function (chartObject, options, chart_type)
     		'config_name': 'selector',
     		'default_value': stylesheet,
     		'validation_type': 'validatingSelector',
-            'all': true
+            'all_charts': true
     	},
     	{
     		'config_name': 'chart_color',
     		'default_value': stylesheet,
     		'validation_type': 'isArray',
-            'all': true
+            'all_charts': true
     	},
         {
             'config_name': 'axis_x_pointer_values',
@@ -532,6 +532,7 @@ PykCharts.validation.processInputs = function (chartObject, options, chart_type)
 
     for (var i=0,config_length=config_param_info.length; i<config_length; i++) {
         var config = config_param_info[i];
+        if(config[chart_type] || config.all_charts) {
             var config_name = config.config_name
             , default_value = config.default_value[config_name]
             , condition1 = !config.condition1 ? options[config_name] : config.condition1(config_name);
@@ -543,6 +544,7 @@ PykCharts.validation.processInputs = function (chartObject, options, chart_type)
             if(config.validation_type) {
                 validator[config.validation_type](chartObject[config_name],config_name,default_value);
             }
+        }
     }
     var enable_config_param = [
         {   

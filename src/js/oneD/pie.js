@@ -54,6 +54,7 @@ PykCharts.oneD.pie = function (options) {
     };
 };
 
+
 PykCharts.oneD.donut = function (options) {
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});

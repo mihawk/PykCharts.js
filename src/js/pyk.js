@@ -71,6 +71,8 @@ PykCharts.Configuration = function (options){
                     }
                 } else if(suffix) {
                     label = text + " " + suffix;
+                } else {
+                    label = text;
                 }
             return label;
         },
@@ -1427,7 +1429,9 @@ configuration.fillChart = function (options,theme,config) {
     var fillchart = {
         selectColor: function (d) {
         theme = new PykCharts.Configuration.Theme({});
+            console.log(d.name.toLowerCase(),options.highlight.toLowerCase(),options.highlight_color);
             if(d.name.toLowerCase() === options.highlight.toLowerCase()) {
+                console.log("hello",options.highlight_color)
                 return options.highlight_color;
             } else if (options.chart_color.length && options.chart_color[0]){
                 return options.chart_color[0];

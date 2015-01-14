@@ -71,6 +71,8 @@ PykCharts.Configuration = function (options){
                     }
                 } else if(suffix) {
                     label = text + " " + suffix;
+                } else {
+                    label = text;
                 }
             return label;
         },
@@ -1427,7 +1429,9 @@ configuration.fillChart = function (options,theme,config) {
     var fillchart = {
         selectColor: function (d) {
         theme = new PykCharts.Configuration.Theme({});
+            console.log(d.name.toLowerCase(),options.highlight.toLowerCase(),options.highlight_color);
             if(d.name.toLowerCase() === options.highlight.toLowerCase()) {
+                console.log("hello",options.highlight_color)
                 return options.highlight_color;
             } else if (options.chart_color.length && options.chart_color[0]){
                 return options.chart_color[0];
@@ -1781,13 +1785,13 @@ PykCharts.validation.processInputs = function (chartObject, options, chart_type)
     		'config_name': 'selector',
     		'default_value': stylesheet,
     		'validation_type': 'validatingSelector',
-            'all': true
+            'all_charts': true
     	},
     	{
     		'config_name': 'chart_color',
     		'default_value': stylesheet,
     		'validation_type': 'isArray',
-            'all': true
+            'all_charts': true
     	},
         {
             'config_name': 'axis_x_pointer_values',
@@ -2285,6 +2289,7 @@ PykCharts.validation.processInputs = function (chartObject, options, chart_type)
 
     for (var i=0,config_length=config_param_info.length; i<config_length; i++) {
         var config = config_param_info[i];
+        if(config[chart_type] || config.all_charts) {
             var config_name = config.config_name
             , default_value = config.default_value[config_name]
             , condition1 = !config.condition1 ? options[config_name] : config.condition1(config_name);
@@ -2296,6 +2301,7 @@ PykCharts.validation.processInputs = function (chartObject, options, chart_type)
             if(config.validation_type) {
                 validator[config.validation_type](chartObject[config_name],config_name,default_value);
             }
+        }
     }
     var enable_config_param = [
         {   
@@ -3832,7 +3838,6 @@ PykCharts.oneD.percentageBar = function (options) {
         var that = this;
 
         that = new PykCharts.validation.processInputs(that, options,'oneDimensionalCharts');
-
         that.chart_height = options.chart_height ? options.chart_height : that.chart_width/2;
         that.percent_row_rect_height = options.percent_row_rect_height ? options.percent_row_rect_height : theme.oneDimensionalCharts.percent_row_rect_height;
 
@@ -3998,6 +4003,8 @@ PykCharts.oneD.percentageBar = function (options) {
                         return that.percent_row_rect_height;
                     },
                     "fill": function (d) {
+                        console.log(d);
+                        console.log(that.highlight,"hi")
                         return that.fillChart.selectColor(d);
                     },
                     "fill-opacity": 1,
@@ -4338,6 +4345,7 @@ PykCharts.oneD.pie = function (options) {
 
     };
 };
+
 
 PykCharts.oneD.donut = function (options) {
     var that = this;

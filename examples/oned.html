@@ -310,7 +310,7 @@
                 chart_width: 600,
                 chart_height: 200,
                 percent_row_rect_height : 90,
-
+                "highlight":"Heating",
                 // clubdata_enable: "yes"
                 mode: "DEFault",
                 clubdata_enable: "yes",
@@ -333,10 +333,12 @@
 
             var k = new PykCharts.oneD.pie({
                 selector: "#pie2Container",
+                chart_width:620,
+                chart_height: 400,
                 background_color: "white",
                 data: "../data/new-pie.csv",
                 transition_duration: 1,
-                pie_radius_percent : 50,
+                pie_radius_percent : 70,
                 mode: "DEFault",
                 chart_color: ["green","blue"],
                 clubdata_enable: "yes",
@@ -344,6 +346,9 @@
                 clubdata_always_include_data_points: ["Toyota","Mitsubishi","Volkswagen","Nissan"],
                 units_prefix: "$",
                 units_suffix: "/-",
+                "highlight": "heating",
+                // "hi"
+                "title_text": "nehal",
                 "border_between_chart_elements_thickness": 2,
                 "border_between_chart_elements_color": "black",
                 "border_between_chart_elements_style": "dotted",
