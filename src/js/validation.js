@@ -22,9 +22,6 @@ PykCharts.validation.processInputs = function (chartObject, options, chart_type)
         chartObject.data_source_name = options.data_source_name ? options.data_source_name : "";
         chartObject.data_source_url = options.data_source_url ? options.data_source_url : "";
         chartObject.default_color = stylesheet.chart_color;
-        chartObject.loading_type = options.loading_type ? options.loading_type : stylesheet.loading_type;
-        chartObject.loading_source = options.loading_source ? options.loading_source : stylesheet.loading_source;
-
 
     var config_param_info = [
     	{	
@@ -711,6 +708,16 @@ PykCharts.validation.processInputs = function (chartObject, options, chart_type)
             'config_name': 'annotation_view_mode',
             'default_value': multiDimensionalCharts,
             'multiDimensionalCharts': true
+        },
+        {
+            'config_name': 'loading_type',
+            'default_value': stylesheet,
+            'all_charts': true
+        },
+        {
+            'config_name': 'loading_source',
+            'default_value': stylesheet,
+            'all_charts': true
         }
     ];
 
