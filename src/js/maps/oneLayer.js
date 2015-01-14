@@ -2,7 +2,11 @@ PykCharts.maps.oneLayer = function (options) {
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
     this.execute = function () {
+
+        that = new PykCharts.validation.processInputs(that, options, 'maps');
+
         that = PykCharts.maps.processInputs(that, options);
+
         that.executeData = function (data) {
             var validate = that.k.validator().validatingJSON(data),
                 id = that.selector.substring(1,that.selector.length);

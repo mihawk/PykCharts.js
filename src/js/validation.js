@@ -1,7 +1,9 @@
 PykCharts.validation = {};
 PykCharts.oneD = {};
 PykCharts.other = {};
+                            console.log("heyyyyyyyyyyyyy")
 PykCharts.validation.processInputs = function (chartObject, options, chart_type) {
+
     var theme = new PykCharts.Configuration.Theme({})
 	    , stylesheet = theme.stylesheet
 	    , functionality = theme.functionality
@@ -30,20 +32,33 @@ PykCharts.validation.processInputs = function (chartObject, options, chart_type)
             'all': true
     	},
     	{
-    		'config_name': 'mode',
-    		'default_value': stylesheet,
-    		'validation_type': 'validatingChartMode',
-            'condition2': convertToLowerCase,
-            'oneDimensionalCharts': true,
-            'multiDimensionalCharts':true,
-            'other': true
-    	},
-    	{
     		'config_name': 'chart_color',
     		'default_value': stylesheet,
     		'validation_type': 'isArray',
             'all': true
     	},
+        {
+            'config_name': 'axis_x_pointer_values',
+            'default_value': stylesheet,
+            'validation_type': 'isArray',
+            'maps':true,
+            'multiDimensionalCharts':true
+        },
+        {
+            'config_name': 'axis_y_pointer_values',
+            'default_value': multiDimensionalCharts,
+            'validation_type': 'isArray',
+            'multiDimensionalCharts': true
+        },
+        {
+            'config_name': 'mode',
+            'default_value': stylesheet,
+            'validation_type': 'validatingChartMode',
+            'condition2': convertToLowerCase,
+            'oneDimensionalCharts': true,
+            'multiDimensionalCharts':true,
+            'other': true
+        },
     	{
     		'config_name': 'chart_width',
     		'default_value': stylesheet,
@@ -252,19 +267,6 @@ PykCharts.validation.processInputs = function (chartObject, options, chart_type)
             'default_value': stylesheet,
             'validation_type': 'validatingColor',
             'all_charts': true
-        },
-        {
-            'config_name': 'axis_x_pointer_values',
-            'default_value': stylesheet,
-            'validation_type': 'isArray',
-            'maps':true,
-            'multiDimensionalCharts':true
-        },
-        {
-            'config_name': 'axis_y_pointer_values',
-            'default_value': multiDimensionalCharts,
-            'validation_type': 'isArray',
-            'multiDimensionalCharts': true
         },
         {
             'config_name': 'axis_x_time_value_datatype',
@@ -523,10 +525,7 @@ PykCharts.validation.processInputs = function (chartObject, options, chart_type)
             'default_value': mapsTheme,
             'maps': true,
             'condition1':findInObject
-        }/*,
-        {
-            'config_name': ''
-        }*/
+        }
     ];
 
     chartObject.k = new PykCharts.Configuration(chartObject);
@@ -540,15 +539,12 @@ PykCharts.validation.processInputs = function (chartObject, options, chart_type)
 
             if(config_name in options) {
                 var condition2  = !config.condition2 ? options[config_name] : config.condition2(options[config_name]);
-                // console.log(options[config_name],config_name)
             }
             chartObject[config_name] = condition1 ? condition2 : default_value;
-            // console.log(chartObject[config_name],config_name,default_value)
             if(config.validation_type) {
-                // console.log(validator[config.validation_type],"testing",config.validation_type)
                 validator[config.validation_type](chartObject[config_name],config_name,default_value);
             }
-
+            // console.log(chartObject[config_name],config_name)
     }
     var enable_config_param = [
         {   
@@ -708,6 +704,11 @@ PykCharts.validation.processInputs = function (chartObject, options, chart_type)
             'config_name': 'click_enable',
             'default_value': mapsTheme,
             'maps': true
+        },
+        {
+            'config_name': 'annotation_view_mode',
+            'default_value': multiDimensionalCharts,
+            'multiDimensionalCharts': true
         }
     ];
 
@@ -753,7 +754,7 @@ PykCharts.validation.processInputs = function (chartObject, options, chart_type)
     function findInObject(value) {
         return value in options;
     }
-    // console.log(chartObject.chart_color)
+ 
     chartObject.k = new PykCharts.Configuration(chartObject);
     return chartObject;
 }
