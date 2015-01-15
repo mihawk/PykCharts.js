@@ -1,21 +1,21 @@
 [
 	{
 		"name":"China",
-		"x":"January",
+		"x":"1",
 		"y":120,
 		"color": "",
 		"tooltip":120
 	},
 	{
 		"name":"China",
-		"x":"February",
+		"x":"2",
 		"y":100,
 		"color": "",
 		"tooltip":100
 	},
 	{
 		"name":"China",
-		"x":"March",
+		"x":"3",
 		"y":30,
 		"color": "",
 		"tooltip":30,
@@ -23,35 +23,84 @@
 	},
 	{
 		"name":"China",
-		"x":"April",
+		"x":"4",
 		"y":40,
 		"color": "",
 		"tooltip":40
 	},
 	{
 		"name":"China",
-		"x":"May",
+		"x":"5",
 		"y":60,
 		"color": "",
 		"tooltip":60
 	},
 	{
 		"name":"China",
-		"x":"June",
+		"x":"6",
 		"y":70,
 		"color": "",
 		"tooltip":70
 	},
 	{
 		"name":"China",
-		"x":"July",
+		"x":"7",
 		"y":30,
 		"color": "",
 		"tooltip":30
 	},
 	{
+		"name":"India",
+		"x":"5",
+		"y":50,
+		"color": "#75b0e1",
+		"tooltip":50
+	},
+	{
+		"name":"India",
+		"x":"6",
+		"y":40,
+		"color": "#75b0e1",
+		"tooltip":40
+	},
+	{
+		"name":"India",
+		"x":"7",
+		"y":70,
+		"color": "#75b0e1",
+		"tooltip":70
+	},
+	{
+		"name":"India",
+		"x":"1",
+		"y":50,
+		"color": "#75b0e1",
+		"tooltip":50
+	},
+	{
+		"name":"India",
+		"x":"2",
+		"y":30,
+		"color": "#75b0e1",
+		"tooltip":30
+	},
+	{
+		"name":"India",
+		"x":"3",
+		"y":80,
+		"color": "#75b0e1",
+		"tooltip":80
+	},
+	{
+		"name":"India",
+		"x":"4",
+		"y":40,
+		"color": "#75b0e1",
+		"tooltip":40
+	},
+	{
 		"name":"U.S.A.",
-		"x":"January",
+		"x":"1",
 		"y":70,
 		"color": "purple",
 		"tooltip":70,
@@ -59,94 +108,142 @@
 	},
 	{
 		"name":"U.S.A.",
-		"x":"February",
+		"x":"2",
 		"y":100,
 		"color": "#4682b4",
 		"tooltip":100
 	},
 	{
 		"name":"U.S.A.",
-		"x":"March",
+		"x":"3",
 		"y":50,
 		"color": "#4682b4",
 		"tooltip":50
 	},
 	{
 		"name":"U.S.A.",
-		"x":"April",
+		"x":"4",
 		"y":60,
 		"color": "#4682b4",
 		"tooltip":60
 	},
 	{
 		"name":"U.S.A.",
-		"x":"May",
+		"x":"5",
 		"y":30,
 		"color": "#4682b4",
 		"tooltip":30
 	},
 	{
 		"name":"U.S.A.",
-		"x":"June",
+		"x":"6",
 		"y":40,
 		"color": "#4682b4",
 		"tooltip":40
 	},
 	{
 		"name":"U.S.A.",
-		"x":"July",
+		"x":"7",
 		"y":90,
 		"color": "#4682b4",
 		"tooltip":90
 	},
 	{
-		"name":"India",
-		"x":"January",
+		"name":"Australia",
+		"x":"5",
 		"y":50,
 		"color": "#75b0e1",
 		"tooltip":50
 	},
 	{
-		"name":"India",
-		"x":"February",
+		"name":"Australia",
+		"x":"6",
+		"y":40,
+		"color": "#75b0e1",
+		"tooltip":40
+	},
+	{
+		"name":"Australia",
+		"x":"7",
+		"y":70,
+		"color": "#75b0e1",
+		"tooltip":70
+	},
+	{
+		"name":"Australia",
+		"x":"1",
+		"y":50,
+		"color": "#75b0e1",
+		"tooltip":50
+	},
+	{
+		"name":"Australia",
+		"x":"2",
 		"y":30,
 		"color": "#75b0e1",
 		"tooltip":30
 	},
 	{
-		"name":"India",
-		"x":"March",
+		"name":"Australia",
+		"x":"3",
 		"y":80,
 		"color": "#75b0e1",
 		"tooltip":80
 	},
 	{
-		"name":"India",
-		"x":"April",
+		"name":"Australia",
+		"x":"4",
 		"y":40,
 		"color": "#75b0e1",
 		"tooltip":40
 	},
 	{
-		"name":"India",
-		"x":"May",
+		"name":"U.K.",
+		"x":"5",
 		"y":50,
 		"color": "#75b0e1",
 		"tooltip":50
 	},
 	{
-		"name":"India",
-		"x":"June",
+		"name":"U.K.",
+		"x":"6",
 		"y":40,
 		"color": "#75b0e1",
 		"tooltip":40
 	},
 	{
-		"name":"India",
-		"x":"July",
+		"name":"U.K.",
+		"x":"7",
 		"y":70,
 		"color": "#75b0e1",
 		"tooltip":70
+	},
+	{
+		"name":"U.K.",
+		"x":"1",
+		"y":50,
+		"color": "#75b0e1",
+		"tooltip":50
+	},
+	{
+		"name":"U.K.",
+		"x":"2",
+		"y":30,
+		"color": "#75b0e1",
+		"tooltip":30
+	},
+	{
+		"name":"U.K.",
+		"x":"3",
+		"y":80,
+		"color": "#75b0e1",
+		"tooltip":80
+	},
+	{
+		"name":"U.K.",
+		"x":"4",
+		"y":40,
+		"color": "#75b0e1",
+		"tooltip":40
 	}
-	
 ]

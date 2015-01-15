@@ -13,9 +13,10 @@
             <div id = "map-container" class="col-sm-12">
             </div>
         </div>
-
         <script src="../src/js/pyk.js"></script>
         <script src="../lib/colors.js"></script>
+        <script src="../src/js/validation.js"></script>
+        <script src="../src/js/multiD/scaleFunction.js"></script>
         <script src = "../src/js/maps/maps.js"></script>
         <script src = "../src/js/maps/oneLayer.js"></script>
         <script src = "../src/js/init.js"></script>
@@ -24,17 +25,17 @@
                 k = new PykCharts.maps.timelineMap({
                     selector: "#map-container",
                     map_code: "world",
-                    data: "../data/world_data_timeline.json",
+                    data: "../data/timeline-map.csv",
+                    chart_height: 400,
                     chart_height: 400,
                     chart_width: 600,
                     palette_color: "Blue-1",
-                    // default_color:["pink"],,
-                    background_color: "white",
+                    background_color:"skyblue",
                     tooltip_enable : "yes",
                     tooltip_mode: "moving",
                     tooltip_position_top: 10,
                     tooltip_position_left:10,
-                    border_between_chart_elements_color: "#666666",
+                    border_between_chart_elements_color: "#666666  ",
                     border_between_chart_elements_thickness: 1,
                     border_between_chart_elements_style: "dotted",
                     timeline_duration: 0.5,
@@ -42,35 +43,25 @@
                     timeline_margin_right: 30,
                     timeline_margin_bottom: 10,
                     timeline_margin_left: 30,
-                    // title_text: "ddddddddddddd",
-                    // subtitle_text: "ssssssss",
-                    // play_image_url:"https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/play.gif",
-                    // pause_image_url:"https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/pause.gif",
-                    // marker_image_url:"https://s3-ap-southeast-1.amazonaws.com/ap-southeast-1.datahub.pykih/assets/images/marker.png",
                     click_enable: "yes",
                     onhover: "shadow",
                     label_enable: "no",
                     label_color: "green",
                     default_zoom_level: 80,
                     credit_my_site_name: "Pykih",
-                    credit_my_site_url: "http://pykih.com",
                     loading_gif_url: "http://www.sportdiver.com/sites/all/modules/platform/inline_login/loading.gif",
                     data_source_name: "Pykih",
                     data_source_url: "http://pykih.com",
                     units_prefix: "",
                     units_suffix: "",
                     legends_enable: "yes",
-                    legends_display: "horizontal",
+                    legends_display: "vertical",
                     legends_text_size: 10,
                     legends_text_color: "black",
                     legends_text_weight: "normal",
                     legends_text_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
-                    // highlight: "NG",
-                    // highlight_color: "yellow"
-                    // "palette_color": "Red",
                     color_mode:"saturation",
-                    // saturation_color: "pink",
-                    total_no_of_colors: 5
+                    total_no_of_colors: 5,
                 });
                 k.execute();
             }

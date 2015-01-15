@@ -2,20 +2,11 @@ PykCharts.oneD.treemap = function (options){
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
     this.execute = function (){
-        that = new PykCharts.oneD.processInputs(that, options);
+        that = new PykCharts.validation.processInputs(that, options,'oneDimensionalCharts');
         optional = options.optional;
-        that.selector = options.selector;
-        that.height = options.chart_height ? options.chart_height : that.width;
-
-        try {
-            if(!_.isNumber(that.height)) {
-                that.height = that.width;
-                throw "chart_height"
-            }
-        }
-        catch (err) {
-            that.k.warningHandling(err,"1");
-        }
+        that.chart_height = options.chart_height ? options.chart_height : that.chart_width;
+        that.k.validator()
+            .validatingDataType(that.chart_height,"chart_height",that.chart_width);
 
         if(that.stop) {
             return;
@@ -26,17 +17,16 @@ PykCharts.oneD.treemap = function (options){
         }
 
         that.executeData = function (data) {
-            var validate = that.k.validator().validatingJSON(data);
+            var validate = that.k.validator().validatingJSON(data),
+                id = that.selector.substring(1,that.selector.length);
             if(that.stop || validate === false) {
-                $(options.selector+" #chart-loader").remove();
-                $(that.selector).css("height","auto")
+                that.k.remove_loading_bar(id);
                 return;
             }
 
             that.data = that.k.__proto__._groupBy("oned",data);
             that.compare_data = that.k.__proto__._groupBy("oned",data);
-            $(options.selector+" #chart-loader").remove();
-            $(that.selector).css("height","auto")
+            that.k.remove_loading_bar(id);
             that.clubdata_enable = that.data.length>that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
             that.render();
         };
@@ -65,17 +55,16 @@ PykCharts.oneD.treemap = function (options){
     };
 
     this.render = function (){
-        var l = $(".svgcontainer").length;
-        that.container_id = "svgcontainer" + l;
+        var id = that.selector.substring(1,that.selector.length);
+        var container_id = id + "_svg";
         that.fillChart = new PykCharts.Configuration.fillChart(that);
         that.transitions = new PykCharts.Configuration.transition(that);
-        that.border = new PykCharts.Configuration.border(that);
 
         if(that.mode === "default") {
             that.k.title()
                 .backgroundColor(that)
-                .export(that,"#"+that.container_id,"treemap")
-                .emptyDiv()
+                .export(that,"#"+container_id,"treemap")
+                .emptyDiv(that.selector)
                 .subtitle();
         }
 
@@ -83,8 +72,8 @@ PykCharts.oneD.treemap = function (options){
         that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
         if(that.mode === "infographics"){
             that.k.backgroundColor(that)
-                .export(that,"#"+that.container_id,"treemap")
-                .emptyDiv();
+                .export(that,"#"+container_id,"treemap")
+                .emptyDiv(that.selector);
             that.new_data = {"children" : that.data};
         }
 
@@ -92,7 +81,7 @@ PykCharts.oneD.treemap = function (options){
             that.optionalFeatures()
                 .clubData()
         }
-        that.optionalFeatures().svgContainer()
+        that.optionalFeatures().svgContainer(container_id)
             .createChart()
             .label();
         if(that.mode === "default") {
@@ -103,23 +92,28 @@ PykCharts.oneD.treemap = function (options){
                 .dataSource();
         }
 
-        that.k.exportSVG(that,"#"+that.container_id,"treemap")
+        that.k.exportSVG(that,"#"+container_id,"treemap")
         
-        $(document).ready(function () { return that.k.resize(that.svgContainer); })
-        $(window).on("resize", function () { return that.k.resize(that.svgContainer); });
+        var resize = that.k.resize(that.svgContainer);
+        that.k.__proto__._ready(resize);
+        window.addEventListener('resize', function(event){
+            return that.k.resize(that.svgContainer);
+        });
     };
 
     this.optionalFeatures = function (){
         var optional = {
-            svgContainer: function () {
+            svgContainer: function (container_id) {
 
                 that.svgContainer = d3.select(that.selector).append("svg:svg")
-                    .attr("width",that.width)
-                    .attr("height",that.height)
-                    .attr("preserveAspectRatio", "xMinYMin")
-                    .attr("viewBox", "0 0 " + that.width + " " + that.height)
-                    .attr("id",that.container_id)
-                    .attr("class","svgcontainer PykCharts-oneD");
+                    .attr({
+                        "width": that.chart_width,
+                        "height": that.chart_height,
+                        "preserveAspectRatio": "xMinYMin",
+                        "viewBox": "0 0 " + that.chart_width + " " + that.chart_height,
+                        "id": container_id,
+                        "class": "svgcontainer PykCharts-oneD"
+                    });
 
                 that.group = that.svgContainer.append("g")
                     .attr("id","treemap");
@@ -128,7 +122,7 @@ PykCharts.oneD.treemap = function (options){
             createChart: function () {
                 that.treemap = d3.layout.treemap()
                     .sort(function (a,b) { return a.weight - b.weight; })
-                    .size([that.width,that.height])
+                    .size([that.chart_width,that.chart_height])
                     .value(function (d) { return d.weight; })
                     .sticky(false);
                 that.sum = d3.sum(that.new_data.children, function (d){
@@ -148,40 +142,44 @@ PykCharts.oneD.treemap = function (options){
 
                 that.chart_data.attr("class","cell")
                     .select("rect")
-                    .attr("class","treemap-rect")
-                    .attr("id",function (d,i) { return "rect" + i; })
-                    .attr("x",function (d) { return d.x; })
-                    .attr("y", function (d) { return d.y; })
-                    .attr("width", function (d) { return d.dx-1; })
-                    .attr("height", 0)
-                    .attr("fill",function (d) {
-                        return d.children ? "white" : that.fillChart.selectColor(d);
-                    })
-                    .attr("fill-opacity",1)
-                    .attr("data-fill-opacity",function () {
-                        return $(this).attr("fill-opacity");
-                    })
-                    .on('mouseover',function (d) {
-                        if(!d.children && that.mode === "default") {
-                            d.tooltip = d.tooltip || "<table class='PykCharts'><tr><th colspan='2' class='tooltip-heading'>"+d.name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.weight)+"<td class='tooltip-right-content'>("+((d.weight*100)/that.sum).toFixed(1)+"%)</tr></table>";
-                            if(PykCharts['boolean'](that.onhover_enable)) {
-                                that.mouseEvent.highlight(options.selector +" "+".treemap-rect", this);
-                            }
-                            that.mouseEvent.tooltipPosition(d);
-                            that.mouseEvent.tooltipTextShow(d.tooltip);
+                    .attr({
+                        "class": "treemap-rect",
+                        "id": function (d,i) { return "rect" + i; },
+                        "x": function (d) { return d.x; },
+                        "y": function (d) { return d.y; },
+                        "width": function (d) { return d.dx-1; },
+                        "height": 0,
+                        "fill": function (d) {
+                            return d.children ? "white" : that.fillChart.selectColor(d);
+                        },
+                        "fill-opacity": 1,
+                        "data-fill-opacity": function () {
+                            return d3.select(this).attr("fill-opacity");
                         }
                     })
-                    .on('mouseout',function (d) {
-                        if(that.mode === "default") {
-                            that.mouseEvent.tooltipHide(d);
-                            if(PykCharts['boolean'](that.onhover_enable)) {    
-                                that.mouseEvent.highlightHide(options.selector +" "+".treemap-rect");
+                    .on({
+                        'mouseover': function (d) {
+                            if(!d.children && that.mode === "default") {
+                                d.tooltip = d.tooltip || "<table class='PykCharts'><tr><th colspan='2' class='tooltip-heading'>"+d.name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.weight)+"<td class='tooltip-right-content'>("+((d.weight*100)/that.sum).toFixed(1)+"%)</tr></table>";
+                                if(PykCharts['boolean'](that.chart_onhover_highlight_enable)) {
+                                    that.mouseEvent.highlight(options.selector +" "+".treemap-rect", this);
+                                }
+                                that.mouseEvent.tooltipPosition(d);
+                                that.mouseEvent.tooltipTextShow(d.tooltip);
                             }
-                        }
-                    })
-                    .on('mousemove', function (d) {
-                        if(!d.children && that.mode === "default") {
-                            that.mouseEvent.tooltipPosition(d);
+                        },
+                        'mouseout': function (d) {
+                            if(that.mode === "default") {
+                                that.mouseEvent.tooltipHide(d);
+                                if(PykCharts['boolean'](that.chart_onhover_highlight_enable)) {    
+                                    that.mouseEvent.highlightHide(options.selector +" "+".treemap-rect");
+                                }
+                            }
+                        },
+                        'mousemove': function (d) {
+                            if(!d.children && that.mode === "default") {
+                                that.mouseEvent.tooltipPosition(d);
+                            }
                         }
                     })
                     .transition()
@@ -205,23 +203,30 @@ PykCharts.oneD.treemap = function (options){
                         .append("svg:text")
                         .attr("class","weight");
 
-                    that.chart_text.attr("class","name")
-                        .attr("x", function (d) { return d.x + d.dx / 2; })
-                        .attr("y", function (d) { return d.y + d.dy / 2; });
+                    that.chart_text.attr({
+                        "class": "name",
+                        "x": function (d) { return d.x + d.dx / 2; },
+                        "y": function (d) { return d.y + d.dy / 2; }
+                    });
 
-                    that.chart_text1.attr("class","weight")
-                        .attr("x", function (d) { return d.x + d.dx / 2; })
-                        .attr("y", function (d) { return d.y + d.dy / 2 + 15; });
+                    that.chart_text1.attr({
+                        "class": "weight",
+                        "x": function (d) { return d.x + d.dx / 2; },
+                        "y": function (d) { return d.y + d.dy / 2 + that.label_size; }
+                    });
 
-                    that.chart_text.attr("text-anchor","middle")
-                        .style("font-weight", that.label_weight)
-                        .style("font-size", that.label_size + "px")
-                        .attr("fill", that.label_color)
-                        .style("font-family", that.label_family)
-
-                        .text("")
-
-                    setTimeout(function() {
+                    that.chart_text
+                        .attr({
+                            "text-anchor": "middle",
+                            "fill": that.label_color
+                        })
+                        .style({
+                            "font-weight": that.label_weight,
+                            "font-size": that.label_size + "px",
+                            "font-family": that.label_family
+                        })
+                        .text("");
+                    function chart_text1_timeout() {
                         that.chart_text.text(function (d) { return d.children ? " " :  d.name; })
                             .attr("pointer-events","none")
                             .text(function (d) {
@@ -233,17 +238,23 @@ PykCharts.oneD.treemap = function (options){
                                     return "";
                                 }
                             });
-                    },that.transitions.duration());
+                    }
+                    setTimeout(chart_text1_timeout,that.transitions.duration());
 
-                    that.chart_text1.attr("text-anchor","middle")
-                        .style("font-weight", that.label_weight)
-                        .style("font-size", that.label_size + "px")
-                        .attr("fill", that.label_color)
-                        .style("font-family", that.label_family)
-                        .text("")
-                        .attr("pointer-events","none")
+                    that.chart_text1
+                        .attr({
+                            "text-anchor": "middle",
+                            "fill": that.label_color,
+                            "pointer-events": "none"
+                        })
+                        .style({
+                            "font-weight": that.label_weight,
+                            "font-size": that.label_size + "px",
+                            "font-family": that.label_family
+                        })
+                        .text("");
 
-                    setTimeout(function () {
+                    function timeout() {
                         that.chart_text1.text(function (d) { return d.children ? " " :  that.k.appendUnits(d.weight); })
                             .text(function (d) {
                                 if(this.getBBox().width < d.dx && this.getBBox().height < d.dy-15) {
@@ -254,7 +265,9 @@ PykCharts.oneD.treemap = function (options){
                                     return "";
                                 }
                             });
-                    },that.transitions.duration());
+                    }
+
+                    setTimeout(timeout,that.transitions.duration());
 
                     that.chart_text.exit()
                         .remove();
@@ -263,7 +276,6 @@ PykCharts.oneD.treemap = function (options){
                 return this;
             },
             clubData : function () {
-
                 if(PykCharts['boolean'](that.clubdata_enable)){
                     var clubdata_content = [],sum_others = 0,k=0;
                     if(that.data.length <= that.clubdata_maximum_nodes) {

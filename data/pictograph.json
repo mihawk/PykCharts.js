@@ -1,12 +1,12 @@
- [
-    {
-        "name": "current",
-        "weight": 8,
-        "image": "../img/heart-blue.png"
-    },
-    {
-        "name": "total",
-        "weight": 13,
-        "image": "../img/heart-grey.png"
-    }
+[
+  {
+    "name": "current",
+    "weight": 6,
+    "image": "https://s3-ap-southeast-1.amazonaws.com/charts.pykih.com/icons/heart-blue.png"
+  },
+  {
+    "name": "total",
+    "weight": 9,
+    "image": "https://s3-ap-southeast-1.amazonaws.com/charts.pykih.com/icons/heart-grey.png"
+  }
 ]
