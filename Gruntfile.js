@@ -14,7 +14,7 @@ module.exports = function(grunt) {
             'js': {
                 'src': [
                       '<%= js_src_path %>/pyk.js'
-                    , '<%= js_src_path %>/oneD/oneD.js'
+                    , '<%= js_src_path %>/validation.js'
                     , '<%= js_src_path %>/oneD/bubble.js'
                     , '<%= js_src_path %>/oneD/funnel.js'
                     , '<%= js_src_path %>/oneD/percentageColumn.js'
@@ -22,8 +22,14 @@ module.exports = function(grunt) {
                     , '<%= js_src_path %>/oneD/pie.js'
                     , '<%= js_src_path %>/oneD/pyramid.js'
                     , '<%= js_src_path %>/oneD/treemap.js'
-                    , '<%= js_src_path %>/other/other.js'
+                    // , '<%= js_src_path %>/other/other.js'
                     , '<%= js_src_path %>/other/pictograph.js'
+                    , '<%= js_src_path %>/multiD/multiD.js'
+                    , '<%= js_src_path %>/multiD/annotation.js'
+                    , '<%= js_src_path %>/multiD/crosshair.js'
+                    , '<%= js_src_path %>/multiD/grid.js'
+                    , '<%= js_src_path %>/multiD/scaleFunction.js'
+                    , '<%= js_src_path %>/multiD/crossHairMovement.js'
                     , '<%= js_src_path %>/multiD/multiD.js'
                     , '<%= js_src_path %>/multiD/lineChart.js'
                     , '<%= js_src_path %>/multiD/areaChart.js'
@@ -110,7 +116,7 @@ module.exports = function(grunt) {
         // Remove consolelogs
         removelogging: {
             dist: {
-                src: ['lib/*.js', 'src/**/*.js', 'pykih-charts/**/*.js'],
+                src: ['lib/*.js'],
                 options: {}
             }
         },

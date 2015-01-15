@@ -3,10 +3,14 @@ PykCharts.multiD.area = function (options){
 	var theme = new PykCharts.Configuration.Theme({});
 
 	this.execute = function (){
-		that = new PykCharts.multiD.processInputs(that, options, "area");
-
-		if(that.stop)
+        that = new PykCharts.validation.processInputs(that, options, 'multiDimensionalCharts');
+		PykCharts.crossHair(that);
+        PykCharts.annotation(that);
+        PykCharts.scaleFunction(that);
+        PykCharts.grid(that);
+		if(that.stop) {
 			return;
+		}
 
 		if(that.mode === "default") {
 			that.k.loading();
@@ -17,17 +21,17 @@ PykCharts.multiD.area = function (options){
 			optional = options.optional;
 
 	    that.crosshair_enable = options.crosshair_enable ? options.crosshair_enable.toLowerCase() : multiDimensionalCharts.crosshair_enable;
-		that.curvy_lines = options.curvy_lines_enable ? options.curvy_lines_enable.toLowerCase() : multiDimensionalCharts.curvy_lines_enable;
+		that.curvy_lines_enable = options.curvy_lines_enable ? options.curvy_lines_enable.toLowerCase() : multiDimensionalCharts.curvy_lines_enable;
 	  	that.panels_enable = "no";
-	  	that.interpolate = PykCharts['boolean'](that.curvy_lines) ? "cardinal" : "linear";
-		that.w = that.width - that.margin_left - that.margin_right;
-		that.h = that.height - that.margin_top - that.margin_bottom;
+	  	that.interpolate = PykCharts['boolean'](that.curvy_lines_enable) ? "cardinal" : "linear";
+		that.w = that.chart_width - that.chart_margin_left - that.chart_margin_right;
+		that.h = that.chart_height - that.chart_margin_top - that.chart_margin_bottom;
 
 		that.executeData = function (data) {
-			var validate = that.k.validator().validatingJSON(data);
+			var validate = that.k.validator().validatingJSON(data),
+                id = that.selector.substring(1,that.selector.length);
             if(that.stop || validate === false) {
-                $(that.selector+" #chart-loader").remove();
-                $(that.selector).css("height","auto")
+                that.k.remove_loading_bar(id);
                 return;
             }
 
@@ -39,8 +43,7 @@ PykCharts.multiD.area = function (options){
     		}
 			that.compare_data = that.data;
 			that.data_length = that.data.length;
-			$(that.selector+" #chart-loader").remove();
-			$(that.selector).css("height","auto")
+            that.k.remove_loading_bar(id);
 
 			if (that.axis_x_data_format === "string") {
                 that.data_sort_enable = "no";                
@@ -65,10 +68,14 @@ PykCharts.multiD.stackedArea = function (options){
 	var theme = new PykCharts.Configuration.Theme({});
 
 	this.execute = function (){
-		that = new PykCharts.multiD.processInputs(that, options, "area");
-
-		if(that.stop)
+        that = new PykCharts.validation.processInputs(that, options, 'multiDimensionalCharts');
+		PykCharts.crossHair(that);
+        PykCharts.annotation(that);
+        PykCharts.scaleFunction(that);
+        PykCharts.grid(that);
+		if(that.stop) {
 			return;
+		}
 
 		if(that.mode === "default") {
 			that.k.loading();
@@ -79,17 +86,18 @@ PykCharts.multiD.stackedArea = function (options){
 			optional = options.optional;
 
 	    that.crosshair_enable = options.crosshair_enable ? options.crosshair_enable.toLowerCase() : multiDimensionalCharts.crosshair_enable;
-		that.curvy_lines = options.curvy_lines_enable ? options.curvy_lines_enable.toLowerCase() : multiDimensionalCharts.curvy_lines_enable;
+		that.curvy_lines_enable = options.curvy_lines_enable ? options.curvy_lines_enable.toLowerCase() : multiDimensionalCharts.curvy_lines_enable;
 	  	that.panels_enable = "no";
-	  	that.interpolate = PykCharts['boolean'](that.curvy_lines) ? "cardinal" : "linear";
-		that.w = that.width - that.margin_left - that.margin_right;
-		that.h = that.height - that.margin_top - that.margin_bottom;
+	  	that.interpolate = PykCharts['boolean'](that.curvy_lines_enable) ? "cardinal" : "linear";
+		that.w = that.chart_width - that.chart_margin_left - that.chart_margin_right;
+		that.h = that.chart_height - that.chart_margin_top - that.chart_margin_bottom;
 
 		that.executeData = function (data) {
-            var validate = that.k.validator().validatingJSON(data);
+            var validate = that.k.validator().validatingJSON(data),
+                id = that.selector.substring(1,that.selector.length);
+                
             if(that.stop || validate === false) {
-                $(that.selector+" #chart-loader").remove();
-                $(that.selector).css("height","auto");
+                that.k.remove_loading_bar(id);
                 return;
             }
 
@@ -101,9 +109,7 @@ PykCharts.multiD.stackedArea = function (options){
     		}
 			that.compare_data = that.data;
 			that.data_length = that.data.length;
-			$(that.selector+" #chart-loader").remove();
-            $(that.selector).css("height","auto");
-			
+            that.k.remove_loading_bar(id);			
 			if (that.axis_x_data_format === "string") {
                 that.data_sort_enable = "no";                
             }
@@ -127,23 +133,23 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
         that.group_arr = [], that.new_data = [];
         that.ticks = [], that.x_arr = [];
 
-        for(j = 0;j < that.data_length;j++) {
+        for(var j = 0;j < that.data_length;j++) {
             that.group_arr[j] = that.data[j].name;
         }
-        that.uniq_group_arr = _.unique(that.group_arr);
+        that.uniq_group_arr = that.k.__proto__._unique(that.group_arr);
         that.uniq_color_arr = [];
         var uniq_group_arr_length = that.uniq_group_arr.length;
 
         for(var k = 0;k < that.data_length;k++) {
             that.x_arr[k] = that.data[k].x;
         }
-        that.uniq_x_arr = _.unique(that.x_arr);
+        that.uniq_x_arr = that.k.__proto__._unique(that.x_arr);
 
-        for (k = 0;k < uniq_group_arr_length;k++) {
+        for (var k = 0;k < uniq_group_arr_length;k++) {
             if(that.chart_color[k]) {
                 that.uniq_color_arr[k] = that.chart_color[k];
             } else {
-                for (l = 0;l < that.data_length;l++) {
+                for (var l = 0;l < that.data_length;l++) {
                     if (that.uniq_group_arr[k] === that.data[l].name && that.data[l].color) {
                         that.uniq_color_arr[k] = that.data[l].color;
                         break;
@@ -155,13 +161,13 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
         }
 
         that.flag = 0;
-        for (k = 0;k < uniq_group_arr_length;k++) {
+        for (var k = 0;k < uniq_group_arr_length;k++) {
             that.new_data[k] = {
                     name: that.uniq_group_arr[k],
                     data: [],
                     color: that.uniq_color_arr[k]
             };
-            for (l = 0;l < that.data_length;l++) {
+            for (var l = 0;l < that.data_length;l++) {
                 if (that.uniq_group_arr[k] === that.data[l].name) {
                     that.new_data[k].data.push({
                         x: that.data[l].x,
@@ -177,34 +183,37 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
         var uniq_x_arr_length = that.uniq_x_arr.length;
 
         for (var a = 0;a < that.new_data_length;a++) {
-            that.uniq_x_arr_copy = _.unique(that.x_arr);
-            for(var b = 0;b < that.new_data[a].data.length;b++) {                
+            var uniq_x_arr_copy = that.k.__proto__._unique(that.x_arr)
+            ,	every_data_length = that.new_data[a].data.length
+            for(var b = 0;b < every_data_length;b++) {
                 for(var k = 0;k < uniq_x_arr_length;k++) {
-                    if(that.new_data[a].data[b].x == that.uniq_x_arr_copy[k]) {
-                        that.uniq_x_arr_copy[k] = undefined;
+                    if(that.new_data[a].data[b].x === uniq_x_arr_copy[k]) {
+                        uniq_x_arr_copy[k] = undefined;
                         break;
                     }
                 }
             }
-            _.each(that.uniq_x_arr_copy, function(d,i) {
-                if (d != undefined) {
+            for (var i = 0; i < uniq_x_arr_length ; i++) {
+                if (uniq_x_arr_copy[i] != undefined) {
                     var temp_obj_to_insert_in_new_data = {
-                        x: d,
+                        x: uniq_x_arr_copy[i],
                         y: 0,
                         tooltip: 0,
                         annotation: ""
                     };
                     that.new_data[a].data.splice(i, 0, temp_obj_to_insert_in_new_data);
                 }
-            });
+            }
         }
-
         for (var k = 0;k < that.new_data_length;k++) {
             that.new_data[k].data = that.k.__proto__._sortData(that.new_data[k].data, "x", "name", that);
         }
     };
 	
 	that.render = function () {
+        var id = that.selector.substring(1,that.selector.length);
+		that.container_id = id + "_svg";
+
 		that.dataLineGroup = [], that.dataLineGroupBorder = [];
 		that.multid = new PykCharts.multiD.configuration(that);
 		that.fillColor = new PykCharts.Configuration.fillChart(that,null,options);
@@ -225,7 +234,7 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
          	return;   
 		}
 		if(that.axis_x_data_format === "time") {
-			for(i = 0;i<that.new_data_length;i++) {
+			for(var i = 0;i<that.new_data_length;i++) {
 	          	that.new_data[i].data.forEach(function (d) {
 		          	d.x = that.k.dateConversion(d.x);
 		          	that.xdomain.push(d.x);
@@ -240,9 +249,9 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 
 			that.k.title()
 					.backgroundColor(that)
-					.export(that,"#svg-1","areaChart")
+					.export(that,"#"+that.container_id+"-1","areaChart")
 					.liveData(that)
-					.emptyDiv()
+					.emptyDiv(options.selector)
 					.subtitle()
 					.makeMainDiv(that.selector,1)
 					.tooltip(true,that.selector,1);
@@ -267,11 +276,11 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 		else if(that.mode === "infographics") {
 			  that.k/*.liveData(that)*/
 			  			.backgroundColor(that)
-			  			.export(that,"#svg-1","areaChart")
-			  			.emptyDiv()
+			  			.export(that,"#"+that.container_id+"-1","areaChart")
+			  			.emptyDiv(options.selector)
 						.makeMainDiv(that.selector,1);
 
-			  that.optional_feaure()
+			  that.optional_feature()
 						.svgContainer(1)
 						.legendsContainer()
 						.createGroups(1)
@@ -283,10 +292,14 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 					.xAxisTitle(that.xGroup,that.legendsGroup_height,that.legendsGroup_width)
 					.yAxisTitle(that.yGroup);
   		}
-		that.k.exportSVG(that,"#svg-1","areaChart")
-  		that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
-  		$(document).ready(function () { return that.k.resize(that.svgContainer,"yes"); })
-        $(window).on("resize", function () { return that.k.resize(that.svgContainer,"yes"); });
+		that.k.exportSVG(that,"#"+that.container_id+"-1","areaChart")
+  		that.mouseEvent = new PykCharts.crossHairMovement(that);
+
+  		var resize = that.k.resize(that.svgContainer);
+        that.k.__proto__._ready(resize);
+        window.addEventListener('resize', function(event){
+			return that.k.resize(that.svgContainer);
+        });
 	};
 
 	that.refresh = function () {
@@ -299,7 +312,7 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 			that.compare_data = compare[0];
 			var data_changed = compare[1];
 
-			if(data_changed) {
+			if(data_changed || (PykCharts['boolean'](that.zoom_enable) && that.count > 1 && that.count <= that.zoom_level) || that.transition_duration) {
 				that.k.lastUpdatedAt("liveData");
 				that.mouseEvent.tooltipHide();
 				that.mouseEvent.crossHairHide(that.type);
@@ -307,7 +320,7 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 				that.mouseEvent.axisHighlightHide(that.selector + " .y.axis");
 			}
 			if(that.axis_x_data_format === "time") {
-				for(i = 0;i<that.new_data_length;i++) {
+				for(var i = 0;i<that.new_data_length;i++) {
 		          	that.new_data[i].data.forEach(function (d) {
 			          	d.x = that.k.dateConversion(d.x);
 			          	that.xdomain.push(d.x);
@@ -318,8 +331,7 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 		        }
 		    }
 			if(that.type === "stackedAreaChart") {
-				that.dataTransformation();
-				$(that.selector + " #tooltip-svg-container-1").empty();
+				document.querySelector(that.selector +" #tooltip-svg-container-1").innerHTML = null;
 				that.renderChart();
 			}
 			else {
@@ -329,8 +341,7 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 			that.k.xAxis(that.svgContainer,that.xGroup,that.xScale,that.extra_left_margin,that.xdomain,that.x_tick_values,that.legendsGroup_height)
 					.yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain,that.y_tick_values,that.legendsGroup_width)
 					.yGrid(that.svgContainer,that.group,that.yScale,that.legendsGroup_width)
-					.xGrid(that.svgContainer,that.group,that.xScale,that.legendsGroup_height)
-					.tooltip(true,that.selector);
+					.xGrid(that.svgContainer,that.group,that.xScale,that.legendsGroup_height);
 
 			if(PykCharts['boolean'](that.annotation_enable)) {
 	        	that.annotation();
@@ -340,9 +351,10 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 	};
 
 	that.optional_feature = function (){
+		var id = that.selector.substring(1,that.selector.length);
 		var optional = {
 			chartType: function () {
-				for(j = 1;j < that.data_length;j++) {
+				for(var j = 1;j < that.data_length;j++) {
 					if(that.data[0].x === that.data[j].x) {
 						that.type = "stackedAreaChart";
 						break;
@@ -352,44 +364,55 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 				return this;
 			},
 			svgContainer: function (i){
-				$(that.selector).attr("class","PykCharts-twoD PykCharts-multi-series2D PykCharts-line-chart");
+				document.getElementById(id).className = "PykCharts-twoD PykCharts-multi-series2D PykCharts-line-chart";
 
 				that.svgContainer = d3.select(that.selector+" "+"#tooltip-svg-container-"+i).append("svg:svg")
-					.attr("id","svg-"+i)
-					.attr("width",that.width)
-					.attr("height",that.height)
-					.attr("class","svgcontainer")
-					.attr("preserveAspectRatio", "xMinYMin")
-                    .attr("viewBox", "0 0 " + that.width + " " + that.height);
+					.attr({
+						"id": that.container_id+"-"+i,
+						"width": that.chart_width,
+						"height": that.chart_height,
+						"class": "svgcontainer",
+						"preserveAspectRatio": "xMinYMin",
+	                    "viewBox": "0 0 " + that.chart_width + " " + that.chart_height
+					});
     			return this;
 			},
 			createGroups : function (i) {
-
 				that.group = that.svgContainer.append("g")
-					.attr("id","chartsvg")
-					.attr("transform","translate("+ that.margin_left +","+ (that.margin_top + that.legendsGroup_height)+")");
+					.attr({
+						"id": that.type+"-group",
+						"transform": "translate("+ that.chart_margin_left +","+ (that.chart_margin_top + that.legendsGroup_height)+")"
+					});
 
-				if(PykCharts['boolean'](that.grid_y_enable)){
+				if(PykCharts['boolean'](that.chart_grid_y_enable)){
 					that.group.append("g")
-						.attr("id","ygrid")
-						.attr("class","y grid-line");
+						.attr({
+							"id": "ygrid",
+							"class": "y grid-line"
+						});
 				}
-				if(PykCharts['boolean'](that.grid_x_enable)){
+				if(PykCharts['boolean'](that.chart_grid_x_enable)){
 					that.group.append("g")
-						.attr("id","xgrid")
-						.attr("class","x grid-line");
+						.attr({
+							"id": "xgrid",
+							"class": "x grid-line"
+						});
 				}
 
 				that.clip = that.svgContainer.append("svg:clipPath")
 				    .attr("id","clip" + i + that.selector)
 				    .append("svg:rect")
-				    .attr("width", that.w - that.legendsGroup_width)
-				    .attr("height", that.h - that.legendsGroup_height);
+				    .attr({
+				    	"width": that.w - that.legendsGroup_width,
+				    	"height": that.h - that.legendsGroup_height
+				    });
 
 				that.chartBody = that.svgContainer.append("g")
-					.attr("id","clipPath")
-					.attr("clip-path", "url(#clip" + i + that.selector + " )")
-					.attr("transform","translate("+ that.margin_left +","+ (that.margin_top+that.legendsGroup_height) +")");
+					.attr({
+						"id": "clipPath",
+						"clip-path": "url(#clip" + i + that.selector + " )",
+						"transform": "translate("+ that.chart_margin_left +","+ (that.chart_margin_top+that.legendsGroup_height) +")"
+					});
 
 				that.stack_layout = d3.layout.stack()
 					.values(function(d) { return d.data; });
@@ -399,7 +422,7 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 			legendsContainer : function (i) {
                 if (PykCharts['boolean'](that.legends_enable) && that.type === "stackedAreaChart" && that.mode === "default") {
                     that.legendsGroup = that.svgContainer.append("g")
-                                .attr('id',"legends")
+                                .attr('id',"stackedArea-legends")
                                 .style("visibility","visible")
                                 .attr("transform","translate(0,10)");
                 } else {
@@ -411,20 +434,23 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 			axisContainer : function () {
 	        	if(PykCharts['boolean'](that.axis_x_enable) || options.axis_x_title){
 					that.xGroup = that.group.append("g")
-							.attr("id","xaxis")
-							.attr("class", "x axis");
+							.attr({
+								"id": "xaxis",
+								"class": "x axis"
+							});
 				}
 				if(PykCharts['boolean'](that.axis_y_enable) || options.axis_y_title){
 					that.yGroup = that.group.append("g")
-						.attr("id","yaxis")
-						.attr("class","y axis");
+						.attr({
+							"id": "yaxis",
+							"class": "y axis"
+						});
 				}
 	        	return this;
       		},
 			createChart : function (evt) {
 
 				that.legend_text = [];
-
 				that.layers = that.stack_layout(that.new_data);
 
         		var x_domain,x_data = [],y_data,y_range,x_range,y_domain, min_x_tick_value,max_x_tick_value, min_y_tick_value,max_y_tick_value;
@@ -559,8 +585,10 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 
 				if(PykCharts['boolean'](that.zoom_enable) && (that.mode === "default")) {
 					that.svgContainer.call(that.zoom_event);
-					that.svgContainer.on("wheel.zoom", null)
-                    	.on("mousewheel.zoom", null);
+					that.svgContainer.on({
+						"wheel.zoom": null,
+                    	"mousewheel.zoom": null
+					});
 				}
 
 				that.chart_path = d3.svg.area()
@@ -584,9 +612,11 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 	        			that.svgContainer.select("#"+type)
 							.datum(that.layers[i].data)
 							.attr("transform", "translate("+ that.extra_left_margin +",0)")
-							.style("stroke",that.border.color())
-		                    .style("stroke-width",that.border.width())
-		                    .style("stroke-dasharray", that.border.style());
+							.style({
+								"stroke": that.border.color(),
+			                    "stroke-width": that.border.width(),
+			                    "stroke-dasharray": that.border.style()
+							});
 
 						function transition1 (i) {
 						    that.dataLineGroup[i].transition()
@@ -641,20 +671,22 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 						that.dataLineGroup[i] = that.chartBody.append("path");
 						that.dataLineGroup[i]
 							.datum(that.layers[i].data)
-							.attr("class", that.chartPathClass)
-							.attr("id", type)
+							.attr({
+								"class": that.chartPathClass,
+								"id": type,
+								"fill-opacity": function() {
+									if(that.type === "stackedAreaChart" && that.color_mode === "saturation") {
+										return (i+1)/that.new_data.length;
+									}
+								},
+								"data-fill-opacity": function () {
+			                        return d3.select(this).attr("fill-opacity");
+			                    },
+								"transform": "translate("+ that.extra_left_margin +",0)"
+							})
 							.style("fill", function(d) {
 								return that.fillColor.colorPieMS(that.new_data[i],that.type);
-							})
-							.attr("fill-opacity",function() {
-								if(that.type === "stackedAreaChart" && that.color_mode === "saturation") {
-									return (i+1)/that.new_data.length;
-								}
-							})
-							.attr("data-fill-opacity",function () {
-		                        return $(this).attr("fill-opacity");
-		                    })
-							.attr("transform", "translate("+ that.extra_left_margin +",0)");
+							});
 
 						function transition (i) {
 						    that.dataLineGroup[i].transition()
@@ -673,14 +705,17 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 						that.dataLineGroupBorder[i] = that.chartBody.append("path");
 						that.dataLineGroupBorder[i]
 							.datum(that.layers[i].data)
-							.attr("class", "area-border")
-							.attr("id", "border-stacked-area"+i)
-							.style("stroke",that.border.color())
-		                    .style("stroke-width",that.border.width())
-		                    .style("stroke-dasharray", that.border.style())
-		                    .style("pointer-events","none")
-							.attr("transform", "translate("+ that.extra_left_margin +",0)")
-
+							.attr({
+								"class": "area-border",
+								"id": "border-stacked-area"+i,
+								"transform": "translate("+ that.extra_left_margin +",0)"
+							})
+							.style({
+								"stroke": that.border.color(),
+			                    "stroke-width": that.border.width(),
+			                    "stroke-dasharray": that.border.style(),
+			                    "pointer-events": "none"
+							});
 
 						function borderTransition (i) {
 						    that.dataLineGroupBorder[i].transition()
@@ -704,12 +739,6 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 							that.mouseEvent.crossHairHide(that.type);
 							that.mouseEvent.axisHighlightHide(that.selector + " .x.axis");
 							that.mouseEvent.axisHighlightHide(that.selector + " .y.axis");
-
-							if(that.type === "stackedAreaChart") {
-								for(var a=0;a < that.new_data_length;a++) {
-									$(that.selector+" #svg-"+a).trigger("mouseout");
-								}
-							}
 						})
 						.on("mousemove", function() {
 							if(that.type === "areaChart") {
@@ -718,134 +747,28 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 								var line = [];
 								line[0] = d3.select(that.selector+" #"+this.id+" .stacked-area");
 								that.mouseEvent.crossHairPosition(that.new_data,that.xScale,that.yScale,line,that.extra_left_margin,that.xdomain,that.type,that.tooltipMode,that.color_from_data,"no");
-								for(var a=0;a < that.new_data_length;a++) {
-									$(that.selector+" #svg-"+a).trigger("mousemove");
-								}
 							}
 						});
 
 				}
 				d3.selectAll(that.selector + " ." +that.chartPathClass)
-					.on("mouseover", function () {
-						if(that.mode === "default") {
-							that.mouseEvent.highlight(that.selector + " ."+that.chartPathClass,this);
-						}
-					})
-					.on("mouseout", function () {
-						if(that.mode === "default") {
-							that.mouseEvent.highlightHide(that.selector + " ."+that.chartPathClass);
+					.on({
+						"mouseover": function () {
+							if(that.mode === "default") {
+								that.mouseEvent.highlight(that.selector + " ."+that.chartPathClass,this);
+							}
+						},
+						"mouseout": function () {
+							if(that.mode === "default") {
+								that.mouseEvent.highlightHide(that.selector + " ."+that.chartPathClass);
+							}
 						}
 					});
 				return this;
 			},
-			legends : function (index) {
-
+			legends: function () {
                 if (PykCharts['boolean'](that.legends_enable) && that.type === "stackedAreaChart" && that.mode==="default") {
-                    var k = 0;
-                    var l = 0;
-
-                    if(that.legends_display === "vertical" ) {
-                        that.legendsGroup.attr("height", (that.new_data_length * 30)+20);
-                        that.legendsGroup_height = 0;
-
-                        text_parameter1 = "x";
-                        text_parameter2 = "y";
-                        rect_parameter1 = "width";
-                        rect_parameter2 = "height";
-                        rect_parameter3 = "x";
-                        rect_parameter4 = "y";
-                        rect_parameter1value = 13;
-                        rect_parameter2value = 13;
-                        text_parameter1value = function (d,i) { return 36; };
-                        rect_parameter3value = function (d,i) { return 20; };
-                        var rect_parameter4value = function (d,i) { return i * 24 + 12;};
-                        var text_parameter2value = function (d,i) { return i * 24 + 23;};
-
-                    } else if(that.legends_display === "horizontal") {
-                        that.legendsGroup_height = 50;
-                        final_rect_x = 0;
-                        final_text_x = 0;
-                        legend_text_widths = [];
-                        sum_text_widths = 0;
-                        temp_text = temp_rect = 0;
-                        text_parameter1 = "x";
-                        text_parameter2 = "y";
-                        rect_parameter1 = "width";
-                        rect_parameter2 = "height";
-                        rect_parameter3 = "x";
-                        rect_parameter4 = "y";
-
-                        var text_parameter1value = function (d,i) {
-                            legend_text_widths[i] = this.getBBox().width;
-                            legend_start_x = 16;
-                            final_text_x = (i === 0) ? legend_start_x : (legend_start_x + temp_text);
-                            temp_text = temp_text + legend_text_widths[i] + 30;
-                            return final_text_x;
-                        };
-                        text_parameter2value = 30;
-                        rect_parameter1value = 13;
-                        rect_parameter2value = 13;
-                        var rect_parameter3value = function (d,i) {
-                            final_rect_x = (i === 0) ? 0 : temp_rect;
-                            temp_rect = temp_rect + legend_text_widths[i] + 30;
-                            return final_rect_x;
-                        };
-                        rect_parameter4value = 18;
-                    }
-
-                    var legend = that.legendsGroup.selectAll("rect")
-                                    .data(that.new_data);
-
-                    that.legends_text = that.legendsGroup.selectAll(".legends_text")
-                        .data(that.new_data);
-
-                    that.legends_text.enter()
-                        .append('text');
-
-                    that.legends_text.attr("class","legends_text")
-                        .attr("pointer-events","none")
-                        .text(function (d) { return d.name; })
-                        .attr("fill", that.legends_text_color)
-                        .attr("font-family", that.legends_text_family)
-                        .attr("font-size",that.legends_text_size +"px")
-                        .attr("font-weight", that.legends_text_weight)
-                        .attr(text_parameter1, text_parameter1value)
-                        .attr(text_parameter2, text_parameter2value);
-
-                    legend.enter()
-                        .append("rect");
-
-                    legend.attr(rect_parameter1, rect_parameter1value)
-                        .attr(rect_parameter2, rect_parameter2value)
-                        .attr(rect_parameter3, rect_parameter3value)
-                        .attr(rect_parameter4, rect_parameter4value)
-                        .attr("fill", function (d) {
-                            return that.fillColor.colorPieMS(d,that.type);
-                        })
-                        .attr("fill-opacity", function (d,i) {
-                            if(that.type === "stackedAreaChart" && that.color_mode === "saturation") {
-								return (i+1)/that.new_data.length;
-							}
-                        });
-
-
-                    var legend_container_width = that.legendsGroup.node().getBBox().width, translate_x;
-                    if(that.legends_display === "vertical") {
-                    	that.legendsGroup_width = legend_container_width + 20;
-                    } else  {
-                    	that.legendsGroup_width = 0;
-                    }
-                    
-                    translate_x = (that.legends_display === "vertical") ? (that.width - that.legendsGroup_width)  : (that.width - legend_container_width - 20);
-
-                    if (legend_container_width < that.width) { that.legendsGroup.attr("transform","translate("+translate_x+",10)"); }
-                    that.legendsGroup.style("visibility","visible");
-
-                    that.legends_text.exit().remove();
-                    legend.exit().remove();
-
-
-                    /* !!!!! DO NOT TOUCH THE BELOW COMMENTED CODE, PREVIOUSLY WRITTEN FOR DISPLAYING LEGENDS ON THE NEXT LINE !!!!!*/
+        			that.multid.legendsPosition(that,"stackedArea",that.new_data);
                 }
                 return this;
             }
@@ -862,11 +785,15 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 	    for (i = 0;i < that.new_data_length;i++) {
 	    	type = that.chartPathClass + i;
 	  	 	that.svgContainer.select(that.selector+" #"+type)
-	        	.attr("class", that.chartPathClass)
-		        .attr("d", that.chart_path);
+	  	 		.attr({
+	  	 			"class": that.chartPathClass,
+		        	"d": that.chart_path
+	  	 		});
 		    that.svgContainer.select(that.selector+" #border-stacked-area"+i)
-				.attr("class","area-border")
-				.attr("d", that.chart_path_border);
+		    	.attr({
+		    		"class": "area-border",
+					"d": that.chart_path_border
+		    	});
 	    }
 	    if(PykCharts.getEvent().sourceEvent.type === "dblclick") {
 	    	that.count++;
@@ -896,9 +823,8 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 				.interpolate('linear-closed')
                 .x(function(d,i) { return d.x; })
                 .y(function(d,i) { return d.y; });
-
+        var arrow_size = 12,annotation = [];
 		if(that.type === "areaChart") {
-			var arrow_size = 12,annotation = [];
 			that.new_data[0].data.map(function (d) {
 				if(d.annotation) {
 					annotation.push({
@@ -908,51 +834,8 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 					})
 				}
 			});
-
-			var anno = that.svgContainer.selectAll(that.selector + " .PykCharts-annotation-line")
-                .data(annotation);
-            anno.enter()
-                .append("path");
-            anno.attr("d", function (d,i) {
-                	var a = [
-                		{
-                			x:parseInt(that.xScale(d.x))+that.extra_left_margin+that.margin_left,
-                			y:parseInt(that.yScale(d.y)+that.margin_top - arrow_size)
-                		},
-                		{
-                			x:parseInt(that.xScale(d.x))+that.extra_left_margin+that.margin_left,
-                			y:parseInt(that.yScale(d.y)+that.margin_top - arrow_size)
-                		}
-                	];
-                	return that.line(a);
-                })
-            setTimeout(function () {
-	            anno.attr("class", "PykCharts-annotation-line")
-	                .attr("d", function (d,i) {
-	                	var a = [
-	                		{
-	                			x:parseInt(that.xScale(d.x)-(arrow_size*0.5))+that.extra_left_margin+that.margin_left,
-	                			y:parseInt(that.yScale(d.y)-(arrow_size)+that.margin_top)
-	                		},
-	                		{
-	                			x:parseInt(that.xScale(d.x)+(arrow_size*0.5))+that.extra_left_margin+that.margin_left,
-	                			y:parseInt(that.yScale(d.y)-(arrow_size)+that.margin_top)
-	                		},
-	                		{
-	                			x:parseInt(that.xScale(d.x))+that.extra_left_margin+that.margin_left,
-	                			y:parseInt(that.yScale(d.y)+that.margin_top),
-	                		}
-                		];
-	                	return that.line(a);
-	                })
-	                .attr("fill",that.annotation_background_color);
-            }, that.transitions.duration());
-
-            anno.exit().remove();
-            that.k.annotation(that.selector + " #svg-1",annotation, that.xScale,that.yScale);
-
 		} else if(that.type === "stackedAreaChart" && that.mode === "default") {
-			var arrow_size = 12,annotation = [];
+			
 			for(i=0;i<that.new_data_length;i++) {
 				that.new_data[i].data.map(function (d) {
 					if(d.annotation) {
@@ -964,50 +847,50 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 					}
 				});
 			}
+		}
+		var anno = that.svgContainer.selectAll(" .PykCharts-annotation-line")
+            .data(annotation);
+        anno.enter()
+            .append("path");
 
-			var anno = that.svgContainer.selectAll(" .PykCharts-annotation-line")
-                .data(annotation);
-            anno.enter()
-                .append("path");
-
-            anno.attr("d", function (d,i) {
+        anno.attr("d", function (d,i) {
+            	var a = [
+            		{
+            			x:parseInt(that.xScale(d.x))+that.extra_left_margin+that.chart_margin_left,
+            			y:parseInt(that.yScale(d.y)-(arrow_size)+that.chart_margin_top+that.legendsGroup_height)
+            		},
+            		{
+            			x:parseInt(that.xScale(d.x))+that.extra_left_margin+that.chart_margin_left,
+            			y:parseInt(that.yScale(d.y)-(arrow_size)+that.chart_margin_top+that.legendsGroup_height)
+            		}
+            	];
+            	return that.line(a);
+            })
+        function setTimeoutAnnotation () {
+        	anno.attr("class", "PykCharts-annotation-line")
+	            .attr("d", function (d,i) {
 	            	var a = [
-	            		{
-	            			x:parseInt(that.xScale(d.x))+that.extra_left_margin+that.margin_left,
-	            			y:parseInt(that.yScale(d.y)-(arrow_size)+that.margin_top+that.legendsGroup_height)
-	            		},
-	            		{
-	            			x:parseInt(that.xScale(d.x))+that.extra_left_margin+that.margin_left,
-	            			y:parseInt(that.yScale(d.y)-(arrow_size)+that.margin_top+that.legendsGroup_height)
-	            		}
-	            	];
+                		{
+                			x:parseInt(that.xScale(d.x)-(arrow_size*0.5))+that.extra_left_margin+that.chart_margin_left,
+                			y:parseInt(that.yScale(d.y)-(arrow_size)+that.chart_margin_top+that.legendsGroup_height)
+                		},
+                		{
+                			x:parseInt(that.xScale(d.x)+(arrow_size*0.5))+that.extra_left_margin+that.chart_margin_left,
+                			y:parseInt(that.yScale(d.y)-(arrow_size)+that.chart_margin_top+that.legendsGroup_height)
+                		},
+                		{
+                			x:parseInt(that.xScale(d.x))+that.extra_left_margin+that.chart_margin_left,
+                			y:parseInt(that.yScale(d.y)+that.chart_margin_top+that.legendsGroup_height),
+                		}
+            		];
 	            	return that.line(a);
 	            })
-            setTimeout(function () {
-	        	anno.attr("class", "PykCharts-annotation-line")
-		            .attr("d", function (d,i) {
-		            	var a = [
-	                		{
-	                			x:parseInt(that.xScale(d.x)-(arrow_size*0.5))+that.extra_left_margin+that.margin_left,
-	                			y:parseInt(that.yScale(d.y)-(arrow_size)+that.margin_top+that.legendsGroup_height)
-	                		},
-	                		{
-	                			x:parseInt(that.xScale(d.x)+(arrow_size*0.5))+that.extra_left_margin+that.margin_left,
-	                			y:parseInt(that.yScale(d.y)-(arrow_size)+that.margin_top+that.legendsGroup_height)
-	                		},
-	                		{
-	                			x:parseInt(that.xScale(d.x))+that.extra_left_margin+that.margin_left,
-	                			y:parseInt(that.yScale(d.y)+that.margin_top+that.legendsGroup_height),
-	                		}
-                		];
-		            	return that.line(a);
-		            })
-					.attr("fill",that.annotation_background_color);
-            }, that.transitions.duration());
+				.attr("fill",that.annotation_background_color);
+        }
+        setTimeout(setTimeoutAnnotation, that.transitions.duration());
 
-            anno.exit().remove();
-            that.k.annotation(that.selector + " #svg-1",annotation,that.xScale,that.yScale)
-		}
+        anno.exit().remove();
+        that.k.annotation(that.selector + " #"+that.container_id+"-1",annotation,that.xScale,that.yScale)
 	};
 
 	that.renderChart =  function () {

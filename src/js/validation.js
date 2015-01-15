@@ -2,7 +2,6 @@ PykCharts.validation = {};
 PykCharts.oneD = {};
 PykCharts.other = {};
 PykCharts.validation.processInputs = function (chartObject, options, chart_type) {
-
     var theme = new PykCharts.Configuration.Theme({})
 	    , stylesheet = theme.stylesheet
 	    , functionality = theme.functionality
@@ -28,13 +27,13 @@ PykCharts.validation.processInputs = function (chartObject, options, chart_type)
     		'config_name': 'selector',
     		'default_value': stylesheet,
     		'validation_type': 'validatingSelector',
-            'all': true
+            'all_charts': true
     	},
     	{
     		'config_name': 'chart_color',
     		'default_value': stylesheet,
     		'validation_type': 'isArray',
-            'all': true
+            'all_charts': true
     	},
         {
             'config_name': 'axis_x_pointer_values',
@@ -527,11 +526,13 @@ PykCharts.validation.processInputs = function (chartObject, options, chart_type)
         }
     ];
 
+
     chartObject.k = new PykCharts.Configuration(chartObject);
     var validator = chartObject.k.validator();
 
     for (var i=0,config_length=config_param_info.length; i<config_length; i++) {
         var config = config_param_info[i];
+        if(config[chart_type] || config.all_charts) {
             var config_name = config.config_name
             , default_value = config.default_value[config_name]
             , condition1 = !config.condition1 ? options[config_name] : config.condition1(config_name);
@@ -543,6 +544,7 @@ PykCharts.validation.processInputs = function (chartObject, options, chart_type)
             if(config.validation_type) {
                 validator[config.validation_type](chartObject[config_name],config_name,default_value);
             }
+        }
     }
     var enable_config_param = [
         {   
@@ -708,6 +710,16 @@ PykCharts.validation.processInputs = function (chartObject, options, chart_type)
             'config_name': 'annotation_view_mode',
             'default_value': multiDimensionalCharts,
             'multiDimensionalCharts': true
+        },
+        {
+            'config_name': 'loading_type',
+            'default_value': stylesheet,
+            'all_charts': true
+        },
+        {
+            'config_name': 'loading_source',
+            'default_value': stylesheet,
+            'all_charts': true
         }
     ];
 
@@ -722,7 +734,7 @@ PykCharts.validation.processInputs = function (chartObject, options, chart_type)
     }
 
     chartObject.clubdata_always_include_data_points = PykCharts['boolean'](chartObject.clubdata_enable) && options.clubdata_always_include_data_points ? options.clubdata_always_include_data_points : [];
-
+    validator.isArray(chartObject.clubdata_always_include_data_points,"clubdata_always_include_data_points")
     switch(chartObject.border_between_chart_elements_style) {
         case "dotted" : chartObject.border_between_chart_elements_style = "1,3";
                         break;
@@ -745,6 +757,7 @@ PykCharts.validation.processInputs = function (chartObject, options, chart_type)
             }
         }        
     }
+
     function convertToLowerCase(value) {
         return value.toLowerCase();
     }                  
@@ -752,7 +765,6 @@ PykCharts.validation.processInputs = function (chartObject, options, chart_type)
     function findInObject(value) {
         return value in options;
     }
- 
     chartObject.k = new PykCharts.Configuration(chartObject);
     return chartObject;
 }

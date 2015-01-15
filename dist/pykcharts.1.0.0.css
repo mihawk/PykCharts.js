@@ -17,40 +17,45 @@
 * charts@pykih.com
 *
 * ====================================================== */
-
 .PykCharts-loading {
   margin: 0;
-  width: 200px;
-  height: 50px;
+  font-size: 10px;
+  position: relative;
+  text-indent: -9999em;
+  border-top: 1.1em solid rgba(52, 73, 94, 0.2);
+  border-right: 1.1em solid rgba(52, 73, 94, 0.2);
+  border-bottom: 1.1em solid rgba(52, 73, 94, 0.2);
+  border-left: 1.1em solid #2C3E50;
+  -webkit-animation: load8 1.1s infinite linear;
+  animation: load8 1.1s infinite linear;
 }
-.PykCharts-loading > div {
-  background-color: #96c900;
-  height: 100%;
-  width: 10%;
-  display: inline-block;
-  -webkit-animation: wave 1.2s infinite ease-in-out;
-  animation: wave 1.2s infinite ease-in-out;
+.PykCharts-loading,
+.PykCharts-loading:after {
+  border-radius: 50%;
+  width: 4em;
+  height: 4em;
 }
-.PykCharts-loading div:nth-child(2) {
-  -webkit-animation-delay: -1.1s;
-  animation-delay: -1.1s;
-  background-color: #fb8500;
-  margin-left: 3px;
+@-webkit-keyframes load8 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
 }
-.PykCharts-loading div:nth-child(3) {
-  -webkit-animation-delay: -1.0s;
-  animation-delay: -1.0s;
-  background-color: #a764c9;
-  margin-left: 3px;
+@keyframes load8 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
 }
-@-webkit-keyframes wave {
-  0%, 40%, 100% { -webkit-transform: scaleY(0.4) }
-  20% { -webkit-transform: scaleY(1.0) }
-}
-@keyframes wave {
-  0%, 40%, 100% { transform: scaleY(0.4); }
-  20% { transform: scaleY(1.0); }
-}
+
 body {
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
@@ -67,12 +72,32 @@ body {
   font-size: 16px;
 }
 
+.pyk-tooltip {
+  height: auto;
+  width: auto;
+  padding: 5px 6px;
+  color: #4F4F4F;
+  background: #fff;
+  text-decoration: none;
+  position: absolute;
+  border-radius: 5px;
+  border: 1px solid #CCCCCC;
+  font-size: 12px;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  min-width: 30px;
+  text-align: center;
+  z-index: 10;
+  display: none;
+  box-shadow: 0 5px 10px rgba(0,0,0,.2);
+  pointer-events: none;
+}
+
 .PykCharts-multi-series2D .legend-content {
   text-align: left;
   font-size: 12px;
 }
 
-.PykCharts-multi-series2D .line-cursor line {
+.PykCharts-multi-series2D .line-cursor {
   fill: none;
   stroke-width: 1px;
   stroke: #cccccc;
@@ -142,7 +167,7 @@ body {
   pointer-events: none;
 }
 
-.PykCharts-line-chart .line-cursor path, .line-cursor line {
+.PykCharts-line-chart .line-cursor path, .line-cursor{
   fill: none;
   stroke-width: 1px;
   stroke: #cccccc;
@@ -463,4 +488,24 @@ body .pyk-tooltip .tooltip-left-content{
     stroke-width: 1;
     stroke-dasharray: 5,5;
     shape-rendering: crispEdge;
+}
+
+.dropdown-multipleConatiner-export {
+  top: 10px;
+  height: auto;
+  width: auto;
+  padding: 5px 6px;
+  color: #4F4F4F;
+  background: #fff;
+  text-decoration: none;
+  position: absolute;
+  border-radius: 5px;
+  border: 1px solid #CCCCCC;
+  font-size: 12px;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  min-width: 30px;
+  text-align: center;
+  z-index: 10;
+  box-shadow: 0 5px 10px rgba(0,0,0,.2);
+  visibility: hidden;
 }
