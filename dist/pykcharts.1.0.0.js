@@ -15134,7 +15134,6 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             },
             axisContainer : function (ae) {
                 if(PykCharts['boolean'](ae)){
-                    console.log((that.margin_left*2),that.redeced_height)
                     that.gxaxis = that.svgContainer.append("g")
                         .attr({
                             "id": "xaxis",
@@ -15314,9 +15313,10 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     } else  {
                         that.legendsGroup_width = 0;
                     }
-
                     translate_x = (that.legends_display === "vertical") ? (that.chart_width - that.legendsGroup_width) : (that.chart_width - legend_container_width - 20);
-                if (legend_container_width < that.chart_width) { that.legendsContainer.attr("transform","translate("+(translate_x-20)+",10)"); }
+                if (legend_container_width < that.chart_width) { 
+                    that.legendsContainer.attr("transform","translate("+(translate_x-20)+",10)"); 
+                }
                 that.legendsContainer.style("visibility","visible");
 
                 that.legends_text.exit()
@@ -15364,8 +15364,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     } else  {
                         that.legendsGroup_width = 0;
                     }
-
-                    translate_x = (that.legends_display === "vertical") ? 0 : (that.chart_width - legend_container_width - 20);
+                    translate_x = (that.legends_display === "vertical") ? (that.chart_width - that.legendsGroup_width) : (that.chart_width - legend_container_width - 20);
                 if (legend_container_width < that.chart_width) { that.legendsContainer.attr("transform","translate("+translate_x+",10)"); }
                 that.legendsContainer.style("visibility","visible");
 

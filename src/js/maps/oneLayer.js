@@ -626,7 +626,6 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     } else  {
                         that.legendsGroup_width = 0;
                     }
-                    // console.log(that.chart_width - that.legendsGroup_width,"helllo",);
                     translate_x = (that.legends_display === "vertical") ? (that.chart_width - that.legendsGroup_width) : (that.chart_width - legend_container_width - 20);
                 if (legend_container_width < that.chart_width) { that.legendsContainer.attr("transform","translate("+translate_x+",10)"); }
                 that.legendsContainer.style("visibility","visible");
