@@ -79,7 +79,7 @@ PykCharts.multiD.simple2x2 = function (options) {
                 .axisContainer()
                 .label();
 
-            that.k/*.liveData(that)*/
+            that.k.liveData(that)
                 .tooltip()
                 .createFooter()
                 .lastUpdatedAt()
@@ -104,6 +104,11 @@ PykCharts.multiD.simple2x2 = function (options) {
 
         }
 
+        that.k.xAxis(that.svgContainer,that.xGroup,that.xScale,that.extra_left_margin,that.x_domain,that.x_tick_values)
+            .yAxis(that.svgContainer,that.yGroup,that.yScale,that.y_domain,that.y_tick_values)
+            .xAxisTitle(that.xGroup)
+            .yAxisTitle(that.yGroup);
+
         that.optionalFeatures().axisShift();
 
         that.k.exportSVG(that,"#"+container_id,"simple2x2Chart");
@@ -115,9 +120,31 @@ PykCharts.multiD.simple2x2 = function (options) {
         });
     };
 
-    // this.refresh = function () {
+    this.refresh = function () {
+        that.executeRefresh = function (data) {
+            that.data = that.k.__proto__._groupBy("simple2x2",data);
+            that.refresh_data = that.k.__proto__._groupBy("simple2x2",data);
+            var compare = that.k.checkChangeInData(that.refresh_data,that.compare_data);
+            that.compare_data = compare[0];
+            var data_changed = compare[1];
+            that.dataTransformation();
 
-    // };
+            if(data_changed) {
+                that.k.lastUpdatedAt("liveData");
+            }
+
+            that.optionalFeatures()
+                .createChart()                
+                .label();
+
+            that.k.xAxis(that.svgContainer,that.xGroup,that.xScale,that.extra_left_margin,that.x_domain,that.x_tick_values)
+                .yAxis(that.svgContainer,that.yGroup,that.yScale,that.y_domain,that.y_tick_values);
+
+            that.optionalFeatures().axisShift();
+        };
+        
+        that.k.dataSourceFormatIdentification(options.data,that,"executeRefresh");
+    };
 
     this.optionalFeatures = function () {
         var id = that.selector.substring(1,that.selector.length);
@@ -182,11 +209,6 @@ PykCharts.multiD.simple2x2 = function (options) {
                 return this;
             },
             axisShift: function () {
-                that.k.xAxis(that.svgContainer,that.xGroup,that.xScale,that.extra_left_margin,that.x_domain,that.x_tick_values)
-                    .yAxis(that.svgContainer,that.yGroup,that.yScale,that.y_domain,that.y_tick_values)
-                    .xAxisTitle(that.xGroup)
-                    .yAxisTitle(that.yGroup);
-
                 that.xGroup.attr("transform","translate("+that.chart_margin_left+"," + (that.chart_margin_top + that.reducedHeight/2) + ")");
                 that.yGroup.attr("transform","translate(" + (that.chart_margin_left + that.reducedWidth/2) + ","+ that.chart_margin_top +")");
                 
