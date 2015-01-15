@@ -443,6 +443,7 @@ PykCharts.Configuration = function (options){
                     "scatterplot": ["x","y","name","group"],
                     "pulse": ["x","y","name","group"],
                     "spiderweb": ["x","y","group"],
+                    "waterfall": ["x","y"]
                 }
                 , charts = {
                     "oned": {
@@ -488,6 +489,11 @@ PykCharts.Configuration = function (options){
                       "fact": "y",
                       "name": "name",
                       "weight": "weight"
+                    },
+                    "waterfall": {
+                        "dimension": "y",
+                        "fact": "x",
+                        "name": "group"
                     }
                 },
                 properties = dimensions[chart],
@@ -1271,9 +1277,9 @@ configuration.mouseEvent = function (options) {
             }
 
         },
-        tooltipTextShow: function (d,panels_enable,type,group_index) {
+        tooltipTextShow: function (d,panels_enable,type,group_index,axis_tooltip) {
             var selector = options.selector.substr(1,options.selector.length)
-            if(PykCharts['boolean'](options.tooltip_enable) || PykCharts['boolean'](options.annotation_enable) || options.axis_x_data_format === "string" || options.axis_y_data_format === "string") {
+            if(PykCharts['boolean'](options.tooltip_enable) || PykCharts['boolean'](options.annotation_enable) || (axis_tooltip == 1 && (options.axis_x_data_format === "string" || options.axis_y_data_format === "string"))) {
                 if(panels_enable === "yes" && type === "multilineChart") {
                     d3.selectAll("#tooltip-svg-container-"+group_index +"-pyk-tooltip"+selector).html(d);
                 } else {
@@ -1282,8 +1288,8 @@ configuration.mouseEvent = function (options) {
                 return this;
             }
         },
-        tooltipHide: function (d,panels_enable,type) {
-            if(PykCharts['boolean'](options.tooltip_enable) || PykCharts['boolean'](options.annotation_enable) || options.axis_x_data_format === "string" || options.axis_y_data_format === "string") {
+        tooltipHide: function (d,panels_enable,type,axis_tooltip) {
+            if(PykCharts['boolean'](options.tooltip_enable) || PykCharts['boolean'](options.annotation_enable) || (axis_tooltip == 1 && (options.axis_x_data_format === "string" || options.axis_y_data_format === "string"))) {
                 if(panels_enable === "yes" && type === "multilineChart") {
                     return d3.selectAll(".pyk-tooltip").style("display","none");
                 }
@@ -1295,7 +1301,7 @@ configuration.mouseEvent = function (options) {
         axisHighlightShow: function (active_tick,axisHighlight,domain,a) {
             var curr_tick,prev_tick,axis_pointer_color,selection,axis_data_length,active_tick_length;
             if(PykCharts['boolean'](options.axis_onhover_highlight_enable)/* && options.mode === "default"*/){
-                if(axisHighlight === options.selector + " .y.axis"){
+                if(axisHighlight === options.selector + " .y.axis" && a == undefined){
                     selection = axisHighlight+" .tick text";
                     axis_pointer_color = options.axis_y_pointer_color;
                     axis_data_length = d3.selectAll(selection)[0].length;
@@ -1323,7 +1329,11 @@ configuration.mouseEvent = function (options) {
                     } else if(axisHighlight === options.selector + " .axis-text" && a === "bar") {
                         selection = axisHighlight;
                         axis_pointer_color = options.axis_y_pointer_color;
+                    } else if(axisHighlight === options.selector + " .y.axis" && a == "waterfall") {
+                        selection = axisHighlight+" .tick text";
+                        axis_pointer_color = options.axis_y_pointer_color;
                     }
+
                     if(prev_tick !== undefined) {
                         d3.select(d3.selectAll(selection)[0][prev_tick])
                             .style({
@@ -1348,7 +1358,7 @@ configuration.mouseEvent = function (options) {
                     }
                     prev_tick = curr_tick;
                     d3.selectAll(selection)
-                        .style("fill","#bbb")
+                        .style("fill","#bbb");
                     d3.select(d3.selectAll(selection)[0][curr_tick])
                         .style({
                             "fill" : axis_pointer_color,
@@ -1725,7 +1735,7 @@ configuration.Theme = function(){
 
         "data_sort_enable": "yes",
         "data_sort_type": "alphabetically", // sort type --- "alphabetically" / "numerically" / "date"
-        "data_sort_order": "ascending" // sort order --- "descending" / "ascending"
+        "data_sort_order": "ascending", // sort order --- "descending" / "ascending"
     };
 
     that.treeCharts = {

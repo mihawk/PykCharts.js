@@ -1,1051 +1,1099 @@
 <html>
-    <head>
-        <title>Multi-Dimensional Charts</title>
-        <link rel="stylesheet" type="text/css" href="../src/css/PykCharts.css">
-    </head>
-    <body>
+<head>
+  <title>Multi-Dimensional Charts</title>
+  <link rel="stylesheet" type="text/css" href="../src/css/PykCharts.css">
+</head>
+<body>
   <!--   <div id="hi" style="height:500px;width:1200px;background-color:pink">
-    <div id = "hello" style="height:500px;width:1000px;background-color:black;"> -->
-        <div id="line"></div>
-   <!--  </div></div> -->
-        <hr/>
-        <div id="area"></div>
-        <hr/>
-
-        <div id="multiLine"></div>
-        <hr/>
-        <div id="multiple-multiLine"></div>
-        <hr/>
-        <div id="multiArea"></div>
-        <hr/>
-        <div id="pulse"></div>
-        <hr/>
-        <div id="scatterPlot"></div>
-        <hr/>
-        <div id="multiple-scatterplots"></div>
-        <hr/>
-        <div id="spiderWeb"></div>
-        <hr/>
-        <div id="column"></div>
-        <hr/>
-        <div id="groupColumn"></div>
-        <hr/>
-        <div id="bar"></div>
-        <hr/>
-        <div id="groupBar">
-        </div>
-        <hr/>
-        <script src="../src/js/init.js"></script>
-        <script src="../src/js/pyk.js"></script>
-        <script src="../src/js/multiD/crosshair.js"></script>
-        <script src="../src/js/multiD/annotation.js"></script>
-        <script src="../src/js/multiD/scaleFunction.js"></script>
-        <script src="../src/js/multiD/crossHairMovement.js"></script>
-        <script src="../src/js/multiD/grid.js"></script>
-        <script src="../src/js/validation.js"></script>
-        <script src="../src/js/multiD/multiD.js"></script>
-        <script src="../src/js/multiD/column.js"></script>
-        <script src="../src/js/multiD/groupColumnChart.js"></script>
-        <script src="../src/js/multiD/areaChart.js"></script>
-        <script src="../src/js/multiD/lineChart.js"></script>
-        <script src="../src/js/multiD/spiderWeb.js"></script>
-        <script src="../src/js/multiD/scatterplot.js"></script>
-        <script src="../src/js/multiD/bar.js"></script>
-        <script src="../src/js/multiD/groupBarChart.js"></script>
-
-        <script>
-
-            // $(document).ready(function (e) {
-            window.PykChartsInit = function (e) {
-                var k = new PykCharts.multiD.line ({
-                    selector: "#line",
-                    data: "../data/linechart_linear.json",
-                    "chart_width": 620,
-                    "chart_height": 400,
-                    "mode": "default",
-                    "color_mode": "color",
-                    "saturation_color": "#255AEE",
-                    "chart_color": [
-                    "red"
-                    ],
-                    "pointer_overflow_enable": "yes",
-                    "pointer_family": "Helvetica Neue,Helvetica,Arial,sans-serif",
-                    "pointer_size": 13,
-                    "pointer_weight": "normal",
-                    "axis_onhover_highlight_enable": "yes",
-                    "axis_x_enable": "yes",
-                    "axis_x_title": "Testing",
-                    "axis_x_position": "top",
-                    "axis_x_pointer_position": "bottom",
-                    "axis_x_line_color": "#1D1D1D",
-                    "axis_x_pointer_size": 12,
-                    "axis_x_pointer_color": "black",
-                    "axis_x_no_of_axis_value": 10,
-                    "axis_x_pointer_padding": 10,
-                    "axis_x_outer_pointer_length": 13,
-                    "axis_x_pointer_values": [],
-                    "axis_x_time_value_datatype": "",
-                    "axis_x_time_value_interval": 0,
-                    "axis_y_enable": "yes",
-                    "axis_y_title": "testing validation",
-                    "axis_y_position": "left",
-                    "axis_y_pointer_position": "left",
-                    "axis_y_line_color": "#1D1D1D",
-                    "axis_y_pointer_size": 12,
-                    "axis_y_pointer_color": "#1D1D1D",
-                    "axis_y_no_of_axis_value": 5,
-                    "axis_y_pointer_padding": 6,
-                    "axis_y_pointer_values": [],
-                    "axis_y_outer_pointer_length": 0,
-                    "axis_y_time_value_datatype": "",
-                    "axis_y_time_value_interval": 0,
-                    "real_time_charts_last_updated_at_enable": "yes",
-                    "real_time_charts_refresh_frequency": 0,
-                    "transition_duration": 0,
-                    "chart_margin_left": 50,
-                    "chart_margin_right": 30,
-                    "chart_margin_top": 100,
-                    "chart_margin_bottom": 50,
-                    "chart_onhover_highlight_enable": "yes",
-                    "chart_grid_x_enable": "no",
-                    "chart_grid_y_enable": "yes",
-                    "chart_grid_color": "yellow",
-                    "tooltip_enable": "yes",
-                    "tooltip_mode": "fixed",
-                    "tooltip_position_top": 0,
-                    "tooltip_position_left": 0,
-                    "annotation_enable": "no",
-                    "annotation_background_color": "#C2CBCF",
-                    "annotation_font_color": "black",
-                    "annotation_view_mode": "onload",
-                    "crosshair_enable": "yes",
-                    "curvy_lines_enable": "yes",
-                    "zoom_enable": "no",
-                    "title_text": "nehal",
-                    "title_size": 20,
-                    "title_weight": "bold",
-                    "title_family": "Helvetica Neue,Helvetica,Arial,sans-serif",
-                    "title_color": "green",
-                    "subtitle_text": "gala",
-                    "subtitle_size": 18,
-                    "subtitle_weight": "bold",
-                    "subtitle_family": "Helvetica Neue,Helvetica,Arial,sans-serif",
-                    "subtitle_color": "green"
-                });
-                k.execute();
-
-                var k = new PykCharts.multiD.area ({
-                    selector: "#area",
-                    data: "../data/area.csv",
-                    mode : "default",
-
-                    color_mode: "color",  //color or saturation
-                    chart_color:["steelblue"],
-
-                    background_color:"#FF6600",
-                    export_enable: "yes",
-
-                    chart_height: 400,
-                    chart_width : 500,
-                    chart_margin_top: 5,
-                    chart_margin_right: 70,
-                    chart_margin_bottom: 35,
-                    chart_margin_left: 50,
-
-                    chart_grid_x_enable: "yes",
-                    chart_grid_y_enable: "yes",
-                    chart_grid_color: "black",
-
-                    transition_duration: 1,
-                    real_time_charts_refresh_frequency: 0,
-
-                    axis_onhover_highlight_enable: "yes",
-                    title_text: "",
-                    axis_x_enable: "yes",
-                    axis_x_title : "Air Pollution in New York",
-                    axis_x_position: "bottom",
-                    axis_x_pointer_position: "bottom",
-                    axis_x_line_color: "#1D1D1D",
-                    axis_x_label_color: "#1D1D1D",
-                    axis_x_pointer_size: 12,
-                    axis_x_pointer_padding: 3,
-                    // axis_x_pointer_values : [3,6],
-                    axis_x_outer_pointer_length: 3,
-                    axis_x_time_value_datatype: "month",
-
-                    axis_y_enable: "yes",
-                    axis_y_title : "Air Quantity Index",
-                    axis_y_position: "right",
-                    axis_y_pointer_position: "right",
-                    axis_y_line_color: "red",
-                    axis_y_label_color: "#1D1D1D",
-                    axis_y_pointer_size: 12,
-                    axis_y_pointer_padding: 10,
-                    // axis_y_pointer_values : [3,6],
-                    axis_y_outer_pointer_length: 3,
-                    curvy_lines_enable:"yes",
-                    tooltip_mode : "moving",
-                    tooltip_enable: "yes",
-                    crosshair_enable: "yes",
-                    zoom_enable: "no",
-                    panels_enable: "yes",
-                    annotation_enable: "yes",
-                    annotation_view_mode: "onclick",
-                    annotation_background_color:"blue",
-                    border_between_chart_elements_thickness: 2,
-                    border_between_chart_elements_color: "red",
-                    border_between_chart_elements_style: "dotted"
-                });
-                // // var date = new Date();
-                // // var i,avg = 0;
-                // // var a = [];
-                // // for(i = 0;i<100;i++) {
-                // //     console.log(i);
-                // //     var start = new Date().getTime();
-                    k.execute();
-                //     var end = new Date().getTime();
-                //     a[i] = end - start;
-                //     avg += a[i];
-                // }
-                // console.log("Performance",a,avg/100);
-
-                var k = new PykCharts.multiD.spiderWeb ({
-                    selector: "#spiderWeb",
-                    data: "../data/spider.csv",
-                    mode : "default",
-
-                    spiderweb_radius : 10,
-                    spiderweb_outer_radius_percent: 100,
-                    spiderweb_pointer: "yes",
-                    spiderweb_axis_title : "yes",
-                    // background_color:"transparent",
-
-                    // chart_color: ["#75b0e1","#0e5ea1"],
-                    chart_color: ["","green"],
-                    chart_height: 430,
-                    chart_width : 430,
-                    chart_margin_top: 25,
-                    chart_margin_right: 25,
-                    chart_margin_bottom: 25,
-                    chart_margin_left: 55,
-
-                    panels_enable:"yes",
-
-                    real_time_charts_refresh_frequency: 0,
-                    variable_circle_size_enable: "yes",
-
-                    border_between_chart_elements_thickness:0,
-                    border_between_chart_elements_color: "blue",
-
-                    legends_enable: "yes",
-                    legends_display: "vertical",//horizontal or vertical
-
-                    legends_text_size: 13,
-                    legends_text_color: "black",
-                    legends_text_weight: "normal",
-                    legends_text_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
-                    chart_onhover_highlight_enable: "yes"
-                });
-
-                // var date = new Date();
-                // var i,avg =0;
-                // var a = [];
-                // for(i = 0;i<100;i++) {
-                //     // console.log(i);
-                //     var start = new Date().getTime();
-                         k.execute();
-                //     var end = new Date().getTime();
-                //         a[i] = end - start;
-                //         avg += a[i]                     
-                // }
-                // console.log("Performance",a,avg/100);
-              
-                var k = new PykCharts.multiD.scatter ({
-                    selector: "#scatterPlot",
-                    data: "../data/scatter.csv",
-                    mode : "default",
-
-                    chart_color: ["#07365e","#0e5ea1","#4682b4","#75b0e1","#a0ccf1"],
-                    // chart_color:["red"],
-                    // background_color: "transparent",
-
-                    chart_height: 450,
-                    chart_width : 1000,
-                    "color_mode": "saturation",
-                    "chart_color": [
-                    "#255AEE","red","green","pink"
-                    ],
-                    "saturation_color": "red",
-                    "axis_x_enable": "yes",
-                    "axis_x_title": "",
-                    "axis_x_position": "bottom",
-                    "axis_x_pointer_position": "bottom",
-                    "axis_x_line_color": "#1D1D1D",
-                    "axis_x_pointer_size": 12,
-                    "axis_x_pointer_color": "#1D1D1D",
-                    "axis_x_no_of_axis_value": 5,
-                    "axis_x_pointer_padding": 6,
-                    "axis_x_outer_pointer_length": 0,
-                    "axis_x_pointer_values": [],
-                    "axis_x_time_value_datatype": "",
-                    "axis_x_time_value_interval": 0,
-                    "axis_y_enable": "yes",
-                    "axis_y_title": "",
-                    "axis_y_position": "left",
-                    "axis_y_pointer_position": "left",
-                    "axis_y_line_color": "#1D1D1D",
-                    "axis_y_pointer_size": 12,
-                    "axis_y_pointer_color": "#1D1D1D",
-                    "axis_y_no_of_axis_value": 5,
-                    "axis_y_pointer_padding": 6,
-                    "axis_y_pointer_values": [],
-                    "axis_y_outer_pointer_length": 0,
-                    "axis_y_time_value_datatype": "",
-                    "axis_y_time_value_interval": 0,
-                    "label_size": 13,
-                    "label_weight": "bold",
-                    "label_family": "Helvetica Neue,Helvetica,Arial,sans-serif",
-                    "label_color": "red",
-                    "real_time_charts_last_updated_at_enable": "no",
-                    "real_time_charts_refresh_frequency": 0,
-                    "transition_duration": 0,
-                    "border_between_chart_elements_thickness": 1,
-                    "border_between_chart_elements_style": "solid",
-                    "chart_margin_left": 50,
-                    "chart_margin_right": 25,
-                    "chart_margin_top": 35,
-                    "chart_margin_bottom": 35,
-                    "chart_onhover_highlight_enable": "yes",
-                    "tooltip_enable": "yes",
-                    "legends_enable": "yes",
-                    "legends_display": "vertical",
-                    "legends_text_weight": "normal",
-                    "legends_text_family": "Helvetica Neue,Helvetica,Arial,sans-serif",
-                    "scatterplot_pointer_enable": "no",
-                    "scatterplot_radius": 20,
-                    "variable_circle_size_enable": "yes",
-                    "zoom_enable": "no",
-                    "title_text": "Enter title here",
-                    "title_size": 20,
-                    "title_weight": "bold",
-                    "title_family": "Helvetica Neue,Helvetica,Arial,sans-serif",
-                    "title_color": "#1D1D1D",
-                    "subtitle_text": "Enter subtitle here",
-                    "subtitle_size": 16,
-                    "subtitle_weight": "normal",
-                    "subtitle_family": "Helvetica Neue,Helvetica,Arial,sans-serif",
-                    "subtitle_color": "black",                    // chart_height: 450,
-                    // chart_width : 700,
-                    // chart_margin_top: 125,
-                    // chart_margin_right: 175,
-                    // chart_margin_bottom: 125,
-                    // chart_margin_left: 160,
-                });
-
-            // // var date = new Date();
-            // //     var i,avg =0;
-            // //     var a = [];
-            // //     for(i = 0;i<100;i++) {
-            // //         // console.log(i);
-            // //         var start = new Date().getTime();
-                        k.execute();
-            // //         var end = new Date().getTime();
-            // //             a[i] = end - start;
-            // //             avg += a[i]                     
-            // //     }
-            // //     console.log("Performance",a,avg/100);
-                var k = new PykCharts.multiD.panelsOfScatter ({
-                    selector: "#multiple-scatterplots",
-                    data: "../data/panel-of-scatters.csv",
-                    mode : "default",
-                    background_color: "transparent",
-                    // chart_color: ["#07365e","#0e5ea1","#4682b4","#75b0e1","#a0ccf1"],
-                    // chart_color:["red","green","","grey","yellow"],
-                    chart_height: 450,
-                    chart_width : 800,
-                    chart_margin_top: 25,
-                    chart_margin_right: 15,
-                    chart_margin_bottom: 30,
-                    chart_margin_left: 50,
-
-                    scatterplot_radius : 9,
-                    scatterplot_pointer: "no",
-                    real_time_charts_refresh_frequency: 0,
-                    panels_enable: "yes",
-                    variable_circle_size_enable: "no",
-
-                    axis_x_enable: "yes",
-                    // axis_x_title : "Price",
-                    // axis_x_position: "bottom",
-                    // axis_x_pointer_position: "bottom",
-                    // axis_x_line_color: "#1D1D1D",
-                    // axis_x_no_of_axis_value: 5,
-                    // axis_x_pointer_color: "blue",
-                    // axis_x_pointer_size: 15,
-                    // axis_x_pointer_padding: 3,
-                    // axis_x_outer_pointer_length: 3,
-                    // axis_x_time_value_datatype:"month",
-                    // axis_x_time_value_interval: 1,
-
-                    axis_y_enable: "yes",
-                    axis_y_title : "Rating",
-                    axis_y_position: "left",
-                    axis_y_pointer_position: "left",
-                    axis_y_line_color: "red",
-                    axis_y_no_of_axis_value: 5,
-                    axis_y_pointer_color: "red",
-                    axis_y_pointer_size: 15,
-                    axis_y_pointer_padding: 10,
-                    axis_y_outer_pointer_length: 3,
-                    // axis_y_pointer_values : [3,6],
-                    // axis_x_time_value_datatype: "",
-
-                    legends_enable: "yes",
-                    legends_text_size: 10,
-                    legends_text_color: "black",
-                    legends_text_weight: "normal",
-                    legends_text_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
-
-                    zoom_enable: "yes",
-                    zoom_level: 6,
-
-                    border_between_chart_elements_thickness:0,
-                    border_between_chart_elements_color:"blue",
-                    label_size:5,
-                    transition_duration:1,
-                    tooltip_enable: "yes",
-                    chart_onhover_highlight_enable: "yes"
-                });
-            // // var date = new Date();
-            // //     var i,avg =0;
-            // //     var a = [];
-            // //     for(i = 0;i<100;i++) {
-            // // //         // console.log(i);
-            // //         var start = new Date().getTime();
-                         k.execute();
-            // //         var end = new Date().getTime();
-            // //             a[i] = end - start;
-            // //             avg += a[i]                     
-            // //     }
-            // //     console.log("Performance",a,avg/100);
-
-                var k = new PykCharts.multiD.panelsOfLine ({
-                    selector: "#multiLine",
-                    data: "../data/multipleContainerLine.json",
-                    mode : "default",
-
-                    color_mode: "saturation",  //color or saturation
-                    background_color: "white",
-
-                    chart_color:["red","green","yellow"],
-
-                    // chart_color:["#013f73","#4682b4","#75b0e1"],
-
-                    chart_height: 400, //400
-                    chart_width : 830, //630
-                    chart_margin_top: 0,
-                    chart_margin_right: 50,
-                    chart_margin_bottom: 35,
-                    chart_margin_left: 50,
-                    chart_grid_x_enable: "no",
-                    chart_grid_y_enable: "yes",
-
-                    highlight_color: "red",
-                    highlight : "india",
-
-                    transition_duration: 0,
-                    real_time_charts_refresh_frequency: 0,
-
-                    axis_onhover_highlight_enable: "yes",
-
-                    axis_x_enable: "yes",
-                    axis_x_title : "Industries",
-                    axis_x_position: "bottom",
-                    axis_x_pointer_position: "bottom",
-                    axis_x_line_color: "#1D1D1D",
-                    axis_x_label_color: "#1D1D1D",
-                    axis_x_pointer_size: 12,
-                    axis_x_pointer_padding: 3,
-                    axis_x_outer_pointer_length: 3,
-                    axis_y_enable: "yes",
-                    axis_y_title : "Growth rate",
-                    axis_y_position: "left",
-                    axis_y_pointer_position: "left",
-                    axis_y_line_color: "red",
-                    axis_y_label_color: "#1D1D1D",
-                    axis_y_pointer_size: 12,
-                    axis_y_pointer_padding: 10,
-                    axis_y_outer_pointer_length: 3,
-
-                    curvy_lines_enable:"yes",
-                    tooltip_mode : "fixed",
-                    tooltip_enable : "yes",
-                    crosshair_enable: "yes",
-                    panels_enable: "yes",
-                    zoom_enable: "no",
-                    annotation_enable:"yes",
-                    annotation_view_mode:"onclick",
-                    annotation_background_color:"#ff4c4c"        
-                });
-            //     var date = new Date();
-            //     var i,avg =0;
-            //     var a = [];
-            //     for(i = 0;i<10;i++) {
-            // //         // console.log(i);
-            //         var start = new Date().getTime();
-                         k.execute();
-                //     var end = new Date().getTime();
-                //         a[i] = end - start;
-                //         avg += a[i]                     
-                // }
-                // console.log("Performance",a,avg/10);
-
-                var k = new PykCharts.multiD.multiSeriesLine ({
-                    selector: "#multiple-multiLine",
-                    data: "../data/multiLineChart.json",
-                    mode : "default",
-
-                    color_mode: "color",  //color or saturation
-                    saturation_color: "orange",
-                    chart_color:["green","yellow","red"],
-                    background_color:"white",
-
-                    chart_height: 400,
-                    chart_width : 630,
-                    chart_margin_top: 5,
-                    chart_margin_right: 25,
-                    chart_margin_bottom: 35,
-                    chart_margin_left: 45,
-                    chart_grid_x_enable: "no",
-                    chart_grid_y_enable: "yes",
-
-                    transition_duration: 1,
-                    real_time_charts_refresh_frequency: 0,
-
-                    axis_onhover_highlight_enable: "yes",
-
-                    axis_x_enable: "yes",
-                    axis_x_title : "Industries",
-                    axis_x_position: "bottom",
-                    axis_x_pointer_position: "bottom",
-                    axis_x_line_color: "#1D1D1D",
-                    axis_x_label_color: "#1D1D1D",
-                    axis_x_pointer_size: 12,
-                    axis_x_pointer_padding: 3,
-                    axis_x_outer_pointer_length: 3,
-                    axis_x_time_value_datatype:"date",
-                    axis_x_time_value_interval: 1,
-
-                    axis_y_enable: "yes",
-                    axis_y_title : "Growth rate",
-                    axis_y_position: "left",
-                    axis_y_pointer_position: "left",
-                    axis_y_line_color: "red",
-                    axis_y_label_color: "#1D1D1D",
-                    axis_y_pointer_size: 12,
-                    axis_y_pointer_padding: 10,
-                    axis_y_outer_pointer_length: 3,
-                    // axis_y_pointer_values : [3,6],
-
-                    curvy_lines_enable:"yes",
-                    tooltip_mode : "fixed",
-                    tooltip_enable : "yes",
-                    crosshair_enable: "yes",
-                    zoom_enable: "yes",
-                    highlight: "India",
-                    highlight_color: "purple",
-                    annotation_enable: "yes",
-                    annotation_view_mode: "onclick",
-                    annotation_background_color:"#ff4c4c"
-                });
-            //  var date = new Date();
-            //     var i,avg =0;
-            //     var a = [];
-            //     for(i = 0;i<100;i++) {
-            // //         // console.log(i);
-            //         var start = new Date().getTime();
-                         k.execute();
-            //         var end = new Date().getTime();
-            //             a[i] = end - start;
-            //             avg += a[i]                     
-            //     }
-            //     console.log("Performance",a,avg/100);
-
-                var k = new PykCharts.multiD.stackedArea ({
-
-                    selector: "#multiArea",
-                    data: "../data/multiline_timescale.json",
-                    mode : "default",
-
-                    color_mode: "saturation",  //color or saturation
-                    chart_color:["steelblue"],
-                    background_color: "white",
-                    highlight:"india",
-                    // highlight_color: "yellow",
-
-                    chart_height: 400,
-                    chart_width : 630,
-                    chart_margin_top: 5,
-                    chart_margin_right: 25,
-                    chart_margin_bottom: 35,
-                    chart_margin_left: 50,
-                    chart_grid_x_enable: "yes",
-                    chart_grid_y_enable: "yes",
-                    chart_grid_color:"black",
-
-                    transition_duration: 1,
-                    real_time_charts_refresh_frequency: 0,
-
-                    axis_onhover_highlight_enable: "yes",
-
-                    axis_x_enable: "yes",
-                    axis_x_title : "Industries",
-                    axis_x_position: "bottom",
-                    axis_x_pointer_position: "bottom",
-                    axis_x_line_color: "#1D1D1D",
-                    axis_x_label_color: "#1D1D1D",
-                    axis_x_pointer_size: 12,
-                    axis_x_pointer_padding: 3,
-                    axis_x_outer_pointer_length: 3,
-                    axis_x_time_value_datatype:"date",
-                    axis_x_time_value_interval: 1,
-
-                    axis_y_enable: "yes",
-                    axis_y_title : "Growth rate",
-                    axis_y_position: "left",
-                    axis_y_pointer_position: "left",
-                    axis_y_line_color: "red",
-                    axis_y_label_color: "#1D1D1D",
-                    axis_y_pointer_size: 12,
-                    axis_y_pointer_padding: 10,
-                    axis_y_outer_pointer_length: 3,
-
-                    curvy_lines_enable:"yes",
-                    crosshair_enable: "yes",
-                    tooltip_enable : "yes",
-                    tooltip_mode: "fixed",
-                    zoom_enable: "yes",
-                    panels_enable:"yes",
-                    // axis_y_pointer_values : [30,60],
-                    legends_enable: "yes",
-                    legends_display: "horizontal", //horizontal or vertical
-                    legends_text_size: 12,
-                    // legends_text_color: "black",
-                    // legends_text_weight: "normal",
-                    // legends_text_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
-                    annotation_enable: "yes",
-                    annotation_view_mode: "onclick",
-                    annotation_background_color:"#ff4c4c"
-                });
-
-            // var date = new Date();
-            //     var i,avg =0;
-            //     var a = [];
-            //     for(i = 0;i<100;i++) {
-            // //         // console.log(i);
-            //         var start = new Date().getTime();
-                         k.execute();
-            //         var end = new Date().getTime();
-            //             a[i] = end - start;
-            //             avg += a[i]                     
-            //     }
-            //     console.log("Performance",a,avg/100);
-
-                var k = new PykCharts.multiD.pulse({
-                    selector: "#pulse",
-                    data: "../data/pulse.json",
-                    mode : "default", //  default or infographics
-
-                    // chart_color: ["#75b0e1","#4682b4","#013f73"],
-                    chart_color:["red","green","blue"],
-
-                    background_color:"white",
-
-                    chart_height: 350,
-                    chart_width : 650,
-                    chart_margin_top: 5,
-                    chart_margin_right: 25,
-                    chart_margin_bottom: 35,
-                    chart_margin_left: 65,
-
-                    transition_duration: 1,
-                    real_time_charts_refresh_frequency: 0,
-
-                    axis_onhover_highlight_enable: "yes",
-
-                    axis_x_enable: "yes",
-                    axis_x_title : "Years",
-                    axis_x_position: "bottom",
-                    axis_x_pointer_position: "bottom",
-                    axis_x_line_color: "red",
-                    axis_x_pointer_color: "blue",
-                    axis_x_pointer_size: 15,
-                    axis_x_pointer_padding: 3,
-                    axis_x_pointer_values: [2002, 2004, 2006, 2008],
-                    axis_x_outer_pointer_length: 3,
-
-                    axis_y_enable: "yes",
-                    axis_y_title : "Categories",
-                    axis_y_position: "left",
-                    axis_y_pointer_position: "left",
-                    axis_y_line_color: "red",
-                    axis_y_pointer_color: "blue",
-                    axis_y_pointer_size: 15,
-                    axis_y_pointer_padding: 10,
-                    axis_x_pointer_values: [],
-                    axis_y_outer_pointer_length: 3,
-                    // axis_x_pointer_values : [3000],
-
-                    tooltip_mode : "moving",
-                    tooltip_enable : "yes",
-                    crosshair_enable: "yes",
-                    panels_enable: "yes",
-                    variable_circle_size_enable : "no",
-
-                    legends_enable: "yes",
-                    legends_display: "horizontal",
-                    legends_text_size: 13,
-                    legends_text_color: "black",
-                    legends_text_weight: "normal",
-                    legends_text_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
-
-                    border_between_chart_elements_thickness: 0,
-                    border_between_chart_elements_color: "white",
-                    border_between_chart_elements_style: "solid"
-
-                });
-
-            // var date = new Date();
-            //     var i,avg =0;
-            //     var a = [];
-            //     for(i = 0;i<100;i++) {
-            // //         // console.log(i);
-            //         var start = new Date().getTime();
-                         k.execute();
-            //         var end = new Date().getTime();
-            //             a[i] = end - start;
-            //             avg += a[i]                     
-            //     }
-            //     console.log("Performance",a,avg/100);
-
-                var k = new PykCharts.multiD.column({
-                    data: "../data/column.csv",
-                    mode: "default",
-                    selector: "#column",
-                    color_mode: "color",
-                    chart_color:["steelblue"],
-                    background_color:"white",
-                    chart_height: 430,
-                    chart_width : 700,
-                    chart_margin_top: 25,
-                    chart_margin_right: 25,
-                    chart_margin_bottom: 45,
-                    chart_margin_left: 45,
-                    chart_grid_y_enable: "yes",
-                    chart_grid_color: "red",
-
-                    real_time_charts_refresh_frequency: 0,
-                    transition_duration: 1,
-                    axis_onhover_highlight_enable: "yes",
-
-                    axis_x_enable: "yes",
-                    axis_x_title : "Months",
-                    axis_x_position: "bottom",
-                    axis_x_pointer_position: "bottom",
-                    axis_x_line_color: "red",
-                    highlight:"india",
-                    "axis_x_pointer_size": 12,
-                    "axis_x_pointer_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
-                    "axis_x_pointer_weight": "normal",
-                    "axis_x_pointer_color": "red",
-
-                    // axis_x_pointer_padding: NA,
-                    // axis_x_outer_pointer_length: NA ,
-                    // "axis_x_no_of_axis_value": NA,
-                    // "axis_x_pointer_length": NA,
-                    // "axis_x_pointer_values": NA,
-
-                    "axis_x_time_value_datatype":"",
-
-                    axis_y_enable: "yes",
-                    axis_y_title : "Rainfall",
-                    axis_y_position: "left",
-                    axis_y_pointer_position: "left",
-                    axis_y_line_color: "red",
-                    axis_y_pointer_color: "red",
-                    axis_y_pointer_size: 12,
-                    axis_y_pointer_padding: 10,
-                    axis_y_outer_pointer_length: 3,
-
-                    highlight_color: "#013F73",
-                    // panels_enable:"yes",
-
-                    border_between_chart_elements_thickness: 1,
-                    border_between_chart_elements_color: "white",
-                    border_between_chart_elements_style: "solid",
-                    chart_onhover_highlight_enable: "yes",
-                    tooltip_enable: 'yes'
-                });
-            // var date = new Date();
-            //     var i,avg =0;
-            //     var a = [];
-            //     for(i = 0;i<100;i++) {
-            // //         // console.log(i);
-            //         var start = new Date().getTime();
-                         k.execute();
-            //         var end = new Date().getTime();
-            //             a[i] = end - start;
-            //             avg += a[i]                     
-            //     }
-            //     console.log("Performance",a,avg/100);
-           
-                var k = new PykCharts.multiD.bar({
-                    data: "../data/bar.csv",
-                    mode: "default",
-                    selector: "#bar",
-                    color_mode: "saturation",
-                    chart_color:["steelblue"],
-                    background_color:"white",
-
-                    chart_height: 430,
-                    chart_width : 700,
-                    chart_margin_top: 25,
-                    chart_margin_right: 25,
-                    chart_margin_bottom: 35,
-                    chart_margin_left: 130,
-
-                    real_time_charts_refresh_frequency: 0,
-
-                    axis_onhover_highlight_enable: "yes",
-
-                    axis_x_enable: "yes",
-                    axis_x_title : "Rainfall",
-                    axis_x_position: "bottom",
-                    axis_x_pointer_position: "bottom",
-                    axis_x_line_color: "#1D1D1D",
-                    axis_x_pointer_color: "#1D1D1D",
-                    axis_x_pointer_size: 12,
-                    axis_x_pointer_padding: 3,
-                    axis_x_outer_pointer_length: 3,
-
-                    axis_y_enable: "yes",
-                    axis_y_title : "Months",
-                    axis_y_position: "left",
-                    // axis_y_pointer_position: "left",
-                    axis_y_line_color: "red",
-                    axis_y_pointer_color: "green",
-                    axis_y_pointer_size: 12,
-                    axis_y_pointer_padding: 10,
-                    axis_y_outer_pointer_length: 3,
-
-                    highlight_color: "#013F73",
-
-                    transition_duration: 1,
-
-                    border_between_chart_elements_thickness: 1,
-                    border_between_chart_elements_color: "white",
-                    border_between_chart_elements_style: "solid",
-
-                    pointer_thickness: 1,
-                    pointer_weight: "normal",
-                    pointer_size: 10,
-                    pointer_color: "#1D1D1D",
-                    pointer_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
-                    highlight:"india",
-                    panels_enable: "yes",
-
-                    data_sort_enable: "yes",
-                    data_sort_type: "alphabetically",
-                    data_sort_order: "ascending",
-                    tooltip_enable: "yes",
-                    chart_onhover_highlight_enable: "yes"
-                });
-
-            //     var date = new Date();
-            //     var i,avg =0;
-            //     var a = [];
-            //     for(i = 0;i<100;i++) {
-            //         // console.log(i);
-            //         var start = new Date().getTime();
-                       k.execute();
-            //         var end = new Date().getTime();
-            //             a[i] = end - start;
-            //             avg += a[i]                     
-            //     }
-            //     console.log("Performance",a,avg/100);
-
-                var k = new PykCharts.multiD.groupedBar({
-                    data: "../data/grouped-bar.csv",
-                    mode: "default",
-                    selector: "#groupBar",
-                    chart_height: 630,
-                    chart_width : 700,
-                    chart_margin_top: 25,
-                    chart_margin_right: 45,
-                    chart_margin_bottom: 35,
-                    chart_margin_left: 140,
-
-                    color_mode:"saturation",
-                    saturation_color: "green",
-                    background_color:"white",
-                    chart_color:["orange","red","yellow","purple"],
-                    real_time_charts_refresh_frequency: 0,
-
-                    axis_onhover_highlight_enable: "yes",
-
-                    axis_x_enable: "yes",
-                    axis_x_title : "Rainfall",
-                    axis_x_position: "bottom",
-                    axis_x_pointer_position: "bottom",
-                    axis_x_line_color: "#1D1D1D",
-                    axis_x_label_color: "#1D1D1D",
-                    axis_x_pointer_size: 12,
-                    axis_x_pointer_padding: 3,
-                    axis_x_outer_pointer_length: 3,
-
-                    axis_y_enable: "yes",
-                    axis_y_title : "Months",
-                    axis_y_position: "left",
-                    axis_y_pointer_position: "left",
-                    axis_y_line_color: "red",
-                    axis_y_label_color: "#1D1D1D",
-                    axis_y_pointer_size: 12,
-                    axis_y_pointer_padding: 10,
-                    axis_y_outer_pointer_length: 3,
-                    axis_x_time_value_interval:2,
-                    highlight_color: "#013F73",
-                    panels_enable: "yes",
-
-                    transition_duration: 1,
-
-                    border_between_chart_elements_thickness: 1,
-                    border_between_chart_elements_color: "white",
-                    border_between_chart_elements_style: "solid",
-
-                    pointer_thickness: 1,
-                    pointer_weight: "normal",
-                    pointer_size: 10,
-                    pointer_color: "#1D1D1D",
-                    pointer_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
-                    saturation_enable: "no",
-                    axis_x_pointer_weight: "normal",
-                    // axis_y_pointer_values: [2000,2004,2008,2012],
-                    data_sort_enable: "yes",
-                    highlight: "2014-07-02",
-                    legends_enable: "yes",
-                    legends_display: "vertical",
-                    legends_text_size: 12,
-                    legends_text_color: "black",
-                    legends_text_weight: "normal",
-                    legends_text_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
-                    "data_sort_enable": "yes",
-                    "data_sort_type": "alphabetically", // sort type --- "alphabetically" / "date"
-                    "data_sort_order": "descending", // sort order --- "descending" / "ascending",
-                    highlight:"2012",
-                    tooltip_enable: "yes",
-                    // legends_text_family: "Papyrus",
-                    // legends_text_weight: "bold",
-                    // legends_text_size: 28
-                    chart_onhover_highlight_enable: "yes"
-                });
-            // var date = new Date();
-            //     var i,avg =0;
-            //     var a = [];
-            //     for(i = 0;i<100;i++) {
-            // //         // console.log(i);
-            //         var start = new Date().getTime();
-                         k.execute();
-            //         var end = new Date().getTime();
-            //             a[i] = end - start;
-            //             avg += a[i]                     
-            //     }
-            //     console.log("Performance",a,avg/100);
-           
-                var k = new PykCharts.multiD.groupedColumn({
-                    data: "../data/grouped-column.csv",
-                    mode: "default",
-                    selector: "#groupColumn",
-
-                    color_mode: "saturation",
-                    background_color:"white",
-
-                    chart_color:["orange","red","steelblue","grey"],
-                    saturation_color: "orange",
-
-                    chart_height: 430,
-                    chart_width : 1000,
-                    chart_margin_top: 25,
-                    chart_margin_right: 45,
-                    chart_margin_bottom: 45,
-                    chart_margin_left: 50,
-                    chart_grid_y_enable: "yes",
-
-                    real_time_charts_refresh_frequency: 0,
-
-                    axis_onhover_highlight_enable: "yes",
-                    chart_onhover_highlight_enable: "yes",
-                     // panels_enable:"yes",
-                    axis_x_pointer_values : ["nehal"],
-                    axis_x_enable: "yes",
-                    axis_x_title : "Countries",
-                    axis_x_position: "bottom",
-                    axis_x_pointer_position: "bottom",
-                    axis_x_line_color: "#1D1D1D",
-                    axis_x_pointer_color: "green",
-                    axis_x_pointer_size: 12,
-                    axis_x_pointer_padding: 3,
-                    axis_x_outer_pointer_length: 3,
-                    axis_x_pointer_weight:"bold",
-                    axis_x_time_value_datatype: "month",
-                    // axis_x_pointer_values : [],
-                    axis_y_enable: "yes",
-                    axis_y_title : "Production",
-                    axis_y_position: "left",
-                    axis_y_pointer_position: "left",
-                    axis_y_line_color: "green",
-                    axis_y_pointer_color: "green",
-                    axis_y_pointer_size: 12,
-                    axis_y_pointer_padding: 10,
-                    // axis_y_pointer_values : [5,30],
-                    axis_y_outer_pointer_length: 10,
-
-                    highlight_color: "red",
-
-                    legends_enable: "yes",
-                    legends_display: "vertical",
-                    legends_text_size: 13,
-                    legends_text_color: "black",
-                    legends_text_weight: "normal",
-                    legends_text_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
-
-                    transition_duration: 1,
-
-                    border_between_chart_elements_thickness: 2,
-                    border_between_chart_elements_color: "black",
-                    border_between_chart_elements_style: "dashed",
-                   // saturation_enable: "yes",
-                    highlight:"2004",
-                    chart_grid_y_enable: "no",
-                    tooltip_enable: "yes",
-                    chart_onhover_highlight_enable: "yes",
-                    chart_grid_y_enable:"yes"
-                });
-
-
-            // var date = new Date();
-            //     var i,avg =0;
-            //     var a = [];
-            //     for(i = 0;i<100;i++) {
-            // //         // console.log(i);
-            //         var start = new Date().getTime();
-                         k.execute();
-            //         var end = new Date().getTime();
-            //             a[i] = end - start;
-            //             avg += a[i]                     
-            //     }
-            //     console.log("Performance",a,avg/100);
-
-            };
-        </script>
-    </body>
+  <div id = "hello" style="height:500px;width:1000px;background-color:black;"> -->
+  <div id="line"></div>
+  <!--  </div></div> -->
+  <hr/>
+  <div id="area"></div>
+  <hr/>
+
+  <div id="multiLine"></div>
+  <hr/>
+  <div id="multiple-multiLine"></div>
+  <hr/>
+  <div id="multiArea"></div>
+  <hr/>
+  <div id="pulse"></div>
+  <hr/>
+  <div id="scatterPlot"></div>
+  <hr/>
+  <div id="multiple-scatterplots"></div>
+  <hr/>
+  <div id="spiderWeb"></div>
+  <hr/>
+  <div id="column"></div>
+  <hr/>
+  <div id="groupColumn"></div>
+  <hr/>
+  <div id="bar"></div>
+  <hr/>
+  <div id="groupBar">
+  </div>
+  <hr/>
+  <div id="waterfall-chart"></div>
+  <hr/>
+  <script src="../src/js/init.js"></script>
+  <script src="../src/js/pyk.js"></script>
+  <script src="../src/js/multiD/crosshair.js"></script>
+  <script src="../src/js/multiD/annotation.js"></script>
+  <script src="../src/js/multiD/scaleFunction.js"></script>
+  <script src="../src/js/multiD/crossHairMovement.js"></script>
+  <script src="../src/js/multiD/grid.js"></script>
+  <script src="../src/js/validation.js"></script>
+  <script src="../src/js/multiD/multiD.js"></script>
+  <script src="../src/js/multiD/column.js"></script>
+  <script src="../src/js/multiD/groupColumnChart.js"></script>
+  <script src="../src/js/multiD/areaChart.js"></script>
+  <script src="../src/js/multiD/lineChart.js"></script>
+  <script src="../src/js/multiD/spiderWeb.js"></script>
+  <script src="../src/js/multiD/scatterplot.js"></script>
+  <script src="../src/js/multiD/bar.js"></script>
+  <script src="../src/js/multiD/groupBarChart.js"></script>
+  <script src="../src/js/multiD/waterfall.js"></script>
+
+  <script>
+
+    // $(document).ready(function (e) {
+    window.PykChartsInit = function (e) {
+
+      var k = new PykCharts.multiD.waterfall({
+        selector: "#waterfall-chart",
+        data: "../data/german_erp_waterfall1.json",
+        mode: "default",
+        chart_height: 300,
+        chart_width: 550,
+        chart_margin_left: 170,
+        chart_margin_top: 50,
+        chart_margin_right: 0,
+        chart_onhover_highlight_enable: "no",
+
+        title_text:"Accountancy of the German ERPs",
+        title_family:"sans-serif",
+        title_weight: "normal",
+        // subtitle_text:"this the testing",
+
+        chart_color: ["#2171B5", "#9ECAE1", "#08306B"], // ["negative-color", "positive-color", "total-color"]
+
+        real_time_charts_refresh_frequency: 3,
+
+        // border_between_chart_elements_thickness: 3,
+        // border_between_chart_elements_color: "black",
+        // border_between_chart_elements_style: "solid",
+
+        "axis_y_pointer_length": 0,
+        "axis_y_line_color": "#fff",
+        "axis_y_pointer_size" : 11,
+        "axis_y_pointer_color" : "#1D1D1D",
+        "axis_y_pointer_weight": "normal",
+        "axis_y_pointer_family": "Papyrus",
+        axis_y_title : "Buchhaltung",
+
+        pointer_weight: "bold",
+        pointer_size: 11,
+        pointer_family: "Papyrus",
+        axis_onhover_highlight_enable: "yes",
+        tooltip_enable: "yes",
+
+  //      background_color: "red",
+        export_enable: "yes",
+        transition_duration: 0
+      });
+     k.execute();
+
+      var k = new PykCharts.multiD.line ({
+        selector: "#line",
+        data: "../data/linechart_linear.json",
+        "chart_width": 620,
+        "chart_height": 400,
+        "mode": "default",
+        "color_mode": "color",
+        "saturation_color": "#255AEE",
+        "chart_color": [
+        "red"
+        ],
+        "pointer_overflow_enable": "yes",
+        "pointer_family": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "pointer_size": 13,
+        "pointer_weight": "normal",
+        "axis_onhover_highlight_enable": "yes",
+        "axis_x_enable": "yes",
+        "axis_x_title": "Testing",
+        "axis_x_position": "top",
+        "axis_x_pointer_position": "bottom",
+        "axis_x_line_color": "#1D1D1D",
+        "axis_x_pointer_size": 12,
+        "axis_x_pointer_color": "black",
+        "axis_x_no_of_axis_value": 10,
+        "axis_x_pointer_padding": 10,
+        "axis_x_outer_pointer_length": 13,
+        "axis_x_pointer_values": [],
+        "axis_x_time_value_datatype": "",
+        "axis_x_time_value_interval": 0,
+        "axis_y_enable": "yes",
+        "axis_y_title": "testing validation",
+        "axis_y_position": "left",
+        "axis_y_pointer_position": "left",
+        "axis_y_line_color": "#1D1D1D",
+        "axis_y_pointer_size": 12,
+        "axis_y_pointer_color": "#1D1D1D",
+        "axis_y_no_of_axis_value": 5,
+        "axis_y_pointer_padding": 6,
+        "axis_y_pointer_values": [],
+        "axis_y_outer_pointer_length": 0,
+        "axis_y_time_value_datatype": "",
+        "axis_y_time_value_interval": 0,
+        "real_time_charts_last_updated_at_enable": "yes",
+        "real_time_charts_refresh_frequency": 0,
+        "transition_duration": 0,
+        "chart_margin_left": 50,
+        "chart_margin_right": 30,
+        "chart_margin_top": 100,
+        "chart_margin_bottom": 50,
+        "chart_onhover_highlight_enable": "yes",
+        "chart_grid_x_enable": "no",
+        "chart_grid_y_enable": "yes",
+        "chart_grid_color": "yellow",
+        "tooltip_enable": "yes",
+        "tooltip_mode": "fixed",
+        "tooltip_position_top": 0,
+        "tooltip_position_left": 0,
+        "annotation_enable": "no",
+        "annotation_background_color": "#C2CBCF",
+        "annotation_font_color": "black",
+        "annotation_view_mode": "onload",
+        "crosshair_enable": "yes",
+        "curvy_lines_enable": "yes",
+        "zoom_enable": "no",
+        "title_text": "nehal",
+        "title_size": 20,
+        "title_weight": "bold",
+        "title_family": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "title_color": "green",
+        "subtitle_text": "gala",
+        "subtitle_size": 18,
+        "subtitle_weight": "bold",
+        "subtitle_family": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "subtitle_color": "green"
+      });
+      k.execute();
+
+      var k = new PykCharts.multiD.area ({
+        selector: "#area",
+        data: "../data/area.csv",
+        mode : "default",
+
+        color_mode: "color",  //color or saturation
+        chart_color:["steelblue"],
+
+        background_color:"#FF6600",
+        export_enable: "yes",
+
+        chart_height: 400,
+        chart_width : 500,
+        chart_margin_top: 5,
+        chart_margin_right: 70,
+        chart_margin_bottom: 35,
+        chart_margin_left: 50,
+
+        chart_grid_x_enable: "yes",
+        chart_grid_y_enable: "yes",
+        chart_grid_color: "black",
+
+        transition_duration: 1,
+        real_time_charts_refresh_frequency: 0,
+
+        axis_onhover_highlight_enable: "yes",
+        title_text: "",
+        axis_x_enable: "yes",
+        axis_x_title : "Air Pollution in New York",
+        axis_x_position: "bottom",
+        axis_x_pointer_position: "bottom",
+        axis_x_line_color: "#1D1D1D",
+        axis_x_label_color: "#1D1D1D",
+        axis_x_pointer_size: 12,
+        axis_x_pointer_padding: 3,
+        // axis_x_pointer_values : [3,6],
+        axis_x_outer_pointer_length: 3,
+        axis_x_time_value_datatype: "month",
+
+        axis_y_enable: "yes",
+        axis_y_title : "Air Quantity Index",
+        axis_y_position: "right",
+        axis_y_pointer_position: "right",
+        axis_y_line_color: "red",
+        axis_y_label_color: "#1D1D1D",
+        axis_y_pointer_size: 12,
+        axis_y_pointer_padding: 10,
+        // axis_y_pointer_values : [3,6],
+        axis_y_outer_pointer_length: 3,
+        curvy_lines_enable:"yes",
+        tooltip_mode : "moving",
+        tooltip_enable: "yes",
+        crosshair_enable: "yes",
+        zoom_enable: "no",
+        panels_enable: "yes",
+        annotation_enable: "yes",
+        annotation_view_mode: "onclick",
+        annotation_background_color:"blue",
+        border_between_chart_elements_thickness: 2,
+        border_between_chart_elements_color: "red",
+        border_between_chart_elements_style: "dotted"
+      });
+      // // var date = new Date();
+      // // var i,avg = 0;
+      // // var a = [];
+      // // for(i = 0;i<100;i++) {
+      // //     console.log(i);
+      // //     var start = new Date().getTime();
+      k.execute();
+      //     var end = new Date().getTime();
+      //     a[i] = end - start;
+      //     avg += a[i];
+      // }
+      // console.log("Performance",a,avg/100);
+
+      var k = new PykCharts.multiD.spiderWeb ({
+        selector: "#spiderWeb",
+        data: "../data/spider.csv",
+        mode : "default",
+
+        spiderweb_radius : 10,
+        spiderweb_outer_radius_percent: 100,
+        spiderweb_pointer: "yes",
+        spiderweb_axis_title : "yes",
+        // background_color:"transparent",
+
+        // chart_color: ["#75b0e1","#0e5ea1"],
+        chart_color: ["","green"],
+        chart_height: 430,
+        chart_width : 430,
+        chart_margin_top: 25,
+        chart_margin_right: 25,
+        chart_margin_bottom: 25,
+        chart_margin_left: 55,
+
+        panels_enable:"yes",
+
+        real_time_charts_refresh_frequency: 0,
+        variable_circle_size_enable: "yes",
+
+        border_between_chart_elements_thickness:0,
+        border_between_chart_elements_color: "blue",
+
+        legends_enable: "yes",
+        legends_display: "vertical",//horizontal or vertical
+
+        legends_text_size: 13,
+        legends_text_color: "black",
+        legends_text_weight: "normal",
+        legends_text_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
+        chart_onhover_highlight_enable: "yes"
+      });
+
+      // var date = new Date();
+      // var i,avg =0;
+      // var a = [];
+      // for(i = 0;i<100;i++) {
+      //     // console.log(i);
+      //     var start = new Date().getTime();
+      k.execute();
+      //     var end = new Date().getTime();
+      //         a[i] = end - start;
+      //         avg += a[i]
+      // }
+      // console.log("Performance",a,avg/100);
+
+      var k = new PykCharts.multiD.scatter ({
+        selector: "#scatterPlot",
+        data: "../data/scatter.csv",
+        mode : "default",
+
+        chart_color: ["#07365e","#0e5ea1","#4682b4","#75b0e1","#a0ccf1"],
+        // chart_color:["red"],
+        // background_color: "transparent",
+
+        chart_height: 450,
+        chart_width : 1000,
+        "color_mode": "saturation",
+        "chart_color": [
+        "#255AEE","red","green","pink"
+        ],
+        "saturation_color": "red",
+        "axis_x_enable": "yes",
+        "axis_x_title": "",
+        "axis_x_position": "bottom",
+        "axis_x_pointer_position": "bottom",
+        "axis_x_line_color": "#1D1D1D",
+        "axis_x_pointer_size": 12,
+        "axis_x_pointer_color": "#1D1D1D",
+        "axis_x_no_of_axis_value": 5,
+        "axis_x_pointer_padding": 6,
+        "axis_x_outer_pointer_length": 0,
+        "axis_x_pointer_values": [],
+        "axis_x_time_value_datatype": "",
+        "axis_x_time_value_interval": 0,
+        "axis_y_enable": "yes",
+        "axis_y_title": "",
+        "axis_y_position": "left",
+        "axis_y_pointer_position": "left",
+        "axis_y_line_color": "#1D1D1D",
+        "axis_y_pointer_size": 12,
+        "axis_y_pointer_color": "#1D1D1D",
+        "axis_y_no_of_axis_value": 5,
+        "axis_y_pointer_padding": 6,
+        "axis_y_pointer_values": [],
+        "axis_y_outer_pointer_length": 0,
+        "axis_y_time_value_datatype": "",
+        "axis_y_time_value_interval": 0,
+        "label_size": 13,
+        "label_weight": "bold",
+        "label_family": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "label_color": "red",
+        "real_time_charts_last_updated_at_enable": "no",
+        "real_time_charts_refresh_frequency": 0,
+        "transition_duration": 0,
+        "border_between_chart_elements_thickness": 1,
+        "border_between_chart_elements_style": "solid",
+        "chart_margin_left": 50,
+        "chart_margin_right": 25,
+        "chart_margin_top": 35,
+        "chart_margin_bottom": 35,
+        "chart_onhover_highlight_enable": "yes",
+        "tooltip_enable": "yes",
+        "legends_enable": "yes",
+        "legends_display": "vertical",
+        "legends_text_weight": "normal",
+        "legends_text_family": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "scatterplot_pointer_enable": "no",
+        "scatterplot_radius": 20,
+        "variable_circle_size_enable": "yes",
+        "zoom_enable": "no",
+        "title_text": "Enter title here",
+        "title_size": 20,
+        "title_weight": "bold",
+        "title_family": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "title_color": "#1D1D1D",
+        "subtitle_text": "Enter subtitle here",
+        "subtitle_size": 16,
+        "subtitle_weight": "normal",
+        "subtitle_family": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "subtitle_color": "black",                    // chart_height: 450,
+        // chart_width : 700,
+        // chart_margin_top: 125,
+        // chart_margin_right: 175,
+        // chart_margin_bottom: 125,
+        // chart_margin_left: 160,
+      });
+
+      // // var date = new Date();
+      // //     var i,avg =0;
+      // //     var a = [];
+      // //     for(i = 0;i<100;i++) {
+      // //         // console.log(i);
+      // //         var start = new Date().getTime();
+      k.execute();
+      // //         var end = new Date().getTime();
+      // //             a[i] = end - start;
+      // //             avg += a[i]
+      // //     }
+      // //     console.log("Performance",a,avg/100);
+      var k = new PykCharts.multiD.panelsOfScatter ({
+        selector: "#multiple-scatterplots",
+        data: "../data/panel-of-scatters.csv",
+        mode : "default",
+        background_color: "transparent",
+        // chart_color: ["#07365e","#0e5ea1","#4682b4","#75b0e1","#a0ccf1"],
+        // chart_color:["red","green","","grey","yellow"],
+        chart_height: 450,
+        chart_width : 800,
+        chart_margin_top: 25,
+        chart_margin_right: 15,
+        chart_margin_bottom: 30,
+        chart_margin_left: 50,
+
+        scatterplot_radius : 9,
+        scatterplot_pointer: "no",
+        real_time_charts_refresh_frequency: 0,
+        panels_enable: "yes",
+        variable_circle_size_enable: "no",
+
+        axis_x_enable: "yes",
+        // axis_x_title : "Price",
+        // axis_x_position: "bottom",
+        // axis_x_pointer_position: "bottom",
+        // axis_x_line_color: "#1D1D1D",
+        // axis_x_no_of_axis_value: 5,
+        // axis_x_pointer_color: "blue",
+        // axis_x_pointer_size: 15,
+        // axis_x_pointer_padding: 3,
+        // axis_x_outer_pointer_length: 3,
+        // axis_x_time_value_datatype:"month",
+        // axis_x_time_value_interval: 1,
+
+        axis_y_enable: "yes",
+        axis_y_title : "Rating",
+        axis_y_position: "left",
+        axis_y_pointer_position: "left",
+        axis_y_line_color: "red",
+        axis_y_no_of_axis_value: 5,
+        axis_y_pointer_color: "red",
+        axis_y_pointer_size: 15,
+        axis_y_pointer_padding: 10,
+        axis_y_outer_pointer_length: 3,
+        // axis_y_pointer_values : [3,6],
+        // axis_x_time_value_datatype: "",
+
+        legends_enable: "yes",
+        legends_text_size: 10,
+        legends_text_color: "black",
+        legends_text_weight: "normal",
+        legends_text_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
+
+        zoom_enable: "yes",
+        zoom_level: 6,
+
+        border_between_chart_elements_thickness:0,
+        border_between_chart_elements_color:"blue",
+        label_size:5,
+        transition_duration:1,
+        tooltip_enable: "yes",
+        chart_onhover_highlight_enable: "yes"
+      });
+      // // var date = new Date();
+      // //     var i,avg =0;
+      // //     var a = [];
+      // //     for(i = 0;i<100;i++) {
+      // // //         // console.log(i);
+      // //         var start = new Date().getTime();
+      k.execute();
+      // //         var end = new Date().getTime();
+      // //             a[i] = end - start;
+      // //             avg += a[i]
+      // //     }
+      // //     console.log("Performance",a,avg/100);
+
+      var k = new PykCharts.multiD.panelsOfLine ({
+        selector: "#multiLine",
+        data: "../data/multipleContainerLine.json",
+        mode : "default",
+
+        color_mode: "saturation",  //color or saturation
+        background_color: "white",
+
+        chart_color:["red","green","yellow"],
+
+        // chart_color:["#013f73","#4682b4","#75b0e1"],
+
+        chart_height: 400, //400
+        chart_width : 830, //630
+        chart_margin_top: 0,
+        chart_margin_right: 50,
+        chart_margin_bottom: 35,
+        chart_margin_left: 50,
+        chart_grid_x_enable: "no",
+        chart_grid_y_enable: "yes",
+
+        highlight_color: "red",
+        highlight : "india",
+
+        transition_duration: 0,
+        real_time_charts_refresh_frequency: 0,
+
+        axis_onhover_highlight_enable: "yes",
+
+        axis_x_enable: "yes",
+        axis_x_title : "Industries",
+        axis_x_position: "bottom",
+        axis_x_pointer_position: "bottom",
+        axis_x_line_color: "#1D1D1D",
+        axis_x_label_color: "#1D1D1D",
+        axis_x_pointer_size: 12,
+        axis_x_pointer_padding: 3,
+        axis_x_outer_pointer_length: 3,
+        axis_y_enable: "yes",
+        axis_y_title : "Growth rate",
+        axis_y_position: "left",
+        axis_y_pointer_position: "left",
+        axis_y_line_color: "red",
+        axis_y_label_color: "#1D1D1D",
+        axis_y_pointer_size: 12,
+        axis_y_pointer_padding: 10,
+        axis_y_outer_pointer_length: 3,
+
+        curvy_lines_enable:"yes",
+        tooltip_mode : "fixed",
+        tooltip_enable : "yes",
+        crosshair_enable: "yes",
+        panels_enable: "yes",
+        zoom_enable: "no",
+        annotation_enable:"yes",
+        annotation_view_mode:"onclick",
+        annotation_background_color:"#ff4c4c"
+      });
+      //     var date = new Date();
+      //     var i,avg =0;
+      //     var a = [];
+      //     for(i = 0;i<10;i++) {
+      // //         // console.log(i);
+      //         var start = new Date().getTime();
+      k.execute();
+      //     var end = new Date().getTime();
+      //         a[i] = end - start;
+      //         avg += a[i]
+      // }
+      // console.log("Performance",a,avg/10);
+
+      var k = new PykCharts.multiD.multiSeriesLine ({
+        selector: "#multiple-multiLine",
+        data: "../data/multiLineChart.json",
+        mode : "default",
+
+        color_mode: "color",  //color or saturation
+        saturation_color: "orange",
+        chart_color:["green","yellow","red"],
+        background_color:"white",
+
+        chart_height: 400,
+        chart_width : 630,
+        chart_margin_top: 5,
+        chart_margin_right: 25,
+        chart_margin_bottom: 35,
+        chart_margin_left: 45,
+        chart_grid_x_enable: "no",
+        chart_grid_y_enable: "yes",
+
+        transition_duration: 1,
+        real_time_charts_refresh_frequency: 0,
+
+        axis_onhover_highlight_enable: "yes",
+
+        axis_x_enable: "yes",
+        axis_x_title : "Industries",
+        axis_x_position: "bottom",
+        axis_x_pointer_position: "bottom",
+        axis_x_line_color: "#1D1D1D",
+        axis_x_label_color: "#1D1D1D",
+        axis_x_pointer_size: 12,
+        axis_x_pointer_padding: 3,
+        axis_x_outer_pointer_length: 3,
+        axis_x_time_value_datatype:"date",
+        axis_x_time_value_interval: 1,
+
+        axis_y_enable: "yes",
+        axis_y_title : "Growth rate",
+        axis_y_position: "left",
+        axis_y_pointer_position: "left",
+        axis_y_line_color: "red",
+        axis_y_label_color: "#1D1D1D",
+        axis_y_pointer_size: 12,
+        axis_y_pointer_padding: 10,
+        axis_y_outer_pointer_length: 3,
+        // axis_y_pointer_values : [3,6],
+
+        curvy_lines_enable:"yes",
+        tooltip_mode : "fixed",
+        tooltip_enable : "yes",
+        crosshair_enable: "yes",
+        zoom_enable: "yes",
+        highlight: "India",
+        highlight_color: "purple",
+        annotation_enable: "yes",
+        annotation_view_mode: "onclick",
+        annotation_background_color:"#ff4c4c"
+      });
+      //  var date = new Date();
+      //     var i,avg =0;
+      //     var a = [];
+      //     for(i = 0;i<100;i++) {
+      // //         // console.log(i);
+      //         var start = new Date().getTime();
+      k.execute();
+      //         var end = new Date().getTime();
+      //             a[i] = end - start;
+      //             avg += a[i]
+      //     }
+      //     console.log("Performance",a,avg/100);
+
+      var k = new PykCharts.multiD.stackedArea ({
+
+        selector: "#multiArea",
+        data: "../data/multiline_timescale.json",
+        mode : "default",
+
+        color_mode: "saturation",  //color or saturation
+        chart_color:["steelblue"],
+        background_color: "white",
+        highlight:"india",
+        // highlight_color: "yellow",
+
+        chart_height: 400,
+        chart_width : 630,
+        chart_margin_top: 5,
+        chart_margin_right: 25,
+        chart_margin_bottom: 35,
+        chart_margin_left: 50,
+        chart_grid_x_enable: "yes",
+        chart_grid_y_enable: "yes",
+        chart_grid_color:"black",
+
+        transition_duration: 1,
+        real_time_charts_refresh_frequency: 0,
+
+        axis_onhover_highlight_enable: "yes",
+
+        axis_x_enable: "yes",
+        axis_x_title : "Industries",
+        axis_x_position: "bottom",
+        axis_x_pointer_position: "bottom",
+        axis_x_line_color: "#1D1D1D",
+        axis_x_label_color: "#1D1D1D",
+        axis_x_pointer_size: 12,
+        axis_x_pointer_padding: 3,
+        axis_x_outer_pointer_length: 3,
+        axis_x_time_value_datatype:"date",
+        axis_x_time_value_interval: 1,
+
+        axis_y_enable: "yes",
+        axis_y_title : "Growth rate",
+        axis_y_position: "left",
+        axis_y_pointer_position: "left",
+        axis_y_line_color: "red",
+        axis_y_label_color: "#1D1D1D",
+        axis_y_pointer_size: 12,
+        axis_y_pointer_padding: 10,
+        axis_y_outer_pointer_length: 3,
+
+        curvy_lines_enable:"yes",
+        crosshair_enable: "yes",
+        tooltip_enable : "yes",
+        tooltip_mode: "fixed",
+        zoom_enable: "yes",
+        panels_enable:"yes",
+        // axis_y_pointer_values : [30,60],
+        legends_enable: "yes",
+        legends_display: "horizontal", //horizontal or vertical
+        legends_text_size: 12,
+        // legends_text_color: "black",
+        // legends_text_weight: "normal",
+        // legends_text_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
+        annotation_enable: "yes",
+        annotation_view_mode: "onclick",
+        annotation_background_color:"#ff4c4c"
+      });
+
+      // var date = new Date();
+      //     var i,avg =0;
+      //     var a = [];
+      //     for(i = 0;i<100;i++) {
+      // //         // console.log(i);
+      //         var start = new Date().getTime();
+      k.execute();
+      //         var end = new Date().getTime();
+      //             a[i] = end - start;
+      //             avg += a[i]
+      //     }
+      //     console.log("Performance",a,avg/100);
+
+      var k = new PykCharts.multiD.pulse({
+        selector: "#pulse",
+        data: "../data/pulse.json",
+        mode : "default", //  default or infographics
+
+        // chart_color: ["#75b0e1","#4682b4","#013f73"],
+        chart_color:["red","green","blue"],
+
+        background_color:"white",
+
+        chart_height: 350,
+        chart_width : 650,
+        chart_margin_top: 5,
+        chart_margin_right: 25,
+        chart_margin_bottom: 35,
+        chart_margin_left: 65,
+
+        transition_duration: 1,
+        real_time_charts_refresh_frequency: 0,
+
+        axis_onhover_highlight_enable: "yes",
+
+        axis_x_enable: "yes",
+        axis_x_title : "Years",
+        axis_x_position: "bottom",
+        axis_x_pointer_position: "bottom",
+        axis_x_line_color: "red",
+        axis_x_pointer_color: "blue",
+        axis_x_pointer_size: 15,
+        axis_x_pointer_padding: 3,
+        axis_x_pointer_values: [2002, 2004, 2006, 2008],
+        axis_x_outer_pointer_length: 3,
+
+        axis_y_enable: "yes",
+        axis_y_title : "Categories",
+        axis_y_position: "left",
+        axis_y_pointer_position: "left",
+        axis_y_line_color: "red",
+        axis_y_pointer_color: "blue",
+        axis_y_pointer_size: 15,
+        axis_y_pointer_padding: 10,
+        axis_x_pointer_values: [],
+        axis_y_outer_pointer_length: 3,
+        // axis_x_pointer_values : [3000],
+
+        tooltip_mode : "moving",
+        tooltip_enable : "yes",
+        crosshair_enable: "yes",
+        panels_enable: "yes",
+        variable_circle_size_enable : "no",
+
+        legends_enable: "yes",
+        legends_display: "horizontal",
+        legends_text_size: 13,
+        legends_text_color: "black",
+        legends_text_weight: "normal",
+        legends_text_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
+
+        border_between_chart_elements_thickness: 0,
+        border_between_chart_elements_color: "white",
+        border_between_chart_elements_style: "solid"
+
+      });
+
+      // var date = new Date();
+      //     var i,avg =0;
+      //     var a = [];
+      //     for(i = 0;i<100;i++) {
+      // //         // console.log(i);
+      //         var start = new Date().getTime();
+      k.execute();
+      //         var end = new Date().getTime();
+      //             a[i] = end - start;
+      //             avg += a[i]
+      //     }
+      //     console.log("Performance",a,avg/100);
+
+      var k = new PykCharts.multiD.column({
+        data: "../data/column.csv",
+        mode: "default",
+        selector: "#column",
+        color_mode: "color",
+        chart_color:["steelblue"],
+        background_color:"white",
+        chart_height: 430,
+        chart_width : 700,
+        chart_margin_top: 25,
+        chart_margin_right: 25,
+        chart_margin_bottom: 45,
+        chart_margin_left: 45,
+        chart_grid_y_enable: "yes",
+        chart_grid_color: "red",
+
+        real_time_charts_refresh_frequency: 0,
+        transition_duration: 1,
+        axis_onhover_highlight_enable: "yes",
+
+        axis_x_enable: "yes",
+        axis_x_title : "Months",
+        axis_x_position: "bottom",
+        axis_x_pointer_position: "bottom",
+        axis_x_line_color: "red",
+        highlight:"india",
+        "axis_x_pointer_size": 12,
+        "axis_x_pointer_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
+        "axis_x_pointer_weight": "normal",
+        "axis_x_pointer_color": "red",
+
+        // axis_x_pointer_padding: NA,
+        // axis_x_outer_pointer_length: NA ,
+        // "axis_x_no_of_axis_value": NA,
+        // "axis_x_pointer_length": NA,
+        // "axis_x_pointer_values": NA,
+
+        "axis_x_time_value_datatype":"",
+
+        axis_y_enable: "yes",
+        axis_y_title : "Rainfall",
+        axis_y_position: "left",
+        axis_y_pointer_position: "left",
+        axis_y_line_color: "red",
+        axis_y_pointer_color: "red",
+        axis_y_pointer_size: 12,
+        axis_y_pointer_padding: 10,
+        axis_y_outer_pointer_length: 3,
+
+        highlight_color: "#013F73",
+        // panels_enable:"yes",
+
+        border_between_chart_elements_thickness: 1,
+        border_between_chart_elements_color: "white",
+        border_between_chart_elements_style: "solid",
+        chart_onhover_highlight_enable: "yes",
+        tooltip_enable: 'yes'
+      });
+      // var date = new Date();
+      //     var i,avg =0;
+      //     var a = [];
+      //     for(i = 0;i<100;i++) {
+      // //         // console.log(i);
+      //         var start = new Date().getTime();
+      k.execute();
+      //         var end = new Date().getTime();
+      //             a[i] = end - start;
+      //             avg += a[i]
+      //     }
+      //     console.log("Performance",a,avg/100);
+
+      var k = new PykCharts.multiD.bar({
+        data: "../data/bar.csv",
+        mode: "default",
+        selector: "#bar",
+        color_mode: "saturation",
+        chart_color:["steelblue"],
+        background_color:"white",
+
+        chart_height: 430,
+        chart_width : 700,
+        chart_margin_top: 25,
+        chart_margin_right: 25,
+        chart_margin_bottom: 35,
+        chart_margin_left: 130,
+
+        real_time_charts_refresh_frequency: 0,
+
+        axis_onhover_highlight_enable: "yes",
+
+        axis_x_enable: "yes",
+        axis_x_title : "Rainfall",
+        axis_x_position: "bottom",
+        axis_x_pointer_position: "bottom",
+        axis_x_line_color: "#1D1D1D",
+        axis_x_pointer_color: "#1D1D1D",
+        axis_x_pointer_size: 12,
+        axis_x_pointer_padding: 3,
+        axis_x_outer_pointer_length: 3,
+
+        axis_y_enable: "yes",
+        axis_y_title : "Months",
+        axis_y_position: "left",
+        // axis_y_pointer_position: "left",
+        axis_y_line_color: "red",
+        axis_y_pointer_color: "green",
+        axis_y_pointer_size: 12,
+        axis_y_pointer_padding: 10,
+        axis_y_outer_pointer_length: 3,
+
+        highlight_color: "#013F73",
+
+        transition_duration: 1,
+
+        border_between_chart_elements_thickness: 1,
+        border_between_chart_elements_color: "white",
+        border_between_chart_elements_style: "solid",
+
+        pointer_thickness: 1,
+        pointer_weight: "normal",
+        pointer_size: 10,
+        pointer_color: "#1D1D1D",
+        pointer_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
+        highlight:"india",
+        panels_enable: "yes",
+
+        data_sort_enable: "yes",
+        data_sort_type: "alphabetically",
+        data_sort_order: "ascending",
+        tooltip_enable: "yes",
+        chart_onhover_highlight_enable: "yes"
+      });
+
+      //     var date = new Date();
+      //     var i,avg =0;
+      //     var a = [];
+      //     for(i = 0;i<100;i++) {
+      //         // console.log(i);
+      //         var start = new Date().getTime();
+      k.execute();
+      //         var end = new Date().getTime();
+      //             a[i] = end - start;
+      //             avg += a[i]
+      //     }
+      //     console.log("Performance",a,avg/100);
+
+      var k = new PykCharts.multiD.groupedBar({
+        data: "../data/grouped-bar.csv",
+        mode: "default",
+        selector: "#groupBar",
+        chart_height: 630,
+        chart_width : 700,
+        chart_margin_top: 25,
+        chart_margin_right: 45,
+        chart_margin_bottom: 35,
+        chart_margin_left: 140,
+
+        color_mode:"saturation",
+        saturation_color: "green",
+        background_color:"white",
+        chart_color:["orange","red","yellow","purple"],
+        real_time_charts_refresh_frequency: 0,
+
+        axis_onhover_highlight_enable: "yes",
+
+        axis_x_enable: "yes",
+        axis_x_title : "Rainfall",
+        axis_x_position: "bottom",
+        axis_x_pointer_position: "bottom",
+        axis_x_line_color: "#1D1D1D",
+        axis_x_label_color: "#1D1D1D",
+        axis_x_pointer_size: 12,
+        axis_x_pointer_padding: 3,
+        axis_x_outer_pointer_length: 3,
+
+        axis_y_enable: "yes",
+        axis_y_title : "Months",
+        axis_y_position: "left",
+        axis_y_pointer_position: "left",
+        axis_y_line_color: "red",
+        axis_y_label_color: "#1D1D1D",
+        axis_y_pointer_size: 12,
+        axis_y_pointer_padding: 10,
+        axis_y_outer_pointer_length: 3,
+        axis_x_time_value_interval:2,
+        highlight_color: "#013F73",
+        panels_enable: "yes",
+
+        transition_duration: 1,
+
+        border_between_chart_elements_thickness: 1,
+        border_between_chart_elements_color: "white",
+        border_between_chart_elements_style: "solid",
+
+        pointer_thickness: 1,
+        pointer_weight: "normal",
+        pointer_size: 10,
+        pointer_color: "#1D1D1D",
+        pointer_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
+        saturation_enable: "no",
+        axis_x_pointer_weight: "normal",
+        // axis_y_pointer_values: [2000,2004,2008,2012],
+        data_sort_enable: "yes",
+        highlight: "2014-07-02",
+        legends_enable: "yes",
+        legends_display: "vertical",
+        legends_text_size: 12,
+        legends_text_color: "black",
+        legends_text_weight: "normal",
+        legends_text_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
+        "data_sort_enable": "yes",
+        "data_sort_type": "alphabetically", // sort type --- "alphabetically" / "date"
+        "data_sort_order": "descending", // sort order --- "descending" / "ascending",
+        highlight:"2012",
+        tooltip_enable: "yes",
+        // legends_text_family: "Papyrus",
+        // legends_text_weight: "bold",
+        // legends_text_size: 28
+        chart_onhover_highlight_enable: "yes"
+      });
+      // var date = new Date();
+      //     var i,avg =0;
+      //     var a = [];
+      //     for(i = 0;i<100;i++) {
+      // //         // console.log(i);
+      //         var start = new Date().getTime();
+      k.execute();
+      //         var end = new Date().getTime();
+      //             a[i] = end - start;
+      //             avg += a[i]
+      //     }
+      //     console.log("Performance",a,avg/100);
+
+      var k = new PykCharts.multiD.groupedColumn({
+        data: "../data/grouped-column.csv",
+        mode: "default",
+        selector: "#groupColumn",
+
+        color_mode: "saturation",
+        background_color:"white",
+
+        chart_color:["orange","red","steelblue","grey"],
+        saturation_color: "orange",
+
+        chart_height: 430,
+        chart_width : 1000,
+        chart_margin_top: 25,
+        chart_margin_right: 45,
+        chart_margin_bottom: 45,
+        chart_margin_left: 50,
+        chart_grid_y_enable: "yes",
+
+        real_time_charts_refresh_frequency: 0,
+
+        axis_onhover_highlight_enable: "yes",
+        chart_onhover_highlight_enable: "yes",
+        // panels_enable:"yes",
+        axis_x_pointer_values : ["nehal"],
+        axis_x_enable: "yes",
+        axis_x_title : "Countries",
+        axis_x_position: "bottom",
+        axis_x_pointer_position: "bottom",
+        axis_x_line_color: "#1D1D1D",
+        axis_x_pointer_color: "green",
+        axis_x_pointer_size: 12,
+        axis_x_pointer_padding: 3,
+        axis_x_outer_pointer_length: 3,
+        axis_x_pointer_weight:"bold",
+        axis_x_time_value_datatype: "month",
+        // axis_x_pointer_values : [],
+        axis_y_enable: "yes",
+        axis_y_title : "Production",
+        axis_y_position: "left",
+        axis_y_pointer_position: "left",
+        axis_y_line_color: "green",
+        axis_y_pointer_color: "green",
+        axis_y_pointer_size: 12,
+        axis_y_pointer_padding: 10,
+        // axis_y_pointer_values : [5,30],
+        axis_y_outer_pointer_length: 10,
+
+        highlight_color: "red",
+
+        legends_enable: "yes",
+        legends_display: "vertical",
+        legends_text_size: 13,
+        legends_text_color: "black",
+        legends_text_weight: "normal",
+        legends_text_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
+
+        transition_duration: 1,
+
+        border_between_chart_elements_thickness: 2,
+        border_between_chart_elements_color: "black",
+        border_between_chart_elements_style: "dashed",
+        // saturation_enable: "yes",
+        highlight:"2004",
+        chart_grid_y_enable: "no",
+        tooltip_enable: "yes",
+        chart_onhover_highlight_enable: "yes",
+        chart_grid_y_enable:"yes"
+      });
+
+
+      // var date = new Date();
+      //     var i,avg =0;
+      //     var a = [];
+      //     for(i = 0;i<100;i++) {
+      // //         // console.log(i);
+      //         var start = new Date().getTime();
+      k.execute();
+      //         var end = new Date().getTime();
+      //             a[i] = end - start;
+      //             avg += a[i]
+      //     }
+      //     console.log("Performance",a,avg/100);
+
+    };
+  </script>
+</body>
 </html>
