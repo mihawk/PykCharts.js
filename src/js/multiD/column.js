@@ -373,7 +373,8 @@ PykCharts.multiD.column = function (options) {
                         "width": function (d) { return (that.reducedWidth/(that.data.length))-(0.03*that.reducedWidth); },
                         "fill": function (d) { return that.fillColor.colorPieMS(d); },
                         "stroke": that.border.color(),
-                        "stroke-width": that.border.width()
+                        "stroke-width": that.border.width(),
+                        "stroke-dasharray": that.border.style()
                     })
                     .on({
                         'mouseover': function (d) {

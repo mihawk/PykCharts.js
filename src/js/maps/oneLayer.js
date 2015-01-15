@@ -2,6 +2,7 @@ PykCharts.maps.oneLayer = function (options) {
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
     this.execute = function () {
+        that = new PykCharts.validation.processInputs(that, options, 'maps');
         that = PykCharts.maps.processInputs(that, options);
         that.executeData = function (data) {
             var validate = that.k.validator().validatingJSON(data),
@@ -65,7 +66,9 @@ PykCharts.maps.timelineMap = function (options) {
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
     this.execute = function () {
+        that = new PykCharts.validation.processInputs(that, options, 'maps');
         that = PykCharts.maps.processInputs(that, options);
+
         PykCharts.scaleFunction(that);
         that.executeData = function (data) {
             var validate = that.k.validator().validatingJSON(data),
@@ -84,7 +87,7 @@ PykCharts.maps.timelineMap = function (options) {
             that.data = that.k.__proto__._where(data, {timestamp: x_extent[0]});
             that.data_length = that.data.length;
 
-            that.redeced_width = that.chart_width - (that.timeline_margin_left * 2) - that.timeline_margin_right;
+            that.redeced_width = that.chart_width - (that.margin_left * 2) - that.margin_left;
 
             that.k
                 .totalColors(that.total_no_of_colors)
@@ -157,14 +160,14 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         }
 
         that.optionalFeatures()
-            .svgContainer()
+            .svgContainer(container_id)
             .legendsContainer(that.legends_enable)
             .legends(that.legends_enable)
             .createMap()
             .label(that.label_enable)
             .enableClick(that.click_enable);
 
-        that.redeced_height = that.chart_height - that.timeline_margin_top - that.timeline_margin_bottom;
+        that.redeced_height = that.chart_height - that.margin_top - that.margin_bottom;
 
         that.k
             .createFooter()
@@ -182,9 +185,9 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         }
         var resize = that.k.resize(that.svgContainer);
         that.k.__proto__._ready(resize);
-        window.onresize = function () {
+        window.addEventListener('resize', function(event){
             return that.k.resize(that.svgContainer);
-        };
+        });
     };
 
     that.refresh = function () {
@@ -235,7 +238,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                 };
                 return this;
             },
-            svgContainer : function () {
+            svgContainer : function (container_id) {
                 document.getElementById(id).style.width = "100%";
             
                 that.svgContainer = d3.select(that.selector)
@@ -243,7 +246,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     .attr({
                         "width": that.chart_width,
                         "height": that.chart_height,
-                        "id": "svgcontainer",
+                        "id": container_id,
                         "class": 'PykCharts-map',
                         "preserveAspectRatio": "xMinYMin",
                         "viewBox": "0 0 " + that.chart_width + " " + that.chart_height
@@ -283,7 +286,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             createMap : function () {
 
                 var new_width =  that.chart_width - that.legendsGroup_width;
-                var new_height = that.chart_height - that.legendsGroup_height - that.timeline_margin_bottom -that.timeline_margin_top - 10;
+                var new_height = that.chart_height - that.legendsGroup_height - that.margin_bottom -that.margin_top - 10;
                 var scale = 150
                 , offset = [new_width / 2, new_height / 2]
                 , i;
@@ -397,7 +400,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                         .attr({
                             "id": "xaxis",
                             "class": "x axis",
-                            "transform": "translate("+(that.timeline_margin_left*2)+"," + that.redeced_height + ")"
+                            "transform": "translate("+(that.margin_left*2)+"," + that.redeced_height + ")"
                         });
                 }
                 return this;
@@ -572,9 +575,10 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     } else  {
                         that.legendsGroup_width = 0;
                     }
-
                     translate_x = (that.legends_display === "vertical") ? (that.chart_width - that.legendsGroup_width) : (that.chart_width - legend_container_width - 20);
-                if (legend_container_width < that.chart_width) { that.legendsContainer.attr("transform","translate("+(translate_x-20)+",10)"); }
+                if (legend_container_width < that.chart_width) { 
+                    that.legendsContainer.attr("transform","translate("+(translate_x-20)+",10)"); 
+                }
                 that.legendsContainer.style("visibility","visible");
 
                 that.legends_text.exit()
@@ -622,8 +626,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     } else  {
                         that.legendsGroup_width = 0;
                     }
-
-                    translate_x = (that.legends_display === "vertical") ? 0 : (that.chart_width - legend_container_width - 20);
+                    translate_x = (that.legends_display === "vertical") ? (that.chart_width - that.legendsGroup_width) : (that.chart_width - legend_container_width - 20);
                 if (legend_container_width < that.chart_width) { that.legendsContainer.attr("transform","translate("+translate_x+",10)"); }
                 that.legendsContainer.style("visibility","visible");
 
@@ -758,6 +761,10 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
           return a - b;
         });
         that.k.xAxis(that.svgContainer,that.gxaxis,that.xScale);
+        if(that.gxaxis) {
+            that.gxaxis.attr("transform", "translate("+(that.margin_left*2)+"," + that.redeced_height + ")");
+        }
+        
     }
     that.renderTimeline = function () {
         var x_extent
@@ -787,7 +794,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     }
 
                     that.marker
-                        .attr("x",  (that.timeline_margin_left*2) + that.xScale(that.unique[interval]) - 7);
+                        .attr("x",  (that.margin_left*2) + that.xScale(that.unique[interval]) - 7);
 
                     that.data = that.k.__proto__._where(that.timeline_data, {timestamp:that.unique[interval]});
                     that.data_length = that.data.length;
@@ -833,7 +840,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         function dragmove (d) {
             document.getElementsByTagName('body')[0].style.cursor = "pointer";
             if (that.timeline_status !== "playing") {
-                var x = PykCharts.getEvent().sourceEvent.pageX - (that.timeline_margin_left),
+                var x = PykCharts.getEvent().sourceEvent.pageX - (that.margin_left),
                     x_range = [],
                     temp = that.xScale.range(),
                     len = that.unique.length,
@@ -851,7 +858,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                         left_diff = (x - left_tick), right_diff = (right_tick - x);
 
                         if ((left_diff >= right_diff) && (i <= (len-2))) {
-                            that.marker.attr("x", (that.timeline_margin_left*2) + that.xScale(that.unique[i]) - 7);
+                            that.marker.attr("x", (that.margin_left*2) + that.xScale(that.unique[i]) - 7);
                             that.data = that.k.__proto__._where(that.timeline_data, {timestamp:that.unique[i]});
                             that.data_length = that.data.length;
                             that.data.sort(function (a,b) {
@@ -873,7 +880,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                         }
                     }
                     else if ((x > x_range[i]) && (i > (len-2))) {
-                            that.marker.attr("x", (that.timeline_margin_left*2) + that.xScale(that.unique[i]) - 7);
+                            that.marker.attr("x", (that.margin_left*2) + that.xScale(that.unique[i]) - 7);
                             that.data = that.k.__proto__._where(that.timeline_data, {timestamp:that.unique[i]});
                             that.data_length = that.data.length;
                             that.data.sort(function (a,b) {
@@ -900,8 +907,8 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         that.play = that.svgContainer.append("image")
             .attr({
                 "xlink:href": that.play_image_url,
-                "x": that.timeline_margin_left / 2,
-                "y": that.redeced_height - that.timeline_margin_top - (bbox.height/2),
+                "x": that.margin_left / 2,
+                "y": that.redeced_height - that.margin_top - (bbox.height/2),
                 "width": "24px",
                 "height": "21px"
             })
@@ -910,7 +917,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         that.marker = that.svgContainer.append("image")
             .attr({
                 "xlink:href": that.marker_image_url,
-                "x": (that.timeline_margin_left*2) + that.xScale(that.unique[0]) - 7,
+                "x": (that.margin_left*2) + that.xScale(that.unique[0]) - 7,
                 "y": that.redeced_height,
                 "width": "14px",
                 "height": "12px"

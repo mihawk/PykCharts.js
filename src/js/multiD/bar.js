@@ -24,7 +24,6 @@ PykCharts.multiD.bar = function (options) {
         }
 
         that.panels_enable = "no";
-
         if(that.mode === "default") {
            that.k.loading();
         }
@@ -340,7 +339,8 @@ PykCharts.multiD.bar = function (options) {
                         "width" : 0,
                         "fill" : function (d) { return that.fillColor.colorPieMS(d); },
                         "stroke" : that.border.color(),
-                        "stroke-width" : that.border.width()
+                        "stroke-width" : that.border.width(),
+                        "stroke-dasharray": that.border.style()
                     })
                     .on({
                         'mouseover': function (d) {

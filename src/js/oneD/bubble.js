@@ -56,7 +56,6 @@ PykCharts.oneD.bubble = function (options) {
 
         that.fillChart = new PykCharts.Configuration.fillChart(that);
         that.transitions = new PykCharts.Configuration.transition(that);
-                        console.log("before",that.mode);   
         if (that.mode ==="default") {
 
             that.k.title()
@@ -95,9 +94,9 @@ PykCharts.oneD.bubble = function (options) {
         that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
         var resize = that.k.resize(that.svgContainer);
         that.k.__proto__._ready(resize);
-        window.onresize = function () {
+        window.addEventListener('resize', function(event){
             return that.k.resize(that.svgContainer);
-        };
+        });
     };
 
     this.optionalFeatures = function () {
@@ -213,7 +212,7 @@ PykCharts.oneD.bubble = function (options) {
                 chart_text1.attr("class","weight")
                     .attr({
                         "x": function (d) { return d.x },
-                        "y": function (d) { return d.y + that.label_size; }
+                        "y": function (d) { return + d.y + that.label_size; }
                     });
 
                 chart_text.attr("text-anchor","middle")

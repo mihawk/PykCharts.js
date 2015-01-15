@@ -13,6 +13,17 @@ PykCharts.oneD.funnel = function (options) {
             .validatingDataType(that.funnel_rect_width,"funnel_rect_width",functionality.funnel_rect_width)
             .validatingDataType(that.funnel_rect_height,"funnel_rect_height",functionality.funnel_rect_height);
 
+        try {
+            if(that.funnel_rect_width >= that.chart_width) {
+                throw "funnel_rect_width";
+            }
+        }
+        catch (e) {
+            that.funnel_rect_width  = functionality.funnel_rect_width;
+            console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+that.selector+".(Invalid value for attribute \"funnel_rect_width\")  Visit www.chartstore.io/docs#warning_19");
+
+        }
+
         if(that.stop) {
             return;
         }
@@ -104,9 +115,9 @@ PykCharts.oneD.funnel = function (options) {
 
         var resize = that.k.resize(that.svgContainer);
         that.k.__proto__._ready(resize);
-        window.onresize = function () {
+        window.addEventListener('resize', function(event){
             return that.k.resize(that.svgContainer);
-        };
+        });
     };
 
     this.funnelLayout = function (){

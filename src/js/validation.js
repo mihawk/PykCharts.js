@@ -2,6 +2,7 @@ PykCharts.validation = {};
 PykCharts.oneD = {};
 PykCharts.other = {};
 PykCharts.validation.processInputs = function (chartObject, options, chart_type) {
+
     var theme = new PykCharts.Configuration.Theme({})
 	    , stylesheet = theme.stylesheet
 	    , functionality = theme.functionality
@@ -21,29 +22,42 @@ PykCharts.validation.processInputs = function (chartObject, options, chart_type)
         chartObject.data_source_name = options.data_source_name ? options.data_source_name : "";
         chartObject.data_source_url = options.data_source_url ? options.data_source_url : "";
         chartObject.default_color = stylesheet.chart_color;
-    // console.log("heyyyyyyyyyyyyyyyyyyyyheyyyyyyyyyyyyyyyyyyyy")
+
     var config_param_info = [
     	{	
     		'config_name': 'selector',
     		'default_value': stylesheet,
     		'validation_type': 'validatingSelector',
-            'all': true
-    	},
-    	{
-    		'config_name': 'mode',
-    		'default_value': stylesheet,
-    		'validation_type': 'validatingChartMode',
-            'condition2': convertToLowerCase,
-            'oneDimensionalCharts': true,
-            'multiDimensionalCharts':true,
-            'other': true
+            'all_charts': true
     	},
     	{
     		'config_name': 'chart_color',
     		'default_value': stylesheet,
     		'validation_type': 'isArray',
-            'all': true
+            'all_charts': true
     	},
+        {
+            'config_name': 'axis_x_pointer_values',
+            'default_value': stylesheet,
+            'validation_type': 'isArray',
+            'maps':true,
+            'multiDimensionalCharts':true
+        },
+        {
+            'config_name': 'axis_y_pointer_values',
+            'default_value': multiDimensionalCharts,
+            'validation_type': 'isArray',
+            'multiDimensionalCharts': true
+        },
+        {
+            'config_name': 'mode',
+            'default_value': stylesheet,
+            'validation_type': 'validatingChartMode',
+            'condition2': convertToLowerCase,
+            'oneDimensionalCharts': true,
+            'multiDimensionalCharts':true,
+            'other': true
+        },
     	{
     		'config_name': 'chart_width',
     		'default_value': stylesheet,
@@ -252,19 +266,6 @@ PykCharts.validation.processInputs = function (chartObject, options, chart_type)
             'default_value': stylesheet,
             'validation_type': 'validatingColor',
             'all_charts': true
-        },
-        {
-            'config_name': 'axis_x_pointer_values',
-            'default_value': stylesheet,
-            'validation_type': 'isArray',
-            'maps':true,
-            'multiDimensionalCharts':true
-        },
-        {
-            'config_name': 'axis_y_pointer_values',
-            'default_value': multiDimensionalCharts,
-            'validation_type': 'isArray',
-            'multiDimensionalCharts': true
         },
         {
             'config_name': 'axis_x_time_value_datatype',
@@ -517,28 +518,33 @@ PykCharts.validation.processInputs = function (chartObject, options, chart_type)
             'default_value': stylesheet,
             'multiDimensionalCharts': true,
             'maps': true
+        },
+        {
+            'config_name': 'timeline_duration',
+            'default_value': mapsTheme,
+            'maps': true,
+            'condition1':findInObject
         }
     ];
+
     chartObject.k = new PykCharts.Configuration(chartObject);
     var validator = chartObject.k.validator();
 
     for (var i=0,config_length=config_param_info.length; i<config_length; i++) {
         var config = config_param_info[i];
+        if(config[chart_type] || config.all_charts) {
             var config_name = config.config_name
             , default_value = config.default_value[config_name]
             , condition1 = !config.condition1 ? options[config_name] : config.condition1(config_name);
 
             if(config_name in options) {
                 var condition2  = !config.condition2 ? options[config_name] : config.condition2(options[config_name]);
-                // console.log(options[config_name],config_name)
             }
             chartObject[config_name] = condition1 ? condition2 : default_value;
-            // console.log(chartObject[config_name],config_name,default_value)
             if(config.validation_type) {
-                // console.log(validator[config.validation_type],"testing",config.validation_type)
                 validator[config.validation_type](chartObject[config_name],config_name,default_value);
             }
-
+        }
     }
     var enable_config_param = [
         {   
@@ -615,7 +621,8 @@ PykCharts.validation.processInputs = function (chartObject, options, chart_type)
         {
             'config_name': 'legends_enable',
             'default_value': stylesheet,
-            'multiDimensionalCharts': true
+            'multiDimensionalCharts': true,
+            'maps': true
         },
         {
             'config_name': 'variable_circle_size_enable',
@@ -678,6 +685,41 @@ PykCharts.validation.processInputs = function (chartObject, options, chart_type)
             'default_value': stylesheet,
             'multiDimensionalCharts': true,
 
+        },
+        {
+            'config_name': 'axis_x_title',
+            'default_value': stylesheet,
+            'multiDimensionalCharts': true
+        },
+        {
+            'config_name': 'axis_y_title',
+            'default_value': stylesheet,
+            'multiDimensionalCharts': true
+        },
+        {
+            'config_name': 'map_code',
+            'default_value': mapsTheme,
+            'maps': true
+        },
+        {
+            'config_name': 'click_enable',
+            'default_value': mapsTheme,
+            'maps': true
+        },
+        {
+            'config_name': 'annotation_view_mode',
+            'default_value': multiDimensionalCharts,
+            'multiDimensionalCharts': true
+        },
+        {
+            'config_name': 'loading_type',
+            'default_value': stylesheet,
+            'all_charts': true
+        },
+        {
+            'config_name': 'loading_source',
+            'default_value': stylesheet,
+            'all_charts': true
         }
     ];
 
@@ -688,12 +730,11 @@ PykCharts.validation.processInputs = function (chartObject, options, chart_type)
             var config_name = config.config_name;
             var default_value = config.default_value[config_name];
             chartObject[config_name] = options[config_name] ? options[config_name] : default_value;
-            // console.log(config_name,chartObject[config_name])
         }
     }
 
     chartObject.clubdata_always_include_data_points = PykCharts['boolean'](chartObject.clubdata_enable) && options.clubdata_always_include_data_points ? options.clubdata_always_include_data_points : [];
-
+    validator.isArray(chartObject.clubdata_always_include_data_points,"clubdata_always_include_data_points")
     switch(chartObject.border_between_chart_elements_style) {
         case "dotted" : chartObject.border_between_chart_elements_style = "1,3";
                         break;
@@ -702,8 +743,6 @@ PykCharts.validation.processInputs = function (chartObject, options, chart_type)
         default : chartObject.border_between_chart_elements_style = "0";
                   break;
     }
-
- 
 
     if(chart_type === 'oneDimensionalCharts' || chart_type === 'maps') {
         if(chartObject.chart_color[0]) {
@@ -725,7 +764,6 @@ PykCharts.validation.processInputs = function (chartObject, options, chart_type)
     function findInObject(value) {
         return value in options;
     }
-    // console.log(chartObject.chart_color)
     chartObject.k = new PykCharts.Configuration(chartObject);
     return chartObject;
 }

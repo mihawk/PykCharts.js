@@ -8,6 +8,7 @@
             <div id = "map-container"></div>
         </div>
         <script src="../src/js/pyk.js"></script>
+        <script src="../src/js/validation.js"></script>        
         <script src = "../src/js/maps/maps.js"></script>
         <script src = "../src/js/maps/oneLayer.js"></script>
         <script src = "../src/js/init.js"></script>
@@ -15,17 +16,17 @@
             window.PykChartsInit = function (e) {
                 k = new PykCharts.maps.oneLayer({
                     selector: "#map-container",
-                    map_code: "united_states_of_america",
+                    map_code: "world",
                     mode: "default",
-                    data: "../data/united_states_of_america_data.json",
+                    data: "../data/world_data.json",
                     chart_height: 500,
                     chart_width: 500,
+                    "color_mode": "saturation",
                     // chart_color : ["#636363"],
-                    color_mode: "saturation",
                     saturation_color : "red",
                     palette_color: "Purple",
                     total_no_of_colors: 5,
-                    background_color: "darkblue",
+                    // background_color: "darkblue",
                     tooltip_enable : "yes",
                     tooltip_mode: "moving",
                     tooltip_position_top: 10,
@@ -35,7 +36,7 @@
                     border_between_chart_elements_style: "solid",
                     click_enable: "yes",
                     real_time_charts_refresh_frequency : 5,
-                    chart_onhover_highlight_enable : "yes",
+                    chart_onhover_highlight_enable : "no",
                     label_enable: "no",
                     label_color: "red",
                     // default_zoom_level: 100,
@@ -53,11 +54,12 @@
                     legends_enable: "yes",
                     legends_display: "vertical",
                     legends_text_size: 10,
-                    legends_text_color: "black",
-                    legends_text_weight: "normal",
+                    legends_text_color: "green",
+                    legends_text_weight: "bold",
                     legends_text_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
                     download_enable: "yes",
-                    chart_onhover_effect: "highlightborder"
+                    chart_onhover_effect: "highlight_border",
+                    export_enable: "yes"
                 });
                 k.execute();
             }

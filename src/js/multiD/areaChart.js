@@ -451,7 +451,6 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 			createChart : function (evt) {
 
 				that.legend_text = [];
-
 				that.layers = that.stack_layout(that.new_data);
 
         		var x_domain,x_data = [],y_data,y_range,x_range,y_domain, min_x_tick_value,max_x_tick_value, min_y_tick_value,max_y_tick_value;

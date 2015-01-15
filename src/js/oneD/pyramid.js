@@ -3,7 +3,8 @@ PykCharts.oneD.pyramid = function (options) {
     var theme = new PykCharts.Configuration.Theme({});
 
 	this.execute = function () {
-        that = new PykCharts.validation.processInputs(that, options, "pyramid",'oneDimensionalCharts');
+        that = new PykCharts.validation.processInputs(that, options,'oneDimensionalCharts');
+        console.log(that.clubdata_enable,"clubdata_enable");
         that.chart_height = options.chart_height ? options.chart_height : that.chart_width;
         that.k.validator()
             .validatingDataType(that.chart_height,"chart_height",that.chart_width);
@@ -109,9 +110,9 @@ PykCharts.oneD.pyramid = function (options) {
         
         var resize = that.k.resize(that.svgContainer);
         that.k.__proto__._ready(resize);
-        window.onresize = function () {
+        window.addEventListener('resize', function(event){
             return that.k.resize(that.svgContainer);
-        };
+        });
 	};
 
 	this.percentageValues = function (data){
