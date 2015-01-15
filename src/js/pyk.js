@@ -443,8 +443,9 @@ PykCharts.Configuration = function (options){
                     "scatterplot": ["x","y","name","group"],
                     "pulse": ["x","y","name","group"],
                     "spiderweb": ["x","y","group"],
-                    "waterfall": ["x","y"]
-                }
+                    "waterfall": ["x","y"],
+                    "simple2x2": ["group"]
+                  }
                 , charts = {
                     "oned": {
                         "dimension": "name",
@@ -494,6 +495,10 @@ PykCharts.Configuration = function (options){
                         "dimension": "y",
                         "fact": "x",
                         "name": "group"
+                    },
+                    "simple2x2": {
+                      "dimension": "group",
+                      "fact": "weight"
                     }
                 },
                 properties = dimensions[chart],

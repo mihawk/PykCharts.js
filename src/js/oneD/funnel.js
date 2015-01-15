@@ -242,8 +242,8 @@ PykCharts.oneD.funnel = function (options) {
                         "class": "svgcontainer PykCharts-oneD"
                     });
 
-                    that.group = that.svgContainer.append("g")
-                        .attr("id","funnel");
+                that.group = that.svgContainer.append("g")
+                    .attr("id","funnel");
 
                 return this;
             },
