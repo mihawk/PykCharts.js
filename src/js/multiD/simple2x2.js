@@ -34,6 +34,8 @@ PykCharts.multiD.simple2x2 = function (options) {
         that.axis_x_title_padding = that.axis_x_pointer_padding;
         that.axis_y_pointer_padding = (that.reducedWidth/2) + 10;
         that.axis_y_title_padding = that.axis_y_pointer_padding;
+
+        that.border_between_chart_elements_color = options.border_between_chart_elements_color || "#1d1d1d";
         
         that.executeData = function (data) {
             var validate = that.k.validator().validatingJSON(data),
@@ -60,6 +62,8 @@ PykCharts.multiD.simple2x2 = function (options) {
     this.render = function () {
         var id = that.selector.substring(1,that.selector.length),
             container_id = id + "_svg";
+
+        that.border = new PykCharts.Configuration.border(that);
 
 		if (that.mode === "default") {
 			that.k.title()
@@ -99,7 +103,8 @@ PykCharts.multiD.simple2x2 = function (options) {
 
         }
 
-        that.optionalFeatures().axisShift();
+        that.optionalFeatures().axisShift()
+            .renderOuterBoundary();
 
         that.k.exportSVG(that,"#"+container_id,"simple2x2Chart");
 
@@ -189,6 +194,22 @@ PykCharts.multiD.simple2x2 = function (options) {
                 var y_axis_title_height = d3.select(that.selector+" text.y-axis-title").node().getBBox().height;
                 d3.select(that.selector+" text.x-axis-title").attr("transform","translate(0,"+((that.reducedHeight/2) - (x_axis_title_height/3))+")");
                 d3.select(that.selector+" text.y-axis-title").attr("transform","translate("+(-(that.reducedWidth/2))+",0) rotate(-90)");
+
+                return this;
+            },
+            renderOuterBoundary: function () {
+                that.outer_boundary = that.group.append("svg:rect")
+                    .attr({
+                        "class": "simple2x2-outer-boundary",
+                        "x": that.chart_margin_left,
+                        "y": that.chart_margin_top,
+                        "height": that.reducedHeight,
+                        "width": that.reducedWidth,
+                        "fill" : "none",
+                        "stroke" : that.border.color(),
+                        "stroke-width" : that.border.width(),
+                        "stroke-dasharray": that.border.style()
+                    });
 
                 return this;
             },
