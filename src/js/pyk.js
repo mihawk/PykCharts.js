@@ -289,7 +289,7 @@ PykCharts.Configuration = function (options){
             d3.select(options.selector).style("height",options.chart_height);
             var loading_content = options.loading_type === "image" ? "<img src=" + options.loading_source + ">" : options.loading_source;
             d3.select(options.selector).html("<div id='chart-loader'>" + loading_content + "</div>");
-            var initial_height_div = document.querySelector(options.selector).offsetHeight;
+            var initial_height_div = parseFloat(d3.select(options.selector).style("height"));
             d3.select(options.selector + " #chart-loader").style({"visibility":"visible","padding-left":(options.chart_width/2) +"px","padding-top":(initial_height_div/2) + "px"});
             return this;
         },
@@ -317,7 +317,7 @@ PykCharts.Configuration = function (options){
         },
         resize: function (svg) {
             var aspect = (options.chart_width/options.chart_height),
-                targetWidth = document.querySelector(options.selector).offsetWidth,
+                targetWidth = parseFloat(d3.select(options.selector).style("width")),
                 a = d3.selectAll(options.selector + " #footer"),
                 b = d3.selectAll(options.selector + " .main-div"),
                 title_div_width;
@@ -1429,9 +1429,7 @@ configuration.fillChart = function (options,theme,config) {
     var fillchart = {
         selectColor: function (d) {
         theme = new PykCharts.Configuration.Theme({});
-            console.log(d.name.toLowerCase(),options.highlight.toLowerCase(),options.highlight_color);
             if(d.name.toLowerCase() === options.highlight.toLowerCase()) {
-                console.log("hello",options.highlight_color)
                 return options.highlight_color;
             } else if (options.chart_color.length && options.chart_color[0]){
                 return options.chart_color[0];
