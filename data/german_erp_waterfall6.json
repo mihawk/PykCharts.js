@@ -1,0 +1,43 @@
+[
+    {
+        "y": "Umsatz",
+        "x": 385470,
+        "tooltip": "This actually didn't take any conceptualization"
+    },
+    {
+        "y": "Rabatt",
+        "x": 225480,
+        "tooltip": "No sketching either, really"
+    },
+    {
+        "y": "Erlosschmalerungen",
+        "x": 1243150
+    },
+    {
+        "y": "Lohnkosten",
+        "x": 205440,
+        "tooltip": "all three lines of it"
+    },
+    {
+        "y": "Materialkosten",
+        "x": 295490
+    },
+    {
+        "y": "Deckungsberitrag",
+        "x": 225110,
+        "tooltip": "This counts, right?"
+    },
+    {
+        "y": "Vertrieb",
+        "x": 448450
+    },
+    {
+        "y": "Kauf",
+        "x": 225110,
+        "tooltip": "All the things"
+    },
+    {
+        "y": "Einkommen",
+        "x": 325480
+    }
+]   
