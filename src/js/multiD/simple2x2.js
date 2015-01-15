@@ -99,18 +99,7 @@ PykCharts.multiD.simple2x2 = function (options) {
 
         }
 
-        that.k.xAxis(that.svgContainer,that.xGroup,that.xScale,that.extra_left_margin,that.x_domain,that.x_tick_values)
-            .yAxis(that.svgContainer,that.yGroup,that.yScale,that.y_domain,that.y_tick_values)
-            .xAxisTitle(that.xGroup)
-            .yAxisTitle(that.yGroup);
-
-        that.xGroup.attr("transform","translate("+that.chart_margin_left+"," + (that.chart_margin_top + that.reducedHeight/2) + ")");
-        that.yGroup.attr("transform","translate(" + (that.chart_margin_left + that.reducedWidth/2) + ","+ that.chart_margin_top +")");
-        
-        var x_axis_title_height = d3.select(that.selector+" text.x-axis-title").node().getBBox().height;
-        var y_axis_title_height = d3.select(that.selector+" text.y-axis-title").node().getBBox().height;
-        d3.select(that.selector+" text.x-axis-title").attr("transform","translate(0,"+((that.reducedHeight/2) - (x_axis_title_height/3))+")");
-        d3.select(that.selector+" text.y-axis-title").attr("transform","translate("+(-(that.reducedWidth/2))+",0) rotate(-90)");
+        that.optionalFeatures().axisShift();
 
         that.k.exportSVG(that,"#"+container_id,"simple2x2Chart");
 
@@ -184,6 +173,22 @@ PykCharts.multiD.simple2x2 = function (options) {
 
                 that.x_domain = that.xScale.domain();
                 that.y_domain = that.yScale.domain();
+
+                return this;
+            },
+            axisShift: function () {
+                that.k.xAxis(that.svgContainer,that.xGroup,that.xScale,that.extra_left_margin,that.x_domain,that.x_tick_values)
+                    .yAxis(that.svgContainer,that.yGroup,that.yScale,that.y_domain,that.y_tick_values)
+                    .xAxisTitle(that.xGroup)
+                    .yAxisTitle(that.yGroup);
+
+                that.xGroup.attr("transform","translate("+that.chart_margin_left+"," + (that.chart_margin_top + that.reducedHeight/2) + ")");
+                that.yGroup.attr("transform","translate(" + (that.chart_margin_left + that.reducedWidth/2) + ","+ that.chart_margin_top +")");
+                
+                var x_axis_title_height = d3.select(that.selector+" text.x-axis-title").node().getBBox().height;
+                var y_axis_title_height = d3.select(that.selector+" text.y-axis-title").node().getBBox().height;
+                d3.select(that.selector+" text.x-axis-title").attr("transform","translate(0,"+((that.reducedHeight/2) - (x_axis_title_height/3))+")");
+                d3.select(that.selector+" text.y-axis-title").attr("transform","translate("+(-(that.reducedWidth/2))+",0) rotate(-90)");
 
                 return this;
             },
