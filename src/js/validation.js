@@ -2,7 +2,6 @@ PykCharts.validation = {};
 PykCharts.oneD = {};
 PykCharts.other = {};
 PykCharts.validation.processInputs = function (chartObject, options, chart_type) {
-
     var theme = new PykCharts.Configuration.Theme({})
 	    , stylesheet = theme.stylesheet
 	    , functionality = theme.functionality
@@ -527,6 +526,7 @@ PykCharts.validation.processInputs = function (chartObject, options, chart_type)
         }
     ];
 
+
     chartObject.k = new PykCharts.Configuration(chartObject);
     var validator = chartObject.k.validator();
 
@@ -757,6 +757,7 @@ PykCharts.validation.processInputs = function (chartObject, options, chart_type)
             }
         }        
     }
+
     function convertToLowerCase(value) {
         return value.toLowerCase();
     }                  

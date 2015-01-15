@@ -1,9 +1,8 @@
 PykCharts.other.pictograph = function (options) {
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
-
     this.execute = function () {
-        that = new PykCharts.validation.processInputs(that, options);
+        that = new PykCharts.validation.processInputs(that, options, "other");
         var optional = options.optional,
             otherCharts = theme.otherCharts;
         that.pictograph_show_all_images = options.pictograph_show_all_images ? options.pictograph_show_all_images.toLowerCase() : otherCharts.pictograph_show_all_images;
@@ -66,7 +65,6 @@ PykCharts.other.pictograph = function (options) {
             that.render();
         };
         that.k.dataSourceFormatIdentification(options.data,that,"executeData");
-
     };
     this.refresh = function () {
         that.executeRefresh = function (data) {
