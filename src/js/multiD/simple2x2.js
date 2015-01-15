@@ -74,6 +74,7 @@ PykCharts.multiD.simple2x2 = function (options) {
 
             that.optionalFeatures()
                 .svgContainer(container_id)
+                .renderOuterBoundary()
                 .createChart()
                 .axisContainer()
                 .label();
@@ -103,8 +104,7 @@ PykCharts.multiD.simple2x2 = function (options) {
 
         }
 
-        that.optionalFeatures().axisShift()
-            .renderOuterBoundary();
+        that.optionalFeatures().axisShift();
 
         that.k.exportSVG(that,"#"+container_id,"simple2x2Chart");
 
@@ -205,7 +205,7 @@ PykCharts.multiD.simple2x2 = function (options) {
                         "y": that.chart_margin_top,
                         "height": that.reducedHeight,
                         "width": that.reducedWidth,
-                        "fill" : "none",
+                        "fill" : that.chart_color[0],
                         "stroke" : that.border.color(),
                         "stroke-width" : that.border.width(),
                         "stroke-dasharray": that.border.style()
