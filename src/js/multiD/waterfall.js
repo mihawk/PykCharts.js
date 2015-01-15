@@ -4,8 +4,8 @@ PykCharts.multiD.waterfall = function(options){
     var multiDimensionalCharts = theme.multiDimensionalCharts;
 
 	this.execute = function () {
-        that = new PykCharts.multiD.processInputs(that, options, "waterfall");
-		
+        that = new PykCharts.validation.processInputs(that, options, "multiDimensionalCharts");
+        PykCharts.scaleFunction(that);
 		that.color_mode = "color";
 		that.grid_y_enable = "no";
         that.grid_color = "#fff";
@@ -40,10 +40,11 @@ PykCharts.multiD.waterfall = function(options){
         that.multiD = new PykCharts.multiD.configuration(that);
 
         that.executeData = function (data) {			
-			var validate = that.k.validator().validatingJSON(data);
+			var validate = that.k.validator().validatingJSON(data),
+                id = that.selector.substring(1,that.selector.length);
+
             if(that.stop || validate === false) {
-                $(that.selector+" #chart-loader").remove();
-                $(that.selector).css("height","auto");
+                that.k.remove_loading_bar(id);
                 return;
             }
 
@@ -53,8 +54,7 @@ PykCharts.multiD.waterfall = function(options){
             that.axis_y_data_format = that.k.yAxisDataFormatIdentification(that.data);
             that.axis_x_data_format = "number";
 
-            $(that.selector+" #chart-loader").remove();
-            $(that.selector).css("height","auto");
+            that.k.remove_loading_bar(id);
             PykCharts.multiD.waterfallFunctions(options,that,"waterfall");
             that.render();
 		};
@@ -91,18 +91,18 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
     
     that.render = function() {
     	var that = this;
-    	var l = $(".svgContainer").length;
-        that.container_id = "svgcontainer" + l;
+        var id = that.selector.substring(1,that.selector.length);
+        that.container_id = id + "_svg";
 
         that.dataTransformation();
         
         that.transitions = new PykCharts.Configuration.transition(that);
-        that.mouseEvent1 = new PykCharts.multiD.mouseEvent(that);
+        that.mouseEvent1 = new PykCharts.Configuration.mouseEvent(that);
         that.fillColor = new PykCharts.Configuration.fillChart(that,null,options);
         that.border = new PykCharts.Configuration.border(that);
 
-        that.reducedWidth = that.width - that.margin_left - that.margin_right;
-		that.reducedHeight = that.height - that.margin_top - that.margin_bottom;
+        that.reducedWidth = that.chart_width - that.chart_margin_left - that.chart_margin_right;
+		that.reducedHeight = that.chart_height - that.chart_margin_top - that.chart_margin_bottom;
 
         if (that.mode === "default") {       	
 
@@ -112,8 +112,8 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
     			.subtitle()
     			.makeMainDiv(that.selector,1);
     		
-    		that.optionalFeatures()
-                .svgContainer(1)
+    		that.optionalFeatures(id)
+                .svgContainer(1,that.container_id)
                 .createGroups();
 
             that.k.liveData(that)
@@ -125,7 +125,7 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
 
             that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
 
-           	that.optionalFeatures()
+           	that.optionalFeatures(id)
                 .axisContainer()
                 .createScales()
                	.ticks()
@@ -137,8 +137,8 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
                 .emptyDiv()
                 .makeMainDiv(that.selector,1);
 
-            that.optionalFeatures()
-                .svgContainer(1)
+            that.optionalFeatures(id)
+                .svgContainer(1,that.container_id)
                 .createGroups()
             	.axisContainer()
                 .createScales()
@@ -154,30 +154,33 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
 
         that.k.exportSVG(that,"#"+that.container_id,"waterfallChart");
 
-        $(document).ready(function () { return that.k.resize(that.svgContainer,""); })
-        $(window).on("resize", function () { return that.k.resize(that.svgContainer,""); });
+        var resize = that.k.resize(that.svgContainer);
+        that.k.__proto__._ready(resize);
+        window.addEventListener('resize', function(event){
+            return that.k.resize(that.svgContainer);
+        });
     };
 
-    that.optionalFeatures = function () {
+    that.optionalFeatures = function (id) {
     	var that = this;
     	var optional = {
-    		svgContainer: function (i) {
-                $(that.selector).attr("class","PykCharts-twoD");
-                that.svgContainer = d3.select(options.selector + " #tooltip-svg-container-" + i)
+    		svgContainer: function (i,container_id) {
+                document.getElementById(id).className = "PykCharts-twoD";
+                that.svgContainer = d3.select(that.selector + " #tooltip-svg-container-" + i)
                     .append("svg:svg")
-                    .attr("width",that.width)
-                    .attr("height",that.height)
-                    .attr("id",that.container_id)
+                    .attr("width",that.chart_width)
+                    .attr("height",that.chart_height)
+                    .attr("id",container_id)
                     .attr("class","svgcontainer")
                     .attr("preserveAspectRatio", "xMinYMin")
-                    .attr("viewBox", "0 0 " + that.width + " " + that.height);
+                    .attr("viewBox", "0 0 " + that.chart_width + " " + that.chart_height);
 
                 return this;
             },
             createGroups: function () {
             	that.group = that.svgContainer.append("g")
                     .attr("id","chartsvg")
-                    .attr("transform","translate("+ that.margin_left +","+ that.margin_top +")");
+                    .attr("transform","translate("+ that.chart_margin_left +","+ that.chart_margin_top +")");
 
                 return this;
             },
@@ -278,7 +281,9 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
                		.duration(that.transitions.duration())
                		.delay(function(d) { count_rect++; return (count_rect / that.data_length) * that.transitions.duration(); })
                		.attr("x", function(d) { return (that.xScale((d.group == "negative") ? d.end : d.start)) + that.longest_tick_width + 15; })
-		       		.attr("width", function(d) { return Math.abs(that.xScale(d.x)); });
+		       		.attr("width", function(d) {
+                            return Math.abs(that.xScale(d.x)); 
+                        });
 
                 rect.exit()
                 	.remove();
@@ -341,10 +346,16 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
     	that.data_length = that.data.length;
     	that.rect_data = [];
 
-    	_.each(that.data, function (d) {
-    		temp_cumulative += d.x;
-    		if (temp_cumulative < cumulative) { cumulative = temp_cumulative; }
-    	});
+    	for(var i = 0; i<that.data_length;i++) {
+            temp_cumulative += that.data[i].x;
+            if (temp_cumulative < cumulative) {
+                cumulative = temp_cumulative; 
+            }
+        }
+     //    _.each(that.data, function (d) {
+    	// 	temp_cumulative += d.x;
+    	// 	if (temp_cumulative < cumulative) { cumulative = temp_cumulative; }
+    	// });
 
     	if (cumulative<0) { cumulative = Math.abs(cumulative); }
     	else { cumulative = 0; }
