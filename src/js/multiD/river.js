@@ -4,9 +4,11 @@ PykCharts.multiD.river = function (options){
 
     this.execute = function (){
         that = new PykCharts.validation.processInputs(that, options, 'multiDimensionalCharts');
+                console.log("hlloooe")
         var multiDimensionalCharts = theme.multiDimensionalCharts,
             stylesheet = theme.stylesheet,
             optional = options.optional;
+
         that.data_mode_enable = options.data_mode_enable ? options.data_mode_enable.toLowerCase() : multiDimensionalCharts.data_mode_enable;
         if(PykCharts.boolean(that.data_mode_enable) && that.mode === "default") {
             that.chart_mode = options.data_mode_default ? options.data_mode_default.toLowerCase() : multiDimensionalCharts.data_mode_default;
@@ -53,6 +55,7 @@ PykCharts.multiD.river = function (options){
         that.filterList = [];
         that.fullList = [];
         that.extended = that.chart_mode === "absolute" ? false : true;
+
 
         that.executeData = function (data) {
             var validate = that.k.validator().validatingJSON(data),
@@ -274,7 +277,7 @@ PykCharts.multiD.river = function (options){
                 return this;
             },
             preProcessing: function () {
-                that.new_data1 = jQuery.extend(true, [], that.new_data);
+                that.new_data1 =  JSON.parse( JSON.stringify(that.new_data) );
                 that.highlightdata = [],highlight_index = -1;
                 that.new_data1 = that.filter(that.new_data1);
                 that.new_data1 = that.parseData(that.new_data1);
@@ -871,14 +874,14 @@ PykCharts.multiD.river = function (options){
     };
     that.filter = function(d){
         if(that.filterList.length < 1){
-            that.filterList = jQuery.extend(true, [], that.fullList);
+            that.filterList = JSON.parse( JSON.stringify(that.fullList) )
         }
 
         for(var i in d){
             var media = d[i].breakup;
             var newMedia = [];
             for(var j in media){
-                if (jQuery.inArray(media[j].name, that.filterList) >= 0) newMedia.push(media[j]);
+                if (inArray(media[j].name, that.filterList) >= 0) newMedia.push(media[j]);
             }
             d[i].breakup = newMedia;
         }
@@ -922,4 +925,8 @@ PykCharts.multiD.river = function (options){
         for(var i in d) d[i].breakupTotal = this.totalInBreakup(d[i].breakup); // Calculate all breakup totals and add to the hash
         return d;
     };
+
+    function inArray( elem, arr, i ) {
+        return arr == null ? -1 : arr.indexOf.call( arr, elem, i );
+    }
 };
