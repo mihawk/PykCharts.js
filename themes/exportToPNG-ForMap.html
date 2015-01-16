@@ -65,7 +65,9 @@
                         var chart_slug = query_string[0].replace("?slug=","");
                         data[i].config.data = query_string[1].replace("data=","");
                         data[i].config.map_code = query_string[2].replace("map_code=","");
-                        var chart_obj = _.where(slugs, {slug:chart_slug})[0];
+                        var chart_obj = slugs.filter(function (d) {
+													return d.slug === chart_slug;
+												})[0];
                         var k = new chart_obj.initializer(data[i].config);
                         k.execute();
                     }
