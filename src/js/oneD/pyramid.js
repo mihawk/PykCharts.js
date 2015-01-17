@@ -4,7 +4,6 @@ PykCharts.oneD.pyramid = function (options) {
 
 	this.execute = function () {
         that = new PykCharts.validation.processInputs(that, options,'oneDimensionalCharts');
-        console.log(that.clubdata_enable,"clubdata_enable");
         that.chart_height = options.chart_height ? options.chart_height : that.chart_width;
         that.k.validator()
             .validatingDataType(that.chart_height,"chart_height",that.chart_width);

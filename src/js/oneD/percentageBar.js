@@ -170,8 +170,6 @@ PykCharts.oneD.percentageBar = function (options) {
                         return that.percent_row_rect_height;
                     },
                     "fill": function (d) {
-                        console.log(d);
-                        console.log(that.highlight,"hi")
                         return that.fillChart.selectColor(d);
                     },
                     "fill-opacity": 1,
