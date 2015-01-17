@@ -57,6 +57,7 @@
 										{slug: "river",initializer: PykCharts.multiD.river,data: "../data/river.json"},
                     {slug: "pictograph",initializer: PykCharts.other.pictograph,data: "../data/pictograph.json"},
                     {slug: "venn",initializer: PykCharts.other.venn,data: ["../data/venn_sets_three_data.json","../data/venn_overlap_three_data.json"]},
+									{slug: "waterfall",initializer: PykCharts.multiD.waterfall,data: "../data/waterfall.json"},
                     {slug: "oneLayer",initializer: PykCharts.maps.oneLayer,data: "../data/_data.json"},
                     {slug: "timelineMap",initializer: PykCharts.maps.timelineMap,data: "../data/_data_timeline.json"}
                 ];
@@ -64,10 +65,12 @@
                     for (var i = 0; i<data.length; i++) {
                         var query_string = window.location.search.split("&");
                         var chart_slug = query_string[0].replace("?slug=","");
-                        
-                        var chart_obj = _.where(slugs, {slug:chart_slug})[0];
-                        data[i].config.data = chart_obj.data;
+
+                        var chart_obj = slugs.filter(function (d) {
+													return d.slug === chart_slug;
+												})[0];
                         console.log(chart_obj,data[i].config);
+                        data[i].config.data = chart_obj.data;
                         var k = new chart_obj.initializer(data[i].config);
                         k.execute();
                     }
