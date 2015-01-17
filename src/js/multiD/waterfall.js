@@ -76,7 +76,12 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
                 that.k.lastUpdatedAt("liveData");
             }
 
-            that.dataTransformation();
+            that.groupData();
+
+            for(var i = 0;i<that.new_data_length;i++) {
+                // console.log(that.new_data);
+                that.new_data[i].data = that.dataTransformation(that.new_data[i]);            
+            }
 
             that.optionalFeatures()
                 .createScales()
@@ -88,17 +93,19 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
 
         that.k.dataSourceFormatIdentification(options.data,that,"executeRefresh");
     };
-    
+                
     that.render = function() {
     	var that = this;
         var id = that.selector.substring(1,that.selector.length);
         that.container_id = id + "_svg";
+        that.groupData();
 
-        that.dataTransformation();
-        
+        for(var i = 0;i<that.new_data_length;i++) {
+            that.new_data[i].data = that.dataTransformation(that.new_data[i]);            
+        }
+
         that.transitions = new PykCharts.Configuration.transition(that);
         that.mouseEvent1 = new PykCharts.Configuration.mouseEvent(that);
-        that.fillColor = new PykCharts.Configuration.fillChart(that,null,options);
         that.border = new PykCharts.Configuration.border(that);
 
         that.reducedWidth = that.chart_width - that.chart_margin_left - that.chart_margin_right;
@@ -185,19 +192,39 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
                 return this;
             },
             createScales: function () {
+                var y_values = [];
+
+                for(var i = 0;i<that.new_data_length;i++) {
+                    var data = that.new_data[i].data;
+                    var len = data.length;
+                    for(var k = 0;k<len;k++) {
+                        y_values.push(data[k].y);
+                    }
+                }
+
+                y_values.reverse();
             	that.yScale = d3.scale.ordinal()
-		        	.domain(that.data.map(function(d) { return d.y; }))
+		        	.domain(y_values)
 		        	.rangeRoundBands([that.reducedHeight, 0]);
+
 		        that.yDomain = that.yScale.domain();
 		        that.data_length = that.data.length;
 
-		        var padding_temp = that.reducedHeight - (that.data_length * that.yScale.rangeBand());
+		        var padding_temp = that.reducedHeight - ((that.data_length+that.uniq_group_arr.length) * that.yScale.rangeBand());
 		        that.padding = (padding_temp / (that.data_length - 1)) * 0.3;
-
 		        that.yScale.rangeRoundBands([that.reducedHeight, 0], that.padding);
 
-		        that.bars = that.group.selectAll(".bar")
-		        		.data(that.rect_data);
+                that.bar_groups = that.group.selectAll(".bar_groups")
+                    .data(that.new_data);
+
+                that.bar_groups.enter()
+                    .append("g")
+                    .attr("class","bar_groups")
+
+		        that.bars = that.bar_groups.selectAll(".bar")
+		        		.data(function(d){
+                            return d.data;
+                        });
 
 		        that.bars.attr("transform", function(d) { return "translate(5, " + that.yScale(d.y) + ")"; });
 
@@ -221,7 +248,7 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
             	that.y_tick_values = that.k.processYAxisTickValues();
 
             	that.xScale = d3.scale.linear()
-		        	.domain([0, d3.max(that.data, function(d) { return d.end; })])
+		        	.domain([0, d3.max(that.new_data[0].data, function(d) { return d.end; })])
 		        	.range([0, (that.reducedWidth - that.longest_tick_width - 15)]);
 
 		    	var rect = that.bars.selectAll(".rect")
@@ -235,21 +262,14 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
                     .attr("stroke-width",that.border.width())
                     .attr("stroke-dasharray", that.border.style())
                     .attr("stroke-opacity",1);
+
                 var count_rect = 0;
-		        
+
 		        rect.attr("x", function(d) { return that.xScale(d.start) + that.longest_tick_width + 15; })
 		       		.attr("height", that.yScale.rangeBand())
 		       		.attr("width", 0)
 		       		.attr("fill", function(d,i) {
-		       			if (d.y.toLowerCase() == "total") {
-		       				return that.chart_color[2];
-		       			}
-		       			else if (d.group == "negative") {
-		       				return that.chart_color[0];
-		       			}
-		       			else if (d.group == "positive") {
-		       				return that.chart_color[1];
-		       			}
+                        return d.color;
 		       		})
                     .attr("fill-opacity",1)
 		       		.on('mouseover',function (d) {
@@ -290,6 +310,9 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
 
                 that.bars.exit()
                 	.remove();
+
+                that.bar_groups.exit()
+                    .remove();
 
 		       	return this;
             },
@@ -335,55 +358,93 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
     	};
     	return optional;
     };
+    that.groupData = function() {
+        // console.log(that.data)
+        that.group_arr = [], that.new_data = [];
+        that.ticks = [], that.x_arr = [];
 
-    that.dataTransformation = function () {
+        for(j = 0;j < that.data.length;j++) {
+
+            that.group_arr[j] = that.data[j].group;
+        }
+        that.uniq_group_arr = that.k.__proto__._unique(that.group_arr);
+        var uniq_group_arr_length = that.uniq_group_arr.length;
+
+        for(var k = 0;k < that.data_length;k++) {
+            that.x_arr[k] = that.data[k].x;
+        }
+        var uniq_x_arr = that.k.__proto__._unique(that.x_arr);
+
+        that.flag = 0;
+
+        for (var k = 0;k < uniq_group_arr_length;k++) {
+            that.new_data[k] = {
+                    name: that.uniq_group_arr[k],
+                    data: []
+            };
+            for (var l = 0;l < that.data.length;l++) {
+                if (that.uniq_group_arr[k] === that.data[l].group) {
+                    that.new_data[k].data.push({
+                        x: that.data[l].x,
+                        y: that.data[l].y,
+                        tooltip: that.data[l].tooltip
+                    });
+                }
+            }
+        }
+
+        that.new_data_length = that.new_data.length;
+    }
+
+    that.dataTransformation = function (new_data) {
     	var cumulative = 0,
     		temp_cumulative = 0,
     		total_start = 0,
     		total_end = 0,
     		total_weight = 0,
-    		totol_group = 'positive';
-    	that.data_length = that.data.length;
-    	that.rect_data = [];
+    		totol_group = 'positive',
+            data = new_data.data,
+            name = 'Total';
 
-    	for(var i = 0; i<that.data_length;i++) {
-            temp_cumulative += that.data[i].x;
+    	var data_length = data.length
+    	   ,rect_data = [];
+
+    	for(var i = 0; i<data_length;i++) {
+            temp_cumulative += data[i].x;
             if (temp_cumulative < cumulative) {
                 cumulative = temp_cumulative; 
             }
         }
-     //    _.each(that.data, function (d) {
-    	// 	temp_cumulative += d.x;
-    	// 	if (temp_cumulative < cumulative) { cumulative = temp_cumulative; }
-    	// });
+
+        if(new_data.name) {
+            name = new_data.name + " " + name;
+        }
 
     	if (cumulative<0) { cumulative = Math.abs(cumulative); }
     	else { cumulative = 0; }
 
-    	for (var i=0 ; i<that.data_length ; i++) {
-    		that.data[i].start = cumulative;
-    		cumulative += that.data[i].x;
-    		that.data[i].end = cumulative;
-    		that.data[i].group = (that.data[i].x > 0) ? "positive" : "negative";
+    	for (var i=0 ; i<data_length ; i++) {
+    		data[i].start = cumulative;
+    		cumulative += data[i].x;
+    		data[i].end = cumulative;
+    		data[i].group = (data[i].x > 0) ? "positive" : "negative"
+            data[i].color = (data[i].x > 0) ? that.chart_color[1] : that.chart_color[0];
     	}
-    	total_start = that.data[0].start;
-    	total_end = that.data[that.data_length-1].end;
+
+    	total_start = data[0].start;
+    	total_end = data[data_length-1].end;
     	total_weight = total_end - total_start;
     	totol_group = (total_weight < 0) ? 'negative' : 'positive';
 
-    	that.data.push({
-    		y: 'Total',
+    	data.push({
+    		y: name,
     		x: total_weight,
 		    end: total_end,
 		    start: total_start,
-		    group: totol_group
+		    group: totol_group,
+            color: that.chart_color[2]
     	});
-    	that.data.reverse();
-    	that.data_length = that.data.length;
 
-    	for (var i=0 ; i<that.data_length ; i++) {
-    		that.rect_data[i] = that.data[i];
-    	}
-    	that.rect_data.reverse();
+        return data;
     };
 };

@@ -4,7 +4,6 @@ PykCharts.multiD.river = function (options){
 
     this.execute = function (){
         that = new PykCharts.validation.processInputs(that, options, 'multiDimensionalCharts');
-                console.log("hlloooe")
         var multiDimensionalCharts = theme.multiDimensionalCharts,
             stylesheet = theme.stylesheet,
             optional = options.optional;
@@ -143,9 +142,9 @@ PykCharts.multiD.river = function (options){
         that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
         var resize = that.k.resize(that.svgContainer);
         that.k.__proto__._ready(resize);
-        window.onresize = function () {
+        window.addEventListener('resize', function(event){
             return that.k.resize(that.svgContainer);
-        };
+        });
     };
     that.dataTransformation = function () {
         that.group_arr = [], that.new_data = [],that.uniq_alias_arr = [],that.uniq_duration_arr = [];
@@ -223,7 +222,7 @@ PykCharts.multiD.river = function (options){
 
                 that.svgContainer = d3.select(options.selector).append("svg:svg")
                     .attr({
-                        "id": container_id+"-"+i,
+                        "id": container_id,
                         "width": that.chart_width,
                         "height": that.chart_height,
                         "class": "svgcontainer PykCharts-river",

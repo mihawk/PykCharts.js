@@ -610,6 +610,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                 return this;
             },
             createChart : function (evt,index) {
+                console.log(that.new_data,"data");
                 that.previous_length = that.new_data.length;
 
                 that.x_tick_values = that.k.processXAxisTickValues();
