@@ -15076,7 +15076,7 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
         }
 
         if(new_data.name) {
-            name = new_data.name + " " + name;
+            name =  name + " " + new_data.name;
         }
         
     	if (cumulative<0) { cumulative = Math.abs(cumulative); }
@@ -15117,13 +15117,12 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
                 that.new_data[i].data = that.dataTransformation(that.new_data[i]);            
             } else {
                 var previous_data_length = that.new_data[i-1].data.length
-                name = that.new_data[i].name + " " + 'Total';
+                name =  'Total' + " " + that.new_data[i].name;
                 that.new_data[i].data = that.rivergroup(that.new_data[0].data[0].start,that.new_data[i].data,name,that.new_data[i-1].data[previous_data_length-1].end);           
             }
         }
     }
     that.xaxis = function () {
-        console.log(PykCharts['boolean'](that.axis_x_enable))
         var xScale_domain = that.xScale.domain();
         var start_point = that.xScale(xScale_domain[0]) + that.longest_tick_width + 15;
         var end_point = that.xScale(xScale_domain[1]) + that.longest_tick_width + 15;

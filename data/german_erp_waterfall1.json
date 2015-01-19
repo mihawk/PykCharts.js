@@ -2,13 +2,11 @@
     {
         "y": "Umsatz",
         "x": 385470,
-        "tooltip": "This actually didn't take any conceptualization",
         "group": 2000
     },
     {
         "y": "Rabatt",
         "x": 225480,
-        "tooltip": "No sketching either, really",
         "group": 2000
     },
     {
@@ -19,7 +17,6 @@
     {
         "y": "Lohnkosten",
         "x": 205440,
-        "tooltip": "all three lines of it",
         "group": 2001
     },
     {
@@ -30,7 +27,6 @@
     {
         "y": "Deckungsberitrag",
         "x": 225110,
-        "tooltip": "This counts, right?",
         "group": 2001
     },
     {
@@ -41,7 +37,6 @@
     {
         "y": "Kauf",
         "x": -225110,
-        "tooltip": "All the things",
         "group": 2002
     },
     {

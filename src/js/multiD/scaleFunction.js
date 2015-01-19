@@ -79,9 +79,8 @@ PykCharts.scaleFunction = function (options) {
     options.k.ordinalYAxisTickFormat = function (domain) {
         var a = d3.selectAll(options.selector + " g.y.axis .tick text")[0];
         var len = a.length,comp;
-
         for(i=0; i<len; i++) {
-            comp = a[i].__data__;
+            comp = a[i].textContent;
             if(a[i].getBBox().width > (options.chart_margin_left * 0.9)) {
                 comp = comp.substr(0,3) + "..";
             }
@@ -145,7 +144,7 @@ PykCharts.scaleFunction = function (options) {
 
         return this;
     }
-    options.k.yAxis = function (svg, gsvg, yScale,domain,tick_values,legendsGroup_width, type) {
+    options.k.yAxis = function (svg, gsvg, yScale,domain,tick_values,legendsGroup_width, type,  tick_format_function) {
         if(PykCharts['boolean'](options.axis_y_enable)){
             if(!legendsGroup_width) {
                 legendsGroup_width = 0;
@@ -158,7 +157,7 @@ PykCharts.scaleFunction = function (options) {
                 gsvg.attr("transform", "translate(" + (w - options.chart_margin_left - options.chart_margin_right - legendsGroup_width) + ",0)");
             }
             d3.selectAll(options.selector + " .y.axis").attr("fill",function () { return options.axis_y_pointer_color; });
-            var yaxis = PykCharts.Configuration.makeYAxis(options,yScale,legendsGroup_width);
+            var yaxis = PykCharts.Configuration.makeYAxis(options,yScale,tick_format_function);
 
             if(tick_values && tick_values.length) {
                 yaxis.tickValues(tick_values);
@@ -166,7 +165,8 @@ PykCharts.scaleFunction = function (options) {
 
             var mouseEvent = new PykCharts.Configuration.mouseEvent(options);
             gsvg.style("stroke",function () { return options.axis_y_line_color; })
-                .call(yaxis)
+                .call(yaxis);
+
             if((options.axis_y_data_format === "string") && options.panels_enable === "no") {
                 options.k.ordinalYAxisTickFormat(domain);
             }
@@ -181,7 +181,6 @@ PykCharts.scaleFunction = function (options) {
             if(type && options.axis_y_data_format !== "string") {
                 d3.selectAll(options.selector + " .y.axis .domain").remove();
             }
-
         }
         return this;
     }
@@ -395,10 +394,9 @@ configuration.makeXAxis = function(options,xScale) {
     return xaxis;
 };
 
-configuration.makeYAxis = function(options,yScale) {
+configuration.makeYAxis = function(options,yScale,tick_format_function) {
     var that = this;
     var k = PykCharts.Configuration(options);
-
     var yaxis = d3.svg.axis()
                     .scale(yScale)
                     .orient(options.axis_y_pointer_position)
@@ -406,7 +404,11 @@ configuration.makeYAxis = function(options,yScale) {
                     .outerTickSize(options.axis_y_outer_pointer_length)
                     .tickPadding(options.axis_y_pointer_padding)
                     .tickFormat(function (d,i) {
-                        return d;
+                        if(tick_format_function) {
+                            return tick_format_function(d);
+                        } else {
+                            return d;                            
+                        }
                     });
 
     d3.selectAll(options.selector + " .y.axis .tick text")

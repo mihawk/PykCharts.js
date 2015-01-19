@@ -1,37 +1,47 @@
 [
     {
-    	"y": "Job",
-    	"x": 470,
-    	"tooltip": 470
+        "y": "Product Revenue",
+        "x": 300000,
+        "group": "FY2013"
     },
     {
-    	"y": "Groceries",
-    	"x": -330,
-    	"tooltip": -330
+        "y": "Other Income",
+        "x": 100000,
+        "group": "FY2013"
     },
     {
-    	"y": "Allowance",
-    	"x": 200,
-    	"tooltip": 200
+        "y": "Fixed Costs",
+        "x": -80000,
+        "group": "FY2013"
     },
     {
-    	"y": "Travel",
-    	"x": 530,
-    	"tooltip": 530
+        "y": "Variable Costs",
+        "x": -120000,
+        "group": "FY2013"
     },
     {
-    	"y": "Videos",
-    	"x": -190,
-    	"tooltip": -190
+        "y": "Product Revenue",
+        "x": 350000,
+        "group": "FY2014"
     },
     {
-    	"y": "Coffee",
-    	"x": -400,
-    	"tooltip": -400
+        "y": "Other Revenue",
+        "x": 225110,
+        "group": "FY2014"
     },
     {
-    	"y": "Food",
-    	"x": 750,
-    	"tooltip": 750
+        "y": "Fixed Costs",
+        "x": -100000,
+        "group": "FY2014"
+    },
+    {
+        "y": "Variable Costs",
+        "x": -60000,
+        "group": "FY2014"
+    },
+    {
+        "y": "Einkommen",
+        "x": 325480,
+        "group": "FY2014"
     }
 ]
