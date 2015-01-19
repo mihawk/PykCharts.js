@@ -1,10 +1,9 @@
 y,x,group
-3,300000,FY2013
-1,100000,FY2013
-2,-80000,FY2013
-4,-120000,FY2013
-1,350000,FY2014
-5,225110,FY2014
-3,-100000,FY2014
-4,-60000,FY2014
-2,325480,FY2014
+Product A Sales,300000,Income
+Product B Sales,200000,Income
+Other Sales,100000,Income
+Fixed Costs,-100000,Profit
+Variable Costs,-800000,Profit
+Product B Sales,200000,x
+Other Sales,100000,x
+

@@ -699,24 +699,43 @@ PykCharts.Configuration = function (options){
             _where: function (list, key_value_pairs_to_be_searched) {
                 var list_length = list.length,
                     data_result = [];
-                for (var z=0 ; z<list_length ; z++) {
-                    var flag = 0,
-                        no_of_keys = 0;
-                    for (var key in key_value_pairs_to_be_searched) {
-                        if (list[z].hasOwnProperty(key) && list[z][key] === key_value_pairs_to_be_searched[key]) {
-                            flag += 1;
+                if(typeof list === "object") {
+                    for (var z in list) {
+                        var flag = 0,
+                            no_of_keys = 0;
+                        for (var key in key_value_pairs_to_be_searched) {
+                            if (list[z].hasOwnProperty(key) && list[z][key] === key_value_pairs_to_be_searched[key]) {
+                                flag += 1;
+                            }
+                            else {
+                                flag = 0;
+                            }
+                            no_of_keys += 1;
                         }
-                        else {
-                            flag = 0;
+                        if (flag === no_of_keys) {
+                            data_result.push(list[z]);
                         }
-                        no_of_keys += 1;
                     }
-                    if (flag === no_of_keys) {
-                        data_result.push(list[z]);
+                } else {
+                    for (var z=0 ; z<list_length ; z++) {
+                        var flag = 0,
+                            no_of_keys = 0;
+                        for (var key in key_value_pairs_to_be_searched) {
+                            if (list[z].hasOwnProperty(key) && list[z][key] === key_value_pairs_to_be_searched[key]) {
+                                flag += 1;
+                            }
+                            else {
+                                flag = 0;
+                            }
+                            no_of_keys += 1;
+                        }
+                        if (flag === no_of_keys) {
+                            data_result.push(list[z]);
+                        }
                     }
                 }
                 return data_result;
-            },
+            },            
             _isEqual : function(a, b) {
                 var eq = function(a, b, aStack, bStack) {
                     if (a === b) return a !== 0 || 1 / a === 1 / b;

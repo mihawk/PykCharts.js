@@ -214,6 +214,7 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
 		        	.domain(that.y_values)
 		        	.rangeRoundBands([that.reducedHeight, 0],0.1);
 
+                console.log(that.yScale.rangeBand(),"rangeBand")
 		        that.yDomain = domain;
 		        that.data_length = that.data.length;
       
@@ -398,13 +399,11 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
     	var data_length = data.length
     	   ,rect_data = [];
 
-    	for(var i = 0; i<data_length;i++) {
-
-            temp_cumulative += data[i].x;
+    	for(var i = 0; i<that.data.length;i++) {
+            temp_cumulative += that.data[i].x;
             if (temp_cumulative < cumulative) {
                 cumulative = temp_cumulative; 
             }
-
         }
 
         if(new_data.name) {
@@ -460,15 +459,16 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
     that.xaxis = function () {
         var xScale_domain = that.xScale.domain();
         var start_point = that.xScale(xScale_domain[0]) + that.longest_tick_width + 15;
-        var end_point = that.xScale(xScale_domain[1]) + that.longest_tick_width + 15;
+        var end_point = that.xScale(xScale_domain[1]) + that.longest_tick_width + 15,
+            extrapadding = that.yScale.rangeBand()/that.river_data.length;
         var middle_point = that.xScale(that.new_data[0].data[0].start) + that.longest_tick_width + 15;
         if(PykCharts['boolean'](that.axis_x_enable)) {
-            drawline(start_point,end_point,that.reducedHeight,that.reducedHeight);
-            drawline(start_point+1,start_point+1,that.reducedHeight,that.reducedHeight+that.axis_x_outer_pointer_length)
-            drawline(end_point+1,end_point+1,that.reducedHeight,that.reducedHeight+that.axis_x_pointer_length)
-            drawline(middle_point+1,middle_point+1,that.reducedHeight,that.reducedHeight+that.axis_x_pointer_length);
+            drawline(start_point+extrapadding,end_point+extrapadding+1,that.reducedHeight,that.reducedHeight);
+            drawline(start_point+1+extrapadding,start_point+1+extrapadding,that.reducedHeight,that.reducedHeight+that.axis_x_outer_pointer_length)
+            drawline(end_point+1+extrapadding,end_point+1+extrapadding,that.reducedHeight,that.reducedHeight+that.axis_x_pointer_length)
+            drawline(middle_point+1+extrapadding,middle_point+1+extrapadding,that.reducedHeight,that.reducedHeight+that.axis_x_pointer_length);
             that.group.append("text")
-                .attr("x",middle_point)
+                .attr("x",middle_point+extrapadding)
                 .attr("y",that.reducedHeight+that.axis_x_pointer_length)
                 .attr("dy",12)
                 .attr("text-anchor","middle")
