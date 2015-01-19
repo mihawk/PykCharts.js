@@ -14902,7 +14902,6 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
 		        	.domain(that.y_values)
 		        	.rangeRoundBands([that.reducedHeight, 0],0.1);
 
-                console.log(that.yScale.rangeBand(),"rangeBand")
 		        that.yDomain = domain;
 		        that.data_length = that.data.length;
       
@@ -15148,7 +15147,7 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
         var xScale_domain = that.xScale.domain();
         var start_point = that.xScale(xScale_domain[0]) + that.longest_tick_width + 15;
         var end_point = that.xScale(xScale_domain[1]) + that.longest_tick_width + 15,
-            extrapadding = that.yScale.rangeBand()/that.river_data.length;
+            extrapadding = 5;
         var middle_point = that.xScale(that.new_data[0].data[0].start) + that.longest_tick_width + 15;
         if(PykCharts['boolean'](that.axis_x_enable)) {
             drawline(start_point+extrapadding,end_point+extrapadding+1,that.reducedHeight,that.reducedHeight);

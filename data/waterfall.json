@@ -1,47 +1,27 @@
 [
     {
-        "y": "Product Revenue",
-        "x": 300000,
-        "group": "FY2013"
+        "y": "Product A Sales",
+        "x": "300000",
+        "group": "Income"
     },
     {
-        "y": "Other Income",
-        "x": 100000,
-        "group": "FY2013"
+        "y": "Product B Sales",
+        "x": "200000",
+        "group": "Income"
     },
     {
-        "y": "Fixed Costs",
-        "x": -80000,
-        "group": "FY2013"
-    },
-    {
-        "y": "Variable Costs",
-        "x": -120000,
-        "group": "FY2013"
-    },
-    {
-        "y": "Product Revenue",
-        "x": 350000,
-        "group": "FY2014"
-    },
-    {
-        "y": "Other Revenue",
-        "x": 225110,
-        "group": "FY2014"
+        "y": "Other Sales",
+        "x": "100000",
+        "group": "Income"
     },
     {
         "y": "Fixed Costs",
-        "x": -100000,
-        "group": "FY2014"
+        "x": "-100000",
+        "group": "Profit"
     },
     {
         "y": "Variable Costs",
-        "x": -60000,
-        "group": "FY2014"
-    },
-    {
-        "y": "Einkommen",
-        "x": 325480,
-        "group": "FY2014"
+        "x": "-800000",
+        "group": "Profit"
     }
 ]
