@@ -39,6 +39,7 @@ PykCharts.multiD.column = function (options) {
     this.transformData = function () {
         that.data.forEach(function(d){
             d.name = d.x;
+            d.color = that.chart_color[0];
         })
     }
 
@@ -59,8 +60,8 @@ PykCharts.multiD.column = function (options) {
             });
         }
 
-        that.map_group_data = that.multiD.mapGroup(that.data);
-
+      //  that.map_group_data = that.multiD.mapGroup(that.data);
+        console.log(that.data,"data")
         if(that.mode === "default") {
 
             that.k.title()
@@ -147,10 +148,11 @@ PykCharts.multiD.column = function (options) {
             if(that.axis_x_data_format === "time") {
                 that.data.forEach(function (d) {
                     d.x =that.k.dateConversion(d.x);
+                    d.color = that.chart_color[0];
                 });
             }
 
-        that.map_group_data = that.multiD.mapGroup(that.data);
+    //    that.map_group_data = that.multiD.mapGroup(that.data);
 
             if(data_changed) {
                 that.k.lastUpdatedAt("liveData");

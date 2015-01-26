@@ -63,7 +63,7 @@
 
       var k = new PykCharts.multiD.waterfall({
         selector: "#waterfall-chart",
-        data: "../data/waterfall.csv",
+        data: "../data/waterfall.json",
         mode: "default",
         chart_height: 400,
         chart_width: 550,
@@ -780,11 +780,11 @@
       //     console.log("Performance",a,avg/100);
 
       var k = new PykCharts.multiD.column({
-        data: "../data/column.csv",
+        data: "../data/columncopy.csv",
         mode: "default",
         selector: "#column",
         color_mode: "color",
-        chart_color:["steelblue"],
+        chart_color:["pink","steelblue","red"],
         background_color:"white",
         chart_height: 430,
         chart_width : 700,
@@ -835,7 +835,8 @@
         border_between_chart_elements_color: "white",
         border_between_chart_elements_style: "solid",
         chart_onhover_highlight_enable: "yes",
-        tooltip_enable: 'yes'
+        tooltip_enable: 'yes',
+        "highlight": "Pre-revenue"
       });
       // var date = new Date();
       //     var i,avg =0;
@@ -992,7 +993,7 @@
         "data_sort_enable": "yes",
         "data_sort_type": "alphabetically", // sort type --- "alphabetically" / "date"
         "data_sort_order": "descending", // sort order --- "descending" / "ascending",
-        highlight:"2012",
+        highlight:"2008",
         tooltip_enable: "yes",
         // legends_text_family: "Papyrus",
         // legends_text_weight: "bold",
