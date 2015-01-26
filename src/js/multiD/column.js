@@ -61,7 +61,7 @@ PykCharts.multiD.column = function (options) {
         }
 
       //  that.map_group_data = that.multiD.mapGroup(that.data);
-        console.log(that.data,"data")
+      //  console.log(that.data,"data")
         if(that.mode === "default") {
 
             that.k.title()
