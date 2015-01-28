@@ -734,7 +734,12 @@ PykCharts.validation.processInputs = function (chartObject, options, chart_type)
     }
 
     chartObject.clubdata_always_include_data_points = PykCharts['boolean'](chartObject.clubdata_enable) && options.clubdata_always_include_data_points ? options.clubdata_always_include_data_points : [];
-    validator.isArray(chartObject.clubdata_always_include_data_points,"clubdata_always_include_data_points")
+    validator.isArray(chartObject.clubdata_always_include_data_points,"clubdata_always_include_data_points");
+    if (chartObject.clubdata_always_include_data_points.length >= chartObject.clubdata_maximum_nodes) {
+        chartObject.clubdata_maximum_nodes = chartObject.clubdata_always_include_data_points.length + 1;
+        console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+chartObject.selector+".(\""+"The number of values in 'clubdata_always_include_data_points' and the 'clubdata_maximum_nodes' cannot be equal. 'clubdata_maximum_nodes' will always be greater than the number of values in 'clubdata_always_include_data_points'."+"\")  Visit www.chartstore.io/docs#warning_"+"20");
+    }
+
     switch(chartObject.border_between_chart_elements_style) {
         case "dotted" : chartObject.border_between_chart_elements_style = "1,3";
                         break;
