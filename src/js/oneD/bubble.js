@@ -27,7 +27,12 @@ PykCharts.oneD.bubble = function (options) {
             that.clubdata_enable = that.data.length>that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
             that.render();
         };
-        that.k.dataSourceFormatIdentification(options.data,that,"executeData");
+        if (PykCharts.boolean(options.interactive_enable)) {
+            that.k.dataFromPykQuery(pykquery_data);
+            that.k.dataSourceFormatIdentification(that.data,that,"executeData");
+        } else {
+            that.k.dataSourceFormatIdentification(options.data,that,"executeData");
+        }   
     };
 
     this.refresh = function () {
@@ -46,7 +51,12 @@ PykCharts.oneD.bubble = function (options) {
                 .createChart()
                 .label();
         };
-        that.k.dataSourceFormatIdentification(options.data,that,"executeRefresh");
+        if (PykCharts.boolean(options.interactive_enable)) {
+            that.k.dataFromPykQuery(pykquery_data);
+            that.k.dataSourceFormatIdentification(that.data,that,"executeRefresh");
+        } else {
+            that.k.dataSourceFormatIdentification(options.data,that,"executeRefresh");
+        }   
     };
 
     this.render = function () {
@@ -154,6 +164,9 @@ PykCharts.oneD.bubble = function (options) {
                         "fill-opacity": 1,
                         "data-fill-opacity": function () {
                             return d3.select(this).attr("fill-opacity");
+                        },
+                        "data-id":function (d,i) {
+                            return d.name;
                         }
                     })
                     .on({
@@ -179,6 +192,11 @@ PykCharts.oneD.bubble = function (options) {
                             if(!d.children && that.mode==="default") {
                                 that.mouseEvent.tooltipPosition(d);
                             }
+                        },
+                        'click': function (d,i) {
+                            if(PykCharts.boolean(options.click_enable)){
+                               that.addEvents(d.name, $(this).attr("data-id")); 
+                            }                     
                         }
                     })
                     .transition()

@@ -300,6 +300,11 @@ PykCharts.Configuration = function (options){
             }
             document.getElementById(id).style.height = "auto";
         },
+        dataFromPykQuery : function (data) {
+            if (PykCharts.boolean(options.interactive_enable)) {
+                options.data = data;
+            }
+        },
         totalColors: function (tc) {
             var n = parseInt(tc, 10)
             if (n > 2 && n < 10) {
@@ -1559,7 +1564,9 @@ configuration.Theme = function(){
     that.stylesheet = {
         "mode": "default",
         "selector": "",
-        "is_interactive": "yes",
+        "interactive_enable": "no",
+        "click_enable": "no",
+
         "chart_height": 400,
         "chart_width": 600,
         "chart_margin_top": 35,

@@ -300,6 +300,11 @@ PykCharts.Configuration = function (options){
             }
             document.getElementById(id).style.height = "auto";
         },
+        dataFromPykQuery : function (data) {
+            if (PykCharts.boolean(options.interactive_enable)) {
+                options.data = data;
+            }
+        },
         totalColors: function (tc) {
             var n = parseInt(tc, 10)
             if (n > 2 && n < 10) {
@@ -1559,7 +1564,9 @@ configuration.Theme = function(){
     that.stylesheet = {
         "mode": "default",
         "selector": "",
-        "is_interactive": "yes",
+        "interactive_enable": "no",
+        "click_enable": "no",
+
         "chart_height": 400,
         "chart_width": 600,
         "chart_margin_top": 35,
@@ -2342,7 +2349,18 @@ PykCharts.validation.processInputs = function (chartObject, options, chart_type)
             }
         }
     }
+
     var enable_config_param = [
+        {
+            'config_name':'interactive_enable',
+            'default_value': stylesheet,
+            'all_charts':true
+        },
+        {
+            'config_name':'click_enable',
+            'default_value': stylesheet,
+            'all_charts':true
+        },
         {   
             'config_name': 'tooltip_enable',
             'default_value': stylesheet,
@@ -2593,7 +2611,12 @@ PykCharts.oneD.bubble = function (options) {
             that.clubdata_enable = that.data.length>that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
             that.render();
         };
-        that.k.dataSourceFormatIdentification(options.data,that,"executeData");
+        if (PykCharts.boolean(options.interactive_enable)) {
+            that.k.dataFromPykQuery(pykquery_data);
+            that.k.dataSourceFormatIdentification(that.data,that,"executeData");
+        } else {
+            that.k.dataSourceFormatIdentification(options.data,that,"executeData");
+        }   
     };
 
     this.refresh = function () {
@@ -2612,7 +2635,12 @@ PykCharts.oneD.bubble = function (options) {
                 .createChart()
                 .label();
         };
-        that.k.dataSourceFormatIdentification(options.data,that,"executeRefresh");
+        if (PykCharts.boolean(options.interactive_enable)) {
+            that.k.dataFromPykQuery(pykquery_data);
+            that.k.dataSourceFormatIdentification(that.data,that,"executeRefresh");
+        } else {
+            that.k.dataSourceFormatIdentification(options.data,that,"executeRefresh");
+        }   
     };
 
     this.render = function () {
@@ -2720,6 +2748,9 @@ PykCharts.oneD.bubble = function (options) {
                         "fill-opacity": 1,
                         "data-fill-opacity": function () {
                             return d3.select(this).attr("fill-opacity");
+                        },
+                        "data-id":function (d,i) {
+                            return d.name;
                         }
                     })
                     .on({
@@ -2745,6 +2776,11 @@ PykCharts.oneD.bubble = function (options) {
                             if(!d.children && that.mode==="default") {
                                 that.mouseEvent.tooltipPosition(d);
                             }
+                        },
+                        'click': function (d,i) {
+                            if(PykCharts.boolean(options.click_enable)){
+                               that.addEvents(d.name, $(this).attr("data-id")); 
+                            }                     
                         }
                     })
                     .transition()

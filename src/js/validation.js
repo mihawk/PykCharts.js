@@ -546,7 +546,18 @@ PykCharts.validation.processInputs = function (chartObject, options, chart_type)
             }
         }
     }
+
     var enable_config_param = [
+        {
+            'config_name':'interactive_enable',
+            'default_value': stylesheet,
+            'all_charts':true
+        },
+        {
+            'config_name':'click_enable',
+            'default_value': stylesheet,
+            'all_charts':true
+        },
         {   
             'config_name': 'tooltip_enable',
             'default_value': stylesheet,
