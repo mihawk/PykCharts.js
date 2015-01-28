@@ -580,14 +580,13 @@ PykCharts.Configuration = function (options){
             _sortData: function (data, column_to_be_sorted, group_column_name, options) {
                 if(!PykCharts['boolean'](options.data_sort_enable)) {
                     data.sort(function(a,b) {
-                        if (a[group_column_name] < b[group_column_name]) {
-                            return -1;
-                        }
-                        else if (a[group_column_name] > b[group_column_name]) {
+                        if (a[group_column_name] > b[group_column_name]) {
                             return 1;
                         }
+                        else if (a[group_column_name] < b[group_column_name]) {
+                            return -1;
+                        }
                     });
-
                 } else if (PykCharts['boolean'](options.data_sort_enable)) {
                     switch (options.data_sort_type) {
                         case "numerically":
@@ -1325,7 +1324,6 @@ configuration.mouseEvent = function (options) {
         axisHighlightShow: function (active_tick,axisHighlight,domain,a) {
             var curr_tick,prev_tick,axis_pointer_color,selection,axis_data_length,active_tick_length;
             if(PykCharts['boolean'](options.axis_onhover_highlight_enable)/* && options.mode === "default"*/){
-
                     if(axisHighlight === options.selector + " .y.axis" && a == undefined){
                         selection = axisHighlight+" .tick text";
                         axis_pointer_color = options.axis_y_pointer_color;
@@ -1337,7 +1335,7 @@ configuration.mouseEvent = function (options) {
                         for(var b=0;b < axis_data_length;b++) {
                             for(var a=0;a < active_tick_length;a++) {
                                 if(d3.selectAll(selection)[0][b].__data__ === active_tick[a]) {
-                                    //console.log(d3.selectAll(selection)[0][b].__data__ , active_tick[a],a,b);
+
                                     d3.select(d3.selectAll(selection)[0][b])
                                         .style("fill",axis_pointer_color)
                                         .style("font-weight","bold");
