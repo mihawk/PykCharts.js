@@ -118,8 +118,11 @@ PykCharts.multiD.groupedBar = function(options){
             id = that.selector.substring(1,that.selector.length),
             container_id = id + "_svg";
 
+        // console.log(that.data);
         that.map_group_data = that.multiD.mapGroup(that.data);
+        // console.log(that.data);
         that.dataTransformation();
+        // console.log(that.data)
         that.optionalFeatures().mapColors();
 
         that.border = new PykCharts.Configuration.border(that);
@@ -379,7 +382,8 @@ PykCharts.multiD.groupedBar = function(options){
                                 if(PykCharts.boolean(that.chart_onhover_highlight_enable)) {
                                     that.mouseEvent.highlightGroup(that.selector+" "+".groupedBar-rect", this, "rect");
                                 }
-                                that.mouseEvent.axisHighlightShow([d.name],that.selector+" "+".y.axis",that.xdomain,"bar");
+                                console.log(d.name);
+                                that.mouseEvent.axisHighlightShow(d.name,(that.selector+" "+".y.axis"),that.ydomain,"bar");
                             }
                         }
                     });
@@ -610,6 +614,8 @@ PykCharts.multiD.groupedBar = function(options){
                 return this;
             },
             sort : function() {
+                // console.log(that.data)
+                that.data_sort_enable = "yes";
                 if(that.axis_y_data_format === "string") {
                     try {
                         if(that.data_sort_type === "alphabetically") {
@@ -622,6 +628,7 @@ PykCharts.multiD.groupedBar = function(options){
                     catch(err) {
                         that.k.warningHandling(err,"8");
                     }
+                    // console.log(that.data);
                 }
                 return this;
             }

@@ -1325,23 +1325,25 @@ configuration.mouseEvent = function (options) {
         axisHighlightShow: function (active_tick,axisHighlight,domain,a) {
             var curr_tick,prev_tick,axis_pointer_color,selection,axis_data_length,active_tick_length;
             if(PykCharts['boolean'](options.axis_onhover_highlight_enable)/* && options.mode === "default"*/){
-                if(axisHighlight === options.selector + " .y.axis" && a == undefined){
-                    selection = axisHighlight+" .tick text";
-                    axis_pointer_color = options.axis_y_pointer_color;
-                    axis_data_length = d3.selectAll(selection)[0].length;
-                    active_tick_length = active_tick.length;
-                    d3.selectAll(selection)
-                        .style("fill","#bbb")
-                        .style("font-weight","normal");
-                    for(var b=0;b < axis_data_length;b++) {
-                        for(var a=0;a < active_tick_length;a++) {
-                            if(d3.selectAll(selection)[0][b].__data__ == active_tick[a]) {
-                                d3.select(d3.selectAll(selection)[0][b])
-                                    .style("fill",axis_pointer_color)
-                                    .style("font-weight","bold");
+
+                    if(axisHighlight === options.selector + " .y.axis" && a == undefined){
+                        selection = axisHighlight+" .tick text";
+                        axis_pointer_color = options.axis_y_pointer_color;
+                        axis_data_length = d3.selectAll(selection)[0].length;
+                        active_tick_length = active_tick.length;
+                        d3.selectAll(selection)
+                            .style("fill","#bbb")
+                            .style("font-weight","normal");
+                        for(var b=0;b < axis_data_length;b++) {
+                            for(var a=0;a < active_tick_length;a++) {
+                                if(d3.selectAll(selection)[0][b].__data__ === active_tick[a]) {
+                                    //console.log(d3.selectAll(selection)[0][b].__data__ , active_tick[a],a,b);
+                                    d3.select(d3.selectAll(selection)[0][b])
+                                        .style("fill",axis_pointer_color)
+                                        .style("font-weight","bold");
+                                }
                             }
                         }
-                    }
                 }
                 else {
                     if(axisHighlight === options.selector + " .x.axis") {
@@ -1356,6 +1358,9 @@ configuration.mouseEvent = function (options) {
                     } else if(axisHighlight === options.selector + " .y.axis" && a == "waterfall") {
                         selection = axisHighlight+" .tick text";
                         axis_pointer_color = options.axis_y_pointer_color;
+                    } else if(axisHighlight === options.selector + " .y.axis" && a === "bar") {
+                        selection = axisHighlight+" .tick text";
+                        axis_pointer_color = options.axis_x_pointer_color;
                     }
 
                     if(prev_tick !== undefined) {
@@ -1365,7 +1370,9 @@ configuration.mouseEvent = function (options) {
                                 "font-weight" : "normal"
                             });
                     }
+
                     axis_data_length = d3.selectAll(selection)[0].length;
+
                     var len = domain.length;
                     if(options.axis_x_data_format === "number" && a === undefined) {
                         for(var curr_tick=0;curr_tick< axis_data_length;curr_tick++) {
@@ -1374,7 +1381,8 @@ configuration.mouseEvent = function (options) {
                             }
                         }
                     } else{
-                        for(curr_tick = 0;curr_tick < len;curr_tick++){
+                        for(curr_tick = 0;curr_tick < len;curr_tick++) {
+                            
                             if(domain[curr_tick] === active_tick) {
                                 break;
                             }
