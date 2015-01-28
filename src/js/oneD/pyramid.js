@@ -115,6 +115,16 @@ PykCharts.oneD.pyramid = function (options) {
 	};
 
 	this.percentageValues = function (data){
+        // var clubdata_length = 0;
+        // if (that.clubdata_always_include_data_points.length != 0 && that.clubdata_maximum_nodes <= that.clubdata_always_include_data_points.length) {
+        //     clubdata_length = that.clubdata_always_include_data_points.length;
+        // }
+        // else {
+        //     clubdata_length = data.length;
+        // }
+        // for(var i=0;i<clubdata_length;i++) {
+        //     that.sum+=data[i].weight;
+        // }
         that.sum = d3.sum(data, function (d){
             return d.weight;
         });
@@ -490,81 +500,66 @@ PykCharts.oneD.pyramid = function (options) {
             },
             clubData: function () {
             	if (PykCharts['boolean'](that.clubdata_enable)) {
-            		that.displayData = [];
-                    that.sorted_weight = [];
-                    for(var i=0 ; i<that.data_length ; i++) {
-                        that.sorted_weight.push(that.data[i].weight);
+                    var clubdata_content = [];
+                    if(that.clubdata_always_include_data_points.length!== 0){
+                        var l = that.clubdata_always_include_data_points.length;
+                        for(i=0; i < l; i++){
+                            clubdata_content[i] = that.clubdata_always_include_data_points[i];
+                        }
                     }
-                    that.sorted_weight.sort(function(a,b){ return b-a; });
-                    that.checkDuplicate = [];
-                    var others_Slice = {"name":that.clubdata_text,"color":that.clubData_color,"tooltip":that.clubData_tooltipText,"highlight":false};
-                    var index;
-                    var i;
-                    that.getIndexByName = function(name){
-                        for(i=0;i<that.data_length;i++) {
-                            if(that.data[i].name === name)
-                                return i;
-                        }
-                    };
-
-                    var reject = function (index) {
-                        var list_length = that.sorted_weight.length,
-                            result = [];
-                        for(var i=0 ; i<list_length ; i++) {
-                            if(that.sorted_weight[i] !== that.data[index].weight) {
-                                result.push(that.sorted_weight[i]);
-                            }
-                        }
-                        return result;
-                    } ;
-
-                    if(that.clubdata_always_include_data_points.length!== 0) {
-                        for (var l=0;l<that.clubdata_always_include_data_points.length;l++)
-                        {
-                            index = that.getIndexByName(that.clubdata_always_include_data_points[l]);
-                            if(index!= undefined) {
-                                that.displayData.push(that.data[index]);
-                                that.sorted_weight = reject (index);
+                    var new_data1 = [];
+                    for(i=0;i<clubdata_content.length;i++){
+                        for(j=0;j<that.data.length;j++){
+                            if(clubdata_content[i].toUpperCase() === that.data[j].name.toUpperCase()){
+                                new_data1.push(that.data[j]);
                             }
                         }
                     }
+                    that.data.sort(function (a,b) { return b.weight - a.weight; });
+                    var k = 0;
 
-                    that.getIndexByWeight = function (weight) {
-                        for(var i=0;i<that.data_length;i++)
-                        {
-                            if(that.data[i].weight === weight) {
-                                if(that.checkDuplicate.indexOf(i) === -1) {
-                                   that.checkDuplicate.push(i);
-                                    return i;
-                                }
-                                else {
-                                    continue;
-                                }
+                    while(new_data1.length<that.clubdata_maximum_nodes-1){
+                        for(i=0;i<clubdata_content.length;i++){
+                            if(that.data[k].name.toUpperCase() === clubdata_content[i].toUpperCase()){
+                                k++;
                             }
                         }
-                    };
-
-                    var count = that.clubdata_maximum_nodes-that.displayData.length;
-
-                    if(count>0)
-                    {   that.displayData.push(others_Slice);
-                        for (i=0;i<count-1;i++) {
-                            index = that.getIndexByWeight(that.sorted_weight[i]);
-                            that.displayData.push(that.data[index]);
+                        new_data1.push(that.data[k]);
+                        k++;
+                    }
+                    var sum_others = 0;
+                    for(j=k; j < that.data.length; j++){
+                        for(i=0; i<new_data1.length && j<that.data.length; i++){
+                            if(that.data[j].name.toUpperCase() === new_data1[i].name.toUpperCase()){
+                                sum_others +=0;
+                                j++;
+                                i = -1;
+                            }
+                        }
+                        if(j < that.data.length){
+                            sum_others += that.data[j].weight;
                         }
                     }
-                    var sum_others = d3.sum(that.sorted_weight,function (d,i) {
-                            if(i>=count-1)
-                                return d;
-                        });
-                    
-                    others_Slice.weight = sum_others;
+                    var sortfunc = function (a,b) { return b.weight - a.weight; };
+
+                    while(new_data1.length > that.clubdata_maximum_nodes){
+                        new_data1.sort(sortfunc);
+                        var a=new_data1.pop();
+                    }
+                    var others_Slice = { "name":that.clubdata_text, "weight": sum_others,/* "color": that.clubdata_color,*/ "tooltip": that.clubdata_tooltip };
+                    new_data1.sort(function(a,b){
+                        return b.weight - a.weight;
+                    })
+                    if(new_data1.length < that.clubdata_maximum_nodes){
+                        new_data1.push(others_Slice);
+                    }
+                    that.new_data = new_data1;
                 }
                 else {
-                    that.displayData = that.data;
+                    that.data.sort(function (a,b) { return b.weight - a.weight; });
+                    that.new_data = that.data;
                 }
-                that.displayData.sort(function (a,b) { return a.weight-b.weight; })
-                return that.displayData;
+                return that.new_data;
             }
         }
     	return optional;

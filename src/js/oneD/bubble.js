@@ -124,7 +124,7 @@ PykCharts.oneD.bubble = function (options) {
 
                 that.sum = d3.sum(that.new_data.children, function (d) {
                     return d.weight;
-                })
+                });
                 
                 var l = that.new_data.children.length;
                 that.node = bubble.nodes(that.new_data);
