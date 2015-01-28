@@ -58,7 +58,7 @@
 
   <script>
 
-    // $(document).ready(function (e) {
+    // $(document).ready(function (e)` {
     window.PykChartsInit = function (e) {
 
       var k = new PykCharts.multiD.waterfall({
@@ -615,7 +615,7 @@
       //     for(i = 0;i<100;i++) {
       // //         // console.log(i);
       //         var start = new Date().getTime();
-      k.execute();
+     k.execute();
       //         var end = new Date().getTime();
       //             a[i] = end - start;
       //             avg += a[i]
@@ -927,7 +927,7 @@
       //     console.log("Performance",a,avg/100);
 
       var k = new PykCharts.multiD.groupedBar({
-        data: "../data/grouped-bar.csv",
+        data: "../data/groupedbar.csv",
         mode: "default",
         selector: "#groupBar",
         chart_height: 630,
@@ -937,7 +937,7 @@
         chart_margin_bottom: 35,
         chart_margin_left: 140,
 
-        color_mode:"saturation",
+        color_mode:"color",
         saturation_color: "green",
         background_color:"white",
         chart_color:["orange","red","yellow","purple"],
@@ -992,12 +992,12 @@
         legends_text_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
         "data_sort_enable": "yes",
         "data_sort_type": "alphabetically", // sort type --- "alphabetically" / "date"
-        "data_sort_order": "descending", // sort order --- "descending" / "ascending",
+        "data_sort_order": "ascending", // sort order --- "descending" / "ascending",
         highlight:"2008",
         tooltip_enable: "yes",
-        // legends_text_family: "Papyrus",
-        // legends_text_weight: "bold",
-        // legends_text_size: 28
+        legends_text_family: "Papyrus",
+        legends_text_weight: "bold",
+        legends_text_size: 28,
         chart_onhover_highlight_enable: "yes"
       });
       // var date = new Date();

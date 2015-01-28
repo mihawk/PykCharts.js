@@ -53,7 +53,9 @@ PykCharts.multiD.groupedBar = function(options){
     };
 
     that.dataTransformation = function () {
-        that.optionalFeatures().sort();
+        if(PykCharts['boolean'](that.data_sort_enable)) {
+            that.data = that.optionalFeatures().sort(that.data,"group");
+        }
         that.group_arr = [], that.new_data = [];
         that.data_length = that.data.length;
         for(var j = 0;j < that.data_length;j++) {
@@ -78,14 +80,19 @@ PykCharts.multiD.groupedBar = function(options){
                 }
             }
         }
+
         that.new_data_length = that.new_data.length;
+        if(!PykCharts['boolean'](that.data_sort_enable)) {
+            for(var i = 0;i<that.new_data_length;i++) {
+                that.new_data[i].data = that.optionalFeatures().sort(that.new_data[i].data,"name");
+            }
+        }
     };
 
     that.refresh = function () {
         that.executeRefresh = function (data) {
             that.data = that.k.__proto__._groupBy("bar",data);
             that.refresh_data = that.k.__proto__._groupBy("bar",data);
-            that.map_group_data = that.multiD.mapGroup(that.data);
             that.dataTransformation();
             that.optionalFeatures().mapColors();
 
@@ -118,7 +125,6 @@ PykCharts.multiD.groupedBar = function(options){
             id = that.selector.substring(1,that.selector.length),
             container_id = id + "_svg";
 
-        that.map_group_data = that.multiD.mapGroup(that.data);
         that.dataTransformation();
         that.optionalFeatures().mapColors();
 
@@ -279,7 +285,16 @@ PykCharts.multiD.groupedBar = function(options){
                     return d.group;
                 })
 
+
                 that.getuniqueGroups = that.k.__proto__._unique(that.getuniqueGroups)
+
+                that.getuniqueGroups.sort(function(a,b){
+                    if(a > b) {
+                        return 1;
+                    } else {
+                        return -1
+                    }
+                })
 
                 that.x_tick_values = that.k.processXAxisTickValues();
                 that.y_tick_values = that.k.processYAxisTickValues();
@@ -379,7 +394,7 @@ PykCharts.multiD.groupedBar = function(options){
                                 if(PykCharts.boolean(that.chart_onhover_highlight_enable)) {
                                     that.mouseEvent.highlightGroup(that.selector+" "+".groupedBar-rect", this, "rect");
                                 }
-                                that.mouseEvent.axisHighlightShow([d.name],that.selector+" "+".y.axis",that.xdomain,"bar");
+                                that.mouseEvent.axisHighlightShow(d.name,(that.selector+" "+".y.axis"),that.ydomain,"bar");
                             }
                         }
                     });
@@ -518,6 +533,14 @@ PykCharts.multiD.groupedBar = function(options){
                         break;
                     }
                 }
+                for(var i = 0;i<that.group_data_length;i++) {
+                    if(that.color_mode === "color" && that.chart_color[i]) {
+                        that.group_data[i].color = that.chart_color[i];
+                    } else {
+                        that.group_data[i].color = that.chart_color[0];
+                    }
+                }
+
                 that.new_data.forEach(function(d){
                     d.data.forEach(function(data){
                         for (var i=0 ; i<that.group_data_length ; i++) {
@@ -609,11 +632,12 @@ PykCharts.multiD.groupedBar = function(options){
                 }
                 return this;
             },
-            sort : function() {
+            sort : function(data,dimension) {
                 if(that.axis_y_data_format === "string") {
                     try {
                         if(that.data_sort_type === "alphabetically") {
-                            that.data = that.k.__proto__._sortData(that.data, "y", "group", that);
+                            data = that.k.__proto__._sortData(data, "y", dimension, that);
+                            return data;
                         } else {
                             that.data_sort_type = multiDimensionalCharts.data_sort_type;
                             throw "data_sort_type";
