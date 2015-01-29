@@ -563,11 +563,6 @@ PykCharts.validation.processInputs = function (chartObject, options, chart_type)
             'default_value': stylesheet,
             'all_charts': true
         },
-        // {
-        //     'config_name': 'is_interactive',
-        //     'default_value': stylesheet,
-        //     'all_charts': true
-        // },
         {   
             'config_name': 'export_enable',
             'default_value': stylesheet,
