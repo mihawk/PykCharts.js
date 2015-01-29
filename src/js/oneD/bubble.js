@@ -1,7 +1,7 @@
 PykCharts.oneD.bubble = function (options) {
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
-    this.execute = function () {
+    this.execute = function (pykquery_data) {
         that = new PykCharts.validation.processInputs(that, options,'oneDimensionalCharts');
         that.chart_height = options.chart_height ? options.chart_height : that.chart_width;
 
@@ -35,7 +35,7 @@ PykCharts.oneD.bubble = function (options) {
         }   
     };
 
-    this.refresh = function () {
+    this.refresh = function (pykquery_data) {
         that.executeRefresh = function (data) {
             that.data = that.k.__proto__._groupBy("oned",data);
             that.clubdata_enable = that.data.length>that.clubdata_maximum_nodes ? that.clubdata_enable : "no";

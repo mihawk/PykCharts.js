@@ -848,22 +848,27 @@ PykCharts.Configuration = function (options){
             return this;
         },
         dataSourceFormatIdentification: function (data,chart,executeFunction) {
-            var dot_index = data.lastIndexOf('.'),
+            if (typeof data === "object") {
+                chart.data = data;
+                chart[executeFunction](chart.data);
+            } else {
+                var dot_index = data.lastIndexOf('.'),
                 len = data.length - dot_index,
                 format = data.substr(dot_index+1,len),
                 cache_avoidance_value = Math.floor((Math.random() * 100) + 1);
 
-            if(data.indexOf("{")!= -1) {
-                chart.data = JSON.parse(data);
-                chart[executeFunction](chart.data);
-            } else if (data.indexOf(",")!= -1) {
-                chart.data = d3.csv.parse(data);
-                chart[executeFunction](chart.data);
-            } else if (format === "json") {
-                d3.json(data+"?"+cache_avoidance_value,chart[executeFunction]);
-            } else if(format === "csv") {
-                d3.csv(data+"?"+cache_avoidance_value,chart[executeFunction]);
-            }
+                if(data.indexOf("{")!= -1) {
+                    chart.data = JSON.parse(data);
+                    chart[executeFunction](chart.data);
+                } else if (data.indexOf(",")!= -1) {
+                    chart.data = d3.csv.parse(data);
+                    chart[executeFunction](chart.data);
+                } else if (format === "json") {
+                    d3.json(data+"?"+cache_avoidance_value,chart[executeFunction]);
+                } else if(format === "csv") {
+                    d3.csv(data+"?"+cache_avoidance_value,chart[executeFunction]);
+                }
+            }            
         },
         export: function(chart,svgId,chart_name,panels_enable,containers) {
             if(PykCharts['boolean'](options.export_enable)) {
@@ -2366,11 +2371,11 @@ PykCharts.validation.processInputs = function (chartObject, options, chart_type)
             'default_value': stylesheet,
             'all_charts': true
         },
-        {
-            'config_name': 'is_interactive',
-            'default_value': stylesheet,
-            'all_charts': true
-        },
+        // {
+        //     'config_name': 'is_interactive',
+        //     'default_value': stylesheet,
+        //     'all_charts': true
+        // },
         {   
             'config_name': 'export_enable',
             'default_value': stylesheet,
@@ -2585,7 +2590,7 @@ PykCharts.validation.processInputs = function (chartObject, options, chart_type)
 PykCharts.oneD.bubble = function (options) {
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
-    this.execute = function () {
+    this.execute = function (pykquery_data) {
         that = new PykCharts.validation.processInputs(that, options,'oneDimensionalCharts');
         that.chart_height = options.chart_height ? options.chart_height : that.chart_width;
 
@@ -2619,7 +2624,7 @@ PykCharts.oneD.bubble = function (options) {
         }   
     };
 
-    this.refresh = function () {
+    this.refresh = function (pykquery_data) {
         that.executeRefresh = function (data) {
             that.data = that.k.__proto__._groupBy("oned",data);
             that.clubdata_enable = that.data.length>that.clubdata_maximum_nodes ? that.clubdata_enable : "no";

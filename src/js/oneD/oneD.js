@@ -7,7 +7,8 @@ PykCharts.oneD.processInputs = function (chartObject, options) {
 
     chartObject.selector = options.selector ? options.selector : stylesheet.selector;
     chartObject.chart_width = options.chart_width  ? options.chart_width : stylesheet.chart_width;
-    chartObject.is_interactive = options.is_interactive ? options.is_interactive.toLowerCase(): oneDimensionalCharts.is_interactive;
+    chartObject.interactive_enable = options.interactive_enable ? options.interactive_enable.toLowerCase(): stylesheet.interactive_enable;
+    chartObject.click_enable = options.click_enable ? options.click_enable.toLowerCase() : stylesheet.click_enable;
 
     chartObject.mode = options.mode ? options.mode.toLowerCase(): stylesheet.mode;
 
