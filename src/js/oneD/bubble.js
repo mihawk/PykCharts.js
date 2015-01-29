@@ -27,7 +27,7 @@ PykCharts.oneD.bubble = function (options) {
             that.clubdata_enable = that.data.length>that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
             that.render();
         };
-        if (PykCharts.boolean(options.interactive_enable)) {
+        if (PykCharts['boolean'](options.interactive_enable)) {
             that.k.dataFromPykQuery(pykquery_data);
             that.k.dataSourceFormatIdentification(that.data,that,"executeData");
         } else {
@@ -51,7 +51,7 @@ PykCharts.oneD.bubble = function (options) {
                 .createChart()
                 .label();
         };
-        if (PykCharts.boolean(options.interactive_enable)) {
+        if (PykCharts['boolean'](options.interactive_enable)) {
             that.k.dataFromPykQuery(pykquery_data);
             that.k.dataSourceFormatIdentification(that.data,that,"executeRefresh");
         } else {
@@ -194,8 +194,8 @@ PykCharts.oneD.bubble = function (options) {
                             }
                         },
                         'click': function (d,i) {
-                            if(PykCharts.boolean(options.click_enable)){
-                               that.addEvents(d.name, $(this).attr("data-id")); 
+                            if(PykCharts['boolean'](options.click_enable)){
+                               that.addEvents(d.name, d3.select(this).attr("data-id")); 
                             }                     
                         }
                     })
