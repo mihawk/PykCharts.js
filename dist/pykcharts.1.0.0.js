@@ -89,7 +89,7 @@ PykCharts.Configuration = function (options){
                         })
                         .html("<span style='pointer-events:none;font-size:" +
                         options.title_size+
-                        "px;color:" +
+                        "vw;color:" +
                         options.title_color+
                         ";font-weight:" +
                         options.title_weight+
@@ -111,7 +111,7 @@ PykCharts.Configuration = function (options){
                             "text-align": "left"
                         })
                         .html("<span style='pointer-events:none;font-size:" +
-                        options.subtitle_size+"px;color:" +
+                        options.subtitle_size+"vw;color:" +
                         options.subtitle_color +
                         ";font-weight:" +
                         options.subtitle_weight+";padding-left:1px;font-family:" +
@@ -665,10 +665,18 @@ PykCharts.Configuration = function (options){
                 return this;
             },
             _colourBrightness: function (bg,element){
-                var r,g,b,brightness,
+                var r,g,b,a=1,brightness,
                     colour = bg;
 
-                if (colour.match(/^rgb/)) {
+                if (colour.match(/^rgba/)) {
+                    colour = colour.match(/rgba\(([^)]+)\)/)[1];
+                    colour = colour.split(/ *, */).map(Number);
+                    r = colour[0];
+                    g = colour[1];
+                    b = colour[2];
+                    a = colour[3];
+                }
+                else if (colour.match(/^rgb/)) {
                     colour = colour.match(/rgb\(([^)]+)\)/)[1];
                     colour = colour.split(/ *, */).map(Number);
                     r = colour[0];
@@ -686,9 +694,13 @@ PykCharts.Configuration = function (options){
 
                 }
                 brightness = (r * 299 + g * 587 + b * 114) / 1000;
-                if (brightness < 125) {
+                if (brightness < 125 && a < 0.5) {
                     d3.selectAll(element).classed({'light': false, 'dark': true});
-                } else {
+                }
+                else if (brightness < 125 && a > 0.5) {
+                    d3.selectAll(element).classed({'light': true, 'dark': false});
+                }
+                else {
                     d3.selectAll(element).classed({'light': true, 'dark': false});
                 }
             },
@@ -845,19 +857,25 @@ PykCharts.Configuration = function (options){
         dataSourceFormatIdentification: function (data,chart,executeFunction) {
             var dot_index = data.lastIndexOf('.'),
                 len = data.length - dot_index,
-                format = data.substr(dot_index+1,len),
                 cache_avoidance_value = Math.floor((Math.random() * 100) + 1);
 
-            if(data.indexOf("{")!= -1) {
-                chart.data = JSON.parse(data);
+            if (data.constructor == Array) {
+                chart.data = data;
                 chart[executeFunction](chart.data);
-            } else if (data.indexOf(",")!= -1) {
-                chart.data = d3.csv.parse(data);
-                chart[executeFunction](chart.data);
-            } else if (format === "json") {
-                d3.json(data+"?"+cache_avoidance_value,chart[executeFunction]);
-            } else if(format === "csv") {
-                d3.csv(data+"?"+cache_avoidance_value,chart[executeFunction]);
+            }
+            else {
+                var format = data.substr(dot_index+1,len);
+                if(data.indexOf("{")!= -1) {
+                    chart.data = JSON.parse(data);
+                    chart[executeFunction](chart.data);
+                } else if (data.indexOf(",")!= -1) {
+                    chart.data = d3.csv.parse(data);
+                    chart[executeFunction](chart.data);
+                } else if (format === "json") {
+                    d3.json(data+"?"+cache_avoidance_value,chart[executeFunction]);
+                } else if(format === "csv") {
+                    d3.csv(data+"?"+cache_avoidance_value,chart[executeFunction]);
+                }
             }
         },
         export: function(chart,svgId,chart_name,panels_enable,containers) {
@@ -1605,12 +1623,12 @@ configuration.Theme = function(){
         "chart_margin_left": 50,
 
         "title_text": "",
-        "title_size": 15,
+        "title_size": 2,
         "title_color": "#1D1D1D",
         "title_weight": "bold",
         "title_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
 
-        "subtitle_size": 12,
+        "subtitle_size": 1,
         "subtitle_color": "black",
         "subtitle_weight": "normal",
         "subtitle_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
@@ -2786,7 +2804,9 @@ PykCharts.oneD.bubble = function (options) {
                         "fill": function (d) {
                             return d.children ? that.background_color : that.fillChart.selectColor(d);
                         },
-                        "fill-opacity": 1,
+                        "fill-opacity": function(d,i) {                            
+                            return (d.name == undefined) ? 0 : 1;
+                        },
                         "data-fill-opacity": function () {
                             return d3.select(this).attr("fill-opacity");
                         }
@@ -3286,7 +3306,7 @@ PykCharts.oneD.funnel = function (options) {
                                 if(PykCharts['boolean'](that.chart_onhover_highlight_enable)) {
                                     that.mouseEvent.highlight(options.selector +" "+".fun-path",this);
                                 }
-                                tooltip = that.data[i].tooltip || "<table class='PykCharts'><tr><th colspan='3' class='tooltip-heading'>"+that.new_data[i].name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(that.new_data[i].weight)+"<td class='tooltip-right-content'>("+that.per_values[i].toFixed(1)+"%) </tr></table>";
+                                tooltip = that.data[i].tooltip || "<table><tr><th colspan='2' class='tooltip-heading'>"+that.new_data[i].name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(that.new_data[i].weight)+"<td class='tooltip-right-content'>("+that.per_values[i].toFixed(1)+"%) </tr></table>";
                                 that.mouseEvent.tooltipPosition(d);
                                 that.mouseEvent.tooltipTextShow(tooltip);
                             }
@@ -4920,8 +4940,8 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                     }
                 }
                 that.sum = 0;
-                for(var i = 0,len=that.new_data.length;i<len;i++) {
-                    that.sum+=that.new_data[i].weight;
+                for(var i = 0,len=that.data.length;i<len;i++) {
+                    that.sum+=that.data[i].weight;
                 }
                 that.inner_radius = that.k.__proto__._radiusCalculation(that.innerRadiusPercent,that.calculation);
                 that.outer_radius = that.k.__proto__._radiusCalculation(that.pie_radius_percent,that.calculation);
@@ -4961,7 +4981,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                     .on({
                         'mouseover': function (d) {
                             if(that.mode === "default") {
-                                d.data.tooltip = d.data.tooltip || "<table class='PykCharts'><tr><th colspan='3' class='tooltip-heading'>"+d.data.name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.data.weight)+"<td class='tooltip-right-content'>("+((d.data.weight*100)/that.sum).toFixed(1)+"%) </tr></table>";
+                                d.data.tooltip = d.data.tooltip || "<table class='PykCharts'><tr><th colspan='2' class='tooltip-heading'>"+d.data.name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.data.weight)+"<td class='tooltip-right-content'>("+((d.data.weight*100)/that.sum).toFixed(1)+"%) </tr></table>";
                                 if(PykCharts['boolean'](that.chart_onhover_highlight_enable)) {
                                     that.mouseEvent.highlight(options.selector +" "+".pie", this);
                                 }
@@ -5054,68 +5074,84 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
 
                 return this;
             },
-            clubData : function () {
+            clubData: function () {
                 if(PykCharts['boolean'](that.clubdata_enable)) {
-                    var clubdata_content = [];
-                    if(that.clubdata_always_include_data_points.length!== 0){
-                        var l = that.clubdata_always_include_data_points.length;
-                        for(i=0; i < l; i++){
-                            clubdata_content[i] = that.clubdata_always_include_data_points[i];
-                        }
+                    that.displayData = [];
+                    that.sorted_weight = [];
+                    for(var i=0,len=that.data.length;i<len;i++) {
+                        that.sorted_weight.push(that.data[i].weight)
                     }
-                    var new_data1 = [];
-                    for(i=0;i<clubdata_content.length;i++){
-                        for(j=0;j<that.data.length;j++){
-                            if(clubdata_content[i].toUpperCase() === that.data[j].name.toUpperCase()){
-                                new_data1.push(that.data[j]);
+                    that.sorted_weight.sort(function(a,b){ return b-a; });
+                    that.checkDuplicate = [];
+                    var others_Slice = {"name":that.clubdata_text,"color":that.clubData_color,"tooltip":that.clubData_tooltipText,"highlight":false};
+                    var index;
+                    var i;
+                    that.getIndexByName = function(name) {
+                        for(i=0;i<that.data.length;i++)
+                        {
+                            if(that.data[i].name === name) {
+                                return i;
                             }
                         }
-                    }
-                    that.data.sort(function (a,b) { return b.weight - a.weight; });
+                    };
+
+                    var reject = function (index) {
+                        var list_length = that.sorted_weight.length,
+                            result = [];
+                        for(var i=0 ; i<list_length ; i++) {
+                            if(that.sorted_weight[i] !== that.data[index].weight) {
+                                result.push(that.sorted_weight[i]);
+                            }
+                        }
+                        return result;
+                    } ;
+
                     var k = 0;
-
-                    while(new_data1.length<that.clubdata_maximum_nodes-1){
-                        for(i=0;i<clubdata_content.length;i++){
-                            if(that.data[k].name.toUpperCase() === clubdata_content[i].toUpperCase()){
-                                k++;
+                    if(that.clubdata_always_include_data_points.length!== 0) {
+                        for (var l=0;l<that.clubdata_always_include_data_points.length;l++)
+                        {
+                            index = that.getIndexByName(that.clubdata_always_include_data_points[l]);
+                            if(index!= undefined) {
+                                that.displayData.push(that.data[index]);
+                                that.sorted_weight = reject(index);
                             }
                         }
-                        new_data1.push(that.data[k]);
-                        k++;
                     }
-                    var sum_others = 0;
-                    for(j=k; j < that.data.length; j++){
-                        for(i=0; i<new_data1.length && j<that.data.length; i++){
-                            if(that.data[j].name.toUpperCase() === new_data1[i].name.toUpperCase()){
-                                sum_others +=0;
-                                j++;
-                                i = -1;
+                    that.getIndexByWeight = function (weight) {
+                        for(var i=0;i<that.data.length;i++)
+                        {
+                            if(that.data[i].weight === weight) {
+                                if(that.checkDuplicate.indexOf(i) === -1) {
+                                   that.checkDuplicate.push(i);
+                                    return i;
+                                }
+                                else {
+                                    continue;
+                                }
                             }
                         }
-                        if(j < that.data.length){
-                            sum_others += that.data[j].weight;
+                    };
+                    var count = that.clubdata_maximum_nodes-that.displayData.length;
+
+                    var sum_others = d3.sum(that.sorted_weight,function (d,i) {
+                            if(i>=count-1)
+                                return d;
+                        });
+
+                    others_Slice.weight = sum_others;
+                    if(count>0)
+                    {
+                        that.displayData.push(others_Slice);
+                        for (i=0;i<count-1;i++) {
+                            index = that.getIndexByWeight(that.sorted_weight[i]);
+                            that.displayData.push(that.data[index]);
                         }
                     }
-                    var sortfunc = function (a,b) { return b.weight - a.weight; };
-
-                    while(new_data1.length > that.clubdata_maximum_nodes){
-                        new_data1.sort(sortfunc);
-                        var a=new_data1.pop();
-                    }
-                    var others_Slice = { "name":that.clubdata_text, "weight": sum_others,/* "color": that.clubdata_color,*/ "tooltip": that.clubdata_tooltip };
-                    new_data1.sort(function(a,b){
-                        return b.weight - a.weight;
-                    })
-                    if(new_data1.length < that.clubdata_maximum_nodes){
-                        new_data1.push(others_Slice);
-                    }
-                    that.new_data = new_data1;
                 }
                 else {
-                    that.data.sort(function (a,b) { return b.weight - a.weight; });
-                    that.new_data = that.data;
+                    that.displayData = that.data;
                 }
-                return that.new_data;
+                return that.displayData;
             },
             ticks : function () {
                 if(PykCharts['boolean'](that.pointer_overflow_enable)) {
@@ -5525,9 +5561,9 @@ PykCharts.oneD.pyramid = function (options) {
                 var k = that.new_data.length-1,p = that.new_data.length-1,tooltipArray = [];
                 for(i=0;i<that.new_data.length;i++){
                     if(i==0) {
-                        tooltipArray[i] = that.new_data[i].tooltip || "<table class='PykCharts'><tr><th colspan='3'  class='tooltip-heading'>"+that.new_data[i].name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(that.new_data[i].weight)+"<td class='tooltip-right-content'>("+((that.new_data[i].weight*100)/that.sum).toFixed(1)+"%) </tr></table>";
+                        tooltipArray[i] = that.new_data[i].tooltip || "<table class='PykCharts'><tr><th colspan='2'  class='tooltip-heading'>"+that.new_data[i].name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(that.new_data[i].weight)+"<td class='tooltip-right-content'>("+((that.new_data[i].weight*100)/that.sum).toFixed(1)+"%) </tr></table>";
                     } else {
-                        tooltipArray[i] = that.new_data[k].tooltip || "<table class='PykCharts'><tr><th colspan='3'  class='tooltip-heading'>"+that.new_data[k].name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(that.new_data[k].weight)+"<td class='tooltip-right-content'>("+((that.new_data[k].weight*100)/that.sum).toFixed(1)+"%) </tr></table>";
+                        tooltipArray[i] = that.new_data[k].tooltip || "<table class='PykCharts'><tr><th colspan='2'  class='tooltip-heading'>"+that.new_data[k].name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(that.new_data[k].weight)+"<td class='tooltip-right-content'>("+((that.new_data[k].weight*100)/that.sum).toFixed(1)+"%) </tr></table>";
                         k--;
                     }
                 }

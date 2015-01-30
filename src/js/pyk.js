@@ -89,7 +89,7 @@ PykCharts.Configuration = function (options){
                         })
                         .html("<span style='pointer-events:none;font-size:" +
                         options.title_size+
-                        "px;color:" +
+                        "vw;color:" +
                         options.title_color+
                         ";font-weight:" +
                         options.title_weight+
@@ -111,7 +111,7 @@ PykCharts.Configuration = function (options){
                             "text-align": "left"
                         })
                         .html("<span style='pointer-events:none;font-size:" +
-                        options.subtitle_size+"px;color:" +
+                        options.subtitle_size+"vw;color:" +
                         options.subtitle_color +
                         ";font-weight:" +
                         options.subtitle_weight+";padding-left:1px;font-family:" +
@@ -665,10 +665,18 @@ PykCharts.Configuration = function (options){
                 return this;
             },
             _colourBrightness: function (bg,element){
-                var r,g,b,brightness,
+                var r,g,b,a=1,brightness,
                     colour = bg;
 
-                if (colour.match(/^rgb/)) {
+                if (colour.match(/^rgba/)) {
+                    colour = colour.match(/rgba\(([^)]+)\)/)[1];
+                    colour = colour.split(/ *, */).map(Number);
+                    r = colour[0];
+                    g = colour[1];
+                    b = colour[2];
+                    a = colour[3];
+                }
+                else if (colour.match(/^rgb/)) {
                     colour = colour.match(/rgb\(([^)]+)\)/)[1];
                     colour = colour.split(/ *, */).map(Number);
                     r = colour[0];
@@ -686,9 +694,13 @@ PykCharts.Configuration = function (options){
 
                 }
                 brightness = (r * 299 + g * 587 + b * 114) / 1000;
-                if (brightness < 125) {
+                if (brightness < 125 && a < 0.5) {
                     d3.selectAll(element).classed({'light': false, 'dark': true});
-                } else {
+                }
+                else if (brightness < 125 && a > 0.5) {
+                    d3.selectAll(element).classed({'light': true, 'dark': false});
+                }
+                else {
                     d3.selectAll(element).classed({'light': true, 'dark': false});
                 }
             },
@@ -845,19 +857,25 @@ PykCharts.Configuration = function (options){
         dataSourceFormatIdentification: function (data,chart,executeFunction) {
             var dot_index = data.lastIndexOf('.'),
                 len = data.length - dot_index,
-                format = data.substr(dot_index+1,len),
                 cache_avoidance_value = Math.floor((Math.random() * 100) + 1);
 
-            if(data.indexOf("{")!= -1) {
-                chart.data = JSON.parse(data);
+            if (data.constructor == Array) {
+                chart.data = data;
                 chart[executeFunction](chart.data);
-            } else if (data.indexOf(",")!= -1) {
-                chart.data = d3.csv.parse(data);
-                chart[executeFunction](chart.data);
-            } else if (format === "json") {
-                d3.json(data+"?"+cache_avoidance_value,chart[executeFunction]);
-            } else if(format === "csv") {
-                d3.csv(data+"?"+cache_avoidance_value,chart[executeFunction]);
+            }
+            else {
+                var format = data.substr(dot_index+1,len);
+                if(data.indexOf("{")!= -1) {
+                    chart.data = JSON.parse(data);
+                    chart[executeFunction](chart.data);
+                } else if (data.indexOf(",")!= -1) {
+                    chart.data = d3.csv.parse(data);
+                    chart[executeFunction](chart.data);
+                } else if (format === "json") {
+                    d3.json(data+"?"+cache_avoidance_value,chart[executeFunction]);
+                } else if(format === "csv") {
+                    d3.csv(data+"?"+cache_avoidance_value,chart[executeFunction]);
+                }
             }
         },
         export: function(chart,svgId,chart_name,panels_enable,containers) {
@@ -1605,12 +1623,12 @@ configuration.Theme = function(){
         "chart_margin_left": 50,
 
         "title_text": "",
-        "title_size": 15,
+        "title_size": 2,
         "title_color": "#1D1D1D",
         "title_weight": "bold",
         "title_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
 
-        "subtitle_size": 12,
+        "subtitle_size": 1,
         "subtitle_color": "black",
         "subtitle_weight": "normal",
         "subtitle_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
