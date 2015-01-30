@@ -2,7 +2,7 @@ PykCharts.multiD.column = function (options) {
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
 
-    this.execute = function () {
+    this.execute = function (pykquery_data) {
         that = new PykCharts.validation.processInputs(that, options, 'multiDimensionalCharts');
         PykCharts.scaleFunction(that);
         PykCharts.grid(that);
@@ -33,7 +33,12 @@ PykCharts.multiD.column = function (options) {
             that.k.remove_loading_bar(id);
             that.render();
         };
-        that.format = that.k.dataSourceFormatIdentification(options.data,that,"executeData");
+        if (PykCharts.boolean(options.interactive_enable)) {
+            that.k.dataFromPykQuery(pykquery_data);
+            that.k.dataSourceFormatIdentification(that.data,that,"executeData");
+        } else {
+            that.k.dataSourceFormatIdentification(options.data,that,"executeData");
+        }   
     };
 
     this.transformData = function () {
@@ -137,7 +142,7 @@ PykCharts.multiD.column = function (options) {
         });
     };
 
-    this.refresh = function () {
+    this.refresh = function (pykquery_data) {
        that.executeRefresh = function (data) {
             that.data = that.k.__proto__._groupBy("column",data);
             that.refresh_data = that.k.__proto__._groupBy("column",data);
@@ -171,7 +176,12 @@ PykCharts.multiD.column = function (options) {
             }
         };
         
-        that.k.dataSourceFormatIdentification(options.data,that,"executeRefresh");
+        if (PykCharts.boolean(options.interactive_enable)) {
+            that.k.dataFromPykQuery(pykquery_data);
+            that.k.dataSourceFormatIdentification(that.data,that,"executeRefresh");
+        } else {
+            that.k.dataSourceFormatIdentification(options.data,that,"executeRefresh");
+        }   
     };
 
     this.optionalFeatures = function () {
@@ -376,7 +386,10 @@ PykCharts.multiD.column = function (options) {
                         "fill": function (d) { return that.fillColor.colorPieMS(d); },
                         "stroke": that.border.color(),
                         "stroke-width": that.border.width(),
-                        "stroke-dasharray": that.border.style()
+                        "stroke-dasharray": that.border.style(),
+                        "data-id":function (d,i) {
+                            return d.name;
+                        }
                     })
                     .on({
                         'mouseover': function (d) {
@@ -408,6 +421,11 @@ PykCharts.multiD.column = function (options) {
                                 }
                                 that.mouseEvent.axisHighlightShow(d.x,that.selector+" "+".x.axis",that.x_domain);
                             }
+                        },
+                        'click': function (d,i) {
+                            if(PykCharts['boolean'](options.click_enable)){
+                               that.addEvents(d.name, d3.select(this).attr("data-id")); 
+                            }                     
                         }
                     })
                     .transition()

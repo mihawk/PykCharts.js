@@ -2,7 +2,7 @@ PykCharts.multiD.groupedColumn = function(options) {
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
 
-    this.execute = function () {
+    this.execute = function (pykquery_data) {
         that = new PykCharts.validation.processInputs(that, options, 'multiDimensionalCharts');
         PykCharts.scaleFunction(that);
         PykCharts.grid(that);
@@ -36,7 +36,12 @@ PykCharts.multiD.groupedColumn = function(options) {
             // PykCharts.multiD.columnFunctions(options,that,"group_column");
             that.render();
         };
-        that.k.dataSourceFormatIdentification(options.data,that,"executeData");
+        if (PykCharts.boolean(options.interactive_enable)) {
+            that.k.dataFromPykQuery(pykquery_data);
+            that.k.dataSourceFormatIdentification(that.data,that,"executeData");
+        } else {
+            that.k.dataSourceFormatIdentification(options.data,that,"executeData");
+        }   
     };
 
     that.dataTransformation = function () {
@@ -67,7 +72,7 @@ PykCharts.multiD.groupedColumn = function(options) {
         that.new_data_length = that.new_data.length;
     };
 
-    that.refresh = function () {
+    that.refresh = function (pykquery_data) {
         that.executeRefresh = function (data) {
             that.data = that.k.__proto__._groupBy("column",data);
             that.refresh_data = that.k.__proto__._groupBy("column",data);
@@ -105,7 +110,12 @@ PykCharts.multiD.groupedColumn = function(options) {
                 that.k.xAxis(that.svgContainer,that.xGroup,that.xScale,that.extra_left_margin,that.xdomain,that.x_tick_values,that.legendsGroup_height)
             }
         };
-        that.k.dataSourceFormatIdentification(options.data,that,"executeRefresh");
+        if (PykCharts.boolean(options.interactive_enable)) {
+            that.k.dataFromPykQuery(pykquery_data);
+            that.k.dataSourceFormatIdentification(that.data,that,"executeRefresh");
+        } else {
+            that.k.dataSourceFormatIdentification(options.data,that,"executeRefresh");
+        }   
     };
 
     that.render = function() {

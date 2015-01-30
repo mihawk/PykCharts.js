@@ -2,7 +2,7 @@ PykCharts.multiD.spiderWeb = function (options) {
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
 
-    this.execute = function () {
+    this.execute = function (pykquery_data) {
         var multiDimensionalCharts = theme.multiDimensionalCharts;
         that = new PykCharts.validation.processInputs(that, options, 'multiDimensionalCharts');
         that.bubbleRadius = options.spiderweb_radius  ? options.spiderweb_radius : (0.6 * multiDimensionalCharts.scatterplot_radius);
@@ -60,7 +60,12 @@ PykCharts.multiD.spiderWeb = function (options) {
             that.k.remove_loading_bar(id);
             that.render();
         };
-        that.k.dataSourceFormatIdentification(options.data,that,"executeData");
+        if (PykCharts.boolean(options.interactive_enable)) {
+            that.k.dataFromPykQuery(pykquery_data);
+            that.k.dataSourceFormatIdentification(that.data,that,"executeData");
+        } else {
+            that.k.dataSourceFormatIdentification(options.data,that,"executeData");
+        }   
     };
 
     that.dataTransformation = function () {
@@ -102,7 +107,7 @@ PykCharts.multiD.spiderWeb = function (options) {
         that.new_data_length = that.new_data.length;
     }
 
-    that.refresh = function () {
+    that.refresh = function (pykquery_data) {
         that.executeRefresh = function (data) {
             that.data = that.k.__proto__._groupBy("spiderweb",data);
             that.refresh_data = that.k.__proto__._groupBy("spiderweb",data);
@@ -120,7 +125,12 @@ PykCharts.multiD.spiderWeb = function (options) {
                 .xAxis()
                 .yAxis();
         };
-        that.k.dataSourceFormatIdentification(options.data,that,"executeRefresh");
+        if (PykCharts.boolean(options.interactive_enable)) {
+            that.k.dataFromPykQuery(pykquery_data);
+            that.k.dataSourceFormatIdentification(that.data,that,"executeRefresh");
+        } else {
+            that.k.dataSourceFormatIdentification(options.data,that,"executeRefresh");
+        }  
     };
 
     this.render = function () {
