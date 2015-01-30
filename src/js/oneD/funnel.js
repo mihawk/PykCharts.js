@@ -252,7 +252,12 @@ PykCharts.oneD.funnel = function (options) {
                 that.new_data = that.data.sort(function(a,b) {
                     return b.weight-a.weight;
                 })
-
+                if(that.color_mode === "shade") {
+                    shade_array = that.k.shadeColorConversion(that.shade_color,that.new_data.length);
+                    that.new_data.forEach(function (d,i) {
+                        d.color = shade_array[i];
+                    })
+                }
                 that.per_values = that.percentageValues(that.new_data);
                 that.funnel = that.funnelLayout()
                                 .data(that.new_data)

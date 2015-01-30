@@ -48,6 +48,12 @@ PykCharts.oneD.pyramid = function (options) {
                 that.k.lastUpdatedAt("liveData");
             }
             that.new_data = that.optionalFeatures().clubData();
+            if(that.color_mode === "shade") {
+                shade_array = that.k.shadeColorConversion(that.shade_color,that.new_data.length);
+                that.new_data.forEach(function (d,i) {
+                    d.color = shade_array[i];
+                })
+            }
             that.optionalFeatures()
                     .createChart()
                     .label()
@@ -69,6 +75,12 @@ PykCharts.oneD.pyramid = function (options) {
                 .emptyDiv(that.selector)
                 .subtitle();
             that.new_data = that.optionalFeatures().clubData();
+            if(that.color_mode === "shade") {
+                shade_array = that.k.shadeColorConversion(that.shade_color,that.new_data.length);
+                that.new_data.forEach(function (d,i) {
+                    d.color = shade_array[i];
+                })
+            }
             that.optionalFeatures().svgContainer(container_id)
                 .createChart()
                 .label()
@@ -85,6 +97,12 @@ PykCharts.oneD.pyramid = function (options) {
 
         } else if (that.mode === "infographics") {
             that.new_data = that.data;
+            if(that.color_mode === "shade") {
+                shade_array = that.k.shadeColorConversion(that.shade_color,that.new_data.length);
+                that.new_data.forEach(function (d,i) {
+                    d.color = shade_array[i];
+                })
+            }
             that.k.backgroundColor(that)
                 .export(that,"#"+container_id,"pyramid")
                 .emptyDiv(that.selector);

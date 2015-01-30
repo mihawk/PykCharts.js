@@ -987,6 +987,26 @@ PykCharts.Configuration = function (options){
             }
             return this;
         },
+        shadeColorConversion: function (color, data_length) {
+            var r,g,b, division,array = [];
+            color = d3.hsl(color);
+            division = 55/data_length;
+            color.l = color.l * 100;
+            function componentToHex(c) {
+                var hex = c.toString(16);
+                return hex.length == 1 ? "0" + hex : hex;
+            }
+
+            function rgbToHex(r, g, b) {
+                return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+            }
+            for(i = 0; i < data_length; i++) {
+                var rgb_color = d3.rgb("hsl(" + color.h + "," + (45 + (i+1)*division) + "," + color.l + ")")
+                var hex_color = rgbToHex(rgb_color.r,rgb_color.g,rgb_color.b)
+                array.push(hex_color);
+            }
+            return array;
+        },
         processSVG: function (svg,svgId) {
             var x = svg.querySelectorAll("text"),
                 x_length = x.length;
@@ -1081,13 +1101,21 @@ PykCharts.Configuration = function (options){
                     }
                     return this;
                 },
-                validatingColorMode: function (color_mode,config_name,default_value) {
+                validatingColorMode: function (color_mode,config_name,default_value,chart_type) {
                     if(color_mode) {
                         try {
-                            if(color_mode === "color" || color_mode === "saturation") {
+                            if(chart_type === "oneDimensionalCharts") {
+                                if(color_mode === "color" || color_mode === "shade") {
+                                } else {
+                                    options[config_name] = default_value;
+                                    throw "color_mode";
+                                }
                             } else {
-                                options[config_name] = default_value;
-                                throw "color_mode";
+                                if(color_mode === "color" || color_mode === "saturation") {
+                                } else {
+                                    options[config_name] = default_value;
+                                    throw "color_mode";
+                                }
                             }
                         }
                         catch (err) {
@@ -1468,13 +1496,22 @@ configuration.fillChart = function (options,theme,config) {
     var that = this;
     var fillchart = {
         selectColor: function (d) {
-        theme = new PykCharts.Configuration.Theme({});
-            if(d.name.toLowerCase() === options.highlight.toLowerCase()) {
-                return options.highlight_color;
-            } else if (options.chart_color.length && options.chart_color[0]){
-                return options.chart_color[0];
+            theme = new PykCharts.Configuration.Theme({});
+            if(options.color_mode === "color") {
+                if(d.name.toLowerCase() === options.highlight.toLowerCase()) {
+                    return options.highlight_color;
+                } else if (options.chart_color.length && options.chart_color[0]){
+                    return options.chart_color[0];
+                } else {
+                    return theme.stylesheet.chart_color
+                }
             } else {
-                return theme.stylesheet.chart_color
+                console.log(d.name.toLowerCase(), options.highlight.toLowerCase())
+                if(d.name.toLowerCase() === options.highlight.toLowerCase()) {
+                    return options.highlight_color;
+                } else{
+                    return d.color;
+                }
             }
         },
         colorChart: function (d) {
@@ -1583,6 +1620,7 @@ configuration.Theme = function(){
         "background_color": "transparent",
         "chart_color": ["#255AEE"],
         "saturation_color": "#255AEE",
+        "shade_color":"",
 
         "border_between_chart_elements_thickness": 1,
         "border_between_chart_elements_color": "white",
@@ -1659,7 +1697,7 @@ configuration.Theme = function(){
         "clubdata_enable": "yes",
         "clubdata_text": "Others",
         "clubdata_maximum_nodes": 5,
-
+        "shade_color": "rgb(255,0,0)",
         "pie_radius_percent": 70,
         "donut_radius_percent": 70,
         "donut_inner_radius_percent": 40,

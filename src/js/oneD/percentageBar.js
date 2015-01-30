@@ -57,6 +57,13 @@ PykCharts.oneD.percentageBar = function (options) {
             }
             that.optionalFeatures()
                     .clubData()
+            if(that.color_mode === "shade") {
+                shade_array = that.k.shadeColorConversion(that.shade_color,that.new_data.length);
+                that.new_data.forEach(function (d,i) {
+                    d.color = shade_array[i];
+                })
+            }
+            that.optionalFeatures()
                     .createChart()
                     .label()
                     .ticks();
@@ -83,6 +90,12 @@ PykCharts.oneD.percentageBar = function (options) {
             that.k.backgroundColor(that)
             .export(that,"#"+container_id,"percentageBar").emptyDiv(that.selector);
             that.new_data = that.data;
+            if(that.color_mode === "shade") {
+                shade_array = that.k.shadeColorConversion(that.shade_color,that.new_data.length);
+                that.new_data.forEach(function (d,i) {
+                    d.color = shade_array[i];
+                })
+            }
         }
 
         that.k.tooltip();
@@ -92,7 +105,14 @@ PykCharts.oneD.percentageBar = function (options) {
 
             percent_bar = that.optionalFeatures()
                             .clubData();
+            if(that.color_mode === "shade") {
+                shade_array = that.k.shadeColorConversion(that.shade_color,that.new_data.length);
+                that.new_data.forEach(function (d,i) {
+                    d.color = shade_array[i];
+                })
+            }
         }
+
         that.optionalFeatures().svgContainer(container_id)
             .createChart()
             .label()
