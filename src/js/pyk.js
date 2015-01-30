@@ -89,7 +89,7 @@ PykCharts.Configuration = function (options){
                         })
                         .html("<span style='pointer-events:none;font-size:" +
                         options.title_size+
-                        "px;color:" +
+                        "vw;color:" +
                         options.title_color+
                         ";font-weight:" +
                         options.title_weight+
@@ -111,7 +111,7 @@ PykCharts.Configuration = function (options){
                             "text-align": "left"
                         })
                         .html("<span style='pointer-events:none;font-size:" +
-                        options.subtitle_size+"px;color:" +
+                        options.subtitle_size+"vw;color:" +
                         options.subtitle_color +
                         ";font-weight:" +
                         options.subtitle_weight+";padding-left:1px;font-family:" +
@@ -1568,12 +1568,12 @@ configuration.Theme = function(){
         "chart_margin_left": 50,
 
         "title_text": "",
-        "title_size": 15,
+        "title_size": 2,
         "title_color": "#1D1D1D",
         "title_weight": "bold",
         "title_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
 
-        "subtitle_size": 12,
+        "subtitle_size": 1,
         "subtitle_color": "black",
         "subtitle_weight": "normal",
         "subtitle_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
