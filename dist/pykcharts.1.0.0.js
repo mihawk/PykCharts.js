@@ -5529,7 +5529,7 @@ PykCharts.oneD.pyramid = function (options) {
                     .y(function(d,i) { return d.y; });
 
                 var a = [{x:0,y:that.chart_height},{x:that.chart_width,y:that.chart_height},{x:0,y:that.chart_height},{x:that.chart_width,y:that.chart_height},{x:0,y:that.chart_height},{x:that.chart_width,y:that.chart_height}]
-                var k =that.new_data.length;
+                var k =that.new_data.length,b;
 
                 that.chart_data =that.group.selectAll('.pyr-path')
                     .data(that.coordinates)
