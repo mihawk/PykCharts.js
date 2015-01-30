@@ -114,7 +114,7 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
 
         that.reducedWidth = that.chart_width - that.chart_margin_left - that.chart_margin_right;
 		that.reducedHeight = that.chart_height - that.chart_margin_top - that.chart_margin_bottom;
-
+        console.log(that.data,that.new_data)
         if (that.mode === "default") {       	
 
     		that.k.title()
@@ -273,6 +273,9 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
                         return d.color;
 		       		})
                     .attr("fill-opacity",1)
+                    .attr("data-id",function (d,i) {
+                        return d.name;
+                    })
 		       		.on('mouseover',function (d) {
                         if(that.mode === "default") {
                         	var tooltipText = d.tooltip ? d.tooltip : "<table><thead><th colspan='2'><b>"+d.y+"</b></th></thead><tr><td>Start</td><td><b>"+that.ticks_formatter(d.start)+"</b></td></tr><tr><td>Weight</td><td><b>"+that.ticks_formatter(d.x)+"</b></td></tr></table>";
@@ -297,6 +300,11 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
                         if(that.mode === "default") {
                             that.mouseEvent.tooltipPosition(d);
                         }
+                    })
+                    .on('click', function (d,i) {
+                        if(PykCharts['boolean'](options.click_enable)){
+                           that.addEvents(d.name, d3.select(this).attr("data-id")); 
+                        }                     
                     })
                     .transition()
                		.duration(that.transitions.duration())
