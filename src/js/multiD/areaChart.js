@@ -2,7 +2,7 @@ PykCharts.multiD.area = function (options){
 	var that = this;
 	var theme = new PykCharts.Configuration.Theme({});
 
-	this.execute = function (){
+	this.execute = function (pykquery_data){
         that = new PykCharts.validation.processInputs(that, options, 'multiDimensionalCharts');
 		PykCharts.crossHair(that);
         PykCharts.annotation(that);
@@ -58,7 +58,12 @@ PykCharts.multiD.area = function (options){
 			that.render();
 
 		}
-		that.k.dataSourceFormatIdentification(options.data,that,"executeData");
+        if (PykCharts.boolean(options.interactive_enable)) {
+            that.k.dataFromPykQuery(pykquery_data);
+            that.k.dataSourceFormatIdentification(that.data,that,"executeData");
+        } else {
+            that.k.dataSourceFormatIdentification(options.data,that,"executeData");
+        }   
 		
 	};
 };
@@ -67,7 +72,7 @@ PykCharts.multiD.stackedArea = function (options){
 	var that = this;
 	var theme = new PykCharts.Configuration.Theme({});
 
-	this.execute = function (){
+	this.execute = function (pykquery_data){
         that = new PykCharts.validation.processInputs(that, options, 'multiDimensionalCharts');
 		PykCharts.crossHair(that);
         PykCharts.annotation(that);
@@ -302,7 +307,7 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
         });
 	};
 
-	that.refresh = function () {
+	that.refresh = function (pykquery_data) {
 		that.xdomain = [];
 		that.executeRefresh = function (data) {
 			that.data = that.k.__proto__._groupBy("area",data);
@@ -347,7 +352,12 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 	        	that.annotation();
 	        }
 		};
-		that.k.dataSourceFormatIdentification(options.data,that,"executeRefresh");
+		if (PykCharts.boolean(options.interactive_enable)) {
+            that.k.dataFromPykQuery(pykquery_data);
+            that.k.dataSourceFormatIdentification(that.data,that,"executeRefresh");
+        } else {
+            that.k.dataSourceFormatIdentification(options.data,that,"executeRefresh");
+        }   
 	};
 
 	that.optional_feature = function (){
@@ -682,7 +692,10 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 								"data-fill-opacity": function () {
 			                        return d3.select(this).attr("fill-opacity");
 			                    },
-								"transform": "translate("+ that.extra_left_margin +",0)"
+								"transform": "translate("+ that.extra_left_margin +",0)",
+								"data-id":function (d,i) {
+	                                return that.new_data[i];
+	                            }
 							})
 							.style("fill", function(d) {
 								return that.fillColor.colorPieMS(that.new_data[i],that.type);

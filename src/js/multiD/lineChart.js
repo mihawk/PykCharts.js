@@ -2,7 +2,7 @@ PykCharts.multiD.line = function (options) {
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
 
-    this.execute = function () {
+    this.execute = function (pykquery_data) {
         that = new PykCharts.validation.processInputs(that, options, 'multiDimensionalCharts');
         PykCharts.crossHair(that);
         PykCharts.annotation(that);
@@ -51,7 +51,12 @@ PykCharts.multiD.line = function (options) {
             PykCharts.multiD.lineFunctions(options,that,"line");
         }
 
-        that.k.dataSourceFormatIdentification(options.data,that,"executeData");
+        if (PykCharts.boolean(options.interactive_enable)) {
+            that.k.dataFromPykQuery(pykquery_data);
+            that.k.dataSourceFormatIdentification(that.data,that,"executeData");
+        } else {
+            that.k.dataSourceFormatIdentification(options.data,that,"executeData");
+        }   
     };
 };
 
@@ -434,7 +439,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
         }
     };
 
-    that.refresh = function () {
+    that.refresh = function (pykquery_data) {
         that.executeRefresh = function (data) {
             that.data = that.k.__proto__._groupBy("line",data);
             that.data_length = that.data.length;
@@ -493,7 +498,12 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
             }
 
         };
-        that.k.dataSourceFormatIdentification(options.data,that,"executeRefresh");
+        if (PykCharts.boolean(options.interactive_enable)) {
+            that.k.dataFromPykQuery(pykquery_data);
+            that.k.dataSourceFormatIdentification(that.data,that,"executeRefresh");
+        } else {
+            that.k.dataSourceFormatIdentification(options.data,that,"executeRefresh");
+        }   
     };
 
     that.optionalFeature = function (){

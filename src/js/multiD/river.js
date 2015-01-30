@@ -2,7 +2,7 @@ PykCharts.multiD.river = function (options){
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
 
-    this.execute = function (){
+    this.execute = function (pykquery_data){
         that = new PykCharts.validation.processInputs(that, options, 'multiDimensionalCharts');
         var multiDimensionalCharts = theme.multiDimensionalCharts,
             stylesheet = theme.stylesheet,
@@ -78,7 +78,13 @@ PykCharts.multiD.river = function (options){
             that.dataTransformation();
             that.render();
         };
-        that.k.dataSourceFormatIdentification(options.data,that,"executeData");
+        if (PykCharts.boolean(options.interactive_enable)) {
+            that.k.dataFromPykQuery(pykquery_data);
+            that.k.dataSourceFormatIdentification(that.data,that,"executeData");
+        } else {
+            that.k.dataSourceFormatIdentification(options.data,that,"executeData");
+        }   
+
     };
     this.render = function () {
         var id = that.selector.substring(1,that.selector.length),
@@ -188,7 +194,7 @@ PykCharts.multiD.river = function (options){
             that.opacity_array.push(((that.new_data_length-i)/that.new_data_length)) 
         }
     };
-    that.refresh = function() {
+    that.refresh = function(pykquery_data) {
         that.executeRefresh = function (e, data) {
             that.data = data;
             that.refresh_data = data;
@@ -208,7 +214,12 @@ PykCharts.multiD.river = function (options){
                 .yAxisLabel()
                 .durationLabel();
         };
-        that.k.dataSourceFormatIdentification(options.data,that,"executeRefresh");
+        if (PykCharts.boolean(options.interactive_enable)) {
+            that.k.dataFromPykQuery(pykquery_data);
+            that.k.dataSourceFormatIdentification(that.data,that,"executeRefresh");
+        } else {
+            that.k.dataSourceFormatIdentification(options.data,that,"executeRefresh");
+        }   
     }
     this.draw = function(){
         that.optional_feature().legends().dataMode().preProcessing().createChart().grids();
