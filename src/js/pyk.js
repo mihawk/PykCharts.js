@@ -695,15 +695,12 @@ PykCharts.Configuration = function (options){
                 }
                 brightness = (r * 299 + g * 587 + b * 114) / 1000;
                 if (brightness < 125 && a < 0.5) {
-                    // console.log("dark");
                     d3.selectAll(element).classed({'light': false, 'dark': true});
                 }
                 else if (brightness < 125 && a > 0.5) {
-                    // console.log("light");
                     d3.selectAll(element).classed({'light': true, 'dark': false});
                 }
                 else {
-                    // console.log("light");
                     d3.selectAll(element).classed({'light': true, 'dark': false});
                 }
             },
