@@ -695,12 +695,15 @@ PykCharts.Configuration = function (options){
                 }
                 brightness = (r * 299 + g * 587 + b * 114) / 1000;
                 if (brightness < 125 && a < 0.5) {
+                    // console.log("dark");
                     d3.selectAll(element).classed({'light': false, 'dark': true});
                 }
                 else if (brightness < 125 && a > 0.5) {
+                    // console.log("light");
                     d3.selectAll(element).classed({'light': true, 'dark': false});
                 }
                 else {
+                    // console.log("light");
                     d3.selectAll(element).classed({'light': true, 'dark': false});
                 }
             },
@@ -1445,10 +1448,12 @@ configuration.mouseEvent = function (options) {
 
             return this;
         },
-        highlight: function (selectedclass, that) {
+        highlight: function (selectedclass, that, has_svg_element_as_container) {
             var t = d3.select(that);
             d3.selectAll(selectedclass)
-                .attr("fill-opacity",.5)
+                .attr("fill-opacity", function(d,i) {
+                    return (d.children && has_svg_element_as_container) ? 0 : 0.5;
+                });
             t.attr("fill-opacity",1);
             return this;
         },
