@@ -383,7 +383,10 @@ PykCharts.multiD.spiderWeb = function (options) {
                         },
                         "stroke": that.border.color(),
                         "stroke-width": that.border.width(),
-                        "stroke-dasharray": that.border.style()
+                        "stroke-dasharray": that.border.style(),
+                        "data-id":function (d,i) {
+                            return that.new_data[0].data[i].x;
+                        }
                     })
                     .style("fill", function (d,i) {
                         return that.fillChart.colorPieW(that.new_data[m].data[i]);
@@ -410,6 +413,11 @@ PykCharts.multiD.spiderWeb = function (options) {
                             if(that.mode === "default") {
                                 that.mouseEvent.tooltipPosition(d);
                             }
+                        },
+                        'click': function (d,i) {
+                            if(PykCharts.boolean(options.click_enable)) {
+                               that.addEvents(that.new_data[0].data[i].x, $(this).attr("data-id")); 
+                            } 
                         }
                     });
                     spiderNode.exit().remove();

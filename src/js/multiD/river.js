@@ -301,7 +301,7 @@ PykCharts.multiD.river = function (options){
                 return this;
             },
             createChart : function () {
-                
+                console.log(that.new_data,that.data)
                 that.chart_margin_left = that.max_label + 10;
                 that.chart_margin_right = that.max_duration > that.max_tick ? (that.max_duration + 10) : (that.max_tick + 10);
                 var height = that.chart_height;
