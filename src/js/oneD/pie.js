@@ -312,15 +312,22 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
             that.data = that.k.__proto__._groupBy("oned",data);
             that.clubdata_enable = that.data.length>that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
             that.refresh_data = that.k.__proto__._groupBy("oned",data);
-            var compare = that.k.checkChangeInData(that.refresh_data,that.compare_data);
+            var compare = that.k.checkChangeInData(that.refresh_data,that.compare_data)
+                , shade_array = [];
             that.compare_data = compare[0];
             var data_changed = compare[1];
             if(data_changed) {
                 that.k.lastUpdatedAt("liveData");
             }
             that.new_data = that.optionalFeatures().clubData();
+            if(that.color_mode === "shade") {
+                shade_array = that.k.shadeColorConversion(that.shade_color,that.new_data.length);
+                that.new_data.forEach(function (d,i) {
+                    d.color = shade_array[i];
+                })
+            }
             that.optionalFeatures()
-                    .createChart()
+                    .createChart(shade_array)
                     .label()
                     .ticks()
                     .centerLabel();
@@ -331,7 +338,8 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
     this.render = function() {
         that.count = 1;
         var id = that.selector.substring(1,that.selector.length);
-        var container_id = id + "_svg";
+        var container_id = id + "_svg"
+            , shade_array = [];
         that.fillChart = new PykCharts.Configuration.fillChart(that);
         that.transitions = new PykCharts.Configuration.transition(that);
 
@@ -345,7 +353,12 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
 
             that.optionalFeatures().svgContainer(container_id);
             that.new_data = that.optionalFeatures().clubData();
-
+            if(that.color_mode === "shade") {
+                shade_array = that.k.shadeColorConversion(that.shade_color,that.new_data.length);
+                that.new_data.forEach(function (d,i) {
+                    d.color = shade_array[i];
+                })
+            }
             that.k.createFooter()
                     .lastUpdatedAt()
                     .credits()
@@ -355,7 +368,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
 
             that.optionalFeatures()
                     .set_start_end_angle()
-                    .createChart()
+                    .createChart(shade_array)
                     .label()
                     .ticks()
                     .centerLabel();
@@ -367,9 +380,15 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
             that.k.backgroundColor(that)
                 .export(that,"#"+container_id,type)
                     .emptyDiv(that.selector);
+            if(that.color_mode === "shade") {
+                shade_array = that.k.shadeColorConversion(that.shade_color,that.new_data.length);
+                that.new_data.forEach(function (d,i) {
+                    d.color = shade_array[i];
+                })
+            }
             that.optionalFeatures().svgContainer(container_id)
                     .set_start_end_angle()
-                    .createChart()
+                    .createChart(shade_array)
                     .label()
                     .ticks()
                     .centerLabel();
@@ -491,7 +510,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
 
                 that.chart_data
                     .attr({
-                        "fill": function (d) {
+                        "fill": function (d,i) {
                             return that.fillChart.selectColor(d.data);
                         },
                         "fill-opacity": 1,

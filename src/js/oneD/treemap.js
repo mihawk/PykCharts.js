@@ -47,6 +47,13 @@ PykCharts.oneD.treemap = function (options){
             }
             that.optionalFeatures()
                 .clubData()
+            if(that.color_mode === "shade") {
+                shade_array = that.k.shadeColorConversion(that.shade_color,that.new_data.children.length);
+                that.new_data.children.forEach(function (d,i) {
+                    d.color = shade_array[i];
+                })
+            }
+            that.optionalFeatures()
                 .createChart()
                 .label();
 
@@ -80,6 +87,12 @@ PykCharts.oneD.treemap = function (options){
         if(that.mode === "default") {
             that.optionalFeatures()
                 .clubData()
+        }
+        if(that.color_mode === "shade") {
+            shade_array = that.k.shadeColorConversion(that.shade_color,that.new_data.children.length);
+            that.new_data.children.forEach(function (d,i) {
+                d.color = shade_array[i];
+            })
         }
         that.optionalFeatures().svgContainer(container_id)
             .createChart()
