@@ -426,6 +426,7 @@ PykCharts.multiD.groupedBar = function(options){
                         return that.fillColor.colorGroup(d);
                     },
                     "fill-opacity" : function (d,i) {
+                        console.log(d)
                         if (that.color_mode === "saturation") {
                             return (i+1)/that.no_of_groups;
                         } else {
@@ -437,6 +438,9 @@ PykCharts.multiD.groupedBar = function(options){
                     "stroke-dasharray": that.border.style(),
                     "data-fill-opacity" : function () {
                         return d3.select(this).attr("fill-opacity");
+                    },
+                    "data-id":function (d,i) {
+                            return d.name;
                     }
                 })
                 .on({
@@ -456,6 +460,11 @@ PykCharts.multiD.groupedBar = function(options){
                         if(that.mode === "default" && PykCharts['boolean'](options.tooltip_enable)) {
                             that.mouseEvent.tooltipPosition(d);
                         }
+                    },
+                    'click': function (d,i) {
+                        if(PykCharts['boolean'](options.click_enable)){
+                           that.addEvents(d.name, d3.select(this).attr("data-id")); 
+                        }                     
                     }
                 })
                 .transition()

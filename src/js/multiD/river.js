@@ -151,6 +151,7 @@ PykCharts.multiD.river = function (options){
         window.addEventListener('resize', function(event){
             return that.k.resize(that.svgContainer);
         });
+
     };
     that.dataTransformation = function () {
         that.group_arr = [], that.new_data = [],that.uniq_alias_arr = [],that.uniq_duration_arr = [];
