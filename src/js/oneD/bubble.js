@@ -151,7 +151,9 @@ PykCharts.oneD.bubble = function (options) {
                         "fill": function (d) {
                             return d.children ? that.background_color : that.fillChart.selectColor(d);
                         },
-                        "fill-opacity": 1,
+                        "fill-opacity": function(d,i) {                            
+                            return (d.name == undefined) ? 0 : 1;
+                        },
                         "data-fill-opacity": function () {
                             return d3.select(this).attr("fill-opacity");
                         }

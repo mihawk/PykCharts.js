@@ -665,10 +665,18 @@ PykCharts.Configuration = function (options){
                 return this;
             },
             _colourBrightness: function (bg,element){
-                var r,g,b,brightness,
+                var r,g,b,a=1,brightness,
                     colour = bg;
 
-                if (colour.match(/^rgb/)) {
+                if (colour.match(/^rgba/)) {
+                    colour = colour.match(/rgba\(([^)]+)\)/)[1];
+                    colour = colour.split(/ *, */).map(Number);
+                    r = colour[0];
+                    g = colour[1];
+                    b = colour[2];
+                    a = colour[3];
+                }
+                else if (colour.match(/^rgb/)) {
                     colour = colour.match(/rgb\(([^)]+)\)/)[1];
                     colour = colour.split(/ *, */).map(Number);
                     r = colour[0];
@@ -686,9 +694,13 @@ PykCharts.Configuration = function (options){
 
                 }
                 brightness = (r * 299 + g * 587 + b * 114) / 1000;
-                if (brightness < 125) {
+                if (brightness < 125 && a < 0.5) {
                     d3.selectAll(element).classed({'light': false, 'dark': true});
-                } else {
+                }
+                else if (brightness < 125 && a > 0.5) {
+                    d3.selectAll(element).classed({'light': true, 'dark': false});
+                }
+                else {
                     d3.selectAll(element).classed({'light': true, 'dark': false});
                 }
             },
