@@ -416,7 +416,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                         },
                         'click': function (d,i) {
                             if(PykCharts.boolean(options.click_enable)) {
-                               that.addEvents(that.new_data[0].data[i].x, $(this).attr("data-id")); 
+                               that.addEvents(that.new_data[0].data[i].x, d3.select(this).attr("data-id")); 
                             } 
                         }
                     });
