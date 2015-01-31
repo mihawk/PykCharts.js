@@ -12399,6 +12399,7 @@ PykCharts.multiD.groupedColumn = function(options) {
                             return d3.select(this).attr("fill-opacity");
                         },
                         "data-id":function (d,i) {
+                            console.log(d)
                             return d.name;
                         }
                     })
@@ -13965,7 +13966,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                         },
                         'click': function (d,i) {
                             if(PykCharts.boolean(options.click_enable)) {
-                               that.addEvents(that.new_data[0].data[i].x, $(this).attr("data-id")); 
+                               that.addEvents(that.new_data[0].data[i].x, d3.select(this).attr("data-id")); 
                             } 
                         }
                     });
@@ -15636,7 +15637,7 @@ PykCharts.maps.processInputs = function (chartObject, options) {
 PykCharts.maps.oneLayer = function (options) {
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
-    this.execute = function () {
+    this.execute = function (pykquery_data) {
         that = new PykCharts.validation.processInputs(that, options, 'maps');
         that = PykCharts.maps.processInputs(that, options);
         that.executeData = function (data) {
@@ -15693,14 +15694,19 @@ PykCharts.maps.oneLayer = function (options) {
             that.extent_size = d3.extent(that.data, function (d) { return parseInt(d.size, 10); });
             that.difference = that.extent_size[1] - that.extent_size[0];
         };
-        that.k.dataSourceFormatIdentification(options.data,that,"executeData")
+        if (PykCharts['boolean'](options.interactive_enable)) {
+            that.k.dataFromPykQuery(pykquery_data);
+            that.k.dataSourceFormatIdentification(that.data,that,"executeData");
+        } else {
+            that.k.dataSourceFormatIdentification(options.data,that,"executeData");
+        }  
     };
 };
 
 PykCharts.maps.timelineMap = function (options) {
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
-    this.execute = function () {
+    this.execute = function (pykquery_data) {
         that = new PykCharts.validation.processInputs(that, options, 'maps');
         that = PykCharts.maps.processInputs(that, options);
 
@@ -15767,7 +15773,12 @@ PykCharts.maps.timelineMap = function (options) {
             that.extent_size = d3.extent(that.data, function (d) { return parseInt(d.size, 10); });
             that.difference = that.extent_size[1] - that.extent_size[0];
         };
-        that.k.dataSourceFormatIdentification(options.data,that,"executeData")
+        if (PykCharts['boolean'](options.interactive_enable)) {
+            that.k.dataFromPykQuery(pykquery_data);
+            that.k.dataSourceFormatIdentification(that.data,that,"executeData");
+        } else {
+            that.k.dataSourceFormatIdentification(options.data,that,"executeData");
+        }  
     };
 };
 
@@ -15800,7 +15811,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
             .legends(that.legends_enable)
             .createMap()
             .label(that.label_enable)
-            .enableClick(that.click_enable);
+            // .enableClick(that.click_enable);
 
         that.redeced_height = that.chart_height - that.margin_top - that.margin_bottom;
 
@@ -15825,7 +15836,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
         });
     };
 
-    that.refresh = function () {
+    that.refresh = function (pykquery_data) {
         that.executeRefresh = function (data) {
             that.data = data;
             that.data_length = that.data.length;
@@ -15843,7 +15854,12 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                 .createMap();
         }
         if(type === "oneLayer") {
-            that.k.dataSourceFormatIdentification(options.data,that,"executeRefresh")
+            if (PykCharts['boolean'](options.interactive_enable)) {
+                that.k.dataFromPykQuery(pykquery_data);
+                that.k.dataSourceFormatIdentification(that.data,that,"executeRefresh");
+            } else {
+                that.k.dataSourceFormatIdentification(options.data,that,"executeRefresh");
+            }  
         }
     };
 
@@ -15973,6 +15989,9 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                         "fill-opacity": that.renderOpacity,
                         "data-fill-opacity": function () {
                             return d3.select(this).attr("fill-opacity");
+                        },
+                        "data-id" : function (d,i) {
+                            return d.properties.iso_a2;
                         }
                     })
                     .style({
@@ -16014,6 +16033,11 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                             }
                             that.bodUncolor(d);
                             that.mouseEvent.highlightHide(options.selector + " .area");
+                        },
+                        "click" : function (d) {
+                            if (PykCharts['boolean'](options.click_enable)) {
+                                that.addEvents(d.properties.iso_a2,d3.select(this).attr("data-id"));
+                            }
                         }
                     });
                 that.group.exit()
