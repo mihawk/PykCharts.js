@@ -1600,6 +1600,7 @@ configuration.renderBrush = function (options,xScale,group,height) {
         min = options.brush_extent[0];
         max = options.brush_extent[1];
         options.onBrush(xScale(min),xScale(max));
+        console.log(xScale(min),xScale(max))
         return options.brush_extent;
     }
 };
@@ -9556,7 +9557,12 @@ PykCharts.multiD.stackedArea = function (options){
 			that.dataTransformation();
 			that.render();
 		};
-		that.k.dataSourceFormatIdentification(options.data,that,"executeData");
+        if (PykCharts.boolean(options.interactive_enable)) {
+            that.k.dataFromPykQuery(pykquery_data);
+            that.k.dataSourceFormatIdentification(that.data,that,"executeData");
+        } else {
+            that.k.dataSourceFormatIdentification(options.data,that,"executeData");
+        }   
 	};
 };
 
@@ -9642,6 +9648,7 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
         for (var k = 0;k < that.new_data_length;k++) {
             that.new_data[k].data = that.k.__proto__._sortData(that.new_data[k].data, "x", "name", that);
         }
+
     };
 	
 	that.render = function () {
