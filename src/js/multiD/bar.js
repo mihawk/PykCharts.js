@@ -44,7 +44,6 @@ PykCharts.multiD.bar = function (options) {
                 that.axis_y_data_format = "string";
             }
             that.k.remove_loading_bar(id);
-            console.log(that.data,"anu")
             that.render();
         };
         if (PykCharts.boolean(options.interactive_enable)) {
