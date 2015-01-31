@@ -35,13 +35,20 @@ PykCharts.oneD.bubble = function (options) {
             that.data = that.k.__proto__._groupBy("oned",data);
             that.clubdata_enable = that.data.length>that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
             that.refresh_data = that.k.__proto__._groupBy("oned",data);
-            var compare = that.k.checkChangeInData(that.refresh_data,that.compare_data);
+            var compare = that.k.checkChangeInData(that.refresh_data,that.compare_data)
+                , shade_array = [];
             that.compare_data = compare[0];
             var data_changed = compare[1];
             if(data_changed) {
                 that.k.lastUpdatedAt("liveData");
             }
             that.new_data = that.optionalFeatures().clubData();
+            if(that.color_mode === "shade") {
+                shade_array = that.k.shadeColorConversion(that.shade_color,that.new_data.children.length);
+                that.new_data.children.forEach(function (d,i) {
+                    d.color = shade_array[i];
+                })
+            }
             that.optionalFeatures()
                 .createChart()
                 .label();
@@ -52,7 +59,8 @@ PykCharts.oneD.bubble = function (options) {
     this.render = function () {
 
         var id = that.selector.substring(1,that.selector.length);
-        var container_id = id + "_svg";
+        var container_id = id + "_svg"
+            , shade_array = [];
 
         that.fillChart = new PykCharts.Configuration.fillChart(that);
         that.transitions = new PykCharts.Configuration.transition(that);
@@ -65,7 +73,12 @@ PykCharts.oneD.bubble = function (options) {
                 .subtitle();
 
             that.new_data = that.optionalFeatures().clubData();
-
+            if(that.color_mode === "shade") {
+                shade_array = that.k.shadeColorConversion(that.shade_color,that.new_data.children.length);
+                that.new_data.children.forEach(function (d,i) {
+                    d.color = shade_array[i];
+                })
+            }
             that.optionalFeatures().svgContainer(container_id)
                 .createChart()
                 .label();
@@ -83,6 +96,12 @@ PykCharts.oneD.bubble = function (options) {
                 .emptyDiv(options.selector);
 
             that.new_data = {"children" : that.data};
+            if(that.color_mode === "shade") {
+                shade_array = that.k.shadeColorConversion(that.shade_color,that.new_data.children.length);
+                that.new_data.children.forEach(function (d,i) {
+                    d.color = shade_array[i];
+                })
+            }
             that.optionalFeatures().svgContainer(container_id)
                 .createChart()
                 .label();
@@ -124,7 +143,7 @@ PykCharts.oneD.bubble = function (options) {
 
                 that.sum = d3.sum(that.new_data.children, function (d) {
                     return d.weight;
-                })
+                });
                 
                 var l = that.new_data.children.length;
                 that.node = bubble.nodes(that.new_data);
@@ -151,7 +170,9 @@ PykCharts.oneD.bubble = function (options) {
                         "fill": function (d) {
                             return d.children ? that.background_color : that.fillChart.selectColor(d);
                         },
-                        "fill-opacity": 1,
+                        "fill-opacity": function(d) {
+                            return d.children ? 0 : 1;
+                        },
                         "data-fill-opacity": function () {
                             return d3.select(this).attr("fill-opacity");
                         }
@@ -160,7 +181,7 @@ PykCharts.oneD.bubble = function (options) {
                         "mouseover": function (d) {
                             if(!d.children && that.mode==="default") {
                                 if(PykCharts['boolean'](that.chart_onhover_highlight_enable)) {
-                                    that.mouseEvent.highlight(options.selector+" "+".bubble", this);
+                                    that.mouseEvent.highlight(options.selector+" "+".bubble", this, true);
                                 }
                                 d.tooltip = d.tooltip ||"<table><thead><th colspan='2' class='tooltip-heading'>"+d.name+"</th></thead><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.weight)+"  <td class='tooltip-right-content'>("+((d.weight*100)/that.sum).toFixed(1)+"%)</tr></table>";
                                 that.mouseEvent.tooltipPosition(d);

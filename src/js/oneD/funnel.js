@@ -252,7 +252,12 @@ PykCharts.oneD.funnel = function (options) {
                 that.new_data = that.data.sort(function(a,b) {
                     return b.weight-a.weight;
                 })
-
+                if(that.color_mode === "shade") {
+                    shade_array = that.k.shadeColorConversion(that.shade_color,that.new_data.length);
+                    that.new_data.forEach(function (d,i) {
+                        d.color = shade_array[i];
+                    })
+                }
                 that.per_values = that.percentageValues(that.new_data);
                 that.funnel = that.funnelLayout()
                                 .data(that.new_data)
@@ -294,7 +299,7 @@ PykCharts.oneD.funnel = function (options) {
                                 if(PykCharts['boolean'](that.chart_onhover_highlight_enable)) {
                                     that.mouseEvent.highlight(options.selector +" "+".fun-path",this);
                                 }
-                                tooltip = that.data[i].tooltip || "<table class='PykCharts'><tr><th colspan='3' class='tooltip-heading'>"+that.new_data[i].name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(that.new_data[i].weight)+"<td class='tooltip-right-content'>("+that.per_values[i].toFixed(1)+"%) </tr></table>";
+                                tooltip = that.data[i].tooltip || "<table><tr><th colspan='2' class='tooltip-heading'>"+that.new_data[i].name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(that.new_data[i].weight)+"<td class='tooltip-right-content'>("+that.per_values[i].toFixed(1)+"%) </tr></table>";
                                 that.mouseEvent.tooltipPosition(d);
                                 that.mouseEvent.tooltipTextShow(tooltip);
                             }

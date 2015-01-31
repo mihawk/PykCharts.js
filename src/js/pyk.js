@@ -89,7 +89,7 @@ PykCharts.Configuration = function (options){
                         })
                         .html("<span style='pointer-events:none;font-size:" +
                         options.title_size+
-                        "px;color:" +
+                        "vw;color:" +
                         options.title_color+
                         ";font-weight:" +
                         options.title_weight+
@@ -111,7 +111,7 @@ PykCharts.Configuration = function (options){
                             "text-align": "left"
                         })
                         .html("<span style='pointer-events:none;font-size:" +
-                        options.subtitle_size+"px;color:" +
+                        options.subtitle_size+"vw;color:" +
                         options.subtitle_color +
                         ";font-weight:" +
                         options.subtitle_weight+";padding-left:1px;font-family:" +
@@ -665,10 +665,18 @@ PykCharts.Configuration = function (options){
                 return this;
             },
             _colourBrightness: function (bg,element){
-                var r,g,b,brightness,
+                var r,g,b,a=1,brightness,
                     colour = bg;
 
-                if (colour.match(/^rgb/)) {
+                if (colour.match(/^rgba/)) {
+                    colour = colour.match(/rgba\(([^)]+)\)/)[1];
+                    colour = colour.split(/ *, */).map(Number);
+                    r = colour[0];
+                    g = colour[1];
+                    b = colour[2];
+                    a = colour[3];
+                }
+                else if (colour.match(/^rgb/)) {
                     colour = colour.match(/rgb\(([^)]+)\)/)[1];
                     colour = colour.split(/ *, */).map(Number);
                     r = colour[0];
@@ -687,8 +695,14 @@ PykCharts.Configuration = function (options){
                 }
                 brightness = (r * 299 + g * 587 + b * 114) / 1000;
                 if (brightness < 125) {
-                    d3.selectAll(element).classed({'light': false, 'dark': true});
-                } else {
+                    if (a <= 0.5) {
+                        d3.selectAll(element).classed({'light': true, 'dark': false});
+                    }
+                    else {
+                        d3.selectAll(element).classed({'light': false, 'dark': true});
+                    }
+                }
+                else {
                     d3.selectAll(element).classed({'light': true, 'dark': false});
                 }
             },
@@ -845,19 +859,25 @@ PykCharts.Configuration = function (options){
         dataSourceFormatIdentification: function (data,chart,executeFunction) {
             var dot_index = data.lastIndexOf('.'),
                 len = data.length - dot_index,
-                format = data.substr(dot_index+1,len),
                 cache_avoidance_value = Math.floor((Math.random() * 100) + 1);
 
-            if(data.indexOf("{")!= -1) {
-                chart.data = JSON.parse(data);
+            if (data.constructor == Array) {
+                chart.data = data;
                 chart[executeFunction](chart.data);
-            } else if (data.indexOf(",")!= -1) {
-                chart.data = d3.csv.parse(data);
-                chart[executeFunction](chart.data);
-            } else if (format === "json") {
-                d3.json(data+"?"+cache_avoidance_value,chart[executeFunction]);
-            } else if(format === "csv") {
-                d3.csv(data+"?"+cache_avoidance_value,chart[executeFunction]);
+            }
+            else {
+                var format = data.substr(dot_index+1,len);
+                if(data.indexOf("{")!= -1) {
+                    chart.data = JSON.parse(data);
+                    chart[executeFunction](chart.data);
+                } else if (data.indexOf(",")!= -1) {
+                    chart.data = d3.csv.parse(data);
+                    chart[executeFunction](chart.data);
+                } else if (format === "json") {
+                    d3.json(data+"?"+cache_avoidance_value,chart[executeFunction]);
+                } else if(format === "csv") {
+                    d3.csv(data+"?"+cache_avoidance_value,chart[executeFunction]);
+                }
             }
         },
         export: function(chart,svgId,chart_name,panels_enable,containers) {
@@ -987,6 +1007,26 @@ PykCharts.Configuration = function (options){
             }
             return this;
         },
+        shadeColorConversion: function (color, data_length) {
+            var r,g,b, division,array = [];
+            color = d3.hsl(color);
+            division = 55/data_length;
+            color.l = color.l * 100;
+            function componentToHex(c) {
+                var hex = c.toString(16);
+                return hex.length == 1 ? "0" + hex : hex;
+            }
+
+            function rgbToHex(r, g, b) {
+                return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+            }
+            for(i = 0; i < data_length; i++) {
+                var rgb_color = d3.rgb("hsl(" + color.h + "," + (45 + (i+1)*division) + "," + color.l + ")")
+                var hex_color = rgbToHex(rgb_color.r,rgb_color.g,rgb_color.b)
+                array.push(hex_color);
+            }
+            return array;
+        },
         processSVG: function (svg,svgId) {
             var x = svg.querySelectorAll("text"),
                 x_length = x.length;
@@ -1081,13 +1121,21 @@ PykCharts.Configuration = function (options){
                     }
                     return this;
                 },
-                validatingColorMode: function (color_mode,config_name,default_value) {
+                validatingColorMode: function (color_mode,config_name,default_value,chart_type) {
                     if(color_mode) {
                         try {
-                            if(color_mode === "color" || color_mode === "saturation") {
+                            if(chart_type === "oneDimensionalCharts") {
+                                if(color_mode === "color" || color_mode === "shade") {
+                                } else {
+                                    options[config_name] = default_value;
+                                    throw "color_mode";
+                                }
                             } else {
-                                options[config_name] = default_value;
-                                throw "color_mode";
+                                if(color_mode === "color" || color_mode === "saturation") {
+                                } else {
+                                    options[config_name] = default_value;
+                                    throw "color_mode";
+                                }
                             }
                         }
                         catch (err) {
@@ -1427,10 +1475,12 @@ configuration.mouseEvent = function (options) {
 
             return this;
         },
-        highlight: function (selectedclass, that) {
+        highlight: function (selectedclass, that, has_svg_element_as_container) {
             var t = d3.select(that);
             d3.selectAll(selectedclass)
-                .attr("fill-opacity",.5)
+                .attr("fill-opacity", function(d,i) {
+                    return (d.children && has_svg_element_as_container) ? 0 : 0.5;
+                });
             t.attr("fill-opacity",1);
             return this;
         },
@@ -1468,13 +1518,21 @@ configuration.fillChart = function (options,theme,config) {
     var that = this;
     var fillchart = {
         selectColor: function (d) {
-        theme = new PykCharts.Configuration.Theme({});
-            if(d.name.toLowerCase() === options.highlight.toLowerCase()) {
-                return options.highlight_color;
-            } else if (options.chart_color.length && options.chart_color[0]){
-                return options.chart_color[0];
+            theme = new PykCharts.Configuration.Theme({});
+            if(options.color_mode === "color") {
+                if(d.name.toLowerCase() === options.highlight.toLowerCase()) {
+                    return options.highlight_color;
+                } else if (options.chart_color.length && options.chart_color[0]){
+                    return options.chart_color[0];
+                } else {
+                    return theme.stylesheet.chart_color
+                }
             } else {
-                return theme.stylesheet.chart_color
+                if(d.name.toLowerCase() === options.highlight.toLowerCase()) {
+                    return options.highlight_color;
+                } else{
+                    return d.color;
+                }
             }
         },
         colorChart: function (d) {
@@ -1568,12 +1626,12 @@ configuration.Theme = function(){
         "chart_margin_left": 50,
 
         "title_text": "",
-        "title_size": 15,
+        "title_size": 2,
         "title_color": "#1D1D1D",
         "title_weight": "bold",
         "title_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
 
-        "subtitle_size": 12,
+        "subtitle_size": 1,
         "subtitle_color": "black",
         "subtitle_weight": "normal",
         "subtitle_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
@@ -1583,6 +1641,7 @@ configuration.Theme = function(){
         "background_color": "transparent",
         "chart_color": ["#255AEE"],
         "saturation_color": "#255AEE",
+        "shade_color":"",
 
         "border_between_chart_elements_thickness": 1,
         "border_between_chart_elements_color": "white",
@@ -1659,7 +1718,7 @@ configuration.Theme = function(){
         "clubdata_enable": "yes",
         "clubdata_text": "Others",
         "clubdata_maximum_nodes": 5,
-
+        "shade_color": "rgb(255,0,0)",
         "pie_radius_percent": 70,
         "donut_radius_percent": 70,
         "donut_inner_radius_percent": 40,
