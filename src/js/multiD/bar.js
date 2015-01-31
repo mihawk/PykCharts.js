@@ -44,6 +44,7 @@ PykCharts.multiD.bar = function (options) {
                 that.axis_y_data_format = "string";
             }
             that.k.remove_loading_bar(id);
+            console.log(that.data,"anu")
             that.render();
         };
         if (PykCharts.boolean(options.interactive_enable)) {
@@ -466,7 +467,7 @@ PykCharts.multiD.bar = function (options) {
                             column_to_be_sorted = "x";
                             break;
                     }
-                    that.data = that.k.__proto__._sortData(that.data, column_to_be_sorted, "group", that);
+                    that.data = that.k.__proto__._sortData(that.data, column_to_be_sorted, "group", that,"notApplicable");
                 }
             }
         };

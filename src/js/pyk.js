@@ -582,8 +582,10 @@ PykCharts.Configuration = function (options){
                 };
                 return gd;
             },
-            _sortData: function (data, column_to_be_sorted, group_column_name, options) {
-                if(!PykCharts['boolean'](options.data_sort_enable)) {
+            _sortData: function (data, column_to_be_sorted, group_column_name, options,notApplicable) {
+                console.log(notApplicable)
+                if(!PykCharts['boolean'](options.data_sort_enable) && !notApplicable) {
+                    console.log(notApplicable,"notApplicable")
                     data.sort(function(a,b) {
                         if (a[group_column_name] > b[group_column_name]) {
                             return 1;
@@ -593,6 +595,7 @@ PykCharts.Configuration = function (options){
                         }
                     });
                 } else if (PykCharts['boolean'](options.data_sort_enable)) {
+                    console.log(notApplicable,"notApplicable")
                     switch (options.data_sort_type) {
                         case "numerically":
                             data.sort(function (a,b) {

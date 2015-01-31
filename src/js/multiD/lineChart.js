@@ -699,7 +699,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                     })
 
                 } else if(that.axis_x_data_format === "string") {
-                    that.new_data[0].data.forEach(function(d) { x_data.push(+d.x); });
+                    that.new_data[0].data.forEach(function(d) { x_data.push(d.x); });
                     x_range = [0 ,that.reducedWidth];
                     that.xScale = that.k.scaleIdentification("ordinal",x_data,x_range,0);
                     that.extra_left_margin = (that.xScale.rangeBand() / 2);
@@ -760,6 +760,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                             .on("mousewheel.zoom", null);
                     }
                 }
+
                 that.chart_path = d3.svg.line()
                     .x(function(d) { return that.xScale(d.x); })
                     .y(function(d) { return that.yScale(d.y); })
@@ -830,7 +831,6 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                             var type = that.type + "-svg-" + i;
                             that.dataLineGroup[i] = that.chartBody.append("path");
                             var data = that.new_data[i].data;
-
                             that.dataLineGroup[i]
                                     .datum(that.new_data[i].data)
                                     .attr({
