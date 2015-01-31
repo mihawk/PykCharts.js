@@ -14321,13 +14321,13 @@ PykCharts.multiD.river = function (options){
     that.dataTransformation = function () {
         that.group_arr = [], that.new_data = [],that.uniq_alias_arr = [],that.uniq_duration_arr = [];
         that.data_length = that.data.length;
-        for(j = 0;j < that.data_length;j++) {
+        for(var j = 0;j < that.data_length;j++) {
             that.group_arr[j] = that.data[j].y;
         }
         that.uniq_group_arr = that.k.__proto__._unique(that.group_arr);
         var len = that.uniq_group_arr.length;
-        for (k = 0;k < len;k++) {
-            for (l = 0;l < that.data_length;l++) {
+        for (var k = 0;k < len;k++) {
+            for (var l = 0;l < that.data_length;l++) {
                 if (that.uniq_group_arr[k] === that.data[l].y) {
                     that.uniq_alias_arr[k] = that.data[l].alias;
                     that.uniq_duration_arr[k] = that.data[l].text_between_steps || "";
@@ -14336,14 +14336,14 @@ PykCharts.multiD.river = function (options){
             }
         }
 
-        for (k = 0;k < len;k++) {
+        for (var k = 0;k < len;k++) {
             that.new_data[k] = {
                     display_name: that.uniq_group_arr[k],
                     breakup: [],
                     technical_name: that.uniq_alias_arr[k],
                     duration: that.uniq_duration_arr[k]
             };
-            for (l = 0;l < that.data_length;l++) {
+            for (var l = 0;l < that.data_length;l++) {
                 if (that.uniq_group_arr[k] === that.data[l].y) {
                     that.new_data[k].breakup.push({
                         count: +that.data[l].x,
@@ -14356,7 +14356,7 @@ PykCharts.multiD.river = function (options){
         }
         that.opacity_array = [];
         that.new_data_length = that.new_data.length;
-        for(i = 0; i<that.new_data_length;i++) {
+        for(var i = 0; i<that.new_data_length;i++) {
             that.opacity_array.push(((that.new_data_length-i)/that.new_data_length)) 
         }
     };
@@ -14589,9 +14589,12 @@ PykCharts.multiD.river = function (options){
                             }
                         },
                         "click": function(d, i){
-                            if(PykCharts.boolean(that.expand_group) && that.mode === "default") {
-                                that.onlyFilter(d.name);
-                            }
+                            if(PykCharts['boolean'](options.click_enable)){
+                                that.addEvents(uniq_name + "-" + d.name, d3.select(this).attr("data-id")); 
+                            } 
+                            // if(PykCharts.boolean(that.expand_group) && that.mode === "default") {
+                            //     that.onlyFilter(d.name);
+                            // }
                         }
                     });
 
