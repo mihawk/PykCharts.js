@@ -785,11 +785,11 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                                         d3.select(this).classed({'multi-line-selected':false,'multi-line':true,'multi-line-hover':false});
                                     }
                                     return that.fillColor.colorPieMS(that.new_data[i],that.type);
-                                });
+                                })
                                 attr("data-id",function (d,i) {
                                     return that.new_data[i];
                                 });
-)
+
                             function transition1 (i) {
                                 that.dataLineGroup[i].transition()
                                     .duration(that.transitions.duration())
