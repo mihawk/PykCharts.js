@@ -15484,7 +15484,7 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
         that.uniq_group_arr = that.k.__proto__._unique(that.group_arr);
         var uniq_group_arr_length = that.uniq_group_arr.length;
 
-        for(var k = 0;k < that.data_length;k++) {
+        for(var k = 0;k < that.data.length;k++) {
             that.x_arr[k] = +that.data[k].x;
         }
         var uniq_x_arr = that.k.__proto__._unique(that.x_arr);
