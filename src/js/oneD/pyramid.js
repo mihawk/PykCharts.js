@@ -50,6 +50,7 @@ PykCharts.oneD.pyramid = function (options) {
             that.new_data = that.optionalFeatures().clubData();
             if(that.color_mode === "shade") {
                 shade_array = that.k.shadeColorConversion(that.shade_color,that.new_data.length);
+                shade_array.reverse();
                 that.new_data.forEach(function (d,i) {
                     d.color = shade_array[i];
                 })
@@ -77,6 +78,7 @@ PykCharts.oneD.pyramid = function (options) {
             that.new_data = that.optionalFeatures().clubData();
             if(that.color_mode === "shade") {
                 shade_array = that.k.shadeColorConversion(that.shade_color,that.new_data.length);
+                shade_array.reverse();
                 that.new_data.forEach(function (d,i) {
                     d.color = shade_array[i];
                 })
@@ -99,6 +101,7 @@ PykCharts.oneD.pyramid = function (options) {
             that.new_data = that.data;
             if(that.color_mode === "shade") {
                 shade_array = that.k.shadeColorConversion(that.shade_color,that.new_data.length);
+                shade_array.reverse();
                 that.new_data.forEach(function (d,i) {
                     d.color = shade_array[i];
                 })
@@ -566,7 +569,7 @@ PykCharts.oneD.pyramid = function (options) {
                     }
                     var others_Slice = { "name":that.clubdata_text, "weight": sum_others,/* "color": that.clubdata_color,*/ "tooltip": that.clubdata_tooltip };
                     new_data1.sort(function(a,b){
-                        return b.weight - a.weight;
+                        return a.weight - b.weight;
                     })
                     if(new_data1.length < that.clubdata_maximum_nodes){
                         new_data1.push(others_Slice);

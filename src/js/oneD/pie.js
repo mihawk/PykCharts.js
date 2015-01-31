@@ -13,8 +13,7 @@ PykCharts.oneD.pie = function (options) {
             that.calculation = "pie";
         }
         that.pie_radius_percent = options.pie_radius_percent ? options.pie_radius_percent : theme.oneDimensionalCharts.pie_radius_percent;
-        console.log(that.color_mode,that.shade_color);
-
+        
         that.k.validator()
             .validatingDataType(that.chart_height,"chart_height",that.chart_width)
             .validatingDataType(that.pie_radius_percent,"pie_radius_percent",theme.oneDimensionalCharts.pie_radius_percent);
@@ -321,12 +320,6 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                 that.k.lastUpdatedAt("liveData");
             }
             that.new_data = that.optionalFeatures().clubData();
-            if(that.color_mode === "shade") {
-                shade_array = that.k.shadeColorConversion(that.shade_color,that.new_data.length);
-                that.new_data.forEach(function (d,i) {
-                    d.color = shade_array[i];
-                })
-            }
             that.optionalFeatures()
                     .createChart(shade_array)
                     .label()
@@ -354,12 +347,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
 
             that.optionalFeatures().svgContainer(container_id);
             that.new_data = that.optionalFeatures().clubData();
-            if(that.color_mode === "shade") {
-                shade_array = that.k.shadeColorConversion(that.shade_color,that.new_data.length);
-                that.new_data.forEach(function (d,i) {
-                    d.color = shade_array[i];
-                })
-            }
+            
             that.k.createFooter()
                     .lastUpdatedAt()
                     .credits()
@@ -381,12 +369,6 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
             that.k.backgroundColor(that)
                 .export(that,"#"+container_id,type)
                     .emptyDiv(that.selector);
-            if(that.color_mode === "shade") {
-                shade_array = that.k.shadeColorConversion(that.shade_color,that.new_data.length);
-                that.new_data.forEach(function (d,i) {
-                    d.color = shade_array[i];
-                })
-            }
             that.optionalFeatures().svgContainer(container_id)
                     .set_start_end_angle()
                     .createChart(shade_array)
@@ -444,6 +426,12 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
             createChart : function () {
                 document.querySelector(that.selector +" #pieGroup").innerHTML = null;
                 var border = new PykCharts.Configuration.border(that);
+                if(that.color_mode === "shade") {
+                    shade_array = that.k.shadeColorConversion(that.shade_color,that.new_data.length);
+                    that.new_data.forEach(function (d,i) {
+                        d.color = shade_array[i];
+                    })
+                }
                 if(type.toLowerCase() === "pie" || type.toLowerCase() === "donut") {
                     that.new_data.sort(function (a,b) { return a.weight - b.weight;});
                     var temp = that.new_data.pop();
@@ -483,6 +471,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                         }
                     }
                 }
+
                 that.sum = 0;
                 for(var i = 0,len=that.data.length;i<len;i++) {
                     that.sum+=that.data[i].weight;
@@ -620,82 +609,66 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
             },
             clubData: function () {
                 if(PykCharts['boolean'](that.clubdata_enable)) {
-                    that.displayData = [];
-                    that.sorted_weight = [];
-                    for(var i=0,len=that.data.length;i<len;i++) {
-                        that.sorted_weight.push(that.data[i].weight)
+                    var clubdata_content = [];
+                    if(that.clubdata_always_include_data_points.length!== 0){
+                        var l = that.clubdata_always_include_data_points.length;
+                        for(i=0; i < l; i++){
+                            clubdata_content[i] = that.clubdata_always_include_data_points[i];
+                        }
                     }
-                    that.sorted_weight.sort(function(a,b){ return b-a; });
-                    that.checkDuplicate = [];
-                    var others_Slice = {"name":that.clubdata_text,"color":that.clubData_color,"tooltip":that.clubData_tooltipText,"highlight":false};
-                    var index;
-                    var i;
-                    that.getIndexByName = function(name) {
-                        for(i=0;i<that.data.length;i++)
-                        {
-                            if(that.data[i].name === name) {
-                                return i;
+                    var new_data1 = [];
+                    for(i=0;i<clubdata_content.length;i++){
+                        for(j=0;j<that.data.length;j++){
+                            if(clubdata_content[i].toUpperCase() === that.data[j].name.toUpperCase()){
+                                new_data1.push(that.data[j]);
                             }
                         }
-                    };
-
-                    var reject = function (index) {
-                        var list_length = that.sorted_weight.length,
-                            result = [];
-                        for(var i=0 ; i<list_length ; i++) {
-                            if(that.sorted_weight[i] !== that.data[index].weight) {
-                                result.push(that.sorted_weight[i]);
-                            }
-                        }
-                        return result;
-                    } ;
-
+                    }
+                    that.data.sort(function (a,b) { return b.weight - a.weight; });
                     var k = 0;
-                    if(that.clubdata_always_include_data_points.length!== 0) {
-                        for (var l=0;l<that.clubdata_always_include_data_points.length;l++)
-                        {
-                            index = that.getIndexByName(that.clubdata_always_include_data_points[l]);
-                            if(index!= undefined) {
-                                that.displayData.push(that.data[index]);
-                                that.sorted_weight = reject(index);
+
+                    while(new_data1.length<that.clubdata_maximum_nodes-1){
+                        for(i=0;i<clubdata_content.length;i++){
+                            if(that.data[k].name.toUpperCase() === clubdata_content[i].toUpperCase()){
+                                k++;
                             }
                         }
+                        new_data1.push(that.data[k]);
+                        k++;
                     }
-                    that.getIndexByWeight = function (weight) {
-                        for(var i=0;i<that.data.length;i++)
-                        {
-                            if(that.data[i].weight === weight) {
-                                if(that.checkDuplicate.indexOf(i) === -1) {
-                                   that.checkDuplicate.push(i);
-                                    return i;
-                                }
-                                else {
-                                    continue;
-                                }
+                    var sum_others = 0;
+                    for(j=k; j < that.data.length; j++){
+                        for(i=0; i<new_data1.length && j<that.data.length; i++){
+                            if(that.data[j].name.toUpperCase() === new_data1[i].name.toUpperCase()){
+                                sum_others +=0;
+                                j++;
+                                i = -1;
                             }
                         }
-                    };
-                    var count = that.clubdata_maximum_nodes-that.displayData.length;
-
-                    var sum_others = d3.sum(that.sorted_weight,function (d,i) {
-                            if(i>=count-1)
-                                return d;
-                        });
-
-                    others_Slice.weight = sum_others;
-                    if(count>0)
-                    {
-                        that.displayData.push(others_Slice);
-                        for (i=0;i<count-1;i++) {
-                            index = that.getIndexByWeight(that.sorted_weight[i]);
-                            that.displayData.push(that.data[index]);
+                        if(j < that.data.length){
+                            sum_others += that.data[j].weight;
                         }
                     }
+                    var sortfunc = function (a,b) { return b.weight - a.weight; };
+
+                    while(new_data1.length > that.clubdata_maximum_nodes){
+                        new_data1.sort(sortfunc);
+                        var a=new_data1.pop();
+                    }
+                    var others_Slice = { "name":that.clubdata_text, "weight": sum_others,/* "color": that.clubdata_color,*/ "tooltip": that.clubdata_tooltip };
+                    new_data1.sort(function(a,b){
+                        return b.weight - a.weight;
+                    })
+                    if(new_data1.length < that.clubdata_maximum_nodes){
+                        new_data1.push(others_Slice);
+                    }
+                    that.new_data = new_data1;
                 }
                 else {
-                    that.displayData = that.data;
+                    that.data.sort(function (a,b) { return b.weight - a.weight; });
+                    that.new_data = that.data;
                 }
-                return that.displayData;
+                return that.new_data;
             },
             ticks : function () {
                 if(PykCharts['boolean'](that.pointer_overflow_enable)) {
