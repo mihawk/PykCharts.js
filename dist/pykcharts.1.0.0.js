@@ -701,11 +701,10 @@ PykCharts.Configuration = function (options){
                         return "dark";
                     }
                 }
-                else if (brightness < 125 && a < 0.5) {
+                else if (brightness < 125 && a <= 0.5) {
                     if(element) {    
                         d3.selectAll(element).classed({'light': true, 'dark': false});
                     } else {
-                        console.log("heyyyyyy")
                         return "light";
                     }
                 }
@@ -1500,10 +1499,12 @@ configuration.mouseEvent = function (options) {
 
             return this;
         },
-        highlight: function (selectedclass, that) {
+        highlight: function (selectedclass, that, has_svg_element_as_container) {
             var t = d3.select(that);
             d3.selectAll(selectedclass)
-                .attr("fill-opacity",.5)
+                .attr("fill-opacity", function(d,i) {
+                    return (d.children && has_svg_element_as_container) ? 0 : 0.5;
+                });
             t.attr("fill-opacity",1);
             return this;
         },
@@ -2829,8 +2830,8 @@ PykCharts.oneD.bubble = function (options) {
                         "fill": function (d) {
                             return d.children ? that.background_color : that.fillChart.selectColor(d);
                         },
-                        "fill-opacity": function(d,i) {                            
-                            return (d.name == undefined) ? 0 : 1;
+                        "fill-opacity": function(d) {
+                            return d.children ? 0 : 1;
                         },
                         "data-fill-opacity": function () {
                             return d3.select(this).attr("fill-opacity");
@@ -2840,7 +2841,7 @@ PykCharts.oneD.bubble = function (options) {
                         "mouseover": function (d) {
                             if(!d.children && that.mode==="default") {
                                 if(PykCharts['boolean'](that.chart_onhover_highlight_enable)) {
-                                    that.mouseEvent.highlight(options.selector+" "+".bubble", this);
+                                    that.mouseEvent.highlight(options.selector+" "+".bubble", this, true);
                                 }
                                 d.tooltip = d.tooltip ||"<table><thead><th colspan='2' class='tooltip-heading'>"+d.name+"</th></thead><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.weight)+"  <td class='tooltip-right-content'>("+((d.weight*100)/that.sum).toFixed(1)+"%)</tr></table>";
                                 that.mouseEvent.tooltipPosition(d);
@@ -4494,7 +4495,7 @@ PykCharts.oneD.pie = function (options) {
             that.calculation = "pie";
         }
         that.pie_radius_percent = options.pie_radius_percent ? options.pie_radius_percent : theme.oneDimensionalCharts.pie_radius_percent;
-        
+
         that.k.validator()
             .validatingDataType(that.chart_height,"chart_height",that.chart_width)
             .validatingDataType(that.pie_radius_percent,"pie_radius_percent",theme.oneDimensionalCharts.pie_radius_percent);
@@ -14906,7 +14907,6 @@ PykCharts.multiD.waterfall = function(options){
         that.panels_enable = "no";
         that.longest_tick_width = 0;
         that.ticks_formatter = d3.format("s");
-
         try {
         	if (that.chart_color.length == 0) {
 	        	that.chart_color = ["rgb(255, 60, 131)", "rgb(0, 185, 250)", "grey"];
@@ -15164,7 +15164,8 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
                             that.mouseEvent.tooltipPosition(d);
                             that.mouseEvent.tooltipTextShow(tooltipText);
                             that.mouseEvent.axisHighlightShow(d.unique_name,that.selector + " .y.axis",that.y_values,"waterfall");
-                            if(PykCharts['boolean'](that.onhover_enable)) {
+                            if(PykCharts['boolean'](that.chart_onhover_highlight_enable)) {
+                                console.log("test");
                                 that.mouseEvent.highlight(that.selector + " .rect", this);
                             }
                         }
@@ -15173,7 +15174,7 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
                         if(that.mode === "default") {
                             that.mouseEvent.tooltipHide(d);
                             that.mouseEvent.axisHighlightHide(that.selector + " .y.axis");
-                            if(PykCharts['boolean'](that.onhover_enable)) {
+                            if(PykCharts['boolean'](that.chart_onhover_highlight_enable)) {
                                 that.mouseEvent.highlightHide(that.selector + " .rect")
                             }
                         }

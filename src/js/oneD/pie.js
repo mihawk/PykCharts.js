@@ -13,7 +13,7 @@ PykCharts.oneD.pie = function (options) {
             that.calculation = "pie";
         }
         that.pie_radius_percent = options.pie_radius_percent ? options.pie_radius_percent : theme.oneDimensionalCharts.pie_radius_percent;
-        
+
         that.k.validator()
             .validatingDataType(that.chart_height,"chart_height",that.chart_width)
             .validatingDataType(that.pie_radius_percent,"pie_radius_percent",theme.oneDimensionalCharts.pie_radius_percent);
