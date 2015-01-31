@@ -424,9 +424,12 @@ PykCharts.multiD.river = function (options){
                             }
                         },
                         "click": function(d, i){
-                            if(PykCharts.boolean(that.expand_group) && that.mode === "default") {
-                                that.onlyFilter(d.name);
-                            }
+                            if(PykCharts['boolean'](options.click_enable)){
+                                that.addEvents(uniq_name + "-" + d.name, d3.select(this).attr("data-id")); 
+                            } 
+                            // if(PykCharts.boolean(that.expand_group) && that.mode === "default") {
+                            //     that.onlyFilter(d.name);
+                            // }
                         }
                     });
 

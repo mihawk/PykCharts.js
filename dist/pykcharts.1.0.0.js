@@ -1600,6 +1600,7 @@ configuration.renderBrush = function (options,xScale,group,height) {
         min = options.brush_extent[0];
         max = options.brush_extent[1];
         options.onBrush(xScale(min),xScale(max));
+        console.log(xScale(min),xScale(max))
         return options.brush_extent;
     }
 };
@@ -14582,9 +14583,12 @@ PykCharts.multiD.river = function (options){
                             }
                         },
                         "click": function(d, i){
-                            if(PykCharts.boolean(that.expand_group) && that.mode === "default") {
-                                that.onlyFilter(d.name);
-                            }
+                            if(PykCharts['boolean'](options.click_enable)){
+                                that.addEvents(uniq_name + "-" + d.name, d3.select(this).attr("data-id")); 
+                            } 
+                            // if(PykCharts.boolean(that.expand_group) && that.mode === "default") {
+                            //     that.onlyFilter(d.name);
+                            // }
                         }
                     });
 
