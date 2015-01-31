@@ -196,7 +196,7 @@ PykCharts.multiD.river = function (options){
         }
     };
     that.refresh = function(pykquery_data) {
-        that.executeRefresh = function (e, data) {
+        that.executeRefresh = function (data) {
             that.data = data;
             that.refresh_data = data;
             var compare = that.k.checkChangeInData(that.refresh_data,that.compare_data);
