@@ -45,6 +45,7 @@ PykCharts.oneD.bubble = function (options) {
             that.new_data = that.optionalFeatures().clubData();
             if(that.color_mode === "shade") {
                 shade_array = that.k.shadeColorConversion(that.shade_color,that.new_data.children.length);
+                shade_array.reverse();
                 that.new_data.children.forEach(function (d,i) {
                     d.color = shade_array[i];
                 })
@@ -75,6 +76,7 @@ PykCharts.oneD.bubble = function (options) {
             that.new_data = that.optionalFeatures().clubData();
             if(that.color_mode === "shade") {
                 shade_array = that.k.shadeColorConversion(that.shade_color,that.new_data.children.length);
+                shade_array.reverse();
                 that.new_data.children.forEach(function (d,i) {
                     d.color = shade_array[i];
                 })
@@ -98,6 +100,7 @@ PykCharts.oneD.bubble = function (options) {
             that.new_data = {"children" : that.data};
             if(that.color_mode === "shade") {
                 shade_array = that.k.shadeColorConversion(that.shade_color,that.new_data.children.length);
+                shade_array.reverse();
                 that.new_data.children.forEach(function (d,i) {
                     d.color = shade_array[i];
                 })

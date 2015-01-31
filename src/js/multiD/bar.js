@@ -444,7 +444,7 @@ PykCharts.multiD.bar = function (options) {
                             column_to_be_sorted = "x";
                             break;
                     }
-                    that.data = that.k.__proto__._sortData(that.data, column_to_be_sorted, "group", that);
+                    that.data = that.k.__proto__._sortData(that.data, column_to_be_sorted, "group", that,"notApplicable");
                 }
             }
         };

@@ -577,8 +577,8 @@ PykCharts.Configuration = function (options){
                 };
                 return gd;
             },
-            _sortData: function (data, column_to_be_sorted, group_column_name, options) {
-                if(!PykCharts['boolean'](options.data_sort_enable)) {
+            _sortData: function (data, column_to_be_sorted, group_column_name, options,notApplicable) {
+                if(!PykCharts['boolean'](options.data_sort_enable) && !notApplicable) {
                     data.sort(function(a,b) {
                         if (a[group_column_name] > b[group_column_name]) {
                             return 1;
@@ -694,16 +694,26 @@ PykCharts.Configuration = function (options){
 
                 }
                 brightness = (r * 299 + g * 587 + b * 114) / 1000;
-                if (brightness < 125) {
-                    if (a <= 0.5) {
-                        d3.selectAll(element).classed({'light': true, 'dark': false});
-                    }
-                    else {
+                if (brightness < 125 && a > 0.5) {
+                     if(element) {   
                         d3.selectAll(element).classed({'light': false, 'dark': true});
+                    } else {
+                        return "dark";
+                    }
+                }
+                else if (brightness < 125 && a <= 0.5) {
+                    if(element) {    
+                        d3.selectAll(element).classed({'light': true, 'dark': false});
+                    } else {
+                        return "light";
                     }
                 }
                 else {
-                    d3.selectAll(element).classed({'light': true, 'dark': false});
+                    if(element) {    
+                        d3.selectAll(element).classed({'light': true, 'dark': false});
+                    } else {
+                        return "light";
+                    }
                 }
             },
             _isNumber: function (n) {
@@ -1008,22 +1018,36 @@ PykCharts.Configuration = function (options){
             return this;
         },
         shadeColorConversion: function (color, data_length) {
-            var r,g,b, division,array = [];
-            color = d3.hsl(color);
-            division = 55/data_length;
-            color.l = color.l * 100;
-            function componentToHex(c) {
-                var hex = c.toString(16);
-                return hex.length == 1 ? "0" + hex : hex;
-            }
+            var r,g,b, division,array = [], increment_ratio = (150/data_length),color_value,color_validation;
+            
+            color = d3.rgb(color);
+            // function componentToHex(c) {
+            //     var hex = c.toString(16);
+            //     return hex.length == 1 ? "0" + hex : hex;
+            // }
 
-            function rgbToHex(r, g, b) {
-                return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+            // function rgbToHex(r, g, b) {
+            //     return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+            // }
+            color_validation = "rgb(" + color.r + "," + color.g + "," + color.b +")"
+            color_value = options.k.__proto__._colourBrightness(color_validation);
+            if(color_value === "light") {
+                inc = -1;
+            } else {
+                inc = 1;
             }
-            for(i = 0; i < data_length; i++) {
-                var rgb_color = d3.rgb("hsl(" + color.h + "," + (45 + (i+1)*division) + "," + color.l + ")")
-                var hex_color = rgbToHex(rgb_color.r,rgb_color.g,rgb_color.b)
+            var magnitude = Math.sqrt((color.r*color.r) + (color.g*color.g)) + Math.sqrt((color.r*color.r) + (color.b*color.b)) +  Math.sqrt((color.g*color.g) + (color.b*color.b))
+            for(i = 0; Math.abs(i) < data_length; i += inc) {
+                var rgb_color = {
+                    "r":parseInt((color.r+(i*increment_ratio)),10),
+                    "g":parseInt((color.g+(i*increment_ratio)),10),
+                    "b":parseInt((color.b+(i*increment_ratio)),10)
+                }
+                var hex_color = "rgb(" + rgb_color.r + "," + rgb_color.g + "," + rgb_color.b +")"
                 array.push(hex_color);
+            }
+            if(inc === -1) {
+                array.reverse();
             }
             return array;
         },
@@ -1528,11 +1552,7 @@ configuration.fillChart = function (options,theme,config) {
                     return theme.stylesheet.chart_color
                 }
             } else {
-                if(d.name.toLowerCase() === options.highlight.toLowerCase()) {
-                    return options.highlight_color;
-                } else{
-                    return d.color;
-                }
+                return d.color;
             }
         },
         colorChart: function (d) {
@@ -1718,7 +1738,7 @@ configuration.Theme = function(){
         "clubdata_enable": "yes",
         "clubdata_text": "Others",
         "clubdata_maximum_nodes": 5,
-        "shade_color": "rgb(255,0,0)",
+        "shade_color": "#255AEE",
         "pie_radius_percent": 70,
         "donut_radius_percent": 70,
         "donut_inner_radius_percent": 40,
@@ -2682,6 +2702,7 @@ PykCharts.oneD.bubble = function (options) {
             that.new_data = that.optionalFeatures().clubData();
             if(that.color_mode === "shade") {
                 shade_array = that.k.shadeColorConversion(that.shade_color,that.new_data.children.length);
+                shade_array.reverse();
                 that.new_data.children.forEach(function (d,i) {
                     d.color = shade_array[i];
                 })
@@ -2712,6 +2733,7 @@ PykCharts.oneD.bubble = function (options) {
             that.new_data = that.optionalFeatures().clubData();
             if(that.color_mode === "shade") {
                 shade_array = that.k.shadeColorConversion(that.shade_color,that.new_data.children.length);
+                shade_array.reverse();
                 that.new_data.children.forEach(function (d,i) {
                     d.color = shade_array[i];
                 })
@@ -2735,6 +2757,7 @@ PykCharts.oneD.bubble = function (options) {
             that.new_data = {"children" : that.data};
             if(that.color_mode === "shade") {
                 shade_array = that.k.shadeColorConversion(that.shade_color,that.new_data.children.length);
+                shade_array.reverse();
                 that.new_data.children.forEach(function (d,i) {
                     d.color = shade_array[i];
                 })
@@ -4779,12 +4802,6 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                 that.k.lastUpdatedAt("liveData");
             }
             that.new_data = that.optionalFeatures().clubData();
-            if(that.color_mode === "shade") {
-                shade_array = that.k.shadeColorConversion(that.shade_color,that.new_data.length);
-                that.new_data.forEach(function (d,i) {
-                    d.color = shade_array[i];
-                })
-            }
             that.optionalFeatures()
                     .createChart(shade_array)
                     .label()
@@ -4812,12 +4829,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
 
             that.optionalFeatures().svgContainer(container_id);
             that.new_data = that.optionalFeatures().clubData();
-            if(that.color_mode === "shade") {
-                shade_array = that.k.shadeColorConversion(that.shade_color,that.new_data.length);
-                that.new_data.forEach(function (d,i) {
-                    d.color = shade_array[i];
-                })
-            }
+            
             that.k.createFooter()
                     .lastUpdatedAt()
                     .credits()
@@ -4839,12 +4851,6 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
             that.k.backgroundColor(that)
                 .export(that,"#"+container_id,type)
                     .emptyDiv(that.selector);
-            if(that.color_mode === "shade") {
-                shade_array = that.k.shadeColorConversion(that.shade_color,that.new_data.length);
-                that.new_data.forEach(function (d,i) {
-                    d.color = shade_array[i];
-                })
-            }
             that.optionalFeatures().svgContainer(container_id)
                     .set_start_end_angle()
                     .createChart(shade_array)
@@ -4902,6 +4908,12 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
             createChart : function () {
                 document.querySelector(that.selector +" #pieGroup").innerHTML = null;
                 var border = new PykCharts.Configuration.border(that);
+                if(that.color_mode === "shade") {
+                    shade_array = that.k.shadeColorConversion(that.shade_color,that.new_data.length);
+                    that.new_data.forEach(function (d,i) {
+                        d.color = shade_array[i];
+                    })
+                }
                 if(type.toLowerCase() === "pie" || type.toLowerCase() === "donut") {
                     that.new_data.sort(function (a,b) { return a.weight - b.weight;});
                     var temp = that.new_data.pop();
@@ -4941,6 +4953,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                         }
                     }
                 }
+
                 that.sum = 0;
                 for(var i = 0,len=that.data.length;i<len;i++) {
                     that.sum+=that.data[i].weight;
@@ -5078,82 +5091,66 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
             },
             clubData: function () {
                 if(PykCharts['boolean'](that.clubdata_enable)) {
-                    that.displayData = [];
-                    that.sorted_weight = [];
-                    for(var i=0,len=that.data.length;i<len;i++) {
-                        that.sorted_weight.push(that.data[i].weight)
+                    var clubdata_content = [];
+                    if(that.clubdata_always_include_data_points.length!== 0){
+                        var l = that.clubdata_always_include_data_points.length;
+                        for(i=0; i < l; i++){
+                            clubdata_content[i] = that.clubdata_always_include_data_points[i];
+                        }
                     }
-                    that.sorted_weight.sort(function(a,b){ return b-a; });
-                    that.checkDuplicate = [];
-                    var others_Slice = {"name":that.clubdata_text,"color":that.clubData_color,"tooltip":that.clubData_tooltipText,"highlight":false};
-                    var index;
-                    var i;
-                    that.getIndexByName = function(name) {
-                        for(i=0;i<that.data.length;i++)
-                        {
-                            if(that.data[i].name === name) {
-                                return i;
+                    var new_data1 = [];
+                    for(i=0;i<clubdata_content.length;i++){
+                        for(j=0;j<that.data.length;j++){
+                            if(clubdata_content[i].toUpperCase() === that.data[j].name.toUpperCase()){
+                                new_data1.push(that.data[j]);
                             }
                         }
-                    };
-
-                    var reject = function (index) {
-                        var list_length = that.sorted_weight.length,
-                            result = [];
-                        for(var i=0 ; i<list_length ; i++) {
-                            if(that.sorted_weight[i] !== that.data[index].weight) {
-                                result.push(that.sorted_weight[i]);
-                            }
-                        }
-                        return result;
-                    } ;
-
+                    }
+                    that.data.sort(function (a,b) { return b.weight - a.weight; });
                     var k = 0;
-                    if(that.clubdata_always_include_data_points.length!== 0) {
-                        for (var l=0;l<that.clubdata_always_include_data_points.length;l++)
-                        {
-                            index = that.getIndexByName(that.clubdata_always_include_data_points[l]);
-                            if(index!= undefined) {
-                                that.displayData.push(that.data[index]);
-                                that.sorted_weight = reject(index);
+
+                    while(new_data1.length<that.clubdata_maximum_nodes-1){
+                        for(i=0;i<clubdata_content.length;i++){
+                            if(that.data[k].name.toUpperCase() === clubdata_content[i].toUpperCase()){
+                                k++;
                             }
                         }
+                        new_data1.push(that.data[k]);
+                        k++;
                     }
-                    that.getIndexByWeight = function (weight) {
-                        for(var i=0;i<that.data.length;i++)
-                        {
-                            if(that.data[i].weight === weight) {
-                                if(that.checkDuplicate.indexOf(i) === -1) {
-                                   that.checkDuplicate.push(i);
-                                    return i;
-                                }
-                                else {
-                                    continue;
-                                }
+                    var sum_others = 0;
+                    for(j=k; j < that.data.length; j++){
+                        for(i=0; i<new_data1.length && j<that.data.length; i++){
+                            if(that.data[j].name.toUpperCase() === new_data1[i].name.toUpperCase()){
+                                sum_others +=0;
+                                j++;
+                                i = -1;
                             }
                         }
-                    };
-                    var count = that.clubdata_maximum_nodes-that.displayData.length;
-
-                    var sum_others = d3.sum(that.sorted_weight,function (d,i) {
-                            if(i>=count-1)
-                                return d;
-                        });
-
-                    others_Slice.weight = sum_others;
-                    if(count>0)
-                    {
-                        that.displayData.push(others_Slice);
-                        for (i=0;i<count-1;i++) {
-                            index = that.getIndexByWeight(that.sorted_weight[i]);
-                            that.displayData.push(that.data[index]);
+                        if(j < that.data.length){
+                            sum_others += that.data[j].weight;
                         }
                     }
+                    var sortfunc = function (a,b) { return b.weight - a.weight; };
+
+                    while(new_data1.length > that.clubdata_maximum_nodes){
+                        new_data1.sort(sortfunc);
+                        var a=new_data1.pop();
+                    }
+                    var others_Slice = { "name":that.clubdata_text, "weight": sum_others,/* "color": that.clubdata_color,*/ "tooltip": that.clubdata_tooltip };
+                    new_data1.sort(function(a,b){
+                        return b.weight - a.weight;
+                    })
+                    if(new_data1.length < that.clubdata_maximum_nodes){
+                        new_data1.push(others_Slice);
+                    }
+                    that.new_data = new_data1;
                 }
                 else {
-                    that.displayData = that.data;
+                    that.data.sort(function (a,b) { return b.weight - a.weight; });
+                    that.new_data = that.data;
                 }
-                return that.displayData;
+                return that.new_data;
             },
             ticks : function () {
                 if(PykCharts['boolean'](that.pointer_overflow_enable)) {
@@ -5373,6 +5370,7 @@ PykCharts.oneD.pyramid = function (options) {
             that.new_data = that.optionalFeatures().clubData();
             if(that.color_mode === "shade") {
                 shade_array = that.k.shadeColorConversion(that.shade_color,that.new_data.length);
+                shade_array.reverse();
                 that.new_data.forEach(function (d,i) {
                     d.color = shade_array[i];
                 })
@@ -5400,6 +5398,7 @@ PykCharts.oneD.pyramid = function (options) {
             that.new_data = that.optionalFeatures().clubData();
             if(that.color_mode === "shade") {
                 shade_array = that.k.shadeColorConversion(that.shade_color,that.new_data.length);
+                shade_array.reverse();
                 that.new_data.forEach(function (d,i) {
                     d.color = shade_array[i];
                 })
@@ -5422,6 +5421,7 @@ PykCharts.oneD.pyramid = function (options) {
             that.new_data = that.data;
             if(that.color_mode === "shade") {
                 shade_array = that.k.shadeColorConversion(that.shade_color,that.new_data.length);
+                shade_array.reverse();
                 that.new_data.forEach(function (d,i) {
                     d.color = shade_array[i];
                 })
@@ -5889,7 +5889,7 @@ PykCharts.oneD.pyramid = function (options) {
                     }
                     var others_Slice = { "name":that.clubdata_text, "weight": sum_others,/* "color": that.clubdata_color,*/ "tooltip": that.clubdata_tooltip };
                     new_data1.sort(function(a,b){
-                        return b.weight - a.weight;
+                        return a.weight - b.weight;
                     })
                     if(new_data1.length < that.clubdata_maximum_nodes){
                         new_data1.push(others_Slice);
@@ -10733,7 +10733,7 @@ PykCharts.multiD.bar = function (options) {
                             column_to_be_sorted = "x";
                             break;
                     }
-                    that.data = that.k.__proto__._sortData(that.data, column_to_be_sorted, "group", that);
+                    that.data = that.k.__proto__._sortData(that.data, column_to_be_sorted, "group", that,"notApplicable");
                 }
             }
         };

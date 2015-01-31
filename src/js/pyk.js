@@ -577,8 +577,8 @@ PykCharts.Configuration = function (options){
                 };
                 return gd;
             },
-            _sortData: function (data, column_to_be_sorted, group_column_name, options) {
-                if(!PykCharts['boolean'](options.data_sort_enable)) {
+            _sortData: function (data, column_to_be_sorted, group_column_name, options,notApplicable) {
+                if(!PykCharts['boolean'](options.data_sort_enable) && !notApplicable) {
                     data.sort(function(a,b) {
                         if (a[group_column_name] > b[group_column_name]) {
                             return 1;
@@ -694,16 +694,26 @@ PykCharts.Configuration = function (options){
 
                 }
                 brightness = (r * 299 + g * 587 + b * 114) / 1000;
-                if (brightness < 125) {
-                    if (a <= 0.5) {
-                        d3.selectAll(element).classed({'light': true, 'dark': false});
-                    }
-                    else {
+                if (brightness < 125 && a > 0.5) {
+                     if(element) {   
                         d3.selectAll(element).classed({'light': false, 'dark': true});
+                    } else {
+                        return "dark";
+                    }
+                }
+                else if (brightness < 125 && a <= 0.5) {
+                    if(element) {    
+                        d3.selectAll(element).classed({'light': true, 'dark': false});
+                    } else {
+                        return "light";
                     }
                 }
                 else {
-                    d3.selectAll(element).classed({'light': true, 'dark': false});
+                    if(element) {    
+                        d3.selectAll(element).classed({'light': true, 'dark': false});
+                    } else {
+                        return "light";
+                    }
                 }
             },
             _isNumber: function (n) {
@@ -1008,22 +1018,36 @@ PykCharts.Configuration = function (options){
             return this;
         },
         shadeColorConversion: function (color, data_length) {
-            var r,g,b, division,array = [];
-            color = d3.hsl(color);
-            division = 55/data_length;
-            color.l = color.l * 100;
-            function componentToHex(c) {
-                var hex = c.toString(16);
-                return hex.length == 1 ? "0" + hex : hex;
-            }
+            var r,g,b, division,array = [], increment_ratio = (150/data_length),color_value,color_validation;
+            
+            color = d3.rgb(color);
+            // function componentToHex(c) {
+            //     var hex = c.toString(16);
+            //     return hex.length == 1 ? "0" + hex : hex;
+            // }
 
-            function rgbToHex(r, g, b) {
-                return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+            // function rgbToHex(r, g, b) {
+            //     return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+            // }
+            color_validation = "rgb(" + color.r + "," + color.g + "," + color.b +")"
+            color_value = options.k.__proto__._colourBrightness(color_validation);
+            if(color_value === "light") {
+                inc = -1;
+            } else {
+                inc = 1;
             }
-            for(i = 0; i < data_length; i++) {
-                var rgb_color = d3.rgb("hsl(" + color.h + "," + (45 + (i+1)*division) + "," + color.l + ")")
-                var hex_color = rgbToHex(rgb_color.r,rgb_color.g,rgb_color.b)
+            var magnitude = Math.sqrt((color.r*color.r) + (color.g*color.g)) + Math.sqrt((color.r*color.r) + (color.b*color.b)) +  Math.sqrt((color.g*color.g) + (color.b*color.b))
+            for(i = 0; Math.abs(i) < data_length; i += inc) {
+                var rgb_color = {
+                    "r":parseInt((color.r+(i*increment_ratio)),10),
+                    "g":parseInt((color.g+(i*increment_ratio)),10),
+                    "b":parseInt((color.b+(i*increment_ratio)),10)
+                }
+                var hex_color = "rgb(" + rgb_color.r + "," + rgb_color.g + "," + rgb_color.b +")"
                 array.push(hex_color);
+            }
+            if(inc === -1) {
+                array.reverse();
             }
             return array;
         },
@@ -1528,11 +1552,7 @@ configuration.fillChart = function (options,theme,config) {
                     return theme.stylesheet.chart_color
                 }
             } else {
-                if(d.name.toLowerCase() === options.highlight.toLowerCase()) {
-                    return options.highlight_color;
-                } else{
-                    return d.color;
-                }
+                return d.color;
             }
         },
         colorChart: function (d) {
@@ -1718,7 +1738,7 @@ configuration.Theme = function(){
         "clubdata_enable": "yes",
         "clubdata_text": "Others",
         "clubdata_maximum_nodes": 5,
-        "shade_color": "rgb(255,0,0)",
+        "shade_color": "#255AEE",
         "pie_radius_percent": 70,
         "donut_radius_percent": 70,
         "donut_inner_radius_percent": 40,
