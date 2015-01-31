@@ -1564,6 +1564,46 @@ configuration.transition = function (options) {
     return transition;
 };
 
+configuration.renderBrush = function (options,xScale,group,height) {
+    function resizeHandle (d) {
+        var e = +(d == "e"), x = e ? 1 : -1, y = height / 3;
+        return ("M" + (0.5 * x) + "," + y
+                + "A6,6 0 0 " + e + " " + (6.5 * x) + "," + (y + 6)
+                + "V" + (2 * y - 6)
+                + "A6,6 0 0 " + e + " " + (0.5 * x) + "," + (2 * y)
+                + "Z"
+                + "M" + (2.5 * x) + "," + (y + 8)
+                + "V" + (2 * y - 8)
+                + "M" + (4.5 * x) + "," + (y + 8)
+                + "V" + (2 * y - 8));
+        
+    }
+
+    options.make_brush = d3.svg.brush().x(xScale)
+           .on("brushend", brushend)
+
+    var brush = group.append("g")
+        .attr("class", "brush")
+        .call(options.make_brush);
+
+    brush.selectAll("rect")
+      .attr("height",height)
+      .attr("fill","blue")
+      .attr("fill-opacity",0.3);
+    brush.selectAll(".resize").append("path").attr("d", resizeHandle)
+            .attr("fill","#4C7190")
+            .attr("stroke","#4C7190")
+            .attr("stroke-width","1.5px");
+
+    function brushend() {
+        options.brush_extent = d3.event.target.extent();
+        min = options.brush_extent[0];
+        max = options.brush_extent[1];
+        options.onBrush(min,max);
+        return options.brush_extent;
+    }
+};
+
 configuration.Theme = function(){
     var that = this;
     that.stylesheet = {

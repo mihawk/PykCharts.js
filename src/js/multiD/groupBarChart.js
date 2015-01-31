@@ -426,7 +426,6 @@ PykCharts.multiD.groupedBar = function(options){
                         return that.fillColor.colorGroup(d);
                     },
                     "fill-opacity" : function (d,i) {
-                        console.log(d)
                         if (that.color_mode === "saturation") {
                             return (i+1)/that.no_of_groups;
                         } else {

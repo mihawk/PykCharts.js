@@ -297,6 +297,11 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 					.xAxisTitle(that.xGroup,that.legendsGroup_height,that.legendsGroup_width)
 					.yAxisTitle(that.yGroup);
   		}
+
+  		if (PykCharts.boolean(options.interactive_enable)) {
+			that.brush = new PykCharts.Configuration.renderBrush(that,that.xScale,that.group,that.reducedHeight); 
+		}
+
 		that.k.exportSVG(that,"#"+that.container_id+"-1","areaChart")
   		that.mouseEvent = new PykCharts.crossHairMovement(that);
 
@@ -657,7 +662,7 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 							        return function(t) {
 							            return that.chart_path_border(that.layers[i].data.slice(0, interpolate(t)));
 							        };
-							    })
+				 			    })
 						}
 						borderTransition1(i);
 					}

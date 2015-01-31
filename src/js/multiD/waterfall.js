@@ -274,7 +274,7 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
 		       		})
                     .attr("fill-opacity",1)
                     .attr("data-id",function (d,i) {
-                        return d.name;
+                        return d.unique_name;
                     })
 		       		.on('mouseover',function (d) {
                         if(that.mode === "default") {

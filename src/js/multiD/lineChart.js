@@ -786,6 +786,10 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                                     }
                                     return that.fillColor.colorPieMS(that.new_data[i],that.type);
                                 });
+                                attr("data-id",function (d,i) {
+                                    return that.new_data[i];
+                                });
+)
                             function transition1 (i) {
                                 that.dataLineGroup[i].transition()
                                     .duration(that.transitions.duration())
@@ -885,6 +889,9 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                                     },
                                     "path-stroke-opacity": function () {
                                         return d3.select(this).attr("stroke-opacity");
+                                    },
+                                    "data-id":function (d,i) {
+                                        return that.new_data[i];
                                     }
                                 })
                                 .style("stroke", function() {
@@ -1369,6 +1376,10 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                 .yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain,that.y_tick_values)
                 .xAxisTitle(that.xGroup)
                 .yAxisTitle(that.yGroup);
+
+        if (PykCharts.boolean(options.interactive_enable)) {
+            that.brush = new PykCharts.Configuration.renderBrush(that,that.xScale,that.group,that.reducedHeight); 
+        }
 
         if(that.mode === "default") {
             that.k.yGrid(that.svgContainer,that.group,that.yScale)

@@ -742,7 +742,6 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
           "fill": function (d) { return that.fillChart.colorPieW(d); },
           "fill-opacity": function (d) { return that.multiD.opacity(d.weight,that.weight,that.data); },
           "data-fill-opacity": function (d) {
-            console.log(d)
             return d3.select(this).attr("fill-opacity");
           },
           "data-id":function(d){

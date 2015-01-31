@@ -491,7 +491,6 @@ PykCharts.multiD.groupedColumn = function(options) {
                             return d3.select(this).attr("fill-opacity");
                         },
                         "data-id":function (d,i) {
-                            console.log(d)
                             return d.name;
                         }
                     })

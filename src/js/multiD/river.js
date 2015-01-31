@@ -301,7 +301,6 @@ PykCharts.multiD.river = function (options){
                 return this;
             },
             createChart : function () {
-                console.log(that.new_data,that.data)
                 that.chart_margin_left = that.max_label + 10;
                 that.chart_margin_right = that.max_duration > that.max_tick ? (that.max_duration + 10) : (that.max_tick + 10);
                 var height = that.chart_height;
@@ -348,6 +347,7 @@ PykCharts.multiD.river = function (options){
                     var group = bar_holder[i];
                     var breakup = that.new_data1[i].breakup;
                     var len = that.new_data[i].breakup.length;
+                    var uniq_name = that.new_data[i].display_name;
                     if(that.extended) {
                         that.xScale.domain([0,that.new_data1[i].breakupTotal]);
                     }
@@ -395,6 +395,9 @@ PykCharts.multiD.river = function (options){
                         },
                         "data-fill-opacity": function () {
                             return d3.select(this).attr("fill-opacity");
+                        },
+                        "data-id":function (d,i) {
+                            return uniq_name + "-" + d.name;
                         }
                     })
                     .on({
