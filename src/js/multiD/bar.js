@@ -57,6 +57,10 @@ PykCharts.multiD.bar = function (options) {
     this.transformData = function () {
         that.optionalFeatures().sort();
         that.data.forEach(function(d) {
+            if(that.axis_x_data_format === "number") {
+                d.x = parseFloat(d.x);
+            }
+
             d.name = d.y;
         })
     }
@@ -311,7 +315,7 @@ PykCharts.multiD.bar = function (options) {
                 }
 
                 if(that.axis_x_data_format === "number") {
-                    x_domain = [0,d3.max(that.data,function (d) {  return d.x; })];
+                    x_domain = [0,d3.max(that.data,function (d) {  return +d.x; })];
                     x_data = that.k._domainBandwidth(x_domain,1);
                     x_range = [0 ,that.reducedWidth];
                     min_x_tick_value = d3.min(that.x_tick_values);

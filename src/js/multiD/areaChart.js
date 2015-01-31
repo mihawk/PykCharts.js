@@ -298,8 +298,9 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 					.yAxisTitle(that.yGroup);
   		}
 
+
   		if (PykCharts.boolean(options.interactive_enable)) {
-			that.brush = new PykCharts.Configuration.renderBrush(that,that.xScale,that.group,that.reducedHeight); 
+			that.brush = new PykCharts.Configuration.renderBrush(that,that.xScale,that.group,that.h);
 		}
 
 		that.k.exportSVG(that,"#"+that.container_id+"-1","areaChart")
@@ -527,8 +528,8 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 
 		        }
 		        if(that.axis_x_data_format === "number") {
-        			max = d3.max(that.new_data, function(d) { return d3.max(d.data, function(k) { return k.x; }); });
-					min = d3.min(that.new_data, function(d) { return d3.min(d.data, function(k) { return k.x; }); });
+        			max = d3.max(that.new_data, function(d) { return d3.max(d.data, function(k) { return +k.x; }); });
+					min = d3.min(that.new_data, function(d) { return d3.min(d.data, function(k) { return +k.x; }); });
          			x_domain = [min,max];
 			        x_data = that.k.__proto__._domainBandwidth(x_domain,2);
 			        x_range = [0 ,that.w - that.legendsGroup_width];
@@ -546,7 +547,7 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 			        that.xScale = that.k.scaleIdentification("linear",x_data,x_range);
 			        that.extra_left_margin = 0;
 			        that.new_data[0].data.forEach(function (d) {
-                        that.xdomain.push(d.x);
+                        that.xdomain.push(+d.x);
                     })
 		        }
 		        else if(that.axis_x_data_format === "string") {
@@ -835,6 +836,11 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 	    that.k.isOrdinal(that.svgContainer,".y.axis",that.yScale,that.ydomain);
 	    that.k.isOrdinal(that.svgContainer,".y.grid",that.yScale);
 	};
+	
+	that.onBrush = function (min,max) {
+        that.addEvents(min,max);
+        
+    };
 
 	that.annotation = function () {
 		that.line = d3.svg.line()

@@ -1599,7 +1599,8 @@ configuration.renderBrush = function (options,xScale,group,height) {
         options.brush_extent = d3.event.target.extent();
         min = options.brush_extent[0];
         max = options.brush_extent[1];
-        options.onBrush(min,max);
+        options.onBrush(xScale(min),xScale(max));
+        console.log(xScale(min),xScale(max))
         return options.brush_extent;
     }
 };
