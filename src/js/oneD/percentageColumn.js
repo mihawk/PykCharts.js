@@ -60,6 +60,13 @@ PykCharts.oneD.percentageColumn = function (options) {
             }
             that.optionalFeatures()
                     .clubData()
+            if(that.color_mode === "shade") {
+                shade_array = that.k.shadeColorConversion(that.shade_color,that.new_data.length);
+                that.new_data.forEach(function (d,i) {
+                    d.color = shade_array[i];
+                })
+            }
+            that.optionalFeatures()
                     .createChart()
                     .label()
                     .ticks();
@@ -100,6 +107,12 @@ PykCharts.oneD.percentageColumn = function (options) {
         if(that.mode === "default") {
             percent_column = that.optionalFeatures()
                             .clubData();
+        }
+        if(that.color_mode === "shade") {
+            shade_array = that.k.shadeColorConversion(that.shade_color,that.new_data.length);
+            that.new_data.forEach(function (d,i) {
+                d.color = shade_array[i];
+            })
         }
         that.optionalFeatures().svgContainer(container_id)
             .createChart()

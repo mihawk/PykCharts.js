@@ -19,7 +19,32 @@
           chart_width: 1080,
           chart_margin_left: 60,
           chart_margin_bottom: 50,
-
+          // data: [
+          //   {
+          //     "name": "Laggards",
+          //     "weight": 41,
+          //     "group": 3,
+          //     "tooltip": "41%"
+          //   },
+          //   {
+          //     "name": "Comebacks",
+          //     "weight": 20,
+          //     "group": 2,
+          //     "tooltip": "20%"
+          //   },
+          //   {
+          //     "name": "Regulars",
+          //     "weight": 21,
+          //     "group": 1,
+          //     "tooltip": "21%"    
+          //   },
+          //   {
+          //     "name": "Hibernators",
+          //     "weight": 18,
+          //     "group": 4,
+          //     "tooltip": "18%"    
+          //   }
+          // ],
           data: "../data/simple_2x2.json",
           selector: "#simple-2x2-container",
           mode : "default",
@@ -27,7 +52,7 @@
           real_time_charts_refresh_frequency: 0,
 
           title_text: "Simple 2x2 Chart",
-          "title_size": 15,
+          "title_size": 2,
           "title_color": "#1D1D1D",
           "title_weight": "bold",
           "title_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
@@ -38,7 +63,7 @@
           label_family: "'Helvetica Ne#scatterue',Helvetica,Arial,sans-serif",
 
           subtitle_text: "Recency - Frequency Matrix",
-          "subtitle_size": 12,
+          "subtitle_size": 1,
           "subtitle_color": "green",
           "subtitle_weight": "normal",
           "subtitle_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
@@ -73,7 +98,8 @@
           axis_x_title_size: 18,
 
           data_source_name: "Google",
-          data_source_url: "http://www.google.com"
+          data_source_url: "http://www.google.com",
+                background_color: "rgba(229, 245, 249, 0.5)"
         });
         k.execute();
       }
