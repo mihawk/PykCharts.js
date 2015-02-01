@@ -89,7 +89,7 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
                 .ticks()
                 .createChart();
 
-            that.k.yAxis(that.svgContainer,that.yGroup,that.yScale,that.yDomain,that.y_tick_values);
+            that.k.yAxis(that.svgContainer,that.yGroup,that.yScale,that.yDomain,that.y_tick_values,undefined,undefined,that.tick_format_function)
             that.xaxis();
         };
         if (PykCharts.boolean(options.interactive_enable)) {
@@ -282,7 +282,6 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
                             that.mouseEvent.tooltipTextShow(tooltipText);
                             that.mouseEvent.axisHighlightShow(d.unique_name,that.selector + " .y.axis",that.y_values,"waterfall");
                             if(PykCharts['boolean'](that.chart_onhover_highlight_enable)) {
-                                console.log("test");
                                 that.mouseEvent.highlight(that.selector + " .rect", this);
                             }
                         }
@@ -303,7 +302,7 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
                     })
                     .on('click', function (d,i) {
                         if(PykCharts['boolean'](options.click_enable)){
-                           that.addEvents(d.name, d3.select(this).attr("data-id")); 
+                           that.addEvents(d.unique_name, d3.select(this).attr("data-id")); 
                         }                     
                     })
                     .transition()
