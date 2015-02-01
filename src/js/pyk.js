@@ -1,4 +1,4 @@
-/* ====================================================
+  /* ====================================================
 * This file is part of PykCharts v1.0.0
 * Copyright 2014 Pykih Software LLP
 * Contact: charts@pykih.com
@@ -300,6 +300,11 @@ PykCharts.Configuration = function (options){
             }
             document.getElementById(id).style.height = "auto";
         },
+        dataFromPykQuery : function (data) {
+            if (PykCharts.boolean(options.interactive_enable)) {
+                options.data = data;
+            }
+        },
         totalColors: function (tc) {
             var n = parseInt(tc, 10)
             if (n > 2 && n < 10) {
@@ -588,6 +593,7 @@ PykCharts.Configuration = function (options){
                         }
                     });
                 } else if (PykCharts['boolean'](options.data_sort_enable)) {
+                    console.log(notApplicable,"notApplicable")
                     switch (options.data_sort_type) {
                         case "numerically":
                             data.sort(function (a,b) {
@@ -695,21 +701,21 @@ PykCharts.Configuration = function (options){
                 }
                 brightness = (r * 299 + g * 587 + b * 114) / 1000;
                 if (brightness < 125 && a > 0.5) {
-                     if(element) {   
+                     if(element) {
                         d3.selectAll(element).classed({'light': false, 'dark': true});
                     } else {
                         return "dark";
                     }
                 }
                 else if (brightness < 125 && a <= 0.5) {
-                    if(element) {    
+                    if(element) {
                         d3.selectAll(element).classed({'light': true, 'dark': false});
                     } else {
                         return "light";
                     }
                 }
                 else {
-                    if(element) {    
+                    if(element) {
                         d3.selectAll(element).classed({'light': true, 'dark': false});
                     } else {
                         return "light";
@@ -758,7 +764,7 @@ PykCharts.Configuration = function (options){
                     }
                 }
                 return data_result;
-            },            
+            },
             _isEqual : function(a, b) {
                 var eq = function(a, b, aStack, bStack) {
                     if (a === b) return a !== 0 || 1 / a === 1 / b;
@@ -867,7 +873,11 @@ PykCharts.Configuration = function (options){
             return this;
         },
         dataSourceFormatIdentification: function (data,chart,executeFunction) {
-            var dot_index = data.lastIndexOf('.'),
+            if (typeof data === "object") {
+                chart.data = data;
+                chart[executeFunction](chart.data);
+            } else {
+                var dot_index = data.lastIndexOf('.'),
                 len = data.length - dot_index,
                 cache_avoidance_value = Math.floor((Math.random() * 100) + 1);
 
@@ -888,6 +898,7 @@ PykCharts.Configuration = function (options){
                 } else if(format === "csv") {
                     d3.csv(data+"?"+cache_avoidance_value,chart[executeFunction]);
                 }
+            }
             }
         },
         export: function(chart,svgId,chart_name,panels_enable,containers) {
@@ -1019,7 +1030,7 @@ PykCharts.Configuration = function (options){
         },
         shadeColorConversion: function (color, data_length) {
             var r,g,b, division,array = [], increment_ratio = (150/data_length),color_value,color_validation;
-            
+
             color = d3.rgb(color);
             // function componentToHex(c) {
             //     var hex = c.toString(16);
@@ -1452,7 +1463,7 @@ configuration.mouseEvent = function (options) {
                         }
                     } else{
                         for(curr_tick = 0;curr_tick < len;curr_tick++) {
-                            
+
                             if(domain[curr_tick] === active_tick) {
                                 break;
                             }
@@ -1632,12 +1643,55 @@ configuration.transition = function (options) {
     return transition;
 };
 
+configuration.renderBrush = function (options,xScale,group,height) {
+    function resizeHandle (d) {
+        var e = +(d == "e"), x = e ? 1 : -1, y = height / 3;
+        return ("M" + (0.5 * x) + "," + y
+                + "A6,6 0 0 " + e + " " + (6.5 * x) + "," + (y + 6)
+                + "V" + (2 * y - 6)
+                + "A6,6 0 0 " + e + " " + (0.5 * x) + "," + (2 * y)
+                + "Z"
+                + "M" + (2.5 * x) + "," + (y + 8)
+                + "V" + (2 * y - 8)
+                + "M" + (4.5 * x) + "," + (y + 8)
+                + "V" + (2 * y - 8));
+
+    }
+
+    options.make_brush = d3.svg.brush().x(xScale)
+           .on("brushend", brushend)
+
+    var brush = group.append("g")
+        .attr("class", "brush")
+        .call(options.make_brush);
+
+    brush.selectAll("rect")
+      .attr("height",height)
+      .attr("fill","blue")
+      .attr("fill-opacity",0.3);
+    brush.selectAll(".resize").append("path").attr("d", resizeHandle)
+            .attr("fill","#4C7190")
+            .attr("stroke","#4C7190")
+            .attr("stroke-width","1.5px");
+
+    function brushend() {
+        options.brush_extent = d3.event.target.extent();
+        min = options.brush_extent[0];
+        max = options.brush_extent[1];
+        options.onBrush(xScale(min),xScale(max));
+        console.log(xScale(min),xScale(max))
+        return options.brush_extent;
+    }
+};
+
 configuration.Theme = function(){
     var that = this;
     that.stylesheet = {
         "mode": "default",
         "selector": "",
-        "is_interactive": "yes",
+        "interactive_enable": "no",
+        "click_enable": "no",
+
         "chart_height": 400,
         "chart_width": 600,
         "chart_margin_top": 35,

@@ -2,7 +2,7 @@ PykCharts.oneD.pie = function (options) {
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
 
-    this.execute = function() {
+    this.execute = function(pykquery_data) {
         that = new PykCharts.validation.processInputs(that, options, 'oneDimensionalCharts');
         if(options.chart_height) {
             that.chart_height = options.chart_height;
@@ -49,7 +49,12 @@ PykCharts.oneD.pie = function (options) {
             that.clubdata_enable = that.data.length > that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
             pieFunctions.render();
         };
-        that.k.dataSourceFormatIdentification(options.data,that,"executeData");
+        if (PykCharts['boolean'](options.interactive_enable)) {
+            that.k.dataFromPykQuery(pykquery_data);
+            that.k.dataSourceFormatIdentification(that.data,that,"executeData");
+        } else {
+            that.k.dataSourceFormatIdentification(options.data,that,"executeData");
+        }   
 
     };
 };
@@ -58,7 +63,7 @@ PykCharts.oneD.pie = function (options) {
 PykCharts.oneD.donut = function (options) {
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
-    this.execute = function() {
+    this.execute = function(pykquery_data) {
 
         that = new PykCharts.validation.processInputs(that, options, 'oneDimensionalCharts');
         if(options.chart_height) {
@@ -128,7 +133,12 @@ PykCharts.oneD.donut = function (options) {
             that.clubdata_enable = that.data.length > that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
             pieFunctions.render();
         };
-        that.k.dataSourceFormatIdentification(options.data,that,"executeData");
+        if (PykCharts['boolean'](options.interactive_enable)) {
+            that.k.dataFromPykQuery(pykquery_data);
+            that.k.dataSourceFormatIdentification(that.data,that,"executeData");
+        } else {
+            that.k.dataSourceFormatIdentification(options.data,that,"executeData");
+        }   
     };
 };
 
@@ -136,7 +146,7 @@ PykCharts.oneD.electionPie = function (options) {
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
 
-    this.execute = function() {
+    this.execute = function(pykquery_data) {
 
         that = new PykCharts.validation.processInputs(that, options, 'oneDimensionalCharts');
         that.x = true;
@@ -206,7 +216,12 @@ PykCharts.oneD.electionPie = function (options) {
             pieFunctions.render();
 
         };
-        that.k.dataSourceFormatIdentification(options.data,that,"executeData");
+        if (PykCharts['boolean'](options.interactive_enable)) {
+            that.k.dataFromPykQuery(pykquery_data);
+            that.k.dataSourceFormatIdentification(that.data,that,"executeData");
+        } else {
+            that.k.dataSourceFormatIdentification(options.data,that,"executeData");
+        }   
     };
 };
 
@@ -214,7 +229,7 @@ PykCharts.oneD.electionDonut = function (options) {
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
 
-    this.execute = function() {
+    this.execute = function(pykquery_data) {
         that = new PykCharts.validation.processInputs(that, options, 'oneDimensionalCharts');
 
         that.x = true;
@@ -301,13 +316,18 @@ PykCharts.oneD.electionDonut = function (options) {
             that.clubdata_enable = that.data.length> that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
             pieFunctions.render();
         };
-        that.k.dataSourceFormatIdentification(options.data,that,"executeData");
+        if (PykCharts['boolean'](options.interactive_enable)) {
+            that.k.dataFromPykQuery(pykquery_data);
+            that.k.dataSourceFormatIdentification(that.data,that,"executeData");
+        } else {
+            that.k.dataSourceFormatIdentification(options.data,that,"executeData");
+        }   
     };
 };
 
 PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
     var that = chartObject;
-       that.refresh = function () {
+       that.refresh = function (pykquery_data) {
         that.executeRefresh = function (data) {
             that.data = that.k.__proto__._groupBy("oned",data);
             that.clubdata_enable = that.data.length>that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
@@ -326,7 +346,12 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                     .ticks()
                     .centerLabel();
         };
-        that.k.dataSourceFormatIdentification(options.data,that,"executeRefresh");
+        if (PykCharts['boolean'](options.interactive_enable)) {
+            that.k.dataFromPykQuery(pykquery_data);
+            that.k.dataSourceFormatIdentification(that.data,that,"executeRefresh");
+        } else {
+            that.k.dataSourceFormatIdentification(options.data,that,"executeRefresh");
+        }   
     };
 
     this.render = function() {
@@ -509,7 +534,10 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                         },
                         "stroke": border.color(),
                         "stroke-width": border.width(),
-                        "stroke-dasharray": border.style()
+                        "stroke-dasharray": border.style(),
+                        "data-id" : function (d) {
+                            return d.data.name;
+                        }
                     })
                     .on({
                         'mouseover': function (d) {
@@ -533,6 +561,11 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                         'mousemove': function (d) {
                             if(that.mode === "default") {
                                 that.mouseEvent.tooltipPosition(d);
+                            }
+                        },
+                        'click' :  function (d) {
+                            if(PykCharts['boolean'](options.click_enable)){
+                                that.addEvents(d.data.name, d3.select(this).attr("data-id"));
                             }
                         }
                     });

@@ -558,13 +558,18 @@ PykCharts.validation.processInputs = function (chartObject, options, chart_type)
         validator.validatingColorMode(chartObject.color_mode,config_name,"color",chart_type);
     }
     var enable_config_param = [
-        {   
-            'config_name': 'tooltip_enable',
+        {
+            'config_name':'interactive_enable',
             'default_value': stylesheet,
-            'all_charts': true
+            'all_charts':true
         },
         {
-            'config_name': 'is_interactive',
+            'config_name':'click_enable',
+            'default_value': stylesheet,
+            'all_charts':true
+        },
+        {   
+            'config_name': 'tooltip_enable',
             'default_value': stylesheet,
             'all_charts': true
         },

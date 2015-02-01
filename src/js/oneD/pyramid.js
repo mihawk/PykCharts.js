@@ -2,7 +2,7 @@ PykCharts.oneD.pyramid = function (options) {
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
 
-	this.execute = function () {
+	this.execute = function (pykquery_data) {
         that = new PykCharts.validation.processInputs(that, options,'oneDimensionalCharts');
         that.chart_height = options.chart_height ? options.chart_height : that.chart_width;
         that.k.validator()
@@ -31,11 +31,15 @@ PykCharts.oneD.pyramid = function (options) {
 			that.clubdata_enable = that.data_length > that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
             that.render();
 		};
-
-        that.k.dataSourceFormatIdentification(options.data,that,"executeData");
+        if (PykCharts['boolean'](options.interactive_enable)) {
+            that.k.dataFromPykQuery(pykquery_data);
+            that.k.dataSourceFormatIdentification(that.data,that,"executeData");
+        } else {
+            that.k.dataSourceFormatIdentification(options.data,that,"executeData");
+        }   
 	};
 
-    this.refresh = function () {
+    this.refresh = function (pykquery_data) {
         that.executeRefresh = function (data) {
             that.data = that.k.__proto__._groupBy("oned",data);
             that.data_length = that.data.length;
@@ -60,7 +64,12 @@ PykCharts.oneD.pyramid = function (options) {
                     .label()
                     .ticks();
         };
-        that.k.dataSourceFormatIdentification(options.data,that,"executeRefresh")
+        if (PykCharts['boolean'](options.interactive_enable)) {
+            that.k.dataFromPykQuery(pykquery_data);
+            that.k.dataSourceFormatIdentification(that.data,that,"executeRefresh");
+        } else {
+            that.k.dataSourceFormatIdentification(options.data,that,"executeRefresh");
+        }   
     };
 
 	this.render = function () {
@@ -180,12 +189,12 @@ PykCharts.oneD.pyramid = function (options) {
                 return this;
             },
             coordinates: function(c){
-                var w = size[0];
-                var h = size[1];
-                var ratio = (w/2)/h;
-                var percentValues = that.percentageValues(data);
-                var coordinates = [];
-                var area_of_triangle = (w * h) / 2;
+                var w = size[0],
+                    h = size[1],
+                    ratio = (w/2)/h,
+                    percentValues = that.percentageValues(data),
+                    coordinates = [],
+                    area_of_triangle = (w * h) / 2;
                  function d3Sum (i) {
                     return d3.sum(percentValues,function (d, j){
                         if (j>=i) {
@@ -193,12 +202,12 @@ PykCharts.oneD.pyramid = function (options) {
                         }
                     });
                 }
-                for (var i=0; i<data.length; i++){
-                    var selectedPercentValues = d3Sum(i);
-                    var area_of_element = selectedPercentValues/100 * area_of_triangle;
-                    var height1 = Math.sqrt(area_of_element/ratio);
-                    var base = 2 * ratio * height1;
-                    var xwidth = (w-base)/2;
+                for (var i=0,len=data.length;i<len; i++){
+                    var selectedPercentValues = d3Sum(i),
+                        area_of_element = selectedPercentValues/100 * area_of_triangle,
+                        height1 = Math.sqrt(area_of_element/ratio),
+                        base = 2 * ratio * height1,
+                        xwidth = (w-base)/2;
                     if (i===0){
                         coordinates[i] = {"values":[{"x":w/2,"y":0},{"x":xwidth,"y":height1},{"x":base+xwidth,"y":height1}]};
                     }else{
@@ -241,7 +250,7 @@ PykCharts.oneD.pyramid = function (options) {
                 that.coordinates[0].values[1] = that.coordinates[that.coordinates.length-1].values[1];
                 that.coordinates[0].values[2] = that.coordinates[that.coordinates.length-1].values[2];
                 var k = that.new_data.length-1,p = that.new_data.length-1,tooltipArray = [];
-                for(i=0;i<that.new_data.length;i++){
+                for(var i=0,len=that.new_data.length;i<len;i++){
                     if(i==0) {
                         tooltipArray[i] = that.new_data[i].tooltip || "<table class='PykCharts'><tr><th colspan='2'  class='tooltip-heading'>"+that.new_data[i].name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(that.new_data[i].weight)+"<td class='tooltip-right-content'>("+((that.new_data[i].weight*100)/that.sum).toFixed(1)+"%) </tr></table>";
                     } else {
@@ -255,7 +264,7 @@ PykCharts.oneD.pyramid = function (options) {
                     .y(function(d,i) { return d.y; });
 
                 var a = [{x:0,y:that.chart_height},{x:that.chart_width,y:that.chart_height},{x:0,y:that.chart_height},{x:that.chart_width,y:that.chart_height},{x:0,y:that.chart_height},{x:that.chart_width,y:that.chart_height}]
-                var k =that.new_data.length;
+                var k =that.new_data.length,b;
 
                 that.chart_data =that.group.selectAll('.pyr-path')
                     .data(that.coordinates)
@@ -281,6 +290,9 @@ PykCharts.oneD.pyramid = function (options) {
                     "fill-opacity": 1,
                     "data-fill-opacity": function () {
                         return d3.select(this).attr("fill-opacity");
+                    },
+                    "data-id" : function (d,i) {
+                        return that.new_data[i].name;
                     }
                 })
                 .on({
@@ -305,6 +317,11 @@ PykCharts.oneD.pyramid = function (options) {
                         if(that.mode === "default") {
                             that.mouseEvent.tooltipPosition(d);
                         }
+                    },
+                    "click" : function (d,i) {
+                        if(PykCharts['boolean'](options.click_enable)){
+                           that.addEvents(that.new_data[i].name, d3.select(this).attr("data-id")); 
+                        }                     
                     }
                 })
                 .transition()
