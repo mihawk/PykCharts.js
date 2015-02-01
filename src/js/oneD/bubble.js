@@ -1,7 +1,7 @@
 PykCharts.oneD.bubble = function (options) {
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
-    this.execute = function () {
+    this.execute = function (pykquery_data) {
         that = new PykCharts.validation.processInputs(that, options,'oneDimensionalCharts');
         that.chart_height = options.chart_height ? options.chart_height : that.chart_width;
 
@@ -27,10 +27,15 @@ PykCharts.oneD.bubble = function (options) {
             that.clubdata_enable = that.data.length>that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
             that.render();
         };
-        that.k.dataSourceFormatIdentification(options.data,that,"executeData");
+        if (PykCharts['boolean'](options.interactive_enable)) {
+            that.k.dataFromPykQuery(pykquery_data);
+            that.k.dataSourceFormatIdentification(that.data,that,"executeData");
+        } else {
+            that.k.dataSourceFormatIdentification(options.data,that,"executeData");
+        }   
     };
 
-    this.refresh = function () {
+    this.refresh = function (pykquery_data) {
         that.executeRefresh = function (data) {
             that.data = that.k.__proto__._groupBy("oned",data);
             that.clubdata_enable = that.data.length>that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
@@ -45,6 +50,7 @@ PykCharts.oneD.bubble = function (options) {
             that.new_data = that.optionalFeatures().clubData();
             if(that.color_mode === "shade") {
                 shade_array = that.k.shadeColorConversion(that.shade_color,that.new_data.children.length);
+                shade_array.reverse();
                 that.new_data.children.forEach(function (d,i) {
                     d.color = shade_array[i];
                 })
@@ -53,7 +59,12 @@ PykCharts.oneD.bubble = function (options) {
                 .createChart()
                 .label();
         };
-        that.k.dataSourceFormatIdentification(options.data,that,"executeRefresh");
+        if (PykCharts['boolean'](options.interactive_enable)) {
+            that.k.dataFromPykQuery(pykquery_data);
+            that.k.dataSourceFormatIdentification(that.data,that,"executeRefresh");
+        } else {
+            that.k.dataSourceFormatIdentification(options.data,that,"executeRefresh");
+        }   
     };
 
     this.render = function () {
@@ -75,6 +86,7 @@ PykCharts.oneD.bubble = function (options) {
             that.new_data = that.optionalFeatures().clubData();
             if(that.color_mode === "shade") {
                 shade_array = that.k.shadeColorConversion(that.shade_color,that.new_data.children.length);
+                shade_array.reverse();
                 that.new_data.children.forEach(function (d,i) {
                     d.color = shade_array[i];
                 })
@@ -98,6 +110,7 @@ PykCharts.oneD.bubble = function (options) {
             that.new_data = {"children" : that.data};
             if(that.color_mode === "shade") {
                 shade_array = that.k.shadeColorConversion(that.shade_color,that.new_data.children.length);
+                shade_array.reverse();
                 that.new_data.children.forEach(function (d,i) {
                     d.color = shade_array[i];
                 })
@@ -175,6 +188,9 @@ PykCharts.oneD.bubble = function (options) {
                         },
                         "data-fill-opacity": function () {
                             return d3.select(this).attr("fill-opacity");
+                        },
+                        "data-id":function (d,i) {
+                            return d.name;
                         }
                     })
                     .on({
@@ -200,6 +216,11 @@ PykCharts.oneD.bubble = function (options) {
                             if(!d.children && that.mode==="default") {
                                 that.mouseEvent.tooltipPosition(d);
                             }
+                        },
+                        'click': function (d,i) {
+                            if(PykCharts['boolean'](options.click_enable)){
+                               that.addEvents(d.name, d3.select(this).attr("data-id")); 
+                            }                     
                         }
                     })
                     .transition()

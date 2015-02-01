@@ -1,4 +1,4 @@
-/* ====================================================
+  /* ====================================================
 * This file is part of PykCharts v1.0.0
 * Copyright 2014 Pykih Software LLP
 * Contact: charts@pykih.com
@@ -300,6 +300,11 @@ PykCharts.Configuration = function (options){
             }
             document.getElementById(id).style.height = "auto";
         },
+        dataFromPykQuery : function (data) {
+            if (PykCharts.boolean(options.interactive_enable)) {
+                options.data = data;
+            }
+        },
         totalColors: function (tc) {
             var n = parseInt(tc, 10)
             if (n > 2 && n < 10) {
@@ -577,8 +582,8 @@ PykCharts.Configuration = function (options){
                 };
                 return gd;
             },
-            _sortData: function (data, column_to_be_sorted, group_column_name, options) {
-                if(!PykCharts['boolean'](options.data_sort_enable)) {
+            _sortData: function (data, column_to_be_sorted, group_column_name, options,notApplicable) {
+                if(!PykCharts['boolean'](options.data_sort_enable) && !notApplicable) {
                     data.sort(function(a,b) {
                         if (a[group_column_name] > b[group_column_name]) {
                             return 1;
@@ -588,6 +593,7 @@ PykCharts.Configuration = function (options){
                         }
                     });
                 } else if (PykCharts['boolean'](options.data_sort_enable)) {
+                    console.log(notApplicable,"notApplicable")
                     switch (options.data_sort_type) {
                         case "numerically":
                             data.sort(function (a,b) {
@@ -694,16 +700,26 @@ PykCharts.Configuration = function (options){
 
                 }
                 brightness = (r * 299 + g * 587 + b * 114) / 1000;
-                if (brightness < 125) {
-                    if (a <= 0.5) {
-                        d3.selectAll(element).classed({'light': true, 'dark': false});
-                    }
-                    else {
+                if (brightness < 125 && a > 0.5) {
+                     if(element) {
                         d3.selectAll(element).classed({'light': false, 'dark': true});
+                    } else {
+                        return "dark";
+                    }
+                }
+                else if (brightness < 125 && a <= 0.5) {
+                    if(element) {
+                        d3.selectAll(element).classed({'light': true, 'dark': false});
+                    } else {
+                        return "light";
                     }
                 }
                 else {
-                    d3.selectAll(element).classed({'light': true, 'dark': false});
+                    if(element) {
+                        d3.selectAll(element).classed({'light': true, 'dark': false});
+                    } else {
+                        return "light";
+                    }
                 }
             },
             _isNumber: function (n) {
@@ -748,7 +764,7 @@ PykCharts.Configuration = function (options){
                     }
                 }
                 return data_result;
-            },            
+            },
             _isEqual : function(a, b) {
                 var eq = function(a, b, aStack, bStack) {
                     if (a === b) return a !== 0 || 1 / a === 1 / b;
@@ -857,7 +873,11 @@ PykCharts.Configuration = function (options){
             return this;
         },
         dataSourceFormatIdentification: function (data,chart,executeFunction) {
-            var dot_index = data.lastIndexOf('.'),
+            if (typeof data === "object") {
+                chart.data = data;
+                chart[executeFunction](chart.data);
+            } else {
+                var dot_index = data.lastIndexOf('.'),
                 len = data.length - dot_index,
                 cache_avoidance_value = Math.floor((Math.random() * 100) + 1);
 
@@ -878,6 +898,7 @@ PykCharts.Configuration = function (options){
                 } else if(format === "csv") {
                     d3.csv(data+"?"+cache_avoidance_value,chart[executeFunction]);
                 }
+            }
             }
         },
         export: function(chart,svgId,chart_name,panels_enable,containers) {
@@ -1008,22 +1029,36 @@ PykCharts.Configuration = function (options){
             return this;
         },
         shadeColorConversion: function (color, data_length) {
-            var r,g,b, division,array = [];
-            color = d3.hsl(color);
-            division = 55/data_length;
-            color.l = color.l * 100;
-            function componentToHex(c) {
-                var hex = c.toString(16);
-                return hex.length == 1 ? "0" + hex : hex;
-            }
+            var r,g,b, division,array = [], increment_ratio = (150/data_length),color_value,color_validation;
 
-            function rgbToHex(r, g, b) {
-                return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+            color = d3.rgb(color);
+            // function componentToHex(c) {
+            //     var hex = c.toString(16);
+            //     return hex.length == 1 ? "0" + hex : hex;
+            // }
+
+            // function rgbToHex(r, g, b) {
+            //     return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+            // }
+            color_validation = "rgb(" + color.r + "," + color.g + "," + color.b +")"
+            color_value = options.k.__proto__._colourBrightness(color_validation);
+            if(color_value === "light") {
+                inc = -1;
+            } else {
+                inc = 1;
             }
-            for(i = 0; i < data_length; i++) {
-                var rgb_color = d3.rgb("hsl(" + color.h + "," + (45 + (i+1)*division) + "," + color.l + ")")
-                var hex_color = rgbToHex(rgb_color.r,rgb_color.g,rgb_color.b)
+            var magnitude = Math.sqrt((color.r*color.r) + (color.g*color.g)) + Math.sqrt((color.r*color.r) + (color.b*color.b)) +  Math.sqrt((color.g*color.g) + (color.b*color.b))
+            for(i = 0; Math.abs(i) < data_length; i += inc) {
+                var rgb_color = {
+                    "r":parseInt((color.r+(i*increment_ratio)),10),
+                    "g":parseInt((color.g+(i*increment_ratio)),10),
+                    "b":parseInt((color.b+(i*increment_ratio)),10)
+                }
+                var hex_color = "rgb(" + rgb_color.r + "," + rgb_color.g + "," + rgb_color.b +")"
                 array.push(hex_color);
+            }
+            if(inc === -1) {
+                array.reverse();
             }
             return array;
         },
@@ -1428,7 +1463,7 @@ configuration.mouseEvent = function (options) {
                         }
                     } else{
                         for(curr_tick = 0;curr_tick < len;curr_tick++) {
-                            
+
                             if(domain[curr_tick] === active_tick) {
                                 break;
                             }
@@ -1528,11 +1563,7 @@ configuration.fillChart = function (options,theme,config) {
                     return theme.stylesheet.chart_color
                 }
             } else {
-                if(d.name.toLowerCase() === options.highlight.toLowerCase()) {
-                    return options.highlight_color;
-                } else{
-                    return d.color;
-                }
+                return d.color;
             }
         },
         colorChart: function (d) {
@@ -1612,12 +1643,55 @@ configuration.transition = function (options) {
     return transition;
 };
 
+configuration.renderBrush = function (options,xScale,group,height) {
+    function resizeHandle (d) {
+        var e = +(d == "e"), x = e ? 1 : -1, y = height / 3;
+        return ("M" + (0.5 * x) + "," + y
+                + "A6,6 0 0 " + e + " " + (6.5 * x) + "," + (y + 6)
+                + "V" + (2 * y - 6)
+                + "A6,6 0 0 " + e + " " + (0.5 * x) + "," + (2 * y)
+                + "Z"
+                + "M" + (2.5 * x) + "," + (y + 8)
+                + "V" + (2 * y - 8)
+                + "M" + (4.5 * x) + "," + (y + 8)
+                + "V" + (2 * y - 8));
+
+    }
+
+    options.make_brush = d3.svg.brush().x(xScale)
+           .on("brushend", brushend)
+
+    var brush = group.append("g")
+        .attr("class", "brush")
+        .call(options.make_brush);
+
+    brush.selectAll("rect")
+      .attr("height",height)
+      .attr("fill","blue")
+      .attr("fill-opacity",0.3);
+    brush.selectAll(".resize").append("path").attr("d", resizeHandle)
+            .attr("fill","#4C7190")
+            .attr("stroke","#4C7190")
+            .attr("stroke-width","1.5px");
+
+    function brushend() {
+        options.brush_extent = d3.event.target.extent();
+        min = options.brush_extent[0];
+        max = options.brush_extent[1];
+        options.onBrush(xScale(min),xScale(max));
+        console.log(xScale(min),xScale(max))
+        return options.brush_extent;
+    }
+};
+
 configuration.Theme = function(){
     var that = this;
     that.stylesheet = {
         "mode": "default",
         "selector": "",
-        "is_interactive": "yes",
+        "interactive_enable": "no",
+        "click_enable": "no",
+
         "chart_height": 400,
         "chart_width": 600,
         "chart_margin_top": 35,
@@ -1718,7 +1792,7 @@ configuration.Theme = function(){
         "clubdata_enable": "yes",
         "clubdata_text": "Others",
         "clubdata_maximum_nodes": 5,
-        "shade_color": "rgb(255,0,0)",
+        "shade_color": "#255AEE",
         "pie_radius_percent": 70,
         "donut_radius_percent": 70,
         "donut_inner_radius_percent": 40,

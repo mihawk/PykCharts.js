@@ -2,7 +2,7 @@ PykCharts.multiD.scatter = function (options) {
   var that = this;
   var theme = new PykCharts.Configuration.Theme({});
 
-  this.execute = function() {
+  this.execute = function(pykquery_data) {
     that = new PykCharts.validation.processInputs(that, options, 'multiDimensionalCharts');
     that.bubbleRadius = options.scatterplot_radius ? options.scatterplot_radius : theme.multiDimensionalCharts.scatterplot_radius;
     that.panels_enable = "no";
@@ -61,7 +61,13 @@ PykCharts.multiD.scatter = function (options) {
       var a = new PykCharts.multiD.scatterplotFunctions(options,that,"scatterplot");
       a.render();
     };
-    that.k.dataSourceFormatIdentification(options.data,that,"executeData");
+    if (PykCharts.boolean(options.interactive_enable)) {
+        that.k.dataFromPykQuery(pykquery_data);
+        that.k.dataSourceFormatIdentification(that.data,that,"executeData");
+    } else {
+        that.k.dataSourceFormatIdentification(options.data,that,"executeData");
+    }   
+
   };
 };
 
@@ -69,7 +75,7 @@ PykCharts.multiD.panelsOfScatter = function (options) {
   var that = this;
   var theme = new PykCharts.Configuration.Theme({});
 
-  this.execute = function() {
+  this.execute = function(pykquery_data) {
     that = new PykCharts.validation.processInputs(that, options, 'multiDimensionalCharts');
     PykCharts.scaleFunction(that);
     that.bubbleRadius = options.scatterplot_radius ? options.scatterplot_radius : theme.multiDimensionalCharts.scatterplot_radius;
@@ -129,7 +135,12 @@ PykCharts.multiD.panelsOfScatter = function (options) {
       var a = new PykCharts.multiD.scatterplotFunctions(options,that,"scatterplot");
       a.render();
     };
-    that.k.dataSourceFormatIdentification(options.data,that,"executeData");
+    if (PykCharts.boolean(options.interactive_enable)) {
+        that.k.dataFromPykQuery(pykquery_data);
+        that.k.dataSourceFormatIdentification(that.data,that,"executeData");
+    } else {
+        that.k.dataSourceFormatIdentification(options.data,that,"executeData");
+    }   
   };
 };
 
@@ -137,7 +148,7 @@ PykCharts.multiD.pulse = function (options) {
   var that = this;
   var theme = new PykCharts.Configuration.Theme({});
 
-  this.execute = function() {
+  this.execute = function(pykquery_data) {
     that = new PykCharts.validation.processInputs(that, options, 'multiDimensionalCharts');
     PykCharts.scaleFunction(that);
     var multiDimensionalCharts = theme.multiDimensionalCharts,
@@ -190,13 +201,18 @@ PykCharts.multiD.pulse = function (options) {
       var a = new PykCharts.multiD.scatterplotFunctions(options,that,"pulse");
       a.render();
     };
-    that.k.dataSourceFormatIdentification(options.data,that,"executeData");
+    if (PykCharts.boolean(options.interactive_enable)) {
+        that.k.dataFromPykQuery(pykquery_data);
+        that.k.dataSourceFormatIdentification(that.data,that,"executeData");
+    } else {
+        that.k.dataSourceFormatIdentification(options.data,that,"executeData");
+    }   
   };
 };
 
 PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
   var that = chartObject;
-  that.refresh = function () {
+  that.refresh = function (pykquery_data) {
     that.executeRefresh = function (data) {
       that.data = that.k.__proto__._groupBy("scatterplot",data);
       that.refresh_data = that.k.__proto__._groupBy("scatterplot",data);
@@ -234,7 +250,12 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
       that.k.xAxis(that.svgContainer,that.xGroup,that.x,that.extra_left_margin,that.xdomain,that.x_tick_values,that.legendsGroup_height)
       .yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain,that.y_tick_values,that.legendsGroup_width)
     };
-    that.k.dataSourceFormatIdentification(options.data,that,"executeRefresh")
+    if (PykCharts.boolean(options.interactive_enable)) {
+        that.k.dataFromPykQuery(pykquery_data);
+        that.k.dataSourceFormatIdentification(that.data,that,"executeRefresh");
+    } else {
+        that.k.dataSourceFormatIdentification(options.data,that,"executeRefresh");
+    }   
   };
 
   this.render = function () {
@@ -720,8 +741,11 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
           "cy": function (d) { return (that.yScale(d.y)+that.extra_top_margin); },
           "fill": function (d) { return that.fillChart.colorPieW(d); },
           "fill-opacity": function (d) { return that.multiD.opacity(d.weight,that.weight,that.data); },
-          "data-fill-opacity": function () {
+          "data-fill-opacity": function (d) {
             return d3.select(this).attr("fill-opacity");
+          },
+          "data-id":function(d){
+            return d.x;
           },
           "stroke": that.border.color(),
           "stroke-width": that.border.width(),
@@ -761,6 +785,11 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
           },
           "mousedown": function() {
             PykCharts.getEvent().stopPropagation();
+          },
+          'click': function (d,i) {
+              if(PykCharts['boolean'](options.click_enable)){
+                 that.addEvents(d.x, d3.select(this).attr("data-id")); 
+              }                     
           }
         })
         .transition()

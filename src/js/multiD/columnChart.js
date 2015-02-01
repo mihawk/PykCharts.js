@@ -31,7 +31,12 @@ PykCharts.multiD.column = function(options){
             PykCharts.multiD.columnFunctions(options,that,"column");
             that.render();
         };
-        that.format = that.k.dataSourceFormatIdentification(options.data,that,"executeData");
+        if (PykCharts.boolean(options.interactive_enable)) {
+            that.k.dataFromPykQuery(pykquery_data);
+            that.k.dataSourceFormatIdentification(that.data,that,"executeData");
+        } else {
+            that.k.dataSourceFormatIdentification(options.data,that,"executeData");
+        }   
     };
 };
 

@@ -2,7 +2,7 @@ PykCharts.multiD.river = function (options){
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
 
-    this.execute = function (){
+    this.execute = function (pykquery_data){
         that = new PykCharts.validation.processInputs(that, options, 'multiDimensionalCharts');
         var multiDimensionalCharts = theme.multiDimensionalCharts,
             stylesheet = theme.stylesheet,
@@ -78,7 +78,13 @@ PykCharts.multiD.river = function (options){
             that.dataTransformation();
             that.render();
         };
-        that.k.dataSourceFormatIdentification(options.data,that,"executeData");
+        if (PykCharts.boolean(options.interactive_enable)) {
+            that.k.dataFromPykQuery(pykquery_data);
+            that.k.dataSourceFormatIdentification(that.data,that,"executeData");
+        } else {
+            that.k.dataSourceFormatIdentification(options.data,that,"executeData");
+        }   
+
     };
     this.render = function () {
         var id = that.selector.substring(1,that.selector.length),
@@ -145,17 +151,18 @@ PykCharts.multiD.river = function (options){
         window.addEventListener('resize', function(event){
             return that.k.resize(that.svgContainer);
         });
+
     };
     that.dataTransformation = function () {
         that.group_arr = [], that.new_data = [],that.uniq_alias_arr = [],that.uniq_duration_arr = [];
         that.data_length = that.data.length;
-        for(j = 0;j < that.data_length;j++) {
+        for(var j = 0;j < that.data_length;j++) {
             that.group_arr[j] = that.data[j].y;
         }
         that.uniq_group_arr = that.k.__proto__._unique(that.group_arr);
         var len = that.uniq_group_arr.length;
-        for (k = 0;k < len;k++) {
-            for (l = 0;l < that.data_length;l++) {
+        for (var k = 0;k < len;k++) {
+            for (var l = 0;l < that.data_length;l++) {
                 if (that.uniq_group_arr[k] === that.data[l].y) {
                     that.uniq_alias_arr[k] = that.data[l].alias;
                     that.uniq_duration_arr[k] = that.data[l].text_between_steps || "";
@@ -164,14 +171,14 @@ PykCharts.multiD.river = function (options){
             }
         }
 
-        for (k = 0;k < len;k++) {
+        for (var k = 0;k < len;k++) {
             that.new_data[k] = {
                     display_name: that.uniq_group_arr[k],
                     breakup: [],
                     technical_name: that.uniq_alias_arr[k],
                     duration: that.uniq_duration_arr[k]
             };
-            for (l = 0;l < that.data_length;l++) {
+            for (var l = 0;l < that.data_length;l++) {
                 if (that.uniq_group_arr[k] === that.data[l].y) {
                     that.new_data[k].breakup.push({
                         count: +that.data[l].x,
@@ -184,12 +191,12 @@ PykCharts.multiD.river = function (options){
         }
         that.opacity_array = [];
         that.new_data_length = that.new_data.length;
-        for(i = 0; i<that.new_data_length;i++) {
+        for(var i = 0; i<that.new_data_length;i++) {
             that.opacity_array.push(((that.new_data_length-i)/that.new_data_length)) 
         }
     };
-    that.refresh = function() {
-        that.executeRefresh = function (e, data) {
+    that.refresh = function(pykquery_data) {
+        that.executeRefresh = function (data) {
             that.data = data;
             that.refresh_data = data;
             var compare = that.k.checkChangeInData(that.refresh_data,that.compare_data);
@@ -208,7 +215,12 @@ PykCharts.multiD.river = function (options){
                 .yAxisLabel()
                 .durationLabel();
         };
-        that.k.dataSourceFormatIdentification(options.data,that,"executeRefresh");
+        if (PykCharts.boolean(options.interactive_enable)) {
+            that.k.dataFromPykQuery(pykquery_data);
+            that.k.dataSourceFormatIdentification(that.data,that,"executeRefresh");
+        } else {
+            that.k.dataSourceFormatIdentification(options.data,that,"executeRefresh");
+        }   
     }
     this.draw = function(){
         that.optional_feature().legends().dataMode().preProcessing().createChart().grids();
@@ -289,7 +301,6 @@ PykCharts.multiD.river = function (options){
                 return this;
             },
             createChart : function () {
-                
                 that.chart_margin_left = that.max_label + 10;
                 that.chart_margin_right = that.max_duration > that.max_tick ? (that.max_duration + 10) : (that.max_tick + 10);
                 var height = that.chart_height;
@@ -336,6 +347,7 @@ PykCharts.multiD.river = function (options){
                     var group = bar_holder[i];
                     var breakup = that.new_data1[i].breakup;
                     var len = that.new_data[i].breakup.length;
+                    var uniq_name = that.new_data[i].display_name;
                     if(that.extended) {
                         that.xScale.domain([0,that.new_data1[i].breakupTotal]);
                     }
@@ -383,6 +395,9 @@ PykCharts.multiD.river = function (options){
                         },
                         "data-fill-opacity": function () {
                             return d3.select(this).attr("fill-opacity");
+                        },
+                        "data-id":function (d,i) {
+                            return uniq_name + "-" + d.name;
                         }
                     })
                     .on({
@@ -409,9 +424,12 @@ PykCharts.multiD.river = function (options){
                             }
                         },
                         "click": function(d, i){
-                            if(PykCharts.boolean(that.expand_group) && that.mode === "default") {
-                                that.onlyFilter(d.name);
-                            }
+                            if(PykCharts['boolean'](options.click_enable)){
+                                that.addEvents(uniq_name + "-" + d.name, d3.select(this).attr("data-id")); 
+                            } 
+                            // if(PykCharts.boolean(that.expand_group) && that.mode === "default") {
+                            //     that.onlyFilter(d.name);
+                            // }
                         }
                     });
 
