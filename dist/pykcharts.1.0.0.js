@@ -2484,6 +2484,7 @@ PykCharts.validation.processInputs = function (chartObject, options, chart_type)
     }
     if(chart_type === "oneDimensionalCharts") {
         chartObject.color_mode = options.color_mode ? options.color_mode : "shade";
+        console.log(chartObject.color_mode," ****", options.selector);
         validator.validatingColorMode(chartObject.color_mode,config_name,"color",chart_type);
     }
     var enable_config_param = [
@@ -11683,7 +11684,7 @@ PykCharts.multiD.groupedBar = function(options){
                         that.k.warningHandling(err,"8");
                     }
                 }
-                return this;
+                return data;
             }
         }
         return optional;

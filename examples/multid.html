@@ -101,8 +101,8 @@
         chart_margin_bottom: 30,
         chart_onhover_highlight_enable: "yes",
         title_text:"Accountancy of the German ERPs",
-        title_family:"sans-serif",
-        title_weight: "normal",
+        // title_family:"sans-serif",
+        // title_weight: "normal",
         // subtitle_text:"this the testing",
 
         chart_color: ["red", "green", "#08306B"], // ["negative-color", "positive-color", "total-color"]
@@ -2984,105 +2984,105 @@
       //     console.log("Performance",a,avg/100);
 
       var k = new PykCharts.multiD.groupedBar({
-        // data: "../data/groupedbar.csv",
-        data: [
-    {
-        "y": "Group A",
-        "x": 24,
-        "group": "30 to 44",
-        "tooltip": "<table class='PykCharts'><tr><th>Eligible Voting Population</th></tr><tr><td>24</td></tr></table>"
-    },
-    {
-        "y": "Group A",
-        "x": 21.2,
-        "group": "18 to 29",
-        "tooltip": "<table class='PykCharts'><tr><th>Eligible Voting Population</th></tr><tr><td>21.2</td></tr></table>"
-    },
-    {
-        "y": "Group D",
-        "x": 21.1,
-        "group": "18 to 29",
-        "tooltip": "<table class='PykCharts'><tr><th>Eligible Voting Population</th></tr><tr><td>21.1</td></tr></table>"
-    },
-    {
-        "y": "Group D",
-        "x": 30.7,
-        "group": "30 to 44",
-        "tooltip": "<table class='PykCharts'><tr><th>Eligible Voting Population</th></tr><tr><td>30.7</td></tr></table>"
-    },
-    {
-        "y": "Group A",
-        "x": 35.6,
-        "group": "45 to 64",
-        "tooltip": "<table class='PykCharts'><tr><th>Eligible Voting Population</th></tr><tr><td>35.6</td></tr></table>"
-    },
-    {
-        "y": "Group A",
-        "x": 19.1,
-        "group": "65 and older",
-        "tooltip": "<table class='PykCharts'><tr><th>Eligible Voting Population</th></tr><tr><td>19.1</td></tr></table>"
-    },
-    {
-        "y": "Group B",
-        "x": 21.3,
-        "group": "18 to 29",
-        "tooltip": "<table class='PykCharts'><tr><th>Eligible Voting Population</th></tr><tr><td>21.3</td></tr></table>"
-    },
-    {
-        "y": "Group C",
-        "x": 17.1,
-        "group": "65 and older",
-        "tooltip": "<table class='PykCharts'><tr><th>Eligible Voting Population</th></tr><tr><td>17.1</td></tr></table>"
-    },
-    {
-        "y": "Group C",
-        "x": 34.1,
-        "group": "45 to 64",
-        "tooltip": "<table class='PykCharts'><tr><th>Eligible Voting Population</th></tr><tr><td>34.1</td></tr></table>"
-    },
-    {
-        "y": "Group B",
-        "x": 25.5,
-        "group": "30 to 44",
-        "tooltip": "<table class='PykCharts'><tr><th>Eligible Voting Population</th></tr><tr><td>25.5</td></tr></table>"
-    },
-    {
-        "y": "Group B",
-        "x": 35.6,
-        "group": "45 to 64",
-        "tooltip": "<table class='PykCharts'><tr><th>Eligible Voting Population</th></tr><tr><td>35.6</td></tr></table>"
-    },
-    {
-        "y": "Group B",
-        "x": 17.6,
-        "group": "65 and older",
-        "tooltip": "<table class='PykCharts'><tr><th>Eligible Voting Population</th></tr><tr><td>17.6</td></tr></table>"
-    },
-    {
-        "y": "Group D",
-        "x": 31.1,
-        "group": "45 to 64",
-        "tooltip": "<table class='PykCharts'><tr><th>Eligible Voting Population</th></tr><tr><td>31.1</td></tr></table>"
-    },
-    {
-        "y": "Group D",
-        "x": 17.1,
-        "group": "65 and older",
-        "tooltip": "<table class='PykCharts'><tr><th>Eligible Voting Population</th></tr><tr><td>17.1</td></tr></table>"
-    },
-    {
-        "y": "Group C",
-        "x": 20.9,
-        "group": "18 to 29",
-        "tooltip": "<table class='PykCharts'><tr><th>Eligible Voting Population</th></tr><tr><td>20.9</td></tr></table>"
-    },
-    {
-        "y": "Group C",
-        "x": 27.9,
-        "group": "30 to 44",
-        "tooltip": "<table class='PykCharts'><tr><th>Eligible Voting Population</th></tr><tr><td>27.9</td></tr></table>"
-    }
-],
+        data: "../data/grouped-bar.csv",
+        /*data: [
+            {
+                "y": "Group A",
+                "x": 24,
+                "group": "30 to 44",
+                "tooltip": "<table class='PykCharts'><tr><th>Eligible Voting Population</th></tr><tr><td>24</td></tr></table>"
+            },
+            {
+                "y": "Group A",
+                "x": 21.2,
+                "group": "18 to 29",
+                "tooltip": "<table class='PykCharts'><tr><th>Eligible Voting Population</th></tr><tr><td>21.2</td></tr></table>"
+            },
+            {
+                "y": "Group D",
+                "x": 21.1,
+                "group": "18 to 29",
+                "tooltip": "<table class='PykCharts'><tr><th>Eligible Voting Population</th></tr><tr><td>21.1</td></tr></table>"
+            },
+            {
+                "y": "Group D",
+                "x": 30.7,
+                "group": "30 to 44",
+                "tooltip": "<table class='PykCharts'><tr><th>Eligible Voting Population</th></tr><tr><td>30.7</td></tr></table>"
+            },
+            {
+                "y": "Group A",
+                "x": 35.6,
+                "group": "45 to 64",
+                "tooltip": "<table class='PykCharts'><tr><th>Eligible Voting Population</th></tr><tr><td>35.6</td></tr></table>"
+            },
+            {
+                "y": "Group A",
+                "x": 19.1,
+                "group": "65 and older",
+                "tooltip": "<table class='PykCharts'><tr><th>Eligible Voting Population</th></tr><tr><td>19.1</td></tr></table>"
+            },
+            {
+                "y": "Group B",
+                "x": 21.3,
+                "group": "18 to 29",
+                "tooltip": "<table class='PykCharts'><tr><th>Eligible Voting Population</th></tr><tr><td>21.3</td></tr></table>"
+            },
+            {
+                "y": "Group C",
+                "x": 17.1,
+                "group": "65 and older",
+                "tooltip": "<table class='PykCharts'><tr><th>Eligible Voting Population</th></tr><tr><td>17.1</td></tr></table>"
+            },
+            {
+                "y": "Group C",
+                "x": 34.1,
+                "group": "45 to 64",
+                "tooltip": "<table class='PykCharts'><tr><th>Eligible Voting Population</th></tr><tr><td>34.1</td></tr></table>"
+            },
+            {
+                "y": "Group B",
+                "x": 25.5,
+                "group": "30 to 44",
+                "tooltip": "<table class='PykCharts'><tr><th>Eligible Voting Population</th></tr><tr><td>25.5</td></tr></table>"
+            },
+            {
+                "y": "Group B",
+                "x": 35.6,
+                "group": "45 to 64",
+                "tooltip": "<table class='PykCharts'><tr><th>Eligible Voting Population</th></tr><tr><td>35.6</td></tr></table>"
+            },
+            {
+                "y": "Group B",
+                "x": 17.6,
+                "group": "65 and older",
+                "tooltip": "<table class='PykCharts'><tr><th>Eligible Voting Population</th></tr><tr><td>17.6</td></tr></table>"
+            },
+            {
+                "y": "Group D",
+                "x": 31.1,
+                "group": "45 to 64",
+                "tooltip": "<table class='PykCharts'><tr><th>Eligible Voting Population</th></tr><tr><td>31.1</td></tr></table>"
+            },
+            {
+                "y": "Group D",
+                "x": 17.1,
+                "group": "65 and older",
+                "tooltip": "<table class='PykCharts'><tr><th>Eligible Voting Population</th></tr><tr><td>17.1</td></tr></table>"
+            },
+            {
+                "y": "Group C",
+                "x": 20.9,
+                "group": "18 to 29",
+                "tooltip": "<table class='PykCharts'><tr><th>Eligible Voting Population</th></tr><tr><td>20.9</td></tr></table>"
+            },
+            {
+                "y": "Group C",
+                "x": 27.9,
+                "group": "30 to 44",
+                "tooltip": "<table class='PykCharts'><tr><th>Eligible Voting Population</th></tr><tr><td>27.9</td></tr></table>"
+            }
+        ],*/
         mode: "default",
         selector: "#groupBar",
         chart_height: 630,
