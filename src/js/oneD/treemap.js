@@ -248,7 +248,17 @@ PykCharts.oneD.treemap = function (options){
                     that.chart_text
                         .attr({
                             "text-anchor": "middle",
-                            "fill": that.label_color
+                            "fill": function(d) {
+                                if(that.color_mode === "shade" && !d.children && !options.label_color) {
+                                    var color_value = that.k.__proto__._colourBrightness(d.color);
+                                    if(color_value === "light") {
+                                        return "black";
+                                    } else {
+                                        return "white";
+                                    }
+                                }
+                                return that.label_color;
+                            }
                         })
                         .style({
                             "font-weight": that.label_weight,
@@ -274,7 +284,17 @@ PykCharts.oneD.treemap = function (options){
                     that.chart_text1
                         .attr({
                             "text-anchor": "middle",
-                            "fill": that.label_color,
+                            "fill": function(d) {
+                                if(that.color_mode === "shade" && !d.children && !options.label_color) {
+                                    var color_value = that.k.__proto__._colourBrightness(d.color);
+                                    if(color_value === "light") {
+                                        return "black";
+                                    } else {
+                                        return "white";
+                                    }
+                                }
+                                return that.label_color;
+                            },
                             "pointer-events": "none"
                         })
                         .style({

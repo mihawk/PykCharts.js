@@ -601,8 +601,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
 
                 that.chart_text.attr("transform",function (d) { return "translate("+that.arc.centroid(d)+")"; });
 
-                that.chart_text.text("")
-                    .attr("fill", "red");
+                that.chart_text.text("");
 
                 function chart_text_timeout() {
                     that.chart_text.text(function (d) { return that.k.appendUnits(d.data.weight); })
@@ -610,7 +609,17 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                             "text-anchor": "middle",
                             "pointer-events": "none",
                             "dy": 5,
-                            "fill": that.label_color
+                            "fill": function (d) {
+                                if(that.color_mode === "shade" && !options.label_color) {
+                                    var color_value = that.k.__proto__._colourBrightness(d.data.color);
+                                    if(color_value === "light") {
+                                        return "black";
+                                    } else {
+                                        return "white";
+                                    }
+                                }
+                                return that.label_color;
+                            }
                         })
                         .style({
                             "font-weight": that.label_weight,
