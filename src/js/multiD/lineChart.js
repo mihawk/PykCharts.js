@@ -539,7 +539,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
             },
             svgContainer: function (i){
                 if(that.type === "multilineChart") {
-                    document.getElementById(id).className = "PykCharts-twoD PykCharts-line-chart PykCharts-multi-series2D";
+                    document.getElementById(id).className += " PykCharts-twoD PykCharts-line-chart PykCharts-multi-series2D";
                 }
                 else if(that.type === "lineChart") {
                     document.getElementById(id).className = "PykCharts-twoD PykCharts-line-chart";

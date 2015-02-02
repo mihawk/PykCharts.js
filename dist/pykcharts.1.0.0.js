@@ -5293,7 +5293,6 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                         })
                         .text(function (d,i) {
                             if(type.toLowerCase() === "pie" || type.toLowerCase() === "election pie") {
-                                console.log(this.getBBox().width,((d.endAngle-d.startAngle)*((that.outer_radius/2)/**0.9*/)),d.data.name)
                                 if(this.getBBox().width<((d.endAngle-d.startAngle)*((that.outer_radius/2)/**0.9*/))) {
                                     return ((d.data.weight*100)/that.sum).toFixed(1)+"%";
                                 }
@@ -8832,7 +8831,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
             },
             svgContainer: function (i){
                 if(that.type === "multilineChart") {
-                    document.getElementById(id).className = "PykCharts-twoD PykCharts-line-chart PykCharts-multi-series2D";
+                    document.getElementById(id).className += " PykCharts-twoD PykCharts-line-chart PykCharts-multi-series2D";
                 }
                 else if(that.type === "lineChart") {
                     document.getElementById(id).className = "PykCharts-twoD PykCharts-line-chart";
@@ -10088,7 +10087,7 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 				return this;
 			},
 			svgContainer: function (i){
-				document.getElementById(id).className = "PykCharts-twoD PykCharts-multi-series2D PykCharts-line-chart";
+				document.getElementById(id).className += " PykCharts-twoD PykCharts-multi-series2D PykCharts-line-chart";
 
 				that.svgContainer = d3.select(that.selector+" "+"#tooltip-svg-container-"+i).append("svg:svg")
 					.attr({
@@ -10838,7 +10837,7 @@ PykCharts.multiD.bar = function (options) {
         var status;
         var optional = {
             svgContainer: function (container_id,i) {
-                document.getElementById(id).className = "PykCharts-twoD";
+                document.getElementById(id).className += " PykCharts-twoD";
                 that.svgContainer = d3.select(options.selector + " #tooltip-svg-container-" + i)
                     .append("svg:svg")
                     .attr({
@@ -11337,7 +11336,7 @@ PykCharts.multiD.groupedBar = function(options){
         var id = that.selector.substring(1,that.selector.length);
         var optional = {
             svgContainer: function (container_id,i) {
-                document.getElementById(id).className = "PykCharts-twoD";
+                document.getElementById(id).className += " PykCharts-twoD";
                 that.svgContainer = d3.select(options.selector + " #tooltip-svg-container-" + i)
                     .append("svg:svg")
                     .attr({
@@ -11977,7 +11976,7 @@ PykCharts.multiD.column = function (options) {
         var status;
         var optional = {
             svgContainer: function (container_id,i) {
-                document.getElementById(id).className = "PykCharts-twoD";
+                document.getElementById(id).className += " PykCharts-twoD";
                 that.svgContainer = d3.select(that.selector + " #tooltip-svg-container-" + i)
                     .append("svg:svg")
                     .attr({
@@ -12480,7 +12479,7 @@ PykCharts.multiD.groupedColumn = function(options) {
         var id = that.selector.substring(1,that.selector.length);
         var optional = {
             svgContainer: function (container_id,i) {
-                document.getElementById(id).className = "PykCharts-twoD";
+                document.getElementById(id).className += " PykCharts-twoD";
                 that.svgContainer = d3.select(options.selector + " #tooltip-svg-container-" + i)
                     .append("svg:svg")
                     .attr({
@@ -13354,7 +13353,7 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
     var optional = {
       svgContainer :function (i) {
         document.querySelector(that.selector + " #tooltip-svg-container-" + i).style.width = that.w;
-        document.getElementById(id).className = "PykCharts-weighted";
+        document.getElementById(id).className += " PykCharts-weighted";
         that.svgContainer = d3.select(that.selector + " #tooltip-svg-container-" + i)
         .append('svg')
         .attr({
@@ -14111,7 +14110,7 @@ PykCharts.multiD.spiderWeb = function (options) {
             status;
         var optional = {
             svgContainer: function (container_id,i) {
-                document.getElementById(id).className = "PykCharts-spider-web";
+                document.getElementById(id).className += " PykCharts-spider-web";
                 that.svgContainer = d3.select(that.selector + " #tooltip-svg-container-" + i)
                     .append("svg")
                     .attr({
@@ -14667,7 +14666,7 @@ PykCharts.multiD.river = function (options){
         var id = that.selector.substring(1,that.selector.length);
         var optional = {
             svgContainer: function (container_id,i){
-                document.getElementById(id).className = "PykCharts-twoD PykCharts-multi-series2D PykCharts-line-chart";
+                document.getElementById(id).className += " PykCharts-twoD PykCharts-multi-series2D PykCharts-line-chart";
 
                 that.svgContainer = d3.select(options.selector).append("svg:svg")
                     .attr({
