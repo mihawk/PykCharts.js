@@ -1715,8 +1715,7 @@ configuration.Theme = function(){
         "background_color": "transparent",
         "chart_color": ["#255AEE"],
         "saturation_color": "#255AEE",
-        "shade_color":"",
-
+        
         "border_between_chart_elements_thickness": 1,
         "border_between_chart_elements_color": "white",
         "border_between_chart_elements_style": "solid",
@@ -2974,7 +2973,17 @@ PykCharts.oneD.bubble = function (options) {
                     });
 
                 chart_text.attr("text-anchor","middle")
-                    .attr("fill", that.label_color)
+                    .attr("fill", function(d) {
+                        if(that.color_mode === "shade" && !d.children && !options.label_color) {
+                            var color_value = that.k.__proto__._colourBrightness(d.color);
+                            if(color_value === "light") {
+                                return "black";
+                            } else {
+                                return "white";
+                            }
+                        }
+                        return that.label_color;
+                    })
                     .style({
                         "font-weight": that.label_weight,
                         "font-size": that.label_size + "px",
@@ -3000,7 +3009,17 @@ PykCharts.oneD.bubble = function (options) {
                     chart_text1
                         .attr({
                             "text-anchor":"middle",
-                            "fill": that.label_color,
+                            "fill": function(d) {
+                                if(that.color_mode === "shade" && !d.children && !options.label_color) {
+                                    var color_value = that.k.__proto__._colourBrightness(d.color);
+                                    if(color_value === "light") {
+                                        return "black";
+                                    } else {
+                                        return "white";
+                                    }
+                                }
+                                return that.label_color;
+                            },
                             "pointer-events": "none"
                         })
                         .style({
@@ -3402,7 +3421,8 @@ PykCharts.oneD.funnel = function (options) {
                         "class": "fun-path",
                         'd': function(d){ return line(a); },
                         "fill": function (d,i) {
-                                return that.fillChart.selectColor(that.new_data[i]);
+                            d.color = that.new_data[i].color;
+                            return that.fillChart.selectColor(that.new_data[i]);
                         },
                         "fill-opacity": 1,
                         "data-fill-opacity":function () {
@@ -3481,7 +3501,17 @@ PykCharts.oneD.funnel = function (options) {
                             .attr({
                                 "text-anchor": "middle",
                                 "pointer-events": "none",
-                                "fill": that.label_color
+                                "fill": function(d) {
+                                    if(that.color_mode === "shade" && !options.label_color) {
+                                        var color_value = that.k.__proto__._colourBrightness(d.color);
+                                        if(color_value === "light") {
+                                            return "black";
+                                        } else {
+                                            return "white";
+                                        }
+                                    }
+                                    return that.label_color;
+                                }
                             })
                             .style({
                                 "font-weight": that.label_weight,
@@ -3916,7 +3946,17 @@ PykCharts.oneD.percentageColumn = function (options) {
 
                     that.chart_text.text("")
                         .attr({
-                            "fill": that.label_color,
+                            "fill": function(d) {
+                                if(that.color_mode === "shade" && !options.label_color) {
+                                    var color_value = that.k.__proto__._colourBrightness(d.color);
+                                    if(color_value === "light") {
+                                        return "black";
+                                    } else {
+                                        return "white";
+                                    }
+                                }
+                                return that.label_color;
+                            },
                             "text-anchor": "middle",
                             "pointer-events": "none"
                         })
@@ -4412,7 +4452,17 @@ PykCharts.oneD.percentageBar = function (options) {
 
                     that.chart_text.text("")
                         .attr({
-                            "fill": that.label_color,
+                            "fill": function(d) {
+                                if(that.color_mode === "shade" && !options.label_color) {
+                                    var color_value = that.k.__proto__._colourBrightness(d.color);
+                                    if(color_value === "light") {
+                                        return "black";
+                                    } else {
+                                        return "white";
+                                    }
+                                }
+                                return that.label_color;
+                            },
                             "text-anchor": "middle",
                             "pointer-events": "none"
                         })
@@ -5213,8 +5263,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
 
                 that.chart_text.attr("transform",function (d) { return "translate("+that.arc.centroid(d)+")"; });
 
-                that.chart_text.text("")
-                    .attr("fill", "red");
+                that.chart_text.text("");
 
                 function chart_text_timeout() {
                     that.chart_text.text(function (d) { return that.k.appendUnits(d.data.weight); })
@@ -5222,7 +5271,17 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                             "text-anchor": "middle",
                             "pointer-events": "none",
                             "dy": 5,
-                            "fill": that.label_color
+                            "fill": function (d) {
+                                if(that.color_mode === "shade" && !options.label_color) {
+                                    var color_value = that.k.__proto__._colourBrightness(d.data.color);
+                                    if(color_value === "light") {
+                                        return "black";
+                                    } else {
+                                        return "white";
+                                    }
+                                }
+                                return that.label_color;
+                            }
                         })
                         .style({
                             "font-weight": that.label_weight,
@@ -5763,10 +5822,12 @@ PykCharts.oneD.pyramid = function (options) {
                     "fill": function (d,i) {
                         if(i===0) {
                             b = that.new_data[i];
+                            d.color = that.new_data[i].color;
                         }
                         else {
                             k--;
                             b = that.new_data[k];
+                            d.color = that.new_data[k].color;
                         }
                         return that.fillChart.selectColor(b);
                     },
@@ -5827,7 +5888,17 @@ PykCharts.oneD.pyramid = function (options) {
                     that.chart_text.attr({
                         "text-anchor": "middle",
                         "pointer-events": "none",
-                        "fill": that.label_color,
+                        "fill": function(d) {
+                            if(that.color_mode === "shade" && !options.label_color) {
+                                var color_value = that.k.__proto__._colourBrightness(d.color);
+                                if(color_value === "light") {
+                                    return "black";
+                                } else {
+                                    return "white";
+                                }
+                            }
+                            return that.label_color;
+                        },
                         "y": function (d,i) {
                             if(d.values.length === 4) {
                                 return (((d.values[0].y-d.values[1].y)/2)+d.values[1].y) +2;
@@ -6337,7 +6408,17 @@ PykCharts.oneD.treemap = function (options){
                     that.chart_text
                         .attr({
                             "text-anchor": "middle",
-                            "fill": that.label_color
+                            "fill": function(d) {
+                                if(that.color_mode === "shade" && !d.children && !options.label_color) {
+                                    var color_value = that.k.__proto__._colourBrightness(d.color);
+                                    if(color_value === "light") {
+                                        return "black";
+                                    } else {
+                                        return "white";
+                                    }
+                                }
+                                return that.label_color;
+                            }
                         })
                         .style({
                             "font-weight": that.label_weight,
@@ -6363,7 +6444,17 @@ PykCharts.oneD.treemap = function (options){
                     that.chart_text1
                         .attr({
                             "text-anchor": "middle",
-                            "fill": that.label_color,
+                            "fill": function(d) {
+                                if(that.color_mode === "shade" && !d.children && !options.label_color) {
+                                    var color_value = that.k.__proto__._colourBrightness(d.color);
+                                    if(color_value === "light") {
+                                        return "black";
+                                    } else {
+                                        return "white";
+                                    }
+                                }
+                                return that.label_color;
+                            },
                             "pointer-events": "none"
                         })
                         .style({
