@@ -189,7 +189,7 @@ PykCharts.multiD.column = function (options) {
         var status;
         var optional = {
             svgContainer: function (container_id,i) {
-                document.getElementById(id).className = "PykCharts-twoD";
+                document.getElementById(id).className += " PykCharts-twoD";
                 that.svgContainer = d3.select(that.selector + " #tooltip-svg-container-" + i)
                     .append("svg:svg")
                     .attr({

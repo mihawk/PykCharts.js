@@ -230,7 +230,7 @@ PykCharts.multiD.river = function (options){
         var id = that.selector.substring(1,that.selector.length);
         var optional = {
             svgContainer: function (container_id,i){
-                document.getElementById(id).className = "PykCharts-twoD PykCharts-multi-series2D PykCharts-line-chart";
+                document.getElementById(id).className += " PykCharts-twoD PykCharts-multi-series2D PykCharts-line-chart";
 
                 that.svgContainer = d3.select(options.selector).append("svg:svg")
                     .attr({

@@ -150,7 +150,7 @@ PykCharts.multiD.simple2x2 = function (options) {
         var id = that.selector.substring(1,that.selector.length);
         var optional = {
             svgContainer: function (container_id) {
-                document.getElementById(id).className = "PykCharts-twoD";
+                document.getElementById(id).className += " PykCharts-twoD";
                 that.svgContainer = d3.select(that.selector)
                     .append("svg:svg")
                     .attr({
