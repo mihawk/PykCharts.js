@@ -7721,6 +7721,7 @@ PykCharts.scaleFunction = function (options) {
             var w = PykCharts['boolean'](options.panels_enable) ? options.w : options.chart_width,
             position,dy;
             if(options.axis_y_position === "left"){
+                console.log(options.axis_y_title_size,"====")
                 position = -(options.chart_margin_left - options.axis_y_title_size);
                 dy = 0;
             } else if (options.axis_y_position === "right") {
@@ -7730,7 +7731,7 @@ PykCharts.scaleFunction = function (options) {
             gsvg.append("text")
                 .attr({
                     "class" : "y-axis-title",
-                    "x" : -(options.chart_height)/2,
+                    "x" : -((options.chart_height - options.chart_margin_bottom - options.chart_margin_top)/2),
                     "transform" : "rotate(-90)",
                     "y" : position,
                     "dy" : dy
@@ -7739,7 +7740,8 @@ PykCharts.scaleFunction = function (options) {
                     "fill":options.axis_y_title_color,
                     "font-weight":options.axis_y_title_weight,
                     "font-family":options.axis_y_title_family,
-                    "font-size":options.axis_y_title_size
+                    "font-size":options.axis_y_title_size,
+                    "text-anchor":"middle"
                 })
                 .text(options.axis_y_title);
         }
