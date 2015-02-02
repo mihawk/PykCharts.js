@@ -604,7 +604,10 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                 that.chart_text.text("");
 
                 function chart_text_timeout() {
-                    that.chart_text.text(function (d) { return that.k.appendUnits(d.data.weight); })
+                    that.chart_text.text(function (d) {
+                            return ((d.data.weight*100)/that.sum).toFixed(1)+"%";
+//                            return that.k.appendUnits(d.data.weight); 
+                        })
                         .attr({
                             "text-anchor": "middle",
                             "pointer-events": "none",
@@ -628,6 +631,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                         })
                         .text(function (d,i) {
                             if(type.toLowerCase() === "pie" || type.toLowerCase() === "election pie") {
+                                console.log(this.getBBox().width,((d.endAngle-d.startAngle)*((that.outer_radius/2)/**0.9*/)),d.data.name)
                                 if(this.getBBox().width<((d.endAngle-d.startAngle)*((that.outer_radius/2)/**0.9*/))) {
                                     return ((d.data.weight*100)/that.sum).toFixed(1)+"%";
                                 }
