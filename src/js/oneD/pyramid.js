@@ -280,10 +280,12 @@ PykCharts.oneD.pyramid = function (options) {
                     "fill": function (d,i) {
                         if(i===0) {
                             b = that.new_data[i];
+                            d.color = that.new_data[i].color;
                         }
                         else {
                             k--;
                             b = that.new_data[k];
+                            d.color = that.new_data[k].color;
                         }
                         return that.fillChart.selectColor(b);
                     },
@@ -344,7 +346,17 @@ PykCharts.oneD.pyramid = function (options) {
                     that.chart_text.attr({
                         "text-anchor": "middle",
                         "pointer-events": "none",
-                        "fill": that.label_color,
+                        "fill": function(d) {
+                            if(that.color_mode === "shade" && !options.label_color) {
+                                var color_value = that.k.__proto__._colourBrightness(d.color);
+                                if(color_value === "light") {
+                                    return "black";
+                                } else {
+                                    return "white";
+                                }
+                            }
+                            return that.label_color;
+                        },
                         "y": function (d,i) {
                             if(d.values.length === 4) {
                                 return (((d.values[0].y-d.values[1].y)/2)+d.values[1].y) +2;

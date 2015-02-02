@@ -292,7 +292,8 @@ PykCharts.oneD.funnel = function (options) {
                         "class": "fun-path",
                         'd': function(d){ return line(a); },
                         "fill": function (d,i) {
-                                return that.fillChart.selectColor(that.new_data[i]);
+                            d.color = that.new_data[i].color;
+                            return that.fillChart.selectColor(that.new_data[i]);
                         },
                         "fill-opacity": 1,
                         "data-fill-opacity":function () {
@@ -371,7 +372,17 @@ PykCharts.oneD.funnel = function (options) {
                             .attr({
                                 "text-anchor": "middle",
                                 "pointer-events": "none",
-                                "fill": that.label_color
+                                "fill": function(d) {
+                                    if(that.color_mode === "shade" && !options.label_color) {
+                                        var color_value = that.k.__proto__._colourBrightness(d.color);
+                                        if(color_value === "light") {
+                                            return "black";
+                                        } else {
+                                            return "white";
+                                        }
+                                    }
+                                    return that.label_color;
+                                }
                             })
                             .style({
                                 "font-weight": that.label_weight,

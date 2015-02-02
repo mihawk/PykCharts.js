@@ -1715,8 +1715,7 @@ configuration.Theme = function(){
         "background_color": "transparent",
         "chart_color": ["#255AEE"],
         "saturation_color": "#255AEE",
-        "shade_color":"",
-
+        
         "border_between_chart_elements_thickness": 1,
         "border_between_chart_elements_color": "white",
         "border_between_chart_elements_style": "solid",

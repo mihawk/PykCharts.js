@@ -666,7 +666,7 @@ PykCharts.multiD.groupedBar = function(options){
                         that.k.warningHandling(err,"8");
                     }
                 }
-                return this;
+                return data;
             }
         }
         return optional;
