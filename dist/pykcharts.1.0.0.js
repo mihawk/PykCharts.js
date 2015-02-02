@@ -15360,6 +15360,11 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
     var that = chartObject;
 
     that.refresh = function (pykquery_data) {
+        var element = document.querySelectorAll(".custom-axis");
+        for(var i = 0;i<element.length;i++) {
+            element[i].parentNode.removeChild(element[i]);
+        }
+
         that.executeRefresh = function (data) {
             that.data = that.k.__proto__._groupBy("waterfall",data);
             that.refresh_data = that.k.__proto__._groupBy("waterfall",data);
@@ -15467,7 +15472,7 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
     	var that = this;
     	var optional = {
     		svgContainer: function (i,container_id) {
-                document.getElementById(id).className = "PykCharts-twoD";
+                document.getElementById(id).className += " PykCharts-twoD";
                 that.svgContainer = d3.select(that.selector + " #tooltip-svg-container-" + i)
                     .append("svg:svg")
                     .attr("width",that.chart_width)
@@ -15772,7 +15777,14 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
             drawline(start_point+1+extrapadding,start_point+1+extrapadding,that.reducedHeight,that.reducedHeight+that.axis_x_outer_pointer_length)
             drawline(end_point+1+extrapadding,end_point+1+extrapadding,that.reducedHeight,that.reducedHeight+that.axis_x_pointer_length)
             drawline(middle_point+1+extrapadding,middle_point+1+extrapadding,that.reducedHeight,that.reducedHeight+that.axis_x_pointer_length);
-            that.group.append("text")
+        
+            var text = that.group.selectAll(".custom-axis-text")
+                .data([0]);
+
+            text.enter()
+                .append("text");
+
+            text.attr("class","custom-axis-text")
                 .attr("x",middle_point+extrapadding)
                 .attr("y",that.reducedHeight+that.axis_x_pointer_length)
                 .attr("dy",12)
@@ -15781,14 +15793,18 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
                 .style("font-family",that.axis_x_pointer_family)
                 .style("font-size",that.axis_x_pointer_size)
                 .style("font-weight",that.axis_x_pointer_weight)
-                .text("0")
+                .text("0");
+
+            text.exit().remove();
         }
+
         function drawline(x1,x2,y1,y2) {
             that.group.append("line")
                 .attr("x1",x1)
                 .attr("y1",y1)
                 .attr("x2",x2)
                 .attr("y2",y2)
+                .attr("class","custom-axis")
                 .attr("stroke",that.axis_x_line_color)
                 .attr("stroke-width",1);
         }
