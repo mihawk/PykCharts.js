@@ -593,7 +593,6 @@ PykCharts.Configuration = function (options){
                         }
                     });
                 } else if (PykCharts['boolean'](options.data_sort_enable)) {
-                    console.log(notApplicable,"notApplicable")
                     switch (options.data_sort_type) {
                         case "numerically":
                             data.sort(function (a,b) {
@@ -7719,8 +7718,7 @@ PykCharts.scaleFunction = function (options) {
         if(options.axis_y_title) {
             var w = PykCharts['boolean'](options.panels_enable) ? options.w : options.chart_width,
             position,dy;
-            if(options.axis_y_position === "left"){
-                console.log(options.axis_y_title_size,"====")
+            if(options.axis_y_position === "left") {
                 position = -(options.chart_margin_left - options.axis_y_title_size);
                 dy = 0;
             } else if (options.axis_y_position === "right") {
@@ -15504,7 +15502,7 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
 
         that.reducedWidth = that.chart_width - that.chart_margin_left - that.chart_margin_right;
 		that.reducedHeight = that.chart_height - that.chart_margin_top - that.chart_margin_bottom;
-        console.log(that.data,that.new_data)
+        // console.log(that.data,that.new_data)
         if (that.mode === "default") {       	
 
     		that.k.title()

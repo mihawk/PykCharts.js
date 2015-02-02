@@ -118,7 +118,7 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
 
         that.reducedWidth = that.chart_width - that.chart_margin_left - that.chart_margin_right;
 		that.reducedHeight = that.chart_height - that.chart_margin_top - that.chart_margin_bottom;
-        console.log(that.data,that.new_data)
+        // console.log(that.data,that.new_data)
         if (that.mode === "default") {       	
 
     		that.k.title()

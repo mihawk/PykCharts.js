@@ -223,8 +223,7 @@ PykCharts.scaleFunction = function (options) {
         if(options.axis_y_title) {
             var w = PykCharts['boolean'](options.panels_enable) ? options.w : options.chart_width,
             position,dy;
-            if(options.axis_y_position === "left"){
-                console.log(options.axis_y_title_size,"====")
+            if(options.axis_y_position === "left") {
                 position = -(options.chart_margin_left - options.axis_y_title_size);
                 dy = 0;
             } else if (options.axis_y_position === "right") {

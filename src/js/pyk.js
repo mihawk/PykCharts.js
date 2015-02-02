@@ -593,7 +593,6 @@ PykCharts.Configuration = function (options){
                         }
                     });
                 } else if (PykCharts['boolean'](options.data_sort_enable)) {
-                    console.log(notApplicable,"notApplicable")
                     switch (options.data_sort_type) {
                         case "numerically":
                             data.sort(function (a,b) {
