@@ -351,7 +351,6 @@ PykCharts.Configuration = function (options){
                 div_float ="none"
                 div_left = targetWidth-16;
                 if(PykCharts['boolean'](options.title_text) && options.title_size && options.mode === "default") {
-                    console.log(targetWidth);
                     div_size = 0.1*targetWidth;
                     div_float ="left";
                     div_left = 0;
