@@ -498,8 +498,8 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                 }
 
                 that.sum = 0;
-                for(var i = 0,len=that.data.length;i<len;i++) {
-                    that.sum+=that.data[i].weight;
+                for(var i = 0,len=that.new_data.length;i<len;i++) {
+                    that.sum+=that.new_data[i].weight;
                 }
                 that.inner_radius = that.k.__proto__._radiusCalculation(that.innerRadiusPercent,that.calculation);
                 that.outer_radius = that.k.__proto__._radiusCalculation(that.pie_radius_percent,that.calculation);
