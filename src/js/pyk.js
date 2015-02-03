@@ -1032,14 +1032,6 @@ PykCharts.Configuration = function (options){
             var r,g,b, division,array = [], increment_ratio = (150/data_length),color_value,color_validation;
 
             color = d3.rgb(color);
-            // function componentToHex(c) {
-            //     var hex = c.toString(16);
-            //     return hex.length == 1 ? "0" + hex : hex;
-            // }
-
-            // function rgbToHex(r, g, b) {
-            //     return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
-            // }
             color_validation = "rgb(" + color.r + "," + color.g + "," + color.b +")"
             color_value = options.k.__proto__._colourBrightness(color_validation);
             if(color_value === "light") {

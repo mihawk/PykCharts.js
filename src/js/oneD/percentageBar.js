@@ -5,9 +5,14 @@ PykCharts.oneD.percentageBar = function (options) {
         var that = this;
 
         that = new PykCharts.validation.processInputs(that, options,'oneDimensionalCharts');
-        that.chart_height = options.chart_height ? options.chart_height : that.chart_width/2;
         that.percent_row_rect_height = options.percent_row_rect_height ? options.percent_row_rect_height : theme.oneDimensionalCharts.percent_row_rect_height;
+        if(that.percent_row_rect_height > 100) {
+            that.percent_row_rect_height = 100;
+        }
 
+        that.percent_row_rect_height = that.k.__proto__._radiusCalculation(that.percent_row_rect_height) * 2;
+        that.chart_height = options.chart_height ? options.chart_height : (that.percent_row_rect_height + 10 + that.pointer_size);
+        
         that.k.validator()
             .validatingDataType(that.chart_height,"chart_height",that.chart_width/2)
             .validatingDataType(that.percent_row_rect_height,"percent_row_rect_height",theme.oneDimensionalCharts.percent_row_rect_height);
@@ -16,12 +21,7 @@ PykCharts.oneD.percentageBar = function (options) {
             return;
         }
 
-        if(that.percent_row_rect_height > 100) {
-            that.percent_row_rect_height = 100;
-        }
-
-        that.percent_row_rect_height = that.k.__proto__._radiusCalculation(that.percent_row_rect_height,"percentageBar") * 2;
-
+        
         if(that.mode === "default") {
            that.k.loading();
         }
@@ -358,7 +358,7 @@ PykCharts.oneD.percentageBar = function (options) {
                     tick_label.attr("class", "ticks_label")
                         .attr("transform",function (d) {
                             sum = sum + d.percentValue
-                            y = (that.percent_row_rect_height) + 20;
+                            y = (that.percent_row_rect_height) + that.pointer_size;
                             x = (((sum - d.percentValue) * that.chart_width/100)+(sum * that.chart_width / 100))/2;
 
                             return "translate(" + x + "," + y + ")";

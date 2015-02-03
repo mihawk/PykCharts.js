@@ -4,7 +4,7 @@
         <link rel="stylesheet" type="text/css" href="../dist/pykcharts.1.0.0.min.css">
 	</head>
 	<body>
-      <div id="bubble" style='width:430px;'></div>
+      <div id="bubble"></div>
       <hr/>
       <div id="funnel"></div>
       <hr/>
@@ -24,7 +24,7 @@
       <hr/>
       <div id="percentageColumn"></div>
       <hr/>
-      <div id="percentageBar" style='width:430px;'></div>
+      <div id="percentageBar"></div>
       <hr/>
       <script>
 
@@ -76,7 +76,7 @@
                 "data_source_url": "http://www.worldbank.org/",
                 background_color: "rgba(229, 245, 249, 0.5)"
             });
-            k.execute();
+            // k.execute();
 
   			var k = new PykCharts.oneD.funnel({
       			selector: "#funnel",
@@ -112,7 +112,7 @@
                 pointer_size: 30,
                 background_color: "rgb(229, 245, 249)",
     		});
-  			k.execute();
+  			// k.execute();
 
             var k = new PykCharts.oneD.pyramid ({
                 selector: "#pyramid",
@@ -145,7 +145,7 @@
                 chart_onhover_highlight_enable: "yes",
                 "pointer_overflow_enable": "yes"
             });
-            k.execute();
+            // k.execute();
 
             var k = new PykCharts.oneD.treemap({
                 selector: "#treemap",
@@ -166,7 +166,7 @@
                 clubdata_maximum_nodes: 5,
                 clubdata_always_include_data_points: ["Asia","Africa","North America"]
             });
-            k.execute();
+            // k.execute();
 
             var k = new PykCharts.oneD.donut({
                 selector: "#donutContainer",
@@ -194,7 +194,7 @@
                 "donut_inner_radius_percent": 40,
                 chart_onhover_highlight_enable: "yes"
             });
-            k.execute();
+            // k.execute();
 
             var k = new PykCharts.oneD.electionPie({
                 selector: "#electionPieContainer",
@@ -220,7 +220,7 @@
                 real_time_charts_refresh_frequency:0,
                 chart_onhover_highlight_enable: "yes"
             });
-            k.execute();
+            // k.execute();
 
             var k = new PykCharts.oneD.electionDonut({
                 selector: "#electionDonutContainer",
@@ -253,7 +253,7 @@
                 pointer_thickness:3,
                 real_time_charts_refresh_frequency:0
             });
-            k.execute();
+            // k.execute();
 
             var k = new PykCharts.oneD.pie({
                 chart_width: 700,
@@ -283,7 +283,7 @@
                  real_time_charts_refresh_frequency:0,
                  chart_onhover_highlight_enable: "yes"
             });
-            k.execute();
+            // k.execute();
 
             var k = new PykCharts.oneD.percentageColumn({
                 chart_width: 200,
@@ -309,7 +309,7 @@
                 real_time_charts_refresh_frequency:0,
                 chart_onhover_highlight_enable: "yes"
             });
-            k.execute();
+            // k.execute();
 
             var k = new PykCharts.oneD.percentageBar({
                 selector: "#percentageBar",
@@ -319,7 +319,7 @@
                 // "chart_height": 200,
                 chart_width: 800,
                 // chart_height: 300,
-                percent_row_rect_height : 90,
+                percent_row_rect_height : 13,
                 "highlight":"Heating ",
                 // clubdata_enable: "yes"
                 mode: "DEFault",
@@ -373,7 +373,7 @@
                  // highlight: "Toyota",
                 real_time_charts_refresh_frequency:0
             });
-            k.execute();
+            // k.execute();
 		}
 		</script>
     <script src="../dist/pykcharts.1.0.0.js"></script>
