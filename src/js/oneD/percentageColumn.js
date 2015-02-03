@@ -21,7 +21,7 @@ PykCharts.oneD.percentageColumn = function (options) {
             that.percent_column_rect_width = 100;
         }
 
-        that.percent_column_rect_width = that.k.__proto__._radiusCalculation(that.percent_column_rect_width,"percentageColumn") * 2;
+        that.percent_column_rect_width = that.k.__proto__._radiusCalculation(that.percent_column_rect_width,"percentageBar") * 2;
 
         if(that.mode === "default") {
            that.k.loading();
@@ -135,10 +135,16 @@ PykCharts.oneD.percentageColumn = function (options) {
                 });
             }
             that.k.exportSVG(that,"#"+container_id,"percentageColumn",undefined,undefined,(add_extra_width+15))
+            if(!options.chart_width) {
+                that.chart_width = that.percent_column_rect_width + 10 + add_extra_width;
+                console.log(that.chart_width);
+                that.svgContainer.attr("viewBox","0 0 " + that.chart_width + " " + that.chart_height);
+            }
+            var resize = that.k.resize(that.svgContainer);
+            that.k.__proto__._ready(resize);
         },that.transitions.duration());
-
-        var resize = that.k.resize(that.svgContainer);
-        that.k.__proto__._ready(resize);
+        
+        
         window.addEventListener('resize', function(event){
             return that.k.resize(that.svgContainer);
         });
