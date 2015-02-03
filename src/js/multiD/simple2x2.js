@@ -18,7 +18,6 @@ PykCharts.multiD.simple2x2 = function (options) {
         that.axis_x_enable = "yes";
         that.axis_x_data_format = "string";
         that.axis_x_pointer_length = 0;
-        that.axis_x_pointer_position = "bottom";
         that.axis_y_enable = "yes";
         that.axis_y_data_format = "string";
         that.axis_y_pointer_length = 0;
