@@ -351,14 +351,15 @@ PykCharts.Configuration = function (options){
                 div_float ="none"
                 div_left = targetWidth-16;
                 if(PykCharts['boolean'](options.title_text) && options.title_size && options.mode === "default") {
+                    console.log(targetWidth);
                     div_size = 0.1*targetWidth;
                     div_float ="left";
                     div_left = 0;
                 }
 
                 d3.select(options.selector + " #export").style({
-                    "width": div_size,
-                    "left":div_left,
+                    "width": div_size + "px",
+                    "left":div_left + "px",
                      "float":div_float
                 });
 
