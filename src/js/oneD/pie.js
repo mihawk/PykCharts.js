@@ -604,7 +604,10 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                 that.chart_text.text("");
 
                 function chart_text_timeout() {
-                    that.chart_text.text(function (d) { return that.k.appendUnits(d.data.weight); })
+                    that.chart_text.text(function (d) {
+                            return ((d.data.weight*100)/that.sum).toFixed(1)+"%";
+//                            return that.k.appendUnits(d.data.weight); 
+                        })
                         .attr({
                             "text-anchor": "middle",
                             "pointer-events": "none",

@@ -223,7 +223,7 @@ PykCharts.multiD.groupedBar = function(options){
         var id = that.selector.substring(1,that.selector.length);
         var optional = {
             svgContainer: function (container_id,i) {
-                document.getElementById(id).className = "PykCharts-twoD";
+                document.getElementById(id).className += " PykCharts-twoD";
                 that.svgContainer = d3.select(options.selector + " #tooltip-svg-container-" + i)
                     .append("svg:svg")
                     .attr({

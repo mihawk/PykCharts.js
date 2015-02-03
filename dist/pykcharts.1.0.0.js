@@ -594,7 +594,6 @@ PykCharts.Configuration = function (options){
                         }
                     });
                 } else if (PykCharts['boolean'](options.data_sort_enable)) {
-                    console.log(notApplicable,"notApplicable")
                     switch (options.data_sort_type) {
                         case "numerically":
                             data.sort(function (a,b) {
@@ -5267,7 +5266,10 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                 that.chart_text.text("");
 
                 function chart_text_timeout() {
-                    that.chart_text.text(function (d) { return that.k.appendUnits(d.data.weight); })
+                    that.chart_text.text(function (d) {
+                            return ((d.data.weight*100)/that.sum).toFixed(1)+"%";
+//                            return that.k.appendUnits(d.data.weight); 
+                        })
                         .attr({
                             "text-anchor": "middle",
                             "pointer-events": "none",
@@ -7717,7 +7719,7 @@ PykCharts.scaleFunction = function (options) {
         if(options.axis_y_title) {
             var w = PykCharts['boolean'](options.panels_enable) ? options.w : options.chart_width,
             position,dy;
-            if(options.axis_y_position === "left"){
+            if(options.axis_y_position === "left") {
                 position = -(options.chart_margin_left - options.axis_y_title_size);
                 dy = 0;
             } else if (options.axis_y_position === "right") {
@@ -7727,7 +7729,7 @@ PykCharts.scaleFunction = function (options) {
             gsvg.append("text")
                 .attr({
                     "class" : "y-axis-title",
-                    "x" : -(options.chart_height)/2,
+                    "x" : -((options.chart_height - options.chart_margin_bottom - options.chart_margin_top)/2),
                     "transform" : "rotate(-90)",
                     "y" : position,
                     "dy" : dy
@@ -7736,7 +7738,8 @@ PykCharts.scaleFunction = function (options) {
                     "fill":options.axis_y_title_color,
                     "font-weight":options.axis_y_title_weight,
                     "font-family":options.axis_y_title_family,
-                    "font-size":options.axis_y_title_size
+                    "font-size":options.axis_y_title_size,
+                    "text-anchor":"middle"
                 })
                 .text(options.axis_y_title);
         }
@@ -8338,7 +8341,6 @@ PykCharts.multiD.line = function (options) {
             }
             PykCharts.multiD.lineFunctions(options,that,"line");
         }
-
         if (PykCharts.boolean(options.interactive_enable)) {
             that.k.dataFromPykQuery(pykquery_data);
             that.k.dataSourceFormatIdentification(that.data,that,"executeData");
@@ -8352,7 +8354,7 @@ PykCharts.multiD.multiSeriesLine = function (options) {
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
 
-    this.execute = function (){
+    this.execute = function (pykquery_data){
         that = new PykCharts.validation.processInputs(that, options, 'multiDimensionalCharts');
         PykCharts.crossHair(that);
         PykCharts.annotation(that);
@@ -8399,8 +8401,12 @@ PykCharts.multiD.multiSeriesLine = function (options) {
             }
             PykCharts.multiD.lineFunctions(options,that,"multi_series_line");
         };
-
-        that.k.dataSourceFormatIdentification(options.data,that,"executeData");
+        if (PykCharts.boolean(options.interactive_enable)) {
+            that.k.dataFromPykQuery(pykquery_data);
+            that.k.dataSourceFormatIdentification(that.data,that,"executeData");
+        } else {
+            that.k.dataSourceFormatIdentification(options.data,that,"executeData");
+        }   
     };
 };
 
@@ -8408,7 +8414,7 @@ PykCharts.multiD.panelsOfLine = function (options) {
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
 
-    this.execute = function (){
+    this.execute = function (pykquery_data){
 
         that = new PykCharts.validation.processInputs(that, options, 'multiDimensionalCharts');
 
@@ -8459,8 +8465,12 @@ PykCharts.multiD.panelsOfLine = function (options) {
             PykCharts.multiD.lineFunctions(options,that,"panels_of_line");
 
         };
-
-        that.k.dataSourceFormatIdentification(options.data,that,"executeData");
+        if (PykCharts.boolean(options.interactive_enable)) {
+            that.k.dataFromPykQuery(pykquery_data);
+            that.k.dataSourceFormatIdentification(that.data,that,"executeData");
+        } else {
+            that.k.dataSourceFormatIdentification(options.data,that,"executeData");
+        }  
     };
 };
 
@@ -8827,7 +8837,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
             },
             svgContainer: function (i){
                 if(that.type === "multilineChart") {
-                    document.getElementById(id).className = "PykCharts-twoD PykCharts-line-chart PykCharts-multi-series2D";
+                    document.getElementById(id).className += " PykCharts-twoD PykCharts-line-chart PykCharts-multi-series2D";
                 }
                 else if(that.type === "lineChart") {
                     document.getElementById(id).className = "PykCharts-twoD PykCharts-line-chart";
@@ -10083,7 +10093,7 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 				return this;
 			},
 			svgContainer: function (i){
-				document.getElementById(id).className = "PykCharts-twoD PykCharts-multi-series2D PykCharts-line-chart";
+				document.getElementById(id).className += " PykCharts-twoD PykCharts-multi-series2D PykCharts-line-chart";
 
 				that.svgContainer = d3.select(that.selector+" "+"#tooltip-svg-container-"+i).append("svg:svg")
 					.attr({
@@ -10833,7 +10843,7 @@ PykCharts.multiD.bar = function (options) {
         var status;
         var optional = {
             svgContainer: function (container_id,i) {
-                document.getElementById(id).className = "PykCharts-twoD";
+                document.getElementById(id).className += " PykCharts-twoD";
                 that.svgContainer = d3.select(options.selector + " #tooltip-svg-container-" + i)
                     .append("svg:svg")
                     .attr({
@@ -11332,7 +11342,7 @@ PykCharts.multiD.groupedBar = function(options){
         var id = that.selector.substring(1,that.selector.length);
         var optional = {
             svgContainer: function (container_id,i) {
-                document.getElementById(id).className = "PykCharts-twoD";
+                document.getElementById(id).className += " PykCharts-twoD";
                 that.svgContainer = d3.select(options.selector + " #tooltip-svg-container-" + i)
                     .append("svg:svg")
                     .attr({
@@ -11972,7 +11982,7 @@ PykCharts.multiD.column = function (options) {
         var status;
         var optional = {
             svgContainer: function (container_id,i) {
-                document.getElementById(id).className = "PykCharts-twoD";
+                document.getElementById(id).className += " PykCharts-twoD";
                 that.svgContainer = d3.select(that.selector + " #tooltip-svg-container-" + i)
                     .append("svg:svg")
                     .attr({
@@ -12475,7 +12485,7 @@ PykCharts.multiD.groupedColumn = function(options) {
         var id = that.selector.substring(1,that.selector.length);
         var optional = {
             svgContainer: function (container_id,i) {
-                document.getElementById(id).className = "PykCharts-twoD";
+                document.getElementById(id).className += " PykCharts-twoD";
                 that.svgContainer = d3.select(options.selector + " #tooltip-svg-container-" + i)
                     .append("svg:svg")
                     .attr({
@@ -13349,7 +13359,7 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
     var optional = {
       svgContainer :function (i) {
         document.querySelector(that.selector + " #tooltip-svg-container-" + i).style.width = that.w;
-        document.getElementById(id).className = "PykCharts-weighted";
+        document.getElementById(id).className += " PykCharts-weighted";
         that.svgContainer = d3.select(that.selector + " #tooltip-svg-container-" + i)
         .append('svg')
         .attr({
@@ -14106,7 +14116,7 @@ PykCharts.multiD.spiderWeb = function (options) {
             status;
         var optional = {
             svgContainer: function (container_id,i) {
-                document.getElementById(id).className = "PykCharts-spider-web";
+                document.getElementById(id).className += " PykCharts-spider-web";
                 that.svgContainer = d3.select(that.selector + " #tooltip-svg-container-" + i)
                     .append("svg")
                     .attr({
@@ -14662,7 +14672,7 @@ PykCharts.multiD.river = function (options){
         var id = that.selector.substring(1,that.selector.length);
         var optional = {
             svgContainer: function (container_id,i){
-                document.getElementById(id).className = "PykCharts-twoD PykCharts-multi-series2D PykCharts-line-chart";
+                document.getElementById(id).className += " PykCharts-twoD PykCharts-multi-series2D PykCharts-line-chart";
 
                 that.svgContainer = d3.select(options.selector).append("svg:svg")
                     .attr({
@@ -15452,6 +15462,11 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
     var that = chartObject;
 
     that.refresh = function (pykquery_data) {
+        var element = document.querySelectorAll(".custom-axis");
+        for(var i = 0;i<element.length;i++) {
+            element[i].parentNode.removeChild(element[i]);
+        }
+
         that.executeRefresh = function (data) {
             that.data = that.k.__proto__._groupBy("waterfall",data);
             that.refresh_data = that.k.__proto__._groupBy("waterfall",data);
@@ -15495,7 +15510,7 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
 
         that.reducedWidth = that.chart_width - that.chart_margin_left - that.chart_margin_right;
 		that.reducedHeight = that.chart_height - that.chart_margin_top - that.chart_margin_bottom;
-        console.log(that.data,that.new_data)
+        // console.log(that.data,that.new_data)
         if (that.mode === "default") {       	
 
     		that.k.title()
@@ -15559,7 +15574,7 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
     	var that = this;
     	var optional = {
     		svgContainer: function (i,container_id) {
-                document.getElementById(id).className = "PykCharts-twoD";
+                document.getElementById(id).className += " PykCharts-twoD";
                 that.svgContainer = d3.select(that.selector + " #tooltip-svg-container-" + i)
                     .append("svg:svg")
                     .attr("width",that.chart_width)
@@ -15864,7 +15879,14 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
             drawline(start_point+1+extrapadding,start_point+1+extrapadding,that.reducedHeight,that.reducedHeight+that.axis_x_outer_pointer_length)
             drawline(end_point+1+extrapadding,end_point+1+extrapadding,that.reducedHeight,that.reducedHeight+that.axis_x_pointer_length)
             drawline(middle_point+1+extrapadding,middle_point+1+extrapadding,that.reducedHeight,that.reducedHeight+that.axis_x_pointer_length);
-            that.group.append("text")
+        
+            var text = that.group.selectAll(".custom-axis-text")
+                .data([0]);
+
+            text.enter()
+                .append("text");
+
+            text.attr("class","custom-axis-text")
                 .attr("x",middle_point+extrapadding)
                 .attr("y",that.reducedHeight+that.axis_x_pointer_length)
                 .attr("dy",12)
@@ -15873,14 +15895,18 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
                 .style("font-family",that.axis_x_pointer_family)
                 .style("font-size",that.axis_x_pointer_size)
                 .style("font-weight",that.axis_x_pointer_weight)
-                .text("0")
+                .text("0");
+
+            text.exit().remove();
         }
+
         function drawline(x1,x2,y1,y2) {
             that.group.append("line")
                 .attr("x1",x1)
                 .attr("y1",y1)
                 .attr("x2",x2)
                 .attr("y2",y2)
+                .attr("class","custom-axis")
                 .attr("stroke",that.axis_x_line_color)
                 .attr("stroke-width",1);
         }
