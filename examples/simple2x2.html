@@ -16,7 +16,7 @@
       window.PykChartsInit = function (e) {
         var k = new PykCharts.multiD.simple2x2({
           chart_height: 400,
-          chart_width: 1080,
+          chart_width: 400,
           chart_margin_left: 60,
           chart_margin_bottom: 50,
           // data: [
@@ -87,19 +87,29 @@
           "axis_y_pointer_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
           "axis_y_pointer_weight": "normal",
           "axis_y_pointer_color": "#1D1D1D",
-          // axis_y_title:  "Recency",
-          // axis_y_title_size: 18,
+          axis_y_title:  "Recency",
+          axis_y_title_size: 18,
+          "axis_y_title_color": "#1D1D1D",
+          "axis_y_title_weight": "bold",
+          "axis_y_title_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
+          "axis_y_pointer_position": "left",
+          "axis_y_line_color": "#1D1D1D",
 
           "axis_x_pointer_size": 10,
           "axis_x_pointer_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
           "axis_x_pointer_weight": "normal",
           "axis_x_pointer_color": "#1D1D1D",
-          // axis_x_title: "Frequency",
-          // axis_x_title_size: 18,
+          axis_x_title: "Frequency",
+          axis_x_title_size: 18,
+          "axis_x_title_color": "#1D1D1D",
+          "axis_x_title_weight": "bold",
+          "axis_x_title_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
+          "axis_x_pointer_position": "bottom", //axis orient
+          "axis_x_line_color": "#1D1D1D",
 
           data_source_name: "Google",
           data_source_url: "http://www.google.com",
-                background_color: "rgba(229, 245, 249, 0.5)"
+          background_color: "rgba(229, 245, 249, 0.5)"
         });
         k.execute();
       }
