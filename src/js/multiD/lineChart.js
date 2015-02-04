@@ -568,11 +568,12 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                 return this;
             },
             svgContainer: function (i){
-                if(that.type === "multilineChart") {
-                    document.getElementById(id).className += " PykCharts-twoD PykCharts-line-chart PykCharts-multi-series2D";
+                var element = document.getElementById(id);
+                if(that.type === "multilineChart" && !element.classList.contains('PykCharts-line-chart')) {
+                    element.className += " PykCharts-twoD PykCharts-line-chart PykCharts-multi-series2D";
                 }
-                else if(that.type === "lineChart") {
-                    document.getElementById(id).className = "PykCharts-twoD PykCharts-line-chart";
+                else if(that.type === "lineChart" && !element.classList.contains('PykCharts-line-chart')) {
+                    element.className = "PykCharts-twoD PykCharts-line-chart";
                 }
 
                 that.svgContainer = d3.select(that.selector+" #tooltip-svg-container-"+i)
@@ -1379,7 +1380,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                     .xGrid(that.svgContainer,that.group,that.xScale)
             }
         }
-        that.k.exportSVG(that,that.container_id+"-","lineChart",that.panels_enable,that.new_data,total_width);
+        that.k.exportSVG(that,that.container_id+"-","lineChart",that.panels_enable,that.new_data);
         that.k.emptyDiv(options.selector);      
     };
 
