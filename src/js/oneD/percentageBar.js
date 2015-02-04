@@ -11,7 +11,7 @@ PykCharts.oneD.percentageBar = function (options) {
         }
 
         that.percent_row_rect_height = that.k.__proto__._radiusCalculation(that.percent_row_rect_height) * 2;
-        that.chart_height = options.chart_height ? options.chart_height : (that.percent_row_rect_height + 10 + that.pointer_size);
+        that.chart_height = PykCharts['boolean'](options.chart_height) ? options.chart_height : (that.percent_row_rect_height + 10 + that.pointer_size);
         
         that.k.validator()
             .validatingDataType(that.chart_height,"chart_height",that.chart_width/2)

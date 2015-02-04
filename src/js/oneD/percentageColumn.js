@@ -6,7 +6,7 @@ PykCharts.oneD.percentageColumn = function (options) {
 
         that = new PykCharts.validation.processInputs(that, options, 'oneDimensionalCharts');
 
-        that.chart_height = options.chart_height ? options.chart_height : that.chart_width;
+        that.chart_height = PykCharts['boolean'](options.chart_height) ? options.chart_height : that.chart_width;
         that.percent_column_rect_width = options.percent_column_rect_width ? options.percent_column_rect_width : theme.oneDimensionalCharts.percent_column_rect_width;
 
         that.k.validator()
@@ -135,9 +135,8 @@ PykCharts.oneD.percentageColumn = function (options) {
                 });
             }
             that.k.exportSVG(that,"#"+container_id,"percentageColumn",undefined,undefined,(add_extra_width+15))
-            if(!options.chart_width) {
+            if(!PykCharts['boolean'](options.chart_width)) {
                 that.chart_width = that.percent_column_rect_width + 10 + add_extra_width;
-                console.log(that.chart_width);
                 that.svgContainer.attr("viewBox","0 0 " + that.chart_width + " " + that.chart_height);
             }
             var resize = that.k.resize(that.svgContainer);

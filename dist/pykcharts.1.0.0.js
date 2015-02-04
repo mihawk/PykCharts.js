@@ -243,7 +243,7 @@ PykCharts.Configuration = function (options){
                     "id" : "tooltip-svg-container-"+i,
                     "class" : "main-div"
                 })
-                .style("width",options.chart_width);
+                .style("width",options.chart_width + "px");
 
             if(PykCharts['boolean'](options.panels_enable)){
                 d.style({
@@ -339,12 +339,12 @@ PykCharts.Configuration = function (options){
             if(PykCharts['boolean'](options.title_text)) {
                 if(PykCharts['boolean'](options.export_enable)) {
                     title_div_width = 0.9*targetWidth;
-                    d3.select(options.selector + " #title").style("width",title_div_width);
+                    d3.select(options.selector + " #title").style("width",title_div_width + "px");
                 }
             }
             if(PykCharts['boolean'](options.subtitle_text)) {
                 title_div_width = 0.9*targetWidth;
-                d3.select(options.selector + " #sub-title").style("width", title_div_width);
+                d3.select(options.selector + " #sub-title").style("width", title_div_width + "px");
             }
             if(PykCharts['boolean'](options.export_enable)) {
                 div_size = targetWidth
@@ -3658,7 +3658,7 @@ PykCharts.oneD.percentageColumn = function (options) {
 
         that = new PykCharts.validation.processInputs(that, options, 'oneDimensionalCharts');
 
-        that.chart_height = options.chart_height ? options.chart_height : that.chart_width;
+        that.chart_height = PykCharts['boolean'](options.chart_height) ? options.chart_height : that.chart_width;
         that.percent_column_rect_width = options.percent_column_rect_width ? options.percent_column_rect_width : theme.oneDimensionalCharts.percent_column_rect_width;
 
         that.k.validator()
@@ -3787,9 +3787,8 @@ PykCharts.oneD.percentageColumn = function (options) {
                 });
             }
             that.k.exportSVG(that,"#"+container_id,"percentageColumn",undefined,undefined,(add_extra_width+15))
-            if(!options.chart_width) {
+            if(!PykCharts['boolean'](options.chart_width)) {
                 that.chart_width = that.percent_column_rect_width + 10 + add_extra_width;
-                console.log(that.chart_width);
                 that.svgContainer.attr("viewBox","0 0 " + that.chart_width + " " + that.chart_height);
             }
             var resize = that.k.resize(that.svgContainer);
@@ -4166,7 +4165,7 @@ PykCharts.oneD.percentageBar = function (options) {
         }
 
         that.percent_row_rect_height = that.k.__proto__._radiusCalculation(that.percent_row_rect_height) * 2;
-        that.chart_height = options.chart_height ? options.chart_height : (that.percent_row_rect_height + 10 + that.pointer_size);
+        that.chart_height = PykCharts['boolean'](options.chart_height) ? options.chart_height : (that.percent_row_rect_height + 10 + that.pointer_size);
         
         that.k.validator()
             .validatingDataType(that.chart_height,"chart_height",that.chart_width/2)
