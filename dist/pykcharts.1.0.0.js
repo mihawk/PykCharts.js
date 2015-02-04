@@ -7361,6 +7361,8 @@ PykCharts.annotation = function (options) {
                     .attr("r", "7")
                     .style("cursor","pointer")
                     .on("click",function (d,i) {
+                        d3.selectAll(".pyk-tooltip")
+                            .style("display","none");
                         options.mouseEvent.tooltipPosition(d);
                         options.mouseEvent.tooltipTextShow(d.annotation);
                     })
@@ -8743,7 +8745,9 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                 that.k.backgroundColor(that)
                     .export(that,"#"+that.container_id+"-","lineChart",that.panels_enable,that.new_data,that.new_width)
                     .emptyDiv(options.selector);
-
+                d3.select(that.selector).append("div")
+                        .attr("id","panels_of_line_main_div")
+                that.optionalFeature().chartType();
                 that.w = that.chart_width;
                 that.chart_height = that.chart_height;
                 if(that.axis_x_data_format === "time") {
@@ -8920,11 +8924,9 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                 var element = document.getElementById(id);
                 if(that.type === "multilineChart" && !element.classList.contains('PykCharts-line-chart')) {
                     element.className += " PykCharts-twoD PykCharts-line-chart PykCharts-multi-series2D";
-                }
-                else if(that.type === "lineChart" && !element.classList.contains('PykCharts-line-chart')) {
+                } else if(that.type === "lineChart" && !element.classList.contains('PykCharts-line-chart')) {
                     element.className = "PykCharts-twoD PykCharts-line-chart";
                 }
-
                 that.svgContainer = d3.select(that.selector+" #tooltip-svg-container-"+i)
                     .append("svg:svg")
                     .attr({
@@ -9282,11 +9284,13 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                                 })
                                 .on({
                                     "click": function (d) {
-                                        that.clicked = true;
-                                        that.highlightLine(PykCharts.getEvent().target,that.clicked,that.previous_color);
+                                        if(that.mode === "default") {
+                                            that.clicked = true;
+                                            that.highlightLine(PykCharts.getEvent().target,that.clicked,that.previous_color);
+                                        }
                                     },
                                     "mouseover": function (d) {
-                                        if(this !== that.selected && (that.color_mode === "saturation" || that.hover)) {
+                                        if(this !== that.selected && (that.color_mode === "saturation" || that.hover) && that.mode === "default") {
                                             that.previous_color = d3.select(this).attr("stroke-opacity");
                                             that.click_color = d3.select(this).style("stroke");
                                             d3.select(this)
@@ -9295,7 +9299,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                                         }
                                     },
                                     "mouseout": function (d,i) {
-                                        if(this !== that.selected && (that.color_mode === "saturation" || that.hover)) {
+                                        if(this !== that.selected && (that.color_mode === "saturation" || that.hover) && that.mode === "default") {
                                             d3.select(this)
                                                 .classed({'multi-line-hover':false,'multi-line':true})
                                                 .style("stroke", function() {
@@ -9704,7 +9708,6 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
         for(var i=0;i<that.new_data_length;i++) {
             that.k.makeMainDiv((that.selector + " #panels_of_line_main_div"),i)
                 .tooltip(true,that.selector,i);
-
             that.new_data1 = that.new_data[i];
             that.fill_data[0] = that.new_data1;
             that.optionalFeature()
@@ -11333,7 +11336,7 @@ PykCharts.multiD.groupedBar = function(options){
 
         that.dataTransformation();
         that.optionalFeatures().mapColors();
-
+        console.log(that.data,"data_sort_order",that.new_data)
         that.border = new PykCharts.Configuration.border(that);
         that.transitions = new PykCharts.Configuration.transition(that);
         // that.mouseEvent1 = new PykCharts.multiD.mouseEvent(that);
@@ -11747,11 +11750,12 @@ PykCharts.multiD.groupedBar = function(options){
                         break;
                     }
                 }
+
                 for(var i = 0;i<that.group_data_length;i++) {
                     if(that.color_mode === "color" && that.chart_color[i]) {
                         that.group_data[i].color = that.chart_color[i];
                     } else {
-                        that.group_data[i].color = that.chart_color[0];
+                        that.group_data[i].color = that.default_color[0];
                     }
                 }
 
@@ -13349,10 +13353,11 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
     } else if (that.mode === "infographics") {
       if(PykCharts['boolean'](that.panels_enable) && type === "scatterplot") {
         that.k.backgroundColor(that)
-        .export(that,that.container_id,type,that.panels_enable,that.uniq_group_arr,that.new_width)
-        .emptyDiv(options.selector);
+          .export(that,that.container_id,type,that.panels_enable,that.uniq_group_arr,that.new_width)
+          .emptyDiv(options.selector);
 
         that.no_of_groups = that.uniq_group_arr.length;
+        that.data_length = that.data.length;
         that.w = that.chart_width;
         that.chart_height = that.chart_height;
         that.chart_margin_left = that.chart_margin_left;
@@ -13375,7 +13380,6 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
 
           that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
           that.sizes = new PykCharts.multiD.bubbleSizeCalculation(that,that.data,that.radius_range);
-
           that.optionalFeatures()
           .legends(i)
           .createGroups(i)
@@ -14257,7 +14261,9 @@ PykCharts.multiD.spiderWeb = function (options) {
                     uniq = that.new_data[0].data,
                     uniq_length = uniq.length;
 
-
+                    console.log(
+                        that.new_data
+                        )
                 max = d3.max(that.new_data, function (d,i) { return d3.max(d.data, function (k) { return k.y; })});
                 min = d3.min(that.new_data, function (d,i) { return d3.min(d.data, function (k) { return k.y; })});
 

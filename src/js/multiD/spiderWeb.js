@@ -258,7 +258,9 @@ PykCharts.multiD.spiderWeb = function (options) {
                     uniq = that.new_data[0].data,
                     uniq_length = uniq.length;
 
-
+                    console.log(
+                        that.new_data
+                        )
                 max = d3.max(that.new_data, function (d,i) { return d3.max(d.data, function (k) { return k.y; })});
                 min = d3.min(that.new_data, function (d,i) { return d3.min(d.data, function (k) { return k.y; })});
 

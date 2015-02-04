@@ -360,10 +360,11 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
     } else if (that.mode === "infographics") {
       if(PykCharts['boolean'](that.panels_enable) && type === "scatterplot") {
         that.k.backgroundColor(that)
-        .export(that,that.container_id,type,that.panels_enable,that.uniq_group_arr,that.new_width)
-        .emptyDiv(options.selector);
+          .export(that,that.container_id,type,that.panels_enable,that.uniq_group_arr,that.new_width)
+          .emptyDiv(options.selector);
 
         that.no_of_groups = that.uniq_group_arr.length;
+        that.data_length = that.data.length;
         that.w = that.chart_width;
         that.chart_height = that.chart_height;
         that.chart_margin_left = that.chart_margin_left;
@@ -386,7 +387,6 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
 
           that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
           that.sizes = new PykCharts.multiD.bubbleSizeCalculation(that,that.data,that.radius_range);
-
           that.optionalFeatures()
           .legends(i)
           .createGroups(i)

@@ -139,7 +139,7 @@ PykCharts.multiD.groupedBar = function(options){
 
         that.dataTransformation();
         that.optionalFeatures().mapColors();
-
+        console.log(that.data,"data_sort_order",that.new_data)
         that.border = new PykCharts.Configuration.border(that);
         that.transitions = new PykCharts.Configuration.transition(that);
         // that.mouseEvent1 = new PykCharts.multiD.mouseEvent(that);
@@ -553,11 +553,12 @@ PykCharts.multiD.groupedBar = function(options){
                         break;
                     }
                 }
+
                 for(var i = 0;i<that.group_data_length;i++) {
                     if(that.color_mode === "color" && that.chart_color[i]) {
                         that.group_data[i].color = that.chart_color[i];
                     } else {
-                        that.group_data[i].color = that.chart_color[0];
+                        that.group_data[i].color = that.default_color[0];
                     }
                 }
 
