@@ -25,6 +25,8 @@ PykCharts.annotation = function (options) {
                     .attr("r", "7")
                     .style("cursor","pointer")
                     .on("click",function (d,i) {
+                        d3.selectAll(".pyk-tooltip")
+                            .style("display","none");
                         options.mouseEvent.tooltipPosition(d);
                         options.mouseEvent.tooltipTextShow(d.annotation);
                     })
