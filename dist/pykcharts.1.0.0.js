@@ -8917,11 +8917,12 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                 return this;
             },
             svgContainer: function (i){
-                if(that.type === "multilineChart") {
-                    document.getElementById(id).className += " PykCharts-twoD PykCharts-line-chart PykCharts-multi-series2D";
+                var element = document.getElementById(id);
+                if(that.type === "multilineChart" && !element.classList.contains('PykCharts-line-chart')) {
+                    element.className += " PykCharts-twoD PykCharts-line-chart PykCharts-multi-series2D";
                 }
-                else if(that.type === "lineChart") {
-                    document.getElementById(id).className = "PykCharts-twoD PykCharts-line-chart";
+                else if(that.type === "lineChart" && !element.classList.contains('PykCharts-line-chart')) {
+                    element.className = "PykCharts-twoD PykCharts-line-chart";
                 }
 
                 that.svgContainer = d3.select(that.selector+" #tooltip-svg-container-"+i)
@@ -13452,7 +13453,10 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
     var optional = {
       svgContainer :function (i) {
         document.querySelector(that.selector + " #tooltip-svg-container-" + i).style.width = that.w;
-        document.getElementById(id).className += " PykCharts-weighted";
+        var element = document.getElementById(id);
+        if(!element.classList.contains('PykCharts-weighted')) {
+          element.className += " PykCharts-weighted";
+        }
         that.svgContainer = d3.select(that.selector + " #tooltip-svg-container-" + i)
         .append('svg')
         .attr({
