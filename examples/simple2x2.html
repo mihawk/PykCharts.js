@@ -51,9 +51,12 @@
           mode : "default",
           color_mode: "color",
           chart_color: ["green"],
-          // chart_onhover_highlight_enable: "yes",
+          chart_onhover_highlight_enable: "yes",
+
+          "data_sort_order": "ascending",
 
           real_time_charts_refresh_frequency: 0,
+          "real_time_charts_last_updated_at_enable": "yes",
 
           title_text: "Simple 2x2 Chart",
           "title_size": 2,
@@ -102,7 +105,7 @@
           "axis_y_title_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
           "axis_y_pointer_position": "left",
           "axis_y_line_color": "#1D1D1D",
-
+          tooltip_enable: "yes",
           "axis_x_pointer_size": 10,
           "axis_x_pointer_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
           "axis_x_pointer_weight": "normal",
@@ -112,9 +115,8 @@
           "axis_x_title_color": "#1D1D1D",
           "axis_x_title_weight": "bold",
           "axis_x_title_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
-          "axis_x_pointer_position": "bottom", //axis orient
+          "axis_x_pointer_position": "top", //axis orient
           "axis_x_line_color": "#1D1D1D",
-
           data_source_name: "Google",
           data_source_url: "http://www.google.com",
           background_color: "rgba(229, 245, 249, 0.5)"
