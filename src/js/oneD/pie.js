@@ -21,7 +21,7 @@ PykCharts.oneD.pie = function (options) {
         if(that.stop) {
             return;
         }
-
+        that.k.storeInitialDivHeight();
         that.innerRadiusPercent = 0;
         that.height_translate = that.chart_height/2;
 
@@ -87,6 +87,7 @@ PykCharts.oneD.donut = function (options) {
             return;
         }
 
+        that.k.storeInitialDivHeight();
         if(that.pie_radius_percent > 100) {
             that.pie_radius_percent = 100;
         }
@@ -191,7 +192,8 @@ PykCharts.oneD.electionPie = function (options) {
         if(that.stop) {
             return;
         }
-
+        
+        that.k.storeInitialDivHeight();
         if(that.pie_radius_percent > 100) {
             that.pie_radius_percent = 100;
         }
@@ -269,7 +271,7 @@ PykCharts.oneD.electionDonut = function (options) {
         if(that.stop) {
             return;
         }
-
+        that.k.storeInitialDivHeight();
         if(that.pie_radius_percent > 100) {
             that.pie_radius_percent = 100;
         }

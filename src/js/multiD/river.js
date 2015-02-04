@@ -41,8 +41,10 @@ PykCharts.multiD.river = function (options){
             .validatingDataMode(that.chart_mode,"data_mode_default",multiDimensionalCharts.data_mode_default,"chart_mode")
             .validatingLegendsMode(that.legends_mode,"legends_mode",multiDimensionalCharts.legends_mode,"legends_mode");
 
-        if(that.stop)
+        if(that.stop) {
             return;
+        }
+        that.k.storeInitialDivHeight();
 
         if(that.mode === "default") {
             that.k.loading();

@@ -8,6 +8,7 @@ PykCharts.oneD.bubble = function (options) {
         that.k.validator()
             .validatingDataType(that.chart_height,"chart_height",that.chart_width);
 
+        that.k.storeInitialDivHeight();
         if(that.mode === "default") {
             that.k.loading();
         }

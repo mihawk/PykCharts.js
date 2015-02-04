@@ -11,8 +11,7 @@
   <hr/>
   <div id="area"></div>
   <hr/>
-
-  <div id="multiLine"></div>
+  <div id="multiLine" style="width:400px;"></div>
   <hr/>
   <div id="multiple-multiLine"></div>
   <hr/>
@@ -60,7 +59,7 @@
 
     // $(document).ready(function (e)` {
     window.PykChartsInit = function (e) {
-
+    //console.log(document.querySelectorAll("#multiLine"))
 
       var k = new PykCharts.multiD.waterfall({
         selector: "#waterfall-chart",
@@ -662,7 +661,7 @@
         // background_color: "transparent",
 
         chart_height: 450,
-        chart_width : 1000,
+        chart_width : 700,
         "color_mode": "saturation",
         "chart_color": [
         "#255AEE","red","green","pink"
@@ -883,8 +882,8 @@
         background_color: "transparent",
         chart_color: ["#07365e","#0e5ea1","#4682b4","#75b0e1","#a0ccf1"],
         // chart_color:["red","green","","grey","yellow"],
-        chart_height: 450,
-        chart_width : 800,
+        chart_height: 200,
+        chart_width : 200,
         chart_margin_top: 25,
         chart_margin_right: 15,
         chart_margin_bottom: 30,
@@ -936,7 +935,9 @@
         label_size:5,
         transition_duration:1,
         tooltip_enable: "yes",
-        chart_onhover_highlight_enable: "yes"
+        chart_onhover_highlight_enable: "yes",
+        title_text:"testineg testineg testineg testineg testineg",
+        subtitle_text:"testineg testineg testineg testineg testineg"
       });
       // // var date = new Date();
       // //     var i,avg =0;
@@ -1212,8 +1213,8 @@
 
         // chart_color:["#013f73","#4682b4","#75b0e1"],
 
-        chart_height: 400, //400
-        chart_width : 830, //630
+        chart_height: 200, //400
+        chart_width : 150, //630
         chart_margin_top: 0,
         chart_margin_right: 50,
         chart_margin_bottom: 35,
@@ -1256,7 +1257,11 @@
         zoom_enable: "no",
         annotation_enable:"yes",
         annotation_view_mode:"onclick",
-        annotation_background_color:"#ff4c4c"
+        annotation_background_color:"#ff4c4c",
+        title_text:"testineg testineg testineg testineg testineg",
+        subtitle_text:"testineg testineg testineg testineg testineg",
+        data_source_name: "nehal",
+        data_source_url: "nehal"
       });
       //     var date = new Date();
       //     var i,avg =0;
@@ -3095,7 +3100,7 @@
         color_mode:"color",
         saturation_color: "green",
         background_color:"white",
-        chart_color:["orange","red","yellow","purple"],
+        chart_color:["orange"],
         real_time_charts_refresh_frequency: 0,
 
         axis_onhover_highlight_enable: "yes",
@@ -3182,7 +3187,7 @@
         saturation_color: "orange",
 
         chart_height: 430,
-        chart_width : 1000,
+        chart_width : 700,
         chart_margin_top: 25,
         chart_margin_right: 45,
         chart_margin_bottom: 45,

@@ -16,6 +16,7 @@ PykCharts.oneD.percentageBar = function (options) {
             return;
         }
 
+        that.k.storeInitialDivHeight();
         if(that.percent_row_rect_height > 100) {
             that.percent_row_rect_height = 100;
         }
