@@ -22,7 +22,7 @@ PykCharts.multiD.bar = function (options) {
         if(that.stop){
             return;
         }
-
+        that.k.storeInitialDivHeight();
         that.panels_enable = "no";
         if(that.mode === "default") {
            that.k.loading();
@@ -349,7 +349,7 @@ PykCharts.multiD.bar = function (options) {
                         "class" : "hbar",
                         "y" :  function (d) { return that.yScale(d.y); },
                         "x" : 0,
-                        "height" : function (d) {return (that.reducedHeight/(that.data.length))-(0.03*that.reducedHeight);},
+                        "height" : function (d) {return that.yScale.rangeBand(d.y);},
                         "width" : 0,
                         "fill" : function (d) { return that.fillColor.colorPieMS(d); },
                         "stroke" : that.border.color(),
@@ -431,7 +431,7 @@ PykCharts.multiD.bar = function (options) {
                         tick_label
                             .attr({
                                 "x" : function (d) { return that.xScale(d.x); },
-                                "y" : function (d) { return that.yScale(d.name) + ((that.reducedHeight/(that.data.length))-(0.03*that.reducedHeight))/2; },
+                                "y" : function (d) { return that.yScale(d.name) + that.yScale.rangeBand(d.y)/2; },
                                 "dx" : 4,
                                 "dy" : 4,
                             })

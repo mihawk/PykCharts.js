@@ -11,7 +11,7 @@ PykCharts.multiD.simple2x2 = function (options) {
         if(that.mode === "default") {
             that.k.loading();
         }
-
+        that.k.storeInitialDivHeight();
         var multiDimensionalCharts = theme.multiDimensionalCharts,
             stylesheet = theme.stylesheet,
             optional = options.optional;

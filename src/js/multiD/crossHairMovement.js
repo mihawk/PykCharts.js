@@ -7,7 +7,7 @@ PykCharts.crossHairMovement = function (options) {
     that.focus_circle = configuration.focus_circle;
     that.pt_circle = configuration.pt_circle;
     that.start_pt_circle = configuration.start_pt_circle;
-    mouseEvent.crossHairPosition = function(new_data,xScale,yScale,dataLineGroup,lineMargin,domain,type,tooltipMode,panels_enable,container_id){
+    mouseEvent.crossHairPosition = function(new_data,xScale,yScale,dataLineGroup,lineMargin,domain,type,tooltipMode,panels_enable,container_id,no_of_panel_in_row){
         if((PykCharts['boolean'](options.crosshair_enable) || PykCharts['boolean'](options.tooltip_enable) || PykCharts['boolean'](options.axis_onhover_highlight_enable))  && options.mode === "default") {
             var offset =  options.k.__proto__._offset;
             var selectSVG = document.querySelector(options.selector + " #"+dataLineGroup[0][0][0].parentNode.parentNode.id),
@@ -126,7 +126,7 @@ PykCharts.crossHairMovement = function (options) {
                                         if(cond) {
                                             active_y_tick.push(new_data[a].data[b].y);
                                             tooltipText = (new_data[a].data[b].tooltip || new_data[a].data[b].y);
-                                            if (a%3 == 0 && a != 0) {
+                                            if (a%no_of_panel_in_row == 0 && a != 0) {
                                             ++multiply_by;
                                             final_displacement = multiply_value * multiply_by;
                                             }

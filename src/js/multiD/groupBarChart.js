@@ -24,6 +24,7 @@ PykCharts.multiD.groupedBar = function(options){
         if(that.stop){
             return;
         }
+        that.k.storeInitialDivHeight();
         that.panels_enable = "no";
 
         if(that.mode === "default") {

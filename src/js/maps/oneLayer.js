@@ -11,7 +11,7 @@ PykCharts.maps.oneLayer = function (options) {
                 that.k.remove_loading_bar(id);
                 return;
             }
-
+            that.k.storeInitialDivHeight();
             that.data = data;
             that.data_length = that.data.length;
             that.compare_data = data;
@@ -83,7 +83,7 @@ PykCharts.maps.timelineMap = function (options) {
                 that.k.remove_loading_bar(id);
                 return;
             }
-
+            that.k.storeInitialDivHeight();
             that.timeline_data = data;
             that.compare_data = data;
             var x_extent = d3.extent(data, function (d) { return d.timestamp; }),
