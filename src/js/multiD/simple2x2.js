@@ -27,10 +27,11 @@ PykCharts.multiD.simple2x2 = function (options) {
         that.data_sort_enable = "yes";
         that.data_sort_type = "numerically";
 
-        that.chart_width = (that.chart_width < that.chart_height) ? that.chart_width : that.chart_height;
-        that.chart_height = that.chart_width;
         that.reducedWidth = that.chart_width - that.chart_margin_left - that.chart_margin_right;
         that.reducedHeight = that.chart_height - that.chart_margin_top - that.chart_margin_bottom;
+        that.reducedWidth = (that.reducedWidth < that.reducedHeight) ? that.reducedWidth : that.reducedHeight;
+        that.reducedHeight = that.reducedWidth;
+
         that.axis_x_pointer_padding = (that.reducedHeight/2) + 10;
         that.axis_x_title_padding = that.axis_x_pointer_padding;
         that.axis_y_pointer_padding = (that.reducedWidth/2) + 10;
@@ -75,7 +76,7 @@ PykCharts.multiD.simple2x2 = function (options) {
 
             that.optionalFeatures()
                 .svgContainer(container_id)
-                .renderOuterBoundary()
+                // .renderOuterBoundary()
                 .createChart()
                 .axisContainer()
                 .label();
@@ -95,6 +96,7 @@ PykCharts.multiD.simple2x2 = function (options) {
 
             that.optionalFeatures()
                 .svgContainer(container_id)
+                // .renderOuterBoundary()
                 .createChart()
                 .axisContainer()
                 .labels();
@@ -111,6 +113,29 @@ PykCharts.multiD.simple2x2 = function (options) {
             .yAxisTitle(that.yGroup);
 
         that.optionalFeatures().axisShift();
+
+        that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
+
+        var remaining_width = that.chart_width - that.chart_margin_left - that.reducedWidth - that.chart_margin_right,
+            reduced_width = d3.select("g#simple2x2-group").node().getBBox().width + 1 + that.chart_margin_right,
+            remaining_height = that.chart_height - that.chart_margin_top - that.reducedHeight - that.chart_margin_bottom,
+            reduced_height = d3.select("g#simple2x2-group").node().getBBox().height + that.chart_margin_top;
+
+        if (remaining_width > 0 || remaining_height > 0){
+            if (remaining_width > 0) {
+                that.chart_width = reduced_width;
+                that.reducedWidth = that.chart_width - that.chart_margin_left - that.chart_margin_right;
+            }
+            if (remaining_height > 0) {
+                that.chart_height = reduced_height;
+                that.reducedHeight = that.chart_height - that.chart_margin_top - that.chart_margin_bottom;
+            }
+
+            that.svgContainer.attr("viewBox","0 0 " + that.chart_width + " " + that.chart_height);
+            that.optionalFeatures()
+                .xAxisTitleShift()
+                .yAxisTitleShift();
+        }
 
         that.k.exportSVG(that,"#"+container_id,"simple2x2Chart");
 
@@ -183,10 +208,23 @@ PykCharts.multiD.simple2x2 = function (options) {
                         });
                 }
                 return this;
-            },
+            },/*
+            renderOuterBoundary: function () {
+                that.outer_boundary_rect = that.group.append("svg:rect")
+                    .attr({
+                        "class": "simple2x2-outer-boundary",
+                        "x": that.chart_margin_left,
+                        "y": that.chart_margin_top,
+                        "height": that.reducedHeight,
+                        "width": that.reducedWidth
+                    });
+
+                return this;
+            },*/
             createChart: function () {
                 var x_data=[], y_data=[],
-                    y_range, x_range;
+                    y_range, x_range,
+                    x_rect_position, y_rect_position;
                 that.x_tick_values = that.k.processXAxisTickValues(); //--- NOT REQD ???
                 that.y_tick_values = that.k.processYAxisTickValues(); //--- NOT REQD ???
 
@@ -208,10 +246,110 @@ PykCharts.multiD.simple2x2 = function (options) {
                 that.y_domain = that.yScale.domain();
 
                 that.sum=0;
-                for (var i=0,len=that.data.length;i<len;i++) {
-                    that.sum += that.data[i].weight;
-                }
+                that.sum = d3.sum(that.data, function (d) {
+                    return d.weight;
+                });
 
+                that.quadrant_rects = that.group.selectAll(".simple2x2-quadrant")
+                    .data(that.data);
+
+                that.quadrant_rects.enter()
+                    .append("g")
+                    .attr("class","simple2x2-quadrant")
+                    .append("rect");
+
+                that.quadrant_rects.attr("class","simple2x2-quadrant")
+                    .select("rect")
+                    .attr({
+                        "x": function (d) {
+                            switch (d.group) {
+                                case 1: x_position = that.chart_margin_left + (that.reducedWidth/2);
+                                        break;
+                                case 2: x_position = that.chart_margin_left;
+                                        break;
+                                case 3: x_position = that.chart_margin_left;
+                                        break;
+                                case 4: x_position = that.chart_margin_left + (that.reducedWidth/2);
+                                        break;
+                            }
+                            return x_position;
+                        },
+                        "y": function (d) {
+                            switch (d.group) {
+                                case 1: y_position = that.chart_margin_top;
+                                        break;
+                                case 2: y_position = that.chart_margin_top;
+                                        break;
+                                case 3: y_position = that.chart_margin_top + (that.reducedHeight/2);
+                                        break;
+                                case 4: y_position = that.chart_margin_top + (that.reducedHeight/2);
+                                        break;
+                            }
+                            return y_position;
+                        },
+                        "width": (that.reducedWidth/2),
+                        "height": (that.reducedHeight/2),
+                        "fill" : that.chart_color[0],
+                        "stroke" : that.border.color(),
+                        "stroke-width" : that.border.width(),
+                        "stroke-dasharray": that.border.style()
+                    });
+                    // .on({
+                    //     'mouseover': function () {
+                    //         if(that.mode === "default") {
+                    //             console.log("Over >>>",PykCharts.getEvent().pageX,PykCharts.getEvent().pageY);
+                    //             // d.data.tooltip = d.data.tooltip || "<table class='PykCharts'><tr><th colspan='2' class='tooltip-heading'>"+d.data.name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.data.weight)+"<td class='tooltip-right-content'>("+((d.data.weight*100)/that.sum).toFixed(1)+"%) </tr></table>";
+                    //             // if(PykCharts['boolean'](that.chart_onhover_highlight_enable)) {
+                    //             //     that.mouseEvent.highlight(options.selector +" "+".pie", this);
+                    //             // }
+                    //             // that.mouseEvent.tooltipPosition(d);
+                    //             // that.mouseEvent.tooltipTextShow(d.data.tooltip);
+                    //         }
+                    //     },
+                    //     'mouseout': function () {
+                    //         if(that.mode === "default") {
+                    //             console.log(" OUT!!!",PykCharts.getEvent().pageX,PykCharts.getEvent().pageY);
+                    //             // if(PykCharts['boolean'](that.chart_onhover_highlight_enable)) {
+                    //             //     that.mouseEvent.highlightHide(options.selector +" "+".pie");
+                    //             // }   
+                    //             // that.mouseEvent.tooltipHide(d);
+                    //         }
+                    //     },
+                    //     'mousemove': function () {
+                    //         if(that.mode === "default") {
+                    //             console.log(" Move <<<<<<<<",PykCharts.getEvent().pageX,PykCharts.getEvent().pageY);
+                    //             // that.mouseEvent.tooltipPosition(d);
+                    //         }
+                    //     }                        
+                    // });
+                
+                that.quadrant_rects.exit()
+                    .remove();
+
+                return this;
+            },
+            yAxisTitleShift: function () {
+                var y_axis_title_transform = d3.select("#yaxis .y-axis-title").attr("transform"),
+                    y_axis_title_transform_split = y_axis_title_transform.split(" ");
+                    parse_y_axis_title_transform_split = y_axis_title_transform_split[0].replace("translate(",""),
+                    parse_y_axis_title_transform_split = parse_y_axis_title_transform_split.replace(")",""),
+                    y_axis_title_translate = parse_y_axis_title_transform_split.split(",");
+
+                y_axis_title_translate[0] = parseInt(y_axis_title_translate[0]);
+
+                d3.select("#yaxis .y-axis-title").attr("x",y_axis_title_translate[0]);
+                return this;
+            },
+            xAxisTitleShift: function () {
+                var x_axis_title_transform = d3.select("#xaxis .x-axis-title").attr("transform"),
+                    x_axis_title_transform_split = x_axis_title_transform.split(" ");
+                    parse_x_axis_title_transform_split = x_axis_title_transform_split[0].replace("translate(",""),
+                    parse_x_axis_title_transform_split = parse_x_axis_title_transform_split.replace(")",""),
+                    x_axis_title_translate = parse_x_axis_title_transform_split.split(",");
+
+                x_axis_title_translate[1] = parseInt(x_axis_title_translate[1]);
+
+                d3.select("#xaxis .x-axis-title").attr("x",x_axis_title_translate[1]);
                 return this;
             },
             axisShift: function () {
@@ -226,23 +364,6 @@ PykCharts.multiD.simple2x2 = function (options) {
                     var y_axis_title_height = d3.select(that.selector+" text.y-axis-title").node().getBBox().height;                
                     d3.select(that.selector+" text.y-axis-title").attr("transform","translate("+(-(that.reducedWidth/2))+",0) rotate(-90)");
                 }
-
-                return this;
-            },
-            renderOuterBoundary: function () {
-                that.outer_boundary = that.group.append("svg:rect")
-                    .attr({
-                        "class": "simple2x2-outer-boundary",
-                        "x": that.chart_margin_left,
-                        "y": that.chart_margin_top,
-                        "height": that.reducedHeight,
-                        "width": that.reducedWidth,
-                        "fill" : that.chart_color[0],
-                        "stroke" : that.border.color(),
-                        "stroke-width" : that.border.width(),
-                        "stroke-dasharray": that.border.style()
-                    });
-
                 return this;
             },
             label: function () {
