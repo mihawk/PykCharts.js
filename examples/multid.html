@@ -11,7 +11,7 @@
   <hr/>
   <div id="area"></div>
   <hr/>
-  <div id="multiLine" style="width:400px;"></div>
+  <div id="multiLine" style="width:700px;"></div>
   <hr/>
   <div id="multiple-multiLine"></div>
   <hr/>
@@ -402,7 +402,7 @@
       // //     for(i = 0;i<100;i++) {
       // //         // console.log(i);
       // //         var start = new Date().getTime();
-      k.execute();
+      // k.execute();
       // //         var end = new Date().getTime();
       // //             a[i] = end - start;
       // //             avg += a[i]
@@ -411,7 +411,7 @@
       var k = new PykCharts.multiD.panelsOfScatter ({
         selector: "#multiple-scatterplots",
         data: "../data/panel-of-scatters.csv",
-        mode : "default",
+        mode : "infographics",
         background_color: "transparent",
         chart_color: ["#07365e","#0e5ea1","#4682b4","#75b0e1","#a0ccf1"],
         // chart_color:["red","green","","grey","yellow"],
@@ -488,7 +488,7 @@
       var k = new PykCharts.multiD.panelsOfLine ({
         selector: "#multiLine",
         data: "../data/multipleContainerLine.json",
-        mode : "default",
+        mode : "infographics",
 
         color_mode: "saturation",  //color or saturation
         background_color: "white",
@@ -498,7 +498,7 @@
         // chart_color:["#013f73","#4682b4","#75b0e1"],
 
         chart_height: 200, //400
-        chart_width : 150, //630
+        chart_width : 200, //630
         chart_margin_top: 0,
         chart_margin_right: 50,
         chart_margin_bottom: 35,
@@ -782,7 +782,7 @@
       //     for(i = 0;i<100;i++) {
       // //         // console.log(i);
       //         var start = new Date().getTime();
-      k.execute();
+      // k.execute();
       //         var end = new Date().getTime();
       //             a[i] = end - start;
       //             avg += a[i]
@@ -1030,11 +1030,11 @@
         mode: "default",
         selector: "#groupColumn",
 
-        color_mode: "saturation",
+        color_mode: "color",
                 background_color: "rgba(229, 245, 249, 0.5)",
         // background_color:"white",
 
-        chart_color:["orange","red","steelblue","grey"],
+        chart_color:["orange"],
         saturation_color: "orange",
 
         chart_height: 430,
