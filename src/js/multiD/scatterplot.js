@@ -464,7 +464,10 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
     var optional = {
       svgContainer :function (i) {
         document.querySelector(that.selector + " #tooltip-svg-container-" + i).style.width = that.w;
-        document.getElementById(id).className += " PykCharts-weighted";
+        var element = document.getElementById(id);
+        if(!element.classList.contains('PykCharts-weighted')) {
+          element.className += " PykCharts-weighted";
+        }
         that.svgContainer = d3.select(that.selector + " #tooltip-svg-container-" + i)
         .append('svg')
         .attr({

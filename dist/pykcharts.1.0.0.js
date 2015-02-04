@@ -681,10 +681,20 @@ PykCharts.Configuration = function (options){
                 }
                 return data;
             },
-            _unique : function (data) {
+            _unique : function (data,parameter) {
                 var n = {},r=[];
+                    // if(parameter) {
+                    //     for(var i = 0,len=data.length; i < len; i++) {
+
+                    //     }
+                    // }
+
                     for(var i = 0,len=data.length; i < len; i++)
                     {
+                        if(parameter) {
+                            data[i] = data[i][parameter];
+                        }
+
                         if (!n[data[i]])
                         {
                             n[data[i]] = true;
@@ -8909,10 +8919,11 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                 return this;
             },
             svgContainer: function (i){
-                if(that.type === "multilineChart") {
-                    document.getElementById(id).className += " PykCharts-twoD PykCharts-line-chart PykCharts-multi-series2D";
-                } else if(that.type === "lineChart") {
-                    document.getElementById(id).className = "PykCharts-twoD PykCharts-line-chart";
+                var element = document.getElementById(id);
+                if(that.type === "multilineChart" && !element.classList.contains('PykCharts-line-chart')) {
+                    element.className += " PykCharts-twoD PykCharts-line-chart PykCharts-multi-series2D";
+                } else if(that.type === "lineChart" && !element.classList.contains('PykCharts-line-chart')) {
+                    element.className = "PykCharts-twoD PykCharts-line-chart";
                 }
                 that.svgContainer = d3.select(that.selector+" #tooltip-svg-container-"+i)
                     .append("svg:svg")
@@ -9719,7 +9730,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                     .xGrid(that.svgContainer,that.group,that.xScale)
             }
         }
-        that.k.exportSVG(that,that.container_id+"-","lineChart",that.panels_enable,that.new_data,total_width);
+        that.k.exportSVG(that,that.container_id+"-","lineChart",that.panels_enable,that.new_data);
         that.k.emptyDiv(options.selector);      
     };
 
@@ -11323,7 +11334,7 @@ PykCharts.multiD.groupedBar = function(options){
 
         that.dataTransformation();
         that.optionalFeatures().mapColors();
-
+        console.log(that.data,"data_sort_order",that.new_data)
         that.border = new PykCharts.Configuration.border(that);
         that.transitions = new PykCharts.Configuration.transition(that);
         // that.mouseEvent1 = new PykCharts.multiD.mouseEvent(that);
@@ -11737,11 +11748,12 @@ PykCharts.multiD.groupedBar = function(options){
                         break;
                     }
                 }
+
                 for(var i = 0;i<that.group_data_length;i++) {
                     if(that.color_mode === "color" && that.chart_color[i]) {
                         that.group_data[i].color = that.chart_color[i];
                     } else {
-                        that.group_data[i].color = that.chart_color[0];
+                        that.group_data[i].color = that.default_color[0];
                     }
                 }
 
@@ -13443,7 +13455,10 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
     var optional = {
       svgContainer :function (i) {
         document.querySelector(that.selector + " #tooltip-svg-container-" + i).style.width = that.w;
-        document.getElementById(id).className += " PykCharts-weighted";
+        var element = document.getElementById(id);
+        if(!element.classList.contains('PykCharts-weighted')) {
+          element.className += " PykCharts-weighted";
+        }
         that.svgContainer = d3.select(that.selector + " #tooltip-svg-container-" + i)
         .append('svg')
         .attr({
@@ -13991,6 +14006,7 @@ PykCharts.multiD.spiderWeb = function (options) {
     this.execute = function (pykquery_data) {
         var multiDimensionalCharts = theme.multiDimensionalCharts;
         that = new PykCharts.validation.processInputs(that, options, 'multiDimensionalCharts');
+
         that.bubbleRadius = options.spiderweb_radius  ? options.spiderweb_radius : (0.6 * multiDimensionalCharts.scatterplot_radius);
         that.spiderweb_outer_radius_percent = options.spiderweb_outer_radius_percent  ? options.spiderweb_outer_radius_percent : multiDimensionalCharts.spiderweb_outer_radius_percent;
         that.panels_enable = "no";
@@ -14243,7 +14259,9 @@ PykCharts.multiD.spiderWeb = function (options) {
                     uniq = that.new_data[0].data,
                     uniq_length = uniq.length;
 
-
+                    console.log(
+                        that.new_data
+                        )
                 max = d3.max(that.new_data, function (d,i) { return d3.max(d.data, function (k) { return k.y; })});
                 min = d3.min(that.new_data, function (d,i) { return d3.min(d.data, function (k) { return k.y; })});
 
@@ -14274,10 +14292,12 @@ PykCharts.multiD.spiderWeb = function (options) {
                     that.nodes[i] = xyz;
                 }
                 for (var m =0; m<that.new_data_length; m++) {
+                    // console.log(that.new_data,"new_data")
                     var toolTip = [];
                     for (j=0; j<that.new_data[m].data.length;j++) {
                         toolTip[j] = that.new_data[m].data[j].tooltip;
                     }
+
                     that.angle = d3.scale.ordinal().domain(d3.range(that.new_data[m].data.length+1)).rangePoints([0, 2 * Math.PI]);
                     that.radius = d3.scale.linear().range([that.inner_radius, that.spiderweb_outer_radius_percent]);
 
@@ -14290,7 +14310,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                             {x: i, y: 1}
                         );
                     }
-
+                    // console.log(that.yAxis)
                     var target;
                     var grids = [];
                         that.yAxis_length =  that.yAxis.length;

@@ -26,6 +26,9 @@ PykCharts.multiD.simple2x2 = function (options) {
 
         that.data_sort_enable = "yes";
         that.data_sort_type = "numerically";
+        that.data_sort_order = "ascending";
+
+        that.color_mode = "color";
 
         that.reducedWidth = that.chart_width - that.chart_margin_left - that.chart_margin_right;
         that.reducedHeight = that.chart_height - that.chart_margin_top - that.chart_margin_bottom;
@@ -65,6 +68,7 @@ PykCharts.multiD.simple2x2 = function (options) {
         var id = that.selector.substring(1,that.selector.length),
             container_id = id + "_svg";
 
+        that.fillChart = new PykCharts.Configuration.fillChart(that);
         that.border = new PykCharts.Configuration.border(that);
 
 		if (that.mode === "default") {
@@ -76,7 +80,7 @@ PykCharts.multiD.simple2x2 = function (options) {
 
             that.optionalFeatures()
                 .svgContainer(container_id)
-                .renderOuterBoundary()
+                // .renderOuterBoundary()
                 .createChart()
                 .axisContainer()
                 .label();
@@ -96,6 +100,7 @@ PykCharts.multiD.simple2x2 = function (options) {
 
             that.optionalFeatures()
                 .svgContainer(container_id)
+                // .renderOuterBoundary()
                 .createChart()
                 .axisContainer()
                 .labels();
@@ -113,12 +118,14 @@ PykCharts.multiD.simple2x2 = function (options) {
 
         that.optionalFeatures().axisShift();
 
+        that.mouseEvent = new PykCharts.Configuration.mouseEvent(that);
+
         var remaining_width = that.chart_width - that.chart_margin_left - that.reducedWidth - that.chart_margin_right,
             reduced_width = d3.select("g#simple2x2-group").node().getBBox().width + 1 + that.chart_margin_right,
             remaining_height = that.chart_height - that.chart_margin_top - that.reducedHeight - that.chart_margin_bottom,
             reduced_height = d3.select("g#simple2x2-group").node().getBBox().height + that.chart_margin_top;
 
-        if (remaining_width > 0 || reduced_height > 0){
+        if (remaining_width > 0 || remaining_height > 0){
             if (remaining_width > 0) {
                 that.chart_width = reduced_width;
                 that.reducedWidth = that.chart_width - that.chart_margin_left - that.chart_margin_right;
@@ -205,10 +212,23 @@ PykCharts.multiD.simple2x2 = function (options) {
                         });
                 }
                 return this;
-            },
+            },/*
+            renderOuterBoundary: function () {
+                that.outer_boundary_rect = that.group.append("svg:rect")
+                    .attr({
+                        "class": "simple2x2-outer-boundary",
+                        "x": that.chart_margin_left,
+                        "y": that.chart_margin_top,
+                        "height": that.reducedHeight,
+                        "width": that.reducedWidth
+                    });
+
+                return this;
+            },*/
             createChart: function () {
                 var x_data=[], y_data=[],
-                    y_range, x_range;
+                    y_range, x_range,
+                    x_rect_position, y_rect_position;
                 that.x_tick_values = that.k.processXAxisTickValues(); //--- NOT REQD ???
                 that.y_tick_values = that.k.processYAxisTickValues(); //--- NOT REQD ???
 
@@ -230,9 +250,103 @@ PykCharts.multiD.simple2x2 = function (options) {
                 that.y_domain = that.yScale.domain();
 
                 that.sum=0;
-                for (var i=0,len=that.data.length;i<len;i++) {
-                    that.sum += that.data[i].weight;
-                }
+                that.sum = d3.sum(that.data, function (d) {
+                    return d.weight;
+                });
+
+                that.quadrant_rects = that.group.selectAll(".simple2x2-quadrant-rect")
+                    .data(that.data);
+
+                that.quadrant_rects.enter()
+                    .append("g")
+                    .attr("class","simple2x2-quadrant-rect")
+                    .append("rect");
+
+                that.quadrant_rects.attr("class","simple2x2-quadrant-rect")
+                    .select("rect")
+                    .attr({
+                        "class": "quadrant",
+                        "x": function (d) {
+                            switch (d.group) {
+                                case 1: x_position = that.chart_margin_left + (that.reducedWidth/2);
+                                        break;
+                                case 2: x_position = that.chart_margin_left;
+                                        break;
+                                case 3: x_position = that.chart_margin_left;
+                                        break;
+                                case 4: x_position = that.chart_margin_left + (that.reducedWidth/2);
+                                        break;
+                            }
+                            return x_position;
+                        },
+                        "y": function (d) {
+                            switch (d.group) {
+                                case 1: y_position = that.chart_margin_top;
+                                        break;
+                                case 2: y_position = that.chart_margin_top;
+                                        break;
+                                case 3: y_position = that.chart_margin_top + (that.reducedHeight/2);
+                                        break;
+                                case 4: y_position = that.chart_margin_top + (that.reducedHeight/2);
+                                        break;
+                            }
+                            return y_position;
+                        },
+                        "width": (that.reducedWidth/2),
+                        "height": (that.reducedHeight/2),
+                        "fill": function (d) {
+                            return that.fillChart.selectColor(d);
+                        },
+                        "fill-opacity": 1,
+                        "data-fill-opacity": function () {
+                            return d3.select(this).attr("fill-opacity");
+                        },
+                        "stroke" : that.border.color(),
+                        "stroke-width" : that.border.width(),
+                        "stroke-dasharray": that.border.style()
+                    })
+                    .on({
+                        'mouseover': function (d) {
+                            if(that.mode === "default") {                                
+                                if (PykCharts['boolean'](that.chart_onhover_highlight_enable)) {
+                                    that.mouseEvent.highlight(that.selector+" .quadrant", this);
+                                }
+                                if (PykCharts['boolean'](that.tooltip_enable)) {
+                                    var weight_percentage_tt_text = (d.weight/that.sum) * 100,
+                                        decimal_part = "",
+                                        decimal_part_length = 0;
+                                    
+                                    if (weight_percentage_tt_text % 1 !== 0)  {
+                                        decimal_part = weight_percentage_tt_text.toFixed(2) + "";
+                                        decimal_part_length = decimal_part.length;
+                                        weight_percentage_tt_text = (decimal_part.substr(-1) == "0") ? decimal_part.substr(0,(decimal_part_length-1)) : decimal_part;
+                                    }
+
+                                    d.tooltip = d.tooltip ||"<table><thead><th colspan='2' class='tooltip-heading'>"+d.name+"</th></thead><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.weight)+"  <td class='tooltip-right-content'>("+weight_percentage_tt_text+"%)</tr></table>";
+                                    that.mouseEvent.tooltipPosition(d);
+                                    that.mouseEvent.tooltipTextShow(d.tooltip);
+                                }                                
+                            }
+                        },
+                        'mouseout': function (d) {
+                            if(that.mode === "default") {
+                                if(PykCharts['boolean'](that.chart_onhover_highlight_enable)) {
+                                    that.mouseEvent.highlightHide(that.selector+" .quadrant");
+                                }                                
+                                if (PykCharts['boolean'](that.tooltip_enable)) {
+                                    that.mouseEvent.tooltipHide(d);
+                                }
+                            }
+                        },
+                        'mousemove': function (d) {
+                            if(that.mode === "default" && PykCharts['boolean'](that.tooltip_enable)) {
+                                that.mouseEvent.tooltipPosition(d);
+                            }
+                        }                        
+                    });
+                
+                that.quadrant_rects.exit()
+                    .remove();
 
                 return this;
             },
@@ -272,22 +386,6 @@ PykCharts.multiD.simple2x2 = function (options) {
                     var y_axis_title_height = d3.select(that.selector+" text.y-axis-title").node().getBBox().height;                
                     d3.select(that.selector+" text.y-axis-title").attr("transform","translate("+(-(that.reducedWidth/2))+",0) rotate(-90)");
                 }
-                return this;
-            },
-            renderOuterBoundary: function () {
-                that.outer_boundary = that.group.append("svg:rect")
-                    .attr({
-                        "class": "simple2x2-outer-boundary",
-                        "x": that.chart_margin_left,
-                        "y": that.chart_margin_top,
-                        "height": that.reducedHeight,
-                        "width": that.reducedWidth,
-                        "fill" : that.chart_color[0],
-                        "stroke" : that.border.color(),
-                        "stroke-width" : that.border.width(),
-                        "stroke-dasharray": that.border.style()
-                    });
-
                 return this;
             },
             label: function () {
@@ -347,7 +445,8 @@ PykCharts.multiD.simple2x2 = function (options) {
                     "font-weight": that.label_weight,
                     "font-size": that.label_size + "px",
                     "font-family": that.label_family,
-                    "visibility": "visible"                    
+                    "visibility": "visible",
+                    "pointer-events": "none"
                 });
 
                 that.chart_label.exit()
