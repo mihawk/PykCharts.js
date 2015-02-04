@@ -1,25 +1,25 @@
 [
 	{
 		"name": "Laggards",
-		"weight": 41,
+		"weight": 142,
 		"group": 3,
 		"tooltip": "41%"
 	},
 	{
 		"name": "Comebacks",
-		"weight": 20,
+		"weight": 120,
 		"group": 2,
 		"tooltip": "20%"
 	},
 	{
 		"name": "Regulars",
-		"weight": 21,
+		"weight": 121,
 		"group": 1,
 		"tooltip": "21%"		
 	},
 	{
 		"name": "Hibernators",
-		"weight": 18,
+		"weight": 118,
 		"group": 4,
 		"tooltip": "18%"		
 	}

@@ -67,7 +67,6 @@ PykCharts.multiD.column = function (options) {
         }
 
       //  that.map_group_data = that.multiD.mapGroup(that.data);
-      //  console.log(that.data,"data")
         if(that.mode === "default") {
 
             that.k.title()
@@ -383,7 +382,7 @@ PykCharts.multiD.column = function (options) {
                         "x": function (d) { return that.xScale(d.x); },
                         "y": height,
                         "height": 0,
-                        "width": function (d) { return (that.reducedWidth/(that.data.length))-(0.03*that.reducedWidth); },
+                        "width": function (d) { return that.xScale.rangeBand(d.x); },
                         "fill": function (d) { return that.fillColor.colorPieMS(d); },
                         "stroke": that.border.color(),
                         "stroke-width": that.border.width(),

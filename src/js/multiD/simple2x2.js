@@ -18,10 +18,11 @@ PykCharts.multiD.simple2x2 = function (options) {
         that.axis_x_enable = "yes";
         that.axis_x_data_format = "string";
         that.axis_x_pointer_length = 0;
-        that.axis_x_pointer_position = "bottom";
+        that.axis_x_position = "bottom";
         that.axis_y_enable = "yes";
         that.axis_y_data_format = "string";
         that.axis_y_pointer_length = 0;
+        that.axis_y_position = "left";
 
         that.data_sort_enable = "yes";
         that.data_sort_type = "numerically";
@@ -206,6 +207,11 @@ PykCharts.multiD.simple2x2 = function (options) {
                 that.x_domain = that.xScale.domain();
                 that.y_domain = that.yScale.domain();
 
+                that.sum=0;
+                for (var i=0,len=that.data.length;i<len;i++) {
+                    that.sum += that.data[i].weight;
+                }
+
                 return this;
             },
             axisShift: function () {
@@ -251,7 +257,16 @@ PykCharts.multiD.simple2x2 = function (options) {
                     .text("");
 
                 that.chart_label.text(function (d) {
-                    return d.tooltip;
+                    var label_text = (d.weight/that.sum) * 100,
+                        decimal_part = "",
+                        decimal_part_length = 0;
+                    
+                    if (label_text % 1 !== 0)  {
+                        decimal_part = label_text.toFixed(2) + "";
+                        decimal_part_length = decimal_part.length;
+                        label_text = (decimal_part.substr(-1) == "0") ? decimal_part.substr(0,(decimal_part_length-1)) : decimal_part;
+                    }
+                    return (label_text+"%");
                 })
                 .style("visibility","hidden")
                 .attr({

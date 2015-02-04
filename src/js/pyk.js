@@ -264,7 +264,7 @@ PykCharts.Configuration = function (options){
                     "id" : "tooltip-svg-container-"+i,
                     "class" : "main-div"
                 })
-                .style("width",options.chart_width);
+                .style("width",options.chart_width + "px");
 
             if(PykCharts['boolean'](options.panels_enable)){
                 d.style({
@@ -366,12 +366,12 @@ PykCharts.Configuration = function (options){
             if(PykCharts['boolean'](options.title_text)) {
                 if(PykCharts['boolean'](options.export_enable)) {
                     title_div_width = 0.9*targetWidth;
-                    d3.select(options.selector + " #title").style("width",title_div_width);
+                    d3.select(options.selector + " #title").style("width",title_div_width + "px");
                 }
             }
             if(PykCharts['boolean'](options.subtitle_text)) {
                 title_div_width = 0.9*targetWidth;
-                d3.select(options.selector + " #sub-title").style("width", title_div_width);
+                d3.select(options.selector + " #sub-title").style("width", title_div_width + "px");
             }
             if(PykCharts['boolean'](options.export_enable)) {
                 div_size = targetWidth
@@ -384,8 +384,8 @@ PykCharts.Configuration = function (options){
                 }
 
                 d3.select(options.selector + " #export").style({
-                    "width": div_size,
-                    "left":div_left,
+                    "width": div_size + "px",
+                    "left":div_left + "px",
                      "float":div_float
                 });
 
@@ -1080,14 +1080,6 @@ PykCharts.Configuration = function (options){
             var r,g,b, division,array = [], increment_ratio = (150/data_length),color_value,color_validation;
 
             color = d3.rgb(color);
-            // function componentToHex(c) {
-            //     var hex = c.toString(16);
-            //     return hex.length == 1 ? "0" + hex : hex;
-            // }
-
-            // function rgbToHex(r, g, b) {
-            //     return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
-            // }
             color_validation = "rgb(" + color.r + "," + color.g + "," + color.b +")"
             color_value = options.k.__proto__._colourBrightness(color_validation);
             if(color_value === "light") {
