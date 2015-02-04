@@ -339,12 +339,12 @@ PykCharts.Configuration = function (options){
             if(PykCharts['boolean'](options.title_text)) {
                 if(PykCharts['boolean'](options.export_enable)) {
                     title_div_width = 0.9*targetWidth;
-                    d3.select(options.selector + " #title").style("width",title_div_width);
+                    d3.select(options.selector + " #title").style("width",title_div_width + "px");
                 }
             }
             if(PykCharts['boolean'](options.subtitle_text)) {
                 title_div_width = 0.9*targetWidth;
-                d3.select(options.selector + " #sub-title").style("width", title_div_width);
+                d3.select(options.selector + " #sub-title").style("width", title_div_width + "px");
             }
             if(PykCharts['boolean'](options.export_enable)) {
                 div_size = targetWidth

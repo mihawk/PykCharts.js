@@ -27,10 +27,11 @@ PykCharts.multiD.simple2x2 = function (options) {
         that.data_sort_enable = "yes";
         that.data_sort_type = "numerically";
 
-        that.chart_width = (that.chart_width < that.chart_height) ? that.chart_width : that.chart_height;
-        that.chart_height = that.chart_width;
         that.reducedWidth = that.chart_width - that.chart_margin_left - that.chart_margin_right;
         that.reducedHeight = that.chart_height - that.chart_margin_top - that.chart_margin_bottom;
+        that.reducedWidth = (that.reducedWidth < that.reducedHeight) ? that.reducedWidth : that.reducedHeight;
+        that.reducedHeight = that.reducedWidth;
+
         that.axis_x_pointer_padding = (that.reducedHeight/2) + 10;
         that.axis_x_title_padding = that.axis_x_pointer_padding;
         that.axis_y_pointer_padding = (that.reducedWidth/2) + 10;
@@ -111,6 +112,27 @@ PykCharts.multiD.simple2x2 = function (options) {
             .yAxisTitle(that.yGroup);
 
         that.optionalFeatures().axisShift();
+
+        var remaining_width = that.chart_width - that.chart_margin_left - that.reducedWidth - that.chart_margin_right,
+            reduced_width = d3.select("g#simple2x2-group").node().getBBox().width + 1 + that.chart_margin_right,
+            remaining_height = that.chart_height - that.chart_margin_top - that.reducedHeight - that.chart_margin_bottom,
+            reduced_height = d3.select("g#simple2x2-group").node().getBBox().height + that.chart_margin_top;
+
+        if (remaining_width > 0 || reduced_height > 0){
+            if (remaining_width > 0) {
+                that.chart_width = reduced_width;
+                that.reducedWidth = that.chart_width - that.chart_margin_left - that.chart_margin_right;
+            }
+            if (remaining_height > 0) {
+                that.chart_height = reduced_height;
+                that.reducedHeight = that.chart_height - that.chart_margin_top - that.chart_margin_bottom;
+            }
+
+            that.svgContainer.attr("viewBox","0 0 " + that.chart_width + " " + that.chart_height);
+            that.optionalFeatures()
+                .xAxisTitleShift()
+                .yAxisTitleShift();
+        }
 
         that.k.exportSVG(that,"#"+container_id,"simple2x2Chart");
 
@@ -214,6 +236,30 @@ PykCharts.multiD.simple2x2 = function (options) {
 
                 return this;
             },
+            yAxisTitleShift: function () {
+                var y_axis_title_transform = d3.select("#yaxis .y-axis-title").attr("transform"),
+                    y_axis_title_transform_split = y_axis_title_transform.split(" ");
+                    parse_y_axis_title_transform_split = y_axis_title_transform_split[0].replace("translate(",""),
+                    parse_y_axis_title_transform_split = parse_y_axis_title_transform_split.replace(")",""),
+                    y_axis_title_translate = parse_y_axis_title_transform_split.split(",");
+
+                y_axis_title_translate[0] = parseInt(y_axis_title_translate[0]);
+
+                d3.select("#yaxis .y-axis-title").attr("x",y_axis_title_translate[0]);
+                return this;
+            },
+            xAxisTitleShift: function () {
+                var x_axis_title_transform = d3.select("#xaxis .x-axis-title").attr("transform"),
+                    x_axis_title_transform_split = x_axis_title_transform.split(" ");
+                    parse_x_axis_title_transform_split = x_axis_title_transform_split[0].replace("translate(",""),
+                    parse_x_axis_title_transform_split = parse_x_axis_title_transform_split.replace(")",""),
+                    x_axis_title_translate = parse_x_axis_title_transform_split.split(",");
+
+                x_axis_title_translate[1] = parseInt(x_axis_title_translate[1]);
+
+                d3.select("#xaxis .x-axis-title").attr("x",x_axis_title_translate[1]);
+                return this;
+            },
             axisShift: function () {
                 that.xGroup.attr("transform","translate("+that.chart_margin_left+"," + (that.chart_margin_top + that.reducedHeight/2) + ")");
                 that.yGroup.attr("transform","translate(" + (that.chart_margin_left + that.reducedWidth/2) + ","+ that.chart_margin_top +")");
@@ -226,7 +272,6 @@ PykCharts.multiD.simple2x2 = function (options) {
                     var y_axis_title_height = d3.select(that.selector+" text.y-axis-title").node().getBBox().height;                
                     d3.select(that.selector+" text.y-axis-title").attr("transform","translate("+(-(that.reducedWidth/2))+",0) rotate(-90)");
                 }
-
                 return this;
             },
             renderOuterBoundary: function () {
