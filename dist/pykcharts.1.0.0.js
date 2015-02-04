@@ -681,10 +681,20 @@ PykCharts.Configuration = function (options){
                 }
                 return data;
             },
-            _unique : function (data) {
+            _unique : function (data,parameter) {
                 var n = {},r=[];
+                    // if(parameter) {
+                    //     for(var i = 0,len=data.length; i < len; i++) {
+
+                    //     }
+                    // }
+
                     for(var i = 0,len=data.length; i < len; i++)
                     {
+                        if(parameter) {
+                            data[i] = data[i][parameter];
+                        }
+
                         if (!n[data[i]])
                         {
                             n[data[i]] = true;
@@ -9718,7 +9728,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                     .xGrid(that.svgContainer,that.group,that.xScale)
             }
         }
-        that.k.exportSVG(that,that.container_id+"-","lineChart",that.panels_enable,that.new_data,total_width);
+        that.k.exportSVG(that,that.container_id+"-","lineChart",that.panels_enable,that.new_data);
         that.k.emptyDiv(options.selector);      
     };
 
@@ -13990,6 +14000,7 @@ PykCharts.multiD.spiderWeb = function (options) {
     this.execute = function (pykquery_data) {
         var multiDimensionalCharts = theme.multiDimensionalCharts;
         that = new PykCharts.validation.processInputs(that, options, 'multiDimensionalCharts');
+
         that.bubbleRadius = options.spiderweb_radius  ? options.spiderweb_radius : (0.6 * multiDimensionalCharts.scatterplot_radius);
         that.spiderweb_outer_radius_percent = options.spiderweb_outer_radius_percent  ? options.spiderweb_outer_radius_percent : multiDimensionalCharts.spiderweb_outer_radius_percent;
         that.panels_enable = "no";
@@ -14273,10 +14284,12 @@ PykCharts.multiD.spiderWeb = function (options) {
                     that.nodes[i] = xyz;
                 }
                 for (var m =0; m<that.new_data_length; m++) {
+                    // console.log(that.new_data,"new_data")
                     var toolTip = [];
                     for (j=0; j<that.new_data[m].data.length;j++) {
                         toolTip[j] = that.new_data[m].data[j].tooltip;
                     }
+
                     that.angle = d3.scale.ordinal().domain(d3.range(that.new_data[m].data.length+1)).rangePoints([0, 2 * Math.PI]);
                     that.radius = d3.scale.linear().range([that.inner_radius, that.spiderweb_outer_radius_percent]);
 
@@ -14289,7 +14302,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                             {x: i, y: 1}
                         );
                     }
-
+                    // console.log(that.yAxis)
                     var target;
                     var grids = [];
                         that.yAxis_length =  that.yAxis.length;

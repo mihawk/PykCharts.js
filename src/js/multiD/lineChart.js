@@ -1379,7 +1379,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                     .xGrid(that.svgContainer,that.group,that.xScale)
             }
         }
-        that.k.exportSVG(that,that.container_id+"-","lineChart",that.panels_enable,that.new_data,total_width);
+        that.k.exportSVG(that,that.container_id+"-","lineChart",that.panels_enable,that.new_data);
         that.k.emptyDiv(options.selector);      
     };
 

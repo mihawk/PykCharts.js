@@ -681,10 +681,20 @@ PykCharts.Configuration = function (options){
                 }
                 return data;
             },
-            _unique : function (data) {
+            _unique : function (data,parameter) {
                 var n = {},r=[];
+                    // if(parameter) {
+                    //     for(var i = 0,len=data.length; i < len; i++) {
+
+                    //     }
+                    // }
+
                     for(var i = 0,len=data.length; i < len; i++)
                     {
+                        if(parameter) {
+                            data[i] = data[i][parameter];
+                        }
+
                         if (!n[data[i]])
                         {
                             n[data[i]] = true;
