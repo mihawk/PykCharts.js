@@ -65,6 +65,7 @@ PykCharts.multiD.simple2x2 = function (options) {
         var id = that.selector.substring(1,that.selector.length),
             container_id = id + "_svg";
 
+        that.fillChart = new PykCharts.Configuration.fillChart(that);
         that.border = new PykCharts.Configuration.border(that);
 
 		if (that.mode === "default") {
@@ -250,17 +251,18 @@ PykCharts.multiD.simple2x2 = function (options) {
                     return d.weight;
                 });
 
-                that.quadrant_rects = that.group.selectAll(".simple2x2-quadrant")
+                that.quadrant_rects = that.group.selectAll(".simple2x2-quadrant-rect")
                     .data(that.data);
 
                 that.quadrant_rects.enter()
                     .append("g")
-                    .attr("class","simple2x2-quadrant")
+                    .attr("class","simple2x2-quadrant-rect")
                     .append("rect");
 
-                that.quadrant_rects.attr("class","simple2x2-quadrant")
+                that.quadrant_rects.attr("class","simple2x2-quadrant-rect")
                     .select("rect")
                     .attr({
+                        "class": "quadrant",
                         "x": function (d) {
                             switch (d.group) {
                                 case 1: x_position = that.chart_margin_left + (that.reducedWidth/2);
@@ -289,39 +291,51 @@ PykCharts.multiD.simple2x2 = function (options) {
                         },
                         "width": (that.reducedWidth/2),
                         "height": (that.reducedHeight/2),
-                        "fill" : that.chart_color[0],
+                        "fill": function (d) {
+                            return that.fillChart.selectColor(d);
+                        },
+                        "fill-opacity": 1,
+                        "data-fill-opacity": function () {
+                            return d3.select(this).attr("fill-opacity");
+                        },
                         "stroke" : that.border.color(),
                         "stroke-width" : that.border.width(),
                         "stroke-dasharray": that.border.style()
+                    })
+                    .on({
+                        'mouseover': function (d) {
+                            if(that.mode === "default") {
+                                var weight_percentage_tt_text = (d.weight/that.sum) * 100,
+                                    decimal_part = "",
+                                    decimal_part_length = 0;
+                                
+                                if (weight_percentage_tt_text % 1 !== 0)  {
+                                    decimal_part = weight_percentage_tt_text.toFixed(2) + "";
+                                    decimal_part_length = decimal_part.length;
+                                    weight_percentage_tt_text = (decimal_part.substr(-1) == "0") ? decimal_part.substr(0,(decimal_part_length-1)) : decimal_part;
+                                }
+                                if(PykCharts['boolean'](that.chart_onhover_highlight_enable)) {
+                                    that.mouseEvent.highlight(that.selector+" .quadrant", this);
+                                }
+                                d.tooltip = d.tooltip ||"<table><thead><th colspan='2' class='tooltip-heading'>"+d.name+"</th></thead><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.weight)+"  <td class='tooltip-right-content'>("+weight_percentage_tt_text+"%)</tr></table>";
+                                that.mouseEvent.tooltipPosition(d);
+                                that.mouseEvent.tooltipTextShow(d.tooltip);
+                            }
+                        },
+                        'mouseout': function (d) {
+                            if(that.mode === "default") {
+                                if(PykCharts['boolean'](that.chart_onhover_highlight_enable)) {
+                                    that.mouseEvent.highlightHide(that.selector+" .quadrant");
+                                }
+                                that.mouseEvent.tooltipHide(d);
+                            }
+                        },
+                        'mousemove': function (d) {
+                            if(that.mode === "default") {
+                                that.mouseEvent.tooltipPosition(d);
+                            }
+                        }                        
                     });
-                    // .on({
-                    //     'mouseover': function () {
-                    //         if(that.mode === "default") {
-                    //             console.log("Over >>>",PykCharts.getEvent().pageX,PykCharts.getEvent().pageY);
-                    //             // d.data.tooltip = d.data.tooltip || "<table class='PykCharts'><tr><th colspan='2' class='tooltip-heading'>"+d.data.name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.data.weight)+"<td class='tooltip-right-content'>("+((d.data.weight*100)/that.sum).toFixed(1)+"%) </tr></table>";
-                    //             // if(PykCharts['boolean'](that.chart_onhover_highlight_enable)) {
-                    //             //     that.mouseEvent.highlight(options.selector +" "+".pie", this);
-                    //             // }
-                    //             // that.mouseEvent.tooltipPosition(d);
-                    //             // that.mouseEvent.tooltipTextShow(d.data.tooltip);
-                    //         }
-                    //     },
-                    //     'mouseout': function () {
-                    //         if(that.mode === "default") {
-                    //             console.log(" OUT!!!",PykCharts.getEvent().pageX,PykCharts.getEvent().pageY);
-                    //             // if(PykCharts['boolean'](that.chart_onhover_highlight_enable)) {
-                    //             //     that.mouseEvent.highlightHide(options.selector +" "+".pie");
-                    //             // }   
-                    //             // that.mouseEvent.tooltipHide(d);
-                    //         }
-                    //     },
-                    //     'mousemove': function () {
-                    //         if(that.mode === "default") {
-                    //             console.log(" Move <<<<<<<<",PykCharts.getEvent().pageX,PykCharts.getEvent().pageY);
-                    //             // that.mouseEvent.tooltipPosition(d);
-                    //         }
-                    //     }                        
-                    // });
                 
                 that.quadrant_rects.exit()
                     .remove();
@@ -423,7 +437,8 @@ PykCharts.multiD.simple2x2 = function (options) {
                     "font-weight": that.label_weight,
                     "font-size": that.label_size + "px",
                     "font-family": that.label_family,
-                    "visibility": "visible"                    
+                    "visibility": "visible",
+                    "pointer-events": "none"
                 });
 
                 that.chart_label.exit()
