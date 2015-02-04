@@ -30,8 +30,10 @@ PykCharts.multiD.waterfall = function(options){
         	console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+that.selector+".(\""+"You seem to have passed less than three colors for '"+err+"', in a waterfall chart."+"\")  Visit www.chartstore.io/docs#warning_"+"18");
         }
         
-        if(that.stop)
+        if(that.stop) {
             return;
+        }
+        that.k.storeInitialDivHeight();
 
         if(that.mode === "default") {
            that.k.loading();

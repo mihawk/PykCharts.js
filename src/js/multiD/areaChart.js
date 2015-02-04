@@ -8,6 +8,7 @@ PykCharts.multiD.area = function (options){
         PykCharts.annotation(that);
         PykCharts.scaleFunction(that);
         PykCharts.grid(that);
+        that.k.storeInitialDivHeight();
 		if(that.stop) {
 			return;
 		}
@@ -78,10 +79,12 @@ PykCharts.multiD.stackedArea = function (options){
         PykCharts.annotation(that);
         PykCharts.scaleFunction(that);
         PykCharts.grid(that);
+
+
 		if(that.stop) {
 			return;
 		}
-
+        that.k.storeInitialDivHeight();
 		if(that.mode === "default") {
 			that.k.loading();
 		}

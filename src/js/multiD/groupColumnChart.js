@@ -11,7 +11,7 @@ PykCharts.multiD.groupedColumn = function(options) {
         }
         // console.log(that.border_between_chart_elements_style)
         that.panels_enable = "no";
-
+        that.k.storeInitialDivHeight();
         if(that.mode === "default") {
            that.k.loading();
         }

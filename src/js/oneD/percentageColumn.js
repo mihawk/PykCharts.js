@@ -16,7 +16,7 @@ PykCharts.oneD.percentageColumn = function (options) {
         if(that.stop) {
             return;
         }
-
+        that.k.storeInitialDivHeight();
         if(that.percent_column_rect_width > 100) {
             that.percent_column_rect_width = 100;
         }

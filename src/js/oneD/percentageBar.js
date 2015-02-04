@@ -20,8 +20,7 @@ PykCharts.oneD.percentageBar = function (options) {
         if(that.stop) {
             return;
         }
-
-        
+        that.k.storeInitialDivHeight();
         if(that.mode === "default") {
            that.k.loading();
         }

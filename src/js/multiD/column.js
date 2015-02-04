@@ -10,6 +10,7 @@ PykCharts.multiD.column = function (options) {
             return;
         }
         that.panels_enable = "no";
+        that.k.storeInitialDivHeight();
 
         if(that.mode === "default") {
            that.k.loading();
