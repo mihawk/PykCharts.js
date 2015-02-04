@@ -26,6 +26,9 @@ PykCharts.multiD.simple2x2 = function (options) {
 
         that.data_sort_enable = "yes";
         that.data_sort_type = "numerically";
+        that.data_sort_order = "ascending";
+
+        that.color_mode = "color";
 
         that.reducedWidth = that.chart_width - that.chart_margin_left - that.chart_margin_right;
         that.reducedHeight = that.chart_height - that.chart_margin_top - that.chart_margin_bottom;
@@ -304,34 +307,39 @@ PykCharts.multiD.simple2x2 = function (options) {
                     })
                     .on({
                         'mouseover': function (d) {
-                            if(that.mode === "default") {
-                                var weight_percentage_tt_text = (d.weight/that.sum) * 100,
-                                    decimal_part = "",
-                                    decimal_part_length = 0;
-                                
-                                if (weight_percentage_tt_text % 1 !== 0)  {
-                                    decimal_part = weight_percentage_tt_text.toFixed(2) + "";
-                                    decimal_part_length = decimal_part.length;
-                                    weight_percentage_tt_text = (decimal_part.substr(-1) == "0") ? decimal_part.substr(0,(decimal_part_length-1)) : decimal_part;
-                                }
-                                if(PykCharts['boolean'](that.chart_onhover_highlight_enable)) {
+                            if(that.mode === "default") {                                
+                                if (PykCharts['boolean'](that.chart_onhover_highlight_enable)) {
                                     that.mouseEvent.highlight(that.selector+" .quadrant", this);
                                 }
-                                d.tooltip = d.tooltip ||"<table><thead><th colspan='2' class='tooltip-heading'>"+d.name+"</th></thead><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.weight)+"  <td class='tooltip-right-content'>("+weight_percentage_tt_text+"%)</tr></table>";
-                                that.mouseEvent.tooltipPosition(d);
-                                that.mouseEvent.tooltipTextShow(d.tooltip);
+                                if (PykCharts['boolean'](that.tooltip_enable)) {
+                                    var weight_percentage_tt_text = (d.weight/that.sum) * 100,
+                                        decimal_part = "",
+                                        decimal_part_length = 0;
+                                    
+                                    if (weight_percentage_tt_text % 1 !== 0)  {
+                                        decimal_part = weight_percentage_tt_text.toFixed(2) + "";
+                                        decimal_part_length = decimal_part.length;
+                                        weight_percentage_tt_text = (decimal_part.substr(-1) == "0") ? decimal_part.substr(0,(decimal_part_length-1)) : decimal_part;
+                                    }
+
+                                    d.tooltip = d.tooltip ||"<table><thead><th colspan='2' class='tooltip-heading'>"+d.name+"</th></thead><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.weight)+"  <td class='tooltip-right-content'>("+weight_percentage_tt_text+"%)</tr></table>";
+                                    that.mouseEvent.tooltipPosition(d);
+                                    that.mouseEvent.tooltipTextShow(d.tooltip);
+                                }                                
                             }
                         },
                         'mouseout': function (d) {
                             if(that.mode === "default") {
                                 if(PykCharts['boolean'](that.chart_onhover_highlight_enable)) {
                                     that.mouseEvent.highlightHide(that.selector+" .quadrant");
+                                }                                
+                                if (PykCharts['boolean'](that.tooltip_enable)) {
+                                    that.mouseEvent.tooltipHide(d);
                                 }
-                                that.mouseEvent.tooltipHide(d);
                             }
                         },
                         'mousemove': function (d) {
-                            if(that.mode === "default") {
+                            if(that.mode === "default" && PykCharts['boolean'](that.tooltip_enable)) {
                                 that.mouseEvent.tooltipPosition(d);
                             }
                         }                        
