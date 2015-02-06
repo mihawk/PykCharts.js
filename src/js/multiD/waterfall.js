@@ -464,7 +464,6 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
                 break;
             }
         }
-        console.log(present)
         return present;
     }
  
@@ -479,7 +478,6 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
             data[i].name = data[i].name;
             that.river_data.push(data[i]);
         }
-        // console.log(data[data.length-1].name)
         total_start = start;
         total_end = data[data.length-1].end;
         total_weight = total_end - total_start;
