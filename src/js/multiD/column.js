@@ -50,6 +50,9 @@ PykCharts.multiD.column = function (options) {
             for (var i=0,len=that.data.length ; i<len ; i++) {
                 if (that.data[i].color != "" && that.data[i].color != undefined) {
                     that.chart_color[0] = that.data[i].color;
+                    if (options.axis_x_pointer_color == undefined || options.axis_x_pointer_color == "") {            
+                        that.axis_x_pointer_color = that.chart_color[0];
+                    }
                     break;
                 }
             }
@@ -109,10 +112,10 @@ PykCharts.multiD.column = function (options) {
                 .xAxisTitle(that.xgroup)
                 .yAxisTitle(that.ygroup);
             if(that.axis_x_data_format !== "string") {
-                that.k.xAxis(that.svgContainer,that.xgroup,that.xScale,that.extra_left_margin,that.x_domain,that.x_tick_values,null,"bar")
+                that.k.xAxis(that.svgContainer,that.xgroup,that.xScale,that.extra_left_margin,that.x_domain,that.x_tick_values,null,"bar",that);
                 that.optionalFeatures().newXAxis();
             } else {
-                that.k.xAxis(that.svgContainer,that.xgroup,that.xScale,that.extra_left_margin,that.x_domain,that.x_tick_values)
+                that.k.xAxis(that.svgContainer,that.xgroup,that.xScale,that.extra_left_margin,that.x_domain,that.x_tick_values,null,null,that);
             }
 
         } else if(that.mode === "infographics") {
