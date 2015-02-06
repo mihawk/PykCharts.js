@@ -228,7 +228,8 @@ PykCharts.multiD.simple2x2 = function (options) {
             createChart: function () {
                 var x_data=[], y_data=[],
                     y_range, x_range,
-                    x_rect_position, y_rect_position;
+                    x_rect_position, y_rect_position,
+                    group_as_integer = 0;
                 that.x_tick_values = that.k.processXAxisTickValues(); //--- NOT REQD ???
                 that.y_tick_values = that.k.processYAxisTickValues(); //--- NOT REQD ???
 
@@ -267,7 +268,8 @@ PykCharts.multiD.simple2x2 = function (options) {
                     .attr({
                         "class": "quadrant",
                         "x": function (d) {
-                            switch (d.group) {
+                            var group_as_integer = parseInt(d.group);
+                            switch (group_as_integer) {
                                 case 1: x_position = that.chart_margin_left + (that.reducedWidth/2);
                                         break;
                                 case 2: x_position = that.chart_margin_left;
@@ -280,7 +282,8 @@ PykCharts.multiD.simple2x2 = function (options) {
                             return x_position;
                         },
                         "y": function (d) {
-                            switch (d.group) {
+                            group_as_integer = parseInt(d.group);
+                            switch (group_as_integer) {
                                 case 1: y_position = that.chart_margin_top;
                                         break;
                                 case 2: y_position = that.chart_margin_top;
@@ -389,7 +392,7 @@ PykCharts.multiD.simple2x2 = function (options) {
                 return this;
             },
             label: function () {
-                var x_position, y_position=300;
+                var x_position, y_position=300, group_as_integer;
                 that.chart_label = that.group.selectAll(".simple2x2-label")
                     .data(that.data);
 
@@ -414,7 +417,8 @@ PykCharts.multiD.simple2x2 = function (options) {
                 .style("visibility","hidden")
                 .attr({
                     "x": function (d) {
-                        switch (d.group) {
+                        group_as_integer = parseInt(d.group);
+                        switch (group_as_integer) {
                             case 1: x_position = that.chart_margin_left + (3*(that.reducedWidth/4)) - (this.getBBox().width/2);
                                     break;
                             case 2: x_position = that.chart_margin_left + (that.reducedWidth/4) - (this.getBBox().width/2);
@@ -427,7 +431,8 @@ PykCharts.multiD.simple2x2 = function (options) {
                         return x_position;
                     },
                     "y": function (d) {
-                        switch (d.group) {
+                        group_as_integer = parseInt(d.group);
+                        switch (group_as_integer) {
                             case 1: y_position = that.chart_margin_top + (that.reducedHeight/4) + (this.getBBox().height/3);
                                     break;
                             case 2: y_position = that.chart_margin_top + (that.reducedHeight/4) + (this.getBBox().height/3);
