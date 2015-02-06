@@ -491,7 +491,7 @@ PykCharts.Configuration = function (options){
                     "column": ["x","group"],
                     "scatterplot": ["x","y","name","group"],
                     "pulse": ["x","y","name","group"],
-                    "spiderweb": ["x","y","group"],
+                    "spiderweb": ["x","group"],
                     "waterfall": ["x","y"],
                     "simple2x2": ["group"]
                   }
@@ -592,7 +592,11 @@ PykCharts.Configuration = function (options){
                         }
                         if (chart_name.weight) {
                             obj[chart_name.weight] = d3.sum(grp, function (d) { return d[charts[chart].weight]; });
-                            obj[chart_name.fact] = grp[0][chart_name.fact];
+                            if(chart === "spiderweb") {
+                                obj[chart_name.fact] = d3.sum(grp, function (d) { return d[charts[chart].fact]; });
+                            } else {
+                                obj[chart_name.fact] = grp[0][chart_name.fact];
+                            }
                         } else {
                             obj[chart_name.fact] = d3.sum(grp, function (d) { return d[charts[chart].fact]; });
                         }

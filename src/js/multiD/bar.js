@@ -56,13 +56,26 @@ PykCharts.multiD.bar = function (options) {
 
     this.transformData = function () {
         that.optionalFeatures().sort();
-        that.data.forEach(function(d) {
-            if(that.axis_x_data_format === "number") {
-                d.x = parseFloat(d.x);
+        if (options.chart_color != undefined && options.chart_color.length != 0) {
+            that.chart_color[0] = options.chart_color[0];
+        }
+        else {
+            for (var i=0,len=that.data.length ; i<len ; i++) {
+                if (that.data[i].color != undefined && that.data[i].color != "") {
+                    that.chart_color[0] = that.data[i].color;
+                    if (options.axis_y_pointer_color == undefined || options.axis_y_pointer_color == "") {            
+                        that.axis_y_pointer_color = that.chart_color[0];
+                    }
+                    break;
+                }
             }
-
+            
+        }        
+        that.data.forEach(function(d) {
+            d.x = (that.axis_x_data_format === "number") ? parseFloat(d.x) : d.x;
             d.name = d.y;
-        })
+            d.color = that.chart_color[0];
+        });
     }
 
     this.render = function () {
@@ -108,10 +121,10 @@ PykCharts.multiD.bar = function (options) {
                 .xAxisTitle(that.xgroup)
                 .yAxisTitle(that.ygroup);
             if(that.axis_y_data_format !== "string") {
-                that.k.yAxis(that.svgContainer,that.ygroup,that.yScale,that.y_domain,that.y_tick_values,null,"bar");
+                that.k.yAxis(that.svgContainer,that.ygroup,that.yScale,that.y_domain,that.y_tick_values,null,"bar",null,that);
                 that.optionalFeatures().newYAxis();
             } else {
-                that.k.yAxis(that.svgContainer,that.ygroup,that.yScale,that.y_domain,that.y_tick_values);
+                that.k.yAxis(that.svgContainer,that.ygroup,that.yScale,that.y_domain,that.y_tick_values,null,null,null,that);
             }
         } else if(that.mode === "infographics") {
             that.k.backgroundColor(that)
@@ -137,10 +150,10 @@ PykCharts.multiD.bar = function (options) {
                 .xAxisTitle(that.xgroup)
                 .yAxisTitle(that.ygroup);
             if(that.axis_y_data_format !== "string") {
-                that.k.yAxis(that.svgContainer,that.ygroup,that.yScale,that.y_domain,that.y_tick_values,null,"bar");
+                that.k.yAxis(that.svgContainer,that.ygroup,that.yScale,that.y_domain,that.y_tick_values,null,"bar",null,that);
                 that.optionalFeatures().newYAxis();
             } else {
-                that.k.yAxis(that.svgContainer,that.ygroup,that.yScale,that.y_domain,that.y_tick_values);
+                that.k.yAxis(that.svgContainer,that.ygroup,that.yScale,that.y_domain,that.y_tick_values,null,null,null,that);
             }
         }
         that.k.exportSVG(that,"#"+container_id,"barChart")
