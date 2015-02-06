@@ -64,9 +64,9 @@ PykCharts.Configuration = function (options){
             if(height) {
                 options.original_div_height = parseFloat(d3.select(options.selector).style("height"));
             } else {
-                options.original_div_height = "inherit";
+                options.original_div_height = "auto";
             }
-            return this;            
+            return this;
         },
         appendUnits: function (text) {
             text = PykCharts.numberFormat(text);
@@ -239,7 +239,7 @@ PykCharts.Configuration = function (options){
                         })
                         .append("td")
                         .html(data_source_content);
-                }    
+                }
                 else {
                     d3.select(options.selector).append("table")
                         .attr({
@@ -969,7 +969,7 @@ PykCharts.Configuration = function (options){
                 div_size = chart_width,
                 div_float ="none",
                 div_left = chart_width-16;
- 
+
                 d3.select(options.selector)
                         .append("div")
                         .style("left",chart_width - 80 + "px")
@@ -1769,7 +1769,7 @@ configuration.Theme = function(){
         "background_color": "transparent",
         "chart_color": ["#255AEE"],
         "saturation_color": "#255AEE",
-        
+
         "border_between_chart_elements_thickness": 1,
         "border_between_chart_elements_color": "white",
         "border_between_chart_elements_style": "solid",
