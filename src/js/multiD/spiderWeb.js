@@ -257,10 +257,6 @@ PykCharts.multiD.spiderWeb = function (options) {
                 var i, min, max,
                     uniq = that.new_data[0].data,
                     uniq_length = uniq.length;
-
-                    console.log(
-                        that.new_data
-                        )
                 max = d3.max(that.new_data, function (d,i) { return d3.max(d.data, function (k) { return k.y; })});
                 min = d3.min(that.new_data, function (d,i) { return d3.min(d.data, function (k) { return k.y; })});
 
@@ -268,18 +264,19 @@ PykCharts.multiD.spiderWeb = function (options) {
                     .domain([min,max])
                     .range([that.inner_radius, that.spiderweb_outer_radius_percent]);
                 that.y_domain = [], that.nodes = [];
-
+                var t = [];
                 for (var i=0;i<that.new_data_length;i++){
-                    var t = [];
+                    var new_y_values = [];
                     for (var j=0;j<that.new_data[i].data.length;j++) {
-                        t[j] = that.yScale(that.new_data[i].data[j].y);
+                        t.push(that.yScale(that.new_data[i].data[j].y));
+                        new_y_values[j] = that.yScale(that.new_data[i].data[j].y)
                     }
-                    that.y_domain[i] = t;
+                    that.y_domain[i] = new_y_values;
                 }
-                for (var i=0;i<that.new_data_length;i++){
-                    that.y = d3.scale.linear()
-                        .domain(d3.extent(that.y_domain[i], function(d) { return parseFloat(d); }))
+                that.y = d3.scale.linear()
+                        .domain(d3.extent(t, function(d) { return parseFloat(d); }))
                         .range([0.1,0.9]);
+                for (var i=0;i<that.new_data_length;i++){
                     var xyz = [];
                     for (var j=0;j<uniq_length;j++) {
                         xyz[j] = {
@@ -290,6 +287,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                     }
                     that.nodes[i] = xyz;
                 }
+                that.radius = d3.scale.linear().range([that.inner_radius, that.spiderweb_outer_radius_percent]);
                 for (var m =0; m<that.new_data_length; m++) {
                     // console.log(that.new_data,"new_data")
                     var toolTip = [];
@@ -298,7 +296,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                     }
 
                     that.angle = d3.scale.ordinal().domain(d3.range(that.new_data[m].data.length+1)).rangePoints([0, 2 * Math.PI]);
-                    that.radius = d3.scale.linear().range([that.inner_radius, that.spiderweb_outer_radius_percent]);
+                    
 
                     that.yAxis = [];
                     for (var i=0;i<that.new_data[m].data.length;i++){
