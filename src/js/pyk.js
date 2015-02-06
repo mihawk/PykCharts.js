@@ -1,4 +1,4 @@
-  /* ====================================================
+/* ====================================================
 * This file is part of PykCharts v1.0.0
 * Copyright 2014 Pykih Software LLP
 * Contact: charts@pykih.com

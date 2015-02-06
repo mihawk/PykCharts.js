@@ -63,33 +63,6 @@
 
       var k = new PykCharts.multiD.waterfall({
         selector: "#waterfall-chart",
-        // data: [
-        //   {
-        //       "y": "Product A Sales",
-        //       "x": "300000",
-        //       "group": "Income"
-        //   },
-        //   {
-        //       "y": "Product B Sales",
-        //       "x": "200000",
-        //       "group": "Income"
-        //   },
-        //   {
-        //       "y": "Other Sales",
-        //       "x": "100000",
-        //       "group": "Income"
-        //   },
-        //   {
-        //       "y": "Fixed Costs",
-        //       "x": "-100000",
-        //       "group": "Profit"
-        //   },
-        //   {
-        //       "y": "Variable Costs",
-        //       "x": "-800000",
-        //       "group": "Profit"
-        //   }
-        // ],
         data: "../data/german_erp_waterfall1.json",
         mode: "default",
         chart_height: 400,
@@ -132,49 +105,13 @@
         transition_duration: 0,
         axis_x_outer_pointer_length: 6,
         axis_x_pointer_length: 6,
-                background_color: "rgba(0,0,0,0.4)"
+        calculate_total_of: [2000]
+                // background_color: "rgba(0,0,0,0.1)"
       });
       k.execute();
 
       var k = new PykCharts.multiD.line ({
         selector: "#line",
-        // data: [
-        //   {
-        //     "name":"New York",
-        //     "x":"1",
-        //     "y":2,
-        //     "color":"steelblue",
-        //     "tooltip":2
-        //   },
-        //   {
-        //     "name":"New York",
-        //     "x":"5",
-        //     "y":1.8,
-        //     "color":"steelblue",
-        //     "tooltip":1.8
-        //   },
-        //   {
-        //     "name":"New York",
-        //     "x":"3",
-        //     "y":3.2,
-        //     "color":"steelblue",
-        //     "tooltip":3.2
-        //   },
-        //   {
-        //     "name":"New York",
-        //     "x":"2",
-        //     "y":4.8,
-        //     "color":"steelblue",
-        //     "tooltip":4.8
-        //   },
-        //   {
-        //     "name":"New York",
-        //     "x":"4",
-        //     "y":6,
-        //     "color":"steelblue",
-        //     "tooltip":6
-        //   }
-        // ],
         data: "../data/linechart_linear.json",
         "chart_width": 620,
         "chart_height": 400,
@@ -245,49 +182,12 @@
         "subtitle_weight": "bold",
         "subtitle_family": "Helvetica Neue,Helvetica,Arial,sans-serif",
         "subtitle_color": "green",
-        background_color: "cyan"
+        // background_color: "cyan"
       });
-      k.execute();
+      // k.execute();
 
       var k = new PykCharts.multiD.area ({
         selector: "#area",
-        // data: [
-        //   {
-        //     "name":"New York",
-        //     "x":"1",
-        //     "y":2,
-        //     "color":"steelblue",
-        //     "tooltip":2
-        //   },
-        //   {
-        //     "name":"New York",
-        //     "x":"5",
-        //     "y":1.8,
-        //     "color":"steelblue",
-        //     "tooltip":1.8
-        //   },
-        //   {
-        //     "name":"New York",
-        //     "x":"3",
-        //     "y":3.2,
-        //     "color":"steelblue",
-        //     "tooltip":3.2
-        //   },
-        //   {
-        //     "name":"New York",
-        //     "x":"2",
-        //     "y":4.8,
-        //     "color":"steelblue",
-        //     "tooltip":4.8
-        //   },
-        //   {
-        //     "name":"New York",
-        //     "x":"4",
-        //     "y":6,
-        //     "color":"steelblue",
-        //     "tooltip":6
-        //   }
-        // ],
         data: "../data/area.csv",
         mode : "default",
 
@@ -364,81 +264,6 @@
       var k = new PykCharts.multiD.spiderWeb ({
         selector: "#spiderWeb",
         data: "../data/spider.csv",
-        // data: [
-        //     {
-        //         "x": "National Democratic Alliance",
-        //         "y": 5,
-        //         "weight":15,
-        //         "group":"2014",
-        //         "tooltip": "National Democratic Alliance"
-        //     },
-        //     {
-        //         "x": "United Progressive Alliance",
-        //         "y": 10,
-        //         "weight":20,
-        //         "group":"2014",
-        //         "tooltip": "United Progressive Alliance"
-        //     },
-        //     {
-        //         "x": "Aam Aadmi Party",
-        //         "y": 12,
-        //         "weight":10,
-        //         "group":"2014",
-        //         "tooltip": "Aam Aadmi Party"
-        //     },
-        //     {
-        //         "x": "Bahujan Samaj Party",
-        //         "y": 17,
-        //         "weight":30,
-        //         "group":"2014",
-        //         "tooltip": "Bahujan Samaj Party"
-        //     },
-        //     {
-        //         "x": "Congress Party",
-        //         "y": 30,
-        //         "weight":25,
-        //         "group":"2014",
-        //         "color": "#75b0e1",
-        //         "tooltip": "Congress Party"
-        //     },
-
-        //     {
-        //         "x": "National Democratic Alliance",
-        //         "y": 20,
-        //         "weight":25,
-        //         "group":"2009",
-        //         "tooltip": "National Democratic Alliance"
-        //     },
-        //     {
-        //         "x": "United Progressive Alliance",
-        //         "y": 20,
-        //         "weight":10,
-        //         "group":"2009",
-        //         "color": "#0e5ea1",
-        //         "tooltip": "United Progressive Alliance"
-        //     },
-        //     {
-        //         "x": "Aam Aadmi Party",
-        //         "y": 30,
-        //         "weight":30,
-        //         "group":"2009",
-        //         "tooltip": "Aam Aadmi Party"
-        //     },
-        //     {
-        //         "x": "Bahujan Samaj Party",
-        //         "y": 5,
-        //         "weight":12,
-        //         "group":"2009",
-        //         "tooltip": "Bahujan Samaj Party"
-        //     },
-        //     {
-        //         "x": "Nationalist Congress Party",
-        //         "y": 15,
-        //         "weight":7,
-        //         "group":"2009",
-        //         "tooltip": "Nationalist Congress Party"
-        //     }
-        // ],
         mode : "default",
 
         spiderweb_radius : 10,
@@ -3066,7 +2891,7 @@
         mode: "default",
         selector: "#groupBar",
         chart_height: 630,
-        chart_width : 700,
+        chart_width  : 700,
         chart_margin_top: 25,
         chart_margin_right: 45,
         chart_margin_bottom: 35,
