@@ -6,6 +6,8 @@ PykCharts.multiD.waterfall = function(options){
 	this.execute = function (pykquery_data) {
         that = new PykCharts.validation.processInputs(that, options, "multiDimensionalCharts");
         that.calculate_total_of = options.calculate_total_of ? options.calculate_total_of : [];
+        that.axis_y_background_color = options.axis_y_background_color ? options.axis_y_background_color : theme.multiDimensionalCharts.axis_y_background_color;
+
         PykCharts.scaleFunction(that);
 		that.color_mode = "color";
 		that.grid_y_enable = "no";
@@ -172,7 +174,7 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
                   .yAxisTitle(that.yGroup,undefined);
 
         that.xaxis();
-        that.optionalFeatures().axis_background();
+        that.optionalFeatures().axis_background(that.container_id);
         that.k.exportSVG(that,"#"+that.container_id,"waterfallChart"); 
                     console.log(d3.select("#waterfall-chart_svg #yaxis").attr("width"))
         var resize = that.k.resize(that.svgContainer);
@@ -195,6 +197,19 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
                     .attr("class","svgcontainer")
                     .attr("preserveAspectRatio", "xMinYMin")
                     .attr("viewBox", "0 0 " + that.chart_width + " " + that.chart_height);
+
+                    that.background_rect =  that.svgContainer.selectAll(".background-rect")
+                        .data(["rect"])
+
+                    that.background_rect.enter()
+                        .append("rect")
+                        .attr("class","background-rect")
+
+                    that.background_rect
+                        .attr("y",that.chart_margin_top)
+                        .attr("width",that.longest_tick_width)
+                        .attr("height",that.reducedHeight)    
+                        .attr("fill",that.axis_y_background_color);
 
                 return this;
             },
@@ -332,16 +347,8 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
             },
             ticks: function() {
             	if(that.pointer_size) {
-                    // var background_rect =  that.bars.selectAll(".background-rect")
-                    //     .data(["rect"])
-
-                    // background_rect.enter()
-                    //     .append("rect")
-                    //     .attr("class","background-rect")
-
-                    // background_rect.attr("width",that.longest_tick_width)
-                    //     .attr("height",that.reducedHeight)    
-                    //     .attr("fill","pink")
+                    // that.background_rect.remove()
+                    //     .exit();
 
             		var ticks = that.bars.selectAll(".ticks-text")
 		    				.data(function(d){
@@ -380,8 +387,23 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
 
             	return this;
             },
-            axis_background: function () {
+            axis_background: function (container_id) {
+                var y_axis_text = document.querySelectorAll("#"+container_id+" #yaxis .tick text");
+                var y_axis_text_length = y_axis_text.length,text = [];
+                for(var i=0;i<y_axis_text_length;i++) {
+                    text.push(y_axis_text[i].getBBox().width)
+                }
+                var max_width = d3.max(text,function(d){
+                    return d;
+                })
 
+                that.background_rect
+                    .attr("x",that.chart_margin_left - max_width - 10)
+                    .attr("width",max_width+10);
+
+
+                that.background_rect.exit()
+                    .remove();
                 return this;
             }
     	};
