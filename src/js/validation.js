@@ -553,10 +553,12 @@ PykCharts.validation.processInputs = function (chartObject, options, chart_type)
             }
         }
     }
+
     if(chart_type === "oneDimensionalCharts") {
         chartObject.color_mode = options.color_mode ? options.color_mode : "shade";
-        validator.validatingColorMode(chartObject.color_mode,config_name,"color",chart_type);
+        validator.validatingColorMode(chartObject.color_mode,"color_mode","shade",chart_type);
     }
+
     var enable_config_param = [
         {
             'config_name':'interactive_enable',

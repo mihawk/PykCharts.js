@@ -5,6 +5,7 @@ PykCharts.multiD.waterfall = function(options){
 
 	this.execute = function (pykquery_data) {
         that = new PykCharts.validation.processInputs(that, options, "multiDimensionalCharts");
+        that.calculate_total = options.calculate_total ? options.calculate_total : multiDimensionalCharts.calculate_total;
         that.calculate_total_of = options.calculate_total_of ? options.calculate_total_of : [];
         that.axis_y_background_color = options.axis_y_background_color ? options.axis_y_background_color : theme.multiDimensionalCharts.axis_y_background_color;
 
@@ -523,12 +524,13 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
         for(var i = 0;i<that.new_data_length;i++) { 
             if(i===0) {
                 that.dataTransformation(that.new_data[i]);            
-
             } else {
                 var previous_data_length = that.river_data.length;
                 prev_total = that.river_data[previous_data_length-1];
                 var present = that.check_total_is_present(prev_total.name);
-                if(present) {
+                if(!PykCharts["boolean"](that.calculate_total)) {
+                    that.river_data.pop();
+                } else if (!present && that.calculate_total_of.length) {
                     that.river_data.pop();
                 }
                 name =  'Total' + " " + that.new_data[i].name;
@@ -536,10 +538,11 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
             }
         }
         present = that.check_total_is_present(that.river_data[that.river_data.length-1].name);
-        if(present) {
+        if(!PykCharts["boolean"](that.calculate_total)) {
             that.river_data.pop();
-        }
-                   
+        } else if (!present && that.calculate_total_of.length) {
+            that.river_data.pop();
+        }                   
     }
     that.xaxis = function () {
         var xScale_domain = that.xScale.domain();

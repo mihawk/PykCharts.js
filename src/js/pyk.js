@@ -1952,7 +1952,7 @@ configuration.Theme = function(){
         "data_sort_enable": "yes",
         "data_sort_type": "alphabetically", // sort type --- "alphabetically" / "numerically" / "date"
         "data_sort_order": "ascending", // sort order --- "descending" / "ascending"
-
+        "calculate_total": "yes",
         "axis_y_background_color": "transparent"
     };
 
