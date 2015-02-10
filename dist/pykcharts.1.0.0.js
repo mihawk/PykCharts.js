@@ -12398,7 +12398,6 @@ PykCharts.multiD.groupedColumn = function(options) {
         if(that.stop){
             return;
         }
-        // console.log(that.border_between_chart_elements_style)
         that.panels_enable = "no";
         that.k.storeInitialDivHeight();
         if(that.mode === "default") {
@@ -12861,7 +12860,7 @@ PykCharts.multiD.groupedColumn = function(options) {
                 bar.attr("height", 0)
                     .attr({
                         "x": function (d) {return that.x1(d.name); },
-                        "y": that.chart_height - that.chart_margin_top - that.chart_margin_bottom,
+                        "y": that.reduced_height,
                         "width": function (d){ return 0.98*that.x1.rangeBand(); },
                         "fill": function (d,i) {
                             return that.fillColor.colorGroup(d);
