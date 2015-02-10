@@ -11233,8 +11233,6 @@ PykCharts.multiD.bar = function (options) {
 PykCharts.multiD.groupedBar = function(options){
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
-       var x = "nehal";
-        console.log(that.new_data,x,"heyyyyyyyyyyyyyyyyyyyyyyyyy")
     var multiDimensionalCharts = theme.multiDimensionalCharts;
     this.execute = function (pykquery_data) {
         that = new PykCharts.validation.processInputs(that, options, 'multiDimensionalCharts');
@@ -11293,7 +11291,6 @@ PykCharts.multiD.groupedBar = function(options){
     };
 
     that.dataTransformation = function () {
-        console.log("inside dataTransformation",d3.select("#groupedBar"))
         if(PykCharts['boolean'](that.data_sort_enable)) {
             that.data = that.optionalFeatures().sort(that.data,"group");
         }
@@ -11373,7 +11370,6 @@ PykCharts.multiD.groupedBar = function(options){
 
         that.dataTransformation();
         that.optionalFeatures().mapColors();
-        console.log(that.data,"data_sort_order",that.new_data)
         that.border = new PykCharts.Configuration.border(that);
         that.transitions = new PykCharts.Configuration.transition(that);
         // that.mouseEvent1 = new PykCharts.multiD.mouseEvent(that);
@@ -12402,7 +12398,6 @@ PykCharts.multiD.groupedColumn = function(options) {
         if(that.stop){
             return;
         }
-        // console.log(that.border_between_chart_elements_style)
         that.panels_enable = "no";
         that.k.storeInitialDivHeight();
         if(that.mode === "default") {
@@ -12865,7 +12860,11 @@ PykCharts.multiD.groupedColumn = function(options) {
                 bar.attr("height", 0)
                     .attr({
                         "x": function (d) {return that.x1(d.name); },
-                        "y": that.chart_height - that.chart_margin_top - that.chart_margin_bottom,
+                        // "y": function () {
+                        //     var bar_y = (that.legendsGroup_height != 0 && that.legends_display == "horizontal") ? (that.chart_height - that.chart_margin_top - that.chart_margin_bottom - that.legendsGroup_height) : (that.chart_height - that.chart_margin_top - that.chart_margin_bottom);
+                        //     return bar_y;
+                        // },
+                        "y": that.reduced_height,
                         "width": function (d){ return 0.98*that.x1.rangeBand(); },
                         "fill": function (d,i) {
                             return that.fillColor.colorGroup(d);

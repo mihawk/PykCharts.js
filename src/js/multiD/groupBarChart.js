@@ -1,8 +1,6 @@
 PykCharts.multiD.groupedBar = function(options){
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
-       var x = "nehal";
-        console.log(that.new_data,x,"heyyyyyyyyyyyyyyyyyyyyyyyyy")
     var multiDimensionalCharts = theme.multiDimensionalCharts;
     this.execute = function (pykquery_data) {
         that = new PykCharts.validation.processInputs(that, options, 'multiDimensionalCharts');
@@ -61,7 +59,6 @@ PykCharts.multiD.groupedBar = function(options){
     };
 
     that.dataTransformation = function () {
-        console.log("inside dataTransformation",d3.select("#groupedBar"))
         if(PykCharts['boolean'](that.data_sort_enable)) {
             that.data = that.optionalFeatures().sort(that.data,"group");
         }
@@ -141,7 +138,6 @@ PykCharts.multiD.groupedBar = function(options){
 
         that.dataTransformation();
         that.optionalFeatures().mapColors();
-        console.log(that.data,"data_sort_order",that.new_data)
         that.border = new PykCharts.Configuration.border(that);
         that.transitions = new PykCharts.Configuration.transition(that);
         // that.mouseEvent1 = new PykCharts.multiD.mouseEvent(that);
