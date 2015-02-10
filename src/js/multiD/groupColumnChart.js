@@ -485,7 +485,7 @@ PykCharts.multiD.groupedColumn = function(options) {
                             }
                         },
                         "stroke": that.border.color(),
-                        "stroke-width": that.border.width(),
+                        "srtoke-width": that.border.width(),
                         "stroke-dasharray": that.border.style(),
                         "data-fill-opacity": function () {
                             return d3.select(this).attr("fill-opacity");

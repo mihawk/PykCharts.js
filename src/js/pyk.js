@@ -1439,7 +1439,7 @@ configuration.mouseEvent = function (options) {
         },
         tooltipTextShow: function (d,panels_enable,type,group_index,axis_tooltip) {
             var selector = options.selector.substr(1,options.selector.length)
-            if(PykCharts['boolean'](options.tooltip_enable) || PykCharts['boolean'](options.annotation_enable) || (axis_tooltip == 1 && (options.axis_x_data_format === "string" || options.axis_y_data_format === "string"))) {
+            if(PykCharts['boolean'](options.tooltip_enable) || PykCharts['boolean'](options.annotation_enable) || options.axis_x_data_format === "string" || options.axis_y_data_format === "string") {
                 if(panels_enable === "yes" && type === "multilineChart") {
                     d3.selectAll("#tooltip-svg-container-"+group_index +"-pyk-tooltip"+selector).html(d);
                 } else {
