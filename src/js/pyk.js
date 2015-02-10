@@ -349,7 +349,7 @@ PykCharts.Configuration = function (options){
             }
 
             var aspect = (chart_width/options.chart_height),
-                targetWidth = parseFloat(d3.select(options.selector).style("width")),
+                targetWidth = !isNaN(parseFloat(d3.select(options.selector).style("width"))) ? parseFloat(d3.select(options.selector).style("width")) : 0,
                 a = d3.selectAll(options.selector + " #footer"),
                 b = d3.selectAll(options.selector + " .main-div"),
                 title_div_width;
