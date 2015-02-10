@@ -1449,7 +1449,7 @@ configuration.mouseEvent = function (options) {
             }
         },
         tooltipHide: function (d,panels_enable,type,axis_tooltip) {
-            if(PykCharts['boolean'](options.tooltip_enable) || PykCharts['boolean'](options.annotation_enable) || (axis_tooltip == 1 && (options.axis_x_data_format === "string" || options.axis_y_data_format === "string"))) {
+            if(PykCharts['boolean'](options.tooltip_enable) || PykCharts['boolean'](options.annotation_enable) || options.axis_x_data_format === "string" || options.axis_y_data_format === "string") {
                 if(panels_enable === "yes" && type === "multilineChart") {
                     return d3.selectAll(".pyk-tooltip").style("display","none");
                 }
