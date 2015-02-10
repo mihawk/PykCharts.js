@@ -1449,7 +1449,7 @@ configuration.mouseEvent = function (options) {
             }
         },
         tooltipHide: function (d,panels_enable,type,axis_tooltip) {
-            if(PykCharts['boolean'](options.tooltip_enable) || PykCharts['boolean'](options.annotation_enable) || (axis_tooltip == 1 && (options.axis_x_data_format === "string" || options.axis_y_data_format === "string"))) {
+            if(PykCharts['boolean'](options.tooltip_enable) || PykCharts['boolean'](options.annotation_enable) || options.axis_x_data_format === "string" || options.axis_y_data_format === "string") {
                 if(panels_enable === "yes" && type === "multilineChart") {
                     return d3.selectAll(".pyk-tooltip").style("display","none");
                 }
@@ -7872,7 +7872,8 @@ PykCharts.scaleFunction = function (options) {
         if(length) {
             for(var i = 0 ; i < length ; i++) {
                 if(options.axis_x_data_format === "number") {
-                    if(isNumber(options.axis_x_pointer_values[i]) || !(isNaN(options.axis_x_pointer_values[i]))){
+                    if((isNumber(options.axis_x_pointer_values[i]) || !(isNaN(options.axis_x_pointer_values[i]))) && options.axis_x_pointer_values[i]!=""){
+
                         values.push(parseFloat(options.axis_x_pointer_values[i]))
                     }
                 } else if(options.axis_x_data_format === "time") {
@@ -7901,7 +7902,7 @@ PykCharts.scaleFunction = function (options) {
         if(length) {
             for(var i = 0 ; i < length ; i++) {
                 if(options.axis_y_data_format === "number") {
-                    if(isNumber(options.axis_y_pointer_values[i]) || !(isNaN(options.axis_y_pointer_values[i]))){
+                    if((isNumber(options.axis_y_pointer_values[i]) || !(isNaN(options.axis_y_pointer_values[i]))) && options.axis_y_pointer_values[i]!=""){
                         values.push(options.axis_y_pointer_values[i])
                     }
                 }
