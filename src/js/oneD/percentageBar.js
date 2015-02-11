@@ -279,7 +279,7 @@ PykCharts.oneD.percentageBar = function (options) {
 
                     that.chart_text.attr({
                         "class": "per-text",
-                        "y": (that.percent_row_rect_height/2),
+                        "y": (that.percent_row_rect_height/2) + 5,
                         "x": function (d,i) {
                             sum = sum + d.percentValue;
                             if (i===0) {
@@ -316,7 +316,7 @@ PykCharts.oneD.percentageBar = function (options) {
                         function chart_text_timeout(){
                             that.chart_text.text(function (d) { return d.percentValue.toFixed(1)+"%"; })
                                 .text(function (d) {
-                                    if(this.getBBox().width < (d.percentValue * that.chart_width / 100) && this.getBBox().height < that.percent_row_rect_height) {
+                                    if(this.getBBox().width < 0.92*(d.percentValue * that.chart_width / 100) && this.getBBox().height < that.percent_row_rect_height) {
                                         return d.percentValue.toFixed(1)+"%"
                                     }else {
                                         return "";

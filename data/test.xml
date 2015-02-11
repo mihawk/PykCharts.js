@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+   <element>
+      <name>&lt;5</name>
+      <weight>2704659</weight>
+   </element>
+   <element>
+      <name>5-13</name>
+      <weight>4499890</weight>
+   </element>
+   <element>
+      <name>14-17</name>
+      <weight>2159981</weight>
+   </element>
+   <element>
+      <name>18-24</name>
+      <weight>3853788</weight>
+   </element>
+   <element>
+      <name>25-44</name>
+      <weight>14106543</weight>
+   </element>
+   <element>
+      <name>45-64</name>
+      <weight>8819342</weight>
+   </element>
+   <element>
+      <name>&gt;=65</name>
+      <weight>612463</weight>
+   </element>
+</root>

@@ -60,7 +60,9 @@
     // $(document).ready(function (e)` {
     window.PykChartsInit = function (e) {
     //console.log(document.querySelectorAll("#multiLine"))
-
+      d3.xml("../data/test.xml",function(data){
+        console.log(data,JXON.build(data));
+      })
       var k = new PykCharts.multiD.waterfall({
         selector: "#waterfall-chart",
         data: "../data/german_erp_waterfall1.json",
