@@ -359,7 +359,7 @@ PykCharts.oneD.pyramid = function (options) {
                         },
                         "y": function (d,i) {
                             if(d.values.length === 4) {
-                                return (((d.values[0].y-d.values[1].y)/2)+d.values[1].y) +2;
+                                return (((d.values[0].y-d.values[1].y)/2)+d.values[1].y) + 5;
                             } else {
                                 return (d.values[0].y + that.coordinates[that.coordinates.length-1].values[1].y)/2 + 10;
                             }

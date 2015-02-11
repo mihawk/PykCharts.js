@@ -4034,7 +4034,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                                 return d.percentValue.toFixed(1)+"%";
                             })
                             .text(function (d) {
-                                if(this.getBBox().width < (that.chart_width/4) && this.getBBox().height < (d.percentValue * that.chart_height / 100)) {
+                                if(this.getBBox().width < (0.92*that.percent_column_rect_width) && this.getBBox().height < (d.percentValue * that.chart_height / 100)) {
                                     return d.percentValue.toFixed(1)+"%";
                                 }else {
                                     return "";
@@ -4501,7 +4501,7 @@ PykCharts.oneD.percentageBar = function (options) {
 
                     that.chart_text.attr({
                         "class": "per-text",
-                        "y": (that.percent_row_rect_height/2),
+                        "y": (that.percent_row_rect_height/2) + 5,
                         "x": function (d,i) {
                             sum = sum + d.percentValue;
                             if (i===0) {
@@ -4538,7 +4538,7 @@ PykCharts.oneD.percentageBar = function (options) {
                         function chart_text_timeout(){
                             that.chart_text.text(function (d) { return d.percentValue.toFixed(1)+"%"; })
                                 .text(function (d) {
-                                    if(this.getBBox().width < (d.percentValue * that.chart_width / 100) && this.getBBox().height < that.percent_row_rect_height) {
+                                    if(this.getBBox().width < 0.92*(d.percentValue * that.chart_width / 100) && this.getBBox().height < that.percent_row_rect_height) {
                                         return d.percentValue.toFixed(1)+"%"
                                     }else {
                                         return "";
@@ -5970,7 +5970,7 @@ PykCharts.oneD.pyramid = function (options) {
                         },
                         "y": function (d,i) {
                             if(d.values.length === 4) {
-                                return (((d.values[0].y-d.values[1].y)/2)+d.values[1].y) +2;
+                                return (((d.values[0].y-d.values[1].y)/2)+d.values[1].y) + 5;
                             } else {
                                 return (d.values[0].y + that.coordinates[that.coordinates.length-1].values[1].y)/2 + 10;
                             }

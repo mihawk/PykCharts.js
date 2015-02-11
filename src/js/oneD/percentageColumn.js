@@ -314,7 +314,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                                 return d.percentValue.toFixed(1)+"%";
                             })
                             .text(function (d) {
-                                if(this.getBBox().width < (that.chart_width/4) && this.getBBox().height < (d.percentValue * that.chart_height / 100)) {
+                                if(this.getBBox().width < (0.92*that.percent_column_rect_width) && this.getBBox().height < (d.percentValue * that.chart_height / 100)) {
                                     return d.percentValue.toFixed(1)+"%";
                                 }else {
                                     return "";
