@@ -3055,7 +3055,7 @@ PykCharts.oneD.bubble = function (options) {
                             .text(function (d) { return d.children ? " " :  d.name; })
                             .attr("pointer-events","none")
                             .text(function (d) {
-                                if(this.getBBox().width< 2*d.r && this.getBBox().height<2*d.r) {
+                                if(this.getBBox().width< 0.85*(2*d.r) && this.getBBox().height<2*d.r) {
                                     return d.children ? " " :  d.name;
                                 }
                                 else {
@@ -5331,7 +5331,13 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                 that.chart_text.text("");
 
                 function chart_text_timeout() {
-                    that.chart_text.text(function (d) {
+                    that.chart_text
+                        .style({
+                            "font-weight": that.label_weight,
+                            "font-size": that.label_size + "px",
+                            "font-family": that.label_family
+                        })
+                        .text(function (d) {
                             return ((d.data.weight*100)/that.sum).toFixed(1)+"%";
 //                            return that.k.appendUnits(d.data.weight); 
                         })
@@ -5350,11 +5356,6 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                                 }
                                 return that.label_color;
                             }
-                        })
-                        .style({
-                            "font-weight": that.label_weight,
-                            "font-size": that.label_size + "px",
-                            "font-family": that.label_family
                         })
                         .text(function (d,i) {
                             if(type.toLowerCase() === "pie" || type.toLowerCase() === "election pie") {

@@ -282,7 +282,7 @@ PykCharts.oneD.bubble = function (options) {
                             .text(function (d) { return d.children ? " " :  d.name; })
                             .attr("pointer-events","none")
                             .text(function (d) {
-                                if(this.getBBox().width< 2*d.r && this.getBBox().height<2*d.r) {
+                                if(this.getBBox().width< 0.85*(2*d.r) && this.getBBox().height<2*d.r) {
                                     return d.children ? " " :  d.name;
                                 }
                                 else {
