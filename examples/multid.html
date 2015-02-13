@@ -47,10 +47,18 @@
   <script src="../src/js/multiD/multiD.js"></script>
   <script src="../src/js/multiD/column.js"></script>
   <script src="../src/js/multiD/groupColumnChart.js"></script>
-  <script src="../src/js/multiD/areaChart.js"></script>
-  <script src="../src/js/multiD/lineChart.js"></script>
+  <script src="../src/js/multiD/line.js"></script>
+  <script src="../src/js/multiD/multiSeriesLine.js"></script>
+  <script src="../src/js/multiD/panelsOfLine.js"></script>
+  <script src="../src/js/multiD/lineFunctions.js"></script>
+  <script src="../src/js/multiD/area.js"></script>
+  <script src="../src/js/multiD/stackedArea.js"></script>
+  <script src="../src/js/multiD/areaFunctions.js"></script>
   <script src="../src/js/multiD/spiderWeb.js"></script>
   <script src="../src/js/multiD/scatterplot.js"></script>
+  <script src="../src/js/multiD/panelsOfScatterplot.js"></script>
+  <script src="../src/js/multiD/pulse.js"></script>
+  <script src="../src/js/multiD/scatterplotFunctions.js"></script>
   <script src="../src/js/multiD/bar.js"></script>
   <script src="../src/js/multiD/groupBarChart.js"></script>
   <script src="../src/js/multiD/waterfall.js"></script>
@@ -60,9 +68,9 @@
     // $(document).ready(function (e)` {
     window.PykChartsInit = function (e) {
     //console.log(document.querySelectorAll("#multiLine"))
-      d3.xml("../data/test.xml",function(data){
-        console.log(data,JXON.build(data));
-      })
+      // d3.xml("../data/test.xml",function(data){
+      //   console.log(data,JXON.build(data));
+      // })
       var k = new PykCharts.multiD.waterfall({
         selector: "#waterfall-chart",
         data: "../data/german_erp_waterfall1.json",
@@ -188,7 +196,7 @@
         "subtitle_color": "green",
         // background_color: "cyan"
       });
-      // k.execute();
+      k.execute();
 
       var k = new PykCharts.multiD.area ({
         selector: "#area",
@@ -407,7 +415,7 @@
       // //     for(i = 0;i<100;i++) {
       // //         // console.log(i);
       // //         var start = new Date().getTime();
-      // k.execute();
+      k.execute();
       // //         var end = new Date().getTime();
       // //             a[i] = end - start;
       // //             avg += a[i]
@@ -629,7 +637,7 @@
       //     for(i = 0;i<100;i++) {
       // //         // console.log(i);
       //         var start = new Date().getTime();
-     k.execute();
+      k.execute();
       //         var end = new Date().getTime();
       //             a[i] = end - start;
       //             avg += a[i]
@@ -787,7 +795,7 @@
       //     for(i = 0;i<100;i++) {
       // //         // console.log(i);
       //         var start = new Date().getTime();
-      // k.execute();
+      k.execute();
       //         var end = new Date().getTime();
       //             a[i] = end - start;
       //             avg += a[i]
