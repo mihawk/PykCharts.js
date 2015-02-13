@@ -4783,8 +4783,6 @@ PykCharts.oneD.pie = function (options) {
 
     };
 };
-
-
 PykCharts.oneD.donut = function (options) {
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
@@ -4867,7 +4865,6 @@ PykCharts.oneD.donut = function (options) {
         }   
     };
 };
-
 PykCharts.oneD.electionPie = function (options) {
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
@@ -4951,7 +4948,6 @@ PykCharts.oneD.electionPie = function (options) {
         }   
     };
 };
-
 PykCharts.oneD.electionDonut = function (options) {
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
@@ -5051,7 +5047,6 @@ PykCharts.oneD.electionDonut = function (options) {
         }   
     };
 };
-
 PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
     var that = chartObject;
        that.refresh = function (pykquery_data) {
