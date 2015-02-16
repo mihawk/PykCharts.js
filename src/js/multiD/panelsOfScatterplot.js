@@ -1,17 +1,17 @@
-PykCharts.multiD.scatter = function (options) {
+PykCharts.multiD.panelsOfScatter = function (options) {
   var that = this;
   var theme = new PykCharts.Configuration.Theme({});
 
   this.execute = function(pykquery_data) {
     that = new PykCharts.validation.processInputs(that, options, 'multiDimensionalCharts');
-    that.bubbleRadius = options.scatterplot_radius ? options.scatterplot_radius : theme.multiDimensionalCharts.scatterplot_radius;
-    that.panels_enable = "no";
     PykCharts.scaleFunction(that);
-
+    that.bubbleRadius = options.scatterplot_radius ? options.scatterplot_radius : theme.multiDimensionalCharts.scatterplot_radius;
+    that.panels_enable = "yes";
+    that.legends_display = "horizontal";
     try {
       if(!that.k.__proto__._isNumber(that.bubbleRadius)) {
         that.bubbleRadius = theme.multiDimensionalCharts.scatterplot_radius;
-        throw "bubbleRadius";
+        throw "bubbleRadius"
       }
     }
 
@@ -68,6 +68,5 @@ PykCharts.multiD.scatter = function (options) {
     } else {
         that.k.dataSourceFormatIdentification(options.data,that,"executeData");
     }   
-
   };
 };

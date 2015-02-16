@@ -49,6 +49,7 @@ PykCharts.Configuration = function (options){
         liveData: function (chart) {
             var frequency = options.real_time_charts_refresh_frequency;
             if(PykCharts['boolean'](frequency)) {
+                clearInterval(PykCharts.interval);
                 PykCharts.interval = setInterval(chart.refresh,frequency*1000);
             }
             return this;
@@ -4786,8 +4787,6 @@ PykCharts.oneD.pie = function (options) {
 
     };
 };
-
-
 PykCharts.oneD.donut = function (options) {
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
@@ -4870,7 +4869,6 @@ PykCharts.oneD.donut = function (options) {
         }   
     };
 };
-
 PykCharts.oneD.electionPie = function (options) {
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
@@ -4954,7 +4952,6 @@ PykCharts.oneD.electionPie = function (options) {
         }   
     };
 };
-
 PykCharts.oneD.electionDonut = function (options) {
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
@@ -5054,7 +5051,6 @@ PykCharts.oneD.electionDonut = function (options) {
         }   
     };
 };
-
 PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
     var that = chartObject;
        that.refresh = function (pykquery_data) {
@@ -8438,7 +8434,6 @@ PykCharts.multiD.line = function (options) {
         }   
     };
 };
-
 PykCharts.multiD.multiSeriesLine = function (options) {
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
@@ -8500,7 +8495,6 @@ PykCharts.multiD.multiSeriesLine = function (options) {
         }   
     };
 };
-
 PykCharts.multiD.panelsOfLine = function (options) {
     var that = this;
     var theme = new PykCharts.Configuration.Theme({});
@@ -8518,7 +8512,6 @@ PykCharts.multiD.panelsOfLine = function (options) {
             return;
         }
         that.k.storeInitialDivHeight();
-// console.log(options.ori)
         if(that.mode === "default") {
             that.k.loading();
         }
@@ -8567,7 +8560,6 @@ PykCharts.multiD.panelsOfLine = function (options) {
         }  
     };
 };
-
 PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
     var that = chartObject,
         id = that.selector.substring(1,that.selector.length);
@@ -9877,7 +9869,6 @@ PykCharts.multiD.area = function (options){
 		
 	};
 };
-
 PykCharts.multiD.stackedArea = function (options){
 	var that = this;
 	var theme = new PykCharts.Configuration.Theme({});
@@ -9947,7 +9938,6 @@ PykCharts.multiD.stackedArea = function (options){
         }   
 	};
 };
-
 PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 	var that = chartObject;
 	
@@ -10198,10 +10188,7 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 				return this;
 			},
 			svgContainer: function (i){
-                var element = document.getElementById(id);
-                if(!element.classList.contains("PykCharts-multi-series2D")) {
-				    element.className += " PykCharts-twoD PykCharts-multi-series2D PykCharts-line-chart";
-                }
+				document.getElementById(id).className += " PykCharts-twoD PykCharts-multi-series2D PykCharts-line-chart";
 
 				that.svgContainer = d3.select(that.selector+" "+"#tooltip-svg-container-"+i).append("svg:svg")
 					.attr({
@@ -13118,7 +13105,6 @@ PykCharts.multiD.scatter = function (options) {
 
   };
 };
-
 PykCharts.multiD.panelsOfScatter = function (options) {
   var that = this;
   var theme = new PykCharts.Configuration.Theme({});
@@ -13191,7 +13177,6 @@ PykCharts.multiD.panelsOfScatter = function (options) {
     }   
   };
 };
-
 PykCharts.multiD.pulse = function (options) {
   var that = this;
   var theme = new PykCharts.Configuration.Theme({});
@@ -13257,7 +13242,6 @@ PykCharts.multiD.pulse = function (options) {
     }   
   };
 };
-
 PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
   var that = chartObject;
   that.refresh = function (pykquery_data) {
