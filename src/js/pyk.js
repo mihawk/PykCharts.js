@@ -47,10 +47,11 @@ PykCharts.Configuration = function (options){
 
     var configuration = {
         liveData: function (chart) {
-            var frequency = options.real_time_charts_refresh_frequency;
+            var frequency = options.real_time_charts_refresh_frequency,
+                interval;
             if(PykCharts['boolean'](frequency)) {
-                clearInterval(PykCharts.interval);
-                PykCharts.interval = setInterval(chart.refresh,frequency*1000);
+                clearInterval(options.interval);
+                options.interval = setInterval(chart.refresh,frequency*1000);
             }
             return this;
         },

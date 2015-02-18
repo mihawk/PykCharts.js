@@ -371,7 +371,7 @@
         "label_weight": "bold",
         "label_family": "Helvetica Neue,Helvetica,Arial,sans-serif",
         "label_color": "red",
-        "real_time_charts_last_updated_at_enable": "no",
+        "real_time_charts_last_updated_at_enable": "yes",
         "real_time_charts_refresh_frequency": 0,
         "transition_duration": 0,
         "border_between_chart_elements_thickness": 1,
@@ -406,7 +406,9 @@
         // chart_margin_right: 175,
         // chart_margin_bottom: 125,
         // chart_margin_left: 160,
-        axis_x_time_value_datatype: "month"
+        axis_x_time_value_datatype: "month",
+        real_time_charts_refresh_frequency:10,
+        transition_duration:2
       });
 
       // // var date = new Date();
@@ -424,7 +426,7 @@
       var k = new PykCharts.multiD.panelsOfScatter ({
         selector: "#multiple-scatterplots",
         data: "../data/panel-of-scatters.csv",
-        mode : "infographics",
+        mode : "default",
         background_color: "transparent",
         chart_color: ["#07365e","#0e5ea1","#4682b4","#75b0e1","#a0ccf1"],
         // chart_color:["red","green","","grey","yellow"],
@@ -435,9 +437,9 @@
         chart_margin_bottom: 30,
         chart_margin_left: 50,
 
-        scatterplot_radius : 9,
+        scatterplot_radius : 20,
         scatterplot_pointer: "no",
-        real_time_charts_refresh_frequency: 0,
+        real_time_charts_refresh_frequency: 10,
         panels_enable: "yes",
         variable_circle_size_enable: "no",
 
@@ -475,11 +477,12 @@
 
         zoom_enable: "yes",
         zoom_level: 6,
-
+        pointer_size:10,
+        scatterplot_pointer_enable: "yes",
         border_between_chart_elements_thickness:0,
         border_between_chart_elements_color:"blue",
         label_size:5,
-        transition_duration:1,
+        transition_duration:5,
         tooltip_enable: "yes",
         chart_onhover_highlight_enable: "yes",
         title_text:"testineg testineg testineg testineg testineg",

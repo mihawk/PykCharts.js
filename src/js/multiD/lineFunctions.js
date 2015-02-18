@@ -349,7 +349,9 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                 that.w = that.chart_width;
                 that.reducedWidth = that.w - that.chart_margin_left - that.chart_margin_right;
                 that.reducedHeight = that.chart_height - that.chart_margin_top - that.chart_margin_bottom;
-
+                var selector = that.selector.substr(1,that.selector.length);
+                d3.selectAll("#tooltip-svg-container-" + 1 + "-pyk-tooltip"+selector)
+                    .remove();
                 that.k.liveData(that)
                         .makeMainDiv(that.selector,1)
                         .tooltip(true,that.selector,1,that.flag);
@@ -1355,6 +1357,9 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
 
     that.renderPanelOfLines = function () {
         for(var i=0;i<that.new_data_length;i++) {
+            var selector = that.selector.substr(1,that.selector.length);
+            d3.selectAll("#tooltip-svg-container-" + i + "-pyk-tooltip"+selector)
+                .remove()
             that.k.makeMainDiv((that.selector + " #panels_of_line_main_div"),i)
                 .tooltip(true,that.selector,i);
             that.new_data1 = that.new_data[i];
