@@ -67,10 +67,10 @@
 
     // $(document).ready(function (e)` {
     window.PykChartsInit = function (e) {
-    //console.log(document.querySelectorAll("#multiLine"))
-      // d3.xml("../data/test.xml",function(data){
-      //   console.log(data,JXON.build(data));
-      // })
+    console.log(document.querySelectorAll("#multiLine"))
+      d3.xml("../data/test.xml",function(data){
+        console.log(data);
+      })
       var k = new PykCharts.multiD.waterfall({
         selector: "#waterfall-chart",
         data: "../data/german_erp_waterfall1.json",
@@ -587,7 +587,7 @@
         background_color:"white",
 
         chart_height: 400,
-        chart_width : 630,
+        chart_width : 390,
         chart_margin_top: 5,
         chart_margin_right: 25,
         chart_margin_bottom: 35,
@@ -596,7 +596,7 @@
         chart_grid_y_enable: "yes",
 
         transition_duration: 1,
-        real_time_charts_refresh_frequency: 0,
+        real_time_charts_refresh_frequency: 10,
 
         axis_onhover_highlight_enable: "yes",
 
@@ -606,7 +606,7 @@
         axis_x_pointer_position: "bottom",
         axis_x_line_color: "#1D1D1D",
         axis_x_label_color: "#1D1D1D",
-        axis_x_pointer_size: 12,
+        axis_x_pointer_size: 18,
         axis_x_pointer_padding: 3,
         axis_x_outer_pointer_length: 3,
         axis_x_time_value_datatype:"date",
@@ -670,8 +670,7 @@
         chart_grid_color:"black",
 
         transition_duration: 1,
-        real_time_charts_refresh_frequency: 10,
-
+        real_time_charts_refresh_frequency: 5,
         axis_onhover_highlight_enable: "yes",
 
         axis_x_enable: "yes",

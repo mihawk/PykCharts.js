@@ -389,7 +389,10 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 				return this;
 			},
 			svgContainer: function (i){
-				document.getElementById(id).className += " PykCharts-twoD PykCharts-multi-series2D PykCharts-line-chart";
+                var element = document.getElementById(id);
+                if(!element.classList.contains("PykCharts-multi-series2D")) {
+				    element.className += " PykCharts-twoD PykCharts-multi-series2D PykCharts-line-chart";
+                }
 
 				that.svgContainer = d3.select(that.selector+" "+"#tooltip-svg-container-"+i).append("svg:svg")
 					.attr({

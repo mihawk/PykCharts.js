@@ -473,6 +473,9 @@ PykCharts.Configuration = function (options){
                         return;
                     }
                     value = element.style[styleAttribute];
+                    if(!value) {
+                        value = d3.select(element).style(styleAttribute);
+                    }                    
                     if(value) {
                         return;
                     } else {
