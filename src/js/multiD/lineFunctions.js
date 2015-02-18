@@ -88,6 +88,25 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
         }
     };
 
+    that.calculatePanelInRow = function () {
+        var width= that.k._getHighestParentsAttribute(that.selector,"width"),total_width;
+        if(width) {
+            total_width = width;
+        } else {
+            total_width = d3.select("body").style("width");
+        }
+
+        that.no_of_containers_in_row = Math.floor(parseInt(total_width)/that.chart_width);
+
+        if(that.no_of_containers_in_row > that.new_data.length) {
+            that.no_of_containers_in_row = that.new_data.length;
+        }
+
+        if(total_width < that.chart_width) {
+            that.no_of_containers_in_row = 1;                    
+        }
+    }
+
     that.render = function () {
         var id = that.selector.substring(1,that.selector.length);
         that.container_id = id + "_svg";
@@ -97,18 +116,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
         that.transitions = new PykCharts.Configuration.transition(that);
 
         if(PykCharts["boolean"](that.panels_enable)) {
-            var width= that.k._getHighestParentsAttribute(that.selector,"width"),total_width;
-            if(width) {
-                total_width = width;
-            } else {
-                total_width = d3.select("body").style("width");
-            }
-
-            that.no_of_containers_in_row = Math.floor(parseInt(total_width)/that.chart_width);
-
-            if(that.no_of_containers_in_row > that.new_data.length) {
-                that.no_of_containers_in_row = that.new_data.length;
-            }
+            that.calculatePanelInRow();
             that.new_width = that.no_of_containers_in_row * that.chart_width;
         }
         if(that.mode === "default") {
@@ -157,7 +165,9 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                 that.w = that.chart_width;
                 that.reducedWidth = that.w - that.chart_margin_left - that.chart_margin_right;
                 that.reducedHeight = that.chart_height - that.chart_margin_top - that.chart_margin_bottom;
-
+                var selector = that.selector.substr(1,that.selector.length);
+                d3.selectAll("#tooltip-svg-container-" + 1 + "-pyk-tooltip"+selector)
+                    .remove();
                 that.k.liveData(that)
                         .makeMainDiv(that.selector,1)
                         .tooltip(true,that.selector,1,that.flag);
@@ -274,6 +284,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
             var resize = that.k.resize(null,that.new_width);
             that.k.__proto__._ready(resize);
             window.addEventListener('resize', function(event){
+                that.calculatePanelInRow();
                 return that.k.resize(null,that.new_width);
             });
         }
@@ -1163,6 +1174,9 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
 
     that.renderPanelOfLines = function () {
         for(var i=0;i<that.new_data_length;i++) {
+            var selector = that.selector.substr(1,that.selector.length);
+            d3.selectAll("#tooltip-svg-container-" + i + "-pyk-tooltip"+selector)
+                .remove()
             that.k.makeMainDiv((that.selector + " #panels_of_line_main_div"),i)
                 .tooltip(true,that.selector,i);
             that.new_data1 = that.new_data[i];

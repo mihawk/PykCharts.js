@@ -1,5 +1,6 @@
 PykCharts.multiD.groupedBar = function(options){
     var that = this;
+    that.interval = "";
     var theme = new PykCharts.Configuration.Theme({});
     var multiDimensionalCharts = theme.multiDimensionalCharts;
     this.execute = function (pykquery_data) {
