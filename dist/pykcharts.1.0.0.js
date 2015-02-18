@@ -8671,6 +8671,11 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
             if(that.no_of_containers_in_row > that.new_data.length) {
                 that.no_of_containers_in_row = that.new_data.length;
             }
+
+            if(total_width < chart_width) {
+                that.no_of_containers_in_row = 1;                    
+            }
+
             that.new_width = that.no_of_containers_in_row * that.chart_width;
         }
         if(that.mode === "default") {
