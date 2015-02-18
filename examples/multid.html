@@ -67,10 +67,10 @@
 
     // $(document).ready(function (e)` {
     window.PykChartsInit = function (e) {
-    //console.log(document.querySelectorAll("#multiLine"))
-      // d3.xml("../data/test.xml",function(data){
-      //   console.log(data,JXON.build(data));
-      // })
+    console.log(document.querySelectorAll("#multiLine"))
+      d3.xml("../data/test.xml",function(data){
+        console.log(data);
+      })
       var k = new PykCharts.multiD.waterfall({
         selector: "#waterfall-chart",
         data: "../data/german_erp_waterfall1.json",
@@ -702,11 +702,7 @@
         legends_enable: "yes",
         legends_display: "horizontal", //horizontal or vertical
         legends_text_size: 12,
-<<<<<<< HEAD
-        legends_text_color: "red",
-=======
         legends_text_color: "green",
->>>>>>> f085c9e0ec1536e6bc359e5de7a40fc2c6a7cbf3
         // legends_text_weight: "normal",
         // legends_text_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
         annotation_enable: "yes",
