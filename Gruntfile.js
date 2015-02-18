@@ -34,7 +34,6 @@ module.exports = function(grunt) {
                     , '<%= js_src_path %>/multiD/grid.js'
                     , '<%= js_src_path %>/multiD/scaleFunction.js'
                     , '<%= js_src_path %>/multiD/crossHairMovement.js'
-                    , '<%= js_src_path %>/multiD/multiD.js'
                     , '<%= js_src_path %>/multiD/line.js'
                     , '<%= js_src_path %>/multiD/multiSeriesLine.js'
                     , '<%= js_src_path %>/multiD/panelsOfLine.js'

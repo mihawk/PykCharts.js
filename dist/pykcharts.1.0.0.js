@@ -418,6 +418,31 @@ PykCharts.Configuration = function (options){
                     e.submit(), e.parentNode.removeChild(e)
                 }
             },
+            _xmlToJson : function(xml) {
+                var obj = [],
+                    element_node,
+                    data_point,
+                    key_of_data_point,
+                    value_of_data_point,
+                    element_object;
+
+                for (var i=1, root_len=xml.firstChild.childElementCount ; i<((root_len*2)+1) ; i+=2) {
+                    element_node = xml.firstChild.childNodes[i];
+                    element_object = {};
+                    
+                    for(var j=0, element_len=element_node.childElementCount ; j<element_len ; j++) {
+                        data_point = element_node.children.item(j);
+                        key_of_data_point = data_point.nodeName;
+                        value_of_data_point = data_point.textContent;
+
+                        element_object[key_of_data_point] = value_of_data_point;
+                    }
+
+                    obj.push(element_object);
+                }
+
+                return obj;
+            },
             _domainBandwidth: function (domain_array, count, type) {
                 addFactor = 0;
                 if(type === "time") {
@@ -942,24 +967,30 @@ PykCharts.Configuration = function (options){
                 len = data.length - dot_index,
                 cache_avoidance_value = Math.floor((Math.random() * 100) + 1);
 
-            if (data.constructor == Array) {
-                chart.data = data;
-                chart[executeFunction](chart.data);
-            }
-            else {
-                var format = data.substr(dot_index+1,len);
-                if(data.indexOf("{")!= -1) {
-                    chart.data = JSON.parse(data);
+                if (data.constructor == Array) {
+                    chart.data = data;
                     chart[executeFunction](chart.data);
-                } else if (data.indexOf(",")!= -1) {
-                    chart.data = d3.csv.parse(data);
-                    chart[executeFunction](chart.data);
-                } else if (format === "json") {
-                    d3.json(data+"?"+cache_avoidance_value,chart[executeFunction]);
-                } else if(format === "csv") {
-                    d3.csv(data+"?"+cache_avoidance_value,chart[executeFunction]);
                 }
-            }
+                else {
+                    var format = data.substr(dot_index+1,len);
+                    if(data.indexOf("{")!= -1) {
+                        chart.data = JSON.parse(data);
+                        chart[executeFunction](chart.data);
+                    } else if (data.indexOf(",")!= -1) {
+                        chart.data = d3.csv.parse(data);
+                        chart[executeFunction](chart.data);
+                    } else if (format === "json") {
+                        d3.json(data+"?"+cache_avoidance_value,chart[executeFunction]);
+                    } else if(format === "csv") {
+                        d3.csv(data+"?"+cache_avoidance_value,chart[executeFunction]);
+                    } else if (format === "xml") {
+                        d3.xml(data+"?"+cache_avoidance_value, function(data) {
+                            var json_data_converted_from_xml;
+                            json_data_converted_from_xml = options.k.__proto__._xmlToJson(data);
+                            chart[executeFunction](json_data_converted_from_xml);
+                        });
+                    }
+                }
             }
         },
         export: function(chart,svgId,chart_name,panels_enable,containers,chart_width) {
