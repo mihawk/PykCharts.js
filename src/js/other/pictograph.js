@@ -1,5 +1,6 @@
 PykCharts.other.pictograph = function (options) {
     var that = this;
+    that.interval = "";
     var theme = new PykCharts.Configuration.Theme({});
     this.execute = function () {
         that = new PykCharts.validation.processInputs(that, options, "other");

@@ -1,5 +1,6 @@
 PykCharts.maps.oneLayer = function (options) {
     var that = this;
+    that.interval = "";
     var theme = new PykCharts.Configuration.Theme({});
     this.execute = function (pykquery_data) {
         that = new PykCharts.validation.processInputs(that, options, 'maps');
