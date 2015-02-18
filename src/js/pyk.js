@@ -356,7 +356,7 @@ PykCharts.Configuration = function (options){
                 b = d3.selectAll(options.selector + " .main-div"),
                 title_div_width;
 
-            if(targetWidth > chart_width) {
+            if(targetWidth > chart_width || targetWidth === 0) {
                 targetWidth = chart_width;
             }
             if(PykCharts['boolean'](svg)) {

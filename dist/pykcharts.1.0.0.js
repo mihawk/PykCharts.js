@@ -356,7 +356,7 @@ PykCharts.Configuration = function (options){
                 b = d3.selectAll(options.selector + " .main-div"),
                 title_div_width;
 
-            if(targetWidth > chart_width) {
+            if(targetWidth > chart_width || targetWidth === 0) {
                 targetWidth = chart_width;
             }
             if(PykCharts['boolean'](svg)) {
@@ -10210,8 +10210,10 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 				return this;
 			},
 			svgContainer: function (i){
-				document.getElementById(id).className += " PykCharts-twoD PykCharts-multi-series2D PykCharts-line-chart";
-
+				var element = document.getElementById(id);
+				if(!element.classList.contains('PykCharts-line-chart')) {
+                    element.className += " PykCharts-twoD PykCharts-line-chart PykCharts-multi-series2D";
+                } 
 				that.svgContainer = d3.select(that.selector+" "+"#tooltip-svg-container-"+i).append("svg:svg")
 					.attr({
 						"id": that.container_id+"-"+i,
