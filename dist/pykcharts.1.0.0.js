@@ -8663,6 +8663,25 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
         }
     };
 
+    that.calculatePanelInRow = function () {
+        var width= that.k._getHighestParentsAttribute(that.selector,"width"),total_width;
+        if(width) {
+            total_width = width;
+        } else {
+            total_width = d3.select("body").style("width");
+        }
+
+        that.no_of_containers_in_row = Math.floor(parseInt(total_width)/that.chart_width);
+
+        if(that.no_of_containers_in_row > that.new_data.length) {
+            that.no_of_containers_in_row = that.new_data.length;
+        }
+
+        if(total_width < that.chart_width) {
+            that.no_of_containers_in_row = 1;                    
+        }
+    }
+
     that.render = function () {
         var id = that.selector.substring(1,that.selector.length);
         that.container_id = id + "_svg";
@@ -8672,18 +8691,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
         that.transitions = new PykCharts.Configuration.transition(that);
 
         if(PykCharts["boolean"](that.panels_enable)) {
-            var width= that.k._getHighestParentsAttribute(that.selector,"width"),total_width;
-            if(width) {
-                total_width = width;
-            } else {
-                total_width = d3.select("body").style("width");
-            }
-
-            that.no_of_containers_in_row = Math.floor(parseInt(total_width)/that.chart_width);
-
-            if(that.no_of_containers_in_row > that.new_data.length) {
-                that.no_of_containers_in_row = that.new_data.length;
-            }
+            that.calculatePanelInRow();
             that.new_width = that.no_of_containers_in_row * that.chart_width;
         }
         if(that.mode === "default") {
@@ -8851,6 +8859,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
             var resize = that.k.resize(null,that.new_width);
             that.k.__proto__._ready(resize);
             window.addEventListener('resize', function(event){
+                that.calculatePanelInRow();
                 return that.k.resize(null,that.new_width);
             });
         }
