@@ -47,10 +47,11 @@ PykCharts.Configuration = function (options){
 
     var configuration = {
         liveData: function (chart) {
-            var frequency = options.real_time_charts_refresh_frequency;
+            var frequency = options.real_time_charts_refresh_frequency,
+                interval;
             if(PykCharts['boolean'](frequency)) {
-                clearInterval(PykCharts.interval);
-                PykCharts.interval = setInterval(chart.refresh,frequency*1000);
+                clearInterval(options.interval);
+                options.interval = setInterval(chart.refresh,frequency*1000);
             }
             return this;
         },
@@ -941,25 +942,23 @@ PykCharts.Configuration = function (options){
                 var dot_index = data.lastIndexOf('.'),
                 len = data.length - dot_index,
                 cache_avoidance_value = Math.floor((Math.random() * 100) + 1);
-
-            if (data.constructor == Array) {
-                chart.data = data;
-                chart[executeFunction](chart.data);
-            }
-            else {
-                var format = data.substr(dot_index+1,len);
-                if(data.indexOf("{")!= -1) {
-                    chart.data = JSON.parse(data);
+                if (data.constructor == Array) {
+                    chart.data = data;
                     chart[executeFunction](chart.data);
-                } else if (data.indexOf(",")!= -1) {
-                    chart.data = d3.csv.parse(data);
-                    chart[executeFunction](chart.data);
-                } else if (format === "json") {
-                    d3.json(data+"?"+cache_avoidance_value,chart[executeFunction]);
-                } else if(format === "csv") {
-                    d3.csv(data+"?"+cache_avoidance_value,chart[executeFunction]);
+                } else {
+                    var format = data.substr(dot_index+1,len);
+                    if(data.indexOf("{")!= -1) {
+                        chart.data = JSON.parse(data);
+                        chart[executeFunction](chart.data);
+                    } else if (data.indexOf(",")!= -1) {
+                        chart.data = d3.csv.parse(data);
+                        chart[executeFunction](chart.data);
+                    } else if (format === "json") {
+                        d3.json(data+"?"+cache_avoidance_value,chart[executeFunction]);
+                    } else if(format === "csv") {
+                        d3.csv(data+"?"+cache_avoidance_value,chart[executeFunction]);
+                    }
                 }
-            }
             }
         },
         export: function(chart,svgId,chart_name,panels_enable,containers,chart_width) {

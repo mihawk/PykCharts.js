@@ -119,7 +119,9 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 	    }
 
 		if(that.mode === "default") {
-
+			var selector = that.selector.substr(1,that.selector.length);
+			d3.selectAll("#tooltip-svg-container-" + 1 + "-pyk-tooltip"+selector)
+                .remove();
 			that.k.title()
 					.backgroundColor(that)
 					.export(that,"#"+that.container_id+"-1","areaChart")

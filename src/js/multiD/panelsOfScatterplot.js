@@ -1,5 +1,6 @@
 PykCharts.multiD.panelsOfScatter = function (options) {
   var that = this;
+  that.interval = "";
   var theme = new PykCharts.Configuration.Theme({});
 
   this.execute = function(pykquery_data) {
@@ -35,7 +36,7 @@ PykCharts.multiD.panelsOfScatter = function (options) {
     that.zoomed_out = true;
 
     if(PykCharts['boolean'](that.panels_enable)) {
-      that.radius_range = [that.k.__proto__._radiusCalculation(1.1)*2,that.k.__proto__._radiusCalculation(2.6)*2];
+      that.radius_range = [that.k.__proto__._radiusCalculation(3.5)*2,that.k.__proto__._radiusCalculation(8)*2];
     } else {
       that.radius_range = [that.k.__proto__._radiusCalculation(4.5)*2,that.k.__proto__._radiusCalculation(11)*2];
     }
