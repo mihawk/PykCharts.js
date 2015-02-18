@@ -8677,7 +8677,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
             that.no_of_containers_in_row = that.new_data.length;
         }
 
-        if(total_width < chart_width) {
+        if(total_width < that.chart_width) {
             that.no_of_containers_in_row = 1;                    
         }
     }
@@ -8691,7 +8691,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
         that.transitions = new PykCharts.Configuration.transition(that);
 
         if(PykCharts["boolean"](that.panels_enable)) {
-
+            that.calculatePanelInRow();
             that.new_width = that.no_of_containers_in_row * that.chart_width;
         }
         if(that.mode === "default") {
