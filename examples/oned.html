@@ -38,7 +38,7 @@
                 //     ],
                 // data:'[{"name": "Hello","weight": 8819342},{"name": "World","weight": 612463,"tooltip":"<h1>HTML tooltip, huh?</h1>But I am optional."}]',
                 // data: "../data/bubble.csv",
-                data: "../data/pie.xml",
+                // data: "../data/pie.xml",
                 "chart_width": "620",
                 "chart_height": 400,
                 "mode": "default",
@@ -79,12 +79,12 @@
                 background_color: "rgba(229, 245, 249, 0.5)",
 
             });
-            k.execute();
+            // k.execute();
 
   			var k = new PykCharts.oneD.funnel({
       			selector: "#funnel",
-      			// data:"../data/funnel.csv",
-                data: "../data/pie.xml",
+      			data:"../data/funnel.csv",
+                // data: "../data/pie.xml",
                 transition_duration: 3,
                 units_suffix: "rs",
                 pointer_weight: "normal",
@@ -116,12 +116,12 @@
                 pointer_size: 30,
                 background_color: "rgb(229, 245, 249)",
     		});
-  			k.execute();
+  			// k.execute();
 
             var k = new PykCharts.oneD.pyramid ({
                 selector: "#pyramid",
-                // data:"../data/percentage-triangle.csv",
-                data: "../data/pie.xml",
+                data:"../data/percentage-triangle.csv",
+                // data: "../data/pie.xml",
                 chart_height : 400,
                 transition_duration: 1,
                 background_color: "white",
@@ -150,12 +150,12 @@
                 chart_onhover_highlight_enable: "yes",
                 "pointer_overflow_enable": "yes"
             });
-            k.execute();
+            // k.execute();
 
             var k = new PykCharts.oneD.treemap({
                 selector: "#treemap",
-                // data: "../data/percentage-rectangle.csv",
-                data: "../data/pie.xml",
+                data: "../data/percentage-rectangle.csv",
+                // data: "../data/pie.xml",
                 chart_height : 300,
                 transition_duration: 1,
                 background_color: "white",
@@ -172,13 +172,13 @@
                 clubdata_maximum_nodes: 5,
                 clubdata_always_include_data_points: ["Asia","Africa","North America"]
             });
-            k.execute();
+            // k.execute();
 
             var k = new PykCharts.oneD.donut({
                 selector: "#donutContainer",
-                // data: "../data/donut.csv",
-                data: "../data/pie.xml",
-                transition_duration: 1,
+                data: "../data/donut.csv",
+                // data: "../data/pie.xml",
+                transition_duration: 2,
                 mode: "DEFault",
                 clubdata_enable: "yes",
                 clubdata_maximum_nodes: 5,
@@ -201,12 +201,12 @@
                 "donut_inner_radius_percent": 40,
                 chart_onhover_highlight_enable: "yes"
             });
-            k.execute();
+            // k.execute();
 
             var k = new PykCharts.oneD.electionPie({
                 selector: "#electionPieContainer",
-                // data: "../data/election-pie.csv",
-                data: "../data/pie.xml",
+                data: "../data/election-pie.csv",
+                // data: "../data/pie.xml",
                 transition_duration: 1,
                 background_color: "white",
                 mode: "DEFault",
@@ -228,12 +228,12 @@
                 real_time_charts_refresh_frequency:0,
                 chart_onhover_highlight_enable: "yes"
             });
-            k.execute();
+            // k.execute();
 
             var k = new PykCharts.oneD.electionDonut({
                 selector: "#electionDonutContainer",
-                // data: "../data/election-donut.csv",
-                data: "../data/pie.xml",
+                data: "../data/election-donut.csv",
+                // data: "../data/pie.xml",
                 background_color: "white",
                 chart_height : 300,
                 chart_height:300,
@@ -262,7 +262,7 @@
                 pointer_thickness:3,
                 real_time_charts_refresh_frequency:0
             });
-            k.execute();
+            // k.execute();
 
             var k = new PykCharts.oneD.pie({
                 chart_width: 700,
@@ -270,7 +270,8 @@
                 background_color: "white",
                 selector: "#pieContainer",
                 // data: "../data/new-pie.csv",
-                data: "../data/pie.xml",
+                // data: "../data/pie.xml",
+                data: "<?xml version='1.0' encoding='UTF-8'?><root><element><name>&lt;5</name><weight>2704659</weight></element><element><name>5-13</name><weight>4499890</weight></element><element><name>14-17</name><weight>2159981</weight></element><element><name>18-24</name><weight>3853788</weight></element><element><name>25-44</name><weight>14106543</weight></element><element><name>45-64</name><weight>8819342</weight></element><element><name>65-80</name><weight>612463</weight></element><element><name>&gt;=80</name><weight>612463</weight></element></root>",
                 transition_duration: 1,
                 mode: "DEFault",
                 chart_color: ["green","blue"],
@@ -299,8 +300,8 @@
                 // chart_width: 200,
                 chart_height: 300,
                 selector: "#percentageColumn",
-                // data:"../data/percentage-column.csv",
-                data: "../data/pie.xml",
+                data:"../data/percentage-column.csv",
+                // data: "../data/pie.xml",
                 transition_duration: 1,
                 mode: "DEFault",
                 clubdata_enable: "yes",
@@ -321,12 +322,12 @@
                 chart_onhover_highlight_enable: "yes",
                 label_size: 19
             });
-            k.execute();
+            // k.execute();
 
             var k = new PykCharts.oneD.percentageBar({
                 selector: "#percentageBar",
-                // data:"../data/percentage-bar.csv",
-                data: "../data/pie.xml",
+                data:"../data/percentage-bar.csv",
+                // data: "../data/pie.xml",
                 background_color: "white",
                 transition_duration: 1,
                 // "chart_height": 200,
@@ -354,15 +355,15 @@
                 pointer_size: 30,
                 label_size: 18
             });
-            k.execute();
+            // k.execute();
 
             var k = new PykCharts.oneD.pie({
                 selector: "#pie2Container",
                 chart_width:620,
                 chart_height: 400,
                 // background_color: "red",
-                // data: "../data/new-pie.csv",
-                data: "../data/pie.xml",
+                data: "../data/new-pie.csv",
+                // data: "../data/pie.xml",
                 transition_duration: 1,
                 pie_radius_percent : 70,
                 mode: "DEFault",
@@ -388,7 +389,7 @@
                  // highlight: "Toyota",
                 real_time_charts_refresh_frequency:0
             });
-            k.execute();
+            // k.execute();
 		}
 		</script>
         <script src="../dist/pykcharts.1.0.0.js"></script>

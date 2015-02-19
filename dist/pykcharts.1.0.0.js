@@ -419,26 +419,37 @@ PykCharts.Configuration = function (options){
                     e.submit(), e.parentNode.removeChild(e)
                 }
             },
-            _xmlToJson : function(xml) {
+            _xmlToJson : function(xml,flag) {
                 var obj = [],
                     element_node,
                     data_point,
                     key_of_data_point,
                     value_of_data_point,
-                    element_object;
+                    element_object,
+                    root_len = xml.firstChild.childElementCount,
+                    i , j, increment_counter, condition_checking;
 
-                for (var i=1, root_len=xml.firstChild.childElementCount ; i<((root_len*2)+1) ; i+=2) {
+                if (flag == 0) {
+                    i = flag;
+                    condition_checking = root_len;
+                    increment_counter = 1;
+                }
+                else if (flag == 1) {
+                    i = flag;
+                    condition_checking = ((root_len*2)+1);
+                    increment_counter = 2;
+                }
+
+                for (; i<condition_checking ; i+=increment_counter) {
                     element_node = xml.firstChild.childNodes[i];
                     element_object = {};
                     
-                    for(var j=0, element_len=element_node.childElementCount ; j<element_len ; j++) {
+                    for(j=0, element_len=element_node.childElementCount ; j<element_len ; j++) {
                         data_point = element_node.children.item(j);
                         key_of_data_point = data_point.nodeName;
                         value_of_data_point = data_point.textContent;
-
                         element_object[key_of_data_point] = value_of_data_point;
                     }
-
                     obj.push(element_object);
                 }
 
@@ -974,24 +985,25 @@ PykCharts.Configuration = function (options){
                 }
                 else {
                     var format = data.substr(dot_index+1,len);
-                    /*console.log(data.indexOf("<root>"), " ****");
                     
                     if (data.indexOf("<root>") != -1) {
-                        var xml_data_converted_from_string;
+                        var xml_data_converted_from_string,
+                            json_data_converted_from_xml;
+                        
                         if (window.DOMParser) {
                             parser = new DOMParser();
                             xml_data_converted_from_string = parser.parseFromString(data,"text/xml");
-                            console.log(xml_data_converted_from_string," $$$$$$$$$$$$$$$$$$$$$");
-                        }
-                        else // Internet Explorer
-                        {
+
+                        } else { // Internet Explorer
                             xml_data_converted_from_string = new ActiveXObject("Microsoft.XMLDOM");
                             xml_data_converted_from_string.async = false;
                             xml_data_converted_from_string.loadXML(data);
-                            console.log(xml_data_converted_from_string," $$$$$$$$$$$$$$$$$$$$$");
                         }
+
+                        json_data_converted_from_xml = options.k.__proto__._xmlToJson(xml_data_converted_from_string,0);
+                        chart[executeFunction](json_data_converted_from_xml);
                     }
-                    else */if(data.indexOf("{")!= -1) {
+                    else if(data.indexOf("{")!= -1) {
                         chart.data = JSON.parse(data);
                         chart[executeFunction](chart.data);
                     } else if (data.indexOf(",")!= -1) {
@@ -1004,7 +1016,7 @@ PykCharts.Configuration = function (options){
                     } else if (format === "xml") {
                         d3.xml(data+"?"+cache_avoidance_value, function(data) {
                             var json_data_converted_from_xml;
-                            json_data_converted_from_xml = options.k.__proto__._xmlToJson(data);
+                            json_data_converted_from_xml = options.k.__proto__._xmlToJson(data,1);
                             chart[executeFunction](json_data_converted_from_xml);
                         });
                     }
