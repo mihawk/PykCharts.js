@@ -16,9 +16,12 @@
             window.PykChartsInit = function (e) {
                 k = new PykCharts.maps.oneLayer({
                     selector: "#map-container",
-                    map_code: "united_states_of_america",
+                    // map_code: "united_states_of_america",
+                    map_code: "goa",
                     mode: "default",
-                    data: "../data/united_states_of_america_data.json",
+                    // data: "../data/goa_data.xml",
+                    data: "<?xml version='1.0' encoding='UTF-8'?><root><element><color>orange</color><iso2>IN_GA_NG</iso2><size>32</size><tooltip /></element><element><color>green</color><iso2>IN_GA_SG</iso2><size>31</size><tooltip /></element></root>",
+                    // data: "../data/united_states_of_america_data.xml",
                     chart_height: 500,
                     chart_width: 500,
                     "color_mode": "saturation",

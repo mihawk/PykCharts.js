@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+    <element>
+        <image>https://s3-ap-southeast-1.amazonaws.com/charts.pykih.com/icons/heart-blue.png</image>
+        <name>current</name>
+        <weight>6</weight>
+    </element>
+    <element>
+        <image>https://s3-ap-southeast-1.amazonaws.com/charts.pykih.com/icons/heart-grey.png</image>
+        <name>total</name>
+        <weight>9</weight>
+    </element>
+</root>

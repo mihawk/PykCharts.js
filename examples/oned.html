@@ -37,7 +37,7 @@
                 //     {"name": "World","weight": 612463,"tooltip":"<h1>HTML tooltip, huh?</h1>But I am optional."}
                 //     ],
                 // data:'[{"name": "Hello","weight": 8819342},{"name": "World","weight": 612463,"tooltip":"<h1>HTML tooltip, huh?</h1>But I am optional."}]',
-                // data: "../data/bubble.csv",
+                data: "../data/bubble.csv",
                 // data: "../data/pie.xml",
                 "chart_width": "620",
                 "chart_height": 400,
@@ -85,6 +85,7 @@
       			selector: "#funnel",
       			data:"../data/funnel.csv",
                 // data: "../data/pie.xml",
+                // data: "<?xml version='1.0' encoding='UTF-8'?><root><element><name>&lt;5</name><weight>2704659</weight></element><element><name>5-13</name><weight>4499890</weight></element><element><name>14-17</name><weight>2159981</weight></element><element><name>18-24</name><weight>3853788</weight></element><element><name>25-44</name><weight>14106543</weight></element><element><name>45-64</name><weight>8819342</weight></element><element><name>65-80</name><weight>612463</weight></element><element><name>&gt;=80</name><weight>612463</weight></element></root>",
                 transition_duration: 3,
                 units_suffix: "rs",
                 pointer_weight: "normal",
@@ -120,7 +121,7 @@
 
             var k = new PykCharts.oneD.pyramid ({
                 selector: "#pyramid",
-                data:"../data/percentage-triangle.csv",
+                // data:"../data/percentage-triangle.csv",
                 // data: "../data/pie.xml",
                 chart_height : 400,
                 transition_duration: 1,
@@ -178,6 +179,7 @@
                 selector: "#donutContainer",
                 data: "../data/donut.csv",
                 // data: "../data/pie.xml",
+                data: "<?xml version='1.0' encoding='UTF-8'?><root><element><name>&lt;5</name><weight>2704659</weight></element><element><name>5-13</name><weight>4499890</weight></element><element><name>14-17</name><weight>2159981</weight></element><element><name>18-24</name><weight>3853788</weight></element><element><name>25-44</name><weight>14106543</weight></element><element><name>45-64</name><weight>8819342</weight></element><element><name>65-80</name><weight>612463</weight></element><element><name>&gt;=80</name><weight>612463</weight></element></root>",
                 transition_duration: 2,
                 mode: "DEFault",
                 clubdata_enable: "yes",
@@ -269,9 +271,9 @@
                 chart_height:300,
                 background_color: "white",
                 selector: "#pieContainer",
-                // data: "../data/new-pie.csv",
+                data: "../data/new-pie.csv",
                 // data: "../data/pie.xml",
-                data: "<?xml version='1.0' encoding='UTF-8'?><root><element><name>&lt;5</name><weight>2704659</weight></element><element><name>5-13</name><weight>4499890</weight></element><element><name>14-17</name><weight>2159981</weight></element><element><name>18-24</name><weight>3853788</weight></element><element><name>25-44</name><weight>14106543</weight></element><element><name>45-64</name><weight>8819342</weight></element><element><name>65-80</name><weight>612463</weight></element><element><name>&gt;=80</name><weight>612463</weight></element></root>",
+                // data: "<?xml version='1.0' encoding='UTF-8'?><root><element><name>&lt;5</name><weight>2704659</weight></element><element><name>5-13</name><weight>4499890</weight></element><element><name>14-17</name><weight>2159981</weight></element><element><name>18-24</name><weight>3853788</weight></element><element><name>25-44</name><weight>14106543</weight></element><element><name>45-64</name><weight>8819342</weight></element><element><name>65-80</name><weight>612463</weight></element><element><name>&gt;=80</name><weight>612463</weight></element></root>",
                 transition_duration: 1,
                 mode: "DEFault",
                 chart_color: ["green","blue"],
@@ -294,7 +296,7 @@
                  real_time_charts_refresh_frequency:0,
                  chart_onhover_highlight_enable: "yes"
             });
-            k.execute();
+            // k.execute();
 
             var k = new PykCharts.oneD.percentageColumn({
                 // chart_width: 200,
@@ -362,7 +364,7 @@
                 chart_width:620,
                 chart_height: 400,
                 // background_color: "red",
-                data: "../data/new-pie.csv",
+                // data: "../data/new-pie.csv",
                 // data: "../data/pie.xml",
                 transition_duration: 1,
                 pie_radius_percent : 70,

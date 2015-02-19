@@ -22,7 +22,9 @@
                     //     "image": "https://s3-ap-southeast-1.amazonaws.com/charts.pykih.com/icons/heart-grey.png"
                     //   }
                     // ],
-                    data:"../data/pictograph.json",
+                    // data:"../data/pictograph.json",
+                    // data: "../data/pictograph.xml",
+                    data: "<?xml version='1.0' encoding='UTF-8'?><root><element><image>https://s3-ap-southeast-1.amazonaws.com/charts.pykih.com/icons/heart-blue.png</image><name>current</name><weight>6</weight></element><element><image>https://s3-ap-southeast-1.amazonaws.com/charts.pykih.com/icons/heart-grey.png</image><name>total</name><weight>9</weight></element></root>",
                     chart_width : 750,
                     chart_height: 500,
                     background_color: "pink",
@@ -50,7 +52,6 @@
                     real_time_charts_refresh_frequency: 0
                 });
                 k.execute();
-                console.log("nehal")
 		    }
 		</script>
     <script src="../dist/pykcharts.1.0.0.min.js"></script>
