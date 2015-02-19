@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<root>
+    <element>
+        <y>Singapore</y>
+        <x>78762</x>
+        <group>GDP</group>
+        <stack>Stack</stack>
+        <tooltip><![CDATA[<table class='PykCharts'><tr><th>GDP</th></tr><tr><td>78762</td></tr></table>]]></tooltip>
+    </element>
+    <element>
+        <y>United States</y>
+        <x>53001</x>
+        <group>GDP</group>
+        <stack>Stack</stack>
+        <tooltip><![CDATA[<table class='PykCharts'><tr><th>GDP</th></tr><tr><td>45138</td></tr></table>]]></tooltip>
+    </element>
+    <element>
+        <y>Australia</y>
+        <x>45138</x>
+        <group>GDP</group>
+        <stack>Stack</stack>
+        <tooltip><![CDATA[<table class='PykCharts'><tr><th>GDP</th></tr><tr><td>45138</td></tr></table>]]></tooltip>
+    </element>
+    <element>
+        <y>United Arab Emirates</y>
+        <x>63181</x>
+        <group>GDP</group>
+        <stack>Stack</stack>
+        <tooltip><![CDATA[<table class='PykCharts'><tr><th>GDP</th></tr><tr><td>63181</td></tr></table>]]></tooltip>
+    </element>
+    <element>
+        <y>Germany</y>
+        <x>43475</x>
+        <group>GDP</group>
+        <stack>Stack</stack>
+        <tooltip><![CDATA[<table class='PykCharts'><tr><th>GDP</th></tr><tr><td>43475</td></tr></table>]]></tooltip>
+    </element>
+    <element>
+        <y>Switzerland</y>
+        <x>53977</x>
+        <group>GDP</group>
+        <stack>Stack</stack>
+        <tooltip><![CDATA[<table class='PykCharts'><tr><th>GDP</th></tr><tr><td>53977</td></tr></table>]]></tooltip>
+    </element>
+</root>

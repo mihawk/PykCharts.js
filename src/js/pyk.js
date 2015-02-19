@@ -974,7 +974,24 @@ PykCharts.Configuration = function (options){
                 }
                 else {
                     var format = data.substr(dot_index+1,len);
-                    if(data.indexOf("{")!= -1) {
+                    /*console.log(data.indexOf("<root>"), " ****");
+                    
+                    if (data.indexOf("<root>") != -1) {
+                        var xml_data_converted_from_string;
+                        if (window.DOMParser) {
+                            parser = new DOMParser();
+                            xml_data_converted_from_string = parser.parseFromString(data,"text/xml");
+                            console.log(xml_data_converted_from_string," $$$$$$$$$$$$$$$$$$$$$");
+                        }
+                        else // Internet Explorer
+                        {
+                            xml_data_converted_from_string = new ActiveXObject("Microsoft.XMLDOM");
+                            xml_data_converted_from_string.async = false;
+                            xml_data_converted_from_string.loadXML(data);
+                            console.log(xml_data_converted_from_string," $$$$$$$$$$$$$$$$$$$$$");
+                        }
+                    }
+                    else */if(data.indexOf("{")!= -1) {
                         chart.data = JSON.parse(data);
                         chart[executeFunction](chart.data);
                     } else if (data.indexOf(",")!= -1) {

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<root>
+	<element>
+		<y>2012</y>
+		<x>21.2</x>
+		<group>18 to 29</group>
+		<stack>stack</stack>
+	</element>
+	<element>
+		<y>2012</y>
+		<x>24</x>
+		<group>30 to 44</group>
+		<stack>stack</stack>
+	</element>
+	<element>
+		<y>2012</y>
+		<x>35.6</x>
+		<group>45 to 64</group>
+		<stack>stack</stack>
+	</element>
+	<element>
+		<y>2012</y>
+		<x>19.1</x>
+		<group>65 and older</group>
+		<stack>stack</stack>
+	</element>
+	<element>
+		<y>2008</y>
+		<x>21.3</x>
+		<group>18 to 29</group>
+		<stack>stack</stack>
+	</element>
+	<element>
+		<y>2008</y>
+		<x>25.5</x>
+		<group>30 to 44</group>
+		<stack>stack</stack>
+	</element>
+	<element>
+		<y>2008</y>
+		<x>35.6</x>
+		<group>45 to 64</group>
+		<stack>stack</stack>
+	</element>
+	<element>
+		<y>2008</y>
+		<x>17.6</x>
+		<group>65 and older</group>
+		<stack>stack</stack>
+	</element>
+	<element>
+		<y>2004</y>
+		<x>20.9</x>
+		<group>18 to 29</group>
+		<stack>stack</stack>
+	</element>
+	<element>
+		<y>2004</y>
+		<x>27.9</x>
+		<group>30 to 44</group>
+		<stack>stack</stack>
+	</element>
+	<element>
+		<y>2004</y>
+		<x>34.1</x>
+		<group>45 to 64</group>
+		<stack>stack</stack>
+	</element>
+	<element>
+		<y>2004</y>
+		<x>17.1</x>
+		<group>65 and older</group>
+		<stack>stack</stack>
+	</element>
+	<element>
+		<y>2000</y>
+		<x>21.1</x>
+		<group>18 to 29</group>
+		<stack>stack</stack>
+	</element>
+	<element>
+		<y>2000</y>
+		<x>30.7</x>
+		<group>30 to 44</group>
+		<stack>stack</stack>
+	</element>
+	<element>
+		<y>2000</y>
+		<x>31.1</x>
+		<group>45 to 64</group>
+		<stack>stack</stack>
+	</element>
+	<element>
+		<y>2000</y>
+		<x>17.1</x>
+		<group>65 and older</group>
+		<stack>stack</stack>
+	</element>
+</root>

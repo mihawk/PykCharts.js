@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+   <element>
+      <name>Previously Hired</name>
+      <x>2000</x>
+      <y>0</y>
+      <tooltip>0</tooltip>
+   </element>
+   <element>
+      <name>Previously Hired</name>
+      <x>2001</x>
+      <y>100</y>
+      <tooltip>100</tooltip>
+   </element>
+   <element>
+      <name>Previously Hired</name>
+      <x>2002</x>
+      <y>200</y>
+      <tooltip>200</tooltip>
+   </element>
+   <element>
+      <name>Previously Hired</name>
+      <x>2003</x>
+      <y>300</y>
+      <tooltip>300</tooltip>
+   </element>
+   <element>
+      <name>Previously Hired</name>
+      <x>2004</x>
+      <y>400</y>
+      <tooltip>400</tooltip>
+   </element>
+   <element>
+      <name>Previously Hired</name>
+      <x>2005</x>
+      <y>500</y>
+      <tooltip>500</tooltip>
+   </element>
+   <element>
+      <name>Previously Hired</name>
+      <x>2006</x>
+      <y>600</y>
+      <tooltip>600</tooltip>
+   </element>
+   <element>
+      <name>Total Employees</name>
+      <x>2000</x>
+      <y>100</y>
+      <color>#4682b4</color>
+      <tooltip>100</tooltip>
+   </element>
+   <element>
+      <name>Total Employees</name>
+      <x>2001</x>
+      <y>300</y>
+      <color>#4682b4</color>
+      <tooltip>300</tooltip>
+   </element>
+   <element>
+      <name>Total Employees</name>
+      <x>2002</x>
+      <y>400</y>
+      <color>#4682b4</color>
+      <tooltip>400</tooltip>
+   </element>
+   <element>
+      <name>Total Employees</name>
+      <x>2003</x>
+      <y>500</y>
+      <color>#4682b4</color>
+      <tooltip>500</tooltip>
+   </element>
+   <element>
+      <name>Total Employees</name>
+      <x>2004</x>
+      <y>600</y>
+      <color>#4682b4</color>
+      <tooltip>600</tooltip>
+   </element>
+   <element>
+      <name>Total Employees</name>
+      <x>2005</x>
+      <y>700</y>
+      <color>#4682b4</color>
+      <tooltip>700</tooltip>
+   </element>
+   <element>
+      <name>Total Employees</name>
+      <x>2006</x>
+      <y>700</y>
+      <color>#4682b4</color>
+      <tooltip>700</tooltip>
+   </element>
+   <element>
+      <name>New Hires</name>
+      <x>2000</x>
+      <y>100</y>
+      <color>#75b0e1</color>
+      <tooltip>100</tooltip>
+   </element>
+   <element>
+      <name>New Hires</name>
+      <x>2001</x>
+      <y>200</y>
+      <color>#75b0e1</color>
+      <tooltip>200</tooltip>
+   </element>
+   <element>
+      <name>New Hires</name>
+      <x>2002</x>
+      <y>200</y>
+      <color>#75b0e1</color>
+      <tooltip>200</tooltip>
+   </element>
+   <element>
+      <name>New Hires</name>
+      <x>2003</x>
+      <y>200</y>
+      <color>#75b0e1</color>
+      <tooltip>200</tooltip>
+   </element>
+   <element>
+      <name>New Hires</name>
+      <x>2004</x>
+      <y>200</y>
+      <color>#75b0e1</color>
+      <tooltip>200</tooltip>
+   </element>
+   <element>
+      <name>New Hires</name>
+      <x>2005</x>
+      <y>200</y>
+      <color>#75b0e1</color>
+      <tooltip>7200</tooltip>
+   </element>
+   <element>
+      <name>New Hires</name>
+      <x>2006</x>
+      <y>100</y>
+      <color>#75b0e1</color>
+      <tooltip>100</tooltip>
+   </element>
+</root>

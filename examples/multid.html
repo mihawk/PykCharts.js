@@ -4,10 +4,7 @@
   <link rel="stylesheet" type="text/css" href="../src/css/PykCharts.css">
 </head>
 <body>
-  <!--   <div id="hi" style="height:500px;width:1200px;background-color:pink">
-  <div id = "hello" style="height:500px;width:1000px;background-color:black;"> -->
   <div id="line"></div>
-  <!--  </div></div> -->
   <hr/>
   <div id="area"></div>
   <hr/>
@@ -31,8 +28,7 @@
   <hr/>
   <div id="bar"></div>
   <hr/>
-  <div id="groupBar">
-  </div>
+  <div id="groupBar"></div>
   <hr/>
   <div id="waterfall-chart"></div>
   <hr/>
@@ -65,15 +61,13 @@
 
   <script>
 
-    // $(document).ready(function (e)` {
+    // $(document).ready(function (e) {
     window.PykChartsInit = function (e) {
-    console.log(document.querySelectorAll("#multiLine"))
-      d3.xml("../data/test.xml",function(data){
-        console.log(data);
-      })
+
       var k = new PykCharts.multiD.waterfall({
         selector: "#waterfall-chart",
-        data: "../data/german_erp_waterfall1.json",
+        // data: "../data/german_erp_waterfall1.json",
+        data: "../data/waterfall.xml",
         mode: "default",
         chart_height: 400,
         chart_width: 550,
@@ -124,7 +118,8 @@
 
       var k = new PykCharts.multiD.line ({
         selector: "#line",
-        data: "../data/linechart_linear.json",
+        // data: "../data/linechart_linear.json",
+        data: "../data/line.xml",
         "chart_width": 620,
         "chart_height": 400,
         "mode": "default",
@@ -196,11 +191,12 @@
         "subtitle_color": "green",
         // background_color: "cyan"
       });
-      k.execute();
+      // k.execute();
 
       var k = new PykCharts.multiD.area ({
         selector: "#area",
         data: "../data/area.csv",
+        // data: "../data/area.xml",
         mode : "default",
 
         color_mode: "color",  //color or saturation
@@ -266,7 +262,7 @@
       // // for(i = 0;i<100;i++) {
       // //     console.log(i);
       // //     var start = new Date().getTime();
-      k.execute();
+      // k.execute();
       //     var end = new Date().getTime();
       //     a[i] = end - start;
       //     avg += a[i];
@@ -318,7 +314,7 @@
       // for(i = 0;i<100;i++) {
       //     // console.log(i);
       //     var start = new Date().getTime();
-      k.execute();
+      // k.execute();
       //     var end = new Date().getTime();
       //         a[i] = end - start;
       //         avg += a[i]
@@ -328,6 +324,7 @@
       var k = new PykCharts.multiD.scatter ({
         selector: "#scatterPlot",
         data: "../data/scatter.csv",
+        // data: "../data/scatterplot.xml",
         mode : "default",
 
         chart_color: ["#07365e","#0e5ea1","#4682b4","#75b0e1","#a0ccf1"],
@@ -417,7 +414,7 @@
       // //     for(i = 0;i<100;i++) {
       // //         // console.log(i);
       // //         var start = new Date().getTime();
-      k.execute();
+      // k.execute();
       // //         var end = new Date().getTime();
       // //             a[i] = end - start;
       // //             avg += a[i]
@@ -425,7 +422,8 @@
       // //     console.log("Performance",a,avg/100);
       var k = new PykCharts.multiD.panelsOfScatter ({
         selector: "#multiple-scatterplots",
-        data: "../data/panel-of-scatters.csv",
+        // data: "../data/panel-of-scatters.csv",
+        data: "../data/panel-of-scatters.xml",
         mode : "default",
         background_color: "transparent",
         chart_color: ["#07365e","#0e5ea1","#4682b4","#75b0e1","#a0ccf1"],
@@ -494,7 +492,7 @@
       // //     for(i = 0;i<100;i++) {
       // // //         // console.log(i);
       // //         var start = new Date().getTime();
-      k.execute();
+      // k.execute();
       // //         var end = new Date().getTime();
       // //             a[i] = end - start;
       // //             avg += a[i]
@@ -504,6 +502,7 @@
       var k = new PykCharts.multiD.panelsOfLine ({
         selector: "#multiLine",
         data: "../data/multipleContainerLine.json",
+        // data: "../data/stackedarea.xml",
         mode : "default",
 
         color_mode: "saturation",  //color or saturation
@@ -525,8 +524,8 @@
         highlight_color: "red",
         highlight : "india",
 
-        transition_duration: 0,
-        real_time_charts_refresh_frequency: 0,
+        transition_duration: 2,
+        real_time_charts_refresh_frequency: 10,
 
         axis_onhover_highlight_enable: "yes",
 
@@ -569,7 +568,7 @@
       //     for(i = 0;i<10;i++) {
       // //         // console.log(i);
       //         var start = new Date().getTime();
-      k.execute();
+      // k.execute();
       //     var end = new Date().getTime();
       //         a[i] = end - start;
       //         avg += a[i]
@@ -579,6 +578,7 @@
       var k = new PykCharts.multiD.multiSeriesLine ({
         selector: "#multiple-multiLine",
         data: "../data/multiLineChart.json",
+        // data: "../data/stackedarea.xml",
         mode : "default",
 
         color_mode: "color",  //color or saturation
@@ -596,7 +596,7 @@
         chart_grid_y_enable: "yes",
 
         transition_duration: 1,
-        real_time_charts_refresh_frequency: 10,
+        real_time_charts_refresh_frequency: 0,
 
         axis_onhover_highlight_enable: "yes",
 
@@ -632,7 +632,9 @@
         highlight_color: "purple",
         annotation_enable: "yes",
         annotation_view_mode: "onclick",
-        annotation_background_color:"#ff4c4c"
+        annotation_background_color:"#ff4c4c",
+
+        pointer_overflow_enable: "yes"
       });
       //  var date = new Date();
       //     var i,avg =0;
@@ -640,7 +642,7 @@
       //     for(i = 0;i<100;i++) {
       // //         // console.log(i);
       //         var start = new Date().getTime();
-      k.execute();
+      // k.execute();
       //         var end = new Date().getTime();
       //             a[i] = end - start;
       //             avg += a[i]
@@ -650,7 +652,8 @@
       var k = new PykCharts.multiD.stackedArea ({
 
         selector: "#multiArea",
-        data: "../data/multiline_timescale.json",
+        // data: "../data/multiline_timescale.json",
+        data: "../data/stackedarea.xml",
         mode : "default",
 
         color_mode: "saturation",  //color or saturation
@@ -719,7 +722,7 @@
       //     for(i = 0;i<100;i++) {
       // //         // console.log(i);
       //         var start = new Date().getTime();
-      k.execute();
+      // k.execute();
       //         var end = new Date().getTime();
       //             a[i] = end - start;
       //             avg += a[i]
@@ -729,6 +732,7 @@
       var k = new PykCharts.multiD.pulse({
         selector: "#pulse",
         data: "../data/pulse.json",
+        // data: "../data/pulse.xml",
         
         mode : "default", //  default or infographics
 
@@ -744,7 +748,7 @@
         chart_margin_bottom: 35,
         chart_margin_left: 65,
 
-        transition_duration: 1,
+        transition_duration: 2,
         real_time_charts_refresh_frequency: 0,
 
         axis_onhover_highlight_enable: "yes",
@@ -797,7 +801,7 @@
       //     for(i = 0;i<100;i++) {
       // //         // console.log(i);
       //         var start = new Date().getTime();
-      k.execute();
+      // k.execute();
       //         var end = new Date().getTime();
       //             a[i] = end - start;
       //             avg += a[i]
@@ -806,6 +810,7 @@
 
       var k = new PykCharts.multiD.column({
         data: "../data/column.csv",
+        // data: "../data/column.xml",
         mode: "default",
         selector: "#column",
         color_mode: "color",
@@ -870,7 +875,7 @@
       //     for(i = 0;i<100;i++) {
       // //         // console.log(i);
       //         var start = new Date().getTime();
-      k.execute();
+      // k.execute();
       //         var end = new Date().getTime();
       //             a[i] = end - start;
       //             avg += a[i]
@@ -879,6 +884,7 @@
 
       var k = new PykCharts.multiD.bar({
         data: "../data/bar.csv",
+        // data: "../data/bar.xml",
         mode: "default",
         selector: "#bar",
         color_mode: "saturation",
@@ -918,7 +924,7 @@
 
         highlight_color: "#013F73",
 
-        transition_duration: 1,
+        transition_duration: 2,
 
         border_between_chart_elements_thickness: 1,
         border_between_chart_elements_color: "white",
@@ -937,7 +943,7 @@
         data_sort_order: "ascending",
         tooltip_enable: "yes",
         chart_onhover_highlight_enable: "yes",
-        tooltip_enable: "no"
+        tooltip_enable: "yes"
       });
 
       //     var date = new Date();
@@ -946,7 +952,7 @@
       //     for(i = 0;i<100;i++) {
       //         // console.log(i);
       //         var start = new Date().getTime();
-      k.execute();
+      // k.execute();
       //         var end = new Date().getTime();
       //             a[i] = end - start;
       //             avg += a[i]
@@ -954,7 +960,8 @@
       //     console.log("Performance",a,avg/100);
 
       var k = new PykCharts.multiD.groupedBar({
-        data: "../data/grouped-bar.csv",
+        // data: "../data/grouped-bar.csv",
+        data: "../data/groupedbar.xml",
         mode: "default",
         selector: "#groupBar",
         chart_height: 630,
@@ -968,7 +975,7 @@
         saturation_color: "green",
         background_color:"white",
         chart_color:["orange"],
-        real_time_charts_refresh_frequency: 0,
+        real_time_charts_refresh_frequency: 10,
 
         axis_onhover_highlight_enable: "yes",
 
@@ -995,7 +1002,7 @@
         highlight_color: "#013F73",
         panels_enable: "yes",
 
-        transition_duration: 1,
+        transition_duration: 2,
 
         border_between_chart_elements_thickness: 1,
         border_between_chart_elements_color: "white",
@@ -1026,7 +1033,7 @@
         legends_text_weight: "bold",
         legends_text_size: 28,
         chart_onhover_highlight_enable: "yes",
-                background_color: "rgba(229, 245, 249, 0.5)"
+        background_color: "rgba(229, 245, 249, 0.5)"
       });
       // var date = new Date();
       //     var i,avg =0;
@@ -1034,7 +1041,7 @@
       //     for(i = 0;i<100;i++) {
       // //         // console.log(i);
       //         var start = new Date().getTime();
-      k.execute();
+      // k.execute();
       //         var end = new Date().getTime();
       //             a[i] = end - start;
       //             avg += a[i]
@@ -1043,6 +1050,7 @@
 
       var k = new PykCharts.multiD.groupedColumn({
         data: "../data/grouped-column.csv",
+        // data: "../data/groupedcolumn.xml",
         mode: "default",
         selector: "#groupColumn",
 
@@ -1120,7 +1128,7 @@
       //     for(i = 0;i<100;i++) {
       // //         // console.log(i);
       //         var start = new Date().getTime();
-      k.execute();
+      // k.execute();
       //         var end = new Date().getTime();
       //             a[i] = end - start;
       //             avg += a[i]

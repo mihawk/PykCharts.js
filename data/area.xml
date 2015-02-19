@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+   <element>
+      <name>Number of Hits</name>
+      <x>Jan</x>
+      <y>145</y>
+      <color>steelblue</color>
+      <tooltip>145</tooltip>
+      <tooltip>145</tooltip>
+   </element>
+   <element>
+      <name>Number of Hits</name>
+      <x>Feb</x>
+      <y>213</y>
+      <color>steelblue</color>
+      <tooltip>213</tooltip>
+   </element>
+   <element>
+      <name>Number of Hits</name>
+      <x>Mar</x>
+      <y>375</y>
+      <color>steelblue</color>
+      <tooltip>375</tooltip>
+   </element>
+   <element>
+      <name>Number of Hits</name>
+      <x>Apr</x>
+      <y>234</y>
+      <color>steelblue</color>
+      <tooltip>234</tooltip>
+   </element>
+   <element>
+      <name>Number of Hits</name>
+      <x>Jun</x>
+      <y>459</y>
+      <color>steelblue</color>
+      <tooltip>459</tooltip>
+   </element>
+   <element>
+      <name>Number of Hits</name>
+      <x>Jul</x>
+      <y>398</y>
+      <color>steelblue</color>
+      <tooltip>398</tooltip>
+   </element>
+   <element>
+      <name>Number of Hits</name>
+      <x>Aug</x>
+      <y>467</y>
+      <color>steelblue</color>
+      <tooltip>467</tooltip>
+      <annotation>New Product Launch</annotation>
+   </element>
+</root>

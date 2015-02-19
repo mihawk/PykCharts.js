@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<root>
+    <element>
+        <x>Jan</x>
+        <y>8</y>
+        <tooltip><![CDATA[<table class='PykCharts'><tr><th>Jan</th></tr><tr><td>8</td></tr></table>]]></tooltip>
+    </element>
+    <element>
+        <x>Feb</x>
+        <y>10</y>
+        <tooltip><![CDATA[<table class='PykCharts'><tr><th>Feb</th></tr><tr><td>10</td></tr></table>]]></tooltip>
+    </element>
+    <element>
+        <x>Mar</x>
+        <y>12</y>
+        <tooltip><![CDATA[<table class='PykCharts'><tr><th>Mar</th></tr><tr><td>12</td></tr></table>]]></tooltip>
+    </element>
+    <element>
+        <x>Apr</x>
+        <y>14</y>
+        <tooltip><![CDATA[<table class='PykCharts'><tr><th>Apr</th></tr><tr><td>14</td></tr></table>]]></tooltip>
+    </element>
+    <element>
+        <x>Jun</x>
+        <y>16</y>
+        <tooltip><![CDATA[<table class='PykCharts'><tr><th>Jun</th></tr><tr><td>16</td></tr></table>]]></tooltip>
+    </element>
+    <element>
+        <x>Jul</x>
+        <y>18</y>
+        <tooltip><![CDATA[<table class='PykCharts'><tr><th>Jul</th></tr><tr><td>18</td></tr></table>]]></tooltip>
+    </element>
+    <element>
+        <x>Aug</x>
+        <y>20</y>
+        <tooltip><![CDATA[<table class='PykCharts'><tr><th>Aug</th></tr><tr><td>20</td></tr></table>]]></tooltip>
+    </element>
+    <element>
+        <x>Sept</x>
+        <y>22</y>
+        <tooltip><![CDATA[<table class='PykCharts'><tr><th>Sept</th></tr><tr><td>22</td></tr></table>]]></tooltip>
+    </element>
+    <element>
+        <x>Oct</x>
+        <y>24</y>
+        <tooltip><![CDATA[<table class='PykCharts'><tr><th>Jul</th></tr><tr><td>24</td></tr></table>]]></tooltip>
+    </element>
+</root>
