@@ -985,22 +985,28 @@ PykCharts.Configuration = function (options){
                 }
                 else {
                     var format = data.substr(dot_index+1,len);
-                    
+                    console.log(data, data.indexOf("<root>"));
                     if (data.indexOf("<root>") != -1) {
                         var xml_data_converted_from_string,
                             json_data_converted_from_xml;
+                        console.log("stringified xml");
                         
                         if (window.DOMParser) {
+                            console.log("non- IE");
                             parser = new DOMParser();
                             xml_data_converted_from_string = parser.parseFromString(data,"text/xml");
+                            console.log(xml_data_converted_from_string," > >>>>");
 
                         } else { // Internet Explorer
+                            console.log("IE ");
                             xml_data_converted_from_string = new ActiveXObject("Microsoft.XMLDOM");
                             xml_data_converted_from_string.async = false;
                             xml_data_converted_from_string.loadXML(data);
+                            console.log(xml_data_converted_from_string);
                         }
 
                         json_data_converted_from_xml = options.k.__proto__._xmlToJson(xml_data_converted_from_string,0);
+                        console.log(json_data_converted_from_xml, "*******");
                         chart[executeFunction](json_data_converted_from_xml);
                     }
                     else if(data.indexOf("{")!= -1) {
@@ -1014,9 +1020,12 @@ PykCharts.Configuration = function (options){
                     } else if(format === "csv") {
                         d3.csv(data+"?"+cache_avoidance_value,chart[executeFunction]);
                     } else if (format === "xml") {
+                        console.log("XML file !");
                         d3.xml(data+"?"+cache_avoidance_value, function(data) {
                             var json_data_converted_from_xml;
+                            console.log(data, "xml object");
                             json_data_converted_from_xml = options.k.__proto__._xmlToJson(data,1);
+                            console.log(json_data_converted_from_xml, "*******");
                             chart[executeFunction](json_data_converted_from_xml);
                         });
                     }
