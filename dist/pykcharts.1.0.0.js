@@ -985,22 +985,28 @@ PykCharts.Configuration = function (options){
                 }
                 else {
                     var format = data.substr(dot_index+1,len);
-                    
+                    console.log(data, data.indexOf("<root>"));
                     if (data.indexOf("<root>") != -1) {
                         var xml_data_converted_from_string,
                             json_data_converted_from_xml;
+                        console.log("stringified xml");
                         
                         if (window.DOMParser) {
+                            console.log("non- IE");
                             parser = new DOMParser();
                             xml_data_converted_from_string = parser.parseFromString(data,"text/xml");
+                            console.log(xml_data_converted_from_string," > >>>>");
 
                         } else { // Internet Explorer
+                            console.log("IE ");
                             xml_data_converted_from_string = new ActiveXObject("Microsoft.XMLDOM");
                             xml_data_converted_from_string.async = false;
                             xml_data_converted_from_string.loadXML(data);
+                            console.log(xml_data_converted_from_string);
                         }
 
                         json_data_converted_from_xml = options.k.__proto__._xmlToJson(xml_data_converted_from_string,0);
+                        console.log(json_data_converted_from_xml, "*******");
                         chart[executeFunction](json_data_converted_from_xml);
                     }
                     else if(data.indexOf("{")!= -1) {
@@ -1014,9 +1020,12 @@ PykCharts.Configuration = function (options){
                     } else if(format === "csv") {
                         d3.csv(data+"?"+cache_avoidance_value,chart[executeFunction]);
                     } else if (format === "xml") {
+                        console.log("XML file !");
                         d3.xml(data+"?"+cache_avoidance_value, function(data) {
                             var json_data_converted_from_xml;
+                            console.log(data, "xml object");
                             json_data_converted_from_xml = options.k.__proto__._xmlToJson(data,1);
+                            console.log(json_data_converted_from_xml, "*******");
                             chart[executeFunction](json_data_converted_from_xml);
                         });
                     }
@@ -8726,7 +8735,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
     };
 
     that.calculatePanelInRow = function () {
-        var width= that.k._getHighestParentsAttribute(that.selector,"width"),total_width;
+        var width= parseInt(that.k._getHighestParentsAttribute(that.selector,"width")),total_width;
         if(width) {
             total_width = width;
         } else {
@@ -8738,12 +8747,12 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
         if(that.no_of_containers_in_row > that.new_data.length) {
             that.no_of_containers_in_row = that.new_data.length;
         }
-
+        
         if(total_width < that.chart_width) {
             that.no_of_containers_in_row = 1;                    
         }
     }
-
+    
     that.render = function () {
         var id = that.selector.substring(1,that.selector.length);
         that.container_id = id + "_svg";
@@ -13393,6 +13402,25 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
     }   
   };
 
+  that.calculatePanelInRow = function () {
+      var width= parseInt(that.k._getHighestParentsAttribute(that.selector,"width")),total_width;
+      if(width) {
+          total_width = width;
+      } else {
+          total_width = d3.select("body").style("width");
+      }
+
+      that.no_of_containers_in_row = Math.floor(parseInt(total_width)/that.chart_width);
+
+      if(that.no_of_containers_in_row > that.uniq_group_arr.length) {
+          that.no_of_containers_in_row = that.uniq_group_arr.length;
+      }
+      
+      if(total_width < that.chart_width) {
+          that.no_of_containers_in_row = 1;                    
+      }
+  }
+
   this.render = function () {
     var id = that.selector.substring(1,that.selector.length);
     that.container_id = id + "_svg";
@@ -13409,17 +13437,7 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
     that.no_of_groups = 1;
 
     if(PykCharts["boolean"](that.panels_enable)) {
-      var width= that.k._getHighestParentsAttribute(that.selector,"width");
-      if(width) {
-          total_width = width;
-      } else {
-          total_width = d3.select("body").style("width");
-      }
-      that.no_of_containers_in_row = Math.floor(parseInt(total_width)/that.chart_width);
-      if(that.no_of_containers_in_row > that.uniq_group_arr.length) {
-        that.no_of_containers_in_row = that.uniq_group_arr.length;
-      }
-      that.new_width = that.no_of_containers_in_row*that.chart_width;
+      that.calculatePanelInRow();
     }
 
     if(that.axis_x_data_format === "time") {
@@ -13591,6 +13609,7 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
       var resize = that.k.resize(undefined,that.new_width);
       that.k.__proto__._ready(resize);
       window.addEventListener('resize', function(event){
+        that.calculatePanelInRow();
         return that.k.resize(undefined,that.new_width);
       });
     }

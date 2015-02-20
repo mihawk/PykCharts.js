@@ -89,7 +89,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
     };
 
     that.calculatePanelInRow = function () {
-        var width= that.k._getHighestParentsAttribute(that.selector,"width"),total_width;
+        var width= parseInt(that.k._getHighestParentsAttribute(that.selector,"width")),total_width;
         if(width) {
             total_width = width;
         } else {
@@ -101,12 +101,12 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
         if(that.no_of_containers_in_row > that.new_data.length) {
             that.no_of_containers_in_row = that.new_data.length;
         }
-
+        
         if(total_width < that.chart_width) {
             that.no_of_containers_in_row = 1;                    
         }
     }
-
+    
     that.render = function () {
         var id = that.selector.substring(1,that.selector.length);
         that.container_id = id + "_svg";
