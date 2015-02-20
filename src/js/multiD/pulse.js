@@ -10,7 +10,7 @@ PykCharts.multiD.pulse = function (options) {
     stylesheet = theme.stylesheet;
 
     that.multiD = new PykCharts.multiD.configuration(that);
-    that.bubbleRadius = options.bubbleRadius ? options.scatterplot_radius : (0.6 * multiDimensionalCharts.scatterplot_radius);
+    that.bubbleRadius = options.scatterplot_radius ? options.scatterplot_radius : (0.6 * multiDimensionalCharts.scatterplot_radius);
     that.panels_enable = "no";
 
     try {
