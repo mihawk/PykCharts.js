@@ -47,6 +47,25 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
     }   
   };
 
+  that.calculatePanelInRow = function () {
+      var width= parseInt(that.k._getHighestParentsAttribute(that.selector,"width")),total_width;
+      if(width) {
+          total_width = width;
+      } else {
+          total_width = d3.select("body").style("width");
+      }
+
+      that.no_of_containers_in_row = Math.floor(parseInt(total_width)/that.chart_width);
+
+      if(that.no_of_containers_in_row > that.uniq_group_arr.length) {
+          that.no_of_containers_in_row = that.uniq_group_arr.length;
+      }
+      
+      if(total_width < that.chart_width) {
+          that.no_of_containers_in_row = 1;                    
+      }
+  }
+
   this.render = function () {
     var id = that.selector.substring(1,that.selector.length);
     that.container_id = id + "_svg";
@@ -63,17 +82,7 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
     that.no_of_groups = 1;
 
     if(PykCharts["boolean"](that.panels_enable)) {
-      var width= that.k._getHighestParentsAttribute(that.selector,"width");
-      if(width) {
-          total_width = width;
-      } else {
-          total_width = d3.select("body").style("width");
-      }
-      that.no_of_containers_in_row = Math.floor(parseInt(total_width)/that.chart_width);
-      if(that.no_of_containers_in_row > that.uniq_group_arr.length) {
-        that.no_of_containers_in_row = that.uniq_group_arr.length;
-      }
-      that.new_width = that.no_of_containers_in_row*that.chart_width;
+      that.calculatePanelInRow();
     }
 
     if(that.axis_x_data_format === "time") {
@@ -245,6 +254,7 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
       var resize = that.k.resize(undefined,that.new_width);
       that.k.__proto__._ready(resize);
       window.addEventListener('resize', function(event){
+        that.calculatePanelInRow();
         return that.k.resize(undefined,that.new_width);
       });
     }
