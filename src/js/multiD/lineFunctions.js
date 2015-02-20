@@ -393,7 +393,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                 if(that.type === "multilineChart" && !element.classList.contains('PykCharts-line-chart')) {
                     element.className += " PykCharts-twoD PykCharts-line-chart PykCharts-multi-series2D";
                 } else if(that.type === "lineChart" && !element.classList.contains('PykCharts-line-chart')) {
-                    element.className = " PykCharts-twoD PykCharts-line-chart";
+                    element.className += " PykCharts-twoD PykCharts-line-chart";
                 }
                 that.svgContainer = d3.select(that.selector+" #tooltip-svg-container-"+i)
                     .append("svg:svg")
