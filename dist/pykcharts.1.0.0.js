@@ -7244,8 +7244,9 @@ PykCharts.multiD.configuration = function (options){
                             }
                             break;
                         case "spiderWeb" :
-                        case "scatter" : 
                             return 0.6;
+                        case "scatter" :
+                            return 1;
                         case "stackedArea" :
                             if(options.color_mode === "saturation") {
                              return (i+1)/options.new_data.length;
