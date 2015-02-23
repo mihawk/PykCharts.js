@@ -7118,7 +7118,7 @@ PykCharts.multiD.configuration = function (options){
                 return d ? z(d) : z(Math.min.apply(null, weight));
             }
             else {
-                return 0.6;
+                return 0.8;
             }
         },
         legendsPosition : function (options,type,params,color,index) {
@@ -13906,7 +13906,7 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
           "cx": function (d) { return (that.x(d.x)+that.extra_left_margin); },
           "cy": function (d) { return (that.yScale(d.y)+that.extra_top_margin); },
           "fill": function (d) { return that.fillChart.colorPieW(d); },
-          "fill-opacity": function (d) { return that.multiD.opacity(d.weight,that.weight,that.data); },
+          "fill-opacity": function (d) { return ((type == "pulse" && PykCharts['boolean'](that.variable_circle_size_enable)) ? 1 : that.multiD.opacity(d.weight,that.weight,that.data)); },
           "data-fill-opacity": function (d) {
             return d3.select(this).attr("fill-opacity");
           },

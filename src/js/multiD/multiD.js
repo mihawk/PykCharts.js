@@ -15,7 +15,7 @@ PykCharts.multiD.configuration = function (options){
                 return d ? z(d) : z(Math.min.apply(null, weight));
             }
             else {
-                return 0.6;
+                return 0.8;
             }
         },
         legendsPosition : function (options,type,params,color,index) {

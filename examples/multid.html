@@ -68,8 +68,9 @@
 
       var k = new PykCharts.multiD.waterfall({
         selector: "#waterfall-chart",
+        data: "https://s3-ap-southeast-1.amazonaws.com/chartstore.io-data/waterfall.csv",
         // data: "../data/german_erp_waterfall1.json",
-        data: "../data/waterfall.xml",
+        // data: "../data/waterfall.xml",
         mode: "default",
         chart_height: 400,
         chart_width: 550,
@@ -83,7 +84,7 @@
         // title_weight: "normal",
         // subtitle_text:"this the testing",
 
-        chart_color: ["red", "green", "#08306B"], // ["negative-color", "positive-color", "total-color"]
+        // chart_color: ["red", "green", "#08306B"], // ["negative-color", "positive-color", "total-color"]
 
         real_time_charts_refresh_frequency: 0,
 
@@ -265,7 +266,7 @@
       // // for(i = 0;i<100;i++) {
       // //     console.log(i);
       // //     var start = new Date().getTime();
-      k.execute();
+      // k.execute();
       //     var end = new Date().getTime();
       //     a[i] = end - start;
       //     avg += a[i];
@@ -336,10 +337,11 @@
 
         chart_height: 450,
         chart_width : 700,
-        "color_mode": "saturation",
+        "color_mode": "color",
         "chart_color": [
         "#255AEE","red","green","pink"
         ],
+        chart_color: ["rgb(157, 210, 255)","rgb(127,180,328)","rgb(97,150,298)","rgb(67,120,268)","rgb(37,90,238)"],
         "saturation_color": "red",
         "axis_x_enable": "yes",
         "axis_x_title": "",
@@ -370,7 +372,7 @@
         "label_size": 13,
         "label_weight": "bold",
         "label_family": "Helvetica Neue,Helvetica,Arial,sans-serif",
-        "label_color": "red",
+        // "label_color": "red",
         "real_time_charts_last_updated_at_enable": "yes",
         "real_time_charts_refresh_frequency": 0,
         "transition_duration": 0,
@@ -407,7 +409,7 @@
         // chart_margin_bottom: 125,
         // chart_margin_left: 160,
         axis_x_time_value_datatype: "month",
-        real_time_charts_refresh_frequency:10,
+        real_time_charts_refresh_frequency:0,
         transition_duration:2
       });
 
@@ -417,7 +419,7 @@
       // //     for(i = 0;i<100;i++) {
       // //         // console.log(i);
       // //         var start = new Date().getTime();
-      // k.execute();
+      k.execute();
       // //         var end = new Date().getTime();
       // //             a[i] = end - start;
       // //             avg += a[i]
@@ -495,7 +497,7 @@
       // //     for(i = 0;i<100;i++) {
       // // //         // console.log(i);
       // //         var start = new Date().getTime();
-      k.execute();
+      // k.execute();
       // //         var end = new Date().getTime();
       // //             a[i] = end - start;
       // //             avg += a[i]
@@ -571,7 +573,7 @@
       //     for(i = 0;i<10;i++) {
       // //         // console.log(i);
       //         var start = new Date().getTime();
-      k.execute();
+      // k.execute();
       //     var end = new Date().getTime();
       //         a[i] = end - start;
       //         avg += a[i]
@@ -659,8 +661,8 @@
         data: "../data/stackedarea.xml",
         mode : "default",
 
-        color_mode: "saturation",  //color or saturation
-        chart_color:["steelblue"],
+        color_mode: "color",  //color or saturation
+        // chart_color:["steelblue"],
         background_color: "white",
         highlight:"india",
         // highlight_color: "yellow",
@@ -676,7 +678,7 @@
         chart_grid_color:"black",
 
         transition_duration: 1,
-        real_time_charts_refresh_frequency: 5,
+        real_time_charts_refresh_frequency: 0,
         axis_onhover_highlight_enable: "yes",
 
         axis_x_enable: "yes",
@@ -725,7 +727,7 @@
       //     for(i = 0;i<100;i++) {
       // //         // console.log(i);
       //         var start = new Date().getTime();
-      // k.execute();
+      k.execute();
       //         var end = new Date().getTime();
       //             a[i] = end - start;
       //             avg += a[i]
@@ -804,7 +806,7 @@
       //     for(i = 0;i<100;i++) {
       // //         // console.log(i);
       //         var start = new Date().getTime();
-      // k.execute();
+      k.execute();
       //         var end = new Date().getTime();
       //             a[i] = end - start;
       //             avg += a[i]
