@@ -11,7 +11,7 @@ PykCharts.multiD.configuration = function (options){
                     .domain(d3.extent(data,function (d) {
                         return d.weight;
                     }))
-                    .range([0.1,1]);
+                    .range([0.3,1]);
                 return d ? z(d) : z(Math.min.apply(null, weight));
             }
             else {
