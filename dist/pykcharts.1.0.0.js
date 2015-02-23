@@ -4646,7 +4646,7 @@ PykCharts.oneD.percentageBar = function (options) {
                     tick_label.attr("class", "ticks_label")
                         .attr("transform",function (d) {
                             sum = sum + d.percentValue
-                            y = (that.percent_row_rect_height) + that.pointer_size;
+                            y = ((that.percent_row_rect_height) + that.pointer_size) + 5;
                             x = (((sum - d.percentValue) * that.chart_width/100)+(sum * that.chart_width / 100))/2;
 
                             return "translate(" + x + "," + y + ")";
@@ -4712,7 +4712,8 @@ PykCharts.oneD.percentageBar = function (options) {
                                         return (that.percent_row_rect_height) ;
                                     }
                                 }
-                            });
+                            })
+                            .style("margin-top","10px");
                         }
                         setTimeout(tick_label_timeout,that.transitions.duration());
 
