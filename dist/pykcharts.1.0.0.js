@@ -13688,19 +13688,38 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
         return this;
       },
       createChart : function (index) {
-        that.weight = that.new_data.map(function (d) {
-          return d.weight;
-        });
-        var weight_length = that.weight.length,
-        rejected_result = [];
-        for(var i=0 ; i<weight_length ; i++) {
-          if(that.weight[i] !== 0) {
-            rejected_result.push(that.weight[i]);
+        if (type == "scatterplot") {
+          that.new_data.sort(function (a,b) {
+            return (b.weight - a.weight);
+          });
+          that.weight = that.new_data.map(function (d) {
+            return d.weight;
+          });
+          var weight_length = that.weight.length,
+          rejected_result = [];
+          for(var i=0 ; i<weight_length ; i++) {
+            if(that.weight[i] !== 0) {
+              rejected_result.push(that.weight[i]);
+            }
           }
-        }
-        that.weight = rejected_result;
+          that.weight = rejected_result;
+          that.sorted_weight = that.weight.slice(0).reverse();
 
-        that.sorted_weight = that.weight.slice(0);
+        } else {
+          that.weight = that.new_data.map(function (d) {
+            return d.weight;
+          });
+          var weight_length = that.weight.length,
+          rejected_result = [];
+          for(var i=0 ; i<weight_length ; i++) {
+            if(that.weight[i] !== 0) {
+              rejected_result.push(that.weight[i]);
+            }
+          }
+          that.weight = rejected_result;
+          that.sorted_weight = that.weight.slice(0);
+
+        }        
         that.sorted_weight.sort(function(a,b) { return a-b; });
 
         that.x_tick_values = that.k.processXAxisTickValues();
