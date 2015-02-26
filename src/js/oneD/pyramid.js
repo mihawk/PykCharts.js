@@ -428,9 +428,9 @@ PykCharts.oneD.pyramid = function (options) {
                 var n = that.new_data.length;
                 tick_label.attr("transform",function (d) {
                     if (d.values.length === 3) {
-                        x = ((d.values[0].x + that.coordinates[that.coordinates.length-1].values[2].x)/2) + 30;
+                        x = ((d.values[0].x + that.coordinates[that.coordinates.length-1].values[2].x)/2) + 17;
                     } else {
-                        x = ((d.values[2].x + d.values[3].x)/2 ) + 30;
+                        x = ((d.values[2].x + d.values[3].x)/2 ) + 17;
                     }
                     if(d.values.length === 4) {
                         y= (((d.values[0].y-d.values[1].y)/2)+d.values[1].y) +2;
@@ -531,9 +531,9 @@ PykCharts.oneD.pyramid = function (options) {
                         tick_line.attr("x2", function (d,i) {
                             if(Math.abs(d.values[0].y - d.values[1].y) > w[i]) {
                                 if (d.values.length === 3) {
-                                    return (d.values[0].x + that.coordinates[that.coordinates.length-1].values[2].x)/2 + 20;
+                                    return (d.values[0].x + that.coordinates[that.coordinates.length-1].values[2].x)/2 + 12;
                                 } else {
-                                    return ((d.values[2].x + d.values[3].x)/2 ) + 20;
+                                    return ((d.values[2].x + d.values[3].x)/2 ) + 12;
                                 }
                             } else {
                                 if (d.values.length === 3) {

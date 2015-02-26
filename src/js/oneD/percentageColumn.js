@@ -355,7 +355,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                     tick_label.attr("class", "ticks_label")
                         .attr("transform",function (d) {
                             sum = sum + d.percentValue
-                            x = (that.percent_column_rect_width) + 10;
+                            x = (that.percent_column_rect_width) + 15;
                             y = (((sum - d.percentValue) * that.chart_height/100)+(sum * that.chart_height / 100))/2 + 5;
 
                             return "translate(" + x + "," + y + ")";
@@ -417,7 +417,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                                     "stroke": that.pointer_color,
                                     "x2": function (d, i) {
                                         if((d.percentValue * that.chart_height / 100) > w[i]) {
-                                            return (that.percent_column_rect_width) + 5;
+                                            return (that.percent_column_rect_width) + 10;
                                         } else {
                                             return (that.percent_column_rect_width) ;
                                         }

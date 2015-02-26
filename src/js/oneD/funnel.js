@@ -428,10 +428,10 @@ PykCharts.oneD.funnel = function (options) {
 
                     tick_label.attr("transform",function (d) {
                         if (d.values.length === 4) {
-                            x = ((d.values[3].x + d.values[2].x)/2 ) + 10;
+                            x = ((d.values[3].x + d.values[2].x)/2 ) + 17;
                             y = ((d.values[0].y + d.values[2].y)/2) + 5;
                         } else {
-                            x = (d.values[4].x) + 10;
+                            x = (d.values[4].x) + 17;
                             y = (d.values[4].y) + 5;
                         }
                         return "translate(" + x + "," + y + ")";});
@@ -506,9 +506,9 @@ PykCharts.oneD.funnel = function (options) {
                         tick_line.attr("x2", function (d, i) {
                             if(( d.values[2].y - d.values[0].y) > w[i]) {
                                 if (d.values.length === 4) {
-                                    return ((d.values[3].x + d.values[2].x)/2 ) + 5;
+                                    return ((d.values[3].x + d.values[2].x)/2 ) + 12;
                                 } else {
-                                    return ((d.values[4].x) +5);
+                                    return ((d.values[4].x) + 12);
                                 }
                             } else {
                                 if (d.values.length === 4) {

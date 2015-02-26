@@ -3680,10 +3680,10 @@ PykCharts.oneD.funnel = function (options) {
 
                     tick_label.attr("transform",function (d) {
                         if (d.values.length === 4) {
-                            x = ((d.values[3].x + d.values[2].x)/2 ) + 10;
+                            x = ((d.values[3].x + d.values[2].x)/2 ) + 17;
                             y = ((d.values[0].y + d.values[2].y)/2) + 5;
                         } else {
-                            x = (d.values[4].x) + 10;
+                            x = (d.values[4].x) + 17;
                             y = (d.values[4].y) + 5;
                         }
                         return "translate(" + x + "," + y + ")";});
@@ -3758,9 +3758,9 @@ PykCharts.oneD.funnel = function (options) {
                         tick_line.attr("x2", function (d, i) {
                             if(( d.values[2].y - d.values[0].y) > w[i]) {
                                 if (d.values.length === 4) {
-                                    return ((d.values[3].x + d.values[2].x)/2 ) + 5;
+                                    return ((d.values[3].x + d.values[2].x)/2 ) + 12;
                                 } else {
-                                    return ((d.values[4].x) +5);
+                                    return ((d.values[4].x) + 12);
                                 }
                             } else {
                                 if (d.values.length === 4) {
@@ -4140,7 +4140,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                     tick_label.attr("class", "ticks_label")
                         .attr("transform",function (d) {
                             sum = sum + d.percentValue
-                            x = (that.percent_column_rect_width) + 10;
+                            x = (that.percent_column_rect_width) + 15;
                             y = (((sum - d.percentValue) * that.chart_height/100)+(sum * that.chart_height / 100))/2 + 5;
 
                             return "translate(" + x + "," + y + ")";
@@ -4202,7 +4202,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                                     "stroke": that.pointer_color,
                                     "x2": function (d, i) {
                                         if((d.percentValue * that.chart_height / 100) > w[i]) {
-                                            return (that.percent_column_rect_width) + 5;
+                                            return (that.percent_column_rect_width) + 10;
                                         } else {
                                             return (that.percent_column_rect_width) ;
                                         }
@@ -4646,7 +4646,7 @@ PykCharts.oneD.percentageBar = function (options) {
                     tick_label.attr("class", "ticks_label")
                         .attr("transform",function (d) {
                             sum = sum + d.percentValue
-                            y = ((that.percent_row_rect_height) + that.pointer_size) + 5;
+                            y = ((that.percent_row_rect_height) + that.pointer_size) + 10;
                             x = (((sum - d.percentValue) * that.chart_width/100)+(sum * that.chart_width / 100))/2;
 
                             return "translate(" + x + "," + y + ")";
@@ -4707,7 +4707,7 @@ PykCharts.oneD.percentageBar = function (options) {
                                 "stroke": that.pointer_color,
                                 "y2": function (d, i) {
                                     if((d.percentValue * that.chart_width / 100) > w[i]) {
-                                        return (that.percent_row_rect_height) + 5;
+                                        return (that.percent_row_rect_height) + 10;
                                     } else {
                                         return (that.percent_row_rect_height) ;
                                     }
@@ -6099,9 +6099,9 @@ PykCharts.oneD.pyramid = function (options) {
                 var n = that.new_data.length;
                 tick_label.attr("transform",function (d) {
                     if (d.values.length === 3) {
-                        x = ((d.values[0].x + that.coordinates[that.coordinates.length-1].values[2].x)/2) + 30;
+                        x = ((d.values[0].x + that.coordinates[that.coordinates.length-1].values[2].x)/2) + 17;
                     } else {
-                        x = ((d.values[2].x + d.values[3].x)/2 ) + 30;
+                        x = ((d.values[2].x + d.values[3].x)/2 ) + 17;
                     }
                     if(d.values.length === 4) {
                         y= (((d.values[0].y-d.values[1].y)/2)+d.values[1].y) +2;
@@ -6202,9 +6202,9 @@ PykCharts.oneD.pyramid = function (options) {
                         tick_line.attr("x2", function (d,i) {
                             if(Math.abs(d.values[0].y - d.values[1].y) > w[i]) {
                                 if (d.values.length === 3) {
-                                    return (d.values[0].x + that.coordinates[that.coordinates.length-1].values[2].x)/2 + 20;
+                                    return (d.values[0].x + that.coordinates[that.coordinates.length-1].values[2].x)/2 + 12;
                                 } else {
-                                    return ((d.values[2].x + d.values[3].x)/2 ) + 20;
+                                    return ((d.values[2].x + d.values[3].x)/2 ) + 12;
                                 }
                             } else {
                                 if (d.values.length === 3) {
