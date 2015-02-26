@@ -50,7 +50,6 @@ module.exports = function(grunt) {
                     , '<%= js_src_path %>/multiD/pulse.js'
                     , '<%= js_src_path %>/multiD/scatterplotFunctions.js'
                     , '<%= js_src_path %>/multiD/spiderWeb.js'
-                    , '<%= js_src_path %>/multiD/river.js'
                     , '<%= js_src_path %>/multiD/waterfall.js'
                     , '<%= js_src_path %>/maps/maps.js'
                     , '<%= js_src_path %>/maps/oneLayer.js'
