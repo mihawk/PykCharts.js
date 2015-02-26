@@ -5,15 +5,13 @@ PykCharts.oneD.electionDonut = function (options) {
 
     this.execute = function(pykquery_data) {
         that = new PykCharts.validation.processInputs(that, options, 'oneDimensionalCharts');
-
-        that.x = true;
         if(options.chart_height || options.chart_height === undefined) {
             try {
                 if (options.chart_height === undefined) {                    
-                    options.chart_height = theme.stylesheet.chart_height;
+                    options.chart_height = "";
                 }
                 else if (isNaN(options.chart_height)) {
-                    that.x = false;
+                    options.chart_height = "";
                     throw "chart_height"
                 }
             }
@@ -21,14 +19,11 @@ PykCharts.oneD.electionDonut = function (options) {
                 that.k.warningHandling(err);
             }
         }
-
-        if(that.x) {
+        if(PykCharts["boolean"](options.chart_height)) {
             that.chart_height = options.chart_height;
             that.calculation = undefined;
             that.height_translate = that.chart_height/2;
-        }
-
-        else {
+        } else {
             that.chart_height = that.chart_width/2;
             that.calculation = "pie";
             that.height_translate = that.chart_height;
