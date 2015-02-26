@@ -607,7 +607,7 @@ PykCharts.oneD.pyramid = function (options) {
                     that.new_data = new_data1;
                 }
                 else {
-                    that.data.sort(function (a,b) { return b.weight - a.weight; });
+                    that.data.sort(function (a,b) { return a.weight - b.weight; });
                     that.new_data = that.data;
                 }
                 return that.new_data;

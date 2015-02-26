@@ -6278,7 +6278,7 @@ PykCharts.oneD.pyramid = function (options) {
                     that.new_data = new_data1;
                 }
                 else {
-                    that.data.sort(function (a,b) { return b.weight - a.weight; });
+                    that.data.sort(function (a,b) { return a.weight - b.weight; });
                     that.new_data = that.data;
                 }
                 return that.new_data;
@@ -17198,6 +17198,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                                 "fill": that.renderColor,
                                 "fill-opacity": that.renderOpacity,
                                 "data-fill-opacity": function () {
+                                            console.log("test>>>>>>", d3.select(this).attr("fill"));
                                     return d3.select(this).attr("fill-opacity");
                                 }
                             });
@@ -17261,6 +17262,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                                         "fill": that.renderColor,
                                         "fill-opacity": that.renderOpacity,
                                         "data-fill-opacity": function () {
+                                            console.log("test>>>>>>", d3.select(this).attr("fill-opacity"));
                                             return d3.select(this).attr("fill-opacity");
                                         }
                                     });
@@ -17283,6 +17285,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                                         "fill": that.renderColor,
                                         "fill-opacity": that.renderOpacity,
                                         "data-fill-opacity": function () {
+                                            console.log("test>>>>>>", d3.select(this).attr("fill-opacity"));
                                             return d3.select(this).attr("fill-opacity");
                                         }
                                     });
