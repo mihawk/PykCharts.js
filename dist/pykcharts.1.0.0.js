@@ -17193,12 +17193,11 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     that.extent_size = d3.extent(that.data, function (d) { return parseInt(d.size, 10); });
                     that.difference = that.extent_size[1] - that.extent_size[0];
                     for (var i=0 ; i<that.data_length ; i++) {
-                        d3.select("path[iso2='"+that.data[i].iso2+"']")
+                        d3.select(that.selector+" path[iso2='"+that.data[i].iso2+"']")
                             .attr({
                                 "fill": that.renderColor,
                                 "fill-opacity": that.renderOpacity,
                                 "data-fill-opacity": function () {
-                                            console.log("test>>>>>>", d3.select(this).attr("fill"));
                                     return d3.select(this).attr("fill-opacity");
                                 }
                             });
@@ -17257,12 +17256,11 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                             that.extent_size = d3.extent(that.data, function (d) { return parseInt(d.size, 10); });
                             that.difference = that.extent_size[1] - that.extent_size[0];
                             for (var k=0 ; k<that.data_length ; k++) {
-                                d3.select("path[iso2='"+that.data[k].iso2+"']")
+                                d3.select(that.selector+" path[iso2='"+that.data[k].iso2+"']")
                                     .attr({
                                         "fill": that.renderColor,
                                         "fill-opacity": that.renderOpacity,
                                         "data-fill-opacity": function () {
-                                            console.log("test>>>>>>", d3.select(this).attr("fill-opacity"));
                                             return d3.select(this).attr("fill-opacity");
                                         }
                                     });
@@ -17280,12 +17278,11 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                             that.extent_size = d3.extent(that.data, function (d) { return parseInt(d.size, 10); });
                             that.difference = that.extent_size[1] - that.extent_size[0];
                             for (var k=0 ; k<that.data_length ; k++) {
-                                d3.select("path[iso2='"+that.data[k].iso2+"']")
+                                d3.select(that.selector+" path[iso2='"+that.data[k].iso2+"']")
                                     .attr({
                                         "fill": that.renderColor,
                                         "fill-opacity": that.renderOpacity,
                                         "data-fill-opacity": function () {
-                                            console.log("test>>>>>>", d3.select(this).attr("fill-opacity"));
                                             return d3.select(this).attr("fill-opacity");
                                         }
                                     });
