@@ -6,7 +6,7 @@ PykCharts.js is a well designed d3.js charting without the complexity of d3.js. 
 
 If you discover a problem with PykCharts, we would like to know about it. Report them in the issues.
 
-### Contributing and Contributors
+### Contributing
 
 If you are a d3.js developer and would like to contribute to PykCharts, then email us at rp@pykih.com
 
