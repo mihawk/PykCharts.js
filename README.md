@@ -12,6 +12,6 @@ If you are a d3.js developer and would like to contribute to PykCharts, then ema
 
 ### License
 
-BSD v3 License. Copyright 2015 Pykih Software LLP. [http://www.pykih.com](https://pykih.com)
+BSD v3 License. Copyright 2015 Pykih Software LLP. [https://pykih.com](https://pykih.com)
 
 You are not granted rights or licenses to the trademarks of the Pykih, including without limitation the PykCharts name or logo.
