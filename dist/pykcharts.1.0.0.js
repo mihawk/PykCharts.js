@@ -13268,7 +13268,7 @@ PykCharts.multiD.panelsOfScatter = function (options) {
         that.k.dataSourceFormatIdentification(that.data,that,"executeData");
     } else {
         that.k.dataSourceFormatIdentification(options.data,that,"executeData");
-    }   
+    }
   };
 };
 PykCharts.multiD.pulse = function (options) {
@@ -13933,7 +13933,7 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
           "stroke-opacity": 1
         })
         .on({
-          'mouseover': function (d) {
+          'mouseover': function (d,i) {
             if(that.mode === "default") {
               if (PykCharts['boolean'](options.tooltip_enable)) {
                 tooltipText = d.tooltip ? d.tooltip : "<table><thead><th colspan='2'><b>"+d.name+"</b></th></thead><tr><td>X</td><td><b>"+d.x+"</b></td></tr><tr><td>Y</td><td><b>"+d.y+"<b></td></tr><tr><td>Weight</td><td><b>"+d.weight+"</b></td></tr></table>";
@@ -13941,17 +13941,27 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
                 that.mouseEvent.tooltipTextShow(tooltipText);
               }
               if (PykCharts['boolean'](that.chart_onhover_highlight_enable)) {
-                that.mouseEvent.highlight(that.selector + " .scatterplot-dot", this);
+                if (PykCharts['boolean'](that.panels_enable)) {
+                  that.mouseEvent.highlight(that.selector + " #" + this.parentElement.parentElement.parentElement.parentElement.id + " .scatterplot-dot", this);
+                }
+                else {
+                  that.mouseEvent.highlight(that.selector + " .scatterplot-dot", this);
+                }
               }
             }
           },
-          'mouseout': function (d) {
+          'mouseout': function (d,i) {
             if (that.mode === "default") {
               if (PykCharts['boolean'](options.tooltip_enable)) {
                 that.mouseEvent.tooltipHide(d);
               }
               if (PykCharts['boolean'](that.chart_onhover_highlight_enable)) {
-                that.mouseEvent.highlightHide(that.selector + " .scatterplot-dot");
+                if (PykCharts['boolean'](that.panels_enable)) {
+                  that.mouseEvent.highlightHide(that.selector + " #" + this.parentElement.parentElement.parentElement.parentElement.id + " .scatterplot-dot");
+                }
+                else {
+                  that.mouseEvent.highlightHide(that.selector + " .scatterplot-dot");
+                }                
               }
             }
           },
@@ -16240,7 +16250,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                     that.extent_size = d3.extent(that.data, function (d) { return parseInt(d.size, 10); });
                     that.difference = that.extent_size[1] - that.extent_size[0];
                     for (var i=0 ; i<that.data_length ; i++) {
-                        d3.select("path[iso2='"+that.data[i].iso2+"']")
+                        d3.select(that.selector+" path[iso2='"+that.data[i].iso2+"']")
                             .attr({
                                 "fill": that.renderColor,
                                 "fill-opacity": that.renderOpacity,
@@ -16303,7 +16313,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                             that.extent_size = d3.extent(that.data, function (d) { return parseInt(d.size, 10); });
                             that.difference = that.extent_size[1] - that.extent_size[0];
                             for (var k=0 ; k<that.data_length ; k++) {
-                                d3.select("path[iso2='"+that.data[k].iso2+"']")
+                                d3.select(that.selector+" path[iso2='"+that.data[k].iso2+"']")
                                     .attr({
                                         "fill": that.renderColor,
                                         "fill-opacity": that.renderOpacity,
@@ -16325,7 +16335,7 @@ PykCharts.maps.mapFunctions = function (options,chartObject,type) {
                             that.extent_size = d3.extent(that.data, function (d) { return parseInt(d.size, 10); });
                             that.difference = that.extent_size[1] - that.extent_size[0];
                             for (var k=0 ; k<that.data_length ; k++) {
-                                d3.select("path[iso2='"+that.data[k].iso2+"']")
+                                d3.select(that.selector+" path[iso2='"+that.data[k].iso2+"']")
                                     .attr({
                                         "fill": that.renderColor,
                                         "fill-opacity": that.renderOpacity,
