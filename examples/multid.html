@@ -4,7 +4,7 @@
   <link rel="stylesheet" type="text/css" href="../src/css/PykCharts.css">
 </head>
 <body>
-  <div id="line"></div>
+  <!-- <div id="line"></div>
   <hr/>
   <div id="area"></div>
   <hr/>
@@ -25,13 +25,13 @@
   <div id="column"></div>
   <hr/>
   <div id="groupColumn"></div>
-  <hr/>
+  <hr/>-->
   <div id="bar"></div>
   <hr/>
-  <div id="groupBar"></div>
+  <!--<div id="groupBar"></div>
   <hr/>
   <div id="waterfall-chart"></div>
-  <hr/>
+  <hr/>-->
   <script src="../src/js/init.js"></script>
   <script src="../src/js/pyk.js"></script>
   <script src="../src/js/multiD/crosshair.js"></script>
@@ -82,7 +82,7 @@
         // title_weight: "normal",
         // subtitle_text:"this the testing",
 
-        // chart_color: ["red", "green", "#08306B"], // ["negative-color", "positive-color", "total-color"]
+        chart_color: ["red", "green", "#08306B"], // ["negative-color", "positive-color", "total-color"]
 
         real_time_charts_refresh_frequency: 0,
 
@@ -105,94 +105,94 @@
         tooltip_enable: "no",
         "highlight": "Erlosschmalerungen",
         "highlight_color": "red",
-  //      background_color: "red",
+        // background_color: "red",
         export_enable: "yes",
         transition_duration: 0,
         axis_x_outer_pointer_length: 6,
         axis_x_pointer_length: 6,
-        calculate_total: "no",
-        calculate_total_of: [2000],
+        // calculate_total: "no",
+        // calculate_total_of: [2000],
         "axis_y_background_color": "#EBEBEB"
-                // background_color: "rgba(0,0,0,0.1)"
+        // background_color: "rgba(0,0,0,0.1)"
       });
-      k.execute();
+      // k.execute();
 
       var k = new PykCharts.multiD.line ({
         selector: "#line",
-        // data: "../data/linechart_linear.json",
-        data: "../data/line.xml",
+        data: "../data/line_timescale.json",
+        // data: "../data/line.xml",
         "chart_width": 620,
         "chart_height": 400,
         "mode": "default",
-        "color_mode": "color",
-        "saturation_color": "#255AEE",
-        "chart_color": ["red"],
-        "pointer_overflow_enable": "yes",
-        "pointer_family": "Helvetica Neue,Helvetica,Arial,sans-serif",
-        "pointer_size": 13,
-        "pointer_weight": "normal",
+        // "color_mode": "color",
+        // "saturation_color": "#255AEE",
+        // "chart_color": ["red"],
+        // "pointer_overflow_enable": "yes",
+        // "pointer_family": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        // "pointer_size": 13,
+        // "pointer_weight": "normal",
         "axis_onhover_highlight_enable": "yes",
-        "axis_x_enable": "yes",
-        "axis_x_title": "Testing",
-        "axis_x_position": "top",
-        "axis_x_pointer_position": "bottom",
-        "axis_x_line_color": "#1D1D1D",
-        "axis_x_pointer_size": 12,
-        "axis_x_pointer_color": "black",
-        "axis_x_no_of_axis_value": 10,
-        "axis_x_pointer_padding": 1,
-        "axis_x_outer_pointer_length": 13,
-        "axis_x_pointer_values": [],
-        "axis_x_time_value_datatype": "",
-        "axis_x_time_value_interval": 0,
-        "axis_y_enable": "yes",
-        "axis_y_title": "testing validation",
-        "axis_y_position": "left",
-        "axis_y_pointer_position": "left",
-        "axis_y_line_color": "#1D1D1D",
-        "axis_y_pointer_size": 12,
-        "axis_y_pointer_color": "#1D1D1D",
-        "axis_y_no_of_axis_value": 5,
-        "axis_y_pointer_padding": 6,
-        "axis_y_pointer_values": [],
-        "axis_y_outer_pointer_length": 0,
-        "axis_y_time_value_datatype": "",
-        "axis_y_time_value_interval": 0,
-        "real_time_charts_last_updated_at_enable": "yes",
-        "real_time_charts_refresh_frequency": 0,
-        "transition_duration": 0,
-        "chart_margin_left": 50,
-        "chart_margin_right": 30,
-        "chart_margin_top": 100,
-        "chart_margin_bottom": 50,
+        // "axis_x_enable": "yes",
+        // "axis_x_title": "Testing",
+        // "axis_x_position": "top",
+        // "axis_x_pointer_position": "bottom",
+        // "axis_x_line_color": "#1D1D1D",
+        // "axis_x_pointer_size": 12,
+        // "axis_x_pointer_color": "black",
+        // "axis_x_no_of_axis_value": 10,
+        // "axis_x_pointer_padding": 1,
+        // "axis_x_outer_pointer_length": 13,
+        // "axis_x_pointer_values": [],
+        "axis_x_time_value_datatype": "month",
+        // "axis_x_time_value_interval": 0,
+        // "axis_y_enable": "yes",
+        // "axis_y_title": "testing validation",
+        // "axis_y_position": "left",
+        // "axis_y_pointer_position": "left",
+        // "axis_y_line_color": "#1D1D1D",
+        // "axis_y_pointer_size": 12,
+        // "axis_y_pointer_color": "#1D1D1D",
+        // "axis_y_no_of_axis_value": 5,
+        // "axis_y_pointer_padding": 6,
+        // "axis_y_pointer_values": [],
+        // "axis_y_outer_pointer_length": 0,
+        // "axis_y_time_value_datatype": "",
+        // "axis_y_time_value_interval": 0,
+        // "real_time_charts_last_updated_at_enable": "yes",
+        // "real_time_charts_refresh_frequency": 0,
+        "transition_duration": 1,
+        // "chart_margin_left": 50,
+        // "chart_margin_right": 30,
+        // "chart_margin_top": 100,
+        // "chart_margin_bottom": 50,
         "chart_onhover_highlight_enable": "yes",
-        "chart_grid_x_enable": "no",
-        "chart_grid_y_enable": "yes",
-        "chart_grid_color": "yellow",
+        // "chart_grid_x_enable": "no",
+        // "chart_grid_y_enable": "yes",
+        // "chart_grid_color": "yellow",
         "tooltip_enable": "yes",
-        "tooltip_mode": "fixed",
-        "tooltip_position_top": 0,
-        "tooltip_position_left": 0,
-        "annotation_enable": "no",
-        "annotation_background_color": "#C2CBCF",
-        "annotation_font_color": "black",
-        "annotation_view_mode": "onload",
+        // "tooltip_mode": "fixed",
+        // "tooltip_position_top": 0,
+        // "tooltip_position_left": 0,
+        // "annotation_enable": "no",
+        // "annotation_background_color": "#C2CBCF",
+        // "annotation_font_color": "black",
+        // "annotation_view_mode": "onload",
         "crosshair_enable": "yes",
         "curvy_lines_enable": "yes",
-        "zoom_enable": "no",
-        "title_text": "nehal",
-        "title_size": 2,
-        "title_weight": "bold",
-        "title_family": "Helvetica Neue,Helvetica,Arial,sans-serif",
-        "title_color": "green",
-        "subtitle_text": "gala",
-        "subtitle_size": 1,
-        "subtitle_weight": "bold",
-        "subtitle_family": "Helvetica Neue,Helvetica,Arial,sans-serif",
-        "subtitle_color": "green",
+        // "zoom_enable": "no",
+        // "title_text": "nehal",
+        // "title_size": 2,
+        // "title_weight": "bold",
+        // "title_family": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        // "title_color": "green",
+        // "subtitle_text": "gala",
+        // "subtitle_size": 1,
+        // "subtitle_weight": "bold",
+        // "subtitle_family": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        // "subtitle_color": "green",
         // background_color: "cyan"
       });
-      k.execute();
+      // k.execute();
 
       var k = new PykCharts.multiD.area ({
         selector: "#area",
@@ -264,7 +264,7 @@
       // // for(i = 0;i<100;i++) {
       // //     console.log(i);
       // //     var start = new Date().getTime();
-      k.execute();
+      // k.execute();
       //     var end = new Date().getTime();
       //     a[i] = end - start;
       //     avg += a[i];
@@ -316,7 +316,7 @@
       // for(i = 0;i<100;i++) {
       //     // console.log(i);
       //     var start = new Date().getTime();
-      k.execute();
+      // k.execute();
       //     var end = new Date().getTime();
       //         a[i] = end - start;
       //         avg += a[i]
@@ -341,74 +341,74 @@
         // "#255AEE","red","green","pink"
         // ],
         // chart_color: ["rgb(157, 210, 255)","rgb(127,180,328)","rgb(97,150,298)","rgb(67,120,268)","rgb(37,90,238)"],
-        "saturation_color": "red",
-        "axis_x_enable": "yes",
-        "axis_x_title": "",
-        "axis_x_position": "bottom",
-        "axis_x_pointer_position": "bottom",
-        "axis_x_line_color": "#1D1D1D",
-        "axis_x_pointer_size": 12,
-        "axis_x_pointer_color": "#1D1D1D",
-        "axis_x_no_of_axis_value": 5,
-        "axis_x_pointer_padding": 6,
-        "axis_x_outer_pointer_length": 0,
-        "axis_x_pointer_values": [],
-        "axis_x_time_value_datatype": "",
-        "axis_x_time_value_interval": 0,
-        "axis_y_enable": "yes",
-        "axis_y_title": "",
-        "axis_y_position": "left",
-        "axis_y_pointer_position": "left",
-        "axis_y_line_color": "#1D1D1D",
-        "axis_y_pointer_size": 12,
-        "axis_y_pointer_color": "#1D1D1D",
-        "axis_y_no_of_axis_value": 5,
-        "axis_y_pointer_padding": 6,
-        "axis_y_pointer_values": [],
-        "axis_y_outer_pointer_length": 0,
-        "axis_y_time_value_datatype": "",
-        "axis_y_time_value_interval": 0,
-        "label_size": 11,
+        // "saturation_color": "red",
+        // "axis_x_enable": "yes",
+        // "axis_x_title": "",
+        // "axis_x_position": "bottom",
+        // "axis_x_pointer_position": "bottom",
+        // "axis_x_line_color": "#1D1D1D",
+        // "axis_x_pointer_size": 12,
+        // "axis_x_pointer_color": "#1D1D1D",
+        // "axis_x_no_of_axis_value": 5,
+        // "axis_x_pointer_padding": 6,
+        // "axis_x_outer_pointer_length": 0,
+        // "axis_x_pointer_values": [],
+        // "axis_x_time_value_datatype": "",
+        // "axis_x_time_value_interval": 0,
+        // "axis_y_enable": "yes",
+        // "axis_y_title": "",
+        // "axis_y_position": "left",
+        // "axis_y_pointer_position": "left",
+        // "axis_y_line_color": "#1D1D1D",
+        // "axis_y_pointer_size": 12,
+        // "axis_y_pointer_color": "#1D1D1D",
+        // "axis_y_no_of_axis_value": 5,
+        // "axis_y_pointer_padding": 6,
+        // "axis_y_pointer_values": [],
+        // "axis_y_outer_pointer_length": 0,
+        // "axis_y_time_value_datatype": "",
+        // "axis_y_time_value_interval": 0,
+        // "label_size": 11,
         // "label_weight": "bold",
-        "label_family": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        // "label_family": "Helvetica Neue,Helvetica,Arial,sans-serif",
         // "label_color": "red",
-        "real_time_charts_last_updated_at_enable": "yes",
-        "real_time_charts_refresh_frequency": 0,
-        "transition_duration": 0,
-        "border_between_chart_elements_thickness": 0,
-        "border_between_chart_elements_style": "solid",
-        "chart_margin_left": 50,
-        "chart_margin_right": 25,
-        "chart_margin_top": 35,
-        "chart_margin_bottom": 35,
+        // "real_time_charts_last_updated_at_enable": "yes",
+        // "real_time_charts_refresh_frequency": 0,
+        // "transition_duration": 0,
+        // "border_between_chart_elements_thickness": 0,
+        // "border_between_chart_elements_style": "solid",
+        // "chart_margin_left": 50,
+        // "chart_margin_right": 25,
+        // "chart_margin_top": 35,
+        // "chart_margin_bottom": 35,
         "chart_onhover_highlight_enable": "yes",
-        "tooltip_enable": "yes",
-        "legends_enable": "yes",
-        "legends_display": "vertical",
-        "legends_text_weight": "normal",
-        "legends_text_family": "Helvetica Neue,Helvetica,Arial,sans-serif",
-        "scatterplot_pointer_enable": "no",
-        "scatterplot_radius": 35,
+        // "tooltip_enable": "yes",
+        // "legends_enable": "yes",
+        // "legends_display": "vertical",
+        // "legends_text_weight": "normal",
+        // "legends_text_family": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        // "scatterplot_pointer_enable": "no",
+        // "scatterplot_radius": 35,
         "variable_circle_size_enable": "yes",
-        "zoom_enable": "no",
-        "title_text": "Enter title here",
-        "title_size": 2,
-        "title_weight": "bold",
-        "title_family": "Helvetica Neue,Helvetica,Arial,sans-serif",
-        "title_color": "#1D1D1D",
-        "subtitle_text": "Enter subtitle here",
-        "subtitle_size": 1,
-        "subtitle_weight": "normal",
-        "subtitle_family": "Helvetica Neue,Helvetica,Arial,sans-serif",
-        "subtitle_color": "black",
+        // "zoom_enable": "no",
+        // "title_text": "Enter title here",
+        // "title_size": 2,
+        // "title_weight": "bold",
+        // "title_family": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        // "title_color": "#1D1D1D",
+        // "subtitle_text": "Enter subtitle here",
+        // "subtitle_size": 1,
+        // "subtitle_weight": "normal",
+        // "subtitle_family": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        // "subtitle_color": "black",
         // chart_height: 450,
         // chart_width : 700,
         // chart_margin_top: 125,
         // chart_margin_right: 175,
         // chart_margin_bottom: 125,
         // chart_margin_left: 160,
-        axis_x_time_value_datatype: "month",
-        real_time_charts_refresh_frequency:0,
+        // axis_x_time_value_datatype: "month",
+        // real_time_charts_refresh_frequency:0,
         transition_duration:2
       });
 
@@ -418,7 +418,7 @@
       // //     for(i = 0;i<100;i++) {
       // //         // console.log(i);
       // //         var start = new Date().getTime();
-      k.execute();
+      // k.execute();
       // //         var end = new Date().getTime();
       // //             a[i] = end - start;
       // //             avg += a[i]
@@ -496,7 +496,7 @@
       // //     for(i = 0;i<100;i++) {
       // // //         // console.log(i);
       // //         var start = new Date().getTime();
-      k.execute();
+      // k.execute();
       // //         var end = new Date().getTime();
       // //             a[i] = end - start;
       // //             avg += a[i]
@@ -529,7 +529,7 @@
         highlight : "india",
 
         transition_duration: 2,
-        real_time_charts_refresh_frequency: 10,
+        real_time_charts_refresh_frequency: 0,
 
         axis_onhover_highlight_enable: "yes",
 
@@ -572,7 +572,7 @@
       //     for(i = 0;i<10;i++) {
       // //         // console.log(i);
       //         var start = new Date().getTime();
-      k.execute();
+      // k.execute();
       //     var end = new Date().getTime();
       //         a[i] = end - start;
       //         avg += a[i]
@@ -646,7 +646,7 @@
       //     for(i = 0;i<100;i++) {
       // //         // console.log(i);
       //         var start = new Date().getTime();
-      k.execute();
+      // k.execute();
       //         var end = new Date().getTime();
       //             a[i] = end - start;
       //             avg += a[i]
@@ -654,7 +654,6 @@
       //     console.log("Performance",a,avg/100);
 
       var k = new PykCharts.multiD.stackedArea ({
-
         selector: "#multiArea",
         // data: "../data/multiline_timescale.json",
         data: "../data/stackedarea.xml",
@@ -726,7 +725,7 @@
       //     for(i = 0;i<100;i++) {
       // //         // console.log(i);
       //         var start = new Date().getTime();
-      k.execute();
+      // k.execute();
       //         var end = new Date().getTime();
       //             a[i] = end - start;
       //             avg += a[i]
@@ -805,7 +804,7 @@
       //     for(i = 0;i<100;i++) {
       // //         // console.log(i);
       //         var start = new Date().getTime();
-      k.execute();
+      // k.execute();
       //         var end = new Date().getTime();
       //             a[i] = end - start;
       //             avg += a[i]
@@ -879,7 +878,7 @@
       //     for(i = 0;i<100;i++) {
       // //         // console.log(i);
       //         var start = new Date().getTime();
-      k.execute();
+      // k.execute();
       //         var end = new Date().getTime();
       //             a[i] = end - start;
       //             avg += a[i]
@@ -887,67 +886,66 @@
       //     console.log("Performance",a,avg/100);
 
       var k = new PykCharts.multiD.bar({
-        data: "../data/bar.csv",
+        data: "../data/bar_timescale.csv",
         // data: "../data/bar.xml",
         mode: "default",
         selector: "#bar",
-        color_mode: "saturation",
-        chart_color:["steelblue"],
-        background_color:"white",
+        // color_mode: "saturation",
+        // chart_color:["steelblue"],
+        // background_color:"white",
 
         chart_height: 430,
         chart_width : 700,
-        chart_margin_top: 25,
-        chart_margin_right: 25,
-        chart_margin_bottom: 35,
+        // chart_margin_top: 25,
+        // chart_margin_right: 25,
+        // chart_margin_bottom: 35,
         chart_margin_left: 130,
 
-        real_time_charts_refresh_frequency: 0,
+        // real_time_charts_refresh_frequency: 0,
 
         axis_onhover_highlight_enable: "yes",
 
-        axis_x_enable: "yes",
-        axis_x_title : "Rainfall",
-        axis_x_position: "bottom",
-        axis_x_pointer_position: "bottom",
-        axis_x_line_color: "#1D1D1D",
-        axis_x_pointer_color: "#1D1D1D",
-        axis_x_pointer_size: 12,
-        axis_x_pointer_padding: 3,
-        axis_x_outer_pointer_length: 3,
-        axis_x_pointer_values: [""],
-        axis_y_enable: "yes",
-        axis_y_title : "Months",
-        axis_y_position: "left",
+        // axis_x_enable: "yes",
+        // axis_x_title : "Rainfall",
+        // axis_x_position: "bottom",
+        // axis_x_pointer_position: "bottom",
+        // axis_x_line_color: "#1D1D1D",
+        // axis_x_pointer_color: "#1D1D1D",
+        // axis_x_pointer_size: 12,
+        // axis_x_pointer_padding: 3,
+        // axis_x_outer_pointer_length: 3,
+        // axis_x_pointer_values: [""],
+        // axis_y_enable: "yes",
+        // axis_y_title : "Months",
+        // axis_y_position: "left",
         // axis_y_pointer_position: "left",
-        axis_y_line_color: "red",
-        axis_y_pointer_color: "green",
-        axis_y_pointer_size: 12,
-        axis_y_pointer_padding: 10,
-        axis_y_outer_pointer_length: 3,
+        // axis_y_line_color: "red",
+        // axis_y_pointer_color: "green",
+        // axis_y_pointer_size: 12,
+        // axis_y_pointer_padding: 10,
+        // axis_y_outer_pointer_length: 3,
 
         highlight_color: "#013F73",
 
         transition_duration: 2,
 
-        border_between_chart_elements_thickness: 1,
-        border_between_chart_elements_color: "white",
-        border_between_chart_elements_style: "solid",
+        // border_between_chart_elements_thickness: 1,
+        // border_between_chart_elements_color: "white",
+        // border_between_chart_elements_style: "solid",
 
-        pointer_thickness: 1,
-        pointer_weight: "normal",
-        pointer_size: 10,
-        pointer_color: "#1D1D1D",
-        pointer_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
-        highlight:"india",
-        panels_enable: "yes",
+        // pointer_thickness: 1,
+        // pointer_weight: "normal",
+        // pointer_size: 10,
+        // pointer_color: "#1D1D1D",
+        // pointer_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
+        // highlight:"india",
+        // panels_enable: "yes",
 
-        data_sort_enable: "no",
+        data_sort_enable: "normal",
         data_sort_type: "alphabetically",
         data_sort_order: "ascending",
         tooltip_enable: "yes",
-        chart_onhover_highlight_enable: "yes",
-        tooltip_enable: "yes"
+        chart_onhover_highlight_enable: "yes"
       });
 
       //     var date = new Date();
@@ -964,61 +962,61 @@
       //     console.log("Performance",a,avg/100);
 
       var k = new PykCharts.multiD.groupedBar({
-        // data: "../data/grouped-bar.csv",
-        data: "../data/groupedbar.xml",
+        data: "../data/grouped-bar.csv",
+        // data: "../data/groupedbar.xml",
         mode: "default",
         selector: "#groupBar",
         chart_height: 630,
         chart_width  : 700,
-        chart_margin_top: 25,
-        chart_margin_right: 45,
-        chart_margin_bottom: 35,
-        chart_margin_left: 140,
+        // chart_margin_top: 25,
+        // chart_margin_right: 45,
+        // chart_margin_bottom: 35,
+        // chart_margin_left: 50,
 
-        color_mode:"color",
-        saturation_color: "green",
-        background_color:"white",
-        chart_color:["orange"],
-        real_time_charts_refresh_frequency: 10,
+        // color_mode:"color",
+        // saturation_color: "green",
+        // background_color:"white",
+        // chart_color:["orange"],
+        // real_time_charts_refresh_frequency: 0,
 
         axis_onhover_highlight_enable: "yes",
 
-        axis_x_enable: "yes",
-        axis_x_title : "Rainfall",
-        axis_x_position: "bottom",
-        axis_x_pointer_position: "bottom",
-        axis_x_line_color: "#1D1D1D",
-        axis_x_label_color: "#1D1D1D",
-        axis_x_pointer_size: 12,
-        axis_x_pointer_padding: 3,
-        axis_x_outer_pointer_length: 3,
+        // axis_x_enable: "yes",
+        // axis_x_title : "Rainfall",
+        // axis_x_position: "bottom",
+        // axis_x_pointer_position: "bottom",
+        // axis_x_line_color: "#1D1D1D",
+        // axis_x_label_color: "#1D1D1D",
+        // axis_x_pointer_size: 12,
+        // axis_x_pointer_padding: 3,
+        // axis_x_outer_pointer_length: 3,
 
-        axis_y_enable: "yes",
-        axis_y_title : "Months",
-        axis_y_position: "left",
-        axis_y_pointer_position: "left",
-        axis_y_line_color: "red",
-        axis_y_label_color: "#1D1D1D",
-        axis_y_pointer_size: 12,
-        axis_y_pointer_padding: 10,
-        axis_y_outer_pointer_length: 3,
-        axis_x_time_value_interval:2,
-        highlight_color: "#013F73",
-        panels_enable: "yes",
+        // axis_y_enable: "yes",
+        // axis_y_title : "Months",
+        // axis_y_position: "left",
+        // axis_y_pointer_position: "left",
+        // axis_y_line_color: "red",
+        // axis_y_label_color: "#1D1D1D",
+        // axis_y_pointer_size: 12,
+        // axis_y_pointer_padding: 10,
+        // axis_y_outer_pointer_length: 3,
+        // axis_x_time_value_interval:2,
+        // highlight_color: "#013F73",
+        // panels_enable: "yes",
 
         transition_duration: 2,
 
-        border_between_chart_elements_thickness: 1,
-        border_between_chart_elements_color: "white",
-        border_between_chart_elements_style: "solid",
+        // border_between_chart_elements_thickness: 1,
+        // border_between_chart_elements_color: "white",
+        // border_between_chart_elements_style: "solid",
 
-        pointer_thickness: 1,
-        pointer_weight: "normal",
-        pointer_size: 10,
-        pointer_color: "#1D1D1D",
-        pointer_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
-        saturation_enable: "no",
-        axis_x_pointer_weight: "normal",
+        // pointer_thickness: 1,
+        // pointer_weight: "normal",
+        // pointer_size: 10,
+        // pointer_color: "#1D1D1D",
+        // pointer_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
+        // saturation_enable: "no",
+        // axis_x_pointer_weight: "normal",
         // axis_y_pointer_values: [2000,2004,2008,2012],
         data_sort_enable: "yes",
         highlight: "2014-07-02",
@@ -1045,7 +1043,7 @@
       //     for(i = 0;i<100;i++) {
       // //         // console.log(i);
       //         var start = new Date().getTime();
-      k.execute();
+      // k.execute();
       //         var end = new Date().getTime();
       //             a[i] = end - start;
       //             avg += a[i]
@@ -1132,7 +1130,7 @@
       //     for(i = 0;i<100;i++) {
       // //         // console.log(i);
       //         var start = new Date().getTime();
-      k.execute();
+      // k.execute();
       //         var end = new Date().getTime();
       //             a[i] = end - start;
       //             avg += a[i]

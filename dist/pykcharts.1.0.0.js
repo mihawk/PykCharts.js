@@ -1522,26 +1522,27 @@ configuration.mouseEvent = function (options) {
             }
         },
         axisHighlightShow: function (active_tick,axisHighlight,domain,a) {
-            var curr_tick,prev_tick,axis_pointer_color,selection,axis_data_length,active_tick_length;
+            var curr_tick,prev_tick,axis_pointer_color,selection,axis_data_length,active_tick_length,domain_length;
             if(PykCharts['boolean'](options.axis_onhover_highlight_enable)/* && options.mode === "default"*/){
-                    if(axisHighlight === options.selector + " .y.axis" && a == undefined){
-                        selection = axisHighlight+" .tick text";
-                        axis_pointer_color = options.axis_y_pointer_color;
-                        axis_data_length = d3.selectAll(selection)[0].length;
-                        active_tick_length = active_tick.length;
-                        d3.selectAll(selection)
-                            .style("fill","#bbb")
-                            .style("font-weight","normal");
-                        for(var b=0;b < axis_data_length;b++) {
-                            for(var a=0;a < active_tick_length;a++) {
-                                if(d3.selectAll(selection)[0][b].__data__ === active_tick[a]) {
+                if(axisHighlight === options.selector + " .y.axis" && a == undefined){
+                    selection = axisHighlight+" .tick text";
+                    axis_pointer_color = options.axis_y_pointer_color;
+                    axis_data_length = d3.selectAll(selection)[0].length;
+                    active_tick_length = active_tick.length;
+                    
+                    d3.selectAll(selection)
+                        .style("fill","#bbb")
+                        .style("font-weight","normal");
 
-                                    d3.select(d3.selectAll(selection)[0][b])
-                                        .style("fill",axis_pointer_color)
-                                        .style("font-weight","bold");
-                                }
+                    for(var b=0;b < axis_data_length;b++) {
+                        for(var c=0;c < active_tick_length;c++) {
+                            if(d3.selectAll(selection)[0][b].__data__ === active_tick[c]) {
+                                d3.select(d3.selectAll(selection)[0][b])
+                                    .style("fill",axis_pointer_color)
+                                    .style("font-weight","bold");
                             }
                         }
+                    }
                 }
                 else {
                     if(axisHighlight === options.selector + " .x.axis") {
@@ -1572,15 +1573,14 @@ configuration.mouseEvent = function (options) {
                     axis_data_length = d3.selectAll(selection)[0].length;
 
                     var len = domain.length;
-                    if(options.axis_x_data_format === "number" && a === undefined) {
-                        for(var curr_tick=0;curr_tick< axis_data_length;curr_tick++) {
+                    if(options.axis_x_data_format === "number"/* && a === undefined*/) {
+                        for(var curr_tick=0 ; curr_tick<axis_data_length ; curr_tick++) {
                             if(d3.selectAll(selection)[0][curr_tick].__data__ == active_tick) {
                                 break;
                             }
                         }
-                    } else{
+                    } else {
                         for(curr_tick = 0;curr_tick < len;curr_tick++) {
-
                             if(domain[curr_tick] === active_tick) {
                                 break;
                             }
@@ -9964,7 +9964,6 @@ PykCharts.multiD.stackedArea = function (options){
         PykCharts.scaleFunction(that);
         PykCharts.grid(that);
 
-
 		if(that.stop) {
 			return;
 		}
@@ -11711,17 +11710,17 @@ PykCharts.multiD.groupedBar = function(options){
                         'mouseout': function (d) {
                             if(that.mode === "default") {
                                 if(PykCharts.boolean(that.chart_onhover_highlight_enable)) {
-                                    that.mouseEvent.highlightGroupHide(that.selector+" "+".groupedBar-rect","rect");
+                                    that.mouseEvent.highlightGroupHide(that.selector+" .groupedBar-rect","rect");
                                 }
-                                that.mouseEvent.axisHighlightHide(that.selector+" "+".y.axis")
+                                that.mouseEvent.axisHighlightHide(that.selector+" .y.axis")
                             }
                         },
                         'mousemove': function (d) {
                             if(that.mode === "default") {
                                 if(PykCharts.boolean(that.chart_onhover_highlight_enable)) {
-                                    that.mouseEvent.highlightGroup(that.selector+" "+".groupedBar-rect", this, "rect");
+                                    that.mouseEvent.highlightGroup(that.selector+" .groupedBar-rect", this, "rect");
                                 }
-                                that.mouseEvent.axisHighlightShow(d.name,(that.selector+" "+".y.axis"),that.ydomain,"bar");
+                                that.mouseEvent.axisHighlightShow(d.name,(that.selector+" .y.axis"),that.ydomain,"bar");
                             }
                         }
                     });

@@ -395,17 +395,17 @@ PykCharts.multiD.groupedBar = function(options){
                         'mouseout': function (d) {
                             if(that.mode === "default") {
                                 if(PykCharts.boolean(that.chart_onhover_highlight_enable)) {
-                                    that.mouseEvent.highlightGroupHide(that.selector+" "+".groupedBar-rect","rect");
+                                    that.mouseEvent.highlightGroupHide(that.selector+" .groupedBar-rect","rect");
                                 }
-                                that.mouseEvent.axisHighlightHide(that.selector+" "+".y.axis")
+                                that.mouseEvent.axisHighlightHide(that.selector+" .y.axis")
                             }
                         },
                         'mousemove': function (d) {
                             if(that.mode === "default") {
                                 if(PykCharts.boolean(that.chart_onhover_highlight_enable)) {
-                                    that.mouseEvent.highlightGroup(that.selector+" "+".groupedBar-rect", this, "rect");
+                                    that.mouseEvent.highlightGroup(that.selector+" .groupedBar-rect", this, "rect");
                                 }
-                                that.mouseEvent.axisHighlightShow(d.name,(that.selector+" "+".y.axis"),that.ydomain,"bar");
+                                that.mouseEvent.axisHighlightShow(d.name,(that.selector+" .y.axis"),that.ydomain,"bar");
                             }
                         }
                     });

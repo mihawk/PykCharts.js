@@ -10,7 +10,6 @@ PykCharts.multiD.stackedArea = function (options){
         PykCharts.scaleFunction(that);
         PykCharts.grid(that);
 
-
 		if(that.stop) {
 			return;
 		}
