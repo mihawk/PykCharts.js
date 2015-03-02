@@ -556,9 +556,9 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
         var middle_point = that.xScale(that.new_data[0].data[0].start) + that.longest_tick_width + 15;
         if(PykCharts['boolean'](that.axis_x_enable)) {
             drawline(start_point+extrapadding,end_point+extrapadding+1,that.reducedHeight,that.reducedHeight);
-            drawline(start_point+1+extrapadding,start_point+1+extrapadding,that.reducedHeight,that.reducedHeight+that.axis_x_outer_pointer_length)
-            drawline(end_point+1+extrapadding,end_point+1+extrapadding,that.reducedHeight,that.reducedHeight+that.axis_x_pointer_length)
-            drawline(middle_point+1+extrapadding,middle_point+1+extrapadding,that.reducedHeight,that.reducedHeight+that.axis_x_pointer_length);
+            drawline(start_point+extrapadding,start_point+extrapadding,that.reducedHeight,that.reducedHeight+that.axis_x_outer_pointer_length)
+            drawline(end_point+extrapadding,end_point+extrapadding,that.reducedHeight,that.reducedHeight+that.axis_x_pointer_length)
+            drawline(middle_point+extrapadding,middle_point+extrapadding,that.reducedHeight,that.reducedHeight+that.axis_x_pointer_length);
         
             var text = that.group.selectAll(".custom-axis-text")
                 .data([0]);
@@ -588,7 +588,8 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
                 .attr("y2",y2)
                 .attr("class","custom-axis")
                 .attr("stroke",that.axis_x_line_color)
-                .attr("stroke-width",1);
+                .attr("stroke-width",1)
+                .style("shape-rendering","crispEdges");
         }
     }
 
