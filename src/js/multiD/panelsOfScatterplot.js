@@ -68,6 +68,6 @@ PykCharts.multiD.panelsOfScatter = function (options) {
         that.k.dataSourceFormatIdentification(that.data,that,"executeData");
     } else {
         that.k.dataSourceFormatIdentification(options.data,that,"executeData");
-    }   
+    }
   };
 };
