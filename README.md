@@ -1,6 +1,6 @@
 # PykCharts.js
 
-PykCharts.js is a well designed d3.js charting without the complexity of d3.js. It includes 26+ well-designed, themeable, responsive, modular, real-time and easy to use charts and 109+ maps. 
+[PykCharts.js](http://pykcharts.com) is a well designed d3.js charting without the complexity of d3.js. It includes 26+ well-designed, themeable, responsive, modular, real-time and easy to use charts and 109+ maps.
 
 ### Documentation
 
