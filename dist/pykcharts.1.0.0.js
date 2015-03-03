@@ -1202,11 +1202,11 @@ PykCharts.Configuration = function (options){
             return this;
         },
         errorHandling: function(error_msg,error_code,err_url) {
-            console.error('%c[Error - Pykih Charts] ', 'color: red;font-weight:bold;font-size:14px', " at "+options.selector+".(Invalid value for attribute \""+error_msg+"\")  Visit www.chartstore.io/docs#error_"+error_code);
+            console.error('%c[Error - Pykih Charts] ', 'color: red;font-weight:bold;font-size:14px', " at "+options.selector+".(Invalid value for attribute \""+error_msg+"\")  Visit www.pykcharts.com/errors#error_"+error_code);
             return;
         },
         warningHandling: function(error_msg,error_code,err_url) {
-            console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+options.selector+".(Invalid value for attribute \""+error_msg+"\")  Visit www.chartstore.io/docs#warning_"+error_code);
+            console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+options.selector+".(Invalid value for attribute \""+error_msg+"\")  Visit www.pykcharts.com/errors#warning_"+error_code);
             return;
         },
         validator: function () {
@@ -1472,7 +1472,8 @@ PykCharts.Configuration = function (options){
                             throw "Data is not in the valid JSON format";
                         }
                         catch (err) {
-                            console.error('%c[Error - Pykih Charts] ', 'color: red;font-weight:bold;font-size:14px', " at "+ options.selector+".(\""+err+"\")  Visit www.chartstore.io/docs#error_2");
+                            // console.error('%c[Error - Pykih Charts] ', 'color: red;font-weight:bold;font-size:14px', " at "+ options.selector+".(\""+err+"\")  Visit www.pykcharts.com/errors#error_2");
+                            console.error('%c[Error - Pykih Charts] ', 'color: red;font-weight:bold;font-size:14px', " at "+ options.selector+".(\""+err+"\")  Visit localhost:3000/errors#error_2");
                         }
                     }
                     return (options.stop) ? false : true;
@@ -3273,8 +3274,7 @@ PykCharts.oneD.funnel = function (options) {
         }
         catch (e) {
             that.funnel_rect_width  = functionality.funnel_rect_width;
-            console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+that.selector+".(Invalid value for attribute \"funnel_rect_width\")  Visit www.chartstore.io/docs#warning_19");
-
+            console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+that.selector+".(Invalid value for attribute \"funnel_rect_width\")  Visit www.pykcharts.com/errors#warning_19");
         }
 
         if(that.stop) {
@@ -8479,7 +8479,8 @@ PykCharts.multiD.line = function (options) {
             that.axis_y_data_format = "number";
             that.axis_x_data_format = that.k.xAxisDataFormatIdentification(that.data);
             if(that.axis_x_data_format === "time" && that.axis_x_time_value_datatype === "") {
-                console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+that.selector+".(\""+"You seem to have passed Date data so please pass the value for axis_x_time_value_datatype"+"\")  Visit www.chartstore.io/docs#warning_"+"15");
+                // console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+that.selector+".(\""+"You seem to have passed Date data so please pass the value for axis_x_time_value_datatype"+"\")  Visit www.pykcharts.com/errors#warning_"+"15");
+                console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+that.selector+".(\""+"You seem to have passed Date data so please pass the value for axis_x_time_value_datatype"+"\")  Visit localhost:3000/errors#warning_"+"15");
             }
 
             if (that.axis_x_data_format === "string") {
@@ -8541,7 +8542,7 @@ PykCharts.multiD.multiSeriesLine = function (options) {
             that.axis_y_data_format = "number";
             that.axis_x_data_format = that.k.xAxisDataFormatIdentification(that.data);
             if(that.axis_x_data_format === "time" && that.axis_x_time_value_datatype === "") {
-                console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+that.selector+".(\""+"You seem to have passed Date data so please pass the value for axis_x_time_value_datatype"+"\")  Visit www.chartstore.io/docs#warning_"+"15");
+                console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+that.selector+".(\""+"You seem to have passed Date data so please pass the value for axis_x_time_value_datatype"+"\")  Visit www.pykcharts.com/errors#warning_15");
             }
 
             if (that.axis_x_data_format === "string") {
@@ -8606,7 +8607,7 @@ PykCharts.multiD.panelsOfLine = function (options) {
             that.axis_y_data_format = "number";
             that.axis_x_data_format = that.k.xAxisDataFormatIdentification(that.data);
             if(that.axis_x_data_format === "time" && that.axis_x_time_value_datatype === "") {
-                console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+that.selector+".(\""+"You seem to have passed Date data so please pass the value for axis_x_time_value_datatype"+"\")  Visit www.chartstore.io/docs#warning_"+"15");
+                console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+that.selector+".(\""+"You seem to have passed Date data so please pass the value for axis_x_time_value_datatype"+"\")  Visit www.pykcharts.com/errors#warning_15");
             }
 
             if (that.axis_x_data_format === "string") {
@@ -8822,7 +8823,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                     }
                 }
                 catch (err) {
-                    console.error('%c[Error - Pykih Charts] ', 'color: red;font-weight:bold;font-size:14px', " at "+that.selector+".\""+err+"\"  Visit www.chartstore.io/docs#error_6");                 
+                    console.error('%c[Error - Pykih Charts] ', 'color: red;font-weight:bold;font-size:14px', " at "+that.selector+".\""+err+"\"  Visit www.pykcharts.com/errors#error_6");
                     return;
                 }
 
@@ -8896,7 +8897,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                     }
                 }
                 catch (err) {
-                    console.error('%c[Error - Pykih Charts] ', 'color: red;font-weight:bold;font-size:14px', " at "+that.selector+".\""+err+"\"  Visit www.chartstore.io/docs#error_");                  
+                    console.error('%c[Error - Pykih Charts] ', 'color: red;font-weight:bold;font-size:14px', " at "+that.selector+".\""+err+"\"  Visit www.pykcharts.com/errors#error_6");
                     return;
                 }
 
@@ -9924,7 +9925,7 @@ PykCharts.multiD.area = function (options){
 			that.axis_y_data_format = "number";
     		that.axis_x_data_format = that.k.xAxisDataFormatIdentification(that.data);
     		if(that.axis_x_data_format === "time" && that.axis_x_time_value_datatype === "") {
-    			console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+that.selector+".(\""+"You seem to have passed Date data so please pass the value for axis_x_time_value_datatype"+"\")  Visit www.chartstore.io/docs#warning_"+"15");
+    			console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+that.selector+".(\""+"You seem to have passed Date data so please pass the value for axis_x_time_value_datatype"+"\")  Visit www.pykcharts.com/errors#warning_15");
     		}
 			that.compare_data = that.data;
 			that.data_length = that.data.length;
@@ -9996,7 +9997,7 @@ PykCharts.multiD.stackedArea = function (options){
 			that.axis_y_data_format = "number";
     		that.axis_x_data_format = that.k.xAxisDataFormatIdentification(that.data);
     		if(that.axis_x_data_format === "time" && that.axis_x_time_value_datatype === "") {
-    			console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+that.selector+".(\""+"You seem to have passed Date data so please pass the value for axis_x_time_value_datatype"+"\")  Visit www.chartstore.io/docs#warning_"+"15");
+    			console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+that.selector+".(\""+"You seem to have passed Date data so please pass the value for axis_x_time_value_datatype"+"\")  Visit www.pykcharts.com/errors#warning_15");
     		}
 			that.compare_data = that.data;
 			that.data_length = that.data.length;
@@ -10126,7 +10127,7 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 
 		}
 		catch (err) {
-            console.error('%c[Error - Pykih Charts] ', 'color: red;font-weight:bold;font-size:14px', " at "+that.selector+".\""+err+"\"  Visit www.chartstore.io/docs#error_7");					
+            console.error('%c[Error - Pykih Charts] ', 'color: red;font-weight:bold;font-size:14px', " at "+that.selector+".\""+err+"\"  Visit www.pykcharts.com/errors#error_7");
          	return;   
 		}
 		if(that.axis_x_data_format === "time") {
@@ -12020,7 +12021,7 @@ PykCharts.multiD.column = function (options) {
             that.axis_y_data_format = "number";
             that.axis_x_data_format = that.k.xAxisDataFormatIdentification(that.data);
             if(that.axis_x_data_format === "time" && that.axis_x_time_value_datatype === "") {
-                console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+that.selector+".(\""+"You seem to have passed Date data so please pass the value for axis_x_time_value_datatype"+"\")  Visit www.chartstore.io/docs#warning_"+"15");
+                console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+that.selector+".(\""+"You seem to have passed Date data so please pass the value for axis_x_time_value_datatype"+"\")  Visit www.pykcharts.com/errors#warning_15");
             }
             that.k.remove_loading_bar(id);
             that.render();
@@ -12503,7 +12504,7 @@ PykCharts.multiD.groupedColumn = function(options) {
             that.axis_y_data_format = "number";
             that.axis_x_data_format = that.k.xAxisDataFormatIdentification(that.data);
             if(that.axis_x_data_format === "time" && that.axis_x_time_value_datatype === "") {
-                console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+that.selector+".(\""+"You seem to have passed Date data so please pass the value for axis_x_time_value_datatype"+"\")  Visit www.chartstore.io/docs#warning_"+"15");
+                console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+that.selector+".(\""+"You seem to have passed Date data so please pass the value for axis_x_time_value_datatype"+"\")  Visit www.pykcharts.com/errors#warning_15");
             }
 
             that.k.remove_loading_bar(id);
@@ -13178,10 +13179,10 @@ PykCharts.multiD.scatter = function (options) {
       that.axis_y_data_format = that.k.yAxisDataFormatIdentification(that.data);
       that.axis_x_data_format = that.k.xAxisDataFormatIdentification(that.data);
       if(that.axis_x_data_format === "time" && that.axis_x_time_value_datatype === "") {
-        console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+that.selector+".(\""+"You seem to have passed Date data so please pass the value for axis_x_time_value_datatype"+"\")  Visit www.chartstore.io/docs#warning_"+"15");
+        console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+that.selector+".(\""+"You seem to have passed Date data so please pass the value for axis_x_time_value_datatype"+"\")  Visit www.pykcharts.com/errors#warning_15");
       }
       if(that.axis_y_data_format === "time" && that.axis_y_time_value_datatype === "") {
-        console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+that.selector+".(\""+"You seem to have passed Date data so please pass the value for axis_x_time_value_datatype"+"\")  Visit www.chartstore.io/docs#warning_"+"15");
+        console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+that.selector+".(\""+"You seem to have passed Date data so please pass the value for axis_x_time_value_datatype"+"\")  Visit www.pykcharts.com/errors#warning_15");
       }
       that.compare_data = that.k.__proto__._groupBy("scatterplot",data);
       that.k.remove_loading_bar(id);
@@ -13252,10 +13253,10 @@ PykCharts.multiD.panelsOfScatter = function (options) {
       that.axis_y_data_format = that.k.yAxisDataFormatIdentification(that.data);
       that.axis_x_data_format = that.k.xAxisDataFormatIdentification(that.data);
       if(that.axis_x_data_format === "time" && that.axis_x_time_value_datatype === "") {
-        console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+that.selector+".(\""+"You seem to have passed Date data so please pass the value for axis_x_time_value_datatype"+"\")  Visit www.chartstore.io/docs#warning_"+"15");
+        console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+that.selector+".(\""+"You seem to have passed Date data so please pass the value for axis_x_time_value_datatype"+"\")  Visit www.pykcharts.com/errors#warning_15");
       }
       if(that.axis_y_data_format === "time" && that.axis_y_time_value_datatype === "") {
-        console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+that.selector+".(\""+"You seem to have passed Date data so please pass the value for axis_x_time_value_datatype"+"\")  Visit www.chartstore.io/docs#warning_"+"15");
+        console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+that.selector+".(\""+"You seem to have passed Date data so please pass the value for axis_x_time_value_datatype"+"\")  Visit www.pykcharts.com/errors#warning_15");
       }
       that.compare_data = that.k.__proto__._groupBy("scatterplot",data);
       that.k.remove_loading_bar(id);
@@ -13318,10 +13319,10 @@ PykCharts.multiD.pulse = function (options) {
       that.axis_y_data_format = that.k.yAxisDataFormatIdentification(that.data);
       that.axis_x_data_format = that.k.xAxisDataFormatIdentification(that.data);
       if(that.axis_x_data_format === "date" && that.axis_x_time_value_datatype === "") {
-        console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+that.selector+".(\""+"You seem to pass Date data so please pass axis_x_time_value_datatype"+"\")  Visit www.chartstore.io/docs#warning_"+"15");
+        console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+that.selector+".(\""+"You seem to pass Date data so please pass axis_x_time_value_datatype"+"\")  Visit www.pykcharts.com/errors#warning_15");
       }
       if(that.axis_y_data_format === "date" && that.axis_y_time_value_datatype === "") {
-        console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+that.selector+".(\""+"You seem to pass Date data so please pass axis_y_time_value_datatype"+"\")  Visit www.chartstore.io/docs#warning_"+"15");
+        console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+that.selector+".(\""+"You seem to pass Date data so please pass axis_y_time_value_datatype"+"\")  Visit www.pykcharts.com/errors#warning_15");
       }
       that.compare_data = that.k.__proto__._groupBy("pulse",data);
       that.k.remove_loading_bar(id);
@@ -15717,7 +15718,7 @@ PykCharts.multiD.waterfall = function(options){
 	        }
         }
         catch(err) {
-        	console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+that.selector+".(\""+"You seem to have passed less than three colors for '"+err+"', in a waterfall chart."+"\")  Visit www.chartstore.io/docs#warning_"+"18");
+        	console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+that.selector+".(\""+"You seem to have passed less than three colors for '"+err+"', in a waterfall chart."+"\")  Visit www.pykcharts.com/errors#warning_18");
         }
         
         if(that.stop) {

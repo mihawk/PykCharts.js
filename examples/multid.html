@@ -13,10 +13,10 @@
   <div id="multiple-multiLine"></div>
   <hr/>
   <div id="multiArea"></div>
-  <hr/>
+  <hr/>-->
   <div id="pulse"></div>
   <hr/>
-  <div id="scatterPlot"></div>
+  <!--<div id="scatterPlot"></div>
   <hr/>
   <div id="multiple-scatterplots"></div>
   <hr/>
@@ -25,12 +25,12 @@
   <div id="column"></div>
   <hr/>
   <div id="groupColumn"></div>
-  <hr/>-->
+  <hr/>
   <div id="bar"></div>
   <hr/>
   <div id="groupBar"></div>
   <hr/>
-  <!--<div id="waterfall-chart"></div>
+  <div id="waterfall-chart"></div>
   <hr/>-->
   <script src="../src/js/init.js"></script>
   <script src="../src/js/pyk.js"></script>
@@ -115,7 +115,7 @@
         "axis_y_background_color": "#EBEBEB"
         // background_color: "rgba(0,0,0,0.1)"
       });
-      // k.execute();
+      k.execute();
 
       var k = new PykCharts.multiD.line ({
         selector: "#line",
@@ -192,7 +192,7 @@
         // "subtitle_color": "green",
         // background_color: "cyan"
       });
-      // k.execute();
+      k.execute();
 
       var k = new PykCharts.multiD.area ({
         selector: "#area",
@@ -264,7 +264,7 @@
       // // for(i = 0;i<100;i++) {
       // //     console.log(i);
       // //     var start = new Date().getTime();
-      // k.execute();
+      k.execute();
       //     var end = new Date().getTime();
       //     a[i] = end - start;
       //     avg += a[i];
@@ -316,7 +316,7 @@
       // for(i = 0;i<100;i++) {
       //     // console.log(i);
       //     var start = new Date().getTime();
-      // k.execute();
+      k.execute();
       //     var end = new Date().getTime();
       //         a[i] = end - start;
       //         avg += a[i]
@@ -418,7 +418,7 @@
       // //     for(i = 0;i<100;i++) {
       // //         // console.log(i);
       // //         var start = new Date().getTime();
-      // k.execute();
+      k.execute();
       // //         var end = new Date().getTime();
       // //             a[i] = end - start;
       // //             avg += a[i]
@@ -496,7 +496,7 @@
       // //     for(i = 0;i<100;i++) {
       // // //         // console.log(i);
       // //         var start = new Date().getTime();
-      // k.execute();
+      k.execute();
       // //         var end = new Date().getTime();
       // //             a[i] = end - start;
       // //             avg += a[i]
@@ -572,7 +572,7 @@
       //     for(i = 0;i<10;i++) {
       // //         // console.log(i);
       //         var start = new Date().getTime();
-      // k.execute();
+      k.execute();
       //     var end = new Date().getTime();
       //         a[i] = end - start;
       //         avg += a[i]
@@ -646,7 +646,7 @@
       //     for(i = 0;i<100;i++) {
       // //         // console.log(i);
       //         var start = new Date().getTime();
-      // k.execute();
+      k.execute();
       //         var end = new Date().getTime();
       //             a[i] = end - start;
       //             avg += a[i]
@@ -725,7 +725,7 @@
       //     for(i = 0;i<100;i++) {
       // //         // console.log(i);
       //         var start = new Date().getTime();
-      // k.execute();
+      k.execute();
       //         var end = new Date().getTime();
       //             a[i] = end - start;
       //             avg += a[i]
@@ -740,9 +740,9 @@
         mode : "default", //  default or infographics
 
         // chart_color: ["#75b0e1","#4682b4","#013f73"],
-        chart_color:["red","green","blue"],
+        // chart_color:["red","green","blue"],
 
-        background_color:"white",
+        // background_color:"white",
 
         chart_height: 350,
         chart_width : 650,
@@ -752,49 +752,49 @@
         chart_margin_left: 65,
 
         transition_duration: 2,
-        real_time_charts_refresh_frequency: 0,
+        // real_time_charts_refresh_frequency: 0,
 
         axis_onhover_highlight_enable: "yes",
 
-        axis_x_enable: "yes",
-        axis_x_title : "Years",
-        axis_x_position: "bottom",
-        axis_x_pointer_position: "bottom",
-        axis_x_line_color: "red",
-        axis_x_pointer_color: "blue",
-        axis_x_pointer_size: 15,
-        axis_x_pointer_padding: 3,
+        // axis_x_enable: "yes",
+        // axis_x_title : "Years",
+        // axis_x_position: "bottom",
+        // axis_x_pointer_position: "bottom",
+        // axis_x_line_color: "red",
+        // axis_x_pointer_color: "blue",
+        // axis_x_pointer_size: 15,
+        // axis_x_pointer_padding: 3,
         axis_x_pointer_values: [2002, 2004, 2006, 2008],
         axis_x_outer_pointer_length: 3,
 
-        axis_y_enable: "yes",
-        axis_y_title : "Categories",
-        axis_y_position: "left",
-        axis_y_pointer_position: "left",
-        axis_y_line_color: "red",
-        axis_y_pointer_color: "blue",
-        axis_y_pointer_size: 15,
-        axis_y_pointer_padding: 10,
-        axis_x_pointer_values: [],
-        axis_y_outer_pointer_length: 3,
+        // axis_y_enable: "yes",
+        // axis_y_title : "Categories",
+        // axis_y_position: "left",
+        // axis_y_pointer_position: "left",
+        // axis_y_line_color: "red",
+        // axis_y_pointer_color: "blue",
+        // axis_y_pointer_size: 15,
+        // axis_y_pointer_padding: 10,
+        // axis_x_pointer_values: [],
+        // axis_y_outer_pointer_length: 3,
         // axis_x_pointer_values : [3000],
 
         tooltip_mode : "moving",
         tooltip_enable : "yes",
-        crosshair_enable: "yes",
+        // crosshair_enable: "yes",
         panels_enable: "yes",
         variable_circle_size_enable : "no",
 
-        legends_enable: "yes",
-        legends_display: "horizontal",
-        legends_text_size: 13,
-        legends_text_color: "black",
-        legends_text_weight: "normal",
-        legends_text_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
+        // legends_enable: "yes",
+        // legends_display: "horizontal",
+        // legends_text_size: 13,
+        // legends_text_color: "black",
+        // legends_text_weight: "normal",
+        // legends_text_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
 
-        border_between_chart_elements_thickness: 0,
-        border_between_chart_elements_color: "white",
-        border_between_chart_elements_style: "solid"
+        // border_between_chart_elements_thickness: 0,
+        // border_between_chart_elements_color: "white",
+        // border_between_chart_elements_style: "solid"
 
       });
 
@@ -804,7 +804,7 @@
       //     for(i = 0;i<100;i++) {
       // //         // console.log(i);
       //         var start = new Date().getTime();
-      // k.execute();
+      k.execute();
       //         var end = new Date().getTime();
       //             a[i] = end - start;
       //             avg += a[i]
@@ -879,7 +879,7 @@
       //     for(i = 0;i<100;i++) {
       // //         // console.log(i);
       //         var start = new Date().getTime();
-      // k.execute();
+      k.execute();
       //         var end = new Date().getTime();
       //             a[i] = end - start;
       //             avg += a[i]
@@ -900,7 +900,7 @@
         // chart_margin_top: 25,
         // chart_margin_right: 25,
         // chart_margin_bottom: 35,
-        // chart_margin_left: 130,
+        chart_margin_left: 130,
 
         // real_time_charts_refresh_frequency: 0,
 
@@ -956,7 +956,7 @@
       //     for(i = 0;i<100;i++) {
       //         // console.log(i);
       //         var start = new Date().getTime();
-      // k.execute();
+      k.execute();
       //         var end = new Date().getTime();
       //             a[i] = end - start;
       //             avg += a[i]
@@ -1030,8 +1030,8 @@
         legends_text_weight: "normal",
         legends_text_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
         "data_sort_enable": "yes",
-        "data_sort_type": "numerically", // sort type --- "alphabetically" / "date"
-        "data_sort_order": "descending", // sort order --- "descending" / "ascending",
+        "data_sort_type": "alphabetically", // sort type --- "alphabetically" / "date"
+        "data_sort_order": "ascending", // sort order --- "descending" / "ascending",
         highlight:"abc",
         tooltip_enable: "yes",
         legends_text_family: "Papyrus",
@@ -1133,7 +1133,7 @@
       //     for(i = 0;i<100;i++) {
       // //         // console.log(i);
       //         var start = new Date().getTime();
-      // k.execute();
+      k.execute();
       //         var end = new Date().getTime();
       //             a[i] = end - start;
       //             avg += a[i]

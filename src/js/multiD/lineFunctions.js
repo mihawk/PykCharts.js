@@ -192,7 +192,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                     }
                 }
                 catch (err) {
-                    console.error('%c[Error - Pykih Charts] ', 'color: red;font-weight:bold;font-size:14px', " at "+that.selector+".\""+err+"\"  Visit www.chartstore.io/docs#error_6");                 
+                    console.error('%c[Error - Pykih Charts] ', 'color: red;font-weight:bold;font-size:14px', " at "+that.selector+".\""+err+"\"  Visit www.pykcharts.com/errors#error_6");
                     return;
                 }
 
@@ -266,7 +266,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                     }
                 }
                 catch (err) {
-                    console.error('%c[Error - Pykih Charts] ', 'color: red;font-weight:bold;font-size:14px', " at "+that.selector+".\""+err+"\"  Visit www.chartstore.io/docs#error_");                  
+                    console.error('%c[Error - Pykih Charts] ', 'color: red;font-weight:bold;font-size:14px', " at "+that.selector+".\""+err+"\"  Visit www.pykcharts.com/errors#error_6");
                     return;
                 }
 
