@@ -4,7 +4,7 @@
   <link rel="stylesheet" type="text/css" href="../src/css/PykCharts.css">
 </head>
 <body>
-  <!-- <div id="line"></div>
+  <!--<div id="line"></div>
   <hr/>
   <div id="area"></div>
   <hr/>
@@ -28,9 +28,9 @@
   <hr/>-->
   <div id="bar"></div>
   <hr/>
-  <!--<div id="groupBar"></div>
+  <div id="groupBar"></div>
   <hr/>
-  <div id="waterfall-chart"></div>
+  <!--<div id="waterfall-chart"></div>
   <hr/>-->
   <script src="../src/js/init.js"></script>
   <script src="../src/js/pyk.js"></script>
@@ -152,7 +152,7 @@
         // "axis_y_line_color": "#1D1D1D",
         // "axis_y_pointer_size": 12,
         // "axis_y_pointer_color": "#1D1D1D",
-        // "axis_y_no_of_axis_value": 5,
+        "axis_y_no_of_axis_value": 10,
         // "axis_y_pointer_padding": 6,
         // "axis_y_pointer_values": [],
         // "axis_y_outer_pointer_length": 0,
@@ -812,7 +812,7 @@
       //     console.log("Performance",a,avg/100);
 
       var k = new PykCharts.multiD.column({
-        data: "../data/column.csv",
+        data: "../data/column_linear.csv",
         // data: "../data/column.xml",
         mode: "default",
         selector: "#column",
@@ -860,6 +860,7 @@
         axis_y_pointer_size: 12,
         axis_y_pointer_padding: 10,
         axis_y_outer_pointer_length: 3,
+        "axis_y_no_of_axis_value": 10,
 
         highlight_color: "#013F73",
         // panels_enable:"yes",
@@ -886,7 +887,7 @@
       //     console.log("Performance",a,avg/100);
 
       var k = new PykCharts.multiD.bar({
-        data: "../data/bar_timescale.csv",
+        data: "../data/bar.csv",
         // data: "../data/bar.xml",
         mode: "default",
         selector: "#bar",
@@ -899,11 +900,12 @@
         // chart_margin_top: 25,
         // chart_margin_right: 25,
         // chart_margin_bottom: 35,
-        chart_margin_left: 130,
+        // chart_margin_left: 130,
 
         // real_time_charts_refresh_frequency: 0,
 
         axis_onhover_highlight_enable: "yes",
+        "axis_y_no_of_axis_value": 10,
 
         // axis_x_enable: "yes",
         // axis_x_title : "Rainfall",
@@ -941,9 +943,9 @@
         // highlight:"india",
         // panels_enable: "yes",
 
-        data_sort_enable: "normal",
-        data_sort_type: "alphabetically",
-        data_sort_order: "ascending",
+        data_sort_enable: "yes",
+        data_sort_type: "numerically",
+        // data_sort_order: "descending",
         tooltip_enable: "yes",
         chart_onhover_highlight_enable: "yes"
       });
@@ -954,7 +956,7 @@
       //     for(i = 0;i<100;i++) {
       //         // console.log(i);
       //         var start = new Date().getTime();
-      k.execute();
+      // k.execute();
       //         var end = new Date().getTime();
       //             a[i] = end - start;
       //             avg += a[i]
@@ -962,7 +964,7 @@
       //     console.log("Performance",a,avg/100);
 
       var k = new PykCharts.multiD.groupedBar({
-        data: "../data/grouped-bar.csv",
+        data: "../data/groupedbar.csv",
         // data: "../data/groupedbar.xml",
         mode: "default",
         selector: "#groupBar",
@@ -971,7 +973,7 @@
         // chart_margin_top: 25,
         // chart_margin_right: 45,
         // chart_margin_bottom: 35,
-        // chart_margin_left: 50,
+        chart_margin_left: 100,
 
         // color_mode:"color",
         // saturation_color: "green",
@@ -990,6 +992,7 @@
         // axis_x_pointer_size: 12,
         // axis_x_pointer_padding: 3,
         // axis_x_outer_pointer_length: 3,
+        "axis_y_no_of_axis_value": 10,
 
         // axis_y_enable: "yes",
         // axis_y_title : "Months",
@@ -1027,8 +1030,8 @@
         legends_text_weight: "normal",
         legends_text_family: "'Helvetica Neue',Helvetica,Arial,sans-serif",
         "data_sort_enable": "yes",
-        "data_sort_type": "alphabetically", // sort type --- "alphabetically" / "date"
-        "data_sort_order": "ascending", // sort order --- "descending" / "ascending",
+        "data_sort_type": "numerically", // sort type --- "alphabetically" / "date"
+        "data_sort_order": "descending", // sort order --- "descending" / "ascending",
         highlight:"abc",
         tooltip_enable: "yes",
         legends_text_family: "Papyrus",
@@ -1043,7 +1046,7 @@
       //     for(i = 0;i<100;i++) {
       // //         // console.log(i);
       //         var start = new Date().getTime();
-      // k.execute();
+      k.execute();
       //         var end = new Date().getTime();
       //             a[i] = end - start;
       //             avg += a[i]
