@@ -4,7 +4,7 @@
   <link rel="stylesheet" type="text/css" href="../src/css/PykCharts.css">
 </head>
 <body>
-  <!--<div id="line"></div>
+  <div id="line"></div>
   <hr/>
   <div id="area"></div>
   <hr/>
@@ -13,10 +13,10 @@
   <div id="multiple-multiLine"></div>
   <hr/>
   <div id="multiArea"></div>
-  <hr/>-->
+  <hr/>
   <div id="pulse"></div>
   <hr/>
-  <!--<div id="scatterPlot"></div>
+  <div id="scatterPlot"></div>
   <hr/>
   <div id="multiple-scatterplots"></div>
   <hr/>
@@ -31,7 +31,7 @@
   <div id="groupBar"></div>
   <hr/>
   <div id="waterfall-chart"></div>
-  <hr/>-->
+  <hr/>
   <script src="../src/js/init.js"></script>
   <script src="../src/js/pyk.js"></script>
   <script src="../src/js/multiD/crosshair.js"></script>
@@ -120,13 +120,14 @@
       var k = new PykCharts.multiD.line ({
         selector: "#line",
         data: "../data/line_timescale.json",
+        // data: "../data/multi-series-line.csv",
         // data: "../data/line.xml",
         "chart_width": 620,
         "chart_height": 400,
         "mode": "default",
         // "color_mode": "color",
         // "saturation_color": "#255AEE",
-        // "chart_color": ["red"],
+        "chart_color": ["red"],
         // "pointer_overflow_enable": "yes",
         // "pointer_family": "Helvetica Neue,Helvetica,Arial,sans-serif",
         // "pointer_size": 13,

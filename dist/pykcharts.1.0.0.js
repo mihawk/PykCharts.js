@@ -1472,8 +1472,7 @@ PykCharts.Configuration = function (options){
                             throw "Data is not in the valid JSON format";
                         }
                         catch (err) {
-                            // console.error('%c[Error - Pykih Charts] ', 'color: red;font-weight:bold;font-size:14px', " at "+ options.selector+".(\""+err+"\")  Visit www.pykcharts.com/errors#error_2");
-                            console.error('%c[Error - Pykih Charts] ', 'color: red;font-weight:bold;font-size:14px', " at "+ options.selector+".(\""+err+"\")  Visit localhost:3000/errors#error_2");
+                            console.error('%c[Error - Pykih Charts] ', 'color: red;font-weight:bold;font-size:14px', " at "+ options.selector+".(\""+err+"\")  Visit www.pykcharts.com/errors#error_2");
                         }
                     }
                     return (options.stop) ? false : true;
