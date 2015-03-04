@@ -56,6 +56,8 @@ PykCharts.multiD.bar = function (options) {
     };
 
     this.transformData = function () {
+        var group_arr = [], uniq_group_arr = [];
+        
         that.optionalFeatures().sort();
         if (options.chart_color != undefined && options.chart_color.length != 0) {
             that.chart_color[0] = options.chart_color[0];
@@ -77,6 +79,12 @@ PykCharts.multiD.bar = function (options) {
             d.name = d.y;
             d.color = that.chart_color[0];
         });
+
+        for(var j=0, len=that.data.length ; j<len ; j++) {
+            group_arr[j] = that.data[j].group;
+        }
+        uniq_group_arr = that.k.__proto__._unique(group_arr);
+        that.no_of_groups = uniq_group_arr.length;
     }
 
     this.render = function () {
@@ -89,6 +97,17 @@ PykCharts.multiD.bar = function (options) {
         that.mouseEvent1 = new PykCharts.Configuration.mouseEvent(options);
         that.fillColor = new PykCharts.Configuration.fillChart(that,null,options);
         that.transformData();
+
+        try {
+            if(that.no_of_groups > 1) {
+                throw "Invalid data in the JSON";
+            }
+        }
+        catch (err) {
+            console.error('%c[Error - Pykih Charts] ', 'color: red;font-weight:bold;font-size:14px', " at "+that.selector+". \""+err+"\"  Visit www.pykcharts.com/errors#error_9");
+            return;
+        }
+
         that.map_group_data = that.multiD.mapGroup(that.data);
 
         if(that.mode === "default") {

@@ -4,9 +4,9 @@
         <link rel="stylesheet" type="text/css" href="../dist/pykcharts.1.0.0.min.css">
 	</head>
 	<body>
-        <!-- <div id="bubble"></div> -->
+        <div id="bubble"></div>
         <hr/>
-        <div id="funnel"></div>
+        <div id="funnel-chart-container"></div>
         <hr/>
         <div id="pieContainer"></div>
         <hr/>
@@ -82,7 +82,7 @@
             k.execute();
 
   			var k = new PykCharts.oneD.funnel({
-      			selector: "#funnel",
+      			selector: "#funnel-chart-container",
       			data:"../data/funnel.csv",
                 // data: "../data/pie.xml",
                 // data: "<?xml version='1.0' encoding='UTF-8'?><root><element><name>&lt;5</name><weight>2704659</weight></element><element><name>5-13</name><weight>4499890</weight></element><element><name>14-17</name><weight>2159981</weight></element><element><name>18-24</name><weight>3853788</weight></element><element><name>25-44</name><weight>14106543</weight></element><element><name>45-64</name><weight>8819342</weight></element><element><name>65-80</name><weight>612463</weight></element><element><name>&gt;=80</name><weight>612463</weight></element></root>",
