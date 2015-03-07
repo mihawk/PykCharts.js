@@ -126,7 +126,7 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 					.backgroundColor(that)
 					.export(that,"#"+that.container_id+"-1","areaChart")
 					.liveData(that)
-					.emptyDiv(options.selector)
+					.emptyDiv(that.selector)
 					.subtitle()
 					.makeMainDiv(that.selector,1)
 					.tooltip(true,that.selector,1);
@@ -152,7 +152,7 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 			  that.k/*.liveData(that)*/
 			  			.backgroundColor(that)
 			  			.export(that,"#"+that.container_id+"-1","areaChart")
-			  			.emptyDiv(options.selector)
+			  			.emptyDiv(that.selector)
 						.makeMainDiv(that.selector,1);
 
 			  that.optional_feature()
@@ -169,7 +169,7 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
   		}
 
 
-  		if (PykCharts.boolean(options.interactive_enable)) {
+  		if (PykCharts.boolean(that.interactive_enable)) {
 			that.brush = new PykCharts.Configuration.renderBrush(that,that.xScale,that.group,that.h);
 		}
 
@@ -228,7 +228,7 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 	        	that.annotation();
 	        }
 		};
-		if (PykCharts.boolean(options.interactive_enable)) {
+		if (PykCharts.boolean(that.interactive_enable)) {
             that.k.dataFromPykQuery(pykquery_data);
             that.k.dataSourceFormatIdentification(that.data,that,"executeRefresh");
         } else {
@@ -320,14 +320,14 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
                 return this;
             },
 			axisContainer : function () {
-	        	if(PykCharts['boolean'](that.axis_x_enable) || options.axis_x_title){
+	        	if(PykCharts['boolean'](that.axis_x_enable) || that.axis_x_title){
 					that.xGroup = that.group.append("g")
 							.attr({
 								"id": "xaxis",
 								"class": "x axis"
 							});
 				}
-				if(PykCharts['boolean'](that.axis_y_enable) || options.axis_y_title){
+				if(PykCharts['boolean'](that.axis_y_enable) || that.axis_y_title){
 					that.yGroup = that.group.append("g")
 						.attr({
 							"id": "yaxis",

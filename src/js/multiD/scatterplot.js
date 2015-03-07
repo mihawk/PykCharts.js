@@ -63,7 +63,7 @@ PykCharts.multiD.scatter = function (options) {
       var a = new PykCharts.multiD.scatterplotFunctions(options,that,"scatterplot");
       a.render();
     };
-    if (PykCharts.boolean(options.interactive_enable)) {
+    if (PykCharts['boolean'](that.interactive_enable)) {
         that.k.dataFromPykQuery(pykquery_data);
         that.k.dataSourceFormatIdentification(that.data,that,"executeData");
     } else {

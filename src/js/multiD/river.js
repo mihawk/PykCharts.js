@@ -81,7 +81,7 @@ PykCharts.multiD.river = function (options){
             that.dataTransformation();
             that.render();
         };
-        if (PykCharts.boolean(options.interactive_enable)) {
+        if (PykCharts['boolean'](that.interactive_enable)) {
             that.k.dataFromPykQuery(pykquery_data);
             that.k.dataSourceFormatIdentification(that.data,that,"executeData");
         } else {
@@ -101,7 +101,7 @@ PykCharts.multiD.river = function (options){
                     .backgroundColor(that)
                     .export(that,"#"+container_id,"river")
                     .liveData(that)
-                    .emptyDiv(options.selector)
+                    .emptyDiv(that.selector)
                     .subtitle()
                     .tooltip();
             that.optional_feature()
@@ -129,8 +129,8 @@ PykCharts.multiD.river = function (options){
               that.k.liveData(that)
                         .backgroundColor(that)
                         .export(that,"#"+container_id,"river")
-                        .emptyDiv(options.selector)
-                        .makeMainDiv(options.selector,1);
+                        .emptyDiv(that.selector)
+                        .makeMainDiv(that.selector,1);
 
               that.optional_feature()
                         .svgContainer(container_id,1)
@@ -218,7 +218,7 @@ PykCharts.multiD.river = function (options){
                 .yAxisLabel()
                 .durationLabel();
         };
-        if (PykCharts.boolean(options.interactive_enable)) {
+        if (PykCharts['boolean'](that.interactive_enable)) {
             that.k.dataFromPykQuery(pykquery_data);
             that.k.dataSourceFormatIdentification(that.data,that,"executeRefresh");
         } else {
@@ -235,7 +235,7 @@ PykCharts.multiD.river = function (options){
             svgContainer: function (container_id,i){
                 document.getElementById(id).className += " PykCharts-twoD PykCharts-multi-series2D PykCharts-line-chart";
 
-                that.svgContainer = d3.select(options.selector).append("svg:svg")
+                that.svgContainer = d3.select(that.selector).append("svg:svg")
                     .attr({
                         "id": container_id,
                         "width": that.chart_width,
@@ -409,7 +409,7 @@ PykCharts.multiD.river = function (options){
                                 that.mouseEvent.tooltipPosition(d);
                                 that.mouseEvent.tooltipTextShow(d.tooltip ? d.tooltip : d.y);
                                 if(PykCharts.boolean(that.chart_onhover_highlight_enable)) {
-                                    that.mouseEvent.highlight(options.selector + " .river-rect", this);
+                                    that.mouseEvent.highlight(that.selector + " .river-rect", this);
                                 }
                             }
                         },
@@ -422,12 +422,12 @@ PykCharts.multiD.river = function (options){
                             if(that.mode === "default") {
                                 that.mouseEvent.tooltipHide(d);
                                 if(PykCharts.boolean(that.chart_onhover_highlight_enable)) {
-                                    that.mouseEvent.highlightHide(options.selector + " .river-rect")
+                                    that.mouseEvent.highlightHide(that.selector + " .river-rect")
                                 }
                             }
                         },
                         "click": function(d, i){
-                            if(PykCharts['boolean'](options.click_enable)){
+                            if(PykCharts['boolean'](that.click_enable)){
                                 that.addEvents(uniq_name + "-" + d.name, d3.select(this).attr("data-id")); 
                             } 
                             // if(PykCharts.boolean(that.expand_group) && that.mode === "default") {

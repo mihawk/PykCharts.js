@@ -35,7 +35,7 @@ PykCharts.multiD.column = function (options) {
             that.k.remove_loading_bar(id);
             that.render();
         };
-        if (PykCharts.boolean(options.interactive_enable)) {
+        if (PykCharts.boolean(that.interactive_enable)) {
             that.k.dataFromPykQuery(pykquery_data);
             that.k.dataSourceFormatIdentification(that.data,that,"executeData");
         } else {
@@ -104,7 +104,7 @@ PykCharts.multiD.column = function (options) {
             that.k.title()
                 .backgroundColor(that)
                 .export(that,"#"+container_id,"columnChart")
-                .emptyDiv(options.selector)
+                .emptyDiv(that.selector)
                 .subtitle()
                 .makeMainDiv(that.selector,1);
 
@@ -139,7 +139,7 @@ PykCharts.multiD.column = function (options) {
         } else if(that.mode === "infographics") {
             that.k.backgroundColor(that)
                 .export(that,"#"+container_id,"columnChart")
-                .emptyDiv(options.selector)
+                .emptyDiv(that.selector)
                 .makeMainDiv(that.selector,1);
 
             that.optionalFeatures()
@@ -218,7 +218,7 @@ PykCharts.multiD.column = function (options) {
             }
         };
         
-        if (PykCharts.boolean(options.interactive_enable)) {
+        if (PykCharts.boolean(that.interactive_enable)) {
             that.k.dataFromPykQuery(pykquery_data);
             that.k.dataSourceFormatIdentification(that.data,that,"executeRefresh");
         } else {
@@ -439,7 +439,7 @@ PykCharts.multiD.column = function (options) {
                                 if(PykCharts.boolean(that.chart_onhover_highlight_enable)) {
                                     that.mouseEvent1.highlight(that.selector+" "+".vcolumn", this);
                                 }
-                                if (PykCharts['boolean'](options.tooltip_enable)) {
+                                if (PykCharts['boolean'](that.tooltip_enable)) {
                                     that.mouseEvent.tooltipPosition(d);
                                     that.mouseEvent.tooltipTextShow(d.tooltip ? d.tooltip : d.y);
                                 }
@@ -450,7 +450,7 @@ PykCharts.multiD.column = function (options) {
                                 if(PykCharts.boolean(that.chart_onhover_highlight_enable)) {
                                     that.mouseEvent1.highlightHide(that.selector+" "+".vcolumn");
                                 }
-                                if (PykCharts['boolean'](options.tooltip_enable)) {
+                                if (PykCharts['boolean'](that.tooltip_enable)) {
                                     that.mouseEvent.tooltipHide(d);
                                 }
                                 that.mouseEvent.axisHighlightHide(that.selector+" "+".x.axis")
@@ -458,14 +458,14 @@ PykCharts.multiD.column = function (options) {
                         },
                         'mousemove': function (d) {
                             if(that.mode === "default") {
-                                if (PykCharts['boolean'](options.tooltip_enable)) {
+                                if (PykCharts['boolean'](that.tooltip_enable)) {
                                     that.mouseEvent.tooltipPosition(d);
                                 }
                                 that.mouseEvent.axisHighlightShow(d.x,that.selector+" "+".x.axis",that.x_domain);
                             }
                         },
                         'click': function (d,i) {
-                            if(PykCharts['boolean'](options.click_enable)){
+                            if(PykCharts['boolean'](that.click_enable)){
                                that.addEvents(d.name, d3.select(this).attr("data-id")); 
                             }                     
                         }
@@ -479,7 +479,7 @@ PykCharts.multiD.column = function (options) {
 
                 that.bar.exit()
                     .remove();
-                var t = d3.transform(d3.select(d3.selectAll(options.selector + ' .column-rect')[0][(that.data.length-1)]).attr("transform")),
+                var t = d3.transform(d3.select(d3.selectAll(that.selector + ' .column-rect')[0][(that.data.length-1)]).attr("transform")),
                     x = t.translate[0],
                     y = t.translate[1];
                 x_range = [(x + (that.xScale.rangeBand()/2)),(that.reducedWidth - x - (that.xScale.rangeBand()/2))];

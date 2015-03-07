@@ -138,7 +138,7 @@ PykCharts.other.pictograph = function (options) {
 
         var optional = {
             svgContainer: function (container_id) {
-                that.svgContainer = d3.select(options.selector).append('svg')
+                that.svgContainer = d3.select(that.selector).append('svg')
                     .attr({
                         "width": that.chart_width,
                         "id": container_id,
@@ -281,7 +281,7 @@ PykCharts.other.pictograph = function (options) {
             },
             enableLabel: function () {
                 if (PykCharts['boolean'](that.pictograph_total_count_enable)) {
-                    var current_text = d3.selectAll(options.selector+" .PykCharts-current-text");
+                    var current_text = d3.selectAll(that.selector+" .PykCharts-current-text");
                     if (current_text.length > 0) {
                         current_text.remove();
                     };
@@ -316,7 +316,7 @@ PykCharts.other.pictograph = function (options) {
             },
             labelText: function () {
                 if (PykCharts['boolean'](that.pictograph_current_count_enable)) {
-                    var total_text = d3.selectAll(options.selector+" .PykCharts-total-text");
+                    var total_text = d3.selectAll(that.selector+" .PykCharts-total-text");
                     if (total_text.length > 0) {
                         total_text.remove();
                     };
@@ -381,7 +381,7 @@ PykCharts.other.pictograph = function (options) {
                             "height": unit_text_height + "px",
                             "width": unit_text_height + "px"
                         });
-                image_width = d3.select(options.selector +" #unit-image").attr("width");
+                image_width = d3.select(that.selector +" #unit-image").attr("width");
 
                 that.group2.append("text")
                         .attr({

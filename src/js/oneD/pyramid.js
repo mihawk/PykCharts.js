@@ -32,7 +32,7 @@ PykCharts.oneD.pyramid = function (options) {
 			that.clubdata_enable = that.data_length > that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
             that.render();
 		};
-        if (PykCharts['boolean'](options.interactive_enable)) {
+        if (PykCharts['boolean'](that.interactive_enable)) {
             that.k.dataFromPykQuery(pykquery_data);
             that.k.dataSourceFormatIdentification(that.data,that,"executeData");
         } else {
@@ -65,7 +65,7 @@ PykCharts.oneD.pyramid = function (options) {
                     .label()
                     .ticks();
         };
-        if (PykCharts['boolean'](options.interactive_enable)) {
+        if (PykCharts['boolean'](that.interactive_enable)) {
             that.k.dataFromPykQuery(pykquery_data);
             that.k.dataSourceFormatIdentification(that.data,that,"executeRefresh");
         } else {
@@ -226,7 +226,7 @@ PykCharts.oneD.pyramid = function (options) {
     	var optional = {
             svgContainer :function (container_id) {
 
-                that.svgContainer = d3.select(options.selector)
+                that.svgContainer = d3.select(that.selector)
                     .append('svg')
                     .attr({
                         "width": that.chart_width,
@@ -302,7 +302,7 @@ PykCharts.oneD.pyramid = function (options) {
                     "mouseover": function (d,i) {
                         if(that.mode === "default") {
                             if(PykCharts['boolean'](that.chart_onhover_highlight_enable)) {
-                                that.mouseEvent.highlight(options.selector +" "+".pyr-path",this);
+                                that.mouseEvent.highlight(that.selector +" "+".pyr-path",this);
                             }
                             that.mouseEvent.tooltipPosition(d);
                             that.mouseEvent.tooltipTextShow(tooltipArray[i]);
@@ -311,7 +311,7 @@ PykCharts.oneD.pyramid = function (options) {
                     "mouseout": function (d) {
                         if(that.mode === "default") {
                             if(PykCharts['boolean'](that.chart_onhover_highlight_enable)) {
-                                that.mouseEvent.highlightHide(options.selector +" "+".pyr-path")
+                                that.mouseEvent.highlightHide(that.selector +" "+".pyr-path")
                             }
                             that.mouseEvent.tooltipHide(d);
                         }
@@ -322,7 +322,7 @@ PykCharts.oneD.pyramid = function (options) {
                         }
                     },
                     "click" : function (d,i) {
-                        if(PykCharts['boolean'](options.click_enable)){
+                        if(PykCharts['boolean'](that.click_enable)){
                            that.addEvents(that.new_data[i].name, d3.select(this).attr("data-id")); 
                         }                     
                     }

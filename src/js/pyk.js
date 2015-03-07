@@ -1804,7 +1804,7 @@ configuration.Theme = function(){
         "interactive_enable": "no",
         "click_enable": "no",
 
-        "chart_height": 400,
+        "chart_height": 430,
         "chart_width": 600,
         "chart_margin_top": 35,
         "chart_margin_right": 50,
@@ -1834,28 +1834,28 @@ configuration.Theme = function(){
 
         "legends_enable": "yes",
         "legends_display": "horizontal",
-        "legends_text_size": 13,
+        "legends_text_size": 11,
         "legends_text_color": "#1D1D1D",
         "legends_text_weight": "normal",
         "legends_text_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
 
-        "label_size": 13,
+        "label_size": 11,
         "label_color": "white",
         "label_weight": "normal",
         "label_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
 
-        "pointer_overflow_enable": "no",
+        "pointer_overflow_enable": "yes",
         "pointer_thickness": 1,
         "pointer_weight": "normal",
-        "pointer_size": 13,
+        "pointer_size": 11,
         "pointer_color": "#1D1D1D",
         "pointer_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
 
-        "export_enable": "yes",
+        "export_enable": "no",
 
-        "color_mode": "saturation",
+        "color_mode": "color",
 
-        "axis_x_pointer_size": 12,
+        "axis_x_pointer_size": 11,
         "axis_x_pointer_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
         "axis_x_pointer_weight": "normal",
         "axis_x_pointer_color": "#1D1D1D",
@@ -1869,7 +1869,7 @@ configuration.Theme = function(){
         "axis_x_title_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
 
         "axis_x_position": "bottom",
-        "axis_x_pointer_position": "top", //axis orient
+        "axis_x_pointer_position": "bottom", //axis orient
         "axis_x_line_color": "#1D1D1D",
         "axis_x_no_of_axis_value": 5,
         "axis_x_pointer_length": 5,
@@ -1886,8 +1886,8 @@ configuration.Theme = function(){
         "tooltip_enable": "yes",
         "tooltip_mode": "moving",
 
-        "credit_my_site_name": "Pykih",
-        "credit_my_site_url": "http://www.pykih.com",
+        "credit_my_site_name": "PykCharts",
+        "credit_my_site_url": "http://www.pykcharts.com/",
         "chart_onhover_highlight_enable": "yes",
         "units_prefix": false,
         "units_suffix":false
@@ -1908,7 +1908,7 @@ configuration.Theme = function(){
         "donut_radius_percent": 70,
         "donut_inner_radius_percent": 40,
         "donut_show_total_at_center": "yes",
-        "donut_show_total_at_center_size": 14,
+        "donut_show_total_at_center_size": 24,
         "donut_show_total_at_center_color": "#1D1D1D",
         "donut_show_total_at_center_weight": "bold",
         "donut_show_total_at_center_family":"'Helvetica Neue',Helvetica,Arial,sans-serif",
@@ -1916,8 +1916,8 @@ configuration.Theme = function(){
         "funnel_rect_width": 100,
         "funnel_rect_height": 100,
 
-        "percent_column_rect_width": 15,
-        "percent_row_rect_height": 26,
+        "percent_column_rect_width": 20,
+        "percent_row_rect_height": 10,
     };
 
     that.otherCharts = {
@@ -1947,9 +1947,9 @@ configuration.Theme = function(){
         "chart_grid_y_enable": "yes",
         "chart_grid_color":"#ddd",
 
-        "axis_onhover_highlight_enable": "no",
+        "axis_onhover_highlight_enable": "yes",
 
-        "axis_y_pointer_size": 12,
+        "axis_y_pointer_size": 11,
         "axis_y_pointer_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
         "axis_y_pointer_weight": "normal",
         "axis_y_pointer_color": "#1D1D1D",
@@ -1978,7 +1978,7 @@ configuration.Theme = function(){
         "zoom_enable": "no",
         "zoom_level": 3,
 
-        "spiderweb_outer_radius_percent": 80,
+        "spiderweb_outer_radius_percent": 100,
 
         "scatterplot_radius": 20,
         "scatterplot_pointer_enable": "no",

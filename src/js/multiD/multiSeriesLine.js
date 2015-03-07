@@ -52,7 +52,7 @@ PykCharts.multiD.multiSeriesLine = function (options) {
             }
             PykCharts.multiD.lineFunctions(options,that,"multi_series_line");
         };
-        if (PykCharts.boolean(options.interactive_enable)) {
+        if (PykCharts.boolean(that.interactive_enable)) {
             that.k.dataFromPykQuery(pykquery_data);
             that.k.dataSourceFormatIdentification(that.data,that,"executeData");
         } else {

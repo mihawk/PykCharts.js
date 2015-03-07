@@ -60,7 +60,7 @@ PykCharts.multiD.area = function (options){
 			that.render();
 
 		}
-        if (PykCharts.boolean(options.interactive_enable)) {
+        if (PykCharts.boolean(that.interactive_enable)) {
             that.k.dataFromPykQuery(pykquery_data);
             that.k.dataSourceFormatIdentification(that.data,that,"executeData");
         } else {

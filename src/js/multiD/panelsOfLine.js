@@ -56,7 +56,7 @@ PykCharts.multiD.panelsOfLine = function (options) {
             PykCharts.multiD.lineFunctions(options,that,"panels_of_line");
 
         };
-        if (PykCharts.boolean(options.interactive_enable)) {
+        if (PykCharts['boolean'](that.interactive_enable)) {
             that.k.dataFromPykQuery(pykquery_data);
             that.k.dataSourceFormatIdentification(that.data,that,"executeData");
         } else {

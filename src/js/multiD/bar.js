@@ -47,7 +47,7 @@ PykCharts.multiD.bar = function (options) {
             that.k.remove_loading_bar(id);
             that.render();
         };
-        if (PykCharts.boolean(options.interactive_enable)) {
+        if (PykCharts.boolean(that.interactive_enable)) {
             that.k.dataFromPykQuery(pykquery_data);
             that.k.dataSourceFormatIdentification(that.data,that,"executeData");
         } else {
@@ -115,7 +115,7 @@ PykCharts.multiD.bar = function (options) {
             that.k.title()
                 .backgroundColor(that)
                 .export(that,"#"+container_id,"barChart")
-                .emptyDiv(options.selector)
+                .emptyDiv(that.selector)
                 .subtitle()
                 .makeMainDiv(that.selector,1);
 
@@ -149,7 +149,7 @@ PykCharts.multiD.bar = function (options) {
         } else if(that.mode === "infographics") {
             that.k.backgroundColor(that)
                 .export(that,"#"+container_id,"barChart")
-                .emptyDiv(options.selector)
+                .emptyDiv(that.selector)
                 .makeMainDiv(that.selector,1);
 
             that.optionalFeatures()
@@ -219,7 +219,7 @@ PykCharts.multiD.bar = function (options) {
             }
         };
         
-        if (PykCharts.boolean(options.interactive_enable)) {
+        if (PykCharts.boolean(that.interactive_enable)) {
             that.k.dataFromPykQuery(pykquery_data);
             that.k.dataSourceFormatIdentification(that.data,that,"executeRefresh");
         } else {
@@ -233,7 +233,7 @@ PykCharts.multiD.bar = function (options) {
         var optional = {
             svgContainer: function (container_id,i) {
                 document.getElementById(id).className += " PykCharts-twoD";
-                that.svgContainer = d3.select(options.selector + " #tooltip-svg-container-" + i)
+                that.svgContainer = d3.select(that.selector + " #tooltip-svg-container-" + i)
                     .append("svg:svg")
                     .attr({
                         "width" : that.chart_width,
@@ -398,7 +398,7 @@ PykCharts.multiD.bar = function (options) {
                                 if(PykCharts.boolean(that.chart_onhover_highlight_enable)) {
                                     that.mouseEvent1.highlight(that.selector+" "+".hbar", this);
                                 }
-                                if (PykCharts['boolean'](options.tooltip_enable)) {
+                                if (PykCharts['boolean'](that.tooltip_enable)) {
                                     that.mouseEvent.tooltipPosition(d);
                                     that.mouseEvent.tooltipTextShow(d.tooltip ? d.tooltip : d.x);
                                 }
@@ -409,7 +409,7 @@ PykCharts.multiD.bar = function (options) {
                                 if(PykCharts.boolean(that.chart_onhover_highlight_enable)) {
                                     that.mouseEvent1.highlightHide(that.selector+" "+".hbar");
                                 }
-                                if (PykCharts['boolean'](options.tooltip_enable)) {
+                                if (PykCharts['boolean'](that.tooltip_enable)) {
                                     that.mouseEvent.tooltipHide(d);
                                 }
                                 that.mouseEvent.axisHighlightHide(that.selector+" "+".y.axis")
@@ -417,14 +417,14 @@ PykCharts.multiD.bar = function (options) {
                         },
                         'mousemove': function (d) {
                             if(that.mode === "default") {
-                                if (PykCharts['boolean'](options.tooltip_enable)) {
+                                if (PykCharts['boolean'](that.tooltip_enable)) {
                                     that.mouseEvent.tooltipPosition(d);
                                 }
                                 that.mouseEvent.axisHighlightShow([d.y],that.selector+" "+".y.axis",that.y_domain);
                             }
                         },
                         'click': function (d,i) {
-                            if(PykCharts['boolean'](options.click_enable)){
+                            if(PykCharts['boolean'](that.click_enable)){
                                that.addEvents(d.name, d3.select(this).attr("data-id")); 
                             }                     
                         }
@@ -436,7 +436,7 @@ PykCharts.multiD.bar = function (options) {
                 that.bar.exit()
                     .remove();
 
-                var t = d3.transform(d3.select(d3.selectAll(options.selector + ' .bar-rect')[0][(that.data.length-1)]).attr("transform")),
+                var t = d3.transform(d3.select(d3.selectAll(that.selector + ' .bar-rect')[0][(that.data.length-1)]).attr("transform")),
                     x = t.translate[0],
                     y = t.translate[1];
                 y_range = [(that.reducedHeight - y - (that.yScale.rangeBand()/2)),(y + (that.yScale.rangeBand()/2))];

@@ -31,7 +31,7 @@ PykCharts.oneD.treemap = function (options){
             that.clubdata_enable = that.data.length>that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
             that.render();
         };
-        if (PykCharts['boolean'](options.interactive_enable)) {
+        if (PykCharts['boolean'](that.interactive_enable)) {
             that.k.dataFromPykQuery(pykquery_data);
             that.k.dataSourceFormatIdentification(that.data,that,"executeData");
         } else {
@@ -63,7 +63,7 @@ PykCharts.oneD.treemap = function (options){
                 .label();
 
         };
-        if (PykCharts['boolean'](options.interactive_enable)) {
+        if (PykCharts['boolean'](that.interactive_enable)) {
             that.k.dataFromPykQuery(pykquery_data);
             that.k.dataSourceFormatIdentification(that.data,that,"executeRefresh");
         } else {
@@ -188,7 +188,7 @@ PykCharts.oneD.treemap = function (options){
                             if(!d.children && that.mode === "default") {
                                 d.tooltip = d.tooltip || "<table class='PykCharts'><tr><th colspan='2' class='tooltip-heading'>"+d.name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.weight)+"<td class='tooltip-right-content'>("+((d.weight*100)/that.sum).toFixed(1)+"%)</tr></table>";
                                 if(PykCharts['boolean'](that.chart_onhover_highlight_enable)) {
-                                    that.mouseEvent.highlight(options.selector +" "+".treemap-rect", this);
+                                    that.mouseEvent.highlight(that.selector +" "+".treemap-rect", this);
                                 }
                                 that.mouseEvent.tooltipPosition(d);
                                 that.mouseEvent.tooltipTextShow(d.tooltip);
@@ -198,7 +198,7 @@ PykCharts.oneD.treemap = function (options){
                             if(that.mode === "default") {
                                 that.mouseEvent.tooltipHide(d);
                                 if(PykCharts['boolean'](that.chart_onhover_highlight_enable)) {    
-                                    that.mouseEvent.highlightHide(options.selector +" "+".treemap-rect");
+                                    that.mouseEvent.highlightHide(that.selector +" "+".treemap-rect");
                                 }
                             }
                         },
@@ -208,7 +208,7 @@ PykCharts.oneD.treemap = function (options){
                             }
                         },
                         'click' :  function (d,i) {
-                            if(PykCharts['boolean'](options.click_enable)){
+                            if(PykCharts['boolean'](that.click_enable)){
                                that.addEvents(d.name, d3.select(this).attr("data-id")); 
                             }                     
                         }

@@ -7,8 +7,8 @@ PykCharts.multiD.spiderWeb = function (options) {
         var multiDimensionalCharts = theme.multiDimensionalCharts;
         that = new PykCharts.validation.processInputs(that, options, 'multiDimensionalCharts');
 
-        that.bubbleRadius = options.spiderweb_radius  ? options.spiderweb_radius : (0.6 * multiDimensionalCharts.scatterplot_radius);
-        that.spiderweb_outer_radius_percent = options.spiderweb_outer_radius_percent  ? options.spiderweb_outer_radius_percent : multiDimensionalCharts.spiderweb_outer_radius_percent;
+        that.bubbleRadius = options.spiderweb_radius ? options.spiderweb_radius : (0.6 * multiDimensionalCharts.scatterplot_radius);
+        that.spiderweb_outer_radius_percent = options.spiderweb_outer_radius_percent ? options.spiderweb_outer_radius_percent : multiDimensionalCharts.spiderweb_outer_radius_percent;
         that.panels_enable = "no";
         that.data_sort_enable = "yes";
         that.data_sort_type = "alphabetically";
@@ -63,7 +63,7 @@ PykCharts.multiD.spiderWeb = function (options) {
             that.k.remove_loading_bar(id);
             that.render();
         };
-        if (PykCharts.boolean(options.interactive_enable)) {
+        if (PykCharts['boolean'](that.interactive_enable)) {
             that.k.dataFromPykQuery(pykquery_data);
             that.k.dataSourceFormatIdentification(that.data,that,"executeData");
         } else {
@@ -128,7 +128,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                 .xAxis()
                 .yAxis();
         };
-        if (PykCharts.boolean(options.interactive_enable)) {
+        if (PykCharts['boolean'](that.interactive_enable)) {
             that.k.dataFromPykQuery(pykquery_data);
             that.k.dataSourceFormatIdentification(that.data,that,"executeRefresh");
         } else {
@@ -148,7 +148,7 @@ PykCharts.multiD.spiderWeb = function (options) {
             that.k.title()
                 .backgroundColor(that)
                 .export(that,"#"+container_id,"spiderweb")
-                .emptyDiv(options.selector)
+                .emptyDiv(that.selector)
                 .subtitle()
                 .makeMainDiv(that.selector,1);
             that.h = that.chart_height;
@@ -181,7 +181,7 @@ PykCharts.multiD.spiderWeb = function (options) {
         } else if (that.mode==="infographics") {
             that.k.backgroundColor(that)
                 .export(that,"#"+container_id,"spiderweb")
-                .emptyDiv(options.selector);
+                .emptyDiv(that.selector);
             that.k.makeMainDiv(that.selector,1);
             that.h = that.chart_height;
             that.optionalFeatures().svgContainer(container_id,1)
@@ -420,7 +420,7 @@ PykCharts.multiD.spiderWeb = function (options) {
                             }
                         },
                         'click': function (d,i) {
-                            if(PykCharts.boolean(options.click_enable)) {
+                            if(PykCharts['boolean'](that.click_enable)) {
                                that.addEvents(that.new_data[0].data[i].x, d3.select(this).attr("data-id")); 
                             } 
                         }
