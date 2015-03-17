@@ -14,17 +14,17 @@ by [Pykih Data Visualization](https://pykih.com)
 
 **Documentation:** [https://github.com/pykih/PykCharts.js/wiki](https://github.com/pykih/PykCharts.js/wiki)
 
-**Report Bugs:** [https://github.com/pykih/PykCharts.js/issues](https://github.com/pykih/PykCharts.js/issues)
+-----
 
-### Reporting bugs
+#### Reporting bugs
 
-If you discover a problem with PykCharts, we would like to know about it. Report them in the issues.
-
-### Contributing
+If you discover a problem with PykCharts.js, we would like to know about it. Report them in the [issues](https://github.com/pykih/PykCharts.js/issues)
 
 If you are a d3.js developer and would like to contribute to PykCharts, then email us at rp@pykih.com
 
-### License
+-----
+
+#### License
 
 BSD v3 License. Copyright 2015 Pykih Software LLP. [https://pykih.com](https://pykih.com)
 
