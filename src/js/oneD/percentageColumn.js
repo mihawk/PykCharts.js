@@ -41,7 +41,7 @@ PykCharts.oneD.percentageColumn = function (options) {
             that.clubdata_enable = that.data.length>that.clubdata_maximum_nodes ? that.clubdata_enable : "no";
             that.render();
         };
-        if (PykCharts['boolean'](options.interactive_enable)) {
+        if (PykCharts['boolean'](that.interactive_enable)) {
             that.k.dataFromPykQuery(pykquery_data);
             that.k.dataSourceFormatIdentification(that.data,that,"executeData");
         } else {
@@ -72,7 +72,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                     .label()
                     .ticks();
         };
-        if (PykCharts['boolean'](options.interactive_enable)) {
+        if (PykCharts['boolean'](that.interactive_enable)) {
             that.k.dataFromPykQuery(pykquery_data);
             that.k.dataSourceFormatIdentification(that.data,that,"executeRefresh");
         } else {
@@ -214,7 +214,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                         if(that.mode === "default") {
                             d.tooltip=d.tooltip||"<table class='PykCharts'><tr><th colspan='2' class='tooltip-heading'>"+d.name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.weight)+"<td class='tooltip-right-content'>("+d.percentValue.toFixed(1)+"%)</tr></table>"
                             if(PykCharts['boolean'](that.chart_onhover_highlight_enable)) {
-                                that.mouseEvent.highlight(options.selector+" "+".per-rect",this);
+                                that.mouseEvent.highlight(that.selector+" "+".per-rect",this);
                             }
                             that.mouseEvent.tooltipPosition(d);
                             that.mouseEvent.tooltipTextShow(d.tooltip);
@@ -223,7 +223,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                     "mouseout": function (d) {
                         if(that.mode === "default") {
                             if(PykCharts['boolean'](that.chart_onhover_highlight_enable)) {
-                                that.mouseEvent.highlightHide(options.selector+" "+".per-rect");
+                                that.mouseEvent.highlightHide(that.selector+" "+".per-rect");
                             }
                             that.mouseEvent.tooltipHide(d);
                         }
@@ -234,7 +234,7 @@ PykCharts.oneD.percentageColumn = function (options) {
                         }
                     },
                     "click" :  function (d,i) {
-                        if(PykCharts['boolean'](options.click_enable)){
+                        if(PykCharts['boolean'](that.click_enable)){
                            that.addEvents(d.name, d3.select(this).attr("data-id")); 
                         }                     
                     }
@@ -251,7 +251,7 @@ PykCharts.oneD.percentageColumn = function (options) {
             },
             svgContainer :function (container_id) {
 
-                that.svgContainer = d3.select(options.selector)
+                that.svgContainer = d3.select(that.selector)
                     .append('svg')
                     .attr({
                         "width": that.chart_width,

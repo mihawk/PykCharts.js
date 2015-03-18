@@ -39,7 +39,7 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
       that.k.xAxis(that.svgContainer,that.xGroup,that.x,that.extra_left_margin,that.xdomain,that.x_tick_values,that.legendsGroup_height)
       .yAxis(that.svgContainer,that.yGroup,that.yScale,that.ydomain,that.y_tick_values,that.legendsGroup_width)
     };
-    if (PykCharts.boolean(options.interactive_enable)) {
+    if (PykCharts['boolean'](that.interactive_enable)) {
         that.k.dataFromPykQuery(pykquery_data);
         that.k.dataSourceFormatIdentification(that.data,that,"executeRefresh");
     } else {
@@ -100,7 +100,7 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
         that.k.title(that.new_width)
         .backgroundColor(that)
         .export(that,that.container_id,type,that.panels_enable,that.uniq_group_arr,that.new_width)
-        .emptyDiv(options.selector)
+        .emptyDiv(that.selector)
         .subtitle(that.new_width);
 
         d3.select(that.selector).append("div")
@@ -115,7 +115,7 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
         that.k.title()
         .backgroundColor(that)
         .export(that,"#"+that.container_id+"0",type)
-        .emptyDiv(options.selector)
+        .emptyDiv(that.selector)
         .subtitle();
 
         that.w = that.chart_width;
@@ -159,7 +159,7 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
       if(PykCharts['boolean'](that.panels_enable) && type === "scatterplot") {
         that.k.backgroundColor(that)
           .export(that,that.container_id,type,that.panels_enable,that.uniq_group_arr,that.new_width)
-          .emptyDiv(options.selector);
+          .emptyDiv(that.selector);
 
         that.no_of_groups = that.uniq_group_arr.length;
         that.data_length = that.data.length;
@@ -198,17 +198,17 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
           .yAxisTitle(that.yGroup);
 
           // if((i+1)%4 === 0 && i !== 0) {
-          //   that.k.emptyDiv(options.selector);
+          //   that.k.emptyDiv(that.selector);
           // }
         }
         that.optionalFeatures().labelPosition();
         that.k.exportSVG(that,that.container_id,type,that.panels_enable,that.uniq_group_arr)
-        that.k.emptyDiv(options.selector);
+        that.k.emptyDiv(that.selector);
       } else {
 
         that.k.backgroundColor(that)
         .export(that,"#"+that.container_id+"0",type)
-        .emptyDiv(options.selector);
+        .emptyDiv(that.selector);
 
         that.w = that.chart_width;
         that.new_data = that.data;
@@ -264,12 +264,12 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
     var id = that.selector.substring(1,that.selector.length);
     var optional = {
       svgContainer :function (i) {
-        document.querySelector(that.selector + " #tooltip-svg-container-" + i).style.width = that.w;
+        document.querySelector(that.selector + " #chart-container-" + i).style.width = that.w;
         var element = document.getElementById(id);
         if(!element.classList.contains('PykCharts-weighted')) {
           element.className += " PykCharts-weighted";
         }
-        that.svgContainer = d3.select(that.selector + " #tooltip-svg-container-" + i)
+        that.svgContainer = d3.select(that.selector + " #chart-container-" + i)
         .append('svg')
         .attr({
           "width": that.w,
@@ -596,7 +596,7 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
         .on({
           'mouseover': function (d,i) {
             if(that.mode === "default") {
-              if (PykCharts['boolean'](options.tooltip_enable)) {
+              if (PykCharts['boolean'](that.tooltip_enable)) {
                 tooltipText = d.tooltip ? d.tooltip : "<table><thead><th colspan='2'><b>"+d.name+"</b></th></thead><tr><td>X</td><td><b>"+d.x+"</b></td></tr><tr><td>Y</td><td><b>"+d.y+"<b></td></tr><tr><td>Weight</td><td><b>"+d.weight+"</b></td></tr></table>";
                 that.mouseEvent.tooltipPosition(d);
                 that.mouseEvent.tooltipTextShow(tooltipText);
@@ -613,7 +613,7 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
           },
           'mouseout': function (d,i) {
             if (that.mode === "default") {
-              if (PykCharts['boolean'](options.tooltip_enable)) {
+              if (PykCharts['boolean'](that.tooltip_enable)) {
                 that.mouseEvent.tooltipHide(d);
               }
               if (PykCharts['boolean'](that.chart_onhover_highlight_enable)) {
@@ -627,7 +627,7 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
             }
           },
           'mousemove': function (d) {
-            if (that.mode === "default" && PykCharts['boolean'](options.tooltip_enable)) {
+            if (that.mode === "default" && PykCharts['boolean'](that.tooltip_enable)) {
               that.mouseEvent.tooltipPosition(d);
             }
           },
@@ -638,7 +638,7 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
             PykCharts.getEvent().stopPropagation();
           },
           'click': function (d,i) {
-              if(PykCharts['boolean'](options.click_enable)){
+              if(PykCharts['boolean'](that.click_enable)){
                  that.addEvents(d.x, d3.select(this).attr("data-id")); 
               }                     
           }
@@ -843,6 +843,6 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
     }
     that.optionalFeatures().labelPosition();
     that.k.exportSVG(that,that.container_id,type,that.panels_enable,that.uniq_group_arr);
-    that.k.emptyDiv(options.selector);
+    that.k.emptyDiv(that.selector);
   };
 };

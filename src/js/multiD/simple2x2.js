@@ -198,14 +198,14 @@ PykCharts.multiD.simple2x2 = function (options) {
                 return this;
             },
             axisContainer: function () {
-                if(PykCharts['boolean'](that.axis_x_enable) || options.axis_x_title){
+                if(PykCharts['boolean'](that.axis_x_enable) || that.axis_x_title){
                     that.xGroup = that.group.append("g")
                             .attr({
                                 "id": "xaxis",
                                 "class": "x axis"
                             });
                 }
-                if(PykCharts['boolean'](that.axis_y_enable) || options.axis_y_title){
+                if(PykCharts['boolean'](that.axis_y_enable) || that.axis_y_title){
                     that.yGroup = that.group.append("g")
                         .attr({
                             "id": "yaxis",

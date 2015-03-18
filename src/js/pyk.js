@@ -258,7 +258,7 @@ PykCharts.Configuration = function (options){
         makeMainDiv: function (selection,i) {
             var d = d3.select(selection).append("div")
                 .attr({
-                    "id" : "tooltip-svg-container-"+i,
+                    "id" : "chart-container-"+i,
                     "class" : "main-div"
                 })
                 .style("width",options.chart_width + "px");
@@ -359,6 +359,8 @@ PykCharts.Configuration = function (options){
                     "width" : targetWidth,
                     "height" : (targetWidth / aspect)
                 });
+                d3.selectAll(options.selector + ' .main-div')
+                    .style("width", targetWidth+"px");
             }
             if(PykCharts['boolean'](options.title_text)) {
                 if(PykCharts['boolean'](options.export_enable)) {
@@ -1197,11 +1199,11 @@ PykCharts.Configuration = function (options){
             return this;
         },
         errorHandling: function(error_msg,error_code,err_url) {
-            console.error('%c[Error - Pykih Charts] ', 'color: red;font-weight:bold;font-size:14px', " at "+options.selector+".(Invalid value for attribute \""+error_msg+"\")  Visit www.chartstore.io/docs#error_"+error_code);
+            console.error('%c[Error - Pykih Charts] ', 'color: red;font-weight:bold;font-size:14px', " at "+options.selector+".(Invalid value for attribute \""+error_msg+"\")  Visit www.pykcharts.com/errors#error_"+error_code);
             return;
         },
         warningHandling: function(error_msg,error_code,err_url) {
-            console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+options.selector+".(Invalid value for attribute \""+error_msg+"\")  Visit www.chartstore.io/docs#warning_"+error_code);
+            console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+options.selector+".(Invalid value for attribute \""+error_msg+"\")  Visit www.pykcharts.com/errors#warning_"+error_code);
             return;
         },
         validator: function () {
@@ -1467,7 +1469,7 @@ PykCharts.Configuration = function (options){
                             throw "Data is not in the valid JSON format";
                         }
                         catch (err) {
-                            console.error('%c[Error - Pykih Charts] ', 'color: red;font-weight:bold;font-size:14px', " at "+ options.selector+".(\""+err+"\")  Visit www.chartstore.io/docs#error_2");
+                            console.error('%c[Error - Pykih Charts] ', 'color: red;font-weight:bold;font-size:14px', " at "+ options.selector+".(\""+err+"\")  Visit www.pykcharts.com/errors#error_2");
                         }
                     }
                     return (options.stop) ? false : true;
@@ -1517,26 +1519,27 @@ configuration.mouseEvent = function (options) {
             }
         },
         axisHighlightShow: function (active_tick,axisHighlight,domain,a) {
-            var curr_tick,prev_tick,axis_pointer_color,selection,axis_data_length,active_tick_length;
+            var curr_tick,prev_tick,axis_pointer_color,selection,axis_data_length,active_tick_length,domain_length;
             if(PykCharts['boolean'](options.axis_onhover_highlight_enable)/* && options.mode === "default"*/){
-                    if(axisHighlight === options.selector + " .y.axis" && a == undefined){
-                        selection = axisHighlight+" .tick text";
-                        axis_pointer_color = options.axis_y_pointer_color;
-                        axis_data_length = d3.selectAll(selection)[0].length;
-                        active_tick_length = active_tick.length;
-                        d3.selectAll(selection)
-                            .style("fill","#bbb")
-                            .style("font-weight","normal");
-                        for(var b=0;b < axis_data_length;b++) {
-                            for(var a=0;a < active_tick_length;a++) {
-                                if(d3.selectAll(selection)[0][b].__data__ === active_tick[a]) {
+                if(axisHighlight === options.selector + " .y.axis" && a == undefined){
+                    selection = axisHighlight+" .tick text";
+                    axis_pointer_color = options.axis_y_pointer_color;
+                    axis_data_length = d3.selectAll(selection)[0].length;
+                    active_tick_length = active_tick.length;
 
-                                    d3.select(d3.selectAll(selection)[0][b])
-                                        .style("fill",axis_pointer_color)
-                                        .style("font-weight","bold");
-                                }
+                    d3.selectAll(selection)
+                        .style("fill","#bbb")
+                        .style("font-weight","normal");
+
+                    for(var b=0;b < axis_data_length;b++) {
+                        for(var c=0;c < active_tick_length;c++) {
+                            if(d3.selectAll(selection)[0][b].__data__ === active_tick[c]) {
+                                d3.select(d3.selectAll(selection)[0][b])
+                                    .style("fill",axis_pointer_color)
+                                    .style("font-weight","bold");
                             }
                         }
+                    }
                 }
                 else {
                     if(axisHighlight === options.selector + " .x.axis") {
@@ -1567,15 +1570,14 @@ configuration.mouseEvent = function (options) {
                     axis_data_length = d3.selectAll(selection)[0].length;
 
                     var len = domain.length;
-                    if(options.axis_x_data_format === "number" && a === undefined) {
-                        for(var curr_tick=0;curr_tick< axis_data_length;curr_tick++) {
+                    if(options.axis_x_data_format === "number"/* && a === undefined*/) {
+                        for(var curr_tick=0 ; curr_tick<axis_data_length ; curr_tick++) {
                             if(d3.selectAll(selection)[0][curr_tick].__data__ == active_tick) {
                                 break;
                             }
                         }
-                    } else{
+                    } else {
                         for(curr_tick = 0;curr_tick < len;curr_tick++) {
-
                             if(domain[curr_tick] === active_tick) {
                                 break;
                             }
@@ -1804,7 +1806,7 @@ configuration.Theme = function(){
         "interactive_enable": "no",
         "click_enable": "no",
 
-        "chart_height": 400,
+        "chart_height": 430,
         "chart_width": 600,
         "chart_margin_top": 35,
         "chart_margin_right": 50,
@@ -1834,28 +1836,28 @@ configuration.Theme = function(){
 
         "legends_enable": "yes",
         "legends_display": "horizontal",
-        "legends_text_size": 13,
+        "legends_text_size": 11,
         "legends_text_color": "#1D1D1D",
         "legends_text_weight": "normal",
         "legends_text_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
 
-        "label_size": 13,
+        "label_size": 11,
         "label_color": "white",
         "label_weight": "normal",
         "label_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
 
-        "pointer_overflow_enable": "no",
+        "pointer_overflow_enable": "yes",
         "pointer_thickness": 1,
         "pointer_weight": "normal",
-        "pointer_size": 13,
+        "pointer_size": 11,
         "pointer_color": "#1D1D1D",
         "pointer_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
 
-        "export_enable": "yes",
+        "export_enable": "no",
 
-        "color_mode": "saturation",
+        "color_mode": "color",
 
-        "axis_x_pointer_size": 12,
+        "axis_x_pointer_size": 11,
         "axis_x_pointer_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
         "axis_x_pointer_weight": "normal",
         "axis_x_pointer_color": "#1D1D1D",
@@ -1869,7 +1871,7 @@ configuration.Theme = function(){
         "axis_x_title_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
 
         "axis_x_position": "bottom",
-        "axis_x_pointer_position": "top", //axis orient
+        "axis_x_pointer_position": "bottom", //axis orient
         "axis_x_line_color": "#1D1D1D",
         "axis_x_no_of_axis_value": 5,
         "axis_x_pointer_length": 5,
@@ -1886,8 +1888,8 @@ configuration.Theme = function(){
         "tooltip_enable": "yes",
         "tooltip_mode": "moving",
 
-        "credit_my_site_name": "Pykih",
-        "credit_my_site_url": "http://www.pykih.com",
+        "credit_my_site_name": "PykCharts",
+        "credit_my_site_url": "http://www.pykcharts.com/",
         "chart_onhover_highlight_enable": "yes",
         "units_prefix": false,
         "units_suffix":false
@@ -1908,7 +1910,7 @@ configuration.Theme = function(){
         "donut_radius_percent": 70,
         "donut_inner_radius_percent": 40,
         "donut_show_total_at_center": "yes",
-        "donut_show_total_at_center_size": 14,
+        "donut_show_total_at_center_size": 24,
         "donut_show_total_at_center_color": "#1D1D1D",
         "donut_show_total_at_center_weight": "bold",
         "donut_show_total_at_center_family":"'Helvetica Neue',Helvetica,Arial,sans-serif",
@@ -1916,8 +1918,8 @@ configuration.Theme = function(){
         "funnel_rect_width": 100,
         "funnel_rect_height": 100,
 
-        "percent_column_rect_width": 15,
-        "percent_row_rect_height": 26,
+        "percent_column_rect_width": 20,
+        "percent_row_rect_height": 10,
     };
 
     that.otherCharts = {
@@ -1947,9 +1949,9 @@ configuration.Theme = function(){
         "chart_grid_y_enable": "yes",
         "chart_grid_color":"#ddd",
 
-        "axis_onhover_highlight_enable": "no",
+        "axis_onhover_highlight_enable": "yes",
 
-        "axis_y_pointer_size": 12,
+        "axis_y_pointer_size": 11,
         "axis_y_pointer_family": "'Helvetica Neue',Helvetica,Arial,sans-serif",
         "axis_y_pointer_weight": "normal",
         "axis_y_pointer_color": "#1D1D1D",
@@ -1978,7 +1980,7 @@ configuration.Theme = function(){
         "zoom_enable": "no",
         "zoom_level": 3,
 
-        "spiderweb_outer_radius_percent": 80,
+        "spiderweb_outer_radius_percent": 100,
 
         "scatterplot_radius": 20,
         "scatterplot_pointer_enable": "no",

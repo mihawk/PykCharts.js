@@ -1,2 +1,4 @@
 .DS_Store
 .idea/
+src/js/multiD/river.js
+examples/river.html

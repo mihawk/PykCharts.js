@@ -32,7 +32,7 @@ PykCharts.multiD.waterfall = function(options){
 	        }
         }
         catch(err) {
-        	console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+that.selector+".(\""+"You seem to have passed less than three colors for '"+err+"', in a waterfall chart."+"\")  Visit www.chartstore.io/docs#warning_"+"18");
+        	console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+that.selector+".(\""+"You seem to have passed less than three colors for '"+err+"', in a waterfall chart."+"\")  Visit www.pykcharts.com/errors#warning_18");
         }
         
         if(that.stop) {
@@ -64,7 +64,7 @@ PykCharts.multiD.waterfall = function(options){
             PykCharts.multiD.waterfallFunctions(options,that,"waterfall");
             that.render();
 		};
-        if (PykCharts.boolean(options.interactive_enable)) {
+        if (PykCharts['boolean'](that.interactive_enable)) {
             that.k.dataFromPykQuery(pykquery_data);
             that.k.dataSourceFormatIdentification(that.data,that,"executeData");
         } else {
@@ -104,7 +104,7 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
             that.k.yAxis(that.svgContainer,that.yGroup,that.yScale,that.yDomain,that.y_tick_values,undefined,undefined,that.tick_format_function)
             that.xaxis();
         };
-        if (PykCharts.boolean(options.interactive_enable)) {
+        if (PykCharts['boolean'](that.interactive_enable)) {
             that.k.dataFromPykQuery(pykquery_data);
             that.k.dataSourceFormatIdentification(that.data,that,"executeRefresh");
         } else {
@@ -190,7 +190,7 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
     	var optional = {
     		svgContainer: function (i,container_id) {
                 document.getElementById(id).className += " PykCharts-twoD";
-                that.svgContainer = d3.select(that.selector + " #tooltip-svg-container-" + i)
+                that.svgContainer = d3.select(that.selector + " #chart-container-" + i)
                     .append("svg:svg")
                     .attr("width",that.chart_width)
                     .attr("height",that.chart_height)
@@ -330,7 +330,7 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
                         }
                     })
                     .on('click', function (d,i) {
-                        if(PykCharts['boolean'](options.click_enable)){
+                        if(PykCharts['boolean'](that.click_enable)){
                            that.addEvents(d.unique_name, d3.select(this).attr("data-id")); 
                         }                     
                     })
@@ -393,22 +393,24 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
             	return this;
             },
             axis_background: function (container_id) {
-                var y_axis_text = document.querySelectorAll("#"+container_id+" #yaxis .tick text");
-                var y_axis_text_length = y_axis_text.length,text = [];
-                for(var i=0;i<y_axis_text_length;i++) {
-                    text.push(y_axis_text[i].getBBox().width)
+                if(PykCharts.boolean(that.axis_y_enable) && that.axis_y_pointer_size) {
+                    var y_axis_text = document.querySelectorAll("#"+container_id+" #yaxis .tick text");
+                    var y_axis_text_length = y_axis_text.length,text = [];
+                    for(var i=0;i<y_axis_text_length;i++) {
+                        text.push(y_axis_text[i].getBBox().width)
+                    }
+                    var max_width = d3.max(text,function(d){
+                        return d;
+                    })
+
+                    that.background_rect
+                        .attr("x",that.chart_margin_left - max_width - 10)
+                        .attr("width",max_width+10);
+
+
+                    that.background_rect.exit()
+                        .remove();
                 }
-                var max_width = d3.max(text,function(d){
-                    return d;
-                })
-
-                that.background_rect
-                    .attr("x",that.chart_margin_left - max_width - 10)
-                    .attr("width",max_width+10);
-
-
-                that.background_rect.exit()
-                    .remove();
                 return this;
             }
     	};
@@ -556,9 +558,9 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
         var middle_point = that.xScale(that.new_data[0].data[0].start) + that.longest_tick_width + 15;
         if(PykCharts['boolean'](that.axis_x_enable)) {
             drawline(start_point+extrapadding,end_point+extrapadding+1,that.reducedHeight,that.reducedHeight);
-            drawline(start_point+1+extrapadding,start_point+1+extrapadding,that.reducedHeight,that.reducedHeight+that.axis_x_outer_pointer_length)
-            drawline(end_point+1+extrapadding,end_point+1+extrapadding,that.reducedHeight,that.reducedHeight+that.axis_x_pointer_length)
-            drawline(middle_point+1+extrapadding,middle_point+1+extrapadding,that.reducedHeight,that.reducedHeight+that.axis_x_pointer_length);
+            drawline(start_point+extrapadding,start_point+extrapadding,that.reducedHeight,that.reducedHeight+that.axis_x_outer_pointer_length)
+            drawline(end_point+extrapadding,end_point+extrapadding,that.reducedHeight,that.reducedHeight+that.axis_x_pointer_length)
+            drawline(middle_point+extrapadding,middle_point+extrapadding,that.reducedHeight,that.reducedHeight+that.axis_x_pointer_length);
         
             var text = that.group.selectAll(".custom-axis-text")
                 .data([0]);
@@ -588,7 +590,8 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
                 .attr("y2",y2)
                 .attr("class","custom-axis")
                 .attr("stroke",that.axis_x_line_color)
-                .attr("stroke-width",1);
+                .attr("stroke-width",1)
+                .style("shape-rendering","crispEdges");
         }
     }
 

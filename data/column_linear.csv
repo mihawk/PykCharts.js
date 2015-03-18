@@ -1,0 +1,10 @@
+x,y,group,stack,tooltip
+5,48.9,Rainfall(mm),Stack,<table class='PykCharts'><tr><th>Rainfall(mm)</th></tr><tr><td>48.9</td></tr></table>
+10,38.8,Rainfall(mm),Stack,<table class='PykCharts'><tr><th>Rainfall(mm)</th></tr><tr><td>38.8</td></tr></table>
+25,39.3,Rainfall(mm),Stack,<table class='PykCharts'><tr><th>Rainfall(mm)</th></tr><tr><td>39.3</td></tr></table>
+30,41.4,Rainfall(mm),Stack,<table class='PykCharts'><tr><th>Rainfall(mm)</th></tr><tr><td>41.4</td></tr></table>
+40,47,Rainfall(mm),Stack,<table class='PykCharts'><tr><th>Rainfall(mm)</th></tr><tr><td>47</td></tr></table>
+60,48.3,Rainfall(mm),Stack,<table class='PykCharts'><tr><th>Rainfall(mm)</th></tr><tr><td>48.3</td></tr></table>
+75,59,Rainfall(mm),Stack,<table class='PykCharts'><tr><th>Rainfall(mm)</th></tr><tr><td>59</td></tr></table>
+80,59.6,Rainfall(mm),Stack,<table class='PykCharts'><tr><th>Rainfall(mm)</th></tr><tr><td>59.6</td></tr></table>
+95,52.4,Rainfall(mm),Stack,<table class='PykCharts'><tr><th>Rainfall(mm)</th></tr><tr><td>52.4</td></tr></table>

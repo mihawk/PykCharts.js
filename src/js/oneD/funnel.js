@@ -21,8 +21,7 @@ PykCharts.oneD.funnel = function (options) {
         }
         catch (e) {
             that.funnel_rect_width  = functionality.funnel_rect_width;
-            console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+that.selector+".(Invalid value for attribute \"funnel_rect_width\")  Visit www.chartstore.io/docs#warning_19");
-
+            console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+that.selector+".(Invalid value for attribute \"funnel_rect_width\")  Visit www.pykcharts.com/errors#warning_19");
         }
 
         if(that.stop) {

@@ -53,17 +53,17 @@ PykCharts.multiD.panelsOfScatter = function (options) {
       that.axis_y_data_format = that.k.yAxisDataFormatIdentification(that.data);
       that.axis_x_data_format = that.k.xAxisDataFormatIdentification(that.data);
       if(that.axis_x_data_format === "time" && that.axis_x_time_value_datatype === "") {
-        console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+that.selector+".(\""+"You seem to have passed Date data so please pass the value for axis_x_time_value_datatype"+"\")  Visit www.chartstore.io/docs#warning_"+"15");
+        console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+that.selector+".(\""+"You seem to have passed Date data so please pass the value for axis_x_time_value_datatype"+"\")  Visit www.pykcharts.com/errors#warning_15");
       }
       if(that.axis_y_data_format === "time" && that.axis_y_time_value_datatype === "") {
-        console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+that.selector+".(\""+"You seem to have passed Date data so please pass the value for axis_x_time_value_datatype"+"\")  Visit www.chartstore.io/docs#warning_"+"15");
+        console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+that.selector+".(\""+"You seem to have passed Date data so please pass the value for axis_x_time_value_datatype"+"\")  Visit www.pykcharts.com/errors#warning_15");
       }
       that.compare_data = that.k.__proto__._groupBy("scatterplot",data);
       that.k.remove_loading_bar(id);
       var a = new PykCharts.multiD.scatterplotFunctions(options,that,"scatterplot");
       a.render();
     };
-    if (PykCharts.boolean(options.interactive_enable)) {
+    if (PykCharts['boolean'](that.interactive_enable)) {
         that.k.dataFromPykQuery(pykquery_data);
         that.k.dataSourceFormatIdentification(that.data,that,"executeData");
     } else {

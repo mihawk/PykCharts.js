@@ -19,7 +19,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                     .ticks()
                     .centerLabel();
         };
-        if (PykCharts['boolean'](options.interactive_enable)) {
+        if (PykCharts['boolean'](that.interactive_enable)) {
             that.k.dataFromPykQuery(pykquery_data);
             that.k.dataSourceFormatIdentification(that.data,that,"executeRefresh");
         } else {
@@ -217,7 +217,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                             if(that.mode === "default") {
                                 d.data.tooltip = d.data.tooltip || "<table class='PykCharts'><tr><th colspan='2' class='tooltip-heading'>"+d.data.name+"</tr><tr><td class='tooltip-left-content'>"+that.k.appendUnits(d.data.weight)+"<td class='tooltip-right-content'>("+((d.data.weight*100)/that.sum).toFixed(1)+"%) </tr></table>";
                                 if(PykCharts['boolean'](that.chart_onhover_highlight_enable)) {
-                                    that.mouseEvent.highlight(options.selector +" "+".pie", this);
+                                    that.mouseEvent.highlight(that.selector +" "+".pie", this);
                                 }
                                 that.mouseEvent.tooltipPosition(d);
                                 that.mouseEvent.tooltipTextShow(d.data.tooltip);
@@ -226,7 +226,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                         'mouseout': function (d) {
                             if(that.mode === "default") {
                                 if(PykCharts['boolean'](that.chart_onhover_highlight_enable)) {
-                                    that.mouseEvent.highlightHide(options.selector +" "+".pie");
+                                    that.mouseEvent.highlightHide(that.selector +" "+".pie");
                                 }   
                                 that.mouseEvent.tooltipHide(d);
                             }
@@ -237,7 +237,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                             }
                         },
                         'click' :  function (d) {
-                            if(PykCharts['boolean'](options.click_enable)){
+                            if(PykCharts['boolean'](that.click_enable)){
                                 that.addEvents(d.data.name, d3.select(this).attr("data-id"));
                             }
                         }
@@ -501,7 +501,7 @@ PykCharts.oneD.pieFunctions = function (options,chartObject,type) {
                 if(PykCharts['boolean'](that.show_total_at_center) && (type === "donut" || type === "election donut")) {
 
                     var h;
-                    var label = that.group.selectAll(options.selector +" "+".centerLabel")
+                    var label = that.group.selectAll(that.selector +" "+".centerLabel")
                                     .data([that.sum]);
 
                     label.enter()

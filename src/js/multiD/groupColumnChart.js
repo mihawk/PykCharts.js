@@ -29,14 +29,14 @@ PykCharts.multiD.groupedColumn = function(options) {
             that.axis_y_data_format = "number";
             that.axis_x_data_format = that.k.xAxisDataFormatIdentification(that.data);
             if(that.axis_x_data_format === "time" && that.axis_x_time_value_datatype === "") {
-                console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+that.selector+".(\""+"You seem to have passed Date data so please pass the value for axis_x_time_value_datatype"+"\")  Visit www.chartstore.io/docs#warning_"+"15");
+                console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+that.selector+".(\""+"You seem to have passed Date data so please pass the value for axis_x_time_value_datatype"+"\")  Visit www.pykcharts.com/errors#warning_15");
             }
 
             that.k.remove_loading_bar(id);
             // PykCharts.multiD.columnFunctions(options,that,"group_column");
             that.render();
         };
-        if (PykCharts.boolean(options.interactive_enable)) {
+        if (PykCharts.boolean(that.interactive_enable)) {
             that.k.dataFromPykQuery(pykquery_data);
             that.k.dataSourceFormatIdentification(that.data,that,"executeData");
         } else {
@@ -110,7 +110,7 @@ PykCharts.multiD.groupedColumn = function(options) {
                 that.k.xAxis(that.svgContainer,that.xGroup,that.xScale,that.extra_left_margin,that.xdomain,that.x_tick_values,that.legendsGroup_height)
             }
         };
-        if (PykCharts.boolean(options.interactive_enable)) {
+        if (PykCharts.boolean(that.interactive_enable)) {
             that.k.dataFromPykQuery(pykquery_data);
             that.k.dataSourceFormatIdentification(that.data,that,"executeRefresh");
         } else {
@@ -148,7 +148,7 @@ PykCharts.multiD.groupedColumn = function(options) {
             that.k.title()
                 .backgroundColor(that)
                 .export(that,"#"+container_id,"groupColumnChart")
-                .emptyDiv(options.selector)
+                .emptyDiv(that.selector)
                 .subtitle()
                 .makeMainDiv(that.selector,1);
 
@@ -186,7 +186,7 @@ PykCharts.multiD.groupedColumn = function(options) {
         } else if(that.mode === "infographics") {
             that.k.backgroundColor(that)
                 .export(that,"#"+container_id,"groupColumnChart")
-                .emptyDiv(options.selector)
+                .emptyDiv(that.selector)
                 .makeMainDiv(that.selector,1);
 
             that.optionalFeatures().svgContainer(container_id,1)
@@ -224,7 +224,7 @@ PykCharts.multiD.groupedColumn = function(options) {
         var optional = {
             svgContainer: function (container_id,i) {
                 document.getElementById(id).className += " PykCharts-twoD";
-                that.svgContainer = d3.select(options.selector + " #tooltip-svg-container-" + i)
+                that.svgContainer = d3.select(that.selector + " #chart-container-" + i)
                     .append("svg:svg")
                     .attr({
                         "width": that.chart_width,
@@ -496,24 +496,24 @@ PykCharts.multiD.groupedColumn = function(options) {
                     })
                     .on({
                         'mouseover': function (d) {
-                            if(that.mode === "default" && PykCharts['boolean'](options.tooltip_enable)) {
+                            if(that.mode === "default" && PykCharts['boolean'](that.tooltip_enable)) {
                                 var tooltip = d.tooltip ? d.tooltip : d.y
                                 that.mouseEvent.tooltipPosition(d);
                                 that.mouseEvent.tooltipTextShow(tooltip);
                             }
                         },
                         'mouseout': function (d) {
-                            if(that.mode === "default" && PykCharts['boolean'](options.tooltip_enable)) {
+                            if(that.mode === "default" && PykCharts['boolean'](that.tooltip_enable)) {
                                 that.mouseEvent.tooltipHide(d);
                             }
                         },
                         'mousemove': function (d) {
-                            if(that.mode === "default" && PykCharts['boolean'](options.tooltip_enable)) {
+                            if(that.mode === "default" && PykCharts['boolean'](that.tooltip_enable)) {
                                 that.mouseEvent.tooltipPosition(d);
                             }
                         },
                         'click': function (d,i) {
-                            if(PykCharts['boolean'](options.click_enable)){
+                            if(PykCharts['boolean'](that.click_enable)){
                                that.addEvents(d.name, d3.select(this).attr("data-id")); 
                             }                     
                         }

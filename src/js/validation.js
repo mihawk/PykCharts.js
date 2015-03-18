@@ -295,24 +295,28 @@ PykCharts.validation.processInputs = function (chartObject, options, chart_type)
             'config_name': 'chart_margin_left',
             'default_value': stylesheet,
             'validation_type': 'validatingDataType',
+            'condition1': findInObject,
             'multiDimensionalCharts': true
         },
         {
             'config_name': 'chart_margin_right',
             'default_value': stylesheet,
             'validation_type': 'validatingDataType',
+            'condition1': findInObject,
             'multiDimensionalCharts': true
         },
         {
             'config_name': 'chart_margin_top',
             'default_value': stylesheet,
             'validation_type': 'validatingDataType',
+            'condition1': findInObject,
             'multiDimensionalCharts': true
         },
         {
             'config_name': 'chart_margin_bottom',
             'default_value': stylesheet,
             'validation_type': 'validatingDataType',
+            'condition1': findInObject,
             'multiDimensionalCharts': true
         },
         {
@@ -497,16 +501,14 @@ PykCharts.validation.processInputs = function (chartObject, options, chart_type)
             'default_value': stylesheet,
             'validation_type': 'validatingXAxisPointerPosition',
             'condition2': convertToLowerCase,
-            'multiDimensionalCharts': true,
-            'maps': true
+            'multiDimensionalCharts': true
         },
         {
             'config_name': 'color_mode',
             'default_value': stylesheet,
             'validation_type': 'validatingColorMode',
             'condition2': convertToLowerCase,
-            'multiDimensionalCharts': true,
-            'maps':true
+            'multiDimensionalCharts': true
         },
         {
             'config_name': 'border_between_chart_elements_style',
@@ -554,9 +556,18 @@ PykCharts.validation.processInputs = function (chartObject, options, chart_type)
         }
     }
 
+    if (chart_type === "maps") {
+        chartObject.axis_x_pointer_position = options.axis_x_pointer_position ? options.axis_x_pointer_position : "top";
+        validator.validatingXAxisPointerPosition(chartObject.axis_x_pointer_position,"axis_x_pointer_position","top");
+    }
+
     if(chart_type === "oneDimensionalCharts") {
         chartObject.color_mode = options.color_mode ? options.color_mode : "shade";
         validator.validatingColorMode(chartObject.color_mode,"color_mode","shade",chart_type);
+    }
+    else if (chart_type === "maps") {
+        chartObject.color_mode = options.color_mode ? options.color_mode : "saturation";
+        validator.validatingColorMode(chartObject.color_mode,"color_mode","saturation",chart_type);
     }
 
     var enable_config_param = [
@@ -592,7 +603,7 @@ PykCharts.validation.processInputs = function (chartObject, options, chart_type)
         },
         {   
             'config_name': 'pointer_overflow_enable',
-            'default_value': oneDimensionalCharts,
+            'default_value': stylesheet,
             'oneDimensionalCharts': true
         },
         {
