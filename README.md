@@ -12,11 +12,11 @@ by [Pykih Data Visualization](https://pykih.com)
 
 **Comprehensive overrides:** Then designers would override the defaults to custom design the charts and make the final dashboard extremely intuitive for readers. Experts can override almost every single aspect. Alternatively, you can use the [Live Editor](http://pykcharts.com/tour/pie) to visually override the configuration.
 
-**Documentation:** [https://github.com/pykih/PykCharts.js/wiki](https://github.com/pykih/PykCharts.js/wiki)
-
 -----
 
 #### Support
+
+**Documentation:** [https://github.com/pykih/PykCharts.js/wiki](https://github.com/pykih/PykCharts.js/wiki)
 
 **Doubts:** Ask them on http://stackoverflow.com with tag as __pykcharts__
 
