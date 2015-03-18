@@ -295,24 +295,28 @@ PykCharts.validation.processInputs = function (chartObject, options, chart_type)
             'config_name': 'chart_margin_left',
             'default_value': stylesheet,
             'validation_type': 'validatingDataType',
+            'condition1': findInObject,
             'multiDimensionalCharts': true
         },
         {
             'config_name': 'chart_margin_right',
             'default_value': stylesheet,
             'validation_type': 'validatingDataType',
+            'condition1': findInObject,
             'multiDimensionalCharts': true
         },
         {
             'config_name': 'chart_margin_top',
             'default_value': stylesheet,
             'validation_type': 'validatingDataType',
+            'condition1': findInObject,
             'multiDimensionalCharts': true
         },
         {
             'config_name': 'chart_margin_bottom',
             'default_value': stylesheet,
             'validation_type': 'validatingDataType',
+            'condition1': findInObject,
             'multiDimensionalCharts': true
         },
         {
