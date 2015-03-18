@@ -258,7 +258,7 @@ PykCharts.Configuration = function (options){
         makeMainDiv: function (selection,i) {
             var d = d3.select(selection).append("div")
                 .attr({
-                    "id" : "tooltip-svg-container-"+i,
+                    "id" : "chart-container-"+i,
                     "class" : "main-div"
                 })
                 .style("width",options.chart_width + "px");
@@ -359,6 +359,8 @@ PykCharts.Configuration = function (options){
                     "width" : targetWidth,
                     "height" : (targetWidth / aspect)
                 });
+                d3.selectAll(options.selector + ' .main-div')
+                    .style("width", targetWidth+"px");
             }
             if(PykCharts['boolean'](options.title_text)) {
                 if(PykCharts['boolean'](options.export_enable)) {
@@ -8952,14 +8954,14 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
             }
             if(PykCharts['boolean'](that.panels_enable)) {
                 for (var i = 0;i < that.previous_length;i++) {
-                    var element = document.querySelector(that.selector + " #panels_of_line_main_div #tooltip-svg-container-"+i);
+                    var element = document.querySelector(that.selector + " #panels_of_line_main_div #chart-container-"+i);
                     element.parentNode.removeChild(element);
                 }               
                 that.renderPanelOfLines();
             }
 
             if(that.type === "multilineChart" && !PykCharts['boolean'](that.panels_enable)) {
-                document.querySelector(that.selector +" #tooltip-svg-container-1").innerHTML = null;
+                document.querySelector(that.selector +" #chart-container-1").innerHTML = null;
                 that.renderLineChart();
             }
 
@@ -9026,7 +9028,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
                 } else if(that.type === "lineChart" && !element.classList.contains('PykCharts-line-chart')) {
                     element.className += " PykCharts-twoD PykCharts-line-chart";
                 }
-                that.svgContainer = d3.select(that.selector+" #tooltip-svg-container-"+i)
+                that.svgContainer = d3.select(that.selector+" #chart-container-"+i)
                     .append("svg:svg")
                     .attr({
                         "id": that.container_id+"-" + i,
@@ -9640,7 +9642,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
         }
         if(PykCharts['boolean'](that.panels_enable)) {
             for (var i = 0;i < that.previous_length;i++) {
-                var element = document.querySelector(that.selector + " #panels_of_line_main_div #tooltip-svg-container-"+i);
+                var element = document.querySelector(that.selector + " #panels_of_line_main_div #chart-container-"+i);
                 element.parentNode.removeChild(element);
             }               
             that.renderPanelOfLines();
@@ -9648,7 +9650,7 @@ PykCharts.multiD.lineFunctions = function (options,chartObject,type) {
         if(that.type === "lineChart") {
             that.optionalFeature().createChart("liveData");
         } else if(that.type === "multilineChart" && !PykCharts['boolean'](that.panels_enable)) {
-            document.querySelector(that.selector +" #tooltip-svg-container-1").innerHTML = null;
+            document.querySelector(that.selector +" #chart-container-1").innerHTML = null;
             that.renderLineChart();
         }
         that.k.isOrdinal(that.svgContainer,".x.axis",that.xScale,that.xdomain,that.extra_left_margin);
@@ -10236,7 +10238,7 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 		        }
 		    }
 			if(that.type === "stackedAreaChart") {
-				document.querySelector(that.selector +" #tooltip-svg-container-1").innerHTML = null;
+				document.querySelector(that.selector +" #chart-container-1").innerHTML = null;
 				that.renderChart();
 			}
 			else {
@@ -10278,7 +10280,7 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 				if(!element.classList.contains('PykCharts-line-chart')) {
                     element.className += " PykCharts-twoD PykCharts-line-chart PykCharts-multi-series2D";
                 } 
-				that.svgContainer = d3.select(that.selector+" "+"#tooltip-svg-container-"+i).append("svg:svg")
+				that.svgContainer = d3.select(that.selector+" "+"#chart-container-"+i).append("svg:svg")
 					.attr({
 						"id": that.container_id+"-"+i,
 						"width": that.chart_width,
@@ -11060,7 +11062,7 @@ PykCharts.multiD.bar = function (options) {
         var optional = {
             svgContainer: function (container_id,i) {
                 document.getElementById(id).className += " PykCharts-twoD";
-                that.svgContainer = d3.select(that.selector + " #tooltip-svg-container-" + i)
+                that.svgContainer = d3.select(that.selector + " #chart-container-" + i)
                     .append("svg:svg")
                     .attr({
                         "width" : that.chart_width,
@@ -11559,7 +11561,7 @@ PykCharts.multiD.groupedBar = function(options){
         var optional = {
             svgContainer: function (container_id,i) {
                 document.getElementById(id).className += " PykCharts-twoD";
-                that.svgContainer = d3.select(that.selector + " #tooltip-svg-container-" + i)
+                that.svgContainer = d3.select(that.selector + " #chart-container-" + i)
                     .append("svg:svg")
                     .attr({
                         "width" : that.chart_width,
@@ -12242,7 +12244,7 @@ PykCharts.multiD.column = function (options) {
         var optional = {
             svgContainer: function (container_id,i) {
                 document.getElementById(id).className += " PykCharts-twoD";
-                that.svgContainer = d3.select(that.selector + " #tooltip-svg-container-" + i)
+                that.svgContainer = d3.select(that.selector + " #chart-container-" + i)
                     .append("svg:svg")
                     .attr({
                         "width": that.chart_width,
@@ -12745,7 +12747,7 @@ PykCharts.multiD.groupedColumn = function(options) {
         var optional = {
             svgContainer: function (container_id,i) {
                 document.getElementById(id).className += " PykCharts-twoD";
-                that.svgContainer = d3.select(that.selector + " #tooltip-svg-container-" + i)
+                that.svgContainer = d3.select(that.selector + " #chart-container-" + i)
                     .append("svg:svg")
                     .attr({
                         "width": that.chart_width,
@@ -13649,12 +13651,12 @@ PykCharts.multiD.scatterplotFunctions = function (options,chartObject,type) {
     var id = that.selector.substring(1,that.selector.length);
     var optional = {
       svgContainer :function (i) {
-        document.querySelector(that.selector + " #tooltip-svg-container-" + i).style.width = that.w;
+        document.querySelector(that.selector + " #chart-container-" + i).style.width = that.w;
         var element = document.getElementById(id);
         if(!element.classList.contains('PykCharts-weighted')) {
           element.className += " PykCharts-weighted";
         }
-        that.svgContainer = d3.select(that.selector + " #tooltip-svg-container-" + i)
+        that.svgContainer = d3.select(that.selector + " #chart-container-" + i)
         .append('svg')
         .attr({
           "width": that.w,
@@ -14452,7 +14454,7 @@ PykCharts.multiD.spiderWeb = function (options) {
         var optional = {
             svgContainer: function (container_id,i) {
                 document.getElementById(id).className += " PykCharts-spider-web";
-                that.svgContainer = d3.select(that.selector + " #tooltip-svg-container-" + i)
+                that.svgContainer = d3.select(that.selector + " #chart-container-" + i)
                     .append("svg")
                     .attr({
                         "class": "svgcontainer",
@@ -15922,7 +15924,7 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
     	var optional = {
     		svgContainer: function (i,container_id) {
                 document.getElementById(id).className += " PykCharts-twoD";
-                that.svgContainer = d3.select(that.selector + " #tooltip-svg-container-" + i)
+                that.svgContainer = d3.select(that.selector + " #chart-container-" + i)
                     .append("svg:svg")
                     .attr("width",that.chart_width)
                     .attr("height",that.chart_height)
@@ -16125,22 +16127,24 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
             	return this;
             },
             axis_background: function (container_id) {
-                var y_axis_text = document.querySelectorAll("#"+container_id+" #yaxis .tick text");
-                var y_axis_text_length = y_axis_text.length,text = [];
-                for(var i=0;i<y_axis_text_length;i++) {
-                    text.push(y_axis_text[i].getBBox().width)
+                if(PykCharts.boolean(that.axis_y_enable) && that.axis_y_pointer_size) {
+                    var y_axis_text = document.querySelectorAll("#"+container_id+" #yaxis .tick text");
+                    var y_axis_text_length = y_axis_text.length,text = [];
+                    for(var i=0;i<y_axis_text_length;i++) {
+                        text.push(y_axis_text[i].getBBox().width)
+                    }
+                    var max_width = d3.max(text,function(d){
+                        return d;
+                    })
+
+                    that.background_rect
+                        .attr("x",that.chart_margin_left - max_width - 10)
+                        .attr("width",max_width+10);
+
+
+                    that.background_rect.exit()
+                        .remove();
                 }
-                var max_width = d3.max(text,function(d){
-                    return d;
-                })
-
-                that.background_rect
-                    .attr("x",that.chart_margin_left - max_width - 10)
-                    .attr("width",max_width+10);
-
-
-                that.background_rect.exit()
-                    .remove();
                 return this;
             }
     	};

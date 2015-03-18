@@ -212,7 +212,7 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 		        }
 		    }
 			if(that.type === "stackedAreaChart") {
-				document.querySelector(that.selector +" #tooltip-svg-container-1").innerHTML = null;
+				document.querySelector(that.selector +" #chart-container-1").innerHTML = null;
 				that.renderChart();
 			}
 			else {
@@ -254,7 +254,7 @@ PykCharts.multiD.areaFunctions = function (options,chartObject,type) {
 				if(!element.classList.contains('PykCharts-line-chart')) {
                     element.className += " PykCharts-twoD PykCharts-line-chart PykCharts-multi-series2D";
                 } 
-				that.svgContainer = d3.select(that.selector+" "+"#tooltip-svg-container-"+i).append("svg:svg")
+				that.svgContainer = d3.select(that.selector+" "+"#chart-container-"+i).append("svg:svg")
 					.attr({
 						"id": that.container_id+"-"+i,
 						"width": that.chart_width,

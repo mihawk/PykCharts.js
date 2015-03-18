@@ -258,7 +258,7 @@ PykCharts.Configuration = function (options){
         makeMainDiv: function (selection,i) {
             var d = d3.select(selection).append("div")
                 .attr({
-                    "id" : "tooltip-svg-container-"+i,
+                    "id" : "chart-container-"+i,
                     "class" : "main-div"
                 })
                 .style("width",options.chart_width + "px");
@@ -359,6 +359,8 @@ PykCharts.Configuration = function (options){
                     "width" : targetWidth,
                     "height" : (targetWidth / aspect)
                 });
+                d3.selectAll(options.selector + ' .main-div')
+                    .style("width", targetWidth+"px");
             }
             if(PykCharts['boolean'](options.title_text)) {
                 if(PykCharts['boolean'](options.export_enable)) {

@@ -218,7 +218,7 @@ PykCharts.multiD.spiderWeb = function (options) {
         var optional = {
             svgContainer: function (container_id,i) {
                 document.getElementById(id).className += " PykCharts-spider-web";
-                that.svgContainer = d3.select(that.selector + " #tooltip-svg-container-" + i)
+                that.svgContainer = d3.select(that.selector + " #chart-container-" + i)
                     .append("svg")
                     .attr({
                         "class": "svgcontainer",

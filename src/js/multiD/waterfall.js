@@ -190,7 +190,7 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
     	var optional = {
     		svgContainer: function (i,container_id) {
                 document.getElementById(id).className += " PykCharts-twoD";
-                that.svgContainer = d3.select(that.selector + " #tooltip-svg-container-" + i)
+                that.svgContainer = d3.select(that.selector + " #chart-container-" + i)
                     .append("svg:svg")
                     .attr("width",that.chart_width)
                     .attr("height",that.chart_height)
@@ -393,22 +393,24 @@ PykCharts.multiD.waterfallFunctions = function (options,chartObject,type) {
             	return this;
             },
             axis_background: function (container_id) {
-                var y_axis_text = document.querySelectorAll("#"+container_id+" #yaxis .tick text");
-                var y_axis_text_length = y_axis_text.length,text = [];
-                for(var i=0;i<y_axis_text_length;i++) {
-                    text.push(y_axis_text[i].getBBox().width)
+                if(PykCharts.boolean(that.axis_y_enable) && that.axis_y_pointer_size) {
+                    var y_axis_text = document.querySelectorAll("#"+container_id+" #yaxis .tick text");
+                    var y_axis_text_length = y_axis_text.length,text = [];
+                    for(var i=0;i<y_axis_text_length;i++) {
+                        text.push(y_axis_text[i].getBBox().width)
+                    }
+                    var max_width = d3.max(text,function(d){
+                        return d;
+                    })
+
+                    that.background_rect
+                        .attr("x",that.chart_margin_left - max_width - 10)
+                        .attr("width",max_width+10);
+
+
+                    that.background_rect.exit()
+                        .remove();
                 }
-                var max_width = d3.max(text,function(d){
-                    return d;
-                })
-
-                that.background_rect
-                    .attr("x",that.chart_margin_left - max_width - 10)
-                    .attr("width",max_width+10);
-
-
-                that.background_rect.exit()
-                    .remove();
                 return this;
             }
     	};
