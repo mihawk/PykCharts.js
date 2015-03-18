@@ -16,11 +16,15 @@ by [Pykih Data Visualization](https://pykih.com)
 
 -----
 
-#### Reporting bugs
+#### Support
 
-If you discover a problem with PykCharts.js, we would like to know about it. Report them in the [issues](https://github.com/pykih/PykCharts.js/issues)
+**Doubts:** Ask them on http://stackoverflow.com with tag as __pykcharts__
 
-If you are a d3.js developer and would like to contribute to PykCharts, then email us at rp@pykih.com
+**Bugs:** Report them in [GitHub Issues](https://github.com/pykih/PykCharts.js/issues)
+
+**Contribute:** d3.js developers who are interested to contribute can email us at rp@pykih.com
+
+**Pro Support:** https://github.com/pykih/PykCharts.js/wiki/Support
 
 -----
 
