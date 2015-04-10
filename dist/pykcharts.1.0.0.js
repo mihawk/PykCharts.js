@@ -12514,7 +12514,7 @@ PykCharts.multiD.column = function (options) {
                     var xaxis = d3.svg.axis()
                         .scale(that.xScale)
                         .orient(that.axis_x_pointer_position)
-                        .tickSize(2)
+                        .tickSize(0)
                         .ticks(that.axis_x_no_of_axis_value)
                         .outerTickSize(that.axis_x_outer_pointer_length);
                     that.new_xAxisgroup.style("stroke",function () { return that.axis_x_line_color; })
