@@ -7619,7 +7619,7 @@ configuration.makeYGrid = function(options,yScale,legendsGroup_width) {
     var ygrid = d3.svg.axis()
                     .scale(yScale)
                     .orient("left")
-                    .ticks(options.axis_x_no_of_axis_value)
+                    .ticks(options.axis_y_no_of_axis_value)
                     .tickSize(-size)
                     .tickFormat("")
                     .outerTickSize(0);
@@ -7627,8 +7627,8 @@ configuration.makeYGrid = function(options,yScale,legendsGroup_width) {
     d3.selectAll(options.selector + " .y.axis .tick text")
                     .attr("font-size",options.axis_y_pointer_size + "px")
                     .style({
-                        "font-weight" : options.axis_x_pointer_weight,
-                        "font-family" : options.axis_x_pointer_family
+                        "font-weight" : options.axis_y_pointer_weight,
+                        "font-family" : options.axis_y_pointer_family
                     });
 
 
@@ -12146,7 +12146,8 @@ PykCharts.multiD.column = function (options) {
                 .xAxisTitle(that.xgroup)
                 .yAxisTitle(that.ygroup);
             if(that.axis_x_data_format !== "string") {
-                that.k.xAxis(that.svgContainer,that.xgroup,that.xScale,that.extra_left_margin,that.x_domain,that.x_tick_values,null,"bar",that);
+                console.log(that.xScale1.domain())
+                that.k.xAxis(that.svgContainer,that.xgroup,that.xScale1,that.extra_left_margin,that.x_domain,that.x_tick_values,null,"bar",that);
                 that.optionalFeatures().newXAxis();
             } else {
                 that.k.xAxis(that.svgContainer,that.xgroup,that.xScale,that.extra_left_margin,that.x_domain,that.x_tick_values,null,null,that);
@@ -12175,7 +12176,7 @@ PykCharts.multiD.column = function (options) {
                 .xAxisTitle(that.xgroup)
                 .yAxisTitle(that.ygroup);
             if(that.axis_x_data_format !== "string") {
-                that.k.xAxis(that.svgContainer,that.xgroup,that.xScale,that.extra_left_margin,that.x_domain,that.x_tick_values,null,"bar")
+                that.k.xAxis(that.svgContainer,that.xgroup,that.xScale1,that.extra_left_margin,that.x_domain,that.x_tick_values,null,"bar")
                 that.optionalFeatures().newXAxis();
             } else {
                 that.k.xAxis(that.svgContainer,that.xgroup,that.xScale,that.extra_left_margin,that.x_domain,that.x_tick_values)
@@ -12358,8 +12359,9 @@ PykCharts.multiD.column = function (options) {
                     that.extra_top_margin = 0;
                 }
                 if(that.axis_x_data_format === "number") {
-                    x_domain = [0,d3.max(that.data,function (d) { return d.x; })];
-                    x_data = that.k._domainBandwidth(x_domain,1);
+                    x_domain = [d3.min(that.data,function (d) { return +d.x; }),d3.max(that.data,function (d) { return +d.x; })];
+                    console.log(x_domain)
+                    x_data = that.k._domainBandwidth(x_domain);
                     x_range = [0 ,that.reducedWidth];
                     min_x_tick_value = d3.min(that.x_tick_values);
                     max_x_tick_value = d3.max(that.x_tick_values);
@@ -12373,6 +12375,7 @@ PykCharts.multiD.column = function (options) {
                     that.data.sort(function (a,b) {
                         return a.x - b.x;
                     })
+                    console.log(x_data)
                     that.xScale1 = that.k.scaleIdentification("linear",x_data,x_range);
                     x_data1 = that.data.map(function (d) { return d.x; });
                     x_range1 = [0 ,that.reducedWidth];
@@ -12414,6 +12417,7 @@ PykCharts.multiD.column = function (options) {
                             return 1;
                         }
                     })
+                    console.log(data)
                     that.xScale1 = that.k.scaleIdentification("linear",x_data,x_range);
                     x_data1 = that.data.map(function (d) { return d.x; });
                     x_range1 = [0 ,that.reducedWidth];
@@ -12498,7 +12502,7 @@ PykCharts.multiD.column = function (options) {
                 var t = d3.transform(d3.select(d3.selectAll(that.selector + ' .column-rect')[0][(that.data.length-1)]).attr("transform")),
                     x = t.translate[0],
                     y = t.translate[1];
-                x_range = [(x + (that.xScale.rangeBand()/2)),(that.reducedWidth - x - (that.xScale.rangeBand()/2))];
+                x_range = [(x + (that.xScale.rangeBand())),(that.reducedWidth - x - (that.xScale.rangeBand()))];
                 that.xScale1 = that.k.scaleIdentification("linear",x_data,x_range);
                 return this;
             },
@@ -12510,7 +12514,8 @@ PykCharts.multiD.column = function (options) {
                     var xaxis = d3.svg.axis()
                         .scale(that.xScale)
                         .orient(that.axis_x_pointer_position)
-                        .tickSize(0)
+                        .tickSize(2)
+                        .ticks(that.axis_x_no_of_axis_value)
                         .outerTickSize(that.axis_x_outer_pointer_length);
                     that.new_xAxisgroup.style("stroke",function () { return that.axis_x_line_color; })
                         .call(xaxis);
