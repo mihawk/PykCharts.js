@@ -1199,11 +1199,11 @@ PykCharts.Configuration = function (options){
             return this;
         },
         errorHandling: function(error_msg,error_code,err_url) {
-            console.error('%c[Error - Pykih Charts] ', 'color: red;font-weight:bold;font-size:14px', " at "+options.selector+".(Invalid value for attribute \""+error_msg+"\")  Visit www.pykcharts.com/errors#error_"+error_code);
+            console.error('%c[Error - Pykih Charts] ', 'color: red;font-weight:bold;font-size:14px', " at "+options.selector+".(Invalid value for attribute \""+error_msg+"\")  Visit https://github.com/pykih/PykCharts.js/wiki/Errors#error_"+error_code);
             return;
         },
         warningHandling: function(error_msg,error_code,err_url) {
-            console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+options.selector+".(Invalid value for attribute \""+error_msg+"\")  Visit www.pykcharts.com/errors#warning_"+error_code);
+            console.warn('%c[Warning - Pykih Charts] ', 'color: #F8C325;font-weight:bold;font-size:14px', " at "+options.selector+".(Invalid value for attribute \""+error_msg+"\")  Visit https://github.com/pykih/PykCharts.js/wiki/Warnings#warning_"+error_code);
             return;
         },
         validator: function () {
