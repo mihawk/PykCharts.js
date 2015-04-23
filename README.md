@@ -14,6 +14,10 @@ by [Pykih Data Visualization](https://pykih.com)
 
 -----
 
+Introduction to PykCharts.js - http://blog.pykih.com/2015/02/01/pykcharts-js/
+
+-----
+
 #### Support
 
 **Documentation:** [https://github.com/pykih/PykCharts.js/wiki](https://github.com/pykih/PykCharts.js/wiki)
