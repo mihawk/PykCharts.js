@@ -1,7 +1,7 @@
 {
   "name": "PykCharts",
   "description": "PykCharts re-usable charts",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": "Pykih",
   "homepage": "http://www.pykih.com",
   "devDependencies": {

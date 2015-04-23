@@ -60,7 +60,7 @@ configuration.makeYGrid = function(options,yScale,legendsGroup_width) {
     var ygrid = d3.svg.axis()
                     .scale(yScale)
                     .orient("left")
-                    .ticks(options.axis_x_no_of_axis_value)
+                    .ticks(options.axis_y_no_of_axis_value)
                     .tickSize(-size)
                     .tickFormat("")
                     .outerTickSize(0);
@@ -68,8 +68,8 @@ configuration.makeYGrid = function(options,yScale,legendsGroup_width) {
     d3.selectAll(options.selector + " .y.axis .tick text")
                     .attr("font-size",options.axis_y_pointer_size + "px")
                     .style({
-                        "font-weight" : options.axis_x_pointer_weight,
-                        "font-family" : options.axis_x_pointer_family
+                        "font-weight" : options.axis_y_pointer_weight,
+                        "font-family" : options.axis_y_pointer_family
                     });
 
 
