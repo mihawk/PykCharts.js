@@ -1,0 +1,80 @@
+.javascript {
+  width: auto !important;
+  margin-left: 0px !important;
+}
+
+.custom_nav>li>h5 {
+  padding: 3px 10px;
+  text-decoration: underline;
+}
+
+.chart-sample {
+  width: auto !important;
+  margin-left: 150px;
+}
+
+.oned-chart-sample {
+  width: auto !important;
+  margin-left: 250px;
+}
+
+h4.bold{
+  font-weight: bold;
+}
+
+pre, code {
+  background-color: #f7f7f9 !important;
+}
+pre {
+  border: 1px solid #e1e1e8;
+}
+
+.hljs-string, .hljs-value {
+  color: #d44950 !important;
+}
+
+.hljs-attribute {
+  color: #2aa198;
+}
+
+.hljs-number {
+  color: #b58900;
+}
+
+/*#waterfall_container, #timeline_container , #choropleth_container {
+  margin-left: 200px;
+}
+
+#panel_of_lines_container {
+  margin-left: 150px;
+}*/
+
+/*#panels_of_scatter_container {
+  margin-left: 30px;
+}*/
+
+/*#pictograph_container, #spider_container {
+  margin-left: 250px;
+}*/
+
+/*#percentage-bar_container { margin-left: 160px; }
+#percentage-rectangle_container { margin-left: 240px; }
+#percentage-column_container { margin-left: 400px; }
+#election-donut_container { margin-left: 300px; }
+#election-pie_container { margin-left: 300px; }*/
+.transparent {
+  opacity: 0;
+}
+
+.nav-smaller>li>a {
+  padding: 5px 15px;
+}
+
+.nav-smaller>li.active>a, .nav-smaller>li.active>a:focus, .nav-smaller>li.active>a:hover, .nav-smaller>li>a, .nav-smaller>li>a:focus, .nav-smaller>li>a:hover {
+  font-size: 0.8em;
+}
+
+/*.large {
+  width:  220px;
+  height:46px;
+}*/

@@ -1,0 +1,39 @@
+/*PANELS*/
+
+
+.panel-default > .panel-heading{ background: #f7f7f7; }
+.panel-default > .panel-heading > .panel-title { font-size: 0.9em; font-weight: bold;}
+.panel-default > .panel-body.m0p0{ padding: 0px; }
+
+/*NAVBAR*/
+
+.navbar-default, .navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:hover, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus, .navbar-default ul.dropdown-menu, .navbar-default .dropdown-menu>li, .navbar-default .dropdown-menu>li>a, .navbar-default .dropdown-menu>li.active, .navbar-default .dropdown-menu>li.active>a, .navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>.active>a:focus { color: white; background: #f3f3f3; font-weight: thin; }
+.navbar-default .navbar-nav .open .dropdown-menu>li>a{ color: gray; }
+.navbar-default .navbar-nav .open .dropdown-menu>li>a:hover{ color: black; background: light-grey; }
+
+.cstm-navbar{margin-bottom: 0; background: white; border-radius: 0; border: 0; border-bottom:1px solid #e3e3e3;}
+.cstm-nav>li>a{padding:15px;}
+.cstm-active{background: rgba(227, 232, 234, 0.58) !important;}
+li.cstm-link{letter-spacing: 0.5px; font-size:0.8em;}
+
+/*DROPDOWN*/
+
+ul.dropdown-menu{background: white;}
+.dropdown-menu>li{ background: white; }
+.dropdown-menu>li>a{ color: black; }
+
+ /*SIDEBAR*/
+
+ul.nav.nav-pills.nav-stacked li a{padding: 5px 10px; border-bottom: 1px solid #f7f7f7; margin: 0px; border-radius: 0px;}
+ul.nav.nav-pills.nav-stacked li a:hover{background: #F1F1F1; color: #794aa2; padding: 5px 10px; border-radius: 0px;}
+ul.nav.nav-pills.nav-stacked li.active a:hover{padding: 5px 10px; border-radius: 0px;}
+ul.nav.nav-pills.nav-stacked li.active a{background: white; border-left: 5px solid #794aa2; border-radius: 0px; padding: 5px 10px; color: black; font-weight: bold;}
+
+/*BUTTONS*/
+
+input[type="submit"]{background: #794aa2; color: white; border: 1px solid #794aa2;margin: 0px;}
+
+/*FOOTER*/
+
+.jumbotron.footer{background: #f2f2f2;margin: 0px;padding: 40px 0px 20px 0px;border: none; border-radius: 0px; color: black; font-size: 15px; font-weight: normal;}
+.jumbotron.footer a{color: gray; font-size: 14px; line-height: 1em; padding: none; margin: none;}

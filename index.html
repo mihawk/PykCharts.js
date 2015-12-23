@@ -1,0 +1,305 @@
+<html>
+  <HEAD>
+    <TITLE>
+      PykCharts.js - Open source charting library
+    </TITLE>
+    <link href="lib/bootstrap.css" media="all" rel="stylesheet">
+    <link href="lib/pyk-bootstrap-theme.css" media="all" rel="stylesheet">
+    <link href="lib/bootstrap-theme.css" media="all" rel="stylesheet">
+    <link href="src/css/master.css" media="all" rel="stylesheet">
+    <link href="lib/pykcharts.css" media="all" rel="stylesheet">
+    <link href="lib/solarized_light.css" media="all" rel="stylesheet">
+    <link href="lib/work.css" media="all" rel="stylesheet">
+    <link href="lib/general.css" media="all" rel="stylesheet">
+    <link href="lib/interactive_charts.css" media="all" rel="stylesheet">
+    <link href="lib/maps_supported.css" media="all" rel="stylesheet">
+    <link href="src/css/product-page.css" media="all" rel="stylesheet">
+    <link href="lib/sidebar.css" media="all" rel="stylesheet">
+    <link href="lib/application.css" media="all" rel="stylesheet">
+    <script src="lib/widgets.js" id="twitter-wjs"></script><script src="lib/jquery-1.js"></script>
+    <script src="lib/jquery_ujs.js"></script>
+    <script src="lib/bootstrap.js"></script>
+    <script src="lib/highlight.js"></script>
+    <script src="lib/pykcharts.js"></script>
+    <script src="lib/jquery.js"></script>
+    <script src="lib/notiy.js"></script>
+    <script src="lib/scroll.js"></script>
+    <script src="lib/youtube.js"></script>
+    <script src="lib/application.js"></script>
+  </HEAD>
+  <body>
+    <header id="main-header">
+      <nav class="navbar navbar-default" id="main-nav" role="navigation">
+        <div class="container">
+          <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="design.html">Design Decisions</a></li>
+              <li><a href="https://github.com/pykih/PykCharts.js/wiki" target="_blank">API Documentation</a></li>
+              <li><a href="https://github.com/pykih/PykCharts.js/wiki/Support" target="_blank">Support</a></li>
+              <li><a href="https://pykih.com/" target="_blank">About</a></li>
+              <a href="https://github.com/pykih/PykCharts.js">
+                <img alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png" src="lib/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875.png" style="position: absolute; top: 0; right: 0; border: 0;">
+              </a>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <style>
+      input[type="submit"]{background: #fa743e; border: #fa743e;}
+    </style>
+    <style>
+      table#footer{display: none;}
+    </style>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <h1 style="color: #f44336; font-weight: 200;">
+            PykCharts.js
+          </h1>
+          <hr>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <h2 class="highlight text-center">Well designed d3.js charting without the complexity of d3.js</h2>
+          <p class="lead text-center">26+ well-designed, themeable, responsive, modular, real-time and easy to use charts and 109+ maps.</p>
+          <p class="text-center" style="font-size: 1.1em; color: gray; margin: 0px 150px;">d3.js
+ is powerful but tough to use! You could copy-paste from d3.js examples 
+but they have inconsistent design and input data formats! For pro-users,
+ coding in d3.js can get easily chaotic. PykCharts.js is our attempt to 
+address these issues!</p>
+          <br>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-6" style="margin-left: 30%">
+          <form accept-charset="UTF-8" action="/download/PykCharts.js.zip" method="get" target="_new"><div style="display:none"><input name="utf8" value="✓" type="hidden"></div>
+                <table>
+                  <tbody><tr>
+                    <td>
+                      <input class="form-control large" id="email" name="email" placeholder="Email ID" type="email" width="100px;">
+                      <div class="hint">We don't spam. We don't sell email ids.</div>
+                    </td>
+                    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                    <td>
+                      <br>
+                      <input class="btn btn-success" id="download_pykcharts_link" name="commit" target="_blank" value="Download PykCharts.js" type="submit">
+                      <br>
+                      <br>
+                      <a href="https://github.com/pykih/PykCharts.js/wiki" target="_blank">Getting Started</a>
+                    </td>
+                  </tr>
+                </tbody></table>
+          </form>
+          <br>
+          <br>
+          <br>
+          <br>
+        </div>
+      </div>
+    </div>
+    <div class="container light">
+      <div class="row">
+        <div class="col-sm-2">
+          <div id="pie_container"></div>
+          <div class="text-center">Pie</div>
+        </div>
+        <div class="col-sm-2">
+          <div id="donut_container"></div>
+          <div class="text-center">Donut</div>
+        </div>
+        <div class="col-sm-2">
+          <div id="election-donut_container"></div>
+          <div class="text-center">Election Donut</div>
+        </div>
+        <div class="col-sm-2">
+          <div id="election-pie_container"></div>
+          <div class="text-center">Election Pie</div>
+        </div>
+        <div class="col-sm-2">
+          <div id="bubble_container"></div>
+          <div class="text-center">Bubble</div>
+        </div>
+        <div class="col-sm-2">
+          <div id="percentage-bar_container"></div>
+          <div class="text-center">Percentage Bar</div>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+    <div class="container light">
+      <div class="row">
+        <div class="col-sm-2">
+          <div id="percentage-column_container"></div>
+          <div class="text-center">Percentage Column</div>
+        </div>
+        <div class="col-sm-2">
+          <div id="pyramid_container"></div>
+          <div class="text-center">Pyramid</div>
+        </div>
+        <div class="col-sm-2">
+          <div id="funnel_container"></div>
+          <div class="text-center">Funnel</div>
+        </div>
+        <div class="col-sm-2">
+          <div id="percentage-rectangle_container"></div>
+          <div class="text-center">Percentage Rectangle</div>
+        </div>
+        <div class="col-sm-2">
+          <div id="bar_container"></div>
+          <div class="text-center">Bar</div>
+        </div>
+        <div class="col-sm-2">
+          <div id="grouped_bar_container"></div>
+          <div class="text-center">Grouped Bar</div>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+    <div class="container light">
+      <div class="row">
+        <div class="col-sm-2">
+          <div id="column_container"></div>
+          <div class="text-center">Column</div>
+        </div>
+        <div class="col-sm-2">
+          <div id="grouped_column_container"></div>
+          <div class="text-center">Grouped Column</div>
+        </div>
+        <div class="col-sm-2">
+          <div id="line_container"></div>
+          <div class="text-center">Line</div>
+        </div>
+        <div class="col-sm-2">
+          <div id="multi_series_line_container"></div>
+          <div class="text-center">Multi-series Line</div>
+        </div>
+        <div class="col-sm-2">
+          <div id="area_container"></div>
+          <div class="text-center">Area</div>
+        </div>
+        <div class="col-sm-2">
+          <div id="stacked_area_container"></div>
+          <div class="text-center">Stacked Area</div>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+    <div class="container light">
+      <div class="row">
+        <div class="col-sm-2">
+          <div id="spider_container"></div>
+          <div class="text-center">Spider</div>
+        </div>
+        <div class="col-sm-2">
+          <div id="waterfall_container"></div>
+          <div class="text-center">Waterfall</div>
+        </div>
+        <div class="col-sm-2">
+          <div id="scatterplot_container"></div>
+          <div class="text-center">Scatter</div>
+        </div>
+        <div class="col-sm-2">
+          <div id="pulse_container"></div>
+          <div class="text-center">Pulse</div>
+        </div>
+        <div class="col-sm-2">
+          <div id="pictograph_container"></div>
+          <div class="text-center">Pictograph</div>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+    <div class="container light">
+      <div class="row">
+        <div class="col-sm-4">
+          <div id="panel_of_lines_container"></div>
+          <div class="text-center">Panel of Lines</div>
+        </div>
+        <div class="col-sm-4">
+          <div id="panels_of_scatter_container"></div>
+          <div class="text-center">Panel of Scatter</div>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <hr>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8">
+          <h4 class="highlight">Focus on Design</h4>
+          <p class="lead">The primary goal of a chart is to communicate 
+data. Everything else is secondary! We have put in a lot of care to get 
+the basics right for every chart and set them as defaults so you avoid 
+common data visualisation mistakes right from the start.</p>
+          <br>
+          <h4 class="highlight">Smart defaults</h4>
+          <p class="lead">We originally built this charting library so 
+our developers could get charts up very quickly. The API is simple 
+enough for someone with minimum knowledge of HTML, CSS and JS to get 
+started.</p>
+          <br>
+          <h4 class="highlight">Comprehensive overrides</h4>
+          <p class="lead">Then designers would override the defaults to 
+custom design the charts and make the final dashboard extremely 
+intuitive for readers. Experts can override almost every single aspect. 
+Alternatively, you can use the Live Editor to visually override the 
+configuration.</p>
+        </div>
+        <div class="col-sm-4">
+          <iframe title="Twitter Timeline" data-search-query="PykCharts" data-widget-id="578044519066697729" style="position: static; visibility: visible; display: inline-block; width: 100%; height: 600px; padding: 0px; border: medium none; max-width: 520px; min-width: 180px; min-height: 200px; margin-top: 0px; margin-bottom: 0px;" class="twitter-timeline twitter-timeline-rendered" allowfullscreen="true" allowtransparency="true" scrolling="no" id="twitter-widget-1" frameborder="0"></iframe>
+          <script>
+            !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+          </script>
+        </div>
+      </div>
+    </div>
+    <script>
+      var link  = "/download/PykCharts.js.zip";
+      
+    </script>
+    <script type="text/javascript" src="src/js/index.js"></script>
+    <div style="display: block;" id="scroll-topper">
+      <span class="glyphicon glyphicon-chevron-up"></span>
+    </div>
+    <div class="container">
+      <br>
+      <br>
+      <div class="well">
+        <p>
+          </p><center>
+            Built on
+            <a href="http://d3js.org/" target="_blank">Mike Bostock's d3.js</a>
+            &nbsp;
+            |
+            &nbsp;
+            Design Inspiration:
+            <a href="http://books.wwnorton.com/books/detail.aspx?ID=12257" target="_blank">WSJ Guide to Information Graphics</a>
+            &nbsp;
+            |
+            &nbsp;
+            Built and maintained by <a href="https://pykih.com/" target="_blank">Pykih Data Visualization</a>
+            &nbsp;
+            |
+            &nbsp;
+            Downloads <span class="badge">0</span>
+          </center>
+          <center>
+            <br>
+            Copyright © 2015 - Pykih
+          </center>
+        <p></p>
+      </div>
+    </div>
+    <br>
+  </BODY>
+</html>

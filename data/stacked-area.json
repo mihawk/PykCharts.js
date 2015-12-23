@@ -1,0 +1,151 @@
+[
+	{
+		"name":"China",
+		"x":"January",
+		"y":120,
+		"color": "",
+		"tooltip":120
+	},
+	{
+		"name":"China",
+		"x":"February",
+		"y":100,
+		"color": "",
+		"tooltip":100
+	},
+	{
+		"name":"China",
+		"x":"March",
+		"y":30,
+		"color": "",
+		"tooltip":30,
+		"annotation" : "product launch"
+	},
+	{
+		"name":"China",
+		"x":"April",
+		"y":40,
+		"color": "",
+		"tooltip":40
+	},
+	{
+		"name":"China",
+		"x":"May",
+		"y":60,
+		"color": "",
+		"tooltip":60
+	},
+	{
+		"name":"China",
+		"x":"June",
+		"y":70,
+		"color": "",
+		"tooltip":70
+	},
+	{
+		"name":"China",
+		"x":"July",
+		"y":30,
+		"color": "",
+		"tooltip":30
+	},
+	{
+		"name":"U.S.A.",
+		"x":"January",
+		"y":70,
+		"color": "purple",
+		"tooltip":70,
+		"annotation" : "inflation"
+	},
+	{
+		"name":"U.S.A.",
+		"x":"February",
+		"y":100,
+		"color": "#4682b4",
+		"tooltip":100
+	},
+	{
+		"name":"U.S.A.",
+		"x":"March",
+		"y":50,
+		"color": "#4682b4",
+		"tooltip":50
+	},
+	{
+		"name":"U.S.A.",
+		"x":"April",
+		"y":60,
+		"color": "#4682b4",
+		"tooltip":60
+	},
+	{
+		"name":"U.S.A.",
+		"x":"May",
+		"y":30,
+		"color": "#4682b4",
+		"tooltip":30
+	},
+	{
+		"name":"U.S.A.",
+		"x":"June",
+		"y":40,
+		"color": "#4682b4",
+		"tooltip":40
+	},
+	{
+		"name":"U.S.A.",
+		"x":"July",
+		"y":90,
+		"color": "#4682b4",
+		"tooltip":90
+	},
+	{
+		"name":"India",
+		"x":"January",
+		"y":50,
+		"color": "#75b0e1",
+		"tooltip":50
+	},
+	{
+		"name":"India",
+		"x":"February",
+		"y":30,
+		"color": "#75b0e1",
+		"tooltip":30
+	},
+	{
+		"name":"India",
+		"x":"March",
+		"y":80,
+		"color": "#75b0e1",
+		"tooltip":80
+	},
+	{
+		"name":"India",
+		"x":"April",
+		"y":40,
+		"color": "#75b0e1",
+		"tooltip":40
+	},
+	{
+		"name":"India",
+		"x":"May",
+		"y":50,
+		"color": "#75b0e1",
+		"tooltip":50
+	},
+	{
+		"name":"India",
+		"x":"June",
+		"y":40,
+		"color": "#75b0e1",
+		"tooltip":40
+	},
+	{
+		"name":"India",
+		"x":"July",
+		"y":70,
+		"color": "#75b0e1",
+		"tooltip":70
+	}
+]

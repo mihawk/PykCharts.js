@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>PykCharts.js - Open source charting library</title>
+    
+    <link href="lib/bootstrap.css" media="all" rel="stylesheet">
+    <link href="lib/pyk-bootstrap-theme.css" media="all" rel="stylesheet">
+    <link href="lib/bootstrap-theme.css" media="all" rel="stylesheet">
+    <link href="src/css/master.css" media="all" rel="stylesheet">
+    <link href="lib/pykcharts.css" media="all" rel="stylesheet">
+    <link href="lib/solarized_light.css" media="all" rel="stylesheet">
+    <link href="lib/work.css" media="all" rel="stylesheet">
+    <link href="lib/general.css" media="all" rel="stylesheet">
+    <link href="lib/interactive_charts.css" media="all" rel="stylesheet">
+    <link href="lib/maps_supported.css" media="all" rel="stylesheet">
+    <link href="src/css/product-page.css" media="all" rel="stylesheet">
+    <link href="lib/sidebar.css" media="all" rel="stylesheet">
+    <link href="lib/application.css" media="all" rel="stylesheet">
+    
+    
+    <meta content="authenticity_token" name="csrf-param">
+    <meta content="3YP3VO00JR2s+312KYDs3QSwx5y3C82yKqp7yyFkzvA=" name="csrf-token">
+    <meta content="Well designed d3.js charting without the complexity of d3.js! 26+ well-designed, themeable, responsive, modular, real-time and easy to use charts and 109+ maps." name="description">
+    <meta content="Charting Library,Javascript,Responsive,Highcharts alternative,Fusion Charts alternative" name="keywords">
+    <meta content="Pykih Software LLP" name="author">
+    <meta charset="UTF-8">
+    <meta content="78fe085382133fd2ed844bab83ca5596" name="p:domain_verify">
+  </head>
+  <body>
+    <header id="main-header">
+      <nav class="navbar navbar-default" id="main-nav" role="navigation">
+        <div class="container">
+          <div class="navbar-header">
+            <button class="navbar-toggle" data-target=".navbar-ex1-collapse" data-toggle="collapse" id="overflow-button" type="button">
+              <span class="glyphicon glyphicon-align-justify gray-icon"></span>
+            </button>
+            <a class="navbar-brand title" href="index.html">PykCharts.js</a>
+          </div>
+          <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav navbar-right">
+              <li class="active"><a href="design.html">Design Decisions</a></li>
+              <li><a href="https://github.com/pykih/PykCharts.js/wiki" target="_blank">API Documentation</a></li>
+              <li><a href="https://github.com/pykih/PykCharts.js/wiki/Support" target="_blank">Support</a></li>
+              <li><a href="https://pykih.com/" target="_blank">About</a></li>
+              <a href="https://github.com/pykih/PykCharts.js">
+                <img alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png" src="lib/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875.png" style="position: absolute; top: 0; right: 0; border: 0;">
+              </a>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <script src="lib/jquery-1.js"></script>
+    <script src="lib/jquery_ujs.js"></script>
+    <script src="lib/bootstrap.js"></script>
+    <script src="lib/highlight.js"></script>
+    <script src="lib/pykcharts.js"></script>
+    <script src="lib/jquery.js"></script>
+    <script src="lib/notiy.js"></script>
+    <script src="lib/scroll.js"></script>
+    <script src="lib/youtube.js"></script>
+    <script src="lib/application.js"></script>
+    
+    <link href="lib/design-page.html" media="screen" rel="stylesheet">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <h1 class="title">Decision Design</h1>
+        </div>
+      </div>
+    </div>
+    <div class="jumbotron">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="text-center">
+              <h3 class="highlight m0p0">Input Data Reusability</h3>
+              <br>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <p style="font-size: 1.1em;">We wanted to reduce the amount of
+ time developers spent to write backend code to model data JSONs for 
+charts. Hence, we categorised charts into genres e.g. one-dimensional, 
+multi-dimensional, maps and other. You can switch across various charts 
+within the same genre without having to change the input data JSON API.</p>
+          <div class="col-sm-7">
+            <iframe allowfullscreen="" marginheight="0" marginwidth="0" scrolling="no" src="lib/44878804.html" style="max-width: 100%;" frameborder="0" height="500" width="600"></iframe>
+          </div>
+          <div class="col-sm-5">
+            <h4>One Dimensional Charts</h4>
+            include Pie, Donut, Semi Pie, Semi Donut, 1D Bubble, Treemap, Pyramid, Funnel, Percentage Column, Percentage Bar.
+            <br>
+            <br>
+            <img alt="Data.1d" src="src/img/data_003.png">
+            <hr>
+            <br>
+            <h4>Multi Dimensional Charts</h4>
+            include River, Waterfall, Bar, Grouped Bar, Column, Grouped 
+Column, Line, Multi-series Line, Panel of Lines, Area, Stacked Area, 
+Scatter, Pulse, Spider.
+            <br>
+            <br>
+            <img alt="Data.bar" src="src/img/data.png">
+            <hr>
+            <br>
+            <h4>Map Charts</h4>
+            include Choropleth, Timeline.
+            <br>
+            <br>
+            <img alt="Data.timeline.map" src="src/img/data_002.png">
+            <hr>
+            <br>
+            <h4>Other Charts</h4>
+            Each chart here has a unique data structure. This genre include Pictograph.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12 text-center">
+          <h2 class="highlight text-center">Things we consciously avoid</h2>
+          <p class="gray text-center">
+            Every visual element that our eyes can differentiate should 
+be leveraged to communicate data. If it does not communicate
+            <br>
+            data, it is distracting. If information is presented clearly then the information freely flows to the reader.
+          </p>
+          <br>
+          <div class="well cstm-well">
+            Guiding philosophy: Greatest Number Of Idea in the Shortest 
+Time with the Least Ink in the Smallest Space. - Edward Tufte
+          </div>
+          <br>
+          <br>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-3">
+          <h4>3D rendering of charts</h4>
+          <p>3D by itself does not communicate any new data. Moreover, 
+it visually distorts data making it confusing for the reader to draw 
+conclusions.</p>
+          <img alt="3d column grey" class="col-sm-8" src="src/img/3d-column-grey.png">
+        </div>
+        <div class="col-sm-3">
+          <h4>Legends</h4>
+          <p>Legends requires the reader to do the extra work of 
+cross-referencing between the legend and the chart. We have avoided 
+legends until necessary.</p>
+          <img alt="Multi line grey" class="col-sm-8" src="src/img/multi-line-grey.png">
+        </div>
+        <div class="col-sm-3">
+          <h4>Cacophony of colors</h4>
+          <p>Color is a visual encoding and must be used to communicate 
+data. Using too many colors in a chart unnecessarily distracts the 
+reader.</p>
+          <img alt="Pie grey" class="col-sm-8" src="src/img/pie-grey.png">
+        </div>
+        <div class="col-sm-3">
+          <h4>Fancy Typography</h4>
+          <p>We have avoided confusing typography e.g. stylized fonts, 
+text at an angle (e.g. 90 degree, 45 degree, etc.), bold, text with 
+background, etc.</p>
+          <img alt="Bad text column chart" class="col-sm-8" src="src/img/bad-text-column-chart.png">
+        </div>
+      </div>
+    </div>
+    <div class="jumbotron">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="text-center">
+              <h3 class="highlight m0p0">Use Case</h3>
+              <br>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-7 text-center">
+            <div id="sample_pie"></div>
+          </div>
+          <div class="col-sm-5">
+            <p class="lead">
+              </p><div class="glyphicon glyphicon-ok"></div>
+              All slices are of same color
+              <br>
+              <div class="glyphicon glyphicon-ok"></div>
+              Main data point is highlighted with color (Asia)
+              <br>
+              <div class="glyphicon glyphicon-ok"></div>
+              Percentage of each slice is shown as label
+              <br>
+              <div class="glyphicon glyphicon-ok"></div>
+              If label does not fit then it is not shown to avoid clutter (Others)
+              <br>
+              <div class="glyphicon glyphicon-ok"></div>
+              Biggest slices are in northern hemisphere
+              <br>
+              <div class="glyphicon glyphicon-ok"></div>
+              No Legends. No 3D.
+              <br>
+              <div class="glyphicon glyphicon-ok"></div>
+              Clubbing smaller data points into one slice called as Others
+              <br>
+              <br>
+              <div class="well pyk-well">
+                All one-dimensional charts are area charts i.e. pie 
+shows data points as area of the circle. If we push too many data points
+ to one-dimensional chart, it becomes unreadable. Hence, PykCharts 
+provide Club Data Functionality.
+              </div>
+              <p style="font-size: 14px;">
+                &nbsp;&nbsp;&nbsp;
+                Badly designed Pie
+              </p>
+              <img alt="Pie multi slice" class="col-sm-4" src="src/img/pie-multi-slice.png">
+            <p></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container pyk-container-fluid">
+      <div class="row">
+        <div class="col-sm-12 text-center">
+          <h2 class="highlight text-center">Strategic use of Colors</h2>
+          <p class="gray text-center">
+            Effective use of colors can help compare and contrast data points effectively.
+          </p>
+          <br>
+          <br>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-3">
+          <h4>Graduating Shades</h4>
+          <p>Too many colors in a chart make it confusing. Hence, we 
+have used graduating shades of the same color to help differentiate 
+between groups.</p>
+          <img alt="Grouped column 200" class="col-sm-8" src="src/img/grouped-column-200.png">
+        </div>
+        <div class="col-sm-3">
+          <h4>Saturation Color Mode</h4>
+          <p>Some charts support saturation color mode (one color, varying opacity). It allows you to plot numerical data as a heat map.</p>
+          <img alt="Map modes" class="col-sm-12" src="src/img/map-modes.png">
+        </div>
+        <div class="col-sm-3">
+          <h4>Highlight insight / Forecast values</h4>
+          <p>PykChart uses colors to highlight the key insight or to communicate if a certain data point is a projected / forecasted value.</p>
+          <img alt="Correct column" class="col-sm-8" src="src/img/correct-column.png">
+        </div>
+        <div class="col-sm-3">
+          <h4>Palettes for maps</h4>
+          <p>PykCharts comes with built-in support for Color Brewer palettes, so you can get well-designed color palettes for your maps.</p>
+          <br>
+          <img alt="Colors" src="src/img/colors.png">
+        </div>
+      </div>
+    </div>
+    <div class="jumbotron">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="text-center">
+              <h3 class="highlight m0p0">Use Case</h3>
+              <br>
+            </div>
+          </div>
+        </div>
+        <div class="row fluid">
+          <div class="col-sm-5">
+            <p class="lead">
+              </p><div class="glyphicon glyphicon-ok"></div>
+              Labeled the line directly
+              <br>
+              <div class="glyphicon glyphicon-ok"></div>
+              Light but visible grid lines
+              <br>
+              <div class="glyphicon glyphicon-ok"></div>
+              Each line is sharp and clear.
+              <br>
+              <div class="glyphicon glyphicon-ok"></div>
+              Each line is of similar color.
+              <br>
+              <div class="glyphicon glyphicon-ok"></div>
+              No dashed, dotted lines with shape markers are used.
+              <br>
+              <div class="glyphicon glyphicon-ok"></div>
+              No Legends. No 3D.
+            <p></p>
+            <br>
+          </div>
+          <div class="col-sm-7 text-center">
+            <div id="line"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-5">
+            <p class="lead">
+              </p><div class="glyphicon glyphicon-ok"></div>
+              If the line chart becomes cluttered due to multiple data 
+series. Then, you can switch on the multiple_containers_enable mode and 
+it will be shown as panel of line charts.
+              <br>
+            <p></p>
+            <br>
+          </div>
+          <div class="col-sm-7 text-center">
+            <div id="line-2"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container pyk-container-fluid">
+      <div class="row">
+        <div class="col-sm-12 text-center">
+          <hr>
+          <h2 class="highlight text-center">Smart Formatting of Numbers</h2>
+          <p class="gray text-center">Charts communicate numbers. If not
+ formatted well, it becomes tough to read or compare numbers, which in 
+turn reduces the effectiveness of the chart.</p>
+          <br>
+          <br>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-3">
+          <h4>Large numbers</h4>
+          <p>Reading extremely large numbers is tough. Hence, the charts
+ automatically modify them to accounting mode i.e. 123456 becomes 
+123,456</p>
+        </div>
+        <div class="col-sm-3"><img alt="Design treerect" class="col-sm-12" src="src/img/design_treerect.png"></div>
+        <div class="col-sm-3">
+          <h4>Decimals points</h4>
+          <p>While the chart is plotted with the exact data point e.g. 1.8345 the label is rounded off to the next significant digit i.e. 1.9</p>
+        </div>
+        <div class="col-sm-3">
+          <h4>Units</h4>
+          <p>You can configure to pass any prefix or suffix to numbers. 
+These will then be shown in tooltips and labels. E.g. 123,456 can become
+ $123,456/-</p>
+        </div>
+      </div>
+    </div>
+    <script>
+      window.PykChartsInit = function (e) {
+          var k = new PykCharts.oneD.pie({
+            chart_width: 450,
+            chart_height:360,
+            selector: "#sample_pie",
+            data: "data/oneD.json",
+            highlight: "Asia",
+          });
+          k.execute();
+          var k = new PykCharts.multiD.multiSeriesLine ({
+              selector: "#line",
+              data: "data/multiline.json",
+              mode : "default",
+      
+              color_mode: "saturation",  //color or saturation
+              chart_color:["steelblue"],
+              title_family:"sans-serif",
+              chart_width: 680,
+              chart_height: 200,
+              chart_margin_top: 35,
+              chart_margin_right: 40,
+              chart_margin_bottom: 40,
+              chart_margin_left:50 ,
+              chart_grid_x_enable: "no",
+              chart_grid_y_enable: "yes",
+      
+              transition_duration: 0,
+              real_time_charts_refresh_frequency: 0,
+              background_color: "transparent",
+              axis_onhover_hightlight_enable: "yes",
+      
+              axis_x_enable: "yes",
+              axis_x_title : "Month",
+              axis_x_position: "bottom",
+              axis_x_pointer_position: "bottom",
+              axis_x_line_color: "#1D1D1D",
+              axis_x_pointer_size: 9,
+              axis_x_pointer_padding: 3,
+              // axis_x_pointer_values: ["2014/01/01","2014/01/03"],
+              axis_x_outer_pointer_length: 3,
+              axis_x_time_value_datatype:"month",
+              axis_x_time_value_interval: 1,
+      
+              axis_y_enable: "yes",
+              // axis_y_title : "",
+              axis_y_position: "left",
+              axis_y_pointer_position: "left",
+              axis_y_line_color: "#1D1D1D",
+              axis_y_label_color: "#1d1d1d",
+              axis_y_pointer_size: 9,
+              axis_y_pointer_padding: 3,
+              // axis_y_pointer_values: [30,40,50],
+              axis_y_outer_pointer_length: 3,
+              curvy_lines_enable:"yes",
+              tooltip_enable: "yes",
+              tooltip_mode : "moving",
+              crosshair_enable: "yes",
+              zoom_enable: "no"
+            });
+            k.execute();
+            var k = new PykCharts.multiD.panelsOfLine ({
+                selector: "#line-2",
+                data: "data/multiline.json",
+                mode : "default",
+      
+                color_mode: "saturation",  //color or saturation
+                chart_color:["steelblue"],
+                title_family:"sans-serif",
+                chart_width: 200,
+                chart_height: 200,
+                chart_margin_top: 35,
+                chart_margin_right: 40,
+                chart_margin_bottom: 40,
+                chart_margin_left:50 ,
+                chart_grid_x_enable: "no",
+                chart_grid_y_enable: "yes",
+      
+                transition_duration: 0,
+                real_time_charts_refresh_frequency: 0,
+                background_color: "transparent",
+                axis_onhover_hightlight_enable: "yes",
+      
+                axis_x_enable: "yes",
+                axis_x_title : "Month",
+                axis_x_position: "bottom",
+                axis_x_pointer_position: "bottom",
+                axis_x_line_color: "#1D1D1D",
+                axis_x_pointer_size: 9,
+                axis_x_pointer_padding: 3,
+                // axis_x_pointer_values: ["2014/01/01","2014/01/03"],
+                axis_x_outer_pointer_length: 3,
+                axis_x_time_value_datatype:"month",
+                axis_x_time_value_interval: 1,
+      
+                axis_y_enable: "yes",
+                // axis_y_title : "",
+                axis_y_position: "left",
+                axis_y_pointer_position: "left",
+                axis_y_line_color: "#1D1D1D",
+                axis_y_label_color: "#1d1d1d",
+                axis_y_pointer_size: 9,
+                axis_y_pointer_padding: 3,
+                // axis_y_pointer_values: [30,40,50],
+                axis_y_outer_pointer_length: 3,
+                curvy_lines_enable:"yes",
+                tooltip_enable: "yes",
+                tooltip_mode : "moving",
+                crosshair_enable: "yes",
+                zoom_enable: "no",
+                multiple_containers_enable: "yes"
+              });
+              k.execute();
+      }
+    </script>
+    <div style="display: none;" id="scroll-topper">
+      <span class="glyphicon glyphicon-chevron-up"></span>
+    </div>
+    <div class="container">
+      <br>
+      <br>
+      <div class="well">
+        <p>
+          </p><center>
+            Built on
+            <a href="http://d3js.org/" target="_blank">Mike Bostock's d3.js</a>
+            &nbsp;
+            |
+            &nbsp;
+            Design Inspiration:
+            <a href="http://books.wwnorton.com/books/detail.aspx?ID=12257" target="_blank">WSJ Guide to Information Graphics</a>
+            &nbsp;
+            |
+            &nbsp;
+            Built and maintained by <a href="https://pykih.com/" target="_blank">Pykih Data Visualization</a>
+            &nbsp;
+            |
+            &nbsp;
+            Downloads <span class="badge">0</span>
+          </center>
+          <center>
+            <br>
+            Copyright © 2015 - Pykih
+          </center>
+        <p></p>
+      </div>
+    </div>
+    <br>
+  </body>
+</html>

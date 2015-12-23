@@ -1,0 +1,146 @@
+
+[
+    {
+        "name": "Dairy Milk",
+        "x": 80,
+        "y": 1.5,
+        "weight": 500,
+        "group": "Cadbury"
+    },
+    {
+        "name": "Galaxy",
+        "x": 42,
+        "y": 5,
+        "weight": 530,
+        "tooltip": "",
+        "group": "Nestle"
+    },
+    {
+        "name": "Kit-Kat",
+        "x": 55,
+        "y": 4,
+        "weight": 580,
+        "tooltip": "",
+        "group": "Nestle"
+    },
+    {
+        "name": "Lindt",
+        "x": 80,
+        "y": 4,
+        "weight": 590,
+        "tooltip": "",
+        "group": "ABC"
+    },
+    {
+        "name": "5 Star",
+        "x": 65,
+        "y": 2.5,
+        "weight": 570,
+        "tooltip": "",
+        "group": "Hershey"
+    },
+    {
+        "name": "Munch",
+        "x": 65,
+        "y": 3.5,
+        "weight": 200,
+        "tooltip": "",
+        "group": "Hershey"
+    },
+    {
+        "name": "Hershey",
+        "x": 61,
+        "y": 4,
+        "weight": 560,
+        "tooltip": "",
+        "group": "Hershey"
+    },
+    {
+        "name": "Dolfin",
+        "x": 60,
+        "y": 4,
+        "weight": 250,
+        "tooltip": "",
+        "group": "Lindt"
+    },
+    {
+        "name": "Bournville",
+        "x": 70,
+        "y": 2,
+        "weight": 500,
+        "tooltip": "",
+        "group": "Cadbury"
+    },
+    {
+        "name": "Dairy Milk",
+        "x": 100,
+        "y": 3,
+        "weight": 400,
+        "tooltip": "",
+        "group": "Cadbury"
+    },
+    {
+        "name": "Galaxy",
+        "x": 50,
+        "y": 2.5,
+        "weight": 480,
+        "tooltip": "",
+        "group": "Nestle"
+    },
+    {
+        "name": "Kit-Kat",
+        "x": 51,
+        "y": 2.5,
+        "weight": 350,
+        "tooltip": "",
+        "group": "Nestle"
+    },
+    {
+        "name": "Lindt",
+        "x": 80,
+        "y": 5,
+        "weight": 270,
+        "tooltip": "",
+        "group": "ABC"
+    },
+    {
+        "name": "5 Star",
+        "x": 45,
+        "y": 2.5,
+        "weight": 470,
+        "tooltip": "",
+        "group": "Hershey"
+    },
+    {
+        "name": "Munch",
+        "x": 85,
+        "y": 3.5,
+        "weight": 360,
+        "tooltip": "",
+        "group": "Hershey"
+    },
+    {
+        "name": "Hershey",
+        "x": 40,
+        "y": 5,
+        "weight": 270,
+        "tooltip": "",
+        "group": "Hershey"
+    },
+    {
+        "name": "Dolfin",
+        "x": 60,
+        "y": 3,
+        "weight": 350,
+        "tooltip": "",
+        "group": "Lindt"
+    },
+    {
+        "name": "Bournville",
+        "x": 30,
+        "y": 5,
+        "weight": 400,
+        "tooltip": "",
+        "group": "Cadbury"
+    }
+]

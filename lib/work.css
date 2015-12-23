@@ -1,0 +1,133 @@
+.content{
+    background-color:white;
+    height:180px;
+    padding:0px;
+    overflow:hidden;
+    padding:15px;
+    /*border: 1px solid lightgrey;*/
+    margin-bottom:30px;
+    box-shadow: 1px 1px 3px grey;
+    max-width:350px;
+    border-radius: 10px;
+}
+
+.c_fade_info {
+    position:relative;
+}
+
+.c_fade_info .textbox {
+    color:white;
+    padding:20px;
+    text-align:center;
+    width:100%;
+    height:100%;
+    position:absolute;
+    top:0;
+    left:0;
+    -webkit-transform: scale(0);
+    transform: scale(0);
+    background-color: rgba(0,0,0,0.75);
+    border:5px solid white;
+    border-radius: 50%
+}
+
+.c_fade_info:hover .textbox {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+}
+
+
+.fade_info {
+    position:relative;
+}
+
+.fade_info .textbox {
+    color:white;
+    padding:20px;
+    text-align:center;
+    width:100%;
+    height:100%;
+    position:absolute;
+    top:0;
+    left:0;
+    -webkit-transform: scale(0);
+    transform: scale(0);
+    background-color: rgba(0,0,0,0.75);
+    /*border:5px solid white;*/
+    border-radius: 10px !important;
+}
+
+.fade_info:hover .textbox {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+}
+
+
+.work_page_css .client-name {
+    font-size: 10px;
+}
+
+
+/*------------------app/view/works/all pages-----------------------*/
+
+.project_page_css{color:#333;}
+.project_page_css .heading{color:#333;}
+.project_page_css .sub_heading{color:#777; font-size: 13px;}
+.project_page_css .project_image{height: 1000px; width:100%; background: lightgrey;}
+.project_page_css .project_text{color:#777; font-size: 13px;}
+.project_page_css .viz_area{background: #f6f6f6;}
+.project_page_css .extra_space{height: 20px;}
+
+
+/*------------------app/view/works/healthcare-----------------------*/ 
+/*------------------app/view/works/healthcare-----------------------*/ 
+
+.work_page_css .custom_nav>li>a {border-radius: 0px; padding: 3px 10px; color:#333; font-size: 12px; border:0; margin: 0;}
+.work_page_css .custom_nav>li>a:hover{background: #f44336  ; color: white; font-size: 12px;}
+.work_page_css .custom_nav>li>a.sidebar_link_activated {background-color: #f44336  ; color: white; font-size: 12px;}
+.work_page_css .div_show {display:block;}
+.work_page_css .div_hide {display:none;}
+.work_page_css .filter_block{
+    background: #f3f3f3;
+    border:1px solid lightgrey;
+    width: 165px;
+}
+.work_page_css .filter_title{
+    font-weight: 900;
+    font-size: 12px;
+    border-bottom: 1px solid lightgrey;
+    padding:5px 10px;
+}
+.work_page_css .view_all_tag {
+    padding: 2px 5px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    border: 1px solid lightgrey;
+    color: #333;
+    background: #f3f3f3  ;
+}
+
+.work_page_css .view_all_tag:hover {
+    color: white;
+    background: #f44336  ;
+    border: 1px solid #f44336  ;
+}
+
+.work_page_css .view_all_tag>a{
+    color: #f44336  ;
+}
+
+.work_page_css .view_all_tag>a:hover{
+    color: white;
+}
+    
+/*------------------app/view/works/healthcare-----------------------*/
+
+
+
+/*------------------app/view/works/politics-----------------------*/
+
+
+
+/*------------------app/view/works/linear_range_query-----------------------*/

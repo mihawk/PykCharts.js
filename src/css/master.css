@@ -1,0 +1,86 @@
+body{
+    padding-top: 50px;
+}
+
+header{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: white;
+    z-index: 400;
+}
+
+#main-nav{
+    border: none;
+    background: transparent;
+    border-radius: 0;
+    margin-bottom: 0;
+    /*border-top: 1px solid #fff;*/
+    border-bottom: 1px solid #e1e1e1;
+    min-height: 32px;
+    z-index: 100;
+}
+
+header .navbar-header{
+    height: 32px;
+}
+
+header .navbar-brand img{
+    transition: all 0.5s ease;
+    filter: grayscale(100%);
+    -webkit-filter: grayscale(100%);
+    -moz-filter: grayscale(100%);
+    -ms-filter: grayscale(100%);
+    -o-filter: grayscale(100%);
+}
+
+header .navbar-brand:hover img{
+    filter: grayscale(0%);
+    -webkit-filter: grayscale(0%);
+    -moz-filter: grayscale(0%);
+    -ms-filter: grayscale(0%);
+    -o-filter: grayscale(0%);
+}
+
+#main-nav .nav > li > a{
+    font-size: 13px;
+    font-weight: 800;
+    color: #000;
+    z-index: 100;
+}
+
+#main-nav .nav > li > a:hover{
+    background: #efefef;
+}
+
+#scroll-topper{
+    position: fixed;
+    background: #2d2d2d;
+    padding: 0;
+    margin: 0;
+    padding-left: 2px;
+    height: 50px;
+    width: 50px;
+    border-radius: 25px;
+    text-align: center;
+    font-size: 30px;
+    line-height: 47px;
+    color: green;
+    top: 200px;
+    right: 50px;
+    color: #fff;
+    opacity: 0.1;
+}
+
+#scroll-topper:hover{
+    opacity: 0.6;
+}
+
+/*------------------------------sidebar css--------------------------*/
+
+.custom_nav>li>a {border-radius: 0px; padding: 3px 10px; color:#333; font-size: 12px; border:0; margin: 0;}
+.custom_nav>li>a:hover{background: #F44336; color: white; font-size: 12px;}
+.custom_nav>li.active>a {background-color:#F44336; color:white; border:0; font-size: 12px;}
+.custom_nav>li.active>a:hover {background-color: #F44336; color: white; font-size: 12px; border:0px;}
+.filter_block{background: #f3f3f3;border:1px solid lightgrey;width: 165px;}
+.filter_title{font-weight: 900;font-size: 12px;border-bottom: 1px solid lightgrey;padding:5px 10px;}

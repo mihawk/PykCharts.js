@@ -1,0 +1,30 @@
+[
+{
+"name": "East Europe",
+"weight": 2704659
+},
+{
+"name": "West Europe",
+"weight": 4499890
+},
+{
+"name": "North America",
+"weight": 2159981
+},
+{
+"name": "Asia",
+"weight": 3853788
+},
+{
+"name": "Africa",
+"weight": 14106543
+},
+{
+"name": "South East Asia",
+"weight": 8819342
+},
+{
+"name": "South America",
+"weight": 612463
+}
+]

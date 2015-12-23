@@ -1,0 +1,64 @@
+
+#jqeasypanel{
+	position:absolute;
+	left:0;
+	width:90%;
+	height:200px;
+	moveContainer : true;
+	background:rgba(223, 211, 211, 0.29);
+	padding:10px;
+	padding-right: 0px !important;
+	overflow:visible;
+	overflow-x:scroll; 
+	display:none;
+	z-index:1;
+}
+#jqeasypanel.top{
+	top:300;
+	overflow-y:hidden; 
+	margin: 0px 2% !important;
+	/*border-bottom:1px solid #666;*/
+}
+#jqeasypanel.bottom {
+	bottom:0;
+	border-top:1px solid #666;
+}
+ul.panelbuttons {
+	float:left;
+}
+ul.panelbuttons li {
+	float:left;
+	display:inline;
+	width:70px;
+	height:70px;
+	margin-right:10px;
+	padding:5px;
+	text-align:center;
+	border:1px solid #666;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	background:transparent url(buttun-bg.png) repeat-x top left;
+}
+ul.panelbuttons li a {
+	color:#FFF;
+}
+ul.panelbuttons li a:hover {
+	color:#999999;
+}
+ul.panelbuttons li a img {
+	display:block;
+	margin:0 auto;
+}
+#copy {
+	float:left;
+	width: 300px;
+	font-size:10px;
+}
+#jqeasypaneloptions {
+	float:right;
+	margin:-10px 95px 0 0;
+}
+#jqeasypaneloptions p {
+	text-align:right;
+}

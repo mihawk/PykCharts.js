@@ -1,0 +1,20 @@
+.red{color: #a01718;}
+.bold{font-weight: 800;}
+.gray{color: gray;}
+.highlight{color: black; font-weight: 800; letter-spacing: -1px;}
+.highlight > a{color: black; font-weight: 800; letter-spacing: -1px;}
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover{
+font-size: 0.9em; font-weight: 800; color: black;}
+.nav-tabs>li>a, .nav-tabs>li>a:focus, .nav-tabs>li>a:hover{font-size: 0.9em; font-weight: 400; color: gray;}
+.title{font-weight: 800; letter-spacing: -0.5px; color: #f44336; font-size: 1.6em;}
+.m0p0{margin: 0px; padding: 0px;}
+.letter {
+    background-color: #ffffcc;
+    background-image: url(https://d3dma7a8zw52bz.cloudfront.net/assets/documents/document_body_rules-f0711254a4cc2b734e9317489d363ce2.gif);
+    background-repeat: repeat-y;
+    background-position: -1px top;
+    padding: 4px 0 0 17px;
+    padding: 20px;
+    word-wrap: break-word;
+}
+.hint{font-size: 11px; color: gray;}

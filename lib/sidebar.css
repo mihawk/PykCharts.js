@@ -1,0 +1,113 @@
+@media screen and (max-width: 400px){
+  .cstm-jumbotron{
+    height:370px !important;
+  }
+  .cstm-lead{
+    margin:0px !important;
+  }
+  .cstm-heading{
+    font-size:36px !important;
+  }
+  .cstm-button-text{
+    font-size: 12px !important;
+  }
+}
+
+@media screen and (max-width: 600px){
+  .cstm-jumbotron{
+    height:370px !important;
+  }
+  .cstm-lead{
+    margin:0px !important;
+  }
+  .cstm-heading{
+    font-size:40px !important;
+  }
+  .cstm-button-text{
+    font-size: 12px !important;
+  }
+}
+
+@media screen and (max-width: 950px){
+  .cstm-lead{
+    margin:0px !important;
+  }
+  .cstm-heading{
+    font-size:40px !important;
+  }
+  .cstm-button-text{
+    font-size: 12px !important;
+  }
+}
+
+.cstm-button-text.active{
+  background:white;
+  color:#343434;
+  box-shadow:none;
+  border: 1px solid white;
+  opacity:1;
+}
+.cstm-button-text{
+  background:white;
+  box-shadow:none;
+  border: 1px solid white;
+  color:#343434;
+  opacity:0.5;
+}
+
+.cstm-sidebar-btn.active{
+  background:grey;
+  color:lightgrey;
+  box-shadow:none;
+  border: 1px solid grey;
+}
+
+.cstm-sidebar-btn{
+  background:transparent;
+  box-shadow:none;
+  border: 1px solid grey;
+  color:grey;
+}
+
+.buy-all {
+  cursor:pointer;
+}
+
+
+.pyk-ul{padding-left:15px;}
+.pyk-btn-group{margin-left: auto; margin-right: auto;}
+.license-description{font-size: 1em;margin-bottom:-10px}
+.pyk-td{padding-left:0px; border-top:none;}
+.pyk-btn-lg{width:100%;}
+/*.glyphicon-shopping-cart{font-size:15px;}*/
+.total-table{padding-left:0px;}
+
+.pyk-sidebar-btn{
+  width:200px;
+  height:30px;
+  border:0;
+  border-radius: 0;
+  border-bottom: 1px solid #999;
+  background: transparent;
+  text-align: left;
+  padding: 0 5px;
+}
+
+.pyk-sidebar-btn:hover{
+  background: transparent;
+  border-bottom: 1px solid #999;
+}
+.pyk-sidebar-btn:focus{
+  background: transparent !important;
+}
+
+.sidebar-dropdown-menu{
+  border-radius: 0 !important;
+  width: 200px;
+  top: 0;
+}
+
+.sidebar-dropdown-caret{
+  margin-top:15px;
+  margin-left: -10px; 
+}

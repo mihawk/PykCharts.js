@@ -1,0 +1,39 @@
+.circle {border: 1px solid black;}
+.input-group[class*="col-"] {float: left;}
+.cstm-label {font-size: 11px; color: gray;}
+.tint{background-color: #43c72f;}
+#title{display: inline !important;}
+.panel-title{background: #F2F2ED !important; height: 25px; font-size: 1em; padding-top: 2px; padding-left: 10px;}
+.panel-body{padding: 10px;}
+.checkbox-inline {padding-left: 0px;}
+.input-group-addon {padding: 6px 6px;}
+#chart_container{min-height: 500px}
+.inner{margin-bottom:10px;}
+.search-table{table-layout: fixed;}
+.search-table td{height:35px; padding-left:10px;}
+.wrapper::-webkit-scrollbar {height: 7px;}
+.wrapper::-webkit-scrollbar-button:start:decrement,
+.wrapper::-webkit-scrollbar-button:end:increment{display: none;}
+.wrapper::-webkit-scrollbar-track-piece  {background-color: white; -webkit-border-radius: 0px;}
+.wrapper::-webkit-scrollbar-thumb:horizontal {-webkit-border-radius: 5px; margin-top:10px; background: rgb(236, 236, 236);}
+.search-table-outer { overflow-x: scroll; }
+.chart-name { padding-right:15px;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;color:#333b42;font-weight:300; }
+.chart-description { font-size:15px; }
+.cstm-container{margin-left:5%; margin-right:5%;}
+#config-object-display{display:none; overflow:auto; height:400px; width:100%; background:#292929; color:#fff;}
+.chart-description{color: #1D2366;}
+.indent{padding-left: 0px;}
+#footer_modal{width:50%; margin-top:10px; height:10px; cursor:pointer; display:inline;}
+#jqeasytrigger{background:rgba(113, 103, 103, 0.26); width:125px;}
+.open{color: white; line-height:1; font-weight: 600; font-size:12px; text-decoration: none !important;}
+.close{color: white; line-height:1; font-weight: 600; font-size:12px; text-decoration: none; text-shadow: none; opacity: 1; float: none;}
+.move-down{margin-top:-10px;margin-left:-3px;margin-bottom:10px}
+#footer-should-not-change{margin-top:20px}
+.execute{display:inline; margin:5px}
+.pyk-label{font-size:1em;display:inline} 
+#background_color_circle{background-color: rgb(255, 146, 180)}
+#highlight_color_circle{background-color: rgb(255, 146, 180)}
+#label_color_circle{background-color: rgb(255, 146, 180)}
+#legends_text_color_circle{background-color: rgb(255, 146, 180)}
+.close:hover{color:white !important;}
+
