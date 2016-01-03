@@ -1,12 +1,17 @@
 // $(document).ready( function() {
 window.PykChartsInit = function (e) {
   autoPlayYouTubeModal();
+  showDownloadCount();
+
   $("#download_pykcharts_link").click(function(){
     var email_id = $("#email").val()
     , link_with_email_param = "";
     if ( !validateEmailId(email_id) ){
       generate_notify({text: "Please enter a valid email address.", notify: "error"});
       return false;
+    }
+    else{
+      sendEmailAddressToServer(email_id);
     }
     setTimeout(function () { $("#email").val(""); } , 100);
   });
@@ -485,4 +490,31 @@ var validateEmailId = function (email_id) {
     is_valid = false;
   };
   return is_valid;
+}
+
+var sendEmailAddressToServer = function(email_id){
+  $.ajax({
+    type: "POST",     //put
+    url: 'https://pykcharts-api.herokuapp.com/downloads',
+    data:{'email': email_id},
+    error: function(data, textStatus, request) {
+    },
+    success: function (data, textStatus, request) {
+      showDownloadCount(); // Update download count .
+    }
+  });
+}
+
+var showDownloadCount = function(){
+  var count = 0;
+  $.ajax({
+    type: "GET",
+    url: 'https://pykcharts-api.herokuapp.com/downloads/count',
+    error: function(data, textStatus, request) {
+    },
+    success: function (data, textStatus, request) {
+        count = data.count;
+        $('#pycharts_download_count').html(count);
+    }
+  });
 }
