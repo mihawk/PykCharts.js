@@ -60,6 +60,7 @@
     <script src="lib/scroll.js"></script>
     <script src="lib/youtube.js"></script>
     <script src="lib/application.js"></script>
+    <script type="text/javascript" src='src/js/download_count.js'></script>
     
     <link href="lib/design-page.html" media="screen" rel="stylesheet">
     <div class="container">
@@ -345,6 +346,39 @@ These will then be shown in tooltips and labels. E.g. 123,456 can become
         </div>
       </div>
     </div>
+    <div style="display: none;" id="scroll-topper">
+      <span class="glyphicon glyphicon-chevron-up"></span>
+    </div>
+    <div class="container">
+      <br>
+      <br>
+      <div class="well">
+        <p>
+          </p><center>
+            Built on
+            <a href="http://d3js.org/" target="_blank">Mike Bostock's d3.js</a>
+            &nbsp;
+            |
+            &nbsp;
+            Design Inspiration:
+            <a href="http://books.wwnorton.com/books/detail.aspx?ID=12257" target="_blank">WSJ Guide to Information Graphics</a>
+            &nbsp;
+            |
+            &nbsp;
+            Built and maintained by <a href="https://pykih.com/" target="_blank">Pykih Data Visualization</a>
+            &nbsp;
+            |
+            &nbsp;
+            Downloads <span class="badge" id="pycharts_download_count"></span>
+          </center>
+          <center>
+            <br>
+            Copyright © 2015 - Pykih
+          </center>
+        <p></p>
+      </div>
+    </div>
+    <br>
     <script>
       window.PykChartsInit = function (e) {
           var k = new PykCharts.oneD.pie({
@@ -459,39 +493,7 @@ These will then be shown in tooltips and labels. E.g. 123,456 can become
               });
               k.execute();
       }
+      showDownloadCount();
     </script>
-    <div style="display: none;" id="scroll-topper">
-      <span class="glyphicon glyphicon-chevron-up"></span>
-    </div>
-    <div class="container">
-      <br>
-      <br>
-      <div class="well">
-        <p>
-          </p><center>
-            Built on
-            <a href="http://d3js.org/" target="_blank">Mike Bostock's d3.js</a>
-            &nbsp;
-            |
-            &nbsp;
-            Design Inspiration:
-            <a href="http://books.wwnorton.com/books/detail.aspx?ID=12257" target="_blank">WSJ Guide to Information Graphics</a>
-            &nbsp;
-            |
-            &nbsp;
-            Built and maintained by <a href="https://pykih.com/" target="_blank">Pykih Data Visualization</a>
-            &nbsp;
-            |
-            &nbsp;
-            Downloads <span class="badge">0</span>
-          </center>
-          <center>
-            <br>
-            Copyright © 2015 - Pykih
-          </center>
-        <p></p>
-      </div>
-    </div>
-    <br>
   </body>
 </html>
